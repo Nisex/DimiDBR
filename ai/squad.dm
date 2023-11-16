@@ -50,8 +50,7 @@ var/list/squad_database = list(
 
 
 mob/Player/AI
-	var tmp
-		obj/Skills/Companion/PlayerCompanion/Squad/in_squad
+	var/tmp/obj/Skills/Companion/PlayerCompanion/Squad/in_squad
 
 obj/Skills/Companion
 	PlayerCompanion

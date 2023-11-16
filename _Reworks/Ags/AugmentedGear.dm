@@ -26,7 +26,7 @@ proc/copyatom(atom/a)
         var/options = input(p, "What kind of buff is this?", "Augmented Gear") in list("Autonomous", "Not Auto")
         if(options == "Autonomous")
             Techniques = list(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Augmented_Gear, new/obj/Skills/Buffs/SlotlessBuffs/Posture)
-            Techniques[1].NeedsHealth = input(p, "When does this buu trigger?") as num
+            Techniques[1].NeedsHealth = input(p, "When does this buff trigger?") as num
             Techniques[1].TooMuchHealth = input(p, "When does this buff end?") as num
         else
             Techniques = list(new/obj/Skills/Buffs/SlotlessBuffs/Augmented_Gear, new/obj/Skills/Buffs/SlotlessBuffs/Posture)

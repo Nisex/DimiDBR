@@ -1,6 +1,3 @@
-#define MAJIN_MAX_ASCENSION 5
-
-
 mob/verb/Character_Sheet()
 	set category = "Other"
 	src<<browse(src.GetAssess(),"window=Assess;size=275x650")

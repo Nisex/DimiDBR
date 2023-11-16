@@ -51,9 +51,8 @@ mob/Player
 						Target=null
 					walk_to(src,Target,1,1)
 			Attack_Target()
-				var
-//					Sword
-					Attacked=0
+//				var/Sword
+				var/Attacked=0
 
 				if(!Attacked)
 					if(Target in get_step(src,src.dir))

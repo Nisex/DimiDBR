@@ -2897,9 +2897,10 @@ mob
 			if(src.RecovReplace)
 				Recov=src.RecovReplace
 			if(src.HasHellPower()||(src.Secret=="Werewolf"&&(!src.CheckSlotless("Half Moon Form"))))
-				var/Effective=src.HasHellPower() / 2
+				var/Effective
+				Effective = src.HasHellPower() / 2
 				if(src.Secret=="Werewolf"&&!src.CheckSlotless("Half Moon Form"))
-					Effective=1
+					Effective = 1
 				if(Recov<2)
 					Recov=2
 			if(src.Race=="Majin")

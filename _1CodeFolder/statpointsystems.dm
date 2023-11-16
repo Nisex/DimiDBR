@@ -439,7 +439,7 @@ mob/verb/Skill_Points(type as text,skill as text)
 			winset(src,"Points Remaining","text=[Points]")
 
 obj/Redo_Stats
-	var LoginUse
+	var/LoginUse
 	proc/RedoStats(mob/m)
 		m.Redo_Stats()
 		del src

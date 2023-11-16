@@ -355,17 +355,17 @@ proc/ExtractInfo(var/x)
 
 
 Admin_Help_Object
-    var
-        Character_Key
-        Character_Name
-        AdminHelp_Message
-        AdminHelp_UniqueID
+	var
+		Character_Key
+		Character_Name
+		AdminHelp_Message
+		AdminHelp_UniqueID
 
 mob/proc/ViewList()
 		var/View={"         <script type="text/javascript">
 					var user;
 					function choose(choice){
-					    user = choice;
+						user = choice;
 					}
 
 					function DisplayScreen(Key, Name, Message, src, ID){
@@ -382,42 +382,42 @@ mob/proc/ViewList()
 					<TD>
 					<div style="height:380px;width:170px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;">
 					<TABLE width="150" BORDER="3" CELLPADDING="3" CELLSPACING="3">
-           			<TD width="210"><font size=2>
-             		<div align="center">Ahelps</div></TD><TR>
+		   			<TD width="210"><font size=2>
+			 		<div align="center">Ahelps</div></TD><TR>
 		"}
 		var/Admin_Help_Object/p
 		for(p in AdminHelps)
 				View+={"<TR>
-           					<TD><div align="center"><font size=2><button type="button" onClick="DisplayScreen('[p.Character_Key]','[p.Character_Name]','[p.AdminHelp_Message]','src=\ref[p.Character_Name]]')">[p.Character_Key]
-           					</button></div>
-             				<div align="center"></div></TD></TR>"}
+		   					<TD><div align="center"><font size=2><button type="button" onClick="DisplayScreen('[p.Character_Key]','[p.Character_Name]','[p.AdminHelp_Message]','src=\ref[p.Character_Name]]')">[p.Character_Key]
+		   					</button></div>
+			 				<div align="center"></div></TD></TR>"}
 
 				//AdminHelps.Remove(p)
 		View+={"</TABLE></DIV>
 				</TD>
 				<TD VALIGN=TOP><div style="height:380px;width:320px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;"><table width="300" border="0"align="Top">
   				<tbody>
-    			<tr VALIGN=TOP>
-      			<td><div align="center"><B><U>Character Key</B></U></div></td>
-    			</tr>
-    			<tr VALIGN=TOP>
-      			<td id="CharacterKey"><div align="center">Key</div></td>
-    			</tr>
-    			<tr VALIGN=TOP>
-      			<td><div align="center"><B><U>Character Name</B></U></div></td>
-    			</tr>
-    			<tr VALIGN=TOP>
-      			<td id="CharacterName"><div align="center">Name</div></td>
-    			</tr>
-    			<tr VALIGN=TOP>
-      			<td><div align="center"><B><U>Message</B></U></div></td>
-    			</tr>
-    			<tr VALIGN=TOP>
-      			<td id="CharacterMessage"><div align="center">Message </div></td>
-    			</tr>
-    			    <tr VALIGN=BOTTOM>
-      <td id="ReplyButton"><div align="center"></div></td>
-    </tr>
+				<tr VALIGN=TOP>
+	  			<td><div align="center"><B><U>Character Key</B></U></div></td>
+				</tr>
+				<tr VALIGN=TOP>
+	  			<td id="CharacterKey"><div align="center">Key</div></td>
+				</tr>
+				<tr VALIGN=TOP>
+	  			<td><div align="center"><B><U>Character Name</B></U></div></td>
+				</tr>
+				<tr VALIGN=TOP>
+	  			<td id="CharacterName"><div align="center">Name</div></td>
+				</tr>
+				<tr VALIGN=TOP>
+	  			<td><div align="center"><B><U>Message</B></U></div></td>
+				</tr>
+				<tr VALIGN=TOP>
+	  			<td id="CharacterMessage"><div align="center">Message </div></td>
+				</tr>
+					<tr VALIGN=BOTTOM>
+	  <td id="ReplyButton"><div align="center"></div></td>
+	</tr>
   				</tbody>
 				</table></DIV></TD>
 				</TABLE>"}
@@ -1574,7 +1574,7 @@ mob/Admin3/verb
 		var/y=input("Input the desired IP Address to manual ban.","Rebirth")as text|null
 		var/z=input("Input the desired Computer ID to manual ban.","Rebirth")as text|null
 		var/Reason=input("Why are you banning them?")as text
-		var/Duration=9999999999//=input("Ban Duration?(IN HOURS)","Rebirth")as num
+		var/Duration=10000000000//=input("Ban Duration?(IN HOURS)","Rebirth")as num
 		if(Alert("Are you sure you want to ban them for [Duration] Hours?"))
 			Duration=Value(world.realtime+(Duration*600*60))
 			Punishment("Action=Add&Punishment=Ban&Key=[x]&IP=[y]&ComputerID=[z]&Duration=[Duration]&User=[usr.key]&Reason=[Reason]&Time=[TimeStamp()]")

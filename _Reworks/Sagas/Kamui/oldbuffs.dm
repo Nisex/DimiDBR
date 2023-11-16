@@ -20,8 +20,13 @@
 			EndMult=1.25
 			SpdMult=1.5
 			Cooldown=60
+
 			// IconLock='senketsu_activated.dmi'
 			// TopOverlayLock='senketsu_activated_headpiece.dmi'
+
+			IconLock='Kamui_Uniform_stage_1.dmi'
+			TopOverlayLock='Kamui_Uniform_stage_1_headpiece.dmi'
+
 			TopOverlayX=0
 			TopOverlayY=0
 			ActiveMessage="feeds blood into their Kamui, drawing on its full power.  Life Fiber Synchronize!"
@@ -144,6 +149,10 @@
 			Cooldown=5
 			// IconLock='junketsu_activated.dmi'
 			// TopOverlayLock='junketsu_activated_headpiece.dmi'
+
+			IconLock='JunKamui_Stage_1.dmi'
+			TopOverlayLock='JunKamui_Stage_1_Pauldrons-Headpiece.dmi'
+
 			TopOverlayX=0
 			TopOverlayY=0
 			BuffName="Life Fiber Override"
@@ -227,8 +236,12 @@
 		StrMult=1.25
 		OffMult=1.25
 		passives = list("PureDamage" = 1, "DeathField" = 1, "HardStyle" = 1 )
+
 		// IconLock='senketsu_senjin.dmi'
-		// TopOverlayLock='senketsu_senjin_headpiece.dmi'
+		// TopOverlayLock='senketsu_senjin_headpiece.dmi'~
+
+		IconLock='Kamui_Uniform_stage_3.dmi'
+		TopOverlayLock='Kamui_Uniform_stage_3_headpiece.dmi'
 		TopOverlayX=0
 		TopOverlayY=0
 		verb/Kamui_Senjin()
@@ -251,10 +264,17 @@
 		SpdMult=1.25
 		DefMult=1.25
 		passives = list("VoidField" = 1, "PureReduction" = 1, "Flicker" = 1)
+
 		// IconLock='senketsu_shippu.dmi'
-		LockX=-14
-		LockY=-16
+		// LockX=-14
+		// LockY=-16
 		// TopOverlayLock='senketsu_shippu_headpiece.dmi'
+
+		IconLock='Kamui_Uniform_stage_4.dmi'
+		LockX=-16
+		LockY=-16
+		TopOverlayLock='Kamui_Uniform_stage_4_headpiece.dmi'
+
 		TopOverlayX=-16
 		TopOverlayY=-16
 		verb/Kamui_Shippu()
@@ -279,10 +299,17 @@
 		DefMult=1.25
 		OffMult=1.25
 		passives = list("PureDamage" = 1, "DeathField" = 1, "HardStyle" = 1, "VoidField" = 1, "PureReduction" = 1, "Flicker" = 1, "Instinct" = 1 )
+
 		// IconLock='senketsu_senjinshippu.dmi'
-		LockX=-14
-		LockY=-16
+		// LockX=-14
+		// LockY=-16
 		// TopOverlayLock='senketsu_senjinshippu_headpiece.dmi'
+
+		IconLock='Kamui_Uniform_stage_5.dmi'
+		LockX=-16
+		LockY=-16
+		TopOverlayLock='Kamui_Uniform_stage_5_headpiece.dmi'
+
 		verb/Kamui_Senjin_Shippu()
 			set category="Skills"
 			passives = list("PureDamage" = 1, "DeathField" = 1, "HardStyle" = 1.25, "VoidField" = 1, "PureReduction" = 1, "Flicker" = 1, "Instinct" = 1 )
@@ -306,10 +333,16 @@
 		Pursuer=3
 		Skimming=2
 		Flicker=1
+
 		// IconLock='junketsu_senpu.dmi'
+		// LockX=-16
+		// LockY=-16
+		// TopOverlayLock='junketsu_senpu_headpiece.dmi'
+
+		IconLock='JunKamui_Stage_3.dmi'
 		LockX=-16
 		LockY=-16
-		// TopOverlayLock='junketsu_senpu_headpiece.dmi'
+		TopOverlayLock='JunKamui_Stage_3_Pauldrons-Headpiece.dmi'
 		TopOverlayX=-32
 		TopOverlayY=-32
 		verb/Kamui_Senpu()
@@ -343,10 +376,17 @@
 		Pursuer=3
 		Skimming=2
 		Flicker=1
+
 		// IconLock='junketsu_senpuzenkan.dmi'
+		// LockX=-16
+		// LockY=-16
+		// TopOverlayLock='junketsu_senpuzenkan_headpiece.dmi'
+
+		IconLock='JunKamui_Stage_4.dmi'
 		LockX=-16
 		LockY=-16
-		// TopOverlayLock='junketsu_senpuzenkan_headpiece.dmi'
+		TopOverlayLock='JunKamui_Stage_4_Pauldrons-_Head_piece.dmi'
+
 		TopOverlayX=-16
 		TopOverlayY=-16
 		verb/Kamui_Senpu_Zanken()

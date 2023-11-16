@@ -495,9 +495,8 @@ mob/proc/Hairz(var/Z)
 	if(Z=="Add")
 		src.Hairz("Remove")
 
-		var
-			icon/HairB=icon(src.Hair_Base)
-			icon/HairB4=icon(src.Hair_SSJ4)
+		var/icon/HairB=icon(src.Hair_Base)
+		var/icon/HairB4=icon(src.Hair_SSJ4)
 
 		Neko_Ears='Neko Ears.dmi'
 		Neko_Tail='Neko Tail.dmi'

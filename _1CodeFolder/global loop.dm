@@ -37,7 +37,7 @@ update_loop
 					updater.Update()
 				for(var/update_loop/updater in updaters)
 					if(world.time >= updater.next_tick) updater.Update()
-				sleep world.tick_lag
+				sleep(world.tick_lag)
 
 		UpdateAll()
 			for(var/updater in updaters)
@@ -49,8 +49,8 @@ update_loop
 	special_loop //This subtype generally abuses overrides
 
 	sub_loop
-		var delay
-		var last_loop
+		var/delay
+		var/last_loop
 		New()
 			..()
 			updaters=new

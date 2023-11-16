@@ -126,9 +126,8 @@ obj
 					del A
 				..()
 			Move()
-				var
-					NewlyCreated
-					Startingloc=loc
+				var/NewlyCreated
+				var/Startingloc=loc
 				if(Return==0)
 					var/obj/MysticArms/A = new
 					A.loc=loc

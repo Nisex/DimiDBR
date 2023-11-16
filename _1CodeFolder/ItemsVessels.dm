@@ -298,7 +298,7 @@ obj/Items/Tech/Vessel
 			if(B.Password && B.Password != src.Password) continue
 			landing_locations["([B.name ? B.name : "Beacon"]) [B.x], [B.y], [B.z]"] = B
 		landing_locations += "Cancel"
-		var/obj/o = input("What landing location would you like to launch toward?") in landing_locations as text|null
+		var/obj/o = input("What landing location would you like to launch toward?") in landing_locations
 		if(!o || o == "Cancel") return
 		o = landing_locations[o]
 		destination = list("x"=o.x,"y"=o.y,"z"=o.z)

@@ -1,7 +1,7 @@
 client/preload_rsc = 2
 
 proc/log_func(x, a, b)
-    return a * (log(x) / log(10) - b )
+	return a * (log(x) / log(10) - b )
 
 #define isai(a) istype(a, /mob/Player/AI)
 #define isNPC(a) istype(a, /mob/)

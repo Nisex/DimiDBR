@@ -1,6 +1,6 @@
 //Credits - Myself
 proc/ConvertLists(var/list/z)
-	var/tmp/list/Blah=new
+	var/list/Blah=new
 	for(var/x in z)
 		Blah.Add(params2list(x))
 	return Blah

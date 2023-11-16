@@ -320,7 +320,7 @@ turf/verb/Upgrade()
 		usr.OMessage(10,"[usr] upgraded the structure.")
 
 turf
-	Health=9000000000000001
+	Health=9000000000000000
 	IconsX
 		icon='NewTurfs.dmi'
 		Icon1
@@ -3744,7 +3744,7 @@ turf/Special
 	Stars
 		icon = 'StarPixel.dmi'
 		icon_state="2"
-		Health=1345345345345345345345345
+		Health=1345345400000000000000000
 	EventStars
 		icon='StarPixel.dmi'
 		icon_state="3"
@@ -3975,7 +3975,7 @@ obj/Special
 		Grabbable=0
 		icon='Lab.dmi'
 		icon_state="WarpLocked"
-		Health=9999999999999999999999999999999999999999999999
+		Health=1.#INF
 	Teleporter2
 		var/SetSpawn = null
 		New()
@@ -4012,7 +4012,7 @@ obj/Special
 		Land_Teleport
 			icon='SparkleRed.dmi'
 			LandTransport=1
-		Health=9999999999999999999999999999999999999999999999
+		Health=1.#INF
 
 		SpecialTele
 			GoAbove
@@ -4027,7 +4027,7 @@ obj/Special
 		var/Glass=1
 		icon='enchantmenticons.dmi'
 		icon_state="Barrier"
-		Health=420420420420420420420420
+		Health=1.#INF
 
 	SpawnPoint
 		Grabbable=0
@@ -4036,7 +4036,7 @@ obj/Special
 		var/ActiveSpawn=1
 		var/DefaultSpawn=1
 		Savable=0
-		Health=9001900190019001900190019001
+		Health=1.#INF
 
 
 	StaticSurf
@@ -4045,12 +4045,12 @@ obj/Special
 
 	PlanetLooperNS //The North/South Planet Looper Object. These should be placed ideally at 1X/1Y and 1X/500Y respectively.
 		density=1
-		Health=6957830578348905734057340
+		Health=1.#INF
 		bound_width=32*500
 
 	PlanetLooperEW //The East/West Planet Looper Object. These should be placed ideally at 1X/1Y and 500X/1Y respectively.
 		density=1
-		Health=5345345345345345345
+		Health=1.#INF
 		bound_height=32*500
 
 	midgarTrainWallBottom
@@ -4059,7 +4059,7 @@ obj/Special
 		density=1
 		layer=3
 		Grabbable=0
-		Health=6957830578348905734057340
+		Health=1.#INF
 		Destructable=0
 
 	shinraLogo
@@ -4067,7 +4067,7 @@ obj/Special
 		density=0
 		layer=3
 		Grabbable=0
-		Health=6957830578348905734057340
+		Health=1.#INF
 		Destructable=0
 
 	JENOVA
@@ -4096,7 +4096,7 @@ obj/Special
 		density=0
 		layer=3
 		Grabbable=0
-		Health=6957830578348905734057340
+		Health=6957830600000000000000000
 		Destructable=0
 
 	midgarTrainWallTop
@@ -4107,7 +4107,7 @@ obj/Special
 		Grabbable=0
 		FlyOverAble=0
 		layer=3
-		Health=6957830578348905734057340
+		Health=6957830600000000000000000
 		Destructable=0
 
 obj/Turfs/Edges

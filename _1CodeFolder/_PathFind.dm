@@ -94,11 +94,10 @@ pathnode
 
 pathfinder/astar
 	search(start, end)
-		var
-			PriorityQueue/open = new/PriorityQueue(/pathnode/proc/cmp)
-			list/closed = new
+		var/PriorityQueue/open = new/PriorityQueue(/pathnode/proc/cmp)
+		var/list/closed = new
 
-			pathnode/node = new(start, null, 0, distance(start, end))
+		var/pathnode/node = new(start, null, 0, distance(start, end))
 
 		open.Enqueue(node)
 

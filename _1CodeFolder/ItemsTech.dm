@@ -241,7 +241,7 @@ obj/Items/Tech
 			GodDoor=1//only unlockable by spawn
 			Unobtainable=1
 			Grabbable=0
-			Health=1000000000000000000000000000000000000000000000000
+			Health=1.#INF
 			Destructable=0
 			density=1
 			opacity=1
@@ -1305,7 +1305,7 @@ obj/Items/Tech
 		icon='Tech.dmi'
 		icon_state="GEnhance"
 		desc="A consumable item that forces a person's biology to an empowered state at the cost of damaging their constitution."
-		Cost=9999999999999999999999999
+		Cost=10000000000000000000000000
 		Click()
 			del src
 
@@ -2492,7 +2492,7 @@ obj/Items/Tech
 		opacity=1
 		Destructable=0
 		Pickable=0
-		var antispam
+		var/antispam
 		New()
 			if(src.name=="Reinforced Door")
 				var/Randomnumber=rand(1,10000)
@@ -3926,7 +3926,7 @@ obj/ShipAirlock
 
 obj/PodConsole
 	var/Launching
-	Health=9999999999999999999
+	Health=10000000000000000000
 	var/SpeakerToggle=0
 	var/PodID
 	Grabbable=0
@@ -4418,7 +4418,7 @@ obj/Items/Tech
 						return
 
 		Boat
-			Health=999999999999999999999
+			Health=1000000000000000000000
 			icon='Romek.dmi'
 			pixel_y=-100
 			pixel_x=-100

@@ -56,115 +56,100 @@ mob/Players
 	//	up a statpanel.
 	verb
 		north()
-			set
-				hidden=1
-				instant=1
+			set hidden = 1
+			set instant = 1
 			/*if(src.Knockback)
 				for(var/obj/Skills/Aerial_Recovery/x in src)
 					src.SkillX("Aerial Recovery",x)*/
 			src.keySet(NORTH)
 		north_up()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
+
 			src.keyDel(NORTH)
 		south()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
 			/*if(src.Knockback)
 				for(var/obj/Skills/Aerial_Recovery/x in src)
 					src.SkillX("Aerial Recovery",x)*/
 			src.keySet(SOUTH)
 		south_up()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
 			src.keyDel(SOUTH)
 		east()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
 			/*if(src.Knockback)
 				for(var/obj/Skills/Aerial_Recovery/x in src)
 					src.SkillX("Aerial Recovery",x)*/
 			src.keySet(EAST)
 		east_up()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
 			src.keyDel(EAST)
 		west()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
 			/*if(src.Knockback)
 				for(var/obj/Skills/Aerial_Recovery/x in src)
 					src.SkillX("Aerial Recovery",x)*/
 			src.keySet(WEST)
 		west_up()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
 			src.keyDel(WEST)
 		northeast()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
 			/*if(src.Knockback)
 				for(var/obj/Skills/Aerial_Recovery/x in src)
 					src.SkillX("Aerial Recovery",x)*/
 			src.keySet(EAST)
 			src.keySet(NORTH)
 		northeast_up()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
 			src.keyDel(EAST)
 			src.keyDel(NORTH)
 		southwest()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
 			/*if(src.Knockback)
 				for(var/obj/Skills/Aerial_Recovery/x in src)
 					src.SkillX("Aerial Recovery",x)*/
 			src.keySet(WEST)
 			src.keySet(SOUTH)
 		southwest_up()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
 			src.keyDel(WEST)
 			src.keyDel(SOUTH)
 		southeast()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
 			/*if(src.Knockback)
 				for(var/obj/Skills/Aerial_Recovery/x in src)
 					src.SkillX("Aerial Recovery",x)*/
 			src.keySet(EAST)
 			src.keySet(SOUTH)
 		southeast_up()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
 			src.keyDel(EAST)
 			src.keyDel(SOUTH)
 		northwest()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
 			/*if(src.Knockback)
 				for(var/obj/Skills/Aerial_Recovery/x in src)
 					src.SkillX("Aerial Recovery",x)*/
 			src.keySet(WEST)
 			src.keySet(NORTH)
 		northwest_up()
-			set
-				hidden=1
-				instant=1
+			set hidden=1
+			set instant=1
 			src.keyDel(WEST)
 			src.keyDel(NORTH)
 
@@ -275,9 +260,8 @@ mob
 			//	back if the player was able to step or not so MovementLoop() knows
 			//	when to apply a step delay.
 			stepDiagonal()
-				var
-					dir_x
-					dir_y
+				var/dir_x
+				var/dir_y
 				switch(key1)
 					if(NORTH)if(key2!=SOUTH&&key3!=SOUTH&&key4!=SOUTH)dir_y=NORTH
 					if(SOUTH)if(key2!=NORTH&&key3!=NORTH&&key4!=NORTH)dir_y=SOUTH

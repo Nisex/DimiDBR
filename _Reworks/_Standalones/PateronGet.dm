@@ -1,6 +1,3 @@
-#define PATREON_LINK "https://patreon.com/jordanzoSupport"
-#define KO_FI_LINK "https://ko-fi.com/boberjones"
-
 // so basically, maintain a json of people who donate and their tier
 // if i want to, i can make something that contacts the server and updates it when new people pledge
 // but for now, i'll just manually update it

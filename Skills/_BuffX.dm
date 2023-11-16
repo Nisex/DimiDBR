@@ -4324,7 +4324,7 @@ NEW VARIABLES
 		// 				usr << "You need to steel your resolve first!"
 		// 				return
 		// 			var/sLevel = usr.SagaLevel
-		// 			passives = list("AllOutPU" = 1, "MovementMastery" = sLevel * 1.5,\
+		// 			passives = list("AllOutPU" = 1, "MovementMastery" = sLevel * 1.5,\\
 		// 			"BuffMastery" = clamp(round(sLevel/2, 0.5), 1, 4), FatigueLeak = 4)
 		// 			EndMult = clamp(1.1 + (0.1 * sLevel), 1.2, 1.7)
 		// 			if(sLevel >= 4)

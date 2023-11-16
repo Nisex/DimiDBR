@@ -1350,6 +1350,7 @@ obj/Communication
 
 		if(usr.CheckSlotless("Camouflage"))
 			var/obj/Skills/Buffs/SlotlessBuffs/Camouflage/C = usr.GetSlotless("Camouflage")
+			if(C.Invisible)
 				C.Trigger(usr)
 			usr << "Your camouflage is broken!"
 		if(usr.CheckSlotless("Invisibility"))
@@ -1487,6 +1488,7 @@ obj/Communication
 					return
 		if(usr.CheckSlotless("Camouflage"))
 			var/obj/Skills/Buffs/SlotlessBuffs/Camouflage/C = usr.GetSlotless("Camouflage")
+			if(C.Invisible)
 				C.Trigger(usr)
 			usr << "Your camouflage is broken!"
 		if(usr.CheckSlotless("Invisibility"))
@@ -1652,6 +1654,7 @@ obj/Communication
 		usr.verb_delay=world.time+1
 		if(usr.CheckSlotless("Camouflage"))
 			var/obj/Skills/Buffs/SlotlessBuffs/Camouflage/C = usr.GetSlotless("Camouflage")
+			if(C.Invisible)
 				C.Trigger(usr)
 			usr << "Your camouflage is broken!"
 		if(usr.CheckSlotless("Invisibility"))

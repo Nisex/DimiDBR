@@ -32,10 +32,9 @@ var/const/QS_CUTOFF = 10
 
 proc
 	_QSPartition(L[], l, r, cmp)
-		var
-			s
-			m
-			pivot
+		var/s
+		var/m
+		var/pivot
 		ASSERT(l != r)
 		s = l
 		m = (l+r)>>1

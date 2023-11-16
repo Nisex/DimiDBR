@@ -342,6 +342,7 @@
 #include "_Reworks\Sagas\Rinnegan\msDebuffs.dm"
 #include "_Reworks\Sagas\Rinnegan\rinneganBuff.dm"
 #include "_Reworks\Sagas\Rinnegan\rinneganSkills.dm"
+#include "_Reworks\Sagas\Spiral\Spiral.dm"
 #include "_Reworks\Sagas\UBW\ubwStyle.dm"
 #include "_Reworks\Sagas\Wukong\MonkeySoldiers.dm"
 #include "_Reworks\Sagas\Wukong\WukongPassives.dm"

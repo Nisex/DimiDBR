@@ -1232,10 +1232,12 @@ obj/Items/Symbiotic
 		Unwieldy=1
 		KamuiSenketsu
 			// icon='senketsu.dmi'
+			icon='Kamui_Uniform.dmi'
 			name="Senketsu"
 			Techniques=list("/obj/Skills/Buffs/ActiveBuffs/Kamui/KamuiSenketsu")
 		KamuiJunketsu
 			// icon='junketsu.dmi'
+			icon='JunKamui_Uniform.dmi'
 			name="Junketsu"
 			Techniques=list("/obj/Skills/Buffs/ActiveBuffs/Kamui/KamuiJunketsu")
 

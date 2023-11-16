@@ -5,9 +5,8 @@ mob
 		TargetSkillX(var/wut, var/obj/Skills/Z)
 			switch(wut)
 				if("TargetSwitch")
-					var
-						NewTarget
-						NewTgtDist=25
+					var/NewTarget
+					var/NewTgtDist=25
 					for(var/mob/m in oview(15,usr))
 						if(m.client || (istype(m, /mob/Player/AI) && !istype(m, /mob/Player/AI/Nympharum)))
 							if(m in usr.ai_followers) continue

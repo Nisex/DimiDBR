@@ -2430,6 +2430,7 @@ obj/Skills/Utility
 			set src in usr
 			if(usr.CheckSlotless("Camouflage"))
 				var/obj/Skills/Buffs/SlotlessBuffs/Camouflage/C = usr.GetSlotless("Camouflage")
+				if(C.Invisible)
 					C.Trigger(usr)
 				usr << "Your camouflage is broken!"
 			if(usr.CheckSlotless("Invisibility"))
