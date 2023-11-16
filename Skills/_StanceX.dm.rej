@@ -1,0 +1,24 @@
+diff a/___Skills/_StanceX.dm b/___Skills/_StanceX.dm	(rejected hunks)
+@@ -511,20 +511,20 @@
+ 						ActiveMessage="fights sloppily with everything they have; blade, foot and fist!"
+ 						OffMessage="relaxes their Champloo Kendo style..."
+ 						verb
+ 							Champloo_Kendo()
+ 								set hidden=1
+ 								src.Trigger(usr)
+-					Hiten_Mitsurugi_ryu
++					Hiten_Mitsurugi_Ryuu
+ 						ClassNeeded="Light"
+ 						Flicker=1
+ 						StyleActive="Hiten Mitsurugi-Ryuu"
+ 						ActiveMessage="handles their blade with inhuman grace and swiftness!"
+ 						OffMessage="relaxes their Hiten Mitsurugi-Ryuu style..."
+ 						verb
+-							Hiten_Mitsurugi_ryu()
++							Hiten_Mitsurugi_Ryuu()
+ 								set hidden=1
+ 								if(usr.TierSLevel>=2)
+ 									if(src.GodSpeed<1)
+ 										src.GodSpeed+=1
+ 								if(usr.TierSLevel>=4)
+ 									if(src.Flicker<2)

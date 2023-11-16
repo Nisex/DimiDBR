@@ -1,0 +1,15 @@
+diff a/___Skills/_QueueX.dm b/___Skills/_QueueX.dm	(rejected hunks)
+@@ -545,9 +545,9 @@
+ 			if(src.AttackQueue.IconLock)
+ 				src.overlays+=image(icon=src.AttackQueue.IconLock, pixel_x=src.AttackQueue.LockX, pixel_y=src.AttackQueue.LockY)
+ 			else
+-				src.overlays+=image(icon=src.AttackQueue.icon, pixel_x=src.AttackQueue.pixel_x, pixel_y=src.AttackQueue.pixel_y)
++				return
+ 		QueueOverlayRemove()
+ 			if(src.AttackQueue.IconLock)
+ 				src.overlays-=image(icon=src.AttackQueue.IconLock, pixel_x=src.AttackQueue.LockX, pixel_y=src.AttackQueue.LockY)
+ 			else
+-				src.overlays-=image(icon=src.AttackQueue.icon, pixel_x=src.AttackQueue.pixel_x, pixel_y=src.AttackQueue.pixel_y)
+\ No newline at end of file
++				return
+\ No newline at end of file
