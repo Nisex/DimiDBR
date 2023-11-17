@@ -202,6 +202,7 @@ mob/proc/Auraz(var/Z)
 	var/image/dragon=image('Cosmo_Dragon.dmi',pixel_x=-17, pixel_y=-22)
 	var/image/cygnus=image('Cosmo_Cygnus.dmi',pixel_x=-17, pixel_y=-22)
 	var/image/andromeda=image('Cosmo_Andromeda.dmi',pixel_x=-17, pixel_y=-22)
+	var/image/unicorn=image('Cosmo_Unicorn.dmi',pixel_x=-17, pixel_y=-22)
 	var/image/phoenix=image('Cosmo_Phoenix.dmi',pixel_x=-17, pixel_y=-22)
 	var/image/gold1=image('Cosmo_Seventh.dmi',pixel_x=-17, pixel_y=-22)
 	var/image/gold2=image('Ripple Radiance.dmi',pixel_x=-32, pixel_y=-32)
@@ -293,6 +294,8 @@ mob/proc/Auraz(var/Z)
 						src.underlays+=andromeda
 					if("Phoenix")
 						src.underlays+=phoenix
+					if("Unicorn")
+						src.underlays+=unicorn	
 
 		else if(src.BurningShot)
 			src.overlays+=flameaura
