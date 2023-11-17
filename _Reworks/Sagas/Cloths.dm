@@ -28,6 +28,12 @@
 		src<<allSagaMessages[path].messages[SagaLevel]
 
 	switch(SagaLevel)
+		if(2)
+			switch(src.ClothBronze)
+				if("Unicorn")
+					if(!locate(/obj/Skills/AutoHit/Mighty_Horn, src))
+						src.AddSkill(new/obj/Skills/AutoHit/Mighty_Horn)
+						src.AddSkill(new/obj/Skills/Telekinesis)
 		if(3)
 			switch(src.ClothBronze)
 				if("Pegasus")
@@ -44,6 +50,9 @@
 					totalExtraVoidRolls++
 					if(!locate(/obj/Skills/AutoHit/Phoenix_Rising_Wing, src))
 						src.AddSkill(new/obj/Skills/AutoHit/Phoenix_Rising_Wing)
+				if("Unicorn")
+					if(!locate(/obj/Skills/Queue/Unicorn_Combination, src))
+						src.AddSkill(new/obj/Skills/Queue/Unicorn_Combination)
 		if(4)
 			ZodiacCharges++
 			var/v2Path = "/obj/Skills/Buffs/SpecialBuffs/Saint_Cloth/Bronze_Cloth_V2/[ClothBronze]_Cloth"

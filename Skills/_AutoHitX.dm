@@ -3393,6 +3393,37 @@ obj
 				verb/Pegasus_Ryusei_Ken()
 					set category="Skills"
 					usr.Activate(src)
+			Unicorn_Meteor_Fist//t5
+				CosmoPowered=1
+				FlickAttack=1
+				Area="Wave"
+				StrOffense=1
+				DamageMult=11
+				Launcher=1
+				Distance=4
+				Rush=10
+				RushDelay=0.5
+				ControlledRush=1
+				GuardBreak=1
+				PassThrough=1
+				Knockback=0
+				SpeedStrike = 1
+				Cooldown=150
+				WindUp=1
+				WindupIcon=1
+				WindupMessage="extends their arms and draws out the Unicorn constellation..."
+				ActiveMessage="unleashes the god-defying barrage of the Unicorn!"
+				HitSparkIcon='Hit Effect Pegasus.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkTurns=1
+				HitSparkSize=0.8
+				HitSparkCount=20
+				HitSparkDispersion=24
+				HitSparkDelay=1
+				verb/Unicorn_Gallop()
+					set category="Skills"
+					usr.Activate(src)					
 			Enraged_Dragon_Force
 				CosmoPowered=1
 			Aurora_Thunder_Attack
@@ -3460,6 +3491,31 @@ obj
 				ActiveMessage="unleashes the destructive wingbeat of a Phoenix!"
 				verb/Phoenix_Rising_Wing()
 					set name="Houyoku Tenshou"
+					set category="Skills"
+					usr.Activate(src)
+			Mighty_Horn
+				CosmoPowered = 1
+				CanBeDodged = 0
+				FlickAttack=1
+				Stunner=3
+				DamageMult=11
+				Cooldown=120
+				StrOffense=1
+				ForOffense=0
+				Cooldown=120
+				UnarmedOnly=1
+				HitSparkIcon='Hit Effect Ripple.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkTurns=0
+				HitSparkSize=0.8
+				HitSparkCount=1
+				HitSparkDelay=1
+				HitSparkDispersion=16
+				WindupMessage="prepares to usage their MIGHTY UNICORN HORN!."
+				ActiveMessage="launches forwards to lock their opps to a Horny Strike!"
+				verb/Mighty_Horn()
+					set name="Mighty Unicorn Horn"
 					set category="Skills"
 					usr.Activate(src)
 ////Gold Cloth

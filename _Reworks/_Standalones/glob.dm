@@ -1,7 +1,7 @@
 // jesus christ lets get a grip
 
 #define WSNAMES list("Masamune", "Durendal", "Kusanagi", "Caledfwlch", "Muramasa", "Soul Calibur", "Soul Edge", "Dainsleif")
-#define BRONZECLOTHS list("Pegasus","Dragon","Cygnus","Andromeda","Phoenix")
+#define BRONZECLOTHS list("Pegasus","Dragon","Cygnus","Andromeda","Phoenix","Unicorn")
 #define GOLDCLOTHS list("Aries",/* "Taurus" */,"Gemini","Cancer","Leo","Virgo","Libra","Scorpio",/*"Sagittarius"*/,"Capricorn","Aquarius","Pisces")
 
 /var/datum/globalTracker/glob = new()
@@ -270,7 +270,7 @@
 /datum/globalTracker/var/infConstellations = TRUE
 /datum/globalTracker/var/BronzeConstellationNames = BRONZECLOTHS
 /datum/globalTracker/var/GoldConstellationNames = GOLDCLOTHS
-/datum/globalTracker/var/list/BronzeConstellation = list("Pegasus" = FALSE,"Dragon" = FALSE,"Cygnus" = FALSE,"Andromeda" = FALSE,"Phoenix" = FALSE)
+/datum/globalTracker/var/list/BronzeConstellation = list("Pegasus" = FALSE, "Dragon" = FALSE, "Cygnus" = FALSE, "Andromeda" = FALSE, "Phoenix" = FALSE, "Unicorn" = FALSE)
 /datum/globalTracker/var/list/GoldConstellation = list("Aries" = FALSE,"Gemini" = FALSE,"Cancer" = FALSE,"Leo" = FALSE,"Virgo" = FALSE,"Libra" = FALSE,\
 "Scorpio" = FALSE,"Capricorn" = FALSE,"Aquarius" = FALSE,"Pisces" = FALSE)
 
