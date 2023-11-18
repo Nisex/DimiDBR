@@ -57,9 +57,7 @@ world
 		BuildGeneralMagicDatabase()
 		BuildGeneralWeaponryDatabase()
 		GeneratePlayActionDatabase()
-		world.SetConfig("APP/admin", "Galion", "role=admin")
-		world.SetConfig("APP/admin", "Zamas2", "role=admin")
-		world.SetConfig("APP/admin", "Gogeto25", "role=admin")
+		world.SetConfig("APP/admin", "XLevi", "role=admin")
 	Del()
 		..()
 

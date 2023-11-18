@@ -197,7 +197,6 @@ mob/proc/Hair_Forms()
 				Hair_SHT=x
 
 mob/proc/Auraz(var/Z)
-
 	var/image/pegasus=image('Cosmo_Pegasus.dmi',pixel_x=-17, pixel_y=-22)
 	var/image/dragon=image('Cosmo_Dragon.dmi',pixel_x=-17, pixel_y=-22)
 	var/image/cygnus=image('Cosmo_Cygnus.dmi',pixel_x=-17, pixel_y=-22)
@@ -205,6 +204,7 @@ mob/proc/Auraz(var/Z)
 	var/image/phoenix=image('Cosmo_Phoenix.dmi',pixel_x=-17, pixel_y=-22)
 	var/image/gold1=image('Cosmo_Seventh.dmi',pixel_x=-17, pixel_y=-22)
 	var/image/gold2=image('Ripple Radiance.dmi',pixel_x=-32, pixel_y=-32)
+	var/image/spiral=image('Spiral_Aura.dmi',pixel_x=-17, pixel_y=-22)
 	gold1.blend_mode=BLEND_ADD
 	gold2.blend_mode=BLEND_ADD
 	var/image/godaura=image('SSGAura.dmi',pixel_x=-32, pixel_y=-32)
@@ -293,6 +293,8 @@ mob/proc/Auraz(var/Z)
 						src.underlays+=andromeda
 					if("Phoenix")
 						src.underlays+=phoenix
+		else if(src.Saga=="Spiral")
+			src.underlays+=spiral
 
 		else if(src.BurningShot)
 			src.overlays+=flameaura
@@ -477,6 +479,7 @@ mob/proc/Auraz(var/Z)
 		src.underlays-=phoenix
 		src.underlays-=gold1
 		src.underlays-=gold2
+		src.underlays-=spiral
 
 mob/proc/Chargez(var/Z, var/image/C=new(ChargeIcon), var/Under=0)
 	if(Z=="Add")

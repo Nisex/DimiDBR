@@ -12311,7 +12311,11 @@ mob
 						src.ActiveBuff.AngerMult=1
 						src.ActiveBuff.passives["PUSpike"] = 0
 						src.ActiveBuff.PUSpike=0
-
+				if(src.Saga=="Spiral")
+					src.ActiveBuff.ActiveMessage="channels their evolution with full strength!!!"
+					src.ActiveBuff.OffMessage="calms their evolution..."
+					src.ActiveBuff.OverlayTransLock=1
+					src.ActiveBuff.AuraLock=1
 				if(src.Saga=="Cosmo")
 					src.ActiveBuff.ActiveMessage="burns their Cosmo with full strength!!!"
 					src.ActiveBuff.OffMessage="calms their Cosmo..."
