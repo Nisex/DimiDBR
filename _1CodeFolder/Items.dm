@@ -1191,6 +1191,8 @@ obj/Items/Symbiotic
 			Andromeda_Cloth
 
 			Phoenix_Cloth
+
+			Unicorn_Cloth
 				T
 		Bronze_Cloth_V2
 			Saga="Cosmo"
