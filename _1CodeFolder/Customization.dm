@@ -480,6 +480,7 @@ mob/proc/Auraz(var/Z)
 		src.underlays-=cygnus
 		src.underlays-=andromeda
 		src.underlays-=phoenix
+		src.underlays-=unicorn
 		src.underlays-=gold1
 		src.underlays-=gold2
 		src.underlays-=spiral
