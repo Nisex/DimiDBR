@@ -59,7 +59,9 @@ mob/var
 
 	//SHARINGAN
 	SharinganEvolution
-
+	//FORCE
+	DarkSide
+	LightSide
 	//JINCHUURIKI
 	JinchuuType
 
@@ -84,7 +86,7 @@ mob/var
 mob/Admin3/verb
 	SagaManagement(mob/Players/P in players)
 		set category="Admin"
-		var/list/SagaList=list("Cancel","Ansatsuken","Cosmo","Spiral","Hero","Eight Gates","Hiten Mitsurugi-Ryuu","Kamui","Keyblade","King of Braves","Sharingan","Weapon Soul", "Unlimited Blade Works")
+		var/list/SagaList=list("Cancel","Ansatsuken","Cosmo","Spiral","Hero","Eight Gates","Hiten Mitsurugi-Ryuu","Kamui","Keyblade","King of Braves","Sharingan","Weapon Soul", "Unlimited Blade Works","Force")
 		if(P.Saga)
 			if(P.SagaLevel>=8)
 				src << "They've already fully mastered the power of their soul."
@@ -337,6 +339,10 @@ mob/Admin3/verb
 							P.OffAscension+=0.5
 						if("Defense")
 							P.DefAscension+=0.5
+				if("Force")
+					src.ChoseSideOfForce()
+					P.Saga="Force"
+					P.SagaLevel=1
 
 				if("Keyblade")
 					var/list/Choices=list("A Sword of Courage", "A Staff of Spirit", "A Shield of Kindness")

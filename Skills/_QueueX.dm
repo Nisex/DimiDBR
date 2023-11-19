@@ -3993,6 +3993,8 @@ mob
 				src.WoundSelf(src.AttackQueue.WoundCost*glob.WorldDamageMult)
 			if(src.AttackQueue.EnergyCost)
 				src.LoseEnergy(src.AttackQueue.EnergyCost)
+			if(src.AttackQueue.ForceCost)
+				src.LoseForce(src.AttackQueue.ForceCost)
 			if(src.AttackQueue.FatigueCost)
 				src.GainFatigue(src.AttackQueue.FatigueCost)
 			if(src.AttackQueue.ManaCost)
