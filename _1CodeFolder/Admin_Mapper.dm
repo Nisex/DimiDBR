@@ -112,6 +112,9 @@ mob
 			else
 				usr.MapperWalk=0
 				usr << "You turn off your Mapper Walk."
+		verb/ToggleBuildMode()
+			set category = "Mapper"
+			client.BuildModeToggle()
 		verb/Toggle_Turf_Indestructable()
 			set category="Mapper"
 			if(!usr.TurfInvincible)

@@ -111,6 +111,7 @@ obj
 
 			var/RipplePower=1//used to make ripple go higher
 			var/DrainBlood=0// This is used for vampire grab + toss, makes them gain bloodpower
+			var/ForceCost = 0
 //Autoqueues
 
 ////General
@@ -3808,7 +3809,7 @@ mob
 				Damage*=dmgMult
 			if(Damage>0 && GLOBAL_QUEUE_DAMAGE > 0)
 				Damage *= GLOBAL_QUEUE_DAMAGE
-			
+
 			Damage = clamp(Damage,0.01, 10) // fuck it
 			if(Damage>=5)
 				src<<"please report this still to the admins [AttackQueue]"

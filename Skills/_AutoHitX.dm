@@ -167,6 +167,8 @@ obj
 				Executor // increase damage by x*10% while the enemy is under 25%, increased by 2x when they are under 5%
 				SpeedStrike
 				GrabMaster = FALSE
+
+				ForceCost = 0
 //NPC attacks
 			Venom_Sting
 				Area="Target"
@@ -1809,7 +1811,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Force_Stasis
-				Area=""
+				Area="Target"
 				ForOffense=1
 				Stunner=2.5
 				Distance=5
@@ -1819,9 +1821,9 @@ obj
 				ActiveMessage="succesfully casts a statsis upon their target!!"
 				Cooldown=120
 				ForceCost=10
-				verb/Force_Stasis
+				verb/Force_Stasis()
 					set category="Skills"
-					usr.Activate(src)	
+					usr.Activate(src)
 			Mugetsu
 				SpecialAttack=1
 				SBuffNeeded="Final Getsuga Tenshou"
@@ -3436,7 +3438,7 @@ obj
 				HitSparkDelay=1
 				verb/Unicorn_Gallop()
 					set category="Skills"
-					usr.Activate(src)					
+					usr.Activate(src)
 			Enraged_Dragon_Force
 				CosmoPowered=1
 			Aurora_Thunder_Attack
@@ -4694,7 +4696,7 @@ mob
 					return
 			if(Z.ForceCost)
 				if(src.ForceBar<Z.ForceCost&&!Z.AllOutAttack)
-					return		
+					return
 			if(Z.EnergyCost)
 				if(src.Energy<Z.EnergyCost&&!Z.AllOutAttack)
 					if(!src.CheckSpecial("One Hundred Percent Power")&&!src.CheckSpecial("Fifth Form")&&!CheckActive("Eight Gates"))
@@ -5161,7 +5163,7 @@ mob
 			if(Z.EnergyCost)
 				src.LoseEnergy(Z.EnergyCost*CostMultiplier)
 			if(Z.ForceCost)
-				src.LoseForce(Z.ForceCost*CostMultiplier)	
+				src.LoseForce(Z.ForceCost*CostMultiplier)
 			if(Z.FatigueCost)
 				src.GainFatigue(Z.FatigueCost*CostMultiplier)
 			if(Z.ManaCost)

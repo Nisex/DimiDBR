@@ -546,6 +546,7 @@ obj/Others/Build
 	B.name="-[objInQuestion.name]-"
 	return B
 
+/*
 atom/Click(atom/T)
 	if(usr.client.macros.IsPressed("Ctrl"))
 		if(!usr.Mapper)
@@ -563,7 +564,7 @@ atom/MouseDrag(atom/T)
 		if(T.x != usr.buildPreviousX || T.y != usr.buildPreviousY || T.z != usr.buildPreviousZ)
 			if(usr.Target&&istype(usr.Target,/obj/Others/Build))
 				Build_Lay(usr.Target,usr, T.x, T.y, T.z)
-
+*/
 mob/var/buildPreviousX = 0
 mob/var/buildPreviousY = 0
 mob/var/buildPreviousZ = 0
