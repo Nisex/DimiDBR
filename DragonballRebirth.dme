@@ -389,6 +389,7 @@
 #include "_Reworks\Secrets\Vampire\BloodGauge.dm"
 #include "_Reworks\Secrets\Vampire\VampireBuffs.dm"
 #include "_Reworks\Secrets\Wrathful\wratchful.dm"
+#include "_Reworks\Sigs\Scaling\Sins\futurediary.dm"
 #include "_Reworks\Sigs\Scaling\Sins\gluttony.dm"
 #include "_Reworks\Sigs\Scaling\Sins\sinMasterFile.dm"
 #include "_Reworks\Tech\knowledge.dm"
