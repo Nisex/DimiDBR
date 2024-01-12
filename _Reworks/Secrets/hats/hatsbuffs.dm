@@ -3,7 +3,12 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Spirits/Base_Hat_Buff
     passives = list("MartialMagic" = 1)
-    proc/adjust(mob/p)
+    proc/getChildBoons(mob/p)
+        passives += p.secretDatum:applyPassives(p)
+
+
+    proc/adjust(mob/p, child)
+        grantChildBoons(p)
         if(altered) return
         var/secretLevel = p.getSecretLevel()
         var/pot = p.Potential

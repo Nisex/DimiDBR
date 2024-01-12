@@ -29,14 +29,25 @@ tiers:
 
 // use secrets framework since it is tiered
 
-#define HAT_GLOBAL_PASSIVES list("MartialMagic")
-
 /datum/SecretInfomation/Spirits_Of_The_World // when given make them make a choice, this choice will then pick these ones below
 // place parent functions here
-    givenSkills = listr("/obj/Skills/Buffs/SlotlessBuffs/Spirits/Base_Hat_Buff") // TODO: change this typing if wanted
-
+    givenSkills = list("/obj/Skills/Buffs/SlotlessBuffs/Spirits/Base_Hat_Buff") // TODO: change this typing if wanted
+    proc/applyPassives(mob/p)
+        return list("MartialMagic" = 1)
     Goetic_Virtue
-
+        applyPassives(mob/p)
+            var/pot = p.Potential
+            . = list("Hellpower" = currentTier/4, "SpiritSword" = 0.15 * currentTier + (pot/125), "SwordPunching" = 1)
+            
+    
     Stellar_Constellation
+        applyPassives(mob/p)
+            var/pot = p.Potential
+            . = list("HolyMod" = currentTier, "SpiritPower" = 0.25 + (currentTier * 0.25 + (pot/250)), "HybridStrike" = currentTier/4 + pot/100, "SwordPunching" = 1)
+
+
 
     Elven_Sanctuary
+        applyPassives(mob/p)
+            var/pot = p.Potential
+            . = list("LegendaryPower" = currentTier/4, "SpiritFlow" = 1, "SpiritualDamage" = currentTier*1.25 + pot/25)
