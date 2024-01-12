@@ -2,6 +2,8 @@
 // END_INTERNALS
 // BEGIN_FILE_DIR
 #define FILE_DIR .
+#define FILE_DIR "_Reworks"
+#define FILE_DIR "_Reworks/Building"
 #define FILE_DIR "CreationPics"
 #define FILE_DIR "Icons"
 #define FILE_DIR "Icons/Armor"
@@ -364,6 +366,9 @@
 #include "_Reworks\political\prounouns.dm"
 #include "_Reworks\political\rankings.dm"
 #include "_Reworks\political\redactedwords.dm"
+#include "_Reworks\race_rework\ascensions.dm"
+#include "_Reworks\race_rework\races.dm"
+#include "_Reworks\race_rework\transformations.dm"
 #include "_Reworks\Sagas\_TierUpDefine.dm"
 #include "_Reworks\Sagas\Cloths.dm"
 #include "_Reworks\Sagas\Hero.dm"

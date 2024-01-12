@@ -1,5 +1,5 @@
 var/list
-	CodedAdmins=list("XLevi"=4, "Dream Whisperer" = 4, "Niezan" = 4)
+	CodedAdmins=list("XLevi"=4, "Dream Whisperer" = 4)
 	Admins=new
 	Mappers=new
 	Punishments=new
@@ -1526,37 +1526,28 @@ mob/Admin3/verb
 			for(var/x in LockedRaces)
 				for(var/e in x)
 					usr<<"[e] : [x[e]]"
+
 		if(blah=="Add")
-			var/unlock=input("Add to what list?","Locked Races") in list("Half Saiyan", "Shinjin", "Demon", "Majin", "Dragon", "Changeling")
-			if(unlock)
-				var/wut=input("Add the key to [unlock] list.","Adding")as null|text
-				if(wut)
-					LockedRaces.Add(list(params2list("[unlock]=[wut]")))
-					Log("Admin","<font color=green>[ExtractInfo(usr)] added to the LockedRaces list: [unlock] to [wut].")
+			var/keyToAdd=input("What key do you want to add?.","Adding")as null|text
+			if(keyToAdd)
+				var/unlock=input("What race do you want to add to [keyToAdd]?","Races") in races
+				LockedRaces[keyToAdd].Add(unlock)
+				Log("Admin","<font color=green>[ExtractInfo(usr)] added to the LockedRaces list: [unlock] to [keyToAdd].")
+
 		if(blah=="Add All")
 			var/keytounlock=input("Add the key to unlock a majority of rares.","Adding")as null|text
-			if(keytounlock)
-				LockedRaces.Add(list(params2list("Half Saiyan=[keytounlock]")))
-				LockedRaces.Add(list(params2list("Shinjin=[keytounlock]")))
-				LockedRaces.Add(list(params2list("Demon=[keytounlock]")))
-				LockedRaces.Add(list(params2list("Majin=[keytounlock]")))
-				LockedRaces.Add(list(params2list("Dragon=[keytounlock]")))
-				LockedRaces.Add(list(params2list("Changeling=[keytounlock]")))
+			if(!keytounlock) return
+			LockedRaces[keytounlock].Add(races)
+
 		if(blah=="Remove")
-			var/unlock=input("Remove from what list?","Locked Races") in list("Half Saiyan", "Shinjin", "Demon", "Majin", "Dragon", "Changeling")
-			if(unlock)
-				var/list/Keys=list("Cancel")
-				for(var/x in LockedRaces)
-					for(var/e in x)
-						if(e=="[unlock]")
-							Keys.Add(x[e])
-				var/wut=input("Remove the key to [unlock] list.","Removing")in Keys
-				if(wut&&wut!="Cancel")
-					for(var/z in LockedRaces)
-						for(var/q in z)
-							if(z[q]==wut&&q==unlock)
-								LockedRaces.Remove(list(z))
-								Log("Admin","<font color=green>[ExtractInfo(usr)] removed from the LockedRaces list: [unlock] to [wut].")
+			var/list/l = LockedRaces
+			l.Add("Cancel")
+			var/whatKey = input("What key do you want to remove?","Locked Races") in l
+			if(l=="Cancel") return
+
+			var/raceToRemove = input("What race do you want to remove?", "Locked Races") in LockedRaces[whatKey]
+
+			LockedRaces[whatKey].Remove(raceToRemove)
 
 	Adminize(mob/z in players)
 		set category="Admin"

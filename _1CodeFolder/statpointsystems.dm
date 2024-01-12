@@ -1,5 +1,19 @@
-mob/proc/Stats(var/blah)
+mob/proc/Stats()
 
+	SetStat("Power", race.power)
+	SetStat("Strength", race.strength)
+	SetStat("Endurance", race.endurance)
+	SetStat("Speed", race.speed)
+	SetStat("Force", race.force)
+	SetStat("Offense", race.offense)
+	SetStat("Defense", race.defense)
+	SetStat("Regeneration", race.regeneration)
+	SetStat("Recovery", race.recovery)
+	SetStat("Anger", race.anger)
+	SetStat("Learning", race.learning)
+	SetStat("Intellect", race.intellect)
+	SetStat("Imagination", race.imagination)
+/*
 //Civilized
 	if(blah=="Human")
 		SetStat("Power",1)
@@ -332,7 +346,7 @@ mob/proc/Stats(var/blah)
 				SetStat("Learning", 1)
 				SetStat("Intellect", 0.25)
 				SetStat("Imagination", 4)
-
+*/
 
 mob/proc/RacialStats()
 	for(var/obj/SavedStats/Z in src)

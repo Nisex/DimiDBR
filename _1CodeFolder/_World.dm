@@ -94,28 +94,14 @@ var/SecurityHex="PrivateTesting666"
 
 
 var/list/LockedRaces=list()
-mob/proc/CheckUnlock(var/blah)
+
+mob/proc/CheckUnlock(race/_race)
 	if(src.Admin) return 1
-	if(blah=="Shinjin"||blah=="Demon"||blah=="Dragon"||blah=="Changeling")
-		if(src.CheckSpecialRaces("[blah]"))
-			return 1
-	if(blah in glob.CustomCommons)
+	if(_race.locked && LockedRaces[key] && _race in LockedRaces[key])
+		return 1
+	else if(!_race.locked)
 		return 1
 	return 0
-
-mob/proc/CheckSpecialRaces(var/blah)
-	if(src.Admin) return 1
-	for(var/x in LockedRaces)
-		for(var/e in x)
-			if(e=="[blah]")
-				if(x[e]==src.key)
-					return 1
-	return 0
-
-
-/mob/Admin4/verb/Clear_Locked_RaceKeys()
-	LockedRaces = list("Shinjin", "Demon", "Dragon")
-
 
 proc/Stars()
 	set background=1

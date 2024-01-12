@@ -38,6 +38,8 @@ proc/log_func(x, a, b)
 #define TILE_HEIGHT 32
 #define TILE_WIDTH 32
 
+#define subtypesof(M) (typesof(M) - (M))
+
 proc
 	stoplag()
 		var/tickstosleep = 1

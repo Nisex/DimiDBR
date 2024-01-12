@@ -897,6 +897,8 @@ mob/Creation
 		usr.Gender="Male"
 		if(usr.gender=="female")
 			usr.Gender="Female"
+		else if(usr.gender =="Neuter")
+			usr.Gender = "Neuter"
 		for(var/W in list("Grid1","Grid2","Finalize_Screen","Race_Screen"))
 			winshow(usr,"[W]",0)
 		usr.Admin("Check")
@@ -928,15 +930,13 @@ mob/Creation/verb
 	RaceShift(var/blah as text)
 		set hidden=1
 		set name=".RaceShift"
-		if(!(world.time > verb_delay))
-			return
-		verb_delay=world.time+1
 		if(!race_selecting)
 			return
 		if(blah=="+")
-			UpdateRaceScreen("Race","+")
+			UpdateRaceScreen(1)
 		if(blah=="-")
-			UpdateRaceScreen("Race","-")
+			UpdateRaceScreen(-1)
+
 	IconSelect()
 		set hidden=1
 		set name=".Select_Icon"
@@ -964,18 +964,6 @@ mob/Creation/verb
 		else
 			if(!usr.icon)
 				usr.icon='MaleLight.dmi'
-	PlanetShift(var/blah as text)
-		set hidden=1
-		set name=".PlanetShift"
-		if(!(world.time > verb_delay))
-			return
-		verb_delay=world.time+1
-		if(!race_selecting)
-			return
-		if(blah=="+")
-			UpdateRaceScreen("Planet","+")
-		if(blah=="-")
-			UpdateRaceScreen("Planet","-")
 
 	NextStep()
 		set hidden=1
@@ -1149,12 +1137,16 @@ mob/Creation/verb
 			spawn()usr.UpdateBio()
 
 		if(blah=="Sex")
-			if(usr.Asexual)
-				usr.Gender="---"
-			else if(usr.Gender=="Male")
-				usr.Gender="Female"
+			var/list/options = usr.race.gender_options
+			var/current_index = options.Find(usr.Gender)
+
+			if (current_index != -1)
+				var/next_index = (current_index + 1) % (options.len+1)
+				if(next_index == 0)
+					next_index = 1
+				usr.Gender = options[next_index]
 			else
-				usr.Gender="Male"
+				usr.Gender = options[1]
 			usr.RacialStats()
 			usr.UpdateBio()
 			return
@@ -1210,16 +1202,14 @@ mob/Creation/verb
 
 mob/proc/UpdateBio()
 	src.PerkDisplay()
-	winset(src,"LabelRace","text=\"[src.Race]\"")
-	if(src.Asexual)
-		winset(src,"LabelSex","text=\"---\"")
-	else
-		winset(src,"LabelSex","text=\"[src.Gender]\"")
-	winset(src,"LabelType","text=\"[src.Class]\"")
-	winset(src,"LabelName","text=\"[src.name]\"")
+	winset(src,"LabelRace","text=\"[race.name]\"")
+	winset(src,"LabelSex","text=\"[Gender]\"")
+	winset(src,"LabelType","text=\"[Class]\"")
+	winset(src,"LabelName","text=\"[name]\"")
 
+var/mob/tmp/sex_ticker = 1
 mob
-	verb/ToggleBlah2(var/blah as text)
+	verb/ToggleBlah2(blah as text)
 		set name=".ToggleBlah"
 		set hidden=1
 		if(!(world.time > verb_delay)) return
@@ -1233,7 +1223,7 @@ mob
 				goto Namez
 				return
 			usr.UpdateBio()
-		if(blah=="Class")
+		else if(blah=="Class")
 			if(usr.Race=="Namekian")
 				if(usr.Class=="Warrior")
 					usr.Class="Dragon"
@@ -1270,18 +1260,27 @@ mob
 			usr.RacialStats()
 			spawn()usr.UpdateBio()
 
-		if(blah=="Sex")
-			if(usr.Asexual)
-				usr.Gender="---"
-			else if(usr.Gender=="Male")
-				usr.Gender="Female"
+		else if(blah=="Sex")
+			var/list/options = usr.race.gender_options
+			var/current_index = options.Find(usr.Gender)
+
+			if (current_index != -1)
+				var/next_index = (current_index + 1) % (options.len+1)
+				if(next_index == 0)
+					next_index = 1
+				usr.Gender = options[next_index]
 			else
-				usr.Gender="Male"
+				usr.Gender = options[1]
+
 			usr.RacialStats()
 			usr.UpdateBio()
-			return
 
-
+			if(usr.Gender == "Male")
+				usr.icon = race.icon_male
+			else if(usr.Gender == "Female")
+				usr.icon = race.icon_female
+			else if(usr.Gender == "Neuter")
+				usr.icon = race.icon_neuter
 
 mob/var/Plan=1
 mob/var/Rac=1
@@ -1291,223 +1290,40 @@ var/list/SagaLockOut=list()
 var/list/RaceLock=list()
 var/list/TechLockOut=list()
 
-mob/proc/CheckRace(var/Race, var/Dir)
-	if(!src.CheckUnlock(Race))
-		UpdateRaceScreen("Race", Dir)
-mob/proc/CheckOffworld(var/Dir)
-	if(!src.CheckUnlock("Shinjin")&&!src.CheckUnlock("Demon")&&!src.CheckUnlock("Dragon"))
-		UpdateRaceScreen("Planet", Dir)
-		return 1
-	return 0
-mob/proc/CheckCreated(var/Dir)
-	if(!src.CheckUnlock("Android")&&!src.CheckUnlock("Majin"))
-		UpdateRaceScreen("Planet", Dir)
-		return 1
-	return 0
+mob/var/tmp/race_index = 1
 
-mob/proc/UpdateRaceScreen(var/Mode,var/Change)
-	if(Change)
-		if(Mode)
-			switch(Mode)
-				if("Planet")
-					Rac=1
-					switch(Change)
-						if("+")
-							src.Plan++
-							if(Plan>4)
-								Plan=1
-						if("-")
-							src.Plan--
-							if(Plan<1)
-								Plan=4
+mob/proc/UpdateRaceScreen(change)
+	var/race/r
 
-				if("Race")
-					switch(Change)
-						if("+")
-							Rac++
-						if("-")
-							Rac--
+	while (1)
+		if(change)
+			if (change > 0)
+				race_index++
+				if (race_index > races.len)
+					race_index = 1
+			else
+				race_index--
+				if (race_index == 0)
+					race_index = races.len
+
+		r = races[race_index]
+		if (CheckUnlock(r))
+			break
+
+	setRace(r)
+	var/list/options = usr.race.gender_options
+	var/current_index = options.Find(usr.Gender)
+
+	if (current_index != -1)
+		var/next_index = (current_index + 1) % (options.len+1)
+		if(next_index == 0)
+			next_index = 1
+		usr.Gender = options[next_index]
 	else
-		Change="+"
-	src.Hairz("Remove")
-	src.Class="Fighter"
-	if(Plan==1)//Civilized; Human, Makyo, Half Saiyan, Namekian
-		if(Rac>4)
-			Rac=1
-		if(Rac<1)
-			Rac=4
-		if(Rac==1)
-			src.Asexual=0
-			Race="Human"
-			if(src.gender=="female")
-				src.icon='FemaleLight.dmi'
-			else
-				src.icon='MaleLight.dmi'
-		if(Rac==2)
-			src.Asexual=0
-			Race="Makyo"
-			if(src.gender=="female")
-				src.icon='Icons/Oni-Makyo/Makyo F.dmi'
-			else
-				src.icon='Icons/Oni-Makyo/Makyo M.dmi'
-		if(Rac==3)
-			src.Asexual=1
-			src.Race="Namekian"
-			src.Class="Dragon"
-			src.icon='Namek1.dmi'
-		if(Rac==4)
-			src.Asexual=0
-			Race="Half Saiyan"
-			if(src.gender=="female")
-				src.icon='FemaleLight.dmi'
-			else
-				src.icon='MaleLight.dmi'
-
-
-	if(Plan==2)//Savage; Saiyan, Tuffle, Alien, Monster, Changeling
-		if(Rac>5)
-			Rac=1
-		if(Rac<1)
-			Rac=4
-		if(Rac==4)//these boys are still rare
-			src.CheckRace("Changeling", Change)
-
-		if(Rac==1)
-			src.Asexual=0
-			src.Race="Saiyan"
-			if(src.gender=="female")
-				src.icon='FemaleLight.dmi'
-			else
-				src.icon='MaleLight.dmi'
-		if(Rac==2)
-			Class="Innocent"
-			src.Asexual=0
-			src.Race="Majin"
-			if(src.gender=="female")
-				icon = 'Icons/Majins/Majin Base Fem.dmi'
-			else
-				icon = 'Icons/Majins/Majin Base Masc.dmi'
-		if(Rac==3)
-			src.Asexual=0
-			src.Race="Monster"
-			src.Class="Beastmen"
-			if(src.gender=="female")
-				src.icon='AlienAvian_Female.dmi'
-			else
-				src.icon='AlienTiger_Male.dmi'
-		if(Rac==4)
-			src.Asexual=1
-			src.Race="Changeling"
-			src.icon='Frieza1.dmi'
-			src.Class="Fighter"
-
-	if(Plan==3)//Offworld; Shinjin, Demon, Dragon
-		if(src.CheckOffworld(Change))
-			return
-		if(Rac>3)
-			Rac=1
-		if(Rac<1)
-			Rac=3
-		if(Rac==1)
-			src.CheckRace("Shinjin", Change)
-		if(Rac==2)
-			src.CheckRace("Demon", Change)
-		if(Rac==3)
-			src.CheckRace("Dragon", Change)
-
-		if(Rac==1)
-			src.Asexual=0
-			src.Race="Shinjin"
-			src.Class="North"
-			if(src.gender=="female")
-				src.icon='CustomFemale.dmi'
-			else
-				src.icon='CustomMale.dmi'
-		if(Rac==2)
-			src.Asexual=0
-			src.Race="Demon"
-			src.icon='Demon1.dmi'
-			src.Class="D"
-		if(Rac==3)
-			src.Asexual=1
-			src.Race="Dragon"
-			src.icon='Dragon1.dmi'
-
-
-	if(Plan==4)//Created; Android, Majin
-		if(src.CheckCreated(Change))
-			return
-		if(Rac>1)
-			Rac=1
-		if(Rac<1)
-			Rac=1
-		if(Rac==1)
-			src.CheckRace("Android", Change)
-		if(Rac==1)
-			src.Asexual=1
-			src.Race="Android"
-			src.icon='Android1.dmi'
-			src.Class="Fighter"
-
-	winset(src,"RaceName","text=\"[src.Race]\"")
-	if(Race == "Majin")
-		winset(src,"RaceName","text=\"Dokkaebi\"")
-
-	if(Plan==1)
-		winset(src,"PlanetName","text='Humanoid'")
-		winset(src,"Planet1","image=['Humanity.png']")
-	if(Plan==2)
-		winset(src,"PlanetName","text='Monstrous'")
-		winset(src,"Planet1","image=['Monstrous.png']")
-	if(Plan==3)
-		winset(src,"PlanetName","text='Eldritch'")
-		winset(src,"Planet1","image=['Eldritch.png']")
-	if(Plan==4)
-		winset(src,"PlanetName","text='Artificial'")
-		winset(src,"Planet1","image=['Android.png']")
-
-	if(src.Race=="Human")
-		winset(usr,"Iconz","image=['Humans.png']")
-		src<<output("Humanity. What is there more to say? The base class that is given to all PLAYERS who failed to receive anything special. A race that continues to rapidly advance in technology and culture to the point that it brought the emergence of the Tower. A race of people who always seek to rise up to the challenge and fight back even when all hope is lost. ","raceblurb")
-	if(src.Race=="Makyo")
-		winset(usr,"Iconz","image=['Makyo.png']")
-		src<<output("A class representing the followers of the Moon. A racial class focused on channeling the power of lunar energy to power oneself to immense levels. They utilize the different phases of the moon in order to expand their strength to levels unheard, especially compared to regular humans. Those who have this class usually have some shade of gray skin color while also having a lunar symbol somewhere on their body.","raceblurb")
-	if(src.Race=="Namekian")
-		winset(usr,"Iconz","image=['Namek.png']")
-		src<<output("Representatives of the Earth itself. Those who receive this class are those who value the Earth more than anything else. They fight to protect the very planet itself and wish to see it live past the age of Humanity. This class focuses more on the druidic arts and follows a very diverse nomadic culture. Their personalities tend to clash greatly with those of the LUMINERE class and conflicts usually ensue when they are in the same room. Those who receive this class usually have antenna, rocky parts, and/or Earthen skin (green to brown).","raceblurb")
-	if(src.Race=="Half Saiyan")
-		winset(usr,"Iconz","image=['Halfie.png']")
-		src<<output("Some would say this class is pretty much a cheat class. Hell, what the hell is a hidden class anyways? They say it's the combination of two different classes, but those people sound like haters. A class that can do what two other classes can do and better? Well now that just sounds like bullshit. Those who receive this class usually have features that are the combination of both the HUMAN class and the MONKEY WARRIOR class.","raceblurb")
-
-	if(src.Race=="Saiyan")
-		winset(usr,"Iconz","image=['Saiyan.png']")
-		src<<output("A class of warriors through and through. Those who receive this class usually tend to have been fighters or hold some sort of fighting spirit deep within them. Even those who were seen as cowardly were able to awaken to this class due the internal fight they had to suffer through every day. The MONKEY WARRIOR class is that of power and that of freedom. Some tend to be hot headed while others calm and strategic. Every person has their own way of showing their power after all. Those who receive this class tend to have primate features, be it tails or fur, and are usually larger than most humans.","raceblurb")
-	if(src.Race=="Alien")
-		winset(usr,"Iconz","image=['Alien.png']")
-		src<<output("This class covers all that cannot be defined in the other numerous classes. Those who receive this class do not fit in any other classification and are much more flexible than any other class. They tend to be more open to other people and flexible when it comes to how they approach their various situations. Those of the GRAYSKIN class tend to have the most variety of features, yet still always keeping their humanoid figure even if they may not look like a human. ","raceblurb")
-	if(src.Race=="Monster")
-		winset(usr,"Iconz","image=['Monster.png']")
-		src<<output("A very generalized class that represents all those that were given skills/features that others would deem ‘monstrous’. The MONSTER class is usually given to those who have experienced things no other humans should have in the world. Be it war, crime, drugs, or the darkest pits of human civilization. The people who receive this class tend to usually have rather melancholic personality or are cynical in nature. The features of this class are very diverse, but they tend to have a fearsome or ‘monstrous’ appearance.","raceblurb")
-	if(src.Race=="Changeling")
-		winset(usr,"Iconz","image=['i_Changling.gif']")
-		src<<output("A class consisting of Players who have undergone a specific mutation, granting them the ability to store their power as a hardened carapace around their body. As they progress through a fight, they can reassimilate this, sacrificing defenses to greatly elevate their power. Beyond the presence of natural armor upon their frame, the STONESKIN has no specifically defining features, coming in all different shapes and sizes. Many have tails however and bear other lizard-like features, hence the name.","raceblurb")
-
-	if(src.Race=="Shinjin")
-		winset(usr,"Iconz","image=['Manager.png']")
-		src<<output("A mysterious entity residing inside of the Tower. They're unknown, even to the Players, speaking only ever sweet whispers and strange phenomena.","raceblurb")
-	if(src.Race=="Demon")
-		winset(usr,"Iconz","image=['Demon.png']")
-		src<<output("...!?","raceblurb")
-	if(src.Race=="Dragon")
-		winset(usr,"Iconz","image=['Dragon.png']")
-		src<<output("...!?","raceblurb")
-
-	if(src.Race=="Android")
-		winset(usr,"Iconz","image=['i_Android.gif']")
-		src<<output("Androids are artifical lifeforms typically created by skilled scientists.  They cannot upgrade their own systems, but they will never grow tired or weary.","raceblurb")
-	if(src.Race=="Majin")
-		winset(usr,"Iconz","image=['Majins.png']")
-		src<<output("Those gifted with this class are dubbed as ‘Accursed’ despite the namesake representing a legendary Korean folktale. While normally classes are straight forward, or super secretive, this class is shrouded in confusion. The consistency between the people who inherit this class all vary greatly, however, the only consistency they have is their ability to consume monsters and Players alike, as well as their seemingly unkillable nature. Some believe the name of the class to be more like a taunt at those cursed to inherit the class and because of this, some bear through the pain of being able to regenerate from nigh-death and an endless hunger. While others let their inner desires loose, stopping at nothing to please the ‘goblin’ within them.","raceblurb")
+		usr.Gender = options[1]
+	winset(src,"RaceName","text=[race.name]")
+	winset(usr,"Iconz","image=[race.visual]")
+	src << output(race.desc,"raceblurb")
 
 obj/Login
 	name="\[            \]"
@@ -1689,8 +1505,10 @@ mob/proc
 		LOL.Tail=src.Tail
 		LOL.GenRaces=src.GenRaces
 		LOL.AscensionsUnlocked=src.AscensionsUnlocked
+		LOL.race = race
 		src.client.mob=LOL
 		del(src)
+
 	Finalize(var/Warped=0)
 		passive_overhaul = FALSE
 		src.Hair_Forms()
@@ -1702,7 +1520,10 @@ mob/proc
 		src.Text_Color=pick("#00FF00","#FFFF00","#FF00FF","#0000FF","#FF0000","#00FFFF")
 		src.OOC_Color=pick("#00FF00","#FFFF00","#FF00FF","#0000FF","#FF0000","#00FFFF")
 		src.Emote_Color = pick("#00FF00","#FFFF00","#FF00FF","#0000FF","#FF0000","#00FFFF")
-		passive_handler=new
+
+		passive_handler = new
+		passive_handler.increaseList(race.passives)
+
 		if(!Warped)
 			src.Potential=0
 			if(!locate(/obj/Money, src))
