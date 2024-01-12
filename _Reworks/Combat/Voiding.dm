@@ -157,8 +157,8 @@ mob/proc/Void(override, zombie, forceVoid, extraChance,extraRolls)
 		Chance += SagaLevel * 2
 	
 	if(secretDatum && secretDatum.name in SPIRITS_NAMES)
-		extraChance += Potential/4 + (secretDatum.currentTier * 5)
-		src<<"You have [extraChance] extra void chance from your REDACTED" //TODO: leaving as a note to change if needed
+		extraChance -= Potential/4 + (secretDatum.currentTier * 5)
+		src<<"You have [extraChance] reduced void chance from your REDACTED" //TODO: leaving as a note to change if needed
 
 	// handle the rolling here maybe
 
