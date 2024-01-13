@@ -1725,7 +1725,7 @@ mob/proc/Jaganshi()
 
 mob/proc/RevertJaganshi()
 	src.JaganPowerNerf=src.JaganBase
-
+/*
 
 mob/proc/Transform(var/Type)
 	var/FirstTimeHeal=0
@@ -1987,7 +1987,7 @@ mob/proc/Revert(var/Type, var/Controlled=0)
 		src.Auraz("Add")
 	else
 		src.Auraz("Remove")
-
+*/
 mob/proc/Shockwave(var/icon/E,var/Q=1, var/x1=0, var/y1=0)
 	set waitfor=0
 	set background=1

@@ -295,12 +295,18 @@ mob/proc/Auraz(var/Z)
 					if("Phoenix")
 						src.underlays+=phoenix
 					if("Unicorn")
-						src.underlays+=unicorn	
+						src.underlays+=unicorn
 		else if(src.Saga=="Spiral")
 			src.underlays+=spiral
 
 		else if(src.BurningShot)
 			src.overlays+=flameaura
+
+		else if(transActive)
+			if(race.transformations[transActive].form_aura)
+				overlays += image(icon=race.transformations[transActive].form_aura, pixel_x = race.transformations[transActive].form_aura_x, pixel_y = race.transformations[transActive].form_aura_y)
+			if(race.transformations[transActive].form_aura_underlay)
+				overlays += image(icon=race.transformations[transActive].form_aura_underlay, pixel_x = race.transformations[transActive].form_aura_underlay_x, pixel_y = race.transformations[transActive].form_aura_underlay_y)
 
 		else if(src.ssj["active"])
 
@@ -444,6 +450,11 @@ mob/proc/Auraz(var/Z)
 		src.overlays-=image('SpiralAura.dmi',"",pixel_x=-32)
 		src.overlays-=image('AuraMystic.dmi',pixel_x=-32)
 		src.overlays-=image('BlackFlameAura.dmi')
+		if(transActive)
+			if(race.transformations[transActive].form_aura)
+				overlays -= image(icon=race.transformations[transActive].form_aura, pixel_x = race.transformations[transActive].form_aura_x, pixel_y = race.transformations[transActive].form_aura_y)
+			if(race.transformations[transActive].form_aura_underlay)
+				overlays -= image(icon=race.transformations[transActive].form_aura_underlay, pixel_x = race.transformations[transActive].form_aura_underlay_x, pixel_y = race.transformations[transActive].form_aura_underlay_y)
 
 		src.overlays-=image(icon=src.Form1Aura, pixel_x=src.Form1AuraX, pixel_y=src.Form1AuraY)
 		src.overlays-=image(icon=src.Form2Aura, pixel_x=src.Form2AuraX, pixel_y=src.Form2AuraY)
@@ -554,6 +565,11 @@ mob/proc/Hairz(var/Z)
 			if(HairB&&src.Hair_Color)
 				HairB.Blend(src.Hair_Color, ICON_ADD)
 			Hair = image(icon=HairB)
+
+		else if(transActive)
+			if(race.transformations[transActive].form_hair)
+				Hair = image(icon=race.transformations[transActive].form_hair, pixel_x = race.transformations[transActive].form_hair_x, pixel_y = race.transformations[transActive].form_hair_y)
+
 		else if(src.ssj["active"]==1)
 			if(src.HasGodKi())
 				Hair = image(icon=src.Hair_SSJBlue)

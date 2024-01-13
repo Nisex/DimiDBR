@@ -114,8 +114,8 @@ race
 		defense = 1
 		speed = 1
 
-		anger_message = "
-		angerPoint = 50
+		anger_message = ""
+		anger_point = 50
 		anger = 1
 		regeneration = 1
 		recovery = 1
@@ -150,9 +150,6 @@ race
 		visual = 'Humans.png'
 
 		passives = list("Desperation" = 1, "Adrenaline" = 0.5, "TechniqueMastery" = 5)
-		passive_handler.Increase("Desperation", 1)
-		passive_handler.Increase("Adrenaline", 0.5)
-		passive_handler.Increase("TechniqueMastery", 5)
 		strength = 1
 		endurance = 1
 		force = 1
