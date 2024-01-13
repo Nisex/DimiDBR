@@ -279,9 +279,7 @@ mob/Players
 			refundOldMagicShit()
 			mass_magic_reset = FALSE
 		if(massReset)
-			MagicCulling()
 			AdjustJob()
-			StandardizeAngerPoint()
 			massReset = FALSE
 		GiveJobVerbs()
 		// if(RewardsLastGained > 100)

@@ -55,4 +55,4 @@ essentially check if we are -on update x, if not, update to x, if so, do nothing
 		// essentially do the update needed her
 		// for example, with the next thing we will be finding fiber stacks and reducing their asc giving power
 		..()
-* / 
+*/ 
