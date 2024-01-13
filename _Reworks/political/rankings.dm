@@ -4,7 +4,7 @@
     if(length(information.title) < 1)
         information.addTitle("Noob", "#fff")
 
-
+//TODO: prob remove as well, dunno if this is being kept
 /datum/characterInformation
     var/rankingTier = "Rookie"
     var/rankingNumber = "ERROR"

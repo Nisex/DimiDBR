@@ -111,6 +111,10 @@
             src<<"[x]: [total[x]]"
 /datum/characterInformation
 
+
+
+//TODO: somebody else can do examine
+
 /datum/characterInformation/proc/getInformation(mob/p, pronouns)
     var/msg = ""
     if(rankingNumber == "ERROR")

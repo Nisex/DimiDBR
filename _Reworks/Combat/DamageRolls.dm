@@ -21,10 +21,10 @@ var/global/new_damage_calc = 0
 	switch(input)
 		if("No")
 			glob.DMG_CALC_2 = FALSE
-			world<< "[SYSTEM]'s new DAMAGE FORMULA set to OFF[SYSTEMTEXTEND]"
+			src<< "Experimental damage is now off."
 		else
 			glob.DMG_CALC_2 = TRUE
-			world<< "[SYSTEM]'s new DAMAGE FORMULA set to ON[SYSTEMTEXTEND]"
+			src<< "Experimental damage is now on."
 
 
 proc/randValue(min,max,divider=10)

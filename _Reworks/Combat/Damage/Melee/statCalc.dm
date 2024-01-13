@@ -11,44 +11,43 @@
 	switch(accuracy)
 		if("On")
 			EXPERIMENTAL_ACCURACY = TRUE
-			world<< "[SYSTEM] Experimental Accuracy is now [accuracy][SYSTEMTEXTEND]]"
+			
 		if("Off")
 			EXPERIMENTAL_ACCURACY = FALSE
-			world<< "[SYSTEM] Experimental Accuracy is now [accuracy][SYSTEMTEXTEND]]"
+			
 
 
 /mob/Admin3/verb/changeEffectiveness()
 	switch(input(src, "What one?") in list("Strength", "Force", "Endurance", "Strength Overcap", "Strength Threshold", "str2", "end2", "power2", "Melee", "Projectile", "Grapple", "Autohit"))
 		if("Strength")
 			glob.STRENGTH_EFFECTIVENESS = input(src, "What value?") as num
-			world<< "[SYSTEM] Strength Effectiveness set to [glob.STRENGTH_EFFECTIVENESS][SYSTEMTEXTEND]]"
+			
 		if("Force")
 			glob.FORCE_EFFECTIVENESS = input(src, "What value?") as num
-			world<< "[SYSTEM] Force Effectiveness set to [glob.FORCE_EFFECTIVENESS][SYSTEMTEXTEND]]"
+			
 		if("Endurance")
 			glob.END_EFFECTIVENESS = input(src, "What value?") as num
-			world<< "[SYSTEM] Endurance Effectiveness set to [glob.END_EFFECTIVENESS][SYSTEMTEXTEND]]"
+			
 		if("str2")
 			glob.DMG_STR_EXPONENT = input(src, "What value?") as num
-			world<< "[SYSTEM] DMG2 Strength effectiveness set to [glob.DMG_STR_EXPONENT][SYSTEMTEXTEND]]"
+			
 		if("end2")
 			glob.DMG_END_EXPONENT = input(src, "What value?") as num
-			world<< "[SYSTEM] DMG2 End effectiveness set to [glob.DMG_END_EXPONENT][SYSTEMTEXTEND]]"
+			
 		if("power2")
 			glob.DMG_POWER_EXPONENT = input(src, "What value?") as num
-			world<< "[SYSTEM] DMG2 Power effectiveness set to [glob.DMG_POWER_EXPONENT][SYSTEMTEXTEND]]"
 		if("Melee")
 			glob.MELEE_EFFECTIVENESS = input(src, "What value?") as num
-			world<< "[SYSTEM] Melee effectiveness set to [glob.MELEE_EFFECTIVENESS][SYSTEMTEXTEND]]"
+			
 		if("Projectile")
 			glob.PROJECTILE_EFFECTIVNESS = input(src, "What value?") as num
-			world<< "[SYSTEM] Projectile effectiveness set to [glob.PROJECTILE_EFFECTIVNESS][SYSTEMTEXTEND]]"
+			
 		if("Grapple")
 			glob.GRAPPLE_EFFECTIVNESS = input(src, "What value?") as num
-			world<< "[SYSTEM] Grapple effectiveness set to [glob.GRAPPLE_EFFECTIVNESS][SYSTEMTEXTEND]]"
+			
 		if("Autohit")
 			glob.AUTOHIT_EFFECTIVNESS = input(src, "What value?") as num
-			world<< "[SYSTEM] Autohit effectiveness set to [glob.AUTOHIT_EFFECTIVNESS][SYSTEMTEXTEND]]"
+			
 
 
 

@@ -79,7 +79,7 @@ mob
 					var/baseSupporterMoney = 500
 					extraMoney = baseSupporterMoney * currentPot - ((currentRanking-1) * 1000)
 					if(extraMoney > 0)
-						src << "[SYSTEM]YOUR ACCOUNT HAS GAINED [extraMoney] [glob.progress.MoneyName] FROM SUPPORTERS DUE TO YOUR RANKING.][SYSTEMTEXTEND]"
+						src << "PLACEHOLDER: You gain [extraMoney] money from your ranking."
 					else
 						extraMoney = 0
 				src.GiveMoney(max(0,round(glob.progress.EconomyIncome*src.EconomyMult*src.Intelligence)) + extraMoney)
