@@ -429,12 +429,12 @@ mob/Admin3/verb
 		else
 			switch(Selection)
 				if("Spirits of The World")
-					var/path = input(src, "Which path of Spirits of The World do you wish to follow?", "Spirits of The World") in list("Goetic_Virtue", "Stellar Constellation", "Elven Sanctuary")
+					var/path = input(src, "Which path of Spirits of The World do you wish to follow?", "Spirits of The World") in list("Goetic Virtue", "Stellar Constellation", "Elven Sanctuary")
 					// for now, admins pick it, as there 
 					P.Secret = path
 					var/newpath = replacetext(path, " ", "_")
 					newpath = "Spirits_Of_The_World/[newpath]"
-					p.giveSecret(newpath)
+					P.giveSecret(newpath)
 				if("Jagan")
 					P.Secret = "Jagan"
 					P.giveSecret("Jagan")

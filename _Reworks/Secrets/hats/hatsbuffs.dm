@@ -7,8 +7,8 @@
         passives += p.secretDatum:applyPassives(p)
 
 
-    proc/adjust(mob/p, child)
-        grantChildBoons(p)
+    proc/adjust(mob/p)
+        getChildBoons(p)
         if(altered) return
         var/secretLevel = p.getSecretLevel()
         var/pot = p.Potential
@@ -18,3 +18,8 @@
         passives["ManaSteal"] = 5 + (0.5 * pot + (5 * secretLevel)) // max 50% of dmg as mana back @ 50 pot, 80 @ 100
         strAdd = (0.05 * secretLevel) + (0.005 * pot)
         forAdd = (0.05 * secretLevel) + (0.005 * pot)
+    verb/Hat_Buff()
+        set category = "Skills"
+        set name = "Spirit Buff"
+        src.Trigger(usr)
+        usr << "You feel a surge of power from your hat!"
