@@ -3777,12 +3777,12 @@ mob
 
 			if(AttackQueue.Dominator)
 				if(Health>P.Health)
-					var/ratio = (clamp(P.Health / Health, 1, 4) / glob.Q_DIVISOR)
+					var/ratio = (clamp(Health / P.Health, 1, 4) / glob.Q_DIVISOR)
 					if(ratio > 0)
 						Damage+=ratio
 			if(AttackQueue.Determinator)
 				if(Health<P.Health&&Health!=0)
-					var/ratio = clamp(Health / P.Health, 1, 4) / glob.Q_DIVISOR
+					var/ratio = clamp( P.Health / Health, 1, 4) / glob.Q_DIVISOR
 					if(ratio > 0)
 						Damage+=ratio
 

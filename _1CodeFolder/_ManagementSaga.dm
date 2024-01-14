@@ -739,6 +739,8 @@ mob
 
 				if("Cosmo")
 					tierUpSaga("Cosmo")
+				if("Spiral")
+					tierUpSaga("Spiral")
 				if("Weapon Soul")
 					if(src.SagaLevel==2)
 						src << "Your knowledge on classic swordplay improves."
