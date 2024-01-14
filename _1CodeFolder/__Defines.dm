@@ -21,7 +21,22 @@ proc/log_func(x, a, b)
 
 //Key thing that stops lag. Cornerstone of performance in ss13, Just sitting here, in unsorted.dm. Now with dedicated file!
 
+#define BUILD_PAINT "PAINT"
+#define BUILD_RECT "RECTANGLE"
+#define BUILD_RECT_HOLLOW "HOLLOW RECTANGLE"
+#define BUILD_LINE "LINE"
+#define BUILD_FILL "FILL"
+#define BUILD_ELLIPSE "ELLIPSE"
+#define BUILD_SELECT "SELECT"
+#define BUILD_PICK "PICK"
 
+#define BUILD_TURFS "Turfs"
+#define BUILD_OBJS "Map Objects"
+
+#define BUILD_MAX_DIM 50
+
+#define TILE_HEIGHT 32
+#define TILE_WIDTH 32
 
 proc
 	stoplag()
