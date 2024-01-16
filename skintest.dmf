@@ -631,15 +631,12 @@ window "mainwindow"
 		statusbar = false
 		macro = "macro"
 		menu = "menu"
-		outer-size = 658x572
-		inner-size = 640x500
 	elem "mainvsplit"
 		type = CHILD
 		pos = 0,0
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
-		background-color = none
 		saved-params = "splitter"
 		right = "rpane"
 		is-vert = true
@@ -715,7 +712,6 @@ window "mapwindow"
 		size = 680x460
 		anchor1 = -1,-1
 		anchor2 = -1,-1
-		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		titlebar = false
 		statusbar = false
@@ -724,8 +720,6 @@ window "mapwindow"
 		can-resize = false
 		is-pane = true
 		keep-aspect = true
-		outer-size = 696x476
-		inner-size = 680x460
 	elem "map"
 		type = MAP
 		pos = 0,0
@@ -1045,7 +1039,6 @@ window "outputwindow"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
-		outer-size = 656x496
 	elem "chattabs"
 		type = TAB
 		pos = 0,0
@@ -1116,7 +1109,6 @@ window "infowindow"
 		size = 640x480
 		anchor1 = -1,-1
 		anchor2 = -1,-1
-		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Info"
 		titlebar = false
@@ -1125,7 +1117,6 @@ window "infowindow"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
-		outer-size = 656x496
 	elem "info"
 		type = INFO
 		pos = 0,0
@@ -1145,8 +1136,8 @@ window "infowindow"
 window "Race_Screen"
 	elem "Race_Screen"
 		type = MAIN
-		pos = 372,0
-		size = 900x601
+		pos = 291,0
+		size = 500x601
 		anchor1 = -1,-1
 		anchor2 = -1,-1
 		background-color = #000000
@@ -1158,10 +1149,12 @@ window "Race_Screen"
 		can-minimize = false
 		can-resize = false
 		image-mode = tile
+		outer-size = 516x640
+		inner-size = 500x601
 	elem "raceblurb"
 		type = LABEL
 		pos = 0,340
-		size = 899x224
+		size = 499x224
 		anchor1 = 0,57
 		anchor2 = 100,94
 		font-size = 10
@@ -1171,23 +1164,10 @@ window "Race_Screen"
 		saved-params = ""
 		text = ""
 		text-wrap = true
-	elem "BabyButton"
-		type = BUTTON
-		pos = 0,527
-		size = 68x36
-		anchor1 = 0,88
-		anchor2 = 8,94
-		font-family = "@Kozuka Mincho Pro R"
-		text-color = #ffff80
-		background-color = #400040
-		is-visible = false
-		saved-params = "is-checked"
-		text = "Baby!"
-		command = ".Baby"
 	elem "button20"
 		type = BUTTON
-		pos = 871,150
-		size = 27x96
+		pos = 416,122
+		size = 62x134
 		anchor1 = 97,25
 		anchor2 = 100,41
 		font-family = "@Adobe Fan Heiti Std B"
@@ -1201,8 +1181,8 @@ window "Race_Screen"
 		is-flat = true
 	elem "Iconz"
 		type = LABEL
-		pos = 478,31
-		size = 394x310
+		pos = 66,32
+		size = 350x310
 		anchor1 = 53,5
 		anchor2 = 97,57
 		text-color = #ffffff
@@ -1214,7 +1194,7 @@ window "Race_Screen"
 	elem "button3"
 		type = BUTTON
 		pos = 0,564
-		size = 899x36
+		size = 499x36
 		anchor1 = 0,94
 		anchor2 = 100,100
 		font-family = "Maiandra GD"
@@ -1226,8 +1206,8 @@ window "Race_Screen"
 		command = ".Next_Step"
 	elem "RaceName"
 		type = LABEL
-		pos = 449,0
-		size = 452x32
+		pos = 66,0
+		size = 350x32
 		anchor1 = 50,0
 		anchor2 = 100,5
 		font-family = "Papyrus"
@@ -1239,24 +1219,10 @@ window "Race_Screen"
 		saved-params = ""
 		text = "Human"
 		image-mode = tile
-	elem "PlanetName"
-		type = LABEL
-		pos = 0,0
-		size = 450x32
-		anchor1 = 0,0
-		anchor2 = 50,5
-		font-family = "Papyrus"
-		font-size = 15
-		font-style = "bold"
-		text-color = #ffffff
-		background-color = #000000
-		border = line
-		saved-params = ""
-		text = "Earth"
 	elem "Button3"
 		type = BUTTON
-		pos = 452,150
-		size = 27x96
+		pos = 16,128
+		size = 52x136
 		anchor1 = 50,25
 		anchor2 = 53,41
 		font-family = "@Adobe Fan Heiti Std B"
@@ -1268,48 +1234,6 @@ window "Race_Screen"
 		text = "<"
 		command = ".RaceShift \"-\""
 		is-flat = true
-	elem "button1"
-		type = BUTTON
-		pos = 419,150
-		size = 27x96
-		anchor1 = 47,25
-		anchor2 = 50,41
-		font-family = "@Adobe Fan Heiti Std B"
-		font-size = 15
-		font-style = "bold"
-		text-color = #ffffff
-		background-color = #000000
-		border = line
-		saved-params = "is-checked"
-		text = ">"
-		command = ".PlanetShift \"+\""
-		is-flat = true
-	elem "Button1"
-		type = BUTTON
-		pos = 0,150
-		size = 27x96
-		anchor1 = 0,25
-		anchor2 = 3,41
-		font-family = "@Adobe Fan Heiti Std B"
-		font-size = 15
-		font-style = "bold"
-		text-color = #ffffff
-		background-color = #000000
-		border = line
-		saved-params = "is-checked"
-		text = "<"
-		command = ".PlanetShift \"-\""
-		is-flat = true
-	elem "Planet1"
-		type = LABEL
-		pos = 26,31
-		size = 394x310
-		anchor1 = 3,5
-		anchor2 = 47,57
-		background-color = #000000
-		border = line
-		saved-params = ""
-		text = ""
 
 window "Steal"
 	elem "Steal"

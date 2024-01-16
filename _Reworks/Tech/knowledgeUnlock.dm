@@ -1,4 +1,4 @@
-#define subtypesof(typepath) ( typesof(typepath) - typepath )
+//#define subtypesof(typepath) ( typesof(typepath) - typepath )
 
 var/knowledgePaths/tech/list/TechnologyTree = list()
 

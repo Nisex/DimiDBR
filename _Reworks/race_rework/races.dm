@@ -53,7 +53,7 @@ mob
 
 			if(race) overlays -= race.overlays
 
-			race = new_race
+			race = new new_race.type
 
 			if(Gender == "Female")
 				icon = race.icon_female
@@ -80,6 +80,11 @@ mob
 			if(race.type == raceCheck) return 1
 			return 0
 
+mob
+	verb
+		testshit()
+			for(var/transformation/i in usr.race.transformations)
+				world << "[i.type]"
 
 race
 	var
@@ -139,8 +144,12 @@ race
 		list/transformations = new/list()
 
 	New()
-		ascensions = new subtypesof("/ascension/[lowertext(name)]")
-		transformations = new subtypesof("/transformation/[lowertext(name)]")
+		ascensions = subtypesof(text2path("/ascension/[lowertext(name)]"))
+		transformations = subtypesof(text2path("/transformation/[lowertext(name)]"))
+		for(var/i in ascensions)
+			ascensions[i] = new i
+		for(var/i in transformations)
+			transformations[i] = new i
 
 	human
 		name = "Human"
@@ -165,7 +174,7 @@ race
 		icon_female = 'FemaleLight.dmi'
 		desc = "These are saiyans."
 		visual = 'Saiyan.png'
-		locked = TRUE
+		locked = FALSE
 
 		strength = 2
 		endurance = 2

@@ -34,12 +34,14 @@ ascension
 		choiceMessage = ""
 		list/choices = list()
 		ascension/choiceSelected
+		pickingChoice = FALSE
+
 
 		applied = FALSE
 
 	proc
 		onAscension(mob/owner)
-			if(applied) return
+			if(applied || pickingChoice) return
 			choiceSelection(owner)
 			if(choices.len > 0 && !choiceSelected) return
 
@@ -87,9 +89,11 @@ ascension
 				choiceAsc.onAscension(owner)
 
 		choiceSelection(mob/owner)
-			if(choices.len == 0 || choiceSelected) return
+			if(choices.len == 0 || choiceSelected || pickingChoice) return
+			pickingChoice = TRUE
 			var/selected = input(owner, choiceMessage, choiceTitle) in choices
 			choiceSelected = choices[selected]
+			pickingChoice = FALSE
 
 		checkAscensionUnlock(potential)
 			if(unlock_potential==-1) return 0
