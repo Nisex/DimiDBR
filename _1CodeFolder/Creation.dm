@@ -1295,6 +1295,7 @@ mob/var/tmp/race_index = 1
 mob/proc/UpdateRaceScreen(change)
 	var/race/r
 
+	//TODO: pretty sure this can cause issues if theres absolutely nothing unlocked. would be smart to have a bail-out.
 	while (1)
 		if(change)
 			if (change > 0)
@@ -1506,6 +1507,7 @@ mob/proc
 		LOL.GenRaces=src.GenRaces
 		LOL.AscensionsUnlocked=src.AscensionsUnlocked
 		LOL.race = race
+		LOL.setRace(race, creationFinalized = TRUE)
 		src.client.mob=LOL
 		del(src)
 
@@ -1520,9 +1522,6 @@ mob/proc
 		src.Text_Color=pick("#00FF00","#FFFF00","#FF00FF","#0000FF","#FF0000","#00FFFF")
 		src.OOC_Color=pick("#00FF00","#FFFF00","#FF00FF","#0000FF","#FF0000","#00FFFF")
 		src.Emote_Color = pick("#00FF00","#FFFF00","#FF00FF","#0000FF","#FF0000","#00FFFF")
-
-		passive_handler = new
-		passive_handler.increaseList(race.passives)
 
 		if(!Warped)
 			src.Potential=0

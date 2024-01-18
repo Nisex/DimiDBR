@@ -8,33 +8,34 @@ This is also done so we can easily check types.
 #define SAIYAN /race/saiyan
 #define NAMEKIAN /race/namekian
 
-#define RACIAL_FEATURES_LAYER FLOAT_LAYER+0.01
-
 var/list/races = list()
 
 proc
+	//this adds a copy of all races to a global list called races.
 	BuildRaceList()
-		races = list()
 		for(var/a in subtypesof(/race/))
 			races += new a
 
-	GetRaces()
-		return races
-
+	//this will return a list of all race types.
 	GetRaceTypes()
-		. = list()
-		for(var/race/race in GetRaces())
+		for(var/race/race in races)
 			. += race.type
 
+	// if you want to get a global race from a type path, use this.
+	//it will return the race instance from the global list; or null if not found.
 	GetRaceInstanceFromType(_type)
-		for(var/race/race in GetRaces())
+		for(var/race/race in races)
 			if(race.type == _type)
 				return race
+		return null
 
+	//if you want to get the global race from it's name, use this.
+	// this will return a matching race if found, or null if not found.
 	GetRaceInstanceFromName(_name)
 		for(var/race/race in races)
 			if(race.name == _name)
 				return race
+		return null
 
 world
 	New()
@@ -48,27 +49,54 @@ mob
 mob
 	proc
 
-		setRace(race/new_race)
+		setRace(race/new_race, creationFinalized = FALSE, statRedo = FALSE)
 			if(!new_race) throw EXCEPTION("setRace was not supplied a new_race argument!")
+			if(!passive_handler) passive_handler = new
 
-			if(race) overlays -= race.overlays
+			if(!statRedo)
+				if(race)
+					overlays -= race.overlays
+					passive_handler.decreaseList(race.passives)
+					for(var/obj/Skills/s in race.skills)
+						DeleteSkill(s)
 
-			race = new new_race.type
+				race = new new_race.type
 
-			if(Gender == "Female")
-				icon = race.icon_female
-			else if(Gender == "Male")
-				icon = race.icon_male
-			else if(Gender == "Neuter")
-				icon = race.icon_neuter
+				if(Gender == "Female")
+					icon = race.icon_female
+				else if(Gender == "Male")
+					icon = race.icon_male
+				else if(Gender == "Neuter")
+					icon = race.icon_neuter
 
-			icon_state = null
-			overlays.Add(race.overlays)
+				icon_state = null
+				overlays.Add(race.overlays)
 
-			AngerPoint = race.anger_point
-			AngerMessage = race.anger_message
+				AngerPoint = race.anger_point
+				AngerMessage = race.anger_message
 
-		// use the text macros for this!!
+			if(!creationFinalized)
+				SetStatPoints(race.statPoints)
+				SetStat("Power", race.power)
+				SetStat("Strength", race.strength)
+				SetStat("Endurance", race.endurance)
+				SetStat("Speed", race.speed)
+				SetStat("Force", race.force)
+				SetStat("Offense", race.offense)
+				SetStat("Defense", race.defense)
+				SetStat("Regeneration", race.regeneration)
+				SetStat("Recovery", race.recovery)
+				SetStat("Anger", race.anger)
+				SetStat("Learning", race.learning)
+				SetStat("Intellect", race.intellect)
+				SetStat("Imagination", race.imagination)
+
+			else if(!statRedo)
+				passive_handler.increaseList(race.passives)
+				for(var/obj/Skills/s in race.skills)
+					AddSkill(s)
+
+		// isRace will accept either a type or a name.
 		isRace(raceCheck)
 			/*
 				return:
@@ -77,20 +105,15 @@ mob
 					throws a exception if no race is supplied for checking.
 			*/
 			if(!raceCheck) throw EXCEPTION("isRace was not supplied a raceCheck argument!")
-			if(race.type == raceCheck) return 1
+			if(race.type == raceCheck || race.name == raceCheck) return 1
 			return 0
-
-mob
-	verb
-		testshit()
-			for(var/transformation/i in usr.race.transformations)
-				world << "[i.type]"
 
 race
 	var
 		// the formal name for the race
 		name = ""
 
+		//gender options. so far implemented ones are Male, Female & Neuter. Neuter is for namekians or so on.
 		gender_options = list("Male", "Female")
 		//the icon used for male gender
 		icon_male
@@ -99,17 +122,22 @@ race
 		//icon used for neuter gender.
 		icon_neuter
 
+		//this determines if the race is a 'rare' and is only unlocked via someone's key being in the LockedRaces list.
 		locked = FALSE
 
 		//a text description for the race; displayed to the user.
 		desc
+		//a picture used for the racial menu.
 		visual
 
+		//default health/energy/mana
 		health = 100
 		energy = 100
 		mana = 100
 
 		power = 1
+
+		statPoints = 10
 
 		//1 = 1 for these.
 		strength = 1
@@ -119,8 +147,10 @@ race
 		defense = 1
 		speed = 1
 
-		anger_message = ""
+		anger_message = "becomes angry!"
 		anger_point = 50
+
+		//anger. 1 = 100%, 2 = 200%
 		anger = 1
 		regeneration = 1
 		recovery = 1
@@ -130,6 +160,7 @@ race
 		imagination = 1
 
 		// a list of overlays; such as saiyan tails, or so on.
+		//TODO: Implement better.
 		list/overlays = new/list()
 
 		// a list of skills that specific races may need to start with.
@@ -174,17 +205,22 @@ race
 		icon_female = 'FemaleLight.dmi'
 		desc = "These are saiyans."
 		visual = 'Saiyan.png'
-		locked = FALSE
+		locked = TRUE
 
-		strength = 2
-		endurance = 2
-		force = 1
+		power = 2
+		strength = 1.5
+		endurance = 1.5
+		force = 1.25
 		offense = 1
-		defense = 1
+		defense = 0.75
 		speed = 1
-		anger = 1.2
-		learning = 1.5
+		anger = 1.5
+		regeneration = 1.5
+		recovery = 2
+		imagination = 0.5
 
+	/*
+		TODO: think of a better way to handle racial features.
 		New()
 			..()
 			var/obj/tail = new
@@ -192,19 +228,4 @@ race
 			tail.icon = 'Tail.dmi'
 
 			overlays.Add(tail)
-
-	namekian
-		name = "Namekian"
-		icon_neuter = 'Namek1.dmi'
-		gender_options = list("Neuter")
-		desc = "These are namekians."
-		visual = 'Namek.png'
-
-		strength = 2
-		endurance = 2
-		force = 1
-		offense = 1
-		defense = 1
-		speed = 1
-		anger = 1.2
-		learning = 1.5
+	*/

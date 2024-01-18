@@ -1,4 +1,4 @@
-mob/proc/Stats()
+/*mob/proc/Stats()
 
 	SetStat("Power", race.power)
 	SetStat("Strength", race.strength)
@@ -13,7 +13,7 @@ mob/proc/Stats()
 	SetStat("Learning", race.learning)
 	SetStat("Intellect", race.intellect)
 	SetStat("Imagination", race.imagination)
-/*
+
 //Civilized
 	if(blah=="Human")
 		SetStat("Power",1)
@@ -353,8 +353,6 @@ mob/proc/RacialStats()
 		del(Z)
 	src.ResetStats()
 	src.contents+=new/obj/SavedStats
-	Stats("[usr.Race]")
-	SetStatPoints(10)
 	src.GetIncrements()
 
 
