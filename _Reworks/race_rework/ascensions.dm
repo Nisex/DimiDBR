@@ -63,8 +63,8 @@ ascension
 				owner.passive_handler.decreaseList(passives)
 
 			if(new_anger_message)
-				if(owner.race.ascensions[AscensionsAccquired-1].new_anger_message)
-					owner.AngerMessage = owner.race.ascensions[AscensionsAccquired-1].new_anger_message
+				if(owner.race.ascensions[owner.AscensionsAcquired-1].new_anger_message)
+					owner.AngerMessage = owner.race.ascensions[owner.AscensionsAcquired-1].new_anger_message
 				else
 					owner.AngerMessage = "becomes angry!"
 
