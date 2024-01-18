@@ -21,5 +21,6 @@
     verb/Hat_Buff()
         set category = "Skills"
         set name = "Spirit Buff"
+        adjust(usr)
         src.Trigger(usr)
         usr << "You feel a surge of power from your hat!"

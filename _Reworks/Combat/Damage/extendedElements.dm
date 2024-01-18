@@ -35,6 +35,20 @@
             . += ElementalCheck(src, defender, DebuffIntensity = clamp(call(src, "Get[debuff]")(), 1, 50))
             ElementalOffense = PreviousElement	
 
+/mob/proc/addPassivePassives(obj/Skills/Q)
+    // my care for clarity is 0
+    var/list/passivesWeWant = list("CursedWounds") // add more here
+    for(var/passive in passivesWeWant)
+        if(Q.vars[passive])
+            passive_handler.Increase(passive, Q.vars[passive])
+
+/mob/proc/removePassivePassives(obj/Skills/Q)
+    var/list/passivesWeWant = list("CursedWounds")
+    for(var/passive in passivesWeWant)
+        if(Q.vars[passive])
+            passive_handler.Decrease(passive, Q.vars[passive])
+
+
 /mob/proc/addElementalPassives(obj/Skills/Q)
     var/list/debuffVars = list("Burning", "Scorching", "Chilling","Freezing", "Crushing", \
         "Shattering", "Shocking", "Paralyzing", "Poisoning","Toxic")

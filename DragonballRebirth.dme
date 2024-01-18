@@ -385,6 +385,7 @@
 #include "_Reworks\Secrets\Haki\buffs.dm"
 #include "_Reworks\Secrets\Haki\Skills.dm"
 #include "_Reworks\Secrets\hats\hatsbuffs.dm"
+#include "_Reworks\Secrets\hats\hatskills.dm"
 #include "_Reworks\Secrets\hats\spirits.dm"
 #include "_Reworks\Secrets\HeavenlyRestriction\toji.dm"
 #include "_Reworks\Secrets\Legendary\Legendary.dm"

@@ -498,7 +498,6 @@ var/global/MULTIHIT_NERF = FALSE
 
 							if(AttackQueue)
 							// 				ONHITS				//
-
 								if(AttackQueue.Scorching||AttackQueue.Chilling||AttackQueue.Freezing||AttackQueue.Crushing||AttackQueue.Shattering||AttackQueue.Shocking||AttackQueue.Paralyzing||AttackQueue.Poisoning||AttackQueue.Toxic)
 									var/PreviousElement
 									PreviousElement=src.ElementalOffense

@@ -50,6 +50,8 @@ tiers:
 				if(2)
 					p << "You have gained an elemental affinity"
 					pickElement(p)
+					p.AddSkill(new/obj/Skills/Queue/Goetic_Special)
+					p<< "You have learned the special move: Goetic Special"
 	
 	Stellar_Constellation
 		applyPassives(mob/p)
