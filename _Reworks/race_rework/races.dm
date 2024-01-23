@@ -116,9 +116,9 @@ race
 		//gender options. so far implemented ones are Male, Female & Neuter. Neuter is for namekians or so on.
 		gender_options = list("Male", "Female")
 		//the icon used for male gender
-		icon_male
+		icon_male = 'MaleLight.dmi'
 		//the icon used for female gender.
-		icon_female
+		icon_female = 'FemaleLight.dmi'
 		//icon used for neuter gender.
 		icon_neuter
 
@@ -135,7 +135,7 @@ race
 		energy = 100
 		mana = 100
 
-		power = 1
+		power = 2
 
 		statPoints = 10
 
@@ -151,9 +151,9 @@ race
 		anger_point = 50
 
 		//anger. 1 = 100%, 2 = 200%
-		anger = 1
+		anger = 1.5
 		regeneration = 1
-		recovery = 1
+		recovery = 2
 
 		learning = 1
 		intellect = 1
@@ -175,6 +175,11 @@ race
 		list/transformations = new/list()
 
 	New()
+		/*
+			ensure the race's name variable is the same as the ascensions/transformation type.
+			if it isn't, you have to manually add them.
+			this is so it's very easy and automatic to throw ascensions in and out.
+		*/
 		ascensions = subtypesof(text2path("/ascension/[lowertext(name)]"))
 		transformations = subtypesof(text2path("/transformation/[lowertext(name)]"))
 		for(var/i in ascensions)
@@ -184,12 +189,11 @@ race
 
 	human
 		name = "Human"
-		icon_male = 'MaleLight.dmi'
-		icon_female = 'FemaleLight.dmi'
 		desc = "These are humans."
 		visual = 'Humans.png'
 
 		passives = list("Desperation" = 1, "Adrenaline" = 0.5, "TechniqueMastery" = 5)
+		power = 1
 		strength = 1
 		endurance = 1
 		force = 1
@@ -201,13 +205,10 @@ race
 
 	saiyan
 		name = "Saiyan"
-		icon_male = 'MaleLight.dmi'
-		icon_female = 'FemaleLight.dmi'
 		desc = "These are saiyans."
 		visual = 'Saiyan.png'
 		locked = TRUE
 
-		power = 2
 		strength = 1.5
 		endurance = 1.5
 		force = 1.25
@@ -216,7 +217,6 @@ race
 		speed = 1
 		anger = 1.5
 		regeneration = 1.5
-		recovery = 2
 		imagination = 0.5
 
 	/*
@@ -229,3 +229,153 @@ race
 
 			overlays.Add(tail)
 	*/
+
+	majin
+		name = "Majin"
+		desc = "These are majins."
+		visual = 'Majins.png'
+		locked = TRUE
+		passives = list("StaticWalk" = 1, "Steady" = 1)
+		skills = list(/obj/Skills/Absorb, /obj/Skills/Buffs/SlotlessBuffs/Regeneration)
+
+
+		intellect = 0.25
+		imagination = 4
+		anger = 1.3
+		regeneration = 3
+		strength = 1.25
+		endurance = 1
+		speed = 1
+		force = 1.25
+		offense = 1.25
+		defense = 1.25
+
+	dragon
+		name = "Dragon"
+		desc = "These are dragons."
+		locked = TRUE
+
+		power = 5
+		strength = 1.5
+		endurance = 1.5
+		speed = 1.5
+		force = 1.5
+		offense = 2
+		defense = 1.5
+		regeneration = 3
+		recovery = 3
+		anger = 2
+		imagination = 2
+
+	eldritch
+		name = "Eldritch"
+		desc = "These are eldritches."
+		strength = 1.5
+		endurance = 2
+		speed = 1
+		force = 1
+		offense = 2
+		defense = 2
+		regeneration = 2.5
+		anger = 1
+		intellect = 1.5
+		imagination = 0.67
+
+	beastman
+		name = "Beastman"
+		desc = "These are Beastmen."
+
+		strength = 1.25
+		endurance = 1.25
+		force = 1.25
+		offense = 1.25
+		defense = 1.25
+		speed = 1.25
+		regeneration = 1.5
+		intellect = 0.5
+
+	yokai
+		name = "Yokai"
+		desc = "These are Yokai."
+
+		strength = 2
+		endurance = 1.5
+		speed = 1
+		force = 0.5
+		offense = 1.25
+		defense = 1
+		regeneration = 2
+		imagination = 1.5
+
+	makyo
+		name = "Makyo"
+		desc = "These are Makyo."
+		strength = 1.5
+		endurance = 1.5
+		speed = 1
+		force = 1.25
+		offense = 1
+		defense = 1
+		imagination = 2
+
+	high_faoroan
+		name = "High Faoroan"
+		desc = "These are Elves."
+		locked = TRUE
+
+		power = 5
+		strength = 1.5
+		endurance = 1.5
+		speed = 1.5
+		offense = 1
+		defense = 2
+		force = 1.5
+		anger = 2
+		regeneration = 3
+		imagination = 2
+
+	demon
+		name = "Demon"
+		desc = "These are Demons."
+		locked = TRUE
+
+		power = 5
+		strength = 1.5
+		endurance = 1.5
+		speed = 1.5
+		offense = 2
+		defense = 1.5
+		force = 1.5
+		anger = 2
+		regeneration = 3
+		imagination = 2
+
+	alien
+		name = "Alien"
+		desc = "These are Aliens."
+		power = 1
+		strength = 0.5
+		endurance = 0.5
+		speed = 0.5
+		offense = 0.5
+		defense = 0.5
+		force = 0.5
+		regeneration = 1.5
+
+	namekian
+		name = "Namekian"
+		icon_neuter = 'Namek1.dmi'
+		gender_options = list("Neuter")
+		desc = "These are namekians."
+		visual = 'Namek.png'
+
+		strength = 1.5
+		endurance = 0.75
+		force = 1.5
+		offense = 1.25
+		defense = 1.5
+		speed = 1.5
+		anger = 1.25
+		imagination = 2
+		intellect = 1.5
+		learning = 1.5

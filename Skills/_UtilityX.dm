@@ -1,4 +1,8 @@
-
+mob
+	verb
+		Timeofday()
+			usr << time2text(world.realtime)
+			usr << time2text(world.realtime+100)
 
 /mob/Admin3/verb/MasteryUp(obj/Skills/x in world)
 	if(x.vars["Mastery"])
