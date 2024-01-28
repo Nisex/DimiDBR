@@ -72,6 +72,7 @@ game_loop
 var/ticker
 var/list/ticking_ai = list()
 var/list/companion_ais = list()
+var/list/ticking_turfs = list()
 
 /mob/Admin4/verb/view_ai_list()
     src << jointext(ticking_ai, ", ")
@@ -91,6 +92,7 @@ world
         if(ticker % 2 == 0)
             try
                 companion_tick()
+                turf_tick()
             catch()
 
         if(ticker % 5 == 0)
@@ -98,6 +100,12 @@ world
                 ai_tick()
             catch()
         
+
+proc/turf_tick()
+    for(var/turf/t in ticking_turfs)
+        t.Update()
+
+
 proc/ai_tick()
     for(var/datum/i in ticking_ai)
         i.Update()

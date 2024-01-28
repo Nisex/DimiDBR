@@ -2,7 +2,7 @@
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Spirits/Base_Hat_Buff
-    passives = list("MartialMagic" = 1)
+    passives = list("MartialMagic" = 1, "Gravity" = 1)
     proc/getChildBoons(mob/p)
         passives += p.secretDatum:applyPassives(p)
 

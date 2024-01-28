@@ -27,8 +27,7 @@
 mob
 	proc
 		fixRewardLastGained()
-			if(RewardsLastGained > 100)
-				RewardsLastGained = time2days(RewardsLastGained, world.realtime)
+			RewardsLastGained = 0 
 		reward_auto()
 			/*
 				if it is past 6pm

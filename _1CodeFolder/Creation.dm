@@ -282,6 +282,7 @@ mob/Players
 			AdjustJob()
 			massReset = FALSE
 		GiveJobVerbs()
+		RewardsLastGained = 0
 		// if(RewardsLastGained > 100)
 		// 	Respec1()
 		// 	quickDirtyRefund()

@@ -33,7 +33,7 @@ tiers:
 // place parent functions here
 	givenSkills = list("/obj/Skills/Buffs/SlotlessBuffs/Spirits/Base_Hat_Buff") // TODO: change this typing if wanted
 	proc/applyPassives(mob/p)
-		return list("MartialMagic" = 1)
+		return list("MartialMagic" = 1, "Gravity" = 1)
 	proc/pickElement(mob/p)
 		var/element = input(p, "Pick an attunement", "Elemental Attunement") in list("Pick an element", "Fire", "Water", "Earth", "Wind", "Lightning", "Poison") 
 		p.Attunement = element
@@ -52,7 +52,9 @@ tiers:
 					pickElement(p)
 					p.AddSkill(new/obj/Skills/Queue/Goetic_Special)
 					p<< "You have learned the special move: Goetic Special"
-	
+				if(4)
+					p << "You have learned the ultimate move: Suffer In Hell With No Hoes"
+					p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Hats/SufferInHellWithNoHoes)
 	Stellar_Constellation
 		applyPassives(mob/p)
 			var/pot = p.Potential
@@ -65,6 +67,12 @@ tiers:
 				if(2)
 					p << "You have gained an elemental affinity"
 					pickElement(p)
+					p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Hats/Liberation)
+					p<< "You have learned the special move: Liberation"
+				
+				if(4)
+					p << "You have learned the ultimate move: Herald of the Constellation"
+					p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Hats/HeraldOfTheConstellation)
 
 
 	Elven_Sanctuary
