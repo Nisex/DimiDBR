@@ -51,7 +51,7 @@
     toDeath = 1200// 2 mins
     range = 6
     configuration = "Random"
-    amount = 18 
+    amount = 21 
     New(toDeath, range, configuration, amount)
         src.toDeath = 1200
         src.range = 6
@@ -76,7 +76,8 @@
             var/direction = pick("ew","ns")
             var/num = rand(1,15)
             var/image/i = image(icon = 'GalSpace.dmi', icon_state = "speedspace_[direction]_[num]")
-            world<<i
+            i.alpha = 0
+            animate(i, alpha = 255, time = 3)
             overlays+=i
 
 

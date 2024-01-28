@@ -32,7 +32,7 @@ essentially check if we are -on update x, if not, update to x, if so, do nothing
 
 
 
-/datum/globalTracker/var/UPDATE_VERSION = 6
+/datum/globalTracker/var/UPDATE_VERSION = 1
 /datum/globalTracker/var/tmp/datum/update/currentUpdate
 // LETS HAVE EVERYONE BE 1
 
