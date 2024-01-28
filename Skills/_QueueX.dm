@@ -670,7 +670,6 @@ obj
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Dark_Impulse"
 					FollowUp="/obj/Skills/AutoHit/Dark_Blast"
 					HitMessage="unleashes a point-blank blast of darkness!"
-
 				Ghost_Drive
 					SpiritHand=1
 					SpiritStrike=1
@@ -2500,6 +2499,55 @@ obj
 				EnergyCost=10
 				CursedWounds=1
 				verb/Soul_Tear_Storm()
+					set category="Skills"
+					usr.SetQueue(src)
+			Riku_Tear_Storm
+				name="Soul Tear Storm"
+				ActiveMessage="begins to develope darkness around them!"
+				DamageMult=2.25
+				AccuracyMult=5
+				KBMult=0.00001
+				Combo=5
+				Warp=5
+				SpiritHand=0.5
+				SpiritSword=0.5
+				Duration=5
+				Cooldown=40
+				NeedsSword=1
+				HitSparkIcon='Slash - Vampire.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkTurns=1
+				Instinct=2
+				EnergyCost=10
+				CursedWounds=1
+				verb/Riku_Tear_Storm()
+					set category="Skills"
+					usr.SetQueue(src)
+			Riku_Soul_Render
+				name="Soul Render"
+				ActiveMessage="aims to slash forwards!"
+				DamageMult=2.25
+				AccuracyMult=5
+				KBMult=0.00001
+				MaimStrike=1
+				HitSparkIcon='Slash - Power.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkTurns=1
+				HitSparkSize=1.1	
+				Cooldown=150 //once per fight
+				Decider=1
+				NeedsSword=1
+				verb/Riku_Soul_Render()
+					set category="Skills"
+					usr.SetQueue(src)
+			Rikus_Soul
+				Stunner=5
+				BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Dark_Impulse"
+				FollowUp="/obj/Skills/AutoHit/Dark_Blast"
+				HitMessage="unleashes a point-blank blast of darkness!"	
+				verb/Rikus_Soul()
 					set category="Skills"
 					usr.SetQueue(src)
 			Omnislash

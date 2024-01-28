@@ -276,7 +276,7 @@ obj/Items
 				return
 			if(!usr.HasMoney(src.Cost))
 				usr << "You don't have enough money to buy [src]."
-				return
+				return	
 			if(1)
 				if(istype(src,/obj/Items/Tech/SpaceTravel/SpacePod))
 					var/Count=1
@@ -813,6 +813,7 @@ obj/Items/Sword
 	Health=10
 	Unobtainable=1
 	var/Conjured=0
+	var/SpiritStrike
 	var/SwordIconSelected=0
 	var/ImprovedStat
 	var/ProjectionBlade=0//Dissolves on drop
@@ -962,6 +963,47 @@ obj/Items/Sword
 			Ascended=5
 			ShatterCounter=800
 			ShatterMax=800
+
+			Rikus_Soul_Eater
+				name="Riku's Soul Eater"
+				pixel_x=-32
+				pixel_y=-32
+				Techniques=list("/obj/Skills/Queue/Rikus_Soul","/obj/Skills/Queue/Riku_Tear_Storm","/obj/Skills/Queue/Riku_Soul_Render")
+				verb/ChooseForm()
+					set category="Other"
+					var/check = 0
+					var/S = input(usr,"Choose the form of your Soul Eater", "Form") in list("Shield","Sword","Staff")
+					switch(S)
+						if("Sword")
+							if(check!=0)
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0)
+								SpiritStrike = 0
+								SpiritSword = 0
+								goto CheckPassed
+							CheckPassed	
+							view(10,src) << "[src]'s weapon transforms in to a Sword!"						
+							passives = list("SpiritSword" = 1)
+							SpiritSword = 1
+
+						if("Shield")
+							if(check!=0)
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0)
+								SpiritStrike = 0
+								SpiritSword = 0
+								goto CheckPassed
+							CheckPassed
+							view(10,src) << "[src]'s weapon transforms in to a shield!"
+						if("Staff")
+							if(check!=0)
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0)
+								SpiritStrike = 0
+								SpiritSword = 0
+								goto CheckPassed
+							CheckPassed
+							view(10,src) << "[src]'s weapon transforms in to a Staff!"						
+							passives = list("SpiritStrike" = 1)
+							SpiritStrike = 1
+
 
 			Scissor_Blade
 				name="Scissor Blade"

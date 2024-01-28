@@ -7337,6 +7337,7 @@ NEW VARIABLES
 					verb/Fierce_God()
 						set category="Skills"
 						src.Trigger(usr)
+						
 			Slaying_God
 				Cooldown=30
 				PhysicalHitsLimit=1

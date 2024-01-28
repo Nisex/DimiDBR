@@ -3277,6 +3277,51 @@ obj/Turfs
 		icon='Objects.dmi'
 		icon_state="Light"
 		density=1
+	House1
+		icon='SHADEDBR.dmi'
+		icon_state="1"
+		density=1
+	House2
+		icon='SHADEDBR.dmi'
+		icon_state="2"
+		density=1
+	HousePeepHole
+		icon='SHADEDBR2.dmi'
+		icon_state="1"
+		density=1
+	HouseTile1
+		icon='SHADEDBR3.dmi'
+		icon_state="1"
+		density=1
+	HouseTile2
+		icon='SHADEDBR3.dmi'
+		icon_state="2"
+		density=1
+	HouseTile3
+		icon='SHADEDBR3.dmi'
+		icon_state="3"
+		density=1
+	HouseTile4
+		icon='SHADEDBR3.dmi'
+		icon_state="4"
+		density=1
+	HouseTile5
+		icon='SHADEDBR3.dmi'
+		icon_state="5"
+		density=1
+	HouseTilefence
+		icon='SHADEDBR3.dmi'
+		icon_state="5"
+		density=1
+	HouseGate
+		icon='SHADEDBR4.dmi'
+		icon_state="1"
+		density=1
+
+
+
+
+
 	Glass
 		icon='Objects.dmi'
 		icon_state="Glass"

@@ -536,6 +536,7 @@ obj
 				TurfShiftDurationDespawn=7
 				Cooldown=4
 				Instinct=1
+						
 			Clothesline_Effect
 				Area="Circle"
 				StrOffense=1

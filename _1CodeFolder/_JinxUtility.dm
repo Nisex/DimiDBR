@@ -1518,7 +1518,7 @@ mob
 						if(!src.AdaptationAnnounce)
 							src << "<b>You've adapted to your target's style!</b>"
 							src.AdaptationAnnounce=1
-
+// ADD HERE THE FUCKING FUTURE DIARY SHIT
 			if(src.HasWeaponBreaker()||defender.Saga=="Unlimited Blade Works")
 				if((defender.HasSword()||defender.HasStaff()||defender.HasArmor())&&(UnarmedAttack||SwordAttack))
 					var/obj/Items/Sword/s=defender.EquippedSword()
