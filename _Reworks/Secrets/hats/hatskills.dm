@@ -6,6 +6,7 @@
 	AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Hats/Liberation)
 	AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Hats/HeraldOfTheConstellation)
 	AddSkill(new/obj/Skills/Projectile/Hats/Elven_Barrage)
+	AddSkill(new/obj/Skills/Companion/GIGASpiritMechSummon)
 
 
 
