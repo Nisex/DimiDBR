@@ -2,6 +2,8 @@
 // END_INTERNALS
 // BEGIN_FILE_DIR
 #define FILE_DIR .
+#define FILE_DIR "_Reworks"
+#define FILE_DIR "_Reworks/Building"
 #define FILE_DIR "CreationPics"
 #define FILE_DIR "Icons"
 #define FILE_DIR "Icons/Armor"
@@ -212,6 +214,7 @@
 // END_PREFERENCES
 // BEGIN_INCLUDE
 #include "skintest.dmf"
+#include "shade.dmm"
 #include "_1CodeFolder\.GridStat.dm"
 #include "_1CodeFolder\__Defines.dm"
 #include "_1CodeFolder\_AITraps.dm"
@@ -441,6 +444,7 @@
 #include "Items\Jukebox.dm"
 #include "Map\1_TitleScreen.dmm"
 #include "Map\2_Blank_Maps.dmm"
+#include "Map\SSDHH!.dmm"
 #include "QuickSort\QuickSort.dm"
 #include "Skills\__debugVerbs.dm"
 #include "Skills\_AutoHitX.dm"

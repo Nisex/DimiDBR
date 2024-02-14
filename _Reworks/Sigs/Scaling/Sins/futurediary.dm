@@ -32,6 +32,21 @@ mob/proc/Stalker()
             var/random=pick(M)
             src << random
 
+mob/proc/GuideTheSheep()
+    var/list/RandomThree = list()
+    if(src.Health==100)
+        for(var/i= 0, i<3, i++) // lets find three random players using this for loop. 
+            for(var/mob/Players/M in players)
+                if(M.client&&M!=usr)
+                    RandomThree += M.name // not exactly random- I'll figure it out sometime though!
+        var/X = input(usr,"Select whom'st you wish to Observe","Select whom'st") in RandomThree 
+        if(X!=src)
+            Observify(usr, X)
+        else 
+            view() <<"Report this to Awwlie"
+
+
+
 
 
 

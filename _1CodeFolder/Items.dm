@@ -984,7 +984,7 @@ obj/Items/Sword
 							view(10,src) << "[src]'s weapon transforms in to a Sword!"						
 							passives = list("SpiritSword" = 1)
 							SpiritSword = 1
-
+							check++
 						if("Shield")
 							if(check!=0)
 								passives = list("SpiritSword" = 0, "SpiritStrike" = 0)
@@ -993,6 +993,7 @@ obj/Items/Sword
 								goto CheckPassed
 							CheckPassed
 							view(10,src) << "[src]'s weapon transforms in to a shield!"
+							check++
 						if("Staff")
 							if(check!=0)
 								passives = list("SpiritSword" = 0, "SpiritStrike" = 0)
@@ -1003,6 +1004,7 @@ obj/Items/Sword
 							view(10,src) << "[src]'s weapon transforms in to a Staff!"						
 							passives = list("SpiritStrike" = 1)
 							SpiritStrike = 1
+							check++
 
 
 			Scissor_Blade
