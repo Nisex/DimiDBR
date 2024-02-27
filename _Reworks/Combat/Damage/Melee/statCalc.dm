@@ -11,43 +11,34 @@
 	switch(accuracy)
 		if("On")
 			EXPERIMENTAL_ACCURACY = TRUE
-			
+
 		if("Off")
 			EXPERIMENTAL_ACCURACY = FALSE
-			
+
 
 
 /mob/Admin3/verb/changeEffectiveness()
-	switch(input(src, "What one?") in list("Strength", "Force", "Endurance", "Strength Overcap", "Strength Threshold", "str2", "end2", "power2", "Melee", "Projectile", "Grapple", "Autohit"))
-		if("Strength")
-			glob.STRENGTH_EFFECTIVENESS = input(src, "What value?") as num
-			
-		if("Force")
-			glob.FORCE_EFFECTIVENESS = input(src, "What value?") as num
-			
-		if("Endurance")
-			glob.END_EFFECTIVENESS = input(src, "What value?") as num
-			
-		if("str2")
+	switch(input(src, "What one?") in list("DMG", "DMG End", "DMG Power", "Melee", "Projectile", "Grapple", "Autohit"))
+		if("DMG")
 			glob.DMG_STR_EXPONENT = input(src, "What value?") as num
-			
-		if("end2")
+
+		if("DMG End")
 			glob.DMG_END_EXPONENT = input(src, "What value?") as num
-			
-		if("power2")
+
+		if("DMG Power")
 			glob.DMG_POWER_EXPONENT = input(src, "What value?") as num
 		if("Melee")
 			glob.MELEE_EFFECTIVENESS = input(src, "What value?") as num
-			
+
 		if("Projectile")
 			glob.PROJECTILE_EFFECTIVNESS = input(src, "What value?") as num
-			
+
 		if("Grapple")
 			glob.GRAPPLE_EFFECTIVNESS = input(src, "What value?") as num
-			
+
 		if("Autohit")
 			glob.AUTOHIT_EFFECTIVNESS = input(src, "What value?") as num
-			
+
 
 
 
@@ -62,11 +53,11 @@
 			unarmed = 1
 	var/statDamage
 	if(passive_handler.Get("HardenedFrame"))
-		statDamage = GetEnd(glob.END_EFFECTIVENESS)
+		statDamage = GetEnd(1)
 	else if(HasSpiritStrike())
-		statDamage = GetFor(glob.FORCE_EFFECTIVENESS)
+		statDamage = GetFor(1)
 	else
-		statDamage = GetStr(glob.STRENGTH_EFFECTIVENESS)
+		statDamage = GetStr(1)
 	var/endExtra = passive_handler.Get("CallousedHands")
 	if(endExtra>0)
 		statDamage += GetEnd(endExtra) // will be intervals of 0.15

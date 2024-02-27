@@ -160,11 +160,11 @@ mob/Players
 			key3=0
 			key4=0
 
-/datum/globalTracker/var/BASE_LOOP_DELAY = 1.25 
-/datum/globalTracker/var/GODSPEED_NEEDED = 6
-/datum/globalTracker/var/SPEED_NEEDED = 6
-/datum/globalTracker/var/DIAG_LOOP_DELAY = 2 
-/datum/globalTracker/var/GODSPEED_LOOP_DELAY = 0.8 
+globalTracker/var/BASE_LOOP_DELAY = 1.25
+globalTracker/var/GODSPEED_NEEDED = 6
+globalTracker/var/SPEED_NEEDED = 6
+globalTracker/var/DIAG_LOOP_DELAY = 2
+globalTracker/var/GODSPEED_LOOP_DELAY = 0.8
 
 
 mob

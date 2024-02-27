@@ -552,8 +552,8 @@ NEW VARIABLES
 	var/list/current_passives
 	var/FakeTextColor
 	var/ProfileFake
-	var/datum/characterInformation/OldInformation
-	var/datum/characterInformation/FakeInformation
+	var/characterInformation/OldInformation
+	var/characterInformation/FakeInformation
 	var/FakeInformationEnabled
 
 	proc
@@ -3411,21 +3411,21 @@ NEW VARIABLES
 					Pursuer = 1.2
 					ArmorIcon='Unicorn_Cloth.dmi'
 					TopOverlayLock='Unicorn_Cloth_Helmet.dmi'
-					ActiveMessage="dons the Cloth of the Unicorn, embracing its pegging passion!"					
+					ActiveMessage="dons the Cloth of the Unicorn, embracing its pegging passion!"
 					adjustments(mob/player)
 						..()
 						passives = list("MovementMastery" =  player.SagaLevel * 1.5, "ArmorAscension" = 2, "SpiritHand" = (player.SagaLevel*0.25))
 						MovementMastery = player.SagaLevel * 1.5
 						SpdMult = 1.2 + (player.SagaLevel * 0.1)
 						OffMult = 1 +	(player.SagaLevel * 0.1)
-						DefMult = 1.1 + (player.SagaLevel * 0.1)						
+						DefMult = 1.1 + (player.SagaLevel * 0.1)
 						Pursuer = 1.2 + (player.SagaLevel * 0.2)
 					verb/Don_Cloth()
 						set category="Skills"
 						adjustments(usr)
 						src.NoTopOverlay=0
 						src.Trigger(usr)
-							
+
 			Bronze_Cloth_V2
 				MovementMastery=10
 				ArmorClass="Medium"
@@ -3573,13 +3573,13 @@ NEW VARIABLES
 						MovementMastery = player.SagaLevel * 1.5
 						SpdMult = 1.3 + (player.SagaLevel * 0.1)
 						OffMult = 1.1 + (player.SagaLevel * 0.1)
-						DefMult = 1.2 + (player.SagaLevel * 0.1)						
-						Pursuer = 1 + (player.SagaLevel * 0.2)		
+						DefMult = 1.2 + (player.SagaLevel * 0.1)
+						Pursuer = 1 + (player.SagaLevel * 0.2)
 					verb/Don_Cloth()
 						set category="Skills"
 						adjustments(usr)
 						src.NoTopOverlay=0
-						src.Trigger(usr)						
+						src.Trigger(usr)
 			Gold_Cloth
 				MovementMastery=20
 				DebuffImmune=1
@@ -7337,7 +7337,7 @@ NEW VARIABLES
 					verb/Fierce_God()
 						set category="Skills"
 						src.Trigger(usr)
-						
+
 			Slaying_God
 				Cooldown=30
 				PhysicalHitsLimit=1
@@ -11340,7 +11340,7 @@ NEW VARIABLES
 				ActiveMessage="momentarily releases their restraints and becomes a creature of darkness!"
 			Sennin_Mode
 				BuffName="Sage Mode"
-				
+
 				ManaThreshold=125
 				TooLittleMana=124
 				passives = list("ManaLeak" = 2, "ManaStats" = 1, "DrainlessMana" = 1, "ManaFocus" = 1, "AllOutAttack" = 1, "SuperDash" = 1)
@@ -12709,13 +12709,10 @@ mob
 			src.DefMultTotal+=(B.DefMult-1)
 			src.RecovMultTotal+=(B.RecovMult-1)
 			B.SlotlessOn=1
-			if(buffrework)
-				src.SlotlessBuffs.Add(B)
+			if(B.BuffName)
+				src.SlotlessBuffs["[B.BuffName]"] = B
 			else
-				if(B.BuffName)
-					src.SlotlessBuffs["[B.BuffName]"] = B
-				else
-					src.SlotlessBuffs["[B.name]"] = B
+				src.SlotlessBuffs["[B.name]"] = B
 			src.AllSkillsAdd(B)
 			if(isplayer(src))
 				src:move_speed = MovementSpeed()
@@ -12739,13 +12736,10 @@ mob
 			src.DefMultTotal-=(B.DefMult-1)
 			src.RecovMultTotal-=(B.RecovMult-1)
 			B.SlotlessOn=0
-			if(buffrework)
-				src.SlotlessBuffs.Remove(B)
+			if(B.BuffName)
+				src.SlotlessBuffs.Remove("[B.BuffName]")
 			else
-				if(B.BuffName)
-					src.SlotlessBuffs.Remove("[B.BuffName]")
-				else
-					src.SlotlessBuffs.Remove("[B.name]")
+				src.SlotlessBuffs.Remove("[B.name]")
 
 			src.AllSkillsRemove(B)
 			if(isplayer(src))
@@ -15383,11 +15377,6 @@ mob
 				if(src.SpecialBuff.type==B.type)
 					return 1
 			if(src.SlotlessBuffs.len>0)
-				if(buffrework)
-					for(var/obj/Skills/Buffs/b2 in src.SlotlessBuffs)
-						if(b2.type==B.type)
-							return 1
-				else
-					if(SlotlessBuffs["[B.BuffName]"])
-						return 1
+				if(SlotlessBuffs["[B.BuffName]"])
+					return 1
 			return 0

@@ -21,7 +21,7 @@ obj/Items/Tech/Jukebox
 	var/list/rangers = list()
 	var/stop = 0
 	var/list/songs = list()
-	var/datum/track/selection = null
+	var/track/selection = null
 	New()
 		. = ..()
 		Initialize()
@@ -34,23 +34,23 @@ obj/Items/Tech/Jukebox/Disco
 	var/list/sparkles = list()
 
 
-/datum/track
+track
 	var/song_name = "generic"
 	var/song_path = null
 	var/song_length = 0
 	var/song_beat = 0
 
-/datum/track/New(name, path, length, beat)
-	song_name = name
-	song_path = path
-	song_length = length
-	song_beat = beat
+	New(name, path, length, beat)
+		song_name = name
+		song_path = path
+		song_length = length
+		song_beat = beat
 
 obj/Items/Tech/Jukebox/proc/Initialize()
 	return
 	var/list/tracks = jukebox_includes
 	for(var/S in tracks)
-		var/datum/track/T = new()
+		var/track/T = new()
 		T.song_path = file(S)
 		var/filtext = "[S]"
 		var/list/L = splittext(filtext,"+")
@@ -72,7 +72,7 @@ obj/Items/Tech/Jukebox/verb/Upload_Track()
 	if((length(new_track) > 100000))
 		usr <<"This file exceeds the limit of 100KB. It cannot be used."
 		return
-	var/datum/track/T = new()
+	var/track/T = new()
 	T.song_path = file(new_track)
 	var/filtext = "[new_track]"
 	if(!findtext(filtext,".ogg") && !findtext(filtext, ".mid"))
@@ -131,10 +131,10 @@ obj/Items/Tech/Jukebox/proc/Action(var/action)
 				return
 
 			var/list/available = list()
-			for(var/datum/track/S in songs)
+			for(var/track/S in songs)
 				available[S.song_name] = S
 			var/selected = input(usr, "Choose your song", "Track:") as null|anything in available
-			if(!selected || !istype(available[selected], /datum/track))
+			if(!selected || !istype(available[selected], /track))
 				return
 			selection = available[selected]
 

@@ -47,7 +47,7 @@ T5 = $200-$499
 
 
 
-/datum/donator/proc/getTitle()
+donator/proc/getTitle()
     if (getTier() == 1)
         return DONATOR_T1_TITLE
     else if (getTier() == 2)
@@ -61,7 +61,7 @@ T5 = $200-$499
     else if (getTier() == 6)
         return DONATOR_T6_TITLE
 
-/datum/donator/proc/getColor()
+donator/proc/getColor()
     if (getTier() == 1)
         return DONATOR_T1_COLOR
     else if (getTier() == 2)
@@ -75,14 +75,14 @@ T5 = $200-$499
     else if (getTier() == 6)
         return DONATOR_T6_COLOR
 
-/datum/donator/proc/getHeader()
+donator/proc/getHeader()
     return "<b><font color=[getColor()]>([getTitle()]) </font></b>"
 
-/datum/supporter/proc/getHeader()
+supporter/proc/getHeader()
     return "<b><font color=[getColor()]>([getTitle()]) </font></b>"
 
 
-/datum/supporter/proc/getTitle()
+supporter/proc/getTitle()
     if (getTier() == 1)
         return SUPPORTER_T1_TITLE
     else if (getTier() == 2)
@@ -95,7 +95,7 @@ T5 = $200-$499
         return SUPPORTER_T5_TITLE
     else if (getTier() == 6)
         return SUPPORTER_T6_TITLE
-/datum/supporter/proc/getColor()
+supporter/proc/getColor()
     if (getTier() == 1)
         return SUPPORTER_T1_COLOR
     else if (getTier() == 2)
@@ -109,7 +109,7 @@ T5 = $200-$499
     else if (getTier() == 6)
         return SUPPORTER_T6_COLOR
 
-/mob/proc/getBenefitTitle(datum/donator/donator, datum/supporter/supporter)
+/mob/proc/getBenefitTitle(donator/donator, supporter/supporter)
     if(donator && supporter)
         if(client.getPref("useDonator"))
             return donator.getHeader()
@@ -119,4 +119,3 @@ T5 = $200-$499
         return donator.getHeader()
     else if (supporter)
         return supporter.getHeader()
-    

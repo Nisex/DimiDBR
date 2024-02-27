@@ -1,6 +1,6 @@
 #define WW_HUNGER_MAX 250
 #define WW_REDUCTION_PER_TIER 25
-/mob/var/datum/SecretInfomation/secretDatum = new()
+/mob/var/SecretInfomation/secretDatum = new()
 
 
 
@@ -28,7 +28,7 @@
 	return 0
 
 
-/datum/SecretInfomation
+SecretInfomation
 	var
 		name
 		lastCheckedTier = 1
@@ -185,8 +185,8 @@
 					conQHaki(p)
 					conqPaths(p)
 					nextTierUp = 999
-					
-					
+
+
 
 
 
@@ -346,7 +346,7 @@
 		name = "Heavenly Restriction"
 		givenSkills = list("/obj/Skills/Buffs/SlotlessBuffs/HeavenlyRestriction/HeavenlyRestriction")
 		secretVariable = list("RestrictionTypes", "RestrictionLevel", "RestrictionActive")
-		
+
 
 	SageArts
 		name = "Senjutsu"
@@ -412,8 +412,8 @@ mob
 
 	proc
 		giveSecret(path)
-			path = "/datum/SecretInfomation/[path]"
-			var/datum/SecretInfomation/secret = new path
+			path = "SecretInfomation/[path]"
+			var/SecretInfomation/secret = new path
 			secret.init(src)
 			secretDatum = secret
 
@@ -430,7 +430,7 @@ mob/Admin3/verb
 			switch(Selection)
 				if("Spirits of The World")
 					var/path = input(src, "Which path of Spirits of The World do you wish to follow?", "Spirits of The World") in list("Goetic Virtue", "Stellar Constellation", "Elven Sanctuary")
-					// for now, admins pick it, as there 
+					// for now, admins pick it, as there
 					P.Secret = path
 					var/newpath = replacetext(path, " ", "_")
 					newpath = "Spirits_Of_The_World/[newpath]"

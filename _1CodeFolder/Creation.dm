@@ -25,12 +25,8 @@
 	var/resetStats = TRUE
 	var/massReset = TRUE
 	var/totalRecall = 0
-	var/godMakeItStop = TRUE
 	var/list/OldLoc = list()
-	var/mass_magic_reset = TRUE
-	var/passive_overhaul = TRUE
-	var/greatAngerRemoval = TRUE
-	var/buffrework = TRUE
+
 /var/list/Races_Changed = list()
 /var/list/typesOfItemsRemoved = list(/obj/Items/Enchantment/Scrying_Ward, /obj/Items/Enchantment/Crystal_Ball, \
 /obj/Items/Enchantment/Arcane_Mask, /obj/Items/Enchantment/Magic_Crest, /obj/Items/Enchantment/ArcanicOrb, \
@@ -273,14 +269,6 @@ mob/Players
 
 		fixTitle()
 
-		if(mass_magic_reset)
-			refundAllMagic()
-			removeAllTomes()
-			refundOldMagicShit()
-			mass_magic_reset = FALSE
-		if(massReset)
-			AdjustJob()
-			massReset = FALSE
 		GiveJobVerbs()
 		RewardsLastGained = 0
 		// if(RewardsLastGained > 100)
@@ -1185,8 +1173,8 @@ client
 						mob.majinAbsorb = new()
 						mob.findAlteredVariables()
 
-				var/datum/donator/d_info = donationInformation.getDonator(key = src.key)
-				var/datum/supporter/s_info = donationInformation.getSupporter(key = src.key)
+				var/donator/d_info = donationInformation.getDonator(key = src.key)
+				var/supporter/s_info = donationInformation.getSupporter(key = src.key)
 				var/alreadydisplayed = FALSE
 				if(d_info)
 					if(d_info.getTier() >= 2)
@@ -1273,7 +1261,6 @@ mob/proc
 		del(src)
 
 	Finalize(var/Warped=0)
-		passive_overhaul = FALSE
 		src.Hair_Forms()
 		src.Hairz("Add")
 		resetStats = FALSE

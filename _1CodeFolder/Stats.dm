@@ -259,11 +259,8 @@ mob/Players/Stat()
 				stat("World Item Damage", "[glob.GLOBAL_ITEM_DAMAGE_MULT]x")
 				stat("World Autohit Damage", "[glob.AUTOHIT_GLOBAL_DAMAGE]x")
 				stat("World Proj Damage", "[glob.PROJ_DAMAGE_MULT]x")
-				stat("Str Effectiveness", "[glob.STRENGTH_EFFECTIVENESS]x")
-				stat("End Effectiveness", "[glob.END_EFFECTIVENESS]x")
-				stat("For Effectiveness", "[glob.FORCE_EFFECTIVENESS]x")
-				stat("Str2 Effectiveness", "[glob.DMG_STR_EXPONENT]")
-				stat("End2 Effectiveness", "[glob.DMG_END_EXPONENT]")
+				stat("DMG Effectiveness", "[glob.DMG_STR_EXPONENT]")
+				stat("DMG END Effectiveness", "[glob.DMG_END_EXPONENT]")
 				stat("Power in DMG effectiveness", "[glob.DMG_POWER_EXPONENT]")
 				stat("Melee Effectiveness", "[glob.MELEE_EFFECTIVENESS]x")
 				stat("Projectile Effectiveness", "[glob.PROJECTILE_EFFECTIVNESS]x")
@@ -396,7 +393,7 @@ atom/proc/CheckDirection(var/mob/M)
 		if(SOUTHWEST)
 			. = "South West"
 
-/datum/globalTracker/var/MOVEMENT_MASTERY_DIVISOR = 12
+globalTracker/var/MOVEMENT_MASTERY_DIVISOR = 12
 
 
 mob/proc/GetPowerUpRatio()
@@ -1130,7 +1127,7 @@ mob/proc/Update_Stat_Labels()
 				winshow(src, "MovementLabel", 0)
 	if(Secret == "Werewolf")
 		if(CheckSlotless("New Moon Form"))
-			var/datum/SecretInfomation/Werewolf/s = secretDatum
+			var/SecretInfomation/Werewolf/s = secretDatum
 			var/maxHunger = s:getHungerLimit()
 			var/currentHunger = secretDatum.secretVariable["Hunger Satiation"]
 			winset(src, "Hunger", "value=[round(currentHunger/maxHunger*100)]")

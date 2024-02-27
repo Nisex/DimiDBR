@@ -1,21 +1,21 @@
 /var/game_loop/blobLoop = new(5, "Update")
 
-/datum/blobDropper/proc/updateVars(mob/Players/p)
+blobDropper/proc/updateVars(mob/Players/p)
     var/ascen = p.AscensionsAcquired
     numBlobsMax = MAX_BLOBS + getMaxBlobs(ascen)
     blobDropRate = MAJIN_BLOB_DROP_RATE + getDropRate(ascen)
     dropThreshold = MAJIN_BLOB_DROP_THRESHOLD + getDropThreshold(ascen)
 
-/datum/blobDropper/proc/getMaxBlobs(ascen)
+blobDropper/proc/getMaxBlobs(ascen)
     return 2 *  ascen
 
-/datum/blobDropper/proc/getDropRate(ascen)
+blobDropper/proc/getDropRate(ascen)
     return ascen * 0.05
 
-/datum/blobDropper/proc/getDropThreshold(ascen)
+blobDropper/proc/getDropThreshold(ascen)
     return ascen * 5
 
-/datum/blobDropper/proc/dropBlob(mob/Players/p, override = 0)
+blobDropper/proc/dropBlob(mob/Players/p, override = 0)
     var/turf/T = p.loc
     var/newX = T.x + rand(-3, 3)
     var/newY = T.y + rand(-3, 3)
@@ -32,20 +32,20 @@
     blobList.Add(new/obj/blob(p, newX, newY, p.z, override))
     numBlobs++
 
-/datum/blobDropper/proc/canDropBlob(mob/Players/p)
+blobDropper/proc/canDropBlob(mob/Players/p)
     if(numBlobs >= numBlobsMax)
         return 0
     if(p.Health < dropThreshold)
         return 1
     return 0
 
-/datum/blobDropper/proc/tryDropBlob(mob/Players/p, override = 0)
+blobDropper/proc/tryDropBlob(mob/Players/p, override = 0)
     if(p.Class != "Innocent") return
     if(canDropBlob(p))
         if(rand(1, 10) / 10 <= blobDropRate || override)
             dropBlob(p, override)
 
-/datum/blobDropper/proc/resetVariables(mob/Players/p)
+blobDropper/proc/resetVariables(mob/Players/p)
     numBlobs = 0
     blobList = list()
     updateVars(p)

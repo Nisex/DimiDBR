@@ -5,7 +5,7 @@
         information.addTitle("Noob", "#fff")
 
 //TODO: prob remove as well, dunno if this is being kept
-/datum/characterInformation
+characterInformation
     var/rankingTier = "Rookie"
     var/rankingNumber = "ERROR"
     var/title = list()

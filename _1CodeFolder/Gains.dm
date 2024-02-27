@@ -486,7 +486,7 @@ mob
 				if(CheckSlotless("Rotschreck"))
 					R = GetSlotless("Rotschreck")
 					R:adjust(src)
-				var/datum/SecretInfomation/Vampire/vampire = secretDatum
+				var/SecretInfomation/Vampire/vampire = secretDatum
 				if(vampire.secretVariable["LastBloodGain"] + 450 < world.time && vampire.secretVariable["BloodPower"] > 0)
 					if(!PureRPMode)
 						vampire.drainBlood()
@@ -497,7 +497,7 @@ mob
 						src << "The restraints of your bloodlust crumble away as you dissolve into a living shadow!!"
 			if(src.Secret == "Werewolf")
 				if(secretDatum.secretVariable["Hunger Active"] == 1)
-					var/datum/SecretInfomation/Werewolf/s = secretDatum
+					var/SecretInfomation/Werewolf/s = secretDatum
 					if(!PureRPMode)
 						s.releaseHunger()
 						if(secretDatum.secretVariable["Hunger Satiation"] <=0 && CheckSlotless("Full Moon Form"))

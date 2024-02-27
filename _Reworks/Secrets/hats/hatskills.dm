@@ -6,7 +6,7 @@
 	AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Hats/Liberation)
 	AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Hats/HeraldOfTheConstellation)
 	AddSkill(new/obj/Skills/Projectile/Hats/Elven_Barrage)
-	AddSkill(new/obj/Skills/Companion/GIGASpiritMechSummon)
+//	AddSkill(new/obj/Skills/Companion/GIGASpiritMechSummon)
 
 
 
@@ -117,14 +117,14 @@
 // apply an imaage over the prebvious turfs
 
 /obj/Skills/Buffs
-	var/datum/spaceMaker/makSpace
+	var/spaceMaker/Constellation/makSpace
 	// this could be a list instead
 
 
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Hats/Liberation
-	makSpace = new/datum/spaceMaker/Constellation
+	makSpace = new
 	passives = list("Constellation" = 1) // enables u to defeat being drained by ur tiles
 	// funnily enough this passive would make u heal from any1 elses tiles, which is bad
 	// but afaik they aren't gonna do that so
@@ -151,7 +151,7 @@
 	StrMult = 1.25
 	OffMult = 1.25
 	DefMult = 1
-	// ArmorIcon = blah 
+	// ArmorIcon = blah
 	ActiveMessage = "silver surfer moment"
 	OffMessage = "silver surfer moment over"
 	proc/adjust(mob/p)

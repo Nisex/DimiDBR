@@ -1,4 +1,4 @@
-/mob/var/datum/characterInformation/information = new()
+/mob/var/characterInformation/information = new()
 #define NATIONALITIES list("American", "British", "Canadian", "Chinese", "Polish", "French", "German", "Italian", "Japanese", "Russian", "Mexican", "Puerto Rican", "Kenyan", "African","Austrian", "Austrialian", "Irish","Swedish","Korean", "Other")
 #define FACTIONS list("Aegis", "Golden Circle","Crimson Dawn", "Arbiter", "Black Ifrit", "Revenants", "Solo")
 #define FACTION_COLORS list("Aegis" = "#e6e5e5", "Golden Circle" = "#b49900", "Crimson Dawn" = "#920000", "Arbiter" = "#18DA01", "Black Ifrit" = "#a86303")

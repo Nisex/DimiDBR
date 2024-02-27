@@ -536,7 +536,7 @@ obj
 				TurfShiftDurationDespawn=7
 				Cooldown=4
 				Instinct=1
-						
+
 			Clothesline_Effect
 				Area="Circle"
 				StrOffense=1
@@ -5600,7 +5600,7 @@ obj
 					dmgRoll = Owner.GetDamageMod(0, mod)
 					Owner.log2text("dmg roll - Auto Hit", "After GiantForm", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 					Owner.log2text("dmg roll - Auto Hit", dmgRoll, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
-				var/def = m.getEndStat(glob.END_EFFECTIVENESS) * EndRes
+				var/def = m.getEndStat(1) * EndRes
 				if(def<0)
 					def=0.1
 				if(m.HasPridefulRage())

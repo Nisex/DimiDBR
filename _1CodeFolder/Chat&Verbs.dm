@@ -10,7 +10,7 @@ mob/Players/verb
 		if(src.party)
 			src << "You are already in a party; you cannot create another one."
 			return
-		var/datum/Party/p=new
+		var/Party/p=new
 		p.create_party(src)
 
 	Party_Target_Cycle()
@@ -1297,8 +1297,8 @@ obj/Communication
 		set src=usr.contents
 		if(!(world.time > usr.verb_delay)) return
 		usr.verb_delay=world.time+1
-		var/datum/donator/donator = donationInformation.getDonator(key = usr.key)
-		var/datum/supporter/supporter = donationInformation.getSupporter(key = usr.key)
+		var/donator/donator = donationInformation.getDonator(key = usr.key)
+		var/supporter/supporter = donationInformation.getSupporter(key = usr.key)
 		var/oocOff = OOC_Check(T)
 		if(oocOff == FALSE && (donator.getTier() >= 3))
 			oocOff = TRUE

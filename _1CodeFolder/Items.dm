@@ -143,7 +143,7 @@ obj/Items
 	proc/startBreaking(dmg, val, mob/owner, mob/attacker, type)
 		if(val > MAX_BREAK_MULT)
 			val = MAX_BREAK_MULT
-		var/breakVal = (dmg * val) * (attacker.GetOff(0.3)+(attacker.GetStr(0.3) * glob.STRENGTH_EFFECTIVENESS))
+		var/breakVal = (dmg * val) * (attacker.GetOff(0.3)+(attacker.GetStr(0.3) * glob.DMG_STR_EXPONENT))
 		if(breakVal > MAX_BREAK_VAL)
 			breakVal = MAX_BREAK_VAL
 		if(owner.Saga=="Unlimited Blade Works")
@@ -276,7 +276,7 @@ obj/Items
 				return
 			if(!usr.HasMoney(src.Cost))
 				usr << "You don't have enough money to buy [src]."
-				return	
+				return
 			if(1)
 				if(istype(src,/obj/Items/Tech/SpaceTravel/SpacePod))
 					var/Count=1
@@ -980,8 +980,8 @@ obj/Items/Sword
 								SpiritStrike = 0
 								SpiritSword = 0
 								goto CheckPassed
-							CheckPassed	
-							view(10,src) << "[src]'s weapon transforms in to a Sword!"						
+							CheckPassed
+							view(10,src) << "[src]'s weapon transforms in to a Sword!"
 							passives = list("SpiritSword" = 1)
 							SpiritSword = 1
 
@@ -1000,7 +1000,7 @@ obj/Items/Sword
 								SpiritSword = 0
 								goto CheckPassed
 							CheckPassed
-							view(10,src) << "[src]'s weapon transforms in to a Staff!"						
+							view(10,src) << "[src]'s weapon transforms in to a Staff!"
 							passives = list("SpiritStrike" = 1)
 							SpiritStrike = 1
 
@@ -2185,7 +2185,7 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 						if(x == s)
 							User.DeleteSkill(x, FALSE)
 
-		if(passives&&!User.passive_overhaul)
+		if(passives)
 			if(suffix=="*Equipped*")
 				current_passives = passives
 				User.passive_handler.increaseList(passives)

@@ -29,19 +29,19 @@ tiers:
 
 // use secrets framework since it is tiered
 
-/datum/SecretInfomation/Spirits_Of_The_World // when given make them make a choice, this choice will then pick these ones below
+SecretInfomation/Spirits_Of_The_World // when given make them make a choice, this choice will then pick these ones below
 // place parent functions here
 	givenSkills = list("/obj/Skills/Buffs/SlotlessBuffs/Spirits/Base_Hat_Buff") // TODO: change this typing if wanted
 	proc/applyPassives(mob/p)
 		return list("MartialMagic" = 1, "Gravity" = 1)
 	proc/pickElement(mob/p)
-		var/element = input(p, "Pick an attunement", "Elemental Attunement") in list("Pick an element", "Fire", "Water", "Earth", "Wind", "Lightning", "Poison") 
+		var/element = input(p, "Pick an attunement", "Elemental Attunement") in list("Pick an element", "Fire", "Water", "Earth", "Wind", "Lightning", "Poison")
 		p.Attunement = element
 	Goetic_Virtue
 		applyPassives(mob/p)
 			var/pot = p.Potential
 			. = list("Hellpower" = currentTier/4, "SpiritSword" = 0.15 * currentTier + (pot/125), "SwordPunching" = 1)
-		
+
 		applySecret(mob/p)
 			switch(currentTier)
 				if(1)
@@ -69,7 +69,7 @@ tiers:
 					pickElement(p)
 					p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Hats/Liberation)
 					p<< "You have learned the special move: Liberation"
-				
+
 				if(4)
 					p << "You have learned the ultimate move: Herald of the Constellation"
 					p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Hats/HeraldOfTheConstellation)

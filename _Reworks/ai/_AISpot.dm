@@ -10,7 +10,7 @@
 /mob/Admin3/verb/MakeAISpawner()
 	set name = "AI Spawner"
 	var/n = input(src, "What name") as text
-	var/list/monsters = typesof(/datum/monster_info)
+	var/list/monsters = typesof(/monster_info)
 	var/monster = input(src, "What monster") in monsters
 	var/timer = input(src, "How often (30 seconds per whole number)") as num
 	var/ai_limit = input(src, "How many can total exist?") as num
@@ -27,7 +27,7 @@
 		goon = input(src, "How much?") as num
 	else
 		goon = FALSE
-	var/datum/monster_info/mon = new monster
+	var/monster_info/mon = new monster
 	mon.icon = i
 	mon.potential = potential
 	mon.name = n
@@ -123,7 +123,7 @@ obj
 					src.initial_aize(p)
 					src.ai_active.Add(p)
 			initial_aize(var/mob/Player/AI/p)//set icon n such
-				var/datum/monster_info/mi = pick(monsters)
+				var/monster_info/mi = pick(monsters)
 				p.passive_handler = new
 				if(!mi)
 					world<<"[src] somehow doesn't have a monster info. This is a bug."
@@ -348,84 +348,84 @@ obj
 				p.contents += m
 
 		Slime_Zone
-			monsters=list(new/datum/monster_info/slime)
+			monsters=list(new/monster_info/slime)
 		Fishman_Zone
-			monsters=list(new/datum/monster_info/fishman)
+			monsters=list(new/monster_info/fishman)
 		Kobold_Zone
-			monsters=list(new/datum/monster_info/kobold)
+			monsters=list(new/monster_info/kobold)
 		Envy_Zone
-			monsters=list(new/datum/monster_info/oozaru_boss)
+			monsters=list(new/monster_info/oozaru_boss)
 			countdown_limit=60
 		Wasp_Zone
-			monsters=list(new/datum/monster_info/hell_wasp)
+			monsters=list(new/monster_info/hell_wasp)
 		Lust_Zone
-			monsters=list(new/datum/monster_info/tentacle_boss)
+			monsters=list(new/monster_info/tentacle_boss)
 			countdown_limit=60
 		Turtle_Zone
-			monsters=list(new/datum/monster_info/ice_turtle)
+			monsters=list(new/monster_info/ice_turtle)
 		Gluttony_Zone
-			monsters=list(new/datum/monster_info/gluttony_boss)
+			monsters=list(new/monster_info/gluttony_boss)
 			countdown_limit=60
 		Cactus_Zone
-			monsters=list(new/datum/monster_info/cactus_creature)
+			monsters=list(new/monster_info/cactus_creature)
 			ai_limit=3
 		Shining_Zone
-			monsters=list(new/datum/monster_info/sunlight_swordsman)
+			monsters=list(new/monster_info/sunlight_swordsman)
 			countdown_limit=60
 		Sloth_Zone
-			monsters=list(new/datum/monster_info/sloth_shambler)
+			monsters=list(new/monster_info/sloth_shambler)
 			countdown_limit=60
 		Heartless_Zone
-			monsters=list(new/datum/monster_info/dark_spider, new/datum/monster_info/dark_scorpion)
+			monsters=list(new/monster_info/dark_spider, new/monster_info/dark_scorpion)
 			countdown_limit=2
 			ai_limit=3
 
 		Colony_Zone
 
 		Gajalaka_Bandits
-			monsters=list(new/datum/monster_info/gajalaka)
+			monsters=list(new/monster_info/gajalaka)
 
 		Cave_Beasts
-			monsters=list(new/datum/monster_info/scorpion, new/datum/monster_info/spider)
+			monsters=list(new/monster_info/scorpion, new/monster_info/spider)
 
 		Crystal_Cave_Heartless
-			monsters=list(new/datum/monster_info/dark_eye)
+			monsters=list(new/monster_info/dark_eye)
 
 		Weapon_AIs_Level_1
-			monsters=list(new/datum/monster_info/weapon_ai_1)
+			monsters=list(new/monster_info/weapon_ai_1)
 
 		Heartless_Overflow
-			monsters=list(new/datum/monster_info/dark_eye, new/datum/monster_info/dark_gajalaka)
+			monsters=list(new/monster_info/dark_eye, new/monster_info/dark_gajalaka)
 
 		Jungle_Wasps
-			monsters=list(new/datum/monster_info/wasp)
+			monsters=list(new/monster_info/wasp)
 
 		Fish_Beasts
-			monsters=list(new/datum/monster_info/fish_beast)
+			monsters=list(new/monster_info/fish_beast)
 
 		Cave_Upper
-			monsters=list(new/datum/monster_info/cactus_beast)
+			monsters=list(new/monster_info/cactus_beast)
 
 		Rebel_Mushrooms
-			monsters=list(new/datum/monster_info/rebel_mushroom)
+			monsters=list(new/monster_info/rebel_mushroom)
 
 		Thief_Kappa
-			monsters=list(new/datum/monster_info/kappa)
+			monsters=list(new/monster_info/kappa)
 
 		Elemental_Spirits
 			ai_limit=3
-			monsters=list(new/datum/monster_info/wild_fire_spirits, new/datum/monster_info/wild_water_spirits, new/datum/monster_info/wild_earth_spirits)
+			monsters=list(new/monster_info/wild_fire_spirits, new/monster_info/wild_water_spirits, new/monster_info/wild_earth_spirits)
 
 		Waste_Flayer
 			countdown_limit=60
-			monsters=list(new/datum/monster_info/waste_flayer)
+			monsters=list(new/monster_info/waste_flayer)
 
 		Fire_Spirit
-			monsters=list(new/datum/monster_info/fire_spirits)
+			monsters=list(new/monster_info/fire_spirits)
 		Water_Spirit
-			monsters=list(new/datum/monster_info/water_spirits)
+			monsters=list(new/monster_info/water_spirits)
 		Earth_Spirit
-			monsters=list(new/datum/monster_info/earth_spirits)
+			monsters=list(new/monster_info/earth_spirits)
 
 		Jungle_Zone
 
@@ -451,485 +451,484 @@ obj
 
 		Spiritworld_Advanced_Zone
 
-datum
-	monster_info
-		var/og_name
-		var/name
-		var/icon
-		var/overlay
-		var/pixel_x
-		var/pixel_y
-		var/list/colors
-		var/enlarge = 1
-		var/potential=5
-		var/hostile=1
-		var/intimidation=1
-		var/econ=1//TODO: remove
-		var/mana=1//TODO: remove
-		var/potentialScaling = FALSE
-		var/energy_mod=1//TODO: remove
-		var/str_mod=1
-		var/end_mod=1
-		var/spd_mod=2
-		var/for_mod=1
-		var/off_mod=5
-		var/def_mod=0.25
-		var/regen_mod=1//TODO: remove
-		var/recov_mod=1
-		var/spammer = 1
+monster_info
+	var/og_name
+	var/name
+	var/icon
+	var/overlay
+	var/pixel_x
+	var/pixel_y
+	var/list/colors
+	var/enlarge = 1
+	var/potential=5
+	var/hostile=1
+	var/intimidation=1
+	var/econ=1//TODO: remove
+	var/mana=1//TODO: remove
+	var/potentialScaling = FALSE
+	var/energy_mod=1//TODO: remove
+	var/str_mod=1
+	var/end_mod=1
+	var/spd_mod=2
+	var/for_mod=1
+	var/off_mod=5
+	var/def_mod=0.25
+	var/regen_mod=1//TODO: remove
+	var/recov_mod=1
+	var/spammer = 1
 
-		var
-			hell_power=0
-			legend_power=1
-			spirit_power=0
-			epic_power=0
-			murder_chance=0
-			hungry_chance=0
-			metal=0
-			void=0
-			crazy_targets=0
+	var
+		hell_power=0
+		legend_power=1
+		spirit_power=0
+		epic_power=0
+		murder_chance=0
+		hungry_chance=0
+		metal=0
+		void=0
+		crazy_targets=0
 
-			lethal_chance=0//advanced areas will have rising lethal chances
-			seek_destroy=0//if this is flagged then ai hunt for targets. jk that is not what
+		lethal_chance=0//advanced areas will have rising lethal chances
+		seek_destroy=0//if this is flagged then ai hunt for targets. jk that is not what
 
-			tank=0//purereduction
-			dps=0//puredamage
-			sin=0//techniquemastery
+		tank=0//purereduction
+		dps=0//puredamage
+		sin=0//techniquemastery
 
-			base_health=50
+		base_health=50
 
-			skills=0//dumvar
-			list/skilloptions=list()//brererk
-			t1sigs=0//dumvar
-			list/t1options=list()//list of sigs that they could spawn with
-			t2sigs=0//dumvar
-			list/t2options=list()
-			t3sigs=0//dumvar
-			list/t3options=list()
+		skills=0//dumvar
+		list/skilloptions=list()//brererk
+		t1sigs=0//dumvar
+		list/t1options=list()//list of sigs that they could spawn with
+		t2sigs=0//dumvar
+		list/t2options=list()
+		t3sigs=0//dumvar
+		list/t3options=list()
 
-			attunement//fire/water/earth/wind/dark
-			force_offense//force elemental offense to something
+		attunement//fire/water/earth/wind/dark
+		force_offense//force elemental offense to something
 
-			list/apply_passives = list()
-		knight_guard
-			name="Knight Guard"
-			icon='KnightGuard.dmi'
-			pixel_x=0
-			pixel_y=0
-			colors=list(rgb(153, 0, 0),rgb(0, 153, 0),rgb(0,0,153),rgb(66,66,66),rgb(222,222,222))
+		list/apply_passives = list()
+	knight_guard
+		name="Knight Guard"
+		icon='KnightGuard.dmi'
+		pixel_x=0
+		pixel_y=0
+		colors=list(rgb(153, 0, 0),rgb(0, 153, 0),rgb(0,0,153),rgb(66,66,66),rgb(222,222,222))
 
-		slime
-			name="Slime"
-			icon='Red_Slime.dmi'
-			potential=5
-			str_mod=2
-			end_mod=2
-			recov_mod=3
-			skilloptions=list("/obj/Skills/AutoHit/Force_Stomp")
-		kobold
-			name="Kobold"
-			icon='Komfty Kobold.dmi'
-			potential=10
-			str_mod=2.5
-			end_mod=2
-			for_mod=2.5
-			skilloptions=list("/obj/Skills/AutoHit/Force_Stomp", "/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/AutoHit/Magic/Blizzard", "/obj/Skills/AutoHit/Magic/Thunder")
-		fishman
-			name="Fishman"
-			icon='Blue_Zora.dmi'
-			potential=7.5
-			str_mod=1
-			end_mod=2
-			for_mod=3
-			attunement="Water"
-			skilloptions=list("/obj/Skills/Projectile/Crash_Burst", "/obj/Skills/Projectile/Rapid_Barrage", "/obj/Skills/AutoHit/Magic/Blizzara")
-
-
-		gajalaka
-			name="Gajalaka"
-			icon='GajalakaWild.dmi'
-			potential=5
-			energy_mod=1
-			str_mod=1.5
-			end_mod=2
-			for_mod=1
-			skilloptions=list("/obj/Skills/AutoHit/Force_Stomp")
-		dark_gajalaka
-			name="Cursed Gajalaka"
-			icon='GajalakaWild.dmi'
-			potential=5
-			str_mod=2
-			end_mod=2
-			for_mod=2
-			attunement="Dark"
-			skilloptions=list("/obj/Skills/AutoHit/Clothesline")
+	slime
+		name="Slime"
+		icon='Red_Slime.dmi'
+		potential=5
+		str_mod=2
+		end_mod=2
+		recov_mod=3
+		skilloptions=list("/obj/Skills/AutoHit/Force_Stomp")
+	kobold
+		name="Kobold"
+		icon='Komfty Kobold.dmi'
+		potential=10
+		str_mod=2.5
+		end_mod=2
+		for_mod=2.5
+		skilloptions=list("/obj/Skills/AutoHit/Force_Stomp", "/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/AutoHit/Magic/Blizzard", "/obj/Skills/AutoHit/Magic/Thunder")
+	fishman
+		name="Fishman"
+		icon='Blue_Zora.dmi'
+		potential=7.5
+		str_mod=1
+		end_mod=2
+		for_mod=3
+		attunement="Water"
+		skilloptions=list("/obj/Skills/Projectile/Crash_Burst", "/obj/Skills/Projectile/Rapid_Barrage", "/obj/Skills/AutoHit/Magic/Blizzara")
 
 
-		dark_eye
-			name="Dark Eye"
-			icon='TentaEye.dmi'
-			energy_mod=2
-			str_mod=2
-			end_mod=2
-			for_mod=2
-			attunement="Dark"
-			intimidation=2
-			skilloptions=list(
-			"/obj/Skills/AutoHit/Stinger",\
-			"/obj/Skills/AutoHit/Rising_Spire",\
-			"/obj/Skills/AutoHit/Crowd_Cutter")
+	gajalaka
+		name="Gajalaka"
+		icon='GajalakaWild.dmi'
+		potential=5
+		energy_mod=1
+		str_mod=1.5
+		end_mod=2
+		for_mod=1
+		skilloptions=list("/obj/Skills/AutoHit/Force_Stomp")
+	dark_gajalaka
+		name="Cursed Gajalaka"
+		icon='GajalakaWild.dmi'
+		potential=5
+		str_mod=2
+		end_mod=2
+		for_mod=2
+		attunement="Dark"
+		skilloptions=list("/obj/Skills/AutoHit/Clothesline")
 
-		weapon_ai_1
-			name="Poorly Made Weapon Drone"
-			metal=1
-			icon=list('Android1.dmi', 'Android11.dmi', 'Android4.dmi')
-			potential=5
-			crazy_targets=0.3
-			energy_mod=2
-			str_mod=1
-			end_mod=0.5
-			for_mod=1
-			seek_destroy=1
-			skilloptions=list(
-			"/obj/Skills/Projectile/Blast",\
-			"/obj/Skills/Queue/Uppercut")
-			colors=list(rgb(153, 0, 0),rgb(0, 153, 0),rgb(0,0,153))
 
-		spider
-			name="Cave Spider"
-			icon='Spider.dmi'
-			hungry_chance=50
-			potential=15
-			energy_mod=2
-			str_mod=2
-			end_mod=0.5
-			for_mod=1.5
-			skilloptions=list("/obj/Skills/AutoHit/Sticky_Spray")
+	dark_eye
+		name="Dark Eye"
+		icon='TentaEye.dmi'
+		energy_mod=2
+		str_mod=2
+		end_mod=2
+		for_mod=2
+		attunement="Dark"
+		intimidation=2
+		skilloptions=list(
+		"/obj/Skills/AutoHit/Stinger",\
+		"/obj/Skills/AutoHit/Rising_Spire",\
+		"/obj/Skills/AutoHit/Crowd_Cutter")
 
-		scorpion
-			name="Cave Scorpion"
-			icon='Scorpion.dmi'
-			hungry_chance=50
-			potential=15
-			energy_mod=2
-			str_mod=1
-			end_mod=3
-			for_mod=0.5
-			skilloptions=list("/obj/Skills/AutoHit/Venom_Sting")
+	weapon_ai_1
+		name="Poorly Made Weapon Drone"
+		metal=1
+		icon=list('Android1.dmi', 'Android11.dmi', 'Android4.dmi')
+		potential=5
+		crazy_targets=0.3
+		energy_mod=2
+		str_mod=1
+		end_mod=0.5
+		for_mod=1
+		seek_destroy=1
+		skilloptions=list(
+		"/obj/Skills/Projectile/Blast",\
+		"/obj/Skills/Queue/Uppercut")
+		colors=list(rgb(153, 0, 0),rgb(0, 153, 0),rgb(0,0,153))
 
-		fish_beast
-			name="Fishman"
-			icon='Blue_Zora.dmi'
-			potential=10
-			str_mod=1
-			end_mod=2
-			for_mod=3
-			attunement="Water"
-			skilloptions=list("/obj/Skills/Projectile/Crash_Burst", "/obj/Skills/Projectile/Rapid_Barrage", "/obj/Skills/AutoHit/Magic/Blizzara")
-		dire_penguin
-			name="Dire Penguin"
-			icon='Penguin.dmi'
-			potential=10
-			hungry_chance=100
-			str_mod=3
-			end_mod=2
-			for_mod=3
-			seek_destroy=1
-			attunement="Water"
-			skilloptions=list("/obj/Skills/AutoHit/Phantom_Strike", "/obj/Skills/AutoHit/Magic/Blizzard", "/obj/Skills/AutoHit/Magic/Blizzara")
+	spider
+		name="Cave Spider"
+		icon='Spider.dmi'
+		hungry_chance=50
+		potential=15
+		energy_mod=2
+		str_mod=2
+		end_mod=0.5
+		for_mod=1.5
+		skilloptions=list("/obj/Skills/AutoHit/Sticky_Spray")
 
-		cactus_beast
-			name="Cursed Cactus"
-			icon='Green_Hanny.dmi'
-			potential=10
-			murder_chance=15
-			str_mod=3
-			end_mod=3
-			for_mod=3
-			seek_destroy=1
-			attunement="Poison"
-			skilloptions=list("/obj/Skills/Projectile/Straight_Siege", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/Projectile/Kienzan")
+	scorpion
+		name="Cave Scorpion"
+		icon='Scorpion.dmi'
+		hungry_chance=50
+		potential=15
+		energy_mod=2
+		str_mod=1
+		end_mod=3
+		for_mod=0.5
+		skilloptions=list("/obj/Skills/AutoHit/Venom_Sting")
 
-		wasp
-			name="Magi-Wasps"
-			icon='Wasp.dmi'
-			potential=10
-			murder_chance=15
-			str_mod=1
-			end_mod=1
-			spd_mod=5
-			for_mod=1
-			attunement="Wind"
-			force_offense="Poison"
-			skilloptions=list("/obj/Skills/Projectile/Rapid_Barrage", "/obj/Skills/Projectile/Crash_Burst")
+	fish_beast
+		name="Fishman"
+		icon='Blue_Zora.dmi'
+		potential=10
+		str_mod=1
+		end_mod=2
+		for_mod=3
+		attunement="Water"
+		skilloptions=list("/obj/Skills/Projectile/Crash_Burst", "/obj/Skills/Projectile/Rapid_Barrage", "/obj/Skills/AutoHit/Magic/Blizzara")
+	dire_penguin
+		name="Dire Penguin"
+		icon='Penguin.dmi'
+		potential=10
+		hungry_chance=100
+		str_mod=3
+		end_mod=2
+		for_mod=3
+		seek_destroy=1
+		attunement="Water"
+		skilloptions=list("/obj/Skills/AutoHit/Phantom_Strike", "/obj/Skills/AutoHit/Magic/Blizzard", "/obj/Skills/AutoHit/Magic/Blizzara")
 
-		rebel_mushroom
-			name="Rebellious Mushroom"
-			icon=list('MiniMushBlue.dmi', 'MiniMushPurple.dmi', 'MiniMushRed.dmi', 'MiniMushYellow.dmi')
-			murder_chance=50
-			potential=10
-			intimidation=5
-			str_mod=2
-			end_mod=2
-			for_mod=2
-			attunement="Earth"
-			skilloptions=list("/obj/Skills/AutoHit/Mush_Bonk", "/obj/Skills/Projectile/Energy_Minefield", "/obj/Skills/AutoHit/Helicopter_Kick")
-		kappa
-			name="Kappa"
-			icon=list('KappaBlue.dmi', 'KappaBrown.dmi', 'KappaGreenDark.dmi', 'KappaGreenLight.dmi')
-			hungry_chance=25
-			potential=20
-			intimidation=2
-			str_mod=2
-			end_mod=5
-			spd_mod=1
-			for_mod=3
-			attunement="Water"
-			skilloptions=list("/obj/Skills/AutoHit/Magic/Blizzard", "/obj/Skills/AutoHit/Magic/Blizzara", "/obj/Skills/AutoHit/Magic/Blizzaga", "/obj/Skills/Projectile/Spirit_Ball", "/obj/Skills/AutoHit/Force_Stomp")
-		oozaru_boss
-			name="Primate"
-			icon='Oozonew.dmi'
-			pixel_x=-32
-			pixel_y=-32
-			str_mod=3
-			end_mod=5
-			spd_mod=1
-			for_mod=3
-			attunement="Fire"
-			sin=10
-			skilloptions=list("/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/Projectile/Magic/Fira", "/obj/Skills/Projectile/Magic/Firaga", "/obj/Skills/Projectile/Magic/Meteor", "/obj/Skills/Projectile/Magic/Disintegrate", "/obj/Skills/Projectile/Magic/Flare", "/obj/Skills/AutoHit/Magic/Gravity", "/obj/Skills/AutoHit/Magic/Magnet")
-		hell_wasp
-			name="Wasp"
-			icon='Wasp.dmi'
-			colors=list(rgb(153, 0, 0),rgb(102, 0, 0),rgb(51,0,0),rgb(204,0,0),rgb(255,0,0))
-			str_mod=2
-			end_mod=0.25
-			spd_mod=5
-			for_mod=2
-			attunement="Fire"
-			skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/Projectile/Magic/Fira", "/obj/Skills/Projectile/Magic/Firaga", "/obj/Skills/Projectile/Crash_Burst", "/obj/Skills/Projectile/Rapid_Barrage")
-		tentacle_boss
-			name="Consentacles"
-			icon='True Nightmare Fuel.dmi'
-			colors=list(rgb(204, 204, 204))
-			pixel_x=-48
-			pixel_y=-48
-			str_mod=3
-			end_mod=5
-			spd_mod=1
-			for_mod=3
-			attunement="Water"
-			sin=10
-			skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike")
-		ice_turtle
-			name="Ice Fiend"
-			icon=list('AngryFishmanBlack.dmi', 'AngryFishmanBlue.dmi', 'AngryFishmanGreen.dmi', 'AngryFishmanGrey.dmi', 'AngryFishmanPurple.dmi', 'AngryFishmanRed.dmi', 'AngryFishmanYellow.dmi',\
-			'Mindflayer.dmi', 'KappaBlue.dmi', 'KappaBrown.dmi', 'KappaGreenDark.dmi', 'KappaGreenLight.dmi', 'Frog.dmi', 'Penguin.dmi', 'TentaEye.dmi')
-			murder_chance=25
-			attunement="Water"
-			str_mod=1.5
-			end_mod=4
-			spd_mod=1.5
-			for_mod=1.5
-			seek_destroy=1
-			crazy_targets=1
-			skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Magic/Blizzaga")
-		cactus_creature
-			name="Cactus"
-			icon='Green_Hanny.dmi'
-			str_mod=3
-			end_mod=3
-			spd_mod=1
-			for_mod=3
-			seek_destroy=1
-			crazy_targets=1
-			attunement="Poison"
-			skilloptions=list("/obj/Skills/Projectile/Straight_Siege", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/Projectile/Kienzan")
-		gluttony_boss
-			name="Squid"
-			icon='Mindflayer.dmi'
-			potential=50
-			intimidation=20
-			str_mod=3
-			end_mod=5
-			spd_mod=5
-			for_mod=3
-			crazy_targets=1
-			attunement="Water"
-			sin=10
-			skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike")
-		dark_spider
-			name="Heartless Spider"
-			icon='Spider.dmi'
-			potential=50
-			intimidation=12.5
-			str_mod=4
-			end_mod=4
-			for_mod=4
-			attunement="Dark"
-			sin=5
-			skilloptions=list("/obj/Skills/AutoHit/Sticky_Spray", "/obj/Skills/AutoHit/Shadow_Tendril_Strike")
-		dark_scorpion
-			name="Heartless Scorpion"
-			icon='Scorpion.dmi'
-			potential=50
-			intimidation=12.5
-			str_mod=4
-			end_mod=4
-			for_mod=4
-			attunement="Dark"
-			sin=5
-			skilloptions=list("/obj/Skills/AutoHit/Venom_Sting", "/obj/Skills/AutoHit/Shadow_Tendril_Strike")
+	cactus_beast
+		name="Cursed Cactus"
+		icon='Green_Hanny.dmi'
+		potential=10
+		murder_chance=15
+		str_mod=3
+		end_mod=3
+		for_mod=3
+		seek_destroy=1
+		attunement="Poison"
+		skilloptions=list("/obj/Skills/Projectile/Straight_Siege", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/Projectile/Kienzan")
 
-		waste_flayer
-			name="Flayer"
-			icon='Mindflayer.dmi'
-			murder_chance=100
-			potential=95
-			intimidation=20
-			void=1
-			str_mod=4
-			end_mod=2
-			spd_mod=3
-			for_mod=4
-			off_mod=4
-			def_mod=2
-			seek_destroy=1
-			crazy_targets=1
-			attunement="Chaos"
-			skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave")
+	wasp
+		name="Magi-Wasps"
+		icon='Wasp.dmi'
+		potential=10
+		murder_chance=15
+		str_mod=1
+		end_mod=1
+		spd_mod=5
+		for_mod=1
+		attunement="Wind"
+		force_offense="Poison"
+		skilloptions=list("/obj/Skills/Projectile/Rapid_Barrage", "/obj/Skills/Projectile/Crash_Burst")
 
-		wild_fire_spirits
-			name="Fire Spirit"
-			icon=list('CloudFire.dmi', 'HumanoidFire.dmi', 'SparkleFire.dmi')
-			colors=list(rgb(153,0,0))
-			murder_chance=25
-			potential=50
-			intimidation=20
-			attunement="Fire"
-			str_mod=4
-			end_mod=0.5
-			spd_mod=1
-			for_mod=4
-			off_mod=4
-			def_mod=0.5
-			seek_destroy=1
-			crazy_targets=1
-			skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/Projectile/Magic/Fira", "/obj/Skills/Projectile/Magic/Firaga", "/obj/Skills/Projectile/Magic/Uber_Shots/Hellfire_Nova")
-		wild_water_spirits
-			name="Water Spirit"
-			icon=list('AngryFishmanBlack.dmi', 'AngryFishmanBlue.dmi', 'AngryFishmanGreen.dmi', 'AngryFishmanGrey.dmi', 'AngryFishmanPurple.dmi', 'AngryFishmanRed.dmi', 'AngryFishmanYellow.dmi',\
-			'Mindflayer.dmi', 'KappaBlue.dmi', 'KappaBrown.dmi', 'KappaGreenDark.dmi', 'KappaGreenLight.dmi', 'Frog.dmi', 'Penguin.dmi', 'TentaEye.dmi')
-			murder_chance=25
-			potential=50
-			intimidation=20
-			attunement="Water"
-			str_mod=1
-			end_mod=3
-			spd_mod=1
-			for_mod=1
-			off_mod=2
-			def_mod=2
-			seek_destroy=1
-			crazy_targets=1
-			skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/AutoHit/Magic/Blizzard", "/obj/Skills/AutoHit/Magic/Blizzara", "/obj/Skills/AutoHit/Magic/Blizzaga")
-		wild_earth_spirits
-			name="Earth Spirit"
-			pixel_x=-16
-			pixel_y=-8
-			icon=list('DinoMonster.dmi', 'GiantFlower.dmi', 'StoneGolem.dmi')
-			murder_chance=25
-			potential=50
-			intimidation=20
-			epic_power=25
-			attunement="Earth"
-			str_mod=2
-			end_mod=3
-			spd_mod=1
-			for_mod=2
-			off_mod=2
-			def_mod=3
-			seek_destroy=1
-			crazy_targets=1
-			skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/AutoHit/Magic/Magnet", "/obj/Skills/AutoHit/Magic/Gravity", "/obj/Skills/AutoHit/Magic/Magnetga", "/obj/Skills/AutoHit/Magic/Graviga")
+	rebel_mushroom
+		name="Rebellious Mushroom"
+		icon=list('MiniMushBlue.dmi', 'MiniMushPurple.dmi', 'MiniMushRed.dmi', 'MiniMushYellow.dmi')
+		murder_chance=50
+		potential=10
+		intimidation=5
+		str_mod=2
+		end_mod=2
+		for_mod=2
+		attunement="Earth"
+		skilloptions=list("/obj/Skills/AutoHit/Mush_Bonk", "/obj/Skills/Projectile/Energy_Minefield", "/obj/Skills/AutoHit/Helicopter_Kick")
+	kappa
+		name="Kappa"
+		icon=list('KappaBlue.dmi', 'KappaBrown.dmi', 'KappaGreenDark.dmi', 'KappaGreenLight.dmi')
+		hungry_chance=25
+		potential=20
+		intimidation=2
+		str_mod=2
+		end_mod=5
+		spd_mod=1
+		for_mod=3
+		attunement="Water"
+		skilloptions=list("/obj/Skills/AutoHit/Magic/Blizzard", "/obj/Skills/AutoHit/Magic/Blizzara", "/obj/Skills/AutoHit/Magic/Blizzaga", "/obj/Skills/Projectile/Spirit_Ball", "/obj/Skills/AutoHit/Force_Stomp")
+	oozaru_boss
+		name="Primate"
+		icon='Oozonew.dmi'
+		pixel_x=-32
+		pixel_y=-32
+		str_mod=3
+		end_mod=5
+		spd_mod=1
+		for_mod=3
+		attunement="Fire"
+		sin=10
+		skilloptions=list("/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/Projectile/Magic/Fira", "/obj/Skills/Projectile/Magic/Firaga", "/obj/Skills/Projectile/Magic/Meteor", "/obj/Skills/Projectile/Magic/Disintegrate", "/obj/Skills/Projectile/Magic/Flare", "/obj/Skills/AutoHit/Magic/Gravity", "/obj/Skills/AutoHit/Magic/Magnet")
+	hell_wasp
+		name="Wasp"
+		icon='Wasp.dmi'
+		colors=list(rgb(153, 0, 0),rgb(102, 0, 0),rgb(51,0,0),rgb(204,0,0),rgb(255,0,0))
+		str_mod=2
+		end_mod=0.25
+		spd_mod=5
+		for_mod=2
+		attunement="Fire"
+		skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/Projectile/Magic/Fira", "/obj/Skills/Projectile/Magic/Firaga", "/obj/Skills/Projectile/Crash_Burst", "/obj/Skills/Projectile/Rapid_Barrage")
+	tentacle_boss
+		name="Consentacles"
+		icon='True Nightmare Fuel.dmi'
+		colors=list(rgb(204, 204, 204))
+		pixel_x=-48
+		pixel_y=-48
+		str_mod=3
+		end_mod=5
+		spd_mod=1
+		for_mod=3
+		attunement="Water"
+		sin=10
+		skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike")
+	ice_turtle
+		name="Ice Fiend"
+		icon=list('AngryFishmanBlack.dmi', 'AngryFishmanBlue.dmi', 'AngryFishmanGreen.dmi', 'AngryFishmanGrey.dmi', 'AngryFishmanPurple.dmi', 'AngryFishmanRed.dmi', 'AngryFishmanYellow.dmi',\
+		'Mindflayer.dmi', 'KappaBlue.dmi', 'KappaBrown.dmi', 'KappaGreenDark.dmi', 'KappaGreenLight.dmi', 'Frog.dmi', 'Penguin.dmi', 'TentaEye.dmi')
+		murder_chance=25
+		attunement="Water"
+		str_mod=1.5
+		end_mod=4
+		spd_mod=1.5
+		for_mod=1.5
+		seek_destroy=1
+		crazy_targets=1
+		skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Magic/Blizzaga")
+	cactus_creature
+		name="Cactus"
+		icon='Green_Hanny.dmi'
+		str_mod=3
+		end_mod=3
+		spd_mod=1
+		for_mod=3
+		seek_destroy=1
+		crazy_targets=1
+		attunement="Poison"
+		skilloptions=list("/obj/Skills/Projectile/Straight_Siege", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/Projectile/Kienzan")
+	gluttony_boss
+		name="Squid"
+		icon='Mindflayer.dmi'
+		potential=50
+		intimidation=20
+		str_mod=3
+		end_mod=5
+		spd_mod=5
+		for_mod=3
+		crazy_targets=1
+		attunement="Water"
+		sin=10
+		skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike")
+	dark_spider
+		name="Heartless Spider"
+		icon='Spider.dmi'
+		potential=50
+		intimidation=12.5
+		str_mod=4
+		end_mod=4
+		for_mod=4
+		attunement="Dark"
+		sin=5
+		skilloptions=list("/obj/Skills/AutoHit/Sticky_Spray", "/obj/Skills/AutoHit/Shadow_Tendril_Strike")
+	dark_scorpion
+		name="Heartless Scorpion"
+		icon='Scorpion.dmi'
+		potential=50
+		intimidation=12.5
+		str_mod=4
+		end_mod=4
+		for_mod=4
+		attunement="Dark"
+		sin=5
+		skilloptions=list("/obj/Skills/AutoHit/Venom_Sting", "/obj/Skills/AutoHit/Shadow_Tendril_Strike")
 
-		fire_spirits
-			name="Fire Spirit"
-			icon=list('CloudFire.dmi', 'HumanoidFire.dmi', 'SparkleFire.dmi')
-			colors=list(rgb(153,0,0))
-			murder_chance=25
-			potential=50
-			intimidation=20
-			attunement="Fire"
-			str_mod=4
-			end_mod=0.5
-			spd_mod=1
-			for_mod=4
-			off_mod=4
-			def_mod=0.5
-			seek_destroy=1
-			crazy_targets=1
-			skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/Projectile/Magic/Fira", "/obj/Skills/Projectile/Magic/Firaga", "/obj/Skills/Projectile/Magic/Uber_Shots/Hellfire_Nova")
-		water_spirits
-			name="Water Spirit"
-			icon=list('AngryFishmanBlack.dmi', 'AngryFishmanBlue.dmi', 'AngryFishmanGreen.dmi', 'AngryFishmanGrey.dmi', 'AngryFishmanPurple.dmi', 'AngryFishmanRed.dmi', 'AngryFishmanYellow.dmi',\
-			'Mindflayer.dmi', 'KappaBlue.dmi', 'KappaBrown.dmi', 'KappaGreenDark.dmi', 'KappaGreenLight.dmi', 'Frog.dmi', 'Penguin.dmi', 'TentaEye.dmi')
-			murder_chance=25
-			potential=50
-			intimidation=20
-			attunement="Water"
-			str_mod=1
-			end_mod=3
-			spd_mod=1
-			for_mod=1
-			off_mod=2
-			def_mod=2
-			seek_destroy=1
-			crazy_targets=1
-			skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/AutoHit/Magic/Blizzard", "/obj/Skills/AutoHit/Magic/Blizzara", "/obj/Skills/AutoHit/Magic/Blizzaga")
-		earth_spirits
-			name="Earth Spirit"
-			pixel_x=-16
-			pixel_y=-8
-			icon=list('DinoMonster.dmi', 'GiantFlower.dmi', 'StoneGolem.dmi')
-			murder_chance=25
-			potential=50
-			intimidation=20
-			attunement="Earth"
-			str_mod=2
-			end_mod=3
-			spd_mod=1
-			for_mod=2
-			off_mod=2
-			def_mod=3
-			seek_destroy=1
-			crazy_targets=1
-			skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/AutoHit/Magic/Magnet", "/obj/Skills/AutoHit/Magic/Gravity", "/obj/Skills/AutoHit/Magic/Magnetga", "/obj/Skills/AutoHit/Magic/Graviga")
-		sunlight_swordsman
-			name="Sunlight Swordsman"
-			potential=50
-			intimidation=20
-			//icon='DemonHumanoidSunlight.dmi'
-			str_mod=3
-			end_mod=3
-			for_mod=3
-			spd_mod=3
-			off_mod=3
-			def_mod=0.25
-			crazy_targets=1
-			sin=10
-			skilloptions=list("/obj/Skills/AutoHit/Shining_Sword_Slash","/obj/Skills/AutoHit/Massacre","/obj/Skills/AutoHit/Zantetsuken","/obj/Skills/AutoHit/Shadow_Cut","/obj/Skills/AutoHit/Ikki_Tousen")
-		sloth_shambler
-			name="Sloth Shambler"
-			potential=50
-			intimidation=20
-			icon='Deep_One.dmi'
-			str_mod=0.1
-			end_mod=10
-			for_mod=0.1
-			off_mod=10
-			attunement="Fire"
-			force_offense="Poison"
-			crazy_targets=1
-			sin=10
-			skilloptions=list("/obj/Skills/AutoHit/Fire_Breath","/obj/Skills/AutoHit/Poison_Gas","/obj/Skills/Projectile/Magic/Fire","/obj/Skills/Projectile/Magic/Fira","/obj/Skills/Projectile/Magic/Firaga","/obj/Skills/Projectile/Magic/Meteor")
+	waste_flayer
+		name="Flayer"
+		icon='Mindflayer.dmi'
+		murder_chance=100
+		potential=95
+		intimidation=20
+		void=1
+		str_mod=4
+		end_mod=2
+		spd_mod=3
+		for_mod=4
+		off_mod=4
+		def_mod=2
+		seek_destroy=1
+		crazy_targets=1
+		attunement="Chaos"
+		skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave")
+
+	wild_fire_spirits
+		name="Fire Spirit"
+		icon=list('CloudFire.dmi', 'HumanoidFire.dmi', 'SparkleFire.dmi')
+		colors=list(rgb(153,0,0))
+		murder_chance=25
+		potential=50
+		intimidation=20
+		attunement="Fire"
+		str_mod=4
+		end_mod=0.5
+		spd_mod=1
+		for_mod=4
+		off_mod=4
+		def_mod=0.5
+		seek_destroy=1
+		crazy_targets=1
+		skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/Projectile/Magic/Fira", "/obj/Skills/Projectile/Magic/Firaga", "/obj/Skills/Projectile/Magic/Uber_Shots/Hellfire_Nova")
+	wild_water_spirits
+		name="Water Spirit"
+		icon=list('AngryFishmanBlack.dmi', 'AngryFishmanBlue.dmi', 'AngryFishmanGreen.dmi', 'AngryFishmanGrey.dmi', 'AngryFishmanPurple.dmi', 'AngryFishmanRed.dmi', 'AngryFishmanYellow.dmi',\
+		'Mindflayer.dmi', 'KappaBlue.dmi', 'KappaBrown.dmi', 'KappaGreenDark.dmi', 'KappaGreenLight.dmi', 'Frog.dmi', 'Penguin.dmi', 'TentaEye.dmi')
+		murder_chance=25
+		potential=50
+		intimidation=20
+		attunement="Water"
+		str_mod=1
+		end_mod=3
+		spd_mod=1
+		for_mod=1
+		off_mod=2
+		def_mod=2
+		seek_destroy=1
+		crazy_targets=1
+		skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/AutoHit/Magic/Blizzard", "/obj/Skills/AutoHit/Magic/Blizzara", "/obj/Skills/AutoHit/Magic/Blizzaga")
+	wild_earth_spirits
+		name="Earth Spirit"
+		pixel_x=-16
+		pixel_y=-8
+		icon=list('DinoMonster.dmi', 'GiantFlower.dmi', 'StoneGolem.dmi')
+		murder_chance=25
+		potential=50
+		intimidation=20
+		epic_power=25
+		attunement="Earth"
+		str_mod=2
+		end_mod=3
+		spd_mod=1
+		for_mod=2
+		off_mod=2
+		def_mod=3
+		seek_destroy=1
+		crazy_targets=1
+		skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/AutoHit/Magic/Magnet", "/obj/Skills/AutoHit/Magic/Gravity", "/obj/Skills/AutoHit/Magic/Magnetga", "/obj/Skills/AutoHit/Magic/Graviga")
+
+	fire_spirits
+		name="Fire Spirit"
+		icon=list('CloudFire.dmi', 'HumanoidFire.dmi', 'SparkleFire.dmi')
+		colors=list(rgb(153,0,0))
+		murder_chance=25
+		potential=50
+		intimidation=20
+		attunement="Fire"
+		str_mod=4
+		end_mod=0.5
+		spd_mod=1
+		for_mod=4
+		off_mod=4
+		def_mod=0.5
+		seek_destroy=1
+		crazy_targets=1
+		skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/Projectile/Magic/Fira", "/obj/Skills/Projectile/Magic/Firaga", "/obj/Skills/Projectile/Magic/Uber_Shots/Hellfire_Nova")
+	water_spirits
+		name="Water Spirit"
+		icon=list('AngryFishmanBlack.dmi', 'AngryFishmanBlue.dmi', 'AngryFishmanGreen.dmi', 'AngryFishmanGrey.dmi', 'AngryFishmanPurple.dmi', 'AngryFishmanRed.dmi', 'AngryFishmanYellow.dmi',\
+		'Mindflayer.dmi', 'KappaBlue.dmi', 'KappaBrown.dmi', 'KappaGreenDark.dmi', 'KappaGreenLight.dmi', 'Frog.dmi', 'Penguin.dmi', 'TentaEye.dmi')
+		murder_chance=25
+		potential=50
+		intimidation=20
+		attunement="Water"
+		str_mod=1
+		end_mod=3
+		spd_mod=1
+		for_mod=1
+		off_mod=2
+		def_mod=2
+		seek_destroy=1
+		crazy_targets=1
+		skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/AutoHit/Magic/Blizzard", "/obj/Skills/AutoHit/Magic/Blizzara", "/obj/Skills/AutoHit/Magic/Blizzaga")
+	earth_spirits
+		name="Earth Spirit"
+		pixel_x=-16
+		pixel_y=-8
+		icon=list('DinoMonster.dmi', 'GiantFlower.dmi', 'StoneGolem.dmi')
+		murder_chance=25
+		potential=50
+		intimidation=20
+		attunement="Earth"
+		str_mod=2
+		end_mod=3
+		spd_mod=1
+		for_mod=2
+		off_mod=2
+		def_mod=3
+		seek_destroy=1
+		crazy_targets=1
+		skilloptions=list("/obj/Skills/AutoHit/Shadow_Tendril_Strike", "/obj/Skills/AutoHit/Destruction_Wave", "/obj/Skills/AutoHit/Magic/Magnet", "/obj/Skills/AutoHit/Magic/Gravity", "/obj/Skills/AutoHit/Magic/Magnetga", "/obj/Skills/AutoHit/Magic/Graviga")
+	sunlight_swordsman
+		name="Sunlight Swordsman"
+		potential=50
+		intimidation=20
+		//icon='DemonHumanoidSunlight.dmi'
+		str_mod=3
+		end_mod=3
+		for_mod=3
+		spd_mod=3
+		off_mod=3
+		def_mod=0.25
+		crazy_targets=1
+		sin=10
+		skilloptions=list("/obj/Skills/AutoHit/Shining_Sword_Slash","/obj/Skills/AutoHit/Massacre","/obj/Skills/AutoHit/Zantetsuken","/obj/Skills/AutoHit/Shadow_Cut","/obj/Skills/AutoHit/Ikki_Tousen")
+	sloth_shambler
+		name="Sloth Shambler"
+		potential=50
+		intimidation=20
+		icon='Deep_One.dmi'
+		str_mod=0.1
+		end_mod=10
+		for_mod=0.1
+		off_mod=10
+		attunement="Fire"
+		force_offense="Poison"
+		crazy_targets=1
+		sin=10
+		skilloptions=list("/obj/Skills/AutoHit/Fire_Breath","/obj/Skills/AutoHit/Poison_Gas","/obj/Skills/Projectile/Magic/Fire","/obj/Skills/Projectile/Magic/Fira","/obj/Skills/Projectile/Magic/Firaga","/obj/Skills/Projectile/Magic/Meteor")

@@ -1,5 +1,5 @@
 
-/datum/globalTracker/var/MAX_KILLER_INSTINCT_BOON = 1.5
+globalTracker/var/MAX_KILLER_INSTINCT_BOON = 1.5
 
 /mob/proc/GetKillerInstinct()
     . = 0

@@ -1,8 +1,8 @@
 obj/Skills/Buffs/ActiveBuffs/Hero
 	FinnBuff
-		sagaInfo = new /datum/sagaInfo/finn
+		sagaInfo = new/sagaInfo/finn
 		NeedsSword = 1
-		PULock = 1 
+		PULock = 1
 		PowerMult=1.5
 		SpdMult=1.3
 		EndMult=1.2
@@ -14,7 +14,7 @@ obj/Skills/Buffs/ActiveBuffs/Hero
 		ActiveMessage="brings out the heart of a hero!"
 		OffMessage="represses their heroic spirit."
 
-/datum/sagaInfo/finn
+sagaInfo/finn
 	choicePassives = list("2" = list("Instinct", "TechniqueMastery"), "4"= list("Flow", "MovementMastery"))
 	perLevelPassives = list("ShonenPower" = 0.15) // 0.15 per tier
 	specificPassives = list("3" = list("ShonenPower" = 0.2, "LifeSteal" = 0.05), \

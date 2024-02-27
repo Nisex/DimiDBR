@@ -5292,15 +5292,15 @@ obj
 								src.DamageMult*=1+(src.Owner.SenseUnlocked-5)
 
 
-						var/str = StrRate ? Owner.GetStr(StrRate) * glob.STRENGTH_EFFECTIVENESS : 0
-						var/force = ForRate ? Owner.GetFor(ForRate) * glob.FORCE_EFFECTIVENESS : 0
+						var/str = StrRate ? Owner.GetStr(StrRate) : 0
+						var/force = ForRate ? Owner.GetFor(ForRate) : 0
 						var/powerDif = Owner.Power / a:Power
 						// + Owner.getIntimDMGReduction(m)
 						if(glob.CLAMP_POWER)
 							if(!Owner.ignoresPowerClamp())
 								powerDif = clamp(powerDif, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
 						var/atk = 0
-						var/def = a:getEndStat(glob.END_EFFECTIVENESS) * EndRate
+						var/def = a:getEndStat(1) * EndRate
 						if(src.Owner.UsingPridefulRage())
 							if(Owner.passive_handler.Get("PridefulRage") >= 2)
 								def = 1

@@ -1,9 +1,9 @@
 #define CONFIG_OPTIONS_JSON_FOLDER "Saves/options_json/"
 
 
-client/var/datum/Options/prefs = new()
+client/var/Options/prefs = new()
 
-/datum/Options/
+Options/
     var/seePronouns = 1
     var/useSupporter = 0
     var/useDonator = 1
@@ -40,7 +40,7 @@ client/var/datum/Options/prefs = new()
                 world.log << "Failed to delete old preferences for [ckey]."
                 return 0
 
-        
+
 
 
 

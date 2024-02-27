@@ -5,7 +5,7 @@
 		ClothGold = input(src, "What Constellation do you want to be?") in glob.GoldConstellationNames
 		src<<"You are now the [ClothGold] Constellation!"
 
-/datum/sagaTierUpMessages/Cosmo
+sagaTierUpMessages/Cosmo
 	messages = list("You gained the ability to ignite your Cosmo, exchanging stamina for the ability to unlock extrasensory perception on the level of heroes and deities...", \
 	"Your celestial guardian blesses you with the ability to clad yourself in their power!", \
 	"Your celestial guardian blesses you with revelations of more advanced techniques!", \
@@ -19,7 +19,7 @@
 
 
 
-/var/datum/sagaTierUpMessages/allSagaMessages = list("Cosmo" = new /datum/sagaTierUpMessages/Cosmo())
+/var/sagaTierUpMessages/allSagaMessages = list("Cosmo" = new/sagaTierUpMessages/Cosmo())
 
 
 /mob/tierUpSaga(path)
@@ -167,7 +167,7 @@
 						src.AddSkill(new/obj/Skills/AutoHit/Bloody_Rose)
 		if(8)
 			SenseUnlocked=6
-		
+
 
 /obj/Skills/Buffs/SlotlessBuffs/SeventhSense
 	BuffName = "Seventh Sense"

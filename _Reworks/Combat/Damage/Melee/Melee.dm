@@ -199,7 +199,7 @@ var/global/MULTIHIT_NERF = FALSE
 				log2text("powerDif", powerDif, "damageDebugs.txt", "[ckey]/[name]")
 
 				var/atk = getStatDmg2()
-				var/def = enemy.getEndStat(glob.END_EFFECTIVENESS)
+				var/def = enemy.getEndStat(1)
 				if(passive_handler.Get("Brutalize"))
 					def -= (def * clamp(passive_handler.Get("Brutalize")/10, 0.01, 0.5)) // MOVE THIS TO A GET PROC SO IT CAN BE TRACKED
 				var/damageMultiplier = dmgmulti

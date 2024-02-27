@@ -55,7 +55,7 @@ obj/proc
 		return passiveList
 
 
-/datum/sagaTierUpMessages/Spiral
+sagaTierUpMessages/Spiral
 	messages = list("You gained the ability to let out the power of your evolution!", \
 	"You feel like you have evolved as a being!", \
 	"Your celestial guardian blesses you with revelations of more advanced techniques!", \
@@ -65,7 +65,7 @@ obj/proc
 	"You reach the level of a Golden Saint, standing at the summit as a champion of Gods!"
 	)
 
-var/datum/sagaTierUpMessages/spiralSagaMessages = list("Spiral" = new /datum/sagaTierUpMessages/Spiral())
+var/sagaTierUpMessages/spiralSagaMessages = list("Spiral" = new /sagaTierUpMessages/Spiral())
 
 
 mob

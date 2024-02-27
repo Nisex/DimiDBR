@@ -448,7 +448,7 @@ mob/Player/AI
 		ko_death
 
 		hostile_randomize
-		datum/ai_play_action/play_action
+		ai_play_action/play_action
 		list/ai_tmpprops = list()
 		ai_type
 

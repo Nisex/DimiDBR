@@ -1,6 +1,6 @@
-/client/var/tmp/datum/npcInterface/interfaceHUD = new()
+/client/var/tmp/npcInterface/interfaceHUD = new()
 
-/datum/npcInterface
+npcInterface
     var/mob/owner = null // a key generally, this won't be saved
     var/mob/npc = null // the mob this is attached to
     var/lastUpdate = 0 // the last time we updated the interface
@@ -10,7 +10,7 @@
     var/obj/information = null // the information object
 
 /mob/irlNPC
-    var/orgX 
+    var/orgX
     var/orgY
     var/orgZ
     var/profession

@@ -421,7 +421,7 @@ obj/Skills
 					if(src.StrRate)
 						statPower = User.getStatDmg2() * StrRate
 					if(src.ForRate)
-						statPower += User.GetFor(src.ForRate) * glob.FORCE_EFFECTIVENESS
+						statPower += User.GetFor(src.ForRate)
 					User.log2text("Grapple Stat Power", statPower, "damageDebugs.txt", User.ckey)
 					if(src.NeedsSword)
 						itemDmg = (User.GetSwordDamage(User.EquippedSword()))
@@ -435,12 +435,12 @@ obj/Skills
 						itemDmg *= GLOBAL_ITEM_DAMAGE_MULT
 					var/unarmedBoon = !NeedsSword ? GRAPPLE_MELEE_BOON : 1
 					User.log2text("Grapple Item Damage", itemDmg, "damageDebugs.txt", User.ckey)
-					var/endFactor = Trg.getEndStat(glob.END_EFFECTIVENESS)
+					var/endFactor = Trg.getEndStat(1)
 					if(User.HasPridefulRage())
 						if(User.passive_handler.Get("PridefulRage") >= 2)
 							endFactor = 1
 						else
-							endFactor = clamp(Trg.getEndStat(glob.END_EFFECTIVENESS)/2, 1, Trg.getEndStat(glob.END_EFFECTIVENESS))
+							endFactor = clamp(Trg.getEndStat(1)/2, 1, Trg.getEndStat(1))
 					User.log2text("Grapple End Factor", endFactor, "damageDebugs.txt", User.ckey)
 					var/Damage=1
 					// userPower += User.getIntimDMGReduction(Trg)

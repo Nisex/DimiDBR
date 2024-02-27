@@ -1,8 +1,8 @@
-/datum/SoldierTracker
+SoldierTracker
     var/totalSoldiers
     var/list/monkeySoldiers = list()
     var/maxSoldiers = 1
-/mob/var/datum/SoldierTracker/MonkeySoldiers = new()
+/mob/var/SoldierTracker/MonkeySoldiers = new()
 
 
 /mob/proc/summonMonkeySoldier(dmg, tier)

@@ -32,7 +32,7 @@ game_loop
 
 /game_loop/Update(updater)
     var callback = CallbackFor(updater)
-    if(callback) 
+    if(callback)
         call(updater, callback)()
 
 /game_loop/proc/Loop()
@@ -99,7 +99,7 @@ world
             try
                 ai_tick()
             catch()
-        
+
 
 proc/turf_tick()
     for(var/turf/t in ticking_turfs)

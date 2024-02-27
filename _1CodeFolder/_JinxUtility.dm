@@ -1344,7 +1344,7 @@ mob
 
 			// WEREWOLF HUNGER MECHANIC
 			if(src.Secret == "Werewolf" && CheckSlotless("New Moon Form"))
-				var/datum/SecretInfomation/Werewolf/s = src.secretDatum
+				var/SecretInfomation/Werewolf/s = src.secretDatum
 				s.addHunger(val)
 				Update_Stat_Labels()
 			//END WEREWOLF HUNGER MECHANIC

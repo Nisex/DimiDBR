@@ -173,7 +173,7 @@ mob/var
 	tmp/ArmamentGlow
 	tmp/FlickeringGlow
 	tmp/MeditateTime
-	tmp/datum/Party/party//party party party
+	tmp/Party/party//party party party
 	tmp/StunImmune
 	tmp/GrabTime
 	AntiGodDoor=0

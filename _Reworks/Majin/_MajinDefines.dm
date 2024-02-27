@@ -10,7 +10,7 @@
 #define MAJIN_PASSIVE_LIMIT 0.5 // MAX NUMBER OF TICKS ON A PASSIVE
 #define MAJIN_ABSORB_TAX 2 // AN ADDITONAL 2 STAT TAX PER ASCENSION
 
-/datum/blobDropper
+blobDropper
     var/list/blobList = list()
     var/numBlobs = 0
     var/numBlobsMax = MAX_BLOBS
@@ -28,7 +28,7 @@
         numBlobsMax = MAX_BLOBS + getMaxBlobs(ascen)
         blobDropRate = MAJIN_BLOB_DROP_RATE + getDropRate(ascen)
         dropThreshold = MAJIN_BLOB_DROP_THRESHOLD - getDropThreshold(ascen)
-/datum/majinAbsorb/New(mob/Players/p)
+majinAbsorb/New(mob/Players/p)
     if(p)
         if(!p.Race == "Majin")
             del(src)
@@ -38,7 +38,7 @@
 /**
  * DEBUG VERBS
  * TESTING BLOBDROPPER
- * 
+ *
  */
-/mob/var/tmp/datum/blobDropper/majinPassive = null
-/mob/var/datum/majinAbsorb/majinAbsorb = null
+/mob/var/tmp/blobDropper/majinPassive = null
+/mob/var/majinAbsorb/majinAbsorb = null
