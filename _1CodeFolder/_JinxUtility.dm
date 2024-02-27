@@ -3969,6 +3969,8 @@ mob
 #define SECONDS * 10
 #define MINUTES * 600
 #define HOURS   * 36000
+#define MAX_WIPE_DAYS 50
+#define ANIT_LAG_NUM 100
 
 
 proc
@@ -3995,6 +3997,8 @@ proc
 			glob.progress.DaysOfWipe=round(days)
 			glob.progress.incrementTotal()
 		// glob.RPPStarting=(glob.RPPDaily)*glob.progress.DaysOfWipe
+		if(glob.progress.DaysOfWipe>MAX_WIPE_DAYS || glob.progress.DaysOfWipe > ANIT_LAG_NUM)
+			glob.progress.DaysOfWipe = MAX_WIPE_DAYS
 		return glob.progress.DaysOfWipe
 	Today()
 		return world.realtime-world.timeofday

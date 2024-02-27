@@ -51,6 +51,7 @@
 	var/guild = input("Guild Name: ") in glob.GUILD_RANKINGS
 	glob.GUILD_RANKINGS.Remove(guild)
 
+//TODO: prob remove innit ?
 /mob/verb/View_Guild_Ranks()
 	set category = "Roleplay"
 	var/startText = "[SYSTEM]Guild Rankings]"

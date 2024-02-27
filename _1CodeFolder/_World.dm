@@ -29,7 +29,7 @@ world
 		spawn(100)GlobalSave()
 		Stars()
 		GenerateWorldInstances()
-		log=file("Saves/Errors.log")
+		// log=file("Saves/Errors.log")
 		spawn(10)
 
 			BootWorld("Load")
@@ -61,6 +61,7 @@ world
 		world.SetConfig("APP/admin", "Niezan", "role=admin")
 	Del()
 		..()
+
 
 
 

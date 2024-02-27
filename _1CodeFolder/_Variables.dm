@@ -332,7 +332,7 @@ mob/var
 	potential_last_checked=0
 	PotentialDailyGain=0//how much potential can be obtained from NPCs
 	PotentialLastDailyGain//when was the last date that daily gain was refreshed?
-	RewardsLastGained//when was the last time you were rewarded?
+	RewardsLastGained = 0 //when was the last time you were rewarded?
 	PowerBoost=1//Now it ain't borked!?
 	PowerInvisible=1//only used for buffs now
 	PotentialUnlocked//You need a better UP after a previous one.

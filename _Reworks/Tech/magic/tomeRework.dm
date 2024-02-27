@@ -78,12 +78,12 @@ Tomes:
     verb/Examine()
         var/header ="<title>[src]</title><body bgcolor=#000000 text=#339999>"
         var/close = "</body>"
-        var/content = "[SYSTEMTEXT]"
+        var/content = ""
         content += "\[SPELL SLOTS: [currentSpellSlots] / [spellSlots]([maxSpellSlots])\]<br>"
         content += "\[TIER: [tier]\]<br>\[UPGRADES: [upgrades] / [upgradeLimit]\]<br>"
         for(var/obj/Skills/x in Spells)
             content += "\[SPELL: [x]. LEVEL: [x.Copyable] \]<br>"
-        var/html = "[header][content][close][SYSTEMTEXTEND]"
+        var/html = "[header][content][close]"
         usr<< browse(html, "window=[src];size=450x600")
 
     verb/Use_Tome()
@@ -377,13 +377,13 @@ Tomes:
     proc/removeSpell(obj/Skills/spell, mob/p)
         currentSpellSlots -= spell.Copyable
         Spells -= spell
-        p << "[SYSTEM]You have removed [spell] from your tome. Your tome now has [currentSpellSlots] / [maxSpellSlots] spell slots.[SYSTEMTEXTEND]"
+        p << "You have removed [spell] from your tome. Your tome now has [currentSpellSlots] / [maxSpellSlots] spell slots."
         del spell
     proc/addSpell(obj/Skills/spell, mob/p)
         currentSpellSlots += spell.Copyable
         Spells += copyatom(spell)
         spellsLearnedFrom["[spell.name]"] = FALSE
-        p << "[SYSTEM]You have added [spell] to your tome. Your tome now has [currentSpellSlots] / [maxSpellSlots] spell slots.[SYSTEMTEXTEND]"
+        p << "You have added [spell] to your tome. Your tome now has [currentSpellSlots] / [maxSpellSlots] spell slots."
 
 
     proc/cleanse(mob/p, cost)
@@ -405,10 +405,10 @@ Tomes:
         upgrades++
         adjustSpellSlots(p)
         usr.TakeFragments(cost)
-        p << "[SYSTEM]You have upgraded your tome. Your tome now has [spellSlots] / [maxSpellSlots] spell slots.[SYSTEMTEXTEND]"
+        p << "You have upgraded your tome. Your tome now has [spellSlots] / [maxSpellSlots] spell slots."
 
     proc/tierUp(mob/p)
         upgrades = 0
         tier++
         adjustSpellSlots(p)
-        p << "[SYSTEM]You have tiered up your tome. Your tome now has [spellSlots] / [maxSpellSlots] spell slots.[SYSTEMTEXTEND]"
+        p << "You have tiered up your tome. Your tome now has [spellSlots] / [maxSpellSlots] spell slots."

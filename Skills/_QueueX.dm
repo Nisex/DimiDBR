@@ -3858,9 +3858,8 @@ mob
 			if(Damage>0 && GLOBAL_QUEUE_DAMAGE > 0)
 				Damage *= GLOBAL_QUEUE_DAMAGE
 
-			Damage = clamp(Damage,0.01, 10) // fuck it
 			if(Damage>=5)
-				src<<"please report this still to the admins [AttackQueue]"
+				src<<"please report this skill to the admins [AttackQueue]"
 				world.log<<"[src] hit for over 5x dmg mult using [AttackQueue]"
 			return Damage
 		QueuedAccuracy()

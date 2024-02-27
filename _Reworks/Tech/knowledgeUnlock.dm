@@ -262,7 +262,6 @@ var/knowledgePaths/tech/list/TechnologyTree = list()
 
 		if("Bilocation")
 			SpaceMagicUnlocked++
-			src << "[SYSTEM] POCKET DEMENSION ITEM added to TOWER FRAGMENT SHOP[SYSTEMTEXTEND]]"
 
 		if("TimeMagic")
 			TimeMagicUnlocked=1
@@ -489,7 +488,6 @@ var/knowledgePaths/tech/list/TechnologyTree = list()
 
 		if("Bilocation")
 			SpaceMagicUnlocked--
-			src << "[SYSTEM] POCKET DEMENSION ITEM added to TOWER FRAGMENT SHOP[SYSTEMTEXTEND]]"
 
 		if("TimeMagic")
 			TimeMagicUnlocked=0

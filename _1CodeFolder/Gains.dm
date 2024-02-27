@@ -1525,6 +1525,21 @@ mob
 	//Okay, stuff past here may be sources of lag. This is just a comment to note this.
 		var/BreathingMaskOn=0
 		if(isturf(loc))
+			var/turf/T = loc
+			if(T.effectApplied)
+				//TODO if u reuse this make it a switch
+				if(T.effectApplied == "Stellar")
+					if(!passive_handler.Get("Constellation"))
+					// start draining or somethin
+						if(Energy > 1)
+							Energy -= 0.15
+						if(TotalFatigue < 99)
+							TotalFatigue += 0.15
+					else
+						if(Energy < 99)
+							Energy += 0.15
+						if(TotalFatigue > 0)
+							TotalFatigue -= 0.15
 			if(!passive_handler.Get("StaticWalk")&&!src.Dead)
 				if(istype(loc,/turf/Special/Static))
 					src.Health-=0.05

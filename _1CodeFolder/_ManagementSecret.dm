@@ -421,13 +421,20 @@ mob/Admin3/verb
 	SecretManagement(var/mob/P in players)
 		set category="Admin"
 		if(!P.client) return
-		var/list/Secrets=list("Jagan", "Hamon of the Sun", "Werewolf", "Vampire", "Sage Arts", "Haki")
+		var/list/Secrets=list("Spirits of The World","Jagan", "Hamon of the Sun", "Werewolf", "Vampire", "Sage Arts", "Haki")
 		var/Selection=input(src, "Which aspect of power does [P] awaken to?", "Secret Management") in Secrets
 		if(P.Secret)
 			src << "They already have a secret."
 			return
 		else
 			switch(Selection)
+				if("Spirits of The World")
+					var/path = input(src, "Which path of Spirits of The World do you wish to follow?", "Spirits of The World") in list("Goetic Virtue", "Stellar Constellation", "Elven Sanctuary")
+					// for now, admins pick it, as there 
+					P.Secret = path
+					var/newpath = replacetext(path, " ", "_")
+					newpath = "Spirits_Of_The_World/[newpath]"
+					P.giveSecret(newpath)
 				if("Jagan")
 					P.Secret = "Jagan"
 					P.giveSecret("Jagan")

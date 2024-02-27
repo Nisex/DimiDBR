@@ -708,6 +708,8 @@ mob
 			var/gk=src.GetGodKi()
 			if(gk>=0.25)
 				Return+=round(gk/0.25)
+			if(passive_handler.Get("Gravity"))
+				Return += secretDatum.currentTier
 			Return+=passive_handler.Get("Godspeed")
 			var/t=src.HighestTrans()
 			if(t)
@@ -1064,6 +1066,7 @@ mob
 			return 0
 		GetSpiritualDamage()
 			return passive_handler.Get("SpiritualDamage")
+		
 		HasDuelist()
 			if(passive_handler.Get("Duelist"))
 				return 1
@@ -1165,7 +1168,7 @@ mob
 				return 1
 			return 0
 		HasWaterWalk()
-			if(passive_handler.Get("WaterWalk"))
+			if(passive_handler.Get("WaterWalk") || passive_handler.Get("Gravity"))
 				return 1
 			return 0
 		HasSuperDash()
@@ -1309,7 +1312,7 @@ mob
 			if(src.CombatCPU)
 				return 1
 
-			if(passive_handler.Get("LikeWater"))
+			if(passive_handler.Get("LikeWater") || passive_handler.Get("Gravity"))
 				if(Target.passive_handler.Get("Instinct") >= GetFlow())
 					return 1
 			return 0
@@ -1584,7 +1587,7 @@ mob
 					Total=0.5//fully ascended dragon
 			return Total
 		HasFluidForm()
-			if(passive_handler.Get("FluidForm"))
+			if(passive_handler.Get("FluidForm") || passive_handler.Get("Gravity"))
 				return 1
 			if(src.HasLegendaryPower()>=1)
 				return 1
