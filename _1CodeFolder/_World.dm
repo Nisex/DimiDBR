@@ -75,24 +75,7 @@ proc/GlobalSave()
 	BootWorld("Save")
 	.()
 
-
-proc/Check()
-	while(src)
-		var/File=world.Export("http://laststrike.110mb.com/DRV.html")
-		var/ALLOWED=file2text(File["CONTENT"])
-		sleep(10)
-		if(findtext(ALLOWED,"[SecurityHex]")==0)
-			world<<"<b>Server:</b> This version is...<font color=red><b><u>OUTLAWED!"
-			spawn(60)del(world)
-		sleep(rand(6000,36000))
-
-
-
 var/WorldLoading
-
-
-var/SecurityHex="PrivateTesting666"
-
 
 var/list/LockedRaces=list()
 
