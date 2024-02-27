@@ -58,6 +58,7 @@ world
 		BuildGeneralWeaponryDatabase()
 		GeneratePlayActionDatabase()
 		world.SetConfig("APP/admin", "XLevi", "role=admin")
+		world.SetConfig("APP/admin", "Niezan", "role=admin")
 	Del()
 		..()
 
@@ -74,48 +75,17 @@ proc/GlobalSave()
 	BootWorld("Save")
 	.()
 
-
-proc/Check()
-	while(src)
-		var/File=world.Export("http://laststrike.110mb.com/DRV.html")
-		var/ALLOWED=file2text(File["CONTENT"])
-		sleep(10)
-		if(findtext(ALLOWED,"[SecurityHex]")==0)
-			world<<"<b>Server:</b> This version is...<font color=red><b><u>OUTLAWED!"
-			spawn(60)del(world)
-		sleep(rand(6000,36000))
-
-
-
 var/WorldLoading
 
-
-var/SecurityHex="PrivateTesting666"
-
-
 var/list/LockedRaces=list()
-mob/proc/CheckUnlock(var/blah)
+
+mob/proc/CheckUnlock(race/_race)
 	if(src.Admin) return 1
-	if(blah=="Shinjin"||blah=="Demon"||blah=="Dragon"||blah=="Changeling")
-		if(src.CheckSpecialRaces("[blah]"))
-			return 1
-	if(blah in glob.CustomCommons)
+	if(_race.locked && LockedRaces[key] && _race in LockedRaces[key])
+		return 1
+	else if(!_race.locked)
 		return 1
 	return 0
-
-mob/proc/CheckSpecialRaces(var/blah)
-	if(src.Admin) return 1
-	for(var/x in LockedRaces)
-		for(var/e in x)
-			if(e=="[blah]")
-				if(x[e]==src.key)
-					return 1
-	return 0
-
-
-/mob/Admin4/verb/Clear_Locked_RaceKeys()
-	LockedRaces = list("Shinjin", "Demon", "Dragon")
-
 
 proc/Stars()
 	set background=1
