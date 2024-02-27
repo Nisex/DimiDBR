@@ -880,7 +880,10 @@ mob/Players
 		src.loc = null
 		del(usr)
 
-
+client/Del()
+	if(highlightedAtoms.len > 0)
+		ClearHighlights()
+	..()
 
 mob/Creation
 	Login()

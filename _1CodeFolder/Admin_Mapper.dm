@@ -112,9 +112,20 @@ mob
 			else
 				usr.MapperWalk=0
 				usr << "You turn off your Mapper Walk."
+
+		verb/changeHudScale()
+			set category = "Mapper"
+
+			var/x = input("What scale for mapping tool HUD?", "Mapping HUD Scale") as num
+			x = clamp(x,0.25,5)
+			client.hudScale = x
+			client.ClearHUD()
+			GenerateHUD()
+
 		verb/ToggleBuildMode()
 			set category = "Mapper"
 			client.BuildModeToggle()
+
 		verb/Toggle_Turf_Indestructable()
 			set category="Mapper"
 			if(!usr.TurfInvincible)
