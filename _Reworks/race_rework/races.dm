@@ -94,7 +94,7 @@ mob
 			else if(!statRedo)
 				passive_handler.increaseList(race.passives)
 				for(var/obj/Skills/s in race.skills)
-					AddSkill(s)
+					AddSkill(new s)
 
 		// isRace will accept either a type or a name.
 		isRace(raceCheck)
@@ -298,6 +298,7 @@ race
 		name = "Yokai"
 		desc = "These are Yokai."
 
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form)
 		strength = 2
 		endurance = 1.5
 		speed = 1
