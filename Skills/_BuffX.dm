@@ -7668,6 +7668,26 @@ NEW VARIABLES
 			verb/Summon_Devil_Arm()
 				set category="Skills"
 				src.Trigger(usr)
+
+
+		The_Crown
+			SignatureTechnique=3
+			TextColor="#adf0ff"
+			ActiveMessage=null
+			OffMessage=null
+			verb/Don_Crown()
+				set category="Skills"
+				src.Trigger(usr)
+
+		Sacrifice
+			passives = list("ManaStats" = 1, "Anaerobic" = 1, "Desperation" = 4, "CursedWounds" = 1)
+			Cooldown = -1
+			HealthCost = 75
+			verb/Sacrifice()
+				set category = "Skills"
+				src.Trigger(usr)
+
+
 		Majin
 			SignatureTechnique=3
 			AutoAnger=1

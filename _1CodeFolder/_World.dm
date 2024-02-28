@@ -15,7 +15,6 @@ world
 	hub_password="silverion"
 	fps=20
 	cache_lifespan=2
-	loop_checks=0
 	view=12
 	OpenPort()
 		..()

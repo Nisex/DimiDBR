@@ -1285,15 +1285,8 @@ mob/proc
 				src.EnergySignature=rand(9001,9999)
 				src.ClothGold="Ophiuchus"
 
-		if(src.Race=="Human")
-			src.AngerMessage="grows panicked!"
-			src.HiddenAnger=1
-			src.AngerPoint=50
-			passive_handler.Increase("Desperation", 1)
-			passive_handler.Increase("Adrenaline", 0.5)
-			passive_handler.Increase("TechniqueMastery", 5)
-			Desperation=1
-			Adrenaline=0.5
+		race.onFinalization(src)
+
 		if(src.Race=="Saiyan"||src.Race=="Half Saiyan")
 			src.Tail(1)
 			src.contents+=new/obj/Oozaru
@@ -1467,26 +1460,10 @@ mob/proc
 				src.ShinjinAscension=Choice
 
 		if(src.Race=="Demon")
-			if(src.icon=='Demon3.dmi')
-				src.Form1Base='Demon3M.dmi'
-			if(src.icon=='Demon4.dmi')
-				src.Form1Base='Demon4M.dmi'
-			if(src.icon=='Demon5.dmi')
-				src.Form1Base='Demon5M.dmi'
 			src.AngerPoint=50
-			passive_handler.Increase("HellPower", 1)
-			passive_handler.Increase("StaticWalk", 1)
-			passive_handler.Increase("SpaceWalk", 1)
-			passive_handler.Increase("CursedWounds", 1)
-			src.HellPower=1
-			src.StaticWalk=1
-			src.SpaceWalk=1
 			src.Timeless=1
 			src.Spiritual=1
-			src.CursedWounds=1
 			src.Potential=DaysOfWipe()
-			src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
-			src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm)
 			src.TrueName=input(src, "As a demon, you have a True Name that can be used to summon you by anyone with the magic and knowledge of it. It should be kept secret. What is your True Name?", "Get True Name") as text
 			src << "The name by which you can be conjured is <b>[src.TrueName]</b>."
 			global.TrueNames.Add(src.TrueName)

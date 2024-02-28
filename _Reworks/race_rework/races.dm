@@ -7,6 +7,9 @@ This is also done so we can easily check types.
 #define HUMAN /race/human
 #define SAIYAN /race/saiyan
 #define NAMEKIAN /race/namekian
+#define SAIYAN /race/saiyan
+#define DEMON /race/demon
+#define MAJIN /race/majin
 
 var/list/races = list()
 
@@ -49,52 +52,15 @@ mob
 mob
 	proc
 
-		setRace(race/new_race, creationFinalized = FALSE, statRedo = FALSE)
+		setRace(race/new_race, statRedo = FALSE)
 			if(!new_race) throw EXCEPTION("setRace was not supplied a new_race argument!")
 			if(!passive_handler) passive_handler = new
 
-			if(!statRedo)
-				if(race)
-					overlays -= race.overlays
-					passive_handler.decreaseList(race.passives)
-					for(var/obj/Skills/s in race.skills)
-						DeleteSkill(s)
+			if(race)
+				race.onDeselection(src)
 
-				race = new new_race.type
-
-				if(Gender == "Female")
-					icon = race.icon_female
-				else if(Gender == "Male")
-					icon = race.icon_male
-				else if(Gender == "Neuter")
-					icon = race.icon_neuter
-
-				icon_state = null
-				overlays.Add(race.overlays)
-
-				AngerPoint = race.anger_point
-				AngerMessage = race.anger_message
-
-			if(!creationFinalized)
-				SetStatPoints(race.statPoints)
-				SetStat("Power", race.power)
-				SetStat("Strength", race.strength)
-				SetStat("Endurance", race.endurance)
-				SetStat("Speed", race.speed)
-				SetStat("Force", race.force)
-				SetStat("Offense", race.offense)
-				SetStat("Defense", race.defense)
-				SetStat("Regeneration", race.regeneration)
-				SetStat("Recovery", race.recovery)
-				SetStat("Anger", race.anger)
-				SetStat("Learning", race.learning)
-				SetStat("Intellect", race.intellect)
-				SetStat("Imagination", race.imagination)
-
-			else if(!statRedo)
-				passive_handler.increaseList(race.passives)
-				for(var/obj/Skills/s in race.skills)
-					AddSkill(new s)
+			race = new new_race.type
+			race.onSelection(src)
 
 		// isRace will accept either a type or a name.
 		isRace(raceCheck)
@@ -187,6 +153,46 @@ race
 		for(var/i in transformations)
 			transformations[i] = new i
 
+	proc
+		onDeselection(mob/user)
+			user.overlays -= overlays
+
+		onSelection(mob/user)
+			if(!user.passive_handler) user.passive_handler = new
+
+			if(user.Gender == "Female")
+				user.icon = icon_female
+			else if(user.Gender == "Male")
+				user.icon = icon_male
+			else if(user.Gender == "Neuter")
+				user.icon = icon_neuter
+
+			user.icon_state = null
+			user.overlays += overlays
+
+			user.AngerPoint = anger_point
+			user.AngerMessage = anger_message
+
+			user.SetStatPoints(statPoints)
+			user.SetStat("Power", power)
+			user.SetStat("Strength", strength)
+			user.SetStat("Endurance", endurance)
+			user.SetStat("Speed", speed)
+			user.SetStat("Force", force)
+			user.SetStat("Offense", offense)
+			user.SetStat("Defense", defense)
+			user.SetStat("Regeneration", regeneration)
+			user.SetStat("Recovery", recovery)
+			user.SetStat("Anger", anger)
+			user.SetStat("Learning", learning)
+			user.SetStat("Intellect", intellect)
+			user.SetStat("Imagination", imagination)
+
+		onFinalization(mob/user)
+			user.passive_handler.increaseList(passives)
+			for(var/obj/Skills/s in skills)
+				user.AddSkill(new s)
+
 	human
 		name = "Human"
 		desc = "These are humans."
@@ -218,6 +224,7 @@ race
 		anger = 1.5
 		regeneration = 1.5
 		imagination = 0.5
+		skills = list(/obj/Oozaru)
 
 	/*
 		TODO: think of a better way to handle racial features.
@@ -350,6 +357,13 @@ race
 		anger = 2
 		regeneration = 3
 		imagination = 2
+		passives = list("HellPower" = 1, "StaticWalk" = 1, "SpaceWalk" = 1, "CursedWounds" = 1)
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm, /obj/Skills/Buffs/SlotlessBuffs/Regeneration)
+		onFinalization(mob/user)
+			..()
+			user.TrueName=input(user, "As a demon, you have a True Name that can be used to summon you by anyone with the magic and knowledge of it. It should be kept secret. What is your True Name?", "Get True Name") as text
+			user << "The name by which you can be conjured is <b>[user.TrueName]</b>."
+			global.TrueNames.Add(user.TrueName)
 
 	alien
 		name = "Alien"

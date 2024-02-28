@@ -824,6 +824,49 @@ obj
 				HitSparkTurns=1
 				//no verb because is set by throw
 
+			Myriad_Truths
+				Area="Circle"
+				ComboMaster=1
+				Distance=4
+				StrOffense=1
+				DamageMult=5.5
+				Cooldown=120
+				Knockback=20
+				Size=1
+				HitSparkIcon='BLANK.dmi'
+				Bolt = 2
+				Paralyzing=4
+				HitSparkX=0
+				HitSparkY=0
+				Shockwaves=3
+				Shockwave=1
+				EnergyCost=3
+				SpecialAttack=1
+				Earthshaking=15
+				ActiveMessage="reveals the truth of the world!"
+				verb/Myriad_Truths()
+					set category="Skills"
+					usr.Activate(src)
+			Devils_Advocate
+				NoAttackLock=1
+				Area="Wave"
+				Distance=5
+				StrOffense=1
+				Knockback=1
+				HitSparkIcon='BLANK.dmi'
+				Slow=1
+				DamageMult=2
+				NoOverlay=1
+				ObjIcon=1
+				Icon='SekiZou.dmi'
+				IconX=-48
+				IconY=-48
+				Size=1
+				Stunner = 1
+				verb/Devils_Advocate()
+					set name = "Devil's Advocate"
+					set category="Skills"
+					usr.Activate(src)
 ////Lycanthropia
 			Howl
 				Area="Circle"
