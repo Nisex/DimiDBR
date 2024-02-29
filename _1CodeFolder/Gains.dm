@@ -320,7 +320,7 @@ mob
 						R:adjust(src)
 						src<<"You no longer fear for your life..."
 				if(MeditateTime == 15)
-					if(Race=="Majin")
+					if(isRace(MAJIN))
 						majinPassive.resetVariables(src)
 					for(var/obj/Skills/s in Skills) if(s.Cooldown<0 && s.Using)
 						src << "One or more of your skills will be made available to you again when you stop meditating."

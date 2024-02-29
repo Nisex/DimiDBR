@@ -616,7 +616,7 @@ NEW VARIABLES
 			verb/Customize_Powered_State()
 				set category="Utility"
 				var/list/Options=list("Cancel", "Overlay", "Top Overlay", "Aura", "Hair", "Text")
-				if(usr.Race=="Makyo")
+				if(usr.isRace(MAKYO))
 					Options.Add("Base")
 				var/Option=input("What aspect do you wish to customize?", "Ki Control Customize") in Options
 				if(Option=="Cancel")
@@ -4757,11 +4757,11 @@ NEW VARIABLES
 				if(!usr.BuffOn(src))
 					getRegenRate(usr)
 				else
-					if(usr.Class=="Unhinged" && usr.Race=="Majin")
+					if(usr.Class=="Unhinged" && usr.isRace(MAJIN))
 						usr.Stasis = 0
 				src.Trigger(usr)
 				if(usr.BuffOn(src))
-					if(usr.Class=="Unhinged" && usr.Race=="Majin")
+					if(usr.Class=="Unhinged" && usr.isRace(MAJIN))
 						usr.Stasis = TimerLimit
 					if(!usr.Sheared)
 						if(usr.BPPoisonTimer>1&&usr.BPPoison<1)
@@ -4934,13 +4934,13 @@ NEW VARIABLES
 					var/Confirm
 					if(usr.Target.KO)
 						Confirm="Yes"
-					else if(usr.AscensionsAcquired>usr.Target.AscensionsAcquired&&usr.Race=="Dragon"&&usr.Target.Race=="Dragon")
+					else if(usr.AscensionsAcquired>usr.Target.AscensionsAcquired&&usr.isRace(DRAGON)&&usr.Target.isRace(DRAGON))
 						Confirm="Yes"
 					else
 						Confirm=alert(usr.Target, "[usr] is trying to merge your consciousness with theirs permanently!  Do you accept?", "Dragon Fusion", "No", "Yes")
 					if(Confirm=="No")
 						return
-					if(usr.Target!=usr&&usr.Target.Race=="Dragon")
+					if(usr.Target!=usr&&usr.Target.isRace(DRAGON))
 						if(usr.AngerMax<2&&usr.Target.AngerMax>=2)
 							usr.AngerMax=2
 						if(usr.AngerPoint<75&usr.Target.AngerPoint>=75)
@@ -5062,7 +5062,7 @@ NEW VARIABLES
 						Confirm=alert(usr.Target, "[usr] is trying to merge your consciousness with theirs permanently!  Do you accept?", "Namekian Fusion", "No", "Yes")
 					if(Confirm=="No")
 						return
-					if(usr.Target!=usr&&usr.Target.Race=="Namekian")
+					if(usr.Target!=usr&&usr.Target.isRace(NAMEKIAN))
 						switch(usr.Target.Class)
 							if("Warrior")
 								if(usr.Class!=usr.Target.Class)
@@ -12204,7 +12204,7 @@ mob
 					src << "No buffs as a changeling in transformations."
 					return
 				/*
-				if(src.Race=="Saiyan"&&src.TransActive()&&!B.UnrestrictedBuff)
+				if(src.isRace(SAIYAN)&&src.TransActive()&&!B.UnrestrictedBuff)
 					src << "No buffs as a saiyan in transformations."
 					return*/
 				if(src.SpecialBuff)
@@ -12347,7 +12347,7 @@ mob
 
 				if(src.TransActive())
 					src.ActiveBuff.OverlayTransLock=1
-					if(src.Race=="Saiyan"||src.Race=="Half Saiyan")
+					if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
 						if((!src.HasGodKi()&&masteries["[src.TransActive()]mastery"]==100)||src.HasGodKi()&&masteries["4mastery"]==100)
 							if(src.TransActive()==1&&(!src.HasGodKi()&&!src.Anger))
 								Anger=Anger
@@ -12357,7 +12357,7 @@ mob
 				else
 					src.ActiveBuff.OverlayTransLock=0
 
-				if(src.Race=="Makyo")
+				if(src.isRace(MAKYO))
 					src.ActiveBuff.IconReplace=1
 					src.ActiveBuff.icon=src.ExpandBase
 					src.ActiveBuff.passives["BleedHit"] = 0
@@ -12498,7 +12498,7 @@ mob
 					src.ActiveBuff.OverlayTransLock=0
 			src.AllSkillsRemove(src.ActiveBuff)
 			src.ActiveBuff=null
-			if(src.Race=="Makyo")
+			if(src.isRace(MAKYO))
 				src.StarPowered=0
 			if(isplayer(src))
 				src:move_speed = MovementSpeed()

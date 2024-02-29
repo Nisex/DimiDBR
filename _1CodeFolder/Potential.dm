@@ -136,7 +136,7 @@ mob
 			if(src.Race=="Alien")
 				if(src.TransUnlocked()<1)
 					src.trans["unlocked"]=1
-			if(src.Race=="Saiyan" || src.Race=="Half Saiyan")
+			if(src.isRace(SAIYAN) || src.Race=="Half Saiyan")
 				if(src.Potential>=45)
 					if(src.ssj["unlocked"]<2)
 						src.ssj["unlocked"]=2
@@ -148,7 +148,7 @@ mob
 						src.ssj["unlocked"]=1
 						src.masteries["1mastery"]=100
 						src << "Your Super Saiyan has been unlocked."
-				if(Race=="Saiyan")
+				if(isRace(SAIYAN))
 					if(src.Potential>=40)
 						if(src.AscensionsUnlocked<4)
 							src.AscensionsUnlocked=4

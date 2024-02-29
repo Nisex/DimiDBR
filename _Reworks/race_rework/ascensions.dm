@@ -484,14 +484,36 @@ ascension
 				..()
 	makyo
 		one
+			passives = list("Juggernaut" = 0.25)
+			strength = 0.25
+			endurance = 0.25
+			force = 0.25
+			intimidation = 5
 
 		two
-
+			passives = list("Juggernaut" = 0.25)
+			strength = 0.25
+			endurance = 0.25
+			force = 0.25
+			intimidation = 10
 		three
-
+			passives = list("Juggernaut" = 0.5)
+			strength = 0.5
+			endurance = 0.25
+			force = 0.5
+			intimidation = 15
 		four
-
+			passives = list("Juggernaut" = 0.5)
+			strength = 0.5
+			endurance = 0.25
+			force = 0.5
+			intimidation = 20
 		five
+			passives = list("Juggernaut" = 0.5)
+			strength = 1
+			endurance = 0.25
+			force = 1
+			intimidation = 25
 
 	alien
 		one

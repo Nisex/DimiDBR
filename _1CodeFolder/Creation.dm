@@ -103,7 +103,7 @@ mob/Players
 		if(src.RPPMult<1)
 			src.RPPMult=1
 		for(var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm/da in src)
-			if(src.Race=="Demon")
+			if(src.isRace(DEMON))
 				da.name="Devil Arm ([src.TrueName])"
 
 
@@ -125,7 +125,7 @@ mob/Players
 		src.RegenMod="N/A"
 		src.EnergyMod="N/A"
 		src.RecovMod=2
-		if(src.Race=="Human")
+		if(src.isRace(HUMAN))
 			src.RecovMod=2
 			src.RecovAscension=0
 
@@ -147,7 +147,7 @@ mob/Players
 				src << "Your signatures have been reset."
 			src.sig_reset=2
 		if(src.zenkai_reset<2)
-			if(src.Race=="Saiyan")
+			if(src.isRace(SAIYAN))
 				if(src.ssj["unlocked"]>2)
 					src.ssj["unlocked"]=2
 					src << "Your SSj level has been reset to 2, and your masteries are undone."
@@ -165,7 +165,7 @@ mob/Players
 						del Prime
 					else
 						del ns2
-/*		if(src.Race=="Saiyan")
+/*		if(src.isRace(SAIYAN))
 			for(var/obj/Skills/Buffs/b in src)
 				if(b.SpecialSlot && !b.UnrestrictedBuff)
 					if(src.CheckSpecial(b.BuffName))
@@ -413,12 +413,12 @@ mob/Players
 			if(Dif>=0&&(Dif-ModifyBaby)<1)
 				src.EraBody="Child"
 				Message="You are considered a child.  You're quite weak, but at least you have a long life ahead of you!"
-				if(src.Race=="Saiyan"||src.Race=="Half Saiyan")
+				if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
 					src.Tail(1)
 			if((Dif-ModifyBaby)>=1&&(Dif-(ModifyBaby+ModifyEarly))<2)
 				src.EraBody="Youth"
 				Message="You are now considered a youth.  You're able to access more of your power, but your full potential hasn't been unleashed yet!"
-				if(src.Race=="Saiyan"||src.Race=="Half Saiyan")
+				if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
 					src.Tail(1)
 			if((Dif-(ModifyBaby+ModifyEarly))>=2&&(Dif-(ModifyBaby+ModifyEarly+ModifyPrime))<4)
 				src.EraBody="Adult"
@@ -692,17 +692,17 @@ mob/Creation/verb
 		if(!(world.time > verb_delay))
 			return
 		verb_delay=world.time+1
-		if(usr.Race=="Human"||usr.Race=="Saiyan"||usr.Race=="Tuffle"||usr.Race=="Half Saiyan")
+		if(usr.isRace(HUMAN)||usr.isRace(SAIYAN)||usr.Race=="Tuffle"||usr.Race=="Half Saiyan")
 			usr.Grid("CreationHuman")
-		else if(usr.Race=="Namekian")
+		else if(usr.isRace(NAMEKIAN))
 			usr.Grid("CreationNamekian")
 		else if(usr.Race=="Changeling")
 			usr.Grid("CreationChangeling")
-		else if(usr.Race=="Alien"||usr.Race=="Monster"||Race=="Majin")
+		else if(usr.Race=="Alien"||usr.Race=="Monster"||isRace(MAJIN))
 			usr.Grid("CreationAlien")
-		else if(usr.Race=="Demon")
+		else if(usr.isRace(DEMON))
 			usr.Grid("CreationDemon")
-		else if(usr.Race=="Makyo")
+		else if(usr.isRace(MAKYO))
 			usr.Grid("CreationMakyo")
 		else if(usr.Race=="Shinjin")
 			usr.Grid("CreationKaio")
@@ -848,7 +848,7 @@ mob/Creation/verb
 				del(src)
 			usr.UpdateBio()
 		if(blah=="Class")
-			if(usr.Race=="Namekian")
+			if(usr.isRace(NAMEKIAN))
 				if(usr.Class=="Warrior")
 					usr.Class="Dragon"
 				else if(usr.Class=="Dragon")
@@ -874,7 +874,7 @@ mob/Creation/verb
 					usr.Class="West"
 				else if(usr.Class=="West")
 					usr.Class="South"
-			else if(Race=="Majin")
+			else if(isRace(MAJIN))
 				if(Class=="Innocent")
 					Class = "Super"
 				else if(Class=="Super")
@@ -973,7 +973,7 @@ mob
 				return
 			usr.UpdateBio()
 		else if(blah=="Class")
-			if(usr.Race=="Namekian")
+			if(usr.isRace(NAMEKIAN))
 				if(usr.Class=="Warrior")
 					usr.Class="Dragon"
 				else if(usr.Class=="Dragon")
@@ -1165,7 +1165,7 @@ client
 						if(DF)
 							DF.Cooldown()
 					src.mob.Health=25
-				if(mob.Race=="Majin")
+				if(mob.isRace(MAJIN))
 					if(!mob.majinPassive)
 						mob.majinPassive = new(mob)
 					if(!mob.majinAbsorb)
@@ -1287,18 +1287,19 @@ mob/proc
 
 		race.onFinalization(src)
 
-		if(src.Race=="Saiyan"||src.Race=="Half Saiyan")
+/*
+		if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
 			src.Tail(1)
 			src.contents+=new/obj/Oozaru
 			if(src.Race=="Half Saiyan")
 				passive_handler.Increase("Desperation", 0.5)
 				src.Desperation=0.5
-			if(src.Race=="Saiyan")
+			if(src.isRace(SAIYAN))
 				src.PowerBoost=1
 				src.PotentialRate=2.5
 				src.ModifyPrime=1
 				src.ModifyFinal=-1
-		if(src.Race=="Makyo")
+		if(src.isRace(MAKYO))
 			if(src.icon=='Makyo1.dmi')
 				src.ExpandBase='Makyo1_Buff.dmi'
 			else if(src.icon=='Makyo2.dmi')
@@ -1306,7 +1307,7 @@ mob/proc
 			else if(src.icon=='Makyo3.dmi')
 				src.ExpandBase='Makyo3_Buff.dmi'
 			src.PoweredFormSetup()
-		if(src.Race=="Namekian")
+		if(src.isRace(NAMEKIAN))
 			var/Choice
 			var/Confirm
 			src.Asexual=0
@@ -1459,7 +1460,7 @@ mob/proc
 
 				src.ShinjinAscension=Choice
 
-		if(src.Race=="Demon")
+		if(src.isRace(DEMON))
 			src.AngerPoint=50
 			src.Timeless=1
 			src.Spiritual=1
@@ -1467,7 +1468,7 @@ mob/proc
 			src.TrueName=input(src, "As a demon, you have a True Name that can be used to summon you by anyone with the magic and knowledge of it. It should be kept secret. What is your True Name?", "Get True Name") as text
 			src << "The name by which you can be conjured is <b>[src.TrueName]</b>."
 			global.TrueNames.Add(src.TrueName)
-		if(src.Race=="Majin")
+		if(src.isRace(MAJIN))
 			//TODO: COME BACK TO THIS AND GIVE OTHER VARS FOR DIFFERENT CLASSES
 			passive_handler.Increase("StaticWalk", 1)
 			src.StaticWalk=1
@@ -1493,7 +1494,7 @@ mob/proc
 			// src.contents+=new/obj/Regenerate
 			// for(var/obj/Regenerate/x in src)
 			// 	x.Level=4
-		if(src.Race=="Dragon")
+		if(src.isRace(DRAGON))
 			src.Intimidation=10
 			src.AngerMessage="roars furiously!"
 			src.Class=input(src, "All dragons possess resilence against the elements, but they also possess an affinity for a specific element.  What is your affinity?", "Elemental Dragon") in list("Fire", "Water", "Metal", "Lightning", "Poison", "Gold", "Time")
@@ -1615,7 +1616,7 @@ mob/proc
 			src.ModifyEarly=1
 			src.ModifyPrime=2
 			src.ModifyLate=-1
-			src.ModifyFinal=-1
+			src.ModifyFinal=-1*/
 
 		src.StrOriginal=src.StrMod
 		src.EndOriginal=src.EndMod
@@ -1703,18 +1704,18 @@ mob/proc
 					src.EraBody=Age
 					if(src.EraBody=="Youth")
 						src.EraAge=global.Era-src.GetPassedEras("Youth")
-						if(src.Race=="Saiyan"||src.Race=="Half Saiyan")
+						if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
 							src.Tail(1)
 					else
 						src.EraAge=global.Era-src.GetPassedEras("Elder")
-						if(src.Race=="Saiyan"||src.Race=="Half Saiyan")
+						if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
 							src.Tail(1)
 				else
 					src.EraBody="Youth"
 					src.EraAge=global.Era-src.GetPassedEras("Youth")
 			else
 				src.EraAge=-4
-				if(src.Class=="Eldritch" || src.Race=="Majin")
+				if(src.Class=="Eldritch" || src.isRace(MAJIN))
 					src.EraAge=global.Era-GetPassedEras("Adult")
 				src.EraBody="Adult"
 				src << "You've started as a timeless race. You learn slower than others, but can teach younger beings and always have your full power available."

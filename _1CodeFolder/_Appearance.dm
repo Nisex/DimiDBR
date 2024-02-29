@@ -31,7 +31,7 @@ mob/proc/AppearanceOn()
 			if(src.Form4Overlay)
 				var/image/im=image(icon=src.Form4Overlay, pixel_x=src.Form4OverlayX, pixel_y=src.Form4OverlayY)
 				src.overlays+=im
-		if(src.Race=="Saiyan"||src.Race=="Half Saiyan")
+		if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
 			src.overlays+=FurSSJ4
 			src.overlays+=ClothingSSJ4
 			src.overlays+=TailSSJ4

@@ -4,12 +4,6 @@ races are stored as text macros; this serves two purposes.
 If a typo occurs, BYOND will throw errors.
 This is also done so we can easily check types.
 */
-#define HUMAN /race/human
-#define SAIYAN /race/saiyan
-#define NAMEKIAN /race/namekian
-#define SAIYAN /race/saiyan
-#define DEMON /race/demon
-#define MAJIN /race/majin
 
 var/list/races = list()
 
@@ -224,8 +218,10 @@ race
 		anger = 1.5
 		regeneration = 1.5
 		imagination = 0.5
-		skills = list(/obj/Oozaru)
 
+		onFinalization(mob/user)
+			user.Tail(1)
+			user.contents+=new/obj/Oozaru
 	/*
 		TODO: think of a better way to handle racial features.
 		New()
@@ -406,3 +402,10 @@ race
 		imagination = 2
 		intellect = 1.5
 		learning = 1.5
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Regeneration,/obj/Skills/AutoHit/AntennaBeam)
+
+		onFinalization(mob/user)
+			..()
+			user.EnhancedHearing = 1
+			for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/r in user)
+				r.RegenerateLimbs=1

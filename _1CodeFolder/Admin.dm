@@ -983,7 +983,7 @@ mob/Admin2/verb
 		set category="Admin"
 		if(M.client)
 			var/blah=input("Unlock to what form?") as num
-			if(M.Race=="Saiyan"||M.Race=="Half Saiyan")
+			if(M.isRace(SAIYAN)||M.Race=="Half Saiyan")
 				M.ssj["unlocked"]=blah
 			else
 				M.trans["unlocked"]=blah

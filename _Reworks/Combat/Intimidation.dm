@@ -23,7 +23,7 @@
     var/totalMult = 0 // return value
 
     //def intim = 5, atk intim = 0, intim ignore = 0
-    
+
 
 
     val = getSSIntim(defender, val)
@@ -70,9 +70,9 @@
         Effective*=src.GetGodKi()*50
     if(src.Race in list("Demon" /*"Majin"*/) || src.CheckSlotless("Majin"))
         Effective*=(src.Potential/2)
-        if(src.Race=="Demon"&&src.AscensionsAcquired>=5)
+        if(src.isRace(DEMON)&&src.AscensionsAcquired>=5)
             Effective*=2
-    if(src.Race=="Majin")
+    if(src.isRace(MAJIN))
         var/unhingedBoon = Class == "Unhinged" ? 1 : 0
         if(unhingedBoon)
             unhingedBoon = abs(src.Health - 100)/40
@@ -87,7 +87,7 @@
                 Effective*= 6 + unhingedBoon
             if(5)
                 Effective*= 8 + unhingedBoon
-            
+
     if(!src.CheckSlotless("Majin"))
         var/stp=src.SaiyanTransPower()
         var/halfieNerf = Race == "Half Saiyan" ? 0.8 : 1
@@ -102,7 +102,7 @@
                 if(4)
                     Effective*=10
             Effective *= halfieNerf
-        if(src.Race=="Makyo"&&src.ActiveBuff&&src.AscensionsAcquired&&!src.CyberCancel)
+        if(src.isRace(MAKYO)&&src.ActiveBuff&&src.AscensionsAcquired&&!src.CyberCancel)
             switch(src.AscensionsAcquired)
                 if(1)
                     Effective*=4

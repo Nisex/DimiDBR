@@ -1536,7 +1536,7 @@ mob
 				val*=(1-defender.CyberCancel)
 			if(defender.BioArmor)
 				return
-			// if(src.Race=="Majin")
+			// if(src.isRace(MAJIN))
 			// 	val*=0.25
 			if(defender.HasCeramicPlating()||defender.HasPlatedWeights())
 				if(defender.HasPlatedWeights())
@@ -1564,7 +1564,7 @@ mob
 			if(src.BioArmor)
 				src.DamageSelf(val)
 				return
-			// if(src.Race=="Majin")
+			// if(src.isRace(MAJIN))
 			// 	val*=0.25
 			if(!src.HasInjuryImmune())
 				src.TotalInjury+=val
@@ -1621,7 +1621,7 @@ mob
 					val*=src.Anger
 			if(src.PotionCD)
 				val*=1.25
-			// if(src.Race=="Majin")
+			// if(src.isRace(MAJIN))
 			// 	val*=0.25
 			if(!src.HasFatigueImmune())
 				src.TotalFatigue+=val
@@ -2062,7 +2062,7 @@ mob
 				Mod+=1
 			if(src.Saga=="Eight Gates")
 				Mod+=0.05*GatesActive
-			// if(src.Race=="Human")
+			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
 			if(src.Race=="Android" && src.EnhancedStrength)
@@ -2174,7 +2174,7 @@ mob
 			if(passive_handler.Get("KillerInstinct") && Health <= 75)
 				forMult += GetKillerInstinct()
 			Mod+=(forMult-1)
-			// if(src.Race=="Human")
+			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
 			if(src.Race=="Android" && src.EnhancedForce)
@@ -2277,7 +2277,7 @@ mob
 			Mod+=(src.EndMultTotal-1)
 			if(src.KamuiBuffLock)
 				Mod+=1
-			// if(src.Race=="Human")
+			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
 			if(src.Race=="Android" && src.EnhancedEndurance)
@@ -2370,7 +2370,7 @@ mob
 				Mod+=1
 			if(src.Saga=="Eight Gates")
 				Mod+=0.05*GatesActive
-			// if(src.Race=="Human")
+			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
 			if(src.Race=="Android" && src.EnhancedSpeed)
@@ -2462,7 +2462,7 @@ mob
 			Off+=OffAdded
 			var/Mod=1
 			Mod+=(src.OffMultTotal-1)
-			// if(src.Race=="Human")
+			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
 			if(src.Race=="Android" && src.EnhancedAggression)
@@ -2539,7 +2539,7 @@ mob
 			Def+=DefAdded
 			var/Mod=1
 			Mod+=(src.DefMultTotal-1)
-			// if(src.Race=="Human")
+			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
 			if(src.Race=="Android" && src.EnhancedReflexes)
@@ -2603,7 +2603,7 @@ mob
 			if(src.HasHellPower()||(src.Secret=="Werewolf"&&(!src.CheckSlotless("Half Moon Form"))))
 				if(Recov<2)
 					Recov=2
-			if(src.Race=="Majin")
+			if(src.isRace(MAJIN))
 				Recov=2
 
 			var/Mod=1
@@ -2640,7 +2640,7 @@ mob
 			Recov*=Mod
 			Recov*=Mult
 			Recov*=src.RecovChaos
-			if(src.Race=="Namekian"&&src.TransActive())
+			if(src.isRace(NAMEKIAN)&&src.TransActive())
 				if(Recov<2)
 					Recov=2
 			if(src.HasRipple())
@@ -3846,7 +3846,7 @@ mob
 			if(src.req_pot(50) && src.req_sigs(0, 3))
 				if(!src.InfinityModule && src.ShinjinAscension!="Kai" && src.Race!="Changeling")
 					DevelopSignature(src, 3, "Signature")
-					if(src.Race=="Saiyan")
+					if(src.isRace(SAIYAN))
 						if(!locate(/obj/Skills/Buffs/SpecialBuffs/SuperSaiyanGrade2, src))
 							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/SuperSaiyanGrade2)
 							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/SuperSaiyanGrade3)

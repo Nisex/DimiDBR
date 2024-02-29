@@ -285,7 +285,7 @@ mob
 
 		Buy_Stances()
 			set hidden=1
-			
+
 
 obj/SkillTreeObj
 	var/path
@@ -416,7 +416,7 @@ mob/proc
 		var/passive = input(src, "Pick a focus") in Passives
 		KC.selectedPassive=passive
 		KC.init(src)
-		if(src.Race=="Makyo")
+		if(src.isRace(MAKYO))
 			KC.icon=src.ExpandBase
 			KC.IconReplace=1
 		src.AddSkill(KC)

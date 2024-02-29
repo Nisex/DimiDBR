@@ -212,7 +212,7 @@ mob/proc/Unconscious(mob/P,var/text)
 			if(src.Race!="Changeling")
 				src.Revert()
 				src<<"Being knocked out forced you to revert!"
-		if(src.Race=="Saiyan"||src.Race=="Half Saiyan")
+		if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
 			src.Oozaru(0)
 	if(src.Grab)
 		src.Grab_Release()
@@ -262,7 +262,7 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 			for(var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm/da in src)
 				if(src.CheckSlotless("Devil Arm"))
 					da.Trigger(src)
-				if(src.Race=="Demon")
+				if(src.isRace(DEMON))
 					da.name="Devil Arm ([src.TrueName])"
 				P.contents+=da
 				P << "You have inherited [src]'s Devil Arm!"
@@ -687,7 +687,7 @@ mob/proc/Leave_Body(var/SuperDead=0, var/Zombie, var/ForceVoid=0)
 		if(glob.VoidsAllowed||ForceVoid)
 			var/Timer
 			ActuallyDead=1
-			if(src.Race=="Human"&&src.HellPower>=1&&src.HellPower<2&&src.Potential>=50)
+			if(src.isRace(HUMAN)&&src.HellPower>=1&&src.HellPower<2&&src.Potential>=50)
 				src.HalfDemonAscension()
 				src.Burn=0
 				src.Poison=0
@@ -962,7 +962,7 @@ proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseCh
 			if(glob.CLAMP_POWER)
 				if(!Offender.ignoresPowerClamp())
 					powerDif = clamp(Offender.Power / Defender.Power, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
-			
+
 			mod = clamp((Offense/Defense)*AccMult, 0.05, 5) * powerDif
 			var/GodKiDif = 1
 			if(Offender.GetGodKi())

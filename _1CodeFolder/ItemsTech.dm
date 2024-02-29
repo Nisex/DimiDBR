@@ -2315,7 +2315,7 @@ obj/Items/Tech
 						sleep(-1)
 						TurfShift('GreenDay.dmi', t, 10, src, EFFECTS_LAYER)
 						for(var/mob/m in t)
-							if(m.Race=="Saiyan" || m.Race=="Half Saiyan")
+							if(m.isRace(SAIYAN) || m.Race=="Half Saiyan")
 								m.Tail=1
 							m.Oozaru(1)
 							if(locate(/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form, m))
@@ -2335,7 +2335,7 @@ obj/Items/Tech
 						sleep(-1)
 						TurfShift('Flamestorm.dmi', t, 10, src, EFFECTS_LAYER)
 						for(var/mob/m in t)
-							if(m.Race=="Makyo")
+							if(m.isRace(MAKYO))
 								m.StarPowered=1
 								for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in m)
 									if(!m.BuffOn(KC))
@@ -2400,7 +2400,7 @@ obj/Items/Tech
 						sleep(-1)
 						TurfShift('GreenDay.dmi', t, 10, src, EFFECTS_LAYER)
 						for(var/mob/m in t)
-							if(m.Race=="Saiyan" || m.Race=="Half Saiyan")
+							if(m.isRace(SAIYAN) || m.Race=="Half Saiyan")
 								m.Tail=1
 							m.Oozaru(1)
 							if(locate(/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form, m))
@@ -2426,7 +2426,7 @@ obj/Items/Tech
 						sleep(-1)
 						TurfShift('Flamestorm.dmi', t, 10, src, EFFECTS_LAYER)
 						for(var/mob/m in t)
-							if(m.Race=="Makyo")
+							if(m.isRace(MAKYO))
 								m.StarPowered=1
 								for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in m)
 									if(!m.BuffOn(KC))

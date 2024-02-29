@@ -40,6 +40,16 @@ proc/log_func(x, a, b)
 
 #define subtypesof(M) (typesof(M) - (M))
 
+#define HUMAN /race/human
+#define SAIYAN /race/saiyan
+#define NAMEKIAN /race/namekian
+#define SAIYAN /race/saiyan
+#define DEMON /race/demon
+#define MAJIN /race/majin
+#define MAKYO /race/makyo
+#define DRAGON /race/dragon
+#define ELF /race/high_faoroan
+
 proc
 	stoplag()
 		var/tickstosleep = 1

@@ -293,7 +293,7 @@ mob
 				if(!src.InfusionElement)
 					src.InfusionElement="Earth"
 				Value/=2
-			
+
 			if(Attunement=="Earth")
 				Value/=2
 
@@ -333,7 +333,7 @@ mob
 				Value/=2
 			if(Attunement=="Wind")
 				Value/=2
-			
+
 			if(src.HasDebuffImmune())
 				Value/=1+src.GetDebuffImmune()
 			Value = Value*(1-(src.Shock/glob.DEBUFF_STACK_RESISTANCE))
@@ -415,7 +415,7 @@ mob
 						OMsg(src, "<font color='[rgb(104, 153, 251)]'>[src]'s dispenser deploys a healing mist!!</font color>")
 					src.Sprayed+=100
 		AddCrippling(var/Value, var/mob/Attacker=null)
-			// if(src.Race=="Majin")
+			// if(src.isRace(MAJIN))
 			// 	if(!src.AscensionsAcquired||src.AscensionsAcquired>=3)
 			// 		Value=0
 			if(Race == "Dragon" && Class == "Lightning")

@@ -1888,7 +1888,7 @@ mob/Player/AI
 			EPM-=src.PowerEroded
 		if(src.NanoBoost&&src.Health<25)
 			EPM+=0.25
-		if(src.Race=="Makyo")
+		if(src.isRace(MAKYO))
 			if(src.ActiveBuff&&!src.HasMechanized())
 				EPM*=1+(0.5*src.AscensionsAcquired)
 		if(EPM<=0)
@@ -2067,7 +2067,7 @@ mob/Player/AI
 					PUGain=0
 					src.PoweringUp=0
 				if(src.TransActive())
-					if(src.masteries["[src.TransActive()]mastery"]>10&&src.masteries["[src.TransActive()]mastery"]<100||(src.Race=="Saiyan"&&src.HasGodKi()&&masteries["4mastery"]!=100))
+					if(src.masteries["[src.TransActive()]mastery"]>10&&src.masteries["[src.TransActive()]mastery"]<100||(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
 						PUGain/=src.PowerBoost
 					else
 						if(src.HasKiControlMastery())
@@ -2108,7 +2108,7 @@ mob/Player/AI
 					src.Auraz("Remove")
 					src<<"You are too tired to power up."
 					src.PoweringUp=0
-					if(Race=="Saiyan"||Race=="Half Saiyan")
+					if(isRace(SAIYAN)||Race=="Half Saiyan")
 						if(src.TransActive()>0)
 							var/Skip=0
 							if(src.ssj["active"]==1)
@@ -2135,7 +2135,7 @@ mob/Player/AI
 					src.PoweringUp=0
 					src.Auraz("Remove")
 					src<<"You are too tired to power up."
-					if(Race=="Saiyan"|Race=="Half Saiyan")
+					if(isRace(SAIYAN)|Race=="Half Saiyan")
 						if(src.TransActive()>0)
 							var/Skip=0
 							if(src.ssj["active"]==1)

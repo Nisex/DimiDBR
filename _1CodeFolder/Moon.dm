@@ -36,7 +36,7 @@ mob
 		MoonWarning()
 			if(src.Secret=="Werewolf")
 				src << "You feel the moon begin to rise... "
-			if(src.Tail&&(src.Race=="Saiyan"||src.Race=="Half Saiyan"))
+			if(src.Tail&&(src.isRace(SAIYAN)||src.Race=="Half Saiyan"))
 				src << "You feel the moon begin to rise... "
 			if(src.AdvancedTransmissionTechnologyUnlocked>0)
 				src << "Your observation devices are warning you about full moon... "
@@ -65,12 +65,12 @@ mob
 						F.Trigger(src)
 			src<<"<font color=yellow>[global.MoonSetMessage]</font color>"
 		MakyoWarning()
-			if(src.Race=="Makyo")
+			if(src.isRace(MAKYO))
 				src << "You feel your blood boiling in anticipation... "
 			if(src.AdvancedTransmissionTechnologyUnlocked>0)
 				src << "Your observation devices are warning you about an unusual celestial object... "
 		MakyoTrigger()
-			if(src.Race=="Makyo")
+			if(src.isRace(MAKYO))
 				if(src.PotentialRate<2)
 					src.PotentialRate+=0.25
 					if(src.PotentialRate>2)
@@ -84,7 +84,7 @@ mob
 						src.UseBuff(KC)
 			src<<"<font color=red>[global.MakyoMessage]</font color>"
 		MakyoSetTrigger()
-			if(src.Race=="Makyo")
+			if(src.isRace(MAKYO))
 				for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in src)
 					if(src.BuffOn(KC))
 						src.UseBuff(KC)

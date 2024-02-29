@@ -618,7 +618,7 @@ mob/proc/Recover(var/blah,Amount=1)
 			if(src.Oxygen<=10)
 				return
 			if(src.TransActive()&&!src.HasMystic())
-				if(src.masteries["[src.TransActive()]mastery"]>=10&&src.masteries["[src.TransActive()]mastery"]<100||(src.Race=="Saiyan"&&src.HasGodKi()&&masteries["4mastery"]!=100))
+				if(src.masteries["[src.TransActive()]mastery"]>=10&&src.masteries["[src.TransActive()]mastery"]<100||(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
 					return
 			if(Swim&&passive_handler.Get("Fishman"))
 				Amount*=2
@@ -708,7 +708,7 @@ mob/proc/
 			var/pot=src.get_potential()
 			EPM+=pot/100
 
-		if(Race=="Makyo"&&src.ActiveBuff&&!src.HasMechanized())
+		if(isRace(MAKYO)&&src.ActiveBuff&&!src.HasMechanized())
 			EPM+=0.1*src.AscensionsAcquired
 
 		if(EPM<=0)
@@ -918,7 +918,7 @@ mob/proc/
 
 			if(src.HasKiControlMastery())
 				if(src.TransActive())
-					if(src.masteries["[src.TransActive()]mastery"]<10&&!(src.Race=="Saiyan"&&src.HasGodKi()&&masteries["4mastery"]!=100))
+					if(src.masteries["[src.TransActive()]mastery"]<10&&!(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
 						PUGain*=1+(src.GetKiControlMastery())/2
 					else if(src.masteries["[src.TransActive()]mastery"]>=100)
 						PUGain*=2+(src.GetKiControlMastery())
@@ -957,7 +957,7 @@ mob/proc/
 				src.Auraz("Remove")
 				src<<"You are too tired to power up."
 				src.PoweringUp=0
-				if(Race=="Saiyan"||Race=="Half Saiyan")
+				if(isRace(SAIYAN)||Race=="Half Saiyan")
 					if(src.TransActive()>0)
 						var/TransActive=src.ssj["active"]
 						var/Skip=0
@@ -976,7 +976,7 @@ mob/proc/
 				src.PoweringUp=0
 				src.Auraz("Remove")
 				src<<"You are too tired to power up."
-				if(Race=="Saiyan"|Race=="Half Saiyan")
+				if(isRace(SAIYAN)|Race=="Half Saiyan")
 					if(src.TransActive()>0)
 						var/TransActive=src.ssj["active"]
 						var/Skip=0
@@ -1185,7 +1185,7 @@ mob/proc/Get_Scouter_Reading(mob/B)
 		EPM-=B.PowerEroded
 	if(B.NanoBoost&&B.Health<25)
 		EPM+=0.25
-	if(B.Race=="Makyo")
+	if(B.isRace(MAKYO))
 		if(B.ActiveBuff&&!B.HasMechanized())
 			EPM*=1+(0.5*B.AscensionsAcquired) * 7
 	if(EPM<=0)

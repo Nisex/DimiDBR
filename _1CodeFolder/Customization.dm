@@ -345,7 +345,7 @@ mob/proc/Auraz(var/Z)
 						src.overlays+=super2
 
 		else if(src.ssj["god"])
-			if(src.Race=="Saiyan")
+			if(src.isRace(SAIYAN))
 				src.underlays+=godaura
 				src.underlays+=godaura
 				src.overlays+=godglow
@@ -535,21 +535,21 @@ mob/proc/Hairz(var/Z)
 			src.overlays+=image(icon=src.EyesUI, layer=FLOAT_LAYER-2)
 
 		else if(src.ssj["god"])
-			if(src.Race=="Saiyan")
+			if(src.isRace(SAIYAN))
 				src.overlays+=image(icon=src.EyesSSG, layer=FLOAT_LAYER-2)
 			else if(src.Race=="Half Saiyan")
 				src.overlays+=image(icon=src.EyesSSJ, layer=FLOAT_LAYER-2)
 
-		else if((src.Race=="Saiyan"||src.Race=="Half Saiyan")&&src.ssj["active"]==4)
+		else if((src.isRace(SAIYAN)||src.Race=="Half Saiyan")&&src.ssj["active"]==4)
 			src.overlays+=image(icon=src.EyesSSJ4, layer=FLOAT_LAYER-2)
 
 		else if(!src.HasMystic())
-			if((src.Race=="Saiyan"||src.Race=="Half Saiyan")&&(src.ssj["active"]==1||src.ssj["active"]==2))
+			if((src.isRace(SAIYAN)||src.Race=="Half Saiyan")&&(src.ssj["active"]==1||src.ssj["active"]==2))
 				if(src.HasGodKi())
 					src.overlays+=image(icon=src.EyesSSB, layer=FLOAT_LAYER-2)
 				else
 					src.overlays+=image(icon=src.EyesSSJ, layer=FLOAT_LAYER-2)
-			else if((src.Race=="Saiyan"||src.Race=="Half Saiyan")&&src.ssj["active"]==3)
+			else if((src.isRace(SAIYAN)||src.Race=="Half Saiyan")&&src.ssj["active"]==3)
 				src.overlays+=image(icon=src.EyesSSJ3, layer=FLOAT_LAYER-2)
 
 		if(src.HairLocked==1)
@@ -1400,7 +1400,7 @@ obj/Creation_Icons
 			A.IconClicked=1
 			A.icon=src
 			winshow(A,"Grid1",0)
-			if(A.Race=="Alien"||A.Race=="Monster"||A.Race=="Human"||A.Race=="Saiyan"||A.Race=="Half Saiyan"||A.Race=="Shinjin")
+			if(A.Race=="Alien"||A.Race=="Monster"||A.isRace(HUMAN)||A.isRace(SAIYAN)||A.Race=="Half Saiyan"||A.Race=="Shinjin")
 				A.Grid("Hair")
 			icon=initial(icon)
 			A.IconClicked=0
