@@ -274,6 +274,18 @@ race
 		anger = 2
 		imagination = 2
 
+		onFinalization(mob/user)
+			user.Class = input(user,"Pick an element to represent you.", "Dragon Element") in list("Fire","Metal")
+			switch(user.Class)
+				if("Fire")
+					skills = list(/obj/Skills/AutoHit/Fire_Breath, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Heat_Of_Passion)
+					passives["DemonicDurability"] = 1
+					passives["SpiritHand"] = 1
+				if("Metal")
+					skills = list(/obj/Skills/Projectile/Shard_Storm, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Dragons_Tenacity)
+					passives["Hardening"] = 1
+			..()
+
 	eldritch
 		name = "Eldritch"
 		desc = "These are eldritches."

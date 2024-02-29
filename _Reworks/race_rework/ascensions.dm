@@ -398,15 +398,90 @@ ascension
 
 	dragon
 		one
+			intimidation = 30
+			onAscension(mob/owner)
+				switch(owner.Class)
+					if("Metal")
+						passives = list("Juggernaut" = 1, "Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 0.25)
+						strength += 0.25
+						endurance += 0.25
+						defense += 0.25
+
+					if("Fire")
+						angerPoint += 5
+						passives = list("DemonicDurability" = 0.25, "SpiritHand" = 1)
+						strength += 0.25
+						force += 0.25
+						offense += 0.25
+				..()
 
 		two
+			intimidation = 20
+			onAscension(mob/owner)
+				switch(owner.Class)
+					if("Metal")
+						passives = list("Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 0.25, "GodKi" = 0.05)
+						strength += 0.25
+						endurance += 0.25
+						defense += 0.25
+
+					if("Fire")
+						angerPoint += 5
+						passives = list("DemonicDurability" = 0.25, "SpiritHand" = 1, "GodKi" = 0.05)
+						strength += 0.25
+						force += 0.25
+						offense += 0.25
+				..()
 
 		three
+			intimidation = 100
+			onAscension(mob/owner)
+				switch(owner.Class)
+					if("Metal")
+						passives = list("Unstoppable" = 0.25, "HeavyHitter" = 1, "DeathField" = 0.5, "GodKi" = 0.05)
+						strength += 0.25
+						endurance += 0.25
+						defense += 0.25
 
+					if("Fire")
+						angerPoint += 5
+						passives = list("DemonicDurability" = 0.25, "SpiritHand" = 1, "GodKi" = 0.05)
+						strength += 0.25
+						force += 0.25
+						offense += 0.25
+				..()
 		four
+			onAscension(mob/owner)
+				switch(owner.Class)
+					if("Metal")
+						passives = list("Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 0.25, "GodKi" = 0.05)
+						strength += 0.25
+						endurance += 0.25
+						defense += 0.25
 
+					if("Fire")
+						angerPoint += 5
+						passives = list("DemonicDurability" = 0.25, "SpiritHand" = 1, "GodKi" = 0.05)
+						strength += 0.25
+						force += 0.25
+						offense += 0.25
+				..()
 		five
+			onAscension(mob/owner)
+				switch(owner.Class)
+					if("Metal")
+						passives = list("Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 0.25, "GodKi" = 0.05)
+						strength += 0.25
+						endurance += 0.25
+						defense += 0.25
 
+					if("Fire")
+						angerPoint += 5
+						passives = list("DemonicDurability" = 0.25, "SpiritHand" = 1, "GodKi" = 0.05)
+						strength += 0.25
+						force += 0.25
+						offense += 0.25
+				..()
 	makyo
 		one
 
