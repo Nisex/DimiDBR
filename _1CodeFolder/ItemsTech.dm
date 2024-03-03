@@ -1718,6 +1718,8 @@ obj/Items/Tech
 					if(usr.RPPMult*(1+usr.ParasiteCrest())*usr.Intelligence>=Req)
 						if(!locate(Tech, usr))
 							usr.AddSkill(Tech)
+							Tech.Copied = TRUE
+							Tech.copiedBy = "Combat Analysis"
 							usr << "You've learned [Tech] from observing material stored in cameras!"
 							Learned=1
 				if(!Learned)

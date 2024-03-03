@@ -7512,7 +7512,7 @@ NEW VARIABLES
 					usr << "Your Devil Arm is fully evolved currently!"
 					return
 				if(!usr.BuffOn(src))
-					while(src.Mastery<=usr.AscensionsAcquired)
+					while(src.Mastery<usr.AscensionsAcquired)
 						src.Mastery++
 						switch(input("What type of armament would you like your Devil Arm ([src.Mastery]) to be?") in list("Sword","Staff","Armor","Cancel"))
 							if("Sword")
@@ -7592,7 +7592,7 @@ NEW VARIABLES
 								StaffIcon='MageStaff.dmi'
 							else if(MakesArmor)
 								StaffIcon='DevilScale.dmi'
-						if(src.Mastery>1)
+						if(src.Mastery>=1)
 							if(src.MakesSword)
 								var/Enhancement=alert(usr, "You can now coat your weapon with your demonic miasma, either empowering its reach or infusing its slices with your mystic power.", "Devil Arm", "Extend", "Emit")
 								if(Enhancement=="Extend")
@@ -12157,7 +12157,10 @@ mob
 							if(m.SagaLevel<=B.Copyable)
 								continue
 							if(!locate(B.type, m))
-								m.AddSkill(new B.type)
+								var/obj/Skills/copiedSkill = new B.type
+								m.AddSkill(copiedSkill)
+								copiedSkill.Copied = TRUE
+								copiedSkill.copiedBy = "Sharingan"
 								m << "Your Sharingan analyzes and stores the [B.StyleActive] style you've just viewed."
 					spawn()
 						for(var/obj/Items/Tech/Security_Camera/SC in view(10, src))

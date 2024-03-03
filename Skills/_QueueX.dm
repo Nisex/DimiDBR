@@ -2535,7 +2535,7 @@ obj
 				HitSparkX=-32
 				HitSparkY=-32
 				HitSparkTurns=1
-				HitSparkSize=1.1	
+				HitSparkSize=1.1
 				Cooldown=150 //once per fight
 				Decider=1
 				NeedsSword=1
@@ -2546,7 +2546,7 @@ obj
 				Stunner=5
 				BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Dark_Impulse"
 				FollowUp="/obj/Skills/AutoHit/Dark_Blast"
-				HitMessage="unleashes a point-blank blast of darkness!"	
+				HitMessage="unleashes a point-blank blast of darkness!"
 				verb/Rikus_Soul()
 					set category="Skills"
 					usr.SetQueue(src)
@@ -3763,7 +3763,10 @@ mob
 						if(m.client&&m.client.address==src.client.address)
 							continue
 						if(!locate(Q.type, m))
-							m.AddSkill(new Q.type)
+							var/obj/Skills/copiedSkill = new Q.type
+							m.AddSkill(copiedSkill)
+							copiedSkill.Copied = TRUE
+							copiedSkill.copiedBy = "Sharingan"
 							m << "Your Sharingan analyzes and stores the [Q] technique you've just viewed."
 				spawn()
 					for(var/obj/Items/Tech/Security_Camera/SC in view(10, src))

@@ -4445,7 +4445,10 @@ mob
 						if(m.client&&m.client.address==src.client.address)
 							continue
 						if(!locate(Z.type, m))
-							m.AddSkill(new Z.type)
+							var/obj/Skills/copiedSkill = new Z.type
+							m.AddSkill(copiedSkill)
+							copiedSkill.Copied = TRUE
+							copiedSkill.copiedBy = "Sharingan"
 							m << "Your Sharingan analyzes and stores the [Z] technique you've just viewed."
 				spawn()
 					for(var/obj/Items/Tech/Security_Camera/SC in view(10, src))

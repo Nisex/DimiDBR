@@ -232,6 +232,7 @@ Tomes:
                         usr << "You have translated [selection]."
                         var/obj/Skills/s = new selection.type
                         s.Copied = TRUE
+                        s.copiedBy = "Tome"
                         usr.AddSkill(s)
                     else
                         usr << "You decide against translating a spell."
