@@ -191,10 +191,9 @@ mob/Players/verb
 
 	Rename(var/atom/A as mob|obj in view(usr,5))
 		set src=usr.client
-		if(!(world.time > usr.verb_delay)) return
-		usr.verb_delay=world.time+1
-		if(istype(A,/obj/Planets))
-			usr<<"You're not allowed to rename these objects."
+
+		if(A.preventRename)
+			usr << "You cannot rename this."
 			return
 		var/blah=input("") as text
 		if(istype(A,/mob))

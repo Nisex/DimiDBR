@@ -133,6 +133,8 @@ atom/var
 	Password2
 	Password3
 	PasswordReception
+	preventRename = FALSE
+
 area
 	mouse_opacity=0
 obj
