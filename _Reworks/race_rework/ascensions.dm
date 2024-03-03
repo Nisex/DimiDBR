@@ -379,10 +379,9 @@ ascension
 				owner.EnhancedHearing = 1
 				owner.Class = "S"
 		five
-
+			passives = list("EndlessAnger" = 1)
 			onAscension(mob/owner)
 				..()
-				owner.passive_handler["EndlessAnger"] += 1
 				owner.Class = "Maou"
 
 	beastman
