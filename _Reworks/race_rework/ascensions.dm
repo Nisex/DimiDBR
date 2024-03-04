@@ -18,7 +18,6 @@ ascension
 		imaginationAdd = 0
 		anger = 0
 		unlock_potential = 1
-		mana = 0
 		intimidation = 0
 		intimidationMult = 1
 		pilotingProwess = 0
@@ -55,7 +54,6 @@ ascension
 			owner.SpdAscension -= speed
 			owner.RecovAscension -=  recovery
 			owner.RegenAscension -= regeneration
-			owner.ManaCapMult -= mana/100
 
 			if(skills.len > 0)
 				for(var/obj/Skills/added_skill in skills)
@@ -114,7 +112,6 @@ ascension
 			owner.SpdAscension += speed
 			owner.RecovAscension +=  recovery
 			owner.RegenAscension += regeneration
-			owner.ManaCapMult += mana/100
 
 			if(skills.len > 0)
 				for(var/obj/Skills/added_skill in skills)
@@ -288,8 +285,11 @@ ascension
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/genius)
 					cyberizeModAdd = 0.25
+					enhanceChips = 1
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
 					passives["ManaGeneration"] = 1
+					passives["QuickCast"] = 1
+					passives["ManaCapMult"] = 0.25
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
 					passives = list("MovementMastery" = 2, "ManaStats" = 0.1)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
@@ -306,6 +306,7 @@ ascension
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
 					passives["ManaGeneration"] = 1
 					passives["QuickCast"] = 1
+					passives["ManaCapMult"] = 0.25
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
 					passives = list("MovementMastery" = 2, "ManaStats" = 0.1)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
@@ -321,6 +322,7 @@ ascension
 					ecoAdd = 0.5
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
 					passives["SpiritStrike"] = 0.25
+					passives["ManaCapMult"] = 0.25
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
 					passives = list("MovementMastery" = 2, "ManaStats" = 0.1)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
@@ -336,6 +338,7 @@ ascension
 					enhanceChips = 2
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
 					passives["SpiritStrike"] = 0.75
+					passives["ManaCapMult"] = 0.25
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
 					passives = list("MovementMastery" = 2, "ManaStats" = 0.1)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
@@ -362,7 +365,7 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			intimidation = 1
-			mana = 25
+			passives = list("ManaCapMult" = 0.25)
 			choices = list("Distort" = /ascension/sub_ascension/high_faoroan/distort, "Define" = /ascension/sub_ascension/high_faoroan/define)
 
 		two
@@ -374,7 +377,7 @@ ascension
 			speed = 0.25
 			anger = 0.5
 			passives = list("TechniqueMastery" = 1.5)
-			mana = 25
+			passives = list("ManaCapMult" = 0.25)
 			choices = list("Destroy" = /ascension/sub_ascension/high_faoroan/destroy, "Remove" = /ascension/sub_ascension/high_faoroan/remove)
 
 		three
@@ -384,7 +387,7 @@ ascension
 			offense = 0.5
 			defense = 0.5
 			speed = 0.5
-			mana = 25
+			passives = list("ManaCapMult" = 0.25)
 			intimidation = 1.5
 			onAscension(mob/owner)
 				..()
@@ -402,7 +405,7 @@ ascension
 			offense = 0.5
 			defense = 0.5
 			speed = 0.5
-			mana = 0.25
+			passives = list("ManaCapMult" = 0.25)
 			choices = list("Conquer" = /ascension/sub_ascension/high_faoroan/conquer, "Obliterate" = /ascension/sub_ascension/high_faoroan/obliterate)
 
 		five
