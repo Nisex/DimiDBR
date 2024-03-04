@@ -4887,11 +4887,12 @@ NEW VARIABLES
 
 
 		Spirit_Form
-			passives = list("SpiritForm" = 1)
+			passives = list("SpiritForm" = 1, "MovementMastery" = 3, "ManaStats" = 0.25, "TechniqueMastery" = -2, "MartialMagic" = 1, "ManaGeneration" = -2)
 			SpiritForm=1
 			ActiveMessage="shifts into their spiritual body!"
 			OffMessage="becomes fully physical once more..."
-			Cooldown=5
+			ManaDrain = 0.1
+			Cooldown=1
 			verb/Spirit_Form()
 				set category="Skills"
 				if(!usr.BuffOn(src))

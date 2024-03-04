@@ -526,6 +526,8 @@ mob
 						Streamline+=1
 			if(is_arcane_beast || CheckSpecial("Wisdom Form") || CheckSpecial("Master Form") || CheckSpecial("Final Form"))
 				Streamline+=1
+			if(passive_handler.Get("SpiritForm"))
+				Streamline+=1
 			if(src.UsingMasteredMagicStyle())
 				if(Z.ElementalClass)
 					if(StyleBuff)
@@ -1624,33 +1626,20 @@ mob
 		HasManaLeak()
 			if(passive_handler.Get("ManaLeak"))
 				return 1
-			if(src.Race=="Monster"&&src.Class=="Yokai"&&src.AscensionsAcquired&&src.ActiveBuff&&!src.Mechanized)
-				return 1
 			return 0
 		GetManaLeak()
 			var/Return=0
 			Return+=passive_handler.Get("ManaLeak")
-			if(src.Race=="Monster"&&src.Class=="Yokai"&&src.AscensionsAcquired&&src.ActiveBuff&&!src.Mechanized)
-				Return += clamp(4 - (src.AscensionsAcquired), 1,4)
 			return Return
 		GetManaCapMult()
 			return 1 + passive_handler.Get("ManaCapMult")
 		HasManaStats()
 			if(passive_handler.Get("ManaStats"))
 				return 1
-			if(src.Race=="Monster"&&src.Class=="Yokai"&&src.AscensionsAcquired&&src.ActiveBuff&&!src.Mechanized)
-				return 1
 			return 0
 		GetManaStats()
 			var/Return=0
 			Return+=passive_handler.Get("ManaStats")
-			if(src.Race=="Monster"&&src.Class=="Yokai"&&src.AscensionsAcquired&&src.ActiveBuff&&!src.Mechanized)
-				var/RaceBoon = 1 + (src.AscensionsAcquired*0.25)
-				if(RaceBoon > 1)
-					RaceBoon = 1
-				if(Return <= 0)
-					Return = 0.1
-				Return+=RaceBoon
 			return Return
 		HasBurning()
 			if(passive_handler.Get("Burning"))
@@ -2381,6 +2370,8 @@ mob
 					else if(istype(src.StyleBuff.ElementalClass, /list))
 						if(Z.ElementalClass in src.StyleBuff.ElementalClass)
 							Pass=1
+			if(passive_handler.Get("SpiritForm"))
+				Pass = 1
 			if(src.UsingMasteredMagicStyle())
 				Pass=1
 			if(src.CrestSpell(Z))

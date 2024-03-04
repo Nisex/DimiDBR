@@ -275,15 +275,72 @@ ascension
 
 	yokai
 		one
+			passives = list("TechniqueMastery" = 2, "ManaGeneration" = 1)
+			strength = 0.25
+			force = 0.25
+			offense = 0.25
+			choices = list("Genius" = /ascension/sub_ascension/yokai/genius, "Grand Caster" = /ascension/sub_ascension/yokai/grand_caster, "Two become One" = /ascension/sub_ascension/yokai/two_become_one)
 
 		two
-
+			strength = 0.25
+			force = 0.25
+			offense = 0.25
+			onAscension(mob/owner)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/genius)
+					cyberizeModAdd = 0.25
+				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
+					passives["ManaGeneration"] = 1
+				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
+					passives = list("MovementMastery" = 2, "ManaStats" = 0.1)
+					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
+						sf.passives["TechniqueMastery"] = 1
+				..()
 		three
-
+			strength = 0.25
+			force = 0.25
+			offense = 0.25
+			onAscension(mob/owner)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/genius)
+					cyberizeModAdd = 0.25
+					ecoAdd = 0.5
+				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
+					passives["ManaGeneration"] = 1
+					passives["QuickCast"] = 1
+				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
+					passives = list("MovementMastery" = 2, "ManaStats" = 0.1)
+					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
+						sf.passives["TechniqueMastery"] = 2
+				..()
 		four
-
+			strength = 0.25
+			force = 0.25
+			endurance = 0.25
+			onAscension(mob/owner)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/genius)
+					enhanceChips = 2
+					ecoAdd = 0.5
+				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
+					passives["SpiritStrike"] = 0.25
+				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
+					passives = list("MovementMastery" = 2, "ManaStats" = 0.1)
+					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
+						sf.ManaDrain -= 0.05
+				..()
 		five
-
+			strength = 0.25
+			force = 0.25
+			endurance = 0.25
+			onAscension(mob/owner)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/genius)
+					ecoAdd = 0.5
+					enhanceChips = 2
+				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
+					passives["SpiritStrike"] = 0.75
+				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
+					passives = list("MovementMastery" = 2, "ManaStats" = 0.1)
+					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
+						sf.ManaDrain = 0
+				..()
 	eldritch
 		one
 
@@ -774,3 +831,24 @@ ascension
 				skills = list(/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
 			sacrifice
 				skills = list(/obj/Skills/Buffs/SlotlessBuffs/Sacrifice)
+
+		yokai
+			genius
+				rppAdd = 0.25
+				ecoAdd = 0.75
+				intelligenceAdd = 1
+				cyberizeModAdd = 0.5
+				imaginationAdd = 0.25
+				pilotingProwess = 1.5
+				enhanceChips = 1
+
+			grand_caster
+				passives = list("QuickCast" = 1, "ManaGeneration" = 2)
+				strength = 0.5
+				force = 0.5
+
+			two_become_one
+				passives = list("MovementMastery" = 2, "ManaStats" = 0.1)
+				onAscension(mob/owner)
+					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
+						sf.passives["TechniqueMastery"] = 0

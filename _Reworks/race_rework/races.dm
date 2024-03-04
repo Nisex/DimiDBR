@@ -314,6 +314,7 @@ race
 		desc = "These are Yokai."
 
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form)
+		passives = list("ManaGeneration" = 2, "TechniqueMastery" = 2)
 		strength = 2
 		endurance = 1.5
 		speed = 1
