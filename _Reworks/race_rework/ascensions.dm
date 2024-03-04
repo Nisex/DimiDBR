@@ -346,14 +346,39 @@ ascension
 				..()
 	eldritch
 		one
-
+			endurance = 0.25
+			defense = 0.25
+			speed = 0.25
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
 		two
-
+			endurance = 0.25
+			defense = 0.25
+			speed = 0.25
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
 		three
-
+			strength = 0.25
+			endurance = 0.25
+			force = 0.25
+			offense = 0.25
+			defense = 0.25
+			speed = 0.25
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
 		four
-
+			strength = 0.25
+			endurance = 0.25
+			force = 0.25
+			offense = 0.25
+			defense = 0.25
+			speed = 0.25
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
 		five
+			strength = 0.25
+			endurance = 0.25
+			force = 0.25
+			offense = 0.25
+			defense = 0.25
+			speed = 0.25
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
 
 	high_faoroan
 		one
@@ -447,7 +472,9 @@ ascension
 	beastman
 		one
 			angerPoint = 5
-
+			strength = 0.25
+			defense = 0.25
+			endurance = 0.25
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 10
@@ -457,7 +484,9 @@ ascension
 					b.VaizardHealth = 5
 		two
 			angerPoint = 5
-
+			strength = 0.25
+			speed = 0.25
+			endurance = 0.25
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 15
@@ -467,7 +496,9 @@ ascension
 					b.VaizardHealth = 10
 		three
 			angerPoint = 5
-
+			speed = 0.25
+			defense = 0.25
+			endurance = 0.25
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 20
@@ -477,7 +508,7 @@ ascension
 					b.VaizardHealth = 15
 		four
 			angerPoint = 5
-
+			endurance = 0.5
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 25
@@ -487,7 +518,8 @@ ascension
 					b.VaizardHealth = 15
 		five
 			angerPoint = 5
-
+			strength = 0.5
+			endurance = 0.5
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 30

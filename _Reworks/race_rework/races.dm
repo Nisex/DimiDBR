@@ -285,6 +285,7 @@ race
 	eldritch
 		name = "Eldritch"
 		desc = "These are eldritches."
+		passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.3, "DeathField" = 0.3, "VoidField" = 0.3)
 		strength = 1.5
 		endurance = 2
 		speed = 1
