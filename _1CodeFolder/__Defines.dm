@@ -49,6 +49,9 @@ proc/log_func(x, a, b)
 #define MAKYO /race/makyo
 #define DRAGON /race/dragon
 #define ELF /race/high_faoroan
+#define YOKAI /race/yokai
+#define ELDRITCH /race/eldritch
+#define BEASTMAN /race/beastman
 
 proc
 	stoplag()
