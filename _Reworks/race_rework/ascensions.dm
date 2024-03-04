@@ -446,14 +446,55 @@ ascension
 
 	beastman
 		one
+			angerPoint = 5
 
+			onAscension(mob/owner)
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
+					b.NeedsHealth = 10
+					b.TooMuchHealth = 20
+					b.AngerMult = 1.3
+					b.passives = list("AngerAdaptiveForce" = 0.1)
+					b.VaizardHealth = 5
 		two
+			angerPoint = 5
 
+			onAscension(mob/owner)
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
+					b.NeedsHealth = 15
+					b.TooMuchHealth = 25
+					b.AngerMult = 1.4
+					b.passives = list("AngerAdaptiveForce" = 0.2)
+					b.VaizardHealth = 10
 		three
+			angerPoint = 5
 
+			onAscension(mob/owner)
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
+					b.NeedsHealth = 20
+					b.TooMuchHealth = 30
+					b.AngerMult = 1.3
+					b.passives = list("AngerAdaptiveForce" = 0.3, "Void" = 1)
+					b.VaizardHealth = 15
 		four
+			angerPoint = 5
 
+			onAscension(mob/owner)
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
+					b.NeedsHealth = 25
+					b.TooMuchHealth = 35
+					b.AngerMult = 1.3
+					b.passives = list("AngerAdaptiveForce" = 0.4, "Void" = 1)
+					b.VaizardHealth = 15
 		five
+			angerPoint = 5
+
+			onAscension(mob/owner)
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
+					b.NeedsHealth = 30
+					b.TooMuchHealth = 50
+					b.AngerMult = 1.4
+					b.passives = list("AngerAdaptiveForce" = 0.5, "Void" = 1)
+					b.VaizardHealth = 20
 
 	dragon
 		one

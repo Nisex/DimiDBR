@@ -300,6 +300,7 @@ race
 		name = "Beastman"
 		desc = "These are Beastmen."
 
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk)
 		strength = 1.25
 		endurance = 1.25
 		force = 1.25
@@ -308,6 +309,10 @@ race
 		speed = 1.25
 		regeneration = 1.5
 		intellect = 0.5
+
+		onFinalization(mob/user)
+			user.EnhancedSmell=1
+			user.EnhancedHearing=1
 
 	yokai
 		name = "Yokai"

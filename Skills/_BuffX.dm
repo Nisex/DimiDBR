@@ -10909,13 +10909,7 @@ NEW VARIABLES
 				Cooldown=180
 				ActiveMessage="enters a berserk fury!!"
 				OffMessage="calms their bestial rage..."
-				proc/adjust(mob/p)
-					if(altered) return
-					AngerMult = 1.2 + (0.1 * p.AscensionsAcquired)
-					passives = list("AngerAdaptiveForce" = p.AscensionsAcquired * 0.1)
-				Trigger(mob/User, Override = FALSE)
-					adjust(User)
-					..()
+
 			Dragon_Force
 				NeedsHealth=50
 				TooMuchHealth=75
