@@ -92,25 +92,25 @@ mob/tierUpSaga(path)
 	..()
 	if(path == "Spiral")
 		src<<spiralSagaMessages[path].messages[SagaLevel]
-	switch(SagaLevel)
-		if(2)
-			if(!locate(/obj/Skills/Queue/Spiral_Defiance, src))
-				src.AddSkill(new/obj/Skills/Queue/Spiral_Defiance)
-		if(3)
-			if(!locate(/obj/Skills/AutoHit/Giga_Drill_Breaker, src))
-				src.AddSkill(new/obj/Skills/AutoHit/Giga_Drill_Breaker)
-		if(4)
-			src.tier4SpiralOption = src.pickTier4Option()
-		if(5)
-			var/list/Choices=list("Evolve others.", "Hoard for yourself.")
-			var/option = input("Will you help others evolve and ascend..or hoard the power of evolution for yourself?") in Choices
-			switch(option)
-				if("Evolve others.")
-					src.tier5SpiralOption = "EvolveOthers"
-					src.tier4SpiralOption2 = src.pickTier4Option()
-				if("Hoard for yourself.")
-					src.tier5SpiralOption = "Hoard"
-					src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/The_King_Above_All)
+		switch(SagaLevel)
+			if(2)
+				if(!locate(/obj/Skills/Queue/Spiral_Defiance, src))
+					src.AddSkill(new/obj/Skills/Queue/Spiral_Defiance)
+			if(3)
+				if(!locate(/obj/Skills/AutoHit/Giga_Drill_Breaker, src))
+					src.AddSkill(new/obj/Skills/AutoHit/Giga_Drill_Breaker)
+			if(4)
+				src.tier4SpiralOption = src.pickTier4Option()
+			if(5)
+				var/list/Choices=list("Evolve others.", "Hoard for yourself.")
+				var/option = input("Will you help others evolve and ascend..or hoard the power of evolution for yourself?") in Choices
+				switch(option)
+					if("Evolve others.")
+						src.tier5SpiralOption = "EvolveOthers"
+						src.tier4SpiralOption2 = src.pickTier4Option()
+					if("Hoard for yourself.")
+						src.tier5SpiralOption = "Hoard"
+						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/The_King_Above_All)
 
 /**
  *
