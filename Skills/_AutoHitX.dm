@@ -972,8 +972,6 @@ obj
 			Force_Palm
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Focus_Punch")
-				LockOut=list("/obj/Skills/AutoHit/Force_Stomp", "/obj/Skills/AutoHit/Phantom_Strike", "/obj/Skills/AutoHit/Dragon_Rush")
 				UnarmedOnly=1
 				FlickAttack=1
 				Area="Arc"
@@ -1008,8 +1006,6 @@ obj
 			Force_Stomp
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Focus_Punch")
-				LockOut=list("/obj/Skills/AutoHit/Force_Palm", "/obj/Skills/AutoHit/Phantom_Strike", "/obj/Skills/AutoHit/Dragon_Rush")
 				UnarmedOnly=1
 				Area="Circle"
 				ComboMaster=1
@@ -1035,8 +1031,6 @@ obj
 			Phantom_Strike
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Focus_Punch")
-				LockOut=list("/obj/Skills/AutoHit/Force_Stomp", "/obj/Skills/AutoHit/Force_Palm", "/obj/Skills/AutoHit/Dragon_Rush")
 				UnarmedOnly=1
 				Area="Wave"
 				ComboMaster=1
@@ -1060,8 +1054,6 @@ obj
 			Dragon_Rush
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Focus_Punch")
-				LockOut=list("/obj/Skills/AutoHit/Force_Stomp", "/obj/Skills/AutoHit/Phantom_Strike", "/obj/Skills/AutoHit/Force_Palm")
 				UnarmedOnly=1
 				FlickAttack=3
 				Area="Circle"
@@ -1117,8 +1109,6 @@ obj
 			Sweeping_Kick
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Roundhouse_Kick")
-				LockOut=list("/obj/Skills/AutoHit/Helicopter_Kick", "/obj/Skills/AutoHit/Lightning_Kicks", "/obj/Skills/AutoHit/Flying_Kick")
 				UnarmedOnly=1
 				Area="Circle"
 				Distance=1
@@ -1142,8 +1132,6 @@ obj
 			Helicopter_Kick
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Roundhouse_Kick")
-				LockOut=list("/obj/Skills/AutoHit/Sweeping_Kick", "/obj/Skills/AutoHit/Lightning_Kicks", "/obj/Skills/AutoHit/Flying_Kick")
 				UnarmedOnly=1
 				Area="Circle"
 				StrOffense=1
@@ -1165,8 +1153,6 @@ obj
 			Lightning_Kicks
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Roundhouse_Kick")
-				LockOut=list("/obj/Skills/AutoHit/Sweeping_Kick", "/obj/Skills/AutoHit/Helicopter_Kick", "/obj/Skills/AutoHit/Flying_Kick")
 				UnarmedOnly=1
 				Area="Arc"
 				StrOffense=1
@@ -1192,8 +1178,6 @@ obj
 			Flying_Kick
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Roundhouse_Kick")
-				LockOut=list("/obj/Skills/AutoHit/Sweeping_Kick", "/obj/Skills/AutoHit/Lightning_Kicks", "/obj/Skills/AutoHit/Helicopter_Kick")
 				UnarmedOnly=1
 				Area="Arc"
 				Distance=2
@@ -1239,8 +1223,6 @@ obj
 			Spinning_Clothesline
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Clothesline")
-				LockOut=list("/obj/Skills/AutoHit/Bullrush", "/obj/Skills/AutoHit/Hyper_Crash", "/obj/Skills/AutoHit/Dropkick_Surprise")
 				UnarmedOnly=1
 				Area="Circle"
 				ComboMaster=1
@@ -1262,8 +1244,6 @@ obj
 			Bullrush
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Clothesline")
-				LockOut=list("/obj/Skills/AutoHit/Spinning_Clothesline", "/obj/Skills/AutoHit/Hyper_Crash", "/obj/Skills/AutoHit/Dropkick_Surprise")
 				UnarmedOnly=1
 				Area="Circle"
 				StrOffense=1
@@ -1288,8 +1268,6 @@ obj
 			Hyper_Crash
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Clothesline")
-				LockOut=list("/obj/Skills/AutoHit/Bullrush", "/obj/Skills/AutoHit/Spinning_Clothesline", "/obj/Skills/AutoHit/Dropkick_Surprise")
 				Area="Wide Wave"
 				StrOffense=1
 				Distance=10
@@ -1310,8 +1288,6 @@ obj
 			Dropkick_Surprise
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Clothesline")
-				LockOut=list("/obj/Skills/AutoHit/Bullrush", "/obj/Skills/AutoHit/Spinning_Clothesline", "/obj/Skills/AutoHit/Hyper_Crash")
 				Area="Target"
 				StrOffense=1
 				Distance=5
@@ -1560,8 +1536,6 @@ obj
 			Breaker_Wave
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Destruction_Wave")
-				LockOut=list("/obj/Skills/AutoHit/Blazing_Storm", "/obj/Skills/AutoHit/Ghost_Wave", "/obj/Skills/AutoHit/Power_Pillar")
 				EnergyCost=10
 				Area="Wide Wave"
 				FlickAttack=1
@@ -1588,8 +1562,6 @@ obj
 			Blazing_Storm
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Destruction_Wave")
-				LockOut=list("/obj/Skills/AutoHit/Breaker_Wave", "/obj/Skills/AutoHit/Ghost_Wave", "/obj/Skills/AutoHit/Power_Pillar")
 				StrOffense=0
 				ForOffense=1
 				DamageMult=10
@@ -1619,8 +1591,6 @@ obj
 			Ghost_Wave
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Destruction_Wave")
-				LockOut=list("/obj/Skills/AutoHit/Blazing_Storm", "/obj/Skills/AutoHit/Breaker_Wave", "/obj/Skills/AutoHit/Power_Pillar")
 				EnergyCost=10
 				Area="Wave"
 				FlickAttack=1
@@ -1648,8 +1618,6 @@ obj
 			Power_Pillar
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Destruction_Wave")
-				LockOut=list("/obj/Skills/AutoHit/Blazing_Storm", "/obj/Skills/AutoHit/Breaker_Wave", "/obj/Skills/AutoHit/Ghost_Wave")
 				EnergyCost=10
 				Area="Circle"
 				FlickAttack=1
@@ -2672,8 +2640,6 @@ obj
 			Sword_Pressure
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Tipper")
-				LockOut=list("/obj/Skills/AutoHit/Overhead_Divide", "/obj/Skills/AutoHit/Light_Step", "/obj/Skills/AutoHit/Stinger")
 				NeedsSword=1
 				Area="Wave"
 				Distance=10
@@ -2697,8 +2663,6 @@ obj
 			Stinger
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Tipper")
-				LockOut=list("/obj/Skills/AutoHit/Sword_Pressure", "/obj/Skills/AutoHit/Light_Step", "/obj/Skills/AutoHit/Overhead_Divide")
 				NeedsSword=1
 				Area="Target"
 				Distance=3
@@ -2715,8 +2679,6 @@ obj
 			Light_Step
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Tipper")
-				LockOut=list("/obj/Skills/AutoHit/Sword_Pressure", "/obj/Skills/AutoHit/Overhead_Divide", "/obj/Skills/AutoHit/Stinger")
 				NeedsSword=1
 				Area="Wave"
 				Distance=5
@@ -2747,8 +2709,6 @@ obj
 			Overhead_Divide
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Tipper")
-				LockOut=list("/obj/Skills/AutoHit/Sword_Pressure", "/obj/Skills/AutoHit/Light_Step", "/obj/Skills/AutoHit/Stinger")
 				NeedsSword=1
 				Rush=5
 				ControlledRush=1
@@ -2805,8 +2765,6 @@ obj
 			Vacuum_Render
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Arc_Slash")
-				LockOut=list("/obj/Skills/AutoHit/Hack_n_Slash", "/obj/Skills/AutoHit/Hamstring", "/obj/Skills/AutoHit/Cross_Slash")
 				NeedsSword=1
 				Area="Arc"
 				StrOffense=1
@@ -2838,8 +2796,6 @@ obj
 			Hack_n_Slash
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Arc_Slash")
-				LockOut=list("/obj/Skills/AutoHit/Vacuum_Render", "/obj/Skills/AutoHit/Hamstring", "/obj/Skills/AutoHit/Cross_Slash")
 				NeedsSword=1
 				Area="Arc"
 				Rush=1
@@ -2873,8 +2829,6 @@ obj
 			Hamstring
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Arc_Slash")
-				LockOut=list("/obj/Skills/AutoHit/Vacuum_Render", "/obj/Skills/AutoHit/Hack_n_Slash", "/obj/Skills/AutoHit/Cross_Slash")
 				NeedsSword=1
 				Rush=3
 				ControlledRush=1
@@ -2907,8 +2861,6 @@ obj
 			Cross_Slash
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Arc_Slash")
-				LockOut=list("/obj/Skills/AutoHit/Vacuum_Render", "/obj/Skills/AutoHit/Hack_n_Slash", "/obj/Skills/AutoHit/Hamstring")
 				NeedsSword=1
 				Area="Circle"
 				Rush=5
@@ -2956,8 +2908,6 @@ obj
 			Drill_Spin
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Hero_Spin")
-				LockOut=list("/obj/Skills/AutoHit/Rising_Spire", "/obj/Skills/AutoHit/Ark_Brave", "/obj/Skills/AutoHit/Judgment")
 				NeedsSword=1
 				Area="Circle"
 				ComboMaster=1
@@ -2993,8 +2943,6 @@ obj
 			Rising_Spire
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Hero_Spin")
-				LockOut=list("/obj/Skills/AutoHit/Drill_Spin", "/obj/Skills/AutoHit/Ark_Brave", "/obj/Skills/AutoHit/Judgment")
 				NeedsSword=1
 				Area="Circle"
 				ControlledRush=1
@@ -3026,8 +2974,6 @@ obj
 			Ark_Brave
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Hero_Spin")
-				LockOut=list("/obj/Skills/AutoHit/Rising_Spire", "/obj/Skills/AutoHit/Drill_Spin", "/obj/Skills/AutoHit/Judgment")
 				NeedsSword=1
 				Area="Circle"
 				StrOffense=1
@@ -3063,8 +3009,6 @@ obj
 			Judgment
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Hero_Spin")
-				LockOut=list("/obj/Skills/AutoHit/Rising_Spire", "/obj/Skills/AutoHit/Ark_Brave", "/obj/Skills/AutoHit/Drill_Spin")
 				NeedsSword=1
 				Area="Circle"
 				StrOffense=1
@@ -3127,8 +3071,6 @@ obj
 			Jet_Slice
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Flash_Cut")
-				LockOut=list("/obj/Skills/AutoHit/Crowd_Cutter", "/obj/Skills/AutoHit/Holy_Justice", "/obj/Skills/AutoHit/Doom_of_Damocles")
 				NeedsSword=1
 				Area="Target"
 				GuardBreak=1
@@ -3149,8 +3091,6 @@ obj
 			Crowd_Cutter
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Flash_Cut")
-				LockOut=list("/obj/Skills/AutoHit/Jet_Slice", "/obj/Skills/AutoHit/Holy_Justice", "/obj/Skills/AutoHit/Doom_of_Damocles")
 				NeedsSword=1
 				Area="Wide Wave"
 				StrOffense=1
@@ -3181,8 +3121,6 @@ obj
 			Holy_Justice
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Flash_Cut")
-				LockOut=list("/obj/Skills/AutoHit/Jet_Slice", "/obj/Skills/AutoHit/Crowd_Cutter", "/obj/Skills/AutoHit/Doom_of_Damocles")
 				NeedsSword=1
 				Area="Around Target"
 				StrOffense=0.5
@@ -3213,8 +3151,6 @@ obj
 			Doom_of_Damocles
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Flash_Cut")
-				LockOut=list("/obj/Skills/AutoHit/Jet_Slice", "/obj/Skills/AutoHit/Holy_Justice", "/obj/Skills/AutoHit/Crowd_Cutter")
 				NeedsSword=1
 				Area="Around Target"
 				StrOffense=1

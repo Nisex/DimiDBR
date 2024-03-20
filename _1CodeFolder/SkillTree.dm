@@ -16,13 +16,11 @@ proc/MakeSkillTreeList()
 var/list/SkillTree=list(
 
 "UnarmedT1"=list(
-			"/obj/Skills/Queue/Uppercut"=40,
 			"/obj/Skills/Queue/Ikkotsu"=40,
 			"/obj/Skills/Queue/Showstopper"=40,
 			"/obj/Skills/Queue/Dempsey_Roll"=40,
 			"/obj/Skills/Queue/Corkscrew_Blow"=40,
 
-			"/obj/Skills/Queue/Axe_Kick"=40,
 			"/obj/Skills/Queue/Kinshasa"=40,
 			"/obj/Skills/Queue/Piston_Kick"=40,
 			"/obj/Skills/Queue/Pin"=40,
@@ -30,13 +28,11 @@ var/list/SkillTree=list(
 ),
 
 "UnarmedT2"=list(
-			"/obj/Skills/AutoHit/Focus_Punch"=80,
 			"/obj/Skills/AutoHit/Force_Palm"=80,
 			"/obj/Skills/AutoHit/Force_Stomp"=80,
 			"/obj/Skills/AutoHit/Phantom_Strike"=80,
 			"/obj/Skills/AutoHit/Dragon_Rush"=80,
 
-			"/obj/Skills/AutoHit/Roundhouse_Kick"=80,
 			"/obj/Skills/AutoHit/Sweeping_Kick"=80,
 			"/obj/Skills/AutoHit/Lightning_Kicks"=80,
 			"/obj/Skills/AutoHit/Flying_Kick"=80,
@@ -44,7 +40,6 @@ var/list/SkillTree=list(
 ),
 
 "UnarmedT3"=list(
-			"/obj/Skills/Grapple/Throw"=120,
 			"/obj/Skills/Grapple/Judo_Throw"=120,
 			"/obj/Skills/Grapple/Izuna_Drop"=120,
 			"/obj/Skills/Grapple/Suplex"=120,
@@ -52,14 +47,12 @@ var/list/SkillTree=list(
 ),
 
 "UnarmedT4"=list(
-			"/obj/Skills/Queue/GET_DUNKED"=160,
 			"/obj/Skills/Queue/Curbstomp"=160,
 			"/obj/Skills/Queue/Soukotsu"=160,
 			"/obj/Skills/Queue/Six_Grand_Openings"=160,
 			"/obj/Skills/Queue/Skullcrusher"=160,
 
 
-			"/obj/Skills/AutoHit/Clothesline"=160,
 			"/obj/Skills/AutoHit/Bullrush"=160,
 			"/obj/Skills/AutoHit/Spinning_Clothesline"=160,
 			"/obj/Skills/AutoHit/Hyper_Crash"=160,
@@ -67,13 +60,11 @@ var/list/SkillTree=list(
 ),
 
 "BlastT1"=list(
-			"/obj/Skills/Projectile/Blast"=40,
 			"/obj/Skills/Projectile/Rapid_Barrage"=40,
 			"/obj/Skills/Projectile/Straight_Siege"=40,
 			"/obj/Skills/Projectile/Flare_Wave"=40,
 			"/obj/Skills/Projectile/Death_Beam"=40,
 
-			"/obj/Skills/Projectile/Charge"=40,
 			"/obj/Skills/Projectile/Spirit_Ball"=40,
 			"/obj/Skills/Projectile/Crash_Burst"=40,
 			"/obj/Skills/Projectile/Dragon_Nova"=40,
@@ -81,13 +72,11 @@ var/list/SkillTree=list(
 ),
 
 "BlastT2"=list(
-			"/obj/Skills/Queue/Dancing_Lights"=80,
 			"/obj/Skills/Queue/Light_Rush"=80,
 			"/obj/Skills/Queue/Burst_Combination"=80,
 			"/obj/Skills/Projectile/Sudden_Storm"=80,
 			"/obj/Skills/Projectile/Warp_Strike"=80,
 
-			"/obj/Skills/Projectile/Energy_Bomb"=80,
 			"/obj/Skills/Projectile/Energy_Minefield"=80,
 			"/obj/Skills/Projectile/Tracking_Bomb"=80,
 			"/obj/Skills/Projectile/Stealth_Bomb"=80,
@@ -95,7 +84,6 @@ var/list/SkillTree=list(
 ),
 
 "BlastT3"=list(
-			"/obj/Skills/Projectile/Beams/Ray"=120,
 			"/obj/Skills/Projectile/Beams/Eraser_Gun"=120,
 			"/obj/Skills/Projectile/Beams/Shine_Ray"=120,
 			"/obj/Skills/Projectile/Beams/Gamma_Ray"=120,
@@ -103,13 +91,11 @@ var/list/SkillTree=list(
 ),
 
 "BlastT4"=list(
-			"/obj/Skills/AutoHit/Destruction_Wave"=160,
 			"/obj/Skills/AutoHit/Breaker_Wave"=160,
 			"/obj/Skills/AutoHit/Blazing_Storm"=160,
 			"/obj/Skills/AutoHit/Ghost_Wave"=160,
 			"/obj/Skills/AutoHit/Power_Pillar"=160,
 
-			"/obj/Skills/Projectile/Power_Buster"=160,
 			"/obj/Skills/Projectile/Burst_Buster"=160,
 			"/obj/Skills/Projectile/Warp_Buster"=160,
 			"/obj/Skills/Projectile/Scatter_Burst"=160,
@@ -173,13 +159,11 @@ var/list/SkillTree=list(
 ),
 
 "SwordT1"=list(
-			"/obj/Skills/AutoHit/Tipper"=40,
 			"/obj/Skills/AutoHit/Stinger"=40,
 			"/obj/Skills/AutoHit/Sword_Pressure"=40,
 			"/obj/Skills/AutoHit/Light_Step"=40,
 			"/obj/Skills/AutoHit/Overhead_Divide"=40,
 
-			"/obj/Skills/AutoHit/Arc_Slash"=40,
 			"/obj/Skills/AutoHit/Hack_n_Slash"=40,
 			"/obj/Skills/AutoHit/Vacuum_Render"=40,
 			"/obj/Skills/AutoHit/Hamstring"=40,
@@ -187,13 +171,11 @@ var/list/SkillTree=list(
 ),
 
 "SwordT2"=list(
-			"/obj/Skills/AutoHit/Hero_Spin"=80,
 			"/obj/Skills/AutoHit/Drill_Spin"=80,
 			"/obj/Skills/AutoHit/Rising_Spire"=80,
 			"/obj/Skills/AutoHit/Ark_Brave"=80,
 			"/obj/Skills/AutoHit/Judgment"=80,
 
-			"/obj/Skills/Queue/Swallow_Reversal"=80,
 			"/obj/Skills/Queue/Larch_Dance"=80,
 			"/obj/Skills/Queue/Willow_Dance"=80,
 			"/obj/Skills/Queue/Zero_Reversal"=80,
@@ -201,7 +183,6 @@ var/list/SkillTree=list(
 ),
 
 "SwordT3"=list(
-			"/obj/Skills/Grapple/Sword/Impale"=120,
 			"/obj/Skills/Grapple/Sword/Eviscerate"=120,
 			"/obj/Skills/Queue/Run_Through"=120,
 			"/obj/Skills/Grapple/Sword/Hacksaw"=120,
@@ -209,13 +190,11 @@ var/list/SkillTree=list(
 ),
 
 "SwordT4"=list(
-			"/obj/Skills/Projectile/Sword/Scathing_Breeze"=160,
 			"/obj/Skills/Projectile/Sword/Backlash_Wave"=160,
 			"/obj/Skills/Projectile/Sword/Wind_Scar"=160,
 			"/obj/Skills/Projectile/Sword/Air_Carve"=160,
 			"/obj/Skills/Projectile/Sword/Phantom_Howl"=160,
 
-			"/obj/Skills/AutoHit/Flash_Cut"=160,
 			"/obj/Skills/AutoHit/Crowd_Cutter"=160,
 			"/obj/Skills/AutoHit/Jet_Slice"=160,
 			"/obj/Skills/AutoHit/Holy_Justice"=160,

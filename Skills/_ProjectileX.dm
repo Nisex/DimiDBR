@@ -952,8 +952,6 @@ obj
 			Rapid_Barrage
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Blast")
-				LockOut=list("/obj/Skills/Projectile/Straight_Siege", "/obj/Skills/Projectile/Flare_Wave", "/obj/Skills/Projectile/Death_Beam")
 				Distance=20
 				AccMult=0.5
 				DamageMult=0.15
@@ -973,8 +971,6 @@ obj
 			Straight_Siege
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Blast")
-				LockOut=list("/obj/Skills/Projectile/Rapid_Barrage", "/obj/Skills/Projectile/Flare_Wave", "/obj/Skills/Projectile/Death_Beam")
 				Distance=15
 				AccMult=1
 				DamageMult=0.25
@@ -991,8 +987,6 @@ obj
 			Flare_Wave
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Blast")
-				LockOut=list("/obj/Skills/Projectile/Straight_Siege", "/obj/Skills/Projectile/Rapid_Barrage", "/obj/Skills/Projectile/Death_Beam")
 				Distance=25
 				DamageMult=1.2
 				Knockback=3
@@ -1011,8 +1005,6 @@ obj
 			Death_Beam
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Blast")
-				LockOut=list("/obj/Skills/Projectile/Straight_Siege", "/obj/Skills/Projectile/Rapid_Barrage", "/obj/Skills/Projectile/Flare_Wave")
 				Distance=20
 				DamageMult=1.1
 				AccMult=2
@@ -1053,8 +1045,6 @@ obj
 			Spirit_Ball
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Charge")
-				LockOut=list("/obj/Skills/Projectile/Dragon_Nova", "/obj/Skills/Projectile/Kienzan", "/obj/Skills/Projectile/Crash_Burst")
 				Distance=40
 				DamageMult=1.5
 				AccMult=1
@@ -1077,8 +1067,6 @@ obj
 			Crash_Burst
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Charge")
-				LockOut=list("/obj/Skills/Projectile/Spirit_Ball", "/obj/Skills/Projectile/Dragon_Nova", "/obj/Skills/Projectile/Kienzan")
 				ZoneAttack=1
 				EnergyCost=5
 				Distance=20
@@ -1103,8 +1091,6 @@ obj
 			Dragon_Nova
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Charge")
-				LockOut=list("/obj/Skills/Projectile/Crash_Burst", "/obj/Skills/Projectile/Spirit_Ball", "/obj/Skills/Projectile/Kienzan")
 				Distance=50
 				DamageMult=1.25
 				MultiHit=3
@@ -1128,8 +1114,6 @@ obj
 			Kienzan
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Charge")
-				LockOut=list("/obj/Skills/Projectile/Crash_Burst", "/obj/Skills/Projectile/Dragon_Nova", "/obj/Skills/Projectile/Spirit_Ball")
 				Distance=50
 				DamageMult=3.5
 				EnergyCost=20
@@ -1155,8 +1139,6 @@ obj
 			Sudden_Storm
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Queue/Dancing_Lights")
-				LockOut=list("/obj/Skills/Queue/Light_Rush","/obj/Skills/Queue/Burst_Combination","/obj/Skills/Projectile/Warp_Strike")
 				Blasts=10
 				HomingCharge=1
 				RandomPath=1
@@ -1180,8 +1162,6 @@ obj
 			Warp_Strike
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Queue/Dancing_Lights")
-				LockOut=list("/obj/Skills/Queue/Light_Rush","/obj/Skills/Queue/Burst_Combination","/obj/Skills/Projectile/Sudden_Storm")
 				Charge=2
 				HomingCharge=2
 				IconLock='Blast2.dmi'
@@ -1223,8 +1203,6 @@ obj
 			Energy_Minefield
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Projectile/Energy_Bomb")
-				LockOut=list("/obj/Skills/Projectile/Tracking_Bomb", "/obj/Skills/Projectile/Stealth_Bomb", "/obj/Skills/Projectile/Pillar_Bomb")
 				Blasts=18
 				DamageMult=3.25
 				Radius=1
@@ -1250,8 +1228,6 @@ obj
 			Tracking_Bomb
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Projectile/Energy_Bomb")
-				LockOut=list("/obj/Skills/Projectile/Energy_Minefield", "/obj/Skills/Projectile/Stealth_Bomb", "/obj/Skills/Projectile/Pillar_Bomb")
 				DamageMult=6
 				Knockback=5
 				Radius=1
@@ -1277,8 +1253,6 @@ obj
 			Stealth_Bomb
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Projectile/Energy_Bomb")
-				LockOut=list("/obj/Skills/Projectile/Energy_Minefield", "/obj/Skills/Projectile/Tracking_Bomb", "/obj/Skills/Projectile/Pillar_Bomb")
 				DamageMult=6.5
 				Knockback=3
 				Radius=1
@@ -1302,8 +1276,6 @@ obj
 			Pillar_Bomb
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Projectile/Energy_Bomb")
-				LockOut=list("/obj/Skills/Projectile/Energy_Minefield", "/obj/Skills/Projectile/Stealth_Bomb", "/obj/Skills/Projectile/Tracking_Bomb")
 				Launcher=3
 				DamageMult=6.5
 				Knockback=0
@@ -1353,8 +1325,6 @@ obj
 			Burst_Buster
 				Copyable=5
 				SkillCost=160
-				PreRequisite=list("/obj/Skills/Projectile/Power_Buster")
-				LockOut=list("/obj/Skills/Projectile/Warp_Buster", "/obj/Skills/Projectile/Scatter_Burst", "/obj/Skills/Projectile/Counter_Burst")
 				Buster=2
 				DamageMult=1.5
 				BusterDamage=0.75
@@ -1378,8 +1348,6 @@ obj
 			Warp_Buster
 				Copyable=5
 				SkillCost=160
-				PreRequisite=list("/obj/Skills/Projectile/Power_Buster")
-				LockOut=list("/obj/Skills/Projectile/Burst_Buster", "/obj/Skills/Projectile/Scatter_Burst", "/obj/Skills/Projectile/Counter_Buster")
 				Buster=0.25//rate that blast charges
 				BusterDamage=1//max damage when fully charged
 				BusterHits=3//multihits when fully charged
@@ -1404,8 +1372,6 @@ obj
 			Scatter_Burst
 				Copyable=5
 				SkillCost=160
-				PreRequisite=list("/obj/Skills/Projectile/Power_Buster")
-				LockOut=list("/obj/Skills/Projectile/Burst_Buster", "/obj/Skills/Projectile/Scatter_Burst", "/obj/Skills/Projectile/Counter_Buster")
 				Blasts=12
 				Buster=1
 				DamageMult=0.5
@@ -1430,8 +1396,6 @@ obj
 			Counter_Buster
 				Copyable=5
 				SkillCost=160
-				PreRequisite=list("/obj/Skills/Projectile/Power_Buster")
-				LockOut=list("/obj/Skills/Projectile/Burst_Buster", "/obj/Skills/Projectile/Scatter_Burst", "/obj/Skills/Projectile/Warp_Buster")
 				Buster=0.5//rate that blast charges
 				BusterDamage=1//max damage when fully charged
 				BusterHits=10//multihits when fully charged
@@ -3458,8 +3422,6 @@ obj
 				Wind_Scar
 					SkillCost=160
 					Copyable=5
-					PreRequisite=list("/obj/Skills/Projectile/Sword/Scathing_Breeze")
-					LockOut=list("/obj/Skills/Projectile/Sword/Backlash_Wave", "/obj/Skills/Projectile/Sword/Air_Carve", "/obj/Skills/Projectile/Sword/Phantom_Howl")
 					Distance=120
 					DamageMult=0.85
 					AccMult=15
@@ -3485,8 +3447,6 @@ obj
 				Backlash_Wave
 					SkillCost=160
 					Copyable=5
-					PreRequisite=list("/obj/Skills/Projectile/Sword/Scathing_Breeze")
-					LockOut=list("/obj/Skills/Projectile/Sword/Wind_Scar", "/obj/Skills/Projectile/Sword/Air_Carve", "/obj/Skills/Projectile/Sword/Phantom_Howl")
 					Distance=30
 					DamageMult=1.1
 					AccMult=15
@@ -3516,8 +3476,6 @@ obj
 				Air_Carve
 					SkillCost=160
 					Copyable=5
-					PreRequisite=list("/obj/Skills/Projectile/Sword/Scathing_Breeze")
-					LockOut=list("/obj/Skills/Projectile/Sword/Wind_Scar", "/obj/Skills/Projectile/Sword/Backlash_Wave", "/obj/Skills/Projectile/Sword/Phantom_Howl")
 					Distance=20
 					DamageMult=2.2
 					AccMult=15
@@ -3537,8 +3495,6 @@ obj
 				Phantom_Howl
 					SkillCost=160
 					Copyable=5
-					PreRequisite=list("/obj/Skills/Projectile/Sword/Scathing_Breeze")
-					LockOut=list("/obj/Skills/Projectile/Sword/Wind_Scar", "/obj/Skills/Projectile/Sword/Air_Carve", "/obj/Skills/Projectile/Sword/Backlash_Wave")
 					Distance=20
 					DamageMult=2.2
 					AccMult=10

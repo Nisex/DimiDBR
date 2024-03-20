@@ -1500,8 +1500,6 @@ obj
 			Ikkotsu
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Uppercut")
-				LockOut=list("/obj/Skills/Queue/Showstopper", "/obj/Skills/Queue/Dempsey_Roll", "/obj/Skills/Queue/Corkscrew_Blow")
 				HitMessage="delivers a destructive one handed strike!!"
 				DamageMult=2.8
 				AccuracyMult=2
@@ -1520,8 +1518,6 @@ obj
 			Showstopper
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Uppercut")
-				LockOut=list("/obj/Skills/Queue/Ikkotsu", "/obj/Skills/Queue/Dempsey_Roll", "/obj/Skills/Queue/Corkscrew_Blow")
 				HitMessage="delivers a vicious uppercut!!"
 				DamageMult=3
 				AccuracyMult=2.5
@@ -1540,8 +1536,6 @@ obj
 			Dempsey_Roll
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Uppercut")
-				LockOut=list("/obj/Skills/Queue/Ikkotsu", "/obj/Skills/Queue/Showstopper", "/obj/Skills/Queue/Corkscrew_Blow")
 				ActiveMessage="punches with precisely articulated strikes to create whirlwind-like pull!"
 				name="Dempsey Roll"
 				DamageMult=0.6
@@ -1567,8 +1561,6 @@ obj
 			Corkscrew_Blow
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Uppercut")
-				LockOut=list("/obj/Skills/Queue/Ikkotsu", "/obj/Skills/Queue/Showstopper", "/obj/Skills/Queue/Dempsey_Roll")
 				ActiveMessage="strikes with cyclone power!"
 				name="Corkscrew Blow"
 				DamageMult=1.2
@@ -1605,8 +1597,6 @@ obj
 			Kinshasa
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Axe_Kick")
-				LockOut=list("/obj/Skills/Queue/Piston_Kick", "/obj/Skills/Queue/Pin", "/obj/Skills/Queue/Cripple")
 				name="Kinshasa"//Skill name displayed in message.
 				HitMessage="builds up speed and knees their target in the face!!"
 				DamageMult=2.8
@@ -1624,8 +1614,6 @@ obj
 			Piston_Kick
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Axe_Kick")
-				LockOut=list("/obj/Skills/Queue/Kinshasa", "/obj/Skills/Queue/Pin", "/obj/Skills/Queue/Cripple")
 				name="Piston Kick"//Skill name displayed in message.
 				HitMessage="launches a shattering front kick with their heel!"
 				DamageMult=2.2
@@ -1643,8 +1631,6 @@ obj
 			Cripple
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Axe_Kick")
-				LockOut=list("/obj/Skills/Queue/Pin", "/obj/Skills/Queue/Kinshasa", "/obj/Skills/Queue/Piston_Kick")
 				DamageMult=2.8
 				AccuracyMult=3
 				Duration=5
@@ -1661,8 +1647,6 @@ obj
 			Pin
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Axe_Kick")
-				LockOut=list("/obj/Skills/Queue/Cripple", "/obj/Skills/Queue/Kinshasa", "/obj/Skills/Queue/Piston_Kick")
 				DamageMult=4
 				AccuracyMult=3
 				Instinct=2
@@ -1709,8 +1693,6 @@ obj
 			Soukotsu
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Queue/GET_DUNKED")
-				LockOut=list("/obj/Skills/Queue/Curbstomp", "/obj/Skills/Queue/Six_Grand_Openings", "/obj/Skills/Queue/Skullcrusher")
 				name="Soukotsu"
 				DamageMult=2.5
 				AccuracyMult=2
@@ -1736,8 +1718,6 @@ obj
 			Curbstomp
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Queue/GET_DUNKED")
-				LockOut=list("/obj/Skills/Queue/Soukotsu", "/obj/Skills/Queue/Six_Grand_Openings", "/obj/Skills/Queue/Skullcrusher")
 				name="Curbstomp"
 				DamageMult=8
 				AccuracyMult=2
@@ -1760,8 +1740,6 @@ obj
 			Six_Grand_Openings
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Queue/GET_DUNKED")
-				LockOut=list("/obj/Skills/Queue/Skullcrusher", "/obj/Skills/Queue/Soukotsu", "/obj/Skills/Queue/Curbstomp")
 				name="Six Grand Openings"
 				HitMessage="delivers a graceful and crippling blow with their elbow!"
 				DamageMult=7.5
@@ -1783,8 +1761,6 @@ obj
 			Skullcrusher
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Queue/GET_DUNKED")
-				LockOut=list("/obj/Skills/Queue/Six_Grand_Openings", "/obj/Skills/Queue/Soukotsu", "/obj/Skills/Queue/Curbstomp")
 				name="Skullcrusher"
 				HitMessage="brings their elbow down with crushing might!"
 				DamageMult=7
