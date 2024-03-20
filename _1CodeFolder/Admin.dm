@@ -853,7 +853,7 @@ TO BE CORRECTED
 				switch(input("IC Announcement or OOC Announcement?") in list("IC", "OOC"))
 					if("IC")
 						client.HttpPost(
-							//"https://discordapp.com/api/webhooks/574353579175837697/8gWijNYOZPSP_mxCWNDCTuhEN9LU5XoaEaI-I8gOBv3C5lmGZFiAUncY9KNEvFN0y7zL",
+							"https://discord.com/api/webhooks/1220052412346138836/grdIJmZXMsFFx5360seLU5sbhAJveb3OJeDweJmqJQAdt7XALtqk8twFm53vdG7WsdvL",
 							,
 							list(
 								content = discord_output,
@@ -862,7 +862,7 @@ TO BE CORRECTED
 						)
 					if("OOC")
 						client.HttpPost(
-							//"https://discordapp.com/api/webhooks/579782784508493830/hLAAncgNHpoItf28UuqdKkTQxaCGIi_12kIRm4KeHlIecv7WatuZwIBQuEyjFiifazWN",
+							"https://discord.com/api/webhooks/1220052666244399224/b_t3vHOcdKKWm_c7lxGZmg1VSETPnumxtKk_C76nHfWFhAmAAj7ddITnhcZzw0B3B760",
 
 							,
 							list(
