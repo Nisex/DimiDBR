@@ -915,9 +915,9 @@ mob
 				return 1
 			if(src.Race=="Shinjin"&&src.Potential>=25)
 				return 1
-			if(src.Race in list("Demon", "Dragon"))
+			if(src.race in list(DEMON, DRAGON))
 				return 1
-			if(src.Race in list("Human", "Half Saiyan", "Changeling", "Makyo")&&src.AscensionsAcquired)
+			if(src.race in list(HUMAN, MAKYO)&&src.AscensionsAcquired)
 				return 1
 			return 0
 		GetKiControlMastery()
@@ -932,9 +932,9 @@ mob
 				Total+=src.AscensionsAcquired
 			if(src.Race=="Shinjin")
 				Total+=round(src.Potential/25)
-			if(src.Race in list("Dragon", "Demon"))
+			if(isRace(DRAGON)||isRace(DEMON))
 				Total+=1
-			if(src.Race in list("Human", "Changeling")&&src.AscensionsAcquired)
+			if(isRace(HUMAN)&&src.AscensionsAcquired)
 				Total+=(0.5*src.AscensionsAcquired)
 			// if(src.Race=="Half Saiyan"&&src.AscensionsAcquired)
 			// 	Total+=(0.25*src.AscensionsAcquired)
@@ -962,9 +962,9 @@ mob
 		SaiyanTransPower()
 			var/t
 			var/m
-			if(src.HasTransMimic() && src.Race in list("Saiyan", "Half Saiyan"))
+			if(src.HasTransMimic() && isRace(SAIYAN))
 				t=src.HasTransMimic()
-			if(src.TransActive() && src.Race in list("Saiyan", "Half Saiyan"))
+			if(src.TransActive() && isRace(SAIYAN))
 				m=src.TransActive()
 			if(t || m)
 				if(t>m)
@@ -1355,12 +1355,12 @@ mob
 		HasLifeSteal()
 			if(passive_handler.Get("LifeSteal"))
 				return 1
-			if(Race == "Majin" && Class == "Unhinged")
+			if(isRace(MAJIN) && race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
 				return 1
 			return 0
 		GetLifeSteal()
 			var/extra = 0
-			if(Race == "Majin" && Class == "Unhinged")
+			if(isRace(MAJIN) && race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
 				extra += 5 * AscensionsAcquired
 			return passive_handler.Get("LifeSteal") + extra
 		HasEnergySteal()
@@ -2309,11 +2309,11 @@ mob
 				return 0
 			return 1
 		SteadyRace()
-			if(src.Race in list("Human", "Half Saiyan", "Majin", "Makyo", "Namekian", "Tuffle", "Monster",  "Demon", "Alien", "Android", "Dragon"))
+			if(src.race in list(HUMAN, MAJIN, MAKYO, NAMEKIAN, BEASTMAN, YOKAI, ELDRITCH, ELF, DEMON, "Alien", DRAGON))
 				return 1
 			return 0
 		TransRace()
-			if(src.Race in list("Saiyan", "Half Saiyan", "Changeling", "Alien"))
+			if(isRace(SAIYAN))
 				return 1
 			return 0
 		OtherRace()
@@ -2534,7 +2534,7 @@ mob
 
 		isHalfDemon()
 			//TODO come back to this later
-			if(Race == "Human" && HellPower >= 2)
+			if(isRace(HUMAN) && HellPower >= 2)
 				return 1
 
 
@@ -2543,9 +2543,9 @@ mob
 				return 1
 			if(Saga == "Kamui")
 				return 1
-			if(Race == "Demon" || (CheckSlotless("Satsui no Hado") && SagaLevel>=8))
+			if(isRace(DEMON)|| (CheckSlotless("Satsui no Hado") && SagaLevel>=8))
 				return 1
-			if(Race == "Human" && isHalfDemon())
+			if(isRace(HUMAN) && isHalfDemon())
 				return 1
 			if(ClothBronze == "Andromeda" && Saga == "Cosmo")
 				return 1

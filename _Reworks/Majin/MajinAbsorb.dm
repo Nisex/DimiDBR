@@ -160,70 +160,41 @@ proc/removeDuplicates(list/list1)
 /mob/proc/getRacialPassives(hardRace = FALSE)
     . = list()
     if(!hardRace)
-        hardRace = Race
+        hardRace = race
     switch(hardRace)
-        if("Majin")
+        if(MAJIN)
             . = getMajinRacials()
         if("Half Saiyan")
             . += "Desperation"
-        if("Saiyan")
+        if(SAIYAN)
             . += "Intimidation"
             . += "MovementMastery"
-        if("Human")
+        if(HUMAN)
             . += "Desperation"
             . += "PilotingProwess"
             . += "Adrenaline"
             . += "DemonicDurability"
-        if("Makyo")
+        if(MAKYO)
             . += "MovementMastery"
             . += "Intimidation"
-        if("Namekian")
+        if(NAMEKIAN)
             . += "EnhancedHearing"
             . += "Intimidation"
             // Not sure what else
-        if("Monster")
-            switch(Class)
-                // we also need to go through their ascensions
-                if("Beastmen")
-                    . += "EnhancedSmell"
-                    . += "EnhancedHearing"
-                if("Yokai")
-                    . += "EnhancedHearing"
-                    . += "TechniqueMastery"
-                if("Eldritch")
-                    . += "SpaceWalk"
-                    . += "DebuffImmune"
-                    . += "VenomResistance"
-                    . += "SoulFire"
-                    . += "DeathField"
-                    . += "VoidField"
-            switch(MonsterSource)
-                if("Domination")
-                    . += "Steady"
-                    . += "HeavyHitter"
-                if("Determination")
-                    . += "Desperation"
-                if("Ingenuity")
-                    . += "PilotingProwess"
-            switch(MonsterAscension)
-                if("Celestial")
-                    . += "HolyMod"
-                    . += "MovementMastery"
-                    . += "SpiritPower"
-                if("Natural")
-                    . += "BuffMastery"
-                if("Infernal")
-                    . += "DemonicDurability"
-                    if(AscensionsAcquired>=3)
-                        .+= "HellPower"
-        if("Shinjin")
-            . += "Godki"
-            switch(ShinjinAscension)
-                if("Kai")
-                    . += "SpiritPower"
-                if("Makai")
-                    . += "HellPower"
-        if("Demon")
+        if(BEASTMAN)
+            . += "EnhancedSmell"
+            . += "EnhancedHearing"
+        if(YOKAI)
+            . += "EnhancedHearing"
+            . += "TechniqueMastery"
+        if(ELDRITCH)
+            . += "SpaceWalk"
+            . += "DebuffImmune"
+            . += "VenomResistance"
+            . += "SoulFire"
+            . += "DeathField"
+            . += "VoidField"
+        if(DEMON)
             . += "CursedWounds"
             . += "DemonDurability"
             . += "HellPower"

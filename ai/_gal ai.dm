@@ -1831,7 +1831,7 @@ mob/Player/AI
 								amounttaken=0
 							if(Q.Deluged==1)
 								amounttaken=4
-							if(src.Race in list("Android","Changeling","Majin","Dragon")||src.Fishman||src.SpaceWalk||src.FusionPowered)
+							if(src.Fishman||src.SpaceWalk||src.FusionPowered)
 								amounttaken=0
 							src.Oxygen-=amounttaken
 							if(src.Oxygen<0)

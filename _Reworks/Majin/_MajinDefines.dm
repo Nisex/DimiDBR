@@ -18,7 +18,7 @@ blobDropper
     var/dropThreshold = MAJIN_BLOB_DROP_THRESHOLD
 
     New(mob/Players/p)
-        if(!p.Race == "Majin")
+        if(!p.isRace(MAJIN))
             del(src)
             p<<"You are not a Majin!"
             return
@@ -30,7 +30,7 @@ blobDropper
         dropThreshold = MAJIN_BLOB_DROP_THRESHOLD - getDropThreshold(ascen)
 majinAbsorb/New(mob/Players/p)
     if(p)
-        if(!p.Race == "Majin")
+        if(!p.isRace(MAJIN))
             del(src)
             p<<"You are not a Majin!"
             return

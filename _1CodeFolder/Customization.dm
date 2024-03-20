@@ -561,7 +561,7 @@ mob/proc/Hairz(var/Z)
 				if(HairB&&src.Hair_Color)
 					HairB.Blend(src.Hair_Color, ICON_ADD)
 				Hair = image(icon=HairB)
-		else if((src.HasMystic()||src.StyleActive=="Ultra Instinct")&&src.Race!="Human")
+		else if((src.HasMystic()||src.StyleActive=="Ultra Instinct")&&!isRace(HUMAN))
 			if(HairB&&src.Hair_Color)
 				HairB.Blend(src.Hair_Color, ICON_ADD)
 			Hair = image(icon=HairB)
@@ -1400,8 +1400,7 @@ obj/Creation_Icons
 			A.IconClicked=1
 			A.icon=src
 			winshow(A,"Grid1",0)
-			if(A.Race=="Alien"||A.Race=="Monster"||A.isRace(HUMAN)||A.isRace(SAIYAN)||A.Race=="Half Saiyan"||A.Race=="Shinjin")
-				A.Grid("Hair")
+			A.Grid("Hair")
 			icon=initial(icon)
 			A.IconClicked=0
 	Click() Creation_Click(usr)

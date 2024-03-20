@@ -3,7 +3,7 @@
 	if(Desperation && !HasInjuryImmune())
 		// they are able to get the bonus
 		bonus += Saga == "King of Braves" ? 0.25 : 0
-		bonus += Race == "Human" ? 0.25 : 0
+		bonus += isRace(HUMAN) ? 0.25 : 0
 		return bonus
 	return FALSE
 

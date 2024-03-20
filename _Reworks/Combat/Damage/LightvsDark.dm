@@ -16,7 +16,7 @@
 	var/direFist = UsingDireFist()
 	var/darkSword = UsingDarkElementSword()
 	var/atomicFist = UsingAtomicFist()
-	var/demon = (Race == "Demon")
+	var/demon = isRace(DEMON)
 	var/tranqFist = UsingTranquilFist()
 	var/lightSword = UsingLightElementSword()
 	switch(option)

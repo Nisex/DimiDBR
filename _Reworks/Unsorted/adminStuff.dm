@@ -9,7 +9,7 @@
 	var/Namekian = 0
 	var/Makyo = 0
 	for(var/mob/x in players)
-		switch(x.Race)
+		switch(x.race)
 			if("Human")
 				Human += 1
 			if("Majin")

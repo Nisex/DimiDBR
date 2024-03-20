@@ -9,7 +9,7 @@
     var/extra = secretDatum.currentTier
     if(enemy.Secret == Secret)
         if(extraType == "Haki") // they arent a king
-            if(enemy.Race != "Human")
+            if(!enemy.isRace(HUMAN))
                 extra -= 1
             else
                 if(enemy.secretDatum.secretVariable["ConquerorsHaki"] == 1)
@@ -40,7 +40,7 @@
             else if(difference <= 0.75) // 2x weaker
                 return 1
 
-            
+
 
 
 
@@ -74,7 +74,7 @@
             OMsg(usr, "<b><font color='[ActiveColor]'>[usr] [ActiveMessage]</font color></b>")
         usr<<"Do some effect here"
         //TODO do some effect here
-    
+
     verb/Kings_Haki()
         set category="Skills"
         set name = "Kings Haki"

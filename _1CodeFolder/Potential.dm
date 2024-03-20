@@ -161,7 +161,7 @@ mob
 					else if(src.Potential>=10)
 						if(src.AscensionsUnlocked<1)
 							src.AscensionsUnlocked=1 // TODO COME BACK TO THIS
-			src.AscAvailable(src.Race)
+			src.AscAvailable(src.race)
 
 
 
@@ -169,7 +169,7 @@ mob
 			if(secretDatum.nextTierUp != 999 && Secret)
 				secretDatum.checkTierUp(src)
 
-			if(Race!="Saiyan" || Race!="Changeling")
+			if(!isRace(SAIYAN)|| Race!="Changeling")
 				if(src.Potential>=10)
 					if(src.AscensionsUnlocked<1)
 						src.AscensionsUnlocked=1

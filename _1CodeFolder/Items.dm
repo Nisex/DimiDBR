@@ -470,9 +470,9 @@ obj/Items
 			if(!(usr in oview(1,src))&&!(src in usr))
 				return
 			var/RacialHunger=1
-			if(usr.Race in list("Saiyan","Half Saiyan","Monster"))
+			if(usr.race in list(SAIYAN,BEASTMAN))
 				RacialHunger=5
-			if(usr.Race in list("Majin","Dragon","Demon"))
+			if(usr.race in list(MAJIN,DRAGON,DEMON))
 				RacialHunger=20
 			if(usr.EnhancedSmell)
 				RacialHunger*=2
@@ -1640,7 +1640,7 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 				User << "[src] is broken currently and can't be used."
 				return
 			if(sord)
-				if(!User.ArcaneBladework&&User.Race!="Demon")
+				if(!User.ArcaneBladework&&!User.isRace(DEMON))
 					User << "You can't use a sword and a staff at the same time!"
 					return
 			if(User.StanceBuff)
@@ -1715,7 +1715,7 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 					User << "You already have a sword equipped."
 					return
 			if(staf)
-				if(!User.ArcaneBladework&&User.Race!="Demon")
+				if(!User.ArcaneBladework&&!User.isRace(DEMON))
 					User << "You can't use a sword and a staff at the same time!"
 					return
 			if(User.StyleBuff)

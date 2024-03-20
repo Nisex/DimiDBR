@@ -257,17 +257,6 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 	if(src.Grab)
 		src.Grab_Release()
 
-	if(P)
-		if(P.Race!="Demon")
-			for(var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm/da in src)
-				if(src.CheckSlotless("Devil Arm"))
-					da.Trigger(src)
-				if(src.isRace(DEMON))
-					da.name="Devil Arm ([src.TrueName])"
-				P.contents+=da
-				P << "You have inherited [src]'s Devil Arm!"
-				src << "You have bestowed your Devil Arm upon [P]!"
-
 	if(istype(src, /mob/Player/AI))
 		if(P)
 			var/mob/Player/AI/a = src

@@ -1353,7 +1353,7 @@ mob
 				var/CursedBlood=0
 				var/NoBlood=0
 				NoBlood=defender.CyberCancel
-				if(defender.Race=="Android"||defender.Class=="Eldritch"||defender.Secret=="Zombie"||defender.Dead)
+				if(defender.Race=="Android"||defender.isRace(ELDRITCH)||defender.Secret=="Zombie"||defender.Dead)
 					NoBlood=1
 				var/Effectiveness=1
 				if(NoBlood>0)

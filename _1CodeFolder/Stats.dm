@@ -836,10 +836,10 @@ mob/proc/
 					src.HealthAnnounce25=0
 				if(Health<(100*(1-src.HealthCut))||src.BioArmor<src.BioArmorMax)
 					var/Boosted=1
-					if(Race == "Majin")
+					if(isRace(MAJIN))
 						Boosted*=getMajinMedRate()
 					Recover("Health",1*Boosted)
-					if(Race == "Human")
+					if(isRace(HUMAN))
 						Boosted *= 1 + (TotalInjury/50)
 					Recover("Injury",1*Boosted)
 					if(src.Restoration||src.Secret=="Zombie")
@@ -878,8 +878,8 @@ mob/proc/
 			Recover("Fatigue",1)
 			if(src.ManaDeath)
 				ManaAmount-=5*src.ManaCapMult
-			else if(src.is_arcane_beast || (src.Race=="Monster" && src.Class=="Yokai" && src.AscensionsAcquired>0 && !src.Mechanized && !src.ActiveBuff))
-				if(src.Race=="Monster")
+			else if(src.is_arcane_beast || (isRace(YOKAI) && src.AscensionsAcquired>0 && !src.Mechanized && !src.ActiveBuff))
+				if(isRace(YOKAI))
 					Recover("Mana", 1*src.ManaCapMult)
 				else
 					Recover("Mana",1)
@@ -1179,7 +1179,7 @@ mob/proc/Get_Sense_Reading(mob/A)
 
 mob/proc/Get_Scouter_Reading(mob/B)
 	var/Ratio=B.EnergyUniqueness
-//EPM mods
+
 	var/EPM=B.Power_Multiplier//effective power multiplier
 	if(B.PowerEroded)
 		EPM-=B.PowerEroded
@@ -1190,8 +1190,9 @@ mob/proc/Get_Scouter_Reading(mob/B)
 			EPM*=1+(0.5*B.AscensionsAcquired) * 7
 	if(EPM<=0)
 		EPM=0.1
-//Ratio
+
 	Ratio*=EPM
+
 	if(B.HasLegendaryPower())
 		Ratio*= 1 + (2*B.HasLegendaryPower())
 	if(B.HasHellPower())
@@ -1221,7 +1222,7 @@ mob/proc/Get_Scouter_Reading(mob/B)
 				else
 					AgeRate=1
 
-				if(B.Race=="Monster"&&B.Class=="Yokai")
+				if(B.isRace(YOKAI))
 					if(B.EraBody=="Elder"||(B.EraBody=="Adult"&&B.Aged))
 						AgeRate=1.25
 				if(B.Race=="Half Saiyan"&&B.Anger)
@@ -1288,20 +1289,11 @@ mob/proc/Get_Scouter_Reading(mob/B)
 			Ratio*=B.GetIntimidation()
 		if(B.PowerBoost)
 			Ratio*=B.PowerBoost
-			/*
-			if(B.ssj["active"]&&B.CheckActive("Ki Control"))
-				if(B.masteries["[B.ssj["active"]]mastery"]==100)
-					Ratio*=1.2*/
 		if(B.TarotFate=="The Sun")
 			Ratio*=1.5
 
 	Ratio*=B.GetPowerUpRatioVisble()
 
-	//HIGH LEVEL FUCKERY
-	// if(locate(/obj/Skills/Soul_Contract, B)&&B.ContractPowered>0)
-	// 	Ratio*=1+(0.1*B.ContractPowered)
-	// else if(locate(/obj/Skills/Soul_Contract, B)&&B.ContractPowered<=0)
-	// 	Ratio*=0.5
 	if(B.Dead&&!B.KeepBody)
 		Ratio*=0.5
 	else if(B.z==glob.DEATH_LOCATION[3]&&!B.CheckActive("Cancer Cloth")&&B.SenseUnlocked<8&&!B.SpiritPower)
@@ -1314,12 +1306,3 @@ mob/proc/Get_Scouter_Reading(mob/B)
 	if(Reading<1)
 		Reading=1
 	return Reading
-
-/*var/obj/stats_object/stats_object = new
-obj/stats_object
-	name = "View Players"
-	Click()
-		..()
-		var/mob/Players/p = usr
-		if(istype(p))
-			p.Who()*/

@@ -708,7 +708,7 @@ mob/Creation/verb
 			usr.Grid("CreationKaio")
 		else if(usr.Race=="Android")
 			usr.Grid("CreationAndroid")
-		else if(usr.Race=="Monster"&&usr.Class=="Eldritch")
+		else if(usr.isRace(ELDRITCH))
 			usr.icon='Octopus Type.dmi'
 		else
 			if(!usr.icon)
@@ -854,34 +854,6 @@ mob/Creation/verb
 				else if(usr.Class=="Dragon")
 					usr.Class="Warrior"
 
-			else if(usr.Race=="Monster")
-				if(usr.Class=="Beastmen")
-					usr.Class="Yokai"
-					usr.icon='AlienElf_Male.dmi'
-				else if(usr.Class=="Yokai")
-					usr.Class="Eldritch"
-					usr.icon='AlienSquid.dmi'
-				else if(usr.Class=="Eldritch")
-					usr.Class="Beastmen"
-					usr.icon='AlienTiger_Male.dmi'
-
-			else if(usr.Race=="Shinjin")
-				if(usr.Class=="South")
-					usr.Class="East"
-				else if(usr.Class=="East")
-					usr.Class="North"
-				else if(usr.Class=="North")
-					usr.Class="West"
-				else if(usr.Class=="West")
-					usr.Class="South"
-			else if(isRace(MAJIN))
-				if(Class=="Innocent")
-					Class = "Super"
-				else if(Class=="Super")
-					Class = "Unhinged"
-				else if(Class=="Unhinged")
-					Class = "Innocent"
-
 			usr.RacialStats()
 			spawn()usr.UpdateBio()
 
@@ -980,31 +952,6 @@ mob
 					usr.Class="Warrior"
 				else if(usr.Class=="Fighter")
 					usr.Class="Warrior"
-
-			else if(usr.Race=="Monster")
-				if(usr.Class=="Beastmen")
-					usr.Class="Yokai"
-					usr.icon='AlienElf_Male.dmi'
-				else if(usr.Class=="Yokai")
-					usr.Class="Eldritch"
-					usr.icon='AlienSquid.dmi'
-				else if(usr.Class=="Eldritch")
-					usr.Class="Beastmen"
-					usr.icon='AlienTiger_Male.dmi'
-				else if(usr.Class=="Fighter")
-					usr.Class="Beastmen"
-
-			else if(usr.Race=="Shinjin")
-				if(usr.Class=="South")
-					usr.Class="East"
-				else if(usr.Class=="East")
-					usr.Class="North"
-				else if(usr.Class=="North")
-					usr.Class="West"
-				else if(usr.Class=="West")
-					usr.Class="South"
-				else if(usr.Class=="Fighter")
-					usr.Class="South"
 
 			usr.RacialStats()
 			spawn()usr.UpdateBio()
@@ -1287,337 +1234,6 @@ mob/proc
 
 		race.onFinalization(src)
 
-/*
-		if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
-			src.Tail(1)
-			src.contents+=new/obj/Oozaru
-			if(src.Race=="Half Saiyan")
-				passive_handler.Increase("Desperation", 0.5)
-				src.Desperation=0.5
-			if(src.isRace(SAIYAN))
-				src.PowerBoost=1
-				src.PotentialRate=2.5
-				src.ModifyPrime=1
-				src.ModifyFinal=-1
-		if(src.isRace(MAKYO))
-			if(src.icon=='Makyo1.dmi')
-				src.ExpandBase='Makyo1_Buff.dmi'
-			else if(src.icon=='Makyo2.dmi')
-				src.ExpandBase='Makyo2_Buff.dmi'
-			else if(src.icon=='Makyo3.dmi')
-				src.ExpandBase='Makyo3_Buff.dmi'
-			src.PoweredFormSetup()
-		if(src.isRace(NAMEKIAN))
-			var/Choice
-			var/Confirm
-			src.Asexual=0
-			src.AddSkill(new/obj/Skills/Utility/Sense)
-			src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
-			src.AddSkill(new/obj/Skills/AutoHit/AntennaBeam)
-			src.EnhancedHearing=1
-			for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/r in src)
-				r.RegenerateLimbs=1
-
-
-			if(src.Class=="Dragon")
-				while(Confirm!="Yes")
-					Choice=alert(src, "As you uncover more secrets of Namekian mysticism, you get to choose which secrets of Dragon clan to master. Which path will it be?", "Dragon Clan Secrets", "Healer", "Enchanter")
-					switch(Choice)
-						if("Healer")
-							Confirm=alert(src, "Do you choose the path of healing, learning to mend any wound in an instant?", "Dragon Clan Secrets", "Yes", "No")
-						if("Enchanter")
-							Confirm=alert(src, "Do you choose the path of enchanting, learning to weave more intricate magicks?", "Dragon Clan Secrets", "Yes", "No")
-						// if("Heretic")
-						// 	Confirm=alert(src, "Do you choose the path of heresy, learning to imbue your body with dark energies and channeling its regenerative life force in alternate ways?", "Dragon Clan Secrets", "Yes", "No")
-				if(Choice=="Healer")
-					src.AddSkill(new/obj/Skills/Utility/Heal)
-					for(var/obj/Skills/Utility/Heal/h in src)
-						h.SagaSignature=1//protecc
-						h.SignatureTechnique=0//brotecc
-				else if(Choice=="Enchanter")
-					passive_handler.Increase("ManaCapMult", 1)
-					src.ManaCapMult+=1
-				// else if(Choice=="Heretic")
-				// 	src.AddSkill(new/obj/Skills/AutoHit/AntennaBeam)
-				// 	src.NewAnger(1.5)
-				// 	src.HellPower=0.5
-				src.ModifyLate=1
-				src.ModifyFinal=1
-			else
-				src.AddSkill(new/obj/Skills/AutoHit/AntennaBeam)
-				src.AddSkill(new/obj/Skills/Utility/Make_Equipment)
-				src.ModifyEarly=-1
-				src.ModifyPrime=1
-
-		if(src.Race=="Monster")
-			if(src.Class=="Beastmen")
-				src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk)
-				src << "As a beastman, your anger will flare when you are pressed to your limits!"
-				src.ModifyBaby=0
-				src.ModifyEarly=0
-				src.ModifyPrime=1
-				src.ModifyLate=-1
-				src.EnhancedSmell=1
-				src.EnhancedHearing=1
-			if(src.Class=="Yokai")
-				src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form)
-				src << "As a yokai, you can shift to your spirit form to bolster your energy attacks!"
-				src.ModifyLate=3
-				src.ModifyFinal=-1
-				src.EnhancedHearing=1
-				src.Spiritual=1
-			if(src.Class=="Eldritch")
-				passive_handler.Increase("SpaceWalk", 1)
-				src.SpaceWalk=1
-				src.Timeless=1
-				src << "As an eldritch being, you can last through entropy of time and space and see beyond normal sight."
-		if(src.Race=="Tuffle")
-			src.CyberizeMod=1
-			src.EconomyMult=2
-		if(src.Race=="Shinjin")
-			src.Timeless=1
-
-			switch(src.Class)
-				if("North")
-					//you heal faster when close to earth
-					src.Restoration=1
-					src.Attunement="Earth"
-				if("South")
-					//Fire doesn't hurt
-					passive_handler.Increase("WalkThroughHell", 1)
-					src.WalkThroughHell=1
-					src.Attunement="Fire"
-				if("East")
-					//Breathe anything
-					src.OxygenMax*=4
-					passive_handler.Increase("SpaceWalk", 1)
-					src.SpaceWalk=1
-					src.Attunement="Wind"
-				if("West")
-					//You don't have to swim
-					passive_handler.Increase("WaterWalk", 1)
-					src.WaterWalk=1
-					src.Attunement="Water"
-			src.AddSkill(new/obj/Skills/Utility/Telepathy)
-			src.AddSkill(new/obj/Skills/Utility/Sense)
-			src.AddSkill(new/obj/Skills/Telekinesis)
-			src.AddSkill(new/obj/Skills/Utility/Observe)
-			src.AddSkill(new/obj/Skills/Utility/Keep_Body)
-			// src.AddSkill(new/obj/Skills/Teleport/Traverse_Underworld)
-			src.AddSkill(new/obj/Skills/Reincarnation)
-			src.AddSkill(new/obj/Skills/Utility/Teachz)
-			// src.AddSkill(new/obj/Skills/Utility/Grimoire_Arcana)
-			var/list/Choices=list("Kai", "Makai")
-			var/Confirm
-			var/Choice
-			if(!src.ShinjinAscension)
-				while(Confirm!="Yes")
-					Choice=input(src, "Which realm do you swear your loyalty to?", "Shinjin Ascension") in Choices
-					switch(Choice)
-						if("Kai")
-							Confirm=alert(src, "Do you pledge your allegiance to the continuity and propserity of the Living Realm?", "Shinjin Ascension", "Yes", "No")
-						if("Makai")
-							Confirm=alert(src, "Do you pledge your allegiance to the expansion and domination of the Demon Realm?", "Shinjin Ascension", "Yes", "No")
-				if(Choice=="Kai")
-					passive_handler.Increase("SpiritPower", 1)
-					passive_handler.Increase("CalmAnger", 1)
-					src.SpiritPower=1
-					src.CalmAnger=1
-					src.Potential=10
-					src.PotentialRate=0.1
-				if(Choice=="Makai")
-					passive_handler.Increase("HellPower", 1)
-					passive_handler.Increase("StaticWalk", 1)
-					src.HellPower=1
-					src.NewAnger(2)
-					src.Intimidation=10
-					src.Potential=DaysOfWipe()
-					src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Majin)
-					src.PotentialRate=5
-					src.StaticWalk=1
-					// src.AddSkill(new/obj/Skills/Utility/Grant_Jagan)
-				switch(src.Class)
-					if("North")
-						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kaioken)
-						src.AddSkill(new/obj/Skills/Projectile/Genki_Dama)
-						var/obj/Skills/Buffs/NuStyle/UnarmedStyle/North_Star_Style/nss=new/obj/Skills/Buffs/NuStyle/UnarmedStyle/North_Star_Style
-						src.AddSkill(nss)
-					if("East")
-						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Toppuken)
-						src.AddSkill(new/obj/Skills/AutoHit/Gwych_Dymestl)
-						var/obj/Skills/Buffs/NuStyle/UnarmedStyle/East_Star_Style/ess=new/obj/Skills/Buffs/NuStyle/UnarmedStyle/East_Star_Style
-						src.AddSkill(ess)
-					if("South")
-						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Rekkaken)
-						src.AddSkill(new/obj/Skills/Projectile/Zone_Attacks/Global_Devastation)
-						var/obj/Skills/Buffs/NuStyle/SwordStyle/South_Star_Style/sss=new/obj/Skills/Buffs/NuStyle/SwordStyle/South_Star_Style
-						src.AddSkill(sss)
-					if("West")
-						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kyoukaken)
-						src.AddSkill(new/obj/Skills/AutoHit/Great_Deluge)
-						var/obj/Skills/Buffs/NuStyle/FreeStyle/West_Star_Style/wss=new/obj/Skills/Buffs/NuStyle/FreeStyle/West_Star_Style
-						src.AddSkill(wss)
-
-				src.ShinjinAscension=Choice
-
-		if(src.isRace(DEMON))
-			src.AngerPoint=50
-			src.Timeless=1
-			src.Spiritual=1
-			src.Potential=DaysOfWipe()
-			src.TrueName=input(src, "As a demon, you have a True Name that can be used to summon you by anyone with the magic and knowledge of it. It should be kept secret. What is your True Name?", "Get True Name") as text
-			src << "The name by which you can be conjured is <b>[src.TrueName]</b>."
-			global.TrueNames.Add(src.TrueName)
-		if(src.isRace(MAJIN))
-			//TODO: COME BACK TO THIS AND GIVE OTHER VARS FOR DIFFERENT CLASSES
-			passive_handler.Increase("StaticWalk", 1)
-			src.StaticWalk=1
-			majinPassive = new(src)
-			majinAbsorb = new(src)
-			src.AngerPoint=50
-			switch(Class)
-				if("Innocent")
-					DemonicDurability=1
-					AngerPoint=50
-				if("Super")
-					Steady=1
-				if("Unhinged")
-					Adrenaline=1
-					Hustle=1
-					AngerPoint=50
-			src.Timeless=1
-			src.Spiritual=1
-			src.AddSkill(new/obj/Skills/Absorb)
-			src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
-			for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/r in src)
-				r.RegenerateLimbs=1
-			// src.contents+=new/obj/Regenerate
-			// for(var/obj/Regenerate/x in src)
-			// 	x.Level=4
-		if(src.isRace(DRAGON))
-			src.Intimidation=10
-			src.AngerMessage="roars furiously!"
-			src.Class=input(src, "All dragons possess resilence against the elements, but they also possess an affinity for a specific element.  What is your affinity?", "Elemental Dragon") in list("Fire", "Water", "Metal", "Lightning", "Poison", "Gold", "Time")
-			src.DebuffImmune=1
-			passive_handler.Increase("DebuffImmune", 1)
-			src.EconomyMult=4
-			src.Timeless=1
-			src.Spiritual=1
-			src.Potential=DaysOfWipe()
-			src.AngerPoint=50
-			switch(src.Class)
-				if("Fire")
-					src.Attunement="Fire"
-					src.AngerPoint=50
-					src.AddSkill(new/obj/Skills/AutoHit/Fire_Breath)
-					src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Heat_Of_Passion)
-					passive_handler.Increase("DemonicDurability", 1)
-					passive_handler.Increase("SpiritHand", 1)
-					MeltyBlood=1
-					DemonicDurability=1
-					src.StrAscension=0.25
-					src.ForAscension=0.25
-					src.OffAscension=0.25
-					src << "You have an affinity for <font color='red'><b>fire</b></font color>."
-				if("Water")
-					src.Attunement="Water"
-					passive_handler.Increase("Fishman", 1)
-					src.Fishman=1
-					src.AddSkill(new/obj/Skills/Projectile/Beams/Ice_Dragon)
-					src.EndAscension=0.25
-					src.ForAscension=0.25
-					src.DefAscension=0.25
-					src << "You have an affinity for <font color='blue'><b>water</b></font color>."
-				if("Metal")
-					src.Attunement="Earth"
-					passive_handler.Increase("Hardening", 1)
-					src.Hardening=1
-					src.AddSkill(new/obj/Skills/Projectile/Shard_Storm)
-					src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Dragons_Tenacity)
-					src.StrAscension=0.25
-					src.EndAscension=0.25
-					src.DefAscension=0.25
-					src << "You have an affinity for <font color='green'><b>earth</b></font color>."
-				if("Lightning")
-					src.Attunement="Wind"
-					passive_handler.Increase("Godspeed", 1)
-					src.Godspeed=1
-					src.AddSkill(new/obj/Skills/Projectile/Beams/Static_Stream)
-					src.StrAscension=0.25
-					src.EndAscension=0.25
-					src.SpdAscension=0.25
-					src << "You have an affinity for <font color='cyan'><b>lightning</b></font color>."
-				if("Poison")
-					passive_handler.Increase("VenomResistance", 2)
-					src.VenomResistance+=2
-					src.AddSkill(new/obj/Skills/AutoHit/Poison_Gas)
-					src.StrAscension=0.25
-					src.OffAscension=0.25
-					src << "You have an affinity and partial immunity to <font color='purple'><b>poison</b></font color>."
-				if("Gold")
-					src.Intelligence=2
-					src.EconomyMult*=4
-					src.ForAscension=0.25
-					src.OffAscension=0.25
-					src << "You lack an elemental affinity but you're gifted with <font color='#FFFF00'><b>brilliance</b></font color>."
-				if("Time")
-					src.PowerBoost=1.5
-					src.AngerMax=1
-					src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Force)
-					src.StrAscension=0.25
-					src.OffAscension=0.25
-					src.DefAscension=0.25
-					src << "You embrace timelessness of the ancient dragons and assert your <font color='#666666'><b>superiority</b></font color> over everything..."
-		if(src.Race=="Alien")
-			src.PotentialRate+=(2)//2 potential rate at 100 potentialcap, 1 potential rate at 200 potentialcap
-			src.AlienRacials()
-		if(src.Race=="Android")
-			src.AddSkill(new/obj/Skills/Utility/Internal_Communicator)
-			src.AddSkill(new/obj/Skills/Utility/Android_Integration)
-			passive_handler.Increase("Mechanized", 1)
-			passive_handler.Increase("StabilizeModule", 1)
-			passive_handler.Increase("InjuryImmune", 1)
-			passive_handler.Increase("FatigueImmune", 1)
-			passive_handler.Increase("DebuffImmune", 1)
-			passive_handler.Increase("VenomImmune", 1)
-			passive_handler.Increase("ManaPU", 1)
-			src.Mechanized=1//No magic
-			src.StabilizeModule=1//In built life support
-			src.InjuryImmune=1//What injury?
-			src.FatigueImmune=1//What fatigue?
-			src.DebuffImmune=1//What debuffs?
-			src.VenomImmune=1//no corrosion
-			src.EnhancedHearing=1
-			src.InternalScouter=1
-			src.ExhaustedMessage="appears heavily damaged!"
-			src.ExhaustedColor="#999999"
-			src.BarelyStandingMessage="appears to be reaching limits of functionality!"
-			src.BarelyStandingColor="#999999"
-			src.PUConstant=1
-			src.ManaPU=1
-			src.FusionPowered=1
-			src.EnhanceChipsMax=8
-			src.Timeless=1
-			src.PotentialRate=3
-			Warped=1
-		if(src.Race=="Changeling")
-			src.Intimidation=2
-			src.Potential=pick(0, 0, 0, 0, 0, 0, 0, 0, 0, 10)
-			passive_handler.Increase("Adrenaline", 1)
-			src.Adrenaline=1//Go faster at lower health
-			src.AngerMessage="loses their cool!"
-			src.trans["unlocked"]=3
-			src.Potential=DaysOfWipe()
-			src.BioArmor=100
-			src.BioArmorMax=100
-			src.PoweredFormSetup()
-			src.AddSkill(new/obj/Skills/Power_Control)
-			src.ModifyBaby=-1
-			src.ModifyEarly=1
-			src.ModifyPrime=2
-			src.ModifyLate=-1
-			src.ModifyFinal=-1*/
-
 		src.StrOriginal=src.StrMod
 		src.EndOriginal=src.EndMod
 		src.SpdOriginal=src.SpdMod
@@ -1628,7 +1244,7 @@ mob/proc
 		src.SetVars()
 
 		if(!Warped)
-			if(src.Race=="Alien"||src.Race=="Monster")
+			if(src.Race=="Alien"||isRace(BEASTMAN)||isRace(YOKAI))
 				var/Choice=input(src, "Do you want to possess animal characteristics?  These options will give you tails and ears.", "Choose your animal traits.") in list("None", "Cat", "Fox", "Racoon", "Wolf", "Lizard", "Crow", "Bull")
 				switch(Choice)
 					if("Cat")
@@ -1651,56 +1267,12 @@ mob/proc
 					src.contents+=new/obj/FurryOptions
 					src.Hairz("Remove")
 					src.Hairz("Add")
-				if(src.Race=="Monster"&&src.Class!="Yokai")
-					var/Spirits=alert(src, "Do you function as a spiritual being?  This is relevant for establishing summoning contracts.", "Are The Spirits With You?", "No", "Yes")
-					if(Spirits=="Yes")
-						src.Spiritual=1
-					else
-						src.Spiritual=0
-				if(src.Race=="Monster")
-					var/confirm1
-					var/choice1
-					while(confirm1!="Yes")
-						choice1=alert(src, "All monsters hail from battle-ready castes. Which do you hail from?", "Monster Caste", "Warrior", "Shaman", "Hunter")
-						switch(choice1)
-							if("Warrior")
-								confirm1=alert(src, "Warrior caste monsters focus on enduring blows and defeating opponents physically. Is this your caste?", "Warrior Caste", "Yes", "No")
-							if("Shaman")
-								confirm1=alert(src, "Shaman caste monsters focus on powerful and accurate energy attacks. Is this your caste?", "Shaman Caste", "Yes", "No")
-							if("Hunter")
-								confirm1=alert(src, "Hunter caste monsters embrace all methods of fighting with particular focus on speed and finesse. Is this your caste?", "Hunter Caste", "Yes", "No")
-					src.MonsterClass=choice1
-
-					var/choice2
-					var/confirm2
-					while(confirm2!="Yes")
-						choice2=alert(src, "All monsters draw power from a metaphysical ideal. What is the source of your monstrous strength?", "Monster Source", "Domination", "Determination", "Ingenuity")
-						switch(choice2)
-							if("Domination")
-								confirm2=alert(src, "Monsters sworn to Domination ruthlessly crush opponents with raw and intimidating power. Is this your source of strength?", "Domination Ideal", "Yes", "No")
-							if("Determination")
-								confirm2=alert(src, "Monsters sworn to Determination exhibit great efficiency of movement and unflagging courage. Is this your source of strength?", "Determination Ideal", "Yes", "No")
-							if("Ingenuity")
-								confirm2=alert(src, "Monsters sworn to Ingenuity focus on leading their lessers with wise counsel. Is this your source of strength?", "Ingenuity Ideal", "Yes", "No")
-					src.MonsterSource=choice2
-
-					var/choice3
-					var/confirm3
-					while(confirm3!="Yes")
-						choice3=alert(src, "All monsters carry a shred of mythos within them that may be cultivated into a true legend. What is your destiny?", "Monster Destiny", "Celestial", "Natural", "Infernal")
-						switch(choice3)
-							if("Celestial")
-								confirm3=alert(src, "Monsters carrying a shred of celestial energy are inherently good - perhaps too good for others to tolerate. Is this your eventual destiny?", "Celestial Destiny", "Yes", "No")
-							if("Natural")
-								confirm3=alert(src, "Monsters carrying no shred of outside energy are true followers of the laws of nature. Good and evil have no meaning to them, there is only one's own will. Is this your eventual destiny?", "Natural Destiny", "Yes", "No")
-							if("Infernal")
-								confirm3=alert(src, "Monsters carrying a shred of infernal energy are inherently hateful. As they grow in power, so do their selfish tendencies. Is this your eventual destiny?", "Infernal Destiny", "Yes", "No")
-					src.MonsterAscension=choice3
 
 			if(!src.Timeless)
-				if(!(src.Race in list("Changeling", "Saiyan", "Monster")))//these bois spawn in with deathtimers if theyre elder...
+				if(!(src.race in list(YOKAI,BEASTMAN,ELDRITCH,SAIYAN)))//these bois spawn in with deathtimers if theyre elder...
 					//beastman monsters as elders would spawn in with death timers; yokai would be more powerful; eldritch dont even get this choice
-					var/Age="Youth"//=alert(src, "Do you want to start as a youth or an elder?  Youths have not yet reached their full potential as fighters. Elders have already passed it, and may teach younger folks.", "Age", "Youth", "Elder")
+					var/Age = "Youth"
+					//=alert(src, "Do you want to start as a youth or an elder?  Youths have not yet reached their full potential as fighters. Elders have already passed it, and may teach younger folks.", "Age", "Youth", "Elder")
 					src.EraBody=Age
 					if(src.EraBody=="Youth")
 						src.EraAge=global.Era-src.GetPassedEras("Youth")
@@ -1715,7 +1287,7 @@ mob/proc
 					src.EraAge=global.Era-src.GetPassedEras("Youth")
 			else
 				src.EraAge=-4
-				if(src.Class=="Eldritch" || src.isRace(MAJIN))
+				if(isRace(ELDRITCH) || src.isRace(MAJIN))
 					src.EraAge=global.Era-GetPassedEras("Adult")
 				src.EraBody="Adult"
 				src << "You've started as a timeless race. You learn slower than others, but can teach younger beings and always have your full power available."

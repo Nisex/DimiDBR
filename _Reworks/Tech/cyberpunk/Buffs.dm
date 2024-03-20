@@ -22,7 +22,7 @@
             // giga mode
             Godspeed = totalPotRounded/25
             CriticalChance = round(totalPotRounded/5,0.5)
-            CriticalDamage = 1 + round(totalPot/100, 0.01)
+            CriticalDamage = round(totalPot/100, 0.01)
             Crippling = totalPotRounded/10
             SlayerMod = totalPotRounded/12.5 // lol 1 pure damage at 100
             Warp = totalPotRounded/25
@@ -39,7 +39,7 @@
         else
             Godspeed = 1
             CriticalChance = round(totalPotRounded/10,0.5)
-            CriticalDamage =  1 + round(totalPot/150, 0.01)
+            CriticalDamage =  round(totalPot/150, 0.01)
             Crippling = totalPotRounded/10
             passives = list("CoolerAfterImages" = 2, "Godspeed" = Godspeed, "CriticalChance" = CriticalChance, \
             "CriticalDamage" = CriticalDamage, "Crippling" = Crippling)
@@ -88,7 +88,7 @@
         else
             HeavyHitter = round(totalPotRounded/50, 0.5)
             HardStyle = round(totalPotRounded/50, 0.5)
-            Steady = round(totalPotRounded/25, 0.5) 
+            Steady = round(totalPotRounded/25, 0.5)
             Shattering = round(totalPotRounded/10, 0.5)
             passives = list("HeavyHitter" = HeavyHitter, "HardStyle" = HardStyle, \
             "Steady" = Steady, "Shattering" = Shattering)
