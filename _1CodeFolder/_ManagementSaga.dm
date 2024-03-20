@@ -110,8 +110,8 @@ mob/Admin3/verb
 
 		else
 			var/selection
-			if(P.Race in glob.NoSagaRaces)
-				src << "[P] is a [P.Race], and they are therefore not eligible to receive a Saga."
+			if(P.race in glob.NoSagaRaces)
+				src << "[P] is a [P.race.name], and they are therefore not eligible to receive a Saga."
 				return
 			else
 				selection=input("Select a Tier S to grant. This will set them to T1 in it, granting whatever verbs at that level.") in SagaList
@@ -169,7 +169,7 @@ mob/Admin3/verb
 								P.AddSkill(new/obj/Skills/Queue/Phoenix_Demon_Illusion_Strike)
 						if("Unicorn")
 							if(!locate(/obj/Skills/AutoHit/Unicorn_Meteor_Fist, src))
-								P.AddSkill(new/obj/Skills/AutoHit/Unicorn_Meteor_Fist)		
+								P.AddSkill(new/obj/Skills/AutoHit/Unicorn_Meteor_Fist)
 
 				if("Weapon Soul")
 					P<<"You have honed your skills to become a warrior of legend... <b>Arms Master</b>!"
