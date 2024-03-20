@@ -1456,7 +1456,7 @@ obj
 				DamageMult=8
 				ComboMaster=1
 				ControlledRush=1
-				Rush=15
+				Rush=7
 				Instinct=2
 				Knockback=15
 				Cooldown=180
@@ -1675,7 +1675,7 @@ obj
 				ShockDiminish=1.15
 				ShockTime=4
 				GuardBreak=1
-				Rush=7
+				Rush=3
 				ControlledRush=1
 				HitSparkIcon='Slash - Future.dmi'
 				HitSparkX=-32
@@ -2710,8 +2710,6 @@ obj
 				SkillCost=40
 				Copyable=2
 				NeedsSword=1
-				Rush=5
-				ControlledRush=1
 				Area="Wave"
 				ComboMaster=1
 				Distance=3
@@ -2744,8 +2742,6 @@ obj
 				DamageMult=2.2
 				Cooldown=30
 				EnergyCost=1
-				Rush=3
-				ControlledRush=1
 				Icon='roundhouse.dmi'
 				IconX=-16
 				IconY=-16
@@ -2768,8 +2764,6 @@ obj
 				NeedsSword=1
 				Area="Arc"
 				StrOffense=1
-				Rush=1
-				ControlledRush=1
 				DamageMult=2.8
 				Shearing=5
 				Cooldown=30
@@ -2798,8 +2792,6 @@ obj
 				Copyable=2
 				NeedsSword=1
 				Area="Arc"
-				Rush=1
-				ControlledRush=1
 				Distance=2
 				StrOffense=1
 				DamageMult=0.35
@@ -2830,8 +2822,6 @@ obj
 				SkillCost=40
 				Copyable=2
 				NeedsSword=1
-				Rush=3
-				ControlledRush=1
 				Area="Arc"
 				NoLock=1
 				NoAttackLock=1
@@ -2863,8 +2853,6 @@ obj
 				Copyable=2
 				NeedsSword=1
 				Area="Circle"
-				Rush=5
-				ControlledRush=1
 				Distance=1
 				StrOffense=1
 				DamageMult=3
@@ -2893,8 +2881,6 @@ obj
 				StrOffense=1
 				DamageMult=4.8
 				Cooldown=60
-				Rush=3
-				ControlledRush=1
 				Knockback=3
 				Size=1
 				Icon='CircleWind.dmi'
@@ -2945,8 +2931,6 @@ obj
 				Copyable=3
 				NeedsSword=1
 				Area="Circle"
-				ControlledRush=1
-				Rush=3
 				StrOffense=1
 				DamageMult=1.8
 				Cooldown=60
