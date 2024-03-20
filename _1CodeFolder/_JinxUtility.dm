@@ -3862,20 +3862,15 @@ mob
 						src << "[s] has been removed as it is not one of your saga signatures."
 						del s
 		GetMaxMovementCharges()
-			if(src.HasFlicker())
-				return 3+src.HasFlicker()
 			return 3
 		MovementChargeBuildUp(var/Mult=1)
 			//this ticks per second
 			//partial charges are not able to be used
 			//30 seconds will result in full charges
-			if(src.passive_handler.Get("Hustle")||src.HasLegendaryPower() > 0.25)//hustle regains charges faster
-				Mult += 0.25
+			Mult *= min(1.5, 1+(GetSpd()/glob.ZANZO_SPEED_DIVISOR))
 			var/flick=src.HasFlicker()
-			if(src.HasMovementMastery())
-				Mult*=min(1.1,1+(src.GetMovementMastery()/15))
 			if(flick)
-				Mult*=min(1.3,1+(flick/2))
+				Mult*=min(1.7,1+(flick/glob.ZANZO_FLICKER_DIVISOR))
 			if(src.AfterImageStrike)
 				return
 			var/MaxMovementCharges=GetMaxMovementCharges()
