@@ -33,53 +33,36 @@
 	src<<"Makyos: [Makyo]"
 
 
-var/GlobalStorage/globalStorage = new()
+var/GlobalStorage/globalStorage
 
 GlobalStorage
 	var
 		tmp
-			objs = list()
 			objHTML = ""
-			skills = list()
 			skillHTML = ""
-			items = list()
 			itemHTML = ""
-			mobs = list()
 			mobHTML = ""
-			turfs = list()
 			turfHTML = ""
-			generated = 0
+	New()
+		..()
+		var/list/objs = typesof(/obj)
 
-	proc
-		generate(type)
-			switch(type)
-				if("obj")
-					objs += typesof(/obj)
+		for(var/x in objs)
+			if(ispath(x,/obj/Skills))
+				skillHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
+				continue
+			else if(ispath(x,/obj/Items))
+				itemHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
+				continue
+			objHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
 
-					for(var/x in objs)
-						if(x in subtypesof(/obj/Skills))
-							skills += x
-							skillHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
-							continue
-						if(x in subtypesof(/obj/Items))
-							items += x
-							itemHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
-							continue
-						objHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
-				if("mob")
-					mobs += typesof(/mob)
-					for(var/x in mobs)
-						mobHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
-				if("turf")
-					turfs += typesof(/turf)
-					for(var/x in turfs)
-						turfHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
+		var/list/mobs = typesof(/mob)
+		for(var/x in mobs)
+			mobHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
 
-		init()
-			generate("obj")
-			generate("mob")
-			generate("turf")
-			generated = 1
+		var/list/turfs = typesof(/turf)
+		for(var/x in turfs)
+			turfHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
 
 
 /mob/Admin4/verb/ChangeWorldSettings()
@@ -113,8 +96,6 @@ GlobalStorage
     blah+="[A]<br>[A.type]"
     blah+="<table width=10%>"
     var/info =""
-    if(!globalStorage.generated)
-        globalStorage.init()
     switch(input(usr, "What do you want to select?") in list("Skills","Items","Object","Mob","Turf","Cancel"))
         if("Skills")
             info = globalStorage.skillHTML

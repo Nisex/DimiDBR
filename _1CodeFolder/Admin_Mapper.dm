@@ -22,6 +22,9 @@ mob
 		WarperOverwrite=0
 		Bino=0
 	Mapper
+		verb/Build()
+			set category="Mapper"
+			usr.Grid("Turfs")
 		verb/Make_All_Objs_Ungrabable()
 			for(var/obj/Turfs/CustomObj1/cObj in world)
 				if(cObj.Builder == src.ckey)

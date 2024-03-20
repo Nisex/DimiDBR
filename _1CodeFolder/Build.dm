@@ -347,91 +347,49 @@ proc/Load_Turfs()
 var/list/Builds=new // Builds is a list used to display icons in the buildpanel for players. This is NOT the things they have already built!
 var/list/AdminBuilds=new //This is for /turf/Special, which is (normally) admin accessable only.
 proc/Add_Builds()
-	for(var/A in typesof(/obj/Turfs))
-		var/obj/B=new A
-		if(B.Buildable&&B.type!=/obj/Turfs && B.name!="DBR")
-			if(!istype(B,/obj/Turfs/IconsX)&&!istype(B,/obj/Turfs/IconsXLBig))
-				// if(istype(B,/obj/Turfs/Newturfs))
-				// 	var/icon/objIcon = new(B.icon)
-				// 	// for(var/state in objIcon.IconStates())
-				// 	// 	var/obj/Others/Build/C=new
-				// 	// 	C.icon=B.icon
-				// 	// 	C.icon_state=state
-				// 	// 	C.Creates=B.type
-				// 	// 	C.name="-[B.name]-"
-				// 	// 	Builds+=C
-				// else
-				var/obj/Others/Build/C=new
-				C.icon=B.icon
-				C.icon_state=B.icon_state
-				C.Creates=B.type
-				C.name="-[B.name]-"
-				Builds+=C
-	for(var/A in typesof(/obj/Turfs))
-		var/obj/B=new A
-		if(B.Buildable&&B.type!=/obj/Turfs && B.name!="DBR")
-			if(istype(B,/obj/Turfs/IconsX)||istype(B,/obj/Turfs/IconsXLBig))
-				var/obj/Others/Build/C=new
-				C.icon=B.icon
-				C.icon_state=B.icon_state
-				C.Creates=B.type
-				C.name="-[B.name]-"
-				Builds+=C
-	for(var/A in typesof(/obj/KatieObj))
-		var/obj/B=new A
-		if(B.type!=/obj/KatieObj)
+	var/obj/Turfs/CustomObj1/customobj = new
+	var/obj/Others/Build/E = new
+	E.icon = customobj.icon
+	E.icon_state = customobj.icon_state
+	E.Creates = customobj.type
+	E.name ="-[customobj.name]-"
+	Builds += E
+	var/turf/CustomTurf/customturf = new(locate(1,1,1))
+	var/obj/Others/Build/J = new
+	J.icon = customturf.icon
+	J.icon_state = customturf.icon_state
+	J.Creates = customturf.type
+	J.name ="-[customturf.name]-"
+	Builds += J
+	for(var/A in subtypesof(/obj/Turfs))
+		var/obj/B = new A
+		if(B.Buildable&& B.name!="DBR")
 			var/obj/Others/Build/C=new
 			C.icon=B.icon
 			C.icon_state=B.icon_state
 			C.Creates=B.type
 			C.name="-[B.name]-"
-			AdminBuilds+=C
-var/list/Builds2=new
-proc/Add_Builds2()
-	for(var/A in typesof(/turf))
+			Builds+=C
+	for(var/A in subtypesof(/obj/KatieObj))
+		var/obj/B=new A
+		var/obj/Others/Build/C=new
+		C.icon=B.icon
+		C.icon_state=B.icon_state
+		C.Creates=B.type
+		C.name="-[B.name]-"
+		Builds+=C
+
+	for(var/A in subtypesof(/turf))
 		var/turf/C=new A(locate(1,1,1))
-		if(C.Buildable&&C.type!=/turf && C.name!="DBR")
-			if(istype(C,/turf/IconsX))
-				var/obj/Others/Build/B=new
-				B.icon=C.icon
-				B.icon_state=C.icon_state
-				B.Creates=C.type
-				B.name="-[C.name]-"
-				AdminBuilds+=B
-		del(C)
-	for(var/A in typesof(/turf))
-		var/turf/C=new A(locate(1,1,1))
-		if(C.Buildable&&C.type!=/turf && C.name!="DBR")
-			if(!istype(C,/turf/IconsX))
-				var/obj/Others/Build/B=new
-				B.icon=C.icon
-				B.icon_state=C.icon_state
-				B.Creates=C.type
-				B.name="-[C.name]-"
-				AdminBuilds+=B
-		del(C)
-	for(var/A in typesof(/turf/Special))
-		if(A in typesof(/turf/Special/Teleporter))
-			continue
-		var/turf/C=new A(locate(1,1,1))
-		if(C.type!=/turf/Special && C.name!="DBR")
+		if(C.Buildable && C.name!="DBR")
+
 			var/obj/Others/Build/B=new
 			B.icon=C.icon
 			B.icon_state=C.icon_state
 			B.Creates=C.type
 			B.name="-[C.name]-"
-			AdminBuilds+=B
-	for(var/A in typesof(/obj/Special))
-		if(A in typesof(/obj/Special/Teleporter2))
-			continue
-		var/obj/B=new A
-		if(B.type!=/obj/Special && B.name!="DBR")
-			var/obj/Others/Build/C=new
-			C.icon=B.icon
-			C.icon_state=B.icon_state
-			C.Creates=B.type
-			C.name="-[B.name]-"
-			AdminBuilds+=C
+			Builds+=B
+		del(C)
 
 /obj/Turfs/Newturfs
 	Industrial

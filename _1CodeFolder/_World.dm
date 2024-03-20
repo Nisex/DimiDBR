@@ -26,33 +26,11 @@ world
 
 		WorldLoading=1
 		spawn(100)GlobalSave()
-		Stars()
 		GenerateWorldInstances()
 		// log=file("Saves/Errors.log")
 		spawn(10)
 
 			BootWorld("Load")
-			for(var/obj/Special/Teleporter2/q in world)
-				if(q.invisibility>100)
-					q.invisibility=100
-			for(var/obj/Items/Sword/Light/Legendary/ws in world)
-				if(!ws.TrueLegend)
-					del ws
-			for(var/obj/Items/Sword/Medium/Legendary/ws in world)
-				if(!ws.TrueLegend)
-					del ws
-			for(var/obj/Items/Sword/Heavy/Legendary/ws in world)
-				if(!ws.TrueLegend)
-					del ws
-			for(var/obj/Items/Enchantment/Staff/NonElemental/Wand/Legendary/ws in world)
-				if(!ws.TrueLegend)
-					del ws
-			for(var/obj/Items/Enchantment/Staff/NonElemental/Rod/Legendary/ws in world)
-				if(!ws.TrueLegend)
-					del ws
-			for(var/obj/Items/Enchantment/Staff/NonElemental/Staff/Legendary/ws in world)
-				if(!ws.TrueLegend)
-					del ws
 		BuildGeneralMagicDatabase()
 		BuildGeneralWeaponryDatabase()
 		GeneratePlayActionDatabase()
@@ -69,7 +47,7 @@ proc/GlobalSave()
 	set background=1
 	sleep(216000)
 	world<< "<b><HTML><FONT COLOR=#FF0000>T</FONT><FONT COLOR=#FF2900>h</FONT><FONT COLOR=#FF5200>e</FONT><FONT COLOR=#FF7B00> </FONT><FONT COLOR=#FFA400>w</FONT><FONT COLOR=#FFCD00>o</FONT><FONT COLOR=#FFF600>r</FONT><FONT COLOR=#FFff00>l</FONT><FONT COLOR=#D6ff00>d</FONT><FONT COLOR=#ADff00> </FONT><FONT COLOR=#84ff00>i</FONT><FONT COLOR=#5Bff00>s</FONT><FONT COLOR=#32ff00> </FONT><FONT COLOR=#09ff00>s</FONT><FONT COLOR=#00ff00>a</FONT><FONT COLOR=#00ff29>v</FONT><FONT COLOR=#00ff52>i</FONT><FONT COLOR=#00ff7B>n</FONT><FONT COLOR=#00ffA4>g</FONT><FONT COLOR=#00ffCD>.</FONT><FONT COLOR=#00ffF6> </FONT><FONT COLOR=#00ffff>P</FONT><FONT COLOR=#00F6ff>r</FONT><FONT COLOR=#00CDff>e</FONT><FONT COLOR=#00A4ff>p</FONT><FONT COLOR=#007Bff>a</FONT><FONT COLOR=#0052ff>r</FONT><FONT COLOR=#0029ff>e</FONT><FONT COLOR=#0000ff> </FONT><FONT COLOR=#0900ff>y</FONT><FONT COLOR=#3200ff>o</FONT><FONT COLOR=#5B00ff>u</FONT><FONT COLOR=#8400ff>r</FONT><FONT COLOR=#AD00ff>s</FONT><FONT COLOR=#D600ff>e</FONT><FONT COLOR=#FF00ff>l</FONT><FONT COLOR=#FF00F6>f</FONT><FONT COLOR=#FF00CD>!</FONT></HTML></b>"
-	for(var/mob/Players/Q)
+	for(var/mob/Players/Q in players)
 		if(Q.Savable&&Q.client!=null)
 			Q.client.SaveChar()
 	BootWorld("Save")
@@ -87,20 +65,11 @@ mob/proc/CheckUnlock(race/_race)
 		return 1
 	return 0
 
-proc/Stars()
-	set background=1
-	for(var/turf/Special/Stars/E)
-		E.icon_state="[rand(1,2500)]"
-	for(var/turf/Special/EventStars/ES)
-		ES.icon_state="[rand(1,2500)]"
-
-
 proc/BootWorld(var/blah)
 	switch(blah)
 		if("Load")
 			BootFile("All","Load")
 			Load_Turfs()
-			Stars()
 			Load_Custom_Turfs()
 			Load_Objects()
 			Load_Bodies()
@@ -108,24 +77,15 @@ proc/BootWorld(var/blah)
 			spawn()
 				if(!celestialObjectTicks) celestialObjectTicks = Hour(12)/10
 				CelestialBodiesLoop()
-			sleep(rand(1,10))
 			spawn()Add_Builds()
-			sleep(rand(1,10))
 			spawn()MakeSkillTreeList()
 			spawn()MakeKnowledgeTreeList()
-			sleep(rand(1,10))
-			spawn()Add_Builds2()
-			sleep(rand(1,10))
 			spawn()Add_Customizations()
-			sleep(rand(1,10))
 			spawn()Add_Technology()
 			spawn()Add_Enchantment()
-			sleep(rand(1,10))
 			spawn()InitializeSigCombos()
-			sleep(rand(1,10))
 			LoadAISPawners()
 			globalStorage = new()
-			globalStorage.init()
 			generateVersionDatum()
 			spawn()
 				global.global_loop = new()
@@ -135,9 +95,6 @@ proc/BootWorld(var/blah)
 			WorldLoading=0
 			Reports("Load")
 			find_savableObjects()
-			for(var/obj/Turfs/CustomObj1/q in world)
-				if(findtextEx(q.name, "Sea Test"))
-					q.mouse_opacity = 0
 
 		if("Save")
 			BootFile("All","Save")

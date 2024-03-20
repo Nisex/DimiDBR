@@ -10,9 +10,6 @@ mob/Players/verb
 	Clothes()
 		set category="Other"
 		usr.Grid("Clothes")
-	Build()
-		set category="Other"
-		usr.Grid("Turfs")
 	Relayer_Hair()
 		set hidden=1//hidden for kkt's ocd
 		usr.Hairz("Add")
@@ -713,26 +710,19 @@ mob/proc/Hairz(var/Z)
 					src.overlays-=im*/
 
 proc/Add_Customizations()
-	for(var/A in typesof(/obj/Hairs)) if(A!=/obj/Hairs) Hair_List+=new A
+	for(var/A in typesof(/obj/Hairs))
+		if(A!=/obj/Hairs)
+			Hair_List+=new A
 	for(var/A in typesof(/obj/Items/Wearables))
 		var/obj/Items/Wearables/w = new A
-		// we need to turn it from white to black so that when the color is adjusted it works
 		var/icon/newIcon = new(w.icon)
 		newIcon.MapColors(0.2,0.2,0.2, 0.2,0.2,0.2, 0.2,0.2,0.2, 0,0,0)
 		w.icon = newIcon
 		Clothes_List+=w
-//	for(var/A in typesof(/obj/Items/AlignWearable)) if(A!=/obj/Items/AlignWearable) Clothes_List+=new A
+
 	for(var/A in typesof(/obj/Charge_Icons)) if(A!=/obj/Charge_Icons) Charge_List+=new A
 	for(var/A in typesof(/obj/Aura_Icons)) if(A!=/obj/Aura_Icons) Aura_List+=new A
 	for(var/A in typesof(/obj/Blast_Icons)) if(A!=/obj/Blast_Icons) Blast_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Human)) if(A!=/obj/Creation_Icons/Human) Human_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Alien)) if(A!=/obj/Creation_Icons/Alien) Alien_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Demon)) if(A!=/obj/Creation_Icons/Demon) Demon_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Makyo)) if(A!=/obj/Creation_Icons/Makyo) Makyo_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Namekian)) if(A!=/obj/Creation_Icons/Namekian) Namekian_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Changeling)) if(A!=/obj/Creation_Icons/Changeling) Changeling_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Kaio)) if(A!=/obj/Creation_Icons/Kaio) Kaio_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Android)) if(A!=/obj/Creation_Icons/Android) Android_List+=new A
 
 var/list/Hair_List=new
 obj/Hairs
@@ -958,10 +948,6 @@ mob/proc
 			for(var/A in Builds)
 				Row++
 				src<<output(A,"GridX:1,[Row]")
-			if(usr.Admin||usr.Mapper)
-				for(var/B in AdminBuilds)
-					Row++
-					src<<output(B,"GridX:1,[Row]")
 
 		if(Z=="Tech")
 			src<<output("High tech, low prices.","SelectedCustomize")
