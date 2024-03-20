@@ -928,3 +928,4 @@ ascension
 				onAscension(mob/owner)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
 						sf.passives["TechniqueMastery"] = 0
+					..()
