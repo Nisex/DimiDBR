@@ -946,8 +946,6 @@ obj
 				FlickAttack=1
 				Area="Strike"
 				ComboMaster=1
-				Rush=2
-				ControlledRush=1
 				Distance=1
 				StrOffense=1
 				DamageMult=4
@@ -1071,7 +1069,7 @@ obj
 				ShockBlend=2
 				ShockDiminish=1.15
 				ShockTime=4
-				Rush=8
+				Rush=3
 				ControlledRush=1
 				HitSparkIcon='Hit Effect.dmi'
 				HitSparkX=-32
