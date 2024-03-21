@@ -3881,10 +3881,10 @@ mob
 			//this ticks per second
 			//partial charges are not able to be used
 			//30 seconds will result in full charges
-			Mult *= min(1.5, 1+(GetSpd()/glob.ZANZO_SPEED_DIVISOR))
+			Mult *= clamp(glob.ZANZO_SPEED_LOWEST_CLAMP, GetSpd()**glob.ZANZO_SPEED_EXPONENT, glob.ZANZO_SPEED_HIGHEST_CLAMP)
 			var/flick=src.HasFlicker()
 			if(flick)
-				Mult*=min(1.7,1+(flick/glob.ZANZO_FLICKER_DIVISOR))
+				Mult*=clamp(glob.ZANZO_FLICKER_LOWEST_CLAMP,1+(flick/glob.ZANZO_FLICKER_DIVISOR), glob.ZANZO_FLICKER_HIGHEST_CLAMP)
 			if(src.AfterImageStrike)
 				return
 			var/MaxMovementCharges=GetMaxMovementCharges()
