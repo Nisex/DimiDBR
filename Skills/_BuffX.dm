@@ -3347,7 +3347,6 @@ NEW VARIABLES
 						src.NoTopOverlay=0
 						src.Trigger(usr)
 				Phoenix_Cloth
-					MovementMastery=10
 					ArmorAscension=2
 					BuffTechniques=list("/obj/Skills/Projectile/Phoenix_Feathers")
 					ArmorIcon='saintphoenix_armor.dmi'
@@ -3357,11 +3356,9 @@ NEW VARIABLES
 					adjustments(mob/player)
 						..()
 						passives = list("MovementMastery" =  player.SagaLevel * 1.5, "ArmorAscension" = 2, "SpiritHand" = (player.SagaLevel*0.25))
-						MovementMastery = player.SagaLevel * 1.5
 						StrMult = 1.1 + (player.SagaLevel * 0.1)
 						ForMult = 1.1 + (player.SagaLevel * 0.1)
 						OffMult = 1 + (player.SagaLevel * 0.1)
-						SpiritHand = 1 + (player.SagaLevel * 0.25)
 
 					verb/Don_Cloth()
 						set category="Skills"
@@ -3372,18 +3369,16 @@ NEW VARIABLES
 					SpdMult = 1.3
 					OffMult = 1.1
 					DefMult = 1.3
-					Pursuer = 1.2
 					ArmorIcon='Unicorn_Cloth.dmi'
 					TopOverlayLock='Unicorn_Cloth_Helmet.dmi'
 					ActiveMessage="dons the Cloth of the Unicorn, embracing its pegging passion!"
 					adjustments(mob/player)
 						..()
-						passives = list("MovementMastery" =  player.SagaLevel * 1.5, "ArmorAscension" = 2, "SpiritHand" = (player.SagaLevel*0.25))
-						MovementMastery = player.SagaLevel * 1.5
+						passives = list("MovementMastery" =  player.SagaLevel * 1.5, "ArmorAscension" = 2, "Pursuer" = 1.2 + (player.SagaLevel*0.2), "Flicker" = max(1,player.SagaLevel*0.5))
 						SpdMult = 1.2 + (player.SagaLevel * 0.1)
-						OffMult = 1 +	(player.SagaLevel * 0.1)
+						OffMult = 1 + (player.SagaLevel * 0.1)
 						DefMult = 1.1 + (player.SagaLevel * 0.1)
-						Pursuer = 1.2 + (player.SagaLevel * 0.2)
+
 					verb/Don_Cloth()
 						set category="Skills"
 						adjustments(usr)
@@ -3525,14 +3520,13 @@ NEW VARIABLES
 					SpdMult = 1.4
 					OffMult = 1.2
 					DefMult = 1.3
-					Pursuer = 1.2
 					ArmorIcon='Unicorn_ClothV3.dmi'
 					TopOverlayLock='Unicorn_cloth_V2_Helmet.dmi'
 					ActiveMessage="dons the reborn Cloth of the Phoenix, embracing its inextinguishable passion!"
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						passives = list("MovementMastery" =  player.SagaLevel * 1.5, "ArmorAscension" = 2, "SpiritHand" = (player.SagaLevel*0.25))
+						passives = list("MovementMastery" =  player.SagaLevel * 1.5, "ArmorAscension" = 2, "Pursuer" = 1 + (player.SagaLevel * 0.3), "Flicker" = max(1,player.SagaLevel))
 						MovementMastery = player.SagaLevel * 1.5
 						SpdMult = 1.3 + (player.SagaLevel * 0.1)
 						OffMult = 1.1 + (player.SagaLevel * 0.1)
