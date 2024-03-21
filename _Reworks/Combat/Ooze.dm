@@ -11,6 +11,8 @@ obj
 
 		New(loc)
 			..()
+			for(var/mob/m in loc)
+				tick_on |= m
 			spawn(lifetime)
 				if(src)
 					del src
