@@ -964,8 +964,8 @@ obj/Items/Sword
 			ShatterCounter=800
 			ShatterMax=800
 
-			Rikus_Soul_Eater
-				name="Riku's Soul Eater"
+			Soul_Eater
+				name="Soul Eater"
 				pixel_x=-32
 				pixel_y=-32
 				Techniques=list("/obj/Skills/Queue/Rikus_Soul","/obj/Skills/Queue/Riku_Tear_Storm","/obj/Skills/Queue/Riku_Soul_Render")
