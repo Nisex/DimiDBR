@@ -2736,12 +2736,12 @@ obj
 				Quaking=5
 				HitStep=/obj/Skills/Queue/Unicorn_Combination2
 				ActiveMessage="takes a starting position!"
-				HitMessage="opens the opponent with a shattering elbow strike!"
+				HitMessage="opens the opponent with a twisting frontal kick!"
 				verb/Celectial_Trot()
 					set category="Skills"
 					usr.SetQueue(src)
 			Unicorn_Combination2
-				HitMessage="follows up with a storm of kicks!"
+				HitMessage="follows up with a storm of roundhouse kicks!"
 				DamageMult=0.5
 				AccuracyMult=5
 				Duration=5
@@ -2753,7 +2753,7 @@ obj
 				EnergyCost=5
 				HitStep=/obj/Skills/Queue/Unicorn_Combination3
 			Unicorn_Combination3
-				HitMessage="finishes with a murderous uppercut!"
+				HitMessage="finishes with a murderous mule kick!"
 				DamageMult=6
 				AccuracyMult=10
 				Duration=5

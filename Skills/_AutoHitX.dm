@@ -3388,7 +3388,7 @@ obj
 				verb/Pegasus_Ryusei_Ken()
 					set category="Skills"
 					usr.Activate(src)
-			Unicorn_Meteor_Fist//t5
+			Unicorn_Gallop//t5
 				CosmoPowered=1
 				FlickAttack=1
 				Area="Wave"
@@ -3407,7 +3407,7 @@ obj
 				WindUp=1
 				WindupIcon=1
 				WindupMessage="extends their arms and draws out the Unicorn constellation..."
-				ActiveMessage="unleashes the god-defying barrage of the Unicorn!"
+				ActiveMessage="unleashes the god-defying barrage of the Unicorn with their legs!"
 				HitSparkIcon='Hit Effect Pegasus.dmi'
 				HitSparkX=-32
 				HitSparkY=-32
@@ -3507,8 +3507,8 @@ obj
 				HitSparkCount=1
 				HitSparkDelay=1
 				HitSparkDispersion=16
-				WindupMessage="prepares to usage their MIGHTY UNICORN HORN!."
-				ActiveMessage="launches forwards to lock their opps to a Horny Strike!"
+				WindupMessage="'s horn blazes with Cosmos!"
+				ActiveMessage="launches forwards to impale their opponents upon their horn!"
 				verb/Mighty_Horn()
 					set name="Mighty Unicorn Horn"
 					set category="Skills"

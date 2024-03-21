@@ -168,8 +168,8 @@ mob/Admin3/verb
 							if(!locate(/obj/Skills/Queue/Phoenix_Demon_Illusion_Strike, P))
 								P.AddSkill(new/obj/Skills/Queue/Phoenix_Demon_Illusion_Strike)
 						if("Unicorn")
-							if(!locate(/obj/Skills/AutoHit/Unicorn_Meteor_Fist, src))
-								P.AddSkill(new/obj/Skills/AutoHit/Unicorn_Meteor_Fist)
+							if(!locate(/obj/Skills/AutoHit/Unicorn_Gallop, src))
+								P.AddSkill(new/obj/Skills/AutoHit/Unicorn_Gallop)
 
 				if("Weapon Soul")
 					P<<"You have honed your skills to become a warrior of legend... <b>Arms Master</b>!"
