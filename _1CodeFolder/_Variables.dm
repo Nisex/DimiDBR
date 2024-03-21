@@ -969,6 +969,10 @@ mob/var
 	obj/Items/WeightedClothing/equippedWeights
 	equippedProsthetics = 0
 
+	tmp/emoteBubble
+	tmp/rping = FALSE
+	tmp/savedRoleplay
+
 /proc/reduceGodKi(mob/player, num)
 	player.GodKi -= num
 	if(num < 0)

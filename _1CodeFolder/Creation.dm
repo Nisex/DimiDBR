@@ -576,7 +576,10 @@ mob/Players
 
 		// mainLoop -= src
 
-
+		if(length(savedRoleplay) >= 1)
+			if(fexists("Saved Roleplays/[key].txt"))
+				fdel("Saved Roleplays/[key].txt")
+			text2file(savedRoleplay, "Saved Roleplays/[key].txt")
 
 		for(var/mob/Player/AI/p in ai_followers)
 			p.EndLife()

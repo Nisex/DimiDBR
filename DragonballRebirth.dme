@@ -286,6 +286,7 @@
 #include "_Reworks\_Standalones\glob.dm"
 #include "_Reworks\_Standalones\passives.dm"
 #include "_Reworks\_Standalones\PateronGet.dm"
+#include "_Reworks\_Standalones\RPBox.dm"
 #include "_Reworks\_Standalones\supporterBenefits.dm"
 #include "_Reworks\_Standalones\updater.dm"
 #include "_Reworks\Ags\_AGDefines.dm"

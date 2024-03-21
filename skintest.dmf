@@ -397,6 +397,70 @@ window "OOCChatTab"
 		visited-color = #00cccc
 		style = ".system {color:#ff0000;}"
 
+window "RPWindow"
+	elem "RPWindow"
+		type = MAIN
+		pos = 291,0
+		size = 640x480
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		background-color = #666699
+		is-visible = false
+		saved-params = "pos;size;is-minimized;is-maximized"
+		titlebar = false
+		statusbar = false
+		can-close = false
+		can-minimize = false
+		outer-size = 654x494
+	elem "button8"
+		type = BUTTON
+		pos = 320,448
+		size = 320x32
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		font-family = "Malgun Gothic Semilight"
+		font-size = 18
+		text-color = #ffffff
+		background-color = #434944
+		saved-params = "is-checked"
+		text = "Close"
+		command = "CloseRP"
+	elem "label6"
+		type = LABEL
+		pos = 0,0
+		size = 640x48
+		anchor1 = 0,0
+		anchor2 = 100,10
+		font-family = "@Malgun Gothic Semilight"
+		font-size = 20
+		text-color = #ffffff
+		background-color = #151413
+		saved-params = ""
+		text = "Roleplay"
+	elem "rpbox"
+		type = INPUT
+		pos = 0,48
+		size = 640x400
+		anchor1 = 0,10
+		anchor2 = 100,92
+		text-color = #ffffff
+		background-color = #1b1a18
+		saved-params = ""
+		multi-line = true
+	elem "button7"
+		type = BUTTON
+		pos = 0,448
+		size = 320x32
+		anchor1 = -1,-1
+		anchor2 = -1,-1
+		font-family = "Malgun Gothic Semilight"
+		font-size = 16
+		text-color = #ffffff
+		background-color = #608035
+		saved-params = "is-checked"
+		text = "Submit"
+		command = "SubmitRP"
+
 window "gridAG"
 	elem "gridAG"
 		type = MAIN
@@ -1066,6 +1130,7 @@ window "rpane"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
+		outer-size = 654x494
 	elem "rpanewindow"
 		type = CHILD
 		pos = 0,0
@@ -1079,7 +1144,7 @@ window "rpane"
 		is-vert = false
 	elem "butt4"
 		type = BUTTON
-		pos = 180,0
+		pos = 88,0
 		size = 90x20
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -1091,7 +1156,7 @@ window "rpane"
 		command = "Acquire-Skills"
 	elem "butt3"
 		type = BUTTON
-		pos = 90,0
+		pos = 0,0
 		size = 90x20
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -1149,8 +1214,6 @@ window "Race_Screen"
 		can-minimize = false
 		can-resize = false
 		image-mode = tile
-		outer-size = 516x640
-		inner-size = 500x601
 	elem "raceblurb"
 		type = LABEL
 		pos = 0,340
