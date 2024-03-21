@@ -505,6 +505,16 @@ mob
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form/fmf in src)
 								fmf.Trigger(src, Override=1)
 
+			if(src.Secret == "Eldritch")
+				if(secretDatum.secretVariable["Madness Active"] == 1)
+					var/SecretInfomation/Eldritch/s = secretDatum
+					if(!PureRPMode)
+						s.releaseMadness()
+						if(secretDatum.secretVariable["Madness Satiation"] <=0 && CheckSlotless("True Form"))
+							src << "You have exhausted all the madness and have reverted to your sane form."
+							for(var/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form/fmf in src)
+								fmf.Trigger(src, Override=1)
+
 
 			if(src.ManaDeath)
 				src.WoundSelf(0.2*(src.ManaAmount/ManaMax))
@@ -515,12 +525,16 @@ mob
 					senjutsuOverloadAlert=FALSE
 					src << "You exhaust your natural energy, avoiding death by overexposure."
 
-			if(src.HasRipple()||(!src.CheckSlotless("Half Moon Form")&&!src.CheckSlotless("Full Moon Form"))||src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus"))
+			if(src.HasRipple()||(!src.CheckSlotless("Half Moon Form")&&!src.CheckSlotless("Full Moon Form"))||src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus")||Secret=="Eldritch"&&!CheckSlotless("True Form"))
 				if(src.icon_state=="Train"&&!src.PoseEnhancement)
 					if(src.Secret=="Werewolf"&&!src.PoseTime)
 						src << "You focus your instincts perfectly on the chosen target, ready to leap any second!"
 					src.PoseTime++
 					if(src.PoseTime==5)
+						if(Secret=="Eldritch")
+							for(var/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form/fmf in src)
+								fmf.Trigger(src)
+							icon_state = ""
 						if(src.HasRipple())
 							src << "The Ripple flows through your body perfectly!  You have gained full control over your breathing!!"
 							if(src.Swim==1)

@@ -1152,6 +1152,8 @@ mob/Players/verb
 				OMsg(src, "[src] begins posing ominously!")
 			else if(src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus")&&!src.CheckSlotless("Sage Mode"))
 				OMsg(src, "[src] grows completely still!")
+			else if(Secret == "Eldritch"&&!CheckSlotless("True Form"))
+				OMsg(src, "[src]'s body starts unraveling...!")
 			else if(src.Secret=="Haki")
 				if(src.CheckSlotless("Haki Armament"))
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Armament/H in src)

@@ -112,6 +112,8 @@ obj
 			var/RipplePower=1//used to make ripple go higher
 			var/DrainBlood=0// This is used for vampire grab + toss, makes them gain bloodpower
 			var/ForceCost = 0
+
+			var/Ooze
 //Autoqueues
 
 ////General
@@ -823,6 +825,26 @@ obj
 					LifeSteal = min(50 * secretLevel,100)
 					Crippling = secretLevel * 1.5
 
+			Eldritch_Ruinate
+				DamageMult=0.5
+				AccuracyMult=2
+				Warp=5
+				KBAdd=1
+				KBMult=0.00001
+				Instinct=4
+				Combo=10
+				HitSparkIcon='Slash - Vampire.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkTurns=1
+				Duration=5
+				ActiveMessage="lets their presence try to overtake their opponents!"
+				proc/adjust(mob/p)
+					var/ascLevel = 1 + p.AscensionsUnlocked
+					src.Scorching=3 * ascLevel
+					src.Freezing=3 * ascLevel
+					src.Paralyzing=3 * ascLevel
+					src.Shattering=3 * ascLevel
 
 //Basic
 
@@ -863,6 +885,7 @@ obj
 							src.Cooldown=15
 							src.ActiveMessage=0
 							src.HitMessage=0
+							src.Ooze = 0
 							src.CursedWounds=0
 							src.Scorching=0
 							src.Freezing=0
@@ -884,6 +907,36 @@ obj
 							src.HitSparkSize=1
 							usr.SetQueue(src)
 							return//and that's the end
+						if(usr.Secret == "Eldritch" && usr.CheckSlotless("TrueForm"))
+							src.name="Maleific Strike"
+							src.DamageMult=4
+							src.AccuracyMult=2
+							src.KBAdd=5
+							src.KBMult=3
+							src.Ooze = 1
+							src.Cooldown=60
+							src.ActiveMessage="leaks some of their malefic presence onto the world!"
+							src.HitMessage=0
+							src.Scorching=3
+							src.Freezing=3
+							src.Paralyzing=3
+							src.Shattering=3
+							src.CursedWounds=0
+							src.Toxic=0
+							src.Combo=0
+							src.Warp=0
+							src.Rapid=0
+							src.LifeSteal=0
+							src.Crippling=0
+							src.Grapple=0
+							src.NoForcedWhiff=0
+							src.IconLock='BLANK.dmi'
+							src.HitSparkIcon=null
+							src.HitSparkX=0
+							src.HitSparkY=0
+							src.HitSparkTurns=0
+							src.HitSparkSize=1
+							usr.SetQueue(src)
 						if(usr.Secret=="Senjutsu"&&usr.CheckSlotless("Senjutsu Focus"))
 							src.name="Sage Energy Strike"
 							src.DamageMult=2
@@ -898,6 +951,7 @@ obj
 							src.Paralyzing=3
 							src.Shattering=3
 							src.CursedWounds=0
+							src.Ooze = 0
 							src.Toxic=0
 							src.Combo=0
 							src.Warp=0
@@ -932,6 +986,7 @@ obj
 								src.Paralyzing=0
 								src.Toxic=0
 								src.Scorching=0
+								src.Ooze = 0
 								src.Freezing=0
 								src.Shattering=0
 								src.Combo=0
@@ -963,6 +1018,7 @@ obj
 								src.Scorching=0
 								src.Freezing=0
 								src.Shattering=0
+								src.Ooze = 0
 								src.Combo=0
 								src.CursedWounds=0
 								src.Warp=0
@@ -994,6 +1050,7 @@ obj
 								src.Freezing=0
 								src.Shattering=0
 								src.CursedWounds=0
+								src.Ooze = 0
 								src.Combo=0
 								src.Warp=2
 								src.Rapid=0
@@ -1020,6 +1077,7 @@ obj
 								src.Scorching=0
 								src.Freezing=0
 								src.Paralyzing=0
+								src.Ooze = 0
 								src.Toxic=0
 								src.Shattering=0
 								src.CursedWounds=0
@@ -1082,6 +1140,7 @@ obj
 								src.Shattering=0
 								src.CursedWounds=0
 								src.Combo=0
+								src.Ooze = 0
 								src.Warp=0
 								src.Rapid=0
 								src.LifeSteal=0
@@ -1108,6 +1167,7 @@ obj
 								src.Freezing=0
 								src.Paralyzing=10
 								src.CursedWounds=0
+								src.Ooze = 0
 								src.Toxic=0
 								src.Combo=0
 								src.Warp=3
@@ -1141,6 +1201,7 @@ obj
 								src.Combo=0
 								src.Warp=0
 								src.Rapid=0
+								src.Ooze = 0
 								src.LifeSteal=0
 								src.Crippling=0
 								src.Grapple=0
@@ -1165,6 +1226,7 @@ obj
 							src.Freezing=0
 							src.Paralyzing=0
 							src.Toxic=0
+							src.Ooze = 0
 							src.CursedWounds=0
 							src.Combo=0
 							src.Warp=0
@@ -1197,6 +1259,7 @@ obj
 								src.CursedWounds=0
 								src.Combo=0
 								src.Warp=0
+								src.Ooze = 0
 								src.Rapid=0
 								src.LifeSteal=100
 								src.Crippling=0
@@ -1221,6 +1284,7 @@ obj
 								src.Scorching=0
 								src.Freezing=0
 								src.Paralyzing=0
+								src.Ooze = 0
 								src.Toxic=0
 								src.CursedWounds=0
 								src.Combo=0
@@ -1253,6 +1317,7 @@ obj
 							src.Combo=0
 							src.Warp=0
 							src.Rapid=0
+							src.Ooze = 0
 							src.LifeSteal=0
 							src.Crippling=3
 							src.Grapple=0
@@ -1278,6 +1343,7 @@ obj
 							src.Paralyzing=0
 							src.Toxic= 10
 							src.Shearing = 15
+							src.Ooze = 0
 							src.CursedWounds=1
 							src.Combo=0
 							src.Warp=0

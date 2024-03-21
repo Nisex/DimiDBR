@@ -169,6 +169,8 @@ obj
 				GrabMaster = FALSE
 
 				ForceCost = 0
+
+				PullIn
 //NPC attacks
 			Venom_Sting
 				Area="Target"
@@ -795,7 +797,7 @@ obj
 				Knockback=1
 				Slow=1
 				Area="Strike"
-				ActiveMessage="bursts out with tendrils of shadow!!"
+				ActiveMessage="bursts out with tendrils of shadow!"
 				StrOffense=0
 				ForOffense=1
 				DamageMult=0.5
@@ -811,7 +813,7 @@ obj
 				Knockback=1
 				Slow=1
 				Area="Wave"
-				ActiveMessage="bursts out with tendrils of shadow!!"
+				ActiveMessage="bursts out with tendrils of shadow!"
 				StrOffense=0
 				ForOffense=1
 				DamageMult=1.5
@@ -899,6 +901,22 @@ obj
 				HitSparkY=0
 				HitSparkTurns=1
 				HitSparkSize=1.2
+			Attractive_Force
+				Area="Circle"
+				Distance=15
+				StrOffense=1
+				DamageMult=0.5
+				Shockwaves=4
+				Shockwave=5
+				PreShockwave=1
+				PostShockwave=0
+				HitSparkIcon='BLANK.dmi'
+				HitSparkX=0
+				HitSparkY=0
+				PullIn = 5
+				Crippling=15
+				ShockIcon='DarkKiai.dmi'
+				ActiveMessage="'s unnatural presence forces the world to pull closer!"
 //No Verbs
 			AirSmash
 				NoAttackLock=1
@@ -5373,6 +5391,8 @@ obj
 			buffAffectedCompare = 0
 			buffAffectedBoon = 0
 
+			PullIn
+
 		New(var/mob/owner, var/arcing=0, var/wave=0, var/card=0, var/circle=0, var/mob/target, var/obj/Skills/AutoHit/Z, var/turf/TrgLoc)
 			set waitfor = FALSE
 			if(!owner)
@@ -5465,6 +5485,7 @@ obj
 			src.buffAffectedType  = Z.buffAffectedType
 			src.buffAffectedCompare = Z.buffAffectedCompare
 			src.buffAffectedBoon = Z.buffAffectedBoon
+			PullIn = Z.PullIn
 			if(Z.ObjIcon)
 				src.ObjIcon=Z.ObjIcon
 				var/icon/i=Z.Icon
@@ -5812,6 +5833,9 @@ obj
 							KenShockwave(m, Size=min((src.Knockback+src.Owner.Intimidation/50)*max(2*src.Owner.GetGodKi(),1)*GoCrand(0.04,0.4),0.2),PixelX=pick(-12,-8,8,12),PixelY=pick(-12,-8,8,12))
 						if(m!=src.Owner.Grab)
 							src.Owner.Knockback(src.Knockback, m, Direction=get_dir(src.Owner, m))
+
+				if(PullIn)
+					src.Owner.Knockback(PullIn, m, Direction=get_dir(m, Owner))
 
 				if(src.Stunner)
 					Stun(m, src.Stunner+src.Owner.GetStunningStrike())

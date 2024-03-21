@@ -1131,6 +1131,11 @@ mob/proc/Update_Stat_Labels()
 			var/maxHunger = s:getHungerLimit()
 			var/currentHunger = secretDatum.secretVariable["Hunger Satiation"]
 			winset(src, "Hunger", "value=[round(currentHunger/maxHunger*100)]")
+	if(Secret == "Eldritch")
+		var/SecretInfomation/Eldritch/s = secretDatum
+		var/maxMadness = s:getMadnessLimit()
+		var/currentMadness = secretDatum.secretVariable["Madness"]
+		winset(src, "Hunger", "value=[round(currentMadness/maxMadness*100)]")
 	if(SpecialBuff&&SpecialBuff.BuffName == "Gluttony")
 		if(SpecialBuff:gluttonStorage>0)
 			winshow(src, "Storage",1)

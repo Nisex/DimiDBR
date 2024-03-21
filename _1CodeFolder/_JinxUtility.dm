@@ -1,6 +1,10 @@
 #define GLOBAL_LEAK_REDUCTION 1.2
 #define isplayer(x) istype(x,/mob/Players)
 #define DEBUFF_EFFECTIVENESS (0.004)
+
+proc/SmartBlock(startX, startY, startZ, endX = startX, endY = startY, endZ = startZ)
+    return block(locate(max(startX, 1), max(startY, 1), startZ), locate(min(endX, world.maxx), min(endY, world.maxy), endZ))
+
 mob
 	proc
 		AscAvailable()
@@ -1348,6 +1352,11 @@ mob
 				s.addHunger(val)
 				Update_Stat_Labels()
 			//END WEREWOLF HUNGER MECHANIC
+
+			if(src.Secret == "Eldritch")
+				var/SecretInfomation/Eldritch/s = src.secretDatum
+				s.addMadness(val)
+				Update_Stat_Labels()
 
 			if(src.HasLifeSteal())
 				var/CursedBlood=0
@@ -3940,6 +3949,10 @@ mob
 			if(src.Secret=="Werewolf")
 				src.Activate(new/obj/Skills/AutoHit/Howl)
 				Z.Cooldown(3)
+				return
+			if(src.Secret=="Eldritch" && usr.CheckSlotless("TrueForm"))
+				src.Activate(new/obj/Skills/AutoHit/Shadow_Tendril_Strike)
+				Z.Cooldown()
 				return
 			if(src.Secret=="Haki")
 				src.AddHaki("Armament")

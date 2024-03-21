@@ -1,5 +1,8 @@
 #define WW_HUNGER_MAX 250
 #define WW_REDUCTION_PER_TIER 25
+
+#define MADNESS_MAX 100
+#define MADNESS_ADD_PER_TIER 25
 /mob/var/SecretInfomation/secretDatum = new()
 
 
@@ -270,8 +273,42 @@ SecretInfomation
 					nextTierUp = 999
 
 
+	Eldritch
+		name = "Eldritch"
+		secretVariable = list("Madness" = 0, "Madness Active" = 0)
+		givenSkills = list("/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form")
+		proc/getMadnessLimit(mob/p)
+			. = MADNESS_MAX + (MADNESS_ADD_PER_TIER * (currentTier))
+			if(. <0)
+				. = 50
+			else if(. > MADNESS_MAX)
+				. = MADNESS_MAX
+		proc/addMadness(amount)
+			if(secretVariable["Madness Active"] == 1) return
+			if(amount < 0.9)
+				amount *= 4
+			else if(amount > 1.5)
+				amount *= 2
+			else
+				amount *= 3
+			var/tierEffectiveness = currentTier * 1.5
+			amount *= tierEffectiveness
+			if(secretVariable["Madness"] + amount > getMadnessLimit())
+				secretVariable["Madness"] = getMadnessLimit()
+			else
+				secretVariable["Madness"] += amount
 
+		proc/releaseMadness()
+			if(secretVariable["Madness Active"] == 0) return
+			var/tierEffectiveness = 8 - currentTier
+			// LESS = MORE
+			secretVariable["Madness"] -= tierEffectiveness
+			if(secretVariable["Madness"] <= 0)
+				secretVariable["Madness"] = 0
+				secretVariable["Madness Active"] = 0
 
+		proc/getMadnessBoon()
+			return secretVariable["Madness"]/getMadnessLimit()
 
 	Werewolf
 		name = "Werewolf"

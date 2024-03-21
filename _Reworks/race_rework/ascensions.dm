@@ -913,7 +913,7 @@ ascension
 				rppAdd = 0.25
 				ecoAdd = 0.75
 				intelligenceAdd = 1
-				cyberizeModAdd = 0.5
+				cyberizeModAdd = 1
 				imaginationAdd = 0.25
 				pilotingProwess = 1.5
 				enhanceChips = 1

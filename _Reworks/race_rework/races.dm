@@ -297,6 +297,9 @@ race
 		intellect = 1.5
 		imagination = 0.67
 
+		onFinalization(mob/user)
+			user.Secret="Eldritch"
+			user.giveSecret("Eldritch")
 	beastman
 		name = "Beastman"
 		desc = "These are Beastmen."
@@ -314,7 +317,7 @@ race
 		onFinalization(mob/user)
 			user.EnhancedSmell=1
 			user.EnhancedHearing=1
-
+			..()
 	yokai
 		name = "Yokai"
 		desc = "These are Yokai."

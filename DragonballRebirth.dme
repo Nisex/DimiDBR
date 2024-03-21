@@ -305,6 +305,7 @@
 #include "_Reworks\Combat\Intimidation.dm"
 #include "_Reworks\Combat\Knockbacks.dm"
 #include "_Reworks\Combat\Launchers.dm"
+#include "_Reworks\Combat\Ooze.dm"
 #include "_Reworks\Combat\PotentialRework.dm"
 #include "_Reworks\Combat\Voiding.dm"
 #include "_Reworks\Combat\Damage\Calculations.dm"
