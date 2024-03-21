@@ -22,6 +22,14 @@ world
 	New()
 		..()
 
+		world.log = file("debug_log.txt")
+		world.log << ""
+		world.log << "-------"
+		world.log << "[time2text(world.timeofday,"DDD MMM DD hh:mm YYYY",-5)]"
+		world.log << "-------"
+		world.log << "//\[info]: World Initialized!"
+		world.log << "//\[info]: [world.name]"
+
 		LOGscheduler.start()
 
 		WorldLoading=1

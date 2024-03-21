@@ -1203,7 +1203,7 @@ mob/proc
 		LOL.GenRaces=src.GenRaces
 		LOL.AscensionsUnlocked=src.AscensionsUnlocked
 		LOL.race = race
-		LOL.setRace(race, creationFinalized = TRUE)
+		LOL.setRace(race)
 		src.client.mob=LOL
 		del(src)
 
