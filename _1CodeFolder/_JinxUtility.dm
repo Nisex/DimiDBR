@@ -1358,6 +1358,11 @@ mob
 				s.addMadness(val)
 				Update_Stat_Labels()
 
+			if(defender.Secret == "Eldritch")
+				var/SecretInfomation/Eldritch/s = defender.secretDatum
+				s.addMadness(val)
+				defender.Update_Stat_Labels()
+
 			if(src.HasLifeSteal())
 				var/CursedBlood=0
 				var/NoBlood=0
@@ -3950,7 +3955,7 @@ mob
 				src.Activate(new/obj/Skills/AutoHit/Howl)
 				Z.Cooldown(3)
 				return
-			if(src.Secret=="Eldritch" && usr.CheckSlotless("TrueForm"))
+			if(src.Secret=="Eldritch" && CheckSlotless("True Form"))
 				src.Activate(new/obj/Skills/AutoHit/Shadow_Tendril_Strike)
 				Z.Cooldown()
 				return
