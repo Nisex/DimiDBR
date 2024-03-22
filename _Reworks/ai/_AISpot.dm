@@ -247,7 +247,7 @@ obj
 					p.HealthCut=0
 					p.EndlessAnger=1
 					p.shifts_target=1
-					p.name="Class: S (FIELD BOSS) [p.name] (Level: [p.Potential*1.25])"
+					p.name="(FIELD BOSS) [p.name] (Potential: [p.Potential*1.25])"
 				if(prob(mi.spirit_power))
 					p.passive_handler.Increase("SpiritPower", (p.Potential/100))
 					p.passive_handler.Increase("CalmAnger", 1)
@@ -258,7 +258,7 @@ obj
 					p.HealthCut=0
 					p.CalmAnger=1
 					p.shifts_target=1
-					p.name="Pure [p.name] (Level: [p.Potential])"
+					p.name="Pure [p.name] (Potential: [p.Potential])"
 				if(prob(mi.hell_power))
 					p.passive_handler.Increase("HellPower", (p.Potential/100))
 					p.HellPower+=(p.Potential/100)
@@ -269,7 +269,7 @@ obj
 					p.HealthCut=0
 					p.EndlessAnger=1
 					p.shifts_target=1
-					p.name="Demonic [p.name] (Level: [p.Potential])"
+					p.name="Demonic [p.name] (Potential: [p.Potential])"
 				if(!p.LegendaryPower && !p.SpiritPower && !p.HellPower && prob(mi.murder_chance))
 
 					p.StrMod*=1.5
@@ -278,14 +278,14 @@ obj
 					p.HealthCut=0
 					p.EndlessAnger=1
 					p.AngerMax=2
-					p.name="Rare [p.name] (Level: [p.Potential])"
+					p.name="Rare [p.name] (Potential: [p.Potential])"
 				if(p.ai_hostility==1 && prob(mi.hungry_chance))
 
 					p.HealthCut=0.5
 					p.AngerMax=2
 					p.EndlessAnger=1
 					p.EndMod/=2
-					p.name="Starving [p.name] (Level: [p.Potential])"
+					p.name="Starving [p.name] (Potential: [p.Potential])"
 				var/epic = powerModifier > 1 ? 100 : mi.epic_power
 				if(prob(epic))
 					if(powerModifier >= 2)
@@ -311,7 +311,7 @@ obj
 						p.ForMod*=2
 						p.OffMod*=2
 						p.DefMod*=2
-						p.name="Class: SSS (GIGA BOSS) [p.name] (Level: [p.Potential*3])"
+						p.name="(GIGA BOSS) [p.name] (Potential: [p.Potential*3])"
 
 					else
 						p.ai_hostility=1
@@ -329,7 +329,7 @@ obj
 						p.ForMod*=2
 						p.OffMod*=2
 						p.DefMod*=2
-						p.name="Class: SS (BOSS) [p.name] (Level: [p.Potential*1.25])"
+						p.name="(BOSS) [p.name] (Potential: [p.Potential*1.25])"
 				if(mi.crazy_targets)
 					p.shifts_target=mi.crazy_targets
 				if(mi.void)

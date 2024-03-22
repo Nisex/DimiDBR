@@ -86,8 +86,8 @@ mob/proc/GetAssess()
 	<tr><td>Recovery:</td><td> [round(src.GetRecov(), 0.01)] ([src.BaseRecov()])</td></tr>
 	<tr><td>Anger:</td><td>[src.AngerMax*100]%</td></tr>
 	<tr><td>Power Mult:</td><td>[round(src.potential_power_mult, 0.05) + src.PowerBoost])</td></tr>
-	<tr><td>Level:</td><td>[Potential]/100</td></tr>
-	<tr><td>Transformation Level:</td><td>[src.potential_trans]/100</td></tr>
+	<tr><td>Potential:</td><td>[Potential]/100</td></tr>
+	<tr><td>Transformation Potential:</td><td>[src.potential_trans]/100</td></tr>
 	<tr><td>Average Stats: [StatAverage]</td></tr>
 			</table>"}
 
@@ -190,7 +190,7 @@ mob/Players/Stat()
 			else
 				stat("Recovery","[round(src.BaseRecov(), 0.05)] (Tax: [round((src.RecovTax+src.RecovCut)*100)]%)")
 
-			stat("Level:","[round(src.Potential, 0.005)]")
+			stat("Potential:","[round(src.Potential, 0.005)]")
 			if(HealthCut)
 				stat("HealthCut: ", "[round(HealthCut*100)]%")
 			stat("----","----")
