@@ -65,6 +65,18 @@ mob
 		ai.EndLife(0)
 
 mob/Admin3/verb
+	RuntimesView()
+		var/View={"<html><head><title>Logs</title><body>
+<font size=3><font color=red>Runtime Errors<hr><font size=2><font color=black>"}
+		var/ISF=file2text("debug_log.txt")
+		View+=ISF
+		usr<<browse(View,"window=Log;size=500x350")
+	RuntimesDelete()
+		world.log=file("RuntimesTEMP.log")
+		fdel("debug_log.txt")
+		world.log=file("debug_log.txt")
+		fdel("RuntimesTEMP.log")
+		world<<"Runtimes deleted."
 	WipeWorldAI()
 		set category="Admin"
 		var/list/active_ais = list()
