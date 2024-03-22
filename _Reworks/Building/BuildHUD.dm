@@ -273,15 +273,6 @@ mob/proc/AddBuildButtons()
 		build_hud_holder.vis_contents |= B
 	count++
 
-	var/obj/screen_object/maptext_holder/M = new(client)
-	M = new(client)
-	M.text_size = "[11 * scale]pt"
-	M.text_color = "#7b0000ff"
-	M.outline_size = "2px"
-	M.screen_loc = "CENTER,TOP-[0.5 * scale]"
-	M.SetText("BUILD MODE: ACTIVE")
-	client.screen += M
-
 client/proc/ClearHUD()
 	for(var/obj/screen_object/O in screen)
 		screen -= O
