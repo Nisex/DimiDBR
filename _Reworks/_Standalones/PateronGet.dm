@@ -2,7 +2,7 @@
 // if i want to, i can make something that contacts the server and updates it when new people pledge
 // but for now, i'll just manually update it
 var/donationInformation/donationInformation = new/donationInformation
-
+/*
 /mob/verb/Donate()
     set category = "Options"
     set name = "Donate"
@@ -43,7 +43,7 @@ var/donationInformation/donationInformation = new/donationInformation
     var/supporters = donationInformation.getSupporters()
     for(var/supporter/supporter in supporters)
         usr << "Name: [supporter.name] Key: [supporter.key] Tier: [supporter.tier] Login Message: [supporter.loginMessage] Display Key: [supporter.displayKey]"
-
+*/
 
 
 donationInformation
@@ -125,7 +125,7 @@ donationInformation
                 return donator
         return null
 
-    Update()
+    Update()/*
         var/info = grabJsonData()
         for(var/tier in info["Donators"])
             for(var/donator in info["Donators"][tier])
@@ -145,6 +145,7 @@ donationInformation
                     supporterr.tier = tier
                     supporterr.loginMessage = info["Information"][supporter]["loginMessage"]
                     supporterr.displayKey = info["Information"][supporter]["displayKey"]
+*/
 donator
     var/name = ""
     var/byondKey = ""
@@ -156,7 +157,7 @@ donator
     proc/getTier()
         return text2num(tier)
 
-    Update()
+    Update()/*
         var/info = grabJsonData()
         for(var/tier in info["Donators"])
             for(var/donator in info["Donators"][tier])
@@ -167,7 +168,7 @@ donator
                     loginMessage = json["loginMessage"]
                     displayKey = json["displayKey"]
                     key = donator
-                    return
+                    return*/
 
 supporter
     var/name = ""
@@ -180,7 +181,7 @@ supporter
     proc/getTier()
         return text2num(tier)
 
-    Update()
+    Update()/*
         var/info = grabJsonData()
         for(var/tier in info["Supporters"])
             for(var/supporter in info["Supporters"][tier])
@@ -190,7 +191,7 @@ supporter
                     loginMessage = info["Information"][supporter]["loginMessage"]
                     displayKey = info["Information"][supporter]["displayKey"]
                     key = supporter
-                    return
+                    return*/
 
 
 

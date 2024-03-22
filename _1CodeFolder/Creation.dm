@@ -658,11 +658,11 @@ mob/Creation
 		usr<<"<font color='red'><b>READ THIS BEFORE PLAYING:</b></font>"
 		usr<<"Wipe Topic: <a href='[WIPE_TOPIC]'>Click Here</a>"
 		usr<<"We have a Discord server at: [DISCORD_INVITE]"
-		usr<<"Donate Here: <a href='[PATREON_LINK]'>Patreon (Monthly)</a> <a href='[KO_FI_LINK]'>Ko-Fi (One Time)</a>"
+/*		usr<<"Donate Here: <a href='[PATREON_LINK]'>Patreon (Monthly)</a> <a href='[KO_FI_LINK]'>Ko-Fi (One Time)</a>"
 		if(donationInformation.getDonator(key=key))
 			usr<<"[THANKS_MESSAGE_DONATOR(donationInformation.getDonator(key=key).getTier())]"
 		if(donationInformation.getSupporter(key=key))
-			usr<<"[THANKS_MESSAGE_SUPPORTER(donationInformation.getSupporter(key=key).getTier())]"
+			usr<<"[THANKS_MESSAGE_SUPPORTER(donationInformation.getSupporter(key=key).getTier())]"*/
 		usr<<"<br><font color=#FFFF00>Welcome to [world.name]!"
 		usr<<"<b><small>Click the title screen to continue...</b><br>"
 		if(glob.TESTER_MODE)
