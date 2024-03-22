@@ -22,7 +22,6 @@ obj
 				LosesHoming
 				Static
 
-				SwordOnly//TODO remove
 				UnarmedOnly
 				StaffOnly
 				StanceNeeded
@@ -40,8 +39,8 @@ obj
 				MaimCost//Add this number of maims when completed.
 				//MaimStrike// if Damage exceeds 25 / this number, maim the target
 
-				DamageMult=1//TODO: LINE UP WITH QUEUES/AUTOS
-				AccMult=1//TODO: LIKEWISE
+				DamageMult=1
+				AccMult=1
 				Deflectable=1//what do u think?
 				Dodgeable=1//will replace instinct definition, since it's specific for projectiles
 				Knockback//KB this many tiles on hit
@@ -3392,10 +3391,6 @@ obj
 						set category="Skills"
 						usr.UseProjectile(src)
 
-				ScathingBreeze//todo: remove
-				WindScar//todo: remove
-				BacklashWave//todo: remove
-
 				Scathing_Breeze
 					SkillCost=160
 					Copyable=4
@@ -3619,11 +3614,6 @@ obj
 					BeamTime=20
 					Distance=20
 					IconLock='Beam21.dmi'
-
-				//todo: remove
-				Normal_Beam//dedname
-				Sweeping_Beam//dedname
-				Piercer//dedname
 
 ////UNIVERSAL
 //T1 is up above
@@ -5457,8 +5447,7 @@ obj
 									src.Owner << "<b><font color=#ff0000>You mortally injure [a]!</font></b>"
 
 							if(src.Area=="Beam")
-								src.Owner.DoDamage(a, (EffectiveDamage/30), SpiritAttack=1, Destructive=src.Destructive)
-								//TODO ADD A DYNAMIC WAY OF ADJUSTING BEAM DIVISOR?
+								src.Owner.DoDamage(a, (EffectiveDamage/glob.GLOBAL_BEAM_DAMAGE_DIVISOR), SpiritAttack=1, Destructive=src.Destructive)
 								if(src.Owner.UsingAnsatsuken())
 									src.Owner.HealMana(src.Owner.SagaLevel/8)
 							else

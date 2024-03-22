@@ -160,7 +160,7 @@ globalTracker
 		WorldDamageMult = 1
 		WorldDefaultAcc = 50
 		WorldWhiffRate = 25
-		celestialObjectTicks
+		celestialObjectTicks = Hour(12)/10
 		NoSagaRaces = list(DEMON, DRAGON, ELF)
 // combat
 
@@ -202,6 +202,7 @@ globalTracker
 		WorldPUDrain = 1
 		DMG_CALC_2 = TRUE
 // global mults
+		GLOBAL_BEAM_DAMAGE_DIVISOR = 30
 		GLOBAL_QUEUE_DAMAGE = 0.85
 		GLOBAL_MELEE_MULT = 0.9
 		GLOBAL_POWER_MULT = 1
