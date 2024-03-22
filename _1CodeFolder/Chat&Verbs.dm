@@ -1647,6 +1647,21 @@ obj/Communication
 
 		usr.AFKTimer=usr.AFKTimeLimit
 
+	verb/Prayer(T as text)
+		set category="Roleplay"
+		set src=usr.contents
+
+		if(!T) return
+
+		for(var/mob/m in players)
+			if(m.Admin&&!m.PrayerMute)
+				m << "A prayer reaches your eyes from [usr]...<br>[T]"
+
+		if(usr.AFKTimer==0)
+			usr.overlays-=usr.AFKIcon
+
+		usr.AFKTimer=usr.AFKTimeLimit
+
 
 	verb/Emote()
 		set category="Roleplay"

@@ -973,6 +973,8 @@ mob/var
 	tmp/rping = FALSE
 	tmp/savedRoleplay
 
+	PrayerMute = FALSE
+
 /proc/reduceGodKi(mob/player, num)
 	player.GodKi -= num
 	if(num < 0)

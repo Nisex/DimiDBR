@@ -76,7 +76,16 @@ mob/Admin3/verb
 		fdel("debug_log.txt")
 		world.log=file("debug_log.txt")
 		fdel("RuntimesTEMP.log")
-		world<<"Runtimes deleted."
+
+	PrayerMute()
+		set category = "Admin"
+		switch(usr.PrayerMute)
+			if(TRUE)
+				usr.PrayerMute = FALSE
+				usr << "You will now hear prayers."
+			if(FALSE)
+				usr.PrayerMute = TRUE
+				usr << "You no longer hear prayers."
 	WipeWorldAI()
 		set category="Admin"
 		var/list/active_ais = list()
