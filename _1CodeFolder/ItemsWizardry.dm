@@ -2315,7 +2315,7 @@ obj/Items/Enchantment
 				if(usr.Maimed && usr.magicalMaimRecov<5)
 					usr.Maimed=max(usr.Maimed-1,0)
 					usr.magicalMaimRecov++
-				if(isRace(SAIYAN) && !usr.Tail)
+				if(usr.isRace(SAIYAN) && !usr.Tail)
 					usr.Tail=1
 				if(usr.HealthCut)
 					usr.HealthCut=max(usr.HealthCut-0.1,0)
