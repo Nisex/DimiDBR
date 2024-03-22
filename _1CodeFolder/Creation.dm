@@ -1217,9 +1217,9 @@ mob/proc
 		if(src.Tail)
 			src.Tail(1)
 		src.ChargeIcon=image('BlastCharges.dmi',"[rand(1,9)]")
-		src.Text_Color=pick("#00FF00","#FFFF00","#FF00FF","#0000FF","#FF0000","#00FFFF")
-		src.OOC_Color=pick("#00FF00","#FFFF00","#FF00FF","#0000FF","#FF0000","#00FFFF")
-		src.Emote_Color = pick("#00FF00","#FFFF00","#FF00FF","#0000FF","#FF0000","#00FFFF")
+		src.Text_Color=pick("#4de31","#86bd1a","#31cd6f","#5cb3aa","#6297c3","#7071a8", "#8f70a8", "#b382dc", "#c9628a")
+		src.OOC_Color=pick("#4de31","#86bd1a","#31cd6f","#5cb3aa","#6297c3","#7071a8", "#8f70a8", "#b382dc", "#c9628a")
+		src.Emote_Color = pick("#de9f31","#5cb37f","#30a498","#c1db30","#708fa8","#dd7047", "#df4f19", "#e34381")
 
 		if(!Warped)
 			src.Potential=0
