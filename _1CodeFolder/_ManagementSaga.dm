@@ -110,7 +110,7 @@ mob/Admin3/verb
 
 		else
 			var/selection
-			if(P.race in glob.NoSagaRaces)
+			if(P.race.type in glob.NoSagaRaces)
 				src << "[P] is a [P.race.name], and they are therefore not eligible to receive a Saga."
 				return
 			else

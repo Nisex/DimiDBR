@@ -2309,7 +2309,7 @@ mob
 				return 0
 			return 1
 		SteadyRace()
-			if(src.race in list(HUMAN, MAJIN, MAKYO, NAMEKIAN, BEASTMAN, YOKAI, ELDRITCH, ELF, DEMON, "Alien", DRAGON))
+			if(src.race.type in list(HUMAN, MAJIN, MAKYO, NAMEKIAN, BEASTMAN, YOKAI, ELDRITCH, ELF, DEMON, DRAGON))
 				return 1
 			return 0
 		TransRace()
