@@ -1,5 +1,5 @@
-#define WIPE_TOPIC "https://docs.google.com/document/d/1dujhKyWu_HgQyvylRFHopFi-TSw_kfXAp-sw60Ss5Fc/edit?usp=sharing"
-#define DISCORD_INVITE "https://discord.gg/aTeBebEB2g"
+#define WIPE_TOPIC "https://docs.google.com/document/d/1pe2uWf5aRKBSjOCKq2F6KzTkf_A_fM80ZS2Dwz8sp3I/edit#heading=h.uc68sooja4h"
+#define DISCORD_INVITE "https://discord.gg/9jjWZJ7dDx"
 #define PATREON_LINK "https://patreon.com/jordanzoSupport"
 #define KO_FI_LINK "https://ko-fi.com/boberjones"
 #define DONATION_MESSAGE "<a href='[PATREON_LINK]'>Patreon (Monthly)</a> <a href='[KO_FI_LINK]'>Ko-Fi (One Time)</a>"
@@ -655,9 +655,9 @@ mob/Creation
 			winshow(usr,"[W]",0)
 		usr.Admin("Check")
 
-		usr<<"<font color='red'><b>READ THIS BEFORE PLAYING:</b></font>"
+		usr<<"<font color='red'><b>READ THIS BEFORE PLAYING:</b></font><br>"
 		usr<<"Wipe Topic: <a href='[WIPE_TOPIC]'>Click Here</a>"
-		usr<<"We have a Discord server at: [DISCORD_INVITE]"
+		usr<<"We have a Discord server at: [DISCORD_INVITE]<br>"
 /*		usr<<"Donate Here: <a href='[PATREON_LINK]'>Patreon (Monthly)</a> <a href='[KO_FI_LINK]'>Ko-Fi (One Time)</a>"
 		if(donationInformation.getDonator(key=key))
 			usr<<"[THANKS_MESSAGE_DONATOR(donationInformation.getDonator(key=key).getTier())]"
