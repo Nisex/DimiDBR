@@ -10,7 +10,6 @@ obj
 			var
 				NoPierce=0//If this is flagged it will make a technique terminate after hitting something.
 
-				SwordOnly//TODO remove
 				UnarmedOnly
 				StanceNeeded
 				ABuffNeeded
@@ -2625,16 +2624,6 @@ obj
 ////SWORD
 //T1 has damage mult 1.5 - 2.5
 
-			//todo: remove
-			SwordPressure//dedname
-			ArcSlash//dedname
-			RendingChop//dedname
-			HackNSlash//dedname
-			SweepingBlade//dedname
-			SweepingRush//dedname
-			SpiralBlade//dedname
-			ArkBrave//dedname
-
 			Tipper
 				SkillCost=40
 				Copyable=1
@@ -4998,7 +4987,6 @@ mob
 						var/travel_angle = GetAngle(src, src.Target)
 						if(length(src.filters) < 1)
 							AppearanceOn()
-							//TODO the error was found here,. i think this fixed it
 
 						animate(src.filters[length(src.filters)], x=sin(travel_angle)*(6/Z.RushDelay), y=cos(travel_angle)*(6/Z.RushDelay), time=Z.RushDelay)
 						step_towards(src,src.Target)
@@ -5681,11 +5669,10 @@ obj
 								FinalDmg/=2
 
 				if(m in src.Owner.party)
-					FinalDmg *= PARTY_DAMAGE_NERF
+					FinalDmg *= glob.PARTY_DAMAGE_NERF
 
 				if(!src.CanBeBlocked&&!src.CanBeDodged)
-					FinalDmg *= AUTOHIT_GLOBAL_DAMAGE
-					//TODO adjustments for auto hit damage
+					FinalDmg *= glob.AUTOHIT_GLOBAL_DAMAGE
 				else
 					FinalDmg*=1.5
 

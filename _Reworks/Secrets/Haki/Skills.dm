@@ -72,7 +72,6 @@
         ActiveMessage = "expunges their willpower, suddenly increasing the pressure in the area!"
         if(ActiveMessage)
             OMsg(usr, "<b><font color='[ActiveColor]'>[usr] [ActiveMessage]</font color></b>")
-        usr<<"Do some effect here"
         //TODO do some effect here
 
     verb/Kings_Haki()
