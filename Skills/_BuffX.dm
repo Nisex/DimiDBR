@@ -536,7 +536,7 @@ NEW VARIABLES
 	var/AlwaysOn=0//If the object exists in the target, its always on.  When it gets turned off, delete it
 	var/ActiveBuffLock=0//Prevents active buffs from being used
 	var/SpecialBuffLock=0//Prevents special buffs from being used
-	var/TensionDrain=0//TODO: rename to tension lock
+	var/TensionLock=0//TODO: rename to tension lock
 
 // New things
 	var/ExhaustedMessage = FALSE
@@ -1835,7 +1835,6 @@ NEW VARIABLES
 			MagicSword=1
 			SwordClass="Wooden"
 			SwordAscension=2
-			//TODO add hybrid passive
 			SwordName="Keyblade"
 			PULock=1
 			PowerMult=1.5
@@ -9554,7 +9553,7 @@ NEW VARIABLES
 					IconLock='AuraSlowTensionBlue.dmi'
 					LockX=0
 					LockY=0
-					TensionDrain=1
+					TensionLock=1
 					NoWhiff=1
 					Generic_Finisher
 						OffMult=1.5
@@ -9568,7 +9567,7 @@ NEW VARIABLES
 						StrMult=1.1
 						EndMult=1.25
 						DefMult=1.1
-						passives = list("KiControlMastery" = 1, "Void" = 1, "FluidForm" = 1)
+						passives = list("TensionLock" = 1, "KiControlMastery" = 1, "Void" = 1, "FluidForm" = 1)
 						ActiveMessage="begins a flawless Turtle Kata!"
 						OffMessage="completes the Turtle Kata..."
 					Crane_Martial_Mastery
@@ -9576,7 +9575,7 @@ NEW VARIABLES
 						ForMult=1.3
 						SpdMult=1.2
 						OffMult=1.1
-						passives = list("PureDamage" = 1, "Skimming" = 1, "Flow" = 1, "SpiritFlow" = 1)
+						passives = list("TensionLock" = 1, "PureDamage" = 1, "Skimming" = 1, "Flow" = 1, "SpiritFlow" = 1)
 						ActiveMessage="begins a flawless Crane Kata!"
 						OffMessage="completes the Crane Kata..."
 					Snake_Martial_Mastery
@@ -9584,7 +9583,7 @@ NEW VARIABLES
 						ForMult=1.1
 						SpdMult=1.2
 						DefMult=1.1
-						passives = list("SoftStyle" = 1, "CounterMaster" = 10, "SpiritHand" = 1, "Deflection" = 1)
+						passives = list("TensionLock" = 1, "SoftStyle" = 1, "CounterMaster" = 10, "SpiritHand" = 1, "Deflection" = 1)
 						ActiveMessage="begins a flawless Snake Kata!"
 						OffMessage="completes the Snake Kata..."
 					Cat_Martial_Mastery
@@ -9592,7 +9591,7 @@ NEW VARIABLES
 						StrMult=1.2
 						SpdMult=1.1
 						OffMult=1.2
-						passives = list("HardStyle" = 1, "Pursuer" = 1, "Flicker" = 1)
+						passives = list("TensionLock" = 1, "HardStyle" = 1, "Pursuer" = 1, "Flicker" = 1)
 						ActiveMessage="begins a flawless Cat Kata!"
 						OffMessage="completes the Cat Kata..."
 
@@ -9601,7 +9600,7 @@ NEW VARIABLES
 						StyleNeeded="Gentle Fist"
 						ForMult=1.5
 						EndMult=1.5
-						passives = list("SoftStyle" = 2, "KiControlMastery" = 1, "FluidForm" = 1, "PureDamage" = 1, "Flow" = 1, "SpiritFlow" = 1)
+						passives = list("TensionLock" = 1, "SoftStyle" = 2, "KiControlMastery" = 1, "FluidForm" = 1, "PureDamage" = 1, "Flow" = 1, "SpiritFlow" = 1)
 						Erosion=0.5
 
 						ActiveMessage="perceives the flow of ki perfectly!"
@@ -9612,7 +9611,7 @@ NEW VARIABLES
 						StrMult=1.5
 						EndMult=1.25
 						OffMult=1.25
-						passives = list("Pursuer" = 1, "Flicker" = 1, "KiControlMastery" = 1, "FluidForm" = 1)
+						passives = list("TensionLock" = 1, "Pursuer" = 1, "Flicker" = 1, "KiControlMastery" = 1, "FluidForm" = 1)
 						ActiveMessage="circulates blood throughout their body perfectly!"
 						OffMessage="loses their intense focus..."
 
@@ -9621,13 +9620,13 @@ NEW VARIABLES
 						StrMult=1.25
 						ForMult=1.25
 						SpdMult=1.5
-						passives = list("Pursuer" = 3, "QuickCast" = 3, "CounterMaster" = 10, "SpiritHand" = 1, "SpiritFlow" = 1, "Deflection" = 2)
+						passives = list("TensionLock" = 1, "Pursuer" = 3, "QuickCast" = 3, "CounterMaster" = 10, "SpiritHand" = 1, "SpiritFlow" = 1, "Deflection" = 2)
 						ActiveMessage="ignites their chivalrous spirit!"
 						OffMessage="burns out their manly spirit..."
 
 					Rush_Mastery
 						StyleNeeded="Lightning Kickboxing"
-						passives = list("MovementMastery" = 10, "Flicker" = 3, "PureDamage" = 0.5, "Flow" = 2, "CounterMaster" = 10, "Deflection" = 2)
+						passives = list("TensionLock" = 1, "MovementMastery" = 10, "Flicker" = 3, "PureDamage" = 0.5, "Flow" = 2, "CounterMaster" = 10, "Deflection" = 2)
 						ForMult=1.5
 						SpdMult=1.5
 						OffMult=1.25
@@ -9641,7 +9640,7 @@ NEW VARIABLES
 						ForMult=1.5
 						SpdMult=1.25
 						EndMult=1.25
-						passives = list("SoftStyle" = 3, "MovementMastery" = 5, "PureDamage" = 1, "Flow" = 2, "Deflection" = 2)
+						passives = list("TensionLock" = 1, "SoftStyle" = 3, "MovementMastery" = 5, "PureDamage" = 1, "Flow" = 2, "Deflection" = 2)
 						ActiveMessage="stumbles around drunkenly..."
 						OffMessage="resumes normal motion..."
 
@@ -9651,7 +9650,7 @@ NEW VARIABLES
 						OffMult=1.25
 						ForMult=1.25
 						SpdMult=1.15
-						passives = list("HardStyle" = 2, "UnarmedDamage" = 2, "Pursuer" = 3, "CounterMaster" = 10, "Deflection" = 2)
+						passives = list("TensionLock" = 1, "HardStyle" = 2, "UnarmedDamage" = 2, "Pursuer" = 3, "CounterMaster" = 10, "Deflection" = 2)
 						ActiveMessage="enters the ultimate hard-style martial arts stance!"
 						OffMessage="drops their stance..."
 
@@ -9665,14 +9664,14 @@ NEW VARIABLES
 						DefMult=1.25
 						ElementalOffense="Dark"
 						ElementalDefense="Dark"
-						passives = list("SpiritHand" = 1, "SpiritFlow" = 1, "PureReduction" = 2, "TechniqueMastery" = 5, "Hardening" = 1, "SpiritualDamage" = 2, "DeathField" = 2)
+						passives = list("TensionLock" = 1, "SpiritHand" = 1, "SpiritFlow" = 1, "PureReduction" = 2, "TechniqueMastery" = 5, "Hardening" = 1, "SpiritualDamage" = 2, "DeathField" = 2)
 						ActiveMessage="enters a Dire Trance!!"
 						OffMessage="loses their magical rage..."
 					Astral_Empowerment
 						StyleNeeded="Moonlight"
 						ManaGlow="#66c"
 						ManaGlowSize=2
-						passives = list("LifeSteal" = 25, "EnergySteal" = 25, "ManaSeal" = 1, "SoulFire" = 0.5)
+						passives = list("TensionLock" = 1, "LifeSteal" = 25, "EnergySteal" = 25, "ManaSeal" = 1, "SoulFire" = 0.5)
 						StrMult=1.25
 						ForMult=1.25
 						ElementalOffense="Water"
@@ -9685,7 +9684,7 @@ NEW VARIABLES
 						ManaGlowSize=2
 						ElementalOffense="Ultima"
 						ElementalDefense="Ultima"
-						passives = list("Confusing" = 1)
+						passives = list("TensionLock" = 1, "Confusing" = 1)
 						StrMult=1.25
 						EndMult=1.25
 						ForMult=1.25
@@ -9696,7 +9695,7 @@ NEW VARIABLES
 						StyleNeeded="Devil Leg"
 						ManaGlow="#F00"
 						ManaGlowSize=2
-						passives = list("PureDamage" = 1)
+						passives = list("TensionLock" = 1, "PureDamage" = 1)
 						Attracting=3
 						StrMult=1.25
 						OffMult=1.5
@@ -9706,7 +9705,7 @@ NEW VARIABLES
 						StyleNeeded="Flow Reversal"
 						ManaGlow="#369"
 						ManaGlowSize=2
-						passives = list("CyberStigma" = 2, "PureReduction" = 1, "CounterMaster" = 10)
+						passives = list("TensionLock" = 1, "CyberStigma" = 2, "PureReduction" = 1, "CounterMaster" = 10)
 						Attracting=3
 						DefMult=2
 						ActiveMessage="reads the flow of the fight perfectly, ready to counter!"
@@ -9715,7 +9714,7 @@ NEW VARIABLES
 						StyleNeeded="Phage"
 						ManaGlow="#000"
 						ManaGlowSize=2
-						passives = list("Toxic" = 3, "MortalStrike" = 0.25, "Curse" = 1, "VoidField" = 2, "DeathField" = 2)
+						passives = list("TensionLock" = 1, "Toxic" = 3, "MortalStrike" = 0.25, "Curse" = 1, "VoidField" = 2, "DeathField" = 2)
 						StrMult=1.25
 						ForMult=1.5
 						ActiveMessage="radiates a miasma of death!"
@@ -9727,11 +9726,13 @@ NEW VARIABLES
 						ForMult=1.5
 						ActiveMessage="channels mystic forces through their Elemental Kata!"
 						OffMessage="completes the Elemental Kata..."
+						passives = list("TensionLock" = 1)
 					Earth_Empowerment
 						StyleNeeded="Earth"
 						ManaGlow="#c60"
 						ManaGlowSize=1
 						IconLock=null
+						passives = list("TensionLock" = 1)
 						StrMult=1.1
 						ForMult=1.2
 						EndMult=1.2
@@ -9742,6 +9743,7 @@ NEW VARIABLES
 						ManaGlow="#c06"
 						ManaGlowSize=1
 						IconLock=null
+						passives = list("TensionLock" = 1)
 						StrMult=1.2
 						ForMult=1.2
 						ActiveMessage="channels mystic forces through their Fire Kata!"
@@ -9751,6 +9753,7 @@ NEW VARIABLES
 						ManaGlow="#06c"
 						ManaGlowSize=1
 						IconLock=null
+						passives = list("TensionLock" = 1)
 						StrMult=1.2
 						ForMult=1.1
 						OffMult=1.3
@@ -9761,6 +9764,7 @@ NEW VARIABLES
 						ManaGlow="#0c6"
 						ManaGlowSize=1
 						IconLock=null
+						passives = list("TensionLock" = 1)
 						StrMult=1.1
 						ForMult=1.2
 						SpdMult=1.3
@@ -9772,7 +9776,7 @@ NEW VARIABLES
 						ManaGlow="#6cc"
 						ManaGlowSize=2
 						IconLock=null
-						passives = list("CyberStigma" = 2)
+						passives = list("CyberStigma" = 2, "TensionLock" = 1)
 						StrMult=1.4
 						ActiveMessage="is ready to destroy all machines!"
 						OffMessage="runs out of brainpower to destroy machines..."
@@ -9782,7 +9786,7 @@ NEW VARIABLES
 						ManaGlowSize=2
 						IconLock=null
 						SpdMult=1.6
-						passives = list("Toxic" = 5)
+						passives = list("TensionLock" = 1, "Toxic" = 5)
 						ActiveMessage="accelerates their poison flow!"
 						OffMessage="relaxes their toxic nature..."
 					Corona_Splash
@@ -9792,7 +9796,7 @@ NEW VARIABLES
 						IconLock=null
 						StrMult=1.4
 						ForMult=1.4
-						passives = list("PureDamage" = 1, "Burning" = 5 )
+						passives = list("TensionLock" = 1,"PureDamage" = 1, "Burning" = 5 )
 						ActiveMessage="suffuses their arm with radiant sunlight!"
 						OffMessage="relaxes their brilliance..."
 					Stillness
@@ -9800,17 +9804,16 @@ NEW VARIABLES
 						ManaGlow="#66c"
 						EndMult=1.4
 						DefMult=1.4
-						passives = list("PureReduction" = 1)
+						passives = list("TensionLock" = 1,"PureReduction" = 1)
 						ActiveMessage="radiates a peaceful stillness!"
 						OffMessage="loses their vibe..."
 
 					//t3 signature martial
-					Tenryu_Kokyu_Ho //TODO: REMOVE
 					North_Strength
 						StyleNeeded="North Star"
 						ManaGlow="#fff"
 						ManaGlowSize=2
-						passives = list("PureDamage" = 2.5, "PureReduction" = 2.5, "MovementMastery" = 10, "Pursuer" = 2, "Curse" = 1, "HardStyle" = 2, "SoftStyle" = 2)
+						passives = list("TensionLock" = 1,"PureDamage" = 2.5, "PureReduction" = 2.5, "MovementMastery" = 10, "Pursuer" = 2, "Curse" = 1, "HardStyle" = 2, "SoftStyle" = 2)
 						StrMult=1.5
 						OffMult=1.5
 						ActiveMessage="taps into all of their latent strength!"
@@ -9819,7 +9822,7 @@ NEW VARIABLES
 						StyleNeeded="East Star"
 						ManaGlow="#fff"
 						ManaGlowSize=2
-						passives = list("SoftStyle" = 2, "PureDamage" = 5, "PureReduction" = -5, "SuperDash" = 1, "DashMaster" = 1)
+						passives = list("TensionLock" = 1,"SoftStyle" = 2, "PureDamage" = 5, "PureReduction" = -5, "SuperDash" = 1, "DashMaster" = 1)
 						StrMult=1.5
 						ForMult=1.5
 						SuperDash=1
@@ -9829,7 +9832,7 @@ NEW VARIABLES
 						OffMessage="disperses their immense wind pressure..."
 
 					Battle_Strength //North Star / South Star
-						passives = list("PureDamage" = 2.5, "PureReduction" = 2.5, "MovementMastery" = 10)
+						passives = list("TensionLock" = 1,"PureDamage" = 2.5, "PureReduction" = 2.5, "MovementMastery" = 10)
 						EnergyHeal=3
 						FatigueHeal=1
 						ManaGlow="#ffffff"
@@ -9837,7 +9840,7 @@ NEW VARIABLES
 						ActiveMessage="taps into all of their latent strength!"
 						OffMessage="releases their gathered strength..."
 					Battle_Focus //East Star / West Star
-						passives = list("Instinct" = 2, "Flow" = 2, "MovementMastery" = 10)
+						passives = list("TensionLock" = 1,"Instinct" = 2, "Flow" = 2, "MovementMastery" = 10)
 						EnergyHeal=3
 						FatigueHeal=1
 						ManaGlow="#ffffff"
@@ -9852,7 +9855,7 @@ NEW VARIABLES
 						ManaGlowSize=2
 						StrMult=1.5
 						ForMult=1.5
-						passives = list("MovementMastery" = 10, "TechniqueMastery" = 5)
+						passives = list("TensionLock" = 1,"MovementMastery" = 10, "TechniqueMastery" = 5)
 						ManaHeal=2.5
 					Heat_Rush
 						StyleNeeded="Ansatsuken"
@@ -9860,7 +9863,7 @@ NEW VARIABLES
 						ManaGlowSize=2
 						StrMult=1.5
 						ForMult=1.5
-						passives = list("MovementMastery" = 10, "TechniqueMastery" = 5)
+						passives = list("TensionLock" = 1,"MovementMastery" = 10, "TechniqueMastery" = 5)
 						ManaHeal=2.5
 					Violent_Personality
 						StyleNeeded="Ansatsuken"
@@ -9868,13 +9871,13 @@ NEW VARIABLES
 						ManaGlowSize=2
 						StrMult=1.5
 						ForMult=1.5
-						passives = list("MovementMastery" = 10, "TechniqueMastery" = 5)
+						passives = list("TensionLock" = 1,"MovementMastery" = 10, "TechniqueMastery" = 5)
 						ManaHeal=2.5
 
 					//hiten
 					Shunshin
 						SpdMult=1.2
-						passives = list("Warping" = 2, "HotHundred" = 1, "Godspeed" = 3)
+						passives = list("TensionLock" = 1,"Warping" = 2, "HotHundred" = 1, "Godspeed" = 3)
 						TimerLimit=15
 						PhysicalHitsLimit=7
 						Afterimages=1
@@ -9882,7 +9885,7 @@ NEW VARIABLES
 						OffMessage="restrains their godspeed..."
 					Shunshin_Shin
 						SpdMult=1.3
-						passives = list("Warping" = 3, "HotHundred" = 2, "PureDamage" = 2, "Steady" = 3)
+						passives = list("TensionLock" = 1,"Warping" = 3, "HotHundred" = 2, "PureDamage" = 2, "Steady" = 3)
 						TimerLimit=15
 						PhysicalHitsLimit=12
 						Afterimages=1
@@ -9893,11 +9896,11 @@ NEW VARIABLES
 					Fever_Pitch
 						StrMult=1.5
 						OffMult=1.5
-						passives = list("Warping" = 2, "HotHundred" = 1, "Steady" = 2)
+						passives = list("TensionLock" = 1,"Warping" = 2, "HotHundred" = 1, "Steady" = 2)
 						TimerLimit=3
 					Fatal_Mode
 						StrMult=2
-						passives = list("Steady" = 6)
+						passives = list("TensionLock" = 1,"Steady" = 6)
 						FlashChange=1
 						ManaGlow=rgb(255, 255, 204)
 						ManaGlowSize=2
@@ -9906,26 +9909,26 @@ NEW VARIABLES
 						OffMult=1.25
 						SpdMult=1.25
 						DefMult=1.25
-						passives = list("BetterAim" = 1)
+						passives = list("TensionLock" = 1,"BetterAim" = 1)
 					Fire_Storm
 						FlashChange=1
 						ManaGlow=rgb(255, 204, 204)
 						ManaGlowSize=2
-						passives = list("SpiritHand" = 1)
+						passives = list("TensionLock" = 1,"SpiritHand" = 1)
 						StrMult=1.5
 						ForMult=1.5
 					Diamond_Dust
 						FlashChange=1
 						ManaGlow=rgb(204, 204, 255)
 						ManaGlowSize=2
-						passives = list("AbsoluteZero" = 1, "Freezing" = 1)
+						passives = list("TensionLock" = 1,"AbsoluteZero" = 1, "Freezing" = 1)
 						ForMult=1.5
 						OffMult=1.5
 					Thunderbolt
 						FlashChange=1
 						ManaGlow=rgb(255, 255, 204)
 						ManaGlowSize=2
-						passives = list("Paralyzing" = 1, "StunningStrike" = 2, "Warping" = 2, "HotHundred" = 1, "Steady" = 2)
+						passives = list("TensionLock" = 1,"Paralyzing" = 1, "StunningStrike" = 2, "Warping" = 2, "HotHundred" = 1, "Steady" = 2)
 						SpdMult=1.5
 						OffMult=1.5
 						TimerLimit=5
@@ -9933,20 +9936,20 @@ NEW VARIABLES
 						FlashChange=1
 						ManaGlow=rgb(255, 255, 255)
 						ManaGlowSize=2
-						passives = list("SwordDamage" = 2, "Steady" = 4)
+						passives = list("TensionLock" = 1,"SwordDamage" = 2, "Steady" = 4)
 						SureHitTimerLimit = 15
 						OffMult=1.5
 					Cyclone
 						FlashChange=1
 						ManaGlow=rgb(153, 255, 153)
 						ManaGlowSize=2
-						passives = list("SweepingStrike" = 1, "Shocking" = 10, "Paralyzing" = 10, "DeathField" = 1)
+						passives = list("TensionLock" = 1,"SweepingStrike" = 1, "Shocking" = 10, "Paralyzing" = 10, "DeathField" = 1)
 						StrMult=1.25
 					Rock_Breaker
 						FlashChange=1
 						ManaGlow=rgb(153, 102, 51)
 						ManaGlowSize=2
-						passives = list("PureDamage" = 3, "Shattering" = 15, "Warping" = 2, "HotHundred" = 1)
+						passives = list("TensionLock" = 1,"PureDamage" = 3, "Shattering" = 15, "Warping" = 2, "HotHundred" = 1)
 						StrMult = 1.2
 						ForMult = 1.2
 						ElementalDefense="Void"
@@ -9956,7 +9959,7 @@ NEW VARIABLES
 						ManaGlow=rgb(153, 102, 51)
 						ManaGlowSize=2
 						ElementalOffense="Void"
-						passives = list("DemonicDurability" = 1)
+						passives = list("TensionLock" = 1,"DemonicDurability" = 1)
 						AngerMult=1.5
 						AutoAnger=1
 						TimerLimit=60
@@ -9964,29 +9967,29 @@ NEW VARIABLES
 						FlashChange=1
 						ManaGlow=rgb(153, 153, 153)
 						ManaGlowSize=2
-						passives = list("Godspeed" = 3, "Flicker" = 2, "SuperDash" = 2, )
+						passives = list("TensionLock" = 1,"Godspeed" = 3, "Flicker" = 2, "SuperDash" = 2, )
 						SpdMult = 1.5
 					Blade_Charge
 						FlashChange=1
 						ManaGlow=rgb(255, 0, 255)
 						ManaGlowSize=2
-						passives = list("SpiritHand" = 1, "SpiritSword" = 0.25, "Extend" = 1)
+						passives = list("TensionLock" = 1,"SpiritHand" = 1, "SpiritSword" = 0.25, "Extend" = 1)
 
 
 					Machine_Gun_Slash
 						SwordHitsLimit=3
 						OffMult=2
-						passives = list("HotHundred" = 1, "SlayerMod" = 5)
+						passives = list("TensionLock" = 1,"HotHundred" = 1, "SlayerMod" = 5)
 						ActiveMessage="readies an Iaido Kata: Machine Gun Slash!"
 						OffMessage="flicks their blade to clean it of blood before resheathing it..."
 					Flurry_Fleur
-						passives = list("Crippling" = 5)
+						passives = list("TensionLock" = 1,"Crippling" = 5)
 						SureHitTimerLimit=2
 						SureDodgeTimerLimit=2
 						ActiveMessage="begins to move through a cruel and beautiful duelling form!"
 						OffMessage="finishes their form with a flourish..."
 					Overbearing_Strength
-						passives = list("StunningStrike" = 2)
+						passives = list("TensionLock" = 1,"StunningStrike" = 2)
 						Intimidation=1.5
 						ActiveMessage="continues their adrenaline high, throwing all of their strength into each attack!"
 						OffMessage="overexerts their strength, returning to their baseline..."
@@ -9995,21 +9998,22 @@ NEW VARIABLES
 						EndMult=1.25
 						OffMult=1.25
 						DefMult=1.25
+						passives = list("TensionLock" = 1)
 						ActiveMessage="sharpens the edges of their limbs to become more swordlike!"
 						OffMessage="releases their concentrated edge..."
 
 					//tier 1 sig style
 					Dual_Mastery
-						passives = list("DoubleStrike" = 2)
+						passives = list("TensionLock" = 1,"DoubleStrike" = 2)
 						SwordHits=6
 						ActiveMessage="flows through a Dual Wielding Kata!"
 						OffMessage="finishes their kata..."
 					Flowing_Slash_Follow_Up
-						passives = list("Warping" = 2, "PureDamage" = 10, "Instinct" = 2, "KBAdd" = 5, "KBMult" = 10)
+						passives = list("TensionLock" = 1,"Warping" = 2, "PureDamage" = 10, "Instinct" = 2, "KBAdd" = 5, "KBMult" = 10)
 						ActiveMessage="brings their sword back..."
 						OffMessage="strikes through their opponent suddenly!"
 					Crippling_Blows
-						passives = list("Crippling" = 5)
+						passives = list("TensionLock" = 1,"Crippling" = 5)
 						PhysicalHitsLimit=3
 						ActiveMessage="whips a knife in a crippling butterfly pattern!"
 						OffMessage="finishes their cuts and hides the knife again..."
@@ -10017,26 +10021,27 @@ NEW VARIABLES
 						Intimidation=1.5
 						StrMult=1.5
 						SpdMult=1.5
+						passives = list("TensionLock" = 1)
 						ActiveMessage="cast away any restrictions to their style!"
 						OffMessage="slows their pace up and begins regular motions..."
 
 					//t2 sig styles
 					Trinity_Mastery
-						passives = list("DoubleStrike" = 1, "TripleStrike" = 1)
+						passives = list("TensionLock" = 1,"DoubleStrike" = 1, "TripleStrike" = 1)
 						ActiveMessage="flows through a Tri Wielding Kata!"
 						OffMessage="finishes their kata..."
 					Maim_Mastery
-						passives = list("MortalStrike" = 0.5, "CursedWounds" = 1)
+						passives = list("TensionLock" = 1,"MortalStrike" = 0.5, "CursedWounds" = 1)
 						ActiveMessage="embraces their murderous nature!"
 						OffMessage="calms down from their murderous high..."
 					Mana_Blitz
-						passives = list("BetterAim" = 3)
+						passives = list("TensionLock" = 1,"BetterAim" = 3)
 						ForMult=2
 						SpiritHitsLimit=10
 						ActiveMessage="radiates potent mana!"
 						OffMessage="runs dry their surplus of mana..."
 					Endurance_Negation
-						passives = list("PridefulRage" = 1)
+						passives = list("TensionLock" = 1,"PridefulRage" = 1)
 						PhysicalHitsLimit=1
 						SpiritHitsLimit=1
 						ActiveMessage="scythes through any resistance with keenly honed wisdom!"
@@ -10046,7 +10051,7 @@ NEW VARIABLES
 						StyleNeeded="Five Rings"
 						ManaGlow=rgb(255, 0, 0)
 						ManaGlowSize=2
-						passives = list("CursedWounds" = 1, "PureDamage" = 5, "Instinct" = 4, "SpiritFlow" = 1)
+						passives = list("TensionLock" = 1,"CursedWounds" = 1, "PureDamage" = 5, "Instinct" = 4, "SpiritFlow" = 1)
 						HitSpark='Slash - Ragna.dmi'
 						HitX=-32
 						HitY=-32
@@ -10057,11 +10062,11 @@ NEW VARIABLES
 					Bestial_Accuracy
 						StrMult=1.3
 						EndMult=0.8
-						passives = list("NoDodge" = 1, "NoMiss" = 1)
+						passives = list("TensionLock" = 1,"NoDodge" = 1, "NoMiss" = 1)
 						ActiveMessage="becomes empowered by instinct!"
 						OffMessage="regains reason..."
 					Martial_Flow
-						passives = list("Flow" = 1, "Instinct" = 1, "Steady" = 3)
+						passives = list("TensionLock" = 1,"Flow" = 1, "Instinct" = 1, "Steady" = 3)
 						OffMult=1.2
 						DefMult=1.2
 						ActiveMessage="enters a flow state!"
@@ -10069,25 +10074,25 @@ NEW VARIABLES
 					Anti_Material_Augment
 						BuffName="Anti-Material Augment"
 						StrMult=1.5
-						passives = list("WeaponBreaker" = 2)
+						passives = list("TensionLock" = 1,"WeaponBreaker" = 2)
 						ActiveMessage="focuses their power to destroy any material!"
 						OffMessage="loses their focus..."
 					Speed_Break
 						SpdMult=1.5
-						passives = list("Pursuer" = 2)
+						passives = list("TensionLock" = 1,"Pursuer" = 2)
 						ActiveMessage="removes the limits on their speed!"
 						OffMessage="remembers their speed limit..."
 
 					//t1 sig styles
 					Sure_Shot
 						StyleNeeded="Soul Crushing"
-						passives = list("PureDamage" = 1, "NoDodge" = 1)
+						passives = list("TensionLock" = 1,"PureDamage" = 1, "NoDodge" = 1)
 						ForMult=1.4
 						ActiveMessage="focuses their power into a precise line!"
 						OffMessage="releases their aim..."
 					Seeking_Spirits
 						StyleNeeded="Spirit"
-						passives = list("BetterAim" = 2, "NoDodge" = 1 )
+						passives = list("TensionLock" = 1,"BetterAim" = 2, "NoDodge" = 1 )
 						ForMult=1.4
 						OffMult=1.4
 						ActiveMessage="converses with their energy to track down their target!"
@@ -10096,13 +10101,13 @@ NEW VARIABLES
 						StyleNeeded="Balance"
 						StrMult=1.4
 						EndMult=1.4
-						passives = list("PureDamage" = 2, "PureReduction" = 2)
+						passives = list("TensionLock" = 1,"PureDamage" = 2, "PureReduction" = 2)
 						ActiveMessage="is blessed by a turn of fortune!"
 						OffMessage="uses up their karma..."
 					Speed_of_Sound
 						StyleNeeded="Resonance"
 						SpdMult=1.4
-						passives = list("Disorienting" = 1, "Godspeed" = 2, "Warping" = 2, "Steady" = 1)
+						passives = list("TensionLock" = 1,"Disorienting" = 1, "Godspeed" = 2, "Warping" = 2, "Steady" = 1)
 						ActiveMessage="resonates with the speed of sound!"
 						OffMessage="stops vibrating..."
 
@@ -10112,12 +10117,12 @@ NEW VARIABLES
 						Afterimages=1
 						StrMult=1.5
 						ForMult=1.5
-						passives = list("PureDamage" = 2, "PureReduction" = -2)
+						passives = list("TensionLock" = 1,"PureDamage" = 2, "PureReduction" = -2)
 						ActiveMessage="enhances every movement with ki to allow for rapid destruction!!"
 						OffMessage="exhausts their ki enhancement..."
 					What_Must_Be_Done
 						StyleNeeded="Metta Sutra"
-						TensionDrain=0
+						TensionLock=0
 						Mastery=0//will immediately be incremented
 						TimerLimit=600
 						OffMessage="dissipates their spiritual intensity..."
@@ -10128,7 +10133,7 @@ NEW VARIABLES
 						EndMult=1.25
 						OffMult=1.25
 						DefMult=1.25
-						passives = list("WeaponBreaker" = 3, "SoftStyle" = 3, "HardStyle" = 3)
+						passives = list("TensionLock" = 1,"WeaponBreaker" = 3, "SoftStyle" = 3, "HardStyle" = 3)
 						ActiveMessage="becomes the perfect weapon!"
 						OffMessage="relaxes their martial frenzy..."
 					Dance_Mastery
@@ -10136,7 +10141,7 @@ NEW VARIABLES
 						SpdMult=1.5
 						OffMult=1.25
 						StrMult=1.25
-						passives = list("Warping" = 1, "HotHundred" = 1, "Steady" = 2, "Flow" = 2, "Instinct" = 2, "Godspeed" = 2)
+						passives = list("TensionLock" = 1,"Warping" = 1, "HotHundred" = 1, "Steady" = 2, "Flow" = 2, "Instinct" = 2, "Godspeed" = 2)
 						ActiveMessage="steps between attacks and counters with effortless grace!"
 						OffMessage="quiets their rhythmic dance..."
 
@@ -10149,7 +10154,7 @@ NEW VARIABLES
 						SpdMult=2
 						OffMult=1.25
 						DefMult=1.25
-						passives = list("WeaponBreaker" = 6, "SoftStyle" = 2, "HardStyle" = 2, "Warping" = 1, "HotHundred" = 1, "Flow" = 2,"Instinct" = 2, "Godspeed" = 2, "CounterMaster" = 10)
+						passives = list("TensionLock" = 1,"WeaponBreaker" = 6, "SoftStyle" = 2, "HardStyle" = 2, "Warping" = 1, "HotHundred" = 1, "Flow" = 2,"Instinct" = 2, "Godspeed" = 2, "CounterMaster" = 10)
 						ActiveMessage="flows through every defense with calm precision!"
 						OffMessage="runs dry their well of fluidity..."
 
