@@ -3,7 +3,6 @@ obj
 		Queue//Queued skills like GET DUNKED and Axekick.
 			var/Duration=5//This is how long the queue remains up for.
 			var/UnarmedOnly=0//Can't use this with a sword.
-			var/SwordOnly=0//todo remove
 			//var/ClassNeeded//Requires a sword class.
 			var/TextColor
 			var/ActiveMessage//Displays on using the skill, if it exists.
@@ -2273,9 +2272,6 @@ obj
 					usr.SetQueue(src)
 
 //T2
-			//todo: remove
-			SwallowReversal//dedname
-			InfinityTrap//dedname
 
 			Swallow_Reversal
 				SkillCost=80

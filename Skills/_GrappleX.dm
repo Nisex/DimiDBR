@@ -13,7 +13,6 @@ obj/Skills
 			EndRate=1
 
 			UnarmedOnly=1
-			SwordOnly=0//TODO REMOVE
 			SpecialAttack=0//staves n shiet
 
 			ObjectEnabled=0
