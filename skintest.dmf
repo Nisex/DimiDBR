@@ -243,7 +243,7 @@ window "AdminHelpWindow"
 window "AllChatTab"
 	elem "AllChatTab"
 		type = MAIN
-		pos = 281,0
+		pos = 291,0
 		size = 640x480
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -256,12 +256,14 @@ window "AllChatTab"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
+		outer-size = 654x494
 	elem "output"
 		type = OUTPUT
 		pos = 0,0
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
+		font-family = "Gotham Book"
 		text-color = #0080ff
 		background-color = #000000
 		is-default = true
@@ -273,7 +275,7 @@ window "AllChatTab"
 window "Baby"
 	elem "Baby"
 		type = MAIN
-		pos = 372,0
+		pos = 291,0
 		size = 247x327
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -285,6 +287,8 @@ window "Baby"
 		can-minimize = false
 		can-resize = false
 		image-mode = tile
+		outer-size = 263x366
+		inner-size = 247x327
 	elem "label15"
 		type = LABEL
 		pos = 8,12
@@ -313,7 +317,7 @@ window "Baby"
 window "ICChatTab"
 	elem "ICChatTab"
 		type = MAIN
-		pos = 281,0
+		pos = 291,0
 		size = 640x480
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -326,12 +330,14 @@ window "ICChatTab"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
+		outer-size = 654x494
 	elem "icchat"
 		type = OUTPUT
 		pos = 0,0
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
+		font-family = "Gotham Book"
 		text-color = #0080ff
 		background-color = #000000
 		saved-params = "max-lines"
@@ -342,7 +348,7 @@ window "ICChatTab"
 window "LOOCChatTab"
 	elem "LOOCChatTab"
 		type = MAIN
-		pos = 281,0
+		pos = 291,0
 		size = 640x480
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -355,12 +361,14 @@ window "LOOCChatTab"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
+		outer-size = 654x494
 	elem "loocchat"
 		type = OUTPUT
 		pos = 0,0
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
+		font-family = "Gotham Book"
 		text-color = #0080ff
 		background-color = #000000
 		saved-params = "max-lines"
@@ -371,7 +379,7 @@ window "LOOCChatTab"
 window "OOCChatTab"
 	elem "OOCChatTab"
 		type = MAIN
-		pos = 281,0
+		pos = 291,0
 		size = 640x480
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -384,12 +392,14 @@ window "OOCChatTab"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
+		outer-size = 654x494
 	elem "oocchat"
 		type = OUTPUT
 		pos = 0,0
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
+		font-family = "Gotham Book"
 		text-color = #0080ff
 		background-color = #000000
 		saved-params = "max-lines"
@@ -1130,7 +1140,6 @@ window "rpane"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
-		outer-size = 654x494
 	elem "rpanewindow"
 		type = CHILD
 		pos = 0,0
