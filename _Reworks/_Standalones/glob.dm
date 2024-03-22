@@ -161,7 +161,7 @@ globalTracker
 		WorldDefaultAcc = 50
 		WorldWhiffRate = 25
 		celestialObjectTicks
-		NoSagaRaces = list(DEMON, DRAGON, ELF)
+		NoSagaRaces = list(DEMON, DRAGON, ELF, YASAI)
 // combat
 
 		MAX_HARDEN = 20
