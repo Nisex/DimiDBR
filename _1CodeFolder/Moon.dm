@@ -83,6 +83,15 @@ mob
 						src.Auraz("Remove")
 						src.UseBuff(KC)
 			src<<"<font color=red>[global.MakyoMessage]</font color>"
+
+		MakyoFade()
+			if(isRace(MAKYO))
+				src.StarPowered=0
+				for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in src)
+					if(src.BuffOn(KC))
+						src.UseBuff(KC, TRUE)
+			src<<"<font color=red>The hanging star slowly drifts out of view...</font color>"
+
 		MakyoSetTrigger()
 			if(src.isRace(MAKYO))
 				for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in src)
@@ -124,3 +133,10 @@ proc/CallStar(var/OnlyZ=null)
 				P.MakyoTrigger()
 		else
 			P.MakyoTrigger()
+	sleep(glob.MAKYO_TOTAL_TIME)
+	for(var/mob/Players/P in players)
+		if(OnlyZ)
+			if(P.z==OnlyZ)
+				P.MakyoFade()
+		else
+			P.MakyoFade()

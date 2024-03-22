@@ -64,7 +64,7 @@
 
 
 
-/mob/proc/GetIntimidation() //TODO add vampire shit
+/mob/proc/GetIntimidation()
     var/Effective=src.Intimidation
     if(src.ShinjinAscension=="Makai")
         Effective*=src.GetGodKi()*50

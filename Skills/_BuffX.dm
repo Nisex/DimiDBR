@@ -12150,7 +12150,10 @@ mob
 						src.ActiveBuff.AutoAnger=1
 						src.ActiveBuff.AngerMult=2
 						src.ActiveBuff.passives["PUSpike"] = 50
-						src.ActiveBuff.PUSpike=50
+					else if(passive_handler.Get("ArtificalStar"))
+						src.ActiveBuff.AutoAnger=1
+						src.ActiveBuff.AngerMult=1.5
+						src.ActiveBuff.passives["PUSpike"] = 25
 					else
 						src.ActiveBuff.AutoAnger=0
 						src.ActiveBuff.AngerMult=1
@@ -12278,8 +12281,6 @@ mob
 					src.ActiveBuff.OverlayTransLock=0
 			src.AllSkillsRemove(src.ActiveBuff)
 			src.ActiveBuff=null
-			if(src.isRace(MAKYO))
-				src.StarPowered=0
 			if(isplayer(src))
 				src:move_speed = MovementSpeed()
 

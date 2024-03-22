@@ -472,6 +472,7 @@ ascension
 			strength = 0.25
 			defense = 0.25
 			endurance = 0.25
+			passives = list("PureReduction" = 1, "Godspeed" = 1)
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 10
@@ -484,6 +485,7 @@ ascension
 			strength = 0.25
 			speed = 0.25
 			endurance = 0.25
+			passives = list("PureDamage" = 1, "Flicker" = 1)
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 15
@@ -496,6 +498,7 @@ ascension
 			speed = 0.25
 			defense = 0.25
 			endurance = 0.25
+			passives = list("Pursuer" = 1, "Flicker" = 1)
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 20
@@ -506,6 +509,7 @@ ascension
 		four
 			angerPoint = 5
 			endurance = 0.5
+			passives = list("Godspeed" = 1, "Pure Reduction" = 1)
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 25
@@ -563,7 +567,7 @@ ascension
 				..()
 
 		three
-			intimidation = 100
+			intimidation = 40
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Metal")
@@ -613,36 +617,36 @@ ascension
 				..()
 	makyo
 		one
-			passives = list("Juggernaut" = 0.25)
+			passives = list("Juggernaut" = 0.25, "DemonicDurability" = 1, "HeavyHitter" = 1)
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
-			intimidation = 5
+			intimidation = 15
 
 		two
-			passives = list("Juggernaut" = 0.25)
+			passives = list("Juggernaut" = 0.25, "DemonicDurability" = 2, "HeavyHitter" = 1)
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
-			intimidation = 10
+			intimidation = 25
 		three
-			passives = list("Juggernaut" = 0.5)
+			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 1, "HeavyHitter" = 1)
 			strength = 0.5
 			endurance = 0.25
 			force = 0.5
-			intimidation = 15
+			intimidation = 30
 		four
-			passives = list("Juggernaut" = 0.5)
+			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 0.5, "HeavyHitter" = 1)
 			strength = 0.5
 			endurance = 0.25
 			force = 0.5
-			intimidation = 20
+			intimidation = 40
 		five
-			passives = list("Juggernaut" = 0.5)
+			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 1, "HeavyHitter" = 2)
 			strength = 1
 			endurance = 0.25
 			force = 1
-			intimidation = 25
+			intimidation = 55
 
 	alien
 		one

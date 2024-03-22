@@ -161,7 +161,7 @@ globalTracker
 		WorldDefaultAcc = 50
 		WorldWhiffRate = 25
 		celestialObjectTicks
-		NoSagaRaces = list(DEMON, DRAGON, ELF, YASAI)
+		NoSagaRaces = list(DEMON, DRAGON, ELF, SAIYAN)
 // combat
 
 		MAX_HARDEN = 20
@@ -272,6 +272,7 @@ globalTracker
  "Dainsleif" = FALSE)
  // false = open, true = taken
 
+		MAKYO_TOTAL_TIME = 18000//30 minutes
 
 		list/var/Heroes = list("Finn")
 
