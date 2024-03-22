@@ -12374,8 +12374,13 @@ mob
 							src.SpecialBuff.ActiveMessage="dons a mask of dark energy!"
 						if(src.SpecialBuff.OffMessage=="violently rips off their mask as it shatters into fragments...")
 							src.SpecialBuff.OffMessage="tears off their mask as it shatters into fragments..."
-						//TODO GIVE VAIZARD REGEN/CERO AUTO
-						if(src.Maimed>0)//regen happens automagically because regeneration wouldnt be in mob's contents yet
+						if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Regeneration) in src)
+							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
+							for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/R in src)
+								R.RegenerateLimbs=1
+						if(!locate(/obj/Skills/Projectile/Beams/Big/Vaizard/Cero) in src)
+							src.AddSkill(new/obj/Skills/Projectile/Beams/Big/Vaizard/Cero)
+						while(src.Maimed>0)//regen happens automagically because regeneration wouldnt be in mob's contents yet
 							src.Maimed--
 							OMsg(src, "[src] regrows a maiming at the pleasure of their inner passenger!")
 					if(!src.VaizardType)
