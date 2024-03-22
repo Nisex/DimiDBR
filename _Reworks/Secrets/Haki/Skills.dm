@@ -158,7 +158,6 @@
 
 
 /obj/Skills/Projectile/Divine_Departure
-    SwordOnly = 1
     EnergyCost = 5
     MultiHit = 5
     EndRate = 1

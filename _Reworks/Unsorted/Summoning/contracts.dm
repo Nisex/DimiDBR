@@ -170,7 +170,7 @@ Contract item
         sigKeys[key] += p.EnergySignature
         if(sigKeys >= 2)
             signed = TRUE
-        viewers(Center = p) << "[p] signs a contract with their blood!"
+        viewers(p) << "[p] signs a contract with their blood!"
     else
         p << "The contract is already signed"
 

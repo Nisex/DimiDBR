@@ -122,38 +122,7 @@ mob/Players
 		if(!src.RewardsLastGained)//a clause for pretty much just androids
 			src.RewardsLastGained=glob.progress.DaysOfWipe-1
 
-		src.RegenMod="N/A"
-		src.EnergyMod="N/A"
 		src.RecovMod=2
-		if(src.isRace(HUMAN))
-			src.RecovMod=2
-			src.RecovAscension=0
-
-		if(src.sig_reset<2)
-			if(!src.Saga)
-				src.SignatureSelected=list()
-				for(var/obj/Skills/s in src)
-					if(s.SignatureTechnique)
-						if(istype(s, /obj/Skills/Buffs/NuStyle))
-							continue
-						if(istype(s, /obj/Skills/Buffs/SlotlessBuffs/Devil_Arm))
-							continue
-						if(istype(s, /obj/Skills/Buffs/SpecialBuffs/SuperSaiyanGrade2))
-							continue
-						if(istype(s, /obj/Skills/Buffs/SpecialBuffs/SuperSaiyanGrade3))
-							continue
-						del s
-
-				src << "Your signatures have been reset."
-			src.sig_reset=2
-		if(src.zenkai_reset<2)
-			if(src.isRace(SAIYAN))
-				if(src.ssj["unlocked"]>2)
-					src.ssj["unlocked"]=2
-					src << "Your SSj level has been reset to 2, and your masteries are undone."
-				if(src.masteries["2mastery"]>50)
-					src.masteries["2mastery"]=50
-			src.zenkai_reset=2
 
 		for(var/obj/Skills/Buffs/NuStyle/ns in src)
 			var/obj/Skills/Buffs/NuStyle/Prime=ns
@@ -165,53 +134,6 @@ mob/Players
 						del Prime
 					else
 						del ns2
-/*		if(src.isRace(SAIYAN))
-			for(var/obj/Skills/Buffs/b in src)
-				if(b.SpecialSlot && !b.UnrestrictedBuff)
-					if(src.CheckSpecial(b.BuffName))
-						b.Trigger(src)
-					del b*/
-		if(sig_reset<3)
-			if(src.PotentialRate>0)
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Sparking_Blast/sb in src)
-					src << "Sparking Blast removed."
-					del sb
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Unbound_Mode/sb in src)
-					src << "Unbound Mode removed."
-					del sb
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Legend_of_Black_Heaven/sb in src)
-					src << "Legend of Black Heaven removed."
-					del sb
-				src.SignatureSelected.Remove("Sparking Blast")
-				src.SignatureSelected.Remove("Unbound Mode")
-				src.SignatureSelected.Remove("Legend of Black Heaven")
-			sig_reset=3
-		if(grimoire_reset<1)
-			if(!src.Race=="Shinjin")
-				if(locate(/obj/Skills/Utility/Grimoire_Arcana, src))
-					for(var/obj/Skills/Utility/Grimoire_Arcana/ga in src)
-						del ga
-						src << "You have lost access to Grimoire Arcana."
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Grimoire/g in src)
-					del g
-				for(var/obj/Items/Gear/Pure_Grimoire/pa in src)
-					del pa
-				for(var/obj/Items/Gear/Prosthetic_Limb/Azure_Grimoire/ag in src)
-					del ag
-				for(var/obj/Items/Gear/Prosthetic_Limb/Blue_Grimoire/ag in src)
-					del ag
-				for(var/obj/Items/Gear/Crimson_Grimoire/cg in src)
-					del cg
-				for(var/obj/Items/Gear/Blood_Grimoire/bg in src)
-					del bg
-				for(var/obj/Skills/Queue/Ragna_Blade/rb in src)
-					del rb
-				for(var/obj/Skills/AutoHit/Giga_Slave/gs in src)
-					del gs
-				for(var/obj/Skills/Teleport/Traverse_Void/tv in src)
-					del tv
-				src << "You have lost access to any grimoires you had on you."
-			grimoire_reset=1
 
 		for(var/obj/Items/Enchantment/Magic_Crest/mc in src)
 			for(var/obj/Skills/s in mc.Spells)

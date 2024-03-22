@@ -79,8 +79,6 @@ blobDropper/proc/resetVariables(mob/Players/p)
         toDeath = 20 * (1 + p.AscensionsAcquired)
         getRandValue(p, override)
         flyingOutAnimation(_x, _y, _z)
-        //TODO: ANIMATION OF IT FLYING FROM PLAYER TO LOCATION
-        //TODO: DENSITY DETECTION! DON'T LET IT DROP ON A DENSE TILE
         loc = locate(_x, _y, _z)
         pixel_x = 0
         pixel_y = 0
@@ -97,8 +95,6 @@ blobDropper/proc/resetVariables(mob/Players/p)
         icon_state = "superheal"
         val = 1 + (0.1 * ascen) + (0.05 * (100 - p.Health))
     else
-        //TODO: make this pick from a list of buffs, i plan to give fat giantform on ascen so that should leave the list
-        // var/buff = getBuff(p) once i do ascensions come back
         buff = pick("PureReduction","Juggernaut","GiantForm","DemonicDurability")
         val = 0.1 + (0.1 * ascen) + (0.05 * ((100 - p.Health)/2))
     heldBuff = new(p, val, buff)

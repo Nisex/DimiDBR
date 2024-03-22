@@ -236,8 +236,6 @@ ascensions/majin
                 CalmAnger = 1
 /mob/proc/MajinAscension2()
     src.AscensionsAcquired=2
-    //TODO add new passive that reverses KBs AT HALF the rate
-    // INNOCENT
     Intimidation+=5
     majinPicks()
     NewAnger(1.6)

@@ -188,7 +188,6 @@ obj
 				p.ForMod = round(mi.for_mod + potBoon, 0.05)
 				p.OffMod = round(mi.off_mod + potBoon, 0.05)
 				p.DefMod = round(mi.def_mod + potBoon, 0.05)
-				p.RegenMod = round(mi.regen_mod + potBoon, 0.05)
 				p.RecovMod = round(mi.recov_mod + potBoon, 0.05)
 
 				p.Intimidation=mi.intimidation*(1+rand())
@@ -463,17 +462,13 @@ monster_info
 	var/potential=5
 	var/hostile=1
 	var/intimidation=1
-	var/econ=1//TODO: remove
-	var/mana=1//TODO: remove
 	var/potentialScaling = FALSE
-	var/energy_mod=1//TODO: remove
 	var/str_mod=1
 	var/end_mod=1
 	var/spd_mod=2
 	var/for_mod=1
 	var/off_mod=5
 	var/def_mod=0.25
-	var/regen_mod=1//TODO: remove
 	var/recov_mod=1
 	var/spammer = 1
 
@@ -548,7 +543,6 @@ monster_info
 		name="Gajalaka"
 		icon='GajalakaWild.dmi'
 		potential=5
-		energy_mod=1
 		str_mod=1.5
 		end_mod=2
 		for_mod=1
@@ -567,7 +561,6 @@ monster_info
 	dark_eye
 		name="Dark Eye"
 		icon='TentaEye.dmi'
-		energy_mod=2
 		str_mod=2
 		end_mod=2
 		for_mod=2
@@ -584,7 +577,6 @@ monster_info
 		icon=list('Android1.dmi', 'Android11.dmi', 'Android4.dmi')
 		potential=5
 		crazy_targets=0.3
-		energy_mod=2
 		str_mod=1
 		end_mod=0.5
 		for_mod=1
@@ -599,7 +591,6 @@ monster_info
 		icon='Spider.dmi'
 		hungry_chance=50
 		potential=15
-		energy_mod=2
 		str_mod=2
 		end_mod=0.5
 		for_mod=1.5
@@ -610,7 +601,6 @@ monster_info
 		icon='Scorpion.dmi'
 		hungry_chance=50
 		potential=15
-		energy_mod=2
 		str_mod=1
 		end_mod=3
 		for_mod=0.5

@@ -195,14 +195,6 @@ mob/var
 	HealthCut=0
 	EnergyMax=100
 	Energy=100
-	//todo: remove all energy
-	EnergyMod=1
-	EnergyOriginal=1
-	EnergyAscension=1
-	EnergyMultTotal=1
-	EnergyTrans=1
-	EnergyReplace=0
-	//end todo
 	EnergyCut=0
 	EnergyExpenditure=1//Crank that drain if higher than 1
 	EnergyUniqueness=1//EVERYONE'S A SNOWFLAKE
@@ -284,17 +276,6 @@ mob/var
 	DefCut=0
 	DefStolen=0
 	DefEroded=0
-	//todo: remove all regen
-	RegenMod=1
-	RegenOriginal=1
-	RegenMultTotal=1
-	RegenChaos=1
-	RegenAscension=0
-	RegenReplace
-	RegenTax=0
-	RegenCut=0
-	RegenEroded=0
-	//end todo
 	RecovMod=1
 	RecovOriginal=1
 	RecovMultTotal=1
@@ -313,17 +294,6 @@ mob/var
 	ExhaustedColor
 	BarelyStandingMessage
 	BarelyStandingColor
-
-	//TODO: remove all these bitches
-	PowerApparent=0
-	style_reset=0
-	zenkai_reset=0
-	cyber_reset=0
-	jagan_reset=0
-	sig_reset=0
-	potential_reset=0//did they exceed potential ranges?
-	hell_reset=0
-	grimoire_reset=0
 
 	Potential=1
 	PotentialStatus="Distracted"

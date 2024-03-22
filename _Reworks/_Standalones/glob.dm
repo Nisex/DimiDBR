@@ -160,7 +160,7 @@ globalTracker
 		WorldDamageMult = 1
 		WorldDefaultAcc = 50
 		WorldWhiffRate = 25
-		celestialObjectTicks = Hour(12)/10
+		celestialObjectTicks
 		NoSagaRaces = list(DEMON, DRAGON, ELF)
 // combat
 
