@@ -9,7 +9,6 @@ var
 	list/GlobalLandingLocations = list()
 	BaseUpdate=1 //Updates...base.
 	WorldBaseAmount=1 //sets everyones base to a number....mod...bluh bluh.
-	list/NoSagaRaces=list(/*"Saiyan", "Majin",*/ "Changeling", "Shinjin", "Demon", "Dragon")
 
 	WipeStart//Holds the time (midnight) that the wipe started at. Used to define starting RPP and daily potential.
 	DaysOfWipe

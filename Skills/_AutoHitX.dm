@@ -5577,7 +5577,7 @@ obj
 				if(def<0)
 					def=0.1
 				if(m.HasPridefulRage())
-					if(m.Race == "Saiyan")
+					if(m.isRace(SAIYAN))
 						if(Owner.passive_handler.Get("PridefulRage") >= 2)
 							def = 1
 						else

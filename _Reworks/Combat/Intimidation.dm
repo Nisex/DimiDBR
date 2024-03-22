@@ -68,7 +68,7 @@
     var/Effective=src.Intimidation
     if(src.ShinjinAscension=="Makai")
         Effective*=src.GetGodKi()*50
-    if(src.Race in list("Demon" /*"Majin"*/) || src.CheckSlotless("Majin"))
+    if(isRace(DEMON) || src.CheckSlotless("Majin"))
         Effective*=(src.Potential/2)
         if(src.isRace(DEMON)&&src.AscensionsAcquired>=5)
             Effective*=2

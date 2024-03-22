@@ -357,10 +357,7 @@ obj/Skills/Buffs/SlotlessBuffs/
 			set category="Skills"
 			if(usr.is_arcane_beast)
 				Mastery = usr.is_arcane_beast.Mastery
-				if(usr.Race=="Monster")
-					SwordAscension = max(1,min(3,usr.AscensionsUnlocked-1))
-				else //In the rare case a non monster race obtains it (alien primarily), switch the weapon scaling type. It does not scale as easily for non-monsters.
-					SwordAscension = min(2, (usr.AscensionsUnlocked * 0.5) + (usr.ssj["unlocked"] ? (usr.ssj["unlocked"] * 0.5) : 0) + (usr.trans["unlocked"] ? (usr.trans["unlocked"] * 0.5) : 0))
+				SwordAscension = min(2, (usr.AscensionsUnlocked * 0.5) + (usr.ssj["unlocked"] ? (usr.ssj["unlocked"] * 0.5) : 0) + (usr.trans["unlocked"] ? (usr.trans["unlocked"] * 0.5) : 0))
 			else
 				return
 			src.Trigger(usr)

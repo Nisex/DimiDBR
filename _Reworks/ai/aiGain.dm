@@ -104,7 +104,7 @@
                             amounttaken=0
                         if(Q.Deluged==1)
                             amounttaken=4
-                        if(src.Race in list("Android","Changeling","Majin","Dragon")||passive_handler.Get("SpaceWalk")||passive_handler.Get("Fishman")||src.FusionPowered)
+                        if(isRace(MAJIN)||isRace(DRAGON)||passive_handler.Get("SpaceWalk")||passive_handler.Get("Fishman")||src.FusionPowered)
                             amounttaken=0
                         src.Oxygen-=amounttaken
                         if(src.Oxygen<0)

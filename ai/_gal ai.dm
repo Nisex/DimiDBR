@@ -2108,7 +2108,7 @@ mob/Player/AI
 					src.Auraz("Remove")
 					src<<"You are too tired to power up."
 					src.PoweringUp=0
-					if(isRace(SAIYAN)||Race=="Half Saiyan")
+					if(isRace(SAIYAN))
 						if(src.TransActive()>0)
 							var/Skip=0
 							if(src.ssj["active"]==1)
@@ -2135,7 +2135,7 @@ mob/Player/AI
 					src.PoweringUp=0
 					src.Auraz("Remove")
 					src<<"You are too tired to power up."
-					if(isRace(SAIYAN)|Race=="Half Saiyan")
+					if(isRace(SAIYAN))
 						if(src.TransActive()>0)
 							var/Skip=0
 							if(src.ssj["active"]==1)

@@ -990,7 +990,7 @@ obj/Login
 			if(WorldLoading)
 				usr<<"Please wait until the world is done loading..."
 				return
-			if(usr.Race)return
+			if(usr.race)return
 			if(fexists("Saves/Players/[usr.ckey]"))
 				usr.client.LoadChar()
 			else

@@ -160,7 +160,7 @@ proc/removeDuplicates(list/list1)
 /mob/proc/getRacialPassives(hardRace = FALSE)
     . = list()
     if(!hardRace)
-        hardRace = race
+        hardRace = race.type
     switch(hardRace)
         if(MAJIN)
             . = getMajinRacials()

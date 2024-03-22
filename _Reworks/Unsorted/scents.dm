@@ -1,5 +1,5 @@
 mob/proc/setUpScent()
-    switch(usr.Target.Race)
+    switch(usr.Target.race.type)
         if(HUMAN)
             custom_scent=pick("Sweat","Gamer Musk","Flowery","Cologne")
         if(NAMEKIAN)

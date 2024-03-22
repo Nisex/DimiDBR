@@ -1145,7 +1145,7 @@ mob/proc/Update_Stat_Labels()
 		else
 			winshow(src, "Storage",0)
 			winshow(src, "StorageLabel",0)
-	if(!(src.Race in list("Android","Changeling","Majin","Dragon")))
+	if(!isRace(MAJIN)||!isRace(DRAGON))
 		if(src.Oxygen!=(src.OxygenMax/max(src.SenseRobbed,1)))
 			winshow(src, "BarOxygen",1)
 			src<<output("OXY: [round(Oxygen, 1)]","BarOxygen")
