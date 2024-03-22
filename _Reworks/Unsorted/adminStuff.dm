@@ -1,6 +1,6 @@
-/mob/Admin3/verb/Races()
+/*/mob/Admin3/verb/Races()
 	set name = "Races"
-	set category = "Utility"
+	set category = "Admin"
 	var/Human = 0
 	var/Majin = 0
 	var/Saiyan = 0
@@ -31,7 +31,7 @@
 	src<<"Monsters: [Monster]"
 	src<<"Namekians: [Namekian]"
 	src<<"Makyos: [Makyo]"
-
+*/
 
 var/GlobalStorage/globalStorage
 
