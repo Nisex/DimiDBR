@@ -2,7 +2,7 @@ var/global/min_damage_roll=0.3
 var/global/upper_damage_roll=0.9
 var/global/new_damage_calc = 0
 /mob/Admin3/verb/Alter_Damage_Rolls()
-	set category = "Admin Debug"
+	set category = "Admin"
 	var/newMin = input("Enter new minimum damage roll: ") as num
 	if(newMin < 0.1)
 		newMin = 0.1
@@ -16,7 +16,7 @@ var/global/new_damage_calc = 0
 
 
 /mob/Admin3/verb/experimental_dmg()
-	set category = "Admin Debug"
+	set category = "Admin"
 	var/input = input("Do you wanna turn on or off experimental dmg?") in list ("Yes", "No")
 	switch(input)
 		if("No")
