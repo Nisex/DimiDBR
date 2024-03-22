@@ -261,64 +261,6 @@ obj/Planets
 
 mob/var/tmp/UpgradeTime=0
 
-turf/verb/Upgrade()
-	set src in oview(1)
-	set category=null
-	//set background=1
-/*	if(usr.UpgradeTime)
-		usr<<"You cannot upgrade your walls again at this time, please wait!"
-		return*/
-	if(!(usr.client.mob in range(1,src))) return
-	if(src.Builder)
-		usr.UpgradeTime=1
-		var/buh
-		if(src.Builder==usr.ckey)
-			buh=input("Do you want to make your roofs flyoverable?")in list("Yes","No")
-		spawn(1500)usr.UpgradeTime=0
-
-		//for(var/turf/q in world) // Looping through world is BAD
-
-		for(var/turf/q in Turfs) // Turfs exists as a global list which contains all things placed via BUILD. Skips all non-player stuff =D
-			if(q.Builder==src.Builder)
-				if(buh)
-					if(buh=="Yes")
-						q.FlyOverAble=1
-					if(buh=="No")
-						q.FlyOverAble=0
-				if(1>=1)
-					if(1<80)
-						q.Health=max(q.Health,1*1*750000)
-					else if(1>79)
-						q.Health=max(q.Health,1*1*1*750000)
-				else if(1>1)
-					if(1<80)
-						q.Health=max(q.Health,1*1*750000)
-					else if(1>79)
-						q.Health=max(q.Health,1*1*1*750000)
-		for(var/turf/CustomTurf/q in CustomTurfs) // Turfs exists as a global list which contains all things placed via BUILD. Skips all non-player stuff =D
-			if(q.Builder==src.Builder)
-				if(buh)
-					if(buh=="Yes")
-						q.FlyOverAble=1
-					if(buh=="No")
-						q.FlyOverAble=0
-				if(1>=1)
-					if(1<80)
-						q.Health=max(q.Health,1*1*750000)
-					else if(1>79)
-						q.Health=max(q.Health,1*1*1*750000)
-				else if(1>1)
-					if(1<80)
-						q.Health=max(q.Health,1*1*750000)
-					else if(1>79)
-						q.Health=max(q.Health,1*1*1*750000)
-		//for(var/obj/q in world)
-		for(var/obj/q in worldObjectList)
-			if(q.Builder==src.Builder)
-				if(isnum(q.Health))
-					q.Health=max(q.Health,20*20*500000)
-		usr.OMessage(10,"[usr] upgraded the structure.")
-
 turf
 	Health=9000000000000000
 	IconsX
