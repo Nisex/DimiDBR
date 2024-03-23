@@ -189,7 +189,7 @@ race
 
 	human
 		name = "Human"
-		desc = "These are humans."
+		desc = "Humans are stubborn, steadfast survivors crafted from the God of Truth's dying breath."
 		visual = 'Humans.png'
 
 		passives = list("Desperation" = 1, "Adrenaline" = 0.5, "TechniqueMastery" = 5)
@@ -205,8 +205,9 @@ race
 
 	saiyan
 		name = "Saiyan"
-		desc = "These are saiyans."
+		desc = "Otherworldly outsiders, hailing from an empire of Yasai."
 		visual = 'Saiyan.png'
+
 		locked = TRUE
 
 		strength = 1.5
@@ -235,9 +236,11 @@ race
 
 	majin
 		name = "Majin"
-		desc = "These are majins."
+		desc = "Primordial ooze given shape from the overuse of magic, given life by Aether."
 		visual = 'Majins.png'
+
 		locked = TRUE
+
 		passives = list("StaticWalk" = 1, "Steady" = 1)
 		skills = list(/obj/Skills/Absorb, /obj/Skills/Buffs/SlotlessBuffs/Regeneration)
 
@@ -255,7 +258,9 @@ race
 
 	dragon
 		name = "Dragon"
-		desc = "These are dragons."
+		desc = "Dragons represent aspects of the world, said to be born of animosity. Reborn nearing times of great tragedy, they only regain their past lives of protecting the world at age 20."
+		visual = 'Dragon.png'
+
 		locked = TRUE
 
 		power = 5
@@ -285,7 +290,10 @@ race
 	eldritch
 		name = "Eldritch"
 		desc = "These are eldritches."
+		visual = 'Monster.png'
+
 		passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.3, "DeathField" = 0.3, "VoidField" = 0.3)
+
 		strength = 1.5
 		endurance = 2
 		speed = 1
@@ -300,9 +308,11 @@ race
 		onFinalization(mob/user)
 			user.Secret="Eldritch"
 			user.giveSecret("Eldritch")
+
 	beastman
 		name = "Beastman"
-		desc = "These are Beastmen."
+		desc = "Humanoids with a variety of animalistic traits dependent on their environment; often split into tribes of Tiger Tribe, Canine Tribe, and Bear Tribe."
+		visual = 'Monstrous.png'
 
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk)
 		strength = 1.25
@@ -320,7 +330,8 @@ race
 			..()
 	yokai
 		name = "Yokai"
-		desc = "These are Yokai."
+		desc = "Spirits said to be the children of the God of Time. Enslaved beneath the elves, these Yokai sport powerful magic; they remain convinced they are part of the harmony of the world."
+		visual = 'Makyo.png'
 
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form)
 		passives = list("ManaGeneration" = 2, "TechniqueMastery" = 2)
@@ -335,7 +346,9 @@ race
 
 	makyo
 		name = "Makyo"
-		desc = "These are Makyo."
+		desc = "These spiritual beings are said to have arosen from nowhere, often taking up place as guardians of graveyards, spirit gates and temples."
+		visual = 'Demon.png'
+
 		strength = 1.5
 		endurance = 1.5
 		speed = 1
@@ -346,7 +359,9 @@ race
 
 	high_faoroan
 		name = "High Faoroan"
-		desc = "These are Elves."
+		desc = "The first creation of the God of Truth, able to speak truth into the world with their words. Known as the royalty of Kyoku."
+		visual = 'Elf.png'
+
 		locked = TRUE
 
 		power = 5
@@ -362,7 +377,9 @@ race
 
 	demon
 		name = "Demon"
-		desc = "These are Demons."
+		desc = "Aspects of the Demon King's essence, shattered and splintered into their own forms until evolving into their own being."
+		visual = 'Eldritch.png'
+
 		locked = TRUE
 
 		power = 5
@@ -399,7 +416,7 @@ race
 		name = "Namekian"
 		icon_neuter = 'Namek1.dmi'
 		gender_options = list("Neuter")
-		desc = "These are namekians."
+		desc = "Outsiders from a realm named Gaia, refugees sent to prosper on Copenlagen. These often take on humanoid features with skin tones from green to blue."
 		visual = 'Namek.png'
 
 		strength = 1.5
