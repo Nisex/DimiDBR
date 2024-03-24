@@ -477,7 +477,7 @@ obj
 				NoAttackLock=1
 				Distance=10
 				Instinct=4
-				DamageMult=2
+				DamageMult=1.8
 				Rounds=5
 				DelayTime=30
 				GuardBreak=1

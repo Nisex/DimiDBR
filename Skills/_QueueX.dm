@@ -585,7 +585,7 @@ obj
 
 				//Hiten Finisher
 				Flash_Strike
-					DamageMult=4
+					DamageMult=3
 					Counter=1
 					Warp=10
 					SpeedStrike=2
@@ -593,7 +593,7 @@ obj
 					FollowUp="/obj/Skills/AutoHit/Shunshin_Massacre"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Shunshin"
 				True_Flash_Strike
-					DamageMult=6
+					DamageMult=4
 					Counter=1
 					Warp=10
 					SpeedStrike=4
