@@ -9029,7 +9029,7 @@ NEW VARIABLES
 			DarkChange=1
 			FlashChange=1
 			VaizardShatter=1
-			Cooldown=240
+			Cooldown=-1
 			passives = list("GiantForm" = 1, "HybridStrike" = 1)
 			IconLockBlend=2
 			LockX=-32
@@ -9071,7 +9071,6 @@ NEW VARIABLES
 					return
 				if(!usr.BuffOn(src))
 					passives = list("GiantForm" = 1, "HybridStrike" = 1, "PureReduction" = 1, "Flow" = -1)
-					WoundCost = clamp(5 - (usr.SagaLevel-5)*2,1,5)
 					VaizardHealth = 0.25 * (usr.SagaLevel-4)
 					EnergyCost = 10 - (usr.SagaLevel-4)
 					FatigueCost = 6 - (usr.SagaLevel-4)
@@ -9087,6 +9086,7 @@ NEW VARIABLES
 						src.OffMessage="dissipates the mighty avatar..."
 					if(usr.SagaLevel>=7)
 						DefMult = 1
+						Cooldown = 240
 						src.ActiveMessage="conjures a fully humanoid, titanic figure around them!"
 						src.OffMessage="dissipates the divine avatar..."
 				src.Trigger(usr)
