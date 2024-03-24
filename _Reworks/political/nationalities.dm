@@ -42,7 +42,7 @@ characterInformation
                 if(!(secondNationality in DEDICATED_NATIONALITIES))
                     usr<<"Your nationality has been set to [nationality], however it is not in the dedicated list of nationalities and as such, the admins have been alerted."
                     for(var/mob/admin in admins)
-                         admin<<"[usr]([usr.ckey]) has set their second nationality to [secondNationality], please edit it if it is incorrect."
+                        admin<<"[usr]([usr.ckey]) has set their second nationality to [secondNationality], please edit it if it is incorrect."
         else
             secondNationality = FALSE
 
