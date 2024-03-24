@@ -934,11 +934,11 @@ NEW VARIABLES
 				// 	if(8)
 				// 		FatigueHeal = 100
 				// 		EnergyHeal = 100
-				PUSpike = 50 + (8 * num) // changed to 150%(pu) + 8xgate; so power wall doesnt jackhammer a asshole.
+				PUSpike = 50 + (5 * num) // changed to 150%(pu) + 8xgate; so power wall doesnt jackhammer a asshole.
 				FatigueLeak = num+1 / p.SagaLevel
 				BleedHit = p.SagaLevel-1
 				passives = list("PUSpike" = PUSpike, "KiControl" = 1, "PULock" = 1, "Steady" = 1+(num/2),\
-				"DemonicDurability" = clamp(num*0.25,0.25,4), "HeavyHitter" = num / 8, \
+				"DemonicDurability" = clamp(num*0.2,0.25,4), "HeavyHitter" = num / 8, \
 				"Flicker" = round(clamp(num/2,1,8)), "Godspeed" = round(clamp(num/2,1,8)),\
 				"SuperDash" = puBoon ? 1 : 0)
 				KenWave=clamp(num / 2, 1, 4)
@@ -991,9 +991,13 @@ NEW VARIABLES
 
 			proc/shutOffEffects(mob/p, level)
 				p.GatesActive=0
+				if(level >= p.SagaLevel) return
+
 				var/tax = clamp(0.05 * level, 0.05, 1)
 				if(taxReduction)
 					tax = clamp(0.05 - taxReduction * level, 0.005, 1)
+
+
 				if(!ignoreWounded)
 					if(p.TotalInjury>=35 && p.BPPoison>=0.9)
 						var/Time=RawHours(1)
@@ -14736,68 +14740,69 @@ mob
 			if(B.GatesLevel)
 				if(B.ShuttingGates)
 					usr.GatesActive=0
-					switch(B.GatesLevel)//It only cares about what the highest gate you used was
-						if(1)
-							if(src.GatesNerfPerc<=20)
-								src.GatesNerfPerc=20
-								src.GatesNerf=RawMinutes(1)
-							usr.AddStrTax(0.05)
-							usr.AddEndTax(0.05)
-							usr.AddSpdTax(0.05)
-						if(2)
-							if(src.GatesNerfPerc<=25)
-								src.GatesNerfPerc=25
-								src.GatesNerf=RawMinutes(4)
-							usr.AddStrTax(0.1)
-							usr.AddEndTax(0.1)
-							usr.AddSpdTax(0.1)
-						if(3)
-							if(src.GatesNerfPerc<=30)
-								src.GatesNerfPerc=30
-								src.GatesNerf=RawHours(1)
-							usr.AddStrTax(0.15)
-							usr.AddEndTax(0.15)
-							usr.AddSpdTax(0.15)
-						if(4)
-							if(src.GatesNerfPerc<=35)
-								src.GatesNerfPerc=35
-								src.GatesNerf=RawHours(4)
-							usr.AddStrTax(0.2)
-							usr.AddEndTax(0.2)
-							usr.AddSpdTax(0.2)
-						if(5)
-							if(src.GatesNerfPerc<=40)
-								src.GatesNerfPerc=40
-								src.GatesNerf=RawHours(6)
-							usr.AddStrTax(0.25)
-							usr.AddEndTax(0.25)
-							usr.AddSpdTax(0.25)
-						if(6)
-							if(src.GatesNerfPerc<=45)
-								src.GatesNerfPerc=45
-								src.GatesNerf=RawHours(1)
-							usr.AddStrTax(0.3)
-							usr.AddEndTax(0.3)
-							usr.AddSpdTax(0.3)
-						if(7)
-							if(src.GatesNerfPerc<=50)
-								src.GatesNerfPerc=50
-								src.GatesNerf=RawHours(4)
-							usr.AddStrTax(0.5)
-							usr.AddEndTax(0.5)
-							usr.AddSpdTax(0.5)
-						if(8)
-							src.GatesNerfPerc=90
-							src.GatesNerf=-1
-							src.TotalInjury+=90
-							src.Unconscious()
-							src.Burn=100
-							src.HealthCut=0.5
-							src.EnergyCut=0.5
-							src.StrCut=0.5
-							src.EndCut=0.5
-							src.SpdCut=0.5
-							src.RecovCut=0.5
+					if(B.GatesLevel >= usr.SagaLevel)
+						switch(B.GatesLevel)//It only cares about what the highest gate you used was
+							if(1)
+								if(src.GatesNerfPerc<=20)
+									src.GatesNerfPerc=20
+									src.GatesNerf=RawMinutes(1)
+								usr.AddStrTax(0.05)
+								usr.AddEndTax(0.05)
+								usr.AddSpdTax(0.05)
+							if(2)
+								if(src.GatesNerfPerc<=25)
+									src.GatesNerfPerc=25
+									src.GatesNerf=RawMinutes(4)
+								usr.AddStrTax(0.1)
+								usr.AddEndTax(0.1)
+								usr.AddSpdTax(0.1)
+							if(3)
+								if(src.GatesNerfPerc<=30)
+									src.GatesNerfPerc=30
+									src.GatesNerf=RawHours(1)
+								usr.AddStrTax(0.15)
+								usr.AddEndTax(0.15)
+								usr.AddSpdTax(0.15)
+							if(4)
+								if(src.GatesNerfPerc<=35)
+									src.GatesNerfPerc=35
+									src.GatesNerf=RawHours(4)
+								usr.AddStrTax(0.2)
+								usr.AddEndTax(0.2)
+								usr.AddSpdTax(0.2)
+							if(5)
+								if(src.GatesNerfPerc<=40)
+									src.GatesNerfPerc=40
+									src.GatesNerf=RawHours(6)
+								usr.AddStrTax(0.25)
+								usr.AddEndTax(0.25)
+								usr.AddSpdTax(0.25)
+							if(6)
+								if(src.GatesNerfPerc<=45)
+									src.GatesNerfPerc=45
+									src.GatesNerf=RawHours(1)
+								usr.AddStrTax(0.3)
+								usr.AddEndTax(0.3)
+								usr.AddSpdTax(0.3)
+							if(7)
+								if(src.GatesNerfPerc<=50)
+									src.GatesNerfPerc=50
+									src.GatesNerf=RawHours(4)
+								usr.AddStrTax(0.5)
+								usr.AddEndTax(0.5)
+								usr.AddSpdTax(0.5)
+							if(8)
+								src.GatesNerfPerc=90
+								src.GatesNerf=-1
+								src.TotalInjury+=90
+								src.Unconscious()
+								src.Burn=100
+								src.HealthCut=0.5
+								src.EnergyCut=0.5
+								src.StrCut=0.5
+								src.EndCut=0.5
+								src.SpdCut=0.5
+								src.RecovCut=0.5
 					B.GatesLevel=0
 			if(B.WoundNerf)
 				switch(B.WoundNerf)
