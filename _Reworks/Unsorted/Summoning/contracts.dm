@@ -85,9 +85,8 @@ Contract item
     switch((input(usr, "Are you sure you want to break the contract? If there are reprecussions they will happen") in list("Yes","No")))
         if("Yes")
             usr << "You feel a sharp pain in your chest as the contract breaks!"
-            for(var/mob/admin in world)
-                if(admin.Admin)
-                    admin<<"[usr]([usr.ckey]) broken a contract with [summoner]! Please address the situation!"
+            for(var/mob/admin in admins)
+                admin<<"[usr]([usr.ckey]) broken a contract with [summoner]! Please address the situation!"
             for(var/mob/summonerr in world)
                 if(summonerr.key == summoner)
                     summonerr << "You feel a sharp pain in your chest as the contract breaks!"

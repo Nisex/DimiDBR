@@ -273,8 +273,10 @@ mob/proc/Admin(var/blah,var/Z,var/H)
 		if("Check")
 			if(src.key in CodedAdmins)
 				src.Admin("Give",CodedAdmins[src.key],1)
+				admins |= src
 			else if(src.key in Admins)
 				src.Admin("Give",Admins[src.key])
+				admins |= src
 			if(src.key in Mappers)
 				src.Admin("GiveMapper")
 		if("Give")
@@ -303,6 +305,8 @@ mob/proc/Admin(var/blah,var/Z,var/H)
 			src << "Mapper verbs removed."
 		if("Remove")
 			if(CodedAdmins.Find(src.key))return
+			if(src in admins)
+				admins -= src
 			src.verbs-=typesof(/mob/Admin1/verb,/mob/Admin2/verb,/mob/Admin3/verb,/mob/Admin4/verb)
 			Admins.Remove(src.key)
 			src.Admin=0
@@ -325,11 +329,10 @@ mob/proc/CheckPunishment(var/z)
 				return 1
 
 proc/AdminMessage(var/msg)
-	for(var/mob/Players/M in players)
-		if(M.Admin)
-			for(var/obj/Communication/x in M)
-				if(x.AdminAlerts)
-					M<<"<b><font color=red>(Admin)</b><font color=fuchsia> [msg]"
+	for(var/mob/Players/M in admins)
+		for(var/obj/Communication/x in M)
+			if(x.AdminAlerts)
+				M<<"<b><font color=red>(Admin)</b><font color=fuchsia> [msg]"
 
 proc/Punishment(var/z)
 	z=params2list(z)
@@ -450,10 +453,9 @@ mob/proc/ViewList()
 mob/proc/PM(var/mob/who, var/AhelpMessage, var/AhelpKey)
 	var/UserInput=input("What do you want to say to [who.key]?") as text|null
 	if(UserInput)
-		for(var/mob/Players/Q in players)
-			if(Q.Admin)
-				if(Q!=src&&Q!=who)
-					Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> to <a href=?src=\ref[who];action=MasterControl;do=PM2>[who.key]</a href> :[UserInput]"
+		for(var/mob/Players/Q in admins)
+			if(Q!=src&&Q!=who)
+				Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> to <a href=?src=\ref[who];action=MasterControl;do=PM2>[who.key]</a href> :[UserInput]"
 		src<<"<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]"
 		who<<"<font color=#00FF99><b>(Admin PM)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> :[UserInput]"
 		for(var/Admin_Help_Object/M in AdminHelps)
@@ -463,12 +465,11 @@ mob/proc/PM(var/mob/who, var/AhelpMessage, var/AhelpKey)
 mob/proc/PM2(var/mob/who)
 	var/UserInput = input("What do you want to say to [who.key]?") as text|null
 	if(UserInput&&who)
-		for(var/mob/Players/Q in players)
-			if(Q.Admin)
-				if(Q?:PingSound)
-					src << sound('Sounds/Ping.ogg')
-				if(Q!=src&&Q!=who)
-					Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> to <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]"
+		for(var/mob/Players/Q in admins)
+			if(Q?:PingSound)
+				src << sound('Sounds/Ping.ogg')
+			if(Q!=src&&Q!=who)
+				Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> to <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]"
 		Log("AdminPM","(Admin PM from [src.key] to [who.key]): [UserInput]")
 		src<<output("<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]", "output")
 		who<<output("<font color=#00FF99><b>(Admin PM)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> :[UserInput]", "output")
@@ -618,9 +619,9 @@ TO BE CORRECTED
 		set category="Admin"
 		if(!Writing["AdminNotes"])
 			Writing["AdminNotes"]=1
-			for(var/mob/M) if(M.Admin<=4) M<<"[usr] is editing the admin notes..."
+			for(var/mob/M in admins) M<<"[usr] is editing the admin notes..."
 			AdminNotes=input(usr,"Notes!","Edit Notes",AdminNotes) as message
-			for(var/mob/F) if(F.Admin<=4) F<<"[usr] is done editing the admin notes..."
+			for(var/mob/F in admins) F<<"[usr] is done editing the admin notes..."
 			Writing["AdminNotes"]=null
 			BootFile("Misc","Save")
 		else usr<<"<b>Someone is already editing the Admin Notes."
@@ -730,12 +731,11 @@ TO BE CORRECTED
 	AdminChat(c as text)
 		set category = "Admin"
 		Log("Admin", "<b><font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=cyan>Admin Chat:<font color=white>[usr.key]:</b><font color=green> [c]", NoPinkText=1)
-		for(var/mob/Players/M in players)
-			if(M.Admin)
-				if(M.Timestamp)
-					M<<"<b><font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=cyan>Admin Chat:<font color=white>[usr.key]:</b><font color=green> [c]"
-				else
-					M<<"<b><font color=cyan>Admin Chat:<font color=white>[usr.key]:</b><font color=green> [c]"
+		for(var/mob/Players/M in admins)
+			if(M.Timestamp)
+				M<<"<b><font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=cyan>Admin Chat:<font color=white>[usr.key]:</b><font color=green> [c]"
+			else
+				M<<"<b><font color=cyan>Admin Chat:<font color=white>[usr.key]:</b><font color=green> [c]"
 
 	Observe_(atom/A as mob|obj in world)
 		set category="Admin"
@@ -892,7 +892,7 @@ TO BE CORRECTED
 							)
 						)
 
-		for(var/mob/M in players)if(M.Admin)M<<"[usr] used message (global)."
+		for(var/mob/M in admins) M<<"[usr] used message (global)."
 
 	Teleport(mob/M as mob|obj in world)
 		set category="Admin"
@@ -1172,9 +1172,9 @@ mob/Admin2/verb
 		set category="Admin"
 		if(!Writing["Story"])
 			Writing["Story"]=1
-			for(var/mob/M) if(M.Admin<=4) M<<"Admin is editing the story..."
+			for(var/mob/M in admins) M<<"Admin is editing the story..."
 			Story=input(usr,"Edit!","Edit Story",Story) as message
-			for(var/mob/F) if(F.Admin<=4) F<<"Admin is done editing the story..."
+			for(var/mob/F in admins) F<<"Admin is done editing the story..."
 			Writing["Story"]=null
 			BootFile("Misc","Save")
 		else usr<<"<b>Someone is already editing the story."
@@ -1182,9 +1182,9 @@ mob/Admin2/verb
 		set category="Admin"
 		if(!Writing["Notes"])
 			Writing["Notes"]=1
-			for(var/mob/M) if(M.Admin<=4) M<<"Admin is editing the log-in notes..."
+			for(var/mob/M in admins) M<<"Admin is editing the log-in notes..."
 			Notes=input(usr,"Notes!","Edit Notes",Notes) as message
-			for(var/mob/F) if(F.Admin<=4) F<<"Admin is done editing the log-in notes..."
+			for(var/mob/F in admins) F<<"Admin is done editing the log-in notes..."
 			Writing["Notes"]=null
 			BootFile("Misc","Save")
 		else usr<<"<b>Someone is already editing the log-in notes."
@@ -1192,9 +1192,9 @@ mob/Admin2/verb
 		set category="Admin"
 		if(!Writing["Ranks"])
 			Writing["Ranks"]=1
-			for(var/mob/M) if(M.Admin<=4) M<<"Admin is editing the ranks..."
+			for(var/mob/M in admins) M<<"Admin is editing the ranks..."
 			Ranks=input(usr,"Edit!","Edit Ranks",Ranks) as message
-			for(var/mob/F) if(F.Admin<=4) F<<"Admin is done editing the ranks..."
+			for(var/mob/F in admins) F<<"Admin is done editing the ranks..."
 			Writing["Ranks"]=null
 			BootFile("Misc","Save")
 		else usr<<"<b>Someone is already editing the story."
@@ -1616,9 +1616,9 @@ mob/Admin3/verb
 		set category="Admin"
 		if(!Writing["Rules"])
 			Writing["Rules"]=1
-			for(var/mob/M) if(M.Admin<=4) M<<"[usr] is editing the rules..."
+			for(var/mob/M in admins) M<<"[usr] is editing the rules..."
 			Rules=input(usr,"Edit!","Edit Rules",Rules) as message
-			for(var/mob/F) if(F.Admin<=4) F<<"[usr] is done editing the rules..."
+			for(var/mob/F in admins) F<<"[usr] is done editing the rules..."
 			Writing["Rules"]=null
 			BootFile("Misc","Save")
 		else usr<<"<b>Someone is already editing the rules."

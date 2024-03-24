@@ -3667,7 +3667,7 @@ turf/Special
 		Enter(mob/A)
 			if(ismob(A))
 				//Let people build in blankspace if they have XYZ sight.
-				if(A.Admin>0)
+				if(A.Admin)
 					return ..()
 				if(A.Mapper)
 					return ..()

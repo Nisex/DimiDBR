@@ -20,9 +20,8 @@ characterInformation
 
             if(!(nationality in DEDICATED_NATIONALITIES))
                 usr<<"Your nationality has been set to [nationality], however it is not in the dedicated list of nationalities and as such, the admins have been alerted."
-                for(var/mob/admin in players)
-                    if(admin.Admin)
-                        admin<<"[p]([p.ckey]) has set their nationality to [nationality], please edit it if it is incorrect."
+                for(var/mob/admin in admins)
+                    admin<<"[p]([p.ckey]) has set their nationality to [nationality], please edit it if it is incorrect."
         var/yesno = input(p, "Do you have a second nationality?") in list("Yes", "No")
         if(yesno == "Yes")
             secondNationality = input(p, "What is your second nationality?") in NATIONALITIES - nationality
@@ -42,9 +41,8 @@ characterInformation
                     tempsecondNationality = input(p, "What nationality?") as text
                 if(!(secondNationality in DEDICATED_NATIONALITIES))
                     usr<<"Your nationality has been set to [nationality], however it is not in the dedicated list of nationalities and as such, the admins have been alerted."
-                    for(var/mob/admin in players)
-                        if(admin.Admin)
-                            admin<<"[usr]([usr.ckey]) has set their second nationality to [secondNationality], please edit it if it is incorrect."
+                    for(var/mob/admin in admins)
+                         admin<<"[usr]([usr.ckey]) has set their second nationality to [secondNationality], please edit it if it is incorrect."
         else
             secondNationality = FALSE
 

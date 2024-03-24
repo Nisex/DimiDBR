@@ -24,8 +24,6 @@ mob/verb/SkinPM2()
 			if(Q.Admin)
 				if(Q!=src&&Q!=target)
 					Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> to <a href=?src=\ref[mobIntendedKey];action=MasterControl;do=PM2;>[mobIntendedKey]</a href> :[UserInput]"
-			if(Q.name=="Cat")
-				src<<"Meow!"
 		Log("AdminPM","(Admin PM from [src.key] to [target.key]): [UserInput]")
 		src<<"<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[target];action=MasterControl;do=PM2;>[target.key]</a href> :[UserInput]"
 
@@ -89,7 +87,7 @@ mob/verb/AdminHelp(var/txt as message)
 	txt=copytext(txt,1,10000)
 	AHelp.AdminHelp_Message = txt
 	AdminHelps.Add(AHelp)
-	for(var/mob/Players/M in players)
+	for(var/mob/Players/M in admins)
 		if(M.Admin)
 			M <<"<font color=red>(PLAYER HELP)</font color> <a href=?src=\ref[usr];action=MasterControl;do=PM;ID=[AHelp.UniqueID]>[usr.key]</a href>[M.Controlz(usr)] : [txt]"
 			M.RefreshListAhelp()

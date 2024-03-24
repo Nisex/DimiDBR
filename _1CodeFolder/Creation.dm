@@ -495,7 +495,8 @@ mob/Players
 		last_online = world.realtime
 		gain_loop.Remove(src)
 
-
+		if(src in admins)
+			admins -= src
 		// mainLoop -= src
 
 		if(length(savedRoleplay) >= 1)
@@ -592,6 +593,8 @@ mob/Creation
 		usr.loc=locate(1,7,1)
 
 	Logout()
+		if(src in admins)
+			admins -= src
 		..()
 		del(usr)
 
