@@ -1194,7 +1194,7 @@ mob
 						src.AddPoison(val*0.5, defender)
 
 
-			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.Defiance&&!defender.Oozaru)
+			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.passive_handler.Get("Defiance")&&!defender.Oozaru)
 				if(defender.DefianceCounter<10)
 					if(defender.Anger)
 						if(val>=(1/defender.AscensionsAcquired)&&val<(2/defender.AscensionsAcquired))
@@ -3917,7 +3917,7 @@ mob
 			if(src.potential_trans)
 				if(src.potential_trans > Return)
 					Return=src.potential_trans
-			
+
 			if(HasPassive("Transformation Power")) // add straight potential
 				Return+=src.GetPassive("Transformation Power")
 

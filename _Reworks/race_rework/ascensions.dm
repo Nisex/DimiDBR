@@ -754,6 +754,20 @@ ascension
 
 		five
 
+	saiyan
+		one
+			unlock_potential = -1
+			choices = list("Pride" = /ascension/sub_ascension/saiyan/pride, "Honor" =  /ascension/sub_ascension/saiyan/honor, "Zeal" /ascension/sub_ascension/saiyan/zeal)
+			intimidation = 10
+		two
+			unlock_potential = -1
+			anger = .25
+		three
+			unlock_potential = -1
+		four
+			unlock_potential = -1
+			anger = .25
+
 	majin
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
@@ -815,6 +829,7 @@ ascension
 					endurance = -0.1
 					speed = 0.25
 					passives = list("UnhingedForm" = 0.5)
+				..()
 
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
@@ -842,6 +857,7 @@ ascension
 					endurance = -0.1
 					speed = 0.25
 					passives = list("UnhingedForm" = 0.5)
+				..()
 
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
@@ -868,8 +884,22 @@ ascension
 					speed = 0.2
 					passives = list("UnhingedForm" = 0.5)
 					anger = 0.5
+				..()
 
 	sub_ascension
+		saiyan
+			honor
+				skills = list(/obj/Skills/Buffs/SlotlessBuffs/Saiyan_Grit)
+				passives = list("Defiance" = 1)
+
+			pride
+				skills = list(/obj/Skills/Buffs/SlotlessBuffs/Saiyan_Dominance)
+				passives = list("Pride" = 1)
+
+			zeal
+				skills = list(/obj/Skills/Buffs/SlotlessBuffs/Saiyan_Soul)
+				passives = list("Adaptation" = 1)
+
 		human
 			technology
 				rppAdd = 0.5

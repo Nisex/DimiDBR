@@ -2411,7 +2411,7 @@ mob
 				Return++
 			return Return
 		HasAdaptation()
-			if(src.Adaptation)
+			if(src.passive_handler.Get("Adaptation"))
 				return 1
 			if(src.StyleActive in list("Balance", "Metta Sutra", "West Star", "Shaolin"))
 				return 1
