@@ -546,6 +546,12 @@ ascension
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
+
+					if("Wind")
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
+						speed += 0.25
+						offense += 0.25
+						defense += 0.25
 				..()
 
 		two
@@ -564,6 +570,12 @@ ascension
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
+
+					if("Wind")
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
+						speed += 0.25
+						offense += 0.25
+						defense += 0.25
 				..()
 
 		three
@@ -582,6 +594,12 @@ ascension
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
+
+					if("Wind")
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
+						speed += 0.25
+						offense += 0.25
+						defense += 0.25
 				..()
 		four
 			onAscension(mob/owner)
@@ -598,6 +616,12 @@ ascension
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
+
+					if("Wind")
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
+						speed += 0.25
+						offense += 0.25
+						defense += 0.25
 				..()
 		five
 			onAscension(mob/owner)
@@ -614,6 +638,12 @@ ascension
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
+
+					if("Wind")
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
+						speed += 0.25
+						offense += 0.25
+						defense += 0.25
 				..()
 	makyo
 		one

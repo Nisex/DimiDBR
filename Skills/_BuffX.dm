@@ -3789,10 +3789,6 @@ NEW VARIABLES
 					OffMult=1.1
 					DefMult=1.2
 					HairLock=1
-					SoftStyle=1
-					SpiritStrike = 1
-					Freezing=1
-					Erosion=0.3
 					ArmorIcon='goldsaintaquarius_armor.dmi'
 					TopOverlayLock='goldsaintaquarius_helmet.dmi'
 					ActiveMessage="dons the Gold Cloth of Aquarius, embracing its overflowing calmness!"
@@ -3814,9 +3810,7 @@ NEW VARIABLES
 					ForMult=1.2
 					OffMult=1.1
 					DefMult=1.5
-					Toxic=1
 					ArmorElement="Poison"
-					DeathField=5
 					ArmorIcon='goldsaintpisces_armor.dmi'
 					TopOverlayLock='goldsaintpisces_helmet.dmi'
 					ActiveMessage="dons the Gold Cloth of Pisces, embracing its deceptive gleam!"
@@ -3844,12 +3838,7 @@ NEW VARIABLES
 			SwordIconSecond='KingdomKey.dmi'
 			SwordXSecond=-32
 			SwordYSecond=-32
-			ManaLeak=2
 			ManaThreshold=1
-			Pursuer=1
-			Flicker=1
-			StunningStrike=1
-			DoubleStrike=1
 			StrMult=1.5
 			OffMult=1.5
 			KenWave=1
@@ -3912,10 +3901,6 @@ NEW VARIABLES
 			ABuffNeeded=list("Keyblade")
 			ManaLeak=1
 			ManaThreshold=1
-			QuickCast=1
-			Skimming=1
-			SpecialStrike=1
-			MovingCharge=1//Battlemage passive
 			passives = list("ManaLeak"= 1, "QuickCast"= 2, "Skimming" = 1, "SpecialStrike" = 1)
 			ForMult=1.5
 			DefMult=1.5
@@ -10669,7 +10654,7 @@ NEW VARIABLES
 					BurnAffected = 1
 					NeedsHealth = 10
 					TooMuchHealth = 25
-					ActiveMessage = "ignited themselves in a blaze of passion!!"
+					ActiveMessage = "ignites themselves in a blaze of passion!!"
 					OffMessage = "calms their fiery passion..."
 					Cooldown = 120
 					adjust(mob/p)
@@ -10684,6 +10669,22 @@ NEW VARIABLES
 						BurnAffected = 12 - (2 * asc)
 						passives = list("DemonicDurability" = DemonicDurability, "SoulFire" = SoulFire, "HybridStrike" = HybridStrike)
 						Intimidation = 1.25 + (0.25 * asc)
+					Trigger(mob/User, Override = FALSE)
+						adjust(User)
+						..()
+
+				Wind_Supremacy
+					// Wind Dragon Racial
+					ActiveMessage = "takes to the skies as the very winds heed their call!"
+					OffMessage = "finally graces the earth once again with their presence..."
+					Cooldown = 120
+					adjust(mob/p)
+						if(altered) return
+						var/asc = p.AscensionsAcquired
+						NeedsHealth = 10 + (5 * asc)
+						TooMuchHealth = 20 + (5 * asc)
+						SpdMult = 1 + max(0.1,asc*0.1)
+						passives = list("Skimming" = 1+asc, "Godspeed" = 1+asc/1.5, "Pursuer" = 1+asc/2, "Flicker" = 1+asc/2, "BlurringStrikes" = asc/4)
 					Trigger(mob/User, Override = FALSE)
 						adjust(User)
 						..()

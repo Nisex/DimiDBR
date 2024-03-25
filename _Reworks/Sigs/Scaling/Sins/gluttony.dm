@@ -9,17 +9,17 @@
     var/list/eatenPeople = list() // really lazy cause this should be given to people who are trusted most likely
     IconLock = 'Black Rock Flame.dmi'
     ElementalDefense = "Void"
-    
+
     proc/resetVariables()
         gluttonStorage = 0
-    
+
 
     proc/setVariables(mob/p)
         EndMult = 1 + (p.Potential/100)
         StrMult = 1 + (p.Potential/200)
         ForMult = 1 + (p.Potential/200)
         maxGluttonStorage = 100 + (p.Potential*2)
-        hungerMult = 1 + (p.Potential/200) 
+        hungerMult = 1 + (p.Potential/200)
         if(anAcquiredTaste)
             passives = list("Gluttony" = round(p.Potential/100,0.1), "BulletKill" = 1, "Siphon" = round(p.Potential/100, 0.1) ,\
                 "Juggernaut" = 0.1 * anAcquiredTaste, "DemonicDurability" = 0.1 * anAcquiredTaste, Hellpower = 0.05 * anAcquiredTaste)
@@ -70,7 +70,7 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Sin/Gluttony/Consumption
     Cooldown = 120
-    var/MinActivation = 50 
+    var/MinActivation = 50
     StableHeal = 1
     proc/canActivate(mob/p)
         if(p.SpecialBuff)
@@ -83,13 +83,13 @@
         passives = list("Gluttony" = round(p.Potential/100,0.5), "ManaSteal" = p.Potential/4, "EnergySteal" = p.Potential/4, "PureReduction" = p.Potential/25, "LifeSteal" = p.Potential/8)
         var/baseHeal = p.Potential/20
         var/missingHealth = abs(p.Health - 100)
-        var/boons = 1 + ((p.SpecialBuff:anAcquiredTaste / 20) + (p.SpecialBuff:gluttonStorage/p.SpecialBuff:maxGluttonStorage) ) 
+        var/boons = 1 + ((p.SpecialBuff:anAcquiredTaste / 20) + (p.SpecialBuff:gluttonStorage/p.SpecialBuff:maxGluttonStorage) )
         var/perMissing = 0.008
         TimerLimit = 20 + (p.Potential/4)
         HealthHeal = (baseHeal + (missingHealth * perMissing * boons)) / (20 + (p.Potential/4))
         MinActivation = 50 + p.Potential
         Cooldown = 360 - (p.Potential*2)
-    
+
     verb/Consumption()
         set category = "Skills"
         if(canActivate(usr) && usr.SpecialBuff:gluttonStorage >= MinActivation)
@@ -113,7 +113,7 @@
                 usr.Activate(consumptionAura)
         else
             usr << "You don't have enough energy stored to consume! ([MinActivation] stored energy required)])"
-       
+
 
 
 /obj/Skills/AutoHit/Sin/Gluttony/Consumption_Aura
