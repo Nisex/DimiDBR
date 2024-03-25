@@ -6,8 +6,8 @@ var/tmp/list/players = list()
 var/tmp/list/admins = list()
 
 world
-	name="Roleplay Rebirth: Giga Taco Edition"
-	status="DBR: Giga Tower"
+	name="Roleplay Rebirth: Dimitri Edition"
+	status="DBR: Copenlagen"
 	turf=/turf/Special/Blank
 	mob= /mob/Creation
 	hub="AmatsuDarkfyre.RoleplayRebirth"
