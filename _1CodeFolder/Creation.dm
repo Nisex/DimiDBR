@@ -178,9 +178,9 @@ mob/Players
 				Reset_Overlays()
 
 		//stop holding zanzo charges
-		if(usr.ActiveZanzo)
-			usr.ActiveZanzo=0
-		for(var/obj/Skills/Zanzoken/z in usr)
+		if(ActiveZanzo)
+			ActiveZanzo=0
+		for(var/obj/Skills/Zanzoken/z in src)
 			z.ZanzoAmount=0
 
 		if(updateVersion != glob.UPDATE_VERSION)
