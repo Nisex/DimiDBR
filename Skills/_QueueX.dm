@@ -2541,7 +2541,7 @@ obj
 					usr.SetQueue(src)
 			Heart_Slayer
 				name="Heart-Slayer"
-				ActiveMessage="begins to develope darkness around them!"
+				ActiveMessage="begins to build darkness on the tip of their blade!"
 				DamageMult=2.25
 				AccuracyMult=5
 				KBMult=0.00001
@@ -2565,7 +2565,7 @@ obj
 			Riku_Soul_Render
 				name="Soul Render"
 				ActiveMessage="'s heart is filled with dreadful darkness, as they position themselves for an unthinkable strike .."
-				HitMessage="<b><font color: Red> slices into their opponents heart, butchering their soul! </font color> </b>"
+				HitMessage="<b><font color="red"> slices into their opponents heart, butchering their soul! </font color> </b>"
 				DamageMult=2.25
 				AccuracyMult=5
 				KBMult=0.00001
