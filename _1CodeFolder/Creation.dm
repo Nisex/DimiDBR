@@ -283,7 +283,7 @@ mob/Players
 
 			last_online = world.realtime
 
-		if(usr.passive_handler.Get("GiantForm"))
+		if(passive_handler.Get("GiantForm"))
 			if(usr.appearance_flags<512)
 				usr.appearance_flags+=512
 		if(global.ContractBroken)
@@ -1080,7 +1080,7 @@ client
 				var/savefilefound=file("Saves/Players/[src.ckey]")
 				fcopy(savefilefound,"SaveBackups/Players/[src.ckey]")
 		ArchiveSave()
-			
+
 		SaveChar()
 			if(src.mob.Savable)
 				if(istype(src.mob, /mob/Players))
