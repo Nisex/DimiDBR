@@ -119,8 +119,6 @@ mob/Players
 		addMissingSkills()
 		if(glob.TESTER_MODE)
 			giveTesterVerbs(src)
-		if(!src.RewardsLastGained)//a clause for pretty much just androids
-			src.RewardsLastGained=glob.progress.DaysOfWipe-1
 
 		src.RecovMod=2
 
@@ -192,13 +190,12 @@ mob/Players
 		fixTitle()
 
 		GiveJobVerbs()
-		RewardsLastGained = 0
 		// if(RewardsLastGained > 100)
 		// 	Respec1()
 		// 	quickDirtyRefund()
 		// 	setStartingRPP()
 		setMaxRPP()
-		fixRewardLastGained()
+
 		//automation
 		src.reward_auto()//checks to see if its been a day
 
@@ -1249,7 +1246,6 @@ mob/proc
 			// information.pickFaction(src)
 			if(key in VuffaKeys)
 				giveVuffaMoment()
-			fixRewardLastGained()
 
 var/list/VuffaKeys = list("Vuffa", "PacifistSnowball")
 

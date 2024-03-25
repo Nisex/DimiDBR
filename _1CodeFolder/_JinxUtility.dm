@@ -4011,7 +4011,7 @@ proc
 			world.log << "No progress found in DaysOfWipe()!"
 			return
 		var/day = 24 HOURS
-		var/days = round((world.realtime / day) - (glob.progress.WipeStart / day),1)
+		var/days = floor((world.realtime / day) - (glob.progress.WipeStart / day))
 		if(days>glob.progress.DaysOfWipe)
 			glob.progress.DaysOfWipe=round(days)
 			glob.progress.incrementTotal()
