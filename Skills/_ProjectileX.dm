@@ -4850,6 +4850,8 @@ obj
 					src.MiniDivide=Z.MiniDivide
 					src.Divide=Z.Divide
 					src.Trail=Z.Trail
+					src.Shearing = Z.Shearing
+					src.Crippling = Z.Crippling
 					src.TrailX=Z.TrailX
 					src.TrailY=Z.TrailY
 					src.TrailSize=Z.TrailSize
@@ -5343,6 +5345,11 @@ obj
 											break
 									new/obj/gold(a, src.Owner, newX, newY, a.z)
 									a << "You feel a need to go collect your coins before they're stolen!"
+
+						if(Crippling)
+							a:AddCrippling(Crippling, src.Owner)
+						if(Shearing)
+							a:AddShearing(Shearing, src.Owner)
 
 						if(a:passive_handler.Get("Siphon")&&src.ForRate)
 							var/Heal=EffectiveDamage*a:passive_handler.Get("Siphon")*src.ForRate//Energy siphon is a value from 0.1 to 1 which reduces damage and heals energy.

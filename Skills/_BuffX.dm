@@ -6716,13 +6716,26 @@ NEW VARIABLES
 		WeaponSystems
 
 			Decapitation_Mode
-				NeedsHealth=50
+				NeedsHealth=75
 				NeedsSword=1
+				HealthCost = 10
 				passives = list("Extend" = 1)
 				Extend=1
 				TextColor=rgb(255, 0, 0)
 				ActiveMessage="transforms their weapon into a deadlier form!"
 				OffMessage="restores their weapon to its previous form!"
+				proc/adjust(mob/user)
+					var/lifeSteal
+					var/extend
+					if(user.Saga=="Kamui")
+						HealthCost = 10-user.SagaLevel
+						lifeSteal = user.SagaLevel*5
+						extend = max(1,ceil(user.SagaLevel/3))
+					else
+						HealthCost = 25
+						lifeSteal = 20
+						extend = 1
+					passives = list("LifeSteal" = lifeSteal, "Extend" = extend)
 				verb/Decapitation_Mode()
 					set category="Skills"
 					if(!usr.BuffOn(src))
@@ -6731,6 +6744,7 @@ NEW VARIABLES
 						src.SwordX=s.iconAltX
 						src.SwordY=s.iconAltY
 						src.SwordClass=s.ClassAlt
+						src.adjust(usr)
 					src.Trigger(usr)
 			Alternate_Mode
 				NeedsSword=1

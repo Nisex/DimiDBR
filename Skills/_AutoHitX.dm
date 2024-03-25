@@ -4228,7 +4228,34 @@ obj
 				HitSparkDelay=1
 				Gravity=5
 
-
+			Life_Fiber_Weave
+				NeedsSword=1
+				Area="Arc"
+				Distance=3
+				StrOffense=1
+				DamageMult=0.8
+				Shearing = 5
+				RoundMovement=0
+				ComboMaster=1
+				Rounds=10
+				Cooldown=60
+				EnergyCost=2
+				Icon='Nest Slash.dmi'
+				IconX=-16
+				IconY=-16
+				Size=1.5
+				HitSparkIcon='SparkleRed.dmi'
+				HitSparkTurns=1
+				HitSparkSize=1.2
+				HitSparkDispersion=1
+				TurfStrike=1
+				EnergyCost=1
+				Instinct=1
+				ActiveMessage="flourishes their blade to cut loose a flood of red fibers!"
+				verb/Life_Fiber_Weave()
+					set name="Life Fiber Weave"
+					set category="Skills"
+					usr.Activate(src)
 ///Weapon Soul
 			Great_Divide
 				NeedsSword=1
@@ -5385,6 +5412,8 @@ obj
 
 			GoldScatter
 
+			Shearing
+
 		New(var/mob/owner, var/arcing=0, var/wave=0, var/card=0, var/circle=0, var/mob/target, var/obj/Skills/AutoHit/Z, var/turf/TrgLoc)
 			set waitfor = FALSE
 			if(!owner)
@@ -5432,6 +5461,7 @@ obj
 			src.Deluge=Z.Deluge
 			src.Stunner=Z.Stunner
 			src.Destructive=Z.Destructive
+			src.Shearing = Z.Shearing
 			src.Bang=Z.Bang
 			src.Bolt=Z.Bolt
 			src.BoltOffset=Z.BoltOffset
@@ -5857,6 +5887,9 @@ obj
 					m.Blind(src.Flash*10)
 					m.RemoveTarget()
 					m.Grab_Release()
+
+				if(Shearing)
+					m.AddShearing(Shearing,src.Owner)
 
 				if(src.Stasis)
 					m.SetStasis(src.Stasis)

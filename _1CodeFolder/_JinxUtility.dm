@@ -1234,7 +1234,10 @@ mob
 					var/obj/Items/Armor/ar=defender.EquippedArmor()
 					// Equip
 					var/shatterTier = defender.GetShatterTier(s) // isn't even used i think
-					var/breakTicks = GetWeaponBreaker() / 3
+					var/addWeaponBreaker = 0
+					if(AttackQueue.WeaponBreaker)
+						addWeaponBreaker += AttackQueue.WeaponBreaker
+					var/breakTicks = (GetWeaponBreaker()+addWeaponBreaker) / 3
 					var/duraBoon = 2 // SWORD DURA VARS
 					var/duraBase = 1 // SWORD DURA VARS
 					// Breaker Vars
