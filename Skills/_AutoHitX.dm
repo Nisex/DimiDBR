@@ -172,6 +172,9 @@ obj
 				PullIn
 
 				GoldScatter
+
+				DefTax
+				OffTax
 //NPC attacks
 			Venom_Sting
 				Area="Target"
@@ -2648,7 +2651,7 @@ obj
 				Burning_Circle
 
 					Area="Around Target"
-					SignatureTechnique=1				
+					SignatureTechnique=1
 					ForOffense=1
 					Distance = 10
 					HitSparkIcon='Hit Effect Pearl.dmi'
@@ -2659,7 +2662,7 @@ obj
 					HitSparkTurns=1
 					HitSparkSize=5
 					HitSparkCount=10
-					HitSparkDispersion=1					
+					HitSparkDispersion=1
 					Cooldown=60
 					DistanceAround=3
 					Rounds=20
@@ -2678,7 +2681,7 @@ obj
 					verb/Burning_Circle()
 						set category="Skills"
 						usr.Activate(src)
-					
+
 ////SWORD
 //T1 has damage mult 1.5 - 2.5
 
@@ -3947,6 +3950,8 @@ obj
 				Distance=10
 				AllOutAttack=1
 				DelayTime=0
+				OffTax = 5
+				DefTax = 5
 				GuardBreak=1
 				Stunner=6
 				Shattering = 50
@@ -3965,6 +3970,8 @@ obj
 				Scorching=1
 				Toxic=1
 				Area="Around Target"
+				OffTax = 3
+				DefTax = 3
 				CanBeBlocked=0
 				CanBeDodged=0
 				Distance=7
@@ -4004,6 +4011,8 @@ obj
 				Scorching=5
 				Toxic=5
 				Area="Around Target"
+				OffTax = 6
+				DefTax = 6
 				CanBeBlocked=0
 				CanBeDodged=1
 				Distance=7
@@ -4800,6 +4809,10 @@ mob
 					src.Oxygen-=BreathCost/8
 				if(src.Oxygen<=0)
 					src.Oxygen=0
+			if(Z.OffTax)
+				src.AddOffTax(Z.OffTax)
+			if(Z.DefTax)
+				src.AddDefTax(Z.DefTax)
 			if(!Z.NoLock)
 				src.AutoHitting=1
 			var/turf/TrgLoc

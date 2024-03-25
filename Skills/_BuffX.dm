@@ -9001,8 +9001,8 @@ NEW VARIABLES
 
 		Mangekyou_Sharingan
 			TaxThreshold=0.7
-			OffTaxDrain=0.006
-			DefTaxDrain=0.006
+			OffTaxDrain=0.002
+			DefTaxDrain=0.002
 			SBuffNeeded="Sharingan"
 			passives = list("AutoAnger" = 1,"BuffMastery" = 5, "Deflection" = 1, "Flow" = 1)
 			BuffMastery=5
@@ -9043,6 +9043,9 @@ NEW VARIABLES
 							src.Instinct=1
 							src.Deflection= 1 + usr.SagaLevel / 4
 							Godspeed= usr.SagaLevel / 4
+							if(OffTaxDrain||DefTaxDrain)
+								OffTaxDrain=0.004
+								DefTaxDrain=0.004
 				src.Trigger(usr)
 		Susanoo
 			DarkChange=1
@@ -11121,6 +11124,8 @@ NEW VARIABLES
 				TooMuchHealth=75
 				ElementalOffense="Fire"
 				ElementalDefense="Fire"
+				OffTaxDrain=0.002
+				DefTaxDrain=0.002
 				passives = list("DarknessFlame" = 1, "DeathField" = 5)
 				DarknessFlame=1
 				DeathField=5
