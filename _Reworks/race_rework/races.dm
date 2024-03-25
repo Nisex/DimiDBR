@@ -119,6 +119,8 @@ race
 		intellect = 1
 		imagination = 1
 
+		economy = 1
+
 		// a list of overlays; such as saiyan tails, or so on.
 		//TODO: Implement better.
 		list/overlays = new/list()
@@ -181,6 +183,8 @@ race
 			user.SetStat("Learning", learning)
 			user.SetStat("Intellect", intellect)
 			user.SetStat("Imagination", imagination)
+
+			user.EconomyMult = economy
 
 		onFinalization(mob/user)
 			user.passive_handler.increaseList(passives)
@@ -289,6 +293,11 @@ race
 					skills = list(/obj/Skills/Projectile/Beams/Static_Stream, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Wind_Supremacy)
 					passives["Godspeed"] = 1
 					passives["Flicker"] = 1
+				if("Gold")
+					skills = list(/obj/Skills/Projectile/A_Pound_of_Gold, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Hoarders_Riches)
+					user.EconomyMult *= 2
+					passives["CashCow"] = 1
+					passives["Blubber"] = 0.25
 			..()
 
 	eldritch

@@ -10688,6 +10688,30 @@ NEW VARIABLES
 					Trigger(mob/User, Override = FALSE)
 						adjust(User)
 						..()
+				Hoarders_Riches
+					// Gold Dragon Racial. Have money? Be OP.
+					ActiveMessage = "gains the faint glitter of gold in their hues!"
+					OffMessage = "loses some of that sinner's greed..."
+					Cooldown = 120
+					adjust(mob/p)
+						if(altered) return
+						var/asc = p.AscensionsAcquired
+						var/money
+						for(var/obj/Money/m in p.contents)
+							money = m.Level
+						NeedsHealth = 10 + (5 * asc)
+						TooMuchHealth = 20 + (5 * asc)
+						PowerMult = 1 + max(0,money/1000000)
+						SpdMult = 1 + max(0,money/1000000)
+						StrMult = 1 + max(0,money/1000000)
+						OffMult = 1 + max(0,money/1000000)
+						DefMult = 1 + max(0,money/1000000)
+						EndMult = 1 + max(0,money/1000000)
+						ForMult = 1 + max(0,money/1000000)
+
+					Trigger(mob/User, Override = FALSE)
+						adjust(User)
+						..()
 			Berserk
 				NeedsHealth=5
 				TooMuchHealth=15

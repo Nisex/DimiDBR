@@ -338,6 +338,7 @@
 #include "_Reworks\Combat\Monsters\dominatingBuff.dm"
 #include "_Reworks\Combat\Monsters\hellrisen.dm"
 #include "_Reworks\Combat\RPPGain\RPPDefines.dm"
+#include "_Reworks\Dragon\Gold.dm"
 #include "_Reworks\Halfie\HalfieAscensions.dm"
 #include "_Reworks\hellspawn\ascensions.dm"
 #include "_Reworks\hellspawn\buffs.dm"

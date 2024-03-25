@@ -552,6 +552,11 @@ ascension
 						speed += 0.25
 						offense += 0.25
 						defense += 0.25
+					if("Gold")
+						passives = list("Blubber" = 0.25, "CashCow" = 1)
+						ecoAdd = 2
+						endurance += 0.5
+						speed += 0.25
 				..()
 
 		two
@@ -576,6 +581,11 @@ ascension
 						speed += 0.25
 						offense += 0.25
 						defense += 0.25
+					if("Gold")
+						passives = list("Blubber" = 0.25, "CashCow" = 1)
+						ecoAdd = 1
+						endurance += 0.5
+						speed += 0.25
 				..()
 
 		three
@@ -600,6 +610,11 @@ ascension
 						speed += 0.25
 						offense += 0.25
 						defense += 0.25
+					if("Gold")
+						passives = list("Blubber" = 0.25, "CashCow" = 1)
+						ecoAdd = 1
+						endurance += 0.5
+						speed += 0.25
 				..()
 		four
 			onAscension(mob/owner)
@@ -622,6 +637,11 @@ ascension
 						speed += 0.25
 						offense += 0.25
 						defense += 0.25
+					if("Gold")
+						passives = list("Blubber" = 0.25, "CashCow" = 1)
+						ecoAdd = 1
+						endurance += 0.5
+						speed += 0.25
 				..()
 		five
 			onAscension(mob/owner)
@@ -644,6 +664,11 @@ ascension
 						speed += 0.25
 						offense += 0.25
 						defense += 0.25
+					if("Gold")
+						passives = list("Blubber" = 0.25, "CashCow" = 1)
+						ecoAdd = 1
+						endurance += 0.5
+						speed += 0.25
 				..()
 	makyo
 		one
