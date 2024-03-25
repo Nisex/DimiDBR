@@ -1553,7 +1553,7 @@ mob
 				return 1
 			if(src.SenseUnlocked>6&&(src.SenseUnlocked>src.SenseRobbed))
 				return 1
-			if(src.CheckSlotless("Saiyan Soul")&&src.HasGodKiBuff()&&!src.ssj["god"])
+			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff()&&!src.ssj["god"])
 				if(!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
 					return 1
 			if(src.HasSpiritPower()>=1 && FightingSeriously(src, 0))
@@ -1579,7 +1579,7 @@ mob
 						Total+=0.25
 				if(src.SenseUnlocked>=8)
 					Total+=1
-			if(src.CheckSlotless("Saiyan Soul")&&src.HasGodKiBuff()&&!src.ssj["god"])
+			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff()&&!src.ssj["god"])
 				if(!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
 					Total+=src.Target.GetGodKi()/2
 			if(src.KamuiBuffLock)

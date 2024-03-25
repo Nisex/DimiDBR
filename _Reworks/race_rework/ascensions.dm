@@ -762,12 +762,35 @@ ascension
 		two
 			unlock_potential = -1
 			anger = .25
+			onAscension(mob/owner)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/zeal)
+					passives = list("Adaptation" = 0.5)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/honor)
+					passives = list("AngerAdaptiveForce" = 0.2, "Adrenaline" = 1)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/pride)
+					passives = list("Steady" = 1)
+				..()
 		three
 			unlock_potential = -1
+			onAscension(mob/owner)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/zeal)
+					passives = list("Adaptation" = 0.5)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/honor)
+					passives = list("AngerAdaptiveForce" = 0.2, "Adrenaline" = 1)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/pride)
+					passives = list("Steady" = 1)
+				..()
 		four
 			unlock_potential = -1
 			anger = .25
-
+			onAscension(mob/owner)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/zeal)
+					passives = list("Adaptation" = 0.5)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/honor)
+					passives = list("AngerAdaptiveForce" = 0.2, "Adrenaline" = 1)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/pride)
+					passives = list("Steady" = 1)
+				..()
 	majin
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
@@ -898,7 +921,7 @@ ascension
 
 			zeal
 				skills = list(/obj/Skills/Buffs/SlotlessBuffs/Saiyan_Soul)
-				passives = list("Adaptation" = 1)
+				passives = list("Adaptation" = 0.5)
 
 		human
 			technology

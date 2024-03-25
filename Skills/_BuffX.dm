@@ -4749,7 +4749,7 @@ NEW VARIABLES
 
 		Saiyan_Dominance
 			NeedsHealth=75
-			HealthThreshold=50
+			EnergyThreshold = 25
 			TimerLimit=60
 			AutoAnger=1
 			passives = list("PridefulRage" = 1)
@@ -4761,12 +4761,16 @@ NEW VARIABLES
 			EndTax=0.1
 			ActiveMessage="displays their superiority by crushing those who rose their hand at them!"
 			OffMessage="ends their ruthless display of superiority..."
+			proc/adjust(mob/user)
+				var/zenkaiLevel = user.AscensionsAcquired
+				EnergyThreshold = 25-(5*zenkaiLevel)
 			verb/Saiyan_Dominance()
 				set category="Skills"
 				if(!usr.BuffOn(src))
 					if(usr.Oozaru)
 						usr << "Your precision is lacking in beastly form!"
 						return
+					src.adjust(usr)
 				src.Trigger(usr)
 
 		Saiyan_Grit
@@ -4778,6 +4782,9 @@ NEW VARIABLES
 			verb/Saiyan_Grit()
 				set category="Skills"
 				if(!usr.BuffOn(src))
+					if(usr.Oozaru)
+						usr << "Your precision is lacking in beastly form!"
+						return
 					if(usr.DefianceCounter<6)
 						usr << "Your rage hasn't spiked high enough yet!"
 						return
@@ -4794,14 +4801,23 @@ NEW VARIABLES
 			Cooldown=300
 			StrTax=0.05
 			RecovTax=0.1
+			passives = list("TechniqueMastery" = 1)
 			ActiveMessage="pushes themselves even further to overwhelm their opponent!!"
 			OffMessage="releases their power spike, incredibly exhausted..."
+			proc/adjust(mob/user)
+				var/zenkaiLevel = user.AscensionsAcquired
+				passives["TechniqueMastery"] = 0.75*zenkaiLevel
+				passives["MovementMastery"] = 1.5*zenkaiLevel
 			verb/Saiyan_Soul()
 				set category="Skills"
 				if(!usr.BuffOn(src))
+					if(usr.Oozaru)
+						usr << "Your precision is lacking in beastly form!"
+						return
 					if(usr.AdaptationCounter<1)
 						usr << "You didn't get a good enough of a read on your opponent yet!"
 						return
+					src.adjust(usr)
 				src.Trigger(usr)
 
 
