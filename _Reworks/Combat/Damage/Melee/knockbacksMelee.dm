@@ -7,6 +7,10 @@
         knockDistance += 5
         Grab=null
     
+    if(HasPassive("Meaty Paws") && !HasSword())
+        knockDistance += GetPassive("Meaty Paws") * 0.5
+
+
     if(HasSword())
         if(UsingZornhau())
             switch(EquippedSword().Class)

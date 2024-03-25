@@ -71,6 +71,8 @@ mob
 			if((src.EraBody!="Child"||!src.EraBody)&&!src.Dead)
 				src << "You gain money from routine tasks."
 				var/extraMoney = 0
+				if(!information)
+					information = new()
 				if(information.rankingTier == "Ranker" || information.rankingTier == "Top Ranker")
 					var/currentRanking = information.rankingNumber
 					// 10,000 at 30 pot, only count intervals of 10

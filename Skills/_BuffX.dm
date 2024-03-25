@@ -11457,8 +11457,9 @@ mob
 						src.SpecialBuff.Trigger(src, Override=1)
 				if(src.Oozaru)
 					if(!B.StanceSlot&&!B.StyleSlot&&!B.Autonomous)
-						src << "You can't use buffs in Great Ape Mode!"
-						return
+						if(!B.BuffName == "Great Ape")
+							src << "You can't use buffs in Great Ape Mode!"
+							return
 				if(src.CheckSlotless("Full Moon Form")&&!B.UnrestrictedBuff)
 					if(!B.StanceSlot&&!B.StyleSlot&&!B.Autonomous)
 						src << "You can't use buffs in Full Moon Frenzy!"

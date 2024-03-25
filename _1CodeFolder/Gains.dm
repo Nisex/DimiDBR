@@ -1731,3 +1731,7 @@ mob
 			src.client.SaveChar()
 		if(AFKTimer)
 			Available_Power()
+
+
+/mob/verb/HardSave()
+	client.SaveChar()

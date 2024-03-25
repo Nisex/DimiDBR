@@ -7,66 +7,68 @@
 var/globalTracker/glob = new()
 
 /mob/Admin2/verb/editGlobalVariables()
-    set name = "Edit Global Variables"
-    set category = "Admin"
-    var/atom/A = glob
-    var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
-    var/list/B=new
-    Edit+="[A]<br>[A.type]"
-    Edit+="<table width=10%>"
-    for(var/C in A.vars)
-        B+=C
-        CHECK_TICK
-    for(var/C in B)
-        Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"
-        Edit+=C
-        if(istype(A.vars[C], /datum) && !istype(A.vars[C], /obj))
-            if(A.vars[C].type in typesof(/datum))
-                Edit+="<td><a href=byond://?src=\ref[A.vars[C]];action=edit;var=[C]>[C]</td></tr>"
-        else
-            Edit+="<td>[Value(A.vars[C])]</td></tr>"
-        CHECK_TICK
-    usr<<browse(Edit,"window=[A];size=450x600")
+	set name = "Edit Global Variables"
+	set category = "Admin"
+	var/atom/A = glob
+	var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
+	var/list/B=new
+	Edit+="[A]<br>[A.type]"
+	Edit+="<table width=10%>"
+	for(var/C in A.vars)
+		B+=C
+		CHECK_TICK
+	for(var/C in B)
+		Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"
+		Edit+=C
+		if(istype(A.vars[C], /datum) && !istype(A.vars[C], /obj))
+			if(A.vars[C].type in typesof(/datum))
+				Edit+="<td><a href=byond://?src=\ref[A.vars[C]];action=edit;var=[C]>[C]</td></tr>"
+		else
+			Edit+="<td>[Value(A.vars[C])]</td></tr>"
+		CHECK_TICK
+	usr<<browse(Edit,"window=[A];size=450x600")
 
 /mob/Admin2/verb/editGlobalVariables2()
-    set name = "Edit Global Variables 2"
-    set category = "Admin"
-    var/atom/A = glob
-    Edit(A)
+	set name = "Edit Global Variables 2"
+	set category = "Admin"
+	var/atom/A = glob
+	Edit(A)
 
 
 /proc/transferGlobalstoGlob()
-    if(!glob)
-        glob = new()
-    glob.progress.WipeStart = global.WipeStart
-    glob.progress.DaysOfWipe = global.DaysOfWipe
-    for(var/varName in glob.vars)
-        if(varName == "progress")
-            // recursion moment
-            if(!glob.progress)
-                for(var/progressVars in glob.progress)
-                    try
-                        glob.progress.vars[progressVars] = global.vars[progressVars]
-                    catch
-                        world<<"[progressVars] doesn't exist globally!"
-        else
-            try
-                glob.vars[varName] = global.vars[varName]
-            catch
-                switch(varName)
-                    if("DEATH_LOCATION")
-                        glob.DEATH_LOCATION = list(DeadX, DeadY, DeadZ)
-                    // if("DMG_END_EXPONENT")
-                    //     glob.DMG_END_EXPONENT = global.DMG2_END_EFFECTIVENESS
-                    // if("DMG_STR_EXPONENT")
-                    //     glob.DMG_STR_EXPONENT = global.DMG2_STR_EFFECTIVENESS
-                    // if("DMG_POWER_EXPONENT")
-                    //     glob.DMG_POWER_EXPONENT = global.DMG2_POWER_EFFECTIVENESS
-    world<<"[glob.progress.WipeStart] [glob.progress.DaysOfWipe]"
+	if(!glob)
+		world<<"[glob] doesn't exist!"
+		glob = new()
+	glob.progress.WipeStart = global.WipeStart
+	glob.progress.DaysOfWipe = global.DaysOfWipe
+	for(var/varName in glob.vars)
+		if(varName == "progress")
+			// recursion moment
+			if(!glob.progress)
+				for(var/progressVars in glob.progress)
+					try
+						glob.progress.vars[progressVars] = global.vars[progressVars]
+					catch
+						world<<"[progressVars] doesn't exist globally!"
+		else
+			try
+				glob.vars[varName] = global.vars[varName]
+			catch
+				switch(varName)
+					if("DEATH_LOCATION")
+						glob.DEATH_LOCATION = list(DeadX, DeadY, DeadZ)
+					// if("DMG_END_EXPONENT")
+					//     glob.DMG_END_EXPONENT = global.DMG2_END_EFFECTIVENESS
+					// if("DMG_STR_EXPONENT")
+					//     glob.DMG_STR_EXPONENT = global.DMG2_STR_EFFECTIVENESS
+					// if("DMG_POWER_EXPONENT")
+					//     glob.DMG_POWER_EXPONENT = global.DMG2_POWER_EFFECTIVENESS
+	world<<"[glob.progress.WipeStart] [glob.progress.DaysOfWipe]"
+	BootWorld("Save")
 
 
 /mob/Admin4/verb/convertGlobalInfo()
-    transferGlobalstoGlob()
+	transferGlobalstoGlob()
 
 
 
@@ -294,22 +296,22 @@ globalTracker
 // FUNCTIONS
 
 globalTracker/proc/takeLimited(option, n)
-    if(vars[option][n] == TRUE)
-        usr << "This is already taken, please report this error"
-        return
-    vars[option][n] = TRUE
+	if(vars[option][n] == TRUE)
+		usr << "This is already taken, please report this error"
+		return
+	vars[option][n] = TRUE
 
 
 
 globalTracker/proc/ResetSwords()
-    WeaponSoul = list("Muramasa" = FALSE, "Soul Calibur" = FALSE,"Soul Edge" = FALSE,\
-    "Dainsleif" = FALSE)
-    Log("Admin", "All legendary swords have been selected, so the list was reset.")
+	WeaponSoul = list("Muramasa" = FALSE, "Soul Calibur" = FALSE,"Soul Edge" = FALSE,\
+	"Dainsleif" = FALSE)
+	Log("Admin", "All legendary swords have been selected, so the list was reset.")
 
 
 globalTracker/proc/getOpen(option)
-    var/list/returnList = vars["[option]Names"]
-    for(var/item in vars[option])
-        if(vars[option][item] == TRUE)
-            returnList.Remove(item)
-    return returnList
+	var/list/returnList = vars["[option]Names"]
+	for(var/item in vars[option])
+		if(vars[option][item] == TRUE)
+			returnList.Remove(item)
+	return returnList

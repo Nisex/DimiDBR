@@ -58,6 +58,10 @@ mob
 
 		// isRace will accept either a type or a name.
 		isRace(raceCheck)
+			if(!race)
+				throw EXCEPTION("[src] has no race to check!")
+				// prob usually impossible
+				return 0
 			/*
 				return:
 					1 if match is found

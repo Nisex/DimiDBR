@@ -325,7 +325,7 @@
 #include "_Reworks\Combat\Damage\Melee\delayAdjustments.dm"
 #include "_Reworks\Combat\Damage\Melee\flow.dm"
 #include "_Reworks\Combat\Damage\Melee\itemDamage.dm"
-#include "_Reworks\Combat\Damage\Melee\knocbacksMelee.dm"
+#include "_Reworks\Combat\Damage\Melee\knockbacksMelee.dm"
 #include "_Reworks\Combat\Damage\Melee\Melee.dm"
 #include "_Reworks\Combat\Damage\Melee\multiStrike.dm"
 #include "_Reworks\Combat\Damage\Melee\queueEffects.dm"

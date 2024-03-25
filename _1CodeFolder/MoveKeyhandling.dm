@@ -284,14 +284,14 @@ mob
 					if(WEST)if(key1!=EAST&&key2!=EAST&&key3!=EAST)dir_x=WEST
 
 				if(dir_x)
-					if(src.Confused)
+					if(src.Confused || HasPassive("Manic") ? prob(GetPassive("Manic") * 5) : 0)
 						switch(dir_x)
 							if(EAST)
 								dir_x=WEST
 							if(WEST)
 								dir_x=EAST
 					if(dir_y)
-						if(src.Confused)
+						if(src.Confused || HasPassive("Manic") ? prob(GetPassive("Manic") * 5) : 0)
 							switch(dir_y)
 								if(NORTH)
 									dir_y=SOUTH

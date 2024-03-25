@@ -896,6 +896,18 @@ proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseCh
 			return HIT
 
 		if(getBackSide(Offender, Defender))
+
+			if(Defender.Oozaru || Defender.HasPassive("Vulnerable Behind"))
+				var/tail_resistance_max = Defender.AscensionsUnlocked + (round(Defender.AscensionsUnlocked/2))
+				var/tail_resistance = Defender.tail_mastery / 20
+				tail_resistance += Defender.AscensionsUnlocked * 5
+				tail_resistance = clamp(tail_resistance, 0, tail_resistance_max * 5)
+				if(prob(50 - tail_resistance))
+					Stun(Defender, 2 - (tail_resistance * 0.1))
+					Defender.tailResistanceTraining(25 + tail_resistance * 2)
+				else
+					Defender.tailResistanceTraining(5)
+
 			if(prob(1))
 				OMsg(Offender, "<font color='[rgb(255, 8, 8)]'>oh nah, [Offender] is hitting [Defender] from the back!</font color>")
 				AccMult*=1.75
