@@ -609,12 +609,12 @@ ascension
 						offense += 0.25
 
 					if("Wind")
-						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1, "GodKi" = 0.05)
 						speed += 0.25
 						offense += 0.25
 						defense += 0.25
 					if("Gold")
-						passives = list("Blubber" = 0.25, "CashCow" = 1)
+						passives = list("Blubber" = 0.25, "CashCow" = 1, "GodKi" = 0.05)
 						ecoAdd = 1
 						endurance += 0.5
 						speed += 0.25
@@ -639,12 +639,12 @@ ascension
 						offense += 0.25
 
 					if("Wind")
-						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1, "GodKi" = 0.05)
 						speed += 0.25
 						offense += 0.25
 						defense += 0.25
 					if("Gold")
-						passives = list("Blubber" = 0.25, "CashCow" = 1)
+						passives = list("Blubber" = 0.25, "CashCow" = 1, "GodKi" = 0.05)
 						ecoAdd = 1
 						endurance += 0.5
 						speed += 0.25
@@ -667,12 +667,12 @@ ascension
 						offense += 0.25
 
 					if("Wind")
-						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1, "GodKi" = 0.05)
 						speed += 0.25
 						offense += 0.25
 						defense += 0.25
 					if("Gold")
-						passives = list("Blubber" = 0.25, "CashCow" = 1)
+						passives = list("Blubber" = 0.25, "CashCow" = 1, "GodKi" = 0.05)
 						ecoAdd = 1
 						endurance += 0.5
 						speed += 0.25
@@ -695,12 +695,12 @@ ascension
 						offense += 0.25
 
 					if("Wind")
-						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1, "GodKi" = 0.05)
 						speed += 0.25
 						offense += 0.25
 						defense += 0.25
 					if("Gold")
-						passives = list("Blubber" = 0.25, "CashCow" = 1)
+						passives = list("Blubber" = 0.25, "CashCow" = 1, "GodKi" = 0.05)
 						ecoAdd = 1
 						endurance += 0.5
 						speed += 0.25
