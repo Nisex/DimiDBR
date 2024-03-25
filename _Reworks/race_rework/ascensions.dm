@@ -383,7 +383,7 @@ ascension
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
 		five
-			unlock_potential = ASCENSION_Five_POTENTIAL
+			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
