@@ -965,10 +965,11 @@ obj/Items/Sword
 			ShatterMax=800
 
 			Soul_Eater
+				icon='Soul_Eater.dmi'
 				name="Soul Eater"
-				pixel_x=-32
-				pixel_y=-32
-				Techniques=list("/obj/Skills/Queue/Rikus_Soul","/obj/Skills/Queue/Riku_Tear_Storm","/obj/Skills/Queue/Riku_Soul_Render")
+				pixel_x=-16
+				pixel_y=-16
+				Techniques=list("/obj/Skills/Queue/Darkness_Blast","/obj/Skills/Queue/Heart_Slayer","/obj/Skills/Queue/Riku_Soul_Render")
 				verb/ChooseForm()
 					set category="Other"
 					var/check = 0
@@ -976,33 +977,26 @@ obj/Items/Sword
 					switch(S)
 						if("Sword")
 							if(check!=0)
-								passives = list("SpiritSword" = 0, "SpiritStrike" = 0)
-								SpiritStrike = 0
-								SpiritSword = 0
-								goto CheckPassed
-							CheckPassed
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)		
 							view(10,src) << "[src]'s weapon transforms in to a Sword!"
-							passives = list("SpiritSword" = 1)
-							SpiritSword = 1
+							passives = list("SpiritSword" = 0.5)
+							check += 1
 
 						if("Shield")
 							if(check!=0)
-								passives = list("SpiritSword" = 0, "SpiritStrike" = 0)
-								SpiritStrike = 0
-								SpiritSword = 0
-								goto CheckPassed
-							CheckPassed
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)		
 							view(10,src) << "[src]'s weapon transforms in to a shield!"
+							passives = list("CallousedHands" = 0.5)
+							check += 1
+
+
+
 						if("Staff")
 							if(check!=0)
-								passives = list("SpiritSword" = 0, "SpiritStrike" = 0)
-								SpiritStrike = 0
-								SpiritSword = 0
-								goto CheckPassed
-							CheckPassed
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)		
 							view(10,src) << "[src]'s weapon transforms in to a Staff!"
 							passives = list("SpiritStrike" = 1)
-							SpiritStrike = 1
+							check += 1
 
 
 			Scissor_Blade

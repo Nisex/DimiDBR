@@ -539,7 +539,26 @@ obj
 				TurfShiftDurationDespawn=7
 				Cooldown=4
 				Instinct=1
-
+			Soul_Blast
+				Area="Around Target"
+				NoLock=1
+				NoAttackLock=1
+				Distance=5
+				DistanceAround=4
+				Knockback=15
+				DamageMult=10
+				StrOffense=1
+				ForOffense=1
+				GuardBreak=1
+				SpecialAttack=1
+				Crippling=5
+				TurfShift='Gravity.dmi'
+				TurfShiftLayer=MOB_LAYER+1
+				TurfShiftDuration=0
+				TurfShiftDurationSpawn=3
+				TurfShiftDurationDespawn=7
+				Cooldown=4
+				Instinct=1
 			Clothesline_Effect
 				Area="Circle"
 				StrOffense=1
@@ -2623,6 +2642,43 @@ obj
 				Ultima
 					SignatureTechnique=4
 					Destructive=1
+
+
+/// MAGIC AUTO HIT SIGS T1
+				Burning_Circle
+
+					Area="Around Target"
+					SignatureTechnique=1				
+					ForOffense=1
+					Distance = 10
+					HitSparkIcon='Hit Effect Pearl.dmi'
+					HitSparkX=-32
+					HitSparkY=-32
+					IconX=-120
+					IconY=-80
+					HitSparkTurns=1
+					HitSparkSize=5
+					HitSparkCount=10
+					HitSparkDispersion=1					
+					Cooldown=60
+					DistanceAround=3
+					Rounds=20
+					TurfErupt=1.25
+					TurfEruptOffset=6
+					DelayTime=1
+					Stunner=3
+					Icon='Demon Gate.dmi'
+					Size=1
+					Falling=1//animates towards pixel_z=0 while it is displayed
+					ActiveMessage="casts upon their burning passion to emplace a circle of hell around their foe!"
+					HitSparkIcon='BLANK.dmi'
+					HitSparkX=0
+					HitSparkY=0
+					Cooldown=120
+					verb/Burning_Circle()
+						set category="Skills"
+						usr.Activate(src)
+					
 ////SWORD
 //T1 has damage mult 1.5 - 2.5
 
