@@ -757,11 +757,11 @@ ascension
 	saiyan
 		one
 			unlock_potential = -1
-			choices = list("Pride" = /ascension/sub_ascension/saiyan/pride, "Honor" =  /ascension/sub_ascension/saiyan/honor, "Zeal" /ascension/sub_ascension/saiyan/zeal)
+			choices = list("Pride" = /ascension/sub_ascension/saiyan/pride, "Honor" =  /ascension/sub_ascension/saiyan/honor, "Zeal" = /ascension/sub_ascension/saiyan/zeal)
 			intimidation = 10
 		two
 			unlock_potential = -1
-			anger = .25
+			anger = 0.25
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/zeal)
 					passives = list("Adaptation" = 0.5)
@@ -782,7 +782,7 @@ ascension
 				..()
 		four
 			unlock_potential = -1
-			anger = .25
+			anger = 0.25
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/zeal)
 					passives = list("Adaptation" = 0.5)
