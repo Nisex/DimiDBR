@@ -151,6 +151,7 @@ obj
 				ActiveMessage//A message to display when fired
 				ActiveColor=rgb(255,0,0)
 
+				GoldScatter
 //Autoblasts
 			Oni_Giri
 				AttackReplace=1
@@ -1796,7 +1797,26 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 
+			A_Pound_of_Gold
+				SkillCost=160
+				Copyable=5
+				Distance=20
+				DamageMult=6
+				AccMult=15
+				Knockback=5
+				EnergyCost=3
+				Cooldown=120
+				Homing=1
+				IconLock='GoldPile.dmi'
+				IconSize=0.35
+				LockX=-32
+				LockY=-32
+				Variation=0
+				GoldScatter = 1
 
+				verb/A_Pound_of_Gold()
+					set category="Skills"
+					usr.UseProjectile(src)
 
 //SHIT THAT AINT USED
 			Feint_Shot//this boi currently isnt used
@@ -3512,8 +3532,6 @@ obj
 						set category="Skills"
 						usr.UseProjectile(src)
 
-
-
 				Hiten_Mitsurugi
 					StyleNeeded="Hiten Mitsurugi"
 					Earth_Dragon_Flash
@@ -4874,6 +4892,7 @@ obj
 					src.WarpUser=Z.WarpUser
 					src.Backfire=0
 					src.FadeOut=Z.FadeOut
+					src.GoldScatter = Z.GoldScatter
 					BeamCharge = BeamCharging
 /*
 					if(Owner.passive_handler.Get("MissileSystem"))
@@ -5307,6 +5326,23 @@ obj
 						var/EffectiveDamage=Damage
 						if(a:Launched||a:Stunned)
 							EffectiveDamage *= glob.CCDamageModifier
+
+						if(GoldScatter||Owner.CheckSlotless("Hoarders Riches"))
+							for(var/obj/Money/money in a.contents)
+								if(money.Level>0)
+									var/newX = a.x + rand(-3, 3)
+									var/newY = a.y + rand(-3, 3)
+									for(var/i = 0, i < 10; i++)
+										var/turf/t = locate(newX,newY,a.z)
+										if(t.density)
+											if(i == 9) break
+											newX = a.x + rand(-3, 3)
+											newY = a.y + rand(-3, 3)
+											continue
+										else
+											break
+									new/obj/gold(a, src.Owner, newX, newY, a.z)
+									a << "You feel a need to go collect your coins before they're stolen!"
 
 						if(a:passive_handler.Get("Siphon")&&src.ForRate)
 							var/Heal=EffectiveDamage*a:passive_handler.Get("Siphon")*src.ForRate//Energy siphon is a value from 0.1 to 1 which reduces damage and heals energy.

@@ -269,6 +269,7 @@ ascension
 
 	yokai
 		one
+			unlock_potential = ASCENSION_ONE_POTENTIAL
 			passives = list("TechniqueMastery" = 2, "ManaGeneration" = 1)
 			strength = 0.25
 			force = 0.25
@@ -276,6 +277,7 @@ ascension
 			choices = list("Genius" = /ascension/sub_ascension/yokai/genius, "Grand Caster" = /ascension/sub_ascension/yokai/grand_caster, "Two become One" = /ascension/sub_ascension/yokai/two_become_one)
 
 		two
+			unlock_potential = ASCENSION_TWO_POTENTIAL
 			strength = 0.25
 			force = 0.25
 			offense = 0.25
@@ -292,7 +294,9 @@ ascension
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
 						sf.passives["TechniqueMastery"] = 1
 				..()
+
 		three
+			unlock_potential = ASCENSION_THREE_POTENTIAL
 			strength = 0.25
 			force = 0.25
 			offense = 0.25
@@ -309,7 +313,9 @@ ascension
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
 						sf.passives["TechniqueMastery"] = 2
 				..()
+
 		four
+			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			strength = 0.25
 			force = 0.25
 			endurance = 0.25
@@ -325,7 +331,9 @@ ascension
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
 						sf.ManaDrain -= 0.05
 				..()
+
 		five
+			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			strength = 0.25
 			force = 0.25
 			endurance = 0.25
@@ -341,18 +349,23 @@ ascension
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
 						sf.ManaDrain = 0
 				..()
+
+
 	eldritch
 		one
+			unlock_potential = ASCENSION_ONE_POTENTIAL
 			endurance = 0.25
 			defense = 0.25
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
 		two
+			unlock_potential = ASCENSION_TWO_POTENTIAL
 			endurance = 0.25
 			defense = 0.25
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
 		three
+			unlock_potential = ASCENSION_THREE_POTENTIAL
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
@@ -361,6 +374,7 @@ ascension
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
 		four
+			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
@@ -369,6 +383,7 @@ ascension
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
 		five
+			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
@@ -379,6 +394,7 @@ ascension
 
 	high_faoroan
 		one
+			unlock_potential = ASCENSION_ONE_POTENTIAL
 			skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown)
 			strength = 0.25
 			endurance = 0.25
@@ -391,6 +407,7 @@ ascension
 			choices = list("Distort" = /ascension/sub_ascension/high_faoroan/distort, "Define" = /ascension/sub_ascension/high_faoroan/define)
 
 		two
+			unlock_potential = ASCENSION_TWO_POTENTIAL
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
@@ -403,6 +420,7 @@ ascension
 			choices = list("Destroy" = /ascension/sub_ascension/high_faoroan/destroy, "Remove" = /ascension/sub_ascension/high_faoroan/remove)
 
 		three
+			unlock_potential = ASCENSION_THREE_POTENTIAL
 			strength = 0.5
 			endurance = 0.5
 			force = 0.5
@@ -419,6 +437,7 @@ ascension
 					owner.AddSkill(new/obj/Skills/AutoHit/Devils_Advocate)
 
 		four
+			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			anger = 1
 			intimidation = 2
 			strength = 0.5
@@ -431,6 +450,7 @@ ascension
 			choices = list("Conquer" = /ascension/sub_ascension/high_faoroan/conquer, "Obliterate" = /ascension/sub_ascension/high_faoroan/obliterate)
 
 		five
+			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			anger = 1
 			intimidation = 3
 			strength = 0.5
@@ -443,24 +463,29 @@ ascension
 
 	demon
 		one
+			unlock_potential = ASCENSION_ONE_POTENTIAL
 			onAscension(mob/owner)
 				..()
 				owner.Class = "C"
 		two
+			unlock_potential = ASCENSION_TWO_POTENTIAL
 			onAscension(mob/owner)
 				..()
 				owner.Class = "B"
 		three
+			unlock_potential = ASCENSION_THREE_POTENTIAL
 			onAscension(mob/owner)
 				..()
 				owner.EnhancedSmell = 1
 				owner.Class = "A"
 		four
+			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			onAscension(mob/owner)
 				..()
 				owner.EnhancedHearing = 1
 				owner.Class = "S"
 		five
+			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			passives = list("EndlessAnger" = 1)
 			onAscension(mob/owner)
 				..()
@@ -468,6 +493,7 @@ ascension
 
 	beastman
 		one
+			unlock_potential = ASCENSION_ONE_POTENTIAL
 			angerPoint = 5
 			strength = 0.25
 			defense = 0.25
@@ -481,6 +507,7 @@ ascension
 					b.passives = list("AngerAdaptiveForce" = 0.1)
 					b.VaizardHealth = 5
 		two
+			unlock_potential = ASCENSION_TWO_POTENTIAL
 			angerPoint = 5
 			strength = 0.25
 			speed = 0.25
@@ -494,6 +521,7 @@ ascension
 					b.passives = list("AngerAdaptiveForce" = 0.2)
 					b.VaizardHealth = 10
 		three
+			unlock_potential = ASCENSION_THREE_POTENTIAL
 			angerPoint = 5
 			speed = 0.25
 			defense = 0.25
@@ -507,6 +535,7 @@ ascension
 					b.passives = list("AngerAdaptiveForce" = 0.3, "Void" = 1)
 					b.VaizardHealth = 15
 		four
+			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			angerPoint = 5
 			endurance = 0.5
 			passives = list("Godspeed" = 1, "Pure Reduction" = 1)
@@ -518,6 +547,7 @@ ascension
 					b.passives = list("AngerAdaptiveForce" = 0.4, "Void" = 1)
 					b.VaizardHealth = 15
 		five
+			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			angerPoint = 5
 			strength = 0.5
 			endurance = 0.5
@@ -531,6 +561,7 @@ ascension
 
 	dragon
 		one
+			unlock_potential = ASCENSION_ONE_POTENTIAL
 			intimidation = 30
 			onAscension(mob/owner)
 				switch(owner.Class)
@@ -546,9 +577,21 @@ ascension
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
+
+					if("Wind")
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
+						speed += 0.25
+						offense += 0.25
+						defense += 0.25
+					if("Gold")
+						passives = list("Blubber" = 0.25, "CashCow" = 1)
+						ecoAdd = 2
+						endurance += 0.5
+						speed += 0.25
 				..()
 
 		two
+			unlock_potential = ASCENSION_TWO_POTENTIAL
 			intimidation = 20
 			onAscension(mob/owner)
 				switch(owner.Class)
@@ -564,9 +607,21 @@ ascension
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
+
+					if("Wind")
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
+						speed += 0.25
+						offense += 0.25
+						defense += 0.25
+					if("Gold")
+						passives = list("Blubber" = 0.25, "CashCow" = 1)
+						ecoAdd = 1
+						endurance += 0.5
+						speed += 0.25
 				..()
 
 		three
+			unlock_potential = ASCENSION_THREE_POTENTIAL
 			intimidation = 40
 			onAscension(mob/owner)
 				switch(owner.Class)
@@ -582,8 +637,20 @@ ascension
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
+
+					if("Wind")
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
+						speed += 0.25
+						offense += 0.25
+						defense += 0.25
+					if("Gold")
+						passives = list("Blubber" = 0.25, "CashCow" = 1)
+						ecoAdd = 1
+						endurance += 0.5
+						speed += 0.25
 				..()
 		four
+			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Metal")
@@ -598,8 +665,20 @@ ascension
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
+
+					if("Wind")
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
+						speed += 0.25
+						offense += 0.25
+						defense += 0.25
+					if("Gold")
+						passives = list("Blubber" = 0.25, "CashCow" = 1)
+						ecoAdd = 1
+						endurance += 0.5
+						speed += 0.25
 				..()
 		five
+			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Metal")
@@ -614,9 +693,21 @@ ascension
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
+
+					if("Wind")
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
+						speed += 0.25
+						offense += 0.25
+						defense += 0.25
+					if("Gold")
+						passives = list("Blubber" = 0.25, "CashCow" = 1)
+						ecoAdd = 1
+						endurance += 0.5
+						speed += 0.25
 				..()
 	makyo
 		one
+			unlock_potential = ASCENSION_ONE_POTENTIAL
 			passives = list("Juggernaut" = 0.25, "DemonicDurability" = 1, "HeavyHitter" = 1)
 			strength = 0.25
 			endurance = 0.25
@@ -624,24 +715,28 @@ ascension
 			intimidation = 15
 
 		two
+			unlock_potential = ASCENSION_TWO_POTENTIAL
 			passives = list("Juggernaut" = 0.25, "DemonicDurability" = 2, "HeavyHitter" = 1)
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
 			intimidation = 25
 		three
+			unlock_potential = ASCENSION_THREE_POTENTIAL
 			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 1, "HeavyHitter" = 1)
 			strength = 0.5
 			endurance = 0.25
 			force = 0.5
 			intimidation = 30
 		four
+			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 0.5, "HeavyHitter" = 1)
 			strength = 0.5
 			endurance = 0.25
 			force = 0.5
 			intimidation = 40
 		five
+			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 1, "HeavyHitter" = 2)
 			strength = 1
 			endurance = 0.25
@@ -661,11 +756,13 @@ ascension
 
 	majin
 		one
+			unlock_potential = ASCENSION_ONE_POTENTIAL
 			choices = list("Innocence" = /ascension/sub_ascension/majin/innocence, "Super" = /ascension/sub_ascension/majin/super, "Unhinged" = /ascension/sub_ascension/majin/unhinged)
 			anger = 0.2
 			intimidation = 5
 
 		two
+			unlock_potential = ASCENSION_TWO_POTENTIAL
 			choices = list("Harness Evil" = /ascension/sub_ascension/majin/harness_evil, "Remain Consistent" = /ascension/sub_ascension/majin/remain_consistent, "Become Docile" = /ascension/sub_ascension/majin/become_docile)
 			intimidation = 5
 			anger = 0.1
@@ -693,6 +790,7 @@ ascension
 				..()
 
 		three
+			unlock_potential = ASCENSION_THREE_POTENTIAL
 			choices = list("Harness Evil" = /ascension/sub_ascension/majin/harness_evil, "Remain Consistent" = /ascension/sub_ascension/majin/remain_consistent, "Become Docile" = /ascension/sub_ascension/majin/become_docile)
 			intimidationMult = 0.5
 			anger = 0.1
@@ -719,6 +817,7 @@ ascension
 					passives = list("UnhingedForm" = 0.5)
 
 		four
+			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			choices = list("Harness Evil" = /ascension/sub_ascension/majin/harness_evil, "Remain Consistent" = /ascension/sub_ascension/majin/remain_consistent, "Become Docile" = /ascension/sub_ascension/majin/become_docile)
 			intimidation = 10
 			anger = 0.3
@@ -745,6 +844,7 @@ ascension
 					passives = list("UnhingedForm" = 0.5)
 
 		five
+			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			choices = list("Harness Evil" = /ascension/sub_ascension/majin/harness_evil, "Remain Consistent" = /ascension/sub_ascension/majin/remain_consistent, "Become Docile" = /ascension/sub_ascension/majin/become_docile)
 			intimidation = 10
 

@@ -170,6 +170,8 @@ obj
 				ForceCost = 0
 
 				PullIn
+
+				GoldScatter
 //NPC attacks
 			Venom_Sting
 				Area="Target"
@@ -5381,6 +5383,8 @@ obj
 
 			PullIn
 
+			GoldScatter
+
 		New(var/mob/owner, var/arcing=0, var/wave=0, var/card=0, var/circle=0, var/mob/target, var/obj/Skills/AutoHit/Z, var/turf/TrgLoc)
 			set waitfor = FALSE
 			if(!owner)
@@ -5419,6 +5423,7 @@ obj
 				src.EndRes=Z.EndDefense
 			src.Executor = Z.Executor
 			src.RagingDemonAnimation = Z.RagingDemonAnimation
+			src.GoldScatter = Z.GoldScatter
 			src.Knockback=Z.Knockback
 			src.ChargeTech=Z.ChargeTech
 			src.UnarmedTech=Z.UnarmedOnly
@@ -5622,6 +5627,23 @@ obj
 					Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				if(itemMods[2])
 					Precision *= itemMods[2]
+
+				if(GoldScatter||Owner.CheckSlotless("Hoarders Riches"))
+					for(var/obj/Money/money in m.contents)
+						if(money.Level>0)
+							var/newX = m.x + rand(-3, 3)
+							var/newY = m.y + rand(-3, 3)
+							for(var/i = 0, i < 10; i++)
+								var/turf/t = locate(newX,newY,m.z)
+								if(t.density)
+									if(i == 9) break
+									newX = m.x + rand(-3, 3)
+									newY = m.y + rand(-3, 3)
+									continue
+								else
+									break
+							new/obj/gold(m, src.Owner, newX, newY, m.z)
+					m << "You feel a need to go collect your coins before they're stolen!"
 
 				if(src.SpeedStrike>0)
 					FinalDmg *= clamp(1,sqrt(1+((Owner.GetSpd())*(src.SpeedStrike/10))),3)
