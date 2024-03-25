@@ -4,8 +4,8 @@
 /mob/var/oozaru_type = null
 
 /mob/proc/tailResistanceTraining(probability)
-	if(tail_mastery / 100 > clamp(AscensionsUnlocked, 1, 5))
-		return // maxed out 
+	if(tail_mastery / 100 > clamp(AscensionsAcquired, 1, 5))
+		return // maxed out
 	if(prob(probability))
 		if(prob(1))
 			tail_mastery += rand(2,4)
@@ -25,12 +25,11 @@
 	OffMult = 1.2
 	EndMult = 1.2
 	proc/adjust(mob/p)
-		world<<"in adjust"
 		if(!p.oozaru_type)
 			p.oozaru_type = input(p, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")
 		switch(p.oozaru_type)
 			if("Wrathful")
-				passives["Manic"] = 5 - p.AscensionsUnlocked
+				passives["Manic"] = 5 - p.AscensionsAcquired
 				passives["Meaty Paws"] = 2
 				StrMult = 1.4
 				ForMult = 1.3
@@ -52,15 +51,15 @@
 				SpdMult = 0.4
 				OffMult = 1.4
 		if(p.Potential > OOZARU_POTENTIAL_TRANS)
-			passives["Transformation Power"] = clamp(p.AscensionsUnlocked * 2.5, 1, 50-p.Potential)
+			passives["Transformation Power"] = clamp(p.AscensionsAcquired * 2.5, 1, 50-p.Potential)
 
-
+/*
 /mob/verb/test_Oozaru()
 	set category = "Debug"
 	if(Oozaru == 0)
 		Oozaru(1)
 	else
-		Oozaru(0)
+		Oozaru(0)*/
 mob/proc/Oozaru(Go_Oozaru=1,var/revert)
 	for(var/obj/Oozaru/O in src)
 		var/image/Body=image(icon='Oozonew.dmi')

@@ -898,7 +898,7 @@ proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseCh
 		if(getBackSide(Offender, Defender))
 
 			if(Defender.Oozaru || Defender.HasPassive("Vulnerable Behind"))
-				var/tail_resistance_max = Defender.AscensionsUnlocked + (round(Defender.AscensionsUnlocked/2))
+				var/tail_resistance_max = Defender.AscensionsAcquired + (round(Defender.AscensionsAcquired/2))
 				var/tail_resistance = Defender.tail_mastery / 20
 				tail_resistance += Defender.AscensionsUnlocked * 5
 				tail_resistance = clamp(tail_resistance, 0, tail_resistance_max * 5)
