@@ -9714,8 +9714,7 @@ NEW VARIABLES
 						StyleNeeded="Devil Leg"
 						ManaGlow="#F00"
 						ManaGlowSize=2
-						passives = list("TensionLock" = 1, "PureDamage" = 1)
-						Attracting=3
+						passives = list("TensionLock" = 1, "PureDamage" = 1, "Attracting" = 3)
 						StrMult=1.25
 						OffMult=1.5
 						ActiveMessage="beckons their luckless foe into an inescapable showdown!"
@@ -9724,8 +9723,7 @@ NEW VARIABLES
 						StyleNeeded="Flow Reversal"
 						ManaGlow="#369"
 						ManaGlowSize=2
-						passives = list("TensionLock" = 1, "CyberStigma" = 2, "PureReduction" = 1, "CounterMaster" = 10)
-						Attracting=3
+						passives = list("TensionLock" = 1, "CyberStigma" = 2, "PureReduction" = 1, "CounterMaster" = 10, "Attracting" = 3)
 						DefMult=2
 						ActiveMessage="reads the flow of the fight perfectly, ready to counter!"
 						OffMessage="loses their absolute clarity..."

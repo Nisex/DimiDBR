@@ -619,7 +619,8 @@ var/global/MULTIHIT_NERF = FALSE
 
 							if(UsingAnsatsuken())
 								HealMana(clamp(damage * SagaLevel, 1, 20), 1)
-
+							if(GetAttracting())
+								enemy.AddAttracting(GetAttracting(), src)
 					// 										OTHER DMG START 															//
 							var/otherDmg = (damage+(GetIntimidation()/100)*(1+(2*GetGodKi())))
 
@@ -663,7 +664,7 @@ var/global/MULTIHIT_NERF = FALSE
 							if(!lightAtk)
 								KenShockwave(enemy,icon='KenShockwave.dmi',Size=(src.GetIntimidation()+enemy.GetIntimidation())*0.4,PixelX=((enemy.x-src.x)*(-16)+pick(-12,-8,8,12)),PixelY=((enemy.y-src.y)*(-16)+pick(-12,-8,8,12)), Time=6)
 							if(AttackQueue&&AttackQueue.DrawIn)
-								AddAttracting((AttackQueue.DrawIn*QueuedDamage(enemy)), enemy)
+								enemy.AddAttracting((AttackQueue.DrawIn*QueuedDamage(enemy)), src)
 						else
 							spawn()
 								Dodge(enemy)
