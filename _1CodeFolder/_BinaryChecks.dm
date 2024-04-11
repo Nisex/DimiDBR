@@ -2757,6 +2757,10 @@ mob
 		WSGuanYu()
 			if(src.WeaponSoulType=="Green Dragon Crescent Blade")
 				return 1
+			return 0	
+		WSMoonlight()
+			if(src.WeaponSoulType=="Moonlight Greatsword")
+				return 1
 			return 0
 		GetWeaponSoulType()
 			var/obj/Items/Sword/s=src.EquippedSword()
@@ -2781,7 +2785,9 @@ mob
 				return "Ruyi Jingu Bang"
 			if(s.type == /obj/Items/Sword/Heavy/Legendary/WeaponSoul/Spear_of_War)
 				return "Green Dragon Crescent Blade"
-			return 0
+			if(s.type == /obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon)
+				return "Moonlight Greatsword"
+			return 0	
 		WSCorrupt()
 			var/obj/Items/Sword/s=src.EquippedSword()
 			if(s.type==/obj/Items/Sword/Light/Legendary/WeaponSoul/Bane_of_Blades)
@@ -2803,7 +2809,9 @@ mob
 				return 1
 			if(s.type==/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_Hope)
 				return 1
-			return 0
+			if(s.type==/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon)
+				return 1
+			return 0	
 		HasSSjVars()
 			if(src.Race in list("Saiyan", "Half Saiyan"))
 				return 1

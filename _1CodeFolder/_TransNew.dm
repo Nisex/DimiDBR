@@ -1433,6 +1433,16 @@ mob/proc/WeaponSoul() // OverSoul Mechanic
 				Quake(75)
 				animate(src, color=null, time=1)
 				src.OMessage(10,"<b>[src] becomes clad in regal armor, a symbol of unbreakable hope!</b>")
+			if("Moonlight Greatsword")
+				src.ElementalOffense="Water"
+				passive_handler.Increase("CyberStigma", 6)	
+				passive_handler.Increase("ManaSeal", 6)
+				passive_handler.Increase("SpiritPower", 5)
+				src.CyberStigma+=6
+				src.ManaSeal+=6
+				src.SpiritPower+=5
+				src.OMessage(10,"<b>[src]calls upon the full power of the celestial moon, becoming it's chosen Knight!...</b>")
+
 			//UNHOLYS
 			if("Soul Calibur")
 				src.ElementalOffense="Water"

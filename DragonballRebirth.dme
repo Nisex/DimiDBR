@@ -368,6 +368,7 @@
 #include "_Reworks\political\prounouns.dm"
 #include "_Reworks\political\rankings.dm"
 #include "_Reworks\political\redactedwords.dm"
+#include "_Reworks\race_rework\Aliens.dm"
 #include "_Reworks\race_rework\ascensions.dm"
 #include "_Reworks\race_rework\races.dm"
 #include "_Reworks\race_rework\transformations.dm"

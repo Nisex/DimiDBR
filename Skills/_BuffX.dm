@@ -1350,6 +1350,20 @@ NEW VARIABLES
 							src.SwordName="Dainsleif"
 							src.ActiveMessage="calls forth the true form of Dainsleif, the Blade of Ruin!"
 							src.OffMessage="dissolves Dainsleif's ruinous power..."
+						if("Moonlight Greatsword")
+							src.PowerMult=1.5
+							src.EndMult=1.3
+							src.ForMult=2.25
+							src.OffMult=1.5
+							src.DefMult=1.3
+							passives = list("SpiritFlow" = 2, "SpiritStrike" = 2, "ManaSeal" = 2, "DrainlessMana" = 1, "CyberStigma" = 2)
+							src.SpiritFlow=2
+							src.SpiritStrike=2
+							src.ManaSeal=2
+							src.DrainlessMana=1
+							src.CyberStigma=2
+							src.SwordName="Moonlight Greatsword"
+							src.ActiveMessage="conjures forth the Moonlight Greatsword, basked in otherworldly lunar radiance..."
 				src.Trigger(usr)
 			verb/Weapon_Soul()
 				set category="Skills"
@@ -15224,3 +15238,12 @@ mob
 				if(SlotlessBuffs["[B.BuffName]"])
 					return 1
 			return 0
+/obj/Skills/Buffs/SlotlessBuffs/Soaring
+    BuffName = "Soar"
+    TimerLimit = 10
+    Godspeed = 3
+    Copyable = 0
+    Cooldown = 60
+    Skimming = 1
+    ActiveMessage = "spreads their wings and takes flight!"
+    OffMessage = "descends from the sky above.."

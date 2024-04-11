@@ -419,7 +419,7 @@ race
 
 	alien
 		name = "Alien"
-		desc = "These are Aliens."
+		desc = "A broad term for a variety of spacefaring species or beings of otherwise unusual origin; the universe is vast and endless! Those that can not be defined by traditonal definitions fall into this category."
 		power = 1
 		strength = 0.5
 		endurance = 0.5
@@ -428,6 +428,35 @@ race
 		defense = 0.5
 		force = 0.5
 		regeneration = 1.5
+
+		onFinalization(mob/user)
+			(usr.Class)	=	input("What is your alien racial?", "Choose!")in list ("ESP", "Anaerobic", "Infusion", "Adrenaline", "Infernal", "Celestial", "Prodigy", "Warper", "Symbiote", "Multi-Limbed", "Morphic" )
+			switch(usr.Class)
+				if("ESP")
+					skills = list(/obj/Skills/Telekinesis)
+					skills = list(/obj/Skills/Utility/Telepathy)
+				if("Anaerobic")
+					passives = list("Anaerobic" = 1)
+				if("Infusion")
+					passives = list("Infusion" = 1)
+				if("Adrenaline")
+					passives = list("Adrenaline" = 1)
+				if("Infernal")
+					passives = list("HellPower" = 1)
+				if("Celestial")
+					passives = list("SpiritPower" = 1)
+				if("Prodigy")
+					passives =	list("LegendPower" = 1)
+				if("Warper")
+					passives = list("Flicker" = 2)
+				if("Symbiote")
+					skills = list(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Symbiote_Infection)
+					locked = TRUE
+				if("Multi-Limbed")
+					passives = list("DoubleStrike" = 1, "TripleStrike" = 0.25)
+				if("Morphic")
+					passives = list("SwordHand" = 1)
+
 
 	namekian
 		name = "Namekian"
@@ -453,3 +482,32 @@ race
 			user.EnhancedHearing = 1
 			for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/r in user)
 				r.RegenerateLimbs=1
+			(usr.Class) = input("What clan do you hail from?", "Clan Selection")in list("Warrior", "Dragon", "Demon")
+			switch(usr.Class)
+				if("Warrior")
+					strength += 0.5
+					endurance += 0.25
+				if("Dragon")
+					force += 0.5
+					defense += 0.25
+				if("Demon")	
+					speed += 0.5
+					offense +=0.25
+
+	changeling
+		name = "Changeling"
+		icon_neuter	=	"Chilled1.dmi"
+		gender_options = list("Neuter")
+		desc	=	"A strange and adaptive race from the far reaches of deep space, little is none of these mysterious beings other than they are new to the general galactic population!"
+		visual	=	'Changeling.png'
+
+		strength	=	1.2
+		endurance	=	3
+		force	=	3
+		offense	=	3
+		defense	=	3
+		speed	=	3
+		anger	=	2
+		imagination	=	3
+		intellect	=	2
+		learning	=	3

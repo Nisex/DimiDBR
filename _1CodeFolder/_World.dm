@@ -43,6 +43,7 @@ world
 		GeneratePlayActionDatabase()
 		world.SetConfig("APP/admin", "XLevi", "role=admin")
 		world.SetConfig("APP/admin", "Niezan", "role=admin")
+		world.SetConfig("APP/admin", "Chandlerkun", "role=admin")
 	Del()
 		..()
 
@@ -201,6 +202,7 @@ proc/BootFile(var/file,var/op)
 					F["DainsleifTaken"]>>DainsleifTaken
 					F["WukongTaken"] >> WukongTaken
 					F["GuanyuTaken"] >> GuanyuTaken
+					F["MoonlightGreatSwordTaken"]>>MoonlightGreatswordTaken
 					F["GetUp"]>>GetUpVar
 					F["intimRatio"]>>INTIMRATIO
 					F["DustToggle"]>>DustControl

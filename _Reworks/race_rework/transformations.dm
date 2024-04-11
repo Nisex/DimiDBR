@@ -340,3 +340,8 @@ transformation
 					spawn(10)
 						animate(user, color = user.MobColor, time=30)
 					sleep(2)
+	
+	alien
+		super_alien
+			transform_animation(/mob/user)
+		

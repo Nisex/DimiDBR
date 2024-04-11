@@ -745,15 +745,20 @@ ascension
 
 	alien
 		one
-
+			unlock_potential = ASCENSION_ONE_POTENTIAL
+			AlienStatIncrease(mob/owner)		
 		two
-
+			unlock_potential = ASCENSION_TWO_POTENTIAL
+			AlienStatIncrease(mob/owner)		
 		three
-
+			unlock_potential = ASCENSION_THREE_POTENTIAL
+			AlienStatIncrease(mob/owner)
 		four
-
+			unlock_potential = ASCENSION_FOUR_POTENTIAL
+			AlienStatIncrease(mob/owner)
 		five
-
+			unlock_potential = ASCENSION_FIVE_POTENTIAL
+			AlienStatIncrease(mob/owner)	
 	saiyan
 		one
 			unlock_potential = -1
@@ -908,6 +913,70 @@ ascension
 					passives = list("UnhingedForm" = 0.5)
 					anger = 0.5
 				..()
+	
+	namekian
+		one
+			unlock_potential	=	ASCENSION_ONE_POTENTIAL
+	
+		two
+			unlock_potential	=	ASCENSION_TWO_POTENTIAL
+
+		three
+			unlock_potential	=	ASCENSION_THREE_POTENTIAL
+		four
+
+		five
+
+	changeling
+		one	
+			unlock_potential	=	ASCENSION_ONE_POTENTIAL
+			strength	=	1
+			endurance	=	1
+			speed	=	1
+			force	=	2
+			offense	=	1
+			defense	=	1
+			anger	=	2
+
+		two
+			unlock_potential	=	ASCENSION_TWO_POTENTIAL
+			strength	=	2
+			endurance	=	2
+			speed	=	2
+			force	=	2
+			offense	=	2
+			defense	=	2
+			anger	=	2
+
+		three
+			unlock_potential	=	ASCENSION_THREE_POTENTIAL
+			strength	=	3
+			endurance	=	3
+			speed	=	3
+			force	=	3
+			offense	=	3
+			defense	=	3
+			anger	=	3	
+
+		four
+			unlock_potential	=	ASCENSION_FOUR_POTENTIAL
+			strength	=	4
+			endurance	=	4
+			speed	=	4
+			force	=	4
+			offense	=	4
+			defense	=	4
+			anger	=	4
+
+		five
+			unlock_potential	=	ASCENSION_FIVE_POTENTIAL
+			strength	=	5
+			endurance	=	5
+			speed	=	5
+			force	=	5
+			offense	=	5
+			defense	=	5
+			anger	=	5	
 
 	sub_ascension
 		saiyan

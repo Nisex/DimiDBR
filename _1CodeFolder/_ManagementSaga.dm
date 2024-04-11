@@ -867,6 +867,10 @@ mob
 							if("Dainsleif")
 								if(!locate(/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin, src))
 									new/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin(src)
+
+							if("Moonlight Greatsword")
+								if(!locate(/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon, src))
+									new/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon(src)
 					if(src.SagaLevel==6)
 						src << "You have gained knowledge sufficient to unleash the secret trump card of legendary weapons!"
 					if(src.SagaLevel==7)

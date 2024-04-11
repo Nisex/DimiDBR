@@ -4041,7 +4041,7 @@ mob
 							sleep(1)
 						break
 
-
+				
 		QueuedMissMessage()
 			src.AttackQueue.Missed=1
 			src.AttackQueue.Hit=0
