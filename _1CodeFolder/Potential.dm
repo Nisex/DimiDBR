@@ -168,8 +168,7 @@ mob
 		potential_ascend(var/Silent=0)
 			if(secretDatum.nextTierUp != 999 && Secret)
 				secretDatum.checkTierUp(src)
-
-			if(!isRace(SAIYAN)|| Race!="Changeling")
+			if(!isRace(SAIYAN) || Race!="Changeling")
 				if(src.Potential>=10)
 					if(src.AscensionsUnlocked<1)
 						src.AscensionsUnlocked=1

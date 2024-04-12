@@ -1112,6 +1112,7 @@ mob/proc
 		LOL.EnergyMax=src.EnergyMax
 		LOL.Gender=src.Gender
 		LOL.StrMod=src.StrMod
+		world<<"[StrMod]"
 		LOL.EndMod=src.EndMod
 		LOL.SpdMod=src.SpdMod
 		LOL.ForMod=src.ForMod
@@ -1128,7 +1129,7 @@ mob/proc
 		LOL.GenRaces=src.GenRaces
 		LOL.AscensionsUnlocked=src.AscensionsUnlocked
 		LOL.race = race
-		LOL.setRace(race)
+		LOL.setRace(race, TRUE)
 		src.client.mob=LOL
 		del(src)
 
