@@ -157,7 +157,7 @@ race
 		onDeselection(mob/user)
 			user.overlays -= overlays
 
-		onSelection(mob/user)
+		onSelection(mob/user, secondtime = FALSE)
 			if(!user.passive_handler) user.passive_handler = new
 
 			if(user.Gender == "Female")
@@ -172,15 +172,15 @@ race
 
 			user.AngerPoint = anger_point
 			user.AngerMessage = anger_message
-
-			user.SetStatPoints(statPoints)
-			user.SetStat("Power", power)
-			user.SetStat("Strength", strength)
-			user.SetStat("Endurance", endurance)
-			user.SetStat("Speed", speed)
-			user.SetStat("Force", force)
-			user.SetStat("Offense", offense)
-			user.SetStat("Defense", defense)
+			if(!secondtime)
+				user.SetStatPoints(statPoints)
+				user.SetStat("Power", power)
+				user.SetStat("Strength", strength)
+				user.SetStat("Endurance", endurance)
+				user.SetStat("Speed", speed)
+				user.SetStat("Force", force)
+				user.SetStat("Offense", offense)
+				user.SetStat("Defense", defense)
 			user.SetStat("Regeneration", regeneration)
 			user.SetStat("Recovery", recovery)
 			user.SetStat("Anger", anger)

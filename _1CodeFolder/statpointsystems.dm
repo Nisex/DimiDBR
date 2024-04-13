@@ -492,6 +492,8 @@ mob/proc/ResetStats()
 	DefMod=1
 
 mob/proc/PerkDisplay()
+	world.log<<race
+	world.log<<StrMod // debug messages
 	winset(src,"Points Remaining","text=[Points]")
 	winset(src,"RaceBP","text=\"[Define_Average(PotentialRate)] Power Rate\"")
 	winset(src,"Race RPP","text=\"[Define_Average(RPPMult)] Learning Rate\"")

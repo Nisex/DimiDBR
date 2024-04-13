@@ -17,11 +17,11 @@ mob/var/WhichFutureDiary
 mob/var/DiaryLevel=0
 // ABILITIES 
 mob/proc/Obsession()
-    var/list/varPeople = list()
+    var/list/varPeople = players // a list that hypothetically should have all players, if niezan is cool
     if(src.Health==100)
-        for(var/mob/T in world)
-            if(T.client)
-                varPeople += T.name
+        // for(var/mob/T in players)
+        //     if(T.client)
+        //         varPeople += T.name
         var/Obsessed=input(src,"Select your Obession","Obsession selection") in varPeople 
         src << "You are Obsessed to " + Obsessed + ". You alongside them deal extra damage to your enemies if you are in the same party!"
         //increase their hit and dodge rate by 50% 

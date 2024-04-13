@@ -97,7 +97,7 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert)
 			if(!src.oozaru_type)
 				src.oozaru_type = input(src, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")
 			for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src)
-				world<<"We found it in the slotless buffs!"
+				world.log<<"We found it in the slotless buffs! (oozaru)" // debug message
 				if(B)
 					B.adjust(src)
 					B.Trigger(src)

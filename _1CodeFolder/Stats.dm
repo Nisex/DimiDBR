@@ -1133,6 +1133,8 @@ mob/proc/Update_Stat_Labels()
 			winset(src, "Hunger", "value=[round(currentHunger/maxHunger*100)]")
 	if(Secret == "Eldritch")
 		var/SecretInfomation/Eldritch/s = secretDatum
+		if(!istype(/SecretInfomation/Eldritch, s))
+			secretDatum = new/SecretInfomation/Eldritch
 		var/maxMadness = s:getMadnessLimit()
 		var/currentMadness = secretDatum.secretVariable["Madness"]
 		winset(src, "Hunger", "value=[round(currentMadness/maxMadness*100)]")

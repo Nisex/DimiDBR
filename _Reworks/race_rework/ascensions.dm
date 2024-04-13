@@ -99,9 +99,7 @@ ascension
 			if(applied || pickingChoice) return
 			choiceSelection(owner)
 			if(choices.len > 0 && !choiceSelected) return
-
 			applied = TRUE
-
 			owner.StrAscension += strength
 			owner.EndAscension += endurance
 			owner.ForAscension += force
