@@ -492,8 +492,8 @@ race
 					defense += 0.25
 				if("Demon")	
 					speed += 0.5
-					offense +=0.25
-
+					offense += 0.25
+			..()
 	changeling
 		name = "Changeling"
 		icon_neuter	=	"Chilled1.dmi"

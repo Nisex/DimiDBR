@@ -24,6 +24,7 @@ transformation
 		regeneration
 		anger
 		unlock_potential
+		intimidation
 
 		form_profile
 
@@ -44,6 +45,7 @@ transformation
 		form_aura_underlay
 		form_aura_underlay_x
 		form_aura_underlay_y
+		TransClass 
 
 		pot_trans = 0
 
@@ -78,6 +80,8 @@ transformation
 			user.SpdMultTotal += speed
 			user.OffMultTotal += offense
 			user.DefMultTotal += defense
+			
+			 
 
 			user.potential_trans = user.Potential+pot_trans
 			if(form_base)
@@ -117,6 +121,8 @@ transformation
 			user.SpdMultTotal -= speed
 			user.OffMultTotal -= offense
 			user.DefMultTotal -= defense
+
+			usr.TransClass = null
 
 			user.potential_trans = 0
 
@@ -340,8 +346,28 @@ transformation
 					spawn(10)
 						animate(user, color = user.MobColor, time=30)
 					sleep(2)
+
 	
 	alien
 		super_alien
-			transform_animation(/mob/user)
-		
+			var/Choice
+			var/Confirm
+			while(Confirm!="Yes") /// <--- why doesn't this work?! 
+				Choice=input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagacity")
+			switch(usr.Choice)	
+				if("Tenacity")
+					strength = 5
+					speed = 5
+				if("Brutality")
+					strength = 5
+					speed = 5	
+				if("Harmony")
+					force = 5
+				if("Sagacity")
+					endurance = 5	
+			src.TransClass=Choice		
+			/// ive tried writing this like 100 times, but the idea should just be that aliens can pick their class of super alien and gain different boons!!!!111 will need to figure this out...
+			/// duplicate definitions, probably just retarded but i cant figure out why
+
+
+

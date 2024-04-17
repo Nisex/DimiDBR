@@ -751,7 +751,10 @@ ascension
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
 			AlienStatIncrease(mob/owner)
+			mob/proc/ChooseSuperAlien(mob/owner)
+
 		four
+
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			AlienStatIncrease(mob/owner)
 		five
@@ -915,14 +918,60 @@ ascension
 	namekian
 		one
 			unlock_potential	=	ASCENSION_ONE_POTENTIAL
-	
+			onAscension(mob/owner)			
+				switch(owner.Class)
+					if("Demon")
+						speed = 0.5
+					if("Dragon")
+						force = 0.25
+						if("mob/player/var/counterparted" == 1)
+							force = 0.5
+							imaginationAdd = 0.5
+							recovery = 0.25
+					if("Warrior")	
+						strength = 0.25	
+						if("mob/player/var/counterparted" == 1)
+							strength = 0.5
+							endurance = 0.5
+							learning = 0.25
 		two
 			unlock_potential	=	ASCENSION_TWO_POTENTIAL
-
+			onAscension(mob/owner)
+				switch(owner.Class)
+					if("Demon")
+						speed = 0.5
+					if("Dragon")
+						force = 0.25
+						if("mob/player/var/counterparted" == 1)
+							force = 0.25
+							imaginationAdd = 0.25
+							learning = 0.25
+					if("Warrior")
+						endurance = 0.25
+						if("mob/player/var/counterparted" == 1)
+							intimidation = 10
+							strength = 0.25
+							recovery = 0.25					
 		three
 			unlock_potential	=	ASCENSION_THREE_POTENTIAL
+			onAscension(mob/owner)
+				switch(owner.Class)
+					if("Demon")
+						speed = 0.5
+					if("Dragon")
+						force= 0.25
+						endurance = 0.25
+						if("mob/player/var/counterparted" == 1)
+							force = 0.25
+							passives = list("SpiritStrike" = 0.5)
+							recovery = 0.25
+					if("Warrior")
+						strength = 0.25
+						if("mob/player/var/counterparted" == 1)
+							strength = 0.25
+							passives = list("CallousedHands" = 0.5)
+							recovery = 0.35			
 		four
-
 		five
 
 	changeling
