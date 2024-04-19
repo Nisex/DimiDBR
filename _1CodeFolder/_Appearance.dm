@@ -11,22 +11,22 @@ mob/proc/AppearanceOn()
 
 	src.color=MobColor
 
-	if(src.TransActive()==1)
+	if(src.transActive()==1)
 		if(src.Race=="Alien")
 			if(src.Form1Overlay)
 				var/image/im=image(icon=src.Form1Overlay, pixel_x=src.Form1OverlayX, pixel_y=src.Form1OverlayY)
 				src.overlays+=im
-	if(src.TransActive()==2)
+	if(src.transActive()==2)
 		if(src.Race=="Alien")
 			if(src.Form2Overlay)
 				var/image/im=image(icon=src.Form2Overlay, pixel_x=src.Form2OverlayX, pixel_y=src.Form2OverlayY)
 				src.overlays+=im
-	if(src.TransActive()==3)
+	if(src.transActive()==3)
 		if(src.Race=="Alien")
 			if(src.Form3Overlay)
 				var/image/im=image(icon=src.Form3Overlay, pixel_x=src.Form3OverlayX, pixel_y=src.Form3OverlayY)
 				src.overlays+=im
-	if(src.TransActive()==4)
+	if(src.transActive()==4)
 		if(src.Race=="Alien")
 			if(src.Form4Overlay)
 				var/image/im=image(icon=src.Form4Overlay, pixel_x=src.Form4OverlayX, pixel_y=src.Form4OverlayY)

@@ -617,8 +617,8 @@ mob/proc/Recover(var/blah,Amount=1)
 			// 	return
 			if(src.Oxygen<=10)
 				return
-			if(src.TransActive()&&!src.HasMystic())
-				if(src.masteries["[src.TransActive()]mastery"]>=10&&src.masteries["[src.TransActive()]mastery"]<100||(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
+			if(src.transActive()&&!src.HasMystic())
+				if(src.masteries["[src.transActive()]mastery"]>=10&&src.masteries["[src.transActive()]mastery"]<100||(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
 					return
 			if(Swim&&passive_handler.Get("Fishman"))
 				Amount*=2
@@ -796,9 +796,9 @@ mob/proc/
 			if(src.PowerBoost)
 				Ratio*=src.PowerBoost
 
-			if(src.ssj["active"]&&ActiveBuff)
-				if(src.masteries["[src.ssj["active"]]mastery"]==100)
-					Ratio *= 1 + (0.15 * src.ssj["active"])
+			if(isRace(SAIYAN)&&transActive&&ActiveBuff)
+				if(race.transformations[transActive].mastery==100)
+					Ratio *= 1 + (0.15 * transActive)
 
 			if(src.TarotFate=="The Sun")
 				Ratio*=1.5
@@ -917,10 +917,10 @@ mob/proc/
 				src.PoweringUp=0
 
 			if(src.HasKiControlMastery())
-				if(src.TransActive())
-					if(src.masteries["[src.TransActive()]mastery"]<10&&!(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
+				if(src.transActive())
+					if(src.masteries["[src.transActive()]mastery"]<10&&!(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
 						PUGain*=1+(src.GetKiControlMastery())/2
-					else if(src.masteries["[src.TransActive()]mastery"]>=100)
+					else if(src.masteries["[src.transActive()]mastery"]>=100)
 						PUGain*=2+(src.GetKiControlMastery())
 				else
 					PUGain*=1+(src.GetKiControlMastery())
@@ -928,19 +928,19 @@ mob/proc/
 
 			var/PUThreshold=150
 /*
-			if(src.Race=="Changeling"&&src.TransActive()==4)
+			if(src.Race=="Changeling"&&src.transActive()==4)
 				PUThreshold+=50
 */
 			if(src.PowerControl>=PUThreshold)
 				if(!src.ActiveBuff)
 					src.Auraz("Remove")
-/*					if(src.Race!="Changeling"||(src.Race=="Changeling"&&src.TransActive()==4))*/
+/*					if(src.Race!="Changeling"||(src.Race=="Changeling"&&src.transActive()==4))*/
 					for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in src)
 						if(!src.BuffOn(KC))
 							src.UseBuff(KC)
 							break
 /*					else
-						if(src.TransActive()==3)
+						if(src.transActive()==3)
 							if(src.Class=="Prodigy")
 								for(var/obj/Skills/Buffs/SpecialBuffs/OneHundredPercentPower/FF in src)
 									if(!src.BuffOn(FF))
@@ -958,10 +958,10 @@ mob/proc/
 				src<<"You are too tired to power up."
 				src.PoweringUp=0
 				if(isRace(SAIYAN)||Race=="Half Saiyan")
-					if(src.TransActive()>0)
-						var/TransActive=src.ssj["active"]
+					if(src.transActive()>0)
+						var/transActive=src.trans["active"]
 						var/Skip=0
-						if(src.ssj["[TransActive]mastery"]>=100||src.ssj["[TransActive]mastery"]<10)
+						if(src.trans["[transActive]mastery"]>=100||src.trans["[transActive]mastery"]<10)
 							Skip=1
 						if(src.HasNoRevert())
 							Skip=1
@@ -977,10 +977,9 @@ mob/proc/
 				src.Auraz("Remove")
 				src<<"You are too tired to power up."
 				if(isRace(SAIYAN)|Race=="Half Saiyan")
-					if(src.TransActive()>0)
-						var/TransActive=src.ssj["active"]
+					if(src.transActive>0)
 						var/Skip=0
-						if(src.ssj["[TransActive]mastery"]>=100||src.ssj["[TransActive]mastery"]<10)
+						if(src.race.transformations[transActive].mastery>=100||race.transformations[transActive].mastery<10)
 							Skip=1
 						if(src.HasNoRevert())
 							Skip=1

@@ -176,8 +176,8 @@ mob/Players/verb
 				usr<<person.information.getInformation(A, TRUE)
 			else
 				usr<<person.information.getInformation(A, FALSE)*/
-			if(A:TransActive())
-				usr << browse(A:ReturnProfile(A:TransActive()), "window=[A];size=900x650")
+			if(A:transActive())
+				usr << browse(A:ReturnProfile(A:transActive()), "window=[A];size=900x650")
 			else if(locate(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form, A.contents))
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/SF in A.contents)
 					if(SF.SlotlessOn)

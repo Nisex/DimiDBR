@@ -837,29 +837,29 @@ mob
 		HasEnergyLeak()
 			if(passive_handler.Get("EnergyLeak"))
 				return 1
-			if(src.TransActive()&&!src.HasMystic())
-				if(src.masteries["[src.TransActive()]mastery"]>10&&src.masteries["[src.TransActive()]mastery"]<75||(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
+			if(src.transActive()&&!src.HasMystic())
+				if(src.masteries["[src.transActive()]mastery"]>10&&src.masteries["[src.transActive()]mastery"]<75||(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
 					if(src.Race!="Changeling")
 						return 1
 					else
-						if(src.TransActive()>3)
+						if(src.transActive()>3)
 							return 1
 			return 0
 		GetEnergyLeak()
 			var/Total=0
 			Total+=passive_handler.Get("EnergyLeak")
-			if(src.TransActive()&&!src.HasMystic())
-				if(src.masteries["[src.TransActive()]mastery"]>10&&src.masteries["[src.TransActive()]mastery"]<75)
+			if(src.transActive()&&!src.HasMystic())
+				if(src.masteries["[src.transActive()]mastery"]>10&&src.masteries["[src.transActive()]mastery"]<75)
 					if(src.Race!="Changeling")
-						Total+=src.TransActive()*0.25
+						Total+=src.transActive()*0.25
 					else
-						if(src.TransActive()>3)
+						if(src.transActive()>3)
 							Total+=0.5
 			return Total
 		HasFatigueLeak()
 			if(passive_handler.Get("FatigueLeak"))
 				return 1
-			if(src.TransActive()&&src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100)
+			if(src.transActive()&&src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100)
 				return 1
 			if(src.GatesActive && src.GatesActive < 8)
 				return 1
@@ -867,7 +867,7 @@ mob
 		GetFatigueLeak()
 			var/Total=0
 			Total+=passive_handler.Get("FatigueLeak")
-			if(src.TransActive()&&src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100)
+			if(src.transActive()&&src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100)
 				Total+=1
 			return  Total
 		HasSoftStyle()
@@ -911,7 +911,7 @@ mob
 				return 1
 			if(passive_handler.Get("KiControlMastery"))
 				return 1
-			if(src.isRace(NAMEKIAN)&&src.TransActive())
+			if(src.isRace(NAMEKIAN)&&src.transActive())
 				return 1
 			if(src.Race=="Shinjin"&&src.Potential>=25)
 				return 1
@@ -926,7 +926,7 @@ mob
 				Total+=src.AdaptationCounter
 			if(src.HasGodKi() && src.Race!="Shinjin")
 				Total+=round(src.GetGodKi()/0.25)
-			if(src.isRace(NAMEKIAN)&&src.TransActive())
+			if(src.isRace(NAMEKIAN)&&src.transActive())
 				Total+=3
 			if(src.isRace(MAKYO)&&src.AscensionsAcquired)
 				Total+=src.AscensionsAcquired
@@ -964,8 +964,8 @@ mob
 			var/m
 			if(src.HasTransMimic() && isRace(SAIYAN))
 				t=src.HasTransMimic()
-			if(src.TransActive() && isRace(SAIYAN))
-				m=src.TransActive()
+			if(src.transActive() && isRace(SAIYAN))
+				m=src.transActive()
 			if(t || m)
 				if(t>m)
 					return t
@@ -1178,7 +1178,7 @@ mob
 			Return=passive_handler.Get("SuperDash")
 			if(src.SenseUnlocked>5&&src.SenseUnlocked>src.SenseRobbed)
 				Return+=1
-			var/ta=src.TransActive()
+			var/ta=src.transActive()
 			var/tm=src.HasTransMimic()
 			if(ta || tm)
 				if(tm > ta)
@@ -1848,7 +1848,7 @@ mob
 			return 0
 		HighestTrans()
 			var/tm=src.HasTransMimic()
-			var/ta=src.TransActive()
+			var/ta=src.transActive()
 			if(tm || ta)
 				if(tm > ta)
 					return tm
@@ -1882,7 +1882,7 @@ mob
 				return 1
 			if(src.Race=="Shinjin" && src.ShinjinAscension=="Makai")
 				return 1
-			if(src.isRace(NAMEKIAN) && src.TransActive())
+			if(src.isRace(NAMEKIAN) && src.transActive())
 				return 1
 			if(src.TarotFate=="Temperance")
 				return 1

@@ -2072,7 +2072,7 @@ NEW VARIABLES
 			verb/Super_Saiyan_Perfected()
 				set category="Skills"
 				if(!usr.BuffOn(src))
-					src.NeedsSSJ=min(usr.TransActive(),src.Mastery)
+					src.NeedsSSJ=min(usr.transActive(),src.Mastery)
 				src.Trigger(usr)
 
 		LegendarySuperSaiyan
@@ -11430,10 +11430,6 @@ mob
 						if(src.Target.HasKiControl())
 							src << "Stop powering up or down before using Fusion!"
 							return
-						if(src.ssj["active"]>0 || src.Target.ssj["active"]>0)
-							src << "You can't fuse while transformed!"
-							src.Target << "You can't fuse while transformed!"
-							return
 						if(src.trans["active"]>0 || src.Target.trans["active"]>0)
 							src << "You can't fuse while transformed!"
 							src.Target << "You can't fuse while transformed!"
@@ -11773,20 +11769,20 @@ mob
 						return
 				if(B.NeedsSSJ)
 					if(B.NeedsSSJ<0)
-						if(src.ssj["active"])
+						if(isRace(SAIYAN)&&src.transActive)
 							src << "You need to be in base form to use this!"
 							return
 					else
-						if(src.ssj["active"]!=B.NeedsSSJ)
+						if(isRace(SAIYAN)&&src.transActive!=B.NeedsSSJ)
 							src << "You need to be in Super Saiyan [B.NeedsSSJ] to use this!"
 							return
 				if(B.NeedsTrans)
 					if(B.NeedsTrans<0)
-						if(src.trans["active"])
+						if(transActive)
 							src << "You need to be in base form to use this!"
 							return
 					else
-						if(src.trans["active"]!=B.NeedsTrans)
+						if(.transActive!=B.NeedsTrans)
 							src << "You need to be in Super Form [B.NeedsTrans] to use this!"
 							return
 				if(B.NeedsTier)
@@ -11964,7 +11960,7 @@ mob
 						src <<"You are already transforming!"
 						return
 					if(!(B.Transform in list("Force","Strong","Weak")))
-						if(trans["active"]||ssj["active"])
+						if(trans["active"])
 							src <<"You are already transformed!"
 							return
 
@@ -12025,7 +12021,7 @@ mob
 				B.current_passives = B.passives
 				passive_handler.increaseList(B.passives)
 			if(B.ActiveSlot)//If the buff you pressed the button for is active slots...
-				if(src.Race=="Changeling"&&src.TransActive()&&!B.UnrestrictedBuff)
+				if(src.Race=="Changeling"&&src.transActive()&&!B.UnrestrictedBuff)
 					src << "No buffs as a changeling in transformations."
 					return
 				if(src.ActiveBuff)//And you already have an active buff...
@@ -12043,11 +12039,11 @@ mob
 				return
 
 			if(B.SpecialSlot)
-				if(src.Race=="Changeling"&&src.TransActive()&&!B.UnrestrictedBuff)
+				if(src.Race=="Changeling"&&src.transActive()&&!B.UnrestrictedBuff)
 					src << "No buffs as a changeling in transformations."
 					return
 				/*
-				if(src.isRace(SAIYAN)&&src.TransActive()&&!B.UnrestrictedBuff)
+				if(src.isRace(SAIYAN)&&src.transActive()&&!B.UnrestrictedBuff)
 					src << "No buffs as a saiyan in transformations."
 					return*/
 				if(src.SpecialBuff)
@@ -12188,11 +12184,11 @@ mob
 					src.ActiveBuff.passives["PUSpike"] = 25
 					src.ActiveBuff.PUSpike=25
 
-				if(src.TransActive())
+				if(src.transActive())
 					src.ActiveBuff.OverlayTransLock=1
 					if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
-						if((!src.HasGodKi()&&masteries["[src.TransActive()]mastery"]==100)||src.HasGodKi()&&masteries["4mastery"]==100)
-							if(src.TransActive()==1&&(!src.HasGodKi()&&!src.Anger))
+						if((!src.HasGodKi()&&masteries["[src.transActive()]mastery"]==100)||src.HasGodKi()&&masteries["4mastery"]==100)
+							if(src.transActive()==1&&(!src.HasGodKi()&&!src.Anger))
 								Anger=Anger
 							else if(src.HasGodKi()&&masteries["4mastery"]==100)
 								src.ActiveBuff.AuraLock='BLANK.dmi'
@@ -12336,7 +12332,7 @@ mob
 					if(src.StyleBuff.ABuffNeeded.len>0)
 						if(src.ActiveBuff.BuffName in src.StyleBuff.ABuffNeeded)
 							src.StyleBuff.Trigger(src, Override=1)
-			if(src.TransActive()||src.Saga=="Cosmo")
+			if(src.transActive()||src.Saga=="Cosmo")
 				if(src.ActiveBuff.BuffName=="Ki Control")
 					src.ActiveBuff.OverlayTransLock=1
 			else
@@ -12621,7 +12617,6 @@ mob
 			if(B.Transform)
 				src.Transforming=1
 				if(B.Transform=="Force")
-					src.ssj["unlocked"]=min(src.ssj["unlocked"]+1,4)
 					src.trans["unlocked"]=min(src.trans["unlocked"]+1,4)
 					src.Transform()
 				else if(B.Transform=="Strong")
@@ -15158,7 +15153,6 @@ mob
 				else if(B.Transform=="Weak")
 					src.PowerBoost/=0.25
 				else if(B.Transform=="Force")
-					src.ssj["unlocked"]=max(src.ssj["unlocked"]-1,0)
 					src.trans["unlocked"]=max(src.trans["unlocked"]-1,0)
 					src.Revert()
 				else

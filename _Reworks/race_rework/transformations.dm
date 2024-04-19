@@ -23,7 +23,7 @@ transformation
 		speed
 		regeneration
 		anger
-		unlock_potential
+		unlock_potential = -1
 
 		form_profile
 
@@ -66,6 +66,8 @@ transformation
 
 		transform(mob/user)
 			if(is_active || !user.CanTransform()) return
+
+			if(unlock_potential > user.Potential) return
 
 			mastery_boons(user)
 
@@ -142,6 +144,7 @@ transformation
 
 	saiyan
 		super_saiyan
+			unlock_potential = 25
 			angerPoint = 75
 
 			transform_animation(mob/user)
@@ -187,6 +190,7 @@ transformation
 				sleep(2)
 
 		super_saiyan_2
+			unlock_potential = 45
 			autoAnger = TRUE
 			PUSpeedModifier = 1.5
 

@@ -252,7 +252,6 @@ race
 		passives = list("StaticWalk" = 1, "Steady" = 1)
 		skills = list(/obj/Skills/Absorb, /obj/Skills/Buffs/SlotlessBuffs/Regeneration)
 
-
 		intellect = 0.25
 		imagination = 4
 		anger = 1.3

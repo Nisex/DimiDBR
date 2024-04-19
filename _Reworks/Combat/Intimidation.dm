@@ -115,7 +115,7 @@
                 if(5)
                     Effective*=50
 
-    if(src.Race=="Changeling"&&src.TransActive()&&src.AscensionsAcquired)
+    if(src.Race=="Changeling"&&src.transActive()&&src.AscensionsAcquired)
         Effective+=(10*src.AscensionsAcquired)
     if(src.CheckActive("Mobile Suit")||src.CheckSlotless("Battosai")||src.CheckSlotless("Susanoo"))
         Effective+=5

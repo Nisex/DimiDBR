@@ -1329,9 +1329,9 @@ mob
 			if(defender.ActiveBuff&&defender.CheckActive("Keyblade")&&!defender.SpecialBuff)
 				defender.ManaAmount+=(0.25*defender.SagaLevel)
 
-			if(src.HellPower&&!src.TransActive())
+			if(src.HellPower&&!src.transActive())
 				src.HealMana(1)
-			if(defender.HellPower&&!src.TransActive())
+			if(defender.HellPower&&!src.transActive())
 				defender.HealMana(1)
 
 			if(src.SlotlessBuffs)
@@ -2097,8 +2097,8 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if(src.ssj["active"]&&!src.SpecialBuff)
-				if(src.masteries["[src.ssj["active"]]mastery"]==100||src.ssj["active"]>1)
+			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
+				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 				Mod+=0.3
@@ -2209,8 +2209,8 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if(src.ssj["active"]&&!src.SpecialBuff)
-				if(src.masteries["[src.ssj["active"]]mastery"]==100||src.ssj["active"]>1)
+			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
+				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 				Mod+=0.3
@@ -2312,8 +2312,8 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if(src.ssj["active"]&&!src.SpecialBuff)
-				if(src.masteries["[src.ssj["active"]]mastery"]==100||src.ssj["active"]>1)
+			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
+				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 				Mod+=0.2
@@ -2405,8 +2405,8 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if(src.ssj["active"]&&!src.SpecialBuff)
-				if(src.masteries["[src.ssj["active"]]mastery"]==100||src.ssj["active"]>1)
+			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
+				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 				Mod+=0.2
@@ -2664,7 +2664,7 @@ mob
 			Recov*=Mod
 			Recov*=Mult
 			Recov*=src.RecovChaos
-			if(src.isRace(NAMEKIAN)&&src.TransActive())
+			if(src.isRace(NAMEKIAN)&&src.transActive())
 				if(Recov<2)
 					Recov=2
 			if(src.HasRipple())
@@ -2764,7 +2764,7 @@ mob
 				return src.ssj["unlocked"]
 			else
 				return src.trans["unlocked"]
-		TransActive()
+		transActive()
 			if(src.HasSSjVars())
 				return src.ssj["active"]
 			else
@@ -2773,21 +2773,21 @@ mob
 				else
 					return src.trans["active"]
 		TransAuraFound()
-			if(src.TransActive())
-				if(src.TransActive()==1)
+			if(src.transActive())
+				if(src.transActive()==1)
 					if(src.Form1Aura)
 						return 1
-				if(src.TransActive()==2)
+				if(src.transActive()==2)
 					if(src.Form2Aura)
 						return 1
-				if(src.TransActive()==3)
+				if(src.transActive()==3)
 					if(src.Form3Aura)
 						return 1
-				if(src.TransActive()==4)
+				if(src.transActive()==4)
 					if(src.Form4Aura)
 						return 1
 			return 0
-		TransActiveDown()
+		transActiveDown()
 			if(src.HasSSjVars())
 				src.ssj["active"]--
 			else

@@ -388,39 +388,39 @@ mob/proc/ChangelingMorph(var/x)
 mob/proc/ChangelingMorphRevert()
 	src.Auraz("Remove")
 	if(src.AscensionsUnlocked)
-		if(src.TransActive()==3)
+		if(src.transActive()==3)
 			src.Intimidation/=4
-		if(src.TransActive()==2)
+		if(src.transActive()==2)
 			src.Intimidation/=1.25
 
-	if(src.TransActive()==3)
+	if(src.transActive()==3)
 		src.SpdMultTotal-=0.5
-	if(src.TransActive()==2)
+	if(src.transActive()==2)
 		src.ForMultTotal-=0.5
-	if(src.TransActive()==1)
+	if(src.transActive()==1)
 		src.StrMultTotal-=0.5
 
 	src.trans["active"]--
 
-	if(src.TransActive()==0)
+	if(src.transActive()==0)
 		if(src.BaseBase)
 			src.icon=src.BaseBase
 			src.BaseBase=0
 		src.BaseBase=0
 		src.BioArmorMax=100
 		src.potential_trans=0
-	if(src.TransActive()==1)
+	if(src.transActive()==1)
 		if(src.Form1Base)
 			src.icon=src.Form1Base
 		src.BioArmorMax=75
 		src.potential_trans=src.Potential+2.5
-	if(src.TransActive()==2)
+	if(src.transActive()==2)
 		if(src.Form2Base)
 			src.icon=Form2Base
 		src.BioArmorMax=50
 
 		src.potential_trans=src.Potential+5
-	if(src.TransActive()==3)
+	if(src.transActive()==3)
 		if(src.Form3Base)
 			src.icon=src.Form3Base
 		src.BioArmorMax=0
@@ -1737,7 +1737,7 @@ mob/proc/Transform(var/Type)
 	if(!Type)
 		if(src.Race=="Alien")
 			FirstTimeHeal=1
-			if(src.TransActive()<1)
+			if(src.transActive()<1)
 				if(src.TransUnlocked()>=1)
 					src.trans["transing"]=1
 					src.SuperAlien(1)
@@ -1916,7 +1916,7 @@ mob/proc/Revert(var/Type, var/Controlled=0)
 			return
 
 		if(src.Race=="Alien")
-			if(src.TransActive())
+			if(src.transActive())
 				OMsg(src, "[src.Form1RevertText]")
 				src.overlays-=image(icon=src.Form1Overlay, pixel_x=src.Form1OverlayX, pixel_y=src.Form1OverlayY)
 				src.overlays-=image(icon=src.Form1TopOverlay, pixel_x=src.Form1TopOverlayX, pixel_y=src.Form1TopOverlayY)

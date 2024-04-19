@@ -710,7 +710,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 				if(src.HasPULock())
 					return
 				if(src.PoweringUp==1)
-					if(src.TransActive()<src.TransUnlocked())
+					if(src.transActive()<src.TransUnlocked())
 						src.PoweringUp=0
 						src.Transform()
 						return

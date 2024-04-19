@@ -380,18 +380,15 @@ mob
 				if(scrollTicker<=0)
 					scrollTicker=0
 
-			if(src.ssj["active"]>0&&src.ssj["active"]<4)
-				if((src.ssj["active"]>=1))
-					var/Drain
-					if(src.masteries["[src.ssj["active"]]mastery"]>5&&src.masteries["[src.ssj["active"]]mastery"]<75||(src.HasGodKi()&&masteries["4mastery"]!=100))
-						Drain=30
-					else
-						Drain=0
-					if(Drain>0)
-						if(src.Energy<Drain&&!src.HasNoRevert()&&!src.Dead&&!src.HasMystic())
-							src.Revert()
-							src.LoseEnergy(30)
-							src<<"The strain of Super Saiyan forced you to revert!"
+			if(isRace(SAIYAN)&&transActive>0)
+				var/Drain = 10
+				if(race.transformations[transActive].mastery<75)
+					Drain=30
+				if(Drain>0)
+					if(src.Energy<Drain&&!src.HasNoRevert()&&!src.Dead&&!src.HasMystic())
+						src.Revert()
+						src.LoseEnergy(30)
+						src<<"The strain of Super Saiyan forced you to revert!"
 /*
 			if(src.trans["active"]>3 && src.masteries["4mastery"]<100 && src.Race=="Changeling")
 				if(src.Energy<30&&!src.HasNoRevert())

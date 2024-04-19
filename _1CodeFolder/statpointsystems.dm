@@ -351,7 +351,6 @@
 mob/proc/RacialStats()
 	for(var/obj/SavedStats/Z in src)
 		del(Z)
-	src.ResetStats()
 	src.contents+=new/obj/SavedStats
 	src.GetIncrements()
 
@@ -475,21 +474,11 @@ proc/Define_Average(var/i=1)
 mob/proc/Redo_Stats()
 	set category="Other"
 	Redoing_Stats=1
-	ResetStats()
 	RacialStats()
 	UpdateBio()
 	var/mob/Creation/C = new
 	C.NextStep2(src)
 	del C
-
-
-mob/proc/ResetStats()
-	StrMod=1
-	EndMod=1
-	ForMod=1
-	SpdMod=1
-	OffMod=1
-	DefMod=1
 
 mob/proc/PerkDisplay()
 	world.log<<race

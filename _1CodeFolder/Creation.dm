@@ -695,7 +695,7 @@ mob/Creation/verb
 				goto Namez
 				return
 			if(findtext(name,"\n"))
-				world<<"[key] ([client.address]) tried to use their name to spam. They were booted."
+				world.log<<"[key] ([client.address]) tried to use their name to spam. They were booted."
 				del(src)
 				return
 			usr.UpdateBio()
@@ -734,7 +734,7 @@ mob/Creation/proc
 				goto Namez
 				return
 			if(findtext(usrr.name,"\n"))
-				world<<"[usrr.key] ([usrr.client.address]) tried to use their name to spam. They were booted."
+				world.log <<"[usrr.key] ([usrr.client.address]) tried to use their name to spam. They were booted."
 				del(usrr)
 				return
 			usrr.UpdateBio()
@@ -1111,13 +1111,6 @@ mob/proc
 		LOL.Base=src.Base
 		LOL.EnergyMax=src.EnergyMax
 		LOL.Gender=src.Gender
-		LOL.StrMod=src.StrMod
-		world<<"[StrMod]"
-		LOL.EndMod=src.EndMod
-		LOL.SpdMod=src.SpdMod
-		LOL.ForMod=src.ForMod
-		LOL.OffMod=src.OffMod
-		LOL.DefMod=src.DefMod
 		LOL.RecovMod=src.RecovMod
 		LOL.AngerMax=src.AngerMax
 		LOL.RPPMult=src.RPPMult
@@ -1130,6 +1123,12 @@ mob/proc
 		LOL.AscensionsUnlocked=src.AscensionsUnlocked
 		LOL.race = race
 		LOL.setRace(race, TRUE)
+		LOL.StrMod=src.StrMod
+		LOL.EndMod=src.EndMod
+		LOL.SpdMod=src.SpdMod
+		LOL.ForMod=src.ForMod
+		LOL.OffMod=src.OffMod
+		LOL.DefMod=src.DefMod
 		src.client.mob=LOL
 		del(src)
 
@@ -1157,7 +1156,6 @@ mob/proc
 			if(src.Class=="Dance"||src.Class=="Potara")
 				src.EnergySignature=rand(9001,9999)
 				src.ClothGold="Ophiuchus"
-
 		race.onFinalization(src)
 
 		src.StrOriginal=src.StrMod
