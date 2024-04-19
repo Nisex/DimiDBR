@@ -351,12 +351,11 @@ transformation
 	alien
 		super_alien
 			transform(mob/user)
-
-				var/Choice
-				var/Confirm
-				while(Confirm!="Yes") /// <--- why doesn't this work?! 
-					Choice=input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagacity")
-				switch(Choice)	
+				TransClass = input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagcity")
+				//you can set this var to the input so you have the choice and then you can use a switch on it
+				//you can do it as just the switch statement as well
+				// switch(input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagacity")) // the return of the input poc will be one of the four
+				switch(TransClass)
 					if("Tenacity")
 						strength = 5
 						speed = 5
@@ -366,8 +365,34 @@ transformation
 					if("Harmony")
 						force = 5
 					if("Sagacity")
-						endurance = 5	
-				src.TransClass=Choice		
+						endurance = 5
+					// the switch statement will handle the return, there is no need for a while, in fact u just shouldn't use them if you are inexperienced.
+				
+				
+
+
+
+
+				// var/Choice
+				// var/Confirm < - confirm is made but not set, it is like saying ok i have this piece of paper but never saying its a dollar bill
+				// while(Confirm!="Yes") /// <--- why doesn't this work?! // this will just throw an error or always be false; there is no end to the while loop as well so all that happens is an inf loop, stagnated by an input 
+				// 	Choice=input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagacity")
+				// correct code
+				// 	if(Choice)
+					// then set Confirm = "Yes"
+				// all of the above isnt needed anyway
+				// switch(Choice)	
+				// 	if("Tenacity")
+				// 		strength = 5
+				// 		speed = 5
+				// 	if("Brutality")
+				// 		strength = 5
+				// 		speed = 5	
+				// 	if("Harmony")
+				// 		force = 5
+				// 	if("Sagacity")
+				// 		endurance = 5	
+				// src.TransClass=Choice		
 				/// ive tried writing this like 100 times, but the idea should just be that aliens can pick their class of super alien and gain different boons!!!!111 will need to figure this out...
 				/// duplicate definitions, probably just retarded but i cant figure out why
 				..()
