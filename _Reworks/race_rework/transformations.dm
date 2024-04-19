@@ -350,24 +350,27 @@ transformation
 	
 	alien
 		super_alien
-			var/Choice
-			var/Confirm
-			while(Confirm!="Yes") /// <--- why doesn't this work?! 
-				Choice=input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagacity")
-			switch(usr.Choice)	
-				if("Tenacity")
-					strength = 5
-					speed = 5
-				if("Brutality")
-					strength = 5
-					speed = 5	
-				if("Harmony")
-					force = 5
-				if("Sagacity")
-					endurance = 5	
-			src.TransClass=Choice		
-			/// ive tried writing this like 100 times, but the idea should just be that aliens can pick their class of super alien and gain different boons!!!!111 will need to figure this out...
-			/// duplicate definitions, probably just retarded but i cant figure out why
+			transform(mob/user)
+
+				var/Choice
+				var/Confirm
+				while(Confirm!="Yes") /// <--- why doesn't this work?! 
+					Choice=input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagacity")
+				switch(Choice)	
+					if("Tenacity")
+						strength = 5
+						speed = 5
+					if("Brutality")
+						strength = 5
+						speed = 5	
+					if("Harmony")
+						force = 5
+					if("Sagacity")
+						endurance = 5	
+				src.TransClass=Choice		
+				/// ive tried writing this like 100 times, but the idea should just be that aliens can pick their class of super alien and gain different boons!!!!111 will need to figure this out...
+				/// duplicate definitions, probably just retarded but i cant figure out why
+				..()
 
 
 
