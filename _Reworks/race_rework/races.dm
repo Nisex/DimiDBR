@@ -323,6 +323,7 @@ race
 		imagination = 0.67
 
 		onFinalization(mob/user)
+			..()
 			user.Secret="Eldritch"
 			user.giveSecret("Eldritch")
 
