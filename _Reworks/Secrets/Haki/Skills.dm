@@ -9,13 +9,10 @@
     var/extra = secretDatum.currentTier
     if(enemy.Secret == Secret)
         if(extraType == "Haki") // they arent a king
-            if(!enemy.isRace(HUMAN))
-                extra -= 1
+            if(enemy.secretDatum.secretVariable["ConquerorsHaki"] == 1)
+                extra -= enemy.secretDatum.currentTier
             else
-                if(enemy.secretDatum.secretVariable["ConquerorsHaki"] == 1)
-                    extra -= enemy.secretDatum.currentTier
-                else
-                    extra -= 2
+                extra -= 2
     switch(thingToCompare)
         if("Potential")
             var/difference = Potential - enemy.Potential
