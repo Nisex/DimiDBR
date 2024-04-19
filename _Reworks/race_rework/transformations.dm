@@ -351,7 +351,7 @@ transformation
 	alien
 		super_alien
 			transform(mob/user)
-				TransClass = input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagcity")
+				TransClass = input(user, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagcity")
 				//you can set this var to the input so you have the choice and then you can use a switch on it
 				//you can do it as just the switch statement as well
 				// switch(input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagacity")) // the return of the input poc will be one of the four
