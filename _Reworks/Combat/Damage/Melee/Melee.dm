@@ -788,4 +788,27 @@ var/global/MULTIHIT_NERF = FALSE
 				for(var/obj/Skills/Projectile/Aether_Arrow/pc in src)
 					src.UseProjectile(pc)
 				NextAttack+=15
+			else if(EquippedStaff())
+				if(!locate(/obj/Skills/Projectile/Staff_Projectile, src))
+					src.AddSkill(new/obj/Skills/Projectile/Staff_Projectile)
+				for(var/obj/Skills/Projectile/Staff_Projectile/pc in src)
+					switch(st.Class)
+						if("Wand")
+							pc.Blasts = 5
+							pc.DamageMult = 1
+						if("Rod")
+							pc.Blasts = 3
+							pc.DamageMult = 1.5
+						if("Staff")
+							pc.Blasts = 1
+							pc.DamageMult = 2
+					src.UseProjectile(pc)
+				switch(st.Class)
+					if("Wand")
+						NextAttack += 5
+					if("Rod")
+						NextAttack += 10
+					if("Staff")
+						NextAttack += 15
+				NextAttack+=15
 			return

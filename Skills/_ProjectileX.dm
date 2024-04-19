@@ -515,6 +515,19 @@ obj
 				IconLock='Arrow - Spirit.dmi'
 				Variation=48
 				Radius=1
+			Staff_Projectile
+				Radius=0
+				DamageMult=1
+				AccMult=1
+				ForRate=1
+				EndRate=1
+				Distance=30
+				AttackReplace=1
+				Striking=1
+				Blasts=2
+				IconLock='Blast - Small.dmi'
+				Variation=48
+				Radius=1
 			Fenrir
 				NoTransplant=1
 				Cooldown=60

@@ -2066,42 +2066,9 @@ mob/Player/AI
 				if(src.Kaioken)
 					PUGain=0
 					src.PoweringUp=0
-				if(src.TransActive())
-					if(src.masteries["[src.TransActive()]mastery"]>10&&src.masteries["[src.TransActive()]mastery"]<100||(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
-						PUGain/=src.PowerBoost
-					else
-						if(src.HasKiControlMastery())
-							PUGain*=1+(src.GetKiControlMastery())
-				else
-					if(src.HasKiControlMastery())
-						PUGain*=1+(src.GetKiControlMastery())
 				src.PowerControl+=PUGain
 				var/PUThreshold=150
 				if(src.PowerControl>=PUThreshold)
-					if(!src.ActiveBuff)
-						if(src.Race!="Changeling"||(src.Race=="Changeling"&&src.TransActive()==4))
-							for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in src)
-								if(!src.BuffOn(KC))
-									src.PoweringUp=0
-									src.Auraz("Remove")
-									src.UseBuff(KC)
-									break
-						else
-							if(src.TransActive()==3)
-								if(src.Class=="Prodigy")
-									for(var/obj/Skills/Buffs/SpecialBuffs/OneHundredPercentPower/FF in src)
-										if(!src.BuffOn(FF))
-											src.PoweringUp=0
-											src.Auraz("Remove")
-											src.UseBuff(FF)
-											break
-								else if(src.Class=="Experience")
-									for(var/obj/Skills/Buffs/SpecialBuffs/FifthForm/FF in src)
-										if(!src.BuffOn(FF))
-											src.PoweringUp=0
-											src.Auraz("Remove")
-											src.UseBuff(FF)
-											break
 					src.PowerControl=PUThreshold
 					src.PoweringUp=0
 				if(src.Energy<=src.EnergyMax/10&&!src.PUUnlimited)
@@ -2109,7 +2076,7 @@ mob/Player/AI
 					src<<"You are too tired to power up."
 					src.PoweringUp=0
 					if(isRace(SAIYAN))
-						if(src.TransActive()>0)
+						if(src.transActive()>0)
 							var/Skip=0
 							if(src.ssj["active"]==1)
 								if(src.ssj["1mastery"]>=100||src.ssj["1mastery"]<10)
@@ -2136,7 +2103,7 @@ mob/Player/AI
 					src.Auraz("Remove")
 					src<<"You are too tired to power up."
 					if(isRace(SAIYAN))
-						if(src.TransActive()>0)
+						if(src.transActive()>0)
 							var/Skip=0
 							if(src.ssj["active"]==1)
 								if(src.ssj["1mastery"]>=100||src.ssj["1mastery"]<10)
