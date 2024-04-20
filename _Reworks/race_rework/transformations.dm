@@ -357,15 +357,21 @@ transformation
 				// switch(input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagacity")) // the return of the input poc will be one of the four
 				switch(TransClass)
 					if("Tenacity")
-						strength = 5
-						speed = 5
+						strength = 0.25
+						speed = 0.25
+						passives=list("Desperation" = 1)
 					if("Brutality")
-						strength = 5
-						speed = 5	
+						strength = 0.25
+						endurance = 0.25	
+						intimidation = 20
 					if("Harmony")
-						force = 5
+						force = 0.25
+						defense = 0.25
+						passives=list("Desperation" = 1)
 					if("Sagacity")
-						endurance = 5
+						force = 0.25
+						speed =0.25
+						intimidation = 20
 					// the switch statement will handle the return, there is no need for a while, in fact u just shouldn't use them if you are inexperienced.
 				
 				
@@ -397,5 +403,29 @@ transformation
 				/// duplicate definitions, probably just retarded but i cant figure out why
 				..()
 
+	namekian
+		super_namekian
+			transform(mob/user)
+				passives=list("Life Generation" = 0.5)
+				PUSpeedModifier = 1.5
+				anger += 0.3
+				intimidation += 12
+				regeneration += 0.75
+				form_aura = "Amazing Super Namekian Aura.dmi"
+				form_aura_x = -32
+				src << "You awaken the latent potential of the Namekian race; becoming a Super Namek!"
+
+		orange_namekian
+			transform(mob/user)
+				passives=list("GodKi" = 1, "Life Generation" = 3)
+				PUSpeedModifier = 2
+				anger += 1
+				autoAnger = TRUE
+				intimidation += 100
+				regeneration += 1
+				form_base ="Orange Namek.dmi"
+				form_aura ="FlameGlowZeus.dmi"
+				form_aura_x = -16
+				src << "Congratulations! You have awakend the Godhood state of Namekians; please do something cool with it because Namek's need good PR!! :) " 		
 
 

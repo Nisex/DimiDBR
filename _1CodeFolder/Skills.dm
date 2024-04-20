@@ -804,7 +804,7 @@ obj/Skills
 					sleep(150)
 					del(usr)
 
-		/mob/Player
+		mob/Player
 			text = "Sets Counterparts for Namekian Players"
 
 			var/list/counterparts

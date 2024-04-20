@@ -1918,13 +1918,13 @@ NEW VARIABLES
 	SpecialBuffs
 		SpecialSlot=1
 //Racial
-		Giant_Form//for Dragon Nameks instead!
+		Giant_Form//for Warrior  Nameks instead!
 			NeedsHealth=75
 			StrMult=1.5
 			EndMult=2
 			DefMult=0.5
 			Enlarge=2
-			passives = list("GiantForm" = 1)
+			passives = list("GiantForm" = 1, "Sweeping Strikes" = 1)
 			GiantForm=1
 			ActiveMessage="channels their regenerative abilities into a bout of monstrous growth!"
 			OffMessage="shrinks to normal size..."
@@ -1939,6 +1939,18 @@ NEW VARIABLES
 					if(!r.Using)
 						r.Cooldown()
 				src.Trigger(usr)
+		Daimou_Form//for Demon Nameks!
+			NeedsHealth=75
+			StrMult=1.3
+			SpdMult=1.3
+			OffMult=2
+			DefMult=1.3
+			passives = list("Hellrisen" = 1, "Hellpower" = 1, "Flicker" = 1)
+			ActiveMessage="unleashes the herectical power of the Demon clan!"
+			OffMessage="discards the Demon clan's abominal power..."
+			Cooldown=180
+			KenWave=2
+			KenWaveIcon="LightningRed.dmi"		
 		OneHundredPercentPower
 			SignatureTechnique=3
 			BuffName="One Hundred Percent Power"

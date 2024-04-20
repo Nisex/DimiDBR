@@ -922,17 +922,26 @@ ascension
 				switch(owner.Class)
 					if("Demon")
 						speed = 0.5
+						defense = 0.25
+						anger = 1.4
+						passives = list("Hellpower" = 0.5)
 					if("Dragon")
 						force = 0.25
 						if("mob/player/var/counterparted" == 1)
 							force = 0.5
 							imaginationAdd = 0.5
 							recovery = 0.25
+							skills = list(/obj/Skills/Utility/Send_Energy)
+							for(var/obj/Skills/Utility/Send_Energy/se)
+								se.SagaSignature=1
+								se.SignatureTechnique=0
 					if("Warrior")	
 						strength = 0.25	
 						if("mob/player/var/counterparted" == 1)
 							strength = 0.5
 							endurance = 0.5
+							offense = 0.25
+							defense = 0.25
 							learning = 0.25
 		two
 			unlock_potential	=	ASCENSION_TWO_POTENTIAL
@@ -940,24 +949,32 @@ ascension
 				switch(owner.Class)
 					if("Demon")
 						speed = 0.5
+						defense = 0.25
+						anger = 1.5
+						skills = list(/obj/Skills/Buffs/SpecialBuffs/Daimou_Form)
+						src << "Your reliance on infernal power has given you insight to the power of a Great Demon King!"
 					if("Dragon")
 						force = 0.25
 						if("mob/player/var/counterparted" == 1)
 							force = 0.25
 							imaginationAdd = 0.25
 							learning = 0.25
+							skills = list(/obj/Skills/Utility/Heal)
+							src << "Your link with your counterpart has grown your energy pool large enough to heal all wounds instantly!"
 					if("Warrior")
 						endurance = 0.25
 						if("mob/player/var/counterparted" == 1)
 							intimidation = 10
 							strength = 0.25
-							recovery = 0.25					
+							skills = list(/obj/Skills/Buffs/SpecialBuffs/Giant_Form)
+							src << "Your link with your counterpart strengtens your empowers your physical might further, as you learn to control your size!"				
 		three
 			unlock_potential	=	ASCENSION_THREE_POTENTIAL
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Demon")
 						speed = 0.5
+						anger = 1.6
 					if("Dragon")
 						force= 0.25
 						endurance = 0.25
@@ -969,10 +986,48 @@ ascension
 						strength = 0.25
 						if("mob/player/var/counterparted" == 1)
 							strength = 0.25
-							passives = list("CallousedHands" = 0.5)
-							recovery = 0.35			
+							recovery = 0.35
+							endurance = 0.35			
 		four
+			unlock_potential =  ASCENSION_FOUR_POTENTIAL
+			onAscension(mob/owner)
+				switch(owner.Class)
+					if("Demon")
+						intimidation = 20
+						passives = list("SlayerMod" = 1.5, "MovementMastery" = 4)
+					if("Warrior")	
+						strength = 0.25
+						if("mob/player/var/counterparted" == 1)
+							strength = 0.25
+							endurance = 0.25
+							recovery = 0.5
+							intimidation = 30
+					if("Dragon")
+						force = 0.25
+						if("mob/player/var/counterparted" == 1)
+							force = 0.5
+							recovery = 0.5
+							passives = list("SpiritStrike" = 1)		
 		five
+			unlock_potential = ASCENSION_FIVE_POTENTIAL
+			onAscension(mob/owner)
+				switch(owner.Class)
+					if("Demon")
+						speed = 0.5
+						anger = 2
+						intimidation = 50
+					if("Warrior")
+						strength = 1
+						endurance = 1
+						if("mob/player/var/counterparted" == 1)
+							strength = 1
+							endurance = 1
+							intimidation = 70
+					if("Dragon")
+						force = 1
+						recovery = 1
+						if("mob/player/var/counterparted" == 1)
+							passives = list("ManaSeal" = 1, "CyberMenace" = 1, "SpiritStrike" = 1.5)			
 
 	changeling
 		one	
