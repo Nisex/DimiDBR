@@ -2280,13 +2280,9 @@ mob
 				return 0
 			if(src.HasMechanized())
 				return 0
-			if(src.Anger)
-				return 0
 			if(src.StableBP>=1)
 				return 0
 			if(src.Kaioken)
-				return 0
-			if(src.HasCalmAnger())
 				return 0
 			if(src.AngerMax==1)
 				if(src.Race!="Changeling")

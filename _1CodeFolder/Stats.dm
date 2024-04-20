@@ -728,7 +728,8 @@ mob/proc/
 		if(!passive_handler.Get("Piloting"))
 			if(!passive_handler.Get("Possessive"))
 				if(src.CanLoseVitalBP()>=1||src.Anaerobic)
-					Ratio*=1+(src.GetHealthBPMult()+src.GetEnergyBPMult())
+					Ratio*=1+src.GetEnergyBPMult()
+
 				if(src.JaganPowerNerf)
 					Ratio*=src.JaganPowerNerf
 				if(src.BPPoison)
@@ -1025,13 +1026,13 @@ mob/proc/Update_Stat_Labels()
 				src<<output("Battery: [round(ManaAmount/ManaMax*100)]","BarMana")
 			else
 				src<<output("Mana: [round((ManaAmount/100)*100)][ManaMessage]","BarMana")
-			if(!src.Anger&&!src.Kaioken)
+			if(!src.Kaioken)
 				if(src.PoweringUp)
-					src<<output("Power: [round((Energy/EnergyMax)*Health)*round(src.GetPowerUpRatioVisble(), 0.01)]% (+)","BarPower")
+					src<<output("Power: [round((Energy/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)]% (+)","BarPower")
 				else if(src.PowerControl<100)
-					src<<output("Power: [round((Energy/EnergyMax)*Health)*round(src.GetPowerUpRatioVisble(), 0.01)]% (-)","BarPower")
+					src<<output("Power: [round((Energy/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)]% (-)","BarPower")
 				else
-					src<<output("Power: [round((Energy/EnergyMax)*Health)*round(src.GetPowerUpRatioVisble(), 0.01)]%","BarPower")
+					src<<output("Power: [round((Energy/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)]%","BarPower")
 			else
 				if(src.PoweringUp)
 					src<<output("Power: [round((100/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)*src.KaiokenBP]% (+)","BarPower")
