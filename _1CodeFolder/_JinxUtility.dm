@@ -1801,7 +1801,7 @@ mob
 			if(src.Oxygen>KeyOxygen)
 				src.Oxygen-=1
 		Calm(var/Pacified=0)
-			if(src.EndlessAnger)
+			if(passive_handler.Get("EndlessAnger"))
 				return
 			if(!Pacified)src.OMessage(10,"<font color=white><i>[src] becomes calm.","<font color=silver>[src]([src.key]) becomes calm.")
 			src.DefianceCounter=0

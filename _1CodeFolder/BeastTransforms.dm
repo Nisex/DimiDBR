@@ -120,7 +120,7 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert)
 			src.PoweringUp=0
 			src.PoweringDown=0
 			src.PowerControl=100
-			src.EndlessAnger+=1
+			passive_handler.Increase("EndlessAnger")
 			src.AuraLocked=1
 			src.AuraLock='BLANK.dmi'
 			src.Anger=2
@@ -140,7 +140,7 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert)
 		else if(O.icon)
 			if(!src.Golden)
 				src.NoDodge-=1
-				src.EndlessAnger-=1
+				passive_handler.Decrease("EndlessAnger")
 				src.AuraLocked=0
 				src.AuraLock=null
 				src.Anger=0

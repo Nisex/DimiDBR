@@ -14248,7 +14248,7 @@ mob
 				src.Afterimages+=1
 			if(B.AutoAnger)
 				src.Anger=src.AngerMax
-				src.EndlessAnger+=1
+				passive_handler.Increase("EndlessAnger")
 			if(B.CalmAnger)
 				src.Anger=0
 			if(B.AngerMult)
@@ -14752,8 +14752,8 @@ mob
 			if(B.Afterimages)
 				src.Afterimages-=B.Afterimages
 			if(B.AutoAnger)
-				if(src.EndlessAnger)
-					src.EndlessAnger-=1
+				if(passive_handler.Get("EndlessAnger"))
+					passive_handler.Decrease("EndlessAnger")
 				src.Calm()
 			// if(B.AngerThreshold)
 			// 	src.AngerThreshold-=B.AngerThreshold
