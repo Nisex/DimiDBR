@@ -110,7 +110,7 @@ mob
 
 mob/proc/SetVars()
 
-	if(src.Race=="Human")
+	if(src.isRace(HUMAN))
 		if(src.LegendaryPower)
 			src.trans["1multi"]=1
 		if(src.HellPower)
@@ -119,7 +119,7 @@ mob/proc/SetVars()
 	if(src.Race=="Alien")
 		src.trans["1multi"]=1.25
 
-	if(src.Race=="Saiyan"||src.Race=="Half Saiyan")
+	if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
 		src.ssj["1multi"]=2.5
 		src.ssj["2multi"]=2
 		src.ssj["3multi"]=2
@@ -388,39 +388,39 @@ mob/proc/ChangelingMorph(var/x)
 mob/proc/ChangelingMorphRevert()
 	src.Auraz("Remove")
 	if(src.AscensionsUnlocked)
-		if(src.TransActive()==3)
+		if(src.transActive()==3)
 			src.Intimidation/=4
-		if(src.TransActive()==2)
+		if(src.transActive()==2)
 			src.Intimidation/=1.25
 
-	if(src.TransActive()==3)
+	if(src.transActive()==3)
 		src.SpdMultTotal-=0.5
-	if(src.TransActive()==2)
+	if(src.transActive()==2)
 		src.ForMultTotal-=0.5
-	if(src.TransActive()==1)
+	if(src.transActive()==1)
 		src.StrMultTotal-=0.5
 
 	src.trans["active"]--
 
-	if(src.TransActive()==0)
+	if(src.transActive()==0)
 		if(src.BaseBase)
 			src.icon=src.BaseBase
 			src.BaseBase=0
 		src.BaseBase=0
 		src.BioArmorMax=100
 		src.potential_trans=0
-	if(src.TransActive()==1)
+	if(src.transActive()==1)
 		if(src.Form1Base)
 			src.icon=src.Form1Base
 		src.BioArmorMax=75
 		src.potential_trans=src.Potential+2.5
-	if(src.TransActive()==2)
+	if(src.transActive()==2)
 		if(src.Form2Base)
 			src.icon=Form2Base
 		src.BioArmorMax=50
 
 		src.potential_trans=src.Potential+5
-	if(src.TransActive()==3)
+	if(src.transActive()==3)
 		if(src.Form3Base)
 			src.icon=src.Form3Base
 		src.BioArmorMax=0
@@ -1150,7 +1150,7 @@ mob/proc/RevertSSJG()
 
 	src.ssj["god"]=0
 
-	if(src.Race=="Saiyan")
+	if(src.isRace(SAIYAN))
 		passive_handler.Decrease("GodKi", 1)
 		src.GodKi-=1
 		src.EndlessAnger-=1
@@ -1725,7 +1725,7 @@ mob/proc/Jaganshi()
 
 mob/proc/RevertJaganshi()
 	src.JaganPowerNerf=src.JaganBase
-
+/*
 
 mob/proc/Transform(var/Type)
 	var/FirstTimeHeal=0
@@ -1737,13 +1737,13 @@ mob/proc/Transform(var/Type)
 	if(!Type)
 		if(src.Race=="Alien")
 			FirstTimeHeal=1
-			if(src.TransActive()<1)
+			if(src.transActive()<1)
 				if(src.TransUnlocked()>=1)
 					src.trans["transing"]=1
 					src.SuperAlien(1)
 					src.trans["transing"]=0
 
-		if(src.Race=="Saiyan")
+		if(src.isRace(SAIYAN))
 			FirstTimeHeal=2
 			for(var/obj/Oozaru/O in src)
 				if(O.Looking)
@@ -1816,7 +1816,7 @@ mob/proc/Transform(var/Type)
 					src.PureSSj(3)
 					ssj["transing"]=0
 
-		if(src.Race=="Namekian")
+		if(src.isRace(NAMEKIAN))
 			FirstTimeHeal=1
 			if(trans["active"]==0||trans["active"]==null)
 				if(trans["unlocked"]>0)
@@ -1851,13 +1851,13 @@ mob/proc/Transform(var/Type)
 	else
 		switch(Type)
 			if("God")
-				if(src.Race=="Saiyan")
+				if(src.isRace(SAIYAN))
 					src.SSJGod()
 				else if(src.Race=="Half Saiyan")
 					src.SSJRage()
 					if(src.FusionTimer)
 						src.FusionTimer*=0.5
-				else if(src.Race=="Human"&&src.LegendaryPower)
+				else if(src.isRace(HUMAN)&&src.LegendaryPower)
 					if(!src.trans["transing"])
 						src.GodMode(1)
 						if(src.AscensionsAcquired==5)
@@ -1916,7 +1916,7 @@ mob/proc/Revert(var/Type, var/Controlled=0)
 			return
 
 		if(src.Race=="Alien")
-			if(src.TransActive())
+			if(src.transActive())
 				OMsg(src, "[src.Form1RevertText]")
 				src.overlays-=image(icon=src.Form1Overlay, pixel_x=src.Form1OverlayX, pixel_y=src.Form1OverlayY)
 				src.overlays-=image(icon=src.Form1TopOverlay, pixel_x=src.Form1TopOverlayX, pixel_y=src.Form1TopOverlayY)
@@ -1933,9 +1933,9 @@ mob/proc/Revert(var/Type, var/Controlled=0)
 						src.BaseBaseX=0
 						src.BaseBaseY=0
 
-		if((src.Race=="Saiyan"||src.Race=="Half Saiyan")&&src.ssj["active"]==4)
+		if((src.isRace(SAIYAN)||src.Race=="Half Saiyan")&&src.ssj["active"]==4)
 			src.RevertSSJ4()
-		else if((src.Race=="Saiyan"||src.Race=="Half Saiyan")&&src.ssj["active"]>=1)
+		else if((src.isRace(SAIYAN)||src.Race=="Half Saiyan")&&src.ssj["active"]>=1)
 			animate(src, color = list(1,0,0, 0,1,0, 0,0,1, 1,0.9,0.2), time=3)
 			spawn(3)
 				animate(src, color = null, time=3)
@@ -1958,7 +1958,7 @@ mob/proc/Revert(var/Type, var/Controlled=0)
 				src.Anger=0
 			src.Hairz("Add")
 
-		if(src.Race=="Namekian")
+		if(src.isRace(NAMEKIAN))
 			while(trans["active"]>0)
 				if(src.masteries["1mastery"]!=100)
 					src.masteries["1mastery"]=100
@@ -1971,7 +1971,7 @@ mob/proc/Revert(var/Type, var/Controlled=0)
 	else
 		switch(Type)
 			if("God")
-				if(src.Race=="Saiyan"||src.Race=="Half Saiyan")
+				if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
 					src.RevertSSJG()
 				else
 					src.GodModeRevert()
@@ -1987,7 +1987,7 @@ mob/proc/Revert(var/Type, var/Controlled=0)
 		src.Auraz("Add")
 	else
 		src.Auraz("Remove")
-
+*/
 mob/proc/Shockwave(var/icon/E,var/Q=1, var/x1=0, var/y1=0)
 	set waitfor=0
 	set background=1

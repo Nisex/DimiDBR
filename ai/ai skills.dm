@@ -4,7 +4,7 @@
 mob/Player/AI/proc/PlayAction(var/id)
 	set waitfor=0
 	if(!play_action_generated) GeneratePlayActionDatabase()
-	var/datum/ai_play_action/a = play_action_database[id]
+	var/ai_play_action/a = play_action_database[id]
 	if(a)
 		if(play_action) play_action.End(src)
 		a.SetupPlayAction(src)
@@ -18,16 +18,16 @@ var/list/play_action_database = list()
 var/play_action_generated
 proc/GeneratePlayActionDatabase()
 	if(play_action_generated) return
-	var/list/derieved = typesof(/datum/ai_play_action)
+	var/list/derieved = typesof(/ai_play_action)
 	for(var/index = 1 to derieved.len)
-		var datum/ai_play_action/a = derieved[index]
+		var/ai_play_action/a = derieved[index]
 		a = new a
 		if(!a.id)
 			continue
 		play_action_database[a.id] = a //Add a copy to the global list
 	play_action_generated=1
 
-datum/ai_play_action
+ai_play_action
 	var/default_timeout = 50
 	var/id
 	proc/PreUpdate(mob/Player/AI/a)

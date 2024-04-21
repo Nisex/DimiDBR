@@ -4,12 +4,12 @@
 /var/POTENTIAL_HIGH_POINT = 400
 /var/MAX_TIERS = 14
 /var/GLOBAL_DISPLAY_NERF = 0.80 // if your actual
-/mob/var/potential_power_tier = 1 
+/mob/var/potential_power_tier = 1
 /mob/var/power_display // the display power, meaning pot + other effects tha tmake u to have more power
-/var/BASE_MOD = 1 // the base mod for power, this is the mod that is used for the first tier of power	
+/var/BASE_MOD = 1 // the base mod for power, this is the mod that is used for the first tier of power
 
 /mob/Admin3/verb/changeBaseMod()
-	set category = "Experimental Debug"
+	set category = "Admin"
 	set desc = "Changes the base mod for power"
 	set name = "Change Global Base"
 	var/previous = BASE_MOD
@@ -53,7 +53,7 @@ proc
 			F, E, D, C, B, A, S, SS, SSS, LEGENDARY, DIVINE, GODLY, OMNI, INFINITE
 			these names are just cool names, they don't mean anything
 			there are 14 tiers instead of 10, giving more room for dynamic scaling
-		
+
 		Variables
 			CONSTANS
 				MAX_TIERS
@@ -62,7 +62,7 @@ proc
 			Input: 0-'ininfite'
 			Output: 1-MAX_TIERS
 		get_tier(input)
-			tier = log(input) + 1 
+			tier = log(input) + 1
 			normalized_tier = tier / (log(POTENTIAL_HIGH_POINT) + 1)
 			return min(normalized_tier * MAX_TIERS + 1, MAX_TIERS)
 	*/

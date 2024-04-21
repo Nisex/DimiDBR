@@ -429,22 +429,6 @@ obj/Items/Tech
 					src.Using=0
 					return
 				if(istype(Choice, /obj/Items/Sword)&&!Choice.LegendaryItem)
-					if(Choice.Class=="Medium"||Choice.Class=="Heavy")
-
-						if(src.TotalStack>=10 || Choice.ShatterTier + 1 >= 10)
-							var/Option=alert(usr, "Do you want to consume 10 bonding agents to form [Choice] into a Scissor Blade?", "Life Fiber Bonding", "No", "Yes")
-							if(Option=="Yes")
-								var/obj/Items/Sword/Medium/Legendary/Scissor_Blade/SB=new
-								SB.Element=Choice.Element
-								SB.Ascended=Choice.Ascended
-								OMsg(usr, "[usr] has transformed [Choice] into a scissor blade!")
-								src.TotalStack-=10
-								usr.contents+=SB
-								del Choice
-								src.Using=0
-								if(src.TotalStack<=0)
-									del src
-								return
 					var/Option2=alert(usr, "Do you want to apply a single conversion?", "Fiber Bonding Agent", "No", "Yes")
 					if(Option2=="No")
 						return
@@ -1718,6 +1702,8 @@ obj/Items/Tech
 					if(usr.RPPMult*(1+usr.ParasiteCrest())*usr.Intelligence>=Req)
 						if(!locate(Tech, usr))
 							usr.AddSkill(Tech)
+							Tech.Copied = TRUE
+							Tech.copiedBy = "Combat Analysis"
 							usr << "You've learned [Tech] from observing material stored in cameras!"
 							Learned=1
 				if(!Learned)
@@ -2315,7 +2301,7 @@ obj/Items/Tech
 						sleep(-1)
 						TurfShift('GreenDay.dmi', t, 10, src, EFFECTS_LAYER)
 						for(var/mob/m in t)
-							if(m.Race=="Saiyan" || m.Race=="Half Saiyan")
+							if(m.isRace(SAIYAN) || m.Race=="Half Saiyan")
 								m.Tail=1
 							m.Oozaru(1)
 							if(locate(/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form, m))
@@ -2335,7 +2321,7 @@ obj/Items/Tech
 						sleep(-1)
 						TurfShift('Flamestorm.dmi', t, 10, src, EFFECTS_LAYER)
 						for(var/mob/m in t)
-							if(m.Race=="Makyo")
+							if(m.isRace(MAKYO))
 								m.StarPowered=1
 								for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in m)
 									if(!m.BuffOn(KC))
@@ -2400,7 +2386,7 @@ obj/Items/Tech
 						sleep(-1)
 						TurfShift('GreenDay.dmi', t, 10, src, EFFECTS_LAYER)
 						for(var/mob/m in t)
-							if(m.Race=="Saiyan" || m.Race=="Half Saiyan")
+							if(m.isRace(SAIYAN) || m.Race=="Half Saiyan")
 								m.Tail=1
 							m.Oozaru(1)
 							if(locate(/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form, m))
@@ -2426,7 +2412,7 @@ obj/Items/Tech
 						sleep(-1)
 						TurfShift('Flamestorm.dmi', t, 10, src, EFFECTS_LAYER)
 						for(var/mob/m in t)
-							if(m.Race=="Makyo")
+							if(m.isRace(MAKYO))
 								m.StarPowered=1
 								for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in m)
 									if(!m.BuffOn(KC))

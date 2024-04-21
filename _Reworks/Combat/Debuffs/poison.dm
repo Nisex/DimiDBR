@@ -9,13 +9,13 @@
 
 
 
-/datum/globalTracker/var/var/maxPoisonDamage = MAX_POISON_DAMAGE
-/datum/globalTracker/var/var/PoisonStackDivisor = POISON_STACKS_DIVISOR
-/datum/globalTracker/var/var/PoisonNerf = POISON_NERF
-/datum/globalTracker/var/var/maxBurnDamage = BASE_BURN_DAMAGE
-/datum/globalTracker/var/var/BurnStackDivisor = BURN_STACK_DIVISOR
-/datum/globalTracker/var/var/BurnNerf = BURN_NERF
-/datum/globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
+globalTracker/var/var/maxPoisonDamage = MAX_POISON_DAMAGE
+globalTracker/var/var/PoisonStackDivisor = POISON_STACKS_DIVISOR
+globalTracker/var/var/PoisonNerf = POISON_NERF
+globalTracker/var/var/maxBurnDamage = BASE_BURN_DAMAGE
+globalTracker/var/var/BurnStackDivisor = BURN_STACK_DIVISOR
+globalTracker/var/var/BurnNerf = BURN_NERF
+globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
 
 /mob/proc/getDebuffDamage(typeOfDebuff)
     var/stackDivisor = glob.vars["[typeOfDebuff]StackDivisor"]

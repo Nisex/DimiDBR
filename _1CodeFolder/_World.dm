@@ -2,20 +2,18 @@ var/list/PermaKeys=list("Dadafas1", "Miscreated", "Toefiejin", "StrangeBanana", 
 var/list/PermaIPs=list("73.132.147.113", "77.175.168.164", "74.105.35.124", "81.132.77.65", "64.130.69.214", "65.185.161.235", "108.61.39.115", "75.65.2.4", "24.50.233.176", "50.39.120.226", "135.180.40.74", "86.181.159.231", "45.36.32.84", "198.85.212.230", "74.88.65.98", "76.23.208.95", "66.172.248.64", "185.156.175.35", "136.62.42.182", "68.8.92.94", "109.246.123.195", "24.36.113.151", "67.198.127.237", "82.34.152.124", "121.223.199.102", "174.108.20.140", "179.43.133.139", "174.108.20.140", "73.47.207.244", "71.64.147.189", "70.35.179.6", "69.10.118.103", "86.19.157.156")
 var/list/PermaComps=list("3488379531", "1990235738", "1662279420", "835666311", "3995897142", "3272450259", "1395820860", "1629772640", "3856341027", "938246607", "975079193", "1526134833", "4102036161", "3446557113", "3878049361", "2311757843", "3649180149", "991955925", "2016627605", "3836126501", "4003197390", "4145629418", "1476716854", "4229503323", "1353023831", "348890025", "308161406", "729772691", "1049091416", "2196626777", "2781360184", "3770567560", "961693842")
 
-var/MakyoStar=0
-
 var/tmp/list/players = list()
+var/tmp/list/admins = list()
 
 world
-	name="Roleplay Rebirth: Giga Taco Edition"
-	status="DBR: Giga Tower"
+	name="Roleplay Rebirth: Dimitri Edition"
+	status="DBR: Copenlagen"
 	turf=/turf/Special/Blank
 	mob= /mob/Creation
 	hub="AmatsuDarkfyre.RoleplayRebirth"
 	hub_password="silverion"
 	fps=20
 	cache_lifespan=2
-	loop_checks=0
 	view=12
 	OpenPort()
 		..()
@@ -23,41 +21,28 @@ world
 	New()
 		..()
 
+		world.log = file("debug_log.txt")
+		world.log << ""
+		world.log << "-------"
+		world.log << "[time2text(world.timeofday,"DDD MMM DD hh:mm YYYY",-5)]"
+		world.log << "-------"
+		world.log << "//\[info]: World Initialized!"
+		world.log << "//\[info]: [world.name]"
+
 		LOGscheduler.start()
 
 		WorldLoading=1
 		spawn(100)GlobalSave()
-		Stars()
 		GenerateWorldInstances()
 		// log=file("Saves/Errors.log")
 		spawn(10)
 
 			BootWorld("Load")
-			for(var/obj/Special/Teleporter2/q in world)
-				if(q.invisibility>100)
-					q.invisibility=100
-			for(var/obj/Items/Sword/Light/Legendary/ws in world)
-				if(!ws.TrueLegend)
-					del ws
-			for(var/obj/Items/Sword/Medium/Legendary/ws in world)
-				if(!ws.TrueLegend)
-					del ws
-			for(var/obj/Items/Sword/Heavy/Legendary/ws in world)
-				if(!ws.TrueLegend)
-					del ws
-			for(var/obj/Items/Enchantment/Staff/NonElemental/Wand/Legendary/ws in world)
-				if(!ws.TrueLegend)
-					del ws
-			for(var/obj/Items/Enchantment/Staff/NonElemental/Rod/Legendary/ws in world)
-				if(!ws.TrueLegend)
-					del ws
-			for(var/obj/Items/Enchantment/Staff/NonElemental/Staff/Legendary/ws in world)
-				if(!ws.TrueLegend)
-					del ws
 		BuildGeneralMagicDatabase()
 		BuildGeneralWeaponryDatabase()
 		GeneratePlayActionDatabase()
 		world.SetConfig("APP/admin", "XLevi", "role=admin")
+		world.SetConfig("APP/admin", "Niezan", "role=admin")
 	Del()
 		..()
 
@@ -69,69 +54,29 @@ proc/GlobalSave()
 	set background=1
 	sleep(216000)
 	world<< "<b><HTML><FONT COLOR=#FF0000>T</FONT><FONT COLOR=#FF2900>h</FONT><FONT COLOR=#FF5200>e</FONT><FONT COLOR=#FF7B00> </FONT><FONT COLOR=#FFA400>w</FONT><FONT COLOR=#FFCD00>o</FONT><FONT COLOR=#FFF600>r</FONT><FONT COLOR=#FFff00>l</FONT><FONT COLOR=#D6ff00>d</FONT><FONT COLOR=#ADff00> </FONT><FONT COLOR=#84ff00>i</FONT><FONT COLOR=#5Bff00>s</FONT><FONT COLOR=#32ff00> </FONT><FONT COLOR=#09ff00>s</FONT><FONT COLOR=#00ff00>a</FONT><FONT COLOR=#00ff29>v</FONT><FONT COLOR=#00ff52>i</FONT><FONT COLOR=#00ff7B>n</FONT><FONT COLOR=#00ffA4>g</FONT><FONT COLOR=#00ffCD>.</FONT><FONT COLOR=#00ffF6> </FONT><FONT COLOR=#00ffff>P</FONT><FONT COLOR=#00F6ff>r</FONT><FONT COLOR=#00CDff>e</FONT><FONT COLOR=#00A4ff>p</FONT><FONT COLOR=#007Bff>a</FONT><FONT COLOR=#0052ff>r</FONT><FONT COLOR=#0029ff>e</FONT><FONT COLOR=#0000ff> </FONT><FONT COLOR=#0900ff>y</FONT><FONT COLOR=#3200ff>o</FONT><FONT COLOR=#5B00ff>u</FONT><FONT COLOR=#8400ff>r</FONT><FONT COLOR=#AD00ff>s</FONT><FONT COLOR=#D600ff>e</FONT><FONT COLOR=#FF00ff>l</FONT><FONT COLOR=#FF00F6>f</FONT><FONT COLOR=#FF00CD>!</FONT></HTML></b>"
-	for(var/mob/Players/Q)
+	for(var/mob/Players/Q in players)
 		if(Q.Savable&&Q.client!=null)
 			Q.client.SaveChar()
 	BootWorld("Save")
 	.()
 
-
-proc/Check()
-	while(src)
-		var/File=world.Export("http://laststrike.110mb.com/DRV.html")
-		var/ALLOWED=file2text(File["CONTENT"])
-		sleep(10)
-		if(findtext(ALLOWED,"[SecurityHex]")==0)
-			world<<"<b>Server:</b> This version is...<font color=red><b><u>OUTLAWED!"
-			spawn(60)del(world)
-		sleep(rand(6000,36000))
-
-
-
 var/WorldLoading
 
-
-var/SecurityHex="PrivateTesting666"
-
-
 var/list/LockedRaces=list()
-mob/proc/CheckUnlock(var/blah)
+
+mob/proc/CheckUnlock(race/_race)
 	if(src.Admin) return 1
-	if(blah=="Shinjin"||blah=="Demon"||blah=="Dragon"||blah=="Changeling")
-		if(src.CheckSpecialRaces("[blah]"))
-			return 1
-	if(blah in glob.CustomCommons)
+	if(_race.locked && LockedRaces[key] && _race in LockedRaces[key])
+		return 1
+	else if(!_race.locked)
 		return 1
 	return 0
-
-mob/proc/CheckSpecialRaces(var/blah)
-	if(src.Admin) return 1
-	for(var/x in LockedRaces)
-		for(var/e in x)
-			if(e=="[blah]")
-				if(x[e]==src.key)
-					return 1
-	return 0
-
-
-/mob/Admin4/verb/Clear_Locked_RaceKeys()
-	LockedRaces = list("Shinjin", "Demon", "Dragon")
-
-
-proc/Stars()
-	set background=1
-	for(var/turf/Special/Stars/E)
-		E.icon_state="[rand(1,2500)]"
-	for(var/turf/Special/EventStars/ES)
-		ES.icon_state="[rand(1,2500)]"
-
 
 proc/BootWorld(var/blah)
 	switch(blah)
 		if("Load")
 			BootFile("All","Load")
 			Load_Turfs()
-			Stars()
 			Load_Custom_Turfs()
 			Load_Objects()
 			Load_Bodies()
@@ -139,24 +84,15 @@ proc/BootWorld(var/blah)
 			spawn()
 				if(!celestialObjectTicks) celestialObjectTicks = Hour(12)/10
 				CelestialBodiesLoop()
-			sleep(rand(1,10))
 			spawn()Add_Builds()
-			sleep(rand(1,10))
 			spawn()MakeSkillTreeList()
 			spawn()MakeKnowledgeTreeList()
-			sleep(rand(1,10))
-			spawn()Add_Builds2()
-			sleep(rand(1,10))
 			spawn()Add_Customizations()
-			sleep(rand(1,10))
 			spawn()Add_Technology()
 			spawn()Add_Enchantment()
-			sleep(rand(1,10))
 			spawn()InitializeSigCombos()
-			sleep(rand(1,10))
 			LoadAISPawners()
 			globalStorage = new()
-			globalStorage.init()
 			generateVersionDatum()
 			spawn()
 				global.global_loop = new()
@@ -166,9 +102,6 @@ proc/BootWorld(var/blah)
 			WorldLoading=0
 			Reports("Load")
 			find_savableObjects()
-			for(var/obj/Turfs/CustomObj1/q in world)
-				if(findtextEx(q.name, "Sea Test"))
-					q.mouse_opacity = 0
 
 		if("Save")
 			BootFile("All","Save")

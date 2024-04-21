@@ -1,5 +1,5 @@
 
-/datum/globalTracker/var/list/IGNORE_POWER_CLAMP_PASSIVES = list("Wrathful", "LimitBroken")
+globalTracker/var/list/IGNORE_POWER_CLAMP_PASSIVES = list("Wrathful", "LimitBroken")
 
 
 /mob/proc/ignoresPowerClamp(mob/defender)

@@ -212,7 +212,7 @@ mob/proc/Unconscious(mob/P,var/text)
 			if(src.Race!="Changeling")
 				src.Revert()
 				src<<"Being knocked out forced you to revert!"
-		if(src.Race=="Saiyan"||src.Race=="Half Saiyan")
+		if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
 			src.Oozaru(0)
 	if(src.Grab)
 		src.Grab_Release()
@@ -256,17 +256,6 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 		src.IsGrabbed().Grab_Release()
 	if(src.Grab)
 		src.Grab_Release()
-
-	if(P)
-		if(P.Race!="Demon")
-			for(var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm/da in src)
-				if(src.CheckSlotless("Devil Arm"))
-					da.Trigger(src)
-				if(src.Race=="Demon")
-					da.name="Devil Arm ([src.TrueName])"
-				P.contents+=da
-				P << "You have inherited [src]'s Devil Arm!"
-				src << "You have bestowed your Devil Arm upon [P]!"
 
 	if(istype(src, /mob/Player/AI))
 		if(P)
@@ -687,7 +676,7 @@ mob/proc/Leave_Body(var/SuperDead=0, var/Zombie, var/ForceVoid=0)
 		if(glob.VoidsAllowed||ForceVoid)
 			var/Timer
 			ActuallyDead=1
-			if(src.Race=="Human"&&src.HellPower>=1&&src.HellPower<2&&src.Potential>=50)
+			if(src.isRace(HUMAN)&&src.HellPower>=1&&src.HellPower<2&&src.Potential>=50)
 				src.HalfDemonAscension()
 				src.Burn=0
 				src.Poison=0
@@ -907,6 +896,18 @@ proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseCh
 			return HIT
 
 		if(getBackSide(Offender, Defender))
+
+			if(Defender.Oozaru || Defender.passive_handler.Get("Vulnerable Behind"))
+				var/tail_resistance_max = Defender.AscensionsAcquired + (round(Defender.AscensionsAcquired/2))
+				var/tail_resistance = Defender.tail_mastery / 20
+				tail_resistance += Defender.AscensionsUnlocked * 5
+				tail_resistance = clamp(tail_resistance, 0, tail_resistance_max * 5)
+				if(prob(50 - tail_resistance))
+					Stun(Defender, 2 - (tail_resistance * 0.1))
+					Defender.tailResistanceTraining(25 + tail_resistance * 2)
+				else
+					Defender.tailResistanceTraining(5)
+
 			if(prob(1))
 				OMsg(Offender, "<font color='[rgb(255, 8, 8)]'>oh nah, [Offender] is hitting [Defender] from the back!</font color>")
 				AccMult*=1.75
@@ -962,7 +963,7 @@ proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseCh
 			if(glob.CLAMP_POWER)
 				if(!Offender.ignoresPowerClamp())
 					powerDif = clamp(Offender.Power / Defender.Power, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
-			
+
 			mod = clamp((Offense/Defense)*AccMult, 0.05, 5) * powerDif
 			var/GodKiDif = 1
 			if(Offender.GetGodKi())

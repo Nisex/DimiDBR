@@ -1,11 +1,11 @@
-/mob/var/tmp/datum/bloodGauge/vampireBlood
+/mob/var/tmp/bloodGauge/vampireBlood
 /obj/basemeter
     appearance_flags = KEEP_TOGETHER
-    mouse_opacity = 0 
+    mouse_opacity = 0
     var/width = 0
     var/height = 0
     var/orientation = NORTH
-    var/tmp/obj/meter/foreground/fg 
+    var/tmp/obj/meter/foreground/fg
     var/tmp/obj/meter/container/bg // background
     var/tmp/obj/meter/bar/fill // fill
     var/tmp/obj/meter/mask/mask
@@ -60,28 +60,29 @@
         appearance_flags = KEEP_TOGETHER
         blend_mode = BLEND_MULTIPLY
         icon_state = "background"
-    
+
     mask
         icon_state = "mask"
-    
+
     foreground
         icon_state = "foreground"
-/datum/bloodGauge
-    var/obj/basemeter/root
-    New(mob/p, screen_x, screen_y)
-        if(p.Secret != "Vampire")
-            del src
-        else
-            root = new()
-            root.screen_loc = "1:[screen_x], 1:[screen_y]"
-            root.width = 32
-            root.height = 32
-            root.orientation = NORTH
-            root.setValue(0, 10)
-            root.maptext_width = 64
-            root.maptext_y = -16
-            p.client.screen += root
+
+bloodGauge
+	var/obj/basemeter/root
+	New(mob/p, screen_x, screen_y)
+		if(p.Secret != "Vampire")
+			del src
+		else
+			root = new()
+			root.screen_loc = "1:[screen_x], 1:[screen_y]"
+			root.width = 32
+			root.height = 32
+			root.orientation = NORTH
+			root.setValue(0, 10)
+			root.maptext_width = 64
+			root.maptext_y = -16
+			p.client.screen += root
 
 
-/datum/bloodGauge/proc/fillGauge(y_offset, time2death)
-    root.setValue(y_offset, time2death)
+	proc/fillGauge(y_offset, time2death)
+		root.setValue(y_offset, time2death)

@@ -27,7 +27,7 @@
 
 
 
-/datum/characterInformation
+characterInformation
     var/faction = "ERROR"
     var/factionColor = "#6c0303d7"
     var/job = "Unregistered"

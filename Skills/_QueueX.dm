@@ -3,7 +3,6 @@ obj
 		Queue//Queued skills like GET DUNKED and Axekick.
 			var/Duration=5//This is how long the queue remains up for.
 			var/UnarmedOnly=0//Can't use this with a sword.
-			var/SwordOnly=0//todo remove
 			//var/ClassNeeded//Requires a sword class.
 			var/TextColor
 			var/ActiveMessage//Displays on using the skill, if it exists.
@@ -112,6 +111,8 @@ obj
 			var/RipplePower=1//used to make ripple go higher
 			var/DrainBlood=0// This is used for vampire grab + toss, makes them gain bloodpower
 			var/ForceCost = 0
+
+			var/Ooze
 //Autoqueues
 
 ////General
@@ -584,7 +585,7 @@ obj
 
 				//Hiten Finisher
 				Flash_Strike
-					DamageMult=4
+					DamageMult=3
 					Counter=1
 					Warp=10
 					SpeedStrike=2
@@ -592,7 +593,7 @@ obj
 					FollowUp="/obj/Skills/AutoHit/Shunshin_Massacre"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Shunshin"
 				True_Flash_Strike
-					DamageMult=6
+					DamageMult=4
 					Counter=1
 					Warp=10
 					SpeedStrike=4
@@ -670,7 +671,6 @@ obj
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Dark_Impulse"
 					FollowUp="/obj/Skills/AutoHit/Dark_Blast"
 					HitMessage="unleashes a point-blank blast of darkness!"
-
 				Ghost_Drive
 					SpiritHand=1
 					SpiritStrike=1
@@ -824,6 +824,26 @@ obj
 					LifeSteal = min(50 * secretLevel,100)
 					Crippling = secretLevel * 1.5
 
+			Eldritch_Ruinate
+				DamageMult=0.5
+				AccuracyMult=2
+				Warp=5
+				KBAdd=1
+				KBMult=0.00001
+				Instinct=4
+				Combo=10
+				HitSparkIcon='Slash - Vampire.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkTurns=1
+				Duration=5
+				ActiveMessage="lets their presence try to overtake their opponents!"
+				proc/adjust(mob/p)
+					var/ascLevel = 1 + p.AscensionsUnlocked
+					src.Scorching=3 * ascLevel
+					src.Freezing=3 * ascLevel
+					src.Paralyzing=3 * ascLevel
+					src.Shattering=3 * ascLevel
 
 //Basic
 
@@ -864,6 +884,7 @@ obj
 							src.Cooldown=15
 							src.ActiveMessage=0
 							src.HitMessage=0
+							src.Ooze = 0
 							src.CursedWounds=0
 							src.Scorching=0
 							src.Freezing=0
@@ -885,6 +906,36 @@ obj
 							src.HitSparkSize=1
 							usr.SetQueue(src)
 							return//and that's the end
+						if(usr.Secret == "Eldritch" && usr.CheckSlotless("TrueForm"))
+							src.name="Maleific Strike"
+							src.DamageMult=4
+							src.AccuracyMult=2
+							src.KBAdd=5
+							src.KBMult=3
+							src.Ooze = 1
+							src.Cooldown=60
+							src.ActiveMessage="leaks some of their malefic presence onto the world!"
+							src.HitMessage=0
+							src.Scorching=3
+							src.Freezing=3
+							src.Paralyzing=3
+							src.Shattering=3
+							src.CursedWounds=0
+							src.Toxic=0
+							src.Combo=0
+							src.Warp=0
+							src.Rapid=0
+							src.LifeSteal=0
+							src.Crippling=0
+							src.Grapple=0
+							src.NoForcedWhiff=0
+							src.IconLock='BLANK.dmi'
+							src.HitSparkIcon=null
+							src.HitSparkX=0
+							src.HitSparkY=0
+							src.HitSparkTurns=0
+							src.HitSparkSize=1
+							usr.SetQueue(src)
 						if(usr.Secret=="Senjutsu"&&usr.CheckSlotless("Senjutsu Focus"))
 							src.name="Sage Energy Strike"
 							src.DamageMult=2
@@ -899,6 +950,7 @@ obj
 							src.Paralyzing=3
 							src.Shattering=3
 							src.CursedWounds=0
+							src.Ooze = 0
 							src.Toxic=0
 							src.Combo=0
 							src.Warp=0
@@ -933,6 +985,7 @@ obj
 								src.Paralyzing=0
 								src.Toxic=0
 								src.Scorching=0
+								src.Ooze = 0
 								src.Freezing=0
 								src.Shattering=0
 								src.Combo=0
@@ -964,6 +1017,7 @@ obj
 								src.Scorching=0
 								src.Freezing=0
 								src.Shattering=0
+								src.Ooze = 0
 								src.Combo=0
 								src.CursedWounds=0
 								src.Warp=0
@@ -995,6 +1049,7 @@ obj
 								src.Freezing=0
 								src.Shattering=0
 								src.CursedWounds=0
+								src.Ooze = 0
 								src.Combo=0
 								src.Warp=2
 								src.Rapid=0
@@ -1021,6 +1076,7 @@ obj
 								src.Scorching=0
 								src.Freezing=0
 								src.Paralyzing=0
+								src.Ooze = 0
 								src.Toxic=0
 								src.Shattering=0
 								src.CursedWounds=0
@@ -1083,6 +1139,7 @@ obj
 								src.Shattering=0
 								src.CursedWounds=0
 								src.Combo=0
+								src.Ooze = 0
 								src.Warp=0
 								src.Rapid=0
 								src.LifeSteal=0
@@ -1109,6 +1166,7 @@ obj
 								src.Freezing=0
 								src.Paralyzing=10
 								src.CursedWounds=0
+								src.Ooze = 0
 								src.Toxic=0
 								src.Combo=0
 								src.Warp=3
@@ -1142,6 +1200,7 @@ obj
 								src.Combo=0
 								src.Warp=0
 								src.Rapid=0
+								src.Ooze = 0
 								src.LifeSteal=0
 								src.Crippling=0
 								src.Grapple=0
@@ -1166,6 +1225,7 @@ obj
 							src.Freezing=0
 							src.Paralyzing=0
 							src.Toxic=0
+							src.Ooze = 0
 							src.CursedWounds=0
 							src.Combo=0
 							src.Warp=0
@@ -1198,6 +1258,7 @@ obj
 								src.CursedWounds=0
 								src.Combo=0
 								src.Warp=0
+								src.Ooze = 0
 								src.Rapid=0
 								src.LifeSteal=100
 								src.Crippling=0
@@ -1222,6 +1283,7 @@ obj
 								src.Scorching=0
 								src.Freezing=0
 								src.Paralyzing=0
+								src.Ooze = 0
 								src.Toxic=0
 								src.CursedWounds=0
 								src.Combo=0
@@ -1254,6 +1316,7 @@ obj
 							src.Combo=0
 							src.Warp=0
 							src.Rapid=0
+							src.Ooze = 0
 							src.LifeSteal=0
 							src.Crippling=3
 							src.Grapple=0
@@ -1279,6 +1342,7 @@ obj
 							src.Paralyzing=0
 							src.Toxic= 10
 							src.Shearing = 15
+							src.Ooze = 0
 							src.CursedWounds=1
 							src.Combo=0
 							src.Warp=0
@@ -1501,8 +1565,6 @@ obj
 			Ikkotsu
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Uppercut")
-				LockOut=list("/obj/Skills/Queue/Showstopper", "/obj/Skills/Queue/Dempsey_Roll", "/obj/Skills/Queue/Corkscrew_Blow")
 				HitMessage="delivers a destructive one handed strike!!"
 				DamageMult=2.8
 				AccuracyMult=2
@@ -1521,8 +1583,6 @@ obj
 			Showstopper
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Uppercut")
-				LockOut=list("/obj/Skills/Queue/Ikkotsu", "/obj/Skills/Queue/Dempsey_Roll", "/obj/Skills/Queue/Corkscrew_Blow")
 				HitMessage="delivers a vicious uppercut!!"
 				DamageMult=3
 				AccuracyMult=2.5
@@ -1541,8 +1601,6 @@ obj
 			Dempsey_Roll
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Uppercut")
-				LockOut=list("/obj/Skills/Queue/Ikkotsu", "/obj/Skills/Queue/Showstopper", "/obj/Skills/Queue/Corkscrew_Blow")
 				ActiveMessage="punches with precisely articulated strikes to create whirlwind-like pull!"
 				name="Dempsey Roll"
 				DamageMult=0.6
@@ -1568,8 +1626,6 @@ obj
 			Corkscrew_Blow
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Uppercut")
-				LockOut=list("/obj/Skills/Queue/Ikkotsu", "/obj/Skills/Queue/Showstopper", "/obj/Skills/Queue/Dempsey_Roll")
 				ActiveMessage="strikes with cyclone power!"
 				name="Corkscrew Blow"
 				DamageMult=1.2
@@ -1606,8 +1662,6 @@ obj
 			Kinshasa
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Axe_Kick")
-				LockOut=list("/obj/Skills/Queue/Piston_Kick", "/obj/Skills/Queue/Pin", "/obj/Skills/Queue/Cripple")
 				name="Kinshasa"//Skill name displayed in message.
 				HitMessage="builds up speed and knees their target in the face!!"
 				DamageMult=2.8
@@ -1625,8 +1679,6 @@ obj
 			Piston_Kick
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Axe_Kick")
-				LockOut=list("/obj/Skills/Queue/Kinshasa", "/obj/Skills/Queue/Pin", "/obj/Skills/Queue/Cripple")
 				name="Piston Kick"//Skill name displayed in message.
 				HitMessage="launches a shattering front kick with their heel!"
 				DamageMult=2.2
@@ -1644,8 +1696,6 @@ obj
 			Cripple
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Axe_Kick")
-				LockOut=list("/obj/Skills/Queue/Pin", "/obj/Skills/Queue/Kinshasa", "/obj/Skills/Queue/Piston_Kick")
 				DamageMult=2.8
 				AccuracyMult=3
 				Duration=5
@@ -1662,8 +1712,6 @@ obj
 			Pin
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Queue/Axe_Kick")
-				LockOut=list("/obj/Skills/Queue/Cripple", "/obj/Skills/Queue/Kinshasa", "/obj/Skills/Queue/Piston_Kick")
 				DamageMult=4
 				AccuracyMult=3
 				Instinct=2
@@ -1710,8 +1758,6 @@ obj
 			Soukotsu
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Queue/GET_DUNKED")
-				LockOut=list("/obj/Skills/Queue/Curbstomp", "/obj/Skills/Queue/Six_Grand_Openings", "/obj/Skills/Queue/Skullcrusher")
 				name="Soukotsu"
 				DamageMult=2.5
 				AccuracyMult=2
@@ -1737,8 +1783,6 @@ obj
 			Curbstomp
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Queue/GET_DUNKED")
-				LockOut=list("/obj/Skills/Queue/Soukotsu", "/obj/Skills/Queue/Six_Grand_Openings", "/obj/Skills/Queue/Skullcrusher")
 				name="Curbstomp"
 				DamageMult=8
 				AccuracyMult=2
@@ -1761,8 +1805,6 @@ obj
 			Six_Grand_Openings
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Queue/GET_DUNKED")
-				LockOut=list("/obj/Skills/Queue/Skullcrusher", "/obj/Skills/Queue/Soukotsu", "/obj/Skills/Queue/Curbstomp")
 				name="Six Grand Openings"
 				HitMessage="delivers a graceful and crippling blow with their elbow!"
 				DamageMult=7.5
@@ -1784,8 +1826,6 @@ obj
 			Skullcrusher
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Queue/GET_DUNKED")
-				LockOut=list("/obj/Skills/Queue/Six_Grand_Openings", "/obj/Skills/Queue/Soukotsu", "/obj/Skills/Queue/Curbstomp")
 				name="Skullcrusher"
 				HitMessage="brings their elbow down with crushing might!"
 				DamageMult=7
@@ -2232,9 +2272,6 @@ obj
 					usr.SetQueue(src)
 
 //T2
-			//todo: remove
-			SwallowReversal//dedname
-			InfinityTrap//dedname
 
 			Swallow_Reversal
 				SkillCost=80
@@ -2502,6 +2539,70 @@ obj
 				verb/Soul_Tear_Storm()
 					set category="Skills"
 					usr.SetQueue(src)
+			Heart_Slayer
+				name="Heart-Slayer"
+				ActiveMessage="begins to build darkness on the tip of their blade!"
+				DamageMult=2.25
+				AccuracyMult=5
+				KBMult=0.00001
+				Combo=5
+				Warp=5
+				SpiritHand=0.5
+				SpiritSword=0.5
+				Duration=10
+				Cooldown=40
+				NeedsSword=1
+				HitSparkIcon='Slash - Black.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkTurns=1
+				Instinct=2
+				EnergyCost=10
+				CursedWounds=1
+				verb/Heart_Slayer()
+					set category="Skills"
+					usr.SetQueue(src)
+			Riku_Soul_Render
+				name="Soul Render"
+				ActiveMessage="'s heart is filled with dreadful darkness, as they position themselves for an unthinkable strike .."
+				HitMessage="<b><font color='red'> slices into their opponents heart, butchering their soul! </font color> </b>"
+				DamageMult=2.25
+				AccuracyMult=5
+				KBMult=0.00001
+				MaimStrike=1
+				HitSparkIcon='Slash - Black.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkTurns=1
+				HitSparkSize=1.1
+				Cooldown=150 //once per fight
+				Decider=1
+				NeedsSword=1
+				verb/Riku_Soul_Render()
+					set category="Skills"
+					usr.SetQueue(src)
+			Darkness_Blast
+				Stunner=5
+				BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Dark_Impulse"
+				FollowUp="/obj/Skills/AutoHit/Soul_Blast"
+				HitMessage="unleashes a point-blank blast of darkness!"
+				verb/Darkness_Blast()
+					set category="Skills"
+					usr.SetQueue(src)
+			Sen_I_Soshitsu
+				ActiveMessage="cuts forth with their scissor blade, nicking the edge of their opponent's clothes and weapon to pull them apart!"
+				DamageMult= 7
+				AccuracyMult = 5
+				WeaponBreaker = 5
+				KBMult=0.00001
+				PushOutIcon='SparkleRed.dmi'
+				Cooldown=150
+				Instinct = 1
+				NeedsSword=1
+				verb/Sen_I_Soshitsu()
+					set name="Sen-I-Soshitsu"
+					set category="Skills"
+					usr.SetQueue(src)
 			Omnislash
 				SignatureTechnique=2
 				name="Omnislash"
@@ -2646,12 +2747,12 @@ obj
 				Quaking=5
 				HitStep=/obj/Skills/Queue/Unicorn_Combination2
 				ActiveMessage="takes a starting position!"
-				HitMessage="opens the opponent with a shattering elbow strike!"
+				HitMessage="opens the opponent with a twisting frontal kick!"
 				verb/Celectial_Trot()
 					set category="Skills"
 					usr.SetQueue(src)
 			Unicorn_Combination2
-				HitMessage="follows up with a storm of kicks!"
+				HitMessage="follows up with a storm of roundhouse kicks!"
 				DamageMult=0.5
 				AccuracyMult=5
 				Duration=5
@@ -2663,7 +2764,7 @@ obj
 				EnergyCost=5
 				HitStep=/obj/Skills/Queue/Unicorn_Combination3
 			Unicorn_Combination3
-				HitMessage="finishes with a murderous uppercut!"
+				HitMessage="finishes with a murderous mule kick!"
 				DamageMult=6
 				AccuracyMult=10
 				Duration=5
@@ -3715,7 +3816,10 @@ mob
 						if(m.client&&m.client.address==src.client.address)
 							continue
 						if(!locate(Q.type, m))
-							m.AddSkill(new Q.type)
+							var/obj/Skills/copiedSkill = new Q.type
+							m.AddSkill(copiedSkill)
+							copiedSkill.Copied = TRUE
+							copiedSkill.copiedBy = "Sharingan"
 							m << "Your Sharingan analyzes and stores the [Q] technique you've just viewed."
 				spawn()
 					for(var/obj/Items/Tech/Security_Camera/SC in view(10, src))
@@ -3778,12 +3882,12 @@ mob
 
 			if(AttackQueue.Dominator)
 				if(Health>P.Health)
-					var/ratio = (clamp(P.Health / Health, 1, 4) / glob.Q_DIVISOR)
+					var/ratio = (clamp(Health / P.Health, 1, 4) / glob.Q_DIVISOR)
 					if(ratio > 0)
 						Damage+=ratio
 			if(AttackQueue.Determinator)
 				if(Health<P.Health&&Health!=0)
-					var/ratio = clamp(Health / P.Health, 1, 4) / glob.Q_DIVISOR
+					var/ratio = clamp( P.Health / Health, 1, 4) / glob.Q_DIVISOR
 					if(ratio > 0)
 						Damage+=ratio
 

@@ -9,7 +9,6 @@ var
 	list/GlobalLandingLocations = list()
 	BaseUpdate=1 //Updates...base.
 	WorldBaseAmount=1 //sets everyones base to a number....mod...bluh bluh.
-	list/NoSagaRaces=list(/*"Saiyan", "Majin",*/ "Changeling", "Shinjin", "Demon", "Dragon")
 
 	WipeStart//Holds the time (midnight) that the wipe started at. Used to define starting RPP and daily potential.
 	DaysOfWipe
@@ -133,6 +132,8 @@ atom/var
 	Password2
 	Password3
 	PasswordReception
+	preventRename = FALSE
+
 area
 	mouse_opacity=0
 obj
@@ -173,7 +174,7 @@ mob/var
 	tmp/ArmamentGlow
 	tmp/FlickeringGlow
 	tmp/MeditateTime
-	tmp/datum/Party/party//party party party
+	tmp/Party/party//party party party
 	tmp/StunImmune
 	tmp/GrabTime
 	AntiGodDoor=0
@@ -193,14 +194,6 @@ mob/var
 	HealthCut=0
 	EnergyMax=100
 	Energy=100
-	//todo: remove all energy
-	EnergyMod=1
-	EnergyOriginal=1
-	EnergyAscension=1
-	EnergyMultTotal=1
-	EnergyTrans=1
-	EnergyReplace=0
-	//end todo
 	EnergyCut=0
 	EnergyExpenditure=1//Crank that drain if higher than 1
 	EnergyUniqueness=1//EVERYONE'S A SNOWFLAKE
@@ -282,17 +275,6 @@ mob/var
 	DefCut=0
 	DefStolen=0
 	DefEroded=0
-	//todo: remove all regen
-	RegenMod=1
-	RegenOriginal=1
-	RegenMultTotal=1
-	RegenChaos=1
-	RegenAscension=0
-	RegenReplace
-	RegenTax=0
-	RegenCut=0
-	RegenEroded=0
-	//end todo
 	RecovMod=1
 	RecovOriginal=1
 	RecovMultTotal=1
@@ -311,17 +293,6 @@ mob/var
 	ExhaustedColor
 	BarelyStandingMessage
 	BarelyStandingColor
-
-	//TODO: remove all these bitches
-	PowerApparent=0
-	style_reset=0
-	zenkai_reset=0
-	cyber_reset=0
-	jagan_reset=0
-	sig_reset=0
-	potential_reset=0//did they exceed potential ranges?
-	hell_reset=0
-	grimoire_reset=0
 
 	Potential=1
 	PotentialStatus="Distracted"
@@ -966,6 +937,12 @@ mob/var
 	obj/Items/Sword/equippedSword
 	obj/Items/WeightedClothing/equippedWeights
 	equippedProsthetics = 0
+
+	tmp/emoteBubble
+	tmp/rping = FALSE
+	tmp/savedRoleplay
+
+	PrayerMute = FALSE
 
 /proc/reduceGodKi(mob/player, num)
 	player.GodKi -= num

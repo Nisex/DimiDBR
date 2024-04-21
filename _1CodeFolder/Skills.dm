@@ -146,7 +146,7 @@ obj/Skills
 
 	var/HeavyHitter
 
-
+	var/copiedBy
 
 
 	icon='Skillz.dmi'

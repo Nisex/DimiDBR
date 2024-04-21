@@ -1,18 +1,18 @@
-/var/datum/archive/archive = new()
+var/archive/archive = new()
 
 
 
-/datum/archive
+archive
     var/list/AGs = list()
     var/list/SagaUsers = list()
     var/list/SecretUsers = list()
 
     proc/addAG(AG)
         AGs += AG
-    
+
     proc/addSagaUser(saga, mob/user)
         SagaUsers += "[saga], [user.name]([user.ckey])"
-    
+
     proc/addSecretUser(secret, mob/user)
         SecretUsers += "[secret], [user.name]([user.ckey])"
 
@@ -29,13 +29,13 @@
                         AGs += AG
                 else
                     AGs += AG
-            
+
 
 
 /mob/Admin4/verb/establishArchive()
     set name = "Establish Archive"
     set category = "Admin"
-    if(!archive || archive.type != /datum/archive)
+    if(!archive || archive.type != archive)
         archive = new()
         archive.loadAGs()
         archive.addSagaUser("SAGA", usr)
@@ -48,7 +48,7 @@
 /mob/Admin4/verb/editArchive()
     set name = "Edit Archive"
     set category = "Admin"
-    if(!archive || archive.type != /datum/archive)
+    if(!archive || archive.type != archive)
         usr<< "Archive not established."
     else
         var/atom/A = archive
@@ -76,7 +76,7 @@
     archive.loadAGs()
     winset(src, "gridAG.grid", "cells=0x0")
     winset(src, "gridAG", "is-visible=true")
-    var/height = 1 
+    var/height = 1
     var/width = 0
     for(var/ag in archive.AGs)
         if(width>3)

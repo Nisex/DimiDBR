@@ -1,5 +1,5 @@
 mob/proc/tierUpSaga(path)
     src << "Saga [path] is tiered up to [SagaLevel]!"
 
-/datum/sagaTierUpMessages
+sagaTierUpMessages
     var/list/messages = list()

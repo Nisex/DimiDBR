@@ -448,7 +448,7 @@ mob/Player/AI
 		ko_death
 
 		hostile_randomize
-		datum/ai_play_action/play_action
+		ai_play_action/play_action
 		list/ai_tmpprops = list()
 		ai_type
 
@@ -1831,7 +1831,7 @@ mob/Player/AI
 								amounttaken=0
 							if(Q.Deluged==1)
 								amounttaken=4
-							if(src.Race in list("Android","Changeling","Majin","Dragon")||src.Fishman||src.SpaceWalk||src.FusionPowered)
+							if(src.Fishman||src.SpaceWalk||src.FusionPowered)
 								amounttaken=0
 							src.Oxygen-=amounttaken
 							if(src.Oxygen<0)
@@ -1888,7 +1888,7 @@ mob/Player/AI
 			EPM-=src.PowerEroded
 		if(src.NanoBoost&&src.Health<25)
 			EPM+=0.25
-		if(src.Race=="Makyo")
+		if(src.isRace(MAKYO))
 			if(src.ActiveBuff&&!src.HasMechanized())
 				EPM*=1+(0.5*src.AscensionsAcquired)
 		if(EPM<=0)
@@ -1984,7 +1984,7 @@ mob/Player/AI
 			if(src.Target)
 				if(ismob(src.Target))
 					if(src.CheckSlotless("Saiyan Soul"))
-						if(!src.Target.Adaptation&&!src.Target.CheckSlotless("Saiyan Soul"))
+						if(!HasAdaptation()&&!src.Target.CheckSlotless("Saiyan Soul"))
 							if(Power<src.Target.Power)
 								Power=src.Target.Power/src.Target.GetPowerUpRatio()
 					if(src.HasMirrorStats()&&!src.Target.HasMirrorStats()&&!src.Target.CheckSlotless("Saiyan Soul"))
@@ -2066,50 +2066,17 @@ mob/Player/AI
 				if(src.Kaioken)
 					PUGain=0
 					src.PoweringUp=0
-				if(src.TransActive())
-					if(src.masteries["[src.TransActive()]mastery"]>10&&src.masteries["[src.TransActive()]mastery"]<100||(src.Race=="Saiyan"&&src.HasGodKi()&&masteries["4mastery"]!=100))
-						PUGain/=src.PowerBoost
-					else
-						if(src.HasKiControlMastery())
-							PUGain*=1+(src.GetKiControlMastery())
-				else
-					if(src.HasKiControlMastery())
-						PUGain*=1+(src.GetKiControlMastery())
 				src.PowerControl+=PUGain
 				var/PUThreshold=150
 				if(src.PowerControl>=PUThreshold)
-					if(!src.ActiveBuff)
-						if(src.Race!="Changeling"||(src.Race=="Changeling"&&src.TransActive()==4))
-							for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in src)
-								if(!src.BuffOn(KC))
-									src.PoweringUp=0
-									src.Auraz("Remove")
-									src.UseBuff(KC)
-									break
-						else
-							if(src.TransActive()==3)
-								if(src.Class=="Prodigy")
-									for(var/obj/Skills/Buffs/SpecialBuffs/OneHundredPercentPower/FF in src)
-										if(!src.BuffOn(FF))
-											src.PoweringUp=0
-											src.Auraz("Remove")
-											src.UseBuff(FF)
-											break
-								else if(src.Class=="Experience")
-									for(var/obj/Skills/Buffs/SpecialBuffs/FifthForm/FF in src)
-										if(!src.BuffOn(FF))
-											src.PoweringUp=0
-											src.Auraz("Remove")
-											src.UseBuff(FF)
-											break
 					src.PowerControl=PUThreshold
 					src.PoweringUp=0
 				if(src.Energy<=src.EnergyMax/10&&!src.PUUnlimited)
 					src.Auraz("Remove")
 					src<<"You are too tired to power up."
 					src.PoweringUp=0
-					if(Race=="Saiyan"||Race=="Half Saiyan")
-						if(src.TransActive()>0)
+					if(isRace(SAIYAN))
+						if(src.transActive()>0)
 							var/Skip=0
 							if(src.ssj["active"]==1)
 								if(src.ssj["1mastery"]>=100||src.ssj["1mastery"]<10)
@@ -2135,8 +2102,8 @@ mob/Player/AI
 					src.PoweringUp=0
 					src.Auraz("Remove")
 					src<<"You are too tired to power up."
-					if(Race=="Saiyan"|Race=="Half Saiyan")
-						if(src.TransActive()>0)
+					if(isRace(SAIYAN))
+						if(src.transActive()>0)
 							var/Skip=0
 							if(src.ssj["active"]==1)
 								if(src.ssj["1mastery"]>=100||src.ssj["1mastery"]<10)

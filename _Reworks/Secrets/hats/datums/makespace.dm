@@ -1,62 +1,61 @@
-/datum/spaceMaker
+spaceMaker
+	var
+		toDeath
+		range
+		configuration = "" /* Fill, Random */
+		amount // if enabled only do this amount and back out after
+		turfs = list() // the list of turfs that are altered
 
+	New(time2Death, area, config, num)
+		toDeath = time2Death
+		range = area
+		configuration = config
 
-/datum/spaceMaker/var/toDeath
-/datum/spaceMaker/var/range
-/datum/spaceMaker/var/configuration = "" /* Fill, Random */
-/datum/spaceMaker/var/amount // if enabled only do this amount and back out after
-/datum/spaceMaker/var/turfs = list() // the list of turfs that are altered
-
-/datum/spaceMaker/New(time2Death, area, config, num)
-    toDeath = time2Death
-    range = area
-    configuration = config
 // init this, makes it flexible
-/datum/spaceMaker/proc/makeSpace(mob/p, effect2Apply)
-    world<< "Making space at [p.x], [p.y], [p.z] with [effect2Apply]"
-    var/correctLowerX = clamp(p.x - range,0 , world.maxx)
-    var/correctLowerY = clamp(p.y - range,0 , world.maxy)
-    var/correctUpperX = clamp(p.x + range,0 , world.maxx)
-    var/correctUpperY = clamp(p.y + range,0 , world.maxy)
-    var/list/openTurfs = list()
-    for(var/turf/Turf in block(locate(correctLowerX, correctLowerY, p.z), locate(correctUpperX, correctUpperY, p.z)))
-        openTurfs += Turf
-    switch(configuration)
-        if("Fill")
-            var/totalApplied = 0
-            for(var/turf/T in openTurfs)
-                if(T in turfs)
-                    continue
-                if(amount && totalApplied + 1 > amount)
-                    break
-                turfs += T
-                ticking_turfs += T
-                T.applyEffect(effect2Apply, toDeath)
-                totalApplied++
-        if("Random")
-            // random would imply its limited
-            world<< "Randomly picking [amount] turfs"
-            for(var/i = 0; i < amount; i++)
-                var/turf/T = pick(openTurfs)
-                world<< "Picked [T] ([T.x], [T.y])  from [openTurfs]"
-                if(T in turfs)
-                    continue
-                turfs += T
-                ticking_turfs += T
-                T.applyEffect(effect2Apply, toDeath)
+	proc/makeSpace(mob/p, effect2Apply)
+		world.log << "Making space at [p.x], [p.y], [p.z] with [effect2Apply]"
+		var/correctLowerX = clamp(p.x - range,0 , world.maxx)
+		var/correctLowerY = clamp(p.y - range,0 , world.maxy)
+		var/correctUpperX = clamp(p.x + range,0 , world.maxx)
+		var/correctUpperY = clamp(p.y + range,0 , world.maxy)
+		var/list/openTurfs = list()
+		for(var/turf/Turf in block(locate(correctLowerX, correctLowerY, p.z), locate(correctUpperX, correctUpperY, p.z)))
+			openTurfs += Turf
+		switch(configuration)
+			if("Fill")
+				var/totalApplied = 0
+				for(var/turf/T in openTurfs)
+					if(T in turfs)
+						continue
+					if(amount && totalApplied + 1 > amount)
+						break
+					turfs += T
+					ticking_turfs += T
+					T.applyEffect(effect2Apply, toDeath)
+					totalApplied++
+			if("Random")
+				// random would imply its limited
+				world.log << "Randomly picking [amount] turfs"
+				for(var/i = 0; i < amount; i++)
+					var/turf/T = pick(openTurfs)
+					world<< "Picked [T] ([T.x], [T.y])  from [openTurfs]"
+					if(T in turfs)
+						continue
+					turfs += T
+					ticking_turfs += T
+					T.applyEffect(effect2Apply, toDeath)
 // below we will commit crimes
 
-
-/datum/spaceMaker/Constellation
-    toDeath = 1200// 2 mins
-    range = 6
-    configuration = "Random"
-    amount = 21 
-    New(toDeath, range, configuration, amount)
-        src.toDeath = 1200
-        src.range = 6
-        src.configuration = "Random"
-        src.amount = 18
+	Constellation
+		toDeath = 1200// 2 mins
+		range = 6
+		configuration = "Random"
+		amount = 21
+		New(toDeath, range, configuration, amount)
+			src.toDeath = 1200
+			src.range = 6
+			src.configuration = "Random"
+			src.amount = 18
 
 
 
@@ -69,7 +68,7 @@
 /turf/proc/applyEffect(option, timer)
     world<<"Applying [option] for [timer] ticks at [src.x], [src.y]"
     timeToDeath = timer
-    effectApplied = "[option]" // the "[]" is not needed, but maybe u passed a number who knows 
+    effectApplied = "[option]" // the "[]" is not needed, but maybe u passed a number who knows
     ticking_turfs += src
     switch(option)
         if("Stellar")
@@ -81,7 +80,7 @@
             overlays+=i
 
 
-        
+
 /turf/proc/removeEffect()
     effectApplied = 0
     timeToDeath = 0

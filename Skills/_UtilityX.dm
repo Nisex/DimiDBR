@@ -1,5 +1,3 @@
-
-
 /mob/Admin3/verb/MasteryUp(obj/Skills/x in world)
 	if(x.vars["Mastery"])
 		x.Mastery++
@@ -2537,16 +2535,6 @@ obj/Skills/Utility
 			for(var/obj/Items/Enchantment/PocketDimensionGenerator/W in world)
 				if(usr.z==W.z)
 					usr << "<b><font color='red'>(DISTURBANCE)</font color></b> - ([W.x], [W.y], [W.z])"
-			for(var/mob/Players/M in players)
-				if(!M.AdminInviso&&!M.HasVoid()&&!M.HasMechanized()&&!M.HasGodKi())
-					if(M.z==usr.z)
-						var/D=abs(M.x-usr.x)+abs(M.y-usr.y)
-						if(D<=60)
-							if(D<=16)
-								usr << "<b>[M.name]</b> - [Commas(usr.Get_Scouter_Reading(M))] - [usr.CheckDirection(M)] - <b><font color='red'>NEARBY</font color></b>"
-							else
-								if(M.PowerControl>25)
-									usr << "[Commas(usr.Get_Scouter_Reading(M))] - [usr.CheckDirection(M)] - [Commas(D)] tiles away"
 			for(var/mob/Player/M in players)
 				if(M.z==usr.z)
 					var/D=abs(M.x-usr.x)+abs(M.y-usr.y)

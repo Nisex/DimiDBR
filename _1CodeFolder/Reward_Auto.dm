@@ -1,7 +1,7 @@
 #define DAILY_REWARD_TIME Hour(10) // THIS IS 6 PM ANY DAY
-// IF IT WAS 6 PM RN REALTIME WOULD U DAYTIME 
+// IF IT WAS 6 PM RN REALTIME WOULD U DAYTIME
 //	PotentialLastDailyGain - if they have triggered a reward today
-//	RewardsLastGained - what day was it when they last gained rewards, this should b 3 for everyone 
+//	RewardsLastGained - what day was it when they last gained rewards, this should b 3 for everyone
 
 
 /mob/proc/getDailyCheckTimer()
@@ -26,14 +26,12 @@
 
 mob
 	proc
-		fixRewardLastGained()
-			RewardsLastGained = 0 
 		reward_auto()
 			/*
 				if it is past 6pm
 					check to see when the last day they gained something was
 						if the day is lower than the days of wipe go to the next check
-						
+
 						give a difference in daily pot based on how many days are different, generally 1
 						then set the rewards last gained to the current day
 
@@ -67,10 +65,12 @@ mob
 				YourRPP*=EMult
 
 				GiveRPP(round(YourRPP))
-				
+
 			if((src.EraBody!="Child"||!src.EraBody)&&!src.Dead)
 				src << "You gain money from routine tasks."
 				var/extraMoney = 0
+				if(!information)
+					information = new()
 				if(information.rankingTier == "Ranker" || information.rankingTier == "Top Ranker")
 					var/currentRanking = information.rankingNumber
 					// 10,000 at 30 pot, only count intervals of 10

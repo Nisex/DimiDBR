@@ -21,7 +21,7 @@
 			return "Its"
 
 
-/datum/characterInformation
+characterInformation
 	var/list/pronouns = list()
 	var/seePronouns = TRUE
 	proc/setPronouns(firsttime)

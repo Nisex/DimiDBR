@@ -1,8 +1,8 @@
 // so basically, maintain a json of people who donate and their tier
 // if i want to, i can make something that contacts the server and updates it when new people pledge
 // but for now, i'll just manually update it
-var/datum/donationInformation/donationInformation = new/datum/donationInformation
-
+var/donationInformation/donationInformation = new/donationInformation
+/*
 /mob/verb/Donate()
     set category = "Options"
     set name = "Donate"
@@ -36,17 +36,17 @@ var/datum/donationInformation/donationInformation = new/datum/donationInformatio
 
 /mob/Admin5/verb/viewDonators()
     var/donators = donationInformation.getDonators()
-    for(var/datum/donator/donator in donators)
+    for(var/donator/donator in donators)
         usr << "Name: [donator.name] Key: [donator.key] Tier: [donator.tier] Login Message: [donator.loginMessage] Display Key: [donator.displayKey]"
 
 /mob/Admin5/verb/viewSupporters()
     var/supporters = donationInformation.getSupporters()
-    for(var/datum/supporter/supporter in supporters)
+    for(var/supporter/supporter in supporters)
         usr << "Name: [supporter.name] Key: [supporter.key] Tier: [supporter.tier] Login Message: [supporter.loginMessage] Display Key: [supporter.displayKey]"
+*/
 
 
-
-/datum/donationInformation
+donationInformation
     var/list/Supporters = list()
     var/list/Donators = list()
     New()
@@ -58,10 +58,10 @@ var/datum/donationInformation/donationInformation = new/datum/donationInformatio
         if(length(Donators) == 0)
             world.log << "No donators found...Updating."
             Update()
-        
+
 
     proc/addDonator(name, amount, json)
-        var/datum/donator/donator = new/datum/donator
+        var/donator/donator = new/donator
         if(!json)
             donator.key = name
             donator.tier = amount
@@ -72,9 +72,9 @@ var/datum/donationInformation/donationInformation = new/datum/donationInformatio
             donator.loginMessage = json["loginMessage"]
             donator.displayKey = json["displayKey"]
         Donators += donator
-    
+
     proc/addSupporter(name, amount, json)
-        var/datum/supporter/supporter = new/datum/supporter
+        var/supporter/supporter = new/supporter
         if(!json)
             supporter.key = name
             supporter.tier = amount
@@ -89,13 +89,13 @@ var/datum/donationInformation/donationInformation = new/datum/donationInformatio
 
     proc/getDonators()
         return Donators
-    
+
     proc/getSupporters()
         return Supporters
-    
+
     proc/getDonator(name, key)
-        // refresh the donator json 
-        for(var/datum/donator/donator in Donators)
+        // refresh the donator json
+        for(var/donator/donator in Donators)
             if(donator.name == name)
                 donator.Update()
                 return donator
@@ -103,9 +103,9 @@ var/datum/donationInformation/donationInformation = new/datum/donationInformatio
                 donator.Update()
                 return donator
         return null
-    
+
     proc/getSupporter(name, key)
-        for(var/datum/supporter/supporter in Supporters)
+        for(var/supporter/supporter in Supporters)
             if(supporter.name == name)
                 supporter.Update()
                 return supporter
@@ -113,26 +113,26 @@ var/datum/donationInformation/donationInformation = new/datum/donationInformatio
                 supporter.Update()
                 return supporter
         return null
-    
+
     proc/findSupporter(key)
-        for(var/datum/supporter/supporter in Supporters)
+        for(var/supporter/supporter in Supporters)
             if(supporter.key == key)
                 return supporter
         return null
     proc/findDonor(key)
-        for(var/datum/donator/donator in Donators)
+        for(var/donator/donator in Donators)
             if(donator.key == key)
                 return donator
         return null
 
-    Update()
+    Update()/*
         var/info = grabJsonData()
         for(var/tier in info["Donators"])
             for(var/donator in info["Donators"][tier])
                 if(!getDonator(key = donator))
                     addDonator(donator, tier, info["Information"][donator])
                 else
-                    var/datum/donator/donatorr = findDonor(key = donator)
+                    var/donator/donatorr = findDonor(key = donator)
                     donatorr.tier = tier
                     donatorr.loginMessage = info["Information"][donator]["loginMessage"]
                     donatorr.displayKey = info["Information"][donator]["displayKey"]
@@ -141,11 +141,12 @@ var/datum/donationInformation/donationInformation = new/datum/donationInformatio
                 if(!getSupporter(key = supporter))
                     addSupporter(supporter, tier, info["Information"][supporter])
                 else
-                    var/datum/supporter/supporterr = findSupporter(key = supporter)
+                    var/supporter/supporterr = findSupporter(key = supporter)
                     supporterr.tier = tier
                     supporterr.loginMessage = info["Information"][supporter]["loginMessage"]
                     supporterr.displayKey = info["Information"][supporter]["displayKey"]
-/datum/donator
+*/
+donator
     var/name = ""
     var/byondKey = ""
     var/tier = 0
@@ -155,8 +156,8 @@ var/datum/donationInformation/donationInformation = new/datum/donationInformatio
 
     proc/getTier()
         return text2num(tier)
-    
-    Update()
+
+    Update()/*
         var/info = grabJsonData()
         for(var/tier in info["Donators"])
             for(var/donator in info["Donators"][tier])
@@ -167,9 +168,9 @@ var/datum/donationInformation/donationInformation = new/datum/donationInformatio
                     loginMessage = json["loginMessage"]
                     displayKey = json["displayKey"]
                     key = donator
-                    return
+                    return*/
 
-/datum/supporter
+supporter
     var/name = ""
     var/byondKey = ""
     var/tier = 0
@@ -179,8 +180,8 @@ var/datum/donationInformation/donationInformation = new/datum/donationInformatio
 
     proc/getTier()
         return text2num(tier)
-    
-    Update()
+
+    Update()/*
         var/info = grabJsonData()
         for(var/tier in info["Supporters"])
             for(var/supporter in info["Supporters"][tier])
@@ -190,9 +191,9 @@ var/datum/donationInformation/donationInformation = new/datum/donationInformatio
                     loginMessage = info["Information"][supporter]["loginMessage"]
                     displayKey = info["Information"][supporter]["displayKey"]
                     key = supporter
-                    return
+                    return*/
 
-    
+
 
 /proc/grabJsonData()
     var/jsonData = file('supporterinfo.json')
@@ -204,7 +205,7 @@ var/datum/donationInformation/donationInformation = new/datum/donationInformatio
 
 
 // /mob/Admin4/verb/AddDonator(mob/p in world)
-//     var/datum/donator/donator = new/datum/donator
+//     vardonator/donator = newdonator
 //     donator.name = input(src, "Name of donator?") as text
 //     donator.key = p.key
 //     donator.tier = tier

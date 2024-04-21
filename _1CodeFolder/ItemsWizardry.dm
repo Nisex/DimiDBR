@@ -2315,7 +2315,7 @@ obj/Items/Enchantment
 				if(usr.Maimed && usr.magicalMaimRecov<5)
 					usr.Maimed=max(usr.Maimed-1,0)
 					usr.magicalMaimRecov++
-				if(!usr.Race in list("Saiyan", "Half Saiyan") && !usr.Tail)
+				if(usr.isRace(SAIYAN) && !usr.Tail)
 					usr.Tail=1
 				if(usr.HealthCut)
 					usr.HealthCut=max(usr.HealthCut-0.1,0)
@@ -2413,7 +2413,7 @@ obj/Items/Enchantment
 				OMsg(usr, "[usr] is reborn!")
 				usr.EraAge=global.Era
 				usr.EraBody="Child"
-				if(usr.Race=="Saiyan"||usr.Race=="Half Saiyan")
+				if(usr.isRace(SAIYAN)||usr.Race=="Half Saiyan")
 					usr.Tail(1)
 
 				src.Using=0

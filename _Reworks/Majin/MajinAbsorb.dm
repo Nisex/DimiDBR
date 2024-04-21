@@ -10,7 +10,7 @@ making it a style will cause issues.
 */
 
 
-/datum/majinAbsorb
+majinAbsorb
     var/list/absorbed = list() // list of absorbed people
     var/list/passives = list() // passives that are attacked to buffs
     var/list/racialPassives = list() // passives attached to racials
@@ -20,7 +20,7 @@ making it a style will cause issues.
     var/absorbPassiveTickLimit = 0.5
     var/tickPerAbsorb = 0.1
     // Some passives work differently and will get a boost, also some races provide more
-/datum/majinAbsorb/proc/updateVariables(mob/p, clear = FALSE)
+majinAbsorb/proc/updateVariables(mob/p, clear = FALSE)
     var/Super = p.Class == "Super" ? TRUE : FALSE
     var/asc = p.AscensionsAcquired
     absorbLimit = MAJIN_ABSORB_LIMIT + (Super ? asc : floor(asc/2))
@@ -36,22 +36,22 @@ making it a style will cause issues.
 #define SHINJINBOOST 5
 
 
-/datum/majinAbsorb/proc/addAbsorbee(mob/p)
+majinAbsorb/proc/addAbsorbee(mob/p)
     absorbed["[p.ckey]"] = p.ckey
     p<< "You feel a part of your powers get absorbed away!"
 
-/datum/majinAbsorb/proc/nerfAbsorbee(mob/p)
+majinAbsorb/proc/nerfAbsorbee(mob/p)
     var/nerf = absorbTax / 100
     p.StrTax += nerf
     p.EndTax += nerf
     p.ForTax += nerf
 
-/datum/majinAbsorb/proc/addRacialPassive(passiveName)
+majinAbsorb/proc/addRacialPassive(passiveName)
     if(passiveName in racialPassives)
         return
     racialPassives += passiveName
 
-/datum/majinAbsorb/proc/adjustPassive(passiveName, race)
+majinAbsorb/proc/adjustPassive(passiveName, race)
     if(race == "Shinjin")
         return SHINJINBOOST
     if(passiveName in BOOSTPASSIVES)
@@ -151,7 +151,7 @@ proc/removeDuplicates(list/list1)
             // we could do it auto with a bit more digging, as a majin will have some of these passives, and they could have potentially absorbed more to have more than they already have
             if(passive_handler.Get(x))
                 src << "You have an extra passive: [x], if you got this from absorb, you will need to get it removed and added back via an admin"
-            
+
             for(var/mob/admin in world)
                 if(admin.Admin)
                     admin << "[src] has an extra variable: [x], if they got this from absorb, you will need to get it removed and add it back"
@@ -160,77 +160,48 @@ proc/removeDuplicates(list/list1)
 /mob/proc/getRacialPassives(hardRace = FALSE)
     . = list()
     if(!hardRace)
-        hardRace = Race
+        hardRace = race.type
     switch(hardRace)
-        if("Majin")
+        if(MAJIN)
             . = getMajinRacials()
         if("Half Saiyan")
             . += "Desperation"
-        if("Saiyan")
+        if(SAIYAN)
             . += "Intimidation"
             . += "MovementMastery"
-        if("Human")
+        if(HUMAN)
             . += "Desperation"
             . += "PilotingProwess"
             . += "Adrenaline"
             . += "DemonicDurability"
-        if("Makyo")
+        if(MAKYO)
             . += "MovementMastery"
             . += "Intimidation"
-        if("Namekian")
+        if(NAMEKIAN)
             . += "EnhancedHearing"
             . += "Intimidation"
             // Not sure what else
-        if("Monster")
-            switch(Class)
-                // we also need to go through their ascensions
-                if("Beastmen")
-                    . += "EnhancedSmell"
-                    . += "EnhancedHearing"
-                if("Yokai")
-                    . += "EnhancedHearing"
-                    . += "TechniqueMastery"
-                if("Eldritch")
-                    . += "SpaceWalk"
-                    . += "DebuffImmune"
-                    . += "VenomResistance"
-                    . += "SoulFire"
-                    . += "DeathField"
-                    . += "VoidField"
-            switch(MonsterSource)
-                if("Domination")
-                    . += "Steady"
-                    . += "HeavyHitter"
-                if("Determination")
-                    . += "Desperation"
-                if("Ingenuity")
-                    . += "PilotingProwess"
-            switch(MonsterAscension)
-                if("Celestial")
-                    . += "HolyMod"
-                    . += "MovementMastery"
-                    . += "SpiritPower"
-                if("Natural")
-                    . += "BuffMastery"
-                if("Infernal")
-                    . += "DemonicDurability"
-                    if(AscensionsAcquired>=3)
-                        .+= "HellPower"
-        if("Shinjin")
-            . += "Godki"
-            switch(ShinjinAscension)
-                if("Kai")
-                    . += "SpiritPower"
-                if("Makai")
-                    . += "HellPower"
-        if("Demon")
+        if(BEASTMAN)
+            . += "EnhancedSmell"
+            . += "EnhancedHearing"
+        if(YOKAI)
+            . += "EnhancedHearing"
+            . += "TechniqueMastery"
+        if(ELDRITCH)
+            . += "SpaceWalk"
+            . += "DebuffImmune"
+            . += "VenomResistance"
+            . += "SoulFire"
+            . += "DeathField"
+            . += "VoidField"
+        if(DEMON)
             . += "CursedWounds"
             . += "DemonDurability"
             . += "HellPower"
     . = removeDuplicates(.)
 
 
-/datum/majinAbsorb/proc/doAbsorb(mob/absorber, mob/absorbee)
+majinAbsorb/proc/doAbsorb(mob/absorber, mob/absorbee)
     updateVariables(absorber)
     if(length(absorbed) > 0)
         if(absorbed[absorbee.ckey] == absorbee.ckey)
@@ -241,7 +212,7 @@ proc/removeDuplicates(list/list1)
         return
     var/list/racialPassives = absorbee.getRacialPassives()
     var/passiveInQuestion = input(absorber, "Which passive would you like to absorb?", "Absorb") in racialPassives
-    var/maxGain 
+    var/maxGain
     var/maxPasssiveCanHave = absorbPassiveTickLimit * adjustPassive(passiveInQuestion, absorbee.Race)
 
     var/absorbeePassiveTicks = absorbee.passive_handler.Get(passiveInQuestion)

@@ -320,7 +320,7 @@ mob
 						R:adjust(src)
 						src<<"You no longer fear for your life..."
 				if(MeditateTime == 15)
-					if(Race=="Majin")
+					if(isRace(MAJIN))
 						majinPassive.resetVariables(src)
 					for(var/obj/Skills/s in Skills) if(s.Cooldown<0 && s.Using)
 						src << "One or more of your skills will be made available to you again when you stop meditating."
@@ -380,18 +380,15 @@ mob
 				if(scrollTicker<=0)
 					scrollTicker=0
 
-			if(src.ssj["active"]>0&&src.ssj["active"]<4)
-				if((src.ssj["active"]>=1))
-					var/Drain
-					if(src.masteries["[src.ssj["active"]]mastery"]>5&&src.masteries["[src.ssj["active"]]mastery"]<75||(src.HasGodKi()&&masteries["4mastery"]!=100))
-						Drain=30
-					else
-						Drain=0
-					if(Drain>0)
-						if(src.Energy<Drain&&!src.HasNoRevert()&&!src.Dead&&!src.HasMystic())
-							src.Revert()
-							src.LoseEnergy(30)
-							src<<"The strain of Super Saiyan forced you to revert!"
+			if(isRace(SAIYAN)&&transActive>0)
+				var/Drain = 10
+				if(race.transformations[transActive].mastery<75)
+					Drain=30
+				if(Drain>0)
+					if(src.Energy<Drain&&!src.HasNoRevert()&&!src.Dead&&!src.HasMystic())
+						src.Revert()
+						src.LoseEnergy(30)
+						src<<"The strain of Super Saiyan forced you to revert!"
 /*
 			if(src.trans["active"]>3 && src.masteries["4mastery"]<100 && src.Race=="Changeling")
 				if(src.Energy<30&&!src.HasNoRevert())
@@ -486,7 +483,7 @@ mob
 				if(CheckSlotless("Rotschreck"))
 					R = GetSlotless("Rotschreck")
 					R:adjust(src)
-				var/datum/SecretInfomation/Vampire/vampire = secretDatum
+				var/SecretInfomation/Vampire/vampire = secretDatum
 				if(vampire.secretVariable["LastBloodGain"] + 450 < world.time && vampire.secretVariable["BloodPower"] > 0)
 					if(!PureRPMode)
 						vampire.drainBlood()
@@ -497,12 +494,22 @@ mob
 						src << "The restraints of your bloodlust crumble away as you dissolve into a living shadow!!"
 			if(src.Secret == "Werewolf")
 				if(secretDatum.secretVariable["Hunger Active"] == 1)
-					var/datum/SecretInfomation/Werewolf/s = secretDatum
+					var/SecretInfomation/Werewolf/s = secretDatum
 					if(!PureRPMode)
 						s.releaseHunger()
 						if(secretDatum.secretVariable["Hunger Satiation"] <=0 && CheckSlotless("Full Moon Form"))
 							src << "You have exhausted all the flesh you consumed and have reverted from your war form."
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form/fmf in src)
+								fmf.Trigger(src, Override=1)
+
+			if(src.Secret == "Eldritch")
+				if(secretDatum.secretVariable["Madness Active"] == 1)
+					var/SecretInfomation/Eldritch/s = secretDatum
+					if(!PureRPMode)
+						s.releaseMadness()
+						if(secretDatum.secretVariable["Madness Satiation"] <=0 && CheckSlotless("True Form"))
+							src << "You have exhausted all the madness and have reverted to your sane form."
+							for(var/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form/fmf in src)
 								fmf.Trigger(src, Override=1)
 
 
@@ -515,12 +522,16 @@ mob
 					senjutsuOverloadAlert=FALSE
 					src << "You exhaust your natural energy, avoiding death by overexposure."
 
-			if(src.HasRipple()||(!src.CheckSlotless("Half Moon Form")&&!src.CheckSlotless("Full Moon Form"))||src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus"))
+			if(src.HasRipple()||(!src.CheckSlotless("Half Moon Form")&&!src.CheckSlotless("Full Moon Form"))||src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus")||Secret=="Eldritch"&&!CheckSlotless("True Form"))
 				if(src.icon_state=="Train"&&!src.PoseEnhancement)
 					if(src.Secret=="Werewolf"&&!src.PoseTime)
 						src << "You focus your instincts perfectly on the chosen target, ready to leap any second!"
 					src.PoseTime++
 					if(src.PoseTime==5)
+						if(Secret=="Eldritch")
+							for(var/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form/fmf in src)
+								fmf.Trigger(src)
+							icon_state = ""
 						if(src.HasRipple())
 							src << "The Ripple flows through your body perfectly!  You have gained full control over your breathing!!"
 							if(src.Swim==1)
@@ -1550,7 +1561,7 @@ mob
 					if(SM.suffix)
 						BreathingMaskOn=1
 				if(BreathingMaskOn==0)
-					if(!passive_handler.Get("SpaceWalk")&&src.Race!="Changeling"&&src.Race!="Android"&&src.Race!="Dragon"&&src.Race!="Majin")
+					if(!passive_handler.Get("SpaceWalk")&&(!src.race in list(MAJIN,DRAGON)))
 						src.Oxygen-=rand(2,4)
 						if(src.Oxygen<0)
 							src.Oxygen=0
@@ -1577,7 +1588,7 @@ mob
 									src.Death(null,"oxygen deprivation!")
 			else if(loc:Deluged||istype(loc,/turf/Waters)||istype(loc,/turf/Special/Ichor_Water)||istype(loc,/turf/Special/Midgar_Ichor))
 				var/IgnoresWater=0
-				if(passive_handler.Get("Fishman")||passive_handler.Get("SpaceWalk")||src.Race in list("Changeling", "Android", "Dragon", "Majin"))
+				if(passive_handler.Get("Fishman")||passive_handler.Get("SpaceWalk")||src.race in list(MAJIN,DRAGON))
 					BreathingMaskOn=1
 				for(var/obj/Items/Tech/SpaceMask/SM in src)
 					if(SM.suffix)
@@ -1602,7 +1613,7 @@ mob
 				if(!IgnoresWater)
 					if(istype(loc,/turf/Waters/Water7))
 						if(!src.HasWalkThroughHell())
-							if(src.Race!="Demon"&&!src.HasHellPower())
+							if(!isRace(DEMON)&&!src.HasHellPower())
 								src.AddBurn(10)
 					else
 						if(src.Burn)
@@ -1650,7 +1661,7 @@ mob
 							amounttaken=0
 						if(loc:Deluged==1)
 							amounttaken=4
-						if(Race in list("Dragon","Changeling"))
+						if(isRace(DRAGON))
 							amounttaken=0
 						if(passive_handler.Get("Fishman")||passive_handler.Get("SpaceWalk"))
 							amounttaken=0
@@ -1664,7 +1675,7 @@ mob
 							if(src.TotalFatigue>=95)
 								src.Unconscious(null,"fatigue due to swimming! They will drown if not rescued!")
 					else
-						if(!(src.Race in list("Android","Changeling","Dragon")))
+						if(!isRace(DRAGON))
 							if(BreathingMaskOn==0)
 								src.Oxygen=0
 								src.DamageSelf(TrueDamage(1))
@@ -1717,3 +1728,7 @@ mob
 			src.client.SaveChar()
 		if(AFKTimer)
 			Available_Power()
+
+
+/mob/verb/HardSave()
+	client.SaveChar()

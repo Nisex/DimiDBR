@@ -1,4 +1,4 @@
-#define subtypesof(typepath) ( typesof(typepath) - typepath )
+//#define subtypesof(typepath) ( typesof(typepath) - typepath )
 
 var/knowledgePaths/tech/list/TechnologyTree = list()
 
@@ -244,13 +244,11 @@ var/knowledgePaths/tech/list/TechnologyTree = list()
 			if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Magic/Counterspell, src))
 				src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Counterspell)
 				src << "You learn how to counter spells!"
-			// TODO ADD COUTNERSPELL MAGIC SPELL
 
 		if("Holding Magic")
 			SpaceMagicUnlocked++
 			if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Magic/Hold_Person, src))
 				src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Hold_Person)
-			// TODO ADD HOLDING MAGIC SPELL
 
 		if("Teleportation")
 			SpaceMagicUnlocked++
@@ -278,13 +276,10 @@ var/knowledgePaths/tech/list/TechnologyTree = list()
 			TimeMagicUnlocked++
 			if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Magic/Haste, src))
 				src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Haste)
-			//TODO ADD HASTE
 		if("Temporal Rewinding")
 			TimeMagicUnlocked++
 			if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Magic/Reverse_Wounds, src))
 				src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Reverse_Wounds)
-			//TODO ADD REWIND (HEAL)
-
 
 		// TECH SHIT //
 		if("CyberEngineering")
@@ -476,7 +471,6 @@ var/knowledgePaths/tech/list/TechnologyTree = list()
 			if(locate(/obj/Skills/Buffs/SlotlessBuffs/Magic/Hold_Person, src))
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Magic/Hold_Person/hp in src)
 					del hp
-			// TODO ADD HOLDING MAGIC SPELL
 
 		if("Teleportation")
 			SpaceMagicUnlocked--
@@ -495,24 +489,21 @@ var/knowledgePaths/tech/list/TechnologyTree = list()
 			TimeMagicUnlocked--
 		if("Life Warranty")
 			TimeMagicUnlocked--
-			//TODO ADD THEM BEING ABLE TO ROLL ANOTHER ROLL ON VOID
-			// lol
+
 		if("Temporal Displacement")
 			TimeMagicUnlocked--
-			//TODO ADD THEM BEING ABLE TO GET EXTRA CHANCE ON VOID
+
 		if("Temporal Acceleration")
 			TimeMagicUnlocked--
 			if(locate(/obj/Skills/Buffs/SlotlessBuffs/Magic/Haste, src))
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Magic/Haste/h in src)
 					del h
 
-			//TODO ADD HASTE
 		if("Temporal Rewinding")
 			TimeMagicUnlocked++
 			if(locate(/obj/Skills/Buffs/SlotlessBuffs/Magic/Reverse_Wounds, src))
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Magic/Reverse_Wounds/rw in src)
 					del rw
-			//TODO ADD REWIND (HEAL)
 
 
 		// TECH SHIT //

@@ -52,10 +52,11 @@
 	glob.GUILD_RANKINGS.Remove(guild)
 
 //TODO: prob remove innit ?
+/*
 /mob/verb/View_Guild_Ranks()
 	set category = "Roleplay"
 	var/startText = "[SYSTEM]Guild Rankings]"
 	for(var/x in glob.GUILD_RANKINGS)
 		if(glob.GUILD_RANKINGS[x] > 0)
 			startText += "\n[SYSTEM][x] ([glob.GUILD_RANKINGS[x]])]"
-	src << "[startText][SYSTEMTEXTEND]"
+	src << "[startText][SYSTEMTEXTEND]"*/

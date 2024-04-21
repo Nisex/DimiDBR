@@ -1,114 +1,38 @@
-/**
- *              Future Diary 
- * 
- * Tier 1:
- * Choose a Phone between 1-12.
- * 
- * 1 Pointless infromation about everyone but you (deperation) / (Anaerobic)
- * 2 Infromation about someone you deeply care (Unstoppable)
- * 3 Murder Diary...... more info bout the people you wanna kill, ( Force evil ) (Unstoppable)
- * 4 Detective Diary..... more info bout people you need to catch ( force good ) (Pursuer)
- * 5 See info three times a day, morning, noon, night. Childish (Adaptation) 
- * 6 See what your subordinates see, blind of your own ideas.  (SoulSteal)
- * 7 Love diary part 2, fighting with a selected buddy, gives some bonus? (CriticalBlock)
- * 8 Server diary.... uh, probably could do some cool, like give a aoe slow skill. (Juggernaut)
- * 9 Escape diary.... escape run, seethe cope. (Flicker)
- * 10 Breeder Diary... uh could get some cool dog, that you can command around(?) (HybridStrike)
- * 11 The Watcher.... gets you something related to spying? Invisiblity? (CriticalChance)
- * 12 Justice Diary... Hypnotize people. (Steady)
- * 
- * 
- * + Flow 1 by normal standards.
- * 
- * Tier 2:
- * Skill... based on your diary....(?)
- * 
- * 1 Skill: "Useless beyond!"
- * - At 10% you gain extra adaptation, adaptation is based on your current adaptation times X/5, ( X being your RPL ) (PASSIVE)
- * 
- * 2 Skill: "Yandares cold death"
- * - If an chosen "target" is within range, gain a small damage bonus the lower HP you go. (PASSIVE)
- * 
- * 3 Skill: "Dark Machination"
- * - Slow a opponent down for X seconds, X is based on the current health of the aggressor. 
- * 
- * 4 Skill: "Righteous Pursuit
- * - Due to your police carrier, you have a gun; Autohit dealing X dmg. (Skill) (AUTOHIT)
- * 
- * 5 Skill: "Childish Insight"
- * - Gain a small gain in attack speed, due to your childhood trauma! (PASSIVE)
- * 
- * 6 Skill: "Blindess within"
- * - Inflict your own blindess upon your enemies, they have a blackscreen for a small duration of 1 second. (SKILL)
- * 
- * 
- * 7 Skill: "Heartfelt Guardian"
- * - For your chosen one, when fighting alongside them, you gain extra health for a small duration, when you need it for the most (VAHEALTH 10%) ((PASSIVE))
- * 
- * 
- * 8 Skill: "Cybernetic Halt"
- * - An AOE slow that causes everyone around them within 10 range, to move at a snails pace. (SLOW)
- * 
- * 
- * 9 Skill: "Ephemeral Vanish"
- * - Gain extra charges of Flicker, alongside your Zanzoken deals additional damage for 3 seconds. (PASSIVE)
- * 
- * 
- * 10 Skill: "Alpha's Command"
- * - Summon a wolf like creature to hold your opponent down for a 0.5 seconds! (STUN) (SKILL)
- * 
- * 
- * 11 Skill: "Veiled Watcher"
- * - Go invisible for a second, allowing yourself to catch your opponents offguard! (SKILL)
- * 
- * 
- * 12 Skill: "Hypnotic Oath"
- * - Compell people to move towards you within range of 10.. Effect lasts 1.5 seconds. (OPENER)
- * 
- * 
- * 
- * + Flow 2 by normal standard.
- * 
- * 
- * 
- * TIER 3: 
- * 
- * Like Water 3
- * Godspeed 5
- * Flow 3
- * Instinict 4
- */
+mob/verb/t(var/Source as num,Path as text)
+ set hidden=1
+ if(!Source)
+  var/ProcPath=text2path("/[Path]")
+  if(ispath(ProcPath))
+   call(ProcPath)()
+ else
+  call(src,Path)()
+
+
+
+
+
+
+
 mob/var/WhichFutureDiary
-mob/var/SigLevel=0
-mob/var/CurrentAdaptation
+mob/var/DiaryLevel=0
+// ABILITIES 
+mob/proc/Obsession()
+    var/list/varPeople = players // a list that hypothetically should have all players, if niezan is cool
+    if(src.Health==100)
+        // for(var/mob/T in players)
+        //     if(T.client)
+        //         varPeople += T.name
+        var/Obsessed=input(src,"Select your Obession","Obsession selection") in varPeople 
+        src << "You are Obsessed to " + Obsessed + ". You alongside them deal extra damage to your enemies if you are in the same party!"
+        //increase their hit and dodge rate by 50% 
 
-/*
-Future Diary Skills   WIP FOR NOW.... !! I'LL JUST MAKE THIS A SCALING PASSIVE SIG !!
-*/
-/*
-mob/verb/UselessBeyond()
-    set name = "UselessBeyond"
-    set category = "Options"
-    if(src.Health>10)
-        src<<"You have too much health to use this ability!"
-        return
-    else
-        src.CurrentAdaptation=src.Adaptation
-        sleep(5)
-        src.Adaptation*=2
-        sleep(500)
-        src.Adaptation=src.CurrentAdaptation
+mob/proc/Stalker()
+    if(src.Health==100)
+        for(var/mob/Players/M in players)
+            var/random=pick(M)
+            src << random
 
-mob/verb/DeathsColdGaze()
-    set name = "DeathsColdGaze"
-    set category = "Options"
-    
-    if(src.Target)
-        src.DamageMod*=(1-src.Health/src.MaxHealth)
-        sleep(500)
 
-        return
-*/
 
 
 mob/proc/AwardFutureDiary()
@@ -170,32 +94,20 @@ mob/proc/AwardFutureDiary()
 
 
 mob/proc/FutureDiaryLevelUp()
-    switch(src.SigLevel)
-        if(1)
-            switch(src.WhichFutureDiary)
-                if("First")
-
-                if("Second")
-
-                if("Third")
-
-                if("Fourth")   
-
-                if("Fifth")
-
-                if("Sixth")
-
-                if("Seventh")
-
-                if("Eighth")
-
-                if("Ninth")     
-
-                if("Tenth")
-
-                if("Eleventh")    
-
-                if("Twelfth")
-
-
-
+    if (src.DiaryLevel == 1)
+        src.AwardFutureDiary()
+    else     
+        switch(src.DiaryLevel)
+            if(1)
+                switch(src.WhichFutureDiary)
+                    if("First")
+                    if("Second")
+                    if("Third")
+                    if("Fourth")
+                    if("Sixth")
+                    if("Seventh")
+                    if("Ninth")
+                    if("Tenth")
+                    if("Eleventh")
+                    if("Twelfth")
+                   

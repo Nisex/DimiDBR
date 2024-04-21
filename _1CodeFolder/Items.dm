@@ -143,7 +143,7 @@ obj/Items
 	proc/startBreaking(dmg, val, mob/owner, mob/attacker, type)
 		if(val > MAX_BREAK_MULT)
 			val = MAX_BREAK_MULT
-		var/breakVal = (dmg * val) * (attacker.GetOff(0.3)+(attacker.GetStr(0.3) * glob.STRENGTH_EFFECTIVENESS))
+		var/breakVal = (dmg * val) * (attacker.GetOff(0.3)+(attacker.GetStr(0.3) * glob.DMG_STR_EXPONENT))
 		if(breakVal > MAX_BREAK_VAL)
 			breakVal = MAX_BREAK_VAL
 		if(owner.Saga=="Unlimited Blade Works")
@@ -470,9 +470,9 @@ obj/Items
 			if(!(usr in oview(1,src))&&!(src in usr))
 				return
 			var/RacialHunger=1
-			if(usr.Race in list("Saiyan","Half Saiyan","Monster"))
+			if(usr.race in list(SAIYAN,BEASTMAN))
 				RacialHunger=5
-			if(usr.Race in list("Majin","Dragon","Demon"))
+			if(usr.race in list(MAJIN,DRAGON,DEMON))
 				RacialHunger=20
 			if(usr.EnhancedSmell)
 				RacialHunger*=2
@@ -813,6 +813,7 @@ obj/Items/Sword
 	Health=10
 	Unobtainable=1
 	var/Conjured=0
+	var/SpiritStrike
 	var/SwordIconSelected=0
 	var/ImprovedStat
 	var/ProjectionBlade=0//Dissolves on drop
@@ -963,18 +964,39 @@ obj/Items/Sword
 			ShatterCounter=800
 			ShatterMax=800
 
-			Scissor_Blade
-				name="Scissor Blade"
-				// icon='scissor_blade.dmi'
+			Soul_Eater
+				icon='Soul_Eater.dmi'
+				name="Soul Eater"
 				pixel_x=-16
 				pixel_y=-16
-				passives = list("Shearing" = 0.5)
-				Shearing=0.5
-				iconAlt='Scissor_blade_decap.dmi'
-				iconAltX=-32
-				iconAltY=-32
-				ClassAlt="Heavy"
-				Techniques=list("/obj/Skills/Buffs/SlotlessBuffs/WeaponSystems/Decapitation_Mode")
+				Techniques=list("/obj/Skills/Queue/Darkness_Blast","/obj/Skills/Queue/Heart_Slayer","/obj/Skills/Queue/Riku_Soul_Render")
+				verb/ChooseForm()
+					set category="Other"
+					var/check = 0
+					var/S = input(usr,"Choose the form of your Soul Eater", "Form") in list("Shield","Sword","Staff")
+					switch(S)
+						if("Sword")
+							if(check!=0)
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)		
+							view(10,src) << "[src]'s weapon transforms in to a Sword!"
+							passives = list("SpiritSword" = 0.5)
+							check += 1
+
+						if("Shield")
+							if(check!=0)
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)		
+							view(10,src) << "[src]'s weapon transforms in to a shield!"
+							passives = list("CallousedHands" = 0.5)
+							check += 1
+
+
+
+						if("Staff")
+							if(check!=0)
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)		
+							view(10,src) << "[src]'s weapon transforms in to a Staff!"
+							passives = list("SpiritStrike" = 1)
+							check += 1
 
 			WeaponSoul
 				Destructable = 0
@@ -1598,7 +1620,7 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 				User << "[src] is broken currently and can't be used."
 				return
 			if(sord)
-				if(!User.ArcaneBladework&&User.Race!="Demon")
+				if(!User.ArcaneBladework&&!User.isRace(DEMON))
 					User << "You can't use a sword and a staff at the same time!"
 					return
 			if(User.StanceBuff)
@@ -1673,7 +1695,7 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 					User << "You already have a sword equipped."
 					return
 			if(staf)
-				if(!User.ArcaneBladework&&User.Race!="Demon")
+				if(!User.ArcaneBladework&&!User.isRace(DEMON))
 					User << "You can't use a sword and a staff at the same time!"
 					return
 			if(User.StyleBuff)
@@ -2143,7 +2165,7 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 						if(x == s)
 							User.DeleteSkill(x, FALSE)
 
-		if(passives&&!User.passive_overhaul)
+		if(passives)
 			if(suffix=="*Equipped*")
 				current_passives = passives
 				User.passive_handler.increaseList(passives)

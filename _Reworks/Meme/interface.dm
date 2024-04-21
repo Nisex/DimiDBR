@@ -1,6 +1,6 @@
 /*
 
-/datum/npcInterface
+npcInterface
     var/owner = null // a key generally, this won't be saved
     var/mob/npc = null // the mob this is attached to
     var/lastUpdate = 0 // the last time we updated the interface
@@ -44,56 +44,56 @@
         maptext_y = 12
         maptext_x = 0
         pixel_x = 100
-    
-/datum/npcInterface/proc/displayInformationBox(mob/owner, text)
+
+npcInterface/proc/displayInformationBox(mob/owner, text)
     if(information)
         clearInformationBox(owner)
     information = new /obj/infoBoxNPC(text)
     mugshot.vis_contents += information
 
-/datum/npcInterface/proc/clearInformationBox(mob/owner)
+npcInterface/proc/clearInformationBox(mob/owner)
     if(information)
         mugshot.vis_contents -= information
         information = null
         del information // in case it isn't deleted
 
 
-/datum/npcInterface/proc/displayMugshot(mob/irlNPC/npc, mob/owner)
+npcInterface/proc/displayMugshot(mob/irlNPC/npc, mob/owner)
     if(mugshot)
         clearMugshot(owner)
     mugshot = new /obj/mugshot(npc.mugshot) // this will pass the icon
     owner.client.screen += mugshot
     mugshot.screen_loc = "LEFT,BOTTOM"
 
-/datum/npcInterface/proc/clearMugshot(mob/owner)
+npcInterface/proc/clearMugshot(mob/owner)
     if(mugshot)
         owner.client.screen -= mugshot
         mugshot = null
         del mugshot // in case it isn't deleted
 
-/datum/npcInterface/proc/displaySpeechBubble(mob/owner, text)
+npcInterface/proc/displaySpeechBubble(mob/owner, text)
     if(speechbubble)
         clearSpeechBubble(owner)
     speechbubble = new /obj/speechbubble(text)
     mugshot.vis_contents += speechbubble
 
-/datum/npcInterface/proc/clearSpeechBubble(mob/owner)
+npcInterface/proc/clearSpeechBubble(mob/owner)
     if(speechbubble)
         mugshot.vis_contents -= speechbubble
         speechbubble = null
         del speechbubble // in case it isn't deleted
 
-/datum/npcInterface/proc/setUpVars(mob/npc, mob/pc)
+npcInterface/proc/setUpVars(mob/npc, mob/pc)
     if(owner)
         clearVars()
     owner = pc
     src.npc = npc
 
-/datum/npcInterface/proc/clearVars()
+npcInterface/proc/clearVars()
     owner = null
     npc = null
 
-/datum/npcInterface/proc/fadeOut()
+npcInterface/proc/fadeOut()
     blobLoop -= src
     animate(mugshot, alpha = 0, time = 15)
     sleep(15)
@@ -104,7 +104,7 @@
 
 
 
-/datum/npcInterface/Update()
+npcInterface/Update()
     if(get_dist(owner, npc) > 5 || lastUpdate + 300 < world.time)
         lastUpdate = world.time
         fadeOut()

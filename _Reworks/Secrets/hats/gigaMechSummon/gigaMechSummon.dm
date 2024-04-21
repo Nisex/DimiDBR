@@ -25,7 +25,6 @@ prob wont do atoggle
 	proc/initializeSummon(mob/p)
 		// this only exists at max rank but not potential
 		for(var/mob/Player/AI/GIGASpiritSummon/gSS in p.ai_followers)
-			world<<"removal?"
 			gSS.vanish()
 			p.ai_followers -= gSS
 			Using = 0
@@ -37,12 +36,9 @@ prob wont do atoggle
 		
 		companion_icon = 'Icons/NPCS/Arcane/SpriteB.dmi' // TODO ICONS HERE FOR THIS THING
 		companion_name = "Giga Taci"
-		world<<"here"
 		var/mob/Player/AI/GIGASpiritSummon/newGiga = new()
-		world<<newGiga
 		newGiga.passive_handler = new()
 		newGiga.appear(p)
-		world<<"here"
 		newGiga.ai_owner = p
 		newGiga.ai_follow = 1
 		newGiga.ai_hostility = 0

@@ -1,310 +1,25 @@
 #define GLOBAL_LEAK_REDUCTION 1.2
 #define isplayer(x) istype(x,/mob/Players)
 #define DEBUFF_EFFECTIVENESS (0.004)
+
+proc/SmartBlock(startX, startY, startZ, endX = startX, endY = startY, endZ = startZ)
+    return block(locate(max(startX, 1), max(startY, 1), startZ), locate(min(endX, world.maxx), min(endY, world.maxy), endZ))
+
 mob
 	proc
-		AscAvailable(var/race)
-			if(src.trans["active"]>0||src.ssj["active"]>0)
-				return
+		AscAvailable()
 			src.potential_ascend(Silent=1)
-
-			if(race=="Hellspawn")
-				// whoa
-				if(src.AscensionsAcquired<1)
-					if(src.AscensionsUnlocked>=1)
-						src.HellspawnAscension1()
-						return
-				if(src.AscensionsAcquired<2)
-					if(src.AscensionsUnlocked>=2)
-						src.HellspawnAscension2()
-						return
-				if(src.AscensionsAcquired<3)
-					if(src.AscensionsUnlocked>=3)
-						src.HellspawnAscension3()
-						return
-				if(src.AscensionsAcquired<4)
-					if(src.AscensionsUnlocked>=4)
-						src.HellspawnAscension4()
-						return
-				if(src.AscensionsAcquired<5)
-					if(src.AscensionsUnlocked>=5)
-						src.HellspawnAscension5()
-						return
-
-
-
-			if(race=="Human")
-				if(src.AscensionsAcquired<1)
-					if(src.AscensionsUnlocked>=1)
-						src.HumanAscension1()
-						return
-				if(src.AscensionsAcquired<2)
-					if(src.AscensionsUnlocked>=2)
-						src.HumanAscension2()
-						return
-				if(src.AscensionsAcquired<3)
-					if(src.AscensionsUnlocked>=3)
-						src.HumanAscension3()
-						return
-				if(src.AscensionsAcquired<4)
-					if(src.AscensionsUnlocked>=4)
-						src.HumanAscension4()
-						return
-				if(src.AscensionsAcquired<5)
-					if(src.AscensionsUnlocked>=5)
-						src.HumanAscension5()
-						return
-
-				return
-
-			if(src.Race=="Makyo")
-				if(src.AscensionsAcquired<1)
-					if(src.AscensionsUnlocked>=1)
-						src.MakyoAscension1()
-						return
-				if(src.AscensionsAcquired<2)
-					if(src.AscensionsUnlocked>=2)
-						src.MakyoAscension2()
-						return
-				if(src.AscensionsAcquired<3)
-					if(src.AscensionsUnlocked>=3)
-						src.MakyoAscension3()
-						return
-				if(src.AscensionsAcquired<4)
-					if(src.AscensionsUnlocked>=4)
-						src.MakyoAscension4()
-						return
-				if(src.AscensionsAcquired<5)
-					if(src.AscensionsUnlocked>=5)
-						src.MakyoAscension5()
-						return
-				return
-
-			if(race=="Half Saiyan")
-				if(src.AscensionsAcquired<1)
-					if(src.AscensionsUnlocked>=1)
-						src.HalfSaiyanAscension1()
-						return
-				if(src.AscensionsAcquired<2)
-					if(src.AscensionsUnlocked>=2)
-						src.HalfSaiyanAscension2()
-						return
-				if(src.AscensionsAcquired<3)
-					if(src.AscensionsUnlocked>=3)
-						src.HalfSaiyanAscension3()
-						return
-				if(src.AscensionsAcquired<4)
-					if(src.AscensionsUnlocked>=4)
-						src.HalfSaiyanAscension4()
-						return
-				return
-
-			if(race=="Namekian")
-				if(src.AscensionsAcquired < 1)
-					if(src.AscensionsUnlocked >=1)
-						src.NamekianAscension1()
-						return
-				if(src.AscensionsAcquired < 2)
-					if(src.AscensionsUnlocked >=2)
-						src.NamekianAscension2()
-						return
-				if(src.AscensionsAcquired < 3)
-					if(src.AscensionsUnlocked >=3)
-						src.NamekianAscension3()
-						return
-				if(src.AscensionsAcquired < 4)
-					if(src.AscensionsUnlocked >=4)
-						src.NamekianAscension4()
-						return
-				if(src.AscensionsAcquired < 5)
-					if(src.AscensionsUnlocked >=5)
-						src.NamekianAscension5()
-						return
-				return
-
-			if(race=="Saiyan")
-				if(src.AscensionsAcquired<1)
-					if(src.AscensionsUnlocked>=1)
-						src.SaiyanAscension1()
-						return
-				if(src.AscensionsAcquired<2)
-					if(src.AscensionsUnlocked>=2)
-						src.SaiyanAscension2()
-						return
-				if(src.AscensionsAcquired<3)
-					if(src.AscensionsUnlocked>=3)
-						src.SaiyanAscension3()
-						return
-				if(src.AscensionsAcquired<4)
-					if(src.AscensionsUnlocked>=4)
-						src.SaiyanAscension4()
-						return
-				return
-
-			if(race=="Tuffle")
-				if(src.AscensionsAcquired < 1)
-					if(src.AscensionsUnlocked >= 1)
-						src.TuffleAscension1()
-						return
-				if(src.AscensionsAcquired < 2)
-					if(src.AscensionsUnlocked >= 2)
-						src.TuffleAscension2()
-						return
-				if(src.AscensionsAcquired < 3)
-					if(src.AscensionsUnlocked >= 3)
-						src.TuffleAscension3()
-						return
-				if(src.AscensionsAcquired < 4)
-					if(src.AscensionsUnlocked >= 4)
-						src.TuffleAscension4()
-						return
-				if(src.AscensionsAcquired < 5)
-					if(src.AscensionsUnlocked >= 5)
-						src.TuffleAscension5()
-						return
-				return
-
-			if(race=="Alien")
-				if(src.AscensionsAcquired<1)
-					if(src.AscensionsUnlocked>=1)
-						src.AlienAscension1()
-						return
-				if(src.AscensionsAcquired<2)
-					if(src.AscensionsUnlocked>=2)
-						src.AlienAscension2()
-						return
-				if(src.AscensionsAcquired<3)
-					if(src.AscensionsUnlocked>=3)
-						src.AlienAscension3()
-						return
-				if(src.AscensionsAcquired<4)
-					if(src.AscensionsUnlocked>=4)
-						src.AlienAscension4()
-						return
-				return
-
-			if(race=="Monster")
-				if(src.AscensionsAcquired<src.AscensionsUnlocked)
-					src.MonsterAscensionX(src.AscensionsAcquired+1)
-				return
-
-			if(race=="Shinjin")
-				if(src.AscensionsAcquired<1)
-					if(src.AscensionsUnlocked>=1)
-						// src.ShinjinAscension1()
-						return
-				return
-
-			if(race=="Demon")
-				if(src.AscensionsAcquired<1)
-					if(src.AscensionsUnlocked>=1)
-						src.DemonAscension1()
-						return
-				if(src.AscensionsAcquired<2)
-					if(src.AscensionsUnlocked>=2)
-						src.DemonAscension2()
-						return
-				if(src.AscensionsAcquired<3)
-					if(src.AscensionsUnlocked>=3)
-						src.DemonAscension3()
-						return
-				if(src.AscensionsAcquired<4)
-					if(src.AscensionsUnlocked>=4)
-						src.DemonAscension4()
-						return
-				if(src.AscensionsAcquired<5)
-					if(src.AscensionsUnlocked>=5)
-						src.DemonAscension5()
-						return
-				return
-
-			if(src.Race=="Majin")
-				if(src.AscensionsAcquired<1)
-					if(src.AscensionsUnlocked>=1)
-						src.MajinAscension1()
-						return
-				if(src.AscensionsAcquired<2)
-					if(src.AscensionsUnlocked>=2)
-						src.MajinAscension2()
-						return
-				if(src.AscensionsAcquired<3)
-					if(src.AscensionsUnlocked>=3)
-						src.MajinAscension3()
-						return
-				if(src.AscensionsAcquired<4)
-					if(src.AscensionsUnlocked>=4)
-						src.MajinAscension4()
-						return
-
-			if(src.Race=="Dragon")
-				if(src.AscensionsAcquired<1)
-					if(src.AscensionsUnlocked>=1)
-						src.DragonAscension1()
-						return
-				if(src.AscensionsAcquired<2)
-					if(src.AscensionsUnlocked>=2)
-						src.DragonAscension2()
-						return
-				if(src.AscensionsAcquired<3)
-					if(src.AscensionsUnlocked>=3)
-						src.DragonAscension3()
-						return
-				if(src.AscensionsAcquired<4)
-					if(src.AscensionsUnlocked>=4)
-						src.DragonAscension4()
-						return
-				if(src.AscensionsAcquired<5)
-					if(src.AscensionsUnlocked>=5)
-						src.DragonAscension5()
-						return
-				if(src.AscensionsAcquired<6)
-					if(src.AscensionsUnlocked>=6)
-						src.DragonAscension6()
-						return
-				return
-
-			if(race=="Android")
-				if(src.AscensionsAcquired < 1)
-					if(src.AscensionsUnlocked >= 1)
-						src.AndroidAscension1()
-						return
-				if(src.AscensionsAcquired < 2)
-					if(src.AscensionsUnlocked >= 2)
-						src.AndroidAscension2()
-						return
-				if(src.AscensionsAcquired < 3)
-					if(src.AscensionsUnlocked >= 3)
-						src.AndroidAscension3()
-						return
-				if(src.AscensionsAcquired < 4)
-					if(src.AscensionsUnlocked >= 4)
-						src.AndroidAscension4()
-						return
-				if(src.AscensionsAcquired < 5)
-					if(src.AscensionsUnlocked >= 5)
-						src.AndroidAscension5()
-						return
-				return
-
-			if(src.Race=="Changeling")
-				if(src.AngerMax<1)
-					src.AngerMax=1
-				if(src.AscensionsAcquired<1)
-					if(src.AscensionsUnlocked>=1)
-						src.ChangelingAscension1()
-						return
-				if(src.AscensionsAcquired<2)
-					if(src.AscensionsUnlocked>=2)
-						src.ChangelingAscension2()
-						return
-				if(src.AscensionsAcquired<3)
-					if(src.AscensionsUnlocked>=3)
-						src.ChangelingAscension3()
-						return
-				if(src.AscensionsAcquired<4)
-					if(src.AscensionsUnlocked>=4)
-						src.ChangelingAscension4()
-						return
+			if(race.ascensions.len==0) return
+			for(var/a in race.ascensions)
+				var/ascension/asc
+				if(ispath(a, /ascension))
+					asc = new a // think this fixes it
+				else
+					asc = a
+				if(ispath(asc, /ascension/eldritch/one))
+					asc = new /ascension/eldritch/one // some of these lines prob arent needed, but i was debugging - jordan
+				if(!asc.applied&&!asc:checkAscensionUnlock(Potential)) continue
+				asc.onAscension(src)
 
 		HumanAscension1()//Shiro
 			src.AscensionsAcquired=1
@@ -1486,7 +1201,7 @@ mob
 						src.AddPoison(val*0.5, defender)
 
 
-			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.Defiance&&!defender.Oozaru)
+			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.passive_handler.Get("Defiance")&&!defender.Oozaru)
 				if(defender.DefianceCounter<10)
 					if(defender.Anger)
 						if(val>=(1/defender.AscensionsAcquired)&&val<(2/defender.AscensionsAcquired))
@@ -1518,7 +1233,7 @@ mob
 						if(!src.AdaptationAnnounce)
 							src << "<b>You've adapted to your target's style!</b>"
 							src.AdaptationAnnounce=1
-
+// ADD HERE THE FUCKING FUTURE DIARY SHIT
 			if(src.HasWeaponBreaker()||defender.Saga=="Unlimited Blade Works")
 				if((defender.HasSword()||defender.HasStaff()||defender.HasArmor())&&(UnarmedAttack||SwordAttack))
 					var/obj/Items/Sword/s=defender.EquippedSword()
@@ -1526,7 +1241,10 @@ mob
 					var/obj/Items/Armor/ar=defender.EquippedArmor()
 					// Equip
 					var/shatterTier = defender.GetShatterTier(s) // isn't even used i think
-					var/breakTicks = GetWeaponBreaker() / 3
+					var/addWeaponBreaker = 0
+					if(AttackQueue.WeaponBreaker)
+						addWeaponBreaker += AttackQueue.WeaponBreaker
+					var/breakTicks = (GetWeaponBreaker()+addWeaponBreaker) / 3
 					var/duraBoon = 2 // SWORD DURA VARS
 					var/duraBase = 1 // SWORD DURA VARS
 					// Breaker Vars
@@ -1611,9 +1329,9 @@ mob
 			if(defender.ActiveBuff&&defender.CheckActive("Keyblade")&&!defender.SpecialBuff)
 				defender.ManaAmount+=(0.25*defender.SagaLevel)
 
-			if(src.HellPower&&!src.TransActive())
+			if(src.HellPower&&!src.transActive())
 				src.HealMana(1)
-			if(defender.HellPower&&!src.TransActive())
+			if(defender.HellPower&&!src.transActive())
 				defender.HealMana(1)
 
 			if(src.SlotlessBuffs)
@@ -1640,16 +1358,26 @@ mob
 
 			// WEREWOLF HUNGER MECHANIC
 			if(src.Secret == "Werewolf" && CheckSlotless("New Moon Form"))
-				var/datum/SecretInfomation/Werewolf/s = src.secretDatum
+				var/SecretInfomation/Werewolf/s = src.secretDatum
 				s.addHunger(val)
 				Update_Stat_Labels()
 			//END WEREWOLF HUNGER MECHANIC
+
+			if(src.Secret == "Eldritch")
+				var/SecretInfomation/Eldritch/s = src.secretDatum
+				s.addMadness(val)
+				Update_Stat_Labels()
+
+			if(defender.Secret == "Eldritch")
+				var/SecretInfomation/Eldritch/s = defender.secretDatum
+				s.addMadness(val)
+				defender.Update_Stat_Labels()
 
 			if(src.HasLifeSteal())
 				var/CursedBlood=0
 				var/NoBlood=0
 				NoBlood=defender.CyberCancel
-				if(defender.Race=="Android"||defender.Class=="Eldritch"||defender.Secret=="Zombie"||defender.Dead)
+				if(defender.Race=="Android"||defender.isRace(ELDRITCH)||defender.Secret=="Zombie"||defender.Dead)
 					NoBlood=1
 				var/Effectiveness=1
 				if(NoBlood>0)
@@ -1832,7 +1560,7 @@ mob
 				val*=(1-defender.CyberCancel)
 			if(defender.BioArmor)
 				return
-			// if(src.Race=="Majin")
+			// if(src.isRace(MAJIN))
 			// 	val*=0.25
 			if(defender.HasCeramicPlating()||defender.HasPlatedWeights())
 				if(defender.HasPlatedWeights())
@@ -1860,7 +1588,7 @@ mob
 			if(src.BioArmor)
 				src.DamageSelf(val)
 				return
-			// if(src.Race=="Majin")
+			// if(src.isRace(MAJIN))
 			// 	val*=0.25
 			if(!src.HasInjuryImmune())
 				src.TotalInjury+=val
@@ -1917,7 +1645,7 @@ mob
 					val*=src.Anger
 			if(src.PotionCD)
 				val*=1.25
-			// if(src.Race=="Majin")
+			// if(src.isRace(MAJIN))
 			// 	val*=0.25
 			if(!src.HasFatigueImmune())
 				src.TotalFatigue+=val
@@ -2073,7 +1801,7 @@ mob
 			if(src.Oxygen>KeyOxygen)
 				src.Oxygen-=1
 		Calm(var/Pacified=0)
-			if(src.EndlessAnger)
+			if(passive_handler.Get("EndlessAnger"))
 				return
 			if(!Pacified)src.OMessage(10,"<font color=white><i>[src] becomes calm.","<font color=silver>[src]([src.key]) becomes calm.")
 			src.DefianceCounter=0
@@ -2358,7 +2086,7 @@ mob
 				Mod+=1
 			if(src.Saga=="Eight Gates")
 				Mod+=0.05*GatesActive
-			// if(src.Race=="Human")
+			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
 			if(src.Race=="Android" && src.EnhancedStrength)
@@ -2369,8 +2097,8 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if(src.ssj["active"]&&!src.SpecialBuff)
-				if(src.masteries["[src.ssj["active"]]mastery"]==100||src.ssj["active"]>1)
+			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
+				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 				Mod+=0.3
@@ -2470,7 +2198,7 @@ mob
 			if(passive_handler.Get("KillerInstinct") && Health <= 75)
 				forMult += GetKillerInstinct()
 			Mod+=(forMult-1)
-			// if(src.Race=="Human")
+			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
 			if(src.Race=="Android" && src.EnhancedForce)
@@ -2481,8 +2209,8 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if(src.ssj["active"]&&!src.SpecialBuff)
-				if(src.masteries["[src.ssj["active"]]mastery"]==100||src.ssj["active"]>1)
+			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
+				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 				Mod+=0.3
@@ -2573,7 +2301,7 @@ mob
 			Mod+=(src.EndMultTotal-1)
 			if(src.KamuiBuffLock)
 				Mod+=1
-			// if(src.Race=="Human")
+			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
 			if(src.Race=="Android" && src.EnhancedEndurance)
@@ -2584,8 +2312,8 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if(src.ssj["active"]&&!src.SpecialBuff)
-				if(src.masteries["[src.ssj["active"]]mastery"]==100||src.ssj["active"]>1)
+			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
+				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 				Mod+=0.2
@@ -2666,7 +2394,7 @@ mob
 				Mod+=1
 			if(src.Saga=="Eight Gates")
 				Mod+=0.05*GatesActive
-			// if(src.Race=="Human")
+			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
 			if(src.Race=="Android" && src.EnhancedSpeed)
@@ -2677,8 +2405,8 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if(src.ssj["active"]&&!src.SpecialBuff)
-				if(src.masteries["[src.ssj["active"]]mastery"]==100||src.ssj["active"]>1)
+			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
+				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 				Mod+=0.2
@@ -2758,7 +2486,7 @@ mob
 			Off+=OffAdded
 			var/Mod=1
 			Mod+=(src.OffMultTotal-1)
-			// if(src.Race=="Human")
+			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
 			if(src.Race=="Android" && src.EnhancedAggression)
@@ -2835,7 +2563,7 @@ mob
 			Def+=DefAdded
 			var/Mod=1
 			Mod+=(src.DefMultTotal-1)
-			// if(src.Race=="Human")
+			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
 			if(src.Race=="Android" && src.EnhancedReflexes)
@@ -2899,7 +2627,7 @@ mob
 			if(src.HasHellPower()||(src.Secret=="Werewolf"&&(!src.CheckSlotless("Half Moon Form"))))
 				if(Recov<2)
 					Recov=2
-			if(src.Race=="Majin")
+			if(src.isRace(MAJIN))
 				Recov=2
 
 			var/Mod=1
@@ -2936,7 +2664,7 @@ mob
 			Recov*=Mod
 			Recov*=Mult
 			Recov*=src.RecovChaos
-			if(src.Race=="Namekian"&&src.TransActive())
+			if(src.isRace(NAMEKIAN)&&src.transActive())
 				if(Recov<2)
 					Recov=2
 			if(src.HasRipple())
@@ -3036,7 +2764,7 @@ mob
 				return src.ssj["unlocked"]
 			else
 				return src.trans["unlocked"]
-		TransActive()
+		transActive()
 			if(src.HasSSjVars())
 				return src.ssj["active"]
 			else
@@ -3045,21 +2773,21 @@ mob
 				else
 					return src.trans["active"]
 		TransAuraFound()
-			if(src.TransActive())
-				if(src.TransActive()==1)
+			if(src.transActive())
+				if(src.transActive()==1)
 					if(src.Form1Aura)
 						return 1
-				if(src.TransActive()==2)
+				if(src.transActive()==2)
 					if(src.Form2Aura)
 						return 1
-				if(src.TransActive()==3)
+				if(src.transActive()==3)
 					if(src.Form3Aura)
 						return 1
-				if(src.TransActive()==4)
+				if(src.transActive()==4)
 					if(src.Form4Aura)
 						return 1
 			return 0
-		TransActiveDown()
+		transActiveDown()
 			if(src.HasSSjVars())
 				src.ssj["active"]--
 			else
@@ -4142,7 +3870,7 @@ mob
 			if(src.req_pot(50) && src.req_sigs(0, 3))
 				if(!src.InfinityModule && src.ShinjinAscension!="Kai" && src.Race!="Changeling")
 					DevelopSignature(src, 3, "Signature")
-					if(src.Race=="Saiyan")
+					if(src.isRace(SAIYAN))
 						if(!locate(/obj/Skills/Buffs/SpecialBuffs/SuperSaiyanGrade2, src))
 							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/SuperSaiyanGrade2)
 							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/SuperSaiyanGrade3)
@@ -4158,20 +3886,15 @@ mob
 						src << "[s] has been removed as it is not one of your saga signatures."
 						del s
 		GetMaxMovementCharges()
-			if(src.HasFlicker())
-				return 3+src.HasFlicker()
 			return 3
 		MovementChargeBuildUp(var/Mult=1)
 			//this ticks per second
 			//partial charges are not able to be used
 			//30 seconds will result in full charges
-			if(src.passive_handler.Get("Hustle")||src.HasLegendaryPower() > 0.25)//hustle regains charges faster
-				Mult += 0.25
+			Mult *= clamp(glob.ZANZO_SPEED_LOWEST_CLAMP, GetSpd()**glob.ZANZO_SPEED_EXPONENT, glob.ZANZO_SPEED_HIGHEST_CLAMP)
 			var/flick=src.HasFlicker()
-			if(src.HasMovementMastery())
-				Mult*=min(1.1,1+(src.GetMovementMastery()/15))
 			if(flick)
-				Mult*=min(1.3,1+(flick/2))
+				Mult*=clamp(glob.ZANZO_FLICKER_LOWEST_CLAMP,1+(flick/glob.ZANZO_FLICKER_DIVISOR), glob.ZANZO_FLICKER_HIGHEST_CLAMP)
 			if(src.AfterImageStrike)
 				return
 			var/MaxMovementCharges=GetMaxMovementCharges()
@@ -4204,6 +3927,9 @@ mob
 			if(src.potential_trans)
 				if(src.potential_trans > Return)
 					Return=src.potential_trans
+
+			if(passive_handler.Get("Transformation Power")) // add straight potential
+				Return+=src.GetPassive("Transformation Power")
 
 			if(src.Race=="Shinjin")//one determines the other
 				if(src.ShinjinAscension=="Kai")
@@ -4241,6 +3967,10 @@ mob
 			if(src.Secret=="Werewolf")
 				src.Activate(new/obj/Skills/AutoHit/Howl)
 				Z.Cooldown(3)
+				return
+			if(src.Secret=="Eldritch" && CheckSlotless("True Form"))
+				src.Activate(new/obj/Skills/AutoHit/Shadow_Tendril_Strike)
+				Z.Cooldown()
 				return
 			if(src.Secret=="Haki")
 				src.AddHaki("Armament")
@@ -4288,7 +4018,7 @@ proc
 			world.log << "No progress found in DaysOfWipe()!"
 			return
 		var/day = 24 HOURS
-		var/days = round((world.realtime / day) - (glob.progress.WipeStart / day),1)
+		var/days = floor((world.realtime / day) - (glob.progress.WipeStart / day))
 		if(days>glob.progress.DaysOfWipe)
 			glob.progress.DaysOfWipe=round(days)
 			glob.progress.incrementTotal()

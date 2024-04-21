@@ -40,7 +40,7 @@ Contract item
     Health = 1#INF
     icon='SummoningContract.dmi'
 
-// VARIABLES 
+// VARIABLES
 
 
 
@@ -85,16 +85,15 @@ Contract item
     switch((input(usr, "Are you sure you want to break the contract? If there are reprecussions they will happen") in list("Yes","No")))
         if("Yes")
             usr << "You feel a sharp pain in your chest as the contract breaks!"
-            for(var/mob/admin in world)
-                if(admin.Admin)
-                    admin<<"[usr]([usr.ckey]) broken a contract with [summoner]! Please address the situation!"
+            for(var/mob/admin in admins)
+                admin<<"[usr]([usr.ckey]) broken a contract with [summoner]! Please address the situation!"
             for(var/mob/summonerr in world)
                 if(summonerr.key == summoner)
                     summonerr << "You feel a sharp pain in your chest as the contract breaks!"
                     summonerr.findSummonSkill().removeContractor(usr)
             name = "Broken Contract"
             usable = FALSE
-                    
+
 
  // FUNCTIONS //
 
@@ -170,10 +169,9 @@ Contract item
         sigKeys[key] += p.EnergySignature
         if(sigKeys >= 2)
             signed = TRUE
+        viewers(p) << "[p] signs a contract with their blood!"
     else
         p << "The contract is already signed"
-
-//TODO display that they signed in blood to everyone, binding them to the contract
 
 /proc/findSummon(k)
     for(var/mob/summon in world)

@@ -1,4 +1,18 @@
-mob/proc/Stats(var/blah)
+/*mob/proc/Stats()
+
+	SetStat("Power", race.power)
+	SetStat("Strength", race.strength)
+	SetStat("Endurance", race.endurance)
+	SetStat("Speed", race.speed)
+	SetStat("Force", race.force)
+	SetStat("Offense", race.offense)
+	SetStat("Defense", race.defense)
+	SetStat("Regeneration", race.regeneration)
+	SetStat("Recovery", race.recovery)
+	SetStat("Anger", race.anger)
+	SetStat("Learning", race.learning)
+	SetStat("Intellect", race.intellect)
+	SetStat("Imagination", race.imagination)
 
 //Civilized
 	if(blah=="Human")
@@ -332,15 +346,12 @@ mob/proc/Stats(var/blah)
 				SetStat("Learning", 1)
 				SetStat("Intellect", 0.25)
 				SetStat("Imagination", 4)
-
+*/
 
 mob/proc/RacialStats()
 	for(var/obj/SavedStats/Z in src)
 		del(Z)
-	src.ResetStats()
 	src.contents+=new/obj/SavedStats
-	Stats("[usr.Race]")
-	SetStatPoints(10)
 	src.GetIncrements()
 
 
@@ -463,23 +474,15 @@ proc/Define_Average(var/i=1)
 mob/proc/Redo_Stats()
 	set category="Other"
 	Redoing_Stats=1
-	ResetStats()
 	RacialStats()
 	UpdateBio()
 	var/mob/Creation/C = new
 	C.NextStep2(src)
 	del C
 
-
-mob/proc/ResetStats()
-	StrMod=1
-	EndMod=1
-	ForMod=1
-	SpdMod=1
-	OffMod=1
-	DefMod=1
-
 mob/proc/PerkDisplay()
+	world.log<<race
+	world.log<<StrMod // debug messages
 	winset(src,"Points Remaining","text=[Points]")
 	winset(src,"RaceBP","text=\"[Define_Average(PotentialRate)] Power Rate\"")
 	winset(src,"Race RPP","text=\"[Define_Average(RPPMult)] Learning Rate\"")

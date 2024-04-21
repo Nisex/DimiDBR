@@ -1,5 +1,5 @@
 proc
-	ElementalCheck(var/mob/Attacker, var/mob/Defender, var/ForcedDebuff=0, var/DebuffIntensity=1)
+	ElementalCheck(var/mob/Attacker, var/mob/Defender, var/ForcedDebuff=0, var/DebuffIntensity=glob.DEBUFF_INTENSITY)
 		var/Attack=0
 		var/Defense=0
 		if(Attacker.ElementalOffense)
@@ -10,7 +10,6 @@ proc
 			ForcedDebuff+=1
 		var/DamageMod=0
 		var/DebuffRate=0
-		DebuffIntensity*=1.2
 		DebuffRate=GetDebuffRate(Attack, Defense, ForcedDebuff)
 		if(Attacker.SenseUnlocked>5&&Attacker.SenseUnlocked>Attacker.SenseRobbed)
 			DebuffRate+=10*(Attacker.SenseUnlocked-5)
@@ -72,37 +71,37 @@ proc
 			switch(Attack)
 				if("Chaos")
 					if(prob(50))
-						Defender.AddBurn(2*DebuffIntensity, Attacker)
+						Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
 					if(prob(50))
-						Defender.AddSlow(2*DebuffIntensity, Attacker)
+						Defender.AddSlow(2*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
 					if(prob(50))
-						Defender.AddShatter(2*DebuffIntensity, Attacker)
+						Defender.AddShatter(2*DebuffIntensity*glob.SHATTER_INTENSITY, Attacker)
 					if(prob(50))
-						Defender.AddShock(2*DebuffIntensity, Attacker)
+						Defender.AddShock(2*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
 					if(prob(50))
-						Defender.AddPoison(2*DebuffIntensity, Attacker)
+						Defender.AddPoison(2*DebuffIntensity*glob.POISON_INTENSITY, Attacker)
 				if("Ultima")
-					Defender.AddBurn(2*DebuffIntensity, Attacker)
-					Defender.AddSlow(2*DebuffIntensity, Attacker)
-					Defender.AddShatter(2*DebuffIntensity, Attacker)
-					Defender.AddShock(2*DebuffIntensity, Attacker)
+					Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
+					Defender.AddSlow(2*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
+					Defender.AddShatter(2*DebuffIntensity*glob.SHATTER_INTENSITY, Attacker)
+					Defender.AddShock(2*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
 				if("Rain")
-					Defender.AddSlow(4*DebuffIntensity, Attacker)
-					Defender.AddShock(4*DebuffIntensity, Attacker)
+					Defender.AddSlow(4*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
+					Defender.AddShock(4*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
 				if("Poison")
 					if(!Defender.HasVenomImmune()&&Defense!="Poison")
-						Defender.AddPoison(2*DebuffIntensity, Attacker)
+						Defender.AddPoison(2*DebuffIntensity*glob.POISON_INTENSITY, Attacker)
 				if("Fire")
 					if(!Defender.WalkThroughHell&&!Defender.DemonicPower())
-						Defender.AddBurn(4*DebuffIntensity, Attacker)
+						Defender.AddBurn(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
 					else
-						Defender.AddBurn(2*DebuffIntensity, Attacker)
+						Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
 				if("Water")
-					Defender.AddSlow(4*DebuffIntensity, Attacker)
+					Defender.AddSlow(4*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
 				if("Earth")
-					Defender.AddShatter(4*DebuffIntensity, Attacker)
+					Defender.AddShatter(4*DebuffIntensity*glob.SHATTER_INTENSITY, Attacker)
 				if("Wind")
-					Defender.AddShock(4*DebuffIntensity, Attacker)
+					Defender.AddShock(4*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
 		return DamageMod/10
 	GetDebuffRate(var/A, var/D, var/Forced=0)
 		var/Return=0
@@ -293,7 +292,7 @@ mob
 				if(!src.InfusionElement)
 					src.InfusionElement="Earth"
 				Value/=2
-			
+
 			if(Attunement=="Earth")
 				Value/=2
 
@@ -333,7 +332,7 @@ mob
 				Value/=2
 			if(Attunement=="Wind")
 				Value/=2
-			
+
 			if(src.HasDebuffImmune())
 				Value/=1+src.GetDebuffImmune()
 			Value = Value*(1-(src.Shock/glob.DEBUFF_STACK_RESISTANCE))
@@ -415,7 +414,7 @@ mob
 						OMsg(src, "<font color='[rgb(104, 153, 251)]'>[src]'s dispenser deploys a healing mist!!</font color>")
 					src.Sprayed+=100
 		AddCrippling(var/Value, var/mob/Attacker=null)
-			// if(src.Race=="Majin")
+			// if(src.isRace(MAJIN))
 			// 	if(!src.AscensionsAcquired||src.AscensionsAcquired>=3)
 			// 		Value=0
 			if(Race == "Dragon" && Class == "Lightning")

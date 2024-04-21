@@ -110,8 +110,8 @@ mob/Admin3/verb
 
 		else
 			var/selection
-			if(P.Race in glob.NoSagaRaces)
-				src << "[P] is a [P.Race], and they are therefore not eligible to receive a Saga."
+			if(P.race.type in glob.NoSagaRaces)
+				src << "[P] is a [P.race.name], and they are therefore not eligible to receive a Saga."
 				return
 			else
 				selection=input("Select a Tier S to grant. This will set them to T1 in it, granting whatever verbs at that level.") in SagaList
@@ -168,8 +168,8 @@ mob/Admin3/verb
 							if(!locate(/obj/Skills/Queue/Phoenix_Demon_Illusion_Strike, P))
 								P.AddSkill(new/obj/Skills/Queue/Phoenix_Demon_Illusion_Strike)
 						if("Unicorn")
-							if(!locate(/obj/Skills/AutoHit/Unicorn_Meteor_Fist, src))
-								P.AddSkill(new/obj/Skills/AutoHit/Unicorn_Meteor_Fist)		
+							if(!locate(/obj/Skills/AutoHit/Unicorn_Gallop, src))
+								P.AddSkill(new/obj/Skills/AutoHit/Unicorn_Gallop)
 
 				if("Weapon Soul")
 					P<<"You have honed your skills to become a warrior of legend... <b>Arms Master</b>!"
@@ -308,6 +308,11 @@ mob/Admin3/verb
 					else if(P.KamuiType=="Purity")
 						P.contents+=new/obj/Items/Symbiotic/Kamui/KamuiJunketsu
 						P.SagaThreshold("Spd", 0.4)
+
+					var/obj/Items/Sword/Medium/Scissor_Blade/SB = new()
+					P.AddItem(SB)
+					P << "A sword weaved from fibers finds its way into a case in your care."
+
 					P<<"You are cloaked in unearthly robes... <b>Kamui</b>!"
 					P<<"<i>Let's get naked.</i>"
 
@@ -745,6 +750,8 @@ mob
 
 				if("Cosmo")
 					tierUpSaga("Cosmo")
+				if("Spiral")
+					tierUpSaga("Spiral")
 				if("Weapon Soul")
 					if(src.SagaLevel==2)
 						src << "Your knowledge on classic swordplay improves."

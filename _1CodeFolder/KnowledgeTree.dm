@@ -44,7 +44,7 @@ var/KnowledgeTree=list(\
 "TimeMagic"=list("TimeMagic"=80)
 )
 
-/datum/knowledge
+knowledge
 mob
 	var
 		//Technology

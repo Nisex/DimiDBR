@@ -42,7 +42,7 @@ mob/proc
 					Stats++
 					src.GridStatPlacement("-Statistics-",null,Stats)
 					Stats++
-					src.GridStatPlacement("Race:","[src.Race]",Stats)
+					src.GridStatPlacement("Race:","[race.name]",Stats)
 					Stats++
 					src.GridStatPlacement("Birth:","[src.Spawn]",Stats)
 					Stats++

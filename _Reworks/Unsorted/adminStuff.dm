@@ -1,102 +1,76 @@
-/mob/Admin3/verb/Races()
-    set name = "Races"
-    set category = "Utility"
-    var/Human = 0
-    var/Majin = 0
-    var/Saiyan = 0
-    var/HalfSaiyans = 0
-    var/Monster = 0
-    var/Namekian = 0
-    var/Makyo = 0
-    for(var/mob/x in players)
-        switch(x.Race)
-            if("Human")
-                Human += 1
-            if("Majin")
-                Majin += 1
-            if("Saiyan")
-                Saiyan += 1
-            if("Half Saiyan")
-                HalfSaiyans += 1
-            if("Monster")
-                Monster += 1
-            if("Namekian")
-                Namekian += 1
-            if("Makyo")
-                Makyo += 1
-    src<<"Humans: [Human]"
-    src<<"Majins: [Majin]"
-    src<<"Saiyans: [Saiyan]"
-    src<<"Half-Saiyans: [HalfSaiyans]"
-    src<<"Monsters: [Monster]"
-    src<<"Namekians: [Namekian]"
-    src<<"Makyos: [Makyo]"
+/*/mob/Admin3/verb/Races()
+	set name = "Races"
+	set category = "Admin"
+	var/Human = 0
+	var/Majin = 0
+	var/Saiyan = 0
+	var/HalfSaiyans = 0
+	var/Monster = 0
+	var/Namekian = 0
+	var/Makyo = 0
+	for(var/mob/x in players)
+		switch(x.race)
+			if("Human")
+				Human += 1
+			if("Majin")
+				Majin += 1
+			if("Saiyan")
+				Saiyan += 1
+			if("Half Saiyan")
+				HalfSaiyans += 1
+			if("Monster")
+				Monster += 1
+			if("Namekian")
+				Namekian += 1
+			if("Makyo")
+				Makyo += 1
+	src<<"Humans: [Human]"
+	src<<"Majins: [Majin]"
+	src<<"Saiyans: [Saiyan]"
+	src<<"Half-Saiyans: [HalfSaiyans]"
+	src<<"Monsters: [Monster]"
+	src<<"Namekians: [Namekian]"
+	src<<"Makyos: [Makyo]"
+*/
 
+var/GlobalStorage/globalStorage
 
-/var/global/datum/GlobalStorage/globalStorage = new()
+GlobalStorage
+	var
+		tmp
+			objHTML = ""
+			skillHTML = ""
+			itemHTML = ""
+			mobHTML = ""
+			turfHTML = ""
+	New()
+		..()
+		var/list/objs = typesof(/obj)
 
-/datum/GlobalStorage
-    var/tmp/objs = list()
-    var/tmp/objHTML = ""
-    var/tmp/skills = list()
-    var/tmp/skillHTML = ""
-    var/tmp/items = list()
-    var/tmp/itemHTML = ""
-    var/tmp/mobs = list()
-    var/tmp/mobHTML = ""
-    var/tmp/turfs = list()
-    var/tmp/turfHTML = ""
-    var/tmp/generated = 0
-/datum/GlobalStorage/proc/generate(type)
-    switch(type)
-        if("obj")
-            objs += typesof(/obj)
-            for(var/x in objs)
-                if(x in subtypesof(/obj/Skills))
-                    skills += x
-                if(x in subtypesof(/obj/Items))
-                    items += x
-        if("mob")
-            mobs += typesof(/mob)
-        if("turf")
-            turfs += typesof(/turf)
+		for(var/x in objs)
+			if(ispath(x,/obj/Skills))
+				skillHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
+				continue
+			else if(ispath(x,/obj/Items))
+				itemHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
+				continue
+			objHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
 
-/datum/GlobalStorage/proc/generateHTML(type)
-    switch(type)
-        if("obj")
-            for(var/x in objs)
-                objHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
-        if("mob")
-            for(var/x in mobs)
-                mobHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
-        if("turf")
-            for(var/x in turfs)
-                turfHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
-        if("skill")
-            for(var/x in skills)
-                skillHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
-        if("item")
-            for(var/x in items)
-                itemHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
+		var/list/mobs = typesof(/mob)
+		for(var/x in mobs)
+			mobHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
 
-/datum/GlobalStorage/proc/init()
-    generate("obj")
-    generate("mob")
-    generate("turf")
-    generateHTML("obj")
-    generateHTML("skill")
-    generateHTML("item")
-    generateHTML("mob")
-    generateHTML("turf")
-    generated = 1
-    
+		var/list/turfs = typesof(/turf)
+		for(var/x in turfs)
+			turfHTML += "<td><a href=byond://?src=INSERTHERE;action=magic;var=[x]>[x]<td></td></tr>"
+
 
 /mob/Admin4/verb/ChangeWorldSettings()
     set category = "Admin"
     set name = "Change World Settings"
     var/i = input(src, "ssss") in list("tick_lag","fps")
     src << "Current [i] is [world.vars[i]]"
-    var/x = input(src, "ssss") as num 
+    var/x = input(src, "ssss") as num
     world.vars[i] = x
     src << "Changed [i] to [x]"
     src << "Current [i] is [world.vars[i]]"
@@ -122,8 +96,6 @@
     blah+="[A]<br>[A.type]"
     blah+="<table width=10%>"
     var/info =""
-    if(!globalStorage.generated)
-        globalStorage.init()
     switch(input(usr, "What do you want to select?") in list("Skills","Items","Object","Mob","Turf","Cancel"))
         if("Skills")
             info = globalStorage.skillHTML
@@ -138,5 +110,5 @@
         if("Cancel") return
     blah += replacetext(info,"INSERTHERE","\ref[A]")
     usr<<browse(blah,"window=[A];size=450x600")
-    
+
 

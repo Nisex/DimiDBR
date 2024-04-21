@@ -22,7 +22,6 @@ obj
 				LosesHoming
 				Static
 
-				SwordOnly//TODO remove
 				UnarmedOnly
 				StaffOnly
 				StanceNeeded
@@ -40,8 +39,8 @@ obj
 				MaimCost//Add this number of maims when completed.
 				//MaimStrike// if Damage exceeds 25 / this number, maim the target
 
-				DamageMult=1//TODO: LINE UP WITH QUEUES/AUTOS
-				AccMult=1//TODO: LIKEWISE
+				DamageMult=1
+				AccMult=1
 				Deflectable=1//what do u think?
 				Dodgeable=1//will replace instinct definition, since it's specific for projectiles
 				Knockback//KB this many tiles on hit
@@ -152,6 +151,7 @@ obj
 				ActiveMessage//A message to display when fired
 				ActiveColor=rgb(255,0,0)
 
+				GoldScatter
 //Autoblasts
 			Oni_Giri
 				AttackReplace=1
@@ -513,6 +513,19 @@ obj
 				Striking=1
 				Blasts=5
 				IconLock='Arrow - Spirit.dmi'
+				Variation=48
+				Radius=1
+			Staff_Projectile
+				Radius=0
+				DamageMult=1
+				AccMult=1
+				ForRate=1
+				EndRate=1
+				Distance=30
+				AttackReplace=1
+				Striking=1
+				Blasts=2
+				IconLock='Blast - Small.dmi'
 				Variation=48
 				Radius=1
 			Fenrir
@@ -952,8 +965,6 @@ obj
 			Rapid_Barrage
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Blast")
-				LockOut=list("/obj/Skills/Projectile/Straight_Siege", "/obj/Skills/Projectile/Flare_Wave", "/obj/Skills/Projectile/Death_Beam")
 				Distance=20
 				AccMult=0.5
 				DamageMult=0.15
@@ -973,8 +984,6 @@ obj
 			Straight_Siege
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Blast")
-				LockOut=list("/obj/Skills/Projectile/Rapid_Barrage", "/obj/Skills/Projectile/Flare_Wave", "/obj/Skills/Projectile/Death_Beam")
 				Distance=15
 				AccMult=1
 				DamageMult=0.25
@@ -991,8 +1000,6 @@ obj
 			Flare_Wave
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Blast")
-				LockOut=list("/obj/Skills/Projectile/Straight_Siege", "/obj/Skills/Projectile/Rapid_Barrage", "/obj/Skills/Projectile/Death_Beam")
 				Distance=25
 				DamageMult=1.2
 				Knockback=3
@@ -1011,8 +1018,6 @@ obj
 			Death_Beam
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Blast")
-				LockOut=list("/obj/Skills/Projectile/Straight_Siege", "/obj/Skills/Projectile/Rapid_Barrage", "/obj/Skills/Projectile/Flare_Wave")
 				Distance=20
 				DamageMult=1.1
 				AccMult=2
@@ -1053,8 +1058,6 @@ obj
 			Spirit_Ball
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Charge")
-				LockOut=list("/obj/Skills/Projectile/Dragon_Nova", "/obj/Skills/Projectile/Kienzan", "/obj/Skills/Projectile/Crash_Burst")
 				Distance=40
 				DamageMult=1.5
 				AccMult=1
@@ -1077,8 +1080,6 @@ obj
 			Crash_Burst
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Charge")
-				LockOut=list("/obj/Skills/Projectile/Spirit_Ball", "/obj/Skills/Projectile/Dragon_Nova", "/obj/Skills/Projectile/Kienzan")
 				ZoneAttack=1
 				EnergyCost=5
 				Distance=20
@@ -1103,8 +1104,6 @@ obj
 			Dragon_Nova
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Charge")
-				LockOut=list("/obj/Skills/Projectile/Crash_Burst", "/obj/Skills/Projectile/Spirit_Ball", "/obj/Skills/Projectile/Kienzan")
 				Distance=50
 				DamageMult=1.25
 				MultiHit=3
@@ -1128,8 +1127,6 @@ obj
 			Kienzan
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/Projectile/Charge")
-				LockOut=list("/obj/Skills/Projectile/Crash_Burst", "/obj/Skills/Projectile/Dragon_Nova", "/obj/Skills/Projectile/Spirit_Ball")
 				Distance=50
 				DamageMult=3.5
 				EnergyCost=20
@@ -1155,8 +1152,6 @@ obj
 			Sudden_Storm
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Queue/Dancing_Lights")
-				LockOut=list("/obj/Skills/Queue/Light_Rush","/obj/Skills/Queue/Burst_Combination","/obj/Skills/Projectile/Warp_Strike")
 				Blasts=10
 				HomingCharge=1
 				RandomPath=1
@@ -1180,8 +1175,6 @@ obj
 			Warp_Strike
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Queue/Dancing_Lights")
-				LockOut=list("/obj/Skills/Queue/Light_Rush","/obj/Skills/Queue/Burst_Combination","/obj/Skills/Projectile/Sudden_Storm")
 				Charge=2
 				HomingCharge=2
 				IconLock='Blast2.dmi'
@@ -1223,8 +1216,6 @@ obj
 			Energy_Minefield
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Projectile/Energy_Bomb")
-				LockOut=list("/obj/Skills/Projectile/Tracking_Bomb", "/obj/Skills/Projectile/Stealth_Bomb", "/obj/Skills/Projectile/Pillar_Bomb")
 				Blasts=18
 				DamageMult=3.25
 				Radius=1
@@ -1250,8 +1241,6 @@ obj
 			Tracking_Bomb
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Projectile/Energy_Bomb")
-				LockOut=list("/obj/Skills/Projectile/Energy_Minefield", "/obj/Skills/Projectile/Stealth_Bomb", "/obj/Skills/Projectile/Pillar_Bomb")
 				DamageMult=6
 				Knockback=5
 				Radius=1
@@ -1277,8 +1266,6 @@ obj
 			Stealth_Bomb
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Projectile/Energy_Bomb")
-				LockOut=list("/obj/Skills/Projectile/Energy_Minefield", "/obj/Skills/Projectile/Tracking_Bomb", "/obj/Skills/Projectile/Pillar_Bomb")
 				DamageMult=6.5
 				Knockback=3
 				Radius=1
@@ -1302,8 +1289,6 @@ obj
 			Pillar_Bomb
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Projectile/Energy_Bomb")
-				LockOut=list("/obj/Skills/Projectile/Energy_Minefield", "/obj/Skills/Projectile/Stealth_Bomb", "/obj/Skills/Projectile/Tracking_Bomb")
 				Launcher=3
 				DamageMult=6.5
 				Knockback=0
@@ -1353,8 +1338,6 @@ obj
 			Burst_Buster
 				Copyable=5
 				SkillCost=160
-				PreRequisite=list("/obj/Skills/Projectile/Power_Buster")
-				LockOut=list("/obj/Skills/Projectile/Warp_Buster", "/obj/Skills/Projectile/Scatter_Burst", "/obj/Skills/Projectile/Counter_Burst")
 				Buster=2
 				DamageMult=1.5
 				BusterDamage=0.75
@@ -1378,8 +1361,6 @@ obj
 			Warp_Buster
 				Copyable=5
 				SkillCost=160
-				PreRequisite=list("/obj/Skills/Projectile/Power_Buster")
-				LockOut=list("/obj/Skills/Projectile/Burst_Buster", "/obj/Skills/Projectile/Scatter_Burst", "/obj/Skills/Projectile/Counter_Buster")
 				Buster=0.25//rate that blast charges
 				BusterDamage=1//max damage when fully charged
 				BusterHits=3//multihits when fully charged
@@ -1404,8 +1385,6 @@ obj
 			Scatter_Burst
 				Copyable=5
 				SkillCost=160
-				PreRequisite=list("/obj/Skills/Projectile/Power_Buster")
-				LockOut=list("/obj/Skills/Projectile/Burst_Buster", "/obj/Skills/Projectile/Scatter_Burst", "/obj/Skills/Projectile/Counter_Buster")
 				Blasts=12
 				Buster=1
 				DamageMult=0.5
@@ -1430,8 +1409,6 @@ obj
 			Counter_Buster
 				Copyable=5
 				SkillCost=160
-				PreRequisite=list("/obj/Skills/Projectile/Power_Buster")
-				LockOut=list("/obj/Skills/Projectile/Burst_Buster", "/obj/Skills/Projectile/Scatter_Burst", "/obj/Skills/Projectile/Warp_Buster")
 				Buster=0.5//rate that blast charges
 				BusterDamage=1//max damage when fully charged
 				BusterHits=10//multihits when fully charged
@@ -1833,7 +1810,26 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 
+			A_Pound_of_Gold
+				SkillCost=160
+				Copyable=5
+				Distance=20
+				DamageMult=6
+				AccMult=15
+				Knockback=5
+				EnergyCost=3
+				Cooldown=120
+				Homing=1
+				IconLock='GoldPile.dmi'
+				IconSize=0.35
+				LockX=-32
+				LockY=-32
+				Variation=0
+				GoldScatter = 1
 
+				verb/A_Pound_of_Gold()
+					set category="Skills"
+					usr.UseProjectile(src)
 
 //SHIT THAT AINT USED
 			Feint_Shot//this boi currently isnt used
@@ -3428,10 +3424,6 @@ obj
 						set category="Skills"
 						usr.UseProjectile(src)
 
-				ScathingBreeze//todo: remove
-				WindScar//todo: remove
-				BacklashWave//todo: remove
-
 				Scathing_Breeze
 					SkillCost=160
 					Copyable=4
@@ -3458,8 +3450,6 @@ obj
 				Wind_Scar
 					SkillCost=160
 					Copyable=5
-					PreRequisite=list("/obj/Skills/Projectile/Sword/Scathing_Breeze")
-					LockOut=list("/obj/Skills/Projectile/Sword/Backlash_Wave", "/obj/Skills/Projectile/Sword/Air_Carve", "/obj/Skills/Projectile/Sword/Phantom_Howl")
 					Distance=120
 					DamageMult=0.85
 					AccMult=15
@@ -3485,8 +3475,6 @@ obj
 				Backlash_Wave
 					SkillCost=160
 					Copyable=5
-					PreRequisite=list("/obj/Skills/Projectile/Sword/Scathing_Breeze")
-					LockOut=list("/obj/Skills/Projectile/Sword/Wind_Scar", "/obj/Skills/Projectile/Sword/Air_Carve", "/obj/Skills/Projectile/Sword/Phantom_Howl")
 					Distance=30
 					DamageMult=1.1
 					AccMult=15
@@ -3516,8 +3504,6 @@ obj
 				Air_Carve
 					SkillCost=160
 					Copyable=5
-					PreRequisite=list("/obj/Skills/Projectile/Sword/Scathing_Breeze")
-					LockOut=list("/obj/Skills/Projectile/Sword/Wind_Scar", "/obj/Skills/Projectile/Sword/Backlash_Wave", "/obj/Skills/Projectile/Sword/Phantom_Howl")
 					Distance=20
 					DamageMult=2.2
 					AccMult=15
@@ -3537,8 +3523,6 @@ obj
 				Phantom_Howl
 					SkillCost=160
 					Copyable=5
-					PreRequisite=list("/obj/Skills/Projectile/Sword/Scathing_Breeze")
-					LockOut=list("/obj/Skills/Projectile/Sword/Wind_Scar", "/obj/Skills/Projectile/Sword/Air_Carve", "/obj/Skills/Projectile/Sword/Backlash_Wave")
 					Distance=20
 					DamageMult=2.2
 					AccMult=10
@@ -3560,8 +3544,6 @@ obj
 					verb/Phantom_Howl()
 						set category="Skills"
 						usr.UseProjectile(src)
-
-
 
 				Hiten_Mitsurugi
 					StyleNeeded="Hiten Mitsurugi"
@@ -3663,11 +3645,6 @@ obj
 					BeamTime=20
 					Distance=20
 					IconLock='Beam21.dmi'
-
-				//todo: remove
-				Normal_Beam//dedname
-				Sweeping_Beam//dedname
-				Piercer//dedname
 
 ////UNIVERSAL
 //T1 is up above
@@ -4445,7 +4422,10 @@ mob
 						if(m.client&&m.client.address==src.client.address)
 							continue
 						if(!locate(Z.type, m))
-							m.AddSkill(new Z.type)
+							var/obj/Skills/copiedSkill = new Z.type
+							m.AddSkill(copiedSkill)
+							copiedSkill.Copied = TRUE
+							copiedSkill.copiedBy = "Sharingan"
 							m << "Your Sharingan analyzes and stores the [Z] technique you've just viewed."
 				spawn()
 					for(var/obj/Items/Tech/Security_Camera/SC in view(10, src))
@@ -4883,6 +4863,8 @@ obj
 					src.MiniDivide=Z.MiniDivide
 					src.Divide=Z.Divide
 					src.Trail=Z.Trail
+					src.Shearing = Z.Shearing
+					src.Crippling = Z.Crippling
 					src.TrailX=Z.TrailX
 					src.TrailY=Z.TrailY
 					src.TrailSize=Z.TrailSize
@@ -4925,6 +4907,7 @@ obj
 					src.WarpUser=Z.WarpUser
 					src.Backfire=0
 					src.FadeOut=Z.FadeOut
+					src.GoldScatter = Z.GoldScatter
 					BeamCharge = BeamCharging
 /*
 					if(Owner.passive_handler.Get("MissileSystem"))
@@ -5292,15 +5275,15 @@ obj
 								src.DamageMult*=1+(src.Owner.SenseUnlocked-5)
 
 
-						var/str = StrRate ? Owner.GetStr(StrRate) * glob.STRENGTH_EFFECTIVENESS : 0
-						var/force = ForRate ? Owner.GetFor(ForRate) * glob.FORCE_EFFECTIVENESS : 0
+						var/str = StrRate ? Owner.GetStr(StrRate) : 0
+						var/force = ForRate ? Owner.GetFor(ForRate) : 0
 						var/powerDif = Owner.Power / a:Power
 						// + Owner.getIntimDMGReduction(m)
 						if(glob.CLAMP_POWER)
 							if(!Owner.ignoresPowerClamp())
 								powerDif = clamp(powerDif, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
 						var/atk = 0
-						var/def = a:getEndStat(glob.END_EFFECTIVENESS) * EndRate
+						var/def = a:getEndStat(1) * EndRate
 						if(src.Owner.UsingPridefulRage())
 							if(Owner.passive_handler.Get("PridefulRage") >= 2)
 								def = 1
@@ -5358,6 +5341,28 @@ obj
 						var/EffectiveDamage=Damage
 						if(a:Launched||a:Stunned)
 							EffectiveDamage *= glob.CCDamageModifier
+
+						if(GoldScatter||Owner.CheckSlotless("Hoarders Riches"))
+							for(var/obj/Money/money in a.contents)
+								if(money.Level>0)
+									var/newX = a.x + rand(-3, 3)
+									var/newY = a.y + rand(-3, 3)
+									for(var/i = 0, i < 10; i++)
+										var/turf/t = locate(newX,newY,a.z)
+										if(t.density)
+											if(i == 9) break
+											newX = a.x + rand(-3, 3)
+											newY = a.y + rand(-3, 3)
+											continue
+										else
+											break
+									new/obj/gold(a, src.Owner, newX, newY, a.z)
+									a << "You feel a need to go collect your coins before they're stolen!"
+
+						if(Crippling)
+							a:AddCrippling(Crippling, src.Owner)
+						if(Shearing)
+							a:AddShearing(Shearing, src.Owner)
 
 						if(a:passive_handler.Get("Siphon")&&src.ForRate)
 							var/Heal=EffectiveDamage*a:passive_handler.Get("Siphon")*src.ForRate//Energy siphon is a value from 0.1 to 1 which reduces damage and heals energy.
@@ -5498,8 +5503,7 @@ obj
 									src.Owner << "<b><font color=#ff0000>You mortally injure [a]!</font></b>"
 
 							if(src.Area=="Beam")
-								src.Owner.DoDamage(a, (EffectiveDamage/30), SpiritAttack=1, Destructive=src.Destructive)
-								//TODO ADD A DYNAMIC WAY OF ADJUSTING BEAM DIVISOR?
+								src.Owner.DoDamage(a, (EffectiveDamage/glob.GLOBAL_BEAM_DAMAGE_DIVISOR), SpiritAttack=1, Destructive=src.Destructive)
 								if(src.Owner.UsingAnsatsuken())
 									src.Owner.HealMana(src.Owner.SagaLevel/8)
 							else

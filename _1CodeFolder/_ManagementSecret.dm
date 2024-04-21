@@ -1,6 +1,9 @@
 #define WW_HUNGER_MAX 250
 #define WW_REDUCTION_PER_TIER 25
-/mob/var/datum/SecretInfomation/secretDatum = new()
+
+#define MADNESS_MAX 100
+#define MADNESS_ADD_PER_TIER 25
+/mob/var/SecretInfomation/secretDatum = new()
 
 
 
@@ -28,7 +31,7 @@
 	return 0
 
 
-/datum/SecretInfomation
+SecretInfomation
 	var
 		name
 		lastCheckedTier = 1
@@ -185,8 +188,8 @@
 					conQHaki(p)
 					conqPaths(p)
 					nextTierUp = 999
-					
-					
+
+
 
 
 
@@ -270,8 +273,42 @@
 					nextTierUp = 999
 
 
+	Eldritch
+		name = "Eldritch"
+		secretVariable = list("Madness" = 0, "Madness Active" = 0)
+		givenSkills = list("/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form")
+		proc/getMadnessLimit(mob/p)
+			. = MADNESS_MAX + (MADNESS_ADD_PER_TIER * (currentTier))
+			if(. <0)
+				. = 50
+			else if(. > MADNESS_MAX)
+				. = MADNESS_MAX
+		proc/addMadness(amount)
+			if(secretVariable["Madness Active"] == 1) return
+			if(amount < 0.9)
+				amount *= 4
+			else if(amount > 1.5)
+				amount *= 2
+			else
+				amount *= 3
+			var/tierEffectiveness = currentTier * 1.5
+			amount *= tierEffectiveness
+			if(secretVariable["Madness"] + amount > getMadnessLimit())
+				secretVariable["Madness"] = getMadnessLimit()
+			else
+				secretVariable["Madness"] += amount
 
+		proc/releaseMadness()
+			if(secretVariable["Madness Active"] == 0) return
+			var/tierEffectiveness = 8 - currentTier
+			// LESS = MORE
+			secretVariable["Madness"] -= tierEffectiveness
+			if(secretVariable["Madness"] <= 0)
+				secretVariable["Madness"] = 0
+				secretVariable["Madness Active"] = 0
 
+		proc/getMadnessBoon()
+			return secretVariable["Madness"]/getMadnessLimit()
 
 	Werewolf
 		name = "Werewolf"
@@ -346,7 +383,7 @@
 		name = "Heavenly Restriction"
 		givenSkills = list("/obj/Skills/Buffs/SlotlessBuffs/HeavenlyRestriction/HeavenlyRestriction")
 		secretVariable = list("RestrictionTypes", "RestrictionLevel", "RestrictionActive")
-		
+
 
 	SageArts
 		name = "Senjutsu"
@@ -412,8 +449,8 @@ mob
 
 	proc
 		giveSecret(path)
-			path = "/datum/SecretInfomation/[path]"
-			var/datum/SecretInfomation/secret = new path
+			path = "SecretInfomation/[path]"
+			var/SecretInfomation/secret = new path
 			secret.init(src)
 			secretDatum = secret
 
@@ -421,7 +458,7 @@ mob/Admin3/verb
 	SecretManagement(var/mob/P in players)
 		set category="Admin"
 		if(!P.client) return
-		var/list/Secrets=list("Spirits of The World","Jagan", "Hamon of the Sun", "Werewolf", "Vampire", "Sage Arts", "Haki")
+		var/list/Secrets=list("Spirits of The World","Jagan", "Hamon of the Sun", "Werewolf", "Vampire", "Sage Arts", "Haki", "Eldritch")
 		var/Selection=input(src, "Which aspect of power does [P] awaken to?", "Secret Management") in Secrets
 		if(P.Secret)
 			src << "They already have a secret."
@@ -430,7 +467,7 @@ mob/Admin3/verb
 			switch(Selection)
 				if("Spirits of The World")
 					var/path = input(src, "Which path of Spirits of The World do you wish to follow?", "Spirits of The World") in list("Goetic Virtue", "Stellar Constellation", "Elven Sanctuary")
-					// for now, admins pick it, as there 
+					// for now, admins pick it, as there
 					P.Secret = path
 					var/newpath = replacetext(path, " ", "_")
 					newpath = "Spirits_Of_The_World/[newpath]"
@@ -464,6 +501,9 @@ mob/Admin3/verb
 				if("Werewolf")
 					P.Secret="Werewolf"
 					P.giveSecret("Werewolf")
+				if("Eldritch")
+					P.Secret = "Eldritch"
+					P.giveSecret("Eldritch")
 				if("Vampire")
 					P.Secret="Vampire"
 					P.giveSecret("Vampire")

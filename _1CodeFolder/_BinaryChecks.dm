@@ -526,6 +526,8 @@ mob
 						Streamline+=1
 			if(is_arcane_beast || CheckSpecial("Wisdom Form") || CheckSpecial("Master Form") || CheckSpecial("Final Form"))
 				Streamline+=1
+			if(passive_handler.Get("SpiritForm"))
+				Streamline+=1
 			if(src.UsingMasteredMagicStyle())
 				if(Z.ElementalClass)
 					if(StyleBuff)
@@ -835,29 +837,29 @@ mob
 		HasEnergyLeak()
 			if(passive_handler.Get("EnergyLeak"))
 				return 1
-			if(src.TransActive()&&!src.HasMystic())
-				if(src.masteries["[src.TransActive()]mastery"]>10&&src.masteries["[src.TransActive()]mastery"]<75||(src.Race=="Saiyan"&&src.HasGodKi()&&masteries["4mastery"]!=100))
+			if(src.transActive()&&!src.HasMystic())
+				if(src.masteries["[src.transActive()]mastery"]>10&&src.masteries["[src.transActive()]mastery"]<75||(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
 					if(src.Race!="Changeling")
 						return 1
 					else
-						if(src.TransActive()>3)
+						if(src.transActive()>3)
 							return 1
 			return 0
 		GetEnergyLeak()
 			var/Total=0
 			Total+=passive_handler.Get("EnergyLeak")
-			if(src.TransActive()&&!src.HasMystic())
-				if(src.masteries["[src.TransActive()]mastery"]>10&&src.masteries["[src.TransActive()]mastery"]<75)
+			if(src.transActive()&&!src.HasMystic())
+				if(src.masteries["[src.transActive()]mastery"]>10&&src.masteries["[src.transActive()]mastery"]<75)
 					if(src.Race!="Changeling")
-						Total+=src.TransActive()*0.25
+						Total+=src.transActive()*0.25
 					else
-						if(src.TransActive()>3)
+						if(src.transActive()>3)
 							Total+=0.5
 			return Total
 		HasFatigueLeak()
 			if(passive_handler.Get("FatigueLeak"))
 				return 1
-			if(src.TransActive()&&src.Race=="Saiyan"&&src.HasGodKi()&&masteries["4mastery"]!=100)
+			if(src.transActive()&&src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100)
 				return 1
 			if(src.GatesActive && src.GatesActive < 8)
 				return 1
@@ -865,7 +867,7 @@ mob
 		GetFatigueLeak()
 			var/Total=0
 			Total+=passive_handler.Get("FatigueLeak")
-			if(src.TransActive()&&src.Race=="Saiyan"&&src.HasGodKi()&&masteries["4mastery"]!=100)
+			if(src.transActive()&&src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100)
 				Total+=1
 			return  Total
 		HasSoftStyle()
@@ -909,13 +911,13 @@ mob
 				return 1
 			if(passive_handler.Get("KiControlMastery"))
 				return 1
-			if(src.Race=="Namekian"&&src.TransActive())
+			if(src.isRace(NAMEKIAN)&&src.transActive())
 				return 1
 			if(src.Race=="Shinjin"&&src.Potential>=25)
 				return 1
-			if(src.Race in list("Demon", "Dragon"))
+			if(src.race in list(DEMON, DRAGON))
 				return 1
-			if(src.Race in list("Human", "Half Saiyan", "Changeling", "Makyo")&&src.AscensionsAcquired)
+			if(src.race in list(HUMAN, MAKYO)&&src.AscensionsAcquired)
 				return 1
 			return 0
 		GetKiControlMastery()
@@ -924,15 +926,15 @@ mob
 				Total+=src.AdaptationCounter
 			if(src.HasGodKi() && src.Race!="Shinjin")
 				Total+=round(src.GetGodKi()/0.25)
-			if(src.Race=="Namekian"&&src.TransActive())
+			if(src.isRace(NAMEKIAN)&&src.transActive())
 				Total+=3
-			if(src.Race=="Makyo"&&src.AscensionsAcquired)
+			if(src.isRace(MAKYO)&&src.AscensionsAcquired)
 				Total+=src.AscensionsAcquired
 			if(src.Race=="Shinjin")
 				Total+=round(src.Potential/25)
-			if(src.Race in list("Dragon", "Demon"))
+			if(isRace(DRAGON)||isRace(DEMON))
 				Total+=1
-			if(src.Race in list("Human", "Changeling")&&src.AscensionsAcquired)
+			if(isRace(HUMAN)&&src.AscensionsAcquired)
 				Total+=(0.5*src.AscensionsAcquired)
 			// if(src.Race=="Half Saiyan"&&src.AscensionsAcquired)
 			// 	Total+=(0.25*src.AscensionsAcquired)
@@ -960,10 +962,10 @@ mob
 		SaiyanTransPower()
 			var/t
 			var/m
-			if(src.HasTransMimic() && src.Race in list("Saiyan", "Half Saiyan"))
+			if(src.HasTransMimic() && isRace(SAIYAN))
 				t=src.HasTransMimic()
-			if(src.TransActive() && src.Race in list("Saiyan", "Half Saiyan"))
-				m=src.TransActive()
+			if(src.transActive() && isRace(SAIYAN))
+				m=src.transActive()
 			if(t || m)
 				if(t>m)
 					return t
@@ -992,7 +994,7 @@ mob
 			if(Target)
 				if(isDominating(Target) && HellRisen)
 					Return += HellRisen / 5
-			if(Race=="Majin")
+			if(isRace(MAJIN))
 				Return += Potential * getMajinRates("Damage")
 			return Return
 		HasPureReduction()
@@ -1004,7 +1006,7 @@ mob
 			var/mm=src.HasMaimMastery()
 			if(src.Maimed&&mm)
 				Return+=(src.Maimed*mm)*0.5
-			if(src.Race=="Majin")
+			if(src.isRace(MAJIN))
 				Return += Potential * getMajinRates("Reduction")
 			if(src.TarotFate=="The Hanged Man")
 				Return-=5
@@ -1066,7 +1068,7 @@ mob
 			return 0
 		GetSpiritualDamage()
 			return passive_handler.Get("SpiritualDamage")
-		
+
 		HasDuelist()
 			if(passive_handler.Get("Duelist"))
 				return 1
@@ -1176,7 +1178,7 @@ mob
 			Return=passive_handler.Get("SuperDash")
 			if(src.SenseUnlocked>5&&src.SenseUnlocked>src.SenseRobbed)
 				Return+=1
-			var/ta=src.TransActive()
+			var/ta=src.transActive()
 			var/tm=src.HasTransMimic()
 			if(ta || tm)
 				if(tm > ta)
@@ -1353,12 +1355,12 @@ mob
 		HasLifeSteal()
 			if(passive_handler.Get("LifeSteal"))
 				return 1
-			if(Race == "Majin" && Class == "Unhinged")
+			if(isRace(MAJIN) && race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
 				return 1
 			return 0
 		GetLifeSteal()
 			var/extra = 0
-			if(Race == "Majin" && Class == "Unhinged")
+			if(isRace(MAJIN) && race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
 				extra += 5 * AscensionsAcquired
 			return passive_handler.Get("LifeSteal") + extra
 		HasEnergySteal()
@@ -1415,11 +1417,11 @@ mob
 		DemonicPower() //Fake Demon.
 			if(src.Saga=="Ansatsuken"&&src.SagaLevel>=8&&src.AnsatsukenAscension)
 				return 1
-			if(src.Race=="Demon")
+			if(src.isRace(DEMON))
 				return 1
 			if(src.CheckSlotless("Majin"))
 				return 1
-			if(src.Race=="Human"&&src.HellPower>=2&&src.AscensionsAcquired>=4)
+			if(src.isRace(HUMAN)&&src.HellPower>=2&&src.AscensionsAcquired>=4)
 				return 1
 			return 0
 		HasSpiritPower()
@@ -1479,7 +1481,7 @@ mob
 					Return-=100
 				if(m.Race=="Tuffle")
 					Return-=(20*(m.Intelligence+m.Imagination))
-				if(m.Race=="Makyo")
+				if(m.isRace(MAKYO))
 					Return-=(5*m.AscensionsAcquired)
 				if(m.HasGodKi())
 					if(src.HasLegendaryPower())
@@ -1515,9 +1517,9 @@ mob
 			var/Effective=src.Intimidation
 			if(src.ShinjinAscension=="Makai")
 				Effective+=1
-			if(src.Race=="Demon"||src.Race=="Majin")
+			if(src.isRace(DEMON)||src.isRace(MAJIN))
 				Effective+=1
-			if(src.Race=="Makyo"&&src.ActiveBuff&&src.AscensionsAcquired&&!src.CyberCancel)
+			if(src.isRace(MAKYO)&&src.ActiveBuff&&src.AscensionsAcquired&&!src.CyberCancel)
 				Effective+=1
 			var/stp=src.SaiyanTransPower()
 			if(stp)
@@ -1551,7 +1553,7 @@ mob
 				return 1
 			if(src.SenseUnlocked>6&&(src.SenseUnlocked>src.SenseRobbed))
 				return 1
-			if(src.CheckSlotless("Saiyan Soul")&&src.HasGodKiBuff()&&!src.ssj["god"])
+			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff()&&!src.ssj["god"])
 				if(!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
 					return 1
 			if(src.HasSpiritPower()>=1 && FightingSeriously(src, 0))
@@ -1577,12 +1579,12 @@ mob
 						Total+=0.25
 				if(src.SenseUnlocked>=8)
 					Total+=1
-			if(src.CheckSlotless("Saiyan Soul")&&src.HasGodKiBuff()&&!src.ssj["god"])
+			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff()&&!src.ssj["god"])
 				if(!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
 					Total+=src.Target.GetGodKi()/2
 			if(src.KamuiBuffLock)
 				Total+=0.25
-			if(src.Race=="Dragon")
+			if(src.isRace(DRAGON))
 				if(src.AscensionsAcquired==6 && Total<0.5)
 					Total=0.5//fully ascended dragon
 			return Total
@@ -1624,33 +1626,20 @@ mob
 		HasManaLeak()
 			if(passive_handler.Get("ManaLeak"))
 				return 1
-			if(src.Race=="Monster"&&src.Class=="Yokai"&&src.AscensionsAcquired&&src.ActiveBuff&&!src.Mechanized)
-				return 1
 			return 0
 		GetManaLeak()
 			var/Return=0
 			Return+=passive_handler.Get("ManaLeak")
-			if(src.Race=="Monster"&&src.Class=="Yokai"&&src.AscensionsAcquired&&src.ActiveBuff&&!src.Mechanized)
-				Return += clamp(4 - (src.AscensionsAcquired), 1,4)
 			return Return
 		GetManaCapMult()
 			return 1 + passive_handler.Get("ManaCapMult")
 		HasManaStats()
 			if(passive_handler.Get("ManaStats"))
 				return 1
-			if(src.Race=="Monster"&&src.Class=="Yokai"&&src.AscensionsAcquired&&src.ActiveBuff&&!src.Mechanized)
-				return 1
 			return 0
 		GetManaStats()
 			var/Return=0
 			Return+=passive_handler.Get("ManaStats")
-			if(src.Race=="Monster"&&src.Class=="Yokai"&&src.AscensionsAcquired&&src.ActiveBuff&&!src.Mechanized)
-				var/RaceBoon = 1 + (src.AscensionsAcquired*0.25)
-				if(RaceBoon > 1)
-					RaceBoon = 1
-				if(Return <= 0)
-					Return = 0.1
-				Return+=RaceBoon
 			return Return
 		HasBurning()
 			if(passive_handler.Get("Burning"))
@@ -1859,7 +1848,7 @@ mob
 			return 0
 		HighestTrans()
 			var/tm=src.HasTransMimic()
-			var/ta=src.TransActive()
+			var/ta=src.transActive()
 			if(tm || ta)
 				if(tm > ta)
 					return tm
@@ -1893,7 +1882,7 @@ mob
 				return 1
 			if(src.Race=="Shinjin" && src.ShinjinAscension=="Makai")
 				return 1
-			if(src.Race=="Namekian" && src.TransActive())
+			if(src.isRace(NAMEKIAN) && src.transActive())
 				return 1
 			if(src.TarotFate=="Temperance")
 				return 1
@@ -2291,13 +2280,9 @@ mob
 				return 0
 			if(src.HasMechanized())
 				return 0
-			if(src.Anger)
-				return 0
 			if(src.StableBP>=1)
 				return 0
 			if(src.Kaioken)
-				return 0
-			if(src.HasCalmAnger())
 				return 0
 			if(src.AngerMax==1)
 				if(src.Race!="Changeling")
@@ -2310,7 +2295,7 @@ mob
 				return 0
 			if(src.HasGodspeed()>=4)
 				return 0
-			if(src.Race=="Android"/* || Race=="Majin"  */)
+			if(src.Race=="Android"/* || isRace(MAJIN)  */)
 				return 0
 			if(src.LastBreath)
 				return 0
@@ -2320,11 +2305,11 @@ mob
 				return 0
 			return 1
 		SteadyRace()
-			if(src.Race in list("Human", "Half Saiyan", "Majin", "Makyo", "Namekian", "Tuffle", "Monster",  "Demon", "Alien", "Android", "Dragon"))
+			if(src.race.type in list(HUMAN, MAJIN, MAKYO, NAMEKIAN, BEASTMAN, YOKAI, ELDRITCH, ELF, DEMON, DRAGON))
 				return 1
 			return 0
 		TransRace()
-			if(src.Race in list("Saiyan", "Half Saiyan", "Changeling", "Alien"))
+			if(isRace(SAIYAN))
 				return 1
 			return 0
 		OtherRace()
@@ -2381,6 +2366,8 @@ mob
 					else if(istype(src.StyleBuff.ElementalClass, /list))
 						if(Z.ElementalClass in src.StyleBuff.ElementalClass)
 							Pass=1
+			if(passive_handler.Get("SpiritForm"))
+				Pass = 1
 			if(src.UsingMasteredMagicStyle())
 				Pass=1
 			if(src.CrestSpell(Z))
@@ -2407,7 +2394,7 @@ mob
 				return 1
 			if(src.CheckSpecial("Ultra Instinct"))
 				return 1
-			if(src.Race=="Dragon"&&src.AscensionsAcquired>=2)
+			if(src.isRace(DRAGON)&&src.AscensionsAcquired>=2)
 				return 1
 			return 0
 		UsingSpiritStyle()
@@ -2416,15 +2403,15 @@ mob
 				Return++
 			if(src.UsingMasteredMartialStyle())
 				Return++
-			if(src.Race=="Dragon")
+			if(src.isRace(DRAGON))
 				Return++
 			return Return
 		HasAdaptation()
-			if(src.Adaptation)
+			if(src.passive_handler.Get("Adaptation"))
 				return 1
 			if(src.StyleActive in list("Balance", "Metta Sutra", "West Star", "Shaolin"))
 				return 1
-			if(src.Race=="Dragon"&&src.AscensionsAcquired>=1)
+			if(src.isRace(DRAGON)&&src.AscensionsAcquired>=1)
 				return 1
 			return 0
 		UsingMartialStyle()
@@ -2455,9 +2442,9 @@ mob
 					return 1
 			if(src.StyleActive in list("Moonlight", "Entropy", "Imperial Devil", "Atomic Karate", "East Star"))
 				return 1
-			if(src.Race=="Dragon"&&src.AscensionsAcquired>=3)
+			if(src.isRace(DRAGON)&&src.AscensionsAcquired>=3)
 				return 1
-			if(src.Race=="Majin")
+			if(src.isRace(MAJIN))
 				return 1
 			return 0
 		UsingZornhau()
@@ -2543,7 +2530,7 @@ mob
 
 		isHalfDemon()
 			//TODO come back to this later
-			if(Race == "Human" && HellPower >= 2)
+			if(isRace(HUMAN) && HellPower >= 2)
 				return 1
 
 
@@ -2552,9 +2539,9 @@ mob
 				return 1
 			if(Saga == "Kamui")
 				return 1
-			if(Race == "Demon" || (CheckSlotless("Satsui no Hado") && SagaLevel>=8))
+			if(isRace(DEMON)|| (CheckSlotless("Satsui no Hado") && SagaLevel>=8))
 				return 1
-			if(Race == "Human" && isHalfDemon())
+			if(isRace(HUMAN) && isHalfDemon())
 				return 1
 			if(ClothBronze == "Andromeda" && Saga == "Cosmo")
 				return 1
@@ -2586,7 +2573,7 @@ mob
 				return 0
 			if(src.Saga == "Kamui")
 				return 0
-			if(src.Race=="Demon" || (CheckSlotless("Satsui no Hado") && SagaLevel>=8))
+			if(src.isRace(DEMON) || (CheckSlotless("Satsui no Hado") && SagaLevel>=8))
 				return 0
 			if(src.Saga == "Cosmo" && src.ClothBronze=="Andromeda")
 				return 0
@@ -2634,7 +2621,7 @@ mob
 				return 0
 			if(src.Saga == "Kamui")
 				return 0
-			if(src.Race=="Demon" || (CheckSlotless("Satsui no Hado") && SagaLevel>=8))
+			if(src.isRace(DEMON) || (CheckSlotless("Satsui no Hado") && SagaLevel>=8))
 				return 0
 			return 1
 		NotUsingBattleMage()

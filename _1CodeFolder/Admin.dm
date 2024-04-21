@@ -65,6 +65,27 @@ mob
 		ai.EndLife(0)
 
 mob/Admin3/verb
+	RuntimesView()
+		var/View={"<html><head><title>Logs</title><body>
+<font size=3><font color=red>Runtime Errors<hr><font size=2><font color=black>"}
+		var/ISF=file2text("debug_log.txt")
+		View+=ISF
+		usr<<browse(View,"window=Log;size=500x350")
+	RuntimesDelete()
+		world.log=file("RuntimesTEMP.log")
+		fdel("debug_log.txt")
+		world.log=file("debug_log.txt")
+		fdel("RuntimesTEMP.log")
+
+	PrayerMute()
+		set category = "Admin"
+		switch(usr.PrayerMute)
+			if(TRUE)
+				usr.PrayerMute = FALSE
+				usr << "You will now hear prayers."
+			if(FALSE)
+				usr.PrayerMute = TRUE
+				usr << "You no longer hear prayers."
 	WipeWorldAI()
 		set category="Admin"
 		var/list/active_ais = list()
@@ -252,8 +273,10 @@ mob/proc/Admin(var/blah,var/Z,var/H)
 		if("Check")
 			if(src.key in CodedAdmins)
 				src.Admin("Give",CodedAdmins[src.key],1)
+				admins |= src
 			else if(src.key in Admins)
 				src.Admin("Give",Admins[src.key])
+				admins |= src
 			if(src.key in Mappers)
 				src.Admin("GiveMapper")
 		if("Give")
@@ -282,6 +305,8 @@ mob/proc/Admin(var/blah,var/Z,var/H)
 			src << "Mapper verbs removed."
 		if("Remove")
 			if(CodedAdmins.Find(src.key))return
+			if(src in admins)
+				admins -= src
 			src.verbs-=typesof(/mob/Admin1/verb,/mob/Admin2/verb,/mob/Admin3/verb,/mob/Admin4/verb)
 			Admins.Remove(src.key)
 			src.Admin=0
@@ -304,11 +329,10 @@ mob/proc/CheckPunishment(var/z)
 				return 1
 
 proc/AdminMessage(var/msg)
-	for(var/mob/Players/M in players)
-		if(M.Admin)
-			for(var/obj/Communication/x in M)
-				if(x.AdminAlerts)
-					M<<"<b><font color=red>(Admin)</b><font color=fuchsia> [msg]"
+	for(var/mob/Players/M in admins)
+		for(var/obj/Communication/x in M)
+			if(x.AdminAlerts)
+				M<<"<b><font color=red>(Admin)</b><font color=fuchsia> [msg]"
 
 proc/Punishment(var/z)
 	z=params2list(z)
@@ -429,10 +453,9 @@ mob/proc/ViewList()
 mob/proc/PM(var/mob/who, var/AhelpMessage, var/AhelpKey)
 	var/UserInput=input("What do you want to say to [who.key]?") as text|null
 	if(UserInput)
-		for(var/mob/Players/Q in players)
-			if(Q.Admin)
-				if(Q!=src&&Q!=who)
-					Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> to <a href=?src=\ref[who];action=MasterControl;do=PM2>[who.key]</a href> :[UserInput]"
+		for(var/mob/Players/Q in admins)
+			if(Q!=src&&Q!=who)
+				Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> to <a href=?src=\ref[who];action=MasterControl;do=PM2>[who.key]</a href> :[UserInput]"
 		src<<"<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]"
 		who<<"<font color=#00FF99><b>(Admin PM)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> :[UserInput]"
 		for(var/Admin_Help_Object/M in AdminHelps)
@@ -442,12 +465,11 @@ mob/proc/PM(var/mob/who, var/AhelpMessage, var/AhelpKey)
 mob/proc/PM2(var/mob/who)
 	var/UserInput = input("What do you want to say to [who.key]?") as text|null
 	if(UserInput&&who)
-		for(var/mob/Players/Q in players)
-			if(Q.Admin)
-				if(Q?:PingSound)
-					src << sound('Sounds/Ping.ogg')
-				if(Q!=src&&Q!=who)
-					Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> to <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]"
+		for(var/mob/Players/Q in admins)
+			if(Q?:PingSound)
+				src << sound('Sounds/Ping.ogg')
+			if(Q!=src&&Q!=who)
+				Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> to <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]"
 		Log("AdminPM","(Admin PM from [src.key] to [who.key]): [UserInput]")
 		src<<output("<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]", "output")
 		who<<output("<font color=#00FF99><b>(Admin PM)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> :[UserInput]", "output")
@@ -597,9 +619,9 @@ TO BE CORRECTED
 		set category="Admin"
 		if(!Writing["AdminNotes"])
 			Writing["AdminNotes"]=1
-			for(var/mob/M) if(M.Admin<=4) M<<"[usr] is editing the admin notes..."
+			for(var/mob/M in admins) M<<"[usr] is editing the admin notes..."
 			AdminNotes=input(usr,"Notes!","Edit Notes",AdminNotes) as message
-			for(var/mob/F) if(F.Admin<=4) F<<"[usr] is done editing the admin notes..."
+			for(var/mob/F in admins) F<<"[usr] is done editing the admin notes..."
 			Writing["AdminNotes"]=null
 			BootFile("Misc","Save")
 		else usr<<"<b>Someone is already editing the Admin Notes."
@@ -709,12 +731,11 @@ TO BE CORRECTED
 	AdminChat(c as text)
 		set category = "Admin"
 		Log("Admin", "<b><font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=cyan>Admin Chat:<font color=white>[usr.key]:</b><font color=green> [c]", NoPinkText=1)
-		for(var/mob/Players/M in players)
-			if(M.Admin)
-				if(M.Timestamp)
-					M<<"<b><font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=cyan>Admin Chat:<font color=white>[usr.key]:</b><font color=green> [c]"
-				else
-					M<<"<b><font color=cyan>Admin Chat:<font color=white>[usr.key]:</b><font color=green> [c]"
+		for(var/mob/Players/M in admins)
+			if(M.Timestamp)
+				M<<"<b><font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=cyan>Admin Chat:<font color=white>[usr.key]:</b><font color=green> [c]"
+			else
+				M<<"<b><font color=cyan>Admin Chat:<font color=white>[usr.key]:</b><font color=green> [c]"
 
 	Observe_(atom/A as mob|obj in world)
 		set category="Admin"
@@ -853,7 +874,7 @@ TO BE CORRECTED
 				switch(input("IC Announcement or OOC Announcement?") in list("IC", "OOC"))
 					if("IC")
 						client.HttpPost(
-							//"https://discordapp.com/api/webhooks/574353579175837697/8gWijNYOZPSP_mxCWNDCTuhEN9LU5XoaEaI-I8gOBv3C5lmGZFiAUncY9KNEvFN0y7zL",
+							"https://discord.com/api/webhooks/1220052412346138836/grdIJmZXMsFFx5360seLU5sbhAJveb3OJeDweJmqJQAdt7XALtqk8twFm53vdG7WsdvL",
 							,
 							list(
 								content = discord_output,
@@ -862,7 +883,7 @@ TO BE CORRECTED
 						)
 					if("OOC")
 						client.HttpPost(
-							//"https://discordapp.com/api/webhooks/579782784508493830/hLAAncgNHpoItf28UuqdKkTQxaCGIi_12kIRm4KeHlIecv7WatuZwIBQuEyjFiifazWN",
+							"https://discord.com/api/webhooks/1220052666244399224/b_t3vHOcdKKWm_c7lxGZmg1VSETPnumxtKk_C76nHfWFhAmAAj7ddITnhcZzw0B3B760",
 
 							,
 							list(
@@ -871,7 +892,7 @@ TO BE CORRECTED
 							)
 						)
 
-		for(var/mob/M in players)if(M.Admin)M<<"[usr] used message (global)."
+		for(var/mob/M in admins) M<<"[usr] used message (global)."
 
 	Teleport(mob/M as mob|obj in world)
 		set category="Admin"
@@ -983,7 +1004,7 @@ mob/Admin2/verb
 		set category="Admin"
 		if(M.client)
 			var/blah=input("Unlock to what form?") as num
-			if(M.Race=="Saiyan"||M.Race=="Half Saiyan")
+			if(M.isRace(SAIYAN)||M.Race=="Half Saiyan")
 				M.ssj["unlocked"]=blah
 			else
 				M.trans["unlocked"]=blah
@@ -1151,9 +1172,9 @@ mob/Admin2/verb
 		set category="Admin"
 		if(!Writing["Story"])
 			Writing["Story"]=1
-			for(var/mob/M) if(M.Admin<=4) M<<"Admin is editing the story..."
+			for(var/mob/M in admins) M<<"Admin is editing the story..."
 			Story=input(usr,"Edit!","Edit Story",Story) as message
-			for(var/mob/F) if(F.Admin<=4) F<<"Admin is done editing the story..."
+			for(var/mob/F in admins) F<<"Admin is done editing the story..."
 			Writing["Story"]=null
 			BootFile("Misc","Save")
 		else usr<<"<b>Someone is already editing the story."
@@ -1161,9 +1182,9 @@ mob/Admin2/verb
 		set category="Admin"
 		if(!Writing["Notes"])
 			Writing["Notes"]=1
-			for(var/mob/M) if(M.Admin<=4) M<<"Admin is editing the log-in notes..."
+			for(var/mob/M in admins) M<<"Admin is editing the log-in notes..."
 			Notes=input(usr,"Notes!","Edit Notes",Notes) as message
-			for(var/mob/F) if(F.Admin<=4) F<<"Admin is done editing the log-in notes..."
+			for(var/mob/F in admins) F<<"Admin is done editing the log-in notes..."
 			Writing["Notes"]=null
 			BootFile("Misc","Save")
 		else usr<<"<b>Someone is already editing the log-in notes."
@@ -1171,9 +1192,9 @@ mob/Admin2/verb
 		set category="Admin"
 		if(!Writing["Ranks"])
 			Writing["Ranks"]=1
-			for(var/mob/M) if(M.Admin<=4) M<<"Admin is editing the ranks..."
+			for(var/mob/M in admins) M<<"Admin is editing the ranks..."
 			Ranks=input(usr,"Edit!","Edit Ranks",Ranks) as message
-			for(var/mob/F) if(F.Admin<=4) F<<"Admin is done editing the ranks..."
+			for(var/mob/F in admins) F<<"Admin is done editing the ranks..."
 			Writing["Ranks"]=null
 			BootFile("Misc","Save")
 		else usr<<"<b>Someone is already editing the story."
@@ -1526,37 +1547,28 @@ mob/Admin3/verb
 			for(var/x in LockedRaces)
 				for(var/e in x)
 					usr<<"[e] : [x[e]]"
+
 		if(blah=="Add")
-			var/unlock=input("Add to what list?","Locked Races") in list("Half Saiyan", "Shinjin", "Demon", "Majin", "Dragon", "Changeling")
-			if(unlock)
-				var/wut=input("Add the key to [unlock] list.","Adding")as null|text
-				if(wut)
-					LockedRaces.Add(list(params2list("[unlock]=[wut]")))
-					Log("Admin","<font color=green>[ExtractInfo(usr)] added to the LockedRaces list: [unlock] to [wut].")
+			var/keyToAdd=input("What key do you want to add?.","Adding")as null|text
+			if(keyToAdd)
+				var/unlock=input("What race do you want to add to [keyToAdd]?","Races") in races
+				LockedRaces[keyToAdd].Add(unlock)
+				Log("Admin","<font color=green>[ExtractInfo(usr)] added to the LockedRaces list: [unlock] to [keyToAdd].")
+
 		if(blah=="Add All")
 			var/keytounlock=input("Add the key to unlock a majority of rares.","Adding")as null|text
-			if(keytounlock)
-				LockedRaces.Add(list(params2list("Half Saiyan=[keytounlock]")))
-				LockedRaces.Add(list(params2list("Shinjin=[keytounlock]")))
-				LockedRaces.Add(list(params2list("Demon=[keytounlock]")))
-				LockedRaces.Add(list(params2list("Majin=[keytounlock]")))
-				LockedRaces.Add(list(params2list("Dragon=[keytounlock]")))
-				LockedRaces.Add(list(params2list("Changeling=[keytounlock]")))
+			if(!keytounlock) return
+			LockedRaces[keytounlock].Add(races)
+
 		if(blah=="Remove")
-			var/unlock=input("Remove from what list?","Locked Races") in list("Half Saiyan", "Shinjin", "Demon", "Majin", "Dragon", "Changeling")
-			if(unlock)
-				var/list/Keys=list("Cancel")
-				for(var/x in LockedRaces)
-					for(var/e in x)
-						if(e=="[unlock]")
-							Keys.Add(x[e])
-				var/wut=input("Remove the key to [unlock] list.","Removing")in Keys
-				if(wut&&wut!="Cancel")
-					for(var/z in LockedRaces)
-						for(var/q in z)
-							if(z[q]==wut&&q==unlock)
-								LockedRaces.Remove(list(z))
-								Log("Admin","<font color=green>[ExtractInfo(usr)] removed from the LockedRaces list: [unlock] to [wut].")
+			var/list/l = LockedRaces
+			l.Add("Cancel")
+			var/whatKey = input("What key do you want to remove?","Locked Races") in l
+			if(l=="Cancel") return
+
+			var/raceToRemove = input("What race do you want to remove?", "Locked Races") in LockedRaces[whatKey]
+
+			LockedRaces[whatKey].Remove(raceToRemove)
 
 	Adminize(mob/z in players)
 		set category="Admin"
@@ -1604,9 +1616,9 @@ mob/Admin3/verb
 		set category="Admin"
 		if(!Writing["Rules"])
 			Writing["Rules"]=1
-			for(var/mob/M) if(M.Admin<=4) M<<"[usr] is editing the rules..."
+			for(var/mob/M in admins) M<<"[usr] is editing the rules..."
 			Rules=input(usr,"Edit!","Edit Rules",Rules) as message
-			for(var/mob/F) if(F.Admin<=4) F<<"[usr] is done editing the rules..."
+			for(var/mob/F in admins) F<<"[usr] is done editing the rules..."
 			Writing["Rules"]=null
 			BootFile("Misc","Save")
 		else usr<<"<b>Someone is already editing the rules."

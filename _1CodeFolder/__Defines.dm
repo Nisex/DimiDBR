@@ -38,6 +38,23 @@ proc/log_func(x, a, b)
 #define TILE_HEIGHT 32
 #define TILE_WIDTH 32
 
+#define subtypesof(M) (typesof(M) - (M))
+
+#define HUMAN /race/human
+#define SAIYAN /race/saiyan
+#define NAMEKIAN /race/namekian
+#define SAIYAN /race/saiyan
+#define DEMON /race/demon
+#define MAJIN /race/majin
+#define MAKYO /race/makyo
+#define DRAGON /race/dragon
+#define ELF /race/high_faoroan
+#define YOKAI /race/yokai
+#define ELDRITCH /race/eldritch
+#define BEASTMAN /race/beastman
+
+var/list/font_rsc=list('fonts/Gotham Book.otf') // forces it into the rsc.
+
 proc
 	stoplag()
 		var/tickstosleep = 1

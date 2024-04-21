@@ -1,3 +1,65 @@
+#define OOZARU_POTENTIAL_TRANS 10
+
+/mob/var/tail_mastery = 1 // per 100 = 1 asc worth of resistance
+/mob/var/oozaru_type = null
+
+/mob/proc/tailResistanceTraining(probability)
+	if(tail_mastery / 100 > clamp(AscensionsAcquired, 1, 5))
+		return // maxed out
+	if(prob(probability))
+		if(prob(1))
+			tail_mastery += rand(2,4)
+		else
+			tail_mastery++
+	if(tail_mastery%100 == 0)
+		src << "You have learned to adjust to attacks towards your tail!"
+		src << "You have reached [tail_mastery/100] ascensions worth of resistance!"
+
+/obj/Skills/Buffs/SlotlessBuffs/Oozaru
+	BuffName = "Great Ape"
+	passives = list("Vulnerable Behind" = 1, "GiantForm" = 1, "NoDodge" = 1, "SweepingStrike" = 1, \
+	"Meaty Paws" = 1)
+	StrMult = 1.3
+	ForMult = 1.2
+	SpdMult = 0.3
+	OffMult = 1.2
+	EndMult = 1.2
+	proc/adjust(mob/p)
+		if(!p.oozaru_type)
+			p.oozaru_type = input(p, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")
+		switch(p.oozaru_type)
+			if("Wrathful")
+				passives["Manic"] = 5 - p.AscensionsAcquired
+				passives["Meaty Paws"] = 2
+				StrMult = 1.4
+				ForMult = 1.3
+				EndMult = 1.4
+				SpdMult = 0.6
+				OffMult = 0.8
+			if("Enlightened")
+				StrMult = 1.2
+				ForMult = 1.2
+				EndMult = 1.2
+				SpdMult = 0.3
+				OffMult = 1.2
+			if("Instinctual")
+				passives["Flow"] = 1
+				passives["Instinct"] = 1
+				StrMult = 1.2
+				ForMult = 1.2
+				EndMult = 1.2
+				SpdMult = 0.4
+				OffMult = 1.4
+		if(p.Potential > OOZARU_POTENTIAL_TRANS)
+			passives["Transformation Power"] = clamp(p.AscensionsAcquired * 2.5, 1, 50-p.Potential)
+
+/*
+/mob/verb/test_Oozaru()
+	set category = "Debug"
+	if(Oozaru == 0)
+		Oozaru(1)
+	else
+		Oozaru(0)*/
 mob/proc/Oozaru(Go_Oozaru=1,var/revert)
 	for(var/obj/Oozaru/O in src)
 		var/image/Body=image(icon='Oozonew.dmi')
@@ -30,7 +92,15 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert)
 			pixel_x=-32
 			pixel_y=-32
 			AppearanceOff()
-			animate(src, transform = matrix(), time = 10)
+			appearance_flags = PIXEL_SCALE
+			animate(src, transform = matrix()*1.5, time = 10)
+			if(!src.oozaru_type)
+				src.oozaru_type = input(src, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")
+			for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src)
+				world.log<<"We found it in the slotless buffs! (oozaru)" // debug message
+				if(B)
+					B.adjust(src)
+					B.Trigger(src)
 			if(src.ssj["unlocked"]>3)
 				src.Golden=1
 				spawn(20)
@@ -50,16 +120,13 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert)
 			src.PoweringUp=0
 			src.PoweringDown=0
 			src.PowerControl=100
-
-			src.NoDodge+=1
-			src.GiantForm+=1
-			src.EndlessAnger+=1
+			passive_handler.Increase("EndlessAnger")
 			src.AuraLocked=1
 			src.AuraLock='BLANK.dmi'
 			src.Anger=2
 
 			if(!src.Golden)
-				src.potential_trans=10//5 bp :3
+				src.potential_trans=OOZARU_POTENTIAL_TRANS//5 bp :3
 			else
 				src.potential_trans=75//still 250
 
@@ -73,12 +140,11 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert)
 		else if(O.icon)
 			if(!src.Golden)
 				src.NoDodge-=1
-				src.EndlessAnger-=1
-				src.GiantForm-=1
+				passive_handler.Decrease("EndlessAnger")
 				src.AuraLocked=0
 				src.AuraLock=null
 				src.Anger=0
-				potential_trans=10
+				potential_trans=0
 				src.Oozaru=0
 
 				animate(src, transform = matrix()*2)
@@ -88,6 +154,9 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert)
 				pixel_y=0
 				AppearanceOn()
 				animate(src, transform = matrix(), time = 10)
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src.SlotlessBuffs)
+					if(B)
+						B.Trigger(src)
 			else
 				src.masteries["4mastery"]=1
 				src.NoDodge-=1

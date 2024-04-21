@@ -10,7 +10,6 @@ obj
 			var
 				NoPierce=0//If this is flagged it will make a technique terminate after hitting something.
 
-				SwordOnly//TODO remove
 				UnarmedOnly
 				StanceNeeded
 				ABuffNeeded
@@ -169,6 +168,13 @@ obj
 				GrabMaster = FALSE
 
 				ForceCost = 0
+
+				PullIn
+
+				GoldScatter
+
+				DefTax
+				OffTax
 //NPC attacks
 			Venom_Sting
 				Area="Target"
@@ -476,7 +482,7 @@ obj
 				NoAttackLock=1
 				Distance=10
 				Instinct=4
-				DamageMult=2
+				DamageMult=1.8
 				Rounds=5
 				DelayTime=30
 				GuardBreak=1
@@ -524,6 +530,26 @@ obj
 				DistanceAround=4
 				Knockback=15
 				DamageMult=3
+				StrOffense=1
+				ForOffense=1
+				GuardBreak=1
+				SpecialAttack=1
+				Crippling=5
+				TurfShift='Gravity.dmi'
+				TurfShiftLayer=MOB_LAYER+1
+				TurfShiftDuration=0
+				TurfShiftDurationSpawn=3
+				TurfShiftDurationDespawn=7
+				Cooldown=4
+				Instinct=1
+			Soul_Blast
+				Area="Around Target"
+				NoLock=1
+				NoAttackLock=1
+				Distance=5
+				DistanceAround=4
+				Knockback=15
+				DamageMult=10
 				StrOffense=1
 				ForOffense=1
 				GuardBreak=1
@@ -794,7 +820,7 @@ obj
 				Knockback=1
 				Slow=1
 				Area="Strike"
-				ActiveMessage="bursts out with tendrils of shadow!!"
+				ActiveMessage="bursts out with tendrils of shadow!"
 				StrOffense=0
 				ForOffense=1
 				DamageMult=0.5
@@ -810,7 +836,7 @@ obj
 				Knockback=1
 				Slow=1
 				Area="Wave"
-				ActiveMessage="bursts out with tendrils of shadow!!"
+				ActiveMessage="bursts out with tendrils of shadow!"
 				StrOffense=0
 				ForOffense=1
 				DamageMult=1.5
@@ -823,6 +849,49 @@ obj
 				HitSparkTurns=1
 				//no verb because is set by throw
 
+			Myriad_Truths
+				Area="Circle"
+				ComboMaster=1
+				Distance=4
+				StrOffense=1
+				DamageMult=5.5
+				Cooldown=120
+				Knockback=20
+				Size=1
+				HitSparkIcon='BLANK.dmi'
+				Bolt = 2
+				Paralyzing=4
+				HitSparkX=0
+				HitSparkY=0
+				Shockwaves=3
+				Shockwave=1
+				EnergyCost=3
+				SpecialAttack=1
+				Earthshaking=15
+				ActiveMessage="reveals the truth of the world!"
+				verb/Myriad_Truths()
+					set category="Skills"
+					usr.Activate(src)
+			Devils_Advocate
+				NoAttackLock=1
+				Area="Wave"
+				Distance=5
+				StrOffense=1
+				Knockback=1
+				HitSparkIcon='BLANK.dmi'
+				Slow=1
+				DamageMult=2
+				NoOverlay=1
+				ObjIcon=1
+				Icon='SekiZou.dmi'
+				IconX=-48
+				IconY=-48
+				Size=1
+				Stunner = 1
+				verb/Devils_Advocate()
+					set name = "Devil's Advocate"
+					set category="Skills"
+					usr.Activate(src)
 ////Lycanthropia
 			Howl
 				Area="Circle"
@@ -855,6 +924,22 @@ obj
 				HitSparkY=0
 				HitSparkTurns=1
 				HitSparkSize=1.2
+			Attractive_Force
+				Area="Circle"
+				Distance=15
+				StrOffense=1
+				DamageMult=0.5
+				Shockwaves=4
+				Shockwave=5
+				PreShockwave=1
+				PostShockwave=0
+				HitSparkIcon='BLANK.dmi'
+				HitSparkX=0
+				HitSparkY=0
+				PullIn = 5
+				Crippling=15
+				ShockIcon='DarkKiai.dmi'
+				ActiveMessage="'s unnatural presence forces the world to pull closer!"
 //No Verbs
 			AirSmash
 				NoAttackLock=1
@@ -902,8 +987,6 @@ obj
 				FlickAttack=1
 				Area="Strike"
 				ComboMaster=1
-				Rush=2
-				ControlledRush=1
 				Distance=1
 				StrOffense=1
 				DamageMult=4
@@ -928,8 +1011,6 @@ obj
 			Force_Palm
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Focus_Punch")
-				LockOut=list("/obj/Skills/AutoHit/Force_Stomp", "/obj/Skills/AutoHit/Phantom_Strike", "/obj/Skills/AutoHit/Dragon_Rush")
 				UnarmedOnly=1
 				FlickAttack=1
 				Area="Arc"
@@ -964,8 +1045,6 @@ obj
 			Force_Stomp
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Focus_Punch")
-				LockOut=list("/obj/Skills/AutoHit/Force_Palm", "/obj/Skills/AutoHit/Phantom_Strike", "/obj/Skills/AutoHit/Dragon_Rush")
 				UnarmedOnly=1
 				Area="Circle"
 				ComboMaster=1
@@ -991,8 +1070,6 @@ obj
 			Phantom_Strike
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Focus_Punch")
-				LockOut=list("/obj/Skills/AutoHit/Force_Stomp", "/obj/Skills/AutoHit/Force_Palm", "/obj/Skills/AutoHit/Dragon_Rush")
 				UnarmedOnly=1
 				Area="Wave"
 				ComboMaster=1
@@ -1016,8 +1093,6 @@ obj
 			Dragon_Rush
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Focus_Punch")
-				LockOut=list("/obj/Skills/AutoHit/Force_Stomp", "/obj/Skills/AutoHit/Phantom_Strike", "/obj/Skills/AutoHit/Force_Palm")
 				UnarmedOnly=1
 				FlickAttack=3
 				Area="Circle"
@@ -1035,7 +1110,7 @@ obj
 				ShockBlend=2
 				ShockDiminish=1.15
 				ShockTime=4
-				Rush=8
+				Rush=3
 				ControlledRush=1
 				HitSparkIcon='Hit Effect.dmi'
 				HitSparkX=-32
@@ -1073,8 +1148,6 @@ obj
 			Sweeping_Kick
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Roundhouse_Kick")
-				LockOut=list("/obj/Skills/AutoHit/Helicopter_Kick", "/obj/Skills/AutoHit/Lightning_Kicks", "/obj/Skills/AutoHit/Flying_Kick")
 				UnarmedOnly=1
 				Area="Circle"
 				Distance=1
@@ -1098,8 +1171,6 @@ obj
 			Helicopter_Kick
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Roundhouse_Kick")
-				LockOut=list("/obj/Skills/AutoHit/Sweeping_Kick", "/obj/Skills/AutoHit/Lightning_Kicks", "/obj/Skills/AutoHit/Flying_Kick")
 				UnarmedOnly=1
 				Area="Circle"
 				StrOffense=1
@@ -1121,8 +1192,6 @@ obj
 			Lightning_Kicks
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Roundhouse_Kick")
-				LockOut=list("/obj/Skills/AutoHit/Sweeping_Kick", "/obj/Skills/AutoHit/Helicopter_Kick", "/obj/Skills/AutoHit/Flying_Kick")
 				UnarmedOnly=1
 				Area="Arc"
 				StrOffense=1
@@ -1148,8 +1217,6 @@ obj
 			Flying_Kick
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Roundhouse_Kick")
-				LockOut=list("/obj/Skills/AutoHit/Sweeping_Kick", "/obj/Skills/AutoHit/Lightning_Kicks", "/obj/Skills/AutoHit/Helicopter_Kick")
 				UnarmedOnly=1
 				Area="Arc"
 				Distance=2
@@ -1195,8 +1262,6 @@ obj
 			Spinning_Clothesline
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Clothesline")
-				LockOut=list("/obj/Skills/AutoHit/Bullrush", "/obj/Skills/AutoHit/Hyper_Crash", "/obj/Skills/AutoHit/Dropkick_Surprise")
 				UnarmedOnly=1
 				Area="Circle"
 				ComboMaster=1
@@ -1218,8 +1283,6 @@ obj
 			Bullrush
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Clothesline")
-				LockOut=list("/obj/Skills/AutoHit/Spinning_Clothesline", "/obj/Skills/AutoHit/Hyper_Crash", "/obj/Skills/AutoHit/Dropkick_Surprise")
 				UnarmedOnly=1
 				Area="Circle"
 				StrOffense=1
@@ -1244,8 +1307,6 @@ obj
 			Hyper_Crash
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Clothesline")
-				LockOut=list("/obj/Skills/AutoHit/Bullrush", "/obj/Skills/AutoHit/Spinning_Clothesline", "/obj/Skills/AutoHit/Dropkick_Surprise")
 				Area="Wide Wave"
 				StrOffense=1
 				Distance=10
@@ -1266,8 +1327,6 @@ obj
 			Dropkick_Surprise
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Clothesline")
-				LockOut=list("/obj/Skills/AutoHit/Bullrush", "/obj/Skills/AutoHit/Spinning_Clothesline", "/obj/Skills/AutoHit/Hyper_Crash")
 				Area="Target"
 				StrOffense=1
 				Distance=5
@@ -1436,7 +1495,7 @@ obj
 				DamageMult=8
 				ComboMaster=1
 				ControlledRush=1
-				Rush=15
+				Rush=7
 				Instinct=2
 				Knockback=15
 				Cooldown=180
@@ -1516,8 +1575,6 @@ obj
 			Breaker_Wave
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Destruction_Wave")
-				LockOut=list("/obj/Skills/AutoHit/Blazing_Storm", "/obj/Skills/AutoHit/Ghost_Wave", "/obj/Skills/AutoHit/Power_Pillar")
 				EnergyCost=10
 				Area="Wide Wave"
 				FlickAttack=1
@@ -1544,8 +1601,6 @@ obj
 			Blazing_Storm
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Destruction_Wave")
-				LockOut=list("/obj/Skills/AutoHit/Breaker_Wave", "/obj/Skills/AutoHit/Ghost_Wave", "/obj/Skills/AutoHit/Power_Pillar")
 				StrOffense=0
 				ForOffense=1
 				DamageMult=10
@@ -1575,8 +1630,6 @@ obj
 			Ghost_Wave
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Destruction_Wave")
-				LockOut=list("/obj/Skills/AutoHit/Blazing_Storm", "/obj/Skills/AutoHit/Breaker_Wave", "/obj/Skills/AutoHit/Power_Pillar")
 				EnergyCost=10
 				Area="Wave"
 				FlickAttack=1
@@ -1604,8 +1657,6 @@ obj
 			Power_Pillar
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Destruction_Wave")
-				LockOut=list("/obj/Skills/AutoHit/Blazing_Storm", "/obj/Skills/AutoHit/Breaker_Wave", "/obj/Skills/AutoHit/Ghost_Wave")
 				EnergyCost=10
 				Area="Circle"
 				FlickAttack=1
@@ -1663,7 +1714,7 @@ obj
 				ShockDiminish=1.15
 				ShockTime=4
 				GuardBreak=1
-				Rush=7
+				Rush=3
 				ControlledRush=1
 				HitSparkIcon='Slash - Future.dmi'
 				HitSparkX=-32
@@ -2594,18 +2645,45 @@ obj
 				Ultima
 					SignatureTechnique=4
 					Destructive=1
+
+
+/// MAGIC AUTO HIT SIGS T1
+				Burning_Circle
+
+					Area="Around Target"
+					SignatureTechnique=1
+					ForOffense=1
+					Distance = 10
+					HitSparkIcon='Hit Effect Pearl.dmi'
+					HitSparkX=-32
+					HitSparkY=-32
+					IconX=-120
+					IconY=-80
+					HitSparkTurns=1
+					HitSparkSize=5
+					HitSparkCount=10
+					HitSparkDispersion=1
+					Cooldown=60
+					DistanceAround=3
+					Rounds=20
+					TurfErupt=1.25
+					TurfEruptOffset=6
+					DelayTime=1
+					Stunner=3
+					Icon='Demon Gate.dmi'
+					Size=1
+					Falling=1//animates towards pixel_z=0 while it is displayed
+					ActiveMessage="casts upon their burning passion to emplace a circle of hell around their foe!"
+					HitSparkIcon='BLANK.dmi'
+					HitSparkX=0
+					HitSparkY=0
+					Cooldown=120
+					verb/Burning_Circle()
+						set category="Skills"
+						usr.Activate(src)
+
 ////SWORD
 //T1 has damage mult 1.5 - 2.5
-
-			//todo: remove
-			SwordPressure//dedname
-			ArcSlash//dedname
-			RendingChop//dedname
-			HackNSlash//dedname
-			SweepingBlade//dedname
-			SweepingRush//dedname
-			SpiralBlade//dedname
-			ArkBrave//dedname
 
 			Tipper
 				SkillCost=40
@@ -2628,8 +2706,6 @@ obj
 			Sword_Pressure
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Tipper")
-				LockOut=list("/obj/Skills/AutoHit/Overhead_Divide", "/obj/Skills/AutoHit/Light_Step", "/obj/Skills/AutoHit/Stinger")
 				NeedsSword=1
 				Area="Wave"
 				Distance=10
@@ -2653,8 +2729,6 @@ obj
 			Stinger
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Tipper")
-				LockOut=list("/obj/Skills/AutoHit/Sword_Pressure", "/obj/Skills/AutoHit/Light_Step", "/obj/Skills/AutoHit/Overhead_Divide")
 				NeedsSword=1
 				Area="Target"
 				Distance=3
@@ -2671,8 +2745,6 @@ obj
 			Light_Step
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Tipper")
-				LockOut=list("/obj/Skills/AutoHit/Sword_Pressure", "/obj/Skills/AutoHit/Overhead_Divide", "/obj/Skills/AutoHit/Stinger")
 				NeedsSword=1
 				Area="Wave"
 				Distance=5
@@ -2703,11 +2775,7 @@ obj
 			Overhead_Divide
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Tipper")
-				LockOut=list("/obj/Skills/AutoHit/Sword_Pressure", "/obj/Skills/AutoHit/Light_Step", "/obj/Skills/AutoHit/Stinger")
 				NeedsSword=1
-				Rush=5
-				ControlledRush=1
 				Area="Wave"
 				ComboMaster=1
 				Distance=3
@@ -2740,8 +2808,6 @@ obj
 				DamageMult=2.2
 				Cooldown=30
 				EnergyCost=1
-				Rush=3
-				ControlledRush=1
 				Icon='roundhouse.dmi'
 				IconX=-16
 				IconY=-16
@@ -2761,13 +2827,9 @@ obj
 			Vacuum_Render
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Arc_Slash")
-				LockOut=list("/obj/Skills/AutoHit/Hack_n_Slash", "/obj/Skills/AutoHit/Hamstring", "/obj/Skills/AutoHit/Cross_Slash")
 				NeedsSword=1
 				Area="Arc"
 				StrOffense=1
-				Rush=1
-				ControlledRush=1
 				DamageMult=2.8
 				Shearing=5
 				Cooldown=30
@@ -2794,12 +2856,8 @@ obj
 			Hack_n_Slash
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Arc_Slash")
-				LockOut=list("/obj/Skills/AutoHit/Vacuum_Render", "/obj/Skills/AutoHit/Hamstring", "/obj/Skills/AutoHit/Cross_Slash")
 				NeedsSword=1
 				Area="Arc"
-				Rush=1
-				ControlledRush=1
 				Distance=2
 				StrOffense=1
 				DamageMult=0.35
@@ -2829,11 +2887,7 @@ obj
 			Hamstring
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Arc_Slash")
-				LockOut=list("/obj/Skills/AutoHit/Vacuum_Render", "/obj/Skills/AutoHit/Hack_n_Slash", "/obj/Skills/AutoHit/Cross_Slash")
 				NeedsSword=1
-				Rush=3
-				ControlledRush=1
 				Area="Arc"
 				NoLock=1
 				NoAttackLock=1
@@ -2863,12 +2917,8 @@ obj
 			Cross_Slash
 				SkillCost=40
 				Copyable=2
-				PreRequisite=list("/obj/Skills/AutoHit/Arc_Slash")
-				LockOut=list("/obj/Skills/AutoHit/Vacuum_Render", "/obj/Skills/AutoHit/Hack_n_Slash", "/obj/Skills/AutoHit/Hamstring")
 				NeedsSword=1
 				Area="Circle"
-				Rush=5
-				ControlledRush=1
 				Distance=1
 				StrOffense=1
 				DamageMult=3
@@ -2897,8 +2947,6 @@ obj
 				StrOffense=1
 				DamageMult=4.8
 				Cooldown=60
-				Rush=3
-				ControlledRush=1
 				Knockback=3
 				Size=1
 				Icon='CircleWind.dmi'
@@ -2912,8 +2960,6 @@ obj
 			Drill_Spin
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Hero_Spin")
-				LockOut=list("/obj/Skills/AutoHit/Rising_Spire", "/obj/Skills/AutoHit/Ark_Brave", "/obj/Skills/AutoHit/Judgment")
 				NeedsSword=1
 				Area="Circle"
 				ComboMaster=1
@@ -2949,12 +2995,8 @@ obj
 			Rising_Spire
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Hero_Spin")
-				LockOut=list("/obj/Skills/AutoHit/Drill_Spin", "/obj/Skills/AutoHit/Ark_Brave", "/obj/Skills/AutoHit/Judgment")
 				NeedsSword=1
 				Area="Circle"
-				ControlledRush=1
-				Rush=3
 				StrOffense=1
 				DamageMult=1.8
 				Cooldown=60
@@ -2982,8 +3024,6 @@ obj
 			Ark_Brave
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Hero_Spin")
-				LockOut=list("/obj/Skills/AutoHit/Rising_Spire", "/obj/Skills/AutoHit/Drill_Spin", "/obj/Skills/AutoHit/Judgment")
 				NeedsSword=1
 				Area="Circle"
 				StrOffense=1
@@ -3019,8 +3059,6 @@ obj
 			Judgment
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/AutoHit/Hero_Spin")
-				LockOut=list("/obj/Skills/AutoHit/Rising_Spire", "/obj/Skills/AutoHit/Ark_Brave", "/obj/Skills/AutoHit/Drill_Spin")
 				NeedsSword=1
 				Area="Circle"
 				StrOffense=1
@@ -3083,8 +3121,6 @@ obj
 			Jet_Slice
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Flash_Cut")
-				LockOut=list("/obj/Skills/AutoHit/Crowd_Cutter", "/obj/Skills/AutoHit/Holy_Justice", "/obj/Skills/AutoHit/Doom_of_Damocles")
 				NeedsSword=1
 				Area="Target"
 				GuardBreak=1
@@ -3105,8 +3141,6 @@ obj
 			Crowd_Cutter
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Flash_Cut")
-				LockOut=list("/obj/Skills/AutoHit/Jet_Slice", "/obj/Skills/AutoHit/Holy_Justice", "/obj/Skills/AutoHit/Doom_of_Damocles")
 				NeedsSword=1
 				Area="Wide Wave"
 				StrOffense=1
@@ -3137,8 +3171,6 @@ obj
 			Holy_Justice
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Flash_Cut")
-				LockOut=list("/obj/Skills/AutoHit/Jet_Slice", "/obj/Skills/AutoHit/Crowd_Cutter", "/obj/Skills/AutoHit/Doom_of_Damocles")
 				NeedsSword=1
 				Area="Around Target"
 				StrOffense=0.5
@@ -3169,8 +3201,6 @@ obj
 			Doom_of_Damocles
 				SkillCost=160
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Flash_Cut")
-				LockOut=list("/obj/Skills/AutoHit/Jet_Slice", "/obj/Skills/AutoHit/Holy_Justice", "/obj/Skills/AutoHit/Crowd_Cutter")
 				NeedsSword=1
 				Area="Around Target"
 				StrOffense=1
@@ -3408,7 +3438,7 @@ obj
 				verb/Pegasus_Ryusei_Ken()
 					set category="Skills"
 					usr.Activate(src)
-			Unicorn_Meteor_Fist//t5
+			Unicorn_Gallop//t5
 				CosmoPowered=1
 				FlickAttack=1
 				Area="Wave"
@@ -3427,7 +3457,7 @@ obj
 				WindUp=1
 				WindupIcon=1
 				WindupMessage="extends their arms and draws out the Unicorn constellation..."
-				ActiveMessage="unleashes the god-defying barrage of the Unicorn!"
+				ActiveMessage="unleashes the god-defying barrage of the Unicorn with their legs!"
 				HitSparkIcon='Hit Effect Pegasus.dmi'
 				HitSparkX=-32
 				HitSparkY=-32
@@ -3527,8 +3557,8 @@ obj
 				HitSparkCount=1
 				HitSparkDelay=1
 				HitSparkDispersion=16
-				WindupMessage="prepares to usage their MIGHTY UNICORN HORN!."
-				ActiveMessage="launches forwards to lock their opps to a Horny Strike!"
+				WindupMessage="'s horn blazes with Cosmos!"
+				ActiveMessage="launches forwards to impale their opponents upon their horn!"
 				verb/Mighty_Horn()
 					set name="Mighty Unicorn Horn"
 					set category="Skills"
@@ -3920,6 +3950,8 @@ obj
 				Distance=10
 				AllOutAttack=1
 				DelayTime=0
+				OffTax = 5
+				DefTax = 5
 				GuardBreak=1
 				Stunner=6
 				Shattering = 50
@@ -3938,6 +3970,8 @@ obj
 				Scorching=1
 				Toxic=1
 				Area="Around Target"
+				OffTax = 3
+				DefTax = 3
 				CanBeBlocked=0
 				CanBeDodged=0
 				Distance=7
@@ -3977,6 +4011,8 @@ obj
 				Scorching=5
 				Toxic=5
 				Area="Around Target"
+				OffTax = 6
+				DefTax = 6
 				CanBeBlocked=0
 				CanBeDodged=1
 				Distance=7
@@ -4257,7 +4293,34 @@ obj
 				HitSparkDelay=1
 				Gravity=5
 
-
+			Life_Fiber_Weave
+				NeedsSword=1
+				Area="Arc"
+				Distance=3
+				StrOffense=1
+				DamageMult=0.8
+				Shearing = 5
+				RoundMovement=0
+				ComboMaster=1
+				Rounds=10
+				Cooldown=60
+				EnergyCost=2
+				Icon='Nest Slash.dmi'
+				IconX=-16
+				IconY=-16
+				Size=1.5
+				HitSparkIcon='SparkleRed.dmi'
+				HitSparkTurns=1
+				HitSparkSize=1.2
+				HitSparkDispersion=1
+				TurfStrike=1
+				EnergyCost=1
+				Instinct=1
+				ActiveMessage="flourishes their blade to cut loose a flood of red fibers!"
+				verb/Life_Fiber_Weave()
+					set name="Life Fiber Weave"
+					set category="Skills"
+					usr.Activate(src)
 ///Weapon Soul
 			Great_Divide
 				NeedsSword=1
@@ -4746,6 +4809,10 @@ mob
 					src.Oxygen-=BreathCost/8
 				if(src.Oxygen<=0)
 					src.Oxygen=0
+			if(Z.OffTax)
+				src.AddOffTax(Z.OffTax)
+			if(Z.DefTax)
+				src.AddDefTax(Z.DefTax)
 			if(!Z.NoLock)
 				src.AutoHitting=1
 			var/turf/TrgLoc
@@ -4775,7 +4842,10 @@ mob
 						if(m.client&&m.client.address==src.client.address)
 							continue
 						if(!locate(Z.type, m))
-							m.AddSkill(new Z.type)
+							var/obj/Skills/copiedSkill = new Z.type
+							m.AddSkill(copiedSkill)
+							copiedSkill.Copied = TRUE
+							copiedSkill.copiedBy = "Sharingan"
 							m << "Your Sharingan analyzes and stores the [Z] technique you've just viewed."
 				spawn()
 					for(var/obj/Items/Tech/Security_Camera/SC in view(10, src))
@@ -5015,7 +5085,6 @@ mob
 						var/travel_angle = GetAngle(src, src.Target)
 						if(length(src.filters) < 1)
 							AppearanceOn()
-							//TODO the error was found here,. i think this fixed it
 
 						animate(src.filters[length(src.filters)], x=sin(travel_angle)*(6/Z.RushDelay), y=cos(travel_angle)*(6/Z.RushDelay), time=Z.RushDelay)
 						step_towards(src,src.Target)
@@ -5408,6 +5477,12 @@ obj
 			buffAffectedCompare = 0
 			buffAffectedBoon = 0
 
+			PullIn
+
+			GoldScatter
+
+			Shearing
+
 		New(var/mob/owner, var/arcing=0, var/wave=0, var/card=0, var/circle=0, var/mob/target, var/obj/Skills/AutoHit/Z, var/turf/TrgLoc)
 			set waitfor = FALSE
 			if(!owner)
@@ -5446,6 +5521,7 @@ obj
 				src.EndRes=Z.EndDefense
 			src.Executor = Z.Executor
 			src.RagingDemonAnimation = Z.RagingDemonAnimation
+			src.GoldScatter = Z.GoldScatter
 			src.Knockback=Z.Knockback
 			src.ChargeTech=Z.ChargeTech
 			src.UnarmedTech=Z.UnarmedOnly
@@ -5454,6 +5530,7 @@ obj
 			src.Deluge=Z.Deluge
 			src.Stunner=Z.Stunner
 			src.Destructive=Z.Destructive
+			src.Shearing = Z.Shearing
 			src.Bang=Z.Bang
 			src.Bolt=Z.Bolt
 			src.BoltOffset=Z.BoltOffset
@@ -5500,6 +5577,7 @@ obj
 			src.buffAffectedType  = Z.buffAffectedType
 			src.buffAffectedCompare = Z.buffAffectedCompare
 			src.buffAffectedBoon = Z.buffAffectedBoon
+			PullIn = Z.PullIn
 			if(Z.ObjIcon)
 				src.ObjIcon=Z.ObjIcon
 				var/icon/i=Z.Icon
@@ -5599,11 +5677,11 @@ obj
 					dmgRoll = Owner.GetDamageMod(0, mod)
 					Owner.log2text("dmg roll - Auto Hit", "After GiantForm", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 					Owner.log2text("dmg roll - Auto Hit", dmgRoll, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
-				var/def = m.getEndStat(glob.END_EFFECTIVENESS) * EndRes
+				var/def = m.getEndStat(1) * EndRes
 				if(def<0)
 					def=0.1
 				if(m.HasPridefulRage())
-					if(m.Race == "Saiyan")
+					if(m.isRace(SAIYAN))
 						if(Owner.passive_handler.Get("PridefulRage") >= 2)
 							def = 1
 						else
@@ -5648,6 +5726,23 @@ obj
 					Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				if(itemMods[2])
 					Precision *= itemMods[2]
+
+				if(GoldScatter||Owner.CheckSlotless("Hoarders Riches"))
+					for(var/obj/Money/money in m.contents)
+						if(money.Level>0)
+							var/newX = m.x + rand(-3, 3)
+							var/newY = m.y + rand(-3, 3)
+							for(var/i = 0, i < 10; i++)
+								var/turf/t = locate(newX,newY,m.z)
+								if(t.density)
+									if(i == 9) break
+									newX = m.x + rand(-3, 3)
+									newY = m.y + rand(-3, 3)
+									continue
+								else
+									break
+							new/obj/gold(m, src.Owner, newX, newY, m.z)
+					m << "You feel a need to go collect your coins before they're stolen!"
 
 				if(src.SpeedStrike>0)
 					FinalDmg *= clamp(1,sqrt(1+((Owner.GetSpd())*(src.SpeedStrike/10))),3)
@@ -5695,11 +5790,10 @@ obj
 								FinalDmg/=2
 
 				if(m in src.Owner.party)
-					FinalDmg *= PARTY_DAMAGE_NERF
+					FinalDmg *= glob.PARTY_DAMAGE_NERF
 
 				if(!src.CanBeBlocked&&!src.CanBeDodged)
-					FinalDmg *= AUTOHIT_GLOBAL_DAMAGE
-					//TODO adjustments for auto hit damage
+					FinalDmg *= glob.AUTOHIT_GLOBAL_DAMAGE
 				else
 					FinalDmg*=1.5
 
@@ -5848,6 +5942,9 @@ obj
 						if(m!=src.Owner.Grab)
 							src.Owner.Knockback(src.Knockback, m, Direction=get_dir(src.Owner, m))
 
+				if(PullIn)
+					src.Owner.Knockback(PullIn, m, Direction=get_dir(m, Owner))
+
 				if(src.Stunner)
 					Stun(m, src.Stunner+src.Owner.GetStunningStrike())
 					if(src.Stunner>5)
@@ -5859,6 +5956,9 @@ obj
 					m.Blind(src.Flash*10)
 					m.RemoveTarget()
 					m.Grab_Release()
+
+				if(Shearing)
+					m.AddShearing(Shearing,src.Owner)
 
 				if(src.Stasis)
 					m.SetStasis(src.Stasis)

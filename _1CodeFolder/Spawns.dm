@@ -25,14 +25,14 @@ mob
 			var/list/obj/Special/Spawn/Choices=list()
 			var/SpawnFound=0
 			for(var/obj/Special/Spawn/S in global.Spawns)
-				if(src.Race in S.DefaultRaces)
+				if(src.race.type in S.DefaultRaces)
 					SpawnFound=1
 					Choices.Add(S)
 				if(src.ckey in S.SpecialPermissions)
 					SpawnFound=1
 					Choices.Add(S)
 			if(!SpawnFound)
-				src << "There are no spawns found for [src.Race] characters! Contact the admin team."
+				src << "There are no spawns found for [src.race.name] characters! Contact the admin team."
 				return
 
 			var/Confirm
@@ -122,7 +122,7 @@ mob
 	Admin3
 		verb/Spawn_Race_Add(var/obj/Special/Spawn/s in global.Spawns)
 			set category="Admin"
-			var/newrace=input(src, "What race do you want to add to [s]'s spawns?", "Spawn Race Add") as text|null
+			var/newrace=input(src, "What race do you want to add to [s]'s spawns?", "Spawn Race Add") in races
 			if(newrace)
 				s.DefaultRaces.Add(newrace)
 				Log("Admin", "[ExtractInfo(src)] added [newrace] to [s]'s default race spawns.")
@@ -216,8 +216,10 @@ mob
 				NewS.ImaginationChange=gC
 
 				var/Enter
+				var/list/raceList = races
+				raceList += "Cancel"
 				while(Enter!="Done")
-					Enter=input(src, "Enter the name of a race that will be able to select this spawn. You may add additional races after entering. Enter 'Done' to stop entering races.", "New Spawn") as text
+					Enter=input(src, "Enter the race that will be able to select this spawn. You may add additional races after entering. Enter Cancel to stop entering races.", "New Spawn") in raceList
 					if(Enter!="Done")
 						NewS.DefaultRaces.Add(Enter)
 						src << "Added [Enter] to default races for [NewS]."

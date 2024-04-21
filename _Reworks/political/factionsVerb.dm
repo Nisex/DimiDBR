@@ -23,7 +23,7 @@
 
 /mob/Admin3/verb/GiveRegisterVerb()
     set name = "Give Register Verb"
-    
+
     for(var/mob/p in players)
         if(p.information.faction == "Solo")
             players -= p
@@ -35,7 +35,7 @@
 
 /mob/Admin3/verb/AssignJob()
     set name = "Assign Job"
-    
+
     var/mob/p = input(src, "Pick a player", "Player") in players
     var/choice = input(src, "Pick a job", "Job") in JOBS
     p.information.setJob(choice)
@@ -109,13 +109,13 @@
     for(var/x in total)
         if(total[x]>0)
             src<<"[x]: [total[x]]"
-/datum/characterInformation
+characterInformation
 
 
 
 //TODO: somebody else can do examine
 
-/datum/characterInformation/proc/getInformation(mob/p, pronouns)
+characterInformation/proc/getInformation(mob/p, pronouns)
     var/msg = ""
     if(rankingNumber == "ERROR")
         rankingNumber = num2text(rand(1000,9001))

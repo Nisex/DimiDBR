@@ -8,7 +8,7 @@
         if("Unhinged")
             return option == "Damage" ? FULL_RATE : 0
 /mob/proc/getMajinRates(option)
-    if(!Race=="Majin")
+    if(!isRace(MAJIN))
         return 1
     var/class = Class
     var/redRate = MClass2Rate("Reduction", class)
@@ -26,4 +26,3 @@
     //total ascensions = 5, 1.2 + 0.2 * 5 = 2.2 aka 220% faster
     return base
 
-        

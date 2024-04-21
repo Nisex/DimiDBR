@@ -50,7 +50,7 @@
 
 
     verb/SetUnsheatheIcon()
-        var/icon/newIcon = input(usr, "Set unsheathe icon", "Set unsheathe icon for this sword.") as icon
+        var/icon/newIcon = input(usr, "Set unsheathe icon", "Set unsheathe icon for this sword.") as icon|null
         if(newIcon)
             unsheatheIcon = newIcon
             usr<<"Unsheathe icon set."

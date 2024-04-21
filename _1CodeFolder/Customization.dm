@@ -10,9 +10,6 @@ mob/Players/verb
 	Clothes()
 		set category="Other"
 		usr.Grid("Clothes")
-	Build()
-		set category="Other"
-		usr.Grid("Turfs")
 	Relayer_Hair()
 		set hidden=1//hidden for kkt's ocd
 		usr.Hairz("Add")
@@ -295,12 +292,18 @@ mob/proc/Auraz(var/Z)
 					if("Phoenix")
 						src.underlays+=phoenix
 					if("Unicorn")
-						src.underlays+=unicorn	
+						src.underlays+=unicorn
 		else if(src.Saga=="Spiral")
 			src.underlays+=spiral
 
 		else if(src.BurningShot)
 			src.overlays+=flameaura
+
+		else if(transActive)
+			if(race.transformations[transActive].form_aura)
+				overlays += image(icon=race.transformations[transActive].form_aura, pixel_x = race.transformations[transActive].form_aura_x, pixel_y = race.transformations[transActive].form_aura_y)
+			if(race.transformations[transActive].form_aura_underlay)
+				overlays += image(icon=race.transformations[transActive].form_aura_underlay, pixel_x = race.transformations[transActive].form_aura_underlay_x, pixel_y = race.transformations[transActive].form_aura_underlay_y)
 
 		else if(src.ssj["active"])
 
@@ -339,7 +342,7 @@ mob/proc/Auraz(var/Z)
 						src.overlays+=super2
 
 		else if(src.ssj["god"])
-			if(src.Race=="Saiyan")
+			if(src.isRace(SAIYAN))
 				src.underlays+=godaura
 				src.underlays+=godaura
 				src.overlays+=godglow
@@ -353,9 +356,9 @@ mob/proc/Auraz(var/Z)
 		else if(src.trans["active"])
 
 			if(src.HasMystic())
-				if(src.TransActive()==1)
+				if(src.transActive()==1)
 					src.overlays+=image(icon='AuraMystic.dmi', icon_state="1",pixel_x=-32)
-				if(src.TransActive()>=2)
+				if(src.transActive()>=2)
 					src.overlays+=image(icon='AuraMystic.dmi', icon_state="2",pixel_x=-32)
 
 			else
@@ -363,7 +366,7 @@ mob/proc/Auraz(var/Z)
 					src.underlays+=image('BijuuInitial.dmi',pixel_x=-32, pixel_y=-32)
 					src.underlays+=image('GCAura.dmi',pixel_x=-49, pixel_y=-15)
 				else
-					if(src.TransActive()&&src.TransAuraFound())
+					if(src.transActive()&&src.TransAuraFound())
 						if(src.AuraLockedUnder==1)
 							if(src.trans["active"]==1)
 								src.underlays+=image(icon=src.Form1Aura, pixel_x=src.Form1AuraX, pixel_y=src.Form1AuraY)
@@ -444,6 +447,11 @@ mob/proc/Auraz(var/Z)
 		src.overlays-=image('SpiralAura.dmi',"",pixel_x=-32)
 		src.overlays-=image('AuraMystic.dmi',pixel_x=-32)
 		src.overlays-=image('BlackFlameAura.dmi')
+		if(transActive)
+			if(race.transformations[transActive].form_aura)
+				overlays -= image(icon=race.transformations[transActive].form_aura, pixel_x = race.transformations[transActive].form_aura_x, pixel_y = race.transformations[transActive].form_aura_y)
+			if(race.transformations[transActive].form_aura_underlay)
+				overlays -= image(icon=race.transformations[transActive].form_aura_underlay, pixel_x = race.transformations[transActive].form_aura_underlay_x, pixel_y = race.transformations[transActive].form_aura_underlay_y)
 
 		src.overlays-=image(icon=src.Form1Aura, pixel_x=src.Form1AuraX, pixel_y=src.Form1AuraY)
 		src.overlays-=image(icon=src.Form2Aura, pixel_x=src.Form2AuraX, pixel_y=src.Form2AuraY)
@@ -503,7 +511,6 @@ mob/proc/Hairz(var/Z)
 		src.Hairz("Remove")
 
 		var/icon/HairB=icon(src.Hair_Base)
-		var/icon/HairB4=icon(src.Hair_SSJ4)
 
 		Neko_Ears='Neko Ears.dmi'
 		Neko_Tail='Neko Tail.dmi'
@@ -524,21 +531,21 @@ mob/proc/Hairz(var/Z)
 			src.overlays+=image(icon=src.EyesUI, layer=FLOAT_LAYER-2)
 
 		else if(src.ssj["god"])
-			if(src.Race=="Saiyan")
+			if(src.isRace(SAIYAN))
 				src.overlays+=image(icon=src.EyesSSG, layer=FLOAT_LAYER-2)
 			else if(src.Race=="Half Saiyan")
 				src.overlays+=image(icon=src.EyesSSJ, layer=FLOAT_LAYER-2)
 
-		else if((src.Race=="Saiyan"||src.Race=="Half Saiyan")&&src.ssj["active"]==4)
+		else if((src.isRace(SAIYAN)||src.Race=="Half Saiyan")&&src.ssj["active"]==4)
 			src.overlays+=image(icon=src.EyesSSJ4, layer=FLOAT_LAYER-2)
 
 		else if(!src.HasMystic())
-			if((src.Race=="Saiyan"||src.Race=="Half Saiyan")&&(src.ssj["active"]==1||src.ssj["active"]==2))
+			if((src.isRace(SAIYAN)||src.Race=="Half Saiyan")&&(src.ssj["active"]==1||src.ssj["active"]==2))
 				if(src.HasGodKi())
 					src.overlays+=image(icon=src.EyesSSB, layer=FLOAT_LAYER-2)
 				else
 					src.overlays+=image(icon=src.EyesSSJ, layer=FLOAT_LAYER-2)
-			else if((src.Race=="Saiyan"||src.Race=="Half Saiyan")&&src.ssj["active"]==3)
+			else if((src.isRace(SAIYAN)||src.Race=="Half Saiyan")&&src.ssj["active"]==3)
 				src.overlays+=image(icon=src.EyesSSJ3, layer=FLOAT_LAYER-2)
 
 		if(src.HairLocked==1)
@@ -550,43 +557,15 @@ mob/proc/Hairz(var/Z)
 				if(HairB&&src.Hair_Color)
 					HairB.Blend(src.Hair_Color, ICON_ADD)
 				Hair = image(icon=HairB)
-		else if((src.HasMystic()||src.StyleActive=="Ultra Instinct")&&src.Race!="Human")
+		else if((src.HasMystic()||src.StyleActive=="Ultra Instinct")&&!isRace(HUMAN))
 			if(HairB&&src.Hair_Color)
 				HairB.Blend(src.Hair_Color, ICON_ADD)
 			Hair = image(icon=HairB)
-		else if(src.ssj["active"]==1)
-			if(src.HasGodKi())
-				Hair = image(icon=src.Hair_SSJBlue)
-			else
-				Hair = image(icon=src.Hair_SSJ1)
-		else if(src.ssj["active"]==2)
-			Hair = image(icon=src.Hair_SSJ2)//image(Hair_SSJ2)
-		else if(src.ssj["active"]==3)
-			Hair = image(icon=src.Hair_SSJ3)//image(Hair_SSJ3)
-		else if(src.ssj["active"]==4)
-			if(src.Hair_SSJ4)
-				if(HairB4&&src.Hair_Color)
-					HairB4.Blend(src.Hair_Color, ICON_ADD)
-				Hair = image(icon=HairB4)
-			else
-				if(HairB&&src.Hair_Color)
-					HairB.Blend(src.Hair_Color, ICON_ADD)
-				Hair = image(icon=HairB)
-		else if(src.ssj["god"] && !src.HasMystic())
-			Hair = image(icon=Hair_SSJGod)
-		else if(src.TransActive()>=1/* && src.Race=="Alien"*/)
-			if(src.TransActive()==1)
-				if(src.Form1Hair)
-					Hair = image(icon=src.Form1Hair, pixel_x=Form1HairX, pixel_y=Form1HairY)
-			else if(src.TransActive()==2)
-				if(src.Form2Hair)
-					Hair = image(icon=src.Form2Hair, pixel_x=Form2HairX, pixel_y=Form2HairY)
-			else if(src.TransActive()==3)
-				if(src.Form3Hair)
-					Hair = image(icon=src.Form3Hair, pixel_x=Form3HairX, pixel_y=Form3HairY)
-			else if(src.TransActive()==4)
-				if(src.Form4Hair)
-					Hair = image(icon=src.Form4Hair, pixel_x=Form4HairX, pixel_y=Form4HairY)
+
+		else if(transActive)
+			if(race.transformations[transActive].form_hair)
+				Hair = image(icon=race.transformations[transActive].form_hair, pixel_x = race.transformations[transActive].form_hair_x, pixel_y = race.transformations[transActive].form_hair_y)
+
 		else
 			if(HairB&&src.Hair_Color)
 				HairB.Blend(src.Hair_Color, ICON_ADD)
@@ -648,8 +627,8 @@ mob/proc/Hairz(var/Z)
 				src.overlays-=image(icon=src.Form3TopOverlay, pixel_x=src.Form3TopOverlayX, pixel_y=src.Form3TopOverlayY, layer=FLOAT_LAYER-1)
 			if(src.Form4TopOverlay)
 				src.overlays-=image(icon=src.Form4TopOverlay, pixel_x=src.Form4TopOverlayX, pixel_y=src.Form4TopOverlayY, layer=FLOAT_LAYER-1)
-			if(src.TransActive())
-				switch(src.TransActive())
+			if(src.transActive())
+				switch(src.transActive())
 					if(1)
 						if(src.Form1TopOverlay)
 							src.overlays+=image(icon=src.Form1TopOverlay, pixel_x=src.Form1TopOverlayX, pixel_y=src.Form1TopOverlayY, layer=FLOAT_LAYER-1)
@@ -697,26 +676,19 @@ mob/proc/Hairz(var/Z)
 					src.overlays-=im*/
 
 proc/Add_Customizations()
-	for(var/A in typesof(/obj/Hairs)) if(A!=/obj/Hairs) Hair_List+=new A
+	for(var/A in typesof(/obj/Hairs))
+		if(A!=/obj/Hairs)
+			Hair_List+=new A
 	for(var/A in typesof(/obj/Items/Wearables))
 		var/obj/Items/Wearables/w = new A
-		// we need to turn it from white to black so that when the color is adjusted it works
 		var/icon/newIcon = new(w.icon)
 		newIcon.MapColors(0.2,0.2,0.2, 0.2,0.2,0.2, 0.2,0.2,0.2, 0,0,0)
 		w.icon = newIcon
 		Clothes_List+=w
-//	for(var/A in typesof(/obj/Items/AlignWearable)) if(A!=/obj/Items/AlignWearable) Clothes_List+=new A
+
 	for(var/A in typesof(/obj/Charge_Icons)) if(A!=/obj/Charge_Icons) Charge_List+=new A
 	for(var/A in typesof(/obj/Aura_Icons)) if(A!=/obj/Aura_Icons) Aura_List+=new A
 	for(var/A in typesof(/obj/Blast_Icons)) if(A!=/obj/Blast_Icons) Blast_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Human)) if(A!=/obj/Creation_Icons/Human) Human_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Alien)) if(A!=/obj/Creation_Icons/Alien) Alien_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Demon)) if(A!=/obj/Creation_Icons/Demon) Demon_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Makyo)) if(A!=/obj/Creation_Icons/Makyo) Makyo_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Namekian)) if(A!=/obj/Creation_Icons/Namekian) Namekian_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Changeling)) if(A!=/obj/Creation_Icons/Changeling) Changeling_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Kaio)) if(A!=/obj/Creation_Icons/Kaio) Kaio_List+=new A
-	for(var/A in typesof(/obj/Creation_Icons/Android)) if(A!=/obj/Creation_Icons/Android) Android_List+=new A
 
 var/list/Hair_List=new
 obj/Hairs
@@ -942,10 +914,6 @@ mob/proc
 			for(var/A in Builds)
 				Row++
 				src<<output(A,"GridX:1,[Row]")
-			if(usr.Admin||usr.Mapper)
-				for(var/B in AdminBuilds)
-					Row++
-					src<<output(B,"GridX:1,[Row]")
 
 		if(Z=="Tech")
 			src<<output("High tech, low prices.","SelectedCustomize")
@@ -1384,8 +1352,7 @@ obj/Creation_Icons
 			A.IconClicked=1
 			A.icon=src
 			winshow(A,"Grid1",0)
-			if(A.Race=="Alien"||A.Race=="Monster"||A.Race=="Human"||A.Race=="Saiyan"||A.Race=="Half Saiyan"||A.Race=="Shinjin")
-				A.Grid("Hair")
+			A.Grid("Hair")
 			icon=initial(icon)
 			A.IconClicked=0
 	Click() Creation_Click(usr)

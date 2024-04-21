@@ -10,7 +10,7 @@ mob/Players/verb
 		if(src.party)
 			src << "You are already in a party; you cannot create another one."
 			return
-		var/datum/Party/p=new
+		var/Party/p=new
 		p.create_party(src)
 
 	Party_Target_Cycle()
@@ -170,13 +170,14 @@ mob/Players/verb
 				src<<A.desc
 		else if(ismob(A))
 			usr<<"This is: [A]"
+			/*
 			var/mob/person = A
 			if(client.getPref("seePronouns"))
 				usr<<person.information.getInformation(A, TRUE)
 			else
-				usr<<person.information.getInformation(A, FALSE)
-			if(A:TransActive())
-				usr << browse(A:ReturnProfile(A:TransActive()), "window=[A];size=900x650")
+				usr<<person.information.getInformation(A, FALSE)*/
+			if(A:transActive())
+				usr << browse(A:ReturnProfile(A:transActive()), "window=[A];size=900x650")
 			else if(locate(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form, A.contents))
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/SF in A.contents)
 					if(SF.SlotlessOn)
@@ -191,10 +192,9 @@ mob/Players/verb
 
 	Rename(var/atom/A as mob|obj in view(usr,5))
 		set src=usr.client
-		if(!(world.time > usr.verb_delay)) return
-		usr.verb_delay=world.time+1
-		if(istype(A,/obj/Planets))
-			usr<<"You're not allowed to rename these objects."
+
+		if(A.preventRename)
+			usr << "You cannot rename this."
 			return
 		var/blah=input("") as text
 		if(istype(A,/mob))
@@ -463,7 +463,7 @@ mob/Players/verb
 		usr.verb_delay=world.time+1
 		var/list/Options=list("Cancel")
 		if(istype(A,/mob))
-			if(usr.Race=="Human")
+			if(usr.isRace(HUMAN))
 				if(usr.HellPower)
 					Options.Add("Devil Trigger Base")
 					Options.Add("Devil Trigger Hair")
@@ -490,15 +490,15 @@ mob/Players/verb
 					Options.Add("Sin Devil Trigger Top Overlay")
 					Options.Add("Sin Devil Trigger Profile")
 
-			else if(usr.Race=="Demon")
+			else if(usr.isRace(DEMON))
 				Options.Add("Devil Trigger Base")
 				Options.Add("Devil Trigger Hair")
 				Options.Add("Devil Trigger Overlay")
 				Options.Add("Devil Trigger Top Overlay")
 				Options.Add("Devil Trigger Profile")
-			else if(usr.Race=="Makyo")
+			else if(usr.isRace(MAKYO))
 				Options.Add("Expanded State")
-			else if(usr.Race=="Half Saiyan"||usr.Race=="Saiyan")
+			else if(usr.Race=="Half Saiyan"||usr.isRace(SAIYAN))
 				Options.Add("Super Saiyan Hair")
 				Options.Add("Super Saiyan Profile")
 				Options.Add("Super Saiyan 2 Hair")
@@ -511,14 +511,14 @@ mob/Players/verb
 				Options.Add("Super Saiyan 4 Clothing")
 				Options.Add("Super Saiyan 4 Tail")
 				Options.Add("Super Saiyan 4 Profile")
-				if(usr.Race=="Saiyan")
+				if(usr.isRace(SAIYAN))
 					Options.Add("Super Saiyan God Hair")
 					Options.Add("Super Saiyan God Profile")
 				if(usr.Race=="Half Saiyan")
 					Options.Add("Super Saiyan Rage Hair")
 					Options.Add("Super Saiyan Rage Profile")
 				Options.Add("Ascended Super Saiyan Base")
-			else if(usr.Race=="Namekian")
+			else if(usr.isRace(NAMEKIAN))
 				Options.Add("Super Namekian Base")
 				Options.Add("Super Namekian Overlay")
 				Options.Add("Super Namekian Top Overlay")
@@ -1153,6 +1153,8 @@ mob/Players/verb
 				OMsg(src, "[src] begins posing ominously!")
 			else if(src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus")&&!src.CheckSlotless("Sage Mode"))
 				OMsg(src, "[src] grows completely still!")
+			else if(Secret == "Eldritch"&&!CheckSlotless("True Form"))
+				OMsg(src, "[src]'s body starts unraveling...!")
 			else if(src.Secret=="Haki")
 				if(src.CheckSlotless("Haki Armament"))
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Armament/H in src)
@@ -1297,8 +1299,8 @@ obj/Communication
 		set src=usr.contents
 		if(!(world.time > usr.verb_delay)) return
 		usr.verb_delay=world.time+1
-		var/datum/donator/donator = donationInformation.getDonator(key = usr.key)
-		var/datum/supporter/supporter = donationInformation.getSupporter(key = usr.key)
+		var/donator/donator = donationInformation.getDonator(key = usr.key)
+		var/supporter/supporter = donationInformation.getSupporter(key = usr.key)
 		var/oocOff = OOC_Check(T)
 		if(oocOff == FALSE && (donator.getTier() >= 3))
 			oocOff = TRUE
@@ -1646,12 +1648,30 @@ obj/Communication
 
 		usr.AFKTimer=usr.AFKTimeLimit
 
+	verb/Prayer(T as text)
+		set category="Roleplay"
+		set src=usr.contents
+
+		if(!T) return
+
+		for(var/mob/m in admins)
+			if(!m.PrayerMute)
+				m << "A prayer reaches your eyes from [usr]...<br>[T]"
+
+		if(usr.AFKTimer==0)
+			usr.overlays-=usr.AFKIcon
+
+		usr.AFKTimer=usr.AFKTimeLimit
+
 
 	verb/Emote()
 		set category="Roleplay"
 		set src=usr.contents
-		if(!(world.time > usr.verb_delay)) return
-		usr.verb_delay=world.time+1
+
+		if(usr.rping) return
+
+		usr.rping = TRUE
+
 		if(usr.CheckSlotless("Camouflage"))
 			var/obj/Skills/Buffs/SlotlessBuffs/Camouflage/C = usr.GetSlotless("Camouflage")
 			if(C.Invisible)
@@ -1673,73 +1693,22 @@ obj/Communication
 		em.layer=EFFECTS_LAYER
 		em.pixel_x=0
 		em.pixel_y=0
-		usr.overlays+=em
-		var/T=input("Emotes here!")as message|null
-		if(T==null)
-			usr.overlays-=em
-			return
-		var/regex/test = new(@{""[^"]*""}, "g")
-		if(findtext(T, test))
-			T = test.Replace(T, "<font color=\"[usr.Text_Color]\">$0</font>")
-		var/list/hearers
-		if(usr.in_vessel) hearers = usr.in_vessel.occupant_refs
-		else hearers = hearers(20,usr)
+		usr.emoteBubble = em
+		usr.overlays += usr.emoteBubble
 
-		for(var/mob/E in hearers)
-			E << output("<font color=[usr.Text_Color]>*[usr.name]<font color=[usr.Emote_Color]>[E.Controlz(usr)] [html_decode(T)]</font>*", "output")
-			E << output("<font color=[usr.Text_Color]>*[usr.name]<font color=[usr.Emote_Color]>[E.Controlz(usr)] [html_decode(T)]</font>*", "icchat")
-			if(E.BeingObserved.len>0)
-				for(var/mob/m in E.BeingObserved)
-					m<<output("<b>(OBSERVE)</b><font color=[usr.Text_Color]>*<font color=[usr.Emote_Color]>[usr][E.Controlz(usr)]  [html_decode(T)]</font>*", "icchat")
-					m<<output("<b>(OBSERVE)</b><font color=[usr.Text_Color]>*<font color=[usr.Emote_Color]>[usr][E.Controlz(usr)]  [html_decode(T)]</font>*", "output")
-			if(E==usr)
-				spawn()Log(E.ChatLog(),"<font color=#CC3300>*[usr]([usr.key]) [html_decode(T)]*")
-//				spawn()TempLog(E.ChatLog(),"<font color=#CC3300>*[usr]([usr.key]) [html_decode(T)]*")
-			else
-				Log(E.ChatLog(),"<font color=red>*[usr]([usr.key]) [html_decode(T)]*")
-			for(var/obj/Items/Enchantment/Arcane_Mask/EyeCheck in E)
-				if(EyeCheck.suffix)
-					for(var/mob/Players/OrbCheck in players)
-						for(var/obj/Items/Enchantment/ArcanicOrb/FinalCheck in OrbCheck)
-							if(EyeCheck.LinkTag in FinalCheck.LinkedMasks)
-								if(FinalCheck.Active)
-									OrbCheck << output("[FinalCheck](viewing [E])<font color=[usr.Text_Color]>*[usr.name]<font color=[usr.Emote_Color]> [html_decode(T)]</font>*", "output")
-									OrbCheck << output("[FinalCheck](viewing [E]):<font color=[usr.Text_Color]>*[usr.name]<font color=[usr.Emote_Color]> [html_decode(T)]</font>*", "icchat") //Outputs to the Orb owner the emote.
+		if(fexists("Saved Roleplays/[usr.key].txt"))
+			var/a = file2text("Saved Roleplays/[usr.key].txt")
+			a = replacetext(a, "\\\"", "\"")
+			a = replacetext(a, "\\'", "\'")
 
-		for(var/obj/Items/Tech/Security_Camera/F in view(11,usr))
-			if(F.Active==1)
-				for(var/mob/CC in players)
-					if(CC.InMagitekRestrictedRegion()) continue
-					for(var/obj/Items/Tech/Scouter/CCS in CC)
-						if(F.Frequency==CCS.Frequency)
-							if(CC.Timestamp)
-								CC << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[F.name] transmits:<font color=[usr.Text_Color]>*[usr.name]<font color=[usr.Emote_Color]>[CC.Controlz(usr)] [html_decode(T)]*</font>*", "output")
-								CC << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[F.name] transmits:<font color=[usr.Text_Color]>*[usr.name]<font color=[usr.Emote_Color]>[CC.Controlz(usr)] [html_decode(T)]*", "icchat")
-							else
-								CC << output("<font color=green>[F.name] transmits:<font color=[usr.Text_Color]>*[usr.name]<font color=[usr.Emote_Color]>[CC.Controlz(usr)] [html_decode(T)]*", "output")
-								CC << output("<font color=green>[F.name] transmits:<font color=[usr.Text_Color]>*[usr.name]<font color=[usr.Emote_Color]>[CC.Controlz(usr)] [html_decode(T)]*", "icchat")
 
-				if(F.activeListeners)
-					for(var/obj/Items/Tech/Security_Display/G in world)
-						if(G.Password==F.Password)
-							if(G.Active==1)
-								for(var/mob/H in hearers(G.AudioRange,G))
-									H << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[F.name] transmits:*<font color=[usr.Text_Color]>*[usr.name]<font color=[usr.Emote_Color]> [html_decode(T)]*", "output")
-									H << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[F.name] transmits:*<font color=[usr.Text_Color]>*[usr.name]<font color=[usr.Emote_Color]> [html_decode(T)]*", "icchat")
-									Log(H.ChatLog(),"<font color=red>[F.name] transmits:*[usr]([usr.key]) [html_decode(T)]*")
+			winset(usr, "RPWindow.rpbox","text='[a]'")
+		spawn(5)
+			fdel("Saved Roleplays/[usr.key].txt")
 
-		for(var/obj/Items/Tech/Recon_Drone/FF in view(11,usr))
-			if(FF.who)
-				FF.who << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[FF.name] transmits:*<font color=[usr.Text_Color]>*[usr.name]<font color=[usr.Emote_Color]> [html_decode(T)]*", "output")
-				FF.who << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[FF.name] transmits:*<font color=[usr.Text_Color]>*[usr.name]<font color=[usr.Emote_Color]> [html_decode(T)]*", "icchat")
-
-		usr.Say_Spark()
-		if(usr.AFKTimer==0)
-			usr.overlays-=usr.AFKIcon
-
-		usr.AFKTimer=usr.AFKTimeLimit
-		usr.overlays-=em
-
+		winset(usr, "RPWindow","is-visible=true")
+		winset(usr, "RPWindow.rpbox","focus=true")
+		usr.RPLoop()
 
 mob/proc/OMessage(var/View=10,var/Msg,var/Log)
 	for(var/mob/Players/E in hearers(View,src))

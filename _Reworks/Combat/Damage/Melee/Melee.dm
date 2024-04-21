@@ -199,7 +199,7 @@ var/global/MULTIHIT_NERF = FALSE
 				log2text("powerDif", powerDif, "damageDebugs.txt", "[ckey]/[name]")
 
 				var/atk = getStatDmg2()
-				var/def = enemy.getEndStat(glob.END_EFFECTIVENESS)
+				var/def = enemy.getEndStat(1)
 				if(passive_handler.Get("Brutalize"))
 					def -= (def * clamp(passive_handler.Get("Brutalize")/10, 0.01, 0.5)) // MOVE THIS TO A GET PROC SO IT CAN BE TRACKED
 				var/damageMultiplier = dmgmulti
@@ -282,6 +282,11 @@ var/global/MULTIHIT_NERF = FALSE
 					else
 						knockDistance *= QueuedKBMult()
 					knockDistance = QueuedKBAdd()
+
+					if(AttackQueue.Ooze)
+						for(var/turf/T in SmartBlock(enemy.x-(AttackQueue.Ooze*2),enemy.y-(AttackQueue.Ooze*2),enemy.z, enemy.x+(AttackQueue.Ooze*2), enemy.y +(AttackQueue.Ooze*2)))
+							if(!T.density)
+								new/obj/Ooze(T.loc)
 					log2text("Knockback", "After Queue", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Knockback", knockDistance, "damageDebugs.txt", "[ckey]/[name]")
 
@@ -515,6 +520,10 @@ var/global/MULTIHIT_NERF = FALSE
 									handleElementPassives(enemy)
 									ElementalOffense = PreviousElement
 									removeElementalPassives(AttackQueue)
+								if(AttackQueue.Shearing)
+									enemy.AddShearing(AttackQueue.Shearing,src)
+								if(AttackQueue.Crippling)
+									enemy.AddShearing(AttackQueue.Crippling, src)
 
 								if(AttackQueue.Dunker)
 									if(enemy.Launched)
@@ -610,7 +619,8 @@ var/global/MULTIHIT_NERF = FALSE
 
 							if(UsingAnsatsuken())
 								HealMana(clamp(damage * SagaLevel, 1, 20), 1)
-
+							if(GetAttracting())
+								enemy.AddAttracting(GetAttracting(), src)
 					// 										OTHER DMG START 															//
 							var/otherDmg = (damage+(GetIntimidation()/100)*(1+(2*GetGodKi())))
 
@@ -654,7 +664,7 @@ var/global/MULTIHIT_NERF = FALSE
 							if(!lightAtk)
 								KenShockwave(enemy,icon='KenShockwave.dmi',Size=(src.GetIntimidation()+enemy.GetIntimidation())*0.4,PixelX=((enemy.x-src.x)*(-16)+pick(-12,-8,8,12)),PixelY=((enemy.y-src.y)*(-16)+pick(-12,-8,8,12)), Time=6)
 							if(AttackQueue&&AttackQueue.DrawIn)
-								AddAttracting((AttackQueue.DrawIn*QueuedDamage(enemy)), enemy)
+								enemy.AddAttracting((AttackQueue.DrawIn*QueuedDamage(enemy)), src)
 						else
 							spawn()
 								Dodge(enemy)
@@ -777,5 +787,28 @@ var/global/MULTIHIT_NERF = FALSE
 					src.AddSkill(new/obj/Skills/Projectile/Aether_Arrow)
 				for(var/obj/Skills/Projectile/Aether_Arrow/pc in src)
 					src.UseProjectile(pc)
+				NextAttack+=15
+			else if(EquippedStaff())
+				if(!locate(/obj/Skills/Projectile/Staff_Projectile, src))
+					src.AddSkill(new/obj/Skills/Projectile/Staff_Projectile)
+				for(var/obj/Skills/Projectile/Staff_Projectile/pc in src)
+					switch(st.Class)
+						if("Wand")
+							pc.Blasts = 5
+							pc.DamageMult = 1
+						if("Rod")
+							pc.Blasts = 3
+							pc.DamageMult = 1.5
+						if("Staff")
+							pc.Blasts = 1
+							pc.DamageMult = 2
+					src.UseProjectile(pc)
+				switch(st.Class)
+					if("Wand")
+						NextAttack += 5
+					if("Rod")
+						NextAttack += 10
+					if("Staff")
+						NextAttack += 15
 				NextAttack+=15
 			return

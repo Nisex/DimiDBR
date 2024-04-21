@@ -2,11 +2,15 @@
     var/knockDistance = 0
     if(KBAdd)
         knockDistance += KBAdd
-    
+
     if(Grab==enemy)
         knockDistance += 5
         Grab=null
-    
+
+    if(passive_handler.Get("Meaty Paws") && !HasSword())
+        knockDistance += passive_handler.Get("Meaty Paws") * 0.5
+
+
     if(HasSword())
         if(UsingZornhau())
             switch(EquippedSword().Class)
@@ -29,4 +33,4 @@
                 knockDistance += 0.5
     if(UsingCriticalImpact())
         knockDistance *= 1.25
-    
+

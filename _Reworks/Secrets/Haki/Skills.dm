@@ -9,13 +9,10 @@
     var/extra = secretDatum.currentTier
     if(enemy.Secret == Secret)
         if(extraType == "Haki") // they arent a king
-            if(enemy.Race != "Human")
-                extra -= 1
+            if(enemy.secretDatum.secretVariable["ConquerorsHaki"] == 1)
+                extra -= enemy.secretDatum.currentTier
             else
-                if(enemy.secretDatum.secretVariable["ConquerorsHaki"] == 1)
-                    extra -= enemy.secretDatum.currentTier
-                else
-                    extra -= 2
+                extra -= 2
     switch(thingToCompare)
         if("Potential")
             var/difference = Potential - enemy.Potential
@@ -40,7 +37,7 @@
             else if(difference <= 0.75) // 2x weaker
                 return 1
 
-            
+
 
 
 
@@ -72,9 +69,8 @@
         ActiveMessage = "expunges their willpower, suddenly increasing the pressure in the area!"
         if(ActiveMessage)
             OMsg(usr, "<b><font color='[ActiveColor]'>[usr] [ActiveMessage]</font color></b>")
-        usr<<"Do some effect here"
         //TODO do some effect here
-    
+
     verb/Kings_Haki()
         set category="Skills"
         set name = "Kings Haki"
@@ -159,7 +155,6 @@
 
 
 /obj/Skills/Projectile/Divine_Departure
-    SwordOnly = 1
     EnergyCost = 5
     MultiHit = 5
     EndRate = 1
