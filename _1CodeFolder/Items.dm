@@ -998,20 +998,6 @@ obj/Items/Sword
 							passives = list("SpiritStrike" = 1)
 							check += 1
 
-
-			Scissor_Blade
-				name="Scissor Blade"
-				// icon='scissor_blade.dmi'
-				pixel_x=-16
-				pixel_y=-16
-				passives = list("Shearing" = 0.5)
-				Shearing=0.5
-				iconAlt='Scissor_blade_decap.dmi'
-				iconAltX=-32
-				iconAltY=-32
-				ClassAlt="Heavy"
-				Techniques=list("/obj/Skills/Buffs/SlotlessBuffs/WeaponSystems/Decapitation_Mode")
-
 			WeaponSoul
 				Destructable = 0
 				Saga="Weapon Soul"

@@ -429,22 +429,6 @@ obj/Items/Tech
 					src.Using=0
 					return
 				if(istype(Choice, /obj/Items/Sword)&&!Choice.LegendaryItem)
-					if(Choice.Class=="Medium"||Choice.Class=="Heavy")
-
-						if(src.TotalStack>=10 || Choice.ShatterTier + 1 >= 10)
-							var/Option=alert(usr, "Do you want to consume 10 bonding agents to form [Choice] into a Scissor Blade?", "Life Fiber Bonding", "No", "Yes")
-							if(Option=="Yes")
-								var/obj/Items/Sword/Medium/Legendary/Scissor_Blade/SB=new
-								SB.Element=Choice.Element
-								SB.Ascended=Choice.Ascended
-								OMsg(usr, "[usr] has transformed [Choice] into a scissor blade!")
-								src.TotalStack-=10
-								usr.contents+=SB
-								del Choice
-								src.Using=0
-								if(src.TotalStack<=0)
-									del src
-								return
 					var/Option2=alert(usr, "Do you want to apply a single conversion?", "Fiber Bonding Agent", "No", "Yes")
 					if(Option2=="No")
 						return

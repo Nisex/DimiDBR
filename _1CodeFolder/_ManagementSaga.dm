@@ -308,6 +308,11 @@ mob/Admin3/verb
 					else if(P.KamuiType=="Purity")
 						P.contents+=new/obj/Items/Symbiotic/Kamui/KamuiJunketsu
 						P.SagaThreshold("Spd", 0.4)
+
+					var/obj/Items/Sword/Medium/Scissor_Blade/SB = new()
+					P.AddItem(SB)
+					P << "A sword weaved from fibers finds its way into a case in your care."
+
 					P<<"You are cloaked in unearthly robes... <b>Kamui</b>!"
 					P<<"<i>Let's get naked.</i>"
 
