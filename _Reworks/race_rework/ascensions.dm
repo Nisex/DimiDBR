@@ -924,7 +924,7 @@ ascension
 						speed = 0.5
 						defense = 0.25
 						anger = 1.4
-						passives = list("Hellpower" = 0.5)
+						passives = list("Hellrisen" = 0.5)
 					if("Dragon")
 						force = 0.25
 						if("mob/player/var/counterparted" == 1)
@@ -1032,53 +1032,37 @@ ascension
 	changeling
 		one	
 			unlock_potential	=	ASCENSION_ONE_POTENTIAL
-			strength	=	1
-			endurance	=	1
-			speed	=	1
-			force	=	2
-			offense	=	1
-			defense	=	1
-			anger	=	2
-
+			onAscension(mob/owner)
+				intimidation += 3
+				endurance += 0.25
+				on_ascension_message = "You are now able to enter your true form!"
 		two
 			unlock_potential	=	ASCENSION_TWO_POTENTIAL
-			strength	=	2
-			endurance	=	2
-			speed	=	2
-			force	=	2
-			offense	=	2
-			defense	=	2
-			anger	=	2
+			onAscension(mob/owner)
+			intimidation = 3
+			endurance = 0.25
+			on_ascension_message = "You are now able to use 100% of your true forms power!"
+			skills = list(/obj/Skills/Buffs/SpecialBuffs/OneHundredPercentPower)
 
 		three
 			unlock_potential	=	ASCENSION_THREE_POTENTIAL
-			strength	=	3
-			endurance	=	3
-			speed	=	3
-			force	=	3
-			offense	=	3
-			defense	=	3
-			anger	=	3	
+			onAscension(mob/owner)   /// Come back here later to make this a choice between 5th form and the Mecha Changeling path! pretty neat idea's for it
+				intimidation = 3
+				endurance = 0.25
+			on_ascension_message = "You feel there is yet another power beyond your true form..."
 
 		four
 			unlock_potential	=	ASCENSION_FOUR_POTENTIAL
-			strength	=	4
-			endurance	=	4
-			speed	=	4
-			force	=	4
-			offense	=	4
-			defense	=	4
-			anger	=	4
+			onAscension(mob/owner)	
+				intimidation = 3
+				endurance = 0.25
 
 		five
 			unlock_potential	=	ASCENSION_FIVE_POTENTIAL
-			strength	=	5
-			endurance	=	5
-			speed	=	5
-			force	=	5
-			offense	=	5
-			defense	=	5
-			anger	=	5	
+			onAscension(mob/owner)
+				intimidation = 3
+				endurance = 0.25
+				
 
 	sub_ascension
 		saiyan

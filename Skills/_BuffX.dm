@@ -1919,7 +1919,8 @@ NEW VARIABLES
 		SpecialSlot=1
 //Racial
 		Giant_Form//for Warrior  Nameks instead!
-			NeedsHealth=75
+			NeedsHealth=50
+			TooMuchHealth=75
 			StrMult=1.5
 			EndMult=2
 			DefMult=0.5
@@ -1940,35 +1941,34 @@ NEW VARIABLES
 						r.Cooldown()
 				src.Trigger(usr)
 		Daimou_Form//for Demon Nameks!
-			NeedsHealth=75
+			NeedsHealth=50
+			TooMuchHealth=75
 			StrMult=1.3
 			SpdMult=1.3
 			OffMult=2
 			DefMult=1.3
-			passives = list("Hellrisen" = 1, "Hellpower" = 1, "Flicker" = 1)
+			passives = list("Hellrisen" = 1, "Hellpower" = 0.5, "Flicker" = 1)
 			ActiveMessage="unleashes the herectical power of the Demon clan!"
 			OffMessage="discards the Demon clan's abominal power..."
 			Cooldown=180
 			KenWave=2
 			KenWaveIcon="LightningRed.dmi"		
-		OneHundredPercentPower
-			SignatureTechnique=3
+		OneHundredPercentPower ///splitting this up from FifthForm, asc 2 is this and asc 3 will be fifth form
 			BuffName="One Hundred Percent Power"
 			UnrestrictedBuff=1
 			NeedsTrans=3
-			NeedsHealth=50
 			StrMult=1.5
 			ForMult=1.5
 			AuraLock=1
-			passives = list("Flicker" = 1, "Pursuer" = 1, "AllOutPU" = 1)
-			Flicker=1
+			passives = list("Flicker" = 2, "Pursuer" = 1, "AllOutPU" = 1)
+			Flicker=2
 			Pursuer=1
 			Cooldown=600
 			KKTWave=3
 			KKTWaveSize=2
 			AllOutPU=1
-			ActiveMessage="bulks up greatly and erupts with power!"
-			OffMessage="tires out..."
+			ActiveMessage="erupts with world-shattering power!"
+			OffMessage="releases their awesome power..."
 		FifthForm
 			SignatureTechnique=3
 			BuffName="Fifth Form"

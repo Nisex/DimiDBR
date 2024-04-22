@@ -804,31 +804,31 @@ obj/Skills
 					sleep(150)
 					del(usr)
 
-		mob/Player
-			text = "Sets Counterparts for Namekian Players"
+	mob/Player
+		text = "Sets Counterparts for Namekian Players"
 
-			var/list/counterparts
+		var/list/counterparts
 
-			verb/Set_Counterpart()
-				set src in oview(1, usr)
+		verb/Set_Counterpart()
+			set src in oview(1, usr)
 
-				var/mob/requested = src
-				var/mob/requesting = usr
+			var/mob/requested = src
+			var/mob/requesting = usr
 
-				if( !counterparts )
-					counterparts = list()
-				if( !requested.client )
-					requested << "You can't be counterparts with a npc."
-					return
+			if( !counterparts )
+				counterparts = list()
+			if( !requested.client )
+				requested << "You can't be counterparts with a npc."
+				return
 
-				var/result = input( requested, "Do you want to be [requesting.name] counterpart?", "Counterpart Request" ) in list("Yes", "No")
-				if( result != "Yes" )
-					usr.counterparted = 1
-					src.counterparted = 1
-					return
+			var/result = input( requested, "Do you want to be [requesting.name] counterpart?", "Counterpart Request" ) in list("Yes", "No")
+			if( result != "Yes" )
+				usr.counterparted = 1
+				src.counterparted = 1
+				return
 
-				counterparts += requesting
-				requested << "You are now counterparts with [requesting.name]."
+			counterparts += requesting
+			requested << "You are now counterparts with [requesting.name]."
 
 obj/Turfs/Click(obj/Turfs/T)
 	if(usr.Target && usr.Mapper && usr.client.macros.IsPressed("Ctrl"))

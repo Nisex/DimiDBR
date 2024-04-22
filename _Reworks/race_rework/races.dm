@@ -501,13 +501,13 @@ race
 		desc	=	"A strange and adaptive race from the far reaches of deep space, little is none of these mysterious beings other than they are new to the general galactic population!"
 		visual	=	'Changeling.png'
 
-		strength	=	1.2
-		endurance	=	3
-		force	=	3
-		offense	=	3
-		defense	=	3
-		speed	=	3
-		anger	=	2
-		imagination	=	3
-		intellect	=	2
-		learning	=	3
+		strength	=	1.75
+		endurance	=	1
+		force	=	1.75
+		offense	=	1.5
+		defense	=	1
+		speed	=	1.75
+		anger	=	1
+
+		onFinalization(mob/user)
+			passives=list("Xenobiology" = 1)

@@ -25,6 +25,8 @@ transformation
 		anger
 		unlock_potential
 		intimidation
+		BioArmor
+		BioArmorMax
 
 		form_profile
 
@@ -370,7 +372,7 @@ transformation
 						passives=list("Desperation" = 1)
 					if("Sagacity")
 						force = 0.25
-						speed =0.25
+						speed = 0.25
 						intimidation = 20
 					// the switch statement will handle the return, there is no need for a while, in fact u just shouldn't use them if you are inexperienced.
 				
@@ -427,5 +429,44 @@ transformation
 				form_aura ="FlameGlowZeus.dmi"
 				form_aura_x = -16
 				src << "Congratulations! You have awakend the Godhood state of Namekians; please do something cool with it because Namek's need good PR!! :) " 		
+
+
+	changeling
+		second_form
+			transform(mob/user) ///does the BioArmor stuff work? will need to check
+				PUSpeedModifier=1.5
+				intimidation += 3
+				pot_trans+=1
+				BioArmorMax=25
+				form_base ="Chilled2.dmi"
+				src << "You loosen your restrictions, entering your second form!"
+			
+
+		third_form ///higher we go
+			transform(mob/user)
+				PUSpeedModifier=1.5
+				intimidation += 3
+				pot_trans+=1
+				BioArmorMax=50
+				form_base ="Chilled3.dmi"
+				src << "You shatter your restrictions further, donning your third form..."
+
+		final_form ///intended to probably be their default for most of wipe, or atleast post-ssj scaling
+			transform(mob/user)
+				PUSpeedModifier=1.5
+				intimidation += 3
+				pot_trans+=3
+				BioArmorMax=75
+				form_base ="Chilled4.dmi"	
+				src << "You become your true self; holding back no longer."			
+
+		fifth_form /// at asc 3 they can choose to gain another form, it does more of the same and jug. There is another option coming for asc 3 later that instead is for cyber changelings
+			transform(mob/user)
+				PUSpeedModifier=1.5
+				intimidation += 10
+				passives=list("Juggernaut" = 1)
+				pot_trans+=5
+				BioArmorMax=100
+				src << "You find a form beyond your true self; becoming an monstrous well of power!"
 
 
