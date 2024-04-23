@@ -1,8 +1,5 @@
 /mob/Player/AI/GIGASpiritSummon
-    var/list/voicelines = list("attack" = list(), \
-                        "dash" = list(), \
-                        "reverse_dash" = list(), \
-                        "assist" = list())
+    var/list/voicelines = list("attack" = list(), "dash" = list(), "reverse_dash" = list(), "assist" = list())
     var/glow_filter    
     var/last_decision = "idle"
     var/last_decision_extended = "none"
@@ -42,10 +39,10 @@
         return
     if(Target.KO)
         handleTargetting()
-        if(Target == prev_target)
-            Target = null
-            ai_state = "idle"
-            return
+        // if(Target == prev_target)
+        //     Target = null
+        //     ai_state = "idle"
+        //     return
 
     
 
