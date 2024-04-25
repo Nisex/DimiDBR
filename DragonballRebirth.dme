@@ -4,6 +4,8 @@
 #define FILE_DIR .
 #define FILE_DIR "_Reworks"
 #define FILE_DIR "_Reworks/Building"
+#define FILE_DIR "_Reworks/race_rework"
+#define FILE_DIR "_Reworks/race_rework/race_icons"
 #define FILE_DIR "CreationPics"
 #define FILE_DIR "Icons"
 #define FILE_DIR "Icons/Armor"

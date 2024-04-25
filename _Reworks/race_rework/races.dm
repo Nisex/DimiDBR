@@ -453,3 +453,25 @@ race
 			user.EnhancedHearing = 1
 			for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/r in user)
 				r.RegenerateLimbs=1
+
+
+	gajalaka
+		name="Gajalaka"
+		icon_neuter='Gajalaka.dmi'
+		passives = list("CashCow" = 1, "Blubber" = 0.25)
+		power = 1
+		strength = 0.75
+		endurance = 0.75
+		speed = 0.75
+		offense = 0.75
+		defense = 0.75
+		force = 0.75
+		intellect = 1.5
+		imagination = 1.5
+
+		onFinalization(mob/user)
+			user.EnhancedSmell=1
+			user.EnhancedHearing = 1
+			user.EconomyMult *= 2
+			user.CyberizeMod = 0.5
+			..()
