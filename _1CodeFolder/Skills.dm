@@ -804,31 +804,28 @@ obj/Skills
 					sleep(150)
 					del(usr)
 
-	mob/Player
-		text = "Sets Counterparts for Namekian Players"
-
-		var/list/counterparts
-
-		verb/Set_Counterpart()
-			set src in oview(1, usr)
-
-			var/mob/requested = src
-			var/mob/requesting = usr
-
-			if( !counterparts )
-				counterparts = list()
-			if( !requested.client )
-				requested << "You can't be counterparts with a npc."
-				return
-
-			var/result = input( requested, "Do you want to be [requesting.name] counterpart?", "Counterpart Request" ) in list("Yes", "No")
-			if( result != "Yes" )
-				usr.counterparted = 1
-				src.counterparted = 1
-				return
-
-			counterparts += requesting
-			requested << "You are now counterparts with [requesting.name]."
+mob
+	var/counterpart = null
+/obj/Skills/Counterpart
+	verb/Set_Counterpart()
+		if(usr.counterpart) return
+		var/mob/Player/choice = list()
+		for(var/mob/x in oview(2,usr))
+			if(x.client)
+				var/sameIP = x.client.address == usr.client.address ? TRUE : FALSE
+				if(sameIP && !(x.soIgnore && usr.soIgnore)) return
+				if(x.isRace(NAMEKIAN) && !x.counterpart)
+					choice+=x
+		if(length(choice) < 1) return
+		//sloppy but better than before
+		choice = input(usr, "what person?") in choice // should work
+		if((input(choice, "Do you want to be [usr]'s counterpart?", "Request") in list("Yes", "No")) == "No" )
+			return
+		choice.counterpart = usr.ckey
+		usr.counterpart = choice.ckey
+		choice << "You are now counterparts with [usr]."
+		usr << "[choice] accepted being your counterpart"
+		AdminMessage("([time2text(world.realtime,"hh:mm")])[usr] is now counterparts with [choice] ")
 
 obj/Turfs/Click(obj/Turfs/T)
 	if(usr.Target && usr.Mapper && usr.client.macros.IsPressed("Ctrl"))
