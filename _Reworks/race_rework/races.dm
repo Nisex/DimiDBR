@@ -475,7 +475,8 @@ race
 		imagination = 2
 		intellect = 1.5
 		learning = 1.5
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Regeneration,/obj/Skills/AutoHit/AntennaBeam)
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Queue/Infestation)
+		/* /obj/Skills/AutoHit/AntennaBeam */
 
 		onFinalization(mob/user)
 			..()

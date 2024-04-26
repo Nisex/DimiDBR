@@ -372,6 +372,7 @@
 #include "_Reworks\race_rework\ascensions.dm"
 #include "_Reworks\race_rework\races.dm"
 #include "_Reworks\race_rework\transformations.dm"
+#include "_Reworks\race_rework\Namekian\namekRacials.dm"
 #include "_Reworks\Sagas\_TierUpDefine.dm"
 #include "_Reworks\Sagas\Cloths.dm"
 #include "_Reworks\Sagas\Hero.dm"
