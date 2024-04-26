@@ -47,7 +47,7 @@
         return
     var/choice = input(src, "Pick a faction", "Faction") in FACTIONS
     b.information.setFaction(choice)
-
+/*
 /mob/Admin3/verb/changeNationalities(mob/b in players)
     set name = "Change Nationalities"
     if(!b.client)
@@ -61,7 +61,7 @@
     if(!b.client)
         return
     b.information.setNationality(b)
-
+*/
 /mob/verb/customizePU()
     set name = "Customize: PU Charging"
     set category = "Other"
@@ -148,19 +148,16 @@ characterInformation/proc/getInformation(mob/p, pronouns)
     else
         if(pronouns)
             var/theyString = p.subjectpronoun() == "They" ? "use" : "uses"
-            var/theyString2 = p.subjectpronoun() == "They" ? "are" : "is"
             msg={"
 <font face='courier'><font color='#color'>\[SYSTEM: Loading [p.name]'s information...\]
 \[SYSTEM: <font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font> Character Sheet...\]
 \[SYSTEM: [p.subjectpronoun()] [theyString] [p.subjectpronoun()]/[p.possessivepronoun()] \]
-\[SYSTEM: [p.subjectpronoun()] [theyString2] [p.getNationalityInformation()]\]
 \[SYSTEM: [getInfo()]\]
 \[SYSTEM: Closing Character Sheet...]</font color></font face> "}
         else
             msg={"
 <font face='courier'><font color='#color'>\[SYSTEM: Loading [p.name]'s information...\]
 \[SYSTEM: <font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font> Character Sheet...\]
-\[SYSTEM: [p.subjectpronoun()] is [p.getNationalityInformation()]\]
 \[SYSTEM: [getInfo()]\]
 \[SYSTEM: Closing Character Sheet...]</font color></font face> "}
 

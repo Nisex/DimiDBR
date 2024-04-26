@@ -200,7 +200,7 @@ obj/Skills/Utility
 								M.desc+="Common ([M.EatNutrition])"
 							if(2 to 9999)
 								M.desc+="Delicious ([M.EatNutrition])"
-						usr.GainFatigue(10)
+						usr.GainFatigue(10/Mastery)
 
 					usr.Frozen=2
 					var/preppingtext=replacetext(currentMeal.prepare_text, "usrName", "[usr]")
@@ -407,7 +407,7 @@ obj/Skills/Utility
 						M.EatToxicity=0
 				if(M.EatNutrition<0)
 					M.EatNutrition=0
-				usr.GainFatigue(10)
+				usr.GainFatigue(10/Mastery)
 				usr.AddItem(M)
 				if(M.EatNutrition>2)
 					if(M.name=="Booze")

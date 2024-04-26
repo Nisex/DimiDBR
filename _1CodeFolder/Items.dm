@@ -483,69 +483,63 @@ obj/Items
 				usr << "You must be meditating to eat this."
 			if(!src.EatToxicity)
 				var/eattingtext=replacetext(EatText, "usrName", "[usr]")
-				if(usr.HasMechanized())
-					OMsg(usr, "[usr] doesn't really seem to enjoy the meal...")
-				else
-					OMsg(usr, "[eattingtext]")
-					usr.Satiated+=EatNutrition*1000
-					usr.HealWounds(EatNutrition*2)
-					usr.HealFatigue(EatNutrition*2)
-					if(src.EatNutrition>5)
-						usr.Sheared=0
-						usr.TotalInjury=0
-						usr.TotalFatigue=0
-						usr.TotalCapacity=0
-						usr.HealHealth(100)
-						usr.HealEnergy(100)
-						usr.HealMana(100)
-						usr.StrTax=0
-						usr.EndTax=0
-						usr.SpdTax=0
-						usr.OffTax=0
-						usr.DefTax=0
-						if(usr.GatesNerf)
-							usr.GatesNerf=1
-						if(usr.OverClockTime)
-							usr.OverClockTime=1
-						if(usr.BPPoison<1)
-							usr.BPPoison=1
-							usr.BPPoisonTimer=0
-						if(usr.Maimed)
-							usr.Maimed--
-							usr << "You recover from a maiming!"
-						if(usr.SenseRobbed)
-							if(usr.SenseRobbed>=5)
-								animate(usr.client, color=null, time=1)
-							usr.SenseRobbed=0
-							usr << "You regain lost senses!"
+				OMsg(usr, "[eattingtext]")
+				usr.Satiated+=EatNutrition*1000
+				usr.HealWounds(EatNutrition*2)
+				usr.HealFatigue(EatNutrition*2)
+				if(src.EatNutrition>5)
+					usr.Sheared=0
+					usr.TotalInjury=0
+					usr.TotalFatigue=0
+					usr.TotalCapacity=0
+					usr.HealHealth(100)
+					usr.HealEnergy(100)
+					usr.HealMana(100)
+					usr.StrTax=0
+					usr.EndTax=0
+					usr.SpdTax=0
+					usr.OffTax=0
+					usr.DefTax=0
+					if(usr.GatesNerf)
+						usr.GatesNerf=1
+					if(usr.OverClockTime)
+						usr.OverClockTime=1
+					if(usr.BPPoison<1)
+						usr.BPPoison=1
+						usr.BPPoisonTimer=0
+					if(usr.Maimed)
+						usr.Maimed--
+						usr << "You recover from a maiming!"
+					if(usr.SenseRobbed)
+						if(usr.SenseRobbed>=5)
+							animate(usr.client, color=null, time=1)
+						usr.SenseRobbed=0
+						usr << "You regain lost senses!"
 			else
-				if(usr.HasMechanized())
-					OMsg(usr, "[usr] doesn't really seem to enjoy the drink...")
-				else
-					var/eattingtext=replacetext(EatText, "usrName", "[usr]")
-					OMsg(usr, "[eattingtext]")
-					usr.Satiated+=EatNutrition*1000
-					if(usr.Satiated>=2000 && !usr.Drunk)
-						usr.Drunk=1
-						usr << "You've grown drunk!"
-					if(prob(20*src.EatToxicity))
-						usr << "<font color='red'>You feel dizzy!</font>"
-						Stun(usr, 2*src.EatToxicity)
-					if(prob(20*src.EatToxicity))
-						usr << "<font color='red'>You start to stumble!</font>"
-						usr.AddConfusing(20*src.EatToxicity)
-					if(prob(20*src.EatToxicity))
-						usr << "<font color='red'>Your balance is out of whack!</font>"
-						usr.AddCrippling(20*src.EatToxicity)
-					if(prob(10*src.EatToxicity))
-						usr << "You feel really sick!"
-						usr.AddPoison(4*src.EatToxicity)
-					if(prob(5*src.EatToxicity))
-						usr << "<font color='red'>You feel aggressive!</font>"
-						usr.Anger()
-					else if(prob(5*src.EatToxicity))
-						usr << "<font color='red'>You grow mellow!</font>"
-						usr.AddPacifying(20*src.EatToxicity)
+				var/eattingtext=replacetext(EatText, "usrName", "[usr]")
+				OMsg(usr, "[eattingtext]")
+				usr.Satiated+=EatNutrition*1000
+				if(usr.Satiated>=2000 && !usr.Drunk)
+					usr.Drunk=1
+					usr << "You've grown drunk!"
+				if(prob(20*src.EatToxicity))
+					usr << "<font color='red'>You feel dizzy!</font>"
+					Stun(usr, 2*src.EatToxicity)
+				if(prob(20*src.EatToxicity))
+					usr << "<font color='red'>You start to stumble!</font>"
+					usr.AddConfusing(20*src.EatToxicity)
+				if(prob(20*src.EatToxicity))
+					usr << "<font color='red'>Your balance is out of whack!</font>"
+					usr.AddCrippling(20*src.EatToxicity)
+				if(prob(10*src.EatToxicity))
+					usr << "You feel really sick!"
+					usr.AddPoison(4*src.EatToxicity)
+				if(prob(5*src.EatToxicity))
+					usr << "<font color='red'>You feel aggressive!</font>"
+					usr.Anger()
+				else if(prob(5*src.EatToxicity))
+					usr << "<font color='red'>You grow mellow!</font>"
+					usr.AddPacifying(20*src.EatToxicity)
 			del(src)
 
 

@@ -1059,9 +1059,9 @@ client
 						var/parse = replacetext(s_info.loginMessage, "name", s_info.name)
 						parse = replacetext(parse, "key", s_info.key)
 						world<<parse
-
+/*
 				if(key in VuffaKeys)
-					mob.giveVuffaMoment()
+					mob.giveVuffaMoment()*/
 				switch(mob.Secret)
 					if("Vampire")
 						mob.vampireBlood = new(mob, 6,70)
@@ -1240,14 +1240,14 @@ mob/proc
 				src.RewardsLastGained=glob.progress.DaysOfWipe-1
 				//set these to wipe start so that the login code will give them their rewards and allow them to grind potentialz
 			information.setPronouns(TRUE)
-			information.setNationality(src)
 			killed_AI = list()
 			// information.pickFaction(src)
+/*
 			if(key in VuffaKeys)
 				giveVuffaMoment()
 
 var/list/VuffaKeys = list("Vuffa", "PacifistSnowball")
-
+*/
 mob
 	proc
 		GetPassedEras(var/Age)
