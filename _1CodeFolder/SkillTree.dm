@@ -231,6 +231,7 @@ var/list/SkillTree=list(
 
 )
 
+/*
 mob
 	verb
 		Saga_Invest()
@@ -264,7 +265,7 @@ mob
 
 		Buy_Stances()
 			set hidden=1
-
+*/
 
 obj/SkillTreeObj
 	var/path

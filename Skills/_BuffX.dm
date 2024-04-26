@@ -991,7 +991,7 @@ NEW VARIABLES
 
 			proc/shutOffEffects(mob/p, level)
 				p.GatesActive=0
-				if(level >= p.SagaLevel) return
+				if(level >= p.SagaLevel+2) return
 
 				var/tax = clamp(0.05 * level, 0.05, 1)
 				if(taxReduction)
@@ -1057,7 +1057,7 @@ NEW VARIABLES
 
 			verb/Cultivate()
 				set category = "Skills"
-				if(usr.GatesActive+1 > 8 || usr.GatesActive+1 > usr.SagaLevel)
+				if(usr.GatesActive+1 > 6 || usr.GatesActive+2 > usr.SagaLevel)
 					usr<<"You can't do that!!"
 					return
 				handleGates(usr, TRUE)
@@ -1124,7 +1124,7 @@ NEW VARIABLES
 				src.Trigger(usr)
 			verb/Ascended_Resonant_Weapon()
 				set hidden=1
-				if(usr.SagaLevel<4)return
+				if(usr.SagaLevel<3)return
 				if(!usr.BuffOn(src))
 					var/UsedType
 					if(locate(/obj/Skills/Queue/Holy_Blade, usr))
@@ -1172,7 +1172,7 @@ NEW VARIABLES
 				src.Trigger(usr)
 			verb/Legendary_Weapon()
 				set hidden=1
-				if(usr.SagaLevel<6)return
+				if(usr.SagaLevel<4)return
 				if(!usr.BuffOn(src))
 					src.SwordIcon=null
 					switch(usr.BoundLegend)
@@ -1925,8 +1925,22 @@ NEW VARIABLES
 					if(!r.Using)
 						r.Cooldown()
 				src.Trigger(usr)
-		OneHundredPercentPower
-			SignatureTechnique=3
+
+		Daimou_Form//for Demon Nameks!
+			NeedsHealth=50
+			TooMuchHealth=75
+			StrMult=1.3
+			SpdMult=1.3
+			OffMult=2
+			DefMult=1.3
+			passives = list("Hellrisen" = 1, "Hellpower" = 0.5, "Flicker" = 1)
+			ActiveMessage="unleashes the herectical power of the Demon clan!"
+			OffMessage="discards the Demon clan's abominal power..."
+			Cooldown=180
+			KenWave=2
+			KenWaveIcon="LightningRed.dmi"
+
+		OneHundredPercentPower ///splitting this up from FifthForm, asc 2 is this and asc 3 will be fifth form
 			BuffName="One Hundred Percent Power"
 			UnrestrictedBuff=1
 			NeedsTrans=3
@@ -3291,8 +3305,8 @@ NEW VARIABLES
 							StrMult = 1 + (player.SagaLevel * 0.1)
 							EndMult = 1.1 + (player.SagaLevel * 0.1)
 							DefMult = 1 + (player.SagaLevel * 0.1)
-							passives = list("MovementMastery" =  player.SagaLevel * 1.25, "ArmorAscension" = 1, "Reversal" = player.SagaLevel * 0.1, "CriticalBlock" = player.SagaLevel / 8, "BlockChance" = 5 + (player.SagaLevel * 1.5))
-							CriticalBlock = 1 + (player.SagaLevel / 8)
+							passives = list("MovementMastery" =  player.SagaLevel * 1.25, "ArmorAscension" = 1, "Reversal" = player.SagaLevel * 0.1, "CriticalBlock" = player.SagaLevel / 6, "BlockChance" = 5 + (player.SagaLevel * 1.5))
+							CriticalBlock = 1 + (player.SagaLevel / 6)
 							BlockChance = 5 + (player.SagaLevel * 1.5)
 					verb/Don_Cloth()
 						set category="Skills"
@@ -3317,7 +3331,7 @@ NEW VARIABLES
 							OffMult = 1 + (player.SagaLevel * 0.1)
 							DefMult = 1 + (player.SagaLevel * 0.1)
 							EndMult = 0.9 + (player.SagaLevel * 0.1)
-							passives = list("MovementMastery" =  player.SagaLevel * 1.25, "SpiritStrike" =1,  "ArmorAscension" = 1, "Chilling" = 1 + round(player.SagaLevel / 2,0.5), "VenomImmune" = 2 + (player.SagaLevel / 8), \
+							passives = list("MovementMastery" =  player.SagaLevel * 1.25, "SpiritStrike" =1,  "ArmorAscension" = 1, "Chilling" = 1 + round(player.SagaLevel / 2,0.5), "VenomImmune" = 2 + (player.SagaLevel / 6), \
 							 "WalkThroughHell" = 1)
 					verb/Don_Cloth()
 						set category="Skills"
@@ -3408,7 +3422,7 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						var/newLevel = clamp(player.SagaLevel - 4, 1,4)
+						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
 						passives = list("MovementMastery" = player.SagaLevel * 1.5, "ArmorAscension" = 2, "Desperation" = 1 + (player.SagaLevel * 0.5),\
 						 "Godspeed" = 1+ (player.SagaLevel*0.5) )
 						StrMult = 1.3 + (newLevel * 0.1)
@@ -3430,7 +3444,7 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						var/newLevel = clamp(player.SagaLevel - 4, 1,4)
+						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
 						StrMult = 1.3 + (newLevel * 0.1)
 						EndMult = 1.5 + (newLevel * 0.1)
 						DefMult = 1.3 + (newLevel * 0.1)
@@ -3457,7 +3471,7 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						var/newLevel = clamp(player.SagaLevel - 4, 1,4)
+						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
 						if(!altered)
 							ForMult = 1.5 + (newLevel * 0.1)
 							OffMult = 1.3 + (newLevel * 0.1)
@@ -3484,7 +3498,7 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						var/newLevel = clamp(player.SagaLevel - 4, 1,4)
+						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
 						passives = list("MovementMastery" = player.SagaLevel * 1.5, "ArmorAscension" = 2, "SwordPunching" = 1)
 						EndMult = 1.3 + (newLevel * 0.1)
 						SpdMult = 1.3 + (newLevel * 0.1)
@@ -3509,7 +3523,7 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						var/newLevel = clamp(player.SagaLevel - 4, 1,4)
+						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
 						passives = list("MovementMastery" = player.SagaLevel * 1.75, "ArmorAscension" = 3, "SpiritHand" = (player.SagaLevel*0.5))
 						StrMult = 1.4 + (newLevel * 0.1)
 						ForMult = 1.4 + (newLevel * 0.1)
@@ -3578,7 +3592,7 @@ NEW VARIABLES
 				verb/Toggle_Cape()
 					set category="Roleplay"
 					var/image/im=image(icon='goldsaint_cape.dmi', layer=FLOAT_LAYER-3)
-					if(usr.SagaLevel<7)
+					if(usr.SagaLevel<5)
 						usr << "You're not worthy of a cape yet!"
 						return
 					if(usr.BuffOn(src))
@@ -3606,9 +3620,9 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						ForMult = 1.4 + ((player.SagaLevel-3) * 0.1)
-						EndMult = 1.4 + ((player.SagaLevel-3) * 0.1)
-						DefMult = 1.5 + ((player.SagaLevel-3) * 0.1)
+						ForMult = 1.4 + ((player.SagaLevel-2) * 0.1)
+						EndMult = 1.4 + ((player.SagaLevel-2) * 0.1)
+						DefMult = 1.5 + ((player.SagaLevel-2) * 0.1)
 						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1,"MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.25), "SpiritFlow" = (player.SagaLevel*0.2), "SpiritHand" = (player.SagaLevel*0.25), "TechniqueMastery" = 3 + (player.SagaLevel/2))
 						SpiritFlow = (player.SagaLevel * 0.2)
 						SpiritHand = (player.SagaLevel * 0.25)

@@ -3136,7 +3136,7 @@ obj/Skills/Utility
 			spawn()LightningBolt(usr,2)
 			OMsg(usr, "[usr] summons forth their Zodiac Cloth!")
 			usr.ZodiacCharges--
-			if(usr.SagaLevel<7)
+			if(usr.SagaLevel<5)
 				usr.HealFatigue(30)
 				usr.HealEnergy(30)
 

@@ -887,7 +887,7 @@ obj/Items/Sword
 					unsheatheOffsetY = -32
 					passives = list("Steady" = 1)
 					Steady = 1
-					TierTechniques=list(null, null, null, null, null, list("/obj/Skills/Buffs/SlotlessBuffs/Dadao","/obj/Skills/Buffs/SlotlessBuffs/Huadong") , null, null)
+					TierTechniques=list(null, null, null, null, list("/obj/Skills/Buffs/SlotlessBuffs/Dadao","/obj/Skills/Buffs/SlotlessBuffs/Huadong") , null)
 
 
 
@@ -934,7 +934,7 @@ obj/Items/Sword
 					icon='Masamune.dmi'
 					passives = list("Purity" = 1)
 					Purity=1
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/Utility/Death_Killer", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/Utility/Death_Killer", null)
 
 				Bane_of_Blades//Muramasa
 					name="Bane of Blades"
@@ -943,7 +943,7 @@ obj/Items/Sword
 					pixel_y=-16
 					passives = list("WeaponBreaker" = 1)
 					WeaponBreaker=1
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/AutoHit/Deathbringer", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/AutoHit/Deathbringer", null)
 
 	Medium
 		name="Longsword"
@@ -977,14 +977,14 @@ obj/Items/Sword
 					switch(S)
 						if("Sword")
 							if(check!=0)
-								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)		
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)
 							view(10,src) << "[src]'s weapon transforms in to a Sword!"
 							passives = list("SpiritSword" = 0.5)
 							check += 1
 
 						if("Shield")
 							if(check!=0)
-								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)		
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)
 							view(10,src) << "[src]'s weapon transforms in to a shield!"
 							passives = list("CallousedHands" = 0.5)
 							check += 1
@@ -993,7 +993,7 @@ obj/Items/Sword
 
 						if("Staff")
 							if(check!=0)
-								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)		
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)
 							view(10,src) << "[src]'s weapon transforms in to a Staff!"
 							passives = list("SpiritStrike" = 1)
 							check += 1
@@ -1011,7 +1011,7 @@ obj/Items/Sword
 					pixel_y=-30
 					passives = list("SpiritSword" = 0.75)
 					SpiritSword=0.75
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/Projectile/Beams/Big/Weapon_Soul/Excalibur", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/Projectile/Beams/Big/Weapon_Soul/Excalibur", null)
 
 				Sword_of_Faith//Kusanagi
 					name="Sword of Faith"
@@ -1020,13 +1020,13 @@ obj/Items/Sword
 					pixel_y=-16
 					passives = list("MagicSword" = 1)
 					MagicSword=1
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Totsuka_no_Tsurugi", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Totsuka_no_Tsurugi", null)
 
 				Blade_of_Order//Soul Calibur
 					name="Blade of Order"
 					icon='SoulCalibur.dmi'
 					Element="Silver"
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/AutoHit/Crystal_Tomb", null, null)
+					TierTechniques=list(null, null, null, null,"/obj/Skills/AutoHit/Crystal_Tomb", null)
 
 				Blade_of_Ruin//Dainsleif
 					name="Blade of Ruin"
@@ -1062,7 +1062,7 @@ obj/Items/Sword
 						else
 							hasKilled = FALSE
 							return TRUE
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Fate_of_Blood", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Fate_of_Blood", null)
 
 	Heavy
 		name="Greatsword"
@@ -1109,13 +1109,13 @@ obj/Items/Sword
 					icon='Durendal.dmi'
 					Destructable=0
 					ShatterTier=0
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/AutoHit/Great_Divide", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/AutoHit/Great_Divide", null)
 
 				Blade_of_Chaos//Soul Edge
 					name="Blade of Chaos"
 					icon='SoulEdge.dmi'
 					ExtraClass=1
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Eye_of_Chaos", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Eye_of_Chaos", null)
 
 				Spear_of_War // "Green Dragon Crescent Blade" / Guan Yu
 					pixel_x = -16
@@ -1124,8 +1124,9 @@ obj/Items/Sword
 					icon = 'GreenDragonCrescentBlade_NoTrain.dmi'
 					passives = list("SweepingStrike" = 1)
 					SweepingStrike = 1
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/AutoHit/War_God_Descent", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/AutoHit/War_God_Descent", null)
 
+				Sword_of_the_Moon
 	desc="Weapons alter the effects of melee combat and have their own advantages and disadvantages."
 	New()
 		..()

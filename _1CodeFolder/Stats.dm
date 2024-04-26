@@ -733,7 +733,7 @@ mob/proc/
 				if(src.JaganPowerNerf)
 					Ratio*=src.JaganPowerNerf
 				if(src.BPPoison)
-					if((src.Secret=="Zombie"||src.Doped||(src.SagaLevel>=7&&src.AnsatsukenAscension=="Chikara"))&&src.BPPoison<1)
+					if((src.Secret=="Zombie"||src.Doped||(src.SagaLevel>=5&&src.AnsatsukenAscension=="Chikara"))&&src.BPPoison<1)
 						Ratio*=1
 					else
 						Ratio*=src.BPPoison
@@ -1242,7 +1242,7 @@ mob/proc/Get_Scouter_Reading(mob/B)
 			if(B.JaganPowerNerf)
 				Ratio*=B.JaganPowerNerf
 			if(B.BPPoison)
-				if(B.Secret=="Zombie"||B.Doped||(B.SagaLevel>=7&&B.AnsatsukenAscension=="Chikara"))
+				if(B.Secret=="Zombie"||B.Doped||(B.SagaLevel>=5&&B.AnsatsukenAscension=="Chikara"))
 					Ratio*=1
 				else
 					Ratio*=B.BPPoison

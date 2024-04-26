@@ -671,9 +671,9 @@ mob
 			if(src.Dead)
 				if(src.HasGodKi())
 					return 1
-				if(src.Saga=="Sharingan"&&src.SagaLevel==8)
+				if(src.Saga=="Sharingan"&&src.SagaLevel==6)
 					return 1
-				if(src.Saga=="Cosmo"&&src.SagaLevel>=7)
+				if(src.Saga=="Cosmo"&&src.SagaLevel>=5)
 					return 1
 				if(src.HasSpiritPower()>=1)
 					return 1
@@ -827,7 +827,7 @@ mob
 				if(src.PowerControl>100)
 					Return*=(src.PowerControl/100)
 			if(src.Saga=="Kamui")
-				Return -= (Return / 8) * src.SagaLevel
+				Return -= (Return / 6) * src.SagaLevel
 			if(src.GatesActive && src.GatesActive >=3 && src.GatesActive<8)
 				Return+=(1/src.SagaLevel)
 			if(src.Kaioken)
@@ -1415,7 +1415,7 @@ mob
 		GetTaxThreshold()
 			return passive_handler.Get("TaxThreshold")
 		DemonicPower() //Fake Demon.
-			if(src.Saga=="Ansatsuken"&&src.SagaLevel>=8&&src.AnsatsukenAscension)
+			if(src.Saga=="Ansatsuken"&&src.SagaLevel>=6&&src.AnsatsukenAscension)
 				return 1
 			if(src.isRace(DEMON))
 				return 1
@@ -1444,7 +1444,7 @@ mob
 			var/Extra=0
 			if(src.TarotFate=="Judgment")
 				Extra=1
-			if(CheckSlotless("Satsui no Hado") && SagaLevel>=8)
+			if(CheckSlotless("Satsui no Hado") && SagaLevel>=6)
 				return 1+Extra
 			if(passive_handler.Get("HellPower"))
 				return min(2+Extra, passive_handler.Get("HellPower")+Extra)
@@ -1572,7 +1572,7 @@ mob
 						Total+=(0.25*src.HasSpiritPower()*0.5)//halved rate for god ki saints
 			if(src.SenseUnlocked>6&&(src.SenseUnlocked>src.SenseRobbed))
 				if(src.SenseUnlocked>=7)
-					if(src.SagaLevel<7)
+					if(src.SagaLevel<5)
 						if(src.Health<=25 || src.InjuryAnnounce)
 							Total+=0.25
 					else
@@ -2429,16 +2429,16 @@ mob
 				if(src.StyleActive in list("Strong Fist", "Black Leg", "Lightning Kickboxing"))
 					return 1
 			if(src.Saga=="Ansatsuken" || src.Saga=="Hiten Mitsurugi")
-				if(src.SagaLevel>=6)
+				if(src.SagaLevel>=4)
 					return 1
-			if(src.Saga=="Weapon Soul" && src.SagaLevel>=6 && src.StyleActive in list("Iaido", "Zornhau", "Fencing"))
+			if(src.Saga=="Weapon Soul" && src.SagaLevel>=4 && src.StyleActive in list("Iaido", "Zornhau", "Fencing"))
 				return 1
 			if(src.StyleActive in list("Drunken Fist", "Golden Kirin", "Drunken Fist", "Dire Wolf", "Devil Leg", "Flow Reversal", "Phage", "North Star", "Imperial Devil", "South Star"))
 				return 1
 			return 0
 		UsingMasteredMagicStyle()
 			if(src.Saga=="Keyblade")
-				if(src.SagaLevel>=6)
+				if(src.SagaLevel>=4)
 					return 1
 			if(src.StyleActive in list("Moonlight", "Entropy", "Imperial Devil", "Atomic Karate", "East Star"))
 				return 1
@@ -2539,7 +2539,7 @@ mob
 				return 1
 			if(Saga == "Kamui")
 				return 1
-			if(isRace(DEMON)|| (CheckSlotless("Satsui no Hado") && SagaLevel>=8))
+			if(isRace(DEMON)|| (CheckSlotless("Satsui no Hado") && SagaLevel>=6))
 				return 1
 			if(isRace(HUMAN) && isHalfDemon())
 				return 1
@@ -2573,7 +2573,7 @@ mob
 				return 0
 			if(src.Saga == "Kamui")
 				return 0
-			if(src.isRace(DEMON) || (CheckSlotless("Satsui no Hado") && SagaLevel>=8))
+			if(src.isRace(DEMON) || (CheckSlotless("Satsui no Hado") && SagaLevel>=6))
 				return 0
 			if(src.Saga == "Cosmo" && src.ClothBronze=="Andromeda")
 				return 0
@@ -2621,7 +2621,7 @@ mob
 				return 0
 			if(src.Saga == "Kamui")
 				return 0
-			if(src.isRace(DEMON) || (CheckSlotless("Satsui no Hado") && SagaLevel>=8))
+			if(src.isRace(DEMON) || (CheckSlotless("Satsui no Hado") && SagaLevel>=6))
 				return 0
 			return 1
 		NotUsingBattleMage()
@@ -2707,7 +2707,7 @@ mob
 				return 1
 			return 0
 		UsingMuken()
-			if(src.StyleActive=="Ansatsuken"&&src.AnsatsukenAscension=="Chikara"&&src.SagaLevel==8)
+			if(src.StyleActive=="Ansatsuken"&&src.AnsatsukenAscension=="Chikara"&&src.SagaLevel==6)
 				return 1
 			return 0
 		HasLowWeaponSoul()
@@ -2754,6 +2754,10 @@ mob
 			if(src.WeaponSoulType=="Green Dragon Crescent Blade")
 				return 1
 			return 0
+		WSMoonlight()
+			if(src.WeaponSoulType=="Moonlight Greatsword")
+				return 1
+			return 0
 		GetWeaponSoulType()
 			var/obj/Items/Sword/s=src.EquippedSword()
 			if(!s) return 0
@@ -2777,6 +2781,8 @@ mob
 				return "Ruyi Jingu Bang"
 			if(s.type == /obj/Items/Sword/Heavy/Legendary/WeaponSoul/Spear_of_War)
 				return "Green Dragon Crescent Blade"
+			if(s.type == /obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon)
+				return "Moonlight Greatsword"
 			return 0
 		WSCorrupt()
 			var/obj/Items/Sword/s=src.EquippedSword()
@@ -2798,6 +2804,8 @@ mob
 			if(s.type==/obj/Items/Sword/Medium/Legendary/WeaponSoul/Sword_of_Faith)
 				return 1
 			if(s.type==/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_Hope)
+				return 1
+			if(s.type==/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon)
 				return 1
 			return 0
 		HasSSjVars()

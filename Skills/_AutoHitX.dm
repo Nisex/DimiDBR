@@ -3724,7 +3724,7 @@ obj
 				verb/Demon_Pacifier()
 					set category="Skills"
 					set name="Tenma Kofuku"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.Activate(src)
@@ -3831,7 +3831,7 @@ obj
 				ActiveMessage="unleashes the power of the Legendary Exalibur, parting everything before them!"
 				verb/Sacred_Sword_Excalibur()
 					set category="Skills"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.Activate(src)
@@ -3911,7 +3911,7 @@ obj
 				Cooldown=-1
 				verb/Hell_And_Heaven()
 					set category="Skills"
-					if(usr.SagaLevel>6)
+					if(usr.SagaLevel>5)
 						src.DamageMult=3
 						src.ControlledRush=1
 						WindupMessage="combines the forces of Destruction and Creation with absolute control!"
@@ -4000,7 +4000,7 @@ obj
 					WoundCost = 15 - sagaLevel * 1.25
 				verb/Amaterasu()
 					set category="Skills"
-					if(usr.SagaLevel>=7)
+					if(usr.SagaLevel>=5)
 						WoundCost=0
 						EnergyCost=20
 					usr.Activate(src)
@@ -4041,7 +4041,7 @@ obj
 					WoundCost = 12 - sagaLevel * 1.25
 				verb/Amaterasu()
 					set category="Skills"
-					if(usr.SagaLevel>=7)
+					if(usr.SagaLevel>=5)
 						WoundCost=0
 						EnergyCost=20
 					usr.Activate(src)

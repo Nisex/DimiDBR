@@ -672,7 +672,7 @@ var/global/MULTIHIT_NERF = FALSE
 							spawn()
 								QueuedMissMessage()
 				if(forcewarp)
-					if(src.StyleActive=="Secret Knife" || (UBWPath == "Firm" && SagaLevel >=4))
+					if(src.StyleActive=="Secret Knife" || (UBWPath == "Firm" && SagaLevel >=3))
 						if(!locate(/obj/Skills/Projectile/Secret_Knives, src))
 							src.AddSkill(new/obj/Skills/Projectile/Secret_Knives)
 						for(var/obj/Skills/Projectile/Secret_Knives/sk in src)

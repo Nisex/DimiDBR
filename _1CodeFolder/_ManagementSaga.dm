@@ -88,7 +88,7 @@ mob/Admin3/verb
 		set category="Admin"
 		var/list/SagaList=list("Cancel","Ansatsuken","Cosmo","Spiral","Hero","Eight Gates","Hiten Mitsurugi-Ryuu","Kamui","Keyblade","King of Braves","Sharingan","Weapon Soul", "Unlimited Blade Works","Force")
 		if(P.Saga)
-			if(P.SagaLevel>=8)
+			if(P.SagaLevel>=6)
 				src << "They've already fully mastered the power of their soul."
 				return
 			for(var/obj/Items/Enchantment/Crystal_of_Bilocation/CoD in world)
@@ -98,7 +98,7 @@ mob/Admin3/verb
 							return
 
 			var/list/choices=list("Cancel")
-			var/math=(9-P.SagaLevel)
+			var/math=(7-P.SagaLevel)
 			for(var/x=1, x<math, x++)
 				choices.Add(x)
 
@@ -731,11 +731,10 @@ mob
 	proc
 		saga_up_self()
 			if(!src.SagaAdminPermission)
-				if(src.SagaLevel>=6)
-					src << "How did you manage to get a Saga Level Up past Tier 6 without permission? Report to the coders."
+				if(src.SagaLevel>=4)
 					return
 			else
-				if(src.SagaLevel>=6)
+				if(src.SagaLevel>=4)
 					src << "You've been bestowed an additional tier of your Saga purposefully; enjoy your new powers, this is not a bug!"
 
 			src.SagaLevel++
@@ -755,74 +754,26 @@ mob
 				if("Weapon Soul")
 					if(src.SagaLevel==2)
 						src << "Your knowledge on classic swordplay improves."
-						fuckup2
-						var/list/Skills=list("/obj/Skills/AutoHit/Drill_Spin","/obj/Skills/AutoHit/Rising_Spire","/obj/Skills/AutoHit/Ark_Brave","/obj/Skills/AutoHit/Judgment",\
-"/obj/Skills/Queue/Swallow_Reversal","/obj/Skills/Queue/Larch_Dance","/obj/Skills/Queue/Willow_Dance","/obj/Skills/Queue/Zero_Reversal","/obj/Skills/Queue/Infinity_Trap")
-						var/text=input(src, "What skill do you want to inherit from your Weapon Soul?", "Skill Inheritance") in Skills
-						var/path=text2path(text)
-						var/obj/Skills/s=new path
-						if(locate(s, src))
-							src << "Pick a skill you don't have already."
-							goto fuckup2
-						src << "You inherit [s] from the sea of your soul!"
-						src.AddSkill(s)
 					if(src.SagaLevel==3)
 						var/Choice=alert(src, "Is your swordsmanship guided by Intuition or Experience?", "Weapon Soul", "Intuition", "Experience")
 						if(Choice=="Intuition")
-							passive_handler.Increase("Instinct")
+							passive_handler.Increase("Instinct", 2)
 							passive_handler.Increase("Flow")
-							src.Instinct+=1
-							src.Flow+=1
 						if(Choice=="Experience")
-							passive_handler.Increase("TechniqueMastery", 3)
-							src.TechniqueMastery+=3
+							passive_handler.Increase("TechniqueMastery", 2)
 						src << "You develop the acumen to draw forth greater power from your weapons."
-						fuckup3
-						var/list/Skills=list("/obj/Skills/Grapple/Sword/Eviscerate","/obj/Skills/Queue/Run_Through","/obj/Skills/Grapple/Sword/Hacksaw","/obj/Skills/Grapple/Sword/Form_Ataru")
-						var/text=input(src, "What skill do you want to inherit from your Weapon Soul?", "Skill Inheritance") in Skills
-						var/path=text2path(text)
-						var/obj/Skills/s=new path
-						if(locate(s, src))
-							src << "Pick a skill you don't have already."
-							goto fuckup3
-						src << "You inherit [s] from the sea of your soul!"
-						src.AddSkill(s)
-					if(src.SagaLevel==4)
-						var/Choice=alert(src, "Is your soul one of light or dark?", "Weapon Soul", "Light", "Dark")
-						if(Choice=="Light")
+						var/Choice2=alert(src, "Is your soul one of light or dark?", "Weapon Soul", "Light", "Dark")
+						if(Choice2=="Light")
 							src << "You've learned to infuse your sword with the power of holy light."
 							src.AddSkill(new/obj/Skills/Queue/Holy_Blade)
-						if(Choice=="Dark")
+						if(Choice2=="Dark")
 							src << "You've learned to infuse your sword with overwhelming darkness."
 							src.AddSkill(new/obj/Skills/Queue/Darkness_Blade)
-						fuckup4
-						var/list/Skills=list("/obj/Skills/Projectile/Sword/Backlash_Wave","/obj/Skills/Projectile/Sword/Wind_Scar","/obj/Skills/Projectile/Sword/Air_Carve","/obj/Skills/Projectile/Sword/Phantom_Howl",\
-"/obj/Skills/AutoHit/Crowd_Cutter","/obj/Skills/AutoHit/Jet_Slice","/obj/Skills/AutoHit/Holy_Justice","/obj/Skills/AutoHit/Doom_of_Damocles")
-						var/text=input(src, "What skill do you want to inherit from your Weapon Soul?", "Skill Inheritance") in Skills
-						var/path=text2path(text)
-						var/obj/Skills/s=new path
-						if(locate(s, src))
-							src << "Pick a skill you don't have already."
-							goto fuckup4
-						src << "You inherit [s] from the sea of your soul!"
-						src.AddSkill(s)
-					if(src.SagaLevel==5)
-						/*var/Choice=alert(src, "Does your swordsmanship focus on Power or Skill?", "Weapon Soul", "Power", "Skill")
-						if(Choice=="Power")
-							if(!locate(/obj/Skills/Buffs/SpecialBuffs/Sword/PranaBurst, src))
-								var/obj/Skills/Buffs/SpecialBuffs/Sword/PranaBurst/PB=new
-								if(locate(/obj/Skills/Queue/Darkness_Blade, src))
-									PB.IconLock='DarknessFlameAura.dmi'
-									PB.HitSpark='Slash - Hellfire.dmi'
-								src.AddSkill(PB)
-						if(Choice=="Skill")
-							if(!locate(/obj/Skills/Buffs/SpecialBuffs/Sword/SwordSaint, src))
-								src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Sword/SwordSaint)
-						src << "You develop the acumen to draw forth greater power from your weapons."*/
 						passive_handler.Increase("Flicker")
 						passive_handler.Increase("Godspeed")
 						passive_handler.Increase("Extend")
 						passive_handler.Increase("Duelist")
+					if(SagaLevel == 4)
 						if(!BoundLegend)
 							var/list/openSwords = glob.WeaponSoulNames
 							if(!glob.infWeaponSoul)
@@ -872,16 +823,16 @@ mob
 							if("Dainsleif")
 								if(!locate(/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin, src))
 									new/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin(src)
-					if(src.SagaLevel==6)
+
+							if("Moonlight Greatsword")
+								if(!locate(/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon, src))
+									new/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon(src)
+					if(src.SagaLevel==5)
 						src << "You have gained knowledge sufficient to unleash the secret trump card of legendary weapons!"
-					if(src.SagaLevel==7)
+					if(src.SagaLevel==6)
 						if(!locate(/obj/Skills/Buffs/SpecialBuffs/OverSoul, src))
 							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/OverSoul)
 							src << "You've learned to unseal the true form of your legendary weapon."
-						//lasts for 90*(1/worlddamagemult) seconds at this level
-					if(src.SagaLevel==8)
-						src << "You become capable of assuming a legendary form at will without restriction."
-						//limitless oversoul
 
 				if("Unlimited Blade Works")
 					switch(src.SagaLevel)
@@ -986,17 +937,6 @@ mob
 									VoidField += 2
 
 						if(6)
-/*
-							if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Copy_Blade, src))
-								src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Copy_Blade)
-							switch(UBWPath)
-								if("Feeble")
-								if("Strong")
-								if("Firm")*/
-							UBWLegendaryWeapon()
-							src<< "You grasp the understanding of a legendary weapon forgotten to time..."
-
-						if(8)
 							UBWLegendaryWeapon()
 							src<< "You grasp the understanding of a legendary weapon forgotten to time..."
 
@@ -1026,12 +966,10 @@ mob
 						if(!locate(/obj/Skills/Projectile/Sword/Hiten_Mitsurugi/Earth_Dragon_Flash, src))
 							src.AddSkill(new/obj/Skills/Projectile/Sword/Hiten_Mitsurugi/Earth_Dragon_Flash)
 							src << "You learn to strike the ground and unleash a torrent of debris!"
-					if(src.SagaLevel==4)
-						//Hiten Style now gives additional Flicker
 						if(!locate(/obj/Skills/Queue/Twin_Dragon_Slash, src))
 							src.AddSkill(new/obj/Skills/Queue/Twin_Dragon_Slash)
 							src << "You can deliver a quick blow with your blade only to be followed with a crushing strike from your sheath!"
-					if(src.SagaLevel==5)
+					if(src.SagaLevel==4)
 						src << "You learn to unleash Hiten Mitsurugi techniques with even faster alacrity!"
 						passive_handler.Increase("MovementMastery", 5)
 						src.MovementMastery+=5
@@ -1043,7 +981,7 @@ mob
 						if(Choice=="Slaughter")
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Hitokiri_Battosai)
 							src<<"You embrace the path of a killer and assassin, revealing your true nature in moments of strife!"
-					if(src.SagaLevel==6)
+					if(src.SagaLevel==5)
 						for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Hiten_Mitsurugi_Ryuu/hmr in src.contents)
 							if(hmr.Finisher!="/obj/Skills/Queue/Finisher/True_Flash_Strike")
 								hmr.Finisher="/obj/Skills/Queue/Finisher/True_Flash_Strike"
@@ -1051,13 +989,12 @@ mob
 						if(!locate(/obj/Skills/AutoHit/Sonic_Sheath, src))
 							src << "You learn to sheath your sword with such authority that it stuns those around you!"
 							src.AddSkill(new/obj/Skills/AutoHit/Sonic_Sheath)
-					if(src.SagaLevel==7)
 						src<<"Your use of Godspeed has been ingrained in your body!"
 						src<<"You can slay even inhuman foes!"
 						if(!locate(/obj/Skills/Queue/Nine_Dragons_Strike, src))
 							src << "You learn of nine killing blows: Kuzuryusen!"
 							src.AddSkill(new/obj/Skills/Queue/Nine_Dragons_Strike)
-					if(src.SagaLevel==8)
+					if(src.SagaLevel==6)
 						src<<"Your speed transcends mortal limit and you can chase down any foe..."
 						if(!locate(/obj/Skills/Queue/Heavenly_Dragon_Flash, src))
 							src << "You learn the ultimate killing technique...even if you avoid the fangs of the flying dragon, the claws will rip you apart!"
@@ -1074,7 +1011,6 @@ mob
 					src.SlayerMod+=0.25
 					if(src.SagaLevel==2)
 						src<<"Your Ansatsuken becomes refined enough to use EX versions of your abilities! Remember: every EX version costs 25 Meter."
-					if(src.SagaLevel==3)
 						if(!src.AnsatsukenPath)
 							src.AnsatsukenPath=alert(src, "You have refined your abilities to excel in one area of Ansatsuken...But what area?", "Ansatsuken Path", "Hadoken", "Shoryuken", "Tatsumaki")
 						switch(src.AnsatsukenPath)
@@ -1093,7 +1029,7 @@ mob
 								for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style/ans in src)
 									ans.Finisher="/obj/Skills/Queue/Finisher/Shippu_Jinraikyaku"
 									src << "You learn to perform the special finisher: Shippu Jinraikyaku!"
-					if(src.SagaLevel==4)
+					if(src.SagaLevel==3)
 						switch(src.AnsatsukenPath)
 							if("Hadoken")
 								if(!locate(/obj/Skills/Projectile/Ansatsuken/Shinku_Hadoken, src))
@@ -1107,7 +1043,7 @@ mob
 								if(!locate(/obj/Skills/AutoHit/ShinkuTatsumaki, src))
 									src << "You've developed domineering aerial power: Shinku Tatsumaki!"
 									src.AddSkill(new/obj/Skills/AutoHit/ShinkuTatsumaki)
-					if(src.SagaLevel==5)
+					if(src.SagaLevel==4)
 						if(!src.AnsatsukenAscension)
 							src.AnsatsukenAscension=alert(src, "The time has come to decide the fate of your soul.  Will you give everything away for victory or hold on to your sanity at the price of becoming a fighting machine?", "Ansatsuken Ascension", "Satsui", "Chikara")
 							src <<"Your Ansatsuken stance is refined to suit your beliefs..."
@@ -1124,7 +1060,7 @@ mob
 									del S
 									src << "You learn to harness your raging desire to dominate in battle."
 									src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Kyoi_no_Hado)
-					if(src.SagaLevel==6)
+					if(src.SagaLevel==5)
 						switch(src.AnsatsukenAscension)
 							// if("Satsui")
 							// 	src << "Your lust for victory grows...you'll even sacrifice your soul."
@@ -1138,7 +1074,6 @@ mob
 								src << "You've refined your discipline to the point of controlling the electricity coursing through you body..."
 								if(!locate(/obj/Skills/Buffs/SpecialBuffs/Denjin_Renki, src))
 									src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Denjin_Renki)
-					if(src.SagaLevel==7)
 						src << "Your abilities with Ansatsuken allow you to rival any foe!"
 						switch(src.AnsatsukenAscension)
 							if("Satsui")
@@ -1169,7 +1104,7 @@ mob
 								if(!locate(/obj/Skills/Projectile/Ansatsuken/Denjin_Hadoken, src))
 									src << "Your internal harmony can be expressed with indiscriminate energy projection: Denjin Hadoken!"
 									src.AddSkill(new/obj/Skills/Projectile/Ansatsuken/Denjin_Hadoken)
-					if(src.SagaLevel==8)
+					if(src.SagaLevel==6)
 						switch(src.AnsatsukenAscension)
 							if("Satsui")
 								for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style/ans in src)
@@ -1194,7 +1129,6 @@ mob
 						var/Choice=input(src, "What kind of emotion made it mature into that form?") in list("Resolve", "Sacrifice", "Hatred")
 						if(Choice)
 							src.SharinganEvolution=Choice
-					if(src.SagaLevel==5)
 						if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Susanoo, src))
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Susanoo)
 							src << "You can manifest a ghastly armor to protect and augment your attacks!"
@@ -1223,15 +1157,15 @@ mob
 							bls.Mastery=4
 							bls.SagaSignature=1
 							src.AddSkill(bls)
-					if(src.SagaLevel==6)
+					if(src.SagaLevel==4)
 						if(!locate(/obj/Skills/Queue/Morning_Peacock, src))
 							src.AddSkill(new/obj/Skills/Queue/Morning_Peacock)
 							src << "You can perform a barrage of strikes that burn away the very air: <b>Morning Peacock</b>!!!"
-					if(src.SagaLevel==7)
+					if(src.SagaLevel==5)
 						if(!locate(/obj/Skills/Projectile/Beams/Big/Eight_Gates/Daytime_Tiger, src))
 							src.AddSkill(new/obj/Skills/Projectile/Beams/Big/Eight_Gates/Daytime_Tiger)
 							src << "You can release a wave of pure kinetic force that devours all in its path: <b>Daytime Tiger</b>!!!"
-					if(src.SagaLevel==8)
+					if(src.SagaLevel==6)
 						if(!locate(/obj/Skills/Projectile/Evening_Elephant, src))
 							src.AddSkill(new/obj/Skills/Projectile/Evening_Elephant)
 							src << "You can unleash a powerful combination that shakes the foundations of earth: <b>Evening Elephant</b>!!!"
@@ -1269,10 +1203,7 @@ mob
 					if(src.SagaLevel==6)
 						src.verbs += /obj/Skills/Buffs/SpecialBuffs/King_Of_Braves/verb/Genesic_Brave
 						src << "You master using the power of Destruction and Protection simultaneously!"
-					if(src.SagaLevel==7)
 						src << "Your Heaven and Hell reaches its perfected form: <b>Genesic Heaven and Hell</b>!"
-					if(src.SagaLevel==8)
-						src << "<b>You are the ultimate embodiment of Courage!</b>"
 
 				if("Magic Knight")
 					var/list/Aethers=list("Strength", "Endurance", "Force", "Offense", "Defense")
@@ -1360,7 +1291,6 @@ mob
 					if(src.SagaLevel==2)
 						if(src.KamuiType=="Purity")
 							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Resolve)
-					if(src.SagaLevel==3)
 						if(src.KamuiType=="Impulse")
 							var/choice
 							var/confirm
@@ -1380,7 +1310,7 @@ mob
 									src << "You've attained a new form for your Kamui: Kamui Shippu!"
 						else if(src.KamuiType=="Purity")
 							src << "With each movement forward towards the realization of your ideals, your resolve strengthens..."
-					if(src.SagaLevel==4)
+					if(src.SagaLevel==3)
 						if(src.KamuiType=="Impulse")
 							if(locate(/obj/Skills/Buffs/SpecialBuffs/KamuiSenjin, src))
 								src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiShippu)
@@ -1390,7 +1320,7 @@ mob
 								src << "You've attained a new form for your Kamui: Kamui Senjin!"
 						else if(src.KamuiType=="Purity")
 							src << "Through your trials, your resolve sharpens, cutting deeper than glass, sharp enough to sever any thread..."
-					if(src.SagaLevel==5)
+					if(src.SagaLevel==4)
 						if(src.KamuiType=="Impulse")
 							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiSenjinShippu)
 							src << "Through adapting to your trials and your own impulsive ambition, you've merged the two forms of your Kamui!"
@@ -1399,13 +1329,13 @@ mob
 							src << "Though your body may fail you, your ambition will reach across the world!"
 							src << "Your resolve allows you to force your Kamui to take on a new form: Kamui Senpu!"
 							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiSenpu)
-					if(src.SagaLevel==6)
+					if(src.SagaLevel==5)
 						if(src.KamuiType=="Impulse")
 							src << "You've united entirely with your Kamui, and you fight as one with no downsides!"
 						else if(src.KamuiType=="Purity")
 							src << "Your resolve allows you to force your Kamui to take on new form: Senpu Zanken!"
 							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiSenpuZanken)
-					if(src.SagaLevel==7)
+					if(src.SagaLevel==6)
 						if(src.KamuiType=="Impulse")
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/R in src)
@@ -1415,7 +1345,6 @@ mob
 							src << "Your being has merged with life fibers."
 						else if(src.KamuiType=="Purity")
 							src << "Unshatterable, your resolve gains a twofold edge...Your goals are nearly within your grasp."
-					if(src.SagaLevel==8)
 						src << "You gain the ability to unite with your kamui..."
 						src.contents+=new/obj/Skills/Buffs/SpecialBuffs/Kamui_Unite
 				if("Keyblade")
@@ -1440,24 +1369,21 @@ mob
 								src.Keychains.Add("Wayward Wind")
 						src << "You've obtained your foundation keychain! ([Choice])])"
 						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Attach_Keychain)
-					if(src.SagaLevel==3)
-						//Elemental command style
-						//T1 magic
-						var/Choice = prompt("Your mastery of both keyblades and magical elements allows you to refine your command style.  Which style do you develop?", "Command Style", list("Firestorm", "Diamond Dust", "Thunderbolt"))
-						switch(Choice)
+						var/Choice2 = prompt("Your mastery of both keyblades and magical elements allows you to refine your command style.  Which style do you develop?", "Command Style", list("Firestorm", "Diamond Dust", "Thunderbolt"))
+						switch(Choice2)
 							if("Firestorm")
 								src.AddSkill(new/obj/Skills/Buffs/NuStyle/SwordStyle/Command/Firestorm_Style)
 							if("Diamond Dust")
 								src.AddSkill(new/obj/Skills/Buffs/NuStyle/SwordStyle/Command/Diamond_Dust_Style)
 							if("Thunderbolt")
 								src.AddSkill(new/obj/Skills/Buffs/NuStyle/SwordStyle/Command/Thunderbolt_Style)
-						src << "You've obtained the [Choice] command style!"
+						src << "You've obtained the [Choice2] command style!"
 
 						src.AddSkill(new/obj/Skills/Projectile/Magic/Fire)
 						src.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzard)
 						src.AddSkill(new/obj/Skills/AutoHit/Magic/Thunder)
 						src << "You've mastered the magical arts of Fire, Blizzard and Thunder!"
-					if(src.SagaLevel==4)
+					if(src.SagaLevel==3)
 						//T2 Command Style
 						//Keychain
 						var/Style
@@ -1491,7 +1417,7 @@ mob
 							if("Promises")
 								src.Keychains.Add("Oathkeeper")
 						src << "You've obtained your devotion keychain!"
-					if(src.SagaLevel==5)
+					if(src.SagaLevel==4)
 						//Valor Form
 						//T2 Magic
 						if(src.KeybladeColor=="Light")
@@ -1507,9 +1433,6 @@ mob
 						src << "You develop Fira!"
 						src << "You develop Blizzara!"
 						src << "You develop Thundara!"
-					if(src.SagaLevel==6)
-						//Wisdom Form
-						//Keychain
 						passive_handler.Increase("ManaCapMult",0.25)
 						src.ManaCapMult+=0.25
 						if(src.KeybladeColor=="Light")
@@ -1537,7 +1460,7 @@ mob
 						src.AddSkill(new/obj/Skills/AutoHit/Magic/Gravity)
 						src.AddSkill(new/obj/Skills/AutoHit/Magic/Magnet)
 						src << "You've mastered the black magical arts of Stop, Magnet and Gravity!"
-					if(src.SagaLevel==7)
+					if(src.SagaLevel==5)
 						//Master Form
 						//T3 Magic
 						passive_handler.Increase("ManaCapMult",0.25)
@@ -1609,7 +1532,7 @@ mob
 							if("Duality")
 								src.Keychains.Add("Way To Dawn")
 						src << "You've obtained your antagonism keychain!"
-					if(src.SagaLevel==8)
+					if(src.SagaLevel==6)
 						//Final Form
 						//More Majjyk
 

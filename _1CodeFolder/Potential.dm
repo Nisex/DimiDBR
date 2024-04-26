@@ -165,20 +165,18 @@ mob
 				if(Potential>=15)
 					if(SagaLevel < 2 && Saga)
 						saga_up_self()
-				if(Potential >= 25 && SagaLevel < 3 && Saga)
-					saga_up_self()
 				if(src.Potential>=25)
 					if(src.AscensionsUnlocked<2)
 						src.AscensionsUnlocked=2
 						if(!Silent) src << "Meditate to acquire ascension boons."
-				if(Potential >= 35 && SagaLevel < 4 && Saga)
+				if(Potential >= 35 && SagaLevel < 3 && Saga)
 					saga_up_self()
 				if(src.Potential>=40)
 					if(src.AscensionsUnlocked<3)
 						src.AscensionsUnlocked=3
 						if(!Silent) src << "Meditate to acquire ascension boons."
 				if(Potential >= 45)
-					if(SagaLevel < 5 && Saga)
+					if(SagaLevel < 4 && Saga)
 						saga_up_self()
 				if(src.Potential>=65)
 					if(src.AscensionsUnlocked<4)

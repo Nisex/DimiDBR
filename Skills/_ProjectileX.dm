@@ -2367,7 +2367,7 @@ obj
 				ActiveMessage="unleashes a storm of stardust channeled from the depths of space!"
 				verb/Stardust_Revolution()
 					set category="Skills"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.UseProjectile(src)
@@ -2409,7 +2409,7 @@ obj
 				ActiveMessage="unleashes an eruption of power on galactic scale!"
 				verb/Galaxian_Explosion()
 					set category="Skills"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.UseProjectile(src)
@@ -2448,7 +2448,7 @@ obj
 				verb/Praesepe_Demonic_Blue_Flames()
 					set category="Skills"
 					set name="Sekishiki Kisoen"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.UseProjectile(src)
@@ -2528,7 +2528,7 @@ obj
 				Variation=8
 				verb/Scarlet_Needle()
 					set category="Skills"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.UseProjectile(src)
@@ -2588,7 +2588,7 @@ obj
 				ActiveMessage="casts a handful of poisonous crimson roses at their target!"
 				verb/Royal_Demon_Rose()
 					set category="Skills"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.UseProjectile(src)
@@ -4051,7 +4051,7 @@ obj
 							Cooldown=150
 							verb/Aurora_Execution()
 								set category="Skills"
-								if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+								if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 									usr << "You can't use this technique except when in a dire pinch!"
 									return
 								usr.UseProjectile(src)

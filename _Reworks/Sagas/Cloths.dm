@@ -60,14 +60,12 @@ sagaTierUpMessages/Cosmo
 				if(src.BuffOn(Buff))
 					Buff.Trigger(src, 1)
 				del Buff
+			if("Pheonix")
+				totalExtraVoidRolls++
 			src.AddSkill(new v2Path)
 			if(!locate(/obj/Skills/Utility/Zodiac_Invocation, src))
 				src.AddSkill(new/obj/Skills/Utility/Zodiac_Invocation)
-		if(6)
-			ZodiacCharges++
-			if("Pheonix")
-				totalExtraVoidRolls++
-		if(7)
+		if(5)
 			switch(src.ClothGold)
 				if("Aries")
 					if(!locate(/obj/Skills/Projectile/Stardust_Revolution, src))
@@ -165,7 +163,7 @@ sagaTierUpMessages/Cosmo
 						src.AddSkill(new/obj/Skills/Queue/Piranhan_Rose)
 					if(!locate(/obj/Skills/AutoHit/Bloody_Rose, src))
 						src.AddSkill(new/obj/Skills/AutoHit/Bloody_Rose)
-		if(8)
+		if(6)
 			SenseUnlocked=6
 
 

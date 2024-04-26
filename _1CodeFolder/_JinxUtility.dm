@@ -3736,36 +3736,7 @@ mob
 					Count++
 					continue
 			return Count
-		SagaEXPReq()
-			var/Needed
-			switch(src.SagaLevel)
-				if(1)
-					Needed=100
-				if(2)
-					Needed=150
-				if(3)
-					Needed=200
-				if(4)
-					Needed=250
-				if(5)
-					Needed=300
-			return Needed
-		SagaLevelUp()
-			var/Needed=src.SagaEXPReq()
-			if(src.SagaEXP >= Needed)
-				return 1
-			return 0
-		SagaProgression()
-			if(src.SagaLevelUp())
-				if(src.Potential<25 && src.SagaLevel>=2)
-					return
-				if(src.Potential<50&&src.SagaLevel>=4)
-					return
-				if(src.Potential<75&&src.SagaLevel>=6)
-					return
-				if(src.SagaLevel>=6&&!src.SagaAdminPermission)
-					return
-				src.saga_up_self()
+
 		SagaAscend(var/mod, var/val)
 			src.SagaAscension["[mod]"]+=val
 			src.vars["[mod]Ascension"]+=val
@@ -3845,38 +3816,50 @@ mob
 			if(!src.SignatureCheck)
 				return
 			if(src.Saga)
-				src.SagaProgression()
+				if(src.Potential<15 && SagaLevel>=1)
+					return
+				if(src.Potential<30 && src.SagaLevel>=2)
+					return
+				if(src.Potential<45&&src.SagaLevel>=3)
+					return
+				if(src.Potential<65&&src.SagaLevel>=4)
+					return
+				if(src.SagaLevel>=5&&!src.SagaAdminPermission)
+					return
+				src.saga_up_self()
 				return
 
-			if(styles_available(1) && src.Potential>=20 && src.req_styles(0, 1))
+			if(styles_available(1) && src.Potential>=5 && src.req_styles(0, 1))
 				DevelopSignature(src, 1, "Style")
 			if(styles_available(1) && src.Potential>=30 && src.req_styles(1, 1))
 				DevelopSignature(src, 1, "Style")
-			if(styles_available(2) && src.Potential>=40 && src.req_styles(0, 2))
+			if(styles_available(2) && src.Potential>=45 && src.req_styles(0, 2))
+				DevelopSignature(src, 2, "Style")
+			if(styles_available(2) && src.Potential>=65 && src.req_styles(1, 2))
 				DevelopSignature(src, 2, "Style")
 
-			if(src.req_pot(10) && src.req_sigs(0, 1))
+			if(src.req_pot(5) && src.req_sigs(0, 1))
+				DevelopSignature(src, 1, "Signature")
+			if(src.req_pot(10) && src.req_sigs(1, 1))
 				DevelopSignature(src, 1, "Signature")
 
-			if(src.req_pot(20) && src.req_sigs(1, 1))
+			if(src.req_pot(15) && src.req_sigs(2, 1))
 				DevelopSignature(src, 1, "Signature")
 
 			if(src.req_pot(30) && src.req_sigs(0, 2))
 				DevelopSignature(src, 2, "Signature")
+			if(src.req_pot(30) && src.req_sigs(3, 1))
+				DevelopSignature(src, 1, "Signature")
 
-			if(src.req_pot(40) && src.req_sigs(1, 2))
+			if(src.req_pot(45) && src.req_sigs(1, 2))
 				DevelopSignature(src, 2, "Signature")
 
-			if(src.req_pot(50) && src.req_sigs(0, 3))
+			if(src.req_pot(65) && src.req_sigs(0, 3))
 				if(!src.InfinityModule && src.ShinjinAscension!="Kai" && src.Race!="Changeling")
 					DevelopSignature(src, 3, "Signature")
-					if(src.isRace(SAIYAN))
-						if(!locate(/obj/Skills/Buffs/SpecialBuffs/SuperSaiyanGrade2, src))
-							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/SuperSaiyanGrade2)
-							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/SuperSaiyanGrade3)
-			if(src.req_pot(60))
-				if(src.req_sigs(2, 2))
-					DevelopSignature(src, 2, "Signature")
+
+			if(src.req_pot(65) && src.req_sigs(2, 2))
+				DevelopSignature(src, 2, "Signature")
 
 
 		YeetSignatures()
