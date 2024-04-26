@@ -275,6 +275,8 @@ var/global/MULTIHIT_NERF = FALSE
 					damage *= clamp(1,sqrt(1+((GetSpd())*(speedStrike/15))),3)
 				if(AttackQueue)
 					damage *= QueuedDamage(enemy)
+					if(secretDatum?:hasImprovement("Queues"))
+						damage *= clamp(secretDatum?:getBoon("Queues"), 1, 10)
 					log2text("Damage", "After Queue", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 					if(QueuedKBMult()<1 && !QueuedKBAdd())

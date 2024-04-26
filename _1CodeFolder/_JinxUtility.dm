@@ -1952,18 +1952,61 @@ mob
 			src.RecovCut+=Val
 			if(src.RecovCut>=1)
 				src.RecovCut=1
+		// forgive the sin below, im not replacing basestat() in all the codebase
 		BaseStr()
-			return (src.StrMod+src.StrAscension+(src.EnhancedStrength*0.2))*StrChaos
+			var/mod = secretDatum?:hasImprovement("Strength")
+			if(mod)
+				mod = round(clamp(1 + secretDatum?:getBoon(src, "Strength") / 10, 1, 8), 0.5)
+			else
+				mod = 1
+			if(secretDatum?:hasRestriction("Strength"))
+				return 1
+			return ((src.StrMod+src.StrAscension+(src.EnhancedStrength*0.2)) * mod)*StrChaos
 		BaseFor()
-			return (src.ForMod+src.ForAscension+(src.EnhancedForce*0.2))*ForChaos
+			var/mod = secretDatum?:hasImprovement("Force")
+			if(mod)
+				mod = round(clamp( 1 + secretDatum?:getBoon(src, "Force") / 10, 1.1, 8), 0.1)
+			else
+				mod = 1
+			if(secretDatum?:hasRestriction("Force"))
+				return 1
+			return ((src.ForMod+src.ForAscension+(src.EnhancedForce*0.2)) * mod)*ForChaos
 		BaseEnd()
-			return (src.EndMod+src.EndAscension+(src.EnhancedEndurance*0.2))*EndChaos
+			var/mod = secretDatum?:hasImprovement("Endurance")
+			if(mod)
+				mod = round(clamp( 1 + secretDatum?:getBoon(src, "Endurance") / 10, 1.1, 8), 0.5)
+			else
+				mod = 1
+			if(secretDatum?:hasRestriction("Endurance"))
+				return 1
+			return ((src.EndMod+src.EndAscension+(src.EnhancedEndurance*0.2)) * mod)*EndChaos
 		BaseSpd()
-			return (src.SpdMod+src.SpdAscension+(src.EnhancedSpeed*0.2))*SpdChaos
+			var/mod = secretDatum?:hasImprovement("Speed")
+			if(mod)
+				mod = round(clamp( 1 + secretDatum?:getBoon(src, "Speed") / 10, 1.1, 8), 0.5)
+			else
+				mod = 1
+			if(secretDatum?:hasRestriction("Speed"))
+				return 1
+			return ((src.SpdMod+src.SpdAscension+(src.EnhancedSpeed*0.2)) * mod)*SpdChaos
 		BaseOff()
-			return (src.OffMod+src.OffAscension+(src.EnhancedAggression*0.2))*OffChaos
+			var/mod = secretDatum?:hasImprovement("Offense")
+			if(mod)
+				mod = round(clamp( 1 + secretDatum?:getBoon(src, "Offense") / 10, 1.1, 8), 0.5)
+			else
+				mod = 1
+			if(secretDatum?:hasRestriction("Offense"))
+				return 1
+			return ((src.OffMod+src.OffAscension+(src.EnhancedAggression*0.2)) * mod)*OffChaos
 		BaseDef()
-			return (src.DefMod+src.DefAscension+(src.EnhancedReflexes*0.2))*DefChaos
+			var/mod = secretDatum?:hasImprovement("Defense")
+			if(mod)
+				mod = round(clamp( 1 + secretDatum?:getBoon(src, "Defense") / 10, 1.1, 8), 0.5)
+			else
+				mod = 1
+			if(secretDatum?:hasRestriction("Defense"))
+				return 1
+			return ((src.DefMod+src.DefAscension+(src.EnhancedReflexes*0.2)) * mod)*DefChaos
 		BaseRecov()
 			return (src.RecovMod+src.RecovAscension)*RecovChaos
 
