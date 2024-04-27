@@ -1167,6 +1167,9 @@ mob/proc
 		src.RecovOriginal=src.RecovMod
 		src.SetVars()
 
+		src:UniqueID = ++glob.IDCounter
+		glob.IDs[src:UniqueID] = "[name] - [ckey]"
+
 		if(!Warped)
 			if(src.Race=="Alien"||isRace(BEASTMAN)||isRace(YOKAI))
 				var/Choice=input(src, "Do you want to possess animal characteristics?  These options will give you tails and ears.", "Choose your animal traits.") in list("None", "Cat", "Fox", "Racoon", "Wolf", "Lizard", "Crow", "Bull")

@@ -203,6 +203,9 @@ mob/Players/verb
 				return
 		if(blah&&blah!=""&&blah!=" ")
 			A.name=copytext(blah,1,30)
+			if(isplayer(A))
+				glob.IDs[A:UniqueID] = "[A.name] - [A:ckey]"
+
 	SaveVerb()
 		set hidden=1
 		if(!(world.time > usr.verb_delay)) return

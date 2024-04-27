@@ -935,6 +935,8 @@ TO BE CORRECTED
 			A.name=Old_Name
 		else
 			Log("Admin","[ExtractInfo(usr)] renamed [ExtractInfo(A)] from [Old_Name].")
+			if(isplayer(A))
+				glob.IDs[A:UniqueID] = "[A.name] - [A:ckey]"
 
 	Transfer(mob/Players/M in players,F as file)
 		switch(alert(M,"[usr] is trying to send you [F] ([File_Size(F)]). Accept?","","Yes","No"))
