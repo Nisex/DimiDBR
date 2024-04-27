@@ -1,3 +1,234 @@
+globalTracker
+	var/list/guilds = list()
+
+mob/Players/var/list/inGuilds = list()
+
+proc
+	findGuildByID(id)
+		for(var/guild/g in glob.guilds)
+			if(g.name == id)
+				return g
+
+mob
+	proc
+		checkGuildVerbs()
+			for(var/guild/g in glob.guilds)
+				g.updateListing(src)
+				g.checkVerbs(src)
+
+guild
+	verb
+		removeGuildMember()
+			set name = "Remove Member"
+			set category = "Guild"
+			var/guildID = input("What guild would you like to remove someone from?", "Remove Member") as null|anything in usr:inGuilds
+			if(!guildID) return
+			var/guild/guild = findGuildByID(guildID)
+			if((usr:UniqueID in guild.officers) || (usr:UniqueID == guild.ownerID))
+				guild.removeMemberByID(usr)
+			else
+				usr << "You aren't an officer or owner of [guild.name]!"
+
+		addGuildMember()
+			set name = "Add Member"
+			set category = "Guild"
+			var/guildID = input("What guild would you like to add someone to?", "Add Member") as null|anything in usr:inGuilds
+			if(!guildID) return
+			var/guild/guild = findGuildByID(guildID)
+			if((usr:UniqueID in guild.officers) || (usr:UniqueID == guild.ownerID))
+				var/list/validTargets
+				for(var/mob/Players/p in oview(15))
+					validTargets += p
+				var/mob/Players/pickedTarget = input("Who would you like to add to [guild.name]?") as null|anything in validTargets
+				if(!pickedTarget) return
+				switch(alert(pickedTarget, "Would you like to join [guild.name] at the request of [usr.name]?",,"Yes","No"))
+					if("Yes")
+						guild.joinGuild(pickedTarget)
+					if("No")
+						return
+			else
+				usr << "You aren't an officer or owner of [guild.name]!"
+
+		addOfficer()
+			set name = "Add Officer"
+			set category = "Guild"
+			var/guildID = input("What guild would you like to make someone an officer in?", "Add Officer") as null|anything in usr:inGuilds
+			if(!guildID) return
+			var/guild/guild = findGuildByID(guildID)
+			if(usr:UniqueID == guild.ownerID)
+				guild.addOfficerByID(usr)
+			else
+				usr << "You aren't the owner of [guild.name]!"
+
+		removeOfficer()
+			set name = "Remove Officer"
+			set category = "Guild"
+			var/guildID = input("What guild would you like to remove an officer from?", "Remove Officer") as null|anything in usr:inGuilds
+			if(!guildID) return
+			var/guild/guild = findGuildByID(guildID)
+			if(usr:UniqueID == guild.ownerID)
+				guild.removeOfficerByID(usr)
+			else
+				usr << "You aren't the owner of [guild.name]!"
+
+		transferOwnershipVerb()
+			set name = "Transfer Ownership"
+			set category = "Guild"
+			var/guildID = input("What guild would you like to transfer ownership of?", "Guild Transfer Ownership") as null|anything in usr:inGuilds
+			if(!guildID) return
+			var/guild/guild = findGuildByID(guildID)
+			if(usr:UniqueID == guild.ownerID)
+				guild.transferOwnership(usr)
+			else
+				usr << "You aren't the owner of [guild.name]!"
+
+		leaveGuild()
+			set name = "Leave Guild"
+			set category = "Guild"
+			var/guildID = input("What guild would you like to leave?", "Leave Guild") as null|anything in usr:inGuilds
+			if(!guildID) return
+			var/guild/guild = findGuildByID(guildID)
+			if(usr:UniqueID == guild.ownerID)
+				usr << "Either transfer leadership or contact the admins to leave your guild!"
+			else
+				guild.removeMember(usr)
+
+guild
+	var
+		name
+		ownerID
+		list/officers = list()
+		list/members = list()// by UniqueID
+		payOutRate = 1
+
+	proc
+		checkMember(mob/Players/p)
+			if(p.UniqueID in members)
+				return 1
+			return 0
+
+		checkVerbs(mob/Players/p)
+			p.verbs += /guild/verb/leaveGuild
+			if(p.UniqueID == ownerID)
+				p.verbs += /guild/verb/addOfficer
+				p.verbs += /guild/verb/removeOfficer
+				p.verbs += /guild/verb/transferOwnershipVerb
+			if((p.UniqueID == ownerID) || (p.UniqueID in officers))
+				p.verbs += /guild/verb/addGuildMember
+				p.verbs += /guild/verb/removeGuildMember
+
+		joinGuild(mob/Players/p)
+			updateListing(p)
+			if(name in p.inGuilds)
+				return
+			if(p.UniqueID in members)
+				return
+			members |= p.UniqueID
+			p.inGuilds |= name
+
+		removeMember(mob/Players/p)
+			if(p.UniqueID in members)
+				members -= p.UniqueID
+				p.inGuilds -= name
+				if(p.UniqueID in officers)
+					officers -= p.UniqueID
+
+		removeID(id)
+			if(id in members)
+				members -= id
+				for(var/mob/Players/m in players)
+					if(m.UniqueID == id)
+						m << "You've been removed from [name]!"
+						m.inGuilds -= name
+						break
+
+		guildMessage(msg)
+			for(var/mob/Players/m in players)
+				if(m.UniqueID in members)
+					usr << "\[GUILD: [name]\] [msg]"
+
+		removeMemberByID(mob/Players/origin)
+			if(!(origin.UniqueID in officers) && (origin.UniqueID != ownerID)) return
+
+			var/canRemoveOfficer = FALSE
+			if(origin.UniqueID == ownerID)
+				canRemoveOfficer = TRUE
+			var/removedMember = input(origin,"Who would you like to remove?", "Remove Member") as null|anything in getMemberList()
+			if(!removedMember) return
+			var/list/r = splittext(removedMember, "-")
+			removedMember = text2num(r[1])
+			if(removedMember in officers)
+				if(!canRemoveOfficer) return
+			if(removedMember==ownerID) return
+			removeID(removedMember)
+
+		transferOwnership(mob/Players/origin)
+			if(origin.UniqueID != ownerID) return
+			var/target = input(origin,"Who would you like to transfer ownership to?", "Transfer Ownership") as null|anything in getMemberList()
+			if(!target) return
+			var/list/r = splittext(target, "-")
+			target = text2num(r[1])
+			if(target == ownerID) return
+			switch(alert(origin, "Are you sure you want to give the guild to [r[2]]?",,"Yes","No"))
+				if("No")
+					return
+			ownerID = target
+			checkVerbs(origin)
+			for(var/mob/Players/m in players)
+				if(m.UniqueID == target)
+					m << "You now own [name]."
+					checkVerbs(m)
+					break
+
+		addOfficerByID(mob/Players/origin)
+			if(origin.UniqueID != ownerID) return
+			var/officer = input(origin,"Who would you like to add as a officer?", "Add Officer") as null|anything in getMemberList()
+			if(!officer) return
+			var/list/r = splittext(officer, "-")
+			officer = text2num(r[1])
+			if(officer in officers) return
+			officers |= officer
+			for(var/mob/Players/m in players)
+				if(m.UniqueID == officer)
+					checkVerbs(m)
+					break
+
+
+		removeOfficerByID(mob/Players/origin)
+			if(origin.UniqueID != ownerID) return
+			var/officer = input(origin,"Who would you like to remove as a officer?", "Remove Officer") as null|anything in getOfficerList()
+			if(!officer) return
+			var/list/r = splittext(officer, "-")
+			officer = text2num(r[1])
+			if(!(officer in officers)) return
+			officers -= officer
+			for(var/mob/Players/m in players)
+				if(m.UniqueID == officer)
+					checkVerbs(m)
+					break
+
+		getMemberList()
+			var/list/memberNames = list()
+			for(var/id in members)
+				memberNames += "[id] - [glob.IDs[id]]"
+			return memberNames
+
+		getOfficerList()
+			var/list/officerNames = list()
+			for(var/id in officers)
+				officerNames += "[id] - [glob.IDs[id]]"
+			return officerNames
+
+		updateListing(mob/Players/p)
+			if(p.UniqueID in members)
+				if(!(name in p.inGuilds))
+					p.inGuilds |= name
+			else
+				if(name in p.inGuilds)
+					p << "You've been removed from [name]!"
+					p.inGuilds -= name
+
+
 /proc/moveElement(list/L, fromIndex, toIndex)
 	if(fromIndex == toIndex || fromIndex+1 == toIndex)	//no need to move
 		return

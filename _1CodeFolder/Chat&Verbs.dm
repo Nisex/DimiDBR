@@ -204,7 +204,7 @@ mob/Players/verb
 		if(blah&&blah!=""&&blah!=" ")
 			A.name=copytext(blah,1,30)
 			if(isplayer(A))
-				glob.IDs[A:UniqueID] = "[A.name] - [A:ckey]"
+				glob.IDs[A:UniqueID] = "[A.name]"
 
 	SaveVerb()
 		set hidden=1

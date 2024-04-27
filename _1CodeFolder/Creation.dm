@@ -115,6 +115,7 @@ mob/Players
 				protecc.TotalStack++
 				del ans
 
+		checkGuildVerbs()
 
 		addMissingSkills()
 		if(glob.TESTER_MODE)
@@ -1168,7 +1169,7 @@ mob/proc
 		src.SetVars()
 
 		src:UniqueID = ++glob.IDCounter
-		glob.IDs[src:UniqueID] = "[name] - [ckey]"
+		glob.IDs[src:UniqueID] = "[name]"
 
 		if(!Warped)
 			if(src.Race=="Alien"||isRace(BEASTMAN)||isRace(YOKAI))
