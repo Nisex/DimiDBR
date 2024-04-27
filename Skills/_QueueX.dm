@@ -906,7 +906,7 @@ obj
 							src.HitSparkSize=1
 							usr.SetQueue(src)
 							return//and that's the end
-						if(usr.Secret == "Eldritch" && usr.CheckSlotless("TrueForm"))
+						if(usr.Secret == "Eldritch" && usr.CheckSlotless("True Form"))
 							src.name="Maleific Strike"
 							src.DamageMult=4
 							src.AccuracyMult=2

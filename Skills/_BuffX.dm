@@ -9510,14 +9510,18 @@ NEW VARIABLES
 						passives = list("Curse" = 1, "Godspeed" =  p.secretDatum.secretVariable["Madness"]/50, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/10,\
 						 "Pursuer" = 2, "BlurringStrikes" = p.secretDatum.secretVariable["Madness"]/50, "Flow" = p.secretDatum.secretVariable["Madness"]/50, "Flicker" = p.secretDatum.secretVariable["Madness"]/25)
 						PowerMult=1+(0.05*p.secretDatum.secretVariable["Madness"]/25)
+						TimerLimit = 60 + (p.secretDatum.secretVariable["Madness"]/5)
 
 				HealthThreshold=0.1
 				RegenMult=2
 				AutoAnger=1
 				KenWave=4
 				KenWaveIcon='DarkKiai.dmi'
-				HairLock='BLANK.dmi'
 				HitSpark='Hit Effect Vampire.dmi'
+				IconTint=list(0.08,0,0, 0,0,0, 0.06,0,0, 0,0,0)
+				IconLock='Vampire Transformation.dmi'
+				IconApart=1
+				TopOverlayLock = 'tentacles_overlay.dmi'
 				HitX=-32
 				HitY=-32
 				TimerLimit=60
