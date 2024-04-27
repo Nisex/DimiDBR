@@ -304,6 +304,8 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 			for(var/obj/Items/mineral/min in P)
 				foundMineral = TRUE
 				min.value += totalValue
+				if(P.passive_handler.Get("CashCow"))
+					min.value *= 1+(P.passive_handler.Get("CashCow")/10)
 				min.assignState()
 				min.name = "[Commas(round(min.value))] Tower Fragments"
 				P << "You've gained [totalValue] fragments!"
@@ -311,6 +313,8 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 				var/obj/Items/mineral/mineral = new()
 				P.contents += mineral
 				mineral.value = totalValue
+				if(P.passive_handler.Get("CashCow"))
+					mineral.value *= 1+(P.passive_handler.Get("CashCow")/10)
 				mineral.assignState()
 				mineral.name = "[Commas(round(mineral.value))] Tower Fragments"
 				P << "You've gained [totalValue] fragments!"
