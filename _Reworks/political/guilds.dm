@@ -1,6 +1,6 @@
 globalTracker
 	var/list/guilds = list()
-
+	var/guildIDTicker = 0
 mob/Players/var/list/inGuilds = list()
 
 proc
@@ -100,6 +100,7 @@ guild
 		list/officers = list()
 		list/members = list()// by UniqueID
 		payOutRate = 0.25 // 0.25 = 4 fragments into 1 money
+		id
 
 	proc
 		checkMember(mob/Players/p)
@@ -117,6 +118,16 @@ guild
 				p.verbs += /guild/verb/addGuildMember
 				p.verbs += /guild/verb/removeGuildMember
 
+		removeVerbs(mob/Players/p)
+			p.verbs -= /guild/verb/leaveGuild
+			if(p.UniqueID == ownerID)
+				p.verbs -= /guild/verb/addOfficer
+				p.verbs -= /guild/verb/removeOfficer
+				p.verbs -= /guild/verb/transferOwnershipVerb
+			if((p.UniqueID == ownerID) || (p.UniqueID in officers))
+				p.verbs -= /guild/verb/addGuildMember
+				p.verbs -= /guild/verb/removeGuildMember
+
 		joinGuild(mob/Players/p)
 			updateListing(p)
 			if(name in p.inGuilds)
@@ -128,6 +139,7 @@ guild
 
 		removeMember(mob/Players/p)
 			if(p.UniqueID in members)
+				removeVerbs(p)
 				members -= p.UniqueID
 				p.inGuilds -= name
 				if(p.UniqueID in officers)

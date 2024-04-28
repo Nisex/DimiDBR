@@ -32,6 +32,7 @@ obj/blades
 	passives = list("Instinct" = -1, "Flow" = -1)
 	TimerLimit = 20
 
+
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Seishinkai_to_Yami
 	var/tmp/mob/tmpAppearanceMob
 	var/tmp/obj/blades/b
