@@ -8381,10 +8381,6 @@ NEW VARIABLES
 				if(usr.AriaCount-2 == usr.SagaLevel && usr.UBWPath != "Feeble")
 					usr << "You try to speak more of your aria, but you don't know any more lines..."
 					return
-				if(usr.UBWPath == "Feeble")
-					if(usr.AriaCount == 7)
-						usr << "You try to speak more of your aria, but you don't know any more lines..."
-						return
 				usr.AriaCount++
 				if(usr.UBWPath == "Feeble")
 					if(usr.AriaCount-2 > usr.SagaLevel)
@@ -8396,6 +8392,8 @@ NEW VARIABLES
 						usr.AddOffTax(mult)
 						usr.AddDefTax(mult)
 				usr.OMessage(13, "[usr.name] mutters beneath their breath...[Aria[usr.AriaCount]]")
+				if(usr.AriaCount == 8)
+					usr.UnlimitedBladeWorks()
 
 			verb/Shut_Circuits()
 				set category = "Skills"
@@ -8405,6 +8403,8 @@ NEW VARIABLES
 				if(usr.icon_state != "Meditate")
 					usr << "You have to be meditating to let your circuits cool off!"
 					return
+				if(usr.AriaCount == 8 && usr.inUBW)
+					usr.stopUnlimitedBladeWorks()
 				usr.AriaCount--
 				usr.OMessage(13, "[usr.name] calms their aria down to [usr.AriaCount] verses.")
 /*

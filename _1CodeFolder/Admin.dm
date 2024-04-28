@@ -23,6 +23,12 @@ mob
 	var
 		MakeUngrabbable=0
 
+/mob/Admin3/verb/ForceSaveSwapMap()
+	set hidden = 1
+	var/whichMap = input(usr, "Which map?") as null|text
+	if(whichMap) return
+	SwapMaps_Save(whichMap)
+
 /mob/Admin3/verb/EditPassiveHandler(mob/player in world)
 	set name = "Edit Passive Handler"
 	if(player.information)

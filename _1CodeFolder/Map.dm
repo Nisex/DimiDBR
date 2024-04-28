@@ -1697,7 +1697,14 @@ turf
 		Enter(atom/A)
 			if(FlyOverAble||A:IgnoreFlyOver==1) return ..()
 			else return
-
+	Roof23
+		icon=null
+		FlyOverAble=0
+		density=1
+		opacity=1
+		Enter(atom/A)
+			if(FlyOverAble||A:IgnoreFlyOver==1) return ..()
+			else return
 //Midgar Tiles
 	MidgarTiles
 		MidgarRoofEast

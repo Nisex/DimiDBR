@@ -43,11 +43,15 @@ world
 		GeneratePlayActionDatabase()
 		world.SetConfig("APP/admin", "XLevi", "role=admin")
 		world.SetConfig("APP/admin", "Niezan", "role=admin")
+		generateSwapMaps()
 	Del()
 		..()
 
-
-
+proc
+	generateSwapMaps()
+		if(!fexists("Maps/UBW.sav"))
+			SwapMaps_SaveChunk("UBW", locate(1,71,1), locate(61, 121,1))
+			SwapMaps_Save("UBW")
 
 
 proc/GlobalSave()

@@ -54,6 +54,12 @@ mob/Players
 		players += usr
 		usr.density=1
 		usr.client.view=8
+		if(in_tmp_map)
+			if(!swapmaps_byname[in_tmp_map])
+				in_tmp_map = null
+				x = PrevX
+				y = PrevY
+				z = PrevZ
 		if(usr.Class=="Dance"||usr.Class=="Potara")
 			usr.Savable=0
 
