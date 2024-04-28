@@ -213,7 +213,7 @@ transformation
 			form_glow_icon = 'Ripple Radiance.dmi'
 			form_glow_x = -32
 			form_glow_y = -32
-			unlock_potential = 25
+			unlock_potential = 40
 			angerPoint = 75
 
 			adjust_transformation_visuals(mob/user)
@@ -279,7 +279,7 @@ transformation
 			form_aura_icon_state = "SSJ2"
 			form_aura_x = -32
 			form_icon_2_icon = 'SS2Sparks.dmi'
-			unlock_potential = 45
+			unlock_potential = 55
 			autoAnger = TRUE
 			PUSpeedModifier = 1.5
 			adjust_transformation_visuals(mob/user)
@@ -331,6 +331,8 @@ transformation
 			form_icon_2_icon = 'SS3Sparks.dmi'
 			form_hair_icon = 'Hair_SSj3.dmi'
 			form_icon_1_icon = 'Hair_SSj3.dmi'
+			unlock_potential = 75
+
 			adjust_transformation_visuals(mob/user)
 				..()
 				form_icon_1 = image(user.Hair_SSJ3)
