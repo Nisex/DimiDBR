@@ -4551,6 +4551,7 @@ NEW VARIABLES
 							src.OffMult=1.2
 							src.DefMult=1.3
 							src.SureDodgeTimerLimit=35
+							BuffTechniques = list("/obj/Skills/AutoHit/Sharingan_Genjutsu")
 							passives = list("Maki" = 1, "PUSpike" = 15, "Flow" = 1, "Instinct" = 1, "FatigueDrain"  = 0.05)
 							src.Instinct=1
 							src.Flow=1
@@ -4563,6 +4564,7 @@ NEW VARIABLES
 							OffMult=1.4
 							DefMult=1.4
 							SureDodgeTimerLimit=25
+							BuffTechniques = list("/obj/Skills/AutoHit/Sharingan_Genjutsu")
 							passives = list("Maki" = 1, "PUSpike" = 20, "Flow" = 2, "Instinct" = 2, "LikeWater" = 2)
 							LikeWater=2
 							Instinct=2
@@ -4573,6 +4575,7 @@ NEW VARIABLES
 							src.OffMult=1.3
 							src.DefMult=1.3
 							src.SureDodgeTimerLimit=30
+							BuffTechniques = list("/obj/Skills/AutoHit/Sharingan_Genjutsu")
 							passives = list("Maki" = 1, "PUSpike" = 15, "Flow" = 2, "Instinct" = 2)
 							src.Instinct=2
 							src.Flow=1
@@ -9044,12 +9047,13 @@ NEW VARIABLES
 						src.OffMessage="unravels the kaleidoscope form of their tomoe..."
 					switch(usr.SharinganEvolution)
 						if("Sacrifice")
-							src.BuffTechniques=list("/obj/Skills/AutoHit/Tsukiyomi","/obj/Skills/AutoHit/Amaterasu")
+							src.BuffTechniques=list("/obj/Skills/AutoHit/Tsukiyomi","/obj/Skills/AutoHit/Amaterasu", "/obj/Skills/AutoHit/Sharingan_Genjutsu")
 						if("Hatred")
-							src.BuffTechniques=list("/obj/Skills/AutoHit/Amaterasu2","/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Kagutsuchi")
+							src.BuffTechniques=list("/obj/Skills/AutoHit/Amaterasu2","/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Kagutsuchi", "/obj/Skills/AutoHit/Sharingan_Genjutsu")
 							passives["Instinct"] = 1
 							src.Instinct=1
 						if("Resolve")
+							BuffTechniques = list("/obj/Skills/AutoHit/Sharingan_Genjutsu")
 							passives = list("BuffMastery" = 1 + usr.SagaLevel/2, "Deflection" = 1 + usr.SagaLevel/4, "Flow" = 1, "Instinct" = 1, "FluidForm" = 1, "Godspeed" = usr.SagaLevel/4,
 							"LikeWater" = usr.SagaLevel/2,  "PUSpike" = -20)
 							src.LikeWater=usr.SagaLevel / 2

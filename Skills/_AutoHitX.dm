@@ -3943,6 +3943,24 @@ obj
 					usr.Activate(src)
 
 ///Sharingan
+			Sharingan_Genjutsu
+				Area="Arc"
+				ForOffense=1
+				DamageMult=2
+				Distance=10
+				AllOutAttack=1
+				DelayTime=0
+				GuardBreak=1
+				Stunner=2
+				EnergyCost = 15
+				HitSparkIcon='BLANK.dmi'
+				ActiveMessage="'s tomoes slowly spin as they trap their opponent into a genjutsu!"
+				Cooldown=90
+				BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Genjutsu"
+				verb/Genjutsu()
+					set name = "Sharingan: Genjutsu"
+					set category="Skills"
+					usr.Activate(src)
 			Tsukiyomi
 				Area="Arc"
 				ForOffense=1

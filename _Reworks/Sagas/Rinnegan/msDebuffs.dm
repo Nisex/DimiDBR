@@ -8,8 +8,8 @@ particles/blades
 	width = 500
 	height = 500
 	count = 10
-	spawning = 5  
-	bound1 = list(-1000, -1000, -1000)   
+	spawning = 5
+	bound1 = list(-1000, -1000, -1000)
 	lifespan = 5
 	fade = 4
 	position = generator("box", list(-1,1,0), list(1,1,1))
@@ -27,9 +27,13 @@ obj/blades
 	screen_loc = "CENTER,CENTER"
 	particles = new/particles/blades
 
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Genjutsu
+	DefMult = 0.75
+	passives = list("Instinct" = -1, "Flow" = -1)
+
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Seishinkai_to_Yami
 	var/tmp/mob/tmpAppearanceMob
-	var/tmp/obj/blades/b 
+	var/tmp/obj/blades/b
 	StunAffected = 1
 	HealthDrain = 0.05
 	TimerLimit = 10
@@ -69,7 +73,7 @@ obj/blades
 	proc/animateTorture(mob/target)
 		b = new()
 		target.client += b
-	
+
 	proc/endTorture(mob/target)
 		del tmpAppearanceMob
 		target.client -= b
