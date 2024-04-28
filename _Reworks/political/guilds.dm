@@ -99,7 +99,7 @@ guild
 		ownerID
 		list/officers = list()
 		list/members = list()// by UniqueID
-		payOutRate = 1
+		payOutRate = 0.25 // 0.25 = 4 fragments into 1 money
 
 	proc
 		checkMember(mob/Players/p)
