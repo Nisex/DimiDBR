@@ -307,8 +307,8 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 				if(P.passive_handler.Get("CashCow"))
 					min.value *= 1+(P.passive_handler.Get("CashCow")/10)
 				min.assignState()
-				min.name = "[Commas(round(min.value))] Tower Fragments"
-				P << "You've gained [totalValue] fragments!"
+				min.name = "[Commas(round(min.value))] Mana Bits"
+				P << "You've gained [totalValue* 1+(P.passive_handler.Get("CashCow")/10)] Mana Bits!"
 			if(!foundMineral)
 				var/obj/Items/mineral/mineral = new()
 				P.contents += mineral
@@ -316,8 +316,8 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 				if(P.passive_handler.Get("CashCow"))
 					mineral.value *= 1+(P.passive_handler.Get("CashCow")/10)
 				mineral.assignState()
-				mineral.name = "[Commas(round(mineral.value))] Tower Fragments"
-				P << "You've gained [totalValue] fragments!"
+				mineral.name = "[Commas(round(mineral.value))] Mana Bits"
+				P << "You've gained [totalValue*1+(P.passive_handler.Get("CashCow")/10)] Mana Bits!"
 
 	if(text)
 		src.OMessage(20,"[src] was just killed by [text]!","<font color=red>[src] was just killed by [text]!")
@@ -2304,7 +2304,7 @@ mob/proc/Grab()
 					var/obj/Items/mineral/min = P
 					for(var/obj/Items/mineral/m in src)
 						m.value += min.value
-						m.name = "[Commas(round(m.value))] Tower Fragments"
+						m.name = "[Commas(round(m.value))] Mana Bits"
 						src.OMessage(10,"[src] picks up [min].","[src]([src.key]) picks up ([min.value])[ExtractInfo(P)] made by [m.owner].")
 						del(buh)
 						return

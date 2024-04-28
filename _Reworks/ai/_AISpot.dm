@@ -343,7 +343,7 @@ obj
 				m.value = rand(8,21) + p.Potential + potExtra
 				m.value *= 1 + (powerModifier / 2)
 				m.value *= mineralModifier
-				m.name = "[Commas(m.value)] Tower Fragments"
+				m.name = "[Commas(m.value)] Mana Bits"
 				p.contents += m
 
 		Slime_Zone

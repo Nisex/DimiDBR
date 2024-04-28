@@ -1,7 +1,7 @@
 /obj/Items/mineral
     var/value = 1
     Destructable = FALSE
-    name = "Tower Fragments"
+    name = "Mana Bits"
     icon='Crystal_Fragments.dmi'
     icon_state="1"
     Stealable = 1
@@ -19,7 +19,7 @@
             Drop(Amount, usr)
     proc/Reduce(num)
         value -= num
-        name = "[Commas(round(value,1))] Tower Fragments"
+        name = "[Commas(round(value,1))] Mana Bits"
         if(value <= 0)
             del(src)
     proc/assignState(val)
@@ -33,18 +33,18 @@
     Drop(num, mob/p)
         var/obj/Items/mineral/mineral = new()
         mineral.value = num
-        mineral.name = "[Commas(round(num))] Tower Fragments"
+        mineral.name = "[Commas(round(num))] Mana Bits"
         mineral.loc = get_step(p, p.dir)
         mineral.icon_state = assignState(mineral.value)
         Reduce(num)
-        
+
 #define PLAYER_EXCHANGE_RATE 6
 #define NPC_EXCHANGE_RATE 2
 
 // we need an npc that when clicked will exchange these
 // we also need an exchange for the player that can do it
 /mob/Admin4/verb/GiveExchangeVerb()
-    
+
     var/mob/p = input(src, "Pick a player", "Player") in players
     p.verbs += /mob/proc/ExchangeMinerals
 
@@ -56,7 +56,7 @@
 
 
 /mob/proc/ExchangeMinerals()
-    set name = "Exchange Tower Fragments"
+    set name = "Exchange Mana Bits"
     set category = "Roleplay"
     var/obj/Items/mineral/found = FALSE
     for(var/obj/Items/mineral/m in usr)
@@ -64,7 +64,7 @@
             found = m
             break
     if(!found)
-        usr << "You don't have any Tower Fragments to exchange."
+        usr << "You don't have any Mana Bits to exchange."
         return
     exchangeMineral(found, usr, FALSE)
 
@@ -95,12 +95,12 @@
             return
         else
             npc.bank -= howMany * NPC_EXCHANGE_RATE
-            p << "You exchange [howMany] Tower Fragments for [howMany * NPC_EXCHANGE_RATE] Dollars."
+            p << "You exchange [howMany] Mana Bits for [howMany * NPC_EXCHANGE_RATE] Dollars."
             p.GiveMoney(howMany * NPC_EXCHANGE_RATE)
     else
         var/exchangeRate = getExchangeRate(p.information.faction)
         p.GiveMoney(howMany * exchangeRate)
-        p << "You exchange [howMany] Tower Fragments for [howMany * exchangeRate] Dollars."
+        p << "You exchange [howMany] Mana Bits for [howMany * exchangeRate] Dollars."
     mineral.Reduce(howMany)
     if(mineral.value <= 0)
         del(mineral)
@@ -111,7 +111,7 @@
     var/bank = 100000
     var/lastReplenish = 0
     icon = 'Silver.dmi'
-    
+
     Click()
         var/obj/Items/mineral/found = FALSE
         for(var/obj/Items/mineral/m in usr)
@@ -119,14 +119,14 @@
                 found = m
                 break
         if(!found)
-            usr << "You don't have any Tower Fragments to exchange."
+            usr << "You don't have any Mana Bits to exchange."
             return
         exchangeMineral(found, usr, src)
 
     proc/Replenish()
         if(lastReplenish + 24 HOURS < world.time)
             lastReplenish = world.time
-            var/postTenBoon = glob.progress.DaysOfWipe > 10 ? 1 : 0 
+            var/postTenBoon = glob.progress.DaysOfWipe > 10 ? 1 : 0
             var/extraValue
             var/replenishValue = 100000 * glob.progress.DaysOfWipe
             if(postTenBoon)
