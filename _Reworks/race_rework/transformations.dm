@@ -9,6 +9,7 @@ globalTracker
 	var/list/transLocked = list(/transformation/saiyan/super_saiyan, /transformation/saiyan/super_saiyan_2,/transformation/saiyan/super_saiyan_3)
 
 mob/var/transActive = 0
+mob/var/bypassTransAutomation = 0
 
 mob/proc/Transform()
 	race.transformations[transActive+1].transform(src)
@@ -127,7 +128,7 @@ transformation
 		transform(mob/user)
 			if(is_active || !user.CanTransform()) return
 
-			if(glob.lockTransAutomation && (type in glob.transLocked)) return.
+			if(!(user.bypassTransAutomation >= user.transActive+1) && glob.lockTransAutomation && (type in glob.transLocked)) return.
 			if(unlock_potential > user.Potential) return
 
 			mastery_boons(user)
