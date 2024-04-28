@@ -30,6 +30,7 @@ obj/blades
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Genjutsu
 	DefMult = 0.75
 	passives = list("Instinct" = -1, "Flow" = -1)
+	TimerLimit = 20
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Seishinkai_to_Yami
 	var/tmp/mob/tmpAppearanceMob
