@@ -72,126 +72,6 @@ mob/var
 	SuperDemonHair2_Fusion
 	KingofBravesHair_Fusion
 
-mob/proc/Hair_Forms()
-	Hair_SSJ1=null
-	Hair_FPSSJ1=null
-	Hair_SSJ2=null
-	Hair_SSJ3=null
-	Hair_SSJGod=null
-	Hair_SSJBlue=null
-	Hair_SSJ4=null
-	Hair_HT=null
-	Hair_SHT=null
-	Hair_SSJ3='Hair_SSj3.dmi'
-	switch(src.Hair_Base)
-		if('Hair1.dmi')
-			Hair_SSJ1='Hair1_SSj.dmi'
-			Hair_FPSSJ1='Hair1_SSjFP.dmi'
-			Hair_SSJ2='Hair1_USSj.dmi'
-		if('Hair2.dmi')
-			Hair_SSJ1='Hair2_SSj.dmi'
-			Hair_FPSSJ1='Hair2_SSjFP.dmi'
-			Hair_SSJ2='Hair3_USSj.dmi'
-		if('Hair3.dmi')
-			Hair_SSJ1='Hair3_SSj.dmi'
-			Hair_FPSSJ1='Hair3_SSjFP.dmi'
-			Hair_SSJ2='Hair3_USSj.dmi'
-		if('Hair4.dmi')
-			Hair_SSJ1='Hair4_SSj.dmi'
-			Hair_FPSSJ1='Hair4_SSjFP.dmi'
-			Hair_SSJ2='Hair4_USSj.dmi'
-			Hair_SSJBlue='Hair4_SSB.dmi'
-		if('Hair5.dmi')
-			Hair_SSJ1='Hair4_SSj.dmi'
-			Hair_FPSSJ1='Hair4_SSjFP.dmi'
-			Hair_SSJ2='Hair4_USSj.dmi'
-		if('Hair6.dmi')
-			Hair_SSJ1='Hair1_SSj.dmi'
-			Hair_FPSSJ1='Hair1_SSjFP.dmi'
-			Hair_SSJ2='Hair6_USSj.dmi'
-		if('Hair7.dmi')
-			Hair_SSJ1='Hair7_SSj.dmi'
-			Hair_FPSSJ1='Hair7_SSjFP.dmi'
-			Hair_SSJ2='Hair7_USSj.dmi'
-		if('Hair8.dmi')
-			Hair_SSJ1='Hair8_SSj.dmi'
-			Hair_FPSSJ1='Hair8_SSjFP.dmi'
-			Hair_SSJ2='Hair8_SSj.dmi'
-		if('Hair9.dmi')
-			Hair_SSJ1='Hair9_SSj.dmi'
-			Hair_FPSSJ1='Hair9_SSjFP.dmi'
-			Hair_SSJ2='Hair9_SSj.dmi'
-		if('Hair10.dmi')
-			Hair_SSJ1='Hair15_SSj.dmi'
-			Hair_FPSSJ1='Hair15_SSjFP.dmi'
-			Hair_SSJ2='Hair15_USSj.dmi'
-		if('Hair11.dmi')
-			Hair_SSJ1='Hair11_SSj.dmi'
-			Hair_FPSSJ1='Hair11_SSjFP.dmi'
-			Hair_SSJ2='Hair11_SSj.dmi'
-		if('Hair12.dmi')
-			Hair_SSJ1='Hair12_SSj.dmi'
-			Hair_FPSSJ1='Hair12_SSjFP.dmi'
-			Hair_SSJ2='Hair12_SSj.dmi'
-		if('Hair13.dmi')
-			Hair_SSJ1='Hair13_SSj.dmi'
-		if('Hair15.dmi')
-			Hair_SSJ1='Hair15_SSj.dmi'
-			Hair_FPSSJ1='Hair15_SSjFP.dmi'
-			Hair_SSJ2='Hair15_USSj.dmi'
-		if('Hair20.dmi')
-			Hair_SSJ1='Hair20_SSj.dmi'
-			Hair_FPSSJ1='Hair20_SSjFP.dmi'
-			Hair_SSJ2='Hair20_SSj.dmi'
-		if('Hair23.dmi')
-			Hair_SSJ1='Hair7_SSj.dmi'
-			Hair_FPSSJ1='Hair7_SSjFP.dmi'
-			Hair_SSJ2='Hair7_USSj.dmi'
-		if('Hair26.dmi')
-			Hair_SSJ1='Hair26_SSj.dmi'
-			Hair_FPSSJ1='Hair26_SSjFP.dmi'
-			Hair_SSJ2='HairF_USSj.dmi'
-		if('HairHanasia.dmi')
-			Hair_SSJ1='HairHanasiaSSJ.dmi'
-			Hair_FPSSJ1='HairHanasiaSSJFP.dmi'
-			Hair_SSJ2='HairHanasiaSSJ2.dmi'
-	if(Hair_Base)
-		if(Hair_SSJ1==null)
-			if(Hair_Base)
-				var/icon/x=new(Hair_Base)
-				if(x)
-					x.MapColors(0.2,0.2,0.2, 0.39,0.39,0.39, 0.07,0.07,0.07, 0.69,0.42,0)
-				Hair_SSJ1=x
-		if(Hair_FPSSJ1==null)
-			if(Hair_Base)
-				var/icon/x=new(Hair_Base)
-				if(x)
-					x.Blend(rgb(183,143,25),ICON_ADD)
-				Hair_SSJ1=x
-		if(Hair_SSJ2==null)
-			if(Hair_Base)
-				var/icon/x=new(Hair_Base)
-				if(x)
-					x.Blend(rgb(160,130,0),ICON_ADD)
-				Hair_SSJ2=x
-		if(Hair_SSJGod==null)
-			if(Hair_Base)
-				var/icon/x=new(Hair_Base)
-				if(x)
-					x.MapColors(0.2,0.2,0.2, 0.39,0.39,0.39, 0.07,0.07,0.07, 0.5,0,0.15)
-				Hair_SSJGod=x
-		if(Hair_HT==null)
-			if(Hair_Base)
-				var/icon/x=new(Hair_Base)
-				if(x)
-					x.MapColors(0.7,0.3,0.7, 0.99,0.59,0.99, 0.51,0.11,0.51, 0.1,0.1,0.1)
-				Hair_HT=x
-		if(Hair_SHT==null)
-			if(Hair_SSJ1)
-				var/icon/x=new(Hair_SSJ1)
-				if(x)
-					x.MapColors(0.7,0.3,0.7, 0.99,0.59,0.99, 0.51,0.11,0.51, -0.3,-0.3,-0.3)
-				Hair_SHT=x
 
 mob/proc/Auraz(var/Z)
 	var/image/pegasus=image('Cosmo_Pegasus.dmi',pixel_x=-17, pixel_y=-22)
@@ -591,7 +471,6 @@ obj/Hairs
 			if(Color) src.icon+=Color
 			A.Hair_Base=initial(icon)
 			A.Hair_Color=Color
-			A.Hair_Forms()
 			A.Hairz("Add")
 			A.IconClicked=0
 			winshow(usr,"Grid1",0)

@@ -25,6 +25,7 @@ transformation
 		anger
 		unlock_potential = -1
 
+		stored_profile
 		form_profile
 
 		stored_base
@@ -147,6 +148,9 @@ transformation
 				user.pixel_x = form_base_x
 				user.pixel_y = form_base_y
 
+			if(form_profile)
+				stored_profile = user.Profile
+				user.Profile = form_profile
 			priorAngerPoint = user.AngerPoint
 			user.AngerPoint = angerPoint
 
@@ -185,6 +189,10 @@ transformation
 			if(autoAnger)
 				user.passive_handler.Decrease("EndlessAnger")
 
+			if(stored_profile)
+				user.Profile = stored_profile
+				stored_profile = null
+
 			is_active = FALSE
 
 			revert_animation(user)
@@ -209,8 +217,13 @@ transformation
 			angerPoint = 75
 
 			adjust_transformation_visuals(mob/user)
-				form_hair_icon = user.Hair_SSJ1
-				form_icon_2_icon = user.Hair_SSJ1
+				if(!form_hair_icon)
+					if(user.Hair_Base)
+						var/icon/x=new(user.Hair_Base)
+						if(x)
+							x.MapColors(0.2,0.2,0.2, 0.39,0.39,0.39, 0.07,0.07,0.07, 0.69,0.42,0)
+						form_hair_icon = x
+						form_icon_2_icon = x
 				..()
 				form_glow.blend_mode=BLEND_ADD
 				form_glow.alpha=40
@@ -270,7 +283,12 @@ transformation
 			autoAnger = TRUE
 			PUSpeedModifier = 1.5
 			adjust_transformation_visuals(mob/user)
-				form_hair_icon = user.Hair_SSJ2
+				if(!form_hair_icon)
+					if(user.Hair_Base)
+						var/icon/x=new(user.Hair_Base)
+						if(x)
+							x.Blend(rgb(160,130,0),ICON_ADD)
+						form_hair_icon=x
 				..()
 				form_icon_1 = image(user.Hair_SSJ2)
 				form_icon_1.blend_mode=BLEND_MULTIPLY
@@ -311,9 +329,9 @@ transformation
 			form_aura_icon_state = "SSJ2"
 			form_aura_x = -32
 			form_icon_2_icon = 'SS3Sparks.dmi'
+			form_hair_icon = 'Hair_SSj3.dmi'
+			form_icon_1_icon = 'Hair_SSj3.dmi'
 			adjust_transformation_visuals(mob/user)
-				form_hair_icon = user.Hair_SSJ3
-				form_icon_1_icon = user.Hair_SSJ3
 				..()
 				form_icon_1 = image(user.Hair_SSJ3)
 				form_icon_1.blend_mode=BLEND_MULTIPLY

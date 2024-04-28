@@ -402,7 +402,6 @@ mob/Players/verb
 				if(Color) Z+=Color
 				A.Hair_Base=Z
 				A.Hair_Color=Color
-				A.Hair_Forms()
 				A.Hairz("Add")
 	Custom_Appearance_Hair_Details()
 		set category="Other"
@@ -465,107 +464,13 @@ mob/Players/verb
 		if(!(world.time > usr.verb_delay)) return
 		usr.verb_delay=world.time+1
 		var/list/Options=list("Cancel")
+		var/list/transOptions = list("Cancel")
 		if(istype(A,/mob))
-			if(usr.isRace(HUMAN))
-				if(usr.HellPower)
-					Options.Add("Devil Trigger Base")
-					Options.Add("Devil Trigger Hair")
-					Options.Add("Devil Trigger Overlay")
-					Options.Add("Devil Trigger Top Overlay")
-					Options.Add("Devil Trigger Profile")
-					if(usr.HellPower>=2)
-						Options.Add("Sin Devil Trigger Base")
-						Options.Add("Sin Devil Trigger Hair")
-						Options.Add("Sin Devil Trigger Overlay")
-						Options.Add("Sin Devil Trigger Top Overlay")
-						Options.Add("Sin Devil Trigger Profile")
-				if(usr.LegendaryPower)
-					Options.Add("God Mode Base")
-					Options.Add("God Mode Hair")
-					Options.Add("God Mode Overlay")
-					Options.Add("God Mode Top Overlay")
-					Options.Add("God Mode Profile")
-			else if(usr.Race in list("Shinjin","Tuffle"))
-				if(locate(/obj/Skills/Buffs/SlotlessBuffs/Majin) in usr)
-					Options.Add("Sin Devil Trigger Base")
-					Options.Add("Sin Devil Trigger Hair")
-					Options.Add("Sin Devil Trigger Overlay")
-					Options.Add("Sin Devil Trigger Top Overlay")
-					Options.Add("Sin Devil Trigger Profile")
-
-			else if(usr.isRace(DEMON))
-				Options.Add("Devil Trigger Base")
-				Options.Add("Devil Trigger Hair")
-				Options.Add("Devil Trigger Overlay")
-				Options.Add("Devil Trigger Top Overlay")
-				Options.Add("Devil Trigger Profile")
-			else if(usr.isRace(MAKYO))
+			if(usr.isRace(MAKYO))
 				Options.Add("Expanded State")
-			else if(usr.Race=="Half Saiyan"||usr.isRace(SAIYAN))
-				Options.Add("Super Saiyan Hair")
-				Options.Add("Super Saiyan Profile")
-				Options.Add("Super Saiyan 2 Hair")
-				Options.Add("Super Saiyan 2 Profile")
-				Options.Add("Super Saiyan 3 Hair")
-				Options.Add("Super Saiyan 3 Profile")
-				Options.Add("Super Saiyan 4 Eyes")
-				Options.Add("Super Saiyan 4 Hair")
-				Options.Add("Super Saiyan 4 Fur")
-				Options.Add("Super Saiyan 4 Clothing")
-				Options.Add("Super Saiyan 4 Tail")
-				Options.Add("Super Saiyan 4 Profile")
-				if(usr.isRace(SAIYAN))
-					Options.Add("Super Saiyan God Hair")
-					Options.Add("Super Saiyan God Profile")
-				if(usr.Race=="Half Saiyan")
-					Options.Add("Super Saiyan Rage Hair")
-					Options.Add("Super Saiyan Rage Profile")
-				Options.Add("Ascended Super Saiyan Base")
-			else if(usr.isRace(NAMEKIAN))
-				Options.Add("Super Namekian Base")
-				Options.Add("Super Namekian Overlay")
-				Options.Add("Super Namekian Top Overlay")
-				Options.Add("Super Namekian Profile")
-			else if(usr.Race=="Alien")
-				Options.Add("Super Alien Base")
-				Options.Add("Super Alien Hair")
-				Options.Add("Super Alien Overlay")
-				Options.Add("Super Alien Top Overlay")
-				Options.Add("Super Alien Profile")
-				Options.Add("Super Alien Aura")
-				Options.Add("Super Alien Active Text")
-				Options.Add("Super Alien Revert Text")
-				Options.Add("Ascended Super Alien Base")
-				Options.Add("Ascended Super Alien Hair")
-				Options.Add("Ascended Super Alien Overlay")
-				Options.Add("Ascended Super Alien Top Overlay")
-				Options.Add("Ascended Super Alien Profile")
-				Options.Add("Ascended Super Alien Aura")
-				Options.Add("Ascended Super Alien Active Text")
-				Options.Add("Ascended Super Alien Revert Text")
-				Options.Add("Evolved Ascended Super Alien Base")
-				Options.Add("Evolved Ascended Super Alien Hair")
-				Options.Add("Evolved Ascended Super Alien Overlay")
-				Options.Add("Evolved Ascended Super Alien Top Overlay")
-				Options.Add("Evolved Ascended Super Alien Profile")
-				Options.Add("Evolved Ascended Super Alien Aura")
-				Options.Add("Evolved Ascended Super Alien Active Text")
-				Options.Add("Evolved Ascended Super Alien Revert Text")
-				Options.Add("Ultimate Evolved Ascended Super Alien Base")
-				Options.Add("Ultimate Evolved Ascended Super Alien Hair")
-				Options.Add("Ultimate Evolved Ascended Super Alien Overlay")
-				Options.Add("Ultimate Evolved Ascended Super Alien Top Overlay")
-				Options.Add("Ultimate Evolved Ascended Super Alien Profile")
-				Options.Add("Ultimate Evolved Ascended Super Alien Aura")
-				Options.Add("Ultimate Evolved Ascended Super Alien Active Text")
-				Options.Add("Ultimate Evolved Ascended Super Alien Revert Text")
-			else if(usr.Race=="Changeling")
-				Options.Add("First Restriction Form Base")
-				Options.Add("Second Restriction Form Base")
-				Options.Add("Third Restriction Form Base")
-				Options.Add("Final Form Base")
-				Options.Add("Final Form 100% / Fifth Form Base")
-				Options.Add("Golden Form Base")
+			else if(usr.race.transformations.len>0)
+				for(var/transformation/t in usr.race.transformations)
+					transOptions.Add("[t.type]")
 			else if(locate(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form, usr))
 				Options.Add("Spirit Form Base")
 				Options.Add("Spirit Form Hair")
@@ -576,307 +481,93 @@ mob/Players/verb
 				Options.Add("Spirit Form Active Text")
 				Options.Add("Spirit Form Revert Text")
 			else
-				usr << "Only certain races and class can change their form icons."
+				usr << "Only certain races and classes can change their form icons."
 				return
 
-			var/Choice=input(usr, "What aspect of your forms do you wish to edit?", "Change Form Icons") in Options
-			switch(Choice)
-				if("Expanded State")
-					usr.ExpandBase=input(usr, "What base do you want to use for your Expanded State?", "Change Form Icon") as icon|null
-				if("Devil Trigger Base")
-					usr.Form1Base=input(usr, "What base icon will you use for Devil Trigger?", "Change Form Icon") as icon|null
-					if(usr.Form1Base)
-						usr.Form1BaseX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1BaseY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Devil Trigger Hair")
-					usr.Form1Hair=input(usr, "What hair will you use for Devil Trigger?", "Change Form Icon") as icon|null
-					if(usr.Form1Hair)
-						usr.Form1HairX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1HairY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Devil Trigger Overlay")
-					usr.Form1Overlay=input(usr, "What overlay will you use for Devil Trigger?", "Change Form Icon") as icon|null
-					if(usr.Form1Overlay)
-						usr.Form1OverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1OverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Devil Trigger Top Overlay")
-					usr.Form1TopOverlay=input(usr, "What Top Overlay will you use for Devil Trigger?", "Change Form Icon") as icon|null
-					if(usr.Form1TopOverlay)
-						usr.Form1TopOverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1TopOverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Devil Trigger Profile")
-					usr.Form1Profile=input(usr, "What will you show as your profile while in Devil Trigger?", "Change Form Icon", usr.Form1Profile) as message|null
-				if("Sin Devil Trigger Base")
-					usr.Form2Base=input(usr, "What base icon will you use for Sin Devil Trigger?", "Change Form Icon") as icon|null
-					if(usr.Form2Base)
-						usr.Form2BaseX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form2BaseY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Sin Devil Trigger Hair")
-					usr.Form2Hair=input(usr, "What hair will you use for Sin Devil Trigger?", "Change Form Icon") as icon|null
-					if(usr.Form2Hair)
-						usr.Form2HairX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form2HairY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Sin Devil Trigger Overlay")
-					usr.Form2Overlay=input(usr, "What overlay will you use for Sin Devil Trigger?", "Change Form Icon") as icon|null
-					if(usr.Form2Overlay)
-						usr.Form2OverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form2OverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Sin Devil Trigger Top Overlay")
-					usr.Form2TopOverlay=input(usr, "What Top Overlay will you use for Sin Devil Trigger?", "Change Form Icon") as icon|null
-					if(usr.Form2TopOverlay)
-						usr.Form2TopOverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form2TopOverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Sin Devil Trigger Profile")
-					usr.Form2Profile=input(usr, "What will you show as your profile while in Sin Devil Trigger?", "Change Form Icon", usr.Form2Profile) as message|null
+			if(transOptions.len>1)
+				var/Choice = input(usr, "Which transformation do you want to edit?", "Change Form Icons") in transOptions
+				if(Choice == "Cancel") goto SKIP
+				var/transformation/transSelected
+				for(var/transformation/t in usr.race.transformations)
+					if(t.type == Choice)
+						transSelected = t
+				var/list/transVisualOptions = list("Cancel", "Base", "Hair", "Icon 1", "Icon 2", "Aura", "Aura Underlay", "Profile")
+				var/aspectPicked=input(usr, "What aspect of your forms do you wish to edit?", "Change Form Icons") in transVisualOptions
+				switch(aspectPicked)
+					if("Base")
+						transSelected.form_base = input(usr, "What base icon would you like to use in this form?", "Base Icon") as icon|null
+						if(transSelected.form_base)
+							transSelected.form_base_x = input(usr, "X offset?", "Base X") as num|null
+							transSelected.form_base_y = input(usr, "Y offset?", "Base Y") as num|null
+					if("Hair")
+						transSelected.form_hair_icon = input(usr, "What hair would you like to use in this form?", "Hair") as icon|null
+						if(transSelected.form_hair_icon)
+							transSelected.form_hair_x = input(usr, "X offset?", "Hair X") as num|null
+							transSelected.form_hair_y = input(usr, "Y offset?", "Hair Y") as num|null
+					if("Icon 1")
+						transSelected.form_icon_1_icon = input(usr, "What extra overlay icon would you like to use in this form?", "Icon 1") as icon|null
+						if(transSelected.form_icon_1_icon)
+							transSelected.form_icon_1_icon_state = input(usr, "State?", "State", transSelected.form_icon_1_icon_state) as message|null
+							transSelected.form_icon_1_x = input(usr, "X offset?", "Aura Underlay X") as num|null
+							transSelected.form_icon_1_y = input(usr, "Y offset?", "Aura Underlay Y") as num|null
+					if("Icon 2")
+						transSelected.form_icon_2_icon = input(usr, "What extra overlay would you like to use in this form?", "Icon 2") as icon|null
+						if(transSelected.form_aura_underlay_icon)
+							transSelected.form_icon_2_icon_state = input(usr, "State?", "State", transSelected.form_icon_2_icon_state) as message|null
+							transSelected.form_icon_2_x = input(usr, "X offset?", "Aura Underlay X") as num|null
+							transSelected.form_icon_2_y = input(usr, "Y offset?", "Aura Underlay Y") as num|null
+					if("Aura")
+						transSelected.form_aura_icon = input(usr, "What aura would you like to use in this form?", "Aura") as icon|null
+						if(transSelected.form_aura_icon)
+							transSelected.form_aura_icon_state = input(usr, "State?", "State", transSelected.form_aura_icon_state) as message|null
+							transSelected.form_aura_x = input(usr, "X offset?", "Aura Underlay X") as num|null
+							transSelected.form_aura_y = input(usr, "Y offset?", "Aura Underlay Y") as num|null
+					if("Aura Underlay")
+						transSelected.form_aura_underlay_icon = input(usr, "What aura underlay would you like to use in this form?", "Aura Underlay") as icon|null
+						if(transSelected.form_aura_underlay_icon)
+							transSelected.form_aura_underlay_icon_state = input(usr, "State?", "State", transSelected.form_aura_underlay_icon_state) as message|null
+							transSelected.form_aura_underlay_x = input(usr, "X offset?", "Aura Underlay X") as num|null
+							transSelected.form_aura_underlay_y = input(usr, "Y offset?", "Aura Underlay Y") as num|null
+					if("Profile")
+						transSelected.form_profile=input(usr, "What profile would you like to display while in this form?", "Change Form Profile", transSelected.form_profile) as message|null
 
-				if("God Mode Base")
-					usr.Form1Base=input(usr, "What base icon will you use for God Mode?", "Change Form Icon") as icon|null
-					if(usr.Form1Base)
-						usr.Form1BaseX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1BaseY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("God Mode Hair")
-					usr.Form1Hair=input(usr, "What hair will you use for God Mode?", "Change Form Icon") as icon|null
-					if(usr.Form1Hair)
-						usr.Form1HairX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1HairY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("God Mode Overlay")
-					usr.Form1Overlay=input(usr, "What overlay will you use for God Mode?", "Change Form Icon") as icon|null
-					if(usr.Form1Overlay)
-						usr.Form1OverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1OverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("God Mode Top Overlay")
-					usr.Form1TopOverlay=input(usr, "What Top Overlay will you use for God Mode?", "Change Form Icon") as icon|null
-					if(usr.Form1TopOverlay)
-						usr.Form1TopOverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1TopOverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("God Mode Profile")
-					usr.Form1Profile=input(usr, "What will you show as your profile while in God Mode?", "Change Form Icon", usr.Form1Profile) as message|null
-
-				if("Ascended Super Saiyan Base")
-					usr.ExpandBase=input(usr, "What base do you want to use for Ascended Super Saiyan states?", "Change Form Icon") as icon|null
-				if("Super Saiyan Hair")
-					usr.Hair_SSJ1=input(usr, "What hair do you want to use for Super Saiyan?", "Change Form Icon") as icon|null
-				if("Super Saiyan Hair")
-					usr.Hair_FPSSJ1=input(usr, "What hair do you want to use for Super Saiyan Full Powered?", "Change Form Icon") as icon|null
-				if("Super Saiyan Profile")
-					usr.Form1Profile=input(usr, "What will you show as your profile while in Super Saiyan?", "Change Form Icon", usr.Form1Profile) as message|null
-				if("Super Saiyan 2 Hair")
-					usr.Hair_SSJ2=input(usr, "What hair do you want to use for Super Saiyan 2?", "Change Form Icon") as icon|null
-				if("Super Saiyan 2 Profile")
-					usr.Form2Profile=input(usr, "What will you show as your profile while in Super Saiyan 2?", "Change Form Icon", usr.Form2Profile) as message|null
-				if("Super Saiyan 3 Hair")
-					usr.Hair_SSJ3=input(usr, "What hair do you want to use for Super Saiyan 3?", "Change Form Icon") as icon|null
-				if("Super Saiyan 3 Profile")
-					usr.Form3Profile=input(usr, "What will you show as your profile while in Super Saiyan 3?", "Change Form Icon", usr.Form3Profile) as message|null
-				if("Super Saiyan 4 Eyes")
-					usr.EyesSSJ4=input(usr, "What base do you want to use for Super Saiyan 4?", "Change Form Icon") as icon|null
-				if("Super Saiyan 4 Hair")
-					usr.Hair_SSJ4=input(usr, "What hair do you want to use for Super Saiyan 4?", "Change Form Icon") as icon|null
-				if("Super Saiyan 4 Fur")
-					usr.FurSSJ4=input(usr, "What do you want to use for fur while in Super Saiyan 4?", "Change Form Icon") as icon|null
-				if("Super Saiyan 4 Clothing")
-					usr.ClothingSSJ4=input(usr, "What do you want to use for clothing while in Super Saiyan 4?", "Change Form Icon") as icon|null
-				if("Super Saiyan 4 Tail")
-					usr.TailSSJ4=input(usr, "What do you want to use for tail while in Super Saiyan 4?", "Change Form Icon") as icon|null
-				if("Super Saiyan 4 Profile")
-					usr.Form4Profile=input(usr, "What will you show as your profile while in Super Saiyan 4?", "Change Form Icon", usr.Form4Profile) as message|null
-				if("Super Saiyan God Hair")
-					usr.Hair_SSJGod=input(usr, "What hair do you want to use for Super Saiyan God?", "Change Form Icon") as icon|null
-				if("Super Saiyan God Profile")
-					usr.Form5Profile=input(usr, "What will you show as your profile while in Super Saiyan God?", "Change Form Icon", usr.Form5Profile) as message|null
-				if("Super Saiyan Rage Hair")
-					usr.Hair_SSJGod=input(usr, "What hair do you want to use for Super Saiyan Rage?", "Change Form Icon") as icon|null
-				if("Super Saiyan Rage Profile")
-					usr.Form5Profile=input(usr, "What will you show as your profile while in Super Saiyan Rage?", "Change Form Icon", usr.Form5Profile) as message|null
-
-				if("Super Namekian Base")
-					usr.Form1Base=input(usr, "What base would you like to use while in Super Namekian?", "Change Form Icon") as icon|null
-					if(usr.Form1Base)
-						usr.Form1BaseX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1BaseY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Super Namekian Overlay")
-					usr.Form1Overlay=input(usr, "What overlay would you like to use while in Super Namekian?", "Change Form Icon") as icon|null
-					if(usr.Form1Overlay)
-						usr.Form1OverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1OverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Super Namekian Top Overlay")
-					usr.Form1TopOverlay=input(usr, "What Top Overlay would you like to use while in Super Namekian?", "Change Form Icon") as icon|null
-					if(usr.Form1TopOverlay)
-						usr.Form1TopOverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1TopOverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Super Namekian Profile")
-					usr.Form1Profile=input(usr, "What profile would you like to display while in Super Namekian?", "Change Form Icon", usr.Form1Profile) as message|null
-
-				if("Super Alien Base")
-					usr.Form1Base=input(usr, "What base would you like to use while in Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form1Base)
-						usr.Form1BaseX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1BaseY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Super Alien Hair")
-					usr.Form1Hair=input(usr, "What hair would you like to use while in Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form1Hair)
-						usr.Form1HairX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1HairY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Super Alien Overlay")
-					usr.Form1Overlay=input(usr, "What overlay would you like to use while in Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form1Overlay)
-						usr.Form1OverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1OverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Super Alien Top Overlay")
-					usr.Form1TopOverlay=input(usr, "What Top Overlay would you like to use while in Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form1TopOverlay)
-						usr.Form1TopOverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1TopOverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Super Alien Profile")
-					usr.Form1Profile=input(usr, "What profile would you like to display while in Super Alien?", "Change Form Icon", usr.Form1Profile) as message|null
-				if("Super Alien Aura")
-					usr.Form1Aura=input(usr, "What aura would you like to use while in Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form1Aura)
-						usr.Form1AuraX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1AuraY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Super Alien Active Text")
-					usr.Form1ActiveText=input(usr, "What text would you like to display when entering Super Alien?  There is no default text.", "Change Form Icons") as text|null
-				if("Super Alien Revert Text")
-					usr.Form1RevertText=input(usr, "What text would you like to display when exiting Super Alien?  There is no default text.", "Change Form Icons") as text|null
-				if("Ascended Super Alien Base")
-					usr.Form2Base=input(usr, "What base would you like to use while in Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form2Base)
-						usr.Form2BaseX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form2BaseY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Ascended Super Alien Hair")
-					usr.Form2Hair=input(usr, "What hair would you like to use while in Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form2Hair)
-						usr.Form2HairX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form2HairY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Ascended Super Alien Overlay")
-					usr.Form2Overlay=input(usr, "What overlay would you like to use while in Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form2Overlay)
-						usr.Form2OverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form2OverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Ascended Super Alien Top Overlay")
-					usr.Form2TopOverlay=input(usr, "What Top Overlay would you like to use while in Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form2TopOverlay)
-						usr.Form2TopOverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form2TopOverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Ascended Super Alien Profile")
-					usr.Form2Profile=input(usr, "What profile would you like to display while in Ascended Super Alien?", "Change Form Icon", usr.Form2Profile) as message|null
-				if("Ascended Super Alien Aura")
-					usr.Form2Aura=input(usr, "What aura would you like to use while in Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form2Aura)
-						usr.Form2AuraX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form2AuraY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Ascended Super Alien Active Text")
-					usr.Form2ActiveText=input(usr, "What text would you like to display when entering Ascended Super Alien?  There is no default text.", "Change Form Icons") as text|null
-				if("Ascended Super Alien Revert Text")
-					usr.Form2RevertText=input(usr, "What text would you like to display when exiting Ascended Super Alien?  There is no default text.", "Change Form Icons") as text|null
-				if("Evolved Ascended Super Alien Base")
-					usr.Form3Base=input(usr, "What base would you like to use while in Evolved Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form3Base)
-						usr.Form3BaseX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form3BaseY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Evolved Ascended Super Alien Hair")
-					usr.Form3Hair=input(usr, "What hair would you like to use while in Evolved Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form3Hair)
-						usr.Form3HairX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form3HairY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Evolved Ascended Super Alien Overlay")
-					usr.Form3Overlay=input(usr, "What overlay would you like to use while in Evolved Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form3Overlay)
-						usr.Form3OverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form3OverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Evolved Ascended Super Alien Top Overlay")
-					usr.Form3TopOverlay=input(usr, "What Top Overlay would you like to use while in Evolved Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form3TopOverlay)
-						usr.Form3TopOverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form3TopOverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Evolved Ascended Super Alien Profile")
-					usr.Form3Profile=input(usr, "What profile would you like to display while in Evolved Ascended Super Alien?", "Change Form Icon", usr.Form3Profile) as message|null
-				if("Evolved Ascended Super Alien Aura")
-					usr.Form3Aura=input(usr, "What aura would you like to use while in Evolved Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form3Aura)
-						usr.Form3AuraX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form3AuraY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Evolved Ascended Super Alien Active Text")
-					usr.Form3ActiveText=input(usr, "What text would you like to display when entering Evolved Ascended Super Alien?  There is no default text.", "Change Form Icons") as text|null
-				if("Evolved Ascended Super Alien Revert Text")
-					usr.Form3RevertText=input(usr, "What text would you like to display when exiting Evolved Ascended Super Alien?  There is no default text.", "Change Form Icons") as text|null
-				if("Ultimate Evolved Ascended Super Alien Base")
-					usr.Form4Base=input(usr, "What base would you like to use while in Ultimate Evolved Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form4Base)
-						usr.Form4BaseX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form4BaseY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Ultimate Evolved Ascended Super Alien Hair")
-					usr.Form4Hair=input(usr, "What hair would you like to use while in Ultimate Evolved Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form4Hair)
-						usr.Form4HairX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form4HairY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Ultimate Evolved Ascended Super Alien Overlay")
-					usr.Form4Overlay=input(usr, "What overlay would you like to use while in Ultimate Evolved Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form4Overlay)
-						usr.Form4OverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form4OverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Ultimate Evolved Ascended Super Alien Top Overlay")
-					usr.Form4TopOverlay=input(usr, "What TopOverlay would you like to use while in Ultimate Evolved Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form4TopOverlay)
-						usr.Form4TopOverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form4TopOverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Ultimate Evolved Ascended Super Alien Profile")
-					usr.Form4Profile=input(usr, "What profile would you like to display while in Ultimate Evolved Ascended Super Alien?", "Change Form Icon", usr.Form4Profile) as message|null
-				if("Ultimate Evolved Ascended Super Alien Aura")
-					usr.Form4Aura=input(usr, "What aura would you like to use while in Ultimate Evolved Ascended Super Alien?", "Change Form Icon") as icon|null
-					if(usr.Form4Aura)
-						usr.Form4AuraX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form4AuraY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Ultimate Evolved Ascended Super Alien Active Text")
-					usr.Form4ActiveText=input(usr, "What text would you like to display when entering Ultimate Evolved Ascended Super Alien?  There is no default text.", "Change Form Icons") as text|null
-				if("Ultimate Evolved Ascended Super Alien Revert Text")
-					usr.Form4RevertText=input(usr, "What text would you like to display when exiting Ultimate Evolved Ascended Super Alien?  There is no default text.", "Change Form Icons") as text|null
-
-				if("Spirit Form Base")
-					usr.Form1Base=input(usr, "What base would you like to use while in Spirit Form?", "Change Form Icon") as icon|null
-					if(usr.Form1Base)
-						usr.Form1BaseX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1BaseY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Spirit Form Hair")
-					usr.Form1Hair=input(usr, "What hair would you like to use while in Spirit Form?", "Change Form Icon") as icon|null
-					if(usr.Form1Hair)
-						usr.Form1HairX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1HairY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Spirit Form Overlay")
-					usr.Form1Overlay=input(usr, "What overlay would you like to use while in Spirit Form?", "Change Form Icon") as icon|null
-					if(usr.Form1Overlay)
-						usr.Form1OverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1OverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Spirit Form Top Overlay")
-					usr.Form1TopOverlay=input(usr, "What Top Overlay would you like to use while in Spirit Form?", "Change Form Icon") as icon|null
-					if(usr.Form1TopOverlay)
-						usr.Form1TopOverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1TopOverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Spirit Form Profile")
-					usr.Form1Profile=input(usr, "What profile would you like to display while in Spirit Form?", "Change Form Icon", usr.Form1Profile) as message|null
-				if("Spirit Form Aura")
-					usr.Form1Aura=input(usr, "What aura would you like to use while in Spirit Form?", "Change Form Icon") as icon|null
-					if(usr.Form1Aura)
-						usr.Form1AuraX=input(usr, "X offset?", "Change Form Icon") as num|null
-						usr.Form1AuraY=input(usr, "Y offset?", "Change Form Icon") as num|null
-				if("Spirit Form Active Text")
-					usr.Form1ActiveText=input(usr, "What text would you like to display while entering Spirit Form?  There is no default text.", "Change Form Icon") as text|null
-				if("Spirit Form Revert Text")
-					usr.Form1RevertText=input(usr, "What text would you like to display while entering Spirit Form?  There is no default text.", "Change Form Icon") as text|null
-
-				if("First Restriction Form Base")
-					usr.BaseBase=input(usr, "What base would you like to use while in First Restriction Form? This will also become your base icon.", "Change Form Icon") as icon|null
-					if(usr.BaseBase)
-						usr.icon=usr.BaseBase
-				if("Second Restriction Form Base")
-					usr.Form1Base=input(usr, "What base would you like to use while in Second Restriction Form?", "Change Form Icon") as icon|null
-				if("Third Restriction Form Base")
-					usr.Form2Base=input(usr, "What base would you like to use while in Third Restriction Form?", "Change Form Icon") as icon|null
-				if("Final Form Base")
-					usr.Form3Base=input(usr, "What base would you like to use while in Final Form?", "Change Form Icon") as icon|null
-				if("Final Form 100% / Fifth Form Base")
-					usr.Form4Base=input(usr, "What base would you like to use while in Final Form 100% / Fifth Form?", "Change Form Icon") as icon|null
-				if("Golden Form Base")
-					usr.Form5Base=input(usr, "What base would you like to use while in Golden Form?", "Change Form Icon") as icon|null
+			SKIP
+			if(Options.len>1)
+				var/Choice=input(usr, "What aspect of your forms do you wish to edit?", "Change Form Icons") in Options
+				switch(Choice)
+					if("Expanded State")
+						usr.ExpandBase=input(usr, "What base do you want to use for your Expanded State?", "Change Form Icon") as icon|null
+					if("Spirit Form Base")
+						usr.Form1Base=input(usr, "What base would you like to use while in Spirit Form?", "Change Form Icon") as icon|null
+						if(usr.Form1Base)
+							usr.Form1BaseX=input(usr, "X offset?", "Change Form Icon") as num|null
+							usr.Form1BaseY=input(usr, "Y offset?", "Change Form Icon") as num|null
+					if("Spirit Form Hair")
+						usr.Form1Hair=input(usr, "What hair would you like to use while in Spirit Form?", "Change Form Icon") as icon|null
+						if(usr.Form1Hair)
+							usr.Form1HairX=input(usr, "X offset?", "Change Form Icon") as num|null
+							usr.Form1HairY=input(usr, "Y offset?", "Change Form Icon") as num|null
+					if("Spirit Form Overlay")
+						usr.Form1Overlay=input(usr, "What overlay would you like to use while in Spirit Form?", "Change Form Icon") as icon|null
+						if(usr.Form1Overlay)
+							usr.Form1OverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
+							usr.Form1OverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
+					if("Spirit Form Top Overlay")
+						usr.Form1TopOverlay=input(usr, "What Top Overlay would you like to use while in Spirit Form?", "Change Form Icon") as icon|null
+						if(usr.Form1TopOverlay)
+							usr.Form1TopOverlayX=input(usr, "X offset?", "Change Form Icon") as num|null
+							usr.Form1TopOverlayY=input(usr, "Y offset?", "Change Form Icon") as num|null
+					if("Spirit Form Profile")
+						usr.Form1Profile=input(usr, "What profile would you like to display while in Spirit Form?", "Change Form Icon", usr.Form1Profile) as message|null
+					if("Spirit Form Aura")
+						usr.Form1Aura=input(usr, "What aura would you like to use while in Spirit Form?", "Change Form Icon") as icon|null
+						if(usr.Form1Aura)
+							usr.Form1AuraX=input(usr, "X offset?", "Change Form Icon") as num|null
+							usr.Form1AuraY=input(usr, "Y offset?", "Change Form Icon") as num|null
+					if("Spirit Form Active Text")
+						usr.Form1ActiveText=input(usr, "What text would you like to display while entering Spirit Form?  There is no default text.", "Change Form Icon") as text|null
+					if("Spirit Form Revert Text")
+						usr.Form1RevertText=input(usr, "What text would you like to display while entering Spirit Form?  There is no default text.", "Change Form Icon") as text|null
 
 	Custom_Appearance_Charge()
 		set category="Other"

@@ -12797,7 +12797,6 @@ mob
 					if(!src.Hair_Fusion||src.Hair_Fusion!=src.Target.Hair_Fusion)
 						Fuse.Hair_Base=src.Target.Hair_Base
 						Fuse.Hair_Color=src.Hair_Color
-						Fuse.Hair_Forms()
 					else
 						Fuse.Hair_Base=src.Hair_Fusion
 						Fuse.Hair_SSJ1=src.Hair_Fusion_SSJ1
@@ -13259,7 +13258,6 @@ mob
 					if(!src.Hair_Fusion||src.Hair_Fusion!=src.Target.Hair_Fusion)
 						Fuse.Hair_Base=src.Hair_Base
 						Fuse.Hair_Color=src.Target.Hair_Color
-						Fuse.Hair_Forms()
 					else
 						Fuse.Hair_Base=src.Hair_Fusion
 						Fuse.Hair_SSJ1=src.Hair_Fusion_SSJ1

@@ -1134,7 +1134,6 @@ mob/proc
 		del(src)
 
 	Finalize(var/Warped=0)
-		src.Hair_Forms()
 		src.Hairz("Add")
 		resetStats = FALSE
 		if(src.Tail)
