@@ -1,3 +1,5 @@
+#define CONVERTING_LOAD 0
+
 var/list/worldObjectList = new // Looped through during the saving of objects
 
 proc/find_savableObjects()
@@ -69,7 +71,10 @@ proc/Save_Custom_Turfs()
 			Xs+=A.x
 			Ys+=A.y
 			Zs+=A.z
-			Icons+=A.icon
+			var/initIcon = initial(A.icon)
+			var/savedIcon = (A.icon != initIcon) && (resourceManager.GetResourceName(A.icon) || resourceManager.GenerateDynResource(A.icon))
+
+			Icons+=savedIcon
 			Icons_States+=A.icon_state
 			Densitys+=A.density
 			isRoof+=A.Roof
@@ -171,7 +176,11 @@ proc/Load_Custom_Turfs()
 			Amount+=1
 			DebugAmount += 1
 			var/turf/CustomTurf/T=new A(locate(text2num(list2params(Xs.Copy(Amount,Amount+1))),text2num(list2params(Ys.Copy(Amount,Amount+1))),text2num(list2params(Zs.Copy(Amount,Amount+1)))))
-			T.icon= Icons[Amount]
+			if(CONVERTING_LOAD)
+				T.icon = Icons[Amount]
+			else
+				T.icon = resourceManager.GetResourceByName(Icons[Amount])
+
 			T.icon_state= Icons_States[Amount]
 			T.density=text2num(list2params(Densitys.Copy(Amount,Amount+1)))
 			T.opacity=text2num(list2params(Opacitys.Copy(Amount,Amount+1)))
