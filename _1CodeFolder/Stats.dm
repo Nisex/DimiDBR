@@ -1007,137 +1007,138 @@ mob/proc/
 mob/proc/Update_Stat_Labels()
 	set waitfor=0
 	if(!src.ha)
-		if(src)
-			var/ManaMessage="%"
-			if(round(TotalInjury))
-				src<<output("Health: [round(Health)+round(VaizardHealth)] (Injuries:[round(TotalInjury)]%)", "BarHealth")
-			else
-				src<<output("Health: [round(Health)+round(VaizardHealth)]%", "BarHealth")
-			if(round(TotalFatigue))
-				src<<output("Energy: [round((Energy/EnergyMax)*100)] (Fatigue:[round(TotalFatigue)]%)","BarEnergy")
-			else
-				src<<output("Energy: [round((Energy/EnergyMax)*100)]%","BarEnergy")
-			if(round(TotalCapacity))
-				ManaMessage=" (Capacity:[100-round(TotalCapacity)]%)"
+		var/ManaMessage="%"
+		if(round(TotalInjury))
+			src<<output("Health: [round(Health)+round(VaizardHealth)] (Injuries:[round(TotalInjury)]%)", "BarHealth")
+		else
+			src<<output("Health: [round(Health)+round(VaizardHealth)]%", "BarHealth")
+		if(round(TotalFatigue))
+			src<<output("Energy: [round((Energy/EnergyMax)*100)] (Fatigue:[round(TotalFatigue)]%)","BarEnergy")
+		else
+			src<<output("Energy: [round((Energy/EnergyMax)*100)]%","BarEnergy")
+		if(round(TotalCapacity))
+			ManaMessage=" (Capacity:[100-round(TotalCapacity)]%)"
 
-			if(src.Saga=="Ansatsuken"&&src.UsingAnsatsuken())
-				src<<output("SUPER: [round(ManaAmount/ManaMax*100)]","BarMana")
-			else if(src.HasMechanized())
-				src<<output("Battery: [round(ManaAmount/ManaMax*100)]","BarMana")
+		if(Saga && Saga=="Ansatsuken"&&src.UsingAnsatsuken())
+			src<<output("SUPER: [round(ManaAmount/ManaMax*100)]","BarMana")
+		else if(src.HasMechanized())
+			src<<output("Battery: [round(ManaAmount/ManaMax*100)]","BarMana")
+		else
+			src<<output("Mana: [round((ManaAmount/100)*100)][ManaMessage]","BarMana")
+		if(!src.Kaioken)
+			if(src.PoweringUp)
+				src<<output("Power: [round((Energy/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)]% (+)","BarPower")
+			else if(src.PowerControl<100)
+				src<<output("Power: [round((Energy/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)]% (-)","BarPower")
 			else
-				src<<output("Mana: [round((ManaAmount/100)*100)][ManaMessage]","BarMana")
-			if(!src.Kaioken)
-				if(src.PoweringUp)
-					src<<output("Power: [round((Energy/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)]% (+)","BarPower")
-				else if(src.PowerControl<100)
-					src<<output("Power: [round((Energy/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)]% (-)","BarPower")
+				src<<output("Power: [round((Energy/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)]%","BarPower")
+		else
+			if(src.PoweringUp)
+				src<<output("Power: [round((100/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)*src.KaiokenBP]% (+)","BarPower")
+			else if(src.PowerControl<100)
+				src<<output("Power: [round((100/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)*src.KaiokenBP]% (-)","BarPower")
+			else
+				src<<output("Power: [round((100/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)*src.KaiokenBP]%","BarPower")
+		if(src.Poison>0)
+			winshow(src, "BarPoison",1)
+			src<<output("POI: [round(Poison, 1)]","BarPoison")
+		else
+			winshow(src, "BarPoison",0)
+		if(src.Burn>0)
+			winshow(src, "BarBurning",1)
+			src<<output("BUR: [round(Burn, 1)]","BarBurning")
+		else
+			winshow(src, "BarBurning",0)
+		if(src.Shatter>0)
+			winshow(src, "BarBreak",1)
+			src<<output("SHT: [round(Shatter, 1)]","BarBreak")
+		else
+			winshow(src, "BarBreak",0)
+		if(src.Shock>0)
+			winshow(src, "BarShock",1)
+			src<<output("SHK: [round(Shock, 1)]","BarShock")
+		else
+			winshow(src, "BarShock",0)
+		if(src.Slow>0)
+			winshow(src, "BarSlow",1)
+			src<<output("CHL: [round(Slow, 1)]","BarSlow")
+		else
+			winshow(src, "BarSlow",0)
+		if(src.Sheared>0)
+			winshow(src, "BarPotion",1)
+			src<<output("SHR: [round(Sheared, 1)]","BarPotion")
+		else
+			winshow(src, "BarPotion",0)
+		if(src.PureRPMode==1)
+			winshow(src, "BarRP",1)
+			src<<output("RP MODE","BarRP")
+		else
+			winshow(src, "BarRP",0)
+		if(src.WoundIntent==1||src.Lethal>=1)
+			if(src.Lethal==1)
+				winshow(src, "BarWound",1)
+				src<<output("LETHAL","BarWound")
+			else
+				winshow(src, "BarWound",1)
+				src<<output("INJURE","BarWound")
+		else
+			winshow(src, "BarWound",0)
+		if(src.StyleActive)
+			winshow(src, "StyleLabel",1)
+			winshow(src, "StanceLabel",1)
+			winshow(src, "MovementBar", 1)
+			winshow(src, "MovementLabel", 1)
+			src<<output("[src.StyleActive]","StyleLabel")
+			src<<output("[src.StanceActive]","StanceLabel")
+			if(src.StyleBuff)
+				winshow(src, "TensionLabel",1)
+				winshow(src, "TensionBar",1)
+				winset(src, "TensionBar", "value=[src.Tension]")
+				if(src.Tension>=100)
+					winset(src, "TensionBar", "bar-color='#F00'")
+					winset(src, "TensionLabel", "text-color='#F00'")
+					src << output("FINISHER!!!", "TensionLabel")
 				else
-					src<<output("Power: [round((Energy/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)]%","BarPower")
+					winset(src, "TensionBar", "bar-color='#F0F'")
+					winset(src, "TensionLabel", "text-color='#F0F'")
+					src << output("TENSION", "TensionLabel")
+
+			if(src.MovementCharges<1)
+				winset(src, "MovementBar", "bar-color=#666")
+				winset(src, "MovementLabel", "text-color=#666")
+			else if(src.MovementCharges<2)
+				winset(src, "MovementBar", "bar-color=#0F0")
+				winset(src, "MovementLabel","text-color=#0F0")
+			else if(src.MovementCharges<3)
+				winset(src, "MovementBar", "bar-color=#F00")
+				winset(src, "MovementLabel", "text-color=#F00")
 			else
-				if(src.PoweringUp)
-					src<<output("Power: [round((100/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)*src.KaiokenBP]% (+)","BarPower")
-				else if(src.PowerControl<100)
-					src<<output("Power: [round((100/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)*src.KaiokenBP]% (-)","BarPower")
-				else
-					src<<output("Power: [round((100/EnergyMax)*100)*round(src.GetPowerUpRatioVisble(), 0.01)*src.KaiokenBP]%","BarPower")
-			if(src.Poison>0)
-				winshow(src, "BarPoison",1)
-				src<<output("POI: [round(Poison, 1)]","BarPoison")
-			else
-				winshow(src, "BarPoison",0)
-			if(src.Burn>0)
-				winshow(src, "BarBurning",1)
-				src<<output("BUR: [round(Burn, 1)]","BarBurning")
-			else
-				winshow(src, "BarBurning",0)
-			if(src.Shatter>0)
-				winshow(src, "BarBreak",1)
-				src<<output("SHT: [round(Shatter, 1)]","BarBreak")
-			else
-				winshow(src, "BarBreak",0)
-			if(src.Shock>0)
-				winshow(src, "BarShock",1)
-				src<<output("SHK: [round(Shock, 1)]","BarShock")
-			else
-				winshow(src, "BarShock",0)
-			if(src.Slow>0)
-				winshow(src, "BarSlow",1)
-				src<<output("CHL: [round(Slow, 1)]","BarSlow")
-			else
-				winshow(src, "BarSlow",0)
-			if(src.Sheared>0)
-				winshow(src, "BarPotion",1)
-				src<<output("SHR: [round(Sheared, 1)]","BarPotion")
-			else
-				winshow(src, "BarPotion",0)
-			if(src.PureRPMode==1)
-				winshow(src, "BarRP",1)
-				src<<output("RP MODE","BarRP")
-			else
-				winshow(src, "BarRP",0)
-			if(src.WoundIntent==1||src.Lethal>=1)
-				if(src.Lethal==1)
-					winshow(src, "BarWound",1)
-					src<<output("LETHAL","BarWound")
-				else
-					winshow(src, "BarWound",1)
-					src<<output("INJURE","BarWound")
-			else
-				winshow(src, "BarWound",0)
-			if(src.StyleActive)
-				winshow(src, "StyleLabel",1)
-				winshow(src, "StanceLabel",1)
-				src<<output("[src.StyleActive]","StyleLabel")
-				src<<output("[src.StanceActive]","StanceLabel")
-				if(src.StyleBuff)
-					winshow(src, "TensionLabel",1)
-					winshow(src, "TensionBar",1)
-					winset(src, "TensionBar", "value=[src.Tension]")
-					if(src.Tension>=100)
-						winset(src, "TensionBar", "bar-color='#F00'")
-						winset(src, "TensionLabel", "text-color='#F00'")
-						src << output("FINISHER!!!", "TensionLabel")
-					else
-						winset(src, "TensionBar", "bar-color='#F0F'")
-						winset(src, "TensionLabel", "text-color='#F0F'")
-						src << output("TENSION", "TensionLabel")
-				if(locate(/obj/Skills/Zanzoken, src))
-					winshow(src, "MovementBar", 1)
-					winshow(src, "MovementLabel", 1)
-					if(src.MovementCharges<1)
-						winset(src, "MovementBar", "bar-color=#666")
-						winset(src, "MovementLabel", "text-color=#666")
-					else if(src.MovementCharges<2)
-						winset(src, "MovementBar", "bar-color=#0F0")
-						winset(src, "MovementLabel","text-color=#0F0")
-					else if(src.MovementCharges<3)
-						winset(src, "MovementBar", "bar-color=#F00")
-						winset(src, "MovementLabel", "text-color=#F00")
-					else
-						winset(src, "MovementBar", "bar-color=#FF0")
-						winset(src, "MovementLabel", "text-color=#FF0")
-					winset(src, "MovementBar", "value=[(src.MovementCharges-round(src.MovementCharges))*100]")
-					winset(src, "MovementLabel", "text=[round(src.MovementCharges)]")
-			else
-				winshow(src, "StyleLabel",0)
-				winshow(src, "StanceLabel",0)
-				winshow(src, "TensionLabel",0)
-				winshow(src, "TensionBar",0)
-				winshow(src, "MovementBar", 0)
-				winshow(src, "MovementLabel", 0)
-	if(Secret == "Werewolf")
-		if(CheckSlotless("New Moon Form"))
-			var/SecretInfomation/Werewolf/s = secretDatum
-			var/maxHunger = s:getHungerLimit()
-			var/currentHunger = secretDatum.secretVariable["Hunger Satiation"]
-			winset(src, "Hunger", "value=[round(currentHunger/maxHunger*100)]")
-	if(Secret == "Eldritch")
-		var/SecretInfomation/Eldritch/s = secretDatum
-		if(!istype(/SecretInfomation/Eldritch, s))
-			secretDatum = new/SecretInfomation/Eldritch
-		var/maxMadness = s:getMadnessLimit()
-		var/currentMadness = secretDatum.secretVariable["Madness"]
-		winset(src, "Hunger", "value=[round(currentMadness/maxMadness*100)]")
+				winset(src, "MovementBar", "bar-color=#FF0")
+				winset(src, "MovementLabel", "text-color=#FF0")
+			winset(src, "MovementBar", "value=[(src.MovementCharges-round(src.MovementCharges))*100]")
+			winset(src, "MovementLabel", "text=[round(src.MovementCharges)]")
+		else
+			winshow(src, "StyleLabel",0)
+			winshow(src, "StanceLabel",0)
+			winshow(src, "TensionLabel",0)
+			winshow(src, "TensionBar",0)
+			winshow(src, "MovementBar", 0)
+			winshow(src, "MovementLabel", 0)
+	if(Secret)
+		switch(Secret)
+			if("Werewolf")
+				if(CheckSlotless("New Moon Form"))
+					var/SecretInfomation/Werewolf/s = secretDatum
+					var/maxHunger = s:getHungerLimit()
+					var/currentHunger = secretDatum.secretVariable["Hunger Satiation"]
+					winset(src, "Hunger", "value=[round(currentHunger/maxHunger*100)]")
+			if("Eldritch")
+				var/SecretInfomation/Eldritch/s = secretDatum
+				if(!istype(/SecretInfomation/Eldritch, s))
+					secretDatum = new/SecretInfomation/Eldritch
+				var/maxMadness = s:getMadnessLimit()
+				var/currentMadness = secretDatum.secretVariable["Madness"]
+				winset(src, "Hunger", "value=[round(currentMadness/maxMadness*100)]")
 	if(SpecialBuff&&SpecialBuff.BuffName == "Gluttony")
 		if(SpecialBuff:gluttonStorage>0)
 			winshow(src, "Storage",1)
@@ -1147,12 +1148,12 @@ mob/proc/Update_Stat_Labels()
 		else
 			winshow(src, "Storage",0)
 			winshow(src, "StorageLabel",0)
-	if(!isRace(MAJIN)||!isRace(DRAGON))
-		if(src.Oxygen!=(src.OxygenMax/max(src.SenseRobbed,1)))
-			winshow(src, "BarOxygen",1)
-			src<<output("OXY: [round(Oxygen, 1)]","BarOxygen")
-		else
-			winshow(src, "BarOxygen",0)
+
+	if(src.Oxygen!=src.OxygenMax)
+		winshow(src, "BarOxygen",1)
+		src<<output("OXY: [round(Oxygen, 1)]","BarOxygen")
+	else
+		winshow(src, "BarOxygen",0)
 
 mob/var/tmp/ha=0
 

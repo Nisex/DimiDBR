@@ -430,10 +430,6 @@ mob
 			if(locate(/obj/Skills/Teleport/Traverse_Void, src))
 				return 1
 			return 0
-		HasMafuba()
-			if(locate(/obj/Skills/Buffs/SlotlessBuffs/Grimoire/Mafuba, src))
-				return 1
-			return 0
 		HasElementalDefense(var/ele)
 			if(src.ElementalDefense==ele)
 				return 1
@@ -1406,14 +1402,7 @@ mob
 				return 1
 			return 0
 		HasSpiritPower()
-			var/Extra=0
-			if(src.TarotFate=="Judgment")
-				Extra=1
-			if(passive_handler.Get("SpiritPower"))
-				return min(1+Extra, passive_handler.Get("SpiritPower")+Extra)
-			if(src.HasMafuba())
-				return 1+Extra
-			return 0
+			return passive_handler.Get("SpiritPower")
 		HasLegendaryPower()
 			var/Extra=0
 			if(src.TarotFate=="Judgment")

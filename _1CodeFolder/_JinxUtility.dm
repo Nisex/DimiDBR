@@ -1035,7 +1035,7 @@ mob
 					defender.LoseMana(val*max(defender.Mechanized,defender.CyberCancel)*src.GetCyberStigma())
 
 			if(locate(/obj/Skills/Zanzoken, defender))
-				if(defender.MovementCharges<defender.GetMaxMovementCharges())
+				if(defender.MovementCharges<3)
 					defender.MovementChargeBuildUp(val)
 
 			if(defender.VaizardHealth)
@@ -3870,8 +3870,7 @@ mob
 					if(!s.SagaSignature)
 						src << "[s] has been removed as it is not one of your saga signatures."
 						del s
-		GetMaxMovementCharges()
-			return 3
+
 		MovementChargeBuildUp(var/Mult=1)
 			//this ticks per second
 			//partial charges are not able to be used
@@ -3882,10 +3881,9 @@ mob
 				Mult*=clamp(glob.ZANZO_FLICKER_LOWEST_CLAMP,1+(flick/glob.ZANZO_FLICKER_DIVISOR), glob.ZANZO_FLICKER_HIGHEST_CLAMP)
 			if(src.AfterImageStrike)
 				return
-			var/MaxMovementCharges=GetMaxMovementCharges()
-			src.MovementCharges+=(0.2-(max(0.01,MovementCharges)/MaxMovementCharges)/10)*Mult
-			if(src.MovementCharges>MaxMovementCharges)
-				src.MovementCharges=MaxMovementCharges
+			src.MovementCharges+=(0.2-(max(0.01,MovementCharges)/3)/10)*Mult
+			if(src.MovementCharges>3)
+				src.MovementCharges=3
 		GetRPPMult()
 			var/Return=src.RPPMult
 			Return*=src.ConditionRPPMult()

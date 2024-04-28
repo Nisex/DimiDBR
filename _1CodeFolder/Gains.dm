@@ -187,7 +187,7 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 	// Tick based activity / Timers
 
 
-	if(MovementCharges < GetMaxMovementCharges())
+	if(MovementCharges < 3)
 		MovementChargeBuildUp()
 
 
@@ -357,10 +357,10 @@ mob
 					OMsg(src, "<font color='grey'>[src] will no longer deal lethal damage.</font color>")
 
 
-			if(src.MovementCharges<src.GetMaxMovementCharges())
+			if(src.MovementCharges<3)
 				src.MovementChargeBuildUp()
-			if(src.MovementCharges>src.GetMaxMovementCharges())
-				src.MovementCharges=src.GetMaxMovementCharges()
+			else
+				src.MovementCharges=3
 
 			if(src.TsukiyomiTime)
 				src.TsukiyomiTime--
