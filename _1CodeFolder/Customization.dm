@@ -223,10 +223,6 @@ mob/proc/Auraz(var/Z)
 	rageglow.transform*=1
 	rageglow2.blend_mode=BLEND_ADD
 	rageglow2.alpha=120
-	var/image/super=image('AurasBig.dmi',icon_state="SSJ",pixel_x=-32)
-	var/image/super2=image('AurasBig.dmi',icon_state="SSJ2",pixel_x=-32)
-	var/image/supersparks=image(icon='SS2Sparks.dmi')
-	var/image/supersparks2=image(icon='SS3Sparks.dmi')
 	var/image/supersparks3=image(icon='SS4Sparks.dmi')
 	var/image/superglow=image('Ripple Radiance.dmi',pixel_x=-32, pixel_y=-32)
 	var/image/superhairglow1=image(src.Hair_SSJ1)
@@ -300,98 +296,7 @@ mob/proc/Auraz(var/Z)
 			src.overlays+=flameaura
 
 		else if(transActive)
-			if(race.transformations[transActive].form_aura)
-				overlays += image(icon=race.transformations[transActive].form_aura, pixel_x = race.transformations[transActive].form_aura_x, pixel_y = race.transformations[transActive].form_aura_y)
-			if(race.transformations[transActive].form_aura_underlay)
-				overlays += image(icon=race.transformations[transActive].form_aura_underlay, pixel_x = race.transformations[transActive].form_aura_underlay_x, pixel_y = race.transformations[transActive].form_aura_underlay_y)
-
-		else if(src.ssj["active"])
-
-			if(!src.HasMystic()&&!src.HasGodKi())
-				src.overlays+=superglow
-
-			if(src.ssj["active"]==1)
-				if(src.HasGodKi())
-					src.underlays+=godaura2
-					src.overlays+=godglow2
-					src.overlays+=image('SSBSparkle.dmi')
-					src.overlays+=godspark
-				else if(src.HasMystic())
-					src.overlays+=image(icon='AuraMystic.dmi', icon_state="1",pixel_x=-32)
-				else if(src.SpecialBuff)
-					src.overlays+=superhairglow2
-					src.overlays+=super
-				else
-					src.overlays+=superhairglow1
-					src.overlays+=super
-			else if(src.ssj["active"]>=2)
-				if(src.HasMystic())
-					src.overlays+=image(icon='SS2Sparks.dmi')
-					src.overlays+=image(icon='AuraMystic.dmi', icon_state="2",pixel_x=-32)
-				else
-					if(src.ssj["active"]==4)
-						src.overlays+=supersparks3
-						src.overlays+=super2
-					else if(src.ssj["active"]==3)
-						src.overlays+=superhairglow3
-						src.overlays+=supersparks2
-						src.overlays+=super2
-					else
-						src.overlays+=superhairglow2
-						src.overlays+=supersparks
-						src.overlays+=super2
-
-		else if(src.ssj["god"])
-			if(src.isRace(SAIYAN))
-				src.underlays+=godaura
-				src.underlays+=godaura
-				src.overlays+=godglow
-			else if(src.Race=="Half Saiyan")
-				rageglow.filters+=filter(type = "drop_shadow", x=0, y=0, color=list(1,0,0, 0,1,0, 0,0,1, 0.5,0.7,1), size = 5)
-				src.underlays+=rageglow
-				src.underlays+=rageaura
-				src.overlays+=image('SSBSparkle.dmi')
-				src.overlays+=rageglow2
-
-		else if(src.trans["active"])
-
-			if(src.HasMystic())
-				if(src.transActive()==1)
-					src.overlays+=image(icon='AuraMystic.dmi', icon_state="1",pixel_x=-32)
-				if(src.transActive()>=2)
-					src.overlays+=image(icon='AuraMystic.dmi', icon_state="2",pixel_x=-32)
-
-			else
-				if(src.Race=="Changeling"&&src.trans["active"]==4)
-					src.underlays+=image('BijuuInitial.dmi',pixel_x=-32, pixel_y=-32)
-					src.underlays+=image('GCAura.dmi',pixel_x=-49, pixel_y=-15)
-				else
-					if(src.transActive()&&src.TransAuraFound())
-						if(src.AuraLockedUnder==1)
-							if(src.trans["active"]==1)
-								src.underlays+=image(icon=src.Form1Aura, pixel_x=src.Form1AuraX, pixel_y=src.Form1AuraY)
-							if(src.trans["active"]==2)
-								src.underlays+=image(icon=src.Form2Aura, pixel_x=src.Form2AuraX, pixel_y=src.Form2AuraY)
-							if(src.trans["active"]==3)
-								src.underlays+=image(icon=src.Form3Aura, pixel_x=src.Form3AuraX, pixel_y=src.Form3AuraY)
-							if(src.trans["active"]==4)
-								src.underlays+=image(icon=src.Form4Aura, pixel_x=src.Form4AuraX, pixel_y=src.Form4AuraY)
-						else
-							if(src.trans["active"]==1)
-								src.overlays+=image(icon=src.Form1Aura, pixel_x=src.Form1AuraX, pixel_y=src.Form1AuraY)
-							if(src.trans["active"]==2)
-								src.overlays+=image(icon=src.Form2Aura, pixel_x=src.Form2AuraX, pixel_y=src.Form2AuraY)
-							if(src.trans["active"]==3)
-								src.overlays+=image(icon=src.Form3Aura, pixel_x=src.Form3AuraX, pixel_y=src.Form3AuraY)
-							if(src.trans["active"]==4)
-								src.overlays+=image(icon=src.Form4Aura, pixel_x=src.Form4AuraX, pixel_y=src.Form4AuraY)
-					else
-						for(var/obj/Skills/Power_Control/M in src.contents)
-							if(src.AuraLockedUnder==1)
-								src.underlays += image(M.sicon,icon_state=M.sicon_state,pixel_x=M.pixel_x,pixel_y=M.pixel_y)
-							else
-								src.overlays += image(M.sicon,icon_state=M.sicon_state,pixel_x=M.pixel_x,pixel_y=M.pixel_y)
-
+			race.transformations[transActive].apply_visuals(src,1,0,1)
 		else
 			for(var/obj/Skills/Power_Control/M in src.contents)
 				if(src.AuraLockedUnder==1)
@@ -424,16 +329,6 @@ mob/proc/Auraz(var/Z)
 
 		src.overlays-=rageglow2
 
-		src.overlays-=super
-		src.overlays-=super2
-		src.overlays-=supersparks
-		src.overlays-=supersparks2
-		src.overlays-=supersparks3
-		src.overlays-=superglow
-		src.overlays-=superhairglow1
-		src.overlays-=superhairglow2
-		src.overlays-=superhairglow3
-
 		src.overlays-=image('Amazing SSj Aura.dmi',pixel_x=-32)
 		src.overlays-=image('Amazing SSj4 Aura.dmi',pixel_x=-32)
 		src.overlays-=image('AurasBig.dmi',icon_state="Demon",pixel_x=-32)
@@ -448,11 +343,7 @@ mob/proc/Auraz(var/Z)
 		src.overlays-=image('AuraMystic.dmi',pixel_x=-32)
 		src.overlays-=image('BlackFlameAura.dmi')
 		if(transActive)
-			if(race.transformations[transActive].form_aura)
-				overlays -= image(icon=race.transformations[transActive].form_aura, pixel_x = race.transformations[transActive].form_aura_x, pixel_y = race.transformations[transActive].form_aura_y)
-			if(race.transformations[transActive].form_aura_underlay)
-				overlays -= image(icon=race.transformations[transActive].form_aura_underlay, pixel_x = race.transformations[transActive].form_aura_underlay_x, pixel_y = race.transformations[transActive].form_aura_underlay_y)
-
+			race.transformations[transActive].remove_visuals(src,1,0,1)
 		src.overlays-=image(icon=src.Form1Aura, pixel_x=src.Form1AuraX, pixel_y=src.Form1AuraY)
 		src.overlays-=image(icon=src.Form2Aura, pixel_x=src.Form2AuraX, pixel_y=src.Form2AuraY)
 		src.overlays-=image(icon=src.Form3Aura, pixel_x=src.Form3AuraX, pixel_y=src.Form3AuraY)
@@ -563,8 +454,7 @@ mob/proc/Hairz(var/Z)
 			Hair = image(icon=HairB)
 
 		else if(transActive)
-			if(race.transformations[transActive].form_hair)
-				Hair = image(icon=race.transformations[transActive].form_hair, pixel_x = race.transformations[transActive].form_hair_x, pixel_y = race.transformations[transActive].form_hair_y)
+			race.transformations[transActive].apply_visuals(src,0,1,0)
 
 		else
 			if(HairB&&src.Hair_Color)
@@ -663,6 +553,8 @@ mob/proc/Hairz(var/Z)
 		src.overlays -= image(icon=src.Hair_SSJGod, layer=FLOAT_LAYER-2)
 		src.overlays -= image(icon=src.Hair_SSJBlue, layer=FLOAT_LAYER-2)
 		src.overlays -= image(icon=src.Hair_SSJ4, layer=FLOAT_LAYER-2)
+		if(transActive)
+			race.transformations[transActive].remove_visuals(src,0,1,0)
 		src.overlays -= image(icon=src.Form1Hair, pixel_x=Form1HairX, pixel_y=Form1HairY, layer=FLOAT_LAYER-2)
 		src.overlays -= image(icon=src.Form2Hair, pixel_x=Form2HairX, pixel_y=Form2HairY, layer=FLOAT_LAYER-2)
 		src.overlays -= image(icon=src.Form3Hair, pixel_x=Form3HairX, pixel_y=Form3HairY, layer=FLOAT_LAYER-2)

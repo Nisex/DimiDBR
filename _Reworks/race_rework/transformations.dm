@@ -34,16 +34,40 @@ transformation
 		form_base_x
 		form_base_y
 
-		icon/form_hair
+		image/form_hair
+		form_hair_icon
 		form_hair_x
 		form_hair_y
 
-		form_aura
+		image/form_aura
+		form_aura_icon
+		form_aura_icon_state
 		form_aura_x
 		form_aura_y
-		form_aura_underlay
+
+		image/form_aura_underlay
+		form_aura_underlay_icon
+		form_aura_underlay_icon_state
 		form_aura_underlay_x
 		form_aura_underlay_y
+
+		image/form_icon_1
+		form_icon_1_icon
+		form_icon_1_icon_state
+		form_icon_1_x
+		form_icon_1_y
+
+		image/form_icon_2
+		form_icon_2_icon
+		form_icon_2_icon_state
+		form_icon_2_x
+		form_icon_2_y
+
+		image/form_glow
+		form_glow_icon
+		form_glow_icon_state
+		form_glow_x
+		form_glow_y
 
 		pot_trans = 0
 
@@ -58,11 +82,42 @@ transformation
 		is_active = FALSE
 
 	proc
+		adjust_transformation_visuals(mob/user)
+			form_glow = image(icon=form_glow_icon,icon_state = form_glow_icon_state,pixel_x = form_glow_x, pixel_y = form_glow_y)
+			form_aura = image(icon = form_aura_icon, icon_state = form_aura_icon_state, pixel_x = form_aura_x, pixel_y = form_aura_y)
+			form_aura_underlay = image(icon = form_aura_underlay_icon, icon_state = form_aura_underlay_icon_state, pixel_x = form_aura_underlay_x, pixel_y = form_aura_underlay_y)
+			form_hair = image(icon = form_hair, pixel_x = form_hair_x, pixel_y = form_hair_y, layer = FLOAT_LAYER-2)
+			form_icon_1 = image(icon = form_icon_1_icon, icon_state = form_icon_1_icon_state, pixel_x = form_icon_1_x, pixel_y = form_icon_1_y)
+			form_icon_2 = image(icon = form_icon_2_icon, icon_state = form_icon_2_icon_state,pixel_x = form_icon_2_x, pixel_y = form_icon_2_y)
+
 		transform_animation(mob/user)
 
 		revert_animation(mob/user)
 
 		mastery_boons(mob/user)
+
+		apply_visuals(mob/user, aura = 1, hair = 1, extra = 1)
+			adjust_transformation_visuals(user)
+			if(hair)
+				user.overlays += form_hair
+			if(extra)
+				user.overlays += form_icon_1
+				user.overlays += form_icon_2
+				user.overlays += form_glow
+			if(aura)
+				user.overlays += form_aura
+				user.underlays += form_aura_underlay
+
+		remove_visuals(mob/user, aura = 1, hair = 1, extra = 1)
+			if(hair)
+				user.overlays -= form_hair
+			if(extra)
+				user.overlays -= form_icon_1
+				user.overlays -= form_icon_2
+				user.overlays -= form_glow
+			if(aura)
+				user.overlays -= form_aura
+				user.overlays -= form_aura_underlay
 
 		transform(mob/user)
 			if(is_active || !user.CanTransform()) return
@@ -70,6 +125,8 @@ transformation
 			if(unlock_potential > user.Potential) return
 
 			mastery_boons(user)
+
+			adjust_transformation_visuals(user)
 
 			user.transActive++
 			user.passive_handler.increaseList(passives)
@@ -102,10 +159,8 @@ transformation
 
 			transform_animation(user)
 
-			if(form_hair)
-				user.Hairz("Add")
-			if(form_aura || form_aura_underlay)
-				user.Auraz("Add")
+			user.Hairz("Add")
+			user.Auraz("Add")
 
 		revert(mob/user)
 			if(!is_active || !user.CanRevert()) return
@@ -134,8 +189,7 @@ transformation
 
 			revert_animation(user)
 
-			if(form_hair)
-				user.Hairz("Add")
+			user.Hairz("Add")
 
 			if((user.HasKiControl()||user.PoweringUp)&&!user.KO)
 				user.Auraz("Add")
@@ -144,8 +198,26 @@ transformation
 
 	saiyan
 		super_saiyan
+			form_aura_icon = 'AurasBig.dmi'
+			form_aura_icon_state = "SSJ"
+			form_aura_x = -32
+			form_icon_1_icon = 'SS2Sparks.dmi'
+			form_glow_icon = 'Ripple Radiance.dmi'
+			form_glow_x = -32
+			form_glow_y = -32
 			unlock_potential = 25
 			angerPoint = 75
+
+			adjust_transformation_visuals(mob/user)
+				form_hair_icon = user.Hair_SSJ1
+				form_icon_2_icon = user.Hair_SSJ1
+				..()
+				form_glow.blend_mode=BLEND_ADD
+				form_glow.alpha=40
+				form_glow.color=list(1,0,0, 0,0.8,0, 0,0,0, 0.2,0.2,0.2)
+				form_icon_2.blend_mode=BLEND_MULTIPLY
+				form_icon_2.alpha=125
+				form_icon_2.color=list(1,0,0, 0,0.82,0, 0,0,0, -0.26,-0.26,-0.26)
 
 			transform_animation(mob/user)
 				switch(mastery)
@@ -190,9 +262,20 @@ transformation
 				sleep(2)
 
 		super_saiyan_2
+			form_aura_icon = 'AurasBig.dmi'
+			form_aura_icon_state = "SSJ2"
+			form_aura_x = -32
+			form_icon_2_icon = 'SS2Sparks.dmi'
 			unlock_potential = 45
 			autoAnger = TRUE
 			PUSpeedModifier = 1.5
+			adjust_transformation_visuals(mob/user)
+				form_hair_icon = user.Hair_SSJ2
+				..()
+				form_icon_1 = image(user.Hair_SSJ2)
+				form_icon_1.blend_mode=BLEND_MULTIPLY
+				form_icon_1.alpha=125
+				form_icon_1.color=list(1,0,0, 0,0.82,0, 0,0,0, -0.26,-0.26,-0.26)
 
 			transform_animation(mob/user)
 				switch(mastery)
@@ -224,6 +307,18 @@ transformation
 				sleep(2)
 
 		super_saiyan_3
+			form_aura_icon = 'AurasBig.dmi'
+			form_aura_icon_state = "SSJ2"
+			form_aura_x = -32
+			form_icon_2_icon = 'SS3Sparks.dmi'
+			adjust_transformation_visuals(mob/user)
+				form_hair_icon = user.Hair_SSJ3
+				form_icon_1_icon = user.Hair_SSJ3
+				..()
+				form_icon_1 = image(user.Hair_SSJ3)
+				form_icon_1.blend_mode=BLEND_MULTIPLY
+				form_icon_1.alpha=125
+				form_icon_1.color=list(1,0,0, 0,0.82,0, 0,0,0, -0.26,-0.26,-0.26)
 
 			transform_animation(mob/user)
 				if(mastery < 50)
