@@ -8403,7 +8403,7 @@ NEW VARIABLES
 				if(usr.icon_state != "Meditate")
 					usr << "You have to be meditating to let your circuits cool off!"
 					return
-				if(usr.AriaCount == 8 && usr.inUBW)
+				if(usr.AriaCount == 8 && usr.usingUBW)
 					usr.stopUnlimitedBladeWorks()
 				usr.AriaCount--
 				usr.OMessage(13, "[usr.name] calms their aria down to [usr.AriaCount] verses.")
