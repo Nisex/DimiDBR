@@ -11,7 +11,7 @@
 				ManaGain = p.AscensionsAcquired * 2 // surely this will be no issue
 				SpiritHand = 0.5 * p.AscensionsAcquired
 				Paralyzing = 2.5 * p.AscensionsAcquired
-				if(p.counterpart && inParty(p.counterpart))
+				if(p.counterpart && p.inParty(p.counterpart))
 					Cooldown = clamp(120 - (20 * p.AscensionsAcquired), 30, 120)
 					ManaGain = 2 + (p.AscensionsAcquired * 2)
 					Paralyzing = 5 * p.AscensionsAcquired
@@ -33,7 +33,7 @@
 				Toxic = 2.5 * p.AscensionsAcquired
 				Combo = 1 + p.AscensionsAcquired
 				DamageMult = (1 + (p.AscensionsAcquired)) / Combo
-				if(p.counterpart && inParty(p.counterpart))
+				if(p.counterpart && p.inParty(p.counterpart))
 					Cooldown = clamp(120 - (20 * p.AscensionsAcquired), 30, 120)
 					Toxic = 5 * p.AscensionsAcquired
 					Combo = 2 * p.AscensionsAcquired
@@ -47,12 +47,22 @@
 							Cooldown = clamp(120 - (5 * p.AscensionsAcquired), 30, 120)
 							PridefulRage = p.AscensionsAcquired - 2 // 1 at 3, 2 at 4&5
 					else
-						ManaGain = p.AscensionsAcquired * 2 
+						ManaGain = p.AscensionsAcquired * 2
 						SpiritHand = 0.5 * p.AscensionsAcquired
 						Paralyzing = 2.5 * p.AscensionsAcquired
 						if(p.AscensionsAcquired >= 4)
 							PridefulRage = 1
 
+mob
+	proc
+		inParty(keyLooking)
+			for(var/mob/Players/p in party.members)
+				if(p.ckey == keyLooking)
+					return p
 
+proc
+	findPlayer(keyLooking)
+		for(var/mob/Players/p in players)
+			if(p.ckey == keyLooking)
+				return p
 //TODO: add inParty & findPlayer
-	

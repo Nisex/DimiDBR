@@ -47,7 +47,7 @@ transformation
 		form_aura_underlay
 		form_aura_underlay_x
 		form_aura_underlay_y
-		TransClass 
+		TransClass
 
 		pot_trans = 0
 
@@ -82,8 +82,8 @@ transformation
 			user.SpdMultTotal += speed
 			user.OffMultTotal += offense
 			user.DefMultTotal += defense
-			
-			 
+
+
 
 			user.potential_trans = user.Potential+pot_trans
 			if(form_base)
@@ -123,8 +123,6 @@ transformation
 			user.SpdMultTotal -= speed
 			user.OffMultTotal -= offense
 			user.DefMultTotal -= defense
-
-			usr.TransClass = null
 
 			user.potential_trans = 0
 
@@ -349,87 +347,84 @@ transformation
 						animate(user, color = user.MobColor, time=30)
 					sleep(2)
 
-	
+
 	alien
 		super_alien
 			transform(mob/user)
-				TransClass = input(user, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagcity")
-				//you can set this var to the input so you have the choice and then you can use a switch on it
-				//you can do it as just the switch statement as well
-				// switch(input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagacity")) // the return of the input poc will be one of the four
-				switch(TransClass)
-					if("Tenacity")
-						strength = 0.25
-						speed = 0.25
-						passives=list("Desperation" = 1)
-					if("Brutality")
-						strength = 0.25
-						endurance = 0.25	
-						intimidation = 20
-					if("Harmony")
-						force = 0.25
-						defense = 0.25
-						passives=list("Desperation" = 1)
-					if("Sagacity")
-						force = 0.25
-						speed = 0.25
-						intimidation = 20
-					// the switch statement will handle the return, there is no need for a while, in fact u just shouldn't use them if you are inexperienced.
-				
-				
+				..()
+				if(!TransClass)
+					TransClass = input(user, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagcity")
+					//you can set this var to the input so you have the choice and then you can use a switch on it
+					//you can do it as just the switch statement as well
+					// switch(input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagacity")) // the return of the input poc will be one of the four
+					switch(TransClass)
+						if("Tenacity")
+							strength = 0.25
+							speed = 0.25
+							passives=list("Desperation" = 1)
+						if("Brutality")
+							strength = 0.25
+							endurance = 0.25
+							intimidation = 20
+						if("Harmony")
+							force = 0.25
+							defense = 0.25
+							passives=list("Desperation" = 1)
+						if("Sagacity")
+							force = 0.25
+							speed = 0.25
+							intimidation = 20
+						// the switch statement will handle the return, there is no need for a while, in fact u just shouldn't use them if you are inexperienced.
+
+
 
 
 
 
 				// var/Choice
 				// var/Confirm < - confirm is made but not set, it is like saying ok i have this piece of paper but never saying its a dollar bill
-				// while(Confirm!="Yes") /// <--- why doesn't this work?! // this will just throw an error or always be false; there is no end to the while loop as well so all that happens is an inf loop, stagnated by an input 
+				// while(Confirm!="Yes") /// <--- why doesn't this work?! // this will just throw an error or always be false; there is no end to the while loop as well so all that happens is an inf loop, stagnated by an input
 				// 	Choice=input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagacity")
 				// correct code
 				// 	if(Choice)
 					// then set Confirm = "Yes"
 				// all of the above isnt needed anyway
-				// switch(Choice)	
+				// switch(Choice)
 				// 	if("Tenacity")
 				// 		strength = 5
 				// 		speed = 5
 				// 	if("Brutality")
 				// 		strength = 5
-				// 		speed = 5	
+				// 		speed = 5
 				// 	if("Harmony")
 				// 		force = 5
 				// 	if("Sagacity")
-				// 		endurance = 5	
-				// src.TransClass=Choice		
+				// 		endurance = 5
+				// src.TransClass=Choice
 				/// ive tried writing this like 100 times, but the idea should just be that aliens can pick their class of super alien and gain different boons!!!!111 will need to figure this out...
 				/// duplicate definitions, probably just retarded but i cant figure out why
 				..()
 
 	namekian
 		super_namekian
-			transform(mob/user)
-				passives=list("Life Generation" = 0.5)
-				PUSpeedModifier = 1.5
-				anger += 0.3
-				intimidation += 12
-				regeneration += 0.75
-				form_aura = "Amazing Super Namekian Aura.dmi"
-				form_aura_x = -32
-				src << "You awaken the latent potential of the Namekian race; becoming a Super Namek!"
+			passives=list("Life Generation" = 0.5)
+			PUSpeedModifier = 1.5
+			anger = 0.3
+			intimidation = 12
+			regeneration = 0.75
+			form_aura = "Amazing Super Namekian Aura.dmi"
+			form_aura_x = -32
 
 		orange_namekian
-			transform(mob/user)
-				passives=list("GodKi" = 1, "Life Generation" = 3)
-				PUSpeedModifier = 2
-				anger += 1
-				autoAnger = TRUE
-				intimidation += 100
-				regeneration += 1
-				form_base ="Orange Namek.dmi"
-				form_aura ="FlameGlowZeus.dmi"
-				form_aura_x = -16
-				src << "Congratulations! You have awakend the Godhood state of Namekians; please do something cool with it because Namek's need good PR!! :) " 		
-
+			passives=list("GodKi" = 1, "Life Generation" = 3)
+			PUSpeedModifier = 2
+			anger = 1
+			autoAnger = TRUE
+			intimidation = 100
+			regeneration = 1
+			form_base ="Orange Namek.dmi"
+			form_aura ="FlameGlowZeus.dmi"
+			form_aura_x = -16
 
 	changeling
 		second_form
@@ -440,7 +435,7 @@ transformation
 				BioArmorMax=25
 				form_base ="Chilled2.dmi"
 				src << "You loosen your restrictions, entering your second form!"
-			
+
 
 		third_form ///higher we go
 			transform(mob/user)
@@ -457,8 +452,8 @@ transformation
 				intimidation += 3
 				pot_trans+=3
 				BioArmorMax=75
-				form_base ="Chilled4.dmi"	
-				src << "You become your true self; holding back no longer."			
+				form_base ="Chilled4.dmi"
+				src << "You become your true self; holding back no longer."
 
 		fifth_form /// at asc 3 they can choose to gain another form, it does more of the same and jug. There is another option coming for asc 3 later that instead is for cyber changelings
 			transform(mob/user)
