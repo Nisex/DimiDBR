@@ -3706,7 +3706,7 @@ obj/Items/Gear
 				if(/obj/Items/Gear/Hook_Grip_Claw)
 					src.Techniques.Add("/obj/Skills/Queue/Gear/Integrated/Integrated_Hook_Grip_Claw")
 				else
-					usr << "Ruh roh.  Something went wrong.  Yell at Yan."
+					usr << "This gear isn't valid for prosthetic limb integration!."
 					src.Using=0
 					return
 			src.IntegratedUses=Choice.MaxUses
