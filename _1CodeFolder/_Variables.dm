@@ -791,7 +791,7 @@ mob/var
 	TripleStrike
 	Default_Hair
 
-
+	movementSealed = FALSE
 
 	LastBreath
 

@@ -422,11 +422,6 @@ mob
 			if(Total>4)
 				Total=4
 			return Total
-		MovementSealed()
-			for(var/obj/Seal/s in src)
-				if(s.ZPlaneBind)
-					return 1
-			return 0
 		HasTensionLock()
 			if(passive_handler.Get("TensionDrain"))
 				return 1
@@ -732,20 +727,13 @@ mob
 			if(src.Secret=="Haki")
 				Return += clamp(secretDatum.currentTier/2, 1, 2)
 			Return+=passive_handler.Get("Flicker")
-/*			if(src.HasWalking())
-				Return++
-			if(src.HasShunkanIdo())
-				Return++*/
-			var/stp=src.SaiyanTransPower()
-			if(stp)
-				Return+=stp
+			Return+=src.SaiyanTransPower()
 			if(src.InfinityModule)
 				Return++
 			if(src.KamuiBuffLock)
-				Return++
-				Return++
+				Return += 2
 			if(Target)
-				if(isDominating(Target) && HellRisen)
+				if(HellRisen  && isDominating(Target))
 					Return += clamp((HellRisen*2), 1, 2)
 			return Return
 		HasDeathField()
@@ -960,19 +948,12 @@ mob
 				return 1
 			return 0
 		SaiyanTransPower()
-			var/t
-			var/m
-			if(src.HasTransMimic() && isRace(SAIYAN))
-				t=src.HasTransMimic()
-			if(src.transActive() && isRace(SAIYAN))
-				m=src.transActive()
-			if(t || m)
-				if(t>m)
-					return t
-				else
-					return m
-			else
-				return 0
+			if(!isRace(SAIYAN)) return 0
+			var/t = transActive
+			var/hastransmimic = HasTransMimic()
+			if(hastransmimic > transActive)
+				t = hastransmimic
+			return t
 		DrunkPower()
 			if(src.CheckSlotless("Drunken Mastery") && src.Drunk)
 				return 1
@@ -1572,10 +1553,7 @@ mob
 						Total+=(0.25*src.HasSpiritPower()*0.5)//halved rate for god ki saints
 			if(src.SenseUnlocked>6&&(src.SenseUnlocked>src.SenseRobbed))
 				if(src.SenseUnlocked>=7)
-					if(src.SagaLevel<5)
-						if(src.Health<=25 || src.InjuryAnnounce)
-							Total+=0.25
-					else
+					if(SagaLevel > 5 || src.Health<=25 || src.InjuryAnnounce)
 						Total+=0.25
 				if(src.SenseUnlocked>=8)
 					Total+=1

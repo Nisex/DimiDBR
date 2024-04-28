@@ -86,7 +86,7 @@ client
 
 		ClearHighlights()
 			for(var/atom/A in highlightedAtoms)
-				A:vis_contents.Remove(highlight)
+				A:vis_contents -= highlight
 
 		CanPaintTurfs()
 			return buildMode && mob.Target && !paintLock && islist(paintedTurfs)

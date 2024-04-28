@@ -435,7 +435,7 @@ mob
 */
 
 
-			if(src.MovementSealed())
+			if(movementSealed)
 				for(var/obj/Seal/S in src)
 					if(S.ZPlaneBind)
 						if(src.z!=S.ZPlaneBind || abs(src.x - S.XBind) > 10 || abs(src.y - S.YBind) > 10)

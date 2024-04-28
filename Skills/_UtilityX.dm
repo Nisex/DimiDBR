@@ -1446,6 +1446,7 @@ obj/Skills/Utility
 				S.XBind=Choice.x
 				S.YBind=Choice.y
 				Choice.contents+=S
+				Choice.movementSealed = TRUE
 				S.name="Movement Seal ([Choice.name])"
 				usr << "You have sealed [Choice]'s movement!"
 			else
@@ -1518,6 +1519,9 @@ obj/Skills/Utility
 			if(YourRoll2>=EnemyRoll)
 				OMsg(usr, "[usr] manages to break [Choice]!")
 				Choice.loc.overlays = null
+				if(Choice.ZPlaneBind)
+					var/mob/m = Choice.loc
+					m.movementSealed = FALSE
 				del Choice
 			else
 				OMsg(usr, "[usr] tries to unweave [Choice], but they can't figure out how to break it!")
