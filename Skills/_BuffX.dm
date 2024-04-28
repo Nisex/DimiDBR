@@ -8378,7 +8378,7 @@ NEW VARIABLES
 
 			verb/Aria_Chant()
 				set category = "Skills"
-				if(usr.AriaCount == usr.SagaLevel && usr.UBWPath != "Feeble")
+				if(usr.AriaCount-2 == usr.SagaLevel && usr.UBWPath != "Feeble")
 					usr << "You try to speak more of your aria, but you don't know any more lines..."
 					return
 				if(usr.UBWPath == "Feeble")
@@ -8387,7 +8387,7 @@ NEW VARIABLES
 						return
 				usr.AriaCount++
 				if(usr.UBWPath == "Feeble")
-					if(usr.AriaCount > usr.SagaLevel)
+					if(usr.AriaCount-2 > usr.SagaLevel)
 						var/mult = 0.04 * max(1,(usr.AriaCount-usr.SagaLevel))
 						usr.AddStrTax(mult)
 						usr.AddEndTax(mult)
