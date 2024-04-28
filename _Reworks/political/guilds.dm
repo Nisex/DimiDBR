@@ -5,16 +5,16 @@ mob/Players/var/list/inGuilds = list()
 
 proc
 	findGuildByID(id)
-		for(var/guild/g in glob.guilds)
-			if(g.name == id)
-				return g
+		for(var/guild/guild in glob.guilds)
+			if(guild.name == id)
+				return guild
 
 mob
 	proc
 		checkGuildVerbs()
-			for(var/guild/g in glob.guilds)
-				g.updateListing(src)
-				g.checkVerbs(src)
+			for(var/guild/guild in glob.guilds)
+				guild.updateListing(src)
+				guild.checkVerbs(src)
 
 guild
 	verb
@@ -28,6 +28,8 @@ guild
 				guild.removeMemberByID(usr)
 			else
 				usr << "You aren't an officer or owner of [guild.name]!"
+
+		
 
 		addGuildMember()
 			set name = "Add Member"
@@ -93,10 +95,22 @@ guild
 			else
 				guild.removeMember(usr)
 
+		guildExchange()
+			set name = "Exchange Money"
+			set category = "Guild"
+			var/guildID = input("What guild would you like to utilize to exchange?", "Fragment exchange") as null|anything in usr:inGuilds
+			var/howManyFragments = input("How many fragements would you like to exchange", "Exchage fragments") as num
+			var/guild/guild = findGuildByID(guildID)
+			if((usr:UniqueID in guild.exchangeList))
+				guild.guildTransaction(howManyFragments)
+			else 
+				usr << "You do not have the right to do deez"
 guild
 	var
 		name
+		indentificationNumber
 		ownerID
+		exchangeList
 		list/officers = list()
 		list/members = list()// by UniqueID
 		payOutRate = 0.25 // 0.25 = 4 fragments into 1 money
@@ -114,9 +128,11 @@ guild
 				p.verbs += /guild/verb/addOfficer
 				p.verbs += /guild/verb/removeOfficer
 				p.verbs += /guild/verb/transferOwnershipVerb
+				p.verbs += /guild/verb/guildExchange
 			if((p.UniqueID == ownerID) || (p.UniqueID in officers))
 				p.verbs += /guild/verb/addGuildMember
 				p.verbs += /guild/verb/removeGuildMember
+				p.verbs += /guild/verb/guildExchange
 
 		removeVerbs(mob/Players/p)
 			p.verbs -= /guild/verb/leaveGuild
@@ -153,6 +169,16 @@ guild
 						m << "You've been removed from [name]!"
 						m.inGuilds -= name
 						break
+
+		guildTransaction(sum)
+			if(!usr.HasFragments(sum))
+				usr <<"You can't go in to the negatives."
+				return
+			else
+				usr << "You have exchanged [sum] amount of fragments and..."
+				usr.TakeFragments(sum)
+				usr.GiveMoney(sum*payOutRate)
+
 
 		guildMessage(msg)
 			for(var/mob/Players/m in players)

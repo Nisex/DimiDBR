@@ -393,7 +393,6 @@ ascension
 	high_faoroan
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown)
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
@@ -1091,6 +1090,7 @@ ascension
 						tc.passives["WeaponBreaker"] = 1
 						tc.passives["Hellpower"] = 1
 						tc.passives["Erosion"] = 1
+						
 			rest
 				skills = list(/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
 			sacrifice

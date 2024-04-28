@@ -380,7 +380,7 @@ race
 		visual = 'Elf.png'
 
 		locked = TRUE
-
+		
 		power = 5
 		strength = 1.5
 		endurance = 1.5
@@ -391,6 +391,8 @@ race
 		anger = 2
 		regeneration = 3
 		imagination = 2
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown)
+
 
 	demon
 		name = "Demon"
