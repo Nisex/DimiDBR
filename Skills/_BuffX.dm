@@ -4772,7 +4772,7 @@ NEW VARIABLES
 			verb/Camouflage()
 				set category="Skills"
 				src.Trigger(usr)
-
+	
 		Saiyan_Dominance
 			NeedsHealth=75
 			EnergyThreshold = 25
@@ -7642,7 +7642,7 @@ NEW VARIABLES
 				set category="Skills"
 				src.Trigger(usr)
 
-
+///racial slotless
 		The_Crown
 			SignatureTechnique=3
 			TextColor="#adf0ff"
@@ -7661,6 +7661,37 @@ NEW VARIABLES
 				set category = "Skills"
 				src.Trigger(usr)
 
+		Golden_Form /// simple, sweet, just a straight fuckin boost. Could in theory be thrown at a Changeling at any point in the wipe if their deserving
+			FlashChange = 1
+			PowerMult = 2
+			Intimidation = 25
+			ActiveMessage="begins to glow with Golden power that mocks the very power of the God's.."
+			OffMessage="ceases their Golden glow; as they lower themselves once more."
+			verb/Golden_Form()
+				set category = "Skills"
+				src.Trigger(usr)
+
+		Black_Form /// Admins have to willingly hand this out, okay?
+			DarkChange = 1
+			PowerMult = 10
+			Intimidation = 100
+			ActiveMessage="ascends abruptly in a black void shell; cackling with dimension-warping levels of power.."
+			OffMessage ="releases the universe-shattering power, as the black void upon their flesh evaporates..."
+			verb/Black_Form()
+				set category = "Skills"
+				src.Trigger(usr)
+
+		Soar
+			TimerLimit = 25
+			Godspeed = 3
+			Skimming = 2
+			passives = list("Godspeed" = 3, "Skimming" = 2)
+			Cooldown = 60
+			ActiveMessage = "spreads their wings and takes flight!"
+			OffMessage = "descends from the skies above..."
+			verb/Soar()
+				set category = "Skills"
+				src.Trigger(usr)		
 
 		Majin
 			SignatureTechnique=3
@@ -15250,12 +15281,3 @@ mob
 				if(SlotlessBuffs["[B.BuffName]"])
 					return 1
 			return 0
-/obj/Skills/Buffs/SlotlessBuffs/Soaring
-    BuffName = "Soar"
-    TimerLimit = 10
-    Godspeed = 3
-    Copyable = 0
-    Cooldown = 60
-    Skimming = 1
-    ActiveMessage = "spreads their wings and takes flight!"
-    OffMessage = "descends from the sky above.."

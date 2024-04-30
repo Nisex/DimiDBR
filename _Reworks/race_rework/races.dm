@@ -430,7 +430,7 @@ race
 		regeneration = 1.5
 
 		onFinalization(mob/user)
-			(usr.Class)	=	input("What is your alien racial?", "Choose!")in list ("ESP", "Anaerobic", "Infusion", "Adrenaline", "Infernal", "Celestial", "Prodigy", "Warper", "Symbiote", "Multi-Limbed", "Morphic" )
+			(usr.Class)	=	input("What is your alien racial?", "Choose!")in list ("ESP", "Anaerobic", "Infusion", "Adrenaline", "Infernal", "Celestial", "Prodigy", "Warper", "Winged", "Symbiote", "Multi-Limbed", "Morphic" )
 			switch(usr.Class)
 				if("ESP")
 					skills = list(/obj/Skills/Telekinesis)
@@ -452,6 +452,9 @@ race
 				if("Symbiote")
 					skills = list(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Symbiote_Infection)
 					locked = TRUE
+				if("Winged")
+					skills = list (new/obj/Skills/Buffs/SlotlessBuffs/Soar)
+					passives = list("SuperDash" = 1)
 				if("Multi-Limbed")
 					passives = list("DoubleStrike" = 1, "TripleStrike" = 0.25)
 				if("Morphic")
@@ -465,6 +468,7 @@ race
 		desc = "Outsiders from a realm named Gaia, refugees sent to prosper on Copenlagen. These often take on humanoid features with skin tones from green to blue."
 		visual = 'Namek.png'
 
+		power = 2
 		strength = 1.5
 		endurance = 0.75
 		force = 1.5
