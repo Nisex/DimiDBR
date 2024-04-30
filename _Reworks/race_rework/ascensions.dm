@@ -5,6 +5,7 @@
 #define ASCENSION_FIVE_POTENTIAL 90
 ascension
 	var
+		powerAdd = 0
 		strength = 0
 		endurance = 0
 		force = 0
@@ -45,6 +46,7 @@ ascension
 		revertAscension(mob/owner)
 			if(!applied || pickingChoice) return
 
+			owner.PotentialRate -= powerAdd
 			owner.StrAscension -= strength
 			owner.EndAscension -= endurance
 			owner.ForAscension -= force
@@ -100,6 +102,8 @@ ascension
 			choiceSelection(owner)
 			if(choices.len > 0 && !choiceSelected) return
 			applied = TRUE
+
+			owner.PotentialRate += powerAdd
 			owner.StrAscension += strength
 			owner.EndAscension += endurance
 			owner.ForAscension += force
@@ -918,6 +922,7 @@ ascension
 
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
+			powerAdd = 0.25
 
 			onAscension(mob/owner)
 				passives = list("CashCow" = 1)

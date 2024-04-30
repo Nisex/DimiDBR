@@ -380,7 +380,7 @@ race
 		visual = 'Elf.png'
 
 		locked = TRUE
-		
+
 		power = 5
 		strength = 1.5
 		endurance = 1.5
@@ -460,8 +460,10 @@ race
 	gajalaka
 		name="Gajalaka"
 		icon_neuter='Gajalaka.dmi'
+		desc = "Thrifty kobold-like beings, seemingly…unimpressive in stature.."
+		visual = 'Gajalaka.png'
 		passives = list("CashCow" = 1, "Blubber" = 0.25)
-		power = 1
+		power = 0.75
 		strength = 0.75
 		endurance = 0.75
 		speed = 0.75
@@ -470,6 +472,7 @@ race
 		force = 0.75
 		intellect = 1.5
 		imagination = 1.5
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/The_Power_Of_Shiny)
 
 		onFinalization(mob/user)
 			user.EnhancedSmell=1

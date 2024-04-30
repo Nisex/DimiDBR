@@ -1,3 +1,6 @@
+#define GOLD_DRAGON_FORMULA 1000000
+#define GAJALAKA_MULT 1.2
+
 obj/Skills/Buffs
 	Cooldown=1
 /**
@@ -10668,6 +10671,34 @@ NEW VARIABLES
 				Cooldown=1
 
 //Racial
+			The_Power_Of_Shiny // Gajalaka's Racial, The power of money
+				TextColor=rgb(95,60,95)
+				NeedsHealth = 50
+				TooMuchHealth = 75
+				ActiveMessage = "gains the faint glitter of gold in their aura!"
+				OffMessage = "loses some of that goblin greed..."
+				Cooldown = 120
+				passives = list("PureDamage" = 1, "PureReduction" = 1)
+				proc/adjust(mob/p)
+					if(altered) return
+					//var/asc = p.AscensionsAcquired
+					var/money
+					for(var/obj/Money/m in p.contents)
+						money = m.Level
+
+					var/baseMultMod = 1 + max(0,money/(GOLD_DRAGON_FORMULA * GAJALAKA_MULT))
+					PowerMult = baseMultMod
+					SpdMult = baseMultMod
+					StrMult = baseMultMod
+					OffMult = baseMultMod
+					DefMult = baseMultMod
+					EndMult = baseMultMod
+					ForMult = baseMultMod
+
+				Trigger(mob/User, Override = FALSE)
+					adjust(User)
+					..()
+
 			Dragon_Rage
 				NeedsHealth = 10
 				TooMuchHealth = 25
@@ -10754,13 +10785,15 @@ NEW VARIABLES
 							money = m.Level
 						NeedsHealth = 10 + (5 * asc)
 						TooMuchHealth = 20 + (5 * asc)
-						PowerMult = 1 + max(0,money/1000000)
-						SpdMult = 1 + max(0,money/1000000)
-						StrMult = 1 + max(0,money/1000000)
-						OffMult = 1 + max(0,money/1000000)
-						DefMult = 1 + max(0,money/1000000)
-						EndMult = 1 + max(0,money/1000000)
-						ForMult = 1 + max(0,money/1000000)
+
+						var/baseMultMod = 1 + max(0,money/GOLD_DRAGON_FORMULA)
+						PowerMult = baseMultMod
+						SpdMult =baseMultMod
+						StrMult = baseMultMod
+						OffMult = baseMultMod
+						DefMult = baseMultMod
+						EndMult = baseMultMod
+						ForMult = baseMultMod
 
 					Trigger(mob/User, Override = FALSE)
 						adjust(User)
