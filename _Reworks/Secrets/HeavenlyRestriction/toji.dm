@@ -1,13 +1,13 @@
 /obj/Skills/Buffs/SlotlessBuffs/HeavenlyRestriction/HeavenlyRestriction
-    AlwaysOn = 1
-    ActiveMessage = ""
-    OffMessage = ""
+	AlwaysOn = 1
+	ActiveMessage = ""
+	OffMessage = ""
 
 
 
 /mob/verb/Toggle_Ping_Sound()
-    PingSound = !PingSound
-    src << "You have turned ping sound [PingSound ? "On" : "Off"]."
+	PingSound = !PingSound
+	src << "You have turned ping sound [PingSound ? "On" : "Off"]."
 
 /*
 pick something to restrict

@@ -499,7 +499,7 @@ mob/proc/ChooseSuperAlien()
 				Confirm=alert(src, "Equanimous aliens gain increased endurance and slight increase in spiritual focus.  Do you want to transform into one?", "Alien Class", "Yes", "No")
 			if("Sagacity")
 				Confirm=alert(src, "Sagacious aliens gain increased offensive power in strength, spirit and extra endurance.  Do you want to transform into one?", "Alien Class", "Yes", "No")
-	src.TransClass=Choice
+	race.transformations[1].TransClass=Choice
 
 mob/proc/SuperAlienBase(var/x)
 	switch(x)
@@ -1434,7 +1434,7 @@ mob/proc/WeaponSoul() // OverSoul Mechanic
 				src.OMessage(10,"<b>[src] becomes clad in regal armor, a symbol of unbreakable hope!</b>")
 			if("Moonlight Greatsword")
 				src.ElementalOffense="Water"
-				passive_handler.Increase("CyberStigma", 6)	
+				passive_handler.Increase("CyberStigma", 6)
 				passive_handler.Increase("ManaSeal", 6)
 				passive_handler.Increase("SpiritPower", 5)
 				src.CyberStigma+=6

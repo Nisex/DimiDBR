@@ -742,24 +742,55 @@ ascension
 			intimidation = 55
 
 	alien
+		proc
+			AlienStatIncrease()
+				var/choicesLeft = 3
+				while(choicesLeft)
+					switch(input(usr, "Your body begins to mutate in novel ways...", "Each step...") in list("Strength", "Endurance", "Speed", "Offense", "Defense", "Force"))
+						if("Strength")
+							strength += 0.25
+						if("Endurance")
+							endurance += 0.25
+						if("Speed")
+							speed += 0.25
+						if("Offense")
+							offense += 0.25
+						if("Defense")
+							defense +=0.25
+						if("Force")
+							force += 0.25
+					choicesLeft--
+
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			AlienStatIncrease(mob/owner)		
+			onAscension(mob/owner)
+				AlienStatIncrease(owner)
+				..()
+
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
-			AlienStatIncrease(mob/owner)		
+			onAscension(mob/owner)
+				AlienStatIncrease(owner)
+				..()
+
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
-			AlienStatIncrease(mob/owner)
-			mob/proc/ChooseSuperAlien(mob/owner)
+			onAscension(mob/owner)
+				AlienStatIncrease(owner)
+				..()
 
 		four
-
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
-			AlienStatIncrease(mob/owner)
+			onAscension(mob/owner)
+				AlienStatIncrease(owner)
+				..()
+
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
-			AlienStatIncrease(mob/owner)	
+			onAscension(mob/owner)
+				AlienStatIncrease(owner)
+				..()
+
 	saiyan
 		one
 			unlock_potential = -1
@@ -914,11 +945,11 @@ ascension
 					passives = list("UnhingedForm" = 0.5)
 					anger = 0.5
 				..()
-	
+
 	namekian
 		one
 			unlock_potential	=	ASCENSION_ONE_POTENTIAL
-			onAscension(mob/owner)			
+			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Demon")
 						speed = 0.5
@@ -935,8 +966,8 @@ ascension
 							for(var/obj/Skills/Utility/Send_Energy/se)
 								se.SagaSignature=1
 								se.SignatureTechnique=0
-					if("Warrior")	
-						strength = 0.25	
+					if("Warrior")
+						strength = 0.25
 						if("mob/player/var/counterparted" == 1)
 							strength = 0.5
 							endurance = 0.5
@@ -967,7 +998,7 @@ ascension
 							intimidation = 10
 							strength = 0.25
 							skills = list(/obj/Skills/Buffs/SpecialBuffs/Giant_Form)
-							src << "Your link with your counterpart strengtens your empowers your physical might further, as you learn to control your size!"				
+							src << "Your link with your counterpart strengtens your empowers your physical might further, as you learn to control your size!"
 		three
 			unlock_potential	=	ASCENSION_THREE_POTENTIAL
 			onAscension(mob/owner)
@@ -987,7 +1018,7 @@ ascension
 						if("mob/player/var/counterparted" == 1)
 							strength = 0.25
 							recovery = 0.35
-							endurance = 0.35			
+							endurance = 0.35
 		four
 			unlock_potential =  ASCENSION_FOUR_POTENTIAL
 			onAscension(mob/owner)
@@ -995,7 +1026,7 @@ ascension
 					if("Demon")
 						intimidation = 20
 						passives = list("SlayerMod" = 1.5, "MovementMastery" = 4)
-					if("Warrior")	
+					if("Warrior")
 						strength = 0.25
 						if("mob/player/var/counterparted" == 1)
 							strength = 0.25
@@ -1007,7 +1038,7 @@ ascension
 						if("mob/player/var/counterparted" == 1)
 							force = 0.5
 							recovery = 0.5
-							passives = list("SpiritStrike" = 1)		
+							passives = list("SpiritStrike" = 1)
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			onAscension(mob/owner)
@@ -1027,10 +1058,10 @@ ascension
 						force = 1
 						recovery = 1
 						if("mob/player/var/counterparted" == 1)
-							passives = list("ManaSeal" = 1, "CyberMenace" = 1, "SpiritStrike" = 1.5)			
+							passives = list("ManaSeal" = 1, "CyberMenace" = 1, "SpiritStrike" = 1.5)
 
 	changeling
-		one	
+		one
 			unlock_potential	=	ASCENSION_ONE_POTENTIAL
 			onAscension(mob/owner)
 				intimidation += 3
@@ -1053,7 +1084,7 @@ ascension
 
 		four
 			unlock_potential	=	ASCENSION_FOUR_POTENTIAL
-			onAscension(mob/owner)	
+			onAscension(mob/owner)
 				intimidation = 3
 				endurance = 0.25
 
@@ -1062,7 +1093,7 @@ ascension
 			onAscension(mob/owner)
 				intimidation = 3
 				endurance = 0.25
-				
+
 
 	sub_ascension
 		saiyan
