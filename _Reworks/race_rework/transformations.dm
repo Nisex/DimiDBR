@@ -428,13 +428,13 @@ transformation
 
 	changeling
 		second_form
-			transform(mob/user) ///does the BioArmor stuff work? will need to check
-				PUSpeedModifier=1.5
-				intimidation += 3
-				pot_trans+=1
-				BioArmorMax=25
-				form_base ="Chilled2.dmi"
-				src << "You loosen your restrictions, entering your second form!"
+		transform(mob/user) ///does the BioArmor stuff work? will need to check
+			PUSpeedModifier=1.5
+			intimidation += 3
+			pot_trans+=1
+			BioArmorMax=25
+			form_base ="Chilled2.dmi"
+			src << "You loosen your restrictions, entering your second form!"
 
 
 		third_form ///higher we go

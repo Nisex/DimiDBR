@@ -952,14 +952,17 @@ ascension
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Demon")
+						//power = 0.75
 						speed = 0.5
 						defense = 0.25
 						anger = 1.4
 						passives = list("Hellrisen" = 0.5)
-					if("Dragon")
+					if("Dragon")  /// after the merge, unmerged Dragon and Warrior will also receive some scaling power. Levi added it in for Gaja's in his push
+						///power = 0.75
 						force = 0.25
+						passives = list("SpiritFlow" = 1)
 						if("mob/player/var/counterparted" == 1)
-							force = 0.5
+							force = 0.75
 							imaginationAdd = 0.5
 							recovery = 0.25
 							skills = list(/obj/Skills/Utility/Send_Energy)
@@ -967,7 +970,9 @@ ascension
 								se.SagaSignature=1
 								se.SignatureTechnique=0
 					if("Warrior")
+						//power = 1
 						strength = 0.25
+						passives = list("Duelist" = 0.5)
 						if("mob/player/var/counterparted" == 1)
 							strength = 0.5
 							endurance = 0.5
@@ -979,75 +984,94 @@ ascension
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Demon")
+						//power = 1
 						speed = 0.5
 						defense = 0.25
 						anger = 1.5
 						skills = list(/obj/Skills/Buffs/SpecialBuffs/Daimou_Form)
 						src << "Your reliance on infernal power has given you insight to the power of a Great Demon King!"
 					if("Dragon")
+						//power = 1
 						force = 0.25
+						passives =list("SpiritHand" = 1, "SpiritFlow" = 1.5)
 						if("mob/player/var/counterparted" == 1)
-							force = 0.25
+							force = 0.75
 							imaginationAdd = 0.25
 							learning = 0.25
 							skills = list(/obj/Skills/Utility/Heal)
 							src << "Your link with your counterpart has grown your energy pool large enough to heal all wounds instantly!"
 					if("Warrior")
+						//power = 1.5
 						endurance = 0.25
+						passives = list("Juggernaut" = 1, "Extend" = 0.5, "Duelist" = 1)
 						if("mob/player/var/counterparted" == 1)
 							intimidation = 10
 							strength = 0.25
+							endurance = 0.25
 							skills = list(/obj/Skills/Buffs/SpecialBuffs/Giant_Form)
 							src << "Your link with your counterpart strengtens your empowers your physical might further, as you learn to control your size!"
 		three
 			unlock_potential	=	ASCENSION_THREE_POTENTIAL
 			onAscension(mob/owner)
-				switch(owner.Class)
+				switch(owner.Class) // super namek era
 					if("Demon")
+						// power = 1.5
 						speed = 0.5
 						anger = 1.6
 					if("Dragon")
+						//power = 1.5
 						force= 0.25
-						endurance = 0.25
+						endurance = 0.5
+						passives = list("SpiritHand" =1.25, "SpiritFlow" = 1.75)
 						if("mob/player/var/counterparted" == 1)
 							force = 0.25
-							passives = list("SpiritStrike" = 0.5)
+							passives = list("Spirit Flow" = 2, "SpiritStrike" = 1)
 							recovery = 0.25
 					if("Warrior")
+						//power = 2
 						strength = 0.25
+						offense = 0.5
+						passives = list ("Duelist" = 2, "Extend" = 1)
 						if("mob/player/var/counterparted" == 1)
-							strength = 0.25
-							recovery = 0.35
-							endurance = 0.35
+							strength = 0.5
+							recovery = 0.5
+							endurance = 0.5
 		four
 			unlock_potential =  ASCENSION_FOUR_POTENTIAL
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Demon")
+						//power = 2
 						intimidation = 20
 						passives = list("SlayerMod" = 1.5, "MovementMastery" = 4)
 					if("Warrior")
-						strength = 0.25
+						//power = 3
+						strength = 0.5
+						passives = list("Duelist" = 2.5, "Extend" = 2)
 						if("mob/player/var/counterparted" == 1)
-							strength = 0.25
+							strength = 0.75
 							endurance = 0.25
 							recovery = 0.5
 							intimidation = 30
 					if("Dragon")
-						force = 0.25
+						//power = 2.5
+						force = 0.5
+						passives = list ("SpiritHand" = 1.5)
 						if("mob/player/var/counterparted" == 1)
-							force = 0.5
+							force = 0.75
 							recovery = 0.5
-							passives = list("SpiritStrike" = 1)
+							passives = list("SpiritStrike" = 1.75)
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			onAscension(mob/owner)
-				switch(owner.Class)
+				switch(owner.Class) ///orange namek should be unlocked here
 					if("Demon")
+						//power = 3
 						speed = 0.5
 						anger = 2
 						intimidation = 50
 					if("Warrior")
+						//power = 4
 						strength = 1
 						endurance = 1
 						if("mob/player/var/counterparted" == 1)
@@ -1055,6 +1079,7 @@ ascension
 							endurance = 1
 							intimidation = 70
 					if("Dragon")
+						//power = 3.5
 						force = 1
 						recovery = 1
 						if("mob/player/var/counterparted" == 1)
@@ -1087,12 +1112,16 @@ ascension
 			onAscension(mob/owner)
 				intimidation = 3
 				endurance = 0.25
+				skills = list(/obj/Skills/Buffs/SlotlessBuffs/Golden_Form)
+			on_ascension_message = "Your evolutionary power now could be made to rival the very God's..."
 
 		five
 			unlock_potential	=	ASCENSION_FIVE_POTENTIAL
 			onAscension(mob/owner)
 				intimidation = 3
 				endurance = 0.25
+				skills = list(/obj/Skills/Buffs/SlotlessBuffs/Black_Form)
+			on_ascension_message = "You begin to surpass reality iself; transcendng it with access to a black void form...make them bow, Emperor."
 
 
 	sub_ascension
