@@ -41,7 +41,6 @@ proc/log_func(x, a, b)
 #define subtypesof(M) (typesof(M) - (M))
 
 #define HUMAN /race/human
-#define SAIYAN /race/saiyan
 #define NAMEKIAN /race/namekian
 #define SAIYAN /race/saiyan
 #define DEMON /race/demon
