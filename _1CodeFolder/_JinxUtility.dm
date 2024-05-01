@@ -3972,7 +3972,7 @@ mob
 #define SECONDS * 10
 #define MINUTES * 600
 #define HOURS   * 36000
-#define MAX_WIPE_DAYS 50
+#define MAX_WIPE_DAYS 500
 #define ANIT_LAG_NUM 100
 
 
