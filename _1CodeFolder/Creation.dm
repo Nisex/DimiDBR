@@ -321,6 +321,7 @@ mob/Players
 		if(icon_state == "KB")
 			icon_state = ""
 
+/*
 		if(!src.Timeless)
 			if(src.Dead&&!src.DeadTime)
 				src.DeadAge=Dif
@@ -380,7 +381,7 @@ mob/Players
 				if(!locate(/obj/Skills/Utility/Teachz, src) && !(src.Class in list("Dance","Potara")) )
 					src.AddSkill(new/obj/Skills/Utility/Teachz)
 					src.RPPDonate+=(src.RPPSpendable+src.RPPSpent)/4
-					src << "You can now teach those younger than you!"
+					src << "You can now teach those younger than you!"*/
 
 		if(src.ParasiteCrest())
 			var/obj/Items/Enchantment/Magic_Crest/mc=src.EquippedCrest()
