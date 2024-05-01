@@ -1831,6 +1831,27 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 
+			Goblin_Greed
+				SkillCost=160
+				Copyable=5
+				Distance=20
+				DamageMult=6
+				AccMult=15
+				Knockback=5
+				EnergyCost=3
+				Cooldown=120
+				Homing=1
+				IconLock='GoldPile.dmi'
+				IconSize=0.35
+				LockX=-32
+				LockY=-32
+				Variation=0
+				GoldScatter = 1
+
+				verb/Goblin_Greed()
+					set category="Skills"
+					usr.UseProjectile(src)
+
 //SHIT THAT AINT USED
 			Feint_Shot//this boi currently isnt used
 				/*SkillCost=4
