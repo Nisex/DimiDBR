@@ -1353,6 +1353,20 @@ NEW VARIABLES
 							src.SwordName="Dainsleif"
 							src.ActiveMessage="calls forth the true form of Dainsleif, the Blade of Ruin!"
 							src.OffMessage="dissolves Dainsleif's ruinous power..."
+						if("Moonlight Greatsword")
+							src.PowerMult=1.5
+							src.EndMult=1.3
+							src.ForMult=2.25
+							src.OffMult=1.5
+							src.DefMult=1.3
+							passives = list("SpiritFlow" = 2, "SpiritStrike" = 2, "ManaSeal" = 2, "DrainlessMana" = 1, "CyberStigma" = 2)
+							src.SpiritFlow=2
+							src.SpiritStrike=2
+							src.ManaSeal=2
+							src.DrainlessMana=1
+							src.CyberStigma=2
+							src.SwordName="Moonlight Greatsword"
+							src.ActiveMessage="conjures forth the Moonlight Greatsword, basked in otherworldly lunar radiance..."
 				src.Trigger(usr)
 			verb/Weapon_Soul()
 				set category="Skills"
@@ -1907,13 +1921,14 @@ NEW VARIABLES
 	SpecialBuffs
 		SpecialSlot=1
 //Racial
-		Giant_Form//for Dragon Nameks instead!
-			NeedsHealth=75
+		Giant_Form//for Warrior  Nameks instead!
+			NeedsHealth=50
+			TooMuchHealth=75
 			StrMult=1.5
 			EndMult=2
 			DefMult=0.5
 			Enlarge=2
-			passives = list("GiantForm" = 1)
+			passives = list("GiantForm" = 1, "Sweeping Strikes" = 1)
 			GiantForm=1
 			ActiveMessage="channels their regenerative abilities into a bout of monstrous growth!"
 			OffMessage="shrinks to normal size..."
@@ -1941,25 +1956,24 @@ NEW VARIABLES
 			OffMessage="discards the Demon clan's abominal power..."
 			Cooldown=180
 			KenWave=2
-			KenWaveIcon="LightningRed.dmi"
-
+			KenWaveIcon="LightningRed.dmi"	
+	
 		OneHundredPercentPower ///splitting this up from FifthForm, asc 2 is this and asc 3 will be fifth form
 			BuffName="One Hundred Percent Power"
 			UnrestrictedBuff=1
 			NeedsTrans=3
-			NeedsHealth=50
 			StrMult=1.5
 			ForMult=1.5
 			AuraLock=1
-			passives = list("Flicker" = 1, "Pursuer" = 1, "AllOutPU" = 1)
-			Flicker=1
+			passives = list("Flicker" = 2, "Pursuer" = 1, "AllOutPU" = 1)
+			Flicker=2
 			Pursuer=1
 			Cooldown=600
 			KKTWave=3
 			KKTWaveSize=2
 			AllOutPU=1
-			ActiveMessage="bulks up greatly and erupts with power!"
-			OffMessage="tires out..."
+			ActiveMessage="erupts with world-shattering power!"
+			OffMessage="releases their awesome power..."
 		FifthForm
 			SignatureTechnique=3
 			BuffName="Fifth Form"
@@ -4766,7 +4780,7 @@ NEW VARIABLES
 			verb/Camouflage()
 				set category="Skills"
 				src.Trigger(usr)
-
+	
 		Saiyan_Dominance
 			NeedsHealth=75
 			EnergyThreshold = 25
@@ -7636,7 +7650,7 @@ NEW VARIABLES
 				set category="Skills"
 				src.Trigger(usr)
 
-
+///racial slotless
 		The_Crown
 			SignatureTechnique=3
 			TextColor="#adf0ff"
@@ -7655,6 +7669,37 @@ NEW VARIABLES
 				set category = "Skills"
 				src.Trigger(usr)
 
+		Golden_Form /// simple, sweet, just a straight fuckin boost. Could in theory be thrown at a Changeling at any point in the wipe if their deserving
+			FlashChange = 1
+			PowerMult = 2
+			Intimidation = 25
+			ActiveMessage="begins to glow with Golden power that mocks the very power of the God's.."
+			OffMessage="ceases their Golden glow; as they lower themselves once more."
+			verb/Golden_Form()
+				set category = "Skills"
+				src.Trigger(usr)
+
+		Black_Form /// Admins have to willingly hand this out, okay?
+			DarkChange = 1
+			PowerMult = 10
+			Intimidation = 100
+			ActiveMessage="ascends abruptly in a black void shell; cackling with dimension-warping levels of power.."
+			OffMessage ="releases the universe-shattering power, as the black void upon their flesh evaporates..."
+			verb/Black_Form()
+				set category = "Skills"
+				src.Trigger(usr)
+
+		Soar
+			TimerLimit = 25
+			Godspeed = 3
+			Skimming = 2
+			passives = list("Godspeed" = 3, "Skimming" = 2)
+			Cooldown = 60
+			ActiveMessage = "spreads their wings and takes flight!"
+			OffMessage = "descends from the skies above..."
+			verb/Soar()
+				set category = "Skills"
+				src.Trigger(usr)		
 
 		Majin
 			SignatureTechnique=3

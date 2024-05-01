@@ -507,6 +507,7 @@ ascension
 					b.AngerMult = 1.3
 					b.passives = list("AngerAdaptiveForce" = 0.1)
 					b.VaizardHealth = 5
+				..()
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
 			angerPoint = 5
@@ -521,6 +522,7 @@ ascension
 					b.AngerMult = 1.4
 					b.passives = list("AngerAdaptiveForce" = 0.2)
 					b.VaizardHealth = 10
+				..()
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
 			angerPoint = 5
@@ -535,6 +537,7 @@ ascension
 					b.AngerMult = 1.3
 					b.passives = list("AngerAdaptiveForce" = 0.3, "Void" = 1)
 					b.VaizardHealth = 15
+				..()
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			angerPoint = 5
@@ -547,6 +550,7 @@ ascension
 					b.AngerMult = 1.3
 					b.passives = list("AngerAdaptiveForce" = 0.4, "Void" = 1)
 					b.VaizardHealth = 15
+				..()
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			angerPoint = 5
@@ -559,6 +563,7 @@ ascension
 					b.AngerMult = 1.4
 					b.passives = list("AngerAdaptiveForce" = 0.5, "Void" = 1)
 					b.VaizardHealth = 20
+				..()
 
 	dragon
 		one
@@ -745,15 +750,54 @@ ascension
 			intimidation = 55
 
 	alien
+		proc
+			AlienStatIncrease()
+				var/choicesLeft = 3
+				while(choicesLeft)
+					switch(input(usr, "Your body begins to mutate in novel ways...", "Each step...") in list("Strength", "Endurance", "Speed", "Offense", "Defense", "Force"))
+						if("Strength")
+							strength += 0.25
+						if("Endurance")
+							endurance += 0.25
+						if("Speed")
+							speed += 0.25
+						if("Offense")
+							offense += 0.25
+						if("Defense")
+							defense +=0.25
+						if("Force")
+							force += 0.25
+					choicesLeft--
+
 		one
+			unlock_potential = ASCENSION_ONE_POTENTIAL
+			onAscension(mob/owner)
+				AlienStatIncrease(owner)
+				..()
 
 		two
+			unlock_potential = ASCENSION_TWO_POTENTIAL
+			onAscension(mob/owner)
+				AlienStatIncrease(owner)
+				..()
 
 		three
+			unlock_potential = ASCENSION_THREE_POTENTIAL
+			onAscension(mob/owner)
+				AlienStatIncrease(owner)
+				..()
 
 		four
+			unlock_potential = ASCENSION_FOUR_POTENTIAL
+			onAscension(mob/owner)
+				AlienStatIncrease(owner)
+				..()
 
 		five
+			unlock_potential = ASCENSION_FIVE_POTENTIAL
+			onAscension(mob/owner)
+				AlienStatIncrease(owner)
+				..()
 
 	saiyan
 		one
@@ -947,6 +991,184 @@ ascension
 			onAscension(mob/owner)
 				passives = list("CashCow" = 1)
 
+	namekian
+		one
+			unlock_potential	=	ASCENSION_ONE_POTENTIAL
+			onAscension(mob/owner)
+				switch(owner.Class)
+					if("Demon")
+						//power = 0.75
+						speed = 0.5
+						defense = 0.25
+						anger = 1.4
+						passives = list("Hellrisen" = 0.5)
+					if("Dragon")  /// after the merge, unmerged Dragon and Warrior will also receive some scaling power. Levi added it in for Gaja's in his push
+						///power = 0.75
+						force = 0.25
+						passives = list("SpiritFlow" = 0.5)
+						if(owner.counterparted == 1)
+							force = 0.75
+							imaginationAdd = 0.5
+							recovery = 0.25
+							skills = list(/obj/Skills/Utility/Send_Energy)
+							for(var/obj/Skills/Utility/Send_Energy/se)
+								se.SagaSignature=1
+								se.SignatureTechnique=0
+					if("Warrior")
+						//power = 1
+						strength = 0.25
+						passives = list("Duelist" = 0.5)
+						if(owner.counterparted == 1)
+							strength = 0.5
+							endurance = 0.5
+							offense = 0.25
+							defense = 0.25
+							learning = 0.25
+				..()
+		two
+			unlock_potential	=	ASCENSION_TWO_POTENTIAL
+			onAscension(mob/owner)
+				switch(owner.Class)
+					if("Demon")
+						//power = 1
+						speed = 0.5
+						defense = 0.25
+						anger = 1.5
+						skills = list(/obj/Skills/Buffs/SpecialBuffs/Daimou_Form)
+						on_ascension_message =  "Your reliance on infernal power has given you insight to the power of a Great Demon King!"
+					if("Dragon")
+						//power = 1
+						force = 0.25
+						passives =list("SpiritHand" = 0.5, "SpiritFlow" = 0.5)
+						if(owner.counterparted == 1)
+							force = 0.75
+							imaginationAdd = 0.25
+							learning = 0.25
+							skills = list(/obj/Skills/Utility/Heal)
+							on_ascension_message =  "Your link with your counterpart has grown your energy pool large enough to heal all wounds instantly!"
+					if("Warrior")
+						//power = 1.5
+						endurance = 0.25
+						passives = list("Juggernaut" = 1, "Extend" = 0.5, "Duelist" = 1)
+						if(owner.counterparted == 1)
+							intimidation = 10
+							strength = 0.25
+							endurance = 0.25
+							skills = list(/obj/Skills/Buffs/SpecialBuffs/Giant_Form)
+							on_ascension_message =  "Your link with your counterpart strengtens your empowers your physical might further, as you learn to control your size!"
+				..()
+		three
+			unlock_potential	=	ASCENSION_THREE_POTENTIAL
+			onAscension(mob/owner)
+				switch(owner.Class) // super namek era
+					if("Demon")
+						// power = 1.5
+						speed = 0.5
+						anger = 1.6
+					if("Dragon")
+						//power = 1.5
+						force= 0.25
+						endurance = 0.5
+						passives = list("SpiritHand" =0.25, "SpiritFlow" = 0.25)
+						if(owner.counterparted == 1)
+							force = 0.25
+							passives = list("Spirit Flow" = 0.25, "SpiritStrike" = 0.25)
+							recovery = 0.25
+					if("Warrior")
+						//power = 2
+						strength = 0.25
+						offense = 0.5
+						passives = list ("Duelist" = 2, "Extend" = 1)
+						if(owner.counterparted == 1)
+							strength = 0.5
+							recovery = 0.5
+							endurance = 0.5
+				..()
+		four
+			unlock_potential =  ASCENSION_FOUR_POTENTIAL
+			onAscension(mob/owner)
+				switch(owner.Class)
+					if("Demon")
+						//power = 2
+						intimidation = 20
+						passives = list("SlayerMod" = 1.5, "MovementMastery" = 4)
+					if("Warrior")
+						//power = 3
+						strength = 0.5
+						passives = list("Duelist" = 2.5, "Extend" = 2)
+						if(owner.counterparted == 1)
+							strength = 0.75
+							endurance = 0.25
+							recovery = 0.5
+							intimidation = 30
+					if("Dragon")
+						//power = 2.5
+						force = 0.5
+						passives = list ("SpiritHand" = 0.5)
+						if(owner.counterparted == 1)
+							force = 0.75
+							recovery = 0.5
+							passives = list("SpiritStrike" = 0.25)
+				..()
+		five
+			unlock_potential = ASCENSION_FIVE_POTENTIAL
+			onAscension(mob/owner)
+				switch(owner.Class) ///orange namek should be unlocked here
+					if("Demon")
+						//power = 3
+						speed = 0.5
+						anger = 2
+						intimidation = 50
+					if("Warrior")
+						//power = 4
+						strength = 1
+						endurance = 1
+						if(owner.counterparted == 1)
+							strength = 1
+							endurance = 1
+							intimidation = 70
+					if("Dragon")
+						//power = 3.5
+						force = 1
+						recovery = 1
+						if(owner.counterparted == 1)
+							passives = list("ManaSeal" = 1, "CyberMenace" = 1, "SpiritStrike" = 0.5)
+				..()
+	changeling
+		one
+			unlock_potential	=	ASCENSION_ONE_POTENTIAL
+			intimidation = 3
+			endurance = 0.25
+			on_ascension_message = "You are now able to enter your true form!"
+
+		two
+			unlock_potential	=	ASCENSION_TWO_POTENTIAL
+			intimidation = 3
+			endurance = 0.25
+			on_ascension_message = "You are now able to use 100% of your true forms power!"
+			skills = list(/obj/Skills/Buffs/SpecialBuffs/OneHundredPercentPower)
+
+		three
+			unlock_potential	=	ASCENSION_THREE_POTENTIAL
+			intimidation = 3
+			endurance = 0.25
+			on_ascension_message = "You feel there is yet another power beyond your true form..."
+
+		four
+			unlock_potential	=	ASCENSION_FOUR_POTENTIAL
+			intimidation = 3
+			endurance = 0.25
+			skills = list(/obj/Skills/Buffs/SlotlessBuffs/Golden_Form)
+			on_ascension_message = "Your evolutionary power now could be made to rival the very God's..."
+
+		five
+			unlock_potential	=	ASCENSION_FIVE_POTENTIAL
+			intimidation = 3
+			endurance = 0.25
+			skills = list(/obj/Skills/Buffs/SlotlessBuffs/Black_Form)
+			on_ascension_message = "You begin to surpass reality iself; transcendng it with access to a black void form...make them bow, Emperor."
+
+
 	sub_ascension
 		saiyan
 			honor
@@ -1061,6 +1283,7 @@ ascension
 						tc.passives["SwordPunching"] = 1
 						tc.passives["TechniqueMastery"] = 1
 						tc.passives["Adrenaline"] = 1
+					..()
 
 			define
 				onAscension(mob/owner)
@@ -1068,6 +1291,7 @@ ascension
 						tc.passives["LikeWater"] = 2
 						tc.passives["Flow"] = 2
 						tc.passives["Instinct"] = 2
+					..()
 
 			destroy
 				onAscension(mob/owner)
@@ -1075,12 +1299,15 @@ ascension
 						tc.passives["Desperation"] = 2
 						tc.passives["Unstoppable"] = 1
 						tc.passives["MartialMagic"] = 1
+					..()
+
 			remove
 				onAscension(mob/owner)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in owner.contents)
 						tc.passives["Extend"] = 1
 						tc.passives["SpiritStrike"] = 1
 						tc.passives["HybridStrike"] = 1
+					..()
 
 			conquer
 				onAscension(mob/owner)
@@ -1089,12 +1316,15 @@ ascension
 						tc.passives["SlayerMod"] = 2
 						tc.passives["WeaponBreaker"] = 1
 						tc.passives["Erosion"] = 1
+					..()
+
 			obliterate
 				onAscension(mob/owner)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in owner.contents)
 						tc.passives["WeaponBreaker"] = 1
 						tc.passives["Hellpower"] = 1
 						tc.passives["Erosion"] = 1
+					..()
 						
 			rest
 				skills = list(/obj/Skills/Buffs/SlotlessBuffs/Regeneration)

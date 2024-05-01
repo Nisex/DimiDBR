@@ -29,6 +29,13 @@ transformation
 		regeneration
 		anger
 		unlock_potential = -1
+		intimidation
+
+		BioArmor
+		BioArmorMax
+
+		transformation_message
+		detrans_message
 
 		stored_profile
 		form_profile
@@ -56,6 +63,7 @@ transformation
 		form_aura_underlay_icon_state
 		form_aura_underlay_x
 		form_aura_underlay_y
+		TransClass
 
 		image/form_icon_1
 		form_icon_1_icon
@@ -145,6 +153,8 @@ transformation
 			user.OffMultTotal += offense
 			user.DefMultTotal += defense
 
+
+
 			user.potential_trans = user.Potential+pot_trans
 			if(form_base)
 				stored_base = user.icon
@@ -171,6 +181,9 @@ transformation
 
 			user.Hairz("Add")
 			user.Auraz("Add")
+
+			if(transformation_message)
+				user.OMsg(10, transformation_message)
 
 		revert(mob/user)
 			if(!is_active || !user.CanRevert()) return
@@ -209,6 +222,10 @@ transformation
 				user.Auraz("Add")
 			else
 				user.Auraz("Remove")
+		
+			if(detrans_message)
+				user.OMsg(10, detrans_message)
+
 
 	saiyan
 		super_saiyan
@@ -465,3 +482,118 @@ transformation
 					spawn(10)
 						animate(user, color = user.MobColor, time=30)
 					sleep(2)
+
+
+	alien
+		super_alien
+			transform(mob/user)
+				if(!TransClass)
+					TransClass = input(user, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagcity")
+					//you can set this var to the input so you have the choice and then you can use a switch on it
+					//you can do it as just the switch statement as well
+					// switch(input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagacity")) // the return of the input poc will be one of the four
+					switch(TransClass)
+						if("Tenacity")
+							strength = 0.25
+							speed = 0.25
+							passives=list("Desperation" = 1)
+						if("Brutality")
+							strength = 0.25
+							endurance = 0.25
+							intimidation = 20
+						if("Harmony")
+							force = 0.25
+							defense = 0.25
+							passives=list("Desperation" = 1)
+						if("Sagacity")
+							force = 0.25
+							speed = 0.25
+							intimidation = 20
+						// the switch statement will handle the return, there is no need for a while, in fact u just shouldn't use them if you are inexperienced.
+
+
+
+
+
+
+				// var/Choice
+				// var/Confirm < - confirm is made but not set, it is like saying ok i have this piece of paper but never saying its a dollar bill
+				// while(Confirm!="Yes") /// <--- why doesn't this work?! // this will just throw an error or always be false; there is no end to the while loop as well so all that happens is an inf loop, stagnated by an input
+				// 	Choice=input(src, "Which form of Super Alien do you unleash?", "Super Alien Form")in list("Brutality" , "Harmony" , "Tenacity" , "Sagacity")
+				// correct code
+				// 	if(Choice)
+					// then set Confirm = "Yes"
+				// all of the above isnt needed anyway
+				// switch(Choice)
+				// 	if("Tenacity")
+				// 		strength = 5
+				// 		speed = 5
+				// 	if("Brutality")
+				// 		strength = 5
+				// 		speed = 5
+				// 	if("Harmony")
+				// 		force = 5
+				// 	if("Sagacity")
+				// 		endurance = 5
+				// src.TransClass=Choice
+				/// ive tried writing this like 100 times, but the idea should just be that aliens can pick their class of super alien and gain different boons!!!!111 will need to figure this out...
+				/// duplicate definitions, probably just retarded but i cant figure out why
+				..()
+
+	namekian
+		super_namekian
+			passives=list("Life Generation" = 0.5)
+			PUSpeedModifier = 1.5
+			anger = 0.3
+			intimidation = 12
+			regeneration = 0.75
+			form_aura_icon = "Amazing Super Namekian Aura.dmi"
+			form_aura_x = -32
+
+		orange_namekian
+			passives=list("GodKi" = 1, "Life Generation" = 3)
+			PUSpeedModifier = 2
+			anger = 1
+			autoAnger = TRUE
+			intimidation = 100
+			regeneration = 1
+			form_base_icon ="Orange Namek.dmi"
+			form_aura_icon ="FlameGlowZeus.dmi"
+			form_aura_x = -16
+
+	changeling
+		second_form
+			PUSpeedModifier = 1.5
+			intimidation = 3
+			pot_trans = 1
+			BioArmorMax = 25
+			form_base_icon ="Chilled2.dmi"
+			transformation_message = "You loosen your restrictions, entering your second form!"
+
+
+
+		third_form ///higher we go
+			PUSpeedModifier = 1.5
+			intimidation = 3
+			pot_trans = 1
+			BioArmorMax = 50
+			form_base_icon = "Chilled3.dmi"
+			transformation_message = "You shatter your restrictions further, donning your third form..."
+
+		final_form ///intended to probably be their default for most of wipe, or atleast post-ssj scaling
+				PUSpeedModifier = 1.5
+				intimidation = 3
+				pot_trans = 3
+				BioArmorMax = 75
+				form_base_icon = "Chilled4.dmi"
+				transformation_message = "You become your true self; holding back no longer."
+
+		fifth_form /// at asc 3 they can choose to gain another form, it does more of the same and jug. There is another option coming for asc 3 later that instead is for cyber changelings
+			PUSpeedModifier = 1.5
+			intimidation = 10
+			passives = list("Juggernaut" = 1)
+			pot_trans = 5
+			BioArmorMax = 100
+			transformation_message = "You find a form beyond your true self; becoming an monstrous well of power!"
+
+

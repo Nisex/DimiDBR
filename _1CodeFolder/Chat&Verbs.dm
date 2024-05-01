@@ -706,6 +706,7 @@ mob/Players/verb
 		if(!(world.time > usr.verb_delay)) return
 		usr.verb_delay=world.time+1
 		var/time=30*10
+		//TODO: make it so it alerts others that they r in a party, esp if they r namekian and have a counterpart.
 		src.OMessage(30,"[src] is counting down! ([time/10] seconds)","<font color=silver>[src]([src.key]) used countdown.")
 		spawn(time)	src.OMessage(30,"[src] ended counting down! (0 seconds)","<font color=silver>[src]([src.key]) ended using countdown.")
 		spawn(time/2)	src.OMessage(30,"[src] counting down! ([time/2/10] seconds)")
@@ -713,6 +714,7 @@ mob/Players/verb
 			for(var/i=5, i>0, i--)
 				src.OMessage(30,"[src] - [i]!")
 				sleep(10)
+		//TODO: do it again at the end, so they cant cheese join while in cd
 		for(var/obj/Items/Tech/SpaceTravel/Ship/A in view(30,src)) //This for loop detects ships around those that use the say verb.
 			for(var/obj/ShipConsole/B in world)
 				if(A.Password==B.Password)

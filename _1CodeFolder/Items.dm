@@ -883,6 +883,20 @@ obj/Items/Sword
 					Steady = 1
 					TierTechniques=list(null, null, null, null, list("/obj/Skills/Buffs/SlotlessBuffs/Dadao","/obj/Skills/Buffs/SlotlessBuffs/Huadong") , null)
 
+	Legendary
+		LegendaryItem = 1
+		TechType=null
+		Unobtainable = 1
+		ShatterCounter=100
+		ShatterMax=100
+		AlienBlade
+			name="Alien Blade"
+			icon='Bokken.dmi'
+			DamageEffectiveness=1
+			AccuracyEffectiveness=1
+			HitSparkIcon='Hit Effect.dmi'
+			HitSparkSize=1
+
 
 
 	Light
@@ -1120,7 +1134,14 @@ obj/Items/Sword
 					SweepingStrike = 1
 					TierTechniques=list(null, null, null, null, "/obj/Skills/AutoHit/War_God_Descent", null)
 
-				Sword_of_the_Moon
+				Sword_of_the_Moon//Moonlight Greatsword
+					pixel_x	=	-16
+					pixel_y	=	-16
+					name	=	"Sword of the Moon"
+					icon	=	'MLGS.dmi'
+					TierTechniques=list(null, null, null, null, null, "/obj/Skills/Projectile/Wisdom_Form_Blast", null, null)
+
+
 	desc="Weapons alter the effects of melee combat and have their own advantages and disadvantages."
 	New()
 		..()

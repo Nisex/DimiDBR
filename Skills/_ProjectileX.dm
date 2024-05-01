@@ -4238,6 +4238,17 @@ obj
 						Shattering = 0.5 + clamp(usr.AscensionsAcquired*0.5, 0.5, 2.5)
 					usr.UseProjectile(src)
 
+//Moonlight Greatsword
+				Moonlight_Wave
+					ForRate=1.5
+					Blasts=1
+					DamageMult=5
+					AccMult=1
+					IconLock="MoonWave.dmi"
+					Variation=6
+					Cooldown=10
+					AttackReplace=1
+
 
 
 mob

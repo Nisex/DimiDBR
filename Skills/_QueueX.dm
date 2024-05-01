@@ -59,9 +59,9 @@ obj
 			var/LockY=0
 
 			//ALL THREE OF THESE TAKE AN OBJECT TYPE.
-			var/Step//sequential attacks for hits or misses
-			var/HitStep//sequential attacks only if you hit
-			var/MissStep//sequential attacks only if you miss
+			var/Step //sequential attacks for hits or misses
+			var/HitStep //sequential attacks only if you hit
+			var/MissStep //sequential attacks only if you miss
 
 			//These three are all just binaries to determine what to do when you clear your queue and there's a step tech.
 			var/Missed=0//Flagged for when attacks miss
@@ -69,7 +69,7 @@ obj
 			var/RanOut=0//Flagged for when attacks just run out of time
 
 
-			var/Dunker//Multiplies launched foes damage by this value.
+			var/Dunker //Multiplies launched foes damage by this value.
 
 			var/Projectile//holds the projectile type and decides if there is a projectile at all
 			var/ProjectileCount=1//Fires the given projectile multiple times
@@ -83,7 +83,7 @@ obj
 			var/GateNeeded
 
 
-			var/Quaking//Makes screen go shakka shakka
+			var/Quaking //Makes screen go shakka shakka
 			var/WarpAway
 
 
@@ -95,8 +95,10 @@ obj
 			var/KiBlade//duh
 			var/PridefulRage
 
-			//Instinct//Ignore AIS/WS
-			var/Steady//It do what steady do.
+			var/ManaGain
+
+			//Instinct //Ignore AIS/WS
+			var/Steady //It do what steady do.
 			var/WeaponBreaker//WHAT DO U THINK?!
 			var/MortalBlow//WHHHHHHHHHHHAAAAAAAAAA-
 
@@ -4041,7 +4043,7 @@ mob
 							sleep(1)
 						break
 
-
+				
 		QueuedMissMessage()
 			src.AttackQueue.Missed=1
 			src.AttackQueue.Hit=0
@@ -4101,6 +4103,8 @@ mob
 				src.LoseForce(src.AttackQueue.ForceCost)
 			if(src.AttackQueue.FatigueCost)
 				src.GainFatigue(src.AttackQueue.FatigueCost)
+			if(src.AttackQueue.ManaGain)
+				src.HealMana(AttackQueue.ManaGain)
 			if(src.AttackQueue.ManaCost)
 				var/drain = src.passive_handler.Get("MasterfulCasting") ? AttackQueue.ManaCost - (AttackQueue.ManaCost * (passive_handler.Get("MasterfulCasting") * 0.3)) : AttackQueue.ManaCost
 				if(drain <= 0)

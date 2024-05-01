@@ -145,6 +145,7 @@ obj/Skills
 	var/CustomCharge//totally custom
 
 	var/HeavyHitter
+	var/counterparted
 
 	var/copiedBy
 
@@ -802,6 +803,29 @@ obj/Skills
 					animate(usr,alpha=0,time=150)
 					sleep(150)
 					del(usr)
+
+mob
+	var/counterpart = null
+/obj/Skills/Counterpart
+	verb/Set_Counterpart()
+		if(usr.counterpart) return
+		var/mob/Player/choice = list()
+		for(var/mob/x in oview(2,usr))
+			if(x.client)
+				var/sameIP = x.client.address == usr.client.address ? TRUE : FALSE
+				if(sameIP && !(x.soIgnore && usr.soIgnore)) return
+				if(x.isRace(NAMEKIAN) && !x.counterpart)
+					choice+=x
+		if(length(choice) < 1) return
+		//sloppy but better than before
+		choice = input(usr, "what person?") in choice // should work
+		if((input(choice, "Do you want to be [usr]'s counterpart?", "Request") in list("Yes", "No")) == "No" )
+			return
+		choice.counterpart = usr.ckey
+		usr.counterpart = choice.ckey
+		choice << "You are now counterparts with [usr]."
+		usr << "[choice] accepted being your counterpart"
+		AdminMessage("([time2text(world.realtime,"hh:mm")])[usr] is now counterparts with [choice] ")
 
 obj/Turfs/Click(obj/Turfs/T)
 	if(usr.Target && usr.Mapper && usr.client.macros.IsPressed("Ctrl"))

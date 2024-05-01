@@ -3222,6 +3222,12 @@ obj/Skills/Utility
 							if(!S.LockedLegend)
 								usr.contents+=S
 								break
+				if("Moonlight Greatsword")
+					if(!locate(/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon, usr))
+						for(var/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon/S in world)
+							if(!S.LockedLegend)
+								usr.contents+=S
+								break
 			OMsg(usr, "[usr] summons forth their legendary blade!")
 
 	Death_Killer

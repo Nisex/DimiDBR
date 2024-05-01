@@ -421,7 +421,7 @@ race
 
 	alien
 		name = "Alien"
-		desc = "These are Aliens."
+		desc = "A broad term for a variety of spacefaring species or beings of otherwise unusual origin; the universe is vast and endless! Those that can not be defined by traditonal definitions fall into this category."
 		power = 1
 		strength = 0.5
 		endurance = 0.5
@@ -431,6 +431,38 @@ race
 		force = 0.5
 		regeneration = 1.5
 
+		onFinalization(mob/user)
+			(usr.Class)	=	input("What is your alien racial?", "Choose!")in list ("ESP", "Anaerobic", "Infusion", "Adrenaline", "Infernal", "Celestial", "Prodigy", "Warper", "Winged", "Symbiote", "Multi-Limbed", "Morphic" )
+			switch(usr.Class)
+				if("ESP")
+					skills = list(/obj/Skills/Telekinesis)
+					skills = list(/obj/Skills/Utility/Telepathy)
+				if("Anaerobic")
+					passives = list("Anaerobic" = 1)
+				if("Infusion")
+					passives = list("Infusion" = 1)
+				if("Adrenaline")
+					passives = list("Adrenaline" = 1)
+				if("Infernal")
+					passives = list("HellPower" = 1)
+				if("Celestial")
+					passives = list("SpiritPower" = 1)
+				if("Prodigy")
+					passives =	list("LegendPower" = 1)
+				if("Warper")
+					passives = list("Flicker" = 2)
+				if("Symbiote")
+					skills = list(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Symbiote_Infection)
+					locked = TRUE
+				if("Winged")
+					skills = list (new/obj/Skills/Buffs/SlotlessBuffs/Soar)
+					passives = list("SuperDash" = 1)
+				if("Multi-Limbed")
+					passives = list("DoubleStrike" = 1, "TripleStrike" = 0.25)
+				if("Morphic")
+					passives = list("SwordHand" = 1)
+
+
 	namekian
 		name = "Namekian"
 		icon_neuter = 'Namek1.dmi'
@@ -438,6 +470,7 @@ race
 		desc = "Outsiders from a realm named Gaia, refugees sent to prosper on Copenlagen. These often take on humanoid features with skin tones from green to blue."
 		visual = 'Namek.png'
 
+		power = 2
 		strength = 1.5
 		endurance = 0.75
 		force = 1.5
@@ -448,13 +481,50 @@ race
 		imagination = 2
 		intellect = 1.5
 		learning = 1.5
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Regeneration,/obj/Skills/AutoHit/AntennaBeam)
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Queue/Infestation)
+		/* /obj/Skills/AutoHit/AntennaBeam */
 
 		onFinalization(mob/user)
-			..()
 			user.EnhancedHearing = 1
 			for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/r in user)
 				r.RegenerateLimbs=1
+
+			user.Class = input("What clan do you hail from?", "Clan Selection")in list("Warrior", "Dragon", "Demon")
+			switch(user.Class)
+				if("Warrior")
+					strength += 0.5
+					user.StrengthMod += 0.5
+					endurance += 0.25
+					user.EnduranceMod += 0.25
+				if("Dragon")
+					force += 0.5
+					user.ForceMod += 0.5
+					defense += 0.25
+					user.DefenseMod += 0.25
+				if("Demon")	
+					speed += 0.5
+					user.SpeedMod += 0.5
+					offense += 0.25
+					user.OffenseMod += 0.5
+			..()
+
+	changeling
+		name = "Changeling"
+		icon_neuter	=	"Chilled1.dmi"
+		gender_options = list("Neuter")
+		desc	=	"A strange and adaptive race from the far reaches of deep space, little is none of these mysterious beings other than they are new to the general galactic population!"
+		visual	=	'Changeling.png'
+
+		strength	=	1.75
+		endurance	=	1
+		force	=	1.75
+		offense	=	1.5
+		defense	=	1
+		speed	=	1.75
+		anger	=	1
+
+		onFinalization(mob/user)
+			passives=list("Xenobiology" = 1)
 
 
 	gajalaka

@@ -67,7 +67,7 @@ var
 	OokamiMade=0
 
 
-	list/WeaponSoul = list("Caledfwlch","Kusanagi","Durendal","Masamune","SoulCalibur","SoulEdge","Muramasa","Dainsleif","Ryui Jingu Bang","Green Dragon Crescent Blade")
+	list/WeaponSoul = list("Caledfwlch","Kusanagi","Durendal","Masamune","SoulCalibur","SoulEdge","Muramasa","Dainsleif","Ryui Jingu Bang","Green Dragon Crescent Blade", "Moonlight Greatsword")
 
 	CaledfwlchTaken
 	KusanagiTaken
@@ -79,8 +79,9 @@ var
 	DainsleifTaken
 	WukongTaken
 	GuanyuTaken
+	MoonlightGreatswordTaken
 
-	list/ConstellationsBronze=list("Pegasus","Dragon","Cygnus","Andromeda","Phoenix")
+	list/ConstellationsBronze=list("Pegasus","Dragon","Cygnus","Andromeda","Phoenix", "Unicorn")
 	list/ConstellationsGold=list("Aries",/* "Taurus" */,"Gemini","Cancer","Leo","Virgo","Libra","Scorpio",/*"Sagittarius"*/,"Capricorn","Aquarius","Pisces")
 
 	Era=1//Keeps track of tiiime

@@ -93,3 +93,4 @@
             passives = list("HeavyHitter" = HeavyHitter, "HardStyle" = HardStyle, \
             "Steady" = Steady, "Shattering" = Shattering)
             TimerLimit = 30 + (totalPotRounded/10)
+            

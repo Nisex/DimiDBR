@@ -481,7 +481,7 @@ mob/proc/SNJ()
 		src.FlickeringGlow(src)
 
 
-mob/proc/ChooseAlienClass()
+mob/proc/ChooseSuperAlien()
 	var/Choice
 	var/Confirm
 	while(Confirm!="Yes")
@@ -499,7 +499,7 @@ mob/proc/ChooseAlienClass()
 				Confirm=alert(src, "Equanimous aliens gain increased endurance and slight increase in spiritual focus.  Do you want to transform into one?", "Alien Class", "Yes", "No")
 			if("Sagacity")
 				Confirm=alert(src, "Sagacious aliens gain increased offensive power in strength, spirit and extra endurance.  Do you want to transform into one?", "Alien Class", "Yes", "No")
-	src.Class=Choice
+	race.transformations[1].TransClass=Choice
 
 mob/proc/SuperAlienBase(var/x)
 	switch(x)
@@ -514,58 +514,57 @@ mob/proc/SuperAlienBase(var/x)
 				src.pixel_y=src.Form1BaseY
 
 
-mob/proc/SuperAlien(var/x)
-	if(!(src.Class in list("Brutality", "Harmony", "Ferocity", "Tenacity", "Equanimity", "Sagacity", "Potara", "Dance")))
-		src.ChooseAlienClass()
-	src.trans["active"]=x
-	if(!src.HasMystic())
-		src.SuperAlienBase(x)
-	switch(x)
-		if(1)
-			OMsg(src, "[src.Form1ActiveText]")
-	spawn()
-		src.Quake(x*x*5)
-	animate(src, color = list(1,0,0, 0,1,0, 0,0,1, 0.7,0.9,1), time=5)
-	spawn(5)
-		animate(src, color = MobColor, time=3)
-	if(x>1)
-		var/DustStacks=x
-		spawn()Crater(src,x-1)
-		while(DustStacks)
-			Dust(src.loc,x+x)
-			DustStacks--
-	switch(x)
-		if(1)
-			src.overlays+=image(icon=src.Form1Overlay, pixel_x=src.Form1OverlayX, pixel_y=src.Form1OverlayY)
-	src.Hairz("Add")
-	src.Auraz("Add")
-	if(!src.HasKiControl()&&!src.PoweringUp)
-		spawn(50)
-			src.Auraz("Remove")
-	if(src.masteries["[x]mastery"]<20)
-		src.masteries["[x]mastery"]=100
-		switch(src.Class)
-			if("Brutality")
-				src.StrAscension+=0.5
-				src.SpdAscension+=0.5
-			if("Harmony")
-				src.ForAscension+=0.5
-				src.SpdAscension+=0.5
-			if("Ferocity")
-				src.StrAscension+=0.25
-				src.ForAscension+=0.25
-				src.SpdAscension+=0.5
-			if("Tenacity")
+///mob/proc/SuperAlien(var/x)
+	//if(!(src.Class in list("Brutality", "Harmony", "Ferocity", "Tenacity", "Equanimity", "Sagacity", "Potara", "Dance")))
+	//	src.ChooseSuperAlien()
+	//src.trans["active"]=x
+	//if(!src.HasMystic())
+	//	src.SuperAlienBase(x)
+//	switch(x)
+	//	if(1)
+	//		OMsg(src, "[src.Form1ActiveText]")
+	//spawn()
+	///	src.Quake(x*x*5)
+	//animate(src, color = list(1,0,0, 0,1,0, 0,0,1, 0.7,0.9,1), time=5)
+	//spawn(5)
+	//	animate(src, color = MobColor, time=3)
+	//if(x>1)
+	//	var/DustStacks=x
+	//	spawn()Crater(src,x-1)
+	//	while(DustStacks)
+	//		Dust(src.loc,x+x)
+	//		DustStacks--
+	//	if(1)
+	//		src.overlays+=image(icon=src.Form1Overlay, pixel_x=src.Form1OverlayX, pixel_y=src.Form1OverlayY)
+	//src.Hairz("Add")
+	//src.Auraz("Add")
+	//if(!src.HasKiControl()&&!src.PoweringUp)
+	//	spawn(50)
+	//		src.Auraz("Remove")
+	//if(src.masteries["[x]mastery"]<20)
+	//	src.masteries["[x]mastery"]=100
+	//	switch(src.Class)
+		//	if("Brutality")
+		//		src.StrAscension+=0.5
+		//		src.SpdAscension+=0.5
+		//	if("Harmony")
+		//		src.ForAscension+=0.5
+		//		src.SpdAscension+=0.5
+		//	if("Ferocity")
+		//		src.StrAscension+=0.25
+		//		src.ForAscension+=0.25
+		//		src.SpdAscension+=0.5
+		//	if("Tenacity")
+		//		src.EndAscension+=0.5
+		//		src.StrAscension+=0.5
+		////	if("Equanimity")
+		//		src.EndAscension+=0.5
+		//		src.ForAscension+=0.5
+		///	if("Sagacity")
+		//		src.StrAscension+=0.25
+		/////		src.ForAscension+=0.25
 				src.EndAscension+=0.5
-				src.StrAscension+=0.5
-			if("Equanimity")
-				src.EndAscension+=0.5
-				src.ForAscension+=0.5
-			if("Sagacity")
-				src.StrAscension+=0.25
-				src.ForAscension+=0.25
-				src.EndAscension+=0.5
-	src.Intimidation*=2
+	//src.Intimidation*=2
 
 
 /mob/var/oldAngerPoint = 50
