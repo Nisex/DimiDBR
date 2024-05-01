@@ -11,13 +11,7 @@ mob
 			src.potential_ascend(Silent=1)
 			if(race.ascensions.len==0) return
 			for(var/a in race.ascensions)
-				var/ascension/asc
-				if(ispath(a, /ascension))
-					asc = new a // think this fixes it
-				else
-					asc = a
-				if(ispath(asc, /ascension/eldritch/one))
-					asc = new /ascension/eldritch/one // some of these lines prob arent needed, but i was debugging - jordan
+				var/ascension/asc = a
 				if(!asc.applied&&!asc:checkAscensionUnlock(Potential)) continue
 				asc.onAscension(src)
 

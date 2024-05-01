@@ -146,12 +146,13 @@ race
 			if it isn't, you have to manually add them.
 			this is so it's very easy and automatic to throw ascensions in and out.
 		*/
-		ascensions = subtypesof(text2path("/ascension/[lowertext(name)]"))
-		transformations = subtypesof(text2path("/transformation/[lowertext(name)]"))
-		for(var/i in ascensions)
-			ascensions[i] = new i
-		for(var/i in transformations)
-			transformations[i] = new i
+		var/list/ascpaths = subtypesof(text2path("/ascension/[lowertext(name)]"))
+		var/list/transpaths = subtypesof(text2path("/transformation/[lowertext(name)]"))
+
+		for(var/i in ascpaths)
+			ascensions += new i
+		for(var/i in transpaths)
+			transformations += new i
 
 	proc
 		onDeselection(mob/user)
@@ -501,7 +502,7 @@ race
 					user.ForMod += 0.5
 					defense += 0.25
 					user.DefMod += 0.25
-				if("Demon")	
+				if("Demon")
 					speed += 0.5
 					user.SpdMod += 0.5
 					offense += 0.25

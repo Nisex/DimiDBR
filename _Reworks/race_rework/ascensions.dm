@@ -143,7 +143,7 @@ ascension
 			owner.EnhanceChipsMax += enhanceChips
 
 			if(choiceSelected)
-				var/ascension/choiceAsc = choiceSelected
+				var/ascension/choiceAsc = new choiceSelected
 				choiceAsc.onAscension(owner)
 
 			owner.SetCyberCancel()
@@ -1315,7 +1315,7 @@ ascension
 						tc.passives["Hellpower"] = 1
 						tc.passives["Erosion"] = 1
 					..()
-						
+
 			rest
 				skills = list(/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
 			sacrifice

@@ -1175,6 +1175,7 @@ mob/proc
 		src.SetVars()
 
 		src:UniqueID = ++glob.IDCounter
+		glob.IDs += src:UniqueID
 		glob.IDs[src:UniqueID] = "[name]"
 
 		if(!Warped)
