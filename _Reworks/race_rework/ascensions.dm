@@ -145,7 +145,7 @@ ascension
 			owner.AscensionsAcquired+=1
 
 			if(choiceSelected)
-				var/ascension/choiceAsc = choiceSelected
+				var/ascension/choiceAsc = new choiceSelected
 				choiceAsc.onAscension(owner)
 
 			owner.SetCyberCancel()
