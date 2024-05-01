@@ -493,19 +493,19 @@ race
 			switch(user.Class)
 				if("Warrior")
 					strength += 0.5
-					user.StrengthMod += 0.5
+					user.StrMod += 0.5
 					endurance += 0.25
-					user.EnduranceMod += 0.25
+					user.EndMod += 0.25
 				if("Dragon")
 					force += 0.5
-					user.ForceMod += 0.5
+					user.ForMod += 0.5
 					defense += 0.25
-					user.DefenseMod += 0.25
+					user.DefMod += 0.25
 				if("Demon")	
 					speed += 0.5
-					user.SpeedMod += 0.5
+					user.SpdMod += 0.5
 					offense += 0.25
-					user.OffenseMod += 0.5
+					user.OffMod += 0.5
 			..()
 
 	changeling

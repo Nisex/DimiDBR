@@ -183,7 +183,7 @@ transformation
 			user.Auraz("Add")
 
 			if(transformation_message)
-				user.OMsg(10, transformation_message)
+				user << transformation_message
 
 		revert(mob/user)
 			if(!is_active || !user.CanRevert()) return
@@ -224,7 +224,7 @@ transformation
 				user.Auraz("Remove")
 		
 			if(detrans_message)
-				user.OMsg(10, detrans_message)
+				user << detrans_message
 
 
 	saiyan

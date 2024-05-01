@@ -145,7 +145,6 @@ obj/Skills
 	var/CustomCharge//totally custom
 
 	var/HeavyHitter
-	var/counterparted
 
 	var/copiedBy
 

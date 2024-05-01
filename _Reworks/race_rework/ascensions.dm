@@ -1005,7 +1005,7 @@ ascension
 						///power = 0.75
 						force = 0.25
 						passives = list("SpiritFlow" = 0.5)
-						if(owner.counterparted == 1)
+						if(owner.counterpart)
 							force = 0.75
 							imaginationAdd = 0.5
 							recovery = 0.25
@@ -1017,7 +1017,7 @@ ascension
 						//power = 1
 						strength = 0.25
 						passives = list("Duelist" = 0.5)
-						if(owner.counterparted == 1)
+						if(owner.counterpart)
 							strength = 0.5
 							endurance = 0.5
 							offense = 0.25
@@ -1039,7 +1039,7 @@ ascension
 						//power = 1
 						force = 0.25
 						passives =list("SpiritHand" = 0.5, "SpiritFlow" = 0.5)
-						if(owner.counterparted == 1)
+						if(owner.counterpart)
 							force = 0.75
 							imaginationAdd = 0.25
 							learning = 0.25
@@ -1049,7 +1049,7 @@ ascension
 						//power = 1.5
 						endurance = 0.25
 						passives = list("Juggernaut" = 1, "Extend" = 0.5, "Duelist" = 1)
-						if(owner.counterparted == 1)
+						if(owner.counterpart)
 							intimidation = 10
 							strength = 0.25
 							endurance = 0.25
@@ -1069,7 +1069,7 @@ ascension
 						force= 0.25
 						endurance = 0.5
 						passives = list("SpiritHand" =0.25, "SpiritFlow" = 0.25)
-						if(owner.counterparted == 1)
+						if(owner.counterpart)
 							force = 0.25
 							passives = list("Spirit Flow" = 0.25, "SpiritStrike" = 0.25)
 							recovery = 0.25
@@ -1078,7 +1078,7 @@ ascension
 						strength = 0.25
 						offense = 0.5
 						passives = list ("Duelist" = 2, "Extend" = 1)
-						if(owner.counterparted == 1)
+						if(owner.counterpart)
 							strength = 0.5
 							recovery = 0.5
 							endurance = 0.5
@@ -1095,7 +1095,7 @@ ascension
 						//power = 3
 						strength = 0.5
 						passives = list("Duelist" = 2.5, "Extend" = 2)
-						if(owner.counterparted == 1)
+						if(owner.counterpart)
 							strength = 0.75
 							endurance = 0.25
 							recovery = 0.5
@@ -1104,7 +1104,7 @@ ascension
 						//power = 2.5
 						force = 0.5
 						passives = list ("SpiritHand" = 0.5)
-						if(owner.counterparted == 1)
+						if(owner.counterpart)
 							force = 0.75
 							recovery = 0.5
 							passives = list("SpiritStrike" = 0.25)
@@ -1122,7 +1122,7 @@ ascension
 						//power = 4
 						strength = 1
 						endurance = 1
-						if(owner.counterparted == 1)
+						if(owner.counterpart)
 							strength = 1
 							endurance = 1
 							intimidation = 70
@@ -1130,7 +1130,7 @@ ascension
 						//power = 3.5
 						force = 1
 						recovery = 1
-						if(owner.counterparted == 1)
+						if(owner.counterpart)
 							passives = list("ManaSeal" = 1, "CyberMenace" = 1, "SpiritStrike" = 0.5)
 				..()
 	changeling

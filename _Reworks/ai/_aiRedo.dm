@@ -224,7 +224,7 @@
 									step(src, get_dir(src, Target))
 								dir = get_dir(src, Target)
 								if(prob(ai_accuracy/2))
-									if((x in (Target.x - 1 to Target.x + 1)) || (y in (Target.y - 1 to Target.y + 1) )  )
+									if(src in block(Target.x - 1, Target.y-1, Target.z, Target.x + 1, Target.y +1))
 										Activate(a)
 										use = a
 										ai_next_autohit = (world.time+20)/ai_spammer
