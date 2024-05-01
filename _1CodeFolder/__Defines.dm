@@ -51,6 +51,7 @@ proc/log_func(x, a, b)
 #define YOKAI /race/yokai
 #define ELDRITCH /race/eldritch
 #define BEASTMAN /race/beastman
+#define GAJALAKA /race/gajalaka
 
 var/list/font_rsc=list('fonts/Gotham Book.otf') // forces it into the rsc.
 

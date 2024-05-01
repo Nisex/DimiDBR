@@ -316,7 +316,7 @@ mob/Players
 		if(src.Class=="Dance"||src.Class=="Potara")
 			src.Timeless=1
 
-		var/Dif=global.Era-src.EraAge
+		// var/Dif=global.Era-src.EraAge
 
 		if(icon_state == "KB")
 			icon_state = ""

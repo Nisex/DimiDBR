@@ -87,6 +87,7 @@ ascension
 			owner.EconomyMult -= ecoAdd
 			owner.PilotingProwess -= pilotingProwess
 			owner.EnhanceChipsMax -= enhanceChips
+			owner.AscensionsAcquired-=1
 
 			if(choiceSelected)
 				var/ascension/choiceAsc = choiceSelected
@@ -141,6 +142,7 @@ ascension
 			owner.EconomyMult += ecoAdd
 			owner.PilotingProwess += pilotingProwess
 			owner.EnhanceChipsMax += enhanceChips
+			owner.AscensionsAcquired+=1
 
 			if(choiceSelected)
 				var/ascension/choiceAsc = choiceSelected
@@ -158,7 +160,7 @@ ascension
 			pickingChoice = FALSE
 
 		checkAscensionUnlock(potential)
-			if(unlock_potential==-1) return 0
+			if(unlock_potential==-1 || applied) return 0
 			if(potential >= unlock_potential)
 				return 1
 			return 0
@@ -955,31 +957,67 @@ ascension
 				..()
 
 	gajalaka
-		strength = 0.5
-		endurance = 0.5
-		force = 0.5
-		offense = 0.5
-		defense = 0.5
-		speed = 0.5
-		cyberizeModAdd = 0.1
-
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			powerAdd = 0.25
+			strength = 0.5
+			endurance = 0.5
+			force = 0.5
+			offense = 0.5
+			defense = 0.5
+			speed = 0.5
+			cyberizeModAdd = 0.1
 			passives = list("CashCow" = 1)
+			on_ascension_message = "Your goblin greed grows..."
+			powerAdd = 0.25
+			pilotingProwess = 1.5
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
+			strength = 0.5
+			endurance = 0.5
+			force = 0.5
+			offense = 0.5
+			defense = 0.5
+			speed = 0.5
+			cyberizeModAdd = 0.1
 			passives = list("CashCow" = 1)
+			on_ascension_message = "Your goblin greed grows..."
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
+			strength = 0.5
+			endurance = 0.5
+			force = 0.5
+			offense = 0.5
+			defense = 0.5
+			speed = 0.5
+			cyberizeModAdd = 0.1
 			passives = list("CashCow" = 1)
+			on_ascension_message = "Your goblin greed grows..."
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
+			strength = 0.5
+			endurance = 0.5
+			force = 0.5
+			offense = 0.5
+			defense = 0.5
+			speed = 0.5
+			cyberizeModAdd = 0.1
 			passives = list("CashCow" = 1)
+			on_ascension_message = "Your goblin greed grows..."
+			enhanceChips = 1
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
+			strength = 0.5
+			endurance = 0.5
+			force = 0.5
+			offense = 0.5
+			defense = 0.5
+			speed = 0.5
+			cyberizeModAdd = 0.1
 			passives = list("CashCow" = 1)
+			on_ascension_message = "Your goblin greed grows..."
+			enhanceChips = 2
+
 
 	namekian
 		one
@@ -1315,7 +1353,7 @@ ascension
 						tc.passives["Hellpower"] = 1
 						tc.passives["Erosion"] = 1
 					..()
-						
+
 			rest
 				skills = list(/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
 			sacrifice

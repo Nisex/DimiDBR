@@ -39,13 +39,15 @@ obj/proc
 			if(YOKAI)
 				passiveList = list("ManaStats"=0.25 * M.SagaLevel)
 			if(ELDRITCH)
-				passiveList = list("DeathField"=0.25 * M.SagaLevel)
-				passiveList += list("VoidField"=0.25 * M.SagaLevel)
+				passiveList = list("DeathField"=0.25 * M.SagaLevel, "VoidField"=0.25 * M.SagaLevel)
 			if(NAMEKIAN)
 				passiveList = list("LifeGeneration" = 0.25 * M.SagaLevel * 10)
 			if(MAKYO)
-				passiveList = list("DemonicDurability"=0.25 * M.SagaLevel)
-				passiveList += list("HeavyHitter"=0.25 * M.SagaLevel)
+				passiveList = list("DemonicDurability"=0.25 * M.SagaLevel, "HeavyHitter"=0.25 * M.SagaLevel)
+			if(DRAGON)
+				passiveList = list("DebuffImmune"=0.15 * M.SagaLevel, "BuffMastery"=0.25 * M.SagaLevel)
+			if(GAJALAKA)
+				passiveList = list("DemonicDurability"=0.25 * M.SagaLevel, "CashCow"=0.25 * M.SagaLevel)
 		return passiveList
 
 
