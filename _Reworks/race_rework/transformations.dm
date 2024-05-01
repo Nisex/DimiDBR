@@ -557,7 +557,7 @@ transformation
 			autoAnger = TRUE
 			intimidation = 100
 			regeneration = 1
-			form_base_icon ="Orange Namek.dmi"
+			form_base = "Orange Namek.dmi"
 			form_aura_icon ="FlameGlowZeus.dmi"
 			form_aura_x = -16
 
@@ -567,28 +567,28 @@ transformation
 			intimidation = 3
 			pot_trans = 1
 			BioArmorMax = 25
-			form_base_icon ="Chilled2.dmi"
+			form_base = "Chilled2.dmi"
 			transformation_message = "You loosen your restrictions, entering your second form!"
 
 
 
-		third_form ///higher we go
+		third_form //higher we go
 			PUSpeedModifier = 1.5
 			intimidation = 3
 			pot_trans = 1
 			BioArmorMax = 50
-			form_base_icon = "Chilled3.dmi"
+			form_base = "Chilled3.dmi"
 			transformation_message = "You shatter your restrictions further, donning your third form..."
 
-		final_form ///intended to probably be their default for most of wipe, or atleast post-ssj scaling
-				PUSpeedModifier = 1.5
-				intimidation = 3
-				pot_trans = 3
-				BioArmorMax = 75
-				form_base_icon = "Chilled4.dmi"
-				transformation_message = "You become your true self; holding back no longer."
+		final_form //intended to probably be their default for most of wipe, or atleast post-ssj scaling
+			PUSpeedModifier = 1.5
+			intimidation = 3
+			pot_trans = 3
+			BioArmorMax = 75
+			form_base = "Chilled4.dmi"
+			transformation_message = "You become your true self; holding back no longer."
 
-		fifth_form /// at asc 3 they can choose to gain another form, it does more of the same and jug. There is another option coming for asc 3 later that instead is for cyber changelings
+		fifth_form // at asc 3 they can choose to gain another form, it does more of the same and jug. There is another option coming for asc 3 later that instead is for cyber changelings
 			PUSpeedModifier = 1.5
 			intimidation = 10
 			passives = list("Juggernaut" = 1)

@@ -954,7 +954,6 @@ ascension
 					anger = 0.5
 				..()
 
-
 	gajalaka
 		strength = 0.5
 		endurance = 0.5
