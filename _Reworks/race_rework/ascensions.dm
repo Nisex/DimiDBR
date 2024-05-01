@@ -966,29 +966,20 @@ ascension
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			powerAdd = 0.25
+			passives = list("CashCow" = 1)
 
-			onAscension(mob/owner)
-				passives = list("CashCow" = 1)
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
-
-			onAscension(mob/owner)
-				passives = list("CashCow" = 1)
+			passives = list("CashCow" = 1)
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
-
-			onAscension(mob/owner)
-				passives = list("CashCow" = 1)
+			passives = list("CashCow" = 1)
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
-
-			onAscension(mob/owner)
-				passives = list("CashCow" = 1)
+			passives = list("CashCow" = 1)
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
-
-			onAscension(mob/owner)
-				passives = list("CashCow" = 1)
+			passives = list("CashCow" = 1)
 
 	namekian
 		one
