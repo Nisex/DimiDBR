@@ -1,13 +1,13 @@
-mob/verb/t(var/Source as num,Path as text)
- set hidden=1
- if(!Source)
-  var/ProcPath=text2path("/[Path]")
-  if(ispath(ProcPath))
-   call(ProcPath)()
- else
-  call(src,Path)()
+// mob/verb/t(var/Source as num,Path as text)
+//  set hidden=1
+//  if(!Source)
+//   var/ProcPath=text2path("/[Path]")
+//   if(ispath(ProcPath))
+//    call(ProcPath)()
+//  else
+//   call(src,Path)()
 
-
+// testing purposes
 
 mob/var/WhichFutureDiary
 mob/var/DiaryLevel=0
