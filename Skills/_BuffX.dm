@@ -3622,6 +3622,10 @@ NEW VARIABLES
 							usr.Hairz("Add")
 							usr << "You put your cape on!"
 							src.NoExtraOverlay=0
+				Trigger(var/mob/User, Override = 0)
+					..()
+					if(User.SagaLevel < 5)&&!Using)
+						del src
 				Aries_Cloth
 					ForMult=1.3
 					EndMult=1.3
@@ -4568,7 +4572,6 @@ NEW VARIABLES
 							src.OffMult=1.2
 							src.DefMult=1.3
 							src.SureDodgeTimerLimit=35
-							BuffTechniques = list("/obj/Skills/AutoHit/Sharingan_Genjutsu")
 							passives = list("Maki" = 1, "PUSpike" = 15, "Flow" = 1, "Instinct" = 1, "FatigueDrain"  = 0.05)
 							src.Instinct=1
 							src.Flow=1
@@ -4581,7 +4584,6 @@ NEW VARIABLES
 							OffMult=1.4
 							DefMult=1.4
 							SureDodgeTimerLimit=25
-							BuffTechniques = list("/obj/Skills/AutoHit/Sharingan_Genjutsu")
 							passives = list("Maki" = 1, "PUSpike" = 20, "Flow" = 2, "Instinct" = 2, "LikeWater" = 2)
 							LikeWater=2
 							Instinct=2
@@ -4592,7 +4594,6 @@ NEW VARIABLES
 							src.OffMult=1.3
 							src.DefMult=1.3
 							src.SureDodgeTimerLimit=30
-							BuffTechniques = list("/obj/Skills/AutoHit/Sharingan_Genjutsu")
 							passives = list("Maki" = 1, "PUSpike" = 15, "Flow" = 2, "Instinct" = 2)
 							src.Instinct=2
 							src.Flow=1

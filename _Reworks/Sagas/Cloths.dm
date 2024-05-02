@@ -8,11 +8,10 @@
 sagaTierUpMessages/Cosmo
 	messages = list("You gained the ability to ignite your Cosmo, exchanging stamina for the ability to unlock extrasensory perception on the level of heroes and deities...", \
 	"Your celestial guardian blesses you with the ability to clad yourself in their power!", \
-	"Your celestial guardian blesses you with revelations of more advanced techniques!", \
-	"In a severe pinch, you can cry out for assistance to your Zodiac guardian and hope for their protection!", \
-	"You are experiencing the first glimmers of Seventh Sense when in a pinch!", \
-	"Through attaining the Seventh Sense you can invoke the techniques of your Zodiac guardian, if only for a moment!", \
-	"You reach the level of a Golden Saint, standing at the summit as a champion of Gods!"
+	"Your celestial guardian blesses you with revelations of more advanced techniques and an even stronger cloth!", \
+	"You are experiencing the first glimmers of Seventh Sense when in a pinch along with the ability to call upon your zodiac!", \
+	"You reach the level of a Golden Saint, standing at the summit as a champion of Gods!", \
+	"Your Cosmos burns with the power of a god!", \
 	)
 
 
@@ -53,8 +52,6 @@ sagaTierUpMessages/Cosmo
 				if("Unicorn")
 					if(!locate(/obj/Skills/Queue/Unicorn_Combination, src))
 						src.AddSkill(new/obj/Skills/Queue/Unicorn_Combination)
-		if(4)
-			ZodiacCharges++
 			var/v2Path = "/obj/Skills/Buffs/SpecialBuffs/Saint_Cloth/Bronze_Cloth_V2/[ClothBronze]_Cloth"
 			for(var/obj/Skills/Buffs/SpecialBuffs/Saint_Cloth/Bronze_Cloth/Buff in src)
 				if(src.BuffOn(Buff))
@@ -63,6 +60,8 @@ sagaTierUpMessages/Cosmo
 			if("Pheonix")
 				totalExtraVoidRolls++
 			src.AddSkill(new v2Path)
+		if(4)
+			ZodiacCharges++
 			if(!locate(/obj/Skills/Utility/Zodiac_Invocation, src))
 				src.AddSkill(new/obj/Skills/Utility/Zodiac_Invocation)
 		if(5)

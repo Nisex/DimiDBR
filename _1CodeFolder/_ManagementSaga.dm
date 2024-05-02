@@ -274,6 +274,7 @@ mob/Admin3/verb
 				if("Sharingan")
 					P.SagaLevel=1
 					P.Saga="Sharingan"
+					P.AddSkill(new/obj/Skills/AutoHit/Sharingan_Genjutsu)
 					P.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Sharingan)
 					P<<"The curse of hatred blooms in you..."
 
