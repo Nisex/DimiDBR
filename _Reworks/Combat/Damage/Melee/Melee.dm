@@ -706,7 +706,7 @@ var/global/MULTIHIT_NERF = FALSE
 				if(P.Health<=TurfDamage)
 					Destroy(P)
 			return
-		if(src.HasSpecialStrike())
+		if(src.HasSpecialStrike()||EquippedStaff())
 			flick("Attack",src)
 			NextAttack=world.time
 			if(src.CheckSpecial("Ray Gear"))

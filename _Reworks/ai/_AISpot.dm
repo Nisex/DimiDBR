@@ -117,6 +117,8 @@ obj
 
 				if(t && !t.density)
 					var/mob/Player/AI/p=new
+					p.race = new/race/human()
+					p.passive_handler = new
 					p.loc=locate(t.x, t.y, t.z)
 					p.ai_state="Idle"
 					p.senpai=src
@@ -124,7 +126,6 @@ obj
 					src.ai_active.Add(p)
 			initial_aize(var/mob/Player/AI/p)//set icon n such
 				var/monster_info/mi = pick(monsters)
-				p.passive_handler = new
 				if(!mi)
 					world<<"[src] somehow doesn't have a monster info. This is a bug."
 					return

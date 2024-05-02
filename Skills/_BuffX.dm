@@ -1956,8 +1956,8 @@ NEW VARIABLES
 			OffMessage="discards the Demon clan's abominal power..."
 			Cooldown=180
 			KenWave=2
-			KenWaveIcon="LightningRed.dmi"	
-	
+			KenWaveIcon="LightningRed.dmi"
+
 		OneHundredPercentPower ///splitting this up from FifthForm, asc 2 is this and asc 3 will be fifth form
 			BuffName="One Hundred Percent Power"
 			UnrestrictedBuff=1
@@ -4780,7 +4780,7 @@ NEW VARIABLES
 			verb/Camouflage()
 				set category="Skills"
 				src.Trigger(usr)
-	
+
 		Saiyan_Dominance
 			NeedsHealth=75
 			EnergyThreshold = 25
@@ -7699,7 +7699,7 @@ NEW VARIABLES
 			OffMessage = "descends from the skies above..."
 			verb/Soar()
 				set category = "Skills"
-				src.Trigger(usr)		
+				src.Trigger(usr)
 
 		Majin
 			SignatureTechnique=3
@@ -9570,10 +9570,13 @@ NEW VARIABLES
 				KenWave=4
 				KenWaveIcon='DarkKiai.dmi'
 				HitSpark='Hit Effect Vampire.dmi'
-				IconTint=list(0.08,0,0, 0,0,0, 0.06,0,0, 0,0,0)
-				IconLock='Vampire Transformation.dmi'
-				IconApart=1
+				IconLock='tenacles_underlay.dmi'
+				IconUnder = 1
 				TopOverlayLock = 'tentacles_overlay.dmi'
+				TopOverlayX = -32
+				TopOverlayY = -32
+				LockX = -32
+				LockY = -32
 				HitX=-32
 				HitY=-32
 				TimerLimit=60
@@ -9584,11 +9587,21 @@ NEW VARIABLES
 				verb/Customize_True_Form()
 					set category = "Other"
 					IconTransform=input(usr, "What icon will your True Form use?", "True Form Icon") as icon|null
-					TransformX=input(usr, "Pixel X offset.", "True Form Icon") as num
-					TransformY=input(usr, "Pixel Y offset.", "True Form Icon") as num
+					if(IconTransform)
+						TransformX=input(usr, "Pixel X offset.", "True Form Icon") as num
+						TransformY=input(usr, "Pixel Y offset.", "True Form Icon") as num
 					NameFake = input(usr, "What will your name be while in True Form?", "True Form Icon") as text
 					HairLock = input(usr, "What will your hair look like while in True Form?", "True Form Icon") as icon|null
 
+				Trigger(mob/User, Override = 0)
+					..()
+					if(User.Secret == "Eldritch")
+						if(!Using)
+							var/SecretInfomation/Eldritch/s = User.secretDatum
+							s.secretVariable["Madness Active"] = TRUE
+						else
+							var/SecretInfomation/Eldritch/s = User.secretDatum
+							s.secretVariable["Madness Active"] = FALSE
 //Self Triggering Buffs
 		Autonomous
 			Autonomous=1

@@ -506,8 +506,8 @@ mob
 				if(secretDatum.secretVariable["Madness Active"] == 1)
 					var/SecretInfomation/Eldritch/s = secretDatum
 					if(!PureRPMode)
-						s.releaseMadness()
-						if(secretDatum.secretVariable["Madness Satiation"] <=0 && CheckSlotless("True Form"))
+						s.releaseMadness(src)
+						if(secretDatum.secretVariable["Madness"] <=0 && CheckSlotless("True Form"))
 							src << "You have exhausted all the madness and have reverted to your sane form."
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form/fmf in src)
 								fmf.Trigger(src, Override=1)
