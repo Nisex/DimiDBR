@@ -177,17 +177,6 @@ mob/Admin3/verb
 					P.WeaponSoulType="Weapon Soul"
 					P.SagaLevel=1
 					P.AddSkill(new/obj/Skills/Buffs/ActiveBuffs/Weapon_Soul)
-					fuckup
-					var/list/Skills=list("/obj/Skills/AutoHit/Stinger","/obj/Skills/AutoHit/Sword_Pressure","/obj/Skills/AutoHit/Light_Step","/obj/Skills/AutoHit/Overhead_Divide",\
-"/obj/Skills/AutoHit/Hack_n_Slash","/obj/Skills/AutoHit/Vacuum_Render","/obj/Skills/AutoHit/Hamstring","/obj/Skills/AutoHit/Cross_Slash")
-					var/text=input(P, "What skill do you want to inherit from your Weapon Soul?", "Skill Inheritance") in Skills
-					var/path=text2path(text)
-					var/obj/Skills/s=new path
-					if(locate(s, P))
-						P << "Pick a skill you don't have already."
-						goto fuckup
-					P << "You inherit [s] from the sea of your soul!"
-					P.AddSkill(s)
 
 				if("Persona")
 					P<<"You awaken an arcane power through confronting your shadow... <b>Persona</b>!"

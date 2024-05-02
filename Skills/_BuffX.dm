@@ -1060,7 +1060,7 @@ NEW VARIABLES
 
 			verb/Cultivate()
 				set category = "Skills"
-				if(usr.GatesActive+1 > 6 || usr.GatesActive+2 > usr.SagaLevel)
+				if(usr.GatesActive > 8 || usr.GatesActive-2 > usr.SagaLevel)
 					usr<<"You can't do that!!"
 					return
 				handleGates(usr, TRUE)
@@ -1373,9 +1373,9 @@ NEW VARIABLES
 				if(!usr.BuffOn(src))
 					var/list/WeaponSoul=list()
 					WeaponSoul.Add("Resonant Weapon")
-					if(usr.SagaLevel>=4&&usr.Saga=="Weapon Soul")
+					if(usr.SagaLevel>=3&&usr.Saga=="Weapon Soul")
 						WeaponSoul.Add("Ascended Resonant Weapon")
-					if(usr.SagaLevel>=6&&usr.Saga=="Weapon Soul"&&usr.GetWeaponSoulType()==usr.BoundLegend)
+					if(usr.SagaLevel>=4&&usr.Saga=="Weapon Soul"&&usr.GetWeaponSoulType()==usr.BoundLegend)
 						WeaponSoul.Add("Legendary Weapon")
 					WeaponSoul.Add("Cancel")
 					var/WeaponType=input(usr, "What level of power of your weapon do you wish to release?", "Weapon Invocation") in WeaponSoul
