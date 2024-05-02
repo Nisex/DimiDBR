@@ -3624,7 +3624,7 @@ NEW VARIABLES
 							src.NoExtraOverlay=0
 				Trigger(var/mob/User, Override = 0)
 					..()
-					if(User.SagaLevel < 5)&&!Using)
+					if(User.SagaLevel < 5&&!Using)
 						del src
 				Aries_Cloth
 					ForMult=1.3
