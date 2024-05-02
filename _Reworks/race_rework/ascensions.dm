@@ -36,7 +36,7 @@ ascension
 		choiceMessage = ""
 		list/choices = list()
 		ascension/choiceSelected
-		pickingChoice = FALSE
+		tmp/pickingChoice = FALSE
 
 		on_ascension_message
 
@@ -114,7 +114,7 @@ ascension
 			owner.RecovAscension +=  recovery
 
 			if(skills.len > 0)
-				for(var/obj/Skills/added_skill in skills)
+				for(var/added_skill in skills)
 					if(locate(added_skill,owner)) continue
 					owner.AddSkill(new added_skill)
 

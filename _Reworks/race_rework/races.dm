@@ -193,7 +193,7 @@ race
 
 		onFinalization(mob/user)
 			user.passive_handler.increaseList(passives)
-			for(var/obj/Skills/s in skills)
+			for(var/s in skills)
 				user.AddSkill(new s)
 
 	human

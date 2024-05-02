@@ -9,13 +9,6 @@ var/global/CLAMP_POWER = TRUE
 
 
 
-/mob/Admin4/verb/ForceHalfDemon()
-	set name = "Force Half Demon"
-	var/mob/p = input(src, " Who ? ") in players
-	p.HalfDemonAscension()
-
-
-
 /mob/Admin3/verb/Clamp_Power()
 	set name = "Enable Power Clamp"
 	glob.CLAMP_POWER = !glob.CLAMP_POWER
@@ -681,7 +674,6 @@ mob/proc/Leave_Body(var/SuperDead=0, var/Zombie, var/ForceVoid=0)
 			var/Timer
 			ActuallyDead=1
 			if(src.isRace(HUMAN)&&src.HellPower>=1&&src.HellPower<2&&src.Potential>=50)
-				src.HalfDemonAscension()
 				src.Burn=0
 				src.Poison=0
 				src.Slow=0
