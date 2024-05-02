@@ -28,13 +28,6 @@ var/globalTracker/glob = new()
 		CHECK_TICK
 	usr<<browse(Edit,"window=[A];size=450x600")
 
-/mob/Admin2/verb/editGlobalVariables2()
-	set name = "Edit Global Variables 2"
-	set category = "Admin"
-	var/atom/A = glob
-	Edit(A)
-
-
 /proc/transferGlobalstoGlob()
 	if(!glob)
 		world<<"[glob] doesn't exist!"
@@ -234,7 +227,7 @@ globalTracker
 
 // effectiveness (dmg calc  shit)
 		MELEE_EFFECTIVENESS = 1
-		PROJECTILE_EFFECTIVNESS = -1
+		PROJECTILE_EFFECTIVNESS = 1
 		GRAPPLE_EFFECTIVNESS = 3
 		AUTOHIT_EFFECTIVNESS = 2
 

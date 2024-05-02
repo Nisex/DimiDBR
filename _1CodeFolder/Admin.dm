@@ -53,20 +53,6 @@ mob
 	if(!whatGuild) return
 	whatGuild.removeMember(player)
 
-/mob/Admin3/verb/EditPassiveHandler(mob/player in world)
-	set name = "Edit Passive Handler"
-	if(player.information)
-		var/atom/A = player.passive_handler
-		var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
-		var/list/B=new
-		Edit+="[A]<br>[A.type]"
-		Edit+="<table width=10%>"
-		for(var/C in A.vars) B+=C
-		for(var/C in B)
-			Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"
-			Edit+=C
-			Edit+="<td>[Value(A.vars[C])]</td></tr>"
-		usr<<browse(Edit,"window=[A];size=450x600")
 
 /mob/Admin3/verb/Reboot()
 	if(Alert("You sure you want to shutdown the server?"))

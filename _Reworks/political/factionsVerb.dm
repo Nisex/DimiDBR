@@ -1,19 +1,3 @@
-/mob/Admin3/verb/EditCharacterInformation(mob/player in players)
-    set name = "Edit Character Information"
-    if(!player.client) return
-    if(player.information)
-        var/atom/A = player.information
-        var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
-        var/list/B=new
-        Edit+="[A]<br>[A.type]"
-        Edit+="<table width=10%>"
-        for(var/C in A.vars) B+=C
-        for(var/C in B)
-            Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"
-            Edit+=C
-            Edit+="<td>[Value(A.vars[C])]</td></tr>"
-        usr<<browse(Edit,"window=[A];size=450x600")
-
 /proc/getCurrentPlayers()
     var/list/theplayers = list()
     for(var/mob/p in theplayers)
@@ -88,7 +72,7 @@
 
 
 
-
+/*
 /mob/verb/FactionCount()
     set name = "Faction Count"
     set category = "Other"
@@ -109,7 +93,7 @@
     for(var/x in total)
         if(total[x]>0)
             src<<"[x]: [total[x]]"
-characterInformation
+characterInformation*/
 
 
 
