@@ -41,7 +41,6 @@
 					var/mob/Player/cp = findPlayer(p.counterpart)
 					if(cp && cp.Class == "Warrior")
 						Toxic = 10 * p.AscensionsAcquired
-						Combo = 2 * p.AscensionsAcquired
 						DamageMult = (p.AscensionsAcquired + 3) / Combo
 						if(p.AscensionsAcquired >= 3)
 							Cooldown = clamp(120 - (5 * p.AscensionsAcquired), 30, 120)
