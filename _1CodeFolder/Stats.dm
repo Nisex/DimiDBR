@@ -68,8 +68,6 @@ mob/proc/GetAssess()
 	<table cellspacing="6%" cellpadding="1%">
 	<tr><ts>Current Power:</td><td>[Power] / Power Mult: [round(src.potential_power_mult, 0.05)]</td></tr>
 	<tr><td>Base:</td><td>[BaseDisplay]/([src.PowerBoost*src.RPPower*round(src.potential_power_mult, 0.05)])</td></tr>
-	<tr><td>True Tier:</td><td>[POWER_TIERS[potential_power_tier]]</td></tr>
-	<tr><td>Display Tier:</td><td>[POWER_TIERS[power_display]]</td></tr>
 	<tr><td>Intimidation:</td><td>x[IntimDisplay]</td></tr>
 	<tr><td>Damage Boost:</td><td>x[1+(PDam/10)]</td></tr>
 	<tr><td>Damage Reduction:</td><td>x[1+(PRed/10)]</td></tr>
@@ -90,6 +88,8 @@ mob/proc/GetAssess()
 	<tr><td>Transformation Potential:</td><td>[src.potential_trans]/100</td></tr>
 	<tr><td>Average Stats: [StatAverage]</td></tr>
 			</table>"}
+/*	<tr><td>True Tier:</td><td>[POWER_TIERS[potential_power_tier]]</td></tr>
+	<tr><td>Display Tier:</td><td>[POWER_TIERS[power_display]]</td></tr>*/
 
 	return blahh
 
@@ -131,8 +131,8 @@ mob/Players/Stat()
 			CHECK_TICK
 			if(src.Mapper)
 				stat("Location", "[src.x], [src.y], [src.z]")
-			if(power_display)
-				stat("Power Tier: ", "[POWER_TIERS[power_display]]")
+/*			if(power_display)
+				stat("Power Tier: ", "[POWER_TIERS[power_display]]")*/
 			if(src.EraDeathClock)
 				stat("Death Timer: ", "[round((src.EraDeathClock-world.realtime)/Hour(1), 0.1)] hours")
 
