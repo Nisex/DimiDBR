@@ -284,9 +284,18 @@ var/global/MULTIHIT_NERF = FALSE
 					knockDistance = QueuedKBAdd()
 
 					if(AttackQueue.Ooze)
-						for(var/turf/T in SmartBlock(enemy.x-(AttackQueue.Ooze*2),enemy.y-(AttackQueue.Ooze*2),enemy.z, enemy.x+(AttackQueue.Ooze*2), enemy.y +(AttackQueue.Ooze*2)))
+/*						world << "[enemy.x] [enemy.y] [enemy.z]"
+						world << "[AttackQueue.Ooze]"*/
+						var/minx = enemy.x - (AttackQueue.Ooze*2)
+						var/miny = enemy.y - (AttackQueue.Ooze*2)
+						var/maxx = enemy.x + (AttackQueue.Ooze*2)
+						var/maxy = enemy.y + (AttackQueue.Ooze*2)
+				//		world << "MIN/MAX: [minx], [miny], [maxx], [maxy]"
+						for(var/turf/T in SmartBlock(minx, miny, enemy.z, maxx, maxy))
 							if(!T.density)
-								new/obj/Ooze(T.loc)
+								CHECK_TICK
+							//	world << "LOCATION: [T.x], [T.y], [T.z]"
+								new/obj/Ooze(T.x, T.y, T.z)
 					log2text("Knockback", "After Queue", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Knockback", knockDistance, "damageDebugs.txt", "[ckey]/[name]")
 

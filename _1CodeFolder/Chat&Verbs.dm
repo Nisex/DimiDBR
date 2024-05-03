@@ -877,7 +877,7 @@ mob/Players/verb
 			src.icon_state=""
 			if(!src.PoseEnhancement)
 				if(!src.CheckSlotless("Half Moon Form")&&!src.CheckSlotless("Full Moon Form"))
-					if(src.PoseTime>=5&&(src.HasRipple()||src.Secret=="Vampire"||src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus")))
+					if(src.PoseTime>=5&&(src.HasRipple()||src.Secret=="Vampire"||src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus"))||Secret=="Eldritch")
 						src.PoseTime=0
 						if(src.HasRipple())
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Ripple_Enhancement)

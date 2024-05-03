@@ -9,8 +9,8 @@ obj
 		var/strength = 3
 		var/lifetime = 30 SECONDS
 
-		New(loc)
-			..()
+		New(_x,_y,_z)
+			loc = locate(_x,_y,_z)
 			for(var/mob/m in loc)
 				tick_on |= m
 			spawn(lifetime)
