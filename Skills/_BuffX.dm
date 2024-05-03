@@ -7694,7 +7694,7 @@ NEW VARIABLES
 			TimerLimit = 25
 			Godspeed = 3
 			Skimming = 2
-			passives = list("Godspeed" = 3, "Skimming" = 2)
+			passives = list("Godspeed" = 1, "Skimming" = 1)
 			Cooldown = 60
 			ActiveMessage = "spreads their wings and takes flight!"
 			OffMessage = "descends from the skies above..."

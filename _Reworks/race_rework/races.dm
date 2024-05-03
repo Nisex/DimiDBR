@@ -306,7 +306,7 @@ race
 
 	eldritch
 		name = "Eldritch"
-		desc = "These are eldritches."
+		desc = "A race of beings that latch onto others, corrupting them like a parasite; usually being the result of such a thing."
 		visual = 'Monster.png'
 
 		passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.3, "DeathField" = 0.3, "VoidField" = 0.3)
@@ -433,28 +433,23 @@ race
 		regeneration = 1.5
 
 		onFinalization(mob/user)
-			user.Class = input(user,"What is your alien racial?", "Choose!")in list ("ESP", "Anaerobic", "Infusion", "Adrenaline", "Infernal", "Celestial", "Prodigy", "Warper", "Winged", "Symbiote", "Multi-Limbed", "Morphic" )
+			user.Class = input(user,"What is your alien racial?", "Choose!")in list ("ESP", "Infusion", "Adrenaline", "Infernal", "Celestial", "Prodigy", "Warper", "Winged", "Multi-Limbed", "Morphic" )
 			switch(user.Class)
 				if("ESP")
 					skills = list(/obj/Skills/Telekinesis)
 					skills = list(/obj/Skills/Utility/Telepathy)
-				if("Anaerobic")
-					passives = list("Anaerobic" = 1)
 				if("Infusion")
 					passives = list("Infusion" = 1)
 				if("Adrenaline")
 					passives = list("Adrenaline" = 1)
 				if("Infernal")
-					passives = list("HellPower" = 1)
+					passives = list("HellPower" = 0.1)
 				if("Celestial")
-					passives = list("SpiritPower" = 1)
+					passives = list("SpiritPower" = 0.1)
 				if("Prodigy")
-					passives =	list("LegendPower" = 1)
+					passives =	list("LegendPower" = 0.1)
 				if("Warper")
 					passives = list("Flicker" = 2)
-				if("Symbiote")
-					skills = list(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Symbiote_Infection)
-					locked = TRUE
 				if("Winged")
 					skills = list (new/obj/Skills/Buffs/SlotlessBuffs/Soar)
 					passives = list("SuperDash" = 1)
