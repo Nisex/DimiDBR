@@ -510,6 +510,7 @@ race
 			..()
 
 	changeling
+		locked = TRUE
 		name = "Changeling"
 		icon_neuter	=	"Chilled1.dmi"
 		gender_options = list("Neuter")

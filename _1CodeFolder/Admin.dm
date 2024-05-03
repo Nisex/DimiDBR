@@ -1557,37 +1557,6 @@ mob/Admin3/verb
 			m.GiveMoney(num*Highest)
 		Log("Admin","[ExtractInfo(usr)] increased everyone's money by [Commas(num)].")
 
-	LockedRacesOptions()
-		set name = "Locked Race Options"
-		set category="Admin"
-		var/blah=input("Selection an option.","Locked Races") in list("View","Add","Add All","Remove")
-		if(blah=="View")
-			for(var/x in LockedRaces)
-				for(var/e in x)
-					usr<<"[e] : [x[e]]"
-
-		if(blah=="Add")
-			var/keyToAdd=input("What key do you want to add?.","Adding")as null|text
-			if(keyToAdd)
-				var/unlock=input("What race do you want to add to [keyToAdd]?","Races") in races
-				LockedRaces[keyToAdd].Add(unlock)
-				Log("Admin","<font color=green>[ExtractInfo(usr)] added to the LockedRaces list: [unlock] to [keyToAdd].")
-
-		if(blah=="Add All")
-			var/keytounlock=input("Add the key to unlock a majority of rares.","Adding")as null|text
-			if(!keytounlock) return
-			LockedRaces[keytounlock].Add(races)
-
-		if(blah=="Remove")
-			var/list/l = LockedRaces
-			l.Add("Cancel")
-			var/whatKey = input("What key do you want to remove?","Locked Races") in l
-			if(l=="Cancel") return
-
-			var/raceToRemove = input("What race do you want to remove?", "Locked Races") in LockedRaces[whatKey]
-
-			LockedRaces[whatKey].Remove(raceToRemove)
-
 	Adminize(mob/z in players)
 		set category="Admin"
 		var/x=input("What level?(0-3)","0-3",z.Admin)as num

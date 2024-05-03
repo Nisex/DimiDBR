@@ -284,8 +284,6 @@ globalTracker
 		list/GoldConstellation = list("Aries" = FALSE,"Gemini" = FALSE,"Cancer" = FALSE,"Leo" = FALSE,"Virgo" = FALSE,"Libra" = FALSE,\
 "Scorpio" = FALSE,"Capricorn" = FALSE,"Aquarius" = FALSE,"Pisces" = FALSE)
 
-
-
 // FUNCTIONS
 
 globalTracker/proc/takeLimited(option, n)

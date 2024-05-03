@@ -72,7 +72,7 @@ var/list/LockedRaces=list()
 
 mob/proc/CheckUnlock(race/_race)
 	if(src.Admin) return 1
-	if(_race.locked && LockedRaces[key] && _race in LockedRaces[key])
+	if(_race.locked && glob.LockedRaces[key] && _race.name in glob.LockedRaces[key])
 		return 1
 	else if(!_race.locked)
 		return 1
