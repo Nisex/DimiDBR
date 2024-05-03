@@ -433,8 +433,8 @@ race
 		regeneration = 1.5
 
 		onFinalization(mob/user)
-			(usr.Class)	=	input("What is your alien racial?", "Choose!")in list ("ESP", "Anaerobic", "Infusion", "Adrenaline", "Infernal", "Celestial", "Prodigy", "Warper", "Winged", "Symbiote", "Multi-Limbed", "Morphic" )
-			switch(usr.Class)
+			user.Class = input(user,"What is your alien racial?", "Choose!")in list ("ESP", "Anaerobic", "Infusion", "Adrenaline", "Infernal", "Celestial", "Prodigy", "Warper", "Winged", "Symbiote", "Multi-Limbed", "Morphic" )
+			switch(user.Class)
 				if("ESP")
 					skills = list(/obj/Skills/Telekinesis)
 					skills = list(/obj/Skills/Utility/Telepathy)
@@ -462,7 +462,7 @@ race
 					passives = list("DoubleStrike" = 1, "TripleStrike" = 0.25)
 				if("Morphic")
 					passives = list("SwordHand" = 1)
-
+			..()
 
 	namekian
 		name = "Namekian"
