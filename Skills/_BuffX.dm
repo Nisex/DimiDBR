@@ -4440,7 +4440,7 @@ NEW VARIABLES
 			proc/setupVars(mob/player)
 				src.ActiveMessage="surrounds their body in a faint green aura!"
 				if(player.Race == "Human")
-					passives = list("Desperation" = 1 + player.SagaLevel/4)
+					passives = list("Desperation" = 1 + player.SagaLevel/3)
 				else
 					passives = list("Desperation" = player.SagaLevel)
 
@@ -4488,7 +4488,7 @@ NEW VARIABLES
 				if(usr.SagaLevel<6)
 					usr<<"Sorry, you can't use this yet."
 					return
-				if(istype(usr.SpecialBuff, type) && usr.SpecialBuff.BuffName!="Genesic Brave")
+				if(usr.SpecialBuff&&usr.SpecialBuff.BuffName!="Genesic Brave")
 					Trigger(usr, TRUE)
 					setupVars(usr)
 					StrMult=1.25

@@ -195,7 +195,6 @@ mob/Admin3/verb
 						P.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Protect_Shade)
 					if(!locate(/obj/Skills/Projectile/King_of_Braves/Broken_Magnum, P))
 						P.AddSkill(new/obj/Skills/Projectile/King_of_Braves/Broken_Magnum)
-					P.verbs -= /obj/Skills/Buffs/SpecialBuffs/King_Of_Braves/verb/Genesic_Brave
 					P.SagaLevel=1
 
 				if("Unlimited Blade Works")
@@ -1191,7 +1190,6 @@ mob
 						src.PilotingProwess+=1
 						src << "You upgrade your abilities to carry you into the Space Era!"
 					if(src.SagaLevel==6)
-						src.verbs += /obj/Skills/Buffs/SpecialBuffs/King_Of_Braves/verb/Genesic_Brave
 						src << "You master using the power of Destruction and Protection simultaneously!"
 						src << "Your Heaven and Hell reaches its perfected form: <b>Genesic Heaven and Hell</b>!"
 
