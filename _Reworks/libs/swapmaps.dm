@@ -1,5 +1,5 @@
 mob/var/in_tmp_map = null
-var/swapmaps_uniqueID = 0
+var/tmp/swapmaps_uniqueID = 0
 
 /*
 	SwapMaps library by Lummox JR

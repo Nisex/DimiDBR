@@ -23,10 +23,44 @@ mob
 	var
 		MakeUngrabbable=0
 
+/mob/Admin3/verb/CreateSwapMap()
+	set hidden = 1
+	var/whichMap = input(usr, "What would you like to call it?") as null|text
+	if(!whichMap) return
+	if(fexists("Maps/[whichMap].sav"))
+		var/overwrite = alert(usr, "A map already exists with the name [whichMap]! Do you want to override it?",, "Yes", "No")
+		if(overwrite=="Yes") return
+	var/firstX = input(usr, "X1?") as null|num
+	var/firstY = input(usr, "Y1?") as null|num
+	var/secondX = input(usr, "X2?") as null|num
+	var/secondY = input(usr, "Y2?") as null|num
+	var/Z = input(usr, "Z?") as null|num
+	SwapMaps_SaveChunk(whichMap, locate(firstX,firstY,Z), locate(secondX, secondY,Z))
+	SwapMaps_Save(whichMap)
+	usr << "Saved!"
+
+mob/Admin3/verb/LoadSwapMap()
+	set hidden = 1
+	var/whichMap = input(usr, "What would you like to call it?") as null|text
+	if(!whichMap) return
+	if(!fexists("Maps/[whichMap].sav"))
+		usr << "[whichMap] doesn't exist."
+		return
+	var/swapmap/newMap = SwapMaps_CreateFromTemplate(whichMap)
+	var/turf/center = newMap.CenterTile()
+	var/goToCenter = alert(usr, "Would you like to teleport to the center of the loaded map?",,"Yes","No")
+	if(goToCenter=="Yes")
+		usr.PrevX = usr.x
+		usr.PrevY = usr.y
+		usr.PrevZ = usr.z
+		usr.loc = center
+	else
+		usr << "The swapmap was created and centered at [center.x], [center.y], [center.z]."
+
 /mob/Admin3/verb/ForceSaveSwapMap()
 	set hidden = 1
 	var/whichMap = input(usr, "Which map?") as null|text
-	if(whichMap) return
+	if(!whichMap) return
 	SwapMaps_Save(whichMap)
 
 /mob/Admin3/verb/CreateGuild()
