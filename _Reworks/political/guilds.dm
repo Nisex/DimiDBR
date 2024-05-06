@@ -6,7 +6,7 @@ mob/Players/var/list/inGuilds = list()
 proc
 	findGuildByID(id)
 		for(var/guild/guild in glob.guilds)
-			if(guild.name == id)
+			if(guild.id == id)
 				return guild
 
 mob
@@ -29,7 +29,7 @@ guild
 			else
 				usr << "You aren't an officer or owner of [guild.name]!"
 
-		
+
 
 		addGuildMember()
 			set name = "Add Member"
@@ -103,7 +103,7 @@ guild
 			var/guild/guild = findGuildByID(guildID)
 			if((usr:UniqueID in guild.exchangeList))
 				guild.guildTransaction(howManyFragments)
-			else 
+			else
 				usr << "You do not have the right to do deez"
 guild
 	var
@@ -146,12 +146,12 @@ guild
 
 		joinGuild(mob/Players/p)
 			updateListing(p)
-			if(name in p.inGuilds)
+			if(id in p.inGuilds)
 				return
 			if(p.UniqueID in members)
 				return
 			members |= p.UniqueID
-			p.inGuilds |= name
+			p.inGuilds |= id
 
 		removeMember(mob/Players/p)
 			if(p.UniqueID in members)
@@ -167,7 +167,7 @@ guild
 				for(var/mob/Players/m in players)
 					if(m.UniqueID == id)
 						m << "You've been removed from [name]!"
-						m.inGuilds -= name
+						m.inGuilds -= id
 						break
 
 		guildTransaction(sum)
@@ -259,12 +259,12 @@ guild
 
 		updateListing(mob/Players/p)
 			if(p.UniqueID in members)
-				if(!(name in p.inGuilds))
-					p.inGuilds |= name
+				if(!(id in p.inGuilds))
+					p.inGuilds |= id
 			else
 				if(name in p.inGuilds)
 					p << "You've been removed from [name]!"
-					p.inGuilds -= name
+					p.inGuilds -= id
 
 
 /proc/moveElement(list/L, fromIndex, toIndex)
