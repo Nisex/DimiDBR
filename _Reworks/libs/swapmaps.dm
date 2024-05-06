@@ -1,4 +1,6 @@
 mob/var/in_tmp_map = null
+var/swapmaps_uniqueID = 0
+
 /*
 	SwapMaps library by Lummox JR
 	developed for digitalBYOND
@@ -126,7 +128,8 @@ mob/var/in_tmp_map = null
  */
 
 swapmap
-	var/id		// a string identifying this map uniquely
+	var/id		// a string identifying this map
+	var/UID
 	var/x1		// minimum x,y,z coords
 	var/y1
 	var/z1
@@ -145,6 +148,7 @@ swapmap
 	New(_id,x,y,z)
 		if(isnull(_id)) return
 		id=_id
+		UID = ++swapmaps_uniqueID
 		mode=swapmaps_mode
 		if(isturf(x) && isturf(y))
 			/*

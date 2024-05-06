@@ -2,9 +2,6 @@
 #define isplayer(x) istype(x,/mob/Players)
 #define DEBUFF_EFFECTIVENESS (0.004)
 
-proc/SmartBlock(startX, startY, startZ, endX = startX, endY = startY, endZ = startZ)
-    return block(locate(max(startX, 1), max(startY, 1), startZ), locate(min(endX, world.maxx), min(endY, world.maxy), endZ))
-
 mob
 	proc
 		AscAvailable()

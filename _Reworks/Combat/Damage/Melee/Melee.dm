@@ -291,7 +291,7 @@ var/global/MULTIHIT_NERF = FALSE
 						var/maxx = enemy.x + (AttackQueue.Ooze*2)
 						var/maxy = enemy.y + (AttackQueue.Ooze*2)
 				//		world << "MIN/MAX: [minx], [miny], [maxx], [maxy]"
-						for(var/turf/T in SmartBlock(minx, miny, enemy.z, maxx, maxy))
+						for(var/turf/T in block(minx, miny, enemy.z, maxx, maxy))
 							if(!T.density)
 								CHECK_TICK
 							//	world << "LOCATION: [T.x], [T.y], [T.z]"
