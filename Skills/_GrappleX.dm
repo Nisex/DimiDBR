@@ -145,8 +145,6 @@ obj/Skills
 		Judo_Throw
 			SkillCost=120
 			Copyable=4
-			PreRequisite=list("/obj/Skills/Grapple/Throw")
-			LockOut=list("/obj/Skills/Grapple/Izuna_Drop", "/obj/Skills/Grapple/Suplex", "/obj/Skills/Grapple/Burning_Finger")
 			DamageMult=12
 			Reversal=1
 			Stunner=2
@@ -162,8 +160,6 @@ obj/Skills
 		Izuna_Drop
 			SkillCost=120
 			Copyable=4
-			PreRequisite=list("/obj/Skills/Grapple/Throw")
-			LockOut=list("/obj/Skills/Grapple/Judo_Throw", "/obj/Skills/Grapple/Suplex", "/obj/Skills/Grapple/Burning_Finger")
 			DamageMult=12
 			StrRate=1
 			ThrowAdd=0
@@ -179,8 +175,6 @@ obj/Skills
 		Suplex
 			SkillCost=120
 			Copyable=4
-			PreRequisite=list("/obj/Skills/Grapple/Throw")
-			LockOut=list("/obj/Skills/Grapple/Judo_Throw", "/obj/Skills/Grapple/Izuna_Drop", "/obj/Skills/Grapple/Burning_Finger")
 			DamageMult=12
 			Stunner=4
 			StrRate=1
@@ -196,8 +190,6 @@ obj/Skills
 		Burning_Finger
 			SkillCost=120
 			Copyable=4
-			PreRequisite=list("/obj/Skills/Grapple/Throw")
-			LockOut=list("/obj/Skills/Grapple/Judo_Throw", "/obj/Skills/Grapple/Izuna_Drop", "/obj/Skills/Grapple/Suplex")
 			DamageMult=12
 			StrRate=0.5
 			ForRate=0.5
@@ -301,8 +293,6 @@ obj/Skills
 				EffectMult=3
 				//set from other queues
 			Eviscerate
-				PreRequisite=list("/obj/Skills/Grapple/Sword/Impale")
-				LockOut=list("/obj/Skills/Queue/Run_Through", "/obj/Skills/Grapple/Sword/Hacksaw", "/obj/Skills/Grapple/Sword/Form_Ataru")
 				Copyable=4
 				SkillCost=120
 				DamageMult=0.75
@@ -318,8 +308,6 @@ obj/Skills
 					set category="Skills"
 					src.Activate(usr)
 			Hacksaw
-				PreRequisite=list("/obj/Skills/Grapple/Sword/Impale")
-				LockOut=list("/obj/Skills/Queue/Run_Through", "/obj/Skills/Grapple/Sword/Eviscerate", "/obj/Skills/Grapple/Sword/Form_Ataru")
 				Copyable=4
 				SkillCost=120
 				DamageMult=10
@@ -340,8 +328,6 @@ obj/Skills
 					Cooldown=0
 					//set from Acubens
 			Form_Ataru
-				PreRequisite=list("/obj/Skills/Grapple/Sword/Impale")
-				LockOut=list("/obj/Skills/Queue/Run_Through", "/obj/Skills/Grapple/Sword/Hacksaw", "/obj/Skills/Grapple/Sword/Eviscerate")
 				Copyable=4
 				SkillCost=120
 				DamageMult=10

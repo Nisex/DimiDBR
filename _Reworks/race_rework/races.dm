@@ -146,8 +146,8 @@ race
 			if it isn't, you have to manually add them.
 			this is so it's very easy and automatic to throw ascensions in and out.
 		*/
-		var/list/ascpaths = subtypesof(text2path("/ascension/[lowertext(name)]"))
-		var/list/transpaths = subtypesof(text2path("/transformation/[lowertext(name)]"))
+		var/list/ascpaths = subtypesof(text2path(replacetext("/ascension/[lowertext(name)]"," ", "_")))
+		var/list/transpaths = subtypesof(text2path(replacetext("/transformation/[lowertext(name)]"," ", "_")))
 
 		for(var/i in ascpaths)
 			ascensions += new i
@@ -431,6 +431,7 @@ race
 		defense = 0.5
 		force = 0.5
 		regeneration = 1.5
+		statPoints = 20
 
 		onFinalization(mob/user)
 			user.Class = input(user,"What is your alien racial?", "Choose!")in list ("ESP", "Infusion", "Adrenaline", "Infernal", "Celestial", "Prodigy", "Warper", "Winged", "Multi-Limbed", "Morphic" )
