@@ -11,6 +11,7 @@ mob/verb/
 		set hidden = 1
 		set instant = 1
 
+		usr.overlays -= usr.emoteBubble
 		winset(usr, "RPWindow", "is-visible=false")
 		var/msg = winget(usr, "RPWindow.rpbox", "text")
 
@@ -26,6 +27,7 @@ mob/verb/
 		set hidden = 1
 		set instant = 1
 
+		usr.overlays -= usr.emoteBubble
 		var/msg = "[winget(usr, "RPWindow.rpbox","text")]"
 
 		msg = replacetext(msg, "�\\","'")
