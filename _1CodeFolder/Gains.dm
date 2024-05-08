@@ -87,6 +87,13 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 /mob/proc/meditationChecks()
 	if(icon_state == "Meditate")
 		MeditateTime++
+		if(src.Secret == "Eldritch")
+			var/SecretInfomation/Eldritch/s = secretDatum
+			s.releaseMadness(src)
+			if(secretDatum.secretVariable["Madness"] <=0 && CheckSlotless("True Form"))
+				src << "You have exhausted all the madness and have reverted to your sane form."
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form/fmf in src)
+					fmf.Trigger(src, Override=1)
 		if(Health>=75*(1-HealthCut) && Anger!=0)
 			calmcounter--
 		else
