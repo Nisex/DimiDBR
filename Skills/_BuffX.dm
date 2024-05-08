@@ -7655,7 +7655,7 @@ NEW VARIABLES
 		The_Crown
 			SignatureTechnique=3
 			TextColor="#adf0ff"
-			TopOverlayLock='Potara Earrings.dmi'
+			TopOverlayLock='Elf_Crown.dmi'
 			ActiveMessage=null
 			OffMessage=null
 			verb/Don_Crown()
