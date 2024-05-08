@@ -567,6 +567,8 @@ mob/Creation
 		client.perspective=MOB_PERSPECTIVE | EDGE_PERSPECTIVE
 		usr.client.view=8
 		usr<<browse("[basehtml][Notes]")
+		winshow(usr, "HungerLabel", 0)
+		winshow(usr, "Hunger", 0)
 		if(copytext(usr.key,1,6)=="Guest")
 			usr<<"Guest keys are disabled at this time, please login using a real key!"
 			del(usr)
