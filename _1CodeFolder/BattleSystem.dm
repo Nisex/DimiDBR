@@ -205,7 +205,7 @@ mob/proc/Unconscious(mob/P,var/text)
 			if(src.Race!="Changeling")
 				src.Revert()
 				src<<"Being knocked out forced you to revert!"
-		if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
+		if(src.isRace(SAIYAN))
 			src.Oozaru(0)
 	if(src.Grab)
 		src.Grab_Release()

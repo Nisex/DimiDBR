@@ -2303,7 +2303,7 @@ obj/Items/Tech
 						for(var/mob/m in t)
 							if(m.isRace(SAIYAN) || m.Race=="Half Saiyan")
 								m.Tail=1
-							m.Oozaru(1)
+								m.Oozaru(1)
 							if(locate(/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form, m))
 								if(!m.CheckSlotless("FullMoonForm"))
 									if(m.SpecialBuff)
@@ -2388,7 +2388,7 @@ obj/Items/Tech
 						for(var/mob/m in t)
 							if(m.isRace(SAIYAN) || m.Race=="Half Saiyan")
 								m.Tail=1
-							m.Oozaru(1)
+								m.Oozaru(1)
 							if(locate(/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form, m))
 								if(!m.CheckSlotless("FullMoonForm"))
 									if(m.ActiveBuff)

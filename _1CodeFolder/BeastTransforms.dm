@@ -263,7 +263,8 @@ obj/ProjectionMoon
 		view(10,src)<<"<font color=red><small>The moon emits an odd glow.."
 		if(src)
 			for(var/mob/Players/P in view(10))
-				P.Oozaru(1)
+				if(P.isRace(SAIYAN))
+					P.Oozaru(1)
 				if(locate(/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form, P))
 					if(!P.CheckSlotless("FullMoonForm"))
 						if(P.SpecialBuff)
