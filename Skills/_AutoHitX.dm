@@ -3306,8 +3306,6 @@ obj
 			BloodRush
 				SkillCost=60
 				Copyable=4
-				PreRequisite=list("/obj/Skills/AutoHit/RecklessCharge")
-				LockOut=list("/obj/Skills/AutoHit/SoulCharge")
 				NeedsSword=1
 				Area="Arc"
 				StrOffense=1
@@ -3332,8 +3330,6 @@ obj
 			SoulCharge
 				SkillCost=60
 				Copyable=4
-				PreRequisite=list("/obj/Skills/AutoHit/RecklessCharge")
-				LockOut=list("/obj/Skills/AutoHit/BloodRush")
 				NeedsSword=1
 				Area="Arc"
 				StrOffense=1
@@ -3358,8 +3354,6 @@ obj
 			HolyJudgment
 				SkillCost=80
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Judgment")
-				LockOut=list("/obj/Skills/AutoHit/DarkPurge")
 				NeedsSword=1
 				Area="Circle"
 				StrOffense=1
@@ -3379,8 +3373,6 @@ obj
 			DarkPurge
 				SkillCost=80
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Judgment")
-				LockOut=list("/obj/Skills/AutoHit/HolyJudgment")
 				NeedsSword=1
 				Area="Circle"
 				StrOffense=1

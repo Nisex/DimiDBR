@@ -1891,8 +1891,6 @@ obj
 			Crusher_Ball
 				SkillCost=80
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Projectile/Spirit_Ball")
-				LockOut=list("/obj/Skills/Projectile/Chasing_Bullet")
 				Distance=40
 				DamageMult=5
 				AccMult=1
@@ -1915,8 +1913,6 @@ obj
 			Chasing_Bullet
 				SkillCost=80
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Projectile/Spirit_Ball")
-				LockOut=list("/obj/Skills/Projectile/Crusher_Ball")
 				Distance=40
 				DamageMult=5
 				AccMult=2
@@ -1940,8 +1936,6 @@ obj
 			Consecutive_Kienzan
 				SkillCost=80
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Projectile/Kienzan")
-				LockOut=list("/obj/Skills/Projectile/Split_Slicer")
 				Blasts=3
 				Distance=50
 				DamageMult=6
@@ -1966,8 +1960,6 @@ obj
 			Split_Slicer
 				SkillCost=80
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Projectile/Kienzan")
-				LockOut=list("/obj/Skills/Projectile/Consecutive_Kienzan")
 				Distance=7
 				DamageMult=6
 				EnergyCost=30
@@ -3330,7 +3322,6 @@ obj
 						ElementalClass="Fire"
 						SignatureTechnique=1
 						SignatureName="Advanced Fire Magic"
-						PreRequisite=list("/obj/Skills/Projectile/Magic/Firaga")
 						Distance=50
 						DamageMult=4
 						MultiHit=5
@@ -3415,8 +3406,6 @@ obj
 				UnerringSlice
 					SkillCost=20
 					Copyable=2
-					LockOut=list("/obj/Skills/Projectile/Sword/BoundlessCut")
-					PreRequisite=list("/obj/Skills/Projectile/Sword/AirRender")
 					Distance=10
 					DamageMult=0.5
 					Radius=1
@@ -3431,8 +3420,6 @@ obj
 				BoundlessCut
 					SkillCost=20
 					Copyable=2
-					LockOut=list("/obj/Skills/Projectile/Sword/UnerringSlice")
-					PreRequisite=list("/obj/Skills/Projectile/Sword/AirRender")
 					Distance=10
 					DamageMult=0.2
 					MultiShot=5
@@ -3688,8 +3675,6 @@ obj
 				Eraser_Gun
 					SkillCost=120
 					Copyable=4
-					PreRequisite=list("/obj/Skills/Projectile/Beams/Ray")
-					LockOut=list("/obj/Skills/Projectile/Beams/Shine_Ray", "/obj/Skills/Projectile/Beams/Gamma_Ray", "/obj/Skills/Projectile/Beams/Piercer_Ray")
 					Distance=50
 					DamageMult=1
 					ChargeRate=2
@@ -3704,8 +3689,6 @@ obj
 				Shine_Ray
 					SkillCost=120
 					Copyable=4
-					PreRequisite=list("/obj/Skills/Projectile/Beams/Ray")
-					LockOut=list("/obj/Skills/Projectile/Beams/Eraser_Gun", "/obj/Skills/Projectile/Beams/Gamma_Ray", "/obj/Skills/Projectile/Beams/Piercer_Ray")
 					Distance=15
 					DamageMult=7
 					ChargeRate=0
@@ -3721,8 +3704,6 @@ obj
 				Gamma_Ray
 					SkillCost=120
 					Copyable=4
-					PreRequisite=list("/obj/Skills/Projectile/Beams/Ray")
-					LockOut=list("/obj/Skills/Projectile/Beams/Shine_Ray", "/obj/Skills/Projectile/Beams/Gamma_Ray", "/obj/Skills/Projectile/Beams/Piercer_Ray")
 					DamageMult=0.75
 					ChargeRate=5
 					Distance=50
@@ -3737,8 +3718,6 @@ obj
 				Piercer_Ray
 					SkillCost=120
 					Copyable=4
-					PreRequisite=list("/obj/Skills/Projectile/Beams/Ray")
-					LockOut=list("/obj/Skills/Projectile/Beams/Shine_Ray", "/obj/Skills/Projectile/Beams/Gamma_Ray", "/obj/Skills/Projectile/Beams/Piercer_Ray")
 					DamageMult=7
 					Distance=50
 					ChargeRate=1

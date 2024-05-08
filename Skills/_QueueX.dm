@@ -2188,8 +2188,6 @@ obj
 			Light_Rush
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Queue/Dancing_Lights")
-				LockOut=list("/obj/Skills/Queue/Burst_Combination")
 				DamageMult=1.2
 				AccuracyMult=5
 				Duration=5
@@ -2215,8 +2213,6 @@ obj
 				name="Burst Combination"
 				SkillCost=40
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Queue/Dancing_Lights")
-				LockOut=list("/obj/Skills/Queue/Light_Rush")
 				DamageMult=0.8
 				AccuracyMult=5
 				Stunner=2
@@ -2296,8 +2292,6 @@ obj
 			Infinity_Trap
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Queue/Swallow_Reversal")
-				LockOut=list("/obj/Skills/Queue/Willow_Dance", "/obj/Skills/Queue/Zero_Reversal", "/obj/Skills/Queue/Larch_Dance")
 				ActiveMessage="enters a thoughtful stance!"
 				DamageMult=1.1
 				AccuracyMult=3
@@ -2323,8 +2317,6 @@ obj
 			Zero_Reversal
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Queue/Swallow_Reversal")
-				LockOut=list("/obj/Skills/Queue/Willow_Dance", "/obj/Skills/Queue/Larch_Dance", "/obj/Skills/Queue/Infinity_Trap")
 				ActiveMessage="enters a low stance!"
 				DamageMult=3
 				AccuracyMult=3
@@ -2346,8 +2338,6 @@ obj
 					usr.SetQueue(src)
 			Willow_Dance
 				SkillCost=80
-				PreRequisite=list("/obj/Skills/Queue/Swallow_Reversal")
-				LockOut=list("/obj/Skills/Queue/Larch_Dance", "/obj/Skills/Queue/Zero_Reversal", "/obj/Skills/Queue/Infinity_Trap")
 				Copyable=3
 				ActiveMessage="begins to move fluidly, countering incoming blows!"
 				DamageMult=0.9
@@ -2365,8 +2355,6 @@ obj
 					usr.SetQueue(src)
 			Larch_Dance
 				SkillCost=80
-				PreRequisite=list("/obj/Skills/Queue/Swallow_Reversal")
-				LockOut=list("/obj/Skills/Queue/Willow_Dance", "/obj/Skills/Queue/Zero_Reversal", "/obj/Skills/Queue/Infinity_Trap")
 				Copyable=3
 				ActiveMessage="prepares a murderous chain of counterattacks!"
 				DamageMult=1.1
@@ -2386,8 +2374,6 @@ obj
 			Run_Through
 				NeedsSword=1
 				SkillCost=120
-				PreRequisite=list("/obj/Skills/Grapple/Sword/Impale")
-				LockOut=list("/obj/Skills/Grapple/Sword/Eviscerate", "/obj/Skills/Grapple/Sword/Hacksaw", "/obj/Skills/Grapple/Sword/Form_Ataru")
 				Copyable=3
 				ActiveMessage="grips their weapon strongly!"
 				HitMessage="runs the opponent through with their weapon!"
