@@ -418,8 +418,7 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			anger = 0.5
-			passives = list("TechniqueMastery" = 1.5)
-			passives = list("ManaCapMult" = 0.25)
+			passives = list("TechniqueMastery" = 1.5, "ManaCapMult" = 0.25)
 			choices = list("Destroy" = /ascension/sub_ascension/high_faoroan/destroy, "Remove" = /ascension/sub_ascension/high_faoroan/remove)
 
 		three

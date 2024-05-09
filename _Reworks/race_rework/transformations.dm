@@ -137,7 +137,7 @@ transformation
 			if(is_active || !user.CanTransform()) return
 
 			if(!(user.bypassTransAutomation >= user.transActive+1) && glob.lockTransAutomation && (type in glob.transLocked)) return.
-			if(unlock_potential > user.Potential) return
+			if(unlock_potential >= user.Potential) return
 
 			mastery_boons(user)
 
@@ -222,7 +222,7 @@ transformation
 				user.Auraz("Add")
 			else
 				user.Auraz("Remove")
-		
+
 			if(detrans_message)
 				user << detrans_message
 

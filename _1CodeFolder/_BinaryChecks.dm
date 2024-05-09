@@ -1308,7 +1308,7 @@ mob
 				Extra+=1
 			if(src.DrunkPower())
 				Extra+=2
-			if(Target.passive_handler.Get("Instinct") >= Base+Extra)
+			if(Target&&Target.passive_handler.Get("Instinct") >= Base+Extra)
 				Extra += (passive_handler.Get("LikeWater")) / 2
 			return (Base+Extra)
 		HasInstinct()
@@ -1320,7 +1320,7 @@ mob
 			var/t=src.HighestTrans()
 			if(round(t/4))
 				Return+=1
-			if(Target.passive_handler.Get("Flow") >= Return)
+			if(Target&&Target.passive_handler.Get("Flow") >= Return)
 				Return+=passive_handler.Get("LikeWater") / 2
 			return Return
 		HasSoulSteal()
@@ -2720,7 +2720,7 @@ mob
 		WSGuanYu()
 			if(src.WeaponSoulType=="Green Dragon Crescent Blade")
 				return 1
-			return 0	
+			return 0
 		WSMoonlight()
 			if(src.WeaponSoulType=="Moonlight Greatsword")
 				return 1
@@ -2750,7 +2750,7 @@ mob
 				return "Green Dragon Crescent Blade"
 			if(s.type == /obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon)
 				return "Moonlight Greatsword"
-			return 0	
+			return 0
 		WSCorrupt()
 			var/obj/Items/Sword/s=src.EquippedSword()
 			if(s.type==/obj/Items/Sword/Light/Legendary/WeaponSoul/Bane_of_Blades)
@@ -2774,7 +2774,7 @@ mob
 				return 1
 			if(s.type==/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon)
 				return 1
-			return 0	
+			return 0
 		HasSSjVars()
 			if(src.Race in list("Saiyan", "Half Saiyan"))
 				return 1

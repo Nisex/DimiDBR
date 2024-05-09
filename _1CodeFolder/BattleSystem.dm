@@ -890,6 +890,8 @@ proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseCh
 		if(Offender.SureHit)
 			Offender.SureHit=0
 			return HIT
+		if(Defender.Stunned || Defender.Launched || Defender.PoweringUp || Offender.Grab==Defender)
+			return HIT
 
 		if(getBackSide(Offender, Defender))
 
@@ -901,6 +903,8 @@ proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseCh
 				if(prob(50 - tail_resistance))
 					Stun(Defender, 2 - (tail_resistance * 0.1))
 					Defender.tailResistanceTraining(25 + tail_resistance * 2)
+					if(Defender.Stunned)
+						return HIT
 				else
 					Defender.tailResistanceTraining(5)
 
@@ -949,36 +953,32 @@ proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseCh
 				var/baseBoon = 0.015 * Offender.Desperation // max Desperation soembody can have is 6
 				AccMult *= 1 + (baseBoon * (11 - healthRemaining))
 		// ! DESPERATION GIVES A BONUS TO HIT CHANCE ! //
-		var/Offense
-		var/Defense
-		var/mod
-		if(EXPERIMENTAL_ACCURACY)
-			Offense = Offender.GetOff(0.6) + Offender.GetSpd(0.2) // BASIS
-			Defense = Defender.GetDef(0.8) + Defender.GetSpd(0.1) // BASIS
-			var/powerDif = Offender.Power / Defender.Power
-			if(glob.CLAMP_POWER)
-				if(!Offender.ignoresPowerClamp())
-					powerDif = clamp(Offender.Power / Defender.Power, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
 
-			mod = clamp((Offense/Defense)*AccMult, 0.05, 5) * powerDif
-			var/GodKiDif = 1
-			if(Offender.GetGodKi())
-				GodKiDif = 1 + Offender.GetGodKi()
-			if(Defender.GetGodKi())
-				GodKiDif /= (1 + Defender.GetGodKi())
-			mod*= GodKiDif
-		else
-			Offense=(Offender.Power*(Offender.GetOff(0.6)+Offender.GetSpd(0.2)))*(1+Offender.GetGodKi())
-			Defense=(Defender.Power*(Defender.GetDef(1)+Defender.GetSpd(0.1)))*(1+Defender.GetGodKi())
-			mod = clamp(((Offense*AccMult)/max(Defense,0.01)), 0.5, 2)
+
+		var/Offense = Offender.GetOff(0.6) + Offender.GetSpd(0.2) // BASIS
+		var/Defense = Defender.GetDef(0.8) + Defender.GetSpd(0.1) // BASIS
+
+		var/powerDif = Offender.Power / Defender.Power
+		if(glob.CLAMP_POWER)
+			if(!Offender.ignoresPowerClamp())
+				powerDif = clamp(Offender.Power / Defender.Power, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
+
+		var/mod = clamp((Offense/Defense)*AccMult, 0.05, 5) * powerDif
+
+		var/GodKiDif = 1
+		if(Offender.GetGodKi())
+			GodKiDif = 1 + Offender.GetGodKi()
+		if(Defender.GetGodKi())
+			GodKiDif /= (1 + Defender.GetGodKi())
+		mod *= GodKiDif
+
 		var/roll = randValue((100-BaseChance)*mod, 100)
 		if(glob.MOD_AFTER_ACC)
 			roll = randValue((100-BaseChance), 100)
 			roll*= mod
-		var/autohit = 0
-		if(Defender.Stunned || Defender.Launched || Defender.PoweringUp || Offender.Grab==Defender)
-			autohit = 1
-		if((roll >= BaseChance) || autohit)
+
+
+		if((roll >= BaseChance))
 			return HIT
 		else
 			roll = randValue(1, 100)

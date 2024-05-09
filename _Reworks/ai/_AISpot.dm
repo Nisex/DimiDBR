@@ -92,7 +92,7 @@ obj
 
 			roll_tag()
 				src.name="#[rand(1000,9999)] [src.name]"
-				for(var/obj/AI_Spot/ais in world)
+				for(var/obj/AI_Spot/ais in global.ai_tracker_loop)
 					if(ais==src)
 						continue
 					if(ais.name==src.name)
@@ -117,8 +117,6 @@ obj
 
 				if(t && !t.density)
 					var/mob/Player/AI/p=new
-					p.race = new/race/human()
-					p.passive_handler = new
 					p.loc=locate(t.x, t.y, t.z)
 					p.ai_state="Idle"
 					p.senpai=src

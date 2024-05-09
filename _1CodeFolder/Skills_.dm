@@ -470,7 +470,8 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 						if(B.TimeFrozen)
 							B.TimeFrozen=0
 							B.Frozen=0
-						spawn()animate(B.client, color = null, time = 3)
+						if(B.client)
+							spawn()animate(B.client, color = null, time = 3)
 					Z.Cooldown()
 				else
 					if(src.Health<20/Z.Mastery)
@@ -480,7 +481,8 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 						E<<"<font color=[src.Text_Color]>[src] says: Time..."
 					sleep(15)
 					for(var/mob/M in view(20,src))
-						spawn()animate(M.client, color = list(-1,0,0, 0,-1,0, 0,0,-1, 1,1,1), time = 7)
+						if(M.client)
+							spawn()animate(M.client, color = list(-1,0,0, 0,-1,0, 0,0,-1, 1,1,1), time = 7)
 					for(var/mob/E in hearers(12,src))
 						E<<"<font color=[src.Text_Color]>[src] yells: <b>...STOP!</b>"
 					for(var/mob/M in view(20,src))
@@ -489,8 +491,9 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 							M.TimeFrozen=1
 					sleep(10)
 					for(var/mob/M in view(20,src))
-						spawn()animate(M.client, color = null, time = 3)
-						spawn()animate(M.client, color = list(0.6,0,0.1, 0,0.6,0.1, 0,0,0.7, 0,0,0), time = 3)
+						if(M.client)
+							spawn()animate(M.client, color = null, time = 3)
+							spawn()animate(M.client, color = list(0.6,0,0.1, 0,0.6,0.1, 0,0,0.7, 0,0,0), time = 3)
 					for(var/mob/E in hearers(12,src))
 						E<<"<font color=[src.Text_Color]>[src] says: Time is now frozen."
 					src.TimeStop=1

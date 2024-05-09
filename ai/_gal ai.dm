@@ -460,9 +460,12 @@ mob/Player/AI
 		last_loc_tick = 0
 	New()
 		..()
+		if(!passive_handler) passive_handler = new
+		race = new/race/human()
 		MovementCharges = 5
 		ai_state = "Idle"
 		ticking_ai.Add(src)
+
 	CheckAscensions() //override to do nothing
 	proc/
 		EndLife(animatedeath=1) //Clear all references in this proc.
