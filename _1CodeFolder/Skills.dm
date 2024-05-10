@@ -805,6 +805,7 @@ obj/Skills
 
 mob
 	var/counterpart = null
+/*
 /obj/Skills/Counterpart
 	verb/Set_Counterpart()
 		if(usr.counterpart) return
@@ -825,7 +826,7 @@ mob
 		choice << "You are now counterparts with [usr]."
 		usr << "[choice] accepted being your counterpart"
 		AdminMessage("([time2text(world.realtime,"hh:mm")])[usr] is now counterparts with [choice] ")
-
+*/
 obj/Turfs/Click(obj/Turfs/T)
 	if(usr.Target && usr.Mapper && usr.client.macros.IsPressed("Ctrl"))
 		..(src)

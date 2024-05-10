@@ -459,9 +459,9 @@ mob/Player/AI
 		last_loc
 		last_loc_tick = 0
 	New()
+		race = new/race/human()
 		..()
 		if(!passive_handler) passive_handler = new
-		race = new/race/human()
 		MovementCharges = 5
 		ai_state = "Idle"
 		ticking_ai.Add(src)

@@ -1031,27 +1031,24 @@ ascension
 						passives = list("Hellrisen" = 0.5)
 					if("Dragon")  /// after the merge, unmerged Dragon and Warrior will also receive some scaling power. Levi added it in for Gaja's in his push
 						///power = 0.75
-						force = 0.25
 						passives = list("SpiritFlow" = 0.5)
-						if(owner.counterpart)
-							force = 0.75
-							imaginationAdd = 0.5
-							recovery = 0.25
-							skills = list(/obj/Skills/Utility/Send_Energy)
-							for(var/obj/Skills/Utility/Send_Energy/se)
-								se.SagaSignature=1
-								se.SignatureTechnique=0
+						force = 0.75
+						imaginationAdd = 0.5
+						recovery = 0.25
+						skills = list(/obj/Skills/Utility/Send_Energy)
 					if("Warrior")
 						//power = 1
-						strength = 0.25
 						passives = list("Duelist" = 0.5)
-						if(owner.counterpart)
-							strength = 0.5
-							endurance = 0.5
-							offense = 0.25
-							defense = 0.25
-							learning = 0.25
+						strength = 0.5
+						endurance = 0.5
+						offense = 0.25
+						defense = 0.25
+						learning = 0.25
 				..()
+				if(owner.Class=="Dragon")
+					for(var/obj/Skills/Utility/Send_Energy/se in owner.contents)
+						se.SagaSignature=1
+						se.SignatureTechnique=0
 		two
 			unlock_potential	=	ASCENSION_TWO_POTENTIAL
 			onAscension(mob/owner)
@@ -1065,24 +1062,19 @@ ascension
 						on_ascension_message =  "Your reliance on infernal power has given you insight to the power of a Great Demon King!"
 					if("Dragon")
 						//power = 1
-						force = 0.25
 						passives =list("SpiritHand" = 0.5, "SpiritFlow" = 0.5)
-						if(owner.counterpart)
-							force = 0.75
-							imaginationAdd = 0.25
-							learning = 0.25
-							skills = list(/obj/Skills/Utility/Heal)
-							on_ascension_message =  "Your link with your counterpart has grown your energy pool large enough to heal all wounds instantly!"
+						force = 0.75
+						imaginationAdd = 0.25
+						learning = 0.25
+						skills = list(/obj/Skills/Utility/Heal)
+
 					if("Warrior")
 						//power = 1.5
-						endurance = 0.25
 						passives = list("Juggernaut" = 1, "Extend" = 0.5, "Duelist" = 1)
-						if(owner.counterpart)
-							intimidation = 10
-							strength = 0.25
-							endurance = 0.25
-							skills = list(/obj/Skills/Buffs/SpecialBuffs/Giant_Form)
-							on_ascension_message =  "Your link with your counterpart strengtens your empowers your physical might further, as you learn to control your size!"
+						intimidation = 10
+						strength = 0.25
+						endurance = 0.25
+						skills = list(/obj/Skills/Buffs/SpecialBuffs/Giant_Form)
 				..()
 		three
 			unlock_potential	=	ASCENSION_THREE_POTENTIAL
@@ -1096,20 +1088,15 @@ ascension
 						//power = 1.5
 						force= 0.25
 						endurance = 0.5
-						passives = list("SpiritHand" =0.25, "SpiritFlow" = 0.25)
-						if(owner.counterpart)
-							force = 0.25
-							passives = list("Spirit Flow" = 0.25, "SpiritStrike" = 0.25)
-							recovery = 0.25
+						passives = list("Spirit Flow" = 0.25, "SpiritStrike" = 0.25)
+						recovery = 0.25
 					if("Warrior")
 						//power = 2
-						strength = 0.25
 						offense = 0.5
 						passives = list ("Duelist" = 2, "Extend" = 1)
-						if(owner.counterpart)
-							strength = 0.5
-							recovery = 0.5
-							endurance = 0.5
+						strength = 0.5
+						recovery = 0.5
+						endurance = 0.5
 				..()
 		four
 			unlock_potential =  ASCENSION_FOUR_POTENTIAL
@@ -1121,21 +1108,16 @@ ascension
 						passives = list("SlayerMod" = 1.5, "MovementMastery" = 4)
 					if("Warrior")
 						//power = 3
-						strength = 0.5
 						passives = list("Duelist" = 2.5, "Extend" = 2)
-						if(owner.counterpart)
-							strength = 0.75
-							endurance = 0.25
-							recovery = 0.5
-							intimidation = 30
+						strength = 0.75
+						endurance = 0.25
+						recovery = 0.5
+						intimidation = 30
 					if("Dragon")
 						//power = 2.5
-						force = 0.5
-						passives = list ("SpiritHand" = 0.5)
-						if(owner.counterpart)
-							force = 0.75
-							recovery = 0.5
-							passives = list("SpiritStrike" = 0.25)
+						force = 0.75
+						recovery = 0.5
+						passives = list("SpiritStrike" = 0.25)
 				..()
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
@@ -1150,16 +1132,12 @@ ascension
 						//power = 4
 						strength = 1
 						endurance = 1
-						if(owner.counterpart)
-							strength = 1
-							endurance = 1
-							intimidation = 70
+						intimidation = 70
 					if("Dragon")
 						//power = 3.5
 						force = 1
 						recovery = 1
-						if(owner.counterpart)
-							passives = list("ManaSeal" = 1, "CyberMenace" = 1, "SpiritStrike" = 0.5)
+						passives = list("ManaSeal" = 1, "CyberMenace" = 1, "SpiritStrike" = 0.5)
 				..()
 	changeling
 		one
