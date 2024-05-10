@@ -393,6 +393,7 @@ race
 		regeneration = 3
 		imagination = 2
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown)
+		passives = list("Deicide" = 1, "Adrenaline" = 1)
 
 
 	demon

@@ -406,7 +406,7 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			intimidation = 1
-			passives = list("ManaCapMult" = 0.25)
+			passives = list("ManaCapMult" = 0.25, "Deicide" = 1, "Xenobiology" = 1)
 			choices = list("Distort" = /ascension/sub_ascension/high_faoroan/distort, "Define" = /ascension/sub_ascension/high_faoroan/define)
 
 		two
@@ -418,7 +418,7 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			anger = 0.5
-			passives = list("TechniqueMastery" = 1.5, "ManaCapMult" = 0.25)
+			passives = list("TechniqueMastery" = 1.5, "ManaCapMult" = 0.25, "Deicide" = 1)
 			choices = list("Destroy" = /ascension/sub_ascension/high_faoroan/destroy, "Remove" = /ascension/sub_ascension/high_faoroan/remove)
 
 		three
@@ -429,7 +429,7 @@ ascension
 			offense = 0.5
 			defense = 0.5
 			speed = 0.5
-			passives = list("ManaCapMult" = 0.25)
+			passives = list("ManaCapMult" = 0.25, "Deicide" = 1, "Xenobiology" = 1)
 			intimidation = 1.5
 			onAscension(mob/owner)
 				..()
@@ -448,7 +448,7 @@ ascension
 			offense = 0.5
 			defense = 0.5
 			speed = 0.5
-			passives = list("ManaCapMult" = 0.25)
+			passives = list("ManaCapMult" = 0.25, "Deicide" = 2, "Xenobiology" = 1)
 			choices = list("Conquer" = /ascension/sub_ascension/high_faoroan/conquer, "Obliterate" = /ascension/sub_ascension/high_faoroan/obliterate)
 
 		five
@@ -461,11 +461,13 @@ ascension
 			offense = 0.5
 			defense = 0.5
 			speed = 0.5
+			passives = list("Deicide" = 2, "Xenobiology" = 1)
 			choices = list("Rest" = /ascension/sub_ascension/high_faoroan/rest, "Sacrifice" = /ascension/sub_ascension/high_faoroan/sacrifice)
 
 	demon
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
+			passives = list("Hellpower" = 0.2)
 			onAscension(mob/owner)
 				..()
 				owner.Class = "C"

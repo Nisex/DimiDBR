@@ -2073,7 +2073,7 @@ mob
 					return Forced
 			else
 				return 1
-		AbyssDamage(var/mob/P, var/Forced=0)//Stick this in the DoDamage proc.
+		AbyssDamage(mob/P, Forced=0)//Stick this in the DoDamage proc.
 			//yadda yadda gotta have abyss
 			if(P.UsingMuken())
 				if(!Forced)
@@ -2088,19 +2088,20 @@ mob
 			else if(HasSpiritPower()>=0.25)
 				var/spiritPower = (HasSpiritPower() / 2)
 				return clamp(src.GetAbyssMod()*spiritPower, 0.001, 10)
-		SlayerDamage(var/mob/P, var/Forced=0)
+		SlayerDamage(mob/P, Forced=0)
 			if(P.UsingMuken())
 				return (-1)*src.GetSlayerMod()
+			var/ignore = P.passive_handler.Get("Xenobiology")
 			if(src.Saga in list("Hiten Mitsurugi-Ryuu", "Ansatsuken"))
 				if(src.SagaLevel>=1)
 					if(!Forced)
-						return src.GetSlayerMod() * 1.5
+						return max(0,(src.GetSlayerMod() * 1.5) - ignore)
 					else
-						return Forced
+						return max(0,Forced - ignore)
 			if(!Forced)
-				return src.GetSlayerMod()
+				return max(0,src.GetSlayerMod() - ignore)
 			else
-				return Forced
+				return max(0,Forced - ignore)
 			return 1
 
 		SpiritShift()

@@ -56,6 +56,23 @@ mob/Admin3/verb/LoadSwapMap()
 		usr.loc = center
 	else
 		usr << "The swapmap was created and centered at [center.x], [center.y], [center.z]."
+	usr << "The UID for the new map is [newMap.UID]. Please remember this if you want to close it."
+
+/mob/Admin3/verb/ForceCloseSwapMap()
+	set hidden = 1
+	var/whichMap = input(usr, "Input a map UID.") as null|num
+	if(!whichMap) return
+	for(var/swapmap/map in swapmaps_loaded)
+		if(map.UID == whichMap)
+			for(var/mob/m in block(map.x1, map.y1, map.z1, map.x2, map.y2))
+				m.x = m.PrevX
+				m.y = m.PrevY
+				m.z = m.PrevZ
+				m.PrevX = null
+				m.PrevY = null
+				m.PrevZ = null
+				map.Del()
+			break
 
 /mob/Admin3/verb/ForceSaveSwapMap()
 	set hidden = 1

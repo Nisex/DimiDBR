@@ -1251,7 +1251,7 @@ NEW VARIABLES
 							src.OffMult=1.1
 							src.DefMult=1
 							src.RegenMult=1
-							passives = list("HolyMod" = 3, "LifeGeneration" = 30, "PULock" = 1)
+							passives = list("HolyMod" = 3, "LifeGeneration" = 3, "PULock" = 1)
 							src.HolyMod=3
 							src.LifeGeneration=3
 							src.SwordName="Durendal"
@@ -1297,7 +1297,7 @@ NEW VARIABLES
 								src.OffMult=0.8
 								src.DefMult=1.3
 								src.RegenMult=0.5
-								passives = list("AbyssMod"=3,"LifeGeneration"=10,"Steady"=5, "PULock" = 1)
+								passives = list("AbyssMod"=3,"LifeGeneration"=1,"Steady"=5, "PULock" = 1)
 								src.AbyssMod=3
 								src.LifeGeneration=1
 								src.Steady=5//Always 50% damage.
@@ -4606,6 +4606,7 @@ NEW VARIABLES
 			EnergyMult=1.5
 			RegenMult=1.25
 			RecovMult=1.25
+			passives = list("Flow" = 2)
 			BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/Regeneration")
 			ActiveMessage="forces their symbiote out!"
 			OffMessage="restrains their symbiotic companion..."
@@ -7487,6 +7488,7 @@ NEW VARIABLES
 			TextColor="#adf0ff"
 			ActiveMessage=null
 			OffMessage=null
+			var/secondDevilArmPick
 			verb/Devil_Arm_Evolution()
 				set category="Utility"
 				var/Choice
@@ -7495,86 +7497,84 @@ NEW VARIABLES
 					return
 				if(!usr.BuffOn(src))
 					while(src.Mastery<usr.AscensionsAcquired)
+						if(src.Mastery<=1)
+							switch(input("What type of armament would you like your Devil Arm ([src.Mastery]) to be?") in list("Sword","Staff","Armor"))
+								if("Sword")
+									MakesSword=1
+									MakesArmor=0
+									MakesStaff=0
+									SwordName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
+									Choice=input(usr, "What class of weapon do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Saber", "Longsword", "Greatsword")
+									switch(Choice)
+										if("Saber")
+											src.SwordClass="Light"
+										if("Longsword")
+											src.SwordClass="Medium"
+										if("Greatsword")
+											src.SwordClass="Heavy"
+									usr << "Devil Arm sword class set as [Choice]!"
+								if("Staff")
+									MakesStaff=1
+									MakesArmor=0
+									MakesSword=0
+									StaffName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
+									Choice=input(usr, "What class of staff do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Wand", "Rod", "Staff")
+									switch(Choice)
+										if("Wand")
+											src.StaffClass="Wand"
+										if("Rod")
+											src.StaffClass="Rod"
+										if("Staff")
+											src.StaffClass="Staff"
+									usr << "Devil Arm staff class set as [Choice]!"
+								if("Armor")
+									MakesArmor=1
+									MakesSword=0
+									MakesStaff=0
+									ArmorName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
+									Choice=input(usr, "What class of armor do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Light", "Medium", "Heavy")
+									switch(Choice)
+										if("Light")
+											src.ArmorClass="Light"
+										if("Medium")
+											src.ArmorClass="Medium"
+										if("Heavy")
+											src.ArmorClass="Heavy"
+									usr << "Devil Arm armor class set as [Choice]!"
+							var/Element=input("What element would you like your Devil Arm to use?") in list("Water","Fire","Wind","Earth")
+							if(MakesSword)
+								SwordElement = Element
+							else if(MakesStaff)
+								StaffElement = Element
+							else if(MakesArmor)
+								ArmorElement = Element
+							usr << "Devil Armor element set as [Element]"
+							var/Lock=alert(usr, "Do you wish to alter the icon used?", "Devil Arm Icon", "No", "Yes")
+							if(Lock=="Yes")
+								var dIcon=input(usr, "What icon will your Devil Arm uses?", "Devil Arm Icon") as icon|null
+								var dX=input(usr, "Pixel X offset.", "Devil Arm Icon") as num
+								var dY=input(usr, "Pixel Y offset.", "Devil Arm Icon") as num
+								if(MakesSword)
+									SwordIcon = dIcon
+									SwordX= dX
+									SwordY = dY
+								else if(MakesStaff)
+									StaffIcon = dIcon
+									StaffX= dX
+									StaffY = dY
+								else if(MakesArmor)
+									ArmorIcon = dIcon
+									ArmorX= dX
+									ArmorY = dY
+							else
+								if(MakesSword)
+									SwordIcon='SwordBroad.dmi'
+								else if(MakesStaff)
+									StaffIcon='MageStaff.dmi'
+								else if(MakesArmor)
+									StaffIcon='DevilScale.dmi'
 						src.Mastery++
-						switch(input("What type of armament would you like your Devil Arm ([src.Mastery]) to be?") in list("Sword","Staff","Armor","Cancel"))
-							if("Sword")
-								MakesSword=1
-								MakesArmor=0
-								MakesStaff=0
-								SwordName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
-								Choice=input(usr, "What class of weapon do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Saber", "Longsword", "Greatsword")
-								switch(Choice)
-									if("Saber")
-										src.SwordClass="Light"
-									if("Longsword")
-										src.SwordClass="Medium"
-									if("Greatsword")
-										src.SwordClass="Heavy"
-								usr << "Devil Arm sword class set as [Choice]!"
-							if("Staff")
-								MakesStaff=1
-								MakesArmor=0
-								MakesSword=0
-								StaffName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
-								Choice=input(usr, "What class of staff do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Wand", "Rod", "Staff")
-								switch(Choice)
-									if("Wand")
-										src.StaffClass="Wand"
-									if("Rod")
-										src.StaffClass="Rod"
-									if("Staff")
-										src.StaffClass="Staff"
-								usr << "Devil Arm staff class set as [Choice]!"
-							if("Armor")
-								MakesArmor=1
-								MakesSword=0
-								MakesStaff=0
-								ArmorName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
-								Choice=input(usr, "What class of armor do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Light", "Medium", "Heavy")
-								switch(Choice)
-									if("Light")
-										src.ArmorClass="Light"
-									if("Medium")
-										src.ArmorClass="Medium"
-									if("Heavy")
-										src.ArmorClass="Heavy"
-								usr << "Devil Arm armor class set as [Choice]!"
-							if("Cancel")
-								src.Mastery--
-								return
-						var/Element=input("What element would you like your Devil Arm to use?") in list("Water","Fire","Wind","Earth")
-						if(MakesSword)
-							SwordElement = Element
-						else if(MakesStaff)
-							StaffElement = Element
-						else if(MakesArmor)
-							ArmorElement = Element
-						usr << "Devil Armor element set as [Element]"
-						var/Lock=alert(usr, "Do you wish to alter the icon used?", "Devil Arm Icon", "No", "Yes")
-						if(Lock=="Yes")
-							var dIcon=input(usr, "What icon will your Devil Arm uses?", "Devil Arm Icon") as icon|null
-							var dX=input(usr, "Pixel X offset.", "Devil Arm Icon") as num
-							var dY=input(usr, "Pixel Y offset.", "Devil Arm Icon") as num
-							if(MakesSword)
-								SwordIcon = dIcon
-								SwordX= dX
-								SwordY = dY
-							else if(MakesStaff)
-								StaffIcon = dIcon
-								StaffX= dX
-								StaffY = dY
-							else if(MakesArmor)
-								ArmorIcon = dIcon
-								ArmorX= dX
-								ArmorY = dY
-						else
-							if(MakesSword)
-								SwordIcon='SwordBroad.dmi'
-							else if(MakesStaff)
-								StaffIcon='MageStaff.dmi'
-							else if(MakesArmor)
-								StaffIcon='DevilScale.dmi'
-						if(src.Mastery>=1)
+						if(src.Mastery==2)
 							if(src.MakesSword)
 								var/Enhancement=alert(usr, "You can now coat your weapon with your demonic miasma, either empowering its reach or infusing its slices with your mystic power.", "Devil Arm", "Extend", "Emit")
 								if(Enhancement=="Extend")
@@ -7607,7 +7607,7 @@ NEW VARIABLES
 									passives["Godspeed"] = 1
 									src.DoubleStrike=1
 									src.Godspeed=1
-						if(src.Mastery>2)
+						if(src.Mastery==3)
 							if(src.MakesSword)
 								var/Enhancement=alert(usr, "The miasma infusing your weapon thickens, allowing you to deal even more pain to your opponent's body or spirit.", "Devil Arm", "Carve", "Corrupt")
 								if(Enhancement=="Carve")
@@ -7636,15 +7636,121 @@ NEW VARIABLES
 									passives["Reversal"] = 1
 									src.Deflection=1
 									src.Reversal=1
+						if(Mastery==4)
+							var/list/optionsList = list("Sword","Staff","Armor")
+							if(MakesSword) optionsList -= "Sword"
+							if(MakesArmor) optionsList -= "Armor"
+							if(MakesStaff) optionsList -= "Staff"
+							switch(input("What type of armament would you like your second Devil Arm to be?") in optionsList)
+								if("Sword")
+									MakesSword=1
+									secondDevilArmPick = "Sword"
+									SwordName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
+									Choice=input(usr, "What class of weapon do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Saber", "Longsword", "Greatsword")
+									switch(Choice)
+										if("Saber")
+											src.SwordClass="Light"
+										if("Longsword")
+											src.SwordClass="Medium"
+										if("Greatsword")
+											src.SwordClass="Heavy"
+									usr << "Devil Arm sword class set as [Choice]!"
+								if("Staff")
+									MakesStaff=1
+									secondDevilArmPick = "Staff"
+									StaffName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
+									Choice=input(usr, "What class of staff do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Wand", "Rod", "Staff")
+									switch(Choice)
+										if("Wand")
+											src.StaffClass="Wand"
+										if("Rod")
+											src.StaffClass="Rod"
+										if("Staff")
+											src.StaffClass="Staff"
+									usr << "Devil Arm staff class set as [Choice]!"
+								if("Armor")
+									MakesArmor=1
+									secondDevilArmPick = "Armor"
+									ArmorName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
+									Choice=input(usr, "What class of armor do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Light", "Medium", "Heavy")
+									switch(Choice)
+										if("Light")
+											src.ArmorClass="Light"
+										if("Medium")
+											src.ArmorClass="Medium"
+										if("Heavy")
+											src.ArmorClass="Heavy"
+									usr << "Devil Arm armor class set as [Choice]!"
+							if(secondDevilArmPick=="Sword")
+								var/Enhancement=alert(usr, "You can now coat your weapon with your demonic miasma, either empowering its reach or infusing its slices with your mystic power.", "Devil Arm", "Extend", "Emit")
+								if(Enhancement=="Extend")
+									passives["Extend"] = 1
+									src.Extend=1
+								if(Enhancement=="Emit")
+									passives["SpiritSword"] = 1
+									src.SpiritSword=1
+							if(secondDevilArmPick=="Staff")
+								var/Enhancement=alert(usr, "You can now coat your weapon with your demonic miasma, either reinforcing its casting speed or making it an inexhaustible source of mana.", "Devil Arm", "Speed", "Sustain")
+								if(Enhancement=="Speed")
+									passives["QuickCast"] = 2
+									passives["TechniqueMastery"] = 5
+									src.QuickCast=2
+									src.TechniqueMastery=5
+								if(Enhancement=="Sustain")
+									passives["ManaHeal"] = 2
+									passives["CapacityHeal"] = 0.02
+									src.ManaHeal=2
+									src.CapacityHeal=0.02
+							if(secondDevilArmPick=="Armor")
+								var/Enhancement=alert(usr, "You can now coat your weapon with your demonic miasma, either turning yourself into an wicked juggernaut or a frenzied striker.", "Devil Arm", "Fortress", "Fierce")
+								if(Enhancement=="Fortress")
+									passives["Juggernaut"] = 1
+									passives["DebuffImmune"] = 1
+									src.Juggernaut=1
+									src.DebuffImmune=1
+								if(Enhancement=="Fierce")
+									passives["DoubleStrike"] = 1
+									passives["Godspeed"] = 1
+									src.DoubleStrike=1
+									src.Godspeed=1
+						if(Mastery==5)
+							if(secondDevilArmPick=="Sword")
+								var/Enhancement=alert(usr, "The miasma infusing your weapon thickens, allowing you to deal even more pain to your opponent's body or spirit.", "Devil Arm", "Carve", "Corrupt")
+								if(Enhancement=="Carve")
+									passives["HardStyle"] = 2
+									src.HardStyle=2
+								if(Enhancement=="Corrupt")
+									passives["SoftStyle"] = 2
+									src.SoftStyle=2
+							if(secondDevilArmPick=="Staff")
+								var/Enhancement=alert(usr, "The miasma infusing your weapon thickens, allowing you to burn away lifeforce from people you strike or dismantle and absorb their own spiritual attacks.", "Devil Arm", "Soulfire", "Siphon")
+								if(Enhancement=="Soulfire")
+									passives["SoulFire"] = 1
+									src.SoulFire=1
+								if(Enhancement=="Siphon")
+									passives["Siphon"] = 4
+									src.Siphon=4
+							if(secondDevilArmPick=="Armor")
+								var/Enhancement=alert(usr, "The miasma infusing your weapon thickens, allowing you to swiftly counter all manner of attacks or simply march through weaker ones.", "Devil Arm", "Riposte", "Repel")
+								if(Enhancement=="Riposte")
+									passives["CounterMaster"] = 2
+									passives["Flow"] = 2
+									src.CounterMaster=2
+									src.Flow=2
+								if(Enhancement=="Repel")
+									passives["Deflection"] = 1
+									passives["Reversal"] = 1
+									src.Deflection=1
+									src.Reversal=1
 						if(MakesSword)
-							passives["SwordAscension"] = min(src.Mastery,4)
-							SwordAscension=min(src.Mastery,4)
+							passives["SwordAscension"] = min(src.Mastery,5)
+							SwordAscension=min(src.Mastery,5)
 						if(MakesStaff)
-							passives["StaffAscension"] = min(src.Mastery,4)
-							StaffAscension=min(src.Mastery,4)
+							passives["StaffAscension"] = min(src.Mastery,5)
+							StaffAscension=min(src.Mastery,5)
 						if(MakesArmor)
-							passives["ArmorAscension"] = min(src.Mastery,4)
-							ArmorAscension=min(src.Mastery,4)
+							passives["ArmorAscension"] = min(src.Mastery,5)
+							ArmorAscension=min(src.Mastery,5)
 				else
 					usr << "You can't set this while using Devil Arm."
 			verb/Summon_Devil_Arm()
@@ -10884,7 +10990,7 @@ NEW VARIABLES
 				TooMuchHealth=75
 				VaizardHealth=2
 				VaizardShatter=1
-				passives = list("Unstoppable" = 1, "Possessive" = 1)
+				passives = list("Unstoppable" = 1, "Possessive" = 1, "LifeGeneration" = 2, "Instinct" = 2, "Flicker" = 1)
 				Unstoppable=1
 				Possessive=1
 				TextColor=rgb(75, 0, 85)
@@ -12666,9 +12772,6 @@ mob
 			if(B.BuffName=="Regeneration")
 				if(src.HellPower)
 					B.RegenerateLimbs=1
-			if(B.BuffName=="Symbiote Infection")
-				if(B.PowerReplacement)
-					B.PowerReplacement=0//anti god tier
 
 			// HERE
 			src.StrAdded += B.strAdd
