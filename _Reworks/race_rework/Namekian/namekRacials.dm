@@ -51,6 +51,9 @@
 						Paralyzing = 2.5 * p.AscensionsAcquired
 						if(p.AscensionsAcquired >= 4)
 							PridefulRage = 1
+	verb/Infestation()
+		set category="Skills"
+		usr.SetQueue(src)
 
 mob
 	proc
