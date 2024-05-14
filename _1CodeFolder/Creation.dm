@@ -490,9 +490,6 @@ mob/Players
 							x.verbs -= list(/obj/Skills/Buffs/SlotlessBuffs/Posture/verb/Posture)
 							x.verbs += new /obj/Skills/Buffs/SlotlessBuffs/Posture/verb/Posture(x, x?:BuffName)
 
-		if(src.AFKTimer==0)
-			src.overlays+=src.AFKIcon
-
 		return
 	Logout()
 		players -= src

@@ -592,8 +592,8 @@ mob/var
 
 	LastTeach=0
 	Overview=1 //If overview is toggled on or not
-	AFKTimer=3000 // AFK timer stuff
-	AFKTimeLimit=3000 // AFK timer stuff
+	tmp/AFKTimer=24000 // AFK timer stuff
+	AFKTimeLimit=24000 // AFK timer stuff
 	AFKIcon='afk.dmi' // AFK icon
 	AlienRacialActive // Active alien skill
 	AlienRacialPassive // Passive alien skill
