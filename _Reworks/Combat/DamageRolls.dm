@@ -26,12 +26,6 @@ var/global/new_damage_calc = 0
 			glob.DMG_CALC_2 = TRUE
 			src<< "Experimental damage is now on."
 
-
-proc/randValue(min,max,divider=10)
-	return rand(min*divider,max*divider)/divider
-
-
-
 /mob/proc/GetDamageMod(lowerMod, upperMod)
 	var/min = min_damage_roll+lowerMod
 	var/max = upper_damage_roll+upperMod
@@ -39,7 +33,7 @@ proc/randValue(min,max,divider=10)
 	var/list/swordValues = list("Wooden"=0.05,"Light"=0.1,"Medium"=0.15,"Heavy"=0.2)
 	if(UsingZornhau() || Saga=="Weapon Soul"&&SagaLevel>=1 && s)
 		max += min_damage_roll / 2
-	var/val = randValue(min,max)
+	var/val = rand(min,max)
 	if(UsingZornhau() || Saga=="Weapon Soul"&&SagaLevel>=1 && s)
 		if(!s)
 			// this means they are in swordless

@@ -53,6 +53,13 @@ proc/log_func(x, a, b)
 #define BEASTMAN /race/beastman
 #define GAJALAKA /race/gajalaka
 
+#define DEBUG_DAMAGE 0
+#define DEBUG_ITEM_DAMAGE 0
+#define DEBUG_MELEE 0
+#define DEBUG_AUTOHIT 0
+#define DEBUG_GRAPPLE 0
+#define DEBUG_PROJECTILE 0
+
 var/list/font_rsc=list('fonts/Gotham Book.otf') // forces it into the rsc.
 
 proc

@@ -5669,7 +5669,9 @@ obj
 				if(glob.CLAMP_POWER)
 					if(!Owner.ignoresPowerClamp())
 						powerDif = clamp(powerDif, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
+				#if DEBUG_AUTOHIT
 				Owner.log2text("powerDif - Auto Hit", powerDif, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+				#endif
 				var/atk = 0
 				if(ForDmg && !StrDmg)
 					atk = Owner.GetFor(ForDmg)
@@ -5679,14 +5681,20 @@ obj
 					atk = Owner.GetStr(StrDmg) *  1 + (Owner.GetFor(ForDmg)/10)
 				else
 					Owner << "Your auto hit could not calculate the damage it just did!! Report this !!"
+				#if DEBUG_AUTOHIT
 				Owner.log2text("atk - Auto Hit", atk, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+				#endif
 				var/dmgRoll = Owner.GetDamageMod()
+				#if DEBUG_AUTOHIT
 				Owner.log2text("dmg roll - Auto Hit", dmgRoll, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+				#endif
 				if(m.passive_handler.Get("GiantForm") || m.HasLegendaryPower() >= 1)
 					var/mod = upper_damage_roll / 4
 					dmgRoll = Owner.GetDamageMod(0, mod)
+					#if DEBUG_AUTOHIT
 					Owner.log2text("dmg roll - Auto Hit", "After GiantForm", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 					Owner.log2text("dmg roll - Auto Hit", dmgRoll, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+					#endif
 				var/def = m.getEndStat(1) * EndRes
 				if(def<0)
 					def=0.1
@@ -5702,7 +5710,9 @@ obj
 						def = 1
 					else
 						def = clamp(def/2, 1, def)
+				#if DEBUG_AUTOHIT
 				Owner.log2text("def - Auto Hit", def, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+				#endif
 				var/dmgMulti = Damage
 				if(src.SpecialAttack&&(src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow()))
 					if(src.Owner.StyleActive!="Moonlight"&&src.Owner.StyleActive!="Astral")
@@ -5710,15 +5720,21 @@ obj
 					else
 						dmgMulti += Owner.GetStr(0.5) / 5
 				// powerDif += Owner.getIntimDMGReduction(m)
+				#if DEBUG_AUTOHIT
 				Owner.log2text("powerDif - Auto Hit", powerDif, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+				#endif
 				if(glob.DMG_CALC_2)
 					FinalDmg = (clamp(powerDif,0.1,100000)**glob.DMG_POWER_EXPONENT) * (glob.CONSTANT_DAMAGE_EXPONENT+glob.AUTOHIT_EFFECTIVNESS) ** -(def**glob.DMG_END_EXPONENT / atk**glob.DMG_STR_EXPONENT)
 				else
 					FinalDmg = (atk * powerDif) * glob.CONSTANT_DAMAGE_EXPONENT ** -(def/atk)
+				#if DEBUG_AUTOHIT
 				Owner.log2text("FinalDmg(before dmgRoll) - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+				#endif
 				FinalDmg *= dmgMulti
 				FinalDmg *= dmgRoll
+				#if DEBUG_AUTOHIT
 				Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+				#endif
 				var/Precision=src.Damage
 				var/itemMods = list(0,0,0)
 				if(src.SwordTech&&!src.SpecialAttack)
@@ -5730,10 +5746,14 @@ obj
 					var/obj/Items/Enchantment/st=src.Owner.EquippedStaff()
 					itemMods = Owner.getItemDamage(list(s,FALSE,FALSE,st), 0, Precision, FALSE, FALSE, TRUE, TRUE)
 				if(itemMods[3])
+					#if DEBUG_AUTOHIT
 					Owner.log2text("Item Damage - Auto Hit", itemMods[3], "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+					#endif
 					FinalDmg *= itemMods[3]
+					#if DEBUG_AUTOHIT
 					Owner.log2text("FinalDmg - Auto Hit", "After Item Damage", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 					Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+					#endif
 				if(itemMods[2])
 					Precision *= itemMods[2]
 

@@ -397,17 +397,23 @@ obj/Skills
 					var/mob/Trg=User.Grab
 					User.Grab=null
 					var/dmgRoll = User.GetDamageMod()
+					#if DEBUG_GRAPPLE
 					User.log2text("Grapple dmg roll ", dmgRoll, "damageDebugs.txt", User.ckey)
+					#endif
 					// get their damage roll, they don't get to ignore it cause its a grapple
 					var/userPower = User.Power / Trg.Power
 					var/statPower = 1
+					#if DEBUG_GRAPPLE
 					User.log2text("Grapple User Power", userPower, "damageDebugs.txt", User.ckey)
+					#endif
 					var/itemDmg = 1
 					if(src.StrRate)
 						statPower = User.getStatDmg2() * StrRate
 					if(src.ForRate)
 						statPower += User.GetFor(src.ForRate)
+					#if DEBUG_GRAPPLE
 					User.log2text("Grapple Stat Power", statPower, "damageDebugs.txt", User.ckey)
+					#endif
 					if(src.NeedsSword)
 						itemDmg = (User.GetSwordDamage(User.EquippedSword()))
 						if(src.SpecialAttack)
@@ -419,27 +425,39 @@ obj/Skills
 								itemDmg = ( User.GetStaffDamage(st))
 						itemDmg *= GLOBAL_ITEM_DAMAGE_MULT
 					var/unarmedBoon = !NeedsSword ? GRAPPLE_MELEE_BOON : 1
+					#if DEBUG_GRAPPLE
 					User.log2text("Grapple Item Damage", itemDmg, "damageDebugs.txt", User.ckey)
+					#endif
 					var/endFactor = Trg.getEndStat(1)
 					if(User.HasPridefulRage())
 						if(User.passive_handler.Get("PridefulRage") >= 2)
 							endFactor = 1
 						else
 							endFactor = clamp(Trg.getEndStat(1)/2, 1, Trg.getEndStat(1))
+					#if DEBUG_GRAPPLE
 					User.log2text("Grapple End Factor", endFactor, "damageDebugs.txt", User.ckey)
+					#endif
 					var/Damage=1
 					// userPower += User.getIntimDMGReduction(Trg)
+					#if DEBUG_GRAPPLE
 					User.log2text("Grapple User Power", userPower, "damageDebugs.txt", User.ckey)
+					#endif
 					if(glob.DMG_CALC_2)
 						Damage = (userPower**glob.DMG_POWER_EXPONENT) * (glob.CONSTANT_DAMAGE_EXPONENT+glob.GRAPPLE_EFFECTIVNESS) ** -(endFactor**glob.DMG_END_EXPONENT / statPower**glob.DMG_STR_EXPONENT)
 					else
 						Damage = (statPower * userPower) * 2 ** -(endFactor/statPower)
+					#if DEBUG_GRAPPLE
 					User.log2text("Grapple Damage", Damage, "damageDebugs.txt", User.ckey)
+					#endif
 					Damage *= dmgRoll
 					Damage *= src.DamageMult + unarmedBoon
+					#if DEBUG_GRAPPLE
 					User.log2text("Grapple Damage dmgroll", Damage, "damageDebugs.txt", User.ckey)
+					#endif
 					Damage *= itemDmg
+					#if DEBUG_GRAPPLE
 					User.log2text("Grapple Damage item dmg", Damage, "damageDebugs.txt", User.ckey)
+					#endif
 
 
 
@@ -448,7 +466,9 @@ obj/Skills
 						User.MaimStrike+=src.MaimStrike
 					while(Hits)
 						if(!src.EnergyDamage)
+							#if DEBUG_GRAPPLE
 							User.log2text("Before do damage Grapple Damage", Damage, "damageDebugs.txt", User.ckey)
+							#endif
 							User.DoDamage(Trg, Damage, src.UnarmedOnly, src.NeedsSword, SpiritAttack=src.SpecialAttack)
 							if(DrainBlood)
 								User.secretDatum:gainBloodPower(Damage*src.DrainBlood)

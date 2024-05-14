@@ -65,8 +65,10 @@ mob
 					src.Unconscious()
 
 		DoDamage(var/mob/defender, var/val, var/UnarmedAttack=0, var/SwordAttack=0, var/SecondStrike, var/ThirdStrike, var/TrueMult=0, var/SpiritAttack=0, var/Destructive=0)
+			#if DEBUG_DAMAGE
 			log2text("Damage", "Start DoDamage", "damageDebugs.txt", src.ckey)
 			log2text("Damage", val, "damageDebugs.txt", src.ckey)
+			#endif
 			val = newDoDamage(defender, val, UnarmedAttack, SwordAttack, SecondStrike, ThirdStrike, TrueMult, SpiritAttack, Destructive)
 			if(src.HasPurity())//If damager is pure
 				var/found=0//Assume you haven't found a proper target
@@ -1463,11 +1465,7 @@ mob
 				Mod+=1
 			if(Saga&&src.Saga=="Eight Gates")
 				Mod+=0.05*GatesActive
-			// if(src.isRace(HUMAN))
-			// 	if(src.AscensionsAcquired)
-			// 		Mod+=(src.AscensionsAcquired/20)
-			if(src.Race=="Android" && src.EnhancedSpeed)
-				Mod+=(src.AscensionsAcquired/10)*src.EnhancedSpeed
+
 			if(src.CheckSlotless("What Must Be Done"))
 				if(SlotlessBuffs["What Must Be Done"].Password)
 					Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)

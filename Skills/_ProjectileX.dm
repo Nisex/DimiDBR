@@ -5326,11 +5326,17 @@ obj
 							Damage = (powerDif**glob.DMG_POWER_EXPONENT) * (glob.CONSTANT_DAMAGE_EXPONENT+glob.PROJECTILE_EFFECTIVNESS) ** -(def**glob.DMG_END_EXPONENT / atk**glob.DMG_STR_EXPONENT)
 						else
 							Damage = ((atk * powerDif)*glob.CONSTANT_DAMAGE_EXPONENT)** -( def / atk)
+						#if DEBUG_PROJECTILE
 						Owner.log2text("PROJ Damage after", Damage, "damageDebugs.txt", Owner.ckey)
+						#endif
 						Damage *= DamageMult
+						#if DEBUG_PROJECTILE
 						Owner.log2text("PROJ Damage after mult", Damage, "damageDebugs.txt", Owner.ckey)
+						#endif
 						Damage = ProjectileDamage(Damage)
+						#if DEBUG_PROJECTILE
 						Owner.log2text("PROJ Damage final", Damage, "damageDebugs.txt", Owner.ckey)
+						#endif
 						if(src.Owner.HasRipple())
 							if(src.Owner.Oxygen>=BreathCost)
 								var/RipplePower=(1+(0.25*src.Owner.GetRipple()*max(1,src.Owner.PoseEnhancement*2)))
@@ -5338,11 +5344,17 @@ obj
 							else if(src.Owner.Oxygen>=src.Owner.OxygenMax*0.3)
 								var/RipplePower=(1+(0.125*src.Owner.GetRipple()*max(1,src.Owner.PoseEnhancement*2)))
 								Damage*=RipplePower
+							#if DEBUG_PROJECTILE
 							Owner.log2text("PROJ Damage RIPPLE", Damage, "damageDebugs.txt", Owner.ckey)
+							#endif
 						if(itemMods[3]>0)
+							#if DEBUG_PROJECTILE
 							Owner.log2text("item damage1", itemMods[3], "damageDebugs.txt", Owner.ckey)
+							#endif
 							Damage *= (itemMods[3])
+							#if DEBUG_PROJECTILE
 							Owner.log2text("item damage2", Damage, "damageDebugs.txt", Owner.ckey)
+							#endif
 						if(src.Area=="Beam")
 							src.Damage*=(BeamCharge)
 							BeamCharge = max(Immediate ? 1 : 0.5, BeamCharge - 0.2)

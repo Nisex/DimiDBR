@@ -253,6 +253,8 @@ globalTracker
 		CCDamageModifier = 0.33
 
 
+		MIN_WHIFF_DMG = 1.25
+		MAX_WHIFF_DMG = 1.5
 // -- items -- //
 
 

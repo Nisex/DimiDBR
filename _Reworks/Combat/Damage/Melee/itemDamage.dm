@@ -1,7 +1,9 @@
 /mob/proc/getItemDamage(list/swords, delay, acc, secondStrike, thirdStrike, swordAtk, specialstrike) // i hate it here
+	#if DEBUG_ITEM_DAMAGE
 	log2text("------", "----------------------------------------", "damageDebugs.txt", "[ckey]/[name]")
 	log2text("Damage", "Starting Item Damage Mod", "damageDebugs.txt", "[ckey]/[name]")
 	log2text("Damage", 0, "damageDebugs.txt", "[ckey]/[name]")
+	#endif
 	var/list/returnValues = list(delay, acc, 0) // delay, acc and damage mod
 	var/obj/Items/Sword/s = swords[1]
 	var/obj/Items/Sword/s2 = swords[2]
@@ -41,12 +43,18 @@
 			returnValues[1] /= GetSwordDelay(s)
 			returnValues[3] += GetSwordDamage(s)
 			returnValues[2] *= GetSwordAccuracy(s)
+	#if DEBUG_ITEM_DAMAGE
 	log2text("Damage", "Item dmg mod beflore global", "damageDebugs.txt", "[ckey]/[name]")
 	log2text("Damage", returnValues[3], "damageDebugs.txt", "[ckey]/[name]")
+	#endif
 	if(returnValues[3] > 0)
 		returnValues[3] *= GLOBAL_ITEM_DAMAGE_MULT
+		#if DEBUG_ITEM_DAMAGE
 		log2text("Damage", "Item dmg mod after global", "damageDebugs.txt", "[ckey]/[name]")
 		log2text("Damage", returnValues[3], "damageDebugs.txt", "[ckey]/[name]")
+		#endif
 	returnValues[3] = returnValues[3]
+	#if DEBUG_ITEM_DAMAGE
 	log2text("--------------------", "----------------------------------------", "damageDebugs.txt", "[ckey]/[name]")
+	#endif
 	return returnValues

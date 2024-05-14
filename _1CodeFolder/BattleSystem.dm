@@ -871,7 +871,6 @@ proc/getBackSide(mob/offender, mob/defender)
 
 	//LABEL: ACCURACY FORMULA
 proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseChance=glob.WorldDefaultAcc, var/Backfire=0, var/IgnoreNoDodge=0)
-	. = list(0,0)
 	if(Offender&&Defender)
 		if(Defender.Frozen==3)
 			return MISS
@@ -908,11 +907,7 @@ proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseCh
 				else
 					Defender.tailResistanceTraining(5)
 
-			if(prob(1))
-				OMsg(Offender, "<font color='[rgb(255, 8, 8)]'>oh nah, [Offender] is hitting [Defender] from the back!</font color>")
-				AccMult*=1.75
-			else
-				AccMult*=1.25
+			AccMult*=1.25
 
 		if(Offender.UsingCriticalImpact())
 			AccMult*=1.25
@@ -972,21 +967,19 @@ proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseCh
 			GodKiDif /= (1 + Defender.GetGodKi())
 		mod *= GodKiDif
 
-		var/roll = randValue((100-BaseChance)*mod, 100)
+		var/roll = rand((100-BaseChance)*mod, 100)
 		if(glob.MOD_AFTER_ACC)
-			roll = randValue((100-BaseChance), 100)
+			roll = rand((100-BaseChance), 100)
 			roll*= mod
-
 
 		if((roll >= BaseChance))
 			return HIT
 		else
-			roll = randValue(1, 100)
-			roll*=mod
-			if(roll <= glob.WorldWhiffRate)
+			roll = rand((100-BaseChance)*mod, 100)
+			if(roll < BaseChance)
 				return MISS
-			else if(roll > glob.WorldWhiffRate)
-				return WHIFF
+			else
+				return HIT
 	else
 		return MISS
 
@@ -1056,14 +1049,14 @@ proc/Deflection_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/Base
 			Defense=((Defender.Power/Defender.GetPowerUpRatio())*(Defender.GetDef(0.8)+Defender.GetSpd(0.2)))*(1+Defender.GetGodKi())
 			mod = clamp(((Offense*AccMult)/max(Defense,0.01)), 0.5, 2)
 
-		var/roll = randValue((100-BaseChance)*mod, 100)
+		var/roll = rand((100-BaseChance)*mod, 100)
 		var/autohit = 0
 		if(Defender.Stunned || Defender.Launched || Defender.PoweringUp || Offender.Grab==Defender)
 			autohit = 1
 		if((roll >= BaseChance) || autohit)
 			return HIT
 		else
-			roll = randValue(1, 100)
+			roll = rand(1, 100)
 			if(roll <= 100-glob.WorldWhiffRate)
 				return MISS
 			else if(roll > 100-glob.WorldWhiffRate)
