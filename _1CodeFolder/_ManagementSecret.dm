@@ -303,7 +303,6 @@ SecretInfomation
 				secretVariable["Madness"] += amount
 
 		proc/releaseMadness(mob/user)
-			if(secretVariable["Madness Active"] == 0) return
 			var/tierEffectiveness = 5 - currentTier
 			// LESS = MORE
 			secretVariable["Madness"] -= tierEffectiveness
