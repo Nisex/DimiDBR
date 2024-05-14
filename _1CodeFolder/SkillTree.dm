@@ -362,9 +362,9 @@ obj/SkillTreeObj
 						usr.PoweredFormSetup()
 				// if(s.type in typesof(/obj/Skills/Buffs/NuStyle))
 				// 	var/obj/Skills/Buffs/NuStyle/ns=s
-
+/*
 				if(s:PreRequisite.len>0)
-					usr.PrerequisiteRemove(s)
+					usr.PrerequisiteRemove(s)*/
 		..()
 
 
