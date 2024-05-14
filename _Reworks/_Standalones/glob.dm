@@ -252,9 +252,27 @@ globalTracker
 // CC related
 		CCDamageModifier = 0.33
 
-
+		//Whiff dmg is now rand between these.
 		MIN_WHIFF_DMG = 1.25
 		MAX_WHIFF_DMG = 1.5
+
+		//Min & max of AccMult in accuracy formula
+		ACC_ACCMULT_MIN = 0.25
+		ACC_ACCMULT_MAX = 2
+
+		//how large the modifier for accuracy can be (off/def*accmult) clamped between these.
+		ACC_MIN = 0.25
+		ACC_MAX = 3
+
+		//How much off, def, and spd contribute.
+		ACC_OFF = 0.8
+		ACC_DEF = 0.8
+		ACC_OFF_SPD = 0.3
+		ACC_DEF_SPD = 0.3
+
+		//Attaches an exponent to the accmult before clamping.
+		EXPERIMENTAL_ACCMULT = 1
+		EXPERIMENTAL_ACCMULT_EXPONENT = 0.5
 // -- items -- //
 
 
