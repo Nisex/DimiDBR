@@ -222,6 +222,7 @@ mob
 									loop_delay = glob.GODSPEED_LOOP_DELAY
 								if(dir==NORTHEAST||dir==NORTHWEST||dir==SOUTHEAST||dir==SOUTHWEST)
 									loop_delay *= glob.DIAG_LOOP_DELAY
+								move_speed = MovementSpeed()
 								sleep(world.tick_lag * (loop_delay + move_speed))
 								continue
 					sleep(world.tick_lag)

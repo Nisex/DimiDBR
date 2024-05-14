@@ -1461,7 +1461,7 @@ mob
 			Mod+=(src.SpdMultTotal-1)
 			if(src.KamuiBuffLock)
 				Mod+=1
-			if(src.Saga=="Eight Gates")
+			if(Saga&&src.Saga=="Eight Gates")
 				Mod+=0.05*GatesActive
 			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
@@ -1469,9 +1469,8 @@ mob
 			if(src.Race=="Android" && src.EnhancedSpeed)
 				Mod+=(src.AscensionsAcquired/10)*src.EnhancedSpeed
 			if(src.CheckSlotless("What Must Be Done"))
-				if(SlotlessBuffs["What Must Be Done"])
-					if(SlotlessBuffs["What Must Be Done"].Password)
-						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
+				if(SlotlessBuffs["What Must Be Done"].Password)
+					Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
@@ -1504,7 +1503,7 @@ mob
 			if(src.SpdEroded)
 				Mod-=src.SpdEroded
 
-			if(Secret == "Werewolf" && CheckSlotless("Full Moon Form"))
+			if(Secret && Secret == "Werewolf" && CheckSlotless("Full Moon Form"))
 				Mod += 1 * (secretDatum?:getHungerBoon())
 
 
