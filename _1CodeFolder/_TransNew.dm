@@ -173,7 +173,7 @@ mob/proc/CanTransform()
 			src<<"Your ascended super state uses too much power to enter another level!"
 			return 0
 		if(src.SpecialBuff.NeedsTrans)
-			if(src.Race=="Changeling"&&src.TransUnlocked()<4)
+			if(src.Race=="Changeling"&&src.transUnlocked<4)
 				src<<"Your ascended transformation uses too much power to enter another level!"
 				return 0
 	for(var/b in SlotlessBuffs)
@@ -300,7 +300,7 @@ mob/proc/ChangelingMorph(var/x)
 	if(src.ActiveBuff)
 		src << "You can't use [src.ActiveBuff] and transform at the same time!"
 		return
-	if(src.SpecialBuff && src.TransUnlocked()<4)
+	if(src.SpecialBuff && src.transUnlocked<4)
 		if(!src.CheckSpecial("FifthForm") && !src.CheckSpecial("OneHundredPercentPower"))
 			src << "You can't use [src.SpecialBuff] and transform at the same time!"
 			return

@@ -708,12 +708,12 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					else
 						src << "You don't have enough mastery of Kaioken to push it further."
 					return
-				if(src.CheckActive("Ki Control")||(src.CheckSpecial("One Hundred Percent Power")&&src.TransUnlocked()<4)||(src.CheckSpecial("Fifth Form")&&src.TransUnlocked()<4))
+				if(src.CheckActive("Ki Control")||(src.CheckSpecial("One Hundred Percent Power")&&src.transUnlocked<4)||(src.CheckSpecial("Fifth Form")&&src.transUnlocked<4))
 					return
 				if(src.HasPULock())
 					return
 				if(src.PoweringUp==1)
-					if(src.transActive()<src.TransUnlocked())
+					if(src.transActive()<src.transUnlocked)
 						src.PoweringUp=0
 						src.Transform()
 						return

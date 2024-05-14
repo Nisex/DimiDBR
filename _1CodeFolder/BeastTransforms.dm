@@ -101,7 +101,7 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert)
 				if(B)
 					B.adjust(src)
 					B.Trigger(src)
-			if(src.ssj["unlocked"]>3)
+			if(transUnlocked>3)
 				src.Golden=1
 				spawn(20)
 					world << GBody

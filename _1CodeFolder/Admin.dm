@@ -1063,7 +1063,7 @@ mob/Admin2/verb
 	UnlockAscension(var/mob/m in players)
 		set category="Admin"
 		if(m.passive_handler.Get("Piloting"))
-			m.findMecha().Level = input("Unlock what level?", "([m.findMecha().Level] unlocked)") as num
+			m.findMecha().Level = input("Unlock what level? (This is for their mech.)", "([m.findMecha().Level] unlocked)") as num
 			Log("Admin","[ExtractInfo(usr)] unlocked [ExtractInfo(m)]'s mecha([m.findMecha().Level])")
 			return
 		if(m.client)
@@ -1072,12 +1072,9 @@ mob/Admin2/verb
 	UnlockForm(var/mob/M in players)
 		set category="Admin"
 		if(M.client)
-			var/blah=input("Unlock to what form?") as num
-			if(M.isRace(SAIYAN)||M.Race=="Half Saiyan")
-				M.ssj["unlocked"]=blah
-			else
-				M.trans["unlocked"]=blah
-			M.SetVars()
+			var/blah=input("Unlock to what form?") as num | null
+			if(!blah) return
+			M.transUnlocked = blah
 			Log("Admin","[ExtractInfo(usr)] unlocked [ExtractInfo(M)] 's form([blah])")
 	SendToSpawnz(mob/A in players)
 		set name="Send To Spawn"

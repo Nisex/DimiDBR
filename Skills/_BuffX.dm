@@ -2043,7 +2043,7 @@ NEW VARIABLES
 				if(usr.ExpandBase)
 					IconReplace=1
 					icon=usr.ExpandBase
-				src.NeedsSSJ=usr.TransUnlocked()
+				src.NeedsSSJ=usr.transUnlocked
 				src.HairLock=usr.Hair_SSJ2
 				src.Trigger(usr)
 		SuperSaiyanGrade3
@@ -2074,7 +2074,7 @@ NEW VARIABLES
 				if(usr.ExpandBase)
 					IconReplace=1
 					icon=usr.ExpandBase
-				src.NeedsSSJ=usr.TransUnlocked()
+				src.NeedsSSJ=usr.transUnlocked
 				src.HairLock=usr.Hair_SSJ3
 				src.Trigger(usr)
 		SuperSaiyanPerfected
@@ -4516,9 +4516,9 @@ NEW VARIABLES
 			ABuffNeeded=list("Soul Resonance")
 			verb/OverSoul()
 				set category="Skills"
-				if(src.TransMimic<usr.TransUnlocked())
-					passives = list("TransMimic" = usr.TransUnlocked())
-					src.TransMimic=usr.TransUnlocked()
+				if(src.TransMimic<usr.transUnlocked)
+					passives = list("TransMimic" = usr.transUnlocked)
+					src.TransMimic=usr.transUnlocked
 				if(usr.SagaLevel<8)
 					src.TimerLimit=90
 					NeedsHealth=50
@@ -5020,10 +5020,10 @@ NEW VARIABLES
 			KenWaveIcon='fevKiaiG.dmi'
 			verb/Namekian_Fusion()
 				set category="Skills"
-				if(usr.TransUnlocked())
+				if(usr.transUnlocked)
 					usr << "You can't fuse with more namekians!"
 					return
-				if(usr.Target && usr.Target.TransUnlocked())
+				if(usr.Target && usr.Target.transUnlocked)
 					usr << "You can't fuse with [usr.Target] because they have already fused!"
 					return
 				if(!usr.BuffOn(src))
@@ -12834,7 +12834,7 @@ mob
 			if(B.Transform)
 				src.Transforming=1
 				if(B.Transform=="Force")
-					src.trans["unlocked"]=min(src.trans["unlocked"]+1,4)
+					transUnlocked=min(transUnlocked+1,4)
 					src.Transform()
 				else if(B.Transform=="Strong")
 					src.Intimidation*=1.5
@@ -15368,7 +15368,7 @@ mob
 				else if(B.Transform=="Weak")
 					src.PowerBoost/=0.25
 				else if(B.Transform=="Force")
-					src.trans["unlocked"]=max(src.trans["unlocked"]-1,0)
+					transUnlocked=max(transUnlocked-1,0)
 					src.Revert()
 				else
 					src.Revert(B.Transform)

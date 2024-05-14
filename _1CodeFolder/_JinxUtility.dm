@@ -9,7 +9,7 @@ mob
 			if(race.ascensions.len==0) return
 			for(var/a in race.ascensions)
 				var/ascension/asc = a
-				if(!asc.applied&&!asc:checkAscensionUnlock(Potential)) continue
+				if(!asc.applied&&!asc:checkAscensionUnlock(src,Potential)) continue
 				asc.onAscension(src)
 
 		DamageSelf(var/val, trueDmg)
@@ -1827,11 +1827,6 @@ mob
 				return src.ssj["[num]mastery"]
 			else
 				return src.trans["[num]mastery"]
-		TransUnlocked()
-			if(src.HasSSjVars())
-				return src.ssj["unlocked"]
-			else
-				return src.trans["unlocked"]
 		transActive()
 			if(src.HasSSjVars())
 				return src.ssj["active"]

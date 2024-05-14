@@ -133,10 +133,7 @@ mob
 			if(src.AscensionsAcquired<=0||src.AscensionsAcquired==null||!src.AscensionsAcquired)
 				src.AscensionsAcquired=0
 			src.potential_max()
-			if(src.Race=="Alien")
-				if(src.TransUnlocked()<1)
-					src.trans["unlocked"]=1
-			if(src.isRace(SAIYAN) || src.Race=="Half Saiyan")
+			if(src.isRace(SAIYAN))
 				if(isRace(SAIYAN))
 					if(src.Potential>=40)
 						if(src.AscensionsUnlocked<4)

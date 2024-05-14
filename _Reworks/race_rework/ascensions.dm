@@ -142,7 +142,9 @@ ascension
 			owner.EconomyMult += ecoAdd
 			owner.PilotingProwess += pilotingProwess
 			owner.EnhanceChipsMax += enhanceChips
-			owner.AscensionsAcquired+=1
+
+			if(!istype(src, /ascension/sub_ascension))
+				owner.AscensionsAcquired+=1
 
 			if(choiceSelected)
 				var/ascension/choiceAsc = new choiceSelected
@@ -159,7 +161,8 @@ ascension
 			choiceSelected = choices[selected]
 			pickingChoice = FALSE
 
-		checkAscensionUnlock(potential)
+		checkAscensionUnlock(mob/target,potential)
+			if(target.AscensionsUnlocked > target.AscensionsAcquired) return 1
 			if(unlock_potential==-1 || applied) return 0
 			if(potential >= unlock_potential)
 				return 1
