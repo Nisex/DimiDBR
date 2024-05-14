@@ -16,6 +16,8 @@ obj/Skills/proc/Cooldown(var/modify=1, var/Time)
 		var/list/lockedoutSkills = list()
 		if(!Time && src && m)
 			if(!src.CooldownStatic)
+				if(glob.SPEED_COOLDOWN_MODE)
+					modify /= clamp(glob.SPEED_COOLDOWN_MIN, m.GetSpd()**glob.SPEED_COOLDOWN_EXPONENT, glob.SPEED_COOLDOWN_MAX)
 				if(m.HasTechniqueMastery())
 					modify/=clamp((1+(m.GetTechniqueMastery()/glob.TECHNIQUE_MASTERY_DIVISOR)),0.1,glob.TECHNIQUE_MASTERY_LIMIT)
 			else

@@ -242,7 +242,11 @@ globalTracker
 		min_damage_roll = 0.3
 		upper_damage_roll = 0.9
 
-
+//SPEED COOLDOWN SHIT
+		SPEED_COOLDOWN_MODE = 1
+		SPEED_COOLDOWN_EXPONENT = 0.25
+		SPEED_COOLDOWN_MIN = 0.75
+		SPEED_COOLDOWN_MAX = 1.5
 
 
 // CC related
