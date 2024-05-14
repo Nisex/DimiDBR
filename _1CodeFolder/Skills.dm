@@ -148,7 +148,72 @@ obj/Skills
 
 	var/copiedBy
 
+	proc
+		skillDescription()
+			var/txt = "[src.name]\n"
+			if(Cooldown!=-1)
+				txt += "Cooldown: [Cooldown] seconds.\n"
+			else
+				txt += "Cooldown: On Meditate.\n"
+			if(Launcher)
+				txt += "Launcher: [Launcher]\n"
+			if(Stunner)
+				txt += "Stunner: [Stunner]\n"
+			if(FollowUp)
+				txt+= "Follow Up Move: [FollowUp]\n"
+			if(Grapple)
+				txt += "Grapples.\n"
+			if(Burning || Scorching || Chilling || Freezing || Crushing || Shattering || Shocking || Paralyzing || Poisoning || Toxic || Shearing || Crippling)
+				txt += "Elemental Effects: "
+				if(Burning)
+					txt += "Burning, "
+				if(Scorching)
+					txt += "Scorching, "
+				if(Chilling)
+					txt += "Chilling, "
+				if(Freezing)
+					txt += "Freezing, "
+				if(Crushing)
+					txt += "Crushing, "
+				if(Shattering)
+					txt += "Shattering, "
+				if(Shocking)
+					txt += "Shocking, "
+				if(Paralyzing)
+					txt += "Paralyzing, "
+				if(Poisoning)
+					txt += "Poisoning, "
+				if(Toxic)
+					txt += "Toxic, "
+				if(Shearing)
+					txt += "Shearing, "
+				if(Crippling)
+					txt += "Crippling, "
+				txt = replacetext(txt, ", ", -1, -3)
+				txt+="\n"
 
+				if(NeedsSword)
+					txt+= "Requires Sword.\n"
+				if(NoSword)
+					txt+= "Unarmed Only.\n"
+				if(BuffSelf)
+					txt += "Applies a buff to self: [BuffSelf]\n"
+				if(BuffAffected)
+					txt += "Applies a buff to effected: [BuffAffected]\n"
+
+				if(HealthCost)
+					txt += "Health Cost: [HealthCost]\n"
+				if(WoundCost)
+					txt += "Wound Cost: [WoundCost]\n"
+				if(EnergyCost)
+					txt += "Energy Cost: [EnergyCost]\n"
+				if(FatigueCost)
+					txt += "Fatigue Cost: [FatigueCost]\n"
+				if(ManaCost)
+					txt += "Mana Cost: [ManaCost]\n"
+				if(CapacityCost)
+					txt += "Capacity Cost: [CapacityCost]\n"
+				return txt
 	icon='Skillz.dmi'
 	var/Teachable
 
