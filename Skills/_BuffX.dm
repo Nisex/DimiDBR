@@ -1932,7 +1932,7 @@ NEW VARIABLES
 			GiantForm=1
 			ActiveMessage="channels their regenerative abilities into a bout of monstrous growth!"
 			OffMessage="shrinks to normal size..."
-			Cooldown=180
+			Cooldown=0
 			verb/Giant_Form()
 				set category="Skills"
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/r in usr)
@@ -8546,7 +8546,9 @@ NEW VARIABLES
 						usr.AddForTax(mult)
 						usr.AddOffTax(mult)
 						usr.AddDefTax(mult)
-				usr.OMessage(13, "[usr.name] mutters beneath their breath...[Aria[usr.AriaCount]]")
+				for(var/mob/E in hearers(12,usr))
+					E << output("<font color=[usr.Text_Color]>[usr][E.Controlz(usr)] says: [html_encode(Aria[usr.AriaCount])]", "icchat")
+					E << output("<font color=[usr.Text_Color]>[usr][E.Controlz(usr)] says: [html_encode(Aria[usr.AriaCount])]", "output")
 				if(usr.AriaCount == 8)
 					usr.UnlimitedBladeWorks()
 
@@ -8555,13 +8557,10 @@ NEW VARIABLES
 				if(!usr.AriaCount)
 					usr << "Your circuits aren't fired up yet...!"
 					return
-				if(usr.icon_state != "Meditate")
-					usr << "You have to be meditating to let your circuits cool off!"
-					return
 				if(usr.AriaCount == 8 && usr.usingUBW)
 					usr.stopUnlimitedBladeWorks()
 				usr.AriaCount--
-				usr.OMessage(13, "[usr.name] calms their aria down to [usr.AriaCount] verses.")
+				usr << "You drop down an aria verse."
 /*
 		Copy_Blade
 			MakesSword = 1
@@ -11219,9 +11218,10 @@ NEW VARIABLES
 				LockX=0
 				LockY=0
 				OffMessage="snaps out of their haze."
+				ActiveMessage="is forced to lock up. <font color='yellow'>OVERRIDE: THREAT TO HUMANITY DETECTED - COUNTER GUARDIAN TEMPORARILY INVOKED.</b></font color>"
+
 				Cooldown=1//Just in case
 				Trigger(mob/player, Override)
-					ActiveMessage="is forced to lock up. [SYSTEM]INTERFERENCE DETECTED, DEPLOYING FIREW-- [SYSTEMTEXTEND] <b><font color='yellow'>OVERRIDE: THREAT TO HUMANITY DETECTED - COUNTER GUARDIAN TEMPORARILY DEPLOYED.</b></font color>"
 					if(!altered)
 						passives = list("SlayerMod" = player.SagaLevel * 0.25, "Godspeed" = floor(player.SagaLevel/2), "Pursuer" = floor(player.SagaLevel/2))
 						SlayerMod = player.SagaLevel * 0.25

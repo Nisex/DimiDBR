@@ -112,15 +112,6 @@ mob/Players
 			if(src.isRace(DEMON))
 				da.name="Devil Arm ([src.TrueName])"
 
-
-		var/obj/Items/Tech/protecc
-		for(var/obj/Items/Tech/Anesthetics/ans in src)
-			if(!protecc)
-				protecc=ans
-			else
-				protecc.TotalStack++
-				del ans
-
 		checkGuildVerbs()
 
 		addMissingSkills()

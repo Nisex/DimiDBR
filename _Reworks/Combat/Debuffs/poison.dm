@@ -39,7 +39,7 @@ globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
         dmg = 0.015
     var/desp = passive_handler.Get("Desperation")
     if(prob(desp*10)&&!HasInjuryImmune())
-        WoundSelf(dmg/Desperation)
+        WoundSelf(dmg/desp)
         dmg = 0
     // anger will not reduce debuff damage
 

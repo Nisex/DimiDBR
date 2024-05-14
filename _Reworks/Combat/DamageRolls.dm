@@ -40,7 +40,7 @@ var/global/new_damage_calc = 0
 			val += 0.25 // let em eat
 		else
 			val += (0.1) + swordValues[s.Class]
-	if(UsingKendo() && s.Class=="Wooden")
+	if(UsingKendo() && s.Class=="Wooden" && CountStyles(2))
 		val += 0.2
 	val += Judgment && !Oozaru ? (min_damage_roll/2)*AscensionsAcquired : 0
 	if(src.HasSteady())

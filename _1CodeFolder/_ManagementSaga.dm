@@ -205,6 +205,9 @@ mob/Admin3/verb
 					var/obj/Skills/Buffs/SlotlessBuffs/Aria_Chant/s = new/obj/Skills/Buffs/SlotlessBuffs/Aria_Chant
 					s.Aria = list()
 					s.Aria.Add("I am the bone of my sword.")
+					s.Aria.Add("Steel is my body and fire is my blood.")
+					s.Aria.Add("I have created over a thousand blades.")
+					s.Aria.Add("Unaware of ||||.")
 					P.AddSkill(s)
 					P.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Projection)
 					P.AddSkill(new/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_Savant)
@@ -826,8 +829,6 @@ mob
 				if("Unlimited Blade Works")
 					switch(src.SagaLevel)
 						if(2)
-							for(var/obj/Skills/Buffs/SlotlessBuffs/Aria_Chant/s in src.contents)
-								s.Aria.Add("Steel is my body and fire is my blood.")
 							if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Magic/Reinforce_Object, src))
 								src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Reinforce_Object)
 							src<<"You can reinforce any blade, regardless of your magical skill."
@@ -846,6 +847,8 @@ mob
 									if("Firm")
 										confirm = alert(src, "The path of Firmness is one forged by remaining on your convictions, caring, and yet remaining ever selfless. A amount of durability the other two paths cannot boast due to the amount of steel in your spine. Is this your path?", "UBW Path", "Yes", "No")
 							src.UBWPath = choice
+							for(var/obj/Skills/Buffs/SlotlessBuffs/Aria_Chant/s in src.contents)
+								s.Aria.Remove("Unaware of ||||.")
 							switch(UBWPath)
 								if("Feeble")
 								//	if(!locate(/obj/Items/Symbiotic/Shroud_of_Martin, src))
@@ -856,7 +859,6 @@ mob
 									src << "A red piece of cloth wraps around your arm, sealing off your ability to call on more then you can chew."
 									src << "Though, you can always pull part of it off for increased access..."
 									for(var/obj/Skills/Buffs/SlotlessBuffs/Aria_Chant/s in src.contents)
-										s.Aria.Add("I have created over a thousand blades.")
 										s.Aria.Add("Unaware of loss.")
 										s.Aria.Add("Nor aware of gain.")
 										s.Aria.Add("Withstood pain to protect what is dear to me.")
@@ -866,7 +868,6 @@ mob
 									src << "You feel your experience hone itself into results."
 									src << "Practice, experience, understanding of yourself and your limits leads to a unprecedented level of efficency."
 									for(var/obj/Skills/Buffs/SlotlessBuffs/Aria_Chant/s in src.contents)
-										s.Aria.Add("I have created over a thousand blades.")
 										s.Aria.Add("Unknown to Death,")
 										s.Aria.Add("Nor known to Life.")
 										s.Aria.Add("Have withstood pain to create many weapons.")
@@ -876,7 +877,6 @@ mob
 									UBWLegendaryWeapon()
 								if("Firm")
 									for(var/obj/Skills/Buffs/SlotlessBuffs/Aria_Chant/s in src.contents)
-										s.Aria.Add("I have created over a thousand blades.")
 										s.Aria.Add("Unaware of loss.")
 										s.Aria.Add("Nor aware of gain.")
 										s.Aria.Add("Withstood pain to create weapons, waiting for one's arrival.")

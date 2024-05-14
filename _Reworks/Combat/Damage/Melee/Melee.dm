@@ -671,9 +671,9 @@ var/global/MULTIHIT_NERF = FALSE
 							var/otherDmg = (damage+(GetIntimidation()/100)*(1+(2*GetGodKi())))
 
 							if(UsingZornhau()&&HasSword())
-								otherDmg *= 1.25
+								otherDmg *= 1 + (UsingZornhau()*glob.ZORNHAU_MULT)
 
-							if(UsingKendo()&&HasSword())
+							if(UsingKendo()&&HasSword()&&CountStyles(2))
 								if(s.Class == "Wooden")
 									otherDmg *= 1.15
 

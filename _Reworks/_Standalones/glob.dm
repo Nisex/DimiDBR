@@ -195,6 +195,8 @@ globalTracker
 		SHATTER_INTENSITY = 1
 		SHOCK_INTENSITY = 1
 		POISON_INTENSITY = 1
+
+		ZORNHAU_MULT = 0.15
 //EXTRAS?? //
 		MULTIHIT_NERF = FALSE
 		GetUpVar = 1 // how fast u get up ?

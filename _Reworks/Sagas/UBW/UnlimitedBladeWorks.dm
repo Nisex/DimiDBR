@@ -15,7 +15,7 @@ mob
 				teleportThese.PrevY=teleportThese.y
 				teleportThese.PrevZ=teleportThese.z
 				teleportThese.in_tmp_map = newMap.id
-				teleportThese = locate(center.x+rand(-10,10), center.y+rand(-10,10), center.z)
+				teleportThese.loc = locate(center.x+rand(-10,10), center.y+rand(-10,10), center.z)
 
 		stopUnlimitedBladeWorks()
 			var/swapmap/map = swapmaps_byname[in_tmp_map]
