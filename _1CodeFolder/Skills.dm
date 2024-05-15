@@ -1,6 +1,8 @@
 obj/Skills
 	Level=100
 
+	var/description
+
 	var/SignatureTechnique
 	var/SignatureName//lets you label things by a string other than the object name e.g. "Advanced White Magic"
 	var/SagaSignature=0//lets sagas keep the signature
@@ -150,70 +152,72 @@ obj/Skills
 
 	proc
 		skillDescription()
-			var/txt = "[src.name]\n"
+			description = "[src.name]\n"
 			if(Cooldown!=-1)
-				txt += "Cooldown: [Cooldown] seconds.\n"
+				description += "Cooldown: [Cooldown] seconds.\n"
 			else
-				txt += "Cooldown: On Meditate.\n"
+				description += "Cooldown: On Meditate.\n"
 			if(Launcher)
-				txt += "Launcher: [Launcher]\n"
+				description += "Launcher: [Launcher]\n"
 			if(Stunner)
-				txt += "Stunner: [Stunner]\n"
+				description += "Stunner: [Stunner]\n"
 			if(FollowUp)
-				txt+= "Follow Up Move: [FollowUp]\n"
+				description += "Follow Up Move: [FollowUp]\n"
 			if(Grapple)
-				txt += "Grapples.\n"
+				description += "Grapples.\n"
 			if(Burning || Scorching || Chilling || Freezing || Crushing || Shattering || Shocking || Paralyzing || Poisoning || Toxic || Shearing || Crippling)
-				txt += "Elemental Effects: "
+				description += "Elemental Effects: "
 				if(Burning)
-					txt += "Burning, "
+					description += "Burning, "
 				if(Scorching)
-					txt += "Scorching, "
+					description += "Scorching, "
 				if(Chilling)
-					txt += "Chilling, "
+					description += "Chilling, "
 				if(Freezing)
-					txt += "Freezing, "
+					description += "Freezing, "
 				if(Crushing)
-					txt += "Crushing, "
+					description += "Crushing, "
 				if(Shattering)
-					txt += "Shattering, "
+					description += "Shattering, "
 				if(Shocking)
-					txt += "Shocking, "
+					description += "Shocking, "
 				if(Paralyzing)
-					txt += "Paralyzing, "
+					description += "Paralyzing, "
 				if(Poisoning)
-					txt += "Poisoning, "
+					description += "Poisoning, "
 				if(Toxic)
-					txt += "Toxic, "
+					description += "Toxic, "
 				if(Shearing)
-					txt += "Shearing, "
+					description += "Shearing, "
 				if(Crippling)
-					txt += "Crippling, "
-				txt = replacetext(txt, ", ", -1, -3)
-				txt+="\n"
+					description += "Crippling, "
+				description = replacetext(description, ", ", -1, -3)
+				description += "\n"
 
 				if(NeedsSword)
-					txt+= "Requires Sword.\n"
+					description += "Requires Sword.\n"
 				if(NoSword)
-					txt+= "Unarmed Only.\n"
+					description += "Unarmed Only.\n"
 				if(BuffSelf)
-					txt += "Applies a buff to self: [BuffSelf]\n"
+					description += "Applies a buff to self: [BuffSelf]\n"
 				if(BuffAffected)
-					txt += "Applies a buff to effected: [BuffAffected]\n"
+					description += "Applies a buff to effected: [BuffAffected]\n"
 
 				if(HealthCost)
-					txt += "Health Cost: [HealthCost]\n"
+					description += "Health Cost: [HealthCost]\n"
 				if(WoundCost)
-					txt += "Wound Cost: [WoundCost]\n"
+					description += "Wound Cost: [WoundCost]\n"
 				if(EnergyCost)
-					txt += "Energy Cost: [EnergyCost]\n"
+					description += "Energy Cost: [EnergyCost]\n"
 				if(FatigueCost)
-					txt += "Fatigue Cost: [FatigueCost]\n"
+					description += "Fatigue Cost: [FatigueCost]\n"
 				if(ManaCost)
-					txt += "Mana Cost: [ManaCost]\n"
+					description += "Mana Cost: [ManaCost]\n"
 				if(CapacityCost)
-					txt += "Capacity Cost: [CapacityCost]\n"
-				return txt
+					description += "Capacity Cost: [CapacityCost]\n"
+				if(Instinct)
+					description += "Instinct: [Instinct]\n"
+
 	icon='Skillz.dmi'
 	var/Teachable
 

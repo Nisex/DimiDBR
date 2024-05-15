@@ -175,6 +175,48 @@ obj
 
 				DefTax
 				OffTax
+			skillDescription()
+				..()
+				if(StrOffense)
+					description += "Strength Damage %: [StrOffense*100]\n"
+				if(ForOffense)
+					description += "Force Damage %: [ForOffense*100]\n"
+				if(EndDefense<1)
+					description += "Endurance Ignoring: [1-EndDefense]%\n"
+				if(DamageMult)
+					description += "DamageMult: [DamageMult]\n"
+				if(UnarmedOnly)
+					description += "Unarmed Only.\n"
+				if(Knockback)
+					description += "Knockbacks [Knockback] tiles.\n"
+				if(Area)
+					description += "Hitbox Type: [Area]\n"
+				if(WindUp)
+					description += "Windup time: [WindUp] seconds.\n"
+				if(Rounds)
+					description += "Has [Rounds] rounds.\n"
+				if(ComboMaster)
+					description += "Ignores Stun/Launch damage loss.\n"
+				if(GuardBreak)
+					description += "Can't be dodged, whiff, or reversaled.\n"
+				if(!CanBeDodged)
+					description += "Can't be dodged.\n"
+				if(!CanBeBlocked)
+					description += "Can't whiff.\n"
+				if(Rush)
+					description += "Rushes forward [Rush] tiles"
+				if(ControlledRush)
+					description +=" in a controlled manner.\n"
+				if(Rush&&!ControlledRush)
+					description += ".\n"
+				if(Executor)
+					description += "Executor: [Executor] stacks."
+				if(SpeedStrike)
+					description += "Has [SpeedStrike] stacks of Speed Strike.\n"
+				if(GrabMaster)
+					description += "Doesn't lose damage from grabbing opponent while in use.\n"
+				if(PullIn)
+					description += "Pulls all people nearby in [PullIn] tiles.\n"
 //NPC attacks
 			Venom_Sting
 				Area="Target"

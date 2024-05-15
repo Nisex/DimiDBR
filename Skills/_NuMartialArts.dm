@@ -13,6 +13,21 @@ obj
 
 //Martial
 			NuStyle
+				skillDescription()
+					..()
+					if(StyleStr>1)
+						description += "Strength Add: [StyleStr-1]\n"
+					if(StyleFor>1)
+						description += "Force Add; [StyleFor-1]\n"
+					if(StyleEnd>1)
+						description += "End Add: [StyleEnd-1]\n"
+					if(StyleSpd>1)
+						description += "Speed Add: [StyleSpd-1]\n"
+					if(StyleOff>1)
+						description += "Offense Add: [StyleOff-1]\n"
+					if(StyleDef>1)
+						description += "Defense Add: [StyleDef-1]\n"
+
 				var/StylePrimeUnlock //obtained from getting mastery 4; can be a list
 				var/StyleComboUnlock=list()//obtained from getting mastery 3 in 2 styles; MUST be a list
 				Mastery=0

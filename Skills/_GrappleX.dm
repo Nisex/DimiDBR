@@ -30,6 +30,27 @@ obj/Skills
 
 			DrainBlood // for vampire
 ////BASIC
+		skillDescription()
+			..()
+			if(DamageMult)
+				description += "DamageMult: [DamageMult]\n"
+			if(MultiHit)
+				description += "Hits [MultiHit] times.\n"
+			if(StrRate)
+				description += "Strength Damage %: [StrRate*100]\n"
+			if(ForRate)
+				description += "Force Damage %: [ForRate*100]\n"
+			if(EndRate<1)
+				description += "Endurance Ignoring: [1-EndRate]%\n"
+			if(UnarmedOnly)
+				description += "Unarmed Only.\n"
+			if(Reversal)
+				description += "Reversal; will throw after use.\n"
+			if(ThrowAdd)
+				description += "Will throw [ThrowAdd] tiles.\n"
+			if(ThrowMult)
+				description += "Will multiply thrown distance by [ThrowMult]\n"
+
 		Toss
 			DamageMult=0
 			UnarmedOnly=0

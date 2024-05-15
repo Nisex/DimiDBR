@@ -115,6 +115,52 @@ obj
 			var/ForceCost = 0
 
 			var/Ooze
+
+
+			skillDescription()
+				..()
+				if(DamageMult)
+					description += "Damage Mult: [DamageMult]\n"
+				if(AccuracyMult)
+					description += "Accuracy Mult: [AccuracyMult]\n"
+				if(MultiHit)
+					description += "Multihit: [MultiHit] hits.\n"
+				if(KBAdd)
+					description += "Bonus Knockback [KBAdd] tiles.\n"
+				if(KBMult)
+					description += "Knockback Mult [KBMult]x\n"
+				if(Recoil)
+					description += "Recoil: [Recoil]\n"
+				if(Finisher)
+					description += "Finisher: [Finisher]\n"
+				if(Opener)
+					description += "Opener: [Opener]\n"
+				if(Decider)
+					description += "Decider: [Decider]\n"
+				if(Dominator)
+					description += "Dominator: [Dominator]\n"
+				if(Dunker)
+					description += "Dunker: [Dunker]\n"
+				if(Counter)
+					description += "Counter: [Counter]\n"
+				if(SpeedStrike)
+					description += "Speedstrike: [SpeedStrike]\n"
+				if(DrawIn)
+					description += "Draws in: [DrawIn] tiles.\n"
+				if(PushOut)
+					description += "Pushes away: [PushOut] tiles.\n"
+				if(Combo)
+					description += "Combos: [Combo] times.\n"
+				if(InstantStrikes)
+					description += "Delivers [InstantStrikes] blows at once.\n"
+				if(Warp)
+					description += "Warping.\n"
+				if(Step||HitStep)
+					description += "Follow-up Attack: [Step] [HitStep]"
+				if(Projectile)
+					description += "Fires: [Projectile], [ProjectileCount] times."
+
+
 //Autoqueues
 
 ////General

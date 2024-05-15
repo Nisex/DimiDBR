@@ -559,6 +559,12 @@ NEW VARIABLES
 	var/characterInformation/FakeInformation
 	var/FakeInformationEnabled
 
+	skillDescription()
+		..()
+		if(passives.len>0)
+			description += "Passives:\n"
+			for(var/i in passives)
+				description += "[i] - [passives[i]]\n"
 	proc
 		Trigger(var/mob/User, Override=0)
 			if(!Override && User.BuffingUp)

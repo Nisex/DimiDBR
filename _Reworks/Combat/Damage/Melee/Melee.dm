@@ -379,7 +379,7 @@ var/global/MULTIHIT_NERF = FALSE
 						adjust = HotHundred-1
 					damage /= max(2,4-adjust)
 					if(glob.LIGHT_ATTACK_SPEED_DMG_ENABLED)
-						damage *= clamp(glob.LIGHT_ATTACK_SPEED_DMG_LOWER,GetSpd()*glob.LIGHT_ATTACK_SPEED_DMG_EXPONENT,glob.LIGHT_ATTACK_SPEED_DMG_UPPER)
+						damage *= clamp(glob.LIGHT_ATTACK_SPEED_DMG_LOWER,GetSpd()**glob.LIGHT_ATTACK_SPEED_DMG_EXPONENT,glob.LIGHT_ATTACK_SPEED_DMG_UPPER)
 					if(!adjust)
 						NoKB=1
 					if(SecondStrike || ThirdStrike)

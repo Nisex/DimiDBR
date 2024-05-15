@@ -152,6 +152,27 @@ obj
 				ActiveColor=rgb(255,0,0)
 
 				GoldScatter
+
+			skillDescription()
+				..()
+				if(MaimCost)
+					description += "MaimCost: [MaimCost]\n"
+				if(StrRate)
+					description += "Strength Damage %: [StrRate*100]\n"
+				if(ForRate)
+					description += "Force Damage %: [ForRate*100]\n"
+				if(EndRate<1)
+					description += "Endurance Ignoring: [1-EndRate]%\n"
+				if(Blasts)
+					description += "Fires [Blasts] blast(s).\n"
+				if(MultiShot)
+					description += "Can be fired [MultiShot] times in a row.\n"
+				if(MultiHit)
+					description += "Will hit [MultiHit] times in a row if it can.\n"
+				if(ZoneAttack)
+					description += "Will fire blasts to hover in a [ZoneAttackX]x[ZoneAttackY] area.\n"
+				if(Buster)
+					description += "Charges up before firing: At max: [BusterDamage] damage. [BusterHits] hits. [BusterRadius] radius. [BusterAccuracy] accuracy. [BusterSize] size. [BusterStream] blasts.\n"
 //Autoblasts
 			Oni_Giri
 				AttackReplace=1

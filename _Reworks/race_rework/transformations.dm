@@ -181,6 +181,7 @@ transformation
 
 			transform_animation(user)
 
+			user.Hairz("Remove")
 			user.Hairz("Add")
 			user.Auraz("Add")
 
@@ -242,13 +243,12 @@ transformation
 			angerPoint = 75
 
 			adjust_transformation_visuals(mob/user)
-				if(!form_hair_icon)
-					if(user.Hair_Base)
-						var/icon/x=new(user.Hair_Base)
-						if(x)
-							x.MapColors(0.2,0.2,0.2, 0.39,0.39,0.39, 0.07,0.07,0.07, 0.69,0.42,0)
-						form_hair_icon = x
-						form_icon_2_icon = x
+				if(user.Hair_Base)
+					var/icon/x=new(user.Hair_Base)
+					if(x)
+						x.MapColors(0.2,0.2,0.2, 0.39,0.39,0.39, 0.07,0.07,0.07, 0.69,0.42,0)
+					form_hair_icon = x
+					form_icon_2_icon = x
 				..()
 				form_glow.blend_mode=BLEND_ADD
 				form_glow.alpha=40
@@ -308,12 +308,11 @@ transformation
 			autoAnger = TRUE
 			PUSpeedModifier = 1.5
 			adjust_transformation_visuals(mob/user)
-				if(!form_hair_icon)
-					if(user.Hair_Base)
-						var/icon/x=new(user.Hair_Base)
-						if(x)
-							x.Blend(rgb(160,130,0),ICON_ADD)
-						form_hair_icon=x
+				if(user.Hair_Base)
+					var/icon/x=new(user.Hair_Base)
+					if(x)
+						x.Blend(rgb(160,130,0),ICON_ADD)
+					form_hair_icon=x
 				..()
 				form_icon_1 = image(user.Hair_SSJ2)
 				form_icon_1.blend_mode=BLEND_MULTIPLY

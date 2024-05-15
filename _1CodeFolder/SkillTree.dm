@@ -274,97 +274,92 @@ obj/SkillTreeObj
 	icon='skilltree.dmi'
 	layer=9999
 	Click()
-		if(copytext("[src.path]",1,2)!="/")
-			if(src.path=="Sense")
-				if(!locate(/obj/Skills/Utility/Sense,usr))
-					if(usr.SpendRPP(src.cost, "Sense", Training=1))
-						usr.AddSkill(new/obj/Skills/Utility/Sense)
-						return
-				else
-					usr << "You already know how to sense energy!"
-					return
 
+		var/path=text2path("[src.path]")
+		var/obj/Skills/s=new path
+		var/obj/s2
+		var/obj/s3
 
+		if(locate(s,usr.contents))
+			usr<< "You already know this skill!"
+			del(s)
+			return
 
+		var/SwordSkill
+		if(s.NeedsSword)
+			SwordSkill=1
+
+		if(s.type in usr.SkillsLocked)
+			if(usr.Saga=="Weapon Soul"&&SwordSkill)
+				goto Bypass1
+			usr << "You cannot buy [s] because it is a prerequisite to a skill that you've already upgraded!"
+			del s
+			return
+		Bypass1
+
+		s.skillDescription()
+		var/text = s.description
+		text += "\n"
+		var/Confirm
+		if(length(text)>5)
+			Confirm=alert(usr, "[text]Are you sure you wish to buy [src] for [src.cost] RPP?", "Buy [s.name]?", "No", "Yes")
 		else
-			var/path=text2path("[src.path]")
-			var/obj/Skills/s=new path
-			var/obj/s2
-			var/obj/s3
+			Confirm=alert(usr, "Are you sure you wish to buy [src] for [src.cost] RPP?", "Buy [s.name]?", "No", "Yes")
+		if(Confirm=="No")
+			del(s)
+			return
 
-			if(locate(s,usr.contents))
-				usr<< "You already know this skill!"
-				del(s)
-				return
+		if(locate(s,usr.contents))
+			usr << "You've already learned [s]."
+			del(s)
+			return
 
-			var/SwordSkill
-			if(s.NeedsSword)
-				SwordSkill=1
+		if(s.type in usr.SkillsLocked)
+			if(usr.Saga=="Weapon Soul"&&SwordSkill)
+				goto Bypass2
+			usr << "You cannot buy [s] because it is a prerequisite to a skill that you've already upgraded!"
+			del s
+			return
+		Bypass2
 
-			if(s.type in usr.SkillsLocked)
-				if(usr.Saga=="Weapon Soul"&&SwordSkill)
-					goto Bypass1
-				usr << "You cannot buy [s] because it is a prerequisite to a skill that you've already upgraded!"
-				del s
-				return
-			Bypass1
-
-			var/Confirm=alert(usr, "Are you sure you wish to buy [src] for [src.cost] RPP?!", "ARE YOU REALLY SURE", "No", "Yes")
-			if(Confirm=="No")
-				del(s)
-				return
-
-			if(locate(s,usr.contents))
-				usr << "You've already learned [s]."
-				del(s)
-				return
-
-			if(s.type in usr.SkillsLocked)
-				if(usr.Saga=="Weapon Soul"&&SwordSkill)
-					goto Bypass2
-				usr << "You cannot buy [s] because it is a prerequisite to a skill that you've already upgraded!"
-				del s
-				return
-			Bypass2
-
-			if(istype(s, /obj/Skills))
-				if(s:LockOut.len>0)
-					for(var/x=1,x<=s:LockOut.len,x++)
-						var/found=0
-						var/path3=text2path("[s:LockOut[x]]")
-						s3=new path3
-						if(locate(s3, usr))
-							found=1
-						if(found)
-							if(usr.Saga=="Weapon Soul"&&SwordSkill)
-								goto Bypass3
-							usr << "You cannot buy [s] when you already possess [s3]!"
-							del s3
-							return
-				Bypass3
-				if(s:PreRequisite.len>0)
-					for(var/x=1,x<=s:PreRequisite.len,x++)
-						var/found=0
-						var/path2=text2path("[s:PreRequisite[x]]")
-						s2=new path2
-						if(locate(s2, usr))
-							found=1
-						if(!found)
-							usr << "You need to buy [s2] before [s]!"
-							del s2
-							return
+		if(istype(s, /obj/Skills))
+			if(s:LockOut.len>0)
+				for(var/x=1,x<=s:LockOut.len,x++)
+					var/found=0
+					var/path3=text2path("[s:LockOut[x]]")
+					s3=new path3
+					if(locate(s3, usr))
+						found=1
+					if(found)
+						if(usr.Saga=="Weapon Soul"&&SwordSkill)
+							goto Bypass3
+						usr << "You cannot buy [s] when you already possess [s3]!"
+						del s3
+						return
+			Bypass3
+			if(s:PreRequisite.len>0)
+				for(var/x=1,x<=s:PreRequisite.len,x++)
+					var/found=0
+					var/path2=text2path("[s:PreRequisite[x]]")
+					s2=new path2
+					if(locate(s2, usr))
+						found=1
+					if(!found)
+						usr << "You need to buy [s2] before [s]!"
+						del s2
+						return
 
 
-			if(usr.SpendRPP(src.cost, "[s]", Training=1))
-				usr.AddSkill(s)
-				if(s.type==/obj/Skills/Power_Control)
-					if(!locate(/obj/Skills/Buffs/ActiveBuffs/Ki_Control, usr))
-						usr.PoweredFormSetup()
-				// if(s.type in typesof(/obj/Skills/Buffs/NuStyle))
-				// 	var/obj/Skills/Buffs/NuStyle/ns=s
+		if(usr.SpendRPP(src.cost, "[s]", Training=1))
+			usr.AddSkill(s)
+			if(s.type==/obj/Skills/Power_Control)
+				if(!locate(/obj/Skills/Buffs/ActiveBuffs/Ki_Control, usr))
+					usr.PoweredFormSetup()
+			// if(s.type in typesof(/obj/Skills/Buffs/NuStyle))
+			// 	var/obj/Skills/Buffs/NuStyle/ns=s
 /*
-				if(s:PreRequisite.len>0)
-					usr.PrerequisiteRemove(s)*/
+			if(s:PreRequisite.len>0)
+				usr.PrerequisiteRemove(s)*/
 		..()
 
 

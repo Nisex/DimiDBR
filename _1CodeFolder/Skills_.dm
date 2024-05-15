@@ -778,12 +778,12 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 						src.Auraz("Remove")
 						src << "You return to normal power."
 						return
-					if((src.trans["active"]||src.trans["tension"]||src.ssj["active"]||src.ssj["god"])&&!src.HasNoRevert())
+					if(transActive&&!src.HasNoRevert())
 						for(var/obj/Skills/Buffs/B in src)
 							if(src.BuffOn(B)&&B.Transform&&!B.AlwaysOn)
 								B.Trigger(src)
 								return
-						src.Revert(Controlled=1)
+						src.Revert()
 						src << "You revert from your transformed state."
 						return
 					else
