@@ -310,6 +310,8 @@ globalTracker
 		list/GoldConstellation = list("Aries" = FALSE,"Gemini" = FALSE,"Cancer" = FALSE,"Leo" = FALSE,"Virgo" = FALSE,"Libra" = FALSE,\
 "Scorpio" = FALSE,"Capricorn" = FALSE,"Aquarius" = FALSE,"Pisces" = FALSE)
 
+		DESP_DMG_MULTIPLIER = 4
+		DESP_DMG_REDUCTION = 4
 // FUNCTIONS
 
 globalTracker/proc/takeLimited(option, n)

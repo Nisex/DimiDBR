@@ -101,7 +101,7 @@ transformation
 			form_glow = image(icon=form_glow_icon,icon_state = form_glow_icon_state,pixel_x = form_glow_x, pixel_y = form_glow_y)
 			form_aura = image(icon = form_aura_icon, icon_state = form_aura_icon_state, pixel_x = form_aura_x, pixel_y = form_aura_y)
 			form_aura_underlay = image(icon = form_aura_underlay_icon, icon_state = form_aura_underlay_icon_state, pixel_x = form_aura_underlay_x, pixel_y = form_aura_underlay_y)
-			form_hair = image(icon = form_hair, pixel_x = form_hair_x, pixel_y = form_hair_y, layer = FLOAT_LAYER-2)
+			form_hair = image(icon = form_hair_icon, pixel_x = form_hair_x, pixel_y = form_hair_y, layer = FLOAT_LAYER-2)
 			form_icon_1 = image(icon = form_icon_1_icon, icon_state = form_icon_1_icon_state, pixel_x = form_icon_1_x, pixel_y = form_icon_1_y)
 			form_icon_2 = image(icon = form_icon_2_icon, icon_state = form_icon_2_icon_state,pixel_x = form_icon_2_x, pixel_y = form_icon_2_y)
 
@@ -113,8 +113,6 @@ transformation
 
 		apply_visuals(mob/user, aura = 1, hair = 1, extra = 1)
 			adjust_transformation_visuals(user)
-			if(hair)
-				user.overlays += form_hair
 			if(extra)
 				user.overlays += form_icon_1
 				user.overlays += form_icon_2
@@ -122,6 +120,8 @@ transformation
 			if(aura)
 				user.overlays += form_aura
 				user.underlays += form_aura_underlay
+			if(hair)
+				user.Hair = form_hair
 
 		remove_visuals(mob/user, aura = 1, hair = 1, extra = 1)
 			if(hair)
@@ -181,7 +181,6 @@ transformation
 
 			transform_animation(user)
 
-			user.Hairz("Remove")
 			user.Hairz("Add")
 			user.Auraz("Add")
 

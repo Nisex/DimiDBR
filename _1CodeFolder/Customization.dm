@@ -341,9 +341,12 @@ mob/proc/Hairz(var/Z)
 				HairB.Blend(src.Hair_Color, ICON_ADD)
 			Hair = image(icon=HairB)
 
-		Hair.layer=FLOAT_LAYER-2
-		src.overlays += image(icon=src.Hair, pixel_x=src.HairX, pixel_y=src.HairY, layer=FLOAT_LAYER-2)
-		src.underlays += image(icon=src.HairUnderlay, pixel_x=src.HairUnderlayX, pixel_y=src.HairUnderlayY, layer=FLOAT_LAYER-2)
+		if(!transActive)
+			Hair.layer=FLOAT_LAYER-2
+			src.overlays += image(icon=src.Hair, pixel_x=src.HairX, pixel_y=src.HairY, layer=FLOAT_LAYER-2)
+			src.underlays += image(icon=src.HairUnderlay, pixel_x=src.HairUnderlayX, pixel_y=src.HairUnderlayY, layer=FLOAT_LAYER-2)
+		else
+			src.overlays += Hair
 
 		if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Broken Brave"||src.SpecialBuff.BuffName=="Protect Brave"||src.SpecialBuff.BuffName=="Genesic Brave"))
 			src.overlays +=KingofBravesHair
