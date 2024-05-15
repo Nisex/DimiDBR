@@ -1,6 +1,6 @@
 /mob/proc/desperationCheck()
 	var/bonus = 1
-	if(passive_handler.Get("Desperation" && !HasInjuryImmune())
+	if(passive_handler.Get("Desperation") && !HasInjuryImmune())
 		// they are able to get the bonus
 		bonus += Saga == "King of Braves" ? 0.25 : 0
 		bonus += isRace(HUMAN) ? 0.25 : 0
