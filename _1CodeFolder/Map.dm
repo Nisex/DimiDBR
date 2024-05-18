@@ -12,17 +12,6 @@ turf/var/
 	SecondaryTurfType
 	Destroyer
 
-turf/Del()
-	var/Type=type
-	if(InitialType) Type=InitialType
-	spawn InitialType=Type
-	Builder=null
-	if(!istype(src,/turf/CustomTurf))
-		Turfs-=src
-	else
-		CustomTurfs-=src
-	..()
-
 turf
 	verb
 		Select_Turf()
