@@ -315,7 +315,7 @@ mob
 					var/addWeaponBreaker = 0
 					if(AttackQueue&&AttackQueue.WeaponBreaker)
 						addWeaponBreaker += AttackQueue.WeaponBreaker
-					var/breakTicks = (GetWeaponBreaker()+addWeaponBreaker) / 3
+					var/breakTicks = (GetWeaponBreaker()+addWeaponBreaker) / 3 * glob.WEAPON_BREAKER_EFFECTIVENESS
 					var/duraBoon = 2 // SWORD DURA VARS
 					var/duraBase = 1 // SWORD DURA VARS
 					// Breaker Vars
@@ -2716,7 +2716,7 @@ mob
 			global.Turfs+=q
 			global.Turfs+=q2
 			Log("Admin","[ExtractInfo(usr)] made a warper at [usr.x],[usr.y],[usr.z] to warp to [_x],[_y],[_z]!")
-		DashTo(var/mob/Trg, var/MaxDistance=24, var/Delay=0.75, var/Clashable=0)
+		DashTo(mob/Trg, MaxDistance=24, Delay=0.75, Clashable=0)
 			var/DelayRelease=0
 			src.Frozen=1
 			src.icon_state="Flight"

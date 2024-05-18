@@ -141,15 +141,15 @@ obj/Items
 	var/list/passives = list()
 	var/list/current_passives
 	proc/startBreaking(dmg, val, mob/owner, mob/attacker, type)
-		if(val > MAX_BREAK_MULT)
-			val = MAX_BREAK_MULT
+		if(val > glob.MAX_BREAK_MULT)
+			val = glob.MAX_BREAK_MULT
 		var/breakVal = (dmg * val) * (attacker.GetOff(0.3)+(attacker.GetStr(0.3) * glob.DMG_STR_EXPONENT))
-		if(breakVal > MAX_BREAK_VAL)
-			breakVal = MAX_BREAK_VAL
+		if(breakVal > glob.MAX_BREAK_VAL)
+			breakVal = glob.MAX_BREAK_VAL
 		if(owner.Saga=="Unlimited Blade Works")
-			breakVal*=10
+			breakVal*= glob.UBW_BREAK_MULTIPLIER
 			if(owner.UBWPath=="Firm")
-				breakVal *= 5
+				breakVal *= glob.UBW_FIRM_BREAK_MULTIPLIER
 
 		decreaseShatterCounter(breakVal, owner, attacker, type)
 

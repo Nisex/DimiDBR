@@ -7,7 +7,11 @@ mob
 			var/list/targets = list()
 			for(var/mob/m in range(15))
 				targets |= m
-			var/swapmap/newMap = SwapMaps_CreateFromTemplate("UBW")
+			if(!fexists("Maps/[src:UniqueID]_UBW.sav"))
+				SwapMaps_SaveChunk("[src:UniqueID]_UBW", locate(1,71,1), locate(61, 121,1))
+				SwapMaps_Save("[src:UniqueID]_UBW")
+
+			var/swapmap/newMap = SwapMaps_CreateFromTemplate("[src:UniqueID]_UBW")
 			var/turf/center = newMap.CenterTile()
 			usingUBW = TRUE
 			for(var/mob/teleportThese in targets)

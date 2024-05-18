@@ -2787,6 +2787,8 @@ mob
 				return 0
 			if(src.icon_state=="Train")
 				return 0
+			if(Knockbacked)
+				return 0
 			if(src.KO)
 				return 0
 			if(src.Frozen)

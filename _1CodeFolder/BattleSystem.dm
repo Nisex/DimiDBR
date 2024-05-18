@@ -1078,7 +1078,7 @@ proc/Deflection_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/Base
 		return MISS
 
 mob/var/tmp/last_combo
-mob/proc/Comboz(var/mob/M, LightAttack=0)
+mob/proc/Comboz(mob/M, LightAttack=0)
 	if(last_combo >= world.time) return
 	last_combo = world.time
 	var/list/dirs = list(NORTH,SOUTH,EAST,WEST,NORTHWEST,SOUTHWEST,NORTHEAST,SOUTHEAST)
@@ -1086,10 +1086,8 @@ mob/proc/Comboz(var/mob/M, LightAttack=0)
 		var/turf/W
 		if(M.z!=src.z)
 			return //lol you can't combo through dimensions anymore.  sad.
-		if(M.x>(src.x+15)||M.x<(src.x-15))
-			return//please don't hit me from across the map
-		if(M.y>(src.y+15)||M.y<(src.y-15))
-			return//pleez
+		if(20 < get_dist(src, M))
+			return
 
 
 		while(dirs.len)
@@ -1104,8 +1102,6 @@ mob/proc/Comboz(var/mob/M, LightAttack=0)
 					for(var/atom/x in W)
 						if(x.density)
 							return
-					if(W.density)
-						return
 					src.loc=W
 					src.dir=ReturnDirection(src,M)
 					if(!LightAttack && get_dist(src,M)>1)

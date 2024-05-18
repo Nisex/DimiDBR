@@ -275,6 +275,16 @@ globalTracker
 		//Attaches an exponent to the accmult before clamping.
 		EXPERIMENTAL_ACCMULT = 1
 		EXPERIMENTAL_ACCMULT_EXPONENT = 0.5
+
+		//straight multiplier to how much it breaks.
+		WEAPON_BREAKER_EFFECTIVENESS = 1
+		//straight multiplier at the end; for ubw saga only (self-inflicted break)
+		UBW_BREAK_MULTIPLIER = 10
+		//firm multiplies break by a further x5
+		UBW_FIRM_BREAK_MULTIPLIER = 5
+
+		MAX_BREAK_MULT = 6
+		MAX_BREAK_VAL = 200
 // -- items -- //
 
 
