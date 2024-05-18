@@ -468,6 +468,10 @@ ascension
 			choices = list("Rest" = /ascension/sub_ascension/high_faoroan/rest, "Sacrifice" = /ascension/sub_ascension/high_faoroan/sacrifice)
 
 	demon
+		onAscension(mob/owner)
+			..()
+			owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm).Mastery++
+			
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			passives = list("Hellpower" = 0.2)
@@ -1032,8 +1036,8 @@ ascension
 						//power = 0.75
 						speed = 0.5
 						defense = 0.25
-						anger = 1.4
-						passives = list("Hellrisen" = 0.5)
+						anger = 0.15 // 1.4
+						passives = list("Hellrisen" = 0.25)
 					if("Dragon")  /// after the merge, unmerged Dragon and Warrior will also receive some scaling power. Levi added it in for Gaja's in his push
 						///power = 0.75
 						passives = list("SpiritFlow" = 0.5)
@@ -1062,7 +1066,7 @@ ascension
 						//power = 1
 						speed = 0.5
 						defense = 0.25
-						anger = 1.5
+						anger = 0.1 // 1.5
 						skills = list(/obj/Skills/Buffs/SpecialBuffs/Daimou_Form)
 						on_ascension_message =  "Your reliance on infernal power has given you insight to the power of a Great Demon King!"
 					if("Dragon")
@@ -1088,7 +1092,7 @@ ascension
 					if("Demon")
 						// power = 1.5
 						speed = 0.5
-						anger = 1.6
+						anger = 0.1 // 1.6
 					if("Dragon")
 						//power = 1.5
 						force= 0.25
@@ -1131,7 +1135,7 @@ ascension
 					if("Demon")
 						//power = 3
 						speed = 0.5
-						anger = 2
+						anger = 0.4 // 2
 						intimidation = 50
 					if("Warrior")
 						//power = 4

@@ -1930,11 +1930,12 @@ NEW VARIABLES
 		Giant_Form//for Warrior  Nameks instead!
 			NeedsHealth=50
 			TooMuchHealth=75
-			StrMult=1.5
-			EndMult=2
-			DefMult=0.5
+			StrMult = 1.5
+			EndMult = 2
+			DefMult = 0.5
+			SpdMult = 0.5
 			Enlarge=2
-			passives = list("GiantForm" = 1, "Sweeping Strikes" = 1)
+			passives = list("GiantForm" = 1, "Sweeping Strikes" = 1, "NoDodge" = 1)
 			GiantForm=1
 			ActiveMessage="channels their regenerative abilities into a bout of monstrous growth!"
 			OffMessage="shrinks to normal size..."
@@ -1953,16 +1954,22 @@ NEW VARIABLES
 		Daimou_Form//for Demon Nameks!
 			NeedsHealth=50
 			TooMuchHealth=75
-			StrMult=1.3
-			SpdMult=1.3
-			OffMult=2
-			DefMult=1.3
-			passives = list("Hellrisen" = 1, "Hellpower" = 0.5, "Flicker" = 1)
+			StrMult=1.5
+			ForMult=1.5
+			EndMult=1.25
+			OffMult=1.25
+			passives = list("Hellrisen" = 0.25, "Hellpower" = 0.1, "Flicker" = 1)
 			ActiveMessage="unleashes the herectical power of the Demon clan!"
 			OffMessage="discards the Demon clan's abominal power..."
 			Cooldown=180
 			KenWave=2
 			KenWaveIcon="LightningRed.dmi"
+			proc/adjust(mob/p)
+				passives = list("HellRisen" = 0.25 * (p.AscensionsAcquired-1), "Hellpower" = p.AscensionsAcquired/10, "Flicker" = round(p.AscensionsAcquired/2, 1))
+
+			Trigger(mob/User, Override)
+				. = ..()
+				adjust(User)
 
 		OneHundredPercentPower ///splitting this up from FifthForm, asc 2 is this and asc 3 will be fifth form
 			BuffName="One Hundred Percent Power"
@@ -5566,37 +5573,9 @@ NEW VARIABLES
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/Magic_Trick")
 				ManaCost=10
 				Cooldown=30
-				verb/Alter_Disguise()
-					set category="Utility"
-					if(src.Using==1||usr.BuffOn(src))
-						return
-					src.Using=1
-					src.ImitateBase=input(usr,"Choose a base icon.","Imitate Base")as icon
-					src.ImitateOverlays=list()
-					src.ImitateOverlays+=input(usr,"Choose a lower clothing icon.","Imitate Overlay")as icon
-					src.ImitateOverlays+=input(usr,"Choose a hair icon.","Imitate Hair")as icon
-					src.ImitateOverlays+=input(usr,"Choose an upper clothing icon.","Imitate Overlay")as icon
-					src.ImitateName=input(usr,"Choose a name.","Imitate Name") as text
-					src.ImitateProfile=input(usr, "Please input a description for the disguise.", "Imitate Description") as message
-					src.ImitateTextColor=input(usr, "Choose a color for Say.","Imitate Color") as color
-					src.Using=0
-				verb/Disguise()
-					set hidden=1
-					if(!usr.BuffOn(src))
-						src.BuffName="Imitate"
-						src.Imitate=1
-						src.PhysicalHitsLimit=1
-						src.SpiritHitsLimit=1
-						src.EndYourself=0
-						src.FakePeace=1
-						src.ActiveMessage="changes their appearance!"
-						src.OffMessage="returns to their previous shape..."
-						usr.BreakViewers()
-					src.Trigger(usr)
 				verb/Confusing_Act()
 					set hidden=1
 					if(!usr.BuffOn(src))
-						src.Imitate=0
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=1
@@ -5613,7 +5592,6 @@ NEW VARIABLES
 				verb/Stunning_Act()
 					set hidden=1
 					if(!usr.BuffOn(src))
-						src.Imitate=0
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=1
@@ -5627,23 +5605,6 @@ NEW VARIABLES
 							else
 								OMsg(m, "[m] isn't impressed by [usr]'s act.")
 					src.Trigger(usr)
-/*				verb/Pacifying_Act()
-					set hidden=1
-					if(!usr.BuffOn(src))
-						src.Imitate=0
-						src.PhysicalHitsLimit=0
-						src.SpiritHitsLimit=0
-						src.EndYourself=1
-						src.ActiveMessage="performs a pacifying act!"
-						src.OffMessage=0
-						src.FakePeace=0
-						for(var/mob/Players/m in oviewers(5,usr))
-							if(prob(10))
-								m.AddPacifying(5)
-								OMsg(m, "[m] is rendered stupified by the act!")
-							else
-								OMsg(m, "[m] isn't impressed by [usr]'s act.")
-					src.Trigger(usr)*/
 				verb/Magic_Act()
 					set category="Utility"
 					if(!usr.BuffOn(src))
@@ -5652,18 +5613,7 @@ NEW VARIABLES
 						switch(Mode)
 							if("Cancel")
 								return
-							if("Disguise")
-								src.BuffName="Imitate"
-								src.Imitate=1
-								src.PhysicalHitsLimit=1
-								src.SpiritHitsLimit=1
-								src.EndYourself=0
-								src.FakePeace=1
-								src.ActiveMessage="changes their appearance!"
-								src.OffMessage="returns to their previous shape..."
-								usr.BreakViewers()
 							if("Confuse")
-								src.Imitate=0
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
@@ -5677,7 +5627,6 @@ NEW VARIABLES
 									else
 										OMsg(m, "[m] isn't impressed by [usr]'s act.")
 							if("Stun")
-								src.Imitate=0
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
@@ -5691,7 +5640,6 @@ NEW VARIABLES
 									else
 										OMsg(m, "[m] isn't impressed by [usr]'s act.")
 							if("Pacify")
-								src.Imitate=0
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
@@ -5714,25 +5662,11 @@ NEW VARIABLES
 				ManaCost=15
 				TextColor=rgb(153, 51, 0)
 				Cooldown=30
-				verb/Alter_Disguise()
-					set category="Utility"
-					if(src.Using==1||usr.BuffOn(src))
-						return
-					src.Using=1
-					src.ImitateBase=input(usr,"Choose a base icon.","Imitate Base")as icon
-					src.ImitateOverlays=list()
-					src.ImitateOverlays+=input(usr,"Choose a lower clothing icon.","Imitate Overlay")as icon
-					src.ImitateOverlays+=input(usr,"Choose a hair icon.","Imitate Hair")as icon
-					src.ImitateOverlays+=input(usr,"Choose an upper clothing icon.","Imitate Overlay")as icon
-					src.ImitateName=input(usr,"Choose a name.","Imitate Name") as text
-					src.ImitateProfile=input(usr, "Please input a description for the disguise.", "Imitate Description") as message
-					src.ImitateTextColor=input(usr, "Choose a color for Say.","Imitate Color") as color
-					src.Using=0
 				verb/Disappear()
 					set hidden=1
 					if(!usr.BuffOn(src))
 						src.BuffName="Invisibility"
-						src.Imitate=0
+						
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=0
@@ -5742,25 +5676,10 @@ NEW VARIABLES
 						ActiveMessage="uses a spell to hide their existence!"
 						OffMessage="dissipates their invisibility..."
 					src.Trigger(usr)
-				verb/Disguise()
-					set hidden=1
-					if(!usr.BuffOn(src))
-						src.BuffName="Imitate"
-						src.Imitate=1
-						src.PhysicalHitsLimit=1
-						src.SpiritHitsLimit=1
-						src.EndYourself=0
-						src.Invisible=0
-						src.AllowedPower=0
-						src.FakePeace=1
-						src.ActiveMessage="changes their appearance!"
-						src.OffMessage="returns to their previous shape..."
-						usr.BreakViewers()
-					src.Trigger(usr)
 				verb/Confusing_Show()
 					set hidden=1
 					if(!usr.BuffOn(src))
-						src.Imitate=0
+						
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=1
@@ -5779,7 +5698,7 @@ NEW VARIABLES
 				verb/Stunning_Show()
 					set hidden=1
 					if(!usr.BuffOn(src))
-						src.Imitate=0
+						
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=1
@@ -5798,7 +5717,7 @@ NEW VARIABLES
 /*				verb/Pacifying_Show()
 					set hidden=1
 					if(!usr.BuffOn(src))
-						src.Imitate=0
+						
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=1
@@ -5824,7 +5743,7 @@ NEW VARIABLES
 								return
 							if("Disappear")
 								src.BuffName="Invisibility"
-								src.Imitate=0
+								
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=0
@@ -5833,20 +5752,8 @@ NEW VARIABLES
 								src.FakePeace=0
 								src.ActiveMessage="uses a spell to hide their existence!"
 								src.OffMessage="dissipates their invisibility..."
-							if("Disguise")
-								src.BuffName="Imitate"
-								src.Imitate=1
-								src.PhysicalHitsLimit=1
-								src.SpiritHitsLimit=1
-								src.EndYourself=0
-								src.Invisible=0
-								src.AllowedPower=0
-								src.FakePeace=1
-								src.ActiveMessage="changes their appearance!"
-								src.OffMessage="returns to their previous shape..."
-								usr.BreakViewers()
 							if("Confuse")
-								src.Imitate=0
+								
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
@@ -5862,7 +5769,7 @@ NEW VARIABLES
 									else
 										OMsg(m, "[m] isn't impressed by [usr]'s show.")
 							if("Stun")
-								src.Imitate=0
+								
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
@@ -5878,7 +5785,7 @@ NEW VARIABLES
 									else
 										OMsg(m, "[m] isn't impressed by [usr]'s show.")
 							if("Pacify")
-								src.Imitate=0
+								
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
@@ -15328,7 +15235,7 @@ mob
 				debuffs.Add(B.DebuffCrash)
 				for(var/d in debuffs)
 					if(d=="Poison")
-						src.LoseHealth(src.Poison/20)//5% at 100% poison
+						src.LoseHealth(src.Poison * 0.05)//5% at 100% poison
 						src.WoundSelf(src.Poison/20)
 						src.Poison=0
 					if(d=="Fire")

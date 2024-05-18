@@ -502,10 +502,6 @@ mob
 			if(passive_handler.Get("Possessive"))
 				return 1
 			return 0
-		HasImitate()
-			if(passive_handler.Get("Imitate"))
-				return 1
-			return 0
 		TomeSpell(var/obj/Skills/Z)
 			if(!Z) return 0
 			var/Streamline=0
