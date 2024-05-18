@@ -27,7 +27,7 @@ characterInformation/proc/InfoToJSON(txtName, mob/p)
     write << json_encode(.)
 
 characterInformation/proc/takeInformation(mob/p, mob/org, profileName, file_name, saveOld, num)
-    presetName = "[profileName] Profile"
+    presetName = "[profileName]"
     profileName = p.name
     if(saveOld)
         oldAppearance = org.appearance
@@ -61,6 +61,16 @@ characterInformation/proc/loadProfile(mob/p, file_name, infoDump)
     Profile = information.profileProfile
     
 /mob/var/Imitating = FALSE
+/mob/verb/Save_Profile()
+    set category = "Roleplay"
+    var/profileName = input(src, "What is the preset name of this profile?") as text
+    var/currentIndex = 0
+    for(var/x in flist("[PROFILE_SAVING_PATH]/[ckey]/"))
+        if("Custom_Profile" in x)
+            var/name = copytext(x,length(x)-5, length(x)-4)
+            currentIndex = text2num(name)
+    information.takeInformation(src, null, profileName, "Custom_Profile", FALSE, currentIndex)
+
 /mob/verb/Swap_Profiles()
     set category = "Roleplay"
     if(Imitating)
@@ -71,7 +81,6 @@ characterInformation/proc/loadProfile(mob/p, file_name, infoDump)
     for(var/x in flist("[PROFILE_SAVING_PATH]/[ckey]/"))
         var/read = file("[PROFILE_SAVING_PATH]/[ckey]/[x]")
         read = json_decode(file2text(read))
-        world<<read["presetName"]
         data[read["presetName"]] += read
         presetNames += read["presetName"]
     var/pickedProfile = input(src, "what one?") in presetNames
@@ -81,18 +90,3 @@ characterInformation/proc/loadProfile(mob/p, file_name, infoDump)
 
 // THIS COULD BE DONE BETTER / MORE EFFECIENT I KNOW
 // NO REASON TO READ UP HERE AND NOT PASS THE WHOLE THING TO THE NEXT ONE
-
-//DEBUG
-
-/mob/verb/SaveProfile()
-    set category = "Imitate Testing"
-    information.takeInformation(src, null, "New Profile", "New_Profile", FALSE, 1)
-    
-
-/mob/verb/testIimitate()
-    set category = "Imitate Testing"
-    information.takeInformation(src, src, "Original", "Old_Profile", TRUE)
-    information.loadProfile(src, "[ckey]_Old_Profile_1")
-/mob/verb/swapIimitate()
-    set category = "Imitate Testing"
-    swapToProfileVars(TRUE)
