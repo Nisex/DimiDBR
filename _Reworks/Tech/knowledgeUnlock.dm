@@ -141,7 +141,7 @@ var/knowledgePaths/tech/list/TechnologyTree = list()
 		if("Mutagenic Herbs")
 			PotionTypes.Add("Mutagenic Herb")
 		if("Refreshment Herbs")
-			PotionTypes.Add("Refreshmment Herb")
+			PotionTypes.Add("Refreshment Herb")
 
 		if("ImprovedAlchemy")
 			ImprovedAlchemyUnlocked=1
