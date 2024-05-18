@@ -271,24 +271,18 @@ obj/Skills
 		Learn=list("energyreq"=10000,"difficulty"=50000)
 		desc="Dash towards your target!"
 		Level=100
-		var/tmp/AntiMash=0
 		verb/DragonDash()
 			set name="Dragon Dash"
 			set category="Skills"
-			if(src.AntiMash) return
 			if(usr.HasDashMaster())
 				src.Using=0
 			if(usr.Knockback)
-				for(var/obj/Skills/Aerial_Payback/x in usr)
+				for(var/obj/Skills/Aerial_Payback/x in usr.Skills)
 					if(!x.Using)
 						usr.SkillX("Aerial Payback",x)
 			else
-				for(var/obj/Skills/Dragon_Dash/x in usr)
-					if(!x.Using)
-						usr.SkillX("DragonDash",src)
-			src.AntiMash=1
-			spawn(1)
-				src.AntiMash=0
+				usr.SkillX("DragonDash",src)
+
 	Reverse_Dash
 		Cooldown=30
 		CooldownStatic=1

@@ -260,13 +260,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					src.IncDashCount()
 
 			if("DragonDash")
-				if(src.Frozen)
-					return
-				if(src.is_dashing)
-					return
-				if(!src.Target||(src.Target&&!istype(src.Target,/mob)))
-					return
-				if(src.Target==src)
+				if(Frozen||is_dashing||!Target||Target&&!ismob(Target)||Target==src||Beaming==2||TimeFrozen||Knockbacked)
 					return
 
 				var/Modifier = 1 + src.HasPursuer()
@@ -277,6 +271,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					if(!src.CheckSlotless("Half Moon Form"))
 						for(var/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Half_Moon_Form/H in src)
 							H.Trigger(src)
+
 				if(src.Secret=="Haki")
 					src.AddHaki("Armament")
 					if(!src.CheckSlotless("Haki Armament"))
@@ -292,12 +287,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 						else
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Armor_Lite/H in src)
 								H.Trigger(src)
-				if(src.Beaming==2)
-					return
-				if(src.TimeFrozen)
-					return
-				if(src.Knockbacked)
-					return
+
 				var/Distance=20
 				var/Delay=0.75
 				if(src.Beaming||src.BusterTech)
@@ -305,26 +295,29 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 						Distance=5
 					else
 						Distance=10
+
 				if(!src.AttackQueue)
-					if(src.HasRipple())
-						if(src.Oxygen>src.OxygenMax*1.25&&src.Oxygen>150&&src.PoseEnhancement&&src.HealthAnnounce25==1)
-							src.HealthAnnounce25=2
-							src.SetQueue(new/obj/Skills/Queue/Sunlight_Yellow_Overdrive)
-						else
-							src.SetQueue(new/obj/Skills/Queue/Zoom_Punch)
-					if(src.Secret=="Vampire")
-						if(!src.PoseEnhancement)
-							var/obj/Skills/Queue/Vampire_Lunge/VL=new/obj/Skills/Queue/Vampire_Lunge
-							VL.adjust(src)
-							src.SetQueue(VL)
-						else
-							var/obj/Skills/Queue/Vampire_Rage/VR=new/obj/Skills/Queue/Vampire_Rage
-							VR.adjust(src)
-							src.SetQueue(VR)
-					if(src.Secret=="Eldritch" && CheckSlotless("True Form"))
-						var/obj/Skills/Queue/Eldritch_Ruinate/ER=new/obj/Skills/Queue/Eldritch_Ruinate
-						ER.adjust(src)
-						src.SetQueue(ER)
+					if(Secret)
+						if(src.HasRipple())
+							if(src.Oxygen>src.OxygenMax*1.25&&src.Oxygen>150&&src.PoseEnhancement&&src.HealthAnnounce25==1)
+								src.HealthAnnounce25=2
+								src.SetQueue(new/obj/Skills/Queue/Sunlight_Yellow_Overdrive)
+							else
+								src.SetQueue(new/obj/Skills/Queue/Zoom_Punch)
+						if(src.Secret=="Vampire")
+							if(!src.PoseEnhancement)
+								var/obj/Skills/Queue/Vampire_Lunge/VL=new/obj/Skills/Queue/Vampire_Lunge
+								VL.adjust(src)
+								src.SetQueue(VL)
+							else
+								var/obj/Skills/Queue/Vampire_Rage/VR=new/obj/Skills/Queue/Vampire_Rage
+								VR.adjust(src)
+								src.SetQueue(VR)
+						if(src.Secret=="Eldritch" && CheckSlotless("True Form"))
+							var/obj/Skills/Queue/Eldritch_Ruinate/ER=new/obj/Skills/Queue/Eldritch_Ruinate
+							ER.adjust(src)
+							src.SetQueue(ER)
+
 				if(src.HasSuperDash())
 					Distance+=15*src.GetSuperDash()
 					Delay=0.5/src.GetSuperDash()
@@ -332,6 +325,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					for(var/wav=Wave, wav>0, wav--)
 						KenShockwave(src, icon='KenShockwave.dmi', Size=Wave)
 						Wave/=2
+
 				src.OMessage(10,"[src] dashed towards [src.Target]!","<font color=red>[src]([src.key]) used  Dragon Dash.")
 				src.is_dashing++
 				if(src.GetSuperDash()>=2)
@@ -826,10 +820,12 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 
 				//TARGETED ZANZO
 				else
-					if(src.Target in oview(20,src))
+					if(20 >= get_dist(src.Target,src))
 						if(lastZanzoUsage+2>world.time)
 							return
 						if(MovementCharges<1)
+							return
+						if(last_combo >= world.time)
 							return
 						lastZanzoUsage = world.time
 						src.StopKB()
