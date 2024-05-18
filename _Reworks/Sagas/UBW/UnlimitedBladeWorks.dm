@@ -22,6 +22,7 @@ mob
 				teleportThese.loc = locate(center.x+rand(-10,10), center.y+rand(-10,10), center.z)
 
 		stopUnlimitedBladeWorks()
+			if(!usingUBW) return
 			var/swapmap/map = swapmaps_byname[in_tmp_map]
 			usingUBW = FALSE
 			for(var/mob/m in block(map.x1, map.y1, map.z1, map.x2, map.y2))
