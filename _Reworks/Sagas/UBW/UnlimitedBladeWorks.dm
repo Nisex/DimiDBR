@@ -25,12 +25,13 @@ mob
 			if(!usingUBW) return
 			var/swapmap/map = swapmaps_byname[in_tmp_map]
 			usingUBW = FALSE
-			for(var/mob/m in block(map.x1, map.y1, map.z1, map.x2, map.y2))
-				m.x = m.PrevX
-				m.y = m.PrevY
-				m.z = m.PrevZ
-				m.PrevX = null
-				m.PrevY = null
-				m.PrevZ = null
-				m.in_tmp_map = null
+			for(var/turf/t in block(map.x1, map.y1, map.z1, map.x2, map.y2))
+				for(var/mob/m in t)
+					m.x = m.PrevX
+					m.y = m.PrevY
+					m.z = m.PrevZ
+					m.PrevX = null
+					m.PrevY = null
+					m.PrevZ = null
+					m.in_tmp_map = null
 			map.Del()
