@@ -987,7 +987,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=20
-				AccMult=0.5
+				AccMult=1
 				DamageMult=0.15
 				Blasts=20
 				Delay=0.5
