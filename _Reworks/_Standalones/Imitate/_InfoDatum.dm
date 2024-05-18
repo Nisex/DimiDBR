@@ -26,7 +26,7 @@ characterInformation/proc/InfoToJSON(txtName, mob/p)
     var/write = file("[PROFILE_SAVING_PATH]/[p.ckey]/[txtName].json")
     write << json_encode(.)
 
-characterInformation/proc/takeInformation(mob/p, mob/org, profileName, file_name, saveOld, num)
+characterInformation/proc/takeInformation(mob/p, mob/org, profileName, file_name, saveOld, num, noSave = FALSE)
     presetName = "[profileName]"
     profileName = p.name
     if(saveOld)
@@ -35,7 +35,8 @@ characterInformation/proc/takeInformation(mob/p, mob/org, profileName, file_name
     profileTextColor = p.Text_Color
     profileEmoteColor = p.Emote_Color
     profileBase = p.icon
-    saveInfo("[file_name]", num, p)
+    if(noSave)
+        saveInfo("[file_name]", num, p)
 
 characterInformation/proc/loadProfile(mob/p, file_name, infoDump)
     var/read = infoDump
@@ -59,6 +60,7 @@ characterInformation/proc/loadProfile(mob/p, file_name, infoDump)
     else   
         icon = resourceManager.GetResourceByName(information.profileBase)
     Profile = information.profileProfile
+    name = information.profileName
     
 /mob/var/Imitating = FALSE
 /mob/verb/Save_Profile()
