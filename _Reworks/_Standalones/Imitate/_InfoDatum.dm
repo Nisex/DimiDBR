@@ -60,7 +60,12 @@ characterInformation/proc/loadProfile(mob/p, file_name, infoDump)
     else   
         icon = resourceManager.GetResourceByName(information.profileBase)
     Profile = information.profileProfile
+    var/ogName = name
     name = information.profileName
+    if(!name)
+        name = ogName
+        // having no name fucks shit so might as well confirm this wont happen
+
     
 /mob/var/Imitating = FALSE
 /mob/verb/Save_Profile()
@@ -71,7 +76,10 @@ characterInformation/proc/loadProfile(mob/p, file_name, infoDump)
         if("Custom_Profile" in x)
             var/name = copytext(x,length(x)-5, length(x)-4)
             currentIndex = text2num(name)
-    information.takeInformation(src, null, profileName, "Custom_Profile", FALSE, currentIndex)
+    if(currentIndex+1>5)
+        src << "You have too many saved profiles bro."
+        return
+    information.takeInformation(src, null, profileName, "Custom_Profile", FALSE, currentIndex++)
 
 /mob/verb/Swap_Profiles()
     set category = "Roleplay"
@@ -85,7 +93,7 @@ characterInformation/proc/loadProfile(mob/p, file_name, infoDump)
         read = json_decode(file2text(read))
         data[read["presetName"]] += read
         presetNames += read["presetName"]
-    var/pickedProfile = input(src, "what one?") in presetNames
+    var/pickedProfile = input(src, "what one?") in presetNames + "Cancel"
     information.loadProfile(src, FALSE, data[pickedProfile])
     sleep(1) // prob isnt needed but to make sure
     swapToProfileVars(FALSE)
