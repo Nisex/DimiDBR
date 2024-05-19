@@ -35,7 +35,7 @@ characterInformation/proc/takeInformation(mob/p, mob/org, profileName, file_name
     profileTextColor = p.Text_Color
     profileEmoteColor = p.Emote_Color
     profileBase = p.icon
-    if(noSave)
+    if(!noSave)
         saveInfo("[file_name]", num, p)
 
 characterInformation/proc/loadProfile(mob/p, file_name, infoDump)
@@ -79,7 +79,8 @@ characterInformation/proc/loadProfile(mob/p, file_name, infoDump)
     if(currentIndex+1>5)
         src << "You have too many saved profiles bro."
         return
-    information.takeInformation(src, null, profileName, "Custom_Profile", FALSE, currentIndex++)
+    currentIndex++
+    information.takeInformation(src, null, profileName, "Custom_Profile", FALSE, currentIndex)
 
 /mob/verb/Swap_Profiles()
     set category = "Roleplay"

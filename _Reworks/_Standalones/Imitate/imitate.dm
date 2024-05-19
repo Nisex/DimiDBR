@@ -22,6 +22,7 @@
                 usr.information.takeInformation(Target, usr, "null", "discarded_file", TRUE, 1)
                 usr.swapToProfileVars(FALSE)
                 usr.appearance = Target.appearance
+                usr.invisibility = 99
                 sleep(10)
                 usr.invisibility = 0
                 usr.Imitating = 1
