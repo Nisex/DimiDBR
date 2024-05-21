@@ -456,6 +456,7 @@ mob/Players/verb
 				A.pixel_y=input("Y adjustment.") as num
 				A?:customPixelX= A.pixel_x
 				A?:customPixelY= A.pixel_y
+				A?:client.SaveChar()
 
 	Custom_Appearance_Forms(var/atom/A as mob in view(usr,5))
 		set src=usr.client

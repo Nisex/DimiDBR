@@ -1,6 +1,20 @@
 obj/Skills
+	Projectile
+		proc
+			EdgeOfMapProjectile()
+				var/turf/t=get_step(src, src.dir)
+				if(!t)
+					return 1
+				if(t.x==0||t.y==0||t.z==0)
+					return 1
+				if(t)
+					if(istype(t, /turf/Special/Blank))
+						return 1
+				return 0
 	Level=100
-
+	var/Copied = FALSE
+	var/Sealed = FALSE
+	var/Temporary = FALSE
 	var/description
 
 	var/SignatureTechnique

@@ -270,12 +270,12 @@ NEW VARIABLES
 	//AbyssMod//Adds abyss mod.
 	//Purity//Can only damage what it's designed to damage (Abyss for holy, Holy for abyss, humans for slayer)
 	var/KiBlade//its fooken ki blade m8
-	var/SpiritStrike//Punches with FORCE only
-	var/SpiritHand//Sunlight stance passive.
-	var/SpiritFlow//Moonlight stance passive.
-	var/HybridStrike//Punches with For/Str
-	var/PridefulRage//Ignore defenses.
-	var/NoWhiff//Melee attacks won't whiff.
+	var/SpiritStrike //Punches with FORCE only
+	var/SpiritHand //Sunlight stance passive.
+	var/SpiritFlow //Moonlight stance passive.
+	var/HybridStrike //Punches with For/Str
+	var/PridefulRage //Ignore defenses.
+	var/NoWhiff //Melee attacks won't whiff.
 	//NoForcedWhiff//THEY WON'T WHIFF EVEN HARDER NOW
 	//Instinct - go away, AIS/WS
 	var/Steady //Consistent damage.
@@ -449,11 +449,11 @@ NEW VARIABLES
 	var/GatesLevel//A tag for gates which sets the nerf and nerf time.
 	var/ShuttingGates//This has to be flagged for gates nerf to trigger.
 	var/WeaponBreaker//Adds weaponbreaker variable.
-	var/StealsResources//Steals resources...come on...
-	var/StealsStats//
-	var/ManaSeal//Seals this amount per 1 damage delivered.
-	var/ArcaneBladework//sets ArcaneBladework.
-	var/BuffMastery//Reduce nerfs and buff buffs.
+	var/StealsResources //Steals resources...come on...
+	var/StealsStats //
+	var/ManaSeal //Seals this amount per 1 damage delivered.
+	var/ArcaneBladework //sets ArcaneBladework.
+	var/BuffMastery //Reduce nerfs and buff buffs.
 	var/Curse//sets your Cursed Wound Variable, maybe some other stuff later
 	var/FusionPowered
 	var/Overdrive//synergy with cyber bp, androids, fusion cores and cyber modules
@@ -493,8 +493,8 @@ NEW VARIABLES
 	var/DefianceRetaliate//makes you counterattack with power being scaled off your missing health
 	var/AffectTarget//doh
 	var/Ripple //Use Oxygen
-	var/BulletKill//kill bullets, duh
-	var/Deflection//10% * this value to autodeflect anything that can be deflected
+	var/BulletKill //kill bullets, duh
+	var/Deflection //10% * this value to autodeflect anything that can be deflected
 	var/CyberLimb//pretends you have more cyber slots
 	var/Skimming//pretends youre flying
 	var/Flight//actually flying

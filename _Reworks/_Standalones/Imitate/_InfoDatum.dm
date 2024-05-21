@@ -16,7 +16,10 @@ characterInformation/proc/InfoToJSON(txtName, mob/p)
     for(var/variable in vars)
         if(variable in DO_NOT_SAVE)
             continue
-        .[variable] = vars[variable]
+        if(variable == "profileBase")
+            .[variable] << vars[variable]
+        else
+            .[variable] = vars[variable]
     
     if(fexists("[PROFILE_SAVING_PATH]/[p.ckey]/[txtName].json"))
         if(!fdel("[PROFILE_SAVING_PATH]/[p.ckey]/[txtName].json"))
