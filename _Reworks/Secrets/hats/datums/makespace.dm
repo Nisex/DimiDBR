@@ -38,7 +38,7 @@ spaceMaker
 				world.log << "Randomly picking [amount] turfs"
 				for(var/i = 0; i < amount; i++)
 					var/turf/T = pick(openTurfs)
-					world<< "Picked [T] ([T.x], [T.y])  from [openTurfs]"
+					//world<< "Picked [T] ([T.x], [T.y])  from [openTurfs]"
 					if(T in turfs)
 						continue
 					turfs += T
@@ -66,7 +66,7 @@ spaceMaker
 /turf/var/timeToDeath = 0
 
 /turf/proc/applyEffect(option, timer)
-    world<<"Applying [option] for [timer] ticks at [src.x], [src.y]"
+    //world<<"Applying [option] for [timer] ticks at [src.x], [src.y]"
     timeToDeath = timer
     effectApplied = "[option]" // the "[]" is not needed, but maybe u passed a number who knows
     ticking_turfs += src
@@ -88,7 +88,7 @@ spaceMaker
     overlays = list()
 /turf/Update()
     if(effectApplied && timeToDeath > 0) // the latter is assumed, for there's no way to get here unless it is in there, but just in case
-        world<<"[src] ticking [effectApplied] for [timeToDeath] ticks"
+        //world<<"[src] ticking [effectApplied] for [timeToDeath] ticks"
         timeToDeath--
         if(timeToDeath <= 0)
             removeEffect()
