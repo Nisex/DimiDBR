@@ -891,6 +891,26 @@ obj
 				HitSparkTurns=1
 				//no verb because is set by throw
 
+			Symbiote_Tendril_Wave
+				Distance=10
+				Knockback=1
+				Slow=1
+				Area="Wave"
+				ActiveMessage="bursts out with tendrils of symbiotic matter!"
+				StrOffense=0
+				ForOffense=1
+				DamageMult=1.5
+				GuardBreak=1
+				TurfStrike=3
+				HitSparkIcon='Slash - Vampire.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkSize=1
+				HitSparkTurns=1
+				verb/Symbiote_Tendril_Wave()
+					set category = "Skills"
+					usr.Activate(src)
+
 			Myriad_Truths
 				Area="Circle"
 				ComboMaster=1

@@ -10794,7 +10794,8 @@ NEW VARIABLES
 					ForMult = baseMultMod
 
 				Trigger(mob/User, Override = FALSE)
-					adjust(User)
+					if(!User.BuffOn(src))
+						adjust(User)
 					..()
 
 			Dragon_Rage
@@ -10828,7 +10829,7 @@ NEW VARIABLES
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
 							shellSmash(User)
-						adjust(User)
+							adjust(User)
 						..()
 
 				Heat_Of_Passion
@@ -10852,7 +10853,8 @@ NEW VARIABLES
 						passives = list("DemonicDurability" = DemonicDurability, "SoulFire" = SoulFire, "HybridStrike" = HybridStrike)
 						Intimidation = 1.25 + (0.25 * asc)
 					Trigger(mob/User, Override = FALSE)
-						adjust(User)
+						if(!usr.BuffOn(src))
+							adjust(User)
 						..()
 
 				Wind_Supremacy
@@ -10868,7 +10870,8 @@ NEW VARIABLES
 						SpdMult = 1 + max(0.1,asc*0.1)
 						passives = list("Skimming" = 1+asc, "Godspeed" = 1+asc/1.5, "Pursuer" = 1+asc/2, "Flicker" = 1+asc/2, "BlurringStrikes" = asc/4)
 					Trigger(mob/User, Override = FALSE)
-						adjust(User)
+						if(!User.BuffOn(src))
+							adjust(User)
 						..()
 				Hoarders_Riches
 					// Gold Dragon Racial. Have money? Be OP.
@@ -10894,7 +10897,8 @@ NEW VARIABLES
 						ForMult = baseMultMod
 
 					Trigger(mob/User, Override = FALSE)
-						adjust(User)
+						if(!User.BuffOn(src))
+							adjust(User)
 						..()
 			Berserk
 				NeedsHealth=5
@@ -10938,6 +10942,21 @@ NEW VARIABLES
 				HitTurn=1
 				Cooldown=-1
 				ActiveMessage="is coated by a frenzied symbiotic organism!!"
+				adjust(mob/p)
+					if(altered) return
+					var/asc = p.AscensionsAcquired
+					passives = list("Unstoppable" = 1, "Possessive" = 1, "LifeGeneration" = 1+asc, "Instinct" = 1+(asc/2), "Flicker" = 1+(asc/2))
+					VaizardHealth = 1.25+(asc/2)
+					if(asc>=1)
+						if(!locate(/obj/Skills/AutoHit/Symbiote_Tendril_Wave, p.AutoHits))
+							p.AddSkill(new/obj/Skills/AutoHit/Symbiote_Tendril_Wave)
+						if(!locate(/obj/Skills/Queue/Symbiote_Hammer, p.Queues))
+							p.AddSkill(new/obj/Skills/Queue/Symbiote_Hammer)
+
+				Trigger(mob/User, Override = FALSE)
+					if(!User.BuffOn(src))
+						adjust(User)
+					..()
 			Rage_Form
 				DarkChange=1
 				StrMult=1.5
