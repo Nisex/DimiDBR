@@ -10942,7 +10942,7 @@ NEW VARIABLES
 				HitTurn=1
 				Cooldown=-1
 				ActiveMessage="is coated by a frenzied symbiotic organism!!"
-				adjust(mob/p)
+				proc/adjust(mob/p)
 					if(altered) return
 					var/asc = p.AscensionsAcquired
 					passives = list("Unstoppable" = 1, "Possessive" = 1, "LifeGeneration" = 1+asc, "Instinct" = 1+(asc/2), "Flicker" = 1+(asc/2))
