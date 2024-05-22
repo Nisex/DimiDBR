@@ -125,7 +125,7 @@ transformation
 
 		remove_visuals(mob/user, aura = 1, hair = 1, extra = 1)
 			if(hair)
-				user.Hair = user.Base_Hair
+				user.Hair = user.Hair_Base
 			if(extra)
 				user.overlays -= form_icon_1
 				user.overlays -= form_icon_2
