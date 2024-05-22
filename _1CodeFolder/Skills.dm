@@ -47,7 +47,7 @@ obj/Skills
 
 	var/StyleNeeded
 
-	var/MagicNeeded//lock people who aren't magic enough out from using this
+	var/MagicNeeded //lock people who aren't magic enough out from using this
 
 	var/NoSword
 	var/NeedsSword
