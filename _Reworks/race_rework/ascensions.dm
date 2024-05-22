@@ -471,7 +471,7 @@ ascension
 		onAscension(mob/owner)
 			..()
 			owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm).Mastery++
-			
+
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			passives = list("Hellpower" = 0.2)
@@ -782,30 +782,35 @@ ascension
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			onAscension(mob/owner)
+				if(applied || pickingChoice) return
 				AlienStatIncrease(owner)
 				..()
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
 			onAscension(mob/owner)
+				if(applied || pickingChoice) return
 				AlienStatIncrease(owner)
 				..()
 
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
 			onAscension(mob/owner)
+				if(applied || pickingChoice) return
 				AlienStatIncrease(owner)
 				..()
 
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			onAscension(mob/owner)
+				if(applied || pickingChoice) return
 				AlienStatIncrease(owner)
 				..()
 
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			onAscension(mob/owner)
+				if(applied || pickingChoice) return
 				AlienStatIncrease(owner)
 				..()
 

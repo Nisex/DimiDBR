@@ -1079,7 +1079,7 @@ obj/Communication
 					E << output("<font color=[usr.Text_Color]>[usr][E.Controlz(usr)] says: [html_encode(T)]", "icchat")
 					E << output("<font color=[usr.Text_Color]>[usr][E.Controlz(usr)] says: [html_encode(T)]", "output")
 			Log(E.ChatLog(),"<font color=green>[usr]([usr.key]) says: [html_encode(T)]")
-
+			Log(E.sanitizedChatLog(),"<font color=green>[usr] says: [html_encode(T)]")
 			if(E.BeingObserved.len>0)
 				for(var/mob/m in E.BeingObserved)
 					m<<output("<b>(OBSERVE)</b><font color=[usr.Text_Color]>[usr][E.Controlz(usr)] says: [html_encode(T)]", "icchat")
@@ -1104,21 +1104,24 @@ obj/Communication
 							if(!(M in hearers(12, usr)))
 								M<<"<font color=green><b>([WT.name])</b> [usr.name]: [html_encode(T)]"
 							Log(M.ChatLog(),"<font color=green>([WT.name])[usr]([usr.key]) says: [html_encode(T)]")
+							Log(M.sanitizedChatLog(),"<font color=green>([WT.name])[usr] says: [html_encode(T)]")
 					for(var/obj/Items/Tech/Communicator/Q in M)
 						if(Q.Frequency==WT.Frequency&&Q.toggled_on==1)
 							if(!(M in hearers(12, usr)))
 								M<<"<font color=green><b>([WT.name])</b> [usr.name]: [html_encode(T)]"
 							Log(M.ChatLog(),"<font color=green>([WT.name])[usr]([usr.key]) says: [html_encode(T)]")
+							Log(M.sanitizedChatLog(),"<font color=green>([WT.name])[usr] says: [html_encode(T)]")
 					for(var/obj/Skills/Utility/Internal_Communicator/B in M)
 						if(B.ICFrequency==WT.Frequency)
 							if(!(M in hearers(12, usr)))
 								M<<"<font color=green><b>(Internal Comms (Freq:[B.ICFrequency]))</b> [usr.name]: [html_encode(T)]"
 							Log(M.ChatLog(),"<font color=green>([WT.name])[usr]([usr.key]) says: [html_encode(T)]")
+							Log(M.sanitizedChatLog(),"<font color=green>([WT.name])[usr] says: [html_encode(T)]")
 						if(B.MonitoringFrequency==WT.Frequency)
 							if(!(M in hearers(12, usr)))
 								M<<"<font color=green><b>(Internal Comms (Monitoring Freq:[B.MonitoringFrequency]))</b> [usr.name]: [html_encode(T)]"
 							Log(M.ChatLog(),"<font color=green>([WT.name])[usr]([usr.key]) says: [html_encode(T)]")
-
+							Log(M.sanitizedChatLog(),"<font color=green>([WT.name])[usr] says: [html_encode(T)]")
 		for(var/obj/Items/Tech/Security_Camera/F in view(11,usr)) //This for loop detects Security Cameras around those that use the say verb.
 			if(F.Active==1)
 				for(var/mob/Players/CC in players)
@@ -1206,7 +1209,7 @@ obj/Communication
 				E << output("<font color=[usr.Text_Color]>[usr][E.Controlz(usr)] yells: <b>[html_encode(T)]</b>", "output")
 				E << output("<font color=[usr.Text_Color]>[usr][E.Controlz(usr)] yells: <b>[html_encode(T)]</b>", "icchat")
 				Log(E.ChatLog(),"<font color=green>[usr]([usr.key]) yells: <b>[html_encode(T)]</b>")
-
+				Log(E.sanitizedChatLog(),"<font color=green>[usr]([usr.key]) yells: <b>[html_encode(T)]</b>")
 			if(E.BeingObserved.len>0)
 				for(var/mob/m in E.BeingObserved)
 					m<<output("<b>(OBSERVE)</b><font color=[usr.Text_Color]>[usr][E.Controlz(usr)] yells: [html_encode(T)]", "icchat")
@@ -1240,7 +1243,7 @@ obj/Communication
 								H << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[F.name] transmits: [usr] yells: [html_encode(T)]", "output")
 								H << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[F.name] transmits: [usr] yells: [html_encode(T)]", "icchat")
 								Log(H.ChatLog(),"<font color=green>[F.name](Made by [F.CreatorKey]) transmits: [usr] yells: [html_encode(T)]")
-
+								Log(H.sanitizedChatLog(),"<font color=green>[F.name] transmits: [usr] yells: [html_encode(T)]")
 
 
 
@@ -1273,6 +1276,7 @@ obj/Communication
 					E << output("<font color=[usr.Text_Color]>[usr][E.Controlz(usr)] whispers: <i>[html_encode(T)]</i>", "output")
 					E << output("<font color=[usr.Text_Color]>[usr][E.Controlz(usr)] whispers: <i>[html_encode(T)]</i>", "icchat")
 					Log(E.ChatLog(),"<font color=green>[usr]([usr.key]) WHISPERS: [html_encode(T)]")
+					Log(E.sanitizedChatLog(),"<font color=green>[usr] WHISPERS: [html_encode(T)]")
 					peepz.Add(E)
 //			if(E.BeingObserved.len>0)
 //				for(var/mob/m in E.BeingObserved)
@@ -1292,6 +1296,7 @@ obj/Communication
 					X << output("<font color=[usr.Text_Color]>[usr][X.Controlz(usr)] whispers: <i>[html_encode(T)]</i>", "output")
 					X << output("<font color=[usr.Text_Color]>[usr][X.Controlz(usr)] whispers: <i>[html_encode(T)]</i>", "icchat")
 					Log(X.ChatLog(),"<font color=green>[usr]([usr.key]) WHISPERS: [html_encode(T)]")
+					Log(X.sanitizedChatLog(),"<font color=green>[usr] WHISPERS: [html_encode(T)]")
 					peepz.Add(X)
 		for(var/mob/W in hearers(20,usr))
 			if(W.BeingObserved.len>0)
@@ -1323,6 +1328,7 @@ obj/Communication
 		usr << output("<i><font color=[usr.Text_Color]>[usr][usr.Controlz(usr)] thinks: </i>[html_encode(T)]", "output")
 		usr << output("<i><font color=[usr.Text_Color]>[usr][usr.Controlz(usr)] thinks: </i>[html_encode(T)]", "icchat")
 		Log(usr.ChatLog(),"<font color=green>[usr]([usr.key]) THOUGHT: [html_encode(T)]")
+		Log(usr.sanitizedChatLog(),"<font color=green>[usr] THOUGHT: [html_encode(T)]")
 		if(usr.BeingObserved.len>0)
 			for(var/mob/m in usr.BeingObserved)
 				if(m.HearThoughts&&m.HasTelepathy())
@@ -1335,10 +1341,12 @@ obj/Communication
 					m << output("<i><font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=[usr.Text_Color]>[usr][m.Controlz(usr)] thinks</i>: [html_encode(T)]", "output")
 					m << output("<i><font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=[usr.Text_Color]>[usr][m.Controlz(usr)] thinks</i>: [html_encode(T)]", "icchat")
 					Log(m.ChatLog(),"<font color=green>[usr]([usr.key]) THOUGHT: [html_encode(T)]")
+					Log(m.sanitizedChatLog(),"<font color=green>[usr] THOUGHT: [html_encode(T)]")
 				else
 					m << output("<i><font color=[usr.Text_Color]>[usr][m.Controlz(usr)] thinks: </i>[html_encode(T)]", "output")
 					m << output("<i><font color=[usr.Text_Color]>[usr][m.Controlz(usr)] thinks: </i>[html_encode(T)]", "icchat")
 					Log(m.ChatLog(),"<font color=green>[usr]([usr.key]) THOUGHT: [html_encode(T)]")
+					Log(m.sanitizedChatLog(),"<font color=green>[usr] THOUGHT: [html_encode(T)]")
 
 		if(usr.AFKTimer==0)
 			usr.overlays-=usr.AFKIcon

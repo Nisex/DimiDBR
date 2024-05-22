@@ -62,6 +62,8 @@ Fast Actig -> Automed dispensers
     var/name = "Not Obtainable"
     var/breakthrough = FALSE
     var/list/requires = list("Not Obtainable")
+    var/unlocks
+    var/description = "This description wasn't filled out."
     tech
         Forge
             name = "Forge"

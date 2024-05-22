@@ -2208,6 +2208,7 @@ obj
 				verb/Super_Dragon_Fist()
 					set category="Skills"
 					usr.SetQueue(src)
+
 //T7 is always a style or buff.
 
 ////Spirit
@@ -2449,6 +2450,22 @@ obj
 				Duration=3
 				Pacifying=60
 				//doesn't get a verb because it is set from the tech item
+
+
+			Symbiote_Hammer
+				DamageMult=6
+				AccuracyMult=2
+				Duration=10
+				Cooldown=120
+				Instinct=2
+				Stunner=1
+				Shearing = 5
+				Crippling = 5
+				HitMessage="'s symbiotic hammer swings dead center into their enemy!"
+				ActiveMessage="'s symbiotic mass takes the shape of a hammer!"
+				verb/Symbiote_Hammer()
+					set category="Skills"
+					usr.SetQueue(src)
 
 //General app
 

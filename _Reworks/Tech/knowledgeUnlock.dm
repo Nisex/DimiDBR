@@ -7,6 +7,10 @@ var/knowledgePaths/tech/list/TechnologyTree = list()
 	for(var/x in .)
 		var/knowledgePaths/tech = new x
 		TechnologyTree[tech.name] += tech
+		for(var/i in TechnologyTree)
+			if(tech.name in TechnologyTree[i].requires)
+				tech.unlocks += "[i], "
+		tech.unlocks = replacetext(tech.unlocks, ", ", "", -1, -4)
 #define BASE_COST 30
 
 
@@ -106,7 +110,7 @@ var/knowledgePaths/tech/list/TechnologyTree = list()
 			if(tech.breakthrough)
 				theCost /= 4
 			theCost = round(theCost,  1)
-			var/confirmation = input(src,"Are you sure you want to learn [tech.name] for [theCost] points?") in list("Yes", "No")
+			var/confirmation = input(src,"Are you sure you want to learn [tech.name] for [theCost] points?\nUnlocks: [tech.unlocks]\nDescription: [tech.description]") in list("Yes", "No")
 			if(confirmation == "Yes")
 				if(SpendRPP(theCost, "[tech.name]"))
 					UnlockTech(tech, "Technology")
