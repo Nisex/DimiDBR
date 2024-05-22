@@ -68,6 +68,8 @@
 		statDamage += GetFor(GetSpiritSword())
 	if(HasHybridStrike())
 		statDamage *=  1 + (GetFor(GetHybridStrike())/10)
+	if(glob.STAT_DMG_EXPONENT)
+		statDamage = statDamage**glob.STAT_DMG_EXPONENT
 	return statDamage
 
 

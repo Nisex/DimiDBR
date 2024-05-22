@@ -322,6 +322,8 @@ globalTracker
 
 		DESP_DMG_MULTIPLIER = 4
 		DESP_DMG_REDUCTION = 4
+
+		STAT_DMG_EXPONENT = 0.75
 // FUNCTIONS
 
 globalTracker/proc/takeLimited(option, n)
