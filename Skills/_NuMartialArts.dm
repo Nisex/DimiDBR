@@ -1125,7 +1125,7 @@ obj
 						StyleFor=1.4
 						StyleEnd=1.1
 						StyleSpd=1.1
-						passives = list("HybridStrike" = 0.75, "MartialMagic" = 1, "Flicker" = 1, "Pursuer" = 1, "SuperDash" = 1, "TechniqueMastery" = 2.5, "MovementMastery" = 2, "MovingCharge" = 1)
+						passives = list("IdealStrike" = 1, "MartialMagic" = 1, "Flicker" = 1, "Pursuer" = 1, "SuperDash" = 1, "TechniqueMastery" = 2.5, "MovementMastery" = 2, "MovingCharge" = 1)
 						HybridStrike=0.75
 						MartialMagic=1
 						Flicker=1
@@ -1211,7 +1211,7 @@ obj
 						StyleStr=1.25
 						StyleFor=1.25
 						StyleSpd=1.5
-						passives = list("HybridStrike" = 1.5, "WeaponBreaker" = 3, "Flicker" = 3, "Pursuer" = 3, "SuperDash" = 2, "SwordPunching" = 1, "TechniqueMastery" = 10, "MovementMastery" = 8, "MartialMagic" = 1, "MovingCharge" = 1)
+						passives = list("IdealStrike" = 1, "HybridStrike" = 0.5, "WeaponBreaker" = 3, "Flicker" = 3, "Pursuer" = 3, "SuperDash" = 2, "SwordPunching" = 1, "TechniqueMastery" = 10, "MovementMastery" = 8, "MartialMagic" = 1, "MovingCharge" = 1)
 						HybridStrike=1
 						WeaponBreaker=3
 						Flicker=3

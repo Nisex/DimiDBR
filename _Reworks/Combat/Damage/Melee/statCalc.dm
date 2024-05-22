@@ -52,12 +52,18 @@
 		else
 			unarmed = 1
 	var/statDamage
-	if(passive_handler.Get("HardenedFrame"))
-		statDamage = GetEnd(1)
+	if(passive_handler.Get("IdealStrike"))
+		if(GetFor() > GetStr())
+			statDamage = GetFor()
+		else
+			statDamage = GetStr()
 	else if(HasSpiritStrike())
 		statDamage = GetFor(1)
 	else
 		statDamage = GetStr(1)
+	if(passive_handler.Get("HardenedFrame"))
+		statDamage = GetEnd(1)
+
 	var/endExtra = passive_handler.Get("CallousedHands")
 	if(endExtra>0)
 		statDamage += GetEnd(endExtra) // will be intervals of 0.15
