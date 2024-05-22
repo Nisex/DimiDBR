@@ -103,7 +103,7 @@ menu "menu"
 window "AdminHelpWindow"
 	elem "AdminHelpWindow"
 		type = MAIN
-		pos = 281,0
+		pos = 291,0
 		size = 548x273
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -111,6 +111,11 @@ window "AdminHelpWindow"
 		is-visible = false
 		saved-params = "pos;size;is-minimized;is-maximized"
 		can-resize = false
+		outer-size = 564x331
+		outer-pos = 291,0
+		inner-size = 548x292
+		inner-pos = 8,31
+		screen-size = 2560x1400
 	elem "Help_Character_Key"
 		type = LABEL
 		pos = 248,1
@@ -257,6 +262,9 @@ window "AllChatTab"
 		can-resize = false
 		is-pane = true
 		outer-size = 654x494
+		outer-pos = 291,0
+		inner-pos = 7,7
+		screen-size = 2560x1400
 	elem "output"
 		type = OUTPUT
 		pos = 0,0
@@ -264,6 +272,7 @@ window "AllChatTab"
 		anchor1 = 0,0
 		anchor2 = 100,100
 		font-family = "Gotham Book"
+		font-size = 8
 		text-color = #0080ff
 		background-color = #000000
 		is-default = true
@@ -271,6 +280,7 @@ window "AllChatTab"
 		link-color = #00d9ff
 		visited-color = #00cccc
 		style = ".system {color:#ff0000;}"
+		legacy-size = false
 
 window "Baby"
 	elem "Baby"
@@ -287,8 +297,6 @@ window "Baby"
 		can-minimize = false
 		can-resize = false
 		image-mode = tile
-		outer-size = 263x366
-		inner-size = 247x327
 	elem "label15"
 		type = LABEL
 		pos = 8,12
@@ -331,6 +339,9 @@ window "ICChatTab"
 		can-resize = false
 		is-pane = true
 		outer-size = 654x494
+		outer-pos = 291,0
+		inner-pos = 7,7
+		screen-size = 2560x1400
 	elem "icchat"
 		type = OUTPUT
 		pos = 0,0
@@ -362,6 +373,9 @@ window "LOOCChatTab"
 		can-resize = false
 		is-pane = true
 		outer-size = 654x494
+		outer-pos = 291,0
+		inner-pos = 7,7
+		screen-size = 2560x1400
 	elem "loocchat"
 		type = OUTPUT
 		pos = 0,0
@@ -393,6 +407,9 @@ window "OOCChatTab"
 		can-resize = false
 		is-pane = true
 		outer-size = 654x494
+		outer-pos = 291,0
+		inner-pos = 7,7
+		screen-size = 2560x1400
 	elem "oocchat"
 		type = OUTPUT
 		pos = 0,0
@@ -421,7 +438,6 @@ window "RPWindow"
 		statusbar = false
 		can-close = false
 		can-minimize = false
-		outer-size = 654x494
 	elem "button8"
 		type = BUTTON
 		pos = 320,448
@@ -694,7 +710,7 @@ window "knowtree"
 window "mainwindow"
 	elem "mainwindow"
 		type = MAIN
-		pos = 384,0
+		pos = 291,0
 		size = 640x500
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -705,12 +721,18 @@ window "mainwindow"
 		statusbar = false
 		macro = "macro"
 		menu = "menu"
+		outer-size = 656x559
+		outer-pos = 291,0
+		inner-size = 640x500
+		inner-pos = 8,51
+		screen-size = 2560x1400
 	elem "mainvsplit"
 		type = CHILD
 		pos = 0,0
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
+		background-color = none
 		saved-params = "splitter"
 		right = "rpane"
 		is-vert = true
@@ -782,10 +804,11 @@ window "mainwindow"
 window "mapwindow"
 	elem "mapwindow"
 		type = MAIN
-		pos = 384,0
+		pos = 291,0
 		size = 680x460
 		anchor1 = -1,-1
 		anchor2 = -1,-1
+		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		titlebar = false
 		statusbar = false
@@ -794,6 +817,11 @@ window "mapwindow"
 		can-resize = false
 		is-pane = true
 		keep-aspect = true
+		outer-size = 694x474
+		outer-pos = 291,0
+		inner-size = 680x460
+		inner-pos = 7,7
+		screen-size = 2560x1400
 	elem "map"
 		type = MAP
 		pos = 0,0
@@ -1101,7 +1129,7 @@ window "mapwindow"
 window "outputwindow"
 	elem "outputwindow"
 		type = MAIN
-		pos = 384,0
+		pos = 291,0
 		size = 640x480
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -1113,10 +1141,23 @@ window "outputwindow"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
+		outer-size = 654x494
+		outer-pos = 291,0
+		inner-pos = 7,7
+		screen-size = 2560x1400
+	elem "label7"
+		type = LABEL
+		pos = 0,0
+		size = 640x28
+		anchor1 = 0,0
+		anchor2 = 100,6
+		background-color = #000000
+		saved-params = ""
+		text = ""
 	elem "chattabs"
 		type = TAB
-		pos = 0,0
-		size = 640x480
+		pos = 0,4
+		size = 640x475
 		anchor1 = 0,0
 		anchor2 = 100,100
 		text-color = #ffffff
@@ -1124,6 +1165,18 @@ window "outputwindow"
 		saved-params = ""
 		tabs = "AllChatTab, ICChatTab, LOOCChatTab, OOCChatTab"
 		current-tab = "AllChatTab"
+	elem "chatSettings"
+		type = BUTTON
+		pos = 616,0
+		size = 24x24
+		anchor1 = 96,0
+		anchor2 = 100,0
+		background-color = #000000
+		saved-params = "is-checked"
+		text = ""
+		image = 'Icons\\wpLnl9g.png'
+		command = "chatSettings"
+		is-flat = true
 
 window "rpane"
 	elem "rpane"
