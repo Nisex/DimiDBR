@@ -4797,7 +4797,6 @@ NEW VARIABLES
 				src.Trigger(usr)
 
 		Saiyan_Dominance
-			NeedsHealth=75
 			EnergyThreshold = 25
 			TimerLimit=60
 			AutoAnger=1
@@ -4813,6 +4812,23 @@ NEW VARIABLES
 			proc/adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired
 				EnergyThreshold = 25-(5*zenkaiLevel)
+				var/healthDiff = 0
+				//scales off how bad your losing
+				if(user.Target && ismob(user.Target))
+					healthDiff = user.Target.Health-user.Health
+				switch(healthDiff)
+					if(-100 to 2)
+						PowerMult = 1
+					if(3 to 15)
+						PowerMult = 1.1
+					if(16 to 25)
+						PowerMult = 1.15
+					if(26 to 50)
+						PowerMult = 1.2
+					if(51 to 75)
+						PowerMult = 1.25
+					if(76 to 100)
+						PowerMult = 1.5
 			verb/Saiyan_Dominance()
 				set category="Skills"
 				if(!usr.BuffOn(src))
@@ -4828,6 +4844,10 @@ NEW VARIABLES
 			EndTax=0.25
 			ActiveMessage="decides to stand their ground under the rain of attacks!!"
 			OffMessage="finally gives in to the pain..."
+			proc/adjust(mob/user)
+				var/zenkaiLevel = user.AscensionsAcquired
+				//scales off how low hp is
+				PowerMult = clamp(1,1+0.[zenkaiLevel]/user.Health, 1.5)
 			verb/Saiyan_Grit()
 				set category="Skills"
 				if(!usr.BuffOn(src))
@@ -4842,6 +4862,7 @@ NEW VARIABLES
 						src.VaizardShatter=1
 						src.FINISHINGMOVE=1
 						src.DefianceRetaliate=1
+						adjust(usr)
 				src.Trigger(usr)
 
 		Saiyan_Soul
@@ -4855,8 +4876,8 @@ NEW VARIABLES
 			OffMessage="releases their power spike, incredibly exhausted..."
 			proc/adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired
-				passives["TechniqueMastery"] = 0.75*zenkaiLevel
-				passives["MovementMastery"] = 1.5*zenkaiLevel
+				passives["TechniqueMastery"] = 1.5*zenkaiLevel
+				passives["MovementMastery"] = 2.5*zenkaiLevel
 			verb/Saiyan_Soul()
 				set category="Skills"
 				if(!usr.BuffOn(src))
@@ -5666,7 +5687,7 @@ NEW VARIABLES
 					set hidden=1
 					if(!usr.BuffOn(src))
 						src.BuffName="Invisibility"
-						
+
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=0
@@ -5679,7 +5700,7 @@ NEW VARIABLES
 				verb/Confusing_Show()
 					set hidden=1
 					if(!usr.BuffOn(src))
-						
+
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=1
@@ -5698,7 +5719,7 @@ NEW VARIABLES
 				verb/Stunning_Show()
 					set hidden=1
 					if(!usr.BuffOn(src))
-						
+
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=1
@@ -5717,7 +5738,7 @@ NEW VARIABLES
 /*				verb/Pacifying_Show()
 					set hidden=1
 					if(!usr.BuffOn(src))
-						
+
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=1
@@ -5743,7 +5764,7 @@ NEW VARIABLES
 								return
 							if("Disappear")
 								src.BuffName="Invisibility"
-								
+
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=0
@@ -5753,7 +5774,7 @@ NEW VARIABLES
 								src.ActiveMessage="uses a spell to hide their existence!"
 								src.OffMessage="dissipates their invisibility..."
 							if("Confuse")
-								
+
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
@@ -5769,7 +5790,7 @@ NEW VARIABLES
 									else
 										OMsg(m, "[m] isn't impressed by [usr]'s show.")
 							if("Stun")
-								
+
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
@@ -5785,7 +5806,7 @@ NEW VARIABLES
 									else
 										OMsg(m, "[m] isn't impressed by [usr]'s show.")
 							if("Pacify")
-								
+
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
