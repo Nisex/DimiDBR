@@ -659,7 +659,7 @@ obj
 						StyleSpd=1.25
 						StyleActive="Champloo"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Kendo_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Butcher_Style",\
-						"/obj/Skills/Buffs/NuStyle/SwordStyle/Yin_Yang_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Shaolin_Style")
+						"/obj/Skills/Buffs/NuStyle/FreeStyle/Yin_Yang_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Shaolin_Style")
 						Finisher="/obj/Skills/Queue/Finisher/Manji_Flip"
 						verb/Champloo_Style()
 							set hidden=1

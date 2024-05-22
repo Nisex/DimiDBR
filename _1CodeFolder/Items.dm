@@ -429,7 +429,7 @@ obj/Items
 							ItemMade:icon='MageStaff8.dmi'
 							ItemMade:StaffIconSelected=1
 		else if(src in Clothes_List)
-			if(usr.IconClicked==0)
+			if(icon == initial(icon)&&usr.IconClicked==0)
 				usr.IconClicked=1
 				var/Color=input("Choose color") as color|null
 				var/icon/newIcon = new(icon)
