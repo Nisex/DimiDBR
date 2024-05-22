@@ -182,11 +182,11 @@ race
 		onDeselection(mob/user)
 			user.overlays -= overlays
 
-		onSelection(mob/user, secondtime = FALSE)
+		onSelection(mob/user, secondtime = FALSE, force_icon = FALSE)
 			if(!user.passive_handler) user.passive_handler = new
 
 
-			if(!user.icon)
+			if(force_icon||!user.icon)
 				if(user.Gender == "Female")
 					var/chosen = rand(1,icon_female.len)
 					user.icon = icon_female[chosen]

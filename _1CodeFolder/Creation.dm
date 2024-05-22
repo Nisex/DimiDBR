@@ -910,7 +910,7 @@ mob/proc/UpdateRaceScreen(change)
 		if (CheckUnlock(r))
 			break
 
-	setRace(r)
+	setRace(r,FALSE,TRUE)
 	var/list/options = usr.race.gender_options
 	var/current_index = options.Find(usr.Gender)
 
