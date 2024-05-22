@@ -125,14 +125,14 @@ transformation
 
 		remove_visuals(mob/user, aura = 1, hair = 1, extra = 1)
 			if(hair)
-				user.overlays -= form_hair
+				user.Hair = user.Base_Hair
 			if(extra)
 				user.overlays -= form_icon_1
 				user.overlays -= form_icon_2
 				user.overlays -= form_glow
 			if(aura)
 				user.overlays -= form_aura
-				user.overlays -= form_aura_underlay
+				user.underlays -= form_aura_underlay
 
 		transform(mob/user)
 			if(is_active || !user.CanTransform()) return
@@ -225,6 +225,8 @@ transformation
 			else
 				user.Auraz("Remove")
 
+			user.AppearanceOff()
+			user.AppearanceOn()
 			if(detrans_message)
 				user << detrans_message
 
