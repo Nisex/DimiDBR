@@ -76,6 +76,11 @@ menu "menu"
 		category = "Appearance"
 		saved-params = "is-checked"
 	elem 
+		name = "Base Icon"
+		command = "Change Base Icon"
+		category = "Appearance"
+		saved-params = "is-checked"
+	elem 
 		name = "Players"
 		command = ""
 		saved-params = "is-checked"
@@ -111,11 +116,6 @@ window "AdminHelpWindow"
 		is-visible = false
 		saved-params = "pos;size;is-minimized;is-maximized"
 		can-resize = false
-		outer-size = 564x331
-		outer-pos = 291,0
-		inner-size = 548x292
-		inner-pos = 8,31
-		screen-size = 2560x1400
 	elem "Help_Character_Key"
 		type = LABEL
 		pos = 248,1
@@ -261,10 +261,6 @@ window "AllChatTab"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
-		outer-size = 654x494
-		outer-pos = 291,0
-		inner-pos = 7,7
-		screen-size = 2560x1400
 	elem "output"
 		type = OUTPUT
 		pos = 0,0
@@ -338,10 +334,6 @@ window "ICChatTab"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
-		outer-size = 654x494
-		outer-pos = 291,0
-		inner-pos = 7,7
-		screen-size = 2560x1400
 	elem "icchat"
 		type = OUTPUT
 		pos = 0,0
@@ -372,10 +364,6 @@ window "LOOCChatTab"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
-		outer-size = 654x494
-		outer-pos = 291,0
-		inner-pos = 7,7
-		screen-size = 2560x1400
 	elem "loocchat"
 		type = OUTPUT
 		pos = 0,0
@@ -406,10 +394,6 @@ window "OOCChatTab"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
-		outer-size = 654x494
-		outer-pos = 291,0
-		inner-pos = 7,7
-		screen-size = 2560x1400
 	elem "oocchat"
 		type = OUTPUT
 		pos = 0,0
@@ -721,18 +705,12 @@ window "mainwindow"
 		statusbar = false
 		macro = "macro"
 		menu = "menu"
-		outer-size = 656x559
-		outer-pos = 291,0
-		inner-size = 640x500
-		inner-pos = 8,51
-		screen-size = 2560x1400
 	elem "mainvsplit"
 		type = CHILD
 		pos = 0,0
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
-		background-color = none
 		saved-params = "splitter"
 		right = "rpane"
 		is-vert = true
@@ -808,7 +786,6 @@ window "mapwindow"
 		size = 680x460
 		anchor1 = -1,-1
 		anchor2 = -1,-1
-		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		titlebar = false
 		statusbar = false
@@ -817,11 +794,6 @@ window "mapwindow"
 		can-resize = false
 		is-pane = true
 		keep-aspect = true
-		outer-size = 694x474
-		outer-pos = 291,0
-		inner-size = 680x460
-		inner-pos = 7,7
-		screen-size = 2560x1400
 	elem "map"
 		type = MAP
 		pos = 0,0
@@ -1141,10 +1113,6 @@ window "outputwindow"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
-		outer-size = 654x494
-		outer-pos = 291,0
-		inner-pos = 7,7
-		screen-size = 2560x1400
 	elem "label7"
 		type = LABEL
 		pos = 0,0
@@ -1391,7 +1359,7 @@ window "Steal"
 window "Grid1"
 	elem "Grid1"
 		type = MAIN
-		pos = 281,0
+		pos = 291,0
 		size = 314x341
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -1403,6 +1371,11 @@ window "Grid1"
 		statusbar = false
 		can-close = false
 		can-minimize = false
+		outer-size = 330x380
+		outer-pos = 291,0
+		inner-size = 314x341
+		inner-pos = 8,31
+		screen-size = 2560x1400
 	elem "Selected"
 		type = LABEL
 		pos = 0,320
@@ -1436,7 +1409,7 @@ window "Grid1"
 window "Grid2"
 	elem "Grid2"
 		type = MAIN
-		pos = 281,0
+		pos = 291,0
 		size = 314x341
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -1449,6 +1422,11 @@ window "Grid2"
 		can-close = false
 		can-minimize = false
 		macro = "macro"
+		outer-size = 330x380
+		outer-pos = 291,0
+		inner-size = 314x341
+		inner-pos = 8,31
+		screen-size = 2560x1400
 	elem "Done"
 		type = BUTTON
 		pos = 216,312
@@ -1493,7 +1471,7 @@ window "Grid2"
 window "Finalize_Screen"
 	elem "Finalize_Screen"
 		type = MAIN
-		pos = 281,0
+		pos = 291,0
 		size = 613x245
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -1506,6 +1484,11 @@ window "Finalize_Screen"
 		can-minimize = false
 		can-resize = false
 		image-mode = tile
+		outer-size = 629x284
+		outer-pos = 291,0
+		inner-size = 613x245
+		inner-pos = 8,31
+		screen-size = 2560x1400
 	elem "button51"
 		type = BUTTON
 		pos = 196,213
