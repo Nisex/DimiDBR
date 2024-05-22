@@ -1102,7 +1102,7 @@ ascension
 						//power = 1.5
 						force= 0.25
 						endurance = 0.5
-						passives = list("Spirit Flow" = 0.25, "SpiritStrike" = 0.25)
+						passives = list("Spirit Flow" = 0.25, "HybridStrike" = 0.25)
 						recovery = 0.25
 					if("Warrior")
 						//power = 2
@@ -1131,7 +1131,7 @@ ascension
 						//power = 2.5
 						force = 0.75
 						recovery = 0.5
-						passives = list("SpiritStrike" = 0.25)
+						passives = list("HybridStrike" = 0.25)
 				..()
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
@@ -1151,7 +1151,7 @@ ascension
 						//power = 3.5
 						force = 1
 						recovery = 1
-						passives = list("ManaSeal" = 1, "CyberMenace" = 1, "SpiritStrike" = 0.5)
+						passives = list("ManaSeal" = 1, "CyberMenace" = 1, "HybridStrike" = 0.5)
 				..()
 	changeling
 		one
