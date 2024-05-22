@@ -1,3 +1,14 @@
+mob
+	verb
+		Skill_Descriptions()
+			set category = "Other"
+			var/which = input(usr,"Which skill would you like to see the description for?","Skill Description") as null|anything in usr.Skills
+			if(!which) return
+			var/obj/Skills/s = which
+			s.skillDescription()
+			var/text = s.description
+			usr << "<center>[text]</center>"
+
 obj/Skills
 	Projectile
 		proc
