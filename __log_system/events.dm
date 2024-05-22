@@ -68,10 +68,14 @@ mob/proc/ChatLog()
 */
 	return "Saves/PlayerLogs/[src.key]/[time2text(world.timeofday,"MM-DD-YY")]"
 
+
+mob/proc/sanitizedChatLog()
+	return "Saves/PlayerLogs/[src.key]/sanitized/[time2text(world.timeofday,"MM-DD-YY")]"
+
 /mob/verb/ViewSelfLogs()
 	set category = "Other"
 	set desc = "View your own logs."
-	SegmentLogs("Saves/PlayerLogs/[key]/")
+	usr.SegmentLogs("Saves/PlayerLogs/[usr.key]/sanitized/")
 
 
 mob/proc/SegmentLogs(var/e)

@@ -74,18 +74,18 @@ mob
 			if(format=="default")
 				formattedMessage = "<font color=[Text_Color]>*[name]<font color=[Emote_Color]> [html_decode(msg)]</font>*"
 			else if(format == "thirdperson")
-				formattedMessage = "<font color=[Text_Color]>*<font color=[Emote_Color]>[html_decode(msg)]</font>/n/n([name])*"
+				formattedMessage = "<font color=[Text_Color]>*<font color=[Emote_Color]>[html_decode(msg)]</font>\n\n([name])*"
 
 			src << output(formattedMessage, "output")
 			src << output(formattedMessage, "icchat")
 			Log(ChatLog(),"<font color=#CC3300>*[src]([key]) [html_decode(msg)]*")
-
+			Log(sanitizedChatLog(),"<font color=#CC3300>*[src] [html_decode(msg)]*")
 			for(var/mob/E in hearers)
 				E << output("[E.Controlz(src)][formattedMessage]", "output")
 				E << output("[E.Controlz(src)][formattedMessage]", "icchat")
 
 				Log(E.ChatLog(),"<font color=red>*[usr]([usr.key]) [html_decode(formattedMessage)]*")
-
+				Log(E.sanitizedChatLog(),"<font color=red>*[usr] [html_decode(formattedMessage)]*")
 				if(E.BeingObserved.len>0)
 					for(var/mob/m in E.BeingObserved)
 						m<<output("<b>(OBSERVE)</b>[m.Controlz(src)][formattedMessage]", "icchat")
@@ -121,7 +121,7 @@ mob
 										H << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[F.name] transmits:[formattedMessage]", "output")
 										H << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[F.name] transmits:[formattedMessage]", "icchat")
 										Log(H.ChatLog(),"<font color=red>[F.name] transmits:*[src]([src.key]) [html_decode(formattedMessage)]*")
-
+										Log(sanitizedChatLog(),"<font color=red>[F.name] transmits:*[src] [html_decode(formattedMessage)]*")
 			for(var/obj/Items/Tech/Recon_Drone/FF in view(11,usr))
 				if(FF.who)
 					FF.who << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[FF.name] transmits:[formattedMessage]", "output")
