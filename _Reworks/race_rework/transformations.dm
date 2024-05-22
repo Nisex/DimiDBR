@@ -241,6 +241,7 @@ transformation
 			form_glow_x = -32
 			form_glow_y = -32
 			unlock_potential = 40
+			passives = list("Instinct" = 1, "Flow" = 1, "Flicker" = 1, "Pursuer" = 2,  "BuffMastery" = 3, "PureDamage" = 1, "PureReduction" = 1)
 			angerPoint = 75
 
 			adjust_transformation_visuals(mob/user)
@@ -307,6 +308,7 @@ transformation
 			form_icon_2_icon = 'SS2Sparks.dmi'
 			unlock_potential = 55
 			autoAnger = TRUE
+			passives = list("Instinct" = 1, "Flow" = 1, "Flicker" = 1, "Pursuer" = 2, "BuffMastery" = 1, "PureDamage" = 1, "PureReduction" = 1)
 			PUSpeedModifier = 1.5
 			adjust_transformation_visuals(mob/user)
 				if(user.Hair_Base)
@@ -356,6 +358,7 @@ transformation
 			form_icon_2_icon = 'SS3Sparks.dmi'
 			form_hair_icon = 'Hair_SSj3.dmi'
 			form_icon_1_icon = 'Hair_SSj3.dmi'
+			passives = list("Flicker" = 1, "Pursuer" = 1, "BuffMastery" = 2, "PureDamage" = 1, "PureReduction" = 1)
 			unlock_potential = 75
 
 			adjust_transformation_visuals(mob/user)
