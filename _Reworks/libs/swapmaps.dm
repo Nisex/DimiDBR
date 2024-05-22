@@ -181,16 +181,11 @@ swapmap
 			if(z2>swapmaps_compiled_maxz ||\
 			   y2>swapmaps_compiled_maxy ||\
 			   x2>swapmaps_compiled_maxx)
-				var/list/areas=new
 				for(var/atom/A in block(locate(x1,y1,z1),locate(x2,y2,z2)))
 					for(var/obj/O in A) del(O)
-					areas[A.loc]=null
 					del(A)
 				// delete areas that belong only to this map
-				for(var/area/a in areas)
-					if(a && !a.contents.len) del(a)
-				if(x2>=world.maxx || y2>=world.maxy || z2>=world.maxz) CutXYZ()
-				del(areas)
+			//	if(x2>=world.maxx || y2>=world.maxy || z2>=world.maxz) CutXYZ()
 		..()
 
 	/*
@@ -339,7 +334,7 @@ swapmap
 					return (!Z2 || Z2-Z1+1>=z2)?list(X1,Y1,Z1):null
 				X1=1;X2=world.maxx
 				Y1=1;Y2=world.maxy
-
+/*
 	proc/CutXYZ()
 		var/mx=swapmaps_compiled_maxx
 		var/my=swapmaps_compiled_maxy
@@ -351,7 +346,7 @@ swapmap
 		world.maxx=mx
 		world.maxy=my
 		world.maxz=mz
-
+*/
 	// save and delete
 	proc/Unload()
 		Save()
