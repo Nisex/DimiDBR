@@ -16,6 +16,7 @@
 		src << "You have reached [tail_mastery/100] ascensions worth of resistance!"
 
 /obj/Skills/Buffs/SlotlessBuffs/Oozaru
+	var/Looking = 1
 	BuffName = "Great Ape"
 	passives = list("Vulnerable Behind" = 1, "GiantForm" = 1, "NoDodge" = 1, "SweepingStrike" = 1, \
 	"Meaty Paws" = 1)
@@ -24,6 +25,16 @@
 	SpdMult = 0.3
 	OffMult = 1.2
 	EndMult = 1.2
+	verb/Moon_Toggle()
+		set category="Other"
+		if(!(world.time > usr.verb_delay)) return
+		usr.verb_delay=world.time+1
+		Looking=!Looking
+		if(usr.Oozaru)
+			usr<<"You cannot will yourself out of the transformed state!"
+			return
+		usr<< "You will [Looking ? "look" : "not look"] at the moon."
+
 	proc/adjust(mob/p)
 		if(!p.oozaru_type)
 			p.oozaru_type = input(p, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")
@@ -60,7 +71,7 @@
 		Oozaru(1)
 	else
 		Oozaru(0)*/
-mob/proc/Oozaru(Go_Oozaru=1,var/revert)
+mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Buff)
 	if(!src.oozaru_type)
 		src.oozaru_type = input(src, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")
 	for(var/obj/Oozaru/O in src)
@@ -96,11 +107,8 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert)
 			AppearanceOff()
 			appearance_flags = PIXEL_SCALE
 			animate(src, transform = matrix()*1.5, time = 10)
-			for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src)
-				world.log<<"We found it in the slotless buffs! (oozaru)" // debug message
-				if(B)
-					B.adjust(src)
-					B.Trigger(src)
+			Buff.adjust(src)
+			Buff.Trigger(src)
 			if(transUnlocked>3)
 				src.Golden=1
 				spawn(20)
@@ -205,26 +213,8 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert)
 				Auraz("Add")
 				animate(src, transform = matrix(), color = null, time = 10)
 obj/Oozaru
-	var/Looking=1
-	verb/Oozaru()
-		set category="Other"
-		if(!(world.time > usr.verb_delay)) return
-		usr.verb_delay=world.time+1
-		Looking=!Looking
-		if(usr.Oozaru&&usr.EraBody=="Child")
-			usr<<"You cannot will yourself out of the transformed state!"
-			return
-		if(Looking)
-			usr<<"You will look at the moon"
-			if(usr.Tail)
-				usr.Tail(0)
-				usr.Tail(1)
-		else
-			usr<<"You will not look at the moon"
-			usr.Oozaru(0)
-			if(usr.Tail)
-				usr.Tail(0)
-				usr.Tail=1
+	
+	
 
 mob/proc/Tail(Add_Tail=1)
 	if(Add_Tail) Tail(0)
@@ -247,6 +237,12 @@ mob/proc/Tail(Add_Tail=1)
 		underlays-=T3
 		Oozaru(0)
 		overlays+=T2
+/mob/proc/triggerOozaru()
+	if(isRace(SAIYAN))
+		for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src)
+			if(B.Looking)
+				src.Oozaru(1, null, B)
+
 
 obj/ProjectionMoon
 	icon='MoonP.dmi'
@@ -263,10 +259,7 @@ obj/ProjectionMoon
 		view(10,src)<<"<font color=red><small>The moon emits an odd glow.."
 		if(src)
 			for(var/mob/Players/P in view(10))
-				if(P.isRace(SAIYAN))
-					for(var/obj/Oozaru/o in P)
-						if(o.Looking)
-							P.Oozaru(1)
+				P.triggerOozaru()
 				if(locate(/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form, P))
 					if(!P.CheckSlotless("FullMoonForm"))
 						if(P.SpecialBuff)

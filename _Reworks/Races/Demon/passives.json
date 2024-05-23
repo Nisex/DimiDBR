@@ -1,0 +1,104 @@
+{
+    "SWORD_PASSIVES_I": {
+        "Extend": null,
+        "MagicSword": null,
+        "SpiritSword": null,
+        "DoubleStrike": null
+    },
+    "SWORD_PASSIVES_II": {
+        "LifeSteal": null,
+        "TripleStrike": null
+    },
+    "SWORD_PASSIVES_III": {
+        "CriticalChance": null
+    },
+    "SWORD_PASSIVES_IV": {},
+    "UNARMED_PASSIVES_I": {
+        "SwordPunching": null,
+        "SpiritHand": null
+    },
+    "UNARMED_PASSIVES_II": {
+        "HybridStrike": null,
+        "LifeSteal": null
+    },
+    "UNARMED_PASSIVES_III": {
+        "SpiritStrike": null
+    },
+    "MAGIC_PASSIVES_I": {
+        "QuickCast": null,
+        "ManaHeal": null,
+        "CapacityHeal": null
+    },
+    "MAGIC_PASSIVES_II": {
+        "MovingCharge": null,
+        "Soulfire": null,
+        "Siphon": null,
+        "ManaSteal": null
+    },
+    "MAGIC_PASSIVES_III": {
+        "ManaStats": null,
+        "ManaGeneration": null,
+        "SpiritFlow": null
+    },
+    "MAGIC_PASSIVES_IV": {
+        "DualCast": null,
+        "ManaSeal": null
+    },
+    "TANK_PASSIVES_I": {
+        "Juggernaut": null,
+        "DebuffImmune": null,
+        "Hardening": null,
+        "CallousedHands": null
+    },
+    "TANK_PASSIVES_II": {
+        "GiantForm": null,
+        "Reversal": null,
+        "CounterMaster": null,
+        "Flow": null,
+        "Deflection": null,
+        "DebuffReversal": null
+    },
+    "TANK_PASSIVES_III": {
+        "BlockChance": null,
+        "Blubber": null,
+        "LikeWater": null,
+        "DemonicDurability": null,
+        "LifeGeneration": null,
+        "DeathField": null,
+        "VoidField": null
+    },
+    "TANK_PASSIVES_IV": {
+        "Unstoppable": null,
+        "VenomImmune": null,
+        "InjuryImmune": null,
+        "FatigueImmune": null
+    },
+    "GENERIC_PASSIVES_I": {
+        "Steady": null,
+        "Godspeed": null,
+        "Flicker": null,
+        "Pursuer": null,
+        "Adrenaline": null
+    },
+    "GENERIC_PASSIVES_II": {
+        "Duelist": null,
+        "SweepingStike": null,
+        "TechniqueMastery": null,
+        "HardStyle": null,
+        "SoftStyle": null,
+        "StealsResources": null,
+        "EnergySteal": null,
+        "HeavyHitter": null
+    },
+    "GENERIC_PASSIVES_III": {
+        "BuffMastery": null,
+        "StunningStrike": null,
+        "BulletKill": null,
+        "EnergyGeneration": null,
+        "Adaptation": null
+    },
+    "GENERIC_PASSIVES_IV": {
+        "Deicide": null,
+        "KillerInstinct": null
+    }
+}

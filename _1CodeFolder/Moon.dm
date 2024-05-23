@@ -41,10 +41,7 @@ mob
 			if(src.AdvancedTransmissionTechnologyUnlocked>0)
 				src << "Your observation devices are warning you about full moon... "
 		MoonTrigger()
-			for(var/obj/Oozaru/O in src)
-				if(O.Looking)
-					break
-					// src.Oozaru(1)
+			triggerOozaru()
 			if(locate(/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form, src))
 				if(!src.CheckSlotless("FullMoonForm"))
 					if(src.SpecialBuff)
