@@ -3418,7 +3418,7 @@ NEW VARIABLES
 					DefMult = 1.3
 					ArmorIcon='Unicorn_Cloth.dmi'
 					TopOverlayLock='Unicorn_Cloth_Helmet.dmi'
-					ActiveMessage="dons the Cloth of the Unicorn, embracing its pegging passion!"
+					ActiveMessage="dons the Cloth of the Unicorn, embracing its brilliant speed!"
 					adjustments(mob/player)
 						..()
 						passives = list("MovementMastery" =  player.SagaLevel * 1.5, "ArmorAscension" = 2, "Pursuer" = 1.2 + (player.SagaLevel*0.2), "Flicker" = max(1,player.SagaLevel*0.5))
