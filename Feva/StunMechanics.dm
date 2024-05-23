@@ -70,6 +70,10 @@ proc
 				return 1
 	StunClear(mob/mob)
 		if(mob.Stunned)
+			if(mob.BuffOn("Mind Dominated")) // this should b some passive that causes this
+			// however, fuck you
+				mob << "You feel unable to clear your head."
+				return
 			var/obj/Effects/Stun/S=new
 			S.appearance_flags=66
 			mob.overlays-=S

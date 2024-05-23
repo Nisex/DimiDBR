@@ -13,7 +13,6 @@ mob/proc/SkillStunX(var/Wut,var/obj/Skills/Z,var/bypass=0, dontTakeStack = FALSE
 					src.AfterImageStrike=1
 					if(Stunned)
 						StunClear(src)
-						Stunned = 0
 					src << "You focus intently on your opponents movements..."
 					Z.Cooldown()
 					if(!dontTakeStack)

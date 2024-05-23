@@ -15383,6 +15383,9 @@ mob
 				if(src.SpecialBuff.type==B.type)
 					return 1
 			if(src.SlotlessBuffs.len>0)
+				if(istext(B))
+					if(SlotlessBuffs[B])
+						return 1
 				if(SlotlessBuffs["[B.BuffName]"])
 					return 1
 			return 0
