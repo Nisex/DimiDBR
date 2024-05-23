@@ -96,6 +96,8 @@ transformation
 
 		is_active = FALSE
 
+		first_time = TRUE
+
 	proc
 		adjust_transformation_visuals(mob/user)
 			form_glow = image(icon=form_glow_icon,icon_state = form_glow_icon_state,pixel_x = form_glow_x, pixel_y = form_glow_y)
@@ -181,6 +183,9 @@ transformation
 
 			transform_animation(user)
 
+			if(first_time)
+				first_time = FALSE
+
 			user.Hairz("Add")
 			user.Auraz("Add")
 
@@ -260,41 +265,41 @@ transformation
 				form_icon_2.color=list(1,0,0, 0,0.82,0, 0,0,0, -0.26,-0.26,-0.26)
 
 			transform_animation(mob/user)
-				switch(mastery)
-					if(50 to 99)
-						user.Quake(10)
+				if(first_time)
+					DarknessFlash(user)
+					sleep()
+					LightningStrike2(user, Offset=4)
+					user.Quake(10)
+					sleep(20)
+					LightningStrike2(user, Offset=4)
+					user.Quake(20)
+					sleep(30)
+					LightningStrike2(user, Offset=4)
+					user.Quake(30)
+					user.Quake(50)
+					spawn(1)
+						LightningStrike2(user, Offset=2)
+					spawn(3)
+						LightningStrike2(user, Offset=2)
+					spawn(5)
+						LightningStrike2(user, Offset=2)
+				else
+					switch(mastery)
+						if(50 to 99)
+							user.Quake(10)
 
-					if(25 to 49)
-						sleep()
-						user.Quake(10)
-						user.Quake(20)
+						if(25 to 49)
+							sleep()
+							user.Quake(10)
+							user.Quake(20)
 
-					if(1 to 24)
-						sleep()
-						user.Quake(10)
-						sleep(20)
-						user.Quake(20)
-						sleep(30)
-						user.Quake(30)
-
-					if(0)
-						DarknessFlash(user)
-						sleep()
-						LightningStrike2(user, Offset=4)
-						user.Quake(10)
-						sleep(20)
-						LightningStrike2(user, Offset=4)
-						user.Quake(20)
-						sleep(30)
-						LightningStrike2(user, Offset=4)
-						user.Quake(30)
-						user.Quake(50)
-						spawn(1)
-							LightningStrike2(user, Offset=2)
-						spawn(3)
-							LightningStrike2(user, Offset=2)
-						spawn(5)
-							LightningStrike2(user, Offset=2)
+						if(0 to 24)
+							sleep()
+							user.Quake(10)
+							sleep(20)
+							user.Quake(20)
+							sleep(30)
+							user.Quake(30)
 
 				animate(user, color = list(1,0,0, 0,1,0, 0,0,1, 1,0.9,0.2), time=5)
 				spawn(5)
