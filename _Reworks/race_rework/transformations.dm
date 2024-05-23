@@ -250,7 +250,7 @@ transformation
 			angerPoint = 75
 
 			adjust_transformation_visuals(mob/user)
-				if(user.Hair_Base)
+				if(!form_hair_icon&&user.Hair_Base)
 					var/icon/x=new(user.Hair_Base)
 					if(x)
 						x.MapColors(0.2,0.2,0.2, 0.39,0.39,0.39, 0.07,0.07,0.07, 0.69,0.42,0)

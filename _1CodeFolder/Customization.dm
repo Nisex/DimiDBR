@@ -307,16 +307,16 @@ mob/proc/Hairz(var/Z)
 			else if(src.Race=="Half Saiyan")
 				src.overlays+=image(icon=src.EyesSSJ, layer=FLOAT_LAYER-2)
 
-		else if((src.isRace(SAIYAN)||src.Race=="Half Saiyan")&&src.ssj["active"]==4)
+		else if(src.isRace(SAIYAN)&&transActive==4)
 			src.overlays+=image(icon=src.EyesSSJ4, layer=FLOAT_LAYER-2)
 
 		else if(!src.HasMystic())
-			if((src.isRace(SAIYAN)||src.Race=="Half Saiyan")&&(src.ssj["active"]==1||src.ssj["active"]==2))
+			if(src.isRace(SAIYAN)&&(transActive>=1&&transActive<3))
 				if(src.HasGodKi())
 					src.overlays+=image(icon=src.EyesSSB, layer=FLOAT_LAYER-2)
 				else
 					src.overlays+=image(icon=src.EyesSSJ, layer=FLOAT_LAYER-2)
-			else if((src.isRace(SAIYAN)||src.Race=="Half Saiyan")&&src.ssj["active"]==3)
+			else if(src.isRace(SAIYAN)&&transActive==3)
 				src.overlays+=image(icon=src.EyesSSJ3, layer=FLOAT_LAYER-2)
 
 		if(src.HairLocked==1)
