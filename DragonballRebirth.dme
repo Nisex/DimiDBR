@@ -376,6 +376,7 @@
 #include "_Reworks\race_rework\races.dm"
 #include "_Reworks\race_rework\transformations.dm"
 #include "_Reworks\race_rework\Namekian\namekRacials.dm"
+#include "_Reworks\Races\Demon\_Casting.dm"
 #include "_Reworks\Races\Demon\_DemonDefines.dm"
 #include "_Reworks\Races\Demon\DevilArms.dm"
 #include "_Reworks\Races\Dragon\Gold.dm"
