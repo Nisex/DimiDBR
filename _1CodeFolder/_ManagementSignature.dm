@@ -181,6 +181,11 @@ proc/DevelopSignature(mob/m, var/Tier, var/Type)
 				check = new check
 				SkillInit[new_skill] = check
 
+			check.skillDescription()
+			var/textdesc = check.description
+			textdesc += "\n"
+			if(length(textdesc)<=5)
+				textdesc = ""
 			if(check.PreRequisite)
 
 				var/list/prereqs = check.PreRequisite.Copy()
@@ -195,7 +200,7 @@ proc/DevelopSignature(mob/m, var/Tier, var/Type)
 					text = replacetext(text, "_"," ")
 					usr << "You do not meet the requirements for [(check)]. You still need to learn [text]"
 					return
-			switch(input("Would you like to develop [new_skill]?") in list("Yes", "No"))
+			switch(input("[textdesc]Would you like to develop [new_skill]?") in list("Yes", "No"))
 				if("Yes")
 					var/path=text2path(options[new_skill])
 					var/obj/Skills/s = new path
@@ -221,7 +226,7 @@ proc/DevelopSignature(mob/m, var/Tier, var/Type)
 
 					if(prereqs.len)
 						var/text
-						
+
 						for(var/inn in prereqs)
 							if(prereqs.Find(inn)==1) text += "[copytext(inn, 1+findlasttext(inn, "/"))]"
 							else text += ", [copytext(inn, 1+findlasttext(inn, "/"))]"

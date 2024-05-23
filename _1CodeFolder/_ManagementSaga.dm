@@ -82,6 +82,8 @@ mob/var
 	ClothBronze
 	ClothGold
 
+	chikaraWhitelist = FALSE
+
 
 mob/Admin3/verb
 	SagaManagement(mob/Players/P in players)
@@ -991,9 +993,9 @@ mob
 
 				if("Ansatsuken")
 
-					if(src.SagaLevel>=1&&src.SagaLevel<5)
+					if(src.SagaLevel>=1&&src.SagaLevel<4)
 						if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_Infected, src))
-							if(prob(35))
+							if(prob(50))
 								src << "Your drive for victory sometimes overwhelms you..."
 								src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_Infected)
 					passive_handler.Increase("SlayerMod",0.25)
@@ -1034,21 +1036,31 @@ mob
 									src.AddSkill(new/obj/Skills/AutoHit/ShinkuTatsumaki)
 					if(src.SagaLevel==4)
 						if(!src.AnsatsukenAscension)
-							src.AnsatsukenAscension=alert(src, "The time has come to decide the fate of your soul.  Will you give everything away for victory or hold on to your sanity at the price of becoming a fighting machine?", "Ansatsuken Ascension", "Satsui", "Chikara")
-							src <<"Your Ansatsuken stance is refined to suit your beliefs..."
-							var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_Infected/SI = new()
-							SI = locate() in src
-							if(src.AnsatsukenAscension=="Satsui")
+							if(glob.CHIKARA_WHITELIST&&chikaraWhitelist)
+								src.AnsatsukenAscension=alert(src, "The time has come to decide the fate of your soul.  Will you give everything away for victory or hold on to your sanity at the price of becoming a fighting machine?", "Ansatsuken Ascension", "Satsui", "Chikara")
+								src <<"Your Ansatsuken stance is refined to suit your beliefs..."
+								var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_Infected/SI = new()
+								SI = locate() in src
+								if(src.AnsatsukenAscension=="Satsui")
+									if(!SI)
+										src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_no_Hado)
+									else
+										del SI
+										src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_no_Hado)
+								else
+									for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_Infected/S in src.contents)
+										del S
+										src << "You learn to harness your raging desire to dominate in battle."
+										src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Kyoi_no_Hado)
+							else
+								src <<"Your Ansatsuken stance is consumed by the raging thrill of battle..."
+								var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_Infected/SI = new()
+								SI = locate() in src
 								if(!SI)
 									src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_no_Hado)
 								else
 									del SI
 									src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_no_Hado)
-							else
-								for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_Infected/S in src.contents)
-									del S
-									src << "You learn to harness your raging desire to dominate in battle."
-									src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Kyoi_no_Hado)
 					if(src.SagaLevel==5)
 						switch(src.AnsatsukenAscension)
 							// if("Satsui")

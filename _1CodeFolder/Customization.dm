@@ -638,14 +638,9 @@ mob/verb/ToggleInt(var/blah as text)
 
 mob/proc
 	Grid(var/Z,var/X,var/E, var/mob/Players/Lootee)
-		if(istype(src,/mob/Creation))
-			winshow(src,"Grid1",0)
-			sleep()
-			winshow(src,"Grid1",1)
-		else
-			winshow(src,"Grid2",0)
-			sleep()
-			winshow(src,"Grid2",1)
+		winshow(src,"Grid2",0)
+		sleep()
+		winshow(src,"Grid2",1)
 		winset(src,"GridZ","cells=0x0")
 		sleep()
 		winset(src,"GridX","cells=0x0")
@@ -1052,51 +1047,18 @@ mob/proc
 					src<<output(A,"GridZ:1,[Row]")
 				else
 					src<<output(A,"GridX:1,[Row]")
-		if(Z=="CreationHuman")
-			for(var/A in Human_List)
-				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
-				else
-					src<<output(A,"GridX:1,[Row]")
 
-		if(Z=="CreationDemon")
-			for(var/A in Demon_List)
+		if(Z=="BaseIcon")
+			var/race/r = GetRaceInstanceFromType(race.type)
+			for(var/A in r.icon_male)
 				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
-
-		if(Z=="CreationAlien")
-			for(var/A in Alien_List)
+				src<<output(A,"GridX:1,[Row]")
+			for(var/B in r.icon_female)
 				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
-
-		if(Z=="CreationNamekian")
-			for(var/A in Namekian_List)
+				src<<output(B,"GridX:1,[Row]")
+			for(var/C in r.icon_neuter)
 				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
-		if(Z=="CreationMakyo")
-			for(var/A in Makyo_List)
-				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
-		if(Z=="CreationChangeling")
-			for(var/A in Changeling_List)
-				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
-		if(Z=="CreationKaio")
-			for(var/A in Kaio_List)
-				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
-		if(Z=="CreationAndroid")
-			for(var/A in Android_List)
-				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
+				src<<output(C,"GridX:1,[Row]")
 
 		if(Z=="Loot")
 			src<<output("Steal from others for fun and profit!","SelectedCustomize")
@@ -1109,6 +1071,10 @@ mob/proc
 					Row++
 					src << output(O, "GridX:1,[Row]")
 
+mob
+	verb
+		Change_Base_Icon()
+			usr.Grid("BaseIcon")
 
 var/list
 	Human_List=new

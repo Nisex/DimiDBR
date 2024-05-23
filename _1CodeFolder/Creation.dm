@@ -615,27 +615,7 @@ mob/Creation/verb
 		if(!(world.time > verb_delay))
 			return
 		verb_delay=world.time+1
-		if(usr.isRace(HUMAN)||usr.isRace(SAIYAN)||usr.Race=="Tuffle"||usr.Race=="Half Saiyan")
-			usr.Grid("CreationHuman")
-		else if(usr.isRace(NAMEKIAN))
-			usr.Grid("CreationNamekian")
-		else if(usr.Race=="Changeling")
-			usr.Grid("CreationChangeling")
-		else if(usr.Race=="Alien"||usr.Race=="Monster"||isRace(MAJIN))
-			usr.Grid("CreationAlien")
-		else if(usr.isRace(DEMON))
-			usr.Grid("CreationDemon")
-		else if(usr.isRace(MAKYO))
-			usr.Grid("CreationMakyo")
-		else if(usr.Race=="Shinjin")
-			usr.Grid("CreationKaio")
-		else if(usr.Race=="Android")
-			usr.Grid("CreationAndroid")
-		else if(usr.isRace(ELDRITCH))
-			usr.icon='Octopus Type.dmi'
-		else
-			if(!usr.icon)
-				usr.icon='MaleLight.dmi'
+		usr.Grid("BaseIcon")
 
 	NextStep()
 		set hidden=1
@@ -930,7 +910,7 @@ mob/proc/UpdateRaceScreen(change)
 		if (CheckUnlock(r))
 			break
 
-	setRace(r)
+	setRace(r,FALSE,TRUE)
 	var/list/options = usr.race.gender_options
 	var/current_index = options.Find(usr.Gender)
 

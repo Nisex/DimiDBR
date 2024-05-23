@@ -12,7 +12,21 @@ proc
 	BuildRaceList()
 		for(var/a in subtypesof(/race/))
 			races += new a
-
+			var/list/male_icons = list()
+			var/list/female_icons = list()
+			var/list/neuter_icons = list()
+			for(var/male_icon in races[races.len]:icon_male)
+				var/obj/race_grid_visual/visual = new(male_icon)
+				male_icons += visual
+			for(var/female_icon in races[races.len]:icon_female)
+				var/obj/race_grid_visual/visual = new(female_icon)
+				female_icons += visual
+			for(var/neuter_icon in races[races.len]:icon_neuter)
+				var/obj/race_grid_visual/visual = new(neuter_icon)
+				neuter_icons += visual
+			races[races.len]:icon_male = male_icons.Copy()
+			races[races.len]:icon_female = female_icons.Copy()
+			races[races.len]:icon_neuter = neuter_icons.Copy()
 	//this will return a list of all race types.
 	GetRaceTypes()
 		for(var/race/race in races)
@@ -39,6 +53,16 @@ world
 		..()
 		BuildRaceList()
 
+obj
+	race_grid_visual
+		New(icon/i)
+			icon = i
+			name = " "
+
+		Click()
+			usr.icon = icon
+			if(istype(usr, /mob/Creation))
+				usr<<output(usr, "IconUpdate:1,[usr]")
 mob
 	var
 		race/race
@@ -80,11 +104,11 @@ race
 		//gender options. so far implemented ones are Male, Female & Neuter. Neuter is for namekians or so on.
 		gender_options = list("Male", "Female")
 		//the icon used for male gender
-		icon_male = 'MaleLight.dmi'
+		list/icon_male = list('frisky-male_black_brown.dmi', 'frisky-male_dark_brown.dmi', 'frisky-male_pale_brown.dmi', 'frisky-male_tan_brown.dmi', 'frisky-male_white_brown.dmi')
 		//the icon used for female gender.
-		icon_female = 'FemaleLight.dmi'
+		list/icon_female = list('frisky-femmale_black_brown.dmi', 'frisky-femmale_dark_brown.dmi', 'frisky-femmale_pale_brown.dmi', 'frisky-femmale_tan_brown.dmi', 'frisky-femmale_white_brown.dmi')
 		//icon used for neuter gender.
-		icon_neuter
+		list/icon_neuter = list()
 
 		//this determines if the race is a 'rare' and is only unlocked via someone's key being in the LockedRaces list.
 		locked = FALSE
@@ -158,15 +182,20 @@ race
 		onDeselection(mob/user)
 			user.overlays -= overlays
 
-		onSelection(mob/user, secondtime = FALSE)
+		onSelection(mob/user, secondtime = FALSE, force_icon = FALSE)
 			if(!user.passive_handler) user.passive_handler = new
 
-			if(user.Gender == "Female")
-				user.icon = icon_female
-			else if(user.Gender == "Male")
-				user.icon = icon_male
-			else if(user.Gender == "Neuter")
-				user.icon = icon_neuter
+
+			if(force_icon||!user.icon)
+				if(user.Gender == "Female")
+					var/chosen = rand(1,icon_female.len)
+					user.icon = icon_female[chosen]
+				else if(user.Gender == "Male")
+					var/chosen = rand(1,icon_male.len)
+					user.icon = icon_male[chosen]
+				else if(user.Gender == "Neuter")
+					var/chosen = rand(1,icon_neuter.len)
+					user.icon = icon_neuter[chosen]
 
 			user.icon_state = null
 			user.overlays += overlays
@@ -380,6 +409,8 @@ race
 		desc = "The first creation of the God of Truth, able to speak truth into the world with their words. Known as the royalty of Kyoku."
 		visual = 'Elf.png'
 
+		icon_male = list('MaleElf1.dmi', 'MaleElf2.dmi', 'MaleElf3.dmi', 'MaleElf4.dmi', 'MaleElf5.dmi')
+		icon_female = list('FemElf1.dmi', 'FemElf2.dmi', 'FemElf3.dmi', 'FemElf4.dmi', 'FemElf5.dmi')
 		locked = TRUE
 
 		power = 5
@@ -463,7 +494,7 @@ race
 
 	namekian
 		name = "Namekian"
-		icon_neuter = 'Namek1.dmi'
+		icon_neuter = list('Namek1.dmi')
 		gender_options = list("Neuter")
 		desc = "Outsiders from a realm named Gaia, refugees sent to prosper on Copenlagen. These often take on humanoid features with skin tones from green to blue."
 		visual = 'Namek.png'
@@ -509,7 +540,7 @@ race
 	changeling
 		locked = TRUE
 		name = "Changeling"
-		icon_neuter	=	"Chilled1.dmi"
+		icon_neuter	=	list('Chilled1.dmi')
 		gender_options = list("Neuter")
 		desc	=	"A strange and adaptive race from the far reaches of deep space, little is none of these mysterious beings other than they are new to the general galactic population!"
 		visual	=	'Changeling.png'
@@ -528,7 +559,7 @@ race
 
 	gajalaka
 		name="Gajalaka"
-		icon_neuter='Gajalaka.dmi'
+		icon_neuter= list('Gajalaka.dmi')
 		desc = "Thrifty kobold-like beings, seemingly unimpressive in stature.."
 		visual = 'Gajalaka.png'
 		passives = list("CashCow" = 1, "Blubber" = 0.25)
