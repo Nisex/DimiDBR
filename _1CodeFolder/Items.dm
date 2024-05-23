@@ -657,7 +657,7 @@ obj
 		Click()
 			..()
 			var/obj/Items/Wearables/w = new wearable_path
-			var/Color=input(A,"Choose color") as color|null
+			var/Color=input(usr,"Choose color") as color|null
 			if(Color) w.icon+=Color
 			usr.contents += w
 
