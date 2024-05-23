@@ -60,6 +60,7 @@ obj
 			name = " "
 
 		Click()
+			..()
 			usr.icon = icon
 			if(istype(usr, /mob/Creation))
 				usr<<output(usr, "IconUpdate:1,[usr]")

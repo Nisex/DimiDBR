@@ -646,6 +646,21 @@ obj/Items
 		Align_1 icon='Eyes.dmi'
 
 
+obj
+	clothes_grid_visual
+		var/wearable_path
+		New(obj/Items/Wearables/w)
+			icon = w.icon
+			name = w.name
+			wearable_path = w.type
+
+		Click()
+			..()
+			var/obj/Items/Wearables/w = new wearable_path
+			var/Color=input(A,"Choose color") as color|null
+			if(Color) w.icon+=Color
+			usr.contents += w
+
 mob/proc/CheckWeightsTraining()
 	var/obj/Items/WeightedClothing/w=EquippedWeights()
 	if(w)

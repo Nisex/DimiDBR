@@ -451,19 +451,20 @@ mob/proc/Hairz(var/Z)
 					src.overlays-=im*/
 
 proc/Add_Customizations()
-	for(var/A in typesof(/obj/Hairs))
+	for(var/A in subtypesof(/obj/Hairs))
 		if(A!=/obj/Hairs)
 			Hair_List+=new A
-	for(var/A in typesof(/obj/Items/Wearables))
+	for(var/A in subtypesof(/obj/Items/Wearables))
 		var/obj/Items/Wearables/w = new A
 		var/icon/newIcon = new(w.icon)
 		newIcon.MapColors(0.2,0.2,0.2, 0.2,0.2,0.2, 0.2,0.2,0.2, 0,0,0)
 		w.icon = newIcon
-		Clothes_List+=w
+		var/obj/clothes_grid_visual/gridwear = new(w)
+		Clothes_List+=gridwear
 
-	for(var/A in typesof(/obj/Charge_Icons)) if(A!=/obj/Charge_Icons) Charge_List+=new A
-	for(var/A in typesof(/obj/Aura_Icons)) if(A!=/obj/Aura_Icons) Aura_List+=new A
-	for(var/A in typesof(/obj/Blast_Icons)) if(A!=/obj/Blast_Icons) Blast_List+=new A
+	for(var/A in subtypesof(/obj/Charge_Icons)) if(A!=/obj/Charge_Icons) Charge_List+=new A
+	for(var/A in subtypesof(/obj/Aura_Icons)) if(A!=/obj/Aura_Icons) Aura_List+=new A
+	for(var/A in subtypesof(/obj/Blast_Icons)) if(A!=/obj/Blast_Icons) Blast_List+=new A
 
 var/list/Hair_List=new
 obj/Hairs
