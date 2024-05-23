@@ -2269,8 +2269,11 @@ mob/Topic(href,href_list[])
 						theList[original_key] = original_value
 					if("key")
 						var/old_value = theList[theList[old_index]]
+						var/list/options = list("text","num","type","reference","icon","file","list","restore to default")
+						if(theList[old_index]?:type)
+							options += "Open Edit Sheet"
 						var/class = input(usr,"Change [theList[old_index]] to what?","Variable Type") as null|anything \
-							in list("text","num","type","reference","icon","file","list","true","false","restore to default")
+							in options
 						if(!class) return
 
 						switch(class)
@@ -2300,11 +2303,16 @@ mob/Topic(href,href_list[])
 								theList[old_index] = 1
 							if("false")
 								theList[old_index] = null
+							if("Open Edit Sheet")
+								usr:Edit(theList[old_index])
 						theList[theList[old_index]] = old_value
 					if("value")
 						var/old_key = theList[old_index]
+						var/list/options = list("text","num","type","reference","icon","file","list","restore to default")
+						if(theList[old_index]?:type)
+							options += "Open Edit Sheet"
 						var/class = input(usr,"Change [theList[old_index]] to what?","Variable Type") as null|anything \
-							in list("text","num","type","reference","icon","file","list","true","false","restore to default")
+							in options
 						if(!class) return
 						switch(class)
 
@@ -2334,6 +2342,8 @@ mob/Topic(href,href_list[])
 								theList[old_key] = 1
 							if("false")
 								theList[old_key] = null
+							if("Open Edit Sheet")
+								usr:Edit(theList[old_key])
 					if("add")
 						theList += null
 					if("delete")
