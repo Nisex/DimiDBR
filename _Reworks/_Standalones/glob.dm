@@ -320,6 +320,8 @@ globalTracker
 		list/GoldConstellation = list("Aries" = FALSE,"Gemini" = FALSE,"Cancer" = FALSE,"Leo" = FALSE,"Virgo" = FALSE,"Libra" = FALSE,\
 "Scorpio" = FALSE,"Capricorn" = FALSE,"Aquarius" = FALSE,"Pisces" = FALSE)
 
+		CHIKARA_WHITELIST = TRUE
+
 		DESP_DMG_MULTIPLIER = 4
 		DESP_DMG_REDUCTION = 4
 
