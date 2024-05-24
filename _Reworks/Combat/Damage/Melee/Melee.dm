@@ -228,10 +228,8 @@ var/global/MULTIHIT_NERF = FALSE
 				log2text("powerDif (After Intim)", powerDif, "damageDebugs.txt", "[ckey]/[name]")
 				#endif
 
-				if(glob.DMG_CALC_2)
-					damage = (powerDif**glob.DMG_POWER_EXPONENT) * (glob.CONSTANT_DAMAGE_EXPONENT+glob.MELEE_EFFECTIVENESS) ** -(def**glob.DMG_END_EXPONENT / atk**glob.DMG_STR_EXPONENT)
-				else
-					damage = (atk * powerDif)* 3 ** -(def / atk)
+				damage = (powerDif**glob.DMG_POWER_EXPONENT) * (glob.CONSTANT_DAMAGE_EXPONENT+glob.MELEE_EFFECTIVENESS) ** -(def**glob.DMG_END_EXPONENT / atk**glob.DMG_STR_EXPONENT)
+
 
 				#if DEBUG_MELEE
 				log2text("Damage", "Staring Damage", "damageDebugs.txt", "[ckey]/[name]")

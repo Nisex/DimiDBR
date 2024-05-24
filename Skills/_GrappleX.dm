@@ -462,10 +462,8 @@ obj/Skills/Grapple
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple User Power", userPower, "damageDebugs.txt", User.ckey)
 				#endif
-				if(glob.DMG_CALC_2)
-					Damage = (userPower**glob.DMG_POWER_EXPONENT) * (glob.CONSTANT_DAMAGE_EXPONENT+glob.GRAPPLE_EFFECTIVNESS) ** -(endFactor**glob.DMG_END_EXPONENT / statPower**glob.DMG_STR_EXPONENT)
-				else
-					Damage = (statPower * userPower) * 2 ** -(endFactor/statPower)
+				Damage = (userPower**glob.DMG_POWER_EXPONENT) * (glob.CONSTANT_DAMAGE_EXPONENT+glob.GRAPPLE_EFFECTIVNESS) ** -(endFactor**glob.DMG_END_EXPONENT / statPower**glob.DMG_STR_EXPONENT)
+
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple Damage", Damage, "damageDebugs.txt", User.ckey)
 				#endif
