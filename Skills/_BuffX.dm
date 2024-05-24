@@ -3563,7 +3563,7 @@ NEW VARIABLES
 					DefMult = 1.3
 					ArmorIcon='Unicorn_ClothV3.dmi'
 					TopOverlayLock='Unicorn_cloth_V2_Helmet.dmi'
-					ActiveMessage="dons the reborn Cloth of the Phoenix, embracing its inextinguishable passion!"
+					ActiveMessage="dons the reborn Cloth of the Unicorn, embracing its unbreakable speed!"
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
