@@ -2230,8 +2230,10 @@ mob/Topic(href,href_list[])
 					if("key")
 						var/old_value = theList[theList[old_index]]
 						var/list/options = list("text","num","type","reference","icon","file","list","restore to default")
-						if(theList[old_index]?:type)
-							options += "Open Edit Sheet"
+						try
+							if(theList[old_index]?:type)
+								options += "Open Edit Sheet"
+						catch()
 						var/class = input(usr,"Change [theList[old_index]] to what?","Variable Type") as null|anything \
 							in options
 						if(!class) return
@@ -2269,8 +2271,10 @@ mob/Topic(href,href_list[])
 					if("value")
 						var/old_key = theList[old_index]
 						var/list/options = list("text","num","type","reference","icon","file","list","restore to default")
-						if(theList[old_index]?:type)
-							options += "Open Edit Sheet"
+						try
+							if(theList[old_index]?:type)
+								options += "Open Edit Sheet"
+						catch()
 						var/class = input(usr,"Change [theList[old_index]] to what?","Variable Type") as null|anything \
 							in options
 						if(!class) return
