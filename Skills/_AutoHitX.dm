@@ -3596,6 +3596,7 @@ obj
 				CosmoPowered = 1
 				CanBeDodged = 0
 				FlickAttack=1
+				Area = "Wave"
 				Stunner=3
 				DamageMult=11
 				Cooldown=120
