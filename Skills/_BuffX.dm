@@ -9620,6 +9620,7 @@ NEW VARIABLES
 				HitX=-32
 				HitY=-32
 				TimerLimit=60
+				Cooldown = 1
 				ActiveMessage="unravels into a mind-rending series of shapes and textures!"
 				OffMessage="slowly becomes 3D once again..."
 				TextColor=rgb(153, 0, 0)
