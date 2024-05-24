@@ -732,21 +732,6 @@ TO BE CORRECTED
 		set category="Admin"
 		usr.PM(M)
 
-	PlayerLoginLogs()
-		set category="Admin"
-		var/list/files=new
-		for(var/File in flist("Saves/LoginLogs/"))
-			files.Add(File)
-		files.Add("Cancel")
-		var/lawl=input("What one do you want to read?","Rebirth") in files
-		if(lawl=="Cancel")
-			return
-		var/ISF=file2text(file("Saves/LoginLogs/[lawl]"))
-		var/View={"<html><head><title>Logs</title><body>
-				<font size=3><font color=red>[lawl]<hr><font size=2><font color=black>"}
-		View+=ISF
-		src<<browse(View,"window=Log;size=500x300")
-
 	AdminLogs()
 		set category="Admin"
 		usr.SegmentLogs("Saves/AdminLogs/")
@@ -1937,6 +1922,22 @@ mob/Admin3/verb
 		if(Speedz)
 			world.tick_lag=Speedz
 			Log("Admin","<font color=blue>[ExtractInfo(usr)] adjusted the Tick Lag to [Speedz]%.")
+
+mob/Admin4/verb
+	PlayerLoginLogs()
+		set category="Admin"
+		var/list/files=new
+		for(var/File in flist("Saves/LoginLogs/"))
+			files.Add(File)
+		files.Add("Cancel")
+		var/lawl=input("What one do you want to read?","Rebirth") in files
+		if(lawl=="Cancel")
+			return
+		var/ISF=file2text(file("Saves/LoginLogs/[lawl]"))
+		var/View={"<html><head><title>Logs</title><body>
+				<font size=3><font color=red>[lawl]<hr><font size=2><font color=black>"}
+		View+=ISF
+		src<<browse(View,"window=Log;size=500x300")
 
 	DownloadSaves()
 		set category="Admin"

@@ -499,19 +499,6 @@ client
 			mob.removeBlobBuffs()
 			if(mob.party)
 				mob.party.remove_member(mob)
-			if(mob.FusionCKey1) //This is the player who is playing the Fused.
-				global.fusion_locs["[mob.FusionCKey1] and [mob.FusionCKey2]"] = list("x"=mob.x,"y"=mob.y,"z"=mob.z)
-				for(var/mob/Players/p in players)
-					if(p.ckey == mob.FusionCKey2)
-						p << "The fusion breaks apart!"
-						del(p)
-
-			else if(mob.Fused==2) //This is the player chilling and watching.
-				for(var/mob/Players/p in players)
-					if(mob.Fusee == p.FusionCKey1)
-						global.fusion_locs["[p.FusionCKey1] and [p.FusionCKey2]"] = list("x"=p.x,"y"=p.y,"z"=p.z)
-						p << "The fusion breaks apart!"
-						del(p)
 
 			if(mob.Control)
 				var/obj/Items/Tech/SpaceTravel/M=mob.Control

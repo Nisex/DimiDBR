@@ -60,10 +60,7 @@ mob/Players
 				x = PrevX
 				y = PrevY
 				z = PrevZ
-		if(usr.Class=="Dance"||usr.Class=="Potara")
-			usr.Savable=0
-
-		else if(usr.Manufactured)
+		if(usr.Manufactured)
 			usr.Savable=1
 			usr.Redo_Stats()
 			usr.EraAge=global.Era
@@ -84,7 +81,7 @@ mob/Players
 		usr.Admin("Check")
 		usr.overlays-='Emoting.dmi'
 		if(!Mapper)
-			for(var/obj/Skills/Fly/f in src)
+			for(var/obj/Skills/Fly/f in Skills)
 				del f
 		if(usr.calmcounter)
 			usr.calmcounter=2
@@ -301,9 +298,6 @@ mob/Players
 			src.ModifyLate=0
 		if(src.ModifyPrime)
 			src.ModifyPrime=0
-
-		if(src.Class=="Dance"||src.Class=="Potara")
-			src.Timeless=1
 
 		// var/Dif=global.Era-src.EraAge
 

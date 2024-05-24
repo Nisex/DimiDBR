@@ -220,8 +220,19 @@ client/proc/LoginLog(var/title=null)
 			else
 				title={"<font color=red>logged out.</font color>"}
 
-		AdminMessage("[TimeStamp()]<b> [src.key]</b> | [src.address] | [src.computer_id] ([title])")
-
+		var/matches = ""
+		for(var/mob/m in players)
+			if(address == m.address)
+				matches += "[m.name], "
+				continue
+			if(computer_id == m.computer_id)
+				matches += "[m.name], "
+				continue
+		matches = replacetext(matches, ", ", "", -1, -3)
+		if(length(matches)>1)
+			AdminMessage("[TimeStamp()]<b> [src.key]</b> | Possible Alts: ([matches]) ([title])")
+		else
+			AdminMessage("[TimeStamp()]<b> [src.key]</b> ([title])")
 		var/Event/E = new/Event/writeToLog( T = "<font color=black>[TimeStamp()]<b> [src.key]</b> | [src.address] | [src.computer_id] ([title])<br>",
                                             D = "Saves/LoginLogs/[TimeStamp(1)].txt") // We're explicitly setting the variables to make sure it doesn't take either of these as a reschedule time.
 		LOGscheduler.schedule( E, 5 ) // every log to file has a .5 second delay
