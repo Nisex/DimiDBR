@@ -27,9 +27,7 @@
     
     proc/detectInput(lookingFor, delay)
         var/triggerTime = queue[TRIGGERED][2]
-        world<<triggerTime
         for(var/index in TRIGGERED to length(queue))
-            world<<"[queue[index][2]] < [triggerTime + delay]"
             if(queue[index][2] < triggerTime + delay)
                 continue
             // ignore everything that happens between the delay and last press

@@ -75,7 +75,6 @@
             adjust(User)
             applyToTarget?:adjust(User)
         if(..())
-            world<<"here"
             if(1)// usr.isRace(DEMON))
                 usr << "you gain coorruption !!"
                 var/asc = usr.AscensionsAcquired
