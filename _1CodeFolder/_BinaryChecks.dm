@@ -818,7 +818,7 @@ mob
 			if(passive_handler.Get("EnergyLeak"))
 				return 1
 			if(src.transActive()&&!src.HasMystic())
-				if(src.masteries["[src.transActive()]mastery"]>10&&src.masteries["[src.transActive()]mastery"]<75||(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
+				if(race.transformations[transActive].mastery>10&&race.transformations[transActive].mastery<75)
 					if(src.Race!="Changeling")
 						return 1
 					else
@@ -829,7 +829,7 @@ mob
 			var/Total=0
 			Total+=passive_handler.Get("EnergyLeak")
 			if(src.transActive()&&!src.HasMystic())
-				if(src.masteries["[src.transActive()]mastery"]>10&&src.masteries["[src.transActive()]mastery"]<75)
+				if(race.transformations[transActive].mastery>10&&race.transformations[transActive].mastery<75)
 					if(src.Race!="Changeling")
 						Total+=src.transActive()*0.25
 					else
@@ -839,16 +839,12 @@ mob
 		HasFatigueLeak()
 			if(passive_handler.Get("FatigueLeak"))
 				return 1
-			if(src.transActive()&&src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100)
-				return 1
 			if(src.GatesActive && src.GatesActive < 8)
 				return 1
 			return 0
 		GetFatigueLeak()
 			var/Total=0
 			Total+=passive_handler.Get("FatigueLeak")
-			if(src.transActive()&&src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100)
-				Total+=1
 			return  Total
 		HasSoftStyle()
 			if(passive_handler.Get("SoftStyle"))
@@ -1519,7 +1515,7 @@ mob
 				return 1
 			if(src.SenseUnlocked>6&&(src.SenseUnlocked>src.SenseRobbed))
 				return 1
-			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff()&&!src.ssj["god"])
+			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff())
 				if(!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
 					return 1
 			if(src.HasSpiritPower()>=1 && FightingSeriously(src, 0))
@@ -1542,7 +1538,7 @@ mob
 						Total+=0.25
 				if(src.SenseUnlocked>=8)
 					Total+=1
-			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff()&&!src.ssj["god"])
+			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff())
 				if(!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
 					Total+=src.Target.GetGodKi()/2
 			if(src.KamuiBuffLock)

@@ -2078,24 +2078,6 @@ mob/Player/AI
 					src.Auraz("Remove")
 					src<<"You are too tired to power up."
 					src.PoweringUp=0
-					if(isRace(SAIYAN))
-						if(src.transActive()>0)
-							var/Skip=0
-							if(src.ssj["active"]==1)
-								if(src.ssj["1mastery"]>=100||src.ssj["1mastery"]<10)
-									Skip=1
-							if(src.ssj["active"]==2)
-								if(src.ssj["2mastery"]>=100||src.ssj["2mastery"]<10)
-									Skip=1
-							if(src.ssj["active"]==3)
-								if(src.ssj["3mastery"]>=100||src.ssj["3mastery"]<10)
-									Skip=1
-							if(src.ssj["active"]==4)
-								Skip=1
-							if(src.HasNoRevert())
-								Skip=1
-							if(!Skip)
-								Revert()
 					src.PowerControl=100
 					src.Energy=1
 
@@ -2105,24 +2087,6 @@ mob/Player/AI
 					src.PoweringUp=0
 					src.Auraz("Remove")
 					src<<"You are too tired to power up."
-					if(isRace(SAIYAN))
-						if(src.transActive()>0)
-							var/Skip=0
-							if(src.ssj["active"]==1)
-								if(src.ssj["1mastery"]>=100||src.ssj["1mastery"]<10)
-									Skip=1
-							if(src.ssj["active"]==2)
-								if(src.ssj["2mastery"]>=100||src.ssj["2mastery"]<10)
-									Skip=1
-							if(src.ssj["active"]==3)
-								if(src.ssj["3mastery"]>=100||src.ssj["3mastery"]<10)
-									Skip=1
-							if(src.ssj["active"]==4)
-								Skip=1
-							if(src.HasNoRevert())
-								Skip=1
-							if(!Skip)
-								Revert()
 					src.PowerControl=100
 					src.Energy=1
 //				if(src.HighestPU&&!src.PURestrictionRemove)

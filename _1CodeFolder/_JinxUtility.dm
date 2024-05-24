@@ -1821,18 +1821,9 @@ mob
 		BPDiv(var/num)
 			src.Base/=num
 		TransMastery(var/num)
-			if(src.HasSSjVars())
-				return src.ssj["[num]mastery"]
-			else
-				return src.trans["[num]mastery"]
+			return race.transformations[num].mastery
 		transActive()
-			if(src.HasSSjVars())
-				return src.ssj["active"]
-			else
-				if(src.trans["tension"])
-					return 1
-				else
-					return src.trans["active"]
+			return transActive
 		TransAuraFound()
 			if(src.transActive())
 				if(src.transActive()==1)
@@ -1849,10 +1840,7 @@ mob
 						return 1
 			return 0
 		transActiveDown()
-			if(src.HasSSjVars())
-				src.ssj["active"]--
-			else
-				src.trans["active"]--
+			transActive--
 		MakeSword(var/obj/Items/Sword/s, var/damage, var/acc, var/icon/i=null, var/px=0, var/py=0)
 			s.DamageEffectiveness=damage
 			s.AccuracyEffectiveness=acc
@@ -2457,7 +2445,6 @@ mob
 					usr.PotentialRate+=2
 					if(usr.PotentialRate>5)
 						usr.PotentialRate=5
-			usr.SetVars()
 		AlienStatAscensions(var/x)
 			src.AlienEvolutionStats+=x
 			var/list/Choices=list("Strength", "Endurance", "Force", "Speed")

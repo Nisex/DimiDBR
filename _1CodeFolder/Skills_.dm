@@ -940,14 +940,8 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					Choice.CalmAnger+=1
 					if(Choice.AscensionsUnlocked<5)
 						Choice.AscensionsUnlocked++
-					if(!Choice.HasSSjVars()&&Choice.trans["unlocked"]<3)
-						Choice.trans["unlocked"]++
-					if(Choice.HasSSjVars()&&Choice.ssj["unlocked"]<3)
-						Choice.ssj["unlocked"]++
-						Choice.masteries["1mastery"]=100
-						Choice.masteries["2mastery"]=100
-						Choice.masteries["3mastery"]=100
-					Choice.SetVars()
+					if(Choice.race.transformations.len>0)
+						Choice.transUnlocked++
 				else
 					Choice.PotentialUnlocked+=world.realtime+Day(10)
 					Choice.Potential+=10

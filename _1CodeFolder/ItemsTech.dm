@@ -1232,7 +1232,7 @@ obj/Items/Tech
 				if(Confirm=="No")
 					src.Using=0
 					return
-				if(usr.trans["active"]!=0)
+				if(usr.transActive)
 					usr << "Revert from your transformation before using this!"
 					src.Using=0
 					return

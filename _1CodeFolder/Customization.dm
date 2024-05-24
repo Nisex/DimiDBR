@@ -144,8 +144,8 @@ mob/proc/Auraz(var/Z)
 			src.underlays+=image('BijuuInitial.dmi',pixel_x=-32, pixel_y=-32)
 			src.underlays+=image('GCAura.dmi',pixel_x=-49, pixel_y=-15)
 
-		else if(src.trans["tension"]>=5)
-			if(src.trans["tension"]<100)
+		else if(src.tension>=5)
+			if(src.tension<100)
 				src.overlays+=tensiona
 			else
 				src.overlays+=tensionas
@@ -301,12 +301,6 @@ mob/proc/Hairz(var/Z)
 		if(src.StyleActive=="Ultra Instinct")
 			src.overlays+=image(icon=src.EyesUI, layer=FLOAT_LAYER-2)
 
-		else if(src.ssj["god"])
-			if(src.isRace(SAIYAN))
-				src.overlays+=image(icon=src.EyesSSG, layer=FLOAT_LAYER-2)
-			else if(src.Race=="Half Saiyan")
-				src.overlays+=image(icon=src.EyesSSJ, layer=FLOAT_LAYER-2)
-
 		else if(src.isRace(SAIYAN)&&transActive==4)
 			src.overlays+=image(icon=src.EyesSSJ4, layer=FLOAT_LAYER-2)
 
@@ -321,8 +315,8 @@ mob/proc/Hairz(var/Z)
 
 		if(src.HairLocked==1)
 			Hair = image(icon=src.HairLock, pixel_x=HairBX, pixel_y=HairBY)
-		else if(src.trans["tension"]>=5)
-			if(src.trans["tension"]==100)
+		else if(src.tension>=5)
+			if(src.tension==100)
 				Hair = image(icon=src.Hair_SHT)
 			else
 				if(HairB&&src.Hair_Color)

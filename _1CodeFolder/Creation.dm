@@ -76,8 +76,6 @@ mob/Players
 				usr.Finalize()
 		if(!locate(/obj/Money) in src)
 			src.contents += new/obj/Money
-		usr.ssj["transing"]=0
-		usr.trans["transing"]=0
 		winshow(usr,"StatsWindow",0)
 		winshow(usr,"StatsWindow2",0)
 		for(var/e in list("Health","Energy","Power","Mana"))
@@ -987,34 +985,6 @@ client
 			if(fexists("Saves/Players/[src.ckey]"))
 				var/savefile/F=new("Saves/Players/[src.ckey]")
 				F["mob"] >> src.mob
-				if(src.mob.Fused)
-					if(global.fusion_locs.len)
-						if(src.mob.Fused==1)
-							var/list/l
-							for(var/index in fusion_locs) if(findtext(index, ckey) || findtext(index, mob.Fusee))
-								l = fusion_locs[index]
-								break
-							if(l)
-								src.mob.loc=locate(l["x"], l["y"], l["z"])
-								src.mob.BeginKB(WEST, 2)
-						if(src.mob.Fused==2)
-							var/list/l
-							for(var/index in fusion_locs) if(findtext(index, ckey) || findtext(index, mob.Fusee))
-								l = fusion_locs[index]
-								break
-							if(l)
-								src.mob.loc=locate(l["x"]-1, l["y"], l["z"])
-								src.mob.BeginKB(EAST, 2)
-					src.mob.Fused=0
-					src.mob.AppearanceOff()
-					src.mob.AppearanceOn()
-					for(var/obj/Skills/Buffs/SlotlessBuffs/Fusion_Dance/FD in src.mob)
-						if(FD)
-							FD.Cooldown()
-					for(var/obj/Skills/Buffs/SlotlessBuffs/Divine_Fusion/DF in src.mob)
-						if(DF)
-							DF.Cooldown()
-					src.mob.Health=25
 				if(mob.isRace(MAJIN))
 					if(!mob.majinPassive)
 						mob.majinPassive = new(mob)
@@ -1142,7 +1112,6 @@ mob/proc
 		src.OffOriginal=src.OffMod
 		src.DefOriginal=src.DefMod
 		src.RecovOriginal=src.RecovMod
-		src.SetVars()
 
 		src:UniqueID = ++glob.IDCounter
 		glob.IDs += src:UniqueID

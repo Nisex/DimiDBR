@@ -2050,9 +2050,6 @@ NEW VARIABLES
 			OffMessage="tires out..."
 			verb/Super_Saiyan_Grade2()
 				set category="Skills"
-				if(usr.HasGodKi()&&usr.masteries["4mastery"]!=100)
-					usr << "You're already utilizing your energy to the fullest."
-					return
 				if(usr.ExpandBase)
 					IconReplace=1
 					icon=usr.ExpandBase
@@ -2081,9 +2078,6 @@ NEW VARIABLES
 			OffMessage="loses steam..."
 			verb/Super_Saiyan_Grade3()
 				set category="Skills"
-				if(usr.HasGodKi()&&usr.masteries["4mastery"]!=100)
-					usr << "You're already utilizing your energy to the fullest."
-					return
 				if(usr.ExpandBase)
 					IconReplace=1
 					icon=usr.ExpandBase
@@ -5141,7 +5135,7 @@ NEW VARIABLES
 
 						usr.knowledgeTracker.learnedKnowledge=usr.Target.knowledgeTracker.learnedKnowledge
 
-						usr.trans["unlocked"]=1
+						usr.transUnlocked++
 						usr.RecovChaos+=0.5
 
 						animate(usr, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1), time=10)
@@ -7346,41 +7340,7 @@ NEW VARIABLES
 					if(!src.Using)
 						usr.Activate(new/obj/Skills/AutoHit/Knockoff_Wave)
 				src.Trigger(usr)
-		Fusion_Dance
-			SignatureTechnique=3
-			ActiveMessage="performs a dance with their partner to combine into a single entity!"
-			Range=2
-			ForcedRange=1
-			Fusion="Dance"
-			IconLock='Fusion Vest.dmi'
-			Cooldown=-1
-			CooldownStatic=1
-			verb/Fusion_Dance()
-				set category="Skills"
-				src.FusionFailure=0
-				if(!usr.BuffOn(src))
-					var/Confirm
-					Confirm=alert(usr.Target, "[usr] is trying to merge your consciousness with theirs!  Do you accept?", "Fusion Dance", "No", "Yes")
-					if(Confirm=="No")
-						return
-					if(usr.party)
-						usr.party.remove_member(usr)
-					if(usr.Target.party)
-						usr.Target.party.remove_member(usr.Target)
-				src.Trigger(usr)
-		Divine_Fusion
-			Range=7
-			Fusion="Potara"
-			TopOverlayLock='Potara Earrings.dmi'
-			Cooldown=-1
-			CooldownStatic=1
-			verb/Zap_Earring()
-				set category="Skills"
-				if(usr.party)
-					usr.party.remove_member(usr)
-				if(usr.Target.party)
-					usr.Target.party.remove_member(usr.Target)
-				src.Trigger(usr)
+
 		God_Ki
 			SignatureTechnique=4
 			Cooldown=10
@@ -11559,98 +11519,6 @@ mob
 					if(!src.Target)
 						src << "You don't have a target to capture!"
 						return
-				if(B.Fusion)
-					if(!src.Target)
-						src << "You need a target to use this!"
-						return
-					if(src.Target==src)
-						src << "You can't target yourself for fusion!"
-						return
-					if(src.Target)
-						if(src.Fused||src.Target.Fused)
-							src << "You can't fuse with a fused person!"
-							src.Target << "You can't fuse with a fused person!"
-							return
-						if(src.Saga||src.Target.Saga)
-							src << "You can't fuse with a destined person!"
-							src.Target << "You can't fuse with a destined person!"
-							return
-						if(src.Secret||src.Target.Secret)
-							src << "You can't fuse with an awakened person!"
-							src.Target << "You can't fuse with an awakened person!"
-							return
-						if(src.ActiveBuff||src.Target.ActiveBuff)
-							src << "Active Buffs can't be used with fusion!"
-							src.Target << "Active Buffs can't be used with fusion!"
-							return
-						if(src.SpecialBuff||src.Target.SpecialBuff)
-							src << "Special Buffs can't be used with fusion!"
-							src.Target << "Special Buffs can't be used with fusion!"
-							return
-						if(src.SlotlessBuffs.len>0||src.Target.SlotlessBuffs.len>0)
-							src << "Slotless Buffs can't be used with fusion!"
-							src.Target << "Slotless Buffs can't be used with fusion!"
-							return
-						if(src.StanceBuff || src.Target.StanceBuff)
-							src << "Stance Buffs can't be used with fusion!"
-							src.Target << "Stance Buffs can't be used with fusion!"
-						if(src.StyleBuff || src.Target.StyleBuff)
-							src << "Style Buffs can't be used with fusion!"
-							src.Target << "Style Buffs can't be used with fusion!"
-							return
-						if(src.HasKiControl())
-							src << "Stop powering up or down before using Fusion!"
-							return
-						if(src.Target.HasKiControl())
-							src << "Stop powering up or down before using Fusion!"
-							return
-						if(src.trans["active"]>0 || src.Target.trans["active"]>0)
-							src << "You can't fuse while transformed!"
-							src.Target << "You can't fuse while transformed!"
-							return
-						if(B.Fusion=="Dance")
-							if(src.Race!=src.Target.Race)
-								src << "You must be the same race to fuse!"
-								src.Target << "You must be the same race to fuse!"
-								return
-
-							if(src.Gender!=src.Target.Gender)
-								src << "You must be the same sex to fuse!"
-								src.Target << "You must be the same sex to fuse!"
-								return
-
-							if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Fusion_Dance, src.Target))
-								src << "You can't fuse with someone who doesn't know the fusion dance!"
-								src.Target << "You can't fuse with someone who doesn't know the fusion dance!"
-								return
-
-							var/BPComparision=src.Get_Sense_Reading(src.Target)
-							if(BPComparision!="[src.Target.name] - Equal")
-								src << "[src.Target]'s battle power is too different!"
-								src.Target << "[src]'s battle power is too different!"
-								B.FusionFailure=100*abs( ((src.Power*src.EnergyUniqueness*src.Intimidation)-(src.Target.Power*src.Target.EnergyUniqueness*src.Target.Intimidation))/(src.Power*src.EnergyUniqueness*src.Intimidation) )
-
-						if(B.Fusion=="Potara")
-							var/obj/Items/Symbiotic/Potara_Earrings/Right_Earring/RE
-							var/obj/Items/Symbiotic/Potara_Earrings/Left_Earring/LE
-							var/foundright=0
-							var/foundleft=0
-							for(RE in src)
-								if(RE.suffix)
-									foundright=1
-									for(LE in src.Target)
-										if(LE.suffix)
-											foundleft=1
-							for(LE in src)
-								if(LE.suffix)
-									foundleft=2
-									for(RE in src.Target)
-										if(RE.suffix)
-											foundright=2
-							if(!foundright||!foundleft||foundleft!=foundright)
-								src << "You can't fuse with someone who doesn't wear a Potara to match!"
-								src.Target << "You can't fuse with someone who doesn't wear a Potara to match!"
-								return
 
 				if(B.MagicNeeded&&!B.LimitlessMagic&&!src.HasLimitlessMagic())
 					if(src.HasMechanized()&&src.HasLimitlessMagic()!=1)
@@ -12130,11 +11998,11 @@ mob
 							if(B.AssociatedGear.Uses<=0)
 								src << "[B] is out of power!"
 				if(B.Transform)
-					if(src.Transforming||trans["transing"]||ssj["transing"])
+					if(src.Transforming)
 						src <<"You are already transforming!"
 						return
 					if(!(B.Transform in list("Force","Strong","Weak")))
-						if(trans["active"])
+						if(transActive)
 							src <<"You are already transformed!"
 							return
 
@@ -12360,13 +12228,10 @@ mob
 
 				if(src.transActive())
 					src.ActiveBuff.OverlayTransLock=1
-					if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
-						if((!src.HasGodKi()&&masteries["[src.transActive()]mastery"]==100)||src.HasGodKi()&&masteries["4mastery"]==100)
+					if(src.isRace(SAIYAN))
+						if((race.transformations[transActive].mastery==100))
 							if(src.transActive()==1&&(!src.HasGodKi()&&!src.Anger))
 								Anger=Anger
-							else if(src.HasGodKi()&&masteries["4mastery"]==100)
-								src.ActiveBuff.AuraLock='BLANK.dmi'
-								src.ActiveBuff.FlashChange=1
 				else
 					src.ActiveBuff.OverlayTransLock=0
 

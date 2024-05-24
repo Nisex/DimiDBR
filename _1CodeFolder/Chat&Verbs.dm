@@ -596,7 +596,7 @@ mob/Players/verb
 		if(usr.StanceBuff||usr.StyleBuff||usr.ActiveBuff||usr.SpecialBuff||usr.SlotlessBuffs.len>0)
 			usr<<"You must disable all buffs before using this command."
 			return
-		if(usr.trans["active"]>0||usr.ssj["active"]>0)
+		if(usr.transActive)
 			usr<<"You cannot do this while transed! Revert first!"
 			return
 		usr<<"Reseting stat and power multipliers."

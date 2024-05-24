@@ -52,6 +52,7 @@ proc/log_func(x, a, b)
 #define ELDRITCH /race/eldritch
 #define BEASTMAN /race/beastman
 #define GAJALAKA /race/gajalaka
+#define CHANGELING /race/changeling
 
 #define DEBUG_DAMAGE 0
 #define DEBUG_ITEM_DAMAGE 0

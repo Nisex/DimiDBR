@@ -185,7 +185,7 @@ mob/proc/AppearanceOn()
 						im.appearance_flags+=70
 					src.overlays+=im
 
-	if(src.trans["tension"])
+	if(src.tension)
 		var/image/tension=image('HTAura.dmi',pixel_x=-16, pixel_y=-4)
 		var/image/tension2=image('HighTension.dmi',pixel_x=-32,pixel_y=-32)
 		var/image/tensionh=image(src.Hair_HT, layer=FLOAT_LAYER-1)
@@ -196,20 +196,20 @@ mob/proc/AppearanceOn()
 		tensionh.alpha=200
 		tensionhs.blend_mode=BLEND_ADD
 		tensionhs.alpha=130
-		if(src.trans["tension"]==5)
+		if(src.tension==5)
 			src.Hairz("Add")
 			src.underlays+=tension
-		if(src.trans["tension"]==20)
+		if(src.tension==20)
 			src.underlays+=tension
 			src.Hairz("Add")
 			src.overlays+=tension2
-		if(src.trans["tension"]==50)
+		if(src.tension==50)
 			src.underlays+=tension
 			src.overlays+=tensione
 			src.Hairz("Add")
 			src.overlays+=tensionh
 			src.overlays+=tension2
-		if(src.trans["tension"]==100)
+		if(src.tension==100)
 			src.underlays+=tension
 			src.overlays+=tensione
 			src.Hairz("Add")

@@ -618,7 +618,7 @@ mob/proc/Recover(var/blah,Amount=1)
 			if(src.Oxygen<=10)
 				return
 			if(src.transActive()&&!src.HasMystic())
-				if(src.masteries["[src.transActive()]mastery"]>=10&&src.masteries["[src.transActive()]mastery"]<100||(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
+				if(src.race.transformations[transActive].mastery<75)
 					return
 			if(Swim&&passive_handler.Get("Fishman"))
 				Amount*=2
@@ -919,9 +919,9 @@ mob/proc/
 
 			if(src.HasKiControlMastery())
 				if(src.transActive())
-					if(src.masteries["[src.transActive()]mastery"]<10&&!(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
+					if(src.race.transformations[transActive].mastery<50)
 						PUGain*=1+(src.GetKiControlMastery())/2
-					else if(src.masteries["[src.transActive()]mastery"]>=100)
+					else if(src.race.transformations[transActive].mastery>=100)
 						PUGain*=2+(src.GetKiControlMastery())
 				else
 					PUGain*=1+(src.GetKiControlMastery())
@@ -960,9 +960,8 @@ mob/proc/
 				src.PoweringUp=0
 				if(isRace(SAIYAN)||Race=="Half Saiyan")
 					if(src.transActive()>0)
-						var/transActive=src.trans["active"]
 						var/Skip=0
-						if(src.trans["[transActive]mastery"]>=100||src.trans["[transActive]mastery"]<10)
+						if(src.race.transformations[transActive].mastery>=25)
 							Skip=1
 						if(src.HasNoRevert())
 							Skip=1
@@ -980,7 +979,7 @@ mob/proc/
 				if(isRace(SAIYAN)|Race=="Half Saiyan")
 					if(src.transActive>0)
 						var/Skip=0
-						if(src.race.transformations[transActive].mastery>=100||race.transformations[transActive].mastery<10)
+						if(src.race.transformations[transActive].mastery>=25)
 							Skip=1
 						if(src.HasNoRevert())
 							Skip=1

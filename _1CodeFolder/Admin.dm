@@ -1048,18 +1048,6 @@ mob/Admin2/verb
 		set category="Admin"
 		src.MakeWarper(_x, _y, _z)
 
-
-	TransVars(mob/M in players)
-		set category="Admin"
-		usr<<"<b><br>[M]'s Super Saiyan transformation vars<br></b>"
-		for(var/e in M.ssj)
-			usr<<"- [e] - [M.ssj[e]]"
-		usr<<"<b><br><br>[M]'s non-Super Saiyan transformation vars<br></b>"
-		for(var/e in M.trans)
-			usr<<"- [e] - [M.trans[e]]"
-		usr<<"<b><br><br>[M]'s transformation masteries vars<br></b>"
-		for(var/f in M.masteries)
-			usr<<"- [f] - [M.masteries[f]]"
 	UnlockAscension(var/mob/m in players)
 		set category="Admin"
 		if(m.passive_handler.Get("Piloting"))
@@ -1534,27 +1522,6 @@ mob/Admin2/verb
 		M.ECCHARACTER=TRUE
 		Log("Admin", "[ExtractInfo(src)] triggered [ExtractInfo(M)]'s event character setup!")
 
-
-
-	Mastery_Set(mob/Players/P in players)
-		set category="Admin"
-		var/opt=input("Which form?") in list ("Cancel", "Form 1", "Form 2", "Form 3", "Form 4")
-		if(opt=="Cancel")
-			return
-		if(opt=="Form 1")
-			var/amount=input("Master to what extent?") as num
-			P.masteries["1mastery"] = amount
-		if(opt=="Form 2")
-			var/amount=input("Master to what extent?") as num
-			P.masteries["2mastery"] = amount
-		if(opt=="Form 3")
-			var/amount=input("Master to what extent?") as num
-			P.masteries["3mastery"] = amount
-		if(opt=="Form 4")
-			var/amount=input("Master to what extent?") as num
-			P.masteries["4mastery"] = amount
-
-
 mob/Admin3/verb
 
 
@@ -1713,14 +1680,6 @@ mob/Admin3/verb
 		if(Speedz)
 			glob.GetUpVar=Speedz
 			Log("Admin","<font color=blue>[ExtractInfo(usr)] adjusted the GetUpVar to [Speedz]x.")
-
-
-	ResetTransVars(var/mob/M in players)
-		set category="Admin"
-		if(M.client)
-			M.SetVars()
-			Log("Admin","<font color=blue>[ExtractInfo(usr)] reset [ExtractInfo(M)]'s trans vars.")
-
 
 mob/Admin4/verb
 	Push_Forward()

@@ -112,20 +112,20 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 	else
 		MeditateTime=0
 //**TESTED AND WORKS **/
-/mob/proc/drainTransformations(ssj, ssjMastery, trans, transMastery)
+/mob/proc/drainTransformations(trans, transMastery)
 	// TRANS / TRANSMASTERY FOR CHANGIE 4TH FORM
 	var/drain
-	if(ssj >=1 && ssj < 4 && ssjMastery >= 5 && ssjMastery <= 75)
-		drain = round(30 - ((ssjMastery - 5) * 30) / (75 - 5), 1)
+	if(trans && transMastery <= 75)
+		drain = round(30 - ((transMastery - 5) * 30) / (75 - 5), 1)
 		if(drain < 0)
 			drain = 0
 		if(Energy < drain && !HasNoRevert() && !Dead && !HasMystic())
 
 			Revert()
 			LoseEnergy(drain)
-			src<<"The strain of Super Saiyan forced you to revert."
+			src<<"The strain of your transformation forced you to revert."
 
-	if(trans==4 && transMastery < 100 && Race == "Changeling")
+	if(trans==4 && transMastery < 100 && isRace(CHANGELING))
 		drain = round(30 - (40 * log(1 + transMastery / 100)), 1)
 		if(drain < 0)
 			drain = 1
@@ -163,11 +163,7 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 
 /mob/proc/newGainLoop()
 	set waitfor = 0
-	// Local Variables
-	var/active_ssj = ssj["active"]
-	var/ssj_mastery = masteries["[active_ssj]mastery"]
-	var/active_trans = trans["active"]
-	var/trans_mastery = masteries["4mastery"]
+
 	// var/mob/players/M = null
 	// var/val = 0
 
@@ -187,7 +183,7 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 
 	meditationChecks()
 
-	drainTransformations(active_ssj, ssj_mastery, active_trans, trans_mastery)
+	drainTransformations(transActive, race.transformations[transActive].mastery)
 
 	if(Grab) Grab_Update()
 	EnergyMax = 100

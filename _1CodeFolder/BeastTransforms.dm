@@ -82,7 +82,7 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Bu
 			if(!src.Tail)return
 			if(src.SSJ4Unlocked)return
 			if(src.Dead)return
-			if(src.ssj["Active"]>0)return
+			if(transActive)return
 
 			if(src.ActiveBuff)
 				if(src.CheckActive("Eight Gates"))
@@ -146,75 +146,29 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Bu
 
 
 		else if(O.icon)
-			if(!src.Golden)
-				src.NoDodge-=1
-				passive_handler.Decrease("EndlessAnger")
-				src.AuraLocked=0
-				src.AuraLock=null
-				src.Anger=0
-				potential_trans=0
-				src.Oozaru=0
 
-				animate(src, transform = matrix()*2)
-				icon=O.icon
-				O.icon=null
-				pixel_x=0
-				pixel_y=0
-				AppearanceOn()
-				animate(src, transform = matrix(), time = 10)
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src.SlotlessBuffs)
-					if(B)
-						B.Trigger(src)
-			else
-				src.masteries["4mastery"]=1
-				src.NoDodge-=1
-				src.PUSpeedModifier*=1.5
-				src.PureDamage+=3
-				src.PureReduction+=3
-				src.BuffMastery+=2
-				src.Flicker+=2
-				src.Pursuer+=2
-				src.SuperDash+=1
-				src.Instinct+=1
-				src.AuraLocked=0
-				src.AuraLock=null
+			src.NoDodge-=1
+			passive_handler.Decrease("EndlessAnger")
+			src.AuraLocked=0
+			src.AuraLock=null
+			src.Anger=0
+			potential_trans=0
+			src.Oozaru=0
 
-				src.Oozaru=0
-				src.Transformed=1
-				src.SSJ4Unlocked=1
+			animate(src, transform = matrix()*2)
+			icon=O.icon
+			O.icon=null
+			pixel_x=0
+			pixel_y=0
+			AppearanceOn()
+			animate(src, transform = matrix(), time = 10)
+			for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src.SlotlessBuffs)
+				if(B)
+					B.Trigger(src)
 
-				if(src.KO)
-					src.MortallyWounded=0
-					src.TsukiyomiTime=1
-					src.KOTimer=0
-					src.KO=0
-					src.icon_state=""
-
-				src.Sheared=0
-				src.TotalInjury=0
-				src.TotalFatigue=0
-				src.BPPoison=1
-				src.BPPoisonTimer=0
-				src.HealHealth(100)
-				src.HealEnergy(100)
-				src.HealMana(100)
-
-				animate(src, transform = matrix()*2, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1))
-				icon=O.icon
-				O.icon=null
-				overlays=null
-				pixel_x=0
-				pixel_y=0
-				src.overlays+=FurSSJ4
-				src.overlays+=ClothingSSJ4
-				src.overlays+=TailSSJ4
-				ssj["active"]=4
-				Hairz("Add")
-				Auraz("Add")
-				animate(src, transform = matrix(), color = null, time = 10)
 obj/Oozaru
-	
-	
+
+
 
 mob/proc/Tail(Add_Tail=1)
 	if(Add_Tail) Tail(0)

@@ -197,7 +197,7 @@ mob/proc/Unconscious(mob/P,var/text)
 				MortallyWounded+=1
 				src.OMessage(10, "[src] has been grieviously wounded!", "[src]([src.key]) has over 85% injury.")
 	if(src.client)
-		if((src.trans["active"]||src.trans["tension"]||src.ssj["active"]||src.ssj["god"])&&!src.HasNoRevert()&&!src.HasMystic())
+		if((transActive||tension)&&!src.HasNoRevert()&&!src.HasMystic())
 			for(var/obj/Skills/Buffs/B in src)
 				if(src.BuffOn(B)&&B.Transform&&!B.AlwaysOn)
 					B.Trigger(src)
