@@ -1029,7 +1029,7 @@ obj/Items/Sword
 
 				Sword_of_Glory//Caledfwlch
 					name="Sword of Glory"
-					// icon='protoexcalibur.dmi'
+					icon='Caledfwlch.dmi'
 					pixel_x=-31
 					pixel_y=-30
 					passives = list("SpiritSword" = 0.75)

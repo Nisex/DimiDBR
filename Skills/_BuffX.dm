@@ -1219,7 +1219,7 @@ NEW VARIABLES
 								src.RegenMult=1
 								passives = list("HolyMod" = 3, "SpiritSword" = 0.25, "PULock" = 1)
 								src.SwordName="Caledfwlch"
-								src.SwordIcon='Caledfwlch-True.dmi'
+								src.SwordIcon='Caledfwlch.dmi'
 								src.ActiveMessage="calls forth the true form of Caledfwlch, the Sword of Glory!"
 								src.OffMessage="conceals Caledfwlch's glory..."
 							else if(locate(/obj/Skills/Queue/Darkness_Blade, usr))
