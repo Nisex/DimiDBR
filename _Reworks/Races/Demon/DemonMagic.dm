@@ -1,8 +1,60 @@
 /mob/verb/testDOM()
     set category = "Demon Magic Testing"
-    var/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind/dm = new()
+    var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic/dm = new()
     src.AddSkill(dm)
-    dm.Trigger(src)
+
+/mob/proc/checkOtherMacros(obj/Skills/Buffs/SlotlessBuffs/DemonMagic/org)
+    for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in src)
+        if(dm == org) continue
+        if(dm.keyMacro == org.keyMacro)
+            return dm
+    return TRUE
+
+/obj/Skills/Buffs/SlotlessBuffs/DemonMagic
+    // VARS
+    var/keyMacro = null
+    TimerLimit = 1
+    Cooldown = 120
+    // PROCS
+
+/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/proc/setUpMacro(mob/p)
+    p << "The next button you press will be the macro for this. There will be an alert, give it a second."
+    p.client.trackingMacro = src // send a trigger to track for this skill's keymacro
+
+
+
+
+/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Trigger(mob/User, Override = 0)
+    if(Using)
+        ..()
+    else
+        if(isnull(User.client.keyQueue.TRIGGERED))
+            User.client.keyQueue.trigger()
+            User << "You have started to cast [src]" // replace with animation of text above head.
+            Cooldown = 0
+        else
+            // this has already been activated, therefore this must be the 2nd input
+            if(User.client.keyQueue.detectInput(keyMacro, 50) != -1 )
+                Cooldown = 120
+                // execute the skill here
+                
+                Cooldown()
+/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic
+    verb/Dark_Magic()
+        set hidden = TRUE
+        if(!keyMacro)
+            setUpMacro(usr)
+        else
+            if(usr.client.trackingMacro) return
+            Trigger(usr, 0)
+    verb/Change_Macro()
+        setUpMacro(usr)
+
+
+/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire
+
+/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption
+    
 
 
 /obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball

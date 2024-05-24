@@ -14,33 +14,50 @@
     so depending on the ms between the Q and the key will determine if it goes off or not
  */ 
 /datum/queueTracker
-    var/list/queue = list()
-    var/TRIGGERED = FALSE
+    var/tmp/list/queue = list()
+    var/TRIGGERED = null
 
     proc/operator+=(key_data)
         var/currentindex = length(queue) + 1
         queue.Add("filler")
         queue[currentindex] = key_data
-        world<<"added a key"
     
     proc/trigger()
         TRIGGERED = length(queue)
     
     proc/detectInput(lookingFor, delay)
         var/triggerTime = queue[TRIGGERED][2]
+        world<<triggerTime
         for(var/index in TRIGGERED to length(queue))
+            world<<"[queue[index][2]] < [triggerTime + delay]"
             if(queue[index][2] < triggerTime + delay)
                 continue
             // ignore everything that happens between the delay and last press
             if(lookingFor != queue[index][1])
                 // you have misinputted
                 world<<"you have misinputted"
-                break
+                TRIGGERED = null
+                return FALSE
             else
                 world<<"execute thing from LookingFor prob return true or soething"
-                break
+                TRIGGERED = null
+                return TRUE
+        world<<"too soon"
+        return -1
 // needs to be cleaned up ^
 /client/var/tmp/datum/queueTracker/keyQueue = new()
+
+
+
+/client/var/tmp/trackingMacro = null
+// need to define in the loop that when this is active to make it track for this skill
+
+
+
+
+
+
+
 
 /mob/verb/testQueue()
     set category = "Queue Test"
