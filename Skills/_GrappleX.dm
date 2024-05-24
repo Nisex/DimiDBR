@@ -315,7 +315,7 @@ obj/Skills/Grapple
 		Eviscerate
 			Copyable=4
 			SkillCost=120
-			DamageMult=0.75
+			DamageMult=1.75
 			MultiHit=5
 			StrRate=1
 			ThrowMult=0
