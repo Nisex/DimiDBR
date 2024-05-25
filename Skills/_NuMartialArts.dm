@@ -401,9 +401,9 @@ obj
 						Copyable=0
 						StyleStr=1.5
 						StyleFor=1.5
-						passives = list("SpiritHand" = 1, "DarknessFlame" = 0.5)
+						passives = list("SpiritHand" = 1, "DarknessFlame" = 1)
 						SpiritHand=1
-						DarknessFlame=0.5
+						DarknessFlame=1
 						StyleActive="Devil Leg"
 						ElementalOffense="Fire"
 						ElementalDefense="Poison"
@@ -412,7 +412,7 @@ obj
 						Finisher="/obj/Skills/Queue/Finisher/Maiden_Masher"
 						verb/Devil_Leg_Style()
 							set hidden=1
-							passives = list("SpiritHand" = 1, "DarknessFlame" = 0.5)
+							passives = list("SpiritHand" = 1, "DarknessFlame" = 1)
 							src.Trigger(usr)
 					Flow_Reversal_Style
 						SignatureTechnique=2
@@ -481,8 +481,8 @@ obj
 						ElementalClass=list("Water", "Fire", "Earth", "Wind", "Poison")
 						ElementalOffense="Void"
 						ElementalDefense="Void"
-						passives = list("DarknessFlame" = 1, "UnarmedDamage" = 1, "SpiritHand" = 1, "Void" = 1)
-						DarknessFlame=1
+						passives = list("DarknessFlame" = 2, "UnarmedDamage" = 1, "SpiritHand" = 1, "Void" = 1)
+						DarknessFlame=2
 						UnarmedDamage=1
 						SpiritHand=1
 						Void=1

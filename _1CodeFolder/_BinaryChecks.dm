@@ -2625,7 +2625,9 @@ mob
 			return 0
 		HasDarknessFlame()
 			if(passive_handler.Get("DarknessFlame"))
-				return 1
+				return passive_handler.Get("DarknessFlame")
+			if(DarknessFlame)
+				return DarknessFlame
 			return 0
 		HasAbsoluteZero()
 			if(passive_handler.Get("AbsoluteZero"))

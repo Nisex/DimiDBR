@@ -214,11 +214,11 @@ mob
 			if(Value >=1 && !src.BurningShot)
 				animate(src, color = "#ff2643")
 				animate(src, color = src.MobColor, time=5)
-
-			if(Attacker&&Attacker.HasDarknessFlame()&&Attacker!=src)
+			var/darkFlame = Attacker.HasDarknessFlame()
+			if(Attacker&&darkFlame&&Attacker!=src)
 				if(Attacker.IsEvil())
 					Attacker.CursedWounds+=1
-				src.AddPoison(Value*1.25, Attacker=Attacker)
+				src.AddPoison(Value * 1 + (darkFlame * 0.125), Attacker=Attacker)
 				if(Attacker.IsEvil())
 					Attacker.CursedWounds-=1
 
