@@ -4516,16 +4516,12 @@ NEW VARIABLES
 			OffMult=1.3
 			DefMult=1.2
 			SpdMult=2
-			TransMimic=1
 			NeedsHealth=50
 			TooMuchHealth=75
 			Transform="Weapon"
 			ABuffNeeded=list("Soul Resonance")
 			verb/OverSoul()
 				set category="Skills"
-				if(src.TransMimic<usr.transUnlocked)
-					passives = list("TransMimic" = usr.transUnlocked)
-					src.TransMimic=usr.transUnlocked
 				if(usr.SagaLevel<8)
 					src.TimerLimit=90
 					NeedsHealth=50

@@ -12,10 +12,35 @@ mob/var/transActive = 0
 mob/var/bypassTransAutomation = 0
 mob/var/transUnlocked = 0
 
-mob/proc/Transform()
+mob/proc/Transform(type)
+	if(type)
+		//old stuff; high chance its wonky. its mainly hotwired in here as a legacy from the old transform/revert
+		switch(type)
+			if("Tension")
+				for(var/obj/Skills/Buffs/SpecialBuffs/High_Tension/T in src)
+					src.HighTension(T.Tension)
+					T.Tension=0
+
+			if("Jagan")
+				src.Jaganshi()
+
+			if("Weapon")
+				src.WeaponSoul()
+		return
 	race.transformations[transActive+1].transform(src)
 
-mob/proc/Revert()
+mob/proc/Revert(type)
+	if(type)
+		//old stuff; high chance its wonky. its mainly hotwired in here as a legacy from the old transform/revert
+		switch(type)
+			if("Tension")
+				src.RevertHT()
+			if("Jagan")
+				src.RevertJaganshi()
+			if("Weapon")
+				src.RevertWS()
+		return
+
 	race.transformations[transActive].revert(src)
 
 transformation
