@@ -8,5 +8,6 @@ globalTracker/var/BASE_FLUIDFORM_PROB = 10
 /mob/Admin4/verb/testDummy()
     var/mob/Players/P = new()
     P.passive_handler = new()
+    P.setRace(HUMAN, FALSE)
     P.loc = src.loc
     P.icon = 'Namek1.dmi'
