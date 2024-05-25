@@ -192,7 +192,7 @@
 	Cooldown = 120
 	Explode = 2
 	EnergyCost = 15
-	proc/adjust(mob/p)
+	adjust(mob/p)
 		var/mastery = p.Potential
 		var/level = p.secretDatum.currentTier
 		Blasts = round(15 + (level + mastery / 10),1)

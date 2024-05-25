@@ -10,9 +10,13 @@
             return dm
     return TRUE
 
+/mob/var/hasDemonCasting = FALSE
+
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic
     // VARS
     var/keyMacro = null
+    var/KEYWORD = "error"
+    var/obj/Skills/possible_skills
     TimerLimit = 1
     Cooldown = 120
     // PROCS
@@ -22,79 +26,62 @@
     p.client.trackingMacro = src // send a trigger to track for this skill's keymacro
 
 
-
-
+/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/proc/fakeTrigger(mob/p)
+    if(!keyMacro)
+        setUpMacro(p)
+    else
+        if(p.client.trackingMacro) return
+        Trigger(p, 0)
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Trigger(mob/User, Override = 0)
     if(Using)
-        ..()
+        if(possible_skills["DarkMagic"].MultiShots)
+            User.UseProjectile(possible_skills["DarkMagic"])
+        else
+            ..()
     else
         if(isnull(User.client.keyQueue.TRIGGERED))
-            User.client.keyQueue.trigger()
-            User << "You have started to cast [src]" // replace with animation of text above head.
+            User.client.keyQueue.trigger(type)
+            User << "You have started to cast [src]." // replace with animation of text above head.
             Cooldown = 0
         else
+            var/initType = User.client.keyQueue.initType
             // this has already been activated, therefore this must be the 2nd input
-            if(User.client.keyQueue.detectInput(keyMacro, 50) != -1 )
-                Cooldown = 120
+            if(User.client.keyQueue.detectInput(keyMacro, 25) != -1 )
+                User << "You have used your [KEYWORD] spell."
+                Cooldown = 30
                 // execute the skill here
-                
+                var/trueType = splittext("[initType]", "/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/")
+                var/obj/Skills/theSkill = possible_skills[trueType[2]]
+                theSkill?:Trigger(User, 0)
                 Cooldown()
+                User.client.keyQueue.TRIGGERED = null
+            else
+                User << "Too Soon..."
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic
+    name = "Dark Magic"
+    KEYWORD = "damage"
     verb/Dark_Magic()
         set hidden = TRUE
-        if(!keyMacro)
-            setUpMacro(usr)
-        else
-            if(usr.client.trackingMacro) return
-            Trigger(usr, 0)
+        fakeTrigger(usr)
     verb/Change_Macro()
         setUpMacro(usr)
+    
+    possible_skills = list("DarkMagic" = new/obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball, "HellFire" = new/obj/Skills/Projectile/Magic/HellFire/Hellpyre ,"Corruption" )
 
 
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire
+    name = "Hell Fire"
+    KEYWORD = "utility"
+    verb/Hell_Fire()
+        set hidden = TRUE
+        fakeTrigger(usr)
+    verb/Change_Macro()
+        setUpMacro(usr)
 
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption
-    
-
-
-/obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball
-
-/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind
-    var/corruptionGain = list(5,5,8,8,10)
-    Range = 25
-    ManaCost = 15
-    AffectTarget = 1
-
-    applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply
-    proc/adjust(mob/p)
-        if(p.isRace(DEMON) && applyToTarget.type != /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply/Demon)
-            applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply/Demon
-    
-    Trigger(var/mob/User, Override=0)
-        if(!altered)
-            adjust(User)
-            applyToTarget?:adjust(User)
-        if(..())
-            if(1)// usr.isRace(DEMON))
-                usr << "you gain coorruption !!"
-                var/asc = usr.AscensionsAcquired
-                if(asc < 1)
-                    asc = 1
-                usr << "[corruptionGain[asc]]"
-        else
-            world<< "here"
-/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply
-    BuffName = "Dominate Mind Applied"
-    MagicNeeded = 0
-    StunAffected = 10
-    InstantAffect = 1
-    TimerLimit = 10
-    proc/adjust(mob/p)
-        TimerLimit = MAX_STUN_TIME
-        
-
-
-/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply/Demon
-    BuffName = "Mind Dominated"
-
-/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech
+    name = "Corruption"
+    verb/Corruption()
+        set hidden = TRUE
+        fakeTrigger(usr)
+    verb/Change_Macro()
+        setUpMacro(usr)

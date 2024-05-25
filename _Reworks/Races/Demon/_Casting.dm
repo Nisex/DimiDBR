@@ -16,14 +16,17 @@
 /datum/queueTracker
     var/tmp/list/queue = list()
     var/TRIGGERED = null
+    var/tmp/initType = null
 
     proc/operator+=(key_data)
         var/currentindex = length(queue) + 1
         queue.Add("filler")
         queue[currentindex] = key_data
     
-    proc/trigger()
+    proc/trigger(t)
+        world<<t
         TRIGGERED = length(queue)
+        initType = t
     
     proc/detectInput(lookingFor, delay)
         var/triggerTime = queue[TRIGGERED][2]
@@ -32,15 +35,17 @@
                 continue
             // ignore everything that happens between the delay and last press
             if(lookingFor != queue[index][1])
+            
                 // you have misinputted
-                world<<"you have misinputted"
                 TRIGGERED = null
+                initType = null
+                queue = list(1 = list(123, world.time-2))
                 return FALSE
             else
-                world<<"execute thing from LookingFor prob return true or soething"
                 TRIGGERED = null
+                initType = null
+                queue = list(1 = list(123, world.time-2))
                 return TRUE
-        world<<"too soon"
         return -1
 // needs to be cleaned up ^
 /client/var/tmp/datum/queueTracker/keyQueue = new()
