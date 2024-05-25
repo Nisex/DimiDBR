@@ -1,6 +1,11 @@
 obj
 	Skills
 		Projectile
+			proc/adjust(mob/p)
+			proc/Trigger(mob/p, Override = 0)
+				world<<"here for [src] [p]"
+				adjust(p)
+				p.UseProjectile(src)
 			layer=EFFECTS_LAYER
 			Distance=10
 			Cooldown=0.5
@@ -4831,6 +4836,7 @@ obj
 				density=1
 				Grabbable=0
 				Health=1#INF
+				MultiTrail = 0
 				New(var/mob/m, var/obj/Skills/Projectile/Z, var/atom/Origin, var/BeamCharging=0.5, var/GivesMessage, var/IconUsed=0)
 					if(m==null||Origin==null)
 						endLife()
@@ -4895,6 +4901,7 @@ obj
 					src.MiniDivide=Z.MiniDivide
 					src.Divide=Z.Divide
 					src.Trail=Z.Trail
+					src.MultiTrail=Z.MultiTrail
 					src.Shearing = Z.Shearing
 					src.Crippling = Z.Crippling
 					src.TrailX=Z.TrailX
@@ -5309,6 +5316,11 @@ obj
 
 						var/str = StrRate ? Owner.GetStr(StrRate) : 0
 						var/force = ForRate ? Owner.GetFor(ForRate) : 0
+						if(AdaptRate)
+							if(Owner.GetStr(1) > Owner.GetFor(1))
+								str = Owner.GetStr(AdaptRate)
+							else
+								force = Owner.GetStr(AdaptRate)
 						var/powerDif = Owner.Power / a:Power
 						// + Owner.getIntimDMGReduction(m)
 						if(glob.CLAMP_POWER)
@@ -5674,7 +5686,11 @@ obj
 						for(var/turf/t in view(src.Divide, src))
 							Destroy(t, 9001)
 					if(src.Trail)
-						LeaveTrail(src.Trail, src.VariationX+src.TrailX, src.VariationY+src.TrailY, src.dir, src.loc, src.TrailDuration, src.TrailSize)
+						if(src.MultiTrail)
+							WaveTrail(src.Trail, src.VariationX+src.TrailX, src.VariationY+src.TrailY, src.dir, src.loc, src.TrailDuration, src.TrailSize)
+						else
+							LeaveTrail(src.Trail, src.VariationX+src.TrailX, src.VariationY+src.TrailY, src.dir, src.loc, src.TrailDuration, src.TrailSize)
+
 					src.Distance--
 					..()
 
@@ -5696,7 +5712,10 @@ obj
 								TurfShift(TurfShiftEnd, t, 10+Delay, src, OBJ_LAYER+0.01)
 
 					if(src.Trail)
-						LeaveTrail(src.Trail, src.VariationX+src.TrailX, src.VariationY+src.TrailY, src.dir, src.loc, src.TrailDuration, src.TrailSize)
+						if(src.MultiTrail)
+							WaveTrail(src.Trail, src.VariationX+src.TrailX, src.VariationY+src.TrailY, src.dir, src.loc, src.TrailDuration, src.TrailSize)
+						else
+							LeaveTrail(src.Trail, src.VariationX+src.TrailX, src.VariationY+src.TrailY, src.dir, src.loc, src.TrailDuration, src.TrailSize)
 					if(!src.Killed && src.Owner)
 						if(src.Explode)
 							Bang(src.loc, Size=src.Explode, Offset=0, PX=src.VariationX, PY=src.VariationY, icon_override = ExplodeIcon)

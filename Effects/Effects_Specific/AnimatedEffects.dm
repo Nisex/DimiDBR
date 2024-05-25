@@ -48,6 +48,61 @@ proc
 		sleep(2)
 		del i
 
+	WaveTrail(trail, p_x, p_y, Dir, turf/location, time, size, state)
+		var/image/i=image(trail, pixel_x=p_x, pixel_y=p_y, dir=Dir, icon_state=state)
+		var/image/i2=image(trail, pixel_x=p_x, pixel_y=p_y, dir=Dir, icon_state=state)
+		var/image/i3=image(trail, pixel_x=p_x, pixel_y=p_y, dir=Dir, icon_state=state)
+		i.loc=location
+		i2.loc=location
+		i3.loc=location
+		switch(Dir)
+			if(NORTH)
+				i2.pixel_x -= 32
+				i3.pixel_x += 32
+			if(SOUTH)
+				i2.pixel_x -= 32
+				i3.pixel_x += 32
+			if(WEST)
+				i2.pixel_y -= 32
+				i3.pixel_y += 32
+			if(EAST)
+				i2.pixel_y -= 32
+				i3.pixel_y += 32
+			if(NORTHEAST)
+				i2.pixel_x -= 32
+				i2.pixel_y += 32
+				i3.pixel_x += 32
+				i3.pixel_y -= 32
+			if(NORTHWEST)
+				i2.pixel_x -= 32
+				i2.pixel_y -= 32
+				i3.pixel_x += 32
+				i3.pixel_y += 32
+			if(SOUTHEAST)
+				i2.pixel_x += 32
+				i2.pixel_y += 32
+				i3.pixel_x -= 32
+				i3.pixel_y -= 32
+			if(SOUTHWEST)
+				i2.pixel_x -= 32
+				i2.pixel_y += 32
+				i3.pixel_x += 32
+				i3.pixel_y -= 32
+			
+		i.transform*=size
+		i2.transform*=size
+		i3.transform*=size
+		world << i
+		world << i2
+		world << i3
+		spawn(time)
+			animate(i, alpha=0, time=2)
+			animate(i2, alpha=0, time=2)
+			animate(i3, alpha=0, time=2)
+			sleep(2)
+			del i
+
+
 	LeaveTrail(var/Trail, var/PX=0, var/PY=0, var/Dir, var/turf/Location, var/Time, var/Size, var/State)
 		if(Trail=='Icons/Turfs/GalSpace.dmi') //ill add in a variable for randomization later
 			State = "[rand(1,25)]"
