@@ -19,6 +19,7 @@
     var/obj/Skills/possible_skills
     TimerLimit = 1
     Cooldown = 120
+    var/CURRENTLY_SEALED
     // PROCS
 
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/proc/setUpMacro(mob/p)
@@ -65,6 +66,11 @@
         fakeTrigger(usr)
     verb/Change_Macro()
         setUpMacro(usr)
+    Cooldown(modify, Time)
+        for(var/index in possible_skills)
+            if(possible_skills[index])
+                possible_skills[index].Cooldown()
+
     
     possible_skills = list("DarkMagic" = new/obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball, "HellFire" = new/obj/Skills/Projectile/Magic/HellFire/Hellpyre ,"Corruption" )
 

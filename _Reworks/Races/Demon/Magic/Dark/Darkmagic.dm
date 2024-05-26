@@ -16,6 +16,7 @@
     ActiveMessage = "sends out balls of dark magic!"
     ManaCost = 5
     Deviation = 240
+    Cooldown = 120
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)

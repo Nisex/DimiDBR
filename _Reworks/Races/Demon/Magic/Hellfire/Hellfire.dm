@@ -14,7 +14,7 @@
     TrailY=0
     AccMult = 3
     Speed = 0.75
-    Cooldown = 5
+    Cooldown = 120
     ActiveMessage = "unleashes a wave of Hell Fire!"
     ManaCost = 1
     Delay = 8
