@@ -52,10 +52,13 @@
                 // execute the skill here
                 var/trueType = splittext("[initType]", "/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/")
                 var/obj/Skills/theSkill = possible_skills[trueType[2]]
+                world<<"[possible_skills[trueType[2]].cooldown_remaining] | [possible_skills[trueType[2]].Using]"
+
                 if(possible_skills[trueType[2]].cooldown_remaining)
-                    
+                    User << "This is on cooldown"
+                    return
                 theSkill?:Trigger(User, 0)
-                Cooldown(0, 120)
+                Cooldown(1, 0, User)
                 User.client.keyQueue.TRIGGERED = null
             else
                 User << "Too Soon..."
@@ -67,10 +70,12 @@
         fakeTrigger(usr)
     verb/Change_Macro()
         setUpMacro(usr)
-    Cooldown(modify, Time)
+    Cooldown(modify, Time, mob/p)
         for(var/index in possible_skills)
+            world<<"[index] 1"
             if(possible_skills[index])
-                possible_skills[index].Cooldown(modify, Time)
+                world<<"[possible_skills[index]] 2"
+                possible_skills[index].Cooldown(modify, Time, p)
 
     
     possible_skills = list("DarkMagic" = new/obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball, "HellFire" = new/obj/Skills/Projectile/Magic/HellFire/Hellpyre ,"Corruption" )

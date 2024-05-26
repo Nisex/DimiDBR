@@ -1,13 +1,16 @@
 
 obj/Skills/var
-	cooldown_remaining
+	cooldown_remaining = 0
 	cooldown_start
-obj/Skills/proc/Cooldown(var/modify=1, var/Time)
+obj/Skills/proc/Cooldown(var/modify=1, var/Time, mob/p)
 	var/mob/m=src.loc
-	if(istype(src, /obj/Skills/Projectile) && m.passive_handler.Get("MissileSystem"))
-		Cooldown = 15 //TODO come back and fix this later when it matters
+	if(p)
+		m = p
+	// if(istype(src, /obj/Skills/Projectile) && m.passive_handler.Get("MissileSystem"))
+	// 	Cooldown = 15 //TODO come back and fix this later when it matters
 
 	if(!src.Using || Time)
+		world<<"here"
 		src.Using=1
 		if(Cooldown==-1)
 			src.Using=1
@@ -34,20 +37,13 @@ obj/Skills/proc/Cooldown(var/modify=1, var/Time)
 						if(typeString == x)
 							lockedoutSkills+=otherSkills
 							otherSkills.Using=1
-/*			if(m.Saga=="Hiten Mitsurugi-Ryuu")
-				if(src.StyleNeeded=="Hiten Mitsurugi")
-					if(m.SagaLevel>=5)
-						modify/=1.5
-					if(m.SagaLevel>=8)
-						if(src.FatigueCost)
-							src.FatigueCost=0
-						if(src.CooldownScalingCounter>0)
-							src.CooldownScalingCounter=0*/
 			Time=src.Cooldown*10*modify*(1+0.33*src.CooldownScalingCounter)
+			world<<"Time: [Time]"
 			if(src.CooldownScaling)
 				src.CooldownScalingCounter++
 		else
 			forcemessage=1
+		world<<"Time: [Time] | 1"
 		cooldown_remaining = Time
 		if(m)
 			if(m.PureRPMode)

@@ -3,8 +3,9 @@ obj
 		Projectile
 			proc/adjust(mob/p)
 			proc/Trigger(mob/p, Override = 0)
-				world<<"here for [src] [p]"
 				adjust(p)
+				if(Using || cooldown_remaining)
+					return
 				p.UseProjectile(src)
 			layer=EFFECTS_LAYER
 			Distance=10
