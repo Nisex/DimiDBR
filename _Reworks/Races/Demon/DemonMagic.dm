@@ -49,12 +49,13 @@
             // this has already been activated, therefore this must be the 2nd input
             if(User.client.keyQueue.detectInput(keyMacro, 25) != -1 )
                 User << "You have used your [KEYWORD] spell."
-                Cooldown = 30
                 // execute the skill here
                 var/trueType = splittext("[initType]", "/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/")
                 var/obj/Skills/theSkill = possible_skills[trueType[2]]
+                if(possible_skills[trueType[2]].cooldown_remaining)
+                    
                 theSkill?:Trigger(User, 0)
-                Cooldown()
+                Cooldown(0, 120)
                 User.client.keyQueue.TRIGGERED = null
             else
                 User << "Too Soon..."
@@ -69,7 +70,7 @@
     Cooldown(modify, Time)
         for(var/index in possible_skills)
             if(possible_skills[index])
-                possible_skills[index].Cooldown()
+                possible_skills[index].Cooldown(modify, Time)
 
     
     possible_skills = list("DarkMagic" = new/obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball, "HellFire" = new/obj/Skills/Projectile/Magic/HellFire/Hellpyre ,"Corruption" )
