@@ -9,7 +9,7 @@ obj
 			var/DistanceAround//this is only used for AroundTarget type techs.
 			var
 				NoPierce=0//If this is flagged it will make a technique terminate after hitting something.
-
+				
 				UnarmedOnly
 				StanceNeeded
 				ABuffNeeded
@@ -27,7 +27,6 @@ obj
 				StrOffense//Uses STR for damage.
 				ForOffense//Uses FOR for damage.
 				EndDefense=1//Uses End for reduction.
-
 				Area//variable to define what kind of hitzone to use.
 				ChargeTech//Denotes if there is a charge
 				ChargeTime//How much time it takes to move.
@@ -164,6 +163,9 @@ obj
 
 				RagingDemonAnimation = FALSE
 				Executor // increase damage by x*10% while the enemy is under 25%, increased by 2x when they are under 5%
+				
+				Primordial // deal x % more per 1 missing health
+
 				SpeedStrike
 				GrabMaster = FALSE
 
@@ -4824,7 +4826,7 @@ mob
 				if(s.Class!=Z.ClassNeeded && (istype(Z.ClassNeeded, /list) && !(s.Class in Z.ClassNeeded)))
 					src << "You need a [istype(Z.ClassNeeded, /list) ? Z.ClassNeeded[1] : Z.ClassNeeded]-class weapon to use this technique."
 					return
-			if(!Z.StrOffense&&!Z.ForOffense)
+			if(!Z.StrOffense&&!Z.ForOffense && !Z.AdaptRate)
 				src << "[Z] is bugged and doesn't know how to calculate damage."
 				return
 			if(Z.HealthCost)
@@ -5537,7 +5539,9 @@ obj
 			ChargeTime
 			RagingDemonAnimation = FALSE
 			Executor
+			Primordial
 			SpeedStrike
+			AdaptDmg
 
 			Scorching
 			Chilling
@@ -5592,7 +5596,10 @@ obj
 				src.EndRes=Z.TempEndDef
 			else
 				src.EndRes=Z.EndDefense
+			if(Z.AdaptRate)
+				AdaptDmg = Z.AdaptRate
 			src.Executor = Z.Executor
+			src.Primordial = Z.Primordial
 			src.RagingDemonAnimation = Z.RagingDemonAnimation
 			src.GoldScatter = Z.GoldScatter
 			src.Knockback=Z.Knockback
@@ -5736,6 +5743,11 @@ obj
 				Owner.log2text("powerDif - Auto Hit", powerDif, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
 				var/atk = 0
+				if(AdaptDmg)
+					if(Owner.GetStr(1) > Owner.GetFor(1))
+						StrDmg = AdaptDmg
+					else
+						ForDmg = AdaptDmg
 				if(ForDmg && !StrDmg)
 					atk = Owner.GetFor(ForDmg)
 				else if(StrDmg && !ForDmg)
@@ -5916,6 +5928,10 @@ obj
 					if(m.Health <=25)
 						Damage *= 1 + additonal
 
+				if(Primordial)
+					var/additonal = Primordial
+					var/missingHealth = 100-m.Health
+					Damage *= 1 + ((additonal * missingHealth)/100)
 				if(grabNerf)
 					FinalDmg *= AUTOHIT_GRAB_NERF
 //TODO: Remove a whole lot of those
@@ -5927,6 +5943,8 @@ obj
 					LightningBolt(m, src.Bolt, src.BoltOffset)
 				if(src.Punt)
 					Hit_Effect(m, Size=src.Punt)
+
+				//EFFECTS HERE
 
 				if(src.LifeSteal)
 					src.Owner.LifeSteal+=src.LifeSteal
