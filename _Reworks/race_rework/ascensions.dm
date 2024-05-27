@@ -558,7 +558,7 @@ ascension
 					b.TooMuchHealth = 20
 					b.AngerMult = 1.3
 					b.passives = list("AngerAdaptiveForce" = 0.1)
-					b.VaizardHealth = 5
+					b.VaizardHealth = 0.5
 				..()
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
@@ -573,7 +573,7 @@ ascension
 					b.TooMuchHealth = 25
 					b.AngerMult = 1.4
 					b.passives = list("AngerAdaptiveForce" = 0.2)
-					b.VaizardHealth = 10
+					b.VaizardHealth = 1
 				..()
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
@@ -588,7 +588,7 @@ ascension
 					b.TooMuchHealth = 30
 					b.AngerMult = 1.3
 					b.passives = list("AngerAdaptiveForce" = 0.3, "Void" = 1)
-					b.VaizardHealth = 15
+					b.VaizardHealth = 1.5
 				..()
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
@@ -601,7 +601,7 @@ ascension
 					b.TooMuchHealth = 35
 					b.AngerMult = 1.3
 					b.passives = list("AngerAdaptiveForce" = 0.4, "Void" = 1)
-					b.VaizardHealth = 15
+					b.VaizardHealth = 1.5
 				..()
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
@@ -614,7 +614,7 @@ ascension
 					b.TooMuchHealth = 50
 					b.AngerMult = 1.4
 					b.passives = list("AngerAdaptiveForce" = 0.5, "Void" = 1)
-					b.VaizardHealth = 20
+					b.VaizardHealth = 2.0
 				..()
 
 	dragon
@@ -778,28 +778,28 @@ ascension
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
-			intimidation = 25
+			intimidation = 1.25
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
 			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 1, "HeavyHitter" = 1)
 			strength = 0.5
 			endurance = 0.25
 			force = 0.5
-			intimidation = 30
+			intimidation = 1.3
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 0.5, "HeavyHitter" = 1)
 			strength = 0.5
 			endurance = 0.25
 			force = 0.5
-			intimidation = 40
+			intimidation = 1.4
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 1, "HeavyHitter" = 2)
 			strength = 1
 			endurance = 0.25
 			force = 1
-			intimidation = 55
+			intimidation = 1.55
 
 	alien
 		proc
@@ -1286,9 +1286,11 @@ ascension
 			harness_evil
 				choices = list("Brutality" = /ascension/sub_ascension/majin/harness_evil/brutality, "Anger" = /ascension/sub_ascension/majin/harness_evil/anger, "Both" = /ascension/sub_ascension/majin/harness_evil/both)
 				brutality
+					choices = null
 					passives = list("UnhingedForm" = 0.25, "Pursuer" = 1)
 
 				anger
+					choices = null
 					angerPoint = 5
 					passives = list("DemonicDurability" = 0.25)
 
@@ -1298,6 +1300,7 @@ ascension
 						..()
 
 				both
+					choices = null
 					angerPoint = 2.5
 					passives = list("DemonicDurability" = 0.175, "UnhingedForm" = 0.175, "Pursuer" = 0.5)
 					onAscension(mob/owner)
@@ -1308,17 +1311,21 @@ ascension
 			remain_consistent
 				choices = list("Adaptability" = /ascension/sub_ascension/majin/remain_consistent/adaptability, "Consistency" = /ascension/sub_ascension/majin/remain_consistent/consistency, "Both" = /ascension/sub_ascension/majin/remain_consistent/both)
 				adaptability
+					choices = null
 					passives = list("Adaptation" = 0.2, "Flicker" = 1, "Hustle" = 0.15)
 
 				consistency
+					choices = null
 					passives = list("Steady" = 0.25, "DebuffImmune" = 0.15, "StableBP" = 0.5)
 
 				both
+					choices = null
 					passives = list("Adaptation" = 0.1, "Flicker" = 0.5, "Hustle" = 0.075, "Steady" = 0.175, "DebuffImmune" = 0.075, "StableBP" = 0.25)
 
 			become_docile
 				choices = list("Stability" = /ascension/sub_ascension/majin/become_docile/stability, "Peace" = /ascension/sub_ascension/majin/become_docile/peace, "Both" = /ascension/sub_ascension/majin/become_docile/both)
 				stability
+					choices = null
 					passives = list("VenomResistance" = 0.5, "DebuffImmune" = 0.5, "Juggernaut" = 0.5)
 
 					onAscension(mob/owner)
@@ -1327,9 +1334,11 @@ ascension
 						..()
 
 				peace
+					choices = null
 					passives = list("Flow" = 0.5, "DeathField" = 0.25, "VoidField" = 0.25)
 
 				both
+					choices = null
 					passives = list("VenomResistance" = 0.25, "DebuffImmune" = 0.25, "Juggernaut" = 0.25, "Flow" = 0.25, "DeathField" = 0.175, "VoidField" = 0.175)
 
 					onAscension(mob/owner)

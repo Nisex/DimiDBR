@@ -1272,7 +1272,7 @@ mob/Admin2/verb
 			M.PrevZ=M.z
 		M.loc=loc
 		Log("Admin","[ExtractInfo(usr)] summoned [ExtractInfo(M)].")
-
+/*
 	CreateSpawnPoint()
 		set category="Admin"
 		var/confirm=input("You are creating a spawn point. Once created, the races you select can spawn here. Proceed?") in list("Yes","No")
@@ -1288,7 +1288,7 @@ mob/Admin2/verb
 				SP.DefaultSpawn=0
 				SP.loc=usr.loc
 		else
-			return
+			return*/
 	RPP_Set_Starting(var/val as num|null)
 		set category="Admin"
 		if(val==null || !val)

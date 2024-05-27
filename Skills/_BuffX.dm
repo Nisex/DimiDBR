@@ -1942,13 +1942,6 @@ NEW VARIABLES
 			Cooldown=0
 			verb/Giant_Form()
 				set category="Skills"
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/r in usr)
-					if(r.Using&&!usr.BuffOn(src))
-						return
-					if(usr.BuffOn(r))
-						r.Trigger(usr)
-					if(!r.Using)
-						r.Cooldown()
 				src.Trigger(usr)
 
 		Daimou_Form//for Demon Nameks!
@@ -4677,7 +4670,7 @@ NEW VARIABLES
 			OffMessage="stops regenerating..."
 			proc/getRaceModifier(mob/p)
 				. = 1
-				switch(p.Race)
+				switch(p.race.name)
 					if("Majin")
 						switch(p.Class)
 							if("Super")
@@ -4715,11 +4708,11 @@ NEW VARIABLES
 				if(!usr.BuffOn(src))
 					getRegenRate(usr)
 				else
-					if(usr.isRace(MAJIN)&&usr.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
+					if(usr.isRace(MAJIN)&&usr.race.ascensions.len>=1&&usr.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
 						usr.Stasis = 0
 				src.Trigger(usr)
 				if(usr.BuffOn(src))
-					if(usr.isRace(MAJIN)&&usr.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
+					if(usr.isRace(MAJIN)&&usr.race.ascensions.len>=1&&usr.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
 						usr.Stasis = TimerLimit
 					if(!usr.Sheared)
 						if(usr.BPPoisonTimer>1&&usr.BPPoison<1)

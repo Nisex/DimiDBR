@@ -239,6 +239,7 @@ globalTracker
 
 		NEWINTIMCALC = TRUE
 
+		TENSION_MULTIPLIER = 1
 
 // dmg rolls
 		min_damage_roll = 0.3

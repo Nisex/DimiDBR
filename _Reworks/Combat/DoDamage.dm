@@ -225,13 +225,13 @@
 		var/value = defender.passive_handler.Get("Gluttony") * 0.15
 		WoundSelf(value * val )
 		GainFatigue(value * val)
-		Tension += value * val
+		Tension += value * val * glob.TENSION_MULTIPLIER
 
 
 	if(defender.HasDeathField() && (unarmed || sword))
 		var/deathFieldValue = defender.GetDeathField() * 0.01
 		WoundSelf(deathFieldValue * min(1/val,1))
-		Tension += deathFieldValue * min(1/val,1)
+		Tension += deathFieldValue * min(1/val,1) * glob.TENSION_MULTIPLIER
 	if(defender.HasVoidField()&&spiritAtk)
 		var/voidFieldValue = defender.GetVoidField() * 0.01
 		GainFatigue(voidFieldValue * min(1/val,1))

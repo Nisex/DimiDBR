@@ -3678,6 +3678,7 @@ turf/Special
 //		icon='PDTurf.dmi'
 //		icon_state="1"
 	Static
+		Buildable = 1
 		icon='Special.dmi'
 		icon_state="Special5"
 

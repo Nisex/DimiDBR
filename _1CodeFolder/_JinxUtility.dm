@@ -197,11 +197,11 @@ mob
 
 				if(src.StyleBuff)
 					if(src.Tension<100 && !src.HasTensionLock())
-						src.Tension+=(val)
+						src.Tension+=(val) * glob.TENSION_MULTIPLIER
 
 				if(defender.StyleBuff&&defender.StyleBuff)
 					if(defender.Tension<100 && !defender.HasTensionLock())
-						defender.Tension+=(val*0.75)
+						defender.Tension+=(val*0.75) * glob.TENSION_MULTIPLIER
 			var/leakVal = val/GLOBAL_LEAK_REDUCTION
 
 

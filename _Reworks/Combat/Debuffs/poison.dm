@@ -49,7 +49,10 @@ globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
         reduceBioArmor(dmg)
     Health-=dmg
     if(Health<=0 && !KO)
-        Unconscious(null, "succumbing to Poison!")
+        if(typeOfDebuff == "Poison")
+            Unconscious(null, "succumbing to Poison!")
+        if(typeOfDebuff == "Burn")
+            Unconscious(null, "burning up!")
     reduceDebuffStacks(typeOfDebuff)
 
 
