@@ -73,6 +73,7 @@ var/ticker
 var/list/ticking_ai = list()
 var/list/companion_ais = list()
 var/list/ticking_turfs = list()
+var/list/ticking_generic = list()
 
 /mob/Admin4/verb/view_ai_list()
     src << jointext(ticking_ai, ", ")
@@ -99,7 +100,15 @@ world
             try
                 ai_tick()
             catch()
+        
+        try
+            general_tick()
+        catch()
 
+
+proc/general_tick()
+    for(var/atom/a in ticking_generic)
+        a.Update()
 
 proc/turf_tick()
     for(var/turf/t in ticking_turfs)

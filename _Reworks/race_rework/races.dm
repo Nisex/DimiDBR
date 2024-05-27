@@ -436,21 +436,25 @@ race
 		locked = TRUE
 
 		power = 5
-		strength = 1.5
+		strength = 2
 		endurance = 1.5
 		speed = 1.5
-		offense = 2
+		offense = 1.5
 		defense = 1.5
-		force = 1.5
+		force = 2
 		anger = 2
 		regeneration = 3
 		imagination = 2
-		passives = list("HellPower" = 1, "StaticWalk" = 1, "SpaceWalk" = 1, "CursedWounds" = 1)
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm, /obj/Skills/Buffs/SlotlessBuffs/Regeneration)
+		passives = list("SpiritPower" = 0.25, "AbyssMod" = 1, "HellPower" = 0.1, "AngerAdaptiveForce" = 0.15, "StaticWalk" = 1, "SpaceWalk" = 1, "CursedWounds" = 1, "FakePeace" = 1)
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm, /obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon, \
+						/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption)
 		onFinalization(mob/user)
 			..()
-			user.TrueName=input(user, "As a demon, you have a True Name that can be used to summon you by anyone with the magic and knowledge of it. It should be kept secret. What is your True Name?", "Get True Name") as text
+			user.EnhancedSmell = 1
+			user.EnhancedHearing = 1
+			user.TrueName=input(user, "As a demon, you have a True Name. It should be kept secret. What is your True Name?", "Get True Name") as text
 			user << "The name by which you can be conjured is <b>[user.TrueName]</b>."
+			user << "Please set macros for (Dark Magic), (Hell Fire) and (Corruption), your 3 demon magics."
 			global.TrueNames.Add(user.TrueName)
 
 	alien

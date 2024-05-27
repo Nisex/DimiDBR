@@ -6,11 +6,7 @@ obj/Skills/proc/Cooldown(var/modify=1, var/Time, mob/p)
 	var/mob/m=src.loc
 	if(p)
 		m = p
-	// if(istype(src, /obj/Skills/Projectile) && m.passive_handler.Get("MissileSystem"))
-	// 	Cooldown = 15 //TODO come back and fix this later when it matters
-
 	if(!src.Using || Time)
-		world<<"here"
 		src.Using=1
 		if(Cooldown==-1)
 			src.Using=1
@@ -38,12 +34,12 @@ obj/Skills/proc/Cooldown(var/modify=1, var/Time, mob/p)
 							lockedoutSkills+=otherSkills
 							otherSkills.Using=1
 			Time=src.Cooldown*10*modify*(1+0.33*src.CooldownScalingCounter)
-			world<<"Time: [Time]"
 			if(src.CooldownScaling)
 				src.CooldownScalingCounter++
 		else
 			forcemessage=1
-		world<<"Time: [Time] | 1"
+		if(isnull(Time))
+			Time = Cooldown
 		cooldown_remaining = Time
 		if(m)
 			if(m.PureRPMode)

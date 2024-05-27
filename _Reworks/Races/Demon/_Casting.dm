@@ -17,6 +17,7 @@
     var/tmp/list/queue = list()
     var/TRIGGERED = null
     var/tmp/initType = null
+    var/tmp/LAST_CAST = -100
 
     proc/operator+=(key_data)
         var/currentindex = length(queue) + 1
@@ -39,12 +40,12 @@
                 // you have misinputted
                 TRIGGERED = null
                 initType = null
-                queue = list(1 = list(123, world.time-2))
+                queue = list(1 = list("123", world.time-2))
                 return FALSE
             else
                 TRIGGERED = null
                 initType = null
-                queue = list(1 = list(123, world.time-2))
+                queue = list(1 = list("123", world.time-2))
                 return TRUE
         return -1
 // needs to be cleaned up ^
@@ -58,26 +59,46 @@
 
 
 
+/obj/castingSpeechHolder
+    var/toDeath = 40
+    var/tmp/mob/owner = null
+    maptext_width = 64
+    maptext_height = 64
+    alpha = 0
+    New(msg, textColor, life, mob/p)
+        companion_ais += src
+        toDeath = life ? life : 50
+        maptext = "<font color='[textColor]'><font size=small>[msg]</font>"
+        filters = filter(type = "drop_shadow", size = 2, color = rgb(244, 244, 26, 126))
+        animate(src, pixel_y = 36, time = 20)
+        animate(src, alpha = 255, time = 20)
+        owner = p
+        p.vis_contents += src 
+        ..()
+    
+    Update()
+        toDeath--
+        if(toDeath == 20)
+            animate(src, alpha = 0, time = 20)
+            animate(src, pixel_y = 0, time = 20)
+        if(toDeath <= 0)
+            companion_ais-=src
+            owner.vis_contents -= src
+            del src
+
+            
+/mob/proc/castAnimation()
+    var/static/list/phrases = list("parvus pendetur fur, magnus abire videtur", "para bellum", "parturiunt montes, nascetur ridiculus mus", \
+                                    "Pericula ludus", "principiis obst, et respice finem", "pro se", "pro scientia atque sapientia", "propria manu ", \
+                                    "ad vitam aut culpam", "aut vincere aut mori", "cor aut mors", "esto perpetua", "usque ad finem")
+    new/obj/castingSpeechHolder(pick(phrases), Text_Color, null, src)
+
+
 
 
 
 
 /mob/verb/testQueue()
     set category = "Queue Test"
-    client.keyQueue+=list("A", world.time)
-    client.keyQueue.trigger()
-    sleep(1)
-    client.keyQueue+=list("B", world.time)
-    sleep(1)
-    client.keyQueue+=list("C", world.time)
-    sleep(1)
-    client.keyQueue+=list("G", world.time)
-    sleep(1)
-    client.keyQueue+=list("B", world.time)
-    sleep(1)
-    client.keyQueue+=list("F", world.time)
-    sleep(1)
-    client.keyQueue+=list("R", world.time)
-    sleep(1)
-    client.keyQueue+=list("T", world.time)
-    client.keyQueue.detectInput("B", 4)
+    castAnimation()
+    sleep(20)

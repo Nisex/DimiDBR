@@ -19,7 +19,6 @@
     var/obj/Skills/possible_skills
     TimerLimit = 1
     Cooldown = 120
-    var/CURRENTLY_SEALED
     // PROCS
 
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/proc/setUpMacro(mob/p)
@@ -41,24 +40,25 @@
             ..()
     else
         if(isnull(User.client.keyQueue.TRIGGERED))
-            User.client.keyQueue.trigger(type)
-            User << "You have started to cast [src]." // replace with animation of text above head.
-            Cooldown = 0
+            if(User.client.keyQueue.LAST_CAST + 70 < world.time)
+                User.client.keyQueue.trigger(type)
+                User << "You have started to cast [src]." // replace with animation of text above head.
+                User.castAnimation()
+                Cooldown = 0
+                User.client.keyQueue.LAST_CAST = world.time
         else
             var/initType = User.client.keyQueue.initType
             // this has already been activated, therefore this must be the 2nd input
-            if(User.client.keyQueue.detectInput(keyMacro, 25) != -1 )
-                User << "You have used your [KEYWORD] spell."
+            if(User.client.keyQueue.detectInput(keyMacro, 40) != -1 )
                 // execute the skill here
                 var/trueType = splittext("[initType]", "/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/")
                 var/obj/Skills/theSkill = possible_skills[trueType[2]]
-                world<<"[possible_skills[trueType[2]].cooldown_remaining] | [possible_skills[trueType[2]].Using]"
-
-                if(possible_skills[trueType[2]].cooldown_remaining)
+                if(possible_skills[trueType[2]].cooldown_remaining > 0)
                     User << "This is on cooldown"
                     return
+                User << "You have used your [KEYWORD] spell."
                 theSkill?:Trigger(User, 0)
-                Cooldown(1, 0, User)
+                Cooldown(1, null, User)
                 User.client.keyQueue.TRIGGERED = null
             else
                 User << "Too Soon..."
@@ -69,12 +69,13 @@
         set hidden = TRUE
         fakeTrigger(usr)
     verb/Change_Macro()
+        set category = "Other"
         setUpMacro(usr)
     Cooldown(modify, Time, mob/p)
         for(var/index in possible_skills)
-            world<<"[index] 1"
+            world<<index
             if(possible_skills[index])
-                world<<"[possible_skills[index]] 2"
+                possible_skills[index].Using = 0 
                 possible_skills[index].Cooldown(modify, Time, p)
 
     
@@ -88,6 +89,7 @@
         set hidden = TRUE
         fakeTrigger(usr)
     verb/Change_Macro()
+        set category = "Other"
         setUpMacro(usr)
 
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption
@@ -96,4 +98,5 @@
         set hidden = TRUE
         fakeTrigger(usr)
     verb/Change_Macro()
+        set category = "Other"
         setUpMacro(usr)
