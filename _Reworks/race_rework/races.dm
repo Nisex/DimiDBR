@@ -470,6 +470,8 @@ race
 		regeneration = 1.5
 		statPoints = 20
 
+		locked = 1
+
 		onFinalization(mob/user)
 			user.Class = input(user,"What is your alien racial?", "Choose!")in list ("ESP", "Infusion", "Adrenaline", "Infernal", "Celestial", "Prodigy", "Warper", "Winged", "Multi-Limbed", "Morphic" )
 			switch(user.Class)
