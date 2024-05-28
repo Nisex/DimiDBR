@@ -365,12 +365,18 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			onAscension(mob/owner)
+				owner.secretDatum.tierUp(2, owner)
+				..()
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
 			endurance = 0.25
 			defense = 0.25
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			onAscension(mob/owner)
+				owner.secretDatum.tierUp(3, owner)
+				..()
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
 			strength = 0.25
@@ -380,6 +386,9 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			onAscension(mob/owner)
+				owner.secretDatum.tierUp(4, owner)
+				..()
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			strength = 0.25
@@ -389,6 +398,9 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			onAscension(mob/owner)
+				owner.secretDatum.tierUp(5, owner)
+				..()
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			strength = 0.25
@@ -398,7 +410,9 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
-
+			onAscension(mob/owner)
+				owner.secretDatum.tierUp(6, owner)
+				..()
 	high_faoroan
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL

@@ -356,6 +356,7 @@ race
 			..()
 			user.Secret="Eldritch"
 			user.giveSecret("Eldritch")
+			user.secretDatum.nextTierUp = 999
 
 	beastman
 		name = "Beastman"
