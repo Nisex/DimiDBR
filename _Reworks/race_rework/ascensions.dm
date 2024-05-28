@@ -488,20 +488,19 @@ ascension
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			passives = list("Hellpower" = 0.15, "AbyssMod" = 1, "SpiritPower" = 0.25)
 			anger = 0.5
-			intimidation = 10
+			intimidation = 1.0
 			strength = 0.25
 			endurance = 0.5
 			speed = 0.25
 			onAscension(mob/owner)
 				..()
 				owner.Class = "B"
-				findTrueForm(owner).passives
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
 			passives = list("Hellpower" = 0.25, "AngerAdaptiveForce" = 0.15, "AbyssMod" = 2, "SpiritPower" = 0.25)
 			anger = 0.25
-			intimidation = 15
+			intimidation = 1.5
 			strength = 0.25
 			force = 0.5
 			defense = 0.25
@@ -513,7 +512,7 @@ ascension
 			unlock_potential = ASCENSION_THREE_POTENTIAL
 			passives = list("Hellpower" = 0.15, "AbyssMod" = 2, , "SpiritPower" = 0.25)
 			anger = 0.5
-			intimidation = 20
+			intimidation = 2.0
 			strength = 0.5
 			force = 0.5
 			endurance = 0.5
@@ -524,7 +523,7 @@ ascension
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			passives = list("Hellpower" = 0.25, "AbyssMod" = 4, "GodKi" = 0.5)
 			anger = 1
-			intimidation = 25
+			intimidation = 2.5
 			strength = 0.25
 			force = 0.25
 			defense = 0.75
@@ -538,7 +537,7 @@ ascension
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			passives = list("EndlessAnger" = 1, "GodKi" = 0.5)
 			anger = 0.25
-			intimidation = 25
+			intimidation = 2.5
 
 			onAscension(mob/owner)
 				..()
