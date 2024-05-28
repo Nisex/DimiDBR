@@ -17,7 +17,7 @@ characterInformation/proc/InfoToJSON(txtName, mob/p)
         if(variable in DO_NOT_SAVE)
             continue
         if(variable == "profileBase")
-            .[variable] << vars[variable]
+            .[variable] = vars[variable] // i dont think this works, p sure it will break the icon either way
         else
             .[variable] = vars[variable]
     
