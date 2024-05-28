@@ -92,13 +92,3 @@
                                     "Pericula ludus", "principiis obst, et respice finem", "pro se", "pro scientia atque sapientia", "propria manu ", \
                                     "ad vitam aut culpam", "aut vincere aut mori", "cor aut mors", "esto perpetua", "usque ad finem")
     new/obj/castingSpeechHolder(pick(phrases), Text_Color, null, src)
-
-
-
-
-
-
-/mob/verb/testQueue()
-    set category = "Queue Test"
-    castAnimation()
-    sleep(20)
