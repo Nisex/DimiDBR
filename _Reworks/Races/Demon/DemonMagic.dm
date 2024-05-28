@@ -92,11 +92,15 @@
         set category = "Other"
         setUpMacro(usr)
 
+    possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech, "HellFire" ,"Corruption" )
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption
     name = "Corruption"
+    KEYWORD = "crowd control"
     verb/Corruption()
         set hidden = TRUE
         fakeTrigger(usr)
     verb/Change_Macro()
         set category = "Other"
         setUpMacro(usr)
+
+    possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind, "HellFire" ,"Corruption" )
