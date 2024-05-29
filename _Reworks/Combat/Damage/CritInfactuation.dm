@@ -5,7 +5,7 @@
 	return 1
 /mob/proc/getCritAndBlock(mob/defender, damage)
 	if(prob(CriticalChance)&&CriticalDamage&&StandardBiology())
-		damage *= CriticalDamage
+		damage *= 1+passive_handler.Get("CriticalDamage")
 	if(prob(defender.BlockChance)&&defender.CriticalBlock)
-		damage /= defender.CriticalBlock
+		damage /= 1+defender.passive_handler.Get("CriticalBlock")
 	return damage
