@@ -7,10 +7,14 @@ mob
 
 passive
 	var
-		list/passives = list("CriticalBlock" = 1, "CriticalDamage" = 1) //this list will track passives that are intended to stick to the character; racials/things sticking over relogs.
-		tmp/list/tmp_passives = list() //this list is for buffs, or things that should fall off naturally/on a relog.
+		list/passives //this list will track passives that are intended to stick to the character; racials/things sticking over relogs.
+		tmp/list/tmp_passives //this list is for buffs, or things that should fall off naturally/on a relog.
 
+	New()
+		passives = list()
+		tmp_passives = list()
 	proc
+
 		Get(passive) // returns value of passive if it exists/has anything
 			return passives[passive] ? passives[passive] : 0
 
