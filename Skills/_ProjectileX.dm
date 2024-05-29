@@ -1863,7 +1863,7 @@ obj
 				Copyable=5
 				Distance=20
 				DamageMult=6
-				AccMult=15
+				AccMult=3
 				Knockback=5
 				EnergyCost=3
 				Cooldown=120
@@ -4830,7 +4830,7 @@ obj
 					Killed=0
 					VariationX
 					VariationY
-					list/AlreadyHit = list()
+					list/AlreadyHit
 					BeamCharge
 					BreathCost
 				Savable=0
@@ -4841,6 +4841,7 @@ obj
 				New(var/mob/m, var/obj/Skills/Projectile/Z, var/atom/Origin, var/BeamCharging=0.5, var/GivesMessage, var/IconUsed=0)
 					if(m==null||Origin==null)
 						endLife()
+					AlreadyHit = list()
 					animate_movement=SLIDE_STEPS
 					if(BeamCharging<0.5)
 						BeamCharging=0.5
