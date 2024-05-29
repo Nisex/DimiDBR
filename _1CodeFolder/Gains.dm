@@ -244,7 +244,7 @@ mob
 			var/shonenMoment = ShonenPowerCheck(src)
 			if(shonenMoment)
 				VaizardHealth += triggerPlotArmor(shonenMoment, HasUnstoppable())
-				src.OMessage(10, "<font color=#c3b329>[src]'s will to be a HERO gives [lowertext(objectpronoun())] a second wind!</font>", "[src]([src.key]) has triggered plot armor.")
+				src.OMessage(10, "<font color=#c3b329>[src]'s will to be a HERO gives them a second wind!</font>", "[src]([src.key]) has triggered plot armor.")
 
 
 			if(src.SpecialBuff&&src.SpecialBuff.BuffName=="Broken Brave")
