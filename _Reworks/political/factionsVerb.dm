@@ -98,7 +98,7 @@ characterInformation*/
 
 
 //TODO: somebody else can do examine
-
+/*
 characterInformation/proc/getInformation(mob/p, pronouns)
     var/msg = ""
     if(rankingNumber == "ERROR")
@@ -147,3 +147,4 @@ characterInformation/proc/getInformation(mob/p, pronouns)
 
     return msg
 
+*/
