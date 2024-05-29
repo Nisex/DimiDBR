@@ -3,10 +3,10 @@
     var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic/dm = new()
     src.AddSkill(dm)
 
-/mob/proc/checkOtherMacros(obj/Skills/Buffs/SlotlessBuffs/DemonMagic/org)
+/mob/proc/checkOtherMacros(org)
     for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in src)
         if(dm == org) continue
-        if(dm.keyMacro == org.keyMacro)
+        if(dm.keyMacro == org)
             return dm
     return TRUE
 
@@ -75,10 +75,10 @@
         for(var/index in possible_skills)
             world<<index
             if(possible_skills[index])
-                possible_skills[index].Using = 0 
+                possible_skills[index].Using = 0
                 possible_skills[index].Cooldown(modify, Time, p)
 
-    
+
     possible_skills = list("DarkMagic" = new/obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball, "HellFire" = new/obj/Skills/Projectile/Magic/HellFire/Hellpyre ,"Corruption" )
 
 

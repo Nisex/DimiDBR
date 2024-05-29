@@ -18,15 +18,15 @@ obj
 					del src
 
 		Crossed(atom/movable/O)
-			..()
-			if(O==Owner) return
+			if(O==Owner&&&!ismob(O)) return
 			tick_on |= O
+			..()
 
 		Uncrossed(atom/movable/O)
-			..()
-			if(O==Owner) return
+			if(O==Owner&&!ismob(O)) return
 			if(O in tick_on)
 				tick_on -= O
+			..()
 
 		proc
 			on_tick()
