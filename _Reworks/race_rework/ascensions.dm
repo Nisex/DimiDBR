@@ -73,7 +73,7 @@ ascension
 					owner.AngerMessage = "becomes angry!"
 
 			if(anger != 0)
-				owner.NewAnger(owner.Anger-anger)
+				owner.NewAnger(owner.AngerMax-anger)
 
 			owner.Intimidation -= intimidation
 			owner.Intimidation /= intimidationMult
@@ -99,9 +99,10 @@ ascension
 			applied = FALSE
 
 		onAscension(mob/owner)
-			if(applied || pickingChoice) return
+			. = TRUE
+			if(applied || pickingChoice) return FALSE
 			choiceSelection(owner)
-			if(choices.len > 0 && !choiceSelected) return
+			if(choices.len > 0 && !choiceSelected) return FALSE
 			applied = TRUE
 
 			owner.PotentialRate += powerAdd
@@ -128,7 +129,7 @@ ascension
 				owner.AngerMessage = new_anger_message
 
 			if(anger != 0)
-				owner.NewAnger(owner.Anger+anger)
+				owner.NewAnger(owner.AngerMax+anger)
 
 			owner.Intimidation += intimidation
 			owner.IntimidationMult += intimidationMult
@@ -468,10 +469,10 @@ ascension
 			choices = list("Rest" = /ascension/sub_ascension/high_faoroan/rest, "Sacrifice" = /ascension/sub_ascension/high_faoroan/sacrifice)
 
 	demon
-		var/list/trueFormPerAsc = list(1 = list("Hellpower" = 0.15, "AngerAdaptiveForce" = 0.1, "TechniqueMastery" = 10), \
-									 2 = list("Hellpower" = 0.25,"Hellrisen" = 0.25,  "AngerAdaptiveForce" = 0.1, "TechniqueMastery" = 5), \
-									3 = list("Hellpower" = 0.15, "TechniqueMastery" = 10), \
-									4 = list("Hellpower" = 0.5, "AngerAdaptiveForce" = 0.5, "Hellrisen" = 0.5, "TechniqueMastery" = 5))
+		var/list/trueFormPerAsc = list(1 = list("HellPower" = 0.2, "AngerAdaptiveForce" = 0.1, "TechniqueMastery" = 5), \
+									 2 = list("HellPower" = 0.3,"Hellrisen" = 0.25,  "AngerAdaptiveForce" = 0.1, "TechniqueMastery" = 10), \
+									3 = list("HellPower" = 0.15, "TechniqueMastery" = 5), \
+									4 = list("HellPower" = 0.5, "AngerAdaptiveForce" = 0.3, "Hellrisen" = 0.5, "TechniqueMastery" = 5))
 		proc/findTrueForm(mob/p)
 			var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = new()
 			d = locate() in p
@@ -480,13 +481,14 @@ ascension
 				p << "Please report to the admin or discord that your true form is bugged on asc"
 			return d
 		onAscension(mob/owner)
-			..()
-			owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm).Mastery++
-			for(var/passive in trueFormPerAsc[owner.AscensionsAcquired])
-				findTrueForm(owner).passives[passive] += trueFormPerAsc[owner.AscensionsAcquired][passive]
+			var/result = ..()
+			if(result)
+				owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm).Mastery++
+				for(var/passive in trueFormPerAsc[owner.AscensionsAcquired])
+					findTrueForm(owner).passives[passive] += trueFormPerAsc[owner.AscensionsAcquired][passive]
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			passives = list("Hellpower" = 0.15, "AbyssMod" = 1, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.1, "AbyssMod" = 0.25, "SpiritPower" = 0.25)
 			anger = 0.5
 			intimidation = 1.0
 			strength = 0.25
@@ -498,7 +500,7 @@ ascension
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
-			passives = list("Hellpower" = 0.25, "AngerAdaptiveForce" = 0.15, "AbyssMod" = 2, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.2, "AbyssMod" = 0.75, "SpiritPower" = 0.25)
 			anger = 0.25
 			intimidation = 1.5
 			strength = 0.25
@@ -510,7 +512,7 @@ ascension
 				owner.Class = "A"
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
-			passives = list("Hellpower" = 0.15, "AbyssMod" = 2, , "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.15, "AbyssMod" = 1, "SpiritPower" = 0.25)
 			anger = 0.5
 			intimidation = 2.0
 			strength = 0.5
@@ -521,7 +523,7 @@ ascension
 				owner.Class = "S"
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
-			passives = list("Hellpower" = 0.25, "AbyssMod" = 4, "GodKi" = 0.5)
+			passives = list("HellPower" = 0.25, "AbyssMod" = 2, "SpiritPower" = 0.25)
 			anger = 1
 			intimidation = 2.5
 			strength = 0.25
@@ -535,7 +537,7 @@ ascension
 				owner.Class = "False King"
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
-			passives = list("EndlessAnger" = 1, "GodKi" = 0.5)
+			passives = list("EndlessAnger" = 1)
 			anger = 0.25
 			intimidation = 2.5
 

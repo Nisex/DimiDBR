@@ -83,7 +83,7 @@
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
-    var/list/scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(15,20,20,30,30), "HealthHeal" = list(2,2,3,5,5), "EnergyHeal" = list(15,10,10,5,5))
+    var/list/scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(-15,-20,-20,-30,-30), "HealthHeal" = list(-2,-2,-3,-5,-5), "EnergyHeal" = list(-15,-10,-10,-5,-5))
     InstantAffect = 1
     AffectTarget = 1
     StableHeal = 1
