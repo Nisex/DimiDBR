@@ -358,7 +358,7 @@ var/global/MULTIHIT_NERF = FALSE
 						sleep(3)
 						spawn()
 							LaunchEnd(enemy)
-				else if(!AttackQueue && (enemy.Launched || enemy.Stunned || enemy.Knockback))
+				else if(!AttackQueue && (enemy.Launched || enemy.Stunned))
 					damage *= glob.CCDamageModifier
 					#if DEBUG_MELEE
 					log2text("Damage", "After Stun", "damageDebugs.txt", "[ckey]/[name]")
