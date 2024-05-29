@@ -1073,6 +1073,8 @@ NEW VARIABLES
 
 			verb/Stop_Cultivation()
 				set category = "Skills"
+				if(!usr)
+					usr = src.loc
 				if(usr.BuffOn(src))
 					handleGates(usr, FALSE)
 				else if(!usr.GatesActive)
