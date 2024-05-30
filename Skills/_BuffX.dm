@@ -7651,6 +7651,7 @@ NEW VARIABLES
 			TopOverlayLock='Elf_Crown.dmi'
 			ActiveMessage=null
 			OffMessage=null
+			passives = list("Deicide" = 1, "TechniqueMastery" = 1, "Flicker" = 1)
 			verb/Don_Crown()
 				set category="Skills"
 				src.Trigger(usr)

@@ -422,7 +422,6 @@ race
 		offense = 1
 		defense = 2
 		force = 1.5
-		anger = 2
 		regeneration = 3
 		imagination = 2
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown)
@@ -441,7 +440,6 @@ race
 		offense = 1.5
 		defense = 1.5
 		force = 2
-		anger = 1.5
 		regeneration = 3
 		imagination = 2
 		passives = list("AbyssMod" = 0.5, "HellPower" = 0.05, "StaticWalk" = 1, "SpaceWalk" = 1, "CursedWounds" = 1, "FakePeace" = 1, "MartialMagic" = 1)
