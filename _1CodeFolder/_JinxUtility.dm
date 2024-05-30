@@ -1198,7 +1198,7 @@ mob
 			if(Secret == "Werewolf" && CheckSlotless("Full Moon Form"))
 				Mod += 1 * (secretDatum?:getHungerBoon())
 			var/adaptive = passive_handler.Get("AngerAdaptiveForce")
-			if(adaptive)
+			if(adaptive && (src.HasCalmAnger() || EndlessAnger || Anger))
 				if(BaseStr() > BaseFor())
 					Mod += clamp(adaptive,0.1,1)
 				if(BaseStr() == BaseFor())
@@ -1307,7 +1307,7 @@ mob
 			if(src.ForEroded)
 				Mod-=src.ForEroded
 			var/adaptive = passive_handler.Get("AngerAdaptiveForce")
-			if(adaptive)
+			if(adaptive && (src.HasCalmAnger() || EndlessAnger || Anger))
 				if(BaseFor() > BaseStr())
 					Mod += clamp(adaptive,0.1,1)
 				if(BaseFor() == BaseStr())
