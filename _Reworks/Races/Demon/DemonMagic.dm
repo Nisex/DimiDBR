@@ -73,7 +73,6 @@
         setUpMacro(usr)
     Cooldown(modify, Time, mob/p)
         for(var/index in possible_skills)
-            world<<index
             if(possible_skills[index])
                 possible_skills[index].Using = 0
                 possible_skills[index].Cooldown(modify, Time, p)

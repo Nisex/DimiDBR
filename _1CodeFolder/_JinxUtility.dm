@@ -400,9 +400,9 @@ mob
 			if(defender.ActiveBuff&&defender.CheckActive("Keyblade")&&!defender.SpecialBuff)
 				defender.ManaAmount+=(0.25*defender.SagaLevel)
 
-			if(src.HellPower&&!src.transActive())
+			if(src.HasHellPower()&&!src.transActive())
 				src.HealMana(1)
-			if(defender.HellPower&&!src.transActive())
+			if(defender.HasHellPower()&&!src.transActive())
 				defender.HealMana(1)
 
 			if(src.SlotlessBuffs)

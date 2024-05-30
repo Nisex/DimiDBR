@@ -1393,15 +1393,6 @@ mob
 			if(src.isRace(HUMAN)&&src.HellPower>=2&&src.AscensionsAcquired>=4)
 				return 1
 			return 0
-		HasSpiritPower()
-			return passive_handler.Get("SpiritPower")
-		HasLegendaryPower()
-			var/Extra=0
-			if(src.TarotFate=="Judgment")
-				Extra=1
-			if(passive_handler.Get("LegendaryPower"))
-				return min(1+Extra, passive_handler.Get("LegendaryPower")+Extra)
-			return 0
 		HasHellPower()
 			var/Extra=0
 			if(src.TarotFate=="Judgment")
@@ -1410,6 +1401,15 @@ mob
 				return 1+Extra
 			if(passive_handler.Get("HellPower"))
 				return min(2+Extra, passive_handler.Get("HellPower")+Extra)
+			return 0
+		HasSpiritPower()
+			return passive_handler.Get("SpiritPower")
+		HasLegendaryPower()
+			var/Extra=0
+			if(src.TarotFate=="Judgment")
+				Extra=1
+			if(passive_handler.Get("LegendaryPower"))
+				return min(1+Extra, passive_handler.Get("LegendaryPower")+Extra)
 			return 0
 		HasPowerReplacement()
 			if(src.passive_handler.Get("PowerReplacement"))
