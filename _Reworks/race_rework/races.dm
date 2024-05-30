@@ -433,9 +433,7 @@ race
 		name = "Demon"
 		desc = "Aspects of the Demon King's essence, shattered and splintered into their own forms until evolving into their own being."
 		visual = 'Eldritch.png'
-
 		locked = TRUE
-
 		power = 5
 		strength = 2
 		endurance = 1.5
@@ -443,10 +441,10 @@ race
 		offense = 1.5
 		defense = 1.5
 		force = 2
-		anger = 2
+		anger = 1.5
 		regeneration = 3
 		imagination = 2
-		passives = list("AbyssMod" = 0.5, "HellPower" = 0.1, "AngerAdaptiveForce" = 0.1, "StaticWalk" = 1, "SpaceWalk" = 1, "CursedWounds" = 1, "FakePeace" = 1, "MartialMagic" = 1)
+		passives = list("AbyssMod" = 0.5, "HellPower" = 0.05, "StaticWalk" = 1, "SpaceWalk" = 1, "CursedWounds" = 1, "FakePeace" = 1, "MartialMagic" = 1)
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm, /obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon, \
 						/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption)
 		onFinalization(mob/user)

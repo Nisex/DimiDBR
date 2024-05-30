@@ -704,9 +704,9 @@ mob/proc/
 		if(src.NanoBoost&&src.Health<25)
 			EPM+=0.25
 
-		if(src.DemonicPower())
-			var/pot=src.get_potential()
-			EPM+=pot/100
+		// if(src.DemonicPower())
+		// 	var/pot=src.get_potential()
+		// 	EPM+=pot/100
 
 		if(isRace(MAKYO)&&src.ActiveBuff&&!src.HasMechanized())
 			EPM+=0.1*src.AscensionsAcquired
