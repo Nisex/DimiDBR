@@ -1539,7 +1539,7 @@ mob
 				if(src.SenseUnlocked>=8)
 					Total+=1
 			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff())
-				if(!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
+				if(src.Target&&!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
 					Total+=src.Target.GetGodKi()/2
 			if(src.KamuiBuffLock)
 				Total+=0.25

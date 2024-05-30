@@ -4832,9 +4832,9 @@ NEW VARIABLES
 			ActiveMessage="decides to stand their ground under the rain of attacks!!"
 			OffMessage="finally gives in to the pain..."
 			proc/adjust(mob/user)
-				var/zenkaiLevel = user.AscensionsAcquired
+				var/zenkaiLevel = user.AscensionsAcquired/10
 				//scales off how low hp is
-				PowerMult = clamp(1,1+0.[zenkaiLevel]/user.Health, 1.5)
+				PowerMult = clamp(1,1+zenkaiLevel/user.Health, 1.5)
 			verb/Saiyan_Grit()
 				set category="Skills"
 				if(!usr.BuffOn(src))
@@ -11564,10 +11564,10 @@ mob
 						return
 				if(B.ClassNeeded)
 					var/obj/Items/Sword/s=src.EquippedSword()
-					if(s.Class == 0)  // 0 is the default class
+					if(s&&s.Class == 0)  // 0 is the default class
 						src << "You need a classed weapon to use this technique."
 						return
-					if(s.Class!=B.ClassNeeded && (istype(B.ClassNeeded, /list) && !(s.Class in B.ClassNeeded)))
+					if(!s||s.Class!=B.ClassNeeded && (istype(B.ClassNeeded, /list) && !(s.Class in B.ClassNeeded)))
 						src << "You need a [istype(B.ClassNeeded, /list) ? B.ClassNeeded[1] : B.ClassNeeded]-class weapon to use this technique."
 						return
 				if(B.NeedsSword)

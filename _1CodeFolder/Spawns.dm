@@ -218,9 +218,9 @@ mob
 				var/Enter
 				var/list/raceList = races
 				raceList += "Cancel"
-				while(Enter!="Done")
+				while(Enter!="Cancel")
 					Enter=input(src, "Enter the race that will be able to select this spawn. You may add additional races after entering. Enter Cancel to stop entering races.", "New Spawn") in raceList
-					if(Enter!="Done")
+					if(Enter!="Cancel")
 						NewS.DefaultRaces.Add(Enter)
 						src << "Added [Enter] to default races for [NewS]."
 
