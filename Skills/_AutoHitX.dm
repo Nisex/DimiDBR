@@ -33,7 +33,7 @@ obj
 				ChargeFlight//superman tackle
 				WindUp//Charge for this number of seconds.
 				Slow//Makes it so that there is a pause in the movement of autohitters (The technique does not instantly hit all of its related tiles)
-
+				ApplySlow = 0
 				Icon//Displays icon when used.
 				IconX//Offsets.
 				IconY
@@ -5516,7 +5516,7 @@ obj
 			Flash
 
 			Slow//Autohit doesn't hit instantly
-
+			ApplySlow
 			CanBeBlocked
 			CanBeDodged
 
@@ -5633,6 +5633,7 @@ obj
 			src.CanBeBlocked=Z.CanBeBlocked
 			src.CanBeDodged=Z.CanBeDodged
 			src.Slow=Z.Slow
+			src.ApplySlow = Z.ApplySlow
 			src.PassThrough=Z.PassThrough//This does not get assigned to other types because it will always follow the primary autohit, not the offshoots.
 			src.PassTo=Z.PassTo
 			src.StopAtTarget=Z.StopAtTarget
@@ -5931,6 +5932,8 @@ obj
 					var/additonal = Primordial
 					var/missingHealth = 100-m.Health
 					Damage *= 1 + ((additonal * missingHealth)/100)
+				if(ApplySlow)
+					m.AddSlow(ApplySlow, Owner)
 				if(grabNerf)
 					FinalDmg *= AUTOHIT_GRAB_NERF
 //TODO: Remove a whole lot of those
@@ -6286,6 +6289,7 @@ obj
 										src.Damage(m)
 						goto Kill
 					else
+						//TODO: make hellstorm work here
 						if(src.Slow&&src.Distance>1)
 							src.Owner.Frozen=1
 							for(var/Rounds=1, Rounds<=src.DistanceMax, Rounds++)

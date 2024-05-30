@@ -26,12 +26,12 @@ client
 			if(macros)
 				macros.Press(button)
 				if(trackingMacro)
-					var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm = mob.checkOtherMacros(button)
+					var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm = mob.checkOtherMacros(trackingMacro)
 					if(dm != 1)
 						var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/org = trackingMacro
 						org.keyMacro = button
 						mob << "[button] is the macro for [org]"
-						sleep(15)
+						sleep(5)
 						trackingMacro = null
 					else
 						mob << "[dm != FALSE ? "[button] is assigned to [dm]" : "You arent allowed"]"

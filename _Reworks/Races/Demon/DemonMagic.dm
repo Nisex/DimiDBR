@@ -3,10 +3,10 @@
     var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic/dm = new()
     src.AddSkill(dm)
 
-/mob/proc/checkOtherMacros(org)
+/mob/proc/checkOtherMacros(obj/Skills/Buffs/SlotlessBuffs/DemonMagic/org)
     for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in src)
         if(dm == org) continue
-        if(dm.keyMacro == org)
+        if(dm.keyMacro == org.keyMacro)
             return dm
     return TRUE
 
@@ -91,7 +91,7 @@
         set category = "Other"
         setUpMacro(usr)
 
-    possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech, "HellFire" ,"Corruption" )
+    possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech, "HellFire" = new/obj/Skills/AutoHit/Magic/HellFire/Hellstorm ,"Corruption" )
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption
     name = "Corruption"
     KEYWORD = "crowd control"

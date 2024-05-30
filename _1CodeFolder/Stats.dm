@@ -1203,13 +1203,18 @@ mob/proc/Get_Scouter_Reading(mob/B)
 			EPM*=1+(0.5*B.AscensionsAcquired) * 7
 	if(EPM<=0)
 		EPM=0.1
+	if(src.DemonicPower())
+		var/pot=src.get_potential()
+		EPM+=pot/10
+	// here we can make demonic power fake visual bp
+
 
 	Ratio*=EPM
 
 	if(B.HasLegendaryPower())
 		Ratio*= 1 + (2*B.HasLegendaryPower())
 	if(B.HasHellPower())
-		Ratio*=B.GetHellScaling() *15
+		Ratio*=B.GetHellScaling() * 15
 	Ratio*=B.Base() * 100
 	temp_potential_power(B)//get them potential powers
 	Ratio*=B.potential_power_mult

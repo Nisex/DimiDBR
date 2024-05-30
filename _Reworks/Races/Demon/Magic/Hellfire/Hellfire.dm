@@ -33,3 +33,30 @@
         set category = "Skills"
         adjust(usr)
         usr.UseProjectile(src)
+
+/obj/Skills/AutoHit/Magic/HellFire/Hellstorm
+    var/scalingValues = list("Rounds" = list(10,15,20,25,30), "DamageMult" = list(0.05,0.05,0.1,0.1,0.2), "Distance" = list(10,10,20,25,25), \
+    "DarknessFlame" = list(5,10,15,20,30), "ApplySlow" = list(3,6,8,12,20), "Burning" = list(10,15,20,25,30,50))
+    Area="Circle"
+    AdaptRate = 1
+    Rounds = 10
+    NoLock=1
+    NoAttackLock=1
+    DamageMult=0.05
+    Distance=10
+    Slow=100
+    SpecialAttack = 1 
+    Icon='BloodRain.dmi'
+    TurfStrike=1
+    TurfShift='BurnedGround.dmi'
+    TurfShiftDuration=180
+    Cooldown=10
+    proc/adjust(mob/p)
+        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
+        for(var/x in scalingValues)
+            vars[x] = scalingValues[x][asc]
+        Size = Distance
+    verb/TestHellStorm()
+        set category = "Skills"
+        adjust(usr)
+        usr.Activate(src)
