@@ -1183,7 +1183,7 @@ mob/proc
 					src.PotentialLastDailyGain=glob.progress.DaysOfWipe-1
 				src.RewardsLastGained=glob.progress.DaysOfWipe-1
 				//set these to wipe start so that the login code will give them their rewards and allow them to grind potentialz
-			information.setPronouns(TRUE)
+			//information.setPronouns(TRUE)
 			killed_AI = list()
 			// information.pickFaction(src)
 /*

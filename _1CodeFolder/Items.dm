@@ -1061,7 +1061,7 @@ obj/Items/Sword
 					proc/drawDainsleif(mob/p)
 						hasKilled = FALSE
 						p << "You draw the blade from it sheathe and are barely able to contain its immense bloodlust. The sword cries out, waning for blood."
-						OMsg(p, "[p.name] draws [p.possessivepronoun()] blade from its sheathe and [p.subjectpronoun()] can barely contain it. The Sword of Ruin wans for blood...")
+						OMsg(p, "[p.name] draws their blade from its sheathe and they can barely contain it. The Sword of Ruin wans for blood...")
 					proc/onKill(mob/atk, mob/defend)
 						hasKilled = TRUE
 						OMsg(atk, "The Sword of Ruin's blood lust has been sated by [defend.name]'s death!")
@@ -1076,7 +1076,7 @@ obj/Items/Sword
 								switch(choice)
 									if("Yes")
 										p << "The blade forces itself into your body and you feel your life force being drained away."
-										OMsg(p, "The blade shoves itself into [p.name]'s body, absorbing [p.possessivepronoun()] life force!")
+										OMsg(p, "The blade shoves itself into [p.name]'s body, absorbing their life force!")
 										p.HealthCut += 0.1
 										return TRUE
 									if("No")

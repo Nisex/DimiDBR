@@ -1073,6 +1073,8 @@ NEW VARIABLES
 
 			verb/Stop_Cultivation()
 				set category = "Skills"
+				if(!usr)
+					usr = src.loc
 				if(usr.BuffOn(src))
 					handleGates(usr, FALSE)
 				else if(!usr.GatesActive)
@@ -2505,7 +2507,9 @@ NEW VARIABLES
 						passives = list("EnergyGeneration" = 0.3, "ManaGeneration" = 0.1, "ManaSeal" = 1, "PureDamage" = 1, "PureReduction" = 1, "LifeSteal" = 10)
 					if(!src.Using)
 						usr.Activate(new/obj/Skills/AutoHit/Knockoff_Wave)
-				src.Trigger(usr)
+				if(Trigger(usr))
+					if(!src.Using)
+						usr.Activate(new/obj/Skills/AutoHit/Knockoff_Wave)
 
 		Limit_Breaker
 			SignatureTechnique=3
@@ -12562,7 +12566,7 @@ mob
 							src.GainFatigue(30)
 					if(src.HasKiControl())
 						src.Auraz("Add")
-				else if(src.SagaLevel<7||src.Saga!="Cosmo")
+				else if(src.SagaLevel<5||src.Saga!="Cosmo")
 					for(var/obj/Items/Symbiotic/Saint_Cloth/Gold_Cloth/GC in src)
 						if(GC.suffix)
 							src.SpecialBuff=FALSE

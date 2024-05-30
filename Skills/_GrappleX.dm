@@ -81,7 +81,7 @@ obj/Skills/Grapple
 					ThrowMult=0.75
 					ThrowAdd=2
 					ObjectEnabled = 0
-					TriggerMessage = "sinks [usr.possessivepronoun()] fangs into"
+					TriggerMessage = "sinks their fangs into"
 					Effect = "Strike"
 					var/secretLevel = usr.getSecretLevel()
 					DamageMult = (6 + secretLevel) * (1 + usr.secretDatum:getBloodPowerRatio())

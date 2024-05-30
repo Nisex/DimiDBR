@@ -9,7 +9,7 @@ obj
 			var/DistanceAround//this is only used for AroundTarget type techs.
 			var
 				NoPierce=0//If this is flagged it will make a technique terminate after hitting something.
-				
+
 				UnarmedOnly
 				StanceNeeded
 				ABuffNeeded
@@ -163,7 +163,7 @@ obj
 
 				RagingDemonAnimation = FALSE
 				Executor // increase damage by x*10% while the enemy is under 25%, increased by 2x when they are under 5%
-				
+
 				Primordial // deal x % more per 1 missing health
 
 				SpeedStrike
@@ -5452,7 +5452,6 @@ obj
 		density=1//It has to be dense to properly register contact.
 		Destructable=0//Can't be explode
 		var
-			list/mob/Targets=list()//People who have been touched by the autohit.
 
 			//Distance//Active count of tiles left to move.
 			DistanceMax//Maximum amount; kept track of for arc purposes.
@@ -5560,13 +5559,14 @@ obj
 
 			Shearing
 
+			tmp/list/AlreadyHit
+
 		New(var/mob/owner, var/arcing=0, var/wave=0, var/card=0, var/circle=0, var/mob/target, var/obj/Skills/AutoHit/Z, var/turf/TrgLoc)
 			set waitfor = FALSE
 			if(!owner)
-				Targets = null
-				Target = null
 				loc = null
 				return
+			AlreadyHit = list()
 			src.Owner=owner
 			if(owner.Grab && !Z.GrabMaster)
 				grabNerf = 1
@@ -5711,7 +5711,6 @@ obj
 			walk(src,0)
 			animate(src)
 			Owner = null
-			Targets = null
 			loc = null
 			sleep(10)
 			del src
@@ -6123,7 +6122,6 @@ obj
 					if(src.TargetLoc)
 						if(src.Slow&&src.Distance>1)
 							src.Owner.Frozen=1
-							var/list/AlreadyHit=list()
 							for(var/Rounds=1, Rounds<=src.DistanceMax, Rounds++)
 								if(src.StepsDamage&&Rounds>1)
 									src.Damage+=src.StepsDamage//add growing damage
@@ -6290,7 +6288,6 @@ obj
 					else
 						if(src.Slow&&src.Distance>1)
 							src.Owner.Frozen=1
-							var/list/AlreadyHit=list()
 							for(var/Rounds=1, Rounds<=src.DistanceMax, Rounds++)
 								currentRounds = Rounds
 								if(src.StepsDamage&&Rounds>1)
@@ -6511,11 +6508,11 @@ obj
 						if(Arc==1)
 							src.ArcingCount++
 						if(src.ArcingCount>0)
-							new/obj/AutoHitter/ArcOffshoot(src, 1)//Left
-							new/obj/AutoHitter/ArcOffshoot(src, 0)//Right
+							new/obj/AutoHitter/ArcOffshoot(src, 1, 0)//Left
+							new/obj/AutoHitter/ArcOffshoot(src, 0, 0)//Right
 						if(src.Distance==src.DistanceMax-1)//first step of arcs
-							new/obj/AutoHitter/ArcOffshoot(src, 1, FromMob=1)//hit them sides boi
-							new/obj/AutoHitter/ArcOffshoot(src, 0, FromMob=1)
+							new/obj/AutoHitter/ArcOffshoot(src, 1, 1)//hit them sides boi
+							new/obj/AutoHitter/ArcOffshoot(src, 0, 1)
 					if(src.Wave)
 						new/obj/AutoHitter/WaveOffshoot(src, 1)
 						new/obj/AutoHitter/WaveOffshoot(src, 0)
@@ -6536,6 +6533,7 @@ obj
 			New(var/obj/AutoHitter/AH, var/side, var/FromMob=0)
 				src.Owner=AH.Owner
 				src.Side=side
+				AlreadyHit = AH.AlreadyHit
 				if(src.Side)
 					if(src.Owner.dir!=NORTHEAST&&src.Owner.dir!=NORTHWEST&&src.Owner.dir!=SOUTHEAST&&src.Owner.dir!=SOUTHWEST)
 						src.dir=turn(AH.dir, -90)
@@ -6609,6 +6607,7 @@ obj
 					src.dir=turn(AH.dir, -90)
 				else
 					src.dir=turn(AH.dir, 90)
+				AlreadyHit = AH.AlreadyHit
 				src.DistanceMax=AH.Wave
 				src.Distance=src.DistanceMax
 

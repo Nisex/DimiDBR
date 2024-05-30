@@ -368,7 +368,6 @@
 #include "_Reworks\political\factions.dm"
 #include "_Reworks\political\factionsVerb.dm"
 #include "_Reworks\political\guilds.dm"
-#include "_Reworks\political\prounouns.dm"
 #include "_Reworks\political\rankings.dm"
 #include "_Reworks\political\redactedwords.dm"
 #include "_Reworks\race_rework\Aliens.dm"

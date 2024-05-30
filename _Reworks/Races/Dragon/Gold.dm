@@ -12,7 +12,7 @@ obj/gold
 		originalOwner = owner
 		sourceOfDropping = causer
 		for(var/obj/Money/m in originalOwner)
-			amount = rand(1,m.Level/(25/causer.AscensionsAcquired))
+			amount = rand(1,m.Level/(25/1+causer.AscensionsAcquired))
 		name = "[Commas(amount)] coins!"
 		flyingOutAnimation(_x, _y)
 		loc = locate(_x, _y, _z)
