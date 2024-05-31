@@ -21,6 +21,14 @@
     Cooldown = 120
     // PROCS
 
+/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Cooldown(modify, Time, mob/p, t)
+    for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in p)
+        if("[dm.type]" == "[t]") // all instances of this 
+            for(var/x in dm.possible_skills)
+                dm.possible_skills[x].Using= 0 
+                dm.possible_skills[x].Cooldown(modify, Time, p)
+                p << "[dm.possible_skills[x]] has been put on cooldown."
+
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/proc/setUpMacro(mob/p)
     p << "The next button you press will be the macro for this. There will be an alert, give it a second."
     p.client.trackingMacro = src // send a trigger to track for this skill's keymacro
@@ -58,7 +66,7 @@
                     return
                 User << "You have used your [KEYWORD] spell."
                 theSkill?:Trigger(User, 0)
-                Cooldown(1, null, User)
+                Cooldown(1, null, User, type)
                 User.client.keyQueue.TRIGGERED = null
             else
                 User << "Too Soon..."
@@ -74,11 +82,6 @@
     verb/Change_Macro()
         set category = "Other"
         setUpMacro(usr)
-    Cooldown(modify, Time, mob/p)
-        for(var/index in possible_skills)
-            if(possible_skills[index])
-                possible_skills[index].Using = 0
-                possible_skills[index].Cooldown(modify, Time, p)
 
 
     possible_skills = list("DarkMagic" = new/obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball, "HellFire" = new/obj/Skills/Projectile/Magic/HellFire/Hellpyre ,"Corruption" = new/obj/Skills/AutoHit/Magic/Corruption/Corrupt_Reality )
