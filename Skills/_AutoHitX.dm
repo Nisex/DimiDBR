@@ -9,14 +9,16 @@ obj
 			var/DistanceAround//this is only used for AroundTarget type techs.
 			var
 				NoPierce=0//If this is flagged it will make a technique terminate after hitting something.
-
+				CorruptionGain = 0
 				UnarmedOnly
 				StanceNeeded
 				ABuffNeeded
 				SBuffNeeded
 				GateNeeded
 				//ClassNeeded
-
+				IgnoreAlreadyHit
+				Duration
+				Persistent
 				DamageMult=1//Damage on top of whatever stat calculations.
 				StepsDamage//Every step adds this value to damage mult.
 				Knockback//Does the technique knockback?  If so, how far?
@@ -5134,7 +5136,11 @@ mob
 						else
 							LeaveImage(User=0, Image=i, PX=src.Target.pixel_x+Z.IconX, PY=src.Target.pixel_y+Z.IconY, PZ=src.Target.pixel_z+48, Size=Z.Size, Under=Z.IconUnder, Time=(Z.Rounds-1*max(1,Time)), AltLoc=TrgLoc)
 				else
-					spawn()LeaveImage(User=src, Image=i, PX=src.pixel_x+Z.IconX, PY=src.pixel_y+Z.IconY, PZ=src.pixel_z+Z.IconZ, Size=Z.Size, Under=Z.IconUnder, Time=(Z.Rounds*max(1,Time)), AltLoc=0)
+					if(Z.Persistent)
+						spawn()LeaveImage(User=src, Image=i, PX=src.pixel_x+Z.IconX, PY=src.pixel_y+Z.IconY, PZ=src.pixel_z+Z.IconZ, Size=Z.Size, Under=Z.IconUnder, Time=Z.Duration, AltLoc=0)
+					else
+						spawn()LeaveImage(User=src, Image=i, PX=src.pixel_x+Z.IconX, PY=src.pixel_y+Z.IconY, PZ=src.pixel_z+Z.IconZ, Size=Z.Size, Under=Z.IconUnder, Time=(Z.Rounds*max(1,Time)), AltLoc=0)
+					
 
 			if(Z.Jump)
 				if(Z.Jump==1)
@@ -5238,12 +5244,17 @@ mob
 					if("Wide Wave")
 						src.WideWave(Z)
 					if("Circle")
-						src.Circle(Z)
+						if(Z.Persistent)
+							src.Persistent(Z, Z.Duration)
+						else
+							src.Circle(Z)
 					if("Target")
 						src.Target(src.Target, Z, missed ? TrgLoc : null)
 						if(missed) src << "[Z] missed because your target is out of range."
 					if("Around Target")
 						src.AroundTarget(null, Z, TrgLoc)
+				if(Z.Persistent)
+					src.Persistent(Z, Z.Duration)
 				if(Z.ChargeTime)
 					Delay=Z.ChargeTime
 				else
@@ -5318,6 +5329,10 @@ mob
 					src.LoseMana(drain*CostMultiplier)
 				else
 					src.LoseMana(drain*CostMultiplier*(1-(0.45*src.TomeSpell(Z))))
+				if(Z.CorruptionGain)
+					var/gain = drain*CostMultiplier / 3
+					gainCorruption(gain)
+
 			if(Z.CapacityCost)
 				src.LoseCapacity(Z.CapacityCost*CostMultiplier)
 			if(Z.Quaking)
@@ -5411,6 +5426,11 @@ mob
 
 mob
 	proc
+		Persistent(var/obj/Skills/AutoHit/AH, duration)
+			ticking_generic += new/obj/AutoHitter(owner = src, Z = AH, life = duration, circle = 1, TrgLoc = src.loc)
+
+
+
 		AutoHitter(var/arc, var/wav, var/car, var/circ, var/mob/targ, var/obj/Skills/AutoHit/z, var/turf/trfloc=null)
 			if(src.dir == SOUTHEAST || src.dir==NORTHEAST)
 				src.dir=EAST
@@ -5456,6 +5476,15 @@ obj
 			//Distance//Active count of tiles left to move.
 			DistanceMax//Maximum amount; kept track of for arc purposes.
 			NoPierce//It dies when it hits something
+			IgnoreAlreadyHit = FALSE
+			toDeath
+			Duration
+			Persistent = FALSE
+			CorruptionGain
+
+
+
+
 
 			Arcing//Triggers offshoots on every step that expand outwards.  Higher than 1 means that every X steps the range will widen.
 			ArcingCount=0//Number of times arcing has been triggered.  Informs the game how many tiles to send the offshoots.
@@ -5561,12 +5590,14 @@ obj
 
 			tmp/list/AlreadyHit
 
-		New(var/mob/owner, var/arcing=0, var/wave=0, var/card=0, var/circle=0, var/mob/target, var/obj/Skills/AutoHit/Z, var/turf/TrgLoc)
+		New(var/mob/owner, var/arcing=0, var/wave=0, var/card=0, var/circle=0, var/mob/target, var/obj/Skills/AutoHit/Z, var/turf/TrgLoc, life = 500)
 			set waitfor = FALSE
 			if(!owner)
 				loc = null
 				return
 			AlreadyHit = list()
+			src.IgnoreAlreadyHit = Z.IgnoreAlreadyHit 
+			toDeath = life
 			src.Owner=owner
 			if(owner.Grab && !Z.GrabMaster)
 				grabNerf = 1
@@ -5574,6 +5605,11 @@ obj
 			src.Wave=wave
 			src.Cardinal=card
 			src.Circle=circle
+			src.CorruptionGain = Z.CorruptionGain
+			if(Z.Persistent)
+				src.Persistent = 1
+				bound_height = 32 * Distance
+				bound_width = 32 * Distance
 			src.DistanceMax=Z.Distance
 			if(TrgLoc)
 				src.TargetLoc=TrgLoc
@@ -5676,8 +5712,9 @@ obj
 			src.Distance=src.DistanceMax
 
 			src.Life()
-			sleep(500)
-			endLife()
+			sleep(life)
+			if(!Persistent)
+				endLife()
 		Bump(var/mob/m)
 			if(istype(m, /mob))
 				if(m!=src.Owner&&m.density)
@@ -5686,8 +5723,19 @@ obj
 						if(src.NoPierce)
 							endLife()
 							return
-				src.loc=m.loc
-
+				if(!Persistent)
+					src.loc=m.loc
+		Update()
+			if(Persistent)
+				for(var/turf/t in range( Distance, src.TargetLoc))
+					for(var/mob/m in t.contents)
+						if(m==src.Owner)
+							continue
+						else
+							src.Damage(m)
+			if(toDeath-- <= 25)
+				animate(src, alpha = 0, time = 20)
+				endLife()
 
 		proc/endLife()
 			set waitfor = FALSE
@@ -6013,7 +6061,8 @@ obj
 								if(m.Immortal)
 									m.Immortal=0
 					src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
-
+					if(CorruptionGain)
+						Owner.gainCorruption(FinalDmg * 1.25)
 					if(src.Owner.UsingAnsatsuken())
 						src.Owner.HealMana(src.Owner.SagaLevel)
 
@@ -6147,7 +6196,7 @@ obj
 										for(var/mob/m in t.contents)
 											if(m==src.Owner)
 												continue
-											if(m in AlreadyHit)
+											if(m in AlreadyHit && !IgnoreAlreadyHit)
 												continue
 											else
 												src.Damage(m)
@@ -6289,6 +6338,7 @@ obj
 										src.Damage(m)
 						goto Kill
 					else
+
 						//TODO: make hellstorm work here
 						if(src.Slow&&src.Distance>1)
 							src.Owner.Frozen=1
@@ -6529,7 +6579,8 @@ obj
 						walk_rand(src, 5)
 						animate(src, transform=matrix()*src.WanderSize, time=src.Wander*5)
 						sleep(src.Wander*5)
-					endLife()
+					if(!Persistent)
+						endLife()
 		ArcOffshoot
 			Arcing=0
 			var

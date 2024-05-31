@@ -378,6 +378,7 @@
 #include "_Reworks\Races\Demon\_Casting.dm"
 #include "_Reworks\Races\Demon\_DemonDefines.dm"
 #include "_Reworks\Races\Demon\Buffs.dm"
+#include "_Reworks\Races\Demon\Corruption.dm"
 #include "_Reworks\Races\Demon\DemonMagic.dm"
 #include "_Reworks\Races\Demon\DevilArms.dm"
 #include "_Reworks\Races\Demon\Magic\Corruption\Corruption.dm"

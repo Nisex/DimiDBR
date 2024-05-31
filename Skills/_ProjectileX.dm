@@ -14,6 +14,9 @@ obj
 			pixel_x=0
 			pixel_y=0
 			var
+				CorruptionGain
+
+
 				DistanceMax//This will keep the largest possible distance
 				DistanceVariance=0//if you want the things to sometimes blow up early
 				Area="Blast"//What type of projectile?  Blast...
@@ -4374,6 +4377,10 @@ mob
 						if(Z.CapacityCost)
 							if(src.TotalCapacity+Z.CapacityCost>99)
 								return
+						if(Z.CorruptionCost)
+							if(Corruption - Z.CorruptionCost < 0)
+								src << "You don't have enough Corruption to activate [Z]"
+								
 			if(Z.NeedsSword)
 				if(!src.EquippedSword())
 					if(!src.HasSwordPunching()&& !src.UsingBattleMage())
@@ -4757,6 +4764,9 @@ mob
 							src.LoseMana(drain*(1-(0.45*src.TomeSpell(Z)))/Drain)
 						else
 							src.LoseMana(drain/Drain)
+						if(Z.CorruptionGain)
+							gainCorruption(drain / 3)
+					
 					if(Z.CapacityCost)
 						src.LoseCapacity(Z.CapacityCost/Drain)
 					if(Z.MaimCost)
@@ -4901,6 +4911,7 @@ obj
 					src.Launcher=Z.Launcher
 					src.Knockback=Z.Knockback
 					src.MiniDivide=Z.MiniDivide
+					src.CorruptionGain = Z.CorruptionGain
 					src.Divide=Z.Divide
 					src.Trail=Z.Trail
 					src.MultiTrail=Z.MultiTrail
@@ -5570,6 +5581,8 @@ obj
 									if(!AlreadyHit["[m.ckey]"]) AlreadyHit["[m.ckey]"] = 0
 									EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.01, 1)
 									src.Owner.DoDamage(a, EffectiveDamage, SpiritAttack=1, Destructive=src.Destructive)
+									if(CorruptionGain)
+										Owner.gainCorruption(EffectiveDamage * 1.25)
 									AlreadyHit["[m.ckey]"]++
 									if(Piercing && PiercingBang)
 										Bang(src.loc, Size=src.PiercingBang, Offset=0, PX=src.VariationX, PY=src.VariationY, icon_override = ExplodeIcon)

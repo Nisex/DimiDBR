@@ -62,8 +62,11 @@
                 User.client.keyQueue.TRIGGERED = null
             else
                 User << "Too Soon..."
+
+
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic
     name = "Dark Magic"
+    
     KEYWORD = "damage"
     verb/Dark_Magic()
         set hidden = TRUE
@@ -78,7 +81,7 @@
                 possible_skills[index].Cooldown(modify, Time, p)
 
 
-    possible_skills = list("DarkMagic" = new/obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball, "HellFire" = new/obj/Skills/Projectile/Magic/HellFire/Hellpyre ,"Corruption" )
+    possible_skills = list("DarkMagic" = new/obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball, "HellFire" = new/obj/Skills/Projectile/Magic/HellFire/Hellpyre ,"Corruption" = new/obj/Skills/AutoHit/Magic/Corruption/Corrupt_Reality )
 
 
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire
@@ -102,4 +105,4 @@
         set category = "Other"
         setUpMacro(usr)
 
-    possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind, "HellFire" ,"Corruption" )
+    possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind, "HellFire" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat,"Corruption" )

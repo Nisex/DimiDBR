@@ -50,7 +50,7 @@
                 var/asc = usr.AscensionsAcquired
                 if(asc < 1)
                     asc = 1
-                usr << "[corruptionGain[asc]]"
+                usr.gainCorruption(corruptionGain[asc])
         else
             world<< "here"
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply

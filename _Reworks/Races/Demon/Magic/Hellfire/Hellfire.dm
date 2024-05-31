@@ -1,6 +1,7 @@
 /obj/Skills/Projectile/Magic/HellFire/Hellpyre
     var/list/scalingValues = list("Blasts" = list(1,1,2,2,3), "DamageMult" = list(10,15,15,20,20), \
     )
+    ElementalClass="Fire"
     DamageMult = 3
     AdaptRate = 1
     IconLock='Fire Blessing.dmi'
@@ -35,22 +36,26 @@
         usr.UseProjectile(src)
 
 /obj/Skills/AutoHit/Magic/HellFire/Hellstorm
-    var/scalingValues = list("Rounds" = list(10,15,20,25,30), "DamageMult" = list(0.05,0.05,0.1,0.1,0.2), "Distance" = list(10,10,20,25,25), \
-    "DarknessFlame" = list(5,10,15,20,30), "ApplySlow" = list(3,6,8,12,20), "Burning" = list(10,15,20,25,30,50))
+    ElementalClass="Fire"
+    var/scalingValues = list("DamageMult" = list(0.05,0.05,0.1,0.1,0.2), "Distance" = list(10,10,20,25,25), \
+    "DarknessFlame" = list(5,10,15,20,30), "ApplySlow" = list(3,6,8,12,20), "Burning" = list(10,15,20,25,30,50), "Duration" = list(100,150,200,250,300) )
     Area="Circle"
+    Persistent = 1
+    CorruptionGain = 1
     AdaptRate = 1
-    Rounds = 10
     NoLock=1
     NoAttackLock=1
     DamageMult=0.05
     Distance=10
-    Slow=100
+    Duration = 10
     SpecialAttack = 1 
     Icon='BloodRain.dmi'
     TurfStrike=1
     TurfShift='BurnedGround.dmi'
     TurfShiftDuration=180
-    Cooldown=10
+    Cooldown=90
+    ManaCost = 15
+    IgnoreAlreadyHit = 1
     proc/adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
@@ -60,3 +65,17 @@
         set category = "Skills"
         adjust(usr)
         usr.Activate(src)
+
+/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat
+    ElementalClass="Fire"
+    ManaCost=10
+    EndYourself=1
+    AffectTarget=1
+    Range=10
+    SlowAffected=10
+    CrippleAffected=10
+    proc/adjust(mob/p)
+
+    verb/testOverHeat()
+        adjust(usr)
+        Trigger(usr, 0)
