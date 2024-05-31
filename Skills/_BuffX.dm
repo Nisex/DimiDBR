@@ -4807,15 +4807,15 @@ NEW VARIABLES
 					if(-100 to 2)
 						PowerMult = 1
 					if(3 to 15)
-						PowerMult = 1.1
+						PowerMult = 1.05
 					if(16 to 25)
-						PowerMult = 1.15
+						PowerMult = 1.1
 					if(26 to 50)
-						PowerMult = 1.2
+						PowerMult = 1.15
 					if(51 to 75)
-						PowerMult = 1.25
+						PowerMult = 1.2
 					if(76 to 100)
-						PowerMult = 1.5
+						PowerMult = 1.3
 			verb/Saiyan_Dominance()
 				set category="Skills"
 				if(!usr.BuffOn(src))
@@ -4834,7 +4834,7 @@ NEW VARIABLES
 			adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired/10
 				//scales off how low hp is
-				PowerMult = clamp(1,1+zenkaiLevel/user.Health, 1.5)
+				PowerMult = clamp(1,(1+(zenkaiLevel/2))/user.Health, 1.5)
 			verb/Saiyan_Grit()
 				set category="Skills"
 				if(!usr.BuffOn(src))
@@ -4863,8 +4863,8 @@ NEW VARIABLES
 			OffMessage="releases their power spike, incredibly exhausted..."
 			adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired
-				passives["TechniqueMastery"] = 1.5*zenkaiLevel
-				passives["MovementMastery"] = 2.5*zenkaiLevel
+				passives["TechniqueMastery"] = 1*zenkaiLevel
+				passives["MovementMastery"] = 2*zenkaiLevel
 			verb/Saiyan_Soul()
 				set category="Skills"
 				if(!usr.BuffOn(src))
@@ -11376,6 +11376,7 @@ NEW VARIABLES
 mob
 	proc
 		UseBuff(var/obj/Skills/Buffs/B, var/Override)
+			. = TRUE
 			if(src.BuffOn(B))
 				if(B.MakesArmor)
 					if(src.ActiveBuff)
@@ -11527,33 +11528,33 @@ mob
 					if(!src.Target)
 						src << "You need a target to use this skill!"
 						if(B.AffectTarget)
-							return
+							return FALSE
 						if(!B.Using)
 							B.Trigger(src, Override=1)
-						return
+						return FALSE
 					if(B.ForcedRange)
 						if(get_dist(src,src.Target)!=B.Range)
 							src << "They're not in range!"
-							return
+							return FALSE
 					else
 						if(get_dist(src,src.Target)>B.Range||src.z!=src.Target.z)
 							src << "They're out of range!"
-							return
+							return FALSE
 				if(B.AffectTarget)
 					if(!src.Target)
 						src << "You don't have a target to capture!"
-						return
+						return FALSE
 
 				if(B.MagicNeeded&&!B.LimitlessMagic&&!src.HasLimitlessMagic())
 					if(src.HasMechanized()&&src.HasLimitlessMagic()!=1)
 						src << "You lack the ability to use magic!"
 						if(istype(B, /obj/Skills/Buffs/SlotlessBuffs/Autonomous))
 							del B
-						return
+						return FALSE
 					if((B.Copyable>=3||!B.Copyable)&&!(istype(B, /obj/Skills/Buffs/SlotlessBuffs/Autonomous)))
 						if(!src.HasSpellFocus(B) && !B.MagicFocus)
 							src << "You need a spell focus to use [B]."
-							return
+							return FALSE
 				if(B.StyleNeeded)
 					if(src.StyleActive!=B.StyleNeeded)
 						src << "You can't trigger [B] without [B.StyleNeeded] active!"
@@ -11856,6 +11857,10 @@ mob
 						src << "You are not advanced enough to use this!"
 						return
 				if(!B.AllOutAttack)
+					if(B.CorruptionCost)
+						if(src.Corruption - B.CorruptionCost < 0)
+							src << "You need more corruption"
+							return FALSE
 					if(B.HealthThreshold)
 						if(src.Health<B.HealthThreshold*(1-src.HealthCut))
 							if(!B.Autonomous)
@@ -11901,12 +11906,12 @@ mob
 							if(src.ManaAmount<B.ManaCost)
 								if(!B.Autonomous)
 									src << "You don't have enough mana to activate [B]."
-								return
+								return FALSE
 						else
 							if(src.ManaAmount<B.ManaCost*(1-(0.45*src.TomeSpell(B))))
 								if(!B.Autonomous)
 									src << "You don't have enough mana to activate [B]."
-								return
+								return FALSE
 					if(B.WoundCost)
 						if(src.TotalInjury+B.WoundCost>100)
 							if(!B.Autonomous)

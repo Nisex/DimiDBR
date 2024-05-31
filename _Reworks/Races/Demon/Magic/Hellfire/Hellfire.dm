@@ -38,7 +38,7 @@
 
 /obj/Skills/AutoHit/Magic/HellFire/Hellstorm
     ElementalClass="Fire"
-    var/scalingValues = list("DamageMult" = list(0.05,0.05,0.1,0.1,0.2), "Distance" = list(10,10,20,25,25), \
+    var/scalingValues = list("DamageMult" = list(0.05,0.05,0.1,0.1,0.2), "Distance" = list(5,10,10,15,20), \
     "DarknessFlame" = list(5,10,15,20,30), "ApplySlow" = list(3,6,8,12,20), "Burning" = list(10,15,20,25,30,50), "Duration" = list(100,150,200,250,300) )
     Area="Circle"
     Persistent = 1
@@ -50,7 +50,6 @@
     Distance=10
     Duration = 10
     SpecialAttack = 1 
-    Icon='BloodRain.dmi'
     TurfStrike=1
     TurfShift='BurnedGround.dmi'
     TurfShiftDuration=180
@@ -58,10 +57,12 @@
     ManaCost = 15
     IgnoreAlreadyHit = 1
     CorruptionGain = 1
+    ActiveMessage = "rains down an onslaught of hellfire!"
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
+        TurfShiftDuration = Duration
         Size = Distance
     verb/TestHellStorm()
         set category = "Skills"
@@ -70,14 +71,18 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat
     ElementalClass="Fire"
+    var/scalingValues = list("SlowAffected" = list(10,15,20,25,30), "CrippleAffected" = list(10,15,20,25,30), \
+    "PoisonAffected" = list(10,15,20,25,30), "BurnAffected" = list(10,15,20,25,30))
     ManaCost=10
     EndYourself=1
     AffectTarget=1
     Range=10
     SlowAffected=10
     CrippleAffected=10
+    PoisonAffected = 10
+    BurnAffected = 10
+    ActiveMessage = "swells hellfire within their target."
     adjust(mob/p)
-
-    verb/testOverHeat()
-        adjust(usr)
-        Trigger(usr, 0)
+        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
+        for(var/x in scalingValues)
+            vars[x] = scalingValues[x][asc]

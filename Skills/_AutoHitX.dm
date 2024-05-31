@@ -4739,6 +4739,7 @@ obj
 mob
 	proc
 		Activate(var/obj/Skills/AutoHit/Z)
+			. = TRUE
 			if(Z.Using)//Skill is on cooldown.
 				return
 			if(!src.CanAttack(1.5)&&!Z.NoAttackLock)
@@ -4782,17 +4783,17 @@ mob
 			if(Z.Area=="Target"||Z.Area=="Around Target")
 				if(!src.Target)
 					src << "You need a target to use [Z]!"
-					return
+					return FALSE
 				if(src.Target==src)
 					src << "You can't target yourself while using [Z]!"
-					return
+					return FALSE
 				if(src.Target.z!=src.z)
 					src << "Stop trying to hit [src.Target] from a different dimension!"
-					return
+					return FALSE
 				if(!Z.Rush)//This one doesn't apply to rushes.
 					if(src.x+Z.Distance<src.Target.x||src.x-Z.Distance>src.Target.x||src.y+Z.Distance<src.Target.y||src.y-Z.Distance>src.Target.y)
 						src << "They're not in range!"
-						return
+						return FALSE
 				if(Target && Target.passive_handler.Get("CounterSpell"))
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Magic/Counterspell/s in Target)
 						if(s.Using)
@@ -4864,14 +4865,15 @@ mob
 				if(!src.TomeSpell(Z))
 					if(src.ManaAmount<drain)
 						src << "You don't have enough mana to activate [Z]."
-						return
+						return FALSE
 				else
 					if(src.ManaAmount<drain*(1-(0.45*src.TomeSpell(Z))))
 						src << "You don't have enough mana to activate [Z]."
-						return
+						return FALSE
 			if(Z.CorruptionCost)
 				if(Corruption - Z.CorruptionCost < 0)
 					src << "You don't have enough Corruption to activate [Z]"
+					return FALSE
 			if(Z.HitSparkIcon)
 				src.HitSparkIcon=Z.HitSparkIcon
 				src.HitSparkX=Z.HitSparkX
@@ -5156,7 +5158,7 @@ mob
 							LeaveImage(User=0, Image=i, PX=src.Target.pixel_x+Z.IconX, PY=src.Target.pixel_y+Z.IconY, PZ=src.Target.pixel_z+48, Size=Z.Size, Under=Z.IconUnder, Time=(Z.Rounds-1*max(1,Time)), AltLoc=TrgLoc)
 				else
 					if(Z.Persistent)
-						spawn()LeaveImage(User=src, Image=i, PX=src.pixel_x+Z.IconX, PY=src.pixel_y+Z.IconY, PZ=src.pixel_z+Z.IconZ, Size=Z.Size, Under=Z.IconUnder, Time=Z.Duration, AltLoc=0)
+						spawn()LeaveImage(User=null, Image=i, PX=src.pixel_x+Z.IconX, PY=src.pixel_y+Z.IconY, PZ=src.pixel_z+Z.IconZ, Size=Z.Size, Under=Z.IconUnder, Time=Z.Duration, AltLoc=TrgLoc)
 					else
 						spawn()LeaveImage(User=src, Image=i, PX=src.pixel_x+Z.IconX, PY=src.pixel_y+Z.IconY, PZ=src.pixel_z+Z.IconZ, Size=Z.Size, Under=Z.IconUnder, Time=(Z.Rounds*max(1,Time)), AltLoc=0)
 					
@@ -5350,7 +5352,7 @@ mob
 					src.LoseMana(drain*CostMultiplier*(1-(0.45*src.TomeSpell(Z))))
 				if(Z.CorruptionGain)
 					var/gain = drain*CostMultiplier / 3
-					gainCorruption(gain)
+					gainCorruption(gain / 3)
 
 			if(Z.CapacityCost)
 				src.LoseCapacity(Z.CapacityCost*CostMultiplier)

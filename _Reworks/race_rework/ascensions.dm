@@ -178,7 +178,7 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			anger = 0.05
+			anger = 0.1
 			passives = list("Desperation" = 1.5, "Adrenaline" = 1, "TechniqueMastery" = -1)
 			new_anger_message = "grows desperate!"
 			on_ascension_message = "You learn the meaning of desperation..."
@@ -186,8 +186,8 @@ ascension
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
-			passives = list("Desperation" = 1, "Adrenaline" = 1, "TechniqueMastery" = -1.5)
-			anger = 0.4
+			passives = list("Desperation" = 1, "Adrenaline" = 1, "TechniqueMastery" = -1)
+			anger = 0.1
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
@@ -209,14 +209,14 @@ ascension
 
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
-			passives = list("Desperation" = 1.5, "TechniqueMastery" = -1.5)
+			passives = list("Desperation" = 1.5)
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			anger = 0.3
+			anger = 0.1
 			new_anger_message="grows confident!"
 			on_ascension_message = "You learn the meaning of confidence..."
 
@@ -232,14 +232,14 @@ ascension
 
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
-			passives = list("TechniqueMastery" = -1)
+			passives = list("Desperation" = 1.5)
 			strength = 0.5
 			endurance = 0.5
 			force = 0.5
 			offense = 0.5
 			defense = 0.5
 			speed = 0.5
-			anger = 0.5
+			anger = 0.1
 			new_anger_message = "gains absolute clarity!"
 			on_ascension_message = "You learn the meaning of competence..."
 
@@ -262,7 +262,7 @@ ascension
 			offense = 1
 			defense = 1
 			speed = 1
-			anger = 0.5
+			anger = 0.2
 			new_anger_message = "becomes angry!"
 			on_ascension_message = "You learn the meaning of humanity..."
 
@@ -435,7 +435,7 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			anger = 0.5
+			anger = 0.15
 			passives = list("TechniqueMastery" = 1.5, "ManaCapMult" = 0.25, "Deicide" = 1)
 			choices = list("Destroy" = /ascension/sub_ascension/high_faoroan/destroy, "Remove" = /ascension/sub_ascension/high_faoroan/remove)
 
@@ -458,7 +458,6 @@ ascension
 
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
-			anger = 1
 			intimidation = 2
 			strength = 0.5
 			endurance = 0.5
@@ -471,7 +470,6 @@ ascension
 
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
-			anger = 1
 			intimidation = 3
 			strength = 0.5
 			endurance = 0.5
@@ -503,7 +501,7 @@ ascension
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			passives = list("HellPower" = 0.05, "AbyssMod" = 0.25, "SpiritPower" = 0.25)
-			anger = 0.25
+			anger = 0.15
 			intimidation = 1.0
 			strength = 0.25
 			endurance = 0.25
@@ -520,14 +518,14 @@ ascension
 			force = 0.5
 			defense = 0.25
 			offense = 0.25
-			anger = 0.25
+			anger = 0.1
 			onAscension(mob/owner)
 				..()
 				owner.Class = "A"
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
 			passives = list("HellPower" = 0.1, "AbyssMod" = 1, "SpiritPower" = 0.25)
-			anger = 0.5
+			anger = 0.2
 			intimidation = 2.0
 			strength = 0.25
 			force = 0.25
@@ -538,7 +536,7 @@ ascension
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			passives = list("HellPower" = 0.1, "AbyssMod" = 2, "SpiritPower" = 0.25)
-			anger = 1
+			anger = 0.15
 			intimidation = 2.5
 			strength = 0.25
 			force = 0.25
@@ -552,7 +550,6 @@ ascension
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			passives = list("EndlessAnger" = 1)
-			anger = 0.25
 			intimidation = 2.5
 
 			onAscension(mob/owner)
@@ -571,7 +568,7 @@ ascension
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 10
 					b.TooMuchHealth = 20
-					b.AngerMult = 1.3
+					b.AngerMult = 1.25
 					b.passives = list("AngerAdaptiveForce" = 0.1)
 					b.VaizardHealth = 0.5
 				..()
@@ -586,7 +583,7 @@ ascension
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 15
 					b.TooMuchHealth = 25
-					b.AngerMult = 1.4
+					b.AngerMult = 1.3
 					b.passives = list("AngerAdaptiveForce" = 0.2)
 					b.VaizardHealth = 1
 				..()
@@ -601,7 +598,7 @@ ascension
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 20
 					b.TooMuchHealth = 30
-					b.AngerMult = 1.3
+					b.AngerMult = 1.35
 					b.passives = list("AngerAdaptiveForce" = 0.3, "Void" = 1)
 					b.VaizardHealth = 1.5
 				..()
@@ -614,7 +611,7 @@ ascension
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 25
 					b.TooMuchHealth = 35
-					b.AngerMult = 1.3
+					b.AngerMult = 1.35
 					b.passives = list("AngerAdaptiveForce" = 0.4, "Void" = 1)
 					b.VaizardHealth = 1.5
 				..()
@@ -975,7 +972,7 @@ ascension
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			choices = list("Harness Evil" = /ascension/sub_ascension/majin/harness_evil, "Remain Consistent" = /ascension/sub_ascension/majin/remain_consistent, "Become Docile" = /ascension/sub_ascension/majin/become_docile)
 			intimidation = 10
-			anger = 0.3
+			anger = 0.15
 
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/innocence)
@@ -1023,7 +1020,7 @@ ascension
 					force = 0.15
 					speed = 0.2
 					passives = list("UnhingedForm" = 0.5)
-					anger = 0.5
+					anger = 0.15
 				..()
 
 	gajalaka
@@ -1197,7 +1194,7 @@ ascension
 					if("Demon")
 						//power = 3
 						speed = 0.5
-						anger = 0.4 // 2
+						anger = 0.2 // 2
 						intimidation = 50
 					if("Warrior")
 						//power = 4

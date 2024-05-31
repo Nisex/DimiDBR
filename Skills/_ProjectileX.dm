@@ -4337,16 +4337,16 @@ mob
 				if(Z.ZoneAttack&&Z.FireFromEnemy)
 					if(!src.Target)
 						src << "You need a target to use this."
-						return
+						return FALSE
 					if(src.z!=src.Target.z)
 						src << "You have to be on the same z-plane to use this technique."
-						return
+						return FALSE
 					if(src.Target.x>src.x+50||src.Target.x<src.x-50||src.Target.y>src.y+50||src.Target.y<src.y-50)
 						src << "They're out of range..."
-						return
+						return FALSE
 					if(src.Target==src)
 						src << "You can't target yourself to use this."
-						return
+						return FALSE
 				if(Z.MultiShots==0)
 					if(!Z.AllOutAttack)
 						if(Z.HealthCost)
@@ -4369,17 +4369,18 @@ mob
 							if(!src.TomeSpell(Z))
 								if(src.ManaAmount<drain)
 									src << "You don't have enough mana to activate [Z]."
-									return
+									return FALSE
 							else
 								if(src.ManaAmount<drain*(1-(0.45*src.TomeSpell(Z))))
 									src << "You don't have enough mana to activate [Z]."
-									return
+									return FALSE
 						if(Z.CapacityCost)
 							if(src.TotalCapacity+Z.CapacityCost>99)
 								return
 						if(Z.CorruptionCost)
 							if(Corruption - Z.CorruptionCost < 0)
 								src << "You don't have enough Corruption to activate [Z]"
+								return FALSE
 
 			if(Z.NeedsSword)
 				if(!src.EquippedSword())
@@ -5582,7 +5583,7 @@ obj
 									EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.01, 1)
 									src.Owner.DoDamage(a, EffectiveDamage, SpiritAttack=1, Destructive=src.Destructive)
 									if(CorruptionGain)
-										Owner.gainCorruption(EffectiveDamage * 1.25)
+										Owner.gainCorruption(EffectiveDamage *1.25)
 									AlreadyHit["[m.ckey]"]++
 									if(Piercing && PiercingBang)
 										Bang(src.loc, Size=src.PiercingBang, Offset=0, PX=src.VariationX, PY=src.VariationY, icon_override = ExplodeIcon)

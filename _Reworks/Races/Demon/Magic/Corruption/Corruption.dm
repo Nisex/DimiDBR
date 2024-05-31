@@ -9,6 +9,8 @@
     CanBeDodged=0
     EndDefense = 0.0001
     Bang = 3
+    CorruptionCost = 25
+    Cooldown = -1
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in Upgrades)

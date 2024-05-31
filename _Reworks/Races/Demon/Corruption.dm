@@ -11,5 +11,20 @@
         Corruption = MinCorruption
     if(Corruption < 0)
         Corruption = 0
+    Corruption = round(Corruption, 1)
+    client.updateCorruption()
     
     //TODO: some sort of animation here
+
+/client/var/tmp/obj/corruptionHolder = new()
+
+/client/proc/updateCorruption()
+    if(corruptionHolder)
+        if(!(corruptionHolder in screen))
+            corruptionHolder.screen_loc = "RIGHT-1,BOTTOM"
+            screen += corruptionHolder
+        
+        corruptionHolder.maptext = "[mob.Corruption]/[mob.MaxCorruption]"
+        corruptionHolder.maptext_width = 400
+        
+
