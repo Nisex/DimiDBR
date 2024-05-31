@@ -455,6 +455,7 @@ race
 			user << "The name by which you can be conjured is <b>[user.TrueName]</b>."
 			user << "Please set macros for (Dark Magic), (Hell Fire) and (Corruption), your 3 demon magics."
 			global.TrueNames.Add(user.TrueName)
+			user.client.updateCorruption()
 
 	alien
 		name = "Alien"

@@ -11376,6 +11376,7 @@ NEW VARIABLES
 mob
 	proc
 		UseBuff(var/obj/Skills/Buffs/B, var/Override)
+			. = TRUE
 			if(src.BuffOn(B))
 				if(B.MakesArmor)
 					if(src.ActiveBuff)
@@ -11527,33 +11528,33 @@ mob
 					if(!src.Target)
 						src << "You need a target to use this skill!"
 						if(B.AffectTarget)
-							return
+							return FALSE
 						if(!B.Using)
 							B.Trigger(src, Override=1)
-						return
+						return FALSE
 					if(B.ForcedRange)
 						if(get_dist(src,src.Target)!=B.Range)
 							src << "They're not in range!"
-							return
+							return FALSE
 					else
 						if(get_dist(src,src.Target)>B.Range||src.z!=src.Target.z)
 							src << "They're out of range!"
-							return
+							return FALSE
 				if(B.AffectTarget)
 					if(!src.Target)
 						src << "You don't have a target to capture!"
-						return
+						return FALSE
 
 				if(B.MagicNeeded&&!B.LimitlessMagic&&!src.HasLimitlessMagic())
 					if(src.HasMechanized()&&src.HasLimitlessMagic()!=1)
 						src << "You lack the ability to use magic!"
 						if(istype(B, /obj/Skills/Buffs/SlotlessBuffs/Autonomous))
 							del B
-						return
+						return FALSE
 					if((B.Copyable>=3||!B.Copyable)&&!(istype(B, /obj/Skills/Buffs/SlotlessBuffs/Autonomous)))
 						if(!src.HasSpellFocus(B) && !B.MagicFocus)
 							src << "You need a spell focus to use [B]."
-							return
+							return FALSE
 				if(B.StyleNeeded)
 					if(src.StyleActive!=B.StyleNeeded)
 						src << "You can't trigger [B] without [B.StyleNeeded] active!"
@@ -11856,6 +11857,10 @@ mob
 						src << "You are not advanced enough to use this!"
 						return
 				if(!B.AllOutAttack)
+					if(B.CorruptionCost)
+						if(src.Corruption - B.CorruptionCost < 0)
+							src << "You need more corruption"
+							return FALSE
 					if(B.HealthThreshold)
 						if(src.Health<B.HealthThreshold*(1-src.HealthCut))
 							if(!B.Autonomous)
@@ -11901,12 +11906,12 @@ mob
 							if(src.ManaAmount<B.ManaCost)
 								if(!B.Autonomous)
 									src << "You don't have enough mana to activate [B]."
-								return
+								return FALSE
 						else
 							if(src.ManaAmount<B.ManaCost*(1-(0.45*src.TomeSpell(B))))
 								if(!B.Autonomous)
 									src << "You don't have enough mana to activate [B]."
-								return
+								return FALSE
 					if(B.WoundCost)
 						if(src.TotalInjury+B.WoundCost>100)
 							if(!B.Autonomous)

@@ -87,3 +87,6 @@
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
+            ManaHeal /= TimerLimit
+            HealthHeal /= TimerLimit
+            EnergyHeal /= TimerLimit

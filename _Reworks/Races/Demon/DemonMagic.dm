@@ -55,19 +55,26 @@
         else
             var/initType = User.client.keyQueue.initType
             // this has already been activated, therefore this must be the 2nd input
-            if(User.client.keyQueue.detectInput(keyMacro, 40) != -1 )
-                // execute the skill here
-                var/trueType = splittext("[initType]", "/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/")
-                var/obj/Skills/theSkill = possible_skills[trueType[2]]
-                if(possible_skills[trueType[2]].cooldown_remaining > 0)
-                    User << "This is on cooldown"
-                    return
-                User << "You have used your [KEYWORD] spell."
-                theSkill?:Trigger(User, 0)
-                Cooldown(1, null, User, type)
-                User.client.keyQueue.TRIGGERED = null
-            else
-                User << "Too Soon..."
+            var/result = User.client.keyQueue.detectInput(keyMacro, 15)
+            switch(result)
+                if(1)
+                    // execute the skill here
+                    var/trueType = splittext("[initType]", "/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/")
+                    var/obj/Skills/theSkill = possible_skills[trueType[2]]
+                    if(possible_skills[trueType[2]].cooldown_remaining > 0)
+                        User << "This is on cooldown"
+                        return
+                    User << "You have used your [KEYWORD] spell."
+                    var/triggered = theSkill?:Trigger(User, 0)
+                    if(!(isnull(triggered) || !triggered))
+                        Cooldown(1, null, User, type)
+                    User.client.keyQueue.TRIGGERED = null
+                if(-1)
+                    User << "Too Soon..."
+                if(0)
+                    User << "You have missinputted."
+                    Cooldown(1, null, User, type)
+                    User.client.keyQueue.TRIGGERED = null
 
 
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic
