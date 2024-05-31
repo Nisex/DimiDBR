@@ -4807,15 +4807,15 @@ NEW VARIABLES
 					if(-100 to 2)
 						PowerMult = 1
 					if(3 to 15)
-						PowerMult = 1.1
+						PowerMult = 1.05
 					if(16 to 25)
-						PowerMult = 1.15
+						PowerMult = 1.1
 					if(26 to 50)
-						PowerMult = 1.2
+						PowerMult = 1.15
 					if(51 to 75)
-						PowerMult = 1.25
+						PowerMult = 1.2
 					if(76 to 100)
-						PowerMult = 1.5
+						PowerMult = 1.3
 			verb/Saiyan_Dominance()
 				set category="Skills"
 				if(!usr.BuffOn(src))
@@ -4834,7 +4834,7 @@ NEW VARIABLES
 			adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired/10
 				//scales off how low hp is
-				PowerMult = clamp(1,1+zenkaiLevel/user.Health, 1.5)
+				PowerMult = clamp(1,(1+(zenkaiLevel/2))/user.Health, 1.5)
 			verb/Saiyan_Grit()
 				set category="Skills"
 				if(!usr.BuffOn(src))
@@ -4863,8 +4863,8 @@ NEW VARIABLES
 			OffMessage="releases their power spike, incredibly exhausted..."
 			adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired
-				passives["TechniqueMastery"] = 1.5*zenkaiLevel
-				passives["MovementMastery"] = 2.5*zenkaiLevel
+				passives["TechniqueMastery"] = 1*zenkaiLevel
+				passives["MovementMastery"] = 2*zenkaiLevel
 			verb/Saiyan_Soul()
 				set category="Skills"
 				if(!usr.BuffOn(src))

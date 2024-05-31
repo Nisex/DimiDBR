@@ -42,27 +42,27 @@
 			if("Wrathful")
 				passives["Manic"] = 4 - p.AscensionsAcquired
 				passives["Meaty Paws"] = 2 + (p.AscensionsAcquired /2)
-				StrMult = 1.4 + (p.AscensionsAcquired/10)
-				ForMult = 1.3 + (p.AscensionsAcquired/10)
-				EndMult = 1.4 + (p.AscensionsAcquired/10)
-				SpdMult = 0.6 + (p.AscensionsAcquired/10)
-				OffMult = 0.8 + (p.AscensionsAcquired/10)
+				StrMult = 1.4
+				ForMult = 1.3
+				EndMult = 1.4
+				SpdMult = 0.6
+				OffMult = 0.8
 			if("Enlightened")
-				StrMult = 1.2 + (p.AscensionsAcquired/10)
-				ForMult = 1.2 + (p.AscensionsAcquired/10)
-				EndMult = 1.2 + (p.AscensionsAcquired/10)
-				SpdMult = 0.3 + (p.AscensionsAcquired/10)
-				OffMult = 1.2 + (p.AscensionsAcquired/10)
+				StrMult = 1.2
+				ForMult = 1.2
+				EndMult = 1.2
+				SpdMult = 0.3
+				OffMult = 1.2
 			if("Instinctual")
-				passives["Flow"] = 1 + (p.AscensionsAcquired /2)
-				passives["Instinct"] = 1 + (p.AscensionsAcquired / 2)
-				StrMult = 1.2 + (p.AscensionsAcquired/10)
-				ForMult = 1.2 + (p.AscensionsAcquired/10)
-				EndMult = 1.2 + (p.AscensionsAcquired/10)
-				SpdMult = 0.4 + (p.AscensionsAcquired/10)
-				OffMult = 1.4 + (p.AscensionsAcquired/10)
+				passives["Flow"] = 1
+				passives["Instinct"] = 1
+				StrMult = 1.2
+				ForMult = 1.2
+				EndMult = 1.2
+				SpdMult = 0.4
+				OffMult = 1.4
 		if(p.Potential > OOZARU_POTENTIAL_TRANS)
-			passives["Transformation Power"] = clamp(p.AscensionsAcquired * 2.5, 1, 50-p.Potential)
+			passives["Transformation Power"] = clamp(p.AscensionsAcquired * 2, 1, 50-p.Potential)
 
 
 mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Buff)
