@@ -25,7 +25,7 @@ mob
 			var/list/obj/Special/Spawn/Choices=list()
 			var/SpawnFound=0
 			for(var/obj/Special/Spawn/S in glob.Spawns)
-				if(src.race.type in S.DefaultRaces)
+				if(src.race.name in S.DefaultRaces)
 					SpawnFound=1
 					Choices.Add(S)
 				if(src.ckey in S.SpecialPermissions)
@@ -221,8 +221,10 @@ mob
 				while(Enter!="Cancel")
 					Enter=input(src, "Enter the race that will be able to select this spawn. You may add additional races after entering. Enter Cancel to stop entering races.", "New Spawn") in raceList
 					if(Enter!="Cancel")
-						NewS.DefaultRaces.Add(Enter)
-						src << "Added [Enter] to default races for [NewS]."
+						var/racename = splittext("[Enter]", "/race/")
+						NewS.DefaultRaces.Add(racename[1])
+						raceList -= Enter
+						src << "Added [racename[1]] to default races for [NewS]."
 
 				glob.Spawns.Add(NewS)
 				src << "Added [NewS] successfully to global list!"
