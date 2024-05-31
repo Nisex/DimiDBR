@@ -41,13 +41,13 @@
     if(nerf && nerf <= 0)
         nerf = 0.1
     if(HasHolyMod())
-        . += HolyDamage(defender) / 4
+        . += HolyDamage(defender) / glob.HOLY_DAMAGE_DIVISOR
     if(HasAbyssMod())
-        . += AbyssDamage(defender) / 4
+        . += AbyssDamage(defender) / glob.ABYSS_DAMAGE_DIVISOR
     if(HasSlayerMod())
-        . += SlayerDamage(defender) / 4
+        . += SlayerDamage(defender) / glob.SLAYER_DAMAGE_DIVISOR
     if(passive_handler.Get("Deicide"))
-        . += DeicideDamage(defender) * 4
+        . += DeicideDamage(defender) / glob.DEICIDE_DAMAGE_DIVISOR
     else
         if(nerf > 0)
             . *= nerf
