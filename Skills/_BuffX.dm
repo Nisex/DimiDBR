@@ -9060,8 +9060,8 @@ NEW VARIABLES
 
 		Mangekyou_Sharingan
 			TaxThreshold=0.7
-			OffTaxDrain=0.002
-			DefTaxDrain=0.002
+			OffTaxDrain=0.0002
+			DefTaxDrain=0.0002
 			SBuffNeeded="Sharingan"
 			passives = list("AutoAnger" = 1,"BuffMastery" = 5, "Deflection" = 1, "Flow" = 1)
 			BuffMastery=5
@@ -10855,6 +10855,33 @@ NEW VARIABLES
 						if(!User.BuffOn(src))
 							adjust(User)
 						..()
+				Melt_Down
+					// Poison Dragon Racial.
+					ActiveMessage = "begins bubbling"
+					OffMessage = "loses some of that sinner's greed..."
+					Cooldown = 120
+					adjust(mob/p)
+						if(altered) return
+						var/asc = p.AscensionsAcquired
+						var/money
+						for(var/obj/Money/m in p.contents)
+							money = m.Level
+						NeedsHealth = 10 + (5 * asc)
+						TooMuchHealth = 20 + (5 * asc)
+
+						var/baseMultMod = 1 + max(0,money/GOLD_DRAGON_FORMULA)
+						PowerMult = baseMultMod
+						SpdMult =baseMultMod
+						StrMult = baseMultMod
+						OffMult = baseMultMod
+						DefMult = baseMultMod
+						EndMult = baseMultMod
+						ForMult = baseMultMod
+
+					Trigger(mob/User, Override = FALSE)
+						if(!User.BuffOn(src))
+							adjust(User)
+						..()
 			Berserk
 				NeedsHealth=5
 				TooMuchHealth=15
@@ -11252,8 +11279,8 @@ NEW VARIABLES
 				TooMuchHealth=75
 				ElementalOffense="Fire"
 				ElementalDefense="Fire"
-				OffTaxDrain=0.002
-				DefTaxDrain=0.002
+				OffTaxDrain=0.0002
+				DefTaxDrain=0.0002
 				passives = list("DarknessFlame" = 1, "DeathField" = 5)
 				DarknessFlame=1
 				DeathField=5
@@ -11272,6 +11299,9 @@ NEW VARIABLES
 				OffMessage="releases the dark flames..."
 				adjust(mob/p)
 					if(altered) return
+					if(p.SagaLevel>=5)
+						OffTaxDrain = 0
+						DefTaxDrain = 0
 					if(p.equippedSword)
 						passives = list("DarknessFlame" = 1, "DeathField" = p.SagaLevel, "SpiritSword" =  p.SagaLevel * 0.25)
 					else
