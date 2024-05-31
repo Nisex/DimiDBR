@@ -35,6 +35,7 @@ client
 						trackingMacro = null
 					else
 						mob << "[dm != FALSE ? "[button] is assigned to [dm]" : "You arent allowed"]"
+						trackingMacro = null
 
 		// Release the button for the button tracker.
 		release_button(button as text)
