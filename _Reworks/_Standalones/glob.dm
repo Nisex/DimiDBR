@@ -131,7 +131,7 @@ globalTracker
 
 //Wipe Specific
 		list/GUILD_RANKINGS = list("Aegis" = 1, "Crimson Dawn" = 2, "Golden Circle" = 3, "Black Ifrit" = 5, "Revenants" = 6)
-		list/VOID_LOCATION = list(158,253,3)
+		list/VOID_LOCATION = list(144,140,15)
 		VoidsAllowed = 1
 		VoidChance = 78
 
