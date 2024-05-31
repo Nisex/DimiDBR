@@ -231,7 +231,7 @@ race
 		desc = "Humans are stubborn, steadfast survivors crafted from the God of Truth's dying breath."
 		visual = 'Humans.png'
 
-		passives = list("Desperation" = 1, "Adrenaline" = 0.5, "TechniqueMastery" = 5)
+		passives = list("Desperation" = 1, "Adrenaline" = 0.5, "TechniqueMastery" = 2)
 		power = 1
 		strength = 1
 		endurance = 1
@@ -239,7 +239,7 @@ race
 		offense = 1
 		defense = 1
 		speed = 1
-		anger = 1.2
+		anger = 1.4
 		learning = 1.5
 
 	saiyan
@@ -427,7 +427,7 @@ race
 		regeneration = 3
 		imagination = 2
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown)
-		passives = list("Deicide" = 1, "Adrenaline" = 1)
+		passives = list("Adrenaline" = 1)
 
 
 	demon
