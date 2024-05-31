@@ -216,7 +216,7 @@ mob
 				NewS.ImaginationChange=gC
 
 				var/Enter
-				var/list/raceList = races
+				var/list/raceList = races.Copy()
 				raceList += "Cancel"
 				while(Enter!="Cancel")
 					Enter=input(src, "Enter the race that will be able to select this spawn. You may add additional races after entering. Enter Cancel to stop entering races.", "New Spawn") in raceList
