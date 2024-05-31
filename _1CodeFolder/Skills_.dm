@@ -18,7 +18,11 @@ obj/Skills/proc/Cooldown(var/modify=1, var/Time, mob/p)
 				if(glob.SPEED_COOLDOWN_MODE)
 					modify /= clamp(glob.SPEED_COOLDOWN_MIN, m.GetSpd()**glob.SPEED_COOLDOWN_EXPONENT, glob.SPEED_COOLDOWN_MAX)
 				if(m.HasTechniqueMastery())
-					modify/=clamp((1+(m.GetTechniqueMastery()/glob.TECHNIQUE_MASTERY_DIVISOR)),0.1,glob.TECHNIQUE_MASTERY_LIMIT)
+					var/TM = m.GetTechniqueMastery() / glob.TECHNIQUE_MASTERY_DIVISOR
+					if(TM < 0)
+						modify *= clamp(1+abs(TM), 1.1, glob.TECHNIQUE_MASTERY_LIMIT)
+					else
+						modify/=clamp((1+(TM)),0.1,glob.TECHNIQUE_MASTERY_LIMIT)
 			else
 				if(m.passive_handler.Get("Hustle")||m.HasLegendaryPower() > 0.25)
 					modify*=0.75

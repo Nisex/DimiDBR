@@ -17,6 +17,7 @@
     ManaCost = 5
     Deviation = 240
     Cooldown = 120
+    CorruptionGain = 1
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
@@ -34,7 +35,6 @@
     Range = 25
     ManaCost = 15
     AffectTarget = 1
-
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply
     proc/adjust(mob/p)
         if(p.isRace(DEMON) && applyToTarget.type != /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply/Demon)
@@ -45,14 +45,11 @@
             adjust(User)
             applyToTarget?:adjust(User)
         if(..())
-            if(1)// usr.isRace(DEMON))
-                usr << "you gain coorruption !!"
+            if(usr.isRace(DEMON))
                 var/asc = usr.AscensionsAcquired
                 if(asc < 1)
                     asc = 1
                 usr.gainCorruption(corruptionGain[asc])
-        else
-            world<< "here"
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply
     BuffName = "Dominate Mind Applied"
     MagicNeeded = 0

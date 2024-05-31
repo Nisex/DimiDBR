@@ -23,6 +23,7 @@ obj/Skills
 						return 1
 				return 0
 	Level=100
+	var/CorruptionCost
 	var/Copied = FALSE
 	var/Sealed = FALSE
 	var/Temporary = FALSE

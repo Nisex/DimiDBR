@@ -19,6 +19,7 @@
     ActiveMessage = "unleashes a wave of Hell Fire!"
     ManaCost = 1
     Delay = 8
+    CorruptionGain = 1
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
@@ -56,6 +57,7 @@
     Cooldown=90
     ManaCost = 15
     IgnoreAlreadyHit = 1
+    CorruptionGain = 1
     proc/adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)

@@ -203,7 +203,8 @@ mob
 					if(defender.Tension<100 && !defender.HasTensionLock())
 						defender.Tension+=(val*0.75) * glob.TENSION_MULTIPLIER
 			var/leakVal = val/GLOBAL_LEAK_REDUCTION
-
+			if(passive_handler.Get("Corruption"))
+				gainCorruption(val * glob.TENSION_MULTIPLIER)
 
 			if(src.HasEnergyLeak())
 				src.LoseEnergy(src.GetEnergyLeak()*0.25*leakVal)

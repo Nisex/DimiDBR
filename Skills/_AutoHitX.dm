@@ -4853,6 +4853,9 @@ mob
 					if(src.ManaAmount<drain*(1-(0.45*src.TomeSpell(Z))))
 						src << "You don't have enough mana to activate [Z]."
 						return
+			if(Z.CorruptionCost)
+				if(Corruption - Z.CorruptionCost < 0)
+					src << "You don't have enough Corruption to activate [Z]"
 			if(Z.HitSparkIcon)
 				src.HitSparkIcon=Z.HitSparkIcon
 				src.HitSparkX=Z.HitSparkX

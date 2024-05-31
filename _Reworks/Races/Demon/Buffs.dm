@@ -1,5 +1,5 @@
 /obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon
-    passives = list("HellPower" = 0.15, "AngerAdaptiveForce" = 0.1, "Hellrisen" = 0.25, "FakePeace" = -1, "TechniqueMastery" = -20)
+    passives = list("HellPower" = 0.1, "AngerAdaptiveForce" = 0.1, "Hellrisen" = 0.25, "FakePeace" = -1, "TechniqueMastery" = -15)
     Cooldown = -1
     TimerLimit = 0
     BuffName = "True Form"
