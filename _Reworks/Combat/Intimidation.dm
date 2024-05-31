@@ -1,8 +1,7 @@
 // NEW VARS
 /mob/var/IntimidationMult // a very important part that multiplies intim so it can remain a normal value
-/var/INTIMRATIO = 500
-/var/NEWINTIMCALC = TRUE
-
+/var/INTIMRATIO
+/var/NEWINTIMCALC
 
 // NEW PROCS
 /mob/proc/getSSIntim(mob/defender, val) // get Saiyan Soul Intim
@@ -13,8 +12,6 @@
     return val
 // NEW MAIN FUNCTIONS
 /mob/proc/getIntimDMGReduction(mob/defender)
-    if(!INTIMRATIO)
-        INTIMRATIO = 500
     var/defIntim = defender.GetIntimidation()
     var/atkIntim = GetIntimidation()
     var/atkIntimIgnore = GetIntimidationIgnore(defender)
@@ -35,11 +32,11 @@
         return 0
     if(val <=0)
         val = 1
-    if(NEWINTIMCALC)
+    if(glob.NEWINTIMCALC)
         if(val > atkIntim)
-            totalMult = -((val - atkIntim) / INTIMRATIO)
+            totalMult = -((val - atkIntim) / glob.INTIMRATIO)
         else
-            totalMult = ((atkIntim - val) / INTIMRATIO)
+            totalMult = ((atkIntim - val) / glob.INTIMRATIO)
     if(totalMult >= 10)
         totalMult = 10
     if(totalMult <= -10)
@@ -143,22 +140,3 @@
     if(Effective<0)
         Effective=1
     return Effective
-
-// ADMIN VERBS
-/mob/Admin3/verb/changeIntimidationRatio()
-    set name = "Change Intim Ratio"
-    set desc = "Change the ratio of Intimidation to damage reduction"
-    set category = "Admin"
-    INTIMRATIO = input("Enter the new ratio: ") as num
-    if(INTIMRATIO <= 0)
-        INTIMRATIO = 1
-    if(INTIMRATIO > 1000)
-        INTIMRATIO = 1000
-    world<<"Global Intimidation Ratio set to [INTIMRATIO]."
-
-/mob/Admin3/verb/changeIntimidationCalc()
-    set name = "Toggle Intimidation Usefulness"
-    set desc = "Toggle whether or not Intimidation is useful"
-    set category = "Admin"
-    NEWINTIMCALC = !NEWINTIMCALC
-    world<<"Intimidation is now [NEWINTIMCALC ? "useful" : "useless"]."

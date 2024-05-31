@@ -127,7 +127,9 @@ globalTracker
 		TESTER_WHITE_LIST = list("Digi-Daisuke","RevealingFortune","Zamas2","Niezan", "Etro", "AMajin", "Redsarge", "Gogeto25",\
  "Tilthour", "Sakata Gintoki San", "Hellbante", "FoxMagnus")
 
-
+//INTIM
+		INTIMRATIO = 500
+		NEWINTIMCALC = TRUE
 
 //Wipe Specific
 		list/GUILD_RANKINGS = list("Aegis" = 1, "Crimson Dawn" = 2, "Golden Circle" = 3, "Black Ifrit" = 5, "Revenants" = 6)
@@ -217,13 +219,12 @@ globalTracker
 		EXPONENTIAL_PROJ_DAMAGE = FALSE
 		PROJ_DAMAGE_MULT = 1
 		AUTOHIT_GLOBAL_DAMAGE = 0.8
-		INTIMRATIO = 500
 
 		GLOBAL_EXPONENT_MULT = 1/3
 		GRAPPLE_MELEE_BOON = 1.5
 		CLAMP_POWER = TRUE
-		MIN_POWER_DIFF = 0.6
-		MAX_POWER_DIFF = 2
+		MIN_POWER_DIFF = 0.7
+		MAX_POWER_DIFF = 1.3
 		AUTOHIT_GRAB_NERF = 0.5
 		PARTY_DAMAGE_NERF = 0.5
 		MOD_AFTER_ACC = TRUE
@@ -239,9 +240,7 @@ globalTracker
 
 		DMG_END_EXPONENT = 0.4
 		DMG_STR_EXPONENT = 0.4
-		DMG_POWER_EXPONENT = 0.5
-
-		NEWINTIMCALC = TRUE
+		DMG_POWER_EXPONENT = 0.3
 
 		TENSION_MULTIPLIER = 1
 
@@ -290,6 +289,8 @@ globalTracker
 
 		MAX_BREAK_MULT = 6
 		MAX_BREAK_VAL = 200
+
+
 // -- items -- //
 
 
