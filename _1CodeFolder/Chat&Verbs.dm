@@ -665,7 +665,6 @@ mob/Players/verb
 					<table border=1 cellspacing=6>
 					<tr>
 					<th><font size=2>Key (IC Name)</th>
-					<th><font size=2>IP Address (Computer ID)</th>
 					<th><font size=2>Race (Class)</th>
 					<th><font size=2>Location</th>
 					<th><font size=2>Base (BaseMod )/ Age Category</th>
@@ -677,7 +676,6 @@ mob/Players/verb
 						online++
 						View+={"<tr>
 							<td><font size=2>[M.key] ([M.name])/(<a href=?src=\ref[M];action=MasterControl>x</a href>)</td>
-							<td><font size=2>[M.client.address] ([M.client.computer_id])</td>
 							<td><font size=2>[M.Race] ([M.Class])</td>
 							<td><font size=2>[M.loc] ([M.x],[M.y],[M.z])</td>
 							<td><font size=2>[M.Base]([M.potential_power_mult]) / [M.EraBody]</td>

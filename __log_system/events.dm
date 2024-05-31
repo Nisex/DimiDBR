@@ -223,10 +223,10 @@ client/proc/LoginLog(var/title=null)
 		var/matches = ""
 		for(var/mob/m in players)
 			if(address == m.client.address)
-				matches += "[m.name], "
+				matches += "[m.key], "
 				continue
 			if(computer_id == m.client.computer_id)
-				matches += "[m.name], "
+				matches += "[m.key], "
 				continue
 		matches = replacetext(matches, ", ", "", -1, -3)
 		if(length(matches)>1)
