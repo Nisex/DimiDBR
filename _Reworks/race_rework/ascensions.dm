@@ -789,14 +789,14 @@ ascension
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
-			passives = list("Juggernaut" = 0.25, "DemonicDurability" = 2, "HeavyHitter" = 1)
+			passives = list("Juggernaut" = 0.25, "DemonicDurability" = 0.5, "HeavyHitter" = 1)
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
 			intimidation = 1.25
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
-			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 1, "HeavyHitter" = 1)
+			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 0.5, "HeavyHitter" = 1)
 			strength = 0.5
 			endurance = 0.25
 			force = 0.5
@@ -810,7 +810,7 @@ ascension
 			intimidation = 1.4
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
-			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 1, "HeavyHitter" = 2)
+			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 0.5, "HeavyHitter" = 2)
 			strength = 1
 			endurance = 0.25
 			force = 1
