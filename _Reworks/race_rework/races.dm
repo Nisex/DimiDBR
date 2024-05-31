@@ -314,7 +314,7 @@ race
 		imagination = 2
 
 		onFinalization(mob/user)
-			user.Class = input(user,"Pick an element to represent you.", "Dragon Element") in list("Fire","Metal", "Gold", "Wind")
+			user.Class = input(user,"Pick an element to represent you.", "Dragon Element") in list("Fire","Metal", "Gold", "Wind", "Poison")
 			switch(user.Class)
 				if("Fire")
 					skills = list(/obj/Skills/AutoHit/Fire_Breath, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Heat_Of_Passion)
@@ -332,6 +332,8 @@ race
 					user.EconomyMult *= 2
 					passives["CashCow"] = 1
 					passives["Blubber"] = 0.25
+				if("Poison")
+					skills = list(/obj/Skills/AutoHit/Poison_Gas, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Melt_Down)
 			..()
 
 	eldritch

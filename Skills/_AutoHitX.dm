@@ -4007,6 +4007,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 
+
 ///Sharingan
 			Sharingan_Genjutsu
 				Area="Arc"
@@ -4033,8 +4034,8 @@ obj
 				Distance=10
 				AllOutAttack=1
 				DelayTime=0
-				OffTax = 5
-				DefTax = 5
+				OffTax = 0.02
+				DefTax = 0.02
 				GuardBreak=1
 				Stunner=6
 				Shattering = 50
@@ -4045,6 +4046,9 @@ obj
 				BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Seishinkai_to_Yami"
 				verb/Tsukiyomi()
 					set category="Skills"
+					if(usr.SagaLevel>=5)
+						OffTax = 0
+						DefTax = 0
 					usr.Activate(src)
 			Amaterasu
 				StrOffense=1
@@ -4053,8 +4057,8 @@ obj
 				Scorching=1
 				Toxic=1
 				Area="Around Target"
-				OffTax = 3
-				DefTax = 3
+				OffTax = 0.01
+				DefTax = 0.01
 				CanBeBlocked=0
 				CanBeDodged=0
 				Distance=7
@@ -4076,6 +4080,9 @@ obj
 				adjust(mob/p)
 					var/sagaLevel = p.SagaLevel
 					if(altered) return
+					if(p.SagaLevel>=5)
+						OffTax = 0
+						DefTax = 0
 					DarknessFlame = 0.25 + (sagaLevel/8)
 					Scorching = 8 + sagaLevel
 					Toxic = 8 + sagaLevel
@@ -4094,8 +4101,8 @@ obj
 				Scorching=5
 				Toxic=5
 				Area="Around Target"
-				OffTax = 6
-				DefTax = 6
+				OffTax = 0.02
+				DefTax = 0.02
 				CanBeBlocked=0
 				CanBeDodged=1
 				Distance=7
@@ -4117,6 +4124,9 @@ obj
 				adjust(mob/p)
 					var/sagaLevel = p.SagaLevel
 					if(altered) return
+					if(p.SagaLevel>=5)
+						OffTax = 0
+						DefTax = 0
 					DarknessFlame = 1 + (sagaLevel/8)
 					Scorching = 10 + sagaLevel
 					Toxic = 10 + sagaLevel
@@ -5768,6 +5778,7 @@ obj
 			catch()
 			walk(src,0)
 			animate(src)
+			AlreadyHit = null
 			Owner = null
 			loc = null
 			sleep(10)
