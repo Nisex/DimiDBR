@@ -26,9 +26,10 @@
     for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in p)
         if("[dm.type]" == "[t]") // all instances of this 
             for(var/x in dm.possible_skills)
-                dm.possible_skills[x].Using= 0 
-                dm.possible_skills[x].Cooldown(modify, Time, p)
-                p << "[dm.possible_skills[x]] has been put on cooldown."
+                if(dm.possible_skills[x])
+                    dm.possible_skills[x].Using= 0 
+                    dm.possible_skills[x].Cooldown(modify, Time, p)
+                    p << "[dm.possible_skills[x]] has been put on cooldown."
 
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/proc/setUpMacro(mob/p)
     p << "The next button you press will be the macro for this. There will be an alert, give it a second."
