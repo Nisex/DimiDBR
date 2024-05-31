@@ -24,7 +24,7 @@ mob
 		ChooseSpawn()
 			var/list/obj/Special/Spawn/Choices=list()
 			var/SpawnFound=0
-			for(var/obj/Special/Spawn/S in global.Spawns)
+			for(var/obj/Special/Spawn/S in glob.Spawns)
 				if(src.race.type in S.DefaultRaces)
 					SpawnFound=1
 					Choices.Add(S)
@@ -83,7 +83,7 @@ mob
 proc
 	MoveToSpawn(var/mob/m)
 		var/obj/Special/Spawn/Found
-		for(var/obj/Special/Spawn/S in global.Spawns)
+		for(var/obj/Special/Spawn/S in glob.Spawns)
 			if(S.name==m.Spawn)
 				Found=S
 				break
@@ -120,25 +120,25 @@ proc
 
 mob
 	Admin3
-		verb/Spawn_Race_Add(var/obj/Special/Spawn/s in global.Spawns)
+		verb/Spawn_Race_Add(var/obj/Special/Spawn/s in glob.Spawns)
 			set category="Admin"
 			var/newrace=input(src, "What race do you want to add to [s]'s spawns?", "Spawn Race Add") in races
 			if(newrace)
 				s.DefaultRaces.Add(newrace)
 				Log("Admin", "[ExtractInfo(src)] added [newrace] to [s]'s default race spawns.")
-		verb/Spawn_Race_Remove(var/obj/Special/Spawn/s in global.Spawns)
+		verb/Spawn_Race_Remove(var/obj/Special/Spawn/s in glob.Spawns)
 			set category="Admin"
 			var/newrace=input(src, "What race do you want to remove from [s]'s spawns?", "Spawn Race Add") in s.DefaultRaces
 			if(newrace)
 				s.DefaultRaces.Remove(newrace)
 				Log("Admin", "[ExtractInfo(src)] removed [newrace] from [s]'s default race spawns.")
-		verb/Spawn_Permission_Add(var/obj/Special/Spawn/s in global.Spawns)
+		verb/Spawn_Permission_Add(var/obj/Special/Spawn/s in glob.Spawns)
 			set category="Admin"
 			var/newrace=input(src, "What ckey do you want to add to [s]'s spawns?", "Spawn Ckey Add") as text|null
 			if(newrace)
 				s.SpecialPermissions.Add(newrace)
 				Log("Admin", "[ExtractInfo(src)] added ckey [newrace] to [s]'s special permission spawns.")
-		verb/Spawn_Permission_Remove(var/obj/Special/Spawn/s in global.Spawns)
+		verb/Spawn_Permission_Remove(var/obj/Special/Spawn/s in glob.Spawns)
 			set category="Admin"
 			var/newrace=input(src, "What ckey do you want to remove from [s]'s spawns?", "Spwn Ckey Remove") in s.SpecialPermissions
 			if(newrace)
@@ -146,12 +146,12 @@ mob
 				Log("Admin", "[ExtractInfo(src)] removed [newrace] from [s]'s special permission spawns.")
 		verb/Spawn_Swap(var/mob/m in players)
 			set category="Admin"
-			var/obj/Special/Spawn/s=input(src, "What spawn do you want to change [m] to? They are currently from [m.Spawn].", "Spawn Swap") in global.Spawns
+			var/obj/Special/Spawn/s=input(src, "What spawn do you want to change [m] to? They are currently from [m.Spawn].", "Spawn Swap") in glob.Spawns
 
 			Log("Admin", "[ExtractInfo(src)] swapped [ExtractInfo(m)]'s spawn from [m.Spawn] to [s]!")
 
 			var/obj/Special/Spawn/os
-			for(var/obj/Special/Spawn/gs in global.Spawns)
+			for(var/obj/Special/Spawn/gs in glob.Spawns)
 				if(gs.name==src.Spawn)
 					os=gs
 					break
@@ -224,24 +224,24 @@ mob
 						NewS.DefaultRaces.Add(Enter)
 						src << "Added [Enter] to default races for [NewS]."
 
-				global.Spawns.Add(NewS)
+				glob.Spawns.Add(NewS)
 				src << "Added [NewS] successfully to global list!"
 
 			Spawn_Delete()
 				set category="Admin"
-				var/obj/Special/Spawn/Chois=input(src, "What spawn do you want to delete?", "Delete Spawn") in global.Spawns
+				var/obj/Special/Spawn/Chois=input(src, "What spawn do you want to delete?", "Delete Spawn") in glob.Spawns
 				var/Confirm=alert(src, "Are you sure you want to delete [Chois]?", "Delete Spawn", "No", "Yes")
 				if(Confirm=="No")
 					src << "You do not delete [Chois]."
 					return
-				global.Spawns.Remove(Chois)
+				glob.Spawns.Remove(Chois)
 				Log("Admin", "[ExtractInfo(src)] has deleted spawn point [Chois].")
 				del Chois
 
 
 			Spawn_Edit()
 				set category="Admin"
-				var/obj/Special/Spawn/SC=input("What spawn are you editing?", "Edit Spawn") in global.Spawns
+				var/obj/Special/Spawn/SC=input("What spawn are you editing?", "Edit Spawn") in glob.Spawns
 				var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
 				var/list/B=new
 				Edit+="[SC]<br>[SC.type]"

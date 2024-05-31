@@ -135,6 +135,10 @@ globalTracker
 		VoidsAllowed = 1
 		VoidChance = 78
 
+
+		list/Spawns = list()
+
+
 		list/DEATH_LOCATION = list(250, 250, 2)
 		list/REGEN_LOCATION = list()
 		list/NO_SOUL_LOCATION = list(182, 288, 2)

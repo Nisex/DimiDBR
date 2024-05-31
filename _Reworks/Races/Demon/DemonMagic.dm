@@ -6,8 +6,9 @@
 /mob/proc/checkOtherMacros(obj/Skills/Buffs/SlotlessBuffs/DemonMagic/org)
     for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in src)
         if(dm == org) continue
-        if(dm.keyMacro == org.keyMacro)
-            return dm
+        if(dm.keyMacro != null)
+            if(dm.keyMacro == org.keyMacro)
+                return dm
     return TRUE
 
 /mob/var/hasDemonCasting = FALSE

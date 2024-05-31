@@ -25,7 +25,6 @@
         queue[currentindex] = key_data
     
     proc/trigger(t)
-        world<<t
         TRIGGERED = length(queue)
         initType = t
     
