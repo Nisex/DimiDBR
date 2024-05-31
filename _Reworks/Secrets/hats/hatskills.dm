@@ -154,7 +154,7 @@
 	// ArmorIcon = blah
 	ActiveMessage = "silver surfer moment"
 	OffMessage = "silver surfer moment over"
-	proc/adjust(mob/p)
+	adjust(mob/p)
 		if(altered) return
 		ForMult = 1.25 + (p.Potential*0.05)
 		EndMult = 1.1 + (p.Potential*0.05)

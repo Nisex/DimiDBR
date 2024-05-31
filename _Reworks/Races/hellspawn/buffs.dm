@@ -1,5 +1,5 @@
 /obj/Skills/Buffs/SpecialBuff/Hellspawn/DemonicTakeOver
-    proc/adjust(mob/p)
+    adjust(mob/p)
         var/demonicInfluence = p.passive_handler.Get("DemonicInfluence")
         var/desperation = p.passive_handler.Get("Desperation")
         if(desperation<=0)

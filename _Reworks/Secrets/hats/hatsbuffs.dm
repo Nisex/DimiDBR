@@ -7,7 +7,7 @@
         passives += p.secretDatum:applyPassives(p)
 
 
-    proc/adjust(mob/p)
+    adjust(mob/p)
         getChildBoons(p)
         if(altered) return
         var/secretLevel = p.getSecretLevel()

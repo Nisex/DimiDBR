@@ -58,7 +58,7 @@
     ManaCost = 15
     IgnoreAlreadyHit = 1
     CorruptionGain = 1
-    proc/adjust(mob/p)
+    adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
@@ -76,7 +76,7 @@
     Range=10
     SlowAffected=10
     CrippleAffected=10
-    proc/adjust(mob/p)
+    adjust(mob/p)
 
     verb/testOverHeat()
         adjust(usr)

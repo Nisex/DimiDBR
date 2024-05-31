@@ -35,7 +35,7 @@
 			return
 		usr<< "You will [Looking ? "look" : "not look"] at the moon."
 
-	proc/adjust(mob/p)
+	adjust(mob/p)
 		if(!p.oozaru_type)
 			p.oozaru_type = input(p, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")
 		switch(p.oozaru_type)

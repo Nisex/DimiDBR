@@ -1,7 +1,7 @@
 obj
 	Skills
 		Projectile
-			proc/adjust(mob/p)
+			adjust(mob/p)
 			proc/Trigger(mob/p, Override = 0)
 				adjust(p)
 				if(Using || cooldown_remaining)
@@ -4380,7 +4380,7 @@ mob
 						if(Z.CorruptionCost)
 							if(Corruption - Z.CorruptionCost < 0)
 								src << "You don't have enough Corruption to activate [Z]"
-								
+
 			if(Z.NeedsSword)
 				if(!src.EquippedSword())
 					if(!src.HasSwordPunching()&& !src.UsingBattleMage())

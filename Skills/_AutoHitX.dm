@@ -4,9 +4,15 @@ mob
 
 obj
 	Skills
+		proc/adjust(mob/p)
 		AutoHit
+			proc/Trigger(mob/p)
+				adjust(p)
+				if(Using || cooldown_remaining)
+					return
+				p.Activate(src)
 			Distance=1//Unless otherwise stated, assume it's a one tile attack of varying style.
-			var/DistanceAround//this is only used for AroundTarget type techs.
+			var/DistanceAround //this is only used for AroundTarget type techs.
 			var
 				NoPierce=0//If this is flagged it will make a technique terminate after hitting something.
 				CorruptionGain = 0
@@ -4067,7 +4073,7 @@ obj
 				WoundCost=15
 				BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Busshitsukai_to_Hikari"
 				ActiveMessage="aims to incinerate their opponents in an ebony pyre!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/sagaLevel = p.SagaLevel
 					if(altered) return
 					DarknessFlame = 0.25 + (sagaLevel/8)
@@ -4108,7 +4114,7 @@ obj
 				WoundCost=10
 				BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Busshitsukai_to_Hikari"
 				ActiveMessage="aims to incinerate their opponents in an ebony pyre!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/sagaLevel = p.SagaLevel
 					if(altered) return
 					DarknessFlame = 1 + (sagaLevel/8)

@@ -32,7 +32,7 @@
 			ActiveMessage="feeds blood into their Kamui, drawing on its full power.  Life Fiber Synchronize!"
 			OffMessage="runs out of blood to feed their Kamui, releasing the transformed state..."
 			BuffName="Life Fiber Synchronize"
-			proc/adjust(mob/p)
+			adjust(mob/p)
 				if(altered) return
 				var/level = p.SagaLevel
 				PowerMult = 1

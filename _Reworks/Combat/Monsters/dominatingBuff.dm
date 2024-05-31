@@ -7,7 +7,7 @@
     ClientTint=1
     Cooldown=20
     PhysicalHitsLimit = 0
-    proc/adjust(mob/p)
+    adjust(mob/p)
         var/asc = p.HellRisen * 4
         TimerLimit = 2 + (asc/2)
         Cooldown = 20 - (asc*2)

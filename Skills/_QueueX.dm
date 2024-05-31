@@ -844,7 +844,7 @@ obj
 				HitSparkSize=1.5
 				Duration=5
 				ActiveMessage="lets loose a dreaded battlecry as they leap forth!  WRYYYY!!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/secretLevel = p.getSecretLevel()
 					LifeSteal = min(25 * secretLevel,100)
 					Crippling = secretLevel
@@ -867,7 +867,7 @@ obj
 				Duration=5
 				ActiveMessage="transforms their body into a storm of shadow blades!"
 				// this is literally ora ora
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/secretLevel = p.getSecretLevel()
 					LifeSteal = min(50 * secretLevel,100)
 					Crippling = secretLevel * 1.5
@@ -886,7 +886,7 @@ obj
 				HitSparkTurns=1
 				Duration=5
 				ActiveMessage="lets their presence try to overtake their opponents!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/ascLevel = 1 + p.AscensionsUnlocked
 					src.Scorching=3 * ascLevel
 					src.Freezing=3 * ascLevel

@@ -9,7 +9,7 @@
     CanBeDodged=0
     EndDefense = 0.0001
     Bang = 3
-    proc/adjust(mob/p)
+    adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in Upgrades)
             vars[x] = Upgrades[x][asc]

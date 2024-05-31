@@ -36,7 +36,7 @@
     ManaCost = 15
     AffectTarget = 1
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply
-    proc/adjust(mob/p)
+    adjust(mob/p)
         if(p.isRace(DEMON) && applyToTarget.type != /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply/Demon)
             applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply/Demon
     
@@ -56,7 +56,7 @@
     StunAffected = 10
     InstantAffect = 1
     TimerLimit = 10
-    proc/adjust(mob/p)
+    adjust(mob/p)
         TimerLimit = MAX_STUN_TIME
         
 
@@ -75,7 +75,7 @@
             adjust(User)
             applyToTarget?:adjust(User)
         ..()
-    proc/adjust(mob/p)
+    adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
@@ -84,7 +84,7 @@
     InstantAffect = 1
     AffectTarget = 1
     StableHeal = 1
-    proc/adjust(mob/p)
+    adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]

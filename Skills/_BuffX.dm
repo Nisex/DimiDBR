@@ -1959,7 +1959,7 @@ NEW VARIABLES
 			Cooldown=180
 			KenWave=2
 			KenWaveIcon="LightningRed.dmi"
-			proc/adjust(mob/p)
+			adjust(mob/p)
 				passives = list("HellRisen" = 0.25 * (p.AscensionsAcquired-1), "Hellpower" = p.AscensionsAcquired/10, "Flicker" = round(p.AscensionsAcquired/2, 1))
 
 			Trigger(mob/User, Override)
@@ -2016,7 +2016,7 @@ NEW VARIABLES
 			IconLock='EyesSage.dmi'
 			ActiveMessage="turns completely feral, their massive power running out of control!"
 			OffMessage="tires out..."
-			proc/adjust(mob/p)
+			adjust(mob/p)
 				PowerReplacement = DaysOfWipe()+5
 				AngerMult = 2
 				passives = list("AngerMult" = 2, "GiantForm" = 1, "PowerReplacement" = DaysOfWipe()+5)
@@ -3095,7 +3095,7 @@ NEW VARIABLES
 				TextColor=rgb(0, 200, 0)
 				ActiveMessage="overloads their cybernetics!"
 				OffMessage="suffers a circuitry breakdown!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/totalPot = round(glob.progress.totalPotentialToDate,10)
 					SpdMult = 1.3 + totalPot/150
@@ -3140,7 +3140,7 @@ NEW VARIABLES
 				ActiveMessage="is overtaken by a more sadistic personality as they overclock their cybernetics!"
 				OffMessage="falters as their cyber-sadism is repressed..."
 				var/sandevistanUsages = 0
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/totalPot = round(glob.progress.totalPotentialToDate,10)
 					SpdMult = 1 + totalPot/150
@@ -3182,7 +3182,7 @@ NEW VARIABLES
 				BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/CyberPunk/GorillaArms")
 				ActiveMessage="laughs haughtily as they bolster their defenses with the best technology in the world!"
 				OffMessage="stumbles as their arrogant bulwark fades away..."
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/totalPot = round(glob.progress.totalPotentialToDate,10)
 					EndMult = 1.2 + totalPot/150
@@ -3215,7 +3215,7 @@ NEW VARIABLES
 				SureHitTimerLimit=30
 				ActiveMessage="arms themselves with enormous firepower, a weapon to surpass all!"
 				OffMessage="ditches the excess weaponry..."
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/totalPot = round(glob.progress.totalPotentialToDate,10)
 					ForMult = 1.2 + totalPot/150
@@ -4796,7 +4796,7 @@ NEW VARIABLES
 			EndTax=0.1
 			ActiveMessage="displays their superiority by crushing those who rose their hand at them!"
 			OffMessage="ends their ruthless display of superiority..."
-			proc/adjust(mob/user)
+			adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired
 				EnergyThreshold = 25-(5*zenkaiLevel)
 				var/healthDiff = 0
@@ -4831,7 +4831,7 @@ NEW VARIABLES
 			EndTax=0.25
 			ActiveMessage="decides to stand their ground under the rain of attacks!!"
 			OffMessage="finally gives in to the pain..."
-			proc/adjust(mob/user)
+			adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired/10
 				//scales off how low hp is
 				PowerMult = clamp(1,1+zenkaiLevel/user.Health, 1.5)
@@ -4861,7 +4861,7 @@ NEW VARIABLES
 			passives = list("TechniqueMastery" = 1)
 			ActiveMessage="pushes themselves even further to overwhelm their opponent!!"
 			OffMessage="releases their power spike, incredibly exhausted..."
-			proc/adjust(mob/user)
+			adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired
 				passives["TechniqueMastery"] = 1.5*zenkaiLevel
 				passives["MovementMastery"] = 2.5*zenkaiLevel
@@ -5260,7 +5260,7 @@ NEW VARIABLES
 				TimerLimit = 15
 				ActiveMessage="is held in place by magic!"
 				OffMessage="has been released by their magical restraints!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/magicLevel = p.getTotalMagicLevel()
 					StunAffected = round(1 + (magicLevel / 4))
 					CrippleAffected = round(magicLevel * 2)
@@ -5275,7 +5275,7 @@ NEW VARIABLES
 				applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Hold_PersonApply
 				ActiveMessage="casts a great magic to hold their target in place!"
 				OffMessage="releases the magic!!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/magicLevel = p.getTotalMagicLevel()
 					Range = 10 + magicLevel
 					// StunAffected = round(1 + (magicLevel / 4))
@@ -5295,7 +5295,7 @@ NEW VARIABLES
 				TimerLimit = 10
 				ActiveMessage = "uses magic to push themselves through time!"
 				OffMessage = "slows down to a normal pace..."
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					NoForcedWhiff = 1 // make it so people cant force whiff u
 					var/magicLevel = p.getTotalMagicLevel()
 					passives = list("NoForcedWhiff" = 1, "FluidForm" = 1, "Godspeed" = clamp(round(magicLevel/5), 1, 2), "DoubleStrike" = 1)
@@ -5321,7 +5321,7 @@ NEW VARIABLES
 				StableHeal = 1
 				Cooldown = -1
 				// this is just regen bro LOL!
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/magicLevel = 1 + p.getTotalMagicLevel()
 					var/base = round(magicLevel / 8)
 					var/perMissing = 0.01
@@ -6681,7 +6681,7 @@ NEW VARIABLES
 				TextColor=rgb(255, 0, 0)
 				ActiveMessage="transforms their weapon into a deadlier form!"
 				OffMessage="restores their weapon to its previous form!"
-				proc/adjust(mob/user)
+				adjust(mob/user)
 					var/lifeSteal
 					var/extend
 					if(user.Saga=="Kamui")
@@ -9237,7 +9237,7 @@ NEW VARIABLES
 				NoForcedWhiff=1
 				strAdd = 0.1
 				endAdd = 0.1
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					passives = list("Hardening" = clamp(secretLevel,1,2), "NoForcedWhiff" = 1, "UnarmedDamage" = secretLevel/2, "SwordDamage" = secretLevel/2 )
@@ -9255,7 +9255,7 @@ NEW VARIABLES
 				KBRes=2
 				KBMult=2
 				ActiveMessage="darkens their entire body with indomitable willpower!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					passives = list("Hardening" = clamp(secretLevel,1,4), "KBRes" = secretLevel, "KBMult" = secretLevel)
@@ -9271,7 +9271,7 @@ NEW VARIABLES
 				StrMult=1.25
 				EndMult=1.25
 				ActiveMessage="bolsters their entire body with willpower!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					passives = list("Hardening" = secretLevel/2)
@@ -9290,7 +9290,7 @@ NEW VARIABLES
 				CounterMaster=3
 				KBAdd=3
 				ActiveMessage="reflects every attack against them with enormous willpower!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					passives = list("PureReduction" = clamp(secretLevel,2,3), "Deflection" = clamp(secretLevel,2,3), "CounterMaster" = clamp(secretLevel,2,5), "KBAdd" = 3)
@@ -9305,7 +9305,7 @@ NEW VARIABLES
 				PureReduction=2.5
 				Deflection=1
 				ActiveMessage="shields their body from attack with their willpower!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					passives = list("PureReduction" = clamp(secretLevel/2,0.5,1.5), "Deflection" = 1)
@@ -9318,7 +9318,7 @@ NEW VARIABLES
 				passives = list("Instinct" = 1, "Flow" = 1, "NoWhiff" = 1)
 				Instinct=1
 				Flow=1
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					passives = list("Instinct" = clamp(secretLevel/1.5, 1, 3), "Flow" = clamp(secretLevel/1.5, 1, 3), "NoWhiff" = 1)
@@ -9333,7 +9333,7 @@ NEW VARIABLES
 				SureHitTimerLimit=15
 				SureDodgeTimerLimit=15
 				ActiveMessage="peers into the future to grasp their ambitions!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					TimerLimit = 40 + (10 * secretLevel)
@@ -9352,7 +9352,7 @@ NEW VARIABLES
 				SureHitTimerLimit=20
 				SureDodgeTimerLimit=20
 				ActiveMessage="gains a small glimpse of their future!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					TimerLimit = 20 + (5 * secretLevel)
@@ -9369,7 +9369,7 @@ NEW VARIABLES
 				passives = list("Flow" = 2)
 				Flow=2
 				ActiveMessage="weaves through every incoming attacks!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					TimerLimit = 25 + (5 * secretLevel)
@@ -9383,7 +9383,7 @@ NEW VARIABLES
 				passives = list("Flow" = 1)
 				Flow=1
 				ActiveMessage="determines trajectories of incoming strikes at a glance!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					TimerLimit = 10 + (5 * secretLevel)
@@ -9472,7 +9472,7 @@ NEW VARIABLES
 				OffMessage="restrains their inner beast..."
 				TextColor=rgb(153, 0, 0)
 				IconTransform='HalfMoon.dmi'
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(!altered)
 						if(p.Secret == "Werewolf")
 							passives = list("Curse" = 1, "Godspeed" =  p.secretDatum.currentTier, "TechniqueMastery" = 1, "MovementMastery" = p.secretDatum.currentTier * 1.5)
@@ -9486,7 +9486,7 @@ NEW VARIABLES
 					adjust(p)
 					..()
 			Full_Moon_Form
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(!altered)
 						if(p.Secret == "Werewolf")
 							passives = list("ActiveBuffLock" = 1,"SpecialBuffLock" = 1,"Curse" = 1, "Godspeed" =  p.secretDatum.currentTier*2, "MovementMastery" = p.secretDatum.currentTier * 2,\
@@ -9551,7 +9551,7 @@ NEW VARIABLES
 
 		Eldritch
 			True_Form
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(!altered)
 						passives = list("Curse" = 1, "Godspeed" =  p.secretDatum.secretVariable["Madness"]/50, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/10,\
 						 "Pursuer" = 2, "BlurringStrikes" = p.secretDatum.secretVariable["Madness"]/50, "Flow" = p.secretDatum.secretVariable["Madness"]/50, "Flicker" = p.secretDatum.secretVariable["Madness"]/25)
@@ -10732,7 +10732,7 @@ NEW VARIABLES
 				OffMessage = "loses some of that goblin greed..."
 				Cooldown = 120
 				passives = list("PureDamage" = 1, "PureReduction" = 1)
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					//var/asc = p.AscensionsAcquired
 					var/money
@@ -10759,7 +10759,7 @@ NEW VARIABLES
 				TextColor=rgb(95, 60, 95)
 				ActiveMessage="is consumed by a dragon's rage!!"
 				OffMessage = "calms their draconic fury..."
-				proc/adjust(mob/p)
+				adjust(mob/p)
 				Dragons_Tenacity
 
 					ActiveMessage = "forms a draconic shell!!"
@@ -10897,7 +10897,7 @@ NEW VARIABLES
 				HitTurn=1
 				Cooldown=-1
 				ActiveMessage="is coated by a frenzied symbiotic organism!!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/asc = p.AscensionsAcquired
 					passives = list("Unstoppable" = 1, "Possessive" = 1, "LifeGeneration" = 1+asc, "Instinct" = 1+(asc/2), "Flicker" = 1+(asc/2))
@@ -11270,7 +11270,7 @@ NEW VARIABLES
 				TextColor=rgb(102, 102, 102)
 				ActiveMessage="shapes the dark flames into a protective cage!"
 				OffMessage="releases the dark flames..."
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					if(p.equippedSword)
 						passives = list("DarknessFlame" = 1, "DeathField" = p.SagaLevel, "SpiritSword" =  p.SagaLevel * 0.25)

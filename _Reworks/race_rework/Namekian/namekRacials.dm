@@ -2,7 +2,7 @@
 	DamageMult = 1.5
 	AccuracyMult = 5
 	Cooldown = 120
-	proc/adjust(mob/p)
+	adjust(mob/p)
 		// make it scale per ascen, alter how it works between warrior / dragon
 		DamageMult = 1.5 + (p.AscensionsAcquired)
 			Cooldown = clamp(120 - (20 * p.AscensionsAcquired), 30, 120)

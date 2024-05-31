@@ -1,7 +1,7 @@
 /obj/Skills/Buffs/var/coolerAfterImages = 0
 
 
-/obj/Skills/Buffs/SlotlessBuffs/CyberPunk/proc/adjust(mob/p)
+/obj/Skills/Buffs/SlotlessBuffs/CyberPunk/adjust(mob/p)
 
 /obj/Skills/Buffs/SlotlessBuffs/CyberPunk/Sandevistan
     SBuffNeeded = "Ripper Mode"
