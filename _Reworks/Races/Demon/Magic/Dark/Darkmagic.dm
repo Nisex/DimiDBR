@@ -66,7 +66,6 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech
     var/list/scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(15,20,20,30,30), "HealthHeal" = list(2,2,3,5,5), "EnergyHeal" = list(15,10,10,5,5))
-    StableHeal = 1
     Cooldown = 90
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
     ActiveMessage = "sucks the soul out of their target!"
@@ -84,7 +83,6 @@
         EnergyHeal /= TimerLimit
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
     var/list/scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(-15,-20,-20,-30,-30), "HealthHeal" = list(-2,-2,-3,-5,-5), "EnergyHeal" = list(-15,-10,-10,-5,-5))
-    StableHeal = 1
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)

@@ -5582,7 +5582,7 @@ obj
 									EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.01, 1)
 									src.Owner.DoDamage(a, EffectiveDamage, SpiritAttack=1, Destructive=src.Destructive)
 									if(CorruptionGain)
-										Owner.gainCorruption(EffectiveDamage * 1.25)
+										Owner.gainCorruption(EffectiveDamage *1.25)
 									AlreadyHit["[m.ckey]"]++
 									if(Piercing && PiercingBang)
 										Bang(src.loc, Size=src.PiercingBang, Offset=0, PX=src.VariationX, PY=src.VariationY, icon_override = ExplodeIcon)

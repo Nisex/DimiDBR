@@ -5350,7 +5350,7 @@ mob
 					src.LoseMana(drain*CostMultiplier*(1-(0.45*src.TomeSpell(Z))))
 				if(Z.CorruptionGain)
 					var/gain = drain*CostMultiplier / 3
-					gainCorruption(gain)
+					gainCorruption(gain / 3)
 
 			if(Z.CapacityCost)
 				src.LoseCapacity(Z.CapacityCost*CostMultiplier)

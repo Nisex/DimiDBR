@@ -1,7 +1,3 @@
-/mob/verb/testDOM()
-    set category = "Demon Magic Testing"
-    var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic/dm = new()
-    src.AddSkill(dm)
 
 /mob/proc/checkOtherMacros(obj/Skills/Buffs/SlotlessBuffs/DemonMagic/org)
     for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in src)

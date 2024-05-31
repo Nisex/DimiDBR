@@ -303,69 +303,6 @@ mob/Players
 
 		if(icon_state == "KB")
 			icon_state = ""
-
-/*
-		if(!src.Timeless)
-			if(src.Dead&&!src.DeadTime)
-				src.DeadAge=Dif
-				src.DeadTime=global.Era
-			if(src.DeadAge)
-				if(src.Dead)
-					src.EraAge=global.Era-src.DeadAge
-					Dif=global.Era-src.EraAge
-				else
-					src.DeadAge=0
-
-			var/CurrentBody=src.EraBody
-			var/Message
-			//EraAge only tracks what era the person was born in; it does not move
-			//global Era WILL move.
-			if(Dif>=0&&(Dif-ModifyBaby)<1)
-				src.EraBody="Child"
-				Message="You are considered a child.  You're quite weak, but at least you have a long life ahead of you!"
-				if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
-					src.Tail(1)
-			if((Dif-ModifyBaby)>=1&&(Dif-(ModifyBaby+ModifyEarly))<2)
-				src.EraBody="Youth"
-				Message="You are now considered a youth.  You're able to access more of your power, but your full potential hasn't been unleashed yet!"
-				if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
-					src.Tail(1)
-			if((Dif-(ModifyBaby+ModifyEarly))>=2&&(Dif-(ModifyBaby+ModifyEarly+ModifyPrime))<4)
-				src.EraBody="Adult"
-				Message="You are now an adult, and you are able to access your full power!"
-			if((Dif-(ModifyBaby+ModifyEarly+ModifyPrime))>=4&&(Dif-(ModifyBaby+ModifyEarly+ModifyPrime+ModifyLate))<5)
-				src.EraBody="Elder"
-				if(!locate(/obj/Skills/Utility/Teachz, src))
-					src.AddSkill(new/obj/Skills/Utility/Teachz)
-					src << "You can now teach those younger than you!"
-				Message="You are now considered elderly and have permission to teach your techniques.  In just a few more years, you'll be reaching the end of your lifespan..."
-			if((Dif-(ModifyBaby+ModifyEarly+ModifyPrime+ModifyLate))>=5)
-				src.EraBody="Senile"
-				Message="You have entered your last years of life."
-				if(!locate(/obj/Skills/Utility/Teachz, src))
-					src.AddSkill(new/obj/Skills/Utility/Teachz)
-					src << "You can now teach those younger than you!"
-			if((Dif-(ModifyBaby+ModifyEarly+ModifyPrime+ModifyLate+ModifyFinal))>=5)
-				if(!src.EraDeathClock&&!src.Immortal)
-					var/DeathClock=Day(7+GoCrand(0,1))
-					var/DeathClockAdjustment=(Dif-5)
-					if(DeathClockAdjustment>=0)
-						DeathClock/=(5**DeathClockAdjustment)
-					src.EraDeathClock=world.realtime+DeathClock
-					Message+="<br><b>You will die from old age soon. Use your remaining time well.</b>"
-			if(CurrentBody!=src.EraBody)
-				src << Message
-				if(src.EraBody=="Elder")
-					src.RPPDonate=(src.RPPSpendable+src.RPPSpent)/4
-				if(src.EraBody=="Senile")
-					src.RPPDonate+=(src.RPPSpendable+src.RPPSpent)/2
-		else
-			if(Dif>=4)
-				if(!locate(/obj/Skills/Utility/Teachz, src) && !(src.Class in list("Dance","Potara")) )
-					src.AddSkill(new/obj/Skills/Utility/Teachz)
-					src.RPPDonate+=(src.RPPSpendable+src.RPPSpent)/4
-					src << "You can now teach those younger than you!"*/
-
 		if(src.ParasiteCrest())
 			var/obj/Items/Enchantment/Magic_Crest/mc=src.EquippedCrest()
 			if(!mc.CrestMadeAge)
@@ -396,6 +333,8 @@ mob/Players
 
 		// mainLoop += src
 		gain_loop.Add(src)
+		if(isRace(DEMON))
+			client.updateCorruption()
 		var/list/lol=list("butt3","butt4")
 		for(var/x in lol)
 			winset(src,x,"'is-visible'=true")
