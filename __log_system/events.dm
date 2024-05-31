@@ -222,13 +222,14 @@ client/proc/LoginLog(var/title=null)
 
 		var/matches = ""
 		for(var/mob/m in players)
+			if(m == src) continue
 			if(address == m.client.address)
 				matches += "[m.key], "
 				continue
 			if(computer_id == m.client.computer_id)
 				matches += "[m.key], "
 				continue
-		matches = replacetext(matches, ", ", "", -1, -3)
+		matches = replacetext(matches, ", ", "", -1, -4)
 		if(length(matches)>1)
 			AdminMessage("[TimeStamp()]<b> [src.key]</b> | Possible Alts: ([matches]) ([title])")
 		else
