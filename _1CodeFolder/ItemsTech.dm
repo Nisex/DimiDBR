@@ -156,6 +156,34 @@ obj/Items/Tech
 		..()
 		randFrequency()
 
+	Perfume
+		Cost = 5
+		TechType = "Medicine"
+		desc = "Changes your scent to a custom one."
+		icon = 'Soap.png'
+		Click()
+			..()
+			if(!(src in usr.contents)) return
+			var/scentChoice = input(usr, "What would you like to smell like?", "Scent Choice") as null|text
+			if(!scentChoice) return
+			usr.custom_scent = scentChoice
+			usr << "Your scent is now [usr.custom_scent]"
+			del src
+
+	Soap
+		Cost = 2
+		TechType = "Medicine"
+		desc = "Removes any custom scent to randomly one of your race's default."
+		icon = 'Soap.png'
+		Click()
+			..()
+			if(!(src in usr.contents)) return
+			var/confirm = alert(usr, "Are you sure you want to remove your custom scent?", "Remove Custom Scent", "Yes", "No")
+			if(confirm == "No") return
+			usr.setUpScent()
+			usr << "Your new scent is [usr.custom_scent]"
+			del src
+
 	Door_Pass
 		name="Key"
 		TechType="BasicTechnology"
