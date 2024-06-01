@@ -6,9 +6,9 @@ var/list/valid_chat_fonts = list("Gotham Book", "Arial", "Verdana")
 #define CURRENTFONTSIZE "currentFontSize"
 client
 	New()
+		..()
 		setFontSize(getPref(CURRENTFONTSIZE))
 		setFontFamily(getPref(CURRENTFONTFAMILY))
-		..()
 
 	proc
 		setFontSize(size)
