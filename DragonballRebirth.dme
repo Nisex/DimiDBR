@@ -381,6 +381,7 @@
 #include "_Reworks\Races\Demon\Corruption.dm"
 #include "_Reworks\Races\Demon\DemonMagic.dm"
 #include "_Reworks\Races\Demon\DevilArms.dm"
+#include "_Reworks\Races\Demon\Influence.dm"
 #include "_Reworks\Races\Demon\Magic\Corruption\Corruption.dm"
 #include "_Reworks\Races\Demon\Magic\Dark\Darkmagic.dm"
 #include "_Reworks\Races\Demon\Magic\Hellfire\Hellfire.dm"

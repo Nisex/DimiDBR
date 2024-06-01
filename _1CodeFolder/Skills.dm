@@ -123,8 +123,8 @@ obj/Skills
 	var/SpiritPower//become medium
 	var/LegendaryPower//become giant
 	var/HellPower//become satan
-	var/Disorienting//rolls for confuse
-	var/Confusing//adds confuse
+	var/Disorienting //rolls for confuse
+	var/Confusing //adds confuse
 	var/Stunner=0//Stuns for this amount of time
 	var/Shearing//Debuffs regen
 	var/Crippling//Cripples movement

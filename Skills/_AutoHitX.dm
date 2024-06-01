@@ -9,8 +9,9 @@ obj
 			proc/Trigger(mob/p)
 				adjust(p)
 				if(Using || cooldown_remaining)
-					return
-				p.Activate(src)
+					return FALSE
+				var/aaa = p.Activate(src)
+				return aaa
 			Distance=1//Unless otherwise stated, assume it's a one tile attack of varying style.
 			var/DistanceAround //this is only used for AroundTarget type techs.
 			var
@@ -5353,6 +5354,8 @@ mob
 				if(Z.CorruptionGain)
 					var/gain = drain*CostMultiplier / 3
 					gainCorruption(gain / 3)
+			if(Z.CorruptionCost)
+				gainCorruption(Z.CorruptionCost)
 
 			if(Z.CapacityCost)
 				src.LoseCapacity(Z.CapacityCost*CostMultiplier)
