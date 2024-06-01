@@ -258,10 +258,13 @@ race
 		anger = 1.5
 		regeneration = 1.5
 		imagination = 0.5
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Oozaru)
 
 		onFinalization(mob/user)
+			..()
 			user.Tail(1)
-			user.contents+=new/obj/Oozaru
+//			user.contents+=new/obj/Oozaru
+
 	/*
 		TODO: think of a better way to handle racial features.
 		New()
