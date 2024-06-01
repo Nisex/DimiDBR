@@ -457,6 +457,8 @@ race
 			user << "Please set macros for (Dark Magic), (Hell Fire) and (Corruption), your 3 demon magics."
 			global.TrueNames.Add(user.TrueName)
 			user.client.updateCorruption()
+			user.demon.selectPassive(user, "CORRUPTION_PASSIVES", "Buff")
+			user.demon.selectPassive(user, "CORRUPTION_DEBUFFS", "Debuff")
 
 	alien
 		name = "Alien"

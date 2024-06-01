@@ -498,6 +498,8 @@ ascension
 				owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm).Mastery++
 				for(var/passive in trueFormPerAsc[owner.AscensionsAcquired])
 					findTrueForm(owner).passives[passive] += trueFormPerAsc[owner.AscensionsAcquired][passive]
+				user.demon.selectPassive(user, "CORRUPTION_PASSIVES", "Buff")
+				user.demon.selectPassive(user, "CORRUPTION_DEBUFFS", "Debuff")
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			passives = list("HellPower" = 0.05, "AbyssMod" = 0.25, "SpiritPower" = 0.25)
