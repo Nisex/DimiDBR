@@ -52,7 +52,6 @@ characterInformation/proc/loadProfile(mob/p, file_name, infoDump)
         for(var/variable in vars)
             if(data[variable])
                 vars[variable] = data[variable]
-                world<<"vars\[[variable]\] is = \[[data[variable]]\]" // debug 
     
 
 /mob/proc/swapToProfileVars(isOld)
