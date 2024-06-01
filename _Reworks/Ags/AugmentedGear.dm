@@ -75,8 +75,7 @@ proc/copyatom(atom/a)
         src<<"Not an AG"
         return
     var/obj/Items/newAG = copyatom(ag)
-    for(var/passive in ag.passives)
-        newAG.passives[passive] = ag.passives[passive]
+    newAG.passives = ag.passives.Copy()
     newAG.name = "[ag.name] Copy"
     newAG.Move(src)
     archive.addAG(newAG)
