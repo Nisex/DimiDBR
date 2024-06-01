@@ -3,12 +3,14 @@
 /obj/Skills/Utility/Imitate
     Cooldown = 10
     verb/Change_Scent()
+        set category = "Roleplay"
         var/category = input(usr, "What category?") in scents
         usr.custom_scent = input(usr, "What scent?") in scents[category]
         usr << "Scent changed to [usr.custom_scent]"
 
 
     verb/Imitate()
+        set category = "Roleplay"
         if(usr.Imitating)
             usr.invisibility = 99
             usr.information.loadProfile(usr, "[usr.ckey]_Old_Profile_1", FALSE)

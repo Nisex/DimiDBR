@@ -16,7 +16,7 @@
     AccMult = 3
     Speed = 0.75
     Cooldown = 120
-    ActiveMessage = "unleashes a wave of Hell Fire!"
+    ActiveMessage = "unleashes a wave of Fire!"
     ManaCost = 1
     Delay = 8
     CorruptionGain = 1
@@ -50,21 +50,17 @@
     Distance=10
     Duration = 10
     SpecialAttack = 1 
-    TurfStrike=1
-    TurfShift='BurnedGround.dmi'
-    TurfShiftDuration=180
     Cooldown=90
     ManaCost = 15
     IgnoreAlreadyHit = 1
     CorruptionGain = 1
-    ActiveMessage = "rains down an onslaught of hellfire!"
+    ActiveMessage = "rains down an onslaught of fire!"
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
         TurfShiftDuration = Duration
-        Size = round(Distance/2)
-    verb/TestHellStorm()
+    verb/HellStorm()
         set category = "Skills"
         adjust(usr)
         usr.Activate(src)
@@ -81,7 +77,8 @@
     CrippleAffected=10
     PoisonAffected = 10
     BurnAffected = 10
-    ActiveMessage = "swells hellfire within their target."
+    Cooldown = 60
+    ActiveMessage = "swells fire within their target."
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)

@@ -13,7 +13,7 @@
     // VARS
     var/keyMacro = null
     var/KEYWORD = "error"
-    var/obj/Skills/possible_skills
+    var/list/obj/Skills/possible_skills = list()
     TimerLimit = 1
     Cooldown = 120
     // PROCS
@@ -46,8 +46,10 @@
         else
             ..()
     else
+        if(User.client.keyQueue.TRIGGERED && User.client.keyQueue.LAST_CAST + 300 <world.time)
+            User.client.keyQueue.TRIGGERED = null
         if(isnull(User.client.keyQueue.TRIGGERED))
-            if(User.client.keyQueue.LAST_CAST + 70 < world.time)
+            if(User.client.keyQueue.LAST_CAST + 45 < world.time)
                 User.client.keyQueue.trigger(type)
                 User << "You have started to cast [src]." // replace with animation of text above head.
                 User.castAnimation()

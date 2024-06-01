@@ -7382,6 +7382,8 @@ NEW VARIABLES
 				if(src.Mastery>usr.AscensionsAcquired)
 					usr << "Your Devil Arm is fully evolved currently!"
 					return
+				if(Mastery < 1)
+					Mastery = 1
 				if(!usr.BuffOn(src))
 					while(src.Mastery<usr.AscensionsAcquired)
 						if(src.Mastery<=1)

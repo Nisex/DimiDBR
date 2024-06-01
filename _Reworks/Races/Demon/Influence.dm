@@ -29,9 +29,15 @@
             .["[y]"] = jsonData["[type]_[x]"][y]
 
 /datum/DemonRacials/proc/handlePassive(list/theList, input, option)
-    if(vars["[option]Passives"][input] + theList[input][1] > theList[input][2])
-        return FALSE
-    vars["[option]Passives"][input] += theList[input][1]
+    . = TRUE
+    if(vars["[option]Passives"][input])
+        world<<"[vars["[option]Passives"][input]] + [theList[input][1]] > [theList[input][2]]"
+        if(vars["[option]Passives"][input] + theList[input][1] > theList[input][2])
+            return FALSE
+        vars["[option]Passives"][input] += theList[input][1]
+    else
+        vars["[option]Passives"][input] = theList[input][1]
+    world<<vars["[option]Passives"][input]
 
 
 /datum/DemonRacials/proc/applyDebuffs(mob/p, mob/a)
@@ -53,8 +59,16 @@
     for(var/a in passives)
         choices += "[a]"
     var/input = input(p, "What do you want to add to your [option] passives?") in choices
-    if(!handlePassive(passives, input, option))
-        p << "Too much sauce"
-        return FALSE // have them go again
-    return TRUE
+    var/correct = FALSE
+    var/attempts = 0
+    while(correct == FALSE)
+        if(attempts >=3)
+            p << "You tried to omany times, alert an admin"
+            break
+        if(!handlePassive(passives, input, option))
+            p << "Too much passive value"
+            correct = FALSE // have them go again
+        else
+            correct = TRUE
+        attempts++
             

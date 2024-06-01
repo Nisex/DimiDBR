@@ -128,7 +128,7 @@
     "CORRUPTION_PASSIVES_IV": {
 
     },
-    "CORRUPTION_DEBUFFS": {
+    "CORRUPTION_DEBUFFS_I": {
         "Poison": [1, 3],
         "Def": [1, 3],
         "End": [1, 3],

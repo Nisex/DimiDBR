@@ -13,7 +13,6 @@
     AccMult = 3
     Speed = 1.25
     Cooldown = 30
-    ActiveMessage = "sends out balls of dark magic!"
     ManaCost = 5
     Deviation = 240
     Cooldown = 120
@@ -35,6 +34,7 @@
     Range = 25
     ManaCost = 15
     AffectTarget = 1
+    Cooldown = 60
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply
     adjust(mob/p)
         if(p.isRace(DEMON) && applyToTarget.type != /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply/Demon)
@@ -68,7 +68,6 @@
     var/list/scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(15,20,20,30,30), "HealthHeal" = list(2,2,3,5,5), "EnergyHeal" = list(15,10,10,5,5))
     Cooldown = 90
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
-    ActiveMessage = "sucks the soul out of their target!"
     Trigger(var/mob/User, Override=0)
         if(!altered)
             adjust(User)

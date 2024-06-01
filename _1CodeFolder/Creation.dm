@@ -395,10 +395,12 @@ mob/Players
 			for(var/obj/Skills/s in src)
 				s.cooldown_remaining=0
 				s.cooldown_start=0
-				if(s?:possible_skills)
-					for(var/obj/Skills/ss in s?:possible_skills)
-						s.cooldown_remaining=0
-						s.cooldown_start=0
+			for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in src)
+				if(dm.possible_skills)
+					for(var/path in dm.possible_skills)
+						dm.possible_skills[path].cooldown_remaining=0
+						dm.possible_skills[path].cooldown_start=0
+						dm.possible_skills[path].Using = 0
 		for(var/obj/Redo_Stats/r in src)
 			if(r.LoginUse) r.RedoStats(src)
 		if(locate(/obj/Skills/Companion/arcane_follower) in src) is_arcane_beast = locate(/obj/Skills/Companion/arcane_follower) in src

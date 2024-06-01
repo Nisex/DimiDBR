@@ -13,12 +13,12 @@
     hypothetically it will b impossible to complete, we must denote that Q is the start, and anything after is the thing, but anything that is done within the given time doesn't count
     so depending on the ms between the Q and the key will determine if it goes off or not
  */ 
-#define LEEWAY_TIME 5
+#define LEEWAY_TIME 15
 
 
 /datum/queueTracker
-    var/tmp/list/queue = list()
-    var/TRIGGERED = null
+    var/tmp/list/queue = list(1 = list("123", -2))
+    var/tmp/TRIGGERED = null
     var/tmp/initType = null
     var/tmp/LAST_CAST = -100
 
@@ -37,7 +37,7 @@
             if(queue[index][2] < triggerTime + delay)
                 continue
             // ignore everything that happens between the delay and last press
-            if(queue[index][2] < triggerTime + delay + LEEWAY_TIME ) // they are in the grace
+            if(queue[index][2] < triggerTime + (delay + LEEWAY_TIME) ) // they are in the grace
                 if(lookingFor != queue[index][1])
                     continue
                 else
@@ -47,7 +47,6 @@
                     return TRUE 
             else
                 if(lookingFor != queue[index][1])
-                
                     // you have misinputted
                     TRIGGERED = null
                     initType = null

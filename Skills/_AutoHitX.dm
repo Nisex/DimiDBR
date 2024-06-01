@@ -6320,7 +6320,11 @@ obj
 											t.overlays-=i
 											t.Deluged=0
 								if(src.TurfShift)
-									for(var/turf/t in Turf_Circle(src.TargetLoc, src.Distance))
+									var/dist = Distance
+									if(Persistent)
+										dist /= 2
+										dist = round(dist)
+									for(var/turf/t in Turf_Circle(src.TargetLoc, dist))
 										sleep(-1)
 										TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
 								for(var/turf/t in Turf_Circle(src.TargetLoc, src.Distance))
