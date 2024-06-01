@@ -1763,6 +1763,13 @@ mob/Admin4/verb
 		else
 			glob.VoidsAllowed=1
 			world << "<font color='green'>Voiding from death has been enabled.</font>"
+	ChangeVoidLocation()
+		set category = "Admin"
+		var/x = input(usr, "X for void?") as num|null
+		var/y = input(usr, "Y for void?") as num|null
+		var/z = input(usr, "Z for void?") as num|null
+		if(!x || !y || !z) return
+		glob.VOID_LOCATION = list(x,y,z)
 mob/Admin3/verb
 
 	SetGlobalDamage()
