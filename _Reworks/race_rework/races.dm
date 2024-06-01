@@ -281,8 +281,6 @@ race
 		desc = "Primordial ooze given shape from the overuse of magic, given life by Aether."
 		visual = 'Majins.png'
 
-		locked = TRUE
-
 		passives = list("StaticWalk" = 1, "Steady" = 1)
 		skills = list(/obj/Skills/Absorb, /obj/Skills/Buffs/SlotlessBuffs/Regeneration)
 
