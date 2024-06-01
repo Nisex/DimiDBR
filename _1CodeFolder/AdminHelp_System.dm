@@ -56,7 +56,7 @@ mob/verb/AdminHelpAction()
 					<font size=3><font color=red>[target.name]<hr><font size=2><font color=black>"}
 		View+={"
 
-			\[ <a href=?src=\ref[target];action=MasterControl;do=Adminize>Promote/Demote Admin</a href> | <a href=?src=\ref[target];action=MasterControl;do=Rewarderize>Promote/Demote Rewarder</a href> |<a href=?src=\ref[target];action=MasterControl;do=Mute>Mute</a href> | <a href=?src=\ref[target];action=MasterControl;do=PM>Admin PM</a href> | <a href=?src=\ref[target];action=MasterControl;do=Observe>Observe</a href> | <a href=?src=\ref[target];action=MasterControl;do=SendToSpawn>Send to Spawn</a href> | <a href=?src=\ref[target];action=MasterControl;do=Assess>Assess | <a href=?src=\ref[target];action=MasterControl;do=Give>Give</a href> | <a href=?src=\ref[target];action=MasterControl;do=Kill>Kill</a href> | <a href=?src=\ref[target];action=MasterControl;do=KO>Knockout</a href> | <a href=?src=\ref[target];action=MasterControl;do=Heal>Heal<a href> | <a href=?src=\ref[target];action=MasterControl;do=Revive>Revive</a href> | <a href=?src=\ref[target];action=MasterControl;do=Log>Check Log</a href>  | <a href=?src=\ref[target];action=MasterControl;do=TempLog>Check Temp Log</a href> | <a href=?src=\ref[target];action=MasterControl;do=SkillLog>Check Skill log</a href> | <a href=?src=\ref[target];action=MasterControl;do=Reward>Reward</a href>  | <a href=?src=\ref[target];action=MasterControl;do=Edit>Edit</a href> | <a href=?src=\ref[target];action=MasterControl;do=Summon>Summon</a href> | <a href=?src=\ref[target];action=MasterControl;do=Teleport>Teleport to</a href>  | <a href=?src=\ref[target];action=MasterControl;do=XYZTeleport>XYZ Teleport</a href> | <a href=?src=\ref[target];action=MasterControl;do=Boot>Boot</a href> | <a href=?src=\ref[target];action=MasterControl;do=Ban>Ban</a href> \]
+			\[ <a href=?src=\ref[target];action=MasterControl;do=Adminize>Promote/Demote Admin</a href> | <a href=?src=\ref[target];action=MasterControl;do=Cursespeak>CurseSpeak</a href> |<a href=?src=\ref[target];action=MasterControl;do=Mute>Mute</a href> | <a href=?src=\ref[target];action=MasterControl;do=PM>Admin PM</a href> | <a href=?src=\ref[target];action=MasterControl;do=Observe>Observe</a href> | <a href=?src=\ref[target];action=MasterControl;do=SendToSpawn>Send to Spawn</a href> | <a href=?src=\ref[target];action=MasterControl;do=Assess>Assess | <a href=?src=\ref[target];action=MasterControl;do=Give>Give</a href> | <a href=?src=\ref[target];action=MasterControl;do=Kill>Kill</a href> | <a href=?src=\ref[target];action=MasterControl;do=KO>Knockout</a href> | <a href=?src=\ref[target];action=MasterControl;do=Heal>Heal<a href> | <a href=?src=\ref[target];action=MasterControl;do=Revive>Revive</a href> | <a href=?src=\ref[target];action=MasterControl;do=Log>Check Log</a href>  | <a href=?src=\ref[target];action=MasterControl;do=TempLog>Check Temp Log</a href> | <a href=?src=\ref[target];action=MasterControl;do=SkillLog>Check Skill log</a href> | <a href=?src=\ref[target];action=MasterControl;do=Reward>Reward</a href>  | <a href=?src=\ref[target];action=MasterControl;do=Edit>Edit</a href> | <a href=?src=\ref[target];action=MasterControl;do=Summon>Summon</a href> | <a href=?src=\ref[target];action=MasterControl;do=Teleport>Teleport to</a href>  | <a href=?src=\ref[target];action=MasterControl;do=XYZTeleport>XYZ Teleport</a href> | <a href=?src=\ref[target];action=MasterControl;do=Boot>Boot</a href> | <a href=?src=\ref[target];action=MasterControl;do=Ban>Ban</a href> \]
 					"}
 		usr<<browse(View,"window=Person;size=500x135")
 
@@ -87,6 +87,13 @@ mob/verb/AdminHelp(var/txt as message)
 	txt=copytext(txt,1,10000)
 	AHelp.AdminHelp_Message = txt
 	AdminHelps.Add(AHelp)
+	usr.client.HttpPost(
+		"https://discord.com/api/webhooks/1246590257978146837/4BJgNynvt4xOBb-Sdiv9v58eeAufmC-InT4P_rmnL-wb1ZYPva3fuCDTU3Da8AjhT4Mi",
+		list(
+			content = "	**[usr.key]'s AHelp:** ```"+txt+"```",
+			username = "AdminHelp"
+		)
+	)
 	for(var/mob/Players/M in admins)
 		if(M.Admin)
 			M <<"<font color=red>(PLAYER HELP)</font color> <a href=?src=\ref[usr];action=MasterControl;do=PM;ID=[AHelp.UniqueID]>[usr.key]</a href>[M.Controlz(usr)] : [txt]"

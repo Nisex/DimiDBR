@@ -913,12 +913,14 @@ ascension
 			choices = list("Innocence" = /ascension/sub_ascension/majin/innocence, "Super" = /ascension/sub_ascension/majin/super, "Unhinged" = /ascension/sub_ascension/majin/unhinged)
 			anger = 0.2
 			intimidation = 5
+			imaginationAdd = 0.2
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
 			choices = list("Harness Evil" = /ascension/sub_ascension/majin/harness_evil, "Remain Consistent" = /ascension/sub_ascension/majin/remain_consistent, "Become Docile" = /ascension/sub_ascension/majin/become_docile)
 			intimidation = 5
 			anger = 0.1
+			imaginationAdd = 0.25
 
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/innocence)
@@ -975,6 +977,7 @@ ascension
 			choices = list("Harness Evil" = /ascension/sub_ascension/majin/harness_evil, "Remain Consistent" = /ascension/sub_ascension/majin/remain_consistent, "Become Docile" = /ascension/sub_ascension/majin/become_docile)
 			intimidation = 10
 			anger = 0.15
+			imaginationAdd = 0.2
 
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/innocence)
@@ -1421,7 +1424,7 @@ ascension
 				ecoAdd = 0.75
 				intelligenceAdd = 1
 				cyberizeModAdd = 1
-				imaginationAdd = 0.25
+				imaginationAdd = 0.5
 				pilotingProwess = 1.5
 				enhanceChips = 1
 

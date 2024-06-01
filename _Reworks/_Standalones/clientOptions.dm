@@ -7,8 +7,10 @@ Options/
     var/seePronouns = 1
     var/useSupporter = 0
     var/useDonator = 1
+    var/currentFontFamily = "Gotham Book"
+    var/currentFontSize = 8
     var/disableLoginAlert = 0
-    var/list/savableVars = list("seePronouns", "useSupporter", "useDonator", "disableLoginAlert")
+    var/list/savableVars = list("seePronouns", "useSupporter", "useDonator", "disableLoginAlert", "currentFontFamily", "currentFontSize")
     proc/savePrefs(ckey)
         . = list()
         for(var/opt in savableVars)

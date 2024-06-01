@@ -100,7 +100,7 @@ mob/Admin3/verb/LoadSwapMap()
 	whatGuild.joinGuild(player)
 
 /mob/Admin3/verb/forceLeaveGuild(mob/player in world)
-	var/guild/whatGuild = input(usr, "What guild do you want to make [player.name] leave?") as null|anything in glob.guilds
+	var/guild/whatGuild = input(usr, "What guild` do you want to make [player.name] leave?") as null|anything in glob.guilds
 	if(!whatGuild) return
 	whatGuild.removeMember(player)
 
@@ -131,7 +131,7 @@ mob/Admin3/verb/LoadSwapMap()
 	for(var/mob/Player/AI/ai in ticking_ai)
 		ai.EndLife(0)
 
-/mob/Admin2/verb/Private_Narrate(mob/m in players)
+/mob/Admin2/verb/PrivateNarrate(mob/m in players)
 	set category="Admin"
 	var/message = input(usr,"What do you want to whisper to them?","Cursespeak") as message | null
 	if(message)
@@ -951,11 +951,10 @@ mob/Admin2/verb
 		A.Revive()
 
 
-	Narrate(var/mob/M in view(20, src))
+	Narrate(msg as message)
 		set category="Admin"
-		var/msg = input(usr, "Select what you wish to narrate","Narrate") as message
-		M << output("<font color=yellow>[msg]", "output")
-		M << output("<font color=yellow>[msg]", "icchat")
+		view(20)<< output("<font color=yellow>[msg]", "output")
+		view(20)<< output("<font color=yellow>[msg]", "icchat")
 		for(var/mob/m in view(20))
 			if(m.BeingObserved.len>0)
 				for(var/mob/mo in m.BeingObserved)

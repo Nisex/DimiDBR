@@ -9,14 +9,13 @@
 	var/obj/Items/Sword/s2 = swords[2]
 	var/obj/Items/Sword/s3 = swords[3]
 	var/obj/Items/Enchantment/Staff/st = swords[4]
-	var/swordPuncher = HasSwordPunching()
 	if(st)
 		if(specialstrike||UsingBattleMage())
 			returnValues[1] /= GetStaffDrain(st)
 			returnValues[3] += GetStaffDamage(st)
 			returnValues[2] *= GetStaffAccuracy(st)
 	if(!secondStrike)
-		if((s || swordPuncher) && swordAtk )
+		if(s && swordAtk)
 			returnValues[1] /= GetSwordDelay(s)
 			returnValues[3] += GetSwordDamage(s)
 			returnValues[2] *= GetSwordAccuracy(s)
@@ -25,7 +24,7 @@
 			returnValues[1] /= GetSwordDelay(s2)
 			returnValues[3] += GetSwordDamage(s2)
 			returnValues[2] *= GetSwordAccuracy(s2)
-		else if((s || swordPuncher) &&!s2&&swordAtk)
+		else if(s &&!s2&&swordAtk)
 			returnValues[1] /= GetSwordDelay(s)
 			returnValues[3] += GetSwordDamage(s)
 			returnValues[2] *= GetSwordAccuracy(s)
@@ -39,7 +38,7 @@
 			returnValues[1] /= GetSwordDelay(s3)
 			returnValues[3] += GetSwordDamage(s3)
 			returnValues[2] *= GetSwordAccuracy(s3)
-		else if((s||swordPuncher)&&!s3&&swordAtk)
+		else if(s&&!s3&&swordAtk)
 			returnValues[1] /= GetSwordDelay(s)
 			returnValues[3] += GetSwordDamage(s)
 			returnValues[2] *= GetSwordAccuracy(s)

@@ -311,6 +311,7 @@ race
 		defense = 1.5
 		regeneration = 3
 		recovery = 3
+		anger = 1.65
 		imagination = 2
 
 		onFinalization(mob/user)
@@ -523,6 +524,7 @@ race
 		/* /obj/Skills/AutoHit/AntennaBeam */
 
 		onFinalization(mob/user)
+			..()
 			user.EnhancedHearing = 1
 			for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/r in user)
 				r.RegenerateLimbs=1
@@ -544,7 +546,6 @@ race
 					user.SpdMod += 0.5
 					offense += 0.25
 					user.OffMod += 0.5
-			..()
 
 	changeling
 		locked = TRUE

@@ -46,3 +46,10 @@ update
 			// for example, with the next thing we will be finding fiber stacks and reducing their asc giving power
 			..()
 	*/
+
+	version2
+		version = 2
+		updateMob(mob/p)
+			if(p.isRace(DRAGON))
+				p.AngerMax = 1.65
+			..()
