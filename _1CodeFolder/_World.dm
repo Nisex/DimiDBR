@@ -74,9 +74,9 @@ mob/proc/CheckUnlock(race/_race)
 	if(src.Admin) return 1
 	if(_race.locked)
 		for(var/i in glob.LockedRaces)
-			if(glob.LockedRaces[i] == _race.name)
+			if(ckey(i)==ckey && glob.LockedRaces[i] == _race.name)
 				return 1
-	else if(!_race.locked)
+	if(!_race.locked)
 		return 1
 	return 0
 
