@@ -63,7 +63,7 @@
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
         TurfShiftDuration = Duration
-        Size = Distance
+        Size = round(Distance/2)
     verb/TestHellStorm()
         set category = "Skills"
         adjust(usr)

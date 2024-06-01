@@ -23,26 +23,26 @@
     jsonData = json_decode(jsonData)
     . = list()
     for(var/x in tier)
-        . = jsonData["[type]_[x]"]
-        world<<jointext(x, " , ")
-    world<<jointext(., " | ")
+        . += jsonData["[type]_[x]"]
+        for(var/y in jsonData["[type]_[x]"])
+            .["[y]"] = jsonData["[type]_[x]"][y]
 
-/mob/verb/demonRacialTest()
-    var/datum/DemonRacials/dr = new()
-    AscensionsAcquired = 5
-    dr.selectPassive(src)
-
-/datum/DemonRacials/proc/handlePassive(list/theList)
-
-    return theList
+/datum/DemonRacials/proc/handlePassive(list/theList, input, option)
+    if(vars["[option]Passives"][input] + theList[input][1] > theList[input][2])
+        return FALSE
+    vars["[option]Passives"][input] += theList[input][1]
 
 
-/datum/DemonRacials/proc/selectPassive(mob/p)
-    p << "Listing Buff Passives"
-    p << jointext(BuffPassives, " ,")
-    var/input = input(p, "What do you want to add to your buff passives?") in getJSONInfo(getPassiveTier(p),"CORRUPTION_PASSIVES")
-    world<<jointext(input, " , ")
-    world<<input
-    handlePassive(input)
-    BuffPassives.Add(input)
-    
+/datum/DemonRacials/proc/selectPassive(mob/p, type, option)
+    p << "Listing [option] Passives"
+    p << jointext(vars["[option]Passives"], " ,")
+    var/list/passives =  getJSONInfo(getPassiveTier(p),"[type]")
+    var/list/choices = list()
+    for(var/a in passives)
+        choices += "[a]"
+    var/input = input(p, "What do you want to add to your [option] passives?") in choices
+    if(!handlePassive(passives, input, option))
+        p << "Too much sauce"
+        return FALSE // have them go again
+    return TRUE
+            
