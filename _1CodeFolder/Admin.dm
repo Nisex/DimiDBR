@@ -951,11 +951,10 @@ mob/Admin2/verb
 		A.Revive()
 
 
-	Narrate(var/mob/M in view(20, src))
+	Narrate(msg as message)
 		set category="Admin"
-		var/msg = input(usr, "Select what you wish to narrate","Narrate") as message
-		M << output("<font color=yellow>[msg]", "output")
-		M << output("<font color=yellow>[msg]", "icchat")
+		view(20)<< output("<font color=yellow>[msg]", "output")
+		view(20)<< output("<font color=yellow>[msg]", "icchat")
 		for(var/mob/m in view(20))
 			if(m.BeingObserved.len>0)
 				for(var/mob/mo in m.BeingObserved)
