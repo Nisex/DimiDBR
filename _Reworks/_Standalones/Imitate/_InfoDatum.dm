@@ -75,7 +75,7 @@ characterInformation/proc/loadProfile(mob/p, file_name, infoDump)
     var/profileName = input(src, "What is the preset name of this profile?") as text
     var/currentIndex = 0
     for(var/x in flist("[PROFILE_SAVING_PATH]/[ckey]/"))
-        if("Custom_Profile" in x)
+        if(findtext(x,"Custom_Profile"))
             var/name = copytext(x,length(x)-5, length(x)-4)
             currentIndex = text2num(name)
     if(currentIndex+1>5)
