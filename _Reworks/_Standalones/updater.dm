@@ -51,5 +51,5 @@ update
 		version = 2
 		updateMob(mob/p)
 			if(p.isRace(DRAGON))
-				p.AngerMax = 1.65
+				p.AngerMax = 1.5
 			..()
