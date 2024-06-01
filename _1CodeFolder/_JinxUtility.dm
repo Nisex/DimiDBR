@@ -103,9 +103,9 @@ mob
 				if(defender.CyberCancel||defender.Mechanized)
 					defender.LoseMana(val*max(defender.Mechanized,defender.CyberCancel)*src.GetCyberStigma())
 
-			if(locate(/obj/Skills/Zanzoken, defender))
-				if(defender.MovementCharges<1)
-					defender.MovementChargeBuildUp(val)
+			// if(locate(/obj/Skills/Zanzoken, defender))
+			// 	if(defender.MovementCharges<1)
+			// 		defender.MovementChargeBuildUp(val)
 
 			if(defender.VaizardHealth)
 				defender.VaizardHealth-=val
