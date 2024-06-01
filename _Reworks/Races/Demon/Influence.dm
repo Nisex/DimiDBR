@@ -17,7 +17,7 @@
         . += "III"
     if(asc in 4 to 5)
         . += "IV"
-            
+
 /datum/DemonRacials/proc/getJSONInfo(tier, type)
     var/jsonData = file('passives.json')
     jsonData = file2text(jsonData)
@@ -31,13 +31,13 @@
 /datum/DemonRacials/proc/handlePassive(list/theList, input, option)
     . = TRUE
     if(vars["[option]Passives"][input])
-        world<<"[vars["[option]Passives"][input]] + [theList[input][1]] > [theList[input][2]]"
+        //world<<"[vars["[option]Passives"][input]] + [theList[input][1]] > [theList[input][2]]"
         if(vars["[option]Passives"][input] + theList[input][1] > theList[input][2])
             return FALSE
         vars["[option]Passives"][input] += theList[input][1]
     else
         vars["[option]Passives"][input] = theList[input][1]
-    world<<vars["[option]Passives"][input]
+    //world<<vars["[option]Passives"][input]
 
 
 /datum/DemonRacials/proc/applyDebuffs(mob/p, mob/a)
@@ -71,4 +71,3 @@
         else
             correct = TRUE
         attempts++
-            
