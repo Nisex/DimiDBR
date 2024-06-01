@@ -222,7 +222,7 @@ client/proc/LoginLog(var/title=null)
 
 		var/matches = ""
 		for(var/mob/m in players)
-			if(m == src) continue
+			if(m.key == src.key) continue
 			if(address == m.client.address)
 				matches += "[m.key], "
 				continue
