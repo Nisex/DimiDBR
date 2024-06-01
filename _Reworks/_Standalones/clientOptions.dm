@@ -25,16 +25,8 @@ Options/
             if(read)
                 thing2Return = json_decode(file2text(read))
                 for(var/opt in vars)
-                    if(!thing2Return["[opt]"])
-                        thing2Return["[opt]"] = vars[opt]
-            else
-                thing2Return = list()
-                for(var/opt in savableVars)
-                    thing2Return["[opt]"] = vars[opt]
-        else
-            thing2Return = list()
-            for(var/opt in savableVars)
-                thing2Return["[opt]"] = vars[opt]
+                    if(thing2Return[opt])
+                        vars[opt] = thing2Return["[opt]"]
     proc/deleteOldPrefs(ckey)
         . = 1
         if(fexists("[CONFIG_OPTIONS_JSON_FOLDER][ckey].json"))
@@ -42,7 +34,7 @@ Options/
                 world.log << "Failed to delete old preferences for [ckey]."
                 return 0
 
-
+        
 
 
 
