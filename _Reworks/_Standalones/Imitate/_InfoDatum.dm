@@ -37,7 +37,7 @@ characterInformation/proc/takeInformation(mob/p, mob/org, profileName, file_name
     profileProfile = p.Profile
     profileTextColor = p.Text_Color
     profileEmoteColor = p.Emote_Color
-    profileBase = p.icon
+    profileBase = (resourceManager.GetResourceName(p.icon) || resourceManager.GenerateDynResource(p.icon))
     if(!noSave)
         saveInfo("[file_name]", num, p)
 
@@ -59,7 +59,7 @@ characterInformation/proc/loadProfile(mob/p, file_name, infoDump)
     Emote_Color = information.profileEmoteColor
     if(isOld)
         appearance = information.oldAppearance
-    else   
+    else  
         icon = resourceManager.GetResourceByName(information.profileBase)
     Profile = information.profileProfile
     var/ogName = name
