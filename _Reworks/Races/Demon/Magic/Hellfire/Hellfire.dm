@@ -71,7 +71,7 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat
     ElementalClass="Fire"
-    var/scalingValues = list("SlowAffected" = list(10,15,20,25,30), "CrippleAffected" = list(10,15,20,25,30), \
+    var/scalingValues = list("SlowAffected" = list(5,10,10,20,25), "CrippleAffected" = list(5,10,10,20,25), \
     "PoisonAffected" = list(10,15,20,25,30), "BurnAffected" = list(10,15,20,25,30))
     ManaCost=10
     EndYourself=1
