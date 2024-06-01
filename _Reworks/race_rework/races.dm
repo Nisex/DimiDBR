@@ -311,7 +311,6 @@ race
 		defense = 1.5
 		regeneration = 3
 		recovery = 3
-		anger = 2
 		imagination = 2
 
 		onFinalization(mob/user)
