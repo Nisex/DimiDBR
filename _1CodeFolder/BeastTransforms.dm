@@ -35,6 +35,12 @@
 			return
 		usr<< "You will [Looking ? "look" : "not look"] at the moon."
 
+	verb/Tail_Toggle()
+		set category = "Other"
+		if(usr.Tail)
+			usr.Tail(0)
+		else
+			usr.Tail(1)
 	adjust(mob/p)
 		if(!p.oozaru_type)
 			p.oozaru_type = input(p, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")
@@ -64,7 +70,13 @@
 		if(p.Potential > OOZARU_POTENTIAL_TRANS)
 			passives["Transformation Power"] = clamp(p.AscensionsAcquired * 2, 1, 50-p.Potential)
 
-
+/*
+/mob/verb/test_Oozaru()
+	set category = "Debug"
+	if(Oozaru == 0)
+		Oozaru(1)
+	else
+		Oozaru(0)*/
 mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Buff)
 	if(!src.oozaru_type)
 		src.oozaru_type = input(src, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")

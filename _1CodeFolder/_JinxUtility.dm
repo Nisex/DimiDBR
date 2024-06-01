@@ -9,7 +9,7 @@ mob
 			if(race.ascensions.len==0) return
 			for(var/a in race.ascensions)
 				var/ascension/asc = a
-				if(!asc.applied&&!asc:checkAscensionUnlock(src,Potential)) continue
+				if(!asc.applied&&!asc.checkAscensionUnlock(src,Potential)) continue
 				asc.onAscension(src)
 
 		DamageSelf(var/val, trueDmg)

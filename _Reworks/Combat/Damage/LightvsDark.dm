@@ -31,7 +31,7 @@
 			var/hasLightOff = (tranqFist || lightSword || ElementalOffense == "Light")
 			if(!demon && hasLightOff)
 				var/effective = getEleEffective(lightSword, atomicFist, demon)
-				if(effective > 0 && (d.Anger || d.AngerCD))
+				if(effective > 0 && (d&&d.Anger || d&&d.AngerCD))
 					. += effective
 		if("Defense")
 			var/hasDarkDef = (direFist || darkSword || ElementalDefense == "Dark" || demon)
