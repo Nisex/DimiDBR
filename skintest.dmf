@@ -394,6 +394,10 @@ window "OOCChatTab"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
+		outer-size = 654x494
+		outer-pos = 291,0
+		inner-pos = 7,7
+		screen-size = 2560x1400
 	elem "oocchat"
 		type = OUTPUT
 		pos = 0,0
@@ -412,22 +416,26 @@ window "RPWindow"
 	elem "RPWindow"
 		type = MAIN
 		pos = 291,0
-		size = 640x480
+		size = 640x479
 		anchor1 = -1,-1
 		anchor2 = -1,-1
 		background-color = #666699
 		is-visible = false
 		saved-params = "pos;size;is-minimized;is-maximized"
-		titlebar = false
 		statusbar = false
 		can-close = false
 		can-minimize = false
+		outer-size = 656x518
+		outer-pos = 291,0
+		inner-size = 640x479
+		inner-pos = 8,31
+		screen-size = 2560x1400
 	elem "button8"
 		type = BUTTON
-		pos = 320,448
+		pos = 320,447
 		size = 320x32
-		anchor1 = -1,-1
-		anchor2 = -1,-1
+		anchor1 = 50,93
+		anchor2 = 100,100
 		font-family = "Malgun Gothic Semilight"
 		font-size = 18
 		text-color = #ffffff
@@ -438,7 +446,7 @@ window "RPWindow"
 	elem "label6"
 		type = LABEL
 		pos = 0,0
-		size = 640x48
+		size = 640x47
 		anchor1 = 0,0
 		anchor2 = 100,10
 		font-family = "@Malgun Gothic Semilight"
@@ -449,20 +457,20 @@ window "RPWindow"
 		text = "Roleplay"
 	elem "rpbox"
 		type = INPUT
-		pos = 0,48
+		pos = 0,47
 		size = 640x400
 		anchor1 = 0,10
-		anchor2 = 100,92
+		anchor2 = 100,93
 		text-color = #ffffff
 		background-color = #1b1a18
 		saved-params = ""
 		multi-line = true
 	elem "button7"
 		type = BUTTON
-		pos = 0,448
+		pos = 0,447
 		size = 320x32
-		anchor1 = -1,-1
-		anchor2 = -1,-1
+		anchor1 = 0,93
+		anchor2 = 50,100
 		font-family = "Malgun Gothic Semilight"
 		font-size = 16
 		text-color = #ffffff
@@ -1161,6 +1169,10 @@ window "rpane"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
+		outer-size = 654x494
+		outer-pos = 291,0
+		inner-pos = 7,7
+		screen-size = 2560x1400
 	elem "rpanewindow"
 		type = CHILD
 		pos = 0,0
@@ -1371,11 +1383,6 @@ window "Grid1"
 		statusbar = false
 		can-close = false
 		can-minimize = false
-		outer-size = 330x380
-		outer-pos = 291,0
-		inner-size = 314x341
-		inner-pos = 8,31
-		screen-size = 2560x1400
 	elem "Selected"
 		type = LABEL
 		pos = 0,320
@@ -1422,11 +1429,6 @@ window "Grid2"
 		can-close = false
 		can-minimize = false
 		macro = "macro"
-		outer-size = 330x380
-		outer-pos = 291,0
-		inner-size = 314x341
-		inner-pos = 8,31
-		screen-size = 2560x1400
 	elem "Done"
 		type = BUTTON
 		pos = 216,312
@@ -1484,11 +1486,6 @@ window "Finalize_Screen"
 		can-minimize = false
 		can-resize = false
 		image-mode = tile
-		outer-size = 629x284
-		outer-pos = 291,0
-		inner-size = 613x245
-		inner-pos = 8,31
-		screen-size = 2560x1400
 	elem "button51"
 		type = BUTTON
 		pos = 196,213
