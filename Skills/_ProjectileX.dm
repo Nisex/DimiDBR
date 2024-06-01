@@ -5,8 +5,9 @@ obj
 			proc/Trigger(mob/p, Override = 0)
 				adjust(p)
 				if(Using || cooldown_remaining)
-					return
-				p.UseProjectile(src)
+					return FALSE
+				var/aaa = p.UseProjectile(src)
+				return aaa
 			layer=EFFECTS_LAYER
 			Distance=10
 			Cooldown=0.5

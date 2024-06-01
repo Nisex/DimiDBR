@@ -3,19 +3,19 @@
         "Extend": null,
         "MagicSword": null,
         "SpiritSword": null,
-        "DoubleStrike": null
+        "DoubleStrike": [1, 3]
     },
     "SWORD_PASSIVES_II": {
         "LifeSteal": null,
-        "TripleStrike": null
+        "TripleStrike": [1, 2]
     },
-    "SWORD_PASSIVES_III": {
-        "CriticalChance": null
-    },
+    "SWORD_PASSIVES_III": {},
     "SWORD_PASSIVES_IV": {},
     "UNARMED_PASSIVES_I": {
         "SwordPunching": null,
-        "SpiritHand": null
+        "SpiritHand": [1, 4],
+        "CallousedHands": [0.15, 1],
+        "HardenedFrame": [1, 1]
     },
     "UNARMED_PASSIVES_II": {
         "HybridStrike": null,
@@ -95,10 +95,50 @@
         "StunningStrike": null,
         "BulletKill": null,
         "EnergyGeneration": null,
-        "Adaptation": null
+        "Adaptation": null,
+        "CriticalChance": [10, 100]
     },
     "GENERIC_PASSIVES_IV": {
         "Deicide": null,
         "KillerInstinct": null
+    },
+    "CORRUPTION_PASSIVES_I": {
+        "Instinct": [1, 10],
+        "Burning": [1, 15],
+        "Chilling": [1, 15],
+        "Crushing": [1, 15],
+        "Shocking": [1, 15],
+        "Poisoning": [1, 15],
+        "Crippling": [1, 15],
+        "DoubleStrike": [1, 3]
+    },
+    "CORRUPTION_PASSIVES_II": {
+        "Scorching": [1, 15],
+        "Freezing": [1, 15],
+        "Shattering": [1, 15],
+        "Toxic": [1, 15],
+        "Shearing": [1, 15],
+        "HeavyHitter": [1, 4]
+    },
+    "CORRUPTION_PASSIVES_III": {
+        "DarknessFlame": [1, 15],
+        "SoulFire": [1, 15],
+        "Brutalize": [1, 5],
+        "Desperation": [1, 10]
+
+    },
+    "CORRUPTION_PASSIVES_IV": {
+
+    },
+    "CORRUPTION_DEBUFFS": {
+        "Poison": [1, 3],
+        "Def": [1, 3],
+        "End": [1, 3],
+        "Str": [1, 3],
+        "Burn": [1, 3],
+        "Slow": [1, 3],
+        "Energy": [1, 3],
+        "Mana": [1, 3]
     }
+
 }

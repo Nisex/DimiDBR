@@ -13,6 +13,9 @@
     hypothetically it will b impossible to complete, we must denote that Q is the start, and anything after is the thing, but anything that is done within the given time doesn't count
     so depending on the ms between the Q and the key will determine if it goes off or not
  */ 
+#define LEEWAY_TIME 5
+
+
 /datum/queueTracker
     var/tmp/list/queue = list()
     var/TRIGGERED = null
@@ -34,18 +37,27 @@
             if(queue[index][2] < triggerTime + delay)
                 continue
             // ignore everything that happens between the delay and last press
-            if(lookingFor != queue[index][1])
-            
-                // you have misinputted
-                TRIGGERED = null
-                initType = null
-                queue = list(1 = list("123", world.time-2))
-                return FALSE
+            if(queue[index][2] < triggerTime + delay + LEEWAY_TIME ) // they are in the grace
+                if(lookingFor != queue[index][1])
+                    continue
+                else
+                    TRIGGERED = null
+                    initType = null
+                    queue = list(1 = list("123", world.time-2))
+                    return TRUE 
             else
-                TRIGGERED = null
-                initType = null
-                queue = list(1 = list("123", world.time-2))
-                return TRUE
+                if(lookingFor != queue[index][1])
+                
+                    // you have misinputted
+                    TRIGGERED = null
+                    initType = null
+                    queue = list(1 = list("123", world.time-2))
+                    return FALSE
+                else
+                    TRIGGERED = null
+                    initType = null
+                    queue = list(1 = list("123", world.time-2))
+                    return TRUE
         return -1
 // needs to be cleaned up ^
 /client/var/tmp/datum/queueTracker/keyQueue = new()

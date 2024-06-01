@@ -28,6 +28,7 @@
                     p << "[dm.possible_skills[x]] has been put on cooldown."
 
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/proc/setUpMacro(mob/p)
+    keyMacro = null
     p << "The next button you press will be the macro for this. There will be an alert, give it a second."
     p.client.trackingMacro = src // send a trigger to track for this skill's keymacro
 
@@ -113,4 +114,4 @@
         set category = "Other"
         setUpMacro(usr)
 
-    possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind, "HellFire" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat,"Corruption" )
+    possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind, "HellFire" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat,"Corruption" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Time )
