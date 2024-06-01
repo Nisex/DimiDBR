@@ -184,9 +184,11 @@ proc/removeDuplicates(list/list1)
         if(BEASTMAN)
             . += "EnhancedSmell"
             . += "EnhancedHearing"
+            . += "DemonicDurability"
         if(YOKAI)
             . += "EnhancedHearing"
             . += "TechniqueMastery"
+            . += "MovementMastery"
         if(ELDRITCH)
             . += "SpaceWalk"
             . += "DebuffImmune"
@@ -198,6 +200,17 @@ proc/removeDuplicates(list/list1)
             . += "CursedWounds"
             . += "DemonDurability"
             . += "HellPower"
+        if(ELF)
+            . += "Xenobiology"
+            . += "Deicide"
+            . += "TechniqueMastery"
+        if(GAJALAKA)
+            . += "CashCow"
+            . += "Blubber"
+        if(DRAGON)
+            . += "Erosion"
+            . += "SpiritHand"
+            . += "Godspeed"
     . = removeDuplicates(.)
 
 
