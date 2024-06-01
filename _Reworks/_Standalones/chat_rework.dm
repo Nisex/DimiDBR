@@ -41,7 +41,7 @@ mob
 
 		fontSize()
 			var/current_font_size = client.getPref(CURRENTFONTSIZE)
-			var/choice = input(src,"What would you like to change the font size to?\nThe font size is currently: [current_font_size]pt.","Chat Font Size",current_font_size) as null|num
+			var/choice = input(src,"What would you like to change the font size to?\nThe font size is currently: [current_font_size] pt.","Chat Font Size",current_font_size) as null|num
 			if(!choice) return
 			choice = clamp(1, choice, 100)
 			client.setFontSize(choice)
