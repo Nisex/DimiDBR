@@ -2,6 +2,7 @@
 /var/list/scents = list(
     "HUMAN" = list("Sweat", "Gamer Musk", "Flowery", "Cologne"), \
     "NAMEKIAN" = list("Grass", "Forest", "Spices"), \
+    "ELVES" = list("Society", "Rich", "Noble","Royalty"), \
     "SAIYAN" = list("Musk", "Animalistic", "Sweaty", "Unbathed"), \
     "MAKYO" = list("Garlic", "Feet", "Alcohol" ), \
     "Alien" = list("Musk", "Incense", "Exotic"), \
@@ -17,6 +18,8 @@
 
 mob/proc/setUpScent()
     switch(usr.Target.race.type)
+        if(ELF)
+            custom_scent=pick("Society", "Rich", "Noble","Royalty")
         if(HUMAN)
             custom_scent=pick("Sweat","Gamer Musk","Flowery","Cologne")
         if(NAMEKIAN)
