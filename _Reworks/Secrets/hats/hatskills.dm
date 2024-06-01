@@ -124,7 +124,7 @@
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Hats/Liberation
-	makSpace = new/spaceMaker/Constellation/makSpace
+	makSpace = new/spaceMaker/Constellation
 	passives = list("Constellation" = 1) // enables u to defeat being drained by ur tiles
 	// funnily enough this passive would make u heal from any1 elses tiles, which is bad
 	// but afaik they aren't gonna do that so
