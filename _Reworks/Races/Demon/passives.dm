@@ -1,0 +1,1 @@
+globalTracker/var/JSONPASSIVES = list()

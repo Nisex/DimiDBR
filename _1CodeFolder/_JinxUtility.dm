@@ -104,7 +104,7 @@ mob
 					defender.LoseMana(val*max(defender.Mechanized,defender.CyberCancel)*src.GetCyberStigma())
 
 			if(locate(/obj/Skills/Zanzoken, defender))
-				if(defender.MovementCharges<3)
+				if(defender.MovementCharges<1)
 					defender.MovementChargeBuildUp(val)
 
 			if(defender.VaizardHealth)
@@ -2929,7 +2929,7 @@ mob
 				Mult*=clamp(glob.ZANZO_FLICKER_LOWEST_CLAMP,1+(flick/glob.ZANZO_FLICKER_DIVISOR), glob.ZANZO_FLICKER_HIGHEST_CLAMP)
 			if(src.AfterImageStrike)
 				return
-			src.MovementCharges+=(0.2-(max(0.01,MovementCharges)/3)/10)*Mult
+			src.MovementCharges+=(glob.ZANZO_FLICKER_BASE_GAIN-(max(0.01,MovementCharges)/3)/10)*Mult
 			if(src.MovementCharges>3)
 				src.MovementCharges=3
 		GetRPPMult()
