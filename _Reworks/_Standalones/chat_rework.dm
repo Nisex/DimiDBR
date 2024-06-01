@@ -6,10 +6,6 @@ var/list/valid_chat_fonts = list("Gotham Book", "Arial", "Verdana")
 #define CURRENTFONTSIZE "currentFontSize"
 client
 	New()
-		if(getPref(CURRENTFONTFAMILY) == null)
-			setPref(CURRENTFONTFAMILY, "Gotham Book")
-		if(getPref(CURRENTFONTSIZE) == null)
-			setPref(CURRENTFONTSIZE, 8)
 		setFontSize(getPref(CURRENTFONTSIZE))
 		setFontFamily(getPref(CURRENTFONTFAMILY))
 		..()
