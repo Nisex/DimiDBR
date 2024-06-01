@@ -88,6 +88,9 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 	if(icon_state == "Meditate")
 		MeditateTime++
 
+		if(Corruption>MinCorruption&&isRace(DEMON))
+			Corruption -= 5 - (AscensionsAcquired/2)
+			Corruption = max(MinCorruption, Corruption)
 		if(Secret == "Eldritch")
 			var/SecretInfomation/Eldritch/s = secretDatum
 			s.releaseMadness(src)
