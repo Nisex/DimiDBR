@@ -31,7 +31,7 @@ spaceMaker
 						break
 					turfs += T
 					ticking_turfs += T
-					T.applyEffect(effect2Apply, toDeath)
+					T.applyEffect(effect2Apply, toDeath, p)
 					totalApplied++
 			if("Random")
 				// random would imply its limited
@@ -56,6 +56,10 @@ spaceMaker
 			src.range = 6
 			src.configuration = "Random"
 			src.amount = 18
+	
+	Demon
+		configuration = "Fill"
+		
 
 
 
@@ -64,35 +68,46 @@ spaceMaker
 
 /turf/var/effectApplied
 /turf/var/timeToDeath = 0
+/turf/var/tmp/mob/ownerOfEffect
+/turf/proc/applyEffect(option, timer, mob/p)
+	//world<<"Applying [option] for [timer] ticks at [src.x], [src.y]"
+	timeToDeath = timer
+	effectApplied = "[option]" // the "[]" is not needed, but maybe u passed a number who knows
+	ticking_turfs += src
+	ownerOfEffect = p
+	switch(option)
+		if("Stellar")
+			var/direction = pick("ew","ns")
+			var/num = rand(1,15)
+			var/image/i = image(icon = 'GalSpace.dmi', icon_state = "speedspace_[direction]_[num]")
+			i.alpha = 0
+			animate(i, alpha = 255, time = 3)
+			overlays+=i
+	
+	if(istype(option, /datum/DemonRacials))
+		var/direction = pick("ew","ns")
+		var/num = rand(1,15)
+		var/image/i = image(icon = 'GalSpace.dmi', icon_state = "speedspace_[direction]_[num]")
+		i.alpha = 0
+		animate(i, alpha = 255, time = 3)
+		overlays+=i
 
-/turf/proc/applyEffect(option, timer)
-    //world<<"Applying [option] for [timer] ticks at [src.x], [src.y]"
-    timeToDeath = timer
-    effectApplied = "[option]" // the "[]" is not needed, but maybe u passed a number who knows
-    ticking_turfs += src
-    switch(option)
-        if("Stellar")
-            var/direction = pick("ew","ns")
-            var/num = rand(1,15)
-            var/image/i = image(icon = 'GalSpace.dmi', icon_state = "speedspace_[direction]_[num]")
-            i.alpha = 0
-            animate(i, alpha = 255, time = 3)
-            overlays+=i
 
 
 
 /turf/proc/removeEffect()
-    effectApplied = 0
-    timeToDeath = 0
-    ticking_turfs -= src
-    overlays = list()
+	effectApplied = 0
+	timeToDeath = 0
+	ticking_turfs -= src
+	overlays = list()
+	ownerOfEffect = null
 /turf/Update()
-    if(effectApplied && timeToDeath > 0) // the latter is assumed, for there's no way to get here unless it is in there, but just in case
-        //world<<"[src] ticking [effectApplied] for [timeToDeath] ticks"
-        timeToDeath--
-        if(timeToDeath <= 0)
-            removeEffect()
-    else if(src in ticking_turfs && timeToDeath <= 0)
-        removeEffect()
-    else
-        return
+	if(effectApplied && timeToDeath > 0) // the latter is assumed, for there's no way to get here unless it is in there, but just in case
+		//world<<"[src] ticking [effectApplied] for [timeToDeath] ticks"
+		timeToDeath--
+		if(timeToDeath <= 0)
+			removeEffect()
+	else if(src in ticking_turfs && timeToDeath <= 0)
+		removeEffect()
+	else
+		return

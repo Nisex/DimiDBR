@@ -22,11 +22,18 @@
         adjust(usr)
         ManaCost = usr.ManaAmount
         DamageMult = 5 + (ManaCost * DamageMult)
-        
         usr.Activate(src)
 
 
-
+/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space
+    makSpace = new/spaceMaker/Demon/makSpace
+    var/scalingValues = list("toDeath" = list(300,600,900,1200,1200), "range" = list(5,8,10,12,20))
+    adjust(mob/p)
+        for(var/variable in scalingValues)
+            makSpace.vars[variable] = scalingValues[asc]
+        
+        passives = p.demon.BuffPassives
+        TimerLimit = scalingValues["toDeath"]/10
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Time

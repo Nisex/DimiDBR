@@ -1544,18 +1544,21 @@ mob
 			var/turf/T = loc
 			if(T.effectApplied)
 				//TODO if u reuse this make it a switch
-				if(T.effectApplied == "Stellar")
-					if(!passive_handler.Get("Constellation"))
-					// start draining or somethin
-						if(Energy > 1)
-							Energy -= 0.15
-						if(TotalFatigue < 99)
-							TotalFatigue += 0.15
-					else
-						if(Energy < 99)
-							Energy += 0.15
-						if(TotalFatigue > 0)
-							TotalFatigue -= 0.15
+				switch(T.effectApplied)
+					if("Stellar")
+						if(!passive_handler.Get("Constellation"))
+						// start draining or somethin
+							if(Energy > 1)
+								Energy -= 0.15
+							if(TotalFatigue < 99)
+								TotalFatigue += 0.15
+						else
+							if(Energy < 99)
+								Energy += 0.15
+							if(TotalFatigue > 0)
+								TotalFatigue -= 0.15
+				if((istype(T.effectApplied, /datum/DemonRacials)))
+					T.effectApplied?:applyDebuffs(src, T.ownerOfEffect)
 			if(!passive_handler.Get("StaticWalk")&&!src.Dead)
 				if(istype(loc,/turf/Special/Static))
 					src.Health-=0.05

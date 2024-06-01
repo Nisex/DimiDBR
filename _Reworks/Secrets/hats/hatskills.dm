@@ -117,14 +117,14 @@
 // apply an imaage over the prebvious turfs
 
 /obj/Skills/Buffs
-	var/spaceMaker/Constellation/makSpace
+	var/spaceMaker/makSpace
 	// this could be a list instead
 
 
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Hats/Liberation
-	makSpace = new
+	makSpace = new/spaceMaker/Constellation/makSpace
 	passives = list("Constellation" = 1) // enables u to defeat being drained by ur tiles
 	// funnily enough this passive would make u heal from any1 elses tiles, which is bad
 	// but afaik they aren't gonna do that so
