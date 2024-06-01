@@ -2,6 +2,12 @@
 
 /obj/Skills/Utility/Imitate
     Cooldown = 10
+    verb/Change_Scent()
+        var/category = input(usr, "What category?") in scents
+        usr.custom_scent = input(usr, "What scent?") in scents[category]
+        usr << "Scent changed to [usr.custom_scent]"
+
+
     verb/Imitate()
         if(usr.Imitating)
             usr.invisibility = 99
