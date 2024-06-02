@@ -13632,7 +13632,7 @@ mob
 
 			src.BuffingUp=0
 
-		AllSkillsRemove(var/obj/Skills/Buffs/B)
+		AllSkillsRemove(obj/Skills/Buffs/B)
 
 			if(B.ClientTint)
 				if(src.SenseRobbed>=5)
@@ -14295,7 +14295,7 @@ mob
 
 			if(B.AllOutPU)
 				if(src.CheckActive("Ki Control"))
-					for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in src)
+					for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in Buffs)
 						src.UseBuff(KC, Override=1)
 
 			if(B.type==/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/What_Must_Be_Done)
