@@ -159,6 +159,7 @@ obj/Items/Tech
 	Perfume
 		Cost = 5
 		TechType = "Medicine"
+		SubType="Any"
 		desc = "Changes your scent to a custom one."
 		icon = 'Soap.png'
 		Click()
@@ -173,6 +174,7 @@ obj/Items/Tech
 	Soap
 		Cost = 2
 		TechType = "Medicine"
+		SubType="Any"
 		desc = "Removes any custom scent to randomly one of your race's default."
 		icon = 'Soap.png'
 		Click()
