@@ -25,16 +25,6 @@ client
 			set instant = TRUE
 			if(macros)
 				macros.Press(button)
-				if(trackingMacro)
-					var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm = mob.checkOtherMacros(trackingMacro)
-					if(dm == 1)
-						var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/org = trackingMacro
-						org.keyMacro = button
-						mob << "[button] is the macro for [org]"
-						trackingMacro = null
-					else
-						mob << "[dm == FALSE ? "[button] is assigned to [dm]" : "You arent allowed"]"
-						trackingMacro = null
 
 		// Release the button for the button tracker.
 		release_button(button as text)
@@ -42,4 +32,3 @@ client
 			set instant = TRUE
 			if(macros) 
 				macros.Release(button)
-				keyQueue+=list(button, world.time)
