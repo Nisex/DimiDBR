@@ -15,13 +15,13 @@ globalTracker
 	proc/updatePlayer(mob/p)
 		if(p.updateVersion + 1 == UPDATE_VERSION)
 	        // we dont need to generate new datums to update him
-			var/updateversion = "update/version[p.updateVersion + 1]"
+			var/updateversion = "/update/version[p.updateVersion + 1]"
 			var/update/update = new updateversion
 			update.updateMob(p)
 		else
 			for(var/x in 1 to abs(p.updateVersion - UPDATE_VERSION))
 				// get the number of updates we are missing
-				var/updateversion = "update/version[p.updateVersion + 1]"
+				var/updateversion = "/update/version[p.updateVersion + 1]"
 				var/update/update = new updateversion
 				update.updateMob(p)
 				del update // i guess loc = null doesn't work cause datums have no loc
@@ -64,9 +64,17 @@ update
 				if(length(p.demon.BuffPassives) < 1 && length(p.demon.DebuffPassives) < 1)
 					p.demon.selectPassive(p, "CORRUPTION_PASSIVES", "Buff")
 					p.demon.selectPassive(p, "CORRUPTION_DEBUFFS", "Debuff")
-				p.AddSkill(/obj/Skills/Utility/Imitate)
+				p.AddSkill(new/obj/Skills/Utility/Imitate)
 				p << "Imitate added"
 				for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire/hf in src)
 					if(!hf.possible_skills["Corruption"])
 						hf.possible_skills["Corruption"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space
+			..()
+	
+	version4
+		version = 4
+		updateMob(mob/p)
+			if(p.isRace(DEMON))
+				p.AddSkill(new/obj/Skills/Utility/Imitate)
+				p << "Imitate added"
 			..()

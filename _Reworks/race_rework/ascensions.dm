@@ -537,7 +537,7 @@ ascension
 				owner.Class = "S"
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
-			passives = list("HellPower" = 0.1, "AbyssMod" = 2, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.1, "AbyssMod" = 2)
 			anger = 0.15
 			intimidation = 2.5
 			strength = 0.25
@@ -551,7 +551,7 @@ ascension
 				owner.Class = "False King"
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
-			passives = list("EndlessAnger" = 1)
+			passives = list("EndlessAnger" = 1, "SpiritPower" = 0.25)
 			intimidation = 2.5
 
 			onAscension(mob/owner)
