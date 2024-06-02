@@ -422,9 +422,12 @@ var/global/MULTIHIT_NERF = FALSE
 									result = flow
 								if(prob(BASE_FLOW_PROB*result))
 									if(AttackQueue && AttackQueue.HitSparkIcon)
+										var/hitsparkSword = swordAtk
 										disperseX=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
 										disperseY=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
-										HitEffect(enemy, unarmedAtk, swordAtk, SecondStrike, ThirdStrike, disperseX, disperseY)
+										if(swordAtk && HasSwordPunching())
+											hitsparkSword = 0
+										HitEffect(enemy, unarmedAtk, hitsparkSword, SecondStrike, ThirdStrike, disperseX, disperseY)
 									if(enemy.CheckSpecial("Ultra Instinct"))
 										//TODO play the ultra instinct sound
 										StunClear(enemy)
