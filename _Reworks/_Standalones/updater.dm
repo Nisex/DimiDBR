@@ -60,4 +60,10 @@ update
 		updateMob(mob/p)
 			if(p.isRace(NAMEKIAN))
 				p.AngerMax = 1.5
+			if(p.isRace(DEMON))
+				p.AddSkill(/obj/Skills/Utility/Imitate)
+				p << "Imitate added"
+				for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire/hf in src)
+					if(!hf.possible_skills["Corruption"])
+						hf.possible_skills["Corruption"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space
 			..()
