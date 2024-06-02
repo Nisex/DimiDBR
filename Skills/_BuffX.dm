@@ -9555,9 +9555,9 @@ NEW VARIABLES
 			True_Form
 				adjust(mob/p)
 					if(!altered)
-						passives = list("Curse" = 1, "Godspeed" =  p.secretDatum.secretVariable["Madness"]/50, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/10,\
+						passives = list("Curse" = 1, "Godspeed" =  1+p.AscensionsAcquired, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/10,\
 						 "Pursuer" = 2, "BlurringStrikes" = p.secretDatum.secretVariable["Madness"]/50, "Flow" = p.secretDatum.secretVariable["Madness"]/50, "Flicker" = p.secretDatum.secretVariable["Madness"]/25)
-						PowerMult=1+(0.05*p.secretDatum.secretVariable["Madness"]/25)
+						PowerMult=1+(0.05+(0.05*p.secretDatum.secretVariable["Madness"]/25))
 						TimerLimit = 60 + (p.secretDatum.secretVariable["Madness"]/5)
 
 				HealthThreshold=0.1
@@ -9580,7 +9580,6 @@ NEW VARIABLES
 				ActiveMessage="unravels into a mind-rending series of shapes and textures!"
 				OffMessage="slowly becomes 3D once again..."
 				TextColor=rgb(153, 0, 0)
-				ActiveBuffLock=1
 				verb/Customize_True_Form()
 					set category = "Other"
 					IconTransform=input(usr, "What icon will your True Form use?", "True Form Icon") as icon|null
@@ -10929,7 +10928,7 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(altered) return
 					var/asc = p.AscensionsAcquired
-					passives = list("Unstoppable" = 1, "Possessive" = 1, "LifeGeneration" = 1+asc, "Instinct" = 1+(asc/2), "Flicker" = 1+(asc/2))
+					passives = list("Unstoppable" = 1, "Possessive" = 1, "LifeSteal" = 7.5+asc, "Instinct" = 1+(asc/2), "Flicker" = 1+(asc/2))
 					VaizardHealth = 1.25+(asc/2)
 					if(asc>=1)
 						if(!locate(/obj/Skills/AutoHit/Symbiote_Tendril_Wave, p.AutoHits))
