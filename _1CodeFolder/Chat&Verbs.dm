@@ -1357,6 +1357,8 @@ obj/Communication
 
 		if(!T) return
 
+		usr << "You prayed...[T]"
+
 		for(var/mob/m in admins)
 			if(!m.PrayerMute)
 				m << "A prayer reaches your eyes from [usr]...<br>[T]"

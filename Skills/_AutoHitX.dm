@@ -3714,7 +3714,7 @@ obj
 				ShockBlend=2
 				WindUp=1
 				WindupIcon=1
-				WindupMessage="focuses their Cosmo into a wave of otherwordly energy..."
+				WindupMessage="focuses their Cosmo into a wave of otherworldly energy..."
 				ActiveMessage="casts out the souls of their targets into the antechamber of Underworld!"
 				Cooldown=-1
 				verb/Praesepe_Underworld_Waves()
@@ -5162,7 +5162,7 @@ mob
 						spawn()LeaveImage(User=null, Image=i, PX=src.pixel_x+Z.IconX, PY=src.pixel_y+Z.IconY, PZ=src.pixel_z+Z.IconZ, Size=Z.Size, Under=Z.IconUnder, Time=Z.Duration, AltLoc=TrgLoc)
 					else
 						spawn()LeaveImage(User=src, Image=i, PX=src.pixel_x+Z.IconX, PY=src.pixel_y+Z.IconY, PZ=src.pixel_z+Z.IconZ, Size=Z.Size, Under=Z.IconUnder, Time=(Z.Rounds*max(1,Time)), AltLoc=0)
-					
+
 
 			if(Z.Jump)
 				if(Z.Jump==1)
@@ -5620,7 +5620,7 @@ obj
 				loc = null
 				return
 			AlreadyHit = list()
-			src.IgnoreAlreadyHit = Z.IgnoreAlreadyHit 
+			src.IgnoreAlreadyHit = Z.IgnoreAlreadyHit
 			toDeath = life
 			src.Owner=owner
 			if(owner.Grab && !Z.GrabMaster)
