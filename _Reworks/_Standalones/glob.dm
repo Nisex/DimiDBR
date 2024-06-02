@@ -298,7 +298,7 @@ globalTracker
 		SLAYER_DAMAGE_DIVISOR = 4
 // -- items -- //
 
-
+		JSON_PASSIVES = list()
 // - swords
 		SwordAscDamage
 		SwordAscAcc

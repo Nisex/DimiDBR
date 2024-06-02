@@ -24,31 +24,31 @@
     "UNARMED_PASSIVES_III": {
         "SpiritStrike": [1, 1]
     },
-    "MAGIC_PASSIVES_I": {
+    "STAFF_PASSIVES_I": {
         "QuickCast": [1, 3]
     },
-    "MAGIC_PASSIVES_II": {
+    "STAFF_PASSIVES_II": {
         "MovingCharge": [1, 1],
         "Soulfire": [0.25, 1],
         "Siphon": [1, 5],
         "ManaSteal": [5, 25]
     },
-    "MAGIC_PASSIVES_III": {
+    "STAFF_PASSIVES_III": {
         "ManaStats": [0.1, 1],
         "ManaGeneration": [1, 5],
         "SpiritFlow": [0.5, 2]
     },
-    "MAGIC_PASSIVES_IV": {
+    "STAFF_PASSIVES_IV": {
         "DualCast": [1, 2],
         "ManaSeal": [0, 0]
     },
-    "TANK_PASSIVES_I": {
+    "ARMOR_PASSIVES_I": {
         "Juggernaut": [0.25, 4],
         "DebuffImmune": [0.25, 4],
         "Hardening": [0.5, 5],
         "CallousedHands": [0.15, 1]
     },
-    "TANK_PASSIVES_II": {
+    "ARMOR_PASSIVES_II": {
         "GiantForm": [1, 1],
         "Reversal": [0.1, 1],
         "CounterMaster": [2, 10],
@@ -56,7 +56,7 @@
         "Deflection": [1, 5],
         "DebuffReversal": [1, 1]
     },
-    "TANK_PASSIVES_III": {
+    "ARMOR_PASSIVES_III": {
         "BlockChance": [10, 100],
         "Blubber": [0.25, 1],
         "LikeWater": [1, 4],
@@ -65,7 +65,7 @@
         "DeathField": [0.5, 10],
         "VoidField": [0.5, 10]
     },
-    "TANK_PASSIVES_IV": {
+    "ARMOR_PASSIVES_IV": {
         "Unstoppable": [1, 1],
         "VenomImmune": [1, 1],
         "InjuryImmune": [1, 1],
