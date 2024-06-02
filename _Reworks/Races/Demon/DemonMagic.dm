@@ -34,11 +34,11 @@
 
 
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/proc/fakeTrigger(mob/p)
-    if(!keyMacro)
-        setUpMacro(p)
-    else
-        if(p.client.trackingMacro) return
-        Trigger(p, 0)
+    if(p.client.keyQueue.TRIGGERED && p.client.keyQueue.LAST_CAST + 300 < world.time)
+        p.client.keyQueue.TRIGGERED = null
+        p << "Far too late."
+        return
+    Trigger(p, 0)
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Trigger(mob/User, Override = 0)
     if(Using)
         if(possible_skills["DarkMagic"].MultiShots)
@@ -46,38 +46,44 @@
         else
             ..()
     else
-        if(User.client.keyQueue.TRIGGERED && User.client.keyQueue.LAST_CAST + 300 <world.time)
-            User.client.keyQueue.TRIGGERED = null
-        if(isnull(User.client.keyQueue.TRIGGERED))
-            if(User.client.keyQueue.LAST_CAST + 45 < world.time)
-                User.client.keyQueue.trigger(type)
+        var/datum/queueTracker/keyQ = User.client.keyQueue
+        if(isnull(keyQ.TRIGGERED))
+            if(keyQ.LAST_CAST + 45 < world.time)
+                keyQ.trigger(type)
                 User << "You have started to cast [src]." // replace with animation of text above head.
                 User.castAnimation()
                 Cooldown = 0
-                User.client.keyQueue.LAST_CAST = world.time
+                keyQ.LAST_CAST = world.time
         else
-            var/initType = User.client.keyQueue.initType
+            var/initType = keyQ.initType
             // this has already been activated, therefore this must be the 2nd input
-            var/result = User.client.keyQueue.detectInput(keyMacro, 15)
+            var/result = keyQ.detectInput(15)
+            var/perfect = FALSE
+            if(result == 2)
+                perfect = TRUE
+                result = 1
             switch(result)
                 if(1)
                     // execute the skill here
+                    User << "You have used your [KEYWORD] spell."
                     var/trueType = splittext("[initType]", "/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/")
                     var/obj/Skills/theSkill = possible_skills[trueType[2]]
                     if(possible_skills[trueType[2]].cooldown_remaining > 0)
                         User << "This is on cooldown"
                         return
-                    User << "You have used your [KEYWORD] spell."
+                    
                     var/triggered = theSkill?:Trigger(User, 0)
                     if(!(isnull(triggered) || !triggered))
                         Cooldown(1, null, User, type)
-                    User.client.keyQueue.TRIGGERED = null
-                if(-1)
-                    User << "Too Soon..."
+                    if(perfect)
+                        User.Quake(5, 0)
+                    keyQ.TRIGGERED = null
                 if(0)
+                    User << "Too Soon..."
+                if(-1)
                     User << "You have missinputted."
                     Cooldown(1, null, User, type)
-                    User.client.keyQueue.TRIGGERED = null
+                    keyQ.TRIGGERED = null
 
 
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic
@@ -85,11 +91,7 @@
     
     KEYWORD = "damage"
     verb/Dark_Magic()
-        set hidden = TRUE
         fakeTrigger(usr)
-    verb/Change_Macro()
-        set category = "Other"
-        setUpMacro(usr)
 
 
     possible_skills = list("DarkMagic" = new/obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball, "HellFire" = new/obj/Skills/Projectile/Magic/HellFire/Hellpyre ,"Corruption" = new/obj/Skills/AutoHit/Magic/Corruption/Corrupt_Reality )
@@ -99,23 +101,15 @@
     name = "Hell Fire"
     KEYWORD = "utility"
     verb/Hell_Fire()
-        set hidden = TRUE
         fakeTrigger(usr)
         if(!possible_skills["Corruption"])
             possible_skills["Corruption"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space
-    verb/Change_Macro()
-        set category = "Other"
-        setUpMacro(usr)
 
     possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech, "HellFire" = new/obj/Skills/AutoHit/Magic/HellFire/Hellstorm ,"Corruption" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space)
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption
     name = "Corruption"
     KEYWORD = "crowd control"
     verb/Corruption()
-        set hidden = TRUE
         fakeTrigger(usr)
-    verb/Change_Macro()
-        set category = "Other"
-        setUpMacro(usr)
 
     possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind, "HellFire" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat,"Corruption" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Time )

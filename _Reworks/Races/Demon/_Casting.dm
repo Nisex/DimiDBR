@@ -17,46 +17,36 @@
 
 
 /datum/queueTracker
-    var/tmp/list/queue = list(1 = list("123", -2))
     var/tmp/TRIGGERED = null
+    var/tmp/triggerTime = null
     var/tmp/initType = null
     var/tmp/LAST_CAST = -100
-
-    proc/operator+=(key_data)
-        var/currentindex = length(queue) + 1
-        queue.Add("filler")
-        queue[currentindex] = key_data
     
     proc/trigger(t)
-        TRIGGERED = length(queue)
+        TRIGGERED = TRUE
+        triggerTime = world.time
         initType = t
     
-    proc/detectInput(lookingFor, delay)
-        var/triggerTime = queue[TRIGGERED][2]
-        for(var/index in TRIGGERED to length(queue))
-            if(queue[index][2] < triggerTime + delay)
-                continue
-            // ignore everything that happens between the delay and last press
-            if(queue[index][2] < triggerTime + (delay + LEEWAY_TIME) ) // they are in the grace
-                if(lookingFor != queue[index][1])
-                    continue
-                else
-                    TRIGGERED = null
-                    initType = null
-                    queue = list(1 = list("123", world.time-2))
-                    return TRUE 
-            else
-                if(lookingFor != queue[index][1])
-                    // you have misinputted
-                    TRIGGERED = null
-                    initType = null
-                    queue = list(1 = list("123", world.time-2))
-                    return FALSE
-                else
-                    TRIGGERED = null
-                    initType = null
-                    queue = list(1 = list("123", world.time-2))
-                    return TRUE
+    proc/clearInfo()
+        TRIGGERED = null
+        initType = null
+        triggerTime = null
+
+    proc/detectInput(delay)
+        // we have trigger + time + type
+        // this will be active after a button was already pressed
+        // it should jsut see if they are over the delay
+        if(triggerTime + delay > world.time)
+            return FALSE
+        else
+            if(triggerTime + (delay + LEEWAY_TIME) > world.time)
+                // within the leeway time
+                clearInfo()
+                return 1
+            else if(world.time in (triggerTime + delay) to (triggerTime + 5 + delay))
+                // perfect cast
+                clearInfo()
+                return 2
         return -1
 // needs to be cleaned up ^
 /client/var/tmp/datum/queueTracker/keyQueue = new()
@@ -66,31 +56,44 @@
 /client/var/tmp/trackingMacro = null
 // need to define in the loop that when this is active to make it track for this skill
 
-
+#define WXH_TO_HEIGHT(measurement, return_var) \
+	do { \
+		var/_measurement = measurement; \
+		return_var = text2num(copytext(_measurement, findtextEx(_measurement, "x") + 1)); \
+	} while(FALSE);
 
 
 /obj/castingSpeechHolder
     var/toDeath = 40
     var/tmp/mob/owner = null
+    var/WIDTH = 64
     maptext_width = 64
     maptext_height = 64
     alpha = 0
+    var/mheight
     New(msg, textColor, life, mob/p)
         companion_ais += src
         toDeath = life ? life : 50
-        maptext = "<font color='[textColor]'><font size=small>[msg]</font>"
-        filters = filter(type = "drop_shadow", size = 2, color = rgb(244, 244, 26, 126))
-        animate(src, pixel_y = 36, time = 20)
-        animate(src, alpha = 255, time = 20)
         owner = p
+        msg = {"<span style='font-size:8pt;font-family:"Pterra";color:[textColor];text-shadow:0 0 5px #000,0 0 5px #000,0 0 5px #000,0 0 5px #000;' class='center maptext ' style='color: [textColor]'>[msg]</span>"}
+        WXH_TO_HEIGHT(p.client.MeasureText(msg, null, WIDTH), mheight)
+        makeMessage(msg, textColor)
+        animate(src, alpha = 150, time = 20 )
         p.vis_contents += src 
         ..()
+    proc/makeMessage(msg, textColor)
+        appearance_flags = (RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|RESET_ALPHA|PIXEL_SCALE) | KEEP_APART
+        alpha = 0
+        pixel_y = owner.bound_height * 0.95
+        maptext_width = WIDTH
+        maptext_height = mheight
+        maptext_x = (WIDTH - owner.bound_width) * -0.5
+        maptext = msg
     
     Update()
         toDeath--
         if(toDeath == 20)
             animate(src, alpha = 0, time = 20)
-            animate(src, pixel_y = 0, time = 20)
         if(toDeath <= 0)
             companion_ais-=src
             owner.vis_contents -= src
