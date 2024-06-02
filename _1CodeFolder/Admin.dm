@@ -80,30 +80,6 @@ mob/Admin3/verb/LoadSwapMap()
 	if(!whichMap) return
 	SwapMaps_Save(whichMap)
 
-/mob/Admin3/verb/CreateGuild()
-	var/name = input(usr,"What do you want the guild to be named?") as null|text
-	if(!name) return
-	var/guild/guild = new()
-	guild.name = name
-	guild.id = ++glob.guildIDTicker
-	glob.guilds += guild
-
-/mob/Admin3/verb/assignGuildLeader(mob/Players/player in world)
-	var/guild/whatGuild = input(usr, "What guild do you want to make [player.name] the leader of?") as null|anything in glob.guilds
-	if(!whatGuild) return
-	whatGuild.joinGuild(player)
-	whatGuild.ownerID = player.UniqueID
-
-/mob/Admin3/verb/forceJoinGuild(mob/player in world)
-	var/guild/whatGuild = input(usr, "What guild do you want to make [player.name] join?") as null|anything in glob.guilds
-	if(!whatGuild) return
-	whatGuild.joinGuild(player)
-
-/mob/Admin3/verb/forceLeaveGuild(mob/player in world)
-	var/guild/whatGuild = input(usr, "What guild` do you want to make [player.name] leave?") as null|anything in glob.guilds
-	if(!whatGuild) return
-	whatGuild.removeMember(player)
-
 
 /mob/Admin3/verb/Reboot()
 	if(Alert("You sure you want to shutdown the server?"))
@@ -578,6 +554,14 @@ mob/proc/PM2(var/mob/who)
 
 mob/Admin3/verb
 
+	CheckRace(mob/Players/m in players)
+		set category = "Admin"
+		usr << "[m] is a [m.race.name]."
+
+	editRace(mob/Players/m in players)
+		set category = "Admin"
+		usr:Edit(m.race)
+
 	Tech_Unlock(mob/Players/m in players)
 		set category="Admin"
 		var/Mode=input(usr, "Are you adding, removing, or viewing [m]'s unlocked technology?", "Tech Unlock") in list("Cancel", "Add", "Remove", "View")
@@ -1009,7 +993,7 @@ mob/Admin2/verb
 		for(var/C in A.vars)
 			B+=C
 			CHECK_TICK
-		B.Remove("Package","bound_x","bound_y","step_x","step_y","Admin","Profile", "GimmickDesc", "NoVoid", "BaseProfile", "Form1Profile", "Form2Profile", "Form3Profile", "Form4Profile", "Form5Profile", "passive_handler")
+		B.Remove("Package","bound_x","bound_y","step_x","step_y","Admin","Profile", "GimmickDesc", "NoVoid", "BaseProfile", "Form1Profile", "Form2Profile", "Form3Profile", "Form4Profile", "Form5Profile", "passive_handler", "race")
 		for(var/C in B)
 			if(C == "ai_owner") continue
 			Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"
