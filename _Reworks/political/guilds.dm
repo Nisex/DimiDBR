@@ -85,8 +85,8 @@ guild
 			if(!guildID) return
 			var/guild/guild = findGuildByID(guildID)
 			if((usr:UniqueID in guild.officers) || (usr:UniqueID == guild.ownerID))
-				var/list/validTargets
-				for(var/mob/Players/p in oview(15))
+				var/list/validTargets = list()
+				for(var/mob/Players/p in oview(15,usr))
 					validTargets += p
 				var/mob/Players/pickedTarget = input("Who would you like to add to [guild.name]?") as null|anything in validTargets
 				if(!pickedTarget) return
