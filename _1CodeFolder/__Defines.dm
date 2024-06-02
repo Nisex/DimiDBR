@@ -1,5 +1,3 @@
-client/preload_rsc = 2
-
 proc/log_func(x, a, b)
 	return a * (log(x) / log(10) - b )
 
