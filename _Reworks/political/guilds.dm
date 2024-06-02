@@ -57,6 +57,14 @@ mob
 
 guild
 	verb
+		listGuildMembers()
+			set name = "List Guild Members"
+			set category = "Guild"
+			var/guildID = input("What guild would you like to remove someone from?", "Remove Member") as null|anything in usr:inGuilds
+			if(!guildID) return
+			var/guild/guild = findGuildByID(guildID)
+			guild.showMemberList(usr)
+
 		removeGuildMember()
 			set name = "Remove Member"
 			set category = "Guild"
@@ -156,6 +164,9 @@ guild
 		id
 
 	proc
+		showMemberList(mob/Players/p)
+			p << getMemberList()
+
 		checkMember(mob/Players/p)
 			if(p.UniqueID in members)
 				return 1
