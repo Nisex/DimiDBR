@@ -554,6 +554,14 @@ mob/proc/PM2(var/mob/who)
 
 mob/Admin3/verb
 
+	CheckRace(mob/Players/m in players)
+		set category = "Admin"
+		usr << "[m] is a [m.race.name]."
+
+	editRace(mob/Players/m in players)
+		set category = "Admin"
+		usr:Edit(m.race)
+
 	Tech_Unlock(mob/Players/m in players)
 		set category="Admin"
 		var/Mode=input(usr, "Are you adding, removing, or viewing [m]'s unlocked technology?", "Tech Unlock") in list("Cancel", "Add", "Remove", "View")
@@ -985,7 +993,7 @@ mob/Admin2/verb
 		for(var/C in A.vars)
 			B+=C
 			CHECK_TICK
-		B.Remove("Package","bound_x","bound_y","step_x","step_y","Admin","Profile", "GimmickDesc", "NoVoid", "BaseProfile", "Form1Profile", "Form2Profile", "Form3Profile", "Form4Profile", "Form5Profile", "passive_handler")
+		B.Remove("Package","bound_x","bound_y","step_x","step_y","Admin","Profile", "GimmickDesc", "NoVoid", "BaseProfile", "Form1Profile", "Form2Profile", "Form3Profile", "Form4Profile", "Form5Profile", "passive_handler", "race")
 		for(var/C in B)
 			if(C == "ai_owner") continue
 			Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"

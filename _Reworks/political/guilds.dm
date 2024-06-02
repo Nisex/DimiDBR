@@ -35,9 +35,9 @@ mob/Players/var/list/inGuilds = list()
 	usr << "[player] has been forced to leave [whatGuild]"
 
 /mob/Admin3/verb/changeGuildPayoutRate()
-	var/guild/whatGuild = input(usr, "What guild do you want to make [player.name] the leader of?") as null|anything in glob.guilds
+	var/guild/whatGuild = input(usr, "What guild do you want to change the pay out rate of?") as null|anything in glob.guilds
 	if(!whatGuild) return
-	var/payoutRateNew = input(usr, "What would you like to change their payout rate to? 0.25 = 4 fragments to 1 money.", whatGuild.payOutRate) as num|null
+	var/payoutRateNew = input(usr, "What would you like to change their pay out rate to? 0.25 = 4 fragments to 1 money.", whatGuild.payOutRate) as num|null
 	if(!payoutRateNew) return
 	whatGuild.payOutRate = payoutRateNew
 	usr << "[whatGuild]'s payout rate has been changed to [payoutRateNew]"
