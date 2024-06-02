@@ -444,9 +444,26 @@ race
 		force = 2
 		regeneration = 3
 		imagination = 2
+		
 		passives = list("AbyssMod" = 0.5, "Corruption" = 1, "StaticWalk" = 1, "SpaceWalk" = 1, "CursedWounds" = 1, "FakePeace" = 1, "MartialMagic" = 1)
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm,/obj/Skills/Utility/Imitate,  /obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon, \
 						/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption)
+		var/devil_arm_upgrades = 1
+		var/sub_devil_arm_upgrades = 0
+		proc/checkReward(mob/p)
+			var/max = round(p.Potential / 5) + 1
+			if(p.Potential % 5 == 0 && devil_arm_upgrades < max)
+				var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2)
+				devil_arm_upgrades++
+				p << "Your devil arm evolves, toggle it on and off to use it"
+				if(da.secondDevilArmPick)
+					if(sub_devil_arm_upgrades < round((p.Potential - ASCENSION_THREE_POTENTIAL) / 10) + 1)
+						if(p.Potential - ASCENSION_THREE_POTENTIAL % 10 == 0)
+							sub_devil_arm_upgrades++
+							p << "Your devil arm evolves, toggle it on and off to use it"
+
+
+		
 		onFinalization(mob/user)
 			..()
 			user.EnhancedSmell = 1
@@ -456,7 +473,7 @@ race
 			user << "Please set macros for (Dark Magic), (Hell Fire) and (Corruption), your 3 demon magics."
 			global.TrueNames.Add(user.TrueName)
 			user.client.updateCorruption()
-			user.demon.selectPassive(user, "CORRUPTION_PASSIVES", "Buff")
+			user.demon.selectPassive(user, "CORRUPTION_PASSIVES", "Buff", TRUE)
 			user.demon.selectPassive(user, "CORRUPTION_DEBUFFS", "Debuff")
 
 	alien
@@ -579,13 +596,11 @@ race
 		offense = 0.75
 		defense = 0.75
 		force = 0.75
-		intellect = 1.5
+		intellect = 0.75
 		imagination = 1.5
 		skills = list(/obj/Skills/Projectile/Goblin_Greed, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/The_Power_Of_Shiny)
 
 		onFinalization(mob/user)
 			user.EnhancedSmell=1
-			user.EnhancedHearing = 1
-			user.EconomyMult *= 2
 			user.CyberizeMod = 0.5
 			..()

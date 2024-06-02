@@ -109,6 +109,8 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 							return
 					reward_auto()
 					src.CheckAscensions()
+					if(isRace(DEMON))
+						race?:checkReward(src)
 					removeBlobBuffs()
 					if(!src.SignatureSelecting)
 						src.SignatureSelecting=1

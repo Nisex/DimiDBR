@@ -7642,7 +7642,7 @@ NEW VARIABLES
 							ArmorAscension=min(src.Mastery,5)
 				else
 					usr << "You can't set this while using Devil Arm."
-			verb/Summon_Devil_Arm()
+			verb/Summon_Arm()
 				set category="Skills"
 				src.Trigger(usr)
 

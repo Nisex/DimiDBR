@@ -534,6 +534,8 @@ ascension
 			endurance = 0.5
 			onAscension(mob/owner)
 				..()
+				owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2).pickSelection(owner, TRUE)
+				owner.race?:sub_devil_arm_upgrades = 1
 				owner.Class = "S"
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
@@ -1042,6 +1044,7 @@ ascension
 			on_ascension_message = "Your goblin greed grows..."
 			powerAdd = 0.25
 			pilotingProwess = 1.5
+			intelligenceAdd = 0.25
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
@@ -1054,6 +1057,7 @@ ascension
 			cyberizeModAdd = 0.1
 			passives = list("CashCow" = 1)
 			on_ascension_message = "Your goblin greed grows..."
+			intelligenceAdd = 0.5
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
 			strength = 0.5

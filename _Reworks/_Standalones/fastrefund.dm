@@ -61,7 +61,7 @@ var/list/MagicList = list("Alchemy","Healing Herbs", "Refreshment Herbs", "Magic
 
 /mob/proc/generateMagicList()
     var/playerMagicList = list()
-    for(var/x in knowledgeTracker.learnedKnowledge)
+    for(var/x in knowledgeTracker.learnedMagic)
         if(x in MagicList)
             playerMagicList += x
     return playerMagicList

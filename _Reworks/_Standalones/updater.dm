@@ -77,4 +77,8 @@ update
 			if(p.isRace(DEMON))
 				p.AddSkill(new/obj/Skills/Utility/Imitate)
 				p << "Imitate added"
+			if(p.isRace(GAJALAKA))
+				p.EnhancedHearing = 0
+				p.EconomyMult /= 2
+				p.Intelligence = 0.75
 			..()

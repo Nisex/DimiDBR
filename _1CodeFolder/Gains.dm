@@ -202,6 +202,7 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 
 
 
+
 	Update_Stat_Labels()
 
 
@@ -367,8 +368,10 @@ mob
 
 			if(src.MovementCharges<3)
 				src.MovementChargeBuildUp()
+				
 			else
 				src.MovementCharges=3
+			Update_Stat_Labels()
 
 			if(src.TsukiyomiTime)
 				src.TsukiyomiTime--

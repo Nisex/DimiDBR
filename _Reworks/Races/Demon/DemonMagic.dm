@@ -37,6 +37,7 @@
     if(p.client.keyQueue.TRIGGERED && p.client.keyQueue.LAST_CAST + 300 < world.time)
         p.client.keyQueue.TRIGGERED = null
         p << "Far too late."
+        p.client.keyQueue.LAST_CAST = world.time
         return
     Trigger(p, 0)
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Trigger(mob/User, Override = 0)

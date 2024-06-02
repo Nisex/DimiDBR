@@ -28,10 +28,12 @@
             call(p, "Lose[x]")(DebuffPassives[x]/10)
 
 
-/datum/DemonRacials/proc/selectPassive(mob/p, type, option)
+/datum/DemonRacials/proc/selectPassive(mob/p, type, option, starting = FALSE)
     p << "Listing [option] Passives"
     p << jointext(vars["[option]Passives"], " ,")
     var/list/passives =  getJSONInfo(getPassiveTier(p),"[type]")
+    if(starting)
+        passives = getJSONInfo(list("I"), "[type]")
     var/list/choices = list()
     for(var/a in passives)
         choices += "[a]"
