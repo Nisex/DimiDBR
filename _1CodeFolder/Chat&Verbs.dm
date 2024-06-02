@@ -1364,7 +1364,7 @@ obj/Communication
 		usr << "You prayed...[T]"
 
 		for(var/mob/m in admins)
-			if(!m.PrayerMute)
+			if(!m.PrayerMute&&m.Admin>2)
 				m << "A prayer reaches your eyes from [usr]...<br>[T]"
 
 		if(usr.AFKTimer==0)
