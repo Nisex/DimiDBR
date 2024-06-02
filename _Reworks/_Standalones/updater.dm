@@ -61,6 +61,9 @@ update
 			if(p.isRace(NAMEKIAN))
 				p.AngerMax = 1.5
 			if(p.isRace(DEMON))
+				if(length(p.demon.BuffPassives) < 1 && length(p.demon.DebuffPassives) < 1)
+					p.demon.selectPassive(p, "CORRUPTION_PASSIVES", "Buff")
+					p.demon.selectPassive(p, "CORRUPTION_DEBUFFS", "Debuff")
 				p.AddSkill(/obj/Skills/Utility/Imitate)
 				p << "Imitate added"
 				for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire/hf in src)

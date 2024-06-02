@@ -2960,7 +2960,7 @@ mob
 					Return=src.potential_trans
 
 			if(passive_handler.Get("Transformation Power")) // add straight potential
-				Return+=src.GetPassive("Transformation Power")
+				Return+=passive_handler.Get("Transformation Power")
 
 			if(src.Race=="Shinjin")//one determines the other
 				if(src.ShinjinAscension=="Kai")
