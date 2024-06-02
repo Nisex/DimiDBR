@@ -820,14 +820,14 @@ var/global/MULTIHIT_NERF = FALSE
 				for(var/obj/Skills/Projectile/Staff_Projectile/pc in Projectiles)
 					switch(st.Class)
 						if("Wand")
-							pc.Blasts = 5
-							pc.DamageMult = 1
-						if("Rod")
 							pc.Blasts = 3
-							pc.DamageMult = 1.5
+							pc.DamageMult = 0.75
+						if("Rod")
+							pc.Blasts = 2
+							pc.DamageMult = 1.25
 						if("Staff")
 							pc.Blasts = 1
-							pc.DamageMult = 7
+							pc.DamageMult = 2
 					src.UseProjectile(pc)
 				switch(st.Class)
 					if("Wand")
