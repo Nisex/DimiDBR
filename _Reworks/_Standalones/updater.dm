@@ -53,3 +53,11 @@ update
 			if(p.isRace(DRAGON))
 				p.AngerMax = 1.5
 			..()
+
+
+	version3
+		version = 3
+		updateMob(mob/p)
+			if(p.isRace(NAMEKIAN))
+				p.AngerMax = 1.5
+			..()

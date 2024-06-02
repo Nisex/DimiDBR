@@ -515,7 +515,7 @@ race
 		offense = 1.25
 		defense = 1.5
 		speed = 1.5
-		anger = 1.25
+		anger = 1.5
 		imagination = 2
 		intellect = 1.5
 		learning = 1.5
