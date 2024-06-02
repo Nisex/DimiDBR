@@ -829,11 +829,15 @@ mob/Players/verb
 				total+=dieroll
 				dienumber--
 			total+=diemodifer
-			usr.OMessage(10,"<b><font color=red>DICE:</b></font> [usr] rolled a total of [total], rolls were [textstring].")
+			usr.OMessage(10,"<b><font color=red>DICE:</b></font> [usr] rolled a total of [total] ([dienumber]d[diesides]+[diemodifer]), rolls were [textstring].")
+			for(var/mob/o in  usr.BeingObserved)
+				o << output("<b>(OBSERVE) <font color=red>DICE:</b></font> [usr] rolled a total of [total] ([dienumber]d[diesides]+[diemodifer]), rolls were [textstring].")
 		if(decision=="No")
 			var/dice="[dienumber]d[diesides]+[diemodifer]"
 			var/roll=roll(dice)
 			usr.OMessage(10,"<b><font color=red>DICE:</b></font> [usr] rolled [roll] ([dienumber]d[diesides]+[diemodifer]).")
+			for(var/mob/o in  usr.BeingObserved)
+				o << output("<b>(OBSERVE) <font color=red>DICE:</b></font> [usr] rolled [roll] ([dienumber]d[diesides]+[diemodifer]).")
 
 	Pose()
 		set category="Skills"
@@ -1356,6 +1360,8 @@ obj/Communication
 		set src=usr.contents
 
 		if(!T) return
+
+		usr << "You prayed...[T]"
 
 		for(var/mob/m in admins)
 			if(!m.PrayerMute)
