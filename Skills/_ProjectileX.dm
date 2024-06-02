@@ -4285,6 +4285,7 @@ obj
 mob
 	proc
 		UseProjectile(var/obj/Skills/Projectile/Z)
+			. = TRUE
 			if(src.Stasis)
 				return
 			if(Z.Sealed)
