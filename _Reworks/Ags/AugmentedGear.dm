@@ -6,14 +6,14 @@ proc/copyatom(atom/a)
 		b.name = a.name
 	for(var/v in a.vars)
 		if(issaved(a.vars[v]))
-			if(istype(a.vars[v], /list))
-				var/list/x = new/list()
+			if(islist(a.vars[v]))
 				for(var/val in a.vars[v])
+					var/x
 					if(istype(val, /atom))
-						x += copyatom(val)
+						x = copyatom(val)
 					else
-						x += val
-				b.vars[v] = x
+						x = islist(val) ? val:Copy() : val
+					b.vars[v] = x
 			else
 				b.vars[v] = a.vars[v]
 	return b
