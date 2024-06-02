@@ -93,8 +93,9 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 			Corruption = max(MinCorruption, Corruption)
 		if(Secret == "Eldritch")
 			var/SecretInfomation/Eldritch/s = secretDatum
-			s.releaseMadness(src)
-			if(secretDatum.secretVariable["Madness"] <=0 && CheckSlotless("True Form"))
+			s.secretVariable["Madness"] -= 6 - s.currentTier
+			s.secretVariable["Madness"] = max(0, s.secretVariable["Madness"])
+			if(s.secretVariable["Madness"] <=0 && CheckSlotless("True Form"))
 				src << "You have exhausted all the madness and have reverted to your sane form."
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form/fmf in src)
 					fmf.Trigger(src, Override=1)
@@ -368,7 +369,7 @@ mob
 
 			if(src.MovementCharges<3)
 				src.MovementChargeBuildUp()
-				
+
 			else
 				src.MovementCharges=3
 			Update_Stat_Labels()
@@ -538,11 +539,12 @@ mob
 					if(src.Secret=="Werewolf"&&!src.PoseTime)
 						src << "You focus your instincts perfectly on the chosen target, ready to leap any second!"
 					src.PoseTime++
-					if(src.PoseTime==5)
+					if(src.PoseTime>=4)
 						if(Secret=="Eldritch")
+							icon_state = ""
+							PoseTime = 0
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form/fmf in src)
 								fmf.Trigger(src)
-							icon_state = ""
 						if(src.HasRipple())
 							src << "The Ripple flows through your body perfectly!  You have gained full control over your breathing!!"
 							if(src.Swim==1)

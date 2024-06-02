@@ -112,7 +112,7 @@ mob/Admin3/verb/LoadSwapMap()
 	var/message = input(usr,"What do you want to whisper to them?","Cursespeak") as message | null
 	if(message)
 		message = "<i><font color='#F82D2D'>[message]</font></i>"
-		Log("Admin","[ExtractInfo(usr)] cursespeaked [m] the following: [message]")
+		Log("Admin","[ExtractInfo(usr)] cursespeaked [m] the following: [message]", 3)
 		usr << "You sent: [message]"
 		m << "[message]"
 		spawn()Log(m.ChatLog(),"<font color=#CC3300>*Cursespeak: [html_decode(message)]*")
@@ -396,8 +396,9 @@ mob/proc/CheckPunishment(var/z)
 				src<<"<br>By: [x["User"]]<br>Reason: [x["Reason"]]<br>TimeStamp: [x["Time"]]!"
 				return 1
 
-proc/AdminMessage(var/msg)
+proc/AdminMessage(var/msg, adminLevel = 1)
 	for(var/mob/Players/M in admins)
+		if(M.Admin<adminLevel) continue
 		for(var/obj/Communication/x in M)
 			if(x.AdminAlerts)
 				M<<"<b><font color=red>(Admin)</b><font color=fuchsia> [msg]"
@@ -770,22 +771,22 @@ mob/Admin2/verb
 				discord_output = "@everyone [discord_output]"
 				switch(input("IC Announcement or OOC Announcement?") in list("IC", "OOC"))
 					if("IC")
-						client.HttpPost(
+						usr.client.HttpPost(
 							"https://discord.com/api/webhooks/1220052412346138836/grdIJmZXMsFFx5360seLU5sbhAJveb3OJeDweJmqJQAdt7XALtqk8twFm53vdG7WsdvL",
 							,
 							list(
 								content = discord_output,
-								username = "Giga"
+								username = "IC"
 							)
 						)
 					if("OOC")
-						client.HttpPost(
+						usr.client.HttpPost(
 							"https://discord.com/api/webhooks/1220052666244399224/b_t3vHOcdKKWm_c7lxGZmg1VSETPnumxtKk_C76nHfWFhAmAAj7ddITnhcZzw0B3B760",
 
 							,
 							list(
 								content = discord_output,
-								username = "Giga"
+								username = "OOC"
 							)
 						)
 
@@ -956,7 +957,7 @@ mob/Admin2/verb
 					mo << output("<b>(OBSERVE)</b><font color=yellow>[msg]", "icchat")
 					mo << output("<b>(OBSERVE)</b><font color=yellow>[msg]", "output")
 
-		Log("Admin", "[ExtractInfo(usr)] narrated ([msg]).")
+		Log("Admin", "[ExtractInfo(usr)] narrated ([msg]).", 3)
 
 	Summon(mob/M as mob|obj in world)
 		set category="Admin"
@@ -1404,6 +1405,9 @@ mob/Admin3/verb
 							var/obj/Skills/oldskill=new p
 							P.AddSkill(oldskill)
 							P << "The prerequisite skill for [Choice], [oldskill] has been readded to your contents."
+					if(istype(S, /obj/Skills/Buffs)&&S.Using)
+						var/obj/Skills/Buffs/s = S
+						s.Trigger(P, Override=1)
 					del S
 		for(var/obj/Skills/Buffs/NuStyle/s in src)
 			src.StyleUnlock(s)
