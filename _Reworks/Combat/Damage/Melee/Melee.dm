@@ -450,7 +450,10 @@ var/global/MULTIHIT_NERF = FALSE
 								if(AttackQueue && AttackQueue.HitSparkIcon)
 									disperseX=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
 									disperseY=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
-									HitEffect(enemy, unarmedAtk, swordAtk, SecondStrike, ThirdStrike, disperseX, disperseY)
+									var/hitsparkSword = swordAtk
+									if(swordAtk && HasSwordPunching())
+										hitsparkSword = 0
+									HitEffect(enemy, unarmedAtk, hitsparkSword, SecondStrike, ThirdStrike, disperseX, disperseY)
 								StunClear(enemy)
 								AfterImageStrike(enemy,src,1)
 								dodged = 1
@@ -474,7 +477,10 @@ var/global/MULTIHIT_NERF = FALSE
 									if(AttackQueue && AttackQueue.HitSparkIcon)
 										disperseX=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
 										disperseY=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
-										HitEffect(enemy, unarmedAtk, swordAtk, SecondStrike, ThirdStrike, disperseX, disperseY)
+										var/hitsparkSword = swordAtk
+										if(swordAtk && HasSwordPunching())
+											hitsparkSword = 0
+										HitEffect(enemy, unarmedAtk, hitsparkSword, SecondStrike, ThirdStrike, disperseX, disperseY)
 									enemy.dir = get_dir(enemy,src)
 									StunClear(enemy)
 									enemy.NextAttack=0
@@ -629,7 +635,10 @@ var/global/MULTIHIT_NERF = FALSE
 								if(AttackQueue.HitSparkDispersion)
 									disperseX=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
 									disperseY=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
-									HitEffect(enemy, unarmedAtk, swordAtk, SecondStrike, ThirdStrike, disperseX, disperseY)
+									var/hitsparkSword = swordAtk
+									if(swordAtk && HasSwordPunching())
+										hitsparkSword = 0
+									HitEffect(enemy, unarmedAtk, hitsparkSword, SecondStrike, ThirdStrike, disperseX, disperseY)
 								if(AttackQueue.PushOut)
 									var/shockwave = AttackQueue.PushOutWaves
 									var/shockSize = AttackQueue.PushOut
@@ -657,7 +666,10 @@ var/global/MULTIHIT_NERF = FALSE
 											goto STRIKE
 								QueuedHitMessage(enemy)
 								src.doQueueEffects(enemy)
-							HitEffect(enemy, unarmedAtk, swordAtk, SecondStrike, ThirdStrike, disperseX, disperseY)
+							var/hitsparkSword = swordAtk
+							if(swordAtk && HasSwordPunching())
+								hitsparkSword = 0
+							HitEffect(enemy, unarmedAtk, hitsparkSword, SecondStrike, ThirdStrike, disperseX, disperseY)
 
 
 							if(passive_handler.Get("MonkeyKing"))
