@@ -185,6 +185,17 @@ mob/Admin2/verb
 		Log("Admin","[ExtractInfo(usr)] repaired [ExtractInfo(m)]'s maim wound.")
 		m << "Your maim wound has been repaired!"
 
+	EditPassiveHandler(mob/m in world)
+		usr:list_view(m.passive_handler.passives)
+
+	ViewPassives(mob/m in world)
+		set category = "Other"
+		var/html = "<body bgcolor=#000000 text=#339999><b>Current Passives:</b><br>"
+		for(var/passive in m.passive_handler.passives)
+			if(m.passive_handler.passives[passive]>0)
+				html += "<b>[passive] : [m.passive_handler.passives[passive]]</b><br>"
+		usr<<browse(html,"window=[m]'s Passives;size=450x600")
+
 mob/Admin3/verb
 	RuntimesView()
 		var/View={"<html><head><title>Logs</title><body>
@@ -998,7 +1009,7 @@ mob/Admin2/verb
 		for(var/C in A.vars)
 			B+=C
 			CHECK_TICK
-		B.Remove("Package","bound_x","bound_y","step_x","step_y","Admin","Profile", "GimmickDesc", "NoVoid", "BaseProfile", "Form1Profile", "Form2Profile", "Form3Profile", "Form4Profile", "Form5Profile")
+		B.Remove("Package","bound_x","bound_y","step_x","step_y","Admin","Profile", "GimmickDesc", "NoVoid", "BaseProfile", "Form1Profile", "Form2Profile", "Form3Profile", "Form4Profile", "Form5Profile", "passive_handler")
 		for(var/C in B)
 			if(C == "ai_owner") continue
 			Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"
