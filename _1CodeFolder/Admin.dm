@@ -1375,42 +1375,20 @@ mob/Admin3/verb
 
 	RPP_Refund(mob/Players/P in players)
 		set category="Admin"
-		var/Refund=0
-		var/list/obj/Skills/Refundable=list("Cancel")
-		for(var/obj/Skills/S in P)
-			if((S.Copyable>0&&S.SkillCost) || istype(S, /obj/Skills/Buffs/NuStyle))
-				Refundable.Add(S)
-		var/obj/Skills/Choice=input(usr, "What skill are you refunding [P]?", "RPP Refund") in Refundable
-		if(Choice=="Cancel")
+		if(P.refunding)
+			usr << "Something is already being refunded!"
 			return
-		Refund=Choice.SkillCost
-		if(istype(Choice, /obj/Skills/Buffs/NuStyle))
-			if(Choice.SignatureTechnique > 0) Refund = 0
-			else P.SignatureSelected -= Choice.name
-			Refund += ((2**(Choice.SignatureTechnique+1)*10)) * max(0,(Choice.Mastery-1))
-		else if(Choice.Mastery>1)
-			Refund+=(Choice.SkillCost*(Choice.Mastery-1))
-		if(Choice.name in P.SkillsLocked)
-			P.SkillsLocked -= Choice.name
-		P.RPPSpendable+=Refund
-		P.RPPSpent-=Refund
-		P << "You've refunded [Choice] for [Commas(Refund)] RPP."
-		Log("Admin", "[ExtractInfo(src)] refunded [Choice] for [Commas(Refund)] RPP to [ExtractInfo(P)].")
-		for(var/obj/Skills/S in P)
-			if(Choice&&S)
-				if(S.type==Choice.type)
-					if(S.PreRequisite.len>0 && !istype(Choice, /obj/Skills/Buffs/NuStyle))
-						for(var/path in S.PreRequisite)
-							var/p=text2path(path)
-							var/obj/Skills/oldskill=new p
-							P.AddSkill(oldskill)
-							P << "The prerequisite skill for [Choice], [oldskill] has been readded to your contents."
-					if(istype(S, /obj/Skills/Buffs)&&S.Using)
-						var/obj/Skills/Buffs/s = S
-						s.Trigger(P, Override=1)
-					del S
-		for(var/obj/Skills/Buffs/NuStyle/s in src)
-			src.StyleUnlock(s)
+		P.refunding = TRUE
+
+		var/refunding_skill = pick_refund_skill(P)
+
+		if(!refunding_skill)
+			P.refunding = FALSE
+			return
+
+		P.refund_skill(refunding_skill)
+
+		P.refunding = FALSE
 
 
 	RPP_Everyone()

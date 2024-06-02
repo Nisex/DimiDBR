@@ -294,6 +294,7 @@
 #include "_Reworks\_Standalones\IDs.dm"
 #include "_Reworks\_Standalones\passives.dm"
 #include "_Reworks\_Standalones\PateronGet.dm"
+#include "_Reworks\_Standalones\refund.dm"
 #include "_Reworks\_Standalones\RPBox.dm"
 #include "_Reworks\_Standalones\supporterBenefits.dm"
 #include "_Reworks\_Standalones\updater.dm"
