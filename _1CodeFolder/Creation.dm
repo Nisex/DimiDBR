@@ -879,8 +879,8 @@ obj/Login
 			if(WorldLoading)
 				usr<<"Please wait until the world is done loading..."
 				return
-			if(usr.Race)
-				usr<<"You have a race!?"
+			if(usr.race)
+				usr<<"You're already making!"
 				return
 			if(fexists("Saves/Players/[usr.ckey]"))
 				var/savefile/f=new("Saves/Players/[usr.ckey]")
@@ -1130,6 +1130,7 @@ mob/proc
 				//set these to wipe start so that the login code will give them their rewards and allow them to grind potentialz
 			//information.setPronouns(TRUE)
 			killed_AI = list()
+
 			// information.pickFaction(src)
 /*
 			if(key in VuffaKeys)
