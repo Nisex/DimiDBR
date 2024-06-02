@@ -80,30 +80,6 @@ mob/Admin3/verb/LoadSwapMap()
 	if(!whichMap) return
 	SwapMaps_Save(whichMap)
 
-/mob/Admin3/verb/CreateGuild()
-	var/name = input(usr,"What do you want the guild to be named?") as null|text
-	if(!name) return
-	var/guild/guild = new()
-	guild.name = name
-	guild.id = ++glob.guildIDTicker
-	glob.guilds += guild
-
-/mob/Admin3/verb/assignGuildLeader(mob/Players/player in world)
-	var/guild/whatGuild = input(usr, "What guild do you want to make [player.name] the leader of?") as null|anything in glob.guilds
-	if(!whatGuild) return
-	whatGuild.joinGuild(player)
-	whatGuild.ownerID = player.UniqueID
-
-/mob/Admin3/verb/forceJoinGuild(mob/player in world)
-	var/guild/whatGuild = input(usr, "What guild do you want to make [player.name] join?") as null|anything in glob.guilds
-	if(!whatGuild) return
-	whatGuild.joinGuild(player)
-
-/mob/Admin3/verb/forceLeaveGuild(mob/player in world)
-	var/guild/whatGuild = input(usr, "What guild` do you want to make [player.name] leave?") as null|anything in glob.guilds
-	if(!whatGuild) return
-	whatGuild.removeMember(player)
-
 
 /mob/Admin3/verb/Reboot()
 	if(Alert("You sure you want to shutdown the server?"))

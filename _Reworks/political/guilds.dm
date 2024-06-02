@@ -1,7 +1,46 @@
 globalTracker
 	var/list/guilds = list()
 	var/guildIDTicker = 0
+
 mob/Players/var/list/inGuilds = list()
+
+
+/mob/Admin3/verb/CreateGuild()
+	var/name = input(usr,"What do you want the guild to be named?") as null|text
+	if(!name) return
+	var/guild/guild = new()
+	guild.name = name
+	guild.id = ++glob.guildIDTicker
+	glob.guilds += guild
+	usr << "[guild] is now created."
+
+/mob/Admin3/verb/assignGuildLeader(mob/Players/player in world)
+	var/guild/whatGuild = input(usr, "What guild do you want to make [player.name] the leader of?") as null|anything in glob.guilds
+	if(!whatGuild) return
+	whatGuild.joinGuild(player)
+	whatGuild.ownerID = player.UniqueID
+	whatGuild.checkVerbs(player)
+	usr << "[player] is now assigned as leader of [whatGuild]!"
+
+/mob/Admin3/verb/forceJoinGuild(mob/player in world)
+	var/guild/whatGuild = input(usr, "What guild do you want to make [player.name] join?") as null|anything in glob.guilds
+	if(!whatGuild) return
+	whatGuild.joinGuild(player)
+	usr << "[player] has been forced to join [whatGuild]"
+
+/mob/Admin3/verb/forceLeaveGuild(mob/player in world)
+	var/guild/whatGuild = input(usr, "What guild` do you want to make [player.name] leave?") as null|anything in glob.guilds
+	if(!whatGuild) return
+	whatGuild.removeMember(player)
+	usr << "[player] has been forced to leave [whatGuild]"
+
+/mob/Admin3/verb/changeGuildPayoutRate()
+	var/guild/whatGuild = input(usr, "What guild do you want to make [player.name] the leader of?") as null|anything in glob.guilds
+	if(!whatGuild) return
+	var/payoutRateNew = input(usr, "What would you like to change their payout rate to? 0.25 = 4 fragments to 1 money.", whatGuild.payOutRate) as num|null
+	if(!payoutRateNew) return
+	whatGuild.payOutRate = payoutRateNew
+	usr << "[whatGuild]'s payout rate has been changed to [payoutRateNew]"
 
 proc
 	findGuildByID(id)
