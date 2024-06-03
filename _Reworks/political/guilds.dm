@@ -148,7 +148,7 @@ guild
 			var/guildID = input("What guild would you like to utilize to exchange?", "Fragment exchange") as null|anything in usr:inGuilds
 			var/howManyFragments = input("How many fragements would you like to exchange", "Exchage fragments") as num
 			var/guild/guild = findGuildByID(guildID)
-			if((usr:UniqueID in guild.exchangeList))
+			if((usr:UniqueID in guild.officers)||usr:UniqueID==guild.ownerID)
 				guild.guildTransaction(howManyFragments)
 			else
 				usr << "You do not have the right to do deez"
