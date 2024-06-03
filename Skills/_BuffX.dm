@@ -10809,7 +10809,7 @@ NEW VARIABLES
 						passives = list("DemonicDurability" = DemonicDurability, "SoulFire" = SoulFire, "HybridStrike" = HybridStrike)
 						Intimidation = 1.25 + (0.25 * asc)
 					Trigger(mob/User, Override = FALSE)
-						if(!usr.BuffOn(src))
+						if(!User.BuffOn(src))
 							adjust(User)
 						..()
 
