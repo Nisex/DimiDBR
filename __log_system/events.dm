@@ -81,7 +81,8 @@ mob/proc/sanitizedChatLog()
 mob/proc/SegmentLogs(var/e)
 	var/list/entries=flist(e)
 	if(entries.len >= 1)
-		entries = sortByDate(entries)
+		if(entries.len > 1)
+			entries = sortByDate(entries)
 		var/file=input("What one do you want to read?","Rebirth") in entries
 		file = file("[e][file]")
 		var/ISF=file2text(file)
@@ -229,7 +230,7 @@ client/proc/LoginLog(var/title=null)
 			if(computer_id == m.client.computer_id)
 				matches += "[m.key], "
 				continue
-		matches = replacetext(matches, ", ", "", -1, -4)
+		matches = replacetext(matches, ", ", "", -1, -2)
 		if(length(matches)>1)
 			AdminMessage("[TimeStamp()]<b> [src.key]</b> | Possible Alts: ([matches]) ([title])")
 		else
