@@ -5092,30 +5092,6 @@ mob
 				src.ClearQueue()
 			if(Z.Purity)
 				src.Purity+=Z.Purity
-			if(Z.Burning)
-				src.Burning+=Z.Burning
-			if(Z.Scorching)
-				src.Scorching+=Z.Scorching
-			if(Z.Chilling)
-				src.Chilling+=Z.Chilling
-			if(Z.Freezing)
-				src.Freezing+=Z.Freezing
-			if(Z.Crushing)
-				src.Crushing+=Z.Crushing
-			if(Z.Shattering)
-				src.Shattering+=Z.Shattering
-			if(Z.Shocking)
-				src.Shocking+=Z.Shocking
-			if(Z.Paralyzing)
-				src.Paralyzing+=Z.Paralyzing
-			if(Z.Poisoning)
-				src.Poisoning+=Z.Poisoning
-			if(Z.Toxic)
-				src.Toxic+=Z.Toxic
-			if(Z.Attracting)
-				src.Attracting+=Z.Attracting
-			if(Z.Crippling)
-				src.Crippling+=Z.Crippling
 			if(Z.HolyMod)
 				src.HolyMod+=Z.HolyMod
 			if(Z.AbyssMod)
@@ -5599,6 +5575,13 @@ obj
 			Chilling
 			Freezing
 			Crushing
+			Burning
+			Shattering
+			Toxic
+			Paralyzing
+			Crippling
+			Shocking
+			Poisoning
 
 			grabNerf = 0
 			BuffAffected = 0
@@ -5719,6 +5702,28 @@ obj
 			src.buffAffectedCompare = Z.buffAffectedCompare
 			src.buffAffectedBoon = Z.buffAffectedBoon
 			PullIn = Z.PullIn
+			if(Z.Burning)
+				src.Burning+=Z.Burning
+			if(Z.Scorching)
+				src.Scorching+=Z.Scorching
+			if(Z.Chilling)
+				src.Chilling+=Z.Chilling
+			if(Z.Freezing)
+				src.Freezing+=Z.Freezing
+			if(Z.Crushing)
+				src.Crushing+=Z.Crushing
+			if(Z.Shattering)
+				src.Shattering+=Z.Shattering
+			if(Z.Shocking)
+				src.Shocking+=Z.Shocking
+			if(Z.Paralyzing)
+				src.Paralyzing+=Z.Paralyzing
+			if(Z.Poisoning)
+				src.Poisoning+=Z.Poisoning
+			if(Z.Toxic)
+				src.Toxic+=Z.Toxic
+			if(Z.Crippling)
+				src.Crippling+=Z.Crippling
 			if(Z.ObjIcon)
 				src.ObjIcon=Z.ObjIcon
 				var/icon/i=Z.Icon
@@ -5987,10 +5992,25 @@ obj
 
 				if(m.HasBlastShielding()&&!src.CanBeDodged)
 					FinalDmg/=2**3
-				if(Owner.Scorching||Owner.Chilling||Owner.Freezing||Owner.Crushing||Owner.Shattering||Owner.Shocking||Owner.Paralyzing||Owner.Poisoning||Owner.Toxic)
-					// Owner.addElementalPassives(src)
-					Owner.handleElementPassives(m)
-					// Owner.removeElementalPassives(src)
+
+				var/list/Elements = list()
+				if(Scorching||Burning)
+					Elements |= "Fire"
+				if(Chilling||Freezing)
+					Elements |= "Water"
+				if(Crushing||Shattering)
+					Elements |= "Earth"
+				if(Shocking||Paralyzing)
+					Elements |= "Wind"
+				if(Toxic||Poisoning)
+					Elements |= "Poison"
+				ElementalCheck(Owner, m, 0, bonusElements = Elements)
+
+				if(Crippling)
+					m.AddCrippling(Crippling, Owner)
+				if(Shearing)
+					m.AddShearing(Shearing, Owner)
+
 				// if(src.CosmoPowered)
 				// 	if(!src.Owner.SpecialBuff)
 				// 		FinalDmg*=TrueDamage(1+(src.Owner.SenseUnlocked-5))

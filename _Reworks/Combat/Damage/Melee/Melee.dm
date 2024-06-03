@@ -552,22 +552,19 @@ var/global/MULTIHIT_NERF = FALSE
 							if(AttackQueue)
 							// 				ONHITS				//
 								if(AttackQueue.Scorching||AttackQueue.Chilling||AttackQueue.Freezing||AttackQueue.Crushing||AttackQueue.Shattering||AttackQueue.Shocking||AttackQueue.Paralyzing||AttackQueue.Poisoning||AttackQueue.Toxic)
-									var/PreviousElement
-									PreviousElement=src.ElementalOffense
-									addElementalPassives(AttackQueue)
+									var/list/addElements = list()
 									if(AttackQueue.Scorching)
-										ElementalOffense = "Fire"
+										addElements |= "Fire"
 									else if(AttackQueue.Chilling||AttackQueue.Freezing)
-										ElementalOffense = "Water"
+										addElements |= "Water"
 									else if(AttackQueue.Crushing||AttackQueue.Shattering)
-										ElementalOffense = "Earth"
+										addElements |= "Earth"
 									else if(AttackQueue.Shocking||AttackQueue.Paralyzing)
-										ElementalOffense = "Wind"
+										addElements |= "Wind"
 									else if(AttackQueue.Poisoning||AttackQueue.Toxic)
-										ElementalOffense = "Poison"
-									handleElementPassives(enemy)
-									ElementalOffense = PreviousElement
-									removeElementalPassives(AttackQueue)
+										addElements |= "Poison"
+									ElementalCheck(src, enemy, 0,, addElements)
+
 								if(AttackQueue.Shearing)
 									enemy.AddShearing(AttackQueue.Shearing,src)
 								if(AttackQueue.Crippling)

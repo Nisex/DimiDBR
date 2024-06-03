@@ -1,63 +1,126 @@
 proc
-	ElementalCheck(var/mob/Attacker, var/mob/Defender, var/ForcedDebuff=0, var/DebuffIntensity=glob.DEBUFF_INTENSITY)
-		var/Attack=0
+	ElementalCheck(var/mob/Attacker, var/mob/Defender, var/ForcedDebuff=0, var/DebuffIntensity=glob.DEBUFF_INTENSITY, list/bonusElements,damageOnly = FALSE)
+		var/list/messages = list("Fire"= "<font color='[rgb(204, 153, 51)]'>[Defender] erupts in flames!!</font color>", \
+	"Water" = "<font color='[rgb(51, 153, 204)]'>[Defender] freezes to the bone!!</font color>", \
+	"Earth" = "<font color='[rgb(51, 204 , 153)]'>[Defender] falters; their guard is crushed!!</font color>", \
+	"Wind" = "<font color='[rgb(153, 255, 255)]'>[Defender] twitches erratically; they're shocked!!</font color>", \
+	"Poison" = "<font color='[rgb(204, 51, 204)]'>[Defender] looks unwell; they've been poisoned!!</font color>")
+		var/list/attackElements = list()
+		if(bonusElements&&bonusElements.len>0)
+			attackElements |= bonusElements
+
+		for(var/possible_extra_element in debuffVars)
+			if(Attacker.passive_handler.Get(possible_extra_element))
+				attackElements |= debuff2Element[possible_extra_element]
 		var/Defense=0
 		if(Attacker.ElementalOffense)
-			Attack=Attacker.ElementalOffense
+			attackElements |= Attacker.ElementalOffense
 		if(Defender.ElementalDefense)
 			Defense=Defender.ElementalDefense
-		if(Attack=="Ultima")
+		if(attackElements["Ultima"])
 			ForcedDebuff+=1
 		var/DamageMod=0
-		var/DebuffRate=0
-		DebuffRate=GetDebuffRate(Attack, Defense, ForcedDebuff)
-		if(Attacker.SenseUnlocked>5&&Attacker.SenseUnlocked>Attacker.SenseRobbed)
-			DebuffRate+=10*(Attacker.SenseUnlocked-5)
-		if(Defender.HasDebuffImmune())
-			DebuffRate/=Defender.GetDebuffImmune()
-		if(Defender.HasIntimidation())
-			var/Effective=Defender.GetIntimidation()
-			var/Ratio=Attacker.GetIntimidationIgnore(Defender)
-			var/Ignored=Effective*Ratio
-			Effective-=Ignored
-			if(Effective<0)
-				Effective=0
-			DebuffRate-=Effective/10
-		if(DebuffRate<0)
-			DebuffRate=0
-		switch(Attack)
-			if("Ultima")
-				DamageMod+=2
-			if("Mirror")
-				DamageMod+=2
-			if("Chaos")
-				DamageMod+=2
-			if("Void")
-				DamageMod+=2
-			if("Fire")
-				switch(Defense)
-					if("Water")
-						DamageMod-=1//Reduced damage
-					if("Wind")
-						DamageMod+=1//Increased damage mod
-			if("Water")
-				switch(Defense)
+		for(var/element in attackElements)
+			var/DebuffRate=GetDebuffRate(element, Defense, ForcedDebuff)
+			if(Attacker.SenseUnlocked>5&&Attacker.SenseUnlocked>Attacker.SenseRobbed)
+				DebuffRate+=10*(Attacker.SenseUnlocked-5)
+			if(Defender.HasDebuffImmune())
+				DebuffRate/=Defender.GetDebuffImmune()
+			if(Defender.HasIntimidation())
+				var/Effective=Defender.GetIntimidation()
+				var/Ratio=Attacker.GetIntimidationIgnore(Defender)
+				var/Ignored=Effective*Ratio
+				Effective-=Ignored
+				if(Effective<0)
+					Effective=0
+				DebuffRate-=Effective/10
+			if(DebuffRate<0)
+				DebuffRate=0
+			if(!damageOnly&&!Defender.HasDebuffImmune())
+				switch(element)
 					if("Fire")
-						DamageMod+=1
-					if("Earth")
-						DamageMod-=1
-			if("Earth")
-				switch(Defense)
+						if(!Defender.Burn)
+							OMsg(Attacker, messages[element])
 					if("Water")
-						DamageMod+=1
-					if("Wind")
-						DamageMod-=1
-			if("Wind")
-				switch(Defense)
-					if("Fire")
-						DamageMod-=1
+						if(!Defender.Slow)
+							OMsg(Attacker, messages[element])
 					if("Earth")
-						DamageMod+=1
+						if(!Defender.Shatter)
+							OMsg(Attacker, messages[element])
+					if("Wind")
+						if(!Defender.Shock)
+							OMsg(Attacker, messages[element])
+					if("Poison")
+						if(!Defender.Poison)
+							OMsg(Attacker, messages[element])
+			switch(element)
+				if("Ultima")
+					DamageMod+=2
+				if("Mirror")
+					DamageMod+=2
+				if("Chaos")
+					DamageMod+=2
+				if("Void")
+					DamageMod+=2
+				if("Fire")
+					switch(Defense)
+						if("Water")
+							DamageMod-=1//Reduced damage
+						if("Wind")
+							DamageMod+=1//Increased damage mod
+				if("Water")
+					switch(Defense)
+						if("Fire")
+							DamageMod+=1
+						if("Earth")
+							DamageMod-=1
+				if("Earth")
+					switch(Defense)
+						if("Water")
+							DamageMod+=1
+						if("Wind")
+							DamageMod-=1
+				if("Wind")
+					switch(Defense)
+						if("Fire")
+							DamageMod-=1
+						if("Earth")
+							DamageMod+=1
+			if(!damageOnly&&prob(DebuffRate))
+				switch(element)
+					if("Chaos")
+						if(prob(50))
+							Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
+						if(prob(50))
+							Defender.AddSlow(2*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
+						if(prob(50))
+							Defender.AddShatter(2*DebuffIntensity*glob.SHATTER_INTENSITY, Attacker)
+						if(prob(50))
+							Defender.AddShock(2*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
+						if(prob(50))
+							Defender.AddPoison(2*DebuffIntensity*glob.POISON_INTENSITY, Attacker)
+					if("Ultima")
+						Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
+						Defender.AddSlow(2*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
+						Defender.AddShatter(2*DebuffIntensity*glob.SHATTER_INTENSITY, Attacker)
+						Defender.AddShock(2*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
+					if("Rain")
+						Defender.AddSlow(4*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
+						Defender.AddShock(4*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
+					if("Poison")
+						if(!Defender.HasVenomImmune()&&Defense!="Poison")
+							Defender.AddPoison(2*DebuffIntensity*glob.POISON_INTENSITY, Attacker)
+					if("Fire")
+						if(!Defender.WalkThroughHell&&!Defender.DemonicPower())
+							Defender.AddBurn(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
+						else
+							Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
+					if("Water")
+						Defender.AddSlow(4*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
+					if("Earth")
+						Defender.AddShatter(4*DebuffIntensity*glob.SHATTER_INTENSITY, Attacker)
+					if("Wind")
+						Defender.AddShock(4*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
 		switch(Defense)
 			if("Ultima")
 				DamageMod-=2
@@ -67,41 +130,6 @@ proc
 				DamageMod-=2
 			if("Void")
 				DamageMod-=2
-		if(prob(DebuffRate))
-			switch(Attack)
-				if("Chaos")
-					if(prob(50))
-						Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
-					if(prob(50))
-						Defender.AddSlow(2*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
-					if(prob(50))
-						Defender.AddShatter(2*DebuffIntensity*glob.SHATTER_INTENSITY, Attacker)
-					if(prob(50))
-						Defender.AddShock(2*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
-					if(prob(50))
-						Defender.AddPoison(2*DebuffIntensity*glob.POISON_INTENSITY, Attacker)
-				if("Ultima")
-					Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
-					Defender.AddSlow(2*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
-					Defender.AddShatter(2*DebuffIntensity*glob.SHATTER_INTENSITY, Attacker)
-					Defender.AddShock(2*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
-				if("Rain")
-					Defender.AddSlow(4*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
-					Defender.AddShock(4*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
-				if("Poison")
-					if(!Defender.HasVenomImmune()&&Defense!="Poison")
-						Defender.AddPoison(2*DebuffIntensity*glob.POISON_INTENSITY, Attacker)
-				if("Fire")
-					if(!Defender.WalkThroughHell&&!Defender.DemonicPower())
-						Defender.AddBurn(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
-					else
-						Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
-				if("Water")
-					Defender.AddSlow(4*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
-				if("Earth")
-					Defender.AddShatter(4*DebuffIntensity*glob.SHATTER_INTENSITY, Attacker)
-				if("Wind")
-					Defender.AddShock(4*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
 		return DamageMod/10
 	GetDebuffRate(var/A, var/D, var/Forced=0)
 		var/Return=0

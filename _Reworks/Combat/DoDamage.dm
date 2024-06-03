@@ -148,7 +148,7 @@
 		log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
 		#endif
 
-	trueMult += handleElementPassives(defender)
+	trueMult += ElementalCheck(src, defender, damageOnly = TRUE)
 	#if DEBUG_DAMAGE
 	log2text("trueMult", "After ElementPassives", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")

@@ -4769,7 +4769,7 @@ mob
 							src.LoseMana(drain/Drain)
 						if(Z.CorruptionGain)
 							gainCorruption(drain / 3)
-					
+
 					if(Z.CapacityCost)
 						src.LoseCapacity(Z.CapacityCost/Drain)
 					if(Z.MaimCost)
@@ -5440,83 +5440,42 @@ obj
 							var/Heal=EffectiveDamage*a:passive_handler.Get("Siphon")*src.ForRate//Energy siphon is a value from 0.1 to 1 which reduces damage and heals energy.
 							EffectiveDamage-=Heal//negated
 							a:HealEnergy(Heal)//and transfered into energy.
-						var/PreviousElement
 						if(src.Burning&&!src.Owner.HasBurning())
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Fire"
 							if(src.DarknessFlame)
 								src.Owner.DarknessFlame+=1
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a))/10)
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Fire")))/10)
 							if(src.DarknessFlame)
 								src.Owner.DarknessFlame-=1
-							src.Owner.ElementalOffense=PreviousElement
 						if(src.Scorching&&!src.Owner.HasScorching())
-							if(!a:Burn&&!a:DebuffImmune)
-								OMsg(src.Owner, "<font color='[rgb(204, 153, 51)]'>[a] erupts in flames!!</font color>")
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Fire"
 							if(src.DarknessFlame)
 								src.Owner.DarknessFlame+=1
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1))/10)//Forces debuff
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1,, bonusElements=list("Fire")))/10)//Forces debuff
 							if(src.DarknessFlame)
 								src.Owner.DarknessFlame-=1
-							src.Owner.ElementalOffense=PreviousElement
 						if(src.Chilling&&!src.Owner.HasChilling())
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Water"
 							if(src.AbsoluteZero)
 								src.Owner.AbsoluteZero+=1
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a))/10)
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Water")))/10)
 							if(src.AbsoluteZero)
 								src.Owner.AbsoluteZero-=1
-							src.Owner.ElementalOffense=PreviousElement
 						if(src.Freezing&&!src.Owner.HasFreezing())
-							if(!a:Slow&&!a:DebuffImmune)
-								OMsg(src.Owner, "<font color='[rgb(51, 153, 204)]'>[a] freezes to the bone!!</font color>")
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Water"
 							if(src.AbsoluteZero)
 								src.Owner.AbsoluteZero+=1
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1))/10)//Forces debuff
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Water")))/10)//Forces debuff
 							if(src.AbsoluteZero)
 								src.Owner.AbsoluteZero-=1
-							src.Owner.ElementalOffense=PreviousElement
 						if(src.Crushing&&!src.Owner.HasCrushing())
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Earth"
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a))/10)
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Earth")))/10)
 						if(src.Shattering&&!src.Owner.HasShattering())
-							if(!a:Shatter&&!a:DebuffImmune)
-								OMsg(src.Owner, "<font color='[rgb(51, 204 , 153)]'>[a] falters; their guard is crushed!!</font color>")
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Earth"
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1))/10)//Forces debuff
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Earth")))/10)//Forces debuff
 						if(src.Shocking&&!src.Owner.HasShocking())
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Wind"
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a))/10)
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Wind")))/10)
 						if(src.Paralyzing&&!src.Owner.HasParalyzing())
-							if(!a:Shock&&!a:DebuffImmune)
-								OMsg(src.Owner, "<font color='[rgb(153, 255, 255)]'>[a] twitches erratically; they're paralyzed!!</font color>")
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Wind"
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1))/10)//Forces debuff
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Wind")))/10)//Forces debuff
 						if(src.Poisoning&&!src.Owner.HasPoisoning())
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Poison"
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a))/10)
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Poison")))/10)
 						if(src.Toxic&&!src.Owner.HasToxic())
-							if(!a:Toxic&&!a:DebuffImmune)
-								OMsg(src.Owner, "<font color='[rgb(204, 51, 204)]'>[a] looks unwell; they've been poisoned!!</font color>")
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Poison"
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1))/10)//Forces debuff
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Poison")))/10)//Forces debuff
 
 						if(a in src.Owner.party)
 							EffectiveDamage *= PARTY_DAMAGE_NERF
