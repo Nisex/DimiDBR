@@ -37,6 +37,7 @@ proc/log_func(x, a, b)
 #define TILE_WIDTH 32
 
 #define subtypesof(M) (typesof(M) - (M))
+#define isdatum(d) (istype(d, /datum))
 
 #define HUMAN /race/human
 #define NAMEKIAN /race/namekian
