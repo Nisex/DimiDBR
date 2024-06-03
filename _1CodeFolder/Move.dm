@@ -152,7 +152,10 @@ mob/Move()
 	var/turf/Former_Location = loc
 	if(src.Incorporeal)
 		src.density=0
-
+	if(!src.Incorporeal&&!src.passive_handler.Get("Skimming")&&!src.is_dashing&&!isai(src)&&!Knockback)
+		for(var/obj/Turfs/Edges/A in loc)
+			if((A.dir in list(dir,turn(dir,45),turn(dir,-45))))
+				return
 	..()
 
 	if(!src.Incorporeal&&!src.passive_handler.Get("Skimming")&&!src.is_dashing&&!isai(src)&&!Knockback)
