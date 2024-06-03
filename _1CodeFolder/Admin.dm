@@ -162,10 +162,11 @@ mob/Admin2/verb
 		m << "Your maim wound has been repaired!"
 
 	EditPassiveHandler(mob/m in world)
+		set category = "Admin"
 		usr:list_view(m.passive_handler.passives)
 
 	ViewPassives(mob/m in world)
-		set category = "Other"
+		set category = "Admin"
 		var/html = "<body bgcolor=#000000 text=#339999><b>Current Passives:</b><br>"
 		for(var/passive in m.passive_handler.passives)
 			if(m.passive_handler.passives[passive]>0)
