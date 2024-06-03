@@ -4091,6 +4091,7 @@ mob
 
 
 		QueuedMissMessage()
+			if(!AttackQueue) return
 			src.AttackQueue.Missed=1
 			src.AttackQueue.Hit=0
 			src.AttackQueue.RanOut=0
