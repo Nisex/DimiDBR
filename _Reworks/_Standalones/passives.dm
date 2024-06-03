@@ -67,40 +67,46 @@ passive
 			switch(temp)
 				if(FALSE)
 					for(var/settingPassive in settingPassiveList)
-						if(!isnum(settingPassiveList[settingPassive]))
-							CRASH("ERROR: [settingPassive] was decreased by [settingPassiveList[settingPassive]] which is not a number!")
-						passives[settingPassive] -= settingPassiveList[settingPassive]
+						var/value = settingPassiveList[settingPassive]
+						if(!isnum(value))
+							CRASH("ERROR: [settingPassive] was decreased by [value] which is not a number!")
+						passives[settingPassive] -= value
 				if(TRUE)
 					for(var/settingPassive in settingPassiveList)
-						if(!isnum(settingPassiveList[settingPassive]))
-							CRASH("ERROR: [settingPassive] was decreased by [settingPassiveList[settingPassive]] which is not a number!")
-						tmp_passives[settingPassive] -= settingPassiveList[settingPassive]
+						var/value = settingPassiveList[settingPassive]
+						if(!isnum(value))
+							CRASH("ERROR: [settingPassive] was decreased by [value] which is not a number!")
+						tmp_passives[settingPassive] -= value
 
 		increaseList(list/settingPassiveList, temp = FALSE)
 			switch(temp)
 				if(FALSE)
 					for(var/settingPassive in settingPassiveList)
-						if(!isnum(settingPassiveList[settingPassive]))
-							CRASH("ERROR: [settingPassive] was increased by [settingPassiveList[settingPassive]] which is not a number!")
-						passives[settingPassive] += settingPassiveList[settingPassive]
+						var/value = settingPassiveList[settingPassive]
+						if(!isnum(value))
+							CRASH("ERROR: [settingPassive] was increased by [value] which is not a number!")
+						passives[settingPassive] += value
 				if(TRUE)
 					for(var/settingPassive in settingPassiveList)
-						if(!isnum(settingPassiveList[settingPassive]))
-							CRASH("ERROR: [settingPassive] was increased by [settingPassiveList[settingPassive]] which is not a number!")
-						tmp_passives[settingPassive] += settingPassiveList[settingPassive]
+						var/value = settingPassiveList[settingPassive]
+						if(!isnum(value))
+							CRASH("ERROR: [settingPassive] was increased by [value] which is not a number!")
+						tmp_passives[settingPassive] += value
 
 		setList(list/settingPassiveList, temp = FALSE)
 			switch(temp)
 				if(FALSE)
 					for(var/settingPassive in settingPassiveList)
+						var/value = settingPassiveList[settingPassive]
 						if(!isnum(settingPassiveList[settingPassive]))
-							CRASH("ERROR: [settingPassive] was set to [settingPassiveList[settingPassive]] which is not a number!")
-						passives[settingPassive] = settingPassiveList[settingPassive]
+							CRASH("ERROR: [settingPassive] was set to [value] which is not a number!")
+						passives[settingPassive] = value
 				if(TRUE)
 					for(var/settingPassive in settingPassiveList)
-						if(!isnum(settingPassiveList[settingPassive]))
-							CRASH("ERROR: [settingPassive] was set to [settingPassiveList[settingPassive]] which is not a number!")
-						tmp_passives[settingPassive] = settingPassiveList[settingPassive]
+						var/value = settingPassiveList[settingPassive]
+						if(!isnum(value))
+							CRASH("ERROR: [settingPassive] was set to [value] which is not a number!")
+						tmp_passives[settingPassive] = value
 
 		operator|=(passive) // alternative way of checking passives. shorthand if(passive|="zornhau") returns the value of zornhau
 			Get(passive)
