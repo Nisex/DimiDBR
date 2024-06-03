@@ -622,7 +622,7 @@ var/global/MULTIHIT_NERF = FALSE
 									knockDistance = max(SureKB, 5)
 								if(!AttackQueue || AttackQueue && !AttackQueue.Grapple)
 									if(enemy)
-										if(enemy.passive_handler.Get("Blubber"))
+										if(enemy.passive_handler&&enemy.passive_handler.Get("Blubber"))
 											var/blubber = enemy.passive_handler.Get("Blubber")
 											if(prob(blubber * 25))
 												enemy.Knockback(knockDistance / clamp(5-blubber, 1,4),src)
