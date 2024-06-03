@@ -10815,6 +10815,8 @@ NEW VARIABLES
 
 				Wind_Supremacy
 					// Wind Dragon Racial
+					NeedsHealth = 10
+					TooMuchHealth = 25
 					ActiveMessage = "takes to the skies as the very winds heed their call!"
 					OffMessage = "finally graces the earth once again with their presence..."
 					Cooldown = 120
