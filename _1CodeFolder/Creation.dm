@@ -418,6 +418,9 @@ mob/Players
 							x.verbs -= list(/obj/Skills/Buffs/SlotlessBuffs/Posture/verb/Posture)
 							x.verbs += new /obj/Skills/Buffs/SlotlessBuffs/Posture/verb/Posture(x, x?:BuffName)
 
+		if(stat_redoing)
+			stat_redo(1)
+
 		return
 	Logout()
 		players -= src
