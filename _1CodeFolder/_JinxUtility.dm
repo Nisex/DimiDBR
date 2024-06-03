@@ -278,13 +278,16 @@ mob
 					if(defender.Anger)
 						if(val>=(1/defender.AscensionsAcquired)&&val<(2/defender.AscensionsAcquired))
 							defender.DefianceCounter+=1
-							defender.OMessage(10,"<font color=red>[defender]'s defiance sparks!","Defiance (1) passive.")
+							if(defender.Tail)
+								defender.OMessage(10,"<font color=red>[defender]'s defiance sparks!","Defiance (1) passive.")
 						else if(val>=(2/defender.AscensionsAcquired)&&val<(4/defender.AscensionsAcquired))
 							defender.DefianceCounter+=2
-							defender.OMessage(10,"<font color=red>[defender] grows more defiant!","Defiance (2) passive.")
+							if(defender.Tail)
+								defender.OMessage(10,"<font color=red>[defender] grows more defiant!","Defiance (2) passive.")
 						else if(val>=(4/defender.AscensionsAcquired))
 							defender.DefianceCounter+=5
-							defender.OMessage(10,"<font color=red>[defender] roars in complete defiance of odds!","Defiance (3) passive.")
+							if(defender.Tail)
+								defender.OMessage(10,"<font color=red>[defender] roars in complete defiance of odds!","Defiance (3) passive.")
 						if(defender.DefianceCounter>10)
 							defender.DefianceCounter=10
 
