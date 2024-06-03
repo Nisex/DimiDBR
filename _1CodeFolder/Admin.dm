@@ -988,20 +988,18 @@ mob/Admin2/verb
 			A?:EditAI(src)
 
 		var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
-		var/list/B=new
+		var/list/B = A.vars.Copy()
 		Edit+="[A]<br>[A.type]"
 		Edit+="<table width=10%>"
-		for(var/C in A.vars)
-			B+=C
-			CHECK_TICK
-		B.Remove("Package","bound_x","bound_y","step_x","step_y","Admin","Profile", "GimmickDesc", "NoVoid", "BaseProfile", "Form1Profile", "Form2Profile", "Form3Profile", "Form4Profile", "Form5Profile", "passive_handler", "race")
-		for(var/C in B)
-			if(C == "ai_owner") continue
+		if(usr.Admin<=3)
+			B.Remove("Package","bound_x","bound_y","step_x","step_y","Admin","Profile", "GimmickDesc", "NoVoid", "BaseProfile", "Form1Profile", "Form2Profile", "Form3Profile", "Form4Profile", "Form5Profile", "passive_handler", "race", "ai_owner")
+		else
+			B.Remove("Package","bound_x","bound_y","step_x","step_y","Admin","Profile", "GimmickDesc", "NoVoid", "BaseProfile", "Form1Profile", "Form2Profile", "Form3Profile", "Form4Profile", "Form5Profile", "ai_owner")
+		for(var/C as anything in B)
 			Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"
 			Edit+=C
-			if(istype(A.vars[C], /datum) && !istype(A.vars[C], /obj))
-				if(A.vars[C].type in typesof(/datum))
-					Edit+="<td><a href=byond://?src=\ref[A.vars[C]];action=edit;var=[C]>[C]</td></tr>"
+			if(isdatum(A.vars[C]))
+				Edit+="<td><a href=byond://?src=\ref[A.vars[C]];action=edit;var=[C]>[C]</td></tr>"
 			else
 				Edit+="<td>[Value(A.vars[C])]</td></tr>"
 			CHECK_TICK
@@ -2069,7 +2067,7 @@ atom/Topic(A,B[])
 		if(usr.Mapper && !usr.Admin)
 			class=input("[variable]","") as null|anything in list("Number","Text","File","Null")
 		else if(usr.Admin || glob.TESTER_MODE)
-			class=input("[variable]","") as null|anything in list("Number","Text","File","Type","Reference","Null","List","New Matrix","Color Matrix")
+			class=input("[variable]","") as null|anything in list("Number","Text","File","Type","Reference","Null","List","New Matrix","Color Matrix", "New Type")
 		if(!class) return
 		if(variable=="Admin")
 			return
@@ -2109,7 +2107,9 @@ atom/Topic(A,B[])
 							input("f") as num\
 						)
 						vars[variable] = m
-
+			if("New Type")
+				var/datum/d = input("Enter type:","Type",vars[variable]) in typesof(/datum)
+				vars[variable] = new d
 			if("Color Matrix")
 				switch(input("Are you sure you would like to set [variable] as a new color matrix?") in list("RGB-Only","RGBA","Cancel"))
 					if("RGB-Only")
