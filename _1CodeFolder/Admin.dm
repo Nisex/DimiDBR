@@ -1352,25 +1352,19 @@ mob/Admin3/verb
 	RPP_Event_Give(var/mob/Players/P in players)
 		set category="Admin"
 		var/confirm=alert(usr, "Are you sure you want to give [P] event credit?", "Give [P] Event Credit", "Yes", "No")
-		if(confirm=="Yes")
-			var/remaining_charges=7//get 7 charges per give
-			var/current_charges=0
-			if(P.RPPEventCharges)//how many charges of event ec do they have remaining on their character?
-				current_charges+=P.RPPEventCharges
-			var/add=7-current_charges//see how many will have to be removed to have 7 charges
-			if(add>0)//if they're not at 7 charges already
-				remaining_charges-=add
-				current_charges+=add//remove the requisite amount from remaining and add them to current
-				P.RPPEventCharges=current_charges
-				var/PC=global.RPPEventCharges["[P.ckey]"]
-				if(PC<=0 || PC==null)
-					PC=P.RPPEventCharges
-				else
-					PC+=add
-				global.RPPEventCharges["[P.ckey]"]=PC
-			if(remaining_charges>0)//if there are charges remaining
-				P.EconomyEventCharges+=(remaining_charges/7)//1 full economy event credit = 1 iteration of reward muns
-			Log("Admin", "[ExtractInfo(usr)] gave [ExtractInfo(P)] event credits. They have [P.RPPEventCharges] RPP charges and [P.EconomyEventCharges] economy charges.")
+		if(confirm == "No") return
+		var/howmany = input(usr, "How many event credits do you want to give [P]?") as num
+		if(howmany == 0) return
+
+
+		P.RPPEventCharges+=howmany
+		var/PC=global.RPPEventCharges["[P.ckey]"]
+		if(PC<=0 || PC==null)
+			PC=P.RPPEventCharges
+		else
+			PC+=howmany
+		global.RPPEventCharges["[P.ckey]"]=PC
+		Log("Admin", "[ExtractInfo(usr)] gave [ExtractInfo(P)] event credits. They have [P.RPPEventCharges] RPP charges.")
 
 
 	RPP_Refund(mob/Players/P in players)
