@@ -82,7 +82,7 @@
                 if(0)
                     User << "Too Soon..."
                 if(-1)
-                    User << "You have missinputted."
+                    User << "You took too long."
                     Cooldown(1, null, User, type)
                     keyQ.TRIGGERED = null
 

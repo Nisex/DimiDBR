@@ -534,8 +534,9 @@ ascension
 			endurance = 0.5
 			onAscension(mob/owner)
 				..()
-				owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2).pickSelection(owner, TRUE)
-				owner.race?:sub_devil_arm_upgrades = 1
+				if(!owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2).secondDevilArmPick)
+					owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2).pickSelection(owner, TRUE)
+					owner.race?:sub_devil_arm_upgrades = 1
 				owner.Class = "S"
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL

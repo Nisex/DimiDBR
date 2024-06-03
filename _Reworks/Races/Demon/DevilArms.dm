@@ -3,7 +3,7 @@
     SignatureTechnique=3
     Mastery=0
     Copyable=0
-    MakesSword=1
+    MakesSword=0
     FlashDraw=1
     SwordName="Demon Blade"
     SwordIcon='SwordBroad.dmi'
@@ -37,14 +37,21 @@
         else
             vars["[thing]"] = input(usr, "Change to what?") as message
     
-
+    proc/checkEvolve(mob/p)
+        if(totalEvolvesMain < p.race?:devil_arm_upgrades)
+            return TRUE
+        if(totalEvolvesSecondary < p.race?:sub_devil_arm_upgrades)
+            return TRUE
+        return FALSE
     verb/Devil_Arm()
         set category = "Skills"
         if(!usr.isRace(DEMON)) return 
-        if(!usr.BuffOn(src) && (usr.race?:devil_arm_upgrades || usr.race?:sub_devil_arm_upgrades) )
+        if(!usr.BuffOn(src) && checkEvolve(usr) )
             evolve(usr)
             usr << "Activate again after."
             return
+        if(!selection)
+            pickSelection(usr)
         src.Trigger(usr)
 
     proc/handlePassive(list/theList, input, secondary)
@@ -53,6 +60,15 @@
         if(passives["[input]"])
             if(passives["[input]"] + theList[input][1] > theList[input][2])
                 return FALSE
+            switch(input)
+                if("CriticalChance")
+                    passives["[input]"] += theList[input][1]
+                    passives["CriticalDamage"] += 0.1
+                    return
+                if("BlockChance")
+                    passives["[input]"] += theList[input][1]
+                    passives["CriticalDamage"] += 0.1
+                    return
             passives["[input]"] += theList[input][1]
         else
             passives["[input]"] = theList[input][1]
@@ -60,14 +76,14 @@
 
     proc/pickSelection(mob/p, secondary = FALSE)
         var/select
-        MakesSword = 0
         if(secondary)
             secondDevilArmPick = input(p, "What thing?") in list("Staff", "Sword", "Unarmed","Armor") - selection
             select = secondDevilArmPick
         else
             selection = input(p, "What thing?") in list("Staff", "Sword", "Unarmed","Armor")
             select = selection
-        vars["Makes[select]"] = 1
+        if(select != "Unarmed")
+            vars["Makes[select]"] = 1
         var/class
         vars["[select]Name"] = input(p, "Change name to what?") as text
         if(select != "Unarmed")
@@ -79,11 +95,11 @@
             vars["[select]Icon"] = input(p, "Change name to what?") as icon | null
             vars["[select]X"] = input(p, "What is the pixel X?") as num
             vars["[select]Y"] = input(p, "What is the pixel y?") as num
-    proc/pickPassive(mob/p, list/choices, list/mainData)
+    proc/pickPassive(mob/p, list/choices, list/mainData, secondary = FALSE)
         var/correct = FALSE
         var/attempts = 0
         while(correct == FALSE)
-            var/passive = input(p, "What passive?") in choices
+            var/passive = input(p, "What passive? ([secondary == FALSE ? "Main Branch" : "Side Branch"])") in choices
             if(attempts >=3)
                 p << "You tried too many times, alert an admin"
                 break
@@ -100,25 +116,22 @@
             pickSelection(p, FALSE)
         if(!p.BuffOn(src))
             var/race/demon/r = p.race
-            if(r.devil_arm_upgrades && totalEvolvesMain-1 < round(p.Potential / 5))
+            if(totalEvolvesMain < r.devil_arm_upgrades)
                 var/list/data = getJSONInfo(getPassiveTier(p), "GENERIC_PASSIVES")
-                var/list/secondaryData
                 data.Add(getJSONInfo(getPassiveTier(p), "[uppertext(selection)]_PASSIVES"))
-                if(secondDevilArmPick && r.sub_devil_arm_upgrades)
-                    secondaryData = getJSONInfo(getPassiveTier(p), "[uppertext(secondDevilArmPick)]_PASSIVES")
                 var/choices = list()
-                var/secondChoices = list()
                 for(var/a in data)
                     choices += "[a]"
+                pickPassive(p, choices, data, FALSE)
+                totalEvolvesMain++
+            if(totalEvolvesSecondary < r.sub_devil_arm_upgrades)
+                var/list/secondaryData
+                secondaryData = getJSONInfo(getPassiveTier(p), "[uppertext(secondDevilArmPick)]_PASSIVES")
+                var/secondChoices = list()
                 for(var/a in secondaryData)
                     secondChoices += "[a]"
-                if(r.devil_arm_upgrades)
-                    pickPassive(p, choices, data)
-                    r.devil_arm_upgrades--
-                    totalEvolvesMain++
                 if(r.sub_devil_arm_upgrades)
-                    pickPassive(p, secondChoices, secondaryData)
-                    r.sub_devil_arm_upgrades--
+                    pickPassive(p, secondChoices, secondaryData, TRUE)
                     totalEvolvesSecondary++
 
 
