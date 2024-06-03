@@ -2227,11 +2227,11 @@ mob
 					staf=s
 					break
 			if(src.Race=="Android"||src.HasMechanized())
-				return 0
+				return null
 			else if(staf)
 				return staf
 			else
-				return 0
+				return null
 		CanLoseVitalBP()
 			if(src.Race=="Android")
 				return 0
