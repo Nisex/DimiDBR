@@ -163,7 +163,7 @@ mob/Admin2/verb
 
 	EditPassiveHandler(mob/m in world)
 		set category = "Admin"
-		usr:list_view(m.passive_handler.passives)
+		usr:Edit(m.passive_handler)
 
 	ViewPassives(mob/m in world)
 		set category = "Admin"
