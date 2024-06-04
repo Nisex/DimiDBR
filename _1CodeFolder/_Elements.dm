@@ -6,6 +6,7 @@ proc
 	"Wind" = "<font color='[rgb(153, 255, 255)]'>[Defender] twitches erratically; they're shocked!!</font color>", \
 	"Poison" = "<font color='[rgb(204, 51, 204)]'>[Defender] looks unwell; they've been poisoned!!</font color>")
 		var/list/attackElements = list()
+		var/list/defenseElements = list()
 		if(bonusElements&&bonusElements.len>0)
 			attackElements |= bonusElements
 
@@ -15,8 +16,22 @@ proc
 		var/Defense=0
 		if(Attacker.ElementalOffense)
 			attackElements |= Attacker.ElementalOffense
+
+		var/obj/Items/Enchantment/Staff/staf=Attacker.EquippedStaff()
+		var/obj/Items/Sword/sord=Attacker.EquippedSword()
+		var/obj/Items/Armor/armr = Defender.EquippedArmor()
+
+		if(staf && staf.Element)
+			attackElements |= staf.Element
+		if(sord && sord.Element)
+			attackElements |= sord.Element
+
 		if(Defender.ElementalDefense)
-			Defense=Defender.ElementalDefense
+			defenseElements |= Defender.ElementalDefense
+
+		if(armr && armr.Element)
+			defenseElements |= armr.Element
+
 		if(attackElements["Ultima"])
 			ForcedDebuff+=1
 		var/DamageMod=0
@@ -63,29 +78,25 @@ proc
 				if("Void")
 					DamageMod+=2
 				if("Fire")
-					switch(Defense)
-						if("Water")
-							DamageMod-=1//Reduced damage
-						if("Wind")
-							DamageMod+=1//Increased damage mod
+					if("Water" in defenseElements)
+						DamageMod-=1//Reduced damage
+					if("Wind" in defenseElements)
+						DamageMod+=1//Increased damage mod
 				if("Water")
-					switch(Defense)
-						if("Fire")
-							DamageMod+=1
-						if("Earth")
-							DamageMod-=1
+					if("Fire" in defenseElements)
+						DamageMod+=1
+					if("Earth" in defenseElements)
+						DamageMod-=1
 				if("Earth")
-					switch(Defense)
-						if("Water")
-							DamageMod+=1
-						if("Wind")
-							DamageMod-=1
+					if("Water" in defenseElements)
+						DamageMod+=1
+					if("Wind" in defenseElements)
+						DamageMod-=1
 				if("Wind")
-					switch(Defense)
-						if("Fire")
-							DamageMod-=1
-						if("Earth")
-							DamageMod+=1
+					if("Fire" in defenseElements)
+						DamageMod-=1
+					if("Earth" in defenseElements)
+						DamageMod+=1
 			if(!damageOnly&&prob(DebuffRate))
 				switch(element)
 					if("Chaos")
@@ -121,16 +132,18 @@ proc
 						Defender.AddShatter(4*DebuffIntensity*glob.SHATTER_INTENSITY, Attacker)
 					if("Wind")
 						Defender.AddShock(4*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
-		switch(Defense)
-			if("Ultima")
-				DamageMod-=2
-			if("Mirror")
-				DamageMod-=2
-			if("Chaos")
-				DamageMod-=2
-			if("Void")
-				DamageMod-=2
+		for(var/element in defenseElements)
+			switch(element)
+				if("Ultima")
+					DamageMod-=2
+				if("Mirror")
+					DamageMod-=2
+				if("Chaos")
+					DamageMod-=2
+				if("Void")
+					DamageMod-=2
 		return DamageMod/10
+
 	GetDebuffRate(var/A, var/D, var/Forced=0)
 		var/Return=0
 		if(Forced)

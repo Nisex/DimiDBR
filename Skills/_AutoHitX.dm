@@ -6003,6 +6003,7 @@ obj
 					Elements |= "Wind"
 				if(Toxic||Poisoning)
 					Elements |= "Poison"
+
 				ElementalCheck(Owner, m, 0, bonusElements = Elements)
 
 				if(Crippling)
