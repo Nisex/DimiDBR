@@ -2792,7 +2792,6 @@ obj
 				TurfStrike=1
 				Slow=1
 				DamageMult=2.8
-				StepsDamage=0.1
 				Cooldown=30
 				EnergyCost=3
 				ActiveMessage="thrusts their blade forward, causing a powerful wave of pressure!"
@@ -5498,7 +5497,7 @@ obj
 			ObjIcon//get an icon from the other obj
 			currentRounds
 			Damage//This is the amount of damage a skill will do if all stats and power are equal.
-			StepsDamage=1
+			StepsDamage=0
 			StepsTaken=0//A variable for easy recording
 			list/DamageSteps=list()//This is a variable that allows damage to scale based on the steps taken by the projectile.  Think Tipper.
 
