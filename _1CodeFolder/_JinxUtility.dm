@@ -2712,6 +2712,7 @@ mob
 			src.Frozen=1
 			src.icon_state="Flight"
 			MaxDistance*=world.tick_lag
+			if(Delay < 0.1) Delay = 0.1
 			var/blur_filter = filter(type="angular_blur", x=0, y=0, size=1)
 			filters += blur_filter
 			while(MaxDistance>0)
