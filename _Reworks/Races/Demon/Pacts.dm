@@ -1,24 +1,3 @@
-#define NO_PENALTY 0
-#define TAX_PENALTY (1 << 1)
-#define HEALTH_PENALTY (1 << 2)
-#define ENERGY_PENALTY (1 << 3)
-#define MANA_PENALTY (1 << 4)
-#define DEATH_PENALTY (1 << 5)
-#define PENALTY_LIST list("No Penalty", "Tax Penalty", "Health Penalty", "Energy Penalty", "Mana Penalty", "Death Penalty")
-#define PENALTY_TRANSLATION_LIST list("No Penalty" = NO_PENALTY, "Tax Penalty" = TAX_PENALTY, "Health Penalty" = HEALTH_PENALTY, "Energy Penalty" = ENERGY_PENALTY, "Mana Penalty" = MANA_PENALTY, "Death Penalty" = DEATH_PENALTY)
-
-#define PACT_LIMIT 3
-
-#define PACT_OWNER "Owner"
-#define PACT_SUBJECT "Subject"
-
-//i didn't add a way for pactees to view their pacts
-// i also didn't test any of it
-// im not sure pacts will actually show different in checkPact as options or in breakPact (we can find names via getPlayerNameByUID if need be)
-// right now an admin is the only one who can actually break a pact. (maybe turn offable)
-// the pactee should also have a list or /obj/Pact i think to track this pact that'll update on login as well (pact is broken offline)
-// if the pactee also has a /obj/Pact, it should be /obj/Pact/Pactee, and the normal pact should be /obj/Pact/Pacter
-
 /mob/Admin3/verb/BreakPact()
 	var/datum/Pact/whichPact = input(usr, "Which pact would you like to break?") in glob.allPacts
 	var/withPenalties = input(usr, "Would you like to break that pact with penalties or without?") in list("With Penalties", "Without Penalties")
@@ -41,10 +20,6 @@ proc/findPactByID(id)
 /obj/Pact
 /obj/Pact/var/pactLimit = PACT_LIMIT
 /obj/Pact/var/list/currentPacts = list()// a list with ids to pacts in it
-
-/obj/Pact/verb/Create_Pact()
-	set category = "Skills"
-	createPact(usr)
 
 /obj/Pact/verb/Check_Pact()
 	set category = "Skills"
@@ -70,17 +45,15 @@ proc/findPactByID(id)
 		return 0
 	return 1
 
-/obj/Pact/proc/getTargets(mob/user)
-	. = list("Cancel")
-	for(var/mob/m in oview(15,user))
-		. += m
+/obj/Pact/Pacted // the obj ppl pacted should get for sanity purposes
 
-/obj/Pact/proc/pickTarget(mob/user, list/validTargets)
-	var/target = input(user, "Who would you like to make a pact with?") in validTargets
-	if(target=="Cancel") return 0
-	return target
+/obj/Pact/Pacter //the obj ppl pacting others Should Actually Get.
 
-/obj/Pact/proc/createPact(mob/user)
+/obj/Pact/Pacter/verb/Create_Pact()
+	set category = "Skills"
+	createPact(usr)
+
+/obj/Pact/Pacter/proc/createPact(mob/user)
 	if(!checkPactRequirements(user))
 		return
 
@@ -90,7 +63,18 @@ proc/findPactByID(id)
 
 	var/datum/Pact/pact = new()
 	pact.CreatePact(user, target)
-	currentPacts += pact.pactID
+
+/obj/Pact/Pacter/proc/getTargets(mob/user)
+	. = list("Cancel")
+	for(var/mob/m in oview(15,user))
+		. += m
+
+/obj/Pact/Pacter/proc/pickTarget(mob/user, list/validTargets)
+	var/target = input(user, "Who would you like to make a pact with?") in validTargets
+	if(target=="Cancel") return 0
+	return target
+
+
 
 /datum/Pact
 /datum/Pact/var/details // html / text of the details of the pact.
@@ -100,7 +84,11 @@ proc/findPactByID(id)
 /datum/Pact/var/subjectUID // subject's UniqueID
 /datum/Pact/var/ownerUID // owner's UniqueID
 /datum/Pact/var/sealed = FALSE // if the pact is actually active and enforced
-/datum/Pact/var/broken = FALSE // if the pact is broken.
+
+/datum/Pact/var/broken = PACT_UNBROKEN // if the pact is broken.
+/datum/Pact/var/ownerPenaltyInflicted = FALSE
+/datum/Pact/var/subjectPenaltyInflicted = FALSE
+
 /datum/Pact/var/pactID
 
 /datum/Pact/proc/CreatePact(mob/Players/owner, mob/Players/subject)
@@ -119,7 +107,15 @@ proc/findPactByID(id)
 	subject << "The pact is signed..."
 	sealed = TRUE
 	pactID = glob.allPacts.len+1
+	var/obj/Pact/Pacted/subjectPact = locate() in subject
+	if(!subjectPact)
+		subjectPact = new()
+		subject.contents += subjectPact
+	subjectPact.currentPacts += pactID
+	var/obj/Pact/Pacter/ownerPact = locate() in owner
+	ownerPact.currentPacts += pactID
 	glob.allPacts += src
+
 /datum/Pact/proc/presentPact(mob/presentingTo)
 	viewDetails(presentingTo)
 	var/accept = input(presentingTo, "Do you accept the pact with the penalties of [translatePenalty(PACT_OWNER)] for the owner([findPlayerByUID(ownerUID)]), and [translatePenalty(PACT_SUBJECT)] for the subject([presentingTo.name]) from [findPlayerByUID(ownerUID)]? The harshness of these penalties are [getHarshnessForDisplay()]% of your values.") in list("Yes", "No")
@@ -191,7 +187,7 @@ proc/findPactByID(id)
 	details = input(writer, "What would you like the details to be?") as message
 
 /datum/Pact/proc/viewDetails(mob/viewer)
-	viewer << browse(details)
+	viewer << browse(html_encode(details))
 
 /datum/Pact/proc/confirmDetails(mob/owner)
 	viewDetails(owner)
@@ -205,16 +201,26 @@ proc/findPactByID(id)
 /datum/Pact/proc/breakPact(inflictPenalties = FALSE, whoToInflict)
 	var/mob/subject = findPlayerByUID(subjectUID)
 	var/mob/owner = findPlayerByUID(ownerUID)
-	if(subject)
+	if(subject&&!subjectPenaltyInflicted)
 		breakPactMessage(subject)
-	if(owner)
+	if(owner&&!ownerPenaltyInflicted)
 		breakPactMessage(owner)
 	if(inflictPenalties)
 		inflictPenalties(owner, subject, whoToInflict)
-	del src
+		switch(whoToInflict)
+			if("Both")
+				broken = PACT_BROKEN_BOTH_PENALTY
+			if(PACT_OWNER)
+				broken = PACT_BROKEN_OWNER_PENALTY
+			if(PACT_SUBJECT)
+				broken = PACT_BROKEN_SUBJECT_PENALTY
+	else
+		broken = PACT_BROKEN_NO_PENALTY
+		ownerPenaltyInflicted = TRUE
+		subjectPenaltyInflicted = TRUE
 
 /datum/Pact/proc/inflictPenalties(mob/owner, mob/subject, whoToInflict)
-	if(owner&&(whoToInflict==PACT_OWNER||whoToInflict=="Both"))
+	if(owner&&!ownerPenaltyInflicted&&(whoToInflict==PACT_OWNER||whoToInflict=="Both"))
 		if(ownerPenalty & NO_PENALTY)
 			owner << "No penalty has been applied to you..."
 		if(ownerPenalty & TAX_PENALTY)
@@ -227,7 +233,10 @@ proc/findPactByID(id)
 			causeManaPenalty(owner)
 		if(ownerPenalty & DEATH_PENALTY)
 			causeDeathPenalty(owner)
-	if(subject&&(whoToInflict==PACT_SUBJECT||whoToInflict=="Both"))
+
+		ownerPenaltyInflicted = TRUE
+
+	if(subject&&!subjectPenaltyInflicted&&(whoToInflict==PACT_SUBJECT||whoToInflict=="Both"))
 		if(subjectPenalty & NO_PENALTY)
 			subject << "No penalty has been applied to you..."
 		if(subjectPenalty & TAX_PENALTY)
@@ -240,6 +249,8 @@ proc/findPactByID(id)
 			causeManaPenalty(subject)
 		if(subjectPenalty & DEATH_PENALTY)
 			causeDeathPenalty(subject)
+
+		subjectPenaltyInflicted = TRUE
 
 /datum/Pact/proc/causeTaxPenalty(mob/inflictOn)
 	OMsg(inflictOn,"[inflictOn] feels their body constrict with hundreds of little chains unseen to the eye!")

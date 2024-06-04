@@ -60,6 +60,28 @@ proc/log_func(x, a, b)
 #define DEBUG_GRAPPLE 0
 #define DEBUG_PROJECTILE 0
 
+
+//pacts in pacts.dm
+#define NO_PENALTY 0
+#define TAX_PENALTY (1 << 1)
+#define HEALTH_PENALTY (1 << 2)
+#define ENERGY_PENALTY (1 << 3)
+#define MANA_PENALTY (1 << 4)
+#define DEATH_PENALTY (1 << 5)
+#define PENALTY_LIST list("No Penalty", "Tax Penalty", "Health Penalty", "Energy Penalty", "Mana Penalty", "Death Penalty")
+#define PENALTY_TRANSLATION_LIST list("No Penalty" = NO_PENALTY, "Tax Penalty" = TAX_PENALTY, "Health Penalty" = HEALTH_PENALTY, "Energy Penalty" = ENERGY_PENALTY, "Mana Penalty" = MANA_PENALTY, "Death Penalty" = DEATH_PENALTY)
+
+#define PACT_LIMIT 3
+
+#define PACT_OWNER "Owner"
+#define PACT_SUBJECT "Subject"
+
+#define PACT_UNBROKEN 0
+#define PACT_BROKEN_NO_PENALTY 1
+#define PACT_BROKEN_BOTH_PENALTY 2
+#define PACT_BROKEN_OWNER_PENALTY 3
+#define PACT_BROKEN_SUBJECT_PENALTY 4
+
 var/list/font_rsc=list('fonts/Gotham Book.otf') // forces it into the rsc.
 
 proc
