@@ -117,7 +117,7 @@ mob/proc/AppearanceOn()
 		if(I.suffix=="*Equipped*"||I.suffix=="*Equipped (Second)*"||I.suffix=="*Equipped (Third)*")
 			if(istype(I, /obj/Items/Gear/Mobile_Suit)&&passive_handler.Get("Piloting"))
 				continue
-			if(!istype(I, /obj/Items/Sword)&&!istype(I, /obj/Items/Gear)&&!istype(I, /obj/Items/Enchantment/Staff)&&(src.Transformed||src.Oozaru))
+			if(!istype(I, /obj/Items/Sword)&&!istype(I, /obj/Items/Gear)&&!istype(I, /obj/Items/Enchantment/Staff)&&(src.Transformed||CheckSlotless("Oozaru")))
 				continue
 			I.suffix=null
 			equippedArmor = null

@@ -4819,7 +4819,7 @@ NEW VARIABLES
 			verb/Saiyan_Dominance()
 				set category="Skills"
 				if(!usr.BuffOn(src))
-					if(usr.Oozaru)
+					if(usr.CheckSlotless("Oozaru"))
 						usr << "Your precision is lacking in beastly form!"
 						return
 					src.adjust(usr)
@@ -4838,7 +4838,7 @@ NEW VARIABLES
 			verb/Saiyan_Grit()
 				set category="Skills"
 				if(!usr.BuffOn(src))
-					if(usr.Oozaru)
+					if(usr.CheckSlotless("Oozaru"))
 						usr << "Your precision is lacking in beastly form!"
 						return
 					if(usr.DefianceCounter<6)
@@ -4868,7 +4868,7 @@ NEW VARIABLES
 			verb/Saiyan_Soul()
 				set category="Skills"
 				if(!usr.BuffOn(src))
-					if(usr.Oozaru)
+					if(usr.CheckSlotless("Oozaru"))
 						usr << "Your precision is lacking in beastly form!"
 						return
 					if(usr.AdaptationCounter<1)
@@ -11579,7 +11579,7 @@ mob
 				if(B.SpecialBuffLock)
 					if(src.SpecialBuff)
 						src.SpecialBuff.Trigger(src, Override=1)
-				if(src.Oozaru)
+				if(src.CheckSlotless("Oozaru"))
 					if(!B.StanceSlot&&!B.StyleSlot&&!B.Autonomous)
 						if(!B.BuffName == "Great Ape")
 							src << "You can't use buffs in Great Ape Mode!"

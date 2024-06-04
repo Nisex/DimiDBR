@@ -32,6 +32,7 @@
 	SpdMult = 0.3
 	OffMult = 1.2
 	EndMult = 1.2
+	TimerLimit = 900
 	verb/Moon_Toggle()
 		set category="Other"
 		if(!(world.time > usr.verb_delay)) return
@@ -41,7 +42,7 @@
 			if(!Controlled)
 				usr<<"You cannot will yourself out of the transformed state!"
 				return
-			Trigger(usr,Override=1)
+			usr.Oozaru(0)
 		usr<< "You will [Looking ? "look" : "not look"] at the moon."
 
 	adjust(mob/p)
@@ -107,7 +108,6 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Bu
 				if(b)
 					b.Trigger(src)
 
-		Oozaru(0)
 		src.Oozaru=1
 		Buff.adjust(src)
 		Buff.Trigger(src)
@@ -116,18 +116,15 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Bu
 
 		if(revert)
 			spawn(revert)Oozaru(0)
-		else
-			src.OozaruTimer=900
 		spawn(rand(0,10)) for(var/mob/P in view(20,src)) P<<sound('Roar.wav', repeat = 0, wait = 0, channel = 0, volume = 50)
 
 
-	else if(BuffOn(Buff))
+	else
 
 		src.Oozaru=0
 
 		for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src.SlotlessBuffs)
-			if(B)
-				B.Trigger(src)
+			B.Trigger(src, Override = 1)
 
 obj/Oozaru
 

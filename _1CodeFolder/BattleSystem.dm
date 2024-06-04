@@ -894,7 +894,7 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 
 		if(getBackSide(Offender, Defender))
 
-			if(Defender.Oozaru || Defender.passive_handler.Get("Vulnerable Behind"))
+			if(Defender.CheckSlotless("Oozaru")|| Defender.passive_handler.Get("Vulnerable Behind"))
 				var/tail_resistance_max = Defender.AscensionsAcquired + (round(Defender.AscensionsAcquired/2))
 				var/tail_resistance = Defender.tail_mastery / 20
 				tail_resistance += Defender.AscensionsUnlocked * 5

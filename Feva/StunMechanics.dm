@@ -28,7 +28,7 @@ proc
 			return
 		if(m.StunImmune)
 			return
-		if(m.Oozaru)
+		if(m.CheckSlotless("Oozaru"))
 			amount *= 0.75
 		if(m.HasLegendaryPower() > 0.25 || m.passive_handler.Get("Juggernaut"))
 			var/mod = (m.HasLegendaryPower() * 0.5) + m.passive_handler.Get("Juggernaut") * 0.25

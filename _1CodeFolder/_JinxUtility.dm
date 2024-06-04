@@ -273,7 +273,7 @@ mob
 						src.AddPoison(val*0.5, defender)
 
 
-			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.passive_handler.Get("Defiance")&&!defender.Oozaru)
+			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.passive_handler.Get("Defiance")&&!defender.CheckSlotless("Oozaru"))
 				if(defender.DefianceCounter<10)
 					if(defender.Anger)
 						if(val>=(1/defender.AscensionsAcquired)&&val<(2/defender.AscensionsAcquired))
@@ -292,7 +292,7 @@ mob
 							defender.DefianceCounter=10
 
 			if(defender.HasAdaptation()&&src==defender.Target||src.HasAdaptation()&&defender==src.Target)
-				if(defender.HasAdaptation()&&!defender.Oozaru)
+				if(defender.HasAdaptation()&&!defender.CheckSlotless("Oozaru"))
 					defender.AdaptationTarget=src
 					defender.AdaptationCounter+=(val*(defender.AscensionsAcquired/40))
 					if(defender.AdaptationCounter>=1)
@@ -300,7 +300,7 @@ mob
 						if(!defender.AdaptationAnnounce)
 							defender << "<b>You've adapted to your target's style!</b>"
 							defender.AdaptationAnnounce=1
-				if(src.HasAdaptation()&&!src.Oozaru)
+				if(src.HasAdaptation()&&!CheckSlotless("Oozaru"))
 					src.AdaptationTarget=defender
 					src.AdaptationCounter+=(val*(src.AscensionsAcquired/40))
 					if(src.AdaptationCounter>=1)
@@ -1241,7 +1241,7 @@ mob
 				Str+=src.Target.GetMAEnd()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!src.Oozaru)
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Oozaru"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							Str+=(src.Target.GetMAEnd()*0.5*src.AdaptationCounter)
 			if(Str<0.1)
@@ -1349,7 +1349,7 @@ mob
 				For+=src.Target.GetMAEnd()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!src.Oozaru)
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Oozaru"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							For+=(src.Target.GetMAEnd()*0.5*src.AdaptationCounter)
 			if(For<0.1)
@@ -1443,7 +1443,7 @@ mob
 				End+=(src.Target.GetMAStr()+src.Target.GetMAFor())*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!src.Oozaru)
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Oozaru"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							End+=((src.Target.GetMAStr()+src.Target.GetMAFor())*0.5*src.AdaptationCounter)
 			if(End<0.1)
@@ -1539,7 +1539,7 @@ mob
 				Spd+=src.Target.GetMASpd()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!src.Oozaru)
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Oozaru"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							Spd+=(src.Target.GetMASpd()*0.5*src.AdaptationCounter)
 			if(Spd<0.1)
@@ -1615,7 +1615,7 @@ mob
 				Off+=src.Target.GetMADef()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!src.Oozaru)
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Oozaru"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							Off+=(src.Target.GetMADef()*0.5*src.AdaptationCounter)
 			if(Off<0.1)
@@ -1682,7 +1682,7 @@ mob
 				Def+=src.Target.GetMAOff()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!src.Oozaru)
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Oozaru"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							Def+=(src.Target.GetMAOff()*0.5*src.AdaptationCounter)
 			if(Def<0.1)
