@@ -45,11 +45,11 @@ mob
 			if(!choice) return
 			choice = clamp(1, choice, 100)
 			client.setFontSize(choice)
-			client.setPref(CURRENTFONTFAMILY, choice)
+			client.setPref(CURRENTFONTSIZE, choice)
 
 		fontFamily()
 			var/current_font_family = client.getPref(CURRENTFONTFAMILY)
 			var/choice = input(src,"What would you like to change the font to?\nThe current font is: [current_font_family].","Chat Font",current_font_family) as null|anything in valid_chat_fonts
 			if(!choice) return
 			client.setFontFamily(choice)
-			client.setPref(CURRENTFONTSIZE, choice)
+			client.setPref(CURRENTFONTFAMILY, choice)

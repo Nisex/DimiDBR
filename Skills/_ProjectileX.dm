@@ -5441,25 +5441,25 @@ obj
 							EffectiveDamage-=Heal//negated
 							a:HealEnergy(Heal)//and transfered into energy.
 						if(src.Burning&&!src.Owner.HasBurning())
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Fire"), 1))/10)
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Fire"), damageOnly = 1))/10)
 						if(src.Scorching&&!src.Owner.HasScorching())
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1,, bonusElements=list("Fire"), 1))/10)//Forces debuff
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1,, bonusElements=list("Fire"), damageOnly = 1))/10)//Forces debuff
 						if(src.Chilling&&!src.Owner.HasChilling())
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Water"), 1))/10)
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Water"), damageOnly = 1))/10)
 						if(src.Freezing&&!src.Owner.HasFreezing())
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Water"), 1))/10)//Forces debuff
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Water"), damageOnly = 1))/10)//Forces debuff
 						if(src.Crushing&&!src.Owner.HasCrushing())
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Earth"), 1))/10)
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Earth"), damageOnly = 1))/10)
 						if(src.Shattering&&!src.Owner.HasShattering())
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Earth"), 1))/10)//Forces debuff
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Earth"), damageOnly = 1))/10)//Forces debuff
 						if(src.Shocking&&!src.Owner.HasShocking())
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Wind"), 1))/10)
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Wind"), damageOnly = 1))/10)
 						if(src.Paralyzing&&!src.Owner.HasParalyzing())
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Wind"), 1))/10)//Forces debuff
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Wind"), damageOnly = 1))/10)//Forces debuff
 						if(src.Poisoning&&!src.Owner.HasPoisoning())
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Poison"), 1))/10)
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Poison"), damageOnly = 1))/10)
 						if(src.Toxic&&!src.Owner.HasToxic())
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Poison"), 1))/10)//Forces debuff
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Poison"), damageOnly = 1))/10)//Forces debuff
 
 						if(a in src.Owner.party)
 							EffectiveDamage *= PARTY_DAMAGE_NERF

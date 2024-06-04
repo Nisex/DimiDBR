@@ -11,14 +11,18 @@ obj
 
 		New(_x,_y,_z)
 			loc = locate(_x,_y,_z)
+			ticking_generic += src
 			for(var/mob/m in loc)
 				tick_on |= m
 			spawn(lifetime)
 				if(src)
-					del src
+					ticking_generic -= src
+					owner = null
+					tick_on = null
+					loc = null
 
 		Crossed(atom/movable/O)
-			if(O==Owner&&&!ismob(O)) return
+			if(O==Owner&&!ismob(O)) return
 			tick_on |= O
 			..()
 

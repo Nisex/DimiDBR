@@ -1,7 +1,7 @@
 #define GLOBAL_LEAK_REDUCTION 1.2
 #define isplayer(x) istype(x,/mob/Players)
-#define DEBUFF_EFFECTIVENESS (0.004)
 
+/globalTracker/var/DEBUFF_EFFECTIVENESS = 0.004
 mob
 	proc
 		AscAvailable()
@@ -1416,11 +1416,11 @@ mob
 					Harden = glob.MAX_HARDEN
 				Mod*= 1 + (src.Harden * (0.006 * clamp(src.Hardening, 0.1, glob.MAX_HARDENING)))
 			if(src.Shatter)
-				if(!src.HasDebuffImmune())
+				if(!src.HasDebuffImmune()>=1)
 					if(src.HasDebuffReversal())
-						Mod*=1 + Shatter * DEBUFF_EFFECTIVENESS
+						Mod*=1 + Shatter * glob.DEBUFF_EFFECTIVENESS
 					else
-						Mod*=1 - Shatter * DEBUFF_EFFECTIVENESS
+						Mod*=1 - Shatter * glob.DEBUFF_EFFECTIVENESS
 			if(src.EndEroded)
 				Mod-=src.EndEroded
 
@@ -1497,11 +1497,11 @@ mob
 					else
 						Mod+=0.25*src.BurningShot
 			if(src.Slow)
-				if(!src.HasDebuffImmune())
+				if(!src.HasDebuffImmune()>=1)
 					if(src.HasDebuffReversal())
-						Mod*=1 + (Slow * DEBUFF_EFFECTIVENESS)
+						Mod*=1 + (Slow * glob.DEBUFF_EFFECTIVENESS)
 					else
-						Mod*= 1 - (Slow * DEBUFF_EFFECTIVENESS)
+						Mod*= 1 - (Slow * glob.DEBUFF_EFFECTIVENESS)
 			if(src.SpdEroded)
 				Mod-=src.SpdEroded
 
@@ -1578,11 +1578,11 @@ mob
 					else
 						Mod+=0.25*src.BurningShot
 			if(src.Shock)
-				if(!src.HasDebuffImmune())
+				if(!src.HasDebuffImmune()>=1)
 					if(src.HasDebuffReversal())
-						Mod*=1 + (Shock * DEBUFF_EFFECTIVENESS)
+						Mod*=1 + (Shock * glob.DEBUFF_EFFECTIVENESS)
 					else
-						Mod*= 1 - (Shock * DEBUFF_EFFECTIVENESS)
+						Mod*= 1 - (Shock * glob.DEBUFF_EFFECTIVENESS)
 			if(src.OffEroded)
 				Mod-=src.OffEroded
 			Off*=Mod
@@ -1655,11 +1655,11 @@ mob
 					else
 						Mod+=0.25*src.BurningShot
 			if(src.Shock)
-				if(!src.HasDebuffImmune())
+				if(!src.HasDebuffImmune()>=1)
 					if(src.HasDebuffReversal())
-						Mod*=1 + (Shock * DEBUFF_EFFECTIVENESS)
+						Mod*=1 + (Shock * glob.DEBUFF_EFFECTIVENESS)
 					else
-						Mod*=1 - (Shock * DEBUFF_EFFECTIVENESS)
+						Mod*=1 - (Shock * glob.DEBUFF_EFFECTIVENESS)
 			if(src.DefEroded)
 				Mod-=src.DefEroded
 
@@ -2747,7 +2747,7 @@ mob
 			if(src.is_dashing<0)
 				src.is_dashing=0
 			src.icon_state=""
-			animate(src.filters[filters.len], x=0, y=0)
+			//animate(src.filters[filters.len], x=0, y=0)
 			src.dir=get_dir(src,Trg)
 		Reincarnate()
 			src.Savable=0
