@@ -773,21 +773,18 @@ mob/Admin2/verb
 				switch(input("IC Announcement or OOC Announcement?") in list("IC", "OOC"))
 					if("IC")
 						usr.client.HttpPost(
-							"https://discord.com/api/webhooks/1220052412346138836/grdIJmZXMsFFx5360seLU5sbhAJveb3OJeDweJmqJQAdt7XALtqk8twFm53vdG7WsdvL",
-							,
+							"https://discord.com/api/webhooks/1247512085877751909/0yYX1bZ84PCRX63g2myzNqIz0N2bpAE4Ziw8bSp7LqfT2uInRhyrNBoqFOPUrH3ygUGk",
 							list(
 								content = discord_output,
-								username = "IC"
+								username = "Story Announcement"
 							)
 						)
 					if("OOC")
 						usr.client.HttpPost(
-							"https://discord.com/api/webhooks/1220052666244399224/b_t3vHOcdKKWm_c7lxGZmg1VSETPnumxtKk_C76nHfWFhAmAAj7ddITnhcZzw0B3B760",
-
-							,
+							"https://discord.com/api/webhooks/1247512491152379998/a-2QgezHlVOd8ARD4-WPArY0BVIUK0qEMRoaZ7DTk9GUtSSGPUV04OE-yXVucN5TTHh4",
 							list(
 								content = discord_output,
-								username = "OOC"
+								username = "OOC Announcement"
 							)
 						)
 
