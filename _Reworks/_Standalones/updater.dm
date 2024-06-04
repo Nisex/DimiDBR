@@ -72,6 +72,9 @@ update
 	version4
 		version = 4
 		updateMob(mob/p)
+			if(p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm))
+				Log("Admin", "[ExtractInfo(p)] has old devil arm.")
+				p <<"old devil arm is removed, if you are not demon, ahelp for the new one. or have the demon use the pact system. "
 			if(p.isRace(DEMON))
 				if(!p.FindSkill(/obj/Skills/Utility/Imitate))
 					p.AddSkill(new/obj/Skills/Utility/Imitate)
@@ -80,8 +83,16 @@ update
 				p << "Deleted old Devil Arm"
 				p.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2)
 				p << "Added new Devil Arm (Apparently Stable)"
+				if(!p.race?:devil_arm_upgrades)
+					p.race?:devil_arm_upgrades = 1
+				p << "devil arm upgrades set to 1. if your devil arm doesn't work, a help"
+
 			if(p.isRace(GAJALAKA))
+				for(var/obj/Items/mineral/min in p)
+					Log("Admin", "[ExtractInfo(p)] has a mineral stack with [min.value] total.")
+					world.log<< "[ExtractInfo(p)] has a mineral stack with [min.value] total."
 				p.EnhancedHearing = 0
 				p.EconomyMult /= 2
 				p.Intelligence = 0.75
+			if()
 			..()
