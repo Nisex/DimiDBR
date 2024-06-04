@@ -1,9 +1,9 @@
 #define NO_PENALTY 0
-#define TAX_PENALTY 1
-#define HEALTH_PENALTY 2
-#define ENERGY_PENALTY 3
-#define MANA_PENALTY 4
-#define DEATH_PENALTY 5
+#define TAX_PENALTY (1 << 1)
+#define HEALTH_PENALTY (1 << 2)
+#define ENERGY_PENALTY (1 << 3)
+#define MANA_PENALTY (1 << 4)
+#define DEATH_PENALTY (1 << 5)
 #define PENALTY_LIST list("No Penalty", "Tax Penalty", "Health Penalty", "Energy Penalty", "Mana Penalty", "Death Penalty")
 #define PENALTY_TRANSLATION_LIST list("No Penalty" = NO_PENALTY, "Tax Penalty" = TAX_PENALTY, "Health Penalty" = HEALTH_PENALTY, "Energy Penalty" = ENERGY_PENALTY, "Mana Penalty" = MANA_PENALTY, "Death Penalty" = DEATH_PENALTY)
 
@@ -110,6 +110,8 @@ proc/findPactByID(id)
 	if(!presentPact(subject))
 		owner << "[subject] rejected your pact!"
 		del src
+	owner << "[subject] has accepted your pact!"
+	subject << "The pact is signed..."
 	sealed = TRUE
 	pactID = glob.allPacts.len+1
 	glob.allPacts += src
