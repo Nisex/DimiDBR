@@ -39,7 +39,8 @@
         Reduce(num)
 
 #define PLAYER_EXCHANGE_RATE 6
-#define NPC_EXCHANGE_RATE 2
+
+/globalTracker/var/NPC_EXCHANGE_RATE  = 0.75
 
 // we need an npc that when clicked will exchange these
 // we also need an exchange for the player that can do it
@@ -90,13 +91,13 @@
     if(howMany < 1) howMany = 1
     if(npc)
         npc.Replenish() // check to see if a day has passed to replenish the npc
-        if(npc.bank < howMany * NPC_EXCHANGE_RATE)
+        if(npc.bank < howMany * glob.NPC_EXCHANGE_RATE)
             p << "The npc doesn't have enough Dollars to exchange."
             return
         else
-            npc.bank -= howMany * NPC_EXCHANGE_RATE
-            p << "You exchange [howMany] Mana Bits for [howMany * NPC_EXCHANGE_RATE] Dollars."
-            p.GiveMoney(howMany * NPC_EXCHANGE_RATE)
+            npc.bank -= howMany * glob.NPC_EXCHANGE_RATE
+            p << "You exchange [howMany] Mana Bits for [howMany * glob.NPC_EXCHANGE_RATE] Dollars."
+            p.GiveMoney(howMany * glob.NPC_EXCHANGE_RATE)
     else
         var/exchangeRate = getExchangeRate(p.information.faction)
         p.GiveMoney(howMany * exchangeRate)
