@@ -11,12 +11,12 @@ obj
 
 		New(_x,_y,_z)
 			loc = locate(_x,_y,_z)
-			general_tick += src
+			ticking_generic += src
 			for(var/mob/m in loc)
 				tick_on |= m
 			spawn(lifetime)
 				if(src)
-					general_tick -= src
+					ticking_generic -= src
 					owner = null
 					tick_on = null
 					loc = null
