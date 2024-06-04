@@ -40,11 +40,7 @@ proc/findPactByID(id)
 
 /obj/Pact
 /obj/Pact/var/pactLimit = PACT_LIMIT
-/obj/Pact/var/list/currentPacts // a list with ids to pacts in it
-
-/obj/Pact/New()
-	..()
-	currentPacts = list()
+/obj/Pact/var/list/currentPacts = list()// a list with ids to pacts in it
 
 /obj/Pact/verb/Create_Pact()
 	set category = "Skills"
@@ -92,7 +88,8 @@ proc/findPactByID(id)
 
 	var/target = pickTarget(user, validTargets)
 
-	var/datum/Pact/pact = new(user, target)
+	var/datum/Pact/pact = new()
+	pact.CreatePact(user, target)
 	currentPacts += pact.pactID
 
 /datum/Pact
@@ -106,7 +103,7 @@ proc/findPactByID(id)
 /datum/Pact/var/broken = FALSE // if the pact is broken.
 /datum/Pact/var/pactID
 
-/datum/Pact/New(mob/Players/owner, mob/Players/subject)
+/datum/Pact/proc/CreatePact(mob/Players/owner, mob/Players/subject)
 	ownerUID = owner.UniqueID
 	subjectUID = subject.UniqueID
 	createDetails(owner)
@@ -123,7 +120,6 @@ proc/findPactByID(id)
 	sealed = TRUE
 	pactID = glob.allPacts.len+1
 	glob.allPacts += src
-
 /datum/Pact/proc/presentPact(mob/presentingTo)
 	viewDetails(presentingTo)
 	var/accept = input(presentingTo, "Do you accept the pact with the penalties of [translatePenalty(PACT_OWNER)] for the owner([findPlayerByUID(ownerUID)]), and [translatePenalty(PACT_SUBJECT)] for the subject([presentingTo.name]) from [findPlayerByUID(ownerUID)]? The harshness of these penalties are [getHarshnessForDisplay()]% of your values.") in list("Yes", "No")
