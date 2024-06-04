@@ -273,7 +273,7 @@ mob
 						src.AddPoison(val*0.5, defender)
 
 
-			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.passive_handler.Get("Defiance")&&!defender.CheckSlotless("Oozaru"))
+			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.passive_handler.Get("Defiance")&&!defender.CheckSlotless("Great Ape"))
 				if(defender.DefianceCounter<10)
 					if(defender.Anger)
 						if(val>=(1/defender.AscensionsAcquired)&&val<(2/defender.AscensionsAcquired))
@@ -292,7 +292,7 @@ mob
 							defender.DefianceCounter=10
 
 			if(defender.HasAdaptation()&&src==defender.Target||src.HasAdaptation()&&defender==src.Target)
-				if(defender.HasAdaptation()&&!defender.CheckSlotless("Oozaru"))
+				if(defender.HasAdaptation()&&!defender.CheckSlotless("Great Ape"))
 					defender.AdaptationTarget=src
 					defender.AdaptationCounter+=(val*(defender.AscensionsAcquired/40))
 					if(defender.AdaptationCounter>=1)
@@ -300,7 +300,7 @@ mob
 						if(!defender.AdaptationAnnounce)
 							defender << "<b>You've adapted to your target's style!</b>"
 							defender.AdaptationAnnounce=1
-				if(src.HasAdaptation()&&!CheckSlotless("Oozaru"))
+				if(src.HasAdaptation()&&!CheckSlotless("Great Ape"))
 					src.AdaptationTarget=defender
 					src.AdaptationCounter+=(val*(src.AscensionsAcquired/40))
 					if(src.AdaptationCounter>=1)
@@ -1241,7 +1241,7 @@ mob
 				Str+=src.Target.GetMAEnd()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!CheckSlotless("Oozaru"))
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							Str+=(src.Target.GetMAEnd()*0.5*src.AdaptationCounter)
 			if(Str<0.1)
@@ -1349,7 +1349,7 @@ mob
 				For+=src.Target.GetMAEnd()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!CheckSlotless("Oozaru"))
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							For+=(src.Target.GetMAEnd()*0.5*src.AdaptationCounter)
 			if(For<0.1)
@@ -1443,7 +1443,7 @@ mob
 				End+=(src.Target.GetMAStr()+src.Target.GetMAFor())*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!CheckSlotless("Oozaru"))
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							End+=((src.Target.GetMAStr()+src.Target.GetMAFor())*0.5*src.AdaptationCounter)
 			if(End<0.1)
@@ -1539,7 +1539,7 @@ mob
 				Spd+=src.Target.GetMASpd()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!CheckSlotless("Oozaru"))
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							Spd+=(src.Target.GetMASpd()*0.5*src.AdaptationCounter)
 			if(Spd<0.1)
@@ -1615,7 +1615,7 @@ mob
 				Off+=src.Target.GetMADef()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!CheckSlotless("Oozaru"))
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							Off+=(src.Target.GetMADef()*0.5*src.AdaptationCounter)
 			if(Off<0.1)
@@ -1682,7 +1682,7 @@ mob
 				Def+=src.Target.GetMAOff()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!CheckSlotless("Oozaru"))
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							Def+=(src.Target.GetMAOff()*0.5*src.AdaptationCounter)
 			if(Def<0.1)
@@ -2713,11 +2713,11 @@ mob
 			src.icon_state="Flight"
 			MaxDistance*=world.tick_lag
 			if(Delay < 0.1) Delay = 0.1
-			var/blur_filter = filter(type="angular_blur", x=0, y=0, size=1)
-			filters += blur_filter
+	//		var/blur_filter = filter(type="angular_blur", x=0, y=0, size=1)
+	//		filters += blur_filter
 			while(MaxDistance>0)
 				var/travel_angle = GetAngle(src, Trg)
-				animate(filters[filters.len], x=sin(travel_angle)*(6/Delay), y=cos(travel_angle)*(6/Delay), time=Delay)
+//				animate(filters[filters.len], x=sin(travel_angle)*(6/Delay), y=cos(travel_angle)*(6/Delay), time=Delay)
 				step_towards(src,Trg)
 				if(Trg in oview(1, src))
 					MaxDistance=0
@@ -2740,7 +2740,7 @@ mob
 					if(DelayRelease>=1)
 						DelayRelease--
 						sleep(1*world.tick_lag)
-			filters -= blur_filter
+	//		filters -= blur_filter
 			src.Frozen=0
 			if(src.is_dashing>0)
 				src.is_dashing--

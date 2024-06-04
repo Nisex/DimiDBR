@@ -6,7 +6,7 @@ proc
 				i=image(loc=User, icon=Image, pixel_x=PX-User.pixel_x, pixel_y=PY-User.pixel_y, pixel_z=PZ, layer=User.layer-1, dir=User.dir)
 			else
 				i=image(loc=User, icon=Image, pixel_x=PX-User.pixel_x, pixel_y=PY-User.pixel_y, pixel_z=PZ, layer=EFFECTS_LAYER, dir=User.dir)
-			if(User.CheckSlotless("Oozaru"))
+			if(User.CheckSlotless("Great Ape"))
 				i.transform*=3
 		if(AltLoc&&!User)
 			if(Under)
@@ -29,7 +29,7 @@ proc
 				i=image(loc=User, icon=Image, pixel_x=PX-User.pixel_x, pixel_y=PY-User.pixel_y, pixel_z=PZ, layer=User.layer-1, dir=User.dir)
 			else
 				i=image(loc=User, icon=Image, pixel_x=PX-User.pixel_x, pixel_y=PY-User.pixel_y, pixel_z=PZ, layer=EFFECTS_LAYER, dir=User.dir)
-			if(User.CheckSlotless("Oozaru"))
+			if(User.CheckSlotless("Great Ape"))
 				i.transform*=3
 		if(AltLoc&&!User)
 			if(Under)

@@ -19,7 +19,7 @@ mob/proc/GetAssess()
 		if(src.AngerThreshold)
 			if(EffectiveAnger<src.AngerThreshold)
 				EffectiveAnger=src.AngerThreshold
-		if(src.DefianceCounter>0&&!CheckSlotless("Oozaru"))
+		if(src.DefianceCounter>0&&!CheckSlotless("Great Ape"))
 			EffectiveAnger+=src.DefianceCounter*0.05
 		if(src.CyberCancel>0)
 			var/ang=EffectiveAnger-1//Usable anger.

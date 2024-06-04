@@ -750,10 +750,6 @@ mob
 					src.BindingTimer=0
 					if(src.Binding>=1)
 						src.TriggerBinding()
-			if(src.Oozaru)
-				src.OozaruTimer--
-				if(src.OozaruTimer<=0)
-					src.Oozaru(0)
 
 /*
 			if(src.FusionTimer>0)

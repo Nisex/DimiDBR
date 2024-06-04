@@ -42,7 +42,8 @@
 			if(!Controlled)
 				usr<<"You cannot will yourself out of the transformed state!"
 				return
-			usr.Oozaru(0)
+			usr.Oozaru = 0
+			Trigger(usr, Override = 1)
 		usr<< "You will [Looking ? "look" : "not look"] at the moon."
 
 	adjust(mob/p)

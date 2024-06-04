@@ -172,7 +172,7 @@
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
 
-	if(defender.DefianceRetaliate&&!defender.CheckSlotless("Oozaru"))
+	if(defender.DefianceRetaliate&&!defender.CheckSlotless("Great Ape"))
 		if(Health>defender.Health)
 			trueMult -= defender.DefianceRetaliate
 			#if DEBUG_DAMAGE

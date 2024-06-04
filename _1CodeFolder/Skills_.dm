@@ -676,7 +676,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 			if("PowerUp")
 				if(src.KO)return
 				if(src.PoweringDown)return
-				if(CheckSlotless("Oozaru"))return
+				if(CheckSlotless("Great Ape"))return
 				if(passive_handler.Get("Piloting"))return
 				if(src.Transforming)return
 				if(src.Kaioken)
@@ -731,7 +731,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 			if("PowerDown")
 				if(src.KO)
 					return
-				if(CheckSlotless("Oozaru"))
+				if(CheckSlotless("Great Ape"))
 					return
 				if(passive_handler.Get("Piloting"))
 					return
