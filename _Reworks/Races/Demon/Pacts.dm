@@ -191,7 +191,7 @@ proc/findPactByID(id)
 	details = input(writer, "What would you like the details to be?") as message
 
 /datum/Pact/proc/viewDetails(mob/viewer)
-	viewer << browse(details)
+	viewer << browse(html_encode(details))
 
 /datum/Pact/proc/confirmDetails(mob/owner)
 	viewDetails(owner)
