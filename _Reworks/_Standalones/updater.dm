@@ -92,7 +92,7 @@ update
 					Log("Admin", "[ExtractInfo(p)] has a mineral stack with [min.value] total.")
 					world.log<< "[ExtractInfo(p)] has a mineral stack with [min.value] total."
 				p.EnhancedHearing = 0
-				p.EconomyMult /= 2
+				if(p.EconomyMult==2)
+					p.EconomyMult /= 2
 				p.Intelligence = 0.75
-			if()
 			..()
