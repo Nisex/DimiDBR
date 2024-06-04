@@ -22,7 +22,8 @@
 	Enlarge = 1.5
 	TransformX = -32
 	TransformY = -32
-	AuraLock = 1
+	AuraLock = 'BLANK.dmi'
+	ActiveBuffLock = 1
 	passives = list("Vulnerable Behind" = 1, "GiantForm" = 1, "NoDodge" = 1, "SweepingStrike" = 1, \
 	"Meaty Paws" = 1, "EndlessAnger" = 1)
 	StrMult = 1.3
