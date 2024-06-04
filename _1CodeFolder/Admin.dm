@@ -112,7 +112,7 @@ mob/Admin3/verb/LoadSwapMap()
 	var/message = input(usr,"What do you want to whisper to them?","Cursespeak") as message | null
 	if(message)
 		message = "<i><font color='#F82D2D'>[message]</font></i>"
-		Log("Admin","[ExtractInfo(usr)] cursespeaked [m] the following: [message]", 3)
+		Log("Admin","[ExtractInfo(usr)] cursespeaked [m] the following: [message]", 0, 3)
 		usr << "You sent: [message]"
 		m << "[message]"
 		spawn()Log(m.ChatLog(),"<font color=#CC3300>*Cursespeak: [html_decode(message)]*")
@@ -958,7 +958,7 @@ mob/Admin2/verb
 					mo << output("<b>(OBSERVE)</b><font color=yellow>[msg]", "icchat")
 					mo << output("<b>(OBSERVE)</b><font color=yellow>[msg]", "output")
 
-		Log("Admin", "[ExtractInfo(usr)] narrated ([msg]).", 3)
+		Log("Admin", "[ExtractInfo(usr)] narrated ([msg]).", 0, 3)
 
 	Summon(mob/M as mob|obj in world)
 		set category="Admin"

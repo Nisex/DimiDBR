@@ -139,7 +139,7 @@ proc/findPactByID(id)
 		text += "Mana Penalty, "
 	if(penalty & DEATH_PENALTY)
 		text += "Death Penalty, "
-	text = replacetext(text, ", ", ".", -3, -1)
+	text = replacetext(text, ", ", ".", -3, 0)
 	return text
 
 /datum/Pact/proc/choosePenalties(mob/picker)
