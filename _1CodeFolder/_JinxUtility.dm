@@ -2747,7 +2747,7 @@ mob
 			if(src.is_dashing<0)
 				src.is_dashing=0
 			src.icon_state=""
-			animate(src.filters[filters.len], x=0, y=0)
+			//animate(src.filters[filters.len], x=0, y=0)
 			src.dir=get_dir(src,Trg)
 		Reincarnate()
 			src.Savable=0
