@@ -34,8 +34,14 @@
         for(var/variable in scalingValues)
             makSpace.vars[variable] = scalingValues[asc]
         
+        
         passives = p.demon.BuffPassives
         TimerLimit = scalingValues["toDeath"]/10
+    Trigger(mob/User, Override)
+        if(!User.BuffOn(src) && !cooldown_remaining)
+            makSpace.makeSpace(User, User.demon)
+        
+        ..()
     
 
 
