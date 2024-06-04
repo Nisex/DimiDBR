@@ -421,6 +421,21 @@ mob/Players
 		if(stat_redoing)
 			stat_redo(1)
 
+		for(var/obj/Pact/pactObject in src.contents)
+			for(var/pactID in pactObject.currentPacts)
+				var/datum/Pact/p = findPactByID(pactID)
+				if(!p) continue
+				if(!p.broken) continue
+				if(p.ownerPenaltyInflicted&&p.subjectPenaltyInflicted) continue
+				var/whoToInflict
+				switch(p.broken)
+					if(PACT_BROKEN_BOTH_PENALTY)
+						whoToInflict = "Both"
+					if(PACT_BROKEN_OWNER_PENALTY)
+						whoToInflict = PACT_OWNER
+					if(PACT_BROKEN_SUBJECT_PENALTY)
+						whoToInflict = PACT_SUBJECT
+				p.breakPact(TRUE, whoToInflict)
 		return
 	Logout()
 		players -= src
