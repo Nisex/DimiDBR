@@ -2712,11 +2712,11 @@ mob
 			src.Frozen=1
 			src.icon_state="Flight"
 			MaxDistance*=world.tick_lag
+			var/blur_filter = filter(type="angular_blur", x=0, y=0, size=1)
+			filters += blur_filter
 			while(MaxDistance>0)
 				var/travel_angle = GetAngle(src, Trg)
-				if(length(src.filters) < 1)
-					AppearanceOn()
-				animate(src.filters[filters.len], x=sin(travel_angle)*(6/Delay), y=cos(travel_angle)*(6/Delay), time=Delay)
+				animate(filters[filters.len], x=sin(travel_angle)*(6/Delay), y=cos(travel_angle)*(6/Delay), time=Delay)
 				step_towards(src,Trg)
 				if(Trg in oview(1, src))
 					MaxDistance=0
@@ -2739,6 +2739,7 @@ mob
 					if(DelayRelease>=1)
 						DelayRelease--
 						sleep(1*world.tick_lag)
+			filters -= blur_filter
 			src.Frozen=0
 			if(src.is_dashing>0)
 				src.is_dashing--
@@ -2934,7 +2935,7 @@ mob
 			if(src.AfterImageStrike)
 				return
 			src.MovementCharges+=(glob.ZANZO_FLICKER_BASE_GAIN-(max(0.01,MovementCharges)/3)/10)*Mult
-			
+
 			if(src.MovementCharges>3)
 				src.MovementCharges=3
 		GetRPPMult()
