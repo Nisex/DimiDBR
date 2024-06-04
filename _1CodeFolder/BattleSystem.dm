@@ -296,18 +296,18 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 				del(m)
 			for(var/obj/Items/mineral/min in P)
 				foundMineral = TRUE
-				min.value += totalValue
 				if(P.passive_handler.Get("CashCow"))
-					min.value *= 1+(P.passive_handler.Get("CashCow")/10)
+					totalValue *= 1+(P.passive_handler.Get("CashCow")/10)
+				min.value += totalValue
 				min.assignState()
 				min.name = "[Commas(round(min.value))] Mana Bits"
-				P << "You've gained [totalValue* 1+(P.passive_handler.Get("CashCow")/10)] Mana Bits!"
+				P << "You've gained [totalValue * 1+(P.passive_handler.Get("CashCow")/10)] Mana Bits!"
 			if(!foundMineral)
 				var/obj/Items/mineral/mineral = new()
 				P.contents += mineral
-				mineral.value = totalValue
 				if(P.passive_handler.Get("CashCow"))
-					mineral.value *= 1+(P.passive_handler.Get("CashCow")/10)
+					totalValue *= 1+(P.passive_handler.Get("CashCow")/10)
+				mineral.value = totalValue
 				mineral.assignState()
 				mineral.name = "[Commas(round(mineral.value))] Mana Bits"
 				P << "You've gained [totalValue*1+(P.passive_handler.Get("CashCow")/10)] Mana Bits!"
