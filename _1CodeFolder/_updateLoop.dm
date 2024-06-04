@@ -87,6 +87,7 @@ var/list/ticking_generic = list()
 
 world
     Tick()
+        ..()
         if(ticker++ > 10)
             ticker = 1
 
@@ -100,7 +101,7 @@ world
             try
                 ai_tick()
             catch()
-        
+
         try
             general_tick()
         catch()
