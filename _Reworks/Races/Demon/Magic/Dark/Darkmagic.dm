@@ -35,6 +35,7 @@
     ManaCost = 15
     AffectTarget = 1
     Cooldown = 60
+    TimerLimit = 10
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply
     adjust(mob/p)
         if(p.isRace(DEMON) && applyToTarget.type != /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply/Demon)
@@ -57,7 +58,9 @@
     InstantAffect = 1
     TimerLimit = 10
     adjust(mob/p)
-        TimerLimit = MAX_STUN_TIME
+        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 0 
+        var/list/timers = list(2,3,3,4,4)
+        TimerLimit = timers[asc]
         
 
 

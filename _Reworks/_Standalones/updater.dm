@@ -64,8 +64,6 @@ update
 				if(length(p.demon.BuffPassives) < 1 && length(p.demon.DebuffPassives) < 1)
 					p.demon.selectPassive(p, "CORRUPTION_PASSIVES", "Buff")
 					p.demon.selectPassive(p, "CORRUPTION_DEBUFFS", "Debuff")
-				p.AddSkill(new/obj/Skills/Utility/Imitate)
-				p << "Imitate added"
 				for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire/hf in src)
 					if(!hf.possible_skills["Corruption"])
 						hf.possible_skills["Corruption"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space
@@ -75,8 +73,13 @@ update
 		version = 4
 		updateMob(mob/p)
 			if(p.isRace(DEMON))
-				p.AddSkill(new/obj/Skills/Utility/Imitate)
-				p << "Imitate added"
+				if(!p.FindSkill(/obj/Skills/Utility/Imitate))
+					p.AddSkill(new/obj/Skills/Utility/Imitate)
+					p << "Imitate added"
+				del p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm)
+				p << "Deleted old Devil Arm"
+				p.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2)
+				p << "Added new Devil Arm (Apparently Stable)"
 			if(p.isRace(GAJALAKA))
 				p.EnhancedHearing = 0
 				p.EconomyMult /= 2

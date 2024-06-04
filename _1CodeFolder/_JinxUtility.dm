@@ -2933,8 +2933,8 @@ mob
 				Mult*=clamp(glob.ZANZO_FLICKER_LOWEST_CLAMP,1+(flick/glob.ZANZO_FLICKER_DIVISOR), glob.ZANZO_FLICKER_HIGHEST_CLAMP)
 			if(src.AfterImageStrike)
 				return
-			src.MovementCharges+=(glob.ZANZO_FLICKER_BASE_GAIN)
-			(max(0.01,MovementCharges)/3)/10)*Mult
+			src.MovementCharges+=(glob.ZANZO_FLICKER_BASE_GAIN-(max(0.01,MovementCharges)/3)/10)*Mult
+			
 			if(src.MovementCharges>3)
 				src.MovementCharges=3
 		GetRPPMult()
