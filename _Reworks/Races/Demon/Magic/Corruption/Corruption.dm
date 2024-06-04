@@ -59,5 +59,5 @@
         p.Target.StasisSpace=1
         spawn()animate(p.Target.client, color = list(-1,0,0, 0,-1,0, 0,0,-1, 0,1,1), time = 5)
         OMsg(usr, "[usr] locks [usr.Target] in an isolated space!")
-        spawn(1200)
+        spawn(timer[asc])
             del i
