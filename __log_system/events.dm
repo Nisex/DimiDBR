@@ -230,7 +230,7 @@ client/proc/LoginLog(var/title=null)
 			if(computer_id == m.client.computer_id)
 				matches += "[m.key], "
 				continue
-		matches = replacetext(matches, ", ", "", -1, -2)
+		matches = replacetext(matches, ", ", "", length(matches)-3, 0)
 		if(length(matches)>1)
 			AdminMessage("[TimeStamp()]<b> [src.key]</b> | Possible Alts: ([matches]) ([title])")
 		else
