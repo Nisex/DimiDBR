@@ -17,6 +17,7 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Oozaru
 	var/Looking = 1
+	var/Controlled = TRUE // if we ever want 'uncontrolled oozaru'
 	BuffName = "Great Ape"
 	IconTransform = 'Oozonew.dmi'
 	Enlarge = 1.5
@@ -37,8 +38,10 @@
 		usr.verb_delay=world.time+1
 		Looking=!Looking
 		if(usr.Oozaru)
-			usr<<"You cannot will yourself out of the transformed state!"
-			return
+			if(!Controlled)
+				usr<<"You cannot will yourself out of the transformed state!"
+				return
+			Trigger(usr,Override=1)
 		usr<< "You will [Looking ? "look" : "not look"] at the moon."
 
 	adjust(mob/p)
