@@ -2716,7 +2716,7 @@ mob
 	//		var/blur_filter = filter(type="angular_blur", x=0, y=0, size=1)
 	//		filters += blur_filter
 			while(MaxDistance>0)
-				var/travel_angle = GetAngle(src, Trg)
+//				var/travel_angle = GetAngle(src, Trg)
 //				animate(filters[filters.len], x=sin(travel_angle)*(6/Delay), y=cos(travel_angle)*(6/Delay), time=Delay)
 				step_towards(src,Trg)
 				if(Trg in oview(1, src))
