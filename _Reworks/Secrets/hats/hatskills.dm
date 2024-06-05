@@ -88,7 +88,7 @@
 			var/found=0
 			for(var/mob/Players/m in players)
 				if(m==src.WarpTarget)
-					usr.Target=m
+					usr.SetTarget(m)
 					found=1
 			if(!found)
 				usr << "You can't seal the target inside the divide."

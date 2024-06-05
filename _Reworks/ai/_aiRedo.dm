@@ -106,16 +106,16 @@
 		if(istype(enemy, /mob/Player/AI)) continue
 		if(Target)
 			if(get_dist(src, enemy) < get_dist(src, Target))
-				Target = enemy
+				SetTarget(enemy)
 		else
-			Target = enemy
+			SetTarget(enemy)
 
 /mob/Player/AI/proc/Chase()
 	if(isCrowdControlled())
 		return
 	ai_state = "Chase"
 	if(isai(Target))
-		Target = null
+		RemoveTarget()
 		Idle()
 		return
 	fleeing = FALSE
@@ -147,7 +147,7 @@
 					FindTarget1()
 					targetting = world.time
 				if(last_activity + 300 < world.time)
-					Target = null
+					RemoveTarget()
 					Idle()
 			// maybe ranged proc here
 			Attack("ranged")

@@ -21,7 +21,7 @@ mob/Players/verb
 		current_party_target_index +=1
 		if(current_party_target_index > party.members.len)
 			current_party_target_index = 1
-		usr.Target = party.members[current_party_target_index]
+		usr.SetTarget(party.members[current_party_target_index])
 		usr << "You target [usr.Target]."
 	Manage_Party()
 		set category="Party"

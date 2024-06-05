@@ -98,7 +98,6 @@ mob/proc/StartFresh()
 	corpse.StrMod=src.GetStr()
 	corpse.EndMod=src.GetEnd()
 	corpse.ForMod=src.GetFor()
-	corpse.Target=src
 	corpse.DeathKillerTargets=src.key//used for Death Killer
 	corpse.Savable=0
 	var/list/lootTable = list()

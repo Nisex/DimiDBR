@@ -1347,29 +1347,29 @@ mob/Player/AI/Nympharum
 				if(icon_state == "Meditate")
 					icon_state = ""
 
-				Target = ai_owner.Target //Nymphs target their owners target.
+				SetTarget(ai_owner.Target) //Nymphs target their owners target.
 
 				if(Target && get_dist(src, Target) >= ai_vision * 2)
-					Target = null
+					RemoveTarget()
 
 				if(Target && Target.KO)
 					var prev_target = Target
 					if(istype(Target, /mob/Player/AI))
 						var/mob/Player/AI/a = Target
 						if(a.ai_owner)
-							Target = null
+							RemoveTarget()
 							if(prob(40))
-								Target = a.ai_owner
+								SetTarget(a.ai_owner)
 
 							else for(var/mob/m in a.ai_followers)
 								if(!m.KO)
-									Target=m
+									SetTarget(m)
 									break
 							if(!Target)
-								Target = a.ai_owner
+								SetTarget(a.ai_owner)
 
 					if(Target == prev_target)
-						Target = null
+						RemoveTarget()
 						ai_state = "Idle"
 
 				if(Target && Beaming||BusterTech)

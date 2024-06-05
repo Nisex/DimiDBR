@@ -852,7 +852,7 @@ obj/Skills
 					summoned_beast=pick(beasts)
 					summoned_beast.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Godly_Empowerment)
 					summoned_beast.loc=locate(usr.x+pick(-1,1), usr.y+pick(-1,1), usr.z)
-					summoned_beast.Target=Tgt
+					summoned_beast.SetTarget(Tgt)
 					summoned_beast.ai_alliances += usr.ckey
 					Dust(summoned_beast.loc, 3)
 					Dust(summoned_beast.loc, 3)

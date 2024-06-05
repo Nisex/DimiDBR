@@ -2363,7 +2363,7 @@ mob/proc/Grab_Mob(var/mob/P, var/Forced=0)
 			if(aa.ai_hostility >= 1)
 				if(aa.inloop == FALSE && !(aa in ticking_ai))
 					ticking_ai.Add(aa)
-				aa.Target=src
+				aa.SetTarget(src)
 				aa.ai_state = "Chase"
 				aa.last_activity = world.time
 	if(Secret == "Vampire")

@@ -7,7 +7,7 @@
 		aiTarget = defender
 		if(aiTarget.ai_adapting_power && !aiTarget.ai_power_adapted)
 			aiTarget.ai_power_adapted = 1
-			aiTarget.Target=src
+			aiTarget.SetTarget(src)
 			aiTarget.AIAvailablePower()
 		if(!aiTarget.ai_team_fire && aiTarget.AllianceCheck(src))
 			return FALSE

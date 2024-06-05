@@ -472,7 +472,7 @@ mob/Players
 		transform = null
 		filters = null
 		Hair = null
-		Target = null
+		RemoveTarget()
 		GlobalCooldowns = null
 		SkillsLocked = null
 		OldLoc = null

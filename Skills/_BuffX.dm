@@ -7737,7 +7737,7 @@ NEW VARIABLES
 					var/found=0
 					for(var/mob/Players/m in players)
 						if(m==src.WarpTarget)
-							usr.Target=m
+							usr.SetTarget(m)
 							found=1
 					if(!found)
 						usr << "Your duel opponent isn't in the world...So you're stuck here for now."
@@ -9053,7 +9053,7 @@ NEW VARIABLES
 					var/found=0
 					for(var/mob/Players/m in players)
 						if(m==src.WarpTarget)
-							usr.Target=m
+							usr.SetTarget(m)
 							found=1
 					if(!found)
 						usr << "You can't seal the target inside the divide."

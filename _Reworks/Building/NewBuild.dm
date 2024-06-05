@@ -57,7 +57,7 @@ client
 			mob.GenerateHUD()
 
 		DisableBuildMode()
-			mob.Target = null
+			mob.RemoveTarget()
 			mouseTurf = null
 			ClearHighlights()
 			mob.GenerateHUD()
@@ -93,7 +93,7 @@ client
 
 		CancelBuild()
 			buildMode = 0
-			mob.Target = null
+			mob.RemoveTarget()
 			PaintTurfs()
 			ClearSelection()
 			buildMode = 1
@@ -168,6 +168,7 @@ client
 				else
 					B.icon=T.icon
 					B.icon_state=T.icon_state
+				usr.RemoveTarget()
 				usr.Target=B
 				return
 

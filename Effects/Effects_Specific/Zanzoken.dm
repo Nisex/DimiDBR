@@ -327,7 +327,7 @@ mob/Player
 			for(var/mob/m in players)
 				if(m.Target==src)
 					//m<<"Your target has been swapped from [src]([src.type]) to [Owner]([Owner.type])"
-					m.Target=Owner
+					m.SetTarget(Owner)
 			..()
 
 proc

@@ -98,6 +98,9 @@ mob/proc/TwoWayTelepath(var/mob/who, anon)
 
 
 mob/proc/SetTarget(atom/target)
+	if(ismob(Target))
+		var/mob/m = Target
+		m.BeingTargetted -= src
 	src.Target=target
 	if(ismob(target))
 		var/mob/m = target

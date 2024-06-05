@@ -312,7 +312,6 @@ SecretInfomation
 
 		proc/setMadness(madnessSet = 0)
 			secretVariable["Madness"] = clamp(getMadnessLimit(),madnessSet,0)
-			user.Update_Stat_Labels()
 
 		proc/getMadnessBoon()
 			return secretVariable["Madness"]/getMadnessLimit()

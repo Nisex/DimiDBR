@@ -168,7 +168,7 @@ mob
 					if(aa.ai_hostility >= 1)
 						if(aa.inloop == FALSE && !(aa in ticking_ai)) // not even needed but i have a creeping suspicion that ai are getting added multiple times
 							ticking_ai.Add(aa)
-						aa.Target=src
+						aa.SetTarget(src)
 						aa.ai_state = "Chase"
 						aa.last_activity = world.time
 

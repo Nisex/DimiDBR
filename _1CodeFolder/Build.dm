@@ -473,7 +473,7 @@ obj/Others/Build
 				if(usr.SpecialBuff.BuffName=="Kyoukaken")
 					usr.Kyoukaken("Off")
 			usr<<"You have deselected [src]"
-			usr.Target=null
+			usr.RemoveTarget()
 			return
 		if(usr.Target!=src)
 			for(var/sb in usr.SlotlessBuffs)
@@ -492,6 +492,7 @@ obj/Others/Build
 				var/obj/Others/Build/B=usr.Target
 				if(B.Temp)
 					del usr.Target
+			usr.RemoveTarget()
 			usr.Target=src
 			usr<<"You have selected [src]"
 			usr.AdaptationCounter=0

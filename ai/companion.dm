@@ -149,9 +149,9 @@ obj/Skills/Companion
 			if(!usr.Target) usr << "You need a target to use this."
 			for(var/mob/Player/AI/a in usr.ai_followers)
 				if(usr.Target.ai_followers.len)
-					a.Target = pick(usr.Target.ai_followers)
+					a.SetTarget(pick(usr.Target.ai_followers))
 				else
-					a.Target = usr.Target
+					a.SetTarget(usr.Target)
 				a.ai_state = "combat"
 				usr << "You order [a] to attack [usr.Target]!"
 
@@ -160,7 +160,7 @@ obj/Skills/Companion
 			set category = "Companion"
 			if(Using) return
 			for(var/mob/Player/AI/a in usr.ai_followers)
-				a.Target = null
+				a.RemoveTarget()
 				a.ai_state = "Idle"
 				usr << "You order [a] stop fighting!"
 		Companion_Follow()
@@ -287,7 +287,7 @@ obj/Skills/Companion
 							if(!istype(target, /mob))
 								targets -= target
 							else if(target && !a.AllianceCheck(target))
-								a.Target = target
+								a.SetTarget(target)
 								a.ai_state = "combat"
 								break
 							else

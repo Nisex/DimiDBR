@@ -491,7 +491,7 @@ mob/Player/AI
 			filters = null
 			dd = null
 			Hair = null
-			Target = null
+			RemoveTarget()
 			GlobalCooldowns = null
 			SkillsLocked = null
 			OldLoc = null
@@ -514,7 +514,10 @@ mob/Player/AI
 					Observify(p,p)
 			if(BeingTargetted.len>0)
 				for(var/mob/p in BeingTargetted)
-					p.RemoveTarget()
+					if(p.Target==src)
+						p.RemoveTarget()
+					else
+						BeingTargetted -= p
 			if(active_projectiles.len>0)
 				for(var/obj/Skills/Projectile/_Projectile/p in active_projectiles)
 					p.endLife()
@@ -719,7 +722,7 @@ mob/Player/AI
 				if(Target && P==Target) continue
 
 				if(!return_position && !hold_position) return_position = loc
-				Target = P
+				SetTarget(P)
 				return 1
 		WalkPosition()
 			var direction = angle2dir(ai_facedir)
