@@ -2,6 +2,7 @@ obj
 	Skills
 		Buffs
 			var
+				CorruptionGain
 				AngerPoint // set an anger point
 				StyleStr=1
 				StyleFor=1
