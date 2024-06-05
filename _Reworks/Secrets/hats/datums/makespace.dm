@@ -13,6 +13,7 @@ spaceMaker
 
 // init this, makes it flexible
 	proc/makeSpace(mob/p, effect2Apply)
+		turfs = list()
 		world.log << "Making space at [p.x], [p.y], [p.z] with [effect2Apply]"
 		var/correctLowerX = clamp(p.x - range,0 , world.maxx)
 		var/correctLowerY = clamp(p.y - range,0 , world.maxy)
@@ -70,20 +71,10 @@ spaceMaker
 /turf/var/timeToDeath = 0
 /turf/var/tmp/mob/ownerOfEffect
 /turf/proc/applyEffect(option, timer, mob/p)
-	//world<<"Applying [option] for [timer] ticks at [src.x], [src.y]"
 	timeToDeath = timer
-	effectApplied = "[option]" // the "[]" is not needed, but maybe u passed a number who knows
+	effectApplied = option // the "[]" is not needed, but maybe u passed a number who knows
 	ticking_turfs += src
 	ownerOfEffect = p
-	switch(option)
-		if("Stellar")
-			var/direction = pick("ew","ns")
-			var/num = rand(1,15)
-			var/image/i = image(icon = 'GalSpace.dmi', icon_state = "speedspace_[direction]_[num]")
-			i.alpha = 0
-			animate(i, alpha = 255, time = 3)
-			overlays+=i
-	
 	if(istype(option, /datum/DemonRacials))
 		var/direction = pick("ew","ns")
 		var/num = rand(1,15)
@@ -91,7 +82,15 @@ spaceMaker
 		i.alpha = 0
 		animate(i, alpha = 255, time = 3)
 		overlays+=i
-
+	else
+		switch(option)
+			if("Stellar")
+				var/direction = pick("ew","ns")
+				var/num = rand(1,15)
+				var/image/i = image(icon = 'GalSpace.dmi', icon_state = "speedspace_[direction]_[num]")
+				i.alpha = 0
+				animate(i, alpha = 255, time = 3)
+				overlays+=i
 
 
 

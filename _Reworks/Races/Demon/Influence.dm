@@ -21,11 +21,11 @@
     for(var/x in DebuffPassives)
         if(x in list("Def", "End", "Str"))
             if(p.vars["[x]Eroded"]<=DebuffPassives[x]/5)
-                p.vars["[x]Eroded"]+=0.005
+                p.vars["[x]Eroded"]+=glob.DEMON_ERODE_DEBUFF_INTENSITY
         else if(x in list("Poison", "Burn", "Slow"))
-            call(p, "Add[x]")(DebuffPassives[x]/3, a)
+            call(p, "Add[x]")(DebuffPassives[x] * glob.DEMON_DOT_DEBUFF_INTENSITY, a)
         else
-            call(p, "Lose[x]")(DebuffPassives[x]/10)
+            call(p, "Lose[x]")(DebuffPassives[x] * glob.DEMON_RESOURCE_DEBUFF_INTENSITY)
 
 
 /datum/DemonRacials/proc/selectPassive(mob/p, type, option, starting = FALSE)

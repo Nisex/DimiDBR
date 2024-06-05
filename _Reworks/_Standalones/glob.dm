@@ -154,7 +154,9 @@ globalTracker
 		list/LockedRaces = list()
 		list/CustomCommons = list("Majin","Half-Saiyan", "Android")
 
-
+		DEMON_ERODE_DEBUFF_INTENSITY = 0.005
+		DEMON_DOT_DEBUFF_INTENSITY = 2
+		DEMON_RESOURCE_DEBUFF_INTENSITY = 0.2
 
 // globals
 		WorldBaseAmount = 1

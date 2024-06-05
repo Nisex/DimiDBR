@@ -27,21 +27,21 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space
     makSpace = new/spaceMaker/Demon
-    Cooldown = -1
+    Cooldown = 10
+
     var/scalingValues = list("toDeath" = list(300,600,900,1200,1200), "range" = list(5,8,10,12,20))
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
+        makSpace.configuration = "Fill"
         for(var/variable in scalingValues)
-            makSpace.vars[variable] = scalingValues[asc]
-        
-        
+            makSpace.vars[variable] = scalingValues[variable][asc]
         passives = p.demon.BuffPassives
-        TimerLimit = scalingValues["toDeath"]/10
+        TimerLimit = scalingValues["toDeath"][asc]/10
     Trigger(mob/User, Override)
-        if(!User.BuffOn(src) && !cooldown_remaining)
+        if(!User.BuffOn(src) && cooldown_remaining <= 0)
+            adjust(User)
             makSpace.makeSpace(User, User.demon)
-        
-        ..()
+            ..()
     
 
 

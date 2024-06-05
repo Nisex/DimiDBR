@@ -1562,7 +1562,8 @@ mob
 							if(TotalFatigue > 0)
 								TotalFatigue -= 0.15
 				if((istype(T.effectApplied, /datum/DemonRacials)))
-					T.effectApplied?:applyDebuffs(src, T.ownerOfEffect)
+					if(src != T.ownerOfEffect)
+						T.effectApplied?:applyDebuffs(src, T.ownerOfEffect)
 			if(!passive_handler.Get("StaticWalk")&&!src.Dead)
 				if(istype(loc,/turf/Special/Static))
 					src.Health-=0.05
