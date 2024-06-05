@@ -4769,7 +4769,8 @@ mob
 							src.LoseMana(drain/Drain)
 						if(Z.CorruptionGain)
 							gainCorruption(drain / 3)
-
+					if(Z.CorruptionCost)
+						gainCorruption(-Z.CorruptionCost)
 					if(Z.CapacityCost)
 						src.LoseCapacity(Z.CapacityCost/Drain)
 					if(Z.MaimCost)

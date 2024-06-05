@@ -5330,7 +5330,7 @@ mob
 					var/gain = drain*CostMultiplier / 3
 					gainCorruption(gain / 3)
 			if(Z.CorruptionCost)
-				gainCorruption(Z.CorruptionCost)
+				gainCorruption(-Z.CorruptionCost)
 
 			if(Z.CapacityCost)
 				src.LoseCapacity(Z.CapacityCost*CostMultiplier)

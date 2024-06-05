@@ -104,6 +104,28 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 			calmcounter--
 		else
 			calmcounter=5
+		
+		if(Secret == "Vampire" && MeditateTime == 10)
+			var/obj/Skills/Buffs/SlotlessBuffs/R = GetSlotless("Rotshreck")
+			if(R && R.NeedsHealth == 0)
+				R.NeedsHealth = 25
+				R.TooMuchHealth = 50
+				R:adjust(src)
+				src<<"You no longer fear for your life..."
+
+		if(MeditateTime == 15)
+			if(isRace(MAJIN))
+				majinPassive.resetVariables(src)
+			for(var/obj/Skills/s in Skills) if(s.Cooldown<0 && s.Using)
+				src << "One or more of your skills will be made available to you again when you stop meditating."
+				break
+
+		if(MeditateTime == 40)
+			if(SpecialBuff)
+				if(SpecialBuff.BuffName == "Ripper Mode")
+					SpecialBuff?:sandevistanUsages = 0
+					src << "Your Sandevistan Usages has been reset."
+
 		if(calmcounter<=0)
 			calmcounter=5
 			if(Anger)
@@ -309,56 +331,58 @@ mob
 
 		if(!src.PureRPMode)
 
-			if(calmcounter<=0)
-				calmcounter=5
-				if(Anger)
-					src.Calm()
+			// if(calmcounter<=0)
+			// 	calmcounter=5
+			// 	if(Anger)
+			// 		src.Calm()
 
-			if(icon_state == "Meditate")
-				MeditateTime++
 
-				if(src.Health>=75*(1-src.HealthCut)&&src.Anger!=0)
-					calmcounter--
-				else
-					calmcounter=5
+			meditationChecks()
+			// if(icon_state == "Meditate")
+			// 	MeditateTime++
 
-				if(Secret == "Vampire" && MeditateTime == 10)
-					var/obj/Skills/Buffs/SlotlessBuffs/R = GetSlotless("Rotshreck")
-					if(R && R.NeedsHealth == 0)
-						R.NeedsHealth = 25
-						R.TooMuchHealth = 50
-						R:adjust(src)
-						src<<"You no longer fear for your life..."
-				if(MeditateTime == 15)
-					if(isRace(MAJIN))
-						majinPassive.resetVariables(src)
-					for(var/obj/Skills/s in Skills) if(s.Cooldown<0 && s.Using)
-						src << "One or more of your skills will be made available to you again when you stop meditating."
-						break
-					if(CheckSpecial("Jinchuuriki"))
-						for(var/obj/Skills/Buffs/SpecialBuffs/Cursed/Jinchuuriki/J in Buffs)
-							if(J.Mastery > 1)
-								break
-							else
-								J.Trigger(src,Override=1)
-								break
-					if(CheckSpecial("Vaizard Mask"))
-						for(var/obj/Skills/Buffs/SpecialBuffs/Cursed/Vaizard_Mask/V in Buffs)
-							if(V.Mastery > 1)
-								break
-							else
-								V.Trigger(src,Override=1)
-								break
-				if(MeditateTime == 40)
-					if(SpecialBuff)
-						if(SpecialBuff.BuffName == "Ripper Mode")
-							SpecialBuff?:sandevistanUsages = 0
-							src << "Your Sandevistan Usages has been reset."
-					// dmn i dont want to search for the buff if it is inactive
-					// cant let it reset on trigger
+			// 	if(src.Health>=75*(1-src.HealthCut)&&src.Anger!=0)
+			// 		calmcounter--
+			// 	else
+			// 		calmcounter=5
 
-			else
-				MeditateTime=0
+			// 	if(Secret == "Vampire" && MeditateTime == 10)
+			// 		var/obj/Skills/Buffs/SlotlessBuffs/R = GetSlotless("Rotshreck")
+			// 		if(R && R.NeedsHealth == 0)
+			// 			R.NeedsHealth = 25
+			// 			R.TooMuchHealth = 50
+			// 			R:adjust(src)
+			// 			src<<"You no longer fear for your life..."
+			// 	if(MeditateTime == 15)
+			// 		if(isRace(MAJIN))
+			// 			majinPassive.resetVariables(src)
+			// 		for(var/obj/Skills/s in Skills) if(s.Cooldown<0 && s.Using)
+			// 			src << "One or more of your skills will be made available to you again when you stop meditating."
+			// 			break
+			// 		if(CheckSpecial("Jinchuuriki"))
+			// 			for(var/obj/Skills/Buffs/SpecialBuffs/Cursed/Jinchuuriki/J in Buffs)
+			// 				if(J.Mastery > 1)
+			// 					break
+			// 				else
+			// 					J.Trigger(src,Override=1)
+			// 					break
+			// 		if(CheckSpecial("Vaizard Mask"))
+			// 			for(var/obj/Skills/Buffs/SpecialBuffs/Cursed/Vaizard_Mask/V in Buffs)
+			// 				if(V.Mastery > 1)
+			// 					break
+			// 				else
+			// 					V.Trigger(src,Override=1)
+			// 					break
+			// 	if(MeditateTime == 40)
+			// 		if(SpecialBuff)
+			// 			if(SpecialBuff.BuffName == "Ripper Mode")
+			// 				SpecialBuff?:sandevistanUsages = 0
+			// 				src << "Your Sandevistan Usages has been reset."
+			// 		// dmn i dont want to search for the buff if it is inactive
+			// 		// cant let it reset on trigger
+
+			// else
+			// 	MeditateTime=0
 
 			if(src.Lethal)
 				src.Lethal--

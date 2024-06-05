@@ -22,6 +22,8 @@
     for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in p)
         if("[dm.type]" == "[t]") // all instances of this 
             for(var/x in dm.possible_skills)
+                if(x == "Corruption")
+                    continue // no longer cuck corruption skills
                 if(dm.possible_skills[x])
                     dm.possible_skills[x].Using= 0 
                     dm.possible_skills[x].Cooldown(modify, Time, p)
