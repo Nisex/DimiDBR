@@ -93,18 +93,13 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 			Corruption = max(MinCorruption, Corruption)
 		if(Secret == "Eldritch")
 			var/SecretInfomation/Eldritch/s = secretDatum
-			s.secretVariable["Madness"] -= 6 - s.currentTier
-			s.secretVariable["Madness"] = max(0, s.secretVariable["Madness"])
-			if(s.secretVariable["Madness"] <=0 && CheckSlotless("True Form"))
-				src << "You have exhausted all the madness and have reverted to your sane form."
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form/fmf in src)
-					fmf.Trigger(src, Override=1)
+			s.releaseMadness(src)
 
 		if(Health>=75*(1-HealthCut) && Anger!=0)
 			calmcounter--
 		else
 			calmcounter=5
-		
+
 		if(Secret == "Vampire" && MeditateTime == 10)
 			var/obj/Skills/Buffs/SlotlessBuffs/R = GetSlotless("Rotshreck")
 			if(R && R.NeedsHealth == 0)
