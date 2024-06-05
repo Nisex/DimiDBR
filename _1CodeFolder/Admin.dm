@@ -400,9 +400,7 @@ mob/proc/CheckPunishment(var/z)
 proc/AdminMessage(var/msg, adminLevel = 1)
 	for(var/mob/Players/M in admins)
 		if(M.Admin<adminLevel) continue
-		for(var/obj/Communication/x in M)
-			if(x.AdminAlerts)
-				M<<"<b><font color=red>(Admin)</b><font color=fuchsia> [msg]"
+		M<<"<b><font color=red>(Admin)</b><font color=fuchsia> [msg]"
 
 proc/Punishment(var/z)
 	z=params2list(z)
