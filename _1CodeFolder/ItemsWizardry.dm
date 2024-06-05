@@ -2614,6 +2614,7 @@ obj/Items/Enchantment/Staff
 	var/CalmAnger=0
 	var/StaffIconSelected=0
 	var/Conjured=0
+	var/modifiedAttack = TRUE
 	UpdatesDescription=1
 	Repairable=1
 	Element=0
@@ -2704,6 +2705,9 @@ obj/Items/Enchantment/Staff
 			desc+="Upgrade Type: [Conversions]"
 		desc+="<br>Staffs alter the effects of projectile combat and have their own advantages and disadvantages.<br>"
 
+	verb/Toggle_Staff_Projectile()
+		modifiedAttack=!modifiedAttack
+		usr<< "You will now[modifiedAttack ? "" : " not"] shoot staff projectiles on basic attack."
 
 proc/Can_Afford_Enchantment(mob/P,obj/Items/O) for(var/obj/Money/M in P) if(O.Cost<=M.Level) return 1
 proc/Enchantment_Price(mob/P,obj/Items/O) return O.Cost
