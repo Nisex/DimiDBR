@@ -67,3 +67,28 @@
         OMsg(usr, "[usr] locks [usr.Target] in an isolated space!")
         spawn(1200)
             del i
+    
+
+/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self
+    Cooldown = -1
+
+
+    adjust(mob/p)
+        var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/)
+        if(!d)
+            p << "Error in setting up Corrupt Self pls gmhelp"
+        
+        passives = d.passives.Copy()
+        // put it on cd
+    verb/Impose_Will()
+        set category = "Skills"
+        set desc = "Bring forth your true form without alerting others."
+    
+    Trigger(mob/User, Override)
+        ..()
+        var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/)
+        if(User.BuffOn(src))
+            if(p.BuffOn(d))
+                d.Trigger(p, 1)
+                // jump out of true form
+            d.Cooldown()
