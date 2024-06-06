@@ -119,7 +119,7 @@ client/proc/sayProc(T, mode = null)
 		T = replacetext(T, whisperSlashRegex, "")
 		Whisper(T)
 		return
-	else if(mode==YELL||findtext(T,yellSlashRegex))
+	else if(findtext(T,yellRegex)||mode==YELL||findtext(T,yellSlashRegex))
 		radius = YELL_RADIUS
 		sayNoun = pick(YELL_NOUNS)
 		if(findtext(T,yellSlashRegex))
