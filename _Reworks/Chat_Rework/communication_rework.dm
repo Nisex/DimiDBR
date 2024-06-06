@@ -2,7 +2,7 @@
 #define SAY_RADIUS 12
 #define YELL_RADIUS 20
 var/regex/LOOCRegex = new(@"^[\(\)\{\}]|[\(\)\{\}]$")
-var/regex/yellRegex = new(@"!$")
+var/regex/yellRegex = new(@"!!!$")
 var/regex/questionRegex = new(@"\?$")
 var/regex/whisperSlashRegex = new(@"^/w\s")
 var/regex/yellSlashRegex = new(@"^/y\s")
