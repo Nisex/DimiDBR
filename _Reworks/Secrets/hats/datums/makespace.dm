@@ -57,7 +57,7 @@ spaceMaker
 					if(T in turfs)
 						continue
 					turfs += T
-					T.applyEffect(effect2Apply, toDeath)
+					T.applyEffect(effect2Apply, toDeath, p)
 // below we will commit crimes
 
 	Constellation
@@ -70,10 +70,10 @@ spaceMaker
 			src.range = 6
 			src.configuration = "Random"
 			src.amount = 18
-	
+
 	Demon
 		configuration = "Fill"
-		
+
 	HellFire
 		configuration = "Fill"
 
@@ -119,6 +119,7 @@ spaceMaker
 	ticking_turfs -= src
 	overlays = list()
 	ownerOfEffect = null
+
 /turf/Update()
 	if(effectApplied) // the latter is assumed, for there's no way to get here unless it is in there, but just in case
 		//world<<"[src] ticking [effectApplied] for [timeToDeath] ticks"

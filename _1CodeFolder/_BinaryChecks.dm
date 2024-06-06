@@ -1399,7 +1399,7 @@ mob
 			var/Extra=0
 			if(src.TarotFate=="Judgment")
 				Extra=1
-			if(passive_handler.Get("LegendaryPower"))
+			if(passive_handler&&passive_handler.Get("LegendaryPower"))
 				return min(1+Extra, passive_handler.Get("LegendaryPower")+Extra)
 			return 0
 		HasHellPower()

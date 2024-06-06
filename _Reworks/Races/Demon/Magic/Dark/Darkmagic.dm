@@ -40,17 +40,17 @@
     adjust(mob/p)
         if(p.isRace(DEMON) && applyToTarget.type != /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply/Demon)
             applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply/Demon
-    
+
     Trigger(var/mob/User, Override=0)
         if(!altered)
             adjust(User)
             applyToTarget?:adjust(User)
         if(..())
-            if(usr.isRace(DEMON))
-                var/asc = usr.AscensionsAcquired
+            if(User.isRace(DEMON))
+                var/asc = User.AscensionsAcquired
                 if(asc < 1)
                     asc = 1
-                usr.gainCorruption(corruptionGain[asc])
+                User.gainCorruption(corruptionGain[asc])
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply
     BuffName = "Dominate Mind Applied"
     MagicNeeded = 0
@@ -58,10 +58,13 @@
     InstantAffect = 1
     TimerLimit = 10
     adjust(mob/p)
-        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 0 
+        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 0
         var/list/timers = list(2,3,3,4,4)
-        TimerLimit = timers[asc]
-        
+        if(asc == 0)
+            TimerLimit = 2
+        else
+            TimerLimit = timers[asc]
+
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply/Demon
