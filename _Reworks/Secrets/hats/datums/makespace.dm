@@ -46,7 +46,6 @@ spaceMaker
 					if(amount && totalApplied + 1 > amount)
 						break
 					turfs += T
-					ticking_turfs += T
 					T.applyEffect(effect2Apply, toDeath, p)
 					totalApplied++
 			if("Random")
@@ -58,7 +57,6 @@ spaceMaker
 					if(T in turfs)
 						continue
 					turfs += T
-					ticking_turfs += T
 					T.applyEffect(effect2Apply, toDeath)
 // below we will commit crimes
 
@@ -122,14 +120,10 @@ spaceMaker
 	overlays = list()
 	ownerOfEffect = null
 /turf/Update()
-	if(effectApplied && timeToDeath > 0) // the latter is assumed, for there's no way to get here unless it is in there, but just in case
+	if(effectApplied) // the latter is assumed, for there's no way to get here unless it is in there, but just in case
 		//world<<"[src] ticking [effectApplied] for [timeToDeath] ticks"
 		timeToDeath--
-		if(timeToDeath <= 15)
-			animate(overlays[overlays.len], alpha = 0, time = 10)
 		if(timeToDeath <= 0)
 			removeEffect()
 	else if(src in ticking_turfs && timeToDeath <= 0)
 		removeEffect()
-	else
-		return

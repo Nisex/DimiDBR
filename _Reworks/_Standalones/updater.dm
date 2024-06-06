@@ -99,7 +99,6 @@ update
 	version5
 		version = 5
 		updateMob(mob/p)
-
 			if(p.isRace(DEMON))
 				var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire/hf = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire)
 				if(!hf)

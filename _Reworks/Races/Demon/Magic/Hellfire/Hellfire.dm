@@ -39,7 +39,7 @@
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
     ElementalClass="Fire"
     var/scalingValues = list("Damage" = list(0.08,0.1,0.1,0.1,0.2), "Distance" = list(8,12,15,20,30), \
-    "DarknessFlame" = list(5,10,15,20,30), "Slow" = list(3,6,8,12,20), "Burning" = list(10,15,20,25,30,50), "Duration" = list(150,200,300,350,400), \
+    "DarknessFlame" = list(3,8,12,15,20), "Slow" = list(3,6,8,12,20), "Burning" = list(10,15,20,25,30,50), "Duration" = list(150,200,300,350,400), \
     "Adapt" = list(1,1,1,1,1), "CorruptionGain" = list(1,1,1,1,1) )
     makSpace = new/spaceMaker/HellFire
     var/icon_to_use = 'LavaRock2.dmi'
@@ -58,12 +58,10 @@
         set category = "Skills"
         src.Trigger(usr)
     Trigger(mob/User, Override = 0)
-        world<<"here"
+        adjust(User)
         if(!User.BuffOn(src) && cooldown_remaining <= 0)
-            adjust(User)
-            world<<"there"
-            makSpace.makeSpace(User, src)
-            ..()
+            if(..())
+                makSpace.makeSpace(User, src)
     proc/applyEffects(mob/target, mob/owner, static_damage)
 
         var/asc = owner.AscensionsAcquired ? owner.AscensionsAcquired : 1
@@ -75,11 +73,12 @@
                     if("CorruptionGain" in scalingValues)
                         owner.gainCorruption(static_damage / 2)
                 if("DarknessFlame")
-                    target.AddPoison(scalingValues["Burning"][asc] * 1 + (scalingValues[x][asc] * 0.125), Attacker=owner)
+                    target.AddPoison(scalingValues["Burning"][asc] * 1 + (scalingValues[x][asc] * 0.25), Attacker=owner)
                 if("Burning")
                     target.AddBurn(scalingValues[x][asc])
                 if("Slow")
                     target.AddSlow(scalingValues[x][asc])
+                    target.AddCrippling(scalingValues[x][asc]/2)
 
 
 

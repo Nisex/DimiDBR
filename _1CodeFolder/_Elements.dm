@@ -460,7 +460,7 @@ mob
 			// 	if(!src.AscensionsAcquired||src.AscensionsAcquired>=3)
 			// 		Value=0
 			if(Race == "Dragon" && Class == "Lightning")
-				Value = 0
+				Value /= 2
 			if(src.HasLegendaryPower() > 0.75)
 				Value = Value*(1-(src.Crippled/glob.DEBUFF_STACK_RESISTANCE))
 				src.Crippled+=Value
