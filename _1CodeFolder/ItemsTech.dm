@@ -1432,6 +1432,21 @@ obj/Items/Tech
 		icon='Communicator.dmi'
 		Cost=0.1
 		var/toggled_on = 1
+		New()
+			..()
+			addToGlobalListeners(src)
+
+		Del()
+			removeFromGlobalListeners(src)
+			..()
+
+		broadcastToListeners(msg)
+			if(!toggled_on) return
+			..()
+
+		recieveBroadcast(msg)
+			if(!toggled_on) return
+			..()
 
 		verb/Toggle_Communicator()
 			toggled_on = !toggled_on
@@ -1447,58 +1462,19 @@ obj/Items/Tech
 			if(usr.InMagitekRestrictedRegion())
 				usr << "The communicator buzzes and loses power."
 				return
-			var/FrequencySelector=src.Frequency
+			var/message = html_encode(Z)
 			for(var/mob/E in hearers(12,usr))
-				E<<"<font color=[usr.Text_Color]>[usr] speaks into a [src]: [html_encode(Z)]"
-			for(var/mob/Players/M in players)
-				for(var/obj/Items/Tech/Scouter/Q in M)
-					if(Q.Frequency==FrequencySelector)
-						M<<"<font color=green><b>([Q.name])</b> [usr.name]: [html_encode(Z)]"
-						M<<output("<font color=green><b>([Q.name])</b> [usr.name]: [html_encode(Z)]","icchat")
-						Log(M.ChatLog(),"<font color=green>([src.name])[usr]([usr.key]) says: [html_encode(Z)]")
-				for(var/obj/Items/Tech/Communicator/Q in M)
-					if(Q.Frequency==FrequencySelector && Q.toggled_on)
-						M<<"<font color=green><b>([Q.name])</b> [usr.name]: [html_encode(Z)]"
-						M<<output("<font color=green><b>([Q.name])</b> [usr.name]: [html_encode(Z)]","icchat")
-						Log(M.ChatLog(),"<font color=green>([src.name])[usr]([usr.key]) says: [html_encode(Z)]")
-				for(var/obj/Skills/Utility/Internal_Communicator/B in M)
-					if(B.ICFrequency==FrequencySelector)
-						M<<"<font color=green><b>(Internal Comms (Freq:[B.ICFrequency]))</b> [usr.name]: [html_encode(Z)]"
-						M<<output("<font color=green><b>(Internal Comms (Freq:[B.ICFrequency]))</b> [usr.name]: [html_encode(Z)]","icchat")
-						Log(M.ChatLog(),"<font color=green>(Internal Comms (Freq: [B.ICFrequency]))[usr]([usr.key]): [html_encode(Z)]")
-					if(B.MonitoringFrequency==FrequencySelector)
-						M<<"<font color=green><b>(Internal Comms (Monitoring Freq:[B.MonitoringFrequency]))</b> [usr.name]: [html_encode(Z)]"
-						M<<output("<font color=green><b>(Internal Comms (Monitoring Freq:[B.MonitoringFrequency]))</b> [usr.name]: [html_encode(Z)]","icchat")
-			for(var/obj/Items/Tech/Speaker/X in world)
-				if(X.Frequency==FrequencySelector&&X.Active==1)
-					for(var/mob/Y in hearers(X.AudioRange,X))
-						Y<<"<font color=green><b>([X.name])</b> [usr.name]: [html_encode(Z)]"
-						Y<<output("<font color=green><b>([X.name])</b> [usr.name]: [html_encode(Z)]","icchat")
-			for(var/obj/Items/Tech/Transmission_Tower/T in world)
-				if(T.Frequency==FrequencySelector)
-					for(var/mob/Players/P in world)
-						if(P.z==T.z)
-							var/found=0
-							for(var/obj/Items/Tech/Scouter/Q in P)
-								found=1
-								P<<"<font color=red><b>(Long-Range Frequency)</b> [usr.name]: [html_encode(Z)]"
-								P<<output("<font color=red><b>(Long-Range Frequency)</b> [usr.name]: [html_encode(Z)]","icchat")
-								Log(P.ChatLog(),"<font color=red>(Long-Range Frequency)[usr]([usr.key]) says: [html_encode(Z)]")
-							if(!found)
-								for(var/obj/Items/Tech/Communicator/Q in P)
-									if(Q.toggled_on)
-										found=1
-										P<<"<font color=red><b>(Long-Range Frequency)</b> [usr.name]: [html_encode(Z)]"
-										P<<output("<font color=red><b>(Long-Range Frequency)</b> [usr.name]: [html_encode(Z)]","icchat")
-										Log(P.ChatLog(),"<font color=red>(Long-Range Frequency)[usr]([usr.key]) says: [html_encode(Z)]")
-							if(!found)
-								for(var/obj/Skills/Utility/Internal_Communicator/B in P)
-									P<<"<font color=red><b>(Long-Range Frequency)</b> [usr.name]: [html_encode(Z)]"
-									P<<output("<font color=red><b>(Long-Range Frequency)</b> [usr.name]: [html_encode(Z)]","icchat")
-									Log(P.ChatLog(),"<font color=red>(Long-Range Frequency)[usr]([usr.key]) says: [html_encode(Z)]")
+				E<<"<font color=[usr.Text_Color]>[usr.name] speaks into a [src.name]: [message]"
+			broadcastToListeners("[usr.name]: [message]")
+
 		verb/Communicator_Frequency()
 			set src in usr
+			var/previousFreq = Frequency
 			Frequency=input(usr,"Change your Communicator frequency to what?","Frequency",Frequency)as num
+			if(previousFreq!=Frequency)
+				addToGlobalListeners(src)
+				if(globalListeners[previousFreq])
+					globalListeners[previousFreq] -= src
 			suffix = "[toggled_on ? "On -- Freq: [Frequency]" : "Off -- Freq:[Frequency]"]"
 	PDA
 		TechType="Telecommunications"
@@ -1632,6 +1608,17 @@ obj/Items/Tech
 			del src
 	Planted_Wiretap
 		var/Revealed=0
+		New()
+			..()
+			addToGlobalListeners(src)
+
+		Del()
+			removeFromGlobalListeners(src)
+			..()
+
+		recieveBroadcast(msg)
+			//wiretaps do not recieve
+
 		verb/Remove_Wiretap()
 			usr << "You remove the wiretap from your body, destroying it in the process."
 			del(src)
@@ -1818,6 +1805,21 @@ obj/Items/Tech
 		var/activeListeners = FALSE
 		icon='security.dmi'
 		icon_state="camera"
+		New()
+			..()
+			addToGlobalListeners(src)
+
+		Del()
+			removeFromGlobalListeners(src)
+			..()
+
+		broadcastToListeners(msg)
+			if(!Active) return
+			..()
+		recieveBroadcast(msg)
+			if(!Active) return
+			..()
+
 		verb/InputPassword()
 			set src in view(1)
 			set name="Set Password"

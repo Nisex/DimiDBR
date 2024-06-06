@@ -1,33 +1,37 @@
 #define BROADCAST_RANGE 12
 #define BROADCAST_COLOR "<font color=green>"
-var/list/globalListeners = list()
+var/tmp/list/globalListeners = list()
 
-proc/addToGlobalListeners(var/obj/Items/Tech/listener)
-	if(globalListeners[listener.Frequency])
-		globalListeners[listener.Frequency] |= listener
+proc/addToGlobalListeners(obj/Items/Tech/listener)
+	if(globalListeners["[listener.Frequency]"])
+		globalListeners["[listener.Frequency]"] |= listener
 	else
-		globalListeners[listener.Frequency] = list(listener)
+		globalListeners += listener.Frequency
+		globalListeners["[listener.Frequency]"] = list(listener)
 
-proc/removeFromGlobalListeners(var/obj/Items/Tech/listener)
+proc/removeFromGlobalListeners(obj/Items/Tech/listener)
 	if(globalListeners[listener.Frequency])
 		globalListeners[listener.Frequency] -= listener
 
 obj/Items/Tech/proc/broadcastToListeners(msg)
 //	if(!Active) return
-	for(var/obj/Items/Tech/i in globalListeners[Frequency])
+	if(!Frequency) return
+	for(var/obj/Items/Tech/i in globalListeners["[Frequency]"])
 		i.recieveBroadcast(msg)
 
 obj/Items/Tech/proc/recieveBroadcast(msg)
 //	if(!Active) return
-	var/broadcastFormatting = "[BROADCAST_COLOR]<b>([name])</b>[msg]"
+	if(!Frequency) return
 	if(ismob(loc))
+		var/broadcastFormattingPersonal = "[BROADCAST_COLOR]<b>([name])</b>[msg]"
 		var/mob/owner = loc
 		if(owner.client)
-			owner.client.outputToChat(broadcastFormatting, list("icchat","output"))
-			Log(owner.ChatLog(),"broadcastFormatting")
-			Log(owner.sanitizedChatLog(),"broadcastFormatting")
+			owner.client.outputToChat(broadcastFormattingPersonal, IC_OUTPUT)
+			Log(owner.ChatLog(),broadcastFormattingPersonal)
+			Log(owner.sanitizedChatLog(),broadcastFormattingPersonal)
 	else
-		OMsg(BROADCAST_RANGE,broadcastFormatting)
+		var/broadcastFormattingAllAround = "[BROADCAST_COLOR]<b>([name]) crackles to life from the floor:</b>[msg]"
+		OMsg(BROADCAST_RANGE,broadcastFormattingAllAround)
 
 
 mob/Players/
@@ -40,4 +44,5 @@ mob/Players/
 	Logout()
 		..()
 		for(var/obj/Items/Tech/F in contents)
+			if(!F.Frequency) continue
 			removeFromGlobalListeners(F)
