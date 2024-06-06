@@ -10,7 +10,7 @@
 
 
 /mob/Players/proc/addMissingSkills()
-	var/list/missingSkills = list(/obj/Communication, /obj/Skills/Meditate, /obj/Skills/Queue/Heavy_Strike, \
+	var/list/missingSkills = list(/obj/Skills/Meditate, /obj/Skills/Queue/Heavy_Strike, \
 	/obj/Skills/Grab, /obj/Skills/Grapple/Toss, /obj/Skills/Dragon_Dash, /obj/Skills/Target_Clear, /obj/Skills/Target_Switch, \
 	/obj/Skills/Reverse_Dash, /obj/Skills/Aerial_Payback, /obj/Skills/Aerial_Recovery, \
 	/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Clash, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Clash_Defensive, \

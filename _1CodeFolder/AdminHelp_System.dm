@@ -98,11 +98,10 @@ mob/verb/AdminHelp(var/txt as message)
 		if(M.Admin)
 			M <<"<font color=red>(PLAYER HELP)</font color> <a href=?src=\ref[usr];action=MasterControl;do=PM;ID=[AHelp.UniqueID]>[usr.key]</a href>[M.Controlz(usr)] : [txt]"
 			M.RefreshListAhelp()
-			for(var/obj/Communication/c in M)
-				if(c.AdminAlerts)
-					if(M.PingSound)
-						M << sound('Sounds/Ping.ogg')
-					winset(M, "mainwindow", "flash=-1")
+			if(M.client.getPref("AdminAlerts"))
+				if(M.PingSound)
+					M << sound('Sounds/Ping.ogg')
+				winset(M, "mainwindow", "flash=-1")
 	Log("AdminPM","(Admin Help from [usr.key]): [txt]")
 	usr<<"Your message:\n\n[txt]\n\nhas been sent to the admin!"
 

@@ -10,7 +10,7 @@ Options/
     var/currentFontFamily = "Gotham Book"
     var/currentFontSize = 8
     var/disableLoginAlert = 0
-    var/list/savableVars = list("seePronouns", "useSupporter", "useDonator", "disableLoginAlert", "currentFontFamily", "currentFontSize")
+    var/list/savableVars = list("seePronouns", "useSupporter", "useDonator", "disableLoginAlert", "currentFontFamily", "currentFontSize", "ShowOOC", "LOOCinIC", "AllTabOOC", "LOOCinAll", "AdminAlerts")
     proc/savePrefs(ckey)
         . = list()
         for(var/opt in savableVars)
@@ -34,7 +34,7 @@ Options/
                 world.log << "Failed to delete old preferences for [ckey]."
                 return 0
 
-        
+
 
 
 

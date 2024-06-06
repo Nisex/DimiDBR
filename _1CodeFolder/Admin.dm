@@ -683,17 +683,8 @@ mob/Admin2/verb
 	Alerts()
 		set category="Admin"
 		set name="(Un)Mute Admin Alerts"
-		for(var/obj/Communication/x in usr)
-			x.AdminAlerts=!x.AdminAlerts
-			if(x.AdminAlerts) usr<<"You turn your AdminAlerts <font color=green>on</font color>."
-			else usr<<"You turn your AdminAlerts <font color=red>off</font color>."
-	See_Logins()
-		set category="Admin"
-		set name="See Logins"
-		for(var/obj/Communication/x in usr)
-			x.Logins=!x.Logins
-			if(x.Logins) usr<<"You turn your Logins <font color=green>on</font color>."
-			else usr<<"You turn your Logins <font color=red>off</font color>."
+		usr.client.togglePref("AdminAlerts")
+		usr << "Admin Alerts will now[usr.client.getPref("AdminAlerts") ? "" : " not"] show."
 
 	GetPingSound()
 		set category = "Admin"
