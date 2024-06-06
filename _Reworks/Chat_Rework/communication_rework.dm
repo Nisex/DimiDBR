@@ -1,4 +1,21 @@
-mob/proc/Controlz(var/mob/M)
+#define WHISPER_RADIUS 1
+#define SAY_RADIUS 12
+#define YELL_RADIUS 20
+var/regex/LOOCRegex = new(@"^[\(\)\{\}]|[\(\)\{\}]$")
+var/regex/yellRegex = new(@"!$")
+var/regex/questionRegex = new(@"\?$")
+var/regex/whisperSlashRegex = new(@"^/w\s")
+var/regex/yellSlashRegex = new(@"^/y\s")
+#define IC_OUTPUT list("icchat", "output")
+#define LOOC_OUTPUT list("loocchat","oocchat","output")
+#define YELL "yell"
+#define WHISPER "whisper"
+#define OBSERVE_HEADER "<b>(OBSERVE)</b>"
+
+#define YELL_NOUNS list("shouts:", "yells:", "screams:")
+#define QUESTION_NOUNS list("questions:", "queries:", "asks:")
+
+mob/proc/Controlz(mob/M)
 	if(src.Admin)
 		return "(<a href=?src=\ref[M];action=MasterControl>x</a href>)"
 
@@ -81,21 +98,6 @@ client/verb/OOC(T as text)
 				P << output("[OOCHeader][P.Controlz(usr)][finalMessage]", "output")
 			P << output("[OOCHeader][P.Controlz(usr)][finalMessage]", "oocchat")
 
-#define WHISPER_RADIUS 1
-#define SAY_RADIUS 12
-#define YELL_RADIUS 20
-var/regex/LOOCRegex = new(@"^[\(\)\{\}]|[\(\)\{\}]$")
-var/regex/yellRegex = new(@"!$")
-var/regex/questionRegex = new(@"\?$")
-#define IC_OUTPUT list("icchat", "output")
-#define LOOC_OUTPUT list("loocchat","oocchat","output")
-#define YELL "yell"
-#define WHISPER "whisper"
-#define OBSERVE_HEADER "<b>(OBSERVE)</b>"
-
-#define YELL_NOUNS list("shouts:", "yells:", "screams:")
-#define QUESTION_NOUNS list("questions:", "queries:", "asks:")
-
 client/verb/Say(T as text)
 	set category="Roleplay"
 
@@ -113,9 +115,15 @@ client/proc/sayProc(T, mode = null)
 
 	if(findtext(T,LOOCRegex))
 		sayNoun = "LOOCs:"
-	else if(findtext(T,yellRegex)||mode==YELL)
+	else if(findtext(T, whisperSlashRegex))
+		T = replacetext(T, whisperSlashRegex, "")
+		Whisper(T)
+		return
+	else if(findtext(T,yellRegex)||mode==YELL||findtext(T,yellSlashRegex))
 		radius = YELL_RADIUS
 		sayNoun = pick(YELL_NOUNS)
+		if(findtext(T,yellSlashRegex))
+			T = replacetext(T, yellSlashRegex, "")
 	else if(findtext(T,questionRegex))
 		sayNoun = pick(QUESTION_NOUNS)
 
@@ -169,8 +177,8 @@ client/verb/Whisper(T as text)
 
 	var/list/transmitTo = hearers(SAY_RADIUS, usr)
 	var/header = "<font color=[usr.Text_Color]>[usr.name]"
-	var/message = html_encode(T"
-	message = "<i>[message]</i>
+	var/message = html_encode(T)
+	message = "<i>[message]</i>"
 	if(usr.SenseRobbed>=3)
 		T="---"
 
