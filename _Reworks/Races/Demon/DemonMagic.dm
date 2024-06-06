@@ -108,7 +108,7 @@
         if(!possible_skills["Corruption"])
             possible_skills["Corruption"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space
 
-    possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech, "HellFire" = new/obj/Skills/AutoHit/Magic/HellFire/Hellstorm ,"Corruption" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space)
+    possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech, "HellFire" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm ,"Corruption" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space)
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption
     name = "Corruption"
     KEYWORD = "crowd control"

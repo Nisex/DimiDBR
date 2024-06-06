@@ -1580,9 +1580,13 @@ mob
 								Energy += 0.15
 							if(TotalFatigue > 0)
 								TotalFatigue -= 0.15
-				if((istype(T.effectApplied, /datum/DemonRacials)))
-					if(src != T.ownerOfEffect)
-						T.effectApplied?:applyDebuffs(src, T.ownerOfEffect)
+				if(isdatum(T.effectApplied))
+					if((istype(T.effectApplied, /datum/DemonRacials)))
+						if(src != T.ownerOfEffect)
+							T.effectApplied?:applyDebuffs(src, T.ownerOfEffect)
+					if((istype(T.effectApplied, /obj/Skills/Buffs)))
+						if(src != T.ownerOfEffect)
+							T.effectApplied?:applyEffects(src, T.ownerOfEffect)
 			if(!passive_handler.Get("StaticWalk")&&!src.Dead)
 				if(istype(loc,/turf/Special/Static))
 					src.Health-=0.05

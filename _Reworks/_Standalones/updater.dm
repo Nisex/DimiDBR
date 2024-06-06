@@ -96,3 +96,15 @@ update
 					p.EconomyMult /= 2
 				p.Intelligence = 0.75
 			..()
+	version5
+		version = 5
+		updateMob(mob/p)
+
+			if(p.isRace(DEMON))
+				var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire/hf = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire)
+				if(!hf)
+					for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire/hellfire in p)
+						hf = hellfire
+				hf.possible_skills["HellFire"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
+				p << "hellstorm changed"
+			..()
