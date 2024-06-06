@@ -6637,7 +6637,7 @@ obj
 			New(var/obj/AutoHitter/AH, var/side, var/FromMob=0)
 				src.Owner=AH.Owner
 				src.Side=side
-				AlreadyHit = AH.AlreadyHit
+				AlreadyHit = AH.AlreadyHit.Copy()
 				if(src.Side)
 					if(src.Owner.dir!=NORTHEAST&&src.Owner.dir!=NORTHWEST&&src.Owner.dir!=SOUTHEAST&&src.Owner.dir!=SOUTHWEST)
 						src.dir=turn(AH.dir, -90)
@@ -6711,7 +6711,7 @@ obj
 					src.dir=turn(AH.dir, -90)
 				else
 					src.dir=turn(AH.dir, 90)
-				AlreadyHit = AH.AlreadyHit
+				AlreadyHit = AH.AlreadyHit.Copy()
 				src.DistanceMax=AH.Wave
 				src.Distance=src.DistanceMax
 
