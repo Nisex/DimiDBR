@@ -169,6 +169,7 @@ client/proc/sayProc(T, mode = null)
 
 client/verb/Yell(T as text)
 	set category="Roleplay"
+	set hidden = 1
 
 	sayProc(T, YELL)
 
