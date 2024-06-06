@@ -473,6 +473,7 @@ mob/Players
 		filters = null
 		Hair = null
 		RemoveTarget()
+		BreakViewers()
 		GlobalCooldowns = null
 		SkillsLocked = null
 		OldLoc = null
@@ -488,12 +489,6 @@ mob/Players
 		equippedWeights = null
 		overlays = null
 		underlays = null
-		if(BeingObserved.len>0)
-			for(var/mob/p in BeingObserved)
-				Observify(p,p)
-		if(BeingTargetted.len>0)
-			for(var/mob/p in BeingTargetted)
-				p.RemoveTarget()
 		if(active_projectiles.len>0)
 			for(var/obj/Skills/Projectile/_Projectile/p in active_projectiles)
 				p.endLife()
