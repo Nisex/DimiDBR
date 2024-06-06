@@ -568,12 +568,12 @@ NEW VARIABLES
 	proc
 		Trigger(var/mob/User, Override=0)
 			if(!Override && User.BuffingUp)
-				return
+				return 0
 			if(!Override)
 				User.BuffingUp++
 			if(Sealed && !Override)
 				User << "This spell is sealed!"
-				return
+				return 0 
 			if(src.DashCountLimit)
 				src.DashCount=0
 			User.UseBuff(src, Override)

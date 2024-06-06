@@ -36,34 +36,53 @@
         adjust(usr)
         usr.UseProjectile(src)
 
-/obj/Skills/AutoHit/Magic/HellFire/Hellstorm
+/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
     ElementalClass="Fire"
-    var/scalingValues = list("DamageMult" = list(0.05,0.05,0.1,0.1,0.2), "Distance" = list(5,10,10,15,20), \
-    "DarknessFlame" = list(5,10,15,20,30), "ApplySlow" = list(3,6,8,12,20), "Burning" = list(10,15,20,25,30,50), "Duration" = list(100,150,200,250,300) )
-    Area="Circle"
-    Persistent = 1
-    CorruptionGain = 1
-    AdaptRate = 1
-    NoLock=1
-    NoAttackLock=1
-    DamageMult=0.05
-    Distance=10
-    Duration = 10
-    SpecialAttack = 1 
+    var/scalingValues = list("Damage" = list(0.08,0.1,0.1,0.1,0.2), "Distance" = list(8,12,15,20,30), \
+    "DarknessFlame" = list(3,8,12,15,20), "Slow" = list(3,6,8,12,20), "Burning" = list(10,15,20,25,30,50), "Duration" = list(150,200,300,350,400), \
+    "Adapt" = list(1,1,1,1,1), "CorruptionGain" = list(1,1,1,1,1) )
+    makSpace = new/spaceMaker/HellFire
+    var/icon_to_use = 'LavaRock2.dmi'
     Cooldown=90
     ManaCost = 15
-    IgnoreAlreadyHit = 1
-    CorruptionGain = 1
+    TimerLimit = 10
+    EndYourself=1
     ActiveMessage = "rains down an onslaught of fire!"
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
-        for(var/x in scalingValues)
-            vars[x] = scalingValues[x][asc]
-        TurfShiftDuration = Duration
+        makSpace.toDeath = scalingValues["Duration"][asc]
+        makSpace.range = scalingValues["Distance"][asc]
+        makSpace.configuration = "Fill"
+        makSpace.getDmg(p, src)
     verb/HellStorm()
         set category = "Skills"
-        adjust(usr)
-        usr.Activate(src)
+        src.Trigger(usr)
+    Trigger(mob/User, Override = 0)
+        adjust(User)
+        if(!User.BuffOn(src) && cooldown_remaining <= 0)
+            if(..())
+                makSpace.makeSpace(User, src)
+    proc/applyEffects(mob/target, mob/owner, static_damage)
+
+        var/asc = owner.AscensionsAcquired ? owner.AscensionsAcquired : 1
+        for(var/x in scalingValues)
+            switch(x)
+                if("Damage")
+                    static_damage *= scalingValues[x][asc]
+                    owner.DoDamage(target, static_damage, 0, 0 , 0 , 0 , 0 , 0 , 0)
+                    if("CorruptionGain" in scalingValues)
+                        owner.gainCorruption(static_damage / 2)
+                if("DarknessFlame")
+                    target.AddPoison(scalingValues["Burning"][asc] * 1 + (scalingValues[x][asc] * 0.25), Attacker=owner)
+                if("Burning")
+                    target.AddBurn(scalingValues[x][asc])
+                if("Slow")
+                    target.AddSlow(scalingValues[x][asc])
+                    target.AddCrippling(scalingValues[x][asc]/2)
+
+
+
+
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat
     ElementalClass="Fire"

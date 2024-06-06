@@ -5,11 +5,26 @@ spaceMaker
 		configuration = "" /* Fill, Random */
 		amount // if enabled only do this amount and back out after
 		turfs = list() // the list of turfs that are altered
+		stored_dmg_value = 1
 
 	New(time2Death, area, config, num)
 		toDeath = time2Death
 		range = area
 		configuration = config
+
+	proc/getDmg(mob/p, obj/Skills/s)
+		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
+		if("Adapt" in s?:scalingValues)
+			if(p.GetStr(1) > p.GetFor(1))
+				return p.GetStr(s?:scalingValues["Adapt"][asc])
+			else
+				return p.GetFor(s?:scalingValues["Adapt"][asc])
+		else if("Force" in s?:scalingValues)
+			return p.GetFor(s?:scalingValues["Force"][asc])
+		else if("Strength" in s?:scalingValues)
+			return p.GetFor(s?:scalingValues["Strength"][asc])
+		world.log << "[p] messed up dmg calc on [src]"
+		return 1
 
 // init this, makes it flexible
 	proc/makeSpace(mob/p, effect2Apply)
@@ -31,7 +46,6 @@ spaceMaker
 					if(amount && totalApplied + 1 > amount)
 						break
 					turfs += T
-					ticking_turfs += T
 					T.applyEffect(effect2Apply, toDeath, p)
 					totalApplied++
 			if("Random")
@@ -43,7 +57,6 @@ spaceMaker
 					if(T in turfs)
 						continue
 					turfs += T
-					ticking_turfs += T
 					T.applyEffect(effect2Apply, toDeath)
 // below we will commit crimes
 
@@ -61,6 +74,8 @@ spaceMaker
 	Demon
 		configuration = "Fill"
 		
+	HellFire
+		configuration = "Fill"
 
 
 
@@ -75,22 +90,26 @@ spaceMaker
 	effectApplied = option // the "[]" is not needed, but maybe u passed a number who knows
 	ticking_turfs += src
 	ownerOfEffect = p
-	if(istype(option, /datum/DemonRacials))
+	if(isdatum(option))
 		var/direction = pick("ew","ns")
 		var/num = rand(1,15)
-		var/image/i = image(icon = 'GalSpace.dmi', icon_state = "speedspace_[direction]_[num]")
-		i.alpha = 0
-		animate(i, alpha = 255, time = 3)
+		var/image/i
+		if(!option?:icon_to_use)
+			i = image(icon = 'GalSpace.dmi', icon_state = "speedspace_[direction]_[num]")
+		else
+			i = image(icon = option?:icon_to_use)
 		overlays+=i
+		i.alpha = 0
+		animate(i, alpha = 255, time = 10)
 	else
 		switch(option)
 			if("Stellar")
 				var/direction = pick("ew","ns")
 				var/num = rand(1,15)
 				var/image/i = image(icon = 'GalSpace.dmi', icon_state = "speedspace_[direction]_[num]")
-				i.alpha = 0
-				animate(i, alpha = 255, time = 3)
 				overlays+=i
+				i.alpha = 0
+				animate(i, alpha = 255, time = 10)
 
 
 
@@ -101,12 +120,10 @@ spaceMaker
 	overlays = list()
 	ownerOfEffect = null
 /turf/Update()
-	if(effectApplied && timeToDeath > 0) // the latter is assumed, for there's no way to get here unless it is in there, but just in case
+	if(effectApplied) // the latter is assumed, for there's no way to get here unless it is in there, but just in case
 		//world<<"[src] ticking [effectApplied] for [timeToDeath] ticks"
 		timeToDeath--
 		if(timeToDeath <= 0)
 			removeEffect()
 	else if(src in ticking_turfs && timeToDeath <= 0)
 		removeEffect()
-	else
-		return

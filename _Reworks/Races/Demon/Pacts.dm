@@ -309,7 +309,7 @@ proc/findPactByID(id)
 			var/skills = list("DarkMagic" = list("Shadow Ball" = /obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball, \
 			"Soul Leech" = /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech, "Dominate Mind" = /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind), \
 			"HellFire" = list("Hellpyre" = /obj/Skills/Projectile/Magic/HellFire/Hellpyre, \
-			"Hellstorm" = /obj/Skills/AutoHit/Magic/HellFire/Hellstorm, "OverHeat" = /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat))
+			"Hellstorm" = /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm, "OverHeat" = /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat))
 			var/exists = TRUE
 			var/exit = FALSE
 			var/obj/Skills/newSkill = null

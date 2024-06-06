@@ -2384,7 +2384,7 @@ mob/proc/Grab_Release()
 mob/proc/Grab_Update()
 	if(src.Grab)
 		src.Grab.loc=src.loc
-		if(isai(Grab))
+		if(isai(Grab)&&!Grab.KO)
 			var/grabbing = Grab
 			spawn(60)
 				if(grabbing==Grab)
