@@ -214,6 +214,7 @@ globalTracker
 		MULTIHIT_NERF = FALSE
 		GetUpVar = 1 // how fast u get up ?
 		MAGIC_BASE_COST = 50
+		TECH_BASE_COST = 30
 		MAGIC_INTELL_MATTERS = TRUE
 		WorldPUDrain = 1
 		DMG_CALC_2 = TRUE
@@ -306,17 +307,17 @@ globalTracker
 
 		JSON_PASSIVES = list()
 // - swords
-		SwordAscDamage
-		SwordAscAcc
-		SwordAscDelay
+		SwordAscDamage= 0.05
+		SwordAscAcc= 0.05
+		SwordAscDelay= 0.05
 // - staffs
-		StaffAscDamage
-		StaffAscAcc
-		StaffAscDelay
+		StaffAscDamage = 0.05
+		StaffAscAcc = 0.05
+		StaffAscDelay = 0.05
 // - armor
-		ArmorAscDamage
-		ArmorAscDelay
-		ArmorAscAcc
+		ArmorAscDamage = 0.05
+		ArmorAscDelay = 0.05
+		ArmorAscAcc = 0.05
 // not sure why he made them all variable, but its more flexibility= FALSE
 
 

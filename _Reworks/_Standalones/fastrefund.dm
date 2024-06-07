@@ -48,14 +48,6 @@ var/list/MagicList = list("Alchemy","Healing Herbs", "Refreshment Herbs", "Magic
 "SpaceMagic" = list("Teleportation", "Retrieval", "Bilocation"),\
 "TimeMagic" = list("Transmigration", "Lifespan Extension", "Temporal Displacement", "Temporal Acceleration", "Temporal Rewinding"))
 
-/mob/Admin3/verb/RefundMagic(mob/p in players)
-    set name = "Refund Magic"
-    if(!p.client)
-        return
-    var/choice = input(src, "What magic?") in p.generateMagicList() + "Cancel"
-    if(choice != "Cancel")
-        p.refundMagicTree(choice)
-
 
 
 
@@ -74,7 +66,7 @@ var/list/MagicList = list("Alchemy","Healing Herbs", "Refreshment Herbs", "Magic
 
 /mob/proc/refundMagicTree(nameOfTree)
     var/actualName = checkMagicList(nameOfTree)
-    var/cost = KnowledgeTree["[actualName]"]["[actualName]"] // this should b the cost
+    var/cost = KnowledgeTree["[nameOfTree]"]["[actualName]"] // this should b the cost
     cost /= Imagination
     cost = round(cost)
     GiveRPP(cost)
