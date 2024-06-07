@@ -960,6 +960,10 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 
 		if(glob.EXPERIMENTAL_ACCMULT)
 			AccMult = AccMult**glob.EXPERIMENTAL_ACCMULT_EXPONENT
+			if(!AccMult**glob.EXPERIMENTAL_ACCMULT_EXPONENT > 0)
+				Offender <<"<font color=red>PLEASE REPORT THIS SKILL TO AWWLIE, NIEZAN or JORDAN plz <3</font>"
+				Defender <<"<font color=red>PLEASE REPORT THIS SKILL TO AWWLIE, NIEZAN or JORDAN plz <3</font>"
+				AdminMessage("[Offender] or [Defender] had a negative Accmult on a attack...")
 		AccMult = clamp(glob.ACC_ACCMULT_MIN, AccMult, glob.ACC_ACCMULT_MAX)
 
 
