@@ -103,7 +103,7 @@ mob/Players
 			loc = locate(0,0,0)
 		if(src.RPPMult<1)
 			src.RPPMult=1
-		for(var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm/da in src)
+		for(var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da in src)
 			if(src.isRace(DEMON))
 				da.name="Devil Arm ([src.TrueName])"
 

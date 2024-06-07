@@ -107,3 +107,15 @@ update
 				hf.possible_skills["HellFire"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
 				p << "hellstorm changed"
 			..()
+	version6
+		version = 6
+		updateMob(mob/p)
+			if(p.generateMagicList() >= 1)
+				p.legacyRefundmagic()
+			if(p.isRace(SAIYAN))
+				p.passive_handler.Increase("Brutalize", 0.25)
+			if(p.isRace(BEASTMAN) && p.AscensionsAcquired < 1)
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in p.Buffs)
+					b.NeedsHealth = 10
+					b.passives = list("Brutalize" = 0.5, "DemonicDurability" = 0.25)
+			..()

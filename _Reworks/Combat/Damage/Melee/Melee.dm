@@ -205,8 +205,9 @@ var/global/MULTIHIT_NERF = FALSE
 				#endif
 				var/atk = getStatDmg2()
 				var/def = enemy.getEndStat(1)
-				if(passive_handler.Get("Brutalize"))
-					def -= (def * clamp(passive_handler.Get("Brutalize")/10, 0.01, 0.5)) // MOVE THIS TO A GET PROC SO IT CAN BE TRACKED
+				var/brutalize = GetBrutalize()
+				if(brutalize)
+					def -= (def * clamp(brutalize, 0.01, 0.5)) // MOVE THIS TO A GET PROC SO IT CAN BE TRACKED
 				var/damageMultiplier = dmgmulti
 
 				#if DEBUG_MELEE
@@ -827,16 +828,19 @@ var/global/MULTIHIT_NERF = FALSE
 				if(!locate(/obj/Skills/Projectile/Staff_Projectile, Projectiles))
 					src.AddSkill(new/obj/Skills/Projectile/Staff_Projectile)
 				for(var/obj/Skills/Projectile/Staff_Projectile/pc in Projectiles)
-					switch(st.Class)
+					switch(st.Class) // ascensions should do something here
 						if("Wand")
 							pc.Blasts = 3
-							pc.DamageMult = 0.75
+							pc.DamageMult = 0.25
+							pc.Speed = 0.75
 						if("Rod")
 							pc.Blasts = 2
-							pc.DamageMult = 1.25
+							pc.DamageMult = 0.75
+							pc.Speed = 1
 						if("Staff")
 							pc.Blasts = 1
-							pc.DamageMult = 2
+							pc.DamageMult = 1.5
+							pc.Speed = 1.25
 					src.UseProjectile(pc)
 				switch(st.Class)
 					if("Wand")

@@ -5299,7 +5299,7 @@ NEW VARIABLES
 					NoForcedWhiff = 1 // make it so people cant force whiff u
 					var/magicLevel = p.getTotalMagicLevel()
 					passives = list("NoForcedWhiff" = 1, "FluidForm" = 1, "Godspeed" = clamp(round(magicLevel/5), 1, 2), "DoubleStrike" = 1)
-					TimerLimit = round(2 + magicLevel)
+					TimerLimit = round(8 + magicLevel)
 					FluidForm = 1
 					SpdMult = 1 + (magicLevel * 0.02)
 					Godspeed = round(magicLevel / 5)
@@ -5315,7 +5315,7 @@ NEW VARIABLES
 			Reverse_Wounds
 				Copyable = 0
 				ManaCost = 10
-				TimerLimit = 15
+				TimerLimit = 25
 				ActiveMessage = "uses magic to reverse their wounds!"
 				OffMessage = "'s wounds stop healing backwards..."
 				StableHeal = 1
@@ -5326,7 +5326,9 @@ NEW VARIABLES
 					var/base = round(magicLevel / 8)
 					var/perMissing = 0.01
 					var/amount = round(base + (abs(p.Health-100) * perMissing))
-					HealthHeal = (amount / TimerLimit)* world.tick_lag
+					TimerLimit *= 1 - magicLevel / 40
+					HealthHeal = (amount / (TimerLimit * world.tick_lag))
+		
 				verb/Reverse_Wounds()
 					set category="Skills"
 					if(!altered)
@@ -10886,9 +10888,10 @@ NEW VARIABLES
 							adjust(User)
 						..()
 			Berserk
-				NeedsHealth=5
+				NeedsHealth=10
 				TooMuchHealth=15
 				AngerMult=1.2
+				passives = list("Brutalize" = 0.5)
 				TextColor=rgb(255, 0, 0)
 				Cooldown=180
 				ActiveMessage="enters a berserk fury!!"

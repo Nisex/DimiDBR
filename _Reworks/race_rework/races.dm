@@ -259,6 +259,7 @@ race
 		regeneration = 1.5
 		imagination = 0.5
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Oozaru)
+		passives = list("Brutalize" = 0.25)
 
 		onFinalization(mob/user)
 			..()
@@ -446,7 +447,7 @@ race
 		imagination = 2
 		
 		passives = list("AbyssMod" = 0.5, "Corruption" = 1, "StaticWalk" = 1, "SpaceWalk" = 1, "CursedWounds" = 1, "FakePeace" = 1, "MartialMagic" = 1)
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm,/obj/Skills/Utility/Imitate,  /obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon, \
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2,/obj/Skills/Utility/Imitate,  /obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon, \
 						/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption)
 		var/devil_arm_upgrades = 1
 		var/sub_devil_arm_upgrades = 0
@@ -541,7 +542,7 @@ race
 
 		onFinalization(mob/user)
 			..()
-			user.EnhancedHearing = 1
+			user.EnhancedHearing = 1 // ???????????????
 			for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/r in user)
 				r.RegenerateLimbs=1
 

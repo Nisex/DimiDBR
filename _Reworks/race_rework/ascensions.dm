@@ -495,7 +495,6 @@ ascension
 		onAscension(mob/owner)
 			var/result = ..()
 			if(result)
-				owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm).Mastery++
 				for(var/passive in trueFormPerAsc[owner.AscensionsAcquired])
 					findTrueForm(owner).passives[passive] += trueFormPerAsc[owner.AscensionsAcquired][passive]
 				owner.demon.selectPassive(owner, "CORRUPTION_PASSIVES", "Buff")
@@ -572,10 +571,10 @@ ascension
 			passives = list("PureReduction" = 1, "Godspeed" = 1)
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
-					b.NeedsHealth = 10
+					b.NeedsHealth = 15
 					b.TooMuchHealth = 20
-					b.AngerMult = 1.25
-					b.passives = list("AngerAdaptiveForce" = 0.1)
+					b.AngerMult = 1.3
+					b.passives = list("AngerAdaptiveForce" = 0.1, "Brutalize" = 1)
 					b.VaizardHealth = 0.5
 				..()
 		two
@@ -587,10 +586,10 @@ ascension
 			passives = list("PureDamage" = 1, "Flicker" = 1)
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
-					b.NeedsHealth = 15
+					b.NeedsHealth = 20
 					b.TooMuchHealth = 25
-					b.AngerMult = 1.3
-					b.passives = list("AngerAdaptiveForce" = 0.2)
+					b.AngerMult = 1.35
+					b.passives = list("AngerAdaptiveForce" = 0.2 , "Brutalize" = 1.5)
 					b.VaizardHealth = 1
 				..()
 		three
@@ -602,10 +601,10 @@ ascension
 			passives = list("Pursuer" = 1, "Flicker" = 1)
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
-					b.NeedsHealth = 20
+					b.NeedsHealth = 25
 					b.TooMuchHealth = 30
-					b.AngerMult = 1.35
-					b.passives = list("AngerAdaptiveForce" = 0.3, "Void" = 1)
+					b.AngerMult = 1.4
+					b.passives = list("AngerAdaptiveForce" = 0.3, "Void" = 1, "Brutalize" = 2)
 					b.VaizardHealth = 1.5
 				..()
 		four
@@ -617,8 +616,8 @@ ascension
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 25
 					b.TooMuchHealth = 35
-					b.AngerMult = 1.35
-					b.passives = list("AngerAdaptiveForce" = 0.4, "Void" = 1)
+					b.AngerMult = 1.45
+					b.passives = list("AngerAdaptiveForce" = 0.4, "Void" = 1, "Brutalize" = 2.5)
 					b.VaizardHealth = 1.5
 				..()
 		five
@@ -630,8 +629,8 @@ ascension
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 30
 					b.TooMuchHealth = 50
-					b.AngerMult = 1.4
-					b.passives = list("AngerAdaptiveForce" = 0.5, "Void" = 1)
+					b.AngerMult = 1.5
+					b.passives = list("AngerAdaptiveForce" = 0.5, "Void" = 1, "Brutalize" = 3)
 					b.VaizardHealth = 2.0
 				..()
 
@@ -879,9 +878,11 @@ ascension
 			unlock_potential = 10
 			choices = list("Pride" = /ascension/sub_ascension/saiyan/pride, "Honor" =  /ascension/sub_ascension/saiyan/honor, "Zeal" = /ascension/sub_ascension/saiyan/zeal)
 			intimidation = 10
+			passives = list("Brutalize" = 0.25)
 		two
 			unlock_potential = 25
 			anger = 0.25
+			passives = list("Brutalize" = 0.5)
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/zeal)
 					passives = list("Adaptation" = 0.5)
@@ -903,6 +904,7 @@ ascension
 		four
 			unlock_potential = 60
 			anger = 0.25
+			passives = list("Brutalize" = 1)
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/zeal)
 					passives = list("Adaptation" = 0.5)
