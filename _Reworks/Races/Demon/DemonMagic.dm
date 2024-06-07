@@ -22,9 +22,9 @@
     for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in p)
         if("[dm.type]" == "[t]") // all instances of this 
             for(var/x in dm.possible_skills)
-                if(x == "Corruption")
-                    continue // no longer cuck corruption skills
                 if(dm.possible_skills[x])
+                    if(x == "Corruption")
+                        continue // no longer cuck corruption skills
                     dm.possible_skills[x].Using= 0 
                     dm.possible_skills[x].Cooldown(modify, Time, p)
                     p << "[dm.possible_skills[x]] has been put on cooldown."
@@ -76,7 +76,7 @@
                         return
                     
                     var/triggered = theSkill?:Trigger(User, 0)
-                    if(!(isnull(triggered) || !triggered))
+                    if( !(isnull(triggered))  || triggered)
                         Cooldown(1, null, User, type)
                     if(perfect)
                         User.Quake(5, 0)

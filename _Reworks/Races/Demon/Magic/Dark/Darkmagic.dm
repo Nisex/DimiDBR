@@ -71,28 +71,35 @@
     BuffName = "Mind Dominated"
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech
-    var/list/scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(15,20,20,30,30), "HealthHeal" = list(2,2,3,5,5), "EnergyHeal" = list(15,10,10,5,5))
+    var/list/scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(15,20,20,30,30), "HealthHeal" = list(2,2,3,5,5), "EnergyHeal" = list(2,4,8,10,10))
     Cooldown = 90
+    StableHeal = 1
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
     Trigger(var/mob/User, Override=0)
         if(!altered)
             adjust(User)
             applyToTarget?:adjust(User)
-        ..()
+        . = ..()
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
-        ManaHeal /= TimerLimit
-        HealthHeal /= TimerLimit
-        EnergyHeal /= TimerLimit
+        ManaHeal /= TimerLimit * world.tick_lag
+        HealthHeal /= TimerLimit * world.tick_lag
+        EnergyHeal /= TimerLimit * world.tick_lag
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
-    var/list/scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(-15,-20,-20,-30,-30), "HealthHeal" = list(-2,-2,-3,-5,-5), "EnergyHeal" = list(-15,-10,-10,-5,-5))
-
+    var/list/scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(-15,-20,-20,-30,-30), "HealthHeal" = list(-2,-2,-3,-5,-5), "EnergyHeal" = list(-2,-4,-8,-10,-10))
+    StableHeal = 1
+    DeleteOnRemove = 1
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
-            ManaHeal /= TimerLimit
-            HealthHeal /= TimerLimit
-            EnergyHeal /= TimerLimit
+            ManaHeal /= TimerLimit * world.tick_lag
+            HealthHeal /= TimerLimit * world.tick_lag
+            EnergyHeal /= TimerLimit * world.tick_lag
+    Trigger(mob/User, Override = 0 )
+        var/aa = ..()
+        if(aa)
+            User.SlotlessBuffs.Add(src)
+        
