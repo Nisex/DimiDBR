@@ -63,7 +63,7 @@
             if(..())
                 makSpace.makeSpace(User, src)
     proc/applyEffects(mob/target, mob/owner, static_damage)
-
+        if(!owner||!target) return
         var/asc = owner.AscensionsAcquired ? owner.AscensionsAcquired : 1
         for(var/x in scalingValues)
             switch(x)

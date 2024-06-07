@@ -1842,8 +1842,6 @@ obj
 					usr.UseProjectile(src)
 
 			A_Pound_of_Gold
-				SkillCost=160
-				Copyable=5
 				Distance=20
 				DamageMult=6
 				AccMult=15
@@ -1863,8 +1861,6 @@ obj
 					usr.UseProjectile(src)
 
 			Goblin_Greed
-				SkillCost=160
-				Copyable=5
 				Distance=20
 				DamageMult=6
 				AccMult=3

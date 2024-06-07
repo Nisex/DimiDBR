@@ -491,6 +491,7 @@ mob/Player/AI
 			filters = null
 			dd = null
 			Hair = null
+			BreakViewers()
 			RemoveTarget()
 			GlobalCooldowns = null
 			SkillsLocked = null
@@ -509,15 +510,6 @@ mob/Player/AI
 			play_action = null
 			overlays = null
 			underlays = null
-			if(BeingObserved.len>0)
-				for(var/mob/p in BeingObserved)
-					Observify(p,p)
-			if(BeingTargetted.len>0)
-				for(var/mob/p in BeingTargetted)
-					if(p.Target==src)
-						p.RemoveTarget()
-					else
-						BeingTargetted -= p
 			if(active_projectiles.len>0)
 				for(var/obj/Skills/Projectile/_Projectile/p in active_projectiles)
 					p.endLife()

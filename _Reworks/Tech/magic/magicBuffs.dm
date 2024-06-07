@@ -2,6 +2,7 @@
     BuffName = "Skating"
     TimerLimit = 0
     Godspeed = 3
+    passives = list("Godspeed" = 3)
     Copyable = 0
     Cooldown = 0
     ActiveMessage = "starts skating on a magical skateboard, lol."
@@ -12,6 +13,7 @@
     TimerLimit = 0
     Godspeed = 1
     WaterWalk = 1
+    passives = list("WaterWalk" = 1, "Godspeed" = 1)
     Copyable = 0
     Cooldown = 0
     ActiveMessage = "starts surfing on a magical surfboard, lol."

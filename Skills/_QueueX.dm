@@ -2258,7 +2258,7 @@ obj
 				Projectile="/obj/Skills/Projectile/RushBlast"
 			Burst_Combination
 				name="Burst Combination"
-				SkillCost=40
+				SkillCost=80
 				Copyable=3
 				DamageMult=0.8
 				AccuracyMult=5

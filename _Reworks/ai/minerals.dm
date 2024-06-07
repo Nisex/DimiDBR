@@ -103,8 +103,6 @@
         p.GiveMoney(howMany * exchangeRate)
         p << "You exchange [howMany] Mana Bits for [howMany * exchangeRate] Dollars."
     mineral.Reduce(howMany)
-    if(mineral.value <= 0)
-        del(mineral)
 
 /obj/Exchange/npc
     Attackable = FALSE
