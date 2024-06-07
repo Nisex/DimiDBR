@@ -1160,7 +1160,7 @@ obj
 				Copyable=2
 				Distance=50
 				DamageMult=3.5
-				EnergyCost=20
+				EnergyCost=5
 				Deflectable=0
 				Charge=1
 				IconChargeOverhead=1
