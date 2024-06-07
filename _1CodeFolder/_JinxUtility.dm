@@ -274,28 +274,14 @@ mob
 
 
 			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.passive_handler.Get("Defiance")&&!defender.CheckSlotless("Great Ape"))
-				if(defender.DefianceCounter<10)
-					if(defender.Anger)
-						if(val>=(1/defender.AscensionsAcquired)&&val<(2/defender.AscensionsAcquired))
-							defender.DefianceCounter+=1
-							if(defender.Tail)
-								defender.OMessage(10,"<font color=red>[defender]'s defiance sparks!","Defiance (1) passive.")
-						else if(val>=(2/defender.AscensionsAcquired)&&val<(4/defender.AscensionsAcquired))
-							defender.DefianceCounter+=2
-							if(defender.Tail)
-								defender.OMessage(10,"<font color=red>[defender] grows more defiant!","Defiance (2) passive.")
-						else if(val>=(4/defender.AscensionsAcquired))
-							defender.DefianceCounter+=5
-							if(defender.Tail)
-								defender.OMessage(10,"<font color=red>[defender] roars in complete defiance of odds!","Defiance (3) passive.")
-						if(defender.DefianceCounter>10)
-							defender.DefianceCounter=10
+				if(defender.Anger)
+					DefianceCalcs(val, src)
 
 			if(defender.HasAdaptation()&&src==defender.Target||src.HasAdaptation()&&defender==src.Target)
 				if(defender.HasAdaptation()&&!defender.CheckSlotless("Great Ape"))
 					defender.AdaptationTarget=src
 					defender.AdaptationCounter+=(val*(defender.AscensionsAcquired/40))
-					if(defender.AdaptationCounter>=1)
+					if(defender.AdaptationCounter>=1)         
 						defender.AdaptationCounter=1
 						if(!defender.AdaptationAnnounce)
 							defender << "<b>You've adapted to your target's style!</b>"
@@ -2588,6 +2574,8 @@ mob
 				src.Skills.Remove(s)
 			if(s in src.contents)
 				src.contents.Remove(s)
+			if(s in src.SlotlessBuffs)
+				SlotlessBuffs.Remove(s)
 			if(trueDel)
 				del s
 		AddItem(var/obj/Items/I, var/AlreadyHere=0)

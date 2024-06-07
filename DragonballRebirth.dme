@@ -398,6 +398,7 @@
 #include "_Reworks\Races\Majin\MajinAbsorb.dm"
 #include "_Reworks\Races\Majin\MajinAscensions.dm"
 #include "_Reworks\Races\Majin\MajinBlob.dm"
+#include "_Reworks\Races\Saiyan\racials.dm"
 #include "_Reworks\Sagas\_TierUpDefine.dm"
 #include "_Reworks\Sagas\Cloths.dm"
 #include "_Reworks\Sagas\Hero.dm"

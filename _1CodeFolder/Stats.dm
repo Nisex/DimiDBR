@@ -1292,7 +1292,7 @@ mob/proc/Get_Scouter_Reading(mob/B)
 						if(a<B.GetAngerThreshold())
 							a=B.GetAngerThreshold()
 					if(B.DefianceCounter)
-						a+=B.DefianceCounter*0.05
+						a+=B.DefianceCounter*0.25
 				if(B.CyberCancel>0)
 					var/ang=a-1//Usable anger.
 					var/cancel=ang*B.CyberCancel//1 Cyber Cancel = all of usable anger.
