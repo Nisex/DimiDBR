@@ -253,13 +253,14 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 	if(istype(src, /mob/Player/AI))
 		if(P)
 			var/mob/Player/AI/a = src
-			var/aiType = a.senpai.monsters[1].og_name
-			if(!aiType)
-				aiType = a.senpai.monsters[1].name
-			if(P.killed_AI[aiType])
-				P.killed_AI[aiType] ++
-			else
-				P.killed_AI[aiType] = 1
+			if(a.senpai)
+				var/aiType = a.senpai.monsters[1].og_name
+				if(!aiType)
+					aiType = a.senpai.monsters[1].name
+				if(P.killed_AI[aiType])
+					P.killed_AI[aiType] ++
+				else
+					P.killed_AI[aiType] = 1
 			var/rppBoon = a.Potential/100
 			if(a.in_squad)
 				a.in_squad.RemoveMember(src) //Squad members die die when they die.
