@@ -392,7 +392,7 @@ var/knowledgePaths/tech/list/TechnologyTree = list()
 		if("ToolEnchantment")
 			ToolEnchantmentUnlocked--
 			if(locate(/obj/Skills/Utility/Create_Magic_Circle, src))
-				for(var/obj/Skills/Utility/Create_Magic_Circle/mc, src)
+				for(var/obj/Skills/Utility/Create_Magic_Circle/mc in src)
 					del mc
 		if("Spell Focii")
 			ToolEnchantmentUnlocked--

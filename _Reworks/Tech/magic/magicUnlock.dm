@@ -80,7 +80,6 @@ var/knowledgePaths/magic/list/MagicTree = list()
 	if(path in TechnologyTree) return
 	var/theCost = cost
 	var/knowledgePaths/magic/tech = MagicTree[path]
-	world<<tech.name
 	if(!tech) return
 	theCost *= 1 + (0.25 * length(tech.requires))
 	if(tech.breakthrough)

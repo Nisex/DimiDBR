@@ -5343,7 +5343,7 @@ NEW VARIABLES
 				Copyable=1
 				ManaCost=5
 				TimerLimit=30
-				Cooldown=90
+				Cooldown=70
 				verb/Reinforce_Weapon()
 					set category="Skills"
 					var/magicLevel = usr.getTotalMagicLevel()

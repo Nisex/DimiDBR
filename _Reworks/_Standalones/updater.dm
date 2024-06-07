@@ -110,7 +110,7 @@ update
 	version6
 		version = 6
 		updateMob(mob/p)
-			if(p.generateMagicList() >= 1)
+			if(length(p.generateMagicList()) >= 1)
 				p.legacyRefundmagic()
 			if(p.isRace(SAIYAN))
 				p.passive_handler.Increase("Brutalize", 0.25)
