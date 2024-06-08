@@ -68,7 +68,7 @@ update
 					if(!hf.possible_skills["Corruption"])
 						hf.possible_skills["Corruption"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space
 			..()
-	
+
 	version4
 		version = 4
 		updateMob(mob/p)
@@ -118,17 +118,4 @@ update
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in p.Buffs)
 					b.NeedsHealth = 10
 					b.passives = list("Brutalize" = 0.5, "DemonicDurability" = 0.25)
-			..()
-	version7
-		version = 7
-		updateMob(mob/p)
-			if(p.Desperation)
-				src << "tht sure was strange."
-				p.Desperation = 0
-			..()
-	version8
-		version = 8
-		updateMob(mob/p)
-			if(p.DefianceCounter)
-				p.DefianceCounter = 0 
 			..()
