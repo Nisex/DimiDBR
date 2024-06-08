@@ -1106,55 +1106,59 @@ ascension
 				switch(owner.Class)
 					if("Demon")
 						//power = 0.75
-						speed = 0.5
-						defense = 0.25
+						strength = 0.5
+						speed = 0.25
+						endurance = 0.5
 						anger = 0.15 // 1.4
 						passives = list("Hellrisen" = 0.25)
 					if("Dragon")  /// after the merge, unmerged Dragon and Warrior will also receive some scaling power. Levi added it in for Gaja's in his push
 						///power = 0.75
-						passives = list("SpiritFlow" = 0.5)
-						force = 0.75
+						passives = list("SpiritFlow" = 0.25)
+						force = 0.5
 						imaginationAdd = 0.5
 						recovery = 0.25
 						skills = list(/obj/Skills/Utility/Send_Energy)
 					if("Warrior")
 						//power = 1
 						passives = list("Duelist" = 0.5)
-						strength = 0.5
-						endurance = 0.5
+						strength = 0.25
+						speed = 0.25
+						endurance = 0.25
 						offense = 0.25
 						defense = 0.25
-						learning = 0.25
-				..()
 				if(owner.Class=="Dragon")
 					for(var/obj/Skills/Utility/Send_Energy/se in owner.contents)
 						se.SagaSignature=1
 						se.SignatureTechnique=0
+				..()
 		two
 			unlock_potential	=	ASCENSION_TWO_POTENTIAL
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Demon")
 						//power = 1
-						speed = 0.5
+						offense = 0.25
 						defense = 0.25
+						speed = 0.25
+						strength = 0.25
 						anger = 0.1 // 1.5
 						skills = list(/obj/Skills/Buffs/SpecialBuffs/Daimou_Form)
 						on_ascension_message =  "Your reliance on infernal power has given you insight to the power of a Great Demon King!"
 					if("Dragon")
 						//power = 1
-						passives =list("SpiritHand" = 0.5, "SpiritFlow" = 0.5)
-						force = 0.75
+						passives =list("SpiritHand" = 0.5, "SpiritFlow" = 0.25)
+						force = 0.25
+						offense = 0.25
 						imaginationAdd = 0.25
 						learning = 0.25
 						skills = list(/obj/Skills/Utility/Heal)
 
 					if("Warrior")
 						//power = 1.5
-						passives = list("Juggernaut" = 1, "Extend" = 0.5, "Duelist" = 1)
+						passives = list(,"Duelist" = 1)
 						intimidation = 10
-						strength = 0.25
-						endurance = 0.25
+						strength = 0.5
+						endurance = 0.5
 						skills = list(/obj/Skills/Buffs/SpecialBuffs/Giant_Form)
 				..()
 		three
@@ -1163,7 +1167,7 @@ ascension
 				switch(owner.Class) // super namek era
 					if("Demon")
 						// power = 1.5
-						speed = 0.5
+						speed = 0.25
 						anger = 0.1 // 1.6
 					if("Dragon")
 						//power = 1.5

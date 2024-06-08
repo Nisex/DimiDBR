@@ -66,10 +66,10 @@
 
 	var/endExtra = passive_handler.Get("CallousedHands")
 	if(endExtra>0)
-		statDamage += GetEnd(endExtra) // will be intervals of 0.15
+		statDamage += GetEnd(endExtra) 
 	if(HasSpiritHand()&&unarmed)
-		statDamage += GetFor(GetSpiritHand()/4) // this always returns 1
-		//TODO make spirit hand scale
+		statDamage += GetFor(GetSpiritHand()/4) 
+
 	if(HasSpiritSword()&&sword)
 		statDamage += GetFor(GetSpiritSword())
 	if(HasHybridStrike())

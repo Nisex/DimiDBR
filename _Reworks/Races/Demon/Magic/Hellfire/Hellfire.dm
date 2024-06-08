@@ -62,6 +62,7 @@
         if(!User.BuffOn(src) && cooldown_remaining <= 0)
             if(..())
                 makSpace.makeSpace(User, src)
+                . = 1
     proc/applyEffects(mob/target, mob/owner, static_damage)
         if(!owner||!target) return
         var/asc = owner.AscensionsAcquired ? owner.AscensionsAcquired : 1
