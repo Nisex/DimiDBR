@@ -68,7 +68,7 @@ update
 					if(!hf.possible_skills["Corruption"])
 						hf.possible_skills["Corruption"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space
 			..()
-	
+
 	version4
 		version = 4
 		updateMob(mob/p)
@@ -119,3 +119,12 @@ update
 					b.NeedsHealth = 10
 					b.passives = list("Brutalize" = 0.5, "DemonicDurability" = 0.25)
 			..()
+
+	version7
+		version = 7
+		updateMob(mob/p)
+			if(p.GetRPPEvent()&&!global.RPPEventCharges["[p.ckey]"])
+				p.RPPSpendableEvent = 0
+				if(p.RPPSpentEvent > 0)
+					AdminMessage("[p.name] ([p.ckey]) spent Event RPP when they shouldn't have! Please remove their latest tech / skill buy and refund any actual RPP.")
+				p.RPPSpentEvent = 0

@@ -67,8 +67,8 @@ mob
 				YourRPP*=EMult
 
 				GiveRPP(round(YourRPP))
-
-			reward_self_event()
+			if(global.RPPEventCharges["[ckey]"]&&global.RPPEventCharges["[ckey]"]>0)
+				reward_self_event()
 
 			if((src.EraBody!="Child"||!src.EraBody)&&!src.Dead)
 				src << "You gain money from routine tasks."
