@@ -119,3 +119,11 @@ update
 					b.NeedsHealth = 10
 					b.passives = list("Brutalize" = 0.5, "DemonicDurability" = 0.25)
 			..()
+	version9
+		version = 9
+		updateMob(mob/p)
+			if(p.GetRPPEvent()&&!global.RPPEventCharges["[p.ckey]"])
+				p.RPPSpendableEvent = 0
+				if(p.RPPSpentEvent > 0)
+					AdminMessage("[p.name] ([p.ckey]) spent Event RPP when they shouldn't have! Please remove their latest tech / skill buy and refund any actual RPP.")
+				p.RPPSpentEvent = 0
