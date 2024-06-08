@@ -344,6 +344,11 @@ ai_sheet //need to include icon scale
 mob/Player/AI
 	New()
 		..()
+		race = new/race/human()
+		if(!passive_handler) passive_handler = new()
+		MovementCharges = 5
+		ai_state = "Idle"
+		ticking_ai.Add(src)
 		if(!locate(/obj/Skills/Meditate,contents))
 			contents+=new/obj/Skills/Meditate
 		if(!locate(/obj/Skills/Queue/Heavy_Strike,contents))
@@ -458,13 +463,6 @@ mob/Player/AI
 
 		last_loc
 		last_loc_tick = 0
-	New()
-		race = new/race/human()
-		..()
-		if(!passive_handler) passive_handler = new
-		MovementCharges = 5
-		ai_state = "Idle"
-		ticking_ai.Add(src)
 
 	CheckAscensions() //override to do nothing
 	proc/
