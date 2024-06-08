@@ -1568,7 +1568,7 @@ obj
 				LockY=0
 				IconSize=0.1
 				IconSizeGrowTo=1.25
-				Cooldown=60
+				Cooldown=150
 				Slashing=1
 				Piercing=0
 				Variation=0

@@ -9,7 +9,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = new updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 1
+	var/UPDATE_VERSION = 9
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -127,3 +127,13 @@ update
 				if(p.RPPSpentEvent > 0)
 					AdminMessage("[p.name] ([p.ckey]) spent Event RPP when they shouldn't have! Please remove their latest tech / skill buy and refund any actual RPP.")
 				p.RPPSpentEvent = 0
+			..()
+	version10
+		version = 10
+		updateMob(mob/p)
+			if(p.GetRPPEvent())
+				p.RPPSpendableEvent = 0
+				if(p.RPPSpentEvent > 0)
+					AdminMessage("[p.name] ([p.ckey]) spent Event RPP when they shouldn't have (maybe)! Please remove(delete) their latest tech / skill buy and refund any actual RPP(check what their total spent should be.")
+				p.RPPSpentEvent = 0
+			..()
