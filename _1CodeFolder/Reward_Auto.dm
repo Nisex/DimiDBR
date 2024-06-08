@@ -88,7 +88,8 @@ mob
 				src.GiveMoney(max(0,round(glob.progress.EconomyIncome*src.EconomyMult*src.Intelligence)) + extraMoney)
 
 		reward_self_event()
-			if(!global.RPPEventCharges["[ckey]"]&&global.RPPEventCharges["[ckey]"]==0) return
+			if(!global.RPPEventCharges["[ckey]"]) return
+			if(global.RPPEventCharges["[ckey]"]<=0) return
 			var/val=glob.progress.RPPDaily
 			var/EMult=glob.progress.RPPBaseMult
 			EMult*=src.GetRPPMult()
