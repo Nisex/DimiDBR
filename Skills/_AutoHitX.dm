@@ -5961,7 +5961,7 @@ obj
 
 				if(src.CanBeBlocked)
 					if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldWhiffRate, IgnoreNoDodge=1) == WHIFF)
-						if(!src.Owner.NoWhiff)
+						if(!src.Owner.NoWhiff())
 							var/obj/Items/Sword/s = Owner.EquippedSword()
 							if(s)
 								FinalDmg/=max(1,(2*(1/Owner.GetSwordAccuracy(s))))
@@ -6715,7 +6715,7 @@ obj
 				src.DistanceMax=AH.Wave
 				src.Distance=src.DistanceMax
 
-				src.Damage=AH.Damage
+				src.Damage= AH.Damage / 8
 				src.StrDmg=AH.StrDmg
 				src.ForDmg=AH.ForDmg
 				src.EndRes=AH.EndRes

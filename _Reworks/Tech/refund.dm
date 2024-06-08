@@ -54,8 +54,7 @@
 	var/theCost = glob.TECH_BASE_COST / p.Intelligence
 	for(var/x in p.knowledgeTracker.learnedKnowledge)
 		removeTechKnowledge(p, x, theCost, FALSE)
-mob/proc/removeAllMagic()
-	
+
 
 /mob/Admin3/verb/RefundKnowledge(mob/p in players)
 	set name = "Refund Technology"

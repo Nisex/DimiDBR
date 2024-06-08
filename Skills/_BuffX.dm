@@ -13925,7 +13925,8 @@ mob
 			if(B.SoulFire)
 				src.SoulFire-=B.SoulFire
 			if(B.NoWhiff)
-				src.NoWhiff-=1
+				src.NoWhiff = 0
+				world.log<<"what the hell is going on here [src] [B]"
 
 			if(B.ManaGlow)
 				filters -= GlowFilter
@@ -14126,7 +14127,7 @@ mob
 			if(B.EnergyExpenditure)
 				src.EnergyExpenditure-=B.EnergyExpenditure
 			if(B.Desperation)
-				src.Desperation-=B.Desperation
+				world.log<<"What called? [src] [B]"
 			if(B.Warping)
 				src.Warping=0
 			if(B.Juggernaut)

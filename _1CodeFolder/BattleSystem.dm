@@ -111,9 +111,9 @@ mob/proc/Unconscious(mob/P,var/text)
 				src.ActiveBuff:Stop_Cultivation()//deactivate...
 				GatesActive=0
 		return
-	if(src.Desperation)
+	if(src.passive_handler.Get("Desperation"))
 		if(src.HealthAnnounce10<=1&&FightingSeriously(P,src))
-			if(prob((src.Desperation*2.5)+5))
+			if(prob((src.passive_handler.Get("Desperation")*2.5)+5))
 				src.KO=0
 				src.OMessage(15, "...but [src] refuses to go down!", "<font color=red>[src]([src.key]) remains standing despite impossible odds!")
 				src.Health=1
@@ -943,10 +943,10 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 				if(AccMult<1)
 					AccMult=1
 
-		if(Offender.Desperation)
+		if(Offender.passive_handler.Get("Desperation"))
 			var/healthRemaining = 100 - Offender.Health
 			if(healthRemaining <= 10)
-				var/baseBoon = 0.015 * Offender.Desperation // max Desperation soembody can have is 6
+				var/baseBoon = 0.015 * Offender.passive_handler.Get("Desperation") // max Desperation soembody can have is 6
 				AccMult *= 1 + (baseBoon * (11 - healthRemaining))
 		// ! DESPERATION GIVES A BONUS TO HIT CHANCE ! //
 
@@ -1038,10 +1038,10 @@ proc/Deflection_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/Base
 				AccMult-=(0.2*AccMult) * cumAvoidance
 				if(AccMult<1)
 					AccMult=1
-		if(Offender.Desperation)
+		if(Offender.passive_handler.Get("Desperation"))
 			var/healthRemaining = 100 - Offender.Health
 			if(healthRemaining <= 10)
-				var/baseBoon = 0.015 * Offender.Desperation // max Desperation soembody can have is 6
+				var/baseBoon = 0.015 * Offender.passive_handler.Get("Desperation") // max Desperation soembody can have is 6
 				AccMult *= 1 + (baseBoon * (11 - healthRemaining))
 
 		var/Offense = Offender.GetOff(glob.ACC_OFF) + Offender.GetSpd(glob.ACC_OFF_SPD) // BASIS
@@ -2175,8 +2175,8 @@ mob/proc/Knockback(var/Distance,var/mob/P,var/Direction=0, var/Forced=0, var/Ki=
 		return
 	if(!Direction)
 		Direction=src.dir
-	if(P.Desperation)
-		if(prob(5*P.Desperation))
+	if(P.passive_handler.Get("Desperation"))
+		if(prob(5*P.passive_handler.Get("Desperation")))
 			Distance=0
 	Forced+=isForced()
 	if(P.ContinuousAttacking)

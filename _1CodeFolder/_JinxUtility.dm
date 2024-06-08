@@ -140,10 +140,10 @@ mob
 					defender.Anger()
 					val/=defender.AngerMax
 
-			if(defender.Desperation&&!defender.HasInjuryImmune())
+			if(defender.passive_handler.Get("Desperation")&&!defender.HasInjuryImmune())
 				if(FightingSeriously(src,defender))
-					if(prob(5*defender.Desperation))
-						defender.WoundSelf(val/sqrt(1+defender.Desperation))//Take all damage as wounds
+					if(prob(5*defender.passive_handler.Get("Desperation")))
+						defender.WoundSelf(val/sqrt(1+defender.passive_handler.Get("Desperation")))//Take all damage as wounds
 						val=0//reduce damag ehard
 
 			if(defender.KO&&!src.Lethal)
@@ -257,7 +257,7 @@ mob
 
 			if(defender.CheckSlotless("Protega"))
 				src.LoseHealth(val/10)
-			if(defender.MeltyBlood)
+			if(defender.passive_handler.Get("MeltyBlood"))
 				if(defender.Health<50*(1-src.HealthCut))
 					if(FightingSeriously(src,0))
 						if(!defender.MeltyMessage)
@@ -275,7 +275,7 @@ mob
 
 			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.passive_handler.Get("Defiance")&&!defender.CheckSlotless("Great Ape"))
 				if(defender.Anger)
-					DefianceCalcs(val, src)
+					defender.DefianceCalcs(val, src)
 
 			if(defender.HasAdaptation()&&src==defender.Target||src.HasAdaptation()&&defender==src.Target)
 				if(defender.HasAdaptation()&&!defender.CheckSlotless("Great Ape"))

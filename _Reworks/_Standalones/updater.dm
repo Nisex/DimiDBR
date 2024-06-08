@@ -119,3 +119,16 @@ update
 					b.NeedsHealth = 10
 					b.passives = list("Brutalize" = 0.5, "DemonicDurability" = 0.25)
 			..()
+	version7
+		version = 7
+		updateMob(mob/p)
+			if(p.Desperation)
+				src << "tht sure was strange."
+				p.Desperation = 0
+			..()
+	version8
+		version = 8
+		updateMob(mob/p)
+			if(p.DefianceCounter)
+				p.DefianceCounter = 0 
+			..()
