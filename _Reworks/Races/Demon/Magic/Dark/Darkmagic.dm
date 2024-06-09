@@ -72,7 +72,7 @@
     BuffName = "Mind Dominated"
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech
-    scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(5,9,13,18,25), "HealthHeal" = list(0.5,0.75,1,1.25,2), "EnergyHeal" = list(2,4,8,10,10))
+    scalingValues = list("TimerLimit" = list(12,10,8,5,5), "ManaHeal" = list(5,10,15,20,25), "HealthHeal" = list(1,1,2,2,3), "EnergyHeal" = list(2,4,8,10,10))
     Cooldown = 90
     StableHeal = 1
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
@@ -88,9 +88,9 @@
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
-        ManaHeal /= (TimerLimit * world.tick_lag)
-        HealthHeal /= (TimerLimit * world.tick_lag)
-        EnergyHeal /= (TimerLimit * world.tick_lag)
+        ManaHeal = (ManaHeal / TimerLimit) * world.tick_lag
+        HealthHeal = (HealthHeal / TimerLimit) * world.tick_lag
+        EnergyHeal = (EnergyHeal / TimerLimit) * world.tick_lag
     
     verb/Soul_Leech()
         set category = "Skills"
@@ -98,7 +98,7 @@
             adjust(usr)
             Trigger(usr)
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
-    scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(-5,-9,-13,-18,-25), "HealthHeal" = list(-1,-2,-3,-5,-5), "EnergyHeal" = list(-2,-4,-8,-10,-10))
+    scalingValues = list("TimerLimit" = list(12,10,8,5,5), "ManaHeal" = list(-5,-10,-15,-20,-25), "HealthHeal" = list(-1,-1,-2,-2,-3), "EnergyHeal" = list(-2,-4,-8,-10,-10))
     StableHeal = 1
     DeleteOnRemove = 1
     Cooldown = 0
@@ -106,9 +106,9 @@
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
-        ManaHeal /= TimerLimit * world.tick_lag
-        HealthHeal /= TimerLimit * world.tick_lag
-        EnergyHeal /= TimerLimit * world.tick_lag
+        ManaHeal = (ManaHeal / TimerLimit) * world.tick_lag
+        HealthHeal = (HealthHeal / TimerLimit) * world.tick_lag
+        EnergyHeal = (EnergyHeal / TimerLimit) * world.tick_lag
     Trigger(mob/User, Override = 0 )
         var/aa = ..()
         if(aa)

@@ -4703,7 +4703,7 @@ NEW VARIABLES
 					var/amt = (baseHeal + raceModifier) + ( ((perMissing + (missingPerAsc * asc)) + (raceModifier/raceDivisor)) * (100 - p.Health))
 					var/divider = asc * raceModifier > 0 ? asc * raceModifier : 1
 					var/time = 25 / divider
-					HealthHeal = (amt / time)* world.tick_lag // health per tick(?)
+					HealthHeal = (amt / time) * world.tick_lag // health per tick(?)
 					TimerLimit = time             // ticks per regen
 					EnergyCost = amt / 4
 					FatigueCost = amt / 4

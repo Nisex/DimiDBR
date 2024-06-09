@@ -1015,13 +1015,14 @@ obj
 			Straight_Siege
 				SkillCost=40
 				Copyable=2
-				Distance=15
-				AccMult=1
-				DamageMult=0.25
+				Distance=8
+				AccMult=0.75
+				DamageMult=0.1
+				Speed = 0.75
 				Knockback=0
 				Blasts=20
 				Continuous=1
-				EnergyCost=1
+				EnergyCost=3
 				IconLock='Blast - Small.dmi'
 				Cooldown=30
 				Variation=24
