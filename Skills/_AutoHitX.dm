@@ -1788,7 +1788,7 @@ obj
 				ShockDiminish=1.15
 				ShockTime=4
 				GuardBreak=1
-				Rush=3
+				Rush=5
 				ControlledRush=1
 				HitSparkIcon='Slash - Future.dmi'
 				HitSparkX=-32
@@ -1796,7 +1796,7 @@ obj
 				HitSparkTurns=1
 				HitSparkCount=7
 				HitSparkDispersion=4
-				Launcher=1
+				Launcher=4
 				DelayedLauncher=1
 				Cooldown=150
 				EnergyCost=5
