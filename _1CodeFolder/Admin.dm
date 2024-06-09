@@ -980,6 +980,9 @@ mob/Admin2/verb
 		if(A.type in typesof(/obj/Items))
 			if(A?:Augmented)
 				A?:EditAll(src)
+		if(A.type in typesof(/obj/Skills))
+			if(A?:possible_skills)
+				A?:EditAll(src)
 		if(istype(A, /obj/AI_Spot))
 			A?:EditAI(src)
 

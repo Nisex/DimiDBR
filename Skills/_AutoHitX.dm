@@ -6221,7 +6221,6 @@ obj
 						if(src.Slow&&src.Distance>1)
 							src.Owner.Frozen=1
 							for(var/Rounds=1, Rounds<=src.DistanceMax, Rounds++)
-								world<<"how many fake rounds [Rounds]"
 								if(src.StepsDamage&&Rounds>1)
 									src.Damage+=src.StepsDamage//add growing damage
 								if(src.DistanceMax>=3)//Greater than 3 distance, use circle
@@ -6244,13 +6243,10 @@ obj
 											if(m==src.Owner)
 												continue
 											if(m in AlreadyHit && !IgnoreAlreadyHit)
-												world<<"in alreadyhit [m] m"
 												continue
 											else
-												world<<"m [m] add damage"
 												src.Damage(m)
 												AlreadyHit.Add(m)
-												world<<"added [m]"
 									for(var/turf/t in Turf_Circle_Edge(src.TargetLoc, Rounds))
 										if(src.TurfErupt)
 											Bang(t, Size=src.TurfErupt, Offset=src.TurfEruptOffset, Vanish=4)
@@ -6420,13 +6416,10 @@ obj
 											if(m==src.Owner)
 												continue
 											if(m in AlreadyHit)
-												world<<"m is in already hit [m]"
 												continue
 											else
 												src.Damage(m)
-												
 												AlreadyHit.Add(m)
-												world<<"here [m]"
 									for(var/turf/t in Turf_Circle_Edge(src.Owner, Rounds))
 										if(src.TurfErupt)
 											Bang(t, Size=src.TurfErupt, Offset=src.TurfEruptOffset, Vanish=4)

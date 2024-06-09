@@ -8,10 +8,8 @@ proc/getJSONInfo(tier, type)
     if(length(glob.JSON_PASSIVES))
         collectJSON()
     for(var/x in tier)
-        world<<"x [x]"
         . += glob.JSON_PASSIVES["[type]_[x]"]
         for(var/y in glob.JSON_PASSIVES["[type]_[x]"])
-            world<<"y [y]"
             .["[y]"] = glob.JSON_PASSIVES["[type]_[x]"][y]
 
 proc/getPassiveTier(mob/p)

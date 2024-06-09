@@ -17,6 +17,17 @@
     TimerLimit = 1
     Cooldown = 120
     // PROCS
+/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/proc/resetToInital()
+
+/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/proc/EditAll(mob/p)
+    if(!possible_skills) return
+    if(p.Admin)
+        for(var/i in possible_skills)
+            if(!possible_skills[i])
+                p<< "possible skill lacking somewhere, setting to inital and breaking"
+                possible_skills[i]?:resetToInital()
+            p?:Edit(possible_skills[i])
+
 
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Cooldown(modify, Time, mob/p, t)
     for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in p)
@@ -25,6 +36,8 @@
                 if(dm.possible_skills[x])
                     if(x == "Corruption")
                         continue // no longer cuck corruption skills
+                    if(dm.possible_skills[x].cooldown_remaining)
+                        continue
                     dm.possible_skills[x].Using= 0 
                     dm.possible_skills[x].Cooldown(modify, Time, p)
                     p << "[dm.possible_skills[x]] has been put on cooldown."
@@ -95,10 +108,14 @@
     KEYWORD = "damage"
     verb/Dark_Magic()
         fakeTrigger(usr)
+    
 
 
     possible_skills = list("DarkMagic" = new/obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball, "HellFire" = new/obj/Skills/Projectile/Magic/HellFire/Hellpyre ,"Corruption" = new/obj/Skills/AutoHit/Magic/Corruption/Corrupt_Reality )
 
+
+    resetToInital()
+        possible_skills = list("DarkMagic" = new/obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball, "HellFire" = new/obj/Skills/Projectile/Magic/HellFire/Hellpyre ,"Corruption" = new/obj/Skills/AutoHit/Magic/Corruption/Corrupt_Reality )
 
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire
     name = "Hell Fire"
@@ -109,10 +126,16 @@
             possible_skills["Corruption"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space
 
     possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech, "HellFire" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm ,"Corruption" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space)
+
+    resetToInital()
+        possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech, "HellFire" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm ,"Corruption" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space)
+
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption
     name = "Corruption"
     KEYWORD = "crowd control"
     verb/Corruption()
         fakeTrigger(usr)
-
     possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind, "HellFire" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat,"Corruption" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Time )
+
+    resetToInital()
+        possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind, "HellFire" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat,"Corruption" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Time )

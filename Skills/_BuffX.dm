@@ -12046,9 +12046,7 @@ mob
 					spawn(B.CastingTime)
 						B.applyToTarget.Trigger(src.Target, Override = 1)
 				else
-					world<<"we are here bro [B] [B.applyToTarget]"
 					B.applyToTarget.Trigger(src.Target, Override=1)
-					world<<"we should get here"
 			if(B.StyleSlot)
 				var/obj/Items/Sword/S=src.EquippedSword()
 				if(S)
@@ -14335,12 +14333,9 @@ mob
 
 			src.BuffingUp=0
 			if(B.DeleteOnRemove) // DELETE ON REMOVE
-				world<<"delet eon removal "
 				if(B in src.SlotlessBuffs)
-					world<<" in here delet eon removal "
 					src.SlotlessBuffs.Remove(B) // diouble time ?
 				DeleteSkill(B, TRUE)
-				world<<"SHOULD BE LITERALLY GONE "
 				return
 			if(B.AlwaysOn)
 				if(B.NeedsPassword)

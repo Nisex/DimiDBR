@@ -78,6 +78,8 @@
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
     Trigger(var/mob/User, Override=0)
         if(!altered)
+            if(!applyToTarget)
+                applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
             adjust(User)
             applyToTarget?:adjust(User)
         . = ..()
@@ -108,12 +110,8 @@
         HealthHeal /= TimerLimit * world.tick_lag
         EnergyHeal /= TimerLimit * world.tick_lag
     Trigger(mob/User, Override = 0 )
-        world<<"in trigger"
         var/aa = ..()
-        world<<"aa [aa]"
         if(aa)
-            world<<"slotless buffs?"
             User.SlotlessBuffs.Add(src)
-            world<<jointext(User.SlotlessBuffs, " , ")
         . = 1
         
