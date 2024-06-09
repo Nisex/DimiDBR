@@ -1425,8 +1425,8 @@ obj
 				StrOffense=1
 				DamageMult=13
 				TurfDirt=1
-				Distance=3
-				Knockback=5
+				Distance=5
+				Knockback=10
 				FlickAttack=1
 				ShockIcon='KenShockwave.dmi'
 				Shockwave=5
