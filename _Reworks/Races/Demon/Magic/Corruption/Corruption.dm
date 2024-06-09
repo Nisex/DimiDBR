@@ -30,7 +30,7 @@
     Cooldown = -1
     TimerLimit = 300
     CorruptionCost = 25
-    var/scalingValues = list("toDeath" = list(300,600,900,1200,1200), "range" = list(5,8,10,12,20))
+    scalingValues = list("toDeath" = list(300,600,900,1200,1200), "range" = list(5,8,10,12,20))
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         makSpace.configuration = "Fill"
@@ -73,6 +73,7 @@
         OMsg(usr, "[usr] locks [usr.Target] in an isolated space!")
         spawn(1200)
             del i
+        Cooldown(1, null, p)
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self

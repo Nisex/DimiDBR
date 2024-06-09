@@ -79,7 +79,8 @@ update
 				if(!p.FindSkill(/obj/Skills/Utility/Imitate))
 					p.AddSkill(new/obj/Skills/Utility/Imitate)
 					p << "Imitate added"
-				del p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm)
+				if(p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm))
+					del p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm)
 				p << "Deleted old Devil Arm"
 				p.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2)
 				p << "Added new Devil Arm (Apparently Stable)"

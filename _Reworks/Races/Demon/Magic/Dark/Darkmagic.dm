@@ -1,6 +1,6 @@
 
 /obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball
-    var/list/scalingValues = list("MultiShot" = list(2,3,3,4,4), "DamageMult" = list(3,3,4,4,5), "EndRate" = list(0.85, 0.75, 0.65, 0.55, 0.45), "IconSize" = list(1, 1.15,1.25,1.5,2))
+    scalingValues = list("MultiShot" = list(2,3,3,4,4), "DamageMult" = list(3,3,4,4,5), "EndRate" = list(0.85, 0.75, 0.65, 0.55, 0.45), "IconSize" = list(1, 1.15,1.25,1.5,2))
     MultiShot = 2
     DamageMult = 3
     AdaptRate = 1
@@ -51,7 +51,7 @@
                 if(asc < 1)
                     asc = 1
                 User.gainCorruption(corruptionGain[asc])
-                . = 1
+            . = 1
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply
     BuffName = "Dominate Mind Applied"
     MagicNeeded = 0
@@ -72,7 +72,7 @@
     BuffName = "Mind Dominated"
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech
-    var/list/scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(15,20,20,30,30), "HealthHeal" = list(2,2,3,5,5), "EnergyHeal" = list(2,4,8,10,10))
+    scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(5,9,13,18,25), "HealthHeal" = list(0.5,0.75,1,1.25,2), "EnergyHeal" = list(2,4,8,10,10))
     Cooldown = 90
     StableHeal = 1
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
@@ -82,25 +82,38 @@
             applyToTarget?:adjust(User)
         . = ..()
     adjust(mob/p)
+        scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech::scalingValues
+        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
+        for(var/x in scalingValues)
+            vars[x] = scalingValues[x][asc]
+        ManaHeal /= (TimerLimit * world.tick_lag)
+        HealthHeal /= (TimerLimit * world.tick_lag)
+        EnergyHeal /= (TimerLimit * world.tick_lag)
+    
+    verb/Soul_Leech()
+        set category = "Skills"
+        if(!altered)
+            adjust(usr)
+            Trigger(usr)
+/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
+    scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(-5,-9,-13,-18,-25), "HealthHeal" = list(-1,-2,-3,-5,-5), "EnergyHeal" = list(-2,-4,-8,-10,-10))
+    StableHeal = 1
+    DeleteOnRemove = 1
+    Cooldown = 0
+    adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
         ManaHeal /= TimerLimit * world.tick_lag
         HealthHeal /= TimerLimit * world.tick_lag
         EnergyHeal /= TimerLimit * world.tick_lag
-/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
-    var/list/scalingValues = list("TimerLimit" = list(15,10,10,5,5), "ManaHeal" = list(-15,-20,-20,-30,-30), "HealthHeal" = list(-2,-2,-3,-5,-5), "EnergyHeal" = list(-2,-4,-8,-10,-10))
-    StableHeal = 1
-    DeleteOnRemove = 1
-    adjust(mob/p)
-        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
-        for(var/x in scalingValues)
-            vars[x] = scalingValues[x][asc]
-            ManaHeal /= TimerLimit * world.tick_lag
-            HealthHeal /= TimerLimit * world.tick_lag
-            EnergyHeal /= TimerLimit * world.tick_lag
     Trigger(mob/User, Override = 0 )
+        world<<"in trigger"
         var/aa = ..()
+        world<<"aa [aa]"
         if(aa)
+            world<<"slotless buffs?"
             User.SlotlessBuffs.Add(src)
+            world<<jointext(User.SlotlessBuffs, " , ")
+        . = 1
         

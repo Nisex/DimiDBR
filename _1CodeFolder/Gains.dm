@@ -1268,7 +1268,7 @@ mob
 										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
 											src.HealEnergy(src.GetRecov(b.EnergyHeal))
 								else
-									if((src.Health+src.TotalFatigue)>=100||(src.TotalFatigue&&src.icon_state=="Meditate")) 
+									if((src.Energy+src.TotalFatigue)>=100||(src.TotalFatigue&&src.icon_state=="Meditate")) 
 										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
 											src.HealFatigue(b.EnergyHeal,1)
 									else

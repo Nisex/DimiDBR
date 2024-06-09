@@ -1,5 +1,5 @@
 /obj/Skills/Projectile/Magic/HellFire/Hellpyre
-    var/list/scalingValues = list("Blasts" = list(1,1,2,2,3), "DamageMult" = list(10,15,15,20,20), \
+    scalingValues = list("Blasts" = list(1,1,2,2,3), "DamageMult" = list(10,15,15,20,20), \
     )
     ElementalClass="Fire"
     DamageMult = 3
@@ -38,7 +38,7 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
     ElementalClass="Fire"
-    var/scalingValues = list("Damage" = list(0.08,0.1,0.1,0.1,0.2), "Distance" = list(8,12,15,20,30), \
+    scalingValues = list("Damage" = list(0.08,0.1,0.1,0.1,0.2), "Distance" = list(8,12,15,20,30), \
     "DarknessFlame" = list(3,8,12,15,20), "Slow" = list(3,6,8,12,20), "Burning" = list(10,15,20,25,30,50), "Duration" = list(150,200,300,350,400), \
     "Adapt" = list(1,1,1,1,1), "CorruptionGain" = list(1,1,1,1,1) )
     makSpace = new/spaceMaker/HellFire
@@ -87,7 +87,7 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat
     ElementalClass="Fire"
-    var/scalingValues = list("SlowAffected" = list(5,10,10,20,25), "CrippleAffected" = list(5,10,10,20,25), \
+    scalingValues = list("SlowAffected" = list(5,10,10,20,25), "CrippleAffected" = list(5,10,10,20,25), \
     "PoisonAffected" = list(10,15,20,25,30), "BurnAffected" = list(10,15,20,25,30))
     ManaCost=10
     EndYourself=1

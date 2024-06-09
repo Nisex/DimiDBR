@@ -2575,9 +2575,10 @@ mob
 			if(s in src.contents)
 				src.contents.Remove(s)
 			if(s in src.SlotlessBuffs)
-				SlotlessBuffs.Remove(s)
+				src.SlotlessBuffs.Remove(s)
 			if(trueDel)
 				del s
+			world<<"HOW DID IT EVEN GET HERE??? [s] "
 		AddItem(var/obj/Items/I, var/AlreadyHere=0)
 			src.Items.Add(I)
 			if(!AlreadyHere)
