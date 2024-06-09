@@ -24,7 +24,6 @@
 	TransformX = -32
 	TransformY = -32
 	AuraLock = 'BLANK.dmi'
-	ActiveBuffLock = 1
 	passives = list("Vulnerable Behind" = 1, "GiantForm" = 1, "NoDodge" = 1, "SweepingStrike" = 1, \
 	"Meaty Paws" = 1, "EndlessAnger" = 1)
 	StrMult = 1.3
@@ -95,19 +94,6 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Bu
 		if(src.SSJ4Unlocked)return
 		if(src.Dead)return
 		if(transActive)return
-
-		if(src.ActiveBuff)
-			if(src.CheckActive("Eight Gates"))
-				src.ActiveBuff:Stop_Cultivation()
-			else
-				src.ActiveBuff.Trigger(src)
-		if(src.SpecialBuff)
-			src.SpecialBuff.Trigger(src)
-		if(src.SlotlessBuffs.len>0)
-			for(var/sb in SlotlessBuffs)
-				var/obj/Skills/Buffs/b = SlotlessBuffs[sb]
-				if(b)
-					b.Trigger(src)
 
 		src.Oozaru=1
 		Buff.adjust(src)
