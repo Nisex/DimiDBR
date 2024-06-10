@@ -4,7 +4,7 @@
 
 /mob/var/last_defiance_proc = 0
 /mob/proc/DefianceCalcs(val, mob/attcker)
-    var/asc = AscensionsAcquired + 1 // its dividing by 0 before
+    var/asc = AscensionsAcquired // its dividing by 0 before
     if(DefianceCounter < 10)
         if(val >= glob.SAIYAN_DEFIANCE_THRESHOLD_1/asc && val < glob.SAIYAN_DEFIANCE_THRESHOLD_2 / asc)
             DefianceCounter += 1

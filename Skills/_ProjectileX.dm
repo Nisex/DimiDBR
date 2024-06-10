@@ -336,13 +336,13 @@ obj
 				TrailSize=1.4
 				Variation=4
 			Secret_Knives
+				AdaptRate=1
+				Blasts=10
+				DamageMult=0.25
+				AccMult=0.6
 				AttackReplace=1
 				ZoneAttack=1
 				Distance=30
-				StrRate=1
-				Blasts=5
-				DamageMult=0.5
-				AccMult=1
 				Homing=1
 				HomingCharge=3
 				HomingDelay=1
@@ -353,7 +353,7 @@ obj
 				ZoneAttackY=5
 				FireFromEnemy=0
 				FireFromSelf=1
-				Hover=10
+				Hover=8
 				IconLock='CheckmateKnives.dmi'
 				Variation=8
 				FlickBlast=0

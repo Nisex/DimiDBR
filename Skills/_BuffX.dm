@@ -573,7 +573,7 @@ NEW VARIABLES
 				User.BuffingUp++
 			if(Sealed && !Override)
 				User << "This spell is sealed!"
-				return 0 
+				return 0
 			if(src.DashCountLimit)
 				src.DashCount=0
 			User.UseBuff(src, Override)
@@ -5328,7 +5328,7 @@ NEW VARIABLES
 					var/amount = round(base + (abs(p.Health-100) * perMissing))
 					TimerLimit *= 1 - magicLevel / 40
 					HealthHeal = (amount / (TimerLimit * world.tick_lag))
-		
+
 				verb/Reverse_Wounds()
 					set category="Skills"
 					if(!altered)
@@ -13926,7 +13926,7 @@ mob
 				src.SoulFire-=B.SoulFire
 			if(B.NoWhiff)
 				src.NoWhiff = 0
-				world.log<<"what the hell is going on here [src] [B]"
+				//world.log<<"what the hell is going on here [src] [B]"
 
 			if(B.ManaGlow)
 				filters -= GlowFilter
@@ -14126,8 +14126,8 @@ mob
 				B.WarpTarget=0
 			if(B.EnergyExpenditure)
 				src.EnergyExpenditure-=B.EnergyExpenditure
-			if(B.Desperation)
-				world.log<<"What called? [src] [B]"
+			/*if(B.Desperation)
+				world.log<<"What called? [src] [B]"*/
 			if(B.Warping)
 				src.Warping=0
 			if(B.Juggernaut)
