@@ -2411,7 +2411,7 @@ mob
 				Found+=0.5
 			if(src.StyleActive=="Zornhau")
 				Found=1
-			if(src.StyleActive=="Kendo")
+			if(UsingKendo())
 				Found=1
 			if(src.StyleActive=="Champloo")
 				Found=1
@@ -2434,7 +2434,7 @@ mob
 				Found+=1
 			if(src.StyleActive=="Dual Wield")
 				Found=1
-			if(src.StyleActive=="Kendo")
+			if(UsingKendo())
 				Found+=1
 			if(src.StyleActive=="Arcane Bladework")
 				Found+=1
@@ -2550,7 +2550,7 @@ mob
 				return 1
 			return 0
 		UsingKendo()
-			if(src.StyleActive=="Kendo")
+			if(HasSword()&&equippedSword:Class=="Wooden"&&src.StyleActive=="Kendo")
 				return 1
 			return 0
 		NotUsingChamploo()
