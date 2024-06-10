@@ -119,6 +119,9 @@ mob/Admin3/verb/LoadSwapMap()
 		spawn()TempLog(m.ChatLog(),"<font color=#CC3300>*Cursespeak: [html_decode(message)]*")
 
 mob/Admin2/verb
+	EditAllSpawners()
+		for(var/obj/AI_Spot/ai in world)
+			Edit(ai)
 
 	Wound_Lightly(var/mob/m in players)
 		set category="Admin"
@@ -974,6 +977,8 @@ mob/Admin2/verb
 		M.Potential=input(src, "What potential do you want to set [M] to?", "Set Potential") as num
 		M.ECCHARACTER=TRUE
 		Log("Admin", "[ExtractInfo(src)] triggered [ExtractInfo(M)]'s event character setup!")
+
+
 
 	Edit(atom/A in world)
 		set category="Admin"

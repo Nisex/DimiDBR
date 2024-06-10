@@ -9618,14 +9618,14 @@ NEW VARIABLES
 			Infection
 				NeedsPassword=1
 			Dragon_Clash
-				passives = list("PureDamage" = 3, "HotHundred" = 1, "Warping" = 3, "Steady" = 4)
+				passives = list("PureDamage" = 2, "HotHundred" = 1, "Warping" = 3, "Steady" = 3)
 				PureDamage = 3
 				HotHundred=1
 				Warping=3
 				Steady=4
 				TimerLimit=3
 			Dragon_Clash_Defensive
-				passives = list("PureDamage" = 1.5, "HotHundred" = 1, "Warping" = 3, "Steady" = 2)
+				passives = list("PureDamage" = 1, "HotHundred" = 1, "Warping" = 3, "Steady" = 2)
 				PureDamage = 1.5
 				HotHundred=1
 				Warping=3

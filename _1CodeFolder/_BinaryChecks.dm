@@ -187,7 +187,7 @@ mob
 					Ascensions+=src.GetSwordAscension()
 					if(Ascensions>6)
 						Ascensions=6
-			if(src.UsingKendo())
+			if(src.UsingKendo() && s.Class == "Wooden")
 				Ascensions++
 			if(src.HasSwordDamageBuff())
 				Ascensions+=src.GetSwordDamageBuff()
@@ -224,7 +224,7 @@ mob
 					Ascensions+=src.GetSwordAscension()
 					if(Ascensions>6)
 						Ascensions=6
-			if(src.UsingKendo())
+			if(src.UsingKendo() && s.Class == "Wooden")
 				Ascensions++
 			if(src.HasSwordDelayBuff())
 				Ascensions+=src.GetSwordDelayBuff()
@@ -261,7 +261,7 @@ mob
 					Ascensions+=src.GetSwordAscension()
 					if(Ascensions>6)
 						Ascensions=6
-			if(src.UsingKendo())
+			if(src.UsingKendo() && s.Class == "Wooden")
 				Ascensions++
 			if(src.HasSwordAccuracyBuff())
 				Ascensions+=src.GetSwordAccuracyBuff()

@@ -2717,9 +2717,13 @@ mob
 						if(Clashable)
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Clash_Defensive/DC in Trg)
 								if(!Trg.BuffOn(DC))
+									var/pursuerBoon = Trg.HasPursuer()
+									DC.TimerLimit = 3 + clamp(pursuerBoon, 1, 3)
 									DC.Trigger(Trg)
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Clash/DC in src)
 								if(!src.BuffOn(DC))
+									var/pursuerBoon = HasPursuer()
+									DC.TimerLimit = 3 + clamp(pursuerBoon, 1, 3)
 									DC.Trigger(src)
 					break
 				else

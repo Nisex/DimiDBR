@@ -36,7 +36,7 @@ globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
     var/dmg = getDebuffDamage(typeOfDebuff)
     if(dmg < 0)
         world.log << "[src] Debuff Damage is negative [dmg], [typeOfDebuff]"
-        dmg = 0.015
+        dmg = 0.005
     var/desp = passive_handler.Get("Desperation")
     if(prob(desp*10)&&!HasInjuryImmune())
         WoundSelf(dmg/desp)
@@ -58,13 +58,13 @@ globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
 
 /mob/proc/reduceDebuffStacks(typeOfDebuff)
     var/boon = 0
-    var/base = 0
+    var/base = clamp(vars["[typeOfDebuff]"] / glob.BASE_DEBUFF_REDUCTION_DIVISOR, 0.5, 2)
     switch(typeOfDebuff)
         if("Burn")
             if(Cooled)
                 base = 1.5
             if(Burn>0)
-                Burn -= base + ((GetEnd(0.25)+GetStr(0.1)) * (1+GetDebuffImmune())  )
+                Burn -= base + ((GetEnd(0.35)+GetStr(0.15)) * (1+GetDebuffImmune())  )
             if(Burn<0)
                 Burn = 0
         if("Poison")
@@ -73,7 +73,7 @@ globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
             if(Antivenomed)
                 base = 1.25
             if(Poison>0)
-                Poison -= base + (GetEnd(0.25) * (1 + GetDebuffImmune()+boon))
+                Poison -= base + (GetEnd(0.15) * (1 + GetDebuffImmune()+boon))
             if(Poison<0)
                 Poison = 0
 

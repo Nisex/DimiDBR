@@ -261,9 +261,9 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 				if(Frozen||is_dashing||!Target||Target&&!ismob(Target)||Target==src||Beaming==2||TimeFrozen||Knockbacked)
 					return
 
-				var/Modifier = 1 + src.HasPursuer()
+				var/Modifier = (src.HasPursuer()/10) 
 				if(!src.HasDashMaster())
-					Z.Cooldown(1/Modifier)
+					Z.Cooldown(clamp(1-Modifier,0.1, 1))
 
 				if(src.CheckSlotless("New Moon Form"))
 					if(!src.CheckSlotless("Half Moon Form"))

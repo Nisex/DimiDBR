@@ -13,7 +13,7 @@
     // VARS
     var/keyMacro = null
     var/KEYWORD = "error"
-    var/list/obj/Skills/possible_skills = list()
+    possible_skills = list()
     TimerLimit = 1
     Cooldown = 120
     // PROCS

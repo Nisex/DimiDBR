@@ -5,6 +5,7 @@ mob
 obj
 	Skills
 		var/list/scalingValues = list()
+		var/list/obj/Skills/possible_skills = list()
 		proc/adjust(mob/p)
 		AutoHit
 			proc/Trigger(mob/p)
