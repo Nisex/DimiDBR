@@ -9557,8 +9557,9 @@ NEW VARIABLES
 			True_Form
 				adjust(mob/p)
 					if(!altered)
-						passives = list("Curse" = 1, "Godspeed" =  1+p.AscensionsAcquired, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/10,\
-						 "Pursuer" = 2, "BlurringStrikes" = p.secretDatum.secretVariable["Madness"]/50, "Flow" = p.secretDatum.secretVariable["Madness"]/50, "Flicker" = p.secretDatum.secretVariable["Madness"]/25)
+						passives = list("Curse" = 1, "Godspeed" =  1+p.AscensionsAcquired, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/25,\
+						 "Pursuer" = 2, "CallousedHands" = p.secretDatum.secretVariable["Madness"]/100, \
+						  "Flow" = p.secretDatum.secretVariable["Madness"]/50, "Flicker" = p.secretDatum.secretVariable["Madness"]/25)
 						PowerMult=1+(0.05+(0.05*p.secretDatum.secretVariable["Madness"]/25))
 						TimerLimit = 60 + (p.secretDatum.secretVariable["Madness"]/5)
 
@@ -9593,6 +9594,7 @@ NEW VARIABLES
 
 				Trigger(mob/User, Override = 0)
 					..()
+					adjust(User)
 					if(User.Secret == "Eldritch")
 						if(!Using)
 							var/SecretInfomation/Eldritch/s = User.secretDatum

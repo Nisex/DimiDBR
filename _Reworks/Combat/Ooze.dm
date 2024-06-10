@@ -22,12 +22,12 @@ obj
 					loc = null
 
 		Cross(atom/movable/O)
-			if(O==Owner&&!ismob(O)) return
+			if(O==Owner&&!ismob(O)) return ..()
 			tick_on |= O
 			..()
 
 		Uncross(atom/movable/O)
-			if(O==Owner&&!ismob(O)) return
+			if(O==Owner&&!ismob(O)) return ..()
 			if(O in tick_on)
 				tick_on -= O
 			..()

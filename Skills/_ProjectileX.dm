@@ -337,9 +337,9 @@ obj
 				Variation=4
 			Secret_Knives
 				AdaptRate=1
-				Blasts=10
+				Blasts=4
 				DamageMult=0.25
-				AccMult=0.6
+				AccMult=1
 				AttackReplace=1
 				ZoneAttack=1
 				Distance=30
@@ -357,7 +357,17 @@ obj
 				IconLock='CheckmateKnives.dmi'
 				Variation=8
 				FlickBlast=0
-				Cooldown=4
+				Cooldown=12
+				adjust(mob/p)
+					Blasts = rand(4,10)
+					DamageMult = rand(0.1, 0.25)
+					Cooldown = rand(9,12)
+					if((p.UBWPath == "Firm" && p.SagaLevel >=3))
+						Blasts = rand(2 + p.SagaLevel, 8 + p.SagaLevel)
+						DamageMult = rand(0.1 + (p.SagaLevel * 0.05), 0.15 + (p.SagaLevel * 0.05))
+						Cooldown = rand(12,16) - p.SagaLevel
+
+				
 			Murder_Music
 				AttackReplace=1
 				ZoneAttack=1

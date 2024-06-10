@@ -239,7 +239,7 @@ race
 		offense = 1
 		defense = 1
 		speed = 1
-		anger = 1.4
+		anger = 1.5
 		learning = 1.5
 
 	saiyan

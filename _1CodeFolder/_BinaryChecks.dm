@@ -187,7 +187,7 @@ mob
 					Ascensions+=src.GetSwordAscension()
 					if(Ascensions>6)
 						Ascensions=6
-			if(src.UsingKendo() && s.Class == "Wooden")
+			if(src.UsingKendo())
 				Ascensions++
 			if(src.HasSwordDamageBuff())
 				Ascensions+=src.GetSwordDamageBuff()
@@ -224,7 +224,7 @@ mob
 					Ascensions+=src.GetSwordAscension()
 					if(Ascensions>6)
 						Ascensions=6
-			if(src.UsingKendo() && s.Class == "Wooden")
+			if(src.UsingKendo())
 				Ascensions++
 			if(src.HasSwordDelayBuff())
 				Ascensions+=src.GetSwordDelayBuff()
@@ -261,7 +261,7 @@ mob
 					Ascensions+=src.GetSwordAscension()
 					if(Ascensions>6)
 						Ascensions=6
-			if(src.UsingKendo() && s.Class == "Wooden")
+			if(src.UsingKendo())
 				Ascensions++
 			if(src.HasSwordAccuracyBuff())
 				Ascensions+=src.GetSwordAccuracyBuff()
@@ -2550,6 +2550,8 @@ mob
 				return 1
 			return 0
 		UsingKendo()
+			if(!equippedSword)
+				world.log << "mans has no sword, so it cany be wooden"
 			if(HasSword()&&equippedSword:Class=="Wooden"&&src.StyleActive=="Kendo")
 				return 1
 			return 0

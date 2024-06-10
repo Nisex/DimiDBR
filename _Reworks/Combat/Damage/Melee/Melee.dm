@@ -733,6 +733,7 @@ var/global/MULTIHIT_NERF = FALSE
 						if(!locate(/obj/Skills/Projectile/Secret_Knives, src))
 							src.AddSkill(new/obj/Skills/Projectile/Secret_Knives)
 						for(var/obj/Skills/Projectile/Secret_Knives/sk in src)
+							sk.adjust(src)
 							src.UseProjectile(sk)
 					if(src.StyleActive=="Blade Singing")
 						if(!locate(/obj/Skills/Projectile/Murder_Music, src))

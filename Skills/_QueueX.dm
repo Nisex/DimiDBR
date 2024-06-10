@@ -878,7 +878,7 @@ obj
 				Warp=5
 				KBAdd=1
 				KBMult=0.00001
-				Instinct=4
+				Instinct=0
 				Combo=10
 				HitSparkIcon='Slash - Vampire.dmi'
 				HitSparkX=-32
@@ -888,10 +888,12 @@ obj
 				ActiveMessage="lets their presence try to overtake their opponents!"
 				adjust(mob/p)
 					var/ascLevel = 1 + p.AscensionsUnlocked
-					src.Scorching=3 * ascLevel
-					src.Freezing=3 * ascLevel
-					src.Paralyzing=3 * ascLevel
-					src.Shattering=3 * ascLevel
+					var/boon = 3 * ascLevel
+					src.Scorching=8 + boon
+					src.Freezing=8 + boon
+					src.Paralyzing=8 + boon
+					src.Shattering=8 + boon
+					DamageMult = 0.5 + (ascLevel/8)
 
 //Basic
 
@@ -956,10 +958,10 @@ obj
 							return//and that's the end
 						if(usr.Secret == "Eldritch" && usr.CheckSlotless("True Form"))
 							src.name="Maleific Strike"
-							src.DamageMult=4
+							src.DamageMult=3
 							src.AccuracyMult=2
-							src.KBAdd=5
-							src.KBMult=3
+							src.KBAdd=2
+							src.KBMult=1.5
 							src.Ooze = 1
 							src.Cooldown=60
 							src.ActiveMessage="leaks some of their malefic presence onto the world!"

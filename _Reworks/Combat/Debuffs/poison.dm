@@ -58,7 +58,7 @@ globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
 
 /mob/proc/reduceDebuffStacks(typeOfDebuff)
     var/boon = 0
-    var/base = clamp(vars["[typeOfDebuff]"] / glob.BASE_DEBUFF_REDUCTION_DIVISOR, 0.5, 2)
+    var/base = clamp(vars["[typeOfDebuff]"] / glob.BASE_DEBUFF_REDUCTION_DIVISOR, glob.BASE_DEBUFF_REDUCTION_DIVISOR_LOWER,glob.BASE_DEBUFF_REDUCTION_DIVISOR_UPPER)
     switch(typeOfDebuff)
         if("Burn")
             if(Cooled)

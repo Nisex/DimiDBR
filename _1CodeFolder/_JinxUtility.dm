@@ -2999,7 +2999,7 @@ mob
 				Z.Cooldown(3)
 				return
 			if(src.Secret=="Eldritch" && CheckSlotless("True Form"))
-				src.Activate(new/obj/Skills/AutoHit/Shadow_Tendril_Strike)
+				src.Activate(new/obj/Skills/AutoHit/Shadow_Tendril_Strike(p = src))
 				Z.Cooldown()
 				return
 			if(src.Secret=="Haki")

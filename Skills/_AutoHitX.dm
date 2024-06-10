@@ -876,8 +876,7 @@ obj
 				Slow=1
 				Area="Strike"
 				ActiveMessage="bursts out with tendrils of shadow!"
-				StrOffense=0
-				ForOffense=1
+				AdaptRate = 1
 				DamageMult=0.5
 				GuardBreak=1
 				TurfStrike=3
@@ -886,6 +885,11 @@ obj
 				HitSparkY=-32
 				HitSparkSize=1
 				HitSparkTurns=1
+				New(mob/p )
+					if(p)
+						DamageMult = 0.5 + (0.15 * p.AscensionsAcquired)
+					. = ..()
+					
 			Shadow_Tendril_Wave
 				Distance=10
 				Knockback=1
@@ -1012,7 +1016,7 @@ obj
 				HitSparkX=0
 				HitSparkY=0
 				PullIn = 5
-				Crippling=15
+				Crippling=7
 				ShockIcon='DarkKiai.dmi'
 				ActiveMessage="'s unnatural presence forces the world to pull closer!"
 //No Verbs
@@ -1776,12 +1780,13 @@ obj
 				FlickAttack=3
 				Area="Circle"
 				StrOffense=1
-				DamageMult=11
+				CanBeDodged = 0 
+				CanBeBlocked = 0 
+				DamageMult=14
 				DelayTime=0
 				PreShockwave=1
 				PreShockwaveDelay=1
 				PostShockwave=0
-				GuardBreak=1
 				Shockwaves=2
 				Shockwave=0.5
 				ShockIcon='KenShockwaveFocus.dmi'
@@ -1790,6 +1795,7 @@ obj
 				ShockTime=4
 				GuardBreak=1
 				Rush=5
+				
 				ControlledRush=1
 				HitSparkIcon='Slash - Future.dmi'
 				HitSparkX=-32
@@ -1798,6 +1804,7 @@ obj
 				HitSparkCount=7
 				HitSparkDispersion=4
 				Launcher=4
+				ComboMaster = 1
 				DelayedLauncher=1
 				Cooldown=150
 				EnergyCost=5
