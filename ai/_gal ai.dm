@@ -368,6 +368,54 @@ mob/Player/AI
 		if(!src.MobColor)
 			src.MobColor=list(1,0,0, 0,1,0, 0,0,1, 0,0,0)
 		AppearanceOn()
+
+	Del()
+		ai_loop.Remove(src)
+		ticking_ai.Remove(src)
+		if(senpai)
+			senpai.ai_active.Remove(src)
+			senpai = null
+		ai_state = null
+		if(animatedeath)
+			animate(src, alpha=0,time=5)
+			sleep(5)
+		for(var/obj/Skills/s in src)
+			s.AssociatedLegend = null
+			s.AssociatedGear = null
+			s.loc = null
+			DeleteSkill(s, 1)
+		for(var/i in vis_contents)
+			vis_contents -= i
+		companion_ais.Remove(src)
+		transform = null
+		filters = null
+		dd = null
+		Hair = null
+		BreakViewers()
+		RemoveTarget()
+		passive_handler = null
+		race = null
+		GlobalCooldowns = null
+		SkillsLocked = null
+		OldLoc = null
+		aggro_damage = null
+		Splits = null
+		information = null
+		secretDatum = null
+		MonkeySoldiers = null
+		knowledgeTracker = null
+		Items = null
+		equippedSword = null
+		equippedArmor = null
+		equippedWeights = null
+		play_action = null
+		overlays = null
+		underlays = null
+		if(active_projectiles.len>0)
+			for(var/obj/Skills/Projectile/_Projectile/p in active_projectiles)
+				p.endLife()
+		src.loc = null
+		..()
 	icon = 'Makyo1.dmi'
 
 	KiBlade=1 //give these boiz access to kenjutsu
@@ -468,50 +516,6 @@ mob/Player/AI
 	proc/
 		EndLife(animatedeath=1) //Clear all references in this proc.
 			set waitfor=0
-			ai_loop.Remove(src)
-			ticking_ai.Remove(src)
-			if(senpai)
-				senpai.ai_active.Remove(src)
-				senpai = null
-			ai_state = null
-			if(animatedeath)
-				animate(src, alpha=0,time=5)
-				sleep(5)
-			for(var/obj/Skills/s in src)
-				s.AssociatedLegend = null
-				s.AssociatedGear = null
-				s.loc = null
-				DeleteSkill(s, 1)
-			for(var/i in vis_contents)
-				vis_contents -= i
-			companion_ais.Remove(src)
-			transform = null
-			filters = null
-			dd = null
-			Hair = null
-			BreakViewers()
-			RemoveTarget()
-			GlobalCooldowns = null
-			SkillsLocked = null
-			OldLoc = null
-			passive_handler = null
-			aggro_damage = null
-			Splits = null
-			information = null
-			secretDatum = null
-			MonkeySoldiers = null
-			knowledgeTracker = null
-			Items = null
-			equippedSword = null
-			equippedArmor = null
-			equippedWeights = null
-			play_action = null
-			overlays = null
-			underlays = null
-			if(active_projectiles.len>0)
-				for(var/obj/Skills/Projectile/_Projectile/p in active_projectiles)
-					p.endLife()
-			src.loc = null
 			sleep(50)
 			del src
 
