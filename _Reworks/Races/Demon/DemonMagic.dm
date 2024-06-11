@@ -56,50 +56,44 @@
         return
     Trigger(p, 0)
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Trigger(mob/User, Override = 0)
-    if(Using)
-        if(possible_skills["DarkMagic"].MultiShots)
-            User.UseProjectile(possible_skills["DarkMagic"])
-        else
-            ..()
+    var/datum/queueTracker/keyQ = User.client.keyQueue
+    if(isnull(keyQ.TRIGGERED))
+        if(keyQ.LAST_CAST + 15 < world.time)
+            keyQ.trigger(type)
+            User << "You have started to cast [src]." // replace with animation of text above head.
+            User.castAnimation()
+            Cooldown = 0
+            keyQ.LAST_CAST = world.time
     else
-        var/datum/queueTracker/keyQ = User.client.keyQueue
-        if(isnull(keyQ.TRIGGERED))
-            if(keyQ.LAST_CAST + 45 < world.time)
-                keyQ.trigger(type)
-                User << "You have started to cast [src]." // replace with animation of text above head.
-                User.castAnimation()
-                Cooldown = 0
-                keyQ.LAST_CAST = world.time
-        else
-            var/initType = keyQ.initType
-            // this has already been activated, therefore this must be the 2nd input
-            var/result = keyQ.detectInput(15)
-            var/perfect = FALSE
-            if(result == 2)
-                perfect = TRUE
-                result = 1
-            switch(result)
-                if(1)
-                    // execute the skill here
-                    User << "You have used your [KEYWORD] spell."
-                    var/trueType = splittext("[initType]", "/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/")
-                    var/obj/Skills/theSkill = possible_skills[trueType[2]]
-                    if(possible_skills[trueType[2]].cooldown_remaining > 0)
-                        User << "This is on cooldown"
-                        return
-                    
-                    var/triggered = theSkill?:Trigger(User, 0)
-                    if( !(isnull(triggered))  || triggered)
-                        Cooldown(1, null, User, type)
-                    if(perfect)
-                        User.Quake(5, 0)
-                    keyQ.TRIGGERED = null
-                if(0)
-                    User << "Too Soon..."
-                if(-1)
-                    User << "You took too long."
+        var/initType = keyQ.initType
+        // this has already been activated, therefore this must be the 2nd input
+        var/result = keyQ.detectInput(10)
+        var/perfect = FALSE
+        if(result == 2)
+            perfect = TRUE
+            result = 1
+        switch(result)
+            if(1)
+                // execute the skill here
+                User << "You have used your [KEYWORD] spell."
+                var/trueType = splittext("[initType]", "/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/")
+                var/obj/Skills/theSkill = possible_skills[trueType[2]]
+                if(possible_skills[trueType[2]].cooldown_remaining > 0)
+                    User << "This is on cooldown"
+                    return
+                
+                var/triggered = theSkill?:Trigger(User, 0)
+                if( !(isnull(triggered))  || triggered)
                     Cooldown(1, null, User, type)
-                    keyQ.TRIGGERED = null
+                if(perfect)
+                    User.Quake(5, 0)
+                keyQ.TRIGGERED = null
+            if(0)
+                User << "Too Soon..."
+            if(-1)
+                User << "You took too long."
+                Cooldown(1, null, User, type)
+                keyQ.TRIGGERED = null
 
 
 /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic

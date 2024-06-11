@@ -1355,7 +1355,7 @@ ascension
 				choices = list("Stability" = /ascension/sub_ascension/majin/become_docile/stability, "Peace" = /ascension/sub_ascension/majin/become_docile/peace, "Both" = /ascension/sub_ascension/majin/become_docile/both)
 				stability
 					choices = null
-					passives = list("VenomResistance" = 0.5, "DebuffImmune" = 0.5, "Juggernaut" = 0.5)
+					passives = list("VenomResistance" = 0.25, "DebuffImmune" = 0.25, "Juggernaut" = 0.5)
 
 					onAscension(mob/owner)
 						if(owner.passive_handler.Get("Juggernaut")+passives["Juggernaut"] >= 1)

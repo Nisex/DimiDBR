@@ -4678,22 +4678,22 @@ NEW VARIABLES
 					if("Majin")
 						switch(p.Class)
 							if("Super")
-								return 1.5
+								return 1.2
 							if("Innocent")
-								return 1.75
+								return 1.4
 							if("Unhinged")
-								return 2
-						return 1.5
+								return 1.75
+						return 1.2
 					if("Demon")
 						return 1.25
 					if("Namekian")
-						return 1.5
+						return 1.2
 				if(p.Secret == "Werewolf")
 					return 1.2
 
 			proc/getRegenRate(mob/p)
-				var/baseHeal = 3
-				var/perMissing = 0.04
+				var/baseHeal = 1.5
+				var/perMissing = 0.02
 				var/missingPerAsc = 0.01
 				var/raceDivisor = 30
 

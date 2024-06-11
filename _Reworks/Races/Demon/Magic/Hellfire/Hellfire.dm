@@ -1,11 +1,11 @@
 /obj/Skills/Projectile/Magic/HellFire/Hellpyre
-    scalingValues = list("Blasts" = list(1,1,2,2,3), "DamageMult" = list(10,15,15,20,20), \
-    )
+    scalingValues = list("Blasts" = list(4,5,6,8,10), "DamageMult" = list(10,12,15,18,20), \
+    "Delay" = list(4,3,2,1,1))
     ElementalClass="Fire"
     DamageMult = 3
     AdaptRate = 1
     IconLock='Fire Blessing.dmi'
-    IconSize=3
+    IconSize=6
     Trail='Aura_Fire_Small.dmi'
     MultiTrail = 1
     TrailDuration=5
@@ -15,7 +15,7 @@
     TrailY=0
     AccMult = 3
     Speed = 0.75
-    Cooldown = 120
+    Cooldown = 90
     ActiveMessage = "unleashes a wave of Fire!"
     ManaCost = 1
     Delay = 8
@@ -38,7 +38,7 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
     ElementalClass="Fire"
-    scalingValues = list("Damage" = list(0.08,0.1,0.1,0.1,0.2), "Distance" = list(8,12,15,20,30), \
+    scalingValues = list("Damage" = list(0.1,0.2,0.25,0.3,0.4), "Distance" = list(8,12,15,20,30), \
     "DarknessFlame" = list(3,8,12,15,20), "Slow" = list(3,6,8,12,20), "Burning" = list(10,15,20,25,30,50), "Duration" = list(150,200,300,350,400), \
     "Adapt" = list(1,1,1,1,1), "CorruptionGain" = list(1,1,1,1,1) )
     makSpace = new/spaceMaker/HellFire
