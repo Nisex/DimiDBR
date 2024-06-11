@@ -237,7 +237,7 @@ race
 		endurance = 1
 		force = 1
 		offense = 1
-		defense = 1
+		defense = 2
 		speed = 1
 		anger = 1.5
 		learning = 1.5
@@ -251,9 +251,9 @@ race
 
 		strength = 1.5
 		endurance = 1.5
-		force = 1.25
+		force = 1.5
 		offense = 1
-		defense = 0.75
+		defense = 1
 		speed = 1
 		anger = 1.5
 		regeneration = 1.5
@@ -306,9 +306,9 @@ race
 		power = 5
 		strength = 1.5
 		endurance = 1.5
-		speed = 1.5
+		speed = 1.25
 		force = 1.5
-		offense = 2
+		offense = 1.5
 		defense = 1.5
 		regeneration = 3
 		recovery = 3
@@ -347,9 +347,9 @@ race
 		strength = 1.5
 		endurance = 2
 		speed = 1
-		force = 1
-		offense = 2
-		defense = 2
+		force = 1.5
+		offense = 1.5
+		defense = 1.5
 		regeneration = 2.5
 		anger = 1
 		intellect = 1.5
@@ -402,10 +402,10 @@ race
 		visual = 'Demon.png'
 
 		strength = 1.5
-		endurance = 1.5
-		speed = 1
-		force = 1.25
-		offense = 1
+		endurance = 1.75
+		speed = 1.25
+		force = 1
+		offense = 1.25
 		defense = 1
 		imagination = 2
 
@@ -441,7 +441,7 @@ race
 		endurance = 1.5
 		speed = 1.5
 		offense = 1.5
-		defense = 1.5
+		defense = 1
 		force = 2
 		regeneration = 3
 		imagination = 2
@@ -531,8 +531,8 @@ race
 		endurance = 0.75
 		force = 1.5
 		offense = 1.25
-		defense = 1.5
-		speed = 1.5
+		defense = 1.25
+		speed = 1.25
 		anger = 1.5
 		imagination = 2
 		intellect = 1.5

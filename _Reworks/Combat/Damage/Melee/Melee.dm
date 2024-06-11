@@ -317,7 +317,7 @@ var/global/MULTIHIT_NERF = FALSE
 							if(!T.density)
 								CHECK_TICK
 							//	world << "LOCATION: [T.x], [T.y], [T.z]"
-								new/obj/Ooze(T.x, T.y, T.z)
+								new/obj/Ooze(T.x, T.y, T.z, src)
 					#if DEBUG_MELEE
 					log2text("Knockback", "After Queue", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Knockback", knockDistance, "damageDebugs.txt", "[ckey]/[name]")

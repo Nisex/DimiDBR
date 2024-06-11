@@ -760,6 +760,8 @@ mob
 			if(src.PotionCD)
 				val/=1.25
 			src.Energy+=val
+			if(Energy<0)
+				Energy=0
 			src.MaxEnergy()
 		HealMana(var/val, var/StableHeal=0)
 			if(!src.FusionPowered&&!StableHeal)
@@ -1161,8 +1163,6 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
-			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-				Mod+=0.3
 			if(src.StrStolen)
 				Mod+=src.StrStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1273,8 +1273,6 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
-			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-				Mod+=0.3
 			if(src.ForStolen)
 				Mod+=src.ForStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1376,8 +1374,6 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
-			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-				Mod+=0.2
 			if(src.EndStolen)
 				Mod+=src.EndStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1464,8 +1460,6 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
-			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-				Mod+=0.2
 			if(src.SpdStolen)
 				Mod+=src.SpdStolen*0.5
 			var/BM=src.HasBuffMastery()

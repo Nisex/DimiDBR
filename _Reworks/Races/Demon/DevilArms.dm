@@ -18,7 +18,6 @@
     var/selection
     var/totalEvolvesMain = 0
     var/totalEvolvesSecondary = 0
-    Mastery = 1
 
     name = "Devil Arm"
 
@@ -43,6 +42,12 @@
         if(totalEvolvesSecondary < p.race?:sub_devil_arm_upgrades)
             return TRUE
         return FALSE
+    adjust(mob/p)
+        var/asc = p.AscensionsAcquired
+        strAdd = 0.1 * asc
+        forAdd = 0.1 * asc
+        endAdd = 0.05 * asc
+        spdAdd = 0.1 * asc
     verb/Devil_Arm()
         set category = "Skills"
         if(!usr.isRace(DEMON)) return 
@@ -52,6 +57,7 @@
             return
         if(!selection)
             pickSelection(usr)
+        adjust(usr)
         src.Trigger(usr)
 
     proc/handlePassive(list/theList, input, secondary)

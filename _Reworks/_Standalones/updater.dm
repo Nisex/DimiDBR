@@ -114,11 +114,19 @@ update
 			if(length(p.generateMagicList()) >= 1)
 				p.legacyRefundmagic()
 			if(p.isRace(SAIYAN))
-				p.passive_handler.Increase("Brutalize", 0.25)
+				p.passive_handler.Set("Brutalize", 0.25)
 			if(p.isRace(BEASTMAN) && p.AscensionsAcquired < 1)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in p.Buffs)
 					b.NeedsHealth = 10
 					b.passives = list("Brutalize" = 0.5, "DemonicDurability" = 0.25)
+			..()
+	version7
+		version = 7
+		updateMob(mob/p)
+			..()
+	version8
+		version = 8
+		updateMob(mob/p)
 			..()
 	version9
 		version = 9
@@ -137,4 +145,54 @@ update
 				if(p.RPPSpentEvent > 0)
 					AdminMessage("[p.name] ([p.ckey]) spent Event RPP when they shouldn't have (maybe)! Please remove(delete) their latest tech / skill buy and refund any actual RPP(check what their total spent should be.")
 				p.RPPSpentEvent = 0
+			..()
+	version11
+		version = 11
+		updateMob(mob/p)
+			if(p.isRace(HUMAN))
+				p.NewAnger(1.5)
+				p << "Anger set to 1.5"
+				p << "stats changed"
+				p.stat_redo()
+			if(p.isRace(ELDRITCH))
+				p << "stats changed"
+				p.stat_redo()
+			if(p.isRace(DEMON))
+				p << "stats changed"
+				p.stat_redo()
+			if(p.isRace(NAMEKIAN))
+				p << "stats changed"
+				p.stat_redo()
+				p.Class = input("What clan do you hail from?", "Clan Selection")in list("Warrior", "Dragon", "Demon")
+				switch(p.Class)
+					if("Warrior")
+						p.StrMod += 0.5
+						p.EndMod += 0.25
+					if("Dragon")
+						p.ForMod += 0.5
+						p.DefMod += 0.25
+					if("Demon")
+						p.SpdMod += 0.5
+						p.OffMod += 0.25
+			if(p.isRace(DRAGON))
+				p << "stats changed"
+				p.stat_redo()
+			if(p.isRace(SAIYAN))
+				p << "stats changed"
+				p.stat_redo()
+				p.passive_handler.Set("Brutalize", 0.25)
+			if(p.isRace(MAKYO))
+				p << "stats changed"
+				p.stat_redo()
+
+			..()
+	version12
+		version = 12
+		updateMob(mob/p)
+			if(p.isRace(DEMON))
+				var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2)
+				da.passives = list()
+				p.race?:devil_arm_upgrades = 1
+				da.totalEvolvesMain = 0 
+				p << "devil arm reset"
 			..()
