@@ -436,6 +436,10 @@ mob/Players
 					if(PACT_BROKEN_SUBJECT_PENALTY)
 						whoToInflict = PACT_SUBJECT
 				p.breakPact(TRUE, whoToInflict)
+		if(isRace(MAKYO)&&StarPowered&&!starActive)
+			MakyoFade()
+		if(isRace(MAKYO)&&!StarPowered&&starActive)
+			MakyoTrigger()
 		return
 	Logout()
 		players -= src
