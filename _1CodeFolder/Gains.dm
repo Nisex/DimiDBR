@@ -1273,7 +1273,7 @@ mob
 											src.HealFatigue(b.EnergyHeal,1)
 									else
 										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
-											src.HealFatigue(b.EnergyHeal,1)
+											src.HealEnergy(b.EnergyHeal,1)
 							if(b.ManaHeal)
 								if(!b.StableHeal)
 									if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)

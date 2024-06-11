@@ -357,15 +357,15 @@ obj
 				IconLock='CheckmateKnives.dmi'
 				Variation=8
 				FlickBlast=0
-				Cooldown=12
+				Cooldown=3
 				adjust(mob/p)
-					Blasts = rand(4,10)
-					DamageMult = rand(0.1, 0.25)
-					Cooldown = rand(9,12)
+					Blasts = rand(5,8)
+					DamageMult = 0.2
+					Cooldown = rand(6,9)
 					if((p.UBWPath == "Firm" && p.SagaLevel >=3))
 						Blasts = rand(2 + p.SagaLevel, 8 + p.SagaLevel)
 						DamageMult = rand(0.1 + (p.SagaLevel * 0.05), 0.15 + (p.SagaLevel * 0.05))
-						Cooldown = rand(12,16) - p.SagaLevel
+						Cooldown = rand(7,12) - p.SagaLevel
 
 				
 			Murder_Music

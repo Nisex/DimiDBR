@@ -2550,8 +2550,6 @@ mob
 				return 1
 			return 0
 		UsingKendo()
-			if(!equippedSword)
-				world.log << "mans has no sword, so it cany be wooden"
 			if(HasSword()&&equippedSword:Class=="Wooden"&&src.StyleActive=="Kendo")
 				return 1
 			return 0

@@ -2006,8 +2006,8 @@ obj
 				Knockback=3
 				Stunner=1.5
 				*/
-				StrOffense=0
-				ForOffense=1
+				AdaptRate = 1
+				GuardBreak=1
 				DamageMult=10
 				Knockback=10
 				Cooldown=150
@@ -2048,7 +2048,7 @@ obj
 				TurfShiftDurationDespawn=5
 				ActiveMessage="converts their ki to a wave of blinding light!"
 				Cooldown=150
-				EnergyCost=20
+				EnergyCost=5
 				verb/Taiyoken()
 					set category="Skills"
 					usr.Activate(src)
@@ -2118,13 +2118,14 @@ obj
 				StrOffense=0
 				ForOffense=1
 				DamageMult=13
-				WoundCost=6
+				WoundCost=3
 				ComboMaster=1
 				Area="Around Target"
 				Distance=15
 				DistanceAround=4
 				Divide=1
 				Launcher=1
+				GuardBreak=1
 				Stunner=0.5
 				WindUp=1.5
 				WindupIcon='Ripple Radiance.dmi'

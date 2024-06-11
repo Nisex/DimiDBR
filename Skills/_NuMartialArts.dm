@@ -1090,8 +1090,6 @@ obj
 						StyleEnd=1.5
 						StyleSpd=1.5
 						passives = list("Flow" = 1, "Instinct" = 1)
-						Flow=1
-						Instinct=1
 						//adaptation passive
 						StyleActive="Balance"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Resonance_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Metta_Sutra_Style",\

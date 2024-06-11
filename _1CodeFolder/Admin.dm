@@ -986,7 +986,7 @@ mob/Admin2/verb
 			if(A?:Augmented)
 				A?:EditAll(src)
 		if(A.type in typesof(/obj/Skills))
-			if(A?:possible_skills)
+			if(length(A?:possible_skills) > 1)
 				A?:EditAll(src)
 		if(istype(A, /obj/AI_Spot))
 			A?:EditAI(src)

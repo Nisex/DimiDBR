@@ -9564,7 +9564,6 @@ NEW VARIABLES
 						TimerLimit = 60 + (p.secretDatum.secretVariable["Madness"]/5)
 
 				HealthThreshold=0.1
-				RegenMult=2
 				AutoAnger=1
 				KenWave=4
 				KenWaveIcon='DarkKiai.dmi'
@@ -9593,8 +9592,10 @@ NEW VARIABLES
 					HairLock = input(usr, "What will your hair look like while in True Form?", "True Form Icon") as icon|null
 
 				Trigger(mob/User, Override = 0)
-					..()
 					adjust(User)
+					..()
+					if(!User.BuffOn(src))
+						User.Power_Multiplier = 1
 					if(User.Secret == "Eldritch")
 						if(!Using)
 							var/SecretInfomation/Eldritch/s = User.secretDatum

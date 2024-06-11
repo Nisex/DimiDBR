@@ -4,6 +4,12 @@ mob/proc/stat_redo()
 	stat_redoing = TRUE
 
 	winshow(src,"Finalize_Screen",1)
+	race.strength = race::strength
+	race.endurance = race::endurance
+	race.speed = race::speed
+	race.force = race::force
+	race.offense = race::offense
+	race.defense = race::defense
 	SetStatPoints(race.statPoints)
 	SetStat("Power", race.power)
 	SetStat("Strength", race.strength)
