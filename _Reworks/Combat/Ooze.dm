@@ -25,13 +25,13 @@ obj
 		Cross(atom/movable/O)
 			if(ismob(O) && O != owner)
 				tick_on |= O
-			..()
+			. = ..()
 
 		Uncross(atom/movable/O)
 			if(ismob(O) && O != owner)
 				if(O in tick_on)
 					tick_on -= O
-			..()
+			. = ..()
 
 		proc
 			on_tick()
