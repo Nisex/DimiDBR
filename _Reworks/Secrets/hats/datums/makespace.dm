@@ -4,7 +4,7 @@ spaceMaker
 		range
 		configuration = "" /* Fill, Random */
 		amount // if enabled only do this amount and back out after
-		turfs = list() // the list of turfs that are altered
+		tmp/turfs = list() // the list of turfs that are altered
 		stored_dmg_value = 1
 
 	New(time2Death, area, config, num)
