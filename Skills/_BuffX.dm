@@ -4784,8 +4784,6 @@ NEW VARIABLES
 				src.Trigger(usr)
 
 		Saiyan_Dominance
-			EnergyThreshold = 25
-			TimerLimit=60
 			AutoAnger=1
 			passives = list("PridefulRage" = 1)
 			PridefulRage=1
