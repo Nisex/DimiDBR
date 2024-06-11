@@ -376,9 +376,6 @@ mob/Player/AI
 			senpai.ai_active.Remove(src)
 			senpai = null
 		ai_state = null
-		if(animatedeath)
-			animate(src, alpha=0,time=5)
-			sleep(5)
 		for(var/obj/Skills/s in src)
 			s.AssociatedLegend = null
 			s.AssociatedGear = null
