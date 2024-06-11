@@ -370,6 +370,7 @@ mob/Player/AI
 		AppearanceOn()
 
 	Del()
+		loc = null
 		ai_loop.Remove(src)
 		ticking_ai.Remove(src)
 		if(senpai)
@@ -513,7 +514,6 @@ mob/Player/AI
 	proc/
 		EndLife(animatedeath=1) //Clear all references in this proc.
 			set waitfor=0
-			sleep(50)
 			del src
 
 		GenerateAppearance(var/is_monster, include_clothes=1)
