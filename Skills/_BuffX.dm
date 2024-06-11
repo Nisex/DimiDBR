@@ -11835,6 +11835,19 @@ mob
 									List+="[x])"
 							src << "You don't have the proper active buff active! [List]"
 							return
+				if(B.UBuffNeeded)
+					if(src.SlotlessBuffs.len!=0)
+						for(var/buff in B.UBuffNeeded)
+							if(!CheckSlotless(buff))
+								src << "You need [buff] enabled to use [src.name]!"
+								return
+					else
+						var/buffsRequired = ""
+						for(var/buff in B.UBuffNeeded)
+							buffsRequired += "[buff],"
+						buffsRequired = replacetext(buffsRequired, ",", "", length(buffsRequired)-2, 0)
+						src << "You have to be using [buffsRequired] to turn [src.name] on!"
+						return
 				if(B.SBuffNeeded)
 					if(!src.SpecialBuff||src.SpecialBuff.BuffName!=B.SBuffNeeded)
 						src << "You have to be in [B.SBuffNeeded] state!"
