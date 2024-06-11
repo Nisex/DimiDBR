@@ -15,7 +15,7 @@ obj
 			owner = p
 			for(var/mob/m in loc)
 				tick_on |= m
-			spawn(lifetime) // why . . . . 
+			spawn(lifetime) // why . . . .
 				if(src)
 					ticking_generic -= src
 					owner = null
@@ -41,4 +41,3 @@ obj
 
 /mob/Admin4/verb/SetMadnessToMax()
 	src.secretDatum.secretVariable["Madness"] = 100
-			
