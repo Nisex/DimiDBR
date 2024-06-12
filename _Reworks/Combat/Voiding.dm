@@ -84,12 +84,14 @@ mob/proc/StartFresh()
 /mob/proc/makeCorpse(oldLoc)
 	Stunned = 0
 	var/mob/Body/corpse = new()
-	corpse.icon = 'lootchest.dmi' // treasure chest
-	corpse.icon_state = ""
-	corpse.name = "[src]'s Loot Pinata"
+	corpse.appearance = appearance
+	corpse.transform = matrix(-90, MATRIX_ROTATE)
+	corpse.overlays += icon('Injured Blood.dmi')
+	corpse.overlays += icon('EyesDragon.dmi') // this is to stop blinking and give a more 'dead eye' look.
+	corpse.name = "[src]'s corpse"
 	corpse.loc = oldLoc
-	PinataExplosion(corpse)
-	OMsg(src, "[src]'s body explodes into a shower of confetti and loot!")
+/*	PinataExplosion(corpse)
+	OMsg(src, "[src]'s body explodes into a shower of confetti and loot!")*/
 	corpse.Race = Race
 	corpse.Body = Body
 	corpse.EnergyMax=src.EnergyMax
@@ -106,7 +108,7 @@ mob/proc/StartFresh()
 			I.ObjectUse(src)
 		if(I.Stealable)
 			lootTable+=I
-		src-=I
+		I.loc = corpse
 
 	for(var/x in 1 to rand(1,4))
 		if(lootTable.len == 0)
