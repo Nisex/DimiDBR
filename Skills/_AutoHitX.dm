@@ -889,7 +889,7 @@ obj
 					if(p)
 						DamageMult = 0.5 + (0.15 * p.AscensionsAcquired)
 					. = ..()
-					
+
 			Shadow_Tendril_Wave
 				Distance=10
 				Knockback=1
@@ -1780,8 +1780,8 @@ obj
 				FlickAttack=3
 				Area="Circle"
 				StrOffense=1
-				CanBeDodged = 0 
-				CanBeBlocked = 0 
+				CanBeDodged = 0
+				CanBeBlocked = 0
 				DamageMult=14
 				DelayTime=0
 				PreShockwave=1
@@ -1795,7 +1795,7 @@ obj
 				ShockTime=4
 				GuardBreak=1
 				Rush=5
-				
+
 				ControlledRush=1
 				HitSparkIcon='Slash - Future.dmi'
 				HitSparkX=-32
@@ -5894,7 +5894,7 @@ obj
 				#if DEBUG_AUTOHIT
 				Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
-				var/Precision=src.Damage
+				var/Precision=clamp(0.1,src.Damage,10)
 				var/itemMods = list(0,0,0)
 				if(src.SwordTech&&!src.SpecialAttack)
 					var/obj/Items/Sword/s=src.Owner.EquippedSword()
