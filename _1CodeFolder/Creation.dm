@@ -92,17 +92,6 @@ mob/Players
 		for(var/obj/Skills/S in usr)
 			usr.AddSkill(S, AlreadyHere=1)
 
-		if(src.RPPSpendable<0)
-			src.RPPSpendable=0
-
-
-
-		if(src.RPPSpendableEvent>0)
-			src.RPPSpendableEvent=0
-		if(RPPSpentEvent>0)
-			loc = locate(0,0,0)
-		if(src.RPPMult<1)
-			src.RPPMult=1
 		for(var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da in src)
 			if(src.isRace(DEMON))
 				da.name="Devil Arm ([src.TrueName])"
