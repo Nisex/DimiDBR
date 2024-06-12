@@ -746,7 +746,7 @@ mob
 					else
 						val=val/3
 			if(src.PotionCD)
-				val/=1.25
+				val/=glob.HEALTH_POTION_NERF
 			if(icon_state == "Meditate")
 				src.Tension=max(0, Tension-(val*1.5))
 			else if(Tension != 100)
@@ -1171,6 +1171,9 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
+			
+
+
 			if(src.BurningShot)
 				if(src.Burn)
 					if(src.Burn>0&&src.Burn<=25)
@@ -1281,14 +1284,21 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-			if(src.BurningShot)
-				if(src.Burn)
+			if(src.Burn)
+				if(src.BurningShot)
 					if(src.Burn>0&&src.Burn<=25)
 						Mod+=0.75*src.BurningShot
 					else if(src.Burn>25&&src.Burn<=75)
 						Mod+=0.5*src.BurningShot
 					else
 						Mod+=0.25*src.BurningShot
+				else
+					if(!src.HasDebuffImmune()>=1)
+						if(src.HasDebuffReversal())
+							Mod*=1 + Burn * (clamp(glob.DEBUFF_EFFECTIVENESS - 0.002, 0.001, 1))
+						else
+							Mod*=1 - Burn * (clamp(glob.DEBUFF_EFFECTIVENESS - 0.002, 0.001, 1))
+				
 			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Broken Brave"))
 				if(src.Health<=25*(1-src.HealthCut))
 					Mod+=min(10/src.Health,1)

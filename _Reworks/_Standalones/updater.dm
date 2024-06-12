@@ -196,3 +196,15 @@ update
 				da.totalEvolvesMain = 0 
 				p << "devil arm reset"
 			..()
+	version13
+		version = 13
+		updateMob(mob/p)
+			if(p.isRace(DEMON))
+				for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in p)
+					dm = new()
+			var/obj/Skills/Buffs/NuStyle/SwordStyle/Champloo_Style/c = p.FindSkill(/obj/Skills/Buffs/NuStyle/SwordStyle/Champloo_Style)
+			if(c)
+				c.passives = list("SwordPunching" = 1, "NeedsSword" = 0, "Shearing" = 1.5)
+			if(p.isRace(HUMAN))
+				p.passive_handler.Increase("Underdog", 1)
+			..()

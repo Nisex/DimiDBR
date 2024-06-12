@@ -179,7 +179,7 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			anger = 0.1
-			passives = list("Desperation" = 1.5, "Adrenaline" = 1, "TechniqueMastery" = -1)
+			passives = list("Desperation" = 1.5, "Adrenaline" = 1, "TechniqueMastery" = -1, "Underdog" = 1)
 			new_anger_message = "grows desperate!"
 			on_ascension_message = "You learn the meaning of desperation..."
 			choices = list("Technology" = /ascension/sub_ascension/human/technology, "Fighting" = /ascension/sub_ascension/human/fighting)
@@ -209,7 +209,7 @@ ascension
 
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
-			passives = list("Desperation" = 1.5)
+			passives = list("Desperation" = 1.5, "Underdog" = 1)
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
@@ -232,7 +232,7 @@ ascension
 
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
-			passives = list("Desperation" = 1.5)
+			passives = list("Desperation" = 1.5, "Underdog" = 1)
 			strength = 0.5
 			endurance = 0.5
 			force = 0.5

@@ -945,6 +945,10 @@ mob
 		DrunkPower()
 			if(src.CheckSlotless("Drunken Mastery") && src.Drunk)
 				return 1
+		isUnderDog(mob/p)
+			if(p.Power > Power || p.passive_handler.Get("GodKi") > p.passive_handler.Get("GodKi"))
+				return TRUE
+			return FALSE
 		HasPureDamage()
 			var/Return=0
 			Return+=passive_handler.Get("PureDamage")
@@ -961,8 +965,16 @@ mob
 			if(src.TarotFate=="Justice")
 				Return-=5
 			if(Target)
-				if(isDominating(Target) && HellRisen)
-					Return += HellRisen / 5
+				if(isDominating(Target) && passive_handler.Get("HellRisen"))
+					Return += passive_handler.Get("HellRisen") / 5
+				if(passive_handler.Get("Underdog"))
+					var/boon
+					if(Health <= 50 && Health < Target.Health)
+						boon = round(Target.Health - Health / 100, 0.1)
+					if(isUnderDog(Target))
+						var/ud = clamp(round(Target.Power / Power, 0.01), 0.01, 5)
+						Return += ud + boon
+
 			if(isRace(MAJIN))
 				Return += Potential * getMajinRates("Damage")
 			return Return
@@ -981,6 +993,14 @@ mob
 				Return-=5
 			if(src.TarotFate=="Justice")
 				Return+=5
+			if(Target)
+				if(passive_handler.Get("Underdog"))
+					var/boon
+					if(Health <= 50 && Health < Target.Health)
+						boon = round(Target.Health - Health / 100, 0.1)
+					if(isUnderDog(Target))
+						var/ud = clamp(round(Target.Power / Power, 0.01), 0.01, 5)
+						Return += ud + boon
 			return Return
 		HasWalking()
 			if(locate(/obj/Skills/Walking, src))

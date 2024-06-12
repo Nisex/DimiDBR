@@ -353,6 +353,7 @@ obj
 				ZoneAttackY=5
 				FireFromEnemy=0
 				FireFromSelf=1
+				Shearing = 4
 				Hover=8
 				IconLock='CheckmateKnives.dmi'
 				Variation=8

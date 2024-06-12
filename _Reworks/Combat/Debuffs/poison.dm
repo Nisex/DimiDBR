@@ -17,6 +17,9 @@ globalTracker/var/var/BurnStackDivisor = BURN_STACK_DIVISOR
 globalTracker/var/var/BurnNerf = BURN_NERF
 globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
 
+globalTracker/var/var/MAX_DEBUFF_CLAMP = 0.05
+globalTracker/var/var/LOWER_DEBUFF_CLAMP = 0.001
+
 /mob/proc/getDebuffDamage(typeOfDebuff)
     var/stackDivisor = glob.vars["[typeOfDebuff]StackDivisor"]
     var/nerf = glob.vars["[typeOfDebuff]Nerf"]
@@ -27,16 +30,18 @@ globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
         if("Burn")
             if(Cooled)
                 damage = damage / 2
+            damage /= 2
         if("Poison")
             if(Antivenomed)
                 damage = damage / 2
-    return clamp(damage, 0.0001, 5)
+        
+    return clamp(damage, glob.LOWER_DEBUFF_CLAMP, glob.MAX_DEBUFF_CLAMP)
 
 /mob/proc/doDebuffDamage(typeOfDebuff)
     var/dmg = getDebuffDamage(typeOfDebuff)
     if(dmg < 0)
         world.log << "[src] Debuff Damage is negative [dmg], [typeOfDebuff]"
-        dmg = 0.005
+        dmg = 0.001
     var/desp = passive_handler.Get("Desperation")
     if(prob(desp*10)&&!HasInjuryImmune())
         WoundSelf(dmg/desp)
