@@ -973,7 +973,8 @@ mob
 						boon = round(Target.Health - Health / 100, 0.1)
 					if(isUnderDog(Target))
 						var/ud = clamp(round(Target.Power / Power, 0.01), 0.01, 5)
-						Return += ud + boon
+						boon += ud
+					Return += boon
 
 			if(isRace(MAJIN))
 				Return += Potential * getMajinRates("Damage")
@@ -1000,7 +1001,8 @@ mob
 						boon = round(Target.Health - Health / 100, 0.1)
 					if(isUnderDog(Target))
 						var/ud = clamp(round(Target.Power / Power, 0.01), 0.01, 5)
-						Return += ud + boon
+						boon += ud
+					Return += boon
 			return Return
 		HasWalking()
 			if(locate(/obj/Skills/Walking, src))
