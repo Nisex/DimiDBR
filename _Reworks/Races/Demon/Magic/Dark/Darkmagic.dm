@@ -67,6 +67,7 @@
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply/Demon
+    MagicNeeded = 0
     BuffName = "Mind Dominated"
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech
