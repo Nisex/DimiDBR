@@ -25,7 +25,7 @@ obj
 				SBuffNeeded
 				GateNeeded
 				//ClassNeeded
-				IgnoreAlreadyHit
+				IgnoreAlreadyHit = FALSE
 				Duration
 				Persistent
 				DamageMult=1//Damage on top of whatever stat calculations.
@@ -5799,6 +5799,21 @@ obj
 			Damage(var/mob/m)
 				if(m && Owner && m in Owner.ai_followers)
 					return
+				if(!IgnoreAlreadyHit)
+					var/weHitThemAlready = FALSE
+					for(var/hitted in AlreadyHit)
+						if(m == hitted)
+							weHitThemAlready = TRUE
+					if(!weHitThemAlready)
+						for(var/obj/AutoHitter/ah in autohitChildren)
+							for(var/hitted in ah.AlreadyHit)
+								if(m == hitted)
+									weHitThemAlready = TRUE
+									break
+					if(weHitThemAlready)return
+				AlreadyHit |= m
+				for(var/obj/AutoHitter/ah in autohitChildren)
+					ah.AlreadyHit |= m
 				if(istype(Owner, /mob/Player/AI) && m != Owner)
 					var/mob/Player/AI/a = Owner
 					if(!a.ai_team_fire && a.AllianceCheck(m))
@@ -6245,20 +6260,7 @@ obj
 										for(var/mob/m in t.contents)
 											if(m==src.Owner)
 												continue
-											if(!IgnoreAlreadyHit)
-												var/weHitThemAlready = FALSE
-												if(m in AlreadyHit)
-													weHitThemAlready = TRUE
-												if(!weHitThemAlready)
-													for(var/obj/AutoHitter/ah in autohitChildren)
-														if(m in ah.AlreadyHit)
-															weHitThemAlready = TRUE
-															break
-												if(weHitThemAlready) continue
 											src.Damage(m)
-											AlreadyHit |= m
-											for(var/obj/AutoHitter/ah in autohitChildren)
-												ah.AlreadyHit.Add |= m
 									for(var/turf/t in Turf_Circle_Edge(src.TargetLoc, Rounds))
 										if(src.TurfErupt)
 											Bang(t, Size=src.TurfErupt, Offset=src.TurfEruptOffset, Vanish=4)
