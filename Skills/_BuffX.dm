@@ -5328,7 +5328,7 @@ NEW VARIABLES
 					var/base = round(magicLevel / 8)
 					var/perMissing = 0.01
 					var/amount = round(base + (abs(p.Health-100) * perMissing))
-					TimerLimit *= 1 - magicLevel / 40
+					TimerLimit = 25 * (1 - magicLevel / 40)
 					HealthHeal = (amount / (TimerLimit * world.tick_lag))
 
 				verb/Reverse_Wounds()
