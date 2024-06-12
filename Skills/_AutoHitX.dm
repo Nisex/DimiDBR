@@ -5595,6 +5595,7 @@ obj
 			Shearing
 
 			tmp/list/AlreadyHit
+			tmp/list/autohitChildren
 
 		New(var/mob/owner, var/arcing=0, var/wave=0, var/card=0, var/circle=0, var/mob/target, var/obj/Skills/AutoHit/Z, var/turf/TrgLoc, life = 500)
 			set waitfor = FALSE
@@ -5602,6 +5603,7 @@ obj
 				loc = null
 				return
 			AlreadyHit = list()
+			autohitChildren = list()
 			src.IgnoreAlreadyHit = Z.IgnoreAlreadyHit
 			toDeath = life
 			src.Owner=owner
@@ -5788,6 +5790,7 @@ obj
 			walk(src,0)
 			animate(src)
 			AlreadyHit = null
+			autohitChildren = null
 			Owner = null
 			loc = null
 			sleep(10)
@@ -6242,11 +6245,20 @@ obj
 										for(var/mob/m in t.contents)
 											if(m==src.Owner)
 												continue
-											if(m in AlreadyHit && !IgnoreAlreadyHit)
-												continue
-											else
-												src.Damage(m)
-												AlreadyHit.Add(m)
+											if(!IgnoreAlreadyHit)
+												var/weHitThemAlready = FALSE
+												if(m in AlreadyHit)
+													weHitThemAlready = TRUE
+												if(!weHitThemAlready)
+													for(var/obj/AutoHitter/ah in autohitChildren)
+														if(m in ah.AlreadyHit)
+															weHitThemAlready = TRUE
+															break
+												if(weHitThemAlready) continue
+											src.Damage(m)
+											AlreadyHit |= m
+											for(var/obj/AutoHitter/ah in autohitChildren)
+												ah.AlreadyHit.Add |= m
 									for(var/turf/t in Turf_Circle_Edge(src.TargetLoc, Rounds))
 										if(src.TurfErupt)
 											Bang(t, Size=src.TurfErupt, Offset=src.TurfEruptOffset, Vanish=4)
@@ -6635,7 +6647,9 @@ obj
 			Arcing=0
 			var
 				Side//1 for left, 0 for right
+
 			New(var/obj/AutoHitter/AH, var/side, var/FromMob=0)
+				AH.autohitChildren += src
 				src.Owner=AH.Owner
 				src.Side=side
 				AlreadyHit = AH.AlreadyHit.Copy()
@@ -6706,13 +6720,13 @@ obj
 			var
 				Side//1 for left, 0 for right
 			New(var/obj/AutoHitter/AH, var/side)
+				AH.autohitChildren += src
 				src.Owner=AH.Owner
 				src.Side=side
 				if(src.Side)
 					src.dir=turn(AH.dir, -90)
 				else
 					src.dir=turn(AH.dir, 90)
-				AlreadyHit = AH.AlreadyHit.Copy()
 				src.DistanceMax=AH.Wave
 				src.Distance=src.DistanceMax
 
@@ -6758,6 +6772,7 @@ obj
 					src.pixel_x=AH.pixel_x
 					src.pixel_y=AH.pixel_y
 
+				AlreadyHit = AH.AlreadyHit
 				src.loc=AH.loc
 
 				src.Life()
@@ -6766,6 +6781,7 @@ obj
 			var
 				Side//1 for left, 2 for back, 0 for right.
 			New(var/obj/AutoHitter/AH, var/side)
+				AH.autohitChildren += src
 				src.Owner=AH.Owner
 				src.Side=side
 				if(src.Side==1)
@@ -6814,12 +6830,14 @@ obj
 				src.Launcher=AH.Launcher
 				src.DelayedLauncher=AH.DelayedLauncher
 
+
 				if(AH.ObjIcon)
 					src.ObjIcon=AH.ObjIcon
 					src.icon=AH.icon
 					src.pixel_x=AH.pixel_x
 					src.pixel_y=AH.pixel_y
 
+				AlreadyHit = AH.AlreadyHit
 				src.loc=AH.loc
 
 				src.Life()
