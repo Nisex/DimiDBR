@@ -1997,19 +1997,10 @@ obj
 				SignatureTechnique=1
 				Area="Circle"
 				Distance=10
-				//** POTENTIAL CHANGES **//
-				/*
-				StrOffense=0.75
-				ForOffense=0.75
-				DamageMult=0.6
-				Rounds=3
-				Knockback=3
-				Stunner=1.5
-				*/
 				AdaptRate = 1
 				GuardBreak=1
 				DamageMult=10
-				Knockback=10
+				Knockback=15
 				Cooldown=150
 				Shockwaves=3
 				Shockwave=4
@@ -2022,9 +2013,8 @@ obj
 				EnergyCost=5
 				verb/Kiai()
 					set category="Skills"
-					if(!usr.AfterImageStrike  && !src.Using)
-						usr.SkillStunX("After Image Strike",src)
 					usr.Activate(src)
+
 			Taiyoken
 				SignatureTechnique=1
 				AllOutAttack=1
