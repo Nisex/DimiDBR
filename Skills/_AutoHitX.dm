@@ -5596,6 +5596,7 @@ obj
 
 			tmp/list/AlreadyHit
 			tmp/list/autohitChildren
+			tmp/obj/AutoHitter/AHOwner
 
 		New(var/mob/owner, var/arcing=0, var/wave=0, var/card=0, var/circle=0, var/mob/target, var/obj/Skills/AutoHit/Z, var/turf/TrgLoc, life = 500)
 			set waitfor = FALSE
@@ -5804,6 +5805,10 @@ obj
 					for(var/hitted in AlreadyHit)
 						if(m == hitted)
 							weHitThemAlready = TRUE
+					if(AHOwner)
+						for(var/hitted in AHOwner.AlreadyHit)
+							if(hitted == m)
+								weHitThemAlready = TRUE
 					if(!weHitThemAlready)
 						for(var/obj/AutoHitter/ah in autohitChildren)
 							for(var/hitted in ah.AlreadyHit)
@@ -6652,6 +6657,7 @@ obj
 
 			New(var/obj/AutoHitter/AH, var/side, var/FromMob=0)
 				AH.autohitChildren += src
+				AHOwner = AH
 				src.Owner=AH.Owner
 				src.Side=side
 				AlreadyHit = AH.AlreadyHit.Copy()
@@ -6723,6 +6729,7 @@ obj
 				Side//1 for left, 0 for right
 			New(var/obj/AutoHitter/AH, var/side)
 				AH.autohitChildren += src
+				AHOwner = AH
 				src.Owner=AH.Owner
 				src.Side=side
 				if(src.Side)
@@ -6784,6 +6791,7 @@ obj
 				Side//1 for left, 2 for back, 0 for right.
 			New(var/obj/AutoHitter/AH, var/side)
 				AH.autohitChildren += src
+				AHOwner = AH
 				src.Owner=AH.Owner
 				src.Side=side
 				if(src.Side==1)
