@@ -2783,7 +2783,7 @@ obj
 				Area="Wave"
 				Distance=10
 				StrOffense=1
-				Knockback=1
+				Knockback=5
 				HitSparkIcon='Hit Effect Pearl.dmi'
 				HitSparkX=-32
 				HitSparkY=-32
