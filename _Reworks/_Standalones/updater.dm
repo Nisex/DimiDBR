@@ -9,10 +9,11 @@ proc/generateVersionDatum()
 		glob.currentUpdate = new updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 9
+	var/UPDATE_VERSION = 13
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
+		if(UPDATE_VERSION == p.updateVersion) return
 		if(p.updateVersion + 1 == UPDATE_VERSION)
 	        // we dont need to generate new datums to update him
 			var/updateversion = "/update/version[p.updateVersion + 1]"
@@ -27,7 +28,7 @@ globalTracker
 				del update // i guess loc = null doesn't work cause datums have no loc
 
 
-mob/var/updateVersion = 1
+mob/var/updateVersion = 13
 
 update
 	var/version = 1
@@ -193,7 +194,7 @@ update
 				var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2)
 				da.passives = list()
 				p.race?:devil_arm_upgrades = 1
-				da.totalEvolvesMain = 0 
+				da.totalEvolvesMain = 0
 				p << "devil arm reset"
 			..()
 	version13
