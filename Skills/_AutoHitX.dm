@@ -5790,6 +5790,9 @@ obj
 			catch()
 			walk(src,0)
 			animate(src)
+			if(AHOwner)
+				AHOwner.autohitChildren -= src
+			AHOwner = null
 			AlreadyHit = null
 			autohitChildren = null
 			Owner = null
@@ -5907,7 +5910,7 @@ obj
 				#if DEBUG_AUTOHIT
 				Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
-				var/Precision=clamp(0.1,src.Damage,10)
+				var/Precision = 1
 				var/itemMods = list(0,0,0)
 				if(src.SwordTech&&!src.SpecialAttack)
 					var/obj/Items/Sword/s=src.Owner.EquippedSword()
@@ -6434,11 +6437,7 @@ obj
 										for(var/mob/m in t.contents)
 											if(m==src.Owner)
 												continue
-											if(m in AlreadyHit)
-												continue
-											else
-												src.Damage(m)
-												AlreadyHit.Add(m)
+											src.Damage(m)
 									for(var/turf/t in Turf_Circle_Edge(src.Owner, Rounds))
 										if(src.TurfErupt)
 											Bang(t, Size=src.TurfErupt, Offset=src.TurfEruptOffset, Vanish=4)
@@ -6656,11 +6655,11 @@ obj
 				Side//1 for left, 0 for right
 
 			New(var/obj/AutoHitter/AH, var/side, var/FromMob=0)
-				AH.autohitChildren += src
 				AHOwner = AH
 				src.Owner=AH.Owner
 				src.Side=side
-				AlreadyHit = AH.AlreadyHit.Copy()
+				AlreadyHit = list()
+				AH.autohitChildren += src
 				if(src.Side)
 					if(src.Owner.dir!=NORTHEAST&&src.Owner.dir!=NORTHWEST&&src.Owner.dir!=SOUTHEAST&&src.Owner.dir!=SOUTHWEST)
 						src.dir=turn(AH.dir, -90)
@@ -6728,9 +6727,10 @@ obj
 			var
 				Side//1 for left, 0 for right
 			New(var/obj/AutoHitter/AH, var/side)
-				AH.autohitChildren += src
 				AHOwner = AH
 				src.Owner=AH.Owner
+				AlreadyHit = list()
+				AH.autohitChildren += src
 				src.Side=side
 				if(src.Side)
 					src.dir=turn(AH.dir, -90)
@@ -6781,7 +6781,6 @@ obj
 					src.pixel_x=AH.pixel_x
 					src.pixel_y=AH.pixel_y
 
-				AlreadyHit = AH.AlreadyHit
 				src.loc=AH.loc
 
 				src.Life()
@@ -6790,9 +6789,10 @@ obj
 			var
 				Side//1 for left, 2 for back, 0 for right.
 			New(var/obj/AutoHitter/AH, var/side)
-				AH.autohitChildren += src
 				AHOwner = AH
 				src.Owner=AH.Owner
+				AlreadyHit = list()
+				AH.autohitChildren += src
 				src.Side=side
 				if(src.Side==1)
 					src.dir=turn(AH.dir, -90)
@@ -6847,7 +6847,6 @@ obj
 					src.pixel_x=AH.pixel_x
 					src.pixel_y=AH.pixel_y
 
-				AlreadyHit = AH.AlreadyHit
 				src.loc=AH.loc
 
 				src.Life()
