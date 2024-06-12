@@ -57,7 +57,7 @@ client
 			mob.GenerateHUD()
 
 		DisableBuildMode()
-			mob.Target = null
+			mob.RemoveTarget()
 			mouseTurf = null
 			ClearHighlights()
 			mob.GenerateHUD()
@@ -76,7 +76,7 @@ client
 
 		AddHighlight(atom/A)
 			if(!A || (!isturf(A) && !istype(A, /obj/Turfs))) return
-			A:vis_contents |= highlight
+			A:vis_contents += highlight
 			highlightedAtoms |= A
 
 		RemoveHighlight(atom/A)
@@ -86,14 +86,14 @@ client
 
 		ClearHighlights()
 			for(var/atom/A in highlightedAtoms)
-				A:vis_contents.Remove(highlight)
+				A:vis_contents -= highlight
 
 		CanPaintTurfs()
 			return buildMode && mob.Target && !paintLock && islist(paintedTurfs)
 
 		CancelBuild()
 			buildMode = 0
-			mob.Target = null
+			mob.RemoveTarget()
 			PaintTurfs()
 			ClearSelection()
 			buildMode = 1
@@ -168,6 +168,7 @@ client
 				else
 					B.icon=T.icon
 					B.icon_state=T.icon_state
+				usr.RemoveTarget()
 				usr.Target=B
 				return
 
@@ -193,55 +194,56 @@ client
 						B.icon_state=O.icon_state
 					mob.Target = B
 				return
-		if(buildTool != BUILD_SELECT)
-			PaintTurfs()
+			if(buildTool != BUILD_SELECT)
+				PaintTurfs()
 		..()
 
 	MouseDrag(src_object, over_object, src_location, over_location, src_control, over_control, params)
-		if(IsValidObject(over_object))
-			var/obj/Turfs/O = over_object
-			if(buildTool == BUILD_SELECT)
-				selectedObjects |= O
-				AddHighlight(O)
-				return
-		var/turf/T = over_location
+		if(buildMode)
+			if(IsValidObject(over_object))
+				var/obj/Turfs/O = over_object
+				if(buildTool == BUILD_SELECT)
+					selectedObjects |= O
+					AddHighlight(O)
+					return
+			var/turf/T = over_location
 
-		if(CanPaintTurfs() && IsValidTurf(T) && mouseTurf != T)
-			mouseTurf = T
-			if(!paintedTurfs || !islist(paintedTurfs)) paintedTurfs = list()
-			var/x2 = clamp(clamp(T.x, buildX - BUILD_MAX_DIM, buildX + BUILD_MAX_DIM), 1, world.maxx)
-			var/y2 = clamp(clamp(T.y, buildY - BUILD_MAX_DIM, buildY + BUILD_MAX_DIM), 1, world.maxy)
-			if(buildTool == BUILD_PAINT && !(T in paintedTurfs))
-				paintLock = 1
-				paintedTurfs.Add(T)
-				AddHighlight(T)
-				paintLock = 0
-			else if(buildTool == BUILD_RECT || buildTool == BUILD_RECT_HOLLOW)
-				paintLock = 1
-				spawn
-					var/isHollow = (buildTool == BUILD_RECT_HOLLOW)
-					ClearHighlights()
-					paintedTurfs = TurfSquare(buildX, buildY, x2, y2, T.z, isHollow)
-					for(var/turf/T2 in paintedTurfs)
-						if(T2.CanBuildOver(mob))
-							AddHighlight(T2)
-						else paintedTurfs.Remove(T2)
+			if(CanPaintTurfs() && IsValidTurf(T) && mouseTurf != T)
+				mouseTurf = T
+				if(!paintedTurfs || !islist(paintedTurfs)) paintedTurfs = list()
+				var/x2 = clamp(clamp(T.x, buildX - BUILD_MAX_DIM, buildX + BUILD_MAX_DIM), 1, world.maxx)
+				var/y2 = clamp(clamp(T.y, buildY - BUILD_MAX_DIM, buildY + BUILD_MAX_DIM), 1, world.maxy)
+				if(buildTool == BUILD_PAINT && !(T in paintedTurfs))
+					paintLock = 1
+					paintedTurfs.Add(T)
+					AddHighlight(T)
 					paintLock = 0
-			else if(buildTool == BUILD_LINE)
-				paintLock = 1
-				spawn
-					ClearHighlights()
-					paintedTurfs = TurfLine(buildX, buildY, x2, y2, T.z, mob)
-					paintLock = 0
-			else if(buildTool == BUILD_ELLIPSE)
-				paintLock = 1
-				spawn
-					ClearHighlights()
-					if(buildX == x2 || buildY == y2)
+				else if(buildTool == BUILD_RECT || buildTool == BUILD_RECT_HOLLOW)
+					paintLock = 1
+					spawn
+						var/isHollow = (buildTool == BUILD_RECT_HOLLOW)
+						ClearHighlights()
+						paintedTurfs = TurfSquare(buildX, buildY, x2, y2, T.z, isHollow)
+						for(var/turf/T2 in paintedTurfs)
+							if(T2.CanBuildOver(mob))
+								AddHighlight(T2)
+							else paintedTurfs.Remove(T2)
+						paintLock = 0
+				else if(buildTool == BUILD_LINE)
+					paintLock = 1
+					spawn
+						ClearHighlights()
 						paintedTurfs = TurfLine(buildX, buildY, x2, y2, T.z, mob)
-					else
-						paintedTurfs = TurfEllipse(buildX, buildY, T.x, T.y, T.z, 0, mob)
-					paintLock = 0
+						paintLock = 0
+				else if(buildTool == BUILD_ELLIPSE)
+					paintLock = 1
+					spawn
+						ClearHighlights()
+						if(buildX == x2 || buildY == y2)
+							paintedTurfs = TurfLine(buildX, buildY, x2, y2, T.z, mob)
+						else
+							paintedTurfs = TurfEllipse(buildX, buildY, T.x, T.y, T.z, 0, mob)
+						paintLock = 0
 		..()
 
 	MouseEntered(object, location, control, params)
@@ -251,6 +253,6 @@ client
 		..()
 
 	MouseExited(object, location, control, params)
-		if(!paintLock)
+		if(buildMode&&!paintLock)
 			ClearHighlights()
 		..()

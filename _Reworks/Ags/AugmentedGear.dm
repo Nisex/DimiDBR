@@ -6,14 +6,14 @@ proc/copyatom(atom/a)
 		b.name = a.name
 	for(var/v in a.vars)
 		if(issaved(a.vars[v]))
-			if(istype(a.vars[v], /list))
-				var/list/x = new/list()
+			if(islist(a.vars[v]))
 				for(var/val in a.vars[v])
+					var/x
 					if(istype(val, /atom))
-						x += copyatom(val)
+						x = copyatom(val)
 					else
-						x += val
-				b.vars[v] = x
+						x = islist(val) ? val:Copy() : val
+					b.vars[v] = x
 			else
 				b.vars[v] = a.vars[v]
 	return b
@@ -70,21 +70,19 @@ proc/copyatom(atom/a)
             for(var/i in Techniques)
                 p?:Edit(i)
 
-/mob/Admin3/verb/Copy_AG(obj/Items/ag in world)
+/mob/Admin2/verb/Copy_AG(obj/Items/ag in world)
     if(!ag.Augmented)
         src<<"Not an AG"
         return
     var/obj/Items/newAG = copyatom(ag)
-    for(var/passive in ag.passives)
-        for(var/passive2 in passive)
-            newAG.passives[passive] = passive2
+    newAG.passives = ag.passives.Copy()
     newAG.name = "[ag.name] Copy"
     newAG.Move(src)
     archive.addAG(newAG)
 
 
 
-/mob/Admin3/verb/Create_AG(mob/A in world)
+/mob/Admin2/verb/Create_AG(mob/A in world)
     set category = "Admin"
     if(!A.client) return
     var/types = input(src, "What kind of AG do you want to create?", "Augmented Gear") in list("Wearables", "Sword", "Armor", "Staff")

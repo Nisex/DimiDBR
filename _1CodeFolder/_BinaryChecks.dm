@@ -422,21 +422,12 @@ mob
 			if(Total>4)
 				Total=4
 			return Total
-		MovementSealed()
-			for(var/obj/Seal/s in src)
-				if(s.ZPlaneBind)
-					return 1
-			return 0
 		HasTensionLock()
 			if(passive_handler.Get("TensionDrain"))
 				return 1
 			return 0
 		HasEmptyGrimoire()
 			if(locate(/obj/Skills/Teleport/Traverse_Void, src))
-				return 1
-			return 0
-		HasMafuba()
-			if(locate(/obj/Skills/Buffs/SlotlessBuffs/Grimoire/Mafuba, src))
 				return 1
 			return 0
 		HasElementalDefense(var/ele)
@@ -509,10 +500,6 @@ mob
 			return 0
 		HasPossessive()
 			if(passive_handler.Get("Possessive"))
-				return 1
-			return 0
-		HasImitate()
-			if(passive_handler.Get("Imitate"))
 				return 1
 			return 0
 		TomeSpell(var/obj/Skills/Z)
@@ -671,9 +658,9 @@ mob
 			if(src.Dead)
 				if(src.HasGodKi())
 					return 1
-				if(src.Saga=="Sharingan"&&src.SagaLevel==8)
+				if(src.Saga=="Sharingan"&&src.SagaLevel==6)
 					return 1
-				if(src.Saga=="Cosmo"&&src.SagaLevel>=7)
+				if(src.Saga=="Cosmo"&&src.SagaLevel>=5)
 					return 1
 				if(src.HasSpiritPower()>=1)
 					return 1
@@ -732,20 +719,13 @@ mob
 			if(src.Secret=="Haki")
 				Return += clamp(secretDatum.currentTier/2, 1, 2)
 			Return+=passive_handler.Get("Flicker")
-/*			if(src.HasWalking())
-				Return++
-			if(src.HasShunkanIdo())
-				Return++*/
-			var/stp=src.SaiyanTransPower()
-			if(stp)
-				Return+=stp
+			Return+=src.SaiyanTransPower()
 			if(src.InfinityModule)
 				Return++
 			if(src.KamuiBuffLock)
-				Return++
-				Return++
+				Return += 2
 			if(Target)
-				if(isDominating(Target) && HellRisen)
+				if(HellRisen  && isDominating(Target))
 					Return += clamp((HellRisen*2), 1, 2)
 			return Return
 		HasDeathField()
@@ -827,7 +807,7 @@ mob
 				if(src.PowerControl>100)
 					Return*=(src.PowerControl/100)
 			if(src.Saga=="Kamui")
-				Return -= (Return / 8) * src.SagaLevel
+				Return -= (Return / 6) * src.SagaLevel
 			if(src.GatesActive && src.GatesActive >=3 && src.GatesActive<8)
 				Return+=(1/src.SagaLevel)
 			if(src.Kaioken)
@@ -838,7 +818,7 @@ mob
 			if(passive_handler.Get("EnergyLeak"))
 				return 1
 			if(src.transActive()&&!src.HasMystic())
-				if(src.masteries["[src.transActive()]mastery"]>10&&src.masteries["[src.transActive()]mastery"]<75||(src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100))
+				if(race.transformations[transActive].mastery>10&&race.transformations[transActive].mastery<75)
 					if(src.Race!="Changeling")
 						return 1
 					else
@@ -849,7 +829,7 @@ mob
 			var/Total=0
 			Total+=passive_handler.Get("EnergyLeak")
 			if(src.transActive()&&!src.HasMystic())
-				if(src.masteries["[src.transActive()]mastery"]>10&&src.masteries["[src.transActive()]mastery"]<75)
+				if(race.transformations[transActive].mastery>10&&race.transformations[transActive].mastery<75)
 					if(src.Race!="Changeling")
 						Total+=src.transActive()*0.25
 					else
@@ -859,16 +839,12 @@ mob
 		HasFatigueLeak()
 			if(passive_handler.Get("FatigueLeak"))
 				return 1
-			if(src.transActive()&&src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100)
-				return 1
 			if(src.GatesActive && src.GatesActive < 8)
 				return 1
 			return 0
 		GetFatigueLeak()
 			var/Total=0
 			Total+=passive_handler.Get("FatigueLeak")
-			if(src.transActive()&&src.isRace(SAIYAN)&&src.HasGodKi()&&masteries["4mastery"]!=100)
-				Total+=1
 			return  Total
 		HasSoftStyle()
 			if(passive_handler.Get("SoftStyle"))
@@ -960,22 +936,19 @@ mob
 				return 1
 			return 0
 		SaiyanTransPower()
-			var/t
-			var/m
-			if(src.HasTransMimic() && isRace(SAIYAN))
-				t=src.HasTransMimic()
-			if(src.transActive() && isRace(SAIYAN))
-				m=src.transActive()
-			if(t || m)
-				if(t>m)
-					return t
-				else
-					return m
-			else
-				return 0
+			if(!isRace(SAIYAN)) return 0
+			var/t = transActive
+			var/hastransmimic = HasTransMimic()
+			if(hastransmimic > transActive)
+				t = hastransmimic
+			return t
 		DrunkPower()
 			if(src.CheckSlotless("Drunken Mastery") && src.Drunk)
 				return 1
+		isUnderDog(mob/p)
+			if(p.Power > Power || p.passive_handler.Get("GodKi") > p.passive_handler.Get("GodKi"))
+				return TRUE
+			return FALSE
 		HasPureDamage()
 			var/Return=0
 			Return+=passive_handler.Get("PureDamage")
@@ -992,8 +965,17 @@ mob
 			if(src.TarotFate=="Justice")
 				Return-=5
 			if(Target)
-				if(isDominating(Target) && HellRisen)
-					Return += HellRisen / 5
+				if(isDominating(Target) && passive_handler.Get("HellRisen"))
+					Return += passive_handler.Get("HellRisen") / 5
+				if(passive_handler.Get("Underdog"))
+					var/boon
+					if(Health <= 50 && Health < Target.Health)
+						boon = round(Target.Health - Health / 100, 0.1)
+					if(isUnderDog(Target))
+						var/ud = clamp(round(Target.Power / Power, 0.01), 0.01, 5)
+						boon += ud
+					Return += boon
+
 			if(isRace(MAJIN))
 				Return += Potential * getMajinRates("Damage")
 			return Return
@@ -1012,6 +994,15 @@ mob
 				Return-=5
 			if(src.TarotFate=="Justice")
 				Return+=5
+			if(Target)
+				if(passive_handler.Get("Underdog"))
+					var/boon
+					if(Health <= 50 && Health < Target.Health)
+						boon = round(Target.Health - Health / 100, 0.1)
+					if(isUnderDog(Target))
+						var/ud = clamp(round(Target.Power / Power, 0.01), 0.01, 5)
+						boon += ud
+					Return += boon
 			return Return
 		HasWalking()
 			if(locate(/obj/Skills/Walking, src))
@@ -1041,6 +1032,10 @@ mob
 		HasTechniqueMastery()
 			if(passive_handler.Get("TechniqueMastery"))
 				return 1
+			if(UsingMartialStyle())
+				return 1
+			if(UsingMasteredMartialStyle())
+				return 1
 			if(src.TarotFate=="The World")
 				return 1
 			if(Target)
@@ -1050,6 +1045,10 @@ mob
 		GetTechniqueMastery()
 			var/Return=0
 			Return+=passive_handler.Get("TechniqueMastery")
+			if(UsingMartialStyle())
+				Return += 0.5
+			if(UsingMasteredMartialStyle())
+				Return += 0.5
 			if(Target)
 				if(isDominating(Target) && HellRisen >= 0.75)
 					Return += AscensionsAcquired-2
@@ -1331,7 +1330,7 @@ mob
 				Extra+=1
 			if(src.DrunkPower())
 				Extra+=2
-			if(Target.passive_handler.Get("Instinct") >= Base+Extra)
+			if(Target&&Target.passive_handler.Get("Instinct") >= Base+Extra)
 				Extra += (passive_handler.Get("LikeWater")) / 2
 			return (Base+Extra)
 		HasInstinct()
@@ -1343,7 +1342,7 @@ mob
 			var/t=src.HighestTrans()
 			if(round(t/4))
 				Return+=1
-			if(Target.passive_handler.Get("Flow") >= Return)
+			if(Target&&Target.passive_handler.Get("Flow") >= Return)
 				Return+=passive_handler.Get("LikeWater") / 2
 			return Return
 		HasSoulSteal()
@@ -1415,7 +1414,7 @@ mob
 		GetTaxThreshold()
 			return passive_handler.Get("TaxThreshold")
 		DemonicPower() //Fake Demon.
-			if(src.Saga=="Ansatsuken"&&src.SagaLevel>=8&&src.AnsatsukenAscension)
+			if(src.Saga=="Ansatsuken"&&src.SagaLevel>=6&&src.AnsatsukenAscension)
 				return 1
 			if(src.isRace(DEMON))
 				return 1
@@ -1425,26 +1424,19 @@ mob
 				return 1
 			return 0
 		HasSpiritPower()
-			var/Extra=0
-			if(src.TarotFate=="Judgment")
-				Extra=1
-			if(passive_handler.Get("SpiritPower"))
-				return min(1+Extra, passive_handler.Get("SpiritPower")+Extra)
-			if(src.HasMafuba())
-				return 1+Extra
-			return 0
+			return passive_handler.Get("SpiritPower")
 		HasLegendaryPower()
 			var/Extra=0
 			if(src.TarotFate=="Judgment")
 				Extra=1
-			if(passive_handler.Get("LegendaryPower"))
+			if(passive_handler&&passive_handler.Get("LegendaryPower"))
 				return min(1+Extra, passive_handler.Get("LegendaryPower")+Extra)
 			return 0
 		HasHellPower()
 			var/Extra=0
 			if(src.TarotFate=="Judgment")
 				Extra=1
-			if(CheckSlotless("Satsui no Hado") && SagaLevel>=8)
+			if(CheckSlotless("Satsui no Hado") && SagaLevel>=6)
 				return 1+Extra
 			if(passive_handler.Get("HellPower"))
 				return min(2+Extra, passive_handler.Get("HellPower")+Extra)
@@ -1519,8 +1511,6 @@ mob
 				Effective+=1
 			if(src.isRace(DEMON)||src.isRace(MAJIN))
 				Effective+=1
-			if(src.isRace(MAKYO)&&src.ActiveBuff&&src.AscensionsAcquired&&!src.CyberCancel)
-				Effective+=1
 			var/stp=src.SaiyanTransPower()
 			if(stp)
 				Effective+=1
@@ -1553,7 +1543,7 @@ mob
 				return 1
 			if(src.SenseUnlocked>6&&(src.SenseUnlocked>src.SenseRobbed))
 				return 1
-			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff()&&!src.ssj["god"])
+			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff())
 				if(!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
 					return 1
 			if(src.HasSpiritPower()>=1 && FightingSeriously(src, 0))
@@ -1572,15 +1562,12 @@ mob
 						Total+=(0.25*src.HasSpiritPower()*0.5)//halved rate for god ki saints
 			if(src.SenseUnlocked>6&&(src.SenseUnlocked>src.SenseRobbed))
 				if(src.SenseUnlocked>=7)
-					if(src.SagaLevel<7)
-						if(src.Health<=25 || src.InjuryAnnounce)
-							Total+=0.25
-					else
+					if(SagaLevel > 5 || src.Health<=25 || src.InjuryAnnounce)
 						Total+=0.25
 				if(src.SenseUnlocked>=8)
 					Total+=1
-			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff()&&!src.ssj["god"])
-				if(!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
+			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff())
+				if(src.Target&&!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
 					Total+=src.Target.GetGodKi()/2
 			if(src.KamuiBuffLock)
 				Total+=0.25
@@ -2270,11 +2257,11 @@ mob
 					staf=s
 					break
 			if(src.Race=="Android"||src.HasMechanized())
-				return 0
+				return null
 			else if(staf)
 				return staf
 			else
-				return 0
+				return null
 		CanLoseVitalBP()
 			if(src.Race=="Android")
 				return 0
@@ -2417,28 +2404,18 @@ mob
 		UsingMartialStyle()
 			if(src.UsingMasteredMartialStyle())
 				return 1
-			if(src.StyleActive in list("Turtle", "Crane", "Snake", "Cat","Black Leg", "Strong Fist", "Gentle Fist", "Lightning Kickboxing", "Kendo", "Battle Mage"))
-				return 1
-			if(src.StyleActive in list("Ansatsuken", "Hiten Mitsurugi"))
-				return 1
-			if(src.Saga=="Weapon Soul" && src.SagaLevel>=2 && src.StyleActive in list("Iaido", "Zornhau", "Fencing"))
-				return 1
+			if(src.StyleActive in list("Fire", "Water", "Earth", "Wind", "Battle Mage", "Flow", "Feral", "Blitz", "Breaker", "Spirit", "Yin Yang", "Soul Crushing", "Resonance", "Tranquil Dove", "Circuit Breaker", "Sunlit Sky", "Inverse Poison", "Devil Leg", "Flow Reversal", "Phage", "Entropy", "Moonlit Lake", "Shunko", "Metta Sutra", "Shaolin", "Blade Singing", "Secret Knife", "Champloo", "Swordless", "Imperial", "East Star", "West Star", "Atomic Karate", "Rhythm of War", "South Star"))
+				if(!equippedSword)
+					return 1
 			return 0
 		UsingMasteredMartialStyle()
-			if(src.Saga=="Eight Gates")
-				if(src.StyleActive in list("Strong Fist", "Black Leg", "Lightning Kickboxing"))
+			if(src.StyleActive in list("Turtle", "Crane", "Snake", "Cat","Black Leg", "Strong Fist", "Gentle Fist", "Lightning Kickboxing", "Golden Kirin", "Drunken Fist", "North Star", "Imperial Devil"))
+				if(!equippedSword)
 					return 1
-			if(src.Saga=="Ansatsuken" || src.Saga=="Hiten Mitsurugi")
-				if(src.SagaLevel>=6)
-					return 1
-			if(src.Saga=="Weapon Soul" && src.SagaLevel>=6 && src.StyleActive in list("Iaido", "Zornhau", "Fencing"))
-				return 1
-			if(src.StyleActive in list("Drunken Fist", "Golden Kirin", "Drunken Fist", "Dire Wolf", "Devil Leg", "Flow Reversal", "Phage", "North Star", "Imperial Devil", "South Star"))
-				return 1
 			return 0
 		UsingMasteredMagicStyle()
 			if(src.Saga=="Keyblade")
-				if(src.SagaLevel>=6)
+				if(src.SagaLevel>=4)
 					return 1
 			if(src.StyleActive in list("Moonlight", "Entropy", "Imperial Devil", "Atomic Karate", "East Star"))
 				return 1
@@ -2454,7 +2431,7 @@ mob
 				Found+=0.5
 			if(src.StyleActive=="Zornhau")
 				Found=1
-			if(src.StyleActive=="Kendo")
+			if(UsingKendo())
 				Found=1
 			if(src.StyleActive=="Champloo")
 				Found=1
@@ -2477,7 +2454,7 @@ mob
 				Found+=1
 			if(src.StyleActive=="Dual Wield")
 				Found=1
-			if(src.StyleActive=="Kendo")
+			if(UsingKendo())
 				Found+=1
 			if(src.StyleActive=="Arcane Bladework")
 				Found+=1
@@ -2539,7 +2516,7 @@ mob
 				return 1
 			if(Saga == "Kamui")
 				return 1
-			if(isRace(DEMON)|| (CheckSlotless("Satsui no Hado") && SagaLevel>=8))
+			if(isRace(DEMON)|| (CheckSlotless("Satsui no Hado") && SagaLevel>=6))
 				return 1
 			if(isRace(HUMAN) && isHalfDemon())
 				return 1
@@ -2573,7 +2550,7 @@ mob
 				return 0
 			if(src.Saga == "Kamui")
 				return 0
-			if(src.isRace(DEMON) || (CheckSlotless("Satsui no Hado") && SagaLevel>=8))
+			if(src.isRace(DEMON) || (CheckSlotless("Satsui no Hado") && SagaLevel>=6))
 				return 0
 			if(src.Saga == "Cosmo" && src.ClothBronze=="Andromeda")
 				return 0
@@ -2593,7 +2570,7 @@ mob
 				return 1
 			return 0
 		UsingKendo()
-			if(src.StyleActive=="Kendo")
+			if(HasSword()&&equippedSword:Class=="Wooden"&&src.StyleActive=="Kendo")
 				return 1
 			return 0
 		NotUsingChamploo()
@@ -2621,7 +2598,7 @@ mob
 				return 0
 			if(src.Saga == "Kamui")
 				return 0
-			if(src.isRace(DEMON) || (CheckSlotless("Satsui no Hado") && SagaLevel>=8))
+			if(src.isRace(DEMON) || (CheckSlotless("Satsui no Hado") && SagaLevel>=6))
 				return 0
 			return 1
 		NotUsingBattleMage()
@@ -2666,7 +2643,9 @@ mob
 			return 0
 		HasDarknessFlame()
 			if(passive_handler.Get("DarknessFlame"))
-				return 1
+				return passive_handler.Get("DarknessFlame")
+			if(DarknessFlame)
+				return DarknessFlame
 			return 0
 		HasAbsoluteZero()
 			if(passive_handler.Get("AbsoluteZero"))
@@ -2707,7 +2686,7 @@ mob
 				return 1
 			return 0
 		UsingMuken()
-			if(src.StyleActive=="Ansatsuken"&&src.AnsatsukenAscension=="Chikara"&&src.SagaLevel==8)
+			if(src.StyleActive=="Ansatsuken"&&src.AnsatsukenAscension=="Chikara"&&src.SagaLevel==6)
 				return 1
 			return 0
 		HasLowWeaponSoul()
@@ -2754,6 +2733,10 @@ mob
 			if(src.WeaponSoulType=="Green Dragon Crescent Blade")
 				return 1
 			return 0
+		WSMoonlight()
+			if(src.WeaponSoulType=="Moonlight Greatsword")
+				return 1
+			return 0
 		GetWeaponSoulType()
 			var/obj/Items/Sword/s=src.EquippedSword()
 			if(!s) return 0
@@ -2777,6 +2760,8 @@ mob
 				return "Ruyi Jingu Bang"
 			if(s.type == /obj/Items/Sword/Heavy/Legendary/WeaponSoul/Spear_of_War)
 				return "Green Dragon Crescent Blade"
+			if(s.type == /obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon)
+				return "Moonlight Greatsword"
 			return 0
 		WSCorrupt()
 			var/obj/Items/Sword/s=src.EquippedSword()
@@ -2799,6 +2784,8 @@ mob
 				return 1
 			if(s.type==/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_Hope)
 				return 1
+			if(s.type==/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon)
+				return 1
 			return 0
 		HasSSjVars()
 			if(src.Race in list("Saiyan", "Half Saiyan"))
@@ -2815,6 +2802,8 @@ mob
 			if(src.icon_state=="Meditate")
 				return 0
 			if(src.icon_state=="Train")
+				return 0
+			if(Knockbacked)
 				return 0
 			if(src.KO)
 				return 0
@@ -2932,21 +2921,3 @@ proc
 				if(Offender&&Offender.IsEvil())
 					return 1
 		return 0
-
-obj
-	Skills
-		var/Copied = FALSE
-		var/Sealed = FALSE
-		var/Temporary = FALSE
-		Projectile
-			proc
-				EdgeOfMapProjectile()
-					var/turf/t=get_step(src, src.dir)
-					if(!t)
-						return 1
-					if(t.x==0||t.y==0||t.z==0)
-						return 1
-					if(t)
-						if(istype(t, /turf/Special/Blank))
-							return 1
-					return 0

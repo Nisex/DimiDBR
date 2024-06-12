@@ -32,7 +32,7 @@
 			ActiveMessage="feeds blood into their Kamui, drawing on its full power.  Life Fiber Synchronize!"
 			OffMessage="runs out of blood to feed their Kamui, releasing the transformed state..."
 			BuffName="Life Fiber Synchronize"
-			proc/adjust(mob/p)
+			adjust(mob/p)
 				if(altered) return
 				var/level = p.SagaLevel
 				PowerMult = 1
@@ -247,7 +247,7 @@
 		verb/Kamui_Senjin()
 			set category="Skills"
 			passives = list("PureDamage" = clamp(usr.SagaLevel/5,0.01, 1), "DeathField" = 1, "HardStyle" = 1 )
-			if(usr.SagaLevel >= 4)
+			if(usr.SagaLevel >= 3)
 				passives = list("DeathField" = 1, "PureDamage" = clamp(usr.SagaLevel/5,0.01, 1), "HardStyle" = 1.5, "Instinct" = 1)
 			src.Trigger(usr)
 	KamuiShippu
@@ -280,7 +280,7 @@
 		verb/Kamui_Shippu()
 			set category="Skills"
 			passives = list("VoidField" = 1, "PureReduction" = clamp(usr.SagaLevel/5,0.01, 1), "Flicker" = 1 )
-			if(usr.SagaLevel >= 4)
+			if(usr.SagaLevel >= 3)
 				passives = list("VoidField" = 1, "PureReduction" = clamp(usr.SagaLevel/5,0.01, 1), "Flicker" = 1,)
 			src.Trigger(usr)
 	KamuiSenjinShippu
@@ -453,18 +453,18 @@
 				passives = list("AllOutPU" = 1, "MovementMastery" = sLevel * 1.5,\
 				"BuffMastery" = clamp(round(sLevel/2, 0.5), 1, 4), FatigueLeak = 4)
 				EndMult = clamp(1 + (0.1 * sLevel), 1.1, 1.7)
-				if(sLevel >= 4)
+				if(sLevel >= 3)
 					passives += list("Flicker" = round(sLevel/3,1),  "Pursuer" =  round(sLevel/4,1))
 					passives["FatigueLeak"] = 3
-				if(sLevel >= 5)
+				if(sLevel >= 4)
 					passives += list("DeathField" = (sLevel-4), "HardStyle" = (sLevel-4) * 0.5, "PureDamage" = (sLevel-4))
 					passives["FatigueLeak"] = 2
-				if(sLevel >= 7)
+				if(sLevel >= 5)
 					passives += list("PureReduction" = (sLevel-4))
 					SureHitTimerLimit = 25
 					SureDodgeTimerLimit = 25
 					passives["FatigueLeak"] = 1
-				if(sLevel >= 8)
+				if(sLevel >= 6)
 					passives["FatigueLeak"] = 0
 				// switch(usr.SagaLevel)
 				// 	if(2)

@@ -76,6 +76,11 @@ menu "menu"
 		category = "Appearance"
 		saved-params = "is-checked"
 	elem 
+		name = "Base Icon"
+		command = "Change Base Icon"
+		category = "Appearance"
+		saved-params = "is-checked"
+	elem 
 		name = "Players"
 		command = ""
 		saved-params = "is-checked"
@@ -103,7 +108,7 @@ menu "menu"
 window "AdminHelpWindow"
 	elem "AdminHelpWindow"
 		type = MAIN
-		pos = 281,0
+		pos = 291,0
 		size = 548x273
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -256,7 +261,6 @@ window "AllChatTab"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
-		outer-size = 654x494
 	elem "output"
 		type = OUTPUT
 		pos = 0,0
@@ -264,6 +268,7 @@ window "AllChatTab"
 		anchor1 = 0,0
 		anchor2 = 100,100
 		font-family = "Gotham Book"
+		font-size = 8
 		text-color = #0080ff
 		background-color = #000000
 		is-default = true
@@ -271,6 +276,7 @@ window "AllChatTab"
 		link-color = #00d9ff
 		visited-color = #00cccc
 		style = ".system {color:#ff0000;}"
+		legacy-size = false
 
 window "Baby"
 	elem "Baby"
@@ -287,8 +293,6 @@ window "Baby"
 		can-minimize = false
 		can-resize = false
 		image-mode = tile
-		outer-size = 263x366
-		inner-size = 247x327
 	elem "label15"
 		type = LABEL
 		pos = 8,12
@@ -330,7 +334,6 @@ window "ICChatTab"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
-		outer-size = 654x494
 	elem "icchat"
 		type = OUTPUT
 		pos = 0,0
@@ -361,7 +364,6 @@ window "LOOCChatTab"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
-		outer-size = 654x494
 	elem "loocchat"
 		type = OUTPUT
 		pos = 0,0
@@ -393,6 +395,9 @@ window "OOCChatTab"
 		can-resize = false
 		is-pane = true
 		outer-size = 654x494
+		outer-pos = 291,0
+		inner-pos = 7,7
+		screen-size = 2560x1400
 	elem "oocchat"
 		type = OUTPUT
 		pos = 0,0
@@ -411,23 +416,26 @@ window "RPWindow"
 	elem "RPWindow"
 		type = MAIN
 		pos = 291,0
-		size = 640x480
+		size = 640x479
 		anchor1 = -1,-1
 		anchor2 = -1,-1
 		background-color = #666699
 		is-visible = false
 		saved-params = "pos;size;is-minimized;is-maximized"
-		titlebar = false
 		statusbar = false
 		can-close = false
 		can-minimize = false
-		outer-size = 654x494
+		outer-size = 656x518
+		outer-pos = 291,0
+		inner-size = 640x479
+		inner-pos = 8,31
+		screen-size = 2560x1400
 	elem "button8"
 		type = BUTTON
-		pos = 320,448
+		pos = 320,447
 		size = 320x32
-		anchor1 = -1,-1
-		anchor2 = -1,-1
+		anchor1 = 50,93
+		anchor2 = 100,100
 		font-family = "Malgun Gothic Semilight"
 		font-size = 18
 		text-color = #ffffff
@@ -438,7 +446,7 @@ window "RPWindow"
 	elem "label6"
 		type = LABEL
 		pos = 0,0
-		size = 640x48
+		size = 640x47
 		anchor1 = 0,0
 		anchor2 = 100,10
 		font-family = "@Malgun Gothic Semilight"
@@ -449,20 +457,20 @@ window "RPWindow"
 		text = "Roleplay"
 	elem "rpbox"
 		type = INPUT
-		pos = 0,48
+		pos = 0,47
 		size = 640x400
 		anchor1 = 0,10
-		anchor2 = 100,92
+		anchor2 = 100,93
 		text-color = #ffffff
 		background-color = #1b1a18
 		saved-params = ""
 		multi-line = true
 	elem "button7"
 		type = BUTTON
-		pos = 0,448
+		pos = 0,447
 		size = 320x32
-		anchor1 = -1,-1
-		anchor2 = -1,-1
+		anchor1 = 0,93
+		anchor2 = 50,100
 		font-family = "Malgun Gothic Semilight"
 		font-size = 16
 		text-color = #ffffff
@@ -694,7 +702,7 @@ window "knowtree"
 window "mainwindow"
 	elem "mainwindow"
 		type = MAIN
-		pos = 384,0
+		pos = 291,0
 		size = 640x500
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -782,7 +790,7 @@ window "mainwindow"
 window "mapwindow"
 	elem "mapwindow"
 		type = MAIN
-		pos = 384,0
+		pos = 291,0
 		size = 680x460
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -1101,7 +1109,7 @@ window "mapwindow"
 window "outputwindow"
 	elem "outputwindow"
 		type = MAIN
-		pos = 384,0
+		pos = 291,0
 		size = 640x480
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -1113,10 +1121,19 @@ window "outputwindow"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
+	elem "label7"
+		type = LABEL
+		pos = 0,0
+		size = 640x28
+		anchor1 = 0,0
+		anchor2 = 100,6
+		background-color = #000000
+		saved-params = ""
+		text = ""
 	elem "chattabs"
 		type = TAB
-		pos = 0,0
-		size = 640x480
+		pos = 0,4
+		size = 640x475
 		anchor1 = 0,0
 		anchor2 = 100,100
 		text-color = #ffffff
@@ -1124,6 +1141,18 @@ window "outputwindow"
 		saved-params = ""
 		tabs = "AllChatTab, ICChatTab, LOOCChatTab, OOCChatTab"
 		current-tab = "AllChatTab"
+	elem "chatSettings"
+		type = BUTTON
+		pos = 616,0
+		size = 24x24
+		anchor1 = 96,0
+		anchor2 = 100,0
+		background-color = #000000
+		saved-params = "is-checked"
+		text = ""
+		image = 'Icons\\wpLnl9g.png'
+		command = "chatSettings"
+		is-flat = true
 
 window "rpane"
 	elem "rpane"
@@ -1140,6 +1169,10 @@ window "rpane"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
+		outer-size = 654x494
+		outer-pos = 291,0
+		inner-pos = 7,7
+		screen-size = 2560x1400
 	elem "rpanewindow"
 		type = CHILD
 		pos = 0,0
@@ -1338,7 +1371,7 @@ window "Steal"
 window "Grid1"
 	elem "Grid1"
 		type = MAIN
-		pos = 281,0
+		pos = 291,0
 		size = 314x341
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -1383,7 +1416,7 @@ window "Grid1"
 window "Grid2"
 	elem "Grid2"
 		type = MAIN
-		pos = 281,0
+		pos = 291,0
 		size = 314x341
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -1440,7 +1473,7 @@ window "Grid2"
 window "Finalize_Screen"
 	elem "Finalize_Screen"
 		type = MAIN
-		pos = 281,0
+		pos = 291,0
 		size = 613x245
 		anchor1 = -1,-1
 		anchor2 = -1,-1

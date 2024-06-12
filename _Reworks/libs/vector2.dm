@@ -1,5 +1,3 @@
-#define TILE_WIDTH  32
-#define TILE_HEIGHT 32
 #define TileHeight 32
 #define TileWidth 32
 /proc/getLowestInList(thing, list, valueofthing)
@@ -706,10 +704,10 @@ Vector2
 	var/vector2/South = new(0, -1)
 	var/vector2/East = new(1, 0)
 	var/vector2/West = new(-1, 0)
-	var/vector2/Northeast = new(sqrt(1/2), sqrt(1/2))
-	var/vector2/Northwest = new(-sqrt(1/2), sqrt(1/2))
-	var/vector2/Southeast = new(sqrt(1/2), -sqrt(1/2))
-	var/vector2/Southwest = new(-sqrt(1/2), -sqrt(1/2))
+	var/vector2/Northeast = new(0.707106781187, 0.707106781187)
+	var/vector2/Northwest = new(-0.707106781187, 0.707106781187)
+	var/vector2/Southeast = new(0.707106781187, -0.707106781187)
+	var/vector2/Southwest = new(-0.707106781187, -0.707106781187)
 
 	proc
 		FromDir(dir)

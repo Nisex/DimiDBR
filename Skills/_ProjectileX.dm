@@ -1,6 +1,13 @@
 obj
 	Skills
 		Projectile
+			adjust(mob/p)
+			proc/Trigger(mob/p, Override = 0)
+				adjust(p)
+				if(Using || cooldown_remaining)
+					return FALSE
+				var/aaa = p.UseProjectile(src)
+				return aaa
 			layer=EFFECTS_LAYER
 			Distance=10
 			Cooldown=0.5
@@ -8,6 +15,9 @@ obj
 			pixel_x=0
 			pixel_y=0
 			var
+				CorruptionGain
+
+
 				DistanceMax//This will keep the largest possible distance
 				DistanceVariance=0//if you want the things to sometimes blow up early
 				Area="Blast"//What type of projectile?  Blast...
@@ -152,6 +162,27 @@ obj
 				ActiveColor=rgb(255,0,0)
 
 				GoldScatter
+
+			skillDescription()
+				..()
+				if(MaimCost)
+					description += "MaimCost: [MaimCost]\n"
+				if(StrRate)
+					description += "Strength Damage %: [StrRate*100]\n"
+				if(ForRate)
+					description += "Force Damage %: [ForRate*100]\n"
+				if(EndRate<1)
+					description += "Endurance Ignoring: [1-EndRate]%\n"
+				if(Blasts)
+					description += "Fires [Blasts] blast(s).\n"
+				if(MultiShot)
+					description += "Can be fired [MultiShot] times in a row.\n"
+				if(MultiHit)
+					description += "Will hit [MultiHit] times in a row if it can.\n"
+				if(ZoneAttack)
+					description += "Will fire blasts to hover in a [ZoneAttackX]x[ZoneAttackY] area.\n"
+				if(Buster)
+					description += "Charges up before firing: At max: [BusterDamage] damage. [BusterHits] hits. [BusterRadius] radius. [BusterAccuracy] accuracy. [BusterSize] size. [BusterStream] blasts.\n"
 //Autoblasts
 			Oni_Giri
 				AttackReplace=1
@@ -305,13 +336,13 @@ obj
 				TrailSize=1.4
 				Variation=4
 			Secret_Knives
+				AdaptRate=1
+				Blasts=4
+				DamageMult=0.25
+				AccMult=1
 				AttackReplace=1
 				ZoneAttack=1
 				Distance=30
-				StrRate=1
-				Blasts=5
-				DamageMult=0.5
-				AccMult=1
 				Homing=1
 				HomingCharge=3
 				HomingDelay=1
@@ -322,11 +353,21 @@ obj
 				ZoneAttackY=5
 				FireFromEnemy=0
 				FireFromSelf=1
-				Hover=10
+				Hover=8
 				IconLock='CheckmateKnives.dmi'
 				Variation=8
 				FlickBlast=0
-				Cooldown=4
+				Cooldown=3
+				adjust(mob/p)
+					Blasts = rand(5,8)
+					DamageMult = 0.2
+					Cooldown = rand(6,9)
+					if((p.UBWPath == "Firm" && p.SagaLevel >=3))
+						Blasts = rand(2 + p.SagaLevel, 8 + p.SagaLevel)
+						DamageMult = rand(0.1 + (p.SagaLevel * 0.05), 0.15 + (p.SagaLevel * 0.05))
+						Cooldown = rand(7,12) - p.SagaLevel
+
+
 			Murder_Music
 				AttackReplace=1
 				ZoneAttack=1
@@ -966,7 +1007,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=20
-				AccMult=0.5
+				AccMult=1
 				DamageMult=0.15
 				Blasts=20
 				Delay=0.5
@@ -984,13 +1025,14 @@ obj
 			Straight_Siege
 				SkillCost=40
 				Copyable=2
-				Distance=15
-				AccMult=1
-				DamageMult=0.25
+				Distance=8
+				AccMult=0.75
+				DamageMult=0.1
+				Speed = 0.75
 				Knockback=0
 				Blasts=20
 				Continuous=1
-				EnergyCost=1
+				EnergyCost=3
 				IconLock='Blast - Small.dmi'
 				Cooldown=30
 				Variation=24
@@ -1129,7 +1171,7 @@ obj
 				Copyable=2
 				Distance=50
 				DamageMult=3.5
-				EnergyCost=20
+				EnergyCost=5
 				Deflectable=0
 				Charge=1
 				IconChargeOverhead=1
@@ -1537,7 +1579,7 @@ obj
 				LockY=0
 				IconSize=0.1
 				IconSizeGrowTo=1.25
-				Cooldown=60
+				Cooldown=150
 				Slashing=1
 				Piercing=0
 				Variation=0
@@ -1811,8 +1853,6 @@ obj
 					usr.UseProjectile(src)
 
 			A_Pound_of_Gold
-				SkillCost=160
-				Copyable=5
 				Distance=20
 				DamageMult=6
 				AccMult=15
@@ -1828,6 +1868,25 @@ obj
 				GoldScatter = 1
 
 				verb/A_Pound_of_Gold()
+					set category="Skills"
+					usr.UseProjectile(src)
+
+			Goblin_Greed
+				Distance=20
+				DamageMult=6
+				AccMult=3
+				Knockback=5
+				EnergyCost=3
+				Cooldown=120
+				Homing=1
+				IconLock='GoldPile.dmi'
+				IconSize=0.35
+				LockX=-32
+				LockY=-32
+				Variation=0
+				GoldScatter = 1
+
+				verb/Goblin_Greed()
 					set category="Skills"
 					usr.UseProjectile(src)
 
@@ -1870,8 +1929,6 @@ obj
 			Crusher_Ball
 				SkillCost=80
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Projectile/Spirit_Ball")
-				LockOut=list("/obj/Skills/Projectile/Chasing_Bullet")
 				Distance=40
 				DamageMult=5
 				AccMult=1
@@ -1894,8 +1951,6 @@ obj
 			Chasing_Bullet
 				SkillCost=80
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Projectile/Spirit_Ball")
-				LockOut=list("/obj/Skills/Projectile/Crusher_Ball")
 				Distance=40
 				DamageMult=5
 				AccMult=2
@@ -1919,8 +1974,6 @@ obj
 			Consecutive_Kienzan
 				SkillCost=80
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Projectile/Kienzan")
-				LockOut=list("/obj/Skills/Projectile/Split_Slicer")
 				Blasts=3
 				Distance=50
 				DamageMult=6
@@ -1945,8 +1998,6 @@ obj
 			Split_Slicer
 				SkillCost=80
 				Copyable=5
-				PreRequisite=list("/obj/Skills/Projectile/Kienzan")
-				LockOut=list("/obj/Skills/Projectile/Consecutive_Kienzan")
 				Distance=7
 				DamageMult=6
 				EnergyCost=30
@@ -2367,7 +2418,7 @@ obj
 				ActiveMessage="unleashes a storm of stardust channeled from the depths of space!"
 				verb/Stardust_Revolution()
 					set category="Skills"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.UseProjectile(src)
@@ -2409,7 +2460,7 @@ obj
 				ActiveMessage="unleashes an eruption of power on galactic scale!"
 				verb/Galaxian_Explosion()
 					set category="Skills"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.UseProjectile(src)
@@ -2448,7 +2499,7 @@ obj
 				verb/Praesepe_Demonic_Blue_Flames()
 					set category="Skills"
 					set name="Sekishiki Kisoen"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.UseProjectile(src)
@@ -2528,7 +2579,7 @@ obj
 				Variation=8
 				verb/Scarlet_Needle()
 					set category="Skills"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.UseProjectile(src)
@@ -2588,7 +2639,7 @@ obj
 				ActiveMessage="casts a handful of poisonous crimson roses at their target!"
 				verb/Royal_Demon_Rose()
 					set category="Skills"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.UseProjectile(src)
@@ -3309,7 +3360,6 @@ obj
 						ElementalClass="Fire"
 						SignatureTechnique=1
 						SignatureName="Advanced Fire Magic"
-						PreRequisite=list("/obj/Skills/Projectile/Magic/Firaga")
 						Distance=50
 						DamageMult=4
 						MultiHit=5
@@ -3394,8 +3444,6 @@ obj
 				UnerringSlice
 					SkillCost=20
 					Copyable=2
-					LockOut=list("/obj/Skills/Projectile/Sword/BoundlessCut")
-					PreRequisite=list("/obj/Skills/Projectile/Sword/AirRender")
 					Distance=10
 					DamageMult=0.5
 					Radius=1
@@ -3410,8 +3458,6 @@ obj
 				BoundlessCut
 					SkillCost=20
 					Copyable=2
-					LockOut=list("/obj/Skills/Projectile/Sword/UnerringSlice")
-					PreRequisite=list("/obj/Skills/Projectile/Sword/AirRender")
 					Distance=10
 					DamageMult=0.2
 					MultiShot=5
@@ -3667,8 +3713,6 @@ obj
 				Eraser_Gun
 					SkillCost=120
 					Copyable=4
-					PreRequisite=list("/obj/Skills/Projectile/Beams/Ray")
-					LockOut=list("/obj/Skills/Projectile/Beams/Shine_Ray", "/obj/Skills/Projectile/Beams/Gamma_Ray", "/obj/Skills/Projectile/Beams/Piercer_Ray")
 					Distance=50
 					DamageMult=1
 					ChargeRate=2
@@ -3683,8 +3727,6 @@ obj
 				Shine_Ray
 					SkillCost=120
 					Copyable=4
-					PreRequisite=list("/obj/Skills/Projectile/Beams/Ray")
-					LockOut=list("/obj/Skills/Projectile/Beams/Eraser_Gun", "/obj/Skills/Projectile/Beams/Gamma_Ray", "/obj/Skills/Projectile/Beams/Piercer_Ray")
 					Distance=15
 					DamageMult=7
 					ChargeRate=0
@@ -3700,8 +3742,6 @@ obj
 				Gamma_Ray
 					SkillCost=120
 					Copyable=4
-					PreRequisite=list("/obj/Skills/Projectile/Beams/Ray")
-					LockOut=list("/obj/Skills/Projectile/Beams/Shine_Ray", "/obj/Skills/Projectile/Beams/Gamma_Ray", "/obj/Skills/Projectile/Beams/Piercer_Ray")
 					DamageMult=0.75
 					ChargeRate=5
 					Distance=50
@@ -3716,8 +3756,6 @@ obj
 				Piercer_Ray
 					SkillCost=120
 					Copyable=4
-					PreRequisite=list("/obj/Skills/Projectile/Beams/Ray")
-					LockOut=list("/obj/Skills/Projectile/Beams/Shine_Ray", "/obj/Skills/Projectile/Beams/Gamma_Ray", "/obj/Skills/Projectile/Beams/Piercer_Ray")
 					DamageMult=7
 					Distance=50
 					ChargeRate=1
@@ -4051,7 +4089,7 @@ obj
 							Cooldown=150
 							verb/Aurora_Execution()
 								set category="Skills"
-								if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+								if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 									usr << "You can't use this technique except when in a dire pinch!"
 									return
 								usr.UseProjectile(src)
@@ -4238,11 +4276,23 @@ obj
 						Shattering = 0.5 + clamp(usr.AscensionsAcquired*0.5, 0.5, 2.5)
 					usr.UseProjectile(src)
 
+//Moonlight Greatsword
+				Moonlight_Wave
+					ForRate=1.5
+					Blasts=1
+					DamageMult=5
+					AccMult=1
+					IconLock="MoonWave.dmi"
+					Variation=6
+					Cooldown=10
+					AttackReplace=1
+
 
 
 mob
 	proc
 		UseProjectile(var/obj/Skills/Projectile/Z)
+			. = TRUE
 			if(src.Stasis)
 				return
 			if(Z.Sealed)
@@ -4296,16 +4346,16 @@ mob
 				if(Z.ZoneAttack&&Z.FireFromEnemy)
 					if(!src.Target)
 						src << "You need a target to use this."
-						return
+						return FALSE
 					if(src.z!=src.Target.z)
 						src << "You have to be on the same z-plane to use this technique."
-						return
+						return FALSE
 					if(src.Target.x>src.x+50||src.Target.x<src.x-50||src.Target.y>src.y+50||src.Target.y<src.y-50)
 						src << "They're out of range..."
-						return
+						return FALSE
 					if(src.Target==src)
 						src << "You can't target yourself to use this."
-						return
+						return FALSE
 				if(Z.MultiShots==0)
 					if(!Z.AllOutAttack)
 						if(Z.HealthCost)
@@ -4328,14 +4378,19 @@ mob
 							if(!src.TomeSpell(Z))
 								if(src.ManaAmount<drain)
 									src << "You don't have enough mana to activate [Z]."
-									return
+									return FALSE
 							else
 								if(src.ManaAmount<drain*(1-(0.45*src.TomeSpell(Z))))
 									src << "You don't have enough mana to activate [Z]."
-									return
+									return FALSE
 						if(Z.CapacityCost)
 							if(src.TotalCapacity+Z.CapacityCost>99)
 								return
+						if(Z.CorruptionCost)
+							if(Corruption - Z.CorruptionCost < 0)
+								src << "You don't have enough Corruption to activate [Z]"
+								return FALSE
+
 			if(Z.NeedsSword)
 				if(!src.EquippedSword())
 					if(!src.HasSwordPunching()&& !src.UsingBattleMage())
@@ -4719,6 +4774,10 @@ mob
 							src.LoseMana(drain*(1-(0.45*src.TomeSpell(Z)))/Drain)
 						else
 							src.LoseMana(drain/Drain)
+						if(Z.CorruptionGain)
+							gainCorruption(drain / 3)
+					if(Z.CorruptionCost)
+						gainCorruption(-Z.CorruptionCost)
 					if(Z.CapacityCost)
 						src.LoseCapacity(Z.CapacityCost/Drain)
 					if(Z.MaimCost)
@@ -4792,16 +4851,18 @@ obj
 					Killed=0
 					VariationX
 					VariationY
-					list/AlreadyHit = list()
+					list/AlreadyHit
 					BeamCharge
 					BreathCost
 				Savable=0
 				density=1
 				Grabbable=0
 				Health=1#INF
+				MultiTrail = 0
 				New(var/mob/m, var/obj/Skills/Projectile/Z, var/atom/Origin, var/BeamCharging=0.5, var/GivesMessage, var/IconUsed=0)
 					if(m==null||Origin==null)
 						endLife()
+					AlreadyHit = list()
 					animate_movement=SLIDE_STEPS
 					if(BeamCharging<0.5)
 						BeamCharging=0.5
@@ -4861,8 +4922,10 @@ obj
 					src.Launcher=Z.Launcher
 					src.Knockback=Z.Knockback
 					src.MiniDivide=Z.MiniDivide
+					src.CorruptionGain = Z.CorruptionGain
 					src.Divide=Z.Divide
 					src.Trail=Z.Trail
+					src.MultiTrail=Z.MultiTrail
 					src.Shearing = Z.Shearing
 					src.Crippling = Z.Crippling
 					src.TrailX=Z.TrailX
@@ -5277,6 +5340,11 @@ obj
 
 						var/str = StrRate ? Owner.GetStr(StrRate) : 0
 						var/force = ForRate ? Owner.GetFor(ForRate) : 0
+						if(AdaptRate)
+							if(Owner.GetStr(1) > Owner.GetFor(1))
+								str = Owner.GetStr(AdaptRate)
+							else
+								force = Owner.GetStr(AdaptRate)
 						var/powerDif = Owner.Power / a:Power
 						// + Owner.getIntimDMGReduction(m)
 						if(glob.CLAMP_POWER)
@@ -5315,11 +5383,17 @@ obj
 							Damage = (powerDif**glob.DMG_POWER_EXPONENT) * (glob.CONSTANT_DAMAGE_EXPONENT+glob.PROJECTILE_EFFECTIVNESS) ** -(def**glob.DMG_END_EXPONENT / atk**glob.DMG_STR_EXPONENT)
 						else
 							Damage = ((atk * powerDif)*glob.CONSTANT_DAMAGE_EXPONENT)** -( def / atk)
+						#if DEBUG_PROJECTILE
 						Owner.log2text("PROJ Damage after", Damage, "damageDebugs.txt", Owner.ckey)
+						#endif
 						Damage *= DamageMult
+						#if DEBUG_PROJECTILE
 						Owner.log2text("PROJ Damage after mult", Damage, "damageDebugs.txt", Owner.ckey)
+						#endif
 						Damage = ProjectileDamage(Damage)
+						#if DEBUG_PROJECTILE
 						Owner.log2text("PROJ Damage final", Damage, "damageDebugs.txt", Owner.ckey)
+						#endif
 						if(src.Owner.HasRipple())
 							if(src.Owner.Oxygen>=BreathCost)
 								var/RipplePower=(1+(0.25*src.Owner.GetRipple()*max(1,src.Owner.PoseEnhancement*2)))
@@ -5327,11 +5401,17 @@ obj
 							else if(src.Owner.Oxygen>=src.Owner.OxygenMax*0.3)
 								var/RipplePower=(1+(0.125*src.Owner.GetRipple()*max(1,src.Owner.PoseEnhancement*2)))
 								Damage*=RipplePower
+							#if DEBUG_PROJECTILE
 							Owner.log2text("PROJ Damage RIPPLE", Damage, "damageDebugs.txt", Owner.ckey)
+							#endif
 						if(itemMods[3]>0)
+							#if DEBUG_PROJECTILE
 							Owner.log2text("item damage1", itemMods[3], "damageDebugs.txt", Owner.ckey)
+							#endif
 							Damage *= (itemMods[3])
+							#if DEBUG_PROJECTILE
 							Owner.log2text("item damage2", Damage, "damageDebugs.txt", Owner.ckey)
+							#endif
 						if(src.Area=="Beam")
 							src.Damage*=(BeamCharge)
 							BeamCharge = max(Immediate ? 1 : 0.5, BeamCharge - 0.2)
@@ -5356,7 +5436,8 @@ obj
 											continue
 										else
 											break
-									new/obj/gold(a, src.Owner, newX, newY, a.z)
+									var/obj/gold/gold = new()
+									gold.createPile(m, src.Owner, newX, newY, m.z)
 									a << "You feel a need to go collect your coins before they're stolen!"
 
 						if(Crippling)
@@ -5368,83 +5449,40 @@ obj
 							var/Heal=EffectiveDamage*a:passive_handler.Get("Siphon")*src.ForRate//Energy siphon is a value from 0.1 to 1 which reduces damage and heals energy.
 							EffectiveDamage-=Heal//negated
 							a:HealEnergy(Heal)//and transfered into energy.
-						var/PreviousElement
 						if(src.Burning&&!src.Owner.HasBurning())
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Fire"
-							if(src.DarknessFlame)
-								src.Owner.DarknessFlame+=1
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a))/10)
-							if(src.DarknessFlame)
-								src.Owner.DarknessFlame-=1
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Fire"), damageOnly = 1))/10)
 						if(src.Scorching&&!src.Owner.HasScorching())
-							if(!a:Burn&&!a:DebuffImmune)
-								OMsg(src.Owner, "<font color='[rgb(204, 153, 51)]'>[a] erupts in flames!!</font color>")
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Fire"
-							if(src.DarknessFlame)
-								src.Owner.DarknessFlame+=1
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1))/10)//Forces debuff
-							if(src.DarknessFlame)
-								src.Owner.DarknessFlame-=1
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1,, bonusElements=list("Fire"), damageOnly = 1))/10)//Forces debuff
 						if(src.Chilling&&!src.Owner.HasChilling())
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Water"
-							if(src.AbsoluteZero)
-								src.Owner.AbsoluteZero+=1
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a))/10)
-							if(src.AbsoluteZero)
-								src.Owner.AbsoluteZero-=1
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Water"), damageOnly = 1))/10)
 						if(src.Freezing&&!src.Owner.HasFreezing())
-							if(!a:Slow&&!a:DebuffImmune)
-								OMsg(src.Owner, "<font color='[rgb(51, 153, 204)]'>[a] freezes to the bone!!</font color>")
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Water"
-							if(src.AbsoluteZero)
-								src.Owner.AbsoluteZero+=1
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1))/10)//Forces debuff
-							if(src.AbsoluteZero)
-								src.Owner.AbsoluteZero-=1
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Water"), damageOnly = 1))/10)//Forces debuff
 						if(src.Crushing&&!src.Owner.HasCrushing())
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Earth"
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a))/10)
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Earth"), damageOnly = 1))/10)
 						if(src.Shattering&&!src.Owner.HasShattering())
-							if(!a:Shatter&&!a:DebuffImmune)
-								OMsg(src.Owner, "<font color='[rgb(51, 204 , 153)]'>[a] falters; their guard is crushed!!</font color>")
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Earth"
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1))/10)//Forces debuff
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Earth"), damageOnly = 1))/10)//Forces debuff
 						if(src.Shocking&&!src.Owner.HasShocking())
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Wind"
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a))/10)
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Wind"), damageOnly = 1))/10)
 						if(src.Paralyzing&&!src.Owner.HasParalyzing())
-							if(!a:Shock&&!a:DebuffImmune)
-								OMsg(src.Owner, "<font color='[rgb(153, 255, 255)]'>[a] twitches erratically; they're paralyzed!!</font color>")
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Wind"
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1))/10)//Forces debuff
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Wind"), damageOnly = 1))/10)//Forces debuff
 						if(src.Poisoning&&!src.Owner.HasPoisoning())
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Poison"
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a))/10)
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Poison"), damageOnly = 1))/10)
 						if(src.Toxic&&!src.Owner.HasToxic())
-							if(!a:Toxic&&!a:DebuffImmune)
-								OMsg(src.Owner, "<font color='[rgb(204, 51, 204)]'>[a] looks unwell; they've been poisoned!!</font color>")
-							PreviousElement=src.Owner.ElementalOffense
-							src.Owner.ElementalOffense="Poison"
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1))/10)//Forces debuff
-							src.Owner.ElementalOffense=PreviousElement
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Poison"), damageOnly = 1))/10)//Forces debuff
+
+						var/bonusElement = list()
+						if(Burning||Scorching)
+							bonusElement |= "Fire"
+						if(Chilling||Freezing)
+							bonusElement |= "Water"
+						if(Crushing||Shattering)
+							bonusElement |= "Earth"
+						if(Paralyzing||Shocking)
+							bonusElement |= "Wind"
+						if(Toxic||Poisoning)
+							bonusElement |= "Poison"
+
+						ElementalCheck(src.Owner, a, onlyTheseElements=bonusElement)
 
 						if(a in src.Owner.party)
 							EffectiveDamage *= PARTY_DAMAGE_NERF
@@ -5512,6 +5550,8 @@ obj
 									if(!AlreadyHit["[m.ckey]"]) AlreadyHit["[m.ckey]"] = 0
 									EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.01, 1)
 									src.Owner.DoDamage(a, EffectiveDamage, SpiritAttack=1, Destructive=src.Destructive)
+									if(CorruptionGain)
+										Owner.gainCorruption(EffectiveDamage *1.25)
 									AlreadyHit["[m.ckey]"]++
 									if(Piercing && PiercingBang)
 										Bang(src.loc, Size=src.PiercingBang, Offset=0, PX=src.VariationX, PY=src.VariationY, icon_override = ExplodeIcon)
@@ -5630,7 +5670,11 @@ obj
 						for(var/turf/t in view(src.Divide, src))
 							Destroy(t, 9001)
 					if(src.Trail)
-						LeaveTrail(src.Trail, src.VariationX+src.TrailX, src.VariationY+src.TrailY, src.dir, src.loc, src.TrailDuration, src.TrailSize)
+						if(src.MultiTrail)
+							WaveTrail(src.Trail, src.VariationX+src.TrailX, src.VariationY+src.TrailY, src.dir, src.loc, src.TrailDuration, src.TrailSize)
+						else
+							LeaveTrail(src.Trail, src.VariationX+src.TrailX, src.VariationY+src.TrailY, src.dir, src.loc, src.TrailDuration, src.TrailSize)
+
 					src.Distance--
 					..()
 
@@ -5652,7 +5696,10 @@ obj
 								TurfShift(TurfShiftEnd, t, 10+Delay, src, OBJ_LAYER+0.01)
 
 					if(src.Trail)
-						LeaveTrail(src.Trail, src.VariationX+src.TrailX, src.VariationY+src.TrailY, src.dir, src.loc, src.TrailDuration, src.TrailSize)
+						if(src.MultiTrail)
+							WaveTrail(src.Trail, src.VariationX+src.TrailX, src.VariationY+src.TrailY, src.dir, src.loc, src.TrailDuration, src.TrailSize)
+						else
+							LeaveTrail(src.Trail, src.VariationX+src.TrailX, src.VariationY+src.TrailY, src.dir, src.loc, src.TrailDuration, src.TrailSize)
 					if(!src.Killed && src.Owner)
 						if(src.Explode)
 							Bang(src.loc, Size=src.Explode, Offset=0, PX=src.VariationX, PY=src.VariationY, icon_override = ExplodeIcon)

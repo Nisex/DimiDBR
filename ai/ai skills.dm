@@ -75,7 +75,7 @@ ai_play_action
 		default_timeout=10
 		SetupPlayAction(mob/Player/AI/Nympharum/a)
 			a.NymphCry(a.message_dragon_dash,yell=1)
-			a.Target = a.ai_owner.Target
+			a.SetTarget(a.ai_owner.Target)
 			spawn
 				var/obj/o = locate(/obj/Skills/Projectile/Arcane_Spray) in a
 				if(o)

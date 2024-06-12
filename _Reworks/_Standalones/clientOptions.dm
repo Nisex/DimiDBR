@@ -7,8 +7,10 @@ Options/
     var/seePronouns = 1
     var/useSupporter = 0
     var/useDonator = 1
+    var/currentFontFamily = "Gotham Book"
+    var/currentFontSize = 8
     var/disableLoginAlert = 0
-    var/list/savableVars = list("seePronouns", "useSupporter", "useDonator", "disableLoginAlert")
+    var/list/savableVars = list("seePronouns", "useSupporter", "useDonator", "disableLoginAlert", "currentFontFamily", "currentFontSize")
     proc/savePrefs(ckey)
         . = list()
         for(var/opt in savableVars)
@@ -23,16 +25,8 @@ Options/
             if(read)
                 thing2Return = json_decode(file2text(read))
                 for(var/opt in vars)
-                    if(!thing2Return["[opt]"])
-                        thing2Return["[opt]"] = vars[opt]
-            else
-                thing2Return = list()
-                for(var/opt in savableVars)
-                    thing2Return["[opt]"] = vars[opt]
-        else
-            thing2Return = list()
-            for(var/opt in savableVars)
-                thing2Return["[opt]"] = vars[opt]
+                    if(thing2Return[opt])
+                        vars[opt] = thing2Return["[opt]"]
     proc/deleteOldPrefs(ckey)
         . = 1
         if(fexists("[CONFIG_OPTIONS_JSON_FOLDER][ckey].json"))
@@ -40,7 +34,7 @@ Options/
                 world.log << "Failed to delete old preferences for [ckey]."
                 return 0
 
-
+        
 
 
 

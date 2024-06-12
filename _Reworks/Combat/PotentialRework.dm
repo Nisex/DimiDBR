@@ -1,4 +1,4 @@
-/var/list/POWER_TIERS = list("F", "E", "D", "C", "B", "A", "S", "SS", "SSS", "LEGENDARY", "DIVINE", "GODLY", "OMNI", "INFINITE")
+///var/list/POWER_TIERS = list("F", "E", "D", "C", "B", "A", "S", "SS", "SSS", "LEGENDARY", "DIVINE", "GODLY", "OMNI", "INFINITE")
 
 /var/MAX_MULT = 250
 /var/POTENTIAL_HIGH_POINT = 400

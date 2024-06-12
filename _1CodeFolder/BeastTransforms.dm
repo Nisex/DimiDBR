@@ -16,21 +16,42 @@
 		src << "You have reached [tail_mastery/100] ascensions worth of resistance!"
 
 /obj/Skills/Buffs/SlotlessBuffs/Oozaru
+	var/Looking = 1
+	var/Controlled = TRUE // if we ever want 'uncontrolled oozaru'
 	BuffName = "Great Ape"
+	IconTransform = 'Oozonew.dmi'
+	Enlarge = 1.5
+	TransformX = -32
+	TransformY = -32
+	AuraLock = 'BLANK.dmi'
 	passives = list("Vulnerable Behind" = 1, "GiantForm" = 1, "NoDodge" = 1, "SweepingStrike" = 1, \
-	"Meaty Paws" = 1)
+	"Meaty Paws" = 1, "EndlessAnger" = 1)
 	StrMult = 1.3
 	ForMult = 1.2
 	SpdMult = 0.3
 	OffMult = 1.2
 	EndMult = 1.2
-	proc/adjust(mob/p)
+	TimerLimit = 900
+	verb/Moon_Toggle()
+		set category="Other"
+		if(!(world.time > usr.verb_delay)) return
+		usr.verb_delay=world.time+1
+		Looking=!Looking
+		if(usr.Oozaru)
+			if(!Controlled)
+				usr<<"You cannot will yourself out of the transformed state!"
+				return
+			usr.Oozaru = 0
+			Trigger(usr, Override = 1)
+		usr<< "You will [Looking ? "look" : "not look"] at the moon."
+
+	adjust(mob/p)
 		if(!p.oozaru_type)
 			p.oozaru_type = input(p, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")
 		switch(p.oozaru_type)
 			if("Wrathful")
-				passives["Manic"] = 5 - p.AscensionsAcquired
-				passives["Meaty Paws"] = 2
+				passives["Manic"] = 4 - p.AscensionsAcquired
+				passives["Meaty Paws"] = 2 + (p.AscensionsAcquired /2)
 				StrMult = 1.4
 				ForMult = 1.3
 				EndMult = 1.4
@@ -51,8 +72,13 @@
 				SpdMult = 0.4
 				OffMult = 1.4
 		if(p.Potential > OOZARU_POTENTIAL_TRANS)
-			passives["Transformation Power"] = clamp(p.AscensionsAcquired * 2.5, 1, 50-p.Potential)
-
+			passives["Transformation Power"] = clamp(p.AscensionsAcquired * 2, 1, 50-p.Potential)
+	verb/Tail_Toggle()
+		set category = "Other"
+		if(usr.Tail)
+			usr.Tail(0)
+		else
+			usr.Tail(1)
 /*
 /mob/verb/test_Oozaru()
 	set category = "Debug"
@@ -60,171 +86,35 @@
 		Oozaru(1)
 	else
 		Oozaru(0)*/
-mob/proc/Oozaru(Go_Oozaru=1,var/revert)
-	for(var/obj/Oozaru/O in src)
-		var/image/Body=image(icon='Oozonew.dmi')
-		var/image/GBody=image(icon='GOozonew.dmi', loc=src)
-		var/image/GGlow=image(icon='GOozonewGlow.dmi', loc=src)
-		if(Go_Oozaru)
-			if(!src.Tail)return
-			if(src.SSJ4Unlocked)return
-			if(src.Dead)return
-			if(src.ssj["Active"]>0)return
+mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Buff)
+	if(!src.oozaru_type)
+		src.oozaru_type = input(src, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")
+	if(Go_Oozaru)
+		if(!src.Tail)return
+		if(src.SSJ4Unlocked)return
+		if(src.Dead)return
+		if(transActive)return
 
-			if(src.ActiveBuff)
-				if(src.CheckActive("Eight Gates"))
-					src.ActiveBuff:Stop_Cultivation()
-				else
-					src.ActiveBuff.Trigger(src)
-			if(src.SpecialBuff)
-				src.SpecialBuff.Trigger(src)
-			if(src.SlotlessBuffs.len>0)
-				for(var/sb in SlotlessBuffs)
-					var/obj/Skills/Buffs/b = SlotlessBuffs[sb]
-					if(b)
-						b.Trigger(src)
+		src.Oozaru=1
+		Buff.adjust(src)
+		Buff.Trigger(src)
 
-			Oozaru(0)
-			src.Oozaru=1
-			animate(src, transform = matrix()*0.5)
-			O.icon=icon
-			icon=Body
-			pixel_x=-32
-			pixel_y=-32
-			AppearanceOff()
-			appearance_flags = PIXEL_SCALE
-			animate(src, transform = matrix()*1.5, time = 10)
-			if(!src.oozaru_type)
-				src.oozaru_type = input(src, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")
-			for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src)
-				world.log<<"We found it in the slotless buffs! (oozaru)" // debug message
-				if(B)
-					B.adjust(src)
-					B.Trigger(src)
-			if(src.ssj["unlocked"]>3)
-				src.Golden=1
-				spawn(20)
-					world << GBody
-					world << GGlow
-					animate(GBody, alpha=0)
-					animate(GGlow, alpha=0)
-					animate(GBody, alpha=255, time=10)
-					animate(GGlow, alpha=255, time=15)
-					spawn(10)
-						src.overlays+=image(icon='GOozonew.dmi')
-						del GBody
-						animate(GGlow, alpha=0, time=5)
-						spawn(5)
-							del GGlow
+		src.Anger=2
 
-			src.PoweringUp=0
-			src.PoweringDown=0
-			src.PowerControl=100
-			passive_handler.Increase("EndlessAnger")
-			src.AuraLocked=1
-			src.AuraLock='BLANK.dmi'
-			src.Anger=2
-
-			if(!src.Golden)
-				src.potential_trans=OOZARU_POTENTIAL_TRANS//5 bp :3
-			else
-				src.potential_trans=75//still 250
-
-			if(revert)
-				spawn(revert)Oozaru(0)
-			else
-				src.OozaruTimer=900
-			spawn(rand(0,10)) for(var/mob/P in view(20,src)) P<<sound('Roar.wav', repeat = 0, wait = 0, channel = 0, volume = 50)
+		if(revert)
+			spawn(revert)Oozaru(0)
+		spawn(rand(0,10)) for(var/mob/P in view(20,src)) P<<sound('Roar.wav', repeat = 0, wait = 0, channel = 0, volume = 50)
 
 
-		else if(O.icon)
-			if(!src.Golden)
-				src.NoDodge-=1
-				passive_handler.Decrease("EndlessAnger")
-				src.AuraLocked=0
-				src.AuraLock=null
-				src.Anger=0
-				potential_trans=0
-				src.Oozaru=0
+	else
 
-				animate(src, transform = matrix()*2)
-				icon=O.icon
-				O.icon=null
-				pixel_x=0
-				pixel_y=0
-				AppearanceOn()
-				animate(src, transform = matrix(), time = 10)
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src.SlotlessBuffs)
-					if(B)
-						B.Trigger(src)
-			else
-				src.masteries["4mastery"]=1
-				src.NoDodge-=1
-				src.PUSpeedModifier*=1.5
-				src.PureDamage+=3
-				src.PureReduction+=3
-				src.BuffMastery+=2
-				src.Flicker+=2
-				src.Pursuer+=2
-				src.SuperDash+=1
-				src.Instinct+=1
-				src.AuraLocked=0
-				src.AuraLock=null
+		src.Oozaru=0
 
-				src.Oozaru=0
-				src.Transformed=1
-				src.SSJ4Unlocked=1
+		for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src.SlotlessBuffs)
+			B.Trigger(src, Override = 1)
 
-				if(src.KO)
-					src.MortallyWounded=0
-					src.TsukiyomiTime=1
-					src.KOTimer=0
-					src.KO=0
-					src.icon_state=""
-
-				src.Sheared=0
-				src.TotalInjury=0
-				src.TotalFatigue=0
-				src.BPPoison=1
-				src.BPPoisonTimer=0
-				src.HealHealth(100)
-				src.HealEnergy(100)
-				src.HealMana(100)
-
-				animate(src, transform = matrix()*2, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1))
-				icon=O.icon
-				O.icon=null
-				overlays=null
-				pixel_x=0
-				pixel_y=0
-				src.overlays+=FurSSJ4
-				src.overlays+=ClothingSSJ4
-				src.overlays+=TailSSJ4
-				ssj["active"]=4
-				Hairz("Add")
-				Auraz("Add")
-				animate(src, transform = matrix(), color = null, time = 10)
 obj/Oozaru
-	var/Looking=1
-	verb/Oozaru()
-		set category="Other"
-		if(!(world.time > usr.verb_delay)) return
-		usr.verb_delay=world.time+1
-		Looking=!Looking
-		if(usr.Oozaru&&usr.EraBody=="Child")
-			usr<<"You cannot will yourself out of the transformed state!"
-			return
-		if(Looking)
-			usr<<"You will look at the moon"
-			if(usr.Tail)
-				usr.Tail(0)
-				usr.Tail(1)
-		else
-			usr<<"You will not look at the moon"
-			usr.Oozaru(0)
-			if(usr.Tail)
-				usr.Tail(0)
-				usr.Tail=1
+
 
 mob/proc/Tail(Add_Tail=1)
 	if(Add_Tail) Tail(0)
@@ -247,6 +137,12 @@ mob/proc/Tail(Add_Tail=1)
 		underlays-=T3
 		Oozaru(0)
 		overlays+=T2
+/mob/proc/triggerOozaru()
+	if(isRace(SAIYAN))
+		for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src)
+			if(B.Looking)
+				src.Oozaru(1, null, B)
+
 
 obj/ProjectionMoon
 	icon='MoonP.dmi'
@@ -263,7 +159,7 @@ obj/ProjectionMoon
 		view(10,src)<<"<font color=red><small>The moon emits an odd glow.."
 		if(src)
 			for(var/mob/Players/P in view(10))
-				P.Oozaru(1)
+				P.triggerOozaru()
 				if(locate(/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form, P))
 					if(!P.CheckSlotless("FullMoonForm"))
 						if(P.SpecialBuff)

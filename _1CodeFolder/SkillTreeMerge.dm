@@ -1,6 +1,6 @@
 mob
 	proc
-		StyleUnlock(var/obj/Skills/Buffs/NuStyle/ns)//this proc accepts a style object as a parameter so it doesnt check for all styles ever
+		StyleUnlock(obj/Skills/Buffs/NuStyle/ns)//this proc accepts a style object as a parameter so it doesnt check for all styles ever
 			/*if(ns.StylePrimeUnlock)//does this even exist?
 				if(ns.Mastery>=4)
 					if(IsList(ns.StylePrimeUnlock))

@@ -28,7 +28,7 @@ proc
 			return
 		if(m.StunImmune)
 			return
-		if(m.Oozaru)
+		if(m.CheckSlotless("Great Ape"))
 			amount *= 0.75
 		if(m.HasLegendaryPower() > 0.25 || m.passive_handler.Get("Juggernaut"))
 			var/mod = (m.HasLegendaryPower() * 0.5) + m.passive_handler.Get("Juggernaut") * 0.25
@@ -70,6 +70,10 @@ proc
 				return 1
 	StunClear(mob/mob)
 		if(mob.Stunned)
+			if(mob.CheckSlotless("Mind Dominated")) // this should b some passive that causes this
+			// however, fuck you
+				mob << "You feel unable to clear your head."
+				return
 			var/obj/Effects/Stun/S=new
 			S.appearance_flags=66
 			mob.overlays-=S

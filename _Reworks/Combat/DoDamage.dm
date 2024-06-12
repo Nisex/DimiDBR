@@ -1,4 +1,3 @@
-
 /mob/proc/inStasis()
 	return Stasis
 // AI HANDLING
@@ -8,7 +7,7 @@
 		aiTarget = defender
 		if(aiTarget.ai_adapting_power && !aiTarget.ai_power_adapted)
 			aiTarget.ai_power_adapted = 1
-			aiTarget.Target=src
+			aiTarget.SetTarget(src)
 			aiTarget.AIAvailablePower()
 		if(!aiTarget.ai_team_fire && aiTarget.AllianceCheck(src))
 			return FALSE
@@ -34,62 +33,93 @@
 		triggerLimit("Spirit")
 	if(Quaking)
 		Quake(Quaking)
+	#if DEBUG_DAMAGE
 	log2text("Damage", "Before BalanceDamage", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	val *= glob.WorldDamageMult
 	if(val <= 0)
+		#if DEBUG_DAMAGE
 		log2text("Damage", "was negative", "damageDebugs.txt", "[src.ckey]/[src.name]")
 		log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
+		#endif
 		val = 0.015
+		#if DEBUG_DAMAGE
 		log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
+		#endif
+	#if DEBUG_DAMAGE
 	log2text("Damage", "After BalanceDamage", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	val /= getInfactuation(defender.name)
+	#if DEBUG_DAMAGE
 	log2text("Damage", "After Infactuation", "damageDebugs.txt", "[src.ckey]/[src.name]")
-	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")	
+	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	val = getCritAndBlock(defender, val)
+	#if DEBUG_DAMAGE
 	log2text("Damage", "After CritAndBlock", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	// VALUE THINGS ABOVE (THE PURE DAMAGE)
 	trueMult += getIntimDMGReduction(defender)
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After Intim", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	// gain red/dmg from intim
 	trueMult += getSPPower()
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After SP", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
-
+	#endif
 
 	trueMult += GetDesperationBonus(defender)
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After Desperation", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 
 
 	trueMult += HasPureDamage() ? HasPureDamage() : 0
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After Puredmg", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	trueMult -= defender.HasPureReduction() ? defender.HasPureReduction() : 0
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After Purered", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 
 	trueMult += getTypeBonus(unarmed, spiritAtk)
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After TypeBonus", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	trueMult += getDuelistBonus(defender)
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After DuelistBoon", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	trueMult -= defender.getDuelistBonus(src)
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After DuelistRed", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 
 // LIGHT VS DARK CALCULATIONS
 
 	trueMult += getLightDarkCalc("Offense")
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After LightDarkCalc", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	trueMult += defender.getLightDarkCalc("Defense")
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After LightDarkCalc", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	if(defender.CheckSlotless("Heartless") && src.CheckActive("Keyblade"))
 		trueMult += src.SagaLevel
 	if(src.CheckSlotless("Heartless") && defender.CheckActive("Keyblade"))
@@ -100,52 +130,75 @@
 	var/oldEDefense = defender.getArmorEDefense()
 
 	trueMult+=ElementalCheck(src,defender)
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After ElementalCheck", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
-
+	#endif
 
 	if(sword&&HasSword())
 		trueMult += doWeaponElements(secondhit, thirdhit, defender, list(EquippedSword(), EquippedSecondSword(), EquippedThirdSword()))
+		#if DEBUG_DAMAGE
 		log2text("trueMult", "After SwordElements", "damageDebugs.txt", "[src.ckey]/[src.name]")
 		log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+		#endif
 	if((spiritAtk || UsingBattleMage()) && HasStaff())
 		trueMult += handleStaff(EquippedStaff(), defender, secondhit)
+		#if DEBUG_DAMAGE
 		log2text("trueMult", "After StaffElements", "damageDebugs.txt", "[src.ckey]/[src.name]")
 		log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+		#endif
 
-	trueMult += handleElementPassives(defender)
+	trueMult += ElementalCheck(src, defender, damageOnly = TRUE)
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After ElementPassives", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	applySoftCC(defender, val)
 	applyAdditonalDebuffs(defender, val)
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After Debuffs", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	if(oldEDefense)
 		defender.ElementalDefense = oldEDefense
 	trueMult += styleModifiers(defender)
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After StyleModifiers", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	trueMult += attackModifiers(defender)
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After AttackModifiers", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 
-	if(defender.DefianceRetaliate&&!defender.Oozaru)
+	if(defender.DefianceRetaliate&&!defender.CheckSlotless("Great Ape"))
 		if(Health>defender.Health)
 			trueMult -= defender.DefianceRetaliate
+			#if DEBUG_DAMAGE
 			log2text("trueMult", "After Defiance", "damageDebugs.txt", "[src.ckey]/[src.name]")
 			log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+			#endif
 	trueMult += godKiModifiers(defender)
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After GodKiModifiers", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	trueMult += finalModifiers(defender)
+	#if DEBUG_DAMAGE
 	log2text("trueMult", "After FinalModifiers", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	val = calculateTrueMult(trueMult, val)
+	#if DEBUG_DAMAGE
 	log2text("Damage", "After TrueMult", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	if(!checkPurity(defender))
+		#if DEBUG_DAMAGE
 		log2text("Damage", "Purity moment", "damageDebugs.txt", "[src.ckey]/[src.name]")
 		log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
+		#endif
 		return 0
 	return val
 
@@ -172,13 +225,13 @@
 		var/value = defender.passive_handler.Get("Gluttony") * 0.15
 		WoundSelf(value * val )
 		GainFatigue(value * val)
-		Tension += value * val
+		Tension += value * val * glob.TENSION_MULTIPLIER
 
 
 	if(defender.HasDeathField() && (unarmed || sword))
 		var/deathFieldValue = defender.GetDeathField() * 0.01
 		WoundSelf(deathFieldValue * min(1/val,1))
-		Tension += deathFieldValue * min(1/val,1)
+		Tension += deathFieldValue * min(1/val,1) * glob.TENSION_MULTIPLIER
 	if(defender.HasVoidField()&&spiritAtk)
 		var/voidFieldValue = defender.GetVoidField() * 0.01
 		GainFatigue(voidFieldValue * min(1/val,1))
@@ -195,6 +248,8 @@
 		val *= 1+extra
 	else if(trueMult<0) // altered
 		val/= 1+(-extra)
+	#if DEBUG_DAMAGE
 	log2text("Damage", "Final TrueMult", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	return val

@@ -230,7 +230,7 @@ obj/Skills
 					if(usr.Grab)
 						usr << "You can't use [src] while having someone grabbed!"
 						return
-				if(usr.MovementSealed())
+				if(usr.movementSealed)
 					usr << "You can't use [src] while your movement is sealed!"
 					return
 				if(!NoReturn)

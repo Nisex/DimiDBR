@@ -133,23 +133,6 @@ mob
 			if(src.AscensionsAcquired<=0||src.AscensionsAcquired==null||!src.AscensionsAcquired)
 				src.AscensionsAcquired=0
 			src.potential_max()
-			if(src.Race=="Alien")
-				if(src.TransUnlocked()<1)
-					src.trans["unlocked"]=1
-			if(src.isRace(SAIYAN) || src.Race=="Half Saiyan")
-				if(isRace(SAIYAN))
-					if(src.Potential>=40)
-						if(src.AscensionsUnlocked<4)
-							src.AscensionsUnlocked=4
-					else if(src.Potential>=30)
-						if(src.AscensionsUnlocked<3)
-							src.AscensionsUnlocked=3
-					else if(src.Potential>=20)
-						if(src.AscensionsUnlocked<2)
-							src.AscensionsUnlocked=2
-					else if(src.Potential>=10)
-						if(src.AscensionsUnlocked<1)
-							src.AscensionsUnlocked=1 // TODO COME BACK TO THIS
 			src.AscAvailable(src.race)
 
 
@@ -158,32 +141,14 @@ mob
 			if(secretDatum.nextTierUp != 999 && Secret)
 				secretDatum.checkTierUp(src)
 			if(!isRace(SAIYAN) || Race!="Changeling")
-				if(src.Potential>=10)
-					if(src.AscensionsUnlocked<1)
-						src.AscensionsUnlocked=1
-						if(!Silent) src << "Meditate to acquire ascension boons."
 				if(Potential>=15)
 					if(SagaLevel < 2 && Saga)
 						saga_up_self()
-				if(Potential >= 25 && SagaLevel < 3 && Saga)
+				if(Potential >= 35 && SagaLevel < 3 && Saga)
 					saga_up_self()
-				if(src.Potential>=25)
-					if(src.AscensionsUnlocked<2)
-						src.AscensionsUnlocked=2
-						if(!Silent) src << "Meditate to acquire ascension boons."
-				if(Potential >= 35 && SagaLevel < 4 && Saga)
-					saga_up_self()
-				if(src.Potential>=40)
-					if(src.AscensionsUnlocked<3)
-						src.AscensionsUnlocked=3
-						if(!Silent) src << "Meditate to acquire ascension boons."
 				if(Potential >= 45)
-					if(SagaLevel < 5 && Saga)
+					if(SagaLevel < 4 && Saga)
 						saga_up_self()
-				if(src.Potential>=65)
-					if(src.AscensionsUnlocked<4)
-						src.AscensionsUnlocked=4
-						if(!Silent) src << "Meditate to acquire ascension boons."
 			else if(src.Race=="Changeling")
 				if(src.Potential>=20)
 					if(src.AscensionsUnlocked<1)

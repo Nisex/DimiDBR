@@ -12,14 +12,14 @@
  * All scheduled events fire only once. In order to have the trigger repeatedly, they would have to have a time added at the end.
 */
 
-proc/Log(var/e,var/Info)
+proc/Log(var/e,var/Info, adminLevel = 1)
 	if(e=="Admin")
 		e="Saves/AdminLogs/Log"
 		if(usr)
 			if(!(usr.Admin<=4)&&usr.Admin!=null)e="Saves/AdminLogz/Log"
-			if(usr.Admin<=4)AdminMessage(Info)
+			if(usr.Admin<=4)AdminMessage(Info, adminLevel)
 		else
-			AdminMessage(Info)
+			AdminMessage(Info, adminLevel)
 	if(e=="Rewarder")
 		e="Saves/RewarderLogs/Log"
 //		AdminMessage(Info)

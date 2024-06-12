@@ -1,19 +1,3 @@
-/mob/Admin3/verb/EditCharacterInformation(mob/player in players)
-    set name = "Edit Character Information"
-    if(!player.client) return
-    if(player.information)
-        var/atom/A = player.information
-        var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
-        var/list/B=new
-        Edit+="[A]<br>[A.type]"
-        Edit+="<table width=10%>"
-        for(var/C in A.vars) B+=C
-        for(var/C in B)
-            Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"
-            Edit+=C
-            Edit+="<td>[Value(A.vars[C])]</td></tr>"
-        usr<<browse(Edit,"window=[A];size=450x600")
-
 /proc/getCurrentPlayers()
     var/list/theplayers = list()
     for(var/mob/p in theplayers)
@@ -47,7 +31,7 @@
         return
     var/choice = input(src, "Pick a faction", "Faction") in FACTIONS
     b.information.setFaction(choice)
-
+/*
 /mob/Admin3/verb/changeNationalities(mob/b in players)
     set name = "Change Nationalities"
     if(!b.client)
@@ -61,7 +45,7 @@
     if(!b.client)
         return
     b.information.setNationality(b)
-
+*/
 /mob/verb/customizePU()
     set name = "Customize: PU Charging"
     set category = "Other"
@@ -88,7 +72,7 @@
 
 
 
-
+/*
 /mob/verb/FactionCount()
     set name = "Faction Count"
     set category = "Other"
@@ -109,12 +93,12 @@
     for(var/x in total)
         if(total[x]>0)
             src<<"[x]: [total[x]]"
-characterInformation
+characterInformation*/
 
 
 
 //TODO: somebody else can do examine
-
+/*
 characterInformation/proc/getInformation(mob/p, pronouns)
     var/msg = ""
     if(rankingNumber == "ERROR")
@@ -148,21 +132,19 @@ characterInformation/proc/getInformation(mob/p, pronouns)
     else
         if(pronouns)
             var/theyString = p.subjectpronoun() == "They" ? "use" : "uses"
-            var/theyString2 = p.subjectpronoun() == "They" ? "are" : "is"
             msg={"
 <font face='courier'><font color='#color'>\[SYSTEM: Loading [p.name]'s information...\]
 \[SYSTEM: <font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font> Character Sheet...\]
 \[SYSTEM: [p.subjectpronoun()] [theyString] [p.subjectpronoun()]/[p.possessivepronoun()] \]
-\[SYSTEM: [p.subjectpronoun()] [theyString2] [p.getNationalityInformation()]\]
 \[SYSTEM: [getInfo()]\]
 \[SYSTEM: Closing Character Sheet...]</font color></font face> "}
         else
             msg={"
 <font face='courier'><font color='#color'>\[SYSTEM: Loading [p.name]'s information...\]
 \[SYSTEM: <font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font> Character Sheet...\]
-\[SYSTEM: [p.subjectpronoun()] is [p.getNationalityInformation()]\]
 \[SYSTEM: [getInfo()]\]
 \[SYSTEM: Closing Character Sheet...]</font color></font face> "}
 
     return msg
 
+*/

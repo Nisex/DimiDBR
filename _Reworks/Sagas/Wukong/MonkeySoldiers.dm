@@ -26,7 +26,7 @@ SoldierTracker
         timeLimit = timer
         lastAttack = 0
         attackDelay = 10
-        Target = p.Target
+        SetTarget(p.Target)
         spawnTime = world.time
         icon = p.icon
         x = p.x

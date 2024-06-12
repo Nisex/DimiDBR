@@ -147,85 +147,29 @@ mob/proc/MovementSpeed()
 	if(src.SenseRobbed>=1&&(src.SenseUnlocked<=src.SenseRobbed&&src.SenseUnlocked>5))
 		Delay*=(2*src.SenseRobbed)
 	return Delay
+
 mob/Move()
-	if((!istype(src, /mob/Player/AI) &&!client)&&!Knockback&&!Move_Requirements())
-		return
-	var/turf/Former_Location=loc
-	..()
+	var/turf/Former_Location = loc
 	if(src.Incorporeal)
 		src.density=0
-	if(!Knockback&&Target&&istype(Target,/obj/Others/Build)&&MapperWalk) Build_Lay(Target,src, 0, 0, 0)
+	if(!src.Incorporeal&&!src.passive_handler.Get("Skimming")&&!src.is_dashing&&!isai(src)&&!Knockback)
+		for(var/obj/Turfs/Edges/A in loc)
+			if((A.dir in list(dir,turn(dir,45),turn(dir,-45))))
+				return
+	..()
+
+	if(!src.Incorporeal&&!src.passive_handler.Get("Skimming")&&!src.is_dashing&&!isai(src)&&!Knockback)
+		for(var/obj/Turfs/Edges/A in loc)
+			if(!(A.dir in list(dir,turn(dir,90),turn(dir,-90),turn(dir,45),turn(dir,-45))))
+				loc=Former_Location
+				break
+
+	if(src.Grab)
+		src.Grab_Update()
+
+	if(MapperWalk&&!Knockback&&Target&&istype(Target,/obj/Others/Build))
+		Build_Lay(Target,src, 0, 0, 0)
+
 	if(AFKTimer==0)
 		overlays-=AFKIcon
 	AFKTimer=AFKTimeLimit
-
-	if(!src.Incorporeal)
-		for(var/mob/A in loc) if(A!=src&&A.Flying&&Flying)
-			loc=Former_Location
-			break
-	if(!src.Incorporeal)
-		for(var/obj/Items/Tech/Door/A in loc) if(A.density)
-			loc=Former_Location
-			Bump(A)
-			break
-	if(!src.Incorporeal)
-		for(var/obj/Items/Tech/Reinforced_Door/A in loc) if(A.density)
-			loc=Former_Location
-			break
-	if(!src.Incorporeal)
-		for(var/obj/Effects/Barrier/A in loc) if(A.density)
-			loc=Former_Location
-			break
-	if(!src.Incorporeal)
-		for(var/obj/Effects/ForceField/A in loc) if(A.density)
-			loc=Former_Location
-			break
-
-	for(var/obj/Seal/S in loc)
-		if(S.Creator!=src.ckey)
-			loc=Former_Location
-			break
-
-	for(var/obj/Effects/PocketPortal/A in loc) if(A.density)
-		loc=Former_Location
-		Bump(A)
-		break
-	for(var/obj/Effects/PocketExit/A in loc) if(A.density)
-		loc=Former_Location
-		Bump(A)
-		break
-	for(var/obj/Special/Teleporter2/A in loc) if(A.density&&Flying)
-		Bump(A)
-		break
-	if(!src.Incorporeal)
-		for(var/obj/Turfs/RoofGlass/A in loc) if(A.density&&Flying)
-			loc=Former_Location
-			Bump(A)
-			break
-	if(!Flying)
-		var/turf/T=get_step(Former_Location,dir)
-		if(T&&!T.Enter(src)) return
-		if(!src.Incorporeal&&!src.passive_handler.Get("Skimming")&&!src.is_dashing&&!istype(src,/mob/Player/AI))
-			for(var/obj/Turfs/Edges/A in loc)
-				if(!(A.dir in list(dir,turn(dir,90),turn(dir,-90),turn(dir,45),turn(dir,-45))))
-					if(!src.Knockback)
-						loc=Former_Location
-						break
-		if(!src.Incorporeal&&!passive_handler.Get("Skimming")&&!src.is_dashing&&!istype(src,/mob/Player/AI))
-			for(var/obj/Turfs/Edges/A in Former_Location) if(A.dir in list(dir,turn(dir,45),turn(dir,-45)))
-				if(!src.Knockback)
-					loc=Former_Location
-					break
-		for(var/obj/Special/Teleporter2/A in loc)
-			if(A.density)
-				Bump(A)
-				TeleporterBump(A)
-				break
-	if(src.Grab)
-		src.Grab_Update()
-	if(loc != Former_Location)
-		for(var/obj/Skills/Projectile/_Projectile/a in active_projectiles)
-			if(a.Owner != src || !a.loc)
-				active_projectiles -= a
-			else if(Beaming == 0.5 && a.Cooldown>=0) //Cooldown is set to -1 when Life() is called.
-				a.loc = locate(x,y,z)

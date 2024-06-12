@@ -1,7 +1,7 @@
 /obj/Skills/Buffs/var/coolerAfterImages = 0
 
 
-/obj/Skills/Buffs/SlotlessBuffs/CyberPunk/proc/adjust(mob/p)
+/obj/Skills/Buffs/SlotlessBuffs/CyberPunk/adjust(mob/p)
 
 /obj/Skills/Buffs/SlotlessBuffs/CyberPunk/Sandevistan
     SBuffNeeded = "Ripper Mode"
@@ -93,3 +93,4 @@
             passives = list("HeavyHitter" = HeavyHitter, "HardStyle" = HardStyle, \
             "Steady" = Steady, "Shattering" = Shattering)
             TimerLimit = 30 + (totalPotRounded/10)
+            

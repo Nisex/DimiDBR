@@ -1,21 +1,3 @@
-mob/var/list/ssj=list(\
-"1multi"=1,
-"2multi"=1,
-"3multi"=1,
-"4multi"=1,
-"god"=0,
-"active"=0,"unlocked"=0,"transing"=0)
-mob/var/list/trans=list(\
-"1multi"=1,
-"2multi"=1,
-"3multi"=1,
-"4multi"=1,
-"tension"=0,
-"active"=0,"unlocked"=0,"transing"=0)
-mob/var/list/masteries=list(\
-"1mastery"=1,"2mastery"=1,"3mastery"=1,"4mastery"=1)
-
-
 mob
 	var
 		BaseBase
@@ -106,31 +88,6 @@ mob
 		Form5AuraX
 		Form5AuraY
 
-
-
-mob/proc/SetVars()
-
-	if(src.isRace(HUMAN))
-		if(src.LegendaryPower)
-			src.trans["1multi"]=1
-		if(src.HellPower)
-			src.trans["1multi"]=2
-
-	if(src.Race=="Alien")
-		src.trans["1multi"]=1.25
-
-	if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
-		src.ssj["1multi"]=2.5
-		src.ssj["2multi"]=2
-		src.ssj["3multi"]=2
-		src.ssj["4multi"]=50
-
-	else if(src.Race=="Changeling")
-		src.trans["1multi"]=2
-		src.trans["2multi"]=4
-		src.trans["3multi"]=7.5
-		src.trans["4multi"]=3
-
 mob/Admin3/verb
 	Flash(var/mob/m)
 		DarknessFlash(m)
@@ -149,10 +106,6 @@ proc/DarknessFlash(var/mob/Z, var/SetTime=0)
 				animate(T.client, color=null, time = Time*0.5)
 
 mob/proc/CanTransform()
-	if(src.ssj["transing"]==1||src.trans["transing"]==1)
-		return 0
-	if(src.ssj["god"])
-		return 0
 	if(src.CyberCancel&&src.Race!="Android")
 		return 0
 	if(src.TotalFatigue>=90)
@@ -173,7 +126,7 @@ mob/proc/CanTransform()
 			src<<"Your ascended super state uses too much power to enter another level!"
 			return 0
 		if(src.SpecialBuff.NeedsTrans)
-			if(src.Race=="Changeling"&&src.TransUnlocked()<4)
+			if(src.Race=="Changeling"&&src.transUnlocked<4)
 				src<<"Your ascended transformation uses too much power to enter another level!"
 				return 0
 	for(var/b in SlotlessBuffs)
@@ -188,8 +141,6 @@ mob/proc/CanTransform()
 	return 1
 
 mob/proc/CanRevert()
-	if(src.ssj["transing"]==1||src.trans["transing"]==1)
-		return 0
 	if(src.CyberCancel&&src.Race!="Android")
 		return 0
 	if(src.HasNoRevert())
@@ -225,7 +176,7 @@ mob/proc/HighTension(var/x)
 	if(x >= 100) x = 100
 	else if(x >= 50) x = 50
 	else if(x >= 20) x = 20
-	trans["tension"]=x
+	tension=x
 	src.Hairz("Remove")
 	if(x==20)
 		src.PowerBoost+=0.25
@@ -243,15 +194,15 @@ mob/proc/HighTension(var/x)
 	OMsg(src, "<font color='#FF00FF'>[src] spikes their tension - [x]%!</font color>")
 	if(x==100)
 		OMsg(src, "<b><font color='#FF00FF'>[src] activated Super High Tension!!!</font color></b>")
-	if(src.trans["tension"]==20)
+	if(src.tension==20)
 		src.Hairz("Add")
 		src.overlays+=tension
-	if(src.trans["tension"]==50)
+	if(src.tension==50)
 		src.overlays+=tensione
 		src.Hairz("Add")
 		src.overlays+=tensionh
 		src.overlays+=tension
-	if(src.trans["tension"]==100)
+	if(src.tension==100)
 		src.overlays+=tensione
 		src.Hairz("Add")
 		src.overlays+=tensionhs
@@ -278,29 +229,29 @@ mob/proc/RevertHT()
 	src.overlays-=tensionhs
 	src.overlays-=tensione
 	src.underlays-=tensiona
-	if(src.trans["tension"]==20)
+	if(src.tension==20)
 		src.PowerBoost-=0.25
 		src.EnergyExpenditure-=0.5
-	if(src.trans["tension"]==50)
+	if(src.tension==50)
 		src.PowerBoost-=0.5
 		src.EnergyExpenditure-=1
-	if(src.trans["tension"]==100)
+	if(src.tension==100)
 		src.PowerBoost-=1
 		src.EnergyExpenditure-=2
 	src.StrMultTotal-=0.25
 	src.EndMultTotal-=0.25
 	src.ForMultTotal-=0.25
 	src.SpdMultTotal-=0.25
-	src.trans["tension"]=0
+	src.tension=0
 	src.Hairz("Add")
 	src.Auraz("Remove")
-
+/*
 
 mob/proc/ChangelingMorph(var/x)
 	if(src.ActiveBuff)
 		src << "You can't use [src.ActiveBuff] and transform at the same time!"
 		return
-	if(src.SpecialBuff && src.TransUnlocked()<4)
+	if(src.SpecialBuff && src.transUnlocked<4)
 		if(!src.CheckSpecial("FifthForm") && !src.CheckSpecial("OneHundredPercentPower"))
 			src << "You can't use [src.SpecialBuff] and transform at the same time!"
 			return
@@ -480,8 +431,8 @@ mob/proc/SNJ()
 	spawn()
 		src.FlickeringGlow(src)
 
-
-mob/proc/ChooseAlienClass()
+*/
+mob/proc/ChooseSuperAlien()
 	var/Choice
 	var/Confirm
 	while(Confirm!="Yes")
@@ -499,7 +450,7 @@ mob/proc/ChooseAlienClass()
 				Confirm=alert(src, "Equanimous aliens gain increased endurance and slight increase in spiritual focus.  Do you want to transform into one?", "Alien Class", "Yes", "No")
 			if("Sagacity")
 				Confirm=alert(src, "Sagacious aliens gain increased offensive power in strength, spirit and extra endurance.  Do you want to transform into one?", "Alien Class", "Yes", "No")
-	src.Class=Choice
+	race.transformations[1].TransClass=Choice
 
 mob/proc/SuperAlienBase(var/x)
 	switch(x)
@@ -514,62 +465,61 @@ mob/proc/SuperAlienBase(var/x)
 				src.pixel_y=src.Form1BaseY
 
 
-mob/proc/SuperAlien(var/x)
-	if(!(src.Class in list("Brutality", "Harmony", "Ferocity", "Tenacity", "Equanimity", "Sagacity", "Potara", "Dance")))
-		src.ChooseAlienClass()
-	src.trans["active"]=x
-	if(!src.HasMystic())
-		src.SuperAlienBase(x)
-	switch(x)
-		if(1)
-			OMsg(src, "[src.Form1ActiveText]")
-	spawn()
-		src.Quake(x*x*5)
-	animate(src, color = list(1,0,0, 0,1,0, 0,0,1, 0.7,0.9,1), time=5)
-	spawn(5)
-		animate(src, color = MobColor, time=3)
-	if(x>1)
-		var/DustStacks=x
-		spawn()Crater(src,x-1)
-		while(DustStacks)
-			Dust(src.loc,x+x)
-			DustStacks--
-	switch(x)
-		if(1)
-			src.overlays+=image(icon=src.Form1Overlay, pixel_x=src.Form1OverlayX, pixel_y=src.Form1OverlayY)
-	src.Hairz("Add")
-	src.Auraz("Add")
-	if(!src.HasKiControl()&&!src.PoweringUp)
-		spawn(50)
-			src.Auraz("Remove")
-	if(src.masteries["[x]mastery"]<20)
-		src.masteries["[x]mastery"]=100
-		switch(src.Class)
-			if("Brutality")
-				src.StrAscension+=0.5
-				src.SpdAscension+=0.5
-			if("Harmony")
-				src.ForAscension+=0.5
-				src.SpdAscension+=0.5
-			if("Ferocity")
-				src.StrAscension+=0.25
-				src.ForAscension+=0.25
-				src.SpdAscension+=0.5
-			if("Tenacity")
-				src.EndAscension+=0.5
-				src.StrAscension+=0.5
-			if("Equanimity")
-				src.EndAscension+=0.5
-				src.ForAscension+=0.5
-			if("Sagacity")
-				src.StrAscension+=0.25
-				src.ForAscension+=0.25
-				src.EndAscension+=0.5
-	src.Intimidation*=2
+///mob/proc/SuperAlien(var/x)
+	//if(!(src.Class in list("Brutality", "Harmony", "Ferocity", "Tenacity", "Equanimity", "Sagacity", "Potara", "Dance")))
+	//	src.ChooseSuperAlien()
+	//src.trans["active"]=x
+	//if(!src.HasMystic())
+	//	src.SuperAlienBase(x)
+//	switch(x)
+	//	if(1)
+	//		OMsg(src, "[src.Form1ActiveText]")
+	//spawn()
+	///	src.Quake(x*x*5)
+	//animate(src, color = list(1,0,0, 0,1,0, 0,0,1, 0.7,0.9,1), time=5)
+	//spawn(5)
+	//	animate(src, color = MobColor, time=3)
+	//if(x>1)
+	//	var/DustStacks=x
+	//	spawn()Crater(src,x-1)
+	//	while(DustStacks)
+	//		Dust(src.loc,x+x)
+	//		DustStacks--
+	//	if(1)
+	//		src.overlays+=image(icon=src.Form1Overlay, pixel_x=src.Form1OverlayX, pixel_y=src.Form1OverlayY)
+	//src.Hairz("Add")
+	//src.Auraz("Add")
+	//if(!src.HasKiControl()&&!src.PoweringUp)
+	//	spawn(50)
+	//		src.Auraz("Remove")
+	//if(src.masteries["[x]mastery"]<20)
+	//	src.masteries["[x]mastery"]=100
+	//	switch(src.Class)
+		//	if("Brutality")
+		//		src.StrAscension+=0.5
+		//		src.SpdAscension+=0.5
+		//	if("Harmony")
+		//		src.ForAscension+=0.5
+		//		src.SpdAscension+=0.5
+		//	if("Ferocity")
+		//		src.StrAscension+=0.25
+		//		src.ForAscension+=0.25
+		//		src.SpdAscension+=0.5
+		//	if("Tenacity")
+		//		src.EndAscension+=0.5
+		//		src.StrAscension+=0.5
+		////	if("Equanimity")
+		//		src.EndAscension+=0.5
+		//		src.ForAscension+=0.5
+		///	if("Sagacity")
+		//		src.StrAscension+=0.25
+		/////		src.ForAscension+=0.25
+		//		src.EndAscension+=0.5
+	//src.Intimidation*=2
 
 
 /mob/var/oldAngerPoint = 50
-
+/*
 mob/proc/PureSSj(var/x)
 
 	oldAngerPoint = AngerPoint
@@ -1227,14 +1177,14 @@ mob/proc/SSGSSj(var/x)
 			if(!src.HasKiControl()&&!src.PoweringUp)
 				src.Auraz("Remove")
 		src.appearance_flags-=16
-
+*/
 
 mob/proc/WeaponSoul() // OverSoul Mechanic
 	var/obj/Items/Sword/s=src.EquippedSword()
 	var/placement=FLOAT_LAYER-3
 	if(s.LayerPriority)
 		placement-=s.LayerPriority
-	if(src.SagaLevel<7)
+	if(src.SagaLevel<6)
 		return
 	else
 		src.PowerBoost*=2
@@ -1433,6 +1383,17 @@ mob/proc/WeaponSoul() // OverSoul Mechanic
 				Quake(75)
 				animate(src, color=null, time=1)
 				src.OMessage(10,"<b>[src] becomes clad in regal armor, a symbol of unbreakable hope!</b>")
+
+			if("Moonlight Greatsword")
+				src.ElementalOffense="Water"
+				passive_handler.Increase("CyberStigma", 6)
+				passive_handler.Increase("ManaSeal", 6)
+				passive_handler.Increase("SpiritPower", 5)
+				src.CyberStigma+=6
+				src.ManaSeal+=6
+				src.SpiritPower+=5
+				src.OMessage(10,"<b>[src]calls upon the full power of the celestial moon, becoming it's chosen Knight!...</b>")
+
 			//UNHOLYS
 			if("Soul Calibur")
 				src.ElementalOffense="Water"

@@ -200,7 +200,7 @@ obj/Skills/Utility
 								M.desc+="Common ([M.EatNutrition])"
 							if(2 to 9999)
 								M.desc+="Delicious ([M.EatNutrition])"
-						usr.GainFatigue(10)
+						usr.GainFatigue(10/Mastery)
 
 					usr.Frozen=2
 					var/preppingtext=replacetext(currentMeal.prepare_text, "usrName", "[usr]")
@@ -407,7 +407,7 @@ obj/Skills/Utility
 						M.EatToxicity=0
 				if(M.EatNutrition<0)
 					M.EatNutrition=0
-				usr.GainFatigue(10)
+				usr.GainFatigue(10/Mastery)
 				usr.AddItem(M)
 				if(M.EatNutrition>2)
 					if(M.name=="Booze")
@@ -1446,6 +1446,7 @@ obj/Skills/Utility
 				S.XBind=Choice.x
 				S.YBind=Choice.y
 				Choice.contents+=S
+				Choice.movementSealed = TRUE
 				S.name="Movement Seal ([Choice.name])"
 				usr << "You have sealed [Choice]'s movement!"
 			else
@@ -1518,6 +1519,9 @@ obj/Skills/Utility
 			if(YourRoll2>=EnemyRoll)
 				OMsg(usr, "[usr] manages to break [Choice]!")
 				Choice.loc.overlays = null
+				if(Choice.ZPlaneBind)
+					var/mob/m = Choice.loc
+					m.movementSealed = FALSE
 				del Choice
 			else
 				OMsg(usr, "[usr] tries to unweave [Choice], but they can't figure out how to break it!")
@@ -3136,7 +3140,7 @@ obj/Skills/Utility
 			spawn()LightningBolt(usr,2)
 			OMsg(usr, "[usr] summons forth their Zodiac Cloth!")
 			usr.ZodiacCharges--
-			if(usr.SagaLevel<7)
+			if(usr.SagaLevel<5)
 				usr.HealFatigue(30)
 				usr.HealEnergy(30)
 
@@ -3215,6 +3219,12 @@ obj/Skills/Utility
 				if("Dainsleif")
 					if(!locate(/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin, usr))
 						for(var/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin/S in world)
+							if(!S.LockedLegend)
+								usr.contents+=S
+								break
+				if("Moonlight Greatsword")
+					if(!locate(/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon, usr))
+						for(var/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon/S in world)
 							if(!S.LockedLegend)
 								usr.contents+=S
 								break

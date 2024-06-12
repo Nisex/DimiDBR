@@ -3,6 +3,8 @@
 //	PotentialLastDailyGain - if they have triggered a reward today
 //	RewardsLastGained - what day was it when they last gained rewards, this should b 3 for everyone
 
+/globalTracker/var/event_rpp_cap = 0.25
+/globalTracker/var/economy_charge_mult = 1
 
 /mob/proc/getDailyCheckTimer()
 	var/currentHour = time2text(world.realtime, "hh", "EST")
@@ -66,6 +68,9 @@ mob
 
 				GiveRPP(round(YourRPP))
 
+			if(RPPEventCharges)
+				reward_self_event()
+
 			if((src.EraBody!="Child"||!src.EraBody)&&!src.Dead)
 				src << "You gain money from routine tasks."
 				var/extraMoney = 0
@@ -82,21 +87,23 @@ mob
 					else
 						extraMoney = 0
 				src.GiveMoney(max(0,round(glob.progress.EconomyIncome*src.EconomyMult*src.Intelligence)) + extraMoney)
+
 		reward_self_event()
-			return
 			var/val=glob.progress.RPPDaily
 			var/EMult=glob.progress.RPPBaseMult
+			RPPEventCharges--
+			RPPEventChargesSpent++
 			EMult*=src.GetRPPMult()
 			val*=EMult
 
-			if(src.GetRPPEvent()<src.GetRPP()*0.5)//trigger rpp gains!
+			if(src.GetRPPEvent()<src.GetRPP()*glob.event_rpp_cap)//trigger rpp gains!
 				src.RPPSpendableEvent+=val
-				var/Dif=((src.GetRPP()*0.5)-src.RPPSpentEvent)
+				var/Dif=((src.GetRPP()*glob.event_rpp_cap)-src.RPPSpentEvent)
 				if(Dif<0)
 					Dif*=(-1)
 					Dif/=glob.progress.RPPDaily
 					src.EconomyEventCharges+=Dif
-					src.RPPSpendableEvent=((src.GetRPP()*0.5)-src.RPPSpentEvent)
+					src.RPPSpendableEvent=((src.GetRPP()*glob.event_rpp_cap)-src.RPPSpentEvent)
 			else//economy only
 				src.EconomyEventCharges+=(val/glob.progress.RPPDaily)
 
@@ -105,6 +112,6 @@ mob
 			global.RPPEventCharges["[src.ckey]"]=round((src.GetRPPEvent()/src.GetRPPMult())/glob.progress.RPPDaily)
 
 		reward_self_econ()
-			src.GiveMoney(max(0,glob.progress.EconomyIncome * 5 * src.EconomyEventCharges))
+			src.GiveMoney(max(0,glob.progress.EconomyIncome * glob.economy_charge_mult * src.EconomyEventCharges))
 			src << "You've triggered [src.EconomyEventCharges] economy charges."
 			src.EconomyEventCharges=0

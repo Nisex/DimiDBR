@@ -1,949 +1,16 @@
 #define GLOBAL_LEAK_REDUCTION 1.2
 #define isplayer(x) istype(x,/mob/Players)
-#define DEBUFF_EFFECTIVENESS (0.004)
 
-proc/SmartBlock(startX, startY, startZ, endX = startX, endY = startY, endZ = startZ)
-    return block(locate(max(startX, 1), max(startY, 1), startZ), locate(min(endX, world.maxx), min(endY, world.maxy), endZ))
-
+/globalTracker/var/DEBUFF_EFFECTIVENESS = 0.004
 mob
 	proc
 		AscAvailable()
 			src.potential_ascend(Silent=1)
 			if(race.ascensions.len==0) return
 			for(var/a in race.ascensions)
-				var/ascension/asc
-				if(ispath(a, /ascension))
-					asc = new a // think this fixes it
-				else
-					asc = a
-				if(ispath(asc, /ascension/eldritch/one))
-					asc = new /ascension/eldritch/one // some of these lines prob arent needed, but i was debugging - jordan
-				if(!asc.applied&&!asc:checkAscensionUnlock(Potential)) continue
+				var/ascension/asc = a
+				if(!asc.applied&&!asc.checkAscensionUnlock(src,Potential)) continue
 				asc.onAscension(src)
-
-		HumanAscension1()//Shiro
-			src.AscensionsAcquired=1
-			src.PotentialRate=1
-			src.StrAscension+=0.25
-			src.EndAscension+=0.25
-			src.SpdAscension+=0.25
-			src.ForAscension+=0.25
-			src.OffAscension+=0.25
-			src.DefAscension+=0.25
-			src.NewAnger(1.3)
-			passive_handler.Increase("Desperation", 1.5)
-			passive_handler.Increase("Adrenaline", 1)
-			passive_handler.Decrease("TechniqueMastery", 1)
-			src.Desperation=2.5
-			src.Adrenaline=1.5
-			src.AngerPoint=50
-			src.AngerMessage="grows desperate!"
-			src.HumanAscension=alert(src, "You stand at a crossroads; capable of pursuing many paths yet limited to one, which do you choose?  Fighting, Technology, or Enchantment?", "Breakthrough Ascension", "Technology", "Human Spirit")
-			switch(src.HumanAscension)
-				if("Technology")
-					src << "You focus your flexible mind towards pursuit of scientific knowledge!"
-					src.RPPMult=1.5
-					src.EconomyMult=1.5
-					src.Intelligence=2
-					src.CyberizeMod=0.5
-					src.Imagination=0.25
-					src.PilotingProwess+=1.5
-					src.EnhanceChipsMax+=1
-				if("Human Spirit")
-					PotentialRate = 2
-					passive_handler.Increase("DemonicDurability", 1)
-					DemonicDurability = 1
-					StableBP += 0.25
-			src << "You learn the meaning of desperation..."
-		HumanAscension2()//Aka
-			src.AscensionsAcquired=2
-			src.PotentialRate=2
-			passive_handler.Increase("Desperation", 1)
-			passive_handler.Increase("Adrenaline", 1)
-			src.Desperation=3.5
-			src.Adrenaline=2
-			passive_handler.Decrease("TechniqueMastery", 1.5)
-			src.NewAnger(1.7)
-			if(HumanAscension=="Human Spirit")
-				passive_handler.Increase("DemonicDurability", 1)
-				StableBP += 0.1
-			if(src.HumanAscension=="Technology")
-				CyberizeMod = 0.7
-				src.PilotingProwess+=1.5
-				EnhanceChipsMax+=1
-
-			src.StrAscension+=0.25
-			src.EndAscension+=0.25
-			src.SpdAscension+=0.25
-			src.ForAscension+=0.25
-			src.OffAscension+=0.25
-			src.DefAscension+=0.25
-			src.AngerMessage="grows determined!"
-			src << "You learn the meaning of responsibility..."
-		HumanAscension3()//Aoi
-			src.AscensionsAcquired=3
-			src.PotentialRate=3
-			src.Desperation=5
-			passive_handler.Increase("Desperation", 1.5)
-			passive_handler.Decrease("TechniqueMastery", 1.5)
-			src.NewAnger(2)
-			if(src.HumanAscension=="Human Spirit")
-				passive_handler.Increase("DemonicDurability", 0.5)
-				StableBP += 0.1
-			if(src.HumanAscension=="Technology")
-				CyberizeMod = 0.8
-				SetCyberCancel()
-				src.PilotingProwess+=1.5
-				src.EnhanceChipsMax+=1
-			src.StrAscension+=0.5
-			src.EndAscension+=0.5
-			src.SpdAscension+=0.5
-			src.ForAscension+=0.5
-			src.OffAscension+=0.5
-			src.DefAscension+=0.5
-			src.AngerMessage="grows confident!"
-			src << "You learn the meaning of confidence..."
-		HumanAscension4()//Koku
-			src.AscensionsAcquired=4
-			src.PotentialRate=4
-			src.Desperation=6
-			passive_handler.Decrease("TechniqueMastery", 1)
-			src.NewAnger(2.5)
-			if(src.HumanAscension=="Human Spirit")
-				passive_handler.Increase("DemonicDurability", 0.5)
-				StableBP += 0.1
-			if(src.HumanAscension=="Technology")
-				CyberizeMod = 0.9
-				SetCyberCancel()
-				src.PilotingProwess+=3
-				src.EnhanceChipsMax+=1
-			src.StrAscension+=0.5
-			src.EndAscension+=0.5
-			src.SpdAscension+=0.5
-			src.ForAscension+=0.5
-			src.OffAscension+=0.5
-			src.DefAscension+=0.5
-			src.AngerMessage="gains absolute clarity!"
-			src << "You learn the meaning of competence..."
-		HumanAscension5()
-			src.AscensionsAcquired=5
-			if(src.CyberCancel)
-				return
-			if(src.HellPower)
-				return
-			if(src.LegendaryPower)
-				return
-			if(src.SpiritPower)
-				return
-			src.PotentialRate=5
-			src.Desperation=6
-			src.NewAnger(3)
-			if(src.HumanAscension=="Human Spirit")
-				StableBP += 0.1
-			if(src.HumanAscension=="Technology")
-				CyberizeMod = 1
-				SetCyberCancel()
-				src.PilotingProwess+=1.5
-				src.EnhanceChipsMax+=2
-			src.StrAscension+=1
-			src.EndAscension+=1
-			src.SpdAscension+=1
-			src.ForAscension+=1
-			src.OffAscension+=1
-			src.DefAscension+=1
-			src.AngerMessage="becomes angry!"
-			src << "You learn the meaning of humanity..."
-
-
-		HalfDemonAscension()
-			src.HellPower=2
-			passive_handler.Set("HellPower", 2)
-			src << "By dying at a level of power suitable to wield the force of a true devil, you have awakened an ancient bloodline..."
-			src.SetVars()
-
-
-		//Makyo gimmick is that they get even more power from buffs.
-		MakyoAscension1()//PTE
-			src.StrAscension+=0.25
-			EndAscension+=0.25
-			src.ForAscension+=0.25
-			passive_handler.Increase("Juggernaut", 0.25)
-			Juggernaut+=0.25
-			Intimidation = 5
-			src.AscensionsAcquired=1
-			src << "You're feeling spicy today."
-
-		MakyoAscension2()//SSj1
-			src.StrAscension+=0.25
-			EndAscension+=0.25
-			src.ForAscension+=0.25
-			passive_handler.Increase("Juggernaut", 0.25)
-			Juggernaut+=0.25
-			Intimidation = 10
-			src.AscensionsAcquired=2
-			src << "Your muscles are toned."
-
-		MakyoAscension3()//SSj2
-			src.StrAscension+=0.5
-			EndAscension+=0.25
-			src.ForAscension+=0.5
-			passive_handler.Increase("Juggernaut", 0.5)
-			Juggernaut+=0.5
-			src.AscensionsAcquired=3
-			src << "Your bulk is wholesome."
-
-		MakyoAscension4()//SSj3
-			src.StrAscension+=0.5
-			EndAscension+=0.25
-			src.ForAscension+=0.5
-			passive_handler.Increase("Juggernaut", 0.5)
-			Juggernaut+=0.5
-			src.AscensionsAcquired=4
-			src << "Your heft is considerable."
-
-		MakyoAscension5()//SSj4
-			src.StrAscension+=1
-			EndAscension+=0.5
-			src.ForAscension+=1
-			passive_handler.Increase("Juggernaut", 0.5)
-			Juggernaut+=0.5
-			src.AscensionsAcquired=5
-			src << "Your girth is worldshattering."
-
-
-
-		NamekianAscension1()//OF
-			if(src.Class=="Warrior")
-				src.SpdAscension+=0.3
-				src.OffAscension+=0.3
-				src.RecovAscension+=0.5
-				src.NewAnger(1.25)
-				src.Intimidation=10
-			if(src.Class=="Dragon")
-				src.ForAscension+=0.4
-				src.DefAscension+=0.3
-				src.RecovAscension+=0.5
-				if(locate(/obj/Skills/Utility/Heal, src))
-					if(!locate(/obj/Skills/Utility/Send_Energy, src))
-						src.AddSkill(new/obj/Skills/Utility/Send_Energy)
-						src.AddSkill(new/obj/Skills/Give_Power)
-						src << "You become more fluent in sharing your energy with others."
-						for(var/obj/Skills/Utility/Send_Energy/se in src.contents)
-							se.SagaSignature=1
-							se.SignatureTechnique=0
-						for(var/obj/Skills/Give_Power/gp in src.contents)
-							gp.SagaSignature=1
-							gp.SignatureTechnique=0
-				if(src.ManaCapMult>1)
-					src.ManaCapMult+=0.5
-					// src.HellPower+=0.2
-			src.AscensionsAcquired=1
-		NamekianAscension2()//SSj
-			if(src.Class=="Warrior")
-				src.SpdAscension+=0.5
-				src.OffAscension+=0.5
-				src.RecovAscension+=0.5
-			if(src.Class=="Dragon")
-				src.ForAscension+=0.5
-				src.DefAscension+=0.5
-				src.RecovAscension+=0.5
-				if(src.AngerMax>=1.5)
-					if(!locate(/obj/Skills/Buffs/SpecialBuffs/Giant_Form, src))
-						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Giant_Form)
-						src << "You learn how to channel your excess lifeforce into monstrous growth."
-			src.Intimidation = 20
-			src.AscensionsAcquired=2
-		NamekianAscension3()//SSj2
-			if(src.Class=="Warrior")
-				src.StrAscension+=0.5
-				src.SpdAscension+=0.5
-				src.OffAscension+=0.25
-				src.RecovAscension+=1
-			if(src.Class=="Dragon")
-				src.ForAscension+=0.5
-				src.DefAscension+=0.25
-				src.OffAscension+=0.5
-			src.AscensionsAcquired=3
-		NamekianAscension4()//SSj3
-			if(src.Class=="Warrior")
-				src.SpdAscension+=1
-				src.OffAscension+=1
-				src.RecovAscension+=1
-			if(src.Class=="Dragon")
-				src.ForAscension+=1
-				src.DefAscension+=1
-				src.RecovAscension+=1
-			src.AscensionsAcquired=4
-		NamekianAscension5()
-			if(src.Class=="Warrior")
-				src.SpdAscension+=2
-				src.OffAscension+=2
-			if(src.Class=="Dragon")
-				src.ForAscension+=2
-				src.DefAscension+=2
-			src.AscensionsAcquired=5
-
-
-		SaiyanAscension1()
-			src.AscensionsAcquired=1
-			if(!src.SaiyanAscension)
-				var/Choice
-				var/Confirm
-				while(Confirm!="Yes")
-					Choice=alert(src, "As your body recovers from grievious wounds, you feel yourself growing closer to your primal nature. What pillar of strength do you stand on?", "Zenkai Ascension", "Pride", "Honor", "Zeal")
-					switch(Choice)
-						if("Pride")
-							Confirm=alert(src, "Prideful warriors crush those who oppose them with raw power.  Is this your priority?", "Zenkai Ascension", "Yes", "No")
-						if("Honor")
-							Confirm=alert(src, "Honorable warriors will never fail to endure and defy the odds. Is this your priority?", "Zenkai Ascension", "Yes", "No")
-						if("Zeal")
-							Confirm=alert(src, "Warriors of Zeal adapt faster and push themselves further than any other.  Is this your priority?", "Zenkai Ascension", "Yes", "No")
-				src.SaiyanAscension=Choice
-				switch(src.SaiyanAscension)
-					if("Pride")
-						src << "You gain the ability to keenly read the weaknesses of your opponents."
-						src.Judgment=1
-						src << "You realize you exist to tread on every opponent, no matter how defiant."
-						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Saiyan_Dominance)
-					if("Honor")
-						src << "You gain the ability to draw ire and drive to keep going by enduring powerful strikes."
-						src.Defiance=1
-						src << "You realize you exist to always hold the line, no matter how grim the situation becomes."
-						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Saiyan_Grit)
-					if("Zeal")
-						src << "You gain the ability to adjust and adapt to martial arts used by your enemies."
-						src.Adaptation=1
-						src << "You learn to explode with power to catch up to stronger opponents."
-						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Saiyan_Soul)
-				src.Intimidation=10
-				src << "Some of the primal might of the Oozaru now infuses your normal form."
-				src << "You stake your life on [src.SaiyanAscension]!"
-		SaiyanAscension2()
-			if(src.SaiyanAscension)
-				src.AscensionsAcquired=2
-				src.NewAnger(1.75)
-				src.Intimidation=15
-				src << "More of the primal might of the Oozaru now infuses your normal form."
-		SaiyanAscension3()
-			if(src.SaiyanAscension)
-				src.AscensionsAcquired=3
-				src.Intimidation=25
-				src << "More of the primal might of the Oozaru now infuses your normal form."
-		SaiyanAscension4()
-			if(src.SaiyanAscension)
-				src.AscensionsAcquired=4
-				src.NewAnger(2)
-				src.Intimidation=40
-				src << "You now access the primal power of the Oozaru at your base form!"
-
-
-		TuffleAscension1()//OF
-			src.AscensionsAcquired=1
-			src.RecovAscension+=0.25
-			src.OffAscension+=0.25
-			src.DefAscension+=0.25
-			src.NewAnger(1.5)
-			src.RPPMult+=0.25
-			src.Intelligence+=0.25
-			src.PilotingProwess+=0.25
-			src.EnhanceChipsMax+=1
-		TuffleAscension2()//SSj
-			src.AscensionsAcquired=2
-			src.RecovAscension+=0.25
-			src.OffAscension+=0.25
-			src.DefAscension+=0.25
-			src.RPPMult+=0.25
-			src.Intelligence+=0.25
-			src.PilotingProwess+=0.25
-			src.EnhanceChipsMax+=1
-			src << "Your scientific mind sharpens further."
-		TuffleAscension3()//SSj2
-			src.AscensionsAcquired=3
-			src.RecovAscension+=0.25
-			src.OffAscension+=0.25
-			src.DefAscension+=0.25
-			src.RPPMult+=0.25
-			src.Intelligence+=0.25
-			src.PilotingProwess+=0.25
-			src.EnhanceChipsMax+=1
-			src << "Your scientific mind sharpens further."
-		TuffleAscension4()//SSj3
-			src.AscensionsAcquired=4
-			src.RecovAscension+=0.25
-			src.OffAscension+=0.25
-			src.DefAscension+=0.25
-			src.RPPMult+=0.25
-			src.Intelligence+=0.25
-			src.PilotingProwess+=0.25
-			src.EnhanceChipsMax+=1
-			src << "You develop a mind capable of rivaling super-computers!"
-		TuffleAscension5()
-			src.AscensionsAcquired=5
-			src.RecovAscension+=1
-			src.OffAscension+=1
-			src.DefAscension+=1
-			src.NewAnger(2)
-			src.Imagination+=1.25
-			src.PilotingProwess+=1
-			src.EnhanceChipsMax+=2
-			src << "Your imagination develops to match your unrivalled intellect!"
-
-
-		AlienAscension1()
-			src.AscensionsAcquired=1
-			src.Intimidation*=2
-			src.SetVars()
-			if(!src.Symbiote&&!src.Metamorean)
-				src << "Your body mutates in completely novel ways!"
-				src.AlienRacials()
-				if(src.AlienEvolutionStats<2)
-					src.AlienStatAscensions(2)
-			else if(src.Metamorean)
-				src << "Your body recovers some of its individual power!"
-				src.RPPower+=0.25
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Fusion_Dance/FD in src)
-					FD.Mastery+=1
-			else
-				src << "Your symbiote evolved!"
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Symbiote_Infection/S in src)
-					S.PowerMult=1
-					S.VaizardHealth=2.5
-		AlienAscension2()
-			src.AscensionsAcquired=2
-			src.Intimidation*=2.5
-			src.SetVars()
-			if(!src.Symbiote&&!src.Metamorean)
-				src << "Your body mutates in completely novel ways!"
-				src.AlienRacials()
-				if(src.AlienEvolutionStats<5)
-					src.AlienStatAscensions(3)
-			else if(src.Metamorean)
-				src << "Your body recovers its full individual power!"
-				src.RPPower+=0.25
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Fusion_Dance/FD in src)
-					FD.Mastery+=2
-			else
-				src << "Your symbiote evolved!"
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Symbiote_Infection/S in src)
-					S.PowerMult=1
-					S.VaizardHealth=3
-
-		AlienAscension3()
-			src.AscensionsAcquired=3
-			src.Intimidation*=2
-			src.SetVars()
-			if(!src.Symbiote&&!src.Metamorean)
-				src << "Your body mutates in completely novel ways!"
-				src.AlienRacials()
-				if(src.AlienEvolutionStats<7)
-					src.AlienStatAscensions(2)
-			else if(src.Metamorean)
-				src << "Your body recovers some of its individual power!"
-				src.RPPower+=0.25
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Fusion_Dance/FD in src)
-					FD.Mastery+=1
-			else
-				src << "Your symbiote evolved!"
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Symbiote_Infection/S in src)
-					S.PowerMult=1
-					S.VaizardHealth=3.5
-					S.Curse=1
-		AlienAscension4()
-			src.AscensionsAcquired=4
-			src.Intimidation*=2
-			src.SetVars()
-			if(!src.Symbiote&&!src.Metamorean)
-				src << "Your body mutates in completely novel ways!"
-				src.AlienRacials()
-				if(src.AlienEvolutionStats<10)
-					src.AlienStatAscensions(3)
-			else if(src.Metamorean)
-				src << "Your body recovers its full individual power!"
-				src.RPPower+=0.25
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Fusion_Dance/FD in src)
-					FD.Mastery+=2
-			else
-				src << "Your symbiote evolved, but became harder to control!"
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Symbiote_Infection/S in src)
-					S.PowerMult=1
-					S.VaizardHealth=4
-
-
-		MonsterAscensionX(var/Value)
-			if(src.AscensionsUnlocked==0)
-				src << "You do not have any ascensions unlocked, but the code sure is trying to give you one."
-				return
-			if(!Value)
-				src << "Your monster ascension was triggered without noting what ascension level it is."
-				return
-			src.AscensionsAcquired++
-			if(Value==1)
-				src.Intimidation=10//2
-			else if(Value==2)
-				src.Intimidation=20//10
-			else if(Value==3)
-				src.Intimidation=40//20
-			else if(Value==4)
-				src.Intimidation=50//40
-
-
-			switch(src.Class)
-				if("Yokai")
-					src.NewAnger(max(1, src.AngerMax-0.1), Override=1)
-					if(src.AngerMax<1)
-						src.AngerMax=1
-					//at asc5+, if they have an activebuff and arent mechanized, they gain manastats and manaleak
-
-					passive_handler.Increase("ManaCapMult", 0.25)
-					if(Value>=3)
-						passive_handler.Increase("TechniqueMastery", 1.5)
-					else
-						passive_handler.Increase("TechniqueMastery", 2)
-					src.ManaCapMult+=0.25
-					if(Value==5)
-						passive_handler.Increase("ManaCapMult", 0.25)
-						src.ManaCapMult+=0.25
-				if("Beastmen")
-					src.AngerPoint+=5
-					for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in src.Buffs)
-						b.NeedsHealth=max(5, 5+(src.AscensionsAcquired*5))
-						b.TooMuchHealth=max(15, 10+(src.AscensionsAcquired*5))
-					if(Value==5)
-						src.EndlessAnger++
-				if("Eldritch")
-					passive_handler.Increase("DebuffImmune", 0.25)
-					passive_handler.Increase("VenomResistance", 0.5)
-					passive_handler.Increase("Void", 1)
-					passive_handler.Increase("SoulFire", 0.2)
-					passive_handler.Increase("DeathField",0.15)
-					passive_handler.Increase("VoidField",0.15)
-					src.DebuffImmune+=0.25
-					src.VenomResistance+=0.5
-					src.Void=1
-					src.SoulFire+=0.2
-					src.DeathField+=0.15
-					src.VoidField+=0.15
-					// if(Value==3)
-					// 	src.AddSkill(new/obj/Skills/Teleport/Warp)
-					if(Value==5)
-						passive_handler.Increase("PureReduction",5)
-						src.PureReduction+=5
-			switch(src.MonsterClass)
-				if("Warrior")
-					src.StrAscension+=0.2
-					src.EndAscension+=0.2
-					src.DefAscension+=0.1
-				if("Hunter")
-					src.StrAscension+=0.1
-					src.SpdAscension+=0.3
-					src.ForAscension+=0.1
-				if("Shaman")
-					src.EndAscension+=0.1
-					src.ForAscension+=0.2
-					src.OffAscension+=0.2
-			switch(src.MonsterSource)
-				if("Domination")
-					var/asc = src.AscensionsAcquired
-					src.IntimidationMult = 1+((asc)/10)
-					passive_handler.Increase("Steady", 0.5)
-					passive_handler.Increase("HeavyHitter", 0.25)
-					passive_handler.Increase("HellRisen", 0.25)
-					Steady += 0.5
-					HeavyHitter += 0.25
-					HellRisen += 0.25
-					//TODO MAKE THIS HELLRISEN DO SOMETHING
-				if("Determination")
-					passive_handler.Increase("Desperation",1)
-					src.Desperation+=1
-					src.OffAscension+=0.1
-					src.DefAscension+=0.1
-				if("Ingenuity")
-					src.RPPMult+=0.2
-					src.Intelligence+=0.2
-					src.Imagination+=0.2
-					src.EconomyMult+=0.2
-					src.PilotingProwess+=1
-					src.PotentialRate+=1
-					src.EnhanceChipsMax+=1
-					src.CyberizeMod+=0.2
-					if(src.AscensionsAcquired==5)
-						src.PotentialRate=10
-			switch(src.MonsterAscension)
-				if("Celestial")
-					passive_handler.Increase("HolyMod", 1)
-					passive_handler.Increase("MovementMastery", 2)
-					passive_handler.Increase("SpiritPower", 0.2)
-					src.HolyMod+=1
-					src.MovementMastery+=2
-					src.SpiritPower+=0.2
-					if(Value==3)
-						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Celestial_Ascension)
-				if("Natural")
-					if(Value>=3)
-						passive_handler.Increase("BuffMastery", 0.2)
-					else
-						passive_handler.Increase("BuffMastery", 0.5)
-					passive_handler.Increase("LegendaryPower", 0.2)
-					src.SpdAscension+=((3-src.SpdMod)/5)
-					src.LegendaryPower+=0.2
-					if(Value==3)
-						src.EnhancedSmell=1
-						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Boss_Form)
-				if("Infernal")
-					passive_handler.Increase("AbyssMod", 1)
-					if(Value>=3)
-						passive_handler.Increase("DemonicDurability", 0.5)
-					else
-						passive_handler.Increase("DemonicDurability", 1)
-					src.AbyssMod+=1
-					src.NewAnger(src.AngerMax+0.15)
-					if(Value>=2)
-						passive_handler.Increase("HellPower", 0.2)
-						HellPower+=0.2
-					if(Value==4)
-						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
-						for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/r in src)
-							r.RegenerateLimbs=1
-
-
-		ShinjinAscension1()
-			src.AscensionsAcquired=1
-
-			src.AddSkill(new/obj/Skills/Utility/Unlock_Potential)
-			src<<"You learn to draw forth the full potential of those you choose."
-
-			src.AddSkill(new/obj/Skills/Utility/Bind_To_Plane)
-			src.AddSkill(new/obj/Skills/Teleport/Kai_Kai)//kaio tp
-
-
-			if(src.ShinjinAscension=="Kai")
-				//src.contents+=new/obj/Items/Symbiotic/Potara_Earrings/Right_Earring
-				//src.contents+=new/obj/Items/Symbiotic/Potara_Earrings/Left_Earring
-				if(!locate(/obj/Skills/Utility/Heal, src))
-					src.AddSkill(new/obj/Skills/Utility/Heal)
-				if(!locate(/obj/Skills/Utility/Send_Energy, src))
-					src.AddSkill(new/obj/Skills/Utility/Send_Energy)
-				//give life will go here
-				src << "You learn how to give your life force to empower others!"
-			if(src.ShinjinAscension=="Makai")
-				// if(!locate(/obj/Skills/Utility/Contractor, src))
-				// 	src.AddSkill(new/obj/Skills/Utility/Contractor)
-				src.ContractPowered=1
-				src.Intimidation=50
-				src.PotentialCap*=2
-				passive_handler.Increase("GodKi", 0.5)
-				src.GodKi+=0.5
-				src<<"You learn how to claim dominion over souls."
-
-
-		DemonAscension1()
-			src.AscensionsAcquired=1
-			src.Class="C"
-		DemonAscension2()
-			src.AscensionsAcquired=2
-			src.Class="B"
-		DemonAscension3()
-			src.AscensionsAcquired=3
-			src.Class="A"
-			src.EnhancedSmell=1
-		DemonAscension4()
-			src.AscensionsAcquired=4
-			src.Class="S"
-			src.EnhancedHearing=1
-		DemonAscension5()
-			src.AscensionsAcquired=5
-			src.PotentialRate=10
-			src.PotentialCap*=2
-			src.EndlessAnger+=1
-			src.Anger=2
-			src.Class="Maou"
-		DragonAscension1()
-			src.AscensionsAcquired=1
-			switch(Class)
-				if("Metal")
-					passive_handler.Increase("Juggernaut")
-					passive_handler.Increase("Unstoppable", 0.25)
-					passive_handler.Increase("HeavyHitter", 0.5)
-					passive_handler.Increase("DeathField", 0.25)
-					Juggernaut=1
-					Unstoppable+=0.25
-					HeavyHitter+=0.5
-					DeathField+=0.25
-					StrAscension+=0.25
-					EndAscension+=0.25
-					DefAscension+=0.25
-				if("Fire")
-					AngerPoint+=5
-					passive_handler.Increase("DemonicDurability", 0.25)
-					passive_handler.Increase("SpiritHand", 1)
-					StrAscension+=0.25
-					ForAscension+=0.25
-					OffAscension+=0.25
-				if("Water")
-					EndAscension+=0.25
-					DefAscension+=0.25
-					ForAscension+=0.25
-					RecovAscension+=0.5
-				if("Lightning")
-					passive_handler.Increase("Godspeed", 1)
-					passive_handler.Increase("Adrenaline", 0.5)
-					Godspeed+=1
-					Adrenaline+=0.5
-					SpdAscension+=0.25
-					OffAscension+=0.25
-					StrAscension+=0.25
-			src.Intimidation=30
-		DragonAscension2()
-			src.AscensionsAcquired=2
-			switch(Class)
-				if("Metal")
-					passive_handler.Increase("Unstoppable", 0.25)
-					passive_handler.Increase("HeavyHitter", 0.5)
-					passive_handler.Increase("DeathField", 0.25)
-					Unstoppable+=0.25
-					HeavyHitter+=0.5
-					DeathField+=0.25
-					StrAscension+=0.25
-					EndAscension+=0.25
-					DefAscension+=0.25
-				if("Fire")
-					AngerPoint+=5
-					passive_handler.Increase("DemonicDurability", 0.25)
-					passive_handler.Increase("SpiritHand", 1)
-					StrAscension+=0.25
-					ForAscension+=0.25
-					OffAscension+=0.25
-				if("Water")
-					EndAscension+=0.25
-					DefAscension+=0.25
-					ForAscension+=0.25
-					RecovAscension+=0.5
-				if("Lightning")
-					passive_handler.Increase("Godspeed")
-					passive_handler.Increase("Adrenaline", 0.5)
-					Godspeed+=1
-					Adrenaline+=0.5
-					SpdAscension+=0.25
-					OffAscension+=0.25
-					StrAscension+=0.25
-			src.Intimidation=50
-			passive_handler.Increase("GodKi",0.05)
-			src.GodKi+=0.05
-		DragonAscension3()
-			src.AscensionsAcquired=3
-			switch(Class)
-				if("Metal")
-					passive_handler.Increase("Unstoppable", 0.25)
-					passive_handler.Increase("HeavyHitter", 1)
-					passive_handler.Increase("DeathField", 0.5)
-					Unstoppable+=0.25
-					HeavyHitter+=1
-					DeathField+=0.5
-					StrAscension+=0.5
-					EndAscension+=0.5
-					DefAscension+=0.5
-				if("Fire")
-					AngerPoint+=5
-					EndlessAnger=1
-					passive_handler.Increase("DemonicDurability", 0.5)
-					passive_handler.Increase("SpiritHand", 1)
-					StrAscension+=0.5
-					ForAscension+=0.5
-					OffAscension+=0.5
-				if("Water")
-					EndAscension+=0.25
-					DefAscension+=0.25
-					ForAscension+=0.25
-					RecovAscension+=0.5
-				if("Lightning")
-					passive_handler.Increase("Godspeed")
-					passive_handler.Increase("Adrenaline", 0.5)
-					Godspeed+=1
-					Adrenaline+=0.5
-					SpdAscension+=0.25
-					OffAscension+=0.25
-					StrAscension+=0.25
-			src.Intimidation=150
-			passive_handler.Increase("GodKi",0.05)
-			src.GodKi+=0.05
-		DragonAscension4()
-			src.AscensionsAcquired=4
-			src.AscensionsAcquired=4
-			if(src.StrAscension)
-				src.StrAscension=1.25
-			if(src.EndAscension)
-				src.EndAscension=1.25
-			if(src.ForAscension)
-				src.ForAscension=1.25
-			if(src.OffAscension)
-				src.OffAscension=1.25
-			if(src.DefAscension)
-				src.DefAscension=1.25
-			if(src.RecovAscension)
-				src.RecovAscension=1.25
-			if(src.AngerPoint>=75)
-				if(!src.DarknessFlame)
-					passive_handler.Increase("DarknessFlame")
-					src.DarknessFlame+=1
-			if(src.Fishman)
-				if(!src.AbsoluteZero)
-					passive_handler.Increase("AbsoluteZero")
-					src.AbsoluteZero+=1
-			if(src.Godspeed)
-				if(!src.StunningStrike)
-					passive_handler.Increase("StunningStrike")
-					src.StunningStrike+=1
-			if(src.Hardening)
-				if(!src.PureReduction)
-					passive_handler.Increase("PureReduction", 2)
-					src.PureReduction+=2
-			if(src.VenomResistance)
-				if(!src.PureDamage)
-					passive_handler.Increase("PureDamage", 2)
-					src.PureDamage+=2
-			src.Intimidation=100
-			passive_handler.Increase("GodKi",0.05)
-			src.GodKi+=0.05
-		DragonAscension5()
-			src.AscensionsAcquired=5
-			if(src.StrAscension)
-				src.StrAscension=1.5
-			if(src.EndAscension)
-				src.EndAscension=1.5
-			if(src.ForAscension)
-				src.ForAscension=1.5
-			if(src.OffAscension)
-				src.OffAscension=1.5
-			if(src.DefAscension)
-				src.DefAscension=1.5
-			if(src.RecovAscension)
-				src.RecovAscension=1.5
-			if(src.AngerPoint>=75)
-				if(!src.DarknessFlame)
-					passive_handler.Increase("DarknessFlame")
-					src.DarknessFlame+=1
-			if(src.Fishman)
-				if(!src.AbsoluteZero)
-					passive_handler.Increase("AbsoluteZero")
-					src.AbsoluteZero+=1
-			if(src.Godspeed)
-				if(!src.StunningStrike)
-					passive_handler.Increase("StunningStrike")
-					src.StunningStrike+=1
-			if(src.Hardening)
-				if(!src.PureReduction)
-					passive_handler.Increase("PureReduction", 2)
-					src.PureReduction+=2
-			if(src.VenomResistance)
-				if(!src.PureDamage)
-					passive_handler.Increase("PureDamage", 2)
-					src.PureDamage+=2
-			src.Intimidation=125
-			passive_handler.Increase("GodKi",0.05)
-			src.GodKi+=0.05
-		DragonAscension6()
-			src.AscensionsAcquired=6
-			if(src.StrAscension)
-				src.StrAscension=2
-			if(src.EndAscension)
-				src.EndAscension=2
-			if(src.ForAscension)
-				src.ForAscension=2
-			if(src.OffAscension)
-				src.OffAscension=2
-			if(src.DefAscension)
-				src.DefAscension=2
-			if(src.RecovAscension)
-				src.RecovAscension=2
-			if(src.AngerPoint>=75)
-				if(!src.DarknessFlame)
-					passive_handler.Increase("DarknessFlame")
-					src.DarknessFlame+=1
-			if(src.Fishman)
-				if(!src.AbsoluteZero)
-					passive_handler.Increase("AbsoluteZero")
-					src.AbsoluteZero+=1
-			if(src.Godspeed)
-				if(!src.StunningStrike)
-					passive_handler.Increase("StunningStrike")
-					src.StunningStrike+=1
-			if(src.Hardening)
-				if(!src.PureReduction)
-					passive_handler.Increase("PureReduction", 2)
-					src.PureReduction+=2
-			if(src.VenomResistance)
-				if(!src.PureDamage)
-					passive_handler.Increase("PureDamage", 2)
-					src.PureDamage+=2
-			src.Intimidation=200
-			passive_handler.Increase("GodKi",0.05)
-			src.GodKi+=0.05
-
-		AndroidAscension1()//pre-SSj
-			src.AscensionsAcquired=1
-			src.EnhancedStrength+=0.05
-			src.EnhancedEndurance+=0.05
-			src.EnhancedForce+=0.05
-			src.EnhancedSpeed+=0.05
-			src.EnhancedAggression+=0.05
-			src.EnhancedReflexes+=0.05
-		AndroidAscension2()//SSJ
-			src.AscensionsAcquired=2
-			src.EnhancedStrength+=0.05
-			src.EnhancedEndurance+=0.05
-			src.EnhancedForce+=0.05
-			src.EnhancedSpeed+=0.05
-			src.EnhancedAggression+=0.05
-			src.EnhancedReflexes+=0.05
-		AndroidAscension3()//SSj2
-			src.AscensionsAcquired=3
-			src.EnhancedStrength+=0.5
-			src.EnhancedEndurance+=0.5
-			src.EnhancedForce+=0.5
-			src.EnhancedSpeed+=0.5
-			src.EnhancedAggression+=0.5
-			src.EnhancedReflexes+=0.5
-		AndroidAscension4()//SSj3
-			src.AscensionsAcquired=4
-			src.EnhancedStrength+=0.5
-			src.EnhancedEndurance+=0.5
-			src.EnhancedForce+=0.5
-			src.EnhancedSpeed+=0.5
-			src.EnhancedAggression+=0.5
-			src.EnhancedReflexes+=0.5
-		AndroidAscension5()
-			src.AscensionsAcquired=5
-			src.EnhancedStrength+=2
-			src.EnhancedEndurance+=2
-			src.EnhancedForce+=2
-			src.EnhancedSpeed+=2
-			src.EnhancedAggression+=2
-			src.EnhancedReflexes+=2
-
-		ChangelingAscension1()
-			src.AscensionsAcquired=1
-			src.masteries["1mastery"]=100
-			src.Class=alert(src, "After a period of growing aquainted with your incredible power, you finally started to ponder on its true source. Is it just raw, unhinged talent or did you arrive at the summit through careful experimentation and pushing your limits?", "Changeling Ascension", "Prodigy", "Experience")
-			if(src.Class=="Prodigy")
-				src.Intimidation*=2
-				src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/OneHundredPercentPower)
-			if(src.Class=="Experience")
-				src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/FifthForm)
-			src.RecovAscension+=0.25
-		ChangelingAscension2()
-			src.AscensionsAcquired=2
-			src.masteries["2mastery"]=100
-			src.RecovAscension+=0.25
-		ChangelingAscension3()
-			src.AscensionsAcquired=3
-			src.masteries["3mastery"]=100
-			src.RecovAscension+=0.25
-		ChangelingAscension4()
-			src.AscensionsAcquired=4
-			src.trans["unlocked"]=4
-			src.RecovAscension+=0.25
-
-
 
 		DamageSelf(var/val, trueDmg)
 			if(val < 0)
@@ -998,8 +65,10 @@ mob
 					src.Unconscious()
 
 		DoDamage(var/mob/defender, var/val, var/UnarmedAttack=0, var/SwordAttack=0, var/SecondStrike, var/ThirdStrike, var/TrueMult=0, var/SpiritAttack=0, var/Destructive=0)
+			#if DEBUG_DAMAGE
 			log2text("Damage", "Start DoDamage", "damageDebugs.txt", src.ckey)
 			log2text("Damage", val, "damageDebugs.txt", src.ckey)
+			#endif
 			val = newDoDamage(defender, val, UnarmedAttack, SwordAttack, SecondStrike, ThirdStrike, TrueMult, SpiritAttack, Destructive)
 			if(src.HasPurity())//If damager is pure
 				var/found=0//Assume you haven't found a proper target
@@ -1034,9 +103,9 @@ mob
 				if(defender.CyberCancel||defender.Mechanized)
 					defender.LoseMana(val*max(defender.Mechanized,defender.CyberCancel)*src.GetCyberStigma())
 
-			if(locate(/obj/Skills/Zanzoken, defender))
-				if(defender.MovementCharges<defender.GetMaxMovementCharges())
-					defender.MovementChargeBuildUp(val)
+			// if(locate(/obj/Skills/Zanzoken, defender))
+			// 	if(defender.MovementCharges<1)
+			// 		defender.MovementChargeBuildUp(val)
 
 			if(defender.VaizardHealth)
 				defender.VaizardHealth-=val
@@ -1071,10 +140,10 @@ mob
 					defender.Anger()
 					val/=defender.AngerMax
 
-			if(defender.Desperation&&!defender.HasInjuryImmune())
+			if(defender.passive_handler.Get("Desperation")&&!defender.HasInjuryImmune())
 				if(FightingSeriously(src,defender))
-					if(prob(5*defender.Desperation))
-						defender.WoundSelf(val/sqrt(1+defender.Desperation))//Take all damage as wounds
+					if(prob(5*defender.passive_handler.Get("Desperation")))
+						defender.WoundSelf(val/sqrt(1+defender.passive_handler.Get("Desperation")))//Take all damage as wounds
 						val=0//reduce damag ehard
 
 			if(defender.KO&&!src.Lethal)
@@ -1099,7 +168,7 @@ mob
 					if(aa.ai_hostility >= 1)
 						if(aa.inloop == FALSE && !(aa in ticking_ai)) // not even needed but i have a creeping suspicion that ai are getting added multiple times
 							ticking_ai.Add(aa)
-						aa.Target=src
+						aa.SetTarget(src)
 						aa.ai_state = "Chase"
 						aa.last_activity = world.time
 
@@ -1107,6 +176,7 @@ mob
 				src.LoseHealth(val)
 				return
 			var/tmpval = val
+/*
 			if(defender.key=="Vuffa" && defender.findVuffa())
 				if(defender.findVuffa().vuffaMoment)
 					tmpval*=1000000
@@ -1114,6 +184,7 @@ mob
 						OMsg(defender, "<font color='[rgb(255, 0, 0)]'>[defender.findVuffa().vuffaMessage]</font color>")
 					else
 						OMsg(src, "<font color='[rgb(255, 0, 0)]'>[defender] takes a critical hit! They take [val] damage!</font color>")
+*/
 			defender.LoseHealth(max(0,tmpval))
 
 			if(defender.Flying)
@@ -1126,13 +197,14 @@ mob
 
 				if(src.StyleBuff)
 					if(src.Tension<100 && !src.HasTensionLock())
-						src.Tension+=(val)
+						src.Tension+=(val) * glob.TENSION_MULTIPLIER
 
 				if(defender.StyleBuff&&defender.StyleBuff)
 					if(defender.Tension<100 && !defender.HasTensionLock())
-						defender.Tension+=(val*0.75)
+						defender.Tension+=(val*0.75) * glob.TENSION_MULTIPLIER
 			var/leakVal = val/GLOBAL_LEAK_REDUCTION
-
+			if(passive_handler.Get("Corruption"))
+				gainCorruption(val)
 
 			if(src.HasEnergyLeak())
 				src.LoseEnergy(src.GetEnergyLeak()*0.25*leakVal)
@@ -1185,7 +257,7 @@ mob
 
 			if(defender.CheckSlotless("Protega"))
 				src.LoseHealth(val/10)
-			if(defender.MeltyBlood)
+			if(defender.passive_handler.Get("MeltyBlood"))
 				if(defender.Health<50*(1-src.HealthCut))
 					if(FightingSeriously(src,0))
 						if(!defender.MeltyMessage)
@@ -1201,31 +273,20 @@ mob
 						src.AddPoison(val*0.5, defender)
 
 
-			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.passive_handler.Get("Defiance")&&!defender.Oozaru)
-				if(defender.DefianceCounter<10)
-					if(defender.Anger)
-						if(val>=(1/defender.AscensionsAcquired)&&val<(2/defender.AscensionsAcquired))
-							defender.DefianceCounter+=1
-							defender.OMessage(10,"<font color=red>[defender]'s defiance sparks!","Defiance (1) passive.")
-						else if(val>=(2/defender.AscensionsAcquired)&&val<(4/defender.AscensionsAcquired))
-							defender.DefianceCounter+=2
-							defender.OMessage(10,"<font color=red>[defender] grows more defiant!","Defiance (2) passive.")
-						else if(val>=(4/defender.AscensionsAcquired))
-							defender.DefianceCounter+=5
-							defender.OMessage(10,"<font color=red>[defender] roars in complete defiance of odds!","Defiance (3) passive.")
-						if(defender.DefianceCounter>10)
-							defender.DefianceCounter=10
+			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.passive_handler.Get("Defiance")&&!defender.CheckSlotless("Great Ape"))
+				if(defender.Anger)
+					defender.DefianceCalcs(val, src)
 
 			if(defender.HasAdaptation()&&src==defender.Target||src.HasAdaptation()&&defender==src.Target)
-				if(defender.HasAdaptation()&&!defender.Oozaru)
+				if(defender.HasAdaptation()&&!defender.CheckSlotless("Great Ape"))
 					defender.AdaptationTarget=src
 					defender.AdaptationCounter+=(val*(defender.AscensionsAcquired/40))
-					if(defender.AdaptationCounter>=1)
+					if(defender.AdaptationCounter>=1)         
 						defender.AdaptationCounter=1
 						if(!defender.AdaptationAnnounce)
 							defender << "<b>You've adapted to your target's style!</b>"
 							defender.AdaptationAnnounce=1
-				if(src.HasAdaptation()&&!src.Oozaru)
+				if(src.HasAdaptation()&&!CheckSlotless("Great Ape"))
 					src.AdaptationTarget=defender
 					src.AdaptationCounter+=(val*(src.AscensionsAcquired/40))
 					if(src.AdaptationCounter>=1)
@@ -1242,9 +303,9 @@ mob
 					// Equip
 					var/shatterTier = defender.GetShatterTier(s) // isn't even used i think
 					var/addWeaponBreaker = 0
-					if(AttackQueue.WeaponBreaker)
+					if(AttackQueue&&AttackQueue.WeaponBreaker)
 						addWeaponBreaker += AttackQueue.WeaponBreaker
-					var/breakTicks = (GetWeaponBreaker()+addWeaponBreaker) / 3
+					var/breakTicks = (GetWeaponBreaker()+addWeaponBreaker) / 3 * glob.WEAPON_BREAKER_EFFECTIVENESS
 					var/duraBoon = 2 // SWORD DURA VARS
 					var/duraBase = 1 // SWORD DURA VARS
 					// Breaker Vars
@@ -1329,9 +390,9 @@ mob
 			if(defender.ActiveBuff&&defender.CheckActive("Keyblade")&&!defender.SpecialBuff)
 				defender.ManaAmount+=(0.25*defender.SagaLevel)
 
-			if(src.HellPower&&!src.transActive())
+			if(src.HasHellPower()&&!src.transActive())
 				src.HealMana(1)
-			if(defender.HellPower&&!src.transActive())
+			if(defender.HasHellPower()&&!src.transActive())
 				defender.HealMana(1)
 
 			if(src.SlotlessBuffs)
@@ -1685,7 +746,7 @@ mob
 					else
 						val=val/3
 			if(src.PotionCD)
-				val/=1.25
+				val/=glob.HEALTH_POTION_NERF
 			if(icon_state == "Meditate")
 				src.Tension=max(0, Tension-(val*1.5))
 			else if(Tension != 100)
@@ -1699,6 +760,8 @@ mob
 			if(src.PotionCD)
 				val/=1.25
 			src.Energy+=val
+			if(Energy<0)
+				Energy=0
 			src.MaxEnergy()
 		HealMana(var/val, var/StableHeal=0)
 			if(!src.FusionPowered&&!StableHeal)
@@ -2143,8 +1206,6 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
-			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-				Mod+=0.3
 			if(src.StrStolen)
 				Mod+=src.StrStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -2153,6 +1214,9 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
+			
+
+
 			if(src.BurningShot)
 				if(src.Burn)
 					if(src.Burn>0&&src.Burn<=25)
@@ -2170,7 +1234,7 @@ mob
 			if(Secret == "Werewolf" && CheckSlotless("Full Moon Form"))
 				Mod += 1 * (secretDatum?:getHungerBoon())
 			var/adaptive = passive_handler.Get("AngerAdaptiveForce")
-			if(adaptive)
+			if(adaptive && (src.HasCalmAnger() || EndlessAnger || Anger))
 				if(BaseStr() > BaseFor())
 					Mod += clamp(adaptive,0.1,1)
 				if(BaseStr() == BaseFor())
@@ -2209,7 +1273,7 @@ mob
 				Str+=src.Target.GetMAEnd()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!src.Oozaru)
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							Str+=(src.Target.GetMAEnd()*0.5*src.AdaptationCounter)
 			if(Str<0.1)
@@ -2255,8 +1319,6 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
-			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-				Mod+=0.3
 			if(src.ForStolen)
 				Mod+=src.ForStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -2265,21 +1327,28 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-			if(src.BurningShot)
-				if(src.Burn)
+			if(src.Burn)
+				if(src.BurningShot)
 					if(src.Burn>0&&src.Burn<=25)
 						Mod+=0.75*src.BurningShot
 					else if(src.Burn>25&&src.Burn<=75)
 						Mod+=0.5*src.BurningShot
 					else
 						Mod+=0.25*src.BurningShot
+				else
+					if(!src.HasDebuffImmune()>=1)
+						if(src.HasDebuffReversal())
+							Mod*=1 + Burn * (clamp(glob.DEBUFF_EFFECTIVENESS - 0.002, 0.001, 1))
+						else
+							Mod*=1 - Burn * (clamp(glob.DEBUFF_EFFECTIVENESS - 0.002, 0.001, 1))
+				
 			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Broken Brave"))
 				if(src.Health<=25*(1-src.HealthCut))
 					Mod+=min(10/src.Health,1)
 			if(src.ForEroded)
 				Mod-=src.ForEroded
 			var/adaptive = passive_handler.Get("AngerAdaptiveForce")
-			if(adaptive)
+			if(adaptive && (src.HasCalmAnger() || EndlessAnger || Anger))
 				if(BaseFor() > BaseStr())
 					Mod += clamp(adaptive,0.1,1)
 				if(BaseFor() == BaseStr())
@@ -2317,7 +1386,7 @@ mob
 				For+=src.Target.GetMAEnd()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!src.Oozaru)
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							For+=(src.Target.GetMAEnd()*0.5*src.AdaptationCounter)
 			if(For<0.1)
@@ -2358,8 +1427,6 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
-			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-				Mod+=0.2
 			if(src.EndStolen)
 				Mod+=src.EndStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -2384,11 +1451,11 @@ mob
 					Harden = glob.MAX_HARDEN
 				Mod*= 1 + (src.Harden * (0.006 * clamp(src.Hardening, 0.1, glob.MAX_HARDENING)))
 			if(src.Shatter)
-				if(!src.HasDebuffImmune())
+				if(!src.HasDebuffImmune()>=1)
 					if(src.HasDebuffReversal())
-						Mod*=1 + Shatter * DEBUFF_EFFECTIVENESS
+						Mod*=1 + Shatter * glob.DEBUFF_EFFECTIVENESS
 					else
-						Mod*=1 - Shatter * DEBUFF_EFFECTIVENESS
+						Mod*=1 - Shatter * glob.DEBUFF_EFFECTIVENESS
 			if(src.EndEroded)
 				Mod-=src.EndEroded
 
@@ -2411,7 +1478,7 @@ mob
 				End+=(src.Target.GetMAStr()+src.Target.GetMAFor())*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!src.Oozaru)
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							End+=((src.Target.GetMAStr()+src.Target.GetMAFor())*0.5*src.AdaptationCounter)
 			if(End<0.1)
@@ -2435,24 +1502,17 @@ mob
 			Mod+=(src.SpdMultTotal-1)
 			if(src.KamuiBuffLock)
 				Mod+=1
-			if(src.Saga=="Eight Gates")
+			if(Saga&&src.Saga=="Eight Gates")
 				Mod+=0.05*GatesActive
-			// if(src.isRace(HUMAN))
-			// 	if(src.AscensionsAcquired)
-			// 		Mod+=(src.AscensionsAcquired/20)
-			if(src.Race=="Android" && src.EnhancedSpeed)
-				Mod+=(src.AscensionsAcquired/10)*src.EnhancedSpeed
+
 			if(src.CheckSlotless("What Must Be Done"))
-				if(SlotlessBuffs["What Must Be Done"])
-					if(SlotlessBuffs["What Must Be Done"].Password)
-						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
+				if(SlotlessBuffs["What Must Be Done"].Password)
+					Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
-			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-				Mod+=0.2
 			if(src.SpdStolen)
 				Mod+=src.SpdStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -2470,15 +1530,15 @@ mob
 					else
 						Mod+=0.25*src.BurningShot
 			if(src.Slow)
-				if(!src.HasDebuffImmune())
+				if(!src.HasDebuffImmune()>=1)
 					if(src.HasDebuffReversal())
-						Mod*=1 + (Slow * DEBUFF_EFFECTIVENESS)
+						Mod*=1 + (Slow * glob.DEBUFF_EFFECTIVENESS)
 					else
-						Mod*= 1 - (Slow * DEBUFF_EFFECTIVENESS)
+						Mod*= 1 - (Slow * glob.DEBUFF_EFFECTIVENESS)
 			if(src.SpdEroded)
 				Mod-=src.SpdEroded
 
-			if(Secret == "Werewolf" && CheckSlotless("Full Moon Form"))
+			if(Secret && Secret == "Werewolf" && CheckSlotless("Full Moon Form"))
 				Mod += 1 * (secretDatum?:getHungerBoon())
 
 
@@ -2512,7 +1572,7 @@ mob
 				Spd+=src.Target.GetMASpd()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!src.Oozaru)
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							Spd+=(src.Target.GetMASpd()*0.5*src.AdaptationCounter)
 			if(Spd<0.1)
@@ -2551,11 +1611,11 @@ mob
 					else
 						Mod+=0.25*src.BurningShot
 			if(src.Shock)
-				if(!src.HasDebuffImmune())
+				if(!src.HasDebuffImmune()>=1)
 					if(src.HasDebuffReversal())
-						Mod*=1 + (Shock * DEBUFF_EFFECTIVENESS)
+						Mod*=1 + (Shock * glob.DEBUFF_EFFECTIVENESS)
 					else
-						Mod*= 1 - (Shock * DEBUFF_EFFECTIVENESS)
+						Mod*= 1 - (Shock * glob.DEBUFF_EFFECTIVENESS)
 			if(src.OffEroded)
 				Mod-=src.OffEroded
 			Off*=Mod
@@ -2588,7 +1648,7 @@ mob
 				Off+=src.Target.GetMADef()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!src.Oozaru)
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							Off+=(src.Target.GetMADef()*0.5*src.AdaptationCounter)
 			if(Off<0.1)
@@ -2628,11 +1688,11 @@ mob
 					else
 						Mod+=0.25*src.BurningShot
 			if(src.Shock)
-				if(!src.HasDebuffImmune())
+				if(!src.HasDebuffImmune()>=1)
 					if(src.HasDebuffReversal())
-						Mod*=1 + (Shock * DEBUFF_EFFECTIVENESS)
+						Mod*=1 + (Shock * glob.DEBUFF_EFFECTIVENESS)
 					else
-						Mod*=1 - (Shock * DEBUFF_EFFECTIVENESS)
+						Mod*=1 - (Shock * glob.DEBUFF_EFFECTIVENESS)
 			if(src.DefEroded)
 				Mod-=src.DefEroded
 
@@ -2655,7 +1715,7 @@ mob
 				Def+=src.Target.GetMAOff()*0.5
 			else
 				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!src.Oozaru)
+					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 						if(src.Target&&src.AdaptationTarget==src.Target)
 							Def+=(src.Target.GetMAOff()*0.5*src.AdaptationCounter)
 			if(Def<0.1)
@@ -2798,23 +1858,9 @@ mob
 		BPDiv(var/num)
 			src.Base/=num
 		TransMastery(var/num)
-			if(src.HasSSjVars())
-				return src.ssj["[num]mastery"]
-			else
-				return src.trans["[num]mastery"]
-		TransUnlocked()
-			if(src.HasSSjVars())
-				return src.ssj["unlocked"]
-			else
-				return src.trans["unlocked"]
+			return race.transformations[num].mastery
 		transActive()
-			if(src.HasSSjVars())
-				return src.ssj["active"]
-			else
-				if(src.trans["tension"])
-					return 1
-				else
-					return src.trans["active"]
+			return transActive
 		TransAuraFound()
 			if(src.transActive())
 				if(src.transActive()==1)
@@ -2831,10 +1877,7 @@ mob
 						return 1
 			return 0
 		transActiveDown()
-			if(src.HasSSjVars())
-				src.ssj["active"]--
-			else
-				src.trans["active"]--
+			transActive--
 		MakeSword(var/obj/Items/Sword/s, var/damage, var/acc, var/icon/i=null, var/px=0, var/py=0)
 			s.DamageEffectiveness=damage
 			s.AccuracyEffectiveness=acc
@@ -3047,7 +2090,7 @@ mob
 					return Forced
 			else
 				return 1
-		AbyssDamage(var/mob/P, var/Forced=0)//Stick this in the DoDamage proc.
+		AbyssDamage(mob/P, Forced=0)//Stick this in the DoDamage proc.
 			//yadda yadda gotta have abyss
 			if(P.UsingMuken())
 				if(!Forced)
@@ -3062,19 +2105,20 @@ mob
 			else if(HasSpiritPower()>=0.25)
 				var/spiritPower = (HasSpiritPower() / 2)
 				return clamp(src.GetAbyssMod()*spiritPower, 0.001, 10)
-		SlayerDamage(var/mob/P, var/Forced=0)
+		SlayerDamage(mob/P, Forced=0)
 			if(P.UsingMuken())
 				return (-1)*src.GetSlayerMod()
+			var/ignore = P.passive_handler.Get("Xenobiology")
 			if(src.Saga in list("Hiten Mitsurugi-Ryuu", "Ansatsuken"))
 				if(src.SagaLevel>=1)
 					if(!Forced)
-						return src.GetSlayerMod() * 1.5
+						return max(0,(src.GetSlayerMod() * 1.5) - ignore)
 					else
-						return Forced
+						return max(0,Forced - ignore)
 			if(!Forced)
-				return src.GetSlayerMod()
+				return max(0,src.GetSlayerMod() - ignore)
 			else
-				return Forced
+				return max(0,Forced - ignore)
 			return 1
 
 		SpiritShift()
@@ -3438,7 +2482,6 @@ mob
 					usr.PotentialRate+=2
 					if(usr.PotentialRate>5)
 						usr.PotentialRate=5
-			usr.SetVars()
 		AlienStatAscensions(var/x)
 			src.AlienEvolutionStats+=x
 			var/list/Choices=list("Strength", "Endurance", "Force", "Speed")
@@ -3578,6 +2621,8 @@ mob
 				src.Skills.Remove(s)
 			if(s in src.contents)
 				src.contents.Remove(s)
+			if(s in src.SlotlessBuffs)
+				src.SlotlessBuffs.Remove(s)
 			if(trueDel)
 				del s
 		AddItem(var/obj/Items/I, var/AlreadyHere=0)
@@ -3697,16 +2742,17 @@ mob
 			global.Turfs+=q
 			global.Turfs+=q2
 			Log("Admin","[ExtractInfo(usr)] made a warper at [usr.x],[usr.y],[usr.z] to warp to [_x],[_y],[_z]!")
-		DashTo(var/mob/Trg, var/MaxDistance=24, var/Delay=0.75, var/Clashable=0)
+		DashTo(mob/Trg, MaxDistance=24, Delay=0.75, Clashable=0)
 			var/DelayRelease=0
 			src.Frozen=1
 			src.icon_state="Flight"
 			MaxDistance*=world.tick_lag
+			if(Delay < 0.1) Delay = 0.1
+	//		var/blur_filter = filter(type="angular_blur", x=0, y=0, size=1)
+	//		filters += blur_filter
 			while(MaxDistance>0)
-				var/travel_angle = GetAngle(src, Trg)
-				if(length(src.filters) < 1)
-					AppearanceOn()
-				animate(src.filters[filters.len], x=sin(travel_angle)*(6/Delay), y=cos(travel_angle)*(6/Delay), time=Delay)
+//				var/travel_angle = GetAngle(src, Trg)
+//				animate(filters[filters.len], x=sin(travel_angle)*(6/Delay), y=cos(travel_angle)*(6/Delay), time=Delay)
 				step_towards(src,Trg)
 				if(Trg in oview(1, src))
 					MaxDistance=0
@@ -3718,9 +2764,13 @@ mob
 						if(Clashable)
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Clash_Defensive/DC in Trg)
 								if(!Trg.BuffOn(DC))
+									var/pursuerBoon = Trg.HasPursuer()
+									DC.TimerLimit = 3 + clamp(pursuerBoon, 1, 3)
 									DC.Trigger(Trg)
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Clash/DC in src)
 								if(!src.BuffOn(DC))
+									var/pursuerBoon = HasPursuer()
+									DC.TimerLimit = 3 + clamp(pursuerBoon, 1, 3)
 									DC.Trigger(src)
 					break
 				else
@@ -3729,13 +2779,14 @@ mob
 					if(DelayRelease>=1)
 						DelayRelease--
 						sleep(1*world.tick_lag)
+	//		filters -= blur_filter
 			src.Frozen=0
 			if(src.is_dashing>0)
 				src.is_dashing--
 			if(src.is_dashing<0)
 				src.is_dashing=0
 			src.icon_state=""
-			animate(src.filters[filters.len], x=0, y=0)
+			//animate(src.filters[filters.len], x=0, y=0)
 			src.dir=get_dir(src,Trg)
 		Reincarnate()
 			src.Savable=0
@@ -3779,36 +2830,7 @@ mob
 					Count++
 					continue
 			return Count
-		SagaEXPReq()
-			var/Needed
-			switch(src.SagaLevel)
-				if(1)
-					Needed=100
-				if(2)
-					Needed=150
-				if(3)
-					Needed=200
-				if(4)
-					Needed=250
-				if(5)
-					Needed=300
-			return Needed
-		SagaLevelUp()
-			var/Needed=src.SagaEXPReq()
-			if(src.SagaEXP >= Needed)
-				return 1
-			return 0
-		SagaProgression()
-			if(src.SagaLevelUp())
-				if(src.Potential<25 && src.SagaLevel>=2)
-					return
-				if(src.Potential<50&&src.SagaLevel>=4)
-					return
-				if(src.Potential<75&&src.SagaLevel>=6)
-					return
-				if(src.SagaLevel>=6&&!src.SagaAdminPermission)
-					return
-				src.saga_up_self()
+
 		SagaAscend(var/mod, var/val)
 			src.SagaAscension["[mod]"]+=val
 			src.vars["[mod]Ascension"]+=val
@@ -3888,38 +2910,50 @@ mob
 			if(!src.SignatureCheck)
 				return
 			if(src.Saga)
-				src.SagaProgression()
+				if(src.Potential<15 && SagaLevel>=1)
+					return
+				if(src.Potential<30 && src.SagaLevel>=2)
+					return
+				if(src.Potential<45&&src.SagaLevel>=3)
+					return
+				if(src.Potential<65&&src.SagaLevel>=4)
+					return
+				if(src.SagaLevel>=5&&!src.SagaAdminPermission)
+					return
+				src.saga_up_self()
 				return
 
-			if(styles_available(1) && src.Potential>=20 && src.req_styles(0, 1))
+			if(styles_available(1) && src.Potential>=5 && src.req_styles(0, 1))
 				DevelopSignature(src, 1, "Style")
 			if(styles_available(1) && src.Potential>=30 && src.req_styles(1, 1))
 				DevelopSignature(src, 1, "Style")
-			if(styles_available(2) && src.Potential>=40 && src.req_styles(0, 2))
+			if(styles_available(2) && src.Potential>=45 && src.req_styles(0, 2))
+				DevelopSignature(src, 2, "Style")
+			if(styles_available(2) && src.Potential>=65 && src.req_styles(1, 2))
 				DevelopSignature(src, 2, "Style")
 
-			if(src.req_pot(10) && src.req_sigs(0, 1))
+			if(src.req_pot(5) && src.req_sigs(0, 1))
+				DevelopSignature(src, 1, "Signature")
+			if(src.req_pot(10) && src.req_sigs(1, 1))
 				DevelopSignature(src, 1, "Signature")
 
-			if(src.req_pot(20) && src.req_sigs(1, 1))
+			if(src.req_pot(15) && src.req_sigs(2, 1))
 				DevelopSignature(src, 1, "Signature")
 
 			if(src.req_pot(30) && src.req_sigs(0, 2))
 				DevelopSignature(src, 2, "Signature")
+			if(src.req_pot(30) && src.req_sigs(3, 1))
+				DevelopSignature(src, 1, "Signature")
 
-			if(src.req_pot(40) && src.req_sigs(1, 2))
+			if(src.req_pot(45) && src.req_sigs(1, 2))
 				DevelopSignature(src, 2, "Signature")
 
-			if(src.req_pot(50) && src.req_sigs(0, 3))
+			if(src.req_pot(65) && src.req_sigs(0, 3))
 				if(!src.InfinityModule && src.ShinjinAscension!="Kai" && src.Race!="Changeling")
 					DevelopSignature(src, 3, "Signature")
-					if(src.isRace(SAIYAN))
-						if(!locate(/obj/Skills/Buffs/SpecialBuffs/SuperSaiyanGrade2, src))
-							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/SuperSaiyanGrade2)
-							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/SuperSaiyanGrade3)
-			if(src.req_pot(60))
-				if(src.req_sigs(2, 2))
-					DevelopSignature(src, 2, "Signature")
+
+			if(src.req_pot(65) && src.req_sigs(2, 2))
+				DevelopSignature(src, 2, "Signature")
 
 
 		YeetSignatures()
@@ -3928,22 +2962,22 @@ mob
 					if(!s.SagaSignature)
 						src << "[s] has been removed as it is not one of your saga signatures."
 						del s
-		GetMaxMovementCharges()
-			return 3
+
 		MovementChargeBuildUp(var/Mult=1)
 			//this ticks per second
 			//partial charges are not able to be used
 			//30 seconds will result in full charges
-			Mult *= clamp(glob.ZANZO_SPEED_LOWEST_CLAMP, GetSpd()**glob.ZANZO_SPEED_EXPONENT, glob.ZANZO_SPEED_HIGHEST_CLAMP)
+			if(glob.USE_SPEED_IN_ZANZO_RECHARGE)
+				Mult *= clamp(glob.ZANZO_SPEED_LOWEST_CLAMP, GetSpd()**glob.ZANZO_SPEED_EXPONENT, glob.ZANZO_SPEED_HIGHEST_CLAMP)
 			var/flick=src.HasFlicker()
 			if(flick)
 				Mult*=clamp(glob.ZANZO_FLICKER_LOWEST_CLAMP,1+(flick/glob.ZANZO_FLICKER_DIVISOR), glob.ZANZO_FLICKER_HIGHEST_CLAMP)
 			if(src.AfterImageStrike)
 				return
-			var/MaxMovementCharges=GetMaxMovementCharges()
-			src.MovementCharges+=(0.2-(max(0.01,MovementCharges)/MaxMovementCharges)/10)*Mult
-			if(src.MovementCharges>MaxMovementCharges)
-				src.MovementCharges=MaxMovementCharges
+			src.MovementCharges+=(glob.ZANZO_FLICKER_BASE_GAIN-(max(0.01,MovementCharges)/3)/10)*Mult
+
+			if(src.MovementCharges>3)
+				src.MovementCharges=3
 		GetRPPMult()
 			var/Return=src.RPPMult
 			Return*=src.ConditionRPPMult()
@@ -3972,7 +3006,7 @@ mob
 					Return=src.potential_trans
 
 			if(passive_handler.Get("Transformation Power")) // add straight potential
-				Return+=src.GetPassive("Transformation Power")
+				Return+=passive_handler.Get("Transformation Power")
 
 			if(src.Race=="Shinjin")//one determines the other
 				if(src.ShinjinAscension=="Kai")
@@ -4012,7 +3046,7 @@ mob
 				Z.Cooldown(3)
 				return
 			if(src.Secret=="Eldritch" && CheckSlotless("True Form"))
-				src.Activate(new/obj/Skills/AutoHit/Shadow_Tendril_Strike)
+				src.Activate(new/obj/Skills/AutoHit/Shadow_Tendril_Strike(p = src))
 				Z.Cooldown()
 				return
 			if(src.Secret=="Haki")
@@ -4038,7 +3072,7 @@ mob
 #define SECONDS * 10
 #define MINUTES * 600
 #define HOURS   * 36000
-#define MAX_WIPE_DAYS 50
+#define MAX_WIPE_DAYS 500
 #define ANIT_LAG_NUM 100
 
 

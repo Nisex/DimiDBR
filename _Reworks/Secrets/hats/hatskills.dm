@@ -88,7 +88,7 @@
 			var/found=0
 			for(var/mob/Players/m in players)
 				if(m==src.WarpTarget)
-					usr.Target=m
+					usr.SetTarget(m)
 					found=1
 			if(!found)
 				usr << "You can't seal the target inside the divide."
@@ -117,14 +117,14 @@
 // apply an imaage over the prebvious turfs
 
 /obj/Skills/Buffs
-	var/spaceMaker/Constellation/makSpace
+	var/spaceMaker/makSpace
 	// this could be a list instead
 
 
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Hats/Liberation
-	makSpace = new
+	makSpace = new/spaceMaker/Constellation
 	passives = list("Constellation" = 1) // enables u to defeat being drained by ur tiles
 	// funnily enough this passive would make u heal from any1 elses tiles, which is bad
 	// but afaik they aren't gonna do that so
@@ -154,7 +154,7 @@
 	// ArmorIcon = blah
 	ActiveMessage = "silver surfer moment"
 	OffMessage = "silver surfer moment over"
-	proc/adjust(mob/p)
+	adjust(mob/p)
 		if(altered) return
 		ForMult = 1.25 + (p.Potential*0.05)
 		EndMult = 1.1 + (p.Potential*0.05)
@@ -192,7 +192,7 @@
 	Cooldown = 120
 	Explode = 2
 	EnergyCost = 15
-	proc/adjust(mob/p)
+	adjust(mob/p)
 		var/mastery = p.Potential
 		var/level = p.secretDatum.currentTier
 		Blasts = round(15 + (level + mastery / 10),1)

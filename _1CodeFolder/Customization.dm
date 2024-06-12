@@ -72,126 +72,6 @@ mob/var
 	SuperDemonHair2_Fusion
 	KingofBravesHair_Fusion
 
-mob/proc/Hair_Forms()
-	Hair_SSJ1=null
-	Hair_FPSSJ1=null
-	Hair_SSJ2=null
-	Hair_SSJ3=null
-	Hair_SSJGod=null
-	Hair_SSJBlue=null
-	Hair_SSJ4=null
-	Hair_HT=null
-	Hair_SHT=null
-	Hair_SSJ3='Hair_SSj3.dmi'
-	switch(src.Hair_Base)
-		if('Hair1.dmi')
-			Hair_SSJ1='Hair1_SSj.dmi'
-			Hair_FPSSJ1='Hair1_SSjFP.dmi'
-			Hair_SSJ2='Hair1_USSj.dmi'
-		if('Hair2.dmi')
-			Hair_SSJ1='Hair2_SSj.dmi'
-			Hair_FPSSJ1='Hair2_SSjFP.dmi'
-			Hair_SSJ2='Hair3_USSj.dmi'
-		if('Hair3.dmi')
-			Hair_SSJ1='Hair3_SSj.dmi'
-			Hair_FPSSJ1='Hair3_SSjFP.dmi'
-			Hair_SSJ2='Hair3_USSj.dmi'
-		if('Hair4.dmi')
-			Hair_SSJ1='Hair4_SSj.dmi'
-			Hair_FPSSJ1='Hair4_SSjFP.dmi'
-			Hair_SSJ2='Hair4_USSj.dmi'
-			Hair_SSJBlue='Hair4_SSB.dmi'
-		if('Hair5.dmi')
-			Hair_SSJ1='Hair4_SSj.dmi'
-			Hair_FPSSJ1='Hair4_SSjFP.dmi'
-			Hair_SSJ2='Hair4_USSj.dmi'
-		if('Hair6.dmi')
-			Hair_SSJ1='Hair1_SSj.dmi'
-			Hair_FPSSJ1='Hair1_SSjFP.dmi'
-			Hair_SSJ2='Hair6_USSj.dmi'
-		if('Hair7.dmi')
-			Hair_SSJ1='Hair7_SSj.dmi'
-			Hair_FPSSJ1='Hair7_SSjFP.dmi'
-			Hair_SSJ2='Hair7_USSj.dmi'
-		if('Hair8.dmi')
-			Hair_SSJ1='Hair8_SSj.dmi'
-			Hair_FPSSJ1='Hair8_SSjFP.dmi'
-			Hair_SSJ2='Hair8_SSj.dmi'
-		if('Hair9.dmi')
-			Hair_SSJ1='Hair9_SSj.dmi'
-			Hair_FPSSJ1='Hair9_SSjFP.dmi'
-			Hair_SSJ2='Hair9_SSj.dmi'
-		if('Hair10.dmi')
-			Hair_SSJ1='Hair15_SSj.dmi'
-			Hair_FPSSJ1='Hair15_SSjFP.dmi'
-			Hair_SSJ2='Hair15_USSj.dmi'
-		if('Hair11.dmi')
-			Hair_SSJ1='Hair11_SSj.dmi'
-			Hair_FPSSJ1='Hair11_SSjFP.dmi'
-			Hair_SSJ2='Hair11_SSj.dmi'
-		if('Hair12.dmi')
-			Hair_SSJ1='Hair12_SSj.dmi'
-			Hair_FPSSJ1='Hair12_SSjFP.dmi'
-			Hair_SSJ2='Hair12_SSj.dmi'
-		if('Hair13.dmi')
-			Hair_SSJ1='Hair13_SSj.dmi'
-		if('Hair15.dmi')
-			Hair_SSJ1='Hair15_SSj.dmi'
-			Hair_FPSSJ1='Hair15_SSjFP.dmi'
-			Hair_SSJ2='Hair15_USSj.dmi'
-		if('Hair20.dmi')
-			Hair_SSJ1='Hair20_SSj.dmi'
-			Hair_FPSSJ1='Hair20_SSjFP.dmi'
-			Hair_SSJ2='Hair20_SSj.dmi'
-		if('Hair23.dmi')
-			Hair_SSJ1='Hair7_SSj.dmi'
-			Hair_FPSSJ1='Hair7_SSjFP.dmi'
-			Hair_SSJ2='Hair7_USSj.dmi'
-		if('Hair26.dmi')
-			Hair_SSJ1='Hair26_SSj.dmi'
-			Hair_FPSSJ1='Hair26_SSjFP.dmi'
-			Hair_SSJ2='HairF_USSj.dmi'
-		if('HairHanasia.dmi')
-			Hair_SSJ1='HairHanasiaSSJ.dmi'
-			Hair_FPSSJ1='HairHanasiaSSJFP.dmi'
-			Hair_SSJ2='HairHanasiaSSJ2.dmi'
-	if(Hair_Base)
-		if(Hair_SSJ1==null)
-			if(Hair_Base)
-				var/icon/x=new(Hair_Base)
-				if(x)
-					x.MapColors(0.2,0.2,0.2, 0.39,0.39,0.39, 0.07,0.07,0.07, 0.69,0.42,0)
-				Hair_SSJ1=x
-		if(Hair_FPSSJ1==null)
-			if(Hair_Base)
-				var/icon/x=new(Hair_Base)
-				if(x)
-					x.Blend(rgb(183,143,25),ICON_ADD)
-				Hair_SSJ1=x
-		if(Hair_SSJ2==null)
-			if(Hair_Base)
-				var/icon/x=new(Hair_Base)
-				if(x)
-					x.Blend(rgb(160,130,0),ICON_ADD)
-				Hair_SSJ2=x
-		if(Hair_SSJGod==null)
-			if(Hair_Base)
-				var/icon/x=new(Hair_Base)
-				if(x)
-					x.MapColors(0.2,0.2,0.2, 0.39,0.39,0.39, 0.07,0.07,0.07, 0.5,0,0.15)
-				Hair_SSJGod=x
-		if(Hair_HT==null)
-			if(Hair_Base)
-				var/icon/x=new(Hair_Base)
-				if(x)
-					x.MapColors(0.7,0.3,0.7, 0.99,0.59,0.99, 0.51,0.11,0.51, 0.1,0.1,0.1)
-				Hair_HT=x
-		if(Hair_SHT==null)
-			if(Hair_SSJ1)
-				var/icon/x=new(Hair_SSJ1)
-				if(x)
-					x.MapColors(0.7,0.3,0.7, 0.99,0.59,0.99, 0.51,0.11,0.51, -0.3,-0.3,-0.3)
-				Hair_SHT=x
 
 mob/proc/Auraz(var/Z)
 	var/image/pegasus=image('Cosmo_Pegasus.dmi',pixel_x=-17, pixel_y=-22)
@@ -223,10 +103,6 @@ mob/proc/Auraz(var/Z)
 	rageglow.transform*=1
 	rageglow2.blend_mode=BLEND_ADD
 	rageglow2.alpha=120
-	var/image/super=image('AurasBig.dmi',icon_state="SSJ",pixel_x=-32)
-	var/image/super2=image('AurasBig.dmi',icon_state="SSJ2",pixel_x=-32)
-	var/image/supersparks=image(icon='SS2Sparks.dmi')
-	var/image/supersparks2=image(icon='SS3Sparks.dmi')
 	var/image/supersparks3=image(icon='SS4Sparks.dmi')
 	var/image/superglow=image('Ripple Radiance.dmi',pixel_x=-32, pixel_y=-32)
 	var/image/superhairglow1=image(src.Hair_SSJ1)
@@ -268,8 +144,8 @@ mob/proc/Auraz(var/Z)
 			src.underlays+=image('BijuuInitial.dmi',pixel_x=-32, pixel_y=-32)
 			src.underlays+=image('GCAura.dmi',pixel_x=-49, pixel_y=-15)
 
-		else if(src.trans["tension"]>=5)
-			if(src.trans["tension"]<100)
+		else if(src.tension>=5)
+			if(src.tension<100)
 				src.overlays+=tensiona
 			else
 				src.overlays+=tensionas
@@ -300,98 +176,7 @@ mob/proc/Auraz(var/Z)
 			src.overlays+=flameaura
 
 		else if(transActive)
-			if(race.transformations[transActive].form_aura)
-				overlays += image(icon=race.transformations[transActive].form_aura, pixel_x = race.transformations[transActive].form_aura_x, pixel_y = race.transformations[transActive].form_aura_y)
-			if(race.transformations[transActive].form_aura_underlay)
-				overlays += image(icon=race.transformations[transActive].form_aura_underlay, pixel_x = race.transformations[transActive].form_aura_underlay_x, pixel_y = race.transformations[transActive].form_aura_underlay_y)
-
-		else if(src.ssj["active"])
-
-			if(!src.HasMystic()&&!src.HasGodKi())
-				src.overlays+=superglow
-
-			if(src.ssj["active"]==1)
-				if(src.HasGodKi())
-					src.underlays+=godaura2
-					src.overlays+=godglow2
-					src.overlays+=image('SSBSparkle.dmi')
-					src.overlays+=godspark
-				else if(src.HasMystic())
-					src.overlays+=image(icon='AuraMystic.dmi', icon_state="1",pixel_x=-32)
-				else if(src.SpecialBuff)
-					src.overlays+=superhairglow2
-					src.overlays+=super
-				else
-					src.overlays+=superhairglow1
-					src.overlays+=super
-			else if(src.ssj["active"]>=2)
-				if(src.HasMystic())
-					src.overlays+=image(icon='SS2Sparks.dmi')
-					src.overlays+=image(icon='AuraMystic.dmi', icon_state="2",pixel_x=-32)
-				else
-					if(src.ssj["active"]==4)
-						src.overlays+=supersparks3
-						src.overlays+=super2
-					else if(src.ssj["active"]==3)
-						src.overlays+=superhairglow3
-						src.overlays+=supersparks2
-						src.overlays+=super2
-					else
-						src.overlays+=superhairglow2
-						src.overlays+=supersparks
-						src.overlays+=super2
-
-		else if(src.ssj["god"])
-			if(src.isRace(SAIYAN))
-				src.underlays+=godaura
-				src.underlays+=godaura
-				src.overlays+=godglow
-			else if(src.Race=="Half Saiyan")
-				rageglow.filters+=filter(type = "drop_shadow", x=0, y=0, color=list(1,0,0, 0,1,0, 0,0,1, 0.5,0.7,1), size = 5)
-				src.underlays+=rageglow
-				src.underlays+=rageaura
-				src.overlays+=image('SSBSparkle.dmi')
-				src.overlays+=rageglow2
-
-		else if(src.trans["active"])
-
-			if(src.HasMystic())
-				if(src.transActive()==1)
-					src.overlays+=image(icon='AuraMystic.dmi', icon_state="1",pixel_x=-32)
-				if(src.transActive()>=2)
-					src.overlays+=image(icon='AuraMystic.dmi', icon_state="2",pixel_x=-32)
-
-			else
-				if(src.Race=="Changeling"&&src.trans["active"]==4)
-					src.underlays+=image('BijuuInitial.dmi',pixel_x=-32, pixel_y=-32)
-					src.underlays+=image('GCAura.dmi',pixel_x=-49, pixel_y=-15)
-				else
-					if(src.transActive()&&src.TransAuraFound())
-						if(src.AuraLockedUnder==1)
-							if(src.trans["active"]==1)
-								src.underlays+=image(icon=src.Form1Aura, pixel_x=src.Form1AuraX, pixel_y=src.Form1AuraY)
-							if(src.trans["active"]==2)
-								src.underlays+=image(icon=src.Form2Aura, pixel_x=src.Form2AuraX, pixel_y=src.Form2AuraY)
-							if(src.trans["active"]==3)
-								src.underlays+=image(icon=src.Form3Aura, pixel_x=src.Form3AuraX, pixel_y=src.Form3AuraY)
-							if(src.trans["active"]==4)
-								src.underlays+=image(icon=src.Form4Aura, pixel_x=src.Form4AuraX, pixel_y=src.Form4AuraY)
-						else
-							if(src.trans["active"]==1)
-								src.overlays+=image(icon=src.Form1Aura, pixel_x=src.Form1AuraX, pixel_y=src.Form1AuraY)
-							if(src.trans["active"]==2)
-								src.overlays+=image(icon=src.Form2Aura, pixel_x=src.Form2AuraX, pixel_y=src.Form2AuraY)
-							if(src.trans["active"]==3)
-								src.overlays+=image(icon=src.Form3Aura, pixel_x=src.Form3AuraX, pixel_y=src.Form3AuraY)
-							if(src.trans["active"]==4)
-								src.overlays+=image(icon=src.Form4Aura, pixel_x=src.Form4AuraX, pixel_y=src.Form4AuraY)
-					else
-						for(var/obj/Skills/Power_Control/M in src.contents)
-							if(src.AuraLockedUnder==1)
-								src.underlays += image(M.sicon,icon_state=M.sicon_state,pixel_x=M.pixel_x,pixel_y=M.pixel_y)
-							else
-								src.overlays += image(M.sicon,icon_state=M.sicon_state,pixel_x=M.pixel_x,pixel_y=M.pixel_y)
-
+			race.transformations[transActive].apply_visuals(src,1,0,1)
 		else
 			for(var/obj/Skills/Power_Control/M in src.contents)
 				if(src.AuraLockedUnder==1)
@@ -424,16 +209,6 @@ mob/proc/Auraz(var/Z)
 
 		src.overlays-=rageglow2
 
-		src.overlays-=super
-		src.overlays-=super2
-		src.overlays-=supersparks
-		src.overlays-=supersparks2
-		src.overlays-=supersparks3
-		src.overlays-=superglow
-		src.overlays-=superhairglow1
-		src.overlays-=superhairglow2
-		src.overlays-=superhairglow3
-
 		src.overlays-=image('Amazing SSj Aura.dmi',pixel_x=-32)
 		src.overlays-=image('Amazing SSj4 Aura.dmi',pixel_x=-32)
 		src.overlays-=image('AurasBig.dmi',icon_state="Demon",pixel_x=-32)
@@ -448,11 +223,7 @@ mob/proc/Auraz(var/Z)
 		src.overlays-=image('AuraMystic.dmi',pixel_x=-32)
 		src.overlays-=image('BlackFlameAura.dmi')
 		if(transActive)
-			if(race.transformations[transActive].form_aura)
-				overlays -= image(icon=race.transformations[transActive].form_aura, pixel_x = race.transformations[transActive].form_aura_x, pixel_y = race.transformations[transActive].form_aura_y)
-			if(race.transformations[transActive].form_aura_underlay)
-				overlays -= image(icon=race.transformations[transActive].form_aura_underlay, pixel_x = race.transformations[transActive].form_aura_underlay_x, pixel_y = race.transformations[transActive].form_aura_underlay_y)
-
+			race.transformations[transActive].remove_visuals(src,1,0,1)
 		src.overlays-=image(icon=src.Form1Aura, pixel_x=src.Form1AuraX, pixel_y=src.Form1AuraY)
 		src.overlays-=image(icon=src.Form2Aura, pixel_x=src.Form2AuraX, pixel_y=src.Form2AuraY)
 		src.overlays-=image(icon=src.Form3Aura, pixel_x=src.Form3AuraX, pixel_y=src.Form3AuraY)
@@ -530,28 +301,22 @@ mob/proc/Hairz(var/Z)
 		if(src.StyleActive=="Ultra Instinct")
 			src.overlays+=image(icon=src.EyesUI, layer=FLOAT_LAYER-2)
 
-		else if(src.ssj["god"])
-			if(src.isRace(SAIYAN))
-				src.overlays+=image(icon=src.EyesSSG, layer=FLOAT_LAYER-2)
-			else if(src.Race=="Half Saiyan")
-				src.overlays+=image(icon=src.EyesSSJ, layer=FLOAT_LAYER-2)
-
-		else if((src.isRace(SAIYAN)||src.Race=="Half Saiyan")&&src.ssj["active"]==4)
+		else if(src.isRace(SAIYAN)&&transActive==4)
 			src.overlays+=image(icon=src.EyesSSJ4, layer=FLOAT_LAYER-2)
 
 		else if(!src.HasMystic())
-			if((src.isRace(SAIYAN)||src.Race=="Half Saiyan")&&(src.ssj["active"]==1||src.ssj["active"]==2))
+			if(src.isRace(SAIYAN)&&(transActive>=1&&transActive<3))
 				if(src.HasGodKi())
 					src.overlays+=image(icon=src.EyesSSB, layer=FLOAT_LAYER-2)
 				else
 					src.overlays+=image(icon=src.EyesSSJ, layer=FLOAT_LAYER-2)
-			else if((src.isRace(SAIYAN)||src.Race=="Half Saiyan")&&src.ssj["active"]==3)
+			else if(src.isRace(SAIYAN)&&transActive==3)
 				src.overlays+=image(icon=src.EyesSSJ3, layer=FLOAT_LAYER-2)
 
 		if(src.HairLocked==1)
 			Hair = image(icon=src.HairLock, pixel_x=HairBX, pixel_y=HairBY)
-		else if(src.trans["tension"]>=5)
-			if(src.trans["tension"]==100)
+		else if(src.tension>=5)
+			if(src.tension==100)
 				Hair = image(icon=src.Hair_SHT)
 			else
 				if(HairB&&src.Hair_Color)
@@ -563,17 +328,19 @@ mob/proc/Hairz(var/Z)
 			Hair = image(icon=HairB)
 
 		else if(transActive)
-			if(race.transformations[transActive].form_hair)
-				Hair = image(icon=race.transformations[transActive].form_hair, pixel_x = race.transformations[transActive].form_hair_x, pixel_y = race.transformations[transActive].form_hair_y)
+			race.transformations[transActive].apply_visuals(src,0,1,0)
 
 		else
 			if(HairB&&src.Hair_Color)
 				HairB.Blend(src.Hair_Color, ICON_ADD)
 			Hair = image(icon=HairB)
 
-		Hair.layer=FLOAT_LAYER-2
-		src.overlays += image(icon=src.Hair, pixel_x=src.HairX, pixel_y=src.HairY, layer=FLOAT_LAYER-2)
-		src.underlays += image(icon=src.HairUnderlay, pixel_x=src.HairUnderlayX, pixel_y=src.HairUnderlayY, layer=FLOAT_LAYER-2)
+		if(!transActive)
+			Hair.layer=FLOAT_LAYER-2
+			src.overlays += image(icon=src.Hair, pixel_x=src.HairX, pixel_y=src.HairY, layer=FLOAT_LAYER-2)
+			src.underlays += image(icon=src.HairUnderlay, pixel_x=src.HairUnderlayX, pixel_y=src.HairUnderlayY, layer=FLOAT_LAYER-2)
+		else
+			src.overlays += Hair
 
 		if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Broken Brave"||src.SpecialBuff.BuffName=="Protect Brave"||src.SpecialBuff.BuffName=="Genesic Brave"))
 			src.overlays +=KingofBravesHair
@@ -594,7 +361,7 @@ mob/proc/Hairz(var/Z)
 				FTail=Tengu_Wings
 			if(src.Bull)
 				FTail=Bull_Horns
-			if(Hair_Color)
+			if(FTail&&FTailU&&Trait_Color)
 				FTail+=Trait_Color
 				FTailU+=Trait_Color
 			src.overlays+=FTail
@@ -663,6 +430,8 @@ mob/proc/Hairz(var/Z)
 		src.overlays -= image(icon=src.Hair_SSJGod, layer=FLOAT_LAYER-2)
 		src.overlays -= image(icon=src.Hair_SSJBlue, layer=FLOAT_LAYER-2)
 		src.overlays -= image(icon=src.Hair_SSJ4, layer=FLOAT_LAYER-2)
+		if(transActive)
+			race.transformations[transActive].remove_visuals(src,0,1,0)
 		src.overlays -= image(icon=src.Form1Hair, pixel_x=Form1HairX, pixel_y=Form1HairY, layer=FLOAT_LAYER-2)
 		src.overlays -= image(icon=src.Form2Hair, pixel_x=Form2HairX, pixel_y=Form2HairY, layer=FLOAT_LAYER-2)
 		src.overlays -= image(icon=src.Form3Hair, pixel_x=Form3HairX, pixel_y=Form3HairY, layer=FLOAT_LAYER-2)
@@ -676,19 +445,20 @@ mob/proc/Hairz(var/Z)
 					src.overlays-=im*/
 
 proc/Add_Customizations()
-	for(var/A in typesof(/obj/Hairs))
+	for(var/A in subtypesof(/obj/Hairs))
 		if(A!=/obj/Hairs)
 			Hair_List+=new A
-	for(var/A in typesof(/obj/Items/Wearables))
+	for(var/A in subtypesof(/obj/Items/Wearables))
 		var/obj/Items/Wearables/w = new A
 		var/icon/newIcon = new(w.icon)
 		newIcon.MapColors(0.2,0.2,0.2, 0.2,0.2,0.2, 0.2,0.2,0.2, 0,0,0)
 		w.icon = newIcon
-		Clothes_List+=w
+		var/obj/clothes_grid_visual/gridwear = new(w)
+		Clothes_List+=gridwear
 
-	for(var/A in typesof(/obj/Charge_Icons)) if(A!=/obj/Charge_Icons) Charge_List+=new A
-	for(var/A in typesof(/obj/Aura_Icons)) if(A!=/obj/Aura_Icons) Aura_List+=new A
-	for(var/A in typesof(/obj/Blast_Icons)) if(A!=/obj/Blast_Icons) Blast_List+=new A
+	for(var/A in subtypesof(/obj/Charge_Icons)) if(A!=/obj/Charge_Icons) Charge_List+=new A
+	for(var/A in subtypesof(/obj/Aura_Icons)) if(A!=/obj/Aura_Icons) Aura_List+=new A
+	for(var/A in subtypesof(/obj/Blast_Icons)) if(A!=/obj/Blast_Icons) Blast_List+=new A
 
 var/list/Hair_List=new
 obj/Hairs
@@ -699,7 +469,6 @@ obj/Hairs
 			if(Color) src.icon+=Color
 			A.Hair_Base=initial(icon)
 			A.Hair_Color=Color
-			A.Hair_Forms()
 			A.Hairz("Add")
 			A.IconClicked=0
 			winshow(usr,"Grid1",0)
@@ -864,14 +633,9 @@ mob/verb/ToggleInt(var/blah as text)
 
 mob/proc
 	Grid(var/Z,var/X,var/E, var/mob/Players/Lootee)
-		if(istype(src,/mob/Creation))
-			winshow(src,"Grid1",0)
-			sleep()
-			winshow(src,"Grid1",1)
-		else
-			winshow(src,"Grid2",0)
-			sleep()
-			winshow(src,"Grid2",1)
+		winshow(src,"Grid2",0)
+		sleep()
+		winshow(src,"Grid2",1)
 		winset(src,"GridZ","cells=0x0")
 		sleep()
 		winset(src,"GridX","cells=0x0")
@@ -1278,51 +1042,18 @@ mob/proc
 					src<<output(A,"GridZ:1,[Row]")
 				else
 					src<<output(A,"GridX:1,[Row]")
-		if(Z=="CreationHuman")
-			for(var/A in Human_List)
-				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
-				else
-					src<<output(A,"GridX:1,[Row]")
 
-		if(Z=="CreationDemon")
-			for(var/A in Demon_List)
+		if(Z=="BaseIcon")
+			var/race/r = GetRaceInstanceFromType(race.type)
+			for(var/A in r.icon_male)
 				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
-
-		if(Z=="CreationAlien")
-			for(var/A in Alien_List)
+				src<<output(A,"GridX:1,[Row]")
+			for(var/B in r.icon_female)
 				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
-
-		if(Z=="CreationNamekian")
-			for(var/A in Namekian_List)
+				src<<output(B,"GridX:1,[Row]")
+			for(var/C in r.icon_neuter)
 				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
-		if(Z=="CreationMakyo")
-			for(var/A in Makyo_List)
-				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
-		if(Z=="CreationChangeling")
-			for(var/A in Changeling_List)
-				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
-		if(Z=="CreationKaio")
-			for(var/A in Kaio_List)
-				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
-		if(Z=="CreationAndroid")
-			for(var/A in Android_List)
-				Row++
-				if(istype(usr,/mob/Creation))
-					src<<output(A,"GridZ:1,[Row]")
+				src<<output(C,"GridX:1,[Row]")
 
 		if(Z=="Loot")
 			src<<output("Steal from others for fun and profit!","SelectedCustomize")
@@ -1335,6 +1066,10 @@ mob/proc
 					Row++
 					src << output(O, "GridX:1,[Row]")
 
+mob
+	verb
+		Change_Base_Icon()
+			usr.Grid("BaseIcon")
 
 var/list
 	Human_List=new

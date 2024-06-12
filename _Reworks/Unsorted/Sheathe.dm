@@ -8,8 +8,8 @@
     // var/unsheatheSound = sound("unsheathe.ogg")
     proc/addUnsheathedState()
         if(suffix && unsheatheIcon)
-            var/image/im = image(icon=unsheatheIcon, pixel_x=unsheatheOffsetX, pixel_y=unsheatheOffsetY)
-            im.layer = src.layer+1
+            var/image/im = image(icon=unsheatheIcon, layer=src.layer, pixel_x=unsheatheOffsetX, pixel_y=unsheatheOffsetY)
+            im.layer = src.layer
             if(usr.ArmamentGlow)
                 im.filters+=usr.ArmamentGlow
             usr.overlays += im
@@ -17,8 +17,7 @@
                 AlignEquip(usr, TRUE)
     proc/removeUnsheathedState()
         if(suffix && unsheatheIcon)
-            var/image/im = image(icon=unsheatheIcon, pixel_x=unsheatheOffsetX, pixel_y=unsheatheOffsetY)
-            im.layer = src.layer+1
+            var/image/im = image(icon=unsheatheIcon, layer=src.layer, pixel_x=unsheatheOffsetX, pixel_y=unsheatheOffsetY)
             if(usr.ArmamentGlow)
                 im.filters+=usr.ArmamentGlow
             usr.overlays -= im

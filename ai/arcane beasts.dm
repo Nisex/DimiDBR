@@ -167,6 +167,7 @@ obj/Skills/Projectile/Arcane_Spray
 obj/Skills/Buffs/SlotlessBuffs/Autonomous/NymphBuff
 	Copyable=0
 	NeedsHealth=100
+	passives = list("MovingCharge" = 1)
 	MovingCharge=1
 	TextColor="#adf0ff"
 	Cooldown=1
@@ -220,6 +221,7 @@ obj/Skills/Buffs/SlotlessBuffs/Arcane_Surge
 		SuperDash=1 //Compound Gravity.
 		Skimming=1 //The lashings make these boiz fly.
 		Pursuer=1 //Is mobile af
+		passives = list("SuperDash" = 1, "Skimming" = 1, "Pursuer" = 1)
 		SpdMult=1.4
 		DefMult=1.3
 		OffMult=1.3
@@ -229,9 +231,11 @@ obj/Skills/Buffs/SlotlessBuffs/Arcane_Surge
 			ManaGlow = usr.is_arcane_beast.aura_color
 			if(usr.is_arcane_beast)
 				if(usr.is_arcane_beast.Mastery>=3)
+					passives = list("SuperDash" = 1, "Skimming" = 2, "Pursuer" = 1, "SoftStyle" = 0.5)
 					Skimming=2
 					SoftStyle=0.5 //Wear the opponent down
 				if(usr.is_arcane_beast.Mastery>=4)
+					passives = list("SuperDash" = 1, "Skimming" = 1, "Pursuer" = 1, "SoftStyle" = 0.5, "ManaStats" = 1)
 					ManaStats=1
 			src.Trigger(usr)
 
@@ -240,6 +244,7 @@ obj/Skills/Buffs/SlotlessBuffs/Arcane_Surge
 		//Will also convert elemental status effects + poison into small trickles of energy. or not
 		Siphon=2.5 //Transformation. Converts matter/particiles into energy.
 		QuickCast=1
+		passives = list("Siphon" = 2.5, "QuickCast" = 1)
 		ForMult=1.4
 		OffMult=1.3
 		EndMult=1.3
@@ -250,14 +255,17 @@ obj/Skills/Buffs/SlotlessBuffs/Arcane_Surge
 			ManaGlow = usr.is_arcane_beast.aura_color
 			if(usr.is_arcane_beast)
 				if(usr.is_arcane_beast.Mastery>=3)
+					passives = list("Siphon" = 2.5, "MovingCharge" = 1, "QuickCast" = 2)
 					MovingCharge=1
 					QuickCast=2
 				if(usr.is_arcane_beast.Mastery>=4)
+					passives = list("Siphon" = 2.5, "MovingCharge" = 1, "QuickCast" = 2, "ManaStats" = 1)
 					ManaStats=1
 			src.Trigger(usr)
 
 	Arcane_Empowerment
 		name = "Arcane Empowerment"
+		passives = list("PureReduction" = 1, "Juggernaut" = 1, "Hardening" = 2)
 		PureReduction=1
 		Juggernaut=1
 		Hardening=2
@@ -272,9 +280,14 @@ obj/Skills/Buffs/SlotlessBuffs/Arcane_Surge
 			ManaGlow = usr.is_arcane_beast.aura_color
 			if(usr.is_arcane_beast)
 				if(usr.is_arcane_beast.Mastery>=3)
+					passives["PureReduction"] = 2
+					passives += "HardStyle"
+					passives["HardStyle"] = 0.5
 					PureReduction=2
 					HardStyle=0.5
 				if(usr.is_arcane_beast.Mastery>=4)
+					passives += "ManaStats"
+					passives["ManaStats"] = 1
 					ManaStats=1
 			src.Trigger(usr)
 
@@ -297,6 +310,7 @@ obj/Skills/Buffs/SpecialBuffs/Bond_Keeper
 
 obj/Skills/Buffs/SlotlessBuffs/Arcane_Burst //potential posebuff. not used atm, but may trigger off of the arcane beast burning the fuck out of their mana.
 	name = "Arcane Burst"
+	passives = list("Instinct" = 1, "Flow" = 1, "TechniqueMastery" = 10)
 	Instinct=1
 	Flow=1
 	TechniqueMastery=10
@@ -325,6 +339,7 @@ obj/Skills/Buffs/SlotlessBuffs/
 		SwordIcon='Icons/Buffs/nympharum sword.dmi'
 		SwordX=-32
 		SwordY=-32
+		passives = list("SpiritSword" = 1, "SwordAscension" = 1, "MagicSword" = 1)
 		MagicSword=1
 		SpiritSword=1
 		SwordUnbreakable=1 //SHARDBLADES CANNOT BE SHATTERED
@@ -357,7 +372,7 @@ obj/Skills/Buffs/SlotlessBuffs/
 			set category="Skills"
 			if(usr.is_arcane_beast)
 				Mastery = usr.is_arcane_beast.Mastery
-				SwordAscension = min(2, (usr.AscensionsUnlocked * 0.5) + (usr.ssj["unlocked"] ? (usr.ssj["unlocked"] * 0.5) : 0) + (usr.trans["unlocked"] ? (usr.trans["unlocked"] * 0.5) : 0))
+				passives["SwordAscension"] = min(2, (usr.AscensionsUnlocked * 0.5))
 			else
 				return
 			src.Trigger(usr)
@@ -968,7 +983,7 @@ obj/Skills/Companion/arcane_follower
 					if(1) //T1
 						usr << "You've developed a basic bond with a Nympharum, changing your body permanently. You're ascribed to the Will of the Arcane Realm's; to preserve mind, body and spirit, to maintain the purity of magic."
 						usr.Spiritual=1 //All Arcane Beasts are Spiritual
-						usr.ManaCapMult+=0.25
+						usr.passive_handler.Increase("ManaCapMult", 0.25)
 						usr.contents += new/obj/Skills/Buffs/SlotlessBuffs/Nympharum_Armament
 						usr << "Your Nympharum Companion is capable of manifesting its body into a powerful weapon to aid in channeling magics and battle!"
 						usr.contents += new/obj/Skills/Arcane_Regrowth
@@ -1009,10 +1024,10 @@ obj/Skills/Companion/arcane_follower
 								usr.contents += new/obj/Skills/Queue/Echoing_Blows
 								usr.contents += new/obj/Skills/AutoHit/Overpower
 
-						usr.ManaCapMult+=0.25
+						usr.passive_handler.Increase("ManaCapMult", 0.25)
 					if(3) //T3
 						usr << "Your bond with your [src.companion_name] deepens. The fulfillment of your oath and bond empowers you yourself, while you obtain mastery over the power of the Arcane Surge."
-						usr.ManaCapMult+=0.5
+						usr.passive_handler.Increase("ManaCapMult", 0.5)
 					/*	var/which
 						if(locate(/obj/Skills/Buffs/SlotlessBuffs/Arcane_Surge/Arcane_Gravitation) in usr) which = "Gravitation"
 						else if(locate(/obj/Skills/Buffs/SlotlessBuffs/Arcane_Surge/Arcane_Transmutation) in usr) which = "Transmutation"
@@ -1024,7 +1039,7 @@ obj/Skills/Companion/arcane_follower
 
 					if(4) //T4 Powered
 						usr << "Your bond with your [src.companion_name] deepens."
-						usr.ManaCapMult+=1 //300 mana
+						usr.passive_handler.Increase("ManaCapMult", 1)
 		usr.is_arcane_beast=src
 
 
@@ -1193,7 +1208,7 @@ mob/Player/AI/Nympharum
 							p.AccMult=5
 							p.IconSize=1
 				ai_spammer = 20
-				TechniqueMastery = 20
+				passive_handler.Set("TechniqueMastery", 20)
 
 		else //Toggle Off
 			if(CheckSlotless("Bond Savior"))
@@ -1332,29 +1347,29 @@ mob/Player/AI/Nympharum
 				if(icon_state == "Meditate")
 					icon_state = ""
 
-				Target = ai_owner.Target //Nymphs target their owners target.
+				SetTarget(ai_owner.Target) //Nymphs target their owners target.
 
 				if(Target && get_dist(src, Target) >= ai_vision * 2)
-					Target = null
+					RemoveTarget()
 
 				if(Target && Target.KO)
 					var prev_target = Target
 					if(istype(Target, /mob/Player/AI))
 						var/mob/Player/AI/a = Target
 						if(a.ai_owner)
-							Target = null
+							RemoveTarget()
 							if(prob(40))
-								Target = a.ai_owner
+								SetTarget(a.ai_owner)
 
 							else for(var/mob/m in a.ai_followers)
 								if(!m.KO)
-									Target=m
+									SetTarget(m)
 									break
 							if(!Target)
-								Target = a.ai_owner
+								SetTarget(a.ai_owner)
 
 					if(Target == prev_target)
-						Target = null
+						RemoveTarget()
 						ai_state = "Idle"
 
 				if(Target && Beaming||BusterTech)

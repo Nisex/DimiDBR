@@ -51,7 +51,7 @@
     proc/reset()
         VaizardHealth = 0
 
-    proc/adjust(mob/p)
+    adjust(mob/p)
         VaizardHealth = (p.SpecialBuff:gluttonStorage*0.25)/50
         passives = list("Siphon" = round(p.Potential/200, 0.1), "Juggernaut" = 0.5, "FluidForm" = 1 + round(p.Potential/150,0.25), "DemonicDurability" = p.Potential/200, "NoDodge" = 1)
         // fairly sure it don't work with uh fluid form but i'll leave it in for now
@@ -79,7 +79,7 @@
                 return 1
             else
                 return 0
-    proc/adjust(mob/p)
+    adjust(mob/p)
         passives = list("Gluttony" = round(p.Potential/100,0.5), "ManaSteal" = p.Potential/4, "EnergySteal" = p.Potential/4, "PureReduction" = p.Potential/25, "LifeSteal" = p.Potential/8)
         var/baseHeal = p.Potential/20
         var/missingHealth = abs(p.Health - 100)
@@ -142,7 +142,7 @@
     StrOffense = 1
     ForOffense = 1
     DamageMult = 5
-    proc/adjust(mob/p)
+    adjust(mob/p)
         var/bigValue = p.SpecialBuff:gluttonStorage*0.03
         SoulFire = bigValue
         Scorching = bigValue * 4

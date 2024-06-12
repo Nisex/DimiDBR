@@ -156,6 +156,36 @@ obj/Items/Tech
 		..()
 		randFrequency()
 
+	Perfume
+		Cost = 5
+		TechType = "Medicine"
+		SubType="Any"
+		desc = "Changes your scent to a custom one."
+		icon = 'Soap.png'
+		Click()
+			..()
+			if(!(src in usr.contents)) return
+			var/scentChoice = input(usr, "What would you like to smell like?", "Scent Choice") as null|text
+			if(!scentChoice) return
+			usr.custom_scent = scentChoice
+			usr << "Your scent is now [usr.custom_scent]"
+			del src
+
+	Soap
+		Cost = 2
+		TechType = "Medicine"
+		SubType="Any"
+		desc = "Removes any custom scent to randomly one of your race's default."
+		icon = 'Soap.png'
+		Click()
+			..()
+			if(!(src in usr.contents)) return
+			var/confirm = alert(usr, "Are you sure you want to remove your custom scent?", "Remove Custom Scent", "Yes", "No")
+			if(confirm == "No") return
+			usr.setUpScent()
+			usr << "Your new scent is [usr.custom_scent]"
+			del src
+
 	Door_Pass
 		name="Key"
 		TechType="BasicTechnology"
@@ -1232,7 +1262,7 @@ obj/Items/Tech
 				if(Confirm=="No")
 					src.Using=0
 					return
-				if(usr.trans["active"]!=0)
+				if(usr.transActive)
 					usr << "Revert from your transformation before using this!"
 					src.Using=0
 					return
@@ -2303,7 +2333,7 @@ obj/Items/Tech
 						for(var/mob/m in t)
 							if(m.isRace(SAIYAN) || m.Race=="Half Saiyan")
 								m.Tail=1
-							m.Oozaru(1)
+								m.Oozaru(1)
 							if(locate(/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form, m))
 								if(!m.CheckSlotless("FullMoonForm"))
 									if(m.SpecialBuff)
@@ -2388,7 +2418,7 @@ obj/Items/Tech
 						for(var/mob/m in t)
 							if(m.isRace(SAIYAN) || m.Race=="Half Saiyan")
 								m.Tail=1
-							m.Oozaru(1)
+								m.Oozaru(1)
 							if(locate(/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form, m))
 								if(!m.CheckSlotless("FullMoonForm"))
 									if(m.ActiveBuff)
@@ -3706,7 +3736,7 @@ obj/Items/Gear
 				if(/obj/Items/Gear/Hook_Grip_Claw)
 					src.Techniques.Add("/obj/Skills/Queue/Gear/Integrated/Integrated_Hook_Grip_Claw")
 				else
-					usr << "Ruh roh.  Something went wrong.  Yell at Yan."
+					usr << "This gear isn't valid for prosthetic limb integration!."
 					src.Using=0
 					return
 			src.IntegratedUses=Choice.MaxUses

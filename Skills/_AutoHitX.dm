@@ -4,19 +4,30 @@ mob
 
 obj
 	Skills
+		var/list/scalingValues = list()
+		var/list/obj/Skills/possible_skills = list()
+		proc/adjust(mob/p)
 		AutoHit
+			proc/Trigger(mob/p)
+				adjust(p)
+				if(Using || cooldown_remaining)
+					return FALSE
+				var/aaa = p.Activate(src)
+				return aaa
 			Distance=1//Unless otherwise stated, assume it's a one tile attack of varying style.
-			var/DistanceAround//this is only used for AroundTarget type techs.
+			var/DistanceAround //this is only used for AroundTarget type techs.
 			var
 				NoPierce=0//If this is flagged it will make a technique terminate after hitting something.
-
+				CorruptionGain = 0
 				UnarmedOnly
 				StanceNeeded
 				ABuffNeeded
 				SBuffNeeded
 				GateNeeded
 				//ClassNeeded
-
+				IgnoreAlreadyHit = FALSE
+				Duration
+				Persistent
 				DamageMult=1//Damage on top of whatever stat calculations.
 				StepsDamage//Every step adds this value to damage mult.
 				Knockback//Does the technique knockback?  If so, how far?
@@ -27,14 +38,13 @@ obj
 				StrOffense//Uses STR for damage.
 				ForOffense//Uses FOR for damage.
 				EndDefense=1//Uses End for reduction.
-
 				Area//variable to define what kind of hitzone to use.
 				ChargeTech//Denotes if there is a charge
 				ChargeTime//How much time it takes to move.
 				ChargeFlight//superman tackle
 				WindUp//Charge for this number of seconds.
 				Slow//Makes it so that there is a pause in the movement of autohitters (The technique does not instantly hit all of its related tiles)
-
+				ApplySlow = 0
 				Icon//Displays icon when used.
 				IconX//Offsets.
 				IconY
@@ -164,6 +174,9 @@ obj
 
 				RagingDemonAnimation = FALSE
 				Executor // increase damage by x*10% while the enemy is under 25%, increased by 2x when they are under 5%
+
+				Primordial // deal x % more per 1 missing health
+
 				SpeedStrike
 				GrabMaster = FALSE
 
@@ -175,6 +188,48 @@ obj
 
 				DefTax
 				OffTax
+			skillDescription()
+				..()
+				if(StrOffense)
+					description += "Strength Damage %: [StrOffense*100]\n"
+				if(ForOffense)
+					description += "Force Damage %: [ForOffense*100]\n"
+				if(EndDefense<1)
+					description += "Endurance Ignoring: [1-EndDefense]%\n"
+				if(DamageMult)
+					description += "DamageMult: [DamageMult]\n"
+				if(UnarmedOnly)
+					description += "Unarmed Only.\n"
+				if(Knockback)
+					description += "Knockbacks [Knockback] tiles.\n"
+				if(Area)
+					description += "Hitbox Type: [Area]\n"
+				if(WindUp)
+					description += "Windup time: [WindUp] seconds.\n"
+				if(Rounds)
+					description += "Has [Rounds] rounds.\n"
+				if(ComboMaster)
+					description += "Ignores Stun/Launch damage loss.\n"
+				if(GuardBreak)
+					description += "Can't be dodged, whiff, or reversaled.\n"
+				if(!CanBeDodged)
+					description += "Can't be dodged.\n"
+				if(!CanBeBlocked)
+					description += "Can't whiff.\n"
+				if(Rush)
+					description += "Rushes forward [Rush] tiles"
+				if(ControlledRush)
+					description +=" in a controlled manner.\n"
+				if(Rush&&!ControlledRush)
+					description += ".\n"
+				if(Executor)
+					description += "Executor: [Executor] stacks."
+				if(SpeedStrike)
+					description += "Has [SpeedStrike] stacks of Speed Strike.\n"
+				if(GrabMaster)
+					description += "Doesn't lose damage from grabbing opponent while in use.\n"
+				if(PullIn)
+					description += "Pulls all people nearby in [PullIn] tiles.\n"
 //NPC attacks
 			Venom_Sting
 				Area="Target"
@@ -821,8 +876,7 @@ obj
 				Slow=1
 				Area="Strike"
 				ActiveMessage="bursts out with tendrils of shadow!"
-				StrOffense=0
-				ForOffense=1
+				AdaptRate = 1
 				DamageMult=0.5
 				GuardBreak=1
 				TurfStrike=3
@@ -831,6 +885,11 @@ obj
 				HitSparkY=-32
 				HitSparkSize=1
 				HitSparkTurns=1
+				New(mob/p )
+					if(p)
+						DamageMult = 0.5 + (0.15 * p.AscensionsAcquired)
+					. = ..()
+
 			Shadow_Tendril_Wave
 				Distance=10
 				Knockback=1
@@ -848,6 +907,26 @@ obj
 				HitSparkSize=1
 				HitSparkTurns=1
 				//no verb because is set by throw
+
+			Symbiote_Tendril_Wave
+				Distance=10
+				Knockback=1
+				Slow=1
+				Area="Wave"
+				ActiveMessage="bursts out with tendrils of symbiotic matter!"
+				StrOffense=0
+				ForOffense=1
+				DamageMult=1.5
+				GuardBreak=1
+				TurfStrike=3
+				HitSparkIcon='Slash - Vampire.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkSize=1
+				HitSparkTurns=1
+				verb/Symbiote_Tendril_Wave()
+					set category = "Skills"
+					usr.Activate(src)
 
 			Myriad_Truths
 				Area="Circle"
@@ -937,7 +1016,7 @@ obj
 				HitSparkX=0
 				HitSparkY=0
 				PullIn = 5
-				Crippling=15
+				Crippling=7
 				ShockIcon='DarkKiai.dmi'
 				ActiveMessage="'s unnatural presence forces the world to pull closer!"
 //No Verbs
@@ -1701,12 +1780,13 @@ obj
 				FlickAttack=3
 				Area="Circle"
 				StrOffense=1
-				DamageMult=11
+				CanBeDodged = 0
+				CanBeBlocked = 0
+				DamageMult=14
 				DelayTime=0
 				PreShockwave=1
 				PreShockwaveDelay=1
 				PostShockwave=0
-				GuardBreak=1
 				Shockwaves=2
 				Shockwave=0.5
 				ShockIcon='KenShockwaveFocus.dmi'
@@ -1714,7 +1794,8 @@ obj
 				ShockDiminish=1.15
 				ShockTime=4
 				GuardBreak=1
-				Rush=3
+				Rush=5
+
 				ControlledRush=1
 				HitSparkIcon='Slash - Future.dmi'
 				HitSparkX=-32
@@ -1722,7 +1803,8 @@ obj
 				HitSparkTurns=1
 				HitSparkCount=7
 				HitSparkDispersion=4
-				Launcher=1
+				Launcher=4
+				ComboMaster = 1
 				DelayedLauncher=1
 				Cooldown=150
 				EnergyCost=5
@@ -1915,19 +1997,10 @@ obj
 				SignatureTechnique=1
 				Area="Circle"
 				Distance=10
-				//** POTENTIAL CHANGES **//
-				/*
-				StrOffense=0.75
-				ForOffense=0.75
-				DamageMult=0.6
-				Rounds=3
-				Knockback=3
-				Stunner=1.5
-				*/
-				StrOffense=0
-				ForOffense=1
+				AdaptRate = 1
+				GuardBreak=1
 				DamageMult=10
-				Knockback=10
+				Knockback=15
 				Cooldown=150
 				Shockwaves=3
 				Shockwave=4
@@ -1940,9 +2013,8 @@ obj
 				EnergyCost=5
 				verb/Kiai()
 					set category="Skills"
-					if(!usr.AfterImageStrike  && !src.Using)
-						usr.SkillStunX("After Image Strike",src)
 					usr.Activate(src)
+
 			Taiyoken
 				SignatureTechnique=1
 				AllOutAttack=1
@@ -1966,7 +2038,7 @@ obj
 				TurfShiftDurationDespawn=5
 				ActiveMessage="converts their ki to a wave of blinding light!"
 				Cooldown=150
-				EnergyCost=20
+				EnergyCost=5
 				verb/Taiyoken()
 					set category="Skills"
 					usr.Activate(src)
@@ -2036,13 +2108,14 @@ obj
 				StrOffense=0
 				ForOffense=1
 				DamageMult=13
-				WoundCost=6
+				WoundCost=3
 				ComboMaster=1
 				Area="Around Target"
 				Distance=15
 				DistanceAround=4
 				Divide=1
 				Launcher=1
+				GuardBreak=1
 				Stunner=0.5
 				WindUp=1.5
 				WindupIcon='Ripple Radiance.dmi'
@@ -2710,7 +2783,7 @@ obj
 				Area="Wave"
 				Distance=10
 				StrOffense=1
-				Knockback=1
+				Knockback=5
 				HitSparkIcon='Hit Effect Pearl.dmi'
 				HitSparkX=-32
 				HitSparkY=-32
@@ -2719,7 +2792,6 @@ obj
 				TurfStrike=1
 				Slow=1
 				DamageMult=2.8
-				StepsDamage=0.1
 				Cooldown=30
 				EnergyCost=3
 				ActiveMessage="thrusts their blade forward, causing a powerful wave of pressure!"
@@ -3306,8 +3378,6 @@ obj
 			BloodRush
 				SkillCost=60
 				Copyable=4
-				PreRequisite=list("/obj/Skills/AutoHit/RecklessCharge")
-				LockOut=list("/obj/Skills/AutoHit/SoulCharge")
 				NeedsSword=1
 				Area="Arc"
 				StrOffense=1
@@ -3332,8 +3402,6 @@ obj
 			SoulCharge
 				SkillCost=60
 				Copyable=4
-				PreRequisite=list("/obj/Skills/AutoHit/RecklessCharge")
-				LockOut=list("/obj/Skills/AutoHit/BloodRush")
 				NeedsSword=1
 				Area="Arc"
 				StrOffense=1
@@ -3358,8 +3426,6 @@ obj
 			HolyJudgment
 				SkillCost=80
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Judgment")
-				LockOut=list("/obj/Skills/AutoHit/DarkPurge")
 				NeedsSword=1
 				Area="Circle"
 				StrOffense=1
@@ -3379,8 +3445,6 @@ obj
 			DarkPurge
 				SkillCost=80
 				Copyable=5
-				PreRequisite=list("/obj/Skills/AutoHit/Judgment")
-				LockOut=list("/obj/Skills/AutoHit/HolyJudgment")
 				NeedsSword=1
 				Area="Circle"
 				StrOffense=1
@@ -3542,6 +3606,7 @@ obj
 				CosmoPowered = 1
 				CanBeDodged = 0
 				FlickAttack=1
+				Area = "Wave"
 				Stunner=3
 				DamageMult=11
 				Cooldown=120
@@ -3648,7 +3713,7 @@ obj
 				ShockBlend=2
 				WindUp=1
 				WindupIcon=1
-				WindupMessage="focuses their Cosmo into a wave of otherwordly energy..."
+				WindupMessage="focuses their Cosmo into a wave of otherworldly energy..."
 				ActiveMessage="casts out the souls of their targets into the antechamber of Underworld!"
 				Cooldown=-1
 				verb/Praesepe_Underworld_Waves()
@@ -3724,7 +3789,7 @@ obj
 				verb/Demon_Pacifier()
 					set category="Skills"
 					set name="Tenma Kofuku"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.Activate(src)
@@ -3831,7 +3896,7 @@ obj
 				ActiveMessage="unleashes the power of the Legendary Exalibur, parting everything before them!"
 				verb/Sacred_Sword_Excalibur()
 					set category="Skills"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.Activate(src)
@@ -3911,7 +3976,7 @@ obj
 				Cooldown=-1
 				verb/Hell_And_Heaven()
 					set category="Skills"
-					if(usr.SagaLevel>6)
+					if(usr.SagaLevel>5)
 						src.DamageMult=3
 						src.ControlledRush=1
 						WindupMessage="combines the forces of Destruction and Creation with absolute control!"
@@ -3942,7 +4007,26 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 
+
 ///Sharingan
+			Sharingan_Genjutsu
+				Area="Arc"
+				ForOffense=1
+				DamageMult=2
+				Distance=10
+				AllOutAttack=1
+				DelayTime=0
+				GuardBreak=1
+				Stunner=2
+				EnergyCost = 15
+				HitSparkIcon='BLANK.dmi'
+				ActiveMessage="'s tomoes slowly spin as they trap their opponent into a genjutsu!"
+				Cooldown=90
+				BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Genjutsu"
+				verb/Genjutsu()
+					set name = "Sharingan: Genjutsu"
+					set category="Skills"
+					usr.Activate(src)
 			Tsukiyomi
 				Area="Arc"
 				ForOffense=1
@@ -3950,8 +4034,8 @@ obj
 				Distance=10
 				AllOutAttack=1
 				DelayTime=0
-				OffTax = 5
-				DefTax = 5
+				OffTax = 0.02
+				DefTax = 0.02
 				GuardBreak=1
 				Stunner=6
 				Shattering = 50
@@ -3962,6 +4046,9 @@ obj
 				BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Seishinkai_to_Yami"
 				verb/Tsukiyomi()
 					set category="Skills"
+					if(usr.SagaLevel>=5)
+						OffTax = 0
+						DefTax = 0
 					usr.Activate(src)
 			Amaterasu
 				StrOffense=1
@@ -3970,8 +4057,8 @@ obj
 				Scorching=1
 				Toxic=1
 				Area="Around Target"
-				OffTax = 3
-				DefTax = 3
+				OffTax = 0.01
+				DefTax = 0.01
 				CanBeBlocked=0
 				CanBeDodged=0
 				Distance=7
@@ -3990,9 +4077,12 @@ obj
 				WoundCost=15
 				BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Busshitsukai_to_Hikari"
 				ActiveMessage="aims to incinerate their opponents in an ebony pyre!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/sagaLevel = p.SagaLevel
 					if(altered) return
+					if(p.SagaLevel>=5)
+						OffTax = 0
+						DefTax = 0
 					DarknessFlame = 0.25 + (sagaLevel/8)
 					Scorching = 8 + sagaLevel
 					Toxic = 8 + sagaLevel
@@ -4000,7 +4090,7 @@ obj
 					WoundCost = 15 - sagaLevel * 1.25
 				verb/Amaterasu()
 					set category="Skills"
-					if(usr.SagaLevel>=7)
+					if(usr.SagaLevel>=5)
 						WoundCost=0
 						EnergyCost=20
 					usr.Activate(src)
@@ -4011,8 +4101,8 @@ obj
 				Scorching=5
 				Toxic=5
 				Area="Around Target"
-				OffTax = 6
-				DefTax = 6
+				OffTax = 0.02
+				DefTax = 0.02
 				CanBeBlocked=0
 				CanBeDodged=1
 				Distance=7
@@ -4031,9 +4121,12 @@ obj
 				WoundCost=10
 				BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Busshitsukai_to_Hikari"
 				ActiveMessage="aims to incinerate their opponents in an ebony pyre!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/sagaLevel = p.SagaLevel
 					if(altered) return
+					if(p.SagaLevel>=5)
+						OffTax = 0
+						DefTax = 0
 					DarknessFlame = 1 + (sagaLevel/8)
 					Scorching = 10 + sagaLevel
 					Toxic = 10 + sagaLevel
@@ -4041,7 +4134,7 @@ obj
 					WoundCost = 12 - sagaLevel * 1.25
 				verb/Amaterasu()
 					set category="Skills"
-					if(usr.SagaLevel>=7)
+					if(usr.SagaLevel>=5)
 						WoundCost=0
 						EnergyCost=20
 					usr.Activate(src)
@@ -4646,6 +4739,7 @@ obj
 mob
 	proc
 		Activate(var/obj/Skills/AutoHit/Z)
+			. = TRUE
 			if(Z.Using)//Skill is on cooldown.
 				return
 			if(!src.CanAttack(1.5)&&!Z.NoAttackLock)
@@ -4689,17 +4783,17 @@ mob
 			if(Z.Area=="Target"||Z.Area=="Around Target")
 				if(!src.Target)
 					src << "You need a target to use [Z]!"
-					return
+					return FALSE
 				if(src.Target==src)
 					src << "You can't target yourself while using [Z]!"
-					return
+					return FALSE
 				if(src.Target.z!=src.z)
 					src << "Stop trying to hit [src.Target] from a different dimension!"
-					return
+					return FALSE
 				if(!Z.Rush)//This one doesn't apply to rushes.
 					if(src.x+Z.Distance<src.Target.x||src.x-Z.Distance>src.Target.x||src.y+Z.Distance<src.Target.y||src.y-Z.Distance>src.Target.y)
 						src << "They're not in range!"
-						return
+						return FALSE
 				if(Target && Target.passive_handler.Get("CounterSpell"))
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Magic/Counterspell/s in Target)
 						if(s.Using)
@@ -4751,7 +4845,7 @@ mob
 				if(s.Class!=Z.ClassNeeded && (istype(Z.ClassNeeded, /list) && !(s.Class in Z.ClassNeeded)))
 					src << "You need a [istype(Z.ClassNeeded, /list) ? Z.ClassNeeded[1] : Z.ClassNeeded]-class weapon to use this technique."
 					return
-			if(!Z.StrOffense&&!Z.ForOffense)
+			if(!Z.StrOffense&&!Z.ForOffense && !Z.AdaptRate)
 				src << "[Z] is bugged and doesn't know how to calculate damage."
 				return
 			if(Z.HealthCost)
@@ -4771,11 +4865,15 @@ mob
 				if(!src.TomeSpell(Z))
 					if(src.ManaAmount<drain)
 						src << "You don't have enough mana to activate [Z]."
-						return
+						return FALSE
 				else
 					if(src.ManaAmount<drain*(1-(0.45*src.TomeSpell(Z))))
 						src << "You don't have enough mana to activate [Z]."
-						return
+						return FALSE
+			if(Z.CorruptionCost)
+				if(Corruption - Z.CorruptionCost < 0)
+					src << "You don't have enough Corruption to activate [Z]"
+					return FALSE
 			if(Z.HitSparkIcon)
 				src.HitSparkIcon=Z.HitSparkIcon
 				src.HitSparkX=Z.HitSparkX
@@ -4993,30 +5091,6 @@ mob
 				src.ClearQueue()
 			if(Z.Purity)
 				src.Purity+=Z.Purity
-			if(Z.Burning)
-				src.Burning+=Z.Burning
-			if(Z.Scorching)
-				src.Scorching+=Z.Scorching
-			if(Z.Chilling)
-				src.Chilling+=Z.Chilling
-			if(Z.Freezing)
-				src.Freezing+=Z.Freezing
-			if(Z.Crushing)
-				src.Crushing+=Z.Crushing
-			if(Z.Shattering)
-				src.Shattering+=Z.Shattering
-			if(Z.Shocking)
-				src.Shocking+=Z.Shocking
-			if(Z.Paralyzing)
-				src.Paralyzing+=Z.Paralyzing
-			if(Z.Poisoning)
-				src.Poisoning+=Z.Poisoning
-			if(Z.Toxic)
-				src.Toxic+=Z.Toxic
-			if(Z.Attracting)
-				src.Attracting+=Z.Attracting
-			if(Z.Crippling)
-				src.Crippling+=Z.Crippling
 			if(Z.HolyMod)
 				src.HolyMod+=Z.HolyMod
 			if(Z.AbyssMod)
@@ -5059,7 +5133,11 @@ mob
 						else
 							LeaveImage(User=0, Image=i, PX=src.Target.pixel_x+Z.IconX, PY=src.Target.pixel_y+Z.IconY, PZ=src.Target.pixel_z+48, Size=Z.Size, Under=Z.IconUnder, Time=(Z.Rounds-1*max(1,Time)), AltLoc=TrgLoc)
 				else
-					spawn()LeaveImage(User=src, Image=i, PX=src.pixel_x+Z.IconX, PY=src.pixel_y+Z.IconY, PZ=src.pixel_z+Z.IconZ, Size=Z.Size, Under=Z.IconUnder, Time=(Z.Rounds*max(1,Time)), AltLoc=0)
+					if(Z.Persistent)
+						spawn()LeaveImage(User=null, Image=i, PX=src.pixel_x+Z.IconX, PY=src.pixel_y+Z.IconY, PZ=src.pixel_z+Z.IconZ, Size=Z.Size, Under=Z.IconUnder, Time=Z.Duration, AltLoc=TrgLoc)
+					else
+						spawn()LeaveImage(User=src, Image=i, PX=src.pixel_x+Z.IconX, PY=src.pixel_y+Z.IconY, PZ=src.pixel_z+Z.IconZ, Size=Z.Size, Under=Z.IconUnder, Time=(Z.Rounds*max(1,Time)), AltLoc=0)
+
 
 			if(Z.Jump)
 				if(Z.Jump==1)
@@ -5163,12 +5241,17 @@ mob
 					if("Wide Wave")
 						src.WideWave(Z)
 					if("Circle")
-						src.Circle(Z)
+						if(Z.Persistent)
+							src.Persistent(Z, Z.Duration)
+						else
+							src.Circle(Z)
 					if("Target")
 						src.Target(src.Target, Z, missed ? TrgLoc : null)
 						if(missed) src << "[Z] missed because your target is out of range."
 					if("Around Target")
 						src.AroundTarget(null, Z, TrgLoc)
+				if(Z.Persistent)
+					src.Persistent(Z, Z.Duration)
 				if(Z.ChargeTime)
 					Delay=Z.ChargeTime
 				else
@@ -5243,6 +5326,12 @@ mob
 					src.LoseMana(drain*CostMultiplier)
 				else
 					src.LoseMana(drain*CostMultiplier*(1-(0.45*src.TomeSpell(Z))))
+				if(Z.CorruptionGain)
+					var/gain = drain*CostMultiplier / 3
+					gainCorruption(gain / 3)
+			if(Z.CorruptionCost)
+				gainCorruption(-Z.CorruptionCost)
+
 			if(Z.CapacityCost)
 				src.LoseCapacity(Z.CapacityCost*CostMultiplier)
 			if(Z.Quaking)
@@ -5336,6 +5425,11 @@ mob
 
 mob
 	proc
+		Persistent(var/obj/Skills/AutoHit/AH, duration)
+			ticking_generic += new/obj/AutoHitter(owner = src, Z = AH, life = duration, circle = 1, TrgLoc = src.loc)
+
+
+
 		AutoHitter(var/arc, var/wav, var/car, var/circ, var/mob/targ, var/obj/Skills/AutoHit/z, var/turf/trfloc=null)
 			if(src.dir == SOUTHEAST || src.dir==NORTHEAST)
 				src.dir=EAST
@@ -5377,11 +5471,19 @@ obj
 		density=1//It has to be dense to properly register contact.
 		Destructable=0//Can't be explode
 		var
-			list/mob/Targets=list()//People who have been touched by the autohit.
 
 			//Distance//Active count of tiles left to move.
 			DistanceMax//Maximum amount; kept track of for arc purposes.
 			NoPierce//It dies when it hits something
+			IgnoreAlreadyHit = FALSE
+			toDeath
+			Duration
+			Persistent = FALSE
+			CorruptionGain
+
+
+
+
 
 			Arcing//Triggers offshoots on every step that expand outwards.  Higher than 1 means that every X steps the range will widen.
 			ArcingCount=0//Number of times arcing has been triggered.  Informs the game how many tiles to send the offshoots.
@@ -5395,7 +5497,7 @@ obj
 			ObjIcon//get an icon from the other obj
 			currentRounds
 			Damage//This is the amount of damage a skill will do if all stats and power are equal.
-			StepsDamage=1
+			StepsDamage=0
 			StepsTaken=0//A variable for easy recording
 			list/DamageSteps=list()//This is a variable that allows damage to scale based on the steps taken by the projectile.  Think Tipper.
 
@@ -5442,7 +5544,7 @@ obj
 			Flash
 
 			Slow//Autohit doesn't hit instantly
-
+			ApplySlow
 			CanBeBlocked
 			CanBeDodged
 
@@ -5464,12 +5566,21 @@ obj
 			ChargeTime
 			RagingDemonAnimation = FALSE
 			Executor
+			Primordial
 			SpeedStrike
+			AdaptDmg
 
 			Scorching
 			Chilling
 			Freezing
 			Crushing
+			Burning
+			Shattering
+			Toxic
+			Paralyzing
+			Crippling
+			Shocking
+			Poisoning
 
 			grabNerf = 0
 			BuffAffected = 0
@@ -5483,13 +5594,19 @@ obj
 
 			Shearing
 
-		New(var/mob/owner, var/arcing=0, var/wave=0, var/card=0, var/circle=0, var/mob/target, var/obj/Skills/AutoHit/Z, var/turf/TrgLoc)
+			tmp/list/AlreadyHit
+			tmp/list/autohitChildren
+			tmp/obj/AutoHitter/AHOwner
+
+		New(var/mob/owner, var/arcing=0, var/wave=0, var/card=0, var/circle=0, var/mob/target, var/obj/Skills/AutoHit/Z, var/turf/TrgLoc, life = 500)
 			set waitfor = FALSE
 			if(!owner)
-				Targets = null
-				Target = null
 				loc = null
 				return
+			AlreadyHit = list()
+			autohitChildren = list()
+			src.IgnoreAlreadyHit = Z.IgnoreAlreadyHit
+			toDeath = life
 			src.Owner=owner
 			if(owner.Grab && !Z.GrabMaster)
 				grabNerf = 1
@@ -5497,6 +5614,11 @@ obj
 			src.Wave=wave
 			src.Cardinal=card
 			src.Circle=circle
+			src.CorruptionGain = Z.CorruptionGain
+			if(Z.Persistent)
+				src.Persistent = 1
+				bound_height = 32 * Distance
+				bound_width = 32 * Distance
 			src.DistanceMax=Z.Distance
 			if(TrgLoc)
 				src.TargetLoc=TrgLoc
@@ -5519,7 +5641,10 @@ obj
 				src.EndRes=Z.TempEndDef
 			else
 				src.EndRes=Z.EndDefense
+			if(Z.AdaptRate)
+				AdaptDmg = Z.AdaptRate
 			src.Executor = Z.Executor
+			src.Primordial = Z.Primordial
 			src.RagingDemonAnimation = Z.RagingDemonAnimation
 			src.GoldScatter = Z.GoldScatter
 			src.Knockback=Z.Knockback
@@ -5553,6 +5678,7 @@ obj
 			src.CanBeBlocked=Z.CanBeBlocked
 			src.CanBeDodged=Z.CanBeDodged
 			src.Slow=Z.Slow
+			src.ApplySlow = Z.ApplySlow
 			src.PassThrough=Z.PassThrough//This does not get assigned to other types because it will always follow the primary autohit, not the offshoots.
 			src.PassTo=Z.PassTo
 			src.StopAtTarget=Z.StopAtTarget
@@ -5578,6 +5704,28 @@ obj
 			src.buffAffectedCompare = Z.buffAffectedCompare
 			src.buffAffectedBoon = Z.buffAffectedBoon
 			PullIn = Z.PullIn
+			if(Z.Burning)
+				src.Burning+=Z.Burning
+			if(Z.Scorching)
+				src.Scorching+=Z.Scorching
+			if(Z.Chilling)
+				src.Chilling+=Z.Chilling
+			if(Z.Freezing)
+				src.Freezing+=Z.Freezing
+			if(Z.Crushing)
+				src.Crushing+=Z.Crushing
+			if(Z.Shattering)
+				src.Shattering+=Z.Shattering
+			if(Z.Shocking)
+				src.Shocking+=Z.Shocking
+			if(Z.Paralyzing)
+				src.Paralyzing+=Z.Paralyzing
+			if(Z.Poisoning)
+				src.Poisoning+=Z.Poisoning
+			if(Z.Toxic)
+				src.Toxic+=Z.Toxic
+			if(Z.Crippling)
+				src.Crippling+=Z.Crippling
 			if(Z.ObjIcon)
 				src.ObjIcon=Z.ObjIcon
 				var/icon/i=Z.Icon
@@ -5595,8 +5743,9 @@ obj
 			src.Distance=src.DistanceMax
 
 			src.Life()
-			sleep(500)
-			endLife()
+			sleep(life)
+			if(!Persistent)
+				endLife()
 		Bump(var/mob/m)
 			if(istype(m, /mob))
 				if(m!=src.Owner&&m.density)
@@ -5605,8 +5754,19 @@ obj
 						if(src.NoPierce)
 							endLife()
 							return
-				src.loc=m.loc
-
+				if(!Persistent)
+					src.loc=m.loc
+		Update()
+			if(Persistent)
+				for(var/turf/t in range( Distance, src.TargetLoc))
+					for(var/mob/m in t.contents)
+						if(m==src.Owner)
+							continue
+						else
+							src.Damage(m)
+			if(toDeath-- <= 25)
+				animate(src, alpha = 0, time = 20)
+				endLife()
 
 		proc/endLife()
 			set waitfor = FALSE
@@ -5630,8 +5790,12 @@ obj
 			catch()
 			walk(src,0)
 			animate(src)
+			if(AHOwner)
+				AHOwner.autohitChildren -= src
+			AHOwner = null
+			AlreadyHit = null
+			autohitChildren = null
 			Owner = null
-			Targets = null
 			loc = null
 			sleep(10)
 			del src
@@ -5639,6 +5803,25 @@ obj
 			Damage(var/mob/m)
 				if(m && Owner && m in Owner.ai_followers)
 					return
+				if(!IgnoreAlreadyHit)
+					var/weHitThemAlready = FALSE
+					for(var/hitted in AlreadyHit)
+						if(m == hitted)
+							weHitThemAlready = TRUE
+					if(AHOwner)
+						for(var/hitted in AHOwner.AlreadyHit)
+							if(hitted == m)
+								weHitThemAlready = TRUE
+					if(!weHitThemAlready)
+						for(var/obj/AutoHitter/ah in autohitChildren)
+							for(var/hitted in ah.AlreadyHit)
+								if(m == hitted)
+									weHitThemAlready = TRUE
+									break
+					if(weHitThemAlready)return
+				AlreadyHit |= m
+				for(var/obj/AutoHitter/ah in autohitChildren)
+					ah.AlreadyHit |= m
 				if(istype(Owner, /mob/Player/AI) && m != Owner)
 					var/mob/Player/AI/a = Owner
 					if(!a.ai_team_fire && a.AllianceCheck(m))
@@ -5659,8 +5842,15 @@ obj
 				if(glob.CLAMP_POWER)
 					if(!Owner.ignoresPowerClamp())
 						powerDif = clamp(powerDif, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
+				#if DEBUG_AUTOHIT
 				Owner.log2text("powerDif - Auto Hit", powerDif, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+				#endif
 				var/atk = 0
+				if(AdaptDmg)
+					if(Owner.GetStr(1) > Owner.GetFor(1))
+						StrDmg = AdaptDmg
+					else
+						ForDmg = AdaptDmg
 				if(ForDmg && !StrDmg)
 					atk = Owner.GetFor(ForDmg)
 				else if(StrDmg && !ForDmg)
@@ -5669,14 +5859,20 @@ obj
 					atk = Owner.GetStr(StrDmg) *  1 + (Owner.GetFor(ForDmg)/10)
 				else
 					Owner << "Your auto hit could not calculate the damage it just did!! Report this !!"
+				#if DEBUG_AUTOHIT
 				Owner.log2text("atk - Auto Hit", atk, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+				#endif
 				var/dmgRoll = Owner.GetDamageMod()
+				#if DEBUG_AUTOHIT
 				Owner.log2text("dmg roll - Auto Hit", dmgRoll, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+				#endif
 				if(m.passive_handler.Get("GiantForm") || m.HasLegendaryPower() >= 1)
 					var/mod = upper_damage_roll / 4
 					dmgRoll = Owner.GetDamageMod(0, mod)
+					#if DEBUG_AUTOHIT
 					Owner.log2text("dmg roll - Auto Hit", "After GiantForm", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 					Owner.log2text("dmg roll - Auto Hit", dmgRoll, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+					#endif
 				var/def = m.getEndStat(1) * EndRes
 				if(def<0)
 					def=0.1
@@ -5692,7 +5888,9 @@ obj
 						def = 1
 					else
 						def = clamp(def/2, 1, def)
+				#if DEBUG_AUTOHIT
 				Owner.log2text("def - Auto Hit", def, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+				#endif
 				var/dmgMulti = Damage
 				if(src.SpecialAttack&&(src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow()))
 					if(src.Owner.StyleActive!="Moonlight"&&src.Owner.StyleActive!="Astral")
@@ -5700,16 +5898,19 @@ obj
 					else
 						dmgMulti += Owner.GetStr(0.5) / 5
 				// powerDif += Owner.getIntimDMGReduction(m)
+				#if DEBUG_AUTOHIT
 				Owner.log2text("powerDif - Auto Hit", powerDif, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
-				if(glob.DMG_CALC_2)
-					FinalDmg = (clamp(powerDif,0.1,100000)**glob.DMG_POWER_EXPONENT) * (glob.CONSTANT_DAMAGE_EXPONENT+glob.AUTOHIT_EFFECTIVNESS) ** -(def**glob.DMG_END_EXPONENT / atk**glob.DMG_STR_EXPONENT)
-				else
-					FinalDmg = (atk * powerDif) * glob.CONSTANT_DAMAGE_EXPONENT ** -(def/atk)
+				#endif
+				FinalDmg = (clamp(powerDif,0.1,100000)**glob.DMG_POWER_EXPONENT) * (glob.CONSTANT_DAMAGE_EXPONENT+glob.AUTOHIT_EFFECTIVNESS) ** -(def**glob.DMG_END_EXPONENT / atk**glob.DMG_STR_EXPONENT)
+				#if DEBUG_AUTOHIT
 				Owner.log2text("FinalDmg(before dmgRoll) - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+				#endif
 				FinalDmg *= dmgMulti
 				FinalDmg *= dmgRoll
+				#if DEBUG_AUTOHIT
 				Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
-				var/Precision=src.Damage
+				#endif
+				var/Precision = 1
 				var/itemMods = list(0,0,0)
 				if(src.SwordTech&&!src.SpecialAttack)
 					var/obj/Items/Sword/s=src.Owner.EquippedSword()
@@ -5720,10 +5921,14 @@ obj
 					var/obj/Items/Enchantment/st=src.Owner.EquippedStaff()
 					itemMods = Owner.getItemDamage(list(s,FALSE,FALSE,st), 0, Precision, FALSE, FALSE, TRUE, TRUE)
 				if(itemMods[3])
+					#if DEBUG_AUTOHIT
 					Owner.log2text("Item Damage - Auto Hit", itemMods[3], "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+					#endif
 					FinalDmg *= itemMods[3]
+					#if DEBUG_AUTOHIT
 					Owner.log2text("FinalDmg - Auto Hit", "After Item Damage", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 					Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+					#endif
 				if(itemMods[2])
 					Precision *= itemMods[2]
 
@@ -5741,7 +5946,8 @@ obj
 									continue
 								else
 									break
-							new/obj/gold(m, src.Owner, newX, newY, m.z)
+							var/obj/gold/gold = new()
+							gold.createPile(m, src.Owner, newX, newY, m.z)
 					m << "You feel a need to go collect your coins before they're stolen!"
 
 				if(src.SpeedStrike>0)
@@ -5782,7 +5988,7 @@ obj
 
 				if(src.CanBeBlocked)
 					if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldWhiffRate, IgnoreNoDodge=1) == WHIFF)
-						if(!src.Owner.NoWhiff)
+						if(!src.Owner.NoWhiff())
 							var/obj/Items/Sword/s = Owner.EquippedSword()
 							if(s)
 								FinalDmg/=max(1,(2*(1/Owner.GetSwordAccuracy(s))))
@@ -5812,10 +6018,26 @@ obj
 
 				if(m.HasBlastShielding()&&!src.CanBeDodged)
 					FinalDmg/=2**3
-				if(Owner.Scorching||Owner.Chilling||Owner.Freezing||Owner.Crushing||Owner.Shattering||Owner.Shocking||Owner.Paralyzing||Owner.Poisoning||Owner.Toxic)
-					// Owner.addElementalPassives(src)
-					Owner.handleElementPassives(m)
-					// Owner.removeElementalPassives(src)
+
+				var/list/Elements = list()
+				if(Scorching||Burning)
+					Elements |= "Fire"
+				if(Chilling||Freezing)
+					Elements |= "Water"
+				if(Crushing||Shattering)
+					Elements |= "Earth"
+				if(Shocking||Paralyzing)
+					Elements |= "Wind"
+				if(Toxic||Poisoning)
+					Elements |= "Poison"
+
+				ElementalCheck(Owner, m, 0, bonusElements = Elements)
+
+				if(Crippling)
+					m.AddCrippling(Crippling, Owner)
+				if(Shearing)
+					m.AddShearing(Shearing, Owner)
+
 				// if(src.CosmoPowered)
 				// 	if(!src.Owner.SpecialBuff)
 				// 		FinalDmg*=TrueDamage(1+(src.Owner.SenseUnlocked-5))
@@ -5826,6 +6048,12 @@ obj
 					if(m.Health <=25)
 						Damage *= 1 + additonal
 
+				if(Primordial)
+					var/additonal = Primordial
+					var/missingHealth = 100-m.Health
+					Damage *= 1 + ((additonal * missingHealth)/100)
+				if(ApplySlow)
+					m.AddSlow(ApplySlow, Owner)
 				if(grabNerf)
 					FinalDmg *= AUTOHIT_GRAB_NERF
 //TODO: Remove a whole lot of those
@@ -5837,6 +6065,8 @@ obj
 					LightningBolt(m, src.Bolt, src.BoltOffset)
 				if(src.Punt)
 					Hit_Effect(m, Size=src.Punt)
+
+				//EFFECTS HERE
 
 				if(src.LifeSteal)
 					src.Owner.LifeSteal+=src.LifeSteal
@@ -5903,7 +6133,8 @@ obj
 								if(m.Immortal)
 									m.Immortal=0
 					src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
-
+					if(CorruptionGain)
+						Owner.gainCorruption(FinalDmg * 1.25)
 					if(src.Owner.UsingAnsatsuken())
 						src.Owner.HealMana(src.Owner.SagaLevel)
 
@@ -6015,7 +6246,6 @@ obj
 					if(src.TargetLoc)
 						if(src.Slow&&src.Distance>1)
 							src.Owner.Frozen=1
-							var/list/AlreadyHit=list()
 							for(var/Rounds=1, Rounds<=src.DistanceMax, Rounds++)
 								if(src.StepsDamage&&Rounds>1)
 									src.Damage+=src.StepsDamage//add growing damage
@@ -6038,11 +6268,7 @@ obj
 										for(var/mob/m in t.contents)
 											if(m==src.Owner)
 												continue
-											if(m in AlreadyHit)
-												continue
-											else
-												src.Damage(m)
-												AlreadyHit.Add(m)
+											src.Damage(m)
 									for(var/turf/t in Turf_Circle_Edge(src.TargetLoc, Rounds))
 										if(src.TurfErupt)
 											Bang(t, Size=src.TurfErupt, Offset=src.TurfEruptOffset, Vanish=4)
@@ -6137,7 +6363,11 @@ obj
 											t.overlays-=i
 											t.Deluged=0
 								if(src.TurfShift)
-									for(var/turf/t in Turf_Circle(src.TargetLoc, src.Distance))
+									var/dist = Distance
+									if(Persistent)
+										dist /= 2
+										dist = round(dist)
+									for(var/turf/t in Turf_Circle(src.TargetLoc, dist))
 										sleep(-1)
 										TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
 								for(var/turf/t in Turf_Circle(src.TargetLoc, src.Distance))
@@ -6180,9 +6410,10 @@ obj
 										src.Damage(m)
 						goto Kill
 					else
+
+						//TODO: make hellstorm work here
 						if(src.Slow&&src.Distance>1)
 							src.Owner.Frozen=1
-							var/list/AlreadyHit=list()
 							for(var/Rounds=1, Rounds<=src.DistanceMax, Rounds++)
 								currentRounds = Rounds
 								if(src.StepsDamage&&Rounds>1)
@@ -6206,11 +6437,7 @@ obj
 										for(var/mob/m in t.contents)
 											if(m==src.Owner)
 												continue
-											if(m in AlreadyHit)
-												continue
-											else
-												src.Damage(m)
-												AlreadyHit.Add(m)
+											src.Damage(m)
 									for(var/turf/t in Turf_Circle_Edge(src.Owner, Rounds))
 										if(src.TurfErupt)
 											Bang(t, Size=src.TurfErupt, Offset=src.TurfEruptOffset, Vanish=4)
@@ -6403,11 +6630,11 @@ obj
 						if(Arc==1)
 							src.ArcingCount++
 						if(src.ArcingCount>0)
-							new/obj/AutoHitter/ArcOffshoot(src, 1)//Left
-							new/obj/AutoHitter/ArcOffshoot(src, 0)//Right
+							new/obj/AutoHitter/ArcOffshoot(src, 1, 0)//Left
+							new/obj/AutoHitter/ArcOffshoot(src, 0, 0)//Right
 						if(src.Distance==src.DistanceMax-1)//first step of arcs
-							new/obj/AutoHitter/ArcOffshoot(src, 1, FromMob=1)//hit them sides boi
-							new/obj/AutoHitter/ArcOffshoot(src, 0, FromMob=1)
+							new/obj/AutoHitter/ArcOffshoot(src, 1, 1)//hit them sides boi
+							new/obj/AutoHitter/ArcOffshoot(src, 0, 1)
 					if(src.Wave)
 						new/obj/AutoHitter/WaveOffshoot(src, 1)
 						new/obj/AutoHitter/WaveOffshoot(src, 0)
@@ -6420,14 +6647,19 @@ obj
 						walk_rand(src, 5)
 						animate(src, transform=matrix()*src.WanderSize, time=src.Wander*5)
 						sleep(src.Wander*5)
-					endLife()
+					if(!Persistent)
+						endLife()
 		ArcOffshoot
 			Arcing=0
 			var
 				Side//1 for left, 0 for right
+
 			New(var/obj/AutoHitter/AH, var/side, var/FromMob=0)
+				AHOwner = AH
 				src.Owner=AH.Owner
 				src.Side=side
+				AlreadyHit = list()
+				AH.autohitChildren += src
 				if(src.Side)
 					if(src.Owner.dir!=NORTHEAST&&src.Owner.dir!=NORTHWEST&&src.Owner.dir!=SOUTHEAST&&src.Owner.dir!=SOUTHWEST)
 						src.dir=turn(AH.dir, -90)
@@ -6495,7 +6727,10 @@ obj
 			var
 				Side//1 for left, 0 for right
 			New(var/obj/AutoHitter/AH, var/side)
+				AHOwner = AH
 				src.Owner=AH.Owner
+				AlreadyHit = list()
+				AH.autohitChildren += src
 				src.Side=side
 				if(src.Side)
 					src.dir=turn(AH.dir, -90)
@@ -6504,7 +6739,7 @@ obj
 				src.DistanceMax=AH.Wave
 				src.Distance=src.DistanceMax
 
-				src.Damage=AH.Damage
+				src.Damage= AH.Damage / 8
 				src.StrDmg=AH.StrDmg
 				src.ForDmg=AH.ForDmg
 				src.EndRes=AH.EndRes
@@ -6554,7 +6789,10 @@ obj
 			var
 				Side//1 for left, 2 for back, 0 for right.
 			New(var/obj/AutoHitter/AH, var/side)
+				AHOwner = AH
 				src.Owner=AH.Owner
+				AlreadyHit = list()
+				AH.autohitChildren += src
 				src.Side=side
 				if(src.Side==1)
 					src.dir=turn(AH.dir, -90)
@@ -6601,6 +6839,7 @@ obj
 				src.WarpAway=AH.WarpAway
 				src.Launcher=AH.Launcher
 				src.DelayedLauncher=AH.DelayedLauncher
+
 
 				if(AH.ObjIcon)
 					src.ObjIcon=AH.ObjIcon

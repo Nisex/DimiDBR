@@ -29,12 +29,12 @@
 			reqCounter = 10
 		else
 			reqCounter = 20
-	
+
 	if(UsingSpeedRave())
 		reqCounter = 10
 	if(reqCounter == 0)
 		reqCounter = 999
-	
+
 	return reqCounter
 
 /mob/proc/counterShit(mob/enemy, ignore)
@@ -51,14 +51,20 @@
 			enemy.UseProjectile(enemy.BusterTech)
 		else
 			if(!AttackQueue || (!AttackQueue && (AttackQueue.Counter|| AttackQueue.CounterTemp )))
+				#if DEBUG_DAMAGE
 				log2text("Counter Starting (counter/temp/dmgmult)", "[q.Counter] / [q.CounterTemp] / [q.DamageMult]", "damageDebugs.txt", "[ckey]/[name] :: enemy: [enemy.ckey]/[enemy.name]")
+				#endif
 				. = q.Counter + q.CounterTemp
+				#if DEBUG_DAMAGE
 				log2text("Counter End", ., "damageDebugs.txt", "[ckey]/[name] :: enemy: [enemy.ckey]/[enemy.name]")
+				#endif
 			if(enemy.UsingAnsatsuken())
 				enemy.HealMana(enemy.SagaLevel / 15, 1)
 			if(. && enemy.CanAttack())
+				#if DEBUG_DAMAGE
 				log2text("Counter damage", "[CounterDamage(.)]", "damageDebugs.txt", "[ckey]/[name] :: enemy: [enemy.ckey]/[enemy.name]")
+				#endif
 				enemy.Melee1(CounterDamage(.), 2, 0,0, null, null, 0,0,2,1,0,1)
-	
+
 
 

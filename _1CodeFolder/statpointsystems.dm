@@ -481,8 +481,6 @@ mob/proc/Redo_Stats()
 	del C
 
 mob/proc/PerkDisplay()
-	world.log<<race
-	world.log<<StrMod // debug messages
 	winset(src,"Points Remaining","text=[Points]")
 	winset(src,"RaceBP","text=\"[Define_Average(PotentialRate)] Power Rate\"")
 	winset(src,"Race RPP","text=\"[Define_Average(RPPMult)] Learning Rate\"")
@@ -575,14 +573,17 @@ mob/verb/Skill_Points_Done()
 	if(!(world.time > verb_delay)) return
 	verb_delay=world.time+1
 	if(race_selecting) return
-	if(Points) src<<"You still have points!"
-	else
-		if(assigningStats)
-			assigningStats=0
-		if(src.Redoing_Stats)
-			src.Redoing_Stats=0
-		winshow(src,"Finalize_Screen",0)
-		for(var/obj/SavedStats/Z in usr.contents)
-			del(Z)
-		if(!usr.Savable)
-			usr.NewMob()
+	if(Points)
+		src<<"You still have points!"
+		return
+
+	if(assigningStats)
+		assigningStats=0
+	if(stat_redoing)
+		stat_redoing = FALSE
+		race_selecting = TRUE
+	winshow(src,"Finalize_Screen",0)
+	for(var/obj/SavedStats/Z in usr.contents)
+		del(Z)
+	if(!usr.Savable)
+		usr.NewMob()

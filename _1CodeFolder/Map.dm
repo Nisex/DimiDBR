@@ -12,17 +12,6 @@ turf/var/
 	SecondaryTurfType
 	Destroyer
 
-turf/Del()
-	var/Type=type
-	if(InitialType) Type=InitialType
-	spawn InitialType=Type
-	Builder=null
-	if(!istype(src,/turf/CustomTurf))
-		Turfs-=src
-	else
-		CustomTurfs-=src
-	..()
-
 turf
 	verb
 		Select_Turf()
@@ -1697,7 +1686,14 @@ turf
 		Enter(atom/A)
 			if(FlyOverAble||A:IgnoreFlyOver==1) return ..()
 			else return
-
+	Roof23
+		icon=null
+		FlyOverAble=0
+		density=1
+		opacity=1
+		Enter(atom/A)
+			if(FlyOverAble||A:IgnoreFlyOver==1) return ..()
+			else return
 //Midgar Tiles
 	MidgarTiles
 		MidgarRoofEast
@@ -3682,6 +3678,7 @@ turf/Special
 //		icon='PDTurf.dmi'
 //		icon_state="1"
 	Static
+		Buildable = 1
 		icon='Special.dmi'
 		icon_state="Special5"
 

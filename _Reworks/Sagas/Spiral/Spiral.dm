@@ -39,13 +39,15 @@ obj/proc
 			if(YOKAI)
 				passiveList = list("ManaStats"=0.25 * M.SagaLevel)
 			if(ELDRITCH)
-				passiveList = list("DeathField"=0.25 * M.SagaLevel)
-				passiveList += list("VoidField"=0.25 * M.SagaLevel)
+				passiveList = list("DeathField"=0.25 * M.SagaLevel, "VoidField"=0.25 * M.SagaLevel)
 			if(NAMEKIAN)
 				passiveList = list("LifeGeneration" = 0.25 * M.SagaLevel * 10)
 			if(MAKYO)
-				passiveList = list("DemonicDurability"=0.25 * M.SagaLevel)
-				passiveList += list("HeavyHitter"=0.25 * M.SagaLevel)
+				passiveList = list("DemonicDurability"=0.25 * M.SagaLevel, "HeavyHitter"=0.25 * M.SagaLevel)
+			if(DRAGON)
+				passiveList = list("DebuffImmune"=0.15 * M.SagaLevel, "BuffMastery"=0.25 * M.SagaLevel)
+			if(GAJALAKA)
+				passiveList = list("DemonicDurability"=0.25 * M.SagaLevel, "CashCow"=0.25 * M.SagaLevel)
 		return passiveList
 
 
@@ -191,7 +193,7 @@ mob/tierUpSaga(path)
 						if("Hoard")
 							src = usr.GetStatMult(stats[1], src, 1.75)
 							src = usr.GetStatMult(stats[2], src, 1.75)
-							src.passives += list("MovementMastery" = 16, "TechniqueMastery"=10, "SlayerMod"= usr.SagaLevel * 0.5, "KillerInstinct" = clamp(usr.SagaLevel/8, 0.1, 1), "MaimStrike" = usr.SagaLevel * 0.25)
+							src.passives += list("MovementMastery" = 16, "TechniqueMastery"=10, "SlayerMod"= usr.SagaLevel * 0.5, "KillerInstinct" = clamp(usr.SagaLevel/6, 0.1, 1), "MaimStrike" = usr.SagaLevel * 0.25)
 							src.Intimidation *= 10
 
 		else

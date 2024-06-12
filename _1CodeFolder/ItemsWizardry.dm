@@ -533,12 +533,12 @@ obj/Items/Enchantment
 
 				if(src.Searing)
 					FoundSearing=1
-					PP.passives = list("PureDamage" =  src.Searing/50 * usr.Potential)
+					PP.passives["PureDamage"] =  src.Searing/50 * usr.Potential
 					CD+=(src.Searing*MEDIUM_EFFECT_CD)
 				if(src.Hard)
 					FoundHard=1
 
-					PP.passives = list("Hardening" = clamp((src.Hard / 10) * usr.AlchemyUnlocked, 0.1, 5))
+					PP.passives["Hardening"] = clamp((src.Hard / 10) * usr.AlchemyUnlocked, 0.1, 5)
 					CD+=(src.Hard*MEDIUM_EFFECT_CD)
 				if(src.Hallucinogen)
 					FoundHallucinogen=1
@@ -547,11 +547,11 @@ obj/Items/Enchantment
 					PP.AngerMult= 1 + buff
 					PP.DefMult = 1 - buff
 					PP.EndMult = 1 - buff
-					PP.PureReduction = 0 - Hallucinogen
+					PP.passives["PureReduction"] = 0 - Hallucinogen
 					CD+=(src.Hallucinogen*STRONG_EFFECT_CD)
 				if(src.Flowy)
 					FoundFlowy=1
-					PP.passives = list("Flow"= src.Flowy)
+					PP.passives["Flow"] = src.Flowy
 					CD+=(src.Flowy*MEDIUM_EFFECT_CD)
 
 				if(src.Sexy)
@@ -2614,6 +2614,7 @@ obj/Items/Enchantment/Staff
 	var/CalmAnger=0
 	var/StaffIconSelected=0
 	var/Conjured=0
+	var/modifiedAttack = TRUE
 	UpdatesDescription=1
 	Repairable=1
 	Element=0
@@ -2704,6 +2705,9 @@ obj/Items/Enchantment/Staff
 			desc+="Upgrade Type: [Conversions]"
 		desc+="<br>Staffs alter the effects of projectile combat and have their own advantages and disadvantages.<br>"
 
+	verb/Toggle_Staff_Projectile()
+		modifiedAttack=!modifiedAttack
+		usr<< "You will now[modifiedAttack ? "" : " not"] shoot staff projectiles on basic attack."
 
 proc/Can_Afford_Enchantment(mob/P,obj/Items/O) for(var/obj/Money/M in P) if(O.Cost<=M.Level) return 1
 proc/Enchantment_Price(mob/P,obj/Items/O) return O.Cost

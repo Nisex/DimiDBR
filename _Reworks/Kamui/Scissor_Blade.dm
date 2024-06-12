@@ -12,6 +12,7 @@ obj
 					iconAltX=-32
 					iconAltY=-32
 					ClassAlt="Heavy"
+					Cost = 0
 					Techniques=list("/obj/Skills/Buffs/SlotlessBuffs/WeaponSystems/Decapitation_Mode", "/obj/Skills/Queue/Sen_I_Soshitsu", "/obj/Skills/AutoHit/Life_Fiber_Weave")
 					unsheatheIcon = 'scissor_blade.dmi'
 					unsheatheOffsetX = -16

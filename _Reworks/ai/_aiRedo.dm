@@ -106,16 +106,16 @@
 		if(istype(enemy, /mob/Player/AI)) continue
 		if(Target)
 			if(get_dist(src, enemy) < get_dist(src, Target))
-				Target = enemy
+				SetTarget(enemy)
 		else
-			Target = enemy
+			SetTarget(enemy)
 
 /mob/Player/AI/proc/Chase()
 	if(isCrowdControlled())
 		return
 	ai_state = "Chase"
 	if(isai(Target))
-		Target = null
+		RemoveTarget()
 		Idle()
 		return
 	fleeing = FALSE
@@ -147,7 +147,7 @@
 					FindTarget1()
 					targetting = world.time
 				if(last_activity + 300 < world.time)
-					Target = null
+					RemoveTarget()
 					Idle()
 			// maybe ranged proc here
 			Attack("ranged")
@@ -224,7 +224,7 @@
 									step(src, get_dir(src, Target))
 								dir = get_dir(src, Target)
 								if(prob(ai_accuracy/2))
-									if((x in (Target.x - 1 to Target.x + 1)) || (y in (Target.y - 1 to Target.y + 1) )  )
+									if(src in block(Target.x - 1, Target.y-1, Target.z, Target.x + 1, Target.y +1))
 										Activate(a)
 										use = a
 										ai_next_autohit = (world.time+20)/ai_spammer

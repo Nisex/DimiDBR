@@ -141,15 +141,15 @@ obj/Items
 	var/list/passives = list()
 	var/list/current_passives
 	proc/startBreaking(dmg, val, mob/owner, mob/attacker, type)
-		if(val > MAX_BREAK_MULT)
-			val = MAX_BREAK_MULT
+		if(val > glob.MAX_BREAK_MULT)
+			val = glob.MAX_BREAK_MULT
 		var/breakVal = (dmg * val) * (attacker.GetOff(0.3)+(attacker.GetStr(0.3) * glob.DMG_STR_EXPONENT))
-		if(breakVal > MAX_BREAK_VAL)
-			breakVal = MAX_BREAK_VAL
+		if(breakVal > glob.MAX_BREAK_VAL)
+			breakVal = glob.MAX_BREAK_VAL
 		if(owner.Saga=="Unlimited Blade Works")
-			breakVal*=10
+			breakVal*= glob.UBW_BREAK_MULTIPLIER
 			if(owner.UBWPath=="Firm")
-				breakVal *= 5
+				breakVal *= glob.UBW_FIRM_BREAK_MULTIPLIER
 
 		decreaseShatterCounter(breakVal, owner, attacker, type)
 
@@ -429,7 +429,7 @@ obj/Items
 							ItemMade:icon='MageStaff8.dmi'
 							ItemMade:StaffIconSelected=1
 		else if(src in Clothes_List)
-			if(usr.IconClicked==0)
+			if(icon == initial(icon)&&usr.IconClicked==0)
 				usr.IconClicked=1
 				var/Color=input("Choose color") as color|null
 				var/icon/newIcon = new(icon)
@@ -483,69 +483,63 @@ obj/Items
 				usr << "You must be meditating to eat this."
 			if(!src.EatToxicity)
 				var/eattingtext=replacetext(EatText, "usrName", "[usr]")
-				if(usr.HasMechanized())
-					OMsg(usr, "[usr] doesn't really seem to enjoy the meal...")
-				else
-					OMsg(usr, "[eattingtext]")
-					usr.Satiated+=EatNutrition*1000
-					usr.HealWounds(EatNutrition*2)
-					usr.HealFatigue(EatNutrition*2)
-					if(src.EatNutrition>5)
-						usr.Sheared=0
-						usr.TotalInjury=0
-						usr.TotalFatigue=0
-						usr.TotalCapacity=0
-						usr.HealHealth(100)
-						usr.HealEnergy(100)
-						usr.HealMana(100)
-						usr.StrTax=0
-						usr.EndTax=0
-						usr.SpdTax=0
-						usr.OffTax=0
-						usr.DefTax=0
-						if(usr.GatesNerf)
-							usr.GatesNerf=1
-						if(usr.OverClockTime)
-							usr.OverClockTime=1
-						if(usr.BPPoison<1)
-							usr.BPPoison=1
-							usr.BPPoisonTimer=0
-						if(usr.Maimed)
-							usr.Maimed--
-							usr << "You recover from a maiming!"
-						if(usr.SenseRobbed)
-							if(usr.SenseRobbed>=5)
-								animate(usr.client, color=null, time=1)
-							usr.SenseRobbed=0
-							usr << "You regain lost senses!"
+				OMsg(usr, "[eattingtext]")
+				usr.Satiated+=EatNutrition*1000
+				usr.HealWounds(EatNutrition*2)
+				usr.HealFatigue(EatNutrition*2)
+				if(src.EatNutrition>5)
+					usr.Sheared=0
+					usr.TotalInjury=0
+					usr.TotalFatigue=0
+					usr.TotalCapacity=0
+					usr.HealHealth(100)
+					usr.HealEnergy(100)
+					usr.HealMana(100)
+					usr.StrTax=0
+					usr.EndTax=0
+					usr.SpdTax=0
+					usr.OffTax=0
+					usr.DefTax=0
+					if(usr.GatesNerf)
+						usr.GatesNerf=1
+					if(usr.OverClockTime)
+						usr.OverClockTime=1
+					if(usr.BPPoison<1)
+						usr.BPPoison=1
+						usr.BPPoisonTimer=0
+					if(usr.Maimed)
+						usr.Maimed--
+						usr << "You recover from a maiming!"
+					if(usr.SenseRobbed)
+						if(usr.SenseRobbed>=5)
+							animate(usr.client, color=null, time=1)
+						usr.SenseRobbed=0
+						usr << "You regain lost senses!"
 			else
-				if(usr.HasMechanized())
-					OMsg(usr, "[usr] doesn't really seem to enjoy the drink...")
-				else
-					var/eattingtext=replacetext(EatText, "usrName", "[usr]")
-					OMsg(usr, "[eattingtext]")
-					usr.Satiated+=EatNutrition*1000
-					if(usr.Satiated>=2000 && !usr.Drunk)
-						usr.Drunk=1
-						usr << "You've grown drunk!"
-					if(prob(20*src.EatToxicity))
-						usr << "<font color='red'>You feel dizzy!</font>"
-						Stun(usr, 2*src.EatToxicity)
-					if(prob(20*src.EatToxicity))
-						usr << "<font color='red'>You start to stumble!</font>"
-						usr.AddConfusing(20*src.EatToxicity)
-					if(prob(20*src.EatToxicity))
-						usr << "<font color='red'>Your balance is out of whack!</font>"
-						usr.AddCrippling(20*src.EatToxicity)
-					if(prob(10*src.EatToxicity))
-						usr << "You feel really sick!"
-						usr.AddPoison(4*src.EatToxicity)
-					if(prob(5*src.EatToxicity))
-						usr << "<font color='red'>You feel aggressive!</font>"
-						usr.Anger()
-					else if(prob(5*src.EatToxicity))
-						usr << "<font color='red'>You grow mellow!</font>"
-						usr.AddPacifying(20*src.EatToxicity)
+				var/eattingtext=replacetext(EatText, "usrName", "[usr]")
+				OMsg(usr, "[eattingtext]")
+				usr.Satiated+=EatNutrition*1000
+				if(usr.Satiated>=2000 && !usr.Drunk)
+					usr.Drunk=1
+					usr << "You've grown drunk!"
+				if(prob(20*src.EatToxicity))
+					usr << "<font color='red'>You feel dizzy!</font>"
+					Stun(usr, 2*src.EatToxicity)
+				if(prob(20*src.EatToxicity))
+					usr << "<font color='red'>You start to stumble!</font>"
+					usr.AddConfusing(20*src.EatToxicity)
+				if(prob(20*src.EatToxicity))
+					usr << "<font color='red'>Your balance is out of whack!</font>"
+					usr.AddCrippling(20*src.EatToxicity)
+				if(prob(10*src.EatToxicity))
+					usr << "You feel really sick!"
+					usr.AddPoison(4*src.EatToxicity)
+				if(prob(5*src.EatToxicity))
+					usr << "<font color='red'>You feel aggressive!</font>"
+					usr.Anger()
+				else if(prob(5*src.EatToxicity))
+					usr << "<font color='red'>You grow mellow!</font>"
+					usr.AddPacifying(20*src.EatToxicity)
 			del(src)
 
 
@@ -651,6 +645,21 @@ obj/Items
 				usr << "[src] has been labelled as <font color='green'>A HAT.</font color>"
 		Align_1 icon='Eyes.dmi'
 
+
+obj
+	clothes_grid_visual
+		var/wearable_path
+		New(obj/Items/Wearables/w)
+			icon = w.icon
+			name = w.name
+			wearable_path = w.type
+
+		Click()
+			..()
+			var/obj/Items/Wearables/w = new wearable_path
+			var/Color=input(usr,"Choose color") as color|null
+			if(Color) w.icon+=Color
+			usr.contents += w
 
 mob/proc/CheckWeightsTraining()
 	var/obj/Items/WeightedClothing/w=EquippedWeights()
@@ -887,7 +896,21 @@ obj/Items/Sword
 					unsheatheOffsetY = -32
 					passives = list("Steady" = 1)
 					Steady = 1
-					TierTechniques=list(null, null, null, null, null, list("/obj/Skills/Buffs/SlotlessBuffs/Dadao","/obj/Skills/Buffs/SlotlessBuffs/Huadong") , null, null)
+					TierTechniques=list(null, null, null, null, list("/obj/Skills/Buffs/SlotlessBuffs/Dadao","/obj/Skills/Buffs/SlotlessBuffs/Huadong") , null)
+
+	Legendary
+		LegendaryItem = 1
+		TechType=null
+		Unobtainable = 1
+		ShatterCounter=100
+		ShatterMax=100
+		AlienBlade
+			name="Alien Blade"
+			icon='Bokken.dmi'
+			DamageEffectiveness=1
+			AccuracyEffectiveness=1
+			HitSparkIcon='Hit Effect.dmi'
+			HitSparkSize=1
 
 
 
@@ -934,7 +957,7 @@ obj/Items/Sword
 					icon='Masamune.dmi'
 					passives = list("Purity" = 1)
 					Purity=1
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/Utility/Death_Killer", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/Utility/Death_Killer", null)
 
 				Bane_of_Blades//Muramasa
 					name="Bane of Blades"
@@ -943,7 +966,7 @@ obj/Items/Sword
 					pixel_y=-16
 					passives = list("WeaponBreaker" = 1)
 					WeaponBreaker=1
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/AutoHit/Deathbringer", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/AutoHit/Deathbringer", null)
 
 	Medium
 		name="Longsword"
@@ -977,14 +1000,14 @@ obj/Items/Sword
 					switch(S)
 						if("Sword")
 							if(check!=0)
-								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)		
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)
 							view(10,src) << "[src]'s weapon transforms in to a Sword!"
 							passives = list("SpiritSword" = 0.5)
 							check += 1
 
 						if("Shield")
 							if(check!=0)
-								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)		
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)
 							view(10,src) << "[src]'s weapon transforms in to a shield!"
 							passives = list("CallousedHands" = 0.5)
 							check += 1
@@ -993,7 +1016,7 @@ obj/Items/Sword
 
 						if("Staff")
 							if(check!=0)
-								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)		
+								passives = list("SpiritSword" = 0, "SpiritStrike" = 0,"CallousedHands" = 0)
 							view(10,src) << "[src]'s weapon transforms in to a Staff!"
 							passives = list("SpiritStrike" = 1)
 							check += 1
@@ -1006,12 +1029,12 @@ obj/Items/Sword
 
 				Sword_of_Glory//Caledfwlch
 					name="Sword of Glory"
-					// icon='protoexcalibur.dmi'
+					icon='Caledfwlch.dmi'
 					pixel_x=-31
 					pixel_y=-30
 					passives = list("SpiritSword" = 0.75)
 					SpiritSword=0.75
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/Projectile/Beams/Big/Weapon_Soul/Excalibur", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/Projectile/Beams/Big/Weapon_Soul/Excalibur", null)
 
 				Sword_of_Faith//Kusanagi
 					name="Sword of Faith"
@@ -1020,13 +1043,13 @@ obj/Items/Sword
 					pixel_y=-16
 					passives = list("MagicSword" = 1)
 					MagicSword=1
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Totsuka_no_Tsurugi", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Totsuka_no_Tsurugi", null)
 
 				Blade_of_Order//Soul Calibur
 					name="Blade of Order"
 					icon='SoulCalibur.dmi'
 					Element="Silver"
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/AutoHit/Crystal_Tomb", null, null)
+					TierTechniques=list(null, null, null, null,"/obj/Skills/AutoHit/Crystal_Tomb", null)
 
 				Blade_of_Ruin//Dainsleif
 					name="Blade of Ruin"
@@ -1038,7 +1061,7 @@ obj/Items/Sword
 					proc/drawDainsleif(mob/p)
 						hasKilled = FALSE
 						p << "You draw the blade from it sheathe and are barely able to contain its immense bloodlust. The sword cries out, waning for blood."
-						OMsg(p, "[p.name] draws [p.possessivepronoun()] blade from its sheathe and [p.subjectpronoun()] can barely contain it. The Sword of Ruin wans for blood...")
+						OMsg(p, "[p.name] draws their blade from its sheathe and they can barely contain it. The Sword of Ruin wans for blood...")
 					proc/onKill(mob/atk, mob/defend)
 						hasKilled = TRUE
 						OMsg(atk, "The Sword of Ruin's blood lust has been sated by [defend.name]'s death!")
@@ -1053,7 +1076,7 @@ obj/Items/Sword
 								switch(choice)
 									if("Yes")
 										p << "The blade forces itself into your body and you feel your life force being drained away."
-										OMsg(p, "The blade shoves itself into [p.name]'s body, absorbing [p.possessivepronoun()] life force!")
+										OMsg(p, "The blade shoves itself into [p.name]'s body, absorbing their life force!")
 										p.HealthCut += 0.1
 										return TRUE
 									if("No")
@@ -1062,7 +1085,7 @@ obj/Items/Sword
 						else
 							hasKilled = FALSE
 							return TRUE
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Fate_of_Blood", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Fate_of_Blood", null)
 
 	Heavy
 		name="Greatsword"
@@ -1109,13 +1132,13 @@ obj/Items/Sword
 					icon='Durendal.dmi'
 					Destructable=0
 					ShatterTier=0
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/AutoHit/Great_Divide", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/AutoHit/Great_Divide", null)
 
 				Blade_of_Chaos//Soul Edge
 					name="Blade of Chaos"
 					icon='SoulEdge.dmi'
 					ExtraClass=1
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Eye_of_Chaos", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Eye_of_Chaos", null)
 
 				Spear_of_War // "Green Dragon Crescent Blade" / Guan Yu
 					pixel_x = -16
@@ -1124,7 +1147,15 @@ obj/Items/Sword
 					icon = 'GreenDragonCrescentBlade_NoTrain.dmi'
 					passives = list("SweepingStrike" = 1)
 					SweepingStrike = 1
-					TierTechniques=list(null, null, null, null, null, "/obj/Skills/AutoHit/War_God_Descent", null, null)
+					TierTechniques=list(null, null, null, null, "/obj/Skills/AutoHit/War_God_Descent", null)
+
+				Sword_of_the_Moon//Moonlight Greatsword
+					pixel_x	=	-16
+					pixel_y	=	-16
+					name	=	"Sword of the Moon"
+					icon	=	'MLGS.dmi'
+					TierTechniques=list(null, null, null, null, null, "/obj/Skills/Projectile/Wisdom_Form_Blast", null, null)
+
 
 	desc="Weapons alter the effects of melee combat and have their own advantages and disadvantages."
 	New()
@@ -1372,10 +1403,11 @@ obj/Items/proc/AlignEquip(mob/A, dontUnEquip = FALSE)
 									x.verbs -= list(/obj/Skills/Buffs/SlotlessBuffs/Posture/verb/Posture)
 									x.verbs += new /obj/Skills/Buffs/SlotlessBuffs/Posture/verb/Posture(x, x?:BuffName)
 						suffix = "*Equipped (Third)*"
-				else if(!A.EquippedSword())
+				else if(!A.equippedSword)
 					A.equippedSword = src
 					suffix = "*Equipped*"
-				else return 1
+				else
+					return 1
 			else
 				if(istype(src, /obj/Items/Armor))
 					A.equippedArmor = src

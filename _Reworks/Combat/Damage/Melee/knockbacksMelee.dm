@@ -25,7 +25,7 @@
             if(UsingZornhau()>1)
                 knockDistance += 1
             if(Saga == "Weapon Soul"&&SagaLevel>=2)
-                knockDistance += SagaLevel / 4
+                knockDistance += SagaLevel / 3
         if(UsingKendo())
             if(EquippedSword().Class == "Wooden")
                 knockDistance += 0.75

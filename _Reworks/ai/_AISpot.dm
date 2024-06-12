@@ -92,7 +92,7 @@ obj
 
 			roll_tag()
 				src.name="#[rand(1000,9999)] [src.name]"
-				for(var/obj/AI_Spot/ais in world)
+				for(var/obj/AI_Spot/ais in global.ai_tracker_loop)
 					if(ais==src)
 						continue
 					if(ais.name==src.name)
@@ -124,7 +124,6 @@ obj
 					src.ai_active.Add(p)
 			initial_aize(var/mob/Player/AI/p)//set icon n such
 				var/monster_info/mi = pick(monsters)
-				p.passive_handler = new
 				if(!mi)
 					world<<"[src] somehow doesn't have a monster info. This is a bug."
 					return
@@ -343,7 +342,7 @@ obj
 				m.value = rand(8,21) + p.Potential + potExtra
 				m.value *= 1 + (powerModifier / 2)
 				m.value *= mineralModifier
-				m.name = "[Commas(m.value)] Tower Fragments"
+				m.name = "[Commas(m.value)] Mana Bits"
 				p.contents += m
 
 		Slime_Zone

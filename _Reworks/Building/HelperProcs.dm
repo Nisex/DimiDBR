@@ -158,9 +158,8 @@ turf/proc/operator~=(turf/T)
 turf/proc/DecideTurfStateForSpecialIcons(width = 4, height = 4)
 	set waitfor = 0
 	set background = 1
-	var
-		X = x % width //if 4, 1 = 1, 2 = 2, 3 = 3, 4 = 0, 5 = 1, 6 = 2, etc
-		Y = y % height
+	var/X = x % width //if 4, 1 = 1, 2 = 2, 3 = 3, 4 = 0, 5 = 1, 6 = 2, etc
+	var/Y = y % height
 	//becase 4 % 4 = 0 but we need it to be 4
 	if(X == 0) X = width
 	if(Y == 0) Y = height
@@ -211,9 +210,8 @@ proc/Circle(n = 5, mob/m, viewable_only = 0) //circular ring
 	if(!m) return
 	var/list/l=new
 	//for(var/turf/t in view(n,m))
-	var
-		start = locate(m.x - n, m.y - n, m.z)
-		end = locate(m.x + n, m.y + n, m.z)
+	var/start = locate(m.x - n, m.y - n, m.z)
+	var/end = locate(m.x + n, m.y + n, m.z)
 	for(var/turf/t in block(start, end))
 		if(sqrt((t.x - m.x)**2 + (t.y - m.y)**2) < n)
 			if(!viewable_only || viewable(m, t, max_dist = get_dist(m,t)))

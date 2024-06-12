@@ -7,7 +7,7 @@
     if(forcewarp)
         if(IaidoCounter)
             IaidoCounter = 0
-        if(StyleActive=="Secret Knife" || (UBWPath == "Firm" && SagaLevel >=4))
+        if(StyleActive=="Secret Knife" || (UBWPath == "Firm" && SagaLevel >=3))
             if(!locate(/obj/Skills/Projectile/Secret_Knives, src))
                 AddSkill(new/obj/Skills/Projectile/Secret_Knives)
             for(var/obj/Skills/Projectile/Secret_Knives/sk in src)

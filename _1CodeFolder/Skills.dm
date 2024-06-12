@@ -1,6 +1,35 @@
-obj/Skills
-	Level=100
+mob
+	verb
+		Skill_Descriptions()
+			set category = "Other"
+			var/which = input(usr,"Which skill would you like to see the description for?","Skill Description") as null|anything in usr.Skills
+			if(!which) return
+			var/obj/Skills/s = which
+			s.skillDescription()
+			var/text = s.description
+			usr << "<center>[text]</center>"
 
+obj/Skills
+	Projectile
+		proc
+			EdgeOfMapProjectile()
+				var/turf/t=get_step(src, src.dir)
+				if(!t)
+					return 1
+				if(t.x==0||t.y==0||t.z==0)
+					return 1
+				if(t)
+					if(istype(t, /turf/Special/Blank))
+						return 1
+				return 0
+	Level=100
+	var/CorruptionCost
+	var/Copied = FALSE
+	var/Sealed = FALSE
+	var/Temporary = FALSE
+	var/description
+	var/AdaptRate
+	var/MultiTrail = 0
 	var/SignatureTechnique
 	var/SignatureName//lets you label things by a string other than the object name e.g. "Advanced White Magic"
 	var/SagaSignature=0//lets sagas keep the signature
@@ -31,7 +60,7 @@ obj/Skills
 
 	var/StyleNeeded
 
-	var/MagicNeeded//lock people who aren't magic enough out from using this
+	var/MagicNeeded //lock people who aren't magic enough out from using this
 
 	var/NoSword
 	var/NeedsSword
@@ -94,8 +123,8 @@ obj/Skills
 	var/SpiritPower//become medium
 	var/LegendaryPower//become giant
 	var/HellPower//become satan
-	var/Disorienting//rolls for confuse
-	var/Confusing//adds confuse
+	var/Disorienting //rolls for confuse
+	var/Confusing //adds confuse
 	var/Stunner=0//Stuns for this amount of time
 	var/Shearing//Debuffs regen
 	var/Crippling//Cripples movement
@@ -148,6 +177,73 @@ obj/Skills
 
 	var/copiedBy
 
+	proc
+		skillDescription()
+			description = "[src.name]\n"
+			if(Cooldown!=-1)
+				description += "Cooldown: [Cooldown] seconds.\n"
+			else
+				description += "Cooldown: On Meditate.\n"
+			if(Launcher)
+				description += "Launcher: [Launcher]\n"
+			if(Stunner)
+				description += "Stunner: [Stunner]\n"
+			if(FollowUp)
+				description += "Follow Up Move: [FollowUp]\n"
+			if(Grapple)
+				description += "Grapples.\n"
+			if(Burning || Scorching || Chilling || Freezing || Crushing || Shattering || Shocking || Paralyzing || Poisoning || Toxic || Shearing || Crippling)
+				description += "Elemental Effects: "
+				if(Burning)
+					description += "Burning, "
+				if(Scorching)
+					description += "Scorching, "
+				if(Chilling)
+					description += "Chilling, "
+				if(Freezing)
+					description += "Freezing, "
+				if(Crushing)
+					description += "Crushing, "
+				if(Shattering)
+					description += "Shattering, "
+				if(Shocking)
+					description += "Shocking, "
+				if(Paralyzing)
+					description += "Paralyzing, "
+				if(Poisoning)
+					description += "Poisoning, "
+				if(Toxic)
+					description += "Toxic, "
+				if(Shearing)
+					description += "Shearing, "
+				if(Crippling)
+					description += "Crippling, "
+				description = replacetext(description, ", ", -1, -3)
+				description += "\n"
+
+				if(NeedsSword)
+					description += "Requires Sword.\n"
+				if(NoSword)
+					description += "Unarmed Only.\n"
+				if(BuffSelf)
+					description += "Applies a buff to self: [BuffSelf]\n"
+				if(BuffAffected)
+					description += "Applies a buff to effected: [BuffAffected]\n"
+
+				if(HealthCost)
+					description += "Health Cost: [HealthCost]\n"
+				if(WoundCost)
+					description += "Wound Cost: [WoundCost]\n"
+				if(EnergyCost)
+					description += "Energy Cost: [EnergyCost]\n"
+				if(FatigueCost)
+					description += "Fatigue Cost: [FatigueCost]\n"
+				if(ManaCost)
+					description += "Mana Cost: [ManaCost]\n"
+				if(CapacityCost)
+					description += "Capacity Cost: [CapacityCost]\n"
+				if(Instinct)
+					description += "Instinct: [Instinct]\n"
 
 	icon='Skillz.dmi'
 	var/Teachable
@@ -202,24 +298,18 @@ obj/Skills
 		Learn=list("energyreq"=10000,"difficulty"=50000)
 		desc="Dash towards your target!"
 		Level=100
-		var/tmp/AntiMash=0
 		verb/DragonDash()
 			set name="Dragon Dash"
 			set category="Skills"
-			if(src.AntiMash) return
 			if(usr.HasDashMaster())
 				src.Using=0
 			if(usr.Knockback)
-				for(var/obj/Skills/Aerial_Payback/x in usr)
+				for(var/obj/Skills/Aerial_Payback/x in usr.Skills)
 					if(!x.Using)
 						usr.SkillX("Aerial Payback",x)
 			else
-				for(var/obj/Skills/Dragon_Dash/x in usr)
-					if(!x.Using)
-						usr.SkillX("DragonDash",src)
-			src.AntiMash=1
-			spawn(1)
-				src.AntiMash=0
+				usr.SkillX("DragonDash",src)
+
 	Reverse_Dash
 		Cooldown=30
 		CooldownStatic=1
@@ -523,7 +613,7 @@ obj/Skills
 							if(Target.Savable&&!Target.KeepBody)
 								if(Target.HasEnlightenment())
 									Target.KeepBody=1
-								if(Target.HellPower)
+								if(Target.HasHellPower())
 									if(prob(25))
 										Target.KeepBody=1
 								if(Target.KeepBody)
@@ -762,7 +852,7 @@ obj/Skills
 					summoned_beast=pick(beasts)
 					summoned_beast.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Godly_Empowerment)
 					summoned_beast.loc=locate(usr.x+pick(-1,1), usr.y+pick(-1,1), usr.z)
-					summoned_beast.Target=Tgt
+					summoned_beast.SetTarget(Tgt)
 					summoned_beast.ai_alliances += usr.ckey
 					Dust(summoned_beast.loc, 3)
 					Dust(summoned_beast.loc, 3)
@@ -803,6 +893,30 @@ obj/Skills
 					sleep(150)
 					del(usr)
 
+mob
+	var/counterpart = null
+/*
+/obj/Skills/Counterpart
+	verb/Set_Counterpart()
+		if(usr.counterpart) return
+		var/mob/Player/choice = list()
+		for(var/mob/x in oview(2,usr))
+			if(x.client)
+				var/sameIP = x.client.address == usr.client.address ? TRUE : FALSE
+				if(sameIP && !(x.soIgnore && usr.soIgnore)) return
+				if(x.isRace(NAMEKIAN) && !x.counterpart)
+					choice+=x
+		if(length(choice) < 1) return
+		//sloppy but better than before
+		choice = input(usr, "what person?") in choice // should work
+		if((input(choice, "Do you want to be [usr]'s counterpart?", "Request") in list("Yes", "No")) == "No" )
+			return
+		choice.counterpart = usr.ckey
+		usr.counterpart = choice.ckey
+		choice << "You are now counterparts with [usr]."
+		usr << "[choice] accepted being your counterpart"
+		AdminMessage("([time2text(world.realtime,"hh:mm")])[usr] is now counterparts with [choice] ")
+*/
 obj/Turfs/Click(obj/Turfs/T)
 	if(usr.Target && usr.Mapper && usr.client.macros.IsPressed("Ctrl"))
 		..(src)

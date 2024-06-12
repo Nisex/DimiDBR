@@ -3,6 +3,7 @@ globalTracker/var/list/IGNORE_POWER_CLAMP_PASSIVES = list("Wrathful", "LimitBrok
 
 
 /mob/proc/ignoresPowerClamp(mob/defender)
+    if(!defender) return
     if(istype(src, /mob/Player/AI) || istype(defender, /mob/Player/AI))
         return TRUE
     if(!src.passive_handler || !defender.passive_handler)

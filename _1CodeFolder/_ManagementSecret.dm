@@ -277,6 +277,10 @@ SecretInfomation
 		name = "Eldritch"
 		secretVariable = list("Madness" = 0, "Madness Active" = 0)
 		givenSkills = list("/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form")
+		applySecret(mob/p)
+			switch(currentTier)
+				if(1)
+					giveSkills(p)
 		proc/getMadnessLimit(mob/p)
 			. = MADNESS_MAX + (MADNESS_ADD_PER_TIER * (currentTier))
 			if(. <0)
@@ -298,14 +302,16 @@ SecretInfomation
 			else
 				secretVariable["Madness"] += amount
 
-		proc/releaseMadness()
-			if(secretVariable["Madness Active"] == 0) return
-			var/tierEffectiveness = 8 - currentTier
+		proc/releaseMadness(mob/user)
+			var/tierEffectiveness = 5 - (currentTier/2)
 			// LESS = MORE
 			secretVariable["Madness"] -= tierEffectiveness
 			if(secretVariable["Madness"] <= 0)
 				secretVariable["Madness"] = 0
-				secretVariable["Madness Active"] = 0
+			user.Update_Stat_Labels()
+
+		proc/setMadness(madnessSet = 0)
+			secretVariable["Madness"] = clamp(getMadnessLimit(),madnessSet,0)
 
 		proc/getMadnessBoon()
 			return secretVariable["Madness"]/getMadnessLimit()
@@ -446,7 +452,7 @@ mob
 
 	proc
 		giveSecret(path)
-			path = "SecretInfomation/[path]"
+			path = text2path("/SecretInfomation/[path]")
 			var/SecretInfomation/secret = new path
 			secret.init(src)
 			secretDatum = secret

@@ -35,15 +35,15 @@
 			highestStatName = "Off"
 	vars["[highestStatName]Cut"] += 0.1
 	src<<"After managing to survive, you are left with a permanent injury. Your [highestStatName] is cut by 10%."
-		
+
 
 
 particles/confetti
 	width = 126
 	height = 126
 	count = 75
-	spawning = 25  
-	bound1 = list(-256, -256, -256)   
+	spawning = 25
+	bound1 = list(-256, -256, -256)
 	lifespan = 30
 	fade = 15
 	position = generator("box", list(-1,1,0), list(1,1,1))
@@ -66,7 +66,7 @@ proc/PinataExplosion(atom/movable/source)
 	source.vis_contents += c
 	sleep(30) //TODO REPLACE THIS WITH A LOOp
 	source.vis_contents -= c
-	c.loc = null 
+	c.loc = null
 
 /mob/var/void_timer = 0
 /mob/var/voiding = FALSE
@@ -84,12 +84,14 @@ mob/proc/StartFresh()
 /mob/proc/makeCorpse(oldLoc)
 	Stunned = 0
 	var/mob/Body/corpse = new()
-	corpse.icon = 'lootchest.dmi' // treasure chest
-	corpse.icon_state = ""
-	corpse.name = "[src]'s Loot Pinata"
+	corpse.appearance = appearance
+	corpse.transform = matrix(-90, MATRIX_ROTATE)
+	corpse.overlays += icon('Injured Blood.dmi')
+	corpse.overlays += icon('EyesDragon.dmi') // this is to stop blinking and give a more 'dead eye' look.
+	corpse.name = "[src]'s corpse"
 	corpse.loc = oldLoc
-	PinataExplosion(corpse)
-	OMsg(src, "[src]'s body explodes into a shower of confetti and loot!")
+/*	PinataExplosion(corpse)
+	OMsg(src, "[src]'s body explodes into a shower of confetti and loot!")*/
 	corpse.Race = Race
 	corpse.Body = Body
 	corpse.EnergyMax=src.EnergyMax
@@ -98,7 +100,6 @@ mob/proc/StartFresh()
 	corpse.StrMod=src.GetStr()
 	corpse.EndMod=src.GetEnd()
 	corpse.ForMod=src.GetFor()
-	corpse.Target=src
 	corpse.DeathKillerTargets=src.key//used for Death Killer
 	corpse.Savable=0
 	var/list/lootTable = list()
@@ -107,7 +108,7 @@ mob/proc/StartFresh()
 			I.ObjectUse(src)
 		if(I.Stealable)
 			lootTable+=I
-		src-=I
+		I.loc = corpse
 
 	for(var/x in 1 to rand(1,4))
 		if(lootTable.len == 0)
@@ -131,7 +132,7 @@ mob/proc/StartFresh()
 	if(totalMineralValue)
 		var/obj/Items/mineral/m = new(corpse.loc)
 		m.value = totalMineralValue
-		m.name = "[Commas(round(m.value))] Tower Fragments"
+		m.name = "[Commas(round(m.value))] Mana Bits"
 		m.assignState()
 
 /mob/var/totalExtraVoidRolls = 0
@@ -155,7 +156,7 @@ mob/proc/Void(override, zombie, forceVoid, extraChance,extraRolls)
 			rolls += totalExtraVoidRolls
 			totalExtraVoidRolls--
 		Chance += SagaLevel * 2
-	
+
 	if(secretDatum && secretDatum.name in SPIRITS_NAMES)
 		extraChance -= Potential/4 + (secretDatum.currentTier * 5)
 		src<<"You have [extraChance] reduced void chance from your REDACTED" //TODO: leaving as a note to change if needed
@@ -212,7 +213,7 @@ mob/proc/Void(override, zombie, forceVoid, extraChance,extraRolls)
 						src<<"You rolled a [roll] and the roll to beat was [100-glob.VoidChance]!"
 				if(rolls<0)
 					rolls = 0
-					
+
 		// forced void
 		if(actuallyDead)
 			if(NoSoul)

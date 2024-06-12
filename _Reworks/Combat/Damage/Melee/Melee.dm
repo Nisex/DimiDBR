@@ -2,8 +2,6 @@
 var/global/MULTIHIT_NERF = FALSE
 
 
-
-
 /proc/getDeciderDamage(playerHealth, sourceHealth)
 	var/healthDifference = abs(playerHealth - sourceHealth)
 	var/damageMultiplier = 2 * (2.7** (-healthDifference/10))
@@ -13,14 +11,14 @@ var/global/MULTIHIT_NERF = FALSE
 
 
 	// CHECKS
-	if(dmgmulti<=0)
-		dmgmulti=1
 	if(Stasis)
 		return
 	if(SecondStrike || ThirdStrike)
 		BreakAttackRate=1
 	if(!CanAttack() && !BreakAttackRate)
 		return
+	if(dmgmulti<=0)
+		dmgmulti=0.05
 	// 				VARIABLES 				//
 	var/unarmedAtk = 1
 	var/swordAtk = 0
@@ -40,7 +38,9 @@ var/global/MULTIHIT_NERF = FALSE
 	// 				MAIN START				//
 
 	// 				MELEE START			//
+	#if DEBUG_MELEE
 	log2text("Delay", delay, "damageDebugs.txt", "[ckey]/[name]")
+	#endif
 	if(AttackQueue)
 		var/pCombo = progressCombo(delay)
 		if(!pCombo)
@@ -48,13 +48,16 @@ var/global/MULTIHIT_NERF = FALSE
 		else
 			delay = pCombo
 		if(!AttackQueue)
+			#if DEBUG_MELEE
 			log2text("Damageroll", "Starting DamageRoll", "damageDebugs.txt", "[ckey]/[name]")
+			#endif
 		else
 			if(AttackQueue.Rapid || AttackQueue.Launcher)
 				delay /= 10 //Rapid and Launcher attacks are 10x faster
+	#if DEBUG_MELEE
 	log2text("Damageroll", "Starting DamageRoll", "damageDebugs.txt", "[ckey]/[name]")
 	log2text("Damageroll", dmgRoll, "damageDebugs.txt", "[ckey]/[name]")
-
+	#endif
 	// 				EXTRA EFFECTS 			//
 	if(!ThirdStrike)
 		MultiStrike(SecondStrike, ThirdStrike) // trigger double/triple strike if applicable
@@ -86,9 +89,10 @@ var/global/MULTIHIT_NERF = FALSE
 	var/list/itemMod = getItemDamage(list(s,s2,s3,st), delay, acc, SecondStrike, ThirdStrike, swordAtk)
 	delay = itemMod[1]
 	acc = itemMod[2]
+	#if DEBUG_MELEE
 	log2text("DamageMod", "After Item Damage", "damageDebugs.txt", "[ckey]/[name]")
 	log2text("DamageMod", itemMod[3], "damageDebugs.txt", "[ckey]/[name]")
-
+	#endif
 	// 				WEAPON DAMAGE END		//
 
 	// 				BLADE MODE 				//
@@ -187,25 +191,29 @@ var/global/MULTIHIT_NERF = FALSE
 		// 				STYLE EFFECTS END		//
 
 		// 				STATS 					//
+				#if DEBUG_MELEE
 				log2text("DamageMod", "old DmgMod", "damageDebugs.txt", "[ckey]/[name]")
 				log2text("DamageMod", itemMod[3], "damageDebugs.txt", "[ckey]/[name]")
-
+				#endif
 				var/powerDif = Power / enemy.Power
 				if(glob.CLAMP_POWER)
 					if(!ignoresPowerClamp())
 						powerDif = clamp(powerDif, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
 
-
+				#if DEBUG_MELEE
 				log2text("powerDif", powerDif, "damageDebugs.txt", "[ckey]/[name]")
-
+				#endif
 				var/atk = getStatDmg2()
 				var/def = enemy.getEndStat(1)
-				if(passive_handler.Get("Brutalize"))
-					def -= (def * clamp(passive_handler.Get("Brutalize")/10, 0.01, 0.5)) // MOVE THIS TO A GET PROC SO IT CAN BE TRACKED
+				var/brutalize = GetBrutalize()
+				if(brutalize)
+					def -= (def * clamp(brutalize, 0.01, 0.5)) // MOVE THIS TO A GET PROC SO IT CAN BE TRACKED
 				var/damageMultiplier = dmgmulti
 
+				#if DEBUG_MELEE
 				log2text("DamageMod", "newDmgMod", "damageDebugs.txt", "[ckey]/[name]")
 				log2text("DamageMod", damage, "damageDebugs.txt", "[ckey]/[name]")
+				#endif
 
 				if(HasPridefulRage()) // this used to set endurance to 1, not it reduces the enemy endurance by 50%, 2 ticks will reduce it to 1
 					if(passive_handler.Get("PridefulRage") >= 2)
@@ -213,37 +221,46 @@ var/global/MULTIHIT_NERF = FALSE
 					else
 						def = clamp(enemy.GetEnd()/2, 1, enemy.GetEnd())
 
+				#if DEBUG_MELEE
 				log2text("atk/def stats", "[atk]/[def]", "damageDebugs.txt", "[ckey]/[name]")
 
 				// powerDif += src.getIntimDMGReduction(enemy)
 
 				log2text("powerDif (After Intim)", powerDif, "damageDebugs.txt", "[ckey]/[name]")
+				#endif
 
-				if(glob.DMG_CALC_2)
-					damage = (powerDif**glob.DMG_POWER_EXPONENT) * (glob.CONSTANT_DAMAGE_EXPONENT+glob.MELEE_EFFECTIVENESS) ** -(def**glob.DMG_END_EXPONENT / atk**glob.DMG_STR_EXPONENT)
-				else
-					damage = (atk * powerDif)* 3 ** -(def / atk)
+				damage = (powerDif**glob.DMG_POWER_EXPONENT) * (glob.CONSTANT_DAMAGE_EXPONENT+glob.MELEE_EFFECTIVENESS) ** -(def**glob.DMG_END_EXPONENT / atk**glob.DMG_STR_EXPONENT)
 
+
+				#if DEBUG_MELEE
 				log2text("Damage", "Staring Damage", "damageDebugs.txt", "[ckey]/[name]")
 				log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
+				#endif
 
 				damage *= damageMultiplier
 		// 				GIANT FORM 				//
 				if(enemy.passive_handler.Get("GiantForm") || enemy.HasLegendaryPower() >= 1)
 					var/modifier = upper_damage_roll / 4
 					dmgRoll = GetDamageMod(0, -modifier)
+					#if DEBUG_MELEE
 					log2text("Damageroll", "After GiantForm", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Damageroll", dmgRoll, "damageDebugs.txt", "[ckey]/[name]")
+					#endif
 		// 				GIANT FORM END			//
 
 				damage *= dmgRoll
+
+				#if DEBUG_MELEE
 				log2text("Damage", "After DamageRoll", "damageDebugs.txt", "[ckey]/[name]")
 				log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
+				#endif
 
 				if(itemMod[3])
 					damage *= itemMod[3]
+					#if DEBUG_MELEE
 					log2text("Damage", "After Item Damage", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
+					#endif
 				damageMultiplier = 1 // NEW multiplier variable
 		// 				STATS END				//
 
@@ -255,16 +272,19 @@ var/global/MULTIHIT_NERF = FALSE
 				if(atkArmor)
 					acc *= GetArmorAccuracy(atkArmor)
 					delay /= GetArmorDelay(atkArmor)
+					#if DEBUG_MELEE
 					log2text("Delay", "After Armor", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Delay", delay, "damageDebugs.txt", "[ckey]/[name]")
+					#endif
 
 				if(spdmulti)
 					if(unarmedAtk)
 						spdmulti += 0.75
 					delay/=spdmulti
+					#if DEBUG_MELEE
 					log2text("Delay", "After Speed", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Delay", delay, "damageDebugs.txt", "[ckey]/[name]")
-
+					#endif
 		// 				ARMOR END				//
 
 		// 				QUEUE	 				//
@@ -272,13 +292,15 @@ var/global/MULTIHIT_NERF = FALSE
 				var/speedStrike = passive_handler.Get("BlurringStrikes")
 				if(UsingFencing() || speedStrike)
 					speedStrike += UsingFencing()
-					damage *= clamp(1,sqrt(1+((GetSpd())*(speedStrike/15))),3)
+					damage *= clamp(1,sqrt( 1  + ( (GetSpd()) * (speedStrike/15) ) ),3)
 				if(AttackQueue)
 					damage *= QueuedDamage(enemy)
 					if(secretDatum?:hasImprovement("Queues"))
 						damage *= clamp(secretDatum?:getBoon("Queues"), 1, 10)
+					#if DEBUG_MELEE
 					log2text("Damage", "After Queue", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
+					#endif
 					if(QueuedKBMult()<1 && !QueuedKBAdd())
 						NoKB=1
 					else
@@ -286,12 +308,22 @@ var/global/MULTIHIT_NERF = FALSE
 					knockDistance = QueuedKBAdd()
 
 					if(AttackQueue.Ooze)
-						for(var/turf/T in SmartBlock(enemy.x-(AttackQueue.Ooze*2),enemy.y-(AttackQueue.Ooze*2),enemy.z, enemy.x+(AttackQueue.Ooze*2), enemy.y +(AttackQueue.Ooze*2)))
+/*						world << "[enemy.x] [enemy.y] [enemy.z]"
+						world << "[AttackQueue.Ooze]"*/
+						var/minx = enemy.x - (AttackQueue.Ooze*2)
+						var/miny = enemy.y - (AttackQueue.Ooze*2)
+						var/maxx = enemy.x + (AttackQueue.Ooze*2)
+						var/maxy = enemy.y + (AttackQueue.Ooze*2)
+				//		world << "MIN/MAX: [minx], [miny], [maxx], [maxy]"
+						for(var/turf/T in block(minx, miny, enemy.z, maxx, maxy))
 							if(!T.density)
-								new/obj/Ooze(T.loc)
+								CHECK_TICK
+							//	world << "LOCATION: [T.x], [T.y], [T.z]"
+								new/obj/Ooze(T.x, T.y, T.z, src)
+					#if DEBUG_MELEE
 					log2text("Knockback", "After Queue", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Knockback", knockDistance, "damageDebugs.txt", "[ckey]/[name]")
-
+					#endif
 		// 				QUEUE END				//
 
 		// 				MULTIATTACK				//
@@ -299,9 +331,10 @@ var/global/MULTIHIT_NERF = FALSE
 				if(AttackQueue && AttackQueue?.ComboPerformed>0)
 					multiAtkNerf = 1 - clamp(AttackQueue.ComboPerformed * 0.1, 0.1, 0.99)
 					damage *= multiAtkNerf
+					#if DEBUG_MELEE
 					log2text("Damage", "After MultiAtkNerf", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
-
+					#endif
 		// 				MULTIATTACK END			//
 
 		// 				KNOCKBACK 				//
@@ -328,11 +361,12 @@ var/global/MULTIHIT_NERF = FALSE
 						sleep(3)
 						spawn()
 							LaunchEnd(enemy)
-				else if(!AttackQueue && (enemy.Launched || enemy.Stunned || enemy.Knockback))
+				else if(!AttackQueue && (enemy.Launched || enemy.Stunned))
 					damage *= glob.CCDamageModifier
+					#if DEBUG_MELEE
 					log2text("Damage", "After Stun", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
-
+					#endif
 		// 				STATUS END				//
 
 		// 				HOT HUNDRED 			//
@@ -346,15 +380,16 @@ var/global/MULTIHIT_NERF = FALSE
 						adjust = HotHundred-1
 					damage /= max(2,4-adjust)
 					if(glob.LIGHT_ATTACK_SPEED_DMG_ENABLED)
-						damage *= clamp(glob.LIGHT_ATTACK_SPEED_DMG_LOWER,GetSpd()*glob.LIGHT_ATTACK_SPEED_DMG_EXPONENT,glob.LIGHT_ATTACK_SPEED_DMG_UPPER)
+						damage *= clamp(glob.LIGHT_ATTACK_SPEED_DMG_LOWER,GetSpd()**glob.LIGHT_ATTACK_SPEED_DMG_EXPONENT,glob.LIGHT_ATTACK_SPEED_DMG_UPPER)
 					if(!adjust)
 						NoKB=1
 					if(SecondStrike || ThirdStrike)
 						damage *= 0.3
 					NextAttack = world.time + 1.25
+					#if DEBUG_MELEE
 					log2text("Damage", "After HotHundred", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
-
+					#endif
 		// 				HOT HUNDRED END			//
 
 		// 				MELEE COUNTER 			//
@@ -390,9 +425,12 @@ var/global/MULTIHIT_NERF = FALSE
 									result = flow
 								if(prob(BASE_FLOW_PROB*result))
 									if(AttackQueue && AttackQueue.HitSparkIcon)
+										var/hitsparkSword = swordAtk
 										disperseX=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
 										disperseY=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
-										HitEffect(enemy, unarmedAtk, swordAtk, SecondStrike, ThirdStrike, disperseX, disperseY)
+										if(swordAtk && HasSwordPunching())
+											hitsparkSword = 0
+										HitEffect(enemy, unarmedAtk, hitsparkSword, SecondStrike, ThirdStrike, disperseX, disperseY)
 									if(enemy.CheckSpecial("Ultra Instinct"))
 										//TODO play the ultra instinct sound
 										StunClear(enemy)
@@ -415,7 +453,10 @@ var/global/MULTIHIT_NERF = FALSE
 								if(AttackQueue && AttackQueue.HitSparkIcon)
 									disperseX=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
 									disperseY=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
-									HitEffect(enemy, unarmedAtk, swordAtk, SecondStrike, ThirdStrike, disperseX, disperseY)
+									var/hitsparkSword = swordAtk
+									if(swordAtk && HasSwordPunching())
+										hitsparkSword = 0
+									HitEffect(enemy, unarmedAtk, hitsparkSword, SecondStrike, ThirdStrike, disperseX, disperseY)
 								StunClear(enemy)
 								AfterImageStrike(enemy,src,1)
 								dodged = 1
@@ -439,7 +480,10 @@ var/global/MULTIHIT_NERF = FALSE
 									if(AttackQueue && AttackQueue.HitSparkIcon)
 										disperseX=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
 										disperseY=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
-										HitEffect(enemy, unarmedAtk, swordAtk, SecondStrike, ThirdStrike, disperseX, disperseY)
+										var/hitsparkSword = swordAtk
+										if(swordAtk && HasSwordPunching())
+											hitsparkSword = 0
+										HitEffect(enemy, unarmedAtk, hitsparkSword, SecondStrike, ThirdStrike, disperseX, disperseY)
 									enemy.dir = get_dir(enemy,src)
 									StunClear(enemy)
 									enemy.NextAttack=0
@@ -466,8 +510,10 @@ var/global/MULTIHIT_NERF = FALSE
 									//TODO TEST THIS TO MAKE SURE IT IS WORKING
 									UseProjectile(db)
 					// 				WHIFFING		 			//
+							#if DEBUG_MELEE
 							log2text("Damage", "Start of Hit", "damageDebugs.txt", "[ckey]/[name]")
 							log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
+							#endif
 							if(hitResolution == WHIFF || prob(glob.BASE_FLUIDFORM_PROB * enemy.HasFluidForm()))
 								var/whiffed = TRUE
 								if(AttackQueue)
@@ -482,10 +528,12 @@ var/global/MULTIHIT_NERF = FALSE
 										whiffed = FALSE
 
 								if(whiffed)
-									damage /= 4
+									damage /= rand(glob.MIN_WHIFF_DMG, glob.MAX_WHIFF_DMG)
 									enemy.Whiff()
+									#if DEBUG_MELEE
 									log2text("Damage", "After Whiff", "damageDebugs.txt", "[ckey]/[name]")
 									log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
+									#endif
 					// 				WHIFFING END				//
 
 							if(enemy.passive_handler.Get("Siphon"))
@@ -500,28 +548,26 @@ var/global/MULTIHIT_NERF = FALSE
 									//TODO TEST ENERGY SIPHON IT MIGHT BE WONKY
 									damage -= heal
 									enemy.HealEnergy(heal)
+									#if DEBUG_MELEE
 									log2text("Damage", "After Energy Siphon", "damageDebugs.txt", "[ckey]/[name]")
 									log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
-
+									#endif
 							if(AttackQueue)
 							// 				ONHITS				//
 								if(AttackQueue.Scorching||AttackQueue.Chilling||AttackQueue.Freezing||AttackQueue.Crushing||AttackQueue.Shattering||AttackQueue.Shocking||AttackQueue.Paralyzing||AttackQueue.Poisoning||AttackQueue.Toxic)
-									var/PreviousElement
-									PreviousElement=src.ElementalOffense
-									addElementalPassives(AttackQueue)
+									var/list/addElements = list()
 									if(AttackQueue.Scorching)
-										ElementalOffense = "Fire"
+										addElements |= "Fire"
 									else if(AttackQueue.Chilling||AttackQueue.Freezing)
-										ElementalOffense = "Water"
+										addElements |= "Water"
 									else if(AttackQueue.Crushing||AttackQueue.Shattering)
-										ElementalOffense = "Earth"
+										addElements |= "Earth"
 									else if(AttackQueue.Shocking||AttackQueue.Paralyzing)
-										ElementalOffense = "Wind"
+										addElements |= "Wind"
 									else if(AttackQueue.Poisoning||AttackQueue.Toxic)
-										ElementalOffense = "Poison"
-									handleElementPassives(enemy)
-									ElementalOffense = PreviousElement
-									removeElementalPassives(AttackQueue)
+										addElements |= "Poison"
+									ElementalCheck(src, enemy, 0,, addElements)
+
 								if(AttackQueue.Shearing)
 									enemy.AddShearing(AttackQueue.Shearing,src)
 								if(AttackQueue.Crippling)
@@ -549,8 +595,10 @@ var/global/MULTIHIT_NERF = FALSE
 										if(mod <= 0.1)
 											mod = 0.05
 										damage *= mod
+										#if DEBUG_MELEE
 										log2text("Damage", "After Instant Strikes", "damageDebugs.txt", "[ckey]/[name]")
 										log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
+										#endif
 							// 				ONHITS END			//
 
 							// reduce damage by 1% for every 0.1 damage effectiveness, 1 damage effectiveness = 10% damage reduction
@@ -558,13 +606,16 @@ var/global/MULTIHIT_NERF = FALSE
 							if(defArmor)
 								var/dmgEffective = enemy.GetArmorDamage(defArmor)
 								damage -=  damage * dmgEffective/10
+								#if DEBUG_MELEE
 								log2text("damage", "After Armor", "damageDebugs.txt", "[ckey]/[name]")
 								log2text("damage", damage, "damageDebugs.txt", "[ckey]/[name]")
-
+								#endif
 
 							damage *= GLOBAL_MELEE_MULT
+							#if DEBUG_MELEE
 							log2text("Damage", "After Global Multiplier", "damageDebugs.txt", "[ckey]/[name]")
 							log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
+							#endif
 							DoDamage(enemy, damage, unarmedAtk, swordAtk, SecondStrike, ThirdStrike)
 				// 										MELEE END																	 //
 							var/shocked=0
@@ -574,7 +625,7 @@ var/global/MULTIHIT_NERF = FALSE
 									knockDistance = max(SureKB, 5)
 								if(!AttackQueue || AttackQueue && !AttackQueue.Grapple)
 									if(enemy)
-										if(enemy.passive_handler.Get("Blubber"))
+										if(enemy.passive_handler&&enemy.passive_handler.Get("Blubber"))
 											var/blubber = enemy.passive_handler.Get("Blubber")
 											if(prob(blubber * 25))
 												enemy.Knockback(knockDistance / clamp(5-blubber, 1,4),src)
@@ -584,7 +635,10 @@ var/global/MULTIHIT_NERF = FALSE
 								if(AttackQueue.HitSparkDispersion)
 									disperseX=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
 									disperseY=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
-									HitEffect(enemy, unarmedAtk, swordAtk, SecondStrike, ThirdStrike, disperseX, disperseY)
+									var/hitsparkSword = swordAtk
+									if(swordAtk && HasSwordPunching())
+										hitsparkSword = 0
+									HitEffect(enemy, unarmedAtk, hitsparkSword, SecondStrike, ThirdStrike, disperseX, disperseY)
 								if(AttackQueue.PushOut)
 									var/shockwave = AttackQueue.PushOutWaves
 									var/shockSize = AttackQueue.PushOut
@@ -612,7 +666,10 @@ var/global/MULTIHIT_NERF = FALSE
 											goto STRIKE
 								QueuedHitMessage(enemy)
 								src.doQueueEffects(enemy)
-							HitEffect(enemy, unarmedAtk, swordAtk, SecondStrike, ThirdStrike, disperseX, disperseY)
+							var/hitsparkSword = swordAtk
+							if(swordAtk && HasSwordPunching())
+								hitsparkSword = 0
+							HitEffect(enemy, unarmedAtk, hitsparkSword, SecondStrike, ThirdStrike, disperseX, disperseY)
 
 
 							if(passive_handler.Get("MonkeyKing"))
@@ -627,9 +684,9 @@ var/global/MULTIHIT_NERF = FALSE
 							var/otherDmg = (damage+(GetIntimidation()/100)*(1+(2*GetGodKi())))
 
 							if(UsingZornhau()&&HasSword())
-								otherDmg *= 1.25
+								otherDmg *= 1 + (UsingZornhau()*glob.ZORNHAU_MULT)
 
-							if(UsingKendo()&&HasSword())
+							if(UsingKendo()&&HasSword()&&CountStyles(2))
 								if(s.Class == "Wooden")
 									otherDmg *= 1.15
 
@@ -646,7 +703,7 @@ var/global/MULTIHIT_NERF = FALSE
 
 							if(otherDmg >= 5 || AttackQueue&&QueuedKBAdd()||SureKB)
 								if(!shocked)
-									KenShockwave(enemy, Size=clamp(otherDmg * randValue(0.04,0.4), 0.1, 1.5), PixelX = disperseX, PixelY = disperseY, Time=4)
+									KenShockwave(enemy, Size=clamp(otherDmg * rand(0.04,0.4), 0.1, 1.5), PixelX = disperseX, PixelY = disperseY, Time=4)
 									var/quakeIntens = otherDmg
 									if(quakeIntens>24)
 										quakeIntens=24
@@ -674,10 +731,11 @@ var/global/MULTIHIT_NERF = FALSE
 							spawn()
 								QueuedMissMessage()
 				if(forcewarp)
-					if(src.StyleActive=="Secret Knife" || (UBWPath == "Firm" && SagaLevel >=4))
+					if(src.StyleActive=="Secret Knife" || (UBWPath == "Firm" && SagaLevel >=3))
 						if(!locate(/obj/Skills/Projectile/Secret_Knives, src))
 							src.AddSkill(new/obj/Skills/Projectile/Secret_Knives)
 						for(var/obj/Skills/Projectile/Secret_Knives/sk in src)
+							sk.adjust(src)
 							src.UseProjectile(sk)
 					if(src.StyleActive=="Blade Singing")
 						if(!locate(/obj/Skills/Projectile/Murder_Music, src))
@@ -708,40 +766,25 @@ var/global/MULTIHIT_NERF = FALSE
 				if(P.Health<=TurfDamage)
 					Destroy(P)
 			return
-		if(src.HasSpecialStrike())
+		if(src.HasSpecialStrike()||EquippedStaff())
 			flick("Attack",src)
 			NextAttack=world.time
 			if(src.CheckSpecial("Ray Gear"))
 				if(src.AttackQueue)
 					if(src.AttackQueue.Warp)
-						if(!locate(/obj/Skills/Projectile/Homing_Ray_Missiles, src))
-							src.AddSkill(new/obj/Skills/Projectile/Homing_Ray_Missiles)
-						for(var/obj/Skills/Projectile/Homing_Ray_Missiles/pc in src)
-							src.UseProjectile(pc)
+						GetAndUseSkill(/obj/Skills/Projectile/Homing_Ray_Missiles, Projectiles, TRUE)
 					else
-						if(!locate(/obj/Skills/Projectile/Plasma_Cannon, src))
-							src.AddSkill(new/obj/Skills/Projectile/Plasma_Cannon)
-						for(var/obj/Skills/Projectile/Plasma_Cannon/pc in src)
-							src.UseProjectile(pc)
+						GetAndUseSkill(/obj/Skills/Projectile/Plasma_Cannon, Projectiles, TRUE)
 					src.ClearQueue()
 					NextAttack+=15
 				else
-					if(!locate(/obj/Skills/Projectile/Machine_Gun_Burst, src))
-						src.AddSkill(new/obj/Skills/Projectile/Machine_Gun_Burst)
-					for(var/obj/Skills/Projectile/Machine_Gun_Burst/pc in src)
-						src.UseProjectile(pc)
+					GetAndUseSkill(/obj/Skills/Projectile/Machine_Gun_Burst, Projectiles, TRUE)
 					NextAttack+=15
 			else if(src.CheckSpecial("Wisdom Form"))
-				if(!locate(/obj/Skills/Projectile/Wisdom_Form_Blast, src))
-					src.AddSkill(new/obj/Skills/Projectile/Wisdom_Form_Blast)
-				for(var/obj/Skills/Projectile/Wisdom_Form_Blast/pc in src)
-					src.UseProjectile(pc)
+				GetAndUseSkill(/obj/Skills/Projectile/Wisdom_Form_Blast, Projectiles, TRUE)
 				NextAttack+=15
 			else if(src.CheckSlotless("OverSoul"))
-				if(!locate(/obj/Skills/AutoHit/DurendalPressure, src))
-					src.AddSkill(new/obj/Skills/AutoHit/DurendalPressure)
-				for(var/obj/Skills/AutoHit/DurendalPressure/pc in src)
-					src.Activate(pc)
+				GetAndUseSkill(/obj/Skills/AutoHit/DurendalPressure, AutoHits, TRUE)
 				NextAttack+=15
 			else if(src.CheckSlotless("Heavenly Ring Dance"))
 				if(src.Target&&src.Target!=src)
@@ -767,7 +810,7 @@ var/global/MULTIHIT_NERF = FALSE
 					else
 						src.ClearQueue()
 						src.Activate(new/obj/Skills/AutoHit/Heavenly_Ring_Dance)
-						for(var/obj/Skills/Buffs/SlotlessBuffs/Heavenly_Ring_Dance/TH in usr)
+						for(var/obj/Skills/Buffs/SlotlessBuffs/Heavenly_Ring_Dance/TH in usr.AutoHits)
 							usr.UseBuff(TH)
 
 					NextAttack+=30
@@ -775,42 +818,39 @@ var/global/MULTIHIT_NERF = FALSE
 					src.Target.Frozen=0
 				else
 					src.Activate(new/obj/Skills/AutoHit/Heavenly_Ring_Dance_Burst)
-					for(var/obj/Skills/Buffs/SlotlessBuffs/Heavenly_Ring_Dance/TH in usr)
+					for(var/obj/Skills/Buffs/SlotlessBuffs/Heavenly_Ring_Dance/TH in usr.AutoHits)
 						usr.UseBuff(TH)
 			else if(src.CheckSlotless("Libra Armory")&&src.AttackQueue)
-				if(!locate(/obj/Skills/Projectile/Libra_Slash, src))
-					src.AddSkill(new/obj/Skills/Projectile/Libra_Slash)
-				for(var/obj/Skills/Projectile/Libra_Slash/pc in src)
-					src.UseProjectile(pc)
+				GetAndUseSkill(/obj/Skills/Projectile/Libra_Slash, Projectiles, TRUE)
 				src.ClearQueue()
 				NextAttack+=15
 			else if(src.CheckSlotless("Spirit Bow"))
-				if(!locate(/obj/Skills/Projectile/Aether_Arrow, src))
-					src.AddSkill(new/obj/Skills/Projectile/Aether_Arrow)
-				for(var/obj/Skills/Projectile/Aether_Arrow/pc in src)
-					src.UseProjectile(pc)
+				GetAndUseSkill(/obj/Skills/Projectile/Aether_Arrow, Projectiles, TRUE)
 				NextAttack+=15
-			else if(EquippedStaff())
-				if(!locate(/obj/Skills/Projectile/Staff_Projectile, src))
+			else if(st&&st.modifiedAttack)
+				if(!locate(/obj/Skills/Projectile/Staff_Projectile, Projectiles))
 					src.AddSkill(new/obj/Skills/Projectile/Staff_Projectile)
-				for(var/obj/Skills/Projectile/Staff_Projectile/pc in src)
-					switch(st.Class)
+				for(var/obj/Skills/Projectile/Staff_Projectile/pc in Projectiles)
+					switch(st.Class) // ascensions should do something here
 						if("Wand")
-							pc.Blasts = 5
-							pc.DamageMult = 1
-						if("Rod")
 							pc.Blasts = 3
-							pc.DamageMult = 1.5
+							pc.DamageMult = 0.25
+							pc.Speed = 0.75
+						if("Rod")
+							pc.Blasts = 2
+							pc.DamageMult = 0.75
+							pc.Speed = 1
 						if("Staff")
 							pc.Blasts = 1
-							pc.DamageMult = 2
+							pc.DamageMult = 1.5
+							pc.Speed = 1.25
 					src.UseProjectile(pc)
 				switch(st.Class)
 					if("Wand")
-						NextAttack += 5
+						NextAttack += 2
 					if("Rod")
-						NextAttack += 10
+						NextAttack += 5
 					if("Staff")
-						NextAttack += 15
+						NextAttack += 10
 				NextAttack+=15
 			return

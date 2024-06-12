@@ -54,10 +54,13 @@ mob/Players
 		players += usr
 		usr.density=1
 		usr.client.view=8
-		if(usr.Class=="Dance"||usr.Class=="Potara")
-			usr.Savable=0
-
-		else if(usr.Manufactured)
+		if(in_tmp_map)
+			if(!swapmaps_byname[in_tmp_map])
+				in_tmp_map = null
+				x = PrevX
+				y = PrevY
+				z = PrevZ
+		if(usr.Manufactured)
 			usr.Savable=1
 			usr.Redo_Stats()
 			usr.EraAge=global.Era
@@ -70,8 +73,6 @@ mob/Players
 				usr.Finalize()
 		if(!locate(/obj/Money) in src)
 			src.contents += new/obj/Money
-		usr.ssj["transing"]=0
-		usr.trans["transing"]=0
 		winshow(usr,"StatsWindow",0)
 		winshow(usr,"StatsWindow2",0)
 		for(var/e in list("Health","Energy","Power","Mana"))
@@ -80,7 +81,7 @@ mob/Players
 		usr.Admin("Check")
 		usr.overlays-='Emoting.dmi'
 		if(!Mapper)
-			for(var/obj/Skills/Fly/f in src)
+			for(var/obj/Skills/Fly/f in Skills)
 				del f
 		if(usr.calmcounter)
 			usr.calmcounter=2
@@ -91,30 +92,11 @@ mob/Players
 		for(var/obj/Skills/S in usr)
 			usr.AddSkill(S, AlreadyHere=1)
 
-		if(src.RPPSpendable<0)
-			src.RPPSpendable=0
-
-
-
-		if(src.RPPSpendableEvent>0)
-			src.RPPSpendableEvent=0
-		if(RPPSpentEvent>0)
-			loc = locate(0,0,0)
-		if(src.RPPMult<1)
-			src.RPPMult=1
-		for(var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm/da in src)
+		for(var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da in src)
 			if(src.isRace(DEMON))
 				da.name="Devil Arm ([src.TrueName])"
 
-
-		var/obj/Items/Tech/protecc
-		for(var/obj/Items/Tech/Anesthetics/ans in src)
-			if(!protecc)
-				protecc=ans
-			else
-				protecc.TotalStack++
-				del ans
-
+		checkGuildVerbs()
 
 		addMissingSkills()
 		if(glob.TESTER_MODE)
@@ -306,75 +288,10 @@ mob/Players
 		if(src.ModifyPrime)
 			src.ModifyPrime=0
 
-		if(src.Class=="Dance"||src.Class=="Potara")
-			src.Timeless=1
-
-		var/Dif=global.Era-src.EraAge
+		// var/Dif=global.Era-src.EraAge
 
 		if(icon_state == "KB")
 			icon_state = ""
-
-		if(!src.Timeless)
-			if(src.Dead&&!src.DeadTime)
-				src.DeadAge=Dif
-				src.DeadTime=global.Era
-			if(src.DeadAge)
-				if(src.Dead)
-					src.EraAge=global.Era-src.DeadAge
-					Dif=global.Era-src.EraAge
-				else
-					src.DeadAge=0
-
-			var/CurrentBody=src.EraBody
-			var/Message
-			//EraAge only tracks what era the person was born in; it does not move
-			//global Era WILL move.
-			if(Dif>=0&&(Dif-ModifyBaby)<1)
-				src.EraBody="Child"
-				Message="You are considered a child.  You're quite weak, but at least you have a long life ahead of you!"
-				if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
-					src.Tail(1)
-			if((Dif-ModifyBaby)>=1&&(Dif-(ModifyBaby+ModifyEarly))<2)
-				src.EraBody="Youth"
-				Message="You are now considered a youth.  You're able to access more of your power, but your full potential hasn't been unleashed yet!"
-				if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
-					src.Tail(1)
-			if((Dif-(ModifyBaby+ModifyEarly))>=2&&(Dif-(ModifyBaby+ModifyEarly+ModifyPrime))<4)
-				src.EraBody="Adult"
-				Message="You are now an adult, and you are able to access your full power!"
-			if((Dif-(ModifyBaby+ModifyEarly+ModifyPrime))>=4&&(Dif-(ModifyBaby+ModifyEarly+ModifyPrime+ModifyLate))<5)
-				src.EraBody="Elder"
-				if(!locate(/obj/Skills/Utility/Teachz, src))
-					src.AddSkill(new/obj/Skills/Utility/Teachz)
-					src << "You can now teach those younger than you!"
-				Message="You are now considered elderly and have permission to teach your techniques.  In just a few more years, you'll be reaching the end of your lifespan..."
-			if((Dif-(ModifyBaby+ModifyEarly+ModifyPrime+ModifyLate))>=5)
-				src.EraBody="Senile"
-				Message="You have entered your last years of life."
-				if(!locate(/obj/Skills/Utility/Teachz, src))
-					src.AddSkill(new/obj/Skills/Utility/Teachz)
-					src << "You can now teach those younger than you!"
-			if((Dif-(ModifyBaby+ModifyEarly+ModifyPrime+ModifyLate+ModifyFinal))>=5)
-				if(!src.EraDeathClock&&!src.Immortal)
-					var/DeathClock=Day(7+GoCrand(0,1))
-					var/DeathClockAdjustment=(Dif-5)
-					if(DeathClockAdjustment>=0)
-						DeathClock/=(5**DeathClockAdjustment)
-					src.EraDeathClock=world.realtime+DeathClock
-					Message+="<br><b>You will die from old age soon. Use your remaining time well.</b>"
-			if(CurrentBody!=src.EraBody)
-				src << Message
-				if(src.EraBody=="Elder")
-					src.RPPDonate=(src.RPPSpendable+src.RPPSpent)/4
-				if(src.EraBody=="Senile")
-					src.RPPDonate+=(src.RPPSpendable+src.RPPSpent)/2
-		else
-			if(Dif>=4)
-				if(!locate(/obj/Skills/Utility/Teachz, src) && !(src.Class in list("Dance","Potara")) )
-					src.AddSkill(new/obj/Skills/Utility/Teachz)
-					src.RPPDonate+=(src.RPPSpendable+src.RPPSpent)/4
-					src << "You can now teach those younger than you!"
-
 		if(src.ParasiteCrest())
 			var/obj/Items/Enchantment/Magic_Crest/mc=src.EquippedCrest()
 			if(!mc.CrestMadeAge)
@@ -405,6 +322,8 @@ mob/Players
 
 		// mainLoop += src
 		gain_loop.Add(src)
+		if(isRace(DEMON))
+			client.updateCorruption()
 		var/list/lol=list("butt3","butt4")
 		for(var/x in lol)
 			winset(src,x,"'is-visible'=true")
@@ -465,6 +384,12 @@ mob/Players
 			for(var/obj/Skills/s in src)
 				s.cooldown_remaining=0
 				s.cooldown_start=0
+			for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in src)
+				if(dm.possible_skills)
+					for(var/path in dm.possible_skills)
+						dm.possible_skills[path].cooldown_remaining=0
+						dm.possible_skills[path].cooldown_start=0
+						dm.possible_skills[path].Using = 0
 		for(var/obj/Redo_Stats/r in src)
 			if(r.LoginUse) r.RedoStats(src)
 		if(locate(/obj/Skills/Companion/arcane_follower) in src) is_arcane_beast = locate(/obj/Skills/Companion/arcane_follower) in src
@@ -482,9 +407,28 @@ mob/Players
 							x.verbs -= list(/obj/Skills/Buffs/SlotlessBuffs/Posture/verb/Posture)
 							x.verbs += new /obj/Skills/Buffs/SlotlessBuffs/Posture/verb/Posture(x, x?:BuffName)
 
-		if(src.AFKTimer==0)
-			src.overlays+=src.AFKIcon
+		if(stat_redoing)
+			stat_redo(1)
 
+		for(var/obj/Pact/pactObject in src.contents)
+			for(var/pactID in pactObject.currentPacts)
+				var/datum/Pact/p = findPactByID(pactID)
+				if(!p) continue
+				if(!p.broken) continue
+				if(p.ownerPenaltyInflicted&&p.subjectPenaltyInflicted) continue
+				var/whoToInflict
+				switch(p.broken)
+					if(PACT_BROKEN_BOTH_PENALTY)
+						whoToInflict = "Both"
+					if(PACT_BROKEN_OWNER_PENALTY)
+						whoToInflict = PACT_OWNER
+					if(PACT_BROKEN_SUBJECT_PENALTY)
+						whoToInflict = PACT_SUBJECT
+				p.breakPact(TRUE, whoToInflict)
+		if(isRace(MAKYO)&&StarPowered&&!starActive)
+			MakyoFade()
+		if(isRace(MAKYO)&&!StarPowered&&starActive)
+			MakyoTrigger()
 		return
 	Logout()
 		players -= src
@@ -521,7 +465,8 @@ mob/Players
 		transform = null
 		filters = null
 		Hair = null
-		Target = null
+		RemoveTarget()
+		BreakViewers()
 		GlobalCooldowns = null
 		SkillsLocked = null
 		OldLoc = null
@@ -537,12 +482,6 @@ mob/Players
 		equippedWeights = null
 		overlays = null
 		underlays = null
-		if(BeingObserved.len>0)
-			for(var/mob/p in BeingObserved)
-				Observify(p,p)
-		if(BeingTargetted.len>0)
-			for(var/mob/p in BeingTargetted)
-				p.RemoveTarget()
 		if(active_projectiles.len>0)
 			for(var/obj/Skills/Projectile/_Projectile/p in active_projectiles)
 				p.endLife()
@@ -559,6 +498,8 @@ mob/Creation
 		client.perspective=MOB_PERSPECTIVE | EDGE_PERSPECTIVE
 		usr.client.view=8
 		usr<<browse("[basehtml][Notes]")
+		winshow(usr, "HungerLabel", 0)
+		winshow(usr, "Hunger", 0)
 		if(copytext(usr.key,1,6)=="Guest")
 			usr<<"Guest keys are disabled at this time, please login using a real key!"
 			del(usr)
@@ -617,27 +558,7 @@ mob/Creation/verb
 		if(!(world.time > verb_delay))
 			return
 		verb_delay=world.time+1
-		if(usr.isRace(HUMAN)||usr.isRace(SAIYAN)||usr.Race=="Tuffle"||usr.Race=="Half Saiyan")
-			usr.Grid("CreationHuman")
-		else if(usr.isRace(NAMEKIAN))
-			usr.Grid("CreationNamekian")
-		else if(usr.Race=="Changeling")
-			usr.Grid("CreationChangeling")
-		else if(usr.Race=="Alien"||usr.Race=="Monster"||isRace(MAJIN))
-			usr.Grid("CreationAlien")
-		else if(usr.isRace(DEMON))
-			usr.Grid("CreationDemon")
-		else if(usr.isRace(MAKYO))
-			usr.Grid("CreationMakyo")
-		else if(usr.Race=="Shinjin")
-			usr.Grid("CreationKaio")
-		else if(usr.Race=="Android")
-			usr.Grid("CreationAndroid")
-		else if(usr.isRace(ELDRITCH))
-			usr.icon='Octopus Type.dmi'
-		else
-			if(!usr.icon)
-				usr.icon='MaleLight.dmi'
+		usr.Grid("BaseIcon")
 
 	NextStep()
 		set hidden=1
@@ -932,7 +853,7 @@ mob/proc/UpdateRaceScreen(change)
 		if (CheckUnlock(r))
 			break
 
-	setRace(r)
+	setRace(r,FALSE,TRUE)
 	var/list/options = usr.race.gender_options
 	var/current_index = options.Find(usr.Gender)
 
@@ -964,8 +885,8 @@ obj/Login
 			if(WorldLoading)
 				usr<<"Please wait until the world is done loading..."
 				return
-			if(usr.Race)
-				usr<<"You have a race!?"
+			if(usr.race)
+				usr<<"You're already making!"
 				return
 			if(fexists("Saves/Players/[usr.ckey]"))
 				var/savefile/f=new("Saves/Players/[usr.ckey]")
@@ -1009,34 +930,6 @@ client
 			if(fexists("Saves/Players/[src.ckey]"))
 				var/savefile/F=new("Saves/Players/[src.ckey]")
 				F["mob"] >> src.mob
-				if(src.mob.Fused)
-					if(global.fusion_locs.len)
-						if(src.mob.Fused==1)
-							var/list/l
-							for(var/index in fusion_locs) if(findtext(index, ckey) || findtext(index, mob.Fusee))
-								l = fusion_locs[index]
-								break
-							if(l)
-								src.mob.loc=locate(l["x"], l["y"], l["z"])
-								src.mob.BeginKB(WEST, 2)
-						if(src.mob.Fused==2)
-							var/list/l
-							for(var/index in fusion_locs) if(findtext(index, ckey) || findtext(index, mob.Fusee))
-								l = fusion_locs[index]
-								break
-							if(l)
-								src.mob.loc=locate(l["x"]-1, l["y"], l["z"])
-								src.mob.BeginKB(EAST, 2)
-					src.mob.Fused=0
-					src.mob.AppearanceOff()
-					src.mob.AppearanceOn()
-					for(var/obj/Skills/Buffs/SlotlessBuffs/Fusion_Dance/FD in src.mob)
-						if(FD)
-							FD.Cooldown()
-					for(var/obj/Skills/Buffs/SlotlessBuffs/Divine_Fusion/DF in src.mob)
-						if(DF)
-							DF.Cooldown()
-					src.mob.Health=25
 				if(mob.isRace(MAJIN))
 					if(!mob.majinPassive)
 						mob.majinPassive = new(mob)
@@ -1059,9 +952,9 @@ client
 						var/parse = replacetext(s_info.loginMessage, "name", s_info.name)
 						parse = replacetext(parse, "key", s_info.key)
 						world<<parse
-
+/*
 				if(key in VuffaKeys)
-					mob.giveVuffaMoment()
+					mob.giveVuffaMoment()*/
 				switch(mob.Secret)
 					if("Vampire")
 						mob.vampireBlood = new(mob, 6,70)
@@ -1133,7 +1026,6 @@ mob/proc
 		del(src)
 
 	Finalize(var/Warped=0)
-		src.Hair_Forms()
 		src.Hairz("Add")
 		resetStats = FALSE
 		if(src.Tail)
@@ -1165,7 +1057,10 @@ mob/proc
 		src.OffOriginal=src.OffMod
 		src.DefOriginal=src.DefMod
 		src.RecovOriginal=src.RecovMod
-		src.SetVars()
+
+		src:UniqueID = ++glob.IDCounter
+		glob.IDs += src:UniqueID
+		glob.IDs[src:UniqueID] = "[name]"
 
 		if(!Warped)
 			if(src.Race=="Alien"||isRace(BEASTMAN)||isRace(YOKAI))
@@ -1239,15 +1134,16 @@ mob/proc
 					src.PotentialLastDailyGain=glob.progress.DaysOfWipe-1
 				src.RewardsLastGained=glob.progress.DaysOfWipe-1
 				//set these to wipe start so that the login code will give them their rewards and allow them to grind potentialz
-			information.setPronouns(TRUE)
-			information.setNationality(src)
+			//information.setPronouns(TRUE)
 			killed_AI = list()
+
 			// information.pickFaction(src)
+/*
 			if(key in VuffaKeys)
 				giveVuffaMoment()
 
 var/list/VuffaKeys = list("Vuffa", "PacifistSnowball")
-
+*/
 mob
 	proc
 		GetPassedEras(var/Age)

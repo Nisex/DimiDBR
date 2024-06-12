@@ -7,10 +7,14 @@ mob
 
 passive
 	var
-		list/passives = list("CriticalBlock" = 1, "CriticalDamage" = 1) //this list will track passives that are intended to stick to the character; racials/things sticking over relogs.
-		tmp/list/tmp_passives = list() //this list is for buffs, or things that should fall off naturally/on a relog.
+		list/passives //this list will track passives that are intended to stick to the character; racials/things sticking over relogs.
+		tmp/list/tmp_passives //this list is for buffs, or things that should fall off naturally/on a relog.
 
+	New()
+		passives = list()
+		tmp_passives = list()
 	proc
+
 		Get(passive) // returns value of passive if it exists/has anything
 			return passives[passive] ? passives[passive] : 0
 
@@ -21,6 +25,8 @@ passive
 			return "[passiveText]"
 
 		Increase(passive, value = 1, temp = FALSE) // Used to specifically increment a passive upwards. If it doesn't exist, then it gets created and set to that value. passive can also be passed in as a list ofto increase.
+			if(!isnum(value))
+				CRASH("ERROR: [passive] was increased by [value] which is not a number!")
 			switch(islist(passive))
 				if(FALSE)
 					switch(temp)
@@ -32,6 +38,8 @@ passive
 					increaseList(passive, temp)
 
 		Set(passive, value = 0, temp = FALSE) // directly sets a passive
+			if(!isnum(value))
+				CRASH("ERROR: [passive] was set to [value] which is not a number!")
 			switch(islist(passive))
 				if(FALSE)
 					switch(temp)
@@ -43,6 +51,8 @@ passive
 					setList(passive, temp)
 
 		Decrease(passive, value = 1, temp = FALSE)
+			if(!isnum(value))
+				CRASH("ERROR: [passive] was decreased by [value] which is not a number!")
 			switch(islist(passive))
 				if(FALSE)
 					switch(temp)
@@ -57,28 +67,46 @@ passive
 			switch(temp)
 				if(FALSE)
 					for(var/settingPassive in settingPassiveList)
-						passives[settingPassive] -= settingPassiveList[settingPassive]
+						var/value = settingPassiveList[settingPassive]
+						if(!isnum(value))
+							CRASH("ERROR: [settingPassive] was decreased by [value] which is not a number!")
+						passives[settingPassive] -= value
 				if(TRUE)
 					for(var/settingPassive in settingPassiveList)
-						tmp_passives[settingPassive] -= settingPassiveList[settingPassive]
+						var/value = settingPassiveList[settingPassive]
+						if(!isnum(value))
+							CRASH("ERROR: [settingPassive] was decreased by [value] which is not a number!")
+						tmp_passives[settingPassive] -= value
 
 		increaseList(list/settingPassiveList, temp = FALSE)
 			switch(temp)
 				if(FALSE)
 					for(var/settingPassive in settingPassiveList)
-						passives[settingPassive] += settingPassiveList[settingPassive]
+						var/value = settingPassiveList[settingPassive]
+						if(!isnum(value))
+							CRASH("ERROR: [settingPassive] was increased by [value] which is not a number!")
+						passives[settingPassive] += value
 				if(TRUE)
 					for(var/settingPassive in settingPassiveList)
-						tmp_passives[settingPassive] += settingPassiveList[settingPassive]
+						var/value = settingPassiveList[settingPassive]
+						if(!isnum(value))
+							CRASH("ERROR: [settingPassive] was increased by [value] which is not a number!")
+						tmp_passives[settingPassive] += value
 
 		setList(list/settingPassiveList, temp = FALSE)
 			switch(temp)
 				if(FALSE)
 					for(var/settingPassive in settingPassiveList)
-						passives[settingPassive] = settingPassiveList[settingPassive]
+						var/value = settingPassiveList[settingPassive]
+						if(!isnum(settingPassiveList[settingPassive]))
+							CRASH("ERROR: [settingPassive] was set to [value] which is not a number!")
+						passives[settingPassive] = value
 				if(TRUE)
 					for(var/settingPassive in settingPassiveList)
-						tmp_passives[settingPassive] = settingPassiveList[settingPassive]
+						var/value = settingPassiveList[settingPassive]
+						if(!isnum(value))
+							CRASH("ERROR: [settingPassive] was set to [value] which is not a number!")
+						tmp_passives[settingPassive] = value
 
 		operator|=(passive) // alternative way of checking passives. shorthand if(passive|="zornhau") returns the value of zornhau
 			Get(passive)

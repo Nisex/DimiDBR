@@ -49,82 +49,50 @@ proc
 
 	AfterImage(mob/m, var/forceloc=0)
 		var/obj/Afterimage/I = new
-		I.appearance_flags=32
-		I.icon=m.icon
-		I.icon_state=m.icon_state
-		I.overlays=m.overlays
-		I.color=m.color
-		I.transform=m.transform
+		if(!m) return
+		I.appearance = m.appearance
+		I.dir = m.dir
 		if(!forceloc)
 			I.loc=m.loc
 		else
 			I.loc=forceloc
-		I.dir=m.dir
-		I.pixel_x=m.pixel_x
-		I.pixel_y=m.pixel_y
-		I.pixel_z=m.pixel_z
-		I.name=m.name
 		I.Owner=m
 		if(m.CheckSpecial("Time Alter"))
 			I.appearance_flags+=16
 	AfterImageA(mob/m, var/forceloc=0)
 		var/obj/AfterimageA/I = new
-		I.appearance_flags=32
-		I.icon=m.icon
-		I.icon_state=m.icon_state
-		I.overlays=m.overlays
-		I.color=m.color
-		I.transform=m.transform
+		if(!m) return
+		I.appearance = m.appearance
+		I.dir = m.dir
 		if(!forceloc)
 			I.loc=m.loc
 		else
 			I.loc=forceloc
-		I.dir=m.dir
-		I.pixel_x=m.pixel_x
-		I.pixel_y=m.pixel_y
-		I.pixel_z=m.pixel_z
-		I.name=m.name
 		I.Owner=m
 		if(m.CheckSpecial("Time Alter"))
 			I.appearance_flags+=16
 	AfterImagePrediction(mob/m,var/X,var/Y, var/forceloc=0)
 		var/obj/AfterimageP/I = new
-		I.appearance_flags=32
-		I.icon=m.icon
-		I.icon_state=m.icon_state
-		I.overlays=m.overlays
-		I.color=m.color
-		I.transform=m.transform
+		if(!m) return
+		I.appearance = m.appearance
+		I.dir = m.dir
 		I.alpha=200
 		if(!forceloc)
 			I.loc=m.loc
 		else
 			I.loc=forceloc
-		I.dir=m.dir
-		I.pixel_x=m.pixel_x+X
-		I.pixel_y=m.pixel_y+Y
-		I.pixel_z=m.pixel_z
-		I.name=m.name
 		I.Owner=m
 		if(m.CheckSpecial("Time Alter"))
 			I.appearance_flags+=16
 	AfterImageGhost(mob/m, var/forceloc=0)
 		var/obj/AfterimageG/I = new
-		I.appearance_flags=32
-		I.icon=m.icon
-		I.icon_state=m.icon_state
-		I.overlays=m.overlays
-		I.color=m.color
-		I.transform=m.transform
+		if(!m) return
+		I.appearance = m.appearance
+		I.dir = m.dir
 		if(!forceloc)
 			I.loc=m.loc
 		else
 			I.loc=forceloc
-		I.dir=m.dir
-		I.pixel_x=m.pixel_x
-		I.pixel_y=m.pixel_y
-		I.pixel_z=m.pixel_z
-		I.name=m.name
 		I.Owner=m
 		if(m.CheckSpecial("Time Alter"))
 			I.appearance_flags+=16
@@ -258,7 +226,9 @@ obj/Afterimage
 		spawn(4)
 			animate(src,alpha=0,time=16)
 			spawn(16)
-				del src
+				animate(src)
+				Owner = null
+				loc = null
 obj/AfterimageA
 	Grabbable=0
 	Destructable=0
@@ -267,7 +237,9 @@ obj/AfterimageA
 		spawn(4)
 			animate(src,alpha=0, icon_state="Attack", time=16)
 			spawn(16)
-				del src
+				animate(src)
+				Owner = null
+				loc = null
 obj/AfterimageP
 	Grabbable=0
 	Destructable=0
@@ -275,7 +247,9 @@ obj/AfterimageP
 		spawn()
 			animate(src,alpha=0,time=5)
 			spawn(5)
-				del src
+				animate(src)
+				Owner = null
+				loc = null
 obj/AfterimageG
 	Grabbable=0
 	Destructable=0
@@ -283,14 +257,17 @@ obj/AfterimageG
 		spawn(20)
 			animate(src,alpha=0,time=10)
 			spawn(10)
-				del src
+				animate(src)
+				Owner = null
+				loc = null
 obj/RecoveryImage
 	Grabbable=0
 	Destructable=0
 	New()
 		animate(src,alpha=0,transform=matrix()*3,time=8)
 		spawn(8)
-			del src
+			animate(src)
+			loc = null
 obj/DashImage
 	Grabbable=0
 	Destructable=0
@@ -354,7 +331,7 @@ mob/Player
 			for(var/mob/m in players)
 				if(m.Target==src)
 					//m<<"Your target has been swapped from [src]([src.type]) to [Owner]([Owner.type])"
-					m.Target=Owner
+					m.SetTarget(Owner)
 			..()
 
 proc

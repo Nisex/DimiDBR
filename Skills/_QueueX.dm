@@ -59,9 +59,9 @@ obj
 			var/LockY=0
 
 			//ALL THREE OF THESE TAKE AN OBJECT TYPE.
-			var/Step//sequential attacks for hits or misses
-			var/HitStep//sequential attacks only if you hit
-			var/MissStep//sequential attacks only if you miss
+			var/Step //sequential attacks for hits or misses
+			var/HitStep //sequential attacks only if you hit
+			var/MissStep //sequential attacks only if you miss
 
 			//These three are all just binaries to determine what to do when you clear your queue and there's a step tech.
 			var/Missed=0//Flagged for when attacks miss
@@ -69,7 +69,7 @@ obj
 			var/RanOut=0//Flagged for when attacks just run out of time
 
 
-			var/Dunker//Multiplies launched foes damage by this value.
+			var/Dunker //Multiplies launched foes damage by this value.
 
 			var/Projectile//holds the projectile type and decides if there is a projectile at all
 			var/ProjectileCount=1//Fires the given projectile multiple times
@@ -83,7 +83,7 @@ obj
 			var/GateNeeded
 
 
-			var/Quaking//Makes screen go shakka shakka
+			var/Quaking //Makes screen go shakka shakka
 			var/WarpAway
 
 
@@ -95,8 +95,10 @@ obj
 			var/KiBlade//duh
 			var/PridefulRage
 
-			//Instinct//Ignore AIS/WS
-			var/Steady//It do what steady do.
+			var/ManaGain
+
+			//Instinct //Ignore AIS/WS
+			var/Steady //It do what steady do.
 			var/WeaponBreaker//WHAT DO U THINK?!
 			var/MortalBlow//WHHHHHHHHHHHAAAAAAAAAA-
 
@@ -113,6 +115,52 @@ obj
 			var/ForceCost = 0
 
 			var/Ooze
+
+
+			skillDescription()
+				..()
+				if(DamageMult)
+					description += "Damage Mult: [DamageMult]\n"
+				if(AccuracyMult)
+					description += "Accuracy Mult: [AccuracyMult]\n"
+				if(MultiHit)
+					description += "Multihit: [MultiHit] hits.\n"
+				if(KBAdd)
+					description += "Bonus Knockback [KBAdd] tiles.\n"
+				if(KBMult)
+					description += "Knockback Mult [KBMult]x\n"
+				if(Recoil)
+					description += "Recoil: [Recoil]\n"
+				if(Finisher)
+					description += "Finisher: [Finisher]\n"
+				if(Opener)
+					description += "Opener: [Opener]\n"
+				if(Decider)
+					description += "Decider: [Decider]\n"
+				if(Dominator)
+					description += "Dominator: [Dominator]\n"
+				if(Dunker)
+					description += "Dunker: [Dunker]\n"
+				if(Counter)
+					description += "Counter: [Counter]\n"
+				if(SpeedStrike)
+					description += "Speedstrike: [SpeedStrike]\n"
+				if(DrawIn)
+					description += "Draws in: [DrawIn] tiles.\n"
+				if(PushOut)
+					description += "Pushes away: [PushOut] tiles.\n"
+				if(Combo)
+					description += "Combos: [Combo] times.\n"
+				if(InstantStrikes)
+					description += "Delivers [InstantStrikes] blows at once.\n"
+				if(Warp)
+					description += "Warping.\n"
+				if(Step||HitStep)
+					description += "Follow-up Attack: [Step] [HitStep]"
+				if(Projectile)
+					description += "Fires: [Projectile], [ProjectileCount] times."
+
+
 //Autoqueues
 
 ////General
@@ -796,7 +844,7 @@ obj
 				HitSparkSize=1.5
 				Duration=5
 				ActiveMessage="lets loose a dreaded battlecry as they leap forth!  WRYYYY!!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/secretLevel = p.getSecretLevel()
 					LifeSteal = min(25 * secretLevel,100)
 					Crippling = secretLevel
@@ -819,7 +867,7 @@ obj
 				Duration=5
 				ActiveMessage="transforms their body into a storm of shadow blades!"
 				// this is literally ora ora
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/secretLevel = p.getSecretLevel()
 					LifeSteal = min(50 * secretLevel,100)
 					Crippling = secretLevel * 1.5
@@ -830,7 +878,7 @@ obj
 				Warp=5
 				KBAdd=1
 				KBMult=0.00001
-				Instinct=4
+				Instinct=0
 				Combo=10
 				HitSparkIcon='Slash - Vampire.dmi'
 				HitSparkX=-32
@@ -838,12 +886,14 @@ obj
 				HitSparkTurns=1
 				Duration=5
 				ActiveMessage="lets their presence try to overtake their opponents!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/ascLevel = 1 + p.AscensionsUnlocked
-					src.Scorching=3 * ascLevel
-					src.Freezing=3 * ascLevel
-					src.Paralyzing=3 * ascLevel
-					src.Shattering=3 * ascLevel
+					var/boon = 3 * ascLevel
+					src.Scorching=8 + boon
+					src.Freezing=8 + boon
+					src.Paralyzing=8 + boon
+					src.Shattering=8 + boon
+					DamageMult = 0.5 + (ascLevel/8)
 
 //Basic
 
@@ -875,7 +925,7 @@ obj
 					else
 						if(usr.AttackQueue)
 							return // prevent heavy strike from overriding
-						if(!usr.Secret|| usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus"))//Just default Heavy Strike
+						if(!usr.Secret|| usr.Secret == "Eldritch" && !usr.CheckSlotless("True Form") || usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus"))//Just default Heavy Strike
 							src.name="Heavy Strike"
 							src.DamageMult=2
 							src.AccuracyMult=1
@@ -906,12 +956,12 @@ obj
 							src.HitSparkSize=1
 							usr.SetQueue(src)
 							return//and that's the end
-						if(usr.Secret == "Eldritch" && usr.CheckSlotless("TrueForm"))
+						if(usr.Secret == "Eldritch" && usr.CheckSlotless("True Form"))
 							src.name="Maleific Strike"
-							src.DamageMult=4
+							src.DamageMult=3
 							src.AccuracyMult=2
-							src.KBAdd=5
-							src.KBMult=3
+							src.KBAdd=2
+							src.KBMult=1.5
 							src.Ooze = 1
 							src.Cooldown=60
 							src.ActiveMessage="leaks some of their malefic presence onto the world!"
@@ -2160,6 +2210,7 @@ obj
 				verb/Super_Dragon_Fist()
 					set category="Skills"
 					usr.SetQueue(src)
+
 //T7 is always a style or buff.
 
 ////Spirit
@@ -2186,8 +2237,6 @@ obj
 			Light_Rush
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Queue/Dancing_Lights")
-				LockOut=list("/obj/Skills/Queue/Burst_Combination")
 				DamageMult=1.2
 				AccuracyMult=5
 				Duration=5
@@ -2211,10 +2260,8 @@ obj
 				Projectile="/obj/Skills/Projectile/RushBlast"
 			Burst_Combination
 				name="Burst Combination"
-				SkillCost=40
+				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Queue/Dancing_Lights")
-				LockOut=list("/obj/Skills/Queue/Light_Rush")
 				DamageMult=0.8
 				AccuracyMult=5
 				Stunner=2
@@ -2294,8 +2341,6 @@ obj
 			Infinity_Trap
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Queue/Swallow_Reversal")
-				LockOut=list("/obj/Skills/Queue/Willow_Dance", "/obj/Skills/Queue/Zero_Reversal", "/obj/Skills/Queue/Larch_Dance")
 				ActiveMessage="enters a thoughtful stance!"
 				DamageMult=1.1
 				AccuracyMult=3
@@ -2321,8 +2366,6 @@ obj
 			Zero_Reversal
 				SkillCost=80
 				Copyable=3
-				PreRequisite=list("/obj/Skills/Queue/Swallow_Reversal")
-				LockOut=list("/obj/Skills/Queue/Willow_Dance", "/obj/Skills/Queue/Larch_Dance", "/obj/Skills/Queue/Infinity_Trap")
 				ActiveMessage="enters a low stance!"
 				DamageMult=3
 				AccuracyMult=3
@@ -2344,8 +2387,6 @@ obj
 					usr.SetQueue(src)
 			Willow_Dance
 				SkillCost=80
-				PreRequisite=list("/obj/Skills/Queue/Swallow_Reversal")
-				LockOut=list("/obj/Skills/Queue/Larch_Dance", "/obj/Skills/Queue/Zero_Reversal", "/obj/Skills/Queue/Infinity_Trap")
 				Copyable=3
 				ActiveMessage="begins to move fluidly, countering incoming blows!"
 				DamageMult=0.9
@@ -2363,8 +2404,6 @@ obj
 					usr.SetQueue(src)
 			Larch_Dance
 				SkillCost=80
-				PreRequisite=list("/obj/Skills/Queue/Swallow_Reversal")
-				LockOut=list("/obj/Skills/Queue/Willow_Dance", "/obj/Skills/Queue/Zero_Reversal", "/obj/Skills/Queue/Infinity_Trap")
 				Copyable=3
 				ActiveMessage="prepares a murderous chain of counterattacks!"
 				DamageMult=1.1
@@ -2384,8 +2423,6 @@ obj
 			Run_Through
 				NeedsSword=1
 				SkillCost=120
-				PreRequisite=list("/obj/Skills/Grapple/Sword/Impale")
-				LockOut=list("/obj/Skills/Grapple/Sword/Eviscerate", "/obj/Skills/Grapple/Sword/Hacksaw", "/obj/Skills/Grapple/Sword/Form_Ataru")
 				Copyable=3
 				ActiveMessage="grips their weapon strongly!"
 				HitMessage="runs the opponent through with their weapon!"
@@ -2415,6 +2452,22 @@ obj
 				Duration=3
 				Pacifying=60
 				//doesn't get a verb because it is set from the tech item
+
+
+			Symbiote_Hammer
+				DamageMult=6
+				AccuracyMult=2
+				Duration=10
+				Cooldown=120
+				Instinct=2
+				Stunner=1
+				Shearing = 5
+				Crippling = 5
+				HitMessage="'s symbiotic hammer swings dead center into their enemy!"
+				ActiveMessage="'s symbiotic mass takes the shape of a hammer!"
+				verb/Symbiote_Hammer()
+					set category="Skills"
+					usr.SetQueue(src)
 
 //General app
 
@@ -2842,7 +2895,7 @@ obj
 				verb/Lightning_Plasma_Strike()
 					set category="Skills"
 					set name="Lightning Plasma (Strike)"
-					if(usr.SagaLevel<7 && usr.Health>15 && !usr.InjuryAnnounce)
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.SetQueue(src)
@@ -3914,9 +3967,6 @@ mob
 			if(Damage>0 && GLOBAL_QUEUE_DAMAGE > 0)
 				Damage *= GLOBAL_QUEUE_DAMAGE
 
-			if(Damage>=5)
-				src<<"please report this skill to the admins [AttackQueue]"
-				world.log<<"[src] hit for over 5x dmg mult using [AttackQueue]"
 			return Damage
 		QueuedAccuracy()
 			var/Accuracy=1
@@ -4043,6 +4093,7 @@ mob
 
 
 		QueuedMissMessage()
+			if(!AttackQueue) return
 			src.AttackQueue.Missed=1
 			src.AttackQueue.Hit=0
 			src.AttackQueue.RanOut=0
@@ -4101,6 +4152,8 @@ mob
 				src.LoseForce(src.AttackQueue.ForceCost)
 			if(src.AttackQueue.FatigueCost)
 				src.GainFatigue(src.AttackQueue.FatigueCost)
+			if(src.AttackQueue.ManaGain)
+				src.HealMana(AttackQueue.ManaGain)
 			if(src.AttackQueue.ManaCost)
 				var/drain = src.passive_handler.Get("MasterfulCasting") ? AttackQueue.ManaCost - (AttackQueue.ManaCost * (passive_handler.Get("MasterfulCasting") * 0.3)) : AttackQueue.ManaCost
 				if(drain <= 0)

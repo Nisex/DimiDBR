@@ -67,7 +67,7 @@ var
 	OokamiMade=0
 
 
-	list/WeaponSoul = list("Caledfwlch","Kusanagi","Durendal","Masamune","SoulCalibur","SoulEdge","Muramasa","Dainsleif","Ryui Jingu Bang","Green Dragon Crescent Blade")
+	list/WeaponSoul = list("Caledfwlch","Kusanagi","Durendal","Masamune","SoulCalibur","SoulEdge","Muramasa","Dainsleif","Ryui Jingu Bang","Green Dragon Crescent Blade", "Moonlight Greatsword")
 
 	CaledfwlchTaken
 	KusanagiTaken
@@ -79,8 +79,9 @@ var
 	DainsleifTaken
 	WukongTaken
 	GuanyuTaken
+	MoonlightGreatswordTaken
 
-	list/ConstellationsBronze=list("Pegasus","Dragon","Cygnus","Andromeda","Phoenix")
+	list/ConstellationsBronze=list("Pegasus","Dragon","Cygnus","Andromeda","Phoenix", "Unicorn")
 	list/ConstellationsGold=list("Aries",/* "Taurus" */,"Gemini","Cancer","Leo","Virgo","Libra","Scorpio",/*"Sagittarius"*/,"Capricorn","Aquarius","Pisces")
 
 	Era=1//Keeps track of tiiime
@@ -583,7 +584,8 @@ mob/var
 	RPPSpendableEvent
 	RPPSpentEvent
 	//these are triggered by daily rewards
-	RPPEventCharges//value from 7 to 0 which holds the number of event charges you have (they trigger automatically at rewards)
+	RPPEventCharges = 0//value from 7 to 0 which holds the number of event charges you have (they trigger automatically at rewards)
+	RPPEventChargesSpent = 0
 	EconomyEventCharges//value from 0 to ? which holds the number of economy-only charges you can trigger with daily rewards.
 
 	RPPStartingDaysTriggered=0//increments
@@ -591,8 +593,8 @@ mob/var
 
 	LastTeach=0
 	Overview=1 //If overview is toggled on or not
-	AFKTimer=3000 // AFK timer stuff
-	AFKTimeLimit=3000 // AFK timer stuff
+	tmp/AFKTimer=24000 // AFK timer stuff
+	AFKTimeLimit=24000 // AFK timer stuff
 	AFKIcon='afk.dmi' // AFK icon
 	AlienRacialActive // Active alien skill
 	AlienRacialPassive // Passive alien skill
@@ -791,7 +793,7 @@ mob/var
 	TripleStrike
 	Default_Hair
 
-
+	movementSealed = FALSE
 
 	LastBreath
 
@@ -943,6 +945,8 @@ mob/var
 	tmp/savedRoleplay
 
 	PrayerMute = FALSE
+
+	tension = 0
 
 /proc/reduceGodKi(mob/player, num)
 	player.GodKi -= num

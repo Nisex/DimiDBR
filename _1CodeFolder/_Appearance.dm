@@ -11,30 +11,8 @@ mob/proc/AppearanceOn()
 
 	src.color=MobColor
 
-	if(src.transActive()==1)
-		if(src.Race=="Alien")
-			if(src.Form1Overlay)
-				var/image/im=image(icon=src.Form1Overlay, pixel_x=src.Form1OverlayX, pixel_y=src.Form1OverlayY)
-				src.overlays+=im
-	if(src.transActive()==2)
-		if(src.Race=="Alien")
-			if(src.Form2Overlay)
-				var/image/im=image(icon=src.Form2Overlay, pixel_x=src.Form2OverlayX, pixel_y=src.Form2OverlayY)
-				src.overlays+=im
-	if(src.transActive()==3)
-		if(src.Race=="Alien")
-			if(src.Form3Overlay)
-				var/image/im=image(icon=src.Form3Overlay, pixel_x=src.Form3OverlayX, pixel_y=src.Form3OverlayY)
-				src.overlays+=im
-	if(src.transActive()==4)
-		if(src.Race=="Alien")
-			if(src.Form4Overlay)
-				var/image/im=image(icon=src.Form4Overlay, pixel_x=src.Form4OverlayX, pixel_y=src.Form4OverlayY)
-				src.overlays+=im
-		if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
-			src.overlays+=FurSSJ4
-			src.overlays+=ClothingSSJ4
-			src.overlays+=TailSSJ4
+	if(src.transActive)
+		race.transformations[transActive].apply_visuals(src)
 
 	if(src.ActiveBuff)
 		if(src.ActiveBuff.IconLock)
@@ -139,11 +117,11 @@ mob/proc/AppearanceOn()
 		if(I.suffix=="*Equipped*"||I.suffix=="*Equipped (Second)*"||I.suffix=="*Equipped (Third)*")
 			if(istype(I, /obj/Items/Gear/Mobile_Suit)&&passive_handler.Get("Piloting"))
 				continue
-			if(!istype(I, /obj/Items/Sword)&&!istype(I, /obj/Items/Gear)&&!istype(I, /obj/Items/Enchantment/Staff)&&(src.Transformed||src.Oozaru))
-				continue
-			I.suffix=null
-			equippedArmor = null
-			equippedSword = null
+			if(istype(I, /obj/Items/Sword))
+				equippedSword = null
+			if(istype(I, /obj/Items/Armor))
+				equippedArmor = null
+			I.suffix = null
 			I.AlignEquip(src)
 
 
@@ -207,7 +185,7 @@ mob/proc/AppearanceOn()
 						im.appearance_flags+=70
 					src.overlays+=im
 
-	if(src.trans["tension"])
+	if(src.tension)
 		var/image/tension=image('HTAura.dmi',pixel_x=-16, pixel_y=-4)
 		var/image/tension2=image('HighTension.dmi',pixel_x=-32,pixel_y=-32)
 		var/image/tensionh=image(src.Hair_HT, layer=FLOAT_LAYER-1)
@@ -218,20 +196,20 @@ mob/proc/AppearanceOn()
 		tensionh.alpha=200
 		tensionhs.blend_mode=BLEND_ADD
 		tensionhs.alpha=130
-		if(src.trans["tension"]==5)
+		if(src.tension==5)
 			src.Hairz("Add")
 			src.underlays+=tension
-		if(src.trans["tension"]==20)
+		if(src.tension==20)
 			src.underlays+=tension
 			src.Hairz("Add")
 			src.overlays+=tension2
-		if(src.trans["tension"]==50)
+		if(src.tension==50)
 			src.underlays+=tension
 			src.overlays+=tensione
 			src.Hairz("Add")
 			src.overlays+=tensionh
 			src.overlays+=tension2
-		if(src.trans["tension"]==100)
+		if(src.tension==100)
 			src.underlays+=tension
 			src.overlays+=tensione
 			src.Hairz("Add")

@@ -16,7 +16,7 @@
 				LifeSteal = 5
 				SpaceWalk = 1
 				Godspeed = 1
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/secretLevel = p.getSecretLevel()
 					if(p.CheckSlotless("Rotshreck"))
 						StrMult = 1 + (secretLevel * 0.25)
@@ -45,11 +45,11 @@
 				BuffName = "Wassail"
 				TextColor=rgb(153, 0, 0)
 				var/TrueVampire=0
-				proc/adjust(mob/p) // this needs to essentially be a gimped version of rotshreck
+				adjust(mob/p) // this needs to essentially be a gimped version of rotshreck
 					ActiveMessage = "has entered Wassail -- the hunger frenzy!"
 					var/secretLevel = p.getSecretLevel()
-					Godspeed = (secretLevel/2) * (1 + (usr.secretDatum:getHungerRatio()))
-					LifeSteal = (10 + secretLevel) * (1 + (usr.secretDatum:getHungerRatio()))
+					Godspeed = (secretLevel/2) * (1 + (p.secretDatum:getHungerRatio()))
+					LifeSteal = (10 + secretLevel) * (1 + (p.secretDatum:getHungerRatio()))
 					passives = list("LifeSteal" = LifeSteal, "Godspeed" = Godspeed)
 				verb/Vampire_Frenzy()
 					set category="Skills"
@@ -72,7 +72,7 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Vampire
 	Rotshreck
-		Curse = 1 
+		Curse = 1
 		NeedsHealth = 25
 		TooMuchHealth=50
 		BuffName = "Rotschreck"
@@ -84,7 +84,7 @@
 		OffMessage = "regains their composure..."
 		TextColor = rgb(153, 0, 0)
 		var/sunTriggered
-		proc/adjust(mob/p, sundamage = 0)
+		adjust(mob/p, sundamage = 0)
 			var/secretLevel = p.secretDatum.currentTier
 			if(sundamage)
 				NeedsHealth = 0

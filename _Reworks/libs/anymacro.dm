@@ -23,10 +23,12 @@ client
 		press_button(button as text)
 			set hidden = TRUE
 			set instant = TRUE
-			if(macros) macros.Press(button)
+			if(macros)
+				macros.Press(button)
 
 		// Release the button for the button tracker.
 		release_button(button as text)
 			set hidden = TRUE
 			set instant = TRUE
-			if(macros) macros.Release(button)
+			if(macros) 
+				macros.Release(button)

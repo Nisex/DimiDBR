@@ -9,13 +9,6 @@ var/global/CLAMP_POWER = TRUE
 
 
 
-/mob/Admin4/verb/ForceHalfDemon()
-	set name = "Force Half Demon"
-	var/mob/p = input(src, " Who ? ") in players
-	p.HalfDemonAscension()
-
-
-
 /mob/Admin3/verb/Clamp_Power()
 	set name = "Enable Power Clamp"
 	glob.CLAMP_POWER = !glob.CLAMP_POWER
@@ -118,9 +111,9 @@ mob/proc/Unconscious(mob/P,var/text)
 				src.ActiveBuff:Stop_Cultivation()//deactivate...
 				GatesActive=0
 		return
-	if(src.Desperation)
+	if(src.passive_handler.Get("Desperation"))
 		if(src.HealthAnnounce10<=1&&FightingSeriously(P,src))
-			if(prob((src.Desperation*2.5)+5))
+			if(prob((src.passive_handler.Get("Desperation")*2.5)+5))
 				src.KO=0
 				src.OMessage(15, "...but [src] refuses to go down!", "<font color=red>[src]([src.key]) remains standing despite impossible odds!")
 				src.Health=1
@@ -204,7 +197,7 @@ mob/proc/Unconscious(mob/P,var/text)
 				MortallyWounded+=1
 				src.OMessage(10, "[src] has been grieviously wounded!", "[src]([src.key]) has over 85% injury.")
 	if(src.client)
-		if((src.trans["active"]||src.trans["tension"]||src.ssj["active"]||src.ssj["god"])&&!src.HasNoRevert()&&!src.HasMystic())
+		if((transActive||tension)&&!src.HasNoRevert()&&!src.HasMystic())
 			for(var/obj/Skills/Buffs/B in src)
 				if(src.BuffOn(B)&&B.Transform&&!B.AlwaysOn)
 					B.Trigger(src)
@@ -212,7 +205,7 @@ mob/proc/Unconscious(mob/P,var/text)
 			if(src.Race!="Changeling")
 				src.Revert()
 				src<<"Being knocked out forced you to revert!"
-		if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
+		if(src.isRace(SAIYAN))
 			src.Oozaru(0)
 	if(src.Grab)
 		src.Grab_Release()
@@ -260,13 +253,14 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 	if(istype(src, /mob/Player/AI))
 		if(P)
 			var/mob/Player/AI/a = src
-			var/aiType = a.senpai.monsters[1].og_name
-			if(!aiType)
-				aiType = a.senpai.monsters[1].name
-			if(P.killed_AI[aiType])
-				P.killed_AI[aiType] ++
-			else
-				P.killed_AI[aiType] = 1
+			if(a.senpai)
+				var/aiType = a.senpai.monsters[1].og_name
+				if(!aiType)
+					aiType = a.senpai.monsters[1].name
+				if(P.killed_AI[aiType])
+					P.killed_AI[aiType] ++
+				else
+					P.killed_AI[aiType] = 1
 			var/rppBoon = a.Potential/100
 			if(a.in_squad)
 				a.in_squad.RemoveMember(src) //Squad members die die when they die.
@@ -303,17 +297,21 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 				del(m)
 			for(var/obj/Items/mineral/min in P)
 				foundMineral = TRUE
+				if(P.passive_handler.Get("CashCow"))
+					totalValue *= 1+(P.passive_handler.Get("CashCow")/10)
 				min.value += totalValue
 				min.assignState()
-				min.name = "[Commas(round(min.value))] Tower Fragments"
-				P << "You've gained [totalValue] fragments!"
+				min.name = "[Commas(round(min.value))] Mana Bits"
+				P << "You've gained [totalValue * 1+(P.passive_handler.Get("CashCow")/10)] Mana Bits!"
 			if(!foundMineral)
 				var/obj/Items/mineral/mineral = new()
 				P.contents += mineral
+				if(P.passive_handler.Get("CashCow"))
+					totalValue *= 1+(P.passive_handler.Get("CashCow")/10)
 				mineral.value = totalValue
 				mineral.assignState()
-				mineral.name = "[Commas(round(mineral.value))] Tower Fragments"
-				P << "You've gained [totalValue] fragments!"
+				mineral.name = "[Commas(round(mineral.value))] Mana Bits"
+				P << "You've gained [totalValue*1+(P.passive_handler.Get("CashCow")/10)] Mana Bits!"
 
 	if(text)
 		src.OMessage(20,"[src] was just killed by [text]!","<font color=red>[src] was just killed by [text]!")
@@ -677,7 +675,6 @@ mob/proc/Leave_Body(var/SuperDead=0, var/Zombie, var/ForceVoid=0)
 			var/Timer
 			ActuallyDead=1
 			if(src.isRace(HUMAN)&&src.HellPower>=1&&src.HellPower<2&&src.Potential>=50)
-				src.HalfDemonAscension()
 				src.Burn=0
 				src.Poison=0
 				src.Slow=0
@@ -874,8 +871,7 @@ proc/getBackSide(mob/offender, mob/defender)
 
 
 	//LABEL: ACCURACY FORMULA
-proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseChance=glob.WorldDefaultAcc, var/Backfire=0, var/IgnoreNoDodge=0)
-	. = list(0,0)
+proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldDefaultAcc, Backfire=0, IgnoreNoDodge=0)
 	if(Offender&&Defender)
 		if(Defender.Frozen==3)
 			return MISS
@@ -894,10 +890,12 @@ proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseCh
 		if(Offender.SureHit)
 			Offender.SureHit=0
 			return HIT
+		if(Defender.Stunned || Defender.Launched || Defender.PoweringUp || Offender.Grab==Defender)
+			return HIT
 
 		if(getBackSide(Offender, Defender))
 
-			if(Defender.Oozaru || Defender.passive_handler.Get("Vulnerable Behind"))
+			if(Defender.CheckSlotless("Great Ape")|| Defender.passive_handler.Get("Vulnerable Behind"))
 				var/tail_resistance_max = Defender.AscensionsAcquired + (round(Defender.AscensionsAcquired/2))
 				var/tail_resistance = Defender.tail_mastery / 20
 				tail_resistance += Defender.AscensionsUnlocked * 5
@@ -905,14 +903,12 @@ proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseCh
 				if(prob(50 - tail_resistance))
 					Stun(Defender, 2 - (tail_resistance * 0.1))
 					Defender.tailResistanceTraining(25 + tail_resistance * 2)
+					if(Defender.Stunned)
+						return HIT
 				else
 					Defender.tailResistanceTraining(5)
 
-			if(prob(1))
-				OMsg(Offender, "<font color='[rgb(255, 8, 8)]'>oh nah, [Offender] is hitting [Defender] from the back!</font color>")
-				AccMult*=1.75
-			else
-				AccMult*=1.25
+			AccMult*=1.25
 
 		if(Offender.UsingCriticalImpact())
 			AccMult*=1.25
@@ -947,49 +943,52 @@ proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseCh
 				if(AccMult<1)
 					AccMult=1
 
-		if(Offender.Desperation)
+		if(Offender.passive_handler.Get("Desperation"))
 			var/healthRemaining = 100 - Offender.Health
 			if(healthRemaining <= 10)
-				var/baseBoon = 0.015 * Offender.Desperation // max Desperation soembody can have is 6
+				var/baseBoon = 0.015 * Offender.passive_handler.Get("Desperation") // max Desperation soembody can have is 6
 				AccMult *= 1 + (baseBoon * (11 - healthRemaining))
 		// ! DESPERATION GIVES A BONUS TO HIT CHANCE ! //
-		var/Offense
-		var/Defense
-		var/mod
-		if(EXPERIMENTAL_ACCURACY)
-			Offense = Offender.GetOff(0.6) + Offender.GetSpd(0.2) // BASIS
-			Defense = Defender.GetDef(0.8) + Defender.GetSpd(0.1) // BASIS
-			var/powerDif = Offender.Power / Defender.Power
-			if(glob.CLAMP_POWER)
-				if(!Offender.ignoresPowerClamp())
-					powerDif = clamp(Offender.Power / Defender.Power, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
 
-			mod = clamp((Offense/Defense)*AccMult, 0.05, 5) * powerDif
-			var/GodKiDif = 1
-			if(Offender.GetGodKi())
-				GodKiDif = 1 + Offender.GetGodKi()
-			if(Defender.GetGodKi())
-				GodKiDif /= (1 + Defender.GetGodKi())
-			mod*= GodKiDif
-		else
-			Offense=(Offender.Power*(Offender.GetOff(0.6)+Offender.GetSpd(0.2)))*(1+Offender.GetGodKi())
-			Defense=(Defender.Power*(Defender.GetDef(1)+Defender.GetSpd(0.1)))*(1+Defender.GetGodKi())
-			mod = clamp(((Offense*AccMult)/max(Defense,0.01)), 0.5, 2)
-		var/roll = randValue((100-BaseChance)*mod, 100)
+
+		var/Offense = Offender.GetOff(glob.ACC_OFF) + Offender.GetSpd(glob.ACC_OFF_SPD) // BASIS
+		var/Defense = Defender.GetDef(glob.ACC_DEF) + Defender.GetSpd(glob.ACC_DEF_SPD) // BASIS
+
+		var/powerDif = Offender.Power / Defender.Power
+		if(glob.CLAMP_POWER)
+			if(!Offender.ignoresPowerClamp())
+				powerDif = clamp(Offender.Power / Defender.Power, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
+
+		if(glob.EXPERIMENTAL_ACCMULT)
+			AccMult = AccMult**glob.EXPERIMENTAL_ACCMULT_EXPONENT
+			if(!AccMult**glob.EXPERIMENTAL_ACCMULT_EXPONENT > 0)
+				Offender <<"<font color=red>PLEASE REPORT THIS SKILL TO AWWLIE, NIEZAN or JORDAN plz <3</font>"
+				Defender <<"<font color=red>PLEASE REPORT THIS SKILL TO AWWLIE, NIEZAN or JORDAN plz <3</font>"
+				AdminMessage("[Offender] or [Defender] had a negative Accmult on a attack...")
+		AccMult = clamp(glob.ACC_ACCMULT_MIN, AccMult, glob.ACC_ACCMULT_MAX)
+
+
+		var/mod = clamp((Offense/Defense)*AccMult, glob.ACC_MIN, glob.ACC_MAX) * powerDif
+
+		var/GodKiDif = 1
+		if(Offender.GetGodKi())
+			GodKiDif = 1 + Offender.GetGodKi()
+		if(Defender.GetGodKi())
+			GodKiDif /= (1 + Defender.GetGodKi())
+		mod *= GodKiDif
+
+		var/roll = rand((100-BaseChance)*mod, 100)
 		if(glob.MOD_AFTER_ACC)
-			roll = randValue((100-BaseChance), 100)
+			roll = rand((100-BaseChance), 100)
 			roll*= mod
-		var/autohit = 0
-		if(Defender.Stunned || Defender.Launched || Defender.PoweringUp || Offender.Grab==Defender)
-			autohit = 1
-		if((roll >= BaseChance) || autohit)
+
+		if((roll >= BaseChance))
 			return HIT
 		else
-			roll = randValue(1, 100)
-			roll*=mod
-			if(roll <= glob.WorldWhiffRate)
+			roll = rand((100-BaseChance)*mod, 100)
+			if(roll < BaseChance)
 				return MISS
-			else if(roll > glob.WorldWhiffRate)
+			else
 				return WHIFF
 	else
 		return MISS
@@ -997,18 +996,21 @@ proc/Accuracy_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseCh
 proc/Deflection_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/BaseChance=glob.WorldDefaultAcc, var/Backfire=0)
 	if(Offender&&Defender)
 		if(Defender.Frozen==3)
-			return 0
+			return MISS
 		if(Offender.HasNoMiss())
-			return 1
+			return HIT
 		if(Defender.SureDodge)
 			Defender.SureDodge=0
 			if(Offender.SureHit)
-				return 1
+				return HIT
 			else
-				return 0
+				return MISS
 		if(Offender.SureHit)
 			Offender.SureHit=0
-			return 1
+			return HIT
+		if(Defender.Stunned || Defender.Launched || Defender.PoweringUp || Offender.Grab==Defender)
+			return HIT
+
 		if(Backfire&&Offender==Defender)
 			AccMult*=0.5
 		if(getBackSide(Offender, Defender))
@@ -1036,47 +1038,52 @@ proc/Deflection_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/Base
 				AccMult-=(0.2*AccMult) * cumAvoidance
 				if(AccMult<1)
 					AccMult=1
-		if(Offender.Desperation)
+		if(Offender.passive_handler.Get("Desperation"))
 			var/healthRemaining = 100 - Offender.Health
 			if(healthRemaining <= 10)
-				var/baseBoon = 0.015 * Offender.Desperation // max Desperation soembody can have is 6
+				var/baseBoon = 0.015 * Offender.passive_handler.Get("Desperation") // max Desperation soembody can have is 6
 				AccMult *= 1 + (baseBoon * (11 - healthRemaining))
-		var/Offense
-		var/Defense
-		var/mod
-		if(EXPERIMENTAL_ACCURACY)
-			Offense = Offender.GetOff(0.6) + Offender.GetSpd(0.2) // BASIS
-			Defense = Defender.GetDef(0.8) + Defender.GetSpd(0.2) // BASIS
-			var/powerDif = Offender.Power / Defender.Power
-			mod = clamp((Offense/Defense)*AccMult, 0.1, 100) * powerDif
-			var/GodKiDif = 1
-			if(Offender.GetGodKi())
-				GodKiDif = 1 + Offender.GetGodKi()
-			if(Defender.GetGodKi())
-				GodKiDif /= (1 + Defender.GetGodKi())
-			mod*= GodKiDif
-		else
-			Offense=((Offender.Power/Offender.GetPowerUpRatio())*(Offender.GetOff(0.6)+Offender.GetSpd(0.2)))*(1+Offender.GetGodKi())
-			Defense=((Defender.Power/Defender.GetPowerUpRatio())*(Defender.GetDef(0.8)+Defender.GetSpd(0.2)))*(1+Defender.GetGodKi())
-			mod = clamp(((Offense*AccMult)/max(Defense,0.01)), 0.5, 2)
 
-		var/roll = randValue((100-BaseChance)*mod, 100)
-		var/autohit = 0
-		if(Defender.Stunned || Defender.Launched || Defender.PoweringUp || Offender.Grab==Defender)
-			autohit = 1
-		if((roll >= BaseChance) || autohit)
+		var/Offense = Offender.GetOff(glob.ACC_OFF) + Offender.GetSpd(glob.ACC_OFF_SPD) // BASIS
+		var/Defense = Defender.GetDef(glob.ACC_DEF) + Defender.GetSpd(glob.ACC_DEF_SPD) // BASIS
+
+		var/powerDif = Offender.Power / Defender.Power
+		if(glob.CLAMP_POWER)
+			if(!Offender.ignoresPowerClamp())
+				powerDif = clamp(Offender.Power / Defender.Power, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
+
+		if(glob.EXPERIMENTAL_ACCMULT)
+			AccMult = AccMult**glob.EXPERIMENTAL_ACCMULT_EXPONENT
+		AccMult = clamp(glob.ACC_ACCMULT_MIN, AccMult, glob.ACC_ACCMULT_MAX)
+
+		var/mod = clamp((Offense/Defense)*AccMult, glob.ACC_MIN, glob.ACC_MAX) * powerDif
+
+		var/GodKiDif = 1
+		if(Offender.GetGodKi())
+			GodKiDif = 1 + Offender.GetGodKi()
+		if(Defender.GetGodKi())
+			GodKiDif /= (1 + Defender.GetGodKi())
+		mod*= GodKiDif
+
+
+		var/roll = rand((100-BaseChance)*mod, 100)
+		if(glob.MOD_AFTER_ACC)
+			roll = rand((100-BaseChance), 100)
+			roll*= mod
+
+		if((roll >= BaseChance))
 			return HIT
 		else
-			roll = randValue(1, 100)
-			if(roll <= 100-glob.WorldWhiffRate)
+			roll = rand((100-BaseChance)*mod, 100)
+			if(roll < BaseChance)
 				return MISS
-			else if(roll > 100-glob.WorldWhiffRate)
+			else
 				return WHIFF
 	else
-		return 0
+		return MISS
 
 mob/var/tmp/last_combo
-mob/proc/Comboz(var/mob/M, LightAttack=0)
+mob/proc/Comboz(mob/M, LightAttack=0)
 	if(last_combo >= world.time) return
 	last_combo = world.time
 	var/list/dirs = list(NORTH,SOUTH,EAST,WEST,NORTHWEST,SOUTHWEST,NORTHEAST,SOUTHEAST)
@@ -1084,10 +1091,8 @@ mob/proc/Comboz(var/mob/M, LightAttack=0)
 		var/turf/W
 		if(M.z!=src.z)
 			return //lol you can't combo through dimensions anymore.  sad.
-		if(M.x>(src.x+15)||M.x<(src.x-15))
-			return//please don't hit me from across the map
-		if(M.y>(src.y+15)||M.y<(src.y-15))
-			return//pleez
+		if(20 < get_dist(src, M))
+			return
 
 
 		while(dirs.len)
@@ -1102,8 +1107,6 @@ mob/proc/Comboz(var/mob/M, LightAttack=0)
 					for(var/atom/x in W)
 						if(x.density)
 							return
-					if(W.density)
-						return
 					src.loc=W
 					src.dir=ReturnDirection(src,M)
 					if(!LightAttack && get_dist(src,M)>1)
@@ -2168,12 +2171,13 @@ mob/proc/Knockback(var/Distance,var/mob/P,var/Direction=0, var/Forced=0, var/Ki=
 			return
 	if(src.loc == null)
 		return
+	if(!P) return
 	if(P.Stasis)
 		return
 	if(!Direction)
 		Direction=src.dir
-	if(P.Desperation)
-		if(prob(5*P.Desperation))
+	if(P.passive_handler.Get("Desperation"))
+		if(prob(5*P.passive_handler.Get("Desperation")))
 			Distance=0
 	Forced+=isForced()
 	if(P.ContinuousAttacking)
@@ -2300,7 +2304,7 @@ mob/proc/Grab()
 					var/obj/Items/mineral/min = P
 					for(var/obj/Items/mineral/m in src)
 						m.value += min.value
-						m.name = "[Commas(round(m.value))] Tower Fragments"
+						m.name = "[Commas(round(m.value))] Mana Bits"
 						src.OMessage(10,"[src] picks up [min].","[src]([src.key]) picks up ([min.value])[ExtractInfo(P)] made by [m.owner].")
 						del(buh)
 						return
@@ -2365,7 +2369,7 @@ mob/proc/Grab_Mob(var/mob/P, var/Forced=0)
 			if(aa.ai_hostility >= 1)
 				if(aa.inloop == FALSE && !(aa in ticking_ai))
 					ticking_ai.Add(aa)
-				aa.Target=src
+				aa.SetTarget(src)
 				aa.ai_state = "Chase"
 				aa.last_activity = world.time
 	if(Secret == "Vampire")
@@ -2386,7 +2390,7 @@ mob/proc/Grab_Release()
 mob/proc/Grab_Update()
 	if(src.Grab)
 		src.Grab.loc=src.loc
-		if(isai(Grab))
+		if(isai(Grab)&&!Grab.KO)
 			var/grabbing = Grab
 			spawn(60)
 				if(grabbing==Grab)

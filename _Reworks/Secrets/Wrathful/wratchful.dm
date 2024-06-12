@@ -9,7 +9,7 @@ scaling with potential as well
     Cooldown = -1
     HealthDrain = 0.01
 
-/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Wrathful/proc/adjust(mob/p)
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Wrathful/adjust(mob/p)
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Wrathful/Stage_One
     ActiveMessage = "harnesses their primal form to increase their rage."

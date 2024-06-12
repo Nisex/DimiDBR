@@ -87,10 +87,40 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 /mob/proc/meditationChecks()
 	if(icon_state == "Meditate")
 		MeditateTime++
+
+		if(Corruption>MinCorruption&&isRace(DEMON))
+			Corruption -= 5 - (AscensionsAcquired/2)
+			Corruption = max(MinCorruption, Corruption)
+		if(Secret == "Eldritch")
+			var/SecretInfomation/Eldritch/s = secretDatum
+			s.releaseMadness(src)
+
 		if(Health>=75*(1-HealthCut) && Anger!=0)
 			calmcounter--
 		else
 			calmcounter=5
+
+		if(Secret == "Vampire" && MeditateTime == 10)
+			var/obj/Skills/Buffs/SlotlessBuffs/R = GetSlotless("Rotshreck")
+			if(R && R.NeedsHealth == 0)
+				R.NeedsHealth = 25
+				R.TooMuchHealth = 50
+				R:adjust(src)
+				src<<"You no longer fear for your life..."
+
+		if(MeditateTime == 15)
+			if(isRace(MAJIN))
+				majinPassive.resetVariables(src)
+			for(var/obj/Skills/s in Skills) if(s.Cooldown<0 && s.Using)
+				src << "One or more of your skills will be made available to you again when you stop meditating."
+				break
+
+		if(MeditateTime == 40)
+			if(SpecialBuff)
+				if(SpecialBuff.BuffName == "Ripper Mode")
+					SpecialBuff?:sandevistanUsages = 0
+					src << "Your Sandevistan Usages has been reset."
+
 		if(calmcounter<=0)
 			calmcounter=5
 			if(Anger)
@@ -103,20 +133,20 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 	else
 		MeditateTime=0
 //**TESTED AND WORKS **/
-/mob/proc/drainTransformations(ssj, ssjMastery, trans, transMastery)
+/mob/proc/drainTransformations(trans, transMastery)
 	// TRANS / TRANSMASTERY FOR CHANGIE 4TH FORM
 	var/drain
-	if(ssj >=1 && ssj < 4 && ssjMastery >= 5 && ssjMastery <= 75)
-		drain = round(30 - ((ssjMastery - 5) * 30) / (75 - 5), 1)
+	if(trans && transMastery <= 75)
+		drain = round(30 - ((transMastery - 5) * 30) / (75 - 5), 1)
 		if(drain < 0)
 			drain = 0
 		if(Energy < drain && !HasNoRevert() && !Dead && !HasMystic())
 
 			Revert()
 			LoseEnergy(drain)
-			src<<"The strain of Super Saiyan forced you to revert."
+			src<<"The strain of your transformation forced you to revert."
 
-	if(trans==4 && transMastery < 100 && Race == "Changeling")
+	if(trans==4 && transMastery < 100 && isRace(CHANGELING))
 		drain = round(30 - (40 * log(1 + transMastery / 100)), 1)
 		if(drain < 0)
 			drain = 1
@@ -154,11 +184,7 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 
 /mob/proc/newGainLoop()
 	set waitfor = 0
-	// Local Variables
-	var/active_ssj = ssj["active"]
-	var/ssj_mastery = masteries["[active_ssj]mastery"]
-	var/active_trans = trans["active"]
-	var/trans_mastery = masteries["4mastery"]
+
 	// var/mob/players/M = null
 	// var/val = 0
 
@@ -178,7 +204,7 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 
 	meditationChecks()
 
-	drainTransformations(active_ssj, ssj_mastery, active_trans, trans_mastery)
+	drainTransformations(transActive, race.transformations[transActive].mastery)
 
 	if(Grab) Grab_Update()
 	EnergyMax = 100
@@ -187,8 +213,9 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 	// Tick based activity / Timers
 
 
-	if(MovementCharges < GetMaxMovementCharges())
+	if(MovementCharges < 3)
 		MovementChargeBuildUp()
+
 
 
 
@@ -214,7 +241,7 @@ mob
 
 		if(src.Health <= 15*(1-src.HealthCut))
 			if(Saga == "Cosmo" && SpecialBuff && seventhSenseTriggered == FALSE) // saint
-				if(SagaLevel == 5)
+				if(SagaLevel == 4)
 					var/obj/Skills/Buffs/SlotlessBuffs/SeventhSense/SS = new()
 					SS = locate() in src
 					if(!SS)
@@ -225,7 +252,7 @@ mob
 
 		if(src.Health <= 25*(1-src.HealthCut) && !src.HealthAnnounce25)
 			if(Saga == "Cosmo" && SpecialBuff && seventhSenseTriggered == FALSE) // saint
-				if(SagaLevel >= 6)
+				if(SagaLevel >= 5)
 					var/obj/Skills/Buffs/SlotlessBuffs/SeventhSense/SS = new()
 					SS = locate() in src
 					if(!SS)
@@ -239,7 +266,7 @@ mob
 			var/shonenMoment = ShonenPowerCheck(src)
 			if(shonenMoment)
 				VaizardHealth += triggerPlotArmor(shonenMoment, HasUnstoppable())
-				src.OMessage(10, "<font color=#c3b329>[src]'s will to be a HERO gives [lowertext(objectpronoun())] a second wind!</font>", "[src]([src.key]) has triggered plot armor.")
+				src.OMessage(10, "<font color=#c3b329>[src]'s will to be a HERO gives them a second wind!</font>", "[src]([src.key]) has triggered plot armor.")
 
 
 			if(src.SpecialBuff&&src.SpecialBuff.BuffName=="Broken Brave")
@@ -299,56 +326,58 @@ mob
 
 		if(!src.PureRPMode)
 
-			if(calmcounter<=0)
-				calmcounter=5
-				if(Anger)
-					src.Calm()
+			// if(calmcounter<=0)
+			// 	calmcounter=5
+			// 	if(Anger)
+			// 		src.Calm()
 
-			if(icon_state == "Meditate")
-				MeditateTime++
 
-				if(src.Health>=75*(1-src.HealthCut)&&src.Anger!=0)
-					calmcounter--
-				else
-					calmcounter=5
+			meditationChecks()
+			// if(icon_state == "Meditate")
+			// 	MeditateTime++
 
-				if(Secret == "Vampire" && MeditateTime == 10)
-					var/obj/Skills/Buffs/SlotlessBuffs/R = GetSlotless("Rotshreck")
-					if(R && R.NeedsHealth == 0)
-						R.NeedsHealth = 25
-						R.TooMuchHealth = 50
-						R:adjust(src)
-						src<<"You no longer fear for your life..."
-				if(MeditateTime == 15)
-					if(isRace(MAJIN))
-						majinPassive.resetVariables(src)
-					for(var/obj/Skills/s in Skills) if(s.Cooldown<0 && s.Using)
-						src << "One or more of your skills will be made available to you again when you stop meditating."
-						break
-					if(CheckSpecial("Jinchuuriki"))
-						for(var/obj/Skills/Buffs/SpecialBuffs/Cursed/Jinchuuriki/J in Buffs)
-							if(J.Mastery > 1)
-								break
-							else
-								J.Trigger(src,Override=1)
-								break
-					if(CheckSpecial("Vaizard Mask"))
-						for(var/obj/Skills/Buffs/SpecialBuffs/Cursed/Vaizard_Mask/V in Buffs)
-							if(V.Mastery > 1)
-								break
-							else
-								V.Trigger(src,Override=1)
-								break
-				if(MeditateTime == 40)
-					if(SpecialBuff)
-						if(SpecialBuff.BuffName == "Ripper Mode")
-							SpecialBuff?:sandevistanUsages = 0
-							src << "Your Sandevistan Usages has been reset."
-					// dmn i dont want to search for the buff if it is inactive
-					// cant let it reset on trigger
+			// 	if(src.Health>=75*(1-src.HealthCut)&&src.Anger!=0)
+			// 		calmcounter--
+			// 	else
+			// 		calmcounter=5
 
-			else
-				MeditateTime=0
+			// 	if(Secret == "Vampire" && MeditateTime == 10)
+			// 		var/obj/Skills/Buffs/SlotlessBuffs/R = GetSlotless("Rotshreck")
+			// 		if(R && R.NeedsHealth == 0)
+			// 			R.NeedsHealth = 25
+			// 			R.TooMuchHealth = 50
+			// 			R:adjust(src)
+			// 			src<<"You no longer fear for your life..."
+			// 	if(MeditateTime == 15)
+			// 		if(isRace(MAJIN))
+			// 			majinPassive.resetVariables(src)
+			// 		for(var/obj/Skills/s in Skills) if(s.Cooldown<0 && s.Using)
+			// 			src << "One or more of your skills will be made available to you again when you stop meditating."
+			// 			break
+			// 		if(CheckSpecial("Jinchuuriki"))
+			// 			for(var/obj/Skills/Buffs/SpecialBuffs/Cursed/Jinchuuriki/J in Buffs)
+			// 				if(J.Mastery > 1)
+			// 					break
+			// 				else
+			// 					J.Trigger(src,Override=1)
+			// 					break
+			// 		if(CheckSpecial("Vaizard Mask"))
+			// 			for(var/obj/Skills/Buffs/SpecialBuffs/Cursed/Vaizard_Mask/V in Buffs)
+			// 				if(V.Mastery > 1)
+			// 					break
+			// 				else
+			// 					V.Trigger(src,Override=1)
+			// 					break
+			// 	if(MeditateTime == 40)
+			// 		if(SpecialBuff)
+			// 			if(SpecialBuff.BuffName == "Ripper Mode")
+			// 				SpecialBuff?:sandevistanUsages = 0
+			// 				src << "Your Sandevistan Usages has been reset."
+			// 		// dmn i dont want to search for the buff if it is inactive
+			// 		// cant let it reset on trigger
+
+			// else
+			// 	MeditateTime=0
 
 			if(src.Lethal)
 				src.Lethal--
@@ -357,10 +386,12 @@ mob
 					OMsg(src, "<font color='grey'>[src] will no longer deal lethal damage.</font color>")
 
 
-			if(src.MovementCharges<src.GetMaxMovementCharges())
+			if(src.MovementCharges<3)
 				src.MovementChargeBuildUp()
-			if(src.MovementCharges>src.GetMaxMovementCharges())
-				src.MovementCharges=src.GetMaxMovementCharges()
+
+			else
+				src.MovementCharges=3
+			Update_Stat_Labels()
 
 			if(src.TsukiyomiTime)
 				src.TsukiyomiTime--
@@ -435,7 +466,7 @@ mob
 */
 
 
-			if(src.MovementSealed())
+			if(movementSealed)
 				for(var/obj/Seal/S in src)
 					if(S.ZPlaneBind)
 						if(src.z!=S.ZPlaneBind || abs(src.x - S.XBind) > 10 || abs(src.y - S.YBind) > 10)
@@ -506,8 +537,8 @@ mob
 				if(secretDatum.secretVariable["Madness Active"] == 1)
 					var/SecretInfomation/Eldritch/s = secretDatum
 					if(!PureRPMode)
-						s.releaseMadness()
-						if(secretDatum.secretVariable["Madness Satiation"] <=0 && CheckSlotless("True Form"))
+						s.releaseMadness(src)
+						if(secretDatum.secretVariable["Madness"] <=0 && CheckSlotless("True Form"))
 							src << "You have exhausted all the madness and have reverted to your sane form."
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form/fmf in src)
 								fmf.Trigger(src, Override=1)
@@ -527,11 +558,12 @@ mob
 					if(src.Secret=="Werewolf"&&!src.PoseTime)
 						src << "You focus your instincts perfectly on the chosen target, ready to leap any second!"
 					src.PoseTime++
-					if(src.PoseTime==5)
+					if(src.PoseTime>=4)
 						if(Secret=="Eldritch")
+							icon_state = ""
+							PoseTime = 0
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form/fmf in src)
 								fmf.Trigger(src)
-							icon_state = ""
 						if(src.HasRipple())
 							src << "The Ripple flows through your body perfectly!  You have gained full control over your breathing!!"
 							if(src.Swim==1)
@@ -737,10 +769,6 @@ mob
 					src.BindingTimer=0
 					if(src.Binding>=1)
 						src.TriggerBinding()
-			if(src.Oozaru)
-				src.OozaruTimer--
-				if(src.OozaruTimer<=0)
-					src.Oozaru(0)
 
 /*
 			if(src.FusionTimer>0)
@@ -1240,15 +1268,19 @@ mob
 										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
 											src.HealEnergy(src.GetRecov(b.EnergyHeal))
 								else
-									if((src.Health+src.TotalInjury)>=100||(src.TotalInjury&&src.icon_state=="Meditate"))
+									if((src.Energy+src.TotalFatigue)>=100||(src.TotalFatigue&&src.icon_state=="Meditate")) 
 										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
 											src.HealFatigue(b.EnergyHeal,1)
 									else
 										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
-											src.HealFatigue(b.EnergyHeal,1)
+											src.HealEnergy(b.EnergyHeal,1)
 							if(b.ManaHeal)
-								if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
-									src.HealMana(b.ManaHeal)
+								if(!b.StableHeal)
+									if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
+										src.HealMana(b.ManaHeal)
+								else
+									if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
+										src.HealMana(b.ManaHeal,1 )
 
 
 							if(b.BurnAffected)
@@ -1321,6 +1353,7 @@ mob
 										if((src.Target.Health+src.Target.TotalInjury)>=100||(src.Target.TotalInjury&&src.Target.icon_state=="Meditate"))
 											src.Target.HealWounds(b.HealthHeal)
 										else
+											
 											src.Target.HealHealth(b.HealthHeal)
 								if(b.EnergyHeal&&!src.Target.HasMechanized())
 									if(!b.StableHeal)
@@ -1334,7 +1367,12 @@ mob
 										else
 											src.Target.HealEnergy(b.EnergyHeal,1)
 								if(b.ManaHeal&&!src.Target.HasMechanized())
-									src.Target.HealMana(b.ManaHeal)
+									if(!b.StableHeal)
+										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
+											src.HealMana(b.ManaHeal)
+									else
+										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
+											src.HealMana(b.ManaHeal,1)
 								if(b.WoundHeal)
 									if(!b.StableHeal)
 										src.Target.HealWounds(src.Target.GetRecov(b.WoundHeal))
@@ -1539,18 +1577,26 @@ mob
 			var/turf/T = loc
 			if(T.effectApplied)
 				//TODO if u reuse this make it a switch
-				if(T.effectApplied == "Stellar")
-					if(!passive_handler.Get("Constellation"))
-					// start draining or somethin
-						if(Energy > 1)
-							Energy -= 0.15
-						if(TotalFatigue < 99)
-							TotalFatigue += 0.15
-					else
-						if(Energy < 99)
-							Energy += 0.15
-						if(TotalFatigue > 0)
-							TotalFatigue -= 0.15
+				switch(T.effectApplied)
+					if("Stellar")
+						if(!passive_handler.Get("Constellation"))
+						// start draining or somethin
+							if(Energy > 1)
+								Energy -= 0.15
+							if(TotalFatigue < 99)
+								TotalFatigue += 0.15
+						else
+							if(Energy < 99)
+								Energy += 0.15
+							if(TotalFatigue > 0)
+								TotalFatigue -= 0.15
+				if(isdatum(T.effectApplied))
+					if((istype(T.effectApplied, /datum/DemonRacials)))
+						if(src != T.ownerOfEffect)
+							T.effectApplied?:applyDebuffs(src, T.ownerOfEffect)
+					if((istype(T.effectApplied, /obj/Skills/Buffs)))
+						if(src != T.ownerOfEffect)
+							T.effectApplied?:applyEffects(src, T.ownerOfEffect)
 			if(!passive_handler.Get("StaticWalk")&&!src.Dead)
 				if(istype(loc,/turf/Special/Static))
 					src.Health-=0.05

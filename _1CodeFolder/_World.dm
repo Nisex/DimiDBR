@@ -43,11 +43,17 @@ world
 		GeneratePlayActionDatabase()
 		world.SetConfig("APP/admin", "XLevi", "role=admin")
 		world.SetConfig("APP/admin", "Niezan", "role=admin")
+		world.SetConfig("APP/admin", "Chandlerkun", "role=admin")
+
+		generateSwapMaps()
 	Del()
 		..()
 
-
-
+proc
+	generateSwapMaps()
+		if(!fexists("Maps/UBW.sav"))
+			SwapMaps_SaveChunk("UBW", locate(1,71,1), locate(61, 121,1))
+			SwapMaps_Save("UBW")
 
 
 proc/GlobalSave()
@@ -66,9 +72,11 @@ var/list/LockedRaces=list()
 
 mob/proc/CheckUnlock(race/_race)
 	if(src.Admin) return 1
-	if(_race.locked && LockedRaces[key] && _race in LockedRaces[key])
-		return 1
-	else if(!_race.locked)
+	if(_race.locked)
+		for(var/i in glob.LockedRaces)
+			if(ckey(i)==ckey && glob.LockedRaces[i] == _race.name)
+				return 1
+	if(!_race.locked)
 		return 1
 	return 0
 
@@ -201,6 +209,7 @@ proc/BootFile(var/file,var/op)
 					F["DainsleifTaken"]>>DainsleifTaken
 					F["WukongTaken"] >> WukongTaken
 					F["GuanyuTaken"] >> GuanyuTaken
+					F["MoonlightGreatSwordTaken"]>>MoonlightGreatswordTaken
 					F["GetUp"]>>GetUpVar
 					F["intimRatio"]>>INTIMRATIO
 					F["DustToggle"]>>DustControl
@@ -492,19 +501,6 @@ client
 			mob.removeBlobBuffs()
 			if(mob.party)
 				mob.party.remove_member(mob)
-			if(mob.FusionCKey1) //This is the player who is playing the Fused.
-				global.fusion_locs["[mob.FusionCKey1] and [mob.FusionCKey2]"] = list("x"=mob.x,"y"=mob.y,"z"=mob.z)
-				for(var/mob/Players/p in players)
-					if(p.ckey == mob.FusionCKey2)
-						p << "The fusion breaks apart!"
-						del(p)
-
-			else if(mob.Fused==2) //This is the player chilling and watching.
-				for(var/mob/Players/p in players)
-					if(mob.Fusee == p.FusionCKey1)
-						global.fusion_locs["[p.FusionCKey1] and [p.FusionCKey2]"] = list("x"=p.x,"y"=p.y,"z"=p.z)
-						p << "The fusion breaks apart!"
-						del(p)
 
 			if(mob.Control)
 				var/obj/Items/Tech/SpaceTravel/M=mob.Control

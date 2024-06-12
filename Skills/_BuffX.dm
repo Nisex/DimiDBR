@@ -1,3 +1,6 @@
+#define GOLD_DRAGON_FORMULA 1000000
+#define GAJALAKA_MULT 1.2
+
 obj/Skills/Buffs
 	Cooldown=1
 /**
@@ -267,12 +270,12 @@ NEW VARIABLES
 	//AbyssMod//Adds abyss mod.
 	//Purity//Can only damage what it's designed to damage (Abyss for holy, Holy for abyss, humans for slayer)
 	var/KiBlade//its fooken ki blade m8
-	var/SpiritStrike//Punches with FORCE only
-	var/SpiritHand//Sunlight stance passive.
-	var/SpiritFlow//Moonlight stance passive.
-	var/HybridStrike//Punches with For/Str
-	var/PridefulRage//Ignore defenses.
-	var/NoWhiff//Melee attacks won't whiff.
+	var/SpiritStrike //Punches with FORCE only
+	var/SpiritHand //Sunlight stance passive.
+	var/SpiritFlow //Moonlight stance passive.
+	var/HybridStrike //Punches with For/Str
+	var/PridefulRage //Ignore defenses.
+	var/NoWhiff //Melee attacks won't whiff.
 	//NoForcedWhiff//THEY WON'T WHIFF EVEN HARDER NOW
 	//Instinct - go away, AIS/WS
 	var/Steady //Consistent damage.
@@ -446,11 +449,11 @@ NEW VARIABLES
 	var/GatesLevel//A tag for gates which sets the nerf and nerf time.
 	var/ShuttingGates//This has to be flagged for gates nerf to trigger.
 	var/WeaponBreaker//Adds weaponbreaker variable.
-	var/StealsResources//Steals resources...come on...
-	var/StealsStats//
-	var/ManaSeal//Seals this amount per 1 damage delivered.
-	var/ArcaneBladework//sets ArcaneBladework.
-	var/BuffMastery//Reduce nerfs and buff buffs.
+	var/StealsResources //Steals resources...come on...
+	var/StealsStats //
+	var/ManaSeal //Seals this amount per 1 damage delivered.
+	var/ArcaneBladework //sets ArcaneBladework.
+	var/BuffMastery //Reduce nerfs and buff buffs.
 	var/Curse//sets your Cursed Wound Variable, maybe some other stuff later
 	var/FusionPowered
 	var/Overdrive//synergy with cyber bp, androids, fusion cores and cyber modules
@@ -490,8 +493,8 @@ NEW VARIABLES
 	var/DefianceRetaliate//makes you counterattack with power being scaled off your missing health
 	var/AffectTarget//doh
 	var/Ripple //Use Oxygen
-	var/BulletKill//kill bullets, duh
-	var/Deflection//10% * this value to autodeflect anything that can be deflected
+	var/BulletKill //kill bullets, duh
+	var/Deflection //10% * this value to autodeflect anything that can be deflected
 	var/CyberLimb//pretends you have more cyber slots
 	var/Skimming//pretends youre flying
 	var/Flight//actually flying
@@ -556,15 +559,21 @@ NEW VARIABLES
 	var/characterInformation/FakeInformation
 	var/FakeInformationEnabled
 
+	skillDescription()
+		..()
+		if(passives.len>0)
+			description += "Passives:\n"
+			for(var/i in passives)
+				description += "[i] - [passives[i]]\n"
 	proc
 		Trigger(var/mob/User, Override=0)
 			if(!Override && User.BuffingUp)
-				return
+				return 0
 			if(!Override)
 				User.BuffingUp++
 			if(Sealed && !Override)
 				User << "This spell is sealed!"
-				return
+				return 0
 			if(src.DashCountLimit)
 				src.DashCount=0
 			User.UseBuff(src, Override)
@@ -991,7 +1000,7 @@ NEW VARIABLES
 
 			proc/shutOffEffects(mob/p, level)
 				p.GatesActive=0
-				if(level >= p.SagaLevel) return
+				if(level >= p.SagaLevel+2) return
 
 				var/tax = clamp(0.05 * level, 0.05, 1)
 				if(taxReduction)
@@ -1057,13 +1066,15 @@ NEW VARIABLES
 
 			verb/Cultivate()
 				set category = "Skills"
-				if(usr.GatesActive+1 > 8 || usr.GatesActive+1 > usr.SagaLevel)
+				if(usr.GatesActive > 8 || usr.GatesActive-2 > usr.SagaLevel)
 					usr<<"You can't do that!!"
 					return
 				handleGates(usr, TRUE)
 
 			verb/Stop_Cultivation()
 				set category = "Skills"
+				if(!usr)
+					usr = src.loc
 				if(usr.BuffOn(src))
 					handleGates(usr, FALSE)
 				else if(!usr.GatesActive)
@@ -1124,7 +1135,7 @@ NEW VARIABLES
 				src.Trigger(usr)
 			verb/Ascended_Resonant_Weapon()
 				set hidden=1
-				if(usr.SagaLevel<4)return
+				if(usr.SagaLevel<3)return
 				if(!usr.BuffOn(src))
 					var/UsedType
 					if(locate(/obj/Skills/Queue/Holy_Blade, usr))
@@ -1172,7 +1183,7 @@ NEW VARIABLES
 				src.Trigger(usr)
 			verb/Legendary_Weapon()
 				set hidden=1
-				if(usr.SagaLevel<6)return
+				if(usr.SagaLevel<4)return
 				if(!usr.BuffOn(src))
 					src.SwordIcon=null
 					switch(usr.BoundLegend)
@@ -1210,7 +1221,7 @@ NEW VARIABLES
 								src.RegenMult=1
 								passives = list("HolyMod" = 3, "SpiritSword" = 0.25, "PULock" = 1)
 								src.SwordName="Caledfwlch"
-								src.SwordIcon='Caledfwlch-True.dmi'
+								src.SwordIcon='Caledfwlch.dmi'
 								src.ActiveMessage="calls forth the true form of Caledfwlch, the Sword of Glory!"
 								src.OffMessage="conceals Caledfwlch's glory..."
 							else if(locate(/obj/Skills/Queue/Darkness_Blade, usr))
@@ -1248,7 +1259,7 @@ NEW VARIABLES
 							src.OffMult=1.1
 							src.DefMult=1
 							src.RegenMult=1
-							passives = list("HolyMod" = 3, "LifeGeneration" = 30, "PULock" = 1)
+							passives = list("HolyMod" = 3, "LifeGeneration" = 3, "PULock" = 1)
 							src.HolyMod=3
 							src.LifeGeneration=3
 							src.SwordName="Durendal"
@@ -1294,7 +1305,7 @@ NEW VARIABLES
 								src.OffMult=0.8
 								src.DefMult=1.3
 								src.RegenMult=0.5
-								passives = list("AbyssMod"=3,"LifeGeneration"=10,"Steady"=5, "PULock" = 1)
+								passives = list("AbyssMod"=3,"LifeGeneration"=1,"Steady"=5, "PULock" = 1)
 								src.AbyssMod=3
 								src.LifeGeneration=1
 								src.Steady=5//Always 50% damage.
@@ -1350,15 +1361,29 @@ NEW VARIABLES
 							src.SwordName="Dainsleif"
 							src.ActiveMessage="calls forth the true form of Dainsleif, the Blade of Ruin!"
 							src.OffMessage="dissolves Dainsleif's ruinous power..."
+						if("Moonlight Greatsword")
+							src.PowerMult=1.5
+							src.EndMult=1.3
+							src.ForMult=2.25
+							src.OffMult=1.5
+							src.DefMult=1.3
+							passives = list("SpiritFlow" = 2, "SpiritStrike" = 2, "ManaSeal" = 2, "DrainlessMana" = 1, "CyberStigma" = 2)
+							src.SpiritFlow=2
+							src.SpiritStrike=2
+							src.ManaSeal=2
+							src.DrainlessMana=1
+							src.CyberStigma=2
+							src.SwordName="Moonlight Greatsword"
+							src.ActiveMessage="conjures forth the Moonlight Greatsword, basked in otherworldly lunar radiance..."
 				src.Trigger(usr)
 			verb/Weapon_Soul()
 				set category="Skills"
 				if(!usr.BuffOn(src))
 					var/list/WeaponSoul=list()
 					WeaponSoul.Add("Resonant Weapon")
-					if(usr.SagaLevel>=4&&usr.Saga=="Weapon Soul")
+					if(usr.SagaLevel>=3&&usr.Saga=="Weapon Soul")
 						WeaponSoul.Add("Ascended Resonant Weapon")
-					if(usr.SagaLevel>=6&&usr.Saga=="Weapon Soul"&&usr.GetWeaponSoulType()==usr.BoundLegend)
+					if(usr.SagaLevel>=4&&usr.Saga=="Weapon Soul"&&usr.GetWeaponSoulType()==usr.BoundLegend)
 						WeaponSoul.Add("Legendary Weapon")
 					WeaponSoul.Add("Cancel")
 					var/WeaponType=input(usr, "What level of power of your weapon do you wish to release?", "Weapon Invocation") in WeaponSoul
@@ -1904,45 +1929,59 @@ NEW VARIABLES
 	SpecialBuffs
 		SpecialSlot=1
 //Racial
-		Giant_Form//for Dragon Nameks instead!
-			NeedsHealth=75
-			StrMult=1.5
-			EndMult=2
-			DefMult=0.5
+		Giant_Form//for Warrior  Nameks instead!
+			NeedsHealth=50
+			TooMuchHealth=75
+			StrMult = 1.5
+			EndMult = 2
+			DefMult = 0.5
+			SpdMult = 0.5
 			Enlarge=2
-			passives = list("GiantForm" = 1)
+			passives = list("GiantForm" = 1, "Sweeping Strikes" = 1, "NoDodge" = 1)
 			GiantForm=1
 			ActiveMessage="channels their regenerative abilities into a bout of monstrous growth!"
 			OffMessage="shrinks to normal size..."
-			Cooldown=180
+			Cooldown=0
 			verb/Giant_Form()
 				set category="Skills"
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/r in usr)
-					if(r.Using&&!usr.BuffOn(src))
-						return
-					if(usr.BuffOn(r))
-						r.Trigger(usr)
-					if(!r.Using)
-						r.Cooldown()
 				src.Trigger(usr)
-		OneHundredPercentPower
-			SignatureTechnique=3
+
+		Daimou_Form//for Demon Nameks!
+			NeedsHealth=50
+			TooMuchHealth=75
+			StrMult=1.5
+			ForMult=1.5
+			EndMult=1.25
+			OffMult=1.25
+			passives = list("Hellrisen" = 0.25, "Hellpower" = 0.1, "Flicker" = 1)
+			ActiveMessage="unleashes the herectical power of the Demon clan!"
+			OffMessage="discards the Demon clan's abominal power..."
+			Cooldown=180
+			KenWave=2
+			KenWaveIcon="LightningRed.dmi"
+			adjust(mob/p)
+				passives = list("HellRisen" = 0.25 * (p.AscensionsAcquired-1), "Hellpower" = p.AscensionsAcquired/10, "Flicker" = round(p.AscensionsAcquired/2, 1))
+
+			Trigger(mob/User, Override)
+				. = ..()
+				adjust(User)
+
+		OneHundredPercentPower ///splitting this up from FifthForm, asc 2 is this and asc 3 will be fifth form
 			BuffName="One Hundred Percent Power"
 			UnrestrictedBuff=1
 			NeedsTrans=3
-			NeedsHealth=50
 			StrMult=1.5
 			ForMult=1.5
 			AuraLock=1
-			passives = list("Flicker" = 1, "Pursuer" = 1, "AllOutPU" = 1)
-			Flicker=1
+			passives = list("Flicker" = 2, "Pursuer" = 1, "AllOutPU" = 1)
+			Flicker=2
 			Pursuer=1
 			Cooldown=600
 			KKTWave=3
 			KKTWaveSize=2
 			AllOutPU=1
-			ActiveMessage="bulks up greatly and erupts with power!"
-			OffMessage="tires out..."
+			ActiveMessage="erupts with world-shattering power!"
+			OffMessage="releases their awesome power..."
 		FifthForm
 			SignatureTechnique=3
 			BuffName="Fifth Form"
@@ -1977,7 +2016,7 @@ NEW VARIABLES
 			IconLock='EyesSage.dmi'
 			ActiveMessage="turns completely feral, their massive power running out of control!"
 			OffMessage="tires out..."
-			proc/adjust(mob/p)
+			adjust(mob/p)
 				PowerReplacement = DaysOfWipe()+5
 				AngerMult = 2
 				passives = list("AngerMult" = 2, "GiantForm" = 1, "PowerReplacement" = DaysOfWipe()+5)
@@ -2006,13 +2045,10 @@ NEW VARIABLES
 			OffMessage="tires out..."
 			verb/Super_Saiyan_Grade2()
 				set category="Skills"
-				if(usr.HasGodKi()&&usr.masteries["4mastery"]!=100)
-					usr << "You're already utilizing your energy to the fullest."
-					return
 				if(usr.ExpandBase)
 					IconReplace=1
 					icon=usr.ExpandBase
-				src.NeedsSSJ=usr.TransUnlocked()
+				src.NeedsSSJ=usr.transUnlocked
 				src.HairLock=usr.Hair_SSJ2
 				src.Trigger(usr)
 		SuperSaiyanGrade3
@@ -2037,13 +2073,10 @@ NEW VARIABLES
 			OffMessage="loses steam..."
 			verb/Super_Saiyan_Grade3()
 				set category="Skills"
-				if(usr.HasGodKi()&&usr.masteries["4mastery"]!=100)
-					usr << "You're already utilizing your energy to the fullest."
-					return
 				if(usr.ExpandBase)
 					IconReplace=1
 					icon=usr.ExpandBase
-				src.NeedsSSJ=usr.TransUnlocked()
+				src.NeedsSSJ=usr.transUnlocked
 				src.HairLock=usr.Hair_SSJ3
 				src.Trigger(usr)
 		SuperSaiyanPerfected
@@ -2474,7 +2507,9 @@ NEW VARIABLES
 						passives = list("EnergyGeneration" = 0.3, "ManaGeneration" = 0.1, "ManaSeal" = 1, "PureDamage" = 1, "PureReduction" = 1, "LifeSteal" = 10)
 					if(!src.Using)
 						usr.Activate(new/obj/Skills/AutoHit/Knockoff_Wave)
-				src.Trigger(usr)
+				if(Trigger(usr))
+					if(!src.Using)
+						usr.Activate(new/obj/Skills/AutoHit/Knockoff_Wave)
 
 		Limit_Breaker
 			SignatureTechnique=3
@@ -3060,7 +3095,7 @@ NEW VARIABLES
 				TextColor=rgb(0, 200, 0)
 				ActiveMessage="overloads their cybernetics!"
 				OffMessage="suffers a circuitry breakdown!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/totalPot = round(glob.progress.totalPotentialToDate,10)
 					SpdMult = 1.3 + totalPot/150
@@ -3105,7 +3140,7 @@ NEW VARIABLES
 				ActiveMessage="is overtaken by a more sadistic personality as they overclock their cybernetics!"
 				OffMessage="falters as their cyber-sadism is repressed..."
 				var/sandevistanUsages = 0
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/totalPot = round(glob.progress.totalPotentialToDate,10)
 					SpdMult = 1 + totalPot/150
@@ -3147,7 +3182,7 @@ NEW VARIABLES
 				BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/CyberPunk/GorillaArms")
 				ActiveMessage="laughs haughtily as they bolster their defenses with the best technology in the world!"
 				OffMessage="stumbles as their arrogant bulwark fades away..."
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/totalPot = round(glob.progress.totalPotentialToDate,10)
 					EndMult = 1.2 + totalPot/150
@@ -3180,7 +3215,7 @@ NEW VARIABLES
 				SureHitTimerLimit=30
 				ActiveMessage="arms themselves with enormous firepower, a weapon to surpass all!"
 				OffMessage="ditches the excess weaponry..."
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/totalPot = round(glob.progress.totalPotentialToDate,10)
 					ForMult = 1.2 + totalPot/150
@@ -3291,8 +3326,8 @@ NEW VARIABLES
 							StrMult = 1 + (player.SagaLevel * 0.1)
 							EndMult = 1.1 + (player.SagaLevel * 0.1)
 							DefMult = 1 + (player.SagaLevel * 0.1)
-							passives = list("MovementMastery" =  player.SagaLevel * 1.25, "ArmorAscension" = 1, "Reversal" = player.SagaLevel * 0.1, "CriticalBlock" = player.SagaLevel / 8, "BlockChance" = 5 + (player.SagaLevel * 1.5))
-							CriticalBlock = 1 + (player.SagaLevel / 8)
+							passives = list("MovementMastery" =  player.SagaLevel * 1.25, "ArmorAscension" = 1, "Reversal" = player.SagaLevel * 0.1, "CriticalBlock" = player.SagaLevel / 6, "BlockChance" = 5 + (player.SagaLevel * 1.5))
+							CriticalBlock = 1 + (player.SagaLevel / 6)
 							BlockChance = 5 + (player.SagaLevel * 1.5)
 					verb/Don_Cloth()
 						set category="Skills"
@@ -3317,7 +3352,7 @@ NEW VARIABLES
 							OffMult = 1 + (player.SagaLevel * 0.1)
 							DefMult = 1 + (player.SagaLevel * 0.1)
 							EndMult = 0.9 + (player.SagaLevel * 0.1)
-							passives = list("MovementMastery" =  player.SagaLevel * 1.25, "SpiritStrike" =1,  "ArmorAscension" = 1, "Chilling" = 1 + round(player.SagaLevel / 2,0.5), "VenomImmune" = 2 + (player.SagaLevel / 8), \
+							passives = list("MovementMastery" =  player.SagaLevel * 1.25, "SpiritStrike" =1,  "ArmorAscension" = 1, "Chilling" = 1 + round(player.SagaLevel / 2,0.5), "VenomImmune" = 2 + (player.SagaLevel / 6), \
 							 "WalkThroughHell" = 1)
 					verb/Don_Cloth()
 						set category="Skills"
@@ -3374,7 +3409,7 @@ NEW VARIABLES
 					DefMult = 1.3
 					ArmorIcon='Unicorn_Cloth.dmi'
 					TopOverlayLock='Unicorn_Cloth_Helmet.dmi'
-					ActiveMessage="dons the Cloth of the Unicorn, embracing its pegging passion!"
+					ActiveMessage="dons the Cloth of the Unicorn, embracing its brilliant speed!"
 					adjustments(mob/player)
 						..()
 						passives = list("MovementMastery" =  player.SagaLevel * 1.5, "ArmorAscension" = 2, "Pursuer" = 1.2 + (player.SagaLevel*0.2), "Flicker" = max(1,player.SagaLevel*0.5))
@@ -3408,7 +3443,7 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						var/newLevel = clamp(player.SagaLevel - 4, 1,4)
+						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
 						passives = list("MovementMastery" = player.SagaLevel * 1.5, "ArmorAscension" = 2, "Desperation" = 1 + (player.SagaLevel * 0.5),\
 						 "Godspeed" = 1+ (player.SagaLevel*0.5) )
 						StrMult = 1.3 + (newLevel * 0.1)
@@ -3430,7 +3465,7 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						var/newLevel = clamp(player.SagaLevel - 4, 1,4)
+						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
 						StrMult = 1.3 + (newLevel * 0.1)
 						EndMult = 1.5 + (newLevel * 0.1)
 						DefMult = 1.3 + (newLevel * 0.1)
@@ -3457,7 +3492,7 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						var/newLevel = clamp(player.SagaLevel - 4, 1,4)
+						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
 						if(!altered)
 							ForMult = 1.5 + (newLevel * 0.1)
 							OffMult = 1.3 + (newLevel * 0.1)
@@ -3484,7 +3519,7 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						var/newLevel = clamp(player.SagaLevel - 4, 1,4)
+						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
 						passives = list("MovementMastery" = player.SagaLevel * 1.5, "ArmorAscension" = 2, "SwordPunching" = 1)
 						EndMult = 1.3 + (newLevel * 0.1)
 						SpdMult = 1.3 + (newLevel * 0.1)
@@ -3509,7 +3544,7 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						var/newLevel = clamp(player.SagaLevel - 4, 1,4)
+						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
 						passives = list("MovementMastery" = player.SagaLevel * 1.75, "ArmorAscension" = 3, "SpiritHand" = (player.SagaLevel*0.5))
 						StrMult = 1.4 + (newLevel * 0.1)
 						ForMult = 1.4 + (newLevel * 0.1)
@@ -3525,7 +3560,7 @@ NEW VARIABLES
 					DefMult = 1.3
 					ArmorIcon='Unicorn_ClothV3.dmi'
 					TopOverlayLock='Unicorn_cloth_V2_Helmet.dmi'
-					ActiveMessage="dons the reborn Cloth of the Phoenix, embracing its inextinguishable passion!"
+					ActiveMessage="dons the reborn Cloth of the Unicorn, embracing its unbreakable speed!"
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
@@ -3578,7 +3613,7 @@ NEW VARIABLES
 				verb/Toggle_Cape()
 					set category="Roleplay"
 					var/image/im=image(icon='goldsaint_cape.dmi', layer=FLOAT_LAYER-3)
-					if(usr.SagaLevel<7)
+					if(usr.SagaLevel<5)
 						usr << "You're not worthy of a cape yet!"
 						return
 					if(usr.BuffOn(src))
@@ -3591,6 +3626,10 @@ NEW VARIABLES
 							usr.Hairz("Add")
 							usr << "You put your cape on!"
 							src.NoExtraOverlay=0
+				Trigger(var/mob/User, Override = 0)
+					..()
+					if(User.SagaLevel < 5&&!Using)
+						del src
 				Aries_Cloth
 					ForMult=1.3
 					EndMult=1.3
@@ -3606,9 +3645,9 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						ForMult = 1.4 + ((player.SagaLevel-3) * 0.1)
-						EndMult = 1.4 + ((player.SagaLevel-3) * 0.1)
-						DefMult = 1.5 + ((player.SagaLevel-3) * 0.1)
+						ForMult = 1.4 + ((player.SagaLevel-2) * 0.1)
+						EndMult = 1.4 + ((player.SagaLevel-2) * 0.1)
+						DefMult = 1.5 + ((player.SagaLevel-2) * 0.1)
 						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1,"MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.25), "SpiritFlow" = (player.SagaLevel*0.2), "SpiritHand" = (player.SagaLevel*0.25), "TechniqueMastery" = 3 + (player.SagaLevel/2))
 						SpiritFlow = (player.SagaLevel * 0.2)
 						SpiritHand = (player.SagaLevel * 0.25)
@@ -4405,7 +4444,7 @@ NEW VARIABLES
 			proc/setupVars(mob/player)
 				src.ActiveMessage="surrounds their body in a faint green aura!"
 				if(player.Race == "Human")
-					passives = list("Desperation" = 1 + player.SagaLevel/4)
+					passives = list("Desperation" = 1 + player.SagaLevel/3)
 				else
 					passives = list("Desperation" = player.SagaLevel)
 
@@ -4453,7 +4492,7 @@ NEW VARIABLES
 				if(usr.SagaLevel<6)
 					usr<<"Sorry, you can't use this yet."
 					return
-				if(istype(usr.SpecialBuff, type) && usr.SpecialBuff.BuffName!="Genesic Brave")
+				if(usr.SpecialBuff&&usr.SpecialBuff.BuffName!="Genesic Brave")
 					Trigger(usr, TRUE)
 					setupVars(usr)
 					StrMult=1.25
@@ -4474,16 +4513,12 @@ NEW VARIABLES
 			OffMult=1.3
 			DefMult=1.2
 			SpdMult=2
-			TransMimic=1
 			NeedsHealth=50
 			TooMuchHealth=75
 			Transform="Weapon"
 			ABuffNeeded=list("Soul Resonance")
 			verb/OverSoul()
 				set category="Skills"
-				if(src.TransMimic<usr.TransUnlocked())
-					passives = list("TransMimic" = usr.TransUnlocked())
-					src.TransMimic=usr.TransUnlocked()
 				if(usr.SagaLevel<8)
 					src.TimerLimit=90
 					NeedsHealth=50
@@ -4571,6 +4606,7 @@ NEW VARIABLES
 			EnergyMult=1.5
 			RegenMult=1.25
 			RecovMult=1.25
+			passives = list("Flow" = 2)
 			BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/Regeneration")
 			ActiveMessage="forces their symbiote out!"
 			OffMessage="restrains their symbiotic companion..."
@@ -4638,49 +4674,53 @@ NEW VARIABLES
 			OffMessage="stops regenerating..."
 			proc/getRaceModifier(mob/p)
 				. = 1
-				switch(p.Race)
+				switch(p.race.name)
 					if("Majin")
 						switch(p.Class)
 							if("Super")
-								return 1.5
+								return 1.2
 							if("Innocent")
-								return 1.75
+								return 1.4
 							if("Unhinged")
-								return 2
-						return 1.5
+								return 1.75
+						return 1.2
 					if("Demon")
 						return 1.25
 					if("Namekian")
-						return 1.5
+						return 1.2
 				if(p.Secret == "Werewolf")
 					return 1.2
 
 			proc/getRegenRate(mob/p)
-				var/baseHeal = 3
-				var/perMissing = 0.04
+				var/baseHeal = 1.5
+				var/perMissing = 0.02
 				var/missingPerAsc = 0.01
 				var/raceDivisor = 30
 
 				if(!altered)
-					var/raceModifier = getRaceModifier(p)
-					var/asc = p.AscensionsAcquired
-					var/amt = (baseHeal + raceModifier) + ( ((perMissing + (missingPerAsc * asc)) + (raceModifier/raceDivisor)) * (100 - p.Health))
-					var/divider = asc * raceModifier > 0 ? asc * raceModifier : 1
-					var/time = 25 / divider
-					HealthHeal = (amt / time)* world.tick_lag // health per tick(?)
-					TimerLimit = time             // ticks per regen
-					EnergyCost = amt / 4
-					FatigueCost = amt / 4
+					if(p.Potential <= ASCENSION_ONE_POTENTIAL)
+						var/raceModifier = getRaceModifier(p)
+						HealthHeal = ((glob.REGEN_ASC_ONE_HEAL * raceModifier)/TimerLimit) * world.tick_lag
+					else
+						var/raceModifier = getRaceModifier(p)
+						var/asc = p.AscensionsAcquired
+						var/amt = (baseHeal + raceModifier) + ( ((perMissing + (missingPerAsc * asc)) + (raceModifier/raceDivisor)) * (100 - p.Health))
+						var/divider = asc * raceModifier > 0 ? asc * raceModifier : 1
+						var/time = 25 / divider
+						HealthHeal = (amt / time) * world.tick_lag // health per tick(?)
+						TimerLimit = time             // ticks per regen
+						EnergyCost = amt / 4
+						FatigueCost = amt / 4
 			verb/Regenerate()
 				set category="Skills"
 				if(!usr.BuffOn(src))
 					getRegenRate(usr)
 				else
-					if(usr.isRace(MAJIN)&&usr.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
+					if(usr.isRace(MAJIN)&&usr.race.ascensions.len>=1&&usr.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
 						usr.Stasis = 0
 				src.Trigger(usr)
 				if(usr.BuffOn(src))
-					if(usr.isRace(MAJIN)&&usr.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
+					if(usr.isRace(MAJIN)&&usr.race.ascensions.len>=1&&usr.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
 						usr.Stasis = TimerLimit
 					if(!usr.Sheared)
 						if(usr.BPPoisonTimer>1&&usr.BPPoison<1)
@@ -4748,9 +4788,6 @@ NEW VARIABLES
 				src.Trigger(usr)
 
 		Saiyan_Dominance
-			NeedsHealth=75
-			EnergyThreshold = 25
-			TimerLimit=60
 			AutoAnger=1
 			passives = list("PridefulRage" = 1)
 			PridefulRage=1
@@ -4761,13 +4798,30 @@ NEW VARIABLES
 			EndTax=0.1
 			ActiveMessage="displays their superiority by crushing those who rose their hand at them!"
 			OffMessage="ends their ruthless display of superiority..."
-			proc/adjust(mob/user)
+			adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired
 				EnergyThreshold = 25-(5*zenkaiLevel)
+				var/healthDiff = 0
+				//scales off how bad your losing
+				if(user.Target && ismob(user.Target))
+					healthDiff = user.Target.Health-user.Health
+				switch(healthDiff)
+					if(-100 to 2)
+						PowerMult = 1
+					if(3 to 15)
+						PowerMult = 1.05
+					if(16 to 25)
+						PowerMult = 1.1
+					if(26 to 50)
+						PowerMult = 1.15
+					if(51 to 75)
+						PowerMult = 1.2
+					if(76 to 100)
+						PowerMult = 1.3
 			verb/Saiyan_Dominance()
 				set category="Skills"
 				if(!usr.BuffOn(src))
-					if(usr.Oozaru)
+					if(usr.CheckSlotless("Great Ape"))
 						usr << "Your precision is lacking in beastly form!"
 						return
 					src.adjust(usr)
@@ -4779,10 +4833,14 @@ NEW VARIABLES
 			EndTax=0.25
 			ActiveMessage="decides to stand their ground under the rain of attacks!!"
 			OffMessage="finally gives in to the pain..."
+			adjust(mob/user)
+				var/zenkaiLevel = user.AscensionsAcquired/10
+				//scales off how low hp is
+				PowerMult = clamp(1,(1+(zenkaiLevel/2))/user.Health, 1.5)
 			verb/Saiyan_Grit()
 				set category="Skills"
 				if(!usr.BuffOn(src))
-					if(usr.Oozaru)
+					if(usr.CheckSlotless("Great Ape"))
 						usr << "Your precision is lacking in beastly form!"
 						return
 					if(usr.DefianceCounter<6)
@@ -4793,6 +4851,7 @@ NEW VARIABLES
 						src.VaizardShatter=1
 						src.FINISHINGMOVE=1
 						src.DefianceRetaliate=1
+						adjust(usr)
 				src.Trigger(usr)
 
 		Saiyan_Soul
@@ -4804,14 +4863,14 @@ NEW VARIABLES
 			passives = list("TechniqueMastery" = 1)
 			ActiveMessage="pushes themselves even further to overwhelm their opponent!!"
 			OffMessage="releases their power spike, incredibly exhausted..."
-			proc/adjust(mob/user)
+			adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired
-				passives["TechniqueMastery"] = 0.75*zenkaiLevel
-				passives["MovementMastery"] = 1.5*zenkaiLevel
+				passives["TechniqueMastery"] = 1*zenkaiLevel
+				passives["MovementMastery"] = 2*zenkaiLevel
 			verb/Saiyan_Soul()
 				set category="Skills"
 				if(!usr.BuffOn(src))
-					if(usr.Oozaru)
+					if(usr.CheckSlotless("Great Ape"))
 						usr << "Your precision is lacking in beastly form!"
 						return
 					if(usr.AdaptationCounter<1)
@@ -4984,10 +5043,10 @@ NEW VARIABLES
 			KenWaveIcon='fevKiaiG.dmi'
 			verb/Namekian_Fusion()
 				set category="Skills"
-				if(usr.TransUnlocked())
+				if(usr.transUnlocked)
 					usr << "You can't fuse with more namekians!"
 					return
-				if(usr.Target && usr.Target.TransUnlocked())
+				if(usr.Target && usr.Target.transUnlocked)
 					usr << "You can't fuse with [usr.Target] because they have already fused!"
 					return
 				if(!usr.BuffOn(src))
@@ -5071,7 +5130,7 @@ NEW VARIABLES
 
 						usr.knowledgeTracker.learnedKnowledge=usr.Target.knowledgeTracker.learnedKnowledge
 
-						usr.trans["unlocked"]=1
+						usr.transUnlocked++
 						usr.RecovChaos+=0.5
 
 						animate(usr, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1), time=10)
@@ -5203,7 +5262,7 @@ NEW VARIABLES
 				TimerLimit = 15
 				ActiveMessage="is held in place by magic!"
 				OffMessage="has been released by their magical restraints!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/magicLevel = p.getTotalMagicLevel()
 					StunAffected = round(1 + (magicLevel / 4))
 					CrippleAffected = round(magicLevel * 2)
@@ -5218,7 +5277,7 @@ NEW VARIABLES
 				applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Hold_PersonApply
 				ActiveMessage="casts a great magic to hold their target in place!"
 				OffMessage="releases the magic!!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/magicLevel = p.getTotalMagicLevel()
 					Range = 10 + magicLevel
 					// StunAffected = round(1 + (magicLevel / 4))
@@ -5238,11 +5297,11 @@ NEW VARIABLES
 				TimerLimit = 10
 				ActiveMessage = "uses magic to push themselves through time!"
 				OffMessage = "slows down to a normal pace..."
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					NoForcedWhiff = 1 // make it so people cant force whiff u
 					var/magicLevel = p.getTotalMagicLevel()
 					passives = list("NoForcedWhiff" = 1, "FluidForm" = 1, "Godspeed" = clamp(round(magicLevel/5), 1, 2), "DoubleStrike" = 1)
-					TimerLimit = round(2 + magicLevel)
+					TimerLimit = round(8 + magicLevel)
 					FluidForm = 1
 					SpdMult = 1 + (magicLevel * 0.02)
 					Godspeed = round(magicLevel / 5)
@@ -5258,18 +5317,20 @@ NEW VARIABLES
 			Reverse_Wounds
 				Copyable = 0
 				ManaCost = 10
-				TimerLimit = 15
+				TimerLimit = 25
 				ActiveMessage = "uses magic to reverse their wounds!"
 				OffMessage = "'s wounds stop healing backwards..."
 				StableHeal = 1
 				Cooldown = -1
 				// this is just regen bro LOL!
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					var/magicLevel = 1 + p.getTotalMagicLevel()
 					var/base = round(magicLevel / 8)
 					var/perMissing = 0.01
 					var/amount = round(base + (abs(p.Health-100) * perMissing))
-					HealthHeal = (amount / TimerLimit)* world.tick_lag
+					TimerLimit = 25 * (1 - magicLevel / 40)
+					HealthHeal = (amount / (TimerLimit * world.tick_lag))
+
 				verb/Reverse_Wounds()
 					set category="Skills"
 					if(!altered)
@@ -5284,7 +5345,7 @@ NEW VARIABLES
 				Copyable=1
 				ManaCost=5
 				TimerLimit=30
-				Cooldown=90
+				Cooldown=70
 				verb/Reinforce_Weapon()
 					set category="Skills"
 					var/magicLevel = usr.getTotalMagicLevel()
@@ -5524,37 +5585,9 @@ NEW VARIABLES
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/Magic_Trick")
 				ManaCost=10
 				Cooldown=30
-				verb/Alter_Disguise()
-					set category="Utility"
-					if(src.Using==1||usr.BuffOn(src))
-						return
-					src.Using=1
-					src.ImitateBase=input(usr,"Choose a base icon.","Imitate Base")as icon
-					src.ImitateOverlays=list()
-					src.ImitateOverlays+=input(usr,"Choose a lower clothing icon.","Imitate Overlay")as icon
-					src.ImitateOverlays+=input(usr,"Choose a hair icon.","Imitate Hair")as icon
-					src.ImitateOverlays+=input(usr,"Choose an upper clothing icon.","Imitate Overlay")as icon
-					src.ImitateName=input(usr,"Choose a name.","Imitate Name") as text
-					src.ImitateProfile=input(usr, "Please input a description for the disguise.", "Imitate Description") as message
-					src.ImitateTextColor=input(usr, "Choose a color for Say.","Imitate Color") as color
-					src.Using=0
-				verb/Disguise()
-					set hidden=1
-					if(!usr.BuffOn(src))
-						src.BuffName="Imitate"
-						src.Imitate=1
-						src.PhysicalHitsLimit=1
-						src.SpiritHitsLimit=1
-						src.EndYourself=0
-						src.FakePeace=1
-						src.ActiveMessage="changes their appearance!"
-						src.OffMessage="returns to their previous shape..."
-						usr.BreakViewers()
-					src.Trigger(usr)
 				verb/Confusing_Act()
 					set hidden=1
 					if(!usr.BuffOn(src))
-						src.Imitate=0
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=1
@@ -5571,7 +5604,6 @@ NEW VARIABLES
 				verb/Stunning_Act()
 					set hidden=1
 					if(!usr.BuffOn(src))
-						src.Imitate=0
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=1
@@ -5585,23 +5617,6 @@ NEW VARIABLES
 							else
 								OMsg(m, "[m] isn't impressed by [usr]'s act.")
 					src.Trigger(usr)
-/*				verb/Pacifying_Act()
-					set hidden=1
-					if(!usr.BuffOn(src))
-						src.Imitate=0
-						src.PhysicalHitsLimit=0
-						src.SpiritHitsLimit=0
-						src.EndYourself=1
-						src.ActiveMessage="performs a pacifying act!"
-						src.OffMessage=0
-						src.FakePeace=0
-						for(var/mob/Players/m in oviewers(5,usr))
-							if(prob(10))
-								m.AddPacifying(5)
-								OMsg(m, "[m] is rendered stupified by the act!")
-							else
-								OMsg(m, "[m] isn't impressed by [usr]'s act.")
-					src.Trigger(usr)*/
 				verb/Magic_Act()
 					set category="Utility"
 					if(!usr.BuffOn(src))
@@ -5610,18 +5625,7 @@ NEW VARIABLES
 						switch(Mode)
 							if("Cancel")
 								return
-							if("Disguise")
-								src.BuffName="Imitate"
-								src.Imitate=1
-								src.PhysicalHitsLimit=1
-								src.SpiritHitsLimit=1
-								src.EndYourself=0
-								src.FakePeace=1
-								src.ActiveMessage="changes their appearance!"
-								src.OffMessage="returns to their previous shape..."
-								usr.BreakViewers()
 							if("Confuse")
-								src.Imitate=0
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
@@ -5635,7 +5639,6 @@ NEW VARIABLES
 									else
 										OMsg(m, "[m] isn't impressed by [usr]'s act.")
 							if("Stun")
-								src.Imitate=0
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
@@ -5649,7 +5652,6 @@ NEW VARIABLES
 									else
 										OMsg(m, "[m] isn't impressed by [usr]'s act.")
 							if("Pacify")
-								src.Imitate=0
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
@@ -5672,25 +5674,11 @@ NEW VARIABLES
 				ManaCost=15
 				TextColor=rgb(153, 51, 0)
 				Cooldown=30
-				verb/Alter_Disguise()
-					set category="Utility"
-					if(src.Using==1||usr.BuffOn(src))
-						return
-					src.Using=1
-					src.ImitateBase=input(usr,"Choose a base icon.","Imitate Base")as icon
-					src.ImitateOverlays=list()
-					src.ImitateOverlays+=input(usr,"Choose a lower clothing icon.","Imitate Overlay")as icon
-					src.ImitateOverlays+=input(usr,"Choose a hair icon.","Imitate Hair")as icon
-					src.ImitateOverlays+=input(usr,"Choose an upper clothing icon.","Imitate Overlay")as icon
-					src.ImitateName=input(usr,"Choose a name.","Imitate Name") as text
-					src.ImitateProfile=input(usr, "Please input a description for the disguise.", "Imitate Description") as message
-					src.ImitateTextColor=input(usr, "Choose a color for Say.","Imitate Color") as color
-					src.Using=0
 				verb/Disappear()
 					set hidden=1
 					if(!usr.BuffOn(src))
 						src.BuffName="Invisibility"
-						src.Imitate=0
+
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=0
@@ -5700,25 +5688,10 @@ NEW VARIABLES
 						ActiveMessage="uses a spell to hide their existence!"
 						OffMessage="dissipates their invisibility..."
 					src.Trigger(usr)
-				verb/Disguise()
-					set hidden=1
-					if(!usr.BuffOn(src))
-						src.BuffName="Imitate"
-						src.Imitate=1
-						src.PhysicalHitsLimit=1
-						src.SpiritHitsLimit=1
-						src.EndYourself=0
-						src.Invisible=0
-						src.AllowedPower=0
-						src.FakePeace=1
-						src.ActiveMessage="changes their appearance!"
-						src.OffMessage="returns to their previous shape..."
-						usr.BreakViewers()
-					src.Trigger(usr)
 				verb/Confusing_Show()
 					set hidden=1
 					if(!usr.BuffOn(src))
-						src.Imitate=0
+
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=1
@@ -5737,7 +5710,7 @@ NEW VARIABLES
 				verb/Stunning_Show()
 					set hidden=1
 					if(!usr.BuffOn(src))
-						src.Imitate=0
+
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=1
@@ -5756,7 +5729,7 @@ NEW VARIABLES
 /*				verb/Pacifying_Show()
 					set hidden=1
 					if(!usr.BuffOn(src))
-						src.Imitate=0
+
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=1
@@ -5782,7 +5755,7 @@ NEW VARIABLES
 								return
 							if("Disappear")
 								src.BuffName="Invisibility"
-								src.Imitate=0
+
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=0
@@ -5791,20 +5764,8 @@ NEW VARIABLES
 								src.FakePeace=0
 								src.ActiveMessage="uses a spell to hide their existence!"
 								src.OffMessage="dissipates their invisibility..."
-							if("Disguise")
-								src.BuffName="Imitate"
-								src.Imitate=1
-								src.PhysicalHitsLimit=1
-								src.SpiritHitsLimit=1
-								src.EndYourself=0
-								src.Invisible=0
-								src.AllowedPower=0
-								src.FakePeace=1
-								src.ActiveMessage="changes their appearance!"
-								src.OffMessage="returns to their previous shape..."
-								usr.BreakViewers()
 							if("Confuse")
-								src.Imitate=0
+
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
@@ -5820,7 +5781,7 @@ NEW VARIABLES
 									else
 										OMsg(m, "[m] isn't impressed by [usr]'s show.")
 							if("Stun")
-								src.Imitate=0
+
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
@@ -5836,7 +5797,7 @@ NEW VARIABLES
 									else
 										OMsg(m, "[m] isn't impressed by [usr]'s show.")
 							if("Pacify")
-								src.Imitate=0
+
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=1
@@ -6724,7 +6685,7 @@ NEW VARIABLES
 				TextColor=rgb(255, 0, 0)
 				ActiveMessage="transforms their weapon into a deadlier form!"
 				OffMessage="restores their weapon to its previous form!"
-				proc/adjust(mob/user)
+				adjust(mob/user)
 					var/lifeSteal
 					var/extend
 					if(user.Saga=="Kamui")
@@ -7376,41 +7337,7 @@ NEW VARIABLES
 					if(!src.Using)
 						usr.Activate(new/obj/Skills/AutoHit/Knockoff_Wave)
 				src.Trigger(usr)
-		Fusion_Dance
-			SignatureTechnique=3
-			ActiveMessage="performs a dance with their partner to combine into a single entity!"
-			Range=2
-			ForcedRange=1
-			Fusion="Dance"
-			IconLock='Fusion Vest.dmi'
-			Cooldown=-1
-			CooldownStatic=1
-			verb/Fusion_Dance()
-				set category="Skills"
-				src.FusionFailure=0
-				if(!usr.BuffOn(src))
-					var/Confirm
-					Confirm=alert(usr.Target, "[usr] is trying to merge your consciousness with theirs!  Do you accept?", "Fusion Dance", "No", "Yes")
-					if(Confirm=="No")
-						return
-					if(usr.party)
-						usr.party.remove_member(usr)
-					if(usr.Target.party)
-						usr.Target.party.remove_member(usr.Target)
-				src.Trigger(usr)
-		Divine_Fusion
-			Range=7
-			Fusion="Potara"
-			TopOverlayLock='Potara Earrings.dmi'
-			Cooldown=-1
-			CooldownStatic=1
-			verb/Zap_Earring()
-				set category="Skills"
-				if(usr.party)
-					usr.party.remove_member(usr)
-				if(usr.Target.party)
-					usr.Target.party.remove_member(usr.Target)
-				src.Trigger(usr)
+
 		God_Ki
 			SignatureTechnique=4
 			Cooldown=10
@@ -7452,94 +7379,95 @@ NEW VARIABLES
 			TextColor="#adf0ff"
 			ActiveMessage=null
 			OffMessage=null
+			var/secondDevilArmPick
 			verb/Devil_Arm_Evolution()
 				set category="Utility"
 				var/Choice
 				if(src.Mastery>usr.AscensionsAcquired)
 					usr << "Your Devil Arm is fully evolved currently!"
 					return
+				if(Mastery < 1)
+					Mastery = 1
 				if(!usr.BuffOn(src))
 					while(src.Mastery<usr.AscensionsAcquired)
+						if(src.Mastery<=1)
+							switch(input("What type of armament would you like your Devil Arm ([src.Mastery]) to be?") in list("Sword","Staff","Armor"))
+								if("Sword")
+									MakesSword=1
+									MakesArmor=0
+									MakesStaff=0
+									SwordName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
+									Choice=input(usr, "What class of weapon do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Saber", "Longsword", "Greatsword")
+									switch(Choice)
+										if("Saber")
+											src.SwordClass="Light"
+										if("Longsword")
+											src.SwordClass="Medium"
+										if("Greatsword")
+											src.SwordClass="Heavy"
+									usr << "Devil Arm sword class set as [Choice]!"
+								if("Staff")
+									MakesStaff=1
+									MakesArmor=0
+									MakesSword=0
+									StaffName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
+									Choice=input(usr, "What class of staff do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Wand", "Rod", "Staff")
+									switch(Choice)
+										if("Wand")
+											src.StaffClass="Wand"
+										if("Rod")
+											src.StaffClass="Rod"
+										if("Staff")
+											src.StaffClass="Staff"
+									usr << "Devil Arm staff class set as [Choice]!"
+								if("Armor")
+									MakesArmor=1
+									MakesSword=0
+									MakesStaff=0
+									ArmorName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
+									Choice=input(usr, "What class of armor do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Light", "Medium", "Heavy")
+									switch(Choice)
+										if("Light")
+											src.ArmorClass="Light"
+										if("Medium")
+											src.ArmorClass="Medium"
+										if("Heavy")
+											src.ArmorClass="Heavy"
+									usr << "Devil Arm armor class set as [Choice]!"
+							var/Element=input("What element would you like your Devil Arm to use?") in list("Water","Fire","Wind","Earth")
+							if(MakesSword)
+								SwordElement = Element
+							else if(MakesStaff)
+								StaffElement = Element
+							else if(MakesArmor)
+								ArmorElement = Element
+							usr << "Devil Armor element set as [Element]"
+							var/Lock=alert(usr, "Do you wish to alter the icon used?", "Devil Arm Icon", "No", "Yes")
+							if(Lock=="Yes")
+								var dIcon=input(usr, "What icon will your Devil Arm uses?", "Devil Arm Icon") as icon|null
+								var dX=input(usr, "Pixel X offset.", "Devil Arm Icon") as num
+								var dY=input(usr, "Pixel Y offset.", "Devil Arm Icon") as num
+								if(MakesSword)
+									SwordIcon = dIcon
+									SwordX= dX
+									SwordY = dY
+								else if(MakesStaff)
+									StaffIcon = dIcon
+									StaffX= dX
+									StaffY = dY
+								else if(MakesArmor)
+									ArmorIcon = dIcon
+									ArmorX= dX
+									ArmorY = dY
+							else
+								if(MakesSword)
+									SwordIcon='SwordBroad.dmi'
+								else if(MakesStaff)
+									StaffIcon='MageStaff.dmi'
+								else if(MakesArmor)
+									StaffIcon='DevilScale.dmi'
 						src.Mastery++
-						switch(input("What type of armament would you like your Devil Arm ([src.Mastery]) to be?") in list("Sword","Staff","Armor","Cancel"))
-							if("Sword")
-								MakesSword=1
-								MakesArmor=0
-								MakesStaff=0
-								SwordName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
-								Choice=input(usr, "What class of weapon do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Saber", "Longsword", "Greatsword")
-								switch(Choice)
-									if("Saber")
-										src.SwordClass="Light"
-									if("Longsword")
-										src.SwordClass="Medium"
-									if("Greatsword")
-										src.SwordClass="Heavy"
-								usr << "Devil Arm sword class set as [Choice]!"
-							if("Staff")
-								MakesStaff=1
-								MakesArmor=0
-								MakesSword=0
-								StaffName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
-								Choice=input(usr, "What class of staff do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Wand", "Rod", "Staff")
-								switch(Choice)
-									if("Wand")
-										src.StaffClass="Wand"
-									if("Rod")
-										src.StaffClass="Rod"
-									if("Staff")
-										src.StaffClass="Staff"
-								usr << "Devil Arm staff class set as [Choice]!"
-							if("Armor")
-								MakesArmor=1
-								MakesSword=0
-								MakesStaff=0
-								ArmorName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
-								Choice=input(usr, "What class of armor do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Light", "Medium", "Heavy")
-								switch(Choice)
-									if("Light")
-										src.ArmorClass="Light"
-									if("Medium")
-										src.ArmorClass="Medium"
-									if("Heavy")
-										src.ArmorClass="Heavy"
-								usr << "Devil Arm armor class set as [Choice]!"
-							if("Cancel")
-								src.Mastery--
-								return
-						var/Element=input("What element would you like your Devil Arm to use?") in list("Water","Fire","Wind","Earth")
-						if(MakesSword)
-							SwordElement = Element
-						else if(MakesStaff)
-							StaffElement = Element
-						else if(MakesArmor)
-							ArmorElement = Element
-						usr << "Devil Armor element set as [Element]"
-						var/Lock=alert(usr, "Do you wish to alter the icon used?", "Devil Arm Icon", "No", "Yes")
-						if(Lock=="Yes")
-							var dIcon=input(usr, "What icon will your Devil Arm uses?", "Devil Arm Icon") as icon|null
-							var dX=input(usr, "Pixel X offset.", "Devil Arm Icon") as num
-							var dY=input(usr, "Pixel Y offset.", "Devil Arm Icon") as num
-							if(MakesSword)
-								SwordIcon = dIcon
-								SwordX= dX
-								SwordY = dY
-							else if(MakesStaff)
-								StaffIcon = dIcon
-								StaffX= dX
-								StaffY = dY
-							else if(MakesArmor)
-								ArmorIcon = dIcon
-								ArmorX= dX
-								ArmorY = dY
-						else
-							if(MakesSword)
-								SwordIcon='SwordBroad.dmi'
-							else if(MakesStaff)
-								StaffIcon='MageStaff.dmi'
-							else if(MakesArmor)
-								StaffIcon='DevilScale.dmi'
-						if(src.Mastery>=1)
+						if(src.Mastery==2)
 							if(src.MakesSword)
 								var/Enhancement=alert(usr, "You can now coat your weapon with your demonic miasma, either empowering its reach or infusing its slices with your mystic power.", "Devil Arm", "Extend", "Emit")
 								if(Enhancement=="Extend")
@@ -7572,7 +7500,7 @@ NEW VARIABLES
 									passives["Godspeed"] = 1
 									src.DoubleStrike=1
 									src.Godspeed=1
-						if(src.Mastery>2)
+						if(src.Mastery==3)
 							if(src.MakesSword)
 								var/Enhancement=alert(usr, "The miasma infusing your weapon thickens, allowing you to deal even more pain to your opponent's body or spirit.", "Devil Arm", "Carve", "Corrupt")
 								if(Enhancement=="Carve")
@@ -7601,28 +7529,135 @@ NEW VARIABLES
 									passives["Reversal"] = 1
 									src.Deflection=1
 									src.Reversal=1
+						if(Mastery==4)
+							var/list/optionsList = list("Sword","Staff","Armor")
+							if(MakesSword) optionsList -= "Sword"
+							if(MakesArmor) optionsList -= "Armor"
+							if(MakesStaff) optionsList -= "Staff"
+							switch(input("What type of armament would you like your second Devil Arm to be?") in optionsList)
+								if("Sword")
+									MakesSword=1
+									secondDevilArmPick = "Sword"
+									SwordName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
+									Choice=input(usr, "What class of weapon do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Saber", "Longsword", "Greatsword")
+									switch(Choice)
+										if("Saber")
+											src.SwordClass="Light"
+										if("Longsword")
+											src.SwordClass="Medium"
+										if("Greatsword")
+											src.SwordClass="Heavy"
+									usr << "Devil Arm sword class set as [Choice]!"
+								if("Staff")
+									MakesStaff=1
+									secondDevilArmPick = "Staff"
+									StaffName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
+									Choice=input(usr, "What class of staff do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Wand", "Rod", "Staff")
+									switch(Choice)
+										if("Wand")
+											src.StaffClass="Wand"
+										if("Rod")
+											src.StaffClass="Rod"
+										if("Staff")
+											src.StaffClass="Staff"
+									usr << "Devil Arm staff class set as [Choice]!"
+								if("Armor")
+									MakesArmor=1
+									secondDevilArmPick = "Armor"
+									ArmorName=input(usr, "What will it be named?", "Transfigure Devil Arm") as text|null
+									Choice=input(usr, "What class of armor do you want your Devil Arm to be?", "Transfigure Devil Arm") in list("Light", "Medium", "Heavy")
+									switch(Choice)
+										if("Light")
+											src.ArmorClass="Light"
+										if("Medium")
+											src.ArmorClass="Medium"
+										if("Heavy")
+											src.ArmorClass="Heavy"
+									usr << "Devil Arm armor class set as [Choice]!"
+							if(secondDevilArmPick=="Sword")
+								var/Enhancement=alert(usr, "You can now coat your weapon with your demonic miasma, either empowering its reach or infusing its slices with your mystic power.", "Devil Arm", "Extend", "Emit")
+								if(Enhancement=="Extend")
+									passives["Extend"] = 1
+									src.Extend=1
+								if(Enhancement=="Emit")
+									passives["SpiritSword"] = 1
+									src.SpiritSword=1
+							if(secondDevilArmPick=="Staff")
+								var/Enhancement=alert(usr, "You can now coat your weapon with your demonic miasma, either reinforcing its casting speed or making it an inexhaustible source of mana.", "Devil Arm", "Speed", "Sustain")
+								if(Enhancement=="Speed")
+									passives["QuickCast"] = 2
+									passives["TechniqueMastery"] = 5
+									src.QuickCast=2
+									src.TechniqueMastery=5
+								if(Enhancement=="Sustain")
+									passives["ManaHeal"] = 2
+									passives["CapacityHeal"] = 0.02
+									src.ManaHeal=2
+									src.CapacityHeal=0.02
+							if(secondDevilArmPick=="Armor")
+								var/Enhancement=alert(usr, "You can now coat your weapon with your demonic miasma, either turning yourself into an wicked juggernaut or a frenzied striker.", "Devil Arm", "Fortress", "Fierce")
+								if(Enhancement=="Fortress")
+									passives["Juggernaut"] = 1
+									passives["DebuffImmune"] = 1
+									src.Juggernaut=1
+									src.DebuffImmune=1
+								if(Enhancement=="Fierce")
+									passives["DoubleStrike"] = 1
+									passives["Godspeed"] = 1
+									src.DoubleStrike=1
+									src.Godspeed=1
+						if(Mastery==5)
+							if(secondDevilArmPick=="Sword")
+								var/Enhancement=alert(usr, "The miasma infusing your weapon thickens, allowing you to deal even more pain to your opponent's body or spirit.", "Devil Arm", "Carve", "Corrupt")
+								if(Enhancement=="Carve")
+									passives["HardStyle"] = 2
+									src.HardStyle=2
+								if(Enhancement=="Corrupt")
+									passives["SoftStyle"] = 2
+									src.SoftStyle=2
+							if(secondDevilArmPick=="Staff")
+								var/Enhancement=alert(usr, "The miasma infusing your weapon thickens, allowing you to burn away lifeforce from people you strike or dismantle and absorb their own spiritual attacks.", "Devil Arm", "Soulfire", "Siphon")
+								if(Enhancement=="Soulfire")
+									passives["SoulFire"] = 1
+									src.SoulFire=1
+								if(Enhancement=="Siphon")
+									passives["Siphon"] = 4
+									src.Siphon=4
+							if(secondDevilArmPick=="Armor")
+								var/Enhancement=alert(usr, "The miasma infusing your weapon thickens, allowing you to swiftly counter all manner of attacks or simply march through weaker ones.", "Devil Arm", "Riposte", "Repel")
+								if(Enhancement=="Riposte")
+									passives["CounterMaster"] = 2
+									passives["Flow"] = 2
+									src.CounterMaster=2
+									src.Flow=2
+								if(Enhancement=="Repel")
+									passives["Deflection"] = 1
+									passives["Reversal"] = 1
+									src.Deflection=1
+									src.Reversal=1
 						if(MakesSword)
-							passives["SwordAscension"] = min(src.Mastery,4)
-							SwordAscension=min(src.Mastery,4)
+							passives["SwordAscension"] = min(src.Mastery,5)
+							SwordAscension=min(src.Mastery,5)
 						if(MakesStaff)
-							passives["StaffAscension"] = min(src.Mastery,4)
-							StaffAscension=min(src.Mastery,4)
+							passives["StaffAscension"] = min(src.Mastery,5)
+							StaffAscension=min(src.Mastery,5)
 						if(MakesArmor)
-							passives["ArmorAscension"] = min(src.Mastery,4)
-							ArmorAscension=min(src.Mastery,4)
+							passives["ArmorAscension"] = min(src.Mastery,5)
+							ArmorAscension=min(src.Mastery,5)
 				else
 					usr << "You can't set this while using Devil Arm."
-			verb/Summon_Devil_Arm()
+			verb/Summon_Arm()
 				set category="Skills"
 				src.Trigger(usr)
 
-
+///racial slotless
 		The_Crown
 			SignatureTechnique=3
 			TextColor="#adf0ff"
-			TopOverlayLock='Potara Earrings.dmi'
+			TopOverlayLock='Elf_Crown.dmi'
 			ActiveMessage=null
 			OffMessage=null
+			passives = list("Deicide" = 1, "TechniqueMastery" = 1, "Flicker" = 1)
 			verb/Don_Crown()
 				set category="Skills"
 				src.Trigger(usr)
@@ -7635,6 +7670,37 @@ NEW VARIABLES
 				set category = "Skills"
 				src.Trigger(usr)
 
+		Golden_Form /// simple, sweet, just a straight fuckin boost. Could in theory be thrown at a Changeling at any point in the wipe if their deserving
+			FlashChange = 1
+			PowerMult = 2
+			Intimidation = 25
+			ActiveMessage="begins to glow with Golden power that mocks the very power of the God's.."
+			OffMessage="ceases their Golden glow; as they lower themselves once more."
+			verb/Golden_Form()
+				set category = "Skills"
+				src.Trigger(usr)
+
+		Black_Form /// Admins have to willingly hand this out, okay?
+			DarkChange = 1
+			PowerMult = 10
+			Intimidation = 100
+			ActiveMessage="ascends abruptly in a black void shell; cackling with dimension-warping levels of power.."
+			OffMessage ="releases the universe-shattering power, as the black void upon their flesh evaporates..."
+			verb/Black_Form()
+				set category = "Skills"
+				src.Trigger(usr)
+
+		Soar
+			TimerLimit = 25
+			Godspeed = 3
+			Skimming = 2
+			passives = list("Godspeed" = 1, "Skimming" = 1)
+			Cooldown = 60
+			ActiveMessage = "spreads their wings and takes flight!"
+			OffMessage = "descends from the skies above..."
+			verb/Soar()
+				set category = "Skills"
+				src.Trigger(usr)
 
 		Majin
 			SignatureTechnique=3
@@ -7675,7 +7741,7 @@ NEW VARIABLES
 					var/found=0
 					for(var/mob/Players/m in players)
 						if(m==src.WarpTarget)
-							usr.Target=m
+							usr.SetTarget(m)
 							found=1
 					if(!found)
 						usr << "Your duel opponent isn't in the world...So you're stuck here for now."
@@ -8361,16 +8427,12 @@ NEW VARIABLES
 
 			verb/Aria_Chant()
 				set category = "Skills"
-				if(usr.AriaCount == usr.SagaLevel && usr.UBWPath != "Feeble")
+				if(usr.AriaCount-2 == usr.SagaLevel && usr.UBWPath != "Feeble")
 					usr << "You try to speak more of your aria, but you don't know any more lines..."
 					return
-				if(usr.UBWPath == "Feeble")
-					if(usr.AriaCount == 7)
-						usr << "You try to speak more of your aria, but you don't know any more lines..."
-						return
 				usr.AriaCount++
 				if(usr.UBWPath == "Feeble")
-					if(usr.AriaCount > usr.SagaLevel)
+					if(usr.AriaCount-2 > usr.SagaLevel)
 						var/mult = 0.04 * max(1,(usr.AriaCount-usr.SagaLevel))
 						usr.AddStrTax(mult)
 						usr.AddEndTax(mult)
@@ -8378,18 +8440,21 @@ NEW VARIABLES
 						usr.AddForTax(mult)
 						usr.AddOffTax(mult)
 						usr.AddDefTax(mult)
-				usr.OMessage(13, "[usr.name] mutters beneath their breath...[Aria[usr.AriaCount]]")
+				for(var/mob/E in hearers(12,usr))
+					E << output("<font color=[usr.Text_Color]>[usr][E.Controlz(usr)] says: [html_encode(Aria[usr.AriaCount])]", "icchat")
+					E << output("<font color=[usr.Text_Color]>[usr][E.Controlz(usr)] says: [html_encode(Aria[usr.AriaCount])]", "output")
+				if(usr.AriaCount == 8)
+					usr.UnlimitedBladeWorks()
 
 			verb/Shut_Circuits()
 				set category = "Skills"
 				if(!usr.AriaCount)
 					usr << "Your circuits aren't fired up yet...!"
 					return
-				if(usr.icon_state != "Meditate")
-					usr << "You have to be meditating to let your circuits cool off!"
-					return
+				if(usr.AriaCount == 8 && usr.usingUBW)
+					usr.stopUnlimitedBladeWorks()
 				usr.AriaCount--
-				usr.OMessage(13, "[usr.name] calms their aria down to [usr.AriaCount] verses.")
+				usr << "You drop down an aria verse."
 /*
 		Copy_Blade
 			MakesSword = 1
@@ -8992,7 +9057,7 @@ NEW VARIABLES
 					var/found=0
 					for(var/mob/Players/m in players)
 						if(m==src.WarpTarget)
-							usr.Target=m
+							usr.SetTarget(m)
 							found=1
 					if(!found)
 						usr << "You can't seal the target inside the divide."
@@ -9001,8 +9066,8 @@ NEW VARIABLES
 
 		Mangekyou_Sharingan
 			TaxThreshold=0.7
-			OffTaxDrain=0.002
-			DefTaxDrain=0.002
+			OffTaxDrain=0.0002
+			DefTaxDrain=0.0002
 			SBuffNeeded="Sharingan"
 			passives = list("AutoAnger" = 1,"BuffMastery" = 5, "Deflection" = 1, "Flow" = 1)
 			BuffMastery=5
@@ -9030,12 +9095,13 @@ NEW VARIABLES
 						src.OffMessage="unravels the kaleidoscope form of their tomoe..."
 					switch(usr.SharinganEvolution)
 						if("Sacrifice")
-							src.BuffTechniques=list("/obj/Skills/AutoHit/Tsukiyomi","/obj/Skills/AutoHit/Amaterasu")
+							src.BuffTechniques=list("/obj/Skills/AutoHit/Tsukiyomi","/obj/Skills/AutoHit/Amaterasu", "/obj/Skills/AutoHit/Sharingan_Genjutsu")
 						if("Hatred")
-							src.BuffTechniques=list("/obj/Skills/AutoHit/Amaterasu2","/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Kagutsuchi")
+							src.BuffTechniques=list("/obj/Skills/AutoHit/Amaterasu2","/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Kagutsuchi", "/obj/Skills/AutoHit/Sharingan_Genjutsu")
 							passives["Instinct"] = 1
 							src.Instinct=1
 						if("Resolve")
+							BuffTechniques = list("/obj/Skills/AutoHit/Sharingan_Genjutsu")
 							passives = list("BuffMastery" = 1 + usr.SagaLevel/2, "Deflection" = 1 + usr.SagaLevel/4, "Flow" = 1, "Instinct" = 1, "FluidForm" = 1, "Godspeed" = usr.SagaLevel/4,
 							"LikeWater" = usr.SagaLevel/2,  "PUSpike" = -20)
 							src.LikeWater=usr.SagaLevel / 2
@@ -9177,7 +9243,7 @@ NEW VARIABLES
 				NoForcedWhiff=1
 				strAdd = 0.1
 				endAdd = 0.1
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					passives = list("Hardening" = clamp(secretLevel,1,2), "NoForcedWhiff" = 1, "UnarmedDamage" = secretLevel/2, "SwordDamage" = secretLevel/2 )
@@ -9195,7 +9261,7 @@ NEW VARIABLES
 				KBRes=2
 				KBMult=2
 				ActiveMessage="darkens their entire body with indomitable willpower!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					passives = list("Hardening" = clamp(secretLevel,1,4), "KBRes" = secretLevel, "KBMult" = secretLevel)
@@ -9211,7 +9277,7 @@ NEW VARIABLES
 				StrMult=1.25
 				EndMult=1.25
 				ActiveMessage="bolsters their entire body with willpower!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					passives = list("Hardening" = secretLevel/2)
@@ -9230,7 +9296,7 @@ NEW VARIABLES
 				CounterMaster=3
 				KBAdd=3
 				ActiveMessage="reflects every attack against them with enormous willpower!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					passives = list("PureReduction" = clamp(secretLevel,2,3), "Deflection" = clamp(secretLevel,2,3), "CounterMaster" = clamp(secretLevel,2,5), "KBAdd" = 3)
@@ -9245,7 +9311,7 @@ NEW VARIABLES
 				PureReduction=2.5
 				Deflection=1
 				ActiveMessage="shields their body from attack with their willpower!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					passives = list("PureReduction" = clamp(secretLevel/2,0.5,1.5), "Deflection" = 1)
@@ -9258,7 +9324,7 @@ NEW VARIABLES
 				passives = list("Instinct" = 1, "Flow" = 1, "NoWhiff" = 1)
 				Instinct=1
 				Flow=1
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					passives = list("Instinct" = clamp(secretLevel/1.5, 1, 3), "Flow" = clamp(secretLevel/1.5, 1, 3), "NoWhiff" = 1)
@@ -9273,7 +9339,7 @@ NEW VARIABLES
 				SureHitTimerLimit=15
 				SureDodgeTimerLimit=15
 				ActiveMessage="peers into the future to grasp their ambitions!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					TimerLimit = 40 + (10 * secretLevel)
@@ -9292,7 +9358,7 @@ NEW VARIABLES
 				SureHitTimerLimit=20
 				SureDodgeTimerLimit=20
 				ActiveMessage="gains a small glimpse of their future!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					TimerLimit = 20 + (5 * secretLevel)
@@ -9309,7 +9375,7 @@ NEW VARIABLES
 				passives = list("Flow" = 2)
 				Flow=2
 				ActiveMessage="weaves through every incoming attacks!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					TimerLimit = 25 + (5 * secretLevel)
@@ -9323,7 +9389,7 @@ NEW VARIABLES
 				passives = list("Flow" = 1)
 				Flow=1
 				ActiveMessage="determines trajectories of incoming strikes at a glance!"
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					TimerLimit = 10 + (5 * secretLevel)
@@ -9412,7 +9478,7 @@ NEW VARIABLES
 				OffMessage="restrains their inner beast..."
 				TextColor=rgb(153, 0, 0)
 				IconTransform='HalfMoon.dmi'
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(!altered)
 						if(p.Secret == "Werewolf")
 							passives = list("Curse" = 1, "Godspeed" =  p.secretDatum.currentTier, "TechniqueMastery" = 1, "MovementMastery" = p.secretDatum.currentTier * 1.5)
@@ -9426,7 +9492,7 @@ NEW VARIABLES
 					adjust(p)
 					..()
 			Full_Moon_Form
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(!altered)
 						if(p.Secret == "Werewolf")
 							passives = list("ActiveBuffLock" = 1,"SpecialBuffLock" = 1,"Curse" = 1, "Godspeed" =  p.secretDatum.currentTier*2, "MovementMastery" = p.secretDatum.currentTier * 2,\
@@ -9491,34 +9557,53 @@ NEW VARIABLES
 
 		Eldritch
 			True_Form
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(!altered)
-						passives = list("Curse" = 1, "Godspeed" =  p.secretDatum.secretVariable["Madness"]/50, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/10,\
-						 "Pursuer" = 2, "BlurringStrikes" = p.secretDatum.secretVariable["Madness"]/50, "Flow" = p.secretDatum.secretVariable["Madness"]/50, "Flicker" = p.secretDatum.secretVariable["Madness"]/25)
-						PowerMult=1+(0.05*p.secretDatum.secretVariable["Madness"]/25)
+						passives = list("Curse" = 1, "Godspeed" =  1+p.AscensionsAcquired, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/25,\
+						 "Pursuer" = 2, "CallousedHands" = p.secretDatum.secretVariable["Madness"]/100, \
+						  "Flow" = p.secretDatum.secretVariable["Madness"]/50, "Flicker" = p.secretDatum.secretVariable["Madness"]/25)
+						PowerMult=1+(0.05+(0.05*p.secretDatum.secretVariable["Madness"]/25))
+						TimerLimit = 60 + (p.secretDatum.secretVariable["Madness"]/5)
 
 				HealthThreshold=0.1
-				RegenMult=2
 				AutoAnger=1
 				KenWave=4
 				KenWaveIcon='DarkKiai.dmi'
-				HairLock='BLANK.dmi'
 				HitSpark='Hit Effect Vampire.dmi'
+				IconLock='tenacles_underlay.dmi'
+				IconUnder = 1
+				TopOverlayLock = 'tentacles_overlay.dmi'
+				TopOverlayX = -32
+				TopOverlayY = -32
+				LockX = -32
+				LockY = -32
 				HitX=-32
 				HitY=-32
 				TimerLimit=60
+				Cooldown = 1
 				ActiveMessage="unravels into a mind-rending series of shapes and textures!"
 				OffMessage="slowly becomes 3D once again..."
 				TextColor=rgb(153, 0, 0)
-				ActiveBuffLock=1
 				verb/Customize_True_Form()
 					set category = "Other"
 					IconTransform=input(usr, "What icon will your True Form use?", "True Form Icon") as icon|null
-					TransformX=input(usr, "Pixel X offset.", "True Form Icon") as num
-					TransformY=input(usr, "Pixel Y offset.", "True Form Icon") as num
+					if(IconTransform)
+						TransformX=input(usr, "Pixel X offset.", "True Form Icon") as num
+						TransformY=input(usr, "Pixel Y offset.", "True Form Icon") as num
 					NameFake = input(usr, "What will your name be while in True Form?", "True Form Icon") as text
 					HairLock = input(usr, "What will your hair look like while in True Form?", "True Form Icon") as icon|null
 
+				Trigger(mob/User, Override = 0)
+					if(!User.BuffOn(src))
+						adjust(User)
+					if(User.Secret == "Eldritch")
+						if(!User.BuffOn(src))
+							var/SecretInfomation/Eldritch/s = User.secretDatum
+							s.secretVariable["Madness Active"] = TRUE
+						else
+							var/SecretInfomation/Eldritch/s = User.secretDatum
+							s.secretVariable["Madness Active"] = FALSE
+					..()
 //Self Triggering Buffs
 		Autonomous
 			Autonomous=1
@@ -9537,14 +9622,14 @@ NEW VARIABLES
 			Infection
 				NeedsPassword=1
 			Dragon_Clash
-				passives = list("PureDamage" = 3, "HotHundred" = 1, "Warping" = 3, "Steady" = 4)
+				passives = list("PureDamage" = 2, "HotHundred" = 1, "Warping" = 3, "Steady" = 3)
 				PureDamage = 3
 				HotHundred=1
 				Warping=3
 				Steady=4
 				TimerLimit=3
 			Dragon_Clash_Defensive
-				passives = list("PureDamage" = 1.5, "HotHundred" = 1, "Warping" = 3, "Steady" = 2)
+				passives = list("PureDamage" = 1, "HotHundred" = 1, "Warping" = 3, "Steady" = 2)
 				PureDamage = 1.5
 				HotHundred=1
 				Warping=3
@@ -10646,13 +10731,42 @@ NEW VARIABLES
 				Cooldown=1
 
 //Racial
+			The_Power_Of_Shiny // Gajalaka's Racial, The power of money
+				TextColor=rgb(95,60,95)
+				NeedsHealth = 50
+				TooMuchHealth = 75
+				ActiveMessage = "gains the faint glitter of gold in their aura!"
+				OffMessage = "loses some of that goblin greed..."
+				Cooldown = 120
+				passives = list("PureDamage" = 1, "PureReduction" = 1)
+				adjust(mob/p)
+					if(altered) return
+					//var/asc = p.AscensionsAcquired
+					var/money
+					for(var/obj/Money/m in p.contents)
+						money = m.Level
+
+					var/baseMultMod = 1 + max(0,money/(GOLD_DRAGON_FORMULA * GAJALAKA_MULT))
+					PowerMult = baseMultMod
+					SpdMult = baseMultMod
+					StrMult = baseMultMod
+					OffMult = baseMultMod
+					DefMult = baseMultMod
+					EndMult = baseMultMod
+					ForMult = baseMultMod
+
+				Trigger(mob/User, Override = FALSE)
+					if(!User.BuffOn(src))
+						adjust(User)
+					..()
+
 			Dragon_Rage
 				NeedsHealth = 10
 				TooMuchHealth = 25
 				TextColor=rgb(95, 60, 95)
 				ActiveMessage="is consumed by a dragon's rage!!"
 				OffMessage = "calms their draconic fury..."
-				proc/adjust(mob/p)
+				adjust(mob/p)
 				Dragons_Tenacity
 
 					ActiveMessage = "forms a draconic shell!!"
@@ -10677,7 +10791,7 @@ NEW VARIABLES
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
 							shellSmash(User)
-						adjust(User)
+							adjust(User)
 						..()
 
 				Heat_Of_Passion
@@ -10701,11 +10815,14 @@ NEW VARIABLES
 						passives = list("DemonicDurability" = DemonicDurability, "SoulFire" = SoulFire, "HybridStrike" = HybridStrike)
 						Intimidation = 1.25 + (0.25 * asc)
 					Trigger(mob/User, Override = FALSE)
-						adjust(User)
+						if(!User.BuffOn(src))
+							adjust(User)
 						..()
 
 				Wind_Supremacy
 					// Wind Dragon Racial
+					NeedsHealth = 10
+					TooMuchHealth = 25
 					ActiveMessage = "takes to the skies as the very winds heed their call!"
 					OffMessage = "finally graces the earth once again with their presence..."
 					Cooldown = 120
@@ -10717,7 +10834,8 @@ NEW VARIABLES
 						SpdMult = 1 + max(0.1,asc*0.1)
 						passives = list("Skimming" = 1+asc, "Godspeed" = 1+asc/1.5, "Pursuer" = 1+asc/2, "Flicker" = 1+asc/2, "BlurringStrikes" = asc/4)
 					Trigger(mob/User, Override = FALSE)
-						adjust(User)
+						if(!User.BuffOn(src))
+							adjust(User)
 						..()
 				Hoarders_Riches
 					// Gold Dragon Racial. Have money? Be OP.
@@ -10732,21 +10850,52 @@ NEW VARIABLES
 							money = m.Level
 						NeedsHealth = 10 + (5 * asc)
 						TooMuchHealth = 20 + (5 * asc)
-						PowerMult = 1 + max(0,money/1000000)
-						SpdMult = 1 + max(0,money/1000000)
-						StrMult = 1 + max(0,money/1000000)
-						OffMult = 1 + max(0,money/1000000)
-						DefMult = 1 + max(0,money/1000000)
-						EndMult = 1 + max(0,money/1000000)
-						ForMult = 1 + max(0,money/1000000)
+
+						var/baseMultMod = 1 + max(0,money/GOLD_DRAGON_FORMULA)
+						PowerMult = baseMultMod
+						SpdMult =baseMultMod
+						StrMult = baseMultMod
+						OffMult = baseMultMod
+						DefMult = baseMultMod
+						EndMult = baseMultMod
+						ForMult = baseMultMod
 
 					Trigger(mob/User, Override = FALSE)
-						adjust(User)
+						if(!User.BuffOn(src))
+							adjust(User)
+						..()
+				Melt_Down
+					// Poison Dragon Racial.
+					ActiveMessage = "begins bubbling"
+					OffMessage = "loses some of that sinner's greed..."
+					Cooldown = 120
+					adjust(mob/p)
+						if(altered) return
+						var/asc = p.AscensionsAcquired
+						var/money
+						for(var/obj/Money/m in p.contents)
+							money = m.Level
+						NeedsHealth = 10 + (5 * asc)
+						TooMuchHealth = 20 + (5 * asc)
+
+						var/baseMultMod = 1 + max(0,money/GOLD_DRAGON_FORMULA)
+						PowerMult = baseMultMod
+						SpdMult =baseMultMod
+						StrMult = baseMultMod
+						OffMult = baseMultMod
+						DefMult = baseMultMod
+						EndMult = baseMultMod
+						ForMult = baseMultMod
+
+					Trigger(mob/User, Override = FALSE)
+						if(!User.BuffOn(src))
+							adjust(User)
 						..()
 			Berserk
-				NeedsHealth=5
+				NeedsHealth=10
 				TooMuchHealth=15
 				AngerMult=1.2
+				passives = list("Brutalize" = 0.5)
 				TextColor=rgb(255, 0, 0)
 				Cooldown=180
 				ActiveMessage="enters a berserk fury!!"
@@ -10770,7 +10919,7 @@ NEW VARIABLES
 				TooMuchHealth=75
 				VaizardHealth=2
 				VaizardShatter=1
-				passives = list("Unstoppable" = 1, "Possessive" = 1)
+				passives = list("Unstoppable" = 1, "Possessive" = 1, "LifeGeneration" = 2, "Instinct" = 2, "Flicker" = 1)
 				Unstoppable=1
 				Possessive=1
 				TextColor=rgb(75, 0, 85)
@@ -10785,6 +10934,21 @@ NEW VARIABLES
 				HitTurn=1
 				Cooldown=-1
 				ActiveMessage="is coated by a frenzied symbiotic organism!!"
+				adjust(mob/p)
+					if(altered) return
+					var/asc = p.AscensionsAcquired
+					passives = list("Unstoppable" = 1, "Possessive" = 1, "LifeSteal" = 7.5+asc, "Instinct" = 1+(asc/2), "Flicker" = 1+(asc/2))
+					VaizardHealth = 1.25+(asc/2)
+					if(asc>=1)
+						if(!locate(/obj/Skills/AutoHit/Symbiote_Tendril_Wave, p.AutoHits))
+							p.AddSkill(new/obj/Skills/AutoHit/Symbiote_Tendril_Wave)
+						if(!locate(/obj/Skills/Queue/Symbiote_Hammer, p.Queues))
+							p.AddSkill(new/obj/Skills/Queue/Symbiote_Hammer)
+
+				Trigger(mob/User, Override = FALSE)
+					if(!User.BuffOn(src))
+						adjust(User)
+					..()
 			Rage_Form
 				DarkChange=1
 				StrMult=1.5
@@ -10999,9 +11163,10 @@ NEW VARIABLES
 				LockX=0
 				LockY=0
 				OffMessage="snaps out of their haze."
+				ActiveMessage="is forced to lock up. <font color='yellow'>OVERRIDE: THREAT TO HUMANITY DETECTED - COUNTER GUARDIAN TEMPORARILY INVOKED.</b></font color>"
+
 				Cooldown=1//Just in case
 				Trigger(mob/player, Override)
-					ActiveMessage="is forced to lock up. [SYSTEM]INTERFERENCE DETECTED, DEPLOYING FIREW-- [SYSTEMTEXTEND] <b><font color='yellow'>OVERRIDE: THREAT TO HUMANITY DETECTED - COUNTER GUARDIAN TEMPORARILY DEPLOYED.</b></font color>"
 					if(!altered)
 						passives = list("SlayerMod" = player.SagaLevel * 0.25, "Godspeed" = floor(player.SagaLevel/2), "Pursuer" = floor(player.SagaLevel/2))
 						SlayerMod = player.SagaLevel * 0.25
@@ -11124,8 +11289,8 @@ NEW VARIABLES
 				TooMuchHealth=75
 				ElementalOffense="Fire"
 				ElementalDefense="Fire"
-				OffTaxDrain=0.002
-				DefTaxDrain=0.002
+				OffTaxDrain=0.0002
+				DefTaxDrain=0.0002
 				passives = list("DarknessFlame" = 1, "DeathField" = 5)
 				DarknessFlame=1
 				DeathField=5
@@ -11142,8 +11307,11 @@ NEW VARIABLES
 				TextColor=rgb(102, 102, 102)
 				ActiveMessage="shapes the dark flames into a protective cage!"
 				OffMessage="releases the dark flames..."
-				proc/adjust(mob/p)
+				adjust(mob/p)
 					if(altered) return
+					if(p.SagaLevel>=5)
+						OffTaxDrain = 0
+						DefTaxDrain = 0
 					if(p.equippedSword)
 						passives = list("DarknessFlame" = 1, "DeathField" = p.SagaLevel, "SpiritSword" =  p.SagaLevel * 0.25)
 					else
@@ -11218,6 +11386,7 @@ NEW VARIABLES
 mob
 	proc
 		UseBuff(var/obj/Skills/Buffs/B, var/Override)
+			. = TRUE
 			if(src.BuffOn(B))
 				if(B.MakesArmor)
 					if(src.ActiveBuff)
@@ -11369,125 +11538,33 @@ mob
 					if(!src.Target)
 						src << "You need a target to use this skill!"
 						if(B.AffectTarget)
-							return
+							return FALSE
 						if(!B.Using)
 							B.Trigger(src, Override=1)
-						return
+						return FALSE
 					if(B.ForcedRange)
 						if(get_dist(src,src.Target)!=B.Range)
 							src << "They're not in range!"
-							return
+							return FALSE
 					else
 						if(get_dist(src,src.Target)>B.Range||src.z!=src.Target.z)
 							src << "They're out of range!"
-							return
+							return FALSE
 				if(B.AffectTarget)
 					if(!src.Target)
 						src << "You don't have a target to capture!"
-						return
-				if(B.Fusion)
-					if(!src.Target)
-						src << "You need a target to use this!"
-						return
-					if(src.Target==src)
-						src << "You can't target yourself for fusion!"
-						return
-					if(src.Target)
-						if(src.Fused||src.Target.Fused)
-							src << "You can't fuse with a fused person!"
-							src.Target << "You can't fuse with a fused person!"
-							return
-						if(src.Saga||src.Target.Saga)
-							src << "You can't fuse with a destined person!"
-							src.Target << "You can't fuse with a destined person!"
-							return
-						if(src.Secret||src.Target.Secret)
-							src << "You can't fuse with an awakened person!"
-							src.Target << "You can't fuse with an awakened person!"
-							return
-						if(src.ActiveBuff||src.Target.ActiveBuff)
-							src << "Active Buffs can't be used with fusion!"
-							src.Target << "Active Buffs can't be used with fusion!"
-							return
-						if(src.SpecialBuff||src.Target.SpecialBuff)
-							src << "Special Buffs can't be used with fusion!"
-							src.Target << "Special Buffs can't be used with fusion!"
-							return
-						if(src.SlotlessBuffs.len>0||src.Target.SlotlessBuffs.len>0)
-							src << "Slotless Buffs can't be used with fusion!"
-							src.Target << "Slotless Buffs can't be used with fusion!"
-							return
-						if(src.StanceBuff || src.Target.StanceBuff)
-							src << "Stance Buffs can't be used with fusion!"
-							src.Target << "Stance Buffs can't be used with fusion!"
-						if(src.StyleBuff || src.Target.StyleBuff)
-							src << "Style Buffs can't be used with fusion!"
-							src.Target << "Style Buffs can't be used with fusion!"
-							return
-						if(src.HasKiControl())
-							src << "Stop powering up or down before using Fusion!"
-							return
-						if(src.Target.HasKiControl())
-							src << "Stop powering up or down before using Fusion!"
-							return
-						if(src.trans["active"]>0 || src.Target.trans["active"]>0)
-							src << "You can't fuse while transformed!"
-							src.Target << "You can't fuse while transformed!"
-							return
-						if(B.Fusion=="Dance")
-							if(src.Race!=src.Target.Race)
-								src << "You must be the same race to fuse!"
-								src.Target << "You must be the same race to fuse!"
-								return
-
-							if(src.Gender!=src.Target.Gender)
-								src << "You must be the same sex to fuse!"
-								src.Target << "You must be the same sex to fuse!"
-								return
-
-							if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Fusion_Dance, src.Target))
-								src << "You can't fuse with someone who doesn't know the fusion dance!"
-								src.Target << "You can't fuse with someone who doesn't know the fusion dance!"
-								return
-
-							var/BPComparision=src.Get_Sense_Reading(src.Target)
-							if(BPComparision!="[src.Target.name] - Equal")
-								src << "[src.Target]'s battle power is too different!"
-								src.Target << "[src]'s battle power is too different!"
-								B.FusionFailure=100*abs( ((src.Power*src.EnergyUniqueness*src.Intimidation)-(src.Target.Power*src.Target.EnergyUniqueness*src.Target.Intimidation))/(src.Power*src.EnergyUniqueness*src.Intimidation) )
-
-						if(B.Fusion=="Potara")
-							var/obj/Items/Symbiotic/Potara_Earrings/Right_Earring/RE
-							var/obj/Items/Symbiotic/Potara_Earrings/Left_Earring/LE
-							var/foundright=0
-							var/foundleft=0
-							for(RE in src)
-								if(RE.suffix)
-									foundright=1
-									for(LE in src.Target)
-										if(LE.suffix)
-											foundleft=1
-							for(LE in src)
-								if(LE.suffix)
-									foundleft=2
-									for(RE in src.Target)
-										if(RE.suffix)
-											foundright=2
-							if(!foundright||!foundleft||foundleft!=foundright)
-								src << "You can't fuse with someone who doesn't wear a Potara to match!"
-								src.Target << "You can't fuse with someone who doesn't wear a Potara to match!"
-								return
+						return FALSE
 
 				if(B.MagicNeeded&&!B.LimitlessMagic&&!src.HasLimitlessMagic())
 					if(src.HasMechanized()&&src.HasLimitlessMagic()!=1)
 						src << "You lack the ability to use magic!"
 						if(istype(B, /obj/Skills/Buffs/SlotlessBuffs/Autonomous))
 							del B
-						return
+						return FALSE
 					if((B.Copyable>=3||!B.Copyable)&&!(istype(B, /obj/Skills/Buffs/SlotlessBuffs/Autonomous)))
 						if(!src.HasSpellFocus(B) && !B.MagicFocus)
 							src << "You need a spell focus to use [B]."
-							return
+							return FALSE
 				if(B.StyleNeeded)
 					if(src.StyleActive!=B.StyleNeeded)
 						src << "You can't trigger [B] without [B.StyleNeeded] active!"
@@ -11509,7 +11586,7 @@ mob
 				if(B.SpecialBuffLock)
 					if(src.SpecialBuff)
 						src.SpecialBuff.Trigger(src, Override=1)
-				if(src.Oozaru)
+				if(src.CheckSlotless("Great Ape"))
 					if(!B.StanceSlot&&!B.StyleSlot&&!B.Autonomous)
 						if(!B.BuffName == "Great Ape")
 							src << "You can't use buffs in Great Ape Mode!"
@@ -11529,10 +11606,10 @@ mob
 						return
 				if(B.ClassNeeded)
 					var/obj/Items/Sword/s=src.EquippedSword()
-					if(s.Class == 0)  // 0 is the default class
+					if(s&&s.Class == 0)  // 0 is the default class
 						src << "You need a classed weapon to use this technique."
 						return
-					if(s.Class!=B.ClassNeeded && (istype(B.ClassNeeded, /list) && !(s.Class in B.ClassNeeded)))
+					if(!s||s.Class!=B.ClassNeeded && (istype(B.ClassNeeded, /list) && !(s.Class in B.ClassNeeded)))
 						src << "You need a [istype(B.ClassNeeded, /list) ? B.ClassNeeded[1] : B.ClassNeeded]-class weapon to use this technique."
 						return
 				if(B.NeedsSword)
@@ -11763,6 +11840,19 @@ mob
 									List+="[x])"
 							src << "You don't have the proper active buff active! [List]"
 							return
+				if(B.UBuffNeeded)
+					if(src.SlotlessBuffs.len!=0)
+						for(var/buff in B.UBuffNeeded)
+							if(!CheckSlotless(buff))
+								src << "You need [buff] enabled to use [src.name]!"
+								return
+					else
+						var/buffsRequired = ""
+						for(var/buff in B.UBuffNeeded)
+							buffsRequired += "[buff],"
+						buffsRequired = replacetext(buffsRequired, ",", "", length(buffsRequired)-2, 0)
+						src << "You have to be using [buffsRequired] to turn [src.name] on!"
+						return
 				if(B.SBuffNeeded)
 					if(!src.SpecialBuff||src.SpecialBuff.BuffName!=B.SBuffNeeded)
 						src << "You have to be in [B.SBuffNeeded] state!"
@@ -11790,6 +11880,10 @@ mob
 						src << "You are not advanced enough to use this!"
 						return
 				if(!B.AllOutAttack)
+					if(B.CorruptionCost)
+						if(src.Corruption - B.CorruptionCost < 0)
+							src << "You need more corruption"
+							return FALSE
 					if(B.HealthThreshold)
 						if(src.Health<B.HealthThreshold*(1-src.HealthCut))
 							if(!B.Autonomous)
@@ -11835,12 +11929,12 @@ mob
 							if(src.ManaAmount<B.ManaCost)
 								if(!B.Autonomous)
 									src << "You don't have enough mana to activate [B]."
-								return
+								return FALSE
 						else
 							if(src.ManaAmount<B.ManaCost*(1-(0.45*src.TomeSpell(B))))
 								if(!B.Autonomous)
 									src << "You don't have enough mana to activate [B]."
-								return
+								return FALSE
 					if(B.WoundCost)
 						if(src.TotalInjury+B.WoundCost>100)
 							if(!B.Autonomous)
@@ -11956,11 +12050,11 @@ mob
 							if(B.AssociatedGear.Uses<=0)
 								src << "[B] is out of power!"
 				if(B.Transform)
-					if(src.Transforming||trans["transing"]||ssj["transing"])
+					if(src.Transforming)
 						src <<"You are already transforming!"
 						return
 					if(!(B.Transform in list("Force","Strong","Weak")))
-						if(trans["active"])
+						if(transActive)
 							src <<"You are already transformed!"
 							return
 
@@ -12186,13 +12280,10 @@ mob
 
 				if(src.transActive())
 					src.ActiveBuff.OverlayTransLock=1
-					if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
-						if((!src.HasGodKi()&&masteries["[src.transActive()]mastery"]==100)||src.HasGodKi()&&masteries["4mastery"]==100)
+					if(src.isRace(SAIYAN))
+						if((race.transformations[transActive].mastery==100))
 							if(src.transActive()==1&&(!src.HasGodKi()&&!src.Anger))
 								Anger=Anger
-							else if(src.HasGodKi()&&masteries["4mastery"]==100)
-								src.ActiveBuff.AuraLock='BLANK.dmi'
-								src.ActiveBuff.FlashChange=1
 				else
 					src.ActiveBuff.OverlayTransLock=0
 
@@ -12534,7 +12625,7 @@ mob
 							src.GainFatigue(30)
 					if(src.HasKiControl())
 						src.Auraz("Add")
-				else if(src.SagaLevel<7||src.Saga!="Cosmo")
+				else if(src.SagaLevel<5||src.Saga!="Cosmo")
 					for(var/obj/Items/Symbiotic/Saint_Cloth/Gold_Cloth/GC in src)
 						if(GC.suffix)
 							src.SpecialBuff=FALSE
@@ -12550,11 +12641,8 @@ mob
 
 		AddSlotlessBuff(var/obj/Skills/Buffs/B)
 			if(B.BuffName=="Regeneration")
-				if(src.HellPower)
+				if(src.HasHellPower())
 					B.RegenerateLimbs=1
-			if(B.BuffName=="Symbiote Infection")
-				if(B.PowerReplacement)
-					B.PowerReplacement=0//anti god tier
 
 			// HERE
 			src.StrAdded += B.strAdd
@@ -12617,7 +12705,7 @@ mob
 			if(B.Transform)
 				src.Transforming=1
 				if(B.Transform=="Force")
-					src.trans["unlocked"]=min(src.trans["unlocked"]+1,4)
+					transUnlocked=min(transUnlocked+1,4)
 					src.Transform()
 				else if(B.Transform=="Strong")
 					src.Intimidation*=1.5
@@ -12716,938 +12804,6 @@ mob
 					src.alpha=255
 					del T
 				sleep(3)
-
-			if(B.Fusion)
-				if(B.Fusion=="Dance")
-					var/mob/Players/Fuse=new/mob/Players
-					var/Failed=0
-					var/Mastery=B.Mastery
-					var/MasterySpecial=max(Mastery-3,0)
-
-					src.BuffingUp=0
-
-					if(prob(B.FusionFailure))
-						Failed=1
-
-					for(var/x in src.SlotlessBuffs)
-						if(istype(x, /obj/Skills/Buffs/SlotlessBuffs/Fusion_Dance))
-							x:Trigger(src, Override=1)//turn off here
-
-					src.Fused=1
-					src.Target.Fused=2
-					src.Target.Fusee=src.ckey
-					src.Fusee=src.Target.ckey
-					Fuse.FusionCKey1="[src.ckey]"
-					Fuse.FusionCKey2="[src.Target.ckey]"
-
-					src.client.SaveChar()
-					src.Target.client.SaveChar()
-
-					Fuse.Race=src.Race
-					Fuse.Class="Dance"
-					if(!src.Name_Fusion||src.Name_Fusion!=src.Target.Name_Fusion)
-						Fuse.name="???"
-					else
-						Fuse.name=src.Name_Fusion
-					if(!src.Profile_Fusion||src.Profile_Fusion!=src.Target.Profile_Fusion)
-						Fuse.Profile=null
-					else
-						Fuse.Profile=src.Profile_Fusion
-					Fuse.Text_Color=src.Text_Color
-					src.Target.name=Fuse.name
-					src.Target.Text_Color=Fuse.Text_Color
-
-					if(!Failed)
-						if(!src.Icon_Fusion||src.Icon_Fusion!=src.Target.Icon_Fusion)
-							Fuse.icon=src.icon
-						else
-							Fuse.icon=src.Icon_Fusion
-					else
-						if(!src.Icon_FusionFat||src.Icon_FusionFat!=src.Target.Icon_FusionFat)
-							Fuse.icon=src.icon
-							Fuse.transform=matrix(0.7, 0, 0, 0, 1, 0)
-						else
-							Fuse.icon=src.Icon_FusionFat
-
-					SCLForm_1=src.SCLForm_1
-					SCLForm_2=src.SCLForm_2
-					SCLForm_3=src.SCLForm_3
-					SCLForm_4=src.SCLForm_4
-					SCLForm_5=src.SCLForm_5
-					SCLForm_6=src.SCLForm_6
-
-					if(!src.Hair_Fusion||src.Hair_Fusion!=src.Target.Hair_Fusion)
-						Fuse.Hair_Base=src.Target.Hair_Base
-						Fuse.Hair_Color=src.Hair_Color
-						Fuse.Hair_Forms()
-					else
-						Fuse.Hair_Base=src.Hair_Fusion
-						Fuse.Hair_SSJ1=src.Hair_Fusion_SSJ1
-						Fuse.Hair_FPSSJ1=src.Hair_Fusion_FPSSJ1
-						Fuse.Hair_SSJ2=src.Hair_Fusion_SSJ2
-						Fuse.Hair_SSJ3=src.Hair_Fusion_SSJ3
-						Fuse.Hair_SSJGod=src.Hair_Fusion_SSJGod
-						Fuse.Hair_SSJBlue=src.Hair_Fusion_SSJBlue
-						Fuse.Hair_SSJ4=src.Hair_Fusion_SSJ4
-						Fuse.Hair_HT=src.Hair_Fusion_HT
-						Fuse.SuperDemonHair=src.SuperDemonHair_Fusion
-						Fuse.SuperDemonHair2=src.SuperDemonHair2_Fusion
-						Fuse.KingofBravesHair=src.KingofBravesHair_Fusion
-
-					Fuse.EyesSSJ='EyesSSJ.dmi'
-					Fuse.EyesSSJ3='EyesSSJ3.dmi'
-					Fuse.EyesSSJ4='EyesSSJ4.dmi'
-					Fuse.FurSSJ4='Overlay SSJ4 Fusion.dmi'
-					Fuse.ClothingSSJ4='Fusion Vest.dmi'
-					Fuse.TailSSJ4='Tail SSJ4 Fusion.dmi'
-					Fuse.EyesSSG='EyesSSG.dmi'
-					Fuse.EyesSSB='EyesSSB.dmi'
-					Fuse.EyesUI='EyesUI.dmi'
-					animate(Fuse, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1))
-
-					spawn()
-						FusionEffect(src, src.Target)
-
-					sleep(15)
-
-					Fuse.Base=glob.WorldBaseAmount
-					Fuse.potential_power_mult=((src.potential_power_mult*src.RPPower) + (src.Target.potential_power_mult*src.Target.RPPower))
-
-					if(src.StrAscension>src.Target.StrAscension)
-						Fuse.StrAscension=src.StrAscension
-					else
-						Fuse.StrAscension=src.Target.StrAscension
-
-					if(src.EndAscension>src.Target.EndAscension)
-						Fuse.EndAscension=src.EndAscension
-					else
-						Fuse.EndAscension=src.Target.EndAscension
-
-					if(src.SpdAscension>src.Target.SpdAscension)
-						Fuse.SpdAscension=src.SpdAscension
-					else
-						Fuse.SpdAscension=src.Target.SpdAscension
-
-					if(src.ForAscension>src.Target.ForAscension)
-						Fuse.ForAscension=src.ForAscension
-					else
-						Fuse.ForAscension=src.Target.ForAscension
-
-					if(src.OffAscension>src.Target.OffAscension)
-						Fuse.OffAscension=src.OffAscension
-					else
-						Fuse.OffAscension=src.Target.OffAscension
-
-					if(src.DefAscension>src.Target.DefAscension)
-						Fuse.DefAscension=src.DefAscension
-					else
-						Fuse.DefAscension=src.Target.DefAscension
-
-					if(src.RecovAscension>src.Target.RecovAscension)
-						Fuse.RecovAscension=src.RecovAscension
-					else
-						Fuse.RecovAscension=src.Target.RecovAscension
-
-					if(src.StrMod>src.Target.StrMod)
-						Fuse.StrMod=src.StrMod
-					else
-						Fuse.StrMod=src.Target.StrMod
-
-					if(src.EndMod>src.Target.EndMod)
-						Fuse.EndMod=src.EndMod
-					else
-						Fuse.EndMod=src.Target.EndMod
-
-					if(src.SpdMod>src.Target.SpdMod)
-						Fuse.SpdMod=src.SpdMod
-					else
-						Fuse.SpdMod=src.Target.SpdMod
-
-					if(src.ForMod>src.Target.ForMod)
-						Fuse.ForMod=src.ForMod
-					else
-						Fuse.ForMod=src.Target.ForMod
-
-					if(src.OffMod>src.Target.OffMod)
-						Fuse.OffMod=src.OffMod
-					else
-						Fuse.OffMod=src.Target.OffMod
-
-					if(src.DefMod>src.Target.DefMod)
-						Fuse.DefMod=src.DefMod
-					else
-						Fuse.DefMod=src.Target.DefMod
-
-					if(src.RecovMod>src.Target.RecovMod)
-						Fuse.RecovMod=src.RecovMod
-					else
-						Fuse.RecovMod=src.Target.RecovMod
-
-					if(src.AngerMax>src.Target.AngerMax)
-						Fuse.AngerMax=src.AngerMax
-					else
-						Fuse.AngerMax=src.Target.AngerMax
-
-					if(src.PureDamage>src.Target.PureDamage)
-						Fuse.PureDamage=src.PureDamage
-					else
-						Fuse.PureDamage=src.Target.PureDamage
-
-					if(src.PureReduction>src.Target.PureReduction)
-						Fuse.PureReduction=src.PureReduction
-					else
-						Fuse.PureReduction=src.Target.PureReduction
-
-					if(src.Judgment||src.Target.Judgment)
-						Fuse.Judgment=1
-
-					if(src.Adaptation||src.Target.Adaptation)
-						Fuse.Adaptation=1
-
-					if(src.Defiance||src.Target.Defiance)
-						Fuse.Defiance=1
-
-					if(src.Attunement=="Fire"&&!src.Target.Attunement)
-						Fuse.Attunement="Fire"
-					if(src.Target.Attunement=="Fire"&&!src.Attunement)
-						Fuse.Attunement="Fire"
-
-					if(src.Attunement=="Water"&&!src.Target.Attunement)
-						Fuse.Attunement="Water"
-					if(src.Target.Attunement=="Water"&&!src.Attunement)
-						Fuse.Attunement="Water"
-
-					if(src.Attunement=="Earth"&&!src.Target.Attunement)
-						Fuse.Attunement="Earth"
-					if(src.Target.Attunement=="Earth"&&!src.Attunement)
-						Fuse.Attunement="Earth"
-
-					if(src.Attunement=="Wind"&&!src.Target.Attunement)
-						Fuse.Attunement="Wind"
-					if(src.Target.Attunement=="Wind"&&!src.Attunement)
-						Fuse.Attunement="Wind"
-
-					if(src.Hustle||src.Target.Hustle)
-						Fuse.Hustle=1
-
-					if(src.Infusion||src.Target.Infusion)
-						Fuse.Infusion=1
-
-					if(src.Flicker)
-						Fuse.Flicker+=src.Flicker
-					if(src.Target.Flicker)
-						Fuse.Flicker+=src.Target.Flicker
-					Fuse.Flicker+=round(B.Mastery/2)
-
-					if(src.Adrenaline||src.Target.Adrenaline)
-						Fuse.Adrenaline=1
-
-					if(src.EnhancedHearing||src.Target.EnhancedHearing)
-						Fuse.EnhancedHearing=1
-					if(src.EnhancedSmell||src.Target.EnhancedSmell)
-						Fuse.EnhancedSmell=1
-					if(src.see_invisible>=71||src.Target.see_invisible>=71)
-						Fuse.see_invisible=71
-
-					if(src.Fishman||src.Target.Fishman)
-						Fuse.Fishman=1
-
-					if(src.VenomResistance)
-						Fuse.VenomResistance+=src.VenomResistance
-					if(src.Target.VenomResistance)
-						Fuse.VenomResistance+=src.Target.VenomResistance
-
-					if(src.VenomBlood||src.Target.VenomBlood)
-						Fuse.VenomBlood=1
-
-					if(src.VenomImmune||src.Target.VenomImmune)
-						Fuse.VenomImmune=1
-
-					if(src.Godspeed)
-						Fuse.Godspeed+=src.Godspeed
-					if(src.Target.Godspeed)
-						Fuse.Godspeed+=src.Target.Godspeed
-					Fuse.Godspeed+=round(B.Mastery/2)
-
-					if(src.HiddenAnger||src.Target.HiddenAnger)
-						Fuse.HiddenAnger=1
-
-					if(src.HasVoid()||src.Target.HasVoid())
-						Fuse.Void=1
-
-					if(src.StaticWalk||src.Target.StaticWalk)
-						Fuse.StaticWalk=1
-
-					if(src.SpaceWalk||src.Target.SpaceWalk)
-						Fuse.SpaceWalk=1
-
-					if(src.KiControlMastery)
-						Fuse.KiControlMastery+=src.KiControlMastery
-					if(src.Target.KiControlMastery)
-						Fuse.KiControlMastery+=src.Target.KiControlMastery
-					Fuse.KiControlMastery+=round(B.Mastery/2)
-
-					if(src.Restoration||src.Target.Restoration)
-						Fuse.Restoration=1
-
-					if(src.WalkThroughHell||src.Target.WalkThroughHell)
-						Fuse.WalkThroughHell=1
-
-					if(src.WaterWalk||src.Target.WaterWalk)
-						Fuse.WaterWalk=1
-
-					if(src.AbyssMod)
-						Fuse.AbyssMod+=src.AbyssMod
-					if(src.Target.AbyssMod)
-						Fuse.AbyssMod+=src.Target.AbyssMod
-
-					if(src.FluidForm)
-						Fuse.FluidForm+=src.FluidForm
-					if(src.Target.FluidForm)
-						Fuse.FluidForm+=src.Target.FluidForm
-
-					if(src.DebuffImmune>0||src.Target.DebuffImmune>0)
-						Fuse.DebuffImmune=1
-					if(src.DebuffImmune>=2||src.Target.DebuffImmune>=2)
-						Fuse.DebuffImmune=2
-
-					if(src.AngerPoint!=25||src.Target.AngerPoint!=25)
-						if(Fuse.Race!="Changeling")//if not changeling
-							if(src.AngerPoint>src.Target.AngerPoint)//Pick higher anger
-								Fuse.AngerPoint=src.AngerPoint
-							else
-								Fuse.AngerPoint=src.Target.AngerPoint
-						else//if they are changeling
-							if(src.AngerPoint<src.Target.AngerPoint)//pick the lower
-								Fuse.AngerPoint=src.AngerPoint
-							else
-								Fuse.AngerPoint=src.Target.AngerPoint
-
-					if(src.CalmAnger||src.Target.CalmAnger)
-						Fuse.CalmAnger=1
-
-					if(src.Hardening)
-						Fuse.Hardening+=src.Hardening
-					if(src.Target.Hardening)
-						Fuse.Hardening+=src.Target.Hardening
-
-					if(src.InjuryImmune||src.Target.InjuryImmune)
-						Fuse.InjuryImmune=1
-					if(src.FatigueImmune||src.Target.FatigueImmune)
-						Fuse.FatigueImmune=1
-
-					if(src.LegendaryPower||src.Target.LegendaryPower)
-						Fuse.LegendaryPower=1
-					if(src.SpiritPower||src.Target.SpiritPower)
-						Fuse.SpiritPower=1
-					if(src.HellPower||src.Target.HellPower)
-						Fuse.HellPower=1
-
-					if(src.BioArmorMax>0||src.Target.BioArmorMax>0)
-						if(src.BioArmorMax>src.Target.BioArmorMax)
-							Fuse.BioArmorMax=src.BioArmorMax
-						else
-							Fuse.BioArmorMax=src.Target.BioArmorMax
-
-					if(src.Intimidation>src.Target.Intimidation)
-						Fuse.Intimidation=src.Intimidation
-					else
-						Fuse.Intimidation=src.Target.Intimidation
-
-					if(src.Desperation>src.Target.Desperation)
-						Fuse.Desperation=src.Desperation
-					else
-						Fuse.Desperation=src.Target.Desperation
-
-					if(src.PowerBoost)
-						Fuse.PowerBoost=1+(src.PowerBoost-1)
-					if(src.Target.PowerBoost)
-						Fuse.PowerBoost+=(src.Target.PowerBoost-1)
-
-					if(src.AscensionsAcquired>src.Target.AscensionsAcquired)
-						Fuse.AscensionsAcquired=src.AscensionsAcquired
-					else
-						Fuse.AscensionsAcquired=src.Target.AscensionsAcquired
-
-					if(Fuse.Race!="Saiyan"&&Fuse.Race!="Half Saiyan")
-						Fuse.trans["unlocked"]=min((src.trans["unlocked"]+src.Target.trans["unlocked"]),Mastery)
-						if(MasterySpecial)
-							Fuse.trans["unlocked"]=min(Fuse.trans["unlocked"]+1,4)
-					else
-						Fuse.ssj["unlocked"]=min((src.ssj["unlocked"]+src.Target.ssj["unlocked"]),Mastery)
-						if(MasterySpecial)
-							Fuse.ssj["unlocked"]=min(Fuse.ssj["unlocked"]+1,3)
-						if(src.ssj["unlocked"]==4&&src.Target.ssj["unlocked"]==4)
-							Fuse.SSJ4Unlocked=1
-							Fuse.ssj["unlocked"]=4
-					Fuse.masteries["1mastery"]=100
-					Fuse.masteries["2mastery"]=100
-					Fuse.masteries["3mastery"]=100
-					Fuse.masteries["4mastery"]=100
-					Fuse.SetVars()
-
-					if(src.Tail||src.Target.Tail)
-						Fuse.Tail=1
-
-					if(!locate(/obj/Communication,Fuse.contents))
-						Fuse.contents+=new/obj/Communication
-					if(!locate(/obj/Skills/Meditate,Fuse.contents))
-						Fuse.AddSkill(new/obj/Skills/Meditate)
-					if(!locate(/obj/Skills/Queue/Heavy_Strike,Fuse.contents))
-						Fuse.AddSkill(new/obj/Skills/Queue/Heavy_Strike)
-						Fuse.AddSkill(new/obj/Skills/Reverse_Dash)
-					if(!locate(/obj/Skills/Grapple/Toss,Fuse.contents))
-						Fuse.AddSkill(new/obj/Skills/Aerial_Recovery)
-						Fuse.AddSkill(new/obj/Skills/Grapple/Toss)
-					if(!locate(/obj/Skills/Dragon_Dash,Fuse.contents))
-						Fuse.AddSkill(new/obj/Skills/Dragon_Dash)
-						Fuse.AddSkill(new/obj/Skills/Aerial_Payback)
-						Fuse.AddSkill(new/obj/Skills/Target_Switch)
-						Fuse.AddSkill(new/obj/Skills/Target_Clear)
-					if(!locate(/obj/Skills/Buffs/Styles/Style_Selector, Fuse))
-						Fuse.AddSkill(new/obj/Skills/Buffs/Styles/Style_Selector)
-					var/list/DenyVars=list("client", "key", "loc", "x", "y", "z", "type", "locs", "parent_type", "verbs", "vars", "contents", "Transform", "appearance")
-					for(var/obj/Skills/s in src)
-						if(s.AssociatedGear)
-							continue
-						if(s.AssociatedLegend)
-							continue
-						if(!locate(s, Fuse))
-							var/obj/Skills/NewS=new s.type
-							for(var/x in s.vars)
-								if(x in DenyVars)
-									continue
-								NewS.vars[x]=s.vars[x]
-							Fuse.AddSkill(NewS)
-					for(var/obj/Skills/s in src.Target)
-						if(s.AssociatedGear)
-							continue
-						if(s.AssociatedLegend)
-							continue
-						if(!locate(s, Fuse))
-							var/obj/Skills/NewS=new s.type
-							for(var/x in s.vars)
-								if(x in DenyVars)
-									continue
-								NewS.vars[x]=s.vars[x]
-							Fuse.AddSkill(NewS)
-
-					//fusion special skills
-
-					//Galic Kamehameha
-					if(locate(/obj/Skills/Projectile/Beams/Kamehameha, Fuse)&&locate(/obj/Skills/Projectile/Beams/Galic_Gun, Fuse))
-						Fuse << "You unlock the fusion of Kamehameha and Galic Gun: Galic Kamehameha!!"
-						Fuse.AddSkill(new/obj/Skills/Projectile/Beams/Galic_Kamehameha)
-
-					//Big Bang Kamehameha
-					if(locate(/obj/Skills/Projectile/Beams/Big/Super_Kamehameha, Fuse)&&locate(/obj/Skills/Projectile/Big_Bang_Attack, Fuse))
-						Fuse << "You unlock the fusion of Super Kamehameha and Big Bang Attack: Big Bang Kamehameha!!"
-						Fuse.AddSkill(new/obj/Skills/Projectile/Beams/Big/Big_Bang_Kamehameha)
-
-					//Final Kamehameha
-					if(locate(/obj/Skills/Projectile/Beams/Big/Super_Kamehameha, Fuse)&&locate(/obj/Skills/Projectile/Beams/Big/Final_Flash, Fuse))
-						Fuse << "You unlock the fusion of Super Kamehameha and Final Flash: Final Kamehameha!!"
-						Fuse.AddSkill(new/obj/Skills/Projectile/Beams/Big/Final_Kamehameha)
-
-
-					for(var/obj/Skills/Buffs/SlotlessBuffs/Fusion_Dance/fd in Fuse)
-						del fd
-
-					src.Savable=0//Remember the last location
-					src.Target.Savable=0//But not the fusion void.
-
-					Fuse.loc=locate((src.x-((src.x-src.Target.x)/2)),(src.y-((src.y-src.Target.y)/2)), src.z)
-					src.client.eye=Fuse
-					src.client.perspective=EYE_PERSPECTIVE
-					src.Target.client.eye=Fuse
-					src.Target.client.perspective=EYE_PERSPECTIVE
-					src.Target.Observing=2
-					Fuse.BeingObserved.Add(src.Target)
-					src.loc=locate(1,1,1)
-					src.Stasis=RawMinutes(31)
-					src.Target.loc=locate(1,1,1)
-					src.Target.Stasis=RawMinutes(31)
-
-					Fuse.overlays+=image(B.IconLock, pixel_x=B.LockX, pixel_y=B.LockY, layer=FLOAT_LAYER-B.IconLayer)
-					if(Fuse.Tail)
-						Fuse.contents+=new/obj/Oozaru
-						Fuse.Tail(1)
-					Fuse.Hairz("Add")
-					Fuse.overlays+=image(B.TopOverlayLock, pixel_x=B.TopOverlayX, pixel_y=B.TopOverlayY, layer=FLOAT_LAYER-1)
-					animate(Fuse, color = null, time=10)
-
-
-					for(var/mob/Players/T in oview(31, Fuse))
-						animate(T.client, color=list(1,0,0, 0,1,0, 0,0,1, 0.4,0.4,0.4), time = 5)
-						spawn(5)
-							animate(T.client, color=null, time = 5)
-					var/ShockSize=5
-					for(var/wav=5, wav>0, wav--)
-						KenShockwave(Fuse, icon='KenShockwaveDivine.dmi', Size=ShockSize, Blend=2, Time=24)
-						ShockSize/=2
-					sleep(5)
-
-					if(Failed)
-						Fuse.RPPower*=0.2
-						OMsg(Fuse, "[src] messed up their attempt of fusing with [src.Target]!")
-					Fuse.FusionTimer=RawMinutes(30)
-					src.client.mob=Fuse
-
-				else if(B.Fusion=="Potara")
-					var/mob/Players/Fuse=new/mob/Players
-
-					src.BuffingUp=0
-
-					for(var/x in src.SlotlessBuffs)
-						if(istype(x, /obj/Skills/Buffs/SlotlessBuffs/Divine_Fusion))
-							x:Trigger(src, Override=1)//turn off here
-
-					src.Fused=1
-					src.Target.Fused=2
-					src.Fusee=src.Target.ckey
-					src.Target.Fusee=src.ckey
-					Fuse.FusionCKey1="[src.ckey]"
-					Fuse.FusionCKey2="[src.Target.ckey]"
-
-					src.client.SaveChar()
-					src.Target.client.SaveChar()
-
-					Fuse.Race=src.Race
-					Fuse.Class="Potara"
-					if(!src.Name_Fusion||src.Name_Fusion!=src.Target.Name_Fusion)
-						Fuse.name="???"
-					else
-						Fuse.name=src.Name_Fusion
-					if(!src.Profile_Fusion||src.Profile_Fusion!=src.Target.Profile_Fusion)
-						Fuse.Profile=null
-					else
-						Fuse.Profile=src.Profile_Fusion
-					Fuse.Text_Color=src.Text_Color
-					src.Target.name=Fuse.name
-					src.Target.Text_Color=Fuse.Text_Color
-
-					if(!src.Icon_Fusion||src.Icon_Fusion!=src.Target.Icon_Fusion)
-						Fuse.icon=src.icon
-					else
-						Fuse.icon=src.Icon_Fusion
-
-					SCLForm_1=src.SCLForm_1
-					SCLForm_2=src.SCLForm_2
-					SCLForm_3=src.SCLForm_3
-					SCLForm_4=src.SCLForm_4
-					SCLForm_5=src.SCLForm_5
-					SCLForm_6=src.SCLForm_6
-
-					if(!src.Hair_Fusion||src.Hair_Fusion!=src.Target.Hair_Fusion)
-						Fuse.Hair_Base=src.Hair_Base
-						Fuse.Hair_Color=src.Target.Hair_Color
-						Fuse.Hair_Forms()
-					else
-						Fuse.Hair_Base=src.Hair_Fusion
-						Fuse.Hair_SSJ1=src.Hair_Fusion_SSJ1
-						Fuse.Hair_FPSSJ1=src.Hair_Fusion_FPSSJ1
-						Fuse.Hair_SSJ2=src.Hair_Fusion_SSJ2
-						Fuse.Hair_SSJ3=src.Hair_Fusion_SSJ3
-						Fuse.Hair_SSJGod=src.Hair_Fusion_SSJGod
-						Fuse.Hair_SSJBlue=src.Hair_Fusion_SSJBlue
-						Fuse.Hair_SSJ4=src.Hair_Fusion_SSJ4
-						Fuse.Hair_HT=src.Hair_Fusion_HT
-						Fuse.SuperDemonHair=src.SuperDemonHair_Fusion
-						Fuse.SuperDemonHair2=src.SuperDemonHair2_Fusion
-						Fuse.KingofBravesHair=src.KingofBravesHair_Fusion
-
-					Fuse.EyesSSJ='EyesSSJ.dmi'
-					Fuse.EyesSSJ3='EyesSSJ3.dmi'
-					Fuse.EyesSSJ4='EyesSSJ4.dmi'
-					Fuse.FurSSJ4='Overlay SSJ4 Fusion.dmi'
-					Fuse.ClothingSSJ4='Fusion Vest.dmi'
-					Fuse.TailSSJ4='Tail SSJ4 Fusion.dmi'
-					Fuse.EyesSSG='EyesSSG.dmi'
-					Fuse.EyesSSB='EyesSSB.dmi'
-					Fuse.EyesUI='EyesUI.dmi'
-					animate(Fuse, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1))
-
-					spawn()
-						FusionEffect(src, src.Target)
-
-					sleep(15)
-
-					Fuse.Base=(src.Base+src.Target.Base)
-					if(Fuse.Base<=(glob.WorldBaseAmount*2))
-						Fuse.Base=(glob.WorldBaseAmount*2)
-					Fuse.RPPower=(src.RPPower+src.Target.RPPower)/2
-					Fuse.Potential=min(src.Potential, src.Target.Potential)+15
-					Fuse.PotentialCap=Fuse.Potential
-
-					if(src.StrAscension>src.Target.StrAscension)
-						Fuse.StrAscension=src.StrAscension
-					else
-						Fuse.StrAscension=src.Target.StrAscension
-
-					if(src.EndAscension>src.Target.EndAscension)
-						Fuse.EndAscension=src.EndAscension
-					else
-						Fuse.EndAscension=src.Target.EndAscension
-
-					if(src.SpdAscension>src.Target.SpdAscension)
-						Fuse.SpdAscension=src.SpdAscension
-					else
-						Fuse.SpdAscension=src.Target.SpdAscension
-
-					if(src.ForAscension>src.Target.ForAscension)
-						Fuse.ForAscension=src.ForAscension
-					else
-						Fuse.ForAscension=src.Target.ForAscension
-
-					if(src.OffAscension>src.Target.OffAscension)
-						Fuse.OffAscension=src.OffAscension
-					else
-						Fuse.OffAscension=src.Target.OffAscension
-
-					if(src.DefAscension>src.Target.DefAscension)
-						Fuse.DefAscension=src.DefAscension
-					else
-						Fuse.DefAscension=src.Target.DefAscension
-
-					if(src.RecovAscension>src.Target.RecovAscension)
-						Fuse.RecovAscension=src.RecovAscension
-					else
-						Fuse.RecovAscension=src.Target.RecovAscension
-
-					if(src.StrMod>src.Target.StrMod)
-						Fuse.StrMod=src.StrMod
-					else
-						Fuse.StrMod=src.Target.StrMod
-
-					if(src.EndMod>src.Target.EndMod)
-						Fuse.EndMod=src.EndMod
-					else
-						Fuse.EndMod=src.Target.EndMod
-
-					if(src.SpdMod>src.Target.SpdMod)
-						Fuse.SpdMod=src.SpdMod
-					else
-						Fuse.SpdMod=src.Target.SpdMod
-
-					if(src.ForMod>src.Target.ForMod)
-						Fuse.ForMod=src.ForMod
-					else
-						Fuse.ForMod=src.Target.ForMod
-
-					if(src.OffMod>src.Target.OffMod)
-						Fuse.OffMod=src.OffMod
-					else
-						Fuse.OffMod=src.Target.OffMod
-
-					if(src.DefMod>src.Target.DefMod)
-						Fuse.DefMod=src.DefMod
-					else
-						Fuse.DefMod=src.Target.DefMod
-
-					if(src.RecovMod>src.Target.RecovMod)
-						Fuse.RecovMod=src.RecovMod
-					else
-						Fuse.RecovMod=src.Target.RecovMod
-
-					if(src.AngerMax>src.Target.AngerMax)
-						Fuse.AngerMax=src.AngerMax
-					else
-						Fuse.AngerMax=src.Target.AngerMax
-
-					if(src.PureDamage>src.Target.PureDamage)
-						Fuse.PureDamage=src.PureDamage
-					else
-						Fuse.PureDamage=src.Target.PureDamage
-
-					if(src.PureReduction>src.Target.PureReduction)
-						Fuse.PureReduction=src.PureReduction
-					else
-						Fuse.PureReduction=src.Target.PureReduction
-
-					if(src.Judgment||src.Target.Judgment)
-						Fuse.Judgment=1
-
-					if(src.Adaptation||src.Target.Adaptation)
-						Fuse.Adaptation=1
-
-					if(src.Defiance||src.Target.Defiance)
-						Fuse.Defiance=1
-
-					if(src.Attunement=="Fire"&&!src.Target.Attunement)
-						Fuse.Attunement="Fire"
-					if(src.Target.Attunement=="Fire"&&!src.Attunement)
-						Fuse.Attunement="Fire"
-
-					if(src.Attunement=="Water"&&!src.Target.Attunement)
-						Fuse.Attunement="Water"
-					if(src.Target.Attunement=="Water"&&!src.Attunement)
-						Fuse.Attunement="Water"
-
-					if(src.Attunement=="Earth"&&!src.Target.Attunement)
-						Fuse.Attunement="Earth"
-					if(src.Target.Attunement=="Earth"&&!src.Attunement)
-						Fuse.Attunement="Earth"
-
-					if(src.Attunement=="Wind"&&!src.Target.Attunement)
-						Fuse.Attunement="Wind"
-					if(src.Target.Attunement=="Wind"&&!src.Attunement)
-						Fuse.Attunement="Wind"
-
-					if(src.Hustle||src.Target.Hustle)
-						Fuse.Hustle=1
-
-					if(src.Infusion||src.Target.Infusion)
-						Fuse.Infusion=1
-
-					if(src.Flicker)
-						Fuse.Flicker+=src.Flicker
-					if(src.Target.Flicker)
-						Fuse.Flicker+=src.Target.Flicker
-					Fuse.Flicker+=2
-
-					if(src.Adrenaline||src.Target.Adrenaline)
-						Fuse.Adrenaline=1
-
-					if(src.EnhancedHearing||src.Target.EnhancedHearing)
-						Fuse.EnhancedHearing=1
-					if(src.EnhancedSmell||src.Target.EnhancedSmell)
-						Fuse.EnhancedSmell=1
-					if(src.see_invisible>=71||src.Target.see_invisible>=71)
-						Fuse.see_invisible=71
-
-					if(src.Fishman||src.Target.Fishman)
-						Fuse.Fishman=1
-
-					if(src.VenomResistance)
-						Fuse.VenomResistance+=src.VenomResistance
-					if(src.Target.VenomResistance)
-						Fuse.VenomResistance+=src.Target.VenomResistance
-
-					if(src.VenomBlood||src.Target.VenomBlood)
-						Fuse.VenomBlood=1
-
-					if(src.VenomImmune||src.Target.VenomImmune)
-						Fuse.VenomImmune=1
-
-					if(src.Godspeed)
-						Fuse.Godspeed+=src.Godspeed
-					if(src.Target.Godspeed)
-						Fuse.Godspeed+=src.Target.Godspeed
-					Fuse.Godspeed+=2
-
-					if(src.HiddenAnger||src.Target.HiddenAnger)
-						Fuse.HiddenAnger=1
-
-					if(src.HasVoid()||src.Target.HasVoid())
-						Fuse.Void=1
-
-					if(src.StaticWalk||src.Target.StaticWalk)
-						Fuse.StaticWalk=1
-
-					if(src.SpaceWalk||src.Target.SpaceWalk)
-						Fuse.SpaceWalk=1
-
-					if(src.KiControlMastery)
-						Fuse.KiControlMastery+=src.KiControlMastery
-					if(src.Target.KiControlMastery)
-						Fuse.KiControlMastery+=src.Target.KiControlMastery
-					Fuse.KiControlMastery+=2
-
-					if(src.Restoration||src.Target.Restoration)
-						Fuse.Restoration=1
-
-					if(src.WalkThroughHell||src.Target.WalkThroughHell)
-						Fuse.WalkThroughHell=1
-
-					if(src.WaterWalk||src.Target.WaterWalk)
-						Fuse.WaterWalk=1
-
-					if(src.AbyssMod)
-						Fuse.AbyssMod+=src.AbyssMod
-					if(src.Target.AbyssMod)
-						Fuse.AbyssMod+=src.Target.AbyssMod
-
-					if(src.FluidForm)
-						Fuse.FluidForm+=src.FluidForm
-					if(src.Target.FluidForm)
-						Fuse.FluidForm+=src.Target.FluidForm
-
-					if(src.DebuffImmune>0||src.Target.DebuffImmune>0)
-						Fuse.DebuffImmune=1
-					if(src.DebuffImmune>=2||src.Target.DebuffImmune>=2)
-						Fuse.DebuffImmune=2
-
-					if(src.AngerPoint!=25||src.Target.AngerPoint!=25)
-						if(Fuse.Race!="Changeling")//if not changeling
-							if(src.AngerPoint>src.Target.AngerPoint)//Pick higher anger
-								Fuse.AngerPoint=src.AngerPoint
-							else
-								Fuse.AngerPoint=src.Target.AngerPoint
-						else//if they are changeling
-							if(src.AngerPoint<src.Target.AngerPoint)//pick the lower
-								Fuse.AngerPoint=src.AngerPoint
-							else
-								Fuse.AngerPoint=src.Target.AngerPoint
-
-					if(src.CalmAnger||src.Target.CalmAnger)
-						Fuse.CalmAnger=1
-
-					if(src.Hardening)
-						Fuse.Hardening+=src.Hardening
-					if(src.Target.Hardening)
-						Fuse.Hardening+=src.Target.Hardening
-
-					if(src.InjuryImmune||src.Target.InjuryImmune)
-						Fuse.InjuryImmune=1
-					if(src.FatigueImmune||src.Target.FatigueImmune)
-						Fuse.FatigueImmune=1
-
-					if(src.LegendaryPower||src.Target.LegendaryPower)
-						Fuse.LegendaryPower=1
-					if(src.SpiritPower||src.Target.SpiritPower)
-						Fuse.SpiritPower=1
-					if(src.HellPower||src.Target.HellPower)
-						Fuse.HellPower=1
-
-					if(src.BioArmorMax>0||src.Target.BioArmorMax>0)
-						if(src.BioArmorMax>src.Target.BioArmorMax)
-							Fuse.BioArmorMax=src.BioArmorMax
-						else
-							Fuse.BioArmorMax=src.Target.BioArmorMax
-
-					if(src.Intimidation>src.Target.Intimidation)
-						Fuse.Intimidation=src.Intimidation
-					else
-						Fuse.Intimidation=src.Target.Intimidation
-					Fuse.Intimidation*=2
-
-					if(src.Desperation>src.Target.Desperation)
-						Fuse.Desperation=src.Desperation
-					else
-						Fuse.Desperation=src.Target.Desperation
-
-					if(src.PowerBoost)
-						Fuse.PowerBoost=1+(src.PowerBoost-1)
-					if(src.Target.PowerBoost)
-						Fuse.PowerBoost+=(src.Target.PowerBoost-1)
-
-					if(src.AscensionsAcquired>src.Target.AscensionsAcquired)
-						Fuse.AscensionsAcquired=src.AscensionsAcquired
-					else
-						Fuse.AscensionsAcquired=src.Target.AscensionsAcquired
-
-					if(Fuse.Race!="Saiyan"&&Fuse.Race!="Half Saiyan")
-						Fuse.trans["unlocked"]=min(src.trans["unlocked"],src.Target.trans["unlocked"])
-					else
-						Fuse.ssj["unlocked"]=min(src.ssj["unlocked"],src.Target.ssj["unlocked"])
-						if(src.ssj["unlocked"]==4&&src.Target.ssj["unlocked"]==4)
-							Fuse.SSJ4Unlocked=1
-							Fuse.ssj["unlocked"]=4
-					Fuse.masteries["1mastery"]=100
-					Fuse.masteries["2mastery"]=100
-					Fuse.masteries["3mastery"]=100
-					Fuse.masteries["4mastery"]=100
-
-					Fuse.SetVars()
-
-					if(src.Tail||src.Target.Tail)
-						Fuse.Tail=1
-
-					if(!locate(/obj/Communication,Fuse.contents))
-						Fuse.contents+=new/obj/Communication
-					if(!locate(/obj/Skills/Meditate,Fuse.contents))
-						Fuse.AddSkill(new/obj/Skills/Meditate)
-					if(!locate(/obj/Skills/Queue/Heavy_Strike,Fuse.contents))
-						Fuse.AddSkill(new/obj/Skills/Queue/Heavy_Strike)
-						Fuse.AddSkill(new/obj/Skills/Reverse_Dash)
-					if(!locate(/obj/Skills/Grapple/Toss,Fuse.contents))
-						Fuse.AddSkill(new/obj/Skills/Aerial_Recovery)
-						Fuse.AddSkill(new/obj/Skills/Grapple/Toss)
-					if(!locate(/obj/Skills/Dragon_Dash,Fuse.contents))
-						Fuse.AddSkill(new/obj/Skills/Dragon_Dash)
-						Fuse.AddSkill(new/obj/Skills/Aerial_Payback)
-						Fuse.AddSkill(new/obj/Skills/Target_Switch)
-						Fuse.AddSkill(new/obj/Skills/Target_Clear)
-					if(!locate(/obj/Skills/Buffs/Styles/Style_Selector, Fuse))
-						Fuse.AddSkill(new/obj/Skills/Buffs/Styles/Style_Selector)
-					var/list/DenyVars=list("client", "key", "loc", "x", "y", "z", "type", "locs", "parent_type", "verbs", "vars", "contents", "Transform", "appearance")
-					for(var/obj/Skills/s in src)
-						if(s.AssociatedGear)
-							continue
-						if(s.AssociatedLegend)
-							continue
-						if(!locate(s, Fuse))
-							var/obj/Skills/NewS=new s.type
-							for(var/x in s.vars)
-								if(x in DenyVars)
-									continue
-								NewS.vars[x]=s.vars[x]
-							Fuse.AddSkill(NewS)
-					for(var/obj/Skills/s in src.Target)
-						if(s.AssociatedGear)
-							continue
-						if(s.AssociatedLegend)
-							continue
-						if(!locate(s, Fuse))
-							var/obj/Skills/NewS=new s.type
-							for(var/x in s.vars)
-								if(x in DenyVars)
-									continue
-								NewS.vars[x]=s.vars[x]
-							Fuse.AddSkill(NewS)
-
-					//fusion special skills
-
-					//Final Kamehameha
-					if(locate(/obj/Skills/Projectile/Beams/Big/Super_Kamehameha, Fuse)&&locate(/obj/Skills/Projectile/Beams/Big/Final_Flash, Fuse))
-						Fuse << "You unlock the fusion of Kamehameha and Final Flash: Final Kamehameha!!"
-						Fuse.AddSkill(new/obj/Skills/Projectile/Beams/Big/Final_Kamehameha)
-
-					src.Savable=0//Remember the last location
-					src.Target.Savable=0//But not the fusion void.
-
-					Fuse.loc=locate((src.x-((src.x-src.Target.x)/2)),(src.y-((src.y-src.Target.y)/2)), src.z)
-					src.client.eye=Fuse
-					src.client.perspective=EYE_PERSPECTIVE
-					src.Target.client.eye=Fuse
-					src.Target.client.perspective=EYE_PERSPECTIVE
-					src.Target.Observing=2
-					Fuse.BeingObserved.Add(src.Target)
-					src.loc=locate(1,1,1)
-					src.Stasis=RawMinutes(61)
-					src.Target.loc=locate(1,1,1)
-					src.Target.Stasis=RawMinutes(61)
-
-					if(src.Icon_FusionClothes&&(src.Icon_FusionClothes==src.Target.Icon_FusionClothes))
-						Fuse.overlays+=image(src.Icon_FusionClothes, pixel_x=src.Icon_FusionClothesX, pixel_y=src.Icon_FusionClothesY, layer=FLOAT_LAYER-B.IconLayer)
-					else if(B.IconLock)
-						Fuse.overlays+=image(B.IconLock, pixel_x=B.LockX, pixel_y=B.LockY, layer=FLOAT_LAYER-B.IconLayer)
-					else
-						for(var/obj/Items/Wearables/w in src)
-							if(w.SpecialClothing)
-								w.AlignEquip(Fuse)
-						for(var/obj/Items/Wearables/w in src.Target)
-							if(w.SpecialClothing)
-								w.AlignEquip(Fuse)
-					if(Fuse.Tail)
-						Fuse.contents+=new/obj/Oozaru
-						Fuse.Tail(1)
-					Fuse.Hairz("Add")
-					Fuse.overlays+=image(B.TopOverlayLock, pixel_x=B.TopOverlayX, pixel_y=B.TopOverlayY, layer=FLOAT_LAYER-1)
-					animate(Fuse, color = null, time=10)
-
-					for(var/mob/Players/T in oview(31, Fuse))
-						animate(T.client, color=list(1,0,0, 0,1,0, 0,0,1, 0.4,0.4,0.4), time = 5)
-						spawn(5)
-							animate(T.client, color=null, time = 5)
-					var/ShockSize=5
-					for(var/wav=5, wav>0, wav--)
-						KenShockwave(Fuse, icon='KenShockwaveDivine.dmi', Size=ShockSize, Blend=2, Time=24)
-						ShockSize/=2
-					sleep(5)
-
-					Fuse.FusionTimer=RawMinutes(60)
-					src.client.mob=Fuse
 
 			if(B.DropOverlays)
 				src.AppearanceOff()
@@ -14443,6 +13599,10 @@ mob
 					src.LoseMana(B.ManaCost)
 				else
 					src.LoseMana(B.ManaCost*(1-(0.45*src.TomeSpell(B))))
+				if(B.CorruptionGain)
+					gainCorruption(B.ManaCost / 3)
+			if(B.CorruptionCost)
+				gainCorruption(-B.CorruptionCost)
 			if(B.CapacityCost)
 				src.LoseCapacity(B.CapacityCost)
 			if(B.WoundCost)
@@ -14497,7 +13657,7 @@ mob
 
 			src.BuffingUp=0
 
-		AllSkillsRemove(var/obj/Skills/Buffs/B)
+		AllSkillsRemove(obj/Skills/Buffs/B)
 
 			if(B.ClientTint)
 				if(src.SenseRobbed>=5)
@@ -14782,7 +13942,8 @@ mob
 			if(B.SoulFire)
 				src.SoulFire-=B.SoulFire
 			if(B.NoWhiff)
-				src.NoWhiff-=1
+				src.NoWhiff = 0
+				//world.log<<"what the hell is going on here [src] [B]"
 
 			if(B.ManaGlow)
 				filters -= GlowFilter
@@ -14982,8 +14143,8 @@ mob
 				B.WarpTarget=0
 			if(B.EnergyExpenditure)
 				src.EnergyExpenditure-=B.EnergyExpenditure
-			if(B.Desperation)
-				src.Desperation-=B.Desperation
+			/*if(B.Desperation)
+				world.log<<"What called? [src] [B]"*/
 			if(B.Warping)
 				src.Warping=0
 			if(B.Juggernaut)
@@ -15107,7 +14268,7 @@ mob
 				debuffs.Add(B.DebuffCrash)
 				for(var/d in debuffs)
 					if(d=="Poison")
-						src.LoseHealth(src.Poison/20)//5% at 100% poison
+						src.LoseHealth(src.Poison * 0.05)//5% at 100% poison
 						src.WoundSelf(src.Poison/20)
 						src.Poison=0
 					if(d=="Fire")
@@ -15153,14 +14314,14 @@ mob
 				else if(B.Transform=="Weak")
 					src.PowerBoost/=0.25
 				else if(B.Transform=="Force")
-					src.trans["unlocked"]=max(src.trans["unlocked"]-1,0)
+					transUnlocked=max(transUnlocked-1,0)
 					src.Revert()
 				else
 					src.Revert(B.Transform)
 
 			if(B.AllOutPU)
 				if(src.CheckActive("Ki Control"))
-					for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in src)
+					for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in Buffs)
 						src.UseBuff(KC, Override=1)
 
 			if(B.type==/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/What_Must_Be_Done)
@@ -15189,7 +14350,9 @@ mob
 
 			src.BuffingUp=0
 			if(B.DeleteOnRemove) // DELETE ON REMOVE
-				DeleteSkill(B)
+				if(B in src.SlotlessBuffs)
+					src.SlotlessBuffs.Remove(B) // diouble time ?
+				DeleteSkill(B, TRUE)
 				return
 			if(B.AlwaysOn)
 				if(B.NeedsPassword)
@@ -15215,6 +14378,9 @@ mob
 				if(src.SpecialBuff.type==B.type)
 					return 1
 			if(src.SlotlessBuffs.len>0)
+				if(istext(B))
+					if(SlotlessBuffs[B])
+						return 1
 				if(SlotlessBuffs["[B.BuffName]"])
 					return 1
 			return 0
