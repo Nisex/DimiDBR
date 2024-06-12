@@ -13,7 +13,7 @@ proc/Reports(type)
 			E["reports"] << reports
 			E["number"] << number
 
-
+/*
 mob/Players
 	verb
 		Submit_Report()
@@ -124,7 +124,7 @@ mob/Players
 						var/Reports/M = reports[X]
 						if(M.Name == winget(src,"report.name","text"))return FALSE
 						if(M.Description == winget(src,"report.desc","text"))return FALSE
-
+*/
 Reports
 	var
 		Key
