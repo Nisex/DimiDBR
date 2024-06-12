@@ -4698,15 +4698,19 @@ NEW VARIABLES
 				var/raceDivisor = 30
 
 				if(!altered)
-					var/raceModifier = getRaceModifier(p)
-					var/asc = p.AscensionsAcquired
-					var/amt = (baseHeal + raceModifier) + ( ((perMissing + (missingPerAsc * asc)) + (raceModifier/raceDivisor)) * (100 - p.Health))
-					var/divider = asc * raceModifier > 0 ? asc * raceModifier : 1
-					var/time = 25 / divider
-					HealthHeal = (amt / time) * world.tick_lag // health per tick(?)
-					TimerLimit = time             // ticks per regen
-					EnergyCost = amt / 4
-					FatigueCost = amt / 4
+					if(p.Potential <= ASCENSION_ONE_POTENTIAL)
+						var/raceModifier = getRaceModifier(p)
+						HealthHeal = ((glob.REGEN_ASC_ONE_HEAL * raceModifier)/TimerLimit) * world.tick_lag
+					else
+						var/raceModifier = getRaceModifier(p)
+						var/asc = p.AscensionsAcquired
+						var/amt = (baseHeal + raceModifier) + ( ((perMissing + (missingPerAsc * asc)) + (raceModifier/raceDivisor)) * (100 - p.Health))
+						var/divider = asc * raceModifier > 0 ? asc * raceModifier : 1
+						var/time = 25 / divider
+						HealthHeal = (amt / time) * world.tick_lag // health per tick(?)
+						TimerLimit = time             // ticks per regen
+						EnergyCost = amt / 4
+						FatigueCost = amt / 4
 			verb/Regenerate()
 				set category="Skills"
 				if(!usr.BuffOn(src))
@@ -9593,7 +9597,7 @@ NEW VARIABLES
 					if(!User.BuffOn(src))
 						adjust(User)
 					if(User.Secret == "Eldritch")
-						if(!User.BuffOn(src)))
+						if(!User.BuffOn(src))
 							var/SecretInfomation/Eldritch/s = User.secretDatum
 							s.secretVariable["Madness Active"] = TRUE
 						else

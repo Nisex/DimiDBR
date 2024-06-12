@@ -653,7 +653,7 @@ obj
 						SignatureTechnique=1
 						Copyable=0
 						NeedsSword=0
-						passives = list("SwordPunching" = 1, "NeedsSword" = 0)
+						passives = list("SwordPunching" = 1, "NeedsSword" = 0, "Shearing" = 1.5)
 						SwordPunching=1
 						StyleStr=1.5
 						StyleEnd=1.25
