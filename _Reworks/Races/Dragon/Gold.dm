@@ -6,7 +6,8 @@ obj/gold
 	var/tmp/mob/originalOwner
 	var/tmp/mob/sourceOfDropping
 	var/amount = 0
-	New(mob/owner, mob/causer, _x,_y,_z)
+
+	proc/createPile(mob/owner, mob/causer, _x,_y,_z)
 		loc = locate(owner.x, owner.y, owner.z)
 		alpha = 0
 		originalOwner = owner
@@ -20,7 +21,6 @@ obj/gold
 		pixel_x = 0
 		pixel_y = 0
 		pixel_z = 0
-
 	Cross(atom/obstacle)
 		..()
 		if(istype(obstacle, /mob/Players))

@@ -5920,7 +5920,8 @@ obj
 									continue
 								else
 									break
-							new/obj/gold(m, src.Owner, newX, newY, m.z)
+							var/obj/gold/gold = new()
+							gold.createPile(m, src.Owner, newX, newY, m.z)
 					m << "You feel a need to go collect your coins before they're stolen!"
 
 				if(src.SpeedStrike>0)

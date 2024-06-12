@@ -353,7 +353,6 @@ obj
 				ZoneAttackY=5
 				FireFromEnemy=0
 				FireFromSelf=1
-				Shearing = 4
 				Hover=8
 				IconLock='CheckmateKnives.dmi'
 				Variation=8
@@ -368,7 +367,7 @@ obj
 						DamageMult = rand(0.1 + (p.SagaLevel * 0.05), 0.15 + (p.SagaLevel * 0.05))
 						Cooldown = rand(7,12) - p.SagaLevel
 
-				
+
 			Murder_Music
 				AttackReplace=1
 				ZoneAttack=1
@@ -5437,7 +5436,8 @@ obj
 											continue
 										else
 											break
-									new/obj/gold(a, src.Owner, newX, newY, a.z)
+									var/obj/gold/gold = new()
+									gold.createPile(m, src.Owner, newX, newY, m.z)
 									a << "You feel a need to go collect your coins before they're stolen!"
 
 						if(Crippling)

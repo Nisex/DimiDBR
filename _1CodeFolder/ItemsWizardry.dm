@@ -551,7 +551,7 @@ obj/Items/Enchantment
 					CD+=(src.Hallucinogen*STRONG_EFFECT_CD)
 				if(src.Flowy)
 					FoundFlowy=1
-					PP.passives["Flow"] = src.Flowy)
+					PP.passives["Flow"] = src.Flowy
 					CD+=(src.Flowy*MEDIUM_EFFECT_CD)
 
 				if(src.Sexy)
