@@ -12796,7 +12796,7 @@ mob
 					B.icon=src.icon
 					B.pixel_x=src.pixel_x
 					B.pixel_y=src.pixel_y
-				//	src.Transformed=1
+					src.Transformed=1
 					src.AppearanceOff()
 					src.icon=B.IconTransform
 					src.pixel_x=B.TransformX
@@ -13680,7 +13680,7 @@ mob
 					src.icon=B.icon
 					src.pixel_x=B.pixel_x
 					src.pixel_y=B.pixel_y
-				//	src.Transformed=0
+					src.Transformed=0
 					src.AppearanceOn()
 					B.icon=null
 					B.pixel_x=null
