@@ -361,7 +361,7 @@ mob/proc/Hairz(var/Z)
 				FTail=Tengu_Wings
 			if(src.Bull)
 				FTail=Bull_Horns
-			if(FTail&&FTailU&&Hair_Color)
+			if(FTail&&FTailU&&Trait_Color)
 				FTail+=Trait_Color
 				FTailU+=Trait_Color
 			src.overlays+=FTail
