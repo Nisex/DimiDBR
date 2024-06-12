@@ -89,7 +89,7 @@
         ManaHeal = (ManaHeal / TimerLimit) * world.tick_lag
         HealthHeal = (HealthHeal / TimerLimit) * world.tick_lag
         EnergyHeal = (EnergyHeal / TimerLimit) * world.tick_lag
-    
+
     verb/Soul_Leech()
         set category = "Skills"
         if(!altered)
@@ -99,6 +99,7 @@
     scalingValues = list("TimerLimit" = list(12,10,8,5,5), "ManaHeal" = list(-5,-10,-15,-20,-25), "HealthHeal" = list(-1,-1,-2,-2,-3), "EnergyHeal" = list(-2,-4,-8,-10,-10))
     StableHeal = 1
     DeleteOnRemove = 1
+    MagicNeeded = 0
     Cooldown = 0
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
@@ -112,4 +113,3 @@
         if(aa)
             User.SlotlessBuffs.Add(src)
         . = 1
-        
