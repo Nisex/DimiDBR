@@ -4295,6 +4295,14 @@ mob
 			. = TRUE
 			if(src.Stasis)
 				return
+			if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Projectiles"))
+				return
+			if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("All Skills"))
+				return
+			if(Z.NeedsSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armed Skills"))
+				return
+			if(Z.UnarmedOnly && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Unarmed Skills"))
+				return
 			if(Z.Sealed)
 				src << "You can't use [Z] it is sealed!"
 				return

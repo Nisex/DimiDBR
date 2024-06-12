@@ -92,6 +92,8 @@ Tomes:
         if(usr.icon_state != "Meditate")
             usr << "You can't use this unless you are meditating."
             return
+        if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+            return
         if(src.Using)
             return
         src.Using=1

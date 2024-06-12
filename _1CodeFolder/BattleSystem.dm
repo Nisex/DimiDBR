@@ -2281,6 +2281,8 @@ mob/proc/Grab()
 		if(lastZanzoUsage+3 > world.time)
 			return
 		if(src.Target&&src.Target!=src&&ismob(src.Target))
+			if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Grab"))
+				return
 			src.DashTo(src.Target, 2)
 			if(src.Target in oview(1, src))
 				src.Grab_Mob(src.Target)

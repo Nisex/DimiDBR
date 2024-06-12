@@ -372,6 +372,14 @@ obj/Skills/Grapple
 			src.ThrowDir=User.dir
 			if(src.Using)
 				return
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Grapples"))
+				return
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("All Skills"))
+				return
+			if(NeedsSword && User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Armed Skills"))
+				return
+			if(UnarmedOnly && User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Unarmed Skills"))
+				return
 			if(User.GrabMove)
 				return//do not allow for grab moves to be mashed
 			if(!User.Grab)

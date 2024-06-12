@@ -906,6 +906,8 @@ obj
 				Cooldown=15
 				verb/Heavy_Strike()
 					set category="Skills"
+					if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Heavy Strike"))
+						return
 					if(usr.Tension>=100)
 						if(usr.HasTensionLock())
 							return
@@ -3738,7 +3740,15 @@ mob
 	proc
 		SetQueue(var/obj/Skills/Queue/Q)
 			if(Q.Using)
-				return//Can't use if on cooldown.
+				return//Can't use if on cooldown
+			if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Queues"))
+				return
+			if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("All Skills"))
+				return
+			if(Q.NeedsSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armed Skills"))
+				return
+			if(Q.UnarmedOnly && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Unarmed Skills"))
+				return
 			if(Q.StanceNeeded)
 				if(src.StanceActive!=Q.StanceNeeded)
 					src << "You have to be in [Q.StanceNeeded] stance to use this!"

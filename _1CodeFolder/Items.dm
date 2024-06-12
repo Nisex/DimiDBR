@@ -1642,6 +1642,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 					s.Trigger(User,1)
 					del s
 		if(istype(src,/obj/Items/Enchantment/Staff))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Staff"))
+				return
 			var/obj/Items/Enchantment/Staff/staf=User.EquippedStaff()
 			var/obj/Items/Sword/sord=User.EquippedSword()
 			if(staf)
@@ -1717,6 +1719,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 			W.AlignEquip(User)
 
 		if(istype(src,/obj/Items/Sword))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Sword"))
+				return
 			var/obj/Items/Enchantment/Staff/staf=User.EquippedStaff()
 			var/obj/Items/Sword/sord=User.EquippedSword()
 			if(src.Broken)
@@ -1785,6 +1789,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 			W.AlignEquip(User)
 
 		if(istype(src,/obj/Items/Armor))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Armor"))
+				return
 			var/obj/Items/Armor/A=User.EquippedArmor()
 			if(src:Broken)
 				User << "[src] is broken; it can't be worn right now."
@@ -1946,6 +1952,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 					User.WeightRestricted=1
 
 		if(istype(src, /obj/Items/Plating))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			var/obj/Items/Plating/P=User.EquippedPlating()
 			var/obj/Items/WeightedClothing/W=User.EquippedWeights()
 			if(W)
@@ -1961,6 +1969,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 
 
 		if(istype(src,/obj/Items/BlastShielding))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			var/obj/Items/BlastShielding/B=User.EquippedShielding()
 			if(B)
 				if(B!=src)
@@ -1971,6 +1981,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 
 
 		if(istype(src,/obj/Items/Tech/Scouter))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			for(var/obj/Items/Tech/Scouter/S in User) if(S.suffix&&S!=src)
 				User<<"You already have a Scouter equipped"
 				return
@@ -1978,6 +1990,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 
 
 		if(istype(src,/obj/Items/Tech/SpaceMask))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			for(var/obj/Items/Tech/SpaceMask/S in User)
 				if(S.suffix&&S!=src)
 					User<<"You already have a Space Mask equipped"
@@ -1989,6 +2003,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 
 
 		if(istype(src,/obj/Items/Gear/Mobile_Suit))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			if(!src.suffix)
 				var/GearCount=0
 				if(get_dist(User, src) > 1)
@@ -2066,6 +2082,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 				W.loc=User.loc
 
 		if(istype(src,/obj/Items/Gear)&&!istype(src,/obj/Items/Gear/Prosthetic_Limb)&&!istype(src,/obj/Items/Gear/Mobile_Suit))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			if(User.is_arcane_beast)
 				User << "A magical force surrounding your body repels the gear."
 				return
@@ -2129,6 +2147,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 								del o
 
 		if(istype(src,/obj/Items/Gear/Prosthetic_Limb))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			if(User.is_arcane_beast)
 				User << "A magical force surrounding your body repels the prosthetic."
 				return
