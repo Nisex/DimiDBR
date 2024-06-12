@@ -1,5 +1,5 @@
 proc
-	ElementalCheck(var/mob/Attacker, var/mob/Defender, var/ForcedDebuff=0, var/DebuffIntensity=glob.DEBUFF_INTENSITY, list/bonusElements,damageOnly = FALSE)
+	ElementalCheck(var/mob/Attacker, var/mob/Defender, var/ForcedDebuff=0, var/DebuffIntensity=glob.DEBUFF_INTENSITY, list/bonusElements,damageOnly = FALSE, list/onlyTheseElements)
 		var/list/messages = list("Fire"= "<font color='[rgb(204, 153, 51)]'>[Defender] erupts in flames!!</font color>", \
 	"Water" = "<font color='[rgb(51, 153, 204)]'>[Defender] freezes to the bone!!</font color>", \
 	"Earth" = "<font color='[rgb(51, 204 , 153)]'>[Defender] falters; their guard is crushed!!</font color>", \
@@ -26,6 +26,8 @@ proc
 		if(sord && sord.Element)
 			attackElements |= sord.Element
 
+		if(onlyTheseElements)
+			attackElements = onlyTheseElements
 		if(Defender.ElementalDefense)
 			defenseElements |= Defender.ElementalDefense
 

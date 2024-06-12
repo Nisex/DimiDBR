@@ -5470,6 +5470,20 @@ obj
 						if(src.Toxic&&!src.Owner.HasToxic())
 							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Poison"), damageOnly = 1))/10)//Forces debuff
 
+						var/bonusElement = list()
+						if(Burning||Scorching)
+							bonusElement |= "Fire"
+						if(Chilling||Freezing)
+							bonusElement |= "Water"
+						if(Crushing||Shattering)
+							bonusElement |= "Earth"
+						if(Paralyzing||Shocking)
+							bonusElement |= "Wind"
+						if(Toxic||Poisoning)
+							bonusElement |= "Poison"
+
+						ElementalCheck(src.Owner, a, onlyTheseElements=bonusElement)
+
 						if(a in src.Owner.party)
 							EffectiveDamage *= PARTY_DAMAGE_NERF
 
