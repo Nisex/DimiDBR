@@ -9593,7 +9593,7 @@ NEW VARIABLES
 					if(!User.BuffOn(src))
 						adjust(User)
 					if(User.Secret == "Eldritch")
-						if(!User.BuffOn(src)))
+						if(!User.BuffOn(src))
 							var/SecretInfomation/Eldritch/s = User.secretDatum
 							s.secretVariable["Madness Active"] = TRUE
 						else
