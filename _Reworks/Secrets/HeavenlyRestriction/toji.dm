@@ -1,13 +1,3 @@
-/obj/Skills/Buffs/SlotlessBuffs/HeavenlyRestriction/HeavenlyRestriction
-	AlwaysOn = 1
-	ActiveMessage = ""
-	OffMessage = ""
-
-
-
-/mob/verb/Toggle_Ping_Sound()
-	PingSound = !PingSound
-	src << "You have turned ping sound [PingSound ? "On" : "Off"]."
 
 /*
 /datum/SecretInfomation
@@ -15,7 +5,7 @@
 		name = "Heavenly Restriction"
 		givenSkills = list("/obj/Skills/Buffs/SlotlessBuffs/HeavenlyRestriction/HeavenlyRestriction")
 		secretVariable = list("Restrictions" = list(), "Improvements" = list())
-		
+
 /mob/var/datum/SecretInfomation/secretDatum = new()
 
 pick something to restrict
@@ -34,71 +24,91 @@ throw in stat mults at 2,4,5, depending on the path of restricting
 
 */
 /obj/Skills/Buffs/SlotlessBuffs/HeavenlyRestriction/HeavenlyRestriction
-    AlwaysOn = 1
-    ActiveMessage = ""
-    OffMessage = ""
+	AlwaysOn = 1
+	ActiveMessage = ""
+	OffMessage = ""
 
-#define NARROW_RESTRICTS list("Staff", "Armor", "Sword", "Guns", "Modules", "Heavy Strike", )
-#define WIDE_RESTRICTS list("Armed Skills", "Unarmed Skills", "Universal Skills", "Magic", \
-"Science", "Queues", "Autohits", "All Skills", "Force", "Defense", "Endurance", "Melee Damage", "Ki Damage",\
-"Cybernetics", "Strength", "Speed", "Offense", "Queues", "Autohits")
-#define NARROW_IMPROVES list("Normal Attack", "Guns", "Modules", "Sword", "Staff", \
-"Ki Attack", "Defense", "Strength", "Force", "Endurance", "Speed", "Offense")
-#define WIDE_IMPROVES list("Cybernetics", "Melee Damage", "Ki Damage", "Queues", "Autohits", "Magic", \
-"All Skills", "Weapons", )
+var/list/heavenly_restrictions = list("Staff" = 10, "Armor" = 20, "Sword" = 10, "Guns" = 10, "Modules" = 5, "Heavy Strike" = 10, "Armed Skills" = 15, "Unarmed Skills" = 15, "Universal Skills" = 15, "Magic" = 30, \
+"Science" = 30, "Queues" = 20, "Autohits" = 20, "All Skills" = 50, "Force" = 20, "Defense" = 20, "Endurance" = 20, "Melee Damage" = 30, "Ki Damage" = 30, \
+"Cybernetics" = 10, "Strength" = 20, "Speed" = 20, "Offense" = 20)
 
-#define IMPROVE_BOON_NUM list("NARROW" = 1.6, "WIDE" = 1.3) // given this is the result of below
-#define RESTRICT_BOON_NUM list("NARROW" = 0.25, "WIDE" = 0.33) // given this is the restriction tier * number
+var/list/heavenly_improvements = list("Normal Attack", "Guns", "Modules", "Sword", "Staff", \
+"Ki Attack", "Defense", "Strength", "Force", "Endurance", "Speed", "Offense", "Cybernetics", "Melee Damage", "Ki Damage", "Queues", "Autohits", "Magic", \
+"All Skills", "Weapons")
 
+/SecretInfomation/HeavenlyRestriction/proc/modifyRestrictionValues(mob/p, restriction)
+	switch(restriction)
+	    //these should probably just get the base stat instead.
+		if("Force")
+			if(p.BaseFor()>p.BaseStr())
+				return 1.5
+		if("Defense")
+			if(p.BaseDef()>p.BaseOff())
+				return 1.5
+		if("Offense")
+			if(p.BaseOff()>p.BaseDef())
+				return 1.5
+		if("Endurance")
+			var/boon = 1
+			if(p.BaseEnd() > p.BaseStr())
+				boon += 0.25
+			if(p.BaseEnd() > p.BaseFor())
+				boon += 0.25
+			return boon
+		if("Strength")
+			if(p.BaseStr() > p.BaseFor())
+				return 1.5
+		if("Cybernetics")
+			if(p.isRace(ELDRITCH))
+				return 2
+			if(p.isRace(HUMAN) && p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/human/technology)
+				return 2
+		if("Modules")
+			if(p.isRace(ELDRITCH))
+				return 2
+			if(p.isRace(HUMAN) && p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/human/technology)
+				return 2
+    return 1
 
 /SecretInfomation/HeavenlyRestriction/proc/pickRestriction(mob/p)
-    var/restrict_type = input(p, "Narrow or Wide?") in list("Narrow", "Wide")
-    var/selection
-    var/list/restrictions = getRestrictions()
-    switch(restrict_type)
-        if("Narrow")
-            selection = input(p, "Pick a restriction") in NARROW_RESTRICTS - restrictions
-        if("Wide")
-            selection = input(p, "Pick a restriction") in WIDE_RESTRICTS - restrictions
-    return selection
+	var/list/modifiedRestrictions = heavenly_restrictions - getRestrictions()
+	var/list/shownRestrictions = list()
+	var/ticker = 1
+	for(var/i in modifiedRestrictions)
+		modifiedRestrictions[i] = modifiedRestrictions[i]*modifyRestrictionValues(p, i)
+		shownRestrictions[ticker] = "[i] ([modifiedRestrictions[i]])"
+		ticker ++
+	var/selection = input(p, "Pick a restriction. They are shown as what they'll restrict and the value in parathenses.") in shownRestrictions
+	var/list/splitter = splittext(selection, " (")
+	var/list/restrictionValue = list(splitter[1], modifiedRestrictions[splitter[1]])
+	return restrictionValue
 
 /SecretInfomation/HeavenlyRestriction/proc/pickImprove(mob/p, currentRestricitonChoice)
-    var/improve_type = input(p, "Narrow or Wide?") in list("Narrow", "Wide")
-    var/atLimit = 1
-    var/selection
-    var/list/restrictions = getRestrictions() + currentRestricitonChoice
-    while(atLimit)
-        switch(improve_type)
-            if("Narrow")
-                selection = input(p, "Pick an improvement") in NARROW_IMPROVES - restrictions
-            if("Wide")
-                selection = input(p, "Pick an improvement") in WIDE_IMPROVES - restrictions
-        if(!(countImprovements(p, selection) >= 3))
-            atLimit = 0
-        else
-            p << "You are at the limit for that improvement."
-            selection = null
-            atLimit = 1
-    return selection
+	var/atLimit = 1
+	var/selection
+	var/list/restrictions = getRestrictions() + currentRestricitonChoice
+	while(atLimit)
+		selection = input(p, "Pick an improvement") in heavenly_improvements - restrictions
+		if(!(countImprovements(p, selection) >= 3))
+			atLimit = 0
+		else
+			p << "You are at the limit for that improvement."
+			selection = null
+			atLimit = 1
+	return selection
 
 /SecretInfomation/HeavenlyRestriction/proc/applySecretVariable(mob/p, restr, improv)
-    secretVariable["Restrictions"]["[currentTier]"] = list(restr, improv)
-    updateImprove(improv)
-    // secretVariable = list("Resitrictions" = list(1 = list(restr, improv), )
-    
+	secretVariable["Restrictions"]["[currentTier]"] = list(restr, improv)
+	updateImprove(improv)
+	// secretVariable = list("Resitrictions" = list(1 = list(restr, improv), )
 
-/SecretInfomation/HeavenlyRestriction/proc/updateImprove(improv)
-    if(secretVariable["Improvements"][improv])
-        if(improv in NARROW_IMPROVES)
-            secretVariable["Improvements"][improv]["narrow"] += 1
-        else if(improv in WIDE_IMPROVES)
-            secretVariable["Improvements"][improv]["wide"] += 1
-    else
-        if(improv in NARROW_IMPROVES)
-            secretVariable["Improvements"][improv] = list("narrow" = 1, "wide" = 0)
-        else if(improv in WIDE_IMPROVES)
-            secretVariable["Improvements"][improv] = list("narrow" = 0, "wide" = 1)
+/SecretInfomation/HeavenlyRestriction/proc/updateImprove(improv, value)
+	if(secretVariable["Improvements"][improv])
+		secretVariable["Improvements"][improv] += value
+	else
+		secretVariable["Improvements"][improv] = value
 
+/*
 /SecretInfomation/HeavenlyRestriction/proc/resetImproves(mob/p)
     for(var/r in secretVariable["Restrictions"])
         r = secretVariable["Restrictions"][r]
@@ -112,66 +122,54 @@ throw in stat mults at 2,4,5, depending on the path of restricting
             if(r[1] in NARROW_RESTRICTS)
                 secretVariable["Improvements"][r[2]] = list("narrow" = 1, "wide" = 0)
             else if(r[1] in WIDE_RESTRICTS)
-                secretVariable["Improvements"][r[2]] = list("narrow" = 0, "wide" = 1)
+                secretVariable["Improvements"][r[2]] = list("narrow" = 0, "wide" = 1)*/
 
 
 /SecretInfomation/HeavenlyRestriction/proc/getBoon(mob/p, improvement)
-    if(!(improvement in secretVariable["Improvements"]))
-        return 0
-    var/aB = 0 // additive boon
-    var/mB = 1 // multiplicative boon
-    var/improv = secretVariable["Improvements"][improvement]
-    var/occurences = 0
-    for(var/index in secretVariable["Restrictions"])
-        if(secretVariable["Restrictions"][index][2] == improvement)
-            occurences += 1
-            if(secretVariable["Restrictions"][index][1] in NARROW_RESTRICTS)
-                aB += RESTRICT_BOON_NUM["NARROW"]
-            else if(secretVariable["Restrictions"][index][1] in WIDE_RESTRICTS)
-                aB += RESTRICT_BOON_NUM["WIDE"]
+	if(!(improvement in secretVariable["Improvements"]))
+		return 0
+	var/totalBoon = 0
+	for(var/index in secretVariable["Improvements"])
+		if(index == improvement)
+			totalBoon += secretVariable["Improvements"][index]
 
-    for(var/i = 1 to occurences)
-        if(improvement in NARROW_IMPROVES)
-            mB *= IMPROVE_BOON_NUM["NARROW"]
-        else if(improvement in WIDE_IMPROVES)
-            mB *= IMPROVE_BOON_NUM["WIDE"]
-    world<<"[currentTier] * [aB] * [mB] = [(currentTier * aB) * mB]"
-    return (currentTier * aB) * mB
+	world<<"[currentTier * totalBoon]"
+	return currentTier * totalBoon
 
 
 /SecretInfomation/HeavenlyRestriction/proc/countImprovements(mob/p, improv)
-    var/total = 0
-    for(var/index in secretVariable["Restrictions"])
-        if(secretVariable["Restrictions"][index][2] == improv)
-            total += 1
-    return total
+	var/total = 0
+	for(var/index in secretVariable["Restrictions"])
+		if(index == improv)
+			total += 1
+	return total
 
 /SecretInfomation/HeavenlyRestriction/proc/getRestrictions()
-    . = list()
-    for(var/index in secretVariable["Restrictions"])
-        . += secretVariable["Restrictions"]["[index]"][1]
+	. = list()
+	for(var/index in secretVariable["Restrictions"])
+		. += index
 
 /SecretInfomation/HeavenlyRestriction/proc/hasImprovement(improvement)
-    if(secretVariable["Improvements"][improvement])
-        return secretVariable["Improvements"][improvement]
-    return FALSE
+	if(secretVariable["Improvements"][improvement])
+		return secretVariable["Improvements"][improvement]
+	return FALSE
 
 /SecretInfomation/HeavenlyRestriction/proc/hasRestriction(restriction)
-    var/list/restricts = getRestrictions()
-    for(var/x in restricts)
-        if(restriction == x)
-            return TRUE
-    return FALSE
+	var/list/restricts = getRestrictions()
+	for(var/x in restricts)
+		if(restriction == x)
+			return TRUE
+	return FALSE
 
 
 
 /mob/verb/testRestriction()
-    secretDatum = new/SecretInfomation/HeavenlyRestriction()
-    while(secretDatum.currentTier < 6)
-        var/restriction = secretDatum?:pickRestriction(src)
-        secretDatum?:applySecretVariable(src, restriction, secretDatum?:pickImprove(src, restriction))
-        secretDatum.currentTier++
-        sleep(15)
-    var/improv = input(src, "what one") in NARROW_IMPROVES + WIDE_IMPROVES
-    secretDatum?:getBoon(src, improv)
-    return
+	secretDatum = new/SecretInfomation/HeavenlyRestriction()
+	while(secretDatum.currentTier < 6)
+		var/restriction = secretDatum?:pickRestriction(src)
+		secretDatum?:applySecretVariable(src, restriction, secretDatum?:pickImprove(src, restriction))
+		secretDatum.currentTier++
+		sleep(15)
+	var/improv = input(src, "what one") in heavenly_improvements
+	secretDatum?:getBoon(src, improv)
+	return
