@@ -2171,6 +2171,7 @@ mob/proc/Knockback(var/Distance,var/mob/P,var/Direction=0, var/Forced=0, var/Ki=
 			return
 	if(src.loc == null)
 		return
+	if(!P) return
 	if(P.Stasis)
 		return
 	if(!Direction)
