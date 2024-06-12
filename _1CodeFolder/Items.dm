@@ -1403,10 +1403,11 @@ obj/Items/proc/AlignEquip(mob/A, dontUnEquip = FALSE)
 									x.verbs -= list(/obj/Skills/Buffs/SlotlessBuffs/Posture/verb/Posture)
 									x.verbs += new /obj/Skills/Buffs/SlotlessBuffs/Posture/verb/Posture(x, x?:BuffName)
 						suffix = "*Equipped (Third)*"
-				else if(!A.EquippedSword())
+				else if(!A.equippedSword)
 					A.equippedSword = src
 					suffix = "*Equipped*"
-				else return 1
+				else
+					return 1
 			else
 				if(istype(src, /obj/Items/Armor))
 					A.equippedArmor = src

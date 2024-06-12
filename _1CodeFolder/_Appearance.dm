@@ -117,15 +117,11 @@ mob/proc/AppearanceOn()
 		if(I.suffix=="*Equipped*"||I.suffix=="*Equipped (Second)*"||I.suffix=="*Equipped (Third)*")
 			if(istype(I, /obj/Items/Gear/Mobile_Suit)&&passive_handler.Get("Piloting"))
 				continue
-			if((istype(I, /obj/Items/Sword)||istype(I, /obj/Items/Gear)||istype(I, /obj/Items/Enchantment/Staff)))
-				goto wedontcare
-			else
-				if(src.Transformed||CheckSlotless("Great Ape"))
-					continue
-			wedontcare
-			I.suffix=null
-			equippedArmor = null
-			equippedSword = null
+			if(istype(I, /obj/Items/Sword))
+				equippedSword = null
+			if(istype(I, /obj/Items/Armor))
+				equippedArmor = null
+			I.suffix = null
 			I.AlignEquip(src)
 
 
