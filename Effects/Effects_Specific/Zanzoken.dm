@@ -49,6 +49,7 @@ proc
 
 	AfterImage(mob/m, var/forceloc=0)
 		var/obj/Afterimage/I = new
+		if(!m) return
 		I.appearance = m.appearance
 		I.dir = m.dir
 		if(!forceloc)
@@ -60,6 +61,7 @@ proc
 			I.appearance_flags+=16
 	AfterImageA(mob/m, var/forceloc=0)
 		var/obj/AfterimageA/I = new
+		if(!m) return
 		I.appearance = m.appearance
 		I.dir = m.dir
 		if(!forceloc)
@@ -71,6 +73,7 @@ proc
 			I.appearance_flags+=16
 	AfterImagePrediction(mob/m,var/X,var/Y, var/forceloc=0)
 		var/obj/AfterimageP/I = new
+		if(!m) return
 		I.appearance = m.appearance
 		I.dir = m.dir
 		I.alpha=200
@@ -83,6 +86,7 @@ proc
 			I.appearance_flags+=16
 	AfterImageGhost(mob/m, var/forceloc=0)
 		var/obj/AfterimageG/I = new
+		if(!m) return
 		I.appearance = m.appearance
 		I.dir = m.dir
 		if(!forceloc)
