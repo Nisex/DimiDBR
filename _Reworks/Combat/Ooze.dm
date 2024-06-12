@@ -4,6 +4,8 @@ obj
 		icon_state="ground"
 		density = 0
 		Grabbable = 0
+		Attackable = 0
+		Destructable = 0
 		var/tmp/mob/owner
 		var/tmp/list/tick_on = list()
 		var/strength = 3
