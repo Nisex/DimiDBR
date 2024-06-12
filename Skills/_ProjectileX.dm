@@ -3036,7 +3036,7 @@ obj
 					ZoneAttackY=3
 					Hover=7
 					Variation=0
-					Cooldown=50
+					Cooldown = 180
 					verb/Hellzone_Grenade()
 						set category="Skills"
 						usr.UseProjectile(src)
