@@ -1020,7 +1020,7 @@ mob
 			var/mod = 1
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasImprovement("Strength"))
-					mod = round(clamp(1 + secretDatum?:getBoon(src, "Strength") / 10, 1, 8), 0.5)
+					mod = round(clamp(1 + secretDatum?:getBoon(src, "Strength") / 5, 1, 8), 0.1)
 				if(secretDatum?:hasRestriction("Strength"))
 					return 1
 			return ((src.StrMod+src.StrAscension+(src.EnhancedStrength*0.2)) * mod)*StrChaos
@@ -1028,7 +1028,7 @@ mob
 			var/mod = 1
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasImprovement("Force"))
-					mod = round(clamp(1 + secretDatum?:getBoon(src, "Force") / 10, 1, 8), 0.5)
+					mod = round(clamp(1 + secretDatum?:getBoon(src, "Force") / 5, 1, 8), 0.1)
 				if(secretDatum?:hasRestriction("Force"))
 					return 1
 			return ((src.ForMod+src.ForAscension+(src.EnhancedForce*0.2)) * mod)*ForChaos
@@ -1036,7 +1036,7 @@ mob
 			var/mod = 1
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasImprovement("Endurance"))
-					mod = round(clamp(1 + secretDatum?:getBoon(src, "Endurance") / 10, 1, 8), 0.5)
+					mod = round(clamp(1 + secretDatum?:getBoon(src, "Endurance") / 5, 1, 8), 0.1)
 				if(secretDatum?:hasRestriction("Endurance"))
 					return 1
 			return ((src.EndMod+src.EndAscension+(src.EnhancedEndurance*0.2)) * mod)*EndChaos
@@ -1044,7 +1044,7 @@ mob
 			var/mod = 1
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasImprovement("Speed"))
-					mod = round(clamp(1 + secretDatum?:getBoon(src, "Speed") / 10, 1, 8), 0.5)
+					mod = round(clamp(1 + secretDatum?:getBoon(src, "Speed") / 5, 1, 8), 0.1)
 				if(secretDatum?:hasRestriction("Speed"))
 					return 1
 			return ((src.SpdMod+src.SpdAscension+(src.EnhancedSpeed*0.2)) * mod)*SpdChaos
@@ -1052,7 +1052,7 @@ mob
 			var/mod = 1
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasImprovement("Offense"))
-					mod = round(clamp(1 + secretDatum?:getBoon(src, "Offense") / 10, 1, 8), 0.5)
+					mod = round(clamp(1 + secretDatum?:getBoon(src, "Offense") / 5, 1, 8), 0.1)
 				if(secretDatum?:hasRestriction("Offense"))
 					return 1
 			return ((src.OffMod+src.OffAscension+(src.EnhancedAggression*0.2)) * mod)*OffChaos
@@ -1060,7 +1060,7 @@ mob
 			var/mod = 1
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasImprovement("Defense"))
-					mod = round(clamp(1 + secretDatum?:getBoon(src, "Defense") / 10, 1, 8), 0.5)
+					mod = round(clamp(1 + secretDatum?:getBoon(src, "Defense") / 5, 1, 8), 0.1)
 				if(secretDatum?:hasRestriction("Defense"))
 					return 1
 			return ((src.DefMod+src.DefAscension+(src.EnhancedReflexes*0.2)) * mod)*DefChaos
