@@ -1007,13 +1007,14 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=20
-				AccMult=1
+				AccMult=0.7
 				DamageMult=0.15
 				Blasts=20
-				Delay=0.5
+				Delay=0.75
 				Stream=-1
 				EnergyCost=5
 				Cooldown=30
+				Deflectable = 1 
 				Homing=1
 				LosesHoming=3
 				IconLock='Blast - Rapid.dmi'
@@ -1043,11 +1044,11 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=25
-				DamageMult=1.2
+				DamageMult=2
 				Knockback=3
-				Radius=1
+				Radius=2
 				MultiShot=3
-				EnergyCost=1
+				EnergyCost=3
 				IconLock='Excaliblast.dmi'
 				LockX=-50
 				LockY=-50
@@ -1061,12 +1062,12 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=20
-				DamageMult=1.1
+				DamageMult=3
 				AccMult=2
 				MultiShot=5
-				Crippling=1
+				Crippling=3
 				Speed=0
-				Knockback=0
+				Knockback=0.001
 				Deflectable=1
 				IconLock='DeathBeam.dmi'
 				IconSize=1
@@ -1083,10 +1084,11 @@ obj
 				SkillCost=40
 				Copyable=1
 				Distance=30
-				DamageMult=2.5
+				DamageMult=3
 				AccMult=4
+				Homing=1
 				Explode=1
-				Charge=0.2
+				Charge=0.1
 				EnergyCost=2
 				Cooldown=30
 				IconLock='Blast - Charged.dmi'
@@ -1101,16 +1103,15 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=40
-				DamageMult=1.5
+				DamageMult=4
 				AccMult=1
-				Launcher=1
+				Launcher=7
 				Piercing=1
 				Striking=1
 				Homing=1
-				HomingCharge=2
-				HomingDelay=2
-				EnergyCost=6
-				Charge=0.5
+				HomingCharge=1
+				HomingDelay=1
+				EnergyCost=3
 				IconChargeOverhead=1
 				Explode=1
 				Cooldown=30
@@ -1124,15 +1125,16 @@ obj
 				Copyable=2
 				ZoneAttack=1
 				EnergyCost=5
-				Distance=20
+				Distance=15
 				Blasts=10
 				Charge=1
-				DamageMult=0.3
-				AccMult=2
+				DamageMult=0.2
+				AccMult=0.8
 				Homing=1
 				Explode=1
 				ZoneAttackX=5
 				ZoneAttackY=5
+				Deflectable = 1
 				Hover=10
 				IconLock='Blast - Charged.dmi'
 				LockX=-12
@@ -1150,8 +1152,8 @@ obj
 				DamageMult=1.25
 				MultiHit=3
 				AccMult=25
-				Radius=1
-				Charge=1
+				Radius=2
+				Charge=0.5
 				Knockback=1
 				Explode=2
 				EnergyCost=3
@@ -1170,7 +1172,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=50
-				DamageMult=3.5
+				DamageMult=2.5
 				EnergyCost=5
 				Deflectable=0
 				Charge=1
@@ -1392,7 +1394,7 @@ obj
 				Blasts=10
 				Explode=1
 				EnergyCost=5
-				Cooldown=120
+				Cooldown=120 
 				IconLock='Blast10.dmi'
 				LockX=0
 				LockY=0
@@ -4270,10 +4272,11 @@ obj
 				verb/Shard_Storm()
 					set category="Skills"
 					if(!altered)
-						Blasts = 4 + (usr.AscensionsAcquired)
-						DamageMult = 0.2 + (usr.AscensionsAcquired * 0.2)
+						Blasts = 6 + (usr.AscensionsAcquired)
+						DamageMult = 2 + (usr.AscensionsAcquired * 0.5)
 						Radius = clamp(usr.AscensionsAcquired, 1, 5)
-						Shattering = 0.5 + clamp(usr.AscensionsAcquired*0.5, 0.5, 2.5)
+						Shattering = 2 + clamp(usr.AscensionsAcquired*2, 0.5, 2.5)
+						DamageMult = DamageMult/Blasts
 					usr.UseProjectile(src)
 
 //Moonlight Greatsword

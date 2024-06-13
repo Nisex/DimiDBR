@@ -209,3 +209,10 @@ update
 			if(p.isRace(HUMAN))
 				p.passive_handler.Increase("Underdog", 1)
 			..()
+	version14
+		version = 14
+		updateMob(mob/p)
+			if(p.isRace(DRAGON))
+				p.AddSkill(new/obj/Skills/AutoHit/Dragon_Roar)
+			
+			..()

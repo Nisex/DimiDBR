@@ -10761,7 +10761,7 @@ NEW VARIABLES
 					..()
 
 			Dragon_Rage
-				NeedsHealth = 10
+				NeedsHealth = 15
 				TooMuchHealth = 25
 				TextColor=rgb(95, 60, 95)
 				ActiveMessage="is consumed by a dragon's rage!!"
@@ -10774,20 +10774,21 @@ NEW VARIABLES
 					// Metal/Earth dragon racial, makes them tankier
 					proc/shellSmash(mob/p)
 						var/asc = p.AscensionsAcquired
-						p.AddShatter(clamp(40 * asc, 20 ,200))
-						p.AddSlow(clamp(40 * asc, 20 ,200))
-						p.AddShock(clamp(40 * asc, 20 ,200))
+						p.AddShatter(clamp(60 + (60 * asc), 60 ,200))
+						p.AddSlow(clamp(25 + (25 * asc), 25 ,200))
+						p.AddShock(clamp(25 + (25 * asc), 25 ,200))
+						p.AddBurn(clamp(25 + (25 * asc), 25 ,200))
 					adjust(mob/p)
 						if(altered) return
 						var/asc = p.AscensionsAcquired
 						if(p.Shatter)
 							if(p.Shatter >= 10)
-								VaizardHealth = p.Shatter/100
+								VaizardHealth = p.Shatter/75
 							else
 								VaizardHealth = p.Shatter/10
 						DebuffReversal = 1
 						InjuryImmune = 1
-						passives = list("DebuffReversal" = 1, "CallousedHands" = asc * 0.1, "BlockChance" = 2 * asc, "CriticalBlock" = 0.25 + (asc * 0.25), "InjuryImmune" = 1)
+						passives = list("DebuffReversal" = 1, "CallousedHands" = asc * 0.15, "BlockChance" = 10 * asc, "CriticalBlock" = 0.25 + (asc * 0.25), "InjuryImmune" = 1)
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
 							shellSmash(User)
@@ -10805,6 +10806,7 @@ NEW VARIABLES
 					adjust(mob/p)
 						if(altered) return
 						var/asc = p.AscensionsAcquired
+						BurningShot = 0.5 + (0.25 * asc)
 						NeedsHealth = 10 + (5 * asc)
 						TooMuchHealth = 20 + (5 * asc)
 						AngerMult = 1.5 + (0.25 * asc)
@@ -10821,7 +10823,7 @@ NEW VARIABLES
 
 				Wind_Supremacy
 					// Wind Dragon Racial
-					NeedsHealth = 10
+					NeedsHealth = 15
 					TooMuchHealth = 25
 					ActiveMessage = "takes to the skies as the very winds heed their call!"
 					OffMessage = "finally graces the earth once again with their presence..."
@@ -10832,7 +10834,10 @@ NEW VARIABLES
 						NeedsHealth = 10 + (5 * asc)
 						TooMuchHealth = 20 + (5 * asc)
 						SpdMult = 1 + max(0.1,asc*0.1)
-						passives = list("Skimming" = 1+asc, "Godspeed" = 1+asc/1.5, "Pursuer" = 1+asc/2, "Flicker" = 1+asc/2, "BlurringStrikes" = asc/4)
+						Shocking = 5 + asc
+						EnergySteal = 10 + (asc * 10)
+						passives = list("DoubleStrike" = 1+ (asc/4), \
+						"Skimming" = 1+asc, "Godspeed" = 1+asc/1.5, "Pursuer" = 1+asc/2, "Flicker" = 1+asc/2, "BlurringStrikes" = asc/4)
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
 							adjust(User)
@@ -10853,7 +10858,7 @@ NEW VARIABLES
 
 						var/baseMultMod = 1 + max(0,money/GOLD_DRAGON_FORMULA)
 						PowerMult = baseMultMod
-						SpdMult =baseMultMod
+						SpdMult = baseMultMod
 						StrMult = baseMultMod
 						OffMult = baseMultMod
 						DefMult = baseMultMod
