@@ -1,5 +1,5 @@
 // DEBUG //
-
+/*
 /mob/verb/giveGoeticskills()
 	AddSkill(new/obj/Skills/Queue/Goetic_Special)
 	AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Hats/SufferInHellWithNoHoes)
@@ -8,7 +8,7 @@
 	AddSkill(new/obj/Skills/Projectile/Hats/Elven_Barrage)
 //	AddSkill(new/obj/Skills/Companion/GIGASpiritMechSummon)
 
-
+*/
 
 
 // GOETIC //
