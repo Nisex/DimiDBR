@@ -28,15 +28,14 @@ throw in stat mults at 2,4,5, depending on the path of restricting
 	ActiveMessage = ""
 	OffMessage = ""
 
-var/list/heavenly_restrictions = list("Staff" = 10, "Armor" = 20, "Sword" = 10, "Heavy Strike" = 10, "Armed Skills" = 15, "Unarmed Skills" = 15, "Universal Skills" = 15, "Magic" = 30, \
-"Science" = 30, "Queues" = 20, "Autohits" = 20, "Projectiles" = 20, "Grapples" = 20, "All Skills" = 50, "Force" = 20, "Defense" = 20, "Endurance" = 20, \
-"Cybernetics" = 10, "Strength" = 20, "Speed" = 20, "Offense" = 20, "Normal Attack" = 40, "Grab" = 25)
+var/list/heavenly_restrictions = list("Staff" = 1, "Armor" = 2, "Sword" = 1, "Heavy Strike" = 1, "Armed Skills" = 1.5, "Unarmed Skills" = 1.5, "Universal Skills" = 1.5, "Magic" = 3, \
+"Science" = 3, "Queues" = 2, "Autohits" = 2, "Projectiles" = 2, "Grapples" = 2, "All Skills" = 5, "Force" = 2, "Defense" = 2, "Endurance" = 2, \
+"Cybernetics" = 1, "Strength" = 2, "Speed" = 2, "Offense" = 2, "Normal Attack" = 4, "Grab" = 2)
 
 var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers", "Heavy Strike", "Dragon Dash", "Strength", "Force", "Defense", "Endurance", "Offense", "Defense", "Speed")
 
 /SecretInfomation/HeavenlyRestriction/proc/modifyRestrictionValues(mob/p, restriction)
 	switch(restriction)
-	    //these should probably just get the base stat instead.
 		if("Force")
 			if(p.BaseFor()>p.BaseStr())
 				return 1.5
@@ -61,21 +60,16 @@ var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers
 				return 2
 			if(p.isRace(HUMAN) && p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/human/technology)
 				return 2
-		if("Modules")
-			if(p.isRace(ELDRITCH))
-				return 2
-			if(p.isRace(HUMAN) && p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/human/technology)
-				return 2
-    return 1
+	return 1
 
 /SecretInfomation/HeavenlyRestriction/proc/pickRestriction(mob/p)
-	var/list/modifiedRestrictions = heavenly_restrictions - getRestrictions()
+	var/list/modifiedRestrictions = heavenly_restrictions.Copy() - getRestrictions()
 	var/list/shownRestrictions = list()
-	var/ticker = 1
 	for(var/i in modifiedRestrictions)
-		modifiedRestrictions[i] = modifiedRestrictions[i]*modifyRestrictionValues(p, i)
-		shownRestrictions[ticker] = "[i] ([modifiedRestrictions[i]])"
-		ticker ++
+		var/value = modifiedRestrictions[i]
+		var/mult = modifyRestrictionValues(p,i)
+		modifiedRestrictions[i] = value*mult
+		shownRestrictions += "[i] ([modifiedRestrictions[i]])"
 	var/selection = input(p, "Pick a restriction. They are shown as what they'll restrict and the value in parathenses.") in shownRestrictions
 	var/list/splitter = splittext(selection, " (")
 	var/list/restrictionValue = list(splitter[1], modifiedRestrictions[splitter[1]])
@@ -95,9 +89,9 @@ var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers
 			atLimit = 1
 	return selection
 
-/SecretInfomation/HeavenlyRestriction/proc/applySecretVariable(mob/p, restr, improv)
-	secretVariable["Restrictions"]["[currentTier]"] = list(restr, improv)
-	updateImprove(improv)
+/SecretInfomation/HeavenlyRestriction/proc/applySecretVariable(mob/p, list/restr, improv)
+	secretVariable["Restrictions"][restr[1]] = list(improv, restr[2])
+	updateImprove(improv, restr[2])
 	// secretVariable = list("Resitrictions" = list(1 = list(restr, improv), )
 
 /SecretInfomation/HeavenlyRestriction/proc/updateImprove(improv, value)
@@ -124,14 +118,11 @@ var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers
 
 
 /SecretInfomation/HeavenlyRestriction/proc/getBoon(mob/p, improvement)
-	if(!(improvement in secretVariable["Improvements"]))
-		return 0
 	var/totalBoon = 0
 	for(var/index in secretVariable["Improvements"])
 		if(index == improvement)
 			totalBoon += secretVariable["Improvements"][index]
 
-	world<<"[currentTier * totalBoon]"
 	return currentTier * totalBoon
 
 
@@ -164,11 +155,12 @@ var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers
 /mob/verb/testRestriction()
 	usr.secretDatum = new/SecretInfomation/HeavenlyRestriction()
 	usr.Secret = "Heavenly Restriction"
-	while(usr.secretDatum.currentTier < 6)
-		var/restriction = usr.secretDatum?:pickRestriction(src)
+	while(usr.secretDatum.currentTier < 2)
+		var/list/restriction = usr.secretDatum?:pickRestriction(src)
 		usr.secretDatum?:applySecretVariable(src, restriction, secretDatum?:pickImprove(src, restriction))
 		usr.secretDatum.currentTier++
 		sleep(15)
-	var/improv = input(src, "what one") in heavenly_improvements
-	usr.secretDatum?:getBoon(src, improv)
+/*	var/improv = input(src, "what one") in usr.secretDatum?:secretVariable["Improvements"]
+	world << improv
+	usr.secretDatum?:getBoon(src, improv)*/
 	return

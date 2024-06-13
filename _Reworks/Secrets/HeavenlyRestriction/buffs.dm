@@ -3,13 +3,16 @@ obj
 		Buffs
 			SlotlessBuffs
 				Heavenly_Reversal
+					Cooldown = 1
+					ActiveMessage="begins to dash around with an absurd physicality!"
+					OffMessage="ceases dashing around so much. . ."
+					DeleteOnRemove = TRUE
 					adjust(mob/p)
-						if(p.Secret != "Heavenly Restriction") del src
-						if(!p.secretDatum?:hasImprovement("Reverse Dash")) del src
 						var/boon = p.secretDatum?:getBoon(p,"Reverse Dash")
 						passives = list("Godspeed" = boon, "Juggernaut" = boon)
 						TimerLimit = boon
-					Trigger(mob/p, Override = 0)
-						if(!p.BuffOn(src))
-							adjust(p)
+					Trigger(mob/User, Override = FALSE)
+						world << "test"
+						if(!User.BuffOn(src))
+							adjust(User)
 						..()
