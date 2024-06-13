@@ -3534,6 +3534,8 @@ obj
 					HitMessage="drives their devastating Pile Bunker forward!"
 					verb/Pile_Bunker()
 						set category="Skills"
+						if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+							return
 						usr.SetQueue(src)
 				Power_Fist
 					NoSword=1
@@ -3552,6 +3554,8 @@ obj
 					HitMessage="discharges the round in their Power Fist!!"
 					verb/Power_Fist()
 						set category="Skills"
+						if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+							return
 						usr.SetQueue(src)
 				Power_Claw
 					DamageMult=1.25
@@ -3567,6 +3571,8 @@ obj
 					HitMessage="crushes their opponent with their Power Claw!"
 					verb/Power_Claw()
 						set category="Skills"
+						if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+							return
 						usr.SetQueue(src)
 				Hook_Grip_Claw
 					DamageMult=5
@@ -3582,6 +3588,8 @@ obj
 					HitMessage="stretches their mechanical appendage to grasp their foe!"
 					verb/Hook_Grip_Claw()
 						set category="Skills"
+						if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+							return
 						usr.SetQueue(src)
 				Integrated
 					Integrated=1
@@ -3607,6 +3615,8 @@ obj
 						HitMessage="drives their devastating Pile Bunker forward!"
 						verb/Pile_Bunker()
 							set category="Skills"
+							if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+								return
 							usr.SetQueue(src)
 					Integrated_Power_Fist
 						NoSword=1
@@ -3629,6 +3639,9 @@ obj
 						HitMessage="discharges the round in their Power Fist!!"
 						verb/Power_Fist()
 							set category="Skills"
+							if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+								return
+
 							usr.SetQueue(src)
 					Integrated_Power_Claw
 						DamageMult=1.25
@@ -3644,6 +3657,9 @@ obj
 						HitMessage="crushes their opponent with their Power Claw!"
 						verb/Power_Claw()
 							set category="Skills"
+							if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+								return
+
 							usr.SetQueue(src)
 					Integrated_Hook_Grip_Claw
 						DamageMult=5
@@ -3659,6 +3675,8 @@ obj
 						HitMessage="stretches their mechanical appendage to grasp their foe!"
 						verb/Hook_Grip_Claw()
 							set category="Skills"
+							if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+								return
 							usr.SetQueue(src)
 ////Cybernetics
 			Cyberize
@@ -3675,6 +3693,8 @@ obj
 					HitMessage="delivers an electrified strike!!"
 					verb/Taser_Strike()
 						set category="Skills"
+						if(User.Secret=="Heavenly Restriction" && (User.secretDatum?:hasRestriction("Science") || User.secretDatum?:hasRestriction("Cybernetics")))
+							return
 						usr.SetQueue(src)
 ////Enchantment
 			Megiddo

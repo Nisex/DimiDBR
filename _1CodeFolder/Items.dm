@@ -1506,6 +1506,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 			var/obj/Items/W=src
 			W.AlignEquip(User)
 		if(istype(src,/obj/Items/Enchantment/Tome))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Magic"))
+				return
 			var/obj/Items/Enchantment/Tome/T=User.EquippedTome()
 			if(suffix=="*Equipped*")
 				if(length(T.Spells)>0)
@@ -1551,6 +1553,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 			src.AlignEquip(User)
 
 		if(istype(src,/obj/Items/Enchantment/Magic_Crest))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Magic"))
+				return
 			var/obj/Items/Enchantment/Magic_Crest/MC=User.EquippedCrest()
 			if(MC)
 				if(MC!=src)
@@ -1577,6 +1581,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 						User.contents-=s
 
 		if(istype(src,/obj/Items/Enchantment/Flying_Device))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Magic"))
+				return
 			var/obj/Items/Enchantment/Flying_Device/FD=User.EquippedFlyingDevice()
 			if(FD)
 				if(FD!=src)
@@ -1609,6 +1615,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 					s.Trigger(User,1)
 					del s
 		if(istype(src,/obj/Items/Enchantment/Surfing_Device))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Magic"))
+				return
 			var/obj/Items/Enchantment/Surfing_Device/FD=User.EquippedSurfingDevice()
 			if(FD)
 				if(FD!=src)
@@ -1892,6 +1900,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 
 
 		if(istype(src,/obj/Items/WeightedClothing))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			var/obj/Items/WeightedClothing/W=User.EquippedWeights()
 			if(W)
 				if(W!=src)

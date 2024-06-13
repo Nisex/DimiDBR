@@ -2702,6 +2702,10 @@ obj/Skills/Utility
 		verb/Augmentation()
 			set category="Utility"
 
+			if(usr.Secret=="Heavenly Restriction" && (usr.secretDatum?:hasRestriction("Science") || usr.secretDatum?:hasRestriction("Cybernetics")))
+				return
+
+
 			var/mob/M//Who's getting operated on?
 			var/ModChoice//What's getting installed?
 			var/Confirm//Are you sure you want to install this mod?
@@ -2752,6 +2756,8 @@ obj/Skills/Utility
 			var/list/Who=list("Cancel")
 			for(var/mob/m in view(1, usr))
 				if(m.Race=="Android"&&!("Android Creation" in usr.knowledgeTracker.learnedKnowledge))
+					continue
+				if(m.Secret=="Heavenly Restriction" && (m.secretDatum?:hasRestriction("Science") || m.secretDatum?:hasRestriction("Cybernetics")))
 					continue
 				if(m==usr&&!("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge))
 					continue

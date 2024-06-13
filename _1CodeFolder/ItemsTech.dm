@@ -351,6 +351,8 @@ obj/Items/Tech
 		icon='Lockpick.dmi'
 		Click()
 			..()
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				return
 			if(!(usr in range(1,src))) return
 			var/list/Choices=new
 			for(var/atom/O in get_step(usr,usr.dir))
@@ -392,6 +394,8 @@ obj/Items/Tech
 			else
 				if(src.Using)
 					usr << "You're already using this!"
+					return
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
 					return
 				if(usr.icon_state!="Meditate")
 					usr << "You need to be sitting down to use this properly."
@@ -437,6 +441,8 @@ obj/Items/Tech
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(src.Using)
 					usr << "You're already using this!"
 					return
@@ -487,6 +493,8 @@ obj/Items/Tech
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(src.Using)
 					usr << "You're already using this!"
 					return
@@ -556,6 +564,8 @@ obj/Items/Tech
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(src.Using)
 					usr << "You're already using this!"
 					return
@@ -613,6 +623,8 @@ obj/Items/Tech
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(src.Using)
 					usr << "You're already using this!"
 					return
@@ -673,6 +685,8 @@ obj/Items/Tech
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.KO)
 					usr << "You can't use a first aid kit while knocked out!"
 					return
@@ -724,6 +738,8 @@ obj/Items/Tech
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.KO)
 					usr << "You can't use a medkit while knocked out!"
 					return
@@ -736,6 +752,8 @@ obj/Items/Tech
 				src.Using=1
 				var/list/mob/Players/People=list("Cancel")
 				for(var/mob/Players/A in view(1,usr))
+					if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+						continue
 					People.Add(A)
 				if(People.len<2)//somehow...
 					usr << "There's no one to use the medkit on."
@@ -808,6 +826,8 @@ obj/Items/Tech
 
 		proc/Use(mob/Choice = null)
 			if(src in usr)
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.KO)
 					usr << "You can't use an antivenom while knocked out!"
 					return
@@ -820,6 +840,8 @@ obj/Items/Tech
 				if(!Choice)
 					var/list/mob/Players/People=list("Cancel")
 					for(var/mob/Players/A in view(1,usr))
+						if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+							continue
 						People.Add(A)
 					if(People.len<2)//somehow...
 						usr << "There's no one to use the antivenom on."
@@ -870,6 +892,8 @@ obj/Items/Tech
 
 		proc/Use(mob/Choice = null)
 			if(src in usr)
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.KO)
 					usr << "You can't use a cooling spray while knocked out!"
 					return
@@ -882,6 +906,8 @@ obj/Items/Tech
 				if(!Choice)
 					var/list/mob/Players/People=list("Cancel")
 					for(var/mob/Players/A in view(1,usr))
+						if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+							continue
 						People.Add(A)
 					if(People.len<2)//somehow...
 						usr << "There's no one to use the cooling spray on."
@@ -932,6 +958,8 @@ obj/Items/Tech
 
 		proc/Use(mob/Choice = null)
 			if(src in usr)
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.KO)
 					usr << "You can't use a sealing spray while knocked out!"
 					return
@@ -944,6 +972,8 @@ obj/Items/Tech
 				if(!Choice)
 					var/list/mob/Players/People=list("Cancel")
 					for(var/mob/Players/A in view(1,usr))
+						if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+							continue
 						People.Add(A)
 					if(People.len<2)//somehow...
 						usr << "There's no one to use the sealing spray on."
@@ -994,6 +1024,8 @@ obj/Items/Tech
 
 		proc/Use(mob/Choice = null)
 			if(src in usr)
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.KO)
 					usr << "You can't use a stabilizer while knocked out!"
 					return
@@ -1006,6 +1038,8 @@ obj/Items/Tech
 				if(!Choice)
 					var/list/mob/Players/People=list("Cancel")
 					for(var/mob/Players/A in view(1,usr))
+						if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+							continue
 						People.Add(A)
 					if(People.len<2)//somehow...
 						usr << "There's no one to use the stabilizer on."
@@ -1056,6 +1090,8 @@ obj/Items/Tech
 
 		proc/Use(mob/Choice = null)
 			if(src in usr)
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.KO)
 					usr << "You can't use a steroid while knocked out!"
 					return
@@ -1068,6 +1104,8 @@ obj/Items/Tech
 				if(!Choice)
 					var/list/mob/Players/People=list("Cancel")
 					for(var/mob/Players/A in view(1,usr))
+						if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+							continue
 						People.Add(A)
 					if(People.len<2)//somehow...
 						usr << "There's no one to use the steroid on."
@@ -1109,6 +1147,8 @@ obj/Items/Tech
 				if(usr.KO)
 					usr << "You can't prepare an anesthetic while knocked out!"
 					return
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(!usr.Move_Requirements())
 					return
 				if(!usr.AttackQueue)
@@ -1128,8 +1168,12 @@ obj/Items/Tech
 			set src in usr
 			if(!usr.Move_Requirements())
 				return
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				return
 			var/validkitters=list("Cancel")
 			for(var/mob/Players/A in view(1,usr))
+				if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+					continue
 				validkitters+=A
 			var/mob/selection=input("Select a target to use the pain killers on.") in validkitters
 			if(selection=="Cancel")
@@ -1204,6 +1248,8 @@ obj/Items/Tech
 					continue
 				else
 					for(var/mob/A in mobs_in_regen)
+						if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+							continue
 						if(A.icon_state!="Meditate")
 							A.icon_state="Meditate"
 						var/obj/Items/Enchantment/Flying_Device/efd=A.EquippedFlyingDevice()
@@ -1253,6 +1299,8 @@ obj/Items/Tech
 					usr << "You're already warping your genome!"
 					return
 				if(usr.Race=="Android")
+					return
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
 					return
 				if(usr.icon_state!="Meditate")
 					usr << "You need to be sitting down to use this properly."
@@ -1335,6 +1383,8 @@ obj/Items/Tech
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(src.Using)
 					usr << "You're already preparing a revitalization serum!"
 					return
@@ -1382,12 +1432,14 @@ obj/Items/Tech
 		SubType = "Regenerative Medicine"
 		icon = 'Tech.dmi'
 		icon_state = "Youth"
-		desc = "A sercum that restores all stat taxes and any cuts applied to your character."
+		desc = "A serum that restores all stat taxes and any cuts applied to your character."
 		Cost = 100
 		Click()
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(src.Using)
 					usr << "You're already preparing a super soldier serum!"
 					return
@@ -1440,6 +1492,10 @@ obj/Items/Tech
 
 		verb/Communicator_Speak(Z as text)
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shorts out as [usr] tries to talk into it!")
+				del src
+				return
 			suffix = "[toggled_on ? "On -- Freq: [Frequency]" : "Off -- Freq:[Frequency]"]"
 			if(!toggled_on)
 				usr << "You can't use this communicator while it's off."
@@ -1525,6 +1581,9 @@ obj/Items/Tech
 				Password=input("Enter the desired password.") as text
 		verb/View()
 			set src in view(1)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				usr << "Your eyes seem to glaze over as you try to read the PDA..."
+				return
 			usr<<browse(htmlq,"window=PDA;size=400x400")
 
 	Transmission_Tower
@@ -1598,12 +1657,18 @@ obj/Items/Tech
 			if(src.Using)
 				usr << "You're already planting this wiretap."
 				return
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			if(!src.Frequency)
 				usr << "You need to set a frequency on the wiretap before planting it."
 				return
 			src.Using=1
 			var/list/mob/Players/peeps=list("Cancel")
 			for(var/mob/Players/p in oview(1, usr))
+				if(p.Secret=="Heavenly Restriction" && p.secretDatum?:hasRestriction("Science"))
+					continue
 				peeps.Add(p)
 			if(peeps.len<2)
 				usr << "There's no one to plant the wire tap on."
@@ -1648,6 +1713,10 @@ obj/Items/Tech
 			else
 				if(src.Using)
 					usr << "You're already using this!"
+					return
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					OMsg(usr, "[src] explodes in [usr]'s hand!")
+					del src
 					return
 				src.Using=1
 				var/list/obj/HackedIt=list("Cancel")
@@ -2093,6 +2162,10 @@ obj/Items/Tech
 		verb/Scouter_Detect()
 			set category=null
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			if(src.Detecting)
 				return
 			if(!src.suffix=="*Equipped*")
@@ -2131,6 +2204,10 @@ obj/Items/Tech
 			if(!(world.realtime>src.InternalTimer+Second(5)))
 				usr << "The scanning device needs time to recharge."
 				return
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			src.InternalTimer=world.realtime
 			if(!src.suffix=="*Equipped*")
 				usr << "You have to equip the scouter to use it!"
@@ -2167,6 +2244,10 @@ obj/Items/Tech
 			set src in usr
 			if(usr.InMagitekRestrictedRegion())
 				usr << "The scouter buzzes and loses power."
+				return
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
 				return
 			var/FrequencySelector=src.Frequency
 			for(var/mob/E in hearers(12,usr))
@@ -2249,6 +2330,10 @@ obj/Items/Tech
 			if(!Password)
 				usr<<"Set a passcode first!"
 				return
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			var/list/obj/Items/Things=list("Cancel")
 			for(var/obj/Items/P in get_step(usr,usr.dir))
 				Things.Add(P)
@@ -2269,6 +2354,10 @@ obj/Items/Tech
 			Password=input("Set a password.")as text
 		verb/Cloak_Objects()
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			for(var/obj/Q in world)
 				if(Q.PasswordReception)
 					if(Q.PasswordReception==Password)
@@ -2278,6 +2367,10 @@ obj/Items/Tech
 						usr<<"[Q] is cloaked!"
 		verb/UnCloak_Objects()
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			for(var/obj/Q in world)
 				if(Q.PasswordReception)
 					if(Q.PasswordReception==Password)
@@ -2317,6 +2410,10 @@ obj/Items/Tech
 		verb/Activate()
 			set category=null
 			set src in range(1, usr)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			if(!src.WaveType)
 				usr << "Configure the wave type first!"
 				return
@@ -2399,6 +2496,10 @@ obj/Items/Tech
 		verb/Activate()
 			set category=null
 			set src in range(1, usr)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			if(!src.WaveType)
 				usr << "Configure the wave type first!"
 				return
@@ -2585,6 +2686,10 @@ obj/Items/Tech
 		verb/Send_Door_Password()
 			set category=null
 			var/Valid=0
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			if((src in usr))
 				Valid=1
 			else if(src in view(1, usr)&&!src.Grabbable)
@@ -2674,6 +2779,10 @@ obj/Items/Tech
 		proc/BlanketOpener(var/list/Doorlist)
 			var/DoorsOpened=0
 			var/DoorsClosed=0
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			for(var/obj/Items/Tech/Reinforced_Door/B in Doorlist)
 				if(B.density==0)
 					B.Close()
@@ -2697,6 +2806,10 @@ obj/Items/Tech
 		verb/Recharge_Gear()
 			set category=null
 			set src in range(1, usr)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			if(src.ChargesTotal<=0)
 				usr << "The device is still charging up."
 				return
@@ -2738,6 +2851,10 @@ obj/Items/Tech
 		verb/Recharge_Battery()
 			set category=null
 			set src in range(1, usr)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			if(src.ChargesTotal<=0)
 				usr << "The device is still charging up."
 				return
@@ -2795,6 +2912,10 @@ obj/Items/Tech
 		verb/Inhabit()
 			set category=null
 			set src in range(1,usr)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			if(!Savable || Savable != 1)
 				return
 			if(usr.Intelligence*usr.CyberizeMod<2)
@@ -2853,6 +2974,10 @@ obj/Items/Tech
 		verb/Activate_Stun_Chip()
 			set category=null
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			var/mob/Players/M
 			var/list/Stunlist=list("Cancel")
 			for(M in range(10,usr))
@@ -2868,6 +2993,10 @@ obj/Items/Tech
 		verb/Activate_Explosive()
 			set category=null
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			var/mob/Players/M
 			var/list/Bomblist=list("Cancel")
 			for(M in range(10,usr))
@@ -2883,6 +3012,10 @@ obj/Items/Tech
 		verb/Activate_Failsafe()
 			set category=null
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			var/mob/Players/M
 			var/list/Safelist=list("Cancel")
 			for(M in range(10,usr))
@@ -2907,6 +3040,10 @@ obj/Items/Tech
 		verb/Recharge_Gear()
 			set category=null
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(50,usr)
+				return
 			if(src.Using)
 				usr << "You're already charging something."
 				return
@@ -2937,6 +3074,10 @@ obj/Items/Tech
 		verb/Recharge_Battery()
 			set category=null
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			if(src.Using)
 				usr << "You're already charging something."
 				return
@@ -3806,6 +3947,10 @@ obj/Items/Gear
 		verb/Pilot()
 			set src in range(1, usr)
 			set category="Utility"
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			if(get_dist(src, usr) > 1)
 				return
 			if(src.Using)
