@@ -9,7 +9,7 @@ var/global/MULTIHIT_NERF = FALSE
 
 /mob/proc/Melee1(dmgmulti=1, spdmulti=1, iconoverlay, forcewarp, MeleeTarget=null, ExtendoAttack=null, SecondStrike, ThirdStrike, accmulti=1, SureKB=0, NoKB=0, IgnoreCounter=0, BreakAttackRate=0)
 
-	if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Basic Attack"))
+	if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Normal Attack"))
 		return
 	// CHECKS
 	if(Stasis)
@@ -329,7 +329,7 @@ var/global/MULTIHIT_NERF = FALSE
 
 		// 				MULTIATTACK				//
 				else
-					if(Secret=="Heavenly Restriction" && secretDatum?:hasImprovement("Basic Attack"))
+					if(Secret=="Heavenly Restriction" && secretDatum?:hasImprovement("Normal Attack"))
 						damage *= clamp(secretDatum?:getBoon("Basic Attack"), 1, 10)
 				var/multiAtkNerf = 1
 				if(AttackQueue && AttackQueue?.ComboPerformed>0)
