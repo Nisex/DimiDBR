@@ -964,11 +964,11 @@ obj
 							return//and that's the end
 						if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasImprovement("Heavy Strike"))
 							src.name="Heavy Strike"
-							src.DamageMult=2 + usr.secretDatum?:getBoon("Heavy Strike")
+							src.DamageMult= 2 + usr.secretDatum?:getBoon("Heavy Strike")
 							PushOutWaves = usr.secretDatum?:getBoon("Heavy Strike")
 							PushOut = usr.secretDatum?:getBoon("Heavy Strike")
 							src.AccuracyMult = 1 + usr.secretDatum?:getBoon("Heavy Strike")
-							src.KBAdd=5 + usr.secretDatum?:getBoon("Heavy Strike")
+							src.KBAdd = 5 + usr.secretDatum?:getBoon("Heavy Strike")
 							src.KBMult= 1 + usr.secretDatum?:getBoon("Heavy Strike")
 							src.Cooldown=15
 							src.ActiveMessage=0
