@@ -375,13 +375,15 @@ var/global/MULTIHIT_NERF = FALSE
 
 		// 				HOT HUNDRED 			//
 
-				if(!AttackQueue && HotHundred)
+				if(!AttackQueue && (HotHundred || (enemy.Launched && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Launchers"))))
 					lightAtk = 1
 					var/adjust = 0
 					Comboz(enemy, LightAttack = 1)
 					if(HotHundred)
 						lightAtk=0
 						adjust = HotHundred-1
+					if(enemy.Launched && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Launchers"))
+						damage *= 1+secretDatum?:getBoon(src,"Launchers")
 					damage /= max(2,4-adjust)
 					if(glob.LIGHT_ATTACK_SPEED_DMG_ENABLED)
 						damage *= clamp(glob.LIGHT_ATTACK_SPEED_DMG_LOWER,GetSpd()**glob.LIGHT_ATTACK_SPEED_DMG_EXPONENT,glob.LIGHT_ATTACK_SPEED_DMG_UPPER)
