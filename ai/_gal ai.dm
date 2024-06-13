@@ -377,20 +377,24 @@ mob/Player/AI
 			senpai.ai_active.Remove(src)
 			senpai = null
 		ai_state = null
+		BreakViewers()
+		RemoveTarget()
 		for(var/obj/Skills/s in src)
 			s.AssociatedLegend = null
 			s.AssociatedGear = null
 			s.loc = null
 			DeleteSkill(s, 1)
+		if(active_projectiles.len>0)
+			for(var/obj/Skills/Projectile/_Projectile/p in active_projectiles)
+				p.endLife()
 		for(var/i in vis_contents)
 			vis_contents -= i
 		companion_ais.Remove(src)
+		sleep(100)
 		transform = null
 		filters = null
 		dd = null
 		Hair = null
-		BreakViewers()
-		RemoveTarget()
 		passive_handler = null
 		race = null
 		GlobalCooldowns = null
@@ -409,10 +413,6 @@ mob/Player/AI
 		play_action = null
 		overlays = null
 		underlays = null
-		if(active_projectiles.len>0)
-			for(var/obj/Skills/Projectile/_Projectile/p in active_projectiles)
-				p.endLife()
-		src.loc = null
 		..()
 	icon = 'Makyo1.dmi'
 
