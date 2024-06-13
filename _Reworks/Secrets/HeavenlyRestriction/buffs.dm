@@ -10,7 +10,7 @@ obj
 					adjust(mob/p)
 						var/boon = p.secretDatum?:getBoon(p,"Reverse Dash")
 						passives = list("Godspeed" = boon, "Juggernaut" = boon)
-						SpeedMult = 1 + (boon/2)
+						SpdMult = 1 + (boon/2)
 						TimerLimit = boon
 					Trigger(mob/User, Override = FALSE)
 						world << "test"

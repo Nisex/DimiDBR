@@ -32,7 +32,7 @@ var/list/heavenly_restrictions = list("Staff" = 1, "Armor" = 2, "Sword" = 1, "He
 "Science" = 3, "Queues" = 2, "Autohits" = 2, "Projectiles" = 2, "Grapples" = 2, "All Skills" = 5, "Force" = 2, "Defense" = 2, "Endurance" = 2, \
 "Cybernetics" = 1, "Strength" = 2, "Speed" = 2, "Offense" = 2, "Normal Attack" = 4, "Grab" = 2)
 
-var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers", "Heavy Strike", "Dragon Dash", "Throw", "Strength", "Force", "Endurance", "Offense", "Defense", "Speed")
+var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers", "Stunners", "Heavy Strike", "Dragon Dash", "Throw", "Strength", "Force", "Endurance", "Offense", "Defense", "Speed")
 
 /SecretInfomation/HeavenlyRestriction/proc/modifyRestrictionValues(mob/p, restriction)
 	switch(restriction)

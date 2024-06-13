@@ -103,11 +103,11 @@ obj/Skills/Grapple
 					DrainBlood = 1 + boon
 				else if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasImprovement("Throw"))
 					Effect = "Shockwave"
-					EffectMult = p.secretDatum?:getBoon("Throw")
-					DamageMult = 3 + p.secretDatum?:getBoon("Throw")
-					ThrowAdd = 2+p.secretDatum?:getBoon("Throw")
-					ThrowMult = max(1, p.secretDatum?:getBoon("Throw") / 2)
-					ThrowSpeed = 2.5/p.secretDatum?:getBoon("Throw")
+					EffectMult = usr.secretDatum?:getBoon("Throw")
+					DamageMult = 3 + usr.secretDatum?:getBoon("Throw")
+					ThrowAdd = 2 + usr.secretDatum?:getBoon("Throw")
+					ThrowMult = max(1, usr.secretDatum?:getBoon("Throw") / 2)
+					ThrowSpeed = 2.5/usr.secretDatum?:getBoon("Throw")
 					DashAfter = TRUE
 				else
 					resetValues()
