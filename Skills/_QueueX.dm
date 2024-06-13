@@ -3799,13 +3799,13 @@ mob
 		SetQueue(var/obj/Skills/Queue/Q)
 			if(Q.Using)
 				return//Can't use if on cooldown
-			if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Queues"))
+			if(!Q.heavenlyRestrictionIgnore&&Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Queues"))
 				return
-			if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("All Skills"))
+			if(!Q.heavenlyRestrictionIgnore&&Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("All Skills"))
 				return
-			if(Q.NeedsSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armed Skills"))
+			if(!Q.heavenlyRestrictionIgnore&&Q.NeedsSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armed Skills"))
 				return
-			if(Q.UnarmedOnly && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Unarmed Skills"))
+			if(!Q.heavenlyRestrictionIgnore&&Q.UnarmedOnly && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Unarmed Skills"))
 				return
 			if(Q.StanceNeeded)
 				if(src.StanceActive!=Q.StanceNeeded)

@@ -11565,13 +11565,13 @@ mob
 						if(!src.HasSpellFocus(B) && !B.MagicFocus)
 							src << "You need a spell focus to use [B]."
 							return FALSE
-				if(B.MagicNeeded && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Magic"))
+				if(!B.heavenlyRestrictionIgnore&&B.MagicNeeded && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Magic"))
 					return
-				if(B.MakesSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Sword"))
+				if(!B.heavenlyRestrictionIgnore&&B.MakesSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Sword"))
 					return
-				if(B.MakesArmor && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armor"))
+				if(!B.heavenlyRestrictionIgnore&&B.MakesArmor && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armor"))
 					return
-				if(B.MakesStaff && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Staff"))
+				if(!B.heavenlyRestrictionIgnore&&B.MakesStaff && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Staff"))
 					return
 				if(B.StyleNeeded)
 					if(src.StyleActive!=B.StyleNeeded)

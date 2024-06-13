@@ -4742,13 +4742,13 @@ mob
 			. = TRUE
 			if(Z.Using)//Skill is on cooldown.
 				return
-			if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Autohits"))
+			if(!Z.heavenlyRestrictionIgnore && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Autohits"))
 				return
-			if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("All Skills"))
+			if(!Z.heavenlyRestrictionIgnore && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("All Skills"))
 				return
-			if(Z.NeedsSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armed Skills"))
+			if(!Z.heavenlyRestrictionIgnore && Z.NeedsSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armed Skills"))
 				return
-			if(Z.UnarmedOnly && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Unarmed Skills"))
+			if(!Z.heavenlyRestrictionIgnore && Z.UnarmedOnly && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Unarmed Skills"))
 				return
 			if(!src.CanAttack(1.5)&&!Z.NoAttackLock)
 				return
