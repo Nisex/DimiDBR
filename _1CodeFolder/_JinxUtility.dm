@@ -281,7 +281,7 @@ mob
 				if(defender.HasAdaptation()&&!defender.CheckSlotless("Great Ape"))
 					defender.AdaptationTarget=src
 					defender.AdaptationCounter+=(val*(defender.AscensionsAcquired/40))
-					if(defender.AdaptationCounter>=1)         
+					if(defender.AdaptationCounter>=1)
 						defender.AdaptationCounter=1
 						if(!defender.AdaptationAnnounce)
 							defender << "<b>You've adapted to your target's style!</b>"
@@ -663,7 +663,7 @@ mob
 		LoseHealth(var/val)
 			src.Health-=val
 			src.MaxHealth()
-			if(Race == "Majin")
+			if(isRace(MAJIN))
 				if(majinPassive != null)
 					majinPassive.tryDropBlob(src)
 		LoseEnergy(var/val)
@@ -1171,7 +1171,7 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-			
+
 
 
 			if(src.BurningShot)
@@ -1298,7 +1298,7 @@ mob
 							Mod*=1 + Burn * (clamp(glob.DEBUFF_EFFECTIVENESS - 0.002, 0.001, 1))
 						else
 							Mod*=1 - Burn * (clamp(glob.DEBUFF_EFFECTIVENESS - 0.002, 0.001, 1))
-				
+
 			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Broken Brave"))
 				if(src.Health<=25*(1-src.HealthCut))
 					Mod+=min(10/src.Health,1)
