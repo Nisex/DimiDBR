@@ -426,6 +426,7 @@
 #include "_Reworks\Secrets\hats\hatskills.dm"
 #include "_Reworks\Secrets\hats\spirits.dm"
 #include "_Reworks\Secrets\hats\datums\makespace.dm"
+#include "_Reworks\Secrets\HeavenlyRestriction\buffs.dm"
 #include "_Reworks\Secrets\HeavenlyRestriction\toji.dm"
 #include "_Reworks\Secrets\Legendary\Legendary.dm"
 #include "_Reworks\Secrets\Vampire\BloodGauge.dm"

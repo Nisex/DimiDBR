@@ -927,12 +927,49 @@ obj
 					else
 						if(usr.AttackQueue)
 							return // prevent heavy strike from overriding
-						if(!usr.Secret|| usr.Secret == "Eldritch" && !usr.CheckSlotless("True Form") || usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus"))//Just default Heavy Strike
+						if(!usr.Secret|| usr.Secret == "Eldritch" && !usr.CheckSlotless("True Form") || usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus") || usr.Secret =="Heavenly Restriction" && !usr.secretDatum?:hasImprovement("Heavy Strike"))//Just default Heavy Strike
 							src.name="Heavy Strike"
 							src.DamageMult=2
 							src.AccuracyMult=1
 							src.KBAdd=5
 							src.KBMult=3
+							src.Cooldown=15
+							src.ActiveMessage=0
+							src.HitMessage=0
+							src.Ooze = 0
+							src.CursedWounds=0
+							src.Scorching=0
+							src.Freezing=0
+							src.Paralyzing=0
+							src.Shattering=0
+							src.Toxic=0
+							src.Combo=0
+							src.Warp=0
+							src.Rapid=0
+							src.LifeSteal=0
+							src.Crippling=0
+							src.Grapple=0
+							Dunker = 0
+							Launcher = 0
+							PushOutWaves = 0
+							PushOut = 0
+							src.NoForcedWhiff=0
+							src.IconLock='BLANK.dmi'
+							src.HitSparkIcon=null
+							src.HitSparkX=0
+							src.HitSparkY=0
+							src.HitSparkTurns=0
+							src.HitSparkSize=1
+							usr.SetQueue(src)
+							return//and that's the end
+						if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasImprovement("Heavy Strike"))
+							src.name="Heavy Strike"
+							src.DamageMult=2 + usr.secretDatum?:getBoon("Heavy Strike")
+							PushOutWaves = usr.secretDatum?:getBoon("Heavy Strike")
+							PushOut = usr.secretDatum?:getBoon("Heavy Strike")
+							src.AccuracyMult = 1 + usr.secretDatum?:getBoon("Heavy Strike")
+							src.KBAdd=5 + usr.secretDatum?:getBoon("Heavy Strike")
+							src.KBMult= 1 + usr.secretDatum?:getBoon("Heavy Strike")
 							src.Cooldown=15
 							src.ActiveMessage=0
 							src.HitMessage=0
@@ -956,8 +993,11 @@ obj
 							src.HitSparkY=0
 							src.HitSparkTurns=0
 							src.HitSparkSize=1
+							if(usr.Target.Launched)
+								Dunker = usr.secretDatum?:getBoon("Heavy Strike")
+							else
+								Launcher = usr.secretDatum?:getBoon("Heavy Strike")
 							usr.SetQueue(src)
-							return//and that's the end
 						if(usr.Secret == "Eldritch" && usr.CheckSlotless("True Form"))
 							src.name="Maleific Strike"
 							src.DamageMult=3
@@ -3534,7 +3574,7 @@ obj
 					HitMessage="drives their devastating Pile Bunker forward!"
 					verb/Pile_Bunker()
 						set category="Skills"
-						if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+						if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
 							return
 						usr.SetQueue(src)
 				Power_Fist
@@ -3554,7 +3594,7 @@ obj
 					HitMessage="discharges the round in their Power Fist!!"
 					verb/Power_Fist()
 						set category="Skills"
-						if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+						if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
 							return
 						usr.SetQueue(src)
 				Power_Claw
@@ -3571,7 +3611,7 @@ obj
 					HitMessage="crushes their opponent with their Power Claw!"
 					verb/Power_Claw()
 						set category="Skills"
-						if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+						if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
 							return
 						usr.SetQueue(src)
 				Hook_Grip_Claw
@@ -3588,7 +3628,7 @@ obj
 					HitMessage="stretches their mechanical appendage to grasp their foe!"
 					verb/Hook_Grip_Claw()
 						set category="Skills"
-						if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+						if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
 							return
 						usr.SetQueue(src)
 				Integrated
@@ -3615,7 +3655,7 @@ obj
 						HitMessage="drives their devastating Pile Bunker forward!"
 						verb/Pile_Bunker()
 							set category="Skills"
-							if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+							if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
 								return
 							usr.SetQueue(src)
 					Integrated_Power_Fist
@@ -3639,9 +3679,8 @@ obj
 						HitMessage="discharges the round in their Power Fist!!"
 						verb/Power_Fist()
 							set category="Skills"
-							if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+							if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
 								return
-
 							usr.SetQueue(src)
 					Integrated_Power_Claw
 						DamageMult=1.25
@@ -3657,9 +3696,8 @@ obj
 						HitMessage="crushes their opponent with their Power Claw!"
 						verb/Power_Claw()
 							set category="Skills"
-							if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+							if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
 								return
-
 							usr.SetQueue(src)
 					Integrated_Hook_Grip_Claw
 						DamageMult=5
@@ -3675,7 +3713,7 @@ obj
 						HitMessage="stretches their mechanical appendage to grasp their foe!"
 						verb/Hook_Grip_Claw()
 							set category="Skills"
-							if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+							if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
 								return
 							usr.SetQueue(src)
 ////Cybernetics
@@ -3693,7 +3731,7 @@ obj
 					HitMessage="delivers an electrified strike!!"
 					verb/Taser_Strike()
 						set category="Skills"
-						if(User.Secret=="Heavenly Restriction" && (User.secretDatum?:hasRestriction("Science") || User.secretDatum?:hasRestriction("Cybernetics")))
+						if(usr.Secret=="Heavenly Restriction" && (usr.secretDatum?:hasRestriction("Science") || usr.secretDatum?:hasRestriction("Cybernetics")))
 							return
 						usr.SetQueue(src)
 ////Enchantment

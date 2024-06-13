@@ -29,10 +29,10 @@ throw in stat mults at 2,4,5, depending on the path of restricting
 	OffMessage = ""
 
 var/list/heavenly_restrictions = list("Staff" = 10, "Armor" = 20, "Sword" = 10, "Heavy Strike" = 10, "Armed Skills" = 15, "Unarmed Skills" = 15, "Universal Skills" = 15, "Magic" = 30, \
-"Science" = 30, "Queues" = 20, "Autohits" = 20, "Projectiles" = 20, "Grapples" = 20, "All Skills" = 50, "Force" = 20, "Defense" = 20, "Endurance" = 20, "Melee Damage" = 30, "Ki Damage" = 30, \
+"Science" = 30, "Queues" = 20, "Autohits" = 20, "Projectiles" = 20, "Grapples" = 20, "All Skills" = 50, "Force" = 20, "Defense" = 20, "Endurance" = 20, \
 "Cybernetics" = 10, "Strength" = 20, "Speed" = 20, "Offense" = 20, "Normal Attack" = 40, "Grab" = 25)
 
-var/list/heavenly_improvements = list("Normal Attack")
+var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers", "Heavy Strike", "Dragon Dash", "Strength", "Force", "Defense", "Endurance", "Offense", "Defense", "Speed")
 
 /SecretInfomation/HeavenlyRestriction/proc/modifyRestrictionValues(mob/p, restriction)
 	switch(restriction)
