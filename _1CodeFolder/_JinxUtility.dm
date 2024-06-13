@@ -1019,8 +1019,7 @@ mob
 		BaseStr()
 			var/mod = 1
 			if(Secret == "Heavenly Restriction")
-				mod = secretDatum?:hasImprovement("Strength")
-				if(mod)
+				if(secretDatum?:hasImprovement("Strength"))
 					mod = round(clamp(1 + secretDatum?:getBoon(src, "Strength") / 10, 1, 8), 0.5)
 				if(secretDatum?:hasRestriction("Strength"))
 					return 1
@@ -1028,8 +1027,7 @@ mob
 		BaseFor()
 			var/mod = 1
 			if(Secret == "Heavenly Restriction")
-				mod = secretDatum?:hasImprovement("Force")
-				if(mod)
+				if(secretDatum?:hasImprovement("Force"))
 					mod = round(clamp(1 + secretDatum?:getBoon(src, "Force") / 10, 1, 8), 0.5)
 				if(secretDatum?:hasRestriction("Force"))
 					return 1
@@ -1037,8 +1035,7 @@ mob
 		BaseEnd()
 			var/mod = 1
 			if(Secret == "Heavenly Restriction")
-				mod = secretDatum?:hasImprovement("Endurance")
-				if(mod)
+				if(secretDatum?:hasImprovement("Endurance"))
 					mod = round(clamp(1 + secretDatum?:getBoon(src, "Endurance") / 10, 1, 8), 0.5)
 				if(secretDatum?:hasRestriction("Endurance"))
 					return 1
@@ -1046,8 +1043,7 @@ mob
 		BaseSpd()
 			var/mod = 1
 			if(Secret == "Heavenly Restriction")
-				mod = secretDatum?:hasImprovement("Speed")
-				if(mod)
+				if(secretDatum?:hasImprovement("Speed"))
 					mod = round(clamp(1 + secretDatum?:getBoon(src, "Speed") / 10, 1, 8), 0.5)
 				if(secretDatum?:hasRestriction("Speed"))
 					return 1
@@ -1055,8 +1051,7 @@ mob
 		BaseOff()
 			var/mod = 1
 			if(Secret == "Heavenly Restriction")
-				mod = secretDatum?:hasImprovement("Offense")
-				if(mod)
+				if(secretDatum?:hasImprovement("Offense"))
 					mod = round(clamp(1 + secretDatum?:getBoon(src, "Offense") / 10, 1, 8), 0.5)
 				if(secretDatum?:hasRestriction("Offense"))
 					return 1
@@ -1064,8 +1059,7 @@ mob
 		BaseDef()
 			var/mod = 1
 			if(Secret == "Heavenly Restriction")
-				mod = secretDatum?:hasImprovement("Defense")
-				if(mod)
+				if(secretDatum?:hasImprovement("Defense"))
 					mod = round(clamp(1 + secretDatum?:getBoon(src, "Defense") / 10, 1, 8), 0.5)
 				if(secretDatum?:hasRestriction("Defense"))
 					return 1
