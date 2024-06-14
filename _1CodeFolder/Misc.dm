@@ -68,6 +68,8 @@ mob/proc/TwoWayTelepath(var/mob/who, anon)
 				anon=1
 				break
 	if(blah)
+		if(who.Secret == "Heavenly Restriction" && who.secretDatum?:hasRestriction("Senses"))
+			who << "You feel a faint buzz in your head..."
 		Log(who.ChatLog(),"(Telepath from [src] to [who]): [blah]")
 		Log(src.ChatLog(),"(Telepath from [src] to [who]): [blah]")
 		Log("Telepath","(Telepath from [src] to [who]): [blah]")

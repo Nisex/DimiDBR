@@ -422,6 +422,7 @@ var/global/MULTIHIT_NERF = FALSE
 					// 				FLOW					//
 
 							if(enemy.HasFlow()&&!IgnoreCounter)
+
 								var/BASE_FLOW_PROB = glob.BASE_FLOW_PROB
 								var/flow = enemy.GetFlow()
 								var/instinct = HasInstinct()
@@ -450,12 +451,12 @@ var/global/MULTIHIT_NERF = FALSE
 									if(enemy.CombatCPU)
 										enemy.LoseMana(1)
 					// 				FLOW END				//
-
 					// 				AIS			 			//
 						if(enemy.AfterImageStrike>0&&!dodged)
 							enemy.AfterImageStrike-=1
 							if(enemy.AfterImageStrike<0)
 								enemy.AfterImageStrike=0
+
 							var/instinct = HasInstinct()
 							if(prob(100-(instinct*20)))
 								if(AttackQueue && AttackQueue.HitSparkIcon)
@@ -469,6 +470,7 @@ var/global/MULTIHIT_NERF = FALSE
 								AfterImageStrike(enemy,src,1)
 								dodged = 1
 							else
+
 								StunClear(enemy)
 								AfterImageStrike(enemy,src,0)
 								AfterImageStrike(src,enemy,0)
@@ -483,7 +485,9 @@ var/global/MULTIHIT_NERF = FALSE
 								enemy.AfterImageStrike-=1
 								if(enemy.AfterImageStrike<0)
 									enemy.AfterImageStrike=0
+
 								var/instinct = HasInstinct()
+
 								if(prob(100-(instinct*20)))
 									if(AttackQueue && AttackQueue.HitSparkIcon)
 										disperseX=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)

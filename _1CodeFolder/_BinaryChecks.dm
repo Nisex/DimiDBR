@@ -1296,12 +1296,20 @@ mob
 				return 1
 			return 0
 		HasTelepathy()
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Senses"))
+				return 0
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
+				return 1
 			if(locate(/obj/Skills/Utility/Telepathy, src))
 				return 1
 			return 0
 		HasFlow()
 			if(src.KO)
 				return 0
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Senses"))
+				return 0
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
+				return 1
 			if(passive_handler.Get("Flow"))
 				return 1
 			if(src.Secret=="Ripple"&&src.StyleActive)
@@ -1320,6 +1328,10 @@ mob
 		GetFlow()
 			var/Extra=0
 			var/Base = passive_handler.Get("Flow")
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Senses"))
+				return 0
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
+				Extra += 2
 			if(src.Secret=="Ripple"&&src.StyleActive)
 				Extra+=1
 			// if(src.Secret=="Vampire"&&src.StyleActive)
@@ -1335,7 +1347,11 @@ mob
 			return (Base+Extra)
 		HasInstinct()
 			var/Return=BaseOff()/4
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Senses"))
+				return 0
 			Return+=passive_handler.Get("Instinct")
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
+				Return += 2
 			if(Target)
 				if(isDominating(Target) && HellRisen)
 					Return += HellRisen * 2

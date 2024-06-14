@@ -624,10 +624,13 @@ mob/Players/verb
 		set hidden=1
 		if(!(world.time > usr.verb_delay)) return
 		usr.verb_delay=world.time+1
-		var/screenx=input("Enter the width of the screen, max is 31.") as num
-		screenx=min(max(1,screenx),31)
-		var/screeny=input("Enter the height of the screen, max is 31.") as num
-		screeny=min(max(1,screeny),31)
+		var/screenmax = 31
+		if(usr.Secret == "Heavenly Restriction" && usr.secretDatum?:hasImprovement("Senses"))
+			screenmax = 71
+		var/screenx=input("Enter the width of the screen, max is [screenmax].") as num
+		screenx=min(max(1,screenx),screenmax)
+		var/screeny=input("Enter the height of the screen, max is [screenmax].") as num
+		screeny=min(max(1,screeny),screenmax)
 		client.view="[screenx]x[screeny]"
 		src.ScreenSize = "[screenx]x[screeny]"
 	Text_Color_Say()
@@ -1294,7 +1297,9 @@ obj/Communication
 									OrbCheck<<output("<b>[FinalCheck](hearing [E])</b><font color=[usr.Text_Color]>[usr][E.Controlz(usr)] whispers: [html_encode(T)]", "output")
 		for(var/mob/X in hearers(20,usr))
 			if(!X.SenseRobbed||X.SenseRobbed<4)
-				if(X.EnhancedHearing==1)
+				if(X.EnhancedHearing==1 || X.Secret == "Heavenly Restriction" && X.secretDatum?:hasImprovement("Senses"))
+					if(X.Secret == "Heavenly Restriction" && X.secretDatum?:hasRestriction("Senses"))
+						continue
 					X << output("<font color=[usr.Text_Color]>[usr][X.Controlz(usr)] whispers: <i>[html_encode(T)]</i>", "output")
 					X << output("<font color=[usr.Text_Color]>[usr][X.Controlz(usr)] whispers: <i>[html_encode(T)]</i>", "icchat")
 					Log(X.ChatLog(),"<font color=green>[usr]([usr.key]) WHISPERS: [html_encode(T)]")
