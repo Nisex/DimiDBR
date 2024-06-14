@@ -24,7 +24,7 @@
             if("Wind")
                 Knockback = 0.25
                 Distance = 12 + (asc * 5)
-                Shocking = 8 + (8 * asc)
+                Shocking = 12 + (8 * asc)
                 DamageMult = 6 + (asc * 3)
                 Rounds = 8 + (asc * 2)
                 DamageMult = DamageMult/Rounds

@@ -17,7 +17,7 @@ globalTracker/var/var/BurnStackDivisor = BURN_STACK_DIVISOR
 globalTracker/var/var/BurnNerf = BURN_NERF
 globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
 
-globalTracker/var/var/MAX_DEBUFF_CLAMP = 0.05
+globalTracker/var/var/MAX_DEBUFF_CLAMP = 0.1
 globalTracker/var/var/LOWER_DEBUFF_CLAMP = 0.001
 
 /mob/proc/getDebuffDamage(typeOfDebuff)
@@ -30,7 +30,6 @@ globalTracker/var/var/LOWER_DEBUFF_CLAMP = 0.001
         if("Burn")
             if(Cooled)
                 damage = damage / 2
-            damage /= 2
         if("Poison")
             if(Antivenomed)
                 damage = damage / 2

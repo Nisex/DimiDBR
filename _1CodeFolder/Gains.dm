@@ -1402,6 +1402,9 @@ mob
 									src.Target.AddShearing(b.ShearAffected,src)
 								if(b.StunAffected)
 									Stun(src.Target, b.StunAffected)
+								if(b.ConfuseAffected)
+									src.Target.AddConfusing(b.ConfuseAffected, src)
+
 
 								if(b.StrTaxDrain)
 									src.Target.AddStrTax(b.StrTaxDrain)

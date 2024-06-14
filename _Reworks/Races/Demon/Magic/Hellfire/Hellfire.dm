@@ -5,7 +5,7 @@
     DamageMult = 3
     AdaptRate = 1
     IconLock='Fire Blessing.dmi'
-    IconSize=6
+    IconSize=3
     Trail='Aura_Fire_Small.dmi'
     MultiTrail = 1
     TrailDuration=5
@@ -17,7 +17,7 @@
     Speed = 0.75
     Cooldown = 90
     ActiveMessage = "unleashes a wave of Fire!"
-    ManaCost = 1
+    ManaCost = 5
     Delay = 8
     CorruptionGain = 1
     adjust(mob/p)
@@ -31,14 +31,14 @@
             DarknessFlame = round(p.Potential/15)
             Burning = asc * 5
         DamageMult = (DamageMult / MultiHit) / Blasts
-    proc/Hellpyre()
+    verb/Hellpyre()
         set category = "Skills"
         adjust(usr)
         usr.UseProjectile(src)
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
     ElementalClass="Fire"
-    scalingValues = list("Damage" = list(0.1,0.2,0.25,0.3,0.4), "Distance" = list(8,12,15,20,30), \
+    scalingValues = list("Damage" = list(0.4,0.6,0.8,12), "Distance" = list(8,12,15,20,30), \
     "DarknessFlame" = list(3,8,12,15,20), "Slow" = list(3,6,8,12,20), "Burning" = list(10,15,20,25,30,50), "Duration" = list(150,200,300,350,400), \
     "Adapt" = list(1,1,1,1,1), "CorruptionGain" = list(1,1,1,1,1) )
     makSpace = new/spaceMaker/HellFire
@@ -58,11 +58,13 @@
         set category = "Skills"
         src.Trigger(usr)
     Trigger(mob/User, Override = 0)
+        . = 1
         adjust(User)
+        var/aaa = ..()
         if(!User.BuffOn(src) && cooldown_remaining <= 0)
-            if(..())
+            if(aaa)
                 makSpace.makeSpace(User, src)
-                . = 1
+                . = aaa
     proc/applyEffects(mob/target, mob/owner, static_damage)
         if(!owner||!target) return
         var/asc = owner.AscensionsAcquired ? owner.AscensionsAcquired : 1
@@ -88,8 +90,8 @@
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat
     ElementalClass="Fire"
     scalingValues = list("SlowAffected" = list(5,10,10,20,25), "CrippleAffected" = list(5,10,10,20,25), \
-    "PoisonAffected" = list(10,15,20,25,30), "BurnAffected" = list(10,15,20,25,30))
-    ManaCost=10
+    "PoisonAffected" = list(10,15,20,25,30), "BurnAffected" = list(10,15,20,25,30), "ConfuseAffected" = list(10, 15, 20 ,25, 30))
+    ManaCost=5
     EndYourself=1
     AffectTarget=1
     Range=10

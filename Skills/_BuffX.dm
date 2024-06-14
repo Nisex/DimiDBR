@@ -473,6 +473,7 @@ NEW VARIABLES
 	var/PoisonAffected//it adds poison stacks
 	var/CrippleAffected
 	var/ShearAffected
+	var/ConfuseAffected
 	var/StunAffected//adds stun stacks
 	var/BurningShot//It increases stats which burn out as you do
 	var/MirrorStats//It makes your stats the same as the enemys.

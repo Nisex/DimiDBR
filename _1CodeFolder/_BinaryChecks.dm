@@ -998,11 +998,11 @@ mob
 				if(passive_handler.Get("Underdog"))
 					var/boon
 					if(Health <= 50 && Health < Target.Health)
-						boon = round(Target.Health - Health / 100, 0.1)
+						boon = round((Target.Health - Health) / 100, 0.1)
 					if(isUnderDog(Target))
 						var/ud = clamp(round(Target.Power / Power, 0.01), 0.01, 5)
 						boon += ud
-					Return += boon
+					Return += (boon *  (1+(passive_handler.Get("Underdog")/4)))
 			return Return
 		HasWalking()
 			if(locate(/obj/Skills/Walking, src))
