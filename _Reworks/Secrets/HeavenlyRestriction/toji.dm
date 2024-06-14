@@ -28,9 +28,9 @@ throw in stat mults at 2,4,5, depending on the path of restricting
 	ActiveMessage = ""
 	OffMessage = ""
 
-var/list/heavenly_restrictions = list("Staff" = 1, "Armor" = 2, "Sword" = 1, "Heavy Strike" = 1, "Armed Skills" = 1.5, "Unarmed Skills" = 1.5, "Universal Skills" = 1.5, "Magic" = 3, \
-"Science" = 3, "Queues" = 2, "Autohits" = 2, "Projectiles" = 2, "Grapples" = 2, "All Skills" = 5, "Force" = 2, "Defense" = 2, "Endurance" = 2, \
-"Cybernetics" = 1, "Strength" = 2, "Speed" = 2, "Offense" = 2, "Normal Attack" = 4, "Grab" = 2)
+var/list/heavenly_restrictions = list("Staff" = 1, "Armor" = 2, "Sword" = 1, "Heavy Strike" = 2, "Armed Skills" = 2.5, "Unarmed Skills" = 2.5, "Magic" = 4, \
+"Science" = 4, "Queues" = 3, "Autohits" = 3, "Projectiles" = 3, "Grapples" = 2, "All Skills" = 10, "Force" = 3, "Defense" = 3, "Endurance" = 3, \
+"Cybernetics" = 2, "Strength" = 3, "Speed" = 3, "Offense" = 3, "Normal Attack" = 6, "Grab" = 2)
 
 var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers", "Stunners", "Heavy Strike", "Dragon Dash", "Throw", "Strength", "Force", "Endurance", "Offense", "Defense", "Speed")
 
