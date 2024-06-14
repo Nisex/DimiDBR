@@ -6330,7 +6330,7 @@ NEW VARIABLES
 
 			CureApply
 				StableHeal=1
-				HealthHeal=1.9
+				HealthHeal=0.19
 				TimerLimit=10
 				MagicNeeded = 0
 			Cure
@@ -6362,7 +6362,7 @@ NEW VARIABLES
 
 			CuragaApply
 				StableHeal=1
-				HealthHeal=2.5
+				HealthHeal=0.25
 				TimerLimit=10
 				MagicNeeded = 0
 			Curaga

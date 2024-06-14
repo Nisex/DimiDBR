@@ -1014,7 +1014,7 @@ obj
 				Stream=-1
 				EnergyCost=5
 				Cooldown=30
-				Deflectable = 1 
+				Deflectable = 1
 				Homing=1
 				LosesHoming=3
 				IconLock='Blast - Rapid.dmi'
@@ -1394,7 +1394,7 @@ obj
 				Blasts=10
 				Explode=1
 				EnergyCost=5
-				Cooldown=120 
+				Cooldown=120
 				IconLock='Blast10.dmi'
 				LockX=0
 				LockY=0
@@ -5555,7 +5555,8 @@ obj
 									src.Owner.DoDamage(a, EffectiveDamage, SpiritAttack=1, Destructive=src.Destructive)
 									if(CorruptionGain)
 										Owner.gainCorruption(EffectiveDamage *1.25)
-									AlreadyHit["[m.ckey]"]++
+									if(m)
+										AlreadyHit["[m.ckey]"]++
 									if(Piercing && PiercingBang)
 										Bang(src.loc, Size=src.PiercingBang, Offset=0, PX=src.VariationX, PY=src.VariationY, icon_override = ExplodeIcon)
 								if(src.Owner.UsingAnsatsuken())
