@@ -76,11 +76,7 @@ Summon skill
         return
     src.Using=1
     usr << "You begin to summon an entity from a far away realm!"
-    var/yesno = input(usr, "Do you want to summon a contractor or a random entity?", "Summon") in list("Contractor","Random")
-    if(yesno == "Contractor")
-        summonContractor()
-    else
-        summon(usr)
+    summon(usr)
 
 
 
@@ -122,42 +118,53 @@ Summon skill
     // we know what tier we want to summon, now we need to find somebody of that tier
     var/list/summonList = list()
     var/list/mob/newSummonList = list()
-    for(var/mob/m in players)
-        if(!m.client) continue
-        if(m.Summonable && !m.CurrentlySummoned)
-            summonList += m
-    // lets just get the list first
     var/mob/summonee = null
-    var/didntFind = 0
-    var/extraTime = 30 + (120/p.SummoningMagicUnlocked)
-    while(summonee == null)
-        for(var/mob/m in summonList)
-            if(m.SummonTier == summonTier)
-                newSummonList += m
-        if(newSummonList.len)
-            summonee = pick(newSummonList)
-            didntFind = 0
-            break
-        else
-            summonTier -= 1
-            if(summonTier < 0)
-                didntFind = 1
-                break
-        sleep(10)
-    if(didntFind)
-        p << "You failed to summon anybody, you will have to try again later."
-        actualCoolDown = world.realtime + (1 MINUTES * extraTime) // 1 hour
-        src.Using=0
-        return
-    else
-        var/obj/Skills/Devils_Deal/dd = summonee.findDevilsDeal()
-        if(dd)
-            actualCoolDown = world.realtime + (1 MINUTES * extraTime) // 1 hour
-            getOverHere(dd, summonee, p)
-            p.TakeManaCapacity(20)
     src.Using=0
 
 
+
+
+// /obj/Skills/Utility/Summon_Entity/proc/summon(mob/p)
+//     var/orgSummonTier = getSummonTier(p)
+//     var/summonTier = orgSummonTier
+//     p << "You are preparing to summon a tier [summonTier] (or less) entity!"
+//     // we know what tier we want to summon, now we need to find somebody of that tier
+//     var/list/summonList = list()
+//     var/list/mob/newSummonList = list()
+//     // for(var/mob/m in players)
+//     //     if(!m.client) continue
+//     //     if(m.Summonable && !m.CurrentlySummoned)
+//     //         summonList += m
+//     // lets just get the list first
+//     var/mob/summonee = null
+//     // var/didntFind = 0
+//     // var/extraTime = 30 + (120/p.SummoningMagicUnlocked)
+//     // while(summonee == null)
+//     //     for(var/mob/m in summonList)
+//     //         if(m.SummonTier == summonTier)
+//     //             newSummonList += m
+//     //     if(newSummonList.len)
+//     //         summonee = pick(newSummonList)
+//     //         didntFind = 0
+//     //         break
+//     //     else
+//     //         summonTier -= 1
+//     //         if(summonTier < 0)
+//     //             didntFind = 1
+//     //             break
+//     //     sleep(10)
+//     // if(didntFind)
+//     //     p << "You failed to summon anybody, you will have to try again later."
+//     //     actualCoolDown = world.realtime + (1 MINUTES * extraTime) // 1 hour
+//     //     src.Using=0
+//     //     return
+//     // else
+//     //     var/obj/Skills/Devils_Deal/dd = summonee.findDevilsDeal()
+//     //     if(dd)
+//     //         actualCoolDown = world.realtime + (1 MINUTES * extraTime) // 1 hour
+//     //         getOverHere(dd, summonee, p)
+//     //         p.TakeManaCapacity(20)
+//     src.Using=0
 
 
 /obj/Skills/Utility/Summon_Entity/proc/summonContractor()

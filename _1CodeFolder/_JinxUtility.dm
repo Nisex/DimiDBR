@@ -204,9 +204,9 @@ mob
 						defender.Tension+=(val*0.75) * glob.TENSION_MULTIPLIER
 			var/leakVal = val/GLOBAL_LEAK_REDUCTION
 			if(passive_handler.Get("Corruption"))
-				gainCorruption(val)
+				gainCorruption(val * 2)
 			if(defender.passive_handler.Get("Corruption"))
-				gainCorruption(val * 0.5)
+				gainCorruption(val * 0.75)
 
 			if(src.HasEnergyLeak())
 				src.LoseEnergy(src.GetEnergyLeak()*0.25*leakVal)

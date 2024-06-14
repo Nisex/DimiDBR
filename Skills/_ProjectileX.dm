@@ -4778,7 +4778,7 @@ mob
 						else
 							src.LoseMana(drain/Drain)
 						if(Z.CorruptionGain)
-							gainCorruption(drain / 2)
+							gainCorruption(drain / 1.5)
 					if(Z.CorruptionCost)
 						gainCorruption(-Z.CorruptionCost)
 					if(Z.CapacityCost)

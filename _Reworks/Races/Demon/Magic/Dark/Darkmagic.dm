@@ -28,7 +28,7 @@
         usr.UseProjectile(src)
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind
-    var/corruptionGain = list(5,5,8,8,10)
+    var/corruptionGain = list(6,8,12,14,14)
     Range = 25
     ManaCost = 15
     AffectTarget = 1

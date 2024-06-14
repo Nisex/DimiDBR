@@ -5327,7 +5327,7 @@ mob
 				else
 					src.LoseMana(drain*CostMultiplier*(1-(0.45*src.TomeSpell(Z))))
 				if(Z.CorruptionGain)
-					var/gain = drain*CostMultiplier / 3
+					var/gain = drain*CostMultiplier / 1.5
 					gainCorruption(gain)
 			if(Z.CorruptionCost)
 				gainCorruption(-Z.CorruptionCost)
@@ -6134,7 +6134,7 @@ obj
 									m.Immortal=0
 					src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
 					if(CorruptionGain)
-						Owner.gainCorruption(FinalDmg * 1.5)
+						Owner.gainCorruption(FinalDmg * 5)
 					if(src.Owner.UsingAnsatsuken())
 						src.Owner.HealMana(src.Owner.SagaLevel)
 

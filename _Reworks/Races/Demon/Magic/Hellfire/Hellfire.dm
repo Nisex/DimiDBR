@@ -73,7 +73,7 @@
                 if("Damage")
                     static_damage *= scalingValues[x][asc]
                     owner.DoDamage(target, static_damage, 0, 0 , 0 , 0 , 0 , 0 , 0)
-                    owner.gainCorruption(static_damage)
+                    owner.gainCorruption(static_damage * 5)
                 if("DarknessFlame")
                     target.AddPoison(scalingValues["Burning"][asc] * 1 + (scalingValues[x][asc] * 0.25), Attacker=owner)
                 if("Burning")
