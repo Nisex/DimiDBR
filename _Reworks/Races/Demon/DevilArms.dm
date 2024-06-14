@@ -35,7 +35,7 @@
             vars["[selection][thing]"] = input(usr, "Change to what?") as text
         else
             vars["[thing]"] = input(usr, "Change to what?") as message
-    
+
     proc/checkEvolve(mob/p)
         if(totalEvolvesMain < p.race?:devil_arm_upgrades)
             return TRUE
@@ -44,13 +44,13 @@
         return FALSE
     adjust(mob/p)
         var/asc = p.AscensionsAcquired
-        StrMult = 0.1 * asc
-        ForMult = 0.1 * asc
-        EndMult = 0.05 * asc
-        SpdMult = 0.05 * asc
+        StrMult = 1 + (0.1 * asc)
+        ForMult = 1 + (0.1 * asc)
+        EndMult = 1+ (0.05 * asc)
+        SpdMult = 1 + (0.05 * asc)
     verb/Devil_Arm()
         set category = "Skills"
-        if(!usr.isRace(DEMON)) return 
+        if(!usr.isRace(DEMON)) return
         if(!usr.BuffOn(src) && checkEvolve(usr) )
             evolve(usr)
             usr << "Activate again after."
@@ -62,7 +62,7 @@
 
     proc/handlePassive(list/theList, input, secondary)
         . = TRUE
-        
+
         if(passives["[input]"])
             if(passives["[input]"] + theList[input][1] > theList[input][2])
                 return FALSE
@@ -78,7 +78,7 @@
             passives["[input]"] += theList[input][1]
         else
             passives["[input]"] = theList[input][1]
-            
+
 
     proc/pickSelection(mob/p, secondary = FALSE)
         var/select
