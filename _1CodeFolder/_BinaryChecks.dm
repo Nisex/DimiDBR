@@ -1331,7 +1331,7 @@ mob
 			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Senses"))
 				return 0
 			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
-				Extra += 2
+				Extra += secretDatum?:getBoon("Senses")
 			if(src.Secret=="Ripple"&&src.StyleActive)
 				Extra+=1
 			// if(src.Secret=="Vampire"&&src.StyleActive)
@@ -1351,7 +1351,7 @@ mob
 				return 0
 			Return+=passive_handler.Get("Instinct")
 			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
-				Return += 2
+				Return += secretDatum?:getBoon("Senses")
 			if(Target)
 				if(isDominating(Target) && HellRisen)
 					Return += HellRisen * 2
