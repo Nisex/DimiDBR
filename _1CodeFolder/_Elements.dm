@@ -117,7 +117,7 @@ proc
 					if("HellFire")
 						Defender.AddPoison(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
 						Defender.AddBurn(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
-						Defender.Shearing(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
+						Defender.AddShearing(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
 
 					if("Chaos")
 						if(prob(50))
