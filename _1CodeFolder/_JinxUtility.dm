@@ -2974,6 +2974,9 @@ mob
 			//this ticks per second
 			//partial charges are not able to be used
 			//30 seconds will result in full charges
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Zanzoken"))
+				return
+
 			if(glob.USE_SPEED_IN_ZANZO_RECHARGE)
 				Mult *= clamp(glob.ZANZO_SPEED_LOWEST_CLAMP, GetSpd()**glob.ZANZO_SPEED_EXPONENT, glob.ZANZO_SPEED_HIGHEST_CLAMP)
 			var/flick=src.HasFlicker()
@@ -2983,8 +2986,8 @@ mob
 				return
 			src.MovementCharges+=(glob.ZANZO_FLICKER_BASE_GAIN-(max(0.01,MovementCharges)/3)/10)*Mult
 
-			if(src.MovementCharges>3)
-				src.MovementCharges=3
+			if(src.MovementCharges>GetMaxMovementCharges())
+				src.MovementCharges=GetMaxMovementCharges()
 		GetRPPMult()
 			var/Return=src.RPPMult
 			Return*=src.ConditionRPPMult()
@@ -3027,6 +3030,11 @@ mob
 
 			return Return
 
+		GetMaxMovementCharges()
+			var/amount = 3
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Zanzoken"))
+				amount = 0
+			return amount
 
 		transcend(var/val)
 			if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Transcendant, src))

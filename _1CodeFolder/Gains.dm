@@ -213,7 +213,7 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 	// Tick based activity / Timers
 
 
-	if(MovementCharges < 3)
+	if(MovementCharges < GetMaxMovementCharges())
 		MovementChargeBuildUp()
 
 
@@ -1268,7 +1268,7 @@ mob
 										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
 											src.HealEnergy(src.GetRecov(b.EnergyHeal))
 								else
-									if((src.Energy+src.TotalFatigue)>=100||(src.TotalFatigue&&src.icon_state=="Meditate")) 
+									if((src.Energy+src.TotalFatigue)>=100||(src.TotalFatigue&&src.icon_state=="Meditate"))
 										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
 											src.HealFatigue(b.EnergyHeal,1)
 									else
@@ -1353,7 +1353,7 @@ mob
 										if((src.Target.Health+src.Target.TotalInjury)>=100||(src.Target.TotalInjury&&src.Target.icon_state=="Meditate"))
 											src.Target.HealWounds(b.HealthHeal)
 										else
-											
+
 											src.Target.HealHealth(b.HealthHeal)
 								if(b.EnergyHeal&&!src.Target.HasMechanized())
 									if(!b.StableHeal)
