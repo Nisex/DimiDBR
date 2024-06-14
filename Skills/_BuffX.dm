@@ -13411,7 +13411,7 @@ mob
 			if(B.Afterimages)
 				src.Afterimages+=1
 			if(B.AutoAnger)
-				src.Anger=src.AngerMax
+				Anger()
 				passive_handler.Increase("EndlessAnger")
 			if(B.CalmAnger)
 				src.Anger=0

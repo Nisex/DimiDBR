@@ -415,6 +415,8 @@ mob/proc/GetPowerUpRatio()
 	var/PowerUp=max(((PowerControl-100)/100),-0.5)
 	if(passive_handler.Get("PUSpike"))
 		PowerUp+=passive_handler.Get("PUSpike")/100
+	if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Power Control"))
+		PowerUp += secretDatum?:getBoon("Power Control")/4
 	if(src.CyberCancel)
 		if(src.CheckSpecial("Overdrive"))
 			if(src.Race=="Android")
@@ -738,6 +740,9 @@ mob/proc/
 		Ratio*=src.Base()
 		temp_potential_power(src)//get them potential powers
 		Ratio*=src.potential_power_mult
+
+		if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Power"))
+			Ratio *= 1+(secretDatum?:getBoon("Power")/6)
 		//BODY CONDITION INFLUENCES
 		if(!passive_handler.Get("Piloting"))
 			if(!passive_handler.Get("Possessive"))

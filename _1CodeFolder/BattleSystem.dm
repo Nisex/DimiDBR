@@ -25,8 +25,11 @@ mob/proc/SetNoAnger(var/obj/Skills/Buffs/b, var/Value=0)
 
 mob/proc/Anger(var/Enraged=0)
 	if(src.HasCalmAnger()||src.HasNoAnger())
+		if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Anger") && !secretDatum?:hasRestriction("Anger"))
+			goto HeavenlyAnger
 		src.Anger=0
 		return
+	HeavenlyAnger
 	if(Anger==0&&!AngerCD)
 		for(var/obj/Skills/Buffs/SpecialBuffs/Cursed/Jinchuuriki/J in src)
 			if(!J.Using&&J.Mastery==1)
@@ -73,6 +76,8 @@ mob/proc/Anger(var/Enraged=0)
 					return
 
 		Anger=AngerMax
+		if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Anger"))
+			Anger *= 1+(secretDatum?:getBoon("Anger")/4)
 		if(src.AngerMessage)
 			if(!src.AngerColor)
 				if(!Enraged)OMsg(src, "<font color='red'>[src] [src.AngerMessage]</font color>")
