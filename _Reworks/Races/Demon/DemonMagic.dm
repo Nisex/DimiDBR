@@ -83,7 +83,7 @@
                     return
                 
                 var/triggered = theSkill?:Trigger(User, 0)
-                if( !(isnull(triggered))  || triggered)
+                if(triggered)
                     Cooldown(1, null, User, type)
                 if(perfect)
                     User.Quake(5, 0)

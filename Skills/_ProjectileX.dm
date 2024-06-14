@@ -4778,7 +4778,7 @@ mob
 						else
 							src.LoseMana(drain/Drain)
 						if(Z.CorruptionGain)
-							gainCorruption(drain / 3)
+							gainCorruption(drain / 2)
 					if(Z.CorruptionCost)
 						gainCorruption(-Z.CorruptionCost)
 					if(Z.CapacityCost)
@@ -5554,7 +5554,7 @@ obj
 									EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.01, 1)
 									src.Owner.DoDamage(a, EffectiveDamage, SpiritAttack=1, Destructive=src.Destructive)
 									if(CorruptionGain)
-										Owner.gainCorruption(EffectiveDamage *1.25)
+										Owner.gainCorruption(EffectiveDamage * 1.5)
 									if(m)
 										AlreadyHit["[m.ckey]"]++
 									if(Piercing && PiercingBang)

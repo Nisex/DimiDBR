@@ -111,8 +111,9 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 		if(MeditateTime == 15)
 			if(isRace(MAJIN))
 				majinPassive.resetVariables(src)
-			for(var/obj/Skills/s in Skills) if(s.Cooldown<0 && s.Using)
-				src << "One or more of your skills will be made available to you again when you stop meditating."
+			for(var/obj/Skills/s in Skills)
+				if(s.Cooldown<0 && s.Using)
+					src << "One or more of your skills will be made available to you again when you stop meditating."
 				break
 
 		if(MeditateTime == 40)
@@ -1600,6 +1601,7 @@ mob
 					if((istype(T.effectApplied, /obj/Skills/Buffs)))
 						if(src != T.ownerOfEffect)
 							T.effectApplied?:applyEffects(src, T.ownerOfEffect)
+							
 			if(!passive_handler.Get("StaticWalk")&&!src.Dead)
 				if(istype(loc,/turf/Special/Static))
 					src.Health-=0.05

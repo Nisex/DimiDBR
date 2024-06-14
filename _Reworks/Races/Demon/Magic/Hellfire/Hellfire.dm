@@ -38,7 +38,7 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
     ElementalClass="Fire"
-    scalingValues = list("Damage" = list(0.4,0.6,0.8,12), "Distance" = list(8,12,15,20,30), \
+    scalingValues = list("Damage" = list(0.2,0.3,0.4,0.6), "Distance" = list(5,8,10,12,15), \
     "DarknessFlame" = list(3,8,12,15,20), "Slow" = list(3,6,8,12,20), "Burning" = list(10,15,20,25,30,50), "Duration" = list(150,200,300,350,400), \
     "Adapt" = list(1,1,1,1,1), "CorruptionGain" = list(1,1,1,1,1) )
     makSpace = new/spaceMaker/HellFire
@@ -49,6 +49,7 @@
     EndYourself=1
     ActiveMessage = "rains down an onslaught of fire!"
     adjust(mob/p)
+        scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm::scalingValues
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         makSpace.toDeath = scalingValues["Duration"][asc]
         makSpace.range = scalingValues["Distance"][asc]
@@ -61,10 +62,9 @@
         . = 1
         adjust(User)
         var/aaa = ..()
-        if(!User.BuffOn(src) && cooldown_remaining <= 0)
-            if(aaa)
-                makSpace.makeSpace(User, src)
-                . = aaa
+        if(aaa)
+            makSpace.makeSpace(User, src)
+            . = aaa
     proc/applyEffects(mob/target, mob/owner, static_damage)
         if(!owner||!target) return
         var/asc = owner.AscensionsAcquired ? owner.AscensionsAcquired : 1
@@ -73,8 +73,7 @@
                 if("Damage")
                     static_damage *= scalingValues[x][asc]
                     owner.DoDamage(target, static_damage, 0, 0 , 0 , 0 , 0 , 0 , 0)
-                    if("CorruptionGain" in scalingValues)
-                        owner.gainCorruption(static_damage / 2)
+                    owner.gainCorruption(static_damage)
                 if("DarknessFlame")
                     target.AddPoison(scalingValues["Burning"][asc] * 1 + (scalingValues[x][asc] * 0.25), Attacker=owner)
                 if("Burning")
@@ -82,6 +81,11 @@
                 if("Slow")
                     target.AddSlow(scalingValues[x][asc])
                     target.AddCrippling(scalingValues[x][asc]/2)
+        if(!target:move_disabled)
+            if(prob(10))
+                target:move_disabled = TRUE
+                spawn(10)
+                    target:move_disabled = FALSE
 
 
 

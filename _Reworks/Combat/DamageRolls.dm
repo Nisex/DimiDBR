@@ -39,7 +39,7 @@ var/global/new_damage_calc = 0
 			// this means they are in swordless
 			val += 0.25 // let em eat
 		else
-			if(UsingKendo() && s.Class=="Wooden")
+			if(UsingKendo())
 				val += (0.1) + 0.2
 			else
 				val += (0.1) + swordValues[s.Class]

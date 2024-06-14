@@ -216,3 +216,10 @@ update
 				p.AddSkill(new/obj/Skills/AutoHit/Dragon_Roar)
 			
 			..()
+	version15
+		version = 15
+		updateMob(mob/p)
+			if(p.isRace(DEMON))
+				p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self)
+			
+			..()

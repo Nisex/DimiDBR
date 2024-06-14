@@ -161,6 +161,8 @@ mob
 			var/Ascensions=0
 			if(s)
 				Total=s.DamageEffectiveness
+				if(UsingKendo())
+					Total = 1.25 // change it to heavy sword damage, fuck it
 				Ascensions=s.Ascended
 				if(src.HasSwordAscension())
 					Ascensions+=src.GetSwordAscension()

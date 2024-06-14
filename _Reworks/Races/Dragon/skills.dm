@@ -15,6 +15,7 @@
     Instinct=1
     WindupMessage="ROARRRR"
     ActiveMessage="ROARRRSSS"
+    ComboMaster = 1
     adjust(mob/p)
         var/asc = p.AscensionsAcquired
         Crippling = 10
@@ -23,17 +24,29 @@
         switch(p.Class)
             if("Wind")
                 Knockback = 0.25
-                Distance = 12 + (asc * 5)
-                Shocking = 12 + (8 * asc)
-                DamageMult = 6 + (asc * 3)
+                Distance = 8 + (asc * 5)
+                Paralyzing = 8 + (8 * asc)
+                DamageMult = 6 + (asc * 1)
                 Rounds = 8 + (asc * 2)
                 DamageMult = DamageMult/Rounds
             if("Fire")
                 Distance = 5 + (asc * 2)
                 Scorching = 8 + (8 * asc)
-                DamageMult = 8 + (asc * 2)
+                DamageMult = 8 + (asc * 1)
                 Rounds = 4 + (asc * 1)
                 DamageMult = DamageMult/Rounds
+                PullIn = Distance / 2
+            if("Metal")
+                Distance = 5 + (asc * 2)
+                Shattering = 3 + (3 * asc)
+                Crippling = 8 + (8 * asc)
+                EndDefense = 0.9 - (0.1 * asc)
+                DamageMult = 5 + (asc * 1)
+                Rounds = 3 + (asc * 2)
+                DamageMult = DamageMult/Rounds
+                PullIn = Distance / 2
+
+
     verb/Dragon_Roar()
         set category="Skills"
         adjust(usr)

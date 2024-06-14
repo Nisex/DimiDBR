@@ -13606,7 +13606,7 @@ mob
 				else
 					src.LoseMana(B.ManaCost*(1-(0.45*src.TomeSpell(B))))
 				if(B.CorruptionGain)
-					gainCorruption(B.ManaCost / 3)
+					gainCorruption(B.ManaCost / 2)
 			if(B.CorruptionCost)
 				gainCorruption(-B.CorruptionCost)
 			if(B.CapacityCost)
@@ -14340,7 +14340,7 @@ mob
 				if(src.TomeSpell(B))
 					B.Cooldown(1-(0.25*src.TomeSpell(B)))
 				else
-					B.Cooldown()
+					B.Cooldown(p = src)
 
 			if(B.BuffTechniques.len>0)
 				for(var/x=1, x<=B.BuffTechniques.len, x++)
