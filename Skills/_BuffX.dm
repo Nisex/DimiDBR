@@ -5263,6 +5263,7 @@ NEW VARIABLES
 				DefMult = 0.4
 				TimerLimit=0
 				Cooldown=30
+				ManaCost = 8
 				IconLock='zekkai.dmi'
 				IconLockBlend=2
 				IconLayer=-1

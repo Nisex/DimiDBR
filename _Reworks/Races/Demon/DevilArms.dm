@@ -43,11 +43,10 @@
             return TRUE
         return FALSE
     adjust(mob/p)
-        var/asc = p.AscensionsAcquired
-        StrMult = 1 + (0.1 * asc)
-        ForMult = 1 + (0.1 * asc)
-        EndMult = 1+ (0.05 * asc)
-        SpdMult = 1 + (0.05 * asc)
+        StrMult = 1
+        ForMult = 1
+        EndMult = 1
+        SpdMult = 1
     verb/Devil_Arm()
         set category = "Skills"
         if(!usr.isRace(DEMON)) return
