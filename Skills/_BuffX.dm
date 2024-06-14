@@ -5228,7 +5228,8 @@ NEW VARIABLES
 			Deflection=1
 			NoDodge=1
 			TimerLimit=10
-			Cooldown=5
+			EnergyCost = 10
+			Cooldown=90
 			IconLock='Android Shield.dmi'
 			IconLockBlend=2
 			IconLayer=-1
@@ -5254,6 +5255,30 @@ NEW VARIABLES
 //TODO ADD A MAGIC LEVEL VARIABLE
 		Magic
 			MagicNeeded=1
+
+			Magic_Barrier
+				SkillCost=0
+				passives = list("Deflection" = 1)
+				Deflection=1
+				DefMult = 0.4
+				TimerLimit=0
+				Cooldown=30
+				IconLock='zekkai.dmi'
+				IconLockBlend=2
+				IconLayer=-1
+				IconApart=1
+				OverlaySize=1.4
+				ActiveMessage="makes a shield of magic!"
+				OffMessage="lowers their shield..."
+				adjust(mob/p)
+					var/magicLevel = p.getTotalMagicLevel()
+					ManaDrain = 1.2 - (0.04 * magicLevel)
+					passives["Deflection"] = 1 + round(magicLevel / 10)
+					if(magicLevel >= 10)
+						passives["BulletKill"] = 1
+				verb/Ki_Shield()
+					set category="Skills"
+					src.Trigger(usr)
 
 			Hold_PersonApply
 				MagicNeeded = 0
@@ -5301,13 +5326,14 @@ NEW VARIABLES
 				adjust(mob/p)
 					NoForcedWhiff = 1 // make it so people cant force whiff u
 					var/magicLevel = p.getTotalMagicLevel()
-					passives = list("NoForcedWhiff" = 1, "FluidForm" = 1, "Godspeed" = clamp(round(magicLevel/5), 1, 2), "DoubleStrike" = 1)
-					TimerLimit = round(8 + magicLevel)
+					passives = list("NoForcedWhiff" = 1, "FluidForm" = 1, "Godspeed" = clamp(round(magicLevel/10), 1, 2), "DoubleStrike" = 1, \
+					"BlurringStrikes" = 1)
+					TimerLimit = round(15 + (magicLevel * 1.5))
 					FluidForm = 1
-					SpdMult = 1 + (magicLevel * 0.02)
-					Godspeed = round(magicLevel / 5)
+					SpdMult = 1 + (magicLevel * 0.01)
+					Godspeed = round(magicLevel / 10)
 					DoubleStrike = 1
-					ManaDrain = 0.02
+					ManaDrain = 0.01
 					SpdTax = 0.03
 				verb/Haste()
 					set category="Skills"
