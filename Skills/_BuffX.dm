@@ -10951,7 +10951,7 @@ NEW VARIABLES
 				TooMuchHealth=75
 				VaizardHealth=2
 				VaizardShatter=1
-				passives = list("Unstoppable" = 1, "Possessive" = 1, "LifeGeneration" = 2, "Instinct" = 2, "Flicker" = 1)
+				passives = list("Unstoppable" = 1, "LifeGeneration" = 2, "Instinct" = 2, "Flicker" = 1)
 				Unstoppable=1
 				Possessive=1
 				TextColor=rgb(75, 0, 85)
@@ -10969,7 +10969,7 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(altered) return
 					var/asc = p.AscensionsAcquired
-					passives = list("Unstoppable" = 1, "Possessive" = 1, "LifeSteal" = 7.5+asc, "Instinct" = 1+(asc/2), "Flicker" = 1+(asc/2))
+					passives = list("Unstoppable" = 1, "LifeSteal" = 7.5+asc, "Instinct" = 1+(asc/2), "Flicker" = 1+(asc/2))
 					VaizardHealth = 1.25+(asc/2)
 					if(asc>=1)
 						if(!locate(/obj/Skills/AutoHit/Symbiote_Tendril_Wave, p.AutoHits))
