@@ -212,7 +212,8 @@ var/list/SkillTree=list(
 			"/obj/Skills/Buffs/NuStyle/FreeStyle/Feral_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/FreeStyle/Flow_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/FreeStyle/Breaker_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/FreeStyle/Blitz_Style"=20
+			"/obj/Skills/Buffs/NuStyle/FreeStyle/Blitz_Style"=20,
+			"/obj/Skills/Buffs/NuStyle/FreeStyle/Shield_Style"=20
 ),
 
 "ElementalStyles"=list(
@@ -226,6 +227,7 @@ var/list/SkillTree=list(
 			"/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/SwordStyle/Fencing_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/SwordStyle/Zornhau_Style"=20,
+			"/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/SwordStyle/Swordless_Style"=20
 ),
 

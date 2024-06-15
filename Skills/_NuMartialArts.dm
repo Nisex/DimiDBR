@@ -16,18 +16,42 @@ obj
 			NuStyle
 				skillDescription()
 					..()
-					if(StyleStr>1)
-						description += "Strength Add: [StyleStr-1]\n"
-					if(StyleFor>1)
-						description += "Force Add; [StyleFor-1]\n"
-					if(StyleEnd>1)
-						description += "End Add: [StyleEnd-1]\n"
-					if(StyleSpd>1)
-						description += "Speed Add: [StyleSpd-1]\n"
-					if(StyleOff>1)
-						description += "Offense Add: [StyleOff-1]\n"
-					if(StyleDef>1)
-						description += "Defense Add: [StyleDef-1]\n"
+					if(StyleStr)
+						if(StyleStr  < 1 &&  StyleStr  > 0)
+							description += "Defense Reduction: [StyleStr]\n"
+						else
+							if(StyleStr > 1)
+								description += "Defense Add: [StyleStr-1]\n"
+					if(StyleFor)
+						if(StyleFor  < 1 &&  StyleFor  > 0)
+							description += "Defense Reduction: [StyleFor]\n"
+						else
+							if(StyleFor > 1)
+								description += "Defense Add: [StyleFor-1]\n"
+					if(StyleEnd)
+						if(StyleEnd  < 1 &&  StyleEnd  > 0)
+							description += "Defense Reduction: [StyleEnd]\n"
+						else
+							if(StyleEnd > 1)
+								description += "Defense Add: [StyleEnd-1]\n"
+					if(StyleSpd)
+						if(StyleSpd  < 1 &&  StyleSpd  > 0)
+							description += "Defense Reduction: [StyleSpd]\n"
+						else
+							if(StyleSpd > 1)
+								description += "Defense Add: [StyleSpd-1]\n"
+					if(StyleOff)
+						if(StyleOff  < 1 &&  StyleOff  > 0)
+							description += "Defense Reduction: [StyleOff]\n"
+						else
+							if(StyleOff > 1)
+								description += "Defense Add: [StyleOff-1]\n"
+					if(StyleDef)
+						if(StyleDef  < 1 &&  StyleDef  > 0)
+							description += "Defense Reduction: [StyleDef]\n"
+						else
+							if(StyleDef > 1)
+								description += "Defense Add: [StyleDef-1]\n"
 
 				var/StylePrimeUnlock //obtained from getting mastery 4; can be a list
 				var/StyleComboUnlock=list()//obtained from getting mastery 3 in 2 styles; MUST be a list
@@ -628,6 +652,20 @@ obj
 							src.Trigger(usr)
 
 //Signature Style T1
+					Sword_And_Shield
+						SignatureTechnique=1
+						Copyable=0
+						StyleEnd=1.5
+						StyleStr=1.25
+						StyleSpd=0.75
+						StyleOff=1.25
+						StyleDef=1.25
+						StyleActive="Sword And Shield"
+						passives = list("Hardening" = 1, "Deflection" = 0.5)
+						StyleComboUnlock=list("TBD"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style",\
+						"UNARMED VARIANT"="/obj/Skills/Buffs/NuStyle/SwordStyle/Iron_Fist_Style")
+						Finisher="/obj/Skills/Queue/Finisher/Behemoth_Typhoon"
+
 					Dual_Wield_Style//iaido + fencing
 						SignatureTechnique=1
 						NeedsSecondSword=1

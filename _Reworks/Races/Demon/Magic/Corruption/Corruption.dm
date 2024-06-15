@@ -41,7 +41,7 @@
 	Trigger(mob/User, Override)
 		. = 0
 		adjust(User)
-		if(!User.BuffOn(src) && cooldown_remaining)
+		if(!User.BuffOn(src) && cooldown_remaining != -1)
 			if(User.Corruption - CorruptionCost < 0)
 				User << "Not enough corruption"
 				return 0

@@ -333,8 +333,7 @@ obj
 					Instinct = 1
 					FollowUp="/obj/Skills/Queue/Finisher/Duel"
 					HitMessage="darts at their enemy!"
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Champion_Pride"
-					BuffSelf=1
+					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Champion_Pride"
 
 				Mist_Finer
 					Warp=10
@@ -373,6 +372,15 @@ obj
 
 				//tier 1 sig styles
 
+				Behemoth_Typhoon
+					Steady = 4
+					WeaponBreaker = 2
+					Crushing = 20
+					Finisher = 1
+					DamageMult = 0.5
+					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Arena_Champion"
+					HitMessage="flies forward in a whirlwind of piercing blades!"
+					FollowUp="/obj/Skills/AutoHit/Giga_Impact"
 				Geo_de_Ray
 					DamageMult=2
 					Warp=10

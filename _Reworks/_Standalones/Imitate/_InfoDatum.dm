@@ -78,6 +78,7 @@ characterInformation/proc/loadProfile(mob/p, file_name, infoDump)
         if(findtext(x,"Custom_Profile"))
             var/name = copytext(x,length(x)-5, length(x)-4)
             currentIndex = text2num(name)
+    src<<"You currently have [currentIndex] profiles"
     if(currentIndex+1>5)
         src << "You have too many saved profiles bro."
         return

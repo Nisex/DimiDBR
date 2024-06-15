@@ -10485,6 +10485,17 @@ NEW VARIABLES
 					ActiveMessage="fears for their life against a hyperspeed opponent!"
 					OffMessage="regains courage!"
 
+				Arena_Champion
+					BuffName = "Champion of The Arena"
+					passives = list("DoubleStrike" = 1, "Deflection" = 0.5,  "CallousedHands" = 0.3, "StunningStrike" = 1.5, "ComboMaster" = 1)
+					EndMult = 1.2
+					OffMult = 1.2
+					DefMult = 0.4
+					StrMult = 1.2
+					SpdMult = 0.8
+					ActiveMessage="proclaims this arena for their own!"
+					OffMessage="falls out of their champion lull."
+
 				Dual_Break
 					IconLock='SweatDrop.dmi'
 					IconApart=1
