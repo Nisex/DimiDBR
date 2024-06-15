@@ -2410,7 +2410,7 @@ mob
 				return 1
 			if(src.isRace(MAJIN))
 				return 1
-			if(Target && (Health <=25 && Target.Health > Health+10) && isUnderDog())
+			if(Target && (Health <=25 && Target.Health > Health+10) && isUnderDog(Target))
 				return 1
 			return 0
 		UsingZornhau()
