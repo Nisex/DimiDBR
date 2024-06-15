@@ -84,6 +84,68 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 					OMessage(10,"font color='[BarelyStandingColor]'>[src] [BarelyStandingMessage ? "[BarelyStandingMessage]" : " is barely standing!"]!", "[src]([src.key]) has 10% health left.</font>")
 			HealthAnnounce10 = 1
 //**TESTED AND WORKS */
+/mob/proc/reduceErodeStolen()
+	if(src.StrStolen)
+		src.StrStolen-=0.1 
+		if(src.StrStolen<0)
+			src.StrStolen=0
+	if(src.EndStolen)
+		src.EndStolen-=0.1
+		if(src.EndStolen<0)
+			src.EndStolen=0
+	if(src.SpdStolen)
+		src.SpdStolen-=0.1
+		if(src.SpdStolen<0)
+			src.SpdStolen=0
+	if(src.ForStolen)
+		src.ForStolen-=0.1
+		if(src.ForStolen<0)
+			src.ForStolen=0
+	if(src.OffStolen)
+		src.OffStolen-=0.1
+		if(src.OffStolen<0)
+			src.OffStolen=0
+	if(src.DefStolen)
+		src.DefStolen-=0.1
+		if(src.DefStolen<0)
+			src.DefStolen=0
+	if(src.PowerEroded>0)
+		src.PowerEroded-=0.02
+		if(src.PowerEroded<0)
+			src.PowerEroded=0
+	if(src.StrEroded>0)
+		src.StrEroded-=0.02
+		if(src.StrEroded<0)
+			src.StrEroded=0
+	if(src.EndEroded>0)
+		src.EndEroded-=0.02
+		if(src.EndEroded<0)
+			src.EndEroded=0
+	if(src.SpdEroded>0)
+		src.SpdEroded-=0.02
+		if(src.SpdEroded<0)
+			src.SpdEroded=0
+	if(src.ForEroded>0)
+		src.ForEroded-=0.02
+		if(src.ForEroded<0)
+			src.ForEroded=0
+	if(src.OffEroded>0)
+		src.OffEroded-=0.02
+		if(src.OffEroded<0)
+			src.OffEroded=0
+	if(src.DefEroded>0)
+		src.DefEroded-=0.02
+		if(src.DefEroded<0)
+			src.DefEroded=0
+	if(src.RecovEroded>0)
+		src.RecovEroded-=0.02
+		if(src.RecovEroded<0)
+			src.RecovEroded=0
+
+
+
+
+
 /mob/proc/meditationChecks()
 	if(icon_state == "Meditate")
 		MeditateTime++
@@ -107,6 +169,9 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 				R.TooMuchHealth = 50
 				R:adjust(src)
 				src<<"You no longer fear for your life..."
+
+		if(MeditateTime >= 15)
+			reduceErodeStolen()
 
 		if(MeditateTime == 15)
 			if(isRace(MAJIN))

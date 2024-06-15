@@ -116,9 +116,6 @@ Summon skill
     var/summonTier = orgSummonTier
     p << "You are preparing to summon a tier [summonTier] (or less) entity!"
     // we know what tier we want to summon, now we need to find somebody of that tier
-    var/list/summonList = list()
-    var/list/mob/newSummonList = list()
-    var/mob/summonee = null
     src.Using=0
 
 

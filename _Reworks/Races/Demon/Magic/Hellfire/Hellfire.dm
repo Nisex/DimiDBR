@@ -25,6 +25,7 @@
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
         if(p.isRace(DEMON))
+            Homing = 1
             DarknessFlame = asc + round(p.Potential/15)
             Scorching = asc * 10
         else
@@ -73,14 +74,13 @@
                 if("Damage")
                     static_damage *= scalingValues[x][asc]
                     owner.DoDamage(target, static_damage, 0, 0 , 0 , 0 , 0 , 0 , 0)
-                    owner.gainCorruption(static_damage * 5)
+                    owner.gainCorruption((static_damage * 2) * glob.CORRUPTION_GAIN)
                 if("DarknessFlame")
-                    target.AddPoison(scalingValues["Burning"][asc] * 1 + (scalingValues[x][asc] * 0.25), Attacker=owner)
+                    target.AddPoison(scalingValues["Burning"][asc] * 1 + (scalingValues[x][asc] * 0.5), Attacker=owner)
                 if("Burning")
                     target.AddBurn(scalingValues[x][asc])
                 if("Slow")
-                    target.AddSlow(scalingValues[x][asc])
-                    target.AddCrippling(scalingValues[x][asc]/2)
+                    target.AddCrippling(scalingValues[x][asc])
         if(!target:move_disabled)
             if(prob(10))
                 target:move_disabled = TRUE
@@ -93,8 +93,8 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat
     ElementalClass="Fire"
-    scalingValues = list("SlowAffected" = list(5,10,10,20,25), "CrippleAffected" = list(5,10,10,20,25), \
-    "PoisonAffected" = list(10,15,20,25,30), "BurnAffected" = list(10,15,20,25,30), "ConfuseAffected" = list(10, 15, 20 ,25, 30))
+    scalingValues = list("CrippleAffected" = list(12,15,15,20,25), \
+    "PoisonAffected" = list(15,20,20,25,30), "BurnAffected" = list(15,20,20,25,30), "ConfuseAffected" = list(15, 20, 20 ,25, 30))
     ManaCost=5
     EndYourself=1
     AffectTarget=1

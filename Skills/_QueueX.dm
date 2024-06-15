@@ -2237,7 +2237,7 @@ obj
 			Light_Rush
 				SkillCost=80
 				Copyable=3
-				DamageMult=1.2
+				DamageMult=1
 				AccuracyMult=5
 				Duration=5
 				Combo=4

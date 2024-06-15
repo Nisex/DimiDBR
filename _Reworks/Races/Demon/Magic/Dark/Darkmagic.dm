@@ -49,7 +49,7 @@
                 var/asc = User.AscensionsAcquired
                 if(asc < 1)
                     asc = 1
-                User.gainCorruption(corruptionGain[asc])
+                User.gainCorruption(corruptionGain[asc] * glob.CORRUPTION_GAIN)
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply
     BuffName = "Dominate Mind Applied"

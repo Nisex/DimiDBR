@@ -13633,7 +13633,7 @@ mob
 				else
 					src.LoseMana(B.ManaCost*(1-(0.45*src.TomeSpell(B))))
 				if(B.CorruptionGain)
-					gainCorruption(B.ManaCost / 1.5)
+					gainCorruption((B.ManaCost / 1.5) * glob.CORRUPTION_GAIN)
 			if(B.CorruptionCost)
 				gainCorruption(-B.CorruptionCost)
 			if(B.CapacityCost)

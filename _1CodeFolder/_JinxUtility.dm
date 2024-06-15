@@ -204,9 +204,9 @@ mob
 						defender.Tension+=(val*0.75) * glob.TENSION_MULTIPLIER
 			var/leakVal = val/GLOBAL_LEAK_REDUCTION
 			if(passive_handler.Get("Corruption"))
-				gainCorruption(val * 2)
+				gainCorruption(val * 1.5 * glob.CORRUPTION_GAIN)
 			if(defender.passive_handler.Get("Corruption"))
-				gainCorruption(val * 0.75)
+				gainCorruption(val * 0.75 * glob.CORRUPTION_GAIN)
 
 			if(src.HasEnergyLeak())
 				src.LoseEnergy(src.GetEnergyLeak()*0.25*leakVal)
@@ -254,7 +254,7 @@ mob
 
 			if(passive_handler.Get("CorruptAffected"))
 				if(demon)
-					demon.applyDebuffs(src, defender)
+					demon.applyDebuffs(defender, src)
 
 
 			if(passive_handler.Get("SoulFire")&&FightingSeriously(src, 0))

@@ -39,15 +39,16 @@
 		passives = p.demon.BuffPassives
 		TimerLimit = scalingValues["toDeath"][asc]/10
 	Trigger(mob/User, Override)
+		. = 0
 		adjust(User)
-		if(!User.BuffOn(src) && cooldown_remaining <= 0)
+		if(!User.BuffOn(src) && cooldown_remaining)
 			if(User.Corruption - CorruptionCost < 0)
 				User << "Not enough corruption"
-				return
+				return 0
 			else
 				User.Corruption -= CorruptionCost
 				makSpace.makeSpace(User, User.demon)
-			..()
+			. = ..()
 
 
 
@@ -88,7 +89,7 @@
 /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self
 	Cooldown = -1
 	scalingValues = list("TechniqueMastery" = list(5,5,10,15,15), "ManaGeneration" = list(1,1.5,2,4,5), \
-	"MovementMastery" = list(3,6,8,12,15), "Godspeed" = list(1,2,3,4,5), "IdealStrike" = list(1,1,1,1,1), \
+	"MovementMastery" = list(3,6,8,12,15), "Godspeed" = list(1,2,3,4,5), "Adrenaline" = list(1,2,3,3,3), "IdealStrike" = list(1,1,1,1,1), \
 	"FullyEffecient" = list(1,1,1,1,1), "CoolerAfterImages" = list(3,4,4,4,4), "CorruptAffected" = list(1,1,1,1,1))
 	AutoAnger = 1
 	HealthThreshold = 0.1
@@ -103,7 +104,7 @@
 	KenWaveSize=3
 	ManaGlow="#472951"
 	ManaGlowSize=2
-	CorruptionCost = 100
+	CorruptionCost = 75
 	adjust(mob/p)
 		NameFake = "￣ε☆╰╮o皿￣"
 		SpdMult = 1
@@ -125,7 +126,7 @@
 			passives["CallousedHands"] = asc/5
 			EndMult = 1 + boon
 		PowerMult = 1 + boon
-		TimerLimit = 40 + (pacts * 10) + (asc * 10)
+		TimerLimit = 80 + (pacts * 15) + (asc * 15)
 		// put it on cd
 	verb/Impose_Will()
 		set category = "Skills"

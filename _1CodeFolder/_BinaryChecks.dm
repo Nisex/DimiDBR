@@ -269,6 +269,10 @@ mob
 				Ascensions+=src.GetSwordAccuracyBuff()
 			Total*=1+(Ascensions*glob.SwordAscAcc)
 			return Total
+		HasComboMaster()
+			if(passive_handler.Get("ComboMaster"))
+				return 1
+			return 0
 		HasSwordAscension()
 			if(passive_handler.Get("SwordAscension"))
 				return 1
@@ -712,6 +716,8 @@ mob
 				Return++
 			Return=round(Return)
 			Return=min(8,Return)
+			if(Return < 0)
+				Return = 0
 			return Return
 		HasFlicker()
 			var/Return=0
@@ -966,18 +972,6 @@ mob
 				Return+=5
 			if(src.TarotFate=="Justice")
 				Return-=5
-			if(Target)
-				if(isDominating(Target) && passive_handler.Get("HellRisen"))
-					Return += passive_handler.Get("HellRisen") / 5
-				if(passive_handler.Get("Underdog"))
-					var/boon
-					if(Health <= 50 && Health < Target.Health)
-						boon = round((Target.Health - Health) / 100, 0.1)
-					if(isUnderDog(Target))
-						var/ud = clamp(round(Target.Power / Power, 0.01), 0.01, 5)
-						boon += ud
-					Return += (boon *  (1+(passive_handler.Get("Underdog")/4)))
-
 			if(isRace(MAJIN))
 				Return += Potential * getMajinRates("Damage")
 			return Return
@@ -996,15 +990,6 @@ mob
 				Return-=5
 			if(src.TarotFate=="Justice")
 				Return+=5
-			if(Target)
-				if(passive_handler.Get("Underdog"))
-					var/boon
-					if(Health <= 50 && Health < Target.Health)
-						boon = round((Target.Health - Health) / 100, 0.1)
-					if(isUnderDog(Target))
-						var/ud = clamp(round(Target.Power / Power, 0.01), 0.01, 5)
-						boon += ud
-					Return += (boon *  (1+(passive_handler.Get("Underdog")/4)))
 			return Return
 		HasWalking()
 			if(locate(/obj/Skills/Walking, src))
@@ -2424,6 +2409,8 @@ mob
 			if(src.isRace(DRAGON)&&src.AscensionsAcquired>=3)
 				return 1
 			if(src.isRace(MAJIN))
+				return 1
+			if(Target && (Health <=25 && Target.Health > Health+10) && isUnderDog())
 				return 1
 			return 0
 		UsingZornhau()

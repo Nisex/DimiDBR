@@ -3034,7 +3034,6 @@ obj
 				Copyable=3
 				NeedsSword=1
 				Area="Circle"
-				ComboMaster=1
 				Shearing=1
 				ControlledRush=1
 				Rush=3
@@ -3042,7 +3041,7 @@ obj
 				ChargeTime=1
 				Rounds=5
 				StrOffense=1
-				DamageMult=1.1
+				DamageMult=0.9
 				Cooldown=60
 				Knockback=1
 				Size=1
@@ -5328,7 +5327,7 @@ mob
 					src.LoseMana(drain*CostMultiplier*(1-(0.45*src.TomeSpell(Z))))
 				if(Z.CorruptionGain)
 					var/gain = drain*CostMultiplier / 1.5
-					gainCorruption(gain)
+					gainCorruption(gain * glob.CORRUPTION_GAIN)
 			if(Z.CorruptionCost)
 				gainCorruption(-Z.CorruptionCost)
 
@@ -5954,7 +5953,7 @@ obj
 					FinalDmg *= clamp(1,sqrt(1+((Owner.GetSpd())*(src.SpeedStrike/10))),3)
 				if(Owner.UsingFencing())
 					FinalDmg *= clamp(1,sqrt(1+((Owner.GetSpd())*(Owner.UsingFencing()/15))),3)
-				if(!ComboMaster && (m.Launched||m.Stunned))
+				if((!ComboMaster || !Owner.HasComboMaster()) && (m.Launched||m.Stunned))
 					FinalDmg *= glob.CCDamageModifier
 					Owner.log2text("FinalDmg - Auto Hit", "After ComboMaster", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 					Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
@@ -6134,7 +6133,7 @@ obj
 									m.Immortal=0
 					src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
 					if(CorruptionGain)
-						Owner.gainCorruption(FinalDmg * 5)
+						Owner.gainCorruption((FinalDmg * 2) * glob.CORRUPTION_GAIN)
 					if(src.Owner.UsingAnsatsuken())
 						src.Owner.HealMana(src.Owner.SagaLevel)
 

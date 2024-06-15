@@ -1062,7 +1062,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=20
-				DamageMult=3
+				DamageMult=1
 				AccMult=2
 				MultiShot=5
 				Crippling=3
@@ -1125,7 +1125,7 @@ obj
 				Copyable=2
 				ZoneAttack=1
 				EnergyCost=5
-				Distance=15
+				Distance=20
 				Blasts=10
 				Charge=1
 				DamageMult=0.2
@@ -1431,7 +1431,7 @@ obj
 				SkillCost=160
 				Blasts=12
 				Buster=1
-				DamageMult=0.5
+				DamageMult=0.3
 				BusterDamage=1
 				AccMult=0.5
 				BusterAccuracy=1
@@ -4297,10 +4297,10 @@ mob
 		UseProjectile(var/obj/Skills/Projectile/Z)
 			. = TRUE
 			if(src.Stasis)
-				return
+				return 0
 			if(Z.Sealed)
 				src << "You can't use [Z] it is sealed!"
-				return
+				return 0
 			if(Z.Continuous&&Z.ContinuousOn)
 				Z.ContinuousOn=0
 
@@ -4319,14 +4319,14 @@ mob
 							if(x.Target==src)
 								src << "Your [Z] was countered!"
 								Z.Cooldown()
-								return
+								return 0
 				if(src.HasMechanized()&&src.HasLimitlessMagic()!=1)
 					src << "You lack the ability to use magic!"
 					return
 				if(Z.Copyable>=3||!Z.Copyable)
 					if(!src.HasSpellFocus(Z))
 						src << "You need a spell focus to use [Z]."
-						return
+						return 0
 			if(Z.AssociatedGear)
 				if(!Z.AssociatedGear.InfiniteUses)
 					if(Z.Integrated)
@@ -4336,16 +4336,16 @@ mob
 								src << "Your integrated [Z] automatically replinishes its power!"
 								src.LoseMana(10)
 								Z.AssociatedGear.IntegratedUses=Z.AssociatedGear.IntegratedMaxUses
-							return
+							return 0
 					else
 						if(Z.AssociatedGear.Uses<=0)
 							usr << "Your [Z] is out of power!"
-							return
+							return 0
 			if(!Z.Charging)//Only beams get this exception
 				if(!src.CanAttack(3)&&!Z.AttackReplace)
-					return
-				if(Z.Using)
-					return
+					return 0
+				if(Z.Using) 
+					return 0
 				if(Z.ZoneAttack&&Z.FireFromEnemy)
 					if(!src.Target)
 						src << "You need a target to use this."
@@ -4363,17 +4363,17 @@ mob
 					if(!Z.AllOutAttack)
 						if(Z.HealthCost)
 							if(src.Health<Z.HealthCost*glob.WorldDamageMult)
-								return
+								return 0
 						if(Z.WoundCost)
 							if(src.TotalInjury+Z.WoundCost*glob.WorldDamageMult>99)
-								return
+								return 0
 						if(Z.EnergyCost)
 							if(src.Energy<Z.EnergyCost)
 								if(!src.CheckSpecial("One Hundred Percent Power")&&!src.CheckSpecial("Fifth Form")&&!CheckActive("Eight Gates"))
-									return
+									return 0
 						if(Z.FatigueCost)
 							if(src.TotalFatigue+Z.FatigueCost>99)
-								return
+								return 0
 						if(Z.ManaCost && !src.HasDrainlessMana())
 							var/drain = src.passive_handler.Get("MasterfulCasting") ? Z.ManaCost - (Z.ManaCost * (passive_handler.Get("MasterfulCasting") * 0.3)) : Z.ManaCost
 							if(drain <= 0)
@@ -4466,12 +4466,12 @@ mob
 						if(src.TomeSpell(Z))
 							Z.Cooldown(1-(0.25*src.TomeSpell(Z)))
 						else
-							Z.Cooldown()
+							Z.Cooldown(p = src)
 				else
 					if(src.TomeSpell(Z))
 						Z.Cooldown(1-(0.25*src.TomeSpell(Z)))
 					else
-						Z.Cooldown()
+						Z.Cooldown(p = src)
 			if(Z.Copyable)
 				spawn() for(var/mob/m in view(10, src))
 					if(m.CheckSpecial("Sharingan"))
@@ -4778,7 +4778,7 @@ mob
 						else
 							src.LoseMana(drain/Drain)
 						if(Z.CorruptionGain)
-							gainCorruption(drain / 1.5)
+							gainCorruption((drain / 1.5) * glob.CORRUPTION_GAIN)
 					if(Z.CorruptionCost)
 						gainCorruption(-Z.CorruptionCost)
 					if(Z.CapacityCost)
@@ -5554,7 +5554,7 @@ obj
 									EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.01, 1)
 									src.Owner.DoDamage(a, EffectiveDamage, SpiritAttack=1, Destructive=src.Destructive)
 									if(CorruptionGain)
-										Owner.gainCorruption(EffectiveDamage * 1.5)
+										Owner.gainCorruption((EffectiveDamage * 1.5) * glob.CORRUPTION_GAIN)
 									if(m)
 										AlreadyHit["[m.ckey]"]++
 									if(Piercing && PiercingBang)
@@ -5601,13 +5601,13 @@ obj
 									animate(a:client, color = null, time = 5)
 						if(src.Launcher)
 							spawn()
-								LaunchEffect(src.Owner, a)
+								LaunchEffect(src.Owner, a, Launcher )
 						if(src.Stasis&&!a:StasisFrozen)
 							a:SetStasis(src.Stasis)
 
 						if(src.Striking)
 							src.Owner.HitEffect(a)
-							if(src.DamageMult>=1.5)
+							if(src.DamageMult>=0.2)
 								KenShockwave(a, Size=max((src.DamageMult+src.Knockback+src.Owner.Intimidation/50)*max(2*src.Owner.GetGodKi(),1)*GoCrand(0.04,0.4),0.2),PixelX=src.VariationX,PixelY=src.VariationY)
 						if(src.Slashing)
 							Slash(a, src.Owner.EquippedSword())
