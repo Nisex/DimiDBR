@@ -104,4 +104,4 @@
                                     "Pericula ludus", "principiis obst, et respice finem", "pro se", "pro scientia atque sapientia", "propria manu ", \
                                     "ad vitam aut culpam", "aut vincere aut mori", "cor aut mors", "esto perpetua", "usque ad finem")
     var/obj/castingSpeechHolder = new()
-    createCastingSpeechHolder(pick(phrases), Text_Color, null, src)
+    castingSpeechHolder.createCastingSpeechHolder(pick(phrases), Text_Color, null, src)
