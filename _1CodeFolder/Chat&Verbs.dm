@@ -937,16 +937,6 @@ mob/Players/verb
 			usr<<"[y] | [admins[y]]"*/
 
 
-mob/proc/OMessage(var/View=10,var/Msg,var/Log)
-	for(var/mob/Players/E in hearers(View,src))
-		if(Msg)
-//			E<<"[Msg]"
-			E << output("[Msg]", "loocchat")
-			E << output("[Msg]", "oocchat")
-			E << output("[Msg]", "output")
-			E << output("[Msg]", "icchat")
-		if(Log)
-			Log(E.ChatLog(),Log)
 mob/var/tmp/Spam=0
 
 proc/SpamCheck(var/mob/M,var/T)

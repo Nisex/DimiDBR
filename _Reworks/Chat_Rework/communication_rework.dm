@@ -8,6 +8,8 @@ var/regex/whisperSlashRegex = new(@"^/w\s")
 var/regex/yellSlashRegex = new(@"^/y\s")
 #define IC_OUTPUT list("icchat", "output")
 #define LOOC_OUTPUT list("loocchat","oocchat","output")
+#define ALL_OUTPUT list("loocchat","oocchat","output", "icchat")
+
 #define YELL "yell"
 #define WHISPER "whisper"
 #define OBSERVE_HEADER "<b>(OBSERVE)</b>"

@@ -3124,12 +3124,6 @@ proc
 		return Damage*PROJ_DAMAGE_MULT
 	CounterDamage(Damage)
 		return clamp(Damage,0.25,1)
-proc
-	MSay(var/mob/defender, var/msg, var/type="says:")
-		for(var/mob/E in hearers(12,defender))
-			E<<"<font color=[defender.Text_Color]>[defender] [type] [msg]"
-	OMsg(var/mob/defender, var/msg)
-		defender.OMessage(10, "[msg]", "[defender]([defender.key]) used ([msg]).")
 
 var/list/general_magic_database = list()
 var/list/general_weaponry_database = list()
