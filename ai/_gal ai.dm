@@ -445,7 +445,7 @@ mob/Player/AI
 		ai_stall = 0 //Causes Update() to sleep.
 		ai_turn_stall = 0
 		ai_last_dirshift
-		ai_movement_type //Null = Default. Erratic movements, good for dueling.
+		ai_movement_type = "melee" //Null = Default. Erratic movements, good for dueling.
 		//"Rush". AI will run linearly toward an opponent.
 		//"Circle" An AI will run mad circles.
 		//"Cricle Owner" An AI will continously rotate around its Owner. This limits attacks to things like blast..
