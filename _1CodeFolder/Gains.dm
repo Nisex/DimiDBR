@@ -769,6 +769,8 @@ mob
 				src.IaidoCounter++
 			if(src.UsingSpeedRave())
 				src.IaidoCounter++
+			if(UsingGladiator())
+				GladiatorCounter++
 
 			if(src.BPPoisonTimer)
 				src.BPPoisonTimer--

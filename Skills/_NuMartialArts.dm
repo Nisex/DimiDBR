@@ -39,6 +39,16 @@ obj
 				UnarmedStyle
 					NoSword=1
 					NoStaff=1
+
+
+					// NEW SHIT
+
+
+
+
+
+
+
 					Turtle_Style
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Crane_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Gentle_Fist_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Cat_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style")
@@ -151,7 +161,7 @@ obj
 						verb/Water_Style()
 							set hidden=1
 							src.Trigger(usr)
-//Signature Styles T1
+					//Signature Styles T1
 					Black_Leg_Style
 						SignatureTechnique=1
 						Copyable=0
@@ -306,7 +316,7 @@ obj
 						verb/Tranquil_Dove_Style()
 							set hidden=1
 							src.Trigger(usr)
-//Signature Styles T2
+						//Signature Styles T2
 					Drunken_Fist_Style
 						SignatureTechnique=2
 						Copyable=0
@@ -455,7 +465,7 @@ obj
 						verb/Phage_Style()
 							set hidden=1
 							src.Trigger(usr)
-//Signature Styles T3
+					//Signature Styles T3
 					North_Star_Style
 						SignatureTechnique=3
 						Copyable=0
@@ -534,7 +544,7 @@ obj
 							set hidden=1
 							src.Trigger(usr)
 
-//Unarmed Saga Styles
+					//Unarmed Saga Styles
 					Ansatsuken_Style
 						Copyable=0
 						SagaSignature=1
@@ -555,6 +565,19 @@ obj
 				SwordStyle
 					NeedsSword=1
 					NoStaff=1
+					Gladiator_Style
+						// A style that builds into the sword and shield style, disarms your enemy every few seconds
+						StyleOff = 1.3
+						StyleEnd = 1.5
+						StyleDef = 1.2
+						StyleActive="Gladiator"
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Shield_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield")
+						Finisher="/obj/Skills/Queue/Finisher/Challenge"
+						verb/Gladiator_Style()
+							set hidden=1
+							src.Trigger(usr)
+
+
 					Iaido_Style
 						StyleStr=1.3
 						StyleEnd=1.2
@@ -1001,6 +1024,19 @@ obj
 					NeedsSword=0
 					NoSword=0
 					NoStaff=0
+					Shield_Style
+						StyleEnd=1.5
+						StyleDef=1.5
+						StyleSpd=0.8
+						StyleStr=1.2
+						StyleActive="Shield"
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield")
+						passives = list("Hardening" = 1)
+						Finisher="/obj/Skills/Queue/Finisher/Shield_Bash"
+						verb/Shield_Style()
+							set hidden = 1
+							src.Trigger(usr)
+
 					Feral_Style
 						StyleStr=1.3
 						StyleEnd=1.5

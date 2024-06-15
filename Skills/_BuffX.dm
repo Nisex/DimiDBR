@@ -10192,6 +10192,13 @@ NEW VARIABLES
 						OffMessage="represses their destructive instinct..."
 
 
+					Bashing
+						passives = list("HardenedFrame" = 1, "StunningStrike" = 3, "ComboMaster" = 1)
+						EndMult = 1.3
+						OffMult = 1.2
+						ActiveMessage="starts using their shield as a weapon!"
+						OffMessage="retracts their shield."
+
 					Bestial_Accuracy
 						StrMult=1.3
 						EndMult=0.8
@@ -10349,6 +10356,17 @@ NEW VARIABLES
 					DebuffCrash="Poison"
 
 				//sword finisher debuffs
+				Champion_Pride
+					IconLock='SweatDrop.dmi'
+					IconApart=1
+					passives = list("NoDodge" = 1, "Duelist" = 1)
+					OffMult = 1.2
+					StrMult = 1.2
+					ActiveMessage="is filled with a champion's pride!"
+					OffMessage="loses his fighting high."
+
+
+
 				Off_Balance
 					IconLock='Stun.dmi'
 					IconApart=1
@@ -10500,6 +10518,17 @@ NEW VARIABLES
 
 
 				//universal finisher debuffs
+				Stumbling
+					IconLock='SweatDrop.dmi'
+					IconApart=1
+					SpdMult=0.7
+					DefMult=0.7
+					ConfuseAffected = 5
+					ActiveMessage="can't regain their footing!"
+					OffMessage="regains focus!"
+
+
+
 				Locked_On
 					IconLock='SweatDrop.dmi'
 					IconApart=1
