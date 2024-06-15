@@ -2387,6 +2387,8 @@ mob
 				return 1
 			if(src.isRace(DRAGON)&&src.AscensionsAcquired>=1)
 				return 1
+			if(Target && (Health <=25 && Target.Health > Health+10) && passive_handler.Get("Underdog"))
+				return 1
 			return 0
 		UsingMartialStyle()
 			if(src.UsingMasteredMartialStyle())
