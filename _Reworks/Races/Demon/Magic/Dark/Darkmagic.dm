@@ -28,7 +28,7 @@
         usr.UseProjectile(src)
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind
-    var/corruptionGain = list(5,5,8,8,10)
+    var/corruptionGain = list(6,8,12,14,14)
     Range = 25
     ManaCost = 15
     AffectTarget = 1
@@ -43,13 +43,14 @@
         if(!altered)
             adjust(User)
             applyToTarget?:adjust(User)
-        if(..())
+        . = ..()
+        if(.)
             if(User.isRace(DEMON))
                 var/asc = User.AscensionsAcquired
                 if(asc < 1)
                     asc = 1
-                User.gainCorruption(corruptionGain[asc])
-            . = 1
+                User.gainCorruption(corruptionGain[asc] * glob.CORRUPTION_GAIN)
+
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply
     BuffName = "Dominate Mind Applied"
     MagicNeeded = 0
@@ -71,7 +72,7 @@
     BuffName = "Mind Dominated"
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech
-    scalingValues = list("TimerLimit" = list(12,10,8,5,5), "ManaHeal" = list(5,10,15,20,25), "HealthHeal" = list(1,1,2,2,3), "EnergyHeal" = list(2,4,8,10,10))
+    scalingValues = list("TimerLimit" = list(12,10,8,5,5), "ManaHeal" = list(8,12,16,20,25), "HealthHeal" = list(1,1,2,2,3), "EnergyHeal" = list(2,4,8,10,10))
     Cooldown = 90
     StableHeal = 1
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply

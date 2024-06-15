@@ -12,7 +12,7 @@
     biggest issue with this is if you hit Q -> w -> -> W -> w
     hypothetically it will b impossible to complete, we must denote that Q is the start, and anything after is the thing, but anything that is done within the given time doesn't count
     so depending on the ms between the Q and the key will determine if it goes off or not
- */ 
+ */
 #define LEEWAY_TIME 15
 
 
@@ -21,12 +21,12 @@
     var/tmp/triggerTime = null
     var/tmp/initType = null
     var/tmp/LAST_CAST = -100
-    
+
     proc/trigger(t)
         TRIGGERED = TRUE
         triggerTime = world.time
         initType = t
-    
+
     proc/clearInfo()
         TRIGGERED = null
         initType = null
@@ -71,7 +71,7 @@
     maptext_height = 64
     alpha = 0
     var/mheight
-    New(msg, textColor, life, mob/p)
+    proc/createCastingSpeechHolder(msg, textColor, life, mob/p)
         companion_ais += src
         toDeath = life ? life : 50
         owner = p
@@ -79,8 +79,7 @@
         WXH_TO_HEIGHT(p.client.MeasureText(msg, null, WIDTH), mheight)
         makeMessage(msg, textColor)
         animate(src, alpha = 150, time = 20 )
-        p.vis_contents += src 
-        ..()
+        p.vis_contents += src
     proc/makeMessage(msg, textColor)
         appearance_flags = (RESET_COLOR|RESET_TRANSFORM|NO_CLIENT_COLOR|RESET_ALPHA|PIXEL_SCALE) | KEEP_APART
         alpha = 0
@@ -89,7 +88,7 @@
         maptext_height = mheight
         maptext_x = (WIDTH - owner.bound_width) * -0.5
         maptext = msg
-    
+
     Update()
         toDeath--
         if(toDeath == 20)
@@ -99,9 +98,10 @@
             owner.vis_contents -= src
             del src
 
-            
+
 /mob/proc/castAnimation()
     var/static/list/phrases = list("parvus pendetur fur, magnus abire videtur", "para bellum", "parturiunt montes, nascetur ridiculus mus", \
                                     "Pericula ludus", "principiis obst, et respice finem", "pro se", "pro scientia atque sapientia", "propria manu ", \
                                     "ad vitam aut culpam", "aut vincere aut mori", "cor aut mors", "esto perpetua", "usque ad finem")
-    new/obj/castingSpeechHolder(pick(phrases), Text_Color, null, src)
+    var/obj/castingSpeechHolder = new()
+    castingSpeechHolder.createCastingSpeechHolder(pick(phrases), Text_Color, null, src)

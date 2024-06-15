@@ -326,6 +326,16 @@ obj
 					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Anger_Break"
 					HitMessage="leaps towards the opponent, mocking them with repeated stomps from above!"
 
+				Challenge
+					Warp=10
+					DamageMult = 2
+					KBMult=0.001
+					Instinct = 1
+					FollowUp="/obj/Skills/Queue/Finisher/Duel"
+					HitMessage="darts at their enemy!"
+					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Champion_Pride"
+					BuffSelf=1
+
 				Mist_Finer
 					Warp=10
 					FollowUp="/obj/Skills/Queue/Finisher/Drawing_Mist"
@@ -434,6 +444,17 @@ obj
 					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Evasion_Negation"
 					HitMessage="drives their staff into the ground, letting out a pulse of sealing force!"
 					BuffSelf=0
+
+
+				Shield_Bash
+					DamageMult=3
+					KBAdd = 5
+					Stunner = 5
+					Crippling = 50
+
+					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Bashing"
+					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Stumbling"
+					HitMessage="bashes their shield against their target, sending them stumbling!"
 
 				Berserker_Claw
 					DamageMult=3
@@ -2237,7 +2258,7 @@ obj
 			Light_Rush
 				SkillCost=80
 				Copyable=3
-				DamageMult=1.2
+				DamageMult=1
 				AccuracyMult=5
 				Duration=5
 				Combo=4
@@ -3777,12 +3798,18 @@ mob
 						var/obj/Items/Enchantment/Staff/st=src.EquippedStaff()
 						//var/obj/Items/Enchantment/Magic_Crest/mc=src.EquippedCrest()
 						var/obj/Items/Sword/sord=src.EquippedSword()
+						if(passive_handler.Get("Disarmed"))
+							src << "You are disarmed you can't use [Q]."
+							return
 						if(!st&&!(CrestSpell(Q))&&(!sord||sord&&!sord.MagicSword))
 							src << "You need a spell focus to use [Q]."
 							return
 			if(Q.NeedsSword||Q.UnarmedOnly)
 				var/obj/Items/Sword/s=src.EquippedSword()
 				if(Q.NeedsSword)
+					if(passive_handler.Get("Disarmed"))
+						src << "You are disarmed you can't use [Q]."
+						return
 					if((!s && !HasSwordPunching()) && !src.UsingBattleMage())
 						src << "You must have a sword equipped to use this technique."
 						return

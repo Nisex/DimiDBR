@@ -296,6 +296,15 @@ race
 		offense = 1.25
 		defense = 1.25
 
+		onFinalization(mob/user)
+			..()
+			if(!user.majinPassive)
+				user.majinPassive = new(user)
+			if(!user.majinAbsorb)
+				user.majinAbsorb = new()
+				user.findAlteredVariables()
+
+
 	dragon
 		name = "Dragon"
 		desc = "Dragons represent aspects of the world, said to be born of animosity. Reborn nearing times of great tragedy, they only regain their past lives of protecting the world at age 20."
@@ -445,7 +454,7 @@ race
 		force = 2
 		regeneration = 3
 		imagination = 2
-		
+
 		passives = list("AbyssMod" = 0.5, "Corruption" = 1, "StaticWalk" = 1, "SpaceWalk" = 1, "CursedWounds" = 1, "FakePeace" = 1, "MartialMagic" = 1)
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2,/obj/Skills/Utility/Imitate,  /obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon, \
 						/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption)
@@ -464,7 +473,7 @@ race
 							p << "Your devil arm evolves, toggle it on and off to use it"
 
 
-		
+
 		onFinalization(mob/user)
 			..()
 			user.EnhancedSmell = 1

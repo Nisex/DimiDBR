@@ -11,7 +11,7 @@
         Corruption = MinCorruption
     if(Corruption < 0)
         Corruption = 0
-    Corruption = round(Corruption, 1)
+    Corruption = Corruption
     client.updateCorruption()
     
     //TODO: some sort of animation here
@@ -24,7 +24,7 @@
             corruptionHolder.screen_loc = "RIGHT-1,BOTTOM"
             screen += corruptionHolder
         
-        corruptionHolder.maptext = "[mob.Corruption]/[mob.MaxCorruption]"
+        corruptionHolder.maptext = "[round(mob.Corruption,1)]/[mob.MaxCorruption]"
         corruptionHolder.maptext_width = 400
         
 

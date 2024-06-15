@@ -291,7 +291,7 @@ proc/findPactByID(id)
 
 /datum/DemonRacials/var/PactsByCkey
 
-/datum/DemonRacials/var/PactsTaken
+/datum/DemonRacials/var/PactsTaken = 0 
 
 /datum/DemonRacials/proc/givePact(mob/o,mob/p, datum/Pact/pact)
 	var/asc = o.AscensionsAcquired + 1

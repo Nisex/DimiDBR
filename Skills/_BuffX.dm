@@ -473,6 +473,7 @@ NEW VARIABLES
 	var/PoisonAffected//it adds poison stacks
 	var/CrippleAffected
 	var/ShearAffected
+	var/ConfuseAffected
 	var/StunAffected//adds stun stacks
 	var/BurningShot//It increases stats which burn out as you do
 	var/MirrorStats//It makes your stats the same as the enemys.
@@ -5227,7 +5228,8 @@ NEW VARIABLES
 			Deflection=1
 			NoDodge=1
 			TimerLimit=10
-			Cooldown=5
+			EnergyCost = 10
+			Cooldown=90
 			IconLock='Android Shield.dmi'
 			IconLockBlend=2
 			IconLayer=-1
@@ -5253,6 +5255,31 @@ NEW VARIABLES
 //TODO ADD A MAGIC LEVEL VARIABLE
 		Magic
 			MagicNeeded=1
+
+			Magic_Barrier
+				SkillCost=0
+				passives = list("Deflection" = 1)
+				Deflection=1
+				DefMult = 0.4
+				TimerLimit=0
+				Cooldown=30
+				ManaCost = 8
+				IconLock='zekkai.dmi'
+				IconLockBlend=2
+				IconLayer=-1
+				IconApart=1
+				OverlaySize=1.4
+				ActiveMessage="makes a shield of magic!"
+				OffMessage="lowers their shield..."
+				adjust(mob/p)
+					var/magicLevel = p.getTotalMagicLevel()
+					ManaDrain = 1.2 - (0.04 * magicLevel)
+					passives["Deflection"] = 1 + round(magicLevel / 10)
+					if(magicLevel >= 10)
+						passives["BulletKill"] = 1
+				verb/Ki_Shield()
+					set category="Skills"
+					src.Trigger(usr)
 
 			Hold_PersonApply
 				MagicNeeded = 0
@@ -5300,13 +5327,14 @@ NEW VARIABLES
 				adjust(mob/p)
 					NoForcedWhiff = 1 // make it so people cant force whiff u
 					var/magicLevel = p.getTotalMagicLevel()
-					passives = list("NoForcedWhiff" = 1, "FluidForm" = 1, "Godspeed" = clamp(round(magicLevel/5), 1, 2), "DoubleStrike" = 1)
-					TimerLimit = round(8 + magicLevel)
+					passives = list("NoForcedWhiff" = 1, "FluidForm" = 1, "Godspeed" = clamp(round(magicLevel/10), 1, 2), "DoubleStrike" = 1, \
+					"BlurringStrikes" = 1)
+					TimerLimit = round(15 + (magicLevel * 1.5))
 					FluidForm = 1
-					SpdMult = 1 + (magicLevel * 0.02)
-					Godspeed = round(magicLevel / 5)
+					SpdMult = 1 + (magicLevel * 0.01)
+					Godspeed = round(magicLevel / 10)
 					DoubleStrike = 1
-					ManaDrain = 0.02
+					ManaDrain = 0.01
 					SpdTax = 0.03
 				verb/Haste()
 					set category="Skills"
@@ -6329,7 +6357,7 @@ NEW VARIABLES
 
 			CureApply
 				StableHeal=1
-				HealthHeal=1.9
+				HealthHeal=0.19
 				TimerLimit=10
 				MagicNeeded = 0
 			Cure
@@ -6361,7 +6389,7 @@ NEW VARIABLES
 
 			CuragaApply
 				StableHeal=1
-				HealthHeal=2.5
+				HealthHeal=0.25
 				TimerLimit=10
 				MagicNeeded = 0
 			Curaga
@@ -10164,6 +10192,13 @@ NEW VARIABLES
 						OffMessage="represses their destructive instinct..."
 
 
+					Bashing
+						passives = list("HardenedFrame" = 1, "StunningStrike" = 3, "ComboMaster" = 1)
+						EndMult = 1.3
+						OffMult = 1.2
+						ActiveMessage="starts using their shield as a weapon!"
+						OffMessage="retracts their shield."
+
 					Bestial_Accuracy
 						StrMult=1.3
 						EndMult=0.8
@@ -10321,6 +10356,17 @@ NEW VARIABLES
 					DebuffCrash="Poison"
 
 				//sword finisher debuffs
+				Champion_Pride
+					IconLock='SweatDrop.dmi'
+					IconApart=1
+					passives = list("NoDodge" = 1, "Duelist" = 1)
+					OffMult = 1.2
+					StrMult = 1.2
+					ActiveMessage="is filled with a champion's pride!"
+					OffMessage="loses his fighting high."
+
+
+
 				Off_Balance
 					IconLock='Stun.dmi'
 					IconApart=1
@@ -10472,6 +10518,17 @@ NEW VARIABLES
 
 
 				//universal finisher debuffs
+				Stumbling
+					IconLock='SweatDrop.dmi'
+					IconApart=1
+					SpdMult=0.7
+					DefMult=0.7
+					ConfuseAffected = 5
+					ActiveMessage="can't regain their footing!"
+					OffMessage="regains focus!"
+
+
+
 				Locked_On
 					IconLock='SweatDrop.dmi'
 					IconApart=1
@@ -10924,7 +10981,7 @@ NEW VARIABLES
 				TooMuchHealth=75
 				VaizardHealth=2
 				VaizardShatter=1
-				passives = list("Unstoppable" = 1, "Possessive" = 1, "LifeGeneration" = 2, "Instinct" = 2, "Flicker" = 1)
+				passives = list("Unstoppable" = 1, "LifeGeneration" = 2, "Instinct" = 2, "Flicker" = 1)
 				Unstoppable=1
 				Possessive=1
 				TextColor=rgb(75, 0, 85)
@@ -10942,7 +10999,7 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(altered) return
 					var/asc = p.AscensionsAcquired
-					passives = list("Unstoppable" = 1, "Possessive" = 1, "LifeSteal" = 7.5+asc, "Instinct" = 1+(asc/2), "Flicker" = 1+(asc/2))
+					passives = list("Unstoppable" = 1, "LifeSteal" = 7.5+asc, "Instinct" = 1+(asc/2), "Flicker" = 1+(asc/2))
 					VaizardHealth = 1.25+(asc/2)
 					if(asc>=1)
 						if(!locate(/obj/Skills/AutoHit/Symbiote_Tendril_Wave, p.AutoHits))
@@ -13605,7 +13662,7 @@ mob
 				else
 					src.LoseMana(B.ManaCost*(1-(0.45*src.TomeSpell(B))))
 				if(B.CorruptionGain)
-					gainCorruption(B.ManaCost / 3)
+					gainCorruption((B.ManaCost / 1.5) * glob.CORRUPTION_GAIN)
 			if(B.CorruptionCost)
 				gainCorruption(-B.CorruptionCost)
 			if(B.CapacityCost)
@@ -14339,7 +14396,7 @@ mob
 				if(src.TomeSpell(B))
 					B.Cooldown(1-(0.25*src.TomeSpell(B)))
 				else
-					B.Cooldown()
+					B.Cooldown(p = src)
 
 			if(B.BuffTechniques.len>0)
 				for(var/x=1, x<=B.BuffTechniques.len, x++)

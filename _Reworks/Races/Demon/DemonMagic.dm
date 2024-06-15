@@ -36,7 +36,7 @@
                 if(dm.possible_skills[x])
                     if(x == "Corruption")
                         continue // no longer cuck corruption skills
-                    if(dm.possible_skills[x].cooldown_remaining)
+                    if(dm.possible_skills[x].cooldown_remaining && !(dm in src.possible_skills))
                         continue
                     dm.possible_skills[x].Using= 0 
                     dm.possible_skills[x].Cooldown(modify, Time, p)
@@ -83,7 +83,7 @@
                     return
                 
                 var/triggered = theSkill?:Trigger(User, 0)
-                if( !(isnull(triggered))  || triggered)
+                if(triggered)
                     Cooldown(1, null, User, type)
                 if(perfect)
                     User.Quake(5, 0)

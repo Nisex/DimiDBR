@@ -348,6 +348,7 @@ mob/var
 	Warping//You forcewarp.
 	SuperDash//Mobs have this too now
 	IaidoCounter//Once it hits ten, you get a zoom attack.
+	GladiatorCounter 
 
 	SpiritHand//Str*=sqrt(For)
 	SpiritFlow//For*=sqrt(Str) //TOD: Change to PowerFlow / PowerStream

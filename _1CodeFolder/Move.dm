@@ -123,15 +123,19 @@ mob/proc/MovementSpeed()
 	if(src.CanBeSlowed())
 		var/CombatSlow=10/max(src.Health,1)
 		if(CombatSlow>1)
-			if(src.Adrenaline)
+			var/Adren = passive_handler.Get("Adrenaline")
+			if(Adren)
 				if(CombatSlow<2)
 					Delay/=CombatSlow
+					Delay-=Adren
 				else
-					Delay/=2
+					Delay/=1+Adren
 			else
 				Delay*=CombatSlow
 		if(Delay>49)
 			Delay=50
+		if(Delay<4)
+			Delay=3
 	if(src.Afterimages())
 		if(prob(40))
 			FlashImage(src)

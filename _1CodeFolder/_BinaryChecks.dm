@@ -161,6 +161,8 @@ mob
 			var/Ascensions=0
 			if(s)
 				Total=s.DamageEffectiveness
+				if(UsingKendo())
+					Total = 1.25 // change it to heavy sword damage, fuck it
 				Ascensions=s.Ascended
 				if(src.HasSwordAscension())
 					Ascensions+=src.GetSwordAscension()
@@ -267,6 +269,10 @@ mob
 				Ascensions+=src.GetSwordAccuracyBuff()
 			Total*=1+(Ascensions*glob.SwordAscAcc)
 			return Total
+		HasComboMaster()
+			if(passive_handler.Get("ComboMaster"))
+				return 1
+			return 0
 		HasSwordAscension()
 			if(passive_handler.Get("SwordAscension"))
 				return 1
@@ -710,6 +716,8 @@ mob
 				Return++
 			Return=round(Return)
 			Return=min(8,Return)
+			if(Return < 0)
+				Return = 0
 			return Return
 		HasFlicker()
 			var/Return=0
@@ -964,18 +972,6 @@ mob
 				Return+=5
 			if(src.TarotFate=="Justice")
 				Return-=5
-			if(Target)
-				if(isDominating(Target) && passive_handler.Get("HellRisen"))
-					Return += passive_handler.Get("HellRisen") / 5
-				if(passive_handler.Get("Underdog"))
-					var/boon
-					if(Health <= 50 && Health < Target.Health)
-						boon = round((Target.Health - Health) / 100, 0.1)
-					if(isUnderDog(Target))
-						var/ud = clamp(round(Target.Power / Power, 0.01), 0.01, 5)
-						boon += ud
-					Return += (boon *  (1+(passive_handler.Get("Underdog")/4)))
-
 			if(isRace(MAJIN))
 				Return += Potential * getMajinRates("Damage")
 			return Return
@@ -994,15 +990,6 @@ mob
 				Return-=5
 			if(src.TarotFate=="Justice")
 				Return+=5
-			if(Target)
-				if(passive_handler.Get("Underdog"))
-					var/boon
-					if(Health <= 50 && Health < Target.Health)
-						boon = round(Target.Health - Health / 100, 0.1)
-					if(isUnderDog(Target))
-						var/ud = clamp(round(Target.Power / Power, 0.01), 0.01, 5)
-						boon += ud
-					Return += boon
 			return Return
 		HasWalking()
 			if(locate(/obj/Skills/Walking, src))
@@ -2423,6 +2410,8 @@ mob
 				return 1
 			if(src.isRace(MAJIN))
 				return 1
+			if(Target && (Health <=25 && Target.Health > Health+10) && isUnderDog(Target))
+				return 1
 			return 0
 		UsingZornhau()
 			var/Found=0
@@ -2470,6 +2459,16 @@ mob
 			if(Found>0&&Saga == "Weapon Soul"&&SagaLevel>=2)
 				Found+=1
 			return Found
+		UsingGladiator()
+			var/Found=0
+			if(src.StyleActive=="Sword Savant")
+				Found+=0.25
+			if(src.StyleActive=="Gladiator")
+				Found=0.5
+			if(src.StyleActive=="Sword And Shield")
+				Found=1
+			return Found
+		
 		UsingIaido()
 			var/Found=0
 			var/obj/Items/Sword/S=src.EquippedSword()

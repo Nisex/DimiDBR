@@ -204,7 +204,9 @@ mob
 						defender.Tension+=(val*0.75) * glob.TENSION_MULTIPLIER
 			var/leakVal = val/GLOBAL_LEAK_REDUCTION
 			if(passive_handler.Get("Corruption"))
-				gainCorruption(val)
+				gainCorruption(val * 1.5 * glob.CORRUPTION_GAIN)
+			if(defender.passive_handler.Get("Corruption"))
+				gainCorruption(val * 0.75 * glob.CORRUPTION_GAIN)
 
 			if(src.HasEnergyLeak())
 				src.LoseEnergy(src.GetEnergyLeak()*0.25*leakVal)
@@ -248,6 +250,12 @@ mob
 				defender.TotalFatigue+=amount/2
 				Update_Stat_Labels()
 
+			//HERE !!
+
+			if(passive_handler.Get("CorruptAffected"))
+				if(demon)
+					demon.applyDebuffs(defender, src)
+
 
 			if(passive_handler.Get("SoulFire")&&FightingSeriously(src, 0))
 				if(!(defender.CyberCancel || defender.Mechanized))
@@ -281,7 +289,7 @@ mob
 				if(defender.HasAdaptation()&&!defender.CheckSlotless("Great Ape"))
 					defender.AdaptationTarget=src
 					defender.AdaptationCounter+=(val*(defender.AscensionsAcquired/40))
-					if(defender.AdaptationCounter>=1)         
+					if(defender.AdaptationCounter>=1)
 						defender.AdaptationCounter=1
 						if(!defender.AdaptationAnnounce)
 							defender << "<b>You've adapted to your target's style!</b>"
@@ -663,7 +671,7 @@ mob
 		LoseHealth(var/val)
 			src.Health-=val
 			src.MaxHealth()
-			if(Race == "Majin")
+			if(isRace(MAJIN))
 				if(majinPassive != null)
 					majinPassive.tryDropBlob(src)
 		LoseEnergy(var/val)
@@ -1163,6 +1171,8 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
+			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
+				Mod+=(0.1 * AscensionsAcquired)
 			if(src.StrStolen)
 				Mod+=src.StrStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1170,18 +1180,23 @@ mob
 				if(Mod<=glob.BUFF_MASTERY_LOWTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
-					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-			
+					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT)) 
 
 
-			if(src.BurningShot)
-				if(src.Burn)
+			if(src.Burn)
+				if(src.BurningShot)
 					if(src.Burn>0&&src.Burn<=25)
 						Mod+=0.75*src.BurningShot
 					else if(src.Burn>25&&src.Burn<=75)
 						Mod+=0.5*src.BurningShot
 					else
 						Mod+=0.25*src.BurningShot
+				else
+					if(!src.HasDebuffImmune()>=1)
+						if(src.HasDebuffReversal())
+							Mod*=1 + Burn * (clamp(glob.DEBUFF_EFFECTIVENESS - 0.002, 0.001, 1))
+						else
+							Mod*=1 - Burn * (clamp(glob.DEBUFF_EFFECTIVENESS - 0.002, 0.001, 1))
 			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Broken Brave"))
 				if(src.Health<=25*(1-src.HealthCut))
 					Mod+=min(10/src.Health,1)
@@ -1276,6 +1291,8 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
+			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
+				Mod+=(0.1 * AscensionsAcquired)
 			if(src.ForStolen)
 				Mod+=src.ForStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1292,13 +1309,7 @@ mob
 						Mod+=0.5*src.BurningShot
 					else
 						Mod+=0.25*src.BurningShot
-				else
-					if(!src.HasDebuffImmune()>=1)
-						if(src.HasDebuffReversal())
-							Mod*=1 + Burn * (clamp(glob.DEBUFF_EFFECTIVENESS - 0.002, 0.001, 1))
-						else
-							Mod*=1 - Burn * (clamp(glob.DEBUFF_EFFECTIVENESS - 0.002, 0.001, 1))
-				
+
 			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Broken Brave"))
 				if(src.Health<=25*(1-src.HealthCut))
 					Mod+=min(10/src.Health,1)
@@ -1384,6 +1395,8 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
+			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
+				Mod+=(0.05 * AscensionsAcquired)
 			if(src.EndStolen)
 				Mod+=src.EndStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1470,6 +1483,8 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
+			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
+				Mod+=(0.05 * AscensionsAcquired)
 			if(src.SpdStolen)
 				Mod+=src.SpdStolen*0.5
 			var/BM=src.HasBuffMastery()

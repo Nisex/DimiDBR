@@ -282,6 +282,25 @@ obj
 
 
 //Auto^2hits
+			Duel
+				StrOffense=1
+				EndDefense=0.75
+				DamageMult=2
+				Area="Circle"
+				Distance=4
+				GuardBreak = 1
+				TurfErupt=2
+				TurfEruptOffset=3
+				Slow=1
+				Crushing = 10
+				Knockback=0.001
+				ActiveMessage="issues a duel to their enemy!"
+				HitSparkIcon='BLANK.dmi'
+				HitSparkX=0
+				HitSparkY=0
+				Cooldown=4
+				Earthshaking=15
+
 			Explosive_Finish
 				StrOffense=1
 				ForOffense=1
@@ -3034,7 +3053,6 @@ obj
 				Copyable=3
 				NeedsSword=1
 				Area="Circle"
-				ComboMaster=1
 				Shearing=1
 				ControlledRush=1
 				Rush=3
@@ -3042,7 +3060,7 @@ obj
 				ChargeTime=1
 				Rounds=5
 				StrOffense=1
-				DamageMult=1.1
+				DamageMult=0.9
 				Cooldown=60
 				Knockback=1
 				Size=1
@@ -4766,6 +4784,9 @@ mob
 					src << "You lack the ability to use magic!"
 					return
 				if(Z.Copyable>=3||!Z.Copyable)
+					if(passive_handler.Get("Disarmed"))
+						src << "You are disarmed you can't use [Z]."
+						return
 					if(!src.HasSpellFocus(Z))
 						src << "You need a spell focus to use [Z]."
 						return
@@ -4803,6 +4824,9 @@ mob
 					return
 			if(Z.NeedsSword)
 				var/obj/Items/Sword/s=src.EquippedSword()
+				if(passive_handler.Get("Disarmed") && s)
+					src << "You are disarmed you can't use [Z]."
+					return
 				if(!s)
 					if(!src.HasSwordPunching() && !src.UsingBattleMage())
 						src << "You need a sword equipped to use [Z]!"
@@ -5327,8 +5351,8 @@ mob
 				else
 					src.LoseMana(drain*CostMultiplier*(1-(0.45*src.TomeSpell(Z))))
 				if(Z.CorruptionGain)
-					var/gain = drain*CostMultiplier / 3
-					gainCorruption(gain / 3)
+					var/gain = drain*CostMultiplier / 1.5
+					gainCorruption(gain * glob.CORRUPTION_GAIN)
 			if(Z.CorruptionCost)
 				gainCorruption(-Z.CorruptionCost)
 
@@ -5954,7 +5978,7 @@ obj
 					FinalDmg *= clamp(1,sqrt(1+((Owner.GetSpd())*(src.SpeedStrike/10))),3)
 				if(Owner.UsingFencing())
 					FinalDmg *= clamp(1,sqrt(1+((Owner.GetSpd())*(Owner.UsingFencing()/15))),3)
-				if(!ComboMaster && (m.Launched||m.Stunned))
+				if((!ComboMaster || !Owner.HasComboMaster()) && (m.Launched||m.Stunned))
 					FinalDmg *= glob.CCDamageModifier
 					Owner.log2text("FinalDmg - Auto Hit", "After ComboMaster", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 					Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
@@ -6134,7 +6158,7 @@ obj
 									m.Immortal=0
 					src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
 					if(CorruptionGain)
-						Owner.gainCorruption(FinalDmg * 1.25)
+						Owner.gainCorruption((FinalDmg * 2) * glob.CORRUPTION_GAIN)
 					if(src.Owner.UsingAnsatsuken())
 						src.Owner.HealMana(src.Owner.SagaLevel)
 

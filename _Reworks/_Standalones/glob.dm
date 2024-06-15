@@ -63,7 +63,12 @@ var/globalTracker/glob = new()
 /mob/Admin4/verb/convertGlobalInfo()
 	transferGlobalstoGlob()
 
-
+/mob/Admin3/verb/Debuff_Apply(n as num)
+	glob.BURN_INTENSITY = n
+	glob.SHOCK_INTENSITY = n 
+	glob.SLOW_INTENSITY = n 
+	glob.SHATTER_INTENSITY = n 
+	glob.POISON_INTENSITY= n 
 
 progressTracker
 
@@ -155,8 +160,9 @@ globalTracker
 		list/CustomCommons = list("Majin","Half-Saiyan", "Android")
 
 		DEMON_ERODE_DEBUFF_INTENSITY = 0.005
-		DEMON_DOT_DEBUFF_INTENSITY = 2
+		DEMON_DOT_DEBUFF_INTENSITY = 6
 		DEMON_RESOURCE_DEBUFF_INTENSITY = 0.2
+		UNDERDOG_DIVISOR = 4
 
 // globals
 		WorldBaseAmount = 1
@@ -240,6 +246,9 @@ globalTracker
 		PARTY_DAMAGE_NERF = 0.5
 		MOD_AFTER_ACC = TRUE
 
+		GLADIATOR_DISARM_MAX = 600
+		DISARM_TIMER = 100
+
 
 		CONSTANT_DAMAGE_EXPONENT = 4
 
@@ -254,7 +263,7 @@ globalTracker
 		DMG_POWER_EXPONENT = 0.3
 
 		TENSION_MULTIPLIER = 1
-
+		CORRUPTION_GAIN = 1.25
 // dmg rolls
 		min_damage_roll = 0.3
 		upper_damage_roll = 0.9
