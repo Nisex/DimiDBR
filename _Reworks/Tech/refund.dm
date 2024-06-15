@@ -41,7 +41,7 @@
 
 		else
 			var/knowledgePaths/tech = TechnologyTree[p]
-			var/theCost = BASE_COST / Intelligence
+			var/theCost = glob.TECH_BASE_COST / Intelligence
 			theCost *= 1 + (0.25 * length(tech.requires))
 			RPPSpendable += theCost
 			RPPSpent -= theCost
@@ -51,14 +51,14 @@
 
 /mob/Admin3/verb/RemoveAllTech(mob/p in players)
 	set name = "Refund All Technology"
-	var/theCost = BASE_COST / p.Intelligence
+	var/theCost = glob.TECH_BASE_COST / p.Intelligence
 	for(var/x in p.knowledgeTracker.learnedKnowledge)
 		removeTechKnowledge(p, x, theCost, FALSE)
 
 
 /mob/Admin3/verb/RefundKnowledge(mob/p in players)
 	set name = "Refund Technology"
-	var/theCost = BASE_COST / p.Intelligence
+	var/theCost = glob.TECH_BASE_COST / p.Intelligence
 	var/thePath = input(p,"What technology would you like to refund?") in p.knowledgeTracker.learnedKnowledge + "Cancel"
 	if(thePath == "Cancel")
 		return

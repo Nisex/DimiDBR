@@ -17,15 +17,18 @@
         vars["[option]Passives"][input] = theList[input][1]
 
 
-/datum/DemonRacials/proc/applyDebuffs(mob/p, mob/a)
+/datum/DemonRacials/proc/applyDebuffs(mob/p, mob/a, nerf = FALSE)
+    var/reduction = 1
+    if(nerf)
+        reduction = 6 - (p.AscensionsAcquired ? p.AscensionsAcquired : 1)
     for(var/x in DebuffPassives)
         if(x in list("Def", "End", "Str"))
             if(p.vars["[x]Eroded"]<=DebuffPassives[x]/5)
                 p.vars["[x]Eroded"]+=glob.DEMON_ERODE_DEBUFF_INTENSITY
         else if(x in list("Poison", "Burn", "Slow"))
-            call(p, "Add[x]")(DebuffPassives[x] * glob.DEMON_DOT_DEBUFF_INTENSITY, a)
+            call(p, "Add[x]")((DebuffPassives[x] * glob.DEMON_DOT_DEBUFF_INTENSITY) / reduction, a)
         else
-            call(p, "Lose[x]")(DebuffPassives[x] * glob.DEMON_RESOURCE_DEBUFF_INTENSITY)
+            call(p, "Lose[x]")((DebuffPassives[x] * glob.DEMON_RESOURCE_DEBUFF_INTENSITY) / reduction)
 
 
 /datum/DemonRacials/proc/selectPassive(mob/p, type, option, starting = FALSE)

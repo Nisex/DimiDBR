@@ -63,7 +63,12 @@ var/globalTracker/glob = new()
 /mob/Admin4/verb/convertGlobalInfo()
 	transferGlobalstoGlob()
 
-
+/mob/Admin3/verb/Debuff_Apply(n as num)
+	glob.BURN_INTENSITY = n
+	glob.SHOCK_INTENSITY = n 
+	glob.SLOW_INTENSITY = n 
+	glob.SHATTER_INTENSITY = n 
+	glob.POISON_INTENSITY= n 
 
 progressTracker
 
@@ -155,8 +160,9 @@ globalTracker
 		list/CustomCommons = list("Majin","Half-Saiyan", "Android")
 
 		DEMON_ERODE_DEBUFF_INTENSITY = 0.005
-		DEMON_DOT_DEBUFF_INTENSITY = 2
+		DEMON_DOT_DEBUFF_INTENSITY = 6
 		DEMON_RESOURCE_DEBUFF_INTENSITY = 0.2
+		UNDERDOG_DIVISOR = 4
 
 // globals
 		WorldBaseAmount = 1
@@ -170,7 +176,8 @@ globalTracker
 		MAX_HARDEN = 20
 		DEMONIC_DURA_BASE = 0.04
 		MAX_HARDENING = 5
-
+		REGEN_ASC_ONE_HEAL = 3
+		HEALTH_POTION_NERF = 4
 		BUFF_MASTER_HIGHTHRESHOLD = 1.2
 		BUFF_MASTERY_LOWTHRESHOLD = 0.95
 		BUFF_MASTERY_LOWMULT = 0.1
@@ -208,12 +215,15 @@ globalTracker
 		SHATTER_INTENSITY = 1
 		SHOCK_INTENSITY = 1
 		POISON_INTENSITY = 1
-
+		BASE_DEBUFF_REDUCTION_DIVISOR = 100
+		BASE_DEBUFF_REDUCTION_DIVISOR_LOWER = 0.05
+		BASE_DEBUFF_REDUCTION_DIVISOR_UPPER = 1
 		ZORNHAU_MULT = 0.15
 //EXTRAS?? //
 		MULTIHIT_NERF = FALSE
 		GetUpVar = 1 // how fast u get up ?
 		MAGIC_BASE_COST = 50
+		TECH_BASE_COST = 30
 		MAGIC_INTELL_MATTERS = TRUE
 		WorldPUDrain = 1
 		DMG_CALC_2 = TRUE
@@ -236,6 +246,9 @@ globalTracker
 		PARTY_DAMAGE_NERF = 0.5
 		MOD_AFTER_ACC = TRUE
 
+		GLADIATOR_DISARM_MAX = 600
+		DISARM_TIMER = 100
+
 
 		CONSTANT_DAMAGE_EXPONENT = 4
 
@@ -250,7 +263,7 @@ globalTracker
 		DMG_POWER_EXPONENT = 0.3
 
 		TENSION_MULTIPLIER = 1
-
+		CORRUPTION_GAIN = 1.25
 // dmg rolls
 		min_damage_roll = 0.3
 		upper_damage_roll = 0.9
@@ -306,17 +319,17 @@ globalTracker
 
 		JSON_PASSIVES = list()
 // - swords
-		SwordAscDamage
-		SwordAscAcc
-		SwordAscDelay
+		SwordAscDamage= 0.05
+		SwordAscAcc= 0.05
+		SwordAscDelay= 0.05
 // - staffs
-		StaffAscDamage
-		StaffAscAcc
-		StaffAscDelay
+		StaffAscDamage = 0.05
+		StaffAscAcc = 0.05
+		StaffAscDelay = 0.05
 // - armor
-		ArmorAscDamage
-		ArmorAscDelay
-		ArmorAscAcc
+		ArmorAscDamage = 0.05
+		ArmorAscDelay = 0.05
+		ArmorAscAcc = 0.05
 // not sure why he made them all variable, but its more flexibility= FALSE
 
 

@@ -84,6 +84,68 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 					OMessage(10,"font color='[BarelyStandingColor]'>[src] [BarelyStandingMessage ? "[BarelyStandingMessage]" : " is barely standing!"]!", "[src]([src.key]) has 10% health left.</font>")
 			HealthAnnounce10 = 1
 //**TESTED AND WORKS */
+/mob/proc/reduceErodeStolen()
+	if(src.StrStolen)
+		src.StrStolen-=0.1 
+		if(src.StrStolen<0)
+			src.StrStolen=0
+	if(src.EndStolen)
+		src.EndStolen-=0.1
+		if(src.EndStolen<0)
+			src.EndStolen=0
+	if(src.SpdStolen)
+		src.SpdStolen-=0.1
+		if(src.SpdStolen<0)
+			src.SpdStolen=0
+	if(src.ForStolen)
+		src.ForStolen-=0.1
+		if(src.ForStolen<0)
+			src.ForStolen=0
+	if(src.OffStolen)
+		src.OffStolen-=0.1
+		if(src.OffStolen<0)
+			src.OffStolen=0
+	if(src.DefStolen)
+		src.DefStolen-=0.1
+		if(src.DefStolen<0)
+			src.DefStolen=0
+	if(src.PowerEroded>0)
+		src.PowerEroded-=0.02
+		if(src.PowerEroded<0)
+			src.PowerEroded=0
+	if(src.StrEroded>0)
+		src.StrEroded-=0.02
+		if(src.StrEroded<0)
+			src.StrEroded=0
+	if(src.EndEroded>0)
+		src.EndEroded-=0.02
+		if(src.EndEroded<0)
+			src.EndEroded=0
+	if(src.SpdEroded>0)
+		src.SpdEroded-=0.02
+		if(src.SpdEroded<0)
+			src.SpdEroded=0
+	if(src.ForEroded>0)
+		src.ForEroded-=0.02
+		if(src.ForEroded<0)
+			src.ForEroded=0
+	if(src.OffEroded>0)
+		src.OffEroded-=0.02
+		if(src.OffEroded<0)
+			src.OffEroded=0
+	if(src.DefEroded>0)
+		src.DefEroded-=0.02
+		if(src.DefEroded<0)
+			src.DefEroded=0
+	if(src.RecovEroded>0)
+		src.RecovEroded-=0.02
+		if(src.RecovEroded<0)
+			src.RecovEroded=0
+
+
+
+
+
 /mob/proc/meditationChecks()
 	if(icon_state == "Meditate")
 		MeditateTime++
@@ -108,11 +170,15 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 				R:adjust(src)
 				src<<"You no longer fear for your life..."
 
+		if(MeditateTime >= 15)
+			reduceErodeStolen()
+
 		if(MeditateTime == 15)
 			if(isRace(MAJIN))
 				majinPassive.resetVariables(src)
-			for(var/obj/Skills/s in Skills) if(s.Cooldown<0 && s.Using)
-				src << "One or more of your skills will be made available to you again when you stop meditating."
+			for(var/obj/Skills/s in Skills)
+				if(s.Cooldown<0 && s.Using)
+					src << "One or more of your skills will be made available to you again when you stop meditating."
 				break
 
 		if(MeditateTime == 40)
@@ -703,6 +769,8 @@ mob
 				src.IaidoCounter++
 			if(src.UsingSpeedRave())
 				src.IaidoCounter++
+			if(UsingGladiator())
+				GladiatorCounter++
 
 			if(src.BPPoisonTimer)
 				src.BPPoisonTimer--
@@ -1268,15 +1336,19 @@ mob
 										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
 											src.HealEnergy(src.GetRecov(b.EnergyHeal))
 								else
-									if((src.Health+src.TotalInjury)>=100||(src.TotalInjury&&src.icon_state=="Meditate"))
+									if((src.Energy+src.TotalFatigue)>=100||(src.TotalFatigue&&src.icon_state=="Meditate")) 
 										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
 											src.HealFatigue(b.EnergyHeal,1)
 									else
 										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
-											src.HealFatigue(b.EnergyHeal,1)
+											src.HealEnergy(b.EnergyHeal,1)
 							if(b.ManaHeal)
-								if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
-									src.HealMana(b.ManaHeal)
+								if(!b.StableHeal)
+									if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
+										src.HealMana(b.ManaHeal)
+								else
+									if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
+										src.HealMana(b.ManaHeal,1 )
 
 
 							if(b.BurnAffected)
@@ -1349,6 +1421,7 @@ mob
 										if((src.Target.Health+src.Target.TotalInjury)>=100||(src.Target.TotalInjury&&src.Target.icon_state=="Meditate"))
 											src.Target.HealWounds(b.HealthHeal)
 										else
+											
 											src.Target.HealHealth(b.HealthHeal)
 								if(b.EnergyHeal&&!src.Target.HasMechanized())
 									if(!b.StableHeal)
@@ -1362,7 +1435,12 @@ mob
 										else
 											src.Target.HealEnergy(b.EnergyHeal,1)
 								if(b.ManaHeal&&!src.Target.HasMechanized())
-									src.Target.HealMana(b.ManaHeal)
+									if(!b.StableHeal)
+										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
+											src.HealMana(b.ManaHeal)
+									else
+										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
+											src.HealMana(b.ManaHeal,1)
 								if(b.WoundHeal)
 									if(!b.StableHeal)
 										src.Target.HealWounds(src.Target.GetRecov(b.WoundHeal))
@@ -1392,6 +1470,9 @@ mob
 									src.Target.AddShearing(b.ShearAffected,src)
 								if(b.StunAffected)
 									Stun(src.Target, b.StunAffected)
+								if(b.ConfuseAffected)
+									src.Target.AddConfusing(b.ConfuseAffected, src)
+
 
 								if(b.StrTaxDrain)
 									src.Target.AddStrTax(b.StrTaxDrain)
@@ -1587,6 +1668,7 @@ mob
 					if((istype(T.effectApplied, /obj/Skills/Buffs)))
 						if(src != T.ownerOfEffect)
 							T.effectApplied?:applyEffects(src, T.ownerOfEffect)
+							
 			if(!passive_handler.Get("StaticWalk")&&!src.Dead)
 				if(istype(loc,/turf/Special/Static))
 					src.Health-=0.05

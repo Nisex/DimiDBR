@@ -140,10 +140,10 @@ mob
 					defender.Anger()
 					val/=defender.AngerMax
 
-			if(defender.Desperation&&!defender.HasInjuryImmune())
+			if(defender.passive_handler.Get("Desperation")&&!defender.HasInjuryImmune())
 				if(FightingSeriously(src,defender))
-					if(prob(5*defender.Desperation))
-						defender.WoundSelf(val/sqrt(1+defender.Desperation))//Take all damage as wounds
+					if(prob(5*defender.passive_handler.Get("Desperation")))
+						defender.WoundSelf(val/sqrt(1+defender.passive_handler.Get("Desperation")))//Take all damage as wounds
 						val=0//reduce damag ehard
 
 			if(defender.KO&&!src.Lethal)
@@ -204,7 +204,9 @@ mob
 						defender.Tension+=(val*0.75) * glob.TENSION_MULTIPLIER
 			var/leakVal = val/GLOBAL_LEAK_REDUCTION
 			if(passive_handler.Get("Corruption"))
-				gainCorruption(val)
+				gainCorruption(val * 1.5 * glob.CORRUPTION_GAIN)
+			if(defender.passive_handler.Get("Corruption"))
+				gainCorruption(val * 0.75 * glob.CORRUPTION_GAIN)
 
 			if(src.HasEnergyLeak())
 				src.LoseEnergy(src.GetEnergyLeak()*0.25*leakVal)
@@ -248,6 +250,12 @@ mob
 				defender.TotalFatigue+=amount/2
 				Update_Stat_Labels()
 
+			//HERE !!
+
+			if(passive_handler.Get("CorruptAffected"))
+				if(demon)
+					demon.applyDebuffs(defender, src)
+
 
 			if(passive_handler.Get("SoulFire")&&FightingSeriously(src, 0))
 				if(!(defender.CyberCancel || defender.Mechanized))
@@ -257,7 +265,7 @@ mob
 
 			if(defender.CheckSlotless("Protega"))
 				src.LoseHealth(val/10)
-			if(defender.MeltyBlood)
+			if(defender.passive_handler.Get("MeltyBlood"))
 				if(defender.Health<50*(1-src.HealthCut))
 					if(FightingSeriously(src,0))
 						if(!defender.MeltyMessage)
@@ -274,22 +282,8 @@ mob
 
 
 			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.passive_handler.Get("Defiance")&&!defender.CheckSlotless("Great Ape"))
-				if(defender.DefianceCounter<10)
-					if(defender.Anger)
-						if(val>=(1/defender.AscensionsAcquired)&&val<(2/defender.AscensionsAcquired))
-							defender.DefianceCounter+=1
-							if(defender.Tail)
-								defender.OMessage(10,"<font color=red>[defender]'s defiance sparks!","Defiance (1) passive.")
-						else if(val>=(2/defender.AscensionsAcquired)&&val<(4/defender.AscensionsAcquired))
-							defender.DefianceCounter+=2
-							if(defender.Tail)
-								defender.OMessage(10,"<font color=red>[defender] grows more defiant!","Defiance (2) passive.")
-						else if(val>=(4/defender.AscensionsAcquired))
-							defender.DefianceCounter+=5
-							if(defender.Tail)
-								defender.OMessage(10,"<font color=red>[defender] roars in complete defiance of odds!","Defiance (3) passive.")
-						if(defender.DefianceCounter>10)
-							defender.DefianceCounter=10
+				if(defender.Anger)
+					defender.DefianceCalcs(val, src)
 
 			if(defender.HasAdaptation()&&src==defender.Target||src.HasAdaptation()&&defender==src.Target)
 				if(defender.HasAdaptation()&&!defender.CheckSlotless("Great Ape"))
@@ -677,7 +671,7 @@ mob
 		LoseHealth(var/val)
 			src.Health-=val
 			src.MaxHealth()
-			if(Race == "Majin")
+			if(isRace(MAJIN))
 				if(majinPassive != null)
 					majinPassive.tryDropBlob(src)
 		LoseEnergy(var/val)
@@ -760,7 +754,7 @@ mob
 					else
 						val=val/3
 			if(src.PotionCD)
-				val/=1.25
+				val/=glob.HEALTH_POTION_NERF
 			if(icon_state == "Meditate")
 				src.Tension=max(0, Tension-(val*1.5))
 			else if(Tension != 100)
@@ -774,6 +768,8 @@ mob
 			if(src.PotionCD)
 				val/=1.25
 			src.Energy+=val
+			if(Energy<0)
+				Energy=0
 			src.MaxEnergy()
 		HealMana(var/val, var/StableHeal=0)
 			if(!src.FusionPowered&&!StableHeal)
@@ -1176,7 +1172,7 @@ mob
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-				Mod+=0.3
+				Mod+=(0.1 * AscensionsAcquired)
 			if(src.StrStolen)
 				Mod+=src.StrStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1184,15 +1180,23 @@ mob
 				if(Mod<=glob.BUFF_MASTERY_LOWTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
-					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-			if(src.BurningShot)
-				if(src.Burn)
+					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT)) 
+
+
+			if(src.Burn)
+				if(src.BurningShot)
 					if(src.Burn>0&&src.Burn<=25)
 						Mod+=0.75*src.BurningShot
 					else if(src.Burn>25&&src.Burn<=75)
 						Mod+=0.5*src.BurningShot
 					else
 						Mod+=0.25*src.BurningShot
+				else
+					if(!src.HasDebuffImmune()>=1)
+						if(src.HasDebuffReversal())
+							Mod*=1 + Burn * (clamp(glob.DEBUFF_EFFECTIVENESS - 0.002, 0.001, 1))
+						else
+							Mod*=1 - Burn * (clamp(glob.DEBUFF_EFFECTIVENESS - 0.002, 0.001, 1))
 			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Broken Brave"))
 				if(src.Health<=25*(1-src.HealthCut))
 					Mod+=min(10/src.Health,1)
@@ -1288,7 +1292,7 @@ mob
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-				Mod+=0.3
+				Mod+=(0.1 * AscensionsAcquired)
 			if(src.ForStolen)
 				Mod+=src.ForStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1297,14 +1301,15 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-			if(src.BurningShot)
-				if(src.Burn)
+			if(src.Burn)
+				if(src.BurningShot)
 					if(src.Burn>0&&src.Burn<=25)
 						Mod+=0.75*src.BurningShot
 					else if(src.Burn>25&&src.Burn<=75)
 						Mod+=0.5*src.BurningShot
 					else
 						Mod+=0.25*src.BurningShot
+
 			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Broken Brave"))
 				if(src.Health<=25*(1-src.HealthCut))
 					Mod+=min(10/src.Health,1)
@@ -1391,7 +1396,7 @@ mob
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-				Mod+=0.2
+				Mod+=(0.05 * AscensionsAcquired)
 			if(src.EndStolen)
 				Mod+=src.EndStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1479,7 +1484,7 @@ mob
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-				Mod+=0.2
+				Mod+=(0.05 * AscensionsAcquired)
 			if(src.SpdStolen)
 				Mod+=src.SpdStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -2588,6 +2593,8 @@ mob
 				src.Skills.Remove(s)
 			if(s in src.contents)
 				src.contents.Remove(s)
+			if(s in src.SlotlessBuffs)
+				src.SlotlessBuffs.Remove(s)
 			if(trueDel)
 				del s
 		AddItem(var/obj/Items/I, var/AlreadyHere=0)
@@ -2729,9 +2736,13 @@ mob
 						if(Clashable)
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Clash_Defensive/DC in Trg)
 								if(!Trg.BuffOn(DC))
+									var/pursuerBoon = Trg.HasPursuer()
+									DC.TimerLimit = 3 + clamp(pursuerBoon, 1, 3)
 									DC.Trigger(Trg)
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Clash/DC in src)
 								if(!src.BuffOn(DC))
+									var/pursuerBoon = HasPursuer()
+									DC.TimerLimit = 3 + clamp(pursuerBoon, 1, 3)
 									DC.Trigger(src)
 					break
 				else
@@ -3007,7 +3018,7 @@ mob
 				Z.Cooldown(3)
 				return
 			if(src.Secret=="Eldritch" && CheckSlotless("True Form"))
-				src.Activate(new/obj/Skills/AutoHit/Shadow_Tendril_Strike)
+				src.Activate(new/obj/Skills/AutoHit/Shadow_Tendril_Strike(p = src))
 				Z.Cooldown()
 				return
 			if(src.Secret=="Haki")

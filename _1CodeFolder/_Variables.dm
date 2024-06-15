@@ -348,6 +348,7 @@ mob/var
 	Warping//You forcewarp.
 	SuperDash//Mobs have this too now
 	IaidoCounter//Once it hits ten, you get a zoom attack.
+	GladiatorCounter 
 
 	SpiritHand//Str*=sqrt(For)
 	SpiritFlow//For*=sqrt(Str) //TOD: Change to PowerFlow / PowerStream
@@ -584,7 +585,8 @@ mob/var
 	RPPSpendableEvent
 	RPPSpentEvent
 	//these are triggered by daily rewards
-	RPPEventCharges//value from 7 to 0 which holds the number of event charges you have (they trigger automatically at rewards)
+	RPPEventCharges = 0//value from 7 to 0 which holds the number of event charges you have (they trigger automatically at rewards)
+	RPPEventChargesSpent = 0
 	EconomyEventCharges//value from 0 to ? which holds the number of economy-only charges you can trigger with daily rewards.
 
 	RPPStartingDaysTriggered=0//increments

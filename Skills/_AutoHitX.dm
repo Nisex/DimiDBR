@@ -4,6 +4,8 @@ mob
 
 obj
 	Skills
+		var/list/scalingValues = list()
+		var/list/obj/Skills/possible_skills = list()
 		proc/adjust(mob/p)
 		AutoHit
 			proc/Trigger(mob/p)
@@ -23,7 +25,7 @@ obj
 				SBuffNeeded
 				GateNeeded
 				//ClassNeeded
-				IgnoreAlreadyHit
+				IgnoreAlreadyHit = FALSE
 				Duration
 				Persistent
 				DamageMult=1//Damage on top of whatever stat calculations.
@@ -280,6 +282,25 @@ obj
 
 
 //Auto^2hits
+			Duel
+				StrOffense=1
+				EndDefense=0.75
+				DamageMult=2
+				Area="Circle"
+				Distance=4
+				GuardBreak = 1
+				TurfErupt=2
+				TurfEruptOffset=3
+				Slow=1
+				Crushing = 10
+				Knockback=0.001
+				ActiveMessage="issues a duel to their enemy!"
+				HitSparkIcon='BLANK.dmi'
+				HitSparkX=0
+				HitSparkY=0
+				Cooldown=4
+				Earthshaking=15
+
 			Explosive_Finish
 				StrOffense=1
 				ForOffense=1
@@ -874,8 +895,7 @@ obj
 				Slow=1
 				Area="Strike"
 				ActiveMessage="bursts out with tendrils of shadow!"
-				StrOffense=0
-				ForOffense=1
+				AdaptRate = 1
 				DamageMult=0.5
 				GuardBreak=1
 				TurfStrike=3
@@ -884,6 +904,11 @@ obj
 				HitSparkY=-32
 				HitSparkSize=1
 				HitSparkTurns=1
+				New(mob/p )
+					if(p)
+						DamageMult = 0.5 + (0.15 * p.AscensionsAcquired)
+					. = ..()
+
 			Shadow_Tendril_Wave
 				Distance=10
 				Knockback=1
@@ -1010,7 +1035,7 @@ obj
 				HitSparkX=0
 				HitSparkY=0
 				PullIn = 5
-				Crippling=15
+				Crippling=7
 				ShockIcon='DarkKiai.dmi'
 				ActiveMessage="'s unnatural presence forces the world to pull closer!"
 //No Verbs
@@ -1774,12 +1799,13 @@ obj
 				FlickAttack=3
 				Area="Circle"
 				StrOffense=1
-				DamageMult=11
+				CanBeDodged = 0
+				CanBeBlocked = 0
+				DamageMult=14
 				DelayTime=0
 				PreShockwave=1
 				PreShockwaveDelay=1
 				PostShockwave=0
-				GuardBreak=1
 				Shockwaves=2
 				Shockwave=0.5
 				ShockIcon='KenShockwaveFocus.dmi'
@@ -1787,7 +1813,8 @@ obj
 				ShockDiminish=1.15
 				ShockTime=4
 				GuardBreak=1
-				Rush=3
+				Rush=5
+
 				ControlledRush=1
 				HitSparkIcon='Slash - Future.dmi'
 				HitSparkX=-32
@@ -1795,7 +1822,8 @@ obj
 				HitSparkTurns=1
 				HitSparkCount=7
 				HitSparkDispersion=4
-				Launcher=1
+				Launcher=4
+				ComboMaster = 1
 				DelayedLauncher=1
 				Cooldown=150
 				EnergyCost=5
@@ -1988,19 +2016,10 @@ obj
 				SignatureTechnique=1
 				Area="Circle"
 				Distance=10
-				//** POTENTIAL CHANGES **//
-				/*
-				StrOffense=0.75
-				ForOffense=0.75
-				DamageMult=0.6
-				Rounds=3
-				Knockback=3
-				Stunner=1.5
-				*/
-				StrOffense=0
-				ForOffense=1
+				AdaptRate = 1
+				GuardBreak=1
 				DamageMult=10
-				Knockback=10
+				Knockback=15
 				Cooldown=150
 				Shockwaves=3
 				Shockwave=4
@@ -2013,9 +2032,8 @@ obj
 				EnergyCost=5
 				verb/Kiai()
 					set category="Skills"
-					if(!usr.AfterImageStrike  && !src.Using)
-						usr.SkillStunX("After Image Strike",src)
 					usr.Activate(src)
+
 			Taiyoken
 				SignatureTechnique=1
 				AllOutAttack=1
@@ -2039,7 +2057,7 @@ obj
 				TurfShiftDurationDespawn=5
 				ActiveMessage="converts their ki to a wave of blinding light!"
 				Cooldown=150
-				EnergyCost=20
+				EnergyCost=5
 				verb/Taiyoken()
 					set category="Skills"
 					usr.Activate(src)
@@ -2109,13 +2127,14 @@ obj
 				StrOffense=0
 				ForOffense=1
 				DamageMult=13
-				WoundCost=6
+				WoundCost=3
 				ComboMaster=1
 				Area="Around Target"
 				Distance=15
 				DistanceAround=4
 				Divide=1
 				Launcher=1
+				GuardBreak=1
 				Stunner=0.5
 				WindUp=1.5
 				WindupIcon='Ripple Radiance.dmi'
@@ -2783,7 +2802,7 @@ obj
 				Area="Wave"
 				Distance=10
 				StrOffense=1
-				Knockback=1
+				Knockback=5
 				HitSparkIcon='Hit Effect Pearl.dmi'
 				HitSparkX=-32
 				HitSparkY=-32
@@ -3034,7 +3053,6 @@ obj
 				Copyable=3
 				NeedsSword=1
 				Area="Circle"
-				ComboMaster=1
 				Shearing=1
 				ControlledRush=1
 				Rush=3
@@ -3042,7 +3060,7 @@ obj
 				ChargeTime=1
 				Rounds=5
 				StrOffense=1
-				DamageMult=1.1
+				DamageMult=0.9
 				Cooldown=60
 				Knockback=1
 				Size=1
@@ -4766,6 +4784,9 @@ mob
 					src << "You lack the ability to use magic!"
 					return
 				if(Z.Copyable>=3||!Z.Copyable)
+					if(passive_handler.Get("Disarmed"))
+						src << "You are disarmed you can't use [Z]."
+						return
 					if(!src.HasSpellFocus(Z))
 						src << "You need a spell focus to use [Z]."
 						return
@@ -4803,6 +4824,9 @@ mob
 					return
 			if(Z.NeedsSword)
 				var/obj/Items/Sword/s=src.EquippedSword()
+				if(passive_handler.Get("Disarmed") && s)
+					src << "You are disarmed you can't use [Z]."
+					return
 				if(!s)
 					if(!src.HasSwordPunching() && !src.UsingBattleMage())
 						src << "You need a sword equipped to use [Z]!"
@@ -5327,8 +5351,8 @@ mob
 				else
 					src.LoseMana(drain*CostMultiplier*(1-(0.45*src.TomeSpell(Z))))
 				if(Z.CorruptionGain)
-					var/gain = drain*CostMultiplier / 3
-					gainCorruption(gain / 3)
+					var/gain = drain*CostMultiplier / 1.5
+					gainCorruption(gain * glob.CORRUPTION_GAIN)
 			if(Z.CorruptionCost)
 				gainCorruption(-Z.CorruptionCost)
 
@@ -5595,6 +5619,8 @@ obj
 			Shearing
 
 			tmp/list/AlreadyHit
+			tmp/list/autohitChildren
+			tmp/obj/AutoHitter/AHOwner
 
 		New(var/mob/owner, var/arcing=0, var/wave=0, var/card=0, var/circle=0, var/mob/target, var/obj/Skills/AutoHit/Z, var/turf/TrgLoc, life = 500)
 			set waitfor = FALSE
@@ -5602,6 +5628,7 @@ obj
 				loc = null
 				return
 			AlreadyHit = list()
+			autohitChildren = list()
 			src.IgnoreAlreadyHit = Z.IgnoreAlreadyHit
 			toDeath = life
 			src.Owner=owner
@@ -5787,7 +5814,11 @@ obj
 			catch()
 			walk(src,0)
 			animate(src)
+			if(AHOwner)
+				AHOwner.autohitChildren -= src
+			AHOwner = null
 			AlreadyHit = null
+			autohitChildren = null
 			Owner = null
 			loc = null
 			sleep(10)
@@ -5796,6 +5827,25 @@ obj
 			Damage(var/mob/m)
 				if(m && Owner && m in Owner.ai_followers)
 					return
+				if(!IgnoreAlreadyHit)
+					var/weHitThemAlready = FALSE
+					for(var/hitted in AlreadyHit)
+						if(m == hitted)
+							weHitThemAlready = TRUE
+					if(AHOwner)
+						for(var/hitted in AHOwner.AlreadyHit)
+							if(hitted == m)
+								weHitThemAlready = TRUE
+					if(!weHitThemAlready)
+						for(var/obj/AutoHitter/ah in autohitChildren)
+							for(var/hitted in ah.AlreadyHit)
+								if(m == hitted)
+									weHitThemAlready = TRUE
+									break
+					if(weHitThemAlready)return
+				AlreadyHit |= m
+				for(var/obj/AutoHitter/ah in autohitChildren)
+					ah.AlreadyHit |= m
 				if(istype(Owner, /mob/Player/AI) && m != Owner)
 					var/mob/Player/AI/a = Owner
 					if(!a.ai_team_fire && a.AllianceCheck(m))
@@ -5884,7 +5934,7 @@ obj
 				#if DEBUG_AUTOHIT
 				Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
-				var/Precision=src.Damage
+				var/Precision = 1
 				var/itemMods = list(0,0,0)
 				if(src.SwordTech&&!src.SpecialAttack)
 					var/obj/Items/Sword/s=src.Owner.EquippedSword()
@@ -5920,14 +5970,15 @@ obj
 									continue
 								else
 									break
-							new/obj/gold(m, src.Owner, newX, newY, m.z)
+							var/obj/gold/gold = new()
+							gold.createPile(m, src.Owner, newX, newY, m.z)
 					m << "You feel a need to go collect your coins before they're stolen!"
 
 				if(src.SpeedStrike>0)
 					FinalDmg *= clamp(1,sqrt(1+((Owner.GetSpd())*(src.SpeedStrike/10))),3)
 				if(Owner.UsingFencing())
 					FinalDmg *= clamp(1,sqrt(1+((Owner.GetSpd())*(Owner.UsingFencing()/15))),3)
-				if(!ComboMaster && (m.Launched||m.Stunned))
+				if((!ComboMaster || !Owner.HasComboMaster()) && (m.Launched||m.Stunned))
 					FinalDmg *= glob.CCDamageModifier
 					Owner.log2text("FinalDmg - Auto Hit", "After ComboMaster", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 					Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
@@ -5961,7 +6012,7 @@ obj
 
 				if(src.CanBeBlocked)
 					if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldWhiffRate, IgnoreNoDodge=1) == WHIFF)
-						if(!src.Owner.NoWhiff)
+						if(!src.Owner.NoWhiff())
 							var/obj/Items/Sword/s = Owner.EquippedSword()
 							if(s)
 								FinalDmg/=max(1,(2*(1/Owner.GetSwordAccuracy(s))))
@@ -6107,7 +6158,7 @@ obj
 									m.Immortal=0
 					src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
 					if(CorruptionGain)
-						Owner.gainCorruption(FinalDmg * 1.25)
+						Owner.gainCorruption((FinalDmg * 2) * glob.CORRUPTION_GAIN)
 					if(src.Owner.UsingAnsatsuken())
 						src.Owner.HealMana(src.Owner.SagaLevel)
 
@@ -6241,11 +6292,7 @@ obj
 										for(var/mob/m in t.contents)
 											if(m==src.Owner)
 												continue
-											if(m in AlreadyHit && !IgnoreAlreadyHit)
-												continue
-											else
-												src.Damage(m)
-												AlreadyHit.Add(m)
+											src.Damage(m)
 									for(var/turf/t in Turf_Circle_Edge(src.TargetLoc, Rounds))
 										if(src.TurfErupt)
 											Bang(t, Size=src.TurfErupt, Offset=src.TurfEruptOffset, Vanish=4)
@@ -6414,11 +6461,7 @@ obj
 										for(var/mob/m in t.contents)
 											if(m==src.Owner)
 												continue
-											if(m in AlreadyHit)
-												continue
-											else
-												src.Damage(m)
-												AlreadyHit.Add(m)
+											src.Damage(m)
 									for(var/turf/t in Turf_Circle_Edge(src.Owner, Rounds))
 										if(src.TurfErupt)
 											Bang(t, Size=src.TurfErupt, Offset=src.TurfEruptOffset, Vanish=4)
@@ -6634,10 +6677,13 @@ obj
 			Arcing=0
 			var
 				Side//1 for left, 0 for right
+
 			New(var/obj/AutoHitter/AH, var/side, var/FromMob=0)
+				AHOwner = AH
 				src.Owner=AH.Owner
 				src.Side=side
-				AlreadyHit = AH.AlreadyHit
+				AlreadyHit = list()
+				AH.autohitChildren += src
 				if(src.Side)
 					if(src.Owner.dir!=NORTHEAST&&src.Owner.dir!=NORTHWEST&&src.Owner.dir!=SOUTHEAST&&src.Owner.dir!=SOUTHWEST)
 						src.dir=turn(AH.dir, -90)
@@ -6705,17 +6751,19 @@ obj
 			var
 				Side//1 for left, 0 for right
 			New(var/obj/AutoHitter/AH, var/side)
+				AHOwner = AH
 				src.Owner=AH.Owner
+				AlreadyHit = list()
+				AH.autohitChildren += src
 				src.Side=side
 				if(src.Side)
 					src.dir=turn(AH.dir, -90)
 				else
 					src.dir=turn(AH.dir, 90)
-				AlreadyHit = AH.AlreadyHit
 				src.DistanceMax=AH.Wave
 				src.Distance=src.DistanceMax
 
-				src.Damage=AH.Damage
+				src.Damage= AH.Damage / 8
 				src.StrDmg=AH.StrDmg
 				src.ForDmg=AH.ForDmg
 				src.EndRes=AH.EndRes
@@ -6765,7 +6813,10 @@ obj
 			var
 				Side//1 for left, 2 for back, 0 for right.
 			New(var/obj/AutoHitter/AH, var/side)
+				AHOwner = AH
 				src.Owner=AH.Owner
+				AlreadyHit = list()
+				AH.autohitChildren += src
 				src.Side=side
 				if(src.Side==1)
 					src.dir=turn(AH.dir, -90)
@@ -6812,6 +6863,7 @@ obj
 				src.WarpAway=AH.WarpAway
 				src.Launcher=AH.Launcher
 				src.DelayedLauncher=AH.DelayedLauncher
+
 
 				if(AH.ObjIcon)
 					src.ObjIcon=AH.ObjIcon

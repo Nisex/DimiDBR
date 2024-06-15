@@ -5,7 +5,7 @@
     glob.JSON_PASSIVES = jsonData
 
 proc/getJSONInfo(tier, type)
-    if(length(glob.JSON_PASSIVES) < 1)
+    if(length(glob.JSON_PASSIVES))
         collectJSON()
     for(var/x in tier)
         . += glob.JSON_PASSIVES["[type]_[x]"]

@@ -1,5 +1,5 @@
 var/list
-	CodedAdmins=list("XLevi"=4, "Dream Whisperer" = 4, "Niezan" = 4, "Gogeto25" = 4, "IroquoisRedgrave" = 4, "PresidentJoeBiden" = 4, "ConceptOfDestiny" = 4, "PresidentJoeBiden" = 4, "TheGodofTruth" = 4)
+	CodedAdmins=list("XLevi"=4, "Dream Whisperer" = 4, "Niezan" = 4, "Gogeto25" = 4, "IroquoisRedgrave" = 4, "PresidentJoeBiden" = 4, "ConceptOfDestiny" = 4,  "TheGodofTruth" = 4, "Sakata Gintoki San" = 4)
 	Admins=new
 	Mappers=new
 	Punishments=new
@@ -119,6 +119,9 @@ mob/Admin3/verb/LoadSwapMap()
 		spawn()TempLog(m.ChatLog(),"<font color=#CC3300>*Cursespeak: [html_decode(message)]*")
 
 mob/Admin2/verb
+	EditAllSpawners()
+		for(var/obj/AI_Spot/ai in world)
+			Edit(ai)
 
 	Wound_Lightly(var/mob/m in players)
 		set category="Admin"
@@ -966,10 +969,15 @@ mob/Admin2/verb
 		M.ECCHARACTER=TRUE
 		Log("Admin", "[ExtractInfo(src)] triggered [ExtractInfo(M)]'s event character setup!")
 
+
+
 	Edit(atom/A in world)
 		set category="Admin"
 		if(A.type in typesof(/obj/Items))
 			if(A?:Augmented)
+				A?:EditAll(src)
+		if(A.type in typesof(/obj/Skills))
+			if(length(A?:possible_skills) > 1)
 				A?:EditAll(src)
 		if(istype(A, /obj/AI_Spot))
 			A?:EditAI(src)

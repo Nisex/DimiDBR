@@ -473,6 +473,7 @@ NEW VARIABLES
 	var/PoisonAffected//it adds poison stacks
 	var/CrippleAffected
 	var/ShearAffected
+	var/ConfuseAffected
 	var/StunAffected//adds stun stacks
 	var/BurningShot//It increases stats which burn out as you do
 	var/MirrorStats//It makes your stats the same as the enemys.
@@ -573,7 +574,7 @@ NEW VARIABLES
 				User.BuffingUp++
 			if(Sealed && !Override)
 				User << "This spell is sealed!"
-				return 0 
+				return 0
 			if(src.DashCountLimit)
 				src.DashCount=0
 			User.UseBuff(src, Override)
@@ -4678,35 +4679,39 @@ NEW VARIABLES
 					if("Majin")
 						switch(p.Class)
 							if("Super")
-								return 1.5
+								return 1.2
 							if("Innocent")
-								return 1.75
+								return 1.4
 							if("Unhinged")
-								return 2
-						return 1.5
+								return 1.75
+						return 1.2
 					if("Demon")
 						return 1.25
 					if("Namekian")
-						return 1.5
+						return 1.2
 				if(p.Secret == "Werewolf")
 					return 1.2
 
 			proc/getRegenRate(mob/p)
-				var/baseHeal = 3
-				var/perMissing = 0.04
+				var/baseHeal = 1.5
+				var/perMissing = 0.02
 				var/missingPerAsc = 0.01
 				var/raceDivisor = 30
 
 				if(!altered)
-					var/raceModifier = getRaceModifier(p)
-					var/asc = p.AscensionsAcquired
-					var/amt = (baseHeal + raceModifier) + ( ((perMissing + (missingPerAsc * asc)) + (raceModifier/raceDivisor)) * (100 - p.Health))
-					var/divider = asc * raceModifier > 0 ? asc * raceModifier : 1
-					var/time = 25 / divider
-					HealthHeal = (amt / time)* world.tick_lag // health per tick(?)
-					TimerLimit = time             // ticks per regen
-					EnergyCost = amt / 4
-					FatigueCost = amt / 4
+					if(p.Potential <= ASCENSION_ONE_POTENTIAL)
+						var/raceModifier = getRaceModifier(p)
+						HealthHeal = ((glob.REGEN_ASC_ONE_HEAL * raceModifier)/TimerLimit) * world.tick_lag
+					else
+						var/raceModifier = getRaceModifier(p)
+						var/asc = p.AscensionsAcquired
+						var/amt = (baseHeal + raceModifier) + ( ((perMissing + (missingPerAsc * asc)) + (raceModifier/raceDivisor)) * (100 - p.Health))
+						var/divider = asc * raceModifier > 0 ? asc * raceModifier : 1
+						var/time = 25 / divider
+						HealthHeal = (amt / time) * world.tick_lag // health per tick(?)
+						TimerLimit = time             // ticks per regen
+						EnergyCost = amt / 4
+						FatigueCost = amt / 4
 			verb/Regenerate()
 				set category="Skills"
 				if(!usr.BuffOn(src))
@@ -4784,8 +4789,6 @@ NEW VARIABLES
 				src.Trigger(usr)
 
 		Saiyan_Dominance
-			EnergyThreshold = 25
-			TimerLimit=60
 			AutoAnger=1
 			passives = list("PridefulRage" = 1)
 			PridefulRage=1
@@ -5225,7 +5228,8 @@ NEW VARIABLES
 			Deflection=1
 			NoDodge=1
 			TimerLimit=10
-			Cooldown=5
+			EnergyCost = 10
+			Cooldown=90
 			IconLock='Android Shield.dmi'
 			IconLockBlend=2
 			IconLayer=-1
@@ -5251,6 +5255,31 @@ NEW VARIABLES
 //TODO ADD A MAGIC LEVEL VARIABLE
 		Magic
 			MagicNeeded=1
+
+			Magic_Barrier
+				SkillCost=0
+				passives = list("Deflection" = 1)
+				Deflection=1
+				DefMult = 0.4
+				TimerLimit=0
+				Cooldown=30
+				ManaCost = 8
+				IconLock='zekkai.dmi'
+				IconLockBlend=2
+				IconLayer=-1
+				IconApart=1
+				OverlaySize=1.4
+				ActiveMessage="makes a shield of magic!"
+				OffMessage="lowers their shield..."
+				adjust(mob/p)
+					var/magicLevel = p.getTotalMagicLevel()
+					ManaDrain = 1.2 - (0.04 * magicLevel)
+					passives["Deflection"] = 1 + round(magicLevel / 10)
+					if(magicLevel >= 10)
+						passives["BulletKill"] = 1
+				verb/Ki_Shield()
+					set category="Skills"
+					src.Trigger(usr)
 
 			Hold_PersonApply
 				MagicNeeded = 0
@@ -5298,13 +5327,14 @@ NEW VARIABLES
 				adjust(mob/p)
 					NoForcedWhiff = 1 // make it so people cant force whiff u
 					var/magicLevel = p.getTotalMagicLevel()
-					passives = list("NoForcedWhiff" = 1, "FluidForm" = 1, "Godspeed" = clamp(round(magicLevel/5), 1, 2), "DoubleStrike" = 1)
-					TimerLimit = round(2 + magicLevel)
+					passives = list("NoForcedWhiff" = 1, "FluidForm" = 1, "Godspeed" = clamp(round(magicLevel/10), 1, 2), "DoubleStrike" = 1, \
+					"BlurringStrikes" = 1)
+					TimerLimit = round(15 + (magicLevel * 1.5))
 					FluidForm = 1
-					SpdMult = 1 + (magicLevel * 0.02)
-					Godspeed = round(magicLevel / 5)
+					SpdMult = 1 + (magicLevel * 0.01)
+					Godspeed = round(magicLevel / 10)
 					DoubleStrike = 1
-					ManaDrain = 0.02
+					ManaDrain = 0.01
 					SpdTax = 0.03
 				verb/Haste()
 					set category="Skills"
@@ -5315,7 +5345,7 @@ NEW VARIABLES
 			Reverse_Wounds
 				Copyable = 0
 				ManaCost = 10
-				TimerLimit = 15
+				TimerLimit = 25
 				ActiveMessage = "uses magic to reverse their wounds!"
 				OffMessage = "'s wounds stop healing backwards..."
 				StableHeal = 1
@@ -5326,7 +5356,9 @@ NEW VARIABLES
 					var/base = round(magicLevel / 8)
 					var/perMissing = 0.01
 					var/amount = round(base + (abs(p.Health-100) * perMissing))
-					HealthHeal = (amount / TimerLimit)* world.tick_lag
+					TimerLimit = 25 * (1 - magicLevel / 40)
+					HealthHeal = (amount / (TimerLimit * world.tick_lag))
+
 				verb/Reverse_Wounds()
 					set category="Skills"
 					if(!altered)
@@ -5341,7 +5373,7 @@ NEW VARIABLES
 				Copyable=1
 				ManaCost=5
 				TimerLimit=30
-				Cooldown=90
+				Cooldown=70
 				verb/Reinforce_Weapon()
 					set category="Skills"
 					var/magicLevel = usr.getTotalMagicLevel()
@@ -6325,7 +6357,7 @@ NEW VARIABLES
 
 			CureApply
 				StableHeal=1
-				HealthHeal=1.9
+				HealthHeal=0.19
 				TimerLimit=10
 				MagicNeeded = 0
 			Cure
@@ -6357,7 +6389,7 @@ NEW VARIABLES
 
 			CuragaApply
 				StableHeal=1
-				HealthHeal=2.5
+				HealthHeal=0.25
 				TimerLimit=10
 				MagicNeeded = 0
 			Curaga
@@ -9555,13 +9587,13 @@ NEW VARIABLES
 			True_Form
 				adjust(mob/p)
 					if(!altered)
-						passives = list("Curse" = 1, "Godspeed" =  1+p.AscensionsAcquired, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/10,\
-						 "Pursuer" = 2, "BlurringStrikes" = p.secretDatum.secretVariable["Madness"]/50, "Flow" = p.secretDatum.secretVariable["Madness"]/50, "Flicker" = p.secretDatum.secretVariable["Madness"]/25)
+						passives = list("Curse" = 1, "Godspeed" =  1+p.AscensionsAcquired, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/25,\
+						 "Pursuer" = 2, "CallousedHands" = p.secretDatum.secretVariable["Madness"]/100, \
+						  "Flow" = p.secretDatum.secretVariable["Madness"]/50, "Flicker" = p.secretDatum.secretVariable["Madness"]/25)
 						PowerMult=1+(0.05+(0.05*p.secretDatum.secretVariable["Madness"]/25))
 						TimerLimit = 60 + (p.secretDatum.secretVariable["Madness"]/5)
 
 				HealthThreshold=0.1
-				RegenMult=2
 				AutoAnger=1
 				KenWave=4
 				KenWaveIcon='DarkKiai.dmi'
@@ -9590,14 +9622,16 @@ NEW VARIABLES
 					HairLock = input(usr, "What will your hair look like while in True Form?", "True Form Icon") as icon|null
 
 				Trigger(mob/User, Override = 0)
-					..()
+					if(!User.BuffOn(src))
+						adjust(User)
 					if(User.Secret == "Eldritch")
-						if(!Using)
+						if(!User.BuffOn(src))
 							var/SecretInfomation/Eldritch/s = User.secretDatum
 							s.secretVariable["Madness Active"] = TRUE
 						else
 							var/SecretInfomation/Eldritch/s = User.secretDatum
 							s.secretVariable["Madness Active"] = FALSE
+					..()
 //Self Triggering Buffs
 		Autonomous
 			Autonomous=1
@@ -9616,14 +9650,14 @@ NEW VARIABLES
 			Infection
 				NeedsPassword=1
 			Dragon_Clash
-				passives = list("PureDamage" = 3, "HotHundred" = 1, "Warping" = 3, "Steady" = 4)
+				passives = list("PureDamage" = 2, "HotHundred" = 1, "Warping" = 3, "Steady" = 3)
 				PureDamage = 3
 				HotHundred=1
 				Warping=3
 				Steady=4
 				TimerLimit=3
 			Dragon_Clash_Defensive
-				passives = list("PureDamage" = 1.5, "HotHundred" = 1, "Warping" = 3, "Steady" = 2)
+				passives = list("PureDamage" = 1, "HotHundred" = 1, "Warping" = 3, "Steady" = 2)
 				PureDamage = 1.5
 				HotHundred=1
 				Warping=3
@@ -10158,6 +10192,13 @@ NEW VARIABLES
 						OffMessage="represses their destructive instinct..."
 
 
+					Bashing
+						passives = list("HardenedFrame" = 1, "StunningStrike" = 3, "ComboMaster" = 1)
+						EndMult = 1.3
+						OffMult = 1.2
+						ActiveMessage="starts using their shield as a weapon!"
+						OffMessage="retracts their shield."
+
 					Bestial_Accuracy
 						StrMult=1.3
 						EndMult=0.8
@@ -10315,6 +10356,17 @@ NEW VARIABLES
 					DebuffCrash="Poison"
 
 				//sword finisher debuffs
+				Champion_Pride
+					IconLock='SweatDrop.dmi'
+					IconApart=1
+					passives = list("NoDodge" = 1, "Duelist" = 1)
+					OffMult = 1.2
+					StrMult = 1.2
+					ActiveMessage="is filled with a champion's pride!"
+					OffMessage="loses his fighting high."
+
+
+
 				Off_Balance
 					IconLock='Stun.dmi'
 					IconApart=1
@@ -10466,6 +10518,17 @@ NEW VARIABLES
 
 
 				//universal finisher debuffs
+				Stumbling
+					IconLock='SweatDrop.dmi'
+					IconApart=1
+					SpdMult=0.7
+					DefMult=0.7
+					ConfuseAffected = 5
+					ActiveMessage="can't regain their footing!"
+					OffMessage="regains focus!"
+
+
+
 				Locked_On
 					IconLock='SweatDrop.dmi'
 					IconApart=1
@@ -10755,7 +10818,7 @@ NEW VARIABLES
 					..()
 
 			Dragon_Rage
-				NeedsHealth = 10
+				NeedsHealth = 15
 				TooMuchHealth = 25
 				TextColor=rgb(95, 60, 95)
 				ActiveMessage="is consumed by a dragon's rage!!"
@@ -10768,20 +10831,21 @@ NEW VARIABLES
 					// Metal/Earth dragon racial, makes them tankier
 					proc/shellSmash(mob/p)
 						var/asc = p.AscensionsAcquired
-						p.AddShatter(clamp(40 * asc, 20 ,200))
-						p.AddSlow(clamp(40 * asc, 20 ,200))
-						p.AddShock(clamp(40 * asc, 20 ,200))
+						p.AddShatter(clamp(60 + (60 * asc), 60 ,200))
+						p.AddSlow(clamp(25 + (25 * asc), 25 ,200))
+						p.AddShock(clamp(25 + (25 * asc), 25 ,200))
+						p.AddBurn(clamp(25 + (25 * asc), 25 ,200))
 					adjust(mob/p)
 						if(altered) return
 						var/asc = p.AscensionsAcquired
 						if(p.Shatter)
 							if(p.Shatter >= 10)
-								VaizardHealth = p.Shatter/100
+								VaizardHealth = p.Shatter/75
 							else
 								VaizardHealth = p.Shatter/10
 						DebuffReversal = 1
 						InjuryImmune = 1
-						passives = list("DebuffReversal" = 1, "CallousedHands" = asc * 0.1, "BlockChance" = 2 * asc, "CriticalBlock" = 0.25 + (asc * 0.25), "InjuryImmune" = 1)
+						passives = list("DebuffReversal" = 1, "CallousedHands" = asc * 0.15, "BlockChance" = 10 * asc, "CriticalBlock" = 0.25 + (asc * 0.25), "InjuryImmune" = 1)
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
 							shellSmash(User)
@@ -10799,6 +10863,7 @@ NEW VARIABLES
 					adjust(mob/p)
 						if(altered) return
 						var/asc = p.AscensionsAcquired
+						BurningShot = 0.5 + (0.25 * asc)
 						NeedsHealth = 10 + (5 * asc)
 						TooMuchHealth = 20 + (5 * asc)
 						AngerMult = 1.5 + (0.25 * asc)
@@ -10815,7 +10880,7 @@ NEW VARIABLES
 
 				Wind_Supremacy
 					// Wind Dragon Racial
-					NeedsHealth = 10
+					NeedsHealth = 15
 					TooMuchHealth = 25
 					ActiveMessage = "takes to the skies as the very winds heed their call!"
 					OffMessage = "finally graces the earth once again with their presence..."
@@ -10826,7 +10891,10 @@ NEW VARIABLES
 						NeedsHealth = 10 + (5 * asc)
 						TooMuchHealth = 20 + (5 * asc)
 						SpdMult = 1 + max(0.1,asc*0.1)
-						passives = list("Skimming" = 1+asc, "Godspeed" = 1+asc/1.5, "Pursuer" = 1+asc/2, "Flicker" = 1+asc/2, "BlurringStrikes" = asc/4)
+						Shocking = 5 + asc
+						EnergySteal = 10 + (asc * 10)
+						passives = list("DoubleStrike" = 1+ (asc/4), \
+						"Skimming" = 1+asc, "Godspeed" = 1+asc/1.5, "Pursuer" = 1+asc/2, "Flicker" = 1+asc/2, "BlurringStrikes" = asc/4)
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
 							adjust(User)
@@ -10847,7 +10915,7 @@ NEW VARIABLES
 
 						var/baseMultMod = 1 + max(0,money/GOLD_DRAGON_FORMULA)
 						PowerMult = baseMultMod
-						SpdMult =baseMultMod
+						SpdMult = baseMultMod
 						StrMult = baseMultMod
 						OffMult = baseMultMod
 						DefMult = baseMultMod
@@ -10886,9 +10954,10 @@ NEW VARIABLES
 							adjust(User)
 						..()
 			Berserk
-				NeedsHealth=5
+				NeedsHealth=10
 				TooMuchHealth=15
 				AngerMult=1.2
+				passives = list("Brutalize" = 0.5)
 				TextColor=rgb(255, 0, 0)
 				Cooldown=180
 				ActiveMessage="enters a berserk fury!!"
@@ -10912,7 +10981,7 @@ NEW VARIABLES
 				TooMuchHealth=75
 				VaizardHealth=2
 				VaizardShatter=1
-				passives = list("Unstoppable" = 1, "Possessive" = 1, "LifeGeneration" = 2, "Instinct" = 2, "Flicker" = 1)
+				passives = list("Unstoppable" = 1, "LifeGeneration" = 2, "Instinct" = 2, "Flicker" = 1)
 				Unstoppable=1
 				Possessive=1
 				TextColor=rgb(75, 0, 85)
@@ -10930,7 +10999,7 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(altered) return
 					var/asc = p.AscensionsAcquired
-					passives = list("Unstoppable" = 1, "Possessive" = 1, "LifeSteal" = 7.5+asc, "Instinct" = 1+(asc/2), "Flicker" = 1+(asc/2))
+					passives = list("Unstoppable" = 1, "LifeSteal" = 7.5+asc, "Instinct" = 1+(asc/2), "Flicker" = 1+(asc/2))
 					VaizardHealth = 1.25+(asc/2)
 					if(asc>=1)
 						if(!locate(/obj/Skills/AutoHit/Symbiote_Tendril_Wave, p.AutoHits))
@@ -11833,6 +11902,19 @@ mob
 									List+="[x])"
 							src << "You don't have the proper active buff active! [List]"
 							return
+				if(B.UBuffNeeded)
+					if(src.SlotlessBuffs.len!=0)
+						for(var/buff in B.UBuffNeeded)
+							if(!CheckSlotless(buff))
+								src << "You need [buff] enabled to use [src.name]!"
+								return
+					else
+						var/buffsRequired = ""
+						for(var/buff in B.UBuffNeeded)
+							buffsRequired += "[buff],"
+						buffsRequired = replacetext(buffsRequired, ",", "", length(buffsRequired)-2, 0)
+						src << "You have to be using [buffsRequired] to turn [src.name] on!"
+						return
 				if(B.SBuffNeeded)
 					if(!src.SpecialBuff||src.SpecialBuff.BuffName!=B.SBuffNeeded)
 						src << "You have to be in [B.SBuffNeeded] state!"
@@ -12621,7 +12703,7 @@ mob
 
 		AddSlotlessBuff(var/obj/Skills/Buffs/B)
 			if(B.BuffName=="Regeneration")
-				if(src.HellPower)
+				if(src.HasHellPower())
 					B.RegenerateLimbs=1
 
 			// HERE
@@ -13580,7 +13662,7 @@ mob
 				else
 					src.LoseMana(B.ManaCost*(1-(0.45*src.TomeSpell(B))))
 				if(B.CorruptionGain)
-					gainCorruption(B.ManaCost / 3)
+					gainCorruption((B.ManaCost / 1.5) * glob.CORRUPTION_GAIN)
 			if(B.CorruptionCost)
 				gainCorruption(-B.CorruptionCost)
 			if(B.CapacityCost)
@@ -13922,7 +14004,8 @@ mob
 			if(B.SoulFire)
 				src.SoulFire-=B.SoulFire
 			if(B.NoWhiff)
-				src.NoWhiff-=1
+				src.NoWhiff = 0
+				//world.log<<"what the hell is going on here [src] [B]"
 
 			if(B.ManaGlow)
 				filters -= GlowFilter
@@ -14122,8 +14205,8 @@ mob
 				B.WarpTarget=0
 			if(B.EnergyExpenditure)
 				src.EnergyExpenditure-=B.EnergyExpenditure
-			if(B.Desperation)
-				src.Desperation-=B.Desperation
+			/*if(B.Desperation)
+				world.log<<"What called? [src] [B]"*/
 			if(B.Warping)
 				src.Warping=0
 			if(B.Juggernaut)
@@ -14313,7 +14396,7 @@ mob
 				if(src.TomeSpell(B))
 					B.Cooldown(1-(0.25*src.TomeSpell(B)))
 				else
-					B.Cooldown()
+					B.Cooldown(p = src)
 
 			if(B.BuffTechniques.len>0)
 				for(var/x=1, x<=B.BuffTechniques.len, x++)
@@ -14329,7 +14412,9 @@ mob
 
 			src.BuffingUp=0
 			if(B.DeleteOnRemove) // DELETE ON REMOVE
-				DeleteSkill(B)
+				if(B in src.SlotlessBuffs)
+					src.SlotlessBuffs.Remove(B) // diouble time ?
+				DeleteSkill(B, TRUE)
 				return
 			if(B.AlwaysOn)
 				if(B.NeedsPassword)

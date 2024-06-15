@@ -1,4 +1,4 @@
-#define ASCENSION_ONE_POTENTIAL 20
+#define ASCENSION_ONE_POTENTIAL 10
 #define ASCENSION_TWO_POTENTIAL 40
 #define ASCENSION_THREE_POTENTIAL 55
 #define ASCENSION_FOUR_POTENTIAL 75
@@ -179,7 +179,7 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			anger = 0.1
-			passives = list("Desperation" = 1.5, "Adrenaline" = 1, "TechniqueMastery" = -1)
+			passives = list("Desperation" = 1.5, "Adrenaline" = 1, "TechniqueMastery" = -1, "Underdog" = 1)
 			new_anger_message = "grows desperate!"
 			on_ascension_message = "You learn the meaning of desperation..."
 			choices = list("Technology" = /ascension/sub_ascension/human/technology, "Fighting" = /ascension/sub_ascension/human/fighting)
@@ -209,7 +209,7 @@ ascension
 
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
-			passives = list("Desperation" = 1.5)
+			passives = list("Desperation" = 1.5, "Underdog" = 1)
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
@@ -232,7 +232,7 @@ ascension
 
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
-			passives = list("Desperation" = 1.5)
+			passives = list("Desperation" = 1.5, "Underdog" = 1)
 			strength = 0.5
 			endurance = 0.5
 			force = 0.5
@@ -365,7 +365,7 @@ ascension
 			endurance = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(2, owner)
 				..()
@@ -374,7 +374,7 @@ ascension
 			endurance = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(3, owner)
 				..()
@@ -495,7 +495,6 @@ ascension
 		onAscension(mob/owner)
 			var/result = ..()
 			if(result)
-				owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm).Mastery++
 				for(var/passive in trueFormPerAsc[owner.AscensionsAcquired])
 					findTrueForm(owner).passives[passive] += trueFormPerAsc[owner.AscensionsAcquired][passive]
 				owner.demon.selectPassive(owner, "CORRUPTION_PASSIVES", "Buff")
@@ -572,10 +571,10 @@ ascension
 			passives = list("PureReduction" = 1, "Godspeed" = 1)
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
-					b.NeedsHealth = 10
+					b.NeedsHealth = 15
 					b.TooMuchHealth = 20
-					b.AngerMult = 1.25
-					b.passives = list("AngerAdaptiveForce" = 0.1)
+					b.AngerMult = 1.3
+					b.passives = list("AngerAdaptiveForce" = 0.1, "Brutalize" = 1)
 					b.VaizardHealth = 0.5
 				..()
 		two
@@ -587,10 +586,10 @@ ascension
 			passives = list("PureDamage" = 1, "Flicker" = 1)
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
-					b.NeedsHealth = 15
+					b.NeedsHealth = 20
 					b.TooMuchHealth = 25
-					b.AngerMult = 1.3
-					b.passives = list("AngerAdaptiveForce" = 0.2)
+					b.AngerMult = 1.35
+					b.passives = list("AngerAdaptiveForce" = 0.2 , "Brutalize" = 1.5)
 					b.VaizardHealth = 1
 				..()
 		three
@@ -602,23 +601,23 @@ ascension
 			passives = list("Pursuer" = 1, "Flicker" = 1)
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
-					b.NeedsHealth = 20
+					b.NeedsHealth = 25
 					b.TooMuchHealth = 30
-					b.AngerMult = 1.35
-					b.passives = list("AngerAdaptiveForce" = 0.3, "Void" = 1)
+					b.AngerMult = 1.4
+					b.passives = list("AngerAdaptiveForce" = 0.3, "Void" = 1, "Brutalize" = 2)
 					b.VaizardHealth = 1.5
 				..()
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			angerPoint = 5
 			endurance = 0.5
-			passives = list("Godspeed" = 1, "Pure Reduction" = 1)
+			passives = list("Godspeed" = 1, "PureReduction" = 1)
 			onAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 25
 					b.TooMuchHealth = 35
-					b.AngerMult = 1.35
-					b.passives = list("AngerAdaptiveForce" = 0.4, "Void" = 1)
+					b.AngerMult = 1.45
+					b.passives = list("AngerAdaptiveForce" = 0.4, "Void" = 1, "Brutalize" = 2.5)
 					b.VaizardHealth = 1.5
 				..()
 		five
@@ -630,8 +629,8 @@ ascension
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 30
 					b.TooMuchHealth = 50
-					b.AngerMult = 1.4
-					b.passives = list("AngerAdaptiveForce" = 0.5, "Void" = 1)
+					b.AngerMult = 1.5
+					b.passives = list("AngerAdaptiveForce" = 0.5, "Void" = 1, "Brutalize" = 3)
 					b.VaizardHealth = 2.0
 				..()
 
@@ -879,9 +878,11 @@ ascension
 			unlock_potential = 10
 			choices = list("Pride" = /ascension/sub_ascension/saiyan/pride, "Honor" =  /ascension/sub_ascension/saiyan/honor, "Zeal" = /ascension/sub_ascension/saiyan/zeal)
 			intimidation = 10
+			passives = list("Brutalize" = 0.25)
 		two
 			unlock_potential = 25
 			anger = 0.25
+			passives = list("Brutalize" = 0.5)
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/zeal)
 					passives = list("Adaptation" = 0.5)
@@ -903,6 +904,7 @@ ascension
 		four
 			unlock_potential = 60
 			anger = 0.25
+			passives = list("Brutalize" = 1)
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/zeal)
 					passives = list("Adaptation" = 0.5)
@@ -1104,55 +1106,59 @@ ascension
 				switch(owner.Class)
 					if("Demon")
 						//power = 0.75
-						speed = 0.5
-						defense = 0.25
+						strength = 0.5
+						speed = 0.25
+						endurance = 0.5
 						anger = 0.15 // 1.4
 						passives = list("Hellrisen" = 0.25)
 					if("Dragon")  /// after the merge, unmerged Dragon and Warrior will also receive some scaling power. Levi added it in for Gaja's in his push
 						///power = 0.75
-						passives = list("SpiritFlow" = 0.5)
-						force = 0.75
+						passives = list("SpiritFlow" = 0.25)
+						force = 0.5
 						imaginationAdd = 0.5
 						recovery = 0.25
 						skills = list(/obj/Skills/Utility/Send_Energy)
 					if("Warrior")
 						//power = 1
 						passives = list("Duelist" = 0.5)
-						strength = 0.5
-						endurance = 0.5
+						strength = 0.25
+						speed = 0.25
+						endurance = 0.25
 						offense = 0.25
 						defense = 0.25
-						learning = 0.25
-				..()
 				if(owner.Class=="Dragon")
 					for(var/obj/Skills/Utility/Send_Energy/se in owner.contents)
 						se.SagaSignature=1
 						se.SignatureTechnique=0
+				..()
 		two
 			unlock_potential	=	ASCENSION_TWO_POTENTIAL
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Demon")
 						//power = 1
-						speed = 0.5
+						offense = 0.25
 						defense = 0.25
+						speed = 0.25
+						strength = 0.25
 						anger = 0.1 // 1.5
 						skills = list(/obj/Skills/Buffs/SpecialBuffs/Daimou_Form)
 						on_ascension_message =  "Your reliance on infernal power has given you insight to the power of a Great Demon King!"
 					if("Dragon")
 						//power = 1
-						passives =list("SpiritHand" = 0.5, "SpiritFlow" = 0.5)
-						force = 0.75
+						passives =list("SpiritHand" = 0.5, "SpiritFlow" = 0.25)
+						force = 0.25
+						offense = 0.25
 						imaginationAdd = 0.25
 						learning = 0.25
 						skills = list(/obj/Skills/Utility/Heal)
 
 					if("Warrior")
 						//power = 1.5
-						passives = list("Juggernaut" = 1, "Extend" = 0.5, "Duelist" = 1)
+						passives = list(,"Duelist" = 1)
 						intimidation = 10
-						strength = 0.25
-						endurance = 0.25
+						strength = 0.5
+						endurance = 0.5
 						skills = list(/obj/Skills/Buffs/SpecialBuffs/Giant_Form)
 				..()
 		three
@@ -1161,7 +1167,7 @@ ascension
 				switch(owner.Class) // super namek era
 					if("Demon")
 						// power = 1.5
-						speed = 0.5
+						speed = 0.25
 						anger = 0.1 // 1.6
 					if("Dragon")
 						//power = 1.5
@@ -1349,7 +1355,7 @@ ascension
 				choices = list("Stability" = /ascension/sub_ascension/majin/become_docile/stability, "Peace" = /ascension/sub_ascension/majin/become_docile/peace, "Both" = /ascension/sub_ascension/majin/become_docile/both)
 				stability
 					choices = null
-					passives = list("VenomResistance" = 0.5, "DebuffImmune" = 0.5, "Juggernaut" = 0.5)
+					passives = list("VenomResistance" = 0.25, "DebuffImmune" = 0.25, "Juggernaut" = 0.5)
 
 					onAscension(mob/owner)
 						if(owner.passive_handler.Get("Juggernaut")+passives["Juggernaut"] >= 1)

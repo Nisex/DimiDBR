@@ -336,13 +336,13 @@ obj
 				TrailSize=1.4
 				Variation=4
 			Secret_Knives
+				AdaptRate=1
+				Blasts=4
+				DamageMult=0.25
+				AccMult=1
 				AttackReplace=1
 				ZoneAttack=1
 				Distance=30
-				StrRate=1
-				Blasts=5
-				DamageMult=0.5
-				AccMult=1
 				Homing=1
 				HomingCharge=3
 				HomingDelay=1
@@ -353,11 +353,21 @@ obj
 				ZoneAttackY=5
 				FireFromEnemy=0
 				FireFromSelf=1
-				Hover=10
+				Hover=8
 				IconLock='CheckmateKnives.dmi'
 				Variation=8
 				FlickBlast=0
-				Cooldown=4
+				Cooldown=3
+				adjust(mob/p)
+					Blasts = rand(5,8)
+					DamageMult = 0.2
+					Cooldown = rand(6,9)
+					if((p.UBWPath == "Firm" && p.SagaLevel >=3))
+						Blasts = rand(2 + p.SagaLevel, 8 + p.SagaLevel)
+						DamageMult = rand(0.1 + (p.SagaLevel * 0.05), 0.15 + (p.SagaLevel * 0.05))
+						Cooldown = rand(7,12) - p.SagaLevel
+
+
 			Murder_Music
 				AttackReplace=1
 				ZoneAttack=1
@@ -997,13 +1007,14 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=20
-				AccMult=1
+				AccMult=0.7
 				DamageMult=0.15
 				Blasts=20
-				Delay=0.5
+				Delay=0.75
 				Stream=-1
 				EnergyCost=5
 				Cooldown=30
+				Deflectable = 1
 				Homing=1
 				LosesHoming=3
 				IconLock='Blast - Rapid.dmi'
@@ -1015,13 +1026,14 @@ obj
 			Straight_Siege
 				SkillCost=40
 				Copyable=2
-				Distance=15
-				AccMult=1
-				DamageMult=0.25
+				Distance=8
+				AccMult=0.75
+				DamageMult=0.1
+				Speed = 0.75
 				Knockback=0
 				Blasts=20
 				Continuous=1
-				EnergyCost=1
+				EnergyCost=3
 				IconLock='Blast - Small.dmi'
 				Cooldown=30
 				Variation=24
@@ -1032,11 +1044,11 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=25
-				DamageMult=1.2
+				DamageMult=2
 				Knockback=3
-				Radius=1
+				Radius=2
 				MultiShot=3
-				EnergyCost=1
+				EnergyCost=3
 				IconLock='Excaliblast.dmi'
 				LockX=-50
 				LockY=-50
@@ -1050,12 +1062,12 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=20
-				DamageMult=1.1
+				DamageMult=1
 				AccMult=2
 				MultiShot=5
-				Crippling=1
+				Crippling=3
 				Speed=0
-				Knockback=0
+				Knockback=0.001
 				Deflectable=1
 				IconLock='DeathBeam.dmi'
 				IconSize=1
@@ -1072,10 +1084,11 @@ obj
 				SkillCost=40
 				Copyable=1
 				Distance=30
-				DamageMult=2.5
+				DamageMult=3
 				AccMult=4
+				Homing=1
 				Explode=1
-				Charge=0.2
+				Charge=0.1
 				EnergyCost=2
 				Cooldown=30
 				IconLock='Blast - Charged.dmi'
@@ -1090,16 +1103,15 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=40
-				DamageMult=1.5
+				DamageMult=4
 				AccMult=1
-				Launcher=1
+				Launcher=7
 				Piercing=1
 				Striking=1
 				Homing=1
-				HomingCharge=2
-				HomingDelay=2
-				EnergyCost=6
-				Charge=0.5
+				HomingCharge=1
+				HomingDelay=1
+				EnergyCost=3
 				IconChargeOverhead=1
 				Explode=1
 				Cooldown=30
@@ -1116,12 +1128,13 @@ obj
 				Distance=20
 				Blasts=10
 				Charge=1
-				DamageMult=0.3
-				AccMult=2
+				DamageMult=0.2
+				AccMult=0.8
 				Homing=1
 				Explode=1
 				ZoneAttackX=5
 				ZoneAttackY=5
+				Deflectable = 1
 				Hover=10
 				IconLock='Blast - Charged.dmi'
 				LockX=-12
@@ -1139,8 +1152,8 @@ obj
 				DamageMult=1.25
 				MultiHit=3
 				AccMult=25
-				Radius=1
-				Charge=1
+				Radius=2
+				Charge=0.5
 				Knockback=1
 				Explode=2
 				EnergyCost=3
@@ -1159,8 +1172,8 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=50
-				DamageMult=3.5
-				EnergyCost=20
+				DamageMult=2.5
+				EnergyCost=5
 				Deflectable=0
 				Charge=1
 				IconChargeOverhead=1
@@ -1418,7 +1431,7 @@ obj
 				SkillCost=160
 				Blasts=12
 				Buster=1
-				DamageMult=0.5
+				DamageMult=0.3
 				BusterDamage=1
 				AccMult=0.5
 				BusterAccuracy=1
@@ -1568,7 +1581,7 @@ obj
 				LockY=0
 				IconSize=0.1
 				IconSizeGrowTo=1.25
-				Cooldown=60
+				Cooldown=150
 				Slashing=1
 				Piercing=0
 				Variation=0
@@ -1842,8 +1855,6 @@ obj
 					usr.UseProjectile(src)
 
 			A_Pound_of_Gold
-				SkillCost=160
-				Copyable=5
 				Distance=20
 				DamageMult=6
 				AccMult=15
@@ -1863,8 +1874,6 @@ obj
 					usr.UseProjectile(src)
 
 			Goblin_Greed
-				SkillCost=160
-				Copyable=5
 				Distance=20
 				DamageMult=6
 				AccMult=3
@@ -3029,7 +3038,7 @@ obj
 					ZoneAttackY=3
 					Hover=7
 					Variation=0
-					Cooldown=50
+					Cooldown = 180
 					verb/Hellzone_Grenade()
 						set category="Skills"
 						usr.UseProjectile(src)
@@ -4263,10 +4272,11 @@ obj
 				verb/Shard_Storm()
 					set category="Skills"
 					if(!altered)
-						Blasts = 4 + (usr.AscensionsAcquired)
-						DamageMult = 0.2 + (usr.AscensionsAcquired * 0.2)
+						Blasts = 6 + (usr.AscensionsAcquired)
+						DamageMult = 2 + (usr.AscensionsAcquired * 0.5)
 						Radius = clamp(usr.AscensionsAcquired, 1, 5)
-						Shattering = 0.5 + clamp(usr.AscensionsAcquired*0.5, 0.5, 2.5)
+						Shattering = 2 + clamp(usr.AscensionsAcquired*2, 0.5, 2.5)
+						DamageMult = DamageMult/Blasts
 					usr.UseProjectile(src)
 
 //Moonlight Greatsword
@@ -4287,10 +4297,10 @@ mob
 		UseProjectile(var/obj/Skills/Projectile/Z)
 			. = TRUE
 			if(src.Stasis)
-				return
+				return 0
 			if(Z.Sealed)
 				src << "You can't use [Z] it is sealed!"
-				return
+				return 0
 			if(Z.Continuous&&Z.ContinuousOn)
 				Z.ContinuousOn=0
 
@@ -4309,14 +4319,17 @@ mob
 							if(x.Target==src)
 								src << "Your [Z] was countered!"
 								Z.Cooldown()
-								return
+								return 0
 				if(src.HasMechanized()&&src.HasLimitlessMagic()!=1)
 					src << "You lack the ability to use magic!"
 					return
 				if(Z.Copyable>=3||!Z.Copyable)
+					if(passive_handler.Get("Disarmed"))
+						src << "You are disarmed you can't use [Z]."
+						return
 					if(!src.HasSpellFocus(Z))
 						src << "You need a spell focus to use [Z]."
-						return
+						return 0
 			if(Z.AssociatedGear)
 				if(!Z.AssociatedGear.InfiniteUses)
 					if(Z.Integrated)
@@ -4326,16 +4339,16 @@ mob
 								src << "Your integrated [Z] automatically replinishes its power!"
 								src.LoseMana(10)
 								Z.AssociatedGear.IntegratedUses=Z.AssociatedGear.IntegratedMaxUses
-							return
+							return 0
 					else
 						if(Z.AssociatedGear.Uses<=0)
 							usr << "Your [Z] is out of power!"
-							return
+							return 0
 			if(!Z.Charging)//Only beams get this exception
 				if(!src.CanAttack(3)&&!Z.AttackReplace)
-					return
-				if(Z.Using)
-					return
+					return 0
+				if(Z.Using) 
+					return 0
 				if(Z.ZoneAttack&&Z.FireFromEnemy)
 					if(!src.Target)
 						src << "You need a target to use this."
@@ -4353,17 +4366,17 @@ mob
 					if(!Z.AllOutAttack)
 						if(Z.HealthCost)
 							if(src.Health<Z.HealthCost*glob.WorldDamageMult)
-								return
+								return 0
 						if(Z.WoundCost)
 							if(src.TotalInjury+Z.WoundCost*glob.WorldDamageMult>99)
-								return
+								return 0
 						if(Z.EnergyCost)
 							if(src.Energy<Z.EnergyCost)
 								if(!src.CheckSpecial("One Hundred Percent Power")&&!src.CheckSpecial("Fifth Form")&&!CheckActive("Eight Gates"))
-									return
+									return 0
 						if(Z.FatigueCost)
 							if(src.TotalFatigue+Z.FatigueCost>99)
-								return
+								return 0
 						if(Z.ManaCost && !src.HasDrainlessMana())
 							var/drain = src.passive_handler.Get("MasterfulCasting") ? Z.ManaCost - (Z.ManaCost * (passive_handler.Get("MasterfulCasting") * 0.3)) : Z.ManaCost
 							if(drain <= 0)
@@ -4385,6 +4398,9 @@ mob
 								return FALSE
 
 			if(Z.NeedsSword)
+				if(passive_handler.Get("Disarmed"))
+					src << "You are disarmed you can't use [Z]."
+					return
 				if(!src.EquippedSword())
 					if(!src.HasSwordPunching()&& !src.UsingBattleMage())
 						src << "You need a sword to use this technique!"
@@ -4406,6 +4422,9 @@ mob
 				if(s)
 					if(s.MagicSword)
 						Pass=1
+				if(passive_handler.Get("Disarmed"))
+					src << "You are disarmed you can't use [Z]."
+					return
 				if(!Pass)
 					src << "You need a staff to use this technique!"
 					return
@@ -4456,12 +4475,12 @@ mob
 						if(src.TomeSpell(Z))
 							Z.Cooldown(1-(0.25*src.TomeSpell(Z)))
 						else
-							Z.Cooldown()
+							Z.Cooldown(p = src)
 				else
 					if(src.TomeSpell(Z))
 						Z.Cooldown(1-(0.25*src.TomeSpell(Z)))
 					else
-						Z.Cooldown()
+						Z.Cooldown(p = src)
 			if(Z.Copyable)
 				spawn() for(var/mob/m in view(10, src))
 					if(m.CheckSpecial("Sharingan"))
@@ -4768,7 +4787,7 @@ mob
 						else
 							src.LoseMana(drain/Drain)
 						if(Z.CorruptionGain)
-							gainCorruption(drain / 3)
+							gainCorruption((drain / 1.5) * glob.CORRUPTION_GAIN)
 					if(Z.CorruptionCost)
 						gainCorruption(-Z.CorruptionCost)
 					if(Z.CapacityCost)
@@ -5429,7 +5448,8 @@ obj
 											continue
 										else
 											break
-									new/obj/gold(a, src.Owner, newX, newY, a.z)
+									var/obj/gold/gold = new()
+									gold.createPile(m, src.Owner, newX, newY, m.z)
 									a << "You feel a need to go collect your coins before they're stolen!"
 
 						if(Crippling)
@@ -5461,6 +5481,20 @@ obj
 							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Poison"), damageOnly = 1))/10)
 						if(src.Toxic&&!src.Owner.HasToxic())
 							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Poison"), damageOnly = 1))/10)//Forces debuff
+
+						var/bonusElement = list()
+						if(Burning||Scorching)
+							bonusElement |= "Fire"
+						if(Chilling||Freezing)
+							bonusElement |= "Water"
+						if(Crushing||Shattering)
+							bonusElement |= "Earth"
+						if(Paralyzing||Shocking)
+							bonusElement |= "Wind"
+						if(Toxic||Poisoning)
+							bonusElement |= "Poison"
+
+						ElementalCheck(src.Owner, a, onlyTheseElements=bonusElement)
 
 						if(a in src.Owner.party)
 							EffectiveDamage *= PARTY_DAMAGE_NERF
@@ -5529,8 +5563,9 @@ obj
 									EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.01, 1)
 									src.Owner.DoDamage(a, EffectiveDamage, SpiritAttack=1, Destructive=src.Destructive)
 									if(CorruptionGain)
-										Owner.gainCorruption(EffectiveDamage *1.25)
-									AlreadyHit["[m.ckey]"]++
+										Owner.gainCorruption((EffectiveDamage * 1.5) * glob.CORRUPTION_GAIN)
+									if(m)
+										AlreadyHit["[m.ckey]"]++
 									if(Piercing && PiercingBang)
 										Bang(src.loc, Size=src.PiercingBang, Offset=0, PX=src.VariationX, PY=src.VariationY, icon_override = ExplodeIcon)
 								if(src.Owner.UsingAnsatsuken())
@@ -5575,13 +5610,13 @@ obj
 									animate(a:client, color = null, time = 5)
 						if(src.Launcher)
 							spawn()
-								LaunchEffect(src.Owner, a)
+								LaunchEffect(src.Owner, a, Launcher )
 						if(src.Stasis&&!a:StasisFrozen)
 							a:SetStasis(src.Stasis)
 
 						if(src.Striking)
 							src.Owner.HitEffect(a)
-							if(src.DamageMult>=1.5)
+							if(src.DamageMult>=0.2)
 								KenShockwave(a, Size=max((src.DamageMult+src.Knockback+src.Owner.Intimidation/50)*max(2*src.Owner.GetGodKi(),1)*GoCrand(0.04,0.4),0.2),PixelX=src.VariationX,PixelY=src.VariationY)
 						if(src.Slashing)
 							Slash(a, src.Owner.EquippedSword())

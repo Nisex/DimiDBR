@@ -9,10 +9,11 @@ proc/generateVersionDatum()
 		glob.currentUpdate = new updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 1
+	var/UPDATE_VERSION = 13
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
+		if(UPDATE_VERSION == p.updateVersion) return
 		if(p.updateVersion + 1 == UPDATE_VERSION)
 	        // we dont need to generate new datums to update him
 			var/updateversion = "/update/version[p.updateVersion + 1]"
@@ -27,7 +28,7 @@ globalTracker
 				del update // i guess loc = null doesn't work cause datums have no loc
 
 
-mob/var/updateVersion = 1
+mob/var/updateVersion = 13
 
 update
 	var/version = 1
@@ -68,7 +69,7 @@ update
 					if(!hf.possible_skills["Corruption"])
 						hf.possible_skills["Corruption"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space
 			..()
-	
+
 	version4
 		version = 4
 		updateMob(mob/p)
@@ -79,7 +80,8 @@ update
 				if(!p.FindSkill(/obj/Skills/Utility/Imitate))
 					p.AddSkill(new/obj/Skills/Utility/Imitate)
 					p << "Imitate added"
-				del p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm)
+				if(p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm))
+					del p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm)
 				p << "Deleted old Devil Arm"
 				p.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2)
 				p << "Added new Devil Arm (Apparently Stable)"
@@ -106,4 +108,118 @@ update
 						hf = hellfire
 				hf.possible_skills["HellFire"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
 				p << "hellstorm changed"
+			..()
+	version6
+		version = 6
+		updateMob(mob/p)
+			if(length(p.generateMagicList()) >= 1)
+				p.legacyRefundmagic()
+			if(p.isRace(SAIYAN))
+				p.passive_handler.Set("Brutalize", 0.25)
+			if(p.isRace(BEASTMAN) && p.AscensionsAcquired < 1)
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in p.Buffs)
+					b.NeedsHealth = 10
+					b.passives = list("Brutalize" = 0.5, "DemonicDurability" = 0.25)
+			..()
+	version7
+		version = 7
+		updateMob(mob/p)
+			..()
+	version8
+		version = 8
+		updateMob(mob/p)
+			..()
+	version9
+		version = 9
+		updateMob(mob/p)
+			if(p.GetRPPEvent()&&!global.RPPEventCharges["[p.ckey]"])
+				p.RPPSpendableEvent = 0
+				if(p.RPPSpentEvent > 0)
+					AdminMessage("[p.name] ([p.ckey]) spent Event RPP when they shouldn't have! Please remove their latest tech / skill buy and refund any actual RPP.")
+				p.RPPSpentEvent = 0
+			..()
+	version10
+		version = 10
+		updateMob(mob/p)
+			if(p.GetRPPEvent())
+				p.RPPSpendableEvent = 0
+				if(p.RPPSpentEvent > 0)
+					AdminMessage("[p.name] ([p.ckey]) spent Event RPP when they shouldn't have (maybe)! Please remove(delete) their latest tech / skill buy and refund any actual RPP(check what their total spent should be.")
+				p.RPPSpentEvent = 0
+			..()
+	version11
+		version = 11
+		updateMob(mob/p)
+			if(p.isRace(HUMAN))
+				p.NewAnger(1.5)
+				p << "Anger set to 1.5"
+				p << "stats changed"
+				p.stat_redo()
+			if(p.isRace(ELDRITCH))
+				p << "stats changed"
+				p.stat_redo()
+			if(p.isRace(DEMON))
+				p << "stats changed"
+				p.stat_redo()
+			if(p.isRace(NAMEKIAN))
+				p << "stats changed"
+				p.stat_redo()
+				p.Class = input("What clan do you hail from?", "Clan Selection")in list("Warrior", "Dragon", "Demon")
+				switch(p.Class)
+					if("Warrior")
+						p.StrMod += 0.5
+						p.EndMod += 0.25
+					if("Dragon")
+						p.ForMod += 0.5
+						p.DefMod += 0.25
+					if("Demon")
+						p.SpdMod += 0.5
+						p.OffMod += 0.25
+			if(p.isRace(DRAGON))
+				p << "stats changed"
+				p.stat_redo()
+			if(p.isRace(SAIYAN))
+				p << "stats changed"
+				p.stat_redo()
+				p.passive_handler.Set("Brutalize", 0.25)
+			if(p.isRace(MAKYO))
+				p << "stats changed"
+				p.stat_redo()
+
+			..()
+	version12
+		version = 12
+		updateMob(mob/p)
+			if(p.isRace(DEMON))
+				var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2)
+				da.passives = list()
+				p.race?:devil_arm_upgrades = 1
+				da.totalEvolvesMain = 0
+				p << "devil arm reset"
+			..()
+	version13
+		version = 13
+		updateMob(mob/p)
+			if(p.isRace(DEMON))
+				for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in p)
+					dm = new()
+			var/obj/Skills/Buffs/NuStyle/SwordStyle/Champloo_Style/c = p.FindSkill(/obj/Skills/Buffs/NuStyle/SwordStyle/Champloo_Style)
+			if(c)
+				c.passives = list("SwordPunching" = 1, "NeedsSword" = 0, "Shearing" = 1.5)
+			if(p.isRace(HUMAN))
+				p.passive_handler.Increase("Underdog", 1)
+			..()
+	version14
+		version = 14
+		updateMob(mob/p)
+			if(p.isRace(DRAGON))
+				p.AddSkill(new/obj/Skills/AutoHit/Dragon_Roar)
+			
+			..()
+	version15
+		version = 15
+		updateMob(mob/p)
+			if(p.isRace(DEMON))
+				p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self)
+			
 			..()

@@ -344,6 +344,11 @@ ai_sheet //need to include icon scale
 mob/Player/AI
 	New()
 		..()
+		race = new/race/human()
+		if(!passive_handler) passive_handler = new()
+		MovementCharges = 5
+		ai_state = "Idle"
+		ticking_ai.Add(src)
 		if(!locate(/obj/Skills/Meditate,contents))
 			contents+=new/obj/Skills/Meditate
 		if(!locate(/obj/Skills/Queue/Heavy_Strike,contents))
@@ -363,6 +368,52 @@ mob/Player/AI
 		if(!src.MobColor)
 			src.MobColor=list(1,0,0, 0,1,0, 0,0,1, 0,0,0)
 		AppearanceOn()
+
+	Del()
+		loc = null
+		ai_loop.Remove(src)
+		ticking_ai.Remove(src)
+		if(senpai)
+			senpai.ai_active.Remove(src)
+			senpai = null
+		ai_state = null
+		BreakViewers()
+		RemoveTarget()
+		for(var/obj/Skills/s in src)
+			s.AssociatedLegend = null
+			s.AssociatedGear = null
+			s.loc = null
+			DeleteSkill(s, 1)
+		if(active_projectiles.len>0)
+			for(var/obj/Skills/Projectile/_Projectile/p in active_projectiles)
+				p.endLife()
+		for(var/i in vis_contents)
+			vis_contents -= i
+		companion_ais.Remove(src)
+		sleep(100)
+		transform = null
+		filters = null
+		dd = null
+		Hair = null
+		passive_handler = null
+		race = null
+		GlobalCooldowns = null
+		SkillsLocked = null
+		OldLoc = null
+		aggro_damage = null
+		Splits = null
+		information = null
+		secretDatum = null
+		MonkeySoldiers = null
+		knowledgeTracker = null
+		Items = null
+		equippedSword = null
+		equippedArmor = null
+		equippedWeights = null
+		play_action = null
+		overlays = null
+		underlays = null
+		..()
 	icon = 'Makyo1.dmi'
 
 	KiBlade=1 //give these boiz access to kenjutsu
@@ -394,7 +445,7 @@ mob/Player/AI
 		ai_stall = 0 //Causes Update() to sleep.
 		ai_turn_stall = 0
 		ai_last_dirshift
-		ai_movement_type //Null = Default. Erratic movements, good for dueling.
+		ai_movement_type = "melee" //Null = Default. Erratic movements, good for dueling.
 		//"Rush". AI will run linearly toward an opponent.
 		//"Circle" An AI will run mad circles.
 		//"Cricle Owner" An AI will continously rotate around its Owner. This limits attacks to things like blast..
@@ -458,71 +509,11 @@ mob/Player/AI
 
 		last_loc
 		last_loc_tick = 0
-	New()
-		race = new/race/human()
-		..()
-		if(!passive_handler) passive_handler = new
-		MovementCharges = 5
-		ai_state = "Idle"
-		ticking_ai.Add(src)
 
 	CheckAscensions() //override to do nothing
 	proc/
 		EndLife(animatedeath=1) //Clear all references in this proc.
 			set waitfor=0
-			ai_loop.Remove(src)
-			ticking_ai.Remove(src)
-			if(senpai)
-				senpai.ai_active.Remove(src)
-				senpai = null
-			ai_state = null
-			if(animatedeath)
-				animate(src, alpha=0,time=5)
-				sleep(5)
-			for(var/obj/Skills/s in src)
-				s.AssociatedLegend = null
-				s.AssociatedGear = null
-				s.loc = null
-				DeleteSkill(s, 1)
-			for(var/i in vis_contents)
-				vis_contents -= i
-			companion_ais.Remove(src)
-			transform = null
-			filters = null
-			dd = null
-			Hair = null
-			RemoveTarget()
-			GlobalCooldowns = null
-			SkillsLocked = null
-			OldLoc = null
-			passive_handler = null
-			aggro_damage = null
-			Splits = null
-			information = null
-			secretDatum = null
-			MonkeySoldiers = null
-			knowledgeTracker = null
-			Items = null
-			equippedSword = null
-			equippedArmor = null
-			equippedWeights = null
-			play_action = null
-			overlays = null
-			underlays = null
-			if(BeingObserved.len>0)
-				for(var/mob/p in BeingObserved)
-					Observify(p,p)
-			if(BeingTargetted.len>0)
-				for(var/mob/p in BeingTargetted)
-					if(p.Target==src)
-						p.RemoveTarget()
-					else
-						BeingTargetted -= p
-			if(active_projectiles.len>0)
-				for(var/obj/Skills/Projectile/_Projectile/p in active_projectiles)
-					p.endLife()
-			src.loc = null
-			sleep(50)
 			del src
 
 		GenerateAppearance(var/is_monster, include_clothes=1)

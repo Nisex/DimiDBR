@@ -42,7 +42,7 @@ obj/Skills/proc/Cooldown(var/modify=1, var/Time, mob/p)
 				src.CooldownScalingCounter++
 		else
 			forcemessage=1
-		if(isnull(Time))
+		if(isnull(Time) || Time == 0)
 			Time = Cooldown
 		cooldown_remaining = Time
 		if(m)
@@ -50,6 +50,7 @@ obj/Skills/proc/Cooldown(var/modify=1, var/Time, mob/p)
 				return
 			cooldown_start = world.realtime
 			var/start_time = world.realtime
+			m << "[src] has gone on Cooldown ([Time/10] Seconds)"
 			spawn(Time)
 				if(cooldown_start != start_time) return //This instance of the CD was canceled.
 				src.Using=0
@@ -150,6 +151,11 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					if(MeditateTime >= 15)
 						src.Tension=0
 						for(var/obj/Skills/s in src)
+							if(length(s.possible_skills) > 0)
+								for(var/obj/Skills/t in s.possible_skills)
+									if(t.Cooldown<0 && t.Using)
+										t.Using = 0
+										usr << "[t] has been reset, allowing you to use it again."
 							if(s.Cooldown<0 && s.Using)
 								s.Using = 0
 								usr << "[s] has been reset, allowing you to use it again."
@@ -261,9 +267,9 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 				if(Frozen||is_dashing||!Target||Target&&!ismob(Target)||Target==src||Beaming==2||TimeFrozen||Knockbacked)
 					return
 
-				var/Modifier = 1 + src.HasPursuer()
+				var/Modifier = (src.HasPursuer()/10) 
 				if(!src.HasDashMaster())
-					Z.Cooldown(1/Modifier)
+					Z.Cooldown(clamp(1-Modifier,0.1, 1))
 
 				if(src.CheckSlotless("New Moon Form"))
 					if(!src.CheckSlotless("Half Moon Form"))

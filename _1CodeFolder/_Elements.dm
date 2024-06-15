@@ -1,5 +1,5 @@
 proc
-	ElementalCheck(var/mob/Attacker, var/mob/Defender, var/ForcedDebuff=0, var/DebuffIntensity=glob.DEBUFF_INTENSITY, list/bonusElements,damageOnly = FALSE)
+	ElementalCheck(var/mob/Attacker, var/mob/Defender, var/ForcedDebuff=0, var/DebuffIntensity=glob.DEBUFF_INTENSITY, list/bonusElements,damageOnly = FALSE, list/onlyTheseElements)
 		var/list/messages = list("Fire"= "<font color='[rgb(204, 153, 51)]'>[Defender] erupts in flames!!</font color>", \
 	"Water" = "<font color='[rgb(51, 153, 204)]'>[Defender] freezes to the bone!!</font color>", \
 	"Earth" = "<font color='[rgb(51, 204 , 153)]'>[Defender] falters; their guard is crushed!!</font color>", \
@@ -26,6 +26,8 @@ proc
 		if(sord && sord.Element)
 			attackElements |= sord.Element
 
+		if(onlyTheseElements)
+			attackElements = onlyTheseElements
 		if(Defender.ElementalDefense)
 			defenseElements |= Defender.ElementalDefense
 
@@ -40,7 +42,7 @@ proc
 			if(Attacker.SenseUnlocked>5&&Attacker.SenseUnlocked>Attacker.SenseRobbed)
 				DebuffRate+=10*(Attacker.SenseUnlocked-5)
 			if(Defender.HasDebuffImmune())
-				DebuffRate/=Defender.GetDebuffImmune()
+				DebuffRate/=1+Defender.GetDebuffImmune()
 			if(Defender.HasIntimidation())
 				var/Effective=Defender.GetIntimidation()
 				var/Ratio=Attacker.GetIntimidationIgnore(Defender)
@@ -68,6 +70,12 @@ proc
 					if("Poison")
 						if(!Defender.Poison)
 							OMsg(Attacker, messages[element])
+					if("HellFire")
+						if(!Defender.Poison)
+							OMsg(Attacker, messages[element])
+						if(!Defender.Burn)
+							OMsg(Attacker, messages[element])
+
 			switch(element)
 				if("Ultima")
 					DamageMod+=2
@@ -77,6 +85,13 @@ proc
 					DamageMod+=2
 				if("Void")
 					DamageMod+=2
+				if("HellFire")
+					DamageMod+=2
+					if("Fire" in defenseElements) // simply consume lesser fire
+						DamageMod+=1
+					if("Wind" in defenseElements)
+						DamageMod+=1
+
 				if("Fire")
 					if("Water" in defenseElements)
 						DamageMod-=1//Reduced damage
@@ -99,6 +114,11 @@ proc
 						DamageMod+=1
 			if(!damageOnly&&prob(DebuffRate))
 				switch(element)
+					if("HellFire")
+						Defender.AddPoison(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
+						Defender.AddBurn(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
+						Defender.AddShearing(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
+
 					if("Chaos")
 						if(prob(50))
 							Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
@@ -152,6 +172,23 @@ proc
 		switch(A)
 			if("Rain")
 				Return=30
+			
+			if("HellFire")
+				Return=50
+				switch(D)
+					if("Mirror")
+						Return-=20
+					if("Fire")
+						Return+=20
+					if("Water")
+						Return-=10
+					if("Earth")
+						Return-=10
+					if("Wind")//Super effective
+						Return+=20
+					if("Ultima")
+						Return+=10
+
 			if("Fire")//Chance of burn
 				Return=30//Chance of burn on every hit.
 				switch(D)

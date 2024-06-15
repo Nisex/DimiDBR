@@ -111,9 +111,9 @@ mob/proc/Unconscious(mob/P,var/text)
 				src.ActiveBuff:Stop_Cultivation()//deactivate...
 				GatesActive=0
 		return
-	if(src.Desperation)
+	if(src.passive_handler.Get("Desperation"))
 		if(src.HealthAnnounce10<=1&&FightingSeriously(P,src))
-			if(prob((src.Desperation*2.5)+5))
+			if(prob((src.passive_handler.Get("Desperation")*2.5)+5))
 				src.KO=0
 				src.OMessage(15, "...but [src] refuses to go down!", "<font color=red>[src]([src.key]) remains standing despite impossible odds!")
 				src.Health=1
@@ -253,13 +253,14 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 	if(istype(src, /mob/Player/AI))
 		if(P)
 			var/mob/Player/AI/a = src
-			var/aiType = a.senpai.monsters[1].og_name
-			if(!aiType)
-				aiType = a.senpai.monsters[1].name
-			if(P.killed_AI[aiType])
-				P.killed_AI[aiType] ++
-			else
-				P.killed_AI[aiType] = 1
+			if(a.senpai)
+				var/aiType = a.senpai.monsters[1].og_name
+				if(!aiType)
+					aiType = a.senpai.monsters[1].name
+				if(P.killed_AI[aiType])
+					P.killed_AI[aiType] ++
+				else
+					P.killed_AI[aiType] = 1
 			var/rppBoon = a.Potential/100
 			if(a.in_squad)
 				a.in_squad.RemoveMember(src) //Squad members die die when they die.
@@ -942,10 +943,10 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 				if(AccMult<1)
 					AccMult=1
 
-		if(Offender.Desperation)
+		if(Offender.passive_handler.Get("Desperation"))
 			var/healthRemaining = 100 - Offender.Health
 			if(healthRemaining <= 10)
-				var/baseBoon = 0.015 * Offender.Desperation // max Desperation soembody can have is 6
+				var/baseBoon = 0.015 * Offender.passive_handler.Get("Desperation") // max Desperation soembody can have is 6
 				AccMult *= 1 + (baseBoon * (11 - healthRemaining))
 		// ! DESPERATION GIVES A BONUS TO HIT CHANCE ! //
 
@@ -960,6 +961,10 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 
 		if(glob.EXPERIMENTAL_ACCMULT)
 			AccMult = AccMult**glob.EXPERIMENTAL_ACCMULT_EXPONENT
+			if(!AccMult**glob.EXPERIMENTAL_ACCMULT_EXPONENT > 0)
+				Offender <<"<font color=red>PLEASE REPORT THIS SKILL TO AWWLIE, NIEZAN or JORDAN plz <3</font>"
+				Defender <<"<font color=red>PLEASE REPORT THIS SKILL TO AWWLIE, NIEZAN or JORDAN plz <3</font>"
+				AdminMessage("[Offender] or [Defender] had a negative Accmult on a attack...")
 		AccMult = clamp(glob.ACC_ACCMULT_MIN, AccMult, glob.ACC_ACCMULT_MAX)
 
 
@@ -1033,10 +1038,10 @@ proc/Deflection_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/Base
 				AccMult-=(0.2*AccMult) * cumAvoidance
 				if(AccMult<1)
 					AccMult=1
-		if(Offender.Desperation)
+		if(Offender.passive_handler.Get("Desperation"))
 			var/healthRemaining = 100 - Offender.Health
 			if(healthRemaining <= 10)
-				var/baseBoon = 0.015 * Offender.Desperation // max Desperation soembody can have is 6
+				var/baseBoon = 0.015 * Offender.passive_handler.Get("Desperation") // max Desperation soembody can have is 6
 				AccMult *= 1 + (baseBoon * (11 - healthRemaining))
 
 		var/Offense = Offender.GetOff(glob.ACC_OFF) + Offender.GetSpd(glob.ACC_OFF_SPD) // BASIS
@@ -2166,12 +2171,13 @@ mob/proc/Knockback(var/Distance,var/mob/P,var/Direction=0, var/Forced=0, var/Ki=
 			return
 	if(src.loc == null)
 		return
+	if(!P) return
 	if(P.Stasis)
 		return
 	if(!Direction)
 		Direction=src.dir
-	if(P.Desperation)
-		if(prob(5*P.Desperation))
+	if(P.passive_handler.Get("Desperation"))
+		if(prob(5*P.passive_handler.Get("Desperation")))
 			Distance=0
 	Forced+=isForced()
 	if(P.ContinuousAttacking)

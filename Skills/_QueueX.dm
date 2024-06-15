@@ -326,6 +326,16 @@ obj
 					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Anger_Break"
 					HitMessage="leaps towards the opponent, mocking them with repeated stomps from above!"
 
+				Challenge
+					Warp=10
+					DamageMult = 2
+					KBMult=0.001
+					Instinct = 1
+					FollowUp="/obj/Skills/Queue/Finisher/Duel"
+					HitMessage="darts at their enemy!"
+					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Champion_Pride"
+					BuffSelf=1
+
 				Mist_Finer
 					Warp=10
 					FollowUp="/obj/Skills/Queue/Finisher/Drawing_Mist"
@@ -434,6 +444,17 @@ obj
 					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Evasion_Negation"
 					HitMessage="drives their staff into the ground, letting out a pulse of sealing force!"
 					BuffSelf=0
+
+
+				Shield_Bash
+					DamageMult=3
+					KBAdd = 5
+					Stunner = 5
+					Crippling = 50
+
+					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Bashing"
+					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Stumbling"
+					HitMessage="bashes their shield against their target, sending them stumbling!"
 
 				Berserker_Claw
 					DamageMult=3
@@ -878,7 +899,7 @@ obj
 				Warp=5
 				KBAdd=1
 				KBMult=0.00001
-				Instinct=4
+				Instinct=0
 				Combo=10
 				HitSparkIcon='Slash - Vampire.dmi'
 				HitSparkX=-32
@@ -888,10 +909,12 @@ obj
 				ActiveMessage="lets their presence try to overtake their opponents!"
 				adjust(mob/p)
 					var/ascLevel = 1 + p.AscensionsUnlocked
-					src.Scorching=3 * ascLevel
-					src.Freezing=3 * ascLevel
-					src.Paralyzing=3 * ascLevel
-					src.Shattering=3 * ascLevel
+					var/boon = 3 * ascLevel
+					src.Scorching=8 + boon
+					src.Freezing=8 + boon
+					src.Paralyzing=8 + boon
+					src.Shattering=8 + boon
+					DamageMult = 0.5 + (ascLevel/8)
 
 //Basic
 
@@ -956,10 +979,10 @@ obj
 							return//and that's the end
 						if(usr.Secret == "Eldritch" && usr.CheckSlotless("True Form"))
 							src.name="Maleific Strike"
-							src.DamageMult=4
+							src.DamageMult=3
 							src.AccuracyMult=2
-							src.KBAdd=5
-							src.KBMult=3
+							src.KBAdd=2
+							src.KBMult=1.5
 							src.Ooze = 1
 							src.Cooldown=60
 							src.ActiveMessage="leaks some of their malefic presence onto the world!"
@@ -2235,7 +2258,7 @@ obj
 			Light_Rush
 				SkillCost=80
 				Copyable=3
-				DamageMult=1.2
+				DamageMult=1
 				AccuracyMult=5
 				Duration=5
 				Combo=4
@@ -2258,7 +2281,7 @@ obj
 				Projectile="/obj/Skills/Projectile/RushBlast"
 			Burst_Combination
 				name="Burst Combination"
-				SkillCost=40
+				SkillCost=80
 				Copyable=3
 				DamageMult=0.8
 				AccuracyMult=5
@@ -3775,12 +3798,18 @@ mob
 						var/obj/Items/Enchantment/Staff/st=src.EquippedStaff()
 						//var/obj/Items/Enchantment/Magic_Crest/mc=src.EquippedCrest()
 						var/obj/Items/Sword/sord=src.EquippedSword()
+						if(passive_handler.Get("Disarmed"))
+							src << "You are disarmed you can't use [Q]."
+							return
 						if(!st&&!(CrestSpell(Q))&&(!sord||sord&&!sord.MagicSword))
 							src << "You need a spell focus to use [Q]."
 							return
 			if(Q.NeedsSword||Q.UnarmedOnly)
 				var/obj/Items/Sword/s=src.EquippedSword()
 				if(Q.NeedsSword)
+					if(passive_handler.Get("Disarmed"))
+						src << "You are disarmed you can't use [Q]."
+						return
 					if((!s && !HasSwordPunching()) && !src.UsingBattleMage())
 						src << "You must have a sword equipped to use this technique."
 						return

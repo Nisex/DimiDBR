@@ -196,6 +196,9 @@ mob/Players/Stat()
 			stat("----","----")
 			stat("Reward Points:","[round(usr.RPPSpendable)]")
 			stat("Reward Points Used:","[round(usr.RPPSpent)]")
+			if(usr.RPPSpendableEvent || usr.RPPSpentEvent)
+				stat("Event Reward Points:","[round(usr.RPPSpendableEvent)]")
+				stat("Event Reward Points Used:","[round(usr.RPPSpentEvent)]")
 			if(usr.RPPDonate)
 				stat("Donate RPP:", "[round(usr.RPPDonate)]")
 			if(usr.PotentialRate>0)
@@ -1292,7 +1295,7 @@ mob/proc/Get_Scouter_Reading(mob/B)
 						if(a<B.GetAngerThreshold())
 							a=B.GetAngerThreshold()
 					if(B.DefianceCounter)
-						a+=B.DefianceCounter*0.05
+						a+=B.DefianceCounter*0.25
 				if(B.CyberCancel>0)
 					var/ang=a-1//Usable anger.
 					var/cancel=ang*B.CyberCancel//1 Cyber Cancel = all of usable anger.

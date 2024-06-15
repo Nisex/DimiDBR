@@ -231,15 +231,15 @@ race
 		desc = "Humans are stubborn, steadfast survivors crafted from the God of Truth's dying breath."
 		visual = 'Humans.png'
 
-		passives = list("Desperation" = 1, "Adrenaline" = 0.5, "TechniqueMastery" = 2)
+		passives = list("Desperation" = 1, "Adrenaline" = 0.5, "TechniqueMastery" = 2, "Underdog" = 1)
 		power = 1
 		strength = 1
 		endurance = 1
 		force = 1
 		offense = 1
-		defense = 1
+		defense = 2
 		speed = 1
-		anger = 1.4
+		anger = 1.5
 		learning = 1.5
 
 	saiyan
@@ -251,14 +251,15 @@ race
 
 		strength = 1.5
 		endurance = 1.5
-		force = 1.25
+		force = 1.5
 		offense = 1
-		defense = 0.75
+		defense = 1
 		speed = 1
 		anger = 1.5
 		regeneration = 1.5
 		imagination = 0.5
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Oozaru)
+		passives = list("Brutalize" = 0.25)
 
 		onFinalization(mob/user)
 			..()
@@ -295,6 +296,15 @@ race
 		offense = 1.25
 		defense = 1.25
 
+		onFinalization(mob/user)
+			..()
+			if(!user.majinPassive)
+				user.majinPassive = new(user)
+			if(!user.majinAbsorb)
+				user.majinAbsorb = new()
+				user.findAlteredVariables()
+
+
 	dragon
 		name = "Dragon"
 		desc = "Dragons represent aspects of the world, said to be born of animosity. Reborn nearing times of great tragedy, they only regain their past lives of protecting the world at age 20."
@@ -305,9 +315,9 @@ race
 		power = 5
 		strength = 1.5
 		endurance = 1.5
-		speed = 1.5
+		speed = 1.25
 		force = 1.5
-		offense = 2
+		offense = 1.5
 		defense = 1.5
 		regeneration = 3
 		recovery = 3
@@ -317,23 +327,23 @@ race
 			user.Class = input(user,"Pick an element to represent you.", "Dragon Element") in list("Fire","Metal", "Gold", "Wind", "Poison")
 			switch(user.Class)
 				if("Fire")
-					skills = list(/obj/Skills/AutoHit/Fire_Breath, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Heat_Of_Passion)
+					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/AutoHit/Fire_Breath, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Heat_Of_Passion)
 					passives["DemonicDurability"] = 1
 					passives["SpiritHand"] = 1
 				if("Metal")
-					skills = list(/obj/Skills/Projectile/Shard_Storm, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Dragons_Tenacity)
+					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/Projectile/Shard_Storm, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Dragons_Tenacity)
 					passives["Hardening"] = 1
 				if("Wind")
-					skills = list(/obj/Skills/Projectile/Beams/Static_Stream, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Wind_Supremacy)
+					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/Projectile/Beams/Static_Stream, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Wind_Supremacy)
 					passives["Godspeed"] = 1
 					passives["Flicker"] = 1
 				if("Gold")
-					skills = list(/obj/Skills/Projectile/A_Pound_of_Gold, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Hoarders_Riches)
+					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/Projectile/A_Pound_of_Gold, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Hoarders_Riches)
 					user.EconomyMult *= 2
 					passives["CashCow"] = 1
 					passives["Blubber"] = 0.25
 				if("Poison")
-					skills = list(/obj/Skills/AutoHit/Poison_Gas, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Melt_Down)
+					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/AutoHit/Poison_Gas, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Melt_Down)
 			..()
 
 	eldritch
@@ -346,9 +356,9 @@ race
 		strength = 1.5
 		endurance = 2
 		speed = 1
-		force = 1
-		offense = 2
-		defense = 2
+		force = 1.5
+		offense = 1.5
+		defense = 1.5
 		regeneration = 2.5
 		anger = 1
 		intellect = 1.5
@@ -401,10 +411,10 @@ race
 		visual = 'Demon.png'
 
 		strength = 1.5
-		endurance = 1.5
-		speed = 1
-		force = 1.25
-		offense = 1
+		endurance = 1.75
+		speed = 1.25
+		force = 1
+		offense = 1.25
 		defense = 1
 		imagination = 2
 
@@ -440,13 +450,13 @@ race
 		endurance = 1.5
 		speed = 1.5
 		offense = 1.5
-		defense = 1.5
+		defense = 1
 		force = 2
 		regeneration = 3
 		imagination = 2
-		
+
 		passives = list("AbyssMod" = 0.5, "Corruption" = 1, "StaticWalk" = 1, "SpaceWalk" = 1, "CursedWounds" = 1, "FakePeace" = 1, "MartialMagic" = 1)
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm,/obj/Skills/Utility/Imitate,  /obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon, \
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2,/obj/Skills/Utility/Imitate,  /obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon, \
 						/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption)
 		var/devil_arm_upgrades = 1
 		var/sub_devil_arm_upgrades = 0
@@ -463,7 +473,7 @@ race
 							p << "Your devil arm evolves, toggle it on and off to use it"
 
 
-		
+
 		onFinalization(mob/user)
 			..()
 			user.EnhancedSmell = 1
@@ -530,8 +540,8 @@ race
 		endurance = 0.75
 		force = 1.5
 		offense = 1.25
-		defense = 1.5
-		speed = 1.5
+		defense = 1.25
+		speed = 1.25
 		anger = 1.5
 		imagination = 2
 		intellect = 1.5
@@ -541,7 +551,7 @@ race
 
 		onFinalization(mob/user)
 			..()
-			user.EnhancedHearing = 1
+			user.EnhancedHearing = 1 // ???????????????
 			for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/r in user)
 				r.RegenerateLimbs=1
 

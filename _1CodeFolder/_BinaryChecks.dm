@@ -161,6 +161,8 @@ mob
 			var/Ascensions=0
 			if(s)
 				Total=s.DamageEffectiveness
+				if(UsingKendo())
+					Total = 1.25 // change it to heavy sword damage, fuck it
 				Ascensions=s.Ascended
 				if(src.HasSwordAscension())
 					Ascensions+=src.GetSwordAscension()
@@ -267,6 +269,10 @@ mob
 				Ascensions+=src.GetSwordAccuracyBuff()
 			Total*=1+(Ascensions*glob.SwordAscAcc)
 			return Total
+		HasComboMaster()
+			if(passive_handler.Get("ComboMaster"))
+				return 1
+			return 0
 		HasSwordAscension()
 			if(passive_handler.Get("SwordAscension"))
 				return 1
@@ -710,6 +716,8 @@ mob
 				Return++
 			Return=round(Return)
 			Return=min(8,Return)
+			if(Return < 0)
+				Return = 0
 			return Return
 		HasFlicker()
 			var/Return=0
@@ -945,6 +953,10 @@ mob
 		DrunkPower()
 			if(src.CheckSlotless("Drunken Mastery") && src.Drunk)
 				return 1
+		isUnderDog(mob/p)
+			if(p.Power > Power || p.passive_handler.Get("GodKi") > p.passive_handler.Get("GodKi"))
+				return TRUE
+			return FALSE
 		HasPureDamage()
 			var/Return=0
 			Return+=passive_handler.Get("PureDamage")
@@ -960,9 +972,6 @@ mob
 				Return+=5
 			if(src.TarotFate=="Justice")
 				Return-=5
-			if(Target)
-				if(isDominating(Target) && HellRisen)
-					Return += HellRisen / 5
 			if(isRace(MAJIN))
 				Return += Potential * getMajinRates("Damage")
 			return Return
@@ -1010,6 +1019,10 @@ mob
 		HasTechniqueMastery()
 			if(passive_handler.Get("TechniqueMastery"))
 				return 1
+			if(UsingMartialStyle())
+				return 1
+			if(UsingMasteredMartialStyle())
+				return 1
 			if(src.TarotFate=="The World")
 				return 1
 			if(Target)
@@ -1019,6 +1032,10 @@ mob
 		GetTechniqueMastery()
 			var/Return=0
 			Return+=passive_handler.Get("TechniqueMastery")
+			if(UsingMartialStyle())
+				Return += 0.5
+			if(UsingMasteredMartialStyle())
+				Return += 0.5
 			if(Target)
 				if(isDominating(Target) && HellRisen >= 0.75)
 					Return += AscensionsAcquired-2
@@ -1399,7 +1416,7 @@ mob
 			var/Extra=0
 			if(src.TarotFate=="Judgment")
 				Extra=1
-			if(passive_handler.Get("LegendaryPower"))
+			if(passive_handler&&passive_handler.Get("LegendaryPower"))
 				return min(1+Extra, passive_handler.Get("LegendaryPower")+Extra)
 			return 0
 		HasHellPower()
@@ -2374,24 +2391,14 @@ mob
 		UsingMartialStyle()
 			if(src.UsingMasteredMartialStyle())
 				return 1
-			if(src.StyleActive in list("Turtle", "Crane", "Snake", "Cat","Black Leg", "Strong Fist", "Gentle Fist", "Lightning Kickboxing", "Kendo", "Battle Mage"))
-				return 1
-			if(src.StyleActive in list("Ansatsuken", "Hiten Mitsurugi"))
-				return 1
-			if(src.Saga=="Weapon Soul" && src.SagaLevel>=2 && src.StyleActive in list("Iaido", "Zornhau", "Fencing"))
-				return 1
+			if(src.StyleActive in list("Fire", "Water", "Earth", "Wind", "Battle Mage", "Flow", "Feral", "Blitz", "Breaker", "Spirit", "Yin Yang", "Soul Crushing", "Resonance", "Tranquil Dove", "Circuit Breaker", "Sunlit Sky", "Inverse Poison", "Devil Leg", "Flow Reversal", "Phage", "Entropy", "Moonlit Lake", "Shunko", "Metta Sutra", "Shaolin", "Blade Singing", "Secret Knife", "Champloo", "Swordless", "Imperial", "East Star", "West Star", "Atomic Karate", "Rhythm of War", "South Star"))
+				if(!equippedSword)
+					return 1
 			return 0
 		UsingMasteredMartialStyle()
-			if(src.Saga=="Eight Gates")
-				if(src.StyleActive in list("Strong Fist", "Black Leg", "Lightning Kickboxing"))
+			if(src.StyleActive in list("Turtle", "Crane", "Snake", "Cat","Black Leg", "Strong Fist", "Gentle Fist", "Lightning Kickboxing", "Golden Kirin", "Drunken Fist", "North Star", "Imperial Devil"))
+				if(!equippedSword)
 					return 1
-			if(src.Saga=="Ansatsuken" || src.Saga=="Hiten Mitsurugi")
-				if(src.SagaLevel>=4)
-					return 1
-			if(src.Saga=="Weapon Soul" && src.SagaLevel>=4 && src.StyleActive in list("Iaido", "Zornhau", "Fencing"))
-				return 1
-			if(src.StyleActive in list("Drunken Fist", "Golden Kirin", "Drunken Fist", "Dire Wolf", "Devil Leg", "Flow Reversal", "Phage", "North Star", "Imperial Devil", "South Star"))
-				return 1
 			return 0
 		UsingMasteredMagicStyle()
 			if(src.Saga=="Keyblade")
@@ -2403,6 +2410,8 @@ mob
 				return 1
 			if(src.isRace(MAJIN))
 				return 1
+			if(Target && (Health <=25 && Target.Health > Health+10) && isUnderDog(Target))
+				return 1
 			return 0
 		UsingZornhau()
 			var/Found=0
@@ -2411,7 +2420,7 @@ mob
 				Found+=0.5
 			if(src.StyleActive=="Zornhau")
 				Found=1
-			if(src.StyleActive=="Kendo")
+			if(UsingKendo())
 				Found=1
 			if(src.StyleActive=="Champloo")
 				Found=1
@@ -2434,7 +2443,7 @@ mob
 				Found+=1
 			if(src.StyleActive=="Dual Wield")
 				Found=1
-			if(src.StyleActive=="Kendo")
+			if(UsingKendo())
 				Found+=1
 			if(src.StyleActive=="Arcane Bladework")
 				Found+=1
@@ -2450,6 +2459,16 @@ mob
 			if(Found>0&&Saga == "Weapon Soul"&&SagaLevel>=2)
 				Found+=1
 			return Found
+		UsingGladiator()
+			var/Found=0
+			if(src.StyleActive=="Sword Savant")
+				Found+=0.25
+			if(src.StyleActive=="Gladiator")
+				Found=0.5
+			if(src.StyleActive=="Sword And Shield")
+				Found=1
+			return Found
+		
 		UsingIaido()
 			var/Found=0
 			var/obj/Items/Sword/S=src.EquippedSword()
@@ -2550,7 +2569,7 @@ mob
 				return 1
 			return 0
 		UsingKendo()
-			if(src.StyleActive=="Kendo")
+			if(HasSword()&&equippedSword:Class=="Wooden"&&src.StyleActive=="Kendo")
 				return 1
 			return 0
 		NotUsingChamploo()

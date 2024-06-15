@@ -92,18 +92,7 @@ mob/Players
 		for(var/obj/Skills/S in usr)
 			usr.AddSkill(S, AlreadyHere=1)
 
-		if(src.RPPSpendable<0)
-			src.RPPSpendable=0
-
-
-
-		if(src.RPPSpendableEvent>0)
-			src.RPPSpendableEvent=0
-		if(RPPSpentEvent>0)
-			loc = locate(0,0,0)
-		if(src.RPPMult<1)
-			src.RPPMult=1
-		for(var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm/da in src)
+		for(var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da in src)
 			if(src.isRace(DEMON))
 				da.name="Devil Arm ([src.TrueName])"
 
@@ -436,6 +425,10 @@ mob/Players
 					if(PACT_BROKEN_SUBJECT_PENALTY)
 						whoToInflict = PACT_SUBJECT
 				p.breakPact(TRUE, whoToInflict)
+		if(isRace(MAKYO)&&StarPowered&&!starActive)
+			MakyoFade()
+		if(isRace(MAKYO)&&!StarPowered&&starActive)
+			MakyoTrigger()
 		return
 	Logout()
 		players -= src
@@ -473,6 +466,7 @@ mob/Players
 		filters = null
 		Hair = null
 		RemoveTarget()
+		BreakViewers()
 		GlobalCooldowns = null
 		SkillsLocked = null
 		OldLoc = null
@@ -488,12 +482,6 @@ mob/Players
 		equippedWeights = null
 		overlays = null
 		underlays = null
-		if(BeingObserved.len>0)
-			for(var/mob/p in BeingObserved)
-				Observify(p,p)
-		if(BeingTargetted.len>0)
-			for(var/mob/p in BeingTargetted)
-				p.RemoveTarget()
 		if(active_projectiles.len>0)
 			for(var/obj/Skills/Projectile/_Projectile/p in active_projectiles)
 				p.endLife()

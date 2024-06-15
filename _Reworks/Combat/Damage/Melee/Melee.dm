@@ -59,6 +59,8 @@ var/global/MULTIHIT_NERF = FALSE
 	log2text("Damageroll", dmgRoll, "damageDebugs.txt", "[ckey]/[name]")
 	#endif
 	// 				EXTRA EFFECTS 			//
+
+
 	if(!ThirdStrike)
 		MultiStrike(SecondStrike, ThirdStrike) // trigger double/triple strike if applicable
 	var/warpingStrike = getWarpingStrike() // get warping strike if applicable
@@ -176,7 +178,11 @@ var/global/MULTIHIT_NERF = FALSE
 
 	if(length(enemies)>0)
 		NextAttack += delay
-
+		var/Disarm = 0
+		if(UsingGladiator())
+			if(GladiatorCounter >= glob.GLADIATOR_DISARM_MAX * 2-UsingGladiator())
+				Disarm = 1
+				GladiatorCounter = 0
 		for(var/mob/enemy in enemies)
 			if(istype(enemy, /mob/irlNPC))
 				continue
@@ -187,7 +193,7 @@ var/global/MULTIHIT_NERF = FALSE
 			if(enemy != src)
 
 		// 				STYLE EFFECTS 			//
-				activateStyleEffects()
+				activateStyleEffects(forcewarp, FALSE, Disarm, enemy) // this proc is redundant for forewarp
 		// 				STYLE EFFECTS END		//
 
 		// 				STATS 					//
@@ -205,8 +211,9 @@ var/global/MULTIHIT_NERF = FALSE
 				#endif
 				var/atk = getStatDmg2()
 				var/def = enemy.getEndStat(1)
-				if(passive_handler.Get("Brutalize"))
-					def -= (def * clamp(passive_handler.Get("Brutalize")/10, 0.01, 0.5)) // MOVE THIS TO A GET PROC SO IT CAN BE TRACKED
+				var/brutalize = GetBrutalize()
+				if(brutalize)
+					def -= (def * clamp(brutalize, 0.01, 0.5)) // MOVE THIS TO A GET PROC SO IT CAN BE TRACKED
 				var/damageMultiplier = dmgmulti
 
 				#if DEBUG_MELEE
@@ -291,7 +298,7 @@ var/global/MULTIHIT_NERF = FALSE
 				var/speedStrike = passive_handler.Get("BlurringStrikes")
 				if(UsingFencing() || speedStrike)
 					speedStrike += UsingFencing()
-					damage *= clamp(1,sqrt(1+((GetSpd())*(speedStrike/15))),3)
+					damage *= clamp(1,sqrt( 1  + ( (GetSpd()) * (speedStrike/15) ) ),3)
 				if(AttackQueue)
 					damage *= QueuedDamage(enemy)
 					#if DEBUG_MELEE
@@ -316,7 +323,7 @@ var/global/MULTIHIT_NERF = FALSE
 							if(!T.density)
 								CHECK_TICK
 							//	world << "LOCATION: [T.x], [T.y], [T.z]"
-								new/obj/Ooze(T.x, T.y, T.z)
+								new/obj/Ooze(T.x, T.y, T.z, src)
 					#if DEBUG_MELEE
 					log2text("Knockback", "After Queue", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Knockback", knockDistance, "damageDebugs.txt", "[ckey]/[name]")
@@ -732,6 +739,7 @@ var/global/MULTIHIT_NERF = FALSE
 						if(!locate(/obj/Skills/Projectile/Secret_Knives, src))
 							src.AddSkill(new/obj/Skills/Projectile/Secret_Knives)
 						for(var/obj/Skills/Projectile/Secret_Knives/sk in src)
+							sk.adjust(src)
 							src.UseProjectile(sk)
 					if(src.StyleActive=="Blade Singing")
 						if(!locate(/obj/Skills/Projectile/Murder_Music, src))
@@ -827,16 +835,19 @@ var/global/MULTIHIT_NERF = FALSE
 				if(!locate(/obj/Skills/Projectile/Staff_Projectile, Projectiles))
 					src.AddSkill(new/obj/Skills/Projectile/Staff_Projectile)
 				for(var/obj/Skills/Projectile/Staff_Projectile/pc in Projectiles)
-					switch(st.Class)
+					switch(st.Class) // ascensions should do something here
 						if("Wand")
 							pc.Blasts = 3
-							pc.DamageMult = 0.75
+							pc.DamageMult = 0.25
+							pc.Speed = 0.75
 						if("Rod")
 							pc.Blasts = 2
-							pc.DamageMult = 1.25
+							pc.DamageMult = 0.75
+							pc.Speed = 1
 						if("Staff")
 							pc.Blasts = 1
-							pc.DamageMult = 2
+							pc.DamageMult = 1.5
+							pc.Speed = 1.25
 					src.UseProjectile(pc)
 				switch(st.Class)
 					if("Wand")

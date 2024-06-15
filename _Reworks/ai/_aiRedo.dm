@@ -2,6 +2,8 @@
 #define AI_SPEED_TOTAL SpdMod + SpdAscension + SpdChaos * SpdMultTotal
 
 /mob/Player/AI/var/tmp/last_activity = 0
+/mob/Player/AI/var/tmp/reaction_time = 2
+/mob/Player/AI/var/tmp/intelligence = 1
 /mob/Player/AI/var/tmp/fleeing = FALSE
 /mob/Player/AI/var/tmp/obj/Skills/zanzo = null
 /mob/Player/AI/var/tmp/obj/Skills/dd = null
@@ -16,7 +18,7 @@
 	var/ignoreActivity = FALSE
 	if(ai_hostility>=2)
 		ignoreActivity = TRUE
-	if(last_activity+300 < world.time && !ignoreActivity) // if last activity was over 10 seconds ago. 30 sec now.
+	if(last_activity+300 < world.time && !ignoreActivity) //if last activity was over 10 seconds ago. 30 sec now.
 		ai_state = "Idle"
 		ticking_ai.Remove(src)
 		inloop = FALSE
@@ -26,7 +28,7 @@
 		zanzo = findZanzo()
 	if(!dd)
 		dd = locate(/obj/Skills/Dragon_Dash) in src
-	// start flow chart
+	//start flow chart
 	switch(ai_state)
 		if("Idle")
 			Idle()
@@ -45,7 +47,7 @@
 
 
 
-	// end flow chart
+	//end flow chart
 
 /mob/Player/AI/proc/Idle()
 	ai_state = "Idle"
@@ -79,7 +81,7 @@
 				Chase()
 			else if(Health <= 5)
 				Flee()
-		else // move aboe to something else and keep this as just idling, right now it is handling everything
+		else //move aboe to something else and keep this as just idling, right now it is handling everything
 			if(Health <= 5 &&!(Health >= 25))
 				Rest()
 			else if(ai_hostility >= 2)
@@ -96,9 +98,9 @@
 			Chase()
 
 /mob/Player/AI/proc/FindTarget1()
-	// look for a target if there isnt one. do nothing if one is not found
-	// if there is a target and there is not another around, return same target
-	// if there is a target and there is another around, return the closest one
+	/*look for a target if there isnt one. do nothing if one is not found
+	if there is a target and there is not another around, return same target
+	if there is a target and there is another around, return the closest one*/
 	for(var/mob/enemy in view(ai_vision, src))
 		if(!enemy.client) continue
 		if(enemy.invisibility > see_invisible) continue
@@ -121,7 +123,7 @@
 	fleeing = FALSE
 	if(!Target)
 		Idle()
-	if(Target.WindingUp||Target.AutoHitting)
+	if((Target.WindingUp||Target.AutoHitting)&&!fleeing)
 		Flee()
 	if(!fleeing)
 		var/dist_to_target = get_dist(src, Target)
@@ -133,7 +135,7 @@
 		else if(dist_to_target <= 10)
 			GoAfterTarget()
 			dir = get_dir(src,Target)
-			// melee
+			//melee
 			if(dist_to_target <= 1)
 				Attack("melee")
 			else
@@ -142,14 +144,14 @@
 		else
 			GoAfterTarget()
 			if(dist_to_target >= ai_vision * 5)
-				// do not set last activity
+				//do not set last activity
 				if(shifts_target && targetting + 150 < world.time)
 					FindTarget1()
 					targetting = world.time
 				if(last_activity + 300 < world.time)
 					RemoveTarget()
 					Idle()
-			// maybe ranged proc here
+			//maybe ranged proc here
 			Attack("ranged")
 			last_activity = world.time
 
@@ -168,25 +170,50 @@
 		if(WEST)
 			step = pick(NORTHWEST, SOUTHWEST, WEST)
 		if(NORTHEAST)
-			step = pick(NORTH, NORTHEAST)
+			step = pick(NORTH, EAST, NORTHEAST)
 		if(NORTHWEST)
-			step = pick(NORTH, NORTHWEST)
+			step = pick(NORTH, WEST, NORTHWEST)
 		if(SOUTHEAST)
-			step = pick(EAST, SOUTHEAST)
+			step = pick(EAST, SOUTH, SOUTHEAST)
 		if(SOUTHWEST)
-			step = pick(WEST, SOUTHWEST)
+			step = pick(WEST, SOUTH, SOUTHWEST)
 	return step
+
+
+/proc/skimAround(step)
+	switch(step)
+		if(SOUTH)
+			step = pick(NORTHEAST, NORTHWEST, WEST, EAST)
+		if(NORTH)
+			step = pick(SOUTHEAST, SOUTHWEST, WEST, EAST)
+		if(WEST)
+			step = pick(NORTHEAST, SOUTHEAST, NORTH, SOUTH)
+		if(EAST)
+			step = pick(NORTHWEST, SOUTHWEST, NORTH, SOUTH)
+		if(SOUTHWEST)
+			step = pick(SOUTH, SOUTHEAST, WEST)
+		if(SOUTHEAST)
+			step = pick(SOUTH, SOUTHWEST, EAST)
+		if(NORTHWEST)
+			step = pick(NORTH, NORTHEAST, WEST)
+		if(NORTHEAST)
+			step = pick(NORTH, NORTHWEST, EAST)
+	return step
+
 
 /mob/Player/AI/proc/GoAfterTarget()
 	if(Move_Requirements() && next_move < world.time)
+		switch(ai_movement_type)
+			if("ranged")
+				if(get_dist(src, Target) >= pick(6,7,8))
+					step_to(src, Target,, 32 * (5 / (AI_SPEED_TOTAL * (AI_MOVE_SPEED))))
+				else
+					step_to(src, get_step(src,skimAround(get_dir(src, Target))),, 32 * (5 / (AI_SPEED_TOTAL * (AI_MOVE_SPEED))))
+
+			if("melee")
+				step_to(src, get_step(src, skimOppdir(get_dir(src, Target))),, 32 * (5 / (AI_SPEED_TOTAL * (AI_MOVE_SPEED))))
+
 		dir = get_dir(src, Target)
-		last_loc = loc
-		last_loc_tick++
-		step_towards(src, Target, 32 * (5 / (AI_SPEED_TOTAL * (AI_MOVE_SPEED))))
-		if(last_loc!= loc)
-			last_loc_tick = 0
-		if(last_loc_tick > 10)
-			step_rand(src, 32 * (5 / (AI_SPEED_TOTAL * (AI_MOVE_SPEED))))
 		next_move = world.time + 1
 
 
@@ -246,26 +273,9 @@
 					Melee1(GLOBAL_AI_DAMAGE)
 
 		if("ranged")
-			if((prob(50) || AttackQueue) && world.time > ((last_zanzo + 250) / ai_spammer))
-				if(get_dist(src, Target) >= 2 || AttackQueue)
-					SkillX("Zanzoken", zanzo, 1)
-					if(prob(25)&&!dd.Using)
-						SkillX("DragonDash", dd)
-				else
-					SkillX("After Image Strike", zanzo)
-				last_zanzo = world.time
 
 			if((world.time > ai_next_skill)&&!AttackQueue)
 				var/obj/Skills/use = FALSE
-
-				if(world.time > ai_next_qeueuable && Queues.len)
-					var/obj/Skills/Queue/q = pick(Queues)
-					if(!q.Using)
-						dir = get_dir(src, Target)
-						SetQueue(q)
-						use = q
-						ai_next_qeueuable = (world.time+50)/ai_spammer
-						ai_state = "Chase"
 
 				if(world.time > ai_next_projectile && Projectiles.len&&!use)
 					var/obj/Skills/Projectile/p = pick(Projectiles)
@@ -274,6 +284,15 @@
 						UseProjectile(p)
 						use = p
 						ai_next_projectile = (world.time+50)/ai_spammer
+						ai_state = "Chase"
+
+				if(world.time > ai_next_qeueuable && Queues.len)
+					var/obj/Skills/Queue/q = pick(Queues)
+					if(!q.Using)
+						dir = get_dir(src, Target)
+						SetQueue(q)
+						use = q
+						ai_next_qeueuable = (world.time+50)/ai_spammer
 						ai_state = "Chase"
 
 				if(world.time > ai_next_autohit && !use && AutoHits.len)
@@ -285,14 +304,17 @@
 								use = a
 								ai_next_autohit = (world.time+20)/ai_spammer
 								ai_state = "Chase"
+
 				if(use) ai_next_skill = (world.time + (use.Copyable ? use.Copyable * 5 : 50)) / ai_spammer
 
-				else if(dd && get_dist(src, Target) > 5)
-					use = dd
-					if(!use.Using)
-						if(prob(25)||AttackQueue)
-							SkillX("DragonDash", use)
-					else use = null
+				if((prob(50) || AttackQueue) && world.time > ((last_zanzo + 50) / ai_spammer))
+					if(get_dist(src, Target) >= 1 || AttackQueue)
+						SkillX("Zanzoken", zanzo, 1)
+						if(prob(25)&&!dd.Using)
+							SkillX("DragonDash", dd)
+					else
+						SkillX("After Image Strike", zanzo)
+					last_zanzo = world.time
 
 	ai_state = "Chase"
 
@@ -318,7 +340,7 @@
 		fleeing = TRUE
 	var/dist_to_target = get_dist(src, Target)
 	if(dist_to_target <= ai_vision)
-		// move away from target
+		//move away from target
 		last_activity = world.time
 		if(Move_Requirements() && next_move < world.time)
 			step_away(src, Target, 20, 32 * (5 / (AI_SPEED_TOTAL * (AI_MOVE_SPEED))))

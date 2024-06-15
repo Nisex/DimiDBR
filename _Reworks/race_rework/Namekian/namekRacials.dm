@@ -5,7 +5,7 @@
 	adjust(mob/p)
 		// make it scale per ascen, alter how it works between warrior / dragon
 		DamageMult = 1.5 + (p.AscensionsAcquired)
-			Cooldown = clamp(120 - (20 * p.AscensionsAcquired), 30, 120)
+		Cooldown = clamp(120 - (20 * p.AscensionsAcquired), 30, 120)
 		switch(p.Class)
 			if("Dragon")
 				ManaGain = 5 + (p.AscensionsAcquired * 3)
@@ -19,7 +19,7 @@
 
 			if("Demon")
 				PridefulRage = 1
-				Burning = 5* p.AscensionsAcquired
+				Burning = 5 * p.AscensionsAcquired
 				Toxic = 5 * p.AscensionsAcquired
 
 

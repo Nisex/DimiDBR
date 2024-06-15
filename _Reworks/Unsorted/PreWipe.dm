@@ -2,6 +2,7 @@
 /var/list/testerVerbs = list(
     /mob/Admin2/verb/Give_Make,
     /mob/Admin2/verb/Edit,
+    /mob/Admin2/verb/EditPassiveHandler,
     /mob/Admin2/verb/Delete,
     /mob/Admin2/verb/AdminHealComplete,
     /mob/Admin2/verb/Event_Character_Setup,

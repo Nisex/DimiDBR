@@ -17,6 +17,9 @@ globalTracker/var/var/BurnStackDivisor = BURN_STACK_DIVISOR
 globalTracker/var/var/BurnNerf = BURN_NERF
 globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
 
+globalTracker/var/var/MAX_DEBUFF_CLAMP = 0.1
+globalTracker/var/var/LOWER_DEBUFF_CLAMP = 0.001
+
 /mob/proc/getDebuffDamage(typeOfDebuff)
     var/stackDivisor = glob.vars["[typeOfDebuff]StackDivisor"]
     var/nerf = glob.vars["[typeOfDebuff]Nerf"]
@@ -30,13 +33,14 @@ globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
         if("Poison")
             if(Antivenomed)
                 damage = damage / 2
-    return clamp(damage, 0.0001, 5)
+        
+    return clamp(damage, glob.LOWER_DEBUFF_CLAMP, glob.MAX_DEBUFF_CLAMP)
 
 /mob/proc/doDebuffDamage(typeOfDebuff)
     var/dmg = getDebuffDamage(typeOfDebuff)
     if(dmg < 0)
         world.log << "[src] Debuff Damage is negative [dmg], [typeOfDebuff]"
-        dmg = 0.015
+        dmg = 0.001
     var/desp = passive_handler.Get("Desperation")
     if(prob(desp*10)&&!HasInjuryImmune())
         WoundSelf(dmg/desp)
@@ -58,13 +62,13 @@ globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
 
 /mob/proc/reduceDebuffStacks(typeOfDebuff)
     var/boon = 0
-    var/base = 0
+    var/base = clamp(vars["[typeOfDebuff]"] / glob.BASE_DEBUFF_REDUCTION_DIVISOR, glob.BASE_DEBUFF_REDUCTION_DIVISOR_LOWER,glob.BASE_DEBUFF_REDUCTION_DIVISOR_UPPER)
     switch(typeOfDebuff)
         if("Burn")
             if(Cooled)
                 base = 1.5
             if(Burn>0)
-                Burn -= base + ((GetEnd(0.25)+GetStr(0.1)) * (1+GetDebuffImmune())  )
+                Burn -= base + ((GetEnd(0.15)+GetStr(0.15)) * (1+ (GetDebuffImmune() / 4))  )
             if(Burn<0)
                 Burn = 0
         if("Poison")
@@ -73,7 +77,7 @@ globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
             if(Antivenomed)
                 base = 1.25
             if(Poison>0)
-                Poison -= base + (GetEnd(0.25) * (1 + GetDebuffImmune()+boon))
+                Poison -= base + (GetEnd(0.15) * (1 + (GetDebuffImmune() / 4)+boon))
             if(Poison<0)
                 Poison = 0
 
