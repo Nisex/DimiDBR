@@ -59,6 +59,8 @@ var/global/MULTIHIT_NERF = FALSE
 	log2text("Damageroll", dmgRoll, "damageDebugs.txt", "[ckey]/[name]")
 	#endif
 	// 				EXTRA EFFECTS 			//
+
+
 	if(!ThirdStrike)
 		MultiStrike(SecondStrike, ThirdStrike) // trigger double/triple strike if applicable
 	var/warpingStrike = getWarpingStrike() // get warping strike if applicable
@@ -176,7 +178,11 @@ var/global/MULTIHIT_NERF = FALSE
 
 	if(length(enemies)>0)
 		NextAttack += delay
-
+		var/Disarm = 0
+		if(UsingGladiator())
+			if(GladiatorCounter >= glob.GLADIATOR_DISARM_MAX * 2-UsingGladiator())
+				Disarm = 1
+				GladiatorCounter = 0
 		for(var/mob/enemy in enemies)
 			if(istype(enemy, /mob/irlNPC))
 				continue
@@ -187,7 +193,7 @@ var/global/MULTIHIT_NERF = FALSE
 			if(enemy != src)
 
 		// 				STYLE EFFECTS 			//
-				activateStyleEffects()
+				activateStyleEffects(forcewarp, FALSE, Disarm, enemy) // this proc is redundant for forewarp
 		// 				STYLE EFFECTS END		//
 
 		// 				STATS 					//

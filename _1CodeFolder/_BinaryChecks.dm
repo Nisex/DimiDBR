@@ -2459,6 +2459,16 @@ mob
 			if(Found>0&&Saga == "Weapon Soul"&&SagaLevel>=2)
 				Found+=1
 			return Found
+		UsingGladiator()
+			var/Found=0
+			if(src.StyleActive=="Sword Savant")
+				Found+=0.25
+			if(src.StyleActive=="Gladiator")
+				Found=0.5
+			if(src.StyleActive=="Sword And Shield")
+				Found=1
+			return Found
+		
 		UsingIaido()
 			var/Found=0
 			var/obj/Items/Sword/S=src.EquippedSword()

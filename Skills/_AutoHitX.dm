@@ -282,6 +282,25 @@ obj
 
 
 //Auto^2hits
+			Duel
+				StrOffense=1
+				EndDefense=0.75
+				DamageMult=2
+				Area="Circle"
+				Distance=4
+				GuardBreak = 1
+				TurfErupt=2
+				TurfEruptOffset=3
+				Slow=1
+				Crushing = 10
+				Knockback=0.001
+				ActiveMessage="issues a duel to their enemy!"
+				HitSparkIcon='BLANK.dmi'
+				HitSparkX=0
+				HitSparkY=0
+				Cooldown=4
+				Earthshaking=15
+
 			Explosive_Finish
 				StrOffense=1
 				ForOffense=1
@@ -4765,6 +4784,9 @@ mob
 					src << "You lack the ability to use magic!"
 					return
 				if(Z.Copyable>=3||!Z.Copyable)
+					if(passive_handler.Get("Disarmed"))
+						src << "You are disarmed you can't use [Z]."
+						return
 					if(!src.HasSpellFocus(Z))
 						src << "You need a spell focus to use [Z]."
 						return
@@ -4802,6 +4824,9 @@ mob
 					return
 			if(Z.NeedsSword)
 				var/obj/Items/Sword/s=src.EquippedSword()
+				if(passive_handler.Get("Disarmed") && s)
+					src << "You are disarmed you can't use [Z]."
+					return
 				if(!s)
 					if(!src.HasSwordPunching() && !src.UsingBattleMage())
 						src << "You need a sword equipped to use [Z]!"

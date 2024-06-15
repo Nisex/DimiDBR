@@ -4324,6 +4324,9 @@ mob
 					src << "You lack the ability to use magic!"
 					return
 				if(Z.Copyable>=3||!Z.Copyable)
+					if(passive_handler.Get("Disarmed"))
+						src << "You are disarmed you can't use [Z]."
+						return
 					if(!src.HasSpellFocus(Z))
 						src << "You need a spell focus to use [Z]."
 						return 0
@@ -4395,6 +4398,9 @@ mob
 								return FALSE
 
 			if(Z.NeedsSword)
+				if(passive_handler.Get("Disarmed"))
+					src << "You are disarmed you can't use [Z]."
+					return
 				if(!src.EquippedSword())
 					if(!src.HasSwordPunching()&& !src.UsingBattleMage())
 						src << "You need a sword to use this technique!"
@@ -4416,6 +4422,9 @@ mob
 				if(s)
 					if(s.MagicSword)
 						Pass=1
+				if(passive_handler.Get("Disarmed"))
+					src << "You are disarmed you can't use [Z]."
+					return
 				if(!Pass)
 					src << "You need a staff to use this technique!"
 					return
