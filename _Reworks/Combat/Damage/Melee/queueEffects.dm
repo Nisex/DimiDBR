@@ -36,8 +36,7 @@
     if(AttackQueue.Explosive)
         Bang(enemy.loc, AttackQueue.Explosive)
     if(AttackQueue.Shining)
-        enemy.Shockwave(AttackQueue.Shining, 1)
-    
+        KenShockwave(enemy,icon='fevKiai.dmi',Size=4)
     if(AttackQueue.MultiHit)
         AttackQueue.HitsUsed++
         if(AttackQueue.InstantStrikes)

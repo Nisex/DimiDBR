@@ -206,6 +206,7 @@ var/list/SkillTree=list(
 			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Crane_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Snake_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Cat_Style"=20
+			//"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Murim_Style"=20
 ),
 
 "SpiritStyles"=list(

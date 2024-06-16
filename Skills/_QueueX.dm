@@ -207,6 +207,7 @@ obj
 					KBAdd = 0.001
 					PushOut=1
 					PushOutWaves=1
+					BuffSelf=0
 				Heavenly_Dragons_Omniscient_Surge
 					Warp = 10
 					Bolt = 1
@@ -219,13 +220,11 @@ obj
 					PushOutWaves=2
 					Decider = 4
 					DamageMult=0.3
-					KBAdd = 10
+					KBAdd = 3
 					InstantStrikes=10
 					FollowUp="/obj/Skills/Queue/AutoHit/Heavenly_Dragon_Violet_Ponds_Annihilation_of_the_Nine_Realms"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragons_Transient_Enlightenment"
-					HitMessage="taps into their ancestral arts! With a roar that echoes through the realms, the force quakes the earth and tears through the skies! The tempest of its fury is a celestial ballet, weaving destruction and honor into the fabric of existence. The path of the Heavenly Dragon has descended upon the mortal realms from the quasi-god realm! Their very presence shakes and alters the fragile reality they reside in! A maelstrom of everlasting power continues to surge, ascending higher and higher! Until the peak of Murim Martial Arts conquers all! That is the Zenith... A god among man!"
-
-
+					HitMessage="RAAA SURGE"
 
 
 
