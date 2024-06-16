@@ -481,9 +481,9 @@ ascension
 			choices = list("Rest" = /ascension/sub_ascension/high_faoroan/rest, "Sacrifice" = /ascension/sub_ascension/high_faoroan/sacrifice)
 
 	demon
-		var/list/trueFormPerAsc = list(1 = list("HellPower" = 0.15, "AngerAdaptiveForce" = 0.25, "TechniqueMastery" = 5), \
-									 2 = list("HellPower" = 0.15,"Hellrisen" = 0.25,  "AngerAdaptiveForce" = 0.1, "TechniqueMastery" = 5), \
-									3 = list("HellPower" = 0.15, "TechniqueMastery" = 10), \
+		var/list/trueFormPerAsc = list(1 = list("HellPower" = 0.15, "AngerAdaptiveForce" = 0.25, "TechniqueMastery" = 2), \
+									 2 = list("HellPower" = 0.15,"Hellrisen" = 0.25,  "AngerAdaptiveForce" = 0.1, "TechniqueMastery" = 3), \
+									3 = list("HellPower" = 0.15, "TechniqueMastery" = 5), \
 									4 = list("HellPower" = 0.4, "AngerAdaptiveForce" = 0.3, "Hellrisen" = 0.5, "TechniqueMastery" = 5))
 		proc/findTrueForm(mob/p)
 			var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = new()
@@ -501,7 +501,7 @@ ascension
 				owner.demon.selectPassive(owner, "CORRUPTION_DEBUFFS", "Debuff")
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			passives = list("HellPower" = 0.05, "AbyssMod" = 0.25, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.1, "AbyssMod" = 0.25, "SpiritPower" = 0.25)
 			anger = 0.15
 			intimidation = 1.0
 			strength = 0.25

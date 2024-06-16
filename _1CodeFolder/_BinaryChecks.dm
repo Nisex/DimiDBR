@@ -716,8 +716,6 @@ mob
 				Return++
 			Return=round(Return)
 			Return=min(8,Return)
-			if(Return < 0)
-				Return = 0
 			return Return
 		HasFlicker()
 			var/Return=0
@@ -965,9 +963,6 @@ mob
 				Return+=stp
 			if(src.DrunkPower())
 				Return+=3
-			var/mm=src.HasMaimMastery()
-			if(src.Maimed&&mm)
-				Return+=(src.Maimed*mm)*0.5
 			if(src.TarotFate=="The Hanged Man")
 				Return+=5
 			if(src.TarotFate=="Justice")
@@ -981,9 +976,6 @@ mob
 			var/stp=src.SaiyanTransPower()
 			if(stp)
 				Return+=stp
-			var/mm=src.HasMaimMastery()
-			if(src.Maimed&&mm)
-				Return+=(src.Maimed*mm)*0.5
 			if(src.isRace(MAJIN))
 				Return += Potential * getMajinRates("Reduction")
 			if(src.TarotFate=="The Hanged Man")

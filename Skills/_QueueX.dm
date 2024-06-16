@@ -192,7 +192,7 @@ obj
 					PushOut=5
 					PushOutWaves=5
 					Decider = 2
-					DamageMult=0.1
+					DamageMult=0.5
 					InstantStrikes=30
 					FollowUp="/obj/Skills/Queue/Finisher/Heavenly_Dragon_Raging_Tempest"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragon_Ascendant_Zenith"
@@ -200,7 +200,7 @@ obj
 				Heavenly_Dragon_Raging_Tempest
 					Warp = 3
 					Combo=30
-					DamageMult = 0.05
+					DamageMult = 0.15
 					Bolt = 1
 					Shining = 1
 					Explosive = 1
@@ -219,12 +219,12 @@ obj
 					PushOut=2
 					PushOutWaves=2
 					Decider = 4
-					DamageMult=0.3
+					DamageMult=0.8
 					KBAdd = 3
 					InstantStrikes=10
 					FollowUp="/obj/Skills/Queue/AutoHit/Heavenly_Dragon_Violet_Ponds_Annihilation_of_the_Nine_Realms"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragons_Transient_Enlightenment"
-					HitMessage="RAAA SURGE"
+					HitMessage="Summons the boundless might of their martial arts, entering into a breakthrough by pure technique alone. Roars that turn into unstoppable torrent of energy erupt from their body while it soars through the battlefield, unleashing a symphony of cataclysmic destruction paired with ethereal grace. They have unlocked the ultimate testament to the Heavenly Dragon Stance, a dance of power and honor that surpasses the mortal plane, from the divine heights of the quasi-god realm, they descend as the Heavenly Dragon. Harnessing the boundless force of the Nine converging Realms, they unleash a relentless storm of peerless strength, devastating the battle field."
 
 
 

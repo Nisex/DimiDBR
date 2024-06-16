@@ -15,7 +15,14 @@
 		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
 		for(var/x in Upgrades)
 			vars[x] = Upgrades[x][asc]
-
+	Trigger(mob/p)
+		adjust(usr)
+		ManaCost = usr.ManaAmount
+		DamageMult = 5 + (ManaCost * DamageMult)
+		if(Using || cooldown_remaining)
+			return FALSE
+		var/aaa = p.Activate(src)
+		return aaa
 
 	verb/Corrupt_Reality()
 		set category = "Skills"
