@@ -18,34 +18,34 @@ obj
 					..()
 					if(StyleStr)
 						if(StyleStr  < 1 &&  StyleStr  > 0)
-							description += "Defense Reduction: [StyleStr]\n"
+							description += "Strength Reduction: [StyleStr]\n"
 						else
 							if(StyleStr > 1)
-								description += "Defense Add: [StyleStr-1]\n"
+								description += "Strength Add: [StyleStr-1]\n"
 					if(StyleFor)
 						if(StyleFor  < 1 &&  StyleFor  > 0)
-							description += "Defense Reduction: [StyleFor]\n"
+							description += "Force Reduction: [StyleFor]\n"
 						else
 							if(StyleFor > 1)
-								description += "Defense Add: [StyleFor-1]\n"
+								description += "Force Add: [StyleFor-1]\n"
 					if(StyleEnd)
 						if(StyleEnd  < 1 &&  StyleEnd  > 0)
-							description += "Defense Reduction: [StyleEnd]\n"
+							description += "Endurance Reduction: [StyleEnd]\n"
 						else
 							if(StyleEnd > 1)
-								description += "Defense Add: [StyleEnd-1]\n"
+								description += "Endurance Add: [StyleEnd-1]\n"
 					if(StyleSpd)
 						if(StyleSpd  < 1 &&  StyleSpd  > 0)
-							description += "Defense Reduction: [StyleSpd]\n"
+							description += "Speed Reduction: [StyleSpd]\n"
 						else
 							if(StyleSpd > 1)
-								description += "Defense Add: [StyleSpd-1]\n"
+								description += "Speed Add: [StyleSpd-1]\n"
 					if(StyleOff)
 						if(StyleOff  < 1 &&  StyleOff  > 0)
-							description += "Defense Reduction: [StyleOff]\n"
+							description += "Offense Reduction: [StyleOff]\n"
 						else
 							if(StyleOff > 1)
-								description += "Defense Add: [StyleOff-1]\n"
+								description += "Offense Add: [StyleOff-1]\n"
 					if(StyleDef)
 						if(StyleDef  < 1 &&  StyleDef  > 0)
 							description += "Defense Reduction: [StyleDef]\n"
