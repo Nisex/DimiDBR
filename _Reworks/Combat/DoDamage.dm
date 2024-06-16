@@ -190,6 +190,14 @@
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
 	val = calculateTrueMult(trueMult, val)
+
+	if(passive_handler.Get("Ruckus"))
+		if(defender.race.name == passive_handler.Get("RuckusRace")) // this should technically work
+			val *= 1 + (0.1 * passive_handler.Get("Ruckus"))
+		else
+			val *= 1 - (0.05 * passive_handler.Get("Ruckus"))
+			
+
 	#if DEBUG_DAMAGE
 	log2text("Damage", "After TrueMult", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")

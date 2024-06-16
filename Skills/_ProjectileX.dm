@@ -1104,8 +1104,8 @@ obj
 				Copyable=2
 				Distance=40
 				DamageMult=4
-				AccMult=1
-				Launcher=7
+				AccMult=2
+				Launcher=4
 				Piercing=1
 				Striking=1
 				Homing=1
