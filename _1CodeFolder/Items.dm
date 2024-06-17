@@ -1027,14 +1027,6 @@ obj/Items/Sword
 				pixel_x=0
 				pixel_y=0
 
-				Sword_of_Glory//Caledfwlch
-					name="Sword of Glory"
-					icon='Caledfwlch.dmi'
-					pixel_x=-31
-					pixel_y=-30
-					passives = list("SpiritSword" = 0.75)
-					SpiritSword=0.75
-					TierTechniques=list(null, null, null, null, "/obj/Skills/Projectile/Beams/Big/Weapon_Soul/Excalibur", null)
 
 				Blade_of_Order//Soul Calibur
 					name="Blade of Order"

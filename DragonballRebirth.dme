@@ -464,6 +464,8 @@
 #include "_Reworks\Unsorted\Summoning\summoning.dm"
 #include "_Reworks\Unsorted\Summoning\summonSkill.dm"
 #include "_Reworks\Weapon Soul\Weapon_Soul.dm"
+#include "_Reworks\Weapon Soul\Caledfwlch\Caledfwlch.dm"
+#include "_Reworks\Weapon Soul\Caledfwlch\Noble_Armor.dm"
 #include "_Reworks\Weapon Soul\Dainsleif\Cursed_Sheath.dm"
 #include "_Reworks\Weapon Soul\Dainsleif\Dainsleif.dm"
 #include "_Reworks\Weapon Soul\Dainsleif\Níðhöggr's Chains.dm"

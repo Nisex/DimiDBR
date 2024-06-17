@@ -1134,27 +1134,19 @@ NEW VARIABLES
 							src.OffMessage="shrinks Ruyi Jingu Bang back down..."
 
 						if("Caledfwlch")
-							if(locate(/obj/Skills/Queue/Holy_Blade, usr))
+							var/light = TRUE
+							if(usr.EquippedSword())
+								if(istype(usr.EquippedSword(),/obj/Items/Sword/Medium/Legendary/WeaponSoul/Sword_of_Glory))
+									light = usr.EquippedSword():caledLight
+							if(light)
 								src.PowerMult=1.5
-								src.StrMult=1.3
-								src.EndMult=1.3
-								src.ForMult=1.3
-								src.OffMult=1.3
-								src.DefMult=1
-								src.RegenMult=1
 								passives = list("HolyMod" = 3, "SpiritSword" = 0.25, "PULock" = 1)
 								src.SwordName="Caledfwlch"
 								src.SwordIcon='Caledfwlch.dmi'
 								src.ActiveMessage="calls forth the true form of Caledfwlch, the Sword of Glory!"
 								src.OffMessage="conceals Caledfwlch's glory..."
-							else if(locate(/obj/Skills/Queue/Darkness_Blade, usr))
+							else
 								src.PowerMult=1.5
-								src.StrMult=1.5
-								src.EndMult=1
-								src.ForMult=1.5
-								src.OffMult=1.3
-								src.DefMult=1.2
-								src.RegenMult=0.5
 								passives = list("AbyssMod" = 3, "SpiritSword" = 0.25, "PULock" = 1)
 								src.SwordName="Caledfwlch"
 								src.SwordIcon='Caledfwlch-Morgan.dmi'
@@ -8418,31 +8410,30 @@ NEW VARIABLES
 						SwordElement = null
 				src.Trigger(usr)
 
-			Avalon
-				MakesSword=0
-				StableHeal=1
-				HealthHeal=1.2
-				KenWave=1
-				KenWaveIcon='SparkleYellow.dmi'
-				KenWaveSize=3
-				KenWaveX=105
-				KenWaveY=105
-				ActiveMessage="taps into their greatest Noble Phantasm: <b>Avalon</b>."
-				OffMessage="lets the Fae artifact fade back into slumber."
-				ManaCost=10
-				TimerLimit=10
-				Cooldown=-1
-				verb/Avalon()
-					set category="Skills"
-					if(usr.BPPoison<1)
-						usr.BPPoison=1
-						usr.BPPoisonTimer=0
-					var/baseHeal = usr.SagaLevel + (0.1 * abs(Health-100))
-					HealthHeal = (baseHeal/TimerLimit)
-					if(usr.Maimed>0)
-						usr.Maimed--
-						OMsg(usr, "[src] regrows a maiming as the Fae magics course through them!")
-					src.Trigger(usr)
+		Avalon
+			StableHeal=1
+			HealthHeal=1.2
+			KenWave=1
+			KenWaveIcon='SparkleYellow.dmi'
+			KenWaveSize=3
+			KenWaveX=105
+			KenWaveY=105
+			ActiveMessage="taps into their greatest Noble Phantasm: <b>Avalon</b>."
+			OffMessage="lets the Fae artifact fade back into slumber."
+			ManaCost=10
+			TimerLimit=10
+			Cooldown=-1
+			verb/Avalon()
+				set category="Skills"
+				if(usr.BPPoison<1)
+					usr.BPPoison=1
+					usr.BPPoisonTimer=0
+				var/baseHeal = usr.SagaLevel + (0.1 * abs(Health-100))
+				HealthHeal = (baseHeal/TimerLimit)
+				if(usr.Maimed>0)
+					usr.Maimed--
+					OMsg(usr, "[src] regrows a maiming as the Fae magics course through them!")
+				src.Trigger(usr)
 
 		GaeBolg
 			MakesSword=1

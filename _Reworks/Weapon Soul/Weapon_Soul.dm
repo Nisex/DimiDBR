@@ -22,6 +22,10 @@ mob/proc/gainWeaponSoul()
 			new/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin(src)
 			src.AddSkill(new/obj/Skills/Queue/Cursed_Blade)
 
+		if("Caledfwlch")
+			new/obj/Items/Sword/Medium/Legendary/WeaponSoul/Sword_of_Glory(src)
+			AddSkill(/obj/Skills/Projectile/Beams/Big/Weapon_Soul/Excalibur)
+
 mob/tierUpSaga(Path)
 	..()
 	if(Path == "Weapon Soul")
@@ -41,6 +45,9 @@ mob/tierUpSaga(Path)
 					if("Dainsleif")
 						passive_handler.Increase("CursedSheath")
 
+					if("Caledfwlch")
+						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Avalon)
+
 			if(3)
 				switch(WeaponSoulType)
 					if("Kusanagi")
@@ -55,6 +62,11 @@ mob/tierUpSaga(Path)
 
 					if("Dainsleif")
 						src.AddSkill(new/obj/Skills/Buffs/Slotless_Buffs/Niohoggrs_Chains)
+
+					if("Caledfwlch")
+						src.contents += new/obj/Items/Armor/Plated_Armor/Noble_Armor
+						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Noble_Shield)
+
 			if(4)
 				switch(WeaponSoulType)
 					if("Kusanagi")
@@ -65,6 +77,9 @@ mob/tierUpSaga(Path)
 
 					if("Dainsleif")
 						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Dainsleif)
+
+					if("Caledfwlch")
+						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Caledfwlch)
 			if(5)
 				switch(WeaponSoulType)
 					if("Kusanagi")
@@ -89,6 +104,13 @@ mob/tierUpSaga(Path)
 							dainsleif.passives["Adrenaline"] = 1
 							dainsleif.passives["AbyssMod"] = 4
 							dainsleif.passives["SwordAscension"] = 1
+
+					if("Caledfwlch")
+						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Caledfwlch/caled in src.Buffs)
+							caled.passives["Xenobiology"] = 1
+							caled.passives["CriticalChance"] = 10
+							caled.passives["CriticalDamage"] = 1
+							caled.passives["Pursuer"] = 2
 
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia
 	NeedsSword = 1
