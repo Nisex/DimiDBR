@@ -15,8 +15,12 @@ mob/proc/gainWeaponSoul()
 			src.AddSkill(new/obj/Skills/AutoHit/Gale_Slash)
 
 		if("Durendal")
-			new/obj/Items/Sword/Medium/Legendary/WeaponSoul/Sword_of_Hope(src)
+			new/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_Hope(src)
 			src.AddSkill(new/obj/Skills/Queue/Blazing_Slash)
+
+		if("Dainsleif")
+			new/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin(src)
+			src.AddSkill(new/obj/Skills/Queue/Cursed_Blade)
 
 mob/tierUpSaga(Path)
 	..()
@@ -34,6 +38,9 @@ mob/tierUpSaga(Path)
 						src.AddSkill(new/obj/Skills/AutoHit/Blow_The_Horn)
 						src.AddSkill(new/obj/Skills/Companion/PlayerCompanion/Squad/Oilphant)
 
+					if("Dainsleif")
+						passive_handler.Increase("CursedSheath")
+
 			if(3)
 				switch(WeaponSoulType)
 					if("Kusanagi")
@@ -46,6 +53,8 @@ mob/tierUpSaga(Path)
 						src.AddSkill(new/obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Raiment)
 						src.AddSkill(new/obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Hair)
 
+					if("Dainsleif")
+						src.AddSkill(new/obj/Skills/Buffs/Slotless_Buffs/Niohoggrs_Chains)
 			if(4)
 				switch(WeaponSoulType)
 					if("Kusanagi")
@@ -54,6 +63,8 @@ mob/tierUpSaga(Path)
 					if("Durendal")
 						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Durendal)
 
+					if("Dainsleif")
+						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Dainsleif)
 			if(5)
 				switch(WeaponSoulType)
 					if("Kusanagi")
@@ -71,6 +82,13 @@ mob/tierUpSaga(Path)
 							dura.passives["HolyMod"] = 4
 							dura.passives["ShockwaveBlows"] = 1
 							dura.passives["SwordAscension"] = 1
+
+					if("Dainsleif")
+						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Dainsleif/dainsleif in src.Buffs)
+							dainsleif.passives["Instinct"] = 4
+							dainsleif.passives["Adrenaline"] = 1
+							dainsleif.passives["AbyssMod"] = 4
+							dainsleif.passives["SwordAscension"] = 1
 
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia
 	NeedsSword = 1

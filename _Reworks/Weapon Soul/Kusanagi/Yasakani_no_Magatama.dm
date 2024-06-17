@@ -51,13 +51,17 @@ obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Bead_Constraint
 		Trigger(usr)
 
 obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Bead_Constraints
-	EnergyDrain = 1
+	EnergyDrain = 0.1
 	TimerLimit = 60
+	ActiveMessage = "is restrained by beads shimmering with energy around them!"
+	OffMessage = "is no longer restrained..."
 	passives = list("PureDamage" = -1)
 
 obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Heavenly_Bead_Constraints
-	EnergyDrain = 3
+	EnergyDrain = 0.3
 	TimerLimit = 60
+	ActiveMessage = "is restrained by beads shimmering with energy around them!"
+	OffMessage = "is no longer restrained..."
 	passives = list("PureDamage" = -1, "PureReduction" = -1)
 
 mob/verb/testMagatama()

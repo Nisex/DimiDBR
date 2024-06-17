@@ -967,6 +967,10 @@ mob
 				Return+=5
 			if(src.TarotFate=="Justice")
 				Return-=5
+			if(passive_handler.Get("CursedSheath"))
+				Return += cursedSheathValue/100
+			if(dainsleifDrawn)
+				Return += 1+SagaLevel // i hope someone gets cratered by dainsleif
 			if(isRace(MAJIN))
 				Return += Potential * getMajinRates("Damage")
 			return Return
@@ -2462,7 +2466,7 @@ mob
 			if(src.StyleActive=="Sword And Shield")
 				Found=1
 			return Found
-		
+
 		UsingIaido()
 			var/Found=0
 			var/obj/Items/Sword/S=src.EquippedSword()

@@ -40,6 +40,6 @@ obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Kusanagi
 	IconLock='EyeFlameC.dmi'
 	ActiveMessage="'s three divine treasures ring in resonance: Heavenly Regalia!"
 	OffMessage="'s treasures lose their imperial luster..."
-	verb/Sword_Saint()
+	verb/Heavenly_Regalia()
 		set category="Skills"
 		src.Trigger(usr)

@@ -480,6 +480,10 @@ mob
 				HealMana(value)
 				defender.LoseMana(value)
 
+			if(dainsleifDrawn&&passive_handler.Get("CursedSheath")) // dainsleif passive
+				cursedSheathValue += val
+				cursedSheathValue = clamp(0, cursedSheathValue, SagaLevel*50)
+
 			if(src.HasErosion())
 				var/Erosion = src.GetErosion()
 				var/MPow=defender.Power_Multiplier/8
@@ -623,6 +627,7 @@ mob
 						bor.onKill(src, defender)
 				defender.Death(src, null)
 
+			return val
 
 		DealWounds(var/mob/defender, var/val, var/FromSelf=0)
 			if(defender.CyberCancel)

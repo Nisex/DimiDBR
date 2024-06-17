@@ -1,4 +1,4 @@
-obj/Items/Sword/Medium/Legendary/WeaponSoul/Sword_of_Hope//Durendal
+obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_Hope//Durendal
 	name="Sword of Hope"
 	icon='Durendal.dmi'
 	passives = list("ShockwaveBlows" = 1, "ArmorPeeling" = 1)
@@ -50,6 +50,6 @@ obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Durendal
 	IconLock='EyeFlameC.dmi'
 	ActiveMessage="'s legendary weapon and horn ring in resonance: Heavenly Regalia!"
 	OffMessage="'s treasures lose their Saintly luster..."
-	verb/Sword_Saint()
+	verb/Heavenly_Regalia()
 		set category="Skills"
 		src.Trigger(usr)

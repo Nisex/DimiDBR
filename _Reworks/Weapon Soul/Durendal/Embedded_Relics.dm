@@ -3,7 +3,7 @@ obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics
 
 obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Tooth
 	CantHaveTheseBuffs = list("Saints Blood", "Saints Hair", "Saints Raiment")
-	HealthDrain = 1
+	HealthDrain = 0.05
 	HealthThreshold = 1
 	TimerLimit = 30
 	Cooldown = 90
@@ -26,7 +26,7 @@ obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Tooth
 		Trigger(usr)
 
 obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Blood
-	EnergyDrain = 1
+	EnergyDrain = 0.05
 	EnergyThreshold = 10
 	TimerLimit = 30
 	Cooldown = 90
@@ -51,7 +51,7 @@ obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Blood
 
 obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Hair
 	CantHaveTheseBuffs = list("Saints Blood", "Saints Tooth", "Saints Raiment")
-	ManaDrain = 1
+	ManaDrain = 0.05
 	ManaThreshold = 1
 	TimerLimit = 30
 	Cooldown = 90

@@ -1,0 +1,44 @@
+obj/Skills/Buffs/Slotless_Buffs/Niohoggrs_Chains
+	applyToTarget = new/obj/Skills/Buffs/Slotless_Buffs/Niohoggr_Restrain
+	ActiveMessage = "restrains their opponent with countless chains!"
+	EndYourself = 1
+	ManaCost=15
+	Cooldown=120
+	AffectTarget = 1
+	Range = 12
+	adjust(mob/p)
+		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: Ruined World")
+			applyToTarget = new/obj/Skills/Buffs/Slotless_Buffs/Niohoggr_World_Restrain
+		else
+			applyToTarget = new/obj/Skills/Buffs/Slotless_Buffs/Niohoggr_Restrain
+	verb/Chains()
+		set name = "Níðhöggrs's Chains"
+		if(!usr.BuffOn(src))
+			adjust(usr)
+		Trigger(usr)
+
+obj/Skills/Buffs/Slotless_Buffs/Niohoggr_Restrain
+	TimerLimit = 60
+	ActiveMessage = "is ensnared by countless chains!"
+	OffMessage = "is no longer restrained..."
+	adjust(mob/p)
+		var/removeGodspeed = p.passive_handler.Get("Godspeed")
+		passives = list("Godspeed" = -removeGodspeed)
+		SpdMult = 0.5
+	Trigger(mob/User, Override = FALSE)
+		if(!User.BuffOn(src))
+			adjust(User)
+		..()
+
+obj/Skills/Buffs/Slotless_Buffs/Niohoggr_World_Restrain
+	TimerLimit = 60
+	ActiveMessage = "is ensnared by countless chains boasting the power that could restrain even the mightiest!"
+	OffMessage = "is no longer restrained..."
+	adjust(mob/p)
+		var/removeGodspeed = p.passive_handler.Get("Godspeed")
+		passives = list("Godspeed" = -removeGodspeed)
+		SpdMult = 0.25
+	Trigger(mob/User, Override = FALSE)
+		if(!User.BuffOn(src))
+			adjust(User)
+		..()

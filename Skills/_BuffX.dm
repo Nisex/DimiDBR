@@ -1105,87 +1105,8 @@ NEW VARIABLES
 			PULock=1
 			NeedsSword=1
 			BuffName="Soul Resonance"
-			verb/Resonant_Weapon()
-				set hidden=1
-				if(!usr.BuffOn(src))
-					src.PowerMult=1.5
-					src.StrMult=1.1
-					src.EndMult=1
-					src.ForMult=1.1
-					src.OffMult=1.1
-					src.DefMult=1.1
-					src.RegenMult=1
-					passives = list("PULock" = 1)
-					src.HolyMod=0
-					src.AbyssMod=0
-					src.Purity=0
-					src.Steady=0
-					src.SpiritSword=0
-					src.EnergyGeneration=0
-					src.EnergySteal=0
-					src.LifeGeneration=0
-					src.LifeSteal=0
-					src.HealthDrain=0
-					src.BleedHit=0
-					src.Curse=0
-					src.WeaponBreaker=0
-					src.SwordIcon=null
-					src.SwordIconOld=null
-					src.SwordName=null
-					src.ActiveMessage="imbues their weapon with their own soul!"
-					src.OffMessage="severs the connection..."
-				src.Trigger(usr)
-			verb/Ascended_Resonant_Weapon()
-				set hidden=1
-				if(usr.SagaLevel<3)return
-				if(!usr.BuffOn(src))
-					var/UsedType
-					if(locate(/obj/Skills/Queue/Holy_Blade, usr))
-						UsedType="Holy Blade"
-					if(locate(/obj/Skills/Queue/Darkness_Blade, usr))
-						UsedType="Corrupt Edge"
-					switch(UsedType)
-						if("Holy Blade")
-							src.PowerMult=1.5
-							src.StrMult=1.3
-							src.EndMult=1.2
-							src.ForMult=1
-							src.OffMult=1.2
-							src.DefMult=1.3
-							src.RegenMult=1
-							passives = list("HolyMod" = 1, "PULock" = 1)
-							src.NoWhiff=0
-							src.EnergyGeneration=0
-							src.LifeGeneration=0
-							src.BleedHit=0
-							src.SwordIcon=null
-							src.SwordIconOld=null
-							src.SwordName=null
-							src.ActiveMessage="combines the radiance of their own soul with the power of their blade!"
-							src.OffMessage="releases the power of their holy soul..."
-						if("Corrupt Edge")
-							src.PowerMult=1.5
-							src.StrMult=1.4
-							src.EndMult=1
-							src.ForMult=1.3
-							src.OffMult=1.3
-							src.DefMult=1
-							src.RegenMult=1
-							passives = list("AbyssMod" = 1, "PULock" = 1)
-							src.EnergyGeneration=0
-							src.LifeGeneration=0
-							src.LifeSteal=0
-							src.Curse=0
-							src.BleedHit=0
-							src.SwordIcon=null
-							src.SwordIconOld=null
-							src.SwordName=null
-							src.ActiveMessage="combines the corruption of their own soul with the might of their sword!"
-							src.OffMessage="releases the power of their dark spirit..."
-				src.Trigger(usr)
 			verb/Legendary_Weapon()
 				set hidden=1
-				if(usr.SagaLevel<4)return
 				if(!usr.BuffOn(src))
 					src.SwordIcon=null
 					switch(usr.BoundLegend)
@@ -1241,32 +1162,22 @@ NEW VARIABLES
 								src.OffMessage="conceals Caledfwlch's glory..."
 						if("Kusanagi")
 							src.PowerMult=1.5
-							src.StrMult=1.1
-							src.EndMult=1.1
-							src.ForMult=1.2
-							src.OffMult=1.3
-							src.DefMult=1.3
-							src.RegenMult=1
 							passives = list("HolyMod" = 3,"ManaGeneration" = 10, "PULock" = 1)
-							src.HolyMod=3
-							src.ManaGeneration=10
 							src.SwordName="Kusanagi"
 							src.ActiveMessage="calls forth the true form of Kusanagi, the Sword of Faith!"
 							src.OffMessage="seals Kusanagi's faith..."
 						if("Durendal")
 							src.PowerMult=1.5
-							src.StrMult=1.7
-							src.EndMult=1.4
-							src.ForMult=0.8
-							src.OffMult=1.1
-							src.DefMult=1
-							src.RegenMult=1
 							passives = list("HolyMod" = 3, "LifeGeneration" = 3, "PULock" = 1)
-							src.HolyMod=3
-							src.LifeGeneration=3
 							src.SwordName="Durendal"
 							src.ActiveMessage="calls forth the true form of Durendal, the Sword of Hope!"
 							src.OffMessage="hides the hope of Durendal..."
+						if("Dainsleif")
+							src.PowerMult=1.5
+							passives = list("SlayerMod" = 2, "MortalStrike" = 0.5, "AbyssMod" = 2, "HealthDrain" = 0.15, "LifeSteal" = 25, "Curse" = 1, "PULock" = 1)
+							src.SwordName="Dainsleif"
+							src.ActiveMessage="calls forth the true form of Dainsleif, the Blade of Ruin!"
+							src.OffMessage="dissolves Dainsleif's ruinous power..."
 						if("Masamune")
 							src.PowerMult=1.5
 							src.StrMult=1
@@ -1346,23 +1257,6 @@ NEW VARIABLES
 							src.SwordName="Muramasa"
 							src.ActiveMessage="calls forth the true form of Muramasa, the Bane of Blades!"
 							src.OffMessage="casts Muramasa back into the darkness..."
-						if("Dainsleif")
-							src.PowerMult=1.5
-							src.StrMult=1.5
-							src.EndMult=1.4
-							src.ForMult=1
-							src.OffMult=1.4
-							src.DefMult=1.2
-							src.RegenMult=0.5
-							passives = list("SlayerMod" = 2, "MortalStrike" = 0.5, "AbyssMod" = 2, "HealthDrain" = 0.15, "LifeSteal" = 50, "Curse" = 1, "PULock" = 1)
-							src.SlayerMod=2
-							src.AbyssMod=2
-							src.HealthDrain=0.15
-							src.LifeSteal=50
-							src.Curse=1
-							src.SwordName="Dainsleif"
-							src.ActiveMessage="calls forth the true form of Dainsleif, the Blade of Ruin!"
-							src.OffMessage="dissolves Dainsleif's ruinous power..."
 						if("Moonlight Greatsword")
 							src.PowerMult=1.5
 							src.EndMult=1.3
@@ -1381,111 +1275,8 @@ NEW VARIABLES
 			verb/Weapon_Soul()
 				set category="Skills"
 				if(!usr.BuffOn(src))
-					var/list/WeaponSoul=list()
-					WeaponSoul.Add("Resonant Weapon")
-					if(usr.SagaLevel>=3&&usr.Saga=="Weapon Soul")
-						WeaponSoul.Add("Ascended Resonant Weapon")
-					if(usr.SagaLevel>=4&&usr.Saga=="Weapon Soul"&&usr.GetWeaponSoulType()==usr.BoundLegend)
-						WeaponSoul.Add("Legendary Weapon")
-					WeaponSoul.Add("Cancel")
-					var/WeaponType=input(usr, "What level of power of your weapon do you wish to release?", "Weapon Invocation") in WeaponSoul
-					if(WeaponType=="Cancel")
-						if(WeaponSoul.len<2)
-							usr << "Your soul cannot resonate with this weapon..."
-						return
-					switch(WeaponType)
-						if("Resonant Weapon")
-							PowerMult=1.5
-							StrMult=1.1
-							EndMult=1
-							ForMult=1.1
-							OffMult=1.1
-							DefMult=1.1
-							RegenMult=1
-							passives = list("PULock" = 1)
-							HolyMod=0
-							AbyssMod=0
-							Purity=0
-							Steady=0
-							NoWhiff=0
-							NoForcedWhiff=0
-							SpiritSword=0
-							EnergyGeneration=0
-							EnergySteal=0
-							LifeGeneration=0
-							LifeSteal=0
-							HealthDrain=0
-							Curse=0
-							src.BleedHit=0
-							WeaponBreaker=0
-							SwordIcon=null
-							SwordName=null
-							ActiveMessage="imbues their weapon with their own soul!"
-							OffMessage="severs the connection..."
-						if("Ascended Resonant Weapon")
-							var/UsedType
-							if(locate(/obj/Skills/Queue/Holy_Blade, usr))
-								UsedType="Holy Blade"
-							else if(locate(/obj/Skills/Queue/Darkness_Blade, usr))
-								UsedType="Corrupt Edge"
-							switch(UsedType)
-								if("Holy Blade")
-									PowerMult=1.5
-									StrMult=1.3
-									EndMult=1.2
-									ForMult=1
-									OffMult=1.2
-									DefMult=1.3
-									RegenMult=1
-									passives = list("HolyMod" = 1, "PULock" = 1)
-									HolyMod=1
-									AbyssMod=0
-									Purity=0
-									Steady=0
-									SpiritSword=0
-									EnergyGeneration=0
-									EnergySteal=0
-									LifeGeneration=0
-									LifeSteal=0
-									HealthDrain=0
-									Curse=0
-									WeaponBreaker=0
-									src.BleedHit=0
-									SwordIcon=null
-									SwordName=null
-									ActiveMessage="combines the radiance of their own soul with the legendary power of their blade!"
-									OffMessage="releases the power of their holy soul..."
-
-								if("Corrupt Edge")
-									PowerMult=1.5
-									StrMult=1.4
-									EndMult=1
-									ForMult=1.3
-									OffMult=1.3
-									DefMult=1
-									RegenMult=1
-									passives = list("AbyssMod" = 1, "PULock" = 1)
-									HolyMod=0
-									AbyssMod=1
-									Purity=0
-									Steady=0
-									SpiritSword=0
-									EnergyGeneration=0
-									EnergySteal=0
-									LifeGeneration=0
-									LifeSteal=0
-									HealthDrain=0
-									Curse=0
-									WeaponBreaker=0
-									src.BleedHit=0
-									SwordIcon=null
-									SwordName=null
-									ActiveMessage="combines the corruption of their own soul with the legendary might of their sword!"
-									OffMessage="releases the power of their dark spirit..."
-
-						if("Legendary Weapon")
-							Legendary_Weapon()
-							return
+					Legendary_Weapon()
+					return
 							// switch(WeaponSoulType)
 							// 	if("Caledfwlch")
 							// 		if(locate(/obj/Skills/Queue/Holy_Blade, usr))
