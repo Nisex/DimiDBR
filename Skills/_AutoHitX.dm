@@ -302,6 +302,26 @@ obj
 				HitSparkY=0
 				Cooldown=4
 				Earthshaking=15
+			Heavenly_Dragon_Violet_Ponds_Annihilation_of_the_Nine_Realms
+				AdaptRate=2
+				DamageMult=2
+				Area="Target"
+				Distance=10
+				TurfErupt=2
+				TurfEruptOffset=3
+				EndDefense=0.75
+				Knockback=10
+				PassThrough=1
+				ActiveMessage="blasts through their opponent with a destructive punch!"
+				HitSparkIcon='Hit Effect Wind.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkSize=3
+				HitSparkTurns=0
+				HitSparkLife=7
+				Cooldown=4
+				Earthshaking=15
+
 
 			Explosive_Finish
 				StrOffense=1

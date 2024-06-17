@@ -80,13 +80,16 @@
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
 
-
-	trueMult += HasPureDamage() ? HasPureDamage() : 0
+	var/puredmg = HasPureDamage() ? HasPureDamage() : 0
+	puredmg *= glob.PURE_MODIFIER
+	trueMult += puredmg
 	#if DEBUG_DAMAGE
 	log2text("trueMult", "After Puredmg", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
-	trueMult -= defender.HasPureReduction() ? defender.HasPureReduction() : 0
+	var/purered = defender.HasPureReduction() ? defender.HasPureReduction() : 0
+	purered *= glob.PURE_MODIFIER
+	trueMult -= purered
 	#if DEBUG_DAMAGE
 	log2text("trueMult", "After Purered", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
@@ -190,6 +193,14 @@
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
 	val = calculateTrueMult(trueMult, val)
+
+	if(passive_handler.Get("Ruckus"))
+		if(defender.race.name == passive_handler.Get("RuckusRace")) // this should technically work
+			val *= 1 + (0.1 * passive_handler.Get("Ruckus"))
+		else
+			val *= 1 - (0.05 * passive_handler.Get("Ruckus"))
+			
+
 	#if DEBUG_DAMAGE
 	log2text("Damage", "After TrueMult", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")

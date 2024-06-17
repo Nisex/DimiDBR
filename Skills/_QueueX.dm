@@ -181,6 +181,53 @@ obj
 				HitMessage="strikes their opponent with a powerful blow!"
 				Generic_Finisher
 					name="Finishing Blow"
+				Heavenly_Storm_Dragon_Emergence
+					Warp = 10
+					Bolt = 1
+					Shining = 1
+					Explosive = 1
+					Shocking = 0.25
+					Shattering = 0.25
+					Instinct = 1
+					PushOut=5
+					PushOutWaves=5
+					Decider = 2
+					DamageMult=0.5
+					InstantStrikes=30
+					FollowUp="/obj/Skills/Queue/Finisher/Heavenly_Dragon_Raging_Tempest"
+					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragon_Ascendant_Zenith"
+					HitMessage="taps into their ancestral arts! With a roar that echoes through the realms, the force quakes the earth and tears through the skies! The tempest of its fury is a celestial ballet, weaving destruction and honor into the fabric of existence. The path of the Heavenly Dragon has descended upon the mortal realms from the quasi-god realm! Their very presence shakes and alters the fragile reality they reside in! A maelstrom of everlasting power continues to surge, ascending higher and higher! Until the peak of Murim Martial Arts conquers all! That is the Zenith... A god among man!"
+				Heavenly_Dragon_Raging_Tempest
+					Warp = 3
+					Combo=30
+					DamageMult = 0.15
+					Bolt = 1
+					Shining = 1
+					Explosive = 1
+					KBAdd = 0.001
+					PushOut=1
+					PushOutWaves=1
+					BuffSelf=0
+				Heavenly_Dragons_Omniscient_Surge
+					Warp = 10
+					Bolt = 1
+					Shining = 1
+					Explosive = 1
+					Shocking = 0.5
+					Shattering = 0.5
+					Instinct = 2
+					PushOut=2
+					PushOutWaves=2
+					Decider = 4
+					DamageMult=0.8
+					KBAdd = 3
+					InstantStrikes=10
+					FollowUp="/obj/Skills/Queue/AutoHit/Heavenly_Dragon_Violet_Ponds_Annihilation_of_the_Nine_Realms"
+					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragons_Transient_Enlightenment"
+					HitMessage="Summons the boundless might of their martial arts, entering into a breakthrough by pure technique alone. Roars that turn into unstoppable torrent of energy erupt from their body while it soars through the battlefield, unleashing a symphony of cataclysmic destruction paired with ethereal grace. They have unlocked the ultimate testament to the Heavenly Dragon Stance, a dance of power and honor that surpasses the mortal plane, from the divine heights of the quasi-god realm, they descend as the Heavenly Dragon. Harnessing the boundless force of the Nine converging Realms, they unleash a relentless storm of peerless strength, devastating the battle field."
+
+
+
 
 				Iron_Fortress
 					Shattering=20
@@ -618,7 +665,7 @@ obj
 
 				//Ansatsuken Finisher
 				Isshin
-					DamageMult=5
+					DamageMult=2
 					Counter=1
 					Stunner=5
 					KBMult=4
@@ -1663,10 +1710,10 @@ obj
 				SkillCost=40
 				Copyable=2
 				HitMessage="delivers a vicious uppercut!!"
-				DamageMult=3
+				DamageMult=2.5
 				AccuracyMult=2.5
 				Stunner=2
-				Launcher=2
+				Launcher=4
 				Duration=5
 				KBMult=0.00001
 				Cooldown=30
@@ -1682,7 +1729,7 @@ obj
 				Copyable=2
 				ActiveMessage="punches with precisely articulated strikes to create whirlwind-like pull!"
 				name="Dempsey Roll"
-				DamageMult=0.6
+				DamageMult=1
 				AccuracyMult=3
 				KBMult=0.00001
 				KBAdd=1
@@ -1707,9 +1754,9 @@ obj
 				Copyable=2
 				ActiveMessage="strikes with cyclone power!"
 				name="Corkscrew Blow"
-				DamageMult=1.2
+				DamageMult=1
 				AccuracyMult=3
-				KBAdd=3
+				KBAdd=2
 				Duration=10
 				Cooldown=30
 				UnarmedOnly=1

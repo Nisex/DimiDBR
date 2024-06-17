@@ -20,6 +20,9 @@
     ManaCost = 5
     Delay = 8
     CorruptionGain = 1
+    proc/returnToInit()
+        if(!altered)
+            scalingValues = /obj/Skills/Projectile/Magic/HellFire/Hellpyre::scalingValues
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
@@ -105,6 +108,9 @@
     BurnAffected = 10
     Cooldown = 60
     ActiveMessage = "swells fire within their target."
+    proc/returnToInit()
+        if(!altered)
+            scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat::scalingValues
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)

@@ -15,7 +15,14 @@
 		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
 		for(var/x in Upgrades)
 			vars[x] = Upgrades[x][asc]
-
+	Trigger(mob/p)
+		adjust(usr)
+		ManaCost = usr.ManaAmount
+		DamageMult = 5 + (ManaCost * DamageMult)
+		if(Using || cooldown_remaining)
+			return FALSE
+		var/aaa = p.Activate(src)
+		return aaa
 
 	verb/Corrupt_Reality()
 		set category = "Skills"
@@ -40,7 +47,8 @@
 		TimerLimit = scalingValues["toDeath"][asc]/10
 	Trigger(mob/User, Override)
 		. = 0
-		adjust(User)
+		if(!User.BuffOn(src))
+			adjust(User)
 		if(!User.BuffOn(src) && cooldown_remaining != -1)
 			if(User.Corruption - CorruptionCost < 0)
 				User << "Not enough corruption"
@@ -111,7 +119,7 @@
 		EndMult = 1
 		scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self::scalingValues
 		var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/)
-		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1 
+		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
 		var/pacts = p.demon.PactsTaken
 		var/boon = (pacts * 0.05) + (0.05 * asc)
 		if(!d)
@@ -143,4 +151,3 @@
 				d.Trigger(User, 1)
 				// jump out of true form
 			d.Cooldown()
-		

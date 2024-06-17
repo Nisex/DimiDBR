@@ -9697,11 +9697,19 @@ NEW VARIABLES
 						OffMessage="falls back in sync with the fight..."
 						//no verb to activate
 
+					Heavenly_Dragon_Ascendant_Zenith
+						passives = list("HardenedFrame" = 1, "Steady" = 1, "WeaponBreaker" = 1, "Disorienting" = 1)
+						OffMult = 1.1
+						EndMult = 1.3
+						StrMult = 1.2
+						ActiveMessage="is grasping for their next breakthrough..!"
+						OffMessage="has failed their tribulation..."
+
 					Turtle_Martial_Mastery
 						StyleNeeded="Turtle"
 						StrMult=1.1
-						EndMult=1.25
-						DefMult=1.1
+						EndMult=1.3
+						DefMult=1.2
 						passives = list("TensionLock" = 1, "KiControlMastery" = 1, "Void" = 1, "FluidForm" = 1)
 						ActiveMessage="begins a flawless Turtle Kata!"
 						OffMessage="completes the Turtle Kata..."
@@ -9731,11 +9739,19 @@ NEW VARIABLES
 						OffMessage="completes the Cat Kata..."
 
 					//t1 sig styles
+					Heavenly_Dragons_Transient_Enlightenment
+						StyleNeeded="Heavenly Dragon Stance"
+						StrMult=1.25
+						OffMult=1.25
+						EndMult=1.5
+						passives = list("Juggernaut" = 1, "Deflection" = 0.5, "WeaponBreaker" = 2, "Disorienting" = 2, "CallousedHands" = 0.3)
+						ActiveMessage="achieves the peak of their breakthrough..."
+						OffMessage="comes back down to mortal level..."
 					Ki_Flow_Mastery
 						StyleNeeded="Gentle Fist"
 						ForMult=1.5
 						EndMult=1.5
-						passives = list("TensionLock" = 1, "SoftStyle" = 2, "KiControlMastery" = 1, "FluidForm" = 1, "PureDamage" = 1, "Flow" = 1, "SpiritFlow" = 1)
+						passives = list("TensionLock" = 1, "SoftStyle" = 2, "KiControlMastery" = 1, "FluidForm" = 1, "Flow" = 1, "SpiritFlow" = 1)
 						Erosion=0.5
 
 						ActiveMessage="perceives the flow of ki perfectly!"
@@ -10813,8 +10829,8 @@ NEW VARIABLES
 					var/money
 					for(var/obj/Money/m in p.contents)
 						money = m.Level
-
 					var/baseMultMod = 1 + max(0,money/(GOLD_DRAGON_FORMULA * GAJALAKA_MULT))
+					passives = list("PureDamage" = p.AscensionsAcquired * 0.1 + (baseMultMod), "PureReduction" =  p.AscensionsAcquired * 0.1 + (baseMultMod))
 					PowerMult = baseMultMod
 					SpdMult = baseMultMod
 					StrMult = baseMultMod
@@ -10866,7 +10882,7 @@ NEW VARIABLES
 				Heat_Of_Passion
 					// Fire Dragon Racial, mimics Berserk
 					BurnAffected = 1
-					NeedsHealth = 10
+					NeedsHealth = 15
 					TooMuchHealth = 25
 					ActiveMessage = "ignites themselves in a blaze of passion!!"
 					OffMessage = "calms their fiery passion..."
@@ -10875,14 +10891,14 @@ NEW VARIABLES
 						if(altered) return
 						var/asc = p.AscensionsAcquired
 						BurningShot = 0.5 + (0.25 * asc)
-						NeedsHealth = 10 + (5 * asc)
+						NeedsHealth = 15 + (5 * asc)
 						TooMuchHealth = 20 + (5 * asc)
 						AngerMult = 1.5 + (0.25 * asc)
 						DemonicDurability = 1  * asc
 						SoulFire = 1 + (0.5 * asc)
 						HybridStrike = clamp(0.5 * asc, 0.5, 2.5)
-						BurnAffected = 12 - (2 * asc)
-						passives = list("DemonicDurability" = DemonicDurability, "SoulFire" = SoulFire, "HybridStrike" = HybridStrike)
+						BurnAffected = 8 - (1 * asc)
+						passives = list("DemonicDurability" = DemonicDurability, "SoulFire" = SoulFire, "HybridStrike" = HybridStrike, "FireAbsorb" = 1)
 						Intimidation = 1.25 + (0.25 * asc)
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))

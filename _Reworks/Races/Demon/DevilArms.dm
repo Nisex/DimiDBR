@@ -56,7 +56,8 @@
             return
         if(!selection)
             pickSelection(usr)
-        adjust(usr)
+        if(!usr.BuffOn(src))
+            adjust(usr)
         src.Trigger(usr)
 
     proc/handlePassive(list/theList, input, secondary)

@@ -15,6 +15,9 @@
     Deviation = 240
     Cooldown = 90
     CorruptionGain = 1
+    proc/returnToInit()
+        if(!altered)
+            scalingValues = /obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball::scalingValues
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
@@ -55,15 +58,16 @@
     BuffName = "Dominate Mind Applied"
     MagicNeeded = 0
     StunAffected = 10
+    ConfuseAffected = 100
     InstantAffect = 1
     TimerLimit = 10
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 0
         var/list/timers = list(2,3,3,4,4)
         if(asc == 0)
-            TimerLimit = 2
+            StunAffected = 2
         else
-            TimerLimit = timers[asc]
+            StunAffected = timers[asc]
 
 
 
@@ -72,7 +76,7 @@
     BuffName = "Mind Dominated"
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech
-    scalingValues = list("TimerLimit" = list(12,10,8,5,5), "ManaHeal" = list(8,12,16,20,25), "HealthHeal" = list(1,1,2,2,3), "EnergyHeal" = list(2,4,8,10,10))
+    scalingValues = list("TimerLimit" = list(12,10,8,5,5), "ManaHeal" = list(10,15,20,20,25), "HealthHeal" = list(1,1,2,2,3), "EnergyHeal" = list(4,6,8,10,10))
     Cooldown = 90
     StableHeal = 1
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply

@@ -283,7 +283,7 @@ mob/Players/verb
 			return
 		var/Mode
 		var/list/PCOptions=list("Icon")
-		var/list/BuffOptions=list("Active Message", "Off Message")
+		var/list/BuffOptions=list("Active Message", "Off Message", "IconLock", "AuraLock", "HairLock", "TopOverlayLock", "TargetOverlay" )
 		var/list/QueueOptions=list("Charge Message", "Miss Message", "Hit Message", "Icon")
 		var/list/ProjectileOptions=list("Charge Message", "Fire Message", "Icon")
 		var/list/AutohitOptions=list("Charge Message", "Fire Message", "Icon")
@@ -292,6 +292,16 @@ mob/Players/verb
 		else if(istype(S,/obj/Skills/Power_Control))
 			Mode=input(src, "What aspect do you wish to customize on [S]?", "Customize Skill") in PCOptions
 		else if(istype(S,/obj/Skills/Buffs))
+			if(S:NameFake)
+				BuffOptions += "NameFake"
+			if(S:MakesSword)
+				BuffOptions += "MakesSword"
+			if(S:MakesStaff)
+				BuffOptions += "MakesStaff"
+			if(S:MakesSecondSword)
+				BuffOptions += "MakesSecondSword"
+			if(S:MakesArmor)
+				BuffOptions += "MakesArmor"
 			Mode=input(src, "What aspect do you wish to customize on [S]?", "Customize Skill") in BuffOptions
 		else if(istype(S,/obj/Skills/Queue))
 			Mode=input(src, "What aspect do you wish to customize on [S]?", "Customize Skill") in QueueOptions

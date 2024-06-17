@@ -481,9 +481,9 @@ ascension
 			choices = list("Rest" = /ascension/sub_ascension/high_faoroan/rest, "Sacrifice" = /ascension/sub_ascension/high_faoroan/sacrifice)
 
 	demon
-		var/list/trueFormPerAsc = list(1 = list("HellPower" = 0.15, "AngerAdaptiveForce" = 0.25, "TechniqueMastery" = 5), \
-									 2 = list("HellPower" = 0.15,"Hellrisen" = 0.25,  "AngerAdaptiveForce" = 0.1, "TechniqueMastery" = 5), \
-									3 = list("HellPower" = 0.15, "TechniqueMastery" = 10), \
+		var/list/trueFormPerAsc = list(1 = list("HellPower" = 0.15, "AngerAdaptiveForce" = 0.25, "TechniqueMastery" = 2), \
+									 2 = list("HellPower" = 0.15,"Hellrisen" = 0.25,  "AngerAdaptiveForce" = 0.1, "TechniqueMastery" = 3), \
+									3 = list("HellPower" = 0.15, "TechniqueMastery" = 5), \
 									4 = list("HellPower" = 0.4, "AngerAdaptiveForce" = 0.3, "Hellrisen" = 0.5, "TechniqueMastery" = 5))
 		proc/findTrueForm(mob/p)
 			var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = new()
@@ -501,7 +501,7 @@ ascension
 				owner.demon.selectPassive(owner, "CORRUPTION_DEBUFFS", "Debuff")
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			passives = list("HellPower" = 0.05, "AbyssMod" = 0.25, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.1, "AbyssMod" = 0.25, "SpiritPower" = 0.25)
 			anger = 0.15
 			intimidation = 1.0
 			strength = 0.25
@@ -522,6 +522,10 @@ ascension
 			anger = 0.1
 			onAscension(mob/owner)
 				..()
+				var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da = owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2)
+				if(!da.secondDevilArmPick)
+					owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2).pickSelection(owner, TRUE)
+					owner.race?:sub_devil_arm_upgrades = 1
 				owner.Class = "A"
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
@@ -533,10 +537,6 @@ ascension
 			endurance = 0.5
 			onAscension(mob/owner)
 				..()
-				var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da = owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2)
-				if(!da.secondDevilArmPick)
-					owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2).pickSelection(owner, TRUE)
-					owner.race?:sub_devil_arm_upgrades = 1
 				owner.Class = "S"
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
@@ -787,7 +787,7 @@ ascension
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
-			intimidation = 15
+			intimidation = 1.5
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
@@ -877,7 +877,7 @@ ascension
 		one
 			unlock_potential = 10
 			choices = list("Pride" = /ascension/sub_ascension/saiyan/pride, "Honor" =  /ascension/sub_ascension/saiyan/honor, "Zeal" = /ascension/sub_ascension/saiyan/zeal)
-			intimidation = 10
+			intimidation = 1.5
 			passives = list("Brutalize" = 0.25)
 		two
 			unlock_potential = 25
@@ -1388,8 +1388,8 @@ ascension
 				onAscension(mob/owner)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in owner.contents)
 						tc.passives["LikeWater"] = 2
-						tc.passives["Flow"] = 2
-						tc.passives["Instinct"] = 2
+						tc.passives["Flow"] = 1
+						tc.passives["Instinct"] = 1
 					..()
 
 			destroy
