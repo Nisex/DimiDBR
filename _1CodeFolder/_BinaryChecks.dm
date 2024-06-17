@@ -2385,12 +2385,12 @@ mob
 		UsingMartialStyle()
 			if(src.UsingMasteredMartialStyle())
 				return 1
-			if(src.StyleActive in list("Fire", "Water", "Earth", "Wind", "Battle Mage", "Flow", "Feral", "Blitz", "Breaker", "Spirit", "Yin Yang", "Soul Crushing", "Resonance", "Tranquil Dove", "Circuit Breaker", "Sunlit Sky", "Inverse Poison", "Devil Leg", "Flow Reversal", "Phage", "Entropy", "Moonlit Lake", "Shunko", "Metta Sutra", "Shaolin", "Blade Singing", "Secret Knife", "Champloo", "Swordless", "Imperial", "East Star", "West Star", "Atomic Karate", "Rhythm of War", "South Star"))
+			if(src.StyleActive in list("Fire", "Water", "Earth", "Wind", "Battle Mage", "Flow", "Feral", "Blitz", "Breaker", "Spirit", "Heavenly", "Yin Yang", "Soul Crushing", "Resonance", "Tranquil Dove", "Circuit Breaker", "Sunlit Sky", "Inverse Poison", "Devil Leg", "Flow Reversal", "Phage", "Entropy", "Moonlit Lake", "Shunko", "Metta Sutra", "Shaolin", "Blade Singing", "Secret Knife", "Champloo", "Swordless", "Imperial", "East Star", "West Star", "Atomic Karate", "Rhythm of War", "South Star"))
 				if(!equippedSword)
 					return 1
 			return 0
 		UsingMasteredMartialStyle()
-			if(src.StyleActive in list("Turtle", "Crane", "Snake", "Cat","Black Leg", "Strong Fist", "Gentle Fist", "Lightning Kickboxing", "Golden Kirin", "Drunken Fist", "North Star", "Imperial Devil"))
+			if(src.StyleActive in list("Turtle", "Crane", "Snake", "Cat","Black Leg", "Strong Fist", "Gentle Fist", "Lightning Kickboxing", "Golden Kirin","Heavenly Dragon Stance", "Drunken Fist", "North Star", "Imperial Devil"))
 				if(!equippedSword)
 					return 1
 			return 0

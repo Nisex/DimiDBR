@@ -107,6 +107,30 @@ mob/Admin3/verb/RefundMagic(mob/p in players)
 		if(glob.MAGIC_INTELL_MATTERS)
 			the_cost /= p.Intelligence
 		p.removeMagicKnowledge(p, choice, the_cost, 0)
+
+/mob/verb/Refundmagic(mob/p in world)
+	if(length(MagicTree) < 1)
+		fillMagicTree()
+	for(var/x in generateMagicList())
+		var/the_cost = glob.MAGIC_BASE_COST / Imagination
+		the_cost /= Intelligence
+		removeMagicKnowledge(src, x, the_cost, 0)
+		sleep(1)
+	src << "magic tree mass refunded, if there are any issues gmhelp"
+	AlchemyUnlocked=0
+	ImprovedAlchemyUnlocked=0
+	ToolEnchantmentUnlocked=0
+	ArmamentEnchantmentUnlocked=0
+	TomeCreationUnlocked=0
+	CrestCreationUnlocked=0
+	SummoningMagicUnlocked=0
+	SealingMagicUnlocked=0
+	SpaceMagicUnlocked=0
+	TimeMagicUnlocked=0
+	TotalMagicLevel=0
+
+
+
 /mob/proc/legacyRefundmagic()
 	if(length(MagicTree) < 1)
 		fillMagicTree()

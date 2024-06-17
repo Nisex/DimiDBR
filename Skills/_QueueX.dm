@@ -665,7 +665,7 @@ obj
 
 				//Ansatsuken Finisher
 				Isshin
-					DamageMult=5
+					DamageMult=2
 					Counter=1
 					Stunner=5
 					KBMult=4

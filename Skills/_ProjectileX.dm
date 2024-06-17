@@ -230,9 +230,9 @@ obj
 				Radius=2
 				Speed=0.5
 				Distance=50
-				StrRate=1
-				ForRate=1
-				DamageMult=2.5
+				StrRate=0.5
+				ForRate=0.5
+				DamageMult=1.8
 				MultiHit=10
 				HyperHoming=1
 				AccMult=10
@@ -1495,7 +1495,7 @@ obj
 				SignatureTechnique=1
 				Distance=30
 				AccMult=2
-				DamageMult=2.2
+				DamageMult=1
 				Blasts=10
 				EnergyCost=15
 				Cooldown=120

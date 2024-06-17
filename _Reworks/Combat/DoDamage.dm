@@ -80,13 +80,16 @@
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
 
-
-	trueMult += HasPureDamage() ? HasPureDamage() : 0
+	var/puredmg = HasPureDamage() ? HasPureDamage() : 0
+	puredmg *= glob.PURE_MODIFIER
+	trueMult += puredmg
 	#if DEBUG_DAMAGE
 	log2text("trueMult", "After Puredmg", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
-	trueMult -= defender.HasPureReduction() ? defender.HasPureReduction() : 0
+	var/purered = defender.HasPureReduction() ? defender.HasPureReduction() : 0
+	purered *= glob.PURE_MODIFIER
+	trueMult -= purered
 	#if DEBUG_DAMAGE
 	log2text("trueMult", "After Purered", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")

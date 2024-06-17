@@ -10829,8 +10829,8 @@ NEW VARIABLES
 					var/money
 					for(var/obj/Money/m in p.contents)
 						money = m.Level
-
 					var/baseMultMod = 1 + max(0,money/(GOLD_DRAGON_FORMULA * GAJALAKA_MULT))
+					passives = list("PureDamage" = p.AscensionsAcquired * 0.1 + (baseMultMod), "PureReduction" =  p.AscensionsAcquired * 0.1 + (baseMultMod))
 					PowerMult = baseMultMod
 					SpdMult = baseMultMod
 					StrMult = baseMultMod
@@ -10898,7 +10898,7 @@ NEW VARIABLES
 						SoulFire = 1 + (0.5 * asc)
 						HybridStrike = clamp(0.5 * asc, 0.5, 2.5)
 						BurnAffected = 8 - (1 * asc)
-						passives = list("DemonicDurability" = DemonicDurability, "SoulFire" = SoulFire, "HybridStrike" = HybridStrike)
+						passives = list("DemonicDurability" = DemonicDurability, "SoulFire" = SoulFire, "HybridStrike" = HybridStrike, "FireAbsorb" = 1)
 						Intimidation = 1.25 + (0.25 * asc)
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
