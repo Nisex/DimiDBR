@@ -5,7 +5,7 @@ obj/Items/Sword/Medium/Legendary/WeaponSoul/Sword_of_Faith // Kusanagi
 	pixel_y=-16
 	passives = list("MagicSword" = 1, "ManaSteal" = 2, "WindRelease" = 1)
 	MagicSword=1
-	TierTechniques=list(null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Totsuka_no_Tsurugi", null)
+	TierTechniques=list(null, null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Totsuka_no_Tsurugi")
 
 obj/Skills/AutoHit/Gale_Slash
 	NeedsSword = 1
@@ -26,7 +26,7 @@ obj/Skills/AutoHit/Gale_Slash
 	EnergyCost=1
 	CanBeDodged=1
 	Knockback = 5
-	ActiveMessage="lets loose a sweeping gale of wind towards their enemies!"
+	ActiveMessage="lets loose a sweeping gale of wind around them!"
 	verb/Gale_Slash()
 		set category="Skills"
 		usr.Activate(src)

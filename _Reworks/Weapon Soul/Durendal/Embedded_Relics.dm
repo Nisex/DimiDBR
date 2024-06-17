@@ -1,0 +1,94 @@
+obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics
+	NeedsSword = 1
+
+obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Tooth
+	CantHaveTheseBuffs = list("Saints Blood", "Saints Hair", "Saints Raiment")
+	HealthDrain = 1
+	HealthThreshold = 1
+	TimerLimit = 30
+	Cooldown = 90
+	passives = list("PureDamage" = 4, "PureReduction" = 4, "HolyMod" = 3)
+	ActiveMessage = "'s legendary weapon edges itself with the Teeth of a Saint!"
+	OffMessage = "'s legendary weapon no longer edges itself with teeth..."
+	adjust(mob/p)
+		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: The Saint")
+			HealthDrain = 0.5
+			Cooldown = 1
+			TimerLimit = null
+		else
+			HealthDrain = 1
+			TimerLimit = 30
+			Cooldown = 90
+	verb/Saints_Tooth()
+		set name = "Durendal: Saint's Tooth"
+		if(!usr.BuffOn(src))
+			adjust(usr)
+		Trigger(usr)
+
+obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Blood
+	EnergyDrain = 1
+	EnergyThreshold = 10
+	TimerLimit = 30
+	Cooldown = 90
+	CantHaveTheseBuffs = list("Saints Tooth", "Saints Hair", "Saints Raiment")
+	passives = list("LifeSteal" = 10, "HealthGeneration" = 5)
+	ActiveMessage = "'s legendary weapon drips with the Blood of a Saint."
+	OffMessage = "'s legendary weapon no longer drips with holy blood..."
+	adjust(mob/p)
+		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: The Saint")
+			EnergyDrain = 0.5
+			Cooldown = 1
+			TimerLimit = null
+		else
+			EnergyDrain = 1
+			TimerLimit = 30
+			Cooldown = 90
+	verb/Saints_Blood()
+		set name = "Durendal: Saint's Blood"
+		if(!usr.BuffOn(src))
+			adjust(usr)
+		Trigger(usr)
+
+obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Hair
+	CantHaveTheseBuffs = list("Saints Blood", "Saints Tooth", "Saints Raiment")
+	ManaDrain = 1
+	ManaThreshold = 1
+	TimerLimit = 30
+	Cooldown = 90
+	passives = list("EnergySteal" = 2, "SoftStyle" = 3, "HolyMod" = 2)
+	ActiveMessage = "'s legendary weapon hardens with the Hair of a Saint."
+	OffMessage = "'s legendary weapon no longer steels itself with holy fibers..."
+	adjust(mob/p)
+		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: The Saint")
+			ManaDrain = 0.5
+			Cooldown = 1
+			TimerLimit = null
+		else
+			ManaDrain = 1
+			TimerLimit = 30
+			Cooldown = 90
+	verb/Saints_Hair()
+		set name = "Durendal: Saint's Hair"
+		if(!usr.BuffOn(src))
+			adjust(usr)
+		Trigger(usr)
+
+obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Raiment
+	TimerLimit = 30
+	Cooldown = 90
+	CantHaveTheseBuffs = list("Saints Tooth", "Saints Blood", "Saints Hair")
+	passives = list("PureReduction" = 4, "PureDamage" = -2, "DebuffImmune" = 0.5)
+	ActiveMessage = "'s legendary weapon coils up their arm with the Raiment of a Saint."
+	OffMessage = "'s legendary weapon releases their wielder's arm..."
+	adjust(mob/p)
+		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: The Saint")
+			Cooldown = 1
+			TimerLimit = null
+		else
+			TimerLimit = 30
+			Cooldown = 90
+	verb/Saints_Raiment()
+		set name = "Durendal: Saint's Raiment"
+		if(!usr.BuffOn(src))
+			adjust(usr)
+		Trigger(usr)

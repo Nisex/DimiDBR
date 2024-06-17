@@ -477,9 +477,6 @@ mob
 				defender.LoseEnergy(val*(src.GetEnergySteal()*Effectiveness/100))
 			if(HasManaSteal())
 				var/value = val * (GetManaSteal() / 100)
-				if(WeaponSoulType == "Kusanagi"&&passive_handler.Get("YasakaniNoMagatama"))
-					for(var/obj/Items/Yasakani_no_Magatama/Magatama in src)
-						Magatama.stealMana(value)
 				HealMana(value)
 				defender.LoseMana(value)
 
@@ -625,8 +622,6 @@ mob
 						var/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin/bor=EquippedSword()
 						bor.onKill(src, defender)
 				defender.Death(src, null)
-
-			return val
 
 
 		DealWounds(var/mob/defender, var/val, var/FromSelf=0)
@@ -3097,7 +3092,7 @@ proc
 /var/global/GLOBAL_EXPONENT_MULT = 1/3
 /var/global/GRAPPLE_MELEE_BOON = 1.5
 var/global/AUTOHIT_GRAB_NERF = 0.5
-var/global/PARTY_DAMAGE_NERF = 0.33
+var/global/PARTY_DAMAGE_NERF = 0.6
 
 /mob/Admin3/verb/Grab_Auto_Nerf(n as num)
 	glob.AUTOHIT_GRAB_NERF = n

@@ -5499,6 +5499,8 @@ obj
 
 						if(a in src.Owner.party)
 							EffectiveDamage *= PARTY_DAMAGE_NERF
+							if(src.Owner.passive_handler.Get("TeamFighter"))
+								EffectiveDamage /= 1+src.Owner.passive_handler.Get("TeamFighter")
 
 						if(src.Owner.HasPurity()||src.Purity)//If damager is pure
 							var/found=0//Assume you haven't found a proper target

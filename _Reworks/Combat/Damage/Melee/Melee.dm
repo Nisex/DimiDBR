@@ -182,6 +182,9 @@ var/global/MULTIHIT_NERF = FALSE
 	// 				ATTACK 					//
 
 	if(length(enemies)>0)
+		var/shockwaveChance = passive_handler.Get("ShockwaveBlows")
+		if(prob(shockwaveChance*10))
+			GetAndUseSkill(/obj/Skills/AutoHit/Shockwave_Blows, AutoHits, TRUE)
 		NextAttack += delay
 		var/Disarm = 0
 		if(UsingGladiator())
@@ -612,7 +615,7 @@ var/global/MULTIHIT_NERF = FALSE
 
 							// reduce damage by 1% for every 0.1 damage effectiveness, 1 damage effectiveness = 10% damage reduction
 							//TODO ARMOR AT THE END
-							if(defArmor)
+							if(defArmor&&!passive_handler.Get("ArmorPeeling"))
 								var/dmgEffective = enemy.GetArmorDamage(defArmor)
 								damage -=  damage * dmgEffective/10
 								#if DEBUG_MELEE

@@ -46,6 +46,11 @@ var/list/squad_database = list(
 		StrMod=3,EndMod=3,ForMod=3,OffMod=3,DefMod=3,SpdMod=3,\
 		ai_spammer=1),\
 		techniques=list("/obj/Skills/AutoHit/Flying_Kick","/obj/Skills/AutoHit/Force_Palm","/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Turns_Red")),\
+	"oliphant spirit" = new/ai_sheet(id="oliphant spirit", properties=list(icon='knight.dmi', name="Oliphant Spirit",\
+		Potential = 0.4,\
+		StrMod = 3, EndMod = 0.2, ForMod = 3, OffMod = 3, DefMod = 1, SpdMod = 2,\
+		ai_spammer=1),\
+		techniques = list()),\
 )
 
 

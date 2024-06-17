@@ -65,10 +65,10 @@ var/globalTracker/glob = new()
 
 /mob/Admin3/verb/Debuff_Apply(n as num)
 	glob.BURN_INTENSITY = n
-	glob.SHOCK_INTENSITY = n 
-	glob.SLOW_INTENSITY = n 
-	glob.SHATTER_INTENSITY = n 
-	glob.POISON_INTENSITY= n 
+	glob.SHOCK_INTENSITY = n
+	glob.SLOW_INTENSITY = n
+	glob.SHATTER_INTENSITY = n
+	glob.POISON_INTENSITY= n
 
 progressTracker
 
@@ -243,7 +243,7 @@ globalTracker
 		MIN_POWER_DIFF = 0.7
 		MAX_POWER_DIFF = 1.3
 		AUTOHIT_GRAB_NERF = 0.5
-		PARTY_DAMAGE_NERF = 0.5
+		PARTY_DAMAGE_NERF = 0.8
 		MOD_AFTER_ACC = TRUE
 
 		GLADIATOR_DISARM_MAX = 600

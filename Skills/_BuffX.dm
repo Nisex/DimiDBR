@@ -41,6 +41,7 @@ NEW VARIABLES
 	var/RegenMult=1
 	var/RecovMult=1
 	var/EnergyMult=1
+	var/list/CantHaveTheseBuffs
 //Slot definitions and requirements
 	var/BuffName
 	var/ActiveSlot //Takes active slots.
@@ -11942,6 +11943,12 @@ mob
 						buffsRequired = replacetext(buffsRequired, ",", "", length(buffsRequired)-2, 0)
 						src << "You have to be using [buffsRequired] to turn [src.name] on!"
 						return
+				if(B.CantHaveTheseBuffs)
+					if(src.SlotlessBuffs.len!=0)
+						for(var/buff in B.CantHaveTheseBuffs)
+							if(CheckSlotless(buff))
+								src << "You can't have [buff] enabled to use [src.name]!"
+								return
 				if(B.SBuffNeeded)
 					if(!src.SpecialBuff||src.SpecialBuff.BuffName!=B.SBuffNeeded)
 						src << "You have to be in [B.SBuffNeeded] state!"

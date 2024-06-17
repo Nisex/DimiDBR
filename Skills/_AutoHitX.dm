@@ -6072,6 +6072,8 @@ obj
 
 				if(m in src.Owner.party)
 					FinalDmg *= glob.PARTY_DAMAGE_NERF
+					if(src.Owner.passive_handler.Get("TeamFighter"))
+						FinalDmg /= 1+src.Owner.passive_handler.Get("TeamFighter")
 
 				if(!src.CanBeBlocked&&!src.CanBeDodged)
 					FinalDmg *= glob.AUTOHIT_GLOBAL_DAMAGE
