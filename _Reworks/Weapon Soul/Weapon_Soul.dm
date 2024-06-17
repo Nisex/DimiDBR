@@ -24,7 +24,11 @@ mob/proc/gainWeaponSoul()
 
 		if("Caledfwlch")
 			new/obj/Items/Sword/Medium/Legendary/WeaponSoul/Sword_of_Glory(src)
-			AddSkill(/obj/Skills/Projectile/Beams/Big/Weapon_Soul/Excalibur)
+			AddSkill(new/obj/Skills/Projectile/Beams/Big/Weapon_Soul/Excalibur)
+
+		if("Muramasa")
+			new/obj/Items/Sword/Light/Legendary/WeaponSoul/Bane_of_Blades(src)
+			AddSkill(new/obj/Skills/AutoHit/Deathbringer)
 
 mob/tierUpSaga(Path)
 	..()
@@ -48,6 +52,11 @@ mob/tierUpSaga(Path)
 					if("Caledfwlch")
 						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Avalon)
 
+					if("Muramasa")
+						passive_handler.Increase("CriticalChance", 5)
+						passive_handler.Increase("CriticalHit", 0.2)
+						AddSkill(new/obj/Skills/AutoHit/Masterful_Death)
+
 			if(3)
 				switch(WeaponSoulType)
 					if("Kusanagi")
@@ -67,6 +76,15 @@ mob/tierUpSaga(Path)
 						src.contents += new/obj/Items/Armor/Plated_Armor/Noble_Armor
 						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Noble_Shield)
 
+					if("Muramasa")
+						for(var/obj/Items/Sword/Light/Legendary/WeaponSoul/Bane_of_Blades/muramasa in contents)
+							muramasa.Element = "Dark"
+							muramasa.passives = list("WeaponBreaker" = 2, "AbyssMod" = 4)
+						passive_handler.Increase("PureDamage",2)
+						SagaThreshold("Spd",1)
+						SagaThreshold("Str",1)
+
+
 			if(4)
 				switch(WeaponSoulType)
 					if("Kusanagi")
@@ -80,6 +98,9 @@ mob/tierUpSaga(Path)
 
 					if("Caledfwlch")
 						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Caledfwlch)
+
+					if("Muramasa")
+						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Muramasa)
 			if(5)
 				switch(WeaponSoulType)
 					if("Kusanagi")
@@ -109,8 +130,14 @@ mob/tierUpSaga(Path)
 						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Caledfwlch/caled in src.Buffs)
 							caled.passives["Xenobiology"] = 1
 							caled.passives["CriticalChance"] = 10
-							caled.passives["CriticalDamage"] = 1
+							caled.passives["CriticalDamage"] = 0.5
 							caled.passives["Pursuer"] = 2
+
+					if("Muramasa")
+						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Muramasa/muramasa in src.Buffs)
+							muramasa.passives["KillerInstinct"] = 1
+							muramasa.passives["DemonicDurability"] = 2
+							muramasa.passives["TechniqueMastery"] = 2
 
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia
 	NeedsSword = 1

@@ -1170,6 +1170,12 @@ NEW VARIABLES
 							src.SwordName="Dainsleif"
 							src.ActiveMessage="calls forth the true form of Dainsleif, the Blade of Ruin!"
 							src.OffMessage="dissolves Dainsleif's ruinous power..."
+						if("Muramasa")
+							src.PowerMult=1.5
+							passives = list("AbyssMod" = 3, "EnergySteal" = 40, "WeaponBreaker" = 2, "PULock" = 1)
+							src.SwordName="Muramasa"
+							src.ActiveMessage="calls forth the true form of Muramasa, the Bane of Blades!"
+							src.OffMessage="casts Muramasa back into the darkness..."
 						if("Masamune")
 							src.PowerMult=1.5
 							src.StrMult=1
@@ -1234,21 +1240,6 @@ NEW VARIABLES
 							src.SwordName="Soul Edge"
 							src.ActiveMessage="calls forth the true form of Soul Edge, the Blade of Chaos!"
 							src.OffMessage="releases Soul Edge's chaos..."
-						if("Muramasa")
-							src.PowerMult=1.5
-							src.StrMult=1.3
-							src.EndMult=1
-							src.ForMult=1.3
-							src.OffMult=1.6
-							src.DefMult=1.3
-							src.RegenMult=0.5
-							passives = list("AbyssMod" = 3, "EnergySteal" = 40, "WeaponBreaker" = 2, "PULock" = 1)
-							src.AbyssMod=3
-							src.EnergySteal=40//if 100 damage is done, regenerate 40% energy.
-							src.WeaponBreaker=2
-							src.SwordName="Muramasa"
-							src.ActiveMessage="calls forth the true form of Muramasa, the Bane of Blades!"
-							src.OffMessage="casts Muramasa back into the darkness..."
 						if("Moonlight Greatsword")
 							src.PowerMult=1.5
 							src.EndMult=1.3

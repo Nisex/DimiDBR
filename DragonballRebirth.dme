@@ -475,6 +475,8 @@
 #include "_Reworks\Weapon Soul\Kusanagi\Kusanagi.dm"
 #include "_Reworks\Weapon Soul\Kusanagi\Yasakani_no_Magatama.dm"
 #include "_Reworks\Weapon Soul\Kusanagi\Yata_No_Kagami.dm"
+#include "_Reworks\Weapon Soul\Muramasa\Kuro_Obi.dm"
+#include "_Reworks\Weapon Soul\Muramasa\Muramasa.dm"
 #include "ai\_gal ai.dm"
 #include "ai\ai skills.dm"
 #include "ai\arcane beasts.dm"
