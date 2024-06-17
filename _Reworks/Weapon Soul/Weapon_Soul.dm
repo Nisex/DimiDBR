@@ -28,3 +28,5 @@ mob/tierUpSaga(Path)
 			if(3)
 				switch(WeaponSoulType)
 					if("Kusanagi")
+						src.contents += new/obj/Items/Yasakani_no_Magatama
+						src.AddSkill(new/obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Bead_Constraint)

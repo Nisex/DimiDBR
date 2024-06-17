@@ -477,6 +477,9 @@ mob
 				defender.LoseEnergy(val*(src.GetEnergySteal()*Effectiveness/100))
 			if(HasManaSteal())
 				var/value = val * (GetManaSteal() / 100)
+				if(WeaponSoulType == "Kusanagi"&&passive_handler.Get("YasakaniNoMagatama"))
+					for(var/obj/Items/Yasakani_no_Magatama/Magatama in src)
+						Magatama.stealMana(value)
 				HealMana(value)
 				defender.LoseMana(value)
 

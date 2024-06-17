@@ -67,4 +67,4 @@ obj/Mirror
 	onBumped(atom/Obstacle)
 		..()
 		if(istype(Obstacle,/obj/Skills/Projectile/_Projectile))
-			Obstacle.dir = turn(Obstacle.dir, 180)
+			Obstacle.dir = turn(Obstacle.dir, pick(45, -45, 90, 180,-90))
