@@ -623,6 +623,8 @@ mob
 						bor.onKill(src, defender)
 				defender.Death(src, null)
 
+			return val
+
 
 		DealWounds(var/mob/defender, var/val, var/FromSelf=0)
 			if(defender.CyberCancel)
@@ -1180,7 +1182,7 @@ mob
 				if(Mod<=glob.BUFF_MASTERY_LOWTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
-					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT)) 
+					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
 
 
 			if(src.Burn)

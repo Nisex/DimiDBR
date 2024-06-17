@@ -168,6 +168,11 @@ var/global/MULTIHIT_NERF = FALSE
 
 	// 				DELAY END				//
 
+	var/windChance = passive_handler.Get("WindRelease")
+	if(!forcewarp&&prob(windChance*10))
+		for(var/mob/m in orange(windChance*5))
+			src.Knockback(windChance, m, Direction=get_dir(m, src))
+
 	// 				RAYCASTING 				//
 
 	var/list/mob/enemies = getEnemies()

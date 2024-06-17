@@ -1036,15 +1036,6 @@ obj/Items/Sword
 					SpiritSword=0.75
 					TierTechniques=list(null, null, null, null, "/obj/Skills/Projectile/Beams/Big/Weapon_Soul/Excalibur", null)
 
-				Sword_of_Faith//Kusanagi
-					name="Sword of Faith"
-					icon='KusanagibutSharper.dmi'
-					pixel_x=-16
-					pixel_y=-16
-					passives = list("MagicSword" = 1)
-					MagicSword=1
-					TierTechniques=list(null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Totsuka_no_Tsurugi", null)
-
 				Blade_of_Order//Soul Calibur
 					name="Blade of Order"
 					icon='SoulCalibur.dmi'

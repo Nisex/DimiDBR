@@ -17,6 +17,8 @@ obj
 			Distance=1//Unless otherwise stated, assume it's a one tile attack of varying style.
 			var/DistanceAround //this is only used for AroundTarget type techs.
 			var
+				ManaDrain = 0
+
 				NoPierce=0//If this is flagged it will make a technique terminate after hitting something.
 				CorruptionGain = 0
 				UnarmedOnly
@@ -531,7 +533,7 @@ obj
 				IconY=-32
 				IconTime=10
 				Cooldown=4
-			
+
 			Flowing_Slash_Follow_Up
 				Area="Strike"
 				NoLock=1
@@ -5534,7 +5536,7 @@ obj
 			CorruptionGain
 
 
-
+			ManaDrain
 
 
 			Arcing//Triggers offshoots on every step that expand outwards.  Higher than 1 means that every X steps the range will widen.
@@ -5695,6 +5697,7 @@ obj
 				src.EndRes=Z.EndDefense
 			if(Z.AdaptRate)
 				AdaptDmg = Z.AdaptRate
+			ManaDrain = Z.ManaDrain
 			src.Executor = Z.Executor
 			src.Primordial = Z.Primordial
 			src.RagingDemonAnimation = Z.RagingDemonAnimation
@@ -6038,7 +6041,7 @@ obj
 							src.Owner.HitEffect(src.Owner, src.UnarmedTech, src.SwordTech)
 							return
 
-				if(src.CanBeBlocked)
+				if(src.CanBeBlocked||m.passive_handler.Get("YataNoKagami"))
 					if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldWhiffRate, IgnoreNoDodge=1) == WHIFF)
 						if(!src.Owner.NoWhiff())
 							var/obj/Items/Sword/s = Owner.EquippedSword()
@@ -6125,7 +6128,7 @@ obj
 				if(src.EnergySteal)
 					src.Owner.EnergySteal+=src.EnergySteal
 
-				if(src.CanBeDodged)
+				if(src.CanBeDodged||m.passive_handler.Get("YataNoKagami"))
 					var/loc=m.loc
 					if(m.AttackQueue&&(m.AttackQueue.Counter||m.AttackQueue.CounterTemp))
 						m.dir=get_dir(m, src.Owner)
@@ -6154,41 +6157,32 @@ obj
 							for(var/obj/Skills/Zanzoken/z in src)
 								z.Cooldown()//freeze that after image shieet
 						return
+
+				if(src.MortalBlow)
+					if(src.MortalBlow<0)
+						m.MortallyWounded+=4
 					else
-						if(src.MortalBlow)
-							if(src.MortalBlow<0)
-								m.MortallyWounded+=4
-							else
-								if(prob(20*src.MortalBlow) && !m.MortallyWounded)
-									var/MortalDamage = m.Health * 0.15
-									m.LoseHealth(MortalDamage)
-									m.WoundSelf(MortalDamage)
-									m.MortallyWounded+=1
-									src.Owner << "<b><font color=#ff0000>You mortally wound [m]!</font></b>"
-								if(src.MortalBlow>1)
-									if(m.Immortal)
-										m.Immortal=0
-						src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
-						if(src.Owner.UsingAnsatsuken())
-							src.Owner.HealMana(src.Owner.SagaLevel)
-				else
-					if(src.MortalBlow)
-						if(src.MortalBlow<0)
-							m.MortallyWounded+=4
-						else
-							if(prob(20*src.MortalBlow) && !m.MortallyWounded)
-								var/MortalDamage = m.Health * 0.15
-								m.LoseHealth(MortalDamage)
-								m.WoundSelf(MortalDamage)
-								src.Owner << "<b><font color=#ff0000>You mortally wound [m]!</font></b>"
-							if(src.MortalBlow>1)
-								if(m.Immortal)
-									m.Immortal=0
-					src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
-					if(CorruptionGain)
-						Owner.gainCorruption((FinalDmg * 2) * glob.CORRUPTION_GAIN)
-					if(src.Owner.UsingAnsatsuken())
-						src.Owner.HealMana(src.Owner.SagaLevel)
+						if(prob(20*src.MortalBlow) && !m.MortallyWounded)
+							var/MortalDamage = m.Health * 0.15
+							m.LoseHealth(MortalDamage)
+							m.WoundSelf(MortalDamage)
+							src.Owner << "<b><font color=#ff0000>You mortally wound [m]!</font></b>"
+						if(src.MortalBlow>1)
+							if(m.Immortal)
+								m.Immortal=0
+
+				var/damageDealt = src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
+				if(!damageDealt)
+					damageDealt = 0
+
+				if(ManaDrain)
+					m.LoseMana(ManaDrain)
+					src.Owner.HealMana(ManaDrain)
+
+				if(CorruptionGain)
+					Owner.gainCorruption((FinalDmg * 2) * glob.CORRUPTION_GAIN)
+				if(src.Owner.UsingAnsatsuken())
+					src.Owner.HealMana(src.Owner.SagaLevel)
 
 				if(src.LifeSteal)
 					src.Owner.LifeSteal-=src.LifeSteal

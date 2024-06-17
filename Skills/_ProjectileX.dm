@@ -4347,7 +4347,7 @@ mob
 			if(!Z.Charging)//Only beams get this exception
 				if(!src.CanAttack(3)&&!Z.AttackReplace)
 					return 0
-				if(Z.Using) 
+				if(Z.Using)
 					return 0
 				if(Z.ZoneAttack&&Z.FireFromEnemy)
 					if(!src.Target)
@@ -5085,6 +5085,7 @@ obj
 								animate(src,transform=matrix()*Z.IconSizeGrowTo, time=10, easing=CUBIC_EASING)
 						src.Life()
 				Bump(var/atom/a)
+					a.onBumped(src)
 					Hit(a)
 				proc/endLife()
 					try
