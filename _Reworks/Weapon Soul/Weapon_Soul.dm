@@ -30,3 +30,21 @@ mob/tierUpSaga(Path)
 					if("Kusanagi")
 						src.contents += new/obj/Items/Yasakani_no_Magatama
 						src.AddSkill(new/obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Bead_Constraint)
+
+			if(4)
+				switch(WeaponSoulType)
+					if("Kusanagi")
+						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Kusanagi)
+
+			if(5)
+				switch(WeaponSoulType)
+					if("Kusanagi")
+						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Kusanagi/kusa in src.Buffs)
+							kusa.passives["WindRelease"] = 2
+							kusa.passives["PureDamage"] = 1
+							kusa.passives["SwordAscension"] = 1
+							kusa.passives["PureReduction"] = 1
+							kusa.passives["ManaGeneration"] = 15
+
+obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia
+	NeedsSword = 1

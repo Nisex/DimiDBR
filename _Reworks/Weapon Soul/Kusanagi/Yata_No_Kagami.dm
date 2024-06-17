@@ -15,6 +15,8 @@ obj/Skills/Buffs/Slotless_Buffs/Yata_no_Kagami/Mirror_Protection
 			secondActivation = TRUE
 			spawn while(!User.BuffOn(src))
 				if(User.ManaAmount > 0)
+					if(User.SpecialBuff&&User.SpecialBuff.name == "Heavenly Regalia: The Three Treasures")
+						storedMana += 1 // store double the mana for the same cost
 					storedMana += 1
 					storedMana = clamp(0, storedMana, 15*User.SagaLevel)
 					User.LoseMana(1,1)
@@ -54,6 +56,12 @@ obj/Skills/Yata_no_Kagami/Mirror_Prison
 			return
 		if(src.Using)
 			return
+		if(usr.SpecialBuff&&usr.SpecialBuff.name == "Heavenly Regalia: The Three Treasures")
+			mirrorTime = 30 SECONDS
+			Distance = 10
+		else
+			mirrorTime = 20 SECONDS
+			Distance = 6
 		Cooldown()
 		spawnMirrors(getArea(usr), mirrorTime)
 

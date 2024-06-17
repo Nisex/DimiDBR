@@ -4,10 +4,19 @@ obj/Items/Yasakani_no_Magatama
 	var/tmp/manaStolen = 0
 	proc/stealMana(value)
 		manaStolen += value
-		while(manaStolen >= 25)
+		var/magatamaBeadAmount = 25
+		if(ismob(loc))
+			var/mob/m = loc
+			magatamaBeadAmount = getMagatamaMana(m)
+		while(manaStolen >= magatamaBeadAmount)
 			gainMagatama()
-			manaStolen -= 25
+			manaStolen -= magatamaBeadAmount
 
+	proc/getMagatamaMana(mob/m)
+		var/mana = 25
+		if(m.SpecialBuff&&m.SpecialBuff.name == "Heavenly Regalia: The Three Treasures")
+			mana = 15
+		return mana
 	proc/gainMagatama()
 		var/obj/Magatama/magatama = new()
 		magatamaBeads += magatama
@@ -30,14 +39,26 @@ obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Bead_Constraint
 	Cooldown=120
 	AffectTarget = 1
 	Range = 12
+	adjust(mob/p)
+		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: The Three Treasures")
+			applyToTarget = new/obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Heavenly_Bead_Constraints
+		else
+			applyToTarget = new/obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Bead_Constraints
 	verb/Bead_Constraint()
 		set name = "Yasakani no Magatama: Bead Constraint"
+		if(!usr.BuffOn(src))
+			adjust(usr)
 		Trigger(usr)
 
 obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Bead_Constraints
 	EnergyDrain = 1
 	TimerLimit = 60
 	passives = list("PureDamage" = -1)
+
+obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Heavenly_Bead_Constraints
+	EnergyDrain = 3
+	TimerLimit = 60
+	passives = list("PureDamage" = -1, "PureReduction" = -1)
 
 mob/verb/testMagatama()
 	var/obj/Magatama/magatama = new()

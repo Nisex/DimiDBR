@@ -30,3 +30,16 @@ obj/Skills/AutoHit/Gale_Slash
 	verb/Gale_Slash()
 		set category="Skills"
 		usr.Activate(src)
+
+obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Kusanagi
+	name = "Heavenly Regalia: The Three Treasures"
+	StrMult=1.3
+	OffMult=1.3
+	DefMult=1.3
+	passives = list("WindRelease" = 1, "ManaSteal" = 3)
+	IconLock='EyeFlameC.dmi'
+	ActiveMessage="'s three divine treasures ring in resonance: Heavenly Regalia!"
+	OffMessage="'s treasures lose their imperial luster..."
+	verb/Sword_Saint()
+		set category="Skills"
+		src.Trigger(usr)
