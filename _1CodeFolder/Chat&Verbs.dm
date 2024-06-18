@@ -271,6 +271,9 @@ mob/Players/verb
 				continue
 			if(istype(b, /obj/Skills/Buffs/Styles))
 				continue
+			if(length(b.possible_skills) > 1)
+				for(var/obj/Skills/Buffs/a in b.possible_skills)
+					Choices.Add(a)
 			Choices.Add(b)
 		for(var/obj/Skills/Queue/b in src)
 			Choices.Add(b)
@@ -302,6 +305,8 @@ mob/Players/verb
 				BuffOptions += "MakesSecondSword"
 			if(S:MakesArmor)
 				BuffOptions += "MakesArmor"
+			if(S:makSpace)
+				BuffOptions += "Make Space Icon"
 			Mode=input(src, "What aspect do you wish to customize on [S]?", "Customize Skill") in BuffOptions
 		else if(istype(S,/obj/Skills/Queue))
 			Mode=input(src, "What aspect do you wish to customize on [S]?", "Customize Skill") in QueueOptions
@@ -312,7 +317,58 @@ mob/Players/verb
 		else
 			usr << "This skill can't be customized at this time!"
 			return
+		var/pre = Mode
+		if(Mode in list("IconLock", "AuraLock", "HairLock", "TopOverlayLock" ))
+			Mode = "Lock"
 		switch(Mode)
+			if("Make Space Icon")
+				S:icon_to_use = input(src, "What icon?") as icon|null 
+			if("NameFake")
+				S:NameFake  = input(src, "What fake name?") as text
+			if("MakesSword")
+				S:SwordIcon  = input(src, "What icon?") as icon|null 
+				S:SwordX  = input(src, "What x") as text
+				S:SwordY  = input(src, "What y") as text
+			if("MakesStaff")
+				S:StaffIcon  = input(src, "What icon?") as icon|null 
+				S:StaffX  = input(src, "What x") as text
+				S:StaffY  = input(src, "What y") as text
+
+
+			if("MakesSecondSword")
+				S:SwordIconSecond  = input(src, "What icon?") as icon|null 
+				S:SwordXSecond  = input(src, "What x") as text
+				S:SwordYSecond  = input(src, "What y") as text
+
+			if("MakesArmor")
+				S:ArmorIcon  = input(src, "What icon?") as icon|null 
+				S:ArmorX  = input(src, "What x") as text
+				S:ArmorY  = input(src, "What y") as text
+
+			if("Lock")
+				var/icon/choice = input("What icon?") as icon|null
+				var/_x=input("Pixel X?") as num|null
+				var/_y=input("Pixel Y?") as num|null
+				S.vars["[pre]"] = choice
+				if(pre != "TopOverLayLock")
+					var/rawname = replacetext(pre, "Lock", "")
+					S.vars["[rawname]X"] = _x
+					S.vars["[rawname]Y"] = _y
+				if(pre == "IconLock")
+					var/blend = input(src, "What blend mode?") in list("ADD","SUB", "INSET_OVERLAY", "OVERLAY", "MULTIPLY")
+					switch(blend)
+						if("ADD")
+							S.vars["IconLockBlend"] = BLEND_ADD
+						if("SUB")
+							S.vars["IconLockBlend"] = BLEND_SUBTRACT
+						if("INSET_OVERLAY")
+							S.vars["IconLockBlend"] = BLEND_INSET_OVERLAY
+						if("OVERLAY")
+							S.vars["IconLockBlend"] = BLEND_OVERLAY
+						if("MULTIPLY")
+							S.vars["IconLockBlend"] = BLEND_MULTIPLY
+
+
 			if("Aria Lines")
 				var/list/l = S:Aria
 				l.Add("Cancel")

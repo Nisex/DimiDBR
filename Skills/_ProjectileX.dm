@@ -5465,7 +5465,7 @@ obj
 						if(src.Burning&&!src.Owner.HasBurning())
 							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Fire"), damageOnly = 1))/10)
 						if(src.Scorching&&!src.Owner.HasScorching())
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1,, bonusElements=list("Fire"), damageOnly = 1))/10)//Forces debuff
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Fire"), damageOnly = 1))/10)//Forces debuff
 						if(src.Chilling&&!src.Owner.HasChilling())
 							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Water"), damageOnly = 1))/10)
 						if(src.Freezing&&!src.Owner.HasFreezing())

@@ -1,6 +1,6 @@
 
 /obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball
-    scalingValues = list("Blasts" = list(2,3,3,4,4), "DamageMult" = list(1,1.5,2,2.5,3), "EndRate" = list(0.85, 0.75, 0.65, 0.55, 0.45), "IconSize" = list(1, 1.15,1.25,1.5,2))
+    scalingValues = list("Blasts" = list(2,2,3,3,4,4), "DamageMult" = list(1,1.5,2,2.5,3), "EndRate" = list(0.85, 0.75, 0.65, 0.55, 0.45), "IconSize" = list(1, 1.15,1.25,1.5,2))
     DamageMult = 3
     AdaptRate = 1
     IconLock='shadowflameball.dmi'
@@ -19,7 +19,8 @@
         if(!altered)
             scalingValues = /obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball::scalingValues
     adjust(mob/p)
-        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
+        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
+        
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
         if(p.getTotalMagicLevel() >= 10 || p.isRace(DEMON))
@@ -31,7 +32,7 @@
         usr.UseProjectile(src)
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind
-    var/corruptionGain = list(6,8,12,14,14)
+    var/corruptionGain = list(6,8,12,14,16,20)
     Range = 25
     ManaCost = 15
     AffectTarget = 1
@@ -49,7 +50,7 @@
         . = ..()
         if(.)
             if(User.isRace(DEMON))
-                var/asc = User.AscensionsAcquired
+                var/asc = User.AscensionsAcquired ? User.AscensionsAcquired + 1 : 1
                 if(asc < 1)
                     asc = 1
                 User.gainCorruption(corruptionGain[asc] * glob.CORRUPTION_GAIN)
@@ -62,8 +63,8 @@
     InstantAffect = 1
     TimerLimit = 10
     adjust(mob/p)
-        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 0
-        var/list/timers = list(2,3,3,4,4)
+        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
+        var/list/timers = list(2,4,4,5,6,6)
         if(asc == 0)
             StunAffected = 2
         else
@@ -76,7 +77,7 @@
     BuffName = "Mind Dominated"
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech
-    scalingValues = list("TimerLimit" = list(12,10,8,5,5), "ManaHeal" = list(10,15,20,20,25), "HealthHeal" = list(1,1,2,2,3), "EnergyHeal" = list(4,6,8,10,10))
+    scalingValues = list("TimerLimit" = list(12,10,8,6,5,4), "ManaHeal" = list(10,15,20,20,25,30), "HealthHeal" = list(1,1,2,2,3,3), "EnergyHeal" = list(4,6,8,8,10,12))
     Cooldown = 90
     StableHeal = 1
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
@@ -89,7 +90,7 @@
         . = ..()
     adjust(mob/p)
         scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech::scalingValues
-        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
+        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
         ManaHeal = (ManaHeal / TimerLimit) * world.tick_lag
@@ -102,7 +103,7 @@
             adjust(usr)
             Trigger(usr)
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
-    scalingValues = list("TimerLimit" = list(12,10,8,5,5), "ManaHeal" = list(-5,-10,-15,-20,-25), "HealthHeal" = list(-1,-1,-2,-2,-3), "EnergyHeal" = list(-2,-4,-8,-10,-10))
+    scalingValues = list("TimerLimit" = list(12,10,8,5,5,4), "ManaHeal" = list(-10,-15,-20,-20,-25,-30), "HealthHeal" = list(-1,-1,-2,-2,-3,-3), "EnergyHeal" = list(-4,-6,-8,-8,-10,-12))
     StableHeal = 1
     DeleteOnRemove = 1
     MagicNeeded = 0

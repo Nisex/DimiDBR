@@ -174,7 +174,7 @@
 	log2text("trueMult", "After AttackModifiers", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
-
+	
 	if(defender.DefianceRetaliate&&!defender.CheckSlotless("Great Ape"))
 		if(Health>defender.Health)
 			trueMult -= defender.DefianceRetaliate

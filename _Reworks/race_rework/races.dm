@@ -287,7 +287,7 @@ race
 
 		intellect = 0.25
 		imagination = 4
-		anger = 1.3
+		anger = 1.5
 		regeneration = 3
 		strength = 1.25
 		endurance = 1

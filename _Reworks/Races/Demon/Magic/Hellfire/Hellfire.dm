@@ -1,6 +1,6 @@
 /obj/Skills/Projectile/Magic/HellFire/Hellpyre
-    scalingValues = list("Blasts" = list(4,5,6,8,10), "DamageMult" = list(10,12,15,18,20), \
-    "Delay" = list(4,3,2,1,1))
+    scalingValues = list("Blasts" = list(4,5,6,6,8,10), "DamageMult" = list(10,12,13,15,18,20), \
+    "Delay" = list(8,4,3,2,1,1))
     ElementalClass="Fire"
     DamageMult = 3
     AdaptRate = 1
@@ -24,7 +24,7 @@
         if(!altered)
             scalingValues = /obj/Skills/Projectile/Magic/HellFire/Hellpyre::scalingValues
     adjust(mob/p)
-        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
+        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
         if(p.isRace(DEMON))
@@ -42,13 +42,13 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
     ElementalClass="Fire"
-    scalingValues = list("Damage" = list(0.2,0.3,0.4,0.6), "Distance" = list(5,8,10,12,15), \
-    "DarknessFlame" = list(3,8,12,15,20), "Slow" = list(3,6,8,12,20), "Burning" = list(10,15,20,25,30,50), "Duration" = list(150,200,300,350,400), \
+    scalingValues = list("Damage" = list(0.2,0.3,0.4,0.6,0.6), "Distance" = list(6,9,12,12,15,18), \
+    "DarknessFlame" = list(3,8,12,15,20,25), "Slow" = list(3,6,8,12,15,20), "Burning" = list(10,15,20,25,30,30), "Duration" = list(150,200,300,350,400,600), \
     "Adapt" = list(1,1,1,1,1), "CorruptionGain" = list(1,1,1,1,1) )
     makSpace = new/spaceMaker/HellFire
     var/icon_to_use = 'LavaRock2.dmi'
     Cooldown=90
-    ManaCost = 15
+    ManaCost = 8
     TimerLimit = 10
     EndYourself=1
     ActiveMessage = "rains down an onslaught of fire!"
@@ -77,7 +77,7 @@
                 if("Damage")
                     static_damage *= scalingValues[x][asc]
                     owner.DoDamage(target, static_damage, 0, 0 , 0 , 0 , 0 , 0 , 0)
-                    owner.gainCorruption((static_damage * 2) * glob.CORRUPTION_GAIN)
+                    owner.gainCorruption((static_damage * 1.25) * glob.CORRUPTION_GAIN)
                 if("DarknessFlame")
                     target.AddPoison(scalingValues["Burning"][asc] * 1 + (scalingValues[x][asc] * 0.5), Attacker=owner)
                 if("Burning")
@@ -85,7 +85,7 @@
                 if("Slow")
                     target.AddCrippling(scalingValues[x][asc])
         if(!target:move_disabled)
-            if(prob(10))
+            if(prob(25))
                 target:move_disabled = TRUE
                 spawn(10)
                     target:move_disabled = FALSE
@@ -96,8 +96,8 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat
     ElementalClass="Fire"
-    scalingValues = list("CrippleAffected" = list(12,15,15,20,25), \
-    "PoisonAffected" = list(15,20,20,25,30), "BurnAffected" = list(15,20,20,25,30), "ConfuseAffected" = list(15, 20, 20 ,25, 30))
+    scalingValues = list("CrippleAffected" = list(12,15,15,20,25,25), \
+    "PoisonAffected" = list(15,20,20,25,30,30), "BurnAffected" = list(15,20,20,25,30,30), "ConfuseAffected" = list(15, 20, 20 ,25, 30,30))
     ManaCost=5
     EndYourself=1
     AffectTarget=1

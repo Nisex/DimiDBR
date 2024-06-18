@@ -20,7 +20,7 @@
 	if(defender.UsingMasteredMartialStyle())
 		blockChance += 5
 		critBlock += 0.1
-	if(prob(critChance)&&StandardBiology())
+	if(prob(critChance)) 
 		damage *= 1+critDMG
 	if(prob(blockChance))
 		damage /= 1+critBlock

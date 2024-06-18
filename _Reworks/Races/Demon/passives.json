@@ -32,7 +32,7 @@
         "ManaSteal": [5, 25]
     },
     "STAFF_PASSIVES_III": {
-        "ManaStats": [0.1, 1],
+        "ManaStats": [0.25, 1],
         "ManaGeneration": [1, 5],
         "SpiritFlow": [0.5, 2]
     },

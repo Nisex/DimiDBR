@@ -223,3 +223,10 @@ update
 				p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self)
 			
 			..()
+	version16
+		version = 16
+		updateMob(mob/p)
+			if(p.isRace(MAJIN))
+				p.NewAnger(1.5)
+			
+			..()

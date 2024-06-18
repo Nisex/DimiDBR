@@ -271,14 +271,14 @@ mob
 						if(!defender.MeltyMessage)
 							defender.MeltyMessage=1
 							OMsg(defender, "<font color='red'>[defender]'s blood burns through all it comes in contact with!</font>")
-						src.AddBurn(val, defender)
+						src.AddBurn(val * (1 + defender.passive_handler.Get("MeltyBlood")), defender)
 			if(defender.passive_handler.Get("VenomBlood"))
 				if(defender.Health<50*(1-src.HealthCut))
 					if(FightingSeriously(src,0))
 						if(!defender.VenomMessage)
 							defender.VenomMessage+=1
 							OMsg(defender, "<font color='red'>[defender]'s toxic blood sprays out!</font>")
-						src.AddPoison(val*0.5, defender)
+						src.AddPoison(val* (1 + defender.passive_handler.Get("VenomBlood")), defender)
 
 
 			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.passive_handler.Get("Defiance")&&!defender.CheckSlotless("Great Ape"))
@@ -451,13 +451,14 @@ mob
 				var/Effectiveness=1
 				if(NoBlood>0)
 					Effectiveness-=(Effectiveness*NoBlood)
-				if(defender.MeltyBlood)
+				if(defender.passive_handler.Get("MeltyBlood") && NoBlood<1)
 					CursedBlood=1
+					Effectiveness += defender.passive_handler.Get("MeltyBlood")
 					src.AddBurn(val*Effectiveness)
-				if(defender.VenomBlood)
+				if(defender.passive_handler.Get("VenomBlood"))
 					CursedBlood=1
+					Effectiveness+= defender.passive_handler.Get("VenomBlood")
 					src.AddPoison(val*Effectiveness,defender)
-					src.AddBurn(val,defender)
 				if(!CursedBlood)
 					src.HealHealth(val*src.GetLifeSteal()*Effectiveness/100)
 					if(src.Health>=(100-100*src.HealthCut-src.TotalInjury))
