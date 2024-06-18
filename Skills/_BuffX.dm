@@ -1217,7 +1217,7 @@ NEW VARIABLES
 				set category="Skills"
 				if(!usr.BuffOn(src))
 					Legendary_Weapon()
-					return
+
 							// switch(WeaponSoulType)
 							// 	if("Caledfwlch")
 							// 		if(locate(/obj/Skills/Queue/Holy_Blade, usr))

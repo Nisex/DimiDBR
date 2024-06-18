@@ -1,37 +1,37 @@
-obj/Items/Yasakani_no_Magatama
-	var/tmp/currentMagatama = 0
-	var/tmp/list/magatamaBeads = list()
-	var/tmp/manaStolen = 0
-	proc/stealMana(value)
-		manaStolen += value
-		var/magatamaBeadAmount = 25
-		if(ismob(loc))
-			var/mob/m = loc
-			magatamaBeadAmount = getMagatamaMana(m)
-		while(manaStolen >= magatamaBeadAmount)
-			gainMagatama()
-			manaStolen -= magatamaBeadAmount
 
-	proc/getMagatamaMana(mob/m)
-		var/mana = 25
-		if(m.SpecialBuff&&m.SpecialBuff.name == "Heavenly Regalia: The Three Treasures")
-			mana = 15
-		return mana
-	proc/gainMagatama()
-		var/obj/Magatama/magatama = new()
-		magatama.StartOrbit()
-		magatamaBeads += magatama
-		vis_contents += magatama
+mob/var/tmp/currentMagatama = 0
+mob/var/tmp/list/magatamaBeads = list()
+mob/var/tmp/manaStolen = 0
+mob/proc/stealManaMagatama(value)
+	manaStolen += value
+	var/magatamaBeadAmount = 25
+	if(ismob(loc))
+		var/mob/m = loc
+		magatamaBeadAmount = getMagatamaMana(m)
+	while(manaStolen >= magatamaBeadAmount)
+		gainMagatama()
+		manaStolen -= magatamaBeadAmount
 
-	proc/loseMagatama()
-		if(magatamaBeads.len>0)
-			for(var/obj/Magatama/magatama in magatamaBeads)
-				magatamaBeads -= magatama
-				vis_contents -= magatama
-				del magatama
-				return
+mob/proc/getMagatamaMana(mob/m)
+	var/mana = 25
+	if(m.SpecialBuff&&m.SpecialBuff.name == "Heavenly Regalia: The Three Treasures")
+		mana = 15
+	return mana
 
-	passives = list("YasakaniNoMagatama" = 1)
+mob/proc/gainMagatama()
+	var/obj/Magatama/magatama = new()
+	magatama.StartOrbit()
+	magatamaBeads += magatama
+	vis_contents += magatama
+
+mob/proc/loseMagatama()
+	if(magatamaBeads.len>0)
+		for(var/obj/Magatama/magatama in magatamaBeads)
+			magatamaBeads -= magatama
+			vis_contents -= magatama
+			del magatama
+			return
+
 
 obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraint
 	applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraints
@@ -51,10 +51,9 @@ obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraint
 		if(!usr.BuffOn(src))
 			adjust(usr)
 		var/magatamaFound = FALSE
-		for(var/obj/Items/Yasakani_no_Magatama/magatama in usr.contents)
-			if(magatama.magatamaBeads.len>0)
-				magatamaFound = TRUE
-				magatama.loseMagatama()
+		if(usr.magatamaBeads.len>0)
+			magatamaFound = TRUE
+			usr.loseMagatama()
 		if(magatamaFound)
 			Trigger(usr)
 
