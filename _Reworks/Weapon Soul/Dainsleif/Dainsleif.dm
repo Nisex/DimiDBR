@@ -4,8 +4,6 @@ obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin//Dainsleif
 	name="Blade of Ruin"
 	icon='Dainsleif.dmi'
 	passives = list("Shearing" = 1, "CursedWounds" = 1, "MortalStrike" = 0.5)
-	Shearing=1
-	CursedWounds = 1
 	var/hasKilled = FALSE
 	proc/drawDainsleif(mob/p)
 		hasKilled = FALSE

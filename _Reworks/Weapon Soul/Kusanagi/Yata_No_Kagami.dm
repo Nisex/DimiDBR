@@ -20,6 +20,8 @@ obj/Skills/Buffs/SlotlessBuffs/Yata_no_Kagami/Mirror_Protection
 					storedMana += 1
 					storedMana = clamp(0, storedMana, 15*User.SagaLevel)
 					User.LoseMana(1,1)
+					if(storedMana == 15*User.SagaLevel)
+						Trigger(User)
 				sleep(2)
 		else
 			if(!User.BuffOn(src))

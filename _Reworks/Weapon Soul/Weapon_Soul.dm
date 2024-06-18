@@ -77,9 +77,6 @@ mob/tierUpSaga(Path)
 						AddSkill(new/obj/Skills/AutoHit/Masterful_Death)
 
 					if("Masamune")
-						passive_handler.Increase("RefreshingBlows")
-
-					if("Masamune")
 						for(var/obj/Items/Sword/Light/Legendary/WeaponSoul/Sword_of_Purity/masamune in contents)
 							masamune.Element = "Light"
 						src.AddSkill(new/obj/Skills/AutoHit/Purifying_Frost)
@@ -178,8 +175,7 @@ mob/tierUpSaga(Path)
 						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Durendal/dura in src.Buffs)
 							dura.passives["Juggernaut"] = 1
 							dura.passives["Adrenaline"] = 1
-							dura.passives["HolyMod"] = 4
-							dura.passives["ShockwaveBlows"] = 1
+							dura.passives["HolyMod"] = 2
 							dura.passives["SwordAscension"] = 1
 
 					if("Dainsleif")

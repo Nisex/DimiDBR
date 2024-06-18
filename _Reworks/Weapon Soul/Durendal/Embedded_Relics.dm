@@ -7,16 +7,16 @@ obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Tooth
 	HealthThreshold = 1
 	TimerLimit = 30
 	Cooldown = 90
-	passives = list("PureDamage" = 4, "PureReduction" = 4, "HolyMod" = 3)
+	passives = list("PureDamage" = 4, "HolyMod" = 3)
 	ActiveMessage = "'s legendary weapon edges itself with the Teeth of a Saint!"
 	OffMessage = "'s legendary weapon no longer edges itself with teeth..."
 	adjust(mob/p)
 		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: The Saint")
-			HealthDrain = 0.5
+			HealthDrain = 0.025
 			Cooldown = 1
 			TimerLimit = null
 		else
-			HealthDrain = 1
+			HealthDrain = 0.05
 			TimerLimit = 30
 			Cooldown = 90
 	verb/Saints_Tooth()
@@ -37,11 +37,11 @@ obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Blood
 	OffMessage = "'s legendary weapon no longer drips with holy blood..."
 	adjust(mob/p)
 		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: The Saint")
-			EnergyDrain = 0.5
+			EnergyDrain = 0.025
 			Cooldown = 1
 			TimerLimit = null
 		else
-			EnergyDrain = 1
+			EnergyDrain = 0.05
 			TimerLimit = 30
 			Cooldown = 90
 	verb/Saints_Blood()
@@ -62,11 +62,11 @@ obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Hair
 	OffMessage = "'s legendary weapon no longer steels itself with holy fibers..."
 	adjust(mob/p)
 		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: The Saint")
-			ManaDrain = 0.5
+			ManaDrain = 0.025
 			Cooldown = 1
 			TimerLimit = null
 		else
-			ManaDrain = 1
+			ManaDrain = 0.05
 			TimerLimit = 30
 			Cooldown = 90
 	verb/Saints_Hair()

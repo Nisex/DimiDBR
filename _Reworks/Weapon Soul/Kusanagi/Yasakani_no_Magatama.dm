@@ -37,10 +37,9 @@ obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraint
 	applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraints
 	ActiveMessage = "tosses a chain of beads forth!"
 	EndYourself = 1
-	ManaCost=15
-	Cooldown=120
+	Cooldown=0
 	AffectTarget = 1
-	Range = 12
+	Range = 20
 	adjust(mob/p)
 		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: The Three Treasures")
 			applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Heavenly_Bead_Constraints
@@ -51,7 +50,13 @@ obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraint
 		set category = "Skills"
 		if(!usr.BuffOn(src))
 			adjust(usr)
-		Trigger(usr)
+		var/magatamaFound = FALSE
+		for(var/obj/Items/Yasakani_no_Magatama/magatama in usr.contents)
+			if(magatama.magatamaBeads.len>0)
+				magatamaFound = TRUE
+				magatama.loseMagatama()
+		if(magatamaFound)
+			Trigger(usr)
 
 obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraints
 	EnergyDrain = 0.1

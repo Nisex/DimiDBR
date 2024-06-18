@@ -3,7 +3,7 @@ obj/Skills/AutoHit/Gaze_of_Despair
 	Distance=8
 	Gravity=5
 	DamageMult=3.5
-	DelayTime=2
+	DelayTime=5
 	StrOffense=1
 	Rounds = 5
 	ActiveMessage="gazes into the Infernal Eye. . . and reflects it's gaze back around them."
@@ -14,7 +14,7 @@ obj/Skills/AutoHit/Gaze_of_Despair
 	PreShockwave=1
 	PreShockwaveDelay=1
 	PostShockwave=0
-	Shockwaves=5
+	Shockwaves=2
 	Shockwave=0.5
 	ShockIcon='KenShockwaveBloodlust.dmi'
 	ShockBlend=2
