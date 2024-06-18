@@ -7685,7 +7685,6 @@ NEW VARIABLES
 
 ///racial slotless
 		The_Crown
-			SignatureTechnique=3
 			TextColor="#adf0ff"
 			TopOverlayLock='Elf_Crown.dmi'
 			ActiveMessage=null

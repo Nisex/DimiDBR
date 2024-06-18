@@ -890,7 +890,7 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 		if(Offender.SureHit)
 			Offender.SureHit=0
 			return HIT
-		if(Defender.Stunned || Defender.Launched || Defender.PoweringUp || Offender.Grab==Defender)
+		if(Defender.Stunned || Defender.Launched || Defender.PoweringUp)
 			return HIT
 
 		if(getBackSide(Offender, Defender))
@@ -908,12 +908,12 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 				else
 					Defender.tailResistanceTraining(5)
 
-			AccMult*=1.25
+			AccMult*=1.2
 
 		if(Offender.UsingCriticalImpact())
-			AccMult*=1.25
+			AccMult*=1.15
 		if(Defender.HasRefractivePlating()||Defender.HasPlatedWeights())
-			AccMult*=1.25
+			AccMult*=1.15
 
 
 		if(Offender.AttackQueue)
@@ -934,62 +934,73 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 
 		if(Offender.HasClarity()||Offender.HasFluidForm()||Offender.HasIntuition())
 			if(AccMult<1)
-				AccMult+=0.3*AccMult
+				AccMult+=0.2*AccMult
 				if(AccMult>1)
 					AccMult=1
 		if(Defender.HasClarity()||Defender.HasFluidForm()||Defender.HasIntuition())
 			if(AccMult>1)
-				AccMult-=0.3*AccMult
+				AccMult-=0.2*AccMult
 				if(AccMult<1)
 					AccMult=1
 
 		if(Offender.passive_handler.Get("Desperation"))
 			var/healthRemaining = 100 - Offender.Health
 			if(healthRemaining <= 10)
-				var/baseBoon = 0.015 * Offender.passive_handler.Get("Desperation") // max Desperation soembody can have is 6
+				var/baseBoon = 0.01 * Offender.passive_handler.Get("Desperation") // max Desperation soembody can have is 6
 				AccMult *= 1 + (baseBoon * (11 - healthRemaining))
 		// ! DESPERATION GIVES A BONUS TO HIT CHANCE ! //
-
-
-		var/Offense = Offender.GetOff(glob.ACC_OFF) + Offender.GetSpd(glob.ACC_OFF_SPD) // BASIS
-		var/Defense = Defender.GetDef(glob.ACC_DEF) + Defender.GetSpd(glob.ACC_DEF_SPD) // BASIS
-
-		var/powerDif = Offender.Power / Defender.Power
-		if(glob.CLAMP_POWER)
-			if(!Offender.ignoresPowerClamp())
-				powerDif = clamp(Offender.Power / Defender.Power, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
-
-		if(glob.EXPERIMENTAL_ACCMULT)
-			AccMult = AccMult**glob.EXPERIMENTAL_ACCMULT_EXPONENT
-			if(!AccMult**glob.EXPERIMENTAL_ACCMULT_EXPONENT > 0)
-				Offender <<"<font color=red>PLEASE REPORT THIS SKILL TO AWWLIE, NIEZAN or JORDAN plz <3</font>"
-				Defender <<"<font color=red>PLEASE REPORT THIS SKILL TO AWWLIE, NIEZAN or JORDAN plz <3</font>"
-				AdminMessage("[Offender] or [Defender] had a negative Accmult on a attack...")
-		AccMult = clamp(glob.ACC_ACCMULT_MIN, AccMult, glob.ACC_ACCMULT_MAX)
-
-
-		var/mod = clamp((Offense/Defense)*AccMult, glob.ACC_MIN, glob.ACC_MAX) * powerDif
 
 		var/GodKiDif = 1
 		if(Offender.GetGodKi())
 			GodKiDif = 1 + Offender.GetGodKi()
 		if(Defender.GetGodKi())
 			GodKiDif /= (1 + Defender.GetGodKi())
-		mod *= GodKiDif
+		AccMult *= GodKiDif
 
-		var/roll = rand((100-BaseChance)*mod, 100)
-		if(glob.MOD_AFTER_ACC)
-			roll = rand((100-BaseChance), 100)
-			roll*= mod
 
-		if((roll >= BaseChance))
-			return HIT
+		var/OffenseModifier
+		var/DefenseModifier
+		var/OffenseAdvantage = Offender.Power / Defender.Power
+		var/DefenseAdvantage = Defender.Power / Offender.Power
+		if(glob.CLAMP_POWER)
+			if(!Offender.ignoresPowerClamp())
+				OffenseAdvantage = clamp(OffenseAdvantage,glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
+			if(!Defender.ignoresPowerClamp())
+				DefenseAdvantage = clamp(DefenseAdvantage,glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
+		if(1 + ((OffenseAdvantage - DefenseAdvantage)/2) < 1)
+			OffenseModifier = 1
 		else
-			roll = rand((100-BaseChance)*mod, 100)
-			if(roll < BaseChance)
+			OffenseModifier = 1 + ((OffenseAdvantage - DefenseAdvantage)/2)
+
+		if(1 + ((DefenseAdvantage - OffenseAdvantage)/2) < 1)
+			DefenseModifier = 1
+		else
+			DefenseModifier = 1 + ((DefenseAdvantage - OffenseAdvantage)/2)
+
+		var/Offense= OffenseModifier * (Offender.GetOff(glob.ACC_OFF)+Offender.GetSpd(glob.ACC_OFF_SPD))
+		var/Defense= DefenseModifier * (Defender.GetDef(glob.ACC_DEF)+Defender.GetSpd(glob.ACC_DEF_SPD)) * 1.1
+		var/TotalAccuracy = BaseChance * ((Offense*AccMult) / Defense) * 100
+/*
+		world << "--------------------"
+		world << "Offense: [Offense]"
+		world << "Defense: [Defense]"
+		world << "Chance: [Chance]"
+		world << "Accuracy: [TotalAccuracy]"
+		world << "Accuracy Modifier: [accuracy_modifier]"
+		world << "Defense Mod: [DefenseModifier]"
+		world << "Offense Mod: [OffenseModifier]"
+		world << "--------------------"
+*/
+
+		TotalAccuracy = clamp(glob.LOWEST_ACC, TotalAccuracy, 100)
+
+		if(!prob(TotalAccuracy))
+			if(!prob(TotalAccuracy))
 				return MISS
 			else
 				return WHIFF
+		else
+			return HIT
 	else
 		return MISS
 
@@ -1008,17 +1019,17 @@ proc/Deflection_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/Base
 		if(Offender.SureHit)
 			Offender.SureHit=0
 			return HIT
-		if(Defender.Stunned || Defender.Launched || Defender.PoweringUp || Offender.Grab==Defender)
+		if(Defender.Stunned || Defender.Launched || Defender.PoweringUp)
 			return HIT
 
 		if(Backfire&&Offender==Defender)
-			AccMult*=0.5
+			AccMult*=0.8
 		if(getBackSide(Offender, Defender))
-			AccMult*=1.25
+			AccMult*=1.2
 		if(Defender.Beaming || Defender.BusterTech)
-			AccMult*=1.25
+			AccMult*=1.15
 		if(Defender.HasRefractivePlating()||Defender.HasPlatedWeights())
-			AccMult/=1.25
+			AccMult/=1.15
 		if(Offender.SenseRobbed>=4&&(Offender.SenseUnlocked<=Offender.SenseRobbed&&Offender.SenseUnlocked>5))
 			AccMult*=(1-(Offender.SenseRobbed*0.1))
 		if(Defender.SenseRobbed>=4&&(Defender.SenseUnlocked<=Defender.SenseRobbed&&Defender.SenseUnlocked>5))
@@ -1029,7 +1040,7 @@ proc/Deflection_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/Base
 		// 		AccMult/=1+(0.05*CombatSlow)
 		if(Offender.HasClarity()||Offender.HasFluidForm()||Offender.HasIntuition())
 			if(AccMult<1)
-				AccMult+=0.3*AccMult
+				AccMult+=0.2*AccMult
 				if(AccMult>1)
 					AccMult=1
 		if(Defender.HasClarity()||Defender.HasFluidForm()||Defender.HasIntuition())
@@ -1041,44 +1052,49 @@ proc/Deflection_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/Base
 		if(Offender.passive_handler.Get("Desperation"))
 			var/healthRemaining = 100 - Offender.Health
 			if(healthRemaining <= 10)
-				var/baseBoon = 0.015 * Offender.passive_handler.Get("Desperation") // max Desperation soembody can have is 6
+				var/baseBoon = 0.01 * Offender.passive_handler.Get("Desperation") // max Desperation soembody can have is 6
 				AccMult *= 1 + (baseBoon * (11 - healthRemaining))
 
-		var/Offense = Offender.GetOff(glob.ACC_OFF) + Offender.GetSpd(glob.ACC_OFF_SPD) // BASIS
-		var/Defense = Defender.GetDef(glob.ACC_DEF) + Defender.GetSpd(glob.ACC_DEF_SPD) // BASIS
-
-		var/powerDif = Offender.Power / Defender.Power
-		if(glob.CLAMP_POWER)
-			if(!Offender.ignoresPowerClamp())
-				powerDif = clamp(Offender.Power / Defender.Power, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
-
-		if(glob.EXPERIMENTAL_ACCMULT)
-			AccMult = AccMult**glob.EXPERIMENTAL_ACCMULT_EXPONENT
-		AccMult = clamp(glob.ACC_ACCMULT_MIN, AccMult, glob.ACC_ACCMULT_MAX)
-
-		var/mod = clamp((Offense/Defense)*AccMult, glob.ACC_MIN, glob.ACC_MAX) * powerDif
 
 		var/GodKiDif = 1
 		if(Offender.GetGodKi())
 			GodKiDif = 1 + Offender.GetGodKi()
 		if(Defender.GetGodKi())
 			GodKiDif /= (1 + Defender.GetGodKi())
-		mod*= GodKiDif
+		AccMult *= GodKiDif
 
-
-		var/roll = rand((100-BaseChance)*mod, 100)
-		if(glob.MOD_AFTER_ACC)
-			roll = rand((100-BaseChance), 100)
-			roll*= mod
-
-		if((roll >= BaseChance))
-			return HIT
+		var/OffenseModifier
+		var/DefenseModifier
+		var/OffenseAdvantage = Offender.Power / Defender.Power
+		var/DefenseAdvantage = Defender.Power / Offender.Power
+		if(glob.CLAMP_POWER)
+			if(!Offender.ignoresPowerClamp())
+				OffenseAdvantage = clamp(OffenseAdvantage,glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
+			if(!Defender.ignoresPowerClamp())
+				DefenseAdvantage = clamp(DefenseAdvantage,glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
+		if(1 + ((OffenseAdvantage - DefenseAdvantage)/2) < 1)
+			OffenseModifier = 1
 		else
-			roll = rand((100-BaseChance)*mod, 100)
-			if(roll < BaseChance)
+			OffenseModifier = 1 + ((OffenseAdvantage - DefenseAdvantage)/2)
+
+		if(1 + ((DefenseAdvantage - OffenseAdvantage)/2) < 1)
+			DefenseModifier = 1
+		else
+			DefenseModifier = 1 + ((DefenseAdvantage - OffenseAdvantage)/2)
+
+		var/Offense= OffenseModifier * (Offender.GetOff(glob.ACC_OFF)+Offender.GetSpd(glob.ACC_OFF_SPD))
+		var/Defense= DefenseModifier * (Defender.GetDef(glob.ACC_DEF)+Defender.GetSpd(glob.ACC_DEF_SPD)) * 1.1
+		var/TotalAccuracy = BaseChance * ((Offense*AccMult) / Defense) * 100
+
+		TotalAccuracy = clamp(glob.LOWEST_ACC, TotalAccuracy, 100)
+
+		if(!prob(TotalAccuracy))
+			if(!prob(TotalAccuracy))
 				return MISS
 			else
 				return WHIFF
+		else
+			return HIT
 	else
 		return MISS
 

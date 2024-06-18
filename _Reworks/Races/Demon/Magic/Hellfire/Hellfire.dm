@@ -13,7 +13,7 @@
     TrailX=0
     MultiHit = 5
     TrailY=0
-    AccMult = 3
+    AccMult = 1.125
     Speed = 0.75
     Cooldown = 90
     ActiveMessage = "unleashes a wave of Fire!"

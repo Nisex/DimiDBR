@@ -9,7 +9,7 @@
     TrailSize=1
     TrailX=-8
     TrailY=-8
-    AccMult = 3
+    AccMult = 1.15
     Speed = 1.25
     ManaCost = 5
     Deviation = 240
@@ -20,7 +20,7 @@
             scalingValues = /obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball::scalingValues
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
-        
+
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
         if(p.getTotalMagicLevel() >= 10 || p.isRace(DEMON))

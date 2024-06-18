@@ -855,7 +855,7 @@ obj
 				ActiveMessage="overflows with the power of darkness!"
 				HitMessage="vanishes towards their opponent, smothering them with a malicious claw!"
 				DamageMult=3
-				AccuracyMult=3
+				AccuracyMult = 1.15
 				Duration=5
 				Warp=3
 				Grapple=1
@@ -880,7 +880,7 @@ obj
 				//set manually so no verb
 			Zoom_Punch
 				DamageMult=2.5
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Warp=3
 				KBAdd=5
 				Duration=5
@@ -908,7 +908,7 @@ obj
 ////Vampirism
 			Vampire_Lunge
 				DamageMult=2
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Warp=5
 				KBAdd=0
 				KBMult=0.00001
@@ -929,7 +929,7 @@ obj
 				//set manually so no verb
 			Vampire_Rage
 				DamageMult=2
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Warp=5
 				KBAdd=1
 				KBMult=0.00001
@@ -950,7 +950,7 @@ obj
 
 			Eldritch_Ruinate
 				DamageMult=0.5
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Warp=5
 				KBAdd=1
 				KBMult=0.00001
@@ -1035,7 +1035,7 @@ obj
 						if(usr.Secret == "Eldritch" && usr.CheckSlotless("True Form"))
 							src.name="Maleific Strike"
 							src.DamageMult=3
-							src.AccuracyMult=2
+							src.AccuracyMult = 1.1
 							src.KBAdd=2
 							src.KBMult=1.5
 							src.Ooze = 1
@@ -1065,7 +1065,7 @@ obj
 						if(usr.Secret=="Senjutsu"&&usr.CheckSlotless("Senjutsu Focus"))
 							src.name="Sage Energy Strike"
 							src.DamageMult=2
-							src.AccuracyMult=2
+							src.AccuracyMult = 1.1
 							src.KBAdd=5
 							src.KBMult=3
 							src.Cooldown=30
@@ -1103,7 +1103,7 @@ obj
 							if(usr.HakiSpecialization=="Armament")
 								src.name="Buso: Koka"
 								src.DamageMult = 1 + usr.secretDatum.currentTier
-								src.AccuracyMult=3
+								src.AccuracyMult = 1.15
 								src.KBAdd=10
 								src.KBMult=3
 								src.Cooldown=20
@@ -1133,7 +1133,7 @@ obj
 							else
 								src.name="Armament Strike"
 								src.DamageMult=2
-								src.AccuracyMult=3
+								src.AccuracyMult = 1.15
 								src.KBAdd=5
 								src.KBMult=3
 								src.Cooldown=20
@@ -1164,7 +1164,7 @@ obj
 							if(usr.SwordWounds()||usr.Harden)//no barrage for swords
 								src.name="Ripple Overdrive"
 								src.DamageMult=2
-								src.AccuracyMult=3
+								src.AccuracyMult = 1.15
 								src.KBAdd=5
 								src.KBMult=3
 								src.Cooldown=30
@@ -1194,7 +1194,7 @@ obj
 							if(prob(20))//always check for the barrage
 								src.name="Ripple Overdrive"
 								src.DamageMult=1
-								src.AccuracyMult=3
+								src.AccuracyMult = 1.15
 								src.KBAdd=1
 								src.KBMult=1
 								src.Cooldown=30
@@ -1224,7 +1224,7 @@ obj
 							if(usr.ElementalOffense=="Water"||usr.Swim)
 								src.name="Ripple Overdrive"
 								src.DamageMult=2
-								src.AccuracyMult=3
+								src.AccuracyMult = 1.15
 								src.KBAdd=5
 								src.KBMult=3
 								src.Cooldown=20
@@ -1253,7 +1253,7 @@ obj
 							if(usr.ElementalOffense=="Fire"||usr.Burn)
 								src.name="Ripple Overdrive"
 								src.DamageMult=3
-								src.AccuracyMult=2
+								src.AccuracyMult = 1.1
 								src.KBAdd=5
 								src.KBMult=3
 								src.Cooldown=20
@@ -1283,7 +1283,7 @@ obj
 							if(usr.ElementalOffense=="Wind"||usr.Flying)
 								src.name="Ripple Overdrive"
 								src.DamageMult=2
-								src.AccuracyMult=3
+								src.AccuracyMult = 1.15
 								src.KBAdd=5
 								src.KBMult=3
 								src.Cooldown=20
@@ -1312,7 +1312,7 @@ obj
 							if(usr.ElementalOffense=="Earth")
 								src.name="Ripple Overdrive"
 								src.DamageMult=3
-								src.AccuracyMult=2
+								src.AccuracyMult = 1.1
 								src.KBAdd=10
 								src.KBMult=5
 								src.Cooldown=20
@@ -1342,7 +1342,7 @@ obj
 							//But if all those fail, use this
 							src.name="Ripple Overdrive"
 							src.DamageMult=1
-							src.AccuracyMult=3
+							src.AccuracyMult = 1.15
 							src.KBAdd=5
 							src.KBMult=3
 							src.Cooldown=20
@@ -1372,7 +1372,7 @@ obj
 							if(!usr.PoseEnhancement)
 								src.name="Vampiric Strike"
 								src.DamageMult=2
-								src.AccuracyMult=2
+								src.AccuracyMult = 1.1
 								src.KBAdd=0
 								src.KBMult=0.0001
 								src.Cooldown=20
@@ -1401,7 +1401,7 @@ obj
 							else
 								src.name="Vampiric Strike"
 								src.DamageMult=3
-								src.AccuracyMult=3
+								src.AccuracyMult = 1.15
 								src.KBAdd=5
 								src.KBMult=0.0001
 								src.Cooldown=20
@@ -1429,7 +1429,7 @@ obj
 						if(usr.Secret=="Werewolf")
 							src.name="Rip and Tear"
 							src.DamageMult=2
-							src.AccuracyMult=2
+							src.AccuracyMult = 1.1
 							src.KBAdd=0
 							src.KBMult=5
 							src.Cooldown=20
@@ -1458,7 +1458,7 @@ obj
 						if(usr.Secret=="Zombie")
 							src.name="Death Grasp"
 							src.DamageMult=2.5
-							src.AccuracyMult=3
+							src.AccuracyMult = 1.15
 							src.KBAdd=0
 							src.KBMult=1
 							src.Cooldown=20
@@ -1491,7 +1491,7 @@ obj
 			Meteor_Mash
 				name="Meteor Mash"
 				DamageMult=1
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				Scorching=1
 				Shattering=1
@@ -1509,7 +1509,7 @@ obj
 			Steam_Driver
 				name="Steam Driver"
 				DamageMult=1
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				Scorching=1
 				Freezing=1
@@ -1526,7 +1526,7 @@ obj
 			Crystal_Crumbling
 				name="Crystal Crumbling"
 				DamageMult=1
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				Shattering=1
 				Freezing=1
@@ -1543,7 +1543,7 @@ obj
 			Cyclone_Kicks
 				name="Cyclone Kicks"
 				DamageMult=1
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				Freezing=1
 				Paralyzing=1
@@ -1563,7 +1563,7 @@ obj
 			Blaze_Burst
 				name="Blaze Burst"
 				DamageMult=2
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				Scorching=3
 				KBAdd=5
@@ -1579,7 +1579,7 @@ obj
 			Winter_Shock
 				name="Winter Shock"
 				DamageMult=2
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				Freezing=3
 				KBMult=2
@@ -1595,7 +1595,7 @@ obj
 			Terra_Crack
 				name="Terra Crack"
 				DamageMult=2
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				Shattering=3
 				KBAdd=10
@@ -1611,7 +1611,7 @@ obj
 			Aero_Slash
 				name="Aero Slash"
 				DamageMult=2
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				Paralyzing=3
 				KBMult=1.5
@@ -1631,7 +1631,7 @@ obj
 			Sharpnel_Scatter
 				name="Shrapnel Scatter"
 				DamageMult=1
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				Shattering=1
 				Paralyzing=1
@@ -1651,7 +1651,7 @@ obj
 			Desert_Wind
 				name="Desert Wind"
 				DamageMult=1
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				Scorching=1
 				Paralyzing=1
@@ -1677,7 +1677,7 @@ obj
 				Copyable=1
 				HitMessage="delivers a vicious uppercut!!"
 				DamageMult=2
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				KBMult=0.00001
 				Cooldown=30
@@ -1694,7 +1694,7 @@ obj
 				Copyable=2
 				HitMessage="delivers a destructive one handed strike!!"
 				DamageMult=2.8
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Dominator=1
 				Duration=5
 				KBAdd=10
@@ -1712,7 +1712,7 @@ obj
 				Copyable=2
 				HitMessage="delivers a vicious uppercut!!"
 				DamageMult=2.5
-				AccuracyMult=2.5
+				AccuracyMult = 1.15
 				Stunner=2
 				Launcher=4
 				Duration=5
@@ -1731,7 +1731,7 @@ obj
 				ActiveMessage="punches with precisely articulated strikes to create whirlwind-like pull!"
 				name="Dempsey Roll"
 				DamageMult=1
-				AccuracyMult=3
+				AccuracyMult = 1.15
 				KBMult=0.00001
 				KBAdd=1
 				Duration=8
@@ -1756,7 +1756,7 @@ obj
 				ActiveMessage="strikes with cyclone power!"
 				name="Corkscrew Blow"
 				DamageMult=1
-				AccuracyMult=3
+				AccuracyMult = 1.15
 				KBAdd=2
 				Duration=10
 				Cooldown=30
@@ -1776,7 +1776,7 @@ obj
 				name="Axe Kick"//Skill name displayed in message.
 				HitMessage="brings their heel down in a mighty axe kick!!"
 				DamageMult=2
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				SpeedStrike=2
 				Cooldown=30
@@ -1792,7 +1792,7 @@ obj
 				name="Kinshasa"//Skill name displayed in message.
 				HitMessage="builds up speed and knees their target in the face!!"
 				DamageMult=2.8
-				AccuracyMult=3
+				AccuracyMult = 1.15
 				Duration=5
 				SpeedStrike=4
 				Cooldown=30
@@ -1809,7 +1809,7 @@ obj
 				name="Piston Kick"//Skill name displayed in message.
 				HitMessage="launches a shattering front kick with their heel!"
 				DamageMult=2.2
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				SpeedStrike=2
 				Opener=1
 				Duration=5
@@ -1824,7 +1824,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				DamageMult=2.8
-				AccuracyMult=3
+				AccuracyMult = 1.15
 				Duration=5
 				Cooldown=30
 				Crippling=4
@@ -1840,7 +1840,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				DamageMult=4
-				AccuracyMult=3
+				AccuracyMult = 1.15
 				Instinct=2
 				Grapple=1
 				KBMult=0.001
@@ -1865,7 +1865,7 @@ obj
 				Copyable=4
 				name="GET DUNKED"
 				DamageMult=6
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Duration=5
 				KBMult=0.00001
 				PushOut=3
@@ -1887,7 +1887,7 @@ obj
 				Copyable=5
 				name="Soukotsu"
 				DamageMult=2.5
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				KBAdd=10
 				PushOut=3
@@ -1912,7 +1912,7 @@ obj
 				Copyable=5
 				name="Curbstomp"
 				DamageMult=8
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				KBMult=0.0001
 				PushOut=5
@@ -1935,7 +1935,7 @@ obj
 				name="Six Grand Openings"
 				HitMessage="delivers a graceful and crippling blow with their elbow!"
 				DamageMult=7.5
-				AccuracyMult=6
+				AccuracyMult = 1.175
 				Duration=5
 				Counter=1
 				NoWhiff=1
@@ -1958,7 +1958,7 @@ obj
 				DamageMult=7
 				InstantStrikes=2
 				InstantStrikesDelay=1.5
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				Stunner=4
 				KBMult=0.0001
@@ -1975,7 +1975,7 @@ obj
 				ActiveMessage="begins concentrating power..."
 				HitMessage="unleashes a devasatating punch!"
 				DamageMult=12
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				KBMult=5
 				Duration=6
 				Instinct=2
@@ -1992,7 +1992,7 @@ obj
 				name="Claw Grip"
 				HitMessage="grabs the opponent's face in a crushing grip!"
 				DamageMult=11
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				KBMult=0.00001
 				Duration=5
 				Instinct=2
@@ -2008,7 +2008,7 @@ obj
 			Nerve_Shot
 				SignatureTechnique=1
 				DamageMult=2
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Duration=5
 				Stunner=2
 				Crippling=412
@@ -2025,7 +2025,7 @@ obj
 			Gale_Strike
 				SignatureTechnique=1
 				DamageMult=1.8//there is 0.5 damage mult 10 multihit on the gale itself
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				KBMult=0.00001
 				Duration=5
 				Projectile="/obj/Skills/Projectile/GaleStrikeProjectile"
@@ -2039,7 +2039,7 @@ obj
 				SignatureTechnique=1
 				UnarmedOnly=1
 				DamageMult=3
-				AccuracyMult=15
+				AccuracyMult = 1.35
 				KBMult=0.00001
 				Stunner=1
 				Instinct=2
@@ -2057,7 +2057,7 @@ obj
 			Volleyball_Fist2
 				UnarmedOnly=1
 				DamageMult=4
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				KBMult=0.00001
 				HitStep=/obj/Skills/Queue/Volleyball_Fist3
 				Duration=5
@@ -2071,7 +2071,7 @@ obj
 				UnarmedOnly=1
 				DamageMult=4
 				Instinct=5
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				KBAdd=5
 				Duration=5
 				PushOut=3
@@ -2086,7 +2086,7 @@ obj
 			Meteor_Combination
 				SignatureTechnique=2
 				DamageMult=6
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Duration=5
 				KBMult=0.00001
 				Cooldown=180
@@ -2105,7 +2105,7 @@ obj
 			Meteor_Combination2
 				HitMessage="follows up with a storm of kicks!"
 				DamageMult=0.5
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Duration=5
 				KBMult=0.00001
 				Instinct=3
@@ -2117,7 +2117,7 @@ obj
 			Meteor_Combination3
 				HitMessage="finishes with a murderous uppercut!"
 				DamageMult=6
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Duration=5
 				KBAdd=10
 				Instinct=4
@@ -2131,7 +2131,7 @@ obj
 				SignatureTechnique=2
 				HitMessage="defiantly slams their head into the opponent!!"
 				DamageMult=15
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Instinct=3
 				Duration=5
 				KBMult=3
@@ -2148,7 +2148,7 @@ obj
 			Void_Tiger_Fist
 				SignatureTechnique=2
 				DamageMult=3.6
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Warp=2
 				Shearing=5
 				Instinct=4
@@ -2170,7 +2170,7 @@ obj
 			Final_Revenger
 				SignatureTechnique=2
 				DamageMult=15
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Determinator=1
 				Duration=5
 				PushOut=5
@@ -2190,7 +2190,7 @@ obj
 			Red_Hot_Hundred
 				SignatureTechnique=2
 				DamageMult=0.75
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Warp=5
 				KBAdd=1
 				KBMult=0.00001
@@ -2215,7 +2215,7 @@ obj
 				SignatureTechnique=2
 				UnarmedOnly=1
 				DamageMult=12
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Instinct=5
 				HitStep=/obj/Skills/Queue/True_Kamehameha2
 				Duration=5
@@ -2246,7 +2246,7 @@ obj
 				SignatureTechnique=2
 				UnarmedOnly=1
 				DamageMult=12
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Instinct=5
 				HitStep=/obj/Skills/Queue/Final_Shine2
 				Duration=5
@@ -2273,7 +2273,7 @@ obj
 			Super_Dragon_Fist
 				UnarmedOnly=1
 				DamageMult=18
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Duration=10
 				KBMult=0.0001
 				Cooldown=180
@@ -2298,7 +2298,7 @@ obj
 				SkillCost=80
 				Copyable=2
 				DamageMult=1.2
-				AccuracyMult=3
+				AccuracyMult = 1.15
 				Duration=5
 				Projectile="/obj/Skills/Projectile/DancingBlast"
 				Cooldown=60
@@ -2315,7 +2315,7 @@ obj
 				SkillCost=80
 				Copyable=3
 				DamageMult=1
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Duration=5
 				Combo=4
 				Rapid=1
@@ -2340,7 +2340,7 @@ obj
 				SkillCost=80
 				Copyable=3
 				DamageMult=0.8
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Stunner=2
 				Duration=5
 				Combo=10
@@ -2384,7 +2384,7 @@ obj
 				Copyable=2
 				ActiveMessage="prepares a flurry of thrusts!"
 				DamageMult=1.5
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=10
 				Cooldown=60
 				NeedsSword=1
@@ -2402,7 +2402,7 @@ obj
 				Copyable=2
 				ActiveMessage="enters a graceful stance!"
 				DamageMult=1.4
-				AccuracyMult=3
+				AccuracyMult = 1.15
 				KBMult=0.00001
 				SpeedStrike=1
 				InstantStrikes=3
@@ -2420,7 +2420,7 @@ obj
 				Copyable=3
 				ActiveMessage="enters a thoughtful stance!"
 				DamageMult=1.1
-				AccuracyMult=3
+				AccuracyMult = 1.15
 				KBMult=0.00001
 				Stunner=3
 				InstantStrikes=5
@@ -2445,7 +2445,7 @@ obj
 				Copyable=3
 				ActiveMessage="enters a low stance!"
 				DamageMult=3
-				AccuracyMult=3
+				AccuracyMult = 1.15
 				KBMult=0.00001
 				SpeedStrike=1
 				SweepStrike=1
@@ -2467,7 +2467,7 @@ obj
 				Copyable=3
 				ActiveMessage="begins to move fluidly, countering incoming blows!"
 				DamageMult=0.9
-				AccuracyMult=3
+				AccuracyMult = 1.15
 				Duration=8
 				Cooldown=60
 				NeedsSword=1
@@ -2484,7 +2484,7 @@ obj
 				Copyable=3
 				ActiveMessage="prepares a murderous chain of counterattacks!"
 				DamageMult=1.1
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				Cooldown=60
 				NeedsSword=1
@@ -2504,7 +2504,7 @@ obj
 				ActiveMessage="grips their weapon strongly!"
 				HitMessage="runs the opponent through with their weapon!"
 				DamageMult=1.5
-				AccuracyMult=2.5
+				AccuracyMult = 1.15
 				Duration=5
 				Warp=2
 				KBMult=0.001
@@ -2533,7 +2533,7 @@ obj
 
 			Symbiote_Hammer
 				DamageMult=6
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=10
 				Cooldown=120
 				Instinct=2
@@ -2551,7 +2551,7 @@ obj
 			Ragna_Blade
 				NoTransplant=1
 				DamageMult=20
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				WeaponBreaker=100
 				Shearing=10
 				Crippling=10
@@ -2582,7 +2582,7 @@ obj
 				SignatureTechnique=1
 				NeedsSword=1
 				DamageMult=7
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				HitStep=/obj/Skills/Queue/Blade_Dance2
 				Duration=5
 				Rapid=1
@@ -2617,7 +2617,7 @@ obj
 				ActiveMessage="fulfils their existence in their blade."
 				HitMessage="slashes at the opponent's body with their enlightened blade!"
 				DamageMult=11
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				SpiritSword=1
 				KBAdd=10
 				Duration=5
@@ -2637,7 +2637,7 @@ obj
 				name="Bad Luck"
 				HybridStrike=1
 				DamageMult=4
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=5
 				Cooldown=30
 				EnergyCost=3
@@ -2650,7 +2650,7 @@ obj
 				name="Soul Tear Storm"
 				ActiveMessage="begins to glow with ethereal darkness!"
 				DamageMult=2.25
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				KBMult=0.00001
 				Combo=5
 				Warp=5
@@ -2673,7 +2673,7 @@ obj
 				name="Heart-Slayer"
 				ActiveMessage="begins to build darkness on the tip of their blade!"
 				DamageMult=2.25
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				KBMult=0.00001
 				Combo=5
 				Warp=5
@@ -2697,7 +2697,7 @@ obj
 				ActiveMessage="'s heart is filled with dreadful darkness, as they position themselves for an unthinkable strike .."
 				HitMessage="<b><font color='red'> slices into their opponents heart, butchering their soul! </font color> </b>"
 				DamageMult=2.25
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				KBMult=0.00001
 				MaimStrike=1
 				HitSparkIcon='Slash - Black.dmi'
@@ -2738,7 +2738,7 @@ obj
 				name="Omnislash"
 				ActiveMessage="begins to glow with limitless bravery!"
 				DamageMult=2
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				KBMult=0.00001
 				KBAdd=2
 				Combo=12
@@ -2761,7 +2761,7 @@ obj
 			Omnislash2
 				ActiveMessage="goes for the finishing blow!"
 				DamageMult=12
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				KBMult=10
 				Warp=5
 				Duration=5
@@ -2787,7 +2787,7 @@ obj
 				UnarmedOnly=1
 				CosmoPowered=1
 				DamageMult=9
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Instinct=4
 				Duration=5
 				Warp=1
@@ -2805,7 +2805,7 @@ obj
 				UnarmedOnly=1
 				CosmoPowered=1
 				DamageMult=11
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Instinct=4
 				KBAdd=10
 				Duration=5
@@ -2823,7 +2823,7 @@ obj
 				Instinct=3
 				Launcher=1
 				Paralyzing=10
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				KBAdd=3
 				InstantStrikes=10
 				InstantStrikesDelay=1.5
@@ -2844,7 +2844,7 @@ obj
 				UnarmedOnly=1
 				CosmoPowered=1
 				DamageMult=4.5
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Instinct=4
 				Duration=5
 				Warp=10
@@ -2865,7 +2865,7 @@ obj
  // UNICORN'S METEOR COMBINATION
 			Unicorn_Combination
 				DamageMult=6
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Duration=5
 				KBMult=0.00001
 				Cooldown=180
@@ -2884,7 +2884,7 @@ obj
 			Unicorn_Combination2
 				HitMessage="follows up with a storm of roundhouse kicks!"
 				DamageMult=0.5
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Duration=5
 				KBMult=0.00001
 				Instinct=3
@@ -2896,7 +2896,7 @@ obj
 			Unicorn_Combination3
 				HitMessage="finishes with a murderous mule kick!"
 				DamageMult=6
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Duration=5
 				KBAdd=10
 				Instinct=4
@@ -2911,7 +2911,7 @@ obj
 				UnarmedOnly=1
 				CosmoPowered=1
 				DamageMult=4.5
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Instinct=4
 				Duration=5
 				PrecisionStrike=10
@@ -2931,7 +2931,7 @@ obj
 				UnarmedOnly=1
 				CosmoPowered=1
 				DamageMult=9
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Instinct=5
 				Duration=3
 				Counter=1
@@ -2953,7 +2953,7 @@ obj
 				DamageMult=0.75
 				InstantStrikes=20
 				InstantStrikesDelay=1
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Instinct=5
 				Duration=5
 				PrecisionStrike=10
@@ -2980,7 +2980,7 @@ obj
 				UnarmedOnly=1
 				CosmoPowered=1
 				DamageMult=15
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Instinct=4
 				Duration=5
 				PrecisionStrike=5
@@ -3002,7 +3002,7 @@ obj
 				UnarmedOnly=1
 				CosmoPowered=1
 				DamageMult=11
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Instinct=4
 				KBAdd=20
 				Duration=5
@@ -3023,7 +3023,7 @@ obj
 				CosmoPowered=1
 				Warp=5
 				DamageMult=13
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Instinct=4
 				Duration=5
 				Dominator=1
@@ -3044,7 +3044,7 @@ obj
 				UnarmedOnly=1
 				CosmoPowered=1
 				DamageMult=11
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Instinct=5
 				Duration=3
 				Counter=1
@@ -3063,7 +3063,7 @@ obj
 				CosmoPowered=1
 				DamageMult=0.85
 				KBAdd=1
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Instinct=4
 				Duration=5
 				PrecisionStrike=10
@@ -3086,7 +3086,7 @@ obj
 				HitMessage="drives the drill into their opponent!"
 				SBuffNeeded="Broken Brave"
 				DamageMult=12
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Instinct=1
 				Duration=5
 				KBMult=0.00001
@@ -3108,7 +3108,7 @@ obj
 ////Ansatsuken
 			Shoryuken
 				StyleNeeded="Ansatsuken"
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Launcher=3
 				Duration=5
 				Shattering = 2
@@ -3161,7 +3161,7 @@ obj
 				StyleNeeded="Ansatsuken"
 				HitMessage="shouts '<b>SHIN...</b>' as they strike their opponent with a rising blow!!!"
 				DamageMult=16
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				KBMult=0.00001
 				Duration=5
 				Cooldown=180
@@ -3183,7 +3183,7 @@ obj
 				StyleNeeded="Ansatsuken"
 				HitMessage="shouts '<b>SHORYUKEN!</b>' as they spike their opponent into the heavens with a divine uppercut!!!"
 				DamageMult=5
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				KBMult=0.00001
 				Duration=5
 				Warp=5
@@ -3193,7 +3193,7 @@ obj
 				StyleNeeded="Ansatsuken"
 				HitMessage="shouts '<b>SHORYUKEN!</b>' as they spike their opponent into the heavens with a divine uppercut!!!"
 				DamageMult=5
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				KBMult=0.00001
 				Duration=5
 				Warp=5
@@ -3206,7 +3206,7 @@ obj
 				Warp=5
 				Instinct=4
 				DamageMult=7.5
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				KBMult=0.00001
 				KBAdd=1
 				ManaCost=50
@@ -3227,7 +3227,7 @@ obj
 				Warp=5
 				Instinct=4
 				DamageMult=3
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				KBMult=0.00001
 				KBAdd=1
 				Rapid=1
@@ -3239,7 +3239,7 @@ obj
 				Warp=5
 				Instinct=4
 				DamageMult=7.5
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				KBMult=0.00001
 
 ////Eight Gates
@@ -3247,7 +3247,7 @@ obj
 				GateNeeded=1
 				UnarmedOnly=1
 				DamageMult=9
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Stunner=3
 				Instinct=4
 				Duration=5
@@ -3264,7 +3264,7 @@ obj
 				GateNeeded=3
 				UnarmedOnly=1
 				DamageMult=7
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				Stunner=3
 				Instinct=4
 				HitStep=/obj/Skills/Queue/Reverse_Lotus2
@@ -3294,7 +3294,7 @@ obj
 				UnarmedOnly=1
 				DamageMult=3
 				Instinct=4
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Duration=5
 				PushOut=5
 				Quaking=5
@@ -3306,7 +3306,7 @@ obj
 				ActiveMessage="radiates burning vigor!"
 				HitMessage="expresses their youth with a firestorm of strikes!!!!"
 				DamageMult=0.6
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				KBMult=0.00001
 				Launcher=3
 				Duration=5
@@ -3333,7 +3333,7 @@ obj
 				name="Ryushosen"
 				StyleNeeded="Hiten Mitsurugi"
 				DamageMult=3.8
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				SpeedStrike=2
 				KBMult=0.0001
 				Launcher=3
@@ -3349,7 +3349,7 @@ obj
 				name="Ryutsuisen"
 				StyleNeeded="Hiten Mitsurugi"
 				DamageMult=3.4
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				SpeedStrike=2
 				Dunker=2
 				Rapid=1
@@ -3364,7 +3364,7 @@ obj
 				name="Souryusen"
 				StyleNeeded="Hiten Mitsurugi"
 				DamageMult=7
-				AccuracyMult=7
+				AccuracyMult = 1.2
 				KBMult=0.0001
 				SpeedStrike=2
 				Duration=5
@@ -3381,7 +3381,7 @@ obj
 			Sheath_Strike
 				HitMessage="whips their sheath to follow up with their blade!"
 				DamageMult=6
-				AccuracyMult=7
+				AccuracyMult = 1.2
 				KBMult=2
 				SpeedStrike=2
 				Warp=3
@@ -3399,7 +3399,7 @@ obj
 				name="Kuzuryusen"
 				StyleNeeded="Hiten Mitsurugi"
 				DamageMult=1.5
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				KBMult=0.00001
 				SpeedStrike=6
 				InstantStrikes=9
@@ -3478,7 +3478,7 @@ obj
 ////Keyblades
 			GhostDriveCombo
 				DamageMult=0.5
-				AccuracyMult=4
+				AccuracyMult = 1.175
 				Instinct=4
 				KBMult=0.00001
 				Combo=10
@@ -3488,7 +3488,7 @@ obj
 			Holy_Blade
 				ActiveMessage="is wrapped in holy force!!"
 				HitMessage="lets out a shout as they unleash a peerless slash!!"
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Instinct=4
 				DamageMult=8
 				KBMult=0.00001
@@ -3503,7 +3503,7 @@ obj
 			Darkness_Blade
 				ActiveMessage="is wrapped in dark force!!"
 				HitMessage="lets out a shout as they unleash a destructive slash!!"
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Instinct=4
 				DamageMult=8
 				KBMult=0.00001
@@ -3523,7 +3523,7 @@ obj
 // 				ActiveMessage="begins concentrating power..."
 // 				HitMessage="unleashes a devasatating punch!"
 // 				DamageMult=2.5
-// 				AccuracyMult=5
+// 				AccuracyMult = 1.175
 // 				KBMult=5
 // 				Duration=5
 // 				Instinct=2
@@ -3538,7 +3538,7 @@ obj
 			Rasengan
 				ActiveMessage="forms a ball of chakra in their hand!"
 				HitMessage="slams their opponent with a ball of chakra!"
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				SignatureTechnique=1
 				Paralyzing=1
 				KBAdd = 2
@@ -3561,7 +3561,7 @@ obj
 			Oodama_Rasengan
 				ActiveMessage="forms a massive ball of chakra in their hand!"
 				HitMessage="slams their opponent with a massive ball of chakra!"
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				SignatureTechnique=1
 				Paralyzing=1
 				KBAdd = 4
@@ -3589,7 +3589,7 @@ obj
 			Gear
 				Pile_Bunker
 					DamageMult=9
-					AccuracyMult=5
+					AccuracyMult = 1.175
 					HybridStrike=0.5
 					SpiritHand=1
 					Steady=5
@@ -3613,7 +3613,7 @@ obj
 				Power_Fist
 					NoSword=1
 					DamageMult=8
-					AccuracyMult=5
+					AccuracyMult = 1.175
 					Duration=10
 					PushOut=4
 					HitSparkIcon='Hit Effect Ripple.dmi'
@@ -3631,7 +3631,7 @@ obj
 				Power_Claw
 					DamageMult=1.25
 					HybridStrike=0.5
-					AccuracyMult=2
+					AccuracyMult = 1.1
 					Cooldown=20
 					Grapple=1
 					KBMult=0.001
@@ -3662,7 +3662,7 @@ obj
 					Integrated=1
 					Integrated_Pile_Bunker
 						DamageMult=9
-						AccuracyMult=4
+						AccuracyMult = 1.175
 						HybridStrike=0.5
 						SpiritHand=1
 						Steady=5
@@ -3689,7 +3689,7 @@ obj
 						HybridStrike=0.5
 						Steady=5
 						DamageMult=3.5
-						AccuracyMult=5
+						AccuracyMult = 1.175
 						Duration=10
 						PushOut=4
 						HitSparkIcon='Hit Effect Ripple.dmi'
@@ -3708,7 +3708,7 @@ obj
 					Integrated_Power_Claw
 						DamageMult=1.25
 						HybridStrike=0.5
-						AccuracyMult=2
+						AccuracyMult = 1.1
 						Cooldown=20
 						Grapple=1
 						KBMult=0.001
@@ -3740,7 +3740,7 @@ obj
 				Taser_Strike
 					name="Taser Strike"
 					DamageMult=4
-					AccuracyMult=5
+					AccuracyMult = 1.175
 					Duration=6
 					Stunner=4
 					KBMult=0.1
@@ -3756,7 +3756,7 @@ obj
 				ActiveMessage="builds up an enormous amount of magnetism!!"
 				HitMessage="lets out a scream as a meteor falls from the heavens towards their enemy!!"
 				KBMult=0.00001
-				AccuracyMult=10
+				AccuracyMult = 1.25
 				DamageMult=8
 				Instinct=4
 				Cooldown=300
@@ -3775,7 +3775,7 @@ obj
 				ActiveMessage="enters a peerless stance!"
 				HitMessage="rends the opponent apart with <b>Kokujin: YUKIKAZE</b>!"
 				DamageMult=4.5
-				AccuracyMult=5
+				AccuracyMult = 1.175
 				Counter=1
 				Warp=2
 				Duration=5
@@ -3794,7 +3794,7 @@ obj
 				name="Chain Revolver"
 				ActiveMessage="begins to dance around their opponents in a display of graceful gun kata!"
 				DamageMult=2.5
-				AccuracyMult=2
+				AccuracyMult = 1.1
 				Duration=10
 				Cooldown=60
 				Warp=2

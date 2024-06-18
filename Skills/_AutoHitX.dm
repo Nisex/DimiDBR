@@ -5668,6 +5668,8 @@ obj
 
 			Shearing
 
+			parentRounds = 1
+
 			tmp/list/AlreadyHit
 			tmp/list/autohitChildren
 			tmp/obj/AutoHitter/AHOwner
@@ -5682,6 +5684,7 @@ obj
 			src.IgnoreAlreadyHit = Z.IgnoreAlreadyHit
 			toDeath = life
 			src.Owner=owner
+			parentRounds = Z.Rounds
 			if(owner.Grab && !Z.GrabMaster)
 				grabNerf = 1
 			src.Arcing=arcing
@@ -5984,7 +5987,7 @@ obj
 				#if DEBUG_AUTOHIT
 				Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
-				var/Precision = 1
+				var/Precision = 1 + ((Damage*parentRounds)/10)
 				var/itemMods = list(0,0,0)
 				if(src.SwordTech&&!src.SpecialAttack)
 					var/obj/Items/Sword/s=src.Owner.EquippedSword()
@@ -6065,9 +6068,9 @@ obj
 						if(!src.Owner.NoWhiff())
 							var/obj/Items/Sword/s = Owner.EquippedSword()
 							if(s)
-								FinalDmg/=max(1,(2*(1/Owner.GetSwordAccuracy(s))))
+								FinalDmg/=max(1,(glob.AUTOHIT_WHIFF_DAMAGE*(1/Owner.GetSwordAccuracy(s))))
 							else
-								FinalDmg/=2
+								FinalDmg/=glob.AUTOHIT_WHIFF_DAMAGE
 
 				if(m in src.Owner.party)
 					FinalDmg *= glob.PARTY_DAMAGE_NERF
@@ -6163,6 +6166,9 @@ obj
 							StunClear(m)
 							AfterImageStrike(m, src.Owner,0)
 							return
+
+					if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldWhiffRate, IgnoreNoDodge=1) == MISS)
+						Damage /= glob.AUTOHIT_MISS_DAMAGE
 
 					if(m.AfterImageStrike)
 						if(!src.TurfStrike)

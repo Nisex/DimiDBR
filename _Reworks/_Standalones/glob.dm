@@ -65,10 +65,10 @@ var/globalTracker/glob = new()
 
 /mob/Admin3/verb/Debuff_Apply(n as num)
 	glob.BURN_INTENSITY = n
-	glob.SHOCK_INTENSITY = n 
-	glob.SLOW_INTENSITY = n 
-	glob.SHATTER_INTENSITY = n 
-	glob.POISON_INTENSITY= n 
+	glob.SHOCK_INTENSITY = n
+	glob.SLOW_INTENSITY = n
+	glob.SHATTER_INTENSITY = n
+	glob.POISON_INTENSITY= n
 
 progressTracker
 
@@ -249,6 +249,7 @@ globalTracker
 		GLADIATOR_DISARM_MAX = 600
 		DISARM_TIMER = 100
 
+		LOWEST_ACC = 30
 
 		CONSTANT_DAMAGE_EXPONENT = 4
 
@@ -277,6 +278,9 @@ globalTracker
 
 // CC related
 		CCDamageModifier = 0.33
+
+		AUTOHIT_WHIFF_DAMAGE = 2
+		AUTOHIT_MISS_DAMAGE = 3
 
 		//Whiff dmg is now rand between these.
 		MIN_WHIFF_DMG = 1.25

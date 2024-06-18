@@ -194,7 +194,7 @@ obj
 				MultiHit=3
 				Knockback=0.05
 				KBMult
-				AccMult=5
+				AccMult = 1.175
 				Distance=30
 				IconSize=1.5
 				Variation=8
@@ -216,7 +216,7 @@ obj
 				DamageMult=0.75
 				MultiHit=10
 				HyperHoming=1
-				AccMult=10
+				AccMult = 1.25
 				ZoneAttack=1
 				ZoneAttackX=0
 				ZoneAttackY=0
@@ -235,7 +235,7 @@ obj
 				DamageMult=1.8
 				MultiHit=10
 				HyperHoming=1
-				AccMult=10
+				AccMult = 1.25
 				ZoneAttack=1
 				ZoneAttackX=0
 				ZoneAttackY=0
@@ -269,7 +269,7 @@ obj
 				StrRate=0.5
 				ForRate=0.5
 				Scorching=2
-				AccMult=5
+				AccMult = 1.175
 				Distance=30
 				IconSize=0.5
 				Variation=8
@@ -428,7 +428,7 @@ obj
 				Blasts=20
 				DamageMult=0.5
 				HyperHoming=1
-				AccMult=10
+				AccMult = 1.25
 				Homing=1
 				HomingCharge=3
 				HomingDelay=5
@@ -459,7 +459,7 @@ obj
 				Knockback=1
 				MultiHit=5
 				DamageMult=0.5
-				AccMult=10
+				AccMult = 1.25
 				Deflectable=0
 				Distance=10
 				Instinct=2
@@ -532,7 +532,7 @@ obj
 				HomingCharge=1
 				HyperHoming=1
 				Speed=2
-				AccMult=5
+				AccMult = 1.175
 				IconLock='Boulder Normal.dmi'
 				IconSize=0.25
 				LockX=-36
@@ -638,7 +638,7 @@ obj
 				Radius=1
 				Distance=50
 				DamageMult=4
-				AccMult=4
+				AccMult = 1.15
 				Speed=0
 				Piercing=1
 				Variation=0
@@ -648,7 +648,7 @@ obj
 				Rocket_Punch
 					Distance=10
 					DamageMult=9
-					AccMult=10
+					AccMult = 1.25
 					Knockback=5
 					Deflectable=1
 					StrRate=1
@@ -751,7 +751,7 @@ obj
 					StrRate=0.5
 					ForRate=0.5
 					EndRate=1
-					AccMult=3
+					AccMult = 1.15
 					LosesHoming=3
 					HomingCharge=10
 					IconLock='MissileSmall.dmi'
@@ -851,7 +851,7 @@ obj
 						StrRate=0.5
 						ForRate=0.5
 						EndRate=1
-						AccMult=3
+						AccMult = 1.15
 						LosesHoming=3
 						HomingCharge=10
 						IconLock='MissileSmall.dmi'
@@ -925,7 +925,7 @@ obj
 						StrRate=0.35
 						ForRate=0.65
 						EndRate=0.75
-						AccMult=3
+						AccMult = 1.15
 						Blasts=25
 						Delay=0
 						IconLock='BlastTracer.dmi'
@@ -1085,7 +1085,7 @@ obj
 				Copyable=1
 				Distance=30
 				DamageMult=3
-				AccMult=4
+				AccMult = 1.15
 				Homing=1
 				Explode=1
 				Charge=0.1
@@ -1201,7 +1201,7 @@ obj
 				RandomPath=1
 				IconLock='Dancing.dmi'
 				DamageMult=0.55
-				AccMult=3
+				AccMult = 1.15
 				Distance=50
 				IconSize=0.5
 				Variation=8
@@ -1481,7 +1481,7 @@ obj
 			Cluster_Bomb
 				Distance=5
 				DamageMult=5
-				AccMult=3
+				AccMult = 1.15
 				Charge=1
 				EnergyCost=1
 				Cooldown=30
@@ -1519,7 +1519,7 @@ obj
 				SignatureTechnique=1
 				Distance=50
 				DamageMult=12.5
-				AccMult=3
+				AccMult = 1.15
 				Blasts=1
 				EnergyCost=15
 				Cooldown=60
@@ -1543,7 +1543,7 @@ obj
 				EndRate=1
 				Distance=65
 				DamageMult=2.75
-				AccMult=3
+				AccMult = 1.15
 				Homing=1
 				HomingDelay=2
 				HomingCharge=4
@@ -1593,7 +1593,7 @@ obj
 				SignatureTechnique=1
 				Distance=25
 				DamageMult= 3.6
-				AccMult=3
+				AccMult = 1.15
 				Dodgeable=0
 				Instinct=1
 				MultiShot=3
@@ -1857,7 +1857,7 @@ obj
 			A_Pound_of_Gold
 				Distance=20
 				DamageMult=6
-				AccMult=15
+				AccMult = 1.5
 				Knockback=5
 				EnergyCost=3
 				Cooldown=120
@@ -1876,7 +1876,7 @@ obj
 			Goblin_Greed
 				Distance=20
 				DamageMult=6
-				AccMult=3
+				AccMult = 1.15
 				Knockback=5
 				EnergyCost=3
 				Cooldown=120
@@ -1903,7 +1903,7 @@ obj
 				DamageMult=0.5
 				MultiHit=4
 				Knockback=1
-				AccMult=5
+				AccMult = 1.175
 				Explode=1
 				Charge=0.2
 				EnergyCost=3
@@ -1921,7 +1921,7 @@ obj
 				Distance=30
 				DamageMult=0.4
 				MultiHit=5
-				AccMult=5
+				AccMult = 1.175
 				Explode=1
 				IconLock='Blast - Charged.dmi'
 				LockX=-12
@@ -2066,7 +2066,7 @@ obj
 				Knockback=1
 				MultiHit=8
 				DamageMult=1
-				AccMult=10
+				AccMult = 1.25
 				Deflectable=0
 				Distance=10
 				Instinct=2
@@ -2122,7 +2122,7 @@ obj
 			AsaKujaku
 				Distance=5
 				DamageMult=0.5
-				AccMult=5
+				AccMult = 1.175
 				Stream=2
 				Radius=1
 				Piercing=1
@@ -2150,7 +2150,7 @@ obj
 				TrailX=-50
 				TrailY=-50
 				DamageMult=7.5
-				AccMult=15
+				AccMult = 1.5
 				Speed=0
 				Radius=1
 				Dodgeable=-1
@@ -2210,7 +2210,7 @@ obj
 				Distance=50
 				DamageMult=1.5
 				MultiHit=10
-				AccMult=10
+				AccMult = 1.25
 				Explode=4
 				Knockback=1
 				Radius=3
@@ -2269,7 +2269,7 @@ obj
 				Deflectable=-1
 				Charge=0.5
 				DamageMult=1.1
-				AccMult=3
+				AccMult = 1.15
 				Freezing=1
 				Blasts=10
 				Stream=2
@@ -2290,7 +2290,7 @@ obj
 				Deflectable=-1
 				Charge=0.1
 				DamageMult=1.1
-				AccMult=4
+				AccMult = 1.15
 				Freezing=1
 				AbsoluteZero=1
 				Blasts=10
@@ -2589,7 +2589,7 @@ obj
 				CosmoPowered=1
 				Distance=40
 				DamageMult=2.75
-				AccMult=5
+				AccMult = 1.175
 				Piercing=1
 				Striking=1
 				Homing=1
@@ -2699,7 +2699,7 @@ obj
 				Broken_Magnum//t5
 					Distance=25
 					DamageMult=2.2
-					AccMult=10
+					AccMult = 1.25
 					MultiHit=5
 					Knockback=1
 					Charge=0
@@ -2723,7 +2723,7 @@ obj
 				Broken_Phantom
 					Distance=25
 					DamageMult=2.4
-					AccMult=10
+					AccMult = 1.25
 					Deflectable=-1
 					MultiHit=5
 					Knockback=1
@@ -2780,7 +2780,7 @@ obj
 				StrRate=1
 				ForRate=1
 				EndRate=1
-				AccMult=10
+				AccMult = 1.25
 				Striking=1
 				IconLock='Hadoken.dmi'
 				LockX=-4
@@ -3085,7 +3085,7 @@ obj
 					Blasts=100
 					Hover=5
 					Explode=3
-					AccMult=5
+					AccMult = 1.175
 					Cooldown=6000
 					ActiveMessage="channels the flames of creation to cause a meteor storm!"
 					verb/Global_Devastation()
@@ -3122,7 +3122,7 @@ obj
 					Distance=50
 					DamageMult=8.5
 					Dodgeable=-1
-					AccMult=5
+					AccMult = 1.175
 					Speed=2
 					ManaCost=15
 					Cooldown=120
@@ -3161,7 +3161,7 @@ obj
 					Distance=50
 					DamageMult=8.5
 					Dodgeable=-1
-					AccMult=5
+					AccMult = 1.175
 					Speed=4
 					Instinct = 4
 					ManaCost=15
@@ -3236,7 +3236,7 @@ obj
 					Copyable=4
 					PreRequisite=list("/obj/Skills/Projectile/Magic/Fira")
 					DamageMult=2
-					AccMult=3
+					AccMult = 1.15
 					IconSize=1.5
 					Homing=1
 					Scorching=1
@@ -3263,7 +3263,7 @@ obj
 					Radius=1
 					Piercing=1
 					PiercingBang=1
-					AccMult=5
+					AccMult = 1.175
 					Dodgeable=-1
 					Speed=0
 					ManaCost=10
@@ -3283,7 +3283,7 @@ obj
 					Distance=50
 					DamageMult=11
 					Dodgeable=-1
-					AccMult=5
+					AccMult = 1.175
 					Speed=2
 					ManaCost=15
 					Cooldown=120
@@ -3477,7 +3477,7 @@ obj
 					Copyable=4
 					Distance=20
 					DamageMult=1.8
-					AccMult=10
+					AccMult = 1.25
 					Radius=1
 					ZoneAttack=1
 					ZoneAttackX=0
@@ -3500,7 +3500,7 @@ obj
 					Copyable=5
 					Distance=120
 					DamageMult=0.85
-					AccMult=15
+					AccMult = 1.5
 					Radius=1
 					ZoneAttack=1
 					ZoneAttackX=0
@@ -3525,7 +3525,7 @@ obj
 					Copyable=5
 					Distance=30
 					DamageMult=1.1
-					AccMult=15
+					AccMult = 1.5
 					Radius=1
 					ZoneAttack=1
 					ZoneAttackX=0
@@ -3554,7 +3554,7 @@ obj
 					Copyable=5
 					Distance=20
 					DamageMult=2.2
-					AccMult=15
+					AccMult = 1.5
 					MultiShot=5
 					Knockback=1
 					EnergyCost=3
@@ -3573,7 +3573,7 @@ obj
 					Copyable=5
 					Distance=20
 					DamageMult=2.2
-					AccMult=10
+					AccMult = 1.25
 					Radius=1
 					ZoneAttack=1
 					ZoneAttackX=0
@@ -3598,7 +3598,7 @@ obj
 					Earth_Dragon_Flash
 						name="Doryusen"
 						Distance=5
-						AccMult=5
+						AccMult = 1.175
 						DamageMult=2
 						Blasts=5
 						Radius=1
@@ -3660,7 +3660,7 @@ obj
 				Variation=0
 				IconLock='Beam14.dmi'
 				IconSize=1
-				AccMult=5
+				AccMult = 1.175
 				Knockback=1
 				Deflectable=-1
 				Distance=50
@@ -3929,7 +3929,7 @@ obj
 						ForRate=0.75
 						DamageMult=2.5
 						Speed=1
-						AccMult=3
+						AccMult = 1.15
 						Crippling = 5
 						BeamTime=7
 						Distance=7
@@ -4347,7 +4347,7 @@ mob
 			if(!Z.Charging)//Only beams get this exception
 				if(!src.CanAttack(3)&&!Z.AttackReplace)
 					return 0
-				if(Z.Using) 
+				if(Z.Using)
 					return 0
 				if(Z.ZoneAttack&&Z.FireFromEnemy)
 					if(!src.Target)

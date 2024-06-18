@@ -177,7 +177,7 @@
 	Blasts = 1 // alter this on the fly
 	DamageMult = 1 // alter this on the fly
 	Radius = 1 // ? dont know what this does given it shouldn't do this
-	AccMult = 10
+	AccMult = 2
 	Deflectable = 0
 	Static = 1
 	Distance = 100

@@ -161,7 +161,7 @@
     FadeOut = 5
     Slashing = 1
     Knockback = 3
-    AccMult = 10
+    AccMult = 2
     Dodgeable = 0
     Deflectable = 0
     DamageMult = 2

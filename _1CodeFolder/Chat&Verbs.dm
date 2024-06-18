@@ -322,26 +322,26 @@ mob/Players/verb
 			Mode = "Lock"
 		switch(Mode)
 			if("Make Space Icon")
-				S:icon_to_use = input(src, "What icon?") as icon|null 
+				S:icon_to_use = input(src, "What icon?") as icon|null
 			if("NameFake")
 				S:NameFake  = input(src, "What fake name?") as text
 			if("MakesSword")
-				S:SwordIcon  = input(src, "What icon?") as icon|null 
+				S:SwordIcon  = input(src, "What icon?") as icon|null
 				S:SwordX  = input(src, "What x") as text
 				S:SwordY  = input(src, "What y") as text
 			if("MakesStaff")
-				S:StaffIcon  = input(src, "What icon?") as icon|null 
+				S:StaffIcon  = input(src, "What icon?") as icon|null
 				S:StaffX  = input(src, "What x") as text
 				S:StaffY  = input(src, "What y") as text
 
 
 			if("MakesSecondSword")
-				S:SwordIconSecond  = input(src, "What icon?") as icon|null 
+				S:SwordIconSecond  = input(src, "What icon?") as icon|null
 				S:SwordXSecond  = input(src, "What x") as text
 				S:SwordYSecond  = input(src, "What y") as text
 
 			if("MakesArmor")
-				S:ArmorIcon  = input(src, "What icon?") as icon|null 
+				S:ArmorIcon  = input(src, "What icon?") as icon|null
 				S:ArmorX  = input(src, "What x") as text
 				S:ArmorY  = input(src, "What y") as text
 
@@ -956,7 +956,7 @@ mob/Players/verb
 							src.ManaAmount+=25
 
 				else
-					var/PoseBuff=src.PoseTime
+					var/PoseBuff=(src.PoseTime/4)
 					if(PoseBuff<1)
 						PoseBuff=1
 					src.PoseTime=0
