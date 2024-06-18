@@ -102,7 +102,7 @@ ascension
 			. = TRUE
 			if(applied || pickingChoice) return FALSE
 			choiceSelection(owner)
-			if(choices.len > 0 && !choiceSelected) return FALSE
+			if(choices && choices.len > 0 && !choiceSelected) return FALSE
 			applied = TRUE
 
 			owner.PotentialRate += powerAdd
@@ -156,6 +156,7 @@ ascension
 			owner << on_ascension_message
 
 		choiceSelection(mob/owner)
+			if(!choices) return
 			if(choices.len == 0 || choiceSelected || pickingChoice) return
 			pickingChoice = TRUE
 			var/selected = input(owner, choiceMessage, choiceTitle) in choices
@@ -1322,11 +1323,11 @@ ascension
 			harness_evil
 				choices = list("Brutality" = /ascension/sub_ascension/majin/harness_evil/brutality, "Anger" = /ascension/sub_ascension/majin/harness_evil/anger, "Both" = /ascension/sub_ascension/majin/harness_evil/both)
 				brutality
-					choices = null
+					choices = list()
 					passives = list("UnhingedForm" = 0.25, "Pursuer" = 1)
 
 				anger
-					choices = null
+					choices = list()
 					angerPoint = 5
 					passives = list("DemonicDurability" = 0.25)
 
@@ -1336,7 +1337,7 @@ ascension
 						..()
 
 				both
-					choices = null
+					choices = list()
 					angerPoint = 2.5
 					passives = list("DemonicDurability" = 0.175, "UnhingedForm" = 0.175, "Pursuer" = 0.5)
 					onAscension(mob/owner)
@@ -1347,21 +1348,21 @@ ascension
 			remain_consistent
 				choices = list("Adaptability" = /ascension/sub_ascension/majin/remain_consistent/adaptability, "Consistency" = /ascension/sub_ascension/majin/remain_consistent/consistency, "Both" = /ascension/sub_ascension/majin/remain_consistent/both)
 				adaptability
-					choices = null
+					choices = list()
 					passives = list("Adaptation" = 0.2, "Flicker" = 1, "Hustle" = 0.15)
 
 				consistency
-					choices = null
+					choices = list()
 					passives = list("Steady" = 0.25, "DebuffImmune" = 0.15, "StableBP" = 0.5)
 
 				both
-					choices = null
+					choices = list()
 					passives = list("Adaptation" = 0.1, "Flicker" = 0.5, "Hustle" = 0.075, "Steady" = 0.175, "DebuffImmune" = 0.075, "StableBP" = 0.25)
 
 			become_docile
 				choices = list("Stability" = /ascension/sub_ascension/majin/become_docile/stability, "Peace" = /ascension/sub_ascension/majin/become_docile/peace, "Both" = /ascension/sub_ascension/majin/become_docile/both)
 				stability
-					choices = null
+					choices = list()
 					passives = list("VenomResistance" = 0.25, "DebuffImmune" = 0.25, "Juggernaut" = 0.5)
 
 					onAscension(mob/owner)
@@ -1370,11 +1371,11 @@ ascension
 						..()
 
 				peace
-					choices = null
+					choices = list()
 					passives = list("Flow" = 0.5, "DeathField" = 0.25, "VoidField" = 0.25)
 
 				both
-					choices = null
+					choices = list()
 					passives = list("VenomResistance" = 0.25, "DebuffImmune" = 0.25, "Juggernaut" = 0.25, "Flow" = 0.25, "DeathField" = 0.175, "VoidField" = 0.175)
 
 					onAscension(mob/owner)
