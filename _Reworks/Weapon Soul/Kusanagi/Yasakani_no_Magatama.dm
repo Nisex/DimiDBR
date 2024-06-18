@@ -19,6 +19,7 @@ obj/Items/Yasakani_no_Magatama
 		return mana
 	proc/gainMagatama()
 		var/obj/Magatama/magatama = new()
+		magatama.StartOrbit()
 		magatamaBeads += magatama
 		vis_contents += magatama
 
@@ -27,12 +28,13 @@ obj/Items/Yasakani_no_Magatama
 			for(var/obj/Magatama/magatama in magatamaBeads)
 				magatamaBeads -= magatama
 				vis_contents -= magatama
+				del magatama
 				return
 
 	passives = list("YasakaniNoMagatama" = 1)
 
-obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Bead_Constraint
-	applyToTarget = new/obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Bead_Constraints
+obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraint
+	applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraints
 	ActiveMessage = "tosses a chain of beads forth!"
 	EndYourself = 1
 	ManaCost=15
@@ -41,34 +43,34 @@ obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Bead_Constraint
 	Range = 12
 	adjust(mob/p)
 		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: The Three Treasures")
-			applyToTarget = new/obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Heavenly_Bead_Constraints
+			applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Heavenly_Bead_Constraints
 		else
-			applyToTarget = new/obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Bead_Constraints
+			applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraints
 	verb/Bead_Constraint()
 		set name = "Yasakani no Magatama: Bead Constraint"
 		if(!usr.BuffOn(src))
 			adjust(usr)
 		Trigger(usr)
 
-obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Bead_Constraints
+obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraints
 	EnergyDrain = 0.1
 	TimerLimit = 60
 	ActiveMessage = "is restrained by beads shimmering with energy around them!"
 	OffMessage = "is no longer restrained..."
 	passives = list("PureDamage" = -1)
 
-obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Heavenly_Bead_Constraints
+obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Heavenly_Bead_Constraints
 	EnergyDrain = 0.3
 	TimerLimit = 60
 	ActiveMessage = "is restrained by beads shimmering with energy around them!"
 	OffMessage = "is no longer restrained..."
 	passives = list("PureDamage" = -1, "PureReduction" = -1)
 
-mob/verb/testMagatama()
+/*mob/verb/testMagatama()
 	var/obj/Magatama/magatama = new()
 	usr.vis_contents += magatama
 	sleep(10)
-	magatama.StartOrbit()
+	magatama.StartOrbit()*/
 
 obj/Magatama
 	icon = 'Magatama.dmi'

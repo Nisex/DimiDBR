@@ -2,7 +2,7 @@ obj/Items/Yata_no_Kagami
 	icon = 'Yata_no_Kagami.dmi'
 	passives = list("YataNoKagami" = 1)
 
-obj/Skills/Buffs/Slotless_Buffs/Yata_no_Kagami/Mirror_Protection
+obj/Skills/Buffs/SlotlessBuffs/Yata_no_Kagami/Mirror_Protection
 	VaizardShatter = TRUE
 	var/tmp/secondActivation = FALSE
 	var/tmp/storedMana = 0

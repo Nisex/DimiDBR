@@ -185,6 +185,31 @@ var/global/MULTIHIT_NERF = FALSE
 		var/shockwaveChance = passive_handler.Get("ShockwaveBlows")
 		if(prob(shockwaveChance*10))
 			GetAndUseSkill(/obj/Skills/AutoHit/Shockwave_Blows, AutoHits, TRUE)
+
+		if(passive_handler.Get("RefreshingBlows"))
+			for(var/mob/m in oview(passive_handler.Get("RefreshingBlows")*2, src))
+				m.Slow -= passive_handler.Get("RefreshingBlows")
+				if(m.Slow < 0)
+					m.Slow = 0
+				m.Crippled -= passive_handler.Get("RefreshingBlows")
+				if(m.Crippled < 0)
+					m.Crippled = 0
+				m.Burn -= passive_handler.Get("RefreshingBlows")
+				if(m.Burn < 0)
+					m.Burn = 0
+				m.Poison -= passive_handler.Get("RefreshingBlows")
+				if(m.Poison < 0)
+					m.Poison = 0
+				m.Shatter -= passive_handler.Get("RefreshingBlows")
+				if(m.Shatter < 0)
+					m.Shatter = 0
+				m.Shock -= passive_handler.Get("RefreshingBlows")
+				if(m.Shock < 0)
+					m.Shock = 0
+				m.Sheared -= passive_handler.Get("RefreshingBlows")
+				if(m.Sheared < 0)
+					m.Sheared = 0
+
 		NextAttack += delay
 		var/Disarm = 0
 		if(UsingGladiator())

@@ -1178,16 +1178,7 @@ NEW VARIABLES
 							src.OffMessage="casts Muramasa back into the darkness..."
 						if("Masamune")
 							src.PowerMult=1.5
-							src.StrMult=1
-							src.EndMult=1.5
-							src.ForMult=1
-							src.OffMult=1
-							src.DefMult=1.5
-							src.RegenMult=1
 							passives = list("HolyMod"=5,"Purity"=1,"Steady"=9, "PULock" = 1)
-							src.HolyMod=5
-							src.Purity=1//Can only hurt evil things.
-							src.Steady=9//Always 100% damage.
 							src.SwordName="Masamune"
 							src.ActiveMessage="calls forth the true form of Masamune, the Sword of Purity!"
 							src.OffMessage="relaxes the light of Masamune..."

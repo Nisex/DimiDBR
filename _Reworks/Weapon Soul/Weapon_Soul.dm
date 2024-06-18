@@ -30,6 +30,10 @@ mob/proc/gainWeaponSoul()
 			new/obj/Items/Sword/Light/Legendary/WeaponSoul/Bane_of_Blades(src)
 			AddSkill(new/obj/Skills/AutoHit/Deathbringer)
 
+		if("Masamune")
+			new/obj/Items/Sword/Light/Legendary/WeaponSoul/Sword_of_Purity(src)
+			AddSkill(new/obj/Skills/AutoHit/Divine_Cleansing)
+
 mob/tierUpSaga(Path)
 	..()
 	if(Path == "Weapon Soul")
@@ -38,7 +42,7 @@ mob/tierUpSaga(Path)
 				switch(WeaponSoulType)
 					if("Kusanagi")
 						src.contents += new/obj/Items/Yata_no_Kagami
-						src.AddSkill(new/obj/Skills/Buffs/Slotless_Buffs/Yata_no_Kagami/Mirror_Protection)
+						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Yata_no_Kagami/Mirror_Protection)
 						src.AddSkill(new/obj/Skills/Yata_no_Kagami/Mirror_Prison)
 
 					if("Durendal")
@@ -57,20 +61,29 @@ mob/tierUpSaga(Path)
 						passive_handler.Increase("CriticalHit", 0.2)
 						AddSkill(new/obj/Skills/AutoHit/Masterful_Death)
 
+					if("Masamune")
+						passive_handler.Increase("RefreshingBlows")
+
+					if("Masamune")
+						for(var/obj/Items/Sword/Light/Legendary/WeaponSoul/Sword_of_Purity/masamune in contents)
+							masamune.Element = "Light"
+						src.AddSkill(new/obj/Skills/AutoHit/Purifying_Frost)
+
+
 			if(3)
 				switch(WeaponSoulType)
 					if("Kusanagi")
 						src.contents += new/obj/Items/Yasakani_no_Magatama
-						src.AddSkill(new/obj/Skills/Buffs/Slotless_Buffs/Yasakani_no_Magatama/Bead_Constraint)
+						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraint)
 
 					if("Durendal")
-						src.AddSkill(new/obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Tooth)
-						src.AddSkill(new/obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Blood)
-						src.AddSkill(new/obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Raiment)
-						src.AddSkill(new/obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Hair)
+						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Tooth)
+						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Blood)
+						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Raiment)
+						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Hair)
 
 					if("Dainsleif")
-						src.AddSkill(new/obj/Skills/Buffs/Slotless_Buffs/Niohoggrs_Chains)
+						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Niohoggrs_Chains)
 
 					if("Caledfwlch")
 						src.contents += new/obj/Items/Armor/Plated_Armor/Noble_Armor
@@ -84,6 +97,9 @@ mob/tierUpSaga(Path)
 						SagaThreshold("Spd",1)
 						SagaThreshold("Str",1)
 
+					if("Masamune")
+						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Blessed_Guard)
+						passive_handler.Increase("RefreshingBlows")
 
 			if(4)
 				switch(WeaponSoulType)
@@ -101,6 +117,9 @@ mob/tierUpSaga(Path)
 
 					if("Muramasa")
 						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Muramasa)
+
+					if("Masamune")
+						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Masamune)
 			if(5)
 				switch(WeaponSoulType)
 					if("Kusanagi")
@@ -138,6 +157,13 @@ mob/tierUpSaga(Path)
 							muramasa.passives["KillerInstinct"] = 1
 							muramasa.passives["DemonicDurability"] = 2
 							muramasa.passives["TechniqueMastery"] = 2
+
+					if("Masamune")
+						src.AddSkill(new/obj/Skills/Utility/Death_Killer)
+						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Masamune/masamune in src.Buffs)
+							masamune.passives["Unstoppable"] = 1
+							masamune.passives["LifeSteal"] = 10
+							masamune.passives["HolyMod"] = 2
 
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia
 	NeedsSword = 1

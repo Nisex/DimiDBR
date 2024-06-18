@@ -17,7 +17,9 @@ obj
 			Distance=1//Unless otherwise stated, assume it's a one tile attack of varying style.
 			var/DistanceAround //this is only used for AroundTarget type techs.
 			var
+				Cleansing = 0
 				ManaDrain = 0
+				HitSelf = 0
 
 				NoPierce=0//If this is flagged it will make a technique terminate after hitting something.
 				CorruptionGain = 0
@@ -5555,9 +5557,10 @@ obj
 			Persistent = FALSE
 			CorruptionGain
 
-
+			Cleansing = 0
 			ManaDrain
 
+			hitSelf = 0
 
 			Arcing//Triggers offshoots on every step that expand outwards.  Higher than 1 means that every X steps the range will widen.
 			ArcingCount=0//Number of times arcing has been triggered.  Informs the game how many tiles to send the offshoots.
@@ -5688,7 +5691,9 @@ obj
 			src.Wave=wave
 			src.Cardinal=card
 			src.Circle=circle
+			Cleansing = Z.Cleansing
 			src.CorruptionGain = Z.CorruptionGain
+			hitSelf = Z.HitSelf
 			if(Z.Persistent)
 				src.Persistent = 1
 				bound_height = 32 * Distance
@@ -5823,7 +5828,7 @@ obj
 				endLife()
 		Bump(var/mob/m)
 			if(istype(m, /mob))
-				if(m!=src.Owner&&m.density)
+				if(!hitSelf&&m!=src.Owner&&m.density)
 					spawn()
 						src.Damage(m)
 						if(src.NoPierce)
@@ -5835,7 +5840,7 @@ obj
 			if(Persistent)
 				for(var/turf/t in range( Distance, src.TargetLoc))
 					for(var/mob/m in t.contents)
-						if(m==src.Owner)
+						if(!hitSelf&&m==src.Owner)
 							continue
 						else
 							src.Damage(m)
@@ -6115,6 +6120,29 @@ obj
 				if(Shearing)
 					m.AddShearing(Shearing, Owner)
 
+				if(Cleansing && m in src.Owner.party)
+					m.Slow -= Cleansing*10
+					if(m.Slow < 0)
+						m.Slow = 0
+					m.Crippled -= Cleansing*10
+					if(m.Crippled < 0)
+						m.Crippled = 0
+					m.Burn -= Cleansing*10
+					if(m.Burn < 0)
+						m.Burn = 0
+					m.Poison -= Cleansing*10
+					if(m.Poison < 0)
+						m.Poison = 0
+					m.Shatter -= Cleansing*10
+					if(m.Shatter < 0)
+						m.Shatter = 0
+					m.Shock -= Cleansing*10
+					if(m.Shock < 0)
+						m.Shock = 0
+					m.Sheared -= Cleansing*10
+					if(m.Sheared < 0)
+						m.Sheared = 0
+
 				// if(src.CosmoPowered)
 				// 	if(!src.Owner.SpecialBuff)
 				// 		FinalDmg*=TrueDamage(1+(src.Owner.SenseUnlocked-5))
@@ -6334,7 +6362,7 @@ obj
 											sleep(-1)
 											TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
 										for(var/mob/m in t.contents)
-											if(m==src.Owner)
+											if(!hitSelf&&m==src.Owner)
 												continue
 											src.Damage(m)
 									for(var/turf/t in Turf_Circle_Edge(src.TargetLoc, Rounds))
@@ -6393,7 +6421,7 @@ obj
 									for(var/mob/m in view(Rounds, src.TargetLoc))
 										if(m in view(Rounds-1, src.TargetLoc))//Don't doublehit people
 											continue
-										if(m==src.Owner)
+										if(!hitSelf&&m==src.Owner)
 											continue
 										src.Damage(m)
 								sleep(src.Slow*world.tick_lag)
@@ -6441,7 +6469,7 @@ obj
 								for(var/turf/t in Turf_Circle(src.TargetLoc, src.Distance))
 									sleep(-1)
 									for(var/mob/m in t)
-										if(src.Owner!=m)
+										if(!hitSelf&&src.Owner!=m)
 											src.Damage(m)
 							else//If less than 3 distance...
 								if(src.TurfErupt)
@@ -6474,7 +6502,7 @@ obj
 										sleep(-1)
 										TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
 								for(var/mob/m in view(src.Distance, src.TargetLoc))
-									if(src.Owner!=m)
+									if(!hitSelf&&src.Owner!=m)
 										src.Damage(m)
 						goto Kill
 					else
@@ -6503,7 +6531,7 @@ obj
 											sleep(-1)
 											TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
 										for(var/mob/m in t.contents)
-											if(m==src.Owner)
+											if(!hitSelf&&m==src.Owner)
 												continue
 											src.Damage(m)
 									for(var/turf/t in Turf_Circle_Edge(src.Owner, Rounds))
@@ -6562,7 +6590,7 @@ obj
 									for(var/mob/m in view(Rounds, src.Owner))
 										if(m in view(Rounds-1, src.Owner))//Don't doublehit people
 											continue
-										if(m==src.Owner)
+										if(!hitSelf&&m==src.Owner)
 											continue
 										src.Damage(m)
 								sleep(src.Slow*world.tick_lag)
@@ -6606,7 +6634,7 @@ obj
 								for(var/turf/t in Turf_Circle(src.Owner, src.Distance))
 									sleep(-1)
 									for(var/mob/m in t)
-										if(src.Owner!=m)
+										if(!hitSelf&&src.Owner!=m)
 											src.Damage(m)
 							else//If less than 3 distance...
 								if(src.TurfErupt)
@@ -6639,7 +6667,7 @@ obj
 										sleep(-1)
 										TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
 								for(var/mob/m in view(src.Distance, src.Owner))
-									if(src.Owner!=m)
+									if(!hitSelf&&src.Owner!=m)
 										src.Damage(m)
 						goto Kill
 				if(src.Target)

@@ -1,7 +1,7 @@
-obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics
+obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics
 	NeedsSword = 1
 
-obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Tooth
+obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Tooth
 	CantHaveTheseBuffs = list("Saints Blood", "Saints Hair", "Saints Raiment")
 	HealthDrain = 0.05
 	HealthThreshold = 1
@@ -25,7 +25,7 @@ obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Tooth
 			adjust(usr)
 		Trigger(usr)
 
-obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Blood
+obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Blood
 	EnergyDrain = 0.05
 	EnergyThreshold = 10
 	TimerLimit = 30
@@ -49,7 +49,7 @@ obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Blood
 			adjust(usr)
 		Trigger(usr)
 
-obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Hair
+obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Hair
 	CantHaveTheseBuffs = list("Saints Blood", "Saints Tooth", "Saints Raiment")
 	ManaDrain = 0.05
 	ManaThreshold = 1
@@ -73,7 +73,7 @@ obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Hair
 			adjust(usr)
 		Trigger(usr)
 
-obj/Skills/Buffs/Slotless_Buffs/Durendal_Relics/Saints_Raiment
+obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Raiment
 	TimerLimit = 30
 	Cooldown = 90
 	CantHaveTheseBuffs = list("Saints Tooth", "Saints Blood", "Saints Hair")

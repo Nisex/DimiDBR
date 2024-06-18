@@ -946,27 +946,6 @@ obj/Items/Sword
 				ManaGeneration=3
 				Techniques=list("/obj/Skills/Buffs/SlotlessBuffs/Grimoire/OverDrive/Frost_End", "/obj/Skills/AutoHit/FrostBite", "/obj/Skills/Projectile/Sword/TougaHyoujin", "/obj/Skills/Queue/KokujinYukikaze")
 
-			WeaponSoul
-				Destructable = 0
-				Saga="Weapon Soul"
-				pixel_x=0
-				pixel_y=0
-
-				Sword_of_Purity//Masamune
-					name="Sword of Purity"
-					icon='Masamune.dmi'
-					passives = list("Purity" = 1)
-					Purity=1
-					TierTechniques=list(null, null, null, null, "/obj/Skills/Utility/Death_Killer", null)
-
-				Bane_of_Blades//Muramasa
-					name="Bane of Blades"
-					icon='Muramasa.dmi'
-					pixel_x=-16
-					pixel_y=-16
-					passives = list("WeaponBreaker" = 1)
-					WeaponBreaker=1
-					TierTechniques=list(null, null, null, null, "/obj/Skills/AutoHit/Deathbringer", null)
 
 	Medium
 		name="Longsword"

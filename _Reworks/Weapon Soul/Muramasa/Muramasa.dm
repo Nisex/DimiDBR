@@ -1,4 +1,4 @@
-obj/Items/Sword/Heavy/Legendary/WeaponSoul/Bane_of_Blades//Muramasa
+obj/Items/Sword/Light/Legendary/WeaponSoul/Bane_of_Blades//Muramasa
 	name="Bane of Blades"
 	icon='Muramasa.dmi'
 	pixel_x=-16
