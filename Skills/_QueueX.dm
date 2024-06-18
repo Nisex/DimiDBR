@@ -1457,7 +1457,7 @@ obj
 							return
 						if(usr.Secret=="Zombie")
 							src.name="Death Grasp"
-							src.DamageMult=1
+							src.DamageMult=2.5
 							src.AccuracyMult=3
 							src.KBAdd=0
 							src.KBMult=1
@@ -1466,15 +1466,16 @@ obj
 							src.Scorching=0
 							src.Freezing=0
 							src.Paralyzing=0
-							src.Toxic= 10
-							src.Shearing = 15
+							src.Toxic= 25
+							src.Shearing = 25
 							src.Ooze = 0
 							src.CursedWounds=1
+							src.Decider = 1
 							src.Combo=0
 							src.Warp=0
 							src.Rapid=0
 							src.LifeSteal=0
-							src.Crippling=5
+							src.Crippling=15
 							src.Grapple=1
 							src.NoForcedWhiff=0
 							src.IconLock='BLANK.dmi'

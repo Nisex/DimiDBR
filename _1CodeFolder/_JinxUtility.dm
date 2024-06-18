@@ -1406,14 +1406,14 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-			if(src.BurningShot)
-				if(src.Burn)
-					if(src.Burn>0&&src.Burn<=50)
-						Mod-=0.5*src.BurningShot
-					else if(src.Burn>50&&src.Burn<=75)
-						Mod-=0.75*src.BurningShot
-					else
-						Mod-=1*src.BurningShot
+			// if(src.BurningShot)
+			// 	if(src.Burn)
+			// 		if(src.Burn>0&&src.Burn<=50)
+			// 			Mod-=0.5*src.BurningShot
+			// 		else if(src.Burn>50&&src.Burn<=75)
+			// 			Mod-=0.75*src.BurningShot
+			// 		else
+			// 			Mod-=1*src.BurningShot
 			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Protect Brave"))
 				if(src.Health<=25*(1-src.HealthCut))
 					Mod+=min(10/src.Health,1)
@@ -1722,14 +1722,14 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-			if(src.BurningShot)
-				if(src.Burn)
-					if(src.Burn>0&&src.Burn<=50)
-						Mod-=0.5*src.BurningShot
-					else if(src.Burn>50&&src.Burn<=75)
-						Mod-=0.75*src.BurningShot
-					else
-						Mod-=1*src.BurningShot
+			// if(src.BurningShot)
+			// 	if(src.Burn)
+			// 		if(src.Burn>0&&src.Burn<=50)
+			// 			Mod-=0.5*src.BurningShot
+			// 		else if(src.Burn>50&&src.Burn<=75)
+			// 			Mod-=0.75*src.BurningShot
+			// 		else
+			// 			Mod-=1*src.BurningShot
 			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Protect Brave"))
 				if(src.Health<=25*(1-src.HealthCut))
 					var/thisVar = 10/Health < 0 ? 0.1 : 10/Health

@@ -47,6 +47,7 @@
         ForMult = 1
         EndMult = 1
         SpdMult = 1
+        ElementalOffense = "HellFire"
     verb/Devil_Arm()
         set category = "Skills"
         if(!usr.isRace(DEMON)) return
