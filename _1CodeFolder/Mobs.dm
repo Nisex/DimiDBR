@@ -23,17 +23,20 @@ mob/Players
 			if(_tp.SetSpawn != null)
 				information.setFaction(_tp.SetSpawn)
 		if(istype(A,/obj/Special/Teleporter2/SpecialTele))
-			var/obj/Special/Teleporter2/tele=A
-			var/newz
-			if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoAbove)
-				newz=tele.z-1
-			if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoBelow)
-				newz=tele.z+1
-			if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoDeep)
-				newz=tele.z+2
-			if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoHigh)
-				newz=tele.z-2
-			src.loc=locate(tele.x, tele.y, newz)
+			if(!warperTimeLock)
+				var/obj/Special/Teleporter2/tele=A
+				var/newz
+				if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoAbove)
+					newz=tele.z-1
+				if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoBelow)
+					newz=tele.z+1
+				if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoDeep)
+					newz=tele.z+2
+				if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoHigh)
+					newz=tele.z-2
+				src.loc=locate(tele.x, tele.y, newz)
+				if(tele.warperTimeLock)
+					warperTimeLock = tele.warperTimeLock
 
 		if(istype(A,/obj/Effects/PocketPortal))
 			for(var/obj/Effects/PocketExit/Q in world)

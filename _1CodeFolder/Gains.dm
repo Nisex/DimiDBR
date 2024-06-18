@@ -86,7 +86,7 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 //**TESTED AND WORKS */
 /mob/proc/reduceErodeStolen()
 	if(src.StrStolen)
-		src.StrStolen-=0.1 
+		src.StrStolen-=0.1
 		if(src.StrStolen<0)
 			src.StrStolen=0
 	if(src.EndStolen)
@@ -231,6 +231,10 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 		TsukiyomiTime = 0
 		animate(client, color=null, time=1)
 		OMsg(src, "font color='grey'>[src] is no longer trapped in Tsukiyomi.</font color>")
+
+	if(warperTimeLock>0)
+		warperTimeLock--
+		warperTimeLock = max(0, warperTimeLock)
 
 	if(TimeStop)
 		var/obj/Skills/Buffs/SlotlessBuffs/Grimoire/Time_Stop/book = new
@@ -1336,7 +1340,7 @@ mob
 										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
 											src.HealEnergy(src.GetRecov(b.EnergyHeal))
 								else
-									if((src.Energy+src.TotalFatigue)>=100||(src.TotalFatigue&&src.icon_state=="Meditate")) 
+									if((src.Energy+src.TotalFatigue)>=100||(src.TotalFatigue&&src.icon_state=="Meditate"))
 										if((b.InstantAffect&&!b.InstantAffected)||!b.InstantAffect)
 											src.HealFatigue(b.EnergyHeal,1)
 									else
@@ -1421,7 +1425,7 @@ mob
 										if((src.Target.Health+src.Target.TotalInjury)>=100||(src.Target.TotalInjury&&src.Target.icon_state=="Meditate"))
 											src.Target.HealWounds(b.HealthHeal)
 										else
-											
+
 											src.Target.HealHealth(b.HealthHeal)
 								if(b.EnergyHeal&&!src.Target.HasMechanized())
 									if(!b.StableHeal)
@@ -1668,7 +1672,7 @@ mob
 					if((istype(T.effectApplied, /obj/Skills/Buffs)))
 						if(src != T.ownerOfEffect)
 							T.effectApplied?:applyEffects(src, T.ownerOfEffect)
-							
+
 			if(!passive_handler.Get("StaticWalk")&&!src.Dead)
 				if(istype(loc,/turf/Special/Static))
 					src.Health-=0.05
