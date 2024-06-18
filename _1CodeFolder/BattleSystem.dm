@@ -430,7 +430,6 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 		// 		M.Level=Q.Level
 		// 		M.name="[Commas(round(M.Level))] [glob.progress.MoneyName]"
 		// 		src.TakeMoney(M.Level)
-		src << "Erm..."
 	else
 		// for(var/obj/Items/I in src)
 		// 	if(I)
