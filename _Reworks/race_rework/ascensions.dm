@@ -278,7 +278,7 @@ ascension
 	yokai
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			passives = list("TechniqueMastery" = 2, "ManaGeneration" = 1)
+			passives = list("TechniqueMastery" = 1)
 			strength = 0.25
 			force = 0.25
 			offense = 0.25
@@ -298,7 +298,7 @@ ascension
 					passives["QuickCast"] = 1
 					passives["ManaCapMult"] = 0.25
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
-					passives = list("MovementMastery" = 2, "ManaStats" = 0.1)
+					passives = list("MovementMastery" = 2, "ManaStats" = 0.5)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
 						sf.passives["TechniqueMastery"] = 1
 				..()
@@ -317,7 +317,7 @@ ascension
 					passives["QuickCast"] = 1
 					passives["ManaCapMult"] = 0.25
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
-					passives = list("MovementMastery" = 2, "ManaStats" = 0.1)
+					passives = list("MovementMastery" = 2, "ManaStats" = 0.25)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
 						sf.passives["TechniqueMastery"] = 2
 				..()
@@ -335,7 +335,7 @@ ascension
 					passives["SpiritStrike"] = 0.25
 					passives["ManaCapMult"] = 0.25
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
-					passives = list("MovementMastery" = 2, "ManaStats" = 0.1)
+					passives = list("MovementMastery" = 2, "ManaStats" = 0.25)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
 						sf.ManaDrain -= 0.05
 				..()
@@ -353,7 +353,7 @@ ascension
 					passives["SpiritStrike"] = 0.75
 					passives["ManaCapMult"] = 0.25
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
-					passives = list("MovementMastery" = 2, "ManaStats" = 0.1)
+					passives = list("MovementMastery" = 2, "ManaStats" = 0.5)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
 						sf.ManaDrain = 0
 				..()
@@ -423,8 +423,8 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			intimidation = 1
-			passives = list("ManaCapMult" = 0.25, "Deicide" = 1, "Xenobiology" = 1)
+			intimidation = 5
+			passives = list("ManaCapMult" = 0.25, "Deicide" = 1, "Xenobiology" = 1, "SpiritFlow" = 0.25)
 			choices = list("Distort" = /ascension/sub_ascension/high_faoroan/distort, "Define" = /ascension/sub_ascension/high_faoroan/define)
 
 		two
@@ -448,7 +448,7 @@ ascension
 			defense = 0.5
 			speed = 0.5
 			passives = list("ManaCapMult" = 0.25, "Deicide" = 1, "Xenobiology" = 1)
-			intimidation = 1.5
+			intimidation = 10
 			onAscension(mob/owner)
 				..()
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/high_faoroan/distort)
@@ -458,7 +458,7 @@ ascension
 
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
-			intimidation = 2
+			intimidation = 10
 			strength = 0.5
 			endurance = 0.5
 			force = 0.5
@@ -470,7 +470,7 @@ ascension
 
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
-			intimidation = 3
+			intimidation = 10
 			strength = 0.5
 			endurance = 0.5
 			force = 0.5
@@ -503,7 +503,7 @@ ascension
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			passives = list("HellPower" = 0.1, "AbyssMod" = 0.25, "SpiritPower" = 0.25)
 			anger = 0.15
-			intimidation = 1.0
+			intimidation = 50
 			strength = 0.25
 			endurance = 0.25
 			speed = 0.25
@@ -514,7 +514,7 @@ ascension
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
 			passives = list("HellPower" = 0.1, "AbyssMod" = 0.75, "SpiritPower" = 0.25)
-			intimidation = 1.5
+			intimidation = 50
 			strength = 0.25
 			force = 0.5
 			defense = 0.25
@@ -531,7 +531,7 @@ ascension
 			unlock_potential = ASCENSION_THREE_POTENTIAL
 			passives = list("HellPower" = 0.1, "AbyssMod" = 1, "SpiritPower" = 0.25)
 			anger = 0.2
-			intimidation = 2.0
+			intimidation = 100
 			strength = 0.25
 			force = 0.25
 			endurance = 0.5
@@ -542,7 +542,7 @@ ascension
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			passives = list("HellPower" = 0.1, "AbyssMod" = 2)
 			anger = 0.15
-			intimidation = 2.5
+			intimidation = 250
 			strength = 0.25
 			force = 0.25
 			defense = 0.75
@@ -555,7 +555,7 @@ ascension
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			passives = list("EndlessAnger" = 1, "SpiritPower" = 0.25)
-			intimidation = 2.5
+			intimidation = 250
 
 			onAscension(mob/owner)
 				..()
@@ -641,21 +641,21 @@ ascension
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Metal")
-						passives = list("Juggernaut" = 1, "Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 0.25)
+						passives = list("Juggernaut" = 0.5, "Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 0.25)
 						strength += 0.25
 						endurance += 0.25
-						defense += 0.25
+						offense += 0.5
 
 					if("Fire")
 						angerPoint += 5
-						passives = list("DemonicDurability" = 0.25, "SpiritHand" = 1)
+						passives = list("MeltyBlood" = 1, "SpiritHand" = 1, "AngerAdaptiveForce" = 0.25)
 						strength += 0.25
-						force += 0.25
+						force += 0.5
 						offense += 0.25
 
 					if("Wind")
-						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
-						speed += 0.25
+						passives = list("VenomBlood" = 1,"BlurringStrikes" = 0.25, "Flicker" = 1, "Adrenaline" = 2)
+						speed += 0.5
 						offense += 0.25
 						defense += 0.25
 					if("Gold")
@@ -671,7 +671,7 @@ ascension
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Metal")
-						passives = list("Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 0.25, "GodKi" = 0.05)
+						passives = list("Juggernaut" = 0.5, "Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 0.25, "GodKi" = 0.05)
 						strength += 0.25
 						endurance += 0.25
 						defense += 0.25
@@ -783,40 +783,40 @@ ascension
 	makyo
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			passives = list("Juggernaut" = 0.25, "DemonicDurability" = 1, "HeavyHitter" = 1)
+			passives = list("Juggernaut" = 0.25, "DemonicDurability" = 1, "HeavyHitter" = 0.25)
 			strength = 0.25
 			endurance = 0.25
-			force = 0.25
-			intimidation = 1.5
+			offense = 0.25
+			intimidation = 25
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
-			passives = list("Juggernaut" = 0.25, "DemonicDurability" = 0.5, "HeavyHitter" = 1)
+			passives = list("Juggernaut" = 0.25, "DemonicDurability" = 0.5, "HeavyHitter" = 0.25)
 			strength = 0.25
 			endurance = 0.25
 			force = 0.25
-			intimidation = 1.25
+			intimidation = 75
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
-			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 0.5, "HeavyHitter" = 1)
+			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 0.5, "HeavyHitter" = 0.5)
 			strength = 0.5
 			endurance = 0.25
 			force = 0.5
-			intimidation = 1.3
+			intimidation = 50
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 0.5, "HeavyHitter" = 1)
 			strength = 0.5
 			endurance = 0.25
 			force = 0.5
-			intimidation = 1.4
+			intimidation = 25
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			passives = list("Juggernaut" = 0.5, "DemonicDurability" = 0.5, "HeavyHitter" = 2)
 			strength = 1
 			endurance = 0.25
 			force = 1
-			intimidation = 1.55
+			intimidation = 25
 
 	alien
 		proc
@@ -877,12 +877,20 @@ ascension
 		one
 			unlock_potential = 10
 			choices = list("Pride" = /ascension/sub_ascension/saiyan/pride, "Honor" =  /ascension/sub_ascension/saiyan/honor, "Zeal" = /ascension/sub_ascension/saiyan/zeal)
-			intimidation = 1.5
+			intimidation = 25
 			passives = list("Brutalize" = 0.25)
+			// GIVE MY NIGGAS SOMETHING TO EAT WITH
+			strength = 0.25
+			offense = 0.25
+			endurance = 0.25
 		two
 			unlock_potential = 25
 			anger = 0.25
+			intimidation = 25
 			passives = list("Brutalize" = 0.5)
+			strength = 0.25
+			defense = 0.25
+			endurance = 0.25
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/zeal)
 					passives = list("Adaptation" = 0.5)
@@ -893,6 +901,7 @@ ascension
 				..()
 		three
 			unlock_potential = 40
+			intimidation = 25
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/saiyan/zeal)
 					passives = list("Adaptation" = 0.5)
@@ -903,6 +912,7 @@ ascension
 				..()
 		four
 			unlock_potential = 60
+			intimidation = 25
 			anger = 0.25
 			passives = list("Brutalize" = 1)
 			onAscension(mob/owner)
@@ -917,14 +927,14 @@ ascension
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			choices = list("Innocence" = /ascension/sub_ascension/majin/innocence, "Super" = /ascension/sub_ascension/majin/super, "Unhinged" = /ascension/sub_ascension/majin/unhinged)
-			anger = 0.2
-			intimidation = 5
+			anger = 0.1
+			intimidation = 15
 			imaginationAdd = 0.2
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
 			choices = list("Harness Evil" = /ascension/sub_ascension/majin/harness_evil, "Remain Consistent" = /ascension/sub_ascension/majin/remain_consistent, "Become Docile" = /ascension/sub_ascension/majin/become_docile)
-			intimidation = 5
+			intimidation = 15
 			anger = 0.1
 			imaginationAdd = 0.25
 
@@ -1106,9 +1116,9 @@ ascension
 				switch(owner.Class)
 					if("Demon")
 						//power = 0.75
-						strength = 0.5
+						strength = 0.25
 						speed = 0.25
-						endurance = 0.5
+						endurance = 0.25
 						anger = 0.15 // 1.4
 						passives = list("Hellrisen" = 0.25)
 					if("Dragon")  /// after the merge, unmerged Dragon and Warrior will also receive some scaling power. Levi added it in for Gaja's in his push
@@ -1122,10 +1132,7 @@ ascension
 						//power = 1
 						passives = list("Duelist" = 0.5)
 						strength = 0.25
-						speed = 0.25
 						endurance = 0.25
-						offense = 0.25
-						defense = 0.25
 				if(owner.Class=="Dragon")
 					for(var/obj/Skills/Utility/Send_Energy/se in owner.contents)
 						se.SagaSignature=1
@@ -1442,11 +1449,11 @@ ascension
 
 			grand_caster
 				passives = list("QuickCast" = 1, "ManaGeneration" = 2)
-				strength = 0.5
-				force = 0.5
+				offense = 0.25
+				force = 0.25
 
 			two_become_one
-				passives = list("MovementMastery" = 2, "ManaStats" = 0.1)
+				passives = list("MovementMastery" = 2, "ManaStats" = 0.25)
 				onAscension(mob/owner)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
 						sf.passives["TechniqueMastery"] = 0

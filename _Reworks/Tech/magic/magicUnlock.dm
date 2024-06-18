@@ -108,7 +108,7 @@ mob/Admin3/verb/RefundMagic(mob/p in players)
 			the_cost /= p.Intelligence
 		p.removeMagicKnowledge(p, choice, the_cost, 0)
 
-/mob/verb/Refundmagic(mob/p in world)
+/mob/Admin4/verb/RefundALLmagic(mob/p in world)
 	if(length(MagicTree) < 1)
 		fillMagicTree()
 	for(var/x in generateMagicList())

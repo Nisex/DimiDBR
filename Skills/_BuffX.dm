@@ -199,8 +199,8 @@ NEW VARIABLES
 	var/AuraX
 	var/AuraY
 	var/HairLock//subs out the aura
-	var/HairBX
-	var/HairBY
+	var/HairX
+	var/HairY
 	var/Enlarge//Makes icon get fukcnig huge. TODO: Replace all functionalities with ProportionShift
 	var/ProportionShift//uses transfrom matrix to fuck with proportions
 	var/IconReplace//Icon replaces base icon.
@@ -666,8 +666,8 @@ NEW VARIABLES
 								usr.AuraLockedUnder=0
 						if("Hair")
 							src.HairLock=input(usr, "What hair should be forced to display when using Ki Control?", "Ki Control") as icon|null
-							src.HairBX=input(usr, "X offset?", "Ki Control") as num|null
-							src.HairBY=input(usr, "Y offset?", "Ki Control") as num|null
+							src.HairX=input(usr, "X offset?", "Ki Control") as num|null
+							src.HairY=input(usr, "Y offset?", "Ki Control") as num|null
 						if("Text")
 							src.ActiveMessage=input(usr, "What text do you want to display when entering Ki Control? This will always have your character name at the start.", "Ki Control") as text
 							src.OffMessage=input(usr, "What text do you want to display when exiting Ki Control? This will always have your character name at the start.", "Ki Control") as text
@@ -4882,22 +4882,27 @@ NEW VARIABLES
 
 
 		Spirit_Form
-			passives = list("SpiritForm" = 1, "MovementMastery" = 3, "ManaStats" = 0.25, "TechniqueMastery" = -2, "MartialMagic" = 1, "ManaGeneration" = -2)
+			passives = list("SpiritForm" = 1, "MovementMastery" = 1, "ManaStats" = 0.25, "TechniqueMastery" = -2, "MartialMagic" = 1, "ManaGeneration" = -2)
 			SpiritForm=1
 			ActiveMessage="shifts into their spiritual body!"
 			OffMessage="becomes fully physical once more..."
 			ManaDrain = 0.1
 			Cooldown=1
+			adjust(mob/p)
+				if(!altered)
+					passives = /obj/Skills/Buffs/SlotlessBuffs/Spirit_Form::passives
 			verb/Spirit_Form()
 				set category="Skills"
+				if(!usr.BuffOn(src))
+					adjust(usr)
 				if(!usr.BuffOn(src))
 					if(usr.Form1Base)
 						src.IconReplace=1
 						src.icon=usr.Form1Base
 					if(usr.Form1Hair)
 						src.HairLock=usr.Form1Hair
-						src.HairBX=usr.Form1HairX
-						src.HairBY=usr.Form1HairY
+						src.HairX=usr.Form1HairX
+						src.HairY=usr.Form1HairY
 					if(usr.Form1Overlay)
 						src.IconLock=usr.Form1Overlay
 						src.LockX=usr.Form1OverlayX
@@ -13233,8 +13238,8 @@ mob
 						goto IgnoreHair
 				src.HairLocked=1
 				src.HairLock=B.HairLock
-				src.HairBX=B.HairBX
-				src.HairBY=B.HairBY
+				src.HairX=B.HairX
+				src.HairY=B.HairY
 				src.Hairz("Add")
 			IgnoreHair
 
