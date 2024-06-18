@@ -551,7 +551,7 @@ obj
 				IconY=-32
 				IconTime=10
 				Cooldown=4
-			
+
 			Flowing_Slash_Follow_Up
 				Area="Strike"
 				NoLock=1
@@ -981,9 +981,10 @@ obj
 				Slow=1
 				Area="Wave"
 				ActiveMessage="bursts out with tendrils of symbiotic matter!"
-				StrOffense=0
-				ForOffense=1
-				DamageMult=1.5
+				StrOffense = 0.5
+				ForOffense = 0.5
+				Cooldown = 60
+				DamageMult= 4
 				GuardBreak=1
 				TurfStrike=3
 				HitSparkIcon='Slash - Vampire.dmi'
