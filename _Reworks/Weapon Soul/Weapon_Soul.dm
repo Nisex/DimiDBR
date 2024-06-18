@@ -40,8 +40,9 @@ mob/proc/gainWeaponSoul()
 
 		if("Soul Edge")
 			new/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Blade_of_Chaos(src)
+			AddSkill(new/obj/Skills/AutoHit/Soul_Drain)
 
-		if("Ruyi Jingu Bang")
+		if("Ryui Jingu Bang")
 			new/obj/Items/Sword/Wooden/Legendary/WeaponSoul/RyuiJinguBang(src)
 
 		if("Guan Yu")
@@ -83,6 +84,12 @@ mob/tierUpSaga(Path)
 							masamune.Element = "Light"
 						src.AddSkill(new/obj/Skills/AutoHit/Purifying_Frost)
 
+					if("Soul Edge")
+						passive_handler.Increase("Reversal", 0.5)
+						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Symbiotic_Edge)
+
+					if("Soul Calibur")
+						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Defrost)
 
 			if(3)
 				switch(WeaponSoulType)
@@ -115,6 +122,12 @@ mob/tierUpSaga(Path)
 						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Blessed_Guard)
 						passive_handler.Increase("RefreshingBlows")
 
+					if("Soul Edge")
+						AddSkill(new/obj/Skills/AutoHit/Gaze_of_Despair)
+
+					if("Soul Calibur")
+						AddSkill(new/obj/Skills/AutoHit/Crystal_Luminescene)
+
 			if(4)
 				switch(WeaponSoulType)
 					if("Kusanagi")
@@ -134,6 +147,13 @@ mob/tierUpSaga(Path)
 
 					if("Masamune")
 						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Masamune)
+
+					if("Soul Edge")
+						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Soul_Edge)
+
+					if("Soul Calibur")
+						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Soul_Calibur)
+
 			if(5)
 				switch(WeaponSoulType)
 					if("Kusanagi")
@@ -178,6 +198,16 @@ mob/tierUpSaga(Path)
 							masamune.passives["Unstoppable"] = 1
 							masamune.passives["LifeSteal"] = 10
 							masamune.passives["HolyMod"] = 2
+
+					if("Soul Edge")
+						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Soul_Edge/SE in src.Buffs)
+							SE.passives["HellPower"] = 1
+							SE.passives["Burning"] = 2
+
+					if("Soul Calibur")
+						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Soul_Calibur/SC in src.Buffs)
+							SC.passives["Chilling"] = 2
+							SC.passives["SpiritPower"] = 1
 
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia
 	NeedsSword = 1

@@ -21,6 +21,7 @@ obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Tooth
 			Cooldown = 90
 	verb/Saints_Tooth()
 		set name = "Durendal: Saint's Tooth"
+		set category = "Skills"
 		if(!usr.BuffOn(src))
 			adjust(usr)
 		Trigger(usr)
@@ -45,6 +46,7 @@ obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Blood
 			Cooldown = 90
 	verb/Saints_Blood()
 		set name = "Durendal: Saint's Blood"
+		set category = "Skills"
 		if(!usr.BuffOn(src))
 			adjust(usr)
 		Trigger(usr)
@@ -69,6 +71,7 @@ obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Hair
 			Cooldown = 90
 	verb/Saints_Hair()
 		set name = "Durendal: Saint's Hair"
+		set category = "Skills"
 		if(!usr.BuffOn(src))
 			adjust(usr)
 		Trigger(usr)
@@ -89,6 +92,7 @@ obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Raiment
 			Cooldown = 90
 	verb/Saints_Raiment()
 		set name = "Durendal: Saint's Raiment"
+		set category = "Skills"
 		if(!usr.BuffOn(src))
 			adjust(usr)
 		Trigger(usr)

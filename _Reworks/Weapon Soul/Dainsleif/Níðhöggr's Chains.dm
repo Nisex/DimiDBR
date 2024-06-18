@@ -13,6 +13,7 @@ obj/Skills/Buffs/SlotlessBuffs/Niohoggrs_Chains
 			applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Niohoggr_Restrain
 	verb/Chains()
 		set name = "Níðhöggrs's Chains"
+		set category = "Skills"
 		if(!usr.BuffOn(src))
 			adjust(usr)
 		Trigger(usr)

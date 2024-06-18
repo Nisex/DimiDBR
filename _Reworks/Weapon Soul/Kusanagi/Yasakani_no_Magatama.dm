@@ -48,6 +48,7 @@ obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraint
 			applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraints
 	verb/Bead_Constraint()
 		set name = "Yasakani no Magatama: Bead Constraint"
+		set category = "Skills"
 		if(!usr.BuffOn(src))
 			adjust(usr)
 		Trigger(usr)

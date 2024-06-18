@@ -30,6 +30,7 @@ obj/Skills/Buffs/SlotlessBuffs/Yata_no_Kagami/Mirror_Protection
 
 	verb/Mirror_Protection()
 		set name = "Yata no Kagami: Mirror Protection"
+		set category = "Skills"
 		Trigger(usr)
 
 obj/Skills/Yata_no_Kagami/Mirror_Prison
@@ -50,6 +51,7 @@ obj/Skills/Yata_no_Kagami/Mirror_Prison
 
 	verb/Mirror_Prison()
 		set name = "Yata no Kagami: Mirror Prison"
+		set category = "Skills"
 		if(usr.KO||usr.Stunned||usr.AutoHitting||usr.Frozen>=2)
 			return
 		if(usr.Stasis)

@@ -10,6 +10,7 @@ obj/Skills/Buffs/SlotlessBuffs/Blessed_Guard
 		else
 			passives = list("PureDamage"=-2)
 	verb/Blessed_Guard()
+		set category = "Skills"
 		if(!usr.BuffOn(src))
 			adjust(usr)
 		Trigger(usr)

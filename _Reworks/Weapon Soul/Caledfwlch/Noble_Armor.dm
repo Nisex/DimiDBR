@@ -27,6 +27,7 @@ obj/Skills/Buffs/SlotlessBuffs/Noble_Shield
 			TimerLimit = 30
 			Cooldown = 90
 	verb/Noble_Shield()
+		set category = "Skills"
 		if(!usr.BuffOn(src))
 			adjust(usr)
 		Trigger(usr)
