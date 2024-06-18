@@ -1113,23 +1113,13 @@ NEW VARIABLES
 
 						if("Green Dragon Crescent Blade")
 							src.PowerMult=1.5
-							src.StrMult=1.4
-							src.EndMult=1.4
-							src.ForMult=1
-							src.OffMult=1.2
-							src.DefMult=1.2
-							passives = list("Duelist" = 2, "Hardening" = 1, "LegendaryPower" = 0.4, "PULock" = 1)
+							passives = list("Duelist" = max(1,usr.SagaLevel/2), "Hardening" = usr.SagaLevel/2, "LegendaryPower" = usr.SagaLevel*0.25, "PULock" = 1)
 							src.ActiveMessage="calls forth the true form of the Green Dragon Crescent Blade, the Spear of War!"
 							src.OffMessage="restrains Guan Yu's fury..."
 
 						if("Ruyi Jingu Bang")
 							src.PowerMult=1.5
-							src.StrMult=1.3
-							src.EndMult=1.3
-							src.ForMult=1
-							src.OffMult=1.4
-							src.DefMult=1.4
-							passives = list("SpiritPower" = 0.5, "Extend" = 1, "PULock" = 1)
+							passives = list("SpiritPower" = usr.SagaLevel*0.25, "Extend" = max(1,usr.SagaLevel/2), "PULock" = 1)
 							src.ActiveMessage="calls forth the true form of Ruyi Jingu Bang, the Pole of the Monkey King!"
 							src.OffMessage="shrinks Ruyi Jingu Bang back down..."
 
@@ -1140,94 +1130,71 @@ NEW VARIABLES
 									light = usr.EquippedSword():caledLight
 							if(light)
 								src.PowerMult=1.5
-								passives = list("HolyMod" = 3, "SpiritSword" = 0.25, "PULock" = 1)
+								passives = list("HolyMod" = usr.SagaLevel, "SpiritSword" = 0.25, "PULock" = 1)
 								src.SwordName="Caledfwlch"
 								src.SwordIcon='Caledfwlch.dmi'
 								src.ActiveMessage="calls forth the true form of Caledfwlch, the Sword of Glory!"
 								src.OffMessage="conceals Caledfwlch's glory..."
 							else
 								src.PowerMult=1.5
-								passives = list("AbyssMod" = 3, "SpiritSword" = 0.25, "PULock" = 1)
+								passives = list("AbyssMod" = usr.SagaLevel, "SpiritSword" = 0.25, "PULock" = 1)
 								src.SwordName="Caledfwlch"
 								src.SwordIcon='Caledfwlch-Morgan.dmi'
 								src.ActiveMessage="calls forth the true form of Caledfwlch Morgan, the Shadow Sword of Glory!"
 								src.OffMessage="conceals Caledfwlch's glory..."
 						if("Kusanagi")
 							src.PowerMult=1.5
-							passives = list("HolyMod" = 3,"ManaGeneration" = 10, "PULock" = 1)
+							passives = list("HolyMod" = usr.SagaLevel,"ManaGeneration" = usr.SagaLevel*5, "PULock" = 1)
 							src.SwordName="Kusanagi"
 							src.ActiveMessage="calls forth the true form of Kusanagi, the Sword of Faith!"
 							src.OffMessage="seals Kusanagi's faith..."
 						if("Durendal")
 							src.PowerMult=1.5
-							passives = list("HolyMod" = 3, "LifeGeneration" = 3, "PULock" = 1)
+							passives = list("HolyMod" = usr.SagaLevel, "LifeGeneration" = usr.SagaLevel, "PULock" = 1)
 							src.SwordName="Durendal"
 							src.ActiveMessage="calls forth the true form of Durendal, the Sword of Hope!"
 							src.OffMessage="hides the hope of Durendal..."
 						if("Dainsleif")
 							src.PowerMult=1.5
-							passives = list("SlayerMod" = 2, "MortalStrike" = 0.5, "AbyssMod" = 2, "HealthDrain" = 0.15, "LifeSteal" = 25, "Curse" = 1, "PULock" = 1)
+							HealthDrain = 0.15/usr.SagaLevel
+							passives = list("SlayerMod" = usr.SagaLevel/2, "MortalStrike" = 0.5, "AbyssMod" = usr.SagaLevel/2, "LifeSteal" = usr.SagaLevel*5, "Curse" = 1, "PULock" = 1)
 							src.SwordName="Dainsleif"
 							src.ActiveMessage="calls forth the true form of Dainsleif, the Blade of Ruin!"
 							src.OffMessage="dissolves Dainsleif's ruinous power..."
 						if("Muramasa")
 							src.PowerMult=1.5
-							passives = list("AbyssMod" = 3, "EnergySteal" = 40, "WeaponBreaker" = 2, "PULock" = 1)
+							passives = list("AbyssMod" = usr.SagaLevel, "EnergySteal" = usr.SagaLevel*7.5, "WeaponBreaker" = max(2,usr.SagaLevel/1.5), "PULock" = 1)
 							src.SwordName="Muramasa"
 							src.ActiveMessage="calls forth the true form of Muramasa, the Bane of Blades!"
 							src.OffMessage="casts Muramasa back into the darkness..."
 						if("Masamune")
 							src.PowerMult=1.5
-							passives = list("HolyMod"=5,"Purity"=1,"Steady"=9, "PULock" = 1)
+							passives = list("HolyMod"=usr.SagaLevel,"Purity"=1,"Steady"=usr.SagaLevel*1.5, "PULock" = 1)
 							src.SwordName="Masamune"
 							src.ActiveMessage="calls forth the true form of Masamune, the Sword of Purity!"
 							src.OffMessage="relaxes the light of Masamune..."
 						if("Soul Calibur")
-							if(locate(/obj/Skills/Queue/Holy_Blade, usr))
+							var/light = TRUE
+							if(usr.EquippedSword())
+								if(istype(usr.EquippedSword(),/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Order))
+									light = usr.EquippedSword():caliburLight
+							if(light)
 								src.PowerMult=1.5
-								src.StrMult=1.1
-								src.EndMult=1.4
-								src.ForMult=1
-								src.OffMult=1.3
-								src.DefMult=1.3
-								src.RegenMult=1
-								passives = list("HolyMod"=3,"LifeGeneration"=1,"Steady"=5, "PULock" = 1)
-								src.HolyMod=3
-								src.LifeGeneration=1
-								src.Steady=5//Always 50% damage.
+								passives = list("HolyMod"=usr.SagaLevel,"LifeGeneration"=usr.SagaLevel/2,"Steady"=usr.SagaLevel/1.25, "PULock" = 1)
 								src.SwordName="Soul Calibur"
 								src.SwordIcon='SoulCalibur.dmi'
 								src.ActiveMessage="calls forth the true form of Soul Calibur, the Purified Blade of Order!"
 								src.OffMessage="restricts Soul Calibur's order..."
-							if(locate(/obj/Skills/Queue/Darkness_Blade, usr))
+							else
 								src.PowerMult=1.5
-								src.StrMult=0.9
-								src.EndMult=1.7
-								src.ForMult=1
-								src.OffMult=0.8
-								src.DefMult=1.3
-								src.RegenMult=0.5
-								passives = list("AbyssMod"=3,"LifeGeneration"=1,"Steady"=5, "PULock" = 1)
-								src.AbyssMod=3
-								src.LifeGeneration=1
-								src.Steady=5//Always 50% damage.
+								passives = list("AbyssMod"=usr.SagaLevel,"LifeGeneration"=usr.SagaLevel/2,"Steady"=usr.SagaLevel/1.25, "PULock" = 1)
 								src.SwordName="Soul Calibur"
 								src.SwordIcon='SoulCalibur-Crystal.dmi'
 								src.ActiveMessage="calls forth the true form of Soul Calibur, the Crystal Blade of Order!"
 								src.OffMessage="restricts Soul Calibur's order..."
 						if("Soul Edge")
 							src.PowerMult=1.5
-							src.StrMult=2
-							src.EndMult=1.2
-							src.ForMult=1
-							src.OffMult=1.5
-							src.DefMult=0.8
-							src.RegenMult=0.5
-							passives = list("AbyssMod" = 5, "Steady" = 8, "Extend" = 1, "BleedHit" = 1, "PULock" = 1)
-							src.AbyssMod=5
-							src.Steady=8
-							src.Extend=1
-							src.BleedHit=1
+							passives = list("AbyssMod" = usr.SagaLevel, "Steady" = usr.SagaLevel*1.5, "Extend" = 1, "BleedHit" = 1, "PULock" = 1)
 							src.SwordName="Soul Edge"
 							src.ActiveMessage="calls forth the true form of Soul Edge, the Blade of Chaos!"
 							src.OffMessage="releases Soul Edge's chaos..."

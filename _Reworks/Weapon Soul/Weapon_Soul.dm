@@ -34,6 +34,20 @@ mob/proc/gainWeaponSoul()
 			new/obj/Items/Sword/Light/Legendary/WeaponSoul/Sword_of_Purity(src)
 			AddSkill(new/obj/Skills/AutoHit/Divine_Cleansing)
 
+		if("Soul Calibur")
+			new/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Order(src)
+			AddSkill(new/obj/Skills/AutoHit/Crystal_Tomb)
+
+		if("Soul Edge")
+			new/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Blade_of_Chaos(src)
+
+		if("Ruyi Jingu Bang")
+			new/obj/Items/Sword/Wooden/Legendary/WeaponSoul/RyuiJinguBang(src)
+
+		if("Guan Yu")
+			new/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Spear_of_War(src)
+			AddSkill(new/obj/Skills/AutoHit/War_God_Descent)
+
 mob/tierUpSaga(Path)
 	..()
 	if(Path == "Weapon Soul")

@@ -885,18 +885,6 @@ obj/Items/Sword
 			WeaponSoul
 				Destructable = 0
 				Saga = "Weapon Soul"
-				RyuiJinguBang
-					name = "Ruyi Jingu Bang"
-					icon = 'WukongSheathe-32-32.dmi'
-					unsheatheIcon = 'WukongStaff-32-32.dmi'
-					removeSheathedOnUnSheathe = TRUE
-					pixel_x = -32
-					pixel_y = -32
-					unsheatheOffsetX = -32
-					unsheatheOffsetY = -32
-					passives = list("Steady" = 1)
-					Steady = 1
-					TierTechniques=list(null, null, null, null, list("/obj/Skills/Buffs/SlotlessBuffs/Dadao","/obj/Skills/Buffs/SlotlessBuffs/Huadong") , null)
 
 	Legendary
 		LegendaryItem = 1
@@ -1006,14 +994,6 @@ obj/Items/Sword
 				pixel_x=0
 				pixel_y=0
 
-
-				Blade_of_Order//Soul Calibur
-					name="Blade of Order"
-					icon='SoulCalibur.dmi'
-					Element="Silver"
-					TierTechniques=list(null, null, null, null,"/obj/Skills/AutoHit/Crystal_Tomb", null)
-
-
 	Heavy
 		name="Greatsword"
 		Unobtainable=0
@@ -1053,12 +1033,6 @@ obj/Items/Sword
 				Saga="Weapon Soul"
 				pixel_x=0
 				pixel_y=0
-
-				Blade_of_Chaos//Soul Edge
-					name="Blade of Chaos"
-					icon='SoulEdge.dmi'
-					ExtraClass=1
-					TierTechniques=list(null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Eye_of_Chaos", null)
 
 				Spear_of_War // "Green Dragon Crescent Blade" / Guan Yu
 					pixel_x = -16
