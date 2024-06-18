@@ -839,8 +839,8 @@ mob
 				src.BindingTimer--
 				if(src.BindingTimer<=0)
 					src.BindingTimer=0
-					if(src.Binding>=1)
-						src.TriggerBinding()
+				if(src.Binding>=1)
+					src.TriggerBinding()
 
 /*
 			if(src.FusionTimer>0)

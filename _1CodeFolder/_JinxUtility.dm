@@ -1181,7 +1181,7 @@ mob
 				if(Mod<=glob.BUFF_MASTERY_LOWTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
-					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT)) 
+					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
 
 
 			if(src.Burn)
@@ -2197,7 +2197,6 @@ mob
 				OMsg(src, "[src]'s binding pulls their body back to their sealed dimension!")
 				src.loc=locate(150, 150, src.Binding)
 				OMsg(src, "[src] suddenly appears as a result of their binding!")
-			src.BindingTimer=RawMinutes(1, 60)//refresh timer regardless
 
 		SetStasis(var/StasisTime)
 			if(src.HasDebuffImmune())
