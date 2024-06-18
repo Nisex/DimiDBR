@@ -582,6 +582,7 @@ obj
 				Instinct=4
 				DamageMult=4
 				Rounds=2
+				ComboMaster = 1
 				StrOffense=1
 				EndDefense=1
 				WindUp=0.5

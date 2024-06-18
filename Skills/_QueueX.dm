@@ -463,7 +463,7 @@ obj
 					BuffSelf=0
 				Manji_Flip
 					Warp=10
-					Launcher=1
+					Launcher=5
 					FollowUp="/obj/Skills/AutoHit/Whirlwind_Handstand"
 					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Feral_Fear"
 					HitMessage="performs an uncanny acrobatic strike, rocketing their foe upwards!"
