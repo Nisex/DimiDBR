@@ -91,6 +91,10 @@ mob/tierUpSaga(Path)
 					if("Soul Calibur")
 						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Defrost)
 
+					if("Ryui Jingu Bang")
+						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Dadao)
+						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Huadong)
+
 			if(3)
 				switch(WeaponSoulType)
 					if("Kusanagi")
@@ -128,6 +132,9 @@ mob/tierUpSaga(Path)
 					if("Soul Calibur")
 						AddSkill(new/obj/Skills/AutoHit/Crystal_Luminescene)
 
+					if("Ryui Jingu Bang")
+						passive_handler.Increase("MonkeyKing",2) // lets get a little freaky
+
 			if(4)
 				switch(WeaponSoulType)
 					if("Kusanagi")
@@ -153,6 +160,9 @@ mob/tierUpSaga(Path)
 
 					if("Soul Calibur")
 						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Soul_Calibur)
+
+					if("Ryui Jingu Bang")
+						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Ryui_Jingu_Bang)
 
 			if(5)
 				switch(WeaponSoulType)
@@ -208,6 +218,11 @@ mob/tierUpSaga(Path)
 						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Soul_Calibur/SC in src.Buffs)
 							SC.passives["Chilling"] = 2
 							SC.passives["SpiritPower"] = 1
+
+					if("Ryui Jingu Bang")
+						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Ryui_Jingu_Bang/Ryui in src.Buffs)
+							Ryui.passives["FluidForm"] = 1
+							Ryui.passives["StunningStrike"] = 1
 
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia
 	NeedsSword = 1
