@@ -1732,13 +1732,13 @@ obj
 				name="Dempsey Roll"
 				DamageMult=1
 				AccuracyMult = 1.15
-				KBMult=0.00001
+				KBMult=0.01
 				KBAdd=1
 				Duration=8
 				Cooldown=30
 				UnarmedOnly=1
 				Combo=4
-				Warp=3
+				Warp=4
 				Stunner=2
 				IconLock='dempsey.dmi'
 				LockX=-16
@@ -1755,15 +1755,15 @@ obj
 				Copyable=2
 				ActiveMessage="strikes with cyclone power!"
 				name="Corkscrew Blow"
-				DamageMult=1
+				DamageMult=0.75
 				AccuracyMult = 1.15
-				KBAdd=2
+				KBAdd=4
 				Duration=10
 				Cooldown=30
 				UnarmedOnly=1
 				IconLock='Corkscrew.dmi'
-				MultiHit=3
-				Warp=2
+				MultiHit=5
+				Warp=4
 				EnergyCost=1
 				verb/Corkscrew_Blow()
 					set category="Skills"
@@ -1791,12 +1791,12 @@ obj
 				Copyable=2
 				name="Kinshasa"//Skill name displayed in message.
 				HitMessage="builds up speed and knees their target in the face!!"
-				DamageMult=2.8
+				DamageMult=2
 				AccuracyMult = 1.15
 				Duration=5
 				SpeedStrike=4
 				Cooldown=30
-				KBAdd = 6
+				Crippling = 8
 				UnarmedOnly=1
 				EnergyCost=2.5
 				verb/Kinshasa()
@@ -1808,7 +1808,8 @@ obj
 				Copyable=2
 				name="Piston Kick"//Skill name displayed in message.
 				HitMessage="launches a shattering front kick with their heel!"
-				DamageMult=2.2
+				DamageMult=2.8
+				Shattering = 12
 				AccuracyMult = 1.1
 				SpeedStrike=2
 				Opener=1
@@ -1823,11 +1824,11 @@ obj
 			Cripple
 				SkillCost=40
 				Copyable=2
-				DamageMult=2.8
+				DamageMult=2
 				AccuracyMult = 1.15
 				Duration=5
 				Cooldown=30
-				Crippling=4
+				Crippling=12
 				SpeedStrike=2
 				SweepStrike=1
 				UnarmedOnly=1
@@ -1911,7 +1912,7 @@ obj
 				SkillCost=160
 				Copyable=5
 				name="Curbstomp"
-				DamageMult=8
+				DamageMult=13
 				AccuracyMult = 1.1
 				Duration=5
 				KBMult=0.0001
@@ -2012,6 +2013,7 @@ obj
 				Duration=5
 				Stunner=2
 				Crippling=412
+				Shearing=25
 				Combo=5
 				Rapid=1
 				Cooldown=150

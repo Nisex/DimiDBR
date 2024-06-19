@@ -1514,6 +1514,13 @@ mob
 								b.Trigger(src, Override=1) // BUFF END //
 								continue
 
+			if(dainsleifDrawn)
+				src.DoDamage(src, TrueDamage(0.05/SagaLevel))
+
+			if(cursedSheathValue)
+				cursedSheathValue -= 0.5/SagaLevel
+				cursedSheathValue = clamp(0, cursedSheathValue, SagaLevel*50)
+
 			for(var/obj/Skills/Buffs/SlotlessBuffs/Implants/Internal_Explosive/B in src.Buffs)
 				if(B.Using)
 					del B

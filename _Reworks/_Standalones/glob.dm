@@ -1,6 +1,6 @@
 // jesus christ lets get a grip
 
-#define WSNAMES list("Masamune", "Durendal", "Kusanagi", "Caledfwlch", "Muramasa", "Soul Calibur", "Soul Edge", "Dainsleif")
+#define WSNAMES list("Masamune", "Durendal", "Kusanagi", "Caledfwlch", "Muramasa", "Soul Calibur", "Soul Edge", "Dainsleif", "Ryui Jingu Bang")
 #define BRONZECLOTHS list("Pegasus","Dragon","Cygnus","Andromeda","Phoenix","Unicorn")
 #define GOLDCLOTHS list("Aries",/* "Taurus" */,"Gemini","Cancer","Leo","Virgo","Libra","Scorpio",/*"Sagittarius"*/,"Capricorn","Aquarius","Pisces")
 
@@ -243,7 +243,7 @@ globalTracker
 		MIN_POWER_DIFF = 0.7
 		MAX_POWER_DIFF = 1.3
 		AUTOHIT_GRAB_NERF = 0.5
-		PARTY_DAMAGE_NERF = 0.5
+		PARTY_DAMAGE_NERF = 0.8
 		MOD_AFTER_ACC = TRUE
 
 		GLADIATOR_DISARM_MAX = 600

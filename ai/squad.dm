@@ -46,6 +46,11 @@ var/list/squad_database = list(
 		StrMod=3,EndMod=3,ForMod=3,OffMod=3,DefMod=3,SpdMod=3,\
 		ai_spammer=1),\
 		techniques=list("/obj/Skills/AutoHit/Flying_Kick","/obj/Skills/AutoHit/Force_Palm","/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Turns_Red")),\
+	"oliphant spirit" = new/ai_sheet(id="oliphant spirit", properties=list(icon='knight.dmi', name="Oliphant Spirit",\
+		Potential = 0.4,\
+		StrMod = 3, EndMod = 0.2, ForMod = 3, OffMod = 3, DefMod = 1, SpdMod = 2,\
+		ai_spammer=1),\
+		techniques = list()),\
 )
 
 
@@ -134,8 +139,7 @@ obj/Skills/Companion
 					a.ai_follow= formation ? formation : 1
 					a.ai_hostility=0
 
-					a.AI_Database_Sync(squad[index], database_override = squad_database)
-					a.name = index
+					a.AI_Database_Sync(index, squad_database)
 					a.ai_focus_owner_target = companion_focus_target
 
 					a.ko_death = companion_ko_death
@@ -151,5 +155,6 @@ obj/Skills/Companion
 					for(var/alliance in team) a.ai_alliances += alliance
 					active_ai+=a
 					a.AIGain()
+					a.ai_state = "Idle"
 				last_use = world.time
 				Using=0

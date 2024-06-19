@@ -885,18 +885,6 @@ obj/Items/Sword
 			WeaponSoul
 				Destructable = 0
 				Saga = "Weapon Soul"
-				RyuiJinguBang
-					name = "Ruyi Jingu Bang"
-					icon = 'WukongSheathe-32-32.dmi'
-					unsheatheIcon = 'WukongStaff-32-32.dmi'
-					removeSheathedOnUnSheathe = TRUE
-					pixel_x = -32
-					pixel_y = -32
-					unsheatheOffsetX = -32
-					unsheatheOffsetY = -32
-					passives = list("Steady" = 1)
-					Steady = 1
-					TierTechniques=list(null, null, null, null, list("/obj/Skills/Buffs/SlotlessBuffs/Dadao","/obj/Skills/Buffs/SlotlessBuffs/Huadong") , null)
 
 	Legendary
 		LegendaryItem = 1
@@ -946,27 +934,6 @@ obj/Items/Sword
 				ManaGeneration=3
 				Techniques=list("/obj/Skills/Buffs/SlotlessBuffs/Grimoire/OverDrive/Frost_End", "/obj/Skills/AutoHit/FrostBite", "/obj/Skills/Projectile/Sword/TougaHyoujin", "/obj/Skills/Queue/KokujinYukikaze")
 
-			WeaponSoul
-				Destructable = 0
-				Saga="Weapon Soul"
-				pixel_x=0
-				pixel_y=0
-
-				Sword_of_Purity//Masamune
-					name="Sword of Purity"
-					icon='Masamune.dmi'
-					passives = list("Purity" = 1)
-					Purity=1
-					TierTechniques=list(null, null, null, null, "/obj/Skills/Utility/Death_Killer", null)
-
-				Bane_of_Blades//Muramasa
-					name="Bane of Blades"
-					icon='Muramasa.dmi'
-					pixel_x=-16
-					pixel_y=-16
-					passives = list("WeaponBreaker" = 1)
-					WeaponBreaker=1
-					TierTechniques=list(null, null, null, null, "/obj/Skills/AutoHit/Deathbringer", null)
 
 	Medium
 		name="Longsword"
@@ -1027,66 +994,6 @@ obj/Items/Sword
 				pixel_x=0
 				pixel_y=0
 
-				Sword_of_Glory//Caledfwlch
-					name="Sword of Glory"
-					icon='Caledfwlch.dmi'
-					pixel_x=-31
-					pixel_y=-30
-					passives = list("SpiritSword" = 0.75)
-					SpiritSword=0.75
-					TierTechniques=list(null, null, null, null, "/obj/Skills/Projectile/Beams/Big/Weapon_Soul/Excalibur", null)
-
-				Sword_of_Faith//Kusanagi
-					name="Sword of Faith"
-					icon='KusanagibutSharper.dmi'
-					pixel_x=-16
-					pixel_y=-16
-					passives = list("MagicSword" = 1)
-					MagicSword=1
-					TierTechniques=list(null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Totsuka_no_Tsurugi", null)
-
-				Blade_of_Order//Soul Calibur
-					name="Blade of Order"
-					icon='SoulCalibur.dmi'
-					Element="Silver"
-					TierTechniques=list(null, null, null, null,"/obj/Skills/AutoHit/Crystal_Tomb", null)
-
-				Blade_of_Ruin//Dainsleif
-					name="Blade of Ruin"
-					icon='Dainsleif.dmi'
-					passives = list("Shearing" = 1, "CursedWounds" = 1, "MortalStrike" = 0.5)
-					Shearing=1
-					CursedWounds = 1
-					var/hasKilled = FALSE
-					proc/drawDainsleif(mob/p)
-						hasKilled = FALSE
-						p << "You draw the blade from it sheathe and are barely able to contain its immense bloodlust. The sword cries out, waning for blood."
-						OMsg(p, "[p.name] draws their blade from its sheathe and they can barely contain it. The Sword of Ruin wans for blood...")
-					proc/onKill(mob/atk, mob/defend)
-						hasKilled = TRUE
-						OMsg(atk, "The Sword of Ruin's blood lust has been sated by [defend.name]'s death!")
-
-					proc/putAway(mob/p)
-						if(!hasKilled)
-							if(p.HealthCut >=0.3)
-								p << "The blade refuses to be sheathed."
-								return FALSE
-							else
-								var/choice = input(p, "The blade resists your attempts to sheathe it. Do you wish to sheathe it anyway?") in list("Yes", "No")
-								switch(choice)
-									if("Yes")
-										p << "The blade forces itself into your body and you feel your life force being drained away."
-										OMsg(p, "The blade shoves itself into [p.name]'s body, absorbing their life force!")
-										p.HealthCut += 0.1
-										return TRUE
-									if("No")
-										p << "You decide to keep the blade out."
-										return FALSE
-						else
-							hasKilled = FALSE
-							return TRUE
-					TierTechniques=list(null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Fate_of_Blood", null)
-
 	Heavy
 		name="Greatsword"
 		Unobtainable=0
@@ -1126,19 +1033,6 @@ obj/Items/Sword
 				Saga="Weapon Soul"
 				pixel_x=0
 				pixel_y=0
-
-				Sword_of_Hope//Durendal
-					name="Sword of Hope"
-					icon='Durendal.dmi'
-					Destructable=0
-					ShatterTier=0
-					TierTechniques=list(null, null, null, null, "/obj/Skills/AutoHit/Great_Divide", null)
-
-				Blade_of_Chaos//Soul Edge
-					name="Blade of Chaos"
-					icon='SoulEdge.dmi'
-					ExtraClass=1
-					TierTechniques=list(null, null, null, null, "/obj/Skills/Buffs/SlotlessBuffs/Eye_of_Chaos", null)
 
 				Spear_of_War // "Green Dragon Crescent Blade" / Guan Yu
 					pixel_x = -16

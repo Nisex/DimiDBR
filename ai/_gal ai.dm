@@ -522,8 +522,6 @@ mob/Player/AI
 		AI_Database_Sync(var/id, database_override)
 			var/ai_sheet/a = database_override ? database_override[id] : ai_database[id]
 			if(!a) return
-
-
 			for(var/v in a.properties)
 				vars[v] = a.properties[v]
 

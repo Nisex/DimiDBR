@@ -97,3 +97,5 @@ proc
 			sleep(world.tick_lag*tickstosleep)
 			tickstosleep *= 2 //increase the amount we sleep each time since sleeps are expensive (5-15 proc calls)
 		while(world.tick_usage > 75 && (tickstosleep*world.tick_lag) < 32) //stop if we get to the point where we sleep for seconds at a time
+
+atom/proc/onBumped(atom/Obstacle)

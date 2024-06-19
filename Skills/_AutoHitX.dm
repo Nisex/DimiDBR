@@ -17,6 +17,10 @@ obj
 			Distance=1//Unless otherwise stated, assume it's a one tile attack of varying style.
 			var/DistanceAround //this is only used for AroundTarget type techs.
 			var
+				Cleansing = 0
+				ManaDrain = 0
+				HitSelf = 0
+
 				NoPierce=0//If this is flagged it will make a technique terminate after hitting something.
 				CorruptionGain = 0
 				UnarmedOnly
@@ -1198,11 +1202,11 @@ obj
 				ComboMaster=1
 				Distance=4
 				StrOffense=1
-				DamageMult=5.5
+				DamageMult=5
 				Cooldown=60
-				Stunner=1
-				Knockback=20
-				Size=1
+				Stunner=2
+				Knockback=25
+				Size=2
 				HitSparkIcon='BLANK.dmi'
 				HitSparkX=0
 				HitSparkY=0
@@ -1228,12 +1232,12 @@ obj
 				PostShockwave=0
 				Shockwave=2
 				Shockwaves=2
-				DamageMult=5.5
-				Knockback=5
-				Distance=7
+				DamageMult=11
+				Knockback=2
+				Distance=4
 				ActiveMessage="vanishes with a burst of speed to strike at their foe!"
 				Cooldown=60
-				EnergyCost=3
+				EnergyCost=6
 				Instinct=1
 				verb/Phantom_Strike()
 					set category="Skills"
@@ -1247,7 +1251,7 @@ obj
 				NoLock=1
 				NoAttackLock=1
 				StrOffense=1
-				DamageMult=4.8
+				DamageMult=3.5
 				DelayTime=0
 				PreShockwave=1
 				PreShockwaveDelay=1
@@ -1258,7 +1262,7 @@ obj
 				ShockBlend=2
 				ShockDiminish=1.15
 				ShockTime=4
-				Rush=3
+				Rush=6
 				ControlledRush=1
 				HitSparkIcon='Hit Effect.dmi'
 				HitSparkX=-32
@@ -1310,7 +1314,7 @@ obj
 				Icon='SweepingKick.dmi'
 				IconX=-32
 				IconY=-32
-				EnergyCost=1
+				EnergyCost=3
 				CanBeDodged=1
 				ActiveMessage="sweeps the legs from under their opponent!"
 				verb/Leg_Sweep()
@@ -1322,40 +1326,43 @@ obj
 				UnarmedOnly=1
 				Area="Circle"
 				StrOffense=1
-				DamageMult=2
+				DamageMult=1.25
 				Cooldown=60
 				Rounds=5
 				Shattering=1
 				RoundMovement=1
-				Size=0.75
+				Size=2
 				Icon='SweepingKick.dmi'
 				IconX=-32
 				IconY=-32
 				FlickSpin=1
-				EnergyCost=1
+				EnergyCost=2
 				ActiveMessage="throws their body into a handstand while delivering numerous spin kick!"
 				verb/Helicopter_Kick()
 					set category="Skills"
 					usr.Activate(src)
 			Lightning_Kicks
+				NewCost = TIER_3_COST
+				NewCopyable = 4
 				SkillCost=80
 				Copyable=3
 				UnarmedOnly=1
 				Area="Arc"
 				StrOffense=1
-				DamageMult=3
+				DamageMult=3.5
+				Rush=5
 				Rounds=3
 				ComboMaster=1
 				RoundMovement=0
 				NoAttackLock=1
 				NoLock=1
-				Cooldown=60
+				Cooldown=90
 				Icon='Nest Slash.dmi'
 				IconX=-16
 				IconY=-16
 				Size=2
 				Distance=2
-				EnergyCost=2
+				EnergyCost=5
 				Launcher=2
 				Instinct=1
 				ActiveMessage="delivers a series of flowing kicks!"
@@ -1363,23 +1370,27 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Flying_Kick
+				NewCost = TIER_3_COST
+				NewCopyable = 4
 				SkillCost=80
 				Copyable=3
 				UnarmedOnly=1
 				Area="Arc"
 				Distance=2
 				StrOffense=1
-				Rush=5
+				Rush=8
 				Jump=1
 				ControlledRush=1
-				DamageMult=5.5
-				Knockback=5
+				DamageMult=6
+				Knockback=1
+				Shattering = 15
+				GuardBreak=1
 				Icon='Nest Slash.dmi'
 				IconX=-16
 				IconY=-16
 				Size=2
-				Cooldown=60
-				EnergyCost=2
+				Cooldown=90
+				EnergyCost=4
 				ActiveMessage="goes flying through the air to deliver a graceful kick!"
 				verb/Flying_Kick()
 					set category="Skills"
@@ -2488,8 +2499,8 @@ obj
 					Distance=6
 					Area="Target"
 					ForOffense=1
-					DamageMult=3
-					Paralyzing=1
+					DamageMult=4
+					Paralyzing=5
 					Size=1
 					Bolt=2
 					Distance=5
@@ -2514,7 +2525,7 @@ obj
 					PreRequisite=list("/obj/Skills/AutoHit/Magic/Thunder")
 					Area="Circle"
 					Distance=8
-					Paralyzing=2
+					Paralyzing=8
 					Bolt=2
 					WindUp=1
 					DamageMult=6
@@ -2541,7 +2552,7 @@ obj
 					Bolt=2
 					BoltOffset=1
 					WindUp=1
-					DamageMult=1.5
+					DamageMult=2
 					Rounds=5
 					SpecialAttack=1
 					ForOffense=1
@@ -2890,11 +2901,12 @@ obj
 				Copyable=2
 				NeedsSword=1
 				Area="Target"
-				Distance=3
+				Distance=4
 				StrOffense=1
 				NoPierce=1
-				Knockback=10
-				DamageMult=2.6
+				Knockback=3
+				DamageMult=2.2
+				Rush=1
 				Cooldown=30
 				EnergyCost=2
 				ActiveMessage="dashes forward with a jousting strike!"
@@ -2906,12 +2918,12 @@ obj
 				Copyable=2
 				NeedsSword=1
 				Area="Wave"
-				Distance=5
+				Distance=2.5
 				PassThrough=1
 				StrOffense=1
-				DamageMult=2.5
-				EnergyCost=1.5
-				Rounds = 3
+				DamageMult=3.5
+				EnergyCost=3
+				Rounds = 2
 				HitSparkIcon='Slash.dmi'
 				HitSparkX=-32
 				HitSparkY=-32
@@ -2937,10 +2949,10 @@ obj
 				NeedsSword=1
 				Area="Wave"
 				ComboMaster=1
-				Distance=3
+				Distance=2
 				StrOffense=1
 				EndDefense=1
-				DamageMult=2.8
+				DamageMult=3.25
 				HitSparkIcon='Slash.dmi'
 				HitSparkX=-32
 				HitSparkY=-32
@@ -2989,8 +3001,8 @@ obj
 				NeedsSword=1
 				Area="Arc"
 				StrOffense=1
-				DamageMult=2.8
-				Shearing=5
+				DamageMult=2
+				Shearing=12
 				Cooldown=30
 				EnergyCost=3
 				Distance=3
@@ -3078,9 +3090,10 @@ obj
 				Copyable=2
 				NeedsSword=1
 				Area="Circle"
-				Distance=1
+				Distance=3
+				Rush=2
 				StrOffense=1
-				DamageMult=3
+				DamageMult=1.5
 				EnergyCost=3
 				HitSparkIcon='Slash - Zan.dmi'
 				HitSparkX=-16
@@ -3128,7 +3141,7 @@ obj
 				ChargeTime=1
 				Rounds=5
 				StrOffense=1
-				DamageMult=0.9
+				DamageMult=1
 				Cooldown=60
 				Knockback=1
 				Size=1
@@ -5576,9 +5589,10 @@ obj
 			Persistent = FALSE
 			CorruptionGain
 
+			Cleansing = 0
+			ManaDrain
 
-
-
+			hitSelf = 0
 
 			Arcing//Triggers offshoots on every step that expand outwards.  Higher than 1 means that every X steps the range will widen.
 			ArcingCount=0//Number of times arcing has been triggered.  Informs the game how many tiles to send the offshoots.
@@ -5712,7 +5726,9 @@ obj
 			src.Wave=wave
 			src.Cardinal=card
 			src.Circle=circle
+			Cleansing = Z.Cleansing
 			src.CorruptionGain = Z.CorruptionGain
+			hitSelf = Z.HitSelf
 			if(Z.Persistent)
 				src.Persistent = 1
 				bound_height = 32 * Distance
@@ -5741,6 +5757,7 @@ obj
 				src.EndRes=Z.EndDefense
 			if(Z.AdaptRate)
 				AdaptDmg = Z.AdaptRate
+			ManaDrain = Z.ManaDrain
 			src.Executor = Z.Executor
 			src.Primordial = Z.Primordial
 			src.RagingDemonAnimation = Z.RagingDemonAnimation
@@ -5846,7 +5863,7 @@ obj
 				endLife()
 		Bump(var/mob/m)
 			if(istype(m, /mob))
-				if(m!=src.Owner&&m.density)
+				if(!hitSelf&&m!=src.Owner&&m.density)
 					spawn()
 						src.Damage(m)
 						if(src.NoPierce)
@@ -5858,7 +5875,7 @@ obj
 			if(Persistent)
 				for(var/turf/t in range( Distance, src.TargetLoc))
 					for(var/mob/m in t.contents)
-						if(m==src.Owner)
+						if(!hitSelf&&m==src.Owner)
 							continue
 						else
 							src.Damage(m)
@@ -6084,7 +6101,7 @@ obj
 							src.Owner.HitEffect(src.Owner, src.UnarmedTech, src.SwordTech)
 							return
 
-				if(src.CanBeBlocked)
+				if(src.CanBeBlocked||m.passive_handler.Get("YataNoKagami"))
 					if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldWhiffRate, IgnoreNoDodge=1) == WHIFF)
 						if(!src.Owner.NoWhiff())
 							var/obj/Items/Sword/s = Owner.EquippedSword()
@@ -6095,6 +6112,8 @@ obj
 
 				if(m in src.Owner.party)
 					FinalDmg *= glob.PARTY_DAMAGE_NERF
+					if(src.Owner.passive_handler.Get("TeamFighter"))
+						FinalDmg /= 1+src.Owner.passive_handler.Get("TeamFighter")
 
 				if(!src.CanBeBlocked&&!src.CanBeDodged)
 					FinalDmg *= glob.AUTOHIT_GLOBAL_DAMAGE
@@ -6136,6 +6155,29 @@ obj
 				if(Shearing)
 					m.AddShearing(Shearing, Owner)
 
+				if(Cleansing && m in src.Owner.party)
+					m.Slow -= Cleansing*10
+					if(m.Slow < 0)
+						m.Slow = 0
+					m.Crippled -= Cleansing*10
+					if(m.Crippled < 0)
+						m.Crippled = 0
+					m.Burn -= Cleansing*10
+					if(m.Burn < 0)
+						m.Burn = 0
+					m.Poison -= Cleansing*10
+					if(m.Poison < 0)
+						m.Poison = 0
+					m.Shatter -= Cleansing*10
+					if(m.Shatter < 0)
+						m.Shatter = 0
+					m.Shock -= Cleansing*10
+					if(m.Shock < 0)
+						m.Shock = 0
+					m.Sheared -= Cleansing*10
+					if(m.Sheared < 0)
+						m.Sheared = 0
+
 				// if(src.CosmoPowered)
 				// 	if(!src.Owner.SpecialBuff)
 				// 		FinalDmg*=TrueDamage(1+(src.Owner.SenseUnlocked-5))
@@ -6171,7 +6213,7 @@ obj
 				if(src.EnergySteal)
 					src.Owner.EnergySteal+=src.EnergySteal
 
-				if(src.CanBeDodged)
+				if(src.CanBeDodged||m.passive_handler.Get("YataNoKagami"))
 					var/loc=m.loc
 					if(m.AttackQueue&&(m.AttackQueue.Counter||m.AttackQueue.CounterTemp))
 						m.dir=get_dir(m, src.Owner)
@@ -6203,41 +6245,32 @@ obj
 							for(var/obj/Skills/Zanzoken/z in src)
 								z.Cooldown()//freeze that after image shieet
 						return
+
+				if(src.MortalBlow)
+					if(src.MortalBlow<0)
+						m.MortallyWounded+=4
 					else
-						if(src.MortalBlow)
-							if(src.MortalBlow<0)
-								m.MortallyWounded+=4
-							else
-								if(prob(20*src.MortalBlow) && !m.MortallyWounded)
-									var/MortalDamage = m.Health * 0.15
-									m.LoseHealth(MortalDamage)
-									m.WoundSelf(MortalDamage)
-									m.MortallyWounded+=1
-									src.Owner << "<b><font color=#ff0000>You mortally wound [m]!</font></b>"
-								if(src.MortalBlow>1)
-									if(m.Immortal)
-										m.Immortal=0
-						src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
-						if(src.Owner.UsingAnsatsuken())
-							src.Owner.HealMana(src.Owner.SagaLevel)
-				else
-					if(src.MortalBlow)
-						if(src.MortalBlow<0)
-							m.MortallyWounded+=4
-						else
-							if(prob(20*src.MortalBlow) && !m.MortallyWounded)
-								var/MortalDamage = m.Health * 0.15
-								m.LoseHealth(MortalDamage)
-								m.WoundSelf(MortalDamage)
-								src.Owner << "<b><font color=#ff0000>You mortally wound [m]!</font></b>"
-							if(src.MortalBlow>1)
-								if(m.Immortal)
-									m.Immortal=0
-					src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
-					if(CorruptionGain)
-						Owner.gainCorruption((FinalDmg * 2) * glob.CORRUPTION_GAIN)
-					if(src.Owner.UsingAnsatsuken())
-						src.Owner.HealMana(src.Owner.SagaLevel)
+						if(prob(20*src.MortalBlow) && !m.MortallyWounded)
+							var/MortalDamage = m.Health * 0.15
+							m.LoseHealth(MortalDamage)
+							m.WoundSelf(MortalDamage)
+							src.Owner << "<b><font color=#ff0000>You mortally wound [m]!</font></b>"
+						if(src.MortalBlow>1)
+							if(m.Immortal)
+								m.Immortal=0
+
+				var/damageDealt = src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
+				if(!damageDealt)
+					damageDealt = 0
+
+				if(ManaDrain)
+					m.LoseMana(ManaDrain)
+					src.Owner.HealMana(ManaDrain)
+
+				if(CorruptionGain)
+					Owner.gainCorruption((FinalDmg * 2) * glob.CORRUPTION_GAIN)
+				if(src.Owner.UsingAnsatsuken())
+					src.Owner.HealMana(src.Owner.SagaLevel)
 
 				if(src.LifeSteal)
 					src.Owner.LifeSteal-=src.LifeSteal
@@ -6367,7 +6400,7 @@ obj
 											sleep(-1)
 											TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
 										for(var/mob/m in t.contents)
-											if(m==src.Owner)
+											if(!hitSelf&&m==src.Owner)
 												continue
 											src.Damage(m)
 									for(var/turf/t in Turf_Circle_Edge(src.TargetLoc, Rounds))
@@ -6426,7 +6459,7 @@ obj
 									for(var/mob/m in view(Rounds, src.TargetLoc))
 										if(m in view(Rounds-1, src.TargetLoc))//Don't doublehit people
 											continue
-										if(m==src.Owner)
+										if(!hitSelf&&m==src.Owner)
 											continue
 										src.Damage(m)
 								sleep(src.Slow*world.tick_lag)
@@ -6474,7 +6507,7 @@ obj
 								for(var/turf/t in Turf_Circle(src.TargetLoc, src.Distance))
 									sleep(-1)
 									for(var/mob/m in t)
-										if(src.Owner!=m)
+										if(!hitSelf&&src.Owner!=m)
 											src.Damage(m)
 							else//If less than 3 distance...
 								if(src.TurfErupt)
@@ -6507,7 +6540,7 @@ obj
 										sleep(-1)
 										TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
 								for(var/mob/m in view(src.Distance, src.TargetLoc))
-									if(src.Owner!=m)
+									if(!hitSelf&&src.Owner!=m)
 										src.Damage(m)
 						goto Kill
 					else
@@ -6536,7 +6569,7 @@ obj
 											sleep(-1)
 											TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
 										for(var/mob/m in t.contents)
-											if(m==src.Owner)
+											if(!hitSelf&&m==src.Owner)
 												continue
 											src.Damage(m)
 									for(var/turf/t in Turf_Circle_Edge(src.Owner, Rounds))
@@ -6595,7 +6628,7 @@ obj
 									for(var/mob/m in view(Rounds, src.Owner))
 										if(m in view(Rounds-1, src.Owner))//Don't doublehit people
 											continue
-										if(m==src.Owner)
+										if(!hitSelf&&m==src.Owner)
 											continue
 										src.Damage(m)
 								sleep(src.Slow*world.tick_lag)
@@ -6639,7 +6672,7 @@ obj
 								for(var/turf/t in Turf_Circle(src.Owner, src.Distance))
 									sleep(-1)
 									for(var/mob/m in t)
-										if(src.Owner!=m)
+										if(!hitSelf&&src.Owner!=m)
 											src.Damage(m)
 							else//If less than 3 distance...
 								if(src.TurfErupt)
@@ -6672,7 +6705,7 @@ obj
 										sleep(-1)
 										TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
 								for(var/mob/m in view(src.Distance, src.Owner))
-									if(src.Owner!=m)
+									if(!hitSelf&&src.Owner!=m)
 										src.Damage(m)
 						goto Kill
 				if(src.Target)

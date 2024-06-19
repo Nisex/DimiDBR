@@ -168,6 +168,11 @@ var/global/MULTIHIT_NERF = FALSE
 
 	// 				DELAY END				//
 
+	var/windChance = passive_handler.Get("WindRelease")
+	if(!forcewarp&&prob(windChance*10))
+		for(var/mob/m in orange(windChance*5))
+			src.Knockback(windChance, m, Direction=get_dir(m, src))
+
 	// 				RAYCASTING 				//
 
 	var/list/mob/enemies = getEnemies()
@@ -177,6 +182,34 @@ var/global/MULTIHIT_NERF = FALSE
 	// 				ATTACK 					//
 
 	if(length(enemies)>0)
+		var/shockwaveChance = passive_handler.Get("ShockwaveBlows")
+		if(prob(shockwaveChance*10))
+			GetAndUseSkill(/obj/Skills/AutoHit/Shockwave_Blows, AutoHits, TRUE)
+
+		if(passive_handler.Get("RefreshingBlows"))
+			for(var/mob/m in oview(passive_handler.Get("RefreshingBlows")*2, src))
+				m.Slow -= passive_handler.Get("RefreshingBlows")
+				if(m.Slow < 0)
+					m.Slow = 0
+				m.Crippled -= passive_handler.Get("RefreshingBlows")
+				if(m.Crippled < 0)
+					m.Crippled = 0
+				m.Burn -= passive_handler.Get("RefreshingBlows")
+				if(m.Burn < 0)
+					m.Burn = 0
+				m.Poison -= passive_handler.Get("RefreshingBlows")
+				if(m.Poison < 0)
+					m.Poison = 0
+				m.Shatter -= passive_handler.Get("RefreshingBlows")
+				if(m.Shatter < 0)
+					m.Shatter = 0
+				m.Shock -= passive_handler.Get("RefreshingBlows")
+				if(m.Shock < 0)
+					m.Shock = 0
+				m.Sheared -= passive_handler.Get("RefreshingBlows")
+				if(m.Sheared < 0)
+					m.Sheared = 0
+
 		NextAttack += delay
 		var/Disarm = 0
 		if(UsingGladiator())
@@ -607,7 +640,7 @@ var/global/MULTIHIT_NERF = FALSE
 
 							// reduce damage by 1% for every 0.1 damage effectiveness, 1 damage effectiveness = 10% damage reduction
 							//TODO ARMOR AT THE END
-							if(defArmor)
+							if(defArmor&&!passive_handler.Get("ArmorPeeling"))
 								var/dmgEffective = enemy.GetArmorDamage(defArmor)
 								damage -=  damage * dmgEffective/10
 								#if DEBUG_MELEE

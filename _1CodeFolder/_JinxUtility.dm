@@ -481,6 +481,10 @@ mob
 				HealMana(value)
 				defender.LoseMana(value)
 
+			if(dainsleifDrawn&&passive_handler.Get("CursedSheath")) // dainsleif passive
+				cursedSheathValue += val
+				cursedSheathValue = clamp(0, cursedSheathValue, SagaLevel*50)
+
 			if(src.HasErosion())
 				var/Erosion = src.GetErosion()
 				var/MPow=defender.Power_Multiplier/8
@@ -624,6 +628,7 @@ mob
 						bor.onKill(src, defender)
 				defender.Death(src, null)
 
+			return val
 
 		DealWounds(var/mob/defender, var/val, var/FromSelf=0)
 			if(defender.CyberCancel)
@@ -3092,7 +3097,7 @@ proc
 /var/global/GLOBAL_EXPONENT_MULT = 1/3
 /var/global/GRAPPLE_MELEE_BOON = 1.5
 var/global/AUTOHIT_GRAB_NERF = 0.5
-var/global/PARTY_DAMAGE_NERF = 0.33
+var/global/PARTY_DAMAGE_NERF = 0.6
 
 /mob/Admin3/verb/Grab_Auto_Nerf(n as num)
 	glob.AUTOHIT_GRAB_NERF = n
@@ -3121,7 +3126,7 @@ proc
 		else
 			return Damage**3
 	ProjectileDamage(Damage) // This is Power * Damage Mult
-		return Damage*PROJ_DAMAGE_MULT
+		return Damage*glob.PROJ_DAMAGE_MULT
 	CounterDamage(Damage)
 		return clamp(Damage,0.25,1)
 

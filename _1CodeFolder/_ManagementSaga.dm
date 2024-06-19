@@ -174,11 +174,7 @@ mob/Admin3/verb
 								P.AddSkill(new/obj/Skills/AutoHit/Unicorn_Gallop)
 
 				if("Weapon Soul")
-					P<<"You have honed your skills to become a warrior of legend... <b>Arms Master</b>!"
-					P.Saga="Weapon Soul"
-					P.WeaponSoulType="Weapon Soul"
-					P.SagaLevel=1
-					P.AddSkill(new/obj/Skills/Buffs/ActiveBuffs/Weapon_Soul)
+					P.gainWeaponSoul()
 
 				if("Persona")
 					P<<"You awaken an arcane power through confronting your shadow... <b>Persona</b>!"
@@ -746,7 +742,8 @@ mob
 				if("Spiral")
 					tierUpSaga("Spiral")
 				if("Weapon Soul")
-					if(src.SagaLevel==2)
+					tierUpSaga("Weapon Soul")
+/*					if(src.SagaLevel==2)
 						src << "Your knowledge on classic swordplay improves."
 					if(src.SagaLevel==3)
 						var/Choice=alert(src, "Is your swordsmanship guided by Intuition or Experience?", "Weapon Soul", "Intuition", "Experience")
@@ -826,7 +823,7 @@ mob
 					if(src.SagaLevel==6)
 						if(!locate(/obj/Skills/Buffs/SpecialBuffs/OverSoul, src))
 							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/OverSoul)
-							src << "You've learned to unseal the true form of your legendary weapon."
+							src << "You've learned to unseal the true form of your legendary weapon."*/
 
 				if("Unlimited Blade Works")
 					switch(src.SagaLevel)

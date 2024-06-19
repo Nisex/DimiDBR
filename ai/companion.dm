@@ -146,13 +146,15 @@ obj/Skills/Companion
 			set src in usr
 			set category = "Companion"
 			if(Using) return
-			if(!usr.Target) usr << "You need a target to use this."
+			if(!usr.Target)
+				usr << "You need a target to use this."
+				return
 			for(var/mob/Player/AI/a in usr.ai_followers)
 				if(usr.Target.ai_followers.len)
 					a.SetTarget(pick(usr.Target.ai_followers))
 				else
 					a.SetTarget(usr.Target)
-				a.ai_state = "combat"
+				a.Chase()
 				usr << "You order [a] to attack [usr.Target]!"
 
 		Companion_Stop()
@@ -161,7 +163,7 @@ obj/Skills/Companion
 			if(Using) return
 			for(var/mob/Player/AI/a in usr.ai_followers)
 				a.RemoveTarget()
-				a.ai_state = "Idle"
+				a.Idle()
 				usr << "You order [a] stop fighting!"
 		Companion_Follow()
 			set src in usr
@@ -169,7 +171,7 @@ obj/Skills/Companion
 			if(Using) return
 			for(var/mob/Player/AI/a in usr.ai_followers)
 				a.ai_follow = !a.ai_follow
-				a.ai_state = "Idle"
+				a.Idle()
 				usr << "You order [a.ai_follow ? "follow you!" : "hold position!"]"
 
 		Companion_Focus_Target()

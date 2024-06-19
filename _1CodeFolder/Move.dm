@@ -108,7 +108,9 @@ globalTracker/var/TOTAL_SPEED_BONUS = 1
 
 mob/proc/MovementSpeed()
 	var/Spd=max(0.1,round(sqrt(src.GetSpd(glob.TOTAL_SPEED_BONUS)),0.1))
-	var/SpdMult=max(0.1,glob.GOD_SPEED_MULT*sqrt(src.HasGodspeed()))
+	var/SpdMult = 0
+	if(HasGodspeed())
+		SpdMult = max(0.1,glob.GOD_SPEED_MULT*sqrt(src.HasGodspeed()))
 	var/Delay=glob.SPEED_DELAY/(Spd*(1+SpdMult))
 	if(src.Flying)
 		Delay=0.25
