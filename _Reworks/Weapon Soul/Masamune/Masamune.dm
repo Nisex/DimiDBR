@@ -10,7 +10,6 @@ obj/Skills/AutoHit/Divine_Cleansing
 	HitSelf = TRUE
 	DamageMult=2
 	Cleansing = 1
-	Purity = TRUE
 	Cooldown=180
 	Rounds=5
 	Distance = 5
