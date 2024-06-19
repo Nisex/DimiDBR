@@ -62,7 +62,6 @@ mob/proc/gainWeaponSoul()
 mob/tierUpSaga(Path)
 	..()
 	if(Path == "Weapon Soul")
-		src << "You feel a second treasure manifest deep within your heart..."
 		switch(SagaLevel)
 			if(2)
 				switch(WeaponSoulType)

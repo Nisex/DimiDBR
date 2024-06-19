@@ -32,13 +32,13 @@ obj/Skills/Buffs/SlotlessBuffs/Yata_no_Kagami/Mirror_Protection
 		Trigger(usr)
 
 obj/Skills/Yata_no_Kagami/Mirror_Prison
-	Distance = 6
+	Distance = 10
 	Cooldown = 240
 	var/mirrorTime = 20 SECONDS
 
 	proc/getArea(mob/user)
 		var/list/one = block(user.x-(Distance/2)+1, user.y-(Distance/2)+1, user.z, user.x+(Distance/2)-1, user.y+(Distance/2)-1)
-		var/list/two = block(user.x-(Distance/2)+1, user.y-(Distance/2)+1, user.z, user.x+(Distance/2)-1, user.y+(Distance/2)-1)
+		var/list/two = block(user.x-(Distance/2)+2, user.y-(Distance/2)+2, user.z, user.x+(Distance/2)-2, user.y+(Distance/2)-2)
 		one -= two
 		return one
 
@@ -58,10 +58,10 @@ obj/Skills/Yata_no_Kagami/Mirror_Prison
 			return
 		if(usr.SpecialBuff&&usr.SpecialBuff.name == "Heavenly Regalia: The Three Treasures")
 			mirrorTime = 30 SECONDS
-			Distance = 10
+			Distance = 15
 		else
 			mirrorTime = 20 SECONDS
-			Distance = 6
+			Distance = 10
 		Cooldown()
 		spawnMirrors(getArea(usr), mirrorTime)
 
