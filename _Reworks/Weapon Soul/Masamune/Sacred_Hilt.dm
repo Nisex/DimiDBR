@@ -3,7 +3,8 @@ obj/Skills/Buffs/SlotlessBuffs/Blessed_Guard
 	VaizardHealth = 2
 	VaizardShatter = 1
 	TimerLimit = 30
-	Cooldown = 90
+	Cooldown = 120
+	CooldownStatic = 1
 	adjust(mob/p)
 		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: Blessed Blade")
 			passives = list("PureDamage"=-2, "ManaSeal" = 1, "DebuffImmune" = 1)

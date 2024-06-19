@@ -1130,14 +1130,14 @@ NEW VARIABLES
 									light = usr.EquippedSword():caledLight
 							if(light)
 								src.PowerMult=1.5
-								passives = list("HolyMod" = usr.SagaLevel, "SpiritSword" = 0.25, "PULock" = 1)
+								passives = list("HolyMod" = usr.SagaLevel, "SpiritSword" = 0.25, "LikeWater" = max(1,usr.SagaLevel/2), "PULock" = 1)
 								src.SwordName="Caledfwlch"
 								src.SwordIcon='Caledfwlch.dmi'
 								src.ActiveMessage="calls forth the true form of Caledfwlch, the Sword of Glory!"
 								src.OffMessage="conceals Caledfwlch's glory..."
 							else
 								src.PowerMult=1.5
-								passives = list("AbyssMod" = usr.SagaLevel, "SpiritSword" = 0.25, "PULock" = 1)
+								passives = list("AbyssMod" = usr.SagaLevel, "SpiritSword" = 0.25, "Instinct" = max(1, usr.SagaLevel/3), "Pursuer" = max(1,usr.SagaLevel/2),"PULock" = 1)
 								src.SwordName="Caledfwlch"
 								src.SwordIcon='Caledfwlch-Morgan.dmi'
 								src.ActiveMessage="calls forth the true form of Caledfwlch Morgan, the Shadow Sword of Glory!"
@@ -1169,7 +1169,7 @@ NEW VARIABLES
 							src.OffMessage="casts Muramasa back into the darkness..."
 						if("Masamune")
 							src.PowerMult=1.5
-							passives = list("HolyMod"=usr.SagaLevel,"Purity"=1,"Steady"=usr.SagaLevel*1.5, "PULock" = 1)
+							passives = list("HolyMod"=usr.SagaLevel*1.25,"Purity"=1,"Steady"=usr.SagaLevel*1.5, "PULock" = 1)
 							src.SwordName="Masamune"
 							src.ActiveMessage="calls forth the true form of Masamune, the Sword of Purity!"
 							src.OffMessage="relaxes the light of Masamune..."

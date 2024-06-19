@@ -30,7 +30,7 @@ mob/proc/gainWeaponSoul()
 		if("Caledfwlch")
 			new/obj/Items/Sword/Medium/Legendary/WeaponSoul/Sword_of_Glory(src)
 			src << "You feel the ability to invoke an almighty beam rise up, shooting through your veins with a cry of Excalibur!"
-			AddSkill(new/obj/Skills/Projectile/Beams/Big/Weapon_Soul/Excalibur)
+			AddSkill(new/obj/Skills/Projectile/Weapon_Soul/Excalibur)
 
 		if("Muramasa")
 			new/obj/Items/Sword/Light/Legendary/WeaponSoul/Bane_of_Blades(src)
@@ -55,7 +55,7 @@ mob/proc/gainWeaponSoul()
 		if("Ryui Jingu Bang")
 			new/obj/Items/Sword/Wooden/Legendary/WeaponSoul/RyuiJinguBang(src)
 
-		if("Guan Yu")
+		if("Green Dragon Crescent Blade")
 			new/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Spear_of_War(src)
 			AddSkill(new/obj/Skills/AutoHit/War_God_Descent)
 
@@ -110,7 +110,7 @@ mob/tierUpSaga(Path)
 						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Dadao)
 						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Huadong)
 
-					if("Guan Yu")
+					if("Green Dragon Crescent Blade")
 						src << "The Green Dragon Crescent Blade unveils the secrets to an unstoppable rush..."
 						passive_handler.Increase("Flow")
 						SagaThreshold("Spd",2)
@@ -164,7 +164,7 @@ mob/tierUpSaga(Path)
 					if("Ryui Jingu Bang")
 						passive_handler.Increase("MonkeyKing",2) // lets get a little freaky
 
-					if("Guan Yu")
+					if("Green Dragon Crescent Blade")
 						src << "The Green Dragon Crescent Blade shows how to counter any attack..."
 						passive_handler.Increase("Reversal")
 						passive_handler.Increase("Adaptation")
@@ -211,7 +211,7 @@ mob/tierUpSaga(Path)
 						src << "The power of Heavenly Regalia: Monkey King resonates in your body."
 						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Ryui_Jingu_Bang)
 
-					if("Guan Yu")
+					if("Green Dragon Crescent Blade")
 						src << "The power of Heavenly Regalia: War King resonates in your body."
 						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Guan_Yu)
 
@@ -251,7 +251,7 @@ mob/tierUpSaga(Path)
 
 					if("Muramasa")
 						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Muramasa/muramasa in src.Buffs)
-							muramasa.passives["KillerInstinct"] = 1
+							muramasa.passives["KillerInstinct"] = 0.3
 							muramasa.passives["DemonicDurability"] = 2
 							muramasa.passives["TechniqueMastery"] = 2
 
@@ -277,7 +277,7 @@ mob/tierUpSaga(Path)
 							Ryui.passives["FluidForm"] = 1
 							Ryui.passives["StunningStrike"] = 1
 
-					if("Guan Yu")
+					if("Green Dragon Crescent Blade")
 						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Guan_Yu/GuanYu in src.Buffs)
 							GuanYu.passives["Zornhau"] = 2
 							GuanYu.passives["Iaido"] = 2

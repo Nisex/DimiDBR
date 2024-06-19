@@ -3126,7 +3126,7 @@ proc
 		else
 			return Damage**3
 	ProjectileDamage(Damage) // This is Power * Damage Mult
-		return Damage*PROJ_DAMAGE_MULT
+		return Damage*glob.PROJ_DAMAGE_MULT
 	CounterDamage(Damage)
 		return clamp(Damage,0.25,1)
 proc
