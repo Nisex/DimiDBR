@@ -139,8 +139,7 @@ obj/Skills/Companion
 					a.ai_follow= formation ? formation : 1
 					a.ai_hostility=0
 
-					a.AI_Database_Sync(squad[index], database_override = squad_database)
-					a.name = index
+					a.AI_Database_Sync(index, squad_database)
 					a.ai_focus_owner_target = companion_focus_target
 
 					a.ko_death = companion_ko_death
@@ -156,5 +155,6 @@ obj/Skills/Companion
 					for(var/alliance in team) a.ai_alliances += alliance
 					active_ai+=a
 					a.AIGain()
+					a.ai_state = "Idle"
 				last_use = world.time
 				Using=0

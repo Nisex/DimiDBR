@@ -146,13 +146,15 @@ obj/Skills/Companion
 			set src in usr
 			set category = "Companion"
 			if(Using) return
-			if(!usr.Target) usr << "You need a target to use this."
+			if(!usr.Target)
+				usr << "You need a target to use this."
+				return
 			for(var/mob/Player/AI/a in usr.ai_followers)
 				if(usr.Target.ai_followers.len)
 					a.SetTarget(pick(usr.Target.ai_followers))
 				else
 					a.SetTarget(usr.Target)
-				a.ai_state = "combat"
+				a.ai_state = "Chase"
 				usr << "You order [a] to attack [usr.Target]!"
 
 		Companion_Stop()

@@ -5,6 +5,8 @@ obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Tooth
 	CantHaveTheseBuffs = list("Saints Blood", "Saints Hair", "Saints Raiment")
 	HealthDrain = 0.05
 	HealthThreshold = 1
+	ManaGlow = "#dadada"
+	ManaGlowSize = 1
 	TimerLimit = 30
 	Cooldown = 90
 	passives = list("PureDamage" = 4, "HolyMod" = 3)
@@ -29,6 +31,8 @@ obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Tooth
 obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Blood
 	EnergyDrain = 0.05
 	EnergyThreshold = 10
+	ManaGlow = "#cb2323"
+	ManaGlowSize = 1
 	TimerLimit = 30
 	Cooldown = 90
 	CantHaveTheseBuffs = list("Saints Tooth", "Saints Hair", "Saints Raiment")
@@ -55,6 +59,8 @@ obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Hair
 	CantHaveTheseBuffs = list("Saints Blood", "Saints Tooth", "Saints Raiment")
 	ManaDrain = 0.05
 	ManaThreshold = 1
+	ManaGlow = "#486edf"
+	ManaGlowSize = 1
 	TimerLimit = 30
 	Cooldown = 90
 	passives = list("EnergySteal" = 2, "SoftStyle" = 3, "HolyMod" = 2)
@@ -79,6 +85,8 @@ obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Hair
 obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Raiment
 	TimerLimit = 30
 	Cooldown = 90
+	ManaGlow = "#48df66"
+	ManaGlowSize = 1
 	CantHaveTheseBuffs = list("Saints Tooth", "Saints Blood", "Saints Hair")
 	passives = list("PureReduction" = 4, "PureDamage" = -2, "DebuffImmune" = 0.5)
 	ActiveMessage = "'s legendary weapon coils up their arm with the Raiment of a Saint."

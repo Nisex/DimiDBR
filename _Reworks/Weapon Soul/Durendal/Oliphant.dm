@@ -20,4 +20,17 @@ obj/Skills/AutoHit/Blow_The_Horn
 		usr.Activate(src)
 
 obj/Skills/Companion/PlayerCompanion/Squad/Oilphant
+	cooldown = 3000
 	squad = list("oliphant spirit")
+
+	proc/modify(mob/m)
+		if(m.SpecialBuff&&m.SpecialBuff.name == "Heavenly Regalia: The Saint")
+			cooldown = 2000
+			squad = list("oliphant spirit","oliphant spirit")
+		else
+			cooldown = 3000
+			squad = list("oliphant spirit")
+
+	Companion_Summon()
+		modify(usr)
+		..()
