@@ -1,4 +1,4 @@
-var/list/chat_options = list("Font Size", "Font Family")
+var/list/chat_options = list("Font Size", "Font Family", "Combat Messages in IC")
 var/list/chat_tabs = list("AllChatTab", "ICChatTab", "LOOCChatTab", "OOCChatTab")
 var/list/valid_chat_fonts = list("Gotham Book", "Arial", "Verdana")
 
@@ -38,6 +38,8 @@ mob
 					fontSize()
 				if("Font Family")
 					fontFamily()
+				if("Combat Messages in IC")
+					usr.client.togglePref("CombatMessagesInIC")
 
 		fontSize()
 			var/current_font_size = client.getPref(CURRENTFONTSIZE)

@@ -9,6 +9,7 @@ var/regex/yellSlashRegex = new(@"^/y\s")
 #define IC_OUTPUT list("icchat", "output")
 #define LOOC_OUTPUT list("loocchat","oocchat","output")
 #define ALL_OUTPUT list("loocchat","oocchat","output", "icchat")
+#define ALL_NOT_IC_OUTPUT list("loocchat","oocchat","output")
 
 #define YELL "yell"
 #define WHISPER "whisper"
