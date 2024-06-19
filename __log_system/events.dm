@@ -80,6 +80,8 @@ mob/proc/sanitizedChatLog()
 
 mob/proc/SegmentLogs(var/e)
 	var/list/entries=flist(e)
+	entries -= "sanitized/"
+
 	if(entries.len >= 1)
 		if(entries.len > 1)
 			entries = sortByDate(entries)

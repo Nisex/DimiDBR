@@ -28,6 +28,7 @@
             options -= "Icon"
         var/thing = input(usr, "What do you want to customize?") in options
         if(thing == "Icon")
+            var/selection = input(usr, "Sword, Staff, or Armor Icon?") in list("Sword","Armor","Staff")
             vars["[selection][thing]"] = input(usr, "Change to what?") as icon | null
             vars["[selection]X"] = input(usr, "What is the pixel X?") as num
             vars["[selection]Y"] = input(usr, "What is the pixel y?") as num
@@ -47,6 +48,7 @@
         ForMult = 1
         EndMult = 1
         SpdMult = 1
+        ElementalOffense = "HellFire"
     verb/Devil_Arm()
         set category = "Skills"
         if(!usr.isRace(DEMON)) return

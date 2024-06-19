@@ -232,6 +232,10 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 		animate(client, color=null, time=1)
 		OMsg(src, "font color='grey'>[src] is no longer trapped in Tsukiyomi.</font color>")
 
+	if(warperTimeLock>0)
+		warperTimeLock--
+		warperTimeLock = max(0, warperTimeLock)
+
 	if(TimeStop)
 		var/obj/Skills/Buffs/SlotlessBuffs/Grimoire/Time_Stop/book = new
 		book = locate() in src
@@ -835,8 +839,8 @@ mob
 				src.BindingTimer--
 				if(src.BindingTimer<=0)
 					src.BindingTimer=0
-					if(src.Binding>=1)
-						src.TriggerBinding()
+				if(src.Binding>=1)
+					src.TriggerBinding()
 
 /*
 			if(src.FusionTimer>0)

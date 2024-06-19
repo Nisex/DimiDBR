@@ -426,7 +426,7 @@ proc
 			animate(A,pixel_x=-changeX, pixel_y=-changeY, time=3, flags=ANIMATION_RELATIVE | ANIMATION_PARALLEL)
 			sleep(3)
 			A.dir=get_dir(A,Target)
-			A.Melee1(1, 5, accmulti=3, SureKB=15)
+			A.Melee1(1, 5, accmulti=1.25, SureKB=15)
 			A.Dodging=0
 	UltraPrediction2(mob/A,mob/Target)
 		var/changeX=pick(-16,-8,8,16)
@@ -444,5 +444,5 @@ proc
 			animate(A,pixel_x=-changeX, pixel_y=-changeY, time=3, flags=ANIMATION_RELATIVE | ANIMATION_PARALLEL)
 			sleep(3)
 			A.dir=get_dir(A,Target)
-			A.Melee1(1, 5, accmulti=3)
+			A.Melee1(1, 5, accmulti=1.15)
 			A.Dodging=0

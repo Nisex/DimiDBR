@@ -267,7 +267,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 				if(Frozen||is_dashing||!Target||Target&&!ismob(Target)||Target==src||Beaming==2||TimeFrozen||Knockbacked)
 					return
 
-				var/Modifier = (src.HasPursuer()/10) 
+				var/Modifier = (src.HasPursuer()/10)
 				if(!src.HasDashMaster())
 					Z.Cooldown(clamp(1-Modifier,0.1, 1))
 
@@ -347,7 +347,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					if(src.CheckSlotless("East Strength"))
 						if(!src.AttackQueue)
 							src.SetQueue(new/obj/Skills/Queue/East_Rush)
-					src.Melee1(1, 5, accmulti=2+src.GetSuperDash(), BreakAttackRate=1)
+					src.Melee1(1, 5, accmulti=1.125+(src.GetSuperDash()/4), BreakAttackRate=1)
 
 				if(src.HasDashCount())
 					src.IncDashCount()
@@ -422,7 +422,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 						Z.Cooldown()
 					if(src.Target in oview(src, 1))
 						src.dir=get_dir(src, src.Target)
-						src.Melee1(1, 5, accmulti=2+src.GetSuperDash())
+						src.Melee1(1, 5, accmulti=1.125+(src.GetSuperDash()/4))
 
 
 			if("Absorb")
@@ -845,7 +845,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 								src.dir=get_dir(src,src.Target)
 								src.Instinct++
 								src.Instinct++
-								src.Melee1(1, 5, accmulti=3, SureKB=1, BreakAttackRate=1)
+								src.Melee1(1, 5, accmulti=1.2, SureKB=1, BreakAttackRate=1)
 								src.Instinct--
 								src.Instinct--
 							else
@@ -859,7 +859,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 								src.Comboz(src.Target)
 								src.dir=get_dir(src,src.Target)
 								src.Instinct++
-								src.Melee1(1, 5, accmulti=1.5, SureKB=1, BreakAttackRate=1)
+								src.Melee1(1, 5, accmulti=1.1, SureKB=1, BreakAttackRate=1)
 								src.Instinct--
 						src.MovementCharges--
 						if(MovementCharges<0)

@@ -228,5 +228,23 @@ update
 		updateMob(mob/p)
 			if(p.isRace(MAJIN))
 				p.NewAnger(1.5)
-			
 			..()
+	version17
+		version = 17
+		updateMob(mob/p)
+			if(p.isRace(YOKAI) && p.AscensionsAcquired == 1)
+				p.passive_handler.Set("TechniqueMastery", 3)
+				p.passive_handler.Set("ManaGeneration", 2)
+				if(p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
+					p.passive_handler.Set("ManaGeneration", 4)
+			if(p.isRace(ELF) && p.AscensionsAcquired == 1)
+				p.passive_handler.Set("SpiritFlow", 0.1)
+			..()
+	version18
+		version = 18
+		updateMob(mob/p)
+			p.refund_all_copyables()
+			..()	
+
+
+		

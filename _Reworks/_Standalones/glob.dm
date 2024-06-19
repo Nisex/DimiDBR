@@ -249,6 +249,7 @@ globalTracker
 		GLADIATOR_DISARM_MAX = 600
 		DISARM_TIMER = 100
 
+		LOWEST_ACC = 30
 
 		CONSTANT_DAMAGE_EXPONENT = 4
 
@@ -277,6 +278,9 @@ globalTracker
 
 // CC related
 		CCDamageModifier = 0.33
+
+		AUTOHIT_WHIFF_DAMAGE = 2
+		AUTOHIT_MISS_DAMAGE = 3
 
 		//Whiff dmg is now rand between these.
 		MIN_WHIFF_DMG = 1.25

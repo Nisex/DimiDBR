@@ -1,5 +1,11 @@
 proc/log_func(x, a, b)
 	return a * (log(x) / log(10) - b )
+#define TIER_1_COST 30
+#define TIER_2_COST 60
+#define TIER_3_COST 90
+#define TIER_4_COST 120
+
+
 
 #define isai(a) istype(a, /mob/Player/AI)
 #define isNPC(a) istype(a, /mob/)
@@ -53,12 +59,12 @@ proc/log_func(x, a, b)
 #define GAJALAKA /race/gajalaka
 #define CHANGELING /race/changeling
 
-#define DEBUG_DAMAGE 0
-#define DEBUG_ITEM_DAMAGE 0
-#define DEBUG_MELEE 0
-#define DEBUG_AUTOHIT 0
-#define DEBUG_GRAPPLE 0
-#define DEBUG_PROJECTILE 0
+#define DEBUG_DAMAGE 1
+#define DEBUG_ITEM_DAMAGE 1
+#define DEBUG_MELEE 1
+#define DEBUG_AUTOHIT 1
+#define DEBUG_GRAPPLE 1
+#define DEBUG_PROJECTILE 1
 
 
 //pacts in pacts.dm
