@@ -3278,12 +3278,14 @@ obj
 					SkillCost=160
 					Copyable=4
 					Distance=50
-					DamageMult=12.5
+					DamageMult=6
 					Radius=1
 					Piercing=1
 					PiercingBang=1
 					AccMult = 1.175
+					EndRate = 0.001
 					Dodgeable=-1
+					Deflectable=-1
 					Speed=0
 					ManaCost=10
 					Cooldown=120

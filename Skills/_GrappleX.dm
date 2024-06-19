@@ -38,7 +38,7 @@ obj/Skills/Grapple
 		if(StrRate)
 			description += "Strength Damage %: [StrRate*100]\n"
 		if(ForRate)
-			description += "Force Damage %: [ForRate*100]\n"
+			description += "Force Damage %: [ForRate*25]\n"
 		if(EndRate<1)
 			description += "Endurance Ignoring: [1-EndRate]%\n"
 		if(UnarmedOnly)
@@ -122,7 +122,7 @@ obj/Skills/Grapple
 		MultiHit=2
 		DamageMult=2
 		StrRate=1
-		ForRate=1
+		ForRate=4
 		ThrowAdd=5
 		TriggerMessage="drives two fang-hands into"
 		Effect="Strike"
@@ -140,7 +140,7 @@ obj/Skills/Grapple
 		Stunner=5
 		DamageMult=10
 		StrRate=1
-		ForRate=1
+		ForRate=4
 		ThrowMult=0
 		ThrowAdd=10
 		TriggerMessage="casts all of their disgust upon"
@@ -188,31 +188,35 @@ obj/Skills/Grapple
 		Effect="Lotus"
 		EffectMult=2
 		OneAndDone=1
-		Cooldown=90
+		Cooldown=60
 		verb/Izuna_Drop()
 			set category="Skills"
 			src.Activate(usr)
 	Suplex
+		NewCost = TIER_2_COST
+		NewCopyable = 3
 		SkillCost=120
 		Copyable=4
-		DamageMult=12
-		Stunner=4
+		DamageMult=8
+		Stunner=3
 		StrRate=1
 		ThrowAdd=1
 		ThrowMult=0
 		TriggerMessage="suplexes"
 		Effect="Suplex"
 		EffectMult=1
-		Cooldown=90
+		Cooldown=60
 		verb/Suplex()
 			set category="Skills"
 			src.Activate(usr)
 	Burning_Finger
+		NewCost = TIER_2_COST
+		NewCopyable = 3
 		SkillCost=120
 		Copyable=4
-		DamageMult=12
+		DamageMult=6
+		ForRate=2
 		StrRate=0.5
-		ForRate=0.5
 		TriggerMessage="shoves their burning red hand through"
 		Effect="Bang"
 		EffectMult=2
@@ -228,9 +232,9 @@ obj/Skills/Grapple
 		UnarmedOnly=0
 		NeedsSword=0
 		SignatureTechnique=1
-		DamageMult=16
+		DamageMult=12
 		StrRate=0.75
-		ForRate=0.75
+		ForRate=3
 		TriggerMessage="shoves their grossly incandescent hand through"
 		Effect="Bang"
 		EffectMult=5
@@ -247,7 +251,7 @@ obj/Skills/Grapple
 		NeedsSword=0
 		SignatureTechnique=1
 		DamageMult=16
-		ForRate=1
+		ForRate=4
 		StrRate=0.5
 		TriggerMessage="fills their grasp with lightning and takes hold of"
 		Effect="Lightning"
@@ -265,7 +269,7 @@ obj/Skills/Grapple
 	Energy_Drain
 		DamageMult=0.75
 		EnergyDamage=2
-		ForRate=0.75
+		ForRate=3
 		StrRate=0.25
 		TriggerMessage="drains energy from"
 		Effect="Drain"
@@ -295,7 +299,7 @@ obj/Skills/Grapple
 			SkillCost=120
 			DamageMult=9
 			StrRate=0.5
-			ForRate=0.5
+			ForRate=2
 			TriggerMessage="impales"
 			Effect="Strike"
 			EffectMult=2
@@ -353,7 +357,7 @@ obj/Skills/Grapple
 			DamageMult=10
 			Reversal=1
 			StrRate=0.5
-			ForRate=0.5
+			ForRate=2
 			ThrowMult=0
 			ThrowAdd=1
 			TriggerMessage="does a slashing flip to break free of"
@@ -428,9 +432,13 @@ obj/Skills/Grapple
 				#endif
 				var/itemDmg = 1
 				if(src.StrRate)
-					statPower = User.getStatDmg2() * StrRate
-				if(src.ForRate)
-					statPower += User.GetFor(src.ForRate)
+					if(src.ForRate)
+						statPower = User.getStatDmg2(spirithand = ForRate) * StrRate
+					else
+						statPower = User.getStatDmg2() * StrRate
+				else
+					if(src.ForRate)
+						statPower += User.GetFor(src.ForRate)
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple Stat Power", statPower, "damageDebugs.txt", User.ckey)
 				#endif
