@@ -1,6 +1,15 @@
-var/list/SkillTreeList=list("BlastT1"=list(),"BlastT2"=list(),"BlastT3"=list(),"BlastT4"=list(),"SwordT1"=list(),"SwordT2"=list(),"SwordT3"=list(),"SwordT4"=list(),"BeamT1"=list(),"BeamT2"=list(),"BeamT3"=list(),"BeamT4"=list(),"MagicT1"=list(),"MagicT2"=list(),"MagicT3"=list(),"MagicT4"=list(),"UnarmedT1"=list(),"UnarmedT2"=list(),"UnarmedT3"=list(),"UnarmedT4"=list(),"UnarmedStyles"=list(),"ElementalStyles"=list(),"SpiritStyles"=list(),"SwordStyles"=list())
+var/list/SkillTreeList=list("BlastT1"=list(),"BlastT2"=list(),"BlastT3"=list(), \
+"BlastT4"=list(),"SwordT1"=list(),"SwordT2"=list(),"SwordT3"=list(),"SwordT4"=list(),\
+"BeamT1"=list(),"BeamT2"=list(),"BeamT3"=list(),"BeamT4"=list(),\
+"MagicT1"=list(),"MagicT2"=list(),"MagicT3"=list(),"MagicT4"=list(),\
+"UnarmedT1"=list(),"UnarmedT2"=list(),"UnarmedT3"=list(),"UnarmedT4"=list(),\
+"UnarmedStyles"=list(),"ElementalStyles"=list(),"SpiritStyles"=list(),"SwordStyles"=list())
 proc/MakeSkillTreeList()
 	for(var/x in SkillTree)
+		var/Tier = null
+		if(!(x in list("UnarmedStyles","ElementalStyles","SpiritStyles","SwordStyles")))
+			Tier = copytext(x,length(x), 0)
+			world<<"Tier: [Tier]"
 		for(var/z in SkillTree[x])
 			var/obj/SkillTreeObj/s = new
 			var/namez=z
@@ -9,7 +18,18 @@ proc/MakeSkillTreeList()
 				while(findtextEx(namez, "/"))
 					namez=copytext(namez, pos+1)
 			s.path=z
-			s.cost=SkillTree[x][z]
+			if(Tier)
+				switch(Tier)
+					if("1")
+						s.cost=TIER_1_COST
+					if("2")
+						s.cost=TIER_2_COST
+					if("3")
+						s.cost=TIER_3_COST
+					if("4")
+						s.cost=TIER_4_COST
+			else
+				s.cost=SkillTree[x][z]
 			s.name="[namez] ([s.cost])"
 			SkillTreeList[x]+=s
 
@@ -60,34 +80,37 @@ var/list/SkillTree=list(
 ),
 
 "BlastT1"=list(
-			"/obj/Skills/Projectile/Rapid_Barrage"=40,
-			"/obj/Skills/Projectile/Straight_Siege"=40,
+			"/obj/Skills/Projectile/Warp_Strike"=80,
 			"/obj/Skills/Projectile/Flare_Wave"=40,
 			"/obj/Skills/Projectile/Death_Beam"=40,
-
-			"/obj/Skills/Projectile/Spirit_Ball"=40,
-			"/obj/Skills/Projectile/Crash_Burst"=40,
 			"/obj/Skills/Projectile/Dragon_Nova"=40,
-			"/obj/Skills/Projectile/Kienzan"=40
+			"/obj/Skills/Projectile/Kienzan"=40,
+			"/obj/Skills/Projectile/Energy_Minefield"=80,
+			"/obj/Skills/Queue/Light_Rush"=80,
+			"/obj/Skills/Queue/Burst_Combination"=80
 ),
 
 "BlastT2"=list(
-			"/obj/Skills/Queue/Light_Rush"=80,
-			"/obj/Skills/Queue/Burst_Combination"=80,
-			"/obj/Skills/Projectile/Sudden_Storm"=80,
-			"/obj/Skills/Projectile/Warp_Strike"=80,
+
+			"/obj/Skills/Projectile/Straight_Siege"=40,
+
+			"/obj/Skills/Projectile/Beams/Eraser_Gun"=120,
+			"/obj/Skills/Projectile/Beams/Shine_Ray"=120,
+			"/obj/Skills/Projectile/Beams/Gamma_Ray"=120,
+			"/obj/Skills/Projectile/Beams/Piercer_Ray"=120,
+
 
 			"/obj/Skills/Projectile/Energy_Minefield"=80,
-			"/obj/Skills/Projectile/Tracking_Bomb"=80,
 			"/obj/Skills/Projectile/Stealth_Bomb"=80,
 			"/obj/Skills/Projectile/Pillar_Bomb"=80
 ),
 
 "BlastT3"=list(
-			"/obj/Skills/Projectile/Beams/Eraser_Gun"=120,
-			"/obj/Skills/Projectile/Beams/Shine_Ray"=120,
-			"/obj/Skills/Projectile/Beams/Gamma_Ray"=120,
-			"/obj/Skills/Projectile/Beams/Piercer_Ray"=120
+			"/obj/Skills/Projectile/Rapid_Barrage"=40,
+			"/obj/Skills/Projectile/Sudden_Storm"=80,
+			"/obj/Skills/Projectile/Tracking_Bomb"=80,
+			"/obj/Skills/Projectile/Spirit_Ball"=40,
+			"/obj/Skills/Projectile/Crash_Burst"=40
 ),
 
 "BlastT4"=list(

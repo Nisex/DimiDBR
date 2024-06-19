@@ -1677,12 +1677,11 @@ obj
 			Warp_Storm
 				Area="Circle"
 				Distance=2
-				ForOffense=1
-				StrOffense=0
+				AdaptRate=1
 				SpecialAttack=1
 				ComboMaster=1
 				Rounds=5
-				DamageMult=0.9//1 damage mult is from the projectile itself.
+				DamageMult=0.1//1 damage mult is from the projectile itself.
 				Icon='SweepingKick.dmi'
 				IconX=-32
 				IconY=-32
@@ -1692,7 +1691,22 @@ obj
 				HitSparkTurns=1
 				RoundMovement=0
 				//This is set from Warp Strike.
-
+			Warp_Bomb
+				Area="Circle"
+				Distance=3
+				AdaptRate=1
+				SpecialAttack=1
+				ComboMaster=1
+				Rounds=3
+				DamageMult=1
+				Icon='SweepingKick.dmi'
+				IconX=-32
+				IconY=-32
+				HitSparkIcon='Slash - Zero.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkTurns=1
+				RoundMovement=0				
 //T3 is in Projectiles - Beams.
 
 			Destruction_Wave
@@ -1726,19 +1740,20 @@ obj
 				EnergyCost=10
 				Area="Wide Wave"
 				FlickAttack=1
-				Distance=10
+				Distance=15
 				ForOffense=1
-				DamageMult=11.5
+				DamageMult=16
+				Scorching = 10
 				Stunner=3
 				TurfErupt=2
 				TurfEruptOffset=0
 				Slow=1
-				Size=1
+				Size=2
 				HitSparkX=0
 				HitSparkY=0
 				SpecialAttack=1
 				Earthshaking=10
-				WindUp=0.5
+				WindUp=0.2
 				ComboMaster = 1
 				WindupMessage="focuses their power into a palm..."
 				ActiveMessage="unleashes an obliterating wave of power from their hand!"
@@ -1751,7 +1766,8 @@ obj
 				Copyable=5
 				StrOffense=0
 				ForOffense=1
-				DamageMult=10
+				Rounds=10
+				DamageMult=1.5
 				Area="Around Target"
 				FlickAttack=1
 				Distance=15
@@ -1759,11 +1775,11 @@ obj
 				Divide=1
 				TurfErupt=2
 				TurfEruptOffset=6
-				WindUp=0.5
+				WindUp=0.2
 				ComboMaster = 1
 				WindupIcon='Ultima Arm.dmi'
 				WindupIconSize=1.5
-				Launcher=2
+				Launcher=5
 				WindupMessage="draws in a large amount of ki..."
 				ActiveMessage="unleashes an explosive wave of power directly at their enemy!"
 				HitSparkIcon='BLANK.dmi'
@@ -1783,12 +1799,14 @@ obj
 				FlickAttack=1
 				Distance=3
 				ForOffense=1
-				Rush=5
+				Rush=8
 				NoLock=1
 				NoAttackLock=1
 				ControlledRush=1
-				DamageMult=12.5
-				Launcher=2
+				Rounds=3
+				DamageMult=4.5
+				ComboMaster=1
+				Launcher=4
 				TurfErupt=2
 				TurfEruptOffset=0
 				Slow=1
@@ -1812,10 +1830,10 @@ obj
 				RoundMovement=0
 				Rounds=5
 				ForOffense=1
-				DamageMult=4.2
+				DamageMult=3.2
 				NoAttackLock=1
 				NoLock=1
-				Launcher=2
+				Launcher=4
 				ComboMaster = 1
 				TurfErupt=2
 				TurfEruptOffset=0
@@ -5007,9 +5025,12 @@ mob
 			else
 				Z.Cooldown()
 			if(Z.Copyable)
+				var/copy = Z.Copyable
 				spawn() for(var/mob/m in view(10, src))
 					if(m.CheckSpecial("Sharingan"))
-						if(m.SagaLevel<=Z.Copyable)
+						if(Z.NewCopyable)
+							copy = Z.NewCopyable
+						if(m.SagaLevel<=copy)
 							continue
 						if(m.client&&m.client.address==src.client.address)
 							continue

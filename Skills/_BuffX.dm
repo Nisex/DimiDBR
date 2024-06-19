@@ -12175,9 +12175,12 @@ mob
 				if(B.Copyable)
 					spawn() for(var/mob/m in view(10, src))
 						if(m.CheckSpecial("Sharingan"))
+							var/copy = B.Copyable
 							if(m.client&&m.client.address==src.client.address)
 								continue
-							if(m.SagaLevel<=B.Copyable)
+							if(B.NewCopyable)
+								copy = B.NewCopyable
+							if(m.SagaLevel<=copy)
 								continue
 							if(!locate(B.type, m))
 								var/obj/Skills/copiedSkill = new B.type

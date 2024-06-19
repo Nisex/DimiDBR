@@ -2312,9 +2312,11 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 			Light_Rush
+				NewCost=TIER_1_COST
+				NewCopyable=2
 				SkillCost=80
 				Copyable=3
-				DamageMult=1
+				DamageMult=0.25
 				AccuracyMult = 1.175
 				Duration=5
 				Combo=4
@@ -2330,24 +2332,26 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 			Light_Rush2
-				DamageMult=0.5
+				DamageMult=0.25
 				AccuracyMult=25
 				Duration=3
 				Warp=10
 				Projectile="/obj/Skills/Projectile/RushBlast"
 			Burst_Combination
+				NewCost=TIER_1_COST
+				NewCopyable=2
 				name="Burst Combination"
 				SkillCost=80
 				Copyable=3
-				DamageMult=0.8
+				DamageMult=0.15
 				AccuracyMult = 1.175
-				Stunner=2
+				Stunner=1
 				Duration=5
 				Combo=10
 				Projectile="/obj/Skills/Projectile/BurstBlast"
 				ProjectileCount=1
-				Cooldown=60
-				EnergyCost=10
+				Cooldown=30
+				EnergyCost=3
 				IconLock=1
 				HitSparkIcon='Hit Effect Satsui.dmi'
 				HitSparkX=-32
@@ -3947,7 +3951,10 @@ mob
 			if(Q.Copyable)
 				spawn() for(var/mob/m in view(10, src))
 					if(m.CheckSpecial("Sharingan"))
-						if(m.SagaLevel<=Q.Copyable)
+						var/copy = Q.Copyable
+						if(Q.NewCopyable)
+							copy = Q.NewCopyable
+						if(m.SagaLevel<=copy)
 							continue
 						if(m.client&&m.client.address==src.client.address)
 							continue

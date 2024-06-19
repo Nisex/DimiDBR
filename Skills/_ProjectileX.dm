@@ -1,5 +1,9 @@
+
+
 obj
 	Skills
+		var/NewCost // we will do this the hard way.
+		var/NewCopyable // sigh
 		Projectile
 			adjust(mob/p)
 			proc/Trigger(mob/p, Override = 0)
@@ -303,7 +307,7 @@ obj
 				Speed=1
 				Instinct=1
 				Distance=10
-				DamageMult=1.5
+				DamageMult=0.5
 				Radius=1
 				Piercing=1
 				AccMult=30
@@ -324,7 +328,7 @@ obj
 				AttackReplace=1
 				Blasts=1
 				Distance=7
-				DamageMult=0.2
+				DamageMult=0.1
 				AccMult=30
 				Dodgeable=0
 				Speed=0
@@ -992,7 +996,7 @@ obj
 				SkillCost=40
 				Copyable=1
 				Distance=15
-				DamageMult=1
+				DamageMult=0.5
 				AccMult=2
 				MultiShot=3
 				EnergyCost=1
@@ -1004,16 +1008,18 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 			Rapid_Barrage
+				NewCost = TIER_3_COST
+				NewCopyable = 4
 				SkillCost=40
 				Copyable=2
 				Distance=20
 				AccMult=0.7
-				DamageMult=0.15
-				Blasts=20
+				DamageMult=0.3
+				Blasts=25
 				Delay=0.75
 				Stream=-1
-				EnergyCost=5
-				Cooldown=30
+				EnergyCost=8
+				Cooldown=90
 				Deflectable = 1
 				Homing=1
 				LosesHoming=3
@@ -1024,18 +1030,20 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 			Straight_Siege
+				NewCost = TIER_2_COST
+				NewCopyable = 3
 				SkillCost=40
 				Copyable=2
-				Distance=8
+				Distance=15
 				AccMult=0.75
-				DamageMult=0.1
+				DamageMult=0.2
 				Speed = 0.75
 				Knockback=0
-				Blasts=20
+				Blasts=23
 				Continuous=1
-				EnergyCost=3
+				EnergyCost=7
 				IconLock='Blast - Small.dmi'
-				Cooldown=30
+				Cooldown=60
 				Variation=24
 				verb/Straight_Siege()
 					set category="Skills"
@@ -1044,7 +1052,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=25
-				DamageMult=2
+				DamageMult=1.25
 				Knockback=3
 				Radius=2
 				MultiShot=3
@@ -1062,7 +1070,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=20
-				DamageMult=1
+				DamageMult=0.5
 				AccMult=2
 				MultiShot=5
 				Crippling=3
@@ -1074,7 +1082,7 @@ obj
 				Trail='Trail - Death.dmi'
 				TrailSize=1
 				Cooldown=30
-				EnergyCost=0.01
+				EnergyCost=1
 				Variation=4
 				verb/Death_Beam()
 					set category="Skills"
@@ -1088,8 +1096,9 @@ obj
 				AccMult = 1.15
 				Homing=1
 				Explode=1
-				Charge=0.1
-				EnergyCost=2
+				LosesHoming=3
+				Charge=0.25
+				EnergyCost=4
 				Cooldown=30
 				IconLock='Blast - Charged.dmi'
 				LockX=-12
@@ -1100,10 +1109,13 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 			Spirit_Ball
+				NewCost = TIER_3_COST
+				NewCopyable = 4
 				SkillCost=40
 				Copyable=2
-				Distance=40
-				DamageMult=4
+				Distance=30
+				DamageMult=2.5
+				Blasts=3
 				AccMult=2
 				Launcher=4
 				Piercing=1
@@ -1111,22 +1123,26 @@ obj
 				Homing=1
 				HomingCharge=1
 				HomingDelay=1
-				EnergyCost=3
+				EnergyCost=8
+				Delay=5
+				Speed=1.5
 				IconChargeOverhead=1
 				Explode=1
-				Cooldown=30
+				Cooldown=90
 				IconLock='Plasma2.dmi'
 				Variation=0
 				verb/Spirit_Ball()
 					set category="Skills"
 					usr.UseProjectile(src)
 			Crash_Burst
+				NewCost = TIER_3_COST
+				NewCopyable = 4
 				SkillCost=40
 				Copyable=2
 				ZoneAttack=1
-				EnergyCost=5
+				EnergyCost=8
 				Distance=20
-				Blasts=10
+				Blasts=20
 				Charge=1
 				DamageMult=0.2
 				AccMult=0.8
@@ -1141,7 +1157,7 @@ obj
 				LockY=-12
 				IconSize=0.75
 				Variation=4
-				Cooldown=30
+				Cooldown=90
 				verb/Crash_Burst()
 					set category="Skills"
 					usr.UseProjectile(src)
@@ -1149,7 +1165,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=50
-				DamageMult=1.25
+				DamageMult=1
 				MultiHit=3
 				AccMult=25
 				Radius=2
@@ -1172,7 +1188,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=50
-				DamageMult=2.5
+				DamageMult=2.5 // this shit ass, if u land it u deserve to do damage
 				EnergyCost=5
 				Deflectable=0
 				Charge=1
@@ -1194,7 +1210,9 @@ obj
 //T2 has damage mult 2 - 3.5. Some are located in Queues.
 
 			Sudden_Storm
-				SkillCost=80
+				NewCost = TIER_3_COST
+				NewCopyable = 4
+				SkillCost=90
 				Copyable=3
 				Blasts=10
 				HomingCharge=1
@@ -1202,7 +1220,7 @@ obj
 				IconLock='Dancing.dmi'
 				DamageMult=0.55
 				AccMult = 1.15
-				Distance=50
+				Distance=25
 				IconSize=0.5
 				Variation=8
 				ZoneAttack=1
@@ -1211,12 +1229,14 @@ obj
 				HyperHoming=1
 				FireFromSelf=1
 				FireFromEnemy=0
-				Cooldown=60
+				Cooldown=90
 				EnergyCost=5
 				verb/Sudden_Storm()
 					set category="Skills"
 					usr.UseProjectile(src)
 			Warp_Strike
+				NewCost = TIER_1_COST
+				NewCopyable = 2
 				SkillCost=80
 				Copyable=3
 				Charge=2
@@ -1226,11 +1246,11 @@ obj
 				Distance=20
 				Stunner=1.5
 				Deflectable = FALSE
-				DamageMult=2.5
+				DamageMult=1.25
 				WarpUser=1
 				FollowUp="/obj/Skills/AutoHit/Warp_Storm"
 				FollowUpDelay=-1
-				Cooldown=60
+				Cooldown=30
 				EnergyCost=5
 				verb/Warp_Strike()
 					set category="Skills"
@@ -1258,10 +1278,12 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 			Energy_Minefield
+				NewCost = TIER_1_COST
+				NewCopyable = 2
 				SkillCost=80
 				Copyable=3
-				Blasts=18
-				DamageMult=3.25
+				Blasts=8
+				DamageMult=3
 				Radius=1
 				AccMult=50
 				Deflectable=0
@@ -1271,18 +1293,20 @@ obj
 				LockX=0
 				LockY=0
 				ZoneAttack=1
-				ZoneAttackX=7
-				ZoneAttackY=7
-				Hover=7
+				ZoneAttackX=4
+				ZoneAttackY=4
+				Hover=4
 				FireFromSelf=1
 				FireFromEnemy=0
-				Cooldown=60
+				Cooldown=30
 				Explode=2
-				EnergyCost=10
+				EnergyCost=4
 				verb/Energy_Minefield()
 					set category="Skills"
 					usr.UseProjectile(src)
 			Tracking_Bomb
+				NewCost = TIER_3_COST
+				NewCopyable = 4
 				SkillCost=80
 				Copyable=3
 				DamageMult=6
@@ -1301,7 +1325,7 @@ obj
 				IconChargeOverhead=1
 				IconSize=3
 				IconSizeGrowTo=1
-				Cooldown=60
+				Cooldown=90
 				Explode=3
 				EnergyCost=5
 				verb/Tracking_Bomb()
@@ -1360,9 +1384,9 @@ obj
 			Power_Buster
 				Copyable=4
 				SkillCost=160
-				Buster=1//rate that blast charges
+				Buster=0//rate that blast charges
 				DamageMult=5
-				BusterDamage=1//max damage when fully charged
+				BusterDamage=0//max damage when fully charged
 				MultiHit=3
 				BusterRadius=1//max radius from charging
 				AccMult=2.5
@@ -1382,11 +1406,9 @@ obj
 			Burst_Buster
 				Copyable=5
 				SkillCost=160
-				Buster=2
+				Charge=0.2
 				DamageMult=1.5
-				BusterDamage=0.75
-				AccMult=0.5
-				BusterAccuracy=2.5
+				AccMult=1.25
 				Radius=1
 				BusterRadius=2
 				Stream=2
@@ -1405,19 +1427,18 @@ obj
 			Warp_Buster
 				Copyable=5
 				SkillCost=160
-				Buster=0.25//rate that blast charges
-				BusterDamage=1//max damage when fully charged
-				BusterHits=3//multihits when fully charged
-				BusterRadius=1//max radius from charging
-				BusterAccuracy=10
-				BusterSize=2//purely aesthetic
+				Charge=2
+				Homing=1
+				HyperHoming=1
 				Knockback=1
 				DamageMult=10
 				MultiHit=1
 				AccMult=2.5
 				Explode=2
-				EnergyCost=2.5
+				EnergyCost=8
 				Cooldown=120
+				FollowUp="/obj/Skills/AutoHit/Warp_Bomb"
+				FollowUpDelay=-1
 				IconLock='Blast12.dmi'
 				LockX=0
 				LockY=0
@@ -1430,9 +1451,7 @@ obj
 				Copyable=5
 				SkillCost=160
 				Blasts=12
-				Buster=1
-				DamageMult=0.3
-				BusterDamage=1
+				DamageMult=1
 				AccMult=0.5
 				BusterAccuracy=1
 				Stream=4
@@ -3713,6 +3732,8 @@ obj
 						set category="Skills"
 						usr.UseProjectile(src)
 				Eraser_Gun
+					NewCost = TIER_2_COST
+					NewCopyable = 3
 					SkillCost=120
 					Copyable=4
 					Distance=50
@@ -3721,12 +3742,14 @@ obj
 					Knockback=1
 					BeamTime=50
 					IconLock='Beam20.dmi'
-					Cooldown=90
+					Cooldown=60
 					EnergyCost=1.5
 					verb/Eraser_Gun()
 						set category="Skills"
 						usr.UseProjectile(src)
 				Shine_Ray
+					NewCost = TIER_2_COST
+					NewCopyable = 3
 					SkillCost=120
 					Copyable=4
 					Distance=15
@@ -3735,13 +3758,15 @@ obj
 					Knockback=0
 					BeamTime=20
 					IconLock='Beam8.dmi'
-					Cooldown=90
+					Cooldown=60
 					EnergyCost=1.5
 					Immediate=1
 					verb/Shine_Ray()
 						set category="Skills"
 						usr.UseProjectile(src)
 				Gamma_Ray
+					NewCost = TIER_2_COST
+					NewCopyable = 3
 					SkillCost=120
 					Copyable=4
 					DamageMult=0.75
@@ -3750,12 +3775,14 @@ obj
 					Knockback=1
 					BeamTime=20
 					IconLock='Beam17Dark.dmi'
-					Cooldown=90
+					Cooldown=60
 					EnergyCost=1.5
 					verb/Gamma_Ray()
 						set category="Skills"
 						usr.UseProjectile(src)
 				Piercer_Ray
+					NewCost = TIER_2_COST
+					NewCopyable = 3
 					SkillCost=120
 					Copyable=4
 					DamageMult=7
@@ -3764,7 +3791,7 @@ obj
 					Knockback=0
 					BeamTime=30
 					IconLock='Makkankosappo.dmi'
-					Cooldown=90
+					Cooldown=60
 					EnergyCost=1.5
 					Piercing=1
 					Instinct=1
@@ -4484,7 +4511,10 @@ mob
 			if(Z.Copyable)
 				spawn() for(var/mob/m in view(10, src))
 					if(m.CheckSpecial("Sharingan"))
-						if(m.SagaLevel<=Z.Copyable)
+						var/copy = Z.Copyable
+						if(Z.NewCopyable)
+							copy = Z.NewCopyable
+						if(m.SagaLevel<=copy)
 							continue
 						if(m.client&&m.client.address==src.client.address)
 							continue

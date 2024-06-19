@@ -7,7 +7,9 @@
     /mob/Admin2/verb/AdminHealComplete,
     /mob/Admin2/verb/Event_Character_Setup,
     /mob/Admin3/verb/SagaManagement,
-    /mob/Admin3/verb/SecretManagement
+    /mob/Admin3/verb/SecretManagement,
+    /mob/proc/giveAllSkillTree,
+    /mob/proc/giveAllSigs,
 )
 
 
@@ -39,6 +41,7 @@ var/allSkills = list()
     world<<"Done"
 
 /mob/proc/giveAllSkillTree(tier)
+    set name = "Give all SkillTree"
     tier = input("What tier do you want to give?") as num
     if(tier > 4 || tier == 0 || tier < -1)
         return src<< "Invalid tier"
@@ -61,6 +64,7 @@ var/allSkills = list()
                 newSkill.Cooldown = 10
 
 /mob/proc/giveAllSigs(tier)
+    set name = "Give all SIG"
     tier = input("What tier do you want to give?") as num
     if(tier > 4 || tier < 1)
         return src<< "Invalid tier"
