@@ -40,6 +40,9 @@
     var/nerf = (defender.HasGodKi()) ? 1 - (0.3 * defender.GetGodKi()) : 0
     if(nerf && nerf <= 0)
         nerf = 0.1
+    if(passive_handler.Get("Enraged") && Anger)
+        if(!defender.Anger || Anger > defender.Anger)
+            . += passive_handler.Get("Enraged") / glob.ENRAGED_DAMAGE_DIVISOR
     if(HasHolyMod())
         . += HolyDamage(defender) / glob.HOLY_DAMAGE_DIVISOR
     if(HasAbyssMod())

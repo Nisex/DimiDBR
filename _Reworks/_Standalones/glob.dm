@@ -65,10 +65,10 @@ var/globalTracker/glob = new()
 
 /mob/Admin3/verb/Debuff_Apply(n as num)
 	glob.BURN_INTENSITY = n
-	glob.SHOCK_INTENSITY = n 
-	glob.SLOW_INTENSITY = n 
-	glob.SHATTER_INTENSITY = n 
-	glob.POISON_INTENSITY= n 
+	glob.SHOCK_INTENSITY = n
+	glob.SLOW_INTENSITY = n
+	glob.SHATTER_INTENSITY = n
+	glob.POISON_INTENSITY= n
 
 progressTracker
 
@@ -249,6 +249,7 @@ globalTracker
 		GLADIATOR_DISARM_MAX = 600
 		DISARM_TIMER = 100
 
+		LOWEST_ACC = 30
 
 		CONSTANT_DAMAGE_EXPONENT = 4
 
@@ -261,7 +262,7 @@ globalTracker
 		DMG_END_EXPONENT = 0.4
 		DMG_STR_EXPONENT = 0.4
 		DMG_POWER_EXPONENT = 0.3
-
+		PURE_MODIFIER = 0.25
 		TENSION_MULTIPLIER = 1
 		CORRUPTION_GAIN = 1.25
 // dmg rolls
@@ -277,6 +278,9 @@ globalTracker
 
 // CC related
 		CCDamageModifier = 0.33
+
+		AUTOHIT_WHIFF_DAMAGE = 2
+		AUTOHIT_MISS_DAMAGE = 3
 
 		//Whiff dmg is now rand between these.
 		MIN_WHIFF_DMG = 1.25
@@ -315,6 +319,7 @@ globalTracker
 		HOLY_DAMAGE_DIVISOR = 4
 		ABYSS_DAMAGE_DIVISOR = 4
 		SLAYER_DAMAGE_DIVISOR = 4
+		ENRAGED_DAMAGE_DIVISOR = 4
 // -- items -- //
 
 		JSON_PASSIVES = list()

@@ -165,6 +165,11 @@ mob/Players
 
 		if(updateVersion != glob.UPDATE_VERSION)
 			glob.updatePlayer(src)
+		
+		if(isRace(DEMON))
+			for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/s in src)
+				for(var/obj/Skills/ss in s.possible_skills)
+					ss:returnToInit()
 
 		if(isplayer(src))
 			move_speed = MovementSpeed()

@@ -1,5 +1,9 @@
+
+
 obj
 	Skills
+		var/NewCost // we will do this the hard way.
+		var/NewCopyable // sigh
 		Projectile
 			adjust(mob/p)
 			proc/Trigger(mob/p, Override = 0)
@@ -194,7 +198,7 @@ obj
 				MultiHit=3
 				Knockback=0.05
 				KBMult
-				AccMult=5
+				AccMult = 1.175
 				Distance=30
 				IconSize=1.5
 				Variation=8
@@ -216,7 +220,7 @@ obj
 				DamageMult=0.75
 				MultiHit=10
 				HyperHoming=1
-				AccMult=10
+				AccMult = 1.25
 				ZoneAttack=1
 				ZoneAttackX=0
 				ZoneAttackY=0
@@ -230,12 +234,12 @@ obj
 				Radius=2
 				Speed=0.5
 				Distance=50
-				StrRate=1
-				ForRate=1
-				DamageMult=2.5
+				StrRate=0.5
+				ForRate=0.5
+				DamageMult=1.8
 				MultiHit=10
 				HyperHoming=1
-				AccMult=10
+				AccMult = 1.25
 				ZoneAttack=1
 				ZoneAttackX=0
 				ZoneAttackY=0
@@ -269,7 +273,7 @@ obj
 				StrRate=0.5
 				ForRate=0.5
 				Scorching=2
-				AccMult=5
+				AccMult = 1.175
 				Distance=30
 				IconSize=0.5
 				Variation=8
@@ -303,7 +307,7 @@ obj
 				Speed=1
 				Instinct=1
 				Distance=10
-				DamageMult=1.5
+				DamageMult=0.5
 				Radius=1
 				Piercing=1
 				AccMult=30
@@ -324,7 +328,7 @@ obj
 				AttackReplace=1
 				Blasts=1
 				Distance=7
-				DamageMult=0.2
+				DamageMult=0.1
 				AccMult=30
 				Dodgeable=0
 				Speed=0
@@ -428,7 +432,7 @@ obj
 				Blasts=20
 				DamageMult=0.5
 				HyperHoming=1
-				AccMult=10
+				AccMult = 1.25
 				Homing=1
 				HomingCharge=3
 				HomingDelay=5
@@ -459,7 +463,7 @@ obj
 				Knockback=1
 				MultiHit=5
 				DamageMult=0.5
-				AccMult=10
+				AccMult = 1.25
 				Deflectable=0
 				Distance=10
 				Instinct=2
@@ -532,7 +536,7 @@ obj
 				HomingCharge=1
 				HyperHoming=1
 				Speed=2
-				AccMult=5
+				AccMult = 1.175
 				IconLock='Boulder Normal.dmi'
 				IconSize=0.25
 				LockX=-36
@@ -638,7 +642,7 @@ obj
 				Radius=1
 				Distance=50
 				DamageMult=4
-				AccMult=4
+				AccMult = 1.15
 				Speed=0
 				Piercing=1
 				Variation=0
@@ -648,7 +652,7 @@ obj
 				Rocket_Punch
 					Distance=10
 					DamageMult=9
-					AccMult=10
+					AccMult = 1.25
 					Knockback=5
 					Deflectable=1
 					StrRate=1
@@ -751,7 +755,7 @@ obj
 					StrRate=0.5
 					ForRate=0.5
 					EndRate=1
-					AccMult=3
+					AccMult = 1.15
 					LosesHoming=3
 					HomingCharge=10
 					IconLock='MissileSmall.dmi'
@@ -851,7 +855,7 @@ obj
 						StrRate=0.5
 						ForRate=0.5
 						EndRate=1
-						AccMult=3
+						AccMult = 1.15
 						LosesHoming=3
 						HomingCharge=10
 						IconLock='MissileSmall.dmi'
@@ -925,7 +929,7 @@ obj
 						StrRate=0.35
 						ForRate=0.65
 						EndRate=0.75
-						AccMult=3
+						AccMult = 1.15
 						Blasts=25
 						Delay=0
 						IconLock='BlastTracer.dmi'
@@ -992,7 +996,7 @@ obj
 				SkillCost=40
 				Copyable=1
 				Distance=15
-				DamageMult=1
+				DamageMult=0.5
 				AccMult=2
 				MultiShot=3
 				EnergyCost=1
@@ -1004,16 +1008,18 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 			Rapid_Barrage
+				NewCost = TIER_3_COST
+				NewCopyable = 4
 				SkillCost=40
 				Copyable=2
 				Distance=20
 				AccMult=0.7
-				DamageMult=0.15
-				Blasts=20
+				DamageMult=0.3
+				Blasts=25
 				Delay=0.75
 				Stream=-1
-				EnergyCost=5
-				Cooldown=30
+				EnergyCost=8
+				Cooldown=90
 				Deflectable = 1
 				Homing=1
 				LosesHoming=3
@@ -1024,18 +1030,20 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 			Straight_Siege
+				NewCost = TIER_2_COST
+				NewCopyable = 3
 				SkillCost=40
 				Copyable=2
-				Distance=8
+				Distance=15
 				AccMult=0.75
-				DamageMult=0.1
+				DamageMult=0.2
 				Speed = 0.75
 				Knockback=0
-				Blasts=20
+				Blasts=23
 				Continuous=1
-				EnergyCost=3
+				EnergyCost=7
 				IconLock='Blast - Small.dmi'
-				Cooldown=30
+				Cooldown=60
 				Variation=24
 				verb/Straight_Siege()
 					set category="Skills"
@@ -1044,7 +1052,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=25
-				DamageMult=2
+				DamageMult=1.25
 				Knockback=3
 				Radius=2
 				MultiShot=3
@@ -1062,7 +1070,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=20
-				DamageMult=1
+				DamageMult=0.5
 				AccMult=2
 				MultiShot=5
 				Crippling=3
@@ -1074,7 +1082,7 @@ obj
 				Trail='Trail - Death.dmi'
 				TrailSize=1
 				Cooldown=30
-				EnergyCost=0.01
+				EnergyCost=1
 				Variation=4
 				verb/Death_Beam()
 					set category="Skills"
@@ -1085,11 +1093,12 @@ obj
 				Copyable=1
 				Distance=30
 				DamageMult=3
-				AccMult=4
+				AccMult = 1.15
 				Homing=1
 				Explode=1
-				Charge=0.1
-				EnergyCost=2
+				LosesHoming=3
+				Charge=0.25
+				EnergyCost=4
 				Cooldown=30
 				IconLock='Blast - Charged.dmi'
 				LockX=-12
@@ -1100,33 +1109,40 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 			Spirit_Ball
+				NewCost = TIER_3_COST
+				NewCopyable = 4
 				SkillCost=40
 				Copyable=2
-				Distance=40
-				DamageMult=4
-				AccMult=1
-				Launcher=7
+				Distance=30
+				DamageMult=2.5
+				Blasts=3
+				AccMult=2
+				Launcher=4
 				Piercing=1
 				Striking=1
 				Homing=1
 				HomingCharge=1
 				HomingDelay=1
-				EnergyCost=3
+				EnergyCost=8
+				Delay=5
+				Speed=1.5
 				IconChargeOverhead=1
 				Explode=1
-				Cooldown=30
+				Cooldown=90
 				IconLock='Plasma2.dmi'
 				Variation=0
 				verb/Spirit_Ball()
 					set category="Skills"
 					usr.UseProjectile(src)
 			Crash_Burst
+				NewCost = TIER_3_COST
+				NewCopyable = 4
 				SkillCost=40
 				Copyable=2
 				ZoneAttack=1
-				EnergyCost=5
+				EnergyCost=8
 				Distance=20
-				Blasts=10
+				Blasts=20
 				Charge=1
 				DamageMult=0.2
 				AccMult=0.8
@@ -1141,7 +1157,7 @@ obj
 				LockY=-12
 				IconSize=0.75
 				Variation=4
-				Cooldown=30
+				Cooldown=90
 				verb/Crash_Burst()
 					set category="Skills"
 					usr.UseProjectile(src)
@@ -1149,7 +1165,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=50
-				DamageMult=1.25
+				DamageMult=1
 				MultiHit=3
 				AccMult=25
 				Radius=2
@@ -1172,7 +1188,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=50
-				DamageMult=2.5
+				DamageMult=2.5 // this shit ass, if u land it u deserve to do damage
 				EnergyCost=5
 				Deflectable=0
 				Charge=1
@@ -1194,15 +1210,17 @@ obj
 //T2 has damage mult 2 - 3.5. Some are located in Queues.
 
 			Sudden_Storm
-				SkillCost=80
+				NewCost = TIER_3_COST
+				NewCopyable = 4
+				SkillCost=90
 				Copyable=3
 				Blasts=10
 				HomingCharge=1
 				RandomPath=1
 				IconLock='Dancing.dmi'
 				DamageMult=0.55
-				AccMult=3
-				Distance=50
+				AccMult = 1.15
+				Distance=25
 				IconSize=0.5
 				Variation=8
 				ZoneAttack=1
@@ -1211,12 +1229,14 @@ obj
 				HyperHoming=1
 				FireFromSelf=1
 				FireFromEnemy=0
-				Cooldown=60
+				Cooldown=90
 				EnergyCost=5
 				verb/Sudden_Storm()
 					set category="Skills"
 					usr.UseProjectile(src)
 			Warp_Strike
+				NewCost = TIER_1_COST
+				NewCopyable = 2
 				SkillCost=80
 				Copyable=3
 				Charge=2
@@ -1226,11 +1246,11 @@ obj
 				Distance=20
 				Stunner=1.5
 				Deflectable = FALSE
-				DamageMult=2.5
+				DamageMult=1.25
 				WarpUser=1
 				FollowUp="/obj/Skills/AutoHit/Warp_Storm"
 				FollowUpDelay=-1
-				Cooldown=60
+				Cooldown=30
 				EnergyCost=5
 				verb/Warp_Strike()
 					set category="Skills"
@@ -1258,10 +1278,12 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 			Energy_Minefield
+				NewCost = TIER_1_COST
+				NewCopyable = 2
 				SkillCost=80
 				Copyable=3
-				Blasts=18
-				DamageMult=3.25
+				Blasts=8
+				DamageMult=3
 				Radius=1
 				AccMult=50
 				Deflectable=0
@@ -1271,18 +1293,20 @@ obj
 				LockX=0
 				LockY=0
 				ZoneAttack=1
-				ZoneAttackX=7
-				ZoneAttackY=7
-				Hover=7
+				ZoneAttackX=4
+				ZoneAttackY=4
+				Hover=4
 				FireFromSelf=1
 				FireFromEnemy=0
-				Cooldown=60
+				Cooldown=30
 				Explode=2
-				EnergyCost=10
+				EnergyCost=4
 				verb/Energy_Minefield()
 					set category="Skills"
 					usr.UseProjectile(src)
 			Tracking_Bomb
+				NewCost = TIER_3_COST
+				NewCopyable = 4
 				SkillCost=80
 				Copyable=3
 				DamageMult=6
@@ -1301,7 +1325,7 @@ obj
 				IconChargeOverhead=1
 				IconSize=3
 				IconSizeGrowTo=1
-				Cooldown=60
+				Cooldown=90
 				Explode=3
 				EnergyCost=5
 				verb/Tracking_Bomb()
@@ -1360,9 +1384,9 @@ obj
 			Power_Buster
 				Copyable=4
 				SkillCost=160
-				Buster=1//rate that blast charges
+				Buster=0//rate that blast charges
 				DamageMult=5
-				BusterDamage=1//max damage when fully charged
+				BusterDamage=0//max damage when fully charged
 				MultiHit=3
 				BusterRadius=1//max radius from charging
 				AccMult=2.5
@@ -1382,11 +1406,9 @@ obj
 			Burst_Buster
 				Copyable=5
 				SkillCost=160
-				Buster=2
+				Charge=0.2
 				DamageMult=1.5
-				BusterDamage=0.75
-				AccMult=0.5
-				BusterAccuracy=2.5
+				AccMult=1.25
 				Radius=1
 				BusterRadius=2
 				Stream=2
@@ -1405,19 +1427,18 @@ obj
 			Warp_Buster
 				Copyable=5
 				SkillCost=160
-				Buster=0.25//rate that blast charges
-				BusterDamage=1//max damage when fully charged
-				BusterHits=3//multihits when fully charged
-				BusterRadius=1//max radius from charging
-				BusterAccuracy=10
-				BusterSize=2//purely aesthetic
+				Charge=2
+				Homing=1
+				HyperHoming=1
 				Knockback=1
 				DamageMult=10
 				MultiHit=1
 				AccMult=2.5
 				Explode=2
-				EnergyCost=2.5
+				EnergyCost=8
 				Cooldown=120
+				FollowUp="/obj/Skills/AutoHit/Warp_Bomb"
+				FollowUpDelay=-1
 				IconLock='Blast12.dmi'
 				LockX=0
 				LockY=0
@@ -1430,9 +1451,7 @@ obj
 				Copyable=5
 				SkillCost=160
 				Blasts=12
-				Buster=1
-				DamageMult=0.3
-				BusterDamage=1
+				DamageMult=1
 				AccMult=0.5
 				BusterAccuracy=1
 				Stream=4
@@ -1481,7 +1500,7 @@ obj
 			Cluster_Bomb
 				Distance=5
 				DamageMult=5
-				AccMult=3
+				AccMult = 1.15
 				Charge=1
 				EnergyCost=1
 				Cooldown=30
@@ -1495,7 +1514,7 @@ obj
 				SignatureTechnique=1
 				Distance=30
 				AccMult=2
-				DamageMult=2.2
+				DamageMult=1
 				Blasts=10
 				EnergyCost=15
 				Cooldown=120
@@ -1519,7 +1538,7 @@ obj
 				SignatureTechnique=1
 				Distance=50
 				DamageMult=12.5
-				AccMult=3
+				AccMult = 1.15
 				Blasts=1
 				EnergyCost=15
 				Cooldown=60
@@ -1543,7 +1562,7 @@ obj
 				EndRate=1
 				Distance=65
 				DamageMult=2.75
-				AccMult=3
+				AccMult = 1.15
 				Homing=1
 				HomingDelay=2
 				HomingCharge=4
@@ -1593,7 +1612,7 @@ obj
 				SignatureTechnique=1
 				Distance=25
 				DamageMult= 3.6
-				AccMult=3
+				AccMult = 1.15
 				Dodgeable=0
 				Instinct=1
 				MultiShot=3
@@ -1857,7 +1876,7 @@ obj
 			A_Pound_of_Gold
 				Distance=20
 				DamageMult=6
-				AccMult=15
+				AccMult = 1.5
 				Knockback=5
 				EnergyCost=3
 				Cooldown=120
@@ -1876,7 +1895,7 @@ obj
 			Goblin_Greed
 				Distance=20
 				DamageMult=6
-				AccMult=3
+				AccMult = 1.15
 				Knockback=5
 				EnergyCost=3
 				Cooldown=120
@@ -1903,7 +1922,7 @@ obj
 				DamageMult=0.5
 				MultiHit=4
 				Knockback=1
-				AccMult=5
+				AccMult = 1.175
 				Explode=1
 				Charge=0.2
 				EnergyCost=3
@@ -1921,7 +1940,7 @@ obj
 				Distance=30
 				DamageMult=0.4
 				MultiHit=5
-				AccMult=5
+				AccMult = 1.175
 				Explode=1
 				IconLock='Blast - Charged.dmi'
 				LockX=-12
@@ -2066,7 +2085,7 @@ obj
 				Knockback=1
 				MultiHit=8
 				DamageMult=1
-				AccMult=10
+				AccMult = 1.25
 				Deflectable=0
 				Distance=10
 				Instinct=2
@@ -2122,7 +2141,7 @@ obj
 			AsaKujaku
 				Distance=5
 				DamageMult=0.5
-				AccMult=5
+				AccMult = 1.175
 				Stream=2
 				Radius=1
 				Piercing=1
@@ -2150,7 +2169,7 @@ obj
 				TrailX=-50
 				TrailY=-50
 				DamageMult=7.5
-				AccMult=15
+				AccMult = 1.5
 				Speed=0
 				Radius=1
 				Dodgeable=-1
@@ -2210,7 +2229,7 @@ obj
 				Distance=50
 				DamageMult=1.5
 				MultiHit=10
-				AccMult=10
+				AccMult = 1.25
 				Explode=4
 				Knockback=1
 				Radius=3
@@ -2269,7 +2288,7 @@ obj
 				Deflectable=-1
 				Charge=0.5
 				DamageMult=1.1
-				AccMult=3
+				AccMult = 1.15
 				Freezing=1
 				Blasts=10
 				Stream=2
@@ -2290,7 +2309,7 @@ obj
 				Deflectable=-1
 				Charge=0.1
 				DamageMult=1.1
-				AccMult=4
+				AccMult = 1.15
 				Freezing=1
 				AbsoluteZero=1
 				Blasts=10
@@ -2589,7 +2608,7 @@ obj
 				CosmoPowered=1
 				Distance=40
 				DamageMult=2.75
-				AccMult=5
+				AccMult = 1.175
 				Piercing=1
 				Striking=1
 				Homing=1
@@ -2699,7 +2718,7 @@ obj
 				Broken_Magnum//t5
 					Distance=25
 					DamageMult=2.2
-					AccMult=10
+					AccMult = 1.25
 					MultiHit=5
 					Knockback=1
 					Charge=0
@@ -2723,7 +2742,7 @@ obj
 				Broken_Phantom
 					Distance=25
 					DamageMult=2.4
-					AccMult=10
+					AccMult = 1.25
 					Deflectable=-1
 					MultiHit=5
 					Knockback=1
@@ -2780,7 +2799,7 @@ obj
 				StrRate=1
 				ForRate=1
 				EndRate=1
-				AccMult=10
+				AccMult = 1.25
 				Striking=1
 				IconLock='Hadoken.dmi'
 				LockX=-4
@@ -3085,7 +3104,7 @@ obj
 					Blasts=100
 					Hover=5
 					Explode=3
-					AccMult=5
+					AccMult = 1.175
 					Cooldown=6000
 					ActiveMessage="channels the flames of creation to cause a meteor storm!"
 					verb/Global_Devastation()
@@ -3122,7 +3141,7 @@ obj
 					Distance=50
 					DamageMult=8.5
 					Dodgeable=-1
-					AccMult=5
+					AccMult = 1.175
 					Speed=2
 					ManaCost=15
 					Cooldown=120
@@ -3161,7 +3180,7 @@ obj
 					Distance=50
 					DamageMult=8.5
 					Dodgeable=-1
-					AccMult=5
+					AccMult = 1.175
 					Speed=4
 					Instinct = 4
 					ManaCost=15
@@ -3236,7 +3255,7 @@ obj
 					Copyable=4
 					PreRequisite=list("/obj/Skills/Projectile/Magic/Fira")
 					DamageMult=2
-					AccMult=3
+					AccMult = 1.15
 					IconSize=1.5
 					Homing=1
 					Scorching=1
@@ -3263,7 +3282,7 @@ obj
 					Radius=1
 					Piercing=1
 					PiercingBang=1
-					AccMult=5
+					AccMult = 1.175
 					Dodgeable=-1
 					Speed=0
 					ManaCost=10
@@ -3283,7 +3302,7 @@ obj
 					Distance=50
 					DamageMult=11
 					Dodgeable=-1
-					AccMult=5
+					AccMult = 1.175
 					Speed=2
 					ManaCost=15
 					Cooldown=120
@@ -3477,7 +3496,7 @@ obj
 					Copyable=4
 					Distance=20
 					DamageMult=1.8
-					AccMult=10
+					AccMult = 1.25
 					Radius=1
 					ZoneAttack=1
 					ZoneAttackX=0
@@ -3500,7 +3519,7 @@ obj
 					Copyable=5
 					Distance=120
 					DamageMult=0.85
-					AccMult=15
+					AccMult = 1.5
 					Radius=1
 					ZoneAttack=1
 					ZoneAttackX=0
@@ -3525,7 +3544,7 @@ obj
 					Copyable=5
 					Distance=30
 					DamageMult=1.1
-					AccMult=15
+					AccMult = 1.5
 					Radius=1
 					ZoneAttack=1
 					ZoneAttackX=0
@@ -3554,7 +3573,7 @@ obj
 					Copyable=5
 					Distance=20
 					DamageMult=2.2
-					AccMult=15
+					AccMult = 1.5
 					MultiShot=5
 					Knockback=1
 					EnergyCost=3
@@ -3573,7 +3592,7 @@ obj
 					Copyable=5
 					Distance=20
 					DamageMult=2.2
-					AccMult=10
+					AccMult = 1.25
 					Radius=1
 					ZoneAttack=1
 					ZoneAttackX=0
@@ -3598,7 +3617,7 @@ obj
 					Earth_Dragon_Flash
 						name="Doryusen"
 						Distance=5
-						AccMult=5
+						AccMult = 1.175
 						DamageMult=2
 						Blasts=5
 						Radius=1
@@ -3660,7 +3679,7 @@ obj
 				Variation=0
 				IconLock='Beam14.dmi'
 				IconSize=1
-				AccMult=5
+				AccMult = 1.175
 				Knockback=1
 				Deflectable=-1
 				Distance=50
@@ -3713,6 +3732,8 @@ obj
 						set category="Skills"
 						usr.UseProjectile(src)
 				Eraser_Gun
+					NewCost = TIER_2_COST
+					NewCopyable = 3
 					SkillCost=120
 					Copyable=4
 					Distance=50
@@ -3721,12 +3742,14 @@ obj
 					Knockback=1
 					BeamTime=50
 					IconLock='Beam20.dmi'
-					Cooldown=90
+					Cooldown=60
 					EnergyCost=1.5
 					verb/Eraser_Gun()
 						set category="Skills"
 						usr.UseProjectile(src)
 				Shine_Ray
+					NewCost = TIER_2_COST
+					NewCopyable = 3
 					SkillCost=120
 					Copyable=4
 					Distance=15
@@ -3735,13 +3758,15 @@ obj
 					Knockback=0
 					BeamTime=20
 					IconLock='Beam8.dmi'
-					Cooldown=90
+					Cooldown=60
 					EnergyCost=1.5
 					Immediate=1
 					verb/Shine_Ray()
 						set category="Skills"
 						usr.UseProjectile(src)
 				Gamma_Ray
+					NewCost = TIER_2_COST
+					NewCopyable = 3
 					SkillCost=120
 					Copyable=4
 					DamageMult=0.75
@@ -3750,12 +3775,14 @@ obj
 					Knockback=1
 					BeamTime=20
 					IconLock='Beam17Dark.dmi'
-					Cooldown=90
+					Cooldown=60
 					EnergyCost=1.5
 					verb/Gamma_Ray()
 						set category="Skills"
 						usr.UseProjectile(src)
 				Piercer_Ray
+					NewCost = TIER_2_COST
+					NewCopyable = 3
 					SkillCost=120
 					Copyable=4
 					DamageMult=7
@@ -3764,7 +3791,7 @@ obj
 					Knockback=0
 					BeamTime=30
 					IconLock='Makkankosappo.dmi'
-					Cooldown=90
+					Cooldown=60
 					EnergyCost=1.5
 					Piercing=1
 					Instinct=1
@@ -3929,7 +3956,7 @@ obj
 						ForRate=0.75
 						DamageMult=2.5
 						Speed=1
-						AccMult=3
+						AccMult = 1.15
 						Crippling = 5
 						BeamTime=7
 						Distance=7
@@ -4347,7 +4374,7 @@ mob
 			if(!Z.Charging)//Only beams get this exception
 				if(!src.CanAttack(3)&&!Z.AttackReplace)
 					return 0
-				if(Z.Using) 
+				if(Z.Using)
 					return 0
 				if(Z.ZoneAttack&&Z.FireFromEnemy)
 					if(!src.Target)
@@ -4484,7 +4511,10 @@ mob
 			if(Z.Copyable)
 				spawn() for(var/mob/m in view(10, src))
 					if(m.CheckSpecial("Sharingan"))
-						if(m.SagaLevel<=Z.Copyable)
+						var/copy = Z.Copyable
+						if(Z.NewCopyable)
+							copy = Z.NewCopyable
+						if(m.SagaLevel<=copy)
 							continue
 						if(m.client&&m.client.address==src.client.address)
 							continue
@@ -5464,7 +5494,7 @@ obj
 						if(src.Burning&&!src.Owner.HasBurning())
 							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Fire"), damageOnly = 1))/10)
 						if(src.Scorching&&!src.Owner.HasScorching())
-							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1,, bonusElements=list("Fire"), damageOnly = 1))/10)//Forces debuff
+							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Fire"), damageOnly = 1))/10)//Forces debuff
 						if(src.Chilling&&!src.Owner.HasChilling())
 							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Water"), damageOnly = 1))/10)
 						if(src.Freezing&&!src.Owner.HasFreezing())

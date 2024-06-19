@@ -70,7 +70,11 @@ passive
 						var/value = settingPassiveList[settingPassive]
 						if(!isnum(value))
 							CRASH("ERROR: [settingPassive] was decreased by [value] which is not a number!")
-						passives[settingPassive] -= value
+						if(passives[settingPassive] < 0)
+							passives[settingPassive] += value
+						else
+
+							passives[settingPassive] -= value
 				if(TRUE)
 					for(var/settingPassive in settingPassiveList)
 						var/value = settingPassiveList[settingPassive]

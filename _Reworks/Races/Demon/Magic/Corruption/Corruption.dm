@@ -1,5 +1,5 @@
 /obj/Skills/AutoHit/Magic/Corruption/Corrupt_Reality
-	var/list/Upgrades = list("Primordial" = list(0.25,0.5,1,1,2), "DamageMult" = list(0.05,0.1,0.2,0.25,0.4))
+	var/list/Upgrades = list("Primordial" = list(0.25,0.5,1,1.25,1.5,2), "DamageMult" = list(0.05,0.15,0.25,0.3,0.4,0.5))
 	Area= "Target"
 	SpecialAttack=1
 	AdaptRate = 1
@@ -12,10 +12,17 @@
 	CorruptionCost = 25
 	Cooldown = -1
 	adjust(mob/p)
-		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
+		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
 		for(var/x in Upgrades)
 			vars[x] = Upgrades[x][asc]
-
+	Trigger(mob/p)
+		adjust(usr)
+		ManaCost = usr.ManaAmount
+		DamageMult = 5 + (ManaCost * DamageMult)
+		if(Using || cooldown_remaining)
+			return FALSE
+		var/aaa = p.Activate(src)
+		return aaa
 
 	verb/Corrupt_Reality()
 		set category = "Skills"
@@ -40,8 +47,9 @@
 		TimerLimit = scalingValues["toDeath"][asc]/10
 	Trigger(mob/User, Override)
 		. = 0
-		adjust(User)
-		if(!User.BuffOn(src) && cooldown_remaining)
+		if(!User.BuffOn(src))
+			adjust(User)
+		if(!Using)
 			if(User.Corruption - CorruptionCost < 0)
 				User << "Not enough corruption"
 				return 0
@@ -106,17 +114,16 @@
 	ManaGlowSize=2
 	CorruptionCost = 75
 	adjust(mob/p)
-		NameFake = "￣ε☆╰╮o皿￣"
 		SpdMult = 1
 		EndMult = 1
 		scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self::scalingValues
 		var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/)
-		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1 
+		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
 		var/pacts = p.demon.PactsTaken
 		var/boon = (pacts * 0.05) + (0.05 * asc)
 		if(!d)
 			p << "Error in setting up Corrupt Self pls gmhelp"
-		passives = d.passives
+		passives = d.passives.Copy()
 		for(var/x in scalingValues)
 			passives[x] = scalingValues[x][asc]
 		if(p.GetSpd() > p.GetEnd())
@@ -128,6 +135,8 @@
 		PowerMult = 1 + boon
 		TimerLimit = 80 + (pacts * 15) + (asc * 15)
 		// put it on cd
+	verb/Adjust_Name()
+		NameFake = input(src, "What name?") as text
 	verb/Impose_Will()
 		set category = "Skills"
 		set desc = "Bring forth your true form without alerting others."
@@ -143,4 +152,3 @@
 				d.Trigger(User, 1)
 				// jump out of true form
 			d.Cooldown()
-		

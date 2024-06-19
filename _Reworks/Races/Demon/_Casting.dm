@@ -103,5 +103,5 @@
     var/static/list/phrases = list("parvus pendetur fur, magnus abire videtur", "para bellum", "parturiunt montes, nascetur ridiculus mus", \
                                     "Pericula ludus", "principiis obst, et respice finem", "pro se", "pro scientia atque sapientia", "propria manu ", \
                                     "ad vitam aut culpam", "aut vincere aut mori", "cor aut mors", "esto perpetua", "usque ad finem")
-    var/obj/castingSpeechHolder = new()
-    castingSpeechHolder.createCastingSpeechHolder(pick(phrases), Text_Color, null, src)
+    var/obj/castingSpeechHolder/csh = new()
+    csh.createCastingSpeechHolder(pick(phrases), Text_Color, null, src)

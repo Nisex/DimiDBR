@@ -716,8 +716,6 @@ mob
 				Return++
 			Return=round(Return)
 			Return=min(8,Return)
-			if(Return < 0)
-				Return = 0
 			return Return
 		HasFlicker()
 			var/Return=0
@@ -965,9 +963,6 @@ mob
 				Return+=stp
 			if(src.DrunkPower())
 				Return+=3
-			var/mm=src.HasMaimMastery()
-			if(src.Maimed&&mm)
-				Return+=(src.Maimed*mm)*0.5
 			if(src.TarotFate=="The Hanged Man")
 				Return+=5
 			if(src.TarotFate=="Justice")
@@ -981,9 +976,6 @@ mob
 			var/stp=src.SaiyanTransPower()
 			if(stp)
 				Return+=stp
-			var/mm=src.HasMaimMastery()
-			if(src.Maimed&&mm)
-				Return+=(src.Maimed*mm)*0.5
 			if(src.isRace(MAJIN))
 				Return += Potential * getMajinRates("Reduction")
 			if(src.TarotFate=="The Hanged Man")
@@ -2387,16 +2379,18 @@ mob
 				return 1
 			if(src.isRace(DRAGON)&&src.AscensionsAcquired>=1)
 				return 1
+			if(Target && (Health <=25 && Target.Health > Health+10) && passive_handler.Get("Underdog"))
+				return 1
 			return 0
 		UsingMartialStyle()
 			if(src.UsingMasteredMartialStyle())
 				return 1
-			if(src.StyleActive in list("Fire", "Water", "Earth", "Wind", "Battle Mage", "Flow", "Feral", "Blitz", "Breaker", "Spirit", "Yin Yang", "Soul Crushing", "Resonance", "Tranquil Dove", "Circuit Breaker", "Sunlit Sky", "Inverse Poison", "Devil Leg", "Flow Reversal", "Phage", "Entropy", "Moonlit Lake", "Shunko", "Metta Sutra", "Shaolin", "Blade Singing", "Secret Knife", "Champloo", "Swordless", "Imperial", "East Star", "West Star", "Atomic Karate", "Rhythm of War", "South Star"))
+			if(src.StyleActive in list("Fire", "Water", "Earth", "Wind", "Battle Mage", "Flow", "Feral", "Blitz", "Breaker", "Spirit", "Heavenly", "Yin Yang", "Soul Crushing", "Resonance", "Tranquil Dove", "Circuit Breaker", "Sunlit Sky", "Inverse Poison", "Devil Leg", "Flow Reversal", "Phage", "Entropy", "Moonlit Lake", "Shunko", "Metta Sutra", "Shaolin", "Blade Singing", "Secret Knife", "Champloo", "Swordless", "Imperial", "East Star", "West Star", "Atomic Karate", "Rhythm of War", "South Star"))
 				if(!equippedSword)
 					return 1
 			return 0
 		UsingMasteredMartialStyle()
-			if(src.StyleActive in list("Turtle", "Crane", "Snake", "Cat","Black Leg", "Strong Fist", "Gentle Fist", "Lightning Kickboxing", "Golden Kirin", "Drunken Fist", "North Star", "Imperial Devil"))
+			if(src.StyleActive in list("Turtle", "Crane", "Snake", "Cat","Black Leg", "Strong Fist", "Gentle Fist", "Lightning Kickboxing", "Golden Kirin","Heavenly Dragon Stance", "Drunken Fist", "North Star", "Imperial Devil"))
 				if(!equippedSword)
 					return 1
 			return 0

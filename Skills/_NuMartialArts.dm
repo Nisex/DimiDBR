@@ -16,18 +16,42 @@ obj
 			NuStyle
 				skillDescription()
 					..()
-					if(StyleStr>1)
-						description += "Strength Add: [StyleStr-1]\n"
-					if(StyleFor>1)
-						description += "Force Add; [StyleFor-1]\n"
-					if(StyleEnd>1)
-						description += "End Add: [StyleEnd-1]\n"
-					if(StyleSpd>1)
-						description += "Speed Add: [StyleSpd-1]\n"
-					if(StyleOff>1)
-						description += "Offense Add: [StyleOff-1]\n"
-					if(StyleDef>1)
-						description += "Defense Add: [StyleDef-1]\n"
+					if(StyleStr)
+						if(StyleStr  < 1 &&  StyleStr  > 0)
+							description += "Strength Reduction: [StyleStr]\n"
+						else
+							if(StyleStr > 1)
+								description += "Strength Add: [StyleStr-1]\n"
+					if(StyleFor)
+						if(StyleFor  < 1 &&  StyleFor  > 0)
+							description += "Force Reduction: [StyleFor]\n"
+						else
+							if(StyleFor > 1)
+								description += "Force Add: [StyleFor-1]\n"
+					if(StyleEnd)
+						if(StyleEnd  < 1 &&  StyleEnd  > 0)
+							description += "Endurance Reduction: [StyleEnd]\n"
+						else
+							if(StyleEnd > 1)
+								description += "Endurance Add: [StyleEnd-1]\n"
+					if(StyleSpd)
+						if(StyleSpd  < 1 &&  StyleSpd  > 0)
+							description += "Speed Reduction: [StyleSpd]\n"
+						else
+							if(StyleSpd > 1)
+								description += "Speed Add: [StyleSpd-1]\n"
+					if(StyleOff)
+						if(StyleOff  < 1 &&  StyleOff  > 0)
+							description += "Offense Reduction: [StyleOff]\n"
+						else
+							if(StyleOff > 1)
+								description += "Offense Add: [StyleOff-1]\n"
+					if(StyleDef)
+						if(StyleDef  < 1 &&  StyleDef  > 0)
+							description += "Defense Reduction: [StyleDef]\n"
+						else
+							if(StyleDef > 1)
+								description += "Defense Add: [StyleDef-1]\n"
 
 				var/StylePrimeUnlock //obtained from getting mastery 4; can be a list
 				var/StyleComboUnlock=list()//obtained from getting mastery 3 in 2 styles; MUST be a list
@@ -43,7 +67,19 @@ obj
 
 					// NEW SHIT
 
-
+					Murim_Style
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Shield_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style")
+						StyleStr=1.2
+						StyleEnd=1.25
+						StyleSpd=1.2
+						StyleOff=1.2
+						StyleDef=1.2
+						passives = list("Hardening" = 1)
+						StyleActive="Heavenly"
+						Finisher="/obj/Skills/Queue/Finisher/Heavenly_Storm_Dragon_Emergence"
+						verb/Murim_Style()
+							set hidden=1
+							src.Trigger(usr)
 
 
 
@@ -97,10 +133,9 @@ obj
 					Earth_Style
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Water_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wind_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style")
-						StyleStr=1.3
-						StyleEnd=1.4
-						StyleFor=1.2
-						StyleSpd=1.1
+						StyleStr=1.2
+						StyleEnd=1.3
+						StyleFor=1.1
 						NoStaff = 0
 						ElementalClass="Earth"
 						StyleActive="Earth"
@@ -113,10 +148,9 @@ obj
 					Wind_Style
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Fire_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Sunlit_Sky_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Earth_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style")
-						StyleStr=1.2
-						StyleEnd=1.1
-						StyleFor=1.3
-						StyleSpd=1.4
+						StyleStr=1.1
+						StyleFor=1.2
+						StyleSpd=1.3
 						NoStaff = 0
 						ElementalClass="Wind"
 						StyleActive="Wind"
@@ -129,10 +163,9 @@ obj
 					Fire_Style
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Water_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Inverse_Poison_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wind_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Sunlit_Sky_Style")
-						StyleStr=1.1
-						StyleEnd=1.2
-						StyleFor=1.4
-						StyleSpd=1.3
+						StyleEnd=1.1
+						StyleFor=1.3
+						StyleSpd=1.2
 						NoStaff = 0
 						ElementalClass="Fire"
 						StyleActive="Fire"
@@ -148,10 +181,9 @@ obj
 					Water_Style
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Earth_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Fire_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Inverse_Poison_Style")
-						StyleStr=1.4
-						StyleEnd=1.3
-						StyleFor=1.1
-						StyleSpd=1.2
+						StyleStr=1.3
+						StyleEnd=1.2
+						StyleSpd=1.1
 						NoStaff = 0
 						ElementalClass="Water"
 						StyleActive="Water"
@@ -162,6 +194,25 @@ obj
 							set hidden=1
 							src.Trigger(usr)
 					//Signature Styles T1
+					Wushu_Style
+						SignatureTechnique=1
+						Copyable=0
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Heavenly_Demon_Fist_Style",\
+						"TBD"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Iron_Fist_Style")
+						StyleStr=1.25
+						StyleEnd=1.25
+						StyleOff=1.25
+						StyleDef=1.25
+						passives = list("Hardening" = 1, "Deflection" = 0.5, "UnarmedDamage" = 1, "CounterMaster" = 1)
+						StyleActive="Heavenly Dragon Stance"
+						Finisher="/obj/Skills/Queue/Finisher/Heavenly_Dragons_Omniscient_Surge"
+						verb/Wushu_Style()
+							set hidden=1
+							src.Trigger(usr)
+
+
+
+
 					Black_Leg_Style
 						SignatureTechnique=1
 						Copyable=0
@@ -172,7 +223,7 @@ obj
 						StyleActive="Black Leg"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Golden_Kirin_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Sunlit_Sky_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Devil_Leg_Style")
-						passives = list("UnarmedDamage" = 1)
+						passives = list("UnarmedDamage" = 1, "BluringStrikes" = 1, "Instinct" = 1)
 						UnarmedDamage=1
 						Finisher="/obj/Skills/Queue/Finisher/Mouton_Shot"
 						verb/Black_Leg_Style()
@@ -187,7 +238,7 @@ obj
 						StyleActive="Strong Fist"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Golden_Kirin_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Dire_Wolf_Style")
-						passives = list("HardStyle" = 1, "HeavyHitter" = 0.15)
+						passives = list("HardStyle" = 1, "HeavyHitter" = 0.25, "Instinct" = 1, "UnarmedDamage" = 1)
 						HardStyle=1
 						HeavyHitter=0.15
 						Finisher="/obj/Skills/Queue/Finisher/Rising_Wind"
@@ -204,7 +255,7 @@ obj
 						StyleActive="Gentle Fist"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Drunken_Fist_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Flow_Reversal_Style")
-						passives = list("SoftStyle" = 1)
+						passives = list("SoftStyle" = 1, "UnarmedDamage" = 1, "Siphon" = 0.25)
 						SoftStyle=1
 						Finisher="/obj/Skills/Queue/Finisher/Eight_Trigrams"
 						verb/Gentle_Fist_Style()
@@ -219,7 +270,7 @@ obj
 						StyleActive="Lightning Kickboxing"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Gentle_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Drunken_Fist_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Inverse_Poison_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phage_Style")
-						passives = list("CounterMaster" = 1)
+						passives = list("SpiritHand" = 1, "TechniqueMastery" = 2, "UnarmedDamage" = 1)
 						CounterMaster=1
 						Finisher="/obj/Skills/Queue/Finisher/Rolling_Sobat"
 						verb/Lightning_Kickboxing_Style()
@@ -628,6 +679,20 @@ obj
 							src.Trigger(usr)
 
 //Signature Style T1
+					Sword_And_Shield
+						SignatureTechnique=1
+						Copyable=0
+						StyleEnd=1.5
+						StyleStr=1.25
+						StyleSpd=0.75
+						StyleOff=1.25
+						StyleDef=1.25
+						StyleActive="Sword And Shield"
+						passives = list("Hardening" = 1, "Deflection" = 0.5)
+						StyleComboUnlock=list("TBD"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style",\
+						"UNARMED VARIANT"="/obj/Skills/Buffs/NuStyle/SwordStyle/Heavenly_Demon_Fist_Style")
+						Finisher="/obj/Skills/Queue/Finisher/Behemoth_Typhoon"
+
 					Dual_Wield_Style//iaido + fencing
 						SignatureTechnique=1
 						NeedsSecondSword=1

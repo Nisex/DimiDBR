@@ -300,6 +300,26 @@ obj
 				HitSparkY=0
 				Cooldown=4
 				Earthshaking=15
+			Heavenly_Dragon_Violet_Ponds_Annihilation_of_the_Nine_Realms
+				AdaptRate=2
+				DamageMult=2
+				Area="Target"
+				Distance=10
+				TurfErupt=2
+				TurfEruptOffset=3
+				EndDefense=0.75
+				Knockback=10
+				PassThrough=1
+				ActiveMessage="blasts through their opponent with a destructive punch!"
+				HitSparkIcon='Hit Effect Wind.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkSize=3
+				HitSparkTurns=0
+				HitSparkLife=7
+				Cooldown=4
+				Earthshaking=15
+
 
 			Explosive_Finish
 				StrOffense=1
@@ -504,6 +524,34 @@ obj
 				TurfShift='Dirt1.dmi'
 				TurfShiftDuration=30
 				Cooldown=4
+			Giga_Impact
+				Area="Circle"
+				NoLock=1
+				NoAttackLock=1
+				RoundMovement=0
+				Distance=5
+				Instinct=4
+				DamageMult=3
+				Rounds=2
+				StrOffense=1
+				EndDefense=0.5
+				PullIn = 5
+				TurfErupt=2
+				TurfEruptOffset=3
+				Earthshaking = 15
+				ActiveMessage="slams their enemy into the ground, resulting in a giant(giga) impact!"
+				HitSparkIcon='Slash - Zan.dmi'
+				HitSparkX=-16
+				HitSparkY=-16
+				HitSparkSize=1
+				HitSparkTurns=1
+				HitSparkLife=10
+				Icon='SweepingKick.dmi'
+				IconX=-32
+				IconY=-32
+				IconTime=10
+				Cooldown=4
+
 			Flowing_Slash_Follow_Up
 				Area="Strike"
 				NoLock=1
@@ -534,6 +582,7 @@ obj
 				Instinct=4
 				DamageMult=4
 				Rounds=2
+				ComboMaster = 1
 				StrOffense=1
 				EndDefense=1
 				WindUp=0.5
@@ -933,9 +982,10 @@ obj
 				Slow=1
 				Area="Wave"
 				ActiveMessage="bursts out with tendrils of symbiotic matter!"
-				StrOffense=0
-				ForOffense=1
-				DamageMult=1.5
+				StrOffense = 0.5
+				ForOffense = 0.5
+				Cooldown = 60
+				DamageMult= 4
 				GuardBreak=1
 				TurfStrike=3
 				HitSparkIcon='Slash - Vampire.dmi'
@@ -1627,12 +1677,11 @@ obj
 			Warp_Storm
 				Area="Circle"
 				Distance=2
-				ForOffense=1
-				StrOffense=0
+				AdaptRate=1
 				SpecialAttack=1
 				ComboMaster=1
 				Rounds=5
-				DamageMult=0.9//1 damage mult is from the projectile itself.
+				DamageMult=0.1//1 damage mult is from the projectile itself.
 				Icon='SweepingKick.dmi'
 				IconX=-32
 				IconY=-32
@@ -1642,7 +1691,22 @@ obj
 				HitSparkTurns=1
 				RoundMovement=0
 				//This is set from Warp Strike.
-
+			Warp_Bomb
+				Area="Circle"
+				Distance=3
+				AdaptRate=1
+				SpecialAttack=1
+				ComboMaster=1
+				Rounds=3
+				DamageMult=1
+				Icon='SweepingKick.dmi'
+				IconX=-32
+				IconY=-32
+				HitSparkIcon='Slash - Zero.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkTurns=1
+				RoundMovement=0				
 //T3 is in Projectiles - Beams.
 
 			Destruction_Wave
@@ -1676,19 +1740,20 @@ obj
 				EnergyCost=10
 				Area="Wide Wave"
 				FlickAttack=1
-				Distance=10
+				Distance=15
 				ForOffense=1
-				DamageMult=11.5
+				DamageMult=16
+				Scorching = 10
 				Stunner=3
 				TurfErupt=2
 				TurfEruptOffset=0
 				Slow=1
-				Size=1
+				Size=2
 				HitSparkX=0
 				HitSparkY=0
 				SpecialAttack=1
 				Earthshaking=10
-				WindUp=0.5
+				WindUp=0.2
 				ComboMaster = 1
 				WindupMessage="focuses their power into a palm..."
 				ActiveMessage="unleashes an obliterating wave of power from their hand!"
@@ -1701,7 +1766,8 @@ obj
 				Copyable=5
 				StrOffense=0
 				ForOffense=1
-				DamageMult=10
+				Rounds=10
+				DamageMult=1.5
 				Area="Around Target"
 				FlickAttack=1
 				Distance=15
@@ -1709,11 +1775,11 @@ obj
 				Divide=1
 				TurfErupt=2
 				TurfEruptOffset=6
-				WindUp=0.5
+				WindUp=0.2
 				ComboMaster = 1
 				WindupIcon='Ultima Arm.dmi'
 				WindupIconSize=1.5
-				Launcher=2
+				Launcher=5
 				WindupMessage="draws in a large amount of ki..."
 				ActiveMessage="unleashes an explosive wave of power directly at their enemy!"
 				HitSparkIcon='BLANK.dmi'
@@ -1733,12 +1799,14 @@ obj
 				FlickAttack=1
 				Distance=3
 				ForOffense=1
-				Rush=5
+				Rush=8
 				NoLock=1
 				NoAttackLock=1
 				ControlledRush=1
-				DamageMult=12.5
-				Launcher=2
+				Rounds=3
+				DamageMult=4.5
+				ComboMaster=1
+				Launcher=4
 				TurfErupt=2
 				TurfEruptOffset=0
 				Slow=1
@@ -1762,10 +1830,10 @@ obj
 				RoundMovement=0
 				Rounds=5
 				ForOffense=1
-				DamageMult=4.2
+				DamageMult=3.2
 				NoAttackLock=1
 				NoLock=1
-				Launcher=2
+				Launcher=4
 				ComboMaster = 1
 				TurfErupt=2
 				TurfEruptOffset=0
@@ -4957,9 +5025,12 @@ mob
 			else
 				Z.Cooldown()
 			if(Z.Copyable)
+				var/copy = Z.Copyable
 				spawn() for(var/mob/m in view(10, src))
 					if(m.CheckSpecial("Sharingan"))
-						if(m.SagaLevel<=Z.Copyable)
+						if(Z.NewCopyable)
+							copy = Z.NewCopyable
+						if(m.SagaLevel<=copy)
 							continue
 						if(m.client&&m.client.address==src.client.address)
 							continue
@@ -5618,6 +5689,8 @@ obj
 
 			Shearing
 
+			parentRounds = 1
+
 			tmp/list/AlreadyHit
 			tmp/list/autohitChildren
 			tmp/obj/AutoHitter/AHOwner
@@ -5632,6 +5705,7 @@ obj
 			src.IgnoreAlreadyHit = Z.IgnoreAlreadyHit
 			toDeath = life
 			src.Owner=owner
+			parentRounds = Z.Rounds
 			if(owner.Grab && !Z.GrabMaster)
 				grabNerf = 1
 			src.Arcing=arcing
@@ -5934,7 +6008,7 @@ obj
 				#if DEBUG_AUTOHIT
 				Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
-				var/Precision = 1
+				var/Precision = 1 + ((Damage*parentRounds)/10)
 				var/itemMods = list(0,0,0)
 				if(src.SwordTech&&!src.SpecialAttack)
 					var/obj/Items/Sword/s=src.Owner.EquippedSword()
@@ -6015,9 +6089,9 @@ obj
 						if(!src.Owner.NoWhiff())
 							var/obj/Items/Sword/s = Owner.EquippedSword()
 							if(s)
-								FinalDmg/=max(1,(2*(1/Owner.GetSwordAccuracy(s))))
+								FinalDmg/=max(1,(glob.AUTOHIT_WHIFF_DAMAGE*(1/Owner.GetSwordAccuracy(s))))
 							else
-								FinalDmg/=2
+								FinalDmg/=glob.AUTOHIT_WHIFF_DAMAGE
 
 				if(m in src.Owner.party)
 					FinalDmg *= glob.PARTY_DAMAGE_NERF
@@ -6038,7 +6112,7 @@ obj
 							m.Shielding=1
 							spawn()
 								m.ForceField()
-					FinalDmg*=max(1-(0.125*m.GetDeflection()),0.3)
+					FinalDmg*=max(1-(0.25*m.GetDeflection()),0.3)
 
 				if(m.HasBlastShielding()&&!src.CanBeDodged)
 					FinalDmg/=2**3
@@ -6113,6 +6187,9 @@ obj
 							StunClear(m)
 							AfterImageStrike(m, src.Owner,0)
 							return
+
+					if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldWhiffRate, IgnoreNoDodge=1) == MISS)
+						Damage /= glob.AUTOHIT_MISS_DAMAGE
 
 					if(m.AfterImageStrike)
 						if(!src.TurfStrike)

@@ -2,6 +2,8 @@ mob/var/Frozen
 mob/var/tmp/Moving
 mob/var/Decimals=0
 
+mob/var/warperTimeLock = 0
+
 proc
 	TeleporterBump(var/A,var/Q)
 		if(istype(A,/obj/Special/Teleporter2)||!(istype(A, /obj/Special/Teleporter2/SpecialTele)))

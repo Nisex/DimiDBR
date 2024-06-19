@@ -271,14 +271,14 @@ mob
 						if(!defender.MeltyMessage)
 							defender.MeltyMessage=1
 							OMsg(defender, "<font color='red'>[defender]'s blood burns through all it comes in contact with!</font>")
-						src.AddBurn(val, defender)
+						src.AddBurn(val * (1 + defender.passive_handler.Get("MeltyBlood")), defender)
 			if(defender.passive_handler.Get("VenomBlood"))
 				if(defender.Health<50*(1-src.HealthCut))
 					if(FightingSeriously(src,0))
 						if(!defender.VenomMessage)
 							defender.VenomMessage+=1
 							OMsg(defender, "<font color='red'>[defender]'s toxic blood sprays out!</font>")
-						src.AddPoison(val*0.5, defender)
+						src.AddPoison(val* (1 + defender.passive_handler.Get("VenomBlood")), defender)
 
 
 			if(defender.Health<=defender.AngerPoint*(1-src.HealthCut)&&defender.passive_handler.Get("Defiance")&&!defender.CheckSlotless("Great Ape"))
@@ -313,7 +313,7 @@ mob
 					var/addWeaponBreaker = 0
 					if(AttackQueue&&AttackQueue.WeaponBreaker)
 						addWeaponBreaker += AttackQueue.WeaponBreaker
-					var/breakTicks = (GetWeaponBreaker()+addWeaponBreaker) / 3 * glob.WEAPON_BREAKER_EFFECTIVENESS
+					var/breakTicks = ((GetWeaponBreaker()+addWeaponBreaker) / 3) * glob.WEAPON_BREAKER_EFFECTIVENESS
 					var/duraBoon = 2 // SWORD DURA VARS
 					var/duraBase = 1 // SWORD DURA VARS
 					// Breaker Vars
@@ -451,13 +451,14 @@ mob
 				var/Effectiveness=1
 				if(NoBlood>0)
 					Effectiveness-=(Effectiveness*NoBlood)
-				if(defender.MeltyBlood)
+				if(defender.passive_handler.Get("MeltyBlood") && NoBlood<1)
 					CursedBlood=1
+					Effectiveness += defender.passive_handler.Get("MeltyBlood")
 					src.AddBurn(val*Effectiveness)
-				if(defender.VenomBlood)
+				if(defender.passive_handler.Get("VenomBlood"))
 					CursedBlood=1
+					Effectiveness+= defender.passive_handler.Get("VenomBlood")
 					src.AddPoison(val*Effectiveness,defender)
-					src.AddBurn(val,defender)
 				if(!CursedBlood)
 					src.HealHealth(val*src.GetLifeSteal()*Effectiveness/100)
 					if(src.Health>=(100-100*src.HealthCut-src.TotalInjury))
@@ -1180,7 +1181,7 @@ mob
 				if(Mod<=glob.BUFF_MASTERY_LOWTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
-					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT)) 
+					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
 
 
 			if(src.Burn)
@@ -1405,14 +1406,14 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-			if(src.BurningShot)
-				if(src.Burn)
-					if(src.Burn>0&&src.Burn<=50)
-						Mod-=0.5*src.BurningShot
-					else if(src.Burn>50&&src.Burn<=75)
-						Mod-=0.75*src.BurningShot
-					else
-						Mod-=1*src.BurningShot
+			// if(src.BurningShot)
+			// 	if(src.Burn)
+			// 		if(src.Burn>0&&src.Burn<=50)
+			// 			Mod-=0.5*src.BurningShot
+			// 		else if(src.Burn>50&&src.Burn<=75)
+			// 			Mod-=0.75*src.BurningShot
+			// 		else
+			// 			Mod-=1*src.BurningShot
 			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Protect Brave"))
 				if(src.Health<=25*(1-src.HealthCut))
 					Mod+=min(10/src.Health,1)
@@ -1721,14 +1722,14 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-			if(src.BurningShot)
-				if(src.Burn)
-					if(src.Burn>0&&src.Burn<=50)
-						Mod-=0.5*src.BurningShot
-					else if(src.Burn>50&&src.Burn<=75)
-						Mod-=0.75*src.BurningShot
-					else
-						Mod-=1*src.BurningShot
+			// if(src.BurningShot)
+			// 	if(src.Burn)
+			// 		if(src.Burn>0&&src.Burn<=50)
+			// 			Mod-=0.5*src.BurningShot
+			// 		else if(src.Burn>50&&src.Burn<=75)
+			// 			Mod-=0.75*src.BurningShot
+			// 		else
+			// 			Mod-=1*src.BurningShot
 			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Protect Brave"))
 				if(src.Health<=25*(1-src.HealthCut))
 					var/thisVar = 10/Health < 0 ? 0.1 : 10/Health
@@ -2196,7 +2197,6 @@ mob
 				OMsg(src, "[src]'s binding pulls their body back to their sealed dimension!")
 				src.loc=locate(150, 150, src.Binding)
 				OMsg(src, "[src] suddenly appears as a result of their binding!")
-			src.BindingTimer=RawMinutes(1, 60)//refresh timer regardless
 
 		SetStasis(var/StasisTime)
 			if(src.HasDebuffImmune())

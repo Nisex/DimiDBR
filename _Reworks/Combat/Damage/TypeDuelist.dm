@@ -8,7 +8,7 @@
 /mob/proc/getDuelistBonus(mob/defender)
 	if(Target && HasDuelist())
 		if(Target == defender)
-			. += GetDuelist()
+			. += GetDuelist() * glob.PURE_MODIFIER
 
 /obj/Skills/Buffs/proc/incrementLimit(mob/player, option)
 	var/varLimit = option + "Limit"

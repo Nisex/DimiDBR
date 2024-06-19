@@ -717,7 +717,7 @@ obj/Skills/Utility
 				return
 			if(Choice.KO||(usr.Power>Choice.Power*3))//Either knock them out or be three times as powerful
 				Choice.Binding=usr.z
-				Choice.BindingTimer=RawMinutes(rand(1,60))
+				Choice.BindingTimer = Day(3)
 				OMsg(usr, "[usr] has bound [Choice] to this plane of existence!!")
 			else
 				usr << "They aren't weak enough to bind!"
@@ -1082,6 +1082,7 @@ obj/Skills/Utility
 			if(Targets.len>0)
 				src.Using=1
 				var/mob/Choice=input(usr, "Who will you transmute into a Philosopher's Stone?", "Transmute") in Targets
+				Choice.ManaSealed = 1
 				OMsg(usr, "<font color='red'>[usr] begins the transmutation process on [Choice]!  Red lightning encompasses their form!</font color>")
 				usr.Frozen=2
 				Choice.Frozen=2
@@ -1106,10 +1107,10 @@ obj/Skills/Utility
 				if(Chance<0)
 					Chance=0
 				Chance=round(Chance)
-				Choice.Death(null, "having their body and soul converted into a Philosopher's Stone!", SuperDead=1, NoRemains=3)
+				Choice.Death(null, "having their body and soul converted into a Philosopher's Stone!", NoRemains=3)
 				if(prob(Chance))
 					usr.Maimed++
-					OMsg(usr, "[usr] loses control of their forbidden spell and has a core part of their being claimed by the [Choice.Race] transmutation!")
+					OMsg(usr, "[usr] loses control of their forbidden spell and has a core part of their being claimed by the transmutation!")
 				src.Using=0
 				src.LastTransmute=world.realtime+Day(2)
 			else

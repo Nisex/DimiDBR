@@ -199,8 +199,8 @@ NEW VARIABLES
 	var/AuraX
 	var/AuraY
 	var/HairLock//subs out the aura
-	var/HairBX
-	var/HairBY
+	var/HairX
+	var/HairY
 	var/Enlarge//Makes icon get fukcnig huge. TODO: Replace all functionalities with ProportionShift
 	var/ProportionShift//uses transfrom matrix to fuck with proportions
 	var/IconReplace//Icon replaces base icon.
@@ -666,8 +666,8 @@ NEW VARIABLES
 								usr.AuraLockedUnder=0
 						if("Hair")
 							src.HairLock=input(usr, "What hair should be forced to display when using Ki Control?", "Ki Control") as icon|null
-							src.HairBX=input(usr, "X offset?", "Ki Control") as num|null
-							src.HairBY=input(usr, "Y offset?", "Ki Control") as num|null
+							src.HairX=input(usr, "X offset?", "Ki Control") as num|null
+							src.HairY=input(usr, "Y offset?", "Ki Control") as num|null
 						if("Text")
 							src.ActiveMessage=input(usr, "What text do you want to display when entering Ki Control? This will always have your character name at the start.", "Ki Control") as text
 							src.OffMessage=input(usr, "What text do you want to display when exiting Ki Control? This will always have your character name at the start.", "Ki Control") as text
@@ -4882,22 +4882,27 @@ NEW VARIABLES
 
 
 		Spirit_Form
-			passives = list("SpiritForm" = 1, "MovementMastery" = 3, "ManaStats" = 0.25, "TechniqueMastery" = -2, "MartialMagic" = 1, "ManaGeneration" = -2)
+			passives = list("SpiritForm" = 1, "MovementMastery" = 1, "ManaStats" = 0.25, "TechniqueMastery" = -2, "MartialMagic" = 1, "ManaGeneration" = -2)
 			SpiritForm=1
 			ActiveMessage="shifts into their spiritual body!"
 			OffMessage="becomes fully physical once more..."
 			ManaDrain = 0.1
 			Cooldown=1
+			adjust(mob/p)
+				if(!altered)
+					passives = /obj/Skills/Buffs/SlotlessBuffs/Spirit_Form::passives
 			verb/Spirit_Form()
 				set category="Skills"
+				if(!usr.BuffOn(src))
+					adjust(usr)
 				if(!usr.BuffOn(src))
 					if(usr.Form1Base)
 						src.IconReplace=1
 						src.icon=usr.Form1Base
 					if(usr.Form1Hair)
 						src.HairLock=usr.Form1Hair
-						src.HairBX=usr.Form1HairX
-						src.HairBY=usr.Form1HairY
+						src.HairX=usr.Form1HairX
+						src.HairY=usr.Form1HairY
 					if(usr.Form1Overlay)
 						src.IconLock=usr.Form1Overlay
 						src.LockX=usr.Form1OverlayX
@@ -7680,7 +7685,6 @@ NEW VARIABLES
 
 ///racial slotless
 		The_Crown
-			SignatureTechnique=3
 			TextColor="#adf0ff"
 			TopOverlayLock='Elf_Crown.dmi'
 			ActiveMessage=null
@@ -9697,11 +9701,19 @@ NEW VARIABLES
 						OffMessage="falls back in sync with the fight..."
 						//no verb to activate
 
+					Heavenly_Dragon_Ascendant_Zenith
+						passives = list("HardenedFrame" = 1, "Steady" = 1, "WeaponBreaker" = 1, "Disorienting" = 1)
+						OffMult = 1.1
+						EndMult = 1.3
+						StrMult = 1.2
+						ActiveMessage="is grasping for their next breakthrough..!"
+						OffMessage="has failed their tribulation..."
+
 					Turtle_Martial_Mastery
 						StyleNeeded="Turtle"
 						StrMult=1.1
-						EndMult=1.25
-						DefMult=1.1
+						EndMult=1.3
+						DefMult=1.2
 						passives = list("TensionLock" = 1, "KiControlMastery" = 1, "Void" = 1, "FluidForm" = 1)
 						ActiveMessage="begins a flawless Turtle Kata!"
 						OffMessage="completes the Turtle Kata..."
@@ -9731,11 +9743,19 @@ NEW VARIABLES
 						OffMessage="completes the Cat Kata..."
 
 					//t1 sig styles
+					Heavenly_Dragons_Transient_Enlightenment
+						StyleNeeded="Heavenly Dragon Stance"
+						StrMult=1.25
+						OffMult=1.25
+						EndMult=1.5
+						passives = list("Juggernaut" = 1, "Deflection" = 0.5, "WeaponBreaker" = 2, "Disorienting" = 2, "CallousedHands" = 0.3)
+						ActiveMessage="achieves the peak of their breakthrough..."
+						OffMessage="comes back down to mortal level..."
 					Ki_Flow_Mastery
 						StyleNeeded="Gentle Fist"
 						ForMult=1.5
 						EndMult=1.5
-						passives = list("TensionLock" = 1, "SoftStyle" = 2, "KiControlMastery" = 1, "FluidForm" = 1, "PureDamage" = 1, "Flow" = 1, "SpiritFlow" = 1)
+						passives = list("TensionLock" = 1, "SoftStyle" = 2, "KiControlMastery" = 1, "FluidForm" = 1, "Flow" = 1, "SpiritFlow" = 1)
 						Erosion=0.5
 
 						ActiveMessage="perceives the flow of ki perfectly!"
@@ -10485,6 +10505,17 @@ NEW VARIABLES
 					ActiveMessage="fears for their life against a hyperspeed opponent!"
 					OffMessage="regains courage!"
 
+				Arena_Champion
+					BuffName = "Champion of The Arena"
+					passives = list("DoubleStrike" = 1, "Deflection" = 0.5,  "CallousedHands" = 0.3, "StunningStrike" = 1.5, "ComboMaster" = 1)
+					EndMult = 1.2
+					OffMult = 1.2
+					DefMult = 0.4
+					StrMult = 1.2
+					SpdMult = 0.8
+					ActiveMessage="proclaims this arena for their own!"
+					OffMessage="falls out of their champion lull."
+
 				Dual_Break
 					IconLock='SweatDrop.dmi'
 					IconApart=1
@@ -10802,8 +10833,8 @@ NEW VARIABLES
 					var/money
 					for(var/obj/Money/m in p.contents)
 						money = m.Level
-
 					var/baseMultMod = 1 + max(0,money/(GOLD_DRAGON_FORMULA * GAJALAKA_MULT))
+					passives = list("PureDamage" = p.AscensionsAcquired * 0.1 + (baseMultMod), "PureReduction" =  p.AscensionsAcquired * 0.1 + (baseMultMod))
 					PowerMult = baseMultMod
 					SpdMult = baseMultMod
 					StrMult = baseMultMod
@@ -10855,7 +10886,7 @@ NEW VARIABLES
 				Heat_Of_Passion
 					// Fire Dragon Racial, mimics Berserk
 					BurnAffected = 1
-					NeedsHealth = 10
+					NeedsHealth = 15
 					TooMuchHealth = 25
 					ActiveMessage = "ignites themselves in a blaze of passion!!"
 					OffMessage = "calms their fiery passion..."
@@ -10864,14 +10895,14 @@ NEW VARIABLES
 						if(altered) return
 						var/asc = p.AscensionsAcquired
 						BurningShot = 0.5 + (0.25 * asc)
-						NeedsHealth = 10 + (5 * asc)
+						NeedsHealth = 15 + (5 * asc)
 						TooMuchHealth = 20 + (5 * asc)
 						AngerMult = 1.5 + (0.25 * asc)
 						DemonicDurability = 1  * asc
 						SoulFire = 1 + (0.5 * asc)
 						HybridStrike = clamp(0.5 * asc, 0.5, 2.5)
-						BurnAffected = 12 - (2 * asc)
-						passives = list("DemonicDurability" = DemonicDurability, "SoulFire" = SoulFire, "HybridStrike" = HybridStrike)
+						BurnAffected = 8 - (1 * asc)
+						passives = list("DemonicDurability" = DemonicDurability, "SoulFire" = SoulFire, "HybridStrike" = HybridStrike, "FireAbsorb" = 1)
 						Intimidation = 1.25 + (0.25 * asc)
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
@@ -12144,9 +12175,12 @@ mob
 				if(B.Copyable)
 					spawn() for(var/mob/m in view(10, src))
 						if(m.CheckSpecial("Sharingan"))
+							var/copy = B.Copyable
 							if(m.client&&m.client.address==src.client.address)
 								continue
-							if(m.SagaLevel<=B.Copyable)
+							if(B.NewCopyable)
+								copy = B.NewCopyable
+							if(m.SagaLevel<=copy)
 								continue
 							if(!locate(B.type, m))
 								var/obj/Skills/copiedSkill = new B.type
@@ -13206,8 +13240,8 @@ mob
 						goto IgnoreHair
 				src.HairLocked=1
 				src.HairLock=B.HairLock
-				src.HairBX=B.HairBX
-				src.HairBY=B.HairBY
+				src.HairX=B.HairX
+				src.HairY=B.HairY
 				src.Hairz("Add")
 			IgnoreHair
 
