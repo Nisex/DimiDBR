@@ -1104,6 +1104,7 @@ NEW VARIABLES
 		Weapon_Soul
 			PULock=1
 			NeedsSword=1
+			var/redacted = FALSE
 			BuffName="Soul Resonance"
 			verb/Legendary_Weapon()
 				set hidden=1
@@ -1111,6 +1112,13 @@ NEW VARIABLES
 					src.SwordIcon=null
 					switch(usr.BoundLegend)
 
+						if("Redacted")
+							src.PowerMult=1.5
+							passives = list("Instinct" = 1, "Flow" = 1, "PULock" = 1)
+							src.SwordName=null
+							src.SwordIcon=null
+							src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
+							src.OffMessage="conceals █████████████.."
 						if("Green Dragon Crescent Blade")
 							src.PowerMult=1.5
 							passives = list("Duelist" = max(1,usr.SagaLevel/2), "Hardening" = usr.SagaLevel/2, "LegendaryPower" = usr.SagaLevel*0.25, "PULock" = 1)
@@ -1120,8 +1128,16 @@ NEW VARIABLES
 						if("Ruyi Jingu Bang")
 							src.PowerMult=1.5
 							passives = list("SpiritPower" = usr.SagaLevel*0.25, "Extend" = max(1,usr.SagaLevel/2), "PULock" = 1)
-							src.ActiveMessage="calls forth the true form of Ruyi Jingu Bang, the Pole of the Monkey King!"
-							src.OffMessage="shrinks Ruyi Jingu Bang back down..."
+							if(!redacted)
+								src.ActiveMessage="calls forth the true form of Ruyi Jingu Bang, the Pole of the Monkey King!"
+								src.OffMessage="shrinks Ruyi Jingu Bang back down..."
+								SwordName = null
+								SwordIcon = null
+							else
+								src.SwordName=null
+								src.SwordIcon=null
+								src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
+								src.OffMessage="conceals █████████████.."
 
 						if("Caledfwlch")
 							var/light = TRUE
@@ -1131,48 +1147,91 @@ NEW VARIABLES
 							if(light)
 								src.PowerMult=1.5
 								passives = list("HolyMod" = usr.SagaLevel, "SpiritSword" = 0.25, "LikeWater" = max(1,usr.SagaLevel/2), "PULock" = 1)
-								src.SwordName="Caledfwlch"
-								src.SwordIcon='Caledfwlch.dmi'
-								src.ActiveMessage="calls forth the true form of Caledfwlch, the Sword of Glory!"
-								src.OffMessage="conceals Caledfwlch's glory..."
+								if(!redacted)
+									src.SwordName="Caledfwlch"
+									src.SwordIcon='Caledfwlch.dmi'
+									src.ActiveMessage="calls forth the true form of Caledfwlch, the Sword of Glory!"
+									src.OffMessage="conceals Caledfwlch's glory..."
+								else
+									src.SwordName=null
+									src.SwordIcon=null
+									src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
+									src.OffMessage="conceals █████████████.."
 							else
 								src.PowerMult=1.5
 								passives = list("AbyssMod" = usr.SagaLevel, "SpiritSword" = 0.25, "Instinct" = max(1, usr.SagaLevel/3), "Pursuer" = max(1,usr.SagaLevel/2),"PULock" = 1)
-								src.SwordName="Caledfwlch"
-								src.SwordIcon='Caledfwlch-Morgan.dmi'
-								src.ActiveMessage="calls forth the true form of Caledfwlch Morgan, the Shadow Sword of Glory!"
-								src.OffMessage="conceals Caledfwlch's glory..."
+								if(!redacted)
+									src.SwordName="Caledfwlch"
+									src.SwordIcon='Caledfwlch-Morgan.dmi'
+									src.ActiveMessage="calls forth the true form of Caledfwlch Morgan, the Shadow Sword of Glory!"
+									src.OffMessage="conceals Caledfwlch's glory..."
+								else
+									src.SwordName=null
+									src.SwordIcon=null
+									src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
+									src.OffMessage="conceals █████████████.."
 						if("Kusanagi")
 							src.PowerMult=1.5
 							passives = list("HolyMod" = usr.SagaLevel,"ManaGeneration" = usr.SagaLevel*5, "PULock" = 1)
-							src.SwordName="Kusanagi"
-							src.ActiveMessage="calls forth the true form of Kusanagi, the Sword of Faith!"
-							src.OffMessage="seals Kusanagi's faith..."
+							if(!redacted)
+								src.SwordName="Kusanagi"
+								src.ActiveMessage="calls forth the true form of Kusanagi, the Sword of Faith!"
+								src.OffMessage="seals Kusanagi's faith..."
+							else
+								src.SwordName=null
+								src.SwordIcon=null
+								src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
+								src.OffMessage="conceals █████████████.."
 						if("Durendal")
 							src.PowerMult=1.5
 							passives = list("HolyMod" = usr.SagaLevel, "LifeGeneration" = usr.SagaLevel, "PULock" = 1)
-							src.SwordName="Durendal"
-							src.ActiveMessage="calls forth the true form of Durendal, the Sword of Hope!"
-							src.OffMessage="hides the hope of Durendal..."
+							if(!redacted)
+								src.SwordName="Durendal"
+								src.ActiveMessage="calls forth the true form of Durendal, the Sword of Hope!"
+								src.OffMessage="hides the hope of Durendal..."
+							else
+								src.SwordName=null
+								src.SwordIcon=null
+								src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
+								src.OffMessage="conceals █████████████.."
 						if("Dainsleif")
 							src.PowerMult=1.5
 							HealthDrain = 0.15/usr.SagaLevel
 							passives = list("SlayerMod" = usr.SagaLevel/2, "MortalStrike" = 0.5, "AbyssMod" = usr.SagaLevel/2, "LifeSteal" = usr.SagaLevel*5, "Curse" = 1, "PULock" = 1)
-							src.SwordName="Dainsleif"
-							src.ActiveMessage="calls forth the true form of Dainsleif, the Blade of Ruin!"
-							src.OffMessage="dissolves Dainsleif's ruinous power..."
+
+							if(!redacted)
+								src.SwordName="Dainsleif"
+								src.ActiveMessage="calls forth the true form of Dainsleif, the Blade of Ruin!"
+								src.OffMessage="dissolves Dainsleif's ruinous power..."
+							else
+								src.SwordName=null
+								src.SwordIcon=null
+								src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
+								src.OffMessage="conceals █████████████.."
 						if("Muramasa")
 							src.PowerMult=1.5
 							passives = list("AbyssMod" = usr.SagaLevel, "EnergySteal" = usr.SagaLevel*7.5, "WeaponBreaker" = max(2,usr.SagaLevel/1.5), "PULock" = 1)
-							src.SwordName="Muramasa"
-							src.ActiveMessage="calls forth the true form of Muramasa, the Bane of Blades!"
-							src.OffMessage="casts Muramasa back into the darkness..."
+							if(!redacted)
+								src.SwordName="Muramasa"
+								src.ActiveMessage="calls forth the true form of Muramasa, the Bane of Blades!"
+								src.OffMessage="casts Muramasa back into the darkness..."
+							else
+								src.SwordName=null
+								src.SwordIcon=null
+								src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
+								src.OffMessage="conceals █████████████.."
 						if("Masamune")
 							src.PowerMult=1.5
 							passives = list("HolyMod"=usr.SagaLevel*1.25,"Purity"=1,"Steady"=usr.SagaLevel*1.5, "PULock" = 1)
-							src.SwordName="Masamune"
-							src.ActiveMessage="calls forth the true form of Masamune, the Sword of Purity!"
-							src.OffMessage="relaxes the light of Masamune..."
+							if(!redacted)
+								src.SwordName="Masamune"
+								src.ActiveMessage="calls forth the true form of Masamune, the Sword of Purity!"
+								src.OffMessage="relaxes the light of Masamune..."
+							else
+								src.SwordName=null
+								src.SwordIcon=null
+								src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
+								src.OffMessage="conceals █████████████.."
 						if("Soul Calibur")
 							var/light = TRUE
 							if(usr.EquippedSword())
@@ -1181,23 +1240,41 @@ NEW VARIABLES
 							if(light)
 								src.PowerMult=1.5
 								passives = list("HolyMod"=usr.SagaLevel,"LifeGeneration"=usr.SagaLevel/2,"Steady"=usr.SagaLevel/1.25, "PULock" = 1)
-								src.SwordName="Soul Calibur"
-								src.SwordIcon='SoulCalibur.dmi'
-								src.ActiveMessage="calls forth the true form of Soul Calibur, the Purified Blade of Order!"
-								src.OffMessage="restricts Soul Calibur's order..."
+								if(!redacted)
+									src.SwordName="Soul Calibur"
+									src.SwordIcon='SoulCalibur.dmi'
+									src.ActiveMessage="calls forth the true form of Soul Calibur, the Purified Blade of Order!"
+									src.OffMessage="restricts Soul Calibur's order..."
+								else
+									src.SwordName=null
+									src.SwordIcon=null
+									src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
+									src.OffMessage="conceals █████████████.."
 							else
 								src.PowerMult=1.5
 								passives = list("AbyssMod"=usr.SagaLevel,"LifeGeneration"=usr.SagaLevel/2,"Steady"=usr.SagaLevel/1.25, "PULock" = 1)
-								src.SwordName="Soul Calibur"
-								src.SwordIcon='SoulCalibur-Crystal.dmi'
-								src.ActiveMessage="calls forth the true form of Soul Calibur, the Crystal Blade of Order!"
-								src.OffMessage="restricts Soul Calibur's order..."
+								if(!redacted)
+									src.SwordName="Soul Calibur"
+									src.SwordIcon='SoulCalibur-Crystal.dmi'
+									src.ActiveMessage="calls forth the true form of Soul Calibur, the Crystal Blade of Order!"
+									src.OffMessage="restricts Soul Calibur's order..."
+								else
+									src.SwordName=null
+									src.SwordIcon=null
+									src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
+									src.OffMessage="conceals █████████████.."
 						if("Soul Edge")
 							src.PowerMult=1.5
 							passives = list("AbyssMod" = usr.SagaLevel, "Steady" = usr.SagaLevel*1.5, "Extend" = 1, "BleedHit" = 1, "PULock" = 1)
-							src.SwordName="Soul Edge"
-							src.ActiveMessage="calls forth the true form of Soul Edge, the Blade of Chaos!"
-							src.OffMessage="releases Soul Edge's chaos..."
+							if(!redacted)
+								src.SwordName="Soul Edge"
+								src.ActiveMessage="calls forth the true form of Soul Edge, the Blade of Chaos!"
+								src.OffMessage="releases Soul Edge's chaos..."
+							else
+								src.SwordName=null
+								src.SwordIcon=null
+								src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
+								src.OffMessage="conceals █████████████.."
 						if("Moonlight Greatsword")
 							src.PowerMult=1.5
 							src.EndMult=1.3
