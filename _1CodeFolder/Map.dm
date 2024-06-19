@@ -3937,6 +3937,7 @@ obj/Special
 		var/UndergroundTransport //underground / under sea
 		var/SkyTransport //into sky
 		var/LandTransport //fast, across land
+		var/warperTimeLock = 0
 		Underground_Teleport
 			icon='SparkleIndigo.dmi'
 			UndergroundTransport=1

@@ -717,7 +717,7 @@ obj/Skills/Utility
 				return
 			if(Choice.KO||(usr.Power>Choice.Power*3))//Either knock them out or be three times as powerful
 				Choice.Binding=usr.z
-				Choice.BindingTimer=RawMinutes(rand(1,60))
+				Choice.BindingTimer = Day(3)
 				OMsg(usr, "[usr] has bound [Choice] to this plane of existence!!")
 			else
 				usr << "They aren't weak enough to bind!"
