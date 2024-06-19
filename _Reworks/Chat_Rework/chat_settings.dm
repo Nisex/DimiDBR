@@ -40,6 +40,10 @@ mob
 					fontFamily()
 				if("Combat Messages in IC")
 					usr.client.togglePref("CombatMessagesInIC")
+					if(usr.client.getPref("CombatMessagesInIC"))
+						usr << "Combat Messages will now show in IC."
+					else
+						usr << "Combat Messages will now not show in IC."
 
 		fontSize()
 			var/current_font_size = client.getPref(CURRENTFONTSIZE)
