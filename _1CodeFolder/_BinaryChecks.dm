@@ -2364,6 +2364,8 @@ mob
 				return 1
 			if(src.CheckSpecial("Ultra Instinct"))
 				return 1
+			if(CheckSpecial("Heavenly Regalia: The Three Treasures"))
+				return 1
 			if(src.isRace(DRAGON)&&src.AscensionsAcquired>=2)
 				return 1
 			return 0
@@ -2414,6 +2416,7 @@ mob
 		UsingZornhau()
 			var/Found=0
 			var/obj/Items/Sword/S=src.EquippedSword()
+			Found += passive_handler.Get("Zornhau")
 			if(src.StyleActive=="Sword Savant")
 				Found+=0.5
 			if(src.StyleActive=="Zornhau")
@@ -2433,6 +2436,7 @@ mob
 		UsingFencing()
 			var/Found=0
 			var/obj/Items/Sword/S=src.EquippedSword()
+			Found += passive_handler.Get("Fencing")
 			if(src.StyleActive=="Hiten Mitsurugi")
 				Found+=1
 			if(src.StyleActive=="Sword Savant")
@@ -2470,6 +2474,7 @@ mob
 		UsingIaido()
 			var/Found=0
 			var/obj/Items/Sword/S=src.EquippedSword()
+			Found += passive_handler.Get("Iaido")
 			if(src.StyleActive=="Sword Savant")
 				Found+=0.5
 			if(src.StyleActive=="Iaido")

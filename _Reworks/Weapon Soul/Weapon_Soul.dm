@@ -106,8 +106,15 @@ mob/tierUpSaga(Path)
 						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Defrost)
 
 					if("Ryui Jingu Bang")
+						src << "Yeoui unveils the secrets to proper footwork..."
 						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Dadao)
 						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Huadong)
+
+					if("Guan Yu")
+						src << "The Green Dragon Crescent Blade unveils the secrets to an unstoppable rush..."
+						passive_handler.Increase("Flow")
+						SagaThreshold("Spd",2)
+
 
 			if(3)
 				switch(WeaponSoulType)
@@ -157,6 +164,14 @@ mob/tierUpSaga(Path)
 					if("Ryui Jingu Bang")
 						passive_handler.Increase("MonkeyKing",2) // lets get a little freaky
 
+					if("Guan Yu")
+						src << "The Green Dragon Crescent Blade shows how to counter any attack..."
+						passive_handler.Increase("Reversal")
+						passive_handler.Increase("Adaptation")
+						SagaThreshold("Spd",0.5)
+						SagaThreshold("Str",0.5)
+						SagaThreshold("End",0.5)
+
 			if(4)
 				src << "The power of Heavenly Regalia becomes avaliable to you by resonating your treasures!"
 				switch(WeaponSoulType)
@@ -193,7 +208,13 @@ mob/tierUpSaga(Path)
 						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Soul_Calibur)
 
 					if("Ryui Jingu Bang")
+						src << "The power of Heavenly Regalia: Monkey King resonates in your body."
 						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Ryui_Jingu_Bang)
+
+					if("Guan Yu")
+						src << "The power of Heavenly Regalia: War King resonates in your body."
+						src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Guan_Yu)
+
 
 			if(5)
 				src << "The power of Heavenly Regalia grows even stronger...!"
@@ -255,6 +276,12 @@ mob/tierUpSaga(Path)
 						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Ryui_Jingu_Bang/Ryui in src.Buffs)
 							Ryui.passives["FluidForm"] = 1
 							Ryui.passives["StunningStrike"] = 1
+
+					if("Guan Yu")
+						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Guan_Yu/GuanYu in src.Buffs)
+							GuanYu.passives["Zornhau"] = 2
+							GuanYu.passives["Iaido"] = 2
+							GuanYu.passives["Fencing"] = 2
 
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia
 	NeedsSword = 1
