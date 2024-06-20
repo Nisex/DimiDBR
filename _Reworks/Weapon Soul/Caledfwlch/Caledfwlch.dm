@@ -48,6 +48,7 @@ obj/Skills/Projectile/Weapon_Soul
 		Deflectable=-1
 		HolyMod=10
 		Distance=100
+		Cooldown = 90
 		verb/Excalibur()
 			set category = "Skills"
 			usr.UseProjectile(src)
@@ -76,6 +77,7 @@ obj/Skills/Projectile/Weapon_Soul
 		Dodgeable=-1
 		Deflectable=-1
 		Distance=100
+		Cooldown = 90
 		verb/Excalibur_Morgan()
 			set category = "Skills"
 			usr.UseProjectile(src)
