@@ -49,8 +49,8 @@ var/list/squad_database = list(
 	"oliphant spirit" = new/ai_sheet(id="oliphant spirit", properties=list(icon='knight.dmi', name="Oliphant Spirit",\
 		Potential = 0.4,\
 		StrMod = 3, EndMod = 0.2, ForMod = 3, OffMod = 3, DefMod = 1, SpdMod = 2,\
-		ai_spammer=1),\
-		techniques = list()),\
+		ai_spammer=1, ai_movement_type = "ranged"),\
+		techniques = list("/obj/Skills/Projectile/Dragon_Nova","/obj/Skills/Projectile/Kienzan", "/obj/Skills/Projectile/Tracking_Bomb")),\
 )
 
 
@@ -123,7 +123,7 @@ obj/Skills/Companion
 					Using=0
 					return
 
-				if(!(world.realtime >= last_use + cooldown))
+				if((world.realtime < last_use + cooldown))
 					usr << "You cannot summon any companions right now, it is still on cooldown. ([(world.realtime - last_use)/10] seconds)"
 					return
 				var/limit = 0
