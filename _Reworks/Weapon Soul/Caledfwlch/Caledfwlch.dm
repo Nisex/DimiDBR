@@ -26,9 +26,9 @@ obj/Skills/Projectile/Weapon_Soul
 		ActiveMessage = "lets loose a slash full of Promised Victory!: Excalibur!"
 		LockX=-50
 		LockY=-50
-		DamageMult=0.12
+		DamageMult=0.25
 		AccMult=25
-		MultiHit=100
+		MultiHit=25
 		Knockback=1
 		Radius=3
 		ZoneAttack=1
@@ -58,9 +58,9 @@ obj/Skills/Projectile/Weapon_Soul
 		ActiveMessage = "lets loose a slash full of Promised Victory!: Excalibur Morgan!"
 		LockX=-50
 		LockY=-50
-		DamageMult=0.12
+		DamageMult=0.25
 		AccMult=25
-		MultiHit=100
+		MultiHit=25
 		Trail='Trail - Scorpio.dmi'
 		TrailDuration=1
 		Knockback=1
