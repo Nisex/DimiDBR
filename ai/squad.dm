@@ -132,6 +132,8 @@ obj/Skills/Companion
 					if(limit > max_squad) break
 
 					var/mob/Player/AI/a = new
+					ticking_ai.Remove(a)
+					companion_ais += a
 					a.alpha=0
 					a.loc = locate(usr.x,usr.y,usr.z)
 					animate(a, alpha=255, time=10)
