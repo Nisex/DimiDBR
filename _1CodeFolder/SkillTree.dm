@@ -53,7 +53,7 @@ var/list/SkillTree=list(
 			"/obj/Skills/AutoHit/Phantom_Strike"=80,
 			"/obj/Skills/AutoHit/Dragon_Rush"=80,
 			"/obj/Skills/Grapple/Suplex"=120,
-			"/obj/Skills/Grapple/Burning_Finger"=120
+			"/obj/Skills/Grapple/Burning_Finger"=120,
 			"/obj/Skills/AutoHit/Sweeping_Kick"=80,
 			"/obj/Skills/AutoHit/Helicopter_Kick"=80
 ),
@@ -61,7 +61,7 @@ var/list/SkillTree=list(
 "UnarmedT3"=list(
 			"/obj/Skills/Grapple/Judo_Throw"=120,
 			"/obj/Skills/Grapple/Izuna_Drop"=120,
-			"/obj/Skills/Grapple/Burning_Finger"=120
+			"/obj/Skills/Grapple/Burning_Finger"=120,
 			"/obj/Skills/AutoHit/Lightning_Kicks"=80,
 			"/obj/Skills/AutoHit/Flying_Kick"=80
 ),
