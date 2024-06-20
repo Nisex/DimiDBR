@@ -48,7 +48,7 @@ var/list/squad_database = list(
 		techniques=list("/obj/Skills/AutoHit/Flying_Kick","/obj/Skills/AutoHit/Force_Palm","/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Turns_Red")),\
 	"oliphant spirit" = new/ai_sheet(id="oliphant spirit", properties=list(icon='knight.dmi', name="Oliphant Spirit",\
 		Potential = 0.4,\
-		StrMod = 3, EndMod = 0.2, ForMod = 3, OffMod = 3, DefMod = 1, SpdMod = 2, Health = 50,\
+		StrMod = 3, EndMod = 0.2, ForMod = 3, OffMod = 3, DefMod = 1, SpdMod = 2, Health = 20,\
 		ai_spammer=1, ai_movement_type = "ranged"),\
 		techniques = list("/obj/Skills/Projectile/Dragon_Nova","/obj/Skills/Projectile/Kienzan", "/obj/Skills/Projectile/Tracking_Bomb")),\
 )
