@@ -7,7 +7,7 @@ mob/var/tmp/refunding = FALSE
 mob/proc/pick_refund_skill(mob/target = src)
 	var/list/Refundable=list("Cancel")
 	for(var/obj/Skills/S in target.Skills)
-		if(S.Copyable>0&&S.SkillCost&&!Copied)
+		if(S.Copyable>0&&S.SkillCost>1&&!S.Copied)
 			Refundable.Add(S)
 	var/obj/Skills/Choice=input(src, "What skill are you refunding?", "RPP Refund") in Refundable
 	if(Choice=="Cancel")
