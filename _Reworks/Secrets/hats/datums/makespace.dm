@@ -29,7 +29,7 @@ spaceMaker
 // init this, makes it flexible
 	proc/makeSpace(mob/p, effect2Apply)
 		turfs = list()
-		world.log << "Making space at [p.x], [p.y], [p.z] with [effect2Apply]"
+		//world.log << "Making space at [p.x], [p.y], [p.z] with [effect2Apply]"
 		var/correctLowerX = clamp(p.x - range,0 , world.maxx)
 		var/correctLowerY = clamp(p.y - range,0 , world.maxy)
 		var/correctUpperX = clamp(p.x + range,0 , world.maxx)

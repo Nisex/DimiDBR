@@ -84,6 +84,7 @@ mob/proc/StartFresh()
 /mob/proc/makeCorpse(oldLoc)
 	Stunned = 0
 	var/mob/Body/corpse = new()
+	corpse.race = new/race/human()
 	corpse.appearance = appearance
 	corpse.transform = matrix(-90, MATRIX_ROTATE)
 	corpse.overlays += icon('Injured Blood.dmi')
