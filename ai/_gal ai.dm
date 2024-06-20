@@ -554,7 +554,9 @@ mob/Player/AI
 				for(var/t in a.techniques)
 					if(ispath(text2path(t)))
 						var/path = text2path(t)
-						contents += new path
+						AddSkill(new path)
+
+			AddSkill(new/obj/Skills/Zanzoken)
 
 			for(var/obj/Skills/Projectile/s in src)
 				s.Divide=0

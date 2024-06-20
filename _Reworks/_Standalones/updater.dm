@@ -19,7 +19,7 @@ globalTracker
 			var/updateversion = "/update/version[p.updateVersion + 1]"
 			var/update/update = new updateversion
 			update.updateMob(p)
-		else
+		else if(p.updateVersion + 1 < UPDATE_VERSION)
 			for(var/x in 1 to abs(p.updateVersion - UPDATE_VERSION))
 				// get the number of updates we are missing
 				var/updateversion = "/update/version[p.updateVersion + 1]"
@@ -214,14 +214,14 @@ update
 		updateMob(mob/p)
 			if(p.isRace(DRAGON))
 				p.AddSkill(new/obj/Skills/AutoHit/Dragon_Roar)
-			
+
 			..()
 	version15
 		version = 15
 		updateMob(mob/p)
 			if(p.isRace(DEMON))
 				p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self)
-			
+
 			..()
 	version16
 		version = 16
@@ -253,4 +253,3 @@ update
 			..()	
 
 
-		

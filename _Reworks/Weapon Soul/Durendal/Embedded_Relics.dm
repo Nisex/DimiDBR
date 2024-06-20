@@ -36,7 +36,7 @@ obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Blood
 	TimerLimit = 30
 	Cooldown = 90
 	CantHaveTheseBuffs = list("Saints Tooth", "Saints Hair", "Saints Raiment")
-	passives = list("LifeSteal" = 10, "HealthGeneration" = 5)
+	passives = list("LifeSteal" = 10, "LifeGeneration" = 5)
 	ActiveMessage = "'s legendary weapon drips with the Blood of a Saint."
 	OffMessage = "'s legendary weapon no longer drips with holy blood..."
 	adjust(mob/p)

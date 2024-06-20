@@ -48,9 +48,9 @@ var/list/squad_database = list(
 		techniques=list("/obj/Skills/AutoHit/Flying_Kick","/obj/Skills/AutoHit/Force_Palm","/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Turns_Red")),\
 	"oliphant spirit" = new/ai_sheet(id="oliphant spirit", properties=list(icon='knight.dmi', name="Oliphant Spirit",\
 		Potential = 0.4,\
-		StrMod = 3, EndMod = 0.2, ForMod = 3, OffMod = 3, DefMod = 1, SpdMod = 2,\
-		ai_spammer=1),\
-		techniques = list()),\
+		StrMod = 3, EndMod = 0.2, ForMod = 3, OffMod = 3, DefMod = 1, SpdMod = 2, Health = 20,\
+		ai_spammer=1, ai_movement_type = "ranged"),\
+		techniques = list("/obj/Skills/Projectile/Dragon_Nova","/obj/Skills/Projectile/Kienzan", "/obj/Skills/Projectile/Tracking_Bomb")),\
 )
 
 
@@ -123,7 +123,7 @@ obj/Skills/Companion
 					Using=0
 					return
 
-				if(!(world.realtime >= last_use + cooldown))
+				if((world.realtime < last_use + cooldown))
 					usr << "You cannot summon any companions right now, it is still on cooldown. ([(world.realtime - last_use)/10] seconds)"
 					return
 				var/limit = 0
@@ -132,6 +132,8 @@ obj/Skills/Companion
 					if(limit > max_squad) break
 
 					var/mob/Player/AI/a = new
+					ticking_ai.Remove(a)
+					companion_ais += a
 					a.alpha=0
 					a.loc = locate(usr.x,usr.y,usr.z)
 					animate(a, alpha=255, time=10)
