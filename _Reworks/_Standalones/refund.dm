@@ -7,7 +7,7 @@ mob/var/tmp/refunding = FALSE
 mob/proc/pick_refund_skill(mob/target = src)
 	var/list/Refundable=list("Cancel")
 	for(var/obj/Skills/S in target.Skills)
-		if((S.Copyable>0&&S.SkillCost) || istype(S, /obj/Skills/Buffs/NuStyle))
+		if(S.Copyable>0&&S.SkillCost&&!Copied)
 			Refundable.Add(S)
 	var/obj/Skills/Choice=input(src, "What skill are you refunding?", "RPP Refund") in Refundable
 	if(Choice=="Cancel")
@@ -20,11 +20,7 @@ mob/proc/refund_skill(obj/Skills/refunded_skill)
 	if(refunded_skill.NewCost)
 		Refund = refunded_skill.NewCost
 
-	if(istype(refunded_skill, /obj/Skills/Buffs/NuStyle))
-		if(refunded_skill.SignatureTechnique > 0) Refund = 0
-		else src.SignatureSelected -= refunded_skill.name
-		Refund += ((2**(refunded_skill.SignatureTechnique+1)*10)) * max(0,(refunded_skill.Mastery-1))
-	else if(refunded_skill.Mastery>1)
+	if(refunded_skill.Mastery>1)
 		Refund+=(refunded_skill.SkillCost*(refunded_skill.Mastery-1))
 	if(refunded_skill.name in src.SkillsLocked)
 		src.SkillsLocked -= refunded_skill.name
@@ -45,12 +41,6 @@ mob/proc/refund_skill(obj/Skills/refunded_skill)
 	for(var/obj/Skills/S in Skills)
 		if(refunded_skill&&S)
 			if(S.type==refunded_skill.type)
-				if(S.PreRequisite.len>0 && !istype(refunded_skill, /obj/Skills/Buffs/NuStyle))
-					for(var/path in S.PreRequisite)
-						var/p=text2path(path)
-						var/obj/Skills/oldskill=new p
-						AddSkill(oldskill)
-						src << "The prerequisite skill for [refunded_skill], [oldskill] has been readded to your contents."
 				if(istype(S, /obj/Skills/Buffs))
 					var/obj/Skills/Buffs/s = S
 					if(src.BuffOn(s))
