@@ -53,6 +53,7 @@ Options/var/LOOCinAll = TRUE
 Options/var/AdminAlerts = TRUE
 
 client/proc/outputToChat(text, list/channels)
+	if(!src) return
 	for(var/channel as anything in channels)
 		src << output(text, channel)
 
@@ -90,6 +91,7 @@ client/verb/OOC(T as text)
 	var/finalMessage = ": <font color=white>[html_encode(T)]"
 
 	for(var/mob/Players/P in players)
+		if(!P.client) continue
 		if(!P.client.getPref("ShowOOC")) continue
 
 		if(P.Timestamp)
@@ -143,6 +145,7 @@ client/proc/sayProc(T, mode = null)
 		message = "<b>[message]</b>"
 
 	for(var/mob/hearer as anything in transmitTo) //hearers always returns a list of mobs; free performance.
+		if(!hearer.client) continue
 		if(sayNoun == "LOOCs:")
 			hearer?.client.outputToChat("[header][hearer.Controlz(usr)] [sayNoun] [message]", LOOC_OUTPUT)
 		else
@@ -187,6 +190,7 @@ client/verb/Whisper(T as text)
 		T="---"
 
 	for(var/mob/E as anything in transmitTo)
+		if(!E.client) continue
 		if((E.EnhancedHearing || get_dist(usr, E) < WHISPER_RADIUS) && E.SenseRobbed < 4)
 			E?.client.outputToChat("[header][E.Controlz(usr)] whispers: [message]", IC_OUTPUT)
 			Log(E.ChatLog(),"[header]([usr.key]) WHISPERS: [message]")
@@ -220,6 +224,7 @@ client/verb/Think(T as text)
 				m?.client.outputToChat("[OBSERVE_HEADER][header][m.Controlz(usr)] thinks: [message]", IC_OUTPUT)
 
 	for(var/mob/m as anything in ohearers(20,usr))
+		if(!m.client) continue
 		if(m.HearThoughts&&m.HasTelepathy())
 			if(usr.Timestamp)
 				m?.client.outputToChat("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")][header][m.Controlz(usr)] thinks: [message]", IC_OUTPUT)
