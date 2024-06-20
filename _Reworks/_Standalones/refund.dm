@@ -52,6 +52,9 @@ mob/proc/refund_skill(obj/Skills/refunded_skill)
 	for(var/obj/Skills/Buffs/NuStyle/s in src)
 		src.StyleUnlock(s)
 
+	if(Potential > 1)
+		Potential -= 1
+
 mob/verb/Refund()
 	set category="Other"
 	if(refund_banned) return
