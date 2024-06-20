@@ -1196,7 +1196,7 @@ NEW VARIABLES
 								src.OffMessage="conceals █████████████.."
 						if("Dainsleif")
 							src.PowerMult=1.5
-							HealthDrain = 0.05/usr.SagaLevel
+							HealthDrain = 0.002/usr.SagaLevel
 							passives = list("SlayerMod" = usr.SagaLevel/2, "MortalStrike" = 0.5, "AbyssMod" = usr.SagaLevel/2, "LifeSteal" = usr.SagaLevel*5, "Curse" = 1, "PULock" = 1)
 
 							if(!redacted)
