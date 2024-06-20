@@ -9,7 +9,6 @@ proc/MakeSkillTreeList()
 		var/Tier = null
 		if(!(x in list("UnarmedStyles","ElementalStyles","SpiritStyles","SwordStyles")))
 			Tier = copytext(x,length(x), 0)
-			world<<"Tier: [Tier]"
 		for(var/z in SkillTree[x])
 			var/obj/SkillTreeObj/s = new
 			var/namez=z
