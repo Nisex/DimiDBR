@@ -19,7 +19,7 @@ scaling with potential as well
     HealthThreshold = 75
     Enlarge = 1.5
     BuffName = "Wrath Form"
-    HealthDrain = 0.01
+    HealthDrain = 0.008
     EndMult = 1
     StrMult = 1
     GiantForm = 1
@@ -33,7 +33,7 @@ scaling with potential as well
         DefMult = clamp(0.75 + (p.Potential/200),0.75,1)
         SpdMult = clamp(0.75 + (p.Potential/200),0.75,1)
         OffMult = clamp(0.75 + (p.Potential/200),0.75,1)
-        HealthDrain = 0.011 - (p.Potential * 0.0001)
+        HealthDrain = 0.005 - (p.Potential * 0.0001)
         PowerMult = 1 + (p.Potential/200)
     Trigger(mob/User, Override=FALSE)
         adjust(User) 
@@ -56,7 +56,7 @@ scaling with potential as well
         StrMult = 1 + (p.Potential/150)
         ForMult = 1 + (p.Potential/150)
         // PowerMult = 1 + (p.Potential/200)
-        HealthDrain = 0.02 - (p.Potential * 0.0001)
+        HealthDrain = 0.007 - (p.Potential * 0.0001)
         AngerMult = 1 + (p.Potential/150)
         if(p.Potential>=100)
             passives["Wrathful"] = 1
@@ -82,7 +82,7 @@ scaling with potential as well
         PowerMult = 1 + (p.Potential/200)
         AngerMult = 1 + (p.Potential/125)
         EnergyHeal = 0.005 * p.Potential
-        HealthDrain = 0.02 - (p.Potential * 0.0001)
+        HealthDrain = 0.008 - (p.Potential * 0.0001)
         VaizardHealth = (5 * (p.Potential/100)) / 10
         if(p.Potential>=75)
             passives["Wrathful"] = 1
@@ -105,7 +105,7 @@ scaling with potential as well
         StrMult = 1 + (p.Potential/100)
         ForMult = 1 + (p.Potential/100)
         PowerMult = 1 + (p.Potential/150)
-        HealthDrain = 0.05 - (p.Potential * 0.0003)
+        HealthDrain = 0.01 - (p.Potential * 0.0003)
         EnergyHeal = 0.01 * p.Potential
         AngerMult = 1 + (p.Potential/75)
         VaizardHealth = (15 * (p.Potential/100)) / 10

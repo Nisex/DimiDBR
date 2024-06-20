@@ -165,6 +165,8 @@ mob/Players
 
 		if(updateVersion != glob.UPDATE_VERSION)
 			glob.updatePlayer(src)
+		if(RPPSpendable + RPPSpent > RPPCurrent)
+			AdminMessage("[src] has more rpp than they should.")
 		
 		if(isRace(DEMON))
 			for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/s in src)

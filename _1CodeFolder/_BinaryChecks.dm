@@ -2879,6 +2879,8 @@ mob
 			return 0
 		
 		usingStyle(parentType)
+			if(!StyleBuff)
+				return FALSE
 			if("[parentType]" in "[StyleBuff.type]")
 				return TRUE
 		isInnovative(reqRace, path)

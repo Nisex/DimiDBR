@@ -30,7 +30,7 @@
             h.adjust(usr, dmg) // sets up the damage and what not
             passives["AbsorbingDamage"] = dmg // this should do it
             Trigger(Override = 1) // set off to cooldown
-            h.Trigger(Override = 1)
+            usr.Activate(h)
             usr.VaizardHealth += dmg / 2
             // buuuutt just in case
             usr.passive_handler.Set("AbsorbingDamage", 0)

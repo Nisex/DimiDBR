@@ -1196,7 +1196,7 @@ NEW VARIABLES
 								src.OffMessage="conceals █████████████.."
 						if("Dainsleif")
 							src.PowerMult=1.5
-							HealthDrain = 0.15/usr.SagaLevel
+							HealthDrain = 0.05/usr.SagaLevel
 							passives = list("SlayerMod" = usr.SagaLevel/2, "MortalStrike" = 0.5, "AbyssMod" = usr.SagaLevel/2, "LifeSteal" = usr.SagaLevel*5, "Curse" = 1, "PULock" = 1)
 
 							if(!redacted)
@@ -10515,7 +10515,7 @@ NEW VARIABLES
 					// Metal/Earth dragon racial, makes them tankier
 					proc/shellSmash(mob/p)
 						var/asc = p.AscensionsAcquired
-						p.AddShatter(clamp(60 + (60 * asc), 60 ,200))
+						p.Shatter += (clamp(35 + (35 * asc), 35 ,200))
 						p.AddSlow(clamp(25 + (25 * asc), 25 ,200))
 						p.AddShock(clamp(25 + (25 * asc), 25 ,200))
 						p.AddBurn(clamp(25 + (25 * asc), 25 ,200))
@@ -10524,7 +10524,7 @@ NEW VARIABLES
 						var/asc = p.AscensionsAcquired
 						if(p.Shatter)
 							if(p.Shatter >= 10)
-								VaizardHealth = p.Shatter/75
+								VaizardHealth = p.Shatter/80
 							else
 								VaizardHealth = p.Shatter/10
 						DebuffReversal = 1

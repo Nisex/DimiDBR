@@ -3399,7 +3399,7 @@ obj
 						ComboMaster=0
 						GuardBreak=1
 						StrOffense=1
-						PassThrough=0
+						PassThrough=1
 						PreShockwave=1
 						PostShockwave=1
 						Shockwave=2
