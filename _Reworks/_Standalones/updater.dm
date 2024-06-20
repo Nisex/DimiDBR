@@ -28,7 +28,7 @@ globalTracker
 				del update // i guess loc = null doesn't work cause datums have no loc
 
 
-mob/var/updateVersion = 13
+mob/var/updateVersion = 18
 
 update
 	var/version = 1
@@ -244,6 +244,12 @@ update
 		version = 18
 		updateMob(mob/p)
 			p.refund_all_copyables()
+			if(p.isRace(HUMAN))
+				p.passive_handler.Set("Innovation", 1)
+			if(p.isRace(ELF))
+				p.passive_handler.Set("Innovation", 1)
+			if(p.isRace(BEASTMAN))
+				p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Ticking_Bomb)
 			..()	
 
 

@@ -2910,8 +2910,31 @@ obj
 				Cooldown=30
 				EnergyCost=2
 				ActiveMessage="dashes forward with a jousting strike!"
+				adjust(mob/p)
+					if(p.isInnovative(HUMAN, "Sword"))
+						var/pot = p.Potential
+						PassThrough = 1
+						Rounds = 2 + (round(pot/ 10))
+						Knockback = 1
+						Launcher = 2
+						ComboMaster = 1
+						DamageMult = 0.4 + (pot / 25)
+						TurfStrike=2
+						TurfShift='Dirt1.dmi'
+						TurfShiftDuration=3
+					else
+						PassThrough = 0
+						Rounds = 1
+						Knockback = 3
+						Launcher = 0
+						ComboMaster = 0
+						DamageMult = 2.2
+						TurfStrike=0
+						TurfShift=0
+						TurfShiftDuration=0
 				verb/Stinger()
 					set category="Skills"
+					adjust(usr)
 					usr.Activate(src)
 			Light_Step
 				SkillCost=40
@@ -3106,8 +3129,21 @@ obj
 				TurfShiftDuration=1
 				Cooldown=30
 				ActiveMessage="swings their weapon in a quick pattern!"
+				adjust(mob/p)
+					if(p.isInnovative(HUMAN, "Sword"))
+						var/pot = p.Potential
+						Distance = 4 + (round(pot/25))
+						Size = 2 + (round(pot/25))
+						Rounds = 2 + (round(pot/25))
+						DamageMult = 0.75 + (round(pot/25))
+					else
+						Distance = 3
+						Size = 0
+						Rounds = 1
+						DamageMult = 1.5
 				verb/Cross_Slash()
 					set category="Skills"
+					adjust(usr)
 					usr.Activate(src)
 
 //T2
@@ -3160,8 +3196,34 @@ obj
 				EnergyCost=5
 				Instinct=1
 				ActiveMessage="spins their sword like a drill bit!"
+				adjust(mob/p)
+					if(p.isInnovative(HUMAN, "Sword"))
+						var/pot = p.Potential
+						ControlledRush=0
+						Rush=0
+						ChargeTech=0
+						ChargeTime=0
+						Size = 4 + (round(pot/25))
+						Launcher = 2 + (round(pot/25))
+						WindUp=1
+						Knockback = 0.001
+						PullIn = Size/2
+						Shearing = 4 + (pot/10)
+
+					else
+						ControlledRush=1
+						Rush=3
+						ChargeTech=1
+						ChargeTime=1
+						Size = 1
+						Launcher = 0
+						WindUp=0
+						Knockback = 1
+						PullIn = 0
+						Shearing = 1
 				verb/Drill_Spin()
 					set category="Skills"
+					adjust(usr)
 					usr.Activate(src)
 			Rising_Spire
 				SkillCost=80
@@ -3306,8 +3368,59 @@ obj
 				ActiveMessage="flickers behind their opponent for an instantaneous slash!"
 				Cooldown=120
 				EnergyCost=10
+				adjust(mob/p)
+					if(p.isInnovative(HUMAN, "Sword"))
+						var/pot = p.Potential
+						Area="Wave"
+						ComboMaster=1
+						GuardBreak=1
+						StrOffense=1
+						PassThrough=1
+						PreShockwave=1
+						PostShockwave=0
+						Shockwave=2
+						Shockwaves=2
+						DamageMult= 4 + (pot/100)
+						Rounds = 2
+						Stunner=2
+						Distance= 4 + (round(pot/10))
+						Rounds = 2
+						HitSparkIcon='Slash.dmi'
+						HitSparkX=-32
+						HitSparkY=-32
+						HitSparkTurns=1
+						HitSparkSize=1
+						HitSparkDispersion=1
+						TurfStrike=1
+						TurfShift='Dark.dmi'
+						TurfShiftDuration=3
+					else
+						Area="Target"
+						ComboMaster=0
+						GuardBreak=1
+						StrOffense=1
+						PassThrough=0
+						PreShockwave=1
+						PostShockwave=1
+						Shockwave=2
+						Shockwaves=2
+						DamageMult=12
+						Rounds = 0
+						Stunner=0
+						Distance= 10
+						Rounds = 0
+						HitSparkIcon=0
+						HitSparkX=0
+						HitSparkY=0
+						HitSparkTurns=0
+						HitSparkSize=0
+						HitSparkDispersion=0
+						TurfStrike=0
+						TurfShift=0
+						TurfShiftDuration=0
 				verb/Jet_Slicer()
 					set category="Skills"
+					adjust(usr)
 					usr.Activate(src)
 			Crowd_Cutter
 				SkillCost=160

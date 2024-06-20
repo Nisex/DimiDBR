@@ -231,7 +231,7 @@ race
 		desc = "Humans are stubborn, steadfast survivors crafted from the God of Truth's dying breath."
 		visual = 'Humans.png'
 
-		passives = list("Desperation" = 1, "Adrenaline" = 0.5, "TechniqueMastery" = 2, "Underdog" = 1)
+		passives = list("Desperation" = 1, "Adrenaline" = 0.5, "TechniqueMastery" = 2, "Underdog" = 1, "Innovation" = 1)
 		power = 1
 		strength = 1
 		endurance = 1
@@ -375,7 +375,7 @@ race
 		desc = "Humanoids with a variety of animalistic traits dependent on their environment; often split into tribes of Tiger Tribe, Canine Tribe, and Bear Tribe."
 		visual = 'Monstrous.png'
 
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk)
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk,/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Ticking_Bomb)
 		strength = 1.25
 		endurance = 1.25
 		force = 1.25
@@ -437,7 +437,7 @@ race
 		regeneration = 3
 		imagination = 2
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown)
-		passives = list("Adrenaline" = 1)
+		passives = list("Adrenaline" = 1, "Innovation" = 1)
 
 
 	demon

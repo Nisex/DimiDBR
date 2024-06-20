@@ -2399,7 +2399,7 @@ mob
 			if(src.StyleActive in list("Turtle", "Crane", "Snake", "Cat","Black Leg", "Strong Fist", "Gentle Fist", "Lightning Kickboxing", "Golden Kirin","Heavenly Dragon Stance", "Drunken Fist", "North Star", "Imperial Devil"))
 				if(!equippedSword)
 					return 1
-			return 0
+			return 0 
 		UsingMasteredMagicStyle()
 			if(src.Saga=="Keyblade")
 				if(src.SagaLevel>=4)
@@ -2877,6 +2877,23 @@ mob
 		InMagitekRestrictedRegion()
 			if(usr.z in ArcaneRealmZ) return 3 //Will eventually use a list to make specific restrictions.
 			return 0
+		
+		usingStyle(parentType)
+			if("[parentType]" in "[StyleBuff.type]")
+				return TRUE
+		isInnovative(reqRace, path)
+			if(isRace(reqRace))
+				if(passive_handler.Get("Innovation"))
+					switch(path)
+						if("Sword")
+							if(usingStyle("SwordStyle"))
+								return TRUE
+						if("Unarmed")
+							if(usingStyle("UnarmedStyle"))
+								return TRUE
+						if("Universal")
+							if(usingStyle("FreeStyle"))
+								return TRUE
 atom
 	proc
 		NoTPZone(var/dead_use=0, var/arc_use=0)
