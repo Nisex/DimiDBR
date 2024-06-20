@@ -82,10 +82,8 @@ mob/verb/Refund()
 			refund_skil_old(S)
 
 // im going to sin below
-/mob/Admin3/verb/refund_all_old_value(mob/p)
+/mob/Admin3/verb/refund_all_old_value(mob/p in world)
 	p.refund_all_copyables()
-
-
 
 mob/proc/refund_skil_old(obj/Skills/refunded_skill)
 	var/Refund=refunded_skill.SkillCost
@@ -106,11 +104,12 @@ mob/proc/refund_skil_old(obj/Skills/refunded_skill)
 		usr << "You've refunded [refunded_skill] for [Commas(Refund)] RPP."
 	for(var/obj/Skills/S in Skills)
 		if(refunded_skill&&S)
-			if(istype(S, /obj/Skills/Buffs))
-				var/obj/Skills/Buffs/s = S
-				if(src.BuffOn(s))
-					s.Trigger(src, Override=1)
-			del S
-			break
+			if(S.type==refunded_skill.type)
+				if(istype(S, /obj/Skills/Buffs))
+					var/obj/Skills/Buffs/s = S
+					if(src.BuffOn(s))
+						s.Trigger(src, Override=1)
+				del S
+				break
 	for(var/obj/Skills/Buffs/NuStyle/s in src)
 		src.StyleUnlock(s)
