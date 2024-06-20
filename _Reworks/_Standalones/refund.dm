@@ -82,7 +82,7 @@ mob/verb/Refund()
 			refund_skil_old(S)
 
 // im going to sin below
-/mob/Admin3/REFUND_ALL_OLD_VALUE(mob/p)
+/mob/Admin3/refund_all_old_value(mob/p)
 	p.refund_all_copyables()
 
 
