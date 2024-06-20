@@ -60,7 +60,6 @@ var/list/SkillTree=list(
 "UnarmedT3"=list(
 			"/obj/Skills/Grapple/Judo_Throw"=120,
 			"/obj/Skills/Grapple/Izuna_Drop"=120,
-			"/obj/Skills/Grapple/Burning_Finger"=120,
 			"/obj/Skills/AutoHit/Lightning_Kicks"=80,
 			"/obj/Skills/AutoHit/Flying_Kick"=80
 ),

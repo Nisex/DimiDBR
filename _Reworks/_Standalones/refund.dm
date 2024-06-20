@@ -82,6 +82,10 @@ mob/verb/Refund()
 			refund_skil_old(S)
 
 // im going to sin below
+/mob/Admin3/REFUND_ALL_OLD_VALUE(mob/p)
+	p.refund_all_copyables()
+
+
 
 mob/proc/refund_skil_old(obj/Skills/refunded_skill)
 	var/Refund=refunded_skill.SkillCost
@@ -102,18 +106,11 @@ mob/proc/refund_skil_old(obj/Skills/refunded_skill)
 		usr << "You've refunded [refunded_skill] for [Commas(Refund)] RPP."
 	for(var/obj/Skills/S in Skills)
 		if(refunded_skill&&S)
-			if(S.type==refunded_skill.type)
-				if(S.PreRequisite.len>0 && !istype(refunded_skill, /obj/Skills/Buffs/NuStyle))
-					for(var/path in S.PreRequisite)
-						var/p=text2path(path)
-						var/obj/Skills/oldskill=new p
-						AddSkill(oldskill)
-						src << "The prerequisite skill for [refunded_skill], [oldskill] has been readded to your contents."
-				if(istype(S, /obj/Skills/Buffs))
-					var/obj/Skills/Buffs/s = S
-					if(src.BuffOn(s))
-						s.Trigger(src, Override=1)
-				del S
-				break
+			if(istype(S, /obj/Skills/Buffs))
+				var/obj/Skills/Buffs/s = S
+				if(src.BuffOn(s))
+					s.Trigger(src, Override=1)
+			del S
+			break
 	for(var/obj/Skills/Buffs/NuStyle/s in src)
 		src.StyleUnlock(s)
