@@ -510,6 +510,7 @@ mob
 			return 0
 		TomeSpell(var/obj/Skills/Z)
 			if(!Z) return 0
+			if(!Z.MagicNeeded) return 0
 			var/Streamline=0
 			var/obj/Items/Enchantment/Tome/T=src.EquippedTome()
 			var/obj/Items/Enchantment/Magic_Crest/MC=src.EquippedCrest()
@@ -2399,7 +2400,7 @@ mob
 			if(src.StyleActive in list("Turtle", "Crane", "Snake", "Cat","Black Leg", "Strong Fist", "Gentle Fist", "Lightning Kickboxing", "Golden Kirin","Heavenly Dragon Stance", "Drunken Fist", "North Star", "Imperial Devil"))
 				if(!equippedSword)
 					return 1
-			return 0 
+			return 0
 		UsingMasteredMagicStyle()
 			if(src.Saga=="Keyblade")
 				if(src.SagaLevel>=4)
@@ -2877,7 +2878,7 @@ mob
 		InMagitekRestrictedRegion()
 			if(usr.z in ArcaneRealmZ) return 3 //Will eventually use a list to make specific restrictions.
 			return 0
-		
+
 		usingStyle(parentType)
 			if(!StyleBuff)
 				return FALSE
