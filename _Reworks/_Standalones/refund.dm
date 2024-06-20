@@ -29,8 +29,16 @@ mob/proc/refund_skill(obj/Skills/refunded_skill)
 	if(refunded_skill.name in src.SkillsLocked)
 		src.SkillsLocked -= refunded_skill.name
 
-	RPPSpendable+=Refund
-	RPPSpent-=Refund
+	if(RPPSpentEvent)
+		var/diff = Refund - RPPSpentEvent
+		RPPSpentEvent -= Refund
+		RPPSpendableEvent += Refund
+		if(diff > 0)
+			RPPSpendable += diff
+			RPPSpent -= diff
+	else
+		RPPSpendable+=Refund
+		RPPSpent-=Refund
 	src << "You've have been refunded [refunded_skill] for [Commas(Refund)] RPP."
 	if(usr && src != usr)
 		usr << "You've refunded [refunded_skill] for [Commas(Refund)] RPP."
@@ -47,6 +55,16 @@ mob/proc/refund_skill(obj/Skills/refunded_skill)
 					var/obj/Skills/Buffs/s = S
 					if(src.BuffOn(s))
 						s.Trigger(src, Override=1)
+				if(istype(S, /obj/Skills/Buffs/NuStyle))
+					if(S:StyleComboUnlock)
+						if(IsList(S:StyleComboUnlock))
+							for(var/x in S:StyleComboUnlock)
+								if(!x) return
+								var/advanced_path=text2path(S:StyleComboUnlock[x])
+								if(!advanced_path) return
+								var/obj/Skills/Buffs/NuStyle/StyleToRefund = locate(advanced_path) in src
+								if(StyleToRefund)
+									refund_skill(StyleToRefund)
 				del S
 				break
 	for(var/obj/Skills/Buffs/NuStyle/s in src)
