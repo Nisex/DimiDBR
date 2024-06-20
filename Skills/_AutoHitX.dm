@@ -1717,7 +1717,7 @@ obj
 				HitSparkX=-32
 				HitSparkY=-32
 				HitSparkTurns=1
-				RoundMovement=0				
+				RoundMovement=0
 //T3 is in Projectiles - Beams.
 
 			Destruction_Wave
@@ -5147,7 +5147,7 @@ mob
 				if(Z.WindupMessage)
 					OMsg(src, "<b><font color='[Z.WindupColor]'>[src] [Z.WindupMessage]</font color></b>")
 			if(src.TomeSpell(Z))
-				Z.Cooldown(1-(0.25*src.TomeSpell(Z)))
+				Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
 			else
 				Z.Cooldown()
 			if(Z.Copyable)

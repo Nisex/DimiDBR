@@ -14087,7 +14087,7 @@ mob
 
 			if(B.Cooldown)
 				if(src.TomeSpell(B))
-					B.Cooldown(1-(0.25*src.TomeSpell(B)))
+					B.Cooldown(1-(0.15*src.TomeSpell(B)))
 				else
 					B.Cooldown(p = src)
 

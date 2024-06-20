@@ -4335,7 +4335,7 @@ mob
 
 				src.ContinuousAttacking=0
 				if(src.TomeSpell(Z))
-					Z.Cooldown(1-(0.25*src.TomeSpell(Z)))
+					Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
 				else
 					Z.Cooldown()
 			if(Z.MagicNeeded&&!src.HasLimitlessMagic())
@@ -4502,12 +4502,12 @@ mob
 					if(Z.MultiShots>=Z.MultiShot)
 						Z.MultiShots=0
 						if(src.TomeSpell(Z))
-							Z.Cooldown(1-(0.25*src.TomeSpell(Z)))
+							Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
 						else
 							Z.Cooldown(p = src)
 				else
 					if(src.TomeSpell(Z))
-						Z.Cooldown(1-(0.25*src.TomeSpell(Z)))
+						Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
 					else
 						Z.Cooldown(p = src)
 			if(Z.Copyable)
@@ -5892,7 +5892,7 @@ mob
 			src.Beaming=0
 			Z.Charging=0
 			if(src.TomeSpell(Z))
-				Z.Cooldown(1-(0.25*src.TomeSpell(Z)))
+				Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
 			else
 				Z.Cooldown()
 obj
