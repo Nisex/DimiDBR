@@ -250,6 +250,8 @@ update
 				p.passive_handler.Set("Innovation", 1)
 			if(p.isRace(BEASTMAN))
 				p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Ticking_Bomb)
-			..()	
+			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield/sw in p.contents)
+				sw.StyleComboUnlock = null
+			..()
 
 

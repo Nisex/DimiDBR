@@ -689,8 +689,8 @@ obj
 						StyleDef=1.25
 						StyleActive="Sword And Shield"
 						passives = list("Hardening" = 1, "Deflection" = 0.5)
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/Unarmed/UNNAMED"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style",\
-						"/obj/Skills/Buffs/NuStyle/SwordStyle/Wushu_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Heavenly_Demon_Fist_Style")
+						//StyleComboUnlock=list("TBD"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style",\
+						"UNARMED VARIANT"="/obj/Skills/Buffs/NuStyle/SwordStyle/Heavenly_Demon_Fist_Style")
 						Finisher="/obj/Skills/Queue/Finisher/Behemoth_Typhoon"
 
 					Dual_Wield_Style//iaido + fencing
