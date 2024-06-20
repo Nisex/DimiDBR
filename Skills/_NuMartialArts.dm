@@ -684,7 +684,7 @@ obj
 						Copyable=0
 						StyleEnd=1.5
 						StyleStr=1.25
-						StyleSpd=0.75
+						StyleSpd=1
 						StyleOff=1.25
 						StyleDef=1.25
 						StyleActive="Sword And Shield"
