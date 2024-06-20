@@ -29,7 +29,7 @@
             var/dmg = usr.passive_handler.Get("AbsorbingDamage")
             h.adjust(usr, dmg) // sets up the damage and what not
             passives["AbsorbingDamage"] = dmg // this should do it
-            Trigger(Override = 1) // set off to cooldown
+            Trigger(usr, Override = 1) // set off to cooldown
             usr.Activate(h)
             usr.VaizardHealth += dmg / 2
             // buuuutt just in case
@@ -42,7 +42,6 @@
 /obj/Skills/AutoHit/Haymaker
     Copyable=0
     NeedsSword=0
-    UnarmedOnly=1
     Area="Arc"
     StrOffense=1
     DamageMult=2
