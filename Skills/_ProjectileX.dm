@@ -1239,7 +1239,7 @@ obj
 				NewCopyable = 2
 				SkillCost=80
 				Copyable=3
-				Charge=2
+				Charge=0.5
 				HomingCharge=2
 				IconLock='Blast2.dmi'
 				Variation=4
