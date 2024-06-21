@@ -143,6 +143,8 @@ globalTracker
 		VoidChance = 78
 
 
+		IGNORE_NOT_LOGGEDIN_LOGINS = TRUE
+
 		list/Spawns = list()
 
 
