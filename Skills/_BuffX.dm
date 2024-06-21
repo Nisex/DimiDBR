@@ -1196,7 +1196,7 @@ NEW VARIABLES
 								src.OffMessage="conceals █████████████.."
 						if("Dainsleif")
 							src.PowerMult=1.5
-							HealthDrain = 0.002/usr.SagaLevel
+							HealthDrain = 0
 							passives = list("SlayerMod" = usr.SagaLevel/2, "MortalStrike" = 0.5, "AbyssMod" = usr.SagaLevel/2, "LifeSteal" = usr.SagaLevel*5, "Curse" = 1, "PULock" = 1)
 
 							if(!redacted)
@@ -6880,7 +6880,7 @@ NEW VARIABLES
 						typeOfDamage = "Free"
 					else if(p.usingStyle("Mystic"))
 						typeOfDamage = "Spiritual"
-					
+
 					var/pot = p.Potential
 					if(typeOfDamage == "Free")
 						passives["SwordDamage"] = 1 + (round(pot/20, 0.25))
