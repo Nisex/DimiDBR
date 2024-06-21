@@ -50,7 +50,8 @@ obj/Items/Tech/proc/recieveBroadcast(msg)
 			Log(owner.sanitizedChatLog(),broadcastFormattingPersonal)
 	else
 		var/broadcastFormattingAllAround = "[BROADCAST_COLOR]<b>([name]) crackles to life from the floor:</b>[msg]"
-		OMessage(BROADCAST_RANGE,broadcastFormattingAllAround)
+		for(var/mob/m in hearers(BROADCAST_RANGE,src))
+			m.client.outputToChat(broadcastFormattingAllAround, IC_OUTPUT)
 
 
 mob/Players/
