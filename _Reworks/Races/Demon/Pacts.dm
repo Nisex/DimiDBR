@@ -298,8 +298,8 @@ proc/findPactByID(id)
 	if(PactsTaken + 1 > asc)
 		o <<"You can't make any more pacts."
 		return
-
-	giveReward(o, p)
+	var/option = input(o, "What do you want to give?") in list("Magic", "Passive","Enchant")
+	giveReward(o, p, option)
 
 
 

@@ -2896,6 +2896,10 @@ mob
 						if("Universal")
 							if(usingStyle("FreeStyle"))
 								return TRUE
+						if("Mystic")
+							if(StyleBuff.ElementalClass) // this is a mystic style
+								return TRUE
+
 atom
 	proc
 		NoTPZone(var/dead_use=0, var/arc_use=0)

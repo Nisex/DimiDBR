@@ -6870,8 +6870,41 @@ NEW VARIABLES
 				TextColor=rgb(255, 240, 245)
 				ActiveMessage="fills their blank Grimoire with their power, greatly enhancing it!"
 				OffMessage="seals their Grimoire..."
+				adjust(mob/p)
+					var/typeOfDamage
+					if(p.usingStyle("SwordStyle"))
+						typeOfDamage = "Sword"
+					else if(p.usingStyle("UnarmedStyle"))
+						typeOfDamage = "Unarmed"
+					else if(p.usingStyle("FreeStyle"))
+						typeOfDamage = "Free"
+					else if(p.usingStyle("Mystic"))
+						typeOfDamage = "Spiritual"
+					
+					var/pot = p.Potential
+					if(typeOfDamage == "Free")
+						passives["SwordDamage"] = 1 + (round(pot/20, 0.25))
+						passives["UnarmedDamage"] = 1 + (round(pot/20, 0.25))
+					else
+						passives["[typeOfDamage]Damage"] = 1 + (round(pot/10, 0.5))
+					passives["Godspeed"] = 2 + (round(pot/25))
+					passives["BuffMastery"] = 2 + (round(pot/10, 0.5))
+					passives["TechniqueMastery"] = 2 +( round(pot/10, 0.5))
+					passives["BlurringStrikes"] = 1 +( round(pot/50))
+					passives["CallousedHands"] = 0.15 +( round(pot/100, 0.1))
+					passives["HybridStrike"] = ( round(pot/100, 0.1))
+					StrMult = 1 + (pot/100)
+					SpdMult = 1 + (pot/100)
+					OffMult = 1 + (pot/100)
+					DefMult = 1 + (pot/100)
+					EndMult = 1 + (pot/100)
 				verb/Pure_Grimoire()
 					set category="Skills"
+					if(!usr.StyleBuff)
+						usr << "You need a style active to use this."
+						return
+					if(!usr.BuffOn(src))
+						adjust(usr)
 					src.Trigger(usr)
 			Blood_Grimoire
 				IconLock='Demon_Blood_Talismans Active.dmi'

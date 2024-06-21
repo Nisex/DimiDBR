@@ -223,7 +223,7 @@ obj
 						StyleActive="Black Leg"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Golden_Kirin_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Sunlit_Sky_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Devil_Leg_Style")
-						passives = list("UnarmedDamage" = 1, "BluringStrikes" = 1, "Instinct" = 1)
+						passives = list("UnarmedDamage" = 1, "BlurringStrikes" = 1, "Instinct" = 1)
 						UnarmedDamage=1
 						Finisher="/obj/Skills/Queue/Finisher/Mouton_Shot"
 						verb/Black_Leg_Style()

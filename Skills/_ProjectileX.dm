@@ -339,6 +339,31 @@ obj
 				Trail='Trail - Death.dmi'
 				TrailSize=1.4
 				Variation=4
+
+			Kick_Blast
+				Copyable=0
+				Distance=8
+				DamageMult=0.5
+				AccMult = 1.25
+				Radius=1
+				Homing=1
+				HomingCharge=3
+				HomingDelay=1
+				ZoneAttack=1
+				ZoneAttackX=0
+				ZoneAttackY=0
+				FireFromSelf=1
+				FireFromEnemy=0
+				MultiHit=2
+				Knockback=0
+				Cooldown=90
+				IconSize=1
+				Variation=0
+				IconLock='Air Render.dmi'
+				adjust(mob/p)
+					DamageMult = 0.3 + p.Potential /100
+					Blasts = 1 + (round(p.Potential / 25))
+			
 			Secret_Knives
 				AdaptRate=1
 				Blasts=4

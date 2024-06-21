@@ -180,7 +180,7 @@ obj/Skills/Grapple
 	Izuna_Drop
 		SkillCost=120
 		Copyable=4
-		DamageMult=12
+		DamageMult=8
 		StrRate=1
 		ThrowAdd=0
 		ThrowMult=0
@@ -197,7 +197,7 @@ obj/Skills/Grapple
 		NewCopyable = 3
 		SkillCost=120
 		Copyable=4
-		DamageMult=8
+		DamageMult=4.5
 		Stunner=3
 		StrRate=1
 		ThrowAdd=1
@@ -214,7 +214,7 @@ obj/Skills/Grapple
 		NewCopyable = 3
 		SkillCost=120
 		Copyable=4
-		DamageMult=6
+		DamageMult=3
 		ForRate=2
 		StrRate=0.5
 		TriggerMessage="shoves their burning red hand through"

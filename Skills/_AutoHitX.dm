@@ -1366,8 +1366,22 @@ obj
 				Launcher=2
 				Instinct=1
 				ActiveMessage="delivers a series of flowing kicks!"
+				adjust(mob/p)
+
 				verb/Lightning_Kicks()
 					set category="Skills"
+					if(!altered)
+						if(usr.isInnovative(HUMAN, "Unarmed"))
+							if(!Using && usr.Energy >= 5)
+								if(!locate(/obj/Skills/Projectile/Kick_Blast, usr))
+									usr.AddSkill(new/obj/Skills/Projectile/Kick_Blast)
+								var/obj/Skills/Projectile/Kick_Blast/kb = usr.FindSkill(/obj/Skills/Projectile/Kick_Blast)
+								kb.adjust(usr)
+								usr.UseProjectile(kb)
+							else
+								return
+						
+
 					usr.Activate(src)
 			Flying_Kick
 				NewCost = TIER_3_COST

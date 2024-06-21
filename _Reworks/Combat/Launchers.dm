@@ -1,10 +1,8 @@
 /var/game_loop/launchLoop = new(1 , "launchLoop")
-/var/LAUNCH_LOCKOUT = 150 // 10 SECONDS
-/var/MAX_LAUNCH_TIME = 30 // 4 SECONDS
 
 /proc/getLaunchLockOut(mob/player)
 	var/mod = 1 + (player.passive_handler.Get("Juggernaut") * 0.25) + (player.HasLegendaryPower() * 0.25)
-	return LAUNCH_LOCKOUT * mod
+	return glob.LAUNCH_LOCKOUT * mod
 
 /proc/applyLaunch(mob/target, time)
 	if(istype(target, /mob/Player/AI ))
@@ -12,7 +10,7 @@
 	if(world.time < target.Grounded)
 		return
 	if(target.Launched>0)
-		if(target.startOfLaunch + MAX_LAUNCH_TIME > world.time)
+		if(target.startOfLaunch + glob.MAX_LAUNCH_TIME > world.time)
 			return
 		else
 			target.Launched += clamp(time * 2.5 , 1, 10)
@@ -77,7 +75,7 @@ proc/LaunchEnd(mob/player)
 	set name = "Change Launch Lockout"
 	var/num = input("Enter new Launch Lockout time (in seconds):") as num
 	if(num>0)
-		LAUNCH_LOCKOUT = num * 10
+		glob.LAUNCH_LOCKOUT = num * 10
 		world << "Launch Lockout time set to [num/10] seconds."
 
 /mob/Admin3/verb/alterMaxLaunchTime()
@@ -85,5 +83,5 @@ proc/LaunchEnd(mob/player)
 	set name = "Change Max Launch Time"
 	var/num = input("Enter new Max Launch time (in seconds):") as num
 	if(num>0)
-		MAX_LAUNCH_TIME = num * 10
+		glob.MAX_LAUNCH_TIME = num * 10
 		world << "Max Launch time set to [num/10] seconds."
