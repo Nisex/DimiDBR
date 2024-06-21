@@ -18,6 +18,6 @@
 						OMessage(10, "<font color='[q.TextColor]'><b>[src] [msg]</b></font color>", "[src]([key]) hit with [q]")
 					else
 						OMessage(10, "<font color='[Text_Color]'><b>[src] [msg]</b></font color>", "[src]([key]) hit with [q]")
-			return d /5
+			return d / 5
 		else return d
 	else return d

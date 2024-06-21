@@ -2952,13 +2952,13 @@ obj
 					usr.Activate(src)
 			Light_Step
 				SkillCost=40
-				Copyable=2
+				Copyable=4
 				NeedsSword=1
 				Area="Wave"
-				Distance=2.5
+				Distance=2
 				PassThrough=1
 				StrOffense=1
-				DamageMult=3.5
+				DamageMult=1.5
 				EnergyCost=3
 				Rounds = 2
 				HitSparkIcon='Slash.dmi'

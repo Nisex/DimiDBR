@@ -1476,16 +1476,14 @@ obj
 				Copyable=5
 				SkillCost=160
 				Blasts=12
-				DamageMult=1
+				DamageMult=0.5
 				AccMult=0.5
-				BusterAccuracy=1
 				Stream=4
-				BusterStream=8
 				RandomPath=1
 				IconLock='Dancing.dmi'
 				FireFromSelf=1
-				ZoneAttackX=0
-				ZoneAttackY=0
+				ZoneAttackX=8
+				ZoneAttackY=8
 				ZoneAttack=1
 				LockX=0
 				LockY=0
@@ -1582,11 +1580,10 @@ obj
 					usr.UseProjectile(src)
 			Jecht_Shot
 				SignatureTechnique=1
-				StrRate=1
-				ForRate=0
+				AdaptRate = 1
 				EndRate=1
-				Distance=65
-				DamageMult=2.75
+				Distance=30
+				DamageMult=2.5
 				AccMult = 1.15
 				Homing=1
 				HomingDelay=2
@@ -3831,7 +3828,7 @@ obj
 
 				Kamehameha//Well rounded
 					SignatureTechnique=1
-					DamageMult=5
+					DamageMult=12
 					ChargeRate=2
 					Dodgeable=0
 					IconLock='BeamKHH.dmi'
@@ -3844,7 +3841,7 @@ obj
 				Motionless_Kamehameha//Well rounded
 					PreRequisite=list("/obj/Skills/Projectile/Beams/Kamehameha")
 					SignatureTechnique=1
-					DamageMult=5
+					DamageMult=16
 					Immediate=1
 					Dodgeable=0
 					IconLock='BeamKHH.dmi'
@@ -4659,9 +4656,9 @@ mob
 						Z.TempSize=Z.BusterSize
 						Z.TempStream=Z.BusterStream
 					//these will always be used
-					Z.TempDamage=Z.DamageMult+((Z.BusterDamage-Z.DamageMult) * (src.BusterCharging/100))
-					Z.TempHits=round(Z.MultiHit+(Z.BusterHits-Z.MultiHit) * (src.BusterCharging/100))
-					Z.TempAccuracy=Z.AccMult+((Z.BusterAccuracy-Z.AccMult) * (src.BusterCharging/100))
+					// Z.TempDamage=Z.DamageMult+((Z.BusterDamage-Z.DamageMult) * (src.BusterCharging/100))
+					// Z.TempHits=round(Z.MultiHit+(Z.BusterHits-Z.MultiHit) * (src.BusterCharging/100))
+					// Z.TempAccuracy=Z.AccMult+((Z.BusterAccuracy-Z.AccMult) * (src.BusterCharging/100))
 
 					src.BusterTech=null
 					src.BusterCharging=0

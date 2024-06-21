@@ -1714,7 +1714,7 @@ obj
 				DamageMult=2.5
 				AccuracyMult = 1.15
 				Stunner=2
-				Launcher=4
+				Launcher=2
 				Duration=5
 				KBMult=0.00001
 				Cooldown=30
@@ -2040,7 +2040,7 @@ obj
 			Volleyball_Fist
 				SignatureTechnique=1
 				UnarmedOnly=1
-				DamageMult=3
+				DamageMult=8
 				AccuracyMult = 1.35
 				KBMult=0.00001
 				Stunner=1
@@ -2058,7 +2058,7 @@ obj
 					usr.SetQueue(src)
 			Volleyball_Fist2
 				UnarmedOnly=1
-				DamageMult=4
+				DamageMult=5
 				AccuracyMult = 1.175
 				KBMult=0.00001
 				HitStep=/obj/Skills/Queue/Volleyball_Fist3
@@ -2066,12 +2066,12 @@ obj
 				Quaking=3
 				Warp=3
 				Rapid=1
-				Launcher=1
+				Launcher=3
 				EnergyCost=5
 				HitMessage="launches their opponent in the air like a volleyball!"
 			Volleyball_Fist3
 				UnarmedOnly=1
-				DamageMult=4
+				DamageMult=5
 				Instinct=5
 				AccuracyMult = 1.175
 				KBAdd=5
@@ -2087,7 +2087,7 @@ obj
 
 			Meteor_Combination
 				SignatureTechnique=2
-				DamageMult=6
+				DamageMult=10
 				AccuracyMult = 1.25
 				Duration=5
 				KBMult=0.00001
@@ -2323,7 +2323,7 @@ obj
 				Duration=5
 				Combo=4
 				Rapid=1
-				Cooldown=60
+				Cooldown=30
 				EnergyCost=10
 				IconLock=1
 				HitSparkIcon='Hit Effect Divine.dmi'
@@ -2594,7 +2594,7 @@ obj
 				Rapid=1
 				Instinct=1
 				Cooldown=160
-				EnergyCost=5
+				EnergyCost=3
 				HitSparkIcon='Slash - Future.dmi'
 				HitSparkX=-32
 				HitSparkY=-32
@@ -2606,7 +2606,7 @@ obj
 					usr.SetQueue(src)
 			Blade_Dance2
 				NeedsSword=1
-				DamageMult=1
+				DamageMult=2.5
 				SpeedStrike=2
 				AccuracyMult=1
 				HitStep=/obj/Skills/Queue/Blade_Dance2
