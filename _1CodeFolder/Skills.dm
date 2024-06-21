@@ -961,7 +961,7 @@ turf/Click(turf/T)
 							VanishImage(usr)
 							var/formerdir=usr.dir
 							usr.Move(src)
-							usr.LoseMana(1)
+							usr.LoseMana(glob.BLINK_COST)
 							usr.dir=formerdir
 							if(usr.ManaAmount<1)
 								usr.ManaAmount=0

@@ -37,9 +37,9 @@
 	Cooldown = -1
 	TimerLimit = 300
 	CorruptionCost = 25
-	scalingValues = list("toDeath" = list(300,600,900,1200,1200), "range" = list(5,8,10,12,20))
+	scalingValues = list("toDeath" = list(300,600,900,1200,1200), "range" = list(8,15,20,25,30, 30))
 	adjust(mob/p)
-		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
+		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
 		makSpace.configuration = "Fill"
 		for(var/variable in scalingValues)
 			makSpace.vars[variable] = scalingValues[variable][asc]
@@ -49,6 +49,9 @@
 		. = 0
 		if(!User.BuffOn(src))
 			adjust(User)
+		else
+			Trigger(User, 1)
+			return
 		if(!Using)
 			if(User.Corruption - CorruptionCost < 0)
 				User << "Not enough corruption"

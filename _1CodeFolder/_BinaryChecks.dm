@@ -2370,15 +2370,6 @@ mob
 			if(src.isRace(DRAGON)&&src.AscensionsAcquired>=2)
 				return 1
 			return 0
-		UsingSpiritStyle()
-			var/Return=0
-			if(usingStyle("UnarmedStyle"))
-				Return++
-			if(src.UsingMasteredMartialStyle())
-				Return++
-			if(src.isRace(DRAGON))
-				Return++
-			return Return
 		HasAdaptation()
 			if(src.passive_handler.Get("Adaptation"))
 				return 1
@@ -2386,7 +2377,7 @@ mob
 				return 1
 			if(src.isRace(DRAGON)&&src.AscensionsAcquired>=1)
 				return 1
-			if(Target && (Health <=25 && Target.Health > Health+10) && passive_handler.Get("Underdog"))
+			if(Target && (Health <=40 && Target.Health > Health) && passive_handler.Get("Underdog"))
 				return 1
 			return 0
 		UsingMartialStyle()
@@ -2411,15 +2402,13 @@ mob
 				return 1
 			if(src.isRace(MAJIN))
 				return 1
-			if(Target && (Health <=25 && Target.Health > Health+10) && isUnderDog(Target))
-				return 1
 			return 0
 		UsingZornhau()
 			var/Found=0
 			var/obj/Items/Sword/S=src.EquippedSword()
 			Found += passive_handler.Get("Zornhau")
 			if(src.StyleActive=="Sword Savant")
-				Found+=0.5
+				Found+=0.25 + (0.25 * SagaLevel)
 			if(src.StyleActive=="Zornhau")
 				Found=1
 			if(UsingKendo())
@@ -2441,7 +2430,7 @@ mob
 			if(src.StyleActive=="Hiten Mitsurugi")
 				Found+=1
 			if(src.StyleActive=="Sword Savant")
-				Found+=0.5
+				Found+=0.25 + (0.25 * SagaLevel)
 			if(src.StyleActive=="Fencing")
 				Found+=1
 			if(src.StyleActive=="Dual Wield")
@@ -2465,7 +2454,7 @@ mob
 		UsingGladiator()
 			var/Found=0
 			if(src.StyleActive=="Sword Savant")
-				Found+=0.25
+				Found+=0.25 + (0.125 * SagaLevel)
 			if(src.StyleActive=="Gladiator")
 				Found=0.5
 			if(src.StyleActive=="Sword And Shield")
@@ -2477,7 +2466,7 @@ mob
 			var/obj/Items/Sword/S=src.EquippedSword()
 			Found += passive_handler.Get("Iaido")
 			if(src.StyleActive=="Sword Savant")
-				Found+=0.5
+				Found+=0.25 + (0.25 * SagaLevel)
 			if(src.StyleActive=="Iaido")
 				Found=1
 			if(src.StyleActive=="Dual Wield")

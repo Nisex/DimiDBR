@@ -210,7 +210,7 @@ globalTracker
 		ZANZO_FLICKER_LOWEST_CLAMP = 1
 		ZANZO_FLICKER_HIGHEST_CLAMP = 2
 		ZANZO_FLICKER_BASE_GAIN = 0.1
-
+		BLINK_COST = 0.5
 		DEBUFF_INTENSITY = 1.2
 		BURN_INTENSITY = 1
 		SLOW_INTENSITY = 1
@@ -313,6 +313,8 @@ globalTracker
 
 		//straight multiplier to how much it breaks.
 		WEAPON_BREAKER_EFFECTIVENESS = 1
+		WEAPON_BREAKER_DIVISOR = 1.5
+		WEAPON_ASC_DURA_BOON = 0.3
 		//straight multiplier at the end; for ubw saga only (self-inflicted break)
 		UBW_BREAK_MULTIPLIER = 10
 		//firm multiplies break by a further x5

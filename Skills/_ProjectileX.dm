@@ -1583,7 +1583,7 @@ obj
 				AdaptRate = 1
 				EndRate=1
 				Distance=30
-				DamageMult=2.5
+				DamageMult=4
 				AccMult = 1.15
 				Homing=1
 				HomingDelay=2

@@ -42,11 +42,13 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
     ElementalClass="Fire"
-    scalingValues = list("Damage" = list(0.2,0.3,0.4,0.6,0.6), "Distance" = list(6,9,12,12,15,18), \
+    scalingValues = list("Damage" = list(0.2,0.3,0.4,0.6,0.6,0.8), "Distance" = list(6,9,12,12,15,18), \
     "DarknessFlame" = list(3,8,12,15,20,25), "Slow" = list(3,6,8,12,15,20), "Burning" = list(10,15,20,25,30,30), "Duration" = list(150,200,300,350,400,600), \
     "Adapt" = list(1,1,1,1,1), "CorruptionGain" = list(1,1,1,1,1) )
     makSpace = new/spaceMaker/HellFire
-    var/icon_to_use = 'LavaRock2.dmi'
+    var/icon_to_use = 'hellstorm.dmi'
+    var/states_to_use = list("","1")
+    var/layer_to_use = MOB_LAYER+0.1
     Cooldown=90
     ManaCost = 8
     TimerLimit = 10
@@ -54,7 +56,7 @@
     ActiveMessage = "rains down an onslaught of fire!"
     adjust(mob/p)
         scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm::scalingValues
-        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
+        var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
         makSpace.toDeath = scalingValues["Duration"][asc]
         makSpace.range = scalingValues["Distance"][asc]
         makSpace.configuration = "Fill"
@@ -71,7 +73,7 @@
             . = aaa
     proc/applyEffects(mob/target, mob/owner, static_damage)
         if(!owner||!target) return
-        var/asc = owner.AscensionsAcquired ? owner.AscensionsAcquired : 1
+        var/asc = owner.AscensionsAcquired ? owner.AscensionsAcquired + 1 : 1
         for(var/x in scalingValues)
             switch(x)
                 if("Damage")

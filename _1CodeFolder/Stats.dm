@@ -1147,6 +1147,12 @@ mob/proc/Update_Stat_Labels()
 					winset(src, "Hunger", "value=[round(currentMadness/maxMadness*100)]")
 				else
 					winshow(src,"Hunger", 0)
+	if(isRace(DEMON))
+		if(Corruption > 0)
+			winshow(src, "Hunger", 1)
+			winset(src, "Hunger", "value=[round(Corruption/MaxCorruption*100)]")
+		else
+			winshow(src,"Hunger", 0)
 	if(SpecialBuff&&SpecialBuff.BuffName == "Gluttony")
 		if(SpecialBuff:gluttonStorage>0)
 			winshow(src, "Storage",1)
