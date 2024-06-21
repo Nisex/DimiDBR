@@ -1380,7 +1380,7 @@ obj
 								usr.UseProjectile(kb)
 							else
 								return
-						
+
 
 					usr.Activate(src)
 			Flying_Kick
@@ -5661,7 +5661,7 @@ mob
 mob
 	proc
 		Persistent(var/obj/Skills/AutoHit/AH, duration)
-			ticking_generic += new/obj/AutoHitter(owner = src, Z = AH, life = duration, circle = 1, TrgLoc = src.loc)
+			new/obj/AutoHitter(owner = src, Z = AH, life = duration, circle = 1, TrgLoc = src.loc)
 
 
 
@@ -5836,6 +5836,10 @@ obj
 			tmp/list/autohitChildren
 			tmp/obj/AutoHitter/AHOwner
 
+		Update()
+			..()
+
+
 		New(var/mob/owner, var/arcing=0, var/wave=0, var/card=0, var/circle=0, var/mob/target, var/obj/Skills/AutoHit/Z, var/turf/TrgLoc, life = 500)
 			set waitfor = FALSE
 			if(!owner)
@@ -5984,6 +5988,8 @@ obj
 			src.loc=src.Owner.loc
 			src.Distance=src.DistanceMax
 
+			ticking_generic += src
+
 			src.Life()
 			sleep(life)
 			if(!Persistent)
@@ -6038,6 +6044,7 @@ obj
 			AlreadyHit = null
 			autohitChildren = null
 			Owner = null
+			ticking_generic -= src
 			loc = null
 			sleep(10)
 			del src

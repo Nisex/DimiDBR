@@ -1527,7 +1527,7 @@ mob
 				return 1
 			if(src.SenseUnlocked>6&&(src.SenseUnlocked>src.SenseRobbed))
 				return 1
-			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff())
+			if(src.CheckSlotless("Saiyan Soul")&&Target&&!src.HasGodKiBuff())
 				if(!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
 					return 1
 			if(src.HasSpiritPower()>=1 && FightingSeriously(src, 0))
