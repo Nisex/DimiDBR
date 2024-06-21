@@ -1731,7 +1731,7 @@ obj
 				HitSparkX=-32
 				HitSparkY=-32
 				HitSparkTurns=1
-				RoundMovement=0				
+				RoundMovement=0
 //T3 is in Projectiles - Beams.
 
 			Destruction_Wave
@@ -5161,7 +5161,7 @@ mob
 				if(Z.WindupMessage)
 					OMsg(src, "<b><font color='[Z.WindupColor]'>[src] [Z.WindupMessage]</font color></b>")
 			if(src.TomeSpell(Z))
-				Z.Cooldown(1-(0.25*src.TomeSpell(Z)))
+				Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
 			else
 				Z.Cooldown()
 			if(Z.Copyable)
@@ -6406,7 +6406,7 @@ obj
 					src.Owner.EnergySteal-=src.EnergySteal
 
 				if(src.Owner.HitSparkIcon!='BLANK.dmi')
-					if(src.Launcher&&src.DelayedLauncher)
+					if(m&&m.Health>0&&src.Launcher&&src.DelayedLauncher)
 
 						src.Owner.Frozen=3
 						var/Time=src.Launcher

@@ -440,6 +440,7 @@ proc
 
 	TurfShift(var/Shift, var/turf/t, var/Time=30, var/mob/m, var/layer=MOB_LAYER-0.5, var/Spawn=10, var/Despawn=10,var/state)
 		var/image/i=image(icon=Shift, layer=layer, loc=t)
+		i.mouse_opacity = 0
 		animate(i, alpha=0)
 		world << i
 		if(Shift=='Icons/Turfs/GalSpace.dmi')

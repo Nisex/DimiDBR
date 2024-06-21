@@ -1196,7 +1196,7 @@ NEW VARIABLES
 								src.OffMessage="conceals █████████████.."
 						if("Dainsleif")
 							src.PowerMult=1.5
-							HealthDrain = 0.05/usr.SagaLevel
+							HealthDrain = 0.002/usr.SagaLevel
 							passives = list("SlayerMod" = usr.SagaLevel/2, "MortalStrike" = 0.5, "AbyssMod" = usr.SagaLevel/2, "LifeSteal" = usr.SagaLevel*5, "Curse" = 1, "PULock" = 1)
 
 							if(!redacted)
@@ -1222,7 +1222,7 @@ NEW VARIABLES
 								src.OffMessage="conceals █████████████.."
 						if("Masamune")
 							src.PowerMult=1.5
-							passives = list("HolyMod"=usr.SagaLevel*1.25,"Purity"=1,"Steady"=usr.SagaLevel*1.5, "PULock" = 1)
+							passives = list("HolyMod"=usr.SagaLevel*3,"Purity"=1,"Steady"=usr.SagaLevel*1.5, "PULock" = 1)
 							if(!redacted)
 								src.SwordName="Masamune"
 								src.ActiveMessage="calls forth the true form of Masamune, the Sword of Purity!"
@@ -14120,7 +14120,7 @@ mob
 
 			if(B.Cooldown)
 				if(src.TomeSpell(B))
-					B.Cooldown(1-(0.25*src.TomeSpell(B)))
+					B.Cooldown(1-(0.15*src.TomeSpell(B)))
 				else
 					B.Cooldown(p = src)
 

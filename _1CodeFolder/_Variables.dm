@@ -348,7 +348,7 @@ mob/var
 	Warping//You forcewarp.
 	SuperDash//Mobs have this too now
 	IaidoCounter//Once it hits ten, you get a zoom attack.
-	GladiatorCounter 
+	GladiatorCounter
 
 	SpiritHand//Str*=sqrt(For)
 	SpiritFlow//For*=sqrt(Str) //TOD: Change to PowerFlow / PowerStream
@@ -409,7 +409,7 @@ mob/var
 	ManaStats=0//Boost stats depending on mana amount held
 	ManaSealed=0//Won't generate capacity due to having their circuits stolen by fake philosopher stone
 	ManaDeath=0//TOO MUCH MANA
-	Binding//Holds the zplane of binding
+	list/Binding//Holds the zplane of binding
 	BindingTimer//Every time this goes off, the person is returned to their zplane.
 	HearThoughts=1
 	Phylactery//if 1, make sure their phylactery is in the world

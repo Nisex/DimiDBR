@@ -1264,7 +1264,7 @@ obj
 				NewCopyable = 2
 				SkillCost=80
 				Copyable=3
-				Charge=2
+				Charge=0.5
 				HomingCharge=2
 				IconLock='Blast2.dmi'
 				Variation=4
@@ -4360,7 +4360,7 @@ mob
 
 				src.ContinuousAttacking=0
 				if(src.TomeSpell(Z))
-					Z.Cooldown(1-(0.25*src.TomeSpell(Z)))
+					Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
 				else
 					Z.Cooldown()
 			if(Z.MagicNeeded&&!src.HasLimitlessMagic())
@@ -4527,12 +4527,12 @@ mob
 					if(Z.MultiShots>=Z.MultiShot)
 						Z.MultiShots=0
 						if(src.TomeSpell(Z))
-							Z.Cooldown(1-(0.25*src.TomeSpell(Z)))
+							Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
 						else
 							Z.Cooldown(p = src)
 				else
 					if(src.TomeSpell(Z))
-						Z.Cooldown(1-(0.25*src.TomeSpell(Z)))
+						Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
 					else
 						Z.Cooldown(p = src)
 			if(Z.Copyable)
@@ -5435,7 +5435,7 @@ obj
 							if(src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow())
 								if(src.Owner.StyleActive!="Moonlight"&&src.Owner.StyleActive!="Astral")
 									//SpiritFlow
-									atk += clamp(Owner.GetStr(0.25), 1.1,1.4)
+									atk += clamp(Owner.GetStr(Owner.passive_handler.Get("SpiritFlow")), 1.1,1.4)
 								else
 									//Moonlight
 									atk += clamp(Owner.GetStr(0.5), 1.4,2)
@@ -5917,7 +5917,7 @@ mob
 			src.Beaming=0
 			Z.Charging=0
 			if(src.TomeSpell(Z))
-				Z.Cooldown(1-(0.25*src.TomeSpell(Z)))
+				Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
 			else
 				Z.Cooldown()
 obj

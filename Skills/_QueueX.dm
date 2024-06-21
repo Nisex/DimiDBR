@@ -3994,7 +3994,7 @@ mob
 			src.QueuedActivationMessage()
 			src.QueueOverlayAdd()
 			if(src.TomeSpell(Q))
-				Q.Cooldown(1-(0.25*src.TomeSpell(Q)))
+				Q.Cooldown(1-(0.15*src.TomeSpell(Q)))
 			else
 				Q.Cooldown()
 

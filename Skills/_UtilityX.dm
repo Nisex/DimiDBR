@@ -716,7 +716,7 @@ obj/Skills/Utility
 			if(Choice=="Cancel")
 				return
 			if(Choice.KO||(usr.Power>Choice.Power*3))//Either knock them out or be three times as powerful
-				Choice.Binding=usr.z
+				Choice.Binding=list(Choice.x,Choice.y,Choice.z)
 				Choice.BindingTimer = Day(3)
 				OMsg(usr, "[usr] has bound [Choice] to this plane of existence!!")
 			else

@@ -21,7 +21,7 @@ obj/Skills/proc/Cooldown(var/modify=1, var/Time, mob/p)
 					var/TM = m.GetTechniqueMastery() / glob.TECHNIQUE_MASTERY_DIVISOR
 					if(TM < 0)
 						modify *= clamp(1+abs(TM), 1.1, glob.TECHNIQUE_MASTERY_LIMIT)
-					else
+					else if(TM > 0)
 						modify/=clamp((1+(TM)),0.1,glob.TECHNIQUE_MASTERY_LIMIT)
 			else
 				if(m.passive_handler.Get("Hustle")||m.HasLegendaryPower() > 0.25)
