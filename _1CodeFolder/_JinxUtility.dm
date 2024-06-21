@@ -2025,14 +2025,14 @@ mob
 				return 1
 			return 0
 		IsEvil()
-			var/list/EvilRaces=list("Demon")
+			var/list/EvilRaces=list(DEMON, DRAGON)
 			var/list/EvilSecrets=list("Vampire", "Werewolf", "Zombie")
 			//these are all good.
 			if(src.Race=="Android")
 				return 0
 			if(src.ShinjinAscension=="Kai")
 				return 0
-			if(src.HasHolyMod())
+			if(src.HasHolyMod() && !src.HasAbyssMod())
 				return 0
 			if(src.HasSpiritPower()>=1)
 				return 0
@@ -2041,8 +2041,9 @@ mob
 				return 1
 			if(KeybladeColor=="Darkness")
 				return 1
-			if(src.Race in EvilRaces)
-				return 1
+			for(var/race in EvilRaces)
+				if(isRace(race))
+					return 1
 			if(src.Secret in EvilSecrets)
 				return 1
 			if(src.ShinjinAscension=="Makai")
