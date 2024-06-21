@@ -378,7 +378,7 @@ mob/proc/Hairz(var/Z)
 				Ears=Tanuki_Ears
 			if(src.Wolf)
 				Ears=Wolf_Ears
-			if(Hair_Color)
+			if(Trait_Color)
 				Ears+=Trait_Color
 				EarsU+=Trait_Color
 			src.overlays+=Ears
