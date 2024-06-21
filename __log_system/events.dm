@@ -221,6 +221,8 @@ client/proc/LoginLog(var/title=null)
 			if(src.mob)
 				title={"<font color=red>logged out.</font color>([src.mob.name])"}
 			else
+				if(glob.IGNORE_NOT_LOGGEDIN_LOGINS)
+					return
 				title={"<font color=red>logged out.</font color>"}
 
 		var/matches = ""

@@ -2,22 +2,41 @@
 #define BROADCAST_COLOR "<font color=green>"
 var/tmp/list/globalListeners = list()
 
+globalListener
+	var/tmp/list/connected = list()
+	var/freq = 0
+	proc/outputToComms(obj/Items/Tech/source, msg)
+		for(var/obj/Items/Tech/sendTo in connected)
+			if(source == sendTo) continue
+			sendTo.recieveBroadcast(msg)
+
 proc/addToGlobalListeners(obj/Items/Tech/listener)
-	if(globalListeners["[listener.Frequency]"])
-		globalListeners["[listener.Frequency]"] |= listener
-	else
-		globalListeners += listener.Frequency
-		globalListeners["[listener.Frequency]"] = list(listener)
+	if(!listener.Frequency) return
+
+	for(var/globalListener/globalL in globalListeners)
+		if(globalL.freq == listener.Frequency)
+			globalL.connected |= listener
+			return
+	var/globalListener/newListener = new()
+	newListener.freq = listener.Frequency
+	newListener.connected += listener
+	globalListeners += newListener
 
 proc/removeFromGlobalListeners(obj/Items/Tech/listener)
-	if(globalListeners[listener.Frequency])
-		globalListeners[listener.Frequency] -= listener
+	if(!listener.Frequency) return
+
+	for(var/globalListener/globalL in globalListeners)
+		if(globalL.freq == listener.Frequency)
+			if(listener in globalL.connected)
+				globalL.connected -= listener
+				return
 
 obj/Items/Tech/proc/broadcastToListeners(msg)
 //	if(!Active) return
 	if(!Frequency) return
-	for(var/obj/Items/Tech/i in globalListeners["[Frequency]"])
-		i.recieveBroadcast(msg)
+	for(var/globalListener/listener in globalListeners)
+		if(listener.freq == Frequency)
+			listener.outputToComms(src, msg)
 
 obj/Items/Tech/proc/recieveBroadcast(msg)
 //	if(!Active) return
@@ -31,7 +50,8 @@ obj/Items/Tech/proc/recieveBroadcast(msg)
 			Log(owner.sanitizedChatLog(),broadcastFormattingPersonal)
 	else
 		var/broadcastFormattingAllAround = "[BROADCAST_COLOR]<b>([name]) crackles to life from the floor:</b>[msg]"
-		OMsg(BROADCAST_RANGE,broadcastFormattingAllAround)
+		for(var/mob/m in hearers(BROADCAST_RANGE,src))
+			m.client.outputToChat(broadcastFormattingAllAround, IC_OUTPUT)
 
 
 mob/Players/

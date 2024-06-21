@@ -197,8 +197,8 @@ obj
 					Wushu_Style
 						SignatureTechnique=1
 						Copyable=0
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Heavenly_Demon_Fist_Style",\
-						"TBD"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Iron_Fist_Style")
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Heavenly_Demon_Fist_Style")
+					//	"TBD"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Iron_Fist_Style")
 						StyleStr=1.25
 						StyleEnd=1.25
 						StyleOff=1.25
@@ -298,8 +298,6 @@ obj
 						Finisher="/obj/Skills/Queue/Finisher/Ray_Divider"
 						verb/Circuit_Breaker_Style()
 							set hidden=1
-							if(!usr.BuffOn(src))
-								passives = list("CyberStigma" = 4, "PureDamage" = 0.5, "PureReduction" = 0.5)
 							src.Trigger(usr)
 					Inverse_Poison_Style
 						SignatureTechnique=1
@@ -322,8 +320,6 @@ obj
 						Finisher="/obj/Skills/Queue/Finisher/Badlands"
 						verb/Inverse_Poison_Style()
 							set hidden=1
-							if(!usr.BuffOn(src))
-								passives = list("PureDamage" = 2, "Toxic" = 1)
 							src.Trigger(usr)
 					Sunlit_Sky_Style
 						SignatureTechnique=1
@@ -349,8 +345,6 @@ obj
 						Finisher="/obj/Skills/Queue/Finisher/Crimson_Star_Road"
 						verb/Sunlit_Sky_Style()
 							set hidden=1
-							if(!usr.BuffOn(src))
-								passives = list("SpiritHand" = 2, "SpiritFlow" = 0.5)
 							src.Trigger(usr)
 					Tranquil_Dove_Style
 						SignatureTechnique=1
@@ -362,6 +356,7 @@ obj
 						StyleSpd=1.3
 						NoStaff = 0
 						ElementalClass=list("Water", "Earth")
+						passives = list("StableBP" = 0.5, "Hardening" = 1, "SpiritHand" = 1)
 						StyleActive="Tranquil Dove"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Sunlit_Sky_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Moonlit_Lake_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Dire_Wolf_Style")
@@ -387,7 +382,6 @@ obj
 						verb/Drunken_Master_Style()
 							set name="Drunken Fist Style"
 							set hidden=1
-							passives = list("CounterMaster" = 2, "SoftStyle" = 2, "FluidForm" = 1)
 							src.Trigger(usr)
 					Golden_Kirin_Style
 						SignatureTechnique=2
@@ -417,7 +411,7 @@ obj
 						StyleSpd=1.2
 						ElementalClass=list("Water", "Earth")
 						StyleActive="Dire Wolf"
-						passives=list("Hardening" = 2, "SpiritHand" = 2)
+						passives=list("StableBP" = 0.5, "Hardening" = 2, "SpiritHand" = 2)
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Devil_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Imperial_Style")
 						ElementalOffense="Earth"
 						ElementalDefense="Earth"
