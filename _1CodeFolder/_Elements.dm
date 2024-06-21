@@ -1,6 +1,6 @@
 proc
 	ElementalCheck(var/mob/Attacker, var/mob/Defender, var/ForcedDebuff=0, var/DebuffIntensity=glob.DEBUFF_INTENSITY, list/bonusElements,damageOnly = FALSE, list/onlyTheseElements)
-		var/list/messages = list("Fire"= "<font color='[rgb(204, 153, 51)]'>[Defender] erupts in flames!!</font color>", \
+		//var/list/messages = list("Fire"= "<font color='[rgb(204, 153, 51)]'>[Defender] erupts in flames!!</font color>", \
 	"Water" = "<font color='[rgb(51, 153, 204)]'>[Defender] freezes to the bone!!</font color>", \
 	"Earth" = "<font color='[rgb(51, 204 , 153)]'>[Defender] falters; their guard is crushed!!</font color>", \
 	"Wind" = "<font color='[rgb(153, 255, 255)]'>[Defender] twitches erratically; they're shocked!!</font color>", \
@@ -53,6 +53,7 @@ proc
 				DebuffRate-=Effective/10
 			if(DebuffRate<0)
 				DebuffRate=0
+/*
 			if(!damageOnly&&!Defender.HasDebuffImmune())
 				switch(element)
 					if("Fire")
@@ -75,7 +76,7 @@ proc
 							OMsg(Attacker, messages[element])
 						if(!Defender.Burn)
 							OMsg(Attacker, messages[element])
-
+*/
 			switch(element)
 				if("Ultima")
 					DamageMod+=2
@@ -172,7 +173,7 @@ proc
 		switch(A)
 			if("Rain")
 				Return=30
-			
+
 			if("HellFire")
 				Return=50
 				switch(D)

@@ -6392,7 +6392,7 @@ obj
 					src.Owner.EnergySteal-=src.EnergySteal
 
 				if(src.Owner.HitSparkIcon!='BLANK.dmi')
-					if(src.Launcher&&src.DelayedLauncher)
+					if(m&&m.Health>0&&src.Launcher&&src.DelayedLauncher)
 
 						src.Owner.Frozen=3
 						var/Time=src.Launcher

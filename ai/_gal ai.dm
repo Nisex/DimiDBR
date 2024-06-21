@@ -1780,7 +1780,7 @@ mob/Player/AI
 			src.BindingTimer--
 			if(src.BindingTimer<=0)
 				src.BindingTimer=0
-				if(src.Binding>=1)
+				if(src.Binding)
 					src.TriggerBinding()
 
 		src.MaxHealth()

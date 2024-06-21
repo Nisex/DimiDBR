@@ -2205,9 +2205,9 @@ mob
 			return Highest
 
 		TriggerBinding()
-			if(src.z!=src.Binding)
+			if(Binding&&src.z!=src.Binding[3])
 				OMsg(src, "[src]'s binding pulls their body back to their sealed dimension!")
-				src.loc=locate(150, 150, src.Binding)
+				src.loc=locate(Binding[1], Binding[2], Binding[3])
 				OMsg(src, "[src] suddenly appears as a result of their binding!")
 
 		SetStasis(var/StasisTime)

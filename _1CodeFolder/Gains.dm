@@ -839,7 +839,7 @@ mob
 				src.BindingTimer--
 				if(src.BindingTimer<=0)
 					src.BindingTimer=0
-				if(src.Binding>=1)
+				if(src.Binding&&Binding.len>0)
 					src.TriggerBinding()
 
 /*

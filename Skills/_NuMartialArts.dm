@@ -292,13 +292,14 @@ obj
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Gentle_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Flow_Reversal_Style")
 						ElementalOffense="Earth"
 						ElementalDefense="Wind"
-						passives = list("CyberStigma" = 4)
+						passives = list("CyberStigma" = 4, "PureDamage" = 0.5, "PureReduction" = 0.5)
 						CyberStigma=1
 						IconLock='Overdrive.dmi'
 						Finisher="/obj/Skills/Queue/Finisher/Ray_Divider"
 						verb/Circuit_Breaker_Style()
 							set hidden=1
-							passives = list("CyberStigma" = 4, "PureDamage" = 0.5, "PureReduction" = 0.5)
+							if(!usr.BuffOn(src))
+								passives = list("CyberStigma" = 4, "PureDamage" = 0.5, "PureReduction" = 0.5)
 							src.Trigger(usr)
 					Inverse_Poison_Style
 						SignatureTechnique=1
@@ -310,7 +311,7 @@ obj
 						StyleSpd=1.25
 						NoStaff = 0
 						ElementalClass=list("Fire", "Water", "Poison")
-						passives = list("PureDamage" = 1)
+						passives = list("PureDamage" = 2, "Toxic" = 1)
 						StyleActive="Inverse Poison"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Entropy_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phage_Style")
@@ -321,7 +322,8 @@ obj
 						Finisher="/obj/Skills/Queue/Finisher/Badlands"
 						verb/Inverse_Poison_Style()
 							set hidden=1
-							passives = list("PureDamage" = 1)
+							if(!usr.BuffOn(src))
+								passives = list("PureDamage" = 2, "Toxic" = 1)
 							src.Trigger(usr)
 					Sunlit_Sky_Style
 						SignatureTechnique=1
@@ -335,7 +337,7 @@ obj
 						StyleActive="Sunlight"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Moonlit_Lake_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Devil_Leg_Style")
-						passives = list("SpiritHand" = 1)
+						passives = list("SpiritHand" = 2, "SpiritFlow" = 0.5)
 						NoStaff = 0
 						SpiritHand=1
 						HitSpark='fevExplosion.dmi'
@@ -347,6 +349,8 @@ obj
 						Finisher="/obj/Skills/Queue/Finisher/Crimson_Star_Road"
 						verb/Sunlit_Sky_Style()
 							set hidden=1
+							if(!usr.BuffOn(src))
+								passives = list("SpiritHand" = 2, "SpiritFlow" = 0.5)
 							src.Trigger(usr)
 					Tranquil_Dove_Style
 						SignatureTechnique=1
@@ -413,14 +417,13 @@ obj
 						StyleSpd=1.2
 						ElementalClass=list("Water", "Earth")
 						StyleActive="Dire Wolf"
-						passives=list("Hardening" = 1, "SpiritHand" = 1)
+						passives=list("Hardening" = 2, "SpiritHand" = 2)
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Devil_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Imperial_Style")
 						ElementalOffense="Earth"
 						ElementalDefense="Earth"
 						Finisher="/obj/Skills/Queue/Finisher/Spiral_Fang"
 						verb/Dire_Wolf_Style()
 							set hidden=1
-							passives = list("Hardening" = 1, "SpiritHand" = 1)
 							src.Trigger(usr)
 					Moonlit_Lake_Style
 						SignatureTechnique=2
@@ -433,7 +436,7 @@ obj
 						ElementalClass=list("Fire", "Wind", "Earth", "Water")
 						StyleActive="Moonlight"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Entropy_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Atomic_Karate_Style")
-						passives = list("SpiritFlow" = 1, "SpiritHand" = 1)
+						passives = list("SpiritFlow" = 1, "SpiritHand" = 4)
 						NoStaff = 0
 						SpiritFlow=1
 						SpiritHand=1
@@ -453,7 +456,7 @@ obj
 						ElementalClass=list("Water", "Fire", "Earth", "Wind", "Poison")
 						StyleActive="Entropy"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Moonlit_Lake_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Atomic_Karate_Style")
-						passives = list("CyberStigma" = 4, "PureReduction" = 1.5)
+						passives = list("CyberStigma" = 4, "PureReduction" = 2, "PureDamage" = 2)
 						CyberStigma=2
 						ElementalOffense="Chaos"
 						ElementalDefense="Chaos"
@@ -466,7 +469,7 @@ obj
 						Copyable=0
 						StyleStr=1.5
 						StyleFor=1.5
-						passives = list("SpiritHand" = 1, "DarknessFlame" = 1, "PureDamage" = 1.5)
+						passives = list("SpiritHand" = 4, "DarknessFlame" = 1, "PureDamage" = 2)
 						SpiritHand=1
 						DarknessFlame=1
 						StyleActive="Devil Leg"
@@ -477,7 +480,6 @@ obj
 						Finisher="/obj/Skills/Queue/Finisher/Maiden_Masher"
 						verb/Devil_Leg_Style()
 							set hidden=1
-							passives = list("SpiritHand" = 1, "DarknessFlame" = 1)
 							src.Trigger(usr)
 					Flow_Reversal_Style
 						SignatureTechnique=2
@@ -502,7 +504,7 @@ obj
 						SignatureTechnique=2
 						Copyable=0
 						StyleSpd=2
-						passives = list("CounterMaster" = 2, "VoidField" = 4, "DeathField" = 4)
+						passives = list("CounterMaster" = 2, "PureDamage" = 2, "VoidField" = 4, "DeathField" = 4)
 						CounterMaster=2
 						VoidField=2
 						DeathField=2
@@ -546,7 +548,7 @@ obj
 						ElementalClass=list("Water", "Fire", "Earth", "Wind", "Poison")
 						ElementalOffense="Void"
 						ElementalDefense="Void"
-						passives = list("DarknessFlame" = 2, "UnarmedDamage" = 1, "SpiritHand" = 1, "Void" = 1)
+						passives = list("DarknessFlame" = 2, "UnarmedDamage" = 1, "SpiritHand" = 4, "Void" = 1)
 						DarknessFlame=2
 						UnarmedDamage=1
 						SpiritHand=1
@@ -581,7 +583,7 @@ obj
 						Copyable=0
 						StyleStr=1.5
 						StyleFor=1.5
-						passives = list("SpiritHand" = 1, "SpiritFlow" = 1, "CyberStigma" = 3)
+						passives = list("SpiritHand" = 4, "SpiritFlow" = 1, "CyberStigma" = 4, "PureDamage" = 2, "PureReduction" = 2)
 						NoStaff = 0
 						SpiritHand=1
 						SpiritFlow=1

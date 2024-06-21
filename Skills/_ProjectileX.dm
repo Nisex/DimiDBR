@@ -5410,7 +5410,7 @@ obj
 							if(src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow())
 								if(src.Owner.StyleActive!="Moonlight"&&src.Owner.StyleActive!="Astral")
 									//SpiritFlow
-									atk += clamp(Owner.GetStr(0.25), 1.1,1.4)
+									atk += clamp(Owner.GetStr(Owner.passive_handler.Get("SpiritFlow")), 1.1,1.4)
 								else
 									//Moonlight
 									atk += clamp(Owner.GetStr(0.5), 1.4,2)
