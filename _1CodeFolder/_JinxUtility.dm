@@ -2039,6 +2039,8 @@ mob
 			//these are all bad.
 			if(src.HasMaki())
 				return 1
+			if(KeybladeColor=="Darkness")
+				return 1
 			if(src.Race in EvilRaces)
 				return 1
 			if(src.Secret in EvilSecrets)
