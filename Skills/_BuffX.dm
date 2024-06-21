@@ -1222,7 +1222,7 @@ NEW VARIABLES
 								src.OffMessage="conceals █████████████.."
 						if("Masamune")
 							src.PowerMult=1.5
-							passives = list("HolyMod"=usr.SagaLevel*1.25,"Purity"=1,"Steady"=usr.SagaLevel*1.5, "PULock" = 1)
+							passives = list("HolyMod"=usr.SagaLevel*3,"Purity"=1,"Steady"=usr.SagaLevel*1.5, "PULock" = 1)
 							if(!redacted)
 								src.SwordName="Masamune"
 								src.ActiveMessage="calls forth the true form of Masamune, the Sword of Purity!"
