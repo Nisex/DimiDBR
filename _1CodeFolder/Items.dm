@@ -3,9 +3,6 @@ var/EconomyIncome=30//average gain if you invest 100 rpp
 var/EconomyCost=40//average...uh...cost.
 var/EconomyMana=100//New default for mana is 100
 
-var/MAX_BREAK_MULT = 6
-var/MAX_BREAK_VAL = 200
-
 mob/Admin3
 	verb/EconomyIncomeSet(var/num as num)
 		set category="Admin"
@@ -144,10 +141,13 @@ obj/Items
 		if(val > glob.MAX_BREAK_MULT)
 			val = glob.MAX_BREAK_MULT
 		var/breakVal = (dmg * val) * (attacker.GetOff(0.3)+(attacker.GetStr(0.3) * glob.DMG_STR_EXPONENT))
+
 		if(breakVal > glob.MAX_BREAK_VAL)
 			breakVal = glob.MAX_BREAK_VAL
+
 		if(owner.Saga=="Unlimited Blade Works")
 			breakVal*= glob.UBW_BREAK_MULTIPLIER
+
 			if(owner.UBWPath=="Firm")
 				breakVal *= glob.UBW_FIRM_BREAK_MULTIPLIER
 

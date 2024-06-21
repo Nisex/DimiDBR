@@ -302,7 +302,7 @@ mob
 						if(!src.AdaptationAnnounce)
 							src << "<b>You've adapted to your target's style!</b>"
 							src.AdaptationAnnounce=1
-// ADD HERE THE FUCKING FUTURE DIARY SHIT
+			// ADD HERE THE FUCKING FUTURE DIARY SHIT
 			if(src.HasWeaponBreaker()||defender.Saga=="Unlimited Blade Works")
 				if((defender.HasSword()||defender.HasStaff()||defender.HasArmor())&&(UnarmedAttack||SwordAttack))
 					var/obj/Items/Sword/s=defender.EquippedSword()
@@ -313,8 +313,8 @@ mob
 					var/addWeaponBreaker = 0
 					if(AttackQueue&&AttackQueue.WeaponBreaker)
 						addWeaponBreaker += AttackQueue.WeaponBreaker
-					var/breakTicks = ((GetWeaponBreaker()+addWeaponBreaker) / 3) * glob.WEAPON_BREAKER_EFFECTIVENESS
-					var/duraBoon = 2 // SWORD DURA VARS
+					var/breakTicks = ((GetWeaponBreaker()+addWeaponBreaker) / glob.WEAPON_BREAKER_DIVISOR) * glob.WEAPON_BREAKER_EFFECTIVENESS
+					var/duraBoon = glob.WEAPON_ASC_DURA_BOON // SWORD DURA VARS
 					var/duraBase = 1 // SWORD DURA VARS
 					// Breaker Vars
 					var/SwordQuality
@@ -340,24 +340,24 @@ mob
 
 					if(s)
 						if(s.Destructable)
-							s.startBreaking(val, breakTicks+shatterTier / (duraBoon * SwordQuality + duraBase), defender, src, "sword")
+							s.startBreaking(val, breakTicks+shatterTier / ((duraBoon * SwordQuality) + duraBase), defender, src, "sword")
 					if(st)
 						if(st.Destructable)
-							st.startBreaking(val, breakTicks / (duraBoon * StaffQuality + duraBase), defender, src, "staff")
+							st.startBreaking(val, breakTicks / ((duraBoon * StaffQuality) + duraBase), defender, src, "staff")
 					if(ar)
 						if(ar.Destructable)
-							ar.startBreaking(val, breakTicks / (duraBoon * ArmorQuality + duraBase), defender, src, "armor")
+							ar.startBreaking(val, breakTicks / ((duraBoon * ArmorQuality) + duraBase), defender, src, "armor")
 
 					if(defender.EquippedSecondSword())
 						var/obj/Items/Sword/s2=defender.EquippedSecondSword()
 						var/Sword2Quality=min(s2.Ascended+defender.GetSwordAscension(),6)
 						if(s2&&s2.Destructable)
-							s.startBreaking(val, breakTicks / (duraBoon * Sword2Quality + duraBase), defender, src, "sword")
+							s.startBreaking(val, breakTicks / ((duraBoon * Sword2Quality) + duraBase), defender, src, "sword")
 					if(defender.EquippedThirdSword())
 						var/obj/Items/Sword/s3=defender.EquippedThirdSword()
 						var/Sword3Quality=min(s3.Ascended+defender.GetSwordAscension(),6)
 						if(s3&&s3.Destructable)
-							s.startBreaking(val, breakTicks / (duraBoon * Sword3Quality + duraBase), defender, src, "sword")
+							s.startBreaking(val, breakTicks / ((duraBoon * Sword3Quality) + duraBase), defender, src, "sword")
 
 			// if(defender.HasWeaponBreaker())
 			// 	if((src.HasSword()||src.HasStaff()||src.HasArmor())&&(UnarmedAttack||SwordAttack))
@@ -1995,7 +1995,7 @@ mob
 			return 0
 
 		IsGood()
-			var/list/EvilRaces=list("Demon")
+			var/list/EvilRaces=list(DEMON)
 			var/list/EvilSecrets=list("Vampire", "Werewolf", "Zombie")
 			//these are all bad.
 			if(src.HasMaki())

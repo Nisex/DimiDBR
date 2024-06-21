@@ -9,38 +9,6 @@
     src<<time2text(days, "DD:MM:YYYY hh:mm:ss")
 
 
-/mob/proc/Respec1()
-    var/Refund=0
-    var/list/obj/Skills/Refundable=list("Cancel")
-    for(var/obj/Skills/S in src)
-        if((S.Copyable>0&&S.SkillCost) || istype(S, /obj/Skills/Buffs/NuStyle))
-            Refundable.Add(S)
-    for(var/obj/Skills/Choice in Refundable)
-        Refund=Choice.SkillCost
-        if(istype(Choice, /obj/Skills/Buffs/NuStyle))
-            if(Choice.SignatureTechnique > 0) Refund = 0
-            else src.SignatureSelected -= Choice.name
-            Refund += ((2**(Choice.SignatureTechnique+1)*10)) * max(0,(Choice.Mastery-1))
-        else if(Choice.Mastery>1)
-            Refund+=(Choice.SkillCost*(Choice.Mastery-1))
-        src.RPPSpendable+=Refund
-        src.RPPSpent-=Refund
-        src << "You've refunded [Choice] for [Commas(Refund)] RPP."
-        for(var/obj/Skills/S in src)
-            if(Choice&&S)
-                if(S.type==Choice.type)
-                    if(S.PreRequisite.len>0 && !istype(Choice, /obj/Skills/Buffs/NuStyle))
-                        for(var/path in S.PreRequisite)
-                            var/p=text2path(path)
-                            var/obj/Skills/oldskill=new p
-                            src.AddSkill(oldskill)
-                            src << "The prerequisite skill for [Choice], [oldskill] has been readded to your contents."
-                    del S
-        for(var/obj/Skills/Buffs/NuStyle/s in src)
-            src.StyleUnlock(s)
-
-
-
 /mob/proc/GetRPPSpendable()
     var/Total=0
     Total+=src.RPPSpendable

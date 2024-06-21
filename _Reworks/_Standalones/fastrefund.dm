@@ -3,13 +3,25 @@
     for(var/obj/Skills/Choice in P)
         if(Choice.Copyable)
             var/Refund
-            Refund=Choice.SkillCost
+            if(Choice.NewCost)
+                Refund = Choice.NewCost
+            switch(Choice.Copyable)
+                if(1) // these r maostly gone
+                    Refund = TIER_1_COST
+                if(2)
+                    Refund = TIER_1_COST
+                if(3)
+                    Refund = TIER_2_COST
+                if(4)
+                    Refund = TIER_3_COST
+                if(5)
+                    Refund = TIER_4_COST
             if(istype(Choice, /obj/Skills/Buffs/NuStyle))
                 if(Choice.SignatureTechnique > 0) Refund = 0
                 else P.SignatureSelected -= Choice.name
                 Refund += ((2**(Choice.SignatureTechnique+1)*10)) * max(0,(Choice.Mastery-1))
             else if(Choice.Mastery>1)
-                Refund+=(Choice.SkillCost*(Choice.Mastery-1))
+                Refund+=(Refund*(Choice.Mastery-1))
             if(Choice.name in P.SkillsLocked)
                 P.SkillsLocked -= Choice.name
             P.RPPSpendable+=Refund

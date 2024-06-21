@@ -1,8 +1,12 @@
 /datum/DemonRacials
 
 /mob/var/datum/DemonRacials/demon = new()
-
+/datum/DemonRacials/var/icon_to_use = 'LavaRock2.dmi'
+/datum/DemonRacials/var/states_to_use = list("")
+/datum/DemonRacials/var/layer_to_use = MOB_LAYER-0.5
 /datum/DemonRacials/var/list/BuffPassives = list()
+
+
 
 /datum/DemonRacials/var/list/DebuffPassives = list()
 

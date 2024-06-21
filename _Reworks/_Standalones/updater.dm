@@ -270,3 +270,11 @@ update
 			for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style/tranq in p)
 				tranq.passives = list("StableBP" = 0.5, "Hardening" = 1, "SpiritHand" = 1)
 			..()
+	version20
+		version = 20
+		updateMob(mob/p)
+			if(p.isRace(DEMON))
+				p << "hey ahelp to make sure u got the correct asc"
+				p << "HellPower = +0.1, AbyssMod = +0.25 SpiritPower = 0.25"
+
+			..()

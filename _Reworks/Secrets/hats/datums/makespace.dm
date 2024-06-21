@@ -6,6 +6,7 @@ spaceMaker
 		amount // if enabled only do this amount and back out after
 		tmp/turfs = list() // the list of turfs that are altered
 		stored_dmg_value = 1
+		shape = "Square"
 
 	New(time2Death, area, config, num)
 		toDeath = time2Death
@@ -29,14 +30,17 @@ spaceMaker
 // init this, makes it flexible
 	proc/makeSpace(mob/p, effect2Apply)
 		turfs = list()
-		//world.log << "Making space at [p.x], [p.y], [p.z] with [effect2Apply]"
-		var/correctLowerX = clamp(p.x - range,0 , world.maxx)
-		var/correctLowerY = clamp(p.y - range,0 , world.maxy)
-		var/correctUpperX = clamp(p.x + range,0 , world.maxx)
-		var/correctUpperY = clamp(p.y + range,0 , world.maxy)
+		world.log << "Making space at [p.x], [p.y], [p.z] with [effect2Apply]"
 		var/list/openTurfs = list()
-		for(var/turf/Turf in block(locate(correctLowerX, correctLowerY, p.z), locate(correctUpperX, correctUpperY, p.z)))
-			openTurfs += Turf
+		if(shape == "Square")
+			var/correctLowerX = clamp(p.x - range,0 , world.maxx)
+			var/correctLowerY = clamp(p.y - range,0 , world.maxy)
+			var/correctUpperX = clamp(p.x + range,0 , world.maxx)
+			var/correctUpperY = clamp(p.y + range,0 , world.maxy)
+			for(var/turf/Turf in block(locate(correctLowerX, correctLowerY, p.z), locate(correctUpperX, correctUpperY, p.z)))
+				openTurfs += Turf
+		else if(shape == "Circle")
+			openTurfs = Turf_Circle(p,range)
 		switch(configuration)
 			if("Fill")
 				var/totalApplied = 0
@@ -44,6 +48,7 @@ spaceMaker
 					if(T in turfs)
 						continue
 					if(amount && totalApplied + 1 > amount)
+						world<<"instant break?"
 						break
 					turfs += T
 					T.applyEffect(effect2Apply, toDeath, p)
@@ -73,9 +78,11 @@ spaceMaker
 
 	Demon
 		configuration = "Fill"
+		shape = "Circle"
 
 	HellFire
 		configuration = "Fill"
+		shape = "Circle"
 
 
 
@@ -85,6 +92,7 @@ spaceMaker
 /turf/var/effectApplied
 /turf/var/timeToDeath = 0
 /turf/var/tmp/mob/ownerOfEffect
+/turf/var/tmp/list/effects = list()
 /turf/proc/applyEffect(option, timer, mob/p)
 	timeToDeath = timer
 	effectApplied = option // the "[]" is not needed, but maybe u passed a number who knows
@@ -95,11 +103,14 @@ spaceMaker
 		var/num = rand(1,15)
 		var/image/i
 		if(!option?:icon_to_use)
-			i = image(icon = 'GalSpace.dmi', icon_state = "speedspace_[direction]_[num]")
+			i = image(icon = 'GalSpace.dmi', icon_state = "speedspace_[direction]_[num]", loc = src)
 		else
-			i = image(icon = option?:icon_to_use)
-		overlays+=i
-		i.alpha = 0
+			var/state = pick(option?:states_to_use)
+			i = image(icon = option?:icon_to_use, icon_state = "[state]", loc = src, layer = option?:layer_to_use)
+		i.mouse_opacity = 0
+		animate(i, alpha=0)
+		world << i
+		effects += i
 		animate(i, alpha = 255, time = 10)
 	else
 		switch(option)
@@ -119,11 +130,20 @@ spaceMaker
 	ticking_turfs -= src
 	overlays = list()
 	ownerOfEffect = null
+	for(var/image/i in effects)
+		i.loc = null
+	
+
+/turf/proc/fadeEffects()
+	for(var/image/i in effects)
+		animate(i, alpha = 0, time = 10)
 
 /turf/Update()
 	if(effectApplied) // the latter is assumed, for there's no way to get here unless it is in there, but just in case
 		//world<<"[src] ticking [effectApplied] for [timeToDeath] ticks"
 		timeToDeath--
+		if(timeToDeath == 20)
+			fadeEffects()
 		if(timeToDeath <= 0)
 			removeEffect()
 	else if(src in ticking_turfs && timeToDeath <= 0)

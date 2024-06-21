@@ -8241,6 +8241,15 @@ NEW VARIABLES
 			SwordRefinement = 0
 			ActiveMessage="'s hand grips out at air, before projecting a blade forth!"
 			OffMessage = "'s conjured blade shatters in the air!"
+			var/wooden_icon
+			var/light_icon
+			var/med_icon
+			var/heavy_icon
+			verb/Customize_Projects()
+				set category = "Other"
+				var/choice = input(usr, "What icon?") in list("wooden","light","med","heavy")
+				var/icon/i = input(usr, "selecting icon for [choice]") as icon|null
+				vars["[choice]_icon"] = i
 			verb/Projection()
 				set category="Skills"
 				if(!usr.getAriaCount())
@@ -8257,31 +8266,43 @@ NEW VARIABLES
 						if(2)
 							SwordAscension = 2
 						if(3)
-							SwordAscension = 2
-						if(4)
 							SwordAscension = 3
+						if(4)
+							SwordAscension = 4
 						if(5)
 							SwordAscension = 4
 						if(6)
-							SwordAscension = 4
+							SwordAscension = 5
 						if(7)
-							SwordAscension = 5
+							SwordAscension = 6
 						if(8 to 9)
-							SwordAscension = 5
-				passives = list("SwordAscension" = SwordAscension)
+							SwordAscension = 7
+				passives = list("SwordDamage" = SwordAscension) // so it can go over 6
 				var/classRNG = rand(1,4)
 				switch(classRNG)
 					if(1)
-						icon = 'Bokken.dmi'
+						if(wooden_icon)
+							icon = wooden_icon
+						else
+							icon = 'Bokken.dmi'
 						SwordClass = "Wooden"
 					if(2)
-						icon = 'LightSword.dmi'
+						if(light_icon)
+							icon = light_icon
+						else
+							icon = 'LightSword.dmi'
 						SwordClass = "Light"
 					if(3)
-						icon = 'MediumSword.dmi'
+						if(med_icon)
+							icon = med_icon
+						else
+							icon = 'MediumSword.dmi'
 						SwordClass = "Medium"
 					if(4)
-						icon = 'HeavySword.dmi'
+						if(heavy_icon)
+							icon = heavy_icon
+						else
+							icon = 'HeavySword.dmi'
 						SwordClass = "Heavy"
 				if(usr.getAriaCount() < 4)
 					var/RefinementRNG = rand(1,2)
@@ -8491,7 +8512,9 @@ NEW VARIABLES
 						SwordElement = "Light"
 					if(9)
 						SwordElement = "Chaos"
-					if(10 to 13)
+					if(10)
+						SwordElement = "HellFire"
+					if(11 to 13)
 						SwordElement = null
 				switch(usr.getAriaCount())
 					if(1)
@@ -8590,7 +8613,9 @@ NEW VARIABLES
 						SwordElement = "Light"
 					if(9)
 						SwordElement = "Chaos"
-					if(10 to 13)
+					if(10)
+						SwordElement = "HellFire"
+					if(11 to 13)
 						SwordElement = null
 				switch(usr.getAriaCount())
 					if(1)

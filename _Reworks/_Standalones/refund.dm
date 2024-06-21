@@ -34,7 +34,7 @@ mob/proc/refund_skill(obj/Skills/refunded_skill)
 
 
 	if(refunded_skill.Mastery>1)
-		Refund+=(refunded_skill.SkillCost*(refunded_skill.Mastery-1))
+		Refund+=(Refund*(refunded_skill.Mastery-1))
 	if(refunded_skill.name in src.SkillsLocked)
 		src.SkillsLocked -= refunded_skill.name
 
