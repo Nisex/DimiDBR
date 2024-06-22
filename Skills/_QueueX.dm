@@ -4023,7 +4023,7 @@ mob
 			if(src.AttackQueue.Decider)
 				var/DeciderDmg = getDeciderDamage(Health, P.Health)
 				if(DeciderDmg > 0)
-					Damage+=DeciderDmg
+					Damage*=DeciderDmg
 
 			if(AttackQueue.Dominator)
 				if(Health>P.Health)
@@ -4038,7 +4038,7 @@ mob
 
 			if(src.AttackQueue.Delayer)
 				var/addDamage = 1 + (clamp(src.AttackQueue.Delayer*src.AttackQueue.DelayerTime, 0.1, 3)/ glob.Q_DIVISOR)
-				Damage+=(addDamage)
+				Damage*=(addDamage)
 
 			if(src.AttackQueue.SpeedStrike>0)
 				Damage *= clamp(1,sqrt(((src.GetSpd())*(src.AttackQueue.SpeedStrike/10))),3)
