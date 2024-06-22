@@ -50,8 +50,20 @@
 		if(!User.BuffOn(src))
 			adjust(User)
 		else
-			Trigger(User, 1)
-			return
+			if(!Override && User.BuffingUp)
+				return 0
+			if(!Override)
+				User.BuffingUp++
+			if(Sealed && !Override)
+				User << "This spell is sealed!"
+				return 0
+			if(src.DashCountLimit)
+				src.DashCount=0
+			User.UseBuff(src, Override)
+			User.BuffingUp=0
+			if(!src.BuffName)
+				src.BuffName="[src.name]"
+			return 1
 		if(!Using)
 			if(User.Corruption - CorruptionCost < 0)
 				User << "Not enough corruption"
