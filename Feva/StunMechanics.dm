@@ -72,15 +72,15 @@ proc
 			if(mob.CheckSlotless("Mind Dominated")) // this should b some passive that causes this
 			// however, fuck you
 				mob << "You feel unable to clear your head."
-				return
-			var/obj/Effects/Stun/S=new
-			S.appearance_flags=66
-			mob.overlays-=S
-			mob.Stunned=0
-			mob.StasisStun=0
-			mob.overlays-='IceCoffin.dmi'
-			var/mod = (mob.HasLegendaryPower() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
-			mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))
+			else
+				var/obj/Effects/Stun/S=new
+				S.appearance_flags=66
+				mob.overlays-=S
+				mob.Stunned=0
+				mob.StasisStun=0
+				mob.overlays-='IceCoffin.dmi'
+				var/mod = (mob.HasLegendaryPower() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
+				mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))
 	StunImmuneCheck(mob/mob)
 		if(mob.StunImmune)
 			if(mob.StunImmune<world.time)
