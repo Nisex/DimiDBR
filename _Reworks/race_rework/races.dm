@@ -337,6 +337,11 @@ race
 					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/Projectile/Beams/Static_Stream, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Wind_Supremacy)
 					passives["Godspeed"] = 1
 					passives["Flicker"] = 1
+				if("Water")
+					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/AutoHit/Oceanic_Wrath, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Slithereen_Crush)
+					passives["SoftStyle"] = 1
+					passives["Fishman"] = 1
+					passives["FluidForm"] = 1
 				if("Gold")
 					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/Projectile/A_Pound_of_Gold, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Hoarders_Riches)
 					user.EconomyMult *= 2

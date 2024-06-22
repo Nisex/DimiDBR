@@ -18,7 +18,7 @@
 	Trigger(mob/p)
 		adjust(usr)
 		ManaCost = usr.ManaAmount
-		DamageMult = 5 + (ManaCost * DamageMult)
+		DamageMult = 2 + (ManaCost * DamageMult)
 		if(Using || cooldown_remaining)
 			return FALSE
 		var/aaa = p.Activate(src)
@@ -37,7 +37,7 @@
 	Cooldown = -1
 	TimerLimit = 300
 	CorruptionCost = 25
-	scalingValues = list("toDeath" = list(300,600,900,1200,1200), "range" = list(8,15,20,25,30, 30))
+	scalingValues = list("toDeath" = list(150,250,300,600,1200), "range" = list(8,15,20,25,30, 30))
 	adjust(mob/p)
 		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
 		makSpace.configuration = "Fill"
@@ -64,7 +64,7 @@
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Time
-	var/timer = list(45, 60, 90 , 120, 120)
+	var/timer = list(15, 25, 40 , 60, 120)
 	CorruptionCost = 25
 	Cooldown = -1
 	Trigger(mob/p)

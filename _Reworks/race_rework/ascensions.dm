@@ -654,6 +654,13 @@ ascension
 						force += 0.5
 						offense += 0.25
 
+					if("Water")
+						passives = list("SoftStyle" = 1, "AbsoluteZero" = 1, "LikeWater" = 2,"Flow" = 1, "Instinct" = 1)
+						strength += 0.25
+						force += 0.25
+						defense += 0.5
+
+						
 					if("Wind")
 						passives = list("VenomBlood" = 1,"BlurringStrikes" = 0.25, "Flicker" = 1, "Adrenaline" = 2)
 						speed += 0.5
@@ -683,7 +690,11 @@ ascension
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
-
+					if("Water")
+						passives = list("SoftStyle" = 1, "AbsoluteZero" = 1, "LikeWater" = 2,"Flow" = 1, "Instinct" = 1)
+						strength += 0.25
+						force += 0.25
+						defense += 0.5
 					if("Wind")
 						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1, "GodKi" = 0.05)
 						speed += 0.25
@@ -713,7 +724,11 @@ ascension
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
-
+					 if("Water")
+						passives = list("SoftStyle" = 1, "FluidForm" = 1, "GodKi" = 0.05, "Flow" = 1)
+						strength += 0.25
+						force += 0.25
+						defense += 0.25
 					if("Wind")
 						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1, "GodKi" = 0.05)
 						speed += 0.25
@@ -741,7 +756,11 @@ ascension
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
-
+					if("Water")
+						passives = list("GodKi" = 0.05, "CalmAnger" = 1, "FluidForm" = 1, "SoftStyle" = 1)
+						strength += 0.25
+						force += 0.25
+						defense += 0.25
 					if("Wind")
 						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1, "GodKi" = 0.05)
 						speed += 0.25
@@ -769,6 +788,13 @@ ascension
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
+
+					if("Water")
+						passives = list("FluidForm" = 1, "SoftStyle" = 1, "Flow" = 1, "GodKi" = 0.05)
+						strength += 0.25
+						force += 0.25
+						defense += 0.25
+
 
 					if("Wind")
 						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1, "GodKi" = 0.05)

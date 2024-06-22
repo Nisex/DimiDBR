@@ -273,6 +273,8 @@ proc
 mob
 	proc
 		AddBurn(var/Value, var/mob/Attacker=null)
+			if(src.Stasis)
+				return
 			if(src.ElementalDefense=="Wind")
 				Value*=1.5//Super Effective
 			if(Attacker && (Attacker == src ? !src.BurningShot : 1))
@@ -315,6 +317,8 @@ mob
 						OMsg(src, "<font color='[rgb(104, 153, 251)]'>[src]'s dispenser deploys a healing mist!!</font color>")
 					src.Cooled+=100
 		AddSlow(var/Value, var/mob/Attacker=null)
+			if(src.Stasis)
+				return
 			if(src.ElementalDefense=="Fire")
 				Value*=1.5//Super effective
 			if(Attacker)
@@ -339,8 +343,6 @@ mob
 			if(Value >=1)
 				animate(src, color = "#578cff")
 				animate(src, color = src.MobColor, time=5)
-
-
 				if(Attacker&&Attacker.HasAbsoluteZero())
 					src.Shatter+=Value/2
 					if(src.Shatter>100)
@@ -361,6 +363,8 @@ mob
 						OMsg(src, "<font color='[rgb(104, 153, 251)]'>[src]'s dispenser deploys a healing mist!!</font color>")
 					src.Cooled+=100
 		AddShatter(var/Value, var/mob/Attacker=null)
+			if(src.Stasis)
+				return
 			if(src.ElementalDefense=="Water")
 				Value*=1.5
 			if(Attacker)
@@ -399,6 +403,8 @@ mob
 						OMsg(src, "<font color='[rgb(104, 153, 251)]'>[src]'s dispenser deploys a healing mist!!</font color>")
 					src.Sprayed+=100
 		AddShock(var/Value, var/mob/Attacker=null)
+			if(src.Stasis)
+				return
 			if(src.ElementalDefense=="Earth")
 				Value*=1.5
 			if(Attacker)
@@ -436,6 +442,8 @@ mob
 						OMsg(src, "<font color='[rgb(104, 153, 251)]'>[src]'s dispenser deploys a healing mist!!</font color>")
 					src.Stabilized+=100
 		AddPoison(var/Value, var/mob/Attacker=null)
+			if(src.Stasis)
+				return
 			if(src.Infusion||src.VenomResistance)
 				if(src.VenomResistance)
 					src.Poison+=Value/(1+src.VenomResistance)
@@ -469,6 +477,8 @@ mob
 						OMsg(src, "<font color='[rgb(104, 153, 251)]'>[src]'s dispenser deploys a healing mist!!</font color>")
 					src.Antivenomed+=100
 		AddConfusing(var/Value, var/mob/Attacker=null)
+			if(src.Stasis)
+				return
 			src.Confused+=Value
 			if(src.Confused>100)
 				src.Confused=100
@@ -481,6 +491,8 @@ mob
 						OMsg(src, "<font color='[rgb(104, 153, 251)]'>[src]'s dispenser deploys a healing mist!!</font color>")
 					src.Stabilized+=100
 		AddShearing(var/Value, var/mob/Attacker=null)
+			if(src.Stasis)
+				return
 			Value = Value*(1-(src.Sheared/glob.DEBUFF_STACK_RESISTANCE))
 			src.Sheared+=Value
 			if(src.Sheared>100)
@@ -494,6 +506,8 @@ mob
 						OMsg(src, "<font color='[rgb(104, 153, 251)]'>[src]'s dispenser deploys a healing mist!!</font color>")
 					src.Sprayed+=100
 		AddCrippling(var/Value, var/mob/Attacker=null)
+			if(src.Stasis)
+				return
 			// if(src.isRace(MAJIN))
 			// 	if(!src.AscensionsAcquired||src.AscensionsAcquired>=3)
 			// 		Value=0
@@ -513,19 +527,27 @@ mob
 						OMsg(src, "<font color='[rgb(104, 153, 251)]'>[src]'s dispenser deploys a healing mist!!</font color>")
 					src.Sprayed+=100
 		AddAttracting(var/Value, var/mob/m)
+			if(src.Stasis)
+				return
 			src.Attracted+=Value
 			src.AttractedTo=m
 			if(src.Attracted>100)
 				src.Attracted=100
 		AddTerrifying(var/Value, var/mob/m)
+			if(src.Stasis)
+				return
 			src.Terrified+=Value
 			src.TerrifiedOf=m
 			if(src.Terrified>100)
 				src.Terrified=100
 		AddPacifying(var/Value, var/mob/Attacker=null)
+			if(src.Stasis)
+				return
 			if(!src.DemonicPower())
 				src.Calm(Pacified=1)
 		AddEnraging(var/Value, var/mob/Attacker=null)
+			if(src.Stasis)
+				return
 			src.Anger(Enraged=1)
 
 mob

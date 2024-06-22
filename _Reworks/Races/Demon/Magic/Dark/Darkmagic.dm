@@ -1,6 +1,6 @@
 
 /obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball
-    scalingValues = list("Blasts" = list(2,2,3,3,4,4), "DamageMult" = list(1,1.5,2,2.5,3), "EndRate" = list(0.85, 0.75, 0.65, 0.55, 0.45), "IconSize" = list(1, 1.15,1.25,1.5,2))
+    scalingValues = list("Blasts" = list(2,2,3,3,4,4), "DamageMult" = list(0.75,1.25,1.5,2.5,3,4), "EndRate" = list(0.85, 0.75, 0.65, 0.55, 0.45, 0.35), "IconSize" = list(1, 1.15,1.25,1.5,2))
     DamageMult = 3
     AdaptRate = 1
     IconLock='shadowflameball.dmi'

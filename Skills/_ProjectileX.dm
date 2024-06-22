@@ -5429,22 +5429,22 @@ obj
 						if(force)
 							atk += force
 							fortrig = TRUE
-							if(src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow())
+							if(src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow()) 
 								if(src.Owner.StyleActive!="Moonlight"&&src.Owner.StyleActive!="Astral")
 									//SpiritFlow
-									atk += clamp(Owner.GetStr(Owner.passive_handler.Get("SpiritFlow")), 1.1,1.4)
+									atk += Owner.GetFor(Owner.passive_handler.Get("SpiritFlow")) / 4
 								else
 									//Moonlight
-									atk += clamp(Owner.GetStr(0.5), 1.4,2)
+									atk += Owner.GetFor(Owner.passive_handler.Get("SpiritFlow")) / 2
 						if(str)
 							atk += str
 							if((src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow())&&!fortrig)
 								if(src.Owner.StyleActive!="Moonlight"&&src.Owner.StyleActive!="Astral")
 									//SpiritFlow
-									atk += clamp(Owner.GetFor(0.25), 1.1,1.4)
+									atk += Owner.GetFor(Owner.passive_handler.Get("SpiritFlow")) / 4
 								else
 									//Moonlight
-									atk += clamp(Owner.GetFor(0.5), 1.4,2)
+									atk += Owner.GetFor(Owner.passive_handler.Get("SpiritFlow")) / 2
 						if(atk<1)
 							atk=1
 						if(glob.DMG_CALC_2)

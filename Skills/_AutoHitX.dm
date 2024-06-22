@@ -2316,6 +2316,10 @@ obj
 					usr.Activate(src)
 
 ////Racial
+			Oceanic_Wrath
+
+
+
 			Fire_Breath
 				ElementalClass="Fire"
 				StrOffense=1
@@ -6143,9 +6147,9 @@ obj
 				var/dmgMulti = Damage
 				if(src.SpecialAttack&&(src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow()))
 					if(src.Owner.StyleActive!="Moonlight"&&src.Owner.StyleActive!="Astral")
-						dmgMulti += Owner.GetStr(0.25) / 5
+						dmgMulti += Owner.GetStr(Owner.passive_handler.Get("SpiritFlow")) / 4
 					else
-						dmgMulti += Owner.GetStr(0.5) / 5
+						dmgMulti += Owner.GetStr(Owner.passive_handler.Get("SpiritFlow"))  / 2
 				// powerDif += Owner.getIntimDMGReduction(m)
 				#if DEBUG_AUTOHIT
 				Owner.log2text("powerDif - Auto Hit", powerDif, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")

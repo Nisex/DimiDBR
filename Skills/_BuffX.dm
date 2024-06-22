@@ -10668,6 +10668,11 @@ NEW VARIABLES
 						if(!User.BuffOn(src))
 							adjust(User)
 						..()
+
+				Slithereen_Crush
+
+
+				
 				Melt_Down
 					// Poison Dragon Racial.
 					ActiveMessage = "begins bubbling"

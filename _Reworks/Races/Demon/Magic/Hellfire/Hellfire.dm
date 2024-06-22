@@ -26,6 +26,7 @@
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
         for(var/x in scalingValues)
+            world<<"[x] | [scalingValues[x][asc]] | [asc]"
             vars[x] = scalingValues[x][asc]
         if(p.isRace(DEMON))
             Homing = 1
@@ -42,8 +43,8 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
     ElementalClass="Fire"
-    scalingValues = list("Damage" = list(0.2,0.3,0.4,0.6,0.6,0.8), "Distance" = list(6,9,12,12,15,18), \
-    "DarknessFlame" = list(3,8,12,15,20,25), "Slow" = list(3,6,8,12,15,20), "Burning" = list(10,15,20,25,30,30), "Duration" = list(150,200,300,350,400,600), \
+    scalingValues = list("Damage" = list(0.2,0.3,0.3,0.4,0.6,0.8), "Distance" = list(6,9,12,12,15,18), \
+    "DarknessFlame" = list(3,8,12,15,20,25), "Slow" = list(3,4,6,8,12,15), "Burning" = list(5,10,15,15,20,20), "Duration" = list(150,200,300,350,400,600), \
     "Adapt" = list(1,1,1,1,1), "CorruptionGain" = list(1,1,1,1,1) )
     makSpace = new/spaceMaker/HellFire
     var/icon_to_use = 'hellstorm.dmi'
@@ -81,15 +82,15 @@
                     owner.DoDamage(target, static_damage, 0, 0 , 0 , 0 , 0 , 0 , 0)
                     owner.gainCorruption((static_damage * 1.25) * glob.CORRUPTION_GAIN)
                 if("DarknessFlame")
-                    target.AddPoison(scalingValues["Burning"][asc] * 1 + (scalingValues[x][asc] * 0.5), Attacker=owner)
+                    target.AddPoison(scalingValues["Burning"][asc] * 1 + (scalingValues[x][asc] * 0.1), Attacker=owner)
                 if("Burning")
                     target.AddBurn(scalingValues[x][asc])
                 if("Slow")
                     target.AddCrippling(scalingValues[x][asc])
         if(!target:move_disabled)
-            if(prob(25))
+            if(prob(2*asc))
                 target:move_disabled = TRUE
-                spawn(10)
+                spawn(3*asc)
                     target:move_disabled = FALSE
 
 
@@ -99,15 +100,16 @@
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat
     ElementalClass="Fire"
     scalingValues = list("CrippleAffected" = list(12,15,15,20,25,25), \
-    "PoisonAffected" = list(15,20,20,25,30,30), "BurnAffected" = list(15,20,20,25,30,30), "ConfuseAffected" = list(15, 20, 20 ,25, 30,30))
+    "PoisonAffected" = list(6,12,15,20,25,30), "BurnAffected" = list(6,12,15,20,25,30), "ConfuseAffected" = list(12,15,15,20,25,25), \
+    "TimerLimit" = list(3,6,10,15,20,25))
     ManaCost=5
-    EndYourself=1
     AffectTarget=1
     Range=10
-    SlowAffected=10
     CrippleAffected=10
     PoisonAffected = 10
     BurnAffected = 10
+    ConfuseAffected = 10
+    TimerLimit = 5
     Cooldown = 60
     ActiveMessage = "swells fire within their target."
     proc/returnToInit()
@@ -117,3 +119,7 @@
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
+    Trigger(mob/User, Override)
+        adjust(User)
+        ..()
+        
