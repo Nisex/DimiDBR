@@ -9303,7 +9303,7 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(!altered)
 						passives = list("Curse" = 1, "Godspeed" =  1+p.AscensionsAcquired, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/25,\
-						 "Pursuer" = 2, "CallousedHands" = p.secretDatum.secretVariable["Madness"]/100, \
+						 "Pursuer" = 2, "CallousedHands" = p.secretDatum.secretVariable["Madness"]/250, \
 						  "Flow" = p.secretDatum.secretVariable["Madness"]/50, "Flicker" = p.secretDatum.secretVariable["Madness"]/25)
 						PowerMult=1+(0.05+(0.05*p.secretDatum.secretVariable["Madness"]/25))
 						TimerLimit = 60 + (p.secretDatum.secretVariable["Madness"]/5)

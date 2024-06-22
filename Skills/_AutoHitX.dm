@@ -6112,6 +6112,12 @@ obj
 					atk = Owner.GetStr(StrDmg) *  1 + (Owner.GetFor(ForDmg)/10)
 				else
 					Owner << "Your auto hit could not calculate the damage it just did!! Report this !!"
+				var/dmgMulti = Damage
+				if(src.SpecialAttack&&(src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow()))
+					if(src.Owner.StyleActive!="Moonlight"&&src.Owner.StyleActive!="Astral")
+						atk += Owner.GetStr(Owner.passive_handler.Get("SpiritFlow")) / 4
+					else
+						atk += Owner.GetStr(Owner.passive_handler.Get("SpiritFlow"))  / 2
 				#if DEBUG_AUTOHIT
 				Owner.log2text("atk - Auto Hit", atk, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
@@ -6144,12 +6150,6 @@ obj
 				#if DEBUG_AUTOHIT
 				Owner.log2text("def - Auto Hit", def, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
-				var/dmgMulti = Damage
-				if(src.SpecialAttack&&(src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow()))
-					if(src.Owner.StyleActive!="Moonlight"&&src.Owner.StyleActive!="Astral")
-						dmgMulti += Owner.GetStr(Owner.passive_handler.Get("SpiritFlow")) / 4
-					else
-						dmgMulti += Owner.GetStr(Owner.passive_handler.Get("SpiritFlow"))  / 2
 				// powerDif += Owner.getIntimDMGReduction(m)
 				#if DEBUG_AUTOHIT
 				Owner.log2text("powerDif - Auto Hit", powerDif, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")

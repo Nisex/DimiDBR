@@ -26,7 +26,6 @@
     adjust(mob/p)
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
         for(var/x in scalingValues)
-            world<<"[x] | [scalingValues[x][asc]] | [asc]"
             vars[x] = scalingValues[x][asc]
         if(p.isRace(DEMON))
             Homing = 1
@@ -64,6 +63,7 @@
         makSpace.getDmg(p, src)
     verb/HellStorm()
         set category = "Skills"
+        adjust(usr)
         src.Trigger(usr)
     Trigger(mob/User, Override = 0)
         . = 1
@@ -82,7 +82,7 @@
                     owner.DoDamage(target, static_damage, 0, 0 , 0 , 0 , 0 , 0 , 0)
                     owner.gainCorruption((static_damage * 1.25) * glob.CORRUPTION_GAIN)
                 if("DarknessFlame")
-                    target.AddPoison(scalingValues["Burning"][asc] * 1 + (scalingValues[x][asc] * 0.1), Attacker=owner)
+                    target.AddPoison(scalingValues["Burning"][asc] * 1 + (scalingValues[x][asc] * 0.25), Attacker=owner)
                 if("Burning")
                     target.AddBurn(scalingValues[x][asc])
                 if("Slow")
