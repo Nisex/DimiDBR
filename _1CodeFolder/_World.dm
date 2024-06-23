@@ -331,8 +331,6 @@ proc/BootFile(var/file,var/op)
 					// DMG2_STR_EFFECTIVENESS = globalEndPower[9]
 
 					var/list/damageRolls = F["DamageRolls"]
-					global.min_damage_roll = damageRolls[1]
-					global.upper_damage_roll = damageRolls[2]
 
 
 
@@ -429,7 +427,6 @@ proc/BootFile(var/file,var/op)
 				F["GlobalDamage"]<<list(GLOBAL_MELEE_MULT,GLOBAL_POWER_MULT,GLOBAL_QUEUE_DAMAGE,GLOBAL_ITEM_DAMAGE_MULT, AUTOHIT_GLOBAL_DAMAGE)
 				// F["GlobalEndPower"]<<list(STRENGTH_EFFECTIVENESS, END_EFFECTIVENESS, FORCE_EFFECTIVENESS, STRENGTH_OVERCAP_EFFECTIVENESS, EXPERIMENTAL_ACCURACY, STRENGTH_THRESHOLD, DMG2_END_EFFECTIVENESS,DMG2_POWER_EFFECTIVENESS,DMG2_STR_EFFECTIVENESS)
 				// F["EFFECTIVENESS"]<< list(MELEE_EFFECTIVENESS, PROJECTILE_EFFECTIVNESS, GRAPPLE_EFFECTIVNESS, AUTOHIT_EFFECTIVNESS)
-				F["DamageRolls"]<<list(global.min_damage_roll, global.upper_damage_roll)
 				if(!length(redactedwords) < 1)
 					redactedwords = list()
 				F["redacted"]<<global.redactedwords
