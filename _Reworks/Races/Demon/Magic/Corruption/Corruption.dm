@@ -1,5 +1,5 @@
 /obj/Skills/AutoHit/Magic/Corruption/Corrupt_Reality
-	var/list/Upgrades = list("Primordial" = list(0.25,0.5,1,1.25,1.5,2), "DamageMult" = list(0.005,0.05,0.1,0.1,0.1,0.1))
+	var/list/Upgrades = list("Primordial" = list(0.25,0.5,1,1.25,1.5,2), "DamageMult" = list(0.05,0.15,0.25,0.3,0.4,0.5))
 	Area= "Target"
 	SpecialAttack=1
 	AdaptRate = 1
@@ -18,7 +18,7 @@
 	Trigger(mob/p)
 		adjust(usr)
 		ManaCost = usr.ManaAmount
-		DamageMult = 1 + (ManaCost * DamageMult)
+		DamageMult = 2 + (ManaCost * DamageMult)
 		if(Using || cooldown_remaining)
 			return FALSE
 		var/aaa = p.Activate(src)
@@ -111,8 +111,8 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self
 	Cooldown = -1
-	scalingValues = list("TechniqueMastery" = list(1,2,3,15,15), "ManaGeneration" = list(1,1.5,2,4,5), \
-	"MovementMastery" = list(2,3,4,6,12), "Godspeed" = list(1,2,3,4,5), "Adrenaline" = list(1,2,3,3,3), "IdealStrike" = list(1,1,1,1,1), \
+	scalingValues = list("TechniqueMastery" = list(5,5,10,15,15), "ManaGeneration" = list(1,1.5,2,4,5), \
+	"MovementMastery" = list(3,6,8,12,15), "Godspeed" = list(1,2,3,4,5), "Adrenaline" = list(1,2,3,3,3), "IdealStrike" = list(1,1,1,1,1), \
 	"FullyEffecient" = list(1,1,1,1,1), "CoolerAfterImages" = list(3,4,4,4,4), "CorruptAffected" = list(1,1,1,1,1))
 	AutoAnger = 1
 	HealthThreshold = 0.1

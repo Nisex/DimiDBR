@@ -480,21 +480,14 @@ race
 		visual = 'Eldritch.png'
 		locked = TRUE
 		power = 5
-		strength = 1.5
-		endurance = 1
-		speed = 1.25
-		offense = 2
+		strength = 2
+		endurance = 1.5
+		speed = 1.5
+		offense = 1.5
 		defense = 1
 		force = 2
 		regeneration = 3
 		imagination = 2
-		proc/findTrueForm(mob/p)
-			var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = new()
-			d = locate() in p
-			if(!d)
-				world.log << "There was an error finding [p]'s ture form, please fix as their ascension is likely bugged"
-				p << "Please report to the admin or discord that your true form is bugged on asc"
-			return d
 
 		passives = list("AbyssMod" = 0.5, "Corruption" = 1, "StaticWalk" = 1, "SpaceWalk" = 1, "CursedWounds" = 1, "FakePeace" = 1, "MartialMagic" = 1)
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2,/obj/Skills/Utility/Imitate,  /obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon, \
