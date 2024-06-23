@@ -1,12 +1,14 @@
 spaceMaker
 	var
 		toDeath
+		timer
 		range
 		configuration = "" /* Fill, Random */
 		amount // if enabled only do this amount and back out after
 		tmp/turfs = list() // the list of turfs that are altered
 		stored_dmg_value = 1
 		shape = "Square"
+		tmp/spaceMade = 0
 
 	New(time2Death, area, config, num)
 		toDeath = time2Death
@@ -63,6 +65,9 @@ spaceMaker
 						continue
 					turfs += T
 					T.applyEffect(effect2Apply, toDeath, p)
+		ticking_turfs += src
+		timer = toDeath
+		spaceMade = 1
 // below we will commit crimes
 
 	Constellation
@@ -138,13 +143,18 @@ spaceMaker
 	for(var/image/i in effects)
 		animate(i, alpha = 0, time = 10)
 
+/spaceMaker/Update()
+	timer--
+	if(timer <= 0 )
+		ticking_turfs -= src
+		timer = toDeath
+		spaceMade = 0 
+
 /turf/Update()
 	if(effectApplied) // the latter is assumed, for there's no way to get here unless it is in there, but just in case
 		//world<<"[src] ticking [effectApplied] for [timeToDeath] ticks"
 		timeToDeath--
-		if(timeToDeath == 20)
+		if(timeToDeath == 40)
 			fadeEffects()
 		if(timeToDeath <= 0)
 			removeEffect()
-	else if(src in ticking_turfs && timeToDeath <= 0)
-		removeEffect()
