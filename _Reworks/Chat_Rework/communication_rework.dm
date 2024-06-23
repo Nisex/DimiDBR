@@ -235,7 +235,7 @@ client/verb/Think(T as text)
 			Log(m.sanitizedChatLog(),"<font color=green>[usr.name] THOUGHT: [message]")
 
 	usr.CheckAFK()
-
+/*
 client/verb/Prayer(T as text)
 	set category="Roleplay"
 
@@ -248,7 +248,7 @@ client/verb/Prayer(T as text)
 			m << "A prayer reaches your eyes from [usr]...<br>[T]"
 
 	usr.CheckAFK()
-
+*/
 client/verb/Emote()
 	set category="Roleplay"
 
@@ -304,8 +304,8 @@ obj/Communication
 
 	verb/Think(T as text)
 
-
+/*
 	verb/Prayer(T as text)
-
+*/
 
 	verb/Emote()
