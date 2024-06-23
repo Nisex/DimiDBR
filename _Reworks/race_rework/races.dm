@@ -494,6 +494,16 @@ race
 						/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption)
 		var/devil_arm_upgrades = 1
 		var/sub_devil_arm_upgrades = 0
+
+		proc/findTrueForm(mob/p)
+			var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = new()
+			d = locate() in p
+			if(!d)
+				world.log << "There was an error finding [p]'s ture form, please fix as their ascension is likely bugged"
+				p << "Please report to the admin or discord that your true form is bugged on asc"
+			return d
+
+
 		proc/checkReward(mob/p)
 			var/max = round(p.Potential / 5) + 1
 

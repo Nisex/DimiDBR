@@ -177,6 +177,9 @@ globalTracker
 		NoSagaRaces = list(DEMON, DRAGON, ELF, SAIYAN)
 // combat
 
+		DEVIL_ARM_STAT_MULTS = FALSE
+
+
 		MAX_HARDEN = 20
 		DEMONIC_DURA_BASE = 0.04
 		MAX_HARDENING = 5

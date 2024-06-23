@@ -1,11 +1,11 @@
 /obj/Skills/Projectile/Magic/HellFire/Hellpyre
-    scalingValues = list("Blasts" = list(4,5,6,6,8,10), "DamageMult" = list(8,10,12,12,15,15), \
+    scalingValues = list("Blasts" = list(4,5,6,6,8,10), "DamageMult" = list(4,6,8,10,12,15), \
     "Delay" = list(8,4,3,2,1,1))
     ElementalClass="Fire"
     DamageMult = 3
     AdaptRate = 1
     IconLock='Fire Blessing.dmi'
-    IconSize=3
+    IconSize=2
     Trail='Aura_Fire_Small.dmi'
     MultiTrail = 1
     TrailDuration=5
@@ -27,13 +27,9 @@
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
-        if(p.isRace(DEMON))
-            Homing = 1
-            DarknessFlame = asc + round(p.Potential/15)
-            Scorching = asc * 10
-        else
-            DarknessFlame = round(p.Potential/15)
-            Burning = asc * 5
+        Homing = 1
+        DarknessFlame = asc + round(p.Potential/15)
+        Scorching = asc * 10
         DamageMult = (DamageMult / MultiHit) / Blasts
     verb/Hellpyre()
         set category = "Skills"
@@ -100,24 +96,27 @@
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat
     ElementalClass="Fire"
     scalingValues = list("CrippleAffected" = list(12,15,15,20,25,25), \
-    "PoisonAffected" = list(6,12,15,20,25,30), "BurnAffected" = list(6,12,15,20,25,30), "ConfuseAffected" = list(8,12,15,15,20,25), \
-    "TimerLimit" = list(3,6,10,15,20,25))
+    "PoisonAffected" = list(3,6,12,12,15,15), "BurnAffected" = list(3,6,12,15,15,15), "ConfuseAffected" = list(8,12,15,15,20,25), \
+    "TimerLimit" = list(5,8,12,15,20,25))
     ManaCost=5
     AffectTarget=1
-    Range=10
+    Range=15
     CrippleAffected=10
     PoisonAffected = 10
     ConfuseAffected = 1
     BurnAffected = 10
     TimerLimit = 5
     Cooldown = 60
+    TargetOverlay = 'DarkShock.dmi'
     ActiveMessage = "swells fire within their target."
     proc/returnToInit()
         if(!altered)
-            scalingValues = list("CrippleAffected" = list(12,15,15,20,25,25), "PoisonAffected" = list(6,12,15,20,25,30), "BurnAffected" = list(6,12,15,20,25,30), "ConfuseAffected" = list(2,4,6,8,10,10), "TimerLimit" = list(3,6,10,15,20,25))
-
+            scalingValues = list("CrippleAffected" = list(12,15,15,20,25,25), \
+    "PoisonAffected" = list(3,6,12,12,15,15), "BurnAffected" = list(3,6,12,15,15,15), "ConfuseAffected" = list(8,12,15,15,20,25), \
+    "TimerLimit" = list(5,8,12,15,20,25))
     
     adjust(mob/p)
+        returnToInit()
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]

@@ -278,3 +278,47 @@ update
 				p << "HellPower = +0.1, AbyssMod = +0.25 SpiritPower = 0.25"
 
 			..()
+	version21
+		version = 21
+		updateMob(mob/p)
+			if(p.isRace(DEMON))
+				var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.race:findTrueForm(p)
+				if(p.BuffOn(d))
+					d.Trigger(p, 1)
+				p.passive_handler.Set("HellPower", 0)
+				p << "stats changed"
+				p.stat_redo()
+
+			..()
+	version22
+		version = 22
+		updateMob(mob/p)
+			if(p.isRace(DEMON))
+				var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.race:findTrueForm(p)
+				if(p.BuffOn(d))
+					d.Trigger(p, 1)
+				p << "stats changed"
+				p.stat_redo()
+				p.passive_handler.Set("HellPower" = 0.05)
+
+			..()
+
+
+
+// Thorgigamax Gemenilove 
+
+/globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
+
+/mob/proc/gajaConversionCheck()
+	if(key in glob.COOL_GAJA_PLAYERS)
+		verbs += /mob/proc/ExchangeMinerals
+
+/mob/proc/gajaConversionRateUpdate()
+	if(isRace(GAJALAKA) && key in glob.COOL_GAJA_PLAYERS)
+		var/asc = AscensionsAcquired
+		playerExchangeRate = 0.5 + (0.25 * asc)
+		for(var/obj/Money/moni in src)
+			if(moni.Level >= 10000)
+				var/boon = round(moni.Level * 0.00001, 0.1)
+				playerExchangeRate += boon
+

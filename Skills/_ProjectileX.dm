@@ -1307,8 +1307,8 @@ obj
 				NewCopyable = 2
 				SkillCost=80
 				Copyable=3
-				Blasts=8
-				DamageMult=3
+				Blasts=16
+				DamageMult=1.25
 				Radius=1
 				AccMult=50
 				Deflectable=0
@@ -1318,9 +1318,9 @@ obj
 				LockX=0
 				LockY=0
 				ZoneAttack=1
-				ZoneAttackX=4
-				ZoneAttackY=4
-				Hover=4
+				ZoneAttackX=7
+				ZoneAttackY=7
+				Hover=8
 				FireFromSelf=1
 				FireFromEnemy=0
 				Cooldown=30
@@ -3305,7 +3305,7 @@ obj
 					Piercing=1
 					PiercingBang=1
 					AccMult = 1.175
-					EndRate = 0.001
+					EndRate = 0.25
 					Dodgeable=-1
 					Deflectable=-1
 					Speed=0

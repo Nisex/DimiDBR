@@ -361,12 +361,13 @@ ascension
 
 
 	eldritch
+
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			endurance = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15,)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(2, owner)
 				..()
@@ -375,7 +376,7 @@ ascension
 			endurance = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25,"SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(3, owner)
 				..()
@@ -387,7 +388,7 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5,"SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(4, owner)
 				..()
@@ -399,7 +400,7 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(5, owner)
 				..()
@@ -411,7 +412,7 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(6, owner)
 				..()

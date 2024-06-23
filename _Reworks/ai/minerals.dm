@@ -45,8 +45,10 @@
 // we need an npc that when clicked will exchange these
 // we also need an exchange for the player that can do it
 /mob/Admin4/verb/GiveExchangeVerb()
-
     var/mob/p = input(src, "Pick a player", "Player") in players
+    if(p.isRace(GAJALAKA) && !(key in glob.COOL_GAJA_PLAYERS))
+        src << "do not give random gajas exchange"
+        return
     p.verbs += /mob/proc/ExchangeMinerals
 
 /mob/Admin4/verb/makeExchanger()
@@ -87,6 +89,8 @@
 globalTracker/var/NORMAL_EXCHANGE_RATE = 0.5
 
 /proc/exchangeMineral(obj/Items/mineral/mineral, mob/p, obj/Exchange/npc/npc)
+    p.gajaConversionRateUpdate()
+    p << "Your rate of conversion is [p.playerExchangeRate]"
     var/howMany = input(p, "How many would you like to exchange?") as num
     if(howMany > mineral.value) howMany = mineral.value
     if(howMany < 1) howMany = 1

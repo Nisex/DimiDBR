@@ -9302,14 +9302,14 @@ NEW VARIABLES
 			True_Form
 				adjust(mob/p)
 					if(!altered)
-						passives = list("Curse" = 1, "Godspeed" =  1+p.AscensionsAcquired, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/25,\
+						passives = list("Curse" = 1, "Godspeed" =  1+p.AscensionsAcquired, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/50,\
 						 "Pursuer" = 2, "CallousedHands" = p.secretDatum.secretVariable["Madness"]/250, \
 						  "Flow" = p.secretDatum.secretVariable["Madness"]/50, "Flicker" = p.secretDatum.secretVariable["Madness"]/25)
 						PowerMult=1+(0.05+(0.05*p.secretDatum.secretVariable["Madness"]/25))
-						TimerLimit = 60 + (p.secretDatum.secretVariable["Madness"]/5)
+						passives["PureReduction"] = p.AscensionsAcquired
+						TimerLimit = 30 + (p.secretDatum.secretVariable["Madness"]/5)
 
 				HealthThreshold=0.1
-				AutoAnger=1
 				KenWave=4
 				KenWaveIcon='DarkKiai.dmi'
 				HitSpark='Hit Effect Vampire.dmi'
@@ -9323,7 +9323,7 @@ NEW VARIABLES
 				HitX=-32
 				HitY=-32
 				TimerLimit=60
-				Cooldown = 1
+				Cooldown = 120
 				ActiveMessage="unravels into a mind-rending series of shapes and textures!"
 				OffMessage="slowly becomes 3D once again..."
 				TextColor=rgb(153, 0, 0)
@@ -10580,17 +10580,19 @@ NEW VARIABLES
 					adjust(mob/p)
 						if(altered) return
 						var/asc = p.AscensionsAcquired
-						if(p.Shatter)
-							if(p.Shatter >= 10)
-								VaizardHealth = p.Shatter/80
-							else
-								VaizardHealth = p.Shatter/10
+						// if(p.Shatter)
+						// 	if(p.Shatter >= 10)
+						// 		VaizardHealth = p.Shatter/80
+						// 	else
+						// 		VaizardHealth = p.Shatter/10
 						DebuffReversal = 1
 						InjuryImmune = 1
-						passives = list("DebuffReversal" = 1, "CallousedHands" = asc * 0.15, "BlockChance" = 10 * asc, "CriticalBlock" = 0.25 + (asc * 0.25), "InjuryImmune" = 1)
+						VaizardHealth = (0.25 + (0.25 * asc)) + (p.GetEnd() / 20)
+						passives = list( "CallousedHands" = asc * 0.15, "BlockChance" = 5 + 5 * asc, "CriticalBlock" = 0.1 + (asc * 0.1), "InjuryImmune" = 1, \
+						 "Hardening" = 0.25 * asc, "HeavyHitter" = asc/4)
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
-							shellSmash(User)
+							// shellSmash(User)
 							adjust(User)
 						..()
 
@@ -10746,8 +10748,10 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(altered) return
 					var/asc = p.AscensionsAcquired
-					passives = list("Unstoppable" = 1, "LifeSteal" = 7.5+asc, "Instinct" = 1+(asc/2), "Flicker" = 1+(asc/2))
-					VaizardHealth = 1.25+(asc/2)
+					passives = list("Unstoppable" = 1, "Hardening" = 1 + (0.5 * asc), "LifeSteal" = 1.5*asc, "Godspeed" = 1+(asc), "SweepingStrike" = 1)
+					VaizardHealth = p.GetEnd() + (p.TotalInjury/25) + (asc)  
+					VaizardHealth/= 10
+					// this was 17.5% guys lol
 					if(asc>=1)
 						if(!locate(/obj/Skills/AutoHit/Symbiote_Tendril_Wave, p.AutoHits))
 							p.AddSkill(new/obj/Skills/AutoHit/Symbiote_Tendril_Wave)

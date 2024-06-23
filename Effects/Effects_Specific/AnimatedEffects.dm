@@ -101,6 +101,8 @@ proc
 			animate(i3, alpha=0, time=2)
 			sleep(2)
 			del i
+			del i2
+			del i3
 
 
 	LeaveTrail(var/Trail, var/PX=0, var/PY=0, var/Dir, var/turf/Location, var/Time, var/Size, var/State)

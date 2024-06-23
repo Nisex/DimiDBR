@@ -1,5 +1,5 @@
 /obj/Skills/AutoHit/Magic/Corruption/Corrupt_Reality
-	var/list/Upgrades = list("Primordial" = list(0.25,0.5,1,1.25,1.5,2), "DamageMult" = list(0.05,0.15,0.25,0.3,0.4,0.5))
+	var/list/Upgrades = list("Primordial" = list(0.25,0.5,1,1.25,1.5,2), "DamageMult" = list(0.05,0.075,0.1,0.125,0.15,0.2))
 	Area= "Target"
 	SpecialAttack=1
 	AdaptRate = 1
@@ -18,7 +18,7 @@
 	Trigger(mob/p)
 		adjust(usr)
 		ManaCost = usr.ManaAmount
-		DamageMult = 2 + (ManaCost * DamageMult)
+		DamageMult = 1 + (ManaCost * DamageMult)
 		if(Using || cooldown_remaining)
 			return FALSE
 		var/aaa = p.Activate(src)
@@ -28,7 +28,7 @@
 		set category = "Skills"
 		adjust(usr)
 		ManaCost = usr.ManaAmount
-		DamageMult = 5 + (ManaCost * DamageMult)
+		DamageMult = 1 + (ManaCost * DamageMult)
 		usr.Activate(src)
 
 
@@ -111,9 +111,9 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self
 	Cooldown = -1
-	scalingValues = list("TechniqueMastery" = list(5,5,10,15,15), "ManaGeneration" = list(1,1.5,2,4,5), \
-	"MovementMastery" = list(3,6,8,12,15), "Godspeed" = list(1,2,3,4,5), "Adrenaline" = list(1,2,3,3,3), "IdealStrike" = list(1,1,1,1,1), \
-	"FullyEffecient" = list(1,1,1,1,1), "CoolerAfterImages" = list(3,4,4,4,4), "CorruptAffected" = list(1,1,1,1,1))
+	scalingValues = list("TechniqueMastery" = list(2,3,3,5,10,10), "ManaGeneration" = list(1,1.5,2,2,4,5), \
+	"MovementMastery" = list(3,5,7,8,10), "Godspeed" = list(1,2,3,4,5), "Adrenaline" = list(1,2,2,3,3,3), "IdealStrike" = list(1,1,1,1,1,1), \
+	"FullyEffecient" = list(1,1,1,1,1,1), "CoolerAfterImages" = list(3,4,4,4,4,4), "CorruptAffected" = list(1,1,1,1,1,1))
 	AutoAnger = 1
 	HealthThreshold = 0.1
 	KenWave=3
@@ -133,9 +133,9 @@
 		EndMult = 1
 		scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self::scalingValues
 		var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/)
-		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired : 1
+		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
 		var/pacts = p.demon.PactsTaken
-		var/boon = (pacts * 0.05) + (0.05 * asc)
+		var/boon = (pacts * 0.05) + (0.05 * (asc - 1))
 		if(!d)
 			p << "Error in setting up Corrupt Self pls gmhelp"
 		passives = d.passives.Copy()
@@ -148,7 +148,7 @@
 			passives["CallousedHands"] = asc/5
 			EndMult = 1 + boon
 		PowerMult = 1 + boon
-		TimerLimit = 80 + (pacts * 15) + (asc * 15)
+		TimerLimit = 60 + (pacts * 15) + (asc * 15)
 		// put it on cd
 	verb/Adjust_Name()
 		NameFake = input(src, "What name?") as text

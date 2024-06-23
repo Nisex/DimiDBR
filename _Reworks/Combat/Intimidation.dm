@@ -67,6 +67,8 @@
         Effective*=src.GetGodKi()*50
     if(isRace(DEMON) || src.CheckSlotless("Majin"))
         Effective*=1 + (src.Potential/25)
+    if(isRace(DRAGON))
+        Effective += AscensionsAcquired * 25
     if(src.isRace(MAJIN))
         var/unhingedBoon = Class == "Unhinged" ? 1 : 0
         if(unhingedBoon)
