@@ -242,6 +242,35 @@ race
 		anger = 1.5
 		learning = 1.5
 
+
+	half_saiyan
+		name = "Half-Saiyan"
+		desc = "Creatures that shouldn't exist."
+		visual = 'Halfie.png'
+
+		locked = TRUE
+		power = 2
+		strength = 1.25
+		endurance = 1.25
+		force = 1.25
+		offense = 1
+		defense = 1.5
+		speed = 1
+		anger = 1.5
+		regeneration = 1.5
+		imagination = 1
+		intellect = 1
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Oozaru)
+		passives = list("Desperation" = 0.5, "TechniqueMastery" = 1, "Brutalize" = 0.25, "Adrenaline" = 0.25)
+
+		onFinalization(mob/user)
+			..()
+			user.Tail(1)
+
+
+
+
+
 	saiyan
 		name = "Saiyan"
 		desc = "Otherworldly outsiders, hailing from an empire of Yasai."
@@ -324,7 +353,7 @@ race
 		imagination = 2
 
 		onFinalization(mob/user)
-			user.Class = input(user,"Pick an element to represent you.", "Dragon Element") in list("Fire","Metal", "Gold", "Wind", "Poison")
+			user.Class = input(user,"Pick an element to represent you.", "Dragon Element") in list("Fire","Metal", "Gold", "Wind", "Poison", "Water")
 			switch(user.Class)
 				if("Fire")
 					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/AutoHit/Fire_Breath, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Heat_Of_Passion)
