@@ -8,7 +8,7 @@
     Cooldown=20
     PhysicalHitsLimit = 0
     adjust(mob/p)
-        var/asc = p.HellRisen * 4
+        var/asc = p.passive_handler.Get("HellRisen") * 4
         TimerLimit = 2 + (asc/2)
         Cooldown = 20 - (asc*2)
         Shattering = 5 + (asc*2.5)

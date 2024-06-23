@@ -98,7 +98,7 @@ var/global/MULTIHIT_NERF = FALSE
 	// 				WEAPON DAMAGE END		//
 
 	// 				BLADE MODE 				//
-	if(HellRisen && hasTarget())
+	if(passive_handler.Get("HellRisen") && hasTarget())
 		if(isDominating(Target))
 			if(!CheckSlotless("Dominating"))
 				if(Target.Stunned || Target.Launched)
@@ -115,7 +115,7 @@ var/global/MULTIHIT_NERF = FALSE
 
 
 
-	if(BladeMode && !HellRisen)
+	if(BladeMode && !passive_handler.Get("HellRisen"))
 		if(Target)
 			if(!CheckSlotless("Blade Mode"))
 				if(Target.Launched || Target.Stunned)
@@ -279,7 +279,7 @@ var/global/MULTIHIT_NERF = FALSE
 				damage *= damageMultiplier
 		// 				GIANT FORM 				//
 				if(enemy.passive_handler.Get("GiantForm") || enemy.HasLegendaryPower() >= 1)
-					var/modifier = upper_damage_roll / 4
+					var/modifier = glob.upper_damage_roll / 4
 					dmgRoll = GetDamageMod(0, -modifier)
 					#if DEBUG_MELEE
 					log2text("Damageroll", "After GiantForm", "damageDebugs.txt", "[ckey]/[name]")
@@ -642,7 +642,7 @@ var/global/MULTIHIT_NERF = FALSE
 							//TODO ARMOR AT THE END
 							if(defArmor&&!passive_handler.Get("ArmorPeeling"))
 								var/dmgEffective = enemy.GetArmorDamage(defArmor)
-								damage -=  damage * dmgEffective/10
+								damage -=  damage * dmgEffective/10 
 								#if DEBUG_MELEE
 								log2text("damage", "After Armor", "damageDebugs.txt", "[ckey]/[name]")
 								log2text("damage", damage, "damageDebugs.txt", "[ckey]/[name]")
@@ -714,7 +714,7 @@ var/global/MULTIHIT_NERF = FALSE
 									summonMonkeySoldier(damage, passive_handler.Get("MonkeyKing"))
 
 							if(UsingAnsatsuken())
-								HealMana(clamp(damage * SagaLevel, 1, 20), 1)
+								HealMana(clamp(damage * SagaLevel, 0.05, 20), 1)
 							if(GetAttracting())
 								enemy.AddAttracting(GetAttracting(), src)
 					// 										OTHER DMG START 															//
@@ -740,7 +740,7 @@ var/global/MULTIHIT_NERF = FALSE
 
 							if(otherDmg >= 5 || AttackQueue&&QueuedKBAdd()||SureKB)
 								if(!shocked)
-									KenShockwave(enemy, Size=clamp(otherDmg * rand(0.04,0.4), 0.1, 1.5), PixelX = disperseX, PixelY = disperseY, Time=4)
+									KenShockwave(enemy, Size=clamp(otherDmg * randValue(0.04,0.4), 0.1, 1.5), PixelX = disperseX, PixelY = disperseY, Time=4)
 									var/quakeIntens = otherDmg
 									if(quakeIntens>24)
 										quakeIntens=24

@@ -136,10 +136,13 @@ SecretInfomation
 
 	Haki
 		name = "Haki"
-		givenSkills = list("/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Armament", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Observation", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Armor_Lite", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Armor", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Shield_Lite", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Shield", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Relax_Lite", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Relax", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Future_Flash_Lite", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Future_Flash")
+		givenSkills = list("/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Armament", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Observation", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Armor_Lite", \
+		"/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Armor", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Shield_Lite", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Shield", \
+		"/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Relax_Lite", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Relax", "/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Future_Flash_Lite", \
+		"/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Future_Flash")
 		secretVariable = list("HakiSpecialization", "HakiCounterArmament", "HakiCounterObservation", "ConquerorsHaki")
 		proc/conQHaki(mob/p)
-			if(p.Race != "Human")
+			if(!(p.race.name in glob.CONQ_HAKI_RACES))
 				return 0
 			if(prob(2.5*currentTier) && secretVariable["ConquerorsHaki"] != 1)
 				unlockConquerorsHaki(p)

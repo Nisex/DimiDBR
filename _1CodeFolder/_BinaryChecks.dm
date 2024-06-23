@@ -687,8 +687,8 @@ mob
 			var/Return=0
 			Return+=passive_handler.Get("Pursuer")
 			if(Target)
-				if(isDominating(Target) && HellRisen)
-					Return += HellRisen * 2
+				if(isDominating(Target) && passive_handler.Get("HellRisen"))
+					Return += passive_handler.Get("HellRisen") * 2
 			if(src.Saga=="Eight Gates")
 				Return+=2
 			if(src.Race=="Alien" && src.AscensionsAcquired>=5)
@@ -732,8 +732,8 @@ mob
 			if(src.KamuiBuffLock)
 				Return += 2
 			if(Target)
-				if(HellRisen  && isDominating(Target))
-					Return += clamp((HellRisen*2), 1, 2)
+				if(passive_handler.Get("HellRisen")  && isDominating(Target))
+					Return += clamp((passive_handler.Get("HellRisen")*2), 1, 2)
 			return Return
 		HasDeathField()
 			if(passive_handler.Get("DeathField"))
@@ -762,8 +762,8 @@ mob
 			. = 0
 			. += passive_handler.Get("MortalStrike")
 			if(Target)
-				if(isDominating(Target) && HellRisen >= 0.75)
-					. += HellRisen/4
+				if(isDominating(Target) && passive_handler.Get("HellRisen") >= 0.75)
+					. += passive_handler.Get("HellRisen")/4
 			if(isHalfDemon())
 				. += 0.15 * src.AscensionsAcquired
 			return .
@@ -1023,7 +1023,7 @@ mob
 			if(src.TarotFate=="The World")
 				return 1
 			if(Target)
-				if(isDominating(Target) && HellRisen)
+				if(isDominating(Target) && passive_handler.Get("HellRisen"))
 					return 1
 			return 0
 		GetTechniqueMastery()
@@ -1034,7 +1034,7 @@ mob
 			if(UsingMasteredMartialStyle())
 				Return += 0.5
 			if(Target)
-				if(isDominating(Target) && HellRisen >= 0.75)
+				if(isDominating(Target) && passive_handler.Get("HellRisen") >= 0.75)
 					Return += AscensionsAcquired-2
 			if(src.TarotFate=="The World")
 				Return+=5
@@ -1321,8 +1321,8 @@ mob
 			var/Return=BaseOff()/4
 			Return+=passive_handler.Get("Instinct")
 			if(Target)
-				if(isDominating(Target) && HellRisen)
-					Return += HellRisen * 2
+				if(isDominating(Target) && passive_handler.Get("HellRisen"))
+					Return += passive_handler.Get("HellRisen") * 2
 			var/t=src.HighestTrans()
 			if(round(t/4))
 				Return+=1
