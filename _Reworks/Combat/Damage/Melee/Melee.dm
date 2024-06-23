@@ -122,7 +122,9 @@ var/global/MULTIHIT_NERF = FALSE
 					if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Blade_Mode, src)) // TODO maybe change this so its better
 						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Blade_Mode)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Blade_Mode/bm in src)
+
 						if(!bm.Using)
+							bm.passives = /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Blade_Mode::passives
 							animate(client, color = list(0.5,0.5,0.55, 0.6,0.6,0.66, 0.31,0.31,0.37, 0,0,0), time = 3)
 							bm.Trigger(src)
 
