@@ -170,8 +170,9 @@ mob/Players
 		
 		if(isRace(DEMON))
 			for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/s in src)
-				for(var/obj/Skills/ss in s.possible_skills)
-					ss:returnToInit()
+				for(var/ss in s.possible_skills)
+					for(var/obj/Skills/sss in s.possible_skills[ss])
+						sss:returnToInit()
 
 		if(isplayer(src))
 			move_speed = MovementSpeed()
