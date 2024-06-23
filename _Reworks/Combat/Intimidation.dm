@@ -66,9 +66,7 @@
     if(src.ShinjinAscension=="Makai")
         Effective*=src.GetGodKi()*50
     if(isRace(DEMON) || src.CheckSlotless("Majin"))
-        Effective*=(src.Potential/2)
-        if(src.isRace(DEMON)&&src.AscensionsAcquired>=5)
-            Effective*=2
+        Effective*=1 + (src.Potential/25)
     if(src.isRace(MAJIN))
         var/unhingedBoon = Class == "Unhinged" ? 1 : 0
         if(unhingedBoon)

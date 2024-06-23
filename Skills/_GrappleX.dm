@@ -451,7 +451,7 @@ obj/Skills/Grapple
 							itemDmg = ( User.GetSwordDamage(sw))
 						else if(st)
 							itemDmg = ( User.GetStaffDamage(st))
-					itemDmg *= GLOBAL_ITEM_DAMAGE_MULT
+					itemDmg *= glob.GLOBAL_ITEM_DAMAGE_MULT
 				var/unarmedBoon = !NeedsSword ? GRAPPLE_MELEE_BOON : 1
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple Item Damage", itemDmg, "damageDebugs.txt", User.ckey)

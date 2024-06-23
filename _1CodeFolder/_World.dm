@@ -302,20 +302,10 @@ proc/BootFile(var/file,var/op)
 						F["archive"]>>archive
 					archive.loadAGs()
 
-
-					var/list/globalDamage = F["GlobalDamage"]
-
 					// MELEE_EFFECTIVENESS = EFFECTIVES[1]
 					// PROJECTILE_EFFECTIVNESS = EFFECTIVES[2]
 					// GRAPPLE_EFFECTIVNESS = EFFECTIVES[3]
 					// AUTOHIT_EFFECTIVNESS = EFFECTIVES[4]
-
-
-					GLOBAL_MELEE_MULT = globalDamage[1]
-					GLOBAL_POWER_MULT = globalDamage[2]
-					GLOBAL_QUEUE_DAMAGE = globalDamage[3]
-					GLOBAL_ITEM_DAMAGE_MULT = globalDamage[4]
-					AUTOHIT_GLOBAL_DAMAGE = globalDamage[5]
 
 
 
@@ -329,10 +319,6 @@ proc/BootFile(var/file,var/op)
 					// DMG2_END_EFFECTIVENESS = globalEndPower[7]
 					// DMG2_POWER_EFFECTIVENESS = globalEndPower[8]
 					// DMG2_STR_EFFECTIVENESS = globalEndPower[9]
-
-					var/list/damageRolls = F["DamageRolls"]
-
-
 
 				if(fexists("Saves/Rules"))
 					var/savefile/S=new("Saves/Rules")
@@ -424,9 +410,6 @@ proc/BootFile(var/file,var/op)
 				if(archive)
 					archive.AGs = list() // this will delete the AGs list, it should just track whatever is in game vs whatever exist period to avoid any issues
 					F["archive"] << archive
-				F["GlobalDamage"]<<list(GLOBAL_MELEE_MULT,GLOBAL_POWER_MULT,GLOBAL_QUEUE_DAMAGE,GLOBAL_ITEM_DAMAGE_MULT, AUTOHIT_GLOBAL_DAMAGE)
-				// F["GlobalEndPower"]<<list(STRENGTH_EFFECTIVENESS, END_EFFECTIVENESS, FORCE_EFFECTIVENESS, STRENGTH_OVERCAP_EFFECTIVENESS, EXPERIMENTAL_ACCURACY, STRENGTH_THRESHOLD, DMG2_END_EFFECTIVENESS,DMG2_POWER_EFFECTIVENESS,DMG2_STR_EFFECTIVENESS)
-				// F["EFFECTIVENESS"]<< list(MELEE_EFFECTIVENESS, PROJECTILE_EFFECTIVNESS, GRAPPLE_EFFECTIVNESS, AUTOHIT_EFFECTIVNESS)
 				if(!length(redactedwords) < 1)
 					redactedwords = list()
 				F["redacted"]<<global.redactedwords

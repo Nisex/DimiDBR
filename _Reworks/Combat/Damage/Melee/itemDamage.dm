@@ -47,7 +47,7 @@
 	log2text("Damage", returnValues[3], "damageDebugs.txt", "[ckey]/[name]")
 	#endif
 	if(returnValues[3] > 0)
-		returnValues[3] *= GLOBAL_ITEM_DAMAGE_MULT
+		returnValues[3] *= glob.GLOBAL_ITEM_DAMAGE_MULT
 		#if DEBUG_ITEM_DAMAGE
 		log2text("Damage", "Item dmg mod after global", "damageDebugs.txt", "[ckey]/[name]")
 		log2text("Damage", returnValues[3], "damageDebugs.txt", "[ckey]/[name]")

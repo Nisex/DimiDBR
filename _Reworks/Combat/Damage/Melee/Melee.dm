@@ -648,7 +648,7 @@ var/global/MULTIHIT_NERF = FALSE
 								log2text("damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 								#endif
 
-							damage *= GLOBAL_MELEE_MULT
+							damage *= glob.GLOBAL_MELEE_MULT
 							#if DEBUG_MELEE
 							log2text("Damage", "After Global Multiplier", "damageDebugs.txt", "[ckey]/[name]")
 							log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")

@@ -4056,8 +4056,8 @@ mob
 			if(src.AttackQueue.DamageMult>=0)
 				var/dmgMult = src.AttackQueue.DamageMult
 				Damage*=dmgMult
-			if(Damage>0 && GLOBAL_QUEUE_DAMAGE > 0)
-				Damage *= GLOBAL_QUEUE_DAMAGE
+			if(Damage>0 && glob.GLOBAL_QUEUE_DAMAGE > 0)
+				Damage *= glob.GLOBAL_QUEUE_DAMAGE
 
 			return Damage
 		QueuedAccuracy()

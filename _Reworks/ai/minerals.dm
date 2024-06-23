@@ -83,7 +83,8 @@
             if(m.value >= cost)
                 m.Reduce(cost)
 
-
+/mob/var/playerExchangeRate = 0.5
+globalTracker/var/NORMAL_EXCHANGE_RATE = 0.5
 
 /proc/exchangeMineral(obj/Items/mineral/mineral, mob/p, obj/Exchange/npc/npc)
     var/howMany = input(p, "How many would you like to exchange?") as num
@@ -99,7 +100,7 @@
             p << "You exchange [howMany] Mana Bits for [howMany * glob.NPC_EXCHANGE_RATE] Dollars."
             p.GiveMoney(howMany * glob.NPC_EXCHANGE_RATE)
     else
-        var/exchangeRate = getExchangeRate(p.information.faction)
+        var/exchangeRate = p.playerExchangeRate
         p.GiveMoney(howMany * exchangeRate)
         p << "You exchange [howMany] Mana Bits for [howMany * exchangeRate] Dollars."
     mineral.Reduce(howMany)
