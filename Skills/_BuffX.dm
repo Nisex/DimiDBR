@@ -9322,7 +9322,7 @@ NEW VARIABLES
 				LockY = -32
 				HitX=-32
 				HitY=-32
-				TimerLimit=60
+				TimerLimit=30
 				Cooldown = 120
 				ActiveMessage="unravels into a mind-rending series of shapes and textures!"
 				OffMessage="slowly becomes 3D once again..."
