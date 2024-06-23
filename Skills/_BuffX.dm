@@ -9042,7 +9042,7 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
-					passives = list("PureReduction" = clamp(secretLevel,2,3), "Deflection" = clamp(secretLevel,2,3), "CounterMaster" = clamp(secretLevel,2,5), "KBAdd" = 3)
+					passives = list("PureReduction" = clamp(secretLevel,1,3), "Deflection" = clamp(secretLevel,1,3), "CounterMaster" = clamp(secretLevel,2,5), "KBAdd" = 3)
 					TimerLimit = 15 + (5 * secretLevel)
 				Trigger(mob/User, Override = 1)
 					if(!User.BuffOn(src))
