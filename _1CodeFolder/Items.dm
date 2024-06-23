@@ -763,7 +763,7 @@ obj/Items/Armor
 	Mobile_Armor
 		name="Armored Vest"
 		Class="Light"
-		DamageEffectiveness=1.1
+		DamageEffectiveness=0.25
 		AccuracyEffectiveness=0.95
 		SpeedEffectiveness=0.85
 		ShatterCounter=200
@@ -774,7 +774,7 @@ obj/Items/Armor
 	Balanced_Armor
 		name="Standard Armor"
 		Class="Medium"
-		DamageEffectiveness=1.2
+		DamageEffectiveness=0.5
 		AccuracyEffectiveness=0.9
 		SpeedEffectiveness=0.8
 		ShatterCounter=300
@@ -785,7 +785,7 @@ obj/Items/Armor
 	Plated_Armor
 		name="Plated Armor"
 		Class="Heavy"
-		DamageEffectiveness=1.3
+		DamageEffectiveness=0.75
 		AccuracyEffectiveness=0.8
 		SpeedEffectiveness=0.6
 		ShatterCounter=400
