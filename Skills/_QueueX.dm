@@ -3129,7 +3129,7 @@ obj
 					ManaCost = 0
 					Launcher=2
 					var/sagaLevel = player.SagaLevel
-					var/damage = clamp(1.8*(sagaLevel/2), 1.8, 7)
+					var/damage = clamp(1.5*(sagaLevel), 0.75, 6)
 					var/path = player.AnsatsukenPath == "Shoryuken" ? 1 : 0
 					var/manaCost = 35 // how much u need for ex
 					var/cooldown = 40
@@ -3139,7 +3139,7 @@ obj
 					if(path)
 						manaCost -= 10
 						cooldown -= 15
-						damage =  clamp(2*(sagaLevel/2), 2, 8)
+						damage =  clamp(1.75*(sagaLevel), 1, 8)
 						hitMessage = "strikes their opponent into the air with a fearsome uppercut!!"
 					if(player.AnsatsukenAscension=="Satsui")
 						Shattering *= 1.25
@@ -3150,9 +3150,9 @@ obj
 						Launcher=6
 						hitMessage = "unleashes the power of the Dragon with an overpowering uppercut!"
 						if(path)
-							damage =  clamp(4*(sagaLevel/2), 4, 16)
+							damage =  clamp(2.25*(sagaLevel/2), 2, 16)
 						else
-							damage = clamp(3*(sagaLevel/2), 3, 12)
+							damage = clamp(2*(sagaLevel), 2, 12)
 
 					DamageMult = damage
 					HitMessage = hitMessage

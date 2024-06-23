@@ -4465,22 +4465,22 @@ obj
 				proc/alter(mob/player)
 					ManaCost = 0
 					var/sagaLevel = player.SagaLevel
-					var/damage = clamp(0.2 * (usr.SagaLevel/2), 0.2, 1)
+					var/damage = clamp(0.2 * (usr.SagaLevel), 0.2, 0.8)
 					var/path = player.AnsatsukenPath == "Tatsumaki" ? 1 : 0
 					var/manaCost = 25 // how much u need for ex
-					var/rounds = clamp(1 + (usr.SagaLevel/2), 3, 8)
+					var/rounds = clamp(1 + (usr.SagaLevel), 2, 8)
 					var/cooldown = 50
 					var/launch = 0
 					if(path)
 						cooldown = 30
 						manaCost -= 10
-						damage = clamp(0.35 * (usr.SagaLevel/2), 0.35, 1.5)
-						rounds = clamp(usr.SagaLevel, 3, 8)
+						damage = clamp(0.3 * (usr.SagaLevel), 0.35, 1.5)
+						rounds = 1 + clamp(usr.SagaLevel, 2, 8)
 
 
 					if(player.ManaAmount>=manaCost && sagaLevel >= 2)
-						damage = clamp(0.4 * (usr.SagaLevel/2), 0.4, 2)
-						rounds = clamp(2 + usr.SagaLevel, 4, 11)
+						damage = clamp(0.4 * (usr.SagaLevel), 0.4, 2)
+						rounds = clamp(2 + usr.SagaLevel, 3, 11)
 						ManaCost = 35
 						launch = 3
 						ActiveMessage="rises high in the air with a terrifying whirlwind of kicks!!"
@@ -6126,7 +6126,7 @@ obj
 				Owner.log2text("dmg roll - Auto Hit", dmgRoll, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
 				if(m.passive_handler.Get("GiantForm") || m.HasLegendaryPower() >= 1)
-					var/mod = upper_damage_roll / 4
+					var/mod = glob.upper_damage_roll / 4
 					dmgRoll = Owner.GetDamageMod(0, mod)
 					#if DEBUG_AUTOHIT
 					Owner.log2text("dmg roll - Auto Hit", "After GiantForm", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")

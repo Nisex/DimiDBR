@@ -2896,7 +2896,7 @@ obj
 					activate(mob/player)
 						var/cooldown = 40
 						var/sagaLevel = player.SagaLevel
-						var/damage = 2 + 0.25 * sagaLevel
+						var/damage = 0.15 + 0.15 * sagaLevel
 						var/ansatsukenPath = player.AnsatsukenPath == "Hadoken" ? 1 : 0
 						var/distance = 30
 						var/charge = 0.25
@@ -2911,7 +2911,7 @@ obj
 							manaCost -= 10
 							cooldown -= 10
 							charge = 0.1
-							damage = 2 + 0.3 * sagaLevel
+							damage = 0.25 + 0.25 * sagaLevel
 							knockback = 1
 							stunner = clamp(0.25 * sagaLevel, 0.25, 2)
 						if(player.AnsatsukenAscension == "Satsui" && src.IconLock == 'Hadoken.dmi')
@@ -2919,15 +2919,15 @@ obj
 						if(player.ManaAmount >= manaCost && sagaLevel >= 2)
 							ManaCost = manaCost
 							knockback = 0
-							damage = 2 + 0.35 * sagaLevel
-							multiHit = 3 + clamp(2 + sagaLevel, 5, 10)
+							damage = 0.3 + 0.3 * sagaLevel
+							multiHit = 5 + clamp(sagaLevel, 2, 10)
 							stunner = 2
 							radius = 1
 							iconSize = 1.25
 							Dodgeable=0
 							if(ansatsukenPath)
-								damage = 2 + 0.4 * sagaLevel
-								multiHit = 2 + clamp(sagaLevel*2,  4, 20)
+								damage = 0.35 + 0.35 * sagaLevel
+								multiHit = 5 + clamp(sagaLevel*2,  1, 20)
 								stunner = 3
 								radius = 2
 								iconSize = 1.5
