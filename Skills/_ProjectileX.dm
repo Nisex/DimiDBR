@@ -1307,7 +1307,7 @@ obj
 				NewCopyable = 2
 				SkillCost=80
 				Copyable=3
-				Blasts=8
+				Blasts=6
 				DamageMult=3
 				Radius=1
 				AccMult=50
@@ -1318,8 +1318,8 @@ obj
 				LockX=0
 				LockY=0
 				ZoneAttack=1
-				ZoneAttackX=4
-				ZoneAttackY=4
+				ZoneAttackX=9
+				ZoneAttackY=9
 				Hover=4
 				FireFromSelf=1
 				FireFromEnemy=0

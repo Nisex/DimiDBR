@@ -278,3 +278,16 @@ update
 				p << "HellPower = +0.1, AbyssMod = +0.25 SpiritPower = 0.25"
 
 			..()
+	version21
+		version = 21
+		updateMob(mob/p)
+			if(p.isRace(DEMON))
+				var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.race:findTrueForm(p)
+				if(p.BuffOn(d))
+					d.Trigger(p, 1)
+				p.passive_handler.Set("HellPower", 0)
+				p << "stats changed"
+				p.stat_redo()
+
+			..()
+

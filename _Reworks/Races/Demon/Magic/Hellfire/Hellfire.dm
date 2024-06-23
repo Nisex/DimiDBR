@@ -24,16 +24,21 @@
         if(!altered)
             scalingValues = /obj/Skills/Projectile/Magic/HellFire/Hellpyre::scalingValues
     adjust(mob/p)
+        if(p.isRace(DEMON))
+            scalingValues = list("Blasts" = list(4,5,6,6,8,10), "DamageMult" = list(2,3,4,4,4,4), \
+    "Delay" = list(8,4,3,2,1,1))
+        else
+            scalingValues = /obj/Skills/Projectile/Magic/HellFire/Hellpyre::scalingValues
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
         if(p.isRace(DEMON))
             Homing = 1
             DarknessFlame = asc + round(p.Potential/15)
-            Scorching = asc * 10
+            Scorching = asc * 2
         else
             DarknessFlame = round(p.Potential/15)
-            Burning = asc * 5
+            Scorching = asc * 5
         DamageMult = (DamageMult / MultiHit) / Blasts
     verb/Hellpyre()
         set category = "Skills"
@@ -56,6 +61,12 @@
     ActiveMessage = "rains down an onslaught of fire!"
     adjust(mob/p)
         scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm::scalingValues
+        if(p.isRace(DEMON))
+            scalingValues = list("Damage" = list(0.05,0.05,0.1,0.1,0.2,0.3), "Distance" = list(3,4,6,8,12,15), \
+            "DarknessFlame" = list(1,2,4,6,8,10), "Slow" = list(1,2,4,6,8,10), "Burning" = list(1,3,4,6,8,10), "Duration" = list(100,150,200,200,200,200), \
+            "Adapt" = list(1,1,1,1,1), "CorruptionGain" = list(1,1,1,1,1) )
+        else
+            scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm::scalingValues
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
         makSpace.toDeath = scalingValues["Duration"][asc]
         makSpace.range = scalingValues["Distance"][asc]
@@ -114,10 +125,18 @@
     ActiveMessage = "swells fire within their target."
     proc/returnToInit()
         if(!altered)
-            scalingValues = list("CrippleAffected" = list(12,15,15,20,25,25), "PoisonAffected" = list(6,12,15,20,25,30), "BurnAffected" = list(6,12,15,20,25,30), "ConfuseAffected" = list(2,4,6,8,10,10), "TimerLimit" = list(3,6,10,15,20,25))
-
+            scalingValues = list("CrippleAffected" = list(12,15,15,20,25,25), \
+    "PoisonAffected" = list(6,12,15,20,25,30), "BurnAffected" = list(6,12,15,20,25,30), "ConfuseAffected" = list(8,12,15,15,20,25), \
+    "TimerLimit" = list(3,6,10,15,20,25))
     
     adjust(mob/p)
+        if(p.isRace(DEMON))
+            scalingValues = list("CrippleAffected" = list(2,3,4,4,4,4), \
+    "PoisonAffected" = list(2,3,4,6,8,10), "BurnAffected" = list(2,3,4,6,8,10), "ConfuseAffected" = list(2,3,4,6,8,10), \
+    "TimerLimit" = list(3,6,10,15,20,25))
+        else
+            scalingValues = list("CrippleAffected" = list(12,15,15,20,25,25), "PoisonAffected" = list(6,12,15,20,25,30), "BurnAffected" = list(6,12,15,20,25,30), "ConfuseAffected" = list(2,4,6,8,10,10), "TimerLimit" = list(3,6,10,15,20,25))
+
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
