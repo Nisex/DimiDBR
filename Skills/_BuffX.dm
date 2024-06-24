@@ -8241,15 +8241,24 @@ NEW VARIABLES
 			SwordRefinement = 0
 			ActiveMessage="'s hand grips out at air, before projecting a blade forth!"
 			OffMessage = "'s conjured blade shatters in the air!"
-			var/wooden_icon
-			var/light_icon
-			var/med_icon
-			var/heavy_icon
+			var/icon/wooden_icon
+			var/wooden_x
+			var/wooden_y
+			var/icon/light_icon
+			var/light_x
+			var/light_y
+			var/icon/med_icon
+			var/med_x
+			var/med_y
+			var/icon/heavy_icon
+			var/heavy_x
+			var/heavy_y
 			verb/Customize_Projects()
 				set category = "Other"
 				var/choice = input(usr, "What icon?") in list("wooden","light","med","heavy")
-				var/icon/i = input(usr, "selecting icon for [choice]") as icon|null
-				vars["[choice]_icon"] = i
+				vars["[choice]_icon"] = input(usr, "selecting icon for [choice]") as icon|null
+				vars["[choice]_x"] = input(usr, "WHAT X") as num
+				vars["[choice]_y"] = input(usr, "WHAT Y") as num
 			verb/Projection()
 				set category="Skills"
 				if(!usr.getAriaCount())
@@ -8277,32 +8286,40 @@ NEW VARIABLES
 							SwordAscension = 6
 						if(8 to 9)
 							SwordAscension = 7
-				passives = list("SwordDamage" = SwordAscension) // so it can go over 6
+				passives = list("SwordDamage" = SwordAscension/2) // so it can go over 6
 				var/classRNG = rand(1,4)
 				switch(classRNG)
 					if(1)
 						if(wooden_icon)
-							icon = wooden_icon
+							SwordIcon = wooden_icon
+							SwordX = wooden_x 
+							SwordX = wooden_y
 						else
-							icon = 'Bokken.dmi'
+							SwordIcon = 'Bokken.dmi'
 						SwordClass = "Wooden"
 					if(2)
 						if(light_icon)
-							icon = light_icon
+							SwordIcon = light_icon
+							SwordX = light_x 
+							SwordX = light_y
 						else
-							icon = 'LightSword.dmi'
+							SwordIcon = 'LightSword.dmi'
 						SwordClass = "Light"
 					if(3)
 						if(med_icon)
-							icon = med_icon
+							SwordIcon = med_icon
+							SwordX = med_x 
+							SwordX = med_y
 						else
-							icon = 'MediumSword.dmi'
+							SwordIcon = 'MediumSword.dmi'
 						SwordClass = "Medium"
 					if(4)
 						if(heavy_icon)
-							icon = heavy_icon
+							SwordIcon = heavy_icon
+							SwordX = heavy_x 
+							SwordX = heavy_y
 						else
-							icon = 'HeavySword.dmi'
+							SwordIcon = 'HeavySword.dmi'
 						SwordClass = "Heavy"
 				if(usr.getAriaCount() < 4)
 					var/RefinementRNG = rand(1,2)
@@ -8335,8 +8352,10 @@ NEW VARIABLES
 					if(9)
 						SwordElement = "Chaos"
 					if(10 to 13)
-						SwordElement = null
+						SwordElement = ""
 				src.Trigger(usr)
+				if(usr.BuffOn(src))
+					usr << "[SwordElement] [SwordClass] Sword with [SwordAscension]([passives["SwordDamage"]]) Damage"
 
 		Avalon
 			StableHeal=1

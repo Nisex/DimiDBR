@@ -1,5 +1,9 @@
 #define NUM2HEX(a,b) num2text((a), (b), 16)
 
+/mob/Admin4/verb/restartResourceManager()
+	resourceManager = new()
+
+
 resourceManager
 	var
 		tmp

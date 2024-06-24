@@ -175,7 +175,6 @@ proc/Load_Custom_Turfs()
 			var/turf/CustomTurf/T=new A(locate(text2num(list2params(Xs.Copy(Amount,Amount+1))),text2num(list2params(Ys.Copy(Amount,Amount+1))),text2num(list2params(Zs.Copy(Amount,Amount+1)))))
 		//	T.icon = Icons[Amount]
 			T.icon = resourceManager.GetResourceByName(Icons[Amount])
-
 			T.icon_state= Icons_States[Amount]
 			T.density=text2num(list2params(Densitys.Copy(Amount,Amount+1)))
 			T.opacity=text2num(list2params(Opacitys.Copy(Amount,Amount+1)))

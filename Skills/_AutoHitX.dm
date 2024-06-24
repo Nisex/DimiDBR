@@ -1452,6 +1452,17 @@ obj
 				EnergyCost=2.5
 				Instinct=1
 				ActiveMessage="spins like a top, crushing anyone caught in their range!"
+				adjust(mob/p)
+					if(p.isInnovative(HUMAN, "Unarmed"))
+						Size=4
+						Rounds= 10 + (p.Potential/10)
+						DamageMult = 1 + (p.Potential/100)
+						PullIn = 4
+					else
+						Size=2
+						Rounds= 20
+						DamageMult = 0.55
+						PullIn = 0
 				verb/Spinning_Clothesline()
 					set category="Skills"
 					usr.Activate(src)
@@ -6335,7 +6346,7 @@ obj
 				if(ApplySlow)
 					m.AddSlow(ApplySlow, Owner)
 				if(grabNerf)
-					FinalDmg *= AUTOHIT_GRAB_NERF
+					FinalDmg *= glob.AUTOHIT_GRAB_NERF
 //TODO: Remove a whole lot of those
 				if(src.Bang)
 					Bang(m.loc, src.Bang)
