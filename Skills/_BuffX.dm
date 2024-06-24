@@ -1,6 +1,6 @@
 #define GOLD_DRAGON_FORMULA 1000000
 #define GAJALAKA_MULT 1.2
-
+#define ROUND_DIVIDE(N,N2) round(N/N2)
 obj/Skills/Buffs
 	Cooldown=1
 /**
@@ -9302,12 +9302,12 @@ NEW VARIABLES
 			True_Form
 				adjust(mob/p)
 					if(!altered)
-						passives = list("Curse" = 1, "Godspeed" =  1+p.AscensionsAcquired, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/50,\
-						 "Pursuer" = 2, "CallousedHands" = p.secretDatum.secretVariable["Madness"]/250, \
-						  "Flow" = p.secretDatum.secretVariable["Madness"]/50, "Flicker" = p.secretDatum.secretVariable["Madness"]/25)
-						PowerMult=1+(0.05+(0.05*p.secretDatum.secretVariable["Madness"]/25))
+						passives = list("Curse" = 1, "Godspeed" =  1+p.AscensionsAcquired, "MovementMastery" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"], 50),\
+						 "Pursuer" = 2, "CallousedHands" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],250), \
+						  "Hardening" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],50), "Flicker" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],25))
+						PowerMult=1+(0.05+(0.05*ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],25)))
 						passives["PureReduction"] = p.AscensionsAcquired
-						TimerLimit = 30 + (p.secretDatum.secretVariable["Madness"]/5)
+						TimerLimit = 40 + (p.secretDatum.secretVariable["Madness"]/5)
 
 				HealthThreshold=0.1
 				KenWave=4
@@ -9323,7 +9323,7 @@ NEW VARIABLES
 				HitX=-32
 				HitY=-32
 				TimerLimit=30
-				Cooldown = 120
+				Cooldown = 1
 				ActiveMessage="unravels into a mind-rending series of shapes and textures!"
 				OffMessage="slowly becomes 3D once again..."
 				TextColor=rgb(153, 0, 0)
@@ -9366,14 +9366,12 @@ NEW VARIABLES
 				NeedsPassword=1
 			Dragon_Clash
 				passives = list("PureDamage" = 2, "HotHundred" = 1, "Warping" = 3, "Steady" = 3)
-				PureDamage = 3
 				HotHundred=1
 				Warping=3
 				Steady=4
 				TimerLimit=3
 			Dragon_Clash_Defensive
 				passives = list("PureDamage" = 1, "HotHundred" = 1, "Warping" = 3, "Steady" = 2)
-				PureDamage = 1.5
 				HotHundred=1
 				Warping=3
 				Steady=2
@@ -10295,7 +10293,6 @@ NEW VARIABLES
 					EndMult=0.8
 					DefMult=0.8
 					passives = list("PureReduction" = -1)
-					PureReduction=(-1)
 					ActiveMessage="yelps as a blow shatters their bones!"
 					OffMessage="manages the pain of the shattered bones..."
 				Slow_Motion
@@ -10304,7 +10301,6 @@ NEW VARIABLES
 					Afterimages=1
 					SpdMult=0.6
 					passives = list("PureDamage" = - 1)
-					PureDamage=(-1)
 					ActiveMessage="can't...get...moving..."
 					OffMessage="regains their speed!"
 
@@ -10324,8 +10320,6 @@ NEW VARIABLES
 					StrMult=0.8
 					ForMult=0.8
 					passives = list("PureDamage" = -1, "PureReduction" = -1)
-					PureDamage=(-1)
-					PureReduction=(-1)
 					ActiveMessage="knows that karma is against them!"
 					OffMessage="feels more sure of their luck!"
 				Shattered
@@ -10333,7 +10327,6 @@ NEW VARIABLES
 					IconApart=1
 					EndMult=0.8
 					passives = list("PureReduction" = -1)
-					PureReduction=(-1)
 					ActiveMessage="feels their internals shatter under the sonic assault!"
 					OffMessage="regains their vitality!"
 
@@ -10369,7 +10362,6 @@ NEW VARIABLES
 					TimerLimit=5
 					BurnAffected=10
 					passives = list("PureReduction" = -1)
-					PureReduction=(-1)
 					OffMessage="is consumed by flames!!"
 				Anger_Break
 					IconTint=rgb(153, 153, 153)

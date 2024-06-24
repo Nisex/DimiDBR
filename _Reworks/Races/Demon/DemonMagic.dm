@@ -101,6 +101,7 @@
     
     KEYWORD = "damage"
     verb/Dark_Magic()
+        set category = "Skills"
         fakeTrigger(usr)
     
 
@@ -115,6 +116,7 @@
     name = "Hell Fire"
     KEYWORD = "utility"
     verb/Hell_Fire()
+        set category = "Skills"
         fakeTrigger(usr)
         if(!possible_skills["Corruption"])
             possible_skills["Corruption"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space
@@ -128,6 +130,7 @@
     name = "Corruption"
     KEYWORD = "crowd control"
     verb/Corruption()
+        set category = "Skills"
         fakeTrigger(usr)
     possible_skills = list("DarkMagic" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind, "HellFire" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat,"Corruption" = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Time )
 

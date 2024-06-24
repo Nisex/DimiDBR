@@ -53,6 +53,13 @@ globalTracker/var/var/LOWER_DEBUFF_CLAMP = 0.001
         reduceBioArmor(dmg)
     if(typeOfDebuff == "Burn" && passive_handler.Get("FireAbsorb"))
         dmg = 0
+    switch(typeOfDebuff)
+        if("Burn")
+            if(TRACKING_BURNING)
+                currentBurn+=dmg
+        if("Poison")
+            if(TRACKING_POISON)
+                currentPoi+=dmg
     Health-=dmg
     if(Health<=0 && !KO)
         if(typeOfDebuff == "Poison")

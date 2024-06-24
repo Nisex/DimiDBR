@@ -503,7 +503,7 @@ ascension
 				owner.demon.selectPassive(owner, "CORRUPTION_DEBUFFS", "Debuff")
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			passives = list("HellPower" = 0.1, "AbyssMod" = 0.25, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.025, "AbyssMod" = 0.25, "SpiritPower" = 0.25)
 			anger = 0.15
 			intimidation = 50
 			strength = 0.25
@@ -515,7 +515,7 @@ ascension
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
-			passives = list("HellPower" = 0.1, "AbyssMod" = 0.75, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.05, "AbyssMod" = 0.75, "SpiritPower" = 0.25)
 			intimidation = 50
 			strength = 0.25
 			force = 0.5
