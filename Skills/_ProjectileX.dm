@@ -269,9 +269,8 @@ obj
 				HomingCharge=1
 				RandomPath=1
 				IconLock='FireBlast.dmi'
-				DamageMult=0.25
-				StrRate=0.5
-				ForRate=0.5
+				DamageMult=0.33
+				AdaptRate=1.5
 				Scorching=2
 				AccMult = 1.175
 				Distance=30

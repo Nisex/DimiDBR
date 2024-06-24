@@ -770,11 +770,13 @@ obj
 			FatalMode
 				Area="Circle"
 				StrOffense=1
-				DamageMult=3
+				DamageMult=0.75
+				Rounds=5
 				Distance=5
 				Slow=1
 				FlickAttack=1
 				Instinct=1
+				ComboMaster=1
 				ShockIcon='KenShockwaveGold.dmi'
 				Shockwave=4
 				Shockwaves=1

@@ -743,7 +743,7 @@ obj
 					InstantStrikes=5
 					InstantStrikesDelay=2
 					PrecisionStrike=2
-					DamageMult=0.2
+					DamageMult=0.25
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Magic_Wish"
 					FollowUp="/obj/Skills/AutoHit/MagicWish"
 					HitMessage="hopes upon a magic wish!"

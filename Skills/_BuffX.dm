@@ -1524,6 +1524,7 @@ NEW VARIABLES
 			PowerMult=1.5
 			SwordX=-32
 			SwordY=-32
+			passives = list("MagicSword" = 1)
 			Cooldown=30
 			verb/Summon_Keyblade()
 				set category="Skills"
@@ -1561,19 +1562,18 @@ NEW VARIABLES
 					switch(usr.KeybladeType)
 						if("Sword")
 							src.StrMult=1.2
-							src.EndMult=0.8
 							src.SpdMult=1.2
-							src.OffMult=1.1
+							src.OffMult=1.2
+
 						if("Shield")
-							src.StrMult=1.2
 							src.EndMult=1.3
-							src.DefMult=1.1
+							src.DefMult=1.3
 						if("Staff")
-							src.StrMult=0.8
 							src.ForMult=1.2
 							src.OffMult=1.2
-							passives["HybridStrike"] = 0.25 * usr.SagaLevel
-							HybridStrike=0.25 * usr.SagaLevel
+							passives["ManaCapMult"] = 0.1 * usr.SagaLevel
+							passives["SpiritFlow"] = 0.15 * usr.SagaLevel
+					passives["SpiritSword"] = 0.2 * usr.SagaLevel
 					passives["PULock"] = 1
 					passives["SwordDamage"] = GetKeychainDamage(usr.KeychainAttached)
 					passives["SwordAccuracy"] = GetKeychainAccuracy(usr.KeychainAttached)
@@ -4333,18 +4333,18 @@ NEW VARIABLES
 					if("Majin")
 						switch(p.Class)
 							if("Super")
-								return 1.2
+								return 1
 							if("Innocent")
-								return 1.4
+								return 1.15
 							if("Unhinged")
-								return 1.75
-						return 1.2
+								return 1.25
+						return 1
 					if("Demon")
 						return 1.25
 					if("Namekian")
-						return 1.2
+						return 0.8
 				if(p.Secret == "Werewolf")
-					return 1.2
+					return 1
 
 			proc/getRegenRate(mob/p)
 				var/baseHeal = 1.5
@@ -4361,7 +4361,7 @@ NEW VARIABLES
 						var/asc = p.AscensionsAcquired
 						var/amt = (baseHeal + raceModifier) + ( ((perMissing + (missingPerAsc * asc)) + (raceModifier/raceDivisor)) * (100 - p.Health))
 						var/divider = asc * raceModifier > 0 ? asc * raceModifier : 1
-						var/time = 25 / divider
+						var/time = 12 / divider
 						HealthHeal = (amt / time) * world.tick_lag // health per tick(?)
 						TimerLimit = time             // ticks per regen
 						EnergyCost = amt / 4
@@ -9758,20 +9758,44 @@ NEW VARIABLES
 					Fever_Pitch
 						StrMult=1.5
 						OffMult=1.5
-						passives = list("TensionLock" = 1,"Warping" = 2, "HotHundred" = 1, "Steady" = 2)
-						TimerLimit=3
+						SpdMult=3
+						HotHundred = 1
+						Warping = 6
+						passives = list("TensionLock" = 1, "Steady" = 2, "BlurringStrikes" = 2)
+						TimerLimit = 10
+						Trigger(mob/User, Override)
+							if(!User.BuffOn(src))
+								User.StunImmune = TRUE // cutscene mode
+								User.LaunchImmune = TRUE
+							else
+								User.StunImmune = FALSE 
+								User.LaunchImmune = FALSE
+							..()
 					Fatal_Mode
 						StrMult=2
-						passives = list("TensionLock" = 1,"Steady" = 6)
+						passives = list("TensionLock" = 1,"Steady" = 6, "CriticalChance" = 100)
 						FlashChange=1
 						ManaGlow=rgb(255, 255, 204)
 						ManaGlowSize=2
+						PhysicalHits=0
+						UnarmedHits=0
+						SwordHits=0
+						SpiritHits=0
+						Trigger(mob/User, Override)
+							if(!User.BuffOn(src))
+								passives["CriticalDamage"] = randValue(0.1, 0.2 + User.SagaLevel/10)
+								var/limit = rand(3, 6) + User.SagaLevel
+								PhysicalHits=limit
+								UnarmedHits=limit
+								SwordHits=limit
+								SpiritHits=limit
+							..()
 					Magic_Wish
 						ForMult=1.25
 						OffMult=1.25
 						SpdMult=1.25
 						DefMult=1.25
-						passives = list("TensionLock" = 1,"BetterAim" = 1)
+						passives = list("TensionLock" = 1,"BetterAim" = 1, "SpiritualDamage" = 2)
 					Fire_Storm
 						FlashChange=1
 						ManaGlow=rgb(255, 204, 204)
@@ -9793,7 +9817,6 @@ NEW VARIABLES
 						passives = list("TensionLock" = 1,"Paralyzing" = 1, "StunningStrike" = 2, "Warping" = 2, "HotHundred" = 1, "Steady" = 2)
 						SpdMult=1.5
 						OffMult=1.5
-						TimerLimit=5
 					Wing_Blade
 						FlashChange=1
 						ManaGlow=rgb(255, 255, 255)

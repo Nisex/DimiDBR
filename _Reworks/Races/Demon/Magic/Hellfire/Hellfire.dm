@@ -24,6 +24,7 @@
         if(!altered)
             scalingValues = /obj/Skills/Projectile/Magic/HellFire/Hellpyre::scalingValues
     adjust(mob/p)
+        returnToInit()
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
@@ -68,6 +69,7 @@
         if(aaa && !User.BuffOn(src))
             makSpace.makeSpace(User, src)
             . = aaa
+            Cooldown(1, 0, User)
     proc/applyEffects(mob/target, mob/owner, static_damage)
         if(!owner||!target) return
         var/asc = owner.AscensionsAcquired ? owner.AscensionsAcquired + 1 : 1
