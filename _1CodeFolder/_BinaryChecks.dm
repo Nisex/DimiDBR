@@ -163,7 +163,10 @@ mob
 				Total=s.DamageEffectiveness
 				if(UsingKendo())
 					Total = 1.25 // change it to heavy sword damage, fuck it
-				Ascensions=s.Ascended
+				if(s.InnatelyAscended)
+					Ascensions=s.InnatelyAscended
+				else
+					Ascensions=s.Ascended
 				if(src.HasSwordAscension())
 					Ascensions+=src.GetSwordAscension()
 				if(Ascensions>6)
@@ -429,7 +432,7 @@ mob
 				Total=4
 			return Total
 		HasTensionLock()
-			if(passive_handler.Get("TensionDrain"))
+			if(passive_handler.Get("TensionLock"))
 				return 1
 			return 0
 		HasEmptyGrimoire()
@@ -2869,7 +2872,8 @@ mob
 		usingStyle(parentType)
 			if(!StyleBuff)
 				return FALSE
-			if("[parentType]" in "[StyleBuff.type]")
+			var/string = "[StyleBuff.type]"
+			if((findtext(string,parentType)))
 				return TRUE
 		isInnovative(reqRace, path)
 			if(isRace(reqRace))

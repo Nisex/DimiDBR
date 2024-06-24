@@ -681,7 +681,9 @@ mob
 			src.MaxHealth()
 			var/Absorb = passive_handler.Get("AbsorbingDamage")
 			var/Limit = passive_handler.Get("AbsorbLimit")
-			if(Absorb && Absorb + val < Limit)
+			if(Absorb)
+				if(Absorb >= Limit)
+					return
 				passive_handler.Increase("AbsorbingDamage", val)
 				if(Absorb >= Limit)
 					passive_handler.Set("AbsorbingDamage", Limit)
@@ -3110,26 +3112,11 @@ proc
 	StaticDamage(var/Val, var/Stat1, var/Stat2)
 		return ((Val/Stat1)/(Val/Stat2))
 
-/var/global/GLOBAL_EXPONENT_MULT = 1/3
-/var/global/GRAPPLE_MELEE_BOON = 1.5
-var/global/AUTOHIT_GRAB_NERF = 0.5
-var/global/PARTY_DAMAGE_NERF = 0.6
+/var/globalTracker/GLOBAL_EXPONENT_MULT = 1/3
+/var/globalTracker/GRAPPLE_MELEE_BOON = 1.5
+var/globalTracker/AUTOHIT_GRAB_NERF = 0.5
+var/globalTracker/PARTY_DAMAGE_NERF = 0.6
 
-/mob/Admin3/verb/Grab_Auto_Nerf(n as num)
-	glob.AUTOHIT_GRAB_NERF = n
-	usr << "AUTOHIT_GRAB_NERF set to [n]"
-
-/mob/Admin3/verb/GrappleMeleeBoon(n as num)
-	glob.GRAPPLE_MELEE_BOON = n
-	usr << "Global grapple melee set to [n]"
-
-/mob/Admin3/verb/GlobalExponentMult(n as num)
-	glob.GLOBAL_EXPONENT_MULT = n
-	src << "Global exponenty mult set to [n]"
-
-/mob/Admin3/verb/GlobalPartyDamage(n as num)
-	glob.PARTY_DAMAGE_NERF = n
-	src << "Party Damage mult set to [n]"
 
 proc
 	TrueDamage(Damage)

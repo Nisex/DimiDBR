@@ -5552,7 +5552,7 @@ obj
 						ElementalCheck(src.Owner, a, onlyTheseElements=bonusElement)
 
 						if(a in src.Owner.party)
-							EffectiveDamage *= PARTY_DAMAGE_NERF
+							EffectiveDamage *= glob.PARTY_DAMAGE_NERF
 							if(src.Owner.passive_handler.Get("TeamFighter"))
 								EffectiveDamage /= 1+src.Owner.passive_handler.Get("TeamFighter")
 
