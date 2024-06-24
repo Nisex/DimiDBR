@@ -553,6 +553,7 @@ mob/Body
 	KO=1
 	var/DeathTime
 	var/TrulyDead=1//dont nerf people who are voiding naturally
+	Savable=1
 	New()
 		DeathTime=world.realtime
 		..()
@@ -649,7 +650,7 @@ proc/Load_Bodies()
 			A.y = A.buildPreviousY
 			A.z = A.buildPreviousZ
 			A.loc = locate(A.buildPreviousX, A.buildPreviousY, A.buildPreviousZ)
-			world.log << "[A] found in [L], at [A.x], [A.y], [A.z] | [A.buildPreviousX], [A.buildPreviousY], [A.buildPreviousZ]"
+			world.log << "[A] found in [L] [A.loc], at [A.x], [A.y], [A.z] | [A.buildPreviousX], [A.buildPreviousY], [A.buildPreviousZ]"
 		goto wowza
 
 mob/proc/Leave_Body(var/SuperDead=0, var/Zombie, var/ForceVoid=0)
@@ -667,7 +668,7 @@ mob/proc/Leave_Body(var/SuperDead=0, var/Zombie, var/ForceVoid=0)
 
 	A.icon_state="KO"
 	A.name="Body of [src]"
-	A.loc=src.loc
+	A.loc=locate(src.x, src.y, src.z)
 	A.transform=src.transform
 	src.loc=locate(global.NearDeadX, global.NearDeadY, global.NearDeadZ)
 
