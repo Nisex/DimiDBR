@@ -934,6 +934,7 @@ obj
 							StyleStr=1.5
 							StyleSpd=1.5
 							StyleActive="Speed Rave"
+							passives = list("BlurringStrikes" = 1, "AfterImages" = 1, "Steady" = 1)
 							Finisher="/obj/Skills/Queue/Finisher/Fever_Pitch"
 							verb/Speed_Rave_Style()
 								set hidden=1
@@ -942,6 +943,7 @@ obj
 							StyleStr=1.5
 							StyleEnd=1.5
 							StyleActive="Critical Impact"
+							passives = list("CriticalChance" = 15, "CriticalDamage" = 0.1, "HeavyHitter" = 1, "CallousedHands" = 0.15)
 							Finisher="/obj/Skills/Queue/Finisher/Fatal_Mode"
 							verb/Critical_Impact_Style()
 								set hidden=1
@@ -950,6 +952,7 @@ obj
 							StyleFor=1.5
 							StyleSpd=1.5
 							StyleActive="Spell Weaver"
+							passives = list("SpiritFlow" = 0.15, "QuickCast" = 1, "MovingCharge" = 1, "Siphon" = 2)
 							Finisher="/obj/Skills/Queue/Finisher/Magic_Wish"
 							verb/Spell_Weaver_Style()
 								set hidden=1

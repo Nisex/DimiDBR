@@ -1,10 +1,5 @@
 proc
 	ElementalCheck(var/mob/Attacker, var/mob/Defender, var/ForcedDebuff=0, var/DebuffIntensity=glob.DEBUFF_INTENSITY, list/bonusElements,damageOnly = FALSE, list/onlyTheseElements)
-		//var/list/messages = list("Fire"= "<font color='[rgb(204, 153, 51)]'>[Defender] erupts in flames!!</font color>", \
-	"Water" = "<font color='[rgb(51, 153, 204)]'>[Defender] freezes to the bone!!</font color>", \
-	"Earth" = "<font color='[rgb(51, 204 , 153)]'>[Defender] falters; their guard is crushed!!</font color>", \
-	"Wind" = "<font color='[rgb(153, 255, 255)]'>[Defender] twitches erratically; they're shocked!!</font color>", \
-	"Poison" = "<font color='[rgb(204, 51, 204)]'>[Defender] looks unwell; they've been poisoned!!</font color>")
 		var/list/attackElements = list()
 		var/list/defenseElements = list()
 		if(bonusElements&&bonusElements.len>0)
@@ -23,8 +18,10 @@ proc
 
 		if(staf && staf.Element)
 			attackElements |= staf.Element
+			DebuffIntensity /= glob.ITEM_DEBUFF_APPLY_NERF
 		if(sord && sord.Element)
 			attackElements |= sord.Element
+			DebuffIntensity /= glob.ITEM_DEBUFF_APPLY_NERF // 4 
 
 		if(onlyTheseElements)
 			attackElements = onlyTheseElements

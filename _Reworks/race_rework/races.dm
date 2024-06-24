@@ -480,14 +480,21 @@ race
 		visual = 'Eldritch.png'
 		locked = TRUE
 		power = 5
-		strength = 1.5
-		endurance = 1
-		speed = 1.25
-		offense = 2
+		strength = 2
+		endurance = 1.5
+		speed = 1.5
+		offense = 1.5
 		defense = 1
 		force = 2
 		regeneration = 3
 		imagination = 2
+
+		passives = list("AbyssMod" = 0.5, "Corruption" = 1, "StaticWalk" = 1, "SpaceWalk" = 1, "CursedWounds" = 1, "FakePeace" = 1, "MartialMagic" = 1)
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2,/obj/Skills/Utility/Imitate,  /obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon, \
+						/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption)
+		var/devil_arm_upgrades = 1
+		var/sub_devil_arm_upgrades = 0
+
 		proc/findTrueForm(mob/p)
 			var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = new()
 			d = locate() in p
@@ -496,11 +503,7 @@ race
 				p << "Please report to the admin or discord that your true form is bugged on asc"
 			return d
 
-		passives = list("AbyssMod" = 0.5, "Corruption" = 1, "StaticWalk" = 1, "SpaceWalk" = 1, "CursedWounds" = 1, "FakePeace" = 1, "MartialMagic" = 1)
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2,/obj/Skills/Utility/Imitate,  /obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon, \
-						/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption)
-		var/devil_arm_upgrades = 1
-		var/sub_devil_arm_upgrades = 0
+
 		proc/checkReward(mob/p)
 			var/max = round(p.Potential / 5) + 1
 

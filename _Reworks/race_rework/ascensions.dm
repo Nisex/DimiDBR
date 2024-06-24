@@ -361,12 +361,13 @@ ascension
 
 
 	eldritch
+
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			endurance = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15,)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(2, owner)
 				..()
@@ -375,7 +376,7 @@ ascension
 			endurance = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25,"SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(3, owner)
 				..()
@@ -387,7 +388,7 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5,"SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(4, owner)
 				..()
@@ -399,7 +400,7 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(5, owner)
 				..()
@@ -411,7 +412,7 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15, "PureReduction" = 1)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(6, owner)
 				..()
@@ -502,7 +503,7 @@ ascension
 				owner.demon.selectPassive(owner, "CORRUPTION_DEBUFFS", "Debuff")
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			passives = list("AbyssMod" = 0.25, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.025, "AbyssMod" = 0.25, "SpiritPower" = 0.25)
 			anger = 0.15
 			intimidation = 50
 			strength = 0.25
@@ -514,7 +515,7 @@ ascension
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
-			passives = list("HellPower" = 0.025, "AbyssMod" = 0.75, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.05, "AbyssMod" = 0.75, "SpiritPower" = 0.25)
 			intimidation = 50
 			strength = 0.25
 			force = 0.5
@@ -530,7 +531,7 @@ ascension
 				owner.Class = "A"
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
-			passives = list("HellPower" = 0.025, "AbyssMod" = 1, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.1, "AbyssMod" = 1, "SpiritPower" = 0.25)
 			anger = 0.2
 			intimidation = 100
 			strength = 0.25
@@ -541,7 +542,7 @@ ascension
 				owner.Class = "S"
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
-			passives = list("HellPower" = 0.025, "AbyssMod" = 2)
+			passives = list("HellPower" = 0.1, "AbyssMod" = 2)
 			anger = 0.15
 			intimidation = 250
 			strength = 0.25

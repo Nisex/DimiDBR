@@ -1,6 +1,6 @@
 #define GOLD_DRAGON_FORMULA 1000000
 #define GAJALAKA_MULT 1.2
-
+#define ROUND_DIVIDE(N,N2) round(N/N2)
 obj/Skills/Buffs
 	Cooldown=1
 /**
@@ -1524,6 +1524,7 @@ NEW VARIABLES
 			PowerMult=1.5
 			SwordX=-32
 			SwordY=-32
+			passives = list("MagicSword" = 1)
 			Cooldown=30
 			verb/Summon_Keyblade()
 				set category="Skills"
@@ -1561,19 +1562,18 @@ NEW VARIABLES
 					switch(usr.KeybladeType)
 						if("Sword")
 							src.StrMult=1.2
-							src.EndMult=0.8
 							src.SpdMult=1.2
-							src.OffMult=1.1
+							src.OffMult=1.2
+
 						if("Shield")
-							src.StrMult=1.2
 							src.EndMult=1.3
-							src.DefMult=1.1
+							src.DefMult=1.3
 						if("Staff")
-							src.StrMult=0.8
 							src.ForMult=1.2
 							src.OffMult=1.2
-							passives["HybridStrike"] = 0.25 * usr.SagaLevel
-							HybridStrike=0.25 * usr.SagaLevel
+							passives["ManaCapMult"] = 0.1 * usr.SagaLevel
+							passives["SpiritFlow"] = 0.15 * usr.SagaLevel
+					passives["SpiritSword"] = 0.2 * usr.SagaLevel
 					passives["PULock"] = 1
 					passives["SwordDamage"] = GetKeychainDamage(usr.KeychainAttached)
 					passives["SwordAccuracy"] = GetKeychainAccuracy(usr.KeychainAttached)
@@ -4333,18 +4333,18 @@ NEW VARIABLES
 					if("Majin")
 						switch(p.Class)
 							if("Super")
-								return 1.2
+								return 1
 							if("Innocent")
-								return 1.4
+								return 1.15
 							if("Unhinged")
-								return 1.75
-						return 1.2
+								return 1.25
+						return 1
 					if("Demon")
 						return 1.25
 					if("Namekian")
-						return 1.2
+						return 0.8
 				if(p.Secret == "Werewolf")
-					return 1.2
+					return 1
 
 			proc/getRegenRate(mob/p)
 				var/baseHeal = 1.5
@@ -4361,7 +4361,7 @@ NEW VARIABLES
 						var/asc = p.AscensionsAcquired
 						var/amt = (baseHeal + raceModifier) + ( ((perMissing + (missingPerAsc * asc)) + (raceModifier/raceDivisor)) * (100 - p.Health))
 						var/divider = asc * raceModifier > 0 ? asc * raceModifier : 1
-						var/time = 25 / divider
+						var/time = 12 / divider
 						HealthHeal = (amt / time) * world.tick_lag // health per tick(?)
 						TimerLimit = time             // ticks per regen
 						EnergyCost = amt / 4
@@ -9302,14 +9302,14 @@ NEW VARIABLES
 			True_Form
 				adjust(mob/p)
 					if(!altered)
-						passives = list("Curse" = 1, "Godspeed" =  1+p.AscensionsAcquired, "MovementMastery" = p.secretDatum.secretVariable["Madness"]/25,\
-						 "Pursuer" = 2, "CallousedHands" = p.secretDatum.secretVariable["Madness"]/250, \
-						  "Flow" = p.secretDatum.secretVariable["Madness"]/50, "Flicker" = p.secretDatum.secretVariable["Madness"]/25)
-						PowerMult=1+(0.05+(0.05*p.secretDatum.secretVariable["Madness"]/25))
-						TimerLimit = 60 + (p.secretDatum.secretVariable["Madness"]/5)
+						passives = list("Curse" = 1, "Godspeed" =  1+p.AscensionsAcquired, "MovementMastery" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"], 50),\
+						 "Pursuer" = 2, "CallousedHands" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],250), \
+						  "Hardening" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],50), "Flicker" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],25))
+						PowerMult=1+(0.05+(0.05*ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],25)))
+						passives["PureReduction"] = p.AscensionsAcquired
+						TimerLimit = 40 + (p.secretDatum.secretVariable["Madness"]/5)
 
 				HealthThreshold=0.1
-				AutoAnger=1
 				KenWave=4
 				KenWaveIcon='DarkKiai.dmi'
 				HitSpark='Hit Effect Vampire.dmi'
@@ -9322,7 +9322,7 @@ NEW VARIABLES
 				LockY = -32
 				HitX=-32
 				HitY=-32
-				TimerLimit=60
+				TimerLimit=30
 				Cooldown = 1
 				ActiveMessage="unravels into a mind-rending series of shapes and textures!"
 				OffMessage="slowly becomes 3D once again..."
@@ -9366,14 +9366,12 @@ NEW VARIABLES
 				NeedsPassword=1
 			Dragon_Clash
 				passives = list("PureDamage" = 2, "HotHundred" = 1, "Warping" = 3, "Steady" = 3)
-				PureDamage = 3
 				HotHundred=1
 				Warping=3
 				Steady=4
 				TimerLimit=3
 			Dragon_Clash_Defensive
 				passives = list("PureDamage" = 1, "HotHundred" = 1, "Warping" = 3, "Steady" = 2)
-				PureDamage = 1.5
 				HotHundred=1
 				Warping=3
 				Steady=2
@@ -9760,20 +9758,44 @@ NEW VARIABLES
 					Fever_Pitch
 						StrMult=1.5
 						OffMult=1.5
-						passives = list("TensionLock" = 1,"Warping" = 2, "HotHundred" = 1, "Steady" = 2)
-						TimerLimit=3
+						SpdMult=3
+						HotHundred = 1
+						Warping = 6
+						passives = list("TensionLock" = 1, "Steady" = 2, "BlurringStrikes" = 2)
+						TimerLimit = 10
+						Trigger(mob/User, Override)
+							if(!User.BuffOn(src))
+								User.StunImmune = TRUE // cutscene mode
+								User.LaunchImmune = TRUE
+							else
+								User.StunImmune = FALSE 
+								User.LaunchImmune = FALSE
+							..()
 					Fatal_Mode
 						StrMult=2
-						passives = list("TensionLock" = 1,"Steady" = 6)
+						passives = list("TensionLock" = 1,"Steady" = 6, "CriticalChance" = 100)
 						FlashChange=1
 						ManaGlow=rgb(255, 255, 204)
 						ManaGlowSize=2
+						PhysicalHits=0
+						UnarmedHits=0
+						SwordHits=0
+						SpiritHits=0
+						Trigger(mob/User, Override)
+							if(!User.BuffOn(src))
+								passives["CriticalDamage"] = randValue(0.1, 0.2 + User.SagaLevel/10)
+								var/limit = rand(3, 6) + User.SagaLevel
+								PhysicalHits=limit
+								UnarmedHits=limit
+								SwordHits=limit
+								SpiritHits=limit
+							..()
 					Magic_Wish
 						ForMult=1.25
 						OffMult=1.25
 						SpdMult=1.25
 						DefMult=1.25
-						passives = list("TensionLock" = 1,"BetterAim" = 1)
+						passives = list("TensionLock" = 1,"BetterAim" = 1, "SpiritualDamage" = 2)
 					Fire_Storm
 						FlashChange=1
 						ManaGlow=rgb(255, 204, 204)
@@ -9795,7 +9817,6 @@ NEW VARIABLES
 						passives = list("TensionLock" = 1,"Paralyzing" = 1, "StunningStrike" = 2, "Warping" = 2, "HotHundred" = 1, "Steady" = 2)
 						SpdMult=1.5
 						OffMult=1.5
-						TimerLimit=5
 					Wing_Blade
 						FlashChange=1
 						ManaGlow=rgb(255, 255, 255)
@@ -10295,7 +10316,6 @@ NEW VARIABLES
 					EndMult=0.8
 					DefMult=0.8
 					passives = list("PureReduction" = -1)
-					PureReduction=(-1)
 					ActiveMessage="yelps as a blow shatters their bones!"
 					OffMessage="manages the pain of the shattered bones..."
 				Slow_Motion
@@ -10304,7 +10324,6 @@ NEW VARIABLES
 					Afterimages=1
 					SpdMult=0.6
 					passives = list("PureDamage" = - 1)
-					PureDamage=(-1)
 					ActiveMessage="can't...get...moving..."
 					OffMessage="regains their speed!"
 
@@ -10324,8 +10343,6 @@ NEW VARIABLES
 					StrMult=0.8
 					ForMult=0.8
 					passives = list("PureDamage" = -1, "PureReduction" = -1)
-					PureDamage=(-1)
-					PureReduction=(-1)
 					ActiveMessage="knows that karma is against them!"
 					OffMessage="feels more sure of their luck!"
 				Shattered
@@ -10333,7 +10350,6 @@ NEW VARIABLES
 					IconApart=1
 					EndMult=0.8
 					passives = list("PureReduction" = -1)
-					PureReduction=(-1)
 					ActiveMessage="feels their internals shatter under the sonic assault!"
 					OffMessage="regains their vitality!"
 
@@ -10369,7 +10385,6 @@ NEW VARIABLES
 					TimerLimit=5
 					BurnAffected=10
 					passives = list("PureReduction" = -1)
-					PureReduction=(-1)
 					OffMessage="is consumed by flames!!"
 				Anger_Break
 					IconTint=rgb(153, 153, 153)
@@ -10580,17 +10595,19 @@ NEW VARIABLES
 					adjust(mob/p)
 						if(altered) return
 						var/asc = p.AscensionsAcquired
-						if(p.Shatter)
-							if(p.Shatter >= 10)
-								VaizardHealth = p.Shatter/80
-							else
-								VaizardHealth = p.Shatter/10
+						// if(p.Shatter)
+						// 	if(p.Shatter >= 10)
+						// 		VaizardHealth = p.Shatter/80
+						// 	else
+						// 		VaizardHealth = p.Shatter/10
 						DebuffReversal = 1
 						InjuryImmune = 1
-						passives = list("DebuffReversal" = 1, "CallousedHands" = asc * 0.15, "BlockChance" = 10 * asc, "CriticalBlock" = 0.25 + (asc * 0.25), "InjuryImmune" = 1)
+						VaizardHealth = (0.25 + (0.25 * asc)) + (p.GetEnd() / 20)
+						passives = list( "CallousedHands" = asc * 0.15, "BlockChance" = 5 + 5 * asc, "CriticalBlock" = 0.1 + (asc * 0.1), "InjuryImmune" = 1, \
+						 "Hardening" = 0.25 * asc, "HeavyHitter" = asc/4)
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
-							shellSmash(User)
+							// shellSmash(User)
 							adjust(User)
 						..()
 
@@ -10746,8 +10763,10 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(altered) return
 					var/asc = p.AscensionsAcquired
-					passives = list("Unstoppable" = 1, "LifeSteal" = 7.5+asc, "Instinct" = 1+(asc/2), "Flicker" = 1+(asc/2))
-					VaizardHealth = 1.25+(asc/2)
+					passives = list("Unstoppable" = 1, "Hardening" = 1 + (0.5 * asc), "LifeSteal" = 1.5*asc, "Godspeed" = 1+(asc), "SweepingStrike" = 1)
+					VaizardHealth = p.GetEnd() + (p.TotalInjury/25) + (asc)  
+					VaizardHealth/= 10
+					// this was 17.5% guys lol
 					if(asc>=1)
 						if(!locate(/obj/Skills/AutoHit/Symbiote_Tendril_Wave, p.AutoHits))
 							p.AddSkill(new/obj/Skills/AutoHit/Symbiote_Tendril_Wave)

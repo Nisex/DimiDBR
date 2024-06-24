@@ -489,25 +489,25 @@ proc
 	GetKeychainDamage(var/KC)
 		switch(KC)
 			if("Kingdom Key")
-				return 0.5
+				return 1
 			if("Kingdom Key D")
-				return 0.5
+				return 1
 			if("Wayward Wind")
-				return 0
+				return 1.5
 			if("Rainfell")
-				return 0
+				return 1.5
 			if("Earthshaker")
-				return 1.25
+				return 2
 			if("Oathkeeper")
 				return -1
 			if("Oblivion")
-				return 1.25
+				return 2
 			if("Fenrir")
-				return 1.25
+				return 2
 			if("No Name")
-				return 0
+				return 1
 			if("Way To Dawn")
-				return 0.5
+				return 1.5
 			if("Chaos Ripper")
 				return 2
 	GetKeychainAccuracy(var/KC)
@@ -521,7 +521,7 @@ proc
 			if("Rainfell")
 				return -1
 			if("Earthshaker")
-				return 0
+				return -1
 			if("Oathkeeper")
 				return -1
 			if("Oblivion")

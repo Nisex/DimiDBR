@@ -28,7 +28,7 @@ globalTracker
 				del update // i guess loc = null doesn't work cause datums have no loc
 
 
-mob/var/updateVersion = 19
+mob/var/updateVersion = 22
 
 update
 	var/version = 1
@@ -290,4 +290,37 @@ update
 				p.stat_redo()
 
 			..()
+	version22
+		version = 22
+		updateMob(mob/p)
+			if(p.isRace(DEMON))
+				var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.race:findTrueForm(p)
+				if(p.BuffOn(d))
+					d.Trigger(p, 1)
+				p << "stats changed"
+				p.stat_redo()
+				p.passive_handler.Set("HellPower" = 0.025)
+			if(p.isRace(ELDRITCH))
+				p.passive_handler.Set("PureReduction", 0)
+
+			..()
+
+
+
+// Thorgigamax Gemenilove 
+
+/globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
+
+/mob/proc/gajaConversionCheck()
+	if(key in glob.COOL_GAJA_PLAYERS)
+		verbs += /mob/proc/ExchangeMinerals
+
+/mob/proc/gajaConversionRateUpdate()
+	if(isRace(GAJALAKA) && key in glob.COOL_GAJA_PLAYERS)
+		var/asc = AscensionsAcquired
+		playerExchangeRate = 0.5 + (0.25 * asc)
+		for(var/obj/Money/moni in src)
+			if(moni.Level >= 10000)
+				var/boon = round(moni.Level * 0.00001, 0.1)
+				playerExchangeRate += boon
 

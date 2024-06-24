@@ -2,8 +2,10 @@
 #define isplayer(x) istype(x,/mob/Players)
 
 /globalTracker/var/DEBUFF_EFFECTIVENESS = 0.004
+
 mob
 	proc
+
 		AscAvailable()
 			src.potential_ascend(Silent=1)
 			if(race.ascensions.len==0) return
@@ -1184,8 +1186,9 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
-			// if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-			// 	Mod+=(0.1 * AscensionsAcquired)
+			if(glob.DEVIL_ARM_STAT_MULTS)
+				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
+					Mod+=(0.1 * AscensionsAcquired)
 			if(src.StrStolen)
 				Mod+=src.StrStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1304,8 +1307,9 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
-			// if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-			// 	Mod+=(0.1 * AscensionsAcquired)
+			if(glob.DEVIL_ARM_STAT_MULTS)
+				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
+					Mod+=(0.1 * AscensionsAcquired)
 			if(src.ForStolen)
 				Mod+=src.ForStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1408,8 +1412,9 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
-			// if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-			// 	Mod+=(0.05 * AscensionsAcquired)
+			if(glob.DEVIL_ARM_STAT_MULTS)
+				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
+					Mod+=(0.05 * AscensionsAcquired)
 			if(src.EndStolen)
 				Mod+=src.EndStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1496,8 +1501,9 @@ mob
 			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
-			// if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
-			// 	Mod+=(0.05 * AscensionsAcquired)
+			if(glob.DEVIL_ARM_STAT_MULTS)
+				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
+					Mod+=(0.05 * AscensionsAcquired)
 			if(src.SpdStolen)
 				Mod+=src.SpdStolen*0.5
 			var/BM=src.HasBuffMastery()

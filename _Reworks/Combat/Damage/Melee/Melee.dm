@@ -462,7 +462,8 @@ var/global/MULTIHIT_NERF = FALSE
 									result = flow - instinct
 								else
 									result = flow
-								if(prob(BASE_FLOW_PROB*result))
+								var/backtrack = enemy.passive_handler.Get("Backtrack")
+								if(prob((BASE_FLOW_PROB*result) + glob.BASE_BACKTRACK_PROB * backtrack))
 									if(AttackQueue && AttackQueue.HitSparkIcon)
 										var/hitsparkSword = swordAtk
 										disperseX=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)

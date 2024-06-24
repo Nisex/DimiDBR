@@ -96,9 +96,6 @@ var/list/SkillTree=list(
 			"/obj/Skills/Projectile/Beams/Shine_Ray"=120,
 			"/obj/Skills/Projectile/Beams/Gamma_Ray"=120,
 			"/obj/Skills/Projectile/Beams/Piercer_Ray"=120,
-
-
-			"/obj/Skills/Projectile/Energy_Minefield"=80,
 			"/obj/Skills/Projectile/Stealth_Bomb"=80,
 			"/obj/Skills/Projectile/Pillar_Bomb"=80
 ),

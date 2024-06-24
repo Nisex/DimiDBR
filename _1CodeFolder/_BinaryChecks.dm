@@ -1447,8 +1447,6 @@ mob
 			var/Return=0
 			if(src.Race in list("Human"))
 				Return+=100
-			if(src.Race == "Namekian")
-				Return+=(10*src.AscensionsAcquired)
 			if(src.Race=="Tuffle")
 				Return+=(20*(src.Intelligence+src.Imagination))
 

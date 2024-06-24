@@ -648,6 +648,8 @@ proc/Load_Bodies()
 			A.x = A.buildPreviousX
 			A.y = A.buildPreviousY
 			A.z = A.buildPreviousZ
+			A.loc = locate(A.buildPreviousX, A.buildPreviousY, A.buildPreviousZ)
+			world.log << "[A] found in [L], at [A.x], [A.y], [A.z] | [A.buildPreviousX], [A.buildPreviousY], [A.buildPreviousZ]"
 		goto wowza
 
 mob/proc/Leave_Body(var/SuperDead=0, var/Zombie, var/ForceVoid=0)
