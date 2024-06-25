@@ -1,7 +1,5 @@
 // NEW VARS
 /mob/var/IntimidationMult // a very important part that multiplies intim so it can remain a normal value
-/var/INTIMRATIO
-/var/NEWINTIMCALC
 
 // NEW PROCS
 /mob/proc/getSSIntim(mob/defender, val) // get Saiyan Soul Intim

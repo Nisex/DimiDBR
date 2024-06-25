@@ -1,5 +1,5 @@
 /obj/Skills/AutoHit/Magic/Corruption/Corrupt_Reality
-	var/list/Upgrades = list("Primordial" = list(0.25,0.5,1,1.25,1.5,2), "DamageMult" = list(0.05,0.075,0.1,0.125,0.15,0.2))
+	scalingValues = list("Primordial" = list(0.25,0.5,1,1.25,1.5,2), "DamageMult" = list(0.008,0.025,0.05,0.1,0.125,0.15))
 	Area= "Target"
 	SpecialAttack=1
 	AdaptRate = 1
@@ -12,9 +12,10 @@
 	CorruptionCost = 50
 	Cooldown = -1
 	adjust(mob/p)
+		scalingValues = /obj/Skills/AutoHit/Magic/Corruption/Corrupt_Reality::scalingValues
 		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
-		for(var/x in Upgrades)
-			vars[x] = Upgrades[x][asc]
+		for(var/x in scalingValues)
+			vars[x] = scalingValues[x][asc]
 	Trigger(mob/p)
 		adjust(usr)
 		ManaCost = usr.ManaAmount
@@ -39,6 +40,7 @@
 	CorruptionCost = 25
 	scalingValues = list("toDeath" = list(150,250,300,600,1200), "range" = list(8,15,20,25,30, 30))
 	adjust(mob/p)
+		scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space::scalingValues
 		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
 		makSpace.configuration = "Fill"
 		for(var/variable in scalingValues)

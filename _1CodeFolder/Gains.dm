@@ -628,7 +628,7 @@ mob
 					if(src.Secret=="Werewolf"&&!src.PoseTime)
 						src << "You focus your instincts perfectly on the chosen target, ready to leap any second!"
 					src.PoseTime++
-					if(src.PoseTime>=4)
+					if(src.PoseTime>=glob.POSE_TIME_NEEDED)
 						if(Secret=="Eldritch")
 							icon_state = ""
 							PoseTime = 0

@@ -310,6 +310,8 @@ update
 // Thorgigamax Gemenilove 
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
+/globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25
+/globalTracker/var/GAJA_MAX_EXCHANGE = 0.5
 
 /mob/proc/gajaConversionCheck()
 	if(key in glob.COOL_GAJA_PLAYERS)
@@ -318,9 +320,11 @@ update
 /mob/proc/gajaConversionRateUpdate()
 	if(isRace(GAJALAKA) && key in glob.COOL_GAJA_PLAYERS)
 		var/asc = AscensionsAcquired
-		playerExchangeRate = 0.5 + (0.25 * asc)
+		var/ascRate = 0.5 + (0.25 * asc) // 1.25 max
 		for(var/obj/Money/moni in src)
 			if(moni.Level >= 10000)
 				var/boon = round(moni.Level * 0.00001, 0.1)
-				playerExchangeRate += boon
+				if(boon > glob.GAJA_MAX_EXCHANGE) // so 1.75 total
+					boon = glob.GAJA_MAX_EXCHANGE
+				playerExchangeRate = ascRate + boon
 

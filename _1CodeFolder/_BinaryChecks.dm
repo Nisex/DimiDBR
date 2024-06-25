@@ -1032,8 +1032,9 @@ mob
 		GetTechniqueMastery()
 			var/Return=0
 			Return+=passive_handler.Get("TechniqueMastery")
-			if(isRace(HUMAN) && passive_handler.Get("Innovation") && StyleBuff.SignatureTechnique>=1)
-				Return += StyleBuff.SignatureTechnique * 0.5
+			if(isRace(HUMAN) && passive_handler.Get("Innovation") && StyleBuff)
+				if(StyleBuff.SignatureTechnique>=1)
+					Return += StyleBuff.SignatureTechnique * 0.5
 			if(UsingMasteredMartialStyle())
 				Return += 0.5
 			if(Target)

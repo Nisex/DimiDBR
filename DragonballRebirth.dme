@@ -439,6 +439,7 @@
 #include "_Reworks\Secrets\hats\datums\makespace.dm"
 #include "_Reworks\Secrets\HeavenlyRestriction\toji.dm"
 #include "_Reworks\Secrets\Legendary\Legendary.dm"
+#include "_Reworks\Secrets\Necromancy\_NecroDefines.dm"
 #include "_Reworks\Secrets\Vampire\BloodGauge.dm"
 #include "_Reworks\Secrets\Vampire\VampireBuffs.dm"
 #include "_Reworks\Secrets\Wrathful\wratchful.dm"

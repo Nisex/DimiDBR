@@ -211,7 +211,7 @@ proc/BootFile(var/file,var/op)
 					F["GuanyuTaken"] >> GuanyuTaken
 					F["MoonlightGreatSwordTaken"]>>MoonlightGreatswordTaken
 					F["GetUp"]>>GetUpVar
-					F["intimRatio"]>>INTIMRATIO
+					// F["intimRatio"]>>INTIMRATIO
 					F["DustToggle"]>>DustControl
 					F["BaseUpdate"]>>BaseUpdate
 					F["WorldBaseAmount"]>>global.WorldBaseAmount
@@ -406,7 +406,7 @@ proc/BootFile(var/file,var/op)
 				F["ContractBroken"]<<ContractBroken
 				F["ConstellationsBronze"]<<ConstellationsBronze
 				F["TrueNames"]<<TrueNames
-				F["intimRatio"]<<INTIMRATIO
+				// F["intimRatio"]<<INTIMRATIO
 				if(archive)
 					archive.AGs = list() // this will delete the AGs list, it should just track whatever is in game vs whatever exist period to avoid any issues
 					F["archive"] << archive

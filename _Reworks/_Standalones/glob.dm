@@ -178,7 +178,7 @@ globalTracker
 // combat
 
 		DEVIL_ARM_STAT_MULTS = FALSE
-
+		POSE_TIME_NEEDED = 2
 
 		MAX_HARDEN = 20
 		DEMONIC_DURA_BASE = 0.04
