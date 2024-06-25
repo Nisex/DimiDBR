@@ -299,7 +299,7 @@ update
 					d.Trigger(p, 1)
 				p << "stats changed"
 				p.stat_redo()
-				p.passive_handler.Set("HellPower" = 0.025)
+				p.passive_handler.Set("HellPower", 0.025)
 			if(p.isRace(ELDRITCH))
 				p.passive_handler.Set("PureReduction", 0)
 
