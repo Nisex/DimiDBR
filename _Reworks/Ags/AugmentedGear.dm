@@ -76,7 +76,11 @@ proc/copyatom(atom/a)
         return
     var/obj/Items/newAG = copyatom(ag)
     newAG.passives = ag.passives.Copy()
-    newAG.name = "[ag.name] Copy"
+    var/list/techs = list()
+    for(var/technique in ag.Techniques)
+        techs += copyatom(technique)
+    newAG.Techniques = techs
+    newAG.name = "[ag.name]"
     newAG.Move(src)
     archive.addAG(newAG)
 
