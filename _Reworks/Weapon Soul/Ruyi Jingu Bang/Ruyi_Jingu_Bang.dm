@@ -1,5 +1,5 @@
 obj/Items/Sword/Wooden/Legendary/WeaponSoul/RyuiJinguBang
-	name = "Ruyi Jingu Bang"
+	name = "Ryui Jingu Bang"
 	icon = 'WukongSheathe-32-32.dmi'
 	unsheatheIcon = 'WukongStaff-32-32.dmi'
 	removeSheathedOnUnSheathe = TRUE

@@ -1125,12 +1125,12 @@ NEW VARIABLES
 							src.ActiveMessage="calls forth the true form of the Green Dragon Crescent Blade, the Spear of War!"
 							src.OffMessage="restrains Guan Yu's fury..."
 
-						if("Ruyi Jingu Bang")
+						if("Ryui Jingu Bang")
 							src.PowerMult=1.5
 							passives = list("SpiritPower" = usr.SagaLevel*0.25, "Extend" = max(1,usr.SagaLevel/2), "PULock" = 1)
 							if(!redacted)
-								src.ActiveMessage="calls forth the true form of Ruyi Jingu Bang, the Pole of the Monkey King!"
-								src.OffMessage="shrinks Ruyi Jingu Bang back down..."
+								src.ActiveMessage="calls forth the true form of Ryui Jingu Bang, the Pole of the Monkey King!"
+								src.OffMessage="shrinks Ryui Jingu Bang back down..."
 								SwordName = null
 								SwordIcon = null
 							else
@@ -8292,7 +8292,7 @@ NEW VARIABLES
 					if(1)
 						if(wooden_icon)
 							SwordIcon = wooden_icon
-							SwordX = wooden_x 
+							SwordX = wooden_x
 							SwordX = wooden_y
 						else
 							SwordIcon = 'Bokken.dmi'
@@ -8300,7 +8300,7 @@ NEW VARIABLES
 					if(2)
 						if(light_icon)
 							SwordIcon = light_icon
-							SwordX = light_x 
+							SwordX = light_x
 							SwordX = light_y
 						else
 							SwordIcon = 'LightSword.dmi'
@@ -8308,7 +8308,7 @@ NEW VARIABLES
 					if(3)
 						if(med_icon)
 							SwordIcon = med_icon
-							SwordX = med_x 
+							SwordX = med_x
 							SwordX = med_y
 						else
 							SwordIcon = 'MediumSword.dmi'
@@ -8316,7 +8316,7 @@ NEW VARIABLES
 					if(4)
 						if(heavy_icon)
 							SwordIcon = heavy_icon
-							SwordX = heavy_x 
+							SwordX = heavy_x
 							SwordX = heavy_y
 						else
 							SwordIcon = 'HeavySword.dmi'
@@ -9787,7 +9787,7 @@ NEW VARIABLES
 								User.StunImmune = TRUE // cutscene mode
 								User.LaunchImmune = TRUE
 							else
-								User.StunImmune = FALSE 
+								User.StunImmune = FALSE
 								User.LaunchImmune = FALSE
 							..()
 					Fatal_Mode
@@ -10708,7 +10708,7 @@ NEW VARIABLES
 				Slithereen_Crush
 
 
-				
+
 				Melt_Down
 					// Poison Dragon Racial.
 					ActiveMessage = "begins bubbling"
@@ -10783,7 +10783,7 @@ NEW VARIABLES
 					if(altered) return
 					var/asc = p.AscensionsAcquired
 					passives = list("Unstoppable" = 1, "Hardening" = 1 + (0.5 * asc), "LifeSteal" = 1.5*asc, "Godspeed" = 1+(asc), "SweepingStrike" = 1)
-					VaizardHealth = p.GetEnd() + (p.TotalInjury/25) + (asc)  
+					VaizardHealth = p.GetEnd() + (p.TotalInjury/25) + (asc)
 					VaizardHealth/= 10
 					// this was 17.5% guys lol
 					if(asc>=1)
