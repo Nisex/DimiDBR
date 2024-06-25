@@ -206,8 +206,23 @@ obj/Skills/Grapple
 		Effect="Suplex"
 		EffectMult=1
 		Cooldown=60
+		adjust(mob/p)
+			if(p.isInnovative(HUMAN, "Unarmed"))
+				Effect="SuperSuplex"
+				TriggerMessage="starts freakifying"
+				EffectMult=2
+				Stunner=5
+				StrRate=1.25
+				DamageMult = 3.8 + (p.Potential / 25)
+			else
+				Effect="Suplex"
+				DamageMult=4.5
+				EffectMult=1
+				Stunner=3
+				StrRate=1
 		verb/Suplex()
 			set category="Skills"
+			adjust(usr)
 			src.Activate(usr)
 	Burning_Finger
 		NewCost = TIER_2_COST
@@ -222,7 +237,7 @@ obj/Skills/Grapple
 		EffectMult=2
 		ThrowMult=0
 		ThrowAdd=5
-		Cooldown=90
+		Cooldown=60
 		verb/Burning_Finger()
 			set category="Skills"
 			src.Activate(usr)
@@ -452,7 +467,7 @@ obj/Skills/Grapple
 						else if(st)
 							itemDmg = ( User.GetStaffDamage(st))
 					itemDmg *= glob.GLOBAL_ITEM_DAMAGE_MULT
-				var/unarmedBoon = !NeedsSword ? GRAPPLE_MELEE_BOON : 1
+				var/unarmedBoon = !NeedsSword ? glob.GRAPPLE_MELEE_BOON : 1
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple Item Damage", itemDmg, "damageDebugs.txt", User.ckey)
 				#endif
@@ -527,6 +542,9 @@ obj/Skills/Grapple
 							if("Lotus")
 								LotusEffect(User, Trg, src.EffectMult)
 							if("Suplex")
+								SuplexEffect(User, Trg)
+							if("SuperSuplex")
+								LotusEffect(User, Trg, src.EffectMult)
 								SuplexEffect(User, Trg)
 							if("Strike")
 								User.HitEffect(Trg)

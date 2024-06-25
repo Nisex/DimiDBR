@@ -20,6 +20,8 @@ mob/proc/refund_skill(obj/Skills/refunded_skill)
 	if(refunded_skill.NewCost)
 		Refund = refunded_skill.NewCost
 	if(refunded_skill.Copyable)
+		if(refunded_skill.NewCopyable)
+			refunded_skill.Copyable = refunded_skill.NewCopyable
 		switch(refunded_skill.Copyable)
 			if(1) // these r maostly gone
 				Refund = TIER_1_COST

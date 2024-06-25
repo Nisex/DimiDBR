@@ -200,6 +200,9 @@ proc
 		User.Frozen=0
 		Target.Frozen=0
 
+
+		
+
 	RozanEffect(var/mob/User, var/mob/Target, var/TimeMod=1)
 		set waitfor=0
 		User.Frozen=2
