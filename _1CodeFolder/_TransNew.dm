@@ -1212,7 +1212,7 @@ mob/proc/WeaponSoul() // OverSoul Mechanic
 				spawn(10)
 					src.OMessage(10, "<b><font color=red><center>The tides of War may try to be oppressed by others, but they'll crush all opposition under a relentless spear with the power to kill the very Heavens.</center></font></b>")
 
-			if("Ruyi Jingu Bang")
+			if("Ryui Jingu Bang")
 				Attunement = "Wind"
 				InfusionElement = "Earth"
 				passive_handler.Increase("CalmAnger")
@@ -1551,7 +1551,7 @@ mob/proc/RevertWS()
 		placement-=s.LayerPriority
 	src.PowerBoost/=2
 	switch(src.BoundLegend)
-		if("Ruyi Jingu Bang")
+		if("Ryui Jingu Bang")
 			Attunement = null
 			InfusionElement = null
 			passive_handler.Decrease("CalmAnger")

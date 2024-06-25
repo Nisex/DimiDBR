@@ -121,6 +121,7 @@ proc/BootWorld(var/blah)
 			Save_Bodies()
 			SaveIRLNPCs()
 			SaveAISPawners()
+			resourceManager.SaveToSavefile()
 			spawn() Save_Objects()
 
 

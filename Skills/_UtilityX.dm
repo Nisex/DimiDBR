@@ -3163,7 +3163,7 @@ obj/Skills/Utility
 							if(!S.LockedLegend)
 								usr.contents+=S
 								break
-				if("Ruyi Jingu Bang")
+				if("Ryui Jingu Bang")
 					var/obj/Items/Sword/Wooden/Legendary/WeaponSoul/RyuiJinguBang/found = 0
 					for(var/obj/Items/Sword/Wooden/Legendary/WeaponSoul/RyuiJinguBang/s in world)
 						if(s)

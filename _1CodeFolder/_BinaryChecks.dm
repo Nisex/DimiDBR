@@ -2751,7 +2751,7 @@ mob
 			if(s.type==/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_Hope)
 				return "Durendal"
 			if(s.type == /obj/Items/Sword/Wooden/Legendary/WeaponSoul/RyuiJinguBang)
-				return "Ruyi Jingu Bang"
+				return "Ryui Jingu Bang"
 			if(s.type == /obj/Items/Sword/Heavy/Legendary/WeaponSoul/Spear_of_War)
 				return "Green Dragon Crescent Blade"
 			if(s.type == /obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon)

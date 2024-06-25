@@ -100,10 +100,13 @@ mob/proc/returnNames()
 		usr<<"Uh oh... something went wrong with saving this prayer.. contact awwlie!"
 		return
 		
-	if(who == "Other")
+	if(who == "Other" || who =="Koyroyal" || who == "Al-Munshaq" || who == "Kairos" || who == "Koek" || who == "Varz")
 		for(var/mob/m in admins)
 			if(!m.PrayerMute&&m.Admin>2)
-				m << "A prayer reaches your eyes from [usr]...<br>[prayer]"
+				if(who =="Other")
+					m << "A prayer reaches your eyes from [usr]...<br>[prayer]"
+				else 
+					m << "A prayer reaches for [who] from [usr]...<br>[prayer]"
 
 /mob/GiveOnDeath/verb/ReadPrayers()
 	set name = "Read Prayers"
