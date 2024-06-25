@@ -1353,6 +1353,7 @@ obj
 				StrOffense=1
 				DamageMult=3.5
 				Rush=5
+				ControlledRush=1
 				Rounds=3
 				ComboMaster=1
 				RoundMovement=0
@@ -6217,9 +6218,9 @@ obj
 					m << "You feel a need to go collect your coins before they're stolen!"
 
 				if(src.SpeedStrike>0)
-					FinalDmg *= clamp(1,sqrt(1+((Owner.GetSpd())*(src.SpeedStrike/10))),3)
+					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(src.SpeedStrike/10))),1,3)
 				if(Owner.UsingFencing())
-					FinalDmg *= clamp(1,sqrt(1+((Owner.GetSpd())*(Owner.UsingFencing()/15))),3)
+					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(Owner.UsingFencing()/15))),1,3)
 				if((!ComboMaster || !Owner.HasComboMaster()) && (m.Launched||m.Stunned))
 					FinalDmg *= glob.CCDamageModifier
 					Owner.log2text("FinalDmg - Auto Hit", "After ComboMaster", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")

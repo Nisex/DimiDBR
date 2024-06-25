@@ -153,9 +153,9 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 						src.Tension=0
 						for(var/obj/Skills/s in src)
 							if(length(s.possible_skills) > 0)
-								for(var/obj/Skills/t in s.possible_skills)
-									if(t.Cooldown<0 && t.Using)
-										t.Using = 0
+								for(var/t in s.possible_skills)
+									if(s.possible_skills["[t]"].Cooldown<0 && s.possible_skills["[t]"].Using)
+										s.possible_skills["[t]"].Using = 0
 										usr << "[t] has been reset, allowing you to use it again."
 							if(s.Cooldown<0 && s.Using)
 								s.Using = 0

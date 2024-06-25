@@ -1,5 +1,7 @@
+/globalTracker/var/LIGHT_DARK_EFFECTIVE = 0.5
+
 /mob/proc/getEleEffective(swordEle, atomicFist, demon)
-    var/effective = 1.5
+    var/effective = glob.LIGHT_DARK_EFFECTIVE
     if(swordEle)
         effective *= 0.75
     if(atomicFist)

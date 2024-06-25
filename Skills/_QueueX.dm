@@ -4041,10 +4041,10 @@ mob
 				Damage*=(addDamage)
 
 			if(src.AttackQueue.SpeedStrike>0)
-				Damage *= clamp(1,sqrt(((src.GetSpd())*(src.AttackQueue.SpeedStrike/10))),3)
+				Damage *= clamp(sqrt( ( 1+ ( src.GetSpd())*( src.AttackQueue.SpeedStrike/10 ) ) ),1 ,3)
 
 			if(src.AttackQueue.SweepStrike>0)
-				Damage *= clamp(1,sqrt(((P.GetSpd())*(src.AttackQueue.SweepStrike/10))),3)
+				Damage *= clamp(sqrt(( 1+ (P.GetSpd())*(src.AttackQueue.SweepStrike/10))),1 ,3)
 
 			if(src.AttackQueue.GodPowered)
 				src.transcend(src.AttackQueue.GodPowered)

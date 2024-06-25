@@ -28,7 +28,7 @@ globalTracker
 				del update // i guess loc = null doesn't work cause datums have no loc
 
 
-mob/var/updateVersion = 22
+mob/var/updateVersion = 23
 
 update
 	var/version = 1
@@ -304,7 +304,15 @@ update
 				p.passive_handler.Set("PureReduction", 0)
 
 			..()
-
+	version23
+		version = 23
+		updateMob(mob/p)
+			if(p.isRace(DEMON))
+				var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.race:findTrueForm(p)
+				if(p.BuffOn(d))
+					d.Trigger(p, 1)
+				p.passive_handler.Set("HellPower", 0.025)
+			..()
 
 
 // Thorgigamax Gemenilove 

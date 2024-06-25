@@ -1,5 +1,5 @@
 /obj/Skills/AutoHit/Magic/Corruption/Corrupt_Reality
-	scalingValues = list("Primordial" = list(0.25,0.5,1,1.25,1.5,2), "DamageMult" = list(0.008,0.025,0.05,0.1,0.125,0.15))
+	scalingValues = list("Primordial" = list(0.3,0.6,1,1.25,1.5,2), "DamageMult" = list(0.008,0.03,0.05,0.1,0.125,0.15))
 	Area= "Target"
 	SpecialAttack=1
 	AdaptRate = 1
@@ -20,7 +20,8 @@
 		adjust(usr)
 		ManaCost = usr.ManaAmount
 		DamageMult = 1 + (ManaCost * DamageMult)
-		if(Using || cooldown_remaining)
+		if(Using || cooldown_remaining || !(p.Target.Health <= 50))
+			p << "On cd, being used, or target is above 50."
 			return FALSE
 		var/aaa = p.Activate(src)
 		return aaa

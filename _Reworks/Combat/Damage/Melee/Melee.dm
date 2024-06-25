@@ -333,7 +333,7 @@ var/global/MULTIHIT_NERF = FALSE
 				var/speedStrike = passive_handler.Get("BlurringStrikes")
 				if(UsingFencing() || speedStrike)
 					speedStrike += UsingFencing()
-					damage *= clamp(1,sqrt( 1  + ( (GetSpd()) * (speedStrike/15) ) ),3)
+					damage *= clamp(sqrt( 1  + ( (GetSpd()) * (speedStrike/15) ) ),1,3)
 				if(AttackQueue)
 					damage *= QueuedDamage(enemy)
 					#if DEBUG_MELEE

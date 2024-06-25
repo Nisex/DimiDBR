@@ -177,6 +177,10 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 			if(isRace(MAJIN))
 				majinPassive.resetVariables(src)
 			for(var/obj/Skills/s in Skills)
+				if(s.possible_skills)
+					for(var/index in s.possible_skills)
+						if(s.possible_skills[index].Cooldown<0 && s.possible_skills[index].Using)
+							src << "One or more of your skills will be made available to you again when you stop meditating."
 				if(s.Cooldown<0 && s.Using)
 					src << "One or more of your skills will be made available to you again when you stop meditating."
 				break

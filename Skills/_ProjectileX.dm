@@ -341,16 +341,13 @@ obj
 
 			Kick_Blast
 				Copyable=0
-				Distance=8
+				Distance=12
 				DamageMult=0.5
 				AccMult = 1.25
 				Radius=1
 				Homing=1
 				HomingCharge=3
 				HomingDelay=1
-				ZoneAttack=1
-				ZoneAttackX=0
-				ZoneAttackY=0
 				FireFromSelf=1
 				FireFromEnemy=0
 				MultiHit=2

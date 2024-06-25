@@ -4491,7 +4491,7 @@ NEW VARIABLES
 			adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired/10
 				//scales off how low hp is
-				PowerMult = clamp(1,(1+(zenkaiLevel/2))/user.Health, 1.5)
+				PowerMult = clamp((1+(zenkaiLevel/2))/user.Health,1, 1.5)
 			verb/Saiyan_Grit()
 				set category="Skills"
 				if(!usr.BuffOn(src))
