@@ -88,8 +88,3 @@ atom/movable
 		if(val) icon = resourceManager.GetResourceByName(val)
 
 var/resourceManager/resourceManager = new()
-
-world
-	Del()
-		resourceManager.SaveToSavefile()
-		..()
