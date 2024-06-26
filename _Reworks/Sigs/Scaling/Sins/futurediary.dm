@@ -32,12 +32,12 @@
 ////
 // VARIABLES
 /// 
-var/list/randomPassives = list("Flow" = 1, "PureDamage" = 1, 
-"Godspeed" = 1, "Void" = 1, "NoWhiff" = 1, "HolyMod" = 1, "AbyssMod" = 1,
-"Instinict " = 1, "VenomImmune" = 1, "CounterMaster" = 1, "TechniqueMastery" = 1,
-"HybridStrike" = 1, "SpiritStrike" = 1, "Extend" = 1, "MovementMastery" = 1 )
-mob/var/futureDiaryLevel = 0 // maxes out at 3.
-mob/var/whichDiary /// 1, 2, 3, 4 look for above...
+var/list/randomPassives = list("Flow", "PureDamage", 
+"Godspeed", "Void", "NoWhiff", "HolyMod", "AbyssMod",
+"Instinict ", "VenomImmune", "CounterMaster", "TechniqueMastery",
+"HybridStrike", "SpiritStrike", "Extend", "MovementMastery")
+mob/var/futureDiaryLevel = 0 // maxes out at 4.
+mob/var/whichDiary = 0 /// 1, 2, 3, 4 look for above...
 
 
 // PROCS
@@ -48,33 +48,28 @@ mob/var/whichDiary /// 1, 2, 3, 4 look for above...
 
 
 obj/proc/getPassivesFutureDiary(var/mob/Player/M) // MC Passives.. 
-	var/passiveList = list(null)
-	switch(M.futureDiaryLevel)
-		if(1)
-			passiveList = pick(randomPassives)
-		if(2)
-			passiveList = pick(randomPassives)
-			passiveList += pick(randomPassives)
-		if(3)
-			passiveList = pick(randomPassives)
-			passiveList += pick(randomPassives)
-			passiveList += pick(randomPassives)
-		if(4)
-			passiveList = pick(randomPassives)
-			passiveList += pick(randomPassives)
-			passiveList += pick(randomPassives)
-			passiveList += pick(randomPassives)
-			passiveList += pick(randomPassives)
-			passiveList += pick(randomPassives)						
+	var/list/passiveList = list()
+	passiveList = pick(randomPassives)				
 	return passiveList
 
 
 mob/proc/levelUpDiary(mob/M)
+	M.futureDiaryLevel ++ 
 	switch(M.futureDiaryLevel)
 		if(1)
 			if(!locate(/obj/Skills/Buffs/SpecialBuff/futureDiary, M))
 				M.AddSkill(new/obj/Skills/Buffs/SpecialBuff/futureDiary)
 			src << "You feel a connection with your Diary.. It becomes special.. It feels empowered by the powers of the cosmos."
+			switch(input(M, "It has came time to chose your Diary out of the four..", "Chose your Diary") in list("First","Second","Third","Fourth"))
+				if("First")
+					M.whichDiary = 1
+				if("Second")
+					M.whichDiary = 2
+				if("Third")
+					M.whichDiary = 3
+				if("Fourth")
+					M.whichDiary = 4
+
 		if(2)
 			src << "You feel your connection to your Diary improve..."
 			switch(M.whichDiary)
@@ -84,71 +79,75 @@ mob/proc/levelUpDiary(mob/M)
 					M.AddSkill(new/obj/Skills/Projectile/DetectivesShot)
 				if(4)
 					M.AddSkill(new/obj/Skills/AutoHit/HeartStab)
+		if(3)
+			src << "You feel yourself connect with the Cosmos further with your Diary"
+		if(4)
+			src << "You feel like the winner.. of the Survival Game.. The God Hood awaits you."
+
 /// 
 /// Skills / buffs
 /// 
 
 // main gimbo
 /obj/Skills/Buffs/SpecialBuff/futureDiary
-	ManaGlow="#9ce9cb"
+	ManaGlow="#e99cdf"
+	ManaGlowSize = 1
 	OffMult=1.1
 	DefMult=1.1	
-	SignatureTechnique=1	
-	TextColor="red"
-	passives = list("Flow" = 1)
-	ActiveMessage="begins to predict the future with their Diary...!!"
-	OffMessage="relaxes their evolution..."
-	BuffName="futureDiary"
-	verb/futureDiary()
+	SpecialSlot=1
+	TextColor="#FE4B87"
+	LockX=0
+	LockY=0
+	ActiveMessage="is filled with the future knowledge..!!"
+	OffMessage="loses their control of the future..!!"
+	name = "Future Diary"
+	BuffName="Future Diary"
+	verb/Future_Diary()
 		set category="Skills"
 		if(!usr.BuffOn(src))
-			src.passives = src.getPassivesFutureDiary(usr)
 			switch(usr.futureDiaryLevel)
 				if(1)
-					src.passives += list("Instinct" = 2, "Flow" = 2)
 					switch(usr.whichDiary)
 						if(1)
-							src.passives += src.getPassivesFutureDiary()
+							passives = list("Instinct" = 2, "Flow" = 2, getPassivesFutureDiary(usr) = 1)
 						if(2)
-							src.passives += list("Flow" = 1)
+							passives = list("Instinct" = 2, "Flow" = 3 )
 						if(3)
-							src.passives += list("Instinict" = 1)
+							passives = list("Instinct" = 3, "Flow" = 2)
 						if(4)
-							src.passives += list("Maimstrike" = 1)
+							passives = list("Instinct" = 2, "Flow" = 2, "Maimstrike" = 1)
 				if(2)
 					switch(usr.whichDiary)
 						if(1)
-							src.passives += src.getPassivesFutureDiary()
+							passives = list ("Instinct" = 2, "Flow" = 2, getPassivesFutureDiary(usr) = 1, getPassivesFutureDiary(usr) = 1 )
 						if(2)
-							src.passives += list("Flow" = 2, "Godspeed" = 1, "Instinict" = 1)
+							passives += list("Flow" = 4, "Godspeed" = 1, "Instinict" = 3)
 						if(3)
-							src.passives += list("LikeWater" = 3, "Godspeed" = 3)
+							passives += list("LikeWater" = 3, "Godspeed" = 3, "Instinct" = 3, "Flow" = 2)
 						if(4)
-							src.passives += list("Unstoppable" = 2)
+							passives += list("Instinct" = 2, "Flow" = 2, "Maimstrike" = 1, "Unstoppable" = 1)
 
 				if(3)
-					src.passives += list("Instinct" = 2, "Flow" = 2)
 					switch(usr.whichDiary)
 						if(1)
-							src.passives += src.getPassivesFutureDiary()
+							passives = list ("Instinct" = 2, "Flow" = 2, getPassivesFutureDiary(usr) = 1, getPassivesFutureDiary(usr) = 1, getPassivesFutureDiary(usr) = 1 )
 						if(2)
-							src.passives += list("CriticalChance" = 2, "TechniqueMastery" = 1)
+							passives = list("Flow" = 4, "Godspeed" = 1, "Instinict" = 3,"CriticalChance" = 2, "TechniqueMastery" = 1)
 						if(3)
-							src.passives += list("HolyMod" = 2)
+							passives = list("LikeWater" = 3, "Godspeed" = 3, "Instinct" = 3, "Flow" = 2, "HolyMod" = 2)
 						if(4)	
-							src.passives += list("AbyssMod" = 1)
+							passives = list("Instinct" = 2, "Flow" = 2, "Maimstrike" = 1, "Unstoppable" = 1, "AbyssMod" = 1)
 				if(4)
-					src.passives += list("GodKi" = 1)
 					switch(usr.whichDiary)
 						if(1)
-							src.passives += src.getPassivesFutureDiary()
+							passives = list("GodKi" = 1, "Instinct" = 2, "Flow" = 2, getPassivesFutureDiary(usr) = 1, getPassivesFutureDiary(usr) = 1, getPassivesFutureDiary(usr) = 1, getPassivesFutureDiary(usr) = 1, getPassivesFutureDiary(usr) = 1 )
 						if(2)
-							src.passives += list("CriticalChance" = 4, "TechniqueMastery" = 2, "Flow" = 4, "Godspeed" = 2, "Instinict" = 2)
+							passives = list("GodKi" = 1,"Flow" = 4, "Godspeed" = 1, "Instinict" = 3,"CriticalChance" = 4, "TechniqueMastery" = 4)
 						if(3)
-							src.passives += list("LikeWater" = 3, "Godspeed" = 3, "HolyMod" = 2)
+							passives = list("LikeWater" = 3, "Godspeed" = 6, "Instinct" = 3, "Flow" = 2, "HolyMod" = 4,"LikeWater" = 3)
 						if(4)	
-							src.passives += list("Unstoppable" = 2, "AbyssMod" = 2)
-
+							passives = list("Instinct" = 2, "Flow" = 2, "Maimstrike" = 1, "Unstoppable" = 3, "AbyssMod" = 3)
+		src.Trigger(usr)
 // maim strike knife move.
 /obj/Skills/AutoHit/HeartStab
 	SignatureTechnique=1
@@ -168,7 +167,7 @@ mob/proc/levelUpDiary(mob/M)
 	HitSparkSize = 1
 	Cooldown = 120
 	ActiveMessage = "begins to stab their opponent constantly against their chest!"
-	verb/HeartStab()
+	verb/Heart_Stab()
 		set category="Skills"
 		usr.Activate(src)
 
@@ -186,7 +185,7 @@ mob/proc/levelUpDiary(mob/M)
 	Warp=2
 	Cooldown=120
 	EnergyCost=5
-	verb/The_Claw()
+	verb/Love_Stab()
 		set category="Skills"
 		usr.SetQueue(src)
 
@@ -210,3 +209,16 @@ mob/proc/levelUpDiary(mob/M)
 	verb/Detectives_Shot()
 		set category="Skills"
 		usr.UseProjectile(src)
+
+
+///
+/// Admin verbs..
+/// 
+
+/mob/Admin3/verb/Give_FutureDiary()
+	set category = "Admin"
+	var/mob/P = input(src, "Give Future Diary to who?") in players
+	if (P.futureDiaryLevel < 4)
+		levelUpDiary(P)
+	else 
+		usr << "They are at the max level."

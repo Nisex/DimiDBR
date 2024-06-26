@@ -8,6 +8,7 @@
     /mob/Admin2/verb/Event_Character_Setup,
     /mob/Admin3/verb/SagaManagement,
     /mob/Admin3/verb/SecretManagement,
+    /mob/Admin3/verb/Give_FutureDiary,
     /mob/proc/giveAllSkillTree,
     /mob/proc/giveAllSigs,
 )
