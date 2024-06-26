@@ -90,16 +90,16 @@ mob/proc/levelUpDiary(mob/M)
 
 // main gimbo
 /obj/Skills/Buffs/SpecialBuff/futureDiary
-	ManaGlow="#9ce9cb"
+	ManaGlow="#e99cdf"
 	ManaGlowSize = 1
 	OffMult=1.1
 	DefMult=1.1	
 	SpecialSlot=1
-	TextColor="red"
+	TextColor="pink"
 	LockX=0
 	LockY=0
-	ActiveMessage="is filled with cold rage as their eyes turn red and one tomoe appears in their iris!"
-	OffMessage="relaxes their hatred as their eyes return to a normal coloration..."
+	ActiveMessage="is filled with the future knowledge..!!"
+	OffMessage="loses their control of the future..!!"
 	name = "Future Diary"
 	BuffName="Future Diary"
 	verb/Future_Diary()
