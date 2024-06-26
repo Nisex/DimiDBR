@@ -67,6 +67,8 @@ obj
 
 					// NEW SHIT
 					Lucha_Libre_Style
+
+						Copyable = 0
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Red_Cyclone_Style")
 						StyleStr=1.35
 						StyleEnd=1.35
@@ -76,6 +78,8 @@ obj
 						Finisher="/obj/Skills/Queue/Finisher/Hold"
 
 					Red_Cyclone_Style
+						SignatureTechnique=1
+						Copyable=0
 
 						StyleStr=1.5
 						StyleEnd=1.5

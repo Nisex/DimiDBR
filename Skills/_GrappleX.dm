@@ -98,7 +98,7 @@ obj/Skills/Grapple
 				src.Activate(usr)
 ////AUTO TRIGGER
 	Muscle_Buster
-		DamageMult = 9
+		DamageMult = 11
 		StrRate = 1
 		EffectMult=3
 		OneAndDone=1
@@ -106,7 +106,7 @@ obj/Skills/Grapple
 		TriggerMessage = "lifts, flips, and slams"
 	
 	Giant_Swing	
-		DamageMult = 12
+		DamageMult = 15
 		StrRate = 1
 		EffectMult=2
 		OneAndDone=1
@@ -181,7 +181,7 @@ obj/Skills/Grapple
 	Judo_Throw
 		SkillCost=120
 		Copyable=4
-		DamageMult=12
+		DamageMult=9
 		Reversal=1
 		Stunner=2
 		StrRate=1
@@ -213,7 +213,7 @@ obj/Skills/Grapple
 		NewCopyable = 3
 		SkillCost=120
 		Copyable=4
-		DamageMult=4.5
+		DamageMult=4
 		Stunner=3
 		StrRate=1
 		ThrowAdd=1
@@ -281,8 +281,8 @@ obj/Skills/Grapple
 		UnarmedOnly=0
 		NeedsSword=0
 		SignatureTechnique=1
-		DamageMult=16
-		ForRate=4
+		DamageMult=12
+		ForRate=1.5
 		StrRate=0.5
 		TriggerMessage="fills their grasp with lightning and takes hold of"
 		Effect="Lightning"
@@ -510,6 +510,7 @@ obj/Skills/Grapple
 				var/extra = User.passive_handler.Get("Muscle Power") / 4
 				Damage *= DamageMult
 				Damage *= (unarmedBoon + extra) // unarmed boon is 0.5, 
+				Damage *= glob.GRAPPLE_DAMAGE_MULT
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple Damage dmgroll", Damage, "damageDebugs.txt", User.ckey)
 				#endif
