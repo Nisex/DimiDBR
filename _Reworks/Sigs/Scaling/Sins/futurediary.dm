@@ -36,7 +36,7 @@ var/list/randomPassives = list("PureDamage",
 "Godspeed", "Void", "NoWhiff", "HolyMod", "AbyssMod",
 "VenomImmune", "CounterMaster", "TechniqueMastery",
 "HybridStrike", "SpiritStrike", "Extend", "MovementMastery", "UnlimitedPU",
-"CriticalBlock", "Unstoppable", "DebuffImmune", "Godspeed")
+"CriticalBlock", "Unstoppable", "DebuffImmune")
 mob/var/futureDiaryLevel = 0 // maxes out at 4.
 mob/var/whichDiary = 0 /// 1, 2, 3, 4 look for above...
 
@@ -103,6 +103,7 @@ mob/proc/levelUpDiary(mob/M)
 	OffMessage="loses their control of the future..!!"
 	name = "Future Diary"
 	BuffName="Future Diary"
+	Cooldown = 360
 	verb/Future_Diary()
 		set category="Skills"
 		if(!usr.BuffOn(src))
@@ -122,7 +123,7 @@ mob/proc/levelUpDiary(mob/M)
 						if(1)
 							passives = list ("Instinct" = 2, "Flow" = 2, getPassivesFutureDiary(usr) = 1, getPassivesFutureDiary(usr) = 1 )
 						if(2)
-							passives += list("Flow" = 4, "Godspeed" = 1, "Instinict" = 3)
+							passives += list("Flow" = 4, "Godspeed" = 1, "Instinct" = 3)
 						if(3)
 							passives += list("LikeWater" = 3, "Godspeed" = 3, "Instinct" = 3, "Flow" = 2)
 						if(4)
@@ -133,7 +134,7 @@ mob/proc/levelUpDiary(mob/M)
 						if(1)
 							passives = list ("Instinct" = 3, "Flow" = 3, getPassivesFutureDiary(usr) = 1, getPassivesFutureDiary(usr) = 1, getPassivesFutureDiary(usr) = 1 )
 						if(2)
-							passives = list("Flow" = 4, "Godspeed" = 1, "Instinict" = 3,"CriticalChance" = 2, "TechniqueMastery" = 1)
+							passives = list("Flow" = 4, "Godspeed" = 1, "Instinct" = 3,"CriticalChance" = 2, "TechniqueMastery" = 1)
 						if(3)
 							passives = list("LikeWater" = 3, "Godspeed" = 3, "Instinct" = 3, "Flow" = 2, "HolyMod" = 2)
 						if(4)	
@@ -143,11 +144,11 @@ mob/proc/levelUpDiary(mob/M)
 						if(1)
 							passives = list("GodKi" = 1, "Instinct" = 4, "Flow" = 4, getPassivesFutureDiary(usr) = 1, getPassivesFutureDiary(usr) = 1, getPassivesFutureDiary(usr) = 1, getPassivesFutureDiary(usr) = 1, getPassivesFutureDiary(usr) = 1 )
 						if(2)
-							passives = list("GodKi" = 1,"Flow" = 4, "Godspeed" = 1, "Instinict" = 4,"CriticalChance" = 4, "TechniqueMastery" = 4)
+							passives = list("GodKi" = 1,"Flow" = 4, "Godspeed" = 1, "Instinct" = 4,"CriticalChance" = 4, "TechniqueMastery" = 4)
 						if(3)
-							passives = list("LikeWater" = 3, "Godspeed" = 6, "Instinct" = 3, "Flow" = 2, "HolyMod" = 4, "LikeWater" = 3)
+							passives = list("GodKi" = 1, "LikeWater" = 3, "Godspeed" = 6, "Instinct" = 3, "Flow" = 2, "HolyMod" = 4, "LikeWater" = 3)
 						if(4)	
-							passives = list("Instinct" = 2, "Flow" = 4, "Maimstrike" = 1, "Unstoppable" = 3, "AbyssMod" = 3)
+							passives = list("GodKi" = 1, "Instinct" = 2, "Flow" = 4, "Maimstrike" = 1, "Unstoppable" = 3, "AbyssMod" = 3)
 		src.Trigger(usr)
 // maim strike knife move.
 /obj/Skills/AutoHit/HeartStab
