@@ -436,12 +436,12 @@ mob
 
 			if(src.Secret == "Eldritch")
 				var/SecretInfomation/Eldritch/s = src.secretDatum
-				s.addMadness(val)
+				s.addMadness(src,val)
 				Update_Stat_Labels()
 
 			if(defender.Secret == "Eldritch")
 				var/SecretInfomation/Eldritch/s = defender.secretDatum
-				s.addMadness(val)
+				s.addMadness(defender,val)
 				defender.Update_Stat_Labels()
 
 			if(src.HasLifeSteal())
