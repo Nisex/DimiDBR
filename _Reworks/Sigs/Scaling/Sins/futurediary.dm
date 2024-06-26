@@ -95,7 +95,7 @@ mob/proc/levelUpDiary(mob/M)
 	OffMult=1.1
 	DefMult=1.1	
 	SpecialSlot=1
-	TextColor="pink"
+	TextColor="#FE4B87"
 	LockX=0
 	LockY=0
 	ActiveMessage="is filled with the future knowledge..!!"
