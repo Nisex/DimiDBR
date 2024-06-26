@@ -75,6 +75,16 @@ mob/proc/levelUpDiary(mob/M)
 			if(!locate(/obj/Skills/Buffs/SpecialBuff/futureDiary, M))
 				M.AddSkill(new/obj/Skills/Buffs/SpecialBuff/futureDiary)
 			src << "You feel a connection with your Diary.. It becomes special.. It feels empowered by the powers of the cosmos."
+			switch(input(M, "It has came time to chose your Diary out of the four..", "Chose your Diary") in list("First","Second","Third","Fourth"))
+				if("First")
+					M.whichDiary = 1
+				if("Second")
+					M.whichDiary = 2
+				if("Third")
+					M.whichDiary = 3
+				if("Fourth")
+					M.whichDiary = 4
+
 		if(2)
 			src << "You feel your connection to your Diary improve..."
 			switch(M.whichDiary)
@@ -102,7 +112,6 @@ mob/proc/levelUpDiary(mob/M)
 	verb/futureDiary()
 		set category="Skills"
 		if(!usr.BuffOn(src))
-			src.passives = src.getPassivesFutureDiary(usr)
 			switch(usr.futureDiaryLevel)
 				if(1)
 					src.passives += list("Instinct" = 2, "Flow" = 2)
