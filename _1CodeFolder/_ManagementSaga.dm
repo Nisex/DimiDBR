@@ -170,7 +170,7 @@ mob/Admin3/verb
 							if(!locate(/obj/Skills/Queue/Phoenix_Demon_Illusion_Strike, P))
 								P.AddSkill(new/obj/Skills/Queue/Phoenix_Demon_Illusion_Strike)
 						if("Unicorn")
-							if(!locate(/obj/Skills/AutoHit/Unicorn_Gallop, src))
+							if(!locate(/obj/Skills/AutoHit/Unicorn_Gallop, P))
 								P.AddSkill(new/obj/Skills/AutoHit/Unicorn_Gallop)
 
 				if("Weapon Soul")

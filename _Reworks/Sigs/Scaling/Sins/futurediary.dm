@@ -1,96 +1,212 @@
-// mob/verb/t(var/Source as num,Path as text)
-//  set hidden=1
-//  if(!Source)
-//   var/ProcPath=text2path("/[Path]")
-//   if(ispath(ProcPath))
-//    call(ProcPath)()
-//  else
-//   call(src,Path)()
+/** 
+ * Plan. 
+ * 4 Diaries. 
+ * 
+ * 4, murder diary
+ * 3, detective diary
+ * 2, yuno gasai,
+ * 1, mc diary
+ * 
+ * murder gets a murder / maim based kit
+ * get maimstrike based moves.. 
+ * 
+ * 
+ * detective knows the target,
+ * get detective esque moves.. 
+ * i.e tazer etc.. 
+ * HolyMod ttached to user vs murders abyss
+ * 
+ * yuno gasai
+ * get t1 knife skills
+ * and overall passives..
+ * 
+ * 
+ * mc diary get random passives purely % chance.. (make a remake guard for rerolling..)
+ * 
+ * 
+ * on picking it, you get the future diary object that acts as a pseudo buff. 
+ * 1 flow, 1.1 speed, 1.1 str & for 
+ * 
+ */
 
-// testing purposes
-
-mob/var/WhichFutureDiary
-mob/var/DiaryLevel=0
-
-
-mob/proc/AwardFutureDiary()
-    /**
-     * This will be used to award the player with the first tier of the Sig
-     */
-
-    if(src.WhichFutureDiary!="")
-        usr <<"You can only have one Diary at a time!" // edge case in case somehow they already have one.. but get run the proc?
-        return
-
-    switch (input(src, "Select one of the Twelve Diaries!","Future Diary") in list("First","Second","Third","Fourth","Fifth","Sixth","Seventh","Eighth","Ninth","Tenth","Eleventh","Twelfth"))
-        if("First")
-            src.WhichFutureDiary="First"
-            passive_handler.Increase("Anaerobic", 1)
-            src.Anaerobic++
-        if("Second")
-            src.WhichFutureDiary="Second"
-            passive_handler.Increase("Unstoppable", 1)
-            src.Unstoppable++
-        if("Third")
-            src.WhichFutureDiary="Third"
-            passive_handler.Increase("Unstoppable", 1)
-            src.Unstoppable++
-        if("Fourth")    
-            src.WhichFutureDiary="Fourth"
-            passive_handler.Increase("Pursuer", 1)
-            src.Pursuer++
-        if("Fifth")
-            src.WhichFutureDiary="Fifth"
-            passive_handler.Increase("Adaptation", 1)
-            src.Adaptation++
-        if("Sixth")
-            src.WhichFutureDiary="Sixth"
-            passive_handler.Increase("SoulSteal", 1)
-            src.SoulSteal++    
-        if("Seventh")
-            src.WhichFutureDiary="Seventh"
-            passive_handler.Increase("CriticalBlock", 1)
-            src.CriticalBlock++
-        if("Eighth")
-            src.WhichFutureDiary="Eighth"
-            passive_handler.Increase("Juggernaut", 1)
-            src.Juggernaut++
-        if("Ninth")
-            src.WhichFutureDiary="Ninth"
-            passive_handler.Increase("Flicker", 1)
-            src.Flicker++
-        if("Tenth")
-            src.WhichFutureDiary="Tenth"
-            passive_handler.Increase("TechniqueMastery", 1)
-            src.TechniqueMastery++
-        if("Eleventh")
-            src.WhichFutureDiary="Eleventh"
-            passive_handler.Increase("CriticalChance", 1)
-            src.CriticalChance++
-        if("Twelfth")
-            src.WhichFutureDiary="Twelfth"
-            passive_handler.Increase("Steady", 1)
-            src.Steady++
+////
+// VARIABLES
+/// 
+var/list/randomPassives = list("Flow" = 1, "PureDamage" = 1, 
+"Godspeed" = 1, "Void" = 1, "NoWhiff" = 1, "HolyMod" = 1, "AbyssMod" = 1,
+"Instinict " = 1, "VenomImmune" = 1, "CounterMaster" = 1, "TechniqueMastery" = 1,
+"HybridStrike" = 1, "SpiritStrike" = 1, "Extend" = 1, "MovementMastery" = 1 )
+mob/var/futureDiaryLevel = 0 // maxes out at 3.
+mob/var/whichDiary /// 1, 2, 3, 4 look for above...
 
 
-// mob/proc/FutureDiaryLevelUp()
+// PROCS
 
-//     if (src.DiaryLevel == 1) 
-//         // If it the user is at 1, we want to give them a diary before any additional stuff. 
-//         // this is the tier 1.
-//         src.AwardFutureDiary()
-//     else     
-//         switch(src.DiaryLevel)
-//             if(1)
-//                 switch(src.WhichFutureDiary)
-//                     if("First")
-//                     if("Second")
-//                     if("Third")
-//                     if("Fourth")
-//                     if("Sixth")
-//                     if("Seventh")
-//                     if("Ninth")
-//                     if("Tenth")
-//                     if("Eleventh")
-//                     if("Twelfth")
+/////
+///
+/// 
 
+
+obj/proc/getPassivesFutureDiary(var/mob/Player/M) // MC Passives.. 
+	var/passiveList = list(null)
+	switch(M.futureDiaryLevel)
+		if(1)
+			passiveList = pick(randomPassives)
+		if(2)
+			passiveList = pick(randomPassives)
+			passiveList += pick(randomPassives)
+		if(3)
+			passiveList = pick(randomPassives)
+			passiveList += pick(randomPassives)
+			passiveList += pick(randomPassives)
+		if(4)
+			passiveList = pick(randomPassives)
+			passiveList += pick(randomPassives)
+			passiveList += pick(randomPassives)
+			passiveList += pick(randomPassives)
+			passiveList += pick(randomPassives)
+			passiveList += pick(randomPassives)						
+	return passiveList
+
+
+mob/proc/levelUpDiary(mob/M)
+	switch(M.futureDiaryLevel)
+		if(1)
+			if(!locate(/obj/Skills/Buffs/SpecialBuff/futureDiary, M))
+				M.AddSkill(new/obj/Skills/Buffs/SpecialBuff/futureDiary)
+			src << "You feel a connection with your Diary.. It becomes special.. It feels empowered by the powers of the cosmos."
+		if(2)
+			src << "You feel your connection to your Diary improve..."
+			switch(M.whichDiary)
+				if(2)
+					M.AddSkill(new/obj/Skills/Queue/LoveStab)
+				if(3)
+					M.AddSkill(new/obj/Skills/Projectile/DetectivesShot)
+				if(4)
+					M.AddSkill(new/obj/Skills/AutoHit/HeartStab)
+/// 
+/// Skills / buffs
+/// 
+
+// main gimbo
+/obj/Skills/Buffs/SpecialBuff/futureDiary
+	ManaGlow="#9ce9cb"
+	OffMult=1.1
+	DefMult=1.1	
+	SignatureTechnique=1	
+	TextColor="red"
+	passives = list("Flow" = 1)
+	ActiveMessage="begins to predict the future with their Diary...!!"
+	OffMessage="relaxes their evolution..."
+	BuffName="futureDiary"
+	verb/futureDiary()
+		set category="Skills"
+		if(!usr.BuffOn(src))
+			src.passives = src.getPassivesFutureDiary(usr)
+			switch(usr.futureDiaryLevel)
+				if(1)
+					src.passives += list("Instinct" = 2, "Flow" = 2)
+					switch(usr.whichDiary)
+						if(1)
+							src.passives += src.getPassivesFutureDiary()
+						if(2)
+							src.passives += list("Flow" = 1)
+						if(3)
+							src.passives += list("Instinict" = 1)
+						if(4)
+							src.passives += list("Maimstrike" = 1)
+				if(2)
+					switch(usr.whichDiary)
+						if(1)
+							src.passives += src.getPassivesFutureDiary()
+						if(2)
+							src.passives += list("Flow" = 2, "Godspeed" = 1, "Instinict" = 1)
+						if(3)
+							src.passives += list("LikeWater" = 3, "Godspeed" = 3)
+						if(4)
+							src.passives += list("Unstoppable" = 2)
+
+				if(3)
+					src.passives += list("Instinct" = 2, "Flow" = 2)
+					switch(usr.whichDiary)
+						if(1)
+							src.passives += src.getPassivesFutureDiary()
+						if(2)
+							src.passives += list("CriticalChance" = 2, "TechniqueMastery" = 1)
+						if(3)
+							src.passives += list("HolyMod" = 2)
+						if(4)	
+							src.passives += list("AbyssMod" = 1)
+				if(4)
+					src.passives += list("GodKi" = 1)
+					switch(usr.whichDiary)
+						if(1)
+							src.passives += src.getPassivesFutureDiary()
+						if(2)
+							src.passives += list("CriticalChance" = 4, "TechniqueMastery" = 2, "Flow" = 4, "Godspeed" = 2, "Instinict" = 2)
+						if(3)
+							src.passives += list("LikeWater" = 3, "Godspeed" = 3, "HolyMod" = 2)
+						if(4)	
+							src.passives += list("Unstoppable" = 2, "AbyssMod" = 2)
+
+// maim strike knife move.
+/obj/Skills/AutoHit/HeartStab
+	SignatureTechnique=1
+	Area="Strike"
+	NeedsSword = 1
+	EnergyCost = 15	
+	StrOffense = 1
+	DamageMult = 4
+	MaimStrike = 4
+	Instinct = 1
+	SpeedStrike = 1
+	HitSparkIcon = 'Hit Effect Ripple.dmi'
+	HitSparkIcon = 'Hit Effect Ripple.dmi'
+	HitSparkX =- 32
+	HitSparkY =- 32
+	HitSparkTurns = 0
+	HitSparkSize = 1
+	Cooldown = 120
+	ActiveMessage = "begins to stab their opponent constantly against their chest!"
+	verb/HeartStab()
+		set category="Skills"
+		usr.Activate(src)
+
+// yuno gasai stuff.
+/obj/Skills/Queue/LoveStab
+	SignatureTechnique=1
+	NeedsSword = 1
+	HitMessage="lunges at their love-interest, stabbing them over and over again...!!"
+	DamageMult = 2.5
+	AccuracyMult = 1.175
+	NoWhiff = 1
+	MultiHit = 5
+	Duration=5
+	Instinct=2
+	Warp=2
+	Cooldown=120
+	EnergyCost=5
+	verb/The_Claw()
+		set category="Skills"
+		usr.SetQueue(src)
+
+// detective stuff here.
+/obj/Skills/Projectile/DetectivesShot
+	SignatureTechnique=1
+	IconLock='Blast20.dmi'
+	DamageMult=8
+	Knockback=1
+	Radius=1
+	FireFromSelf=1
+	FireFromEnemy=0
+	Explode=3
+	StrRate=1
+	ForRate=1
+	Dodgeable=-1
+	Deflectable=-1
+	HolyMod=10
+	Distance=100
+	Cooldown = 90
+	verb/Detectives_Shot()
+		set category="Skills"
+		usr.UseProjectile(src)
