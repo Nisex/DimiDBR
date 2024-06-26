@@ -97,6 +97,22 @@ obj/Skills/Grapple
 					resetValues()
 				src.Activate(usr)
 ////AUTO TRIGGER
+	Muscle_Buster
+		DamageMult = 9
+		StrRate = 1
+		EffectMult=3
+		OneAndDone=1
+		Effect="MuscleBuster"
+		TriggerMessage = "lifts, flips, and slams"
+	
+	Giant_Swing	
+		DamageMult = 12
+		StrRate = 1
+		EffectMult=2
+		OneAndDone=1
+		Effect="MuscleBuster"
+		TriggerMessage = "starts spinning"
+
 	Lotus_Drop
 		DamageMult=5
 		StrRate=1
@@ -210,10 +226,10 @@ obj/Skills/Grapple
 			if(p.isInnovative(HUMAN, "Unarmed"))
 				Effect="SuperSuplex"
 				TriggerMessage="starts freakifying"
-				EffectMult=2
+				EffectMult=1.25
 				Stunner=5
 				StrRate=1.25
-				DamageMult = 3.8 + (p.Potential / 25)
+				DamageMult = 3.3 + (p.Potential / 25)
 			else
 				Effect="Suplex"
 				DamageMult=4.5
@@ -491,7 +507,9 @@ obj/Skills/Grapple
 				User.log2text("Grapple Damage", Damage, "damageDebugs.txt", User.ckey)
 				#endif
 				Damage *= dmgRoll
-				Damage *= src.DamageMult + unarmedBoon
+				var/extra = User.passive_handler.Get("Muscle Power") / 4
+				Damage *= DamageMult
+				Damage *= (unarmedBoon + extra) // unarmed boon is 0.5, 
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple Damage dmgroll", Damage, "damageDebugs.txt", User.ckey)
 				#endif
@@ -541,6 +559,8 @@ obj/Skills/Grapple
 								LightningStrike2(Trg, Offset=GoCrand(0.5,0.1*src.EffectMult))
 							if("Lotus")
 								LotusEffect(User, Trg, src.EffectMult)
+							if("MuscleBuster")
+								MuscleBusterEffect(User, Trg, src.EffectMult)
 							if("Suplex")
 								SuplexEffect(User, Trg)
 							if("SuperSuplex")

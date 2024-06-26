@@ -181,6 +181,27 @@ obj
 				HitMessage="strikes their opponent with a powerful blow!"
 				Generic_Finisher
 					name="Finishing Blow"
+				Hold
+					Instinct=2
+					Grapple=1
+					KBMult=0.001
+					SweepStrike=1
+					DamageMult = 2
+					UnarmedOnly=1
+					GrabTrigger="/obj/Skills/Grapple/Muscle_Buster"
+					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Anger_Of_The_Beast"
+					HitMessage="grabs hold of their enemy!"
+				Leg_Grab
+					Instinct=2
+					Grapple=1
+					KBMult=0.001
+					SweepStrike=1
+					Crushing = 5
+					DamageMult = 4
+					UnarmedOnly=1
+					GrabTrigger="/obj/Skills/Grapple/Giant_Swing"
+					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Iron_Muscle"
+					HitMessage="grabs hold of their enemy!"
 				Heavenly_Storm_Dragon_Emergence
 					Warp = 10
 					Bolt = 1
@@ -3252,7 +3273,7 @@ obj
 			Front_Lotus
 				GateNeeded=1
 				UnarmedOnly=1
-				DamageMult=9
+				DamageMult=4
 				AccuracyMult = 1.25
 				Stunner=3
 				Instinct=4

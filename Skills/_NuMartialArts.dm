@@ -66,6 +66,25 @@ obj
 
 
 					// NEW SHIT
+					Lucha_Libre_Style
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Red_Cyclone_Style")
+						StyleStr=1.35
+						StyleEnd=1.35
+						StyleOff=1.35
+						passives = list("Muscle Power" = 1, "Grippy" = 2, "Scoop" = 1)
+						StyleActive="Lucha Libre"
+						Finisher="/obj/Skills/Queue/Finisher/Hold"
+
+					Red_Cyclone_Style
+
+						StyleStr=1.5
+						StyleEnd=1.5
+						passives = list("Muscle Power" = 2, "Grippy" = 4, "Scoop" = 2, "Iron Grip" = 1)
+						StyleActive="Red Cyclone"
+						Finisher="/obj/Skills/Queue/Finisher/Leg_Grab"
+
+
+
 
 					Murim_Style
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Shield_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style")
@@ -211,7 +230,8 @@ obj
 							src.Trigger(usr)
 
 
-
+					Heavenly_Demon_Fist_Style
+						// to stop runtimes
 
 					Black_Leg_Style
 						SignatureTechnique=1

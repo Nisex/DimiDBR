@@ -3112,11 +3112,6 @@ proc
 	StaticDamage(var/Val, var/Stat1, var/Stat2)
 		return ((Val/Stat1)/(Val/Stat2))
 
-/var/globalTracker/GLOBAL_EXPONENT_MULT = 1/3
-/var/globalTracker/GRAPPLE_MELEE_BOON = 1.5
-var/globalTracker/AUTOHIT_GRAB_NERF = 0.5
-var/globalTracker/PARTY_DAMAGE_NERF = 0.6
-
 
 proc
 	TrueDamage(Damage)

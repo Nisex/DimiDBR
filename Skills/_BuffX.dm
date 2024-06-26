@@ -9428,6 +9428,9 @@ NEW VARIABLES
 						ActiveMessage="is getting fired up!"
 						OffMessage="falls back in sync with the fight..."
 						//no verb to activate
+					
+
+
 
 					Heavenly_Dragon_Ascendant_Zenith
 						passives = list("HardenedFrame" = 1, "Steady" = 1, "WeaponBreaker" = 1, "Disorienting" = 1)
@@ -9437,6 +9440,22 @@ NEW VARIABLES
 						ActiveMessage="is grasping for their next breakthrough..!"
 						OffMessage="has failed their tribulation..."
 
+
+					Anger_Of_The_Beast
+						StyleNeeded="Lucha Libre"
+						StrMult=1.3
+						EndMult=1.3
+						passives = list("Iron Grip" = 1, "Scoop" = 1, "Muscle Power" = 1, "TechniqueMastery" = 1, "Juggernaut"= 1)
+						ActiveMessage = "awakens the Anger of The Beast!"
+						OffMessage="'s inner beast calms down..."
+					Iron_Muscle
+						StyleNeeded = "Red Cyclone"
+						VaizardHealth = 0.3
+						DefMult = 0.3
+						SpdMult = 0.5
+						StrMult = 1.5
+						EndMult = 1.5
+						passives = list("Muscle Power" = 2, "TechniqueMastery" = 3, "Juggernaut"= 2, "KBRes"= 2, "TensionLock" = 1)
 					Turtle_Martial_Mastery
 						StyleNeeded="Turtle"
 						StrMult=1.1

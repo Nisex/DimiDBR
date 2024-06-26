@@ -2292,14 +2292,13 @@ mob
 
 
 mob/proc/Grab()
-
 	if(src.Stunned||src.icon_state=="KB")
 		return
 	if(!Grab)
 		if(lastZanzoUsage+3 > world.time)
 			return
 		if(src.Target&&src.Target!=src&&ismob(src.Target))
-			src.DashTo(src.Target, 2)
+			src.DashTo(src.Target, 2 + passive_handler.Get("Scoop"))
 			if(src.Target in oview(1, src))
 				src.Grab_Mob(src.Target)
 			for(var/obj/Skills/Grab/g in src)
@@ -2391,6 +2390,8 @@ mob/proc/Grab_Mob(var/mob/P, var/Forced=0)
 				aa.ai_state = "Chase"
 				aa.last_activity = world.time
 	if(Secret == "Vampire")
+		Forced = 1
+	if(P.passive_handler.Get("Iron Grip"))
 		Forced = 1
 	if(!Forced && (P.passive_handler.Get("Fishman")||P.HasGiantForm()||P.HasLegendaryPower()>=1)&&!P.KO&&P.icon_state!="Meditate")
 		src.OMessage(10,"[src] fails to get a firm hold on [P]!","[src]([src.key]) fails to grab [ExtractInfo(P)]")

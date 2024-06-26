@@ -306,6 +306,34 @@ proc
 		User.Frozen=0
 		Target.Frozen=0
 
+
+	MuscleBusterEffect(mob/p, mob/t, TimeMod=1)
+		p.loc = t.loc
+		p.dir = EAST
+		t.dir = WEST
+		p.Frozen = 2
+		t.Frozen = 2
+		animate(t, pixel_z=8, time = 5)
+		animate(t, transform=turn(t.transform,225), time=5,flags=ANIMATION_LINEAR_TRANSFORM)
+		sleep(5)
+		animate(t,pixel_z=t.pixel_z +(4*TimeMod*20),time=5)
+		animate(p,pixel_z=4*TimeMod*20,time=5)
+		sleep(5)
+		var/fallTime = TimeMod
+		animate(t, pixel_z=8, time = fallTime,flags=ANIMATION_END_NOW)
+		animate(p, pixel_z=0, time = fallTime,flags=ANIMATION_END_NOW)
+		sleep(fallTime)
+		Dust(t.loc,2)
+		spawn()Crater(t,TimeMod/2)
+		animate(t, transform=t.transform.Turn(-315), time=TimeMod/2,flags=ANIMATION_END_NOW||ANIMATION_LINEAR_TRANSFORM||ANIMATION_PARALLEL)
+		animate(t, pixel_z=0, time=TimeMod/2,flags=ANIMATION_LINEAR_TRANSFORM||ANIMATION_PARALLEL)
+		step(t,WEST)
+		sleep(fallTime)
+		t.transform=turn(t.transform, 90)
+		t.Frozen=0
+		p.Frozen=0
+
+
 	LotusEffect(var/mob/User, var/mob/Target, var/TimeMod=1)
 		User.loc=Target.loc
 		User.Frozen=2
