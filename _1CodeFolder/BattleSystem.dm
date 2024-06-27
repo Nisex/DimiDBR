@@ -871,7 +871,77 @@ proc/getBackSide(mob/offender, mob/defender)
 
 
 
+/mob/Admin3/verb/SimulateAccuracy()
+	set category = "Debuf"
+	if(!Target) 
+		src<< "get an enemy"
+		return
+	var/off = input(src, "What off do u want") as num
+	OffMod = off
+	var/spd = input(src, "What def do u want") as num
+	SpdReplace = spd
+	var/def = input(src, "What spd do u want") as num
+	DefMod = def 
+	var/flow = input(src, "What flow do u want") as num
+	var/instinct = input(src, "What instinct do u want") as num
+	passive_handler.Set("Flow", flow)
+	passive_handler.Set("Instinct", instinct)
+	var/accmult = input(src, "What accmult do u want") as num
+	var/enemyoff = input(src, "What off do u want enemy to have") as num
+	Target.OffMod = enemyoff
+	var/enemydef = input(src, "What def do u want enemy to have") as num
+	Target.DefMod = enemydef
+	var/enemyspd = input(src, "What spd do u want enemy to have") as num
+	Target.SpdReplace = enemyspd
+	var/enemyflow = input(src, "What flow do u want") as num
+	var/enemyinstinct = input(src, "What instinct do u want") as num
+	Target.passive_handler.Set("Flow",  enemyflow)
+	Target.passive_handler.Set("Instinct",enemyinstinct)
+	var/looplength = input(src, "How many attempts") as num
+	var/randomizeAccMult = input(src, "randomize acc mult between 1 and accmult?") in list(TRUE, FALSE)
+	var/hits = 0 
+	var/misses = 0 
+	var/whiffs = 0
+	for(var/attempts in 1 to looplength)
+		var/newaccmult = accmult
+		if(randomizeAccMult)
+			newaccmult = randValue(0.8, accmult)
+		var/result = Accuracy_Formula(src, Target, newaccmult, glob.WorldDefaultAcc, 0, 0)
+		switch(result)
+			if(HIT)
+				hits++
+			if(WHIFF)
+				whiffs++
+			if(MISS)
+				misses++
+	src <<"\n simulated [looplength] times at \n hits:[hits]\nwhiffs:[whiffs]\nmisses:[misses]"
+	src <<"simulating target vs src"
+	hits = 0 
+	misses = 0 
+	whiffs = 0
+	for(var/attempts in 1 to looplength)
+		var/newaccmult = accmult
+		if(randomizeAccMult)
+			newaccmult = randValue(0.8, accmult)
+		var/result = Accuracy_Formula(Target, src, newaccmult, glob.WorldDefaultAcc, 0, 0)
+		switch(result)
+			if(HIT)
+				hits++
+			if(WHIFF)
+				whiffs++
+			if(MISS)
+				misses++
+	src <<"\n simulated [looplength] times at \n hits:[hits]\nwhiffs:[whiffs]\nmisses:[misses]"
 
+	// var/list/itemMod = getItemDamage(list(s,s2,s3,st), delay, acc, SecondStrike, ThirdStrike, swordAtk)
+	// delay = itemMod[1]
+	// acc = itemMod[2]
+// var/obj/Items/Armor/atkArmor = EquippedArmor()
+// 				var/obj/Items/Armor/defArmor = enemy.EquippedArmor()
+
+// 				if(atkArmor)
+// 					acc *= GetArmorAccuracy(atkArmor)
+// 					delay /= GetArmorDelay(atkArmor)
 	//LABEL: ACCURACY FORMULA
 proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldDefaultAcc, Backfire=0, IgnoreNoDodge=0)
 	if(Offender&&Defender)
