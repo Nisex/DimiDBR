@@ -64,7 +64,7 @@ mob/tierUpSaga(Path)
 	if(Path == "Weapon Soul")
 		switch(SagaLevel)
 			if(2)
-				switch(WeaponSoulType)
+				switch(BoundLegend)
 					if("Kusanagi")
 						src << "Yata No Kagami lends it's mirrored frame to you, promising to reflect any attacks."
 						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Yata_no_Kagami/Mirror_Protection)
