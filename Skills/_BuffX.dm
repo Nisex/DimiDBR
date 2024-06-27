@@ -1002,7 +1002,7 @@ NEW VARIABLES
 
 			proc/shutOffEffects(mob/p, level)
 				p.GatesActive=0
-				if(level >= p.SagaLevel+2) return
+				if(level > p.SagaLevel) return
 
 				var/tax = clamp(0.05 * level, 0.05, 1)
 				if(taxReduction)
@@ -1068,7 +1068,7 @@ NEW VARIABLES
 
 			verb/Cultivate()
 				set category = "Skills"
-				if(usr.GatesActive > 8 || usr.GatesActive-2 > usr.SagaLevel)
+				if(usr.GatesActive > 8 || usr.GatesActive > usr.SagaLevel)
 					usr<<"You can't do that!!"
 					return
 				handleGates(usr, TRUE)
@@ -9428,7 +9428,7 @@ NEW VARIABLES
 						ActiveMessage="is getting fired up!"
 						OffMessage="falls back in sync with the fight..."
 						//no verb to activate
-					
+
 
 
 
