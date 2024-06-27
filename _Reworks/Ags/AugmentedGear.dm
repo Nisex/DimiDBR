@@ -75,7 +75,8 @@ proc/copyatom(atom/a)
         src<<"Not an AG"
         return
     var/obj/Items/newAG = copyatom(ag)
-    newAG.passives = ag.passives.Copy()
+    for(var/p in ag.passives)
+        newAG.passives[p] = ag.passives[p]
     var/list/techs = list()
     for(var/technique in ag.Techniques)
         techs += copyatom(technique)
