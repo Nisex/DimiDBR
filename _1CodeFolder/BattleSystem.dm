@@ -1051,31 +1051,30 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 
 		var/Offense= OffenseModifier * (Offender.GetOff(glob.ACC_OFF)+Offender.GetSpd(glob.ACC_OFF_SPD))
 		var/Defense= DefenseModifier * (Defender.GetDef(glob.ACC_DEF)+Defender.GetSpd(glob.ACC_DEF_SPD)) * 1.1
-		var/TotalAccuracy = BaseChance * ((Offense*AccMult) / Defense) * 100
-
+		var/TotalAccuracy = (BaseChance/100) * ((Offense*AccMult) / Defense) * 100
+/*
 		world << "--------------------"
 		world << "Offense: [Offense]"
-		world << "Defense: [Defense]"
+		world << "Defense: [Defensze]"
 		world << "Chance: [BaseChance]"
 		world << "Accuracy: [TotalAccuracy]"
 		world << "Accuracy Modifier: [AccMult]"
 		world << "Defense Mod: [DefenseModifier]"
 		world << "Offense Mod: [OffenseModifier]"
 		world << "--------------------"
-
-
+*/
 		TotalAccuracy = clamp(glob.LOWEST_ACC, TotalAccuracy, 100)
 
 		if(!prob(TotalAccuracy))
-			world << "miss 1"
+			//world << "miss 1"
 			if(!prob(TotalAccuracy))
-				world << "full miss"
+			//	world << "full miss"
 				return MISS
 			else
-				world << "whiff"
+			//	world << "whiff"
 				return WHIFF
 		else
-			world << "hit"
+		//	world << "hit"
 			return HIT
 	else
 		return MISS
