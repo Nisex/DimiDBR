@@ -48,6 +48,13 @@ proc
 				return race
 		return null
 
+
+/mob/Admin4/verb/forceCuckRace(mob/Players/P in players)
+	P.race = new()
+
+
+
+
 world
 	New()
 		..()
@@ -244,7 +251,7 @@ race
 
 
 	half_saiyan
-		name = "Half-Saiyan"
+		name = "Half_Saiyan"
 		desc = "Creatures that shouldn't exist."
 		visual = 'Halfie.png'
 
