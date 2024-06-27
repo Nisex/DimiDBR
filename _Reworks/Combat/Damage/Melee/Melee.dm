@@ -79,6 +79,9 @@ var/global/MULTIHIT_NERF = FALSE
 	if(s||HasSwordPunching())
 		unarmedAtk=0
 		swordAtk=1
+	var/specialAtk = FALSE
+	if(st)
+		specialAtk = TRUE
 
 	if(src.AttackQueue)
 		if(src.AttackQueue.NeedsSword)
@@ -88,7 +91,7 @@ var/global/MULTIHIT_NERF = FALSE
 			unarmedAtk=1
 			swordAtk=0
 
-	var/list/itemMod = getItemDamage(list(s,s2,s3,st), delay, acc, SecondStrike, ThirdStrike, swordAtk)
+	var/list/itemMod = getItemDamage(list(s,s2,s3,st), delay, acc, SecondStrike, ThirdStrike, swordAtk, specialAtk)
 	delay = itemMod[1]
 	acc = itemMod[2]
 	#if DEBUG_MELEE
