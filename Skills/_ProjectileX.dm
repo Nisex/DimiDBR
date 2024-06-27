@@ -359,7 +359,7 @@ obj
 				adjust(mob/p)
 					DamageMult = 0.3 + p.Potential /100
 					Blasts = 1 + (round(p.Potential / 25))
-			
+
 			Secret_Knives
 				AdaptRate=1
 				Blasts=4
@@ -1519,7 +1519,7 @@ obj
 			Cluster_Bomb
 				Distance=5
 				DamageMult=5
-				AccMult = 1.15
+				AccMult = 10
 				Charge=1
 				EnergyCost=1
 				Cooldown=30
@@ -1532,7 +1532,7 @@ obj
 			Buster_Barrage
 				SignatureTechnique=1
 				Distance=30
-				AccMult=2
+				AccMult=10
 				DamageMult=1
 				Blasts=10
 				EnergyCost=15
@@ -1557,7 +1557,7 @@ obj
 				SignatureTechnique=1
 				Distance=50
 				DamageMult=12.5
-				AccMult = 1.15
+				AccMult = 10
 				Blasts=1
 				EnergyCost=15
 				Cooldown=60
@@ -1580,7 +1580,7 @@ obj
 				EndRate=1
 				Distance=30
 				DamageMult=4
-				AccMult = 1.15
+				AccMult = 10
 				Homing=1
 				HomingDelay=2
 				HomingCharge=4
@@ -1607,7 +1607,7 @@ obj
 				DamageMult=5
 				EnergyCost=30
 				Deflectable=0
-				AccMult=0.75
+				AccMult=10
 				Homing=1
 				HomingCharge=14
 				LosesHoming=3
@@ -1630,7 +1630,7 @@ obj
 				SignatureTechnique=1
 				Distance=25
 				DamageMult= 3.6
-				AccMult = 1.15
+				AccMult = 10
 				Dodgeable=0
 				Instinct=1
 				MultiShot=3
@@ -2247,7 +2247,7 @@ obj
 				Distance=50
 				DamageMult=1.5
 				MultiHit=10
-				AccMult = 1.25
+				AccMult = 10
 				Explode=4
 				Knockback=1
 				Radius=3
@@ -5425,7 +5425,7 @@ obj
 						if(force)
 							atk += force
 							fortrig = TRUE
-							if(src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow()) 
+							if(src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow())
 								if(src.Owner.StyleActive!="Moonlight"&&src.Owner.StyleActive!="Astral")
 									//SpiritFlow
 									atk += Owner.GetFor(Owner.passive_handler.Get("SpiritFlow")) / 4

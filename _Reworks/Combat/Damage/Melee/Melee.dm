@@ -560,9 +560,6 @@ var/global/MULTIHIT_NERF = FALSE
 									if(AttackQueue.NoWhiff)
 										if(!enemy.NoForcedWhiff)
 											hitResolution = HIT
-										else
-											hitResolution = MISS // this doesn't do anything
-											damage = 0
 								else
 									if(NoWhiff()) // cant whiff
 										whiffed = FALSE
@@ -645,7 +642,7 @@ var/global/MULTIHIT_NERF = FALSE
 							//TODO ARMOR AT THE END
 							if(defArmor&&!passive_handler.Get("ArmorPeeling"))
 								var/dmgEffective = enemy.GetArmorDamage(defArmor)
-								damage -=  damage * dmgEffective/10 
+								damage -=  damage * dmgEffective/10
 								#if DEBUG_MELEE
 								log2text("damage", "After Armor", "damageDebugs.txt", "[ckey]/[name]")
 								log2text("damage", damage, "damageDebugs.txt", "[ckey]/[name]")
@@ -767,9 +764,6 @@ var/global/MULTIHIT_NERF = FALSE
 						else
 							spawn()
 								Dodge(enemy)
-						if(AttackQueue)
-							spawn()
-								QueuedMissMessage()
 				if(forcewarp)
 					if(src.StyleActive=="Secret Knife" || (UBWPath == "Firm" && SagaLevel >=3))
 						if(!locate(/obj/Skills/Projectile/Secret_Knives, src))

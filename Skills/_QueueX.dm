@@ -1997,7 +1997,7 @@ obj
 				ActiveMessage="begins concentrating power..."
 				HitMessage="unleashes a devasatating punch!"
 				DamageMult=12
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				KBMult=5
 				Duration=6
 				Instinct=2
@@ -2014,7 +2014,7 @@ obj
 				name="Claw Grip"
 				HitMessage="grabs the opponent's face in a crushing grip!"
 				DamageMult=11
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				KBMult=0.00001
 				Duration=5
 				Instinct=2
@@ -2030,7 +2030,7 @@ obj
 			Nerve_Shot
 				SignatureTechnique=1
 				DamageMult=2
-				AccuracyMult = 1.25
+				AccuracyMult = 10
 				Duration=5
 				Stunner=2
 				Crippling=412
@@ -2048,7 +2048,7 @@ obj
 			Gale_Strike
 				SignatureTechnique=1
 				DamageMult=1.8//there is 0.5 damage mult 10 multihit on the gale itself
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				KBMult=0.00001
 				Duration=5
 				Projectile="/obj/Skills/Projectile/GaleStrikeProjectile"
@@ -2062,7 +2062,7 @@ obj
 				SignatureTechnique=1
 				UnarmedOnly=1
 				DamageMult=8
-				AccuracyMult = 1.35
+				AccuracyMult = 10
 				KBMult=0.00001
 				Stunner=1
 				Instinct=2
@@ -2080,7 +2080,7 @@ obj
 			Volleyball_Fist2
 				UnarmedOnly=1
 				DamageMult=5
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				KBMult=0.00001
 				HitStep=/obj/Skills/Queue/Volleyball_Fist3
 				Duration=5
@@ -2094,7 +2094,7 @@ obj
 				UnarmedOnly=1
 				DamageMult=5
 				Instinct=5
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				KBAdd=5
 				Duration=5
 				PushOut=3
@@ -2109,7 +2109,7 @@ obj
 			Meteor_Combination
 				SignatureTechnique=2
 				DamageMult=10
-				AccuracyMult = 1.25
+				AccuracyMult = 10
 				Duration=5
 				KBMult=0.00001
 				Cooldown=180
@@ -2128,7 +2128,7 @@ obj
 			Meteor_Combination2
 				HitMessage="follows up with a storm of kicks!"
 				DamageMult=0.5
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				Duration=5
 				KBMult=0.00001
 				Instinct=3
@@ -2140,7 +2140,7 @@ obj
 			Meteor_Combination3
 				HitMessage="finishes with a murderous uppercut!"
 				DamageMult=6
-				AccuracyMult = 1.25
+				AccuracyMult = 10
 				Duration=5
 				KBAdd=10
 				Instinct=4
@@ -2154,7 +2154,7 @@ obj
 				SignatureTechnique=2
 				HitMessage="defiantly slams their head into the opponent!!"
 				DamageMult=15
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				Instinct=3
 				Duration=5
 				KBMult=3
@@ -2171,7 +2171,7 @@ obj
 			Void_Tiger_Fist
 				SignatureTechnique=2
 				DamageMult=3.6
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				Warp=2
 				Shearing=5
 				Instinct=4
@@ -2193,7 +2193,7 @@ obj
 			Final_Revenger
 				SignatureTechnique=2
 				DamageMult=15
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				Determinator=1
 				Duration=5
 				PushOut=5
@@ -2213,7 +2213,7 @@ obj
 			Red_Hot_Hundred
 				SignatureTechnique=2
 				DamageMult=0.75
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				Warp=5
 				KBAdd=1
 				KBMult=0.00001
@@ -2238,7 +2238,7 @@ obj
 				SignatureTechnique=2
 				UnarmedOnly=1
 				DamageMult=12
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				Instinct=5
 				HitStep=/obj/Skills/Queue/True_Kamehameha2
 				Duration=5
@@ -2269,7 +2269,7 @@ obj
 				SignatureTechnique=2
 				UnarmedOnly=1
 				DamageMult=12
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				Instinct=5
 				HitStep=/obj/Skills/Queue/Final_Shine2
 				Duration=5
@@ -2296,7 +2296,7 @@ obj
 			Super_Dragon_Fist
 				UnarmedOnly=1
 				DamageMult=18
-				AccuracyMult = 1.25
+				AccuracyMult = 10
 				Duration=10
 				KBMult=0.0001
 				Cooldown=180
@@ -2578,7 +2578,7 @@ obj
 			Ragna_Blade
 				NoTransplant=1
 				DamageMult=20
-				AccuracyMult = 1.25
+				AccuracyMult = 10
 				WeaponBreaker=100
 				Shearing=10
 				Crippling=10
@@ -2609,7 +2609,7 @@ obj
 				SignatureTechnique=1
 				NeedsSword=1
 				DamageMult=7
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				HitStep=/obj/Skills/Queue/Blade_Dance2
 				Duration=5
 				Rapid=1
@@ -2644,7 +2644,7 @@ obj
 				ActiveMessage="fulfils their existence in their blade."
 				HitMessage="slashes at the opponent's body with their enlightened blade!"
 				DamageMult=11
-				AccuracyMult = 1.25
+				AccuracyMult = 10
 				SpiritSword=1
 				KBAdd=10
 				Duration=5
@@ -2677,7 +2677,7 @@ obj
 				name="Soul Tear Storm"
 				ActiveMessage="begins to glow with ethereal darkness!"
 				DamageMult=2.25
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				KBMult=0.00001
 				Combo=5
 				Warp=5
@@ -2765,7 +2765,7 @@ obj
 				name="Omnislash"
 				ActiveMessage="begins to glow with limitless bravery!"
 				DamageMult=2
-				AccuracyMult = 1.25
+				AccuracyMult = 10
 				KBMult=0.00001
 				KBAdd=2
 				Combo=12
@@ -2788,7 +2788,7 @@ obj
 			Omnislash2
 				ActiveMessage="goes for the finishing blow!"
 				DamageMult=12
-				AccuracyMult = 1.25
+				AccuracyMult = 10
 				KBMult=10
 				Warp=5
 				Duration=5
@@ -2871,7 +2871,7 @@ obj
 				UnarmedOnly=1
 				CosmoPowered=1
 				DamageMult=4.5
-				AccuracyMult = 1.25
+				AccuracyMult = 10
 				Instinct=4
 				Duration=5
 				Warp=10
@@ -2938,7 +2938,7 @@ obj
 				UnarmedOnly=1
 				CosmoPowered=1
 				DamageMult=4.5
-				AccuracyMult = 1.25
+				AccuracyMult = 10
 				Instinct=4
 				Duration=5
 				PrecisionStrike=10
@@ -2980,7 +2980,7 @@ obj
 				DamageMult=0.75
 				InstantStrikes=20
 				InstantStrikesDelay=1
-				AccuracyMult = 1.25
+				AccuracyMult = 10
 				Instinct=5
 				Duration=5
 				PrecisionStrike=10
@@ -3007,7 +3007,7 @@ obj
 				UnarmedOnly=1
 				CosmoPowered=1
 				DamageMult=15
-				AccuracyMult = 1.25
+				AccuracyMult = 10
 				Instinct=4
 				Duration=5
 				PrecisionStrike=5
@@ -3050,7 +3050,7 @@ obj
 				CosmoPowered=1
 				Warp=5
 				DamageMult=13
-				AccuracyMult = 1.175
+				AccuracyMult = 10
 				Instinct=4
 				Duration=5
 				Dominator=1
@@ -3333,7 +3333,7 @@ obj
 				ActiveMessage="radiates burning vigor!"
 				HitMessage="expresses their youth with a firestorm of strikes!!!!"
 				DamageMult=0.6
-				AccuracyMult = 1.25
+				AccuracyMult = 10
 				KBMult=0.00001
 				Launcher=3
 				Duration=5
@@ -3426,7 +3426,7 @@ obj
 				name="Kuzuryusen"
 				StyleNeeded="Hiten Mitsurugi"
 				DamageMult=1.5
-				AccuracyMult = 1.25
+				AccuracyMult = 10
 				KBMult=0.00001
 				SpeedStrike=6
 				InstantStrikes=9
@@ -3455,7 +3455,7 @@ obj
 				Duration=8
 				DamageMult=8
 				SpeedStrike=10
-				AccuracyMult=1
+				AccuracyMult=5
 				KBMult=0.00001
 				Warp=10
 				Instinct=4
