@@ -55,7 +55,7 @@ sagaTierUpMessages/Cosmo
 					if(src.BuffOn(Buff))
 						Buff.Trigger(src, 1)
 					del Buff
-				if("Pheonix")
+				if(ClothBronze=="Pheonix")
 					totalExtraVoidRolls++
 				src.AddSkill(new v2Path)
 			if(4)
