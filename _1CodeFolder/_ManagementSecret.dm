@@ -285,7 +285,7 @@ SecretInfomation
 				if(1)
 					giveSkills(p)
 		proc/getMadnessLimit(mob/p)
-			. = MADNESS_MAX + (MADNESS_ADD_PER_TIER * (p.AscensionsAcquired))
+			. = MADNESS_MAX + (MADNESS_ADD_PER_TIER * (1+p.AscensionsAcquired))
 			if(. <0)
 				. = 50
 			else if(. > MADNESS_MAX)
@@ -298,7 +298,7 @@ SecretInfomation
 				amount *= 2
 			else
 				amount *= 3
-			var/tierEffectiveness = p.AscensionsAcquired * 1.5
+			var/tierEffectiveness = (1+p.AscensionsAcquired) * 1.5
 			amount *= tierEffectiveness
 			if(secretVariable["Madness"] + amount > getMadnessLimit(p))
 				secretVariable["Madness"] = getMadnessLimit(p)
