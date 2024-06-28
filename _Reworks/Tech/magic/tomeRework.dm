@@ -36,7 +36,7 @@ Tomes:
         m = new()
         m.Move(p)
     var/num = input(src, "How many fragments?") as num
-    m.value = num
+    m.value += num
     m.assignState(num)
 
 
