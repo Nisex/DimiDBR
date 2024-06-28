@@ -327,23 +327,23 @@ mob/Players/verb
 				S:NameFake  = input(src, "What fake name?") as text
 			if("MakesSword")
 				S:SwordIcon  = input(src, "What icon?") as icon|null
-				S:SwordX  = input(src, "What x") as text
-				S:SwordY  = input(src, "What y") as text
+				S:SwordX  = input(src, "What x") as num
+				S:SwordY  = input(src, "What y") as num
 			if("MakesStaff")
 				S:StaffIcon  = input(src, "What icon?") as icon|null
-				S:StaffX  = input(src, "What x") as text
-				S:StaffY  = input(src, "What y") as text
+				S:StaffX  = input(src, "What x") as num
+				S:StaffY  = input(src, "What y") as num
 
 
 			if("MakesSecondSword")
 				S:SwordIconSecond  = input(src, "What icon?") as icon|null
-				S:SwordXSecond  = input(src, "What x") as text
-				S:SwordYSecond  = input(src, "What y") as text
+				S:SwordXSecond  = input(src, "What x") as num
+				S:SwordYSecond  = input(src, "What y") as num
 
 			if("MakesArmor")
 				S:ArmorIcon  = input(src, "What icon?") as icon|null
-				S:ArmorX  = input(src, "What x") as text
-				S:ArmorY  = input(src, "What y") as text
+				S:ArmorX  = input(src, "What x") as num
+				S:ArmorY  = input(src, "What y") as num
 
 			if("Lock")
 				var/icon/choice = input("What icon?") as icon|null

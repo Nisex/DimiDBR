@@ -918,7 +918,7 @@ obj/Items/Sword
 		Legendary
 			LegendaryItem=1
 			Unobtainable=1
-			Ascended=5
+			Ascended=1
 			ShatterCounter=700
 			ShatterMax=700
 			Yukianesa
@@ -950,7 +950,7 @@ obj/Items/Sword
 		Legendary
 			LegendaryItem=1
 			Unobtainable=1
-			Ascended=5
+			Ascended=1
 			ShatterCounter=800
 			ShatterMax=800
 
@@ -1010,7 +1010,7 @@ obj/Items/Sword
 		Legendary
 			LegendaryItem=1
 			Unobtainable=1
-			Ascended=5
+			Ascended=1
 			ShatterCounter=1000
 			ShatterMax=1000
 

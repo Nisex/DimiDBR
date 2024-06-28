@@ -872,15 +872,15 @@ proc/getBackSide(mob/offender, mob/defender)
 
 
 /mob/Admin3/verb/SimulateAccuracy()
-	set category = "Debuf"
+	set category = "Debug"
 	if(!Target) 
 		src<< "get an enemy"
 		return
 	var/off = input(src, "What off do u want") as num
 	OffMod = off
-	var/spd = input(src, "What def do u want") as num
+	var/spd = input(src, "What spd do u want") as num
 	SpdMod = spd
-	var/def = input(src, "What spd do u want") as num
+	var/def = input(src, "What def do u want") as num
 	DefMod = def 
 	var/flow = input(src, "What flow do u want") as num
 	var/instinct = input(src, "What instinct do u want") as num
@@ -918,7 +918,8 @@ proc/getBackSide(mob/offender, mob/defender)
 		if(randomizeAccMult)
 			newaccmult = randValue(0.8, accmult)
 		var/list/itemMod = getItemDamage(list(s,s2,s3,st), 1, newaccmult, FALSE, FALSE, swordAtk)
-		newaccmult = itemMod[2]
+		if(s)
+			newaccmult = itemMod[2]
 		if(atkArmor)
 			newaccmult *= GetArmorAccuracy(atkArmor)
 		if(enemyflow)
@@ -941,7 +942,7 @@ proc/getBackSide(mob/offender, mob/defender)
 				whiffs++
 			if(MISS)
 				misses++
-	src <<"\nsimulated [looplength] times at \nhits:[hits]([round((hits/looplength)*100)]%)\nwhiffs:[whiffs]([round((whiffs/looplength)*100)]%)\nmisses:[misses]([round((misses/looplength)*100)]%)\nflowdodge:[flowdodge]([round((flowdodge/looplength)*100)]%)"
+	src <<"\nsimulated [looplength] times at \nhits:[hits]([round((hits/looplength)*100)]%)\nwhiffs:[whiffs]([round((whiffs/looplength)*100)]%)\nmisses:[misses]([round((misses/looplength)*100)]%)\nflowdodge:[flowdodge]([round((flowdodge/looplength)*100)]%)\nmissed [((misses+whiffs+flowdodge)/looplength)*100]% of the time"
 	src <<"simulating target vs src"
 	hits = 0 
 	misses = 0 
@@ -969,7 +970,8 @@ proc/getBackSide(mob/offender, mob/defender)
 				flowdodge++
 				continue
 		var/list/itemMod = Target.getItemDamage(list(s,s2,s3,st), 1, newaccmult, FALSE, FALSE, swordAtk)
-		newaccmult = itemMod[2]
+		if(s)
+			newaccmult = itemMod[2]
 		if(atkArmor)
 			newaccmult *= GetArmorAccuracy(atkArmor)
 		var/result = Accuracy_Formula(Target, src, newaccmult, glob.WorldDefaultAcc, 0, 0)
@@ -980,7 +982,7 @@ proc/getBackSide(mob/offender, mob/defender)
 				whiffs++
 			if(MISS)
 				misses++
-	src <<"\nsimulated [looplength] times at \nhits:[hits]([round((hits/looplength)*100)]%)\nwhiffs:[whiffs]([round((whiffs/looplength)*100)]%)\nmisses:[misses]([round((misses/looplength)*100)]%)\nflowdodge:[flowdodge]([round((flowdodge/looplength)*100)]%)"
+	src <<"\nsimulated [looplength] times at \nhits:[hits]([round((hits/looplength)*100)]%)\nwhiffs:[whiffs]([round((whiffs/looplength)*100)]%)\nmisses:[misses]([round((misses/looplength)*100)]%)\nflowdodge:[flowdodge]([round((flowdodge/looplength)*100)]%) missed [((misses+whiffs+flowdodge)/looplength)*100]% of the time"
 
 	// var/list/itemMod = getItemDamage(list(s,s2,s3,st), delay, acc, SecondStrike, ThirdStrike, swordAtk)
 	// delay = itemMod[1]
@@ -1101,29 +1103,29 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 		var/Offense= OffenseModifier * (Offender.GetOff(glob.ACC_OFF)+Offender.GetSpd(glob.ACC_OFF_SPD))
 		var/Defense= DefenseModifier * (Defender.GetDef(glob.ACC_DEF)+Defender.GetSpd(glob.ACC_DEF_SPD)) * 1.1
 		var/TotalAccuracy = (BaseChance/100) * ((Offense*AccMult) / Defense) * 100
-/*
-		world << "--------------------"
-		world << "Offense: [Offense]"
-		world << "Defense: [Defensze]"
-		world << "Chance: [BaseChance]"
-		world << "Accuracy: [TotalAccuracy]"
-		world << "Accuracy Modifier: [AccMult]"
-		world << "Defense Mod: [DefenseModifier]"
-		world << "Offense Mod: [OffenseModifier]"
-		world << "--------------------"
-*/
+
+		// world << "--------------------"
+		// world << "Offense: [Offense]"
+		// world << "Defense: [Defense]"
+		// world << "Chance: [BaseChance]"
+		// world << "Accuracy: [TotalAccuracy]"
+		// world << "Accuracy Modifier: [AccMult]"
+		// world << "Defense Mod: [DefenseModifier]"
+		// world << "Offense Mod: [OffenseModifier]"
+		// world << "--------------------"
+
 		TotalAccuracy = clamp(glob.LOWEST_ACC, TotalAccuracy, 100)
 
 		if(!prob(TotalAccuracy))
-			//world << "miss 1"
+			// world << "miss 1"
 			if(!prob(TotalAccuracy))
-			//	world << "full miss"
+				// world << "full miss"
 				return MISS
 			else
-			//	world << "whiff"
+				// world << "whiff"
 				return WHIFF
 		else
-		//	world << "hit"
+			// world << "hit"
 			return HIT
 	else
 		return MISS

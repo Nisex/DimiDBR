@@ -327,7 +327,7 @@ obj
 				AttackReplace=1
 				Blasts=1
 				Distance=7
-				DamageMult=0.1
+				DamageMult=0.2
 				AccMult=30
 				Dodgeable=0
 				Speed=0

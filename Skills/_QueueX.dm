@@ -2366,7 +2366,7 @@ obj
 				name="Burst Combination"
 				SkillCost=80
 				Copyable=3
-				DamageMult=0.15
+				DamageMult=0.4
 				AccuracyMult = 1.175
 				Stunner=1
 				Duration=5

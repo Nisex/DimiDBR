@@ -9325,8 +9325,8 @@ NEW VARIABLES
 						 "Pursuer" = 2, "CallousedHands" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],250), \
 						  "Hardening" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],50), "Flicker" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],25))
 						PowerMult=1+(0.05+(0.05*ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],25)))
-						passives["PureReduction"] = p.AscensionsAcquired
-						TimerLimit = 40 + (p.secretDatum.secretVariable["Madness"]/5)
+						// passives["PureReduction"] = p.AscensionsAcquired
+						TimerLimit = 55 + (p.secretDatum.secretVariable["Madness"]/5)
 
 				HealthThreshold=0.1
 				KenWave=4

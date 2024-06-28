@@ -314,6 +314,37 @@ update
 				p.passive_handler.Set("HellPower", 0.025)
 			..()
 
+	version24
+		version = 24
+		updateMob(mob/p)
+			if(p.Saga == "Cosmo")
+				switch(p.ClothBronze)
+					if("Unicorn")
+						if(!locate(/obj/Skills/AutoHit/Mighty_Horn, p))
+							p.AddSkill(new/obj/Skills/AutoHit/Mighty_Horn)
+							p.AddSkill(new/obj/Skills/Telekinesis)
+						if(!locate(/obj/Skills/Queue/Unicorn_Combination, p))
+							p.AddSkill(new/obj/Skills/Queue/Unicorn_Combination)
+					if("Pegasus")
+						if(!locate(/obj/Skills/Projectile/Pegasus_Comet_Fist, p))
+							p.AddSkill(new/obj/Skills/Queue/Pegasus_Rolling_Crash)
+							p.AddSkill(new/obj/Skills/Projectile/Pegasus_Comet_Fist)
+					if("Dragon")
+						if(!locate(/obj/Skills/Projectile/Beams/Saint_Seiya/Soaring_Mountain_Dragon, p))
+							p.AddSkill(new/obj/Skills/Projectile/Beams/Saint_Seiya/Soaring_Mountain_Dragon)
+					if("Cygnus")
+						if(!locate(/obj/Skills/AutoHit/Aurora_Thunder_Attack, p))
+							p.AddSkill(new/obj/Skills/AutoHit/Aurora_Thunder_Attack)
+					if("Phoenix")
+						p.totalExtraVoidRolls++
+						if(!locate(/obj/Skills/AutoHit/Phoenix_Rising_Wing, p))
+							p.AddSkill(new/obj/Skills/AutoHit/Phoenix_Rising_Wing)
+			if(p.isRace(ELDRITCH))
+				AdminMessage("[p] is ELDRITCH and their secret tier is [p.secretDatum.currentTier]")
+				if(p.AscensionsAcquired == 1 )
+					p.passive_handler.Set("PureReduction", 1)
+			..()
+
 
 // Thorgigamax Gemenilove 
 

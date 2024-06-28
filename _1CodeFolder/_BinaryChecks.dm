@@ -175,8 +175,8 @@ mob
 					if(src.Saga in Swordsmanship)
 						switch(Saga)
 							if("Weapon Soul")
-								if(src.SagaLevel>=2)
-									Ascensions += SagaLevel/3
+								if(src.SagaLevel)
+									Ascensions = SagaLevel
 							if("Hiten Mitsurugi-Ryuu")
 								if(src.SagaLevel>=3)
 									Ascensions += SagaLevel/3
@@ -212,8 +212,8 @@ mob
 					if(src.Saga in Swordsmanship)
 						switch(Saga)
 							if("Weapon Soul")
-								if(src.SagaLevel>=2)
-									Ascensions += SagaLevel/3
+								if(src.SagaLevel)
+									Ascensions = SagaLevel
 							if("Hiten Mitsurugi-Ryuu")
 								if(src.SagaLevel>=3)
 									Ascensions += SagaLevel/3
@@ -249,8 +249,8 @@ mob
 					if(src.Saga in Swordsmanship)
 						switch(Saga)
 							if("Weapon Soul")
-								if(src.SagaLevel>=2)
-									Ascensions += SagaLevel/3
+								if(src.SagaLevel)
+									Ascensions = SagaLevel
 							if("Hiten Mitsurugi-Ryuu")
 								if(src.SagaLevel>=3)
 									Ascensions += SagaLevel/3
@@ -2450,8 +2450,6 @@ mob
 			if(S)
 				if(S.ExtraClass&&S.Class=="Medium")
 					Found+=1
-			if(Found>0&&Saga == "Weapon Soul"&&SagaLevel>=2)
-				Found+=1
 			return Found
 		UsingGladiator()
 			var/Found=0

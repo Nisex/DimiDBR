@@ -11,10 +11,10 @@ proc/randValue(min,max,divider=10)
 	var/max = glob.upper_damage_roll+upperMod
 	var/obj/Items/Sword/s = src.EquippedSword()
 	var/list/swordValues = list("Wooden"=0.05,"Light"=0.1,"Medium"=0.15,"Heavy"=0.2)
-	if(UsingZornhau() || Saga=="Weapon Soul"&&SagaLevel>=1 && s)
-		max +=glob.min_damage_roll / 2
+	if(UsingZornhau())
+		max += glob.min_damage_roll / 2
 	var/val = randValue(min,max)
-	if(UsingZornhau() || Saga=="Weapon Soul"&&SagaLevel>=1 && s)
+	if(UsingZornhau())
 		if(!s)
 			// this means they are in swordless
 			val += 0.25 // let em eat

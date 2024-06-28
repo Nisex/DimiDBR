@@ -22,8 +22,6 @@
 			reqCounter = 10
 		if(UsingIaido()>1)
 			reqCounter-=(UsingIaido()-1)*5
-		if(Saga=="Weapon Soul"&&SagaLevel>=2)
-			reqCounter=max(1, reqCounter-3)
 	if(UsingKendo()&&HasSword())
 		if(s.Class == "Wooden")
 			reqCounter = 10
