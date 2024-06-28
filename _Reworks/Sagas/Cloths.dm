@@ -33,8 +33,6 @@ sagaTierUpMessages/Cosmo
 						if(!locate(/obj/Skills/AutoHit/Mighty_Horn, src))
 							src.AddSkill(new/obj/Skills/AutoHit/Mighty_Horn)
 							src.AddSkill(new/obj/Skills/Telekinesis)
-			if(3)
-				switch(src.ClothBronze)
 					if("Pegasus")
 						if(!locate(/obj/Skills/Projectile/Pegasus_Comet_Fist, src))
 							src.AddSkill(new/obj/Skills/Queue/Pegasus_Rolling_Crash)
@@ -52,6 +50,7 @@ sagaTierUpMessages/Cosmo
 					if("Unicorn")
 						if(!locate(/obj/Skills/Queue/Unicorn_Combination, src))
 							src.AddSkill(new/obj/Skills/Queue/Unicorn_Combination)
+			if(3)
 				var/v2Path = "/obj/Skills/Buffs/SpecialBuffs/Saint_Cloth/Bronze_Cloth_V2/[ClothBronze]_Cloth"
 				for(var/obj/Skills/Buffs/SpecialBuffs/Saint_Cloth/Bronze_Cloth/Buff in src)
 					if(src.BuffOn(Buff))
