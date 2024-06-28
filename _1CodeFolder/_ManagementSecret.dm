@@ -300,8 +300,8 @@ SecretInfomation
 				amount *= 3
 			var/tierEffectiveness = p.AscensionsAcquired * 1.5
 			amount *= tierEffectiveness
-			if(secretVariable["Madness"] + amount > getMadnessLimit())
-				secretVariable["Madness"] = getMadnessLimit()
+			if(secretVariable["Madness"] + amount > getMadnessLimit(p))
+				secretVariable["Madness"] = getMadnessLimit(p)
 			else
 				secretVariable["Madness"] += amount
 

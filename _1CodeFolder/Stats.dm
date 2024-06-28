@@ -1140,7 +1140,7 @@ mob/proc/Update_Stat_Labels()
 						winshow(src, "Hunger", 0)
 			if("Eldritch")
 				var/SecretInfomation/Eldritch/s = secretDatum
-				var/maxMadness = s:getMadnessLimit()
+				var/maxMadness = s:getMadnessLimit(src)
 				var/currentMadness = secretDatum.secretVariable["Madness"]
 				if(currentMadness > 0)
 					winshow(src, "Hunger", 1)
