@@ -160,7 +160,8 @@ globalTracker
 // - races
 		list/LockedRaces = list()
 		list/CustomCommons = list("Majin","Half-Saiyan", "Android")
-
+		BASE_HELL_SCALING_RATIO = 0.01
+		DEMON_NAME = "Shatterspawn"
 		DEMON_ERODE_DEBUFF_INTENSITY = 0.005
 		DEMON_DOT_DEBUFF_INTENSITY = 6
 		DEMON_RESOURCE_DEBUFF_INTENSITY = 0.2

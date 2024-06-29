@@ -1,11 +1,11 @@
 /obj/Skills/Queue/Infestation
 	DamageMult = 1.5
 	AccuracyMult = 5
-	Cooldown = 120
+	Cooldown = 80
 	adjust(mob/p)
 		// make it scale per ascen, alter how it works between warrior / dragon
-		DamageMult = 1.5 + (p.AscensionsAcquired)
-		Cooldown = clamp(120 - (20 * p.AscensionsAcquired), 30, 120)
+		DamageMult = 3 + (p.AscensionsAcquired)
+		Cooldown = clamp(120 - (80 * p.AscensionsAcquired), 30, 80)
 		switch(p.Class)
 			if("Dragon")
 				ManaGain = 5 + (p.AscensionsAcquired * 3)
@@ -25,6 +25,7 @@
 
 	verb/Infestation()
 		set category="Skills"
+		adjust(usr)
 		usr.SetQueue(src)
 
 mob

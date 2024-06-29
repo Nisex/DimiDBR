@@ -692,7 +692,7 @@ ascension
 						force += 0.25
 						offense += 0.25
 					if("Water")
-						passives = list("SoftStyle" = 1, "AbsoluteZero" = 1, "LikeWater" = 2,"Flow" = 1, "Instinct" = 1)
+						passives = list("SoftStyle" = 1, "AbsoluteZero" = 1, "LikeWater" = 2,"Flow" = 1, "Instinct" = 1, "GodKi" = 0.05)
 						strength += 0.25
 						force += 0.25
 						defense += 0.5

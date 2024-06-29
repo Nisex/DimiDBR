@@ -11,4 +11,6 @@
     ActiveMessage = "<i>has unleashed their true nature!</i>"
     verb/True_Form()
         set category = "Skills"
+        if(!usr.BuffOn(src))
+            OMsg(usr, "<b>[usr] has revealed their true nature as a <i>[glob.DEMON_NAME]</i></b>")
         src.Trigger(usr)

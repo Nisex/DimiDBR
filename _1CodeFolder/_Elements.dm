@@ -287,7 +287,7 @@ mob
 				Value/=2
 			if(src.HasDebuffImmune() && !src.BurningShot)
 				Value/=1+src.GetDebuffImmune()
-			Value = Value/**(1-(src.Burn/125))*/
+			Value = Value*(1-(src.Burn/glob.DEBUFF_STACK_RESISTANCE))
 			src.Burn+=Value
 			if(Value >=1 && !src.BurningShot)
 				animate(src, color = "#ff2643")
@@ -334,7 +334,7 @@ mob
 				Value/=2
 			if(src.HasDebuffImmune())
 				Value/=1+src.GetDebuffImmune()
-			Value = Value/**(1-(src.Slow/125))*/
+			Value = Value*(1-(src.Slow/glob.DEBUFF_STACK_RESISTANCE))
 			src.Slow+=Value
 
 			if(Value >=1)

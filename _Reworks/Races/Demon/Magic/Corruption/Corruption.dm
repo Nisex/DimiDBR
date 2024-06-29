@@ -1,5 +1,5 @@
 /obj/Skills/AutoHit/Magic/Corruption/Corrupt_Reality
-	scalingValues = list("Primordial" = list(0.3,0.6,1,1.25,1.5,2), "DamageMult" = list(0.008,0.03,0.05,0.1,0.125,0.15))
+	scalingValues = list("Primordial" = list(0.3,0.6,1,1.25,1.5,2), "DamageMult" = list(0.01,0.05,0.075,0.1,0.1,0.12))
 	Area= "Target"
 	SpecialAttack=1
 	AdaptRate = 1

@@ -759,12 +759,12 @@ mob
 		HealHealth(var/val)
 			if(src.Sheared)
 				if(src.HasHellPower())
-					src.Sheared-=val/(2/src.HasHellPower())
+					src.Sheared-=val/(2/src.GetHellPower())
 					if(src.Sheared<0)
 						val+=(-1)*src.Sheared
 						src.Sheared=0
 					else
-						val=val/(2/src.HasHellPower())
+						val=val/(2/src.GetHellPower())
 				else
 					src.Sheared-=val
 					if(src.Sheared<0)
@@ -1163,9 +1163,11 @@ mob
 			if(HasShonenPower())
 				var/spPower = GetShonenPower() > 0 ? GetShonenPower() : 0
 				Str += (0.1*spPower) * Str
-			var/hellPower = src.HasHellPower()
-			if(hellPower>=0.5)
-				Str += (0.1*hellPower) * Str
+			var/hellPower = src.GetHellPower()
+			if(hellPower == 2)
+				Str += (hellPower/2) * Str
+			else
+				Str += (0.2 * hellPower) * Str
 			// get 25% bonus to strength for each hell power
 			var/Mod=1
 			var/strMult = StrMultTotal
@@ -1283,9 +1285,11 @@ mob
 			if(HasShonenPower())
 				var/spPower = GetShonenPower() > 0 ? GetShonenPower() : 0
 				For += (0.1*spPower) * For
-			var/hellPower = src.HasHellPower()
-			if(hellPower>=0.5)
-				For += (0.1*hellPower) * For
+			var/hellPower = src.GetHellPower()
+			if(hellPower == 2)
+				For += (hellPower/2) * For
+			else
+				For += (0.2 * hellPower) * For
 			if(passive_handler.Get("Piloting"))
 				For = getMechStat(findMecha(), For)
 			if(src.HasManaStats())

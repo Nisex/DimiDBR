@@ -1223,7 +1223,7 @@ mob/proc/Get_Scouter_Reading(mob/B)
 	if(B.HasLegendaryPower())
 		Ratio*= 1 + (2*B.HasLegendaryPower())
 	if(B.HasHellPower())
-		Ratio*=B.GetHellScaling() * 15
+		Ratio*=(B.GetHellScaling() * 1500)
 	Ratio*=B.Base() * 100
 	temp_potential_power(B)//get them potential powers
 	Ratio*=B.potential_power_mult

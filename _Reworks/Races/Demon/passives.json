@@ -13,6 +13,7 @@
     "UNARMED_PASSIVES_I": {
         "SpiritHand": [1, 4],
         "CallousedHands": [0.15, 1],
+        "BlurringStrikes": [0.5, 4],
         "HardenedFrame": [1, 1]
     },
     "UNARMED_PASSIVES_II": {

@@ -39,6 +39,8 @@
     AffectTarget = 1
     Cooldown = 60
     TimerLimit = 10
+    ShatterAffected = 20
+    ShockAffected = 20
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply
     adjust(mob/p)
         if(p.isRace(DEMON) && applyToTarget.type != /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply/Demon)

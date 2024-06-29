@@ -1421,14 +1421,19 @@ mob
 				return min(1+Extra, passive_handler.Get("LegendaryPower")+Extra)
 			return 0
 		HasHellPower()
-			var/Extra=0
-			if(src.TarotFate=="Judgment")
-				Extra=1
 			if(CheckSlotless("Satsui no Hado") && SagaLevel>=6)
-				return 1+Extra
+				return 1
 			if(passive_handler.Get("HellPower"))
-				return min(2+Extra, passive_handler.Get("HellPower")+Extra)
+				if(isRace(DEMON))
+					return 2
+				return 1
 			return 0
+		GetHellPower()
+			var/hellpower = passive_handler.Get("HellPower")
+			if(CheckSlotless("Satsui no Hado") && SagaLevel>=6)
+				hellpower++
+			return hellpower
+		
 		HasPowerReplacement()
 			if(src.passive_handler.Get("PowerReplacement"))
 				return 1
@@ -1507,7 +1512,7 @@ mob
 					Effective*=3
 				else if(src.SpecialBuff.BuffName=="Genesic Brave")
 					Effective*=2
-			if(src.HasHellPower())
+			if(src.HasHellPower() == 2)
 				Effective+=1
 			if(src.KaiokenBP>1)
 				Effective+=1
@@ -1517,11 +1522,12 @@ mob
 
 		GetHellScaling()
 			var/Return=1
-			var/Mult=src.HasHellPower() / 2
-			Mult+=round(src.Potential/100, 0.05)
-			Return=1+(0.35 * (abs(src.Health-100)/100) * Mult)
-			// if(Return>1+(0.35*Mult))
-			// 	Return=1+(0.35*Mult)
+			var/Mult=GetHellPower() / 2
+			if(HasHellPower() == 2)
+				Mult*=2
+				Mult+=round(src.Potential/100, 0.05)
+			var/HealthLost = abs(src.Health-100)/100
+			Return=1+(((glob.BASE_HELL_SCALING_RATIO * HealthLost) * Mult) ** (1/2))
 			return Return
 
 		HasGodKi()
@@ -2370,7 +2376,8 @@ mob
 			if(CheckSpecial("Heavenly Regalia: The Three Treasures"))
 				return 1
 			if(src.isRace(DRAGON)&&src.AscensionsAcquired>=2)
-				return 1
+				if(Class == "Wind")
+					return 1
 			return 0
 		HasAdaptation()
 			if(src.passive_handler.Get("Adaptation"))
@@ -2378,7 +2385,8 @@ mob
 			if(src.StyleActive in list("Balance", "Metta Sutra", "West Star", "Shaolin"))
 				return 1
 			if(src.isRace(DRAGON)&&src.AscensionsAcquired>=1)
-				return 1
+				if(Class == "Wind")
+					return 1
 			if(Target && (Health <=40 && Target.Health > Health) && passive_handler.Get("Underdog"))
 				return 1
 			return 0
