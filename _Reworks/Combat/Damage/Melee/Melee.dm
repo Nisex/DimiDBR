@@ -767,6 +767,8 @@ var/global/MULTIHIT_NERF = FALSE
 						else
 							spawn()
 								Dodge(enemy)
+						if(hitResolution==MISS&&AttackQueue)
+							QueuedMissMessage()
 				if(forcewarp)
 					if(src.StyleActive=="Secret Knife" || (UBWPath == "Firm" && SagaLevel >=3))
 						if(!locate(/obj/Skills/Projectile/Secret_Knives, src))
