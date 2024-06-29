@@ -3150,17 +3150,17 @@ obj
 					ManaCost = 0
 					Launcher=2
 					var/sagaLevel = player.SagaLevel
-					var/damage = clamp(1.8*(sagaLevel/2), 1.8, 7)
+					var/damage = clamp(2.5*(sagaLevel), 4, 12)
 					var/path = player.AnsatsukenPath == "Shoryuken" ? 1 : 0
 					var/manaCost = 35 // how much u need for ex
 					var/cooldown = 40
 					var/hitMessage = "strikes their opponent into the air with a fearsome uppercut!!"
 					ShoryukenEffect=1
-					Shattering = 1.5 * sagaLevel
+					Shattering = 3 * sagaLevel
 					if(path)
 						manaCost -= 10
 						cooldown -= 15
-						damage =  clamp(2*(sagaLevel/2), 2, 8)
+						damage =  clamp(3*(sagaLevel), 5, 8)
 						hitMessage = "strikes their opponent into the air with a fearsome uppercut!!"
 					if(player.AnsatsukenAscension=="Satsui")
 						Shattering *= 1.25
@@ -3171,9 +3171,9 @@ obj
 						Launcher=6
 						hitMessage = "unleashes the power of the Dragon with an overpowering uppercut!"
 						if(path)
-							damage =  clamp(4*(sagaLevel/2), 4, 16)
+							damage =  clamp(5*(sagaLevel), 4, 16)
 						else
-							damage = clamp(3*(sagaLevel/2), 3, 12)
+							damage = clamp(4*(sagaLevel), 3, 12)
 
 					DamageMult = damage
 					HitMessage = hitMessage
@@ -3359,8 +3359,8 @@ obj
 			JawStrike//t1
 				name="Ryushosen"
 				StyleNeeded="Hiten Mitsurugi"
-				DamageMult=3.8
-				AccuracyMult = 1.175
+				DamageMult=5
+				AccuracyMult = 4
 				SpeedStrike=2
 				KBMult=0.0001
 				Launcher=3
@@ -3375,8 +3375,8 @@ obj
 			FallingBlade//t1
 				name="Ryutsuisen"
 				StyleNeeded="Hiten Mitsurugi"
-				DamageMult=3.4
-				AccuracyMult = 1.175
+				DamageMult=5.5
+				AccuracyMult = 4
 				SpeedStrike=2
 				Dunker=2
 				Rapid=1

@@ -1,9 +1,8 @@
-
+globalTracker/var/SYMBIOTE_DMG_TEST = 2
 
 /mob/proc/styleModifiers(mob/defender)
-
     if(HasSoftStyle())
-        . += (defender.TotalFatigue/20) * (GetSoftStyle() / 2)
+        . += (defender.TotalFatigue/20) * (GetSoftStyle() / glob.SOFT_STYLE_DMG_BOON_DIVISOR)
     if(passive_handler.Get("UnhingedForm"))
         . += (defender.TotalInjury/20) * (passive_handler.Get("UnhingedForm") / 5)
     if(Race == "Half Saiyan" && Class == "Brutal")

@@ -4439,7 +4439,9 @@ obj
 				Area="Circle"
 				StrOffense=1
 				DamageMult=1.25
+				IgnoreAlreadyHit = 1
 				ChargeTech=1
+				SpeedStrike = 2
 				ChargeTime=0
 				DelayTime=0
 				Cooldown=60
@@ -4479,22 +4481,22 @@ obj
 				proc/alter(mob/player)
 					ManaCost = 0
 					var/sagaLevel = player.SagaLevel
-					var/damage = clamp(0.2 * (usr.SagaLevel/2), 0.2, 1)
+					var/damage = clamp(0.5 + 0.3 * (usr.SagaLevel/2), 0.4, 2)
 					var/path = player.AnsatsukenPath == "Tatsumaki" ? 1 : 0
 					var/manaCost = 25 // how much u need for ex
-					var/rounds = clamp(1 + (usr.SagaLevel/2), 3, 8)
+					var/rounds = clamp(1 + (usr.SagaLevel), 2, 8)
 					var/cooldown = 50
 					var/launch = 0
 					if(path)
 						cooldown = 30
 						manaCost -= 10
-						damage = clamp(0.35 * (usr.SagaLevel/2), 0.35, 1.5)
-						rounds = clamp(usr.SagaLevel, 3, 8)
+						damage = clamp(0.6 + 0.4 * (usr.SagaLevel/2), 0.8, 3)
+						rounds = clamp(usr.SagaLevel+2, 2, 8)
 
 
 					if(player.ManaAmount>=manaCost && sagaLevel >= 2)
-						damage = clamp(0.4 * (usr.SagaLevel/2), 0.4, 2)
-						rounds = clamp(2 + usr.SagaLevel, 4, 11)
+						damage = clamp(1 + 0.5 * (usr.SagaLevel/2), 1.5, 4)
+						rounds = clamp(4 + usr.SagaLevel, 4, 11)
 						ManaCost = 35
 						launch = 3
 						ActiveMessage="rises high in the air with a terrifying whirlwind of kicks!!"

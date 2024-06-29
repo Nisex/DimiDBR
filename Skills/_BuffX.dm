@@ -1127,7 +1127,7 @@ NEW VARIABLES
 
 						if("Ryui Jingu Bang")
 							src.PowerMult=1.5
-							passives = list("SpiritPower" = usr.SagaLevel*0.25, "Extend" = max(1,usr.SagaLevel/2), "PULock" = 1)
+							passives = list("SpiritPower" = usr.SagaLevel*0.25, "AbyssMod" = 0.25 * usr.SagaLevel, "HolyMod" = 0.25 * usr.SagaLevel, "Duelist" = usr.SagaLevel*0.5, "Extend" = max(1,usr.SagaLevel/2), "PULock" = 1)
 							if(!redacted)
 								src.ActiveMessage="calls forth the true form of Ryui Jingu Bang, the Pole of the Monkey King!"
 								src.OffMessage="shrinks Ryui Jingu Bang back down..."
@@ -8293,7 +8293,7 @@ NEW VARIABLES
 						if(wooden_icon)
 							SwordIcon = wooden_icon
 							SwordX = wooden_x
-							SwordX = wooden_y
+							SwordY = wooden_y
 						else
 							SwordIcon = 'Bokken.dmi'
 						SwordClass = "Wooden"
@@ -8301,7 +8301,7 @@ NEW VARIABLES
 						if(light_icon)
 							SwordIcon = light_icon
 							SwordX = light_x
-							SwordX = light_y
+							SwordY = light_y
 						else
 							SwordIcon = 'LightSword.dmi'
 						SwordClass = "Light"
@@ -8309,7 +8309,7 @@ NEW VARIABLES
 						if(med_icon)
 							SwordIcon = med_icon
 							SwordX = med_x
-							SwordX = med_y
+							SwordY = med_y
 						else
 							SwordIcon = 'MediumSword.dmi'
 						SwordClass = "Medium"
@@ -8317,7 +8317,7 @@ NEW VARIABLES
 						if(heavy_icon)
 							SwordIcon = heavy_icon
 							SwordX = heavy_x
-							SwordX = heavy_y
+							SwordY = heavy_y
 						else
 							SwordIcon = 'HeavySword.dmi'
 						SwordClass = "Heavy"
@@ -9776,18 +9776,16 @@ NEW VARIABLES
 
 					//hiten
 					Shunshin
-						SpdMult=1.2
-						passives = list("TensionLock" = 1,"Warping" = 2, "HotHundred" = 1, "Godspeed" = 3)
+						SpdMult=1.6
+						passives = list("TensionLock" = 1,"Warping" = 4, "HotHundred" = 1, "Godspeed" = 3, "BlurringStrikes" = 1)
 						TimerLimit=15
-						PhysicalHitsLimit=7
 						Afterimages=1
 						ActiveMessage="moves at godspeed for a rapid attack!"
 						OffMessage="restrains their godspeed..."
 					Shunshin_Shin
-						SpdMult=1.3
-						passives = list("TensionLock" = 1,"Warping" = 3, "HotHundred" = 2, "PureDamage" = 2, "Steady" = 3)
+						SpdMult=2
+						passives = list("TensionLock" = 1,"Warping" = 3, "HotHundred" = 2, "PureDamage" = 2, "Steady" = 3, "BlurringStrikes" = 2)
 						TimerLimit=15
-						PhysicalHitsLimit=12
 						Afterimages=1
 						ActiveMessage="unleashes their godspeed for a short burst!"
 						OffMessage="falls back in step..."
@@ -10802,7 +10800,8 @@ NEW VARIABLES
 					if(altered) return
 					var/asc = p.AscensionsAcquired
 					passives = list("Unstoppable" = 1, "Hardening" = 1 + (0.5 * asc), "LifeSteal" = 1.5*asc, "Godspeed" = 1+(asc), "SweepingStrike" = 1)
-					VaizardHealth = p.GetEnd() + (p.TotalInjury/25) + (asc)
+					VaizardHealth = 15 + p.GetEnd() + (p.TotalInjury/25) + (asc)
+
 					VaizardHealth/= 10
 					// this was 17.5% guys lol
 					if(asc>=1)

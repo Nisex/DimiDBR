@@ -81,14 +81,16 @@
 	#endif
 
 	var/puredmg = HasPureDamage() ? HasPureDamage() : 0
-	puredmg *= glob.PURE_MODIFIER
+	if(!glob.PURE_MOD_POST_CALC)
+		puredmg *= glob.PURE_MODIFIER
 	trueMult += puredmg
 	#if DEBUG_DAMAGE
 	log2text("trueMult", "After Puredmg", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
 	var/purered = defender.HasPureReduction() ? defender.HasPureReduction() : 0
-	purered *= glob.PURE_MODIFIER
+	if(!glob.PURE_MOD_POST_CALC)
+		purered *= glob.PURE_MODIFIER
 	trueMult -= purered
 	#if DEBUG_DAMAGE
 	log2text("trueMult", "After Purered", "damageDebugs.txt", "[src.ckey]/[src.name]")
@@ -182,6 +184,8 @@
 			log2text("trueMult", "After Defiance", "damageDebugs.txt", "[src.ckey]/[src.name]")
 			log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
 			#endif
+	if(glob.PURE_MOD_POST_CALC)
+		trueMult *= glob.PURE_MODIFIER
 	trueMult += godKiModifiers(defender)
 	#if DEBUG_DAMAGE
 	log2text("trueMult", "After GodKiModifiers", "damageDebugs.txt", "[src.ckey]/[src.name]")

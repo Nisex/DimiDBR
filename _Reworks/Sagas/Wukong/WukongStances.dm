@@ -10,8 +10,7 @@
         proc/init(mob/p)
             if(altered) return
             var/sLevel = p.SagaLevel
-            passives = list("Pursuer" = sLevel / 3, "NoWhiff" = 1, "PowerPole" = sLevel/2)
-            Pursuer = sLevel / 3
+            passives = list("Pursuer" = sLevel, "NoWhiff" = 1, "PowerPole" = sLevel)
             NoWhiff = 1
             PowerPole = sLevel / 2
         verb/Dadao_Stance()
@@ -33,9 +32,7 @@
         proc/init(mob/p)
             if(altered) return
             var/sLevel = p.SagaLevel
-            passives = list("HardStyle" = sLevel/3, "GiantSwings" = sLevel/2)
-            HardStyle = sLevel / 3
-            GiantSwings = sLevel / 2
+            passives = list("HardStyle" = sLevel/3, "GiantSwings" = clamp(sLevel,2,6))
         verb/Huadong_Stance()
             set category = "Skills"
             set name = "Huadong Stance"

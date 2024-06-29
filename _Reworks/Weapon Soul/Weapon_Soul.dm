@@ -109,6 +109,7 @@ mob/tierUpSaga(Path)
 						src << "Yeoui unveils the secrets to proper footwork..."
 						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Dadao)
 						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Huadong)
+						passive_handler.Set("MonkeyKing", 1)
 
 					if("Green Dragon Crescent Blade")
 						src << "The Green Dragon Crescent Blade unveils the secrets to an unstoppable rush..."

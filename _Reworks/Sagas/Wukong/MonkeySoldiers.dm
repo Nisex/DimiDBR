@@ -58,6 +58,29 @@ SoldierTracker
 
 
 /obj/Skills/Buffs/SlotlessBuffs
+    Marlon_Anti_Job_Buff
+        DefMult = 3
+        EndMult = 3
+        StrMult = 3
+        ForMult = 3
+        SpdMult = 3
+        OffMult = 3
+        passives = list("BackTrack" = 1, "Flow" = 1, "Instinct" = 1, "GodKi" = 1)
+        FlashChange=1
+        HairLock=1
+        AuraLock='BLANK.dmi'
+        IconLock='UltraInstinct.dmi'
+        IconUnder=1
+        LockX=-18
+        LockY=-21
+        TopOverlayLock='UltraInstinctSpark.dmi'
+        IconTint=list(1,0.15,0.15, 0.15,1,0.15, 0,0,1, 0,0,0)
+        adjust(mob/p)
+            passives = list("BackTrack" = clamp(round(p/10), 1,10), "Flow" = clamp(round(p/10), 1,10), "Instinct" = clamp(round(p/10), 1,10), "GodKi" = 1, "NoWhiff" = 1, "NoMiss" = 1)
+        verb/Anti_Job()
+            set category = "Skills"
+            set name = "Anti Job Mode"
+            src.Trigger(usr)
     TestBuff1
         MonkeyKing = 2
         Cooldown = 5

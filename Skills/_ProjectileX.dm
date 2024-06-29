@@ -3924,14 +3924,14 @@ obj
 					Soaring_Mountain_Dragon
 						CosmoPowered=1
 						StrRate=1
-						EndRate=1
+						EndRate=0.75
 						DamageMult=12
 						BeamTime=7
 						Dodgeable=0
 						Immediate=1
 						Piercing=1
 						Striking=1
-						Knockback=0
+						Knockback=1
 						Distance=20
 						IconLock='Rozan_Beam.dmi'
 						IconSize=1
@@ -5567,12 +5567,12 @@ obj
 										found=1
 								if(!found)//If you don't find what you're supposed to hunt
 									goto SkipDamage
-						// if(src.HolyMod)
-						// 	EffectiveDamage*=1+src.Owner.HolyDamage(a, Forced=src.HolyMod)/10
-						// if(src.AbyssMod)
-						// 	EffectiveDamage*=1+src.Owner.AbyssDamage(a, Forced=src.AbyssMod)/10
-						// if(src.SlayerMod)
-						// 	EffectiveDamage*=1+src.Owner.SlayerDamage(a, Forced=src.SlayerMod)/10
+						if(src.HolyMod)
+							EffectiveDamage*=1+src.Owner.HolyDamage(a, Forced=src.HolyMod)/glob.HOLY_DAMAGE_DIVISOR
+						if(src.AbyssMod)
+							EffectiveDamage*=1+src.Owner.AbyssDamage(a, Forced=src.AbyssMod)/glob.ABYSS_DAMAGE_DIVISOR
+						if(src.SlayerMod)
+							EffectiveDamage*=1+src.Owner.SlayerDamage(a, Forced=src.SlayerMod)/glob.SLAYER_DAMAGE_DIVISOR
 						if(src.WarpUser)
 							src.Owner.Comboz(a)
 						if(src.FollowUp)

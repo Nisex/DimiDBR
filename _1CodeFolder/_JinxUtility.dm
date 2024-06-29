@@ -97,10 +97,10 @@ mob
 			// 	src.GainFatigue(defender.GetVoidField()*0.01*min((1/val),1))
 
 			if(src.HasSoftStyle())
-				defender.GainFatigue(val*0.4*src.GetSoftStyle())
+				defender.GainFatigue(val*glob.SOFT_STYLE_RATIO*src.GetSoftStyle())
 			if(src.HasHardStyle())
 				if(!src.CursedWounds())
-					src.DealWounds(defender, val*0.1*src.GetHardStyle())
+					src.DealWounds(defender, val*glob.HARD_STYLE_RATIO*src.GetHardStyle())
 			if(src.HasCyberStigma())
 				if(defender.CyberCancel||defender.Mechanized)
 					defender.LoseMana(val*max(defender.Mechanized,defender.CyberCancel)*src.GetCyberStigma())
@@ -110,6 +110,8 @@ mob
 			// 		defender.MovementChargeBuildUp(val)
 
 			if(defender.VaizardHealth)
+				if(glob.SYMBIOTE_DMG_TEST && CheckSlotless("Symbiote Infection"))
+					val *= glob.SYMBIOTE_DMG_TEST
 				defender.VaizardHealth-=val
 				if(defender.VaizardHealth<=0)
 					if(defender.ActiveBuff)
@@ -2108,13 +2110,13 @@ mob
 			if(src.Saga in list("Hiten Mitsurugi-Ryuu", "Ansatsuken"))
 				if(src.SagaLevel>=1)
 					if(!Forced)
-						return max(0,(src.GetSlayerMod() * 1.5) - ignore)
+						return 	clamp((src.GetSlayerMod() * 1.5) - ignore, 0, glob.MAX_ADDITONAL_DAMAGE_CLAMP)
 					else
-						return max(0,Forced - ignore)
+						return clamp((Forced *1.5) - ignore, 0, glob.MAX_ADDITONAL_DAMAGE_CLAMP)
 			if(!Forced)
-				return max(0,src.GetSlayerMod() - ignore)
+				return clamp((src.GetSlayerMod() * 1.5) - ignore, 0, glob.MAX_ADDITONAL_DAMAGE_CLAMP)
 			else
-				return max(0,Forced - ignore)
+				return clamp(Forced - ignore, 0, glob.MAX_ADDITONAL_DAMAGE_CLAMP)
 			return 1
 
 		SpiritShift()
