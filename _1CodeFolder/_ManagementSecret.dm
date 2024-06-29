@@ -44,7 +44,7 @@ SecretInfomation
 		nextTierUp = 999
 		tierUnlocked = 3 // always allow them to auto to tier 3
 	proc/init(mob/p)
-		potentialRecieved = glob.progress.DaysOfWipe
+		potentialRecieved = glob.progress.DaysOfWipe*glob.progress.PotentialDaily
 		nextTierUp = 3
 		applySecret(p)
 
@@ -168,6 +168,7 @@ SecretInfomation
 					p << "You have awakened the power of Haki!"
 					giveSkills(p)
 					giveVariables(p)
+					conQHaki(p)
 				if(2)
 					p << "Your Haki has grown stronger!"
 					conQHaki(p)

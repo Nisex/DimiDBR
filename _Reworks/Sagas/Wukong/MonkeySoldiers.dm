@@ -65,7 +65,7 @@ SoldierTracker
         ForMult = 3
         SpdMult = 3
         OffMult = 3
-        passives = list("BackTrack" = 1, "Flow" = 1, "Instinct" = 1, "GodKi" = 1)
+        passives = list("BackTrack" = 1, "Flow" = 1, "Instinct" = 1, "GodKi" = 1, "NoWhiff" = 1, "NoMiss" = 1)
         FlashChange=1
         HairLock=1
         AuraLock='BLANK.dmi'
@@ -80,6 +80,7 @@ SoldierTracker
         verb/Anti_Job()
             set category = "Skills"
             set name = "Anti Job Mode"
+            adjust(usr)
             src.Trigger(usr)
     TestBuff1
         MonkeyKing = 2
