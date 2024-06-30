@@ -102,7 +102,7 @@ mob/proc/StartFresh()
 	corpse.EndMod=src.GetEnd()
 	corpse.ForMod=src.GetFor()
 	corpse.DeathKillerTargets=src.key//used for Death Killer
-	corpse.Savable=0
+	corpse.Savable=1
 	var/list/lootTable = list()
 	for(var/obj/Items/I in src)
 		if(I.suffix == "*Equipped*")
@@ -187,8 +187,8 @@ mob/proc/Void(override, zombie, forceVoid, extraChance,extraRolls)
 				if(istype(src, /mob/Players/))
 					ArchiveSave(src)
 				Dead = 1
-				src.overlays += 'halo.dmi'
 				makeCorpse(oldLoc)
+				src.overlays += 'halo.dmi'
 			return
 
 

@@ -277,6 +277,8 @@ mob
 			if(Attacker && (Attacker == src ? !src.BurningShot : 1))
 				if(Attacker.Attunement=="Fire")
 					Value*=1.5
+				else if(Attacker.Attunement=="HellFire")
+					Value*=glob.HELLFIRE_VALUE_MOD
 			if(src.Attunement=="Wind")
 				Value*=1.5
 			if(Attunement=="Fire" && !src.BurningShot)
@@ -443,10 +445,20 @@ mob
 				return
 			if(src.Infusion||src.VenomResistance)
 				if(src.VenomResistance)
+					if(Attacker.Attunement=="HellFire")
+						Value*=glob.HELLFIRE_VALUE_MOD
+						Sheared+=Value/2
+						if(Sheared>=100)
+							Sheared=100
+						Crippled+=Value/3
+						if(Crippled>=100)
+							Crippled=100
 					src.Poison+=Value/(1+src.VenomResistance)
 			else
 				if(Attunement=="Poison")
 					Value/=2
+				if(Attacker.Attunement=="HellFire")
+					Value*=glob.HELLFIRE_VALUE_MOD
 				Value = Value*(1-(src.Poison/glob.DEBUFF_STACK_RESISTANCE))
 				src.Poison+=Value
 

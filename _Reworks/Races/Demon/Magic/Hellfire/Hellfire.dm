@@ -101,7 +101,7 @@
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat
     ElementalClass="Fire"
     scalingValues = list("CrippleAffected" = list(12,15,15,20,25,25), \
-    "PoisonAffected" = list(3,6,12,12,15,15), "BurnAffected" = list(3,6,12,15,15,15), "ConfuseAffected" = list(6,9,12,15,20,25), \
+    "PoisonAffected" = list(3,6,12,12,15,15), "BurnAffected" = list(3,6,12,15,15,15), "ConfuseAffected" = list(1,2,5,6,8,10), \
     "TimerLimit" = list(5,8,12,15,20,25))
     ManaCost=5
     AffectTarget=1
@@ -117,7 +117,7 @@
     proc/returnToInit()
         if(!altered)
             scalingValues = list("CrippleAffected" = list(12,15,15,20,25,25), \
-    "PoisonAffected" = list(3,6,12,12,15,15), "BurnAffected" = list(3,6,12,15,15,15), "ConfuseAffected" = list(6,9,12,15,20,25), \
+    "PoisonAffected" = list(3,6,12,12,15,15), "BurnAffected" = list(3,6,12,15,15,15), "ConfuseAffected" = list(1,2,5,6,8,10), \
     "TimerLimit" = list(5,8,12,15,20,25))
     
     adjust(mob/p)

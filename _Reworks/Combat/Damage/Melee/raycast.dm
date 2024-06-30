@@ -64,7 +64,7 @@
                             if(istype(M, /mob/irlNPC))
                                 continue
                             people += M
-        if(dir in list(NORTHWEST || NORTHEAST || SOUTHWEST || SOUTHEAST))
+        if(dir in list(NORTHWEST,NORTHEAST, SOUTHWEST, SOUTHEAST))
             for(var/mob/M in get_step(src, dir))
                 if(M != src && M.density)
                     if(istype(M, /mob/irlNPC))

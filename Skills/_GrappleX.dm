@@ -228,6 +228,7 @@ obj/Skills/Grapple
 				TriggerMessage="starts freakifying"
 				EffectMult=1.25
 				Stunner=5
+				OneAndDone=1
 				StrRate=1.25
 				DamageMult = 3.3 + (p.Potential / 25)
 			else
@@ -507,7 +508,7 @@ obj/Skills/Grapple
 				User.log2text("Grapple Damage", Damage, "damageDebugs.txt", User.ckey)
 				#endif
 				Damage *= dmgRoll
-				var/extra = User.passive_handler.Get("Muscle Power") / 4
+				var/extra = User.passive_handler.Get("Muscle Power") / glob.MUSCLE_POWER_DIVISOR
 				Damage *= DamageMult
 				Damage *= (unarmedBoon + extra) // unarmed boon is 0.5, 
 				Damage *= glob.GRAPPLE_DAMAGE_MULT
@@ -544,7 +545,7 @@ obj/Skills/Grapple
 				User.Knockback((dmgRoll*src.ThrowMult)+src.ThrowAdd, Trg, Direction=src.ThrowDir, Forced=1)
 				if(src.Stunner)
 					Stun(Trg, src.Stunner)
-				if(src.Effect in list("Suplex", "Drain", "Lotus"))
+				if(src.Effect in list("Suplex", "Drain", "Lotus", "SuperSuplex"))
 					src.OneAndDone=1
 				var/Times=src.EffectMult
 				spawn()

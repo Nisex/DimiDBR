@@ -191,7 +191,7 @@ client/verb/Whisper(T as text)
 
 	for(var/mob/E as anything in transmitTo)
 		if(!E.client) continue
-		if((E.EnhancedHearing || get_dist(usr, E) < WHISPER_RADIUS) && E.SenseRobbed < 4)
+		if((E.EnhancedHearing || get_dist(usr, E) <= WHISPER_RADIUS))
 			E?.client.outputToChat("[header][E.Controlz(usr)] whispers: [message]", IC_OUTPUT)
 			Log(E.ChatLog(),"[header]([usr.key]) WHISPERS: [message]")
 			Log(E.sanitizedChatLog(),"[header] WHISPERS: [message]")

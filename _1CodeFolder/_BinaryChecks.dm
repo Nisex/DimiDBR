@@ -2389,6 +2389,8 @@ mob
 					return 1
 			if(Target && (Health <=40 && Target.Health > Health) && passive_handler.Get("Underdog"))
 				return 1
+			if(src.UsingYinYang())
+				return 1
 			return 0
 		UsingMartialStyle()
 			if(src.UsingMasteredMartialStyle())

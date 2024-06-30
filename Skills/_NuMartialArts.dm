@@ -717,7 +717,6 @@ obj
 						SignatureTechnique=1
 						NeedsSecondSword=1
 						Copyable=0
-
 						StyleStr=1.4
 						StyleOff=1.2
 						StyleSpd=1.4
