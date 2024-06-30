@@ -28,7 +28,7 @@ globalTracker
 				del update // i guess loc = null doesn't work cause datums have no loc
 
 
-mob/var/updateVersion = 26
+mob/var/updateVersion = 27
 
 update
 	var/version = 1
