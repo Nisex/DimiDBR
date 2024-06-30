@@ -483,10 +483,6 @@ ascension
 			choices = list("Rest" = /ascension/sub_ascension/high_faoroan/rest, "Sacrifice" = /ascension/sub_ascension/high_faoroan/sacrifice)
 
 	demon
-		var/list/trueFormPerAsc = list(1 = list("HellPower" = 0.15, "AngerAdaptiveForce" = 0.25, "TechniqueMastery" = 2), \
-									 2 = list("HellPower" = 0.15,"Hellrisen" = 0.25,  "AngerAdaptiveForce" = 0.1, "TechniqueMastery" = 3), \
-									3 = list("HellPower" = 0.15, "TechniqueMastery" = 5), \
-									4 = list("HellPower" = 0.4, "AngerAdaptiveForce" = 0.3, "Hellrisen" = 0.5, "TechniqueMastery" = 5))
 		proc/findTrueForm(mob/p)
 			var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = new()
 			d = locate() in p
@@ -497,13 +493,11 @@ ascension
 		onAscension(mob/owner)
 			var/result = ..()
 			if(result)
-				for(var/passive in trueFormPerAsc[owner.AscensionsAcquired])
-					findTrueForm(owner).passives[passive] += trueFormPerAsc[owner.AscensionsAcquired][passive]
 				owner.demon.selectPassive(owner, "CORRUPTION_PASSIVES", "Buff")
 				owner.demon.selectPassive(owner, "CORRUPTION_DEBUFFS", "Debuff")
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			passives = list("HellPower" = 0.025, "AbyssMod" = 0.25, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.25, "AbyssMod" = 0.25, "SpiritPower" = 0.25)
 			anger = 0.15
 			intimidation = 50
 			strength = 0.25
@@ -515,7 +509,7 @@ ascension
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
-			passives = list("HellPower" = 0.05, "AbyssMod" = 0.75, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.25, "AbyssMod" = 0.75, "SpiritPower" = 0.25)
 			intimidation = 50
 			strength = 0.25
 			force = 0.5
@@ -531,7 +525,7 @@ ascension
 				owner.Class = "A"
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
-			passives = list("HellPower" = 0.1, "AbyssMod" = 1, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.25, "AbyssMod" = 1, "SpiritPower" = 0.25)
 			anger = 0.2
 			intimidation = 100
 			strength = 0.25
@@ -542,7 +536,7 @@ ascension
 				owner.Class = "S"
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
-			passives = list("HellPower" = 0.1, "AbyssMod" = 2)
+			passives = list("HellPower" = 0.25, "AbyssMod" = 2)
 			anger = 0.15
 			intimidation = 250
 			strength = 0.25
@@ -556,7 +550,7 @@ ascension
 				owner.Class = "False King"
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
-			passives = list("EndlessAnger" = 1, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 1, "EndlessAnger" = 1, "SpiritPower" = 0.25)
 			intimidation = 250
 
 			onAscension(mob/owner)

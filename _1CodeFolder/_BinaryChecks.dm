@@ -236,7 +236,7 @@ mob
 			Total*=1+(Ascensions*glob.SwordAscDelay)
 			return Total
 		GetSwordAccuracy(var/obj/Items/Sword/s)
-			var/Total=1
+			var/Total=1 - glob.SWORD_GLOBAL_ACCURACY_NERF
 			var/Ascensions=0
 			if(s)
 				Total=s.AccuracyEffectiveness
@@ -325,7 +325,7 @@ mob
 			Total*=1+(Ascensions*glob.StaffAscDelay)
 			return Total
 		GetStaffAccuracy(var/obj/Items/Enchantment/Staff/s)
-			var/Total=1
+			var/Total=1 - glob.STAFF_GLOBAL_ACCURACY_NERF
 			if(s)
 				Total=s.AccuracyEffectiveness
 				var/Ascensions=s.Ascended
@@ -372,7 +372,7 @@ mob
 			Total*=1+(Ascensions*glob.ArmorAscDelay)
 			return Total
 		GetArmorAccuracy(var/obj/Items/Armor/s)
-			var/Total=1
+			var/Total=1 - glob.ARMOR_GLOBAL_ACCURACY_NERF
 			var/Ascensions=0
 			if(s)
 				Total=s.AccuracyEffectiveness
@@ -1526,7 +1526,7 @@ mob
 			if(HasHellPower() == 2)
 				Mult*=2
 				Mult+=round(src.Potential/100, 0.05)
-			var/HealthLost = abs(src.Health-100)/100
+			var/HealthLost = abs(src.Health-100)
 			Return=1+(((glob.BASE_HELL_SCALING_RATIO * HealthLost) * Mult) ** (1/2))
 			return Return
 
@@ -1568,8 +1568,10 @@ mob
 					Total=0.5//fully ascended dragon
 			return Total
 		HasFluidForm()
-			if(passive_handler.Get("FluidForm") || passive_handler.Get("Gravity"))
-				return 1
+			if(passive_handler.Get("FluidForm"))
+				return passive_handler.Get("FluidForm")
+			if( passive_handler.Get("Gravity"))
+				return passive_handler.Get("Gravity")
 			if(src.HasLegendaryPower()>=1)
 				return 1
 			if(src.HasEmptyGrimoire())
@@ -2375,18 +2377,12 @@ mob
 				return 1
 			if(CheckSpecial("Heavenly Regalia: The Three Treasures"))
 				return 1
-			if(src.isRace(DRAGON)&&src.AscensionsAcquired>=2)
-				if(Class == "Wind")
-					return 1
 			return 0
 		HasAdaptation()
 			if(src.passive_handler.Get("Adaptation"))
 				return 1
 			if(src.StyleActive in list("Balance", "Metta Sutra", "West Star", "Shaolin"))
 				return 1
-			if(src.isRace(DRAGON)&&src.AscensionsAcquired>=1)
-				if(Class == "Wind")
-					return 1
 			if(Target && (Health <=40 && Target.Health > Health) && passive_handler.Get("Underdog"))
 				return 1
 			if(src.UsingYinYang())

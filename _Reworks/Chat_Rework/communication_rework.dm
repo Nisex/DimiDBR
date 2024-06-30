@@ -191,7 +191,7 @@ client/verb/Whisper(T as text)
 
 	for(var/mob/E as anything in transmitTo)
 		if(!E.client) continue
-		if((E.EnhancedHearing || get_dist(usr, E) <= WHISPER_RADIUS))
+		if(E.EnhancedHearing)
 			E?.client.outputToChat("[header][E.Controlz(usr)] whispers: [message]", IC_OUTPUT)
 			Log(E.ChatLog(),"[header]([usr.key]) WHISPERS: [message]")
 			Log(E.sanitizedChatLog(),"[header] WHISPERS: [message]")
@@ -200,10 +200,19 @@ client/verb/Whisper(T as text)
 				for(var/mob/m as anything in E.BeingObserved)
 					m?.client.outputToChat("[OBSERVE_HEADER][header][m.Controlz(usr)] whispers: [message]", IC_OUTPUT)
 		else
-			E?.client.outputToChat("[header][E.Controlz(usr)] whispers...", IC_OUTPUT)
-			if(E.BeingObserved.len>0)
-				for(var/mob/m as anything in E.BeingObserved)
-					m?.client.outputToChat("[header][m.Controlz(usr)] whispers...", IC_OUTPUT)
+			if(get_dist(usr, E) <= WHISPER_RADIUS)
+				E?.client.outputToChat("[header][E.Controlz(usr)] whispers: [message]", IC_OUTPUT)
+				Log(E.ChatLog(),"[header]([usr.key]) WHISPERS: [message]")
+				Log(E.sanitizedChatLog(),"[header] WHISPERS: [message]")
+
+				if(E.BeingObserved.len>0)
+					for(var/mob/m as anything in E.BeingObserved)
+						m?.client.outputToChat("[OBSERVE_HEADER][header][m.Controlz(usr)] whispers: [message]", IC_OUTPUT)
+			else
+				E?.client.outputToChat("[header][E.Controlz(usr)] whispers...", IC_OUTPUT)
+				if(E.BeingObserved.len>0)
+					for(var/mob/m as anything in E.BeingObserved)
+						m?.client.outputToChat("[header][m.Controlz(usr)] whispers...", IC_OUTPUT)
 
 	usr.CheckAFK()
 

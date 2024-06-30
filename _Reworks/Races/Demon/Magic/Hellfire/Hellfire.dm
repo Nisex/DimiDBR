@@ -15,7 +15,7 @@
     TrailY=0
     AccMult = 1.125
     Speed = 0.75
-    Cooldown = 90
+    Cooldown = 60
     ActiveMessage = "unleashes a wave of Fire!"
     ManaCost = 5
     Delay = 8
@@ -39,8 +39,8 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
     ElementalClass="Fire"
-    scalingValues = list("Damage" = list(0.2,0.3,0.3,0.4,0.6,0.8), "Distance" = list(6,9,12,12,15,18), \
-    "DarknessFlame" = list(4,10,12,15,20,25), "Slow" = list(6,10,12,12,15,20), "Burning" = list(5,8,10,15,20,20), "Duration" = list(200,300,300,350,400,600), \
+    scalingValues = list("Damage" = list(0.3,0.5,0.7,0.8,1,1), "Distance" = list(5,10,15,15,20,20), \
+    "DarknessFlame" = list(4,10,12,15,20,25), "Slow" = list(6,10,12,12,15,20), "Burning" = list(5,10,10,15,20,20), "Duration" = list(200,300,300,350,400,600), \
     "Adapt" = list(1,1,1,1,1), "CorruptionGain" = list(1,1,1,1,1) )
     makSpace = new/spaceMaker/HellFire
     var/icon_to_use = 'Flaming Rain.dmi'
@@ -89,9 +89,9 @@
                 if("Slow")
                     target.AddCrippling(scalingValues[x][asc])
         if(!target:move_disabled)
-            if(prob(5*asc))
+            if(prob(6*asc))
                 target:move_disabled = TRUE
-                spawn(3*asc)
+                spawn(5*asc)
                     target:move_disabled = FALSE
 
 

@@ -72,8 +72,8 @@
     ActiveMessage="unleashes a vacuum powered slash!"
     adjust(mob/p, dmg)
         var/asc = p.AscensionsAcquired
-        DamageMult = dmg * 0.25 +(0.25*asc)
-        Size = 1 + (1*asc)
-        Distance = 2 + (1*asc)
+        DamageMult = dmg * 0.5 +( 0.25*asc)
+        Size = 2 + (1*asc)
+        Distance = 3 + (1*asc)
     
 

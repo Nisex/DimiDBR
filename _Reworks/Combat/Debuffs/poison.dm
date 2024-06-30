@@ -9,16 +9,16 @@
 
 
 
-globalTracker/var/var/maxPoisonDamage = MAX_POISON_DAMAGE
-globalTracker/var/var/PoisonStackDivisor = POISON_STACKS_DIVISOR
-globalTracker/var/var/PoisonNerf = POISON_NERF
-globalTracker/var/var/maxBurnDamage = BASE_BURN_DAMAGE
-globalTracker/var/var/BurnStackDivisor = BURN_STACK_DIVISOR
-globalTracker/var/var/BurnNerf = BURN_NERF
-globalTracker/var/var/DEBUFF_STACK_RESISTANCE = 100
-
-globalTracker/var/var/MAX_DEBUFF_CLAMP = 0.1
-globalTracker/var/var/LOWER_DEBUFF_CLAMP = 0.001
+globalTracker/var/maxPoisonDamage = MAX_POISON_DAMAGE
+globalTracker/var/PoisonStackDivisor = POISON_STACKS_DIVISOR
+globalTracker/var/PoisonNerf = POISON_NERF
+globalTracker/var/maxBurnDamage = BASE_BURN_DAMAGE
+globalTracker/var/BurnStackDivisor = BURN_STACK_DIVISOR
+globalTracker/var/BurnNerf = BURN_NERF
+globalTracker/var/DEBUFF_STACK_RESISTANCE = 100
+globalTracker/var/HELLFIRE_VALUE_MOD = 2
+globalTracker/var/MAX_DEBUFF_CLAMP = 0.1
+globalTracker/var/LOWER_DEBUFF_CLAMP = 0.001
 
 /mob/proc/getDebuffDamage(typeOfDebuff)
     var/stackDivisor = glob.vars["[typeOfDebuff]StackDivisor"]

@@ -445,7 +445,7 @@ obj
 					WeaponBreaker = 2
 					Crushing = 20
 					Finisher = 1
-					DamageMult = 0.5
+					DamageMult = 1
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Arena_Champion"
 					HitMessage="flies forward in a whirlwind of piercing blades!"
 					FollowUp="/obj/Skills/AutoHit/Giga_Impact"
@@ -485,6 +485,7 @@ obj
 				Manji_Flip
 					Warp=10
 					Launcher=5
+					DamageMult=3
 					FollowUp="/obj/Skills/AutoHit/Whirlwind_Handstand"
 					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Feral_Fear"
 					HitMessage="performs an uncanny acrobatic strike, rocketing their foe upwards!"
@@ -3975,10 +3976,15 @@ mob
 				spawn() for(var/mob/m in view(10, src))
 					if(m.CheckSpecial("Sharingan"))
 						var/copy = Q.Copyable
+						var/copyLevel = getSharCopyLevel()
 						if(Q.NewCopyable)
 							copy = Q.NewCopyable
-						if(m.SagaLevel<=copy)
-							continue
+						if(glob.SHAR_COPY_EQUAL_OR_LOWER)
+							if(copyLevel < copy)
+								continue
+						else
+							if(copyLevel <= copy)
+								continue
 						if(m.client&&m.client.address==src.client.address)
 							continue
 						if(!locate(Q.type, m))

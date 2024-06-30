@@ -18,7 +18,7 @@ majinAbsorb
     var/absorbCount = 0
     var/absorbTax = 5 // 3% tax
     var/absorbPassiveTickLimit = 0.5
-    var/tickPerAbsorb = 0.1
+    var/tickPerAbsorb = 0.25
     // Some passives work differently and will get a boost, also some races provide more
 majinAbsorb/proc/updateVariables(mob/p, clear = FALSE)
     var/Super = p.Class == "Super" ? TRUE : FALSE
@@ -26,7 +26,7 @@ majinAbsorb/proc/updateVariables(mob/p, clear = FALSE)
     absorbLimit = MAJIN_ABSORB_LIMIT + (Super ? asc : floor(asc/2))
     absorbPassiveTickLimit = MAJIN_PASSIVE_LIMIT + ( (asc-1) * MAJIN_PASSIVE_LIMIT ) + (Super ? MAJIN_PASSIVE_LIMIT : 0)
     absorbTax = 3 + (MAJIN_ABSORB_TAX * asc)
-    tickPerAbsorb = 0.1 + ((asc-1) * 0.1) + (Super ? 0.2 : 0)
+    tickPerAbsorb = 0.25 + ((asc-1) * 0.1) + (Super ? 0.25 : 0)
     absorbCount = absorbed.len
 
 #define BOOSTPASSIVES list("Piloting Prowess", "Intimidation")
@@ -166,6 +166,13 @@ proc/removeDuplicates(list/list1)
             . = getMajinRacials()
         if("Half Saiyan")
             . += "Desperation"
+        if(ELF)
+            . += "Deicide"
+            . += "TechniqueMastery"
+            . += "Flow"
+            . += "Unstoppable"
+            . += "Desperation"
+            . += "SwordPunching"
         if(SAIYAN)
             . += "Intimidation"
             . += "MovementMastery"

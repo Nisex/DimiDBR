@@ -963,7 +963,7 @@ proc/getBackSide(mob/offender, mob/defender)
 				misses++
 	src <<"\nsimulated [looplength] times at \nhits:[hits]([round((hits/looplength)*100)]%)\nwhiffs:[whiffs]([round((whiffs/looplength)*100)]%)\nmisses:[misses]([round((misses/looplength)*100)]%)\nflowdodge:[flowdodge]([round((flowdodge/looplength)*100)]%) missed [((misses+whiffs+flowdodge)/looplength)*100]% of the time"
 
-
+mob/var/minhitroll = 0
 /mob/Admin3/verb/SimulateAccuracy()
 	set category = "Debug"
 	if(!Target) 
@@ -1035,7 +1035,7 @@ proc/getBackSide(mob/offender, mob/defender)
 				whiffs++
 			if(MISS)
 				misses++
-	src <<"\nsimulated [looplength] times at \nhits:[hits]([round((hits/looplength)*100)]%)\nwhiffs:[whiffs]([round((whiffs/looplength)*100)]%)\nmisses:[misses]([round((misses/looplength)*100)]%)\nflowdodge:[flowdodge]([round((flowdodge/looplength)*100)]%)\nmissed [((misses+whiffs+flowdodge)/looplength)*100]% of the time"
+	src <<"\nsimulated [looplength] times at \nhits:[hits]([round((hits/looplength)*100)]%)\nwhiffs:[whiffs]([round((whiffs/looplength)*100)]%)\nmisses:[misses]([round((misses/looplength)*100)]%)\nflowdodge:[flowdodge]([round((flowdodge/looplength)*100)]%)\nminhitsrolles:[minhitroll]\nmissed [((misses+whiffs+flowdodge)/looplength)*100]% of the time"
 	src <<"simulating target vs src"
 	hits = 0 
 	misses = 0 
@@ -1045,6 +1045,7 @@ proc/getBackSide(mob/offender, mob/defender)
 	st = Target.EquippedStaff()
 	atkArmor = EquippedArmor()
 	swordAtk = FALSE
+	minhitroll = 0
 	if(s || s2 || s3)
 		swordAtk = TRUE
 	for(var/attempts in 1 to looplength)
@@ -1075,8 +1076,8 @@ proc/getBackSide(mob/offender, mob/defender)
 				whiffs++
 			if(MISS)
 				misses++
-	src <<"\nsimulated [looplength] times at \nhits:[hits]([round((hits/looplength)*100)]%)\nwhiffs:[whiffs]([round((whiffs/looplength)*100)]%)\nmisses:[misses]([round((misses/looplength)*100)]%)\nflowdodge:[flowdodge]([round((flowdodge/looplength)*100)]%) missed [((misses+whiffs+flowdodge)/looplength)*100]% of the time"
-
+	src <<"\nsimulated [looplength] times at \nhits:[hits]([round((hits/looplength)*100)]%)\nwhiffs:[whiffs]([round((whiffs/looplength)*100)]%)\nmisses:[misses]([round((misses/looplength)*100)]%)\nflowdodge:[flowdodge]([round((flowdodge/looplength)*100)]%)\nminhitsrolled:[minhitroll]\nmissed [((misses+whiffs+flowdodge)/looplength)*100]% of the time"
+	minhitroll = 0
 	// var/list/itemMod = getItemDamage(list(s,s2,s3,st), delay, acc, SecondStrike, ThirdStrike, swordAtk)
 	// delay = itemMod[1]
 	// acc = itemMod[2]
@@ -1107,6 +1108,8 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 			Offender.SureHit=0
 			return HIT
 		if(Defender.Stunned || Defender.Launched || Defender.PoweringUp)
+			return HIT
+		if(Offender.Grab == Defender && glob.GRABS_AUTOHIT)
 			return HIT
 
 		if(getBackSide(Offender, Defender))
@@ -1147,25 +1150,25 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 		// 		AccMult/=1+(0.05*CombatSlow)
 		// ! ADRENALINE NO LONGER LETS PEOPLE DODGE MORE !
 
-
 		if(Offender.HasClarity()||Offender.HasFluidForm()||Offender.HasIntuition())
 			if(AccMult<1)
-				AccMult+=0.2*AccMult
+				if(Offender.HasFluidForm())
+					AccMult+=(Offender.HasFluidForm()*glob.FLUID_FORM_RATE)*AccMult
 				if(AccMult>1)
 					AccMult=1
 		if(Defender.HasClarity()||Defender.HasFluidForm()||Defender.HasIntuition())
 			if(AccMult>1)
-				AccMult-=0.2*AccMult
+				if(Defender.HasFluidForm())
+					AccMult-=(Defender.HasFluidForm()*glob.FLUID_FORM_RATE)*AccMult
 				if(AccMult<1)
 					AccMult=1
-
 		if(Offender.passive_handler.Get("Desperation"))
-			var/healthRemaining = 100 - Offender.Health
+			var/healthRemaining = Offender.Health
 			if(healthRemaining <= 10)
-				var/baseBoon = 0.01 * Offender.passive_handler.Get("Desperation") // max Desperation soembody can have is 6
+				var/baseBoon = glob.DESPERATION_HIT_CHANCE * Offender.passive_handler.Get("Desperation") // max Desperation soembody can have is 6
+				baseBoon = clamp(baseBoon, 0.001, glob.DESPERATION_MAX_HIT_CHANCE)
 				AccMult *= 1 + (baseBoon * (11 - healthRemaining))
 		// ! DESPERATION GIVES A BONUS TO HIT CHANCE ! //
-
 		var/GodKiDif = 1
 		if(Offender.GetGodKi())
 			GodKiDif = 1 + Offender.GetGodKi()
@@ -1173,53 +1176,87 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 			GodKiDif /= (1 + Defender.GetGodKi())
 		AccMult *= GodKiDif
 
-
+		// START OF REAL FUNCTION
 		var/OffenseModifier
 		var/DefenseModifier
 		var/OffenseAdvantage = Offender.Power / Defender.Power
 		var/DefenseAdvantage = Defender.Power / Offender.Power
+		var/Offense 
+		var/Defense
+		var/TotalAccuracy 
 		if(glob.CLAMP_POWER)
 			if(!Offender.ignoresPowerClamp())
 				OffenseAdvantage = clamp(OffenseAdvantage,glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
 			if(!Defender.ignoresPowerClamp())
 				DefenseAdvantage = clamp(DefenseAdvantage,glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
-		if(1 + ((OffenseAdvantage - DefenseAdvantage)/2) < 1)
-			OffenseModifier = 1
-		else
-			OffenseModifier = 1 + ((OffenseAdvantage - DefenseAdvantage)/2)
+		
+		if(glob.JORDAN_ACCURACY)
+			// trying to make it less complex for the very roughly same result
+			Offense = Offender.GetOff(glob.ACC_OFF)+Offender.GetSpd(glob.ACC_OFF_SPD)
+			Defense = Defender.GetOff(glob.ACC_DEF)+Defender.GetSpd(glob.ACC_DEF_SPD)
+			
+			var/mod = clamp((Offense/Defense) * AccMult, glob.MIN_JORDAN_ACC_MOD, glob.MAX_JORDAN_ACC_MOD) * OffenseAdvantage
 
-		if(1 + ((DefenseAdvantage - OffenseAdvantage)/2) < 1)
-			DefenseModifier = 1
-		else
-			DefenseModifier = 1 + ((DefenseAdvantage - OffenseAdvantage)/2)
 
-		var/Offense= OffenseModifier * (Offender.GetOff(glob.ACC_OFF)+Offender.GetSpd(glob.ACC_OFF_SPD))
-		var/Defense= DefenseModifier * (Defender.GetDef(glob.ACC_DEF)+Defender.GetSpd(glob.ACC_DEF_SPD)) * 1.1
-		var/TotalAccuracy = (BaseChance/100) * ((Offense*AccMult) / Defense) * 100
 
-		// world << "--------------------"
-		// world << "Offense: [Offense]"
-		// world << "Defense: [Defense]"
-		// world << "Chance: [BaseChance]"
-		// world << "Accuracy: [TotalAccuracy]"
-		// world << "Accuracy Modifier: [AccMult]"
-		// world << "Defense Mod: [DefenseModifier]"
-		// world << "Offense Mod: [OffenseModifier]"
-		// world << "--------------------"
-
-		TotalAccuracy = clamp(glob.LOWEST_ACC, TotalAccuracy, 100)
-
-		if(!prob(TotalAccuracy))
-			// world << "miss 1"
-			if(!prob(TotalAccuracy))
-				// world << "full miss"
-				return MISS
+			if(glob.OLD_ACCURACY)
+				Offense=(Offender.Power*(Offender.GetOff(glob.ACC_OFF)+Offender.GetSpd(glob.ACC_OFF_SPD)))*(1+Offender.GetGodKi())
+				Defense=(Defender.Power*(Defender.GetDef(glob.ACC_DEF)+Defender.GetSpd(glob.ACC_DEF_SPD)))*(1+Defender.GetGodKi())
+				mod = clamp(((Offense*AccMult)/max(Defense,0.01)), 0.5, 2)
+			
+			var/roll = randValue((100-BaseChance) * mod, 100)
+			if(glob.MOD_AFTER_ROLL)
+				roll = randValue((100-BaseChance), 100)
+				roll*=mod
+			
+			if(roll >= BaseChance)
+				return HIT
 			else
-				// world << "whiff"
-				return WHIFF
+				if(glob.MOD_AFTER_ROLL)
+					roll = randValue((100-BaseChance), 100)
+					roll*=mod
+				else
+					roll = randValue((100-BaseChance) * mod, 100)
+				
+				if(roll <= glob.WorldWhiffRate)
+					return MISS
+				else if(roll > glob.WorldWhiffRate)
+					return WHIFF
 		else
-			// world << "hit"
-			return HIT
+			if(1 + ((OffenseAdvantage - DefenseAdvantage)/2) < 1) // output is if = or under, make 1
+				OffenseModifier = 1
+			else
+				OffenseModifier = 1 + ((OffenseAdvantage - DefenseAdvantage)/2) // at 2x power instead of hitting 2x times mroe, u hit 1.75x more
+
+			if(1 + ((DefenseAdvantage - OffenseAdvantage)/2) < 1)
+				DefenseModifier = 1
+			else
+				DefenseModifier = 1 + ((DefenseAdvantage - OffenseAdvantage)/2)
+
+			Offense= OffenseModifier * (Offender.GetOff(glob.ACC_OFF)+Offender.GetSpd(glob.ACC_OFF_SPD))
+			Defense= DefenseModifier * (Defender.GetDef(glob.ACC_DEF)+Defender.GetSpd(glob.ACC_DEF_SPD)) * glob.EXTRA_DEF_MOD
+			TotalAccuracy = (BaseChance/100) * ((Offense*AccMult) / Defense) * 100
+			if(glob.DEBUG_MESSAGES_ACCURACY)
+				Offender << "--------------------"
+				Offender << "Offense: [Offense]"
+				Offender << "Defense: [Defense]"
+				Offender << "Chance: [BaseChance]"
+				Offender << "Accuracy: [TotalAccuracy]"
+				Offender << "Accuracy Modifier: [AccMult]"
+				Offender << "Defense Mod: [DefenseModifier]"
+				Offender << "Offense Mod: [OffenseModifier]"
+				Offender << "--------------------"
+
+			TotalAccuracy = clamp(TotalAccuracy, glob.LOWEST_ACC, 100)
+			if(TotalAccuracy <= glob.LOWEST_ACC)
+				Offender.minhitroll++
+			if(!prob(TotalAccuracy))
+				if(!prob(TotalAccuracy))
+					return MISS
+				else
+					return WHIFF
+			else
+				return HIT
 	else
 		return MISS
 

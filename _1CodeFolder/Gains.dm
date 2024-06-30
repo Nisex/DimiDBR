@@ -764,6 +764,7 @@ mob
 					src.SureDodgeTimer--
 					if(src.SureDodgeTimer<=0)
 						src.SureDodge=1
+						src << "<b><i>You have a sure dodge stack!</b></i>"
 						src.SureDodgeTimer=src.SureDodgeTimerLimit
 
 

@@ -129,6 +129,7 @@ globalTracker
 		progressTracker/progress = new()
 // TESTER
 		TESTER_MODE
+		LIVE_TESTING = 1
 		TESTER_WHITE_LIST = list("Digi-Daisuke","RevealingFortune","Zamas2","Niezan", "Etro", "AMajin", "Redsarge", "Gogeto25",\
  "Tilthour", "Sakata Gintoki San", "Hellbante", "FoxMagnus")
 
@@ -261,7 +262,7 @@ globalTracker
 		GLADIATOR_DISARM_MAX = 600
 		DISARM_TIMER = 100
 
-		LOWEST_ACC = 30
+		LOWEST_ACC = 25
 
 		CONSTANT_DAMAGE_EXPONENT = 4
 
@@ -298,31 +299,49 @@ globalTracker
 		LAUNCH_LOCKOUT = 200
 		MAX_LAUNCH_TIME = 25
 
+// acc
+		SWORD_GLOBAL_ACCURACY_NERF = 0.1
+		STAFF_GLOBAL_ACCURACY_NERF = 0.1
+		ARMOR_GLOBAL_ACCURACY_NERF = 0.2
 
-		AUTOHIT_WHIFF_DAMAGE = 2
-		AUTOHIT_MISS_DAMAGE = 3
+
+		AUTOHIT_WHIFF_DAMAGE = 4
+		AUTOHIT_MISS_DAMAGE = 10
 
 		//Whiff dmg is now rand between these.
 		MIN_WHIFF_DMG = 1.25
 		MAX_WHIFF_DMG = 1.5
 
+
+		GRABS_AUTOHIT = 1
+
+		FLUID_FORM_RATE = 0.1
+		DESPERATION_HIT_CHANCE = 0.005
+		DESPERATION_MAX_HIT_CHANCE = 0.05
+
+		JORDAN_ACCURACY = FALSE
+
+		MIN_JORDAN_ACC_MOD = 0.05
+		MAX_JORDAN_ACC_MOD = 3
+
+
+		OLD_ACCURACY = 0
+
+		MOD_AFTER_ROLL = 0
+
 		//Min & max of AccMult in accuracy formula
 		ACC_ACCMULT_MIN = 0.25
 		ACC_ACCMULT_MAX = 2
-
+		DEBUG_MESSAGES_ACCURACY = FALSE
 		//how large the modifier for accuracy can be (off/def*accmult) clamped between these.
-		ACC_MIN = 0.25
-		ACC_MAX = 3
-
+		
 		//How much off, def, and spd contribute.
 		ACC_OFF = 0.8
 		ACC_DEF = 0.8
 		ACC_OFF_SPD = 0.3
 		ACC_DEF_SPD = 0.3
-
+		EXTRA_DEF_MOD = 1.1
 		//Attaches an exponent to the accmult before clamping.
-		EXPERIMENTAL_ACCMULT = 1
-		EXPERIMENTAL_ACCMULT_EXPONENT = 0.5
 
 		//straight multiplier to how much it breaks.
 		WEAPON_BREAKER_EFFECTIVENESS = 1
@@ -343,6 +362,7 @@ globalTracker
 		SLAYER_DAMAGE_DIVISOR = 4
 		ENRAGED_DAMAGE_DIVISOR = 4
 		MAX_ADDITONAL_DAMAGE_CLAMP = 10
+		SPIRIT_FORM_BASE_RATE = 0.1
 // -- items -- //
 
 		JSON_PASSIVES = list()

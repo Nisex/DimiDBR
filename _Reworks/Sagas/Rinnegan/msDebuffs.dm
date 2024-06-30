@@ -30,6 +30,9 @@ obj/blades
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Genjutsu
 	DefMult = 0.75
 	passives = list("Instinct" = -1, "Flow" = -1)
+	ShockAffected = 1
+	SlowAffected = 1
+	IconLock = 'SweatDrop.dmi'
 	TimerLimit = 20
 
 

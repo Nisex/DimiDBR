@@ -13,7 +13,7 @@
     Speed = 1.25
     ManaCost = 5
     Deviation = 240
-    Cooldown = 90
+    Cooldown = 60
     CorruptionGain = 1
     proc/returnToInit()
         if(!altered)
@@ -39,8 +39,8 @@
     AffectTarget = 1
     Cooldown = 60
     TimerLimit = 10
-    ShatterAffected = 20
-    ShockAffected = 20
+    ShatterAffected = 100
+    ShockAffected = 100
     applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply
     adjust(mob/p)
         if(p.isRace(DEMON) && applyToTarget.type != /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply/Demon)
@@ -79,28 +79,23 @@
     MagicNeeded = 0
     BuffName = "Mind Dominated"
 
-/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech
-    scalingValues = list("TimerLimit" = list(12,10,8,6,5,4), "ManaHeal" = list(10,15,20,20,25,30), "HealthHeal" = list(1,1,2,2,3,3), "EnergyHeal" = list(4,6,8,8,10,12))
+/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech // switch this to a speed boost, similar to haste or a shield
+    scalingValues = list("TimerLimit" = list(10,15,20,30,35,40), "Godspeed" = list(1,2,3,4,5,6), "AfterImages" = list(1,2,3,4,5,6), "VaiHealth" = list(0.1,0.2,0.3,0.4,0.5,0.5), \
+                            "VaiShatter"= list(1,1,1,1,1,1), "Flicker" = list(1,2,3,3,4,4,5), "Flow" = list(0.25,0.5,1,1.25,1.5,2))
     Cooldown = 90
-    StableHeal = 1
-    applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
+    name = "Soul Surge"
     Trigger(var/mob/User, Override=0)
         if(!altered)
-            if(!applyToTarget)
-                applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
             adjust(User)
-            applyToTarget?:adjust(User)
         . = ..()
     adjust(mob/p)
         scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech::scalingValues
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
-        ManaHeal = (ManaHeal / TimerLimit) * world.tick_lag
-        HealthHeal = (HealthHeal / TimerLimit) * world.tick_lag
-        EnergyHeal = (EnergyHeal / TimerLimit) * world.tick_lag
+        SpdMult = 1 + (0.05 * asc)
 
-    verb/Soul_Leech()
+    verb/Soul_Surge()
         set category = "Skills"
         if(!altered)
             adjust(usr)

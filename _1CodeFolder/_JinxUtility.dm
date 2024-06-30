@@ -684,7 +684,7 @@ mob
 			var/Absorb = passive_handler.Get("AbsorbingDamage")
 			var/Limit = passive_handler.Get("AbsorbLimit")
 			if(Absorb)
-				if(Absorb >= Limit)
+				if(Absorb >= Limit+1)
 					return
 				passive_handler.Increase("AbsorbingDamage", val)
 				if(Absorb >= Limit)
@@ -1249,7 +1249,8 @@ mob
 				TotalTax=0.9
 			var/Sub=Str*TotalTax
 			Str-=Sub
-			if(src.UnhingedForm)
+			if(src.passive_handler.Get("UnhingedForm"))
+				var/UnhingedForm = src.passive_handler.Get("UnhingedForm")
 				var/perRange = UnhingedForm/30
 				var/def = round((1 - BaseDef()) / 0.1, 1)
 				// for each 0.1 def add perRange speed
@@ -1263,13 +1264,13 @@ mob
 			Str+=src.GetMAStr()
 
 
-			if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-				Str+=src.Target.GetMAEnd()*0.5
-			else
-				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
-						if(src.Target&&src.AdaptationTarget==src.Target)
-							Str+=(src.Target.GetMAEnd()*0.5*src.AdaptationCounter)
+			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
+			// 	Str+=src.Target.GetMAEnd()*0.5
+			// else
+			if(src.HasAdaptation())
+				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
+					if(src.Target&&src.AdaptationTarget==src.Target)
+						Str+=(src.Target.GetMAEnd()*0.5*src.AdaptationCounter)
 			if(Str<0.1)
 				Str=0.1
 			return Str
@@ -1364,7 +1365,8 @@ mob
 			var/Sub=For*TotalTax
 			For-=Sub
 			For+=src.GetMAFor()
-			if(src.UnhingedForm)
+			if(src.passive_handler.Get("UnhingedForm"))
+				var/UnhingedForm = src.passive_handler.Get("UnhingedForm")
 				var/perRange = UnhingedForm/30
 				var/def = round((1 - BaseDef()) / 0.1, 1)
 				// for each 0.1 def add perRange speed
@@ -1375,13 +1377,13 @@ mob
 					For += UnhingedForm
 				else
 					For += total
-			if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-				For+=src.Target.GetMAEnd()*0.5
-			else
-				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
-						if(src.Target&&src.AdaptationTarget==src.Target)
-							For+=(src.Target.GetMAEnd()*0.5*src.AdaptationCounter)
+			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
+			// 	For+=src.Target.GetMAEnd()*0.5
+			// else
+			if(src.HasAdaptation())
+				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
+					if(src.Target&&src.AdaptationTarget==src.Target)
+						For+=(src.Target.GetMAEnd()*0.5*src.AdaptationCounter)
 			if(For<0.1)
 				For=0.1
 			return For
@@ -1470,13 +1472,13 @@ mob
 			var/Sub=End*TotalTax
 			End-=Sub
 			End+=src.GetMAEnd()
-			if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-				End+=(src.Target.GetMAStr()+src.Target.GetMAFor())*0.5
-			else
-				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
-						if(src.Target&&src.AdaptationTarget==src.Target)
-							End+=((src.Target.GetMAStr()+src.Target.GetMAFor())*0.5*src.AdaptationCounter)
+			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
+			// 	End+=(src.Target.GetMAStr()+src.Target.GetMAFor())*0.5
+			// else
+			if(src.HasAdaptation())
+				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
+					if(src.Target&&src.AdaptationTarget==src.Target)
+						End+=((src.Target.GetMAStr()+src.Target.GetMAFor())*0.5*src.AdaptationCounter)
 			if(End<0.1)
 				End=0.1
 			return End
@@ -1555,7 +1557,8 @@ mob
 				TotalTax=0.9
 			var/Sub=Spd*TotalTax
 			Spd-=Sub
-			if(src.UnhingedForm)
+			if(src.passive_handler.Get("UnhingedForm"))
+				var/UnhingedForm = src.passive_handler.Get("UnhingedForm")
 				var/perRange = UnhingedForm/20
 				var/def = round((1 - BaseDef()) / 0.1, 1)
 				// for each 0.1 def add perRange speed
@@ -1567,13 +1570,13 @@ mob
 				else
 					Spd += total
 			Spd+=src.GetMASpd()
-			if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-				Spd+=src.Target.GetMASpd()*0.5
-			else
-				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
-						if(src.Target&&src.AdaptationTarget==src.Target)
-							Spd+=(src.Target.GetMASpd()*0.5*src.AdaptationCounter)
+			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
+			// 	Spd+=src.Target.GetMASpd()*0.5
+			// else
+			if(src.HasAdaptation())
+				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
+					if(src.Target&&src.AdaptationTarget==src.Target)
+						Spd+=(src.Target.GetMASpd()*0.5*src.AdaptationCounter)
 			if(Spd<0.1)
 				Spd=0.1
 			return Spd
@@ -1631,7 +1634,8 @@ mob
 				TotalTax=0.9
 			var/Sub=Off*TotalTax
 			Off-=Sub
-			if(src.UnhingedForm)
+			if(src.passive_handler.Get("UnhingedForm"))
+				var/UnhingedForm = src.passive_handler.Get("UnhingedForm")
 				var/perRange = UnhingedForm/20
 				var/def = round((1 - BaseDef()) / 0.1, 1)
 				// for each 0.1 def add perRange speed
@@ -1643,13 +1647,13 @@ mob
 				else
 					Off += total
 			Off+=src.GetMAOff()
-			if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-				Off+=src.Target.GetMADef()*0.5
-			else
-				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
-						if(src.Target&&src.AdaptationTarget==src.Target)
-							Off+=(src.Target.GetMADef()*0.5*src.AdaptationCounter)
+			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
+			// 	Off+=src.Target.GetMADef()*0.5
+			// else
+			if(src.HasAdaptation())
+				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
+					if(src.Target&&src.AdaptationTarget==src.Target)
+						Off+=(src.Target.GetMADef()*0.5*src.AdaptationCounter)
 			if(Off<0.1)
 				Off=0.1
 			return Off
@@ -1710,13 +1714,13 @@ mob
 			var/Sub=Def*TotalTax
 			Def-=Sub
 			Def+=src.GetMADef()
-			if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-				Def+=src.Target.GetMAOff()*0.5
-			else
-				if(src.HasAdaptation())
-					if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
-						if(src.Target&&src.AdaptationTarget==src.Target)
-							Def+=(src.Target.GetMAOff()*0.5*src.AdaptationCounter)
+			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
+			// 	Def+=src.Target.GetMAOff()*0.5
+			// else
+			if(src.HasAdaptation())
+				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
+					if(src.Target&&src.AdaptationTarget==src.Target)
+						Def+=(src.Target.GetMAOff()*0.5*src.AdaptationCounter)
 			if(Def<0.1)
 				Def=0.1
 			return Def
@@ -2124,7 +2128,7 @@ mob
 			return 1
 
 		SpiritShift()
-			var/SFStr=src.BaseFor()+(0.2*src.AscensionsAcquired*(src.BaseStr()-src.BaseFor()))
+			var/SFStr=src.BaseFor()+(glob.SPIRIT_FORM_BASE_RATE*src.AscensionsAcquired*(src.BaseStr()-src.BaseFor()))
 			var/SFFor=src.BaseStr()
 			src.StrReplace=SFStr
 			src.ForReplace=SFFor

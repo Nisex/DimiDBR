@@ -98,7 +98,7 @@ obj/Skills/Grapple
 				src.Activate(usr)
 ////AUTO TRIGGER
 	Muscle_Buster
-		DamageMult = 11
+		DamageMult = 9
 		StrRate = 1
 		EffectMult=3
 		OneAndDone=1
@@ -106,7 +106,7 @@ obj/Skills/Grapple
 		TriggerMessage = "lifts, flips, and slams"
 	
 	Giant_Swing	
-		DamageMult = 15
+		DamageMult = 12
 		StrRate = 1
 		EffectMult=2
 		OneAndDone=1
@@ -317,7 +317,7 @@ obj/Skills/Grapple
 		UnarmedOnly=0
 
 		Butterfly_Souffle
-			DamageMult=1
+			DamageMult=2
 			MultiHit=5
 			StrRate=1
 			ThrowMult=0

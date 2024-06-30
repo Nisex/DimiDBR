@@ -1,6 +1,4 @@
 
-var/global/MULTIHIT_NERF = FALSE
-
 
 /proc/getDeciderDamage(playerHealth, sourceHealth)
 	var/healthDifference = abs(playerHealth - sourceHealth)
@@ -629,7 +627,7 @@ var/global/MULTIHIT_NERF = FALSE
 										enemy.MortallyWounded += 1
 										OMsg(enemy, "<b><font color=#ff0000>[src] has dealt a mortal blow to [enemy]!</font></b>")
 
-								if(MULTIHIT_NERF)
+								if(glob.MULTIHIT_NERF)
 									if(AttackQueue.InstantStrikes && AttackQueue.InstantStrikesPerformed>=1)
 										var/mod = 1 - (0.1 * AttackQueue.InstantStrikesPerformed)
 										if(mod <= 0.1)

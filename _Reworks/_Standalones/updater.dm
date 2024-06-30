@@ -28,7 +28,7 @@ globalTracker
 				del update // i guess loc = null doesn't work cause datums have no loc
 
 
-mob/var/updateVersion = 23
+mob/var/updateVersion = 26
 
 update
 	var/version = 1
@@ -344,6 +344,40 @@ update
 				if(p.AscensionsAcquired == 1 )
 					p.passive_handler.Set("PureReduction", 1)
 			..()
+	version25
+		version = 25
+		updateMob(mob/p)
+			if(p.isRace(YOKAI))
+				var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/d = p.FindSkill()
+				if(p.BuffOn(d))
+					d.Trigger(p, 1)
+				p.passive_handler.Decrease("TechniqueMastery", 2)
+			..()
+	version26
+		version = 26
+		updateMob(mob/p)
+			if(p.isRace(HUMAN))
+				p.DefMod-=0.75
+			..()
+	version27
+		version = 27
+		updateMob(mob/p)
+			if(p.isRace(MAJIN))
+				if(p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/innocence)
+					p.Class = "Innocent"
+				if(p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/super)
+					p.Class = "Super"
+				if(p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
+					p.Class = "Unhinged"
+			if(p.isRace(DEMON))
+				var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.race:findTrueForm(p)
+				if(p.BuffOn(d))
+					d.Trigger(p, 1)
+				if(p.AscensionsAcquired == 1)
+					p.passive_handler.Set("HellPower", 0.25)
+				p.Attunement = "HellFire"
+			..()
+
 
 
 // Thorgigamax Gemenilove 

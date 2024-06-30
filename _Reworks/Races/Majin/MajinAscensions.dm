@@ -82,7 +82,6 @@ ascensions/majin
                     OffAscension+=0.15
                     src<<"Buildings will crumble at your hands..."
             passive_handler.Increase("UnhingedForm")
-            UnhingedForm=1
             AngerPoint=55
 
 
@@ -97,7 +96,6 @@ ascensions/majin
                 if("Brutality")
                     if(BaseEnd() < 1)
                         passive_handler.Increase("UnhingedForm", 0.25)
-                        UnhingedForm += 0.25
                     passive_handler.Increase("Pursuer")
                     Pursuer += 1
                     majinPicks["[AscensionsAcquired]"] = "[choice],Brutality"
@@ -117,7 +115,6 @@ ascensions/majin
                 if("Both")
                     if(GetEnd() < 1)
                         passive_handler.Increase("UnhingedForm", 0.125)
-                        UnhingedForm += 0.125
                     passive_handler.Increase("Pursuer", 0.5)
                     Pursuer += 0.5
                     // var/a = AngerMax + 0.075
@@ -264,7 +261,6 @@ ascensions/majin
             SpdAscension+=0.1
             OffAscension+=0.1
             passive_handler.Increase("UnhingedForm", 0.25)
-            UnhingedForm+=0.25
 
     src<<"You have evolved into a new form, your body shifts, bones crack and you sanity is tested..."
 /mob/proc/MajinAscension3()
@@ -294,7 +290,6 @@ ascensions/majin
             SpdAscension+=0.1
             OffAscension+=0.1
             passive_handler.Increase("UnhingedForm", 0.5)
-            UnhingedForm+=0.5
     majinPicks()
     src<<"You've cast away all that you've learned to return to your primal, furious and inexhaustible nature!"
 
@@ -328,7 +323,6 @@ ascensions/majin
             SpdAscension+=0.2
             OffAscension+=0.2
             passive_handler.Increase("UnhingedForm", 0.5)
-            UnhingedForm+=0.5
     majinPicks()
     src<<"Your body is tested, ever reforming and changing, you can hardly cal yourself a mortal anymore..."
 
@@ -356,7 +350,6 @@ ascensions/majin
             SpdAscension+=0.2
             OffAscension+=0.2
             passive_handler.Increase("UnhingedForm", 1)
-            UnhingedForm+=1
             NewAnger(2.5)
     majinPicks()
     src<<"You've reached the pinnacle of your power, your power is now unmatched!"

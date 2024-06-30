@@ -627,8 +627,7 @@ NEW VARIABLES
 			verb/Customize_Powered_State()
 				set category="Utility"
 				var/list/Options=list("Cancel", "Overlay", "Top Overlay", "Aura", "Hair", "Text")
-				if(usr.isRace(MAKYO))
-					Options.Add("Base")
+				Options.Add("Base")
 				var/Option=input("What aspect do you wish to customize?", "Ki Control Customize") in Options
 				if(Option=="Cancel")
 					return
@@ -678,13 +677,15 @@ NEW VARIABLES
 							if(HulkOut=="No")
 								src.IconReplace=0
 							else
-								var/Lock=alert(usr, "Should the powered up state use your default expanded state?", "Ki Control", "No", "Yes")
-								if(Lock=="Yes")
-									src.icon=usr.ExpandBase
-								else
-									src.icon=input(usr, "What icon should replace your base when using Ki Control?", "Ki Control") as icon|null
-									src.pixel_x=input(usr, "X offset?", "Ki Control") as num|null
-									src.pixel_y=input(usr, "Y offset?", "Ki Control") as num|null
+								if(usr.isRace(MAKYO))
+									var/Lock=alert(usr, "Should the powered up state use your default expanded state?", "Ki Control", "No", "Yes")
+									if(Lock=="Yes")
+										src.icon=usr.ExpandBase
+										src.IconReplace=1
+										return
+								src.icon=input(usr, "What icon should replace your base when using Ki Control?", "Ki Control") as icon|null
+								src.pixel_x=input(usr, "X offset?", "Ki Control") as num|null
+								src.pixel_y=input(usr, "Y offset?", "Ki Control") as num|null
 								src.IconReplace=1
 		Gear
 			PULock=1
@@ -3007,7 +3008,7 @@ NEW VARIABLES
 							OffMult = 1 + (player.SagaLevel * 0.1)
 							DefMult = 1 + (player.SagaLevel * 0.1)
 							EndMult = 0.9 + (player.SagaLevel * 0.1)
-							passives = list("MovementMastery" =  player.SagaLevel * 1.25, "SpiritStrike" =1,  "ArmorAscension" = 1, "Chilling" = 1 + round(player.SagaLevel / 2,0.5), "VenomImmune" = 2 + (player.SagaLevel / 6), \
+							passives = list("MovementMastery" =  player.SagaLevel * 1.25, "SpiritStrike" = 1,  "ArmorAscension" = 1, "Chilling" = 1 + round(player.SagaLevel / 2,0.5), "VenomImmune" = 2 + (player.SagaLevel / 6), \
 							 "WalkThroughHell" = 1)
 					verb/Don_Cloth()
 						set category="Skills"
@@ -4227,7 +4228,7 @@ NEW VARIABLES
 							src.OffMult=1.2
 							src.DefMult=1.3
 							src.SureDodgeTimerLimit=35
-							passives = list("Maki" = 1, "PUSpike" = 15, "Flow" = 1, "Instinct" = 1, "FatigueDrain"  = 0.05)
+							passives = list("Maki" = 1, "PUSpike" = 20, "Flow" = 1, "Instinct" = 1, "FatigueDrain"  = 0.05)
 							src.Instinct=1
 							src.Flow=1
 							src.FatigueDrain=0.05
@@ -4541,6 +4542,7 @@ NEW VARIABLES
 			ActiveMessage="shifts into their spiritual body!"
 			OffMessage="becomes fully physical once more..."
 			ManaDrain = 0.1
+			ManaLeak = 2
 			Cooldown=1
 			adjust(mob/p)
 				if(!altered)
@@ -7384,9 +7386,11 @@ NEW VARIABLES
 		Sacrifice
 			passives = list("ManaStats" = 1, "Anaerobic" = 1, "Desperation" = 4, "CursedWounds" = 1)
 			Cooldown = -1
-			HealthCost = 75
+			HealthCost = 1
 			verb/Sacrifice()
 				set category = "Skills"
+				if(!usr.BuffOn(src))
+					Health = 25
 				src.Trigger(usr)
 
 		Golden_Form /// simple, sweet, just a straight fuckin boost. Could in theory be thrown at a Changeling at any point in the wipe if their deserving
@@ -9445,7 +9449,7 @@ NEW VARIABLES
 						StyleNeeded="Lucha Libre"
 						StrMult=1.3
 						EndMult=1.3
-						passives = list("Iron Grip" = 1, "Scoop" = 1, "Muscle Power" = 1, "TechniqueMastery" = 1, "Juggernaut"= 1)
+						passives = list("Iron Grip" = 1, "Scoop" = 1, "Muscle Power" = 1, "TechniqueMastery" = 1, "Juggernaut"= 1, "TensionLock" = 1)
 						ActiveMessage = "awakens the Anger of The Beast!"
 						OffMessage="'s inner beast calms down..."
 					Iron_Muscle
@@ -10683,7 +10687,7 @@ NEW VARIABLES
 					adjust(mob/p)
 						if(altered) return
 						var/asc = p.AscensionsAcquired
-						NeedsHealth = 10 + (5 * asc)
+						NeedsHealth = 15 + (5 * asc)
 						TooMuchHealth = 20 + (5 * asc)
 						SpdMult = 1 + max(0.1,asc*0.1)
 						Shocking = 5 + asc
@@ -10723,7 +10727,20 @@ NEW VARIABLES
 						..()
 
 				Slithereen_Crush
-
+					NeedsHealth = 15
+					TooMuchHealth = 25
+					ActiveMessage = "brings the ocean to the land."
+					OffMessage = "returns the land to its former form..."
+					Cooldown = 120
+					adjust(mob/p)
+						if(altered) return
+						var/asc = p.AscensionsAcquired
+						NeedsHealth = 15 + (5 * asc)
+						TooMuchHealth = 20 + (5 * asc)
+					Trigger(mob/User, Override = FALSE)
+						if(!User.BuffOn(src))
+							adjust(User)
+						..()
 
 
 				Melt_Down
@@ -11954,12 +11971,17 @@ mob
 					spawn() for(var/mob/m in view(10, src))
 						if(m.CheckSpecial("Sharingan"))
 							var/copy = B.Copyable
+							var/copyLevel = getSharCopyLevel()
 							if(m.client&&m.client.address==src.client.address)
 								continue
 							if(B.NewCopyable)
 								copy = B.NewCopyable
-							if(m.SagaLevel<=copy)
-								continue
+							if(glob.SHAR_COPY_EQUAL_OR_LOWER)
+								if(copyLevel < copy)
+									continue
+							else
+								if(copyLevel <= copy)
+									continue
 							if(!locate(B.type, m))
 								var/obj/Skills/copiedSkill = new B.type
 								m.AddSkill(copiedSkill)

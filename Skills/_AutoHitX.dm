@@ -513,7 +513,7 @@ obj
 				NoAttackLock=1
 				Distance=5
 				Instinct=1
-				DamageMult=9
+				DamageMult=5
 				StrOffense=1
 				EndDefense=0.75
 				ActiveMessage="ruptures the ground with their mega-powerful slash!"
@@ -535,7 +535,7 @@ obj
 				RoundMovement=0
 				Distance=5
 				Instinct=4
-				DamageMult=3
+				DamageMult=5
 				Rounds=2
 				StrOffense=1
 				EndDefense=0.5
@@ -584,12 +584,13 @@ obj
 				RoundMovement=0
 				Distance=1
 				Instinct=4
-				DamageMult=4
-				Rounds=2
+				DamageMult=4.5
+				Rounds=3
 				ComboMaster = 1
 				StrOffense=1
 				EndDefense=1
 				WindUp=0.5
+				CanBeDodged=0
 				WindupMessage="sets themselves into a handstand..."
 				ActiveMessage="lets their legs rip like a top!!"
 				HitSparkIcon='Slash - Zan.dmi'
@@ -4255,21 +4256,25 @@ obj
 ///Sharingan
 			Sharingan_Genjutsu
 				Area="Arc"
-				ForOffense=1
+				AdaptRate = 1
 				DamageMult=2
 				Distance=10
-				AllOutAttack=1
 				DelayTime=0
-				GuardBreak=1
 				Stunner=2
-				EnergyCost = 15
+				EnergyCost = 2
 				HitSparkIcon='BLANK.dmi'
 				ActiveMessage="'s tomoes slowly spin as they trap their opponent into a genjutsu!"
 				Cooldown=90
 				BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Genjutsu"
+				adjust(mob/p)
+					if(!altered)
+						DamageMult = 2 + p.SagaLevel * 1.5
+						Cooldown = clamp(90 - (p.SagaLevel * 10), 30, 90)
+						Stunner = round(2 + (p.SagaLevel/3))
 				verb/Genjutsu()
 					set name = "Sharingan: Genjutsu"
 					set category="Skills"
+					adjust(usr)
 					usr.Activate(src)
 			Tsukiyomi
 				Area="Arc"
@@ -5188,10 +5193,15 @@ mob
 				var/copy = Z.Copyable
 				spawn() for(var/mob/m in view(10, src))
 					if(m.CheckSpecial("Sharingan"))
+						var/copyLevel = getSharCopyLevel()
 						if(Z.NewCopyable)
 							copy = Z.NewCopyable
-						if(m.SagaLevel<=copy)
-							continue
+						if(glob.SHAR_COPY_EQUAL_OR_LOWER)
+							if(copyLevel < copy)
+								continue
+						else
+							if(copyLevel <= copy)
+								continue
 						if(m.client&&m.client.address==src.client.address)
 							continue
 						if(!locate(Z.type, m))
@@ -6239,7 +6249,7 @@ obj
 				var/reversalChance = m.GetAutoReversal()
 				if(prob(reversalChance * 100))
 					if(m.HasAutoReversal()&&!src.SpecialAttack)
-						if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldWhiffRate, IgnoreNoDodge=1) == (HIT || WHIFF))
+						if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldDefaultAcc, IgnoreNoDodge=1) == (HIT || WHIFF))
 							if(src.Damage>0.1)
 								KenShockwave(m, icon='KenShockwave.dmi', Size=dmgRoll, Time=3)
 								m.Knockback(src.Knockback+(reversalChance*2.5) , src.Owner, Direction=get_dir(m, src.Owner))
@@ -6256,7 +6266,7 @@ obj
 							return
 
 				if(src.CanBeBlocked||m.passive_handler.Get("YataNoKagami"))
-					if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldWhiffRate, IgnoreNoDodge=1) == WHIFF)
+					if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldDefaultAcc, IgnoreNoDodge=0) == WHIFF)
 						if(!src.Owner.NoWhiff())
 							var/obj/Items/Sword/s = Owner.EquippedSword()
 							if(s)
@@ -6384,7 +6394,7 @@ obj
 							AfterImageStrike(m, src.Owner,0)
 							return
 
-					if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldWhiffRate, IgnoreNoDodge=1) == MISS)
+					if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldDefaultAcc, IgnoreNoDodge=0) == MISS)
 						Damage /= glob.AUTOHIT_MISS_DAMAGE
 
 					if(m.AfterImageStrike)

@@ -244,7 +244,7 @@ race
 		endurance = 1
 		force = 1
 		offense = 1
-		defense = 2
+		defense = 1.25
 		speed = 1
 		anger = 1.5
 		learning = 1.5
@@ -436,7 +436,7 @@ race
 		visual = 'Makyo.png'
 
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form)
-		passives = list("ManaGeneration" = 2, "TechniqueMastery" = 2)
+		passives = list("ManaGeneration" = 2)
 		strength = 2
 		endurance = 1.5
 		speed = 1

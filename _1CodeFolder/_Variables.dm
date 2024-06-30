@@ -918,9 +918,6 @@ mob/var
 	TarotFate//holds your tartot trump
 	AllowObservers//Allows people to observe you fighting!
 	list/GlobalCooldowns = list()
-
-
-	UnhingedForm // Gives more speed for less def/end
 	HeavyHitter // Knockback mult
 	Blubber = 0 // reverse knockbacks at 25% of total per tick
 	DemonicDurability = 0 // Gain more endurance / pure red from anger

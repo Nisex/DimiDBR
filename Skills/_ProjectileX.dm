@@ -4532,10 +4532,15 @@ mob
 				spawn() for(var/mob/m in view(10, src))
 					if(m.CheckSpecial("Sharingan"))
 						var/copy = Z.Copyable
+						var/copyLevel = getSharCopyLevel()
 						if(Z.NewCopyable)
 							copy = Z.NewCopyable
-						if(m.SagaLevel<=copy)
-							continue
+						if(glob.SHAR_COPY_EQUAL_OR_LOWER)
+							if(copyLevel < copy)
+								continue
+						else
+							if(copyLevel <= copy)
+								continue
 						if(m.client&&m.client.address==src.client.address)
 							continue
 						if(!locate(Z.type, m))
