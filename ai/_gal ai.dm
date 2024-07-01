@@ -1462,7 +1462,7 @@ mob/Player/AI
 			if(src.ActiveBuff.TimerLimit)
 				if(!isnum(src.ActiveBuff.Timer))//If the timer isn't a number...
 					src.ActiveBuff.Timer=0//Make it 0.
-				src.ActiveBuff.Timer+=1
+				src.ActiveBuff.Timer+=world.tick_lag
 				if(src.ActiveBuff.Timer>=src.ActiveBuff.TimerLimit)//If the timer has filled up entirely...
 					if(src.CheckActive("Eight Gates"))
 						src.ActiveBuff:Stop_Cultivation()
@@ -1569,7 +1569,7 @@ mob/Player/AI
 			if(src.SpecialBuff.TimerLimit)
 				if(!isnum(src.SpecialBuff.Timer))
 					src.SpecialBuff.Timer=0
-				src.SpecialBuff.Timer+=1
+				src.SpecialBuff.Timer+=world.tick_lag
 				if(src.SpecialBuff.Timer>=src.SpecialBuff.TimerLimit)
 					src.SpecialBuff.Trigger(src)
 					goto DRAINS_SPECIAL
@@ -1709,7 +1709,7 @@ mob/Player/AI
 					if(b.TimerLimit)
 						if(!isnum(b.Timer))
 							b.Timer=0
-						b.Timer+=1
+						b.Timer+=world.tick_lag
 						if(b.Timer>=b.TimerLimit)
 							b.Trigger(src)
 
