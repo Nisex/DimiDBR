@@ -1193,7 +1193,7 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 		if(glob.JORDAN_ACCURACY)
 			// trying to make it less complex for the very roughly same result
 			Offense = Offender.GetOff(glob.ACC_OFF)+Offender.GetSpd(glob.ACC_OFF_SPD)
-			Defense = Defender.GetOff(glob.ACC_DEF)+Defender.GetSpd(glob.ACC_DEF_SPD)
+			Defense = Defender.GetDef(glob.ACC_DEF)+Defender.GetSpd(glob.ACC_DEF_SPD)
 			
 			var/mod = clamp((Offense/Defense) * AccMult, glob.MIN_JORDAN_ACC_MOD, glob.MAX_JORDAN_ACC_MOD) * OffenseAdvantage
 
