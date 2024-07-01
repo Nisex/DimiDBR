@@ -10,6 +10,11 @@ usr.key
 then, we want to make the format to write the said json, and then a html template to read it off of.
 
 */
+obj/readPrayers // we hand this out to the dead instead of a typesof(verb) so that they can see them always. 
+	verb/seePrayer()
+		set name = "Read Pray"
+		set category = "Roleplay"
+		usr.ReadPrayers(usr)
 
 
 mob/proc/gatherNames()
@@ -108,11 +113,9 @@ mob/proc/returnNames()
 				else 
 					m << "A prayer reaches for [who] from [usr]...<br>[prayer]"
 
-/mob/GiveOnDeath/verb/ReadPrayers()
-	set name = "Read Prayers"
-	set category = "Roleplay"	
+/mob/proc/ReadPrayers(mob/M)
 	var/prayerHTML = {"
-	<title>[usr]'s Prayer Cards</title>
+	<title>[M]'s Prayer Cards</title>
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&display=swap');
 
@@ -171,9 +174,9 @@ mob/proc/returnNames()
 	</style>
 </head>
 "}
-	var/Prayers = usr.returnPrayers()
+	var/Prayers = M.returnPrayers()
 	for(var/prays in Prayers)
-		if(prays["WhoWasThePrayerAtKey"] == usr.key)
+		if(prays["WhoWasThePrayerAtKey"] == M.key)
 			prayerHTML += {"<body>
 				<div class="card">
 					<h2>A prayer for [prays["whoWasThePrayerAt"]]</h2>
@@ -187,7 +190,7 @@ mob/proc/returnNames()
 
 		"}
 
-	usr << browse(prayerHTML ,"size=600x600,window=Title")
+	M << browse(prayerHTML ,"size=600x600,window=Title")
 
 /mob/Admin2/verb/ReadAllPlayerPrayers()
 	set name = "Read All Prayers"

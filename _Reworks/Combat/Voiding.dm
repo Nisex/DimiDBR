@@ -173,7 +173,7 @@ mob/proc/Void(override, zombie, forceVoid, extraChance,extraRolls)
 			return
 		else
 			actuallyDead = 1
-			src.verbs += typesof(/mob/GiveOnDeath/verb)	
+			new/obj/readPrayers(src)
 			if(NoSoul)
 				src<<"You feel your life flash before your eyes, and then in an abrupt snap -- nothingness."
 				if(istype(src, /mob/Players/))
