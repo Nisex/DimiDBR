@@ -104,8 +104,8 @@ obj/Skills/Grapple
 		OneAndDone=1
 		Effect="MuscleBuster"
 		TriggerMessage = "lifts, flips, and slams"
-	
-	Giant_Swing	
+
+	Giant_Swing
 		DamageMult = 12
 		StrRate = 1
 		EffectMult=2
@@ -510,7 +510,7 @@ obj/Skills/Grapple
 				Damage *= dmgRoll
 				var/extra = User.passive_handler.Get("Muscle Power") / glob.MUSCLE_POWER_DIVISOR
 				Damage *= DamageMult
-				Damage *= (unarmedBoon + extra) // unarmed boon is 0.5, 
+				Damage *= (unarmedBoon + extra) // unarmed boon is 0.5,
 				Damage *= glob.GRAPPLE_DAMAGE_MULT
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple Damage dmgroll", Damage, "damageDebugs.txt", User.ckey)
@@ -520,7 +520,12 @@ obj/Skills/Grapple
 				User.log2text("Grapple Damage item dmg", Damage, "damageDebugs.txt", User.ckey)
 				#endif
 
-
+				if(Accuracy_Formula(User, Trg, AccMult=DamageMult/10, BaseChance=glob.WorldDefaultAcc, IgnoreNoDodge=0) == WHIFF)
+					if(!User.NoWhiff())
+						Damage/=glob.GRAPPLE_WHIFF_DAMAGE
+				#if DEBUG_GRAPPLE
+				User.log2text("Grapple Whiff Reduc", Damage, "damageDebugs.txt", User.ckey)
+				#endif
 
 				var/Hits=src.MultiHit
 				if(src.MaimStrike)

@@ -247,7 +247,7 @@ globalTracker
 		PROJ_DAMAGE_MULT = 1
 		AUTOHIT_GLOBAL_DAMAGE = 0.8
 		SOFT_STYLE_RATIO = 0.3
-		SOFT_STYLE_DMG_BOON_DIVISOR = 2 
+		SOFT_STYLE_DMG_BOON_DIVISOR = 2
 		HARD_STYLE_RATIO = 0.1
 		GLOBAL_EXPONENT_MULT = 1/3
 		GRAPPLE_MELEE_BOON = 1.5
@@ -265,6 +265,8 @@ globalTracker
 		LOWEST_ACC = 25
 
 		CONSTANT_DAMAGE_EXPONENT = 4
+
+		GRAPPLE_WHIFF_DAMAGE = 3
 
 // effectiveness (dmg calc  shit)
 		MELEE_EFFECTIVENESS = 1
@@ -334,7 +336,7 @@ globalTracker
 		ACC_ACCMULT_MAX = 2
 		DEBUG_MESSAGES_ACCURACY = FALSE
 		//how large the modifier for accuracy can be (off/def*accmult) clamped between these.
-		
+
 		//How much off, def, and spd contribute.
 		ACC_OFF = 0.8
 		ACC_DEF = 0.8
