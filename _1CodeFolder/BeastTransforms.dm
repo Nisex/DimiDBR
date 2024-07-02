@@ -26,6 +26,7 @@
 	AuraLock = 'BLANK.dmi'
 	passives = list("Vulnerable Behind" = 1, "GiantForm" = 1, "NoDodge" = 1, "SweepingStrike" = 1, \
 	"Meaty Paws" = 1, "EndlessAnger" = 1)
+	PowerMult = 1.2 // die.
 	StrMult = 1.3
 	ForMult = 1.2
 	SpdMult = 0.3

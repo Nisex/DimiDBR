@@ -39,10 +39,11 @@ Party
 				if(src.members.len>=MAX_PARTY_LIMIT)
 					src.members << "[m] cannot be added to the party because the party already has [MAX_PARTY_LIMIT] members!"
 					return
+				if(m in members)
+					return
 				m.party=src
 				src.members.Add(m)
 				if(src.members.len>2)
-					//TODO: add local mesage that alerts others
 					src.members << "[m] has joined the party!"
 				src.highest_potential()
 		remove_member(var/mob/m)

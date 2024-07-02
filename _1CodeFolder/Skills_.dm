@@ -75,7 +75,7 @@ mob/Players/verb
 		set category="Skills"
 		set name="Normal Attack"
 		if(usr.icon_state=="Meditate")
-			usr.icon_state=""
+			usr.SkillX("Meditate",src)
 		// get step in front, get all stuff on that turf, only use melee if it has more than a turf
 		usr.Melee1()
 
