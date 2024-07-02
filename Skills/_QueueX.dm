@@ -2609,10 +2609,11 @@ obj
 			Blade_Dance
 				SignatureTechnique=1
 				NeedsSword=1
-				DamageMult=7
-				AccuracyMult = 10
+				DamageMult=4
+				SpeedStrike=4
+				AccuracyMult = 1
 				HitStep=/obj/Skills/Queue/Blade_Dance2
-				Duration=5
+				Duration=3
 				Rapid=1
 				Instinct=1
 				Cooldown=160
@@ -2628,9 +2629,9 @@ obj
 					usr.SetQueue(src)
 			Blade_Dance2
 				NeedsSword=1
-				DamageMult=2.5
+				DamageMult=1
 				SpeedStrike=2
-				AccuracyMult=1
+				AccuracyMult=0.85
 				HitStep=/obj/Skills/Queue/Blade_Dance2
 				Duration=4
 				Warp=1
