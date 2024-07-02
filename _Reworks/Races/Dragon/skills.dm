@@ -45,8 +45,25 @@
                 Rounds = 3 + (asc * 2)
                 DamageMult = DamageMult/Rounds
                 PullIn = Distance / 2
-
-
+            if("Water")
+                ElementalClass="Water"
+                Distance = 10 + (asc * 2)
+                PullIn = Distance + (4 * asc)
+                Deluge = (300 + (300 * asc)) // 30 seconds + 30 each as
+                DamageMult = 12 + (asc * 1)
+                NoLock = 1
+                WindUp=0.25
+                WindupMessage="brings forth the rain..."
+                ActiveMessage="swarms the area with a flood!"
+                TurfReplace='PlainWater.dmi'
+                Area="Circle"
+				SpecialAttack=1
+				HitSparkIcon='Hit Effect Pearl.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkTurns=1
+				HitSparkSize=1
+				TurfStrike=1
     verb/Dragon_Roar()
         set category="Skills"
         adjust(usr)

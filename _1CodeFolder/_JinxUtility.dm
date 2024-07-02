@@ -511,31 +511,31 @@ mob
 					defender.PowerEroded+=(BPCap/45)*val
 					if(defender.PowerEroded>BPCap)
 						defender.PowerEroded=BPCap
-				if(MStr>1)
+				if(MStr>=1)
 					defender.StrEroded+=(StrCap/45)*val
 					if(defender.StrEroded>StrCap)
 						defender.StrEroded=StrCap
-				if(MEnd>1)
+				if(MEnd>=1)
 					defender.EndEroded+=(EndCap/45)*val
 					if(defender.EndEroded>EndCap)
 						defender.EndEroded=EndCap
-				if(MSpd>1)
+				if(MSpd>=1)
 					defender.SpdEroded+=(SpdCap/45)*val
 					if(defender.SpdEroded>SpdCap)
 						defender.SpdEroded=SpdCap
-				if(MFor>1)
+				if(MFor>=1)
 					defender.ForEroded+=(ForCap/45)*val
 					if(defender.ForEroded>ForCap)
 						defender.ForEroded=ForCap
-				if(MOff>1)
+				if(MOff>=1)
 					defender.OffEroded+=(OffCap/45)*val
 					if(defender.OffEroded>OffCap)
 						defender.OffEroded=OffCap
-				if(MDef>1)
+				if(MDef>=1)
 					defender.DefEroded+=(DefCap/45)*val
 					if(defender.DefEroded>DefCap)
 						defender.DefEroded=DefCap
-				if(MRecov>1)
+				if(MRecov>=1)
 					defender.RecovEroded+=(RecovCap/45)*val
 					if(defender.RecovEroded>RecovCap)
 						defender.RecovEroded=RecovCap
@@ -2870,6 +2870,8 @@ mob
 			if(styles_available.len>0)
 				for(var/x in styles_available)
 					var/path=styles_available[x]
+					if(isnull(path))
+						continue
 					var/obj/Skills/s=new path
 					if(s.SignatureTechnique==tier)
 						return 1

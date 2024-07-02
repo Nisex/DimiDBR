@@ -12,7 +12,8 @@ globalTracker/var/list/IGNORE_POWER_CLAMP_PASSIVES = list("Wrathful", "LimitBrok
         if(passive_handler|=passive)
             return TRUE
     if(isRace(DEMON) && Health <= 10 + (AscensionsAcquired*5))
-        return TRUE
+        if(CheckSlotless("True Form"))
+            return TRUE
     var/godKi = GetGodKi()
     var/defenderGodKi = defender.GetGodKi()
     if(!defenderGodKi)

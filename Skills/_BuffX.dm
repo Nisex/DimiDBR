@@ -10031,9 +10031,10 @@ NEW VARIABLES
 						OffMessage="disables the tracking spirits..."
 					Fortunate_Fate
 						StyleNeeded="Balance"
-						StrMult=1.4
-						EndMult=1.4
-						passives = list("TensionLock" = 1,"PureDamage" = 2, "PureReduction" = 2)
+						OffMult=1.4
+						DefMult=1.2
+						EndMult=1.2
+						passives = list("TensionLock" = 1,"Steady" = 2, "CriticalChance" = 5, "CrticalDamage" = 0.25)
 						ActiveMessage="is blessed by a turn of fortune!"
 						OffMessage="uses up their karma..."
 					Speed_of_Sound
@@ -10049,7 +10050,7 @@ NEW VARIABLES
 						Afterimages=1
 						StrMult=1.5
 						ForMult=1.5
-						passives = list("TensionLock" = 1,"PureDamage" = 2, "PureReduction" = -2)
+						passives = list("TensionLock" = 1,"PureDamage" = 1, "PureReduction" = -2)
 						ActiveMessage="enhances every movement with ki to allow for rapid destruction!!"
 						OffMessage="exhausts their ki enhancement..."
 					What_Must_Be_Done
@@ -10347,23 +10348,24 @@ NEW VARIABLES
 					SpdMult=0.8
 					DefMult=0.8
 					OffMult=0.8
+					passives = list("FatigueLeak" = 1, "EnergyLeak" = 1)
 					ActiveMessage="can't get their bearings on their opponent!"
 					OffMessage="regains focus!"
 				Broken_Bones
 					IconLock='SweatDrop.dmi'
 					IconApart=1
 					StrMult=0.8
-					EndMult=0.8
+					EndMult=0.6
 					DefMult=0.8
-					passives = list("PureReduction" = -1)
+					passives = list("FatigueLeak" = 1, "EnergyLeak" = 1)
 					ActiveMessage="yelps as a blow shatters their bones!"
 					OffMessage="manages the pain of the shattered bones..."
 				Slow_Motion
 					IconLock='SweatDrop.dmi'
 					IconApart=1
 					Afterimages=1
+					DefMult=0.6
 					SpdMult=0.6
-					passives = list("PureDamage" = - 1)
 					ActiveMessage="can't...get...moving..."
 					OffMessage="regains their speed!"
 
@@ -10381,15 +10383,15 @@ NEW VARIABLES
 					IconLock='SweatDrop.dmi'
 					IconApart=1
 					StrMult=0.8
-					ForMult=0.8
-					passives = list("PureDamage" = -1, "PureReduction" = -1)
+					OffMult=0.8
+					passives = list("Flow" = -1)
 					ActiveMessage="knows that karma is against them!"
 					OffMessage="feels more sure of their luck!"
 				Shattered
 					IconLock='SweatDrop.dmi'
 					IconApart=1
-					EndMult=0.8
-					passives = list("PureReduction" = -1)
+					EndMult=0.6
+					passives = list("BleedHit" = 1)
 					ActiveMessage="feels their internals shatter under the sonic assault!"
 					OffMessage="regains their vitality!"
 
@@ -10625,26 +10627,13 @@ NEW VARIABLES
 
 					ActiveMessage = "forms a draconic shell!!"
 					OffMessage = "loses their draconic shell..."
-					// Metal/Earth dragon racial, makes them tankier
-					proc/shellSmash(mob/p)
-						var/asc = p.AscensionsAcquired
-						p.Shatter += (clamp(35 + (35 * asc), 35 ,200))
-						p.AddSlow(clamp(25 + (25 * asc), 25 ,200))
-						p.AddShock(clamp(25 + (25 * asc), 25 ,200))
-						p.AddBurn(clamp(25 + (25 * asc), 25 ,200))
 					adjust(mob/p)
 						if(altered) return
 						var/asc = p.AscensionsAcquired
-						// if(p.Shatter)
-						// 	if(p.Shatter >= 10)
-						// 		VaizardHealth = p.Shatter/80
-						// 	else
-						// 		VaizardHealth = p.Shatter/10
-						DebuffReversal = 1
 						InjuryImmune = 1
 						VaizardHealth = (0.25 + (0.25 * asc)) + (p.GetEnd() / 20)
-						passives = list( "CallousedHands" = asc * 0.15, "BlockChance" = 5 + 5 * asc, "CriticalBlock" = 0.1 + (asc * 0.1), "InjuryImmune" = 1, \
-						 "Hardening" = 0.25 * asc, "HeavyHitter" = asc/4)
+						passives = list( "CallousedHands" = 0.15 + asc * 0.15, "BlockChance" = 5 + 5 * asc, "CriticalBlock" = 0.1 + (asc * 0.1), "InjuryImmune" = 1, \
+						 "Hardening" =  0.25 + 0.25 * asc, "HeavyHitter" = asc/4)
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
 							// shellSmash(User)
@@ -10669,7 +10658,7 @@ NEW VARIABLES
 						DemonicDurability = 1  * asc
 						SoulFire = 1 + (0.5 * asc)
 						HybridStrike = clamp(0.5 * asc, 0.5, 2.5)
-						BurnAffected = 8 - (1 * asc)
+						BurnAffected = 13
 						passives = list("DemonicDurability" = DemonicDurability, "SoulFire" = SoulFire, "HybridStrike" = HybridStrike, "FireAbsorb" = 1)
 						Intimidation = 1.25 + (0.25 * asc)
 					Trigger(mob/User, Override = FALSE)
@@ -10692,8 +10681,8 @@ NEW VARIABLES
 						SpdMult = 1 + max(0.1,asc*0.1)
 						Shocking = 5 + asc
 						EnergySteal = 10 + (asc * 10)
-						passives = list("DoubleStrike" = 1+ (asc/4), \
-						"Skimming" = 1+asc, "Godspeed" = 1+asc/1.5, "Pursuer" = 1+asc/2, "Flicker" = 1+asc/2, "BlurringStrikes" = asc/4)
+						passives = list("DoubleStrike" = 1 + (asc/4), \
+						"Skimming" = 1 + asc, "Godspeed" = 1 + asc/1.5, "Pursuer" = 1 + asc/2, "Flicker" = 1+asc/2, "BlurringStrikes" = asc/4)
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
 							adjust(User)
@@ -10721,22 +10710,6 @@ NEW VARIABLES
 						EndMult = baseMultMod
 						ForMult = baseMultMod
 
-					Trigger(mob/User, Override = FALSE)
-						if(!User.BuffOn(src))
-							adjust(User)
-						..()
-
-				Slithereen_Crush
-					NeedsHealth = 15
-					TooMuchHealth = 25
-					ActiveMessage = "brings the ocean to the land."
-					OffMessage = "returns the land to its former form..."
-					Cooldown = 120
-					adjust(mob/p)
-						if(altered) return
-						var/asc = p.AscensionsAcquired
-						NeedsHealth = 15 + (5 * asc)
-						TooMuchHealth = 20 + (5 * asc)
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
 							adjust(User)

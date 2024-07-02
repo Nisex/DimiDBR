@@ -1775,6 +1775,11 @@ mob
 						spawn()
 							if(loc:Deluged)
 								src.overlays+=image('WaterOverlay.dmi',"Deluged")
+								var/mob/p = loc:ownerOfEffect
+								if(p!= src)
+
+									src.AddSlow(10 + (5 * p.AscensionsAcquired))
+									src.AddShock(10 + (5 * p.AscensionsAcquired))
 							else if(src.PoseEnhancement&&src.Secret=="Ripple")
 								src.underlays+=image('The Ripple.dmi', pixel_x=-32, pixel_y=-32)
 							else if(loc.type==/turf/Waters/Water7/LavaTile)

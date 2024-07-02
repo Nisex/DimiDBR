@@ -634,6 +634,7 @@ ascension
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			intimidation = 30
+			anger = 0.1
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Metal")
@@ -650,7 +651,7 @@ ascension
 						offense += 0.25
 
 					if("Water")
-						passives = list("SoftStyle" = 1, "AbsoluteZero" = 1, "LikeWater" = 2,"Flow" = 1, "Instinct" = 1)
+						passives = list("SoftStyle" = 1, "AbsoluteZero" = 3, "LikeWater" = 2,"Flow" = 1, "Instinct" = 1)
 						strength += 0.25
 						force += 0.25
 						defense += 0.5
@@ -671,6 +672,7 @@ ascension
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
 			intimidation = 20
+			anger = 0.1
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Metal")

@@ -28,13 +28,13 @@ globalTracker
 				del update // i guess loc = null doesn't work cause datums have no loc
 
 
-mob/var/updateVersion = 27
+mob/var/updateVersion = 29
 
 update
 	var/version = 1
 
 	proc/updateMob(mob/p)
-		p << "You have been updated to version [version]]"
+		p << "You have been updated to version [version]"
 		p.updateVersion = version
 
 	version1
@@ -377,8 +377,43 @@ update
 					p.passive_handler.Set("HellPower", 0.25)
 				p.Attunement = "HellFire"
 			..()
+	version28
+		version = 28
+	version29
+		version = 29
+	version30
+		version = 30
+		updateMob(mob/p)
+			if(p.isRace(DRAGON))
+				p.NewAnger(1.6)
+				p << "anger is 1.6"
+				if(p.Class == "Water")
+					p.passive_handler.Set("AbsoluteZero", 3)
+					p << "AbsoluteZero to 3"
+			var/obj/Skills/Buffs/NuStyle/b = p.FindSkill(/obj/Skills/Buffs/NuStyle/FreeStyle/Spirit_Style)
+			if(b)
+				b.passives = list("Flicker" = 1, "Pursuer" = 1)
+				p << "[b] changed"
+			b = p.FindSkill(/obj/Skills/Buffs/NuStyle/FreeStyle/Yin_Yang_Style)
+			if(b)
+				b.passives = list("Flow" = 0.5, "Instinct" = 0.5, "LikeWater"= 1)
+				p << "[b] changed"
+			var/listofchanges = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fortunate_Fate/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Disoriented/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Broken_Bones/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Ineffective_Fate/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Shattered/)
+			for(var/x in listofchanges)
+				if(p.FindSkill(x))
+					var/obj/Skills/Buffs/SlotlessBuffs/a = p.FindSkill(x)
+					del a
+					p << "deleted [a] it has been updated."
+			..()
 
-
+/mob/Admin4/verb/whoops()
+	var/listofchanges = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fortunate_Fate/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Disoriented/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Broken_Bones/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Ineffective_Fate/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Shattered/)
+	for(var/mob/p in players)
+		for(var/x in listofchanges)
+			if(p.FindSkill(x))
+				var/obj/Skills/Buffs/SlotlessBuffs/a = p.FindSkill(x)
+				del a
+				p << "deleted [a] it has been updated."
 
 // Thorgigamax Gemenilove 
 

@@ -2409,7 +2409,7 @@ obj
 				ActiveMessage="crushes the area with a massive downpour of water!"
 				Slow=1
 				NoLock=1
-				Deluge=1
+				Deluge=3000
 				Cooldown=10800
 				verb/Great_Deluge()
 					set category="Skills"
@@ -6555,11 +6555,12 @@ obj
 											var/image/i=image(icon=src.TurfReplace)
 											t.overlays+=i
 											if(src.Deluge)
+												t.effects+=i
 												t.Deluged=1
-											spawn(3000)
-												t.overlays-=i
-												if(t.Deluged)
-													t.Deluged=0
+												t.timeToDeath=Deluge
+												t.ownerOfEffect=Owner
+												ticking_turfs+=t
+
 										if(src.TurfShift)
 											sleep(-1)
 											TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
@@ -6610,10 +6611,11 @@ obj
 											var/image/i=image(icon=src.TurfReplace)
 											t.overlays+=i
 											if(src.Deluge)
+												t.effects+=i
 												t.Deluged=1
-											spawn(3000)
-												t.overlays-=i
-												t.Deluged=0
+												t.timeToDeath=Deluge
+												t.ownerOfEffect=Owner
+												ticking_turfs+=t
 									if(src.TurfShift)
 										for(var/turf/t in view(Rounds, src.TargetLoc))
 											if(t in view(Rounds, src.TargetLoc))
@@ -6652,14 +6654,14 @@ obj
 										Destroy(t, 9001)
 								if(src.TurfReplace)
 									for(var/turf/t in Turf_Circle(src.TargetLoc, src.Distance))
-										sleep(-1)
 										var/image/i=image(icon=src.TurfReplace)
 										t.overlays+=i
 										if(src.Deluge)
+											t.effects+=i
 											t.Deluged=1
-										spawn(3000)
-											t.overlays-=i
-											t.Deluged=0
+											t.timeToDeath=Deluge
+											t.ownerOfEffect=Owner
+											ticking_turfs+=t
 								if(src.TurfShift)
 									var/dist = Distance
 									if(Persistent)
@@ -6695,10 +6697,11 @@ obj
 										var/image/i=image(icon=src.TurfReplace)
 										t.overlays+=i
 										if(src.Deluge)
+											t.effects+=i
 											t.Deluged=1
-										spawn(3000)
-											t.overlays-=i
-											t.Deluged=0
+											t.timeToDeath=Deluge
+											t.ownerOfEffect=Owner
+											ticking_turfs+=t
 								if(src.TurfShift)
 									for(var/turf/t in view(src.Distance, src.TargetLoc))
 										sleep(-1)
@@ -6724,11 +6727,11 @@ obj
 											var/image/i=image(icon=src.TurfReplace)
 											t.overlays+=i
 											if(src.Deluge)
+												t.effects+=i
 												t.Deluged=1
-											spawn(3000)
-												t.overlays-=i
-												if(t.Deluged)
-													t.Deluged=0
+												t.timeToDeath=Deluge
+												t.ownerOfEffect=Owner
+												ticking_turfs+=t
 										if(src.TurfShift)
 											sleep(-1)
 											TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
@@ -6779,10 +6782,11 @@ obj
 											var/image/i=image(icon=src.TurfReplace)
 											t.overlays+=i
 											if(src.Deluge)
+												t.effects+=i
 												t.Deluged=1
-											spawn(3000)
-												t.overlays-=i
-												t.Deluged=0
+												t.timeToDeath=Deluge
+												t.ownerOfEffect=Owner
+												ticking_turfs+=t
 									if(src.TurfShift)
 										for(var/turf/t in view(Rounds, src.Owner))
 											if(t in view(Rounds, src.Owner))
@@ -6825,10 +6829,11 @@ obj
 										var/image/i=image(icon=src.TurfReplace)
 										t.overlays+=i
 										if(src.Deluge)
+											t.effects+=i
 											t.Deluged=1
-										spawn(3000)
-											t.overlays-=i
-											t.Deluged=0
+											t.timeToDeath=Deluge
+											t.ownerOfEffect=Owner
+											ticking_turfs+=t
 								if(src.TurfShift)
 									for(var/turf/t in Turf_Circle(src.Owner, src.Distance))
 										sleep(-1)
@@ -6860,10 +6865,11 @@ obj
 										var/image/i=image(icon=src.TurfReplace)
 										t.overlays+=i
 										if(src.Deluge)
+											t.effects+=i
 											t.Deluged=1
-										spawn(3000)
-											t.overlays-=i
-											t.Deluged=0
+											t.timeToDeath=Deluge
+											t.ownerOfEffect=Owner
+											ticking_turfs+=t
 								if(src.TurfShift)
 									for(var/turf/t in view(src.Distance, src.Owner))
 										sleep(-1)

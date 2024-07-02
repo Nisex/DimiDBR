@@ -100,7 +100,7 @@ spaceMaker
 /turf/var/tmp/list/effects = list()
 /turf/proc/applyEffect(option, timer, mob/p)
 	timeToDeath = timer
-	effectApplied = option // the "[]" is not needed, but maybe u passed a number who knows
+	effectApplied = option
 	ticking_turfs += src
 	ownerOfEffect = p
 	if(isdatum(option))
@@ -134,9 +134,11 @@ spaceMaker
 	timeToDeath = 0
 	ticking_turfs -= src
 	overlays = list()
-	ownerOfEffect = null
 	for(var/image/i in effects)
 		i.loc = null
+	ownerOfEffect = null
+	if(Deluged)
+		Deluged = 0
 	
 
 /turf/proc/fadeEffects()
@@ -151,7 +153,7 @@ spaceMaker
 		spaceMade = 0 
 
 /turf/Update()
-	if(effectApplied) // the latter is assumed, for there's no way to get here unless it is in there, but just in case
+	if(effectApplied || Deluged) // the latter is assumed, for there's no way to get here unless it is in there, but just in case
 		//world<<"[src] ticking [effectApplied] for [timeToDeath] ticks"
 		timeToDeath--
 		if(timeToDeath == 40)
