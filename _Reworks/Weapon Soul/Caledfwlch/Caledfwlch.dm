@@ -23,12 +23,12 @@ obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Caledfwlch
 obj/Skills/Projectile/Weapon_Soul
 	Excalibur
 		IconLock='Excaliblast.dmi'
-		ActiveMessage = "lets loose a slash full of Promised Victory!: Excalibur!"
+		ActiveMessage = "lets loose a slash full of Promised Victory: Excalibur!"
 		LockX=-50
 		LockY=-50
-		DamageMult=0.25
+		DamageMult=1
 		AccMult=25
-		MultiHit=25
+		MultiHit=6
 		Knockback=1
 		Radius=3
 		ZoneAttack=1
@@ -40,13 +40,11 @@ obj/Skills/Projectile/Weapon_Soul
 		StrRate=1
 		ForRate=1
 		EndRate=1
-		Trail='Hit Effect Ripple.dmi'
+		Trail='ExcaliTrail.dmi'
 		TrailDuration=1
-		TrailX=-32
-		TrailY=-32
 		Dodgeable=-1
 		Deflectable=-1
-		HolyMod=10
+		HolyMod=5
 		Distance=100
 		Cooldown = 90
 		verb/Excalibur()
@@ -55,7 +53,7 @@ obj/Skills/Projectile/Weapon_Soul
 
 	Excalibur_Morgan
 		IconLock='DExcaliblast.dmi'
-		ActiveMessage = "lets loose a slash full of Promised Victory!: Excalibur Morgan!"
+		ActiveMessage = "lets loose a slash full of Promised Victory: Excalibur Morgan!"
 		LockX=-50
 		LockY=-50
 		DamageMult=0.25
