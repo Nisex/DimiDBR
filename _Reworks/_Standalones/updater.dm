@@ -28,7 +28,7 @@ globalTracker
 				del update // i guess loc = null doesn't work cause datums have no loc
 
 
-mob/var/updateVersion = 29
+mob/var/updateVersion = 31
 
 update
 	var/version = 1
@@ -404,6 +404,16 @@ update
 					var/obj/Skills/Buffs/SlotlessBuffs/a = p.FindSkill(x)
 					del a
 					p << "deleted [a] it has been updated."
+			..()
+	version31
+		version = 31
+		updateMob(mob/p)
+			if(p.isRace(DEMON))
+				var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/)
+				if(da.passives["SpirtSword"])
+					da.passives["SpiritSword"] /= 4 
+					AdminMessage("[p] had over valued spiritsword on their devil arm")
+			
 			..()
 
 /mob/Admin4/verb/whoops()

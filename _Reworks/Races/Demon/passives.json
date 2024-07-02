@@ -2,7 +2,7 @@
     "SWORD_PASSIVES_I": {
         "Extend": [1, 2],
         "MagicSword": [1, 1],
-        "SpiritSword": [1, 4]
+        "SpiritSword": [0.25, 1]
     },
     "SWORD_PASSIVES_II": {
         "LifeSteal": [2, 10],
