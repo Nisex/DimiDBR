@@ -457,14 +457,6 @@ mob
 			else
 				if(Attunement=="Poison")
 					Value/=2
-				if(Attacker.Attunement=="HellFire")
-					Value*=glob.HELLFIRE_VALUE_MOD
-					Sheared+=Value/2
-					if(Sheared>=100)
-						Sheared=100
-					Crippled+=Value/3
-					if(Crippled>=100)
-						Crippled=100
 				Value = Value*(1-(src.Poison/glob.DEBUFF_STACK_RESISTANCE))
 				src.Poison+=Value
 
@@ -473,12 +465,8 @@ mob
 					animate(src, color = src.MobColor, time=5)
 
 				if(Attacker&&Attacker.CursedWounds())
-					src.Sheared+=Value/2
-					if(src.Sheared>=100)
-						src.Sheared=100
-					src.Crippled+=Value/3
-					if(src.Crippled>=100)
-						src.Crippled=100
+					AddShearing(Value/2)
+					AddCrippling(Value/3)
 			if(src.Poison>100)
 				src.Poison=100
 			if(src.Poison<0)

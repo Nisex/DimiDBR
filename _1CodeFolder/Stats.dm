@@ -9,8 +9,8 @@ mob/proc/GetAssess()
 	var/GodKiDisplay
 	var/StatAverage=round((src.GetStr()+src.GetEnd()+src.GetSpd()+src.GetFor()+src.GetOff()+src.GetDef())/6, 0.05)
 	var/EffectiveAnger=Anger
-	var/PDam=src.HasPureDamage()
-	var/PRed=src.HasPureReduction()
+	var/PDam=1+((src.HasPureDamage()/10)*glob.PURE_MODIFIER)
+	var/PRed=1+((src.HasPureReduction()/10)*glob.PURE_MODIFIER)
 	if(src.Anger)
 		if(src.AngerMult>1)
 			var/ang=EffectiveAnger-1//Usable anger
@@ -69,8 +69,8 @@ mob/proc/GetAssess()
 	<tr><ts>Current Power:</td><td>[Power] / Power Mult: [round(src.potential_power_mult, 0.05)]</td></tr>
 	<tr><td>Base:</td><td>[BaseDisplay]/([src.PowerBoost*src.RPPower*round(src.potential_power_mult, 0.05)])</td></tr>
 	<tr><td>Intimidation:</td><td>x[IntimDisplay]</td></tr>
-	<tr><td>Damage Boost:</td><td>x[1+((PDam/10)*glob.PURE_MODIFIER)]</td></tr>
-	<tr><td>Damage Reduction:</td><td>x[1+((PRed/10)*glob.PURE_MODIFIER)]</td></tr>
+	<tr><td>Damage Boost:</td><td>x[PDam] ([PDam*100]%)</td></tr>
+	<tr><td>Damage Reduction:</td><td>x[PRed] ([PRed*100]%)</td></tr>
 	<tr><td>God Ki:</td><td>x[GodKiDisplay]</td></tr>
 	<tr><td>Current BP:</td><td>[Commas(PowerDisplay)]</td></tr>
 	<tr><td>Energy:</td><td>[Commas(round(src.EnergyMax))] (1)</td></tr>
@@ -1179,7 +1179,10 @@ mob/verb/SwitchShit()
 		winset(src,"Bar[e]","is-visible=true")
 
 mob/proc/Get_Sense_Reading(mob/A)
+
 	var/Power=round(100*(Get_Scouter_Reading(A)/Get_Scouter_Reading(src)))
+	if(A.passive_handler.Get("PowerAppearance"))
+		Power = 0
 	switch(Power)
 		if(0 to 10)
 			. = "Inconsequential"
@@ -1328,7 +1331,8 @@ mob/proc/Get_Scouter_Reading(mob/B)
 		Ratio*=0.1
 
 	var/Reading=Ratio
-
+	if(passive_handler.Get("PowerAppearance"))
+		Reading = passive_handler.Get("PowerAppearance")
 	if(B.KO)
 		Reading*=0.05
 	if(Reading<1)

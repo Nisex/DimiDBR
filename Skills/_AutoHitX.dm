@@ -5198,7 +5198,7 @@ mob
 				var/copy = Z.Copyable
 				spawn() for(var/mob/m in view(10, src))
 					if(m.CheckSpecial("Sharingan"))
-						var/copyLevel = getSharCopyLevel()
+						var/copyLevel = getSharCopyLevel(m.SagaLevel)
 						if(Z.NewCopyable)
 							copy = Z.NewCopyable
 						if(glob.SHAR_COPY_EQUAL_OR_LOWER)

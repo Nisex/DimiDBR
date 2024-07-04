@@ -2013,7 +2013,7 @@ mob
 			return 0
 
 		IsGood()
-			var/list/EvilRaces=list(DEMON)
+			var/list/EvilRaces=list(DEMON, DRAGON)
 			var/list/EvilSecrets=list("Vampire", "Werewolf", "Zombie")
 			//these are all bad.
 			if(src.HasMaki())

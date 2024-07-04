@@ -14,7 +14,8 @@
     "MAJIN" = list("Gum", "Sweets"), \
     "DRAGON" = list("Ozone", "Animalistic", "Overwhelming"), \
     "Mechanized" = list("Metal"), \
-    "Secret" = list("Grass", "Blood", "Decay") )
+    "Secret" = list("Grass", "Blood", "Decay"), \
+    "Custom" = list("Muk", "Grime", "Magical", ))
 
 
 mob/proc/setUpScent()

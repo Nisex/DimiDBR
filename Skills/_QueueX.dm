@@ -492,6 +492,13 @@ obj
 					BuffSelf=0
 
 				//t2 sig style
+				Shield_Vault
+					Warp = 20 // just jump to tht guy
+					Stunner = 5
+					InstantStrikes = 4
+
+
+
 				Ogre_Cutter
 					DamageMult=5
 					Warp=10
@@ -3977,7 +3984,7 @@ mob
 				spawn() for(var/mob/m in view(10, src))
 					if(m.CheckSpecial("Sharingan"))
 						var/copy = Q.Copyable
-						var/copyLevel = getSharCopyLevel()
+						var/copyLevel = getSharCopyLevel(m.SagaLevel)
 						if(Q.NewCopyable)
 							copy = Q.NewCopyable
 						if(glob.SHAR_COPY_EQUAL_OR_LOWER)

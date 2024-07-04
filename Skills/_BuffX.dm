@@ -10400,7 +10400,7 @@ NEW VARIABLES
 
 				Self_Shattered
 					EnergyDrain=10
-					passives = list("BleedHit" = 1, "FatigueLeak" = 1, "ManaLeak" = 1, "HardStyle" = 1, "SoftStyle" = 1)
+					passives = list("BleedHit" = 1, "FatigueLeak" = 1, "ManaLeak" = 1)
 					BleedHit=1
 					FatigueLeak=1
 					ManaLeak=1
@@ -11947,7 +11947,7 @@ mob
 					spawn() for(var/mob/m in view(10, src))
 						if(m.CheckSpecial("Sharingan"))
 							var/copy = B.Copyable
-							var/copyLevel = getSharCopyLevel()
+							var/copyLevel = getSharCopyLevel(m.SagaLevel)
 							if(m.client&&m.client.address==src.client.address)
 								continue
 							if(B.NewCopyable)

@@ -708,13 +708,11 @@ obj
 						StyleStr=1.25
 						StyleSpd=1
 						StyleOff=1.25
-						StyleDef=1.25
 						StyleActive="Sword And Shield"
 						passives = list("Hardening" = 1, "Deflection" = 0.5)
 						//StyleComboUnlock=list("TBD"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style",\
 						"UNARMED VARIANT"="/obj/Skills/Buffs/NuStyle/SwordStyle/Heavenly_Demon_Fist_Style")
 						Finisher="/obj/Skills/Queue/Finisher/Behemoth_Typhoon"
-
 					Dual_Wield_Style//iaido + fencing
 						SignatureTechnique=1
 						NeedsSecondSword=1
@@ -779,6 +777,17 @@ obj
 							src.Trigger(usr)
 
 //Signature Style T2
+					Phalanx_Style
+						SignatureTechnique=2
+						Copyable=0
+						StyleOff=1.25
+						StyleStr=1.25
+						StyleEnd=1.5
+						StyleActive="Phalanx Style"
+						passives = list("Reversal" = 2.5, "Deflection" = 1, "Hardening" = 1, "SwordPunching" = 1, "Shearing" = 3)
+						Finisher="/obj/Skills/Queue/Finisher/Shield_Vault"
+
+
 					Trinity_Style
 						SignatureTechnique=2
 						NeedsThirdSword=1

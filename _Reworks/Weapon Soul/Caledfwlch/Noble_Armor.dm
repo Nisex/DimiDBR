@@ -11,7 +11,7 @@ obj/Skills/Buffs/SlotlessBuffs/Noble_Shield
 	passives = list("Deflection" = 3, "VoidField" = 3, "DeathField" = 3)
 	VaizardHealth = 0.5
 	VaizardShatter = 1
-	TimerLimit = 30
+	TimerLimit = 30 
 	Cooldown = 90
 	adjust(mob/p)
 		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: The King")
