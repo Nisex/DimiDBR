@@ -1,8 +1,8 @@
 /obj/Skills/Buffs/SlotlessBuffs/Skating
     BuffName = "Skating"
     TimerLimit = 0
-    Godspeed = 3
-    passives = list("Godspeed" = 3)
+    Godspeed = 1.5
+    passives = list("Godspeed" = 2)
     Copyable = 0
     Cooldown = 0
     ActiveMessage = "starts skating on a magical skateboard, lol."

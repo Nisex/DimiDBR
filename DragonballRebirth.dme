@@ -26,6 +26,7 @@
 #define FILE_DIR "Icons/base"
 #define FILE_DIR "Icons/base/default"
 #define FILE_DIR "Icons/base/elf"
+#define FILE_DIR "Icons/base/Gaja"
 #define FILE_DIR "Icons/Beams"
 #define FILE_DIR "Icons/Blasts"
 #define FILE_DIR "Icons/Buffs"

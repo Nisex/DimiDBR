@@ -289,7 +289,7 @@ mob
 				Value/=2
 			if(src.HasDebuffImmune() && !src.BurningShot)
 				Value/=1+src.GetDebuffImmune()
-			Value = Value*(1-(src.Burn/glob.DEBUFF_STACK_RESISTANCE))
+			Value = Value // this makes 100 impossible ?
 			src.Burn+=Value
 			if(Value >=1 && !src.BurningShot)
 				animate(src, color = "#ff2643")
@@ -459,6 +459,12 @@ mob
 					Value/=2
 				if(Attacker.Attunement=="HellFire")
 					Value*=glob.HELLFIRE_VALUE_MOD
+					Sheared+=Value/2
+					if(Sheared>=100)
+						Sheared=100
+					Crippled+=Value/3
+					if(Crippled>=100)
+						Crippled=100
 				Value = Value*(1-(src.Poison/glob.DEBUFF_STACK_RESISTANCE))
 				src.Poison+=Value
 

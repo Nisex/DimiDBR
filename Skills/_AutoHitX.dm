@@ -2147,9 +2147,8 @@ obj
 				AllOutAttack=1
 				Area="Circle"
 				Distance=10
-				StrOffense=0
-				ForOffense=1
-				DamageMult=0
+				AdaptRate = 1
+				DamageMult = 4
 				Flash=35
 				WindUp=0.5
 				WindupIcon='BLANK.dmi'
@@ -2163,6 +2162,7 @@ obj
 				TurfShiftDuration=-10
 				TurfShiftDurationSpawn=0
 				TurfShiftDurationDespawn=5
+				BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Blinded"
 				ActiveMessage="converts their ki to a wave of blinding light!"
 				Cooldown=150
 				EnergyCost=5
@@ -3116,8 +3116,7 @@ obj
 				Copyable=2
 				NeedsSword=1
 				Area="Arc"
-				NoLock=1
-				NoAttackLock=1
+				Rush=1
 				Launcher=2
 				StrOffense=1
 				DamageMult=2.8
@@ -3147,7 +3146,7 @@ obj
 				NeedsSword=1
 				Area="Circle"
 				Distance=3
-				Rush=2
+				Rush=1
 				StrOffense=1
 				DamageMult=1.5
 				EnergyCost=3
@@ -4991,13 +4990,19 @@ mob
 	proc
 		Activate(var/obj/Skills/AutoHit/Z)
 			. = TRUE
+
 			if(Z.Using)//Skill is on cooldown.
-				return
+				return FALSE
 			if(!src.CanAttack(1.5)&&!Z.NoAttackLock)
-				return
+				return FALSE
+			if(Flying)
+				var/obj/Items/check = EquippedFlyingDevice()
+				if(istype(check))
+					check.ObjectUse(src)
+					src << "You are knocked off your flying device!"
 			if(Z.Sealed)
 				src << "You can't use [Z] it is Sealed!"
-				return
+				return FALSE
 			if(Z.AssociatedGear)
 				if(!Z.AssociatedGear.InfiniteUses)
 					if(Z.Integrated)
@@ -5007,11 +5012,11 @@ mob
 								src << "Your [Z] automatically draws on new power to reload!"
 								src.LoseMana(10)
 								Z.AssociatedGear.IntegratedUses=Z.AssociatedGear.IntegratedMaxUses
-							return
+							return FALSE
 					else
 						if(Z.AssociatedGear.Uses<=0)
 							src << "[Z] doesn't have enough power to function!"
-							return
+							return FALSE
 			if(Z.MagicNeeded&&!src.HasLimitlessMagic())
 				if(src.HasMechanized()&&src.HasLimitlessMagic()!=1)
 					src << "You lack the ability to use magic!"

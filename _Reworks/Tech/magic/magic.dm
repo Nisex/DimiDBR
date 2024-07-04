@@ -33,6 +33,7 @@ ArmamentEnchantment -> tome creation (articact manufactioning + ArmamentEnchantm
     total += SummoningMagicUnlocked
     if(total >= MAX_MAGIC_LEVEL)
         total = MAX_MAGIC_LEVEL
+    TotalMagicLevel = total
     return total
 	
 

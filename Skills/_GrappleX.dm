@@ -226,7 +226,7 @@ obj/Skills/Grapple
 			if(p.isInnovative(HUMAN, "Unarmed"))
 				Effect="SuperSuplex"
 				TriggerMessage="starts freakifying"
-				EffectMult=1.25
+				EffectMult=0.5
 				Stunner=5
 				OneAndDone=1
 				StrRate=1.25

@@ -909,7 +909,8 @@ NEW VARIABLES
 			IconApart=1
 			LockX=0
 			LockY=0
-			FatigueThreshold=0
+			FatigueThreshold=98
+			EnergyThreshold=1
 			TimerLimit=1800
 			BuffName="Eight Gates"
 			OffMessage="stops Cultivating..."
@@ -933,19 +934,19 @@ NEW VARIABLES
 				// gate 6 = 120% puspike
 				// gate 7 = 200% puspike
 				// gate 8 = 500% puspike
-				// switch(num)
-				// 	if(2)
-				// 		FatigueHeal = 30
-				// 		EnergyHeal = 50
-				// 	if(4)
-				// 		FatigueHeal = 50
-				// 		EnergyHeal = 75
-				// 	if(6)
-				// 		FatigueHeal = 75
-				// 		EnergyHeal = 100
-				// 	if(8)
-				// 		FatigueHeal = 100
-				// 		EnergyHeal = 100
+				switch(num)
+					if(2)
+						FatigueHeal = 30
+						EnergyHeal = 50
+					if(4)
+						FatigueHeal = 50
+						EnergyHeal = 75
+					if(6)
+						FatigueHeal = 75
+						EnergyHeal = 100
+					if(8)
+						FatigueHeal = 100
+						EnergyHeal = 100
 				PUSpike = 50 + (5 * num) // changed to 150%(pu) + 8xgate; so power wall doesnt jackhammer a asshole.
 				FatigueLeak = num+1 / p.SagaLevel
 				BleedHit = p.SagaLevel-1
@@ -4364,6 +4365,7 @@ NEW VARIABLES
 						var/divider = asc * raceModifier > 0 ? asc * raceModifier : 1
 						var/time = 12 / divider
 						HealthHeal = (amt / time) * world.tick_lag // health per tick(?)
+						WoundHeal = HealthHeal/2
 						TimerLimit = time             // ticks per regen
 						EnergyCost = amt / 4
 						FatigueCost = amt / 4
@@ -9345,7 +9347,7 @@ NEW VARIABLES
 				LockY = -32
 				HitX=-32
 				HitY=-32
-				TimerLimit=30
+				TimerLimit=55
 				Cooldown = 1
 				ActiveMessage="unravels into a mind-rending series of shapes and textures!"
 				OffMessage="slowly becomes 3D once again..."
@@ -9830,6 +9832,7 @@ NEW VARIABLES
 								SwordHits=limit
 								SpiritHits=limit
 							..()
+
 					Magic_Wish
 						ForMult=1.25
 						OffMult=1.25
@@ -11107,8 +11110,8 @@ NEW VARIABLES
 				OffMessage="manages to repress their urges..."
 				Trigger(mob/player, Override)
 					if(!altered)
-						passives = list("SpecialBuffLock" = 1,"KillerInstinct" = clamp(player.SagaLevel/8, 0.1, 1), "Curse" = 1, "Pursuer" = 2, "SlayerMod" = player.SagaLevel*0.5, \
-						"HardStyle" = 1 + (player.SagaLevel*0.25), "TechniqueMastery" = player.SagaLevel)
+						passives = list("SpecialBuffLock" = 1,"KillerInstinct" = clamp(player.SagaLevel/8, 0.1, 1), "Curse" = 1, "Pursuer" = 2, "SlayerMod" = player.SagaLevel*0.75, \
+						"HardStyle" = 1 + (player.SagaLevel*0.5), "TechniqueMastery" = player.SagaLevel)
 						SlayerMod = player.SagaLevel * 0.5
 						HardStyle = 1 + (player.SagaLevel * 0.25)
 						TechniqueMastery = player.SagaLevel
@@ -12143,7 +12146,7 @@ mob
 		AddActiveBuff()
 
 			if(src.ActiveBuff.BuffName=="Ki Control")
-				if(src.Anaerobic)
+				if(src.passive_handler.Get("Anaerobic"))
 					src.ActiveBuff.passives["PUSpike"] = 25
 					src.ActiveBuff.PUSpike=25
 
@@ -12175,9 +12178,9 @@ mob
 						src.ActiveBuff.passives["PUSpike"] = 25
 					else
 						src.ActiveBuff.AutoAnger=0
-						src.ActiveBuff.AngerMult=1
-						src.ActiveBuff.passives["PUSpike"] = 0
-						src.ActiveBuff.PUSpike=0
+						src.ActiveBuff.AngerMult = round(2/(8-AscensionsAcquired), 0.01)
+						src.ActiveBuff.passives["PUSpike"] = round(50/(5-AscensionsAcquired))
+						src.ActiveBuff.PUSpike=round(50/(5-AscensionsAcquired))
 				if(src.Saga=="Spiral")
 					src.ActiveBuff.ActiveMessage="channels their evolution with full strength!!!"
 					src.ActiveBuff.OffMessage="calms their evolution..."
@@ -12305,58 +12308,6 @@ mob
 
 		AddSpecialBuff()
 			//TODO redo these
-			// if(src.SpecialBuff.BuffName=="Jagan Eye")
-			// 	src.SpecialBuff.FatigueLeak=2-(src.SpecialBuff.Mastery*0.5)
-			// 	src.SpecialBuff.SureDodgeTimerLimit=(25-(3.75*src.SpecialBuff.Mastery))
-			// 	src.SpecialBuff.SureHitTimerLimit=(25-(3.75*src.SpecialBuff.Mastery))
-			// 	src.SpecialBuff.passives["PureDamage"] = (1.25*src.SpecialBuff.Mastery)
-			// 	src.SpecialBuff.passives["FatigueLeak"] = 2-(src.SpecialBuff.Mastery*0.5)
-			// 	src.PureDamage=(1.25*src.SpecialBuff.Mastery)
-			// 	if(!locate(/obj/Skills/Utility/Telepathy, src.Skills))
-			// 		src.AddSkill(new/obj/Skills/Utility/Telepathy)
-			// 		src << "Through acquiring the Jagan Eye, you've developed telepathy!"
-			// 	if(!locate(/obj/Skills/Utility/Observe, src.Skills))
-			// 		src.AddSkill(new/obj/Skills/Utility/Observe)
-			// 		src << "Through acquiring the Jagan Eye, you've developed remote viewing!"
-			// 	if(!locate(/obj/Skills/Telekinesis, src.Skills))
-			// 		src.AddSkill(new/obj/Skills/Telekinesis)
-			// 		src << "Through acquiring the Jagan Eye, you've developed telekinesis!"
-			// 	if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Jagan_Expert, src.Buffs))
-			// 		src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Jagan_Expert)
-			// 		src << "You can push the limits of the Jagan Eye for a time to regain lost power!"
-			// 	if(!src.EnhancedHearing)
-			// 		src.EnhancedHearing=1
-			// 	if(!src.EnhancedSmell)
-			// 		src.EnhancedSmell=1
-			// 		src << "The powers of the Jagan eye cause your senses to sharpen!"
-
-			// 	if(src.SpecialBuff.Mastery==1)
-			// 		src.JaganPowerNerf=0.5
-			// 	if(src.SpecialBuff.Mastery==2)
-			// 		src.JaganPowerNerf=0.75
-			// 		if(!locate(/obj/Skills/Projectile/Beams/Big/Jagan/Dragon_of_the_Darkness_Flame, src.Projectiles))
-			// 			src.AddSkill(new/obj/Skills/Projectile/Beams/Big/Jagan/Dragon_of_the_Darkness_Flame)
-			// 			src << "Through disciplining your Jagan Eye, you've developed the Dragon of the Darkness Flame!"
-			// 			src << "It is a reckless attack and will sacrifice the limb used to perform it."
-			// 	if(src.SpecialBuff.Mastery==3)
-			// 		usr.JaganPowerNerf=1
-			// 		if(!locate(/obj/Skills/Buffs/SlotlessBuffs/SwordOfDarknessFlame, src.Buffs))
-			// 			src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/SwordOfDarknessFlame)
-			// 		for(var/obj/Skills/Projectile/Beams/Big/Jagan/Dragon_of_the_Darkness_Flame/DF in src.Projectiles)
-			// 			if(DF.MaimCost)
-			// 				DF.MaimCost=0
-			// 				src << "Through refining the Jagan Eye, your control over darkness flame grows!"
-			// 	if(src.SpecialBuff.Mastery>=4)
-			// 		usr.JaganPowerNerf=0
-			// 		for(var/obj/Skills/Projectile/Beams/Big/Jagan/Dragon_of_the_Darkness_Flame/DF in src.Projectiles)
-			// 			if(DF.MaimCost||DF.WoundCost)
-			// 				DF.WoundCost=0
-			// 				src << "Through mastering your Jagan Eye, you can now call on the Dragon with absolute control!"
-			// 		if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Darkness_Dragon_Master, src))
-			// 			src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Darkness_Dragon_Master)
-			// 		for(var/obj/Skills/Buffs/SlotlessBuffs/Jagan_Expert/je in usr)
-			// 			del je
-
 			if(src.SpecialBuff.BuffName=="Jinchuuriki")
 				if(!SpecialBuff.altered)
 					src.SpecialBuff.passives["BleedHit"] = 4-src.SpecialBuff.Mastery

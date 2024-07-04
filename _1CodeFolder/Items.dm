@@ -630,6 +630,11 @@ obj/Items
 		Icon_64 icon = 'cape_mono.dmi'
 		Icon_65 icon = 'cape_under_mono.dmi'
 		Icon_66 icon = 'scarf_mono.dmi'
+		Icon_67 icon = 'Gaja Neck Mantle.dmi'
+		Icon_68 icon = 'Gaja Cloak.dmi'
+		Icon_69 icon = 'Gaja Furs.dmi'
+		Icon_70 icon = 'Gaja Mask.dmi'
+
 
 
 

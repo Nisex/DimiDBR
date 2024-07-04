@@ -848,8 +848,8 @@ mob
 			var/HasFatigue=1
 			if(src.HasUnstoppable()||src.Secret=="Zombie")
 				HasFatigue=0
-			if(src.Anaerobic)
-				HasFatigue=0.7/(src.Anaerobic)
+			if(src.passive_handler.Get("Anaerobic"))
+				HasFatigue=0.7/(src.passive_handler.Get("Anaerobic"))
 			var/KeyEnergy=100-(src.TotalFatigue*HasFatigue)
 			var/Sub
 			var/Cut
@@ -1447,7 +1447,7 @@ mob
 			if(src.Harden)
 				if(Harden>=glob.MAX_HARDEN)
 					Harden = glob.MAX_HARDEN
-				Mod*= 1 + (src.Harden * (0.006 * clamp(src.Hardening, 0.1, glob.MAX_HARDENING)))
+				Mod*= 1 + (src.Harden * (glob.HARDENING_BASE* clamp(src.GetHardening(), 0.1, glob.MAX_HARDENING)))
 			if(src.Shatter)
 				if(!src.HasDebuffImmune()>=1)
 					if(src.HasDebuffReversal())
@@ -2897,22 +2897,6 @@ mob
 				if(src.req_pot(1))
 					src << "You develop the ability to sense power due to your experience fighting!"
 					src.AddSkill(new/obj/Skills/Utility/Sense)
-			// if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Ki_Blade, src) && !locate(/obj/Skills/Buffs/SlotlessBuffs/Ki_Shield, src))
-			// 	if(src.req_pot(10/max(0.05,src.Imagination)))
-			// 		var/Confirm
-			// 		var/Choice
-			// 		while(Confirm!="Yes")
-			// 			Choice=alert(src, "You have developed enough of your fighting spirit to be able to mold it to a particular form. Which would you like to use?", "Ki Forge", "Ki Blade", "Ki Shield")
-			// 			switch(Choice)
-			// 				if("Ki Blade")
-			// 					Confirm=alert(src, "Ki Blade allows you to use armed and unarmed techniques in sync, at the cost of energy expenditure. Damage is calculated based on both force and strength. Do you want to forge this?", "Ki Blade", "No", "Yes")
-			// 				if("Ki Shield")
-			// 					Confirm=alert(src, "Ki Shield allows you to deflect some energy attacks at the cost of energy expenditure. It also allows you to breathe in hostile environments. Do you want to forge this?", "Ki Shield", "No", "Yes")
-			// 		switch(Choice)
-			// 			if("Ki Blade")
-			// 				src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Ki_Blade)
-			// 			if("Ki Shield")
-			// 				src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Ki_Shield)
 
 			if(!src.SignatureCheck)
 				return

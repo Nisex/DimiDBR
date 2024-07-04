@@ -6,7 +6,7 @@ obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Order // SOUL CALIBUR
 
 obj/Skills/Buffs/SlotlessBuffs/Defrost
 	passives = list("Unstoppable" = 1, "LifeGeneration" = 5, "LifeSteal" = 10, "Chilling" = 2)
-	WoundCost = 20
+	WoundCost = 10
 	TimerLimit = 60
 	Cooldown = 160
 	ActiveMessage = "has crystals grow up their sword arm as frost hovers in the air...!"

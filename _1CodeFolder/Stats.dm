@@ -69,8 +69,8 @@ mob/proc/GetAssess()
 	<tr><ts>Current Power:</td><td>[Power] / Power Mult: [round(src.potential_power_mult, 0.05)]</td></tr>
 	<tr><td>Base:</td><td>[BaseDisplay]/([src.PowerBoost*src.RPPower*round(src.potential_power_mult, 0.05)])</td></tr>
 	<tr><td>Intimidation:</td><td>x[IntimDisplay]</td></tr>
-	<tr><td>Damage Boost:</td><td>x[1+(PDam/10)]</td></tr>
-	<tr><td>Damage Reduction:</td><td>x[1+(PRed/10)]</td></tr>
+	<tr><td>Damage Boost:</td><td>x[1+((PDam/10)*glob.PURE_MODIFIER)]</td></tr>
+	<tr><td>Damage Reduction:</td><td>x[1+((PRed/10)*glob.PURE_MODIFIER)]</td></tr>
 	<tr><td>God Ki:</td><td>x[GodKiDisplay]</td></tr>
 	<tr><td>Current BP:</td><td>[Commas(PowerDisplay)]</td></tr>
 	<tr><td>Energy:</td><td>[Commas(round(src.EnergyMax))] (1)</td></tr>
@@ -87,6 +87,7 @@ mob/proc/GetAssess()
 	<tr><td>Potential:</td><td>[Potential]/100</td></tr>
 	<tr><td>Transformation Potential:</td><td>[src.potential_trans]/100</td></tr>
 	<tr><td>Average Stats: [StatAverage]</td></tr>
+	<tr><td>Magic Level: [getTotalMagicLevel()]</td></tr>
 			</table>"}
 /*	<tr><td>True Tier:</td><td>[POWER_TIERS[potential_power_tier]]</td></tr>
 	<tr><td>Display Tier:</td><td>[POWER_TIERS[power_display]]</td></tr>*/
@@ -106,7 +107,7 @@ mob
 			Return=min(src.TotalFatigue/100,0.5)*(-1)
 			if(Return>0)
 				Return=0
-			if(src.Anaerobic)
+			if(src.passive_handler.Get("Anaerobic"))
 				Return=min(src.TotalFatigue-20/100,0.5)
 			return Return
 
@@ -730,7 +731,7 @@ mob/proc/
 		//BODY CONDITION INFLUENCES
 		if(!passive_handler.Get("Piloting"))
 			if(!passive_handler.Get("Possessive"))
-				if(src.CanLoseVitalBP()>=1||src.Anaerobic)
+				if(src.CanLoseVitalBP()>=1||src.passive_handler.Get("Anaerobic"))
 					Ratio*=1+src.GetEnergyBPMult()
 
 				if(src.JaganPowerNerf)

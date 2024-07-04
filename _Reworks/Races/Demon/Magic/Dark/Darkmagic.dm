@@ -82,10 +82,10 @@
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech // switch this to a speed boost, similar to haste or a shield
     scalingValues = list("TimerLimit" = list(10,15,20,30,35,40), "Godspeed" = list(1,2,3,4,5,6), "AfterImages" = list(1,2,3,4,5,6), "VaizardHealth" = list(0.1,0.2,0.3,0.4,0.5,0.5), \
                             "VaizardShatter"= list(1,1,1,1,1,1), "Flicker" = list(1,2,3,3,4,4,5), "Flow" = list(0.25,0.5,1,1.25,1.5,2))
-    Cooldown = 90
+    Cooldown = 60
     name = "Soul Surge"
     ActiveMessage = "surges through reality!"
-    ActiveMessage = "stops surging..."
+    OffMessage = "stops surging..."
     Trigger(var/mob/User, Override=0)
         if(!altered)
             adjust(User)
@@ -93,6 +93,8 @@
     adjust(mob/p)
         scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech::scalingValues
         var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
+        VaizardHealth = scalingValues["VaizardHealth"][asc]
+        VaizardShatter = 1
         for(var/x in scalingValues)
             vars[x] = scalingValues[x][asc]
         SpdMult = 1 + (0.05 * asc)
@@ -101,7 +103,7 @@
         set category = "Skills"
         if(!altered)
             adjust(usr)
-            Trigger(usr)
+        Trigger(usr)
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech_Apply
     scalingValues = list("TimerLimit" = list(12,10,8,5,5,4), "ManaHeal" = list(-10,-15,-20,-20,-25,-30), "HealthHeal" = list(-1,-1,-2,-2,-3,-3), "EnergyHeal" = list(-4,-6,-8,-8,-10,-12))
     StableHeal = 1

@@ -2099,10 +2099,10 @@ obj
 				Variation=0
 				StrRate=1
 				ForRate=0
-				EndRate=1
+				EndRate=0.75
 				Knockback=1
 				MultiHit=8
-				DamageMult=1
+				DamageMult=1.5
 				AccMult = 1.25
 				Deflectable=0
 				Distance=10
@@ -4348,6 +4348,10 @@ mob
 			if(Z.Sealed)
 				src << "You can't use [Z] it is sealed!"
 				return 0
+			var/obj/Items/check = EquippedFlyingDevice()
+			if(istype(check))
+				check.ObjectUse(src)
+				src << "You are knocked off your flying device!"
 			if(Z.Continuous&&Z.ContinuousOn)
 				Z.ContinuousOn=0
 
@@ -4842,7 +4846,7 @@ mob
 						else
 							src.LoseMana(drain/Drain)
 						if(Z.CorruptionGain)
-							gainCorruption((drain / 1.5) * glob.CORRUPTION_GAIN)
+							gainCorruption((drain) * glob.CORRUPTION_GAIN)
 					if(Z.CorruptionCost)
 						gainCorruption(-Z.CorruptionCost)
 					if(Z.CapacityCost)

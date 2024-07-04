@@ -193,7 +193,7 @@ proc
 		animate(Target, transform=turn(Target.transform, -135), time=2, flags=ANIMATION_PARALLEL)
 		spawn(2)
 			KenShockwave(Target,Size=2)
-		sleep(10)
+		sleep(7)
 		animate(User, transform= turn(User.transform, 45))
 		animate(Target, pixel_x=32, flags=ANIMATION_RELATIVE | ANIMATION_PARALLEL)
 		animate(Target, transform= turn(Target.transform, 135), flags=ANIMATION_PARALLEL)

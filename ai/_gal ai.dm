@@ -1922,7 +1922,7 @@ mob/Player/AI
 				if(src.Race=="Changeling")
 					if(src.Anger!=0)
 						Ratio*=1+(src.GetHealthBPMult()+src.GetEnergyBPMult())
-				else if(src.CanLoseVitalBP()||src.Anaerobic)
+				else if(src.CanLoseVitalBP()||src.passive_handler.Get("Anaerobic"))
 					Ratio*=1+(src.GetHealthBPMult()+src.GetEnergyBPMult())
 				if(src.JaganPowerNerf)
 					Ratio*=src.JaganPowerNerf

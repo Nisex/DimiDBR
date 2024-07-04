@@ -9,7 +9,7 @@
 	CanBeDodged=0
 	EndDefense = 0.0001
 	Bang = 3
-	CorruptionCost = 50
+	CorruptionCost = 25
 	Cooldown = -1
 	adjust(mob/p)
 		scalingValues = /obj/Skills/AutoHit/Magic/Corruption/Corrupt_Reality::scalingValues
@@ -154,7 +154,8 @@
 		TimerLimit = 60 + (pacts * 15) + (asc * 15)
 		// put it on cd
 	verb/Adjust_Name()
-		NameFake = input(src, "What name?") as text
+		set category = "Utility"
+		NameFake = input(usr, "What name?") as text
 	verb/Impose_Will()
 		set category = "Skills"
 		set desc = "Bring forth your true form without alerting others."

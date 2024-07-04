@@ -1683,7 +1683,9 @@ mob
 							T.effectApplied?:applyDebuffs(src, T.ownerOfEffect)
 					if((istype(T.effectApplied, /obj/Skills/Buffs)))
 						if(src != T.ownerOfEffect)
-							T.effectApplied?:applyEffects(src, T.ownerOfEffect)
+							var/mob/p = T.ownerOfEffect
+							var/dmg = p.getHellStormDamage()
+							T.effectApplied?:applyEffects(src, T.ownerOfEffect, dmg)
 
 			if(!passive_handler.Get("StaticWalk")&&!src.Dead)
 				if(istype(loc,/turf/Special/Static))

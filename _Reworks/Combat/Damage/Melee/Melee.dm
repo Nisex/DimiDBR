@@ -15,6 +15,11 @@
 		BreakAttackRate=1
 	if(!CanAttack() && !BreakAttackRate)
 		return
+	if(Flying)
+		var/obj/Items/check = EquippedFlyingDevice()
+		if(istype(check))
+			check.ObjectUse(src)
+			src << "You are knocked off your flying device!"
 	if(dmgmulti<=0)
 		dmgmulti=0.05
 	// 				VARIABLES 				//

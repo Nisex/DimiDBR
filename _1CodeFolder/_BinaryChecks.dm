@@ -2095,8 +2095,6 @@ mob
 
 
 		CursedWounds()
-			if(passive_handler.Get("FakePeace"))
-				return 0
 			if(passive_handler.Get("CursedWounds"))
 				return 1
 			if(passive_handler.Get("Curse"))

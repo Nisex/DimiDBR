@@ -100,3 +100,13 @@ obj/blades
 	IconLayer=-1
 	ActiveMessage = "has been inflicted with abyssal flames!"
 	OffMessage = "has managed to extinguish the flames."
+
+
+
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Blinded
+	NeedsPassword = 1
+	Cooldown = 4
+	AlwaysOn = 1
+	passives = list("NoDodge" = 1, "FluidForm" = -4)
+	IconLock = 'SweatDrop.dmi'
+	TimerLimit = 35

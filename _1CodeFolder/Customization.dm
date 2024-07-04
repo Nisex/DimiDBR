@@ -451,7 +451,10 @@ proc/Add_Customizations()
 	for(var/A in subtypesof(/obj/Items/Wearables))
 		var/obj/Items/Wearables/w = new A
 		var/icon/newIcon = new(w.icon)
-		newIcon.MapColors(0.2,0.2,0.2, 0.2,0.2,0.2, 0.2,0.2,0.2, 0,0,0)
+		if(w.type in list(/obj/Items/Wearables/Icon_67,/obj/Items/Wearables/Icon_68,/obj/Items/Wearables/Icon_69,/obj/Items/Wearables/Icon_70))
+			w.icon = newIcon // im lazy and dont want to ! the above
+		else
+			newIcon.MapColors(0.2,0.2,0.2, 0.2,0.2,0.2, 0.2,0.2,0.2, 0,0,0)
 		w.icon = newIcon
 		var/obj/clothes_grid_visual/gridwear = new(w)
 		Clothes_List+=gridwear
