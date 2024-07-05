@@ -220,13 +220,13 @@ obj
 					Wushu_Style
 						SignatureTechnique=1
 						Copyable=0
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Heavenly_Demon_Fist_Style")
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon")
 					//	"TBD"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Iron_Fist_Style")
 						StyleStr=1.25
 						StyleEnd=1.25
 						StyleOff=1.25
 						StyleDef=1.25
-						passives = list("Hardening" = 1, "Deflection" = 0.5, "UnarmedDamage" = 1, "CounterMaster" = 1)
+						passives = list("Hardening" = 1, "Deflection" = 0.5, "UnarmedDamage" = 1, "CounterMaster" = 1, "Momentum" = 0.5, "Pressure" = 1)
 						StyleActive="Heavenly Dragon Stance"
 						Finisher="/obj/Skills/Queue/Finisher/Heavenly_Dragons_Omniscient_Surge"
 						verb/Wushu_Style()
@@ -234,8 +234,19 @@ obj
 							src.Trigger(usr)
 
 
-					Heavenly_Demon_Fist_Style
+					Divine_Arts_of_The_Heavenly_Demon
 						// to stop runtimes
+						SignatureTechnique=2
+						Copyable=0
+						passives = list("Hardening" = 2, "Deflection" = 1, "UnarmedDamage" = 1.5, "CounterMaster" = 2, "Momentum" = 1, "Pressure" = 2)
+						StyleStr=1.25
+						StyleEnd=1.5
+						StyleOff=1.25
+						StyleActive="Divine Arts of The Heavenly Demon"
+						Finisher="/obj/Skills/Queue/Finisher/Divine_Finisher"
+						verb/Divine_Arts_of_The_Heavenly_Demon_Style()
+							set hidden=1
+							src.Trigger(usr)
 
 					Black_Leg_Style
 						SignatureTechnique=1
@@ -295,7 +306,6 @@ obj
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Gentle_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Drunken_Fist_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Inverse_Poison_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phage_Style")
 						passives = list("SpiritHand" = 1, "TechniqueMastery" = 2, "UnarmedDamage" = 1)
-						CounterMaster=1
 						Finisher="/obj/Skills/Queue/Finisher/Rolling_Sobat"
 						verb/Lightning_Kickboxing_Style()
 							set hidden=1
@@ -396,7 +406,7 @@ obj
 						Copyable=0
 						StyleEnd=1.5
 						StyleDef=1.5
-						passives = list("CounterMaster" = 2, "SoftStyle" = 2, "FluidForm" = 1)
+						passives = list("CounterMaster" = 3, "SoftStyle" = 2, "FluidForm" = 1)
 						CounterMaster=2
 						SoftStyle=2
 						FluidForm=1
@@ -710,8 +720,8 @@ obj
 						StyleOff=1.25
 						StyleActive="Sword And Shield"
 						passives = list("Hardening" = 1, "Deflection" = 0.5)
-						//StyleComboUnlock=list("TBD"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style",\
-						"UNARMED VARIANT"="/obj/Skills/Buffs/NuStyle/SwordStyle/Heavenly_Demon_Fist_Style")
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Champloo_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style",\
+						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon")
 						Finisher="/obj/Skills/Queue/Finisher/Behemoth_Typhoon"
 					Dual_Wield_Style//iaido + fencing
 						SignatureTechnique=1
@@ -784,7 +794,7 @@ obj
 						StyleStr=1.25
 						StyleEnd=1.5
 						StyleActive="Phalanx Style"
-						passives = list("Reversal" = 2.5, "Deflection" = 1, "Hardening" = 1, "SwordPunching" = 1, "Shearing" = 3)
+						passives = list("Reversal" = 2.5, "Deflection" = 1, "Hardening" = 1.5, "SwordPunching" = 1, "Shearing" = 3)
 						Finisher="/obj/Skills/Queue/Finisher/Shield_Vault"
 
 

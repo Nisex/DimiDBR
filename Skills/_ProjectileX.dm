@@ -188,6 +188,31 @@ obj
 				if(Buster)
 					description += "Charges up before firing: At max: [BusterDamage] damage. [BusterHits] hits. [BusterRadius] radius. [BusterAccuracy] accuracy. [BusterSize] size. [BusterStream] blasts.\n"
 //Autoblasts
+			Comet_Spear
+				Distance=15
+				DamageMult = 4
+				EndRate = 0.75
+				Dodgeable=-1
+				AccMult = 5
+				Speed=1
+				Cooldown=4
+				IconLock='Caladbolg.dmi'
+				IconSize=1
+				LockX=-36
+				LockY=-36
+				Variation=0
+				ZoneAttack=1
+				ZoneAttackX=2
+				ZoneAttackY=2
+				Homing=1
+				HyperHoming=1
+				Radius=1
+				Variation=0
+				Hover=1
+				ActiveMessage="tosses their spear!"
+
+
+
 			Oni_Giri
 				AttackReplace=1
 				Blasts=3
@@ -234,9 +259,9 @@ obj
 				Radius=2
 				Speed=0.5
 				Distance=50
-				StrRate=0.5
-				ForRate=0.5
+				AdaptRate=1
 				DamageMult=1.8
+				Knockback=2
 				MultiHit=10
 				HyperHoming=1
 				AccMult = 1.25
@@ -2892,7 +2917,7 @@ obj
 					activate(mob/player)
 						var/cooldown = 40
 						var/sagaLevel = player.SagaLevel
-						var/damage = 2 + 0.25 * sagaLevel
+						var/damage = 2 + 1.5 * sagaLevel
 						var/ansatsukenPath = player.AnsatsukenPath == "Hadoken" ? 1 : 0
 						var/distance = 30
 						var/charge = 0.25
@@ -2907,7 +2932,7 @@ obj
 							manaCost -= 10
 							cooldown -= 10
 							charge = 0.1
-							damage = 2 + 0.3 * sagaLevel
+							damage = 3 + 1.5 * sagaLevel
 							knockback = 1
 							stunner = clamp(0.25 * sagaLevel, 0.25, 2)
 						if(player.AnsatsukenAscension == "Satsui" && src.IconLock == 'Hadoken.dmi')
@@ -2915,14 +2940,14 @@ obj
 						if(player.ManaAmount >= manaCost && sagaLevel >= 2)
 							ManaCost = manaCost
 							knockback = 0
-							damage = 2 + 0.35 * sagaLevel
+							damage = 3 + 1.5 * sagaLevel
 							multiHit = 3 + clamp(2 + sagaLevel, 5, 10)
 							stunner = 2
 							radius = 1
 							iconSize = 1.25
 							Dodgeable=0
 							if(ansatsukenPath)
-								damage = 2 + 0.4 * sagaLevel
+								damage = 5 + 2.25 * sagaLevel
 								multiHit = 2 + clamp(sagaLevel*2,  4, 20)
 								stunner = 3
 								radius = 2
@@ -2933,7 +2958,7 @@ obj
 						if(!message)
 							if(!src.Using)
 								OMsg(usr, "[usr] yells: <b>HADOKEN!</B>", "[usr] used Hadoken.")
-						DamageMult = damage
+						DamageMult = damage/MultiHit
 						Distance = distance
 						Charge = charge
 						MultiHit = multiHit

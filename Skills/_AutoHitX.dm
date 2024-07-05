@@ -287,6 +287,8 @@ obj
 
 //Auto^2hits
 			Duel
+				NoLock=1
+				NoAttackLock=1
 				StrOffense=1
 				EndDefense=0.75
 				DamageMult=2
@@ -305,6 +307,8 @@ obj
 				Cooldown=4
 				Earthshaking=15
 			Heavenly_Dragon_Violet_Ponds_Annihilation_of_the_Nine_Realms
+				NoLock=1
+				NoAttackLock=1
 				AdaptRate=2
 				DamageMult=2
 				Area="Target"
@@ -323,7 +327,36 @@ obj
 				HitSparkLife=7
 				Cooldown=4
 				Earthshaking=15
+			The_Heavenly_Demons_Fist_That_Cleaves_Through_Heaven_And_Divides_The_Sea
+				Area="Around Target"
+				NoLock=1
+				NoAttackLock=1
+				StrOffense=1
+				DamageMult=1
+				AbyssMod=3
+				HolyMod=3
+				Distance=5
+				DistanceAround=4
+				Rounds=10
+				TurfErupt=1.25
+				TurfEruptOffset=6
 
+				IgnoreAlreadyHit=1
+				ComboMaster=1
+				Stunner=2
+				Icon='Ki Fist Sprite.dmi'
+				Size=3
+				IconX=-30
+				IconY=0
+				Falling=1//animates towards pixel_z=0 while it is displayed
+				ActiveMessage=""
+				HitSparkIcon='BLANK.dmi'
+				HitSparkX=0
+				HitSparkY=0
+				Instinct=1
+				Cooldown=4
+				Earthshaking=45
+				
 
 			Explosive_Finish
 				StrOffense=1
@@ -528,6 +561,34 @@ obj
 				TurfShift='Dirt1.dmi'
 				TurfShiftDuration=30
 				Cooldown=4
+			Comet_Spear
+				Area="Arc"
+				NoLock=1
+				NoAttackLock=1
+				RoundMovement=0
+				Distance=8
+				Instinct=4
+				DamageMult=5
+				Rounds=2
+				StrOffense=1.25
+				EndDefense=0.35
+				TurfErupt=2
+				TurfEruptOffset=3
+				Earthshaking = 15
+				ActiveMessage="unleashes a swing of pure strength forward!"
+				HitSparkIcon='Slash - Zan.dmi'
+				HitSparkX=-16
+				HitSparkY=-16
+				HitSparkSize=1
+				HitSparkTurns=1
+				HitSparkLife=10
+				Icon='SweepingKick.dmi'
+				IconX=-32
+				IconY=-32
+				IconTime=10
+				Cooldown=4
+
+
 			Giga_Impact
 				Area="Circle"
 				NoLock=1
@@ -535,7 +596,7 @@ obj
 				RoundMovement=0
 				Distance=5
 				Instinct=4
-				DamageMult=5
+				DamageMult=3
 				Rounds=2
 				StrOffense=1
 				EndDefense=0.5
@@ -730,7 +791,7 @@ obj
 				IconX=-32
 				IconY=-32
 				Size=1
-				DamageMult=0.25
+				DamageMult=0.5
 				ManaCost=0
 				Rounds=10
 				ChargeTech=1
@@ -4501,7 +4562,7 @@ obj
 					if(player.ManaAmount>=manaCost && sagaLevel >= 2)
 						damage = clamp(1 + 0.5 * (usr.SagaLevel/2), 1.5, 4)
 						rounds = clamp(4 + usr.SagaLevel, 4, 11)
-						ManaCost = 35
+						ManaCost = manaCost
 						launch = 3
 						ActiveMessage="rises high in the air with a terrifying whirlwind of kicks!!"
 
@@ -4990,7 +5051,6 @@ mob
 	proc
 		Activate(var/obj/Skills/AutoHit/Z)
 			. = TRUE
-
 			if(Z.Using)//Skill is on cooldown.
 				return FALSE
 			if(!src.CanAttack(1.5)&&!Z.NoAttackLock)
@@ -6429,6 +6489,7 @@ obj
 								m.Immortal=0
 
 				var/damageDealt = src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
+				world<<"three | [damageDealt]"
 				if(!damageDealt)
 					damageDealt = 0
 

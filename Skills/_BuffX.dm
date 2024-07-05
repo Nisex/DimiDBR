@@ -9504,6 +9504,9 @@ NEW VARIABLES
 						passives = list("Juggernaut" = 1, "Deflection" = 0.5, "WeaponBreaker" = 2, "Disorienting" = 2, "CallousedHands" = 0.3)
 						ActiveMessage="achieves the peak of their breakthrough..."
 						OffMessage="comes back down to mortal level..."
+					Emergent_Demon_Breakthrough
+						
+					
 					Ki_Flow_Mastery
 						StyleNeeded="Gentle Fist"
 						ForMult=1.5
@@ -9954,6 +9957,10 @@ NEW VARIABLES
 						OffMessage="slows their pace up and begins regular motions..."
 
 					//t2 sig styles
+					Mortal_Will
+						passives= list("Mortal Will" = 1, "MortalStacks" = 1, "CallousedHands" = 0.45, "StunningStrike" = 3, "ComboMaster" = 1, "Deflection" = 1, "Reversal" = 2.5 )
+						ActiveMessage = "channels the will of a Phalanx!"
+						OffMessage = "falls out of flow..."
 					Trinity_Mastery
 						passives = list("TensionLock" = 1,"DoubleStrike" = 1, "TripleStrike" = 1)
 						ActiveMessage="flows through a Tri Wielding Kata!"

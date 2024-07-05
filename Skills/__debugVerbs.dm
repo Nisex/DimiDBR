@@ -2,6 +2,12 @@ var/TRACKING_BURNING = FALSE
 var/TRACKING_POISON = FALSE
 var/currentBurn = 0
 var/currentPoi = 0 
+
+/mob/Admin4/verb/fillTension()
+    Tension = 100
+
+
+
 /mob/Admin3/verb/trackburning()
     set category = "Debug"
     TRACKING_BURNING = !TRACKING_BURNING

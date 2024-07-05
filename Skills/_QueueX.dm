@@ -247,8 +247,22 @@ obj
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragons_Transient_Enlightenment"
 					HitMessage="Summons the boundless might of their martial arts, entering into a breakthrough by pure technique alone. Roars that turn into unstoppable torrent of energy erupt from their body while it soars through the battlefield, unleashing a symphony of cataclysmic destruction paired with ethereal grace. They have unlocked the ultimate testament to the Heavenly Dragon Stance, a dance of power and honor that surpasses the mortal plane, from the divine heights of the quasi-god realm, they descend as the Heavenly Dragon. Harnessing the boundless force of the Nine converging Realms, they unleash a relentless storm of peerless strength, devastating the battle field."
 
-
-
+				Divine_Finisher
+					name = "Heavenly Demon's Radiant Divine Palm that Shatters the Nine Heavens and Illuminates the Eternal Night"
+					Warp = 10
+					Bolt = 1
+					Shining = 1
+					Explosive = 1
+					Instinct = 2
+					PushOut=1
+					PushOutWaves=4
+					SweepStrike=2
+					Decider=4
+					DamageMult=3
+					KBAdd = 0.01
+					FollowUp="/obj/Skills/AutoHit/The_Heavenly_Demons_Fist_That_Cleaves_Through_Heaven_And_Divides_The_Sea"
+					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Emergent_Demon_Breakthrough"
+					
 
 				Iron_Fortress
 					Shattering=20
@@ -496,6 +510,9 @@ obj
 					Warp = 20 // just jump to tht guy
 					Stunner = 5
 					InstantStrikes = 4
+					HitMessage="leaps onto their target with their shield before delivering an onslaught of slashes with their spear!"
+					FollowUp="/obj/Skills/AutoHit/Comet_Spear"
+					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Mortal_Will"
 
 
 
@@ -694,7 +711,7 @@ obj
 
 				//Ansatsuken Finisher
 				Isshin
-					DamageMult=2
+					DamageMult=3
 					Counter=1
 					Stunner=5
 					KBMult=4
@@ -702,20 +719,20 @@ obj
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Hado_Kakusei"
 					FollowUp="/obj/Skills/Projectile/Hadoken_Effect"
 				Shoryureppa1
-					DamageMult=2
+					DamageMult=7
 					name="Shoryureppa"
 					HitStep=/obj/Skills/Queue/Finisher/Shoryureppa2
 					ShoryukenEffect=0.5
 					AccuracyMult=20
 					HitMessage=0
 				Shoryureppa2
-					DamageMult=2
+					DamageMult=7
 					name="Shoryureppa"
 					ShoryukenEffect=2
 					Shattering=30
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heat_Rush"
 				Shippu_Jinraikyaku
-					DamageMult=1
+					DamageMult=2
 					PushOutWaves=0
 					PushOut=0
 					Combo=4
@@ -724,7 +741,7 @@ obj
 					BuffSelf=0
 					HitMessage=0
 				Shippu_Jinraikyaku2
-					DamageMult=2
+					DamageMult=4
 					Rapid=1
 					FollowUp="/obj/Skills/AutoHit/Tatsumaki_Effect"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Violent_Personality"
@@ -3159,7 +3176,7 @@ obj
 					ManaCost = 0
 					Launcher=2
 					var/sagaLevel = player.SagaLevel
-					var/damage = clamp(2.5*(sagaLevel), 4, 12)
+					var/damage = clamp(2 + 2*(sagaLevel), 4, 12)
 					var/path = player.AnsatsukenPath == "Shoryuken" ? 1 : 0
 					var/manaCost = 35 // how much u need for ex
 					var/cooldown = 40
@@ -3169,7 +3186,7 @@ obj
 					if(path)
 						manaCost -= 10
 						cooldown -= 15
-						damage =  clamp(3*(sagaLevel), 5, 8)
+						damage =  clamp(3 + 2*(sagaLevel), 3, 13)
 						hitMessage = "strikes their opponent into the air with a fearsome uppercut!!"
 					if(player.AnsatsukenAscension=="Satsui")
 						Shattering *= 1.25
@@ -3180,9 +3197,9 @@ obj
 						Launcher=6
 						hitMessage = "unleashes the power of the Dragon with an overpowering uppercut!"
 						if(path)
-							damage =  clamp(5*(sagaLevel), 4, 16)
+							damage =  clamp(6 + 2*(sagaLevel), 4, 18)
 						else
-							damage = clamp(4*(sagaLevel), 3, 12)
+							damage = clamp(4 + 2*(sagaLevel), 3, 15)
 
 					DamageMult = damage
 					HitMessage = hitMessage

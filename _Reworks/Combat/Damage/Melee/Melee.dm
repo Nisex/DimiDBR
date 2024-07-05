@@ -663,6 +663,16 @@
 							log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 							#endif
 							DoDamage(enemy, damage, unarmedAtk, swordAtk, SecondStrike, ThirdStrike)
+							if(passive_handler.Get("Mortal Will"))
+								passive_handler.Increase("MortalStacks")
+								if(passive_handler.Get("MortalStacks") >= 6)
+									passive_handler.Set("MortalStacks", 1)
+									if(!locate(/obj/Skills/Projectile/Comet_Spear, src))
+										src.AddSkill(new/obj/Skills/Projectile/Comet_Spear)
+									for(var/obj/Skills/Projectile/Comet_Spear/cp in src)
+										cp.adjust(src)
+										src.UseProjectile(cp)
+
 				// 										MELEE END																	 //
 							var/shocked=0
 							if((SureKB || AttackQueue&& QueuedKBAdd()) && !NoKB)

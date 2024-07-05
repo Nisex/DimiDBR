@@ -258,7 +258,7 @@ update
 		version = 19
 		updateMob(mob/p)
 			for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style/wus in p)
-				wus.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Heavenly_Demon_Fist_Style")
+				wus.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Heavenly_Demon_Fist_Style")
 			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style/gla in p)
 				gla.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Shield_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield")
 			for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Sunlit_Sky_Style/su in p)
