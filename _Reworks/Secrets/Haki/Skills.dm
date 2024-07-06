@@ -27,7 +27,7 @@
                 return 1
             return 1
         if("Power")
-            var/difference = (Power + extra*10) / enemy.Power
+            var/difference = (Power + extra*glob.EXTRA_CONQ_HAKI_POWER) / enemy.Power
             if(difference >= 2) // 2x stronger
                 return 4
             else if(difference >= 1.5) // 1.5x stronger

@@ -595,7 +595,7 @@ mob
 					WoundsInflicted=val
 				else if(s||st)
 					if(((s&&s.Element=="Silver")||(st&&st.Element=="Silver"))&&defender.IsEvil())
-						WoundsInflicted=val
+						WoundsInflicted=val/defender.GetEnd()
 					else if(src.SwordWounds())
 						WoundsInflicted=val/clamp(defender.GetRecov(1.75)/(GetSwordDamage(s)), 1.5, 5)
 					else
@@ -683,9 +683,7 @@ mob
 			src.MaxHealth()
 			var/Absorb = passive_handler.Get("AbsorbingDamage")
 			var/Limit = passive_handler.Get("AbsorbLimit")
-			if(Absorb)
-				if(Absorb >= Limit+1)
-					return
+			if(Absorb < Limit)
 				passive_handler.Increase("AbsorbingDamage", val)
 				if(Absorb >= Limit)
 					passive_handler.Set("AbsorbingDamage", Limit)
@@ -1213,12 +1211,10 @@ mob
 						Mod+=0.5*src.BurningShot
 					else
 						Mod+=0.25*src.BurningShot
-				else
-					if(!src.HasDebuffImmune()>=1)
-						if(src.HasDebuffReversal())
-							Mod*=1 + Burn * (clamp(glob.DEBUFF_EFFECTIVENESS - 0.002, 0.001, 1))
-						else
-							Mod*=1 - Burn * (clamp(glob.DEBUFF_EFFECTIVENESS - 0.002, 0.001, 1))
+			if(src.Momentum)
+				if(Momentum>=glob.MAX_MOMENTUM_STACKS)
+					Momentum = glob.MAX_MOMENTUM_STACKS
+				Mod *= 1 + (src.Momentum * (glob.MOMENTUM_BASE_BOON * clamp(src.passive_handler.Get("Momentum"), 0.1, glob.MOMENTUM_MAX_BOON)))
 			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Broken Brave"))
 				if(src.Health<=25*(1-src.HealthCut))
 					Mod+=min(10/src.Health,1)
@@ -1447,7 +1443,7 @@ mob
 			if(src.Harden)
 				if(Harden>=glob.MAX_HARDEN)
 					Harden = glob.MAX_HARDEN
-				Mod*= 1 + (src.Harden * (glob.HARDENING_BASE* clamp(src.GetHardening(), 0.1, glob.MAX_HARDENING)))
+				Mod *= 1 + (src.Harden * (glob.HARDENING_BASE * clamp(src.GetHardening(), 0.1, glob.MAX_HARDENING)))
 			if(src.Shatter)
 				if(!src.HasDebuffImmune()>=1)
 					if(src.HasDebuffReversal())
@@ -2916,11 +2912,11 @@ mob
 
 			if(styles_available(1) && src.Potential>=5 && src.req_styles(0, 1))
 				DevelopSignature(src, 1, "Style")
-			if(styles_available(1) && src.Potential>=30 && src.req_styles(1, 1))
+			if(styles_available(1) && src.Potential>=20 && src.req_styles(1, 1))
 				DevelopSignature(src, 1, "Style")
-			if(styles_available(2) && src.Potential>=45 && src.req_styles(0, 2))
+			if(styles_available(2) && src.Potential>=30 && src.req_styles(0, 2))
 				DevelopSignature(src, 2, "Style")
-			if(styles_available(2) && src.Potential>=65 && src.req_styles(1, 2))
+			if(styles_available(2) && src.Potential>=55 && src.req_styles(1, 2))
 				DevelopSignature(src, 2, "Style")
 
 			if(src.req_pot(5) && src.req_sigs(0, 1))
@@ -2931,7 +2927,7 @@ mob
 			if(src.req_pot(15) && src.req_sigs(2, 1))
 				DevelopSignature(src, 1, "Signature")
 
-			if(src.req_pot(30) && src.req_sigs(0, 2))
+			if(src.req_pot(25) && src.req_sigs(0, 2))
 				DevelopSignature(src, 2, "Signature")
 			if(src.req_pot(30) && src.req_sigs(3, 1))
 				DevelopSignature(src, 1, "Signature")

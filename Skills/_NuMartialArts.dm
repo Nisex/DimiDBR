@@ -80,14 +80,21 @@ obj
 					Red_Cyclone_Style
 						SignatureTechnique=1
 						Copyable=0
-
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ubermensch_Style")
 						StyleStr=1.5
 						StyleEnd=1.5
 						passives = list("Muscle Power" = 2, "Grippy" = 4, "Scoop" = 2, "Iron Grip" = 1)
 						StyleActive="Red Cyclone"
 						Finisher="/obj/Skills/Queue/Finisher/Leg_Grab"
 
-
+					Ubermensch_Style
+						SignatureTechnique=2
+						Copyable=0
+						StyleEnd=1.5
+						StyleStr=1.5
+						passives = list("Muscle Power" = 4, "Grippy" = 5, "Scoop" = 2, "Iron Grip" = 1, "DeathField" = 3)
+						StyleActive="Ubermensch"
+						Finisher="/obj/Skills/Queue/Finisher/Command_Grab"
 
 
 					Murim_Style
@@ -103,10 +110,6 @@ obj
 						verb/Murim_Style()
 							set hidden=1
 							src.Trigger(usr)
-
-					Iron_Fist_Style
-
-
 
 					Turtle_Style
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Crane_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Gentle_Fist_Style",\
@@ -220,8 +223,8 @@ obj
 					Wushu_Style
 						SignatureTechnique=1
 						Copyable=0
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon")
-					//	"TBD"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Iron_Fist_Style")
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon", \
+						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Iron_Fist_Style")
 						StyleStr=1.25
 						StyleEnd=1.25
 						StyleOff=1.25
@@ -238,7 +241,7 @@ obj
 						// to stop runtimes
 						SignatureTechnique=2
 						Copyable=0
-						passives = list("Hardening" = 2, "Deflection" = 1, "UnarmedDamage" = 1.5, "CounterMaster" = 2, "Momentum" = 1, "Pressure" = 2)
+						passives = list("Hardening" = 1.5, "Deflection" = 1, "UnarmedDamage" = 1.5, "CounterMaster" = 1, "Momentum" = 1, "Pressure" = 2)
 						StyleStr=1.25
 						StyleEnd=1.5
 						StyleOff=1.25
@@ -248,6 +251,17 @@ obj
 							set hidden=1
 							src.Trigger(usr)
 
+					Iron_Fist_Style
+						passives = list("Deflection" = 2, "UnarmedDamage" = 2, "HardStyle" = 2, "HeavyHitter"= 0.5)
+						StyleStr=1.75
+						StyleOff=1.25
+						SignatureTechnique=2
+						Copyable=0
+						StyleActive="Iron Fist Style"
+						Finisher="/obj/Skills/Queue/Finisher/Chi_Punch"
+						verb/Divine_Arts_of_The_Heavenly_Demon_Style()
+							set hidden=1
+							src.Trigger(usr)
 					Black_Leg_Style
 						SignatureTechnique=1
 						Copyable=0
@@ -464,7 +478,7 @@ obj
 						ElementalClass=list("Fire", "Wind", "Earth", "Water")
 						StyleActive="Moonlight"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Entropy_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Atomic_Karate_Style")
-						passives = list("SpiritFlow" = 1, "SpiritHand" = 2)
+						passives = list("SpiritFlow" = 1, "SpiritHand" = 2, "Hardening" = 1, "StableBP" = 1)
 						NoStaff = 0
 						SpiritFlow=1
 						SpiritHand=1
@@ -515,7 +529,7 @@ obj
 						Copyable=0
 						StyleEnd=1.5
 						StyleSpd=1.5
-						passives = list("SoftStyle" = 2, "CyberStigma" = 4, "ManaSeal" = 4)
+						passives = list("SoftStyle" = 2, "CyberStigma" = 4, "SoulFire" = 4)
 						SoftStyle=2
 						CyberStigma=2
 						ManaSeal=2
@@ -594,7 +608,7 @@ obj
 						Copyable=0
 						StyleEnd=1.5
 						StyleSpd=1.5
-						passives = list("SoftStyle" = 3, "ManaSeal" = 3, "CyberStigma" = 3, "CounterMaster" = 3, "VoidField" = 10, "DeathField" = 10)
+						passives = list("SoftStyle" = 3, "SoulFire" = 3, "CyberStigma" = 3, "CounterMaster" = 3, "VoidField" = 10, "DeathField" = 10)
 						SoftStyle=3
 						ManaSeal=3
 						CyberStigma=3

@@ -340,7 +340,6 @@ obj
 				Rounds=10
 				TurfErupt=1.25
 				TurfEruptOffset=6
-
 				IgnoreAlreadyHit=1
 				ComboMaster=1
 				Stunner=2
@@ -357,6 +356,32 @@ obj
 				Cooldown=4
 				Earthshaking=45
 				
+			Chi_Punch
+				UnarmedOnly=1
+				Area="Circle"
+				StrOffense=2
+				Crushing=100
+				EnergySteal=15
+				DamageMult=4
+				ComboMaster=1
+				TurfDirt=1
+				Distance=5
+				Knockback=10
+				FlickAttack=1
+				ShockIcon='KenShockwave.dmi'
+				Shockwave=5
+				Shockwaves=1
+				PostShockwave=1
+				PreShockwave=0
+				Cooldown=4
+				WindUp=0.01
+				Earthshaking=20
+				Instinct=1
+				WindupMessage="channels Chi into their fist..."
+				ActiveMessage="slams their fist into their enemy!"
+				verb/Chi_Punch()
+					set category="Skills"
+					usr.Activate(src)
 
 			Explosive_Finish
 				StrOffense=1
@@ -6489,7 +6514,7 @@ obj
 								m.Immortal=0
 
 				var/damageDealt = src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
-				world<<"three | [damageDealt]"
+
 				if(!damageDealt)
 					damageDealt = 0
 

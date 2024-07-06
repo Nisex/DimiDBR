@@ -1,6 +1,6 @@
 #define GOLD_DRAGON_FORMULA 1000000
 #define GAJALAKA_MULT 1.2
-#define ROUND_DIVIDE(N,N2) round(N/N2)
+#define ROUND_DIVIDE(N,N2) round(N/N2,0.15)
 obj/Skills/Buffs
 	Cooldown=1
 /**
@@ -1283,7 +1283,7 @@ NEW VARIABLES
 							src.ForMult=2.25
 							src.OffMult=1.5
 							src.DefMult=1.3
-							passives = list("SpiritFlow" = 2, "SpiritStrike" = 2, "ManaSeal" = 2, "DrainlessMana" = 1, "CyberStigma" = 2)
+							passives = list("SpiritFlow" = 2, "SpiritStrike" = 2, "SoulFire" = 2, "DrainlessMana" = 1, "CyberStigma" = 2)
 							src.SpiritFlow=2
 							src.SpiritStrike=2
 							src.ManaSeal=2
@@ -1867,7 +1867,7 @@ NEW VARIABLES
 			SignatureTechnique=3
 			EnergyMult=2
 			UnrestrictedBuff=1
-			passives = list("Erosion" = 0.5, "ManaSeal" = 1, "SoulFire" = 1, "WeaponBreaker" = 2, "DeathField" = 5, "VoidField" = 5)
+			passives = list("Erosion" = 0.5, "SoulFire" = 1, "SoulFire" = 1, "WeaponBreaker" = 2, "DeathField" = 5, "VoidField" = 5)
 			Erosion=0.5
 			ManaSeal=1
 			SoulFire=1
@@ -2143,7 +2143,7 @@ NEW VARIABLES
 			EndMult=1.3
 			StrMult=1.2
 			SpdMult=1.2
-			passives = list("EnergyGeneration" = 0.3, "ManaGeneration" = 0.1, "ManaSeal" = 1, "PureDamage" = 1, "PureReduction" = 1, "LifeSteal" = 10)
+			passives = list("EnergyGeneration" = 0.3, "ManaGeneration" = 0.1, "SoulFire" = 1, "PureDamage" = 1, "PureReduction" = 1, "LifeSteal" = 10)
 			IconLock='SparkingBlastSparks.dmi'
 			IconLockBlend=2
 			OverlaySize=0.7
@@ -2161,7 +2161,7 @@ NEW VARIABLES
 				set category="Skills"
 				if(!usr.BuffOn(src))
 					if(!altered)
-						passives = list("EnergyGeneration" = 0.3, "ManaGeneration" = 0.1, "ManaSeal" = 1, "PureDamage" = 1, "PureReduction" = 1, "LifeSteal" = 10)
+						passives = list("EnergyGeneration" = 0.3, "ManaGeneration" = 0.1, "SoulFire" = 1, "PureDamage" = 1, "PureReduction" = 1, "LifeSteal" = 10)
 					if(!src.Using)
 						usr.Activate(new/obj/Skills/AutoHit/Knockoff_Wave)
 				if(Trigger(usr))
@@ -5050,21 +5050,15 @@ NEW VARIABLES
 							TimerLimit = 20 * usr.SagaLevel
 							ManaCost = usr.getUBWCost(0.5)
 							if(usr.EquippedSword()&&usr.EquippedStaff())
-								passives = list("SwordAscension" = usr.getAriaCount()/4, "StaffAscension" = usr.getAriaCount()/4)
-								src.SwordAscension=usr.getAriaCount()/4
-								src.StaffAscension=usr.getAriaCount()/4
+								passives = list("SwordAscension" = usr.getAriaCount()/8, "StaffAscension" = usr.getAriaCount()/8)
 								ActiveMessage="feeds mana into their sword and staff at once!"
 								OffMessage="cuts off the flow of mana to their weapons..."
 							else if(usr.EquippedSword())
-								passives = list("SwordAscension" = usr.getAriaCount()/2)
-								src.SwordAscension=usr.getAriaCount()/2
-								src.StaffAscension=0
+								passives = list("SwordAscension" = usr.getAriaCount()/4, "StaffAscension" = 0)
 								ActiveMessage="feeds mana into their sword to reinforce it!"
 								OffMessage="cuts off the flow of mana to their sword..."
 							else if(usr.EquippedStaff())
-								passives = list("StaffAscension" = usr.getAriaCount()/2)
-								src.SwordAscension=0
-								src.StaffAscension=usr.getAriaCount()/2
+								passives = list("StaffAscension" = usr.getAriaCount()/4,"SwordAscension" = 0)
 								ActiveMessage="feeds mana into their magic focus to reinforce it!"
 								OffMessage="stops focusing their mana flow..."
 							else
@@ -5137,6 +5131,8 @@ NEW VARIABLES
 							Cooldown = 30-usr.SagaLevel
 							PhysicalHitsLimit = max(1, usr.getAriaCount()/2)
 							SpiritHitsLimit = max(1, usr.getAriaCount()/2)
+							passives["ManaGeneration"] = 4
+							passives["PureDamage"] = 10/PhysicalHitsLimit
 					src.Trigger(usr)
 			Reinforce_Self
 				ElementalClass="Earth"
@@ -5158,10 +5154,9 @@ NEW VARIABLES
 						if(usr.Saga == "Unlimited Blade Works")
 							ManaCost = usr.getUBWCost(0.5)
 							passives = list("PureDamage" = 1 + max(1,usr.getAriaCount()/2), "PureReduction" = 1 + max(1,usr.getAriaCount()/2))
-							PureDamage = 1 + max(1,usr.getAriaCount()/2)
-							PureReduction = 1 + max(1,usr.getAriaCount()/2)
-							PhysicalHitsLimit = 10 + (usr.getAriaCount() * usr.SagaLevel)
-							TimerLimit = 20 * usr.SagaLevel
+							PhysicalHitsLimit = 1 + (usr.getAriaCount() * usr.SagaLevel)
+							SpiritHitsLimit = 1 + (usr.getAriaCount() * usr.SagaLevel)
+							TimerLimit = 15 * usr.SagaLevel
 						else
 							ManaCost = 15
 							var/magicLevel = usr.getTotalMagicLevel()
@@ -8480,7 +8475,7 @@ NEW VARIABLES
 						PureDamage = 4
 						Instinct = 4
 				TimerLimit = 60 * (clamp(1,usr.SagaLevel/2,4))
-				passives = list("PureDamage" = PureDamage, "CursedWounds" = CursedWounds, "SwordAscension" = SwordAscension, "Instinct" = Instinct)
+				passives = list("PureDamage" = PureDamage, "CursedWounds" = CursedWounds, "Instinct" = Instinct)
 				if(usr.UBWPath=="Feeble"&&usr.SagaLevel>=4)
 					src.VaizardHealth = 0.25*(max(1,usr.SagaLevel-4))
 					WoundCost = 5 - (max(1,usr.SagaLevel-4))
@@ -8581,7 +8576,7 @@ NEW VARIABLES
 						DoubleStrike = 2
 					if(7 to 9)
 						DoubleStrike = 3
-				passives = list("SwordAscension" = SwordAscension, "DoubleStrike" = DoubleStrike, "Flow" = Flow, "Deflection" = Deflection)
+				passives = list("DoubleStrike" = DoubleStrike, "Flow" = Flow, "Deflection" = Deflection)
 				if(usr.UBWPath=="Feeble"&&usr.SagaLevel>=4)
 					src.VaizardHealth = 0.25*(max(1,usr.SagaLevel-4))
 					WoundCost = 5 - (max(1,usr.SagaLevel-4))
@@ -8683,7 +8678,7 @@ NEW VARIABLES
 						BulletKill = 1
 						ManaSeal = 4
 						SoftStyle = 5
-				passives = list("SwordAscension" = SwordAscension, "BulletKill" = BulletKill, "ManaSeal" = ManaSeal, "SoftStyle" = SoftStyle)
+				passives = list("BulletKill" = BulletKill, "SoulFire" = ManaSeal, "SoftStyle" = SoftStyle)
 				if(usr.UBWPath=="Feeble"&&usr.SagaLevel>=4)
 					src.VaizardHealth = 0.25*(max(1,usr.SagaLevel-4))
 					WoundCost = 5 - (max(1,usr.SagaLevel-4))
@@ -9462,6 +9457,14 @@ NEW VARIABLES
 						StrMult = 1.5
 						EndMult = 1.5
 						passives = list("Muscle Power" = 2, "TechniqueMastery" = 3, "Juggernaut"= 2, "KBRes"= 2, "TensionLock" = 1)
+					Potemkin_Buster
+						StyleNeeded = "Ubermensch"
+						VaizardHealth = 0.3
+						DefMult = 0.75
+						SpdMult = 0.75
+						StrMult = 1.5
+						EndMult = 1.5
+						passives = list("Muscle Power" = 1, "TechniqueMastery" = 5, "DeathField" = 7, "Juggernaut"= 5, "KBRes"= 5, "TensionLock" = 1)
 					Turtle_Martial_Mastery
 						StyleNeeded="Turtle"
 						StrMult=1.1
@@ -9501,12 +9504,23 @@ NEW VARIABLES
 						StrMult=1.25
 						OffMult=1.25
 						EndMult=1.5
-						passives = list("Juggernaut" = 1, "Deflection" = 0.5, "WeaponBreaker" = 2, "Disorienting" = 2, "CallousedHands" = 0.3)
+						passives = list("Juggernaut" = 1, "Deflection" = 0.5, "WeaponBreaker" = 2, "Disorienting" = 2,"Momentum" = 1, "CallousedHands" = 0.3)
 						ActiveMessage="achieves the peak of their breakthrough..."
 						OffMessage="comes back down to mortal level..."
 					Emergent_Demon_Breakthrough
-						
-					
+						StyleNeeded="Divine Arts of The Heavenly Demon"
+						passives = list("Hardening" = 1.5, "Deflection" = 2, "UnarmedDamage" = 2, "CounterMaster" = 10, "Momentum" = 2, "CallousedHands" = 0.6)
+						StrMult=1.5
+						SpdMult=1.5
+						ActiveMessage="presses on the cusp of the Ultimate Heavenly Demon Realm!"
+						OffMessage="fails their tribulation..."
+					Chi_Augmentation
+						StyleNeeded="Iron Fist Style"
+						passives = list("Godspeed" = 3, "UnarmedDamage" = 2, "StunningStrike" = 3, "CallousedHands" = 1, "HardenedFrame" = 1, "EnergySteal" = 100)
+						EndMult=1.5
+						OffMult=1.5
+						ActiveMessage="channels Chi through their very body!"
+						OffMessage="relinquishes their chi absorption..."
 					Ki_Flow_Mastery
 						StyleNeeded="Gentle Fist"
 						ForMult=1.5
@@ -9537,7 +9551,7 @@ NEW VARIABLES
 
 					Rush_Mastery
 						StyleNeeded="Lightning Kickboxing"
-						passives = list("TensionLock" = 1, "MovementMastery" = 10, "Flicker" = 3, "PureDamage" = 0.5, "Flow" = 2, "CounterMaster" = 10, "Deflection" = 2)
+						passives = list("TensionLock" = 1, "MovementMastery" = 3, "Flicker" = 3, "PureDamage" = 0.5, "Flow" = 2, "CounterMaster" = 10, "Deflection" = 2)
 						ForMult=1.5
 						SpdMult=1.5
 						OffMult=1.25
@@ -9551,7 +9565,7 @@ NEW VARIABLES
 						ForMult=1.5
 						SpdMult=1.25
 						EndMult=1.25
-						passives = list("TensionLock" = 1, "SoftStyle" = 3, "MovementMastery" = 5, "PureDamage" = 1, "Flow" = 2, "Deflection" = 2)
+						passives = list("TensionLock" = 1, "SoftStyle" = 3, "MovementMastery" = 3, "PureDamage" = 1, "Flow" = 2, "Deflection" = 2)
 						ActiveMessage="stumbles around drunkenly..."
 						OffMessage="resumes normal motion..."
 
@@ -9570,7 +9584,7 @@ NEW VARIABLES
 						ManaGlow="#c66"
 						ManaGlowSize=2
 						StrMult=1.25
-						EndMult=1.35
+						EndMult=1.25
 						ForMult=1.25
 						DefMult=1.25
 						ElementalOffense="Dark"
@@ -9582,9 +9596,9 @@ NEW VARIABLES
 						StyleNeeded="Moonlight"
 						ManaGlow="#66c"
 						ManaGlowSize=2
-						passives = list("TensionLock" = 1, "LifeSteal" = 25, "EnergySteal" = 25, "ManaSeal" = 1, "SoulFire" = 0.5)
-						StrMult=1.25
-						ForMult=1.25
+						passives = list("TensionLock" = 1, "LifeSteal" = 25, "EnergySteal" = 25, "SoulFire" = 1.5)
+						StrMult=1.5
+						ForMult=1.5
 						ElementalOffense="Water"
 						ElementalDefense="Void"
 						ActiveMessage="draws command over their foe's energy!"

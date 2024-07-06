@@ -202,6 +202,19 @@ obj
 					GrabTrigger="/obj/Skills/Grapple/Giant_Swing"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Iron_Muscle"
 					HitMessage="grabs hold of their enemy!"
+				Command_Grab
+					Instinct=2
+					Grapple=1
+					KBMult=0.001
+					SweepStrike=2
+					Crushing = 20
+					DamageMult = 4
+					UnarmedOnly=1
+					GrabTrigger="/obj/Skills/Grapple/Heavenly_Potemkin_Buster"
+					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Potemkin_Buster"
+					HitMessage="grabs hold of their enemy!"
+
+
 				Heavenly_Storm_Dragon_Emergence
 					Warp = 10
 					Bolt = 1
@@ -247,6 +260,10 @@ obj
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragons_Transient_Enlightenment"
 					HitMessage="Summons the boundless might of their martial arts, entering into a breakthrough by pure technique alone. Roars that turn into unstoppable torrent of energy erupt from their body while it soars through the battlefield, unleashing a symphony of cataclysmic destruction paired with ethereal grace. They have unlocked the ultimate testament to the Heavenly Dragon Stance, a dance of power and honor that surpasses the mortal plane, from the divine heights of the quasi-god realm, they descend as the Heavenly Dragon. Harnessing the boundless force of the Nine converging Realms, they unleash a relentless storm of peerless strength, devastating the battle field."
 
+				
+
+
+
 				Divine_Finisher
 					name = "Heavenly Demon's Radiant Divine Palm that Shatters the Nine Heavens and Illuminates the Eternal Night"
 					Warp = 10
@@ -263,6 +280,13 @@ obj
 					FollowUp="/obj/Skills/AutoHit/The_Heavenly_Demons_Fist_That_Cleaves_Through_Heaven_And_Divides_The_Sea"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Emergent_Demon_Breakthrough"
 					
+				Chi_Punch
+					Warp = 4
+					DamageMult=1
+					Launcher=7
+					KBAdd = 0.01
+					FollowUp="/obj/Skills/AutoHit/Chi_Punch"
+					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Chi_Augmentation"
 
 				Iron_Fortress
 					Shattering=20

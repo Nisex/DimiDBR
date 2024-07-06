@@ -1034,7 +1034,7 @@ mob
 			Return+=passive_handler.Get("TechniqueMastery")
 			if(isRace(HUMAN) && passive_handler.Get("Innovation") && StyleBuff)
 				if(StyleBuff.SignatureTechnique>=1)
-					Return += StyleBuff.SignatureTechnique * 0.5
+					Return += StyleBuff.SignatureTechnique * 0.25
 			if(UsingMasteredMartialStyle())
 				Return += 0.5
 			if(Target)
@@ -1042,6 +1042,9 @@ mob
 					Return += AscensionsAcquired-2
 			if(src.TarotFate=="The World")
 				Return+=5
+			if(Target)
+				if(Target.passive_handler.Get("Pressure"))
+					Return -= Target.passive_handler.Get("Pressure")
 			return Return
 		HasUnarmedDamage()
 			if(passive_handler.Get("UnarmedDamage"))
@@ -2306,8 +2309,10 @@ mob
 				return 1
 			return 0
 		Afterimages()
+			if(passive_handler.Get("Afterimages"))
+				return passive_handler.Get("Afterimages")
 			if(src.Afterimages)
-				return 1
+				return Afterimages
 			return 0
 
 		KBFreeze()

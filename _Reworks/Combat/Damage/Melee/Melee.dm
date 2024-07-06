@@ -663,15 +663,7 @@
 							log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 							#endif
 							DoDamage(enemy, damage, unarmedAtk, swordAtk, SecondStrike, ThirdStrike)
-							if(passive_handler.Get("Mortal Will"))
-								passive_handler.Increase("MortalStacks")
-								if(passive_handler.Get("MortalStacks") >= 6)
-									passive_handler.Set("MortalStacks", 1)
-									if(!locate(/obj/Skills/Projectile/Comet_Spear, src))
-										src.AddSkill(new/obj/Skills/Projectile/Comet_Spear)
-									for(var/obj/Skills/Projectile/Comet_Spear/cp in src)
-										cp.adjust(src)
-										src.UseProjectile(cp)
+							handlePostDamage()
 
 				// 										MELEE END																	 //
 							var/shocked=0
@@ -910,3 +902,19 @@
 						NextAttack += 10
 				NextAttack+=15
 			return
+
+/mob/var/Momentum = 0
+/mob/proc/handlePostDamage()
+	if(passive_handler.Get("Mortal Will"))
+		passive_handler.Increase("MortalStacks")
+		if(passive_handler.Get("MortalStacks") >= 6)
+			passive_handler.Set("MortalStacks", 1)
+			if(!locate(/obj/Skills/Projectile/Comet_Spear, src))
+				src.AddSkill(new/obj/Skills/Projectile/Comet_Spear)
+			for(var/obj/Skills/Projectile/Comet_Spear/cp in src)
+				cp.adjust(src)
+				src.UseProjectile(cp)
+	var/momentum = passive_handler.Get("Momentum")
+	if(momentum)
+		if(prob(glob.BASE_MOMENTUM_CHANCE * momentum))
+			Momentum = clamp( Momentum + momentum/glob.MOMENTUM_DIVISOR, 0 , glob.MAX_MOMENTUM_STACKS)

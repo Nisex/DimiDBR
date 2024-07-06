@@ -1,3 +1,4 @@
+/mob/var/in_grapple
 proc
 	LeaveImage(var/mob/Players/User=0, var/Image, var/PX=0, var/PY=0, var/PZ=0, var/Size=1, var/Under=0, var/Time, var/turf/AltLoc=0, var/Dir=SOUTH)
 		var/image/i
@@ -124,65 +125,6 @@ proc
 			sleep(FloatTime*10)
 		animate(User,pixel_z=-48,time=DownTime, easing=QUAD_EASING, flags=ANIMATION_END_NOW | ANIMATION_RELATIVE)
 
-	// LaunchEffect(var/mob/User, var/mob/Target, var/TimeMod=1, var/Delay=0) //LAUNCH BOOOOX
-	// 	if(Target.ContinuousAttacking)
-	// 		for(var/obj/Skills/Projectile/p in Target.contents)
-	// 			if(p.ContinuousOn && !p.StormFall)
-	// 				Target.UseProjectile(p)
-	// 			continue
-	// 	if(Delay)
-	// 		sleep(Delay)
-	// 		User.Frozen=0
-	// 		User.NextAttack=0
-	// 		flick("Attack",User)
-	// 		KenShockwave(Target,Size=1)
-
-
-	// 	if(Target.Grounded)
-	// 		Target.Grounded--
-	// 		if(Target.Grounded<0)
-	// 			Target.Grounded=0
-	// 		User.Frozen=0
-	// 		Target.Frozen=0
-	// 		User << "<b>[Target] stands their ground!</b>"
-	// 		Target << "<b>You stands your ground!</b>"
-	// 		return
-	// 	// stand ground check
-
-	// 	Target.Frozen=1
-	// 	if(Target.Launched>0 && Target.startOfLaunch + MAX_LAUNCH_TIME < world.time)
-	// 		Target.Launched+=max(2,2 * TimeMod/2)
-	// 		if(Target.Launched >= 30) Target.Launched=30
-	// 		return
-	// 	else
-	// 		Target.startOfLaunch = world.time
-	// 		Target.Launched+=20 * TimeMod
-	// 	var/NewZ=Target.pixel_z
-	// 	Target.ForceCancelBeam()
-	// 	Target.ForceCancelBuster()
-	// 	while(Target.Launched>0)
-	// 		if(Target.Launched>15)
-	// 			animate(Target,pixel_z=min(NewZ+2,16),icon_state="KB", easing=SINE_EASING, time=1)
-	// 			NewZ=Target.pixel_z
-	// 			Target.Launched-=1
-	// 		else
-	// 			Target.Launched-=2
-	// 		animate(Target,pixel_z=max(NewZ-2,0),icon_state="KB", easing=SINE_EASING, time=1)
-	// 		NewZ=Target.pixel_z
-	// 		sleep(1)
-	// 	LaunchLand(Target)
-	// LaunchLand(var/mob/Target)
-	// 	Target.Frozen=0
-	// 	Target.Launched=0
-	// 	Target.Grounded++
-	// 	if(Target.Juggernaut||Target.LegendaryPower > 0.25)
-	// 		if(Target.Juggernaut>1)
-	// 			Target.Grounded+=(Target.Juggernaut-1)
-	// 		Target.Grounded++
-	// 	animate(Target,pixel_z=0, time=3, easing=SINE_EASING, flags=ANIMATION_END_NOW)
-	// 	if(!Target.KO&&!Target.Knockback)
-	// 		Target.icon_state=""
-
 	SuplexEffect(var/mob/User, var/mob/Target) //MATTHEEEEEEEEW
 		User.Frozen=2
 		Target.Frozen=2
@@ -199,9 +141,6 @@ proc
 		animate(Target, transform= turn(Target.transform, 135), flags=ANIMATION_PARALLEL)
 		User.Frozen=0
 		Target.Frozen=0
-
-
-		
 
 	RozanEffect(var/mob/User, var/mob/Target, var/TimeMod=1)
 		set waitfor=0
@@ -330,6 +269,40 @@ proc
 		step(t,WEST)
 		sleep(fallTime)
 		t.transform=turn(t.transform, 90)
+		t.Frozen=0
+		p.Frozen=0
+
+
+	PotemkinBusterEffect(mob/p, mob/t, TimeMod=1)
+		p.loc = t.loc
+		p.dir = EAST
+		t.dir = WEST
+		p.Frozen = 2
+		t.Frozen = 2
+		var/matrix/ogTrans = t.transform
+		animate(t, pixel_z=8, time = 5)
+		animate(t, transform=turn(t.transform,90), time=5,flags=ANIMATION_LINEAR_TRANSFORM)
+		sleep(5)
+		animate(t,pixel_z=t.pixel_z +(4*TimeMod*20),time=5)
+		animate(p,pixel_z=4*TimeMod*20,time=5)
+		sleep(5)
+		var/fallTime = TimeMod*3
+		KenShockwave(p,icon='KenShockwaveGold.dmi',Size=5, Blend=2,  Time=fallTime*3)
+		KenShockwave(p,icon='KenShockwaveGold.dmi',Size=3, Blend=2,  Time=fallTime*2)
+		KenShockwave(p,icon='KenShockwaveGold.dmi',Size=2, Blend=2,  Time=fallTime*1.5)
+		KenShockwave(p,icon='KenShockwaveGold.dmi',Size=1, Blend=2,  Time=fallTime)
+		KenShockwave(p,icon='KenShockwaveGold.dmi',Size=0.5, Blend=2, Time=fallTime*0.5)
+		sleep(3)
+		animate(t, pixel_z=8, time = fallTime,flags=ANIMATION_END_NOW)
+		animate(p, pixel_z=0, time = fallTime,flags=ANIMATION_END_NOW)
+		sleep(fallTime)
+		Dust(t.loc,2)
+		Bang(t.loc, Size = 3, Vanish = 4)
+		spawn()Crater(t,TimeMod/2)
+		animate(t, transform=t.transform.Turn(-90), time=TimeMod/2,flags=ANIMATION_END_NOW||ANIMATION_LINEAR_TRANSFORM||ANIMATION_PARALLEL)
+		animate(t, pixel_z=0, time=TimeMod/2,flags=ANIMATION_LINEAR_TRANSFORM||ANIMATION_PARALLEL)
+		sleep(fallTime)
+		t.transform=ogTrans
 		t.Frozen=0
 		p.Frozen=0
 

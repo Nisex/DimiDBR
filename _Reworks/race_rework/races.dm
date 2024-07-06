@@ -238,7 +238,7 @@ race
 		desc = "Humans are stubborn, steadfast survivors crafted from the God of Truth's dying breath."
 		visual = 'Humans.png'
 
-		passives = list("Desperation" = 1, "Adrenaline" = 0.5, "TechniqueMastery" = 2, "Underdog" = 1, "Innovation" = 1)
+		passives = list("Desperation" = 1, "Adrenaline" = 0.5, "TechniqueMastery" = 2,"Innovation" = 1)
 		power = 1
 		strength = 1
 		endurance = 1
@@ -247,7 +247,7 @@ race
 		defense = 1.25
 		speed = 1
 		anger = 1.5
-		learning = 1.5
+		learning = 1.15
 
 
 	half_saiyan

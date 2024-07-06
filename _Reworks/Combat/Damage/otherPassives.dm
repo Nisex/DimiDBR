@@ -1,9 +1,19 @@
+/globalTracker/var/BASE_HARDENING_CHANCE = 20
+/globalTracker/var/BASE_MOMENTUM_CHANCE = 20
+/globalTracker/var/MAX_MOMENTUM_STACKS = 20
+/globalTracker/var/MOMENTUM_DIVISOR = 4
+
+/globalTracker/var/MOMENTUM_BASE_BOON = 0.005
+/globalTracker/var/MOMENTUM_MAX_BOON = 4
+
+
+
 /mob/proc/applySoftCC(mob/defender, val)
     if(defender.HasHardening())
-        if(prob(20 * defender.GetHardening()))
+        if(prob(glob.BASE_HARDENING_CHANCE * defender.GetHardening()))
             defender.Harden = clamp(defender.Harden + defender.GetHardening()/4, 0, 20)
     if(HasHardening())
-        if(prob(20 * GetHardening()))
+        if(prob(glob.BASE_HARDENING_CHANCE * GetHardening()))
             Harden = clamp(Harden + GetHardening()/4, 0, 20)
     if(HasDisorienting())
         if(prob(GetDisorienting()*25))

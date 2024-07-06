@@ -113,6 +113,14 @@ obj/Skills/Grapple
 		Effect="MuscleBuster"
 		TriggerMessage = "starts spinning"
 
+	Heavenly_Potemkin_Buster
+		DamageMult = 12
+		StrRate=1
+		OneAndDone = 1
+		EffectMult=3
+		Effect="PotemkinBuster"
+
+
 	Lotus_Drop
 		DamageMult=5
 		StrRate=1
@@ -229,7 +237,7 @@ obj/Skills/Grapple
 				EffectMult=0.5
 				Stunner=5
 				OneAndDone=1
-				StrRate=1.25
+				StrRate=1
 				DamageMult = 3.3 + (p.Potential / 25)
 			else
 				Effect="Suplex"
@@ -568,6 +576,8 @@ obj/Skills/Grapple
 								LotusEffect(User, Trg, src.EffectMult)
 							if("MuscleBuster")
 								MuscleBusterEffect(User, Trg, src.EffectMult)
+							if("PotemkinBuster")
+								PotemkinBusterEffect(User, Trg, EffectMult)
 							if("Suplex")
 								SuplexEffect(User, Trg)
 							if("SuperSuplex")
