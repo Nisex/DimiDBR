@@ -44,10 +44,15 @@
             return TRUE
         return FALSE
     adjust(mob/p)
-        StrMult = 1
-        ForMult = 1
-        EndMult = 1
-        SpdMult = 1
+        switch(selection)
+            if("Sword")
+                passives["SwordAscension"] = p.AscensionsAcquired + 1
+            if("Staff")
+                passives["StaffAscension"] = p.AscensionsAcquired + 1
+            if("Armor")
+                passives["ArmorAscension"] = p.AscensionsAcquired + 1
+            if("Unarmed")
+                passives["UnarmedDamage"] = p.AscensionsAcquired + 1
         ElementalOffense = "HellFire"
     verb/Devil_Arm()
         set category = "Skills"
@@ -88,7 +93,7 @@
             secondDevilArmPick = input(p, "What thing?") in list("Staff", "Sword", "Unarmed","Armor") - selection
             select = secondDevilArmPick
         else
-            selection = input(p, "What thing?") in list("Staff", "Sword", "Unarmed","Armor")
+            selection = input(p, "What thing?") in list("Staff", "Sword", "Unarmed")
             select = selection
         if(select != "Unarmed")
             vars["Makes[select]"] = 1

@@ -7,7 +7,7 @@ obj/Skills/Buffs/SlotlessBuffs/Blessed_Guard
 	CooldownStatic = 1
 	adjust(mob/p)
 		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: Blessed Blade")
-			passives = list("PureDamage"=-2, "ManaSeal" = 1, "DebuffImmune" = 1)
+			passives = list("PureDamage"=-2, "SoulFire" = 1, "DebuffImmune" = 1)
 		else
 			passives = list("PureDamage"=-2)
 	verb/Blessed_Guard()

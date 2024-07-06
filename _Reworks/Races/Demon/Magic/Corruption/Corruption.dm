@@ -114,8 +114,8 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self
 	Cooldown = -1
-	scalingValues = list("ManaGeneration" = list(1,1.5,2,2,4,5), \
-	"MovementMastery" = list(2,3,5,5,8), "Godspeed" = list(1,2,3,4,5), "Adrenaline" = list(1,2,2,3,3,3), "IdealStrike" = list(1,1,1,1,1,1), \
+	scalingValues = list("HealthGeneration" = list(1,1.5,2,2,4,5), "DebuffImmune" = list(0.25,0.5,0.75,1,1,1), \
+	"TechniqueMastery" = list(2,3,5,5,8), "Godspeed" = list(1,2,3,4,5), "Adrenaline" = list(1,2,2,3,3,3), "IdealStrike" = list(1,1,1,1,1,1), \
 	"FullyEffecient" = list(1,1,1,1,1,1), "CoolerAfterImages" = list(3,4,4,4,4,4), "CorruptAffected" = list(1,1,1,1,1,1))
 	AutoAnger = 1
 	HealthThreshold = 0.1
@@ -131,9 +131,11 @@
 	ManaGlow="#472951"
 	ManaGlowSize=2
 	CorruptionCost = 75
+	var/enableAfterimages
 	adjust(mob/p)
 		SpdMult = 1
 		EndMult = 1
+		passives = list()
 		scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self::scalingValues
 		var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/)
 		var/asc = p.AscensionsAcquired ? p.AscensionsAcquired + 1 : 1
@@ -146,12 +148,14 @@
 			passives[x] = scalingValues[x][asc]
 		if(p.GetSpd() > p.GetEnd())
 			passives["BlurringStrikes"] = asc
-			SpdMult = 1 + boon
+			SpdMult = 1.1 + boon
 		else
 			passives["CallousedHands"] = asc/5
-			EndMult = 1 + boon
-		PowerMult = 1 + boon
+			EndMult = 1.1 + boon
+		PowerMult = 1.05 + boon
 		TimerLimit = 60 + (pacts * 15) + (asc * 15)
+		if(!enableAfterimages)
+			passives["CoolerAfterImages"] = 0
 		// put it on cd
 	verb/Adjust_Name()
 		set category = "Utility"

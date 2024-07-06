@@ -105,7 +105,7 @@ proc
 globalTracker/var/SPEED_DELAY = 4
 globalTracker/var/GOD_SPEED_MULT = 0.25
 globalTracker/var/TOTAL_SPEED_BONUS = 1
-
+globalTracker/var/SPEED_DELAY_LOWEST = 2
 mob/proc/MovementSpeed()
 	var/Spd=max(0.1,round(sqrt(src.GetSpd(glob.TOTAL_SPEED_BONUS)),0.1))
 	var/SpdMult = 0
@@ -138,10 +138,10 @@ mob/proc/MovementSpeed()
 				Delay*=CombatSlow
 		if(Delay>49)
 			Delay=50
-		if(Delay<4)
-			Delay=3
+		if(Delay<glob.SPEED_DELAY_LOWEST)
+			Delay=glob.SPEED_DELAY_LOWEST
 	if(src.Afterimages())
-		if(prob(40))
+		if(prob(40*Afterimages()))
 			FlashImage(src)
 	if(Swim)
 		if(passive_handler.Get("Fishman"))

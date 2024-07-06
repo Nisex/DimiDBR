@@ -1337,7 +1337,7 @@ ascension
 						//power = 3.5
 						force = 1
 						recovery = 1
-						passives = list("ManaSeal" = 1, "CyberMenace" = 1, "HybridStrike" = 0.5)
+						passives = list("SoulFire" = 1, "CyberMenace" = 1, "HybridStrike" = 0.5)
 				..()
 	changeling
 		one

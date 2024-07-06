@@ -14,11 +14,12 @@
         "SpiritHand": [1, 4],
         "CallousedHands": [0.15, 1],
         "BlurringStrikes": [0.5, 4],
-        "HardenedFrame": [1, 1]
+        "Momentum": [0.5, 4]
     },
     "UNARMED_PASSIVES_II": {
-        "HybridStrike": [1, 4],
-        "LifeSteal": [5, 25]
+        "LifeSteal": [5, 25],
+        "HardenedFrame": [1, 1],
+        "ComboMaster": [1, 1]
     },
     "UNARMED_PASSIVES_III": {
         "SpiritStrike": [1, 1]
@@ -28,7 +29,7 @@
     },
     "STAFF_PASSIVES_II": {
         "MovingCharge": [1, 1],
-        "Soulfire": [0.25, 1],
+        "Soulfire": [0.5, 4],
         "Siphon": [1, 5],
         "ManaSteal": [5, 25]
     },
@@ -38,12 +39,11 @@
         "SpiritFlow": [0.5, 2]
     },
     "STAFF_PASSIVES_IV": {
-        "DualCast": [1, 2],
-        "ManaSeal": [0, 0]
+        "DualCast": [1, 2]
     },
     "ARMOR_PASSIVES_I": {
         "Juggernaut": [0.25, 4],
-        "DebuffImmune": [0.25, 4],
+        "DebuffImmune": [0.25, 2],
         "Hardening": [0.5, 5],
         "CallousedHands": [0.15, 1]
     },
@@ -81,6 +81,9 @@
         "Duelist": [0.5, 2],
         "SweepingStrike": [1, 1],
         "TechniqueMastery": [1, 5],
+        "Pressure": [1, 5],
+        "HybridStrike": [1, 4],
+        "WeaponBreaker": [1, 5],
         "HardStyle": [1, 2],
         "SoftStyle": [1, 2],
         "CashCow": [1, 5],
@@ -93,11 +96,15 @@
         "BulletKill": [1, 1],
         "EnergyGeneration": [0.1, 4],
         "Adaptation": [1, 1],
-        "CriticalChance": [10, 100]
+        "CriticalChance": [10, 100],
+        "FluidForm": [0.5, 2],
+        "Brutalize": [0.25, 5],
+        "Desperation": [1, 6]
     },
     "GENERIC_PASSIVES_IV": {
         "Deicide": [1, 5],
-        "KillerInstinct": [0.1, 1]
+        "KillerInstinct": [0.1, 1],
+        "BurningShot": [1, 1]
     },
     "CORRUPTION_PASSIVES_I": {
         "Instinct": [1, 10],
@@ -121,8 +128,8 @@
         "DarknessFlame": [3, 15],
         "SoulFire": [0.25, 1],
         "Brutalize": [1, 5],
-        "Desperation": [1, 10]
-
+        "Desperation": [1, 5],
+        "MovementMastery": [1, 5]
     },
     "CORRUPTION_PASSIVES_IV": {
 

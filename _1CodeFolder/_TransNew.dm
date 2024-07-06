@@ -1387,7 +1387,7 @@ mob/proc/WeaponSoul() // OverSoul Mechanic
 			if("Moonlight Greatsword")
 				src.ElementalOffense="Water"
 				passive_handler.Increase("CyberStigma", 6)
-				passive_handler.Increase("ManaSeal", 6)
+				passive_handler.Increase("SoulFire", 6)
 				passive_handler.Increase("SpiritPower", 5)
 				src.CyberStigma+=6
 				src.ManaSeal+=6
