@@ -648,6 +648,7 @@ obj
 				NoAttackLock=1
 				Distance=10
 				Instinct=4
+				Size=2
 				DamageMult=12
 				StrOffense=1
 				EndDefense=1
@@ -1542,12 +1543,12 @@ obj
 				ActiveMessage="spins like a top, crushing anyone caught in their range!"
 				adjust(mob/p)
 					if(p.isInnovative(HUMAN, "Unarmed"))
-						Size=4
+						Size = 4
 						Rounds= 10 + (p.Potential/10)
 						DamageMult = 1 + (p.Potential/100)
-						PullIn = 4
+						PullIn = 6
 					else
-						Size=2
+						Size = 2
 						Rounds= 20
 						DamageMult = 0.55
 						PullIn = 0
@@ -1597,6 +1598,12 @@ obj
 				Cooldown=120
 				verb/Hyper_Crash()
 					set category="Skills"
+					adjust(mob/p)
+						if(p.isInnovative(HUMAN, "Unarmed"))
+
+
+
+
 					usr.Activate(src)
 			Dropkick_Surprise
 				SkillCost=160

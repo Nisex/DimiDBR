@@ -1102,7 +1102,7 @@ mob
 				return 1
 			return 0
 		GetAutoReversal()
-			return passive_handler.Get("Reversal") / 10
+			return passive_handler.Get("Reversal")
 		HasAttracting()
 			if(passive_handler.Get("Attracting"))
 				return 1

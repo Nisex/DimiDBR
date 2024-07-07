@@ -415,6 +415,17 @@ update
 					AdminMessage("[p] had over valued spiritsword on their devil arm")
 			
 			..()
+	version32
+		version = 32
+		updateMob(mob/p)
+			var/obj/Skills/Buffs/SlotlessBuffs/style = p.FindSkill(/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style/)
+			if(style)
+				if(p.BuffOn(style))
+					style.Trigger(p, 1)
+				passives = list("Hardening" = 1, "Deflection" = 0.5, "UnarmedDamage" = 1, "CounterMaster" = 1, "Momentum" = 0.5, "Pressure" = 1)
+			
+			
+			..()
 
 /mob/Admin4/verb/whoops()
 	var/listofchanges = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fortunate_Fate/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Disoriented/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Broken_Bones/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Ineffective_Fate/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Shattered/)

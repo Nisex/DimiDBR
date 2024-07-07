@@ -169,7 +169,7 @@ mob/proc/Void(override, zombie, forceVoid, extraChance,extraRolls)
 			actuallyDead = 0
 			src<<"You get past it all"
 			OMessage(0,"","<font color=red>[src] is zombie'd out")
-			// OMSg(src, "[src] stands right back up, as if nothing happened.")
+			OMSg(src, "[src] stands right back up, as if nothing happened.")
 			return
 		else
 			actuallyDead = 1

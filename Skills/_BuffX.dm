@@ -1164,7 +1164,7 @@ NEW VARIABLES
 								passives = list("AbyssMod" = usr.SagaLevel, "SpiritSword" = 0.25, "Instinct" = max(1, usr.SagaLevel/3), "Pursuer" = max(1,usr.SagaLevel/2),"PULock" = 1)
 								if(!redacted)
 									src.SwordName="Caledfwlch"
-									src.SwordIcon='Caledfwlch-Morgan.dmi'
+									src.SwordIcon='Caledfwlch Morgan.dmi'
 									src.ActiveMessage="calls forth the true form of Caledfwlch Morgan, the Shadow Sword of Glory!"
 									src.OffMessage="conceals Caledfwlch's glory..."
 								else
@@ -1973,7 +1973,7 @@ NEW VARIABLES
 							src.TooMuchHealth=null
 						if(Mastery >= 3)
 							AutoAnger=0
-							passives = list("Maki" = 1, "Curse" = 1, "LifeGeneration" = 2.5, "Deflection" = 2, "Reversal" = Mastery/4,"CalmAnger" = 1)
+							passives = list("Maki" = 1, "Curse" = 1, "LifeGeneration" = 2.5, "Deflection" = 2, "Reversal" = Mastery/5,"CalmAnger" = 1)
 							CalmAnger=1
 						else
 							AutoAnger=1
@@ -4451,6 +4451,7 @@ NEW VARIABLES
 			PridefulRage=1
 			TextColor=rgb(230, 230, 100)
 			Cooldown=300
+			NeedsHealth = 75
 			StrTax=0.1
 			SpdTax=0.05
 			EndTax=0.1
@@ -4459,6 +4460,7 @@ NEW VARIABLES
 			adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired
 				EnergyThreshold = 25-(5*zenkaiLevel)
+				TimerLimit = 50 + (5 * zenkaiLevel)
 				var/healthDiff = 0
 				//scales off how bad your losing
 				if(user.Target && ismob(user.Target))
@@ -9972,7 +9974,7 @@ NEW VARIABLES
 
 					//t2 sig styles
 					Mortal_Will
-						passives= list("Mortal Will" = 1, "MortalStacks" = 1, "CallousedHands" = 0.45, "StunningStrike" = 3, "ComboMaster" = 1, "Deflection" = 1, "Reversal" = 2.5 )
+						passives= list("Mortal Will" = 1, "MortalStacks" = 1, "CallousedHands" = 0.45, "StunningStrike" = 3, "ComboMaster" = 1, "Deflection" = 1, "Reversal" = 0.25 )
 						ActiveMessage = "channels the will of a Phalanx!"
 						OffMessage = "falls out of flow..."
 					Trinity_Mastery

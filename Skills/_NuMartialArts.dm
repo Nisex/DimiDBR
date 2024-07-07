@@ -808,7 +808,7 @@ obj
 						StyleStr=1.25
 						StyleEnd=1.5
 						StyleActive="Phalanx Style"
-						passives = list("Reversal" = 2.5, "Deflection" = 1, "Hardening" = 1.5, "SwordPunching" = 1, "Shearing" = 3)
+						passives = list("Reversal" = 0.25, "Deflection" = 1, "Hardening" = 1.5, "SwordPunching" = 1, "Shearing" = 3)
 						Finisher="/obj/Skills/Queue/Finisher/Shield_Vault"
 
 

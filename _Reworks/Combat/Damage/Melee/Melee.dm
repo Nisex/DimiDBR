@@ -70,8 +70,11 @@
 	var/reqCounter = counterWarp(s,s2,s3)
 	if(IaidoCounter>=reqCounter)
 		warpingStrike = 5
-	if(Warping)
-		warpingStrike=Warping
+	if(Warping || passive_handler.Get("Warping"))
+		var/warp = warping
+		if(passive_handler.Get("Warping") > warping)
+			warp = passive_handler.Get("Warping")
+		warpingStrike=warp
 		if(warpingStrike<2)
 			warpingStrike=2
 
@@ -415,14 +418,17 @@
 		// 				STATUS END				//
 
 		// 				HOT HUNDRED 			//
-
-				if(!AttackQueue && HotHundred)
+				var/hh = passive_handler.Get("HotHundred")
+				if(!AttackQueue && (HotHundred || hh))
+					hh = HotHundred
+					if(passive_handler.Get("HotHundred") > HotHundred)
+						hh = passive_handler.Get("HotHundred")
 					lightAtk = 1
 					var/adjust = 0
 					Comboz(enemy, LightAttack = 1)
-					if(HotHundred)
+					if(hh)
 						lightAtk=0
-						adjust = HotHundred-1
+						adjust = hh-1
 					damage /= max(2,4-adjust)
 					if(glob.LIGHT_ATTACK_SPEED_DMG_ENABLED)
 						damage *= clamp(glob.LIGHT_ATTACK_SPEED_DMG_LOWER,GetSpd()**glob.LIGHT_ATTACK_SPEED_DMG_EXPONENT,glob.LIGHT_ATTACK_SPEED_DMG_UPPER)
