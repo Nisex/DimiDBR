@@ -1519,8 +1519,8 @@ mob
 								b.Trigger(src, Override=1) // BUFF END //
 								continue
 
-			if(dainsleifDrawn)
-				src.DoDamage(src, TrueDamage(0.05/SagaLevel))
+			if(dainsleifDrawn) // Dainsleif HealthDrain HERE
+				src.DoDamage(src, TrueDamage(glob.DainsleifDrain/SagaLevel))
 
 			if(cursedSheathValue)
 				cursedSheathValue -= 0.5/SagaLevel

@@ -383,7 +383,8 @@ globalTracker
 		ArmorAscAcc = 0.05
 // not sure why he made them all variable, but its more flexibility= FALSE
 
-
+		/// Dainsleif Drain
+		DainsleifDrain = 0.05
 		infWeaponSoul = TRUE
 		WeaponSoulNames = WSNAMES
 		list/WeaponSoul = list("Muramasa" = FALSE, "Soul Calibur" = FALSE,"Soul Edge" = FALSE,\
