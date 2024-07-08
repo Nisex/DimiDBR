@@ -114,7 +114,7 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self
 	Cooldown = -1
-	scalingValues = list("HealthGeneration" = list(1,1.5,2,2,4,5), "DebuffImmune" = list(0.25,0.5,0.75,1,1,1), \
+	scalingValues = list("LifeGeneration" = list(1,1,1.5,2,2,2.5), "DebuffImmune" = list(0.25,0.5,0.75,1,1,1), \
 	"TechniqueMastery" = list(2,3,5,5,8), "Godspeed" = list(1,2,3,4,5), "Adrenaline" = list(1,2,2,3,3,3), "IdealStrike" = list(1,1,1,1,1,1), \
 	"FullyEffecient" = list(1,1,1,1,1,1), "CoolerAfterImages" = list(3,4,4,4,4,4), "CorruptAffected" = list(1,1,1,1,1,1))
 	AutoAnger = 1
