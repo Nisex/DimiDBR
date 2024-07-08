@@ -48,6 +48,7 @@ proc/log_func(x, a, b)
 #define HUMAN /race/human
 #define NAMEKIAN /race/namekian
 #define SAIYAN /race/saiyan
+#define HALFSAIYAN /race/half_saiyan
 #define DEMON /race/demon
 #define MAJIN /race/majin
 #define MAKYO /race/makyo

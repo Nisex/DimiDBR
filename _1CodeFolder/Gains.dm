@@ -1520,7 +1520,7 @@ mob
 								continue
 
 			if(dainsleifDrawn) // Dainsleif HealthDrain HERE
-				src.DoDamage(src, TrueDamage(glob.DainsleifDrain/SagaLevel))
+				src.DoDamage(src,glob.DainsleifDrain/SagaLevel)
 
 			if(cursedSheathValue)
 				cursedSheathValue -= 0.5/SagaLevel

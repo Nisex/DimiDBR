@@ -139,7 +139,7 @@ mob/proc/Tail(Add_Tail=1)
 		Oozaru(0)
 		overlays+=T2
 /mob/proc/triggerOozaru()
-	if(isRace(SAIYAN))
+	if(isRace(SAIYAN) || isRace(HALFSAIYAN))
 		for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src)
 			if(B.Looking)
 				src.Oozaru(1, null, B)
