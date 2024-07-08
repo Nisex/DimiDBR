@@ -422,9 +422,9 @@ update
 			if(style)
 				if(p.BuffOn(style))
 					style.Trigger(p, 1)
-				passives = list("Hardening" = 1, "Deflection" = 0.5, "UnarmedDamage" = 1, "CounterMaster" = 1, "Momentum" = 0.5, "Pressure" = 1)
+				style.passives = list("Hardening" = 1, "Deflection" = 0.5, "UnarmedDamage" = 1, "CounterMaster" = 1, "Momentum" = 0.5, "Pressure" = 1)
 			
-			
+
 			..()
 
 /mob/Admin4/verb/whoops()

@@ -10617,6 +10617,7 @@ NEW VARIABLES
 				TextColor=rgb(95,60,95)
 				NeedsHealth = 50
 				TooMuchHealth = 75
+				HealthThreshold = 0.001
 				ActiveMessage = "gains the faint glitter of gold in their aura!"
 				OffMessage = "loses some of that goblin greed..."
 				Cooldown = 120

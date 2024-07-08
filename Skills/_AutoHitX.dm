@@ -1596,10 +1596,11 @@ obj
 				WindupMessage="crouches into a starting position..."
 				ActiveMessage="blasts forward with a super-sonic dash!"
 				Cooldown=120
+				adjust(mob/p)
+					if(p.isInnovative(HUMAN, "Unarmed"))
+						p << "er"
 				verb/Hyper_Crash()
 					set category="Skills"
-					adjust(mob/p)
-						if(p.isInnovative(HUMAN, "Unarmed"))
 
 
 

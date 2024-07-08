@@ -71,8 +71,8 @@
 	if(IaidoCounter>=reqCounter)
 		warpingStrike = 5
 	if(Warping || passive_handler.Get("Warping"))
-		var/warp = warping
-		if(passive_handler.Get("Warping") > warping)
+		var/warp = Warping
+		if(passive_handler.Get("Warping") > Warping)
 			warp = passive_handler.Get("Warping")
 		warpingStrike=warp
 		if(warpingStrike<2)
