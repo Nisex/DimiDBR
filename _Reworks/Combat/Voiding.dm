@@ -135,6 +135,7 @@ mob/proc/StartFresh()
 		m.value = totalMineralValue
 		m.name = "[Commas(round(m.value))] Mana Bits"
 		m.assignState()
+	overlays -= 'Halo.dmi'
 
 /mob/var/totalExtraVoidRolls = 0
 #define SPIRITS_NAMES list("Goetic Virtue", "Stellar Constellation", "Elven Sanctuary")
@@ -180,6 +181,7 @@ mob/proc/Void(override, zombie, forceVoid, extraChance,extraRolls)
 					ArchiveSave(src)
 				src.loc=locate(glob.NO_SOUL_LOCATION[1], glob.NO_SOUL_LOCATION[2], glob.NO_SOUL_LOCATION[3])
 				makeCorpse(oldLoc)
+				sleep(10)
 				overlays += 'halo.dmi'
 			else
 				src<<"You sustain the injuries detailed in your death -- as the pain fades, you awaken in the afterlife. Alone, but not for long."
@@ -188,6 +190,7 @@ mob/proc/Void(override, zombie, forceVoid, extraChance,extraRolls)
 					ArchiveSave(src)
 				Dead = 1
 				makeCorpse(oldLoc)
+				sleep(10)
 				src.overlays += 'halo.dmi'
 			return
 
