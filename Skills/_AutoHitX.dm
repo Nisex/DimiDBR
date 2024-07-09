@@ -1036,11 +1036,10 @@ obj
 				Distance=10
 				Knockback=1
 				Slow=1
-				Area="Strike"
+				Area="Target"
 				ActiveMessage="bursts out with tendrils of shadow!"
 				AdaptRate = 1
 				DamageMult=0.5
-				GuardBreak=1
 				TurfStrike=3
 				HitSparkIcon='Slash - Vampire.dmi'
 				HitSparkX=-32
@@ -1049,7 +1048,7 @@ obj
 				HitSparkTurns=1
 				New(mob/p )
 					if(p)
-						DamageMult = 0.5 + (0.15 * p.AscensionsAcquired)
+						DamageMult = 2.5 + (0.5 * p.AscensionsAcquired)
 					. = ..()
 
 			Shadow_Tendril_Wave
@@ -2426,15 +2425,36 @@ obj
 
 ////Racial
 			Oceanic_Wrath
-
+				ElementalClass="Water"
+				ForOffense=1.5
+				SpecialAttack=1
+				DamageMult=15
+				Chilling=99
+				Stasis=10
+				TurfShift='IceGround.dmi'
+				Distance=15
+				WindUp=0.5
+				WindupMessage="places a cold hand against the ground..."
+				ActiveMessage="freezes the area with a destructive chill!"
+				Cooldown=90
+				Area="Circle"
+				verb/Oceanic_Wrath()
+					set category="Skills"
+					if(!altered)
+						DamageMult = 6 + (1.5 * usr.AscensionsAcquired)
+						Cooldown = 60 - (5 * usr.AscensionsAcquired)
+						Distance = 10 + (5 * usr.AscensionsAcquired)
+						Stasis = 10 + (10 * usr.AscensionsAcquired)
+						ForOffense = 1 + (0.25 * usr.AscensionsAcquired)
+					usr.Activate(src)				
 
 
 			Fire_Breath
 				ElementalClass="Fire"
 				StrOffense=1
-				ForOffense=1.5
+				ForOffense=1
 				SpecialAttack=1
-				GuardBreak=1
+				GuardBreak=0
 				DamageMult=15
 				Scorching=30
 				TurfErupt=1
@@ -2448,11 +2468,11 @@ obj
 				verb/Fire_Breath()
 					set category="Skills"
 					if(!altered)
-						DamageMult = 15 + (5 * usr.AscensionsAcquired)
-						Cooldown = 90 + (15 * usr.AscensionsAcquired)
-						Distance = 15 + (10 * usr.AscensionsAcquired)
-						ForOffense = 1 + (0.1 * usr.AscensionsAcquired)
-						StrOffense = 1 + (0.1 * usr.AscensionsAcquired)
+						DamageMult = 3 + (1.5 * usr.AscensionsAcquired)
+						Cooldown = 60 - (5 * usr.AscensionsAcquired)
+						Distance = 6 + (3 * usr.AscensionsAcquired)
+						ForOffense = 0.3 + (0.1 * usr.AscensionsAcquired)
+						StrOffense = 0.3 + (0.1 * usr.AscensionsAcquired)
 					usr.Activate(src)
 			Poison_Gas
 				ElementalClass="Poison"
@@ -2630,7 +2650,6 @@ obj
 					Paralyzing=5
 					Size=1
 					Bolt=2
-					Distance=5
 					HitSparkIcon='BLANK.dmi'
 					HitSparkX=0
 					HitSparkY=0
@@ -2641,6 +2660,22 @@ obj
 					CanBeBlocked=0
 					Cooldown=60
 					WindupMessage="invokes: <font size=+1>THUNDER!</font size>"
+					adjust(mob/p)
+						var/asc = p.AscensionsAcquired
+						var/magicLevel = p.getTotalMagicLevel()
+						Rush=5
+						ControlledRush=1
+						Distance = 8
+						Bolt=2
+						Size=0.5
+						Rounds= round(magicLevel/5) + asc
+						DamageMult = clamp(magicLevel/3 + asc * 2, 4, 12)
+						ManaCost *= DamageMult/4
+						DamageMult /= (Rounds/2)
+					verb/test_Thunder()
+						set category="Skills"
+						adjust(usr)
+						usr.Activate(src)
 					verb/Thunder()
 						set category="Skills"
 						usr.Activate(src)
@@ -2663,6 +2698,10 @@ obj
 					ManaCost=5
 					Cooldown=60
 					WindupMessage="invokes: <font size=+1>THUNDARA!</font size>"
+					adjust(mob/p)
+						// make it cast a projectile that is like hell zone grenade
+						ManaCost = 5
+
 					verb/Thundara()
 						set category="Skills"
 						usr.Activate(src)
@@ -2688,6 +2727,18 @@ obj
 					ManaCost=10
 					Cooldown=60
 					WindupMessage="invokes: <font size=+1>THUNDAGA!</font size>"
+					adjust(mob/p)
+						// make it cast a projectile that is like hell zone grenade
+						Rounds = 200
+						DamageMult = 0.05
+						Icon='SweepingKick.dmi'
+						IconX=-32
+						IconY=-32
+						Size = 10
+					verb/test_Thundaga()
+						set category="Skills"
+						adjust(usr)
+						usr.Activate(src)
 					verb/Thundaga()
 						set category="Skills"
 						usr.Activate(src)
@@ -4570,7 +4621,7 @@ obj
 				Icon='SweepingKick.dmi'
 				IconX=-32
 				IconY=-32
-				Cooldown=50
+				Cooldown=40
 				Size=1
 				Rush=3
 				ControlledRush=1
@@ -4578,27 +4629,15 @@ obj
 				StyleNeeded="Ansatsuken"
 				proc/alter(mob/player)
 					ManaCost = 0
-					var/sagaLevel = player.SagaLevel
-					var/damage = clamp(0.5 + 0.3 * (usr.SagaLevel/2), 0.4, 2)
+					var/damage = clamp(1 + 0.3 * (usr.SagaLevel/2), 0.4, 4)
 					var/path = player.AnsatsukenPath == "Tatsumaki" ? 1 : 0
-					var/manaCost = 25 // how much u need for ex
 					var/rounds = clamp(1 + (usr.SagaLevel), 2, 8)
-					var/cooldown = 50
+					var/cooldown = 40
 					var/launch = 0
 					if(path)
 						cooldown = 30
-						manaCost -= 10
-						damage = clamp(0.6 + 0.4 * (usr.SagaLevel/2), 0.8, 3)
+						damage = clamp(2 + 0.4 * (usr.SagaLevel), 0.8, 6)
 						rounds = clamp(usr.SagaLevel+2, 2, 8)
-
-
-					if(player.ManaAmount>=manaCost && sagaLevel >= 2)
-						damage = clamp(1 + 0.5 * (usr.SagaLevel/2), 1.5, 4)
-						rounds = clamp(4 + usr.SagaLevel, 4, 11)
-						ManaCost = manaCost
-						launch = 3
-						ActiveMessage="rises high in the air with a terrifying whirlwind of kicks!!"
-
 					DamageMult = damage
 					Cooldown = cooldown
 					Rounds = rounds
@@ -4608,6 +4647,29 @@ obj
 					alter(usr)
 					ChargeTech = 1
 					ChargeTime=0.75
+					usr.Activate(src)
+				verb/EX_Tatsumaki()
+					var/mob/player = usr
+					var/sagaLevel = usr.SagaLevel
+					var/damage 
+					var/path = player.AnsatsukenPath == "Tatsumaki" ? 1 : 0
+					var/rounds 
+					Cooldown = 60
+					var/launch = 0
+					var/manaCost = 25 
+					if(player.ManaAmount>=manaCost && sagaLevel >= 2)
+						damage = clamp(2.5 + 0.5 * (usr.SagaLevel), 1.5, 8)
+						rounds = clamp(4 + usr.SagaLevel, 4, 11)
+						if(path)
+							damage = clamp(4 + 0.6 * (usr.SagaLevel), 1, 10)
+							rounds = clamp(4 + usr.SagaLevel, 4, 11)
+						DamageMult = damage/rounds
+						ManaCost = manaCost
+						launch = 3
+						Launcher=launch
+						ActiveMessage="rises high in the air with a terrifying whirlwind of kicks!!"
+					ChargeTech = 1
+					ChargeTime=1.25
 					usr.Activate(src)
 			ShinkuTatsumaki
 				UnarmedOnly=1
