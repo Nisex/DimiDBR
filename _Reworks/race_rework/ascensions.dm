@@ -8,6 +8,8 @@ ascension
 		..()
 		// death becomes u
 		passives = initial(type:passives)
+		if(isnull(passives))
+			passives = list()
 
 	var
 		powerAdd = 0
@@ -1265,7 +1267,6 @@ ascension
 						force = 0.25
 						offense = 0.25
 						imaginationAdd = 0.25
-						learning = 0.25
 						skills = list(/obj/Skills/Utility/Heal)
 
 					if("Warrior")

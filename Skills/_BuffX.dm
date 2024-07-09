@@ -6,6 +6,8 @@ obj/Skills/Buffs
 		..()
 		if(!altered)
 			passives = initial(type:passives)
+		if(isnull(passives))
+			passives = list()
 	Cooldown=1
 /**
 NEW VARIABLES
@@ -589,10 +591,12 @@ NEW VARIABLES
 			return 1
 	ActiveBuffs
 		ActiveSlot=1
+		passives = list()
 //THE ONE, THE ONLY!
 		Ki_Control
 			BuffName="Ki Control"
 			KiControl=1
+			passives = list("KiControl" = 1)
 			UnrestrictedBuff=1//for the poor monkey men
 			Cooldown=1
 			EnergyThreshold=10
@@ -7380,7 +7384,7 @@ NEW VARIABLES
 			ActiveMessage=null
 			OffMessage=null
 			passives = list("Deicide" = 1, "TechniqueMastery" = 1, "Flicker" = 1)
-			
+
 			verb/Don_Crown()
 				set category="Skills"
 				src.Trigger(usr)
@@ -11904,14 +11908,15 @@ mob
 					if(src.Health>B.NeedsHealth*(1-src.HealthCut))
 						src << "You can't use [B] before you're below [B.NeedsHealth*(1-src.HealthCut)]% health!"
 						return
-				if(B.passives.Find("PULock"))
-					if(src.PowerControl>100)
-						src << "You can't use this buff right now because it seals your power up."
-						return
-				if(B.passives.Find("PUSpike"))
-					if(src.passive_handler.Get("PULock"))
-						src << "You can't use this buff right now because your power up is sealed."
-						return
+				if(length(B.passives) > 0)
+					if(B.passives["PULock"])
+						if(src.PowerControl>100)
+							src << "You can't use this buff right now because it seals your power up."
+							return
+					if(B.passives["PUSpike"])
+						if(src.passive_handler.Get("PULock"))
+							src << "You can't use this buff right now because your power up is sealed."
+							return
 				if(B.Ripple)
 					if(src.Race=="Android")
 						src <<"You do not breathe."

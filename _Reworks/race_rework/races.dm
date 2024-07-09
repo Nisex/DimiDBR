@@ -247,7 +247,7 @@ race
 		defense = 1.25
 		speed = 1
 		anger = 1.5
-		learning = 1.15
+		learning = 1
 
 
 	half_saiyan
@@ -601,7 +601,7 @@ race
 		anger = 1.5
 		imagination = 2
 		intellect = 1.5
-		learning = 1.5
+		learning = 1
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Queue/Infestation)
 		/* /obj/Skills/AutoHit/AntennaBeam */
 

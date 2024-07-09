@@ -2148,13 +2148,13 @@ mob
 			else
 				var/obj/Items/Sword/s2=src.EquippedSword()
 				if(s2)
-					if(s2.MagicSword)
+					if(s2.MagicSword || passive_handler.Get("MagicSword"))
 						return 1
 			return 0
 		NotUsingMagicSword()
 			if(src.HasSword())
 				var/obj/Items/Sword/s=src.EquippedSword()
-				if(s.MagicSword)
+				if(s.MagicSword || src.passive_handler.Get("MagicSword"))
 					return 0
 			return 1
 		HasLightSword()
@@ -2359,7 +2359,7 @@ mob
 			if(src.CrestSpell(Z))
 				Pass=1
 			if(sord)
-				if(sord.MagicSword)
+				if(sord.MagicSword || passive_handler.Get("MagicSword"))
 					Pass=1
 			if(st)
 				Pass=1
