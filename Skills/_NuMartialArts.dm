@@ -1250,7 +1250,7 @@ obj
 						StyleOff=1.25
 						StyleDef=1.25
 						StyleEnd=1.5
-						passives = list("Flow" = 0.5, "Instinct" = 0.5, "LikeWater" = 1)
+						passives = list("Flow" = 0.5, "Instinct" = 0.5, "LikeWater" = 1, "CounterMaster" = 2)
 						//adaptation passive
 						StyleActive="Balance"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Resonance_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Metta_Sutra_Style",\
@@ -1300,7 +1300,7 @@ obj
 						StyleFor=1.1
 						StyleEnd=1.4
 						StyleSpd=1.4
-						passives = list("WeaponBreaker" = 3, "Flow" = 2, "Instinct" = 2, "Flicker" = 1, "Pursuer" = 1)
+						passives = list("WeaponBreaker" = 3, "Flow" = 1, "Instinct" = 1, "LikeWater" = 2, "Flicker" = 1, "Pursuer" = 1, "CounterMaster" = 4)
 						WeaponBreaker=3
 						Flow=2
 						Instinct=2
