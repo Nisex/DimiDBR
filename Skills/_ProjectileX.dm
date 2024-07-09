@@ -2924,7 +2924,6 @@ obj
 						var/manaCost = 25
 						var/radius = 0
 						var/multiHit = 5
-						var/knockback = 1
 						var/iconSize = 1
 						var/stunner = 0
 						var/message = 0
@@ -2933,28 +2932,9 @@ obj
 							cooldown -= 10
 							charge = 0.1
 							damage = 3 + 1.5 * sagaLevel
-							knockback = 1
 							stunner = clamp(0.25 * sagaLevel, 0.25, 2)
 						if(player.AnsatsukenAscension == "Satsui" && src.IconLock == 'Hadoken.dmi')
 							src.IconLock = 'Hadoken - Satsui.dmi'
-						if(player.ManaAmount >= manaCost && sagaLevel >= 2)
-							ManaCost = manaCost
-							knockback = 0
-							damage = 3 + 1.5 * sagaLevel
-							multiHit = 3 + clamp(2 + sagaLevel, 5, 10)
-							stunner = 2
-							radius = 1
-							iconSize = 1.25
-							Dodgeable=0
-							if(ansatsukenPath)
-								damage = 5 + 2.25 * sagaLevel
-								multiHit = 2 + clamp(sagaLevel*2,  4, 20)
-								stunner = 3
-								radius = 2
-								iconSize = 1.5
-							if(!src.Using)
-								OMsg(usr, "[usr] yells: <b>HADOOOOOOKEN!</B>", "[usr] used Hadoken.")
-								message = 1
 						if(!message)
 							if(!src.Using)
 								OMsg(usr, "[usr] yells: <b>HADOKEN!</B>", "[usr] used Hadoken.")
@@ -2962,7 +2942,7 @@ obj
 						Distance = distance
 						Charge = charge
 						MultiHit = multiHit
-						Knockback = knockback
+						Knockback = 1
 						IconSize = iconSize
 						Radius = radius
 						Stunner = stunner
@@ -2977,34 +2957,36 @@ obj
 						FireFromSelf=1
 						FireFromEnemy=0
 						usr.UseProjectile(src)
-					// verb/EX_Hadoken()
-					// 	set category="Skills"
-					// 	set name="EX-Hadoken"
-					// 	if(usr.SagaLevel<2)
-					// 		usr << "You are not yet proficient enough at the Hadoken to use this technique."
-					// 		return
-					// 	Distance=30
-					// 	Charge=0.25
-					// 	ManaCost=25
-					// 	DamageMult=min(1.5, 0.3*usr.SagaLevel)
-					// 	MultiHit=5
-					// 	Knockback=1
-					// 	IconSize=1.5
-					// 	Dodgeable=0
-					// 	Radius=1
-					// 	ZoneAttack=1
-					// 	ZoneAttackX=0
-					// 	ZoneAttackY=0
-					// 	FireFromSelf=1
-					// 	FireFromEnemy=0
-					// 	if(usr.AnsatsukenPath=="Hadoken")
-					// 		Charge=0.1
-					// 		Cooldown=30
-					// 	if(usr.AnsatsukenAscension=="Satsui" && src.IconLock=='Hadoken.dmi')
-					// 		IconLock='Hadoken - Satsui.dmi'
-					// 	if(!src.Using)
-					// 		OMsg(usr, "[usr] yells: <b>HADOKEN!</B>", "[usr] used Hadoken.")
-					// 	usr.UseProjectile(src)
+					verb/EX_Hadoken()
+						var/mob/player = usr
+						var/sagaLevel = player.SagaLevel
+						var/ansatsukenPath = player.AnsatsukenPath == "Hadoken" ? 1 : 0
+						var/manaCost = 25
+						if(player.ManaAmount >= manaCost && sagaLevel >= 2)
+							ManaCost = manaCost
+							Knockback = 1
+							DamageMult = 3 + 1.5 * sagaLevel
+							MultiHit = 3 + clamp(2 + sagaLevel, 5, 10)
+							DamageMult/=MultiHit
+							Stunner = 2
+							Radius = 1
+							IconSize = 1.25
+							Dodgeable=0
+							Cooldown = 60
+							if(ansatsukenPath)
+								DamageMult = 5 + 2.25 * sagaLevel
+								MultiHit = 2 + clamp(sagaLevel*2,  4, 20)
+								DamageMult/=MultiHit
+								Stunner = 3
+								Radius = 2
+								IconSize = 1.5
+							if(!src.Using)
+								OMsg(usr, "[usr] yells: <b>HADOOOOOOKEN!</B>", "[usr] used Hadoken.")
+							Charge=0.75
+							Distance = 25
+							usr.UseProjectile(src)
+						else
+							usr << "no super."
 				Shinku_Hadoken
 					Distance=40
 					Charge=0.5
@@ -3336,6 +3318,25 @@ obj
 					Trail='Trail - Plasma.dmi'
 					Variation=0
 					ActiveMessage="invokes: <font size=+1>ERASE!</font size>"
+					adjust(mob/p)
+						var/asc = p.AscensionsAcquired
+						if(p.CheckSlotless("Dragon Clash") || p.CheckSlotless("Dragon Clash Defensive"))
+							EndRate = 0.25
+							Radius=1
+							MultiShot=0
+							Distance = 50
+							DamageMult=6
+						else
+							EndRate = 0.001
+							Radius = 2
+							MultiShot = 2 + asc
+							Distance = 5
+							DamageMult=8 + asc
+							DamageMult/=MultiShot
+					verb/test_Disintegrate()
+						set category="Skills"
+						adjust(usr)
+						usr.UseProjectile(src)
 					verb/Disintegrate()
 						set category="Skills"
 						usr.UseProjectile(src)
@@ -3370,6 +3371,24 @@ obj
 					Explode=2
 					Hover=1
 					ActiveMessage="invokes: <font size=+1>METEO!</font size>"
+					adjust(mob/p)
+						var/asc = p.AscensionsAcquired
+						ManaCost = p.ManaAmount
+						Blasts = ManaCost/(4+asc)
+						ZoneAttack=1
+						ZoneAttackX=12
+						ZoneAttackY=12
+						Homing=1
+						LosesHoming=75
+						HyperHoming=1
+						Speed=1.5
+						IconSize=randValue(0.4,1.2)
+						DamageMult = 14 + (asc *1.5)
+						DamageMult/=Blasts
+					verb/test_Meteor()
+						set category="Skills"
+						adjust(usr)
+						usr.UseProjectile(src)
 					verb/Meteor()
 						set category="Skills"
 						usr.UseProjectile(src)
@@ -4300,11 +4319,11 @@ obj
 					Immediate=1
 					DamageMult=5
 					Distance=20
-					Paralyzing=0.2
+					Paralyzing=2
 					Cooldown=90
-					StrRate=1
+					StrRate=0.5
 					EndRate=1
-					ForRate=0
+					ForRate=0.5
 					IconLock='LightningWave.dmi'
 					verb/Static_Stream()
 						set category="Skills"
@@ -4345,10 +4364,11 @@ obj
 					set category="Skills"
 					if(!altered)
 						Blasts = 6 + (usr.AscensionsAcquired)
-						DamageMult = 2 + (usr.AscensionsAcquired * 0.5)
+						DamageMult = 2.5 + (usr.AscensionsAcquired * 1.5)
 						Radius = clamp(usr.AscensionsAcquired, 1, 5)
 						Shattering = 2 + clamp(usr.AscensionsAcquired*2, 0.5, 2.5)
 						DamageMult = DamageMult/Blasts
+						Cooldown = 60 - ( 5 * usr.AscensionsAcquired)
 					usr.UseProjectile(src)
 
 //Moonlight Greatsword
