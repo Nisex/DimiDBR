@@ -221,14 +221,14 @@ mob/Admin/verb/GiveWitchBook()
 /obj/Skills/Queue/Mirror_Match
 	ActiveMessage="fills their "
 	HitMessage="drives the drill into their opponent!"
+	Counter=1
+	NoWhiff=1	
 	DamageMult = 0.1
 	AccuracyMult = 1.175
 	Instinct = 1
 	Duration = 5
 	KBMult = 0.00001
 	Cooldown = 150
-	Quaking = 5
-	PushOut = 5
 	BuffSelf = "/obj/Skills/Buffs/SlotlessBuffs/Witch/Counter"
 	verb/Mirror_Match()
 		set category="Skills"
