@@ -433,6 +433,7 @@
 #include "_Reworks\Sagas\Wukong\WukongPassives.dm"
 #include "_Reworks\Sagas\Wukong\WukongStances.dm"
 #include "_Reworks\Secrets\Senjutsu.dm"
+#include "_Reworks\Secrets\WitchCraft.dm"
 #include "_Reworks\Secrets\Haki\buffs.dm"
 #include "_Reworks\Secrets\Haki\Skills.dm"
 #include "_Reworks\Secrets\hats\hatsbuffs.dm"

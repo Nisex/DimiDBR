@@ -83,6 +83,11 @@ proc
 					DamageMod+=2
 				if("Void")
 					DamageMod+=2
+				if("Felfire")
+					if("Water" in defenseElements)
+						DamageMod += 1.5
+					if("Wind" in defenseElements)
+						DamageMod += 2
 				if("HellFire")
 					DamageMod+=2
 					if("Fire" in defenseElements) // simply consume lesser fire
@@ -117,7 +122,9 @@ proc
 						Defender.AddPoison(2*DebuffIntensity*glob.POISON_INTENSITY, Attacker)
 						Defender.AddBurn(3*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
 						Defender.AddShearing(4*DebuffIntensity, Attacker)
-
+					if("Felfire")
+						Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
+						Defender.AddShatter(2*DebuffIntensity*glob.SHATTER_INTENSITY, Attacker)
 					if("Chaos")
 						if(prob(50))
 							Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)

@@ -5590,7 +5590,6 @@ obj
 							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, bonusElements=list("Poison"), damageOnly = 1))/10)
 						if(src.Toxic&&!src.Owner.HasToxic())
 							EffectiveDamage*=max(1,ProjectileDamage(ElementalCheck(src.Owner, a, 1, bonusElements=list("Poison"), damageOnly = 1))/10)//Forces debuff
-
 						var/bonusElement = list()
 						if(Burning||Scorching)
 							bonusElement |= "Fire"
