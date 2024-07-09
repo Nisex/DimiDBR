@@ -18,6 +18,9 @@
     SwordAscensionSecond=2
     SwordXSecond=-32
     SwordYSecond=-32
+    MagicSword=1
+    MagicSwordSecond = 1
+    MagicSwordThird = 1
     SwordNameThird="God Slicer"
     SwordAscensionThird=2
     ActiveMessage="draws spirit energy into their hand to form a blade!"

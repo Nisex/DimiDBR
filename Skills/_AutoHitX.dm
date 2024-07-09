@@ -2668,10 +2668,11 @@ obj
 						Distance = 8
 						Bolt=2
 						Size=0.5
+						WindUp=0.25
 						Rounds= round(magicLevel/5) + asc
 						DamageMult = clamp(magicLevel/3 + asc * 2, 4, 12)
 						ManaCost *= DamageMult/4
-						DamageMult /= (Rounds/2)
+						DamageMult /= (Rounds)
 					verb/test_Thunder()
 						set category="Skills"
 						adjust(usr)
@@ -2730,11 +2731,17 @@ obj
 					adjust(mob/p)
 						// make it cast a projectile that is like hell zone grenade
 						Rounds = 200
-						DamageMult = 0.05
+						DamageMult = 0.1
 						Icon='SweepingKick.dmi'
 						IconX=-32
 						IconY=-32
 						Size = 10
+						Cooldown = 90
+						NoLock=1
+						NoAttackLock=1
+						WindUp=2
+						Thunderstorm=200
+						ManaCost = 25
 					verb/test_Thundaga()
 						set category="Skills"
 						adjust(usr)
@@ -4629,18 +4636,19 @@ obj
 				StyleNeeded="Ansatsuken"
 				proc/alter(mob/player)
 					ManaCost = 0
-					var/damage = clamp(1 + 0.3 * (usr.SagaLevel/2), 0.4, 4)
+					var/damage = clamp(2 + 0.3 * (usr.SagaLevel/2), 0.4, 11)
 					var/path = player.AnsatsukenPath == "Tatsumaki" ? 1 : 0
 					var/rounds = clamp(1 + (usr.SagaLevel), 2, 8)
 					var/cooldown = 40
 					var/launch = 0
 					if(path)
 						cooldown = 30
-						damage = clamp(2 + 0.4 * (usr.SagaLevel), 0.8, 6)
+						damage = clamp(3 + 0.4 * (usr.SagaLevel), 0.8, 11)
 						rounds = clamp(usr.SagaLevel+2, 2, 8)
 					DamageMult = damage
 					Cooldown = cooldown
 					Rounds = rounds
+					DamageMult/= Rounds
 					Launcher = launch
 				verb/Tatsumaki()
 					set category="Skills"
@@ -4658,10 +4666,10 @@ obj
 					var/launch = 0
 					var/manaCost = 25 
 					if(player.ManaAmount>=manaCost && sagaLevel >= 2)
-						damage = clamp(2.5 + 0.5 * (usr.SagaLevel), 1.5, 8)
+						damage = clamp(3 + 0.5 * (usr.SagaLevel), 1.5,12)
 						rounds = clamp(4 + usr.SagaLevel, 4, 11)
 						if(path)
-							damage = clamp(4 + 0.6 * (usr.SagaLevel), 1, 10)
+							damage = clamp(5 + 0.6 * (usr.SagaLevel), 1, 14)
 							rounds = clamp(4 + usr.SagaLevel, 4, 11)
 						DamageMult = damage/rounds
 						ManaCost = manaCost
@@ -5205,7 +5213,7 @@ mob
 					src << "Stop trying to hit [src.Target] from a different dimension!"
 					return FALSE
 				if(!Z.Rush)//This one doesn't apply to rushes.
-					if(src.x+Z.Distance<src.Target.x||src.x-Z.Distance>src.Target.x||src.y+Z.Distance<src.Target.y||src.y-Z.Distance>src.Target.y)
+					if(get_dist(src, Target) > Z.Distance)
 						src << "They're not in range!"
 						return FALSE
 				if(Target && Target.passive_handler.Get("CounterSpell"))

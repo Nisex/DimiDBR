@@ -2922,17 +2922,18 @@ obj
 						var/distance = 30
 						var/charge = 0.25
 						var/manaCost = 25
-						var/radius = 0
 						var/multiHit = 5
 						var/iconSize = 1
 						var/stunner = 0
 						var/message = 0
+						Knockback = 2
 						if(ansatsukenPath)
 							manaCost -= 10
 							cooldown -= 10
 							charge = 0.1
 							damage = 3 + 1.5 * sagaLevel
 							stunner = clamp(0.25 * sagaLevel, 0.25, 2)
+							Knockback = 3
 						if(player.AnsatsukenAscension == "Satsui" && src.IconLock == 'Hadoken.dmi')
 							src.IconLock = 'Hadoken - Satsui.dmi'
 						if(!message)
@@ -2942,9 +2943,8 @@ obj
 						Distance = distance
 						Charge = charge
 						MultiHit = multiHit
-						Knockback = 1
 						IconSize = iconSize
-						Radius = radius
+						Radius = 1
 						Stunner = stunner
 						Cooldown = cooldown
 					verb/Hadoken()
@@ -2964,7 +2964,7 @@ obj
 						var/manaCost = 25
 						if(player.ManaAmount >= manaCost && sagaLevel >= 2)
 							ManaCost = manaCost
-							Knockback = 1
+							Knockback = 4
 							DamageMult = 3 + 1.5 * sagaLevel
 							MultiHit = 3 + clamp(2 + sagaLevel, 5, 10)
 							DamageMult/=MultiHit
@@ -2980,6 +2980,7 @@ obj
 								Stunner = 3
 								Radius = 2
 								IconSize = 1.5
+								Knockback = 6
 							if(!src.Using)
 								OMsg(usr, "[usr] yells: <b>HADOOOOOOKEN!</B>", "[usr] used Hadoken.")
 							Charge=0.75
@@ -3308,11 +3309,11 @@ obj
 					Piercing=1
 					PiercingBang=1
 					AccMult = 1.175
-					EndRate = 0.25
+					EndRate = 0.5
 					Dodgeable=-1
 					Deflectable=-1
 					Speed=0
-					ManaCost=10
+					ManaCost=15
 					Cooldown=120
 					IconLock='BLANK.dmi'
 					Trail='Trail - Plasma.dmi'
@@ -3320,18 +3321,18 @@ obj
 					ActiveMessage="invokes: <font size=+1>ERASE!</font size>"
 					adjust(mob/p)
 						var/asc = p.AscensionsAcquired
-						if(p.CheckSlotless("Dragon Clash") || p.CheckSlotless("Dragon Clash Defensive"))
+						if(p.passive_handler.Get("HotHundred")||p.passive_handler.Get("Warping"))
 							EndRate = 0.25
 							Radius=1
 							MultiShot=0
 							Distance = 50
 							DamageMult=6
 						else
-							EndRate = 0.001
+							EndRate = 0.25
 							Radius = 2
 							MultiShot = 2 + asc
 							Distance = 5
-							DamageMult=8 + asc
+							DamageMult= 6 + asc
 							DamageMult/=MultiShot
 					verb/test_Disintegrate()
 						set category="Skills"
@@ -3376,14 +3377,16 @@ obj
 						ManaCost = p.ManaAmount
 						Blasts = ManaCost/(4+asc)
 						ZoneAttack=1
-						ZoneAttackX=12
-						ZoneAttackY=12
+						ZoneAttackX=18
+						ZoneAttackY=18
 						Homing=1
 						LosesHoming=75
 						HyperHoming=1
-						Speed=1.5
-						IconSize=randValue(0.4,1.2)
-						DamageMult = 14 + (asc *1.5)
+						Speed=1.25
+						NoLock=1
+						NoAttackLock=1
+						IconSize=randValue(0.8,1.5)
+						DamageMult = 9 + (asc)
 						DamageMult/=Blasts
 					verb/test_Meteor()
 						set category="Skills"
