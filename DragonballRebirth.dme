@@ -404,6 +404,7 @@
 #include "_Reworks\Races\Dragon\Gold.dm"
 #include "_Reworks\Races\Dragon\skills.dm"
 #include "_Reworks\Races\Dragon\water.dm"
+#include "_Reworks\Races\Elf\buffs.dm"
 #include "_Reworks\Races\Halfie\HalfieAscensions.dm"
 #include "_Reworks\Races\hellspawn\ascensions.dm"
 #include "_Reworks\Races\hellspawn\buffs.dm"

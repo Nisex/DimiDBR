@@ -1,4 +1,6 @@
 {
+
+
     "SWORD_PASSIVES_I": {
         "Extend": [1, 2],
         "MagicSword": [1, 1],
@@ -59,10 +61,10 @@
         "BlockChance": [10, 100],
         "Blubber": [0.25, 1],
         "LikeWater": [1, 4],
-        "DemonicDurability": [0.25, 1],
-        "LifeGeneration": [0.25, 1],
-        "DeathField": [0.5, 10],
-        "VoidField": [0.5, 10]
+        "DemonicDurability": [0.25, 5],
+        "LifeGeneration": [0.25, 5],
+        "DeathField": [1, 10],
+        "VoidField": [1, 10]
     },
     "ARMOR_PASSIVES_IV": {
         "Unstoppable": [1, 1],

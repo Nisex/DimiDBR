@@ -23,3 +23,5 @@ proc/getPassiveTier(mob/p)
         . += "III"
     if(asc in 4 to 5)
         . += "IV"
+    if(asc == 5)
+        . += "V"

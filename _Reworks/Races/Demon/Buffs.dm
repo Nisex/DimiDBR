@@ -1,5 +1,5 @@
 /obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon
-	passives = list("HellPower" = 0.1, "AngerAdaptiveForce" = 0.25, "TechniqueMastery" = 2, "Juggernaut" = 0.5, "Hellrisen" = 0.25, "FakePeace" = -1)
+	passives = list("HellPower" = 0.1, "AngerAdaptiveForce" = 0.25, "TechniqueMastery" = 2, "Juggernaut" = 0.5, "FakePeace" = -1)
 	Cooldown = -1
 	TimerLimit = 0
 	BuffName = "True Form"
@@ -10,8 +10,8 @@
 	LockY=-32
 	var/list/trueFormPerAsc = list( 1 = list("AngerAdaptiveForce" = 0.25, "TechniqueMastery" = 2, "Juggernaut" = 1, "Hellrisen" = 0.25), \
 									2 = list("AngerAdaptiveForce" = 0.25,"TechniqueMastery" = 4, "FluidForm" = 1, "GiantForm" = 1, "Juggernaut" = 1.5, "Hellrisen" = 0.5), \
-									3 = list("AngerAdaptiveForce" = 0.5,"TechniqueMastery" = 6, "FluidForm" = 1.5, "GiantForm" = 1, "Juggernaut" = 2,"Hellrisen" = 0.75), \
-									4 = list("AngerAdaptiveForce" = 0.5,"TechniqueMastery" = 8, "FluidForm" = 2, "GiantForm" = 1, "Juggernaut" = 2,"Hellrisen" = 1,))
+									3 = list("AngerAdaptiveForce" = 0.5,"TechniqueMastery" = 6, "FluidForm" = 1.5, "GiantForm" = 1, "Juggernaut" = 2,"Hellrisen" = 0.5), \
+									4 = list("AngerAdaptiveForce" = 0.5,"TechniqueMastery" = 8, "FluidForm" = 2, "GiantForm" = 1, "Juggernaut" = 2,"Hellrisen" = 0.5,))
 	ActiveMessage = "<i>has unleashed their true nature!</i>"
 	// jsut set the niggas hellpower to 1
 	adjust(mob/p)
