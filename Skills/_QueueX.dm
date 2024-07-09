@@ -1525,6 +1525,34 @@ obj
 							src.HitSparkSize=2
 							usr.SetQueue(src)
 							return
+						if(locate(/obj/WitchCraft/WitchesBook))
+							src.name = "Soulsap Strike"
+							src.DamageMult=1.5
+							src.AccuracyMult = 1.15
+							src.KBAdd=0
+							src.KBMult=1
+							src.Cooldown=20
+							src.HitMessage="grasps hold of their opponent with necrotic energy!"
+							src.Scorching=0
+							src.Freezing=0
+							src.Paralyzing=0
+							src.CursedWounds=5
+							src.Decider = 1
+							src.Combo=0
+							src.Warp=0
+							src.Rapid=0
+							src.LifeSteal=1
+							src.Crippling=15
+							src.Grapple=1
+							src.NoForcedWhiff=0
+							src.IconLock='BLANK.dmi'
+							src.HitSparkIcon='Icons/NSE/spells/debuff/holywaterflow.dmi'
+							src.HitSparkX=-32
+							src.HitSparkY=-32
+							src.HitSparkTurns=1
+							src.HitSparkSize=1
+							usr.SetQueue(src)
+							return							
 						if(usr.Secret=="Zombie")
 							src.name="Death Grasp"
 							src.DamageMult=2.5
