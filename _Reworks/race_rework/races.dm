@@ -349,14 +349,14 @@ race
 		locked = TRUE
 
 		power = 5
-		strength = 1.5
-		endurance = 1.5
-		speed = 1.25
-		force = 1.5
-		offense = 1.5
-		defense = 1.5
-		regeneration = 3
-		recovery = 3
+		strength = 1.75
+		endurance = 1.75
+		speed = 1
+		force = 1.75
+		offense = 1.25
+		defense = 1.25
+		regeneration = 2
+		recovery = 2
 		imagination = 2
 
 		onFinalization(mob/user)
@@ -392,7 +392,7 @@ race
 		desc = "A race of beings that latch onto others, corrupting them like a parasite; usually being the result of such a thing."
 		visual = 'Monster.png'
 
-		passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.3, "DeathField" = 0.3, "VoidField" = 0.3)
+		passives = list("VenomResistance" = 0.25, "Void" = 1, "SoulFire" = 0.25, "DeathField" = 0.5, "VoidField" = 0.5)
 
 		strength = 1.5
 		endurance = 2
@@ -477,7 +477,7 @@ race
 		force = 1.5
 		regeneration = 3
 		imagination = 2
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown)
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown, /obj/Skills/Buffs/SlotlessBuffs/Elf/God_Slicer)
 		passives = list("Adrenaline" = 1, "Innovation" = 1)
 
 

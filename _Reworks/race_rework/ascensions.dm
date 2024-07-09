@@ -4,6 +4,11 @@
 #define ASCENSION_FOUR_POTENTIAL 75
 #define ASCENSION_FIVE_POTENTIAL 90
 ascension
+	Read(F)
+		..()
+		// death becomes u
+		passives = initial(type:passives)
+
 	var
 		powerAdd = 0
 		strength = 0
@@ -361,13 +366,12 @@ ascension
 
 
 	eldritch
-
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			endurance = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15,)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25, "SoulFire" = 0.25, "DeathField" = 1, "VoidField" =1,)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(2, owner)
 				..()
@@ -376,7 +380,7 @@ ascension
 			endurance = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25,"SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25,"SoulFire" = 0.15, "DeathField" = 1, "VoidField" = 1)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(3, owner)
 				..()
@@ -388,7 +392,7 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5,"SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5,"SoulFire" = 0.15, "DeathField" = 3, "VoidField" = 3)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(4, owner)
 				..()
@@ -400,7 +404,7 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "SoulFire" = 0.15, "DeathField" = 2, "VoidField" = 2)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(5, owner)
 				..()
@@ -412,7 +416,7 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "Void" = 1, "SoulFire" = 0.15, "DeathField" = 0.15, "VoidField" = 0.15)
+			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5,"SoulFire" = 0.15, "DeathField" = 3, "VoidField" = 3)
 			onAscension(mob/owner)
 				owner.secretDatum.tierUp(6, owner)
 				..()
@@ -483,6 +487,7 @@ ascension
 			choices = list("Rest" = /ascension/sub_ascension/high_faoroan/rest, "Sacrifice" = /ascension/sub_ascension/high_faoroan/sacrifice)
 
 	demon
+		passives = list()
 		proc/findTrueForm(mob/p)
 			var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = new()
 			d = locate() in p
@@ -497,7 +502,7 @@ ascension
 				owner.demon.selectPassive(owner, "CORRUPTION_DEBUFFS", "Debuff")
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			passives = list("HellPower" = 0.25, "AbyssMod" = 0.25, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.25, "AbyssMod" = 0.25, "SpiritPower" = 0.25, , "HellRisen" = 0.25)
 			anger = 0.15
 			intimidation = 50
 			strength = 0.25
@@ -509,7 +514,7 @@ ascension
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
-			passives = list("HellPower" = 0.25, "AbyssMod" = 0.75, "SpiritPower" = 0.25)
+			passives = list("HellPower" = 0.25, "AbyssMod" = 0.75, "SpiritPower" = 0.25, "HellRisen" = 0.25)
 			intimidation = 50
 			strength = 0.25
 			force = 0.5
@@ -638,7 +643,7 @@ ascension
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Metal")
-						passives = list("Juggernaut" = 0.5, "Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 0.25)
+						passives = list("Juggernaut" = 0.25, "Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 1.5)
 						strength += 0.25
 						endurance += 0.25
 						offense += 0.5
@@ -676,29 +681,24 @@ ascension
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Metal")
-						passives = list("Juggernaut" = 0.5, "Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 0.25, "GodKi" = 0.05)
+						passives = list("Juggernaut" = 0.25, "Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 1.5)
 						strength += 0.25
 						endurance += 0.25
-						defense += 0.25
-
 					if("Fire")
 						angerPoint += 5
-						passives = list("DemonicDurability" = 0.25, "SpiritHand" = 1, "GodKi" = 0.05)
+						passives = list("SpiritHand" = 0.5, "AngerAdaptiveForce" = 0.15)
 						strength += 0.25
 						force += 0.25
-						offense += 0.25
 					if("Water")
-						passives = list("SoftStyle" = 1, "AbsoluteZero" = 1, "LikeWater" = 2,"Flow" = 1, "Instinct" = 1, "GodKi" = 0.05)
-						strength += 0.25
+						passives = list("AbsoluteZero" = 2, "LikeWater" = 2,"Flow" = 1, "Instinct" = 1)
 						force += 0.25
 						defense += 0.5
 					if("Wind")
-						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1, "GodKi" = 0.05)
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
 						speed += 0.25
 						offense += 0.25
-						defense += 0.25
 					if("Gold")
-						passives = list("Blubber" = 0.25, "CashCow" = 1, "GodKi" = 0.05)
+						passives = list("Blubber" = 0.25, "CashCow" = 1)
 						ecoAdd = 1
 						endurance += 0.5
 						speed += 0.25
@@ -710,29 +710,29 @@ ascension
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Metal")
-						passives = list("Unstoppable" = 0.25, "HeavyHitter" = 1, "DeathField" = 0.5, "GodKi" = 0.05)
+						passives = list("Juggernaut" = 0.5, "Unstoppable" = 0.25, "HeavyHitter" = 1, "DeathField" = 2)
 						strength += 0.25
 						endurance += 0.25
 						defense += 0.25
 
 					if("Fire")
 						angerPoint += 5
-						passives = list("DemonicDurability" = 0.25, "SpiritHand" = 1, "GodKi" = 0.05)
+						passives = list("AngerAdaptiveForce" = 0.25, "SpiritHand" = 0.5)
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
 					if("Water")
-						passives = list("SoftStyle" = 1, "FluidForm" = 1, "GodKi" = 0.05, "Flow" = 1)
+						passives = list("SoftStyle" = 1, "FluidForm" = 1, "Flow" = 1)
 						strength += 0.25
 						force += 0.25
 						defense += 0.25
 					if("Wind")
-						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1, "GodKi" = 0.05)
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1)
 						speed += 0.25
 						offense += 0.25
 						defense += 0.25
 					if("Gold")
-						passives = list("Blubber" = 0.25, "CashCow" = 1, "GodKi" = 0.05)
+						passives = list("Blubber" = 0.25, "CashCow" = 1, )
 						ecoAdd = 1
 						endurance += 0.5
 						speed += 0.25
@@ -742,29 +742,29 @@ ascension
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Metal")
-						passives = list("Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 0.25, "GodKi" = 0.05)
+						passives = list("Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 3, )
 						strength += 0.25
 						endurance += 0.25
 						defense += 0.25
 
 					if("Fire")
 						angerPoint += 5
-						passives = list("DemonicDurability" = 0.25, "SpiritHand" = 1, "GodKi" = 0.05)
+						passives = list("DemonicDurability" = 0.25, "SpiritHand" = 1, )
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
 					if("Water")
-						passives = list("GodKi" = 0.05, "CalmAnger" = 1, "FluidForm" = 1, "SoftStyle" = 1)
+						passives = list(, "CalmAnger" = 1, "FluidForm" = 1, "SoftStyle" = 1)
 						strength += 0.25
 						force += 0.25
 						defense += 0.25
 					if("Wind")
-						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1, "GodKi" = 0.05)
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1, )
 						speed += 0.25
 						offense += 0.25
 						defense += 0.25
 					if("Gold")
-						passives = list("Blubber" = 0.25, "CashCow" = 1, "GodKi" = 0.05)
+						passives = list("Blubber" = 0.25, "CashCow" = 1, )
 						ecoAdd = 1
 						endurance += 0.5
 						speed += 0.25
@@ -774,32 +774,32 @@ ascension
 			onAscension(mob/owner)
 				switch(owner.Class)
 					if("Metal")
-						passives = list("Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 0.25, "GodKi" = 0.05)
+						passives = list("Unstoppable" = 0.25, "HeavyHitter" = 0.5, "DeathField" = 2, )
 						strength += 0.25
 						endurance += 0.25
 						defense += 0.25
 
 					if("Fire")
 						angerPoint += 5
-						passives = list("DemonicDurability" = 0.25, "SpiritHand" = 1, "GodKi" = 0.05)
+						passives = list("DemonicDurability" = 0.25, "SpiritHand" = 1, )
 						strength += 0.25
 						force += 0.25
 						offense += 0.25
 
 					if("Water")
-						passives = list("FluidForm" = 1, "SoftStyle" = 1, "Flow" = 1, "GodKi" = 0.05)
+						passives = list("FluidForm" = 1, "SoftStyle" = 1, "Flow" = 1, )
 						strength += 0.25
 						force += 0.25
 						defense += 0.25
 
 
 					if("Wind")
-						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1, "GodKi" = 0.05)
+						passives = list("BlurringStrikes" = 0.25, "Flicker" = 1, )
 						speed += 0.25
 						offense += 0.25
 						defense += 0.25
 					if("Gold")
-						passives = list("Blubber" = 0.25, "CashCow" = 1, "GodKi" = 0.05)
+						passives = list("Blubber" = 0.25, "CashCow" = 1, )
 						ecoAdd = 1
 						endurance += 0.5
 						speed += 0.25
@@ -1492,11 +1492,11 @@ ascension
 
 				peace
 					choices = list()
-					passives = list("Flow" = 0.5, "DeathField" = 0.25, "VoidField" = 0.25)
+					passives = list("Flow" = 0.5, "DeathField" = 0.5, "VoidField" = 0.5)
 
 				both
 					choices = list()
-					passives = list("VenomResistance" = 0.25, "DebuffImmune" = 0.25, "Juggernaut" = 0.25, "Flow" = 0.25, "DeathField" = 0.175, "VoidField" = 0.175)
+					passives = list("VenomResistance" = 0.25, "DebuffImmune" = 0.25, "Juggernaut" = 0.25, "Flow" = 0.25, "DeathField" = 0.25, "VoidField" = 0.25)
 
 					onAscension(mob/owner)
 						if(owner.passive_handler.Get("Juggernaut")+passives["Juggernaut"] >= 1)

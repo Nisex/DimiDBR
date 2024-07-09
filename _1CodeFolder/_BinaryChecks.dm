@@ -797,7 +797,7 @@ mob
 		HasBleedHit()
 			if(passive_handler.Get("BleedHit"))
 				return 1
-			if(src.GatesActive && src.GatesActive>=3 && src.GatesActive<8)
+			if(src.GatesActive && src.GatesActive<8)
 				return 1
 			if(src.CheckSpecial("Kaioken"))
 				return 1
@@ -818,8 +818,8 @@ mob
 					Return*=(src.PowerControl/100)
 			if(src.Saga=="Kamui")
 				Return -= (Return / 6) * src.SagaLevel
-			if(src.GatesActive && src.GatesActive >=3 && src.GatesActive<8)
-				Return+=(1/src.SagaLevel)
+			if(src.GatesActive && src.GatesActive<8)
+				Return+=(4/src.SagaLevel)
 			if(src.Kaioken)
 				if(kkmast>src.Kaioken)
 					Return=src.Kaioken/2
@@ -855,7 +855,9 @@ mob
 		GetFatigueLeak()
 			var/Total=0
 			Total+=passive_handler.Get("FatigueLeak")
-			return  Total
+			if(src.GatesActive && src.GatesActive < 8)
+				return Total +(4/src.SagaLevel)
+			return Total
 		HasSoftStyle()
 			if(passive_handler.Get("SoftStyle"))
 				return 1
@@ -1039,7 +1041,7 @@ mob
 				Return += 0.5
 			if(Target)
 				if(isDominating(Target) && passive_handler.Get("HellRisen") >= 0.75)
-					Return += AscensionsAcquired-2
+					Return += passive_handler.Get("HellRisen") * 4
 			if(src.TarotFate=="The World")
 				Return+=5
 			if(Target)
@@ -1845,7 +1847,7 @@ mob
 				return 1
 			return 0
 		GetSteady()
-			var/total = passive_handler.Get("Steady") * (0.1)
+			var/total = passive_handler.Get("Steady") * (glob.STEADY_MODIFIER)
 			return total
 		HasErosion()
 			if(passive_handler.Get("Erosion"))

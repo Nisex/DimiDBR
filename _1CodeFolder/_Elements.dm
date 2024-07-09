@@ -89,7 +89,8 @@ proc
 						DamageMod+=1
 					if("Wind" in defenseElements)
 						DamageMod+=1
-
+					if("Water" in defenseElements)
+						DamageMod-=1//Reduced damage
 				if("Fire")
 					if("Water" in defenseElements)
 						DamageMod-=1//Reduced damage
@@ -113,9 +114,9 @@ proc
 			if(!damageOnly&&prob(DebuffRate))
 				switch(element)
 					if("HellFire")
-						Defender.AddPoison(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
-						Defender.AddBurn(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
-						Defender.AddShearing(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
+						Defender.AddPoison(2*DebuffIntensity*glob.POISON_INTENSITY, Attacker)
+						Defender.AddBurn(3*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
+						Defender.AddShearing(4*DebuffIntensity, Attacker)
 
 					if("Chaos")
 						if(prob(50))

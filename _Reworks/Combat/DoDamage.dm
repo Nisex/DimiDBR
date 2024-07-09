@@ -237,18 +237,18 @@
 		defender.HealMana(val/2)
 
 	if(defender.passive_handler.Get("Gluttony"))
-		var/value = defender.passive_handler.Get("Gluttony") * 0.15
+		var/value = defender.passive_handler.Get("Gluttony") * (glob.FIELD_MODIFIERS + glob.GLUTTONY_MODIFIER)
 		WoundSelf(value * val )
 		GainFatigue(value * val)
 		Tension += value * val * glob.TENSION_MULTIPLIER
 
 
 	if(defender.HasDeathField() && (unarmed || sword))
-		var/deathFieldValue = defender.GetDeathField() * 0.01
+		var/deathFieldValue = defender.GetDeathField() * glob.FIELD_MODIFIERS // should be 0.01(?), 15 = 15% dmg takebnn reflective if they do 100
 		WoundSelf(deathFieldValue * min(1/val,1))
 		Tension += deathFieldValue * min(1/val,1) * glob.TENSION_MULTIPLIER
 	if(defender.HasVoidField()&&spiritAtk)
-		var/voidFieldValue = defender.GetVoidField() * 0.01
+		var/voidFieldValue = defender.GetVoidField() * glob.FIELD_MODIFIERS
 		GainFatigue(voidFieldValue * min(1/val,1))
 
 

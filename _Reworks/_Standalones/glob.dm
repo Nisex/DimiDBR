@@ -285,6 +285,9 @@ globalTracker
 		PURE_MOD_POST_CALC = FALSE
 		TENSION_MULTIPLIER = 1
 		CORRUPTION_GAIN = 1.25
+		FIELD_MODIFIERS = 0.01
+		GLUTTONY_MODIFIER = 0.14
+		STEADY_MODIFIER = 0.05
 // dmg rolls
 		min_damage_roll = 0.3
 		upper_damage_roll = 0.9

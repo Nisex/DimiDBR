@@ -731,7 +731,7 @@
 									summonMonkeySoldier(damage, passive_handler.Get("MonkeyKing"))
 
 							if(UsingAnsatsuken())
-								HealMana(clamp(damage * SagaLevel, 0.05, 20), 1)
+								HealMana(clamp(damage * SagaLevel, 0.005, 20), 1)
 							if(GetAttracting())
 								enemy.AddAttracting(GetAttracting(), src)
 					// 										OTHER DMG START 															//

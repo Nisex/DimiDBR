@@ -51,7 +51,7 @@ globalTracker/var/LOWER_DEBUFF_CLAMP = 0.001
         reduceVaiHealth(dmg)
     if(BioArmor)
         reduceBioArmor(dmg)
-    if(typeOfDebuff == "Burn" && passive_handler.Get("FireAbsorb"))
+    if(typeOfDebuff == "Burn" && (passive_handler.Get("FireAbsorb") || CheckSlotless("Heat of Passion") && Health <= 15 ))
         dmg = 0
     switch(typeOfDebuff)
         if("Burn")

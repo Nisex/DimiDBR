@@ -12,5 +12,7 @@
         TimerLimit = 2 + (asc/2)
         Cooldown = 20 - (asc*2)
         Shattering = 5 + (asc*2.5)
-        Steady = clamp(asc/2, 1, 2)
+        Steady = clamp(asc/2, 0.5, 2)
         PureDamage = -1 + (asc/2)
+
+        passives = list("Shattering" = Shattering, "Steady" = Steady, "PureDamage" = PureDamage)

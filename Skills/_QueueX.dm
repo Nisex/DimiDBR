@@ -1039,7 +1039,7 @@ obj
 					src.Freezing=8 + boon
 					src.Paralyzing=8 + boon
 					src.Shattering=8 + boon
-					DamageMult = 0.5 + (ascLevel/8)
+					DamageMult = 2 + (ascLevel)
 
 //Basic
 
@@ -1105,19 +1105,19 @@ obj
 						if(usr.Secret == "Eldritch" && usr.CheckSlotless("True Form"))
 							src.name="Maleific Strike"
 							src.DamageMult=3
-							src.AccuracyMult = 1.1
+							src.AccuracyMult = 3
 							src.KBAdd=2
 							src.KBMult=1.5
 							src.Ooze = 1
-							src.Cooldown=60
+							src.Cooldown=30
 							src.ActiveMessage="leaks some of their malefic presence onto the world!"
 							src.HitMessage=0
-							src.Scorching=3
-							src.Freezing=3
-							src.Paralyzing=3
-							src.Shattering=3
+							src.Scorching=3 + (2*usr.AscensionsAcquired)
+							src.Freezing=3 + (2*usr.AscensionsAcquired)
+							src.Paralyzing=3 + (2*usr.AscensionsAcquired)
+							src.Shattering=3 + (2*usr.AscensionsAcquired)
 							src.CursedWounds=0
-							src.Toxic=0
+							src.Toxic=3 + (2*usr.AscensionsAcquired)
 							src.Combo=0
 							src.Warp=0
 							src.Rapid=0
