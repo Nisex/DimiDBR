@@ -2,12 +2,6 @@
 #define GAJALAKA_MULT 1.2
 #define ROUND_DIVIDE(N,N2) round(N/N2,0.15)
 obj/Skills/Buffs
-	Read(savefile/F)
-		..()
-		if(!altered)
-			passives = initial(type:passives)
-		if(isnull(passives))
-			passives = list()
 	Cooldown=1
 /**
 NEW VARIABLES

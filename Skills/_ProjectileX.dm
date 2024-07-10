@@ -3383,8 +3383,6 @@ obj
 						LosesHoming=75
 						HyperHoming=1
 						Speed=1.25
-						NoLock=1
-						NoAttackLock=1
 						IconSize=randValue(0.8,1.5)
 						DamageMult = 9 + (asc)
 						DamageMult/=Blasts

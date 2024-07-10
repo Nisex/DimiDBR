@@ -7,7 +7,9 @@ ascension
 	Read(F)
 		..()
 		// death becomes u
+		world<<jointext(passives, " | ")
 		passives = initial(type:passives)
+		world<<jointext(passives, " , ")
 		if(isnull(passives))
 			passives = list()
 
