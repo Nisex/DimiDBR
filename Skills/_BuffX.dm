@@ -1559,15 +1559,16 @@ NEW VARIABLES
 							src.StrMult=1.2
 							src.SpdMult=1.2
 							src.OffMult=1.2
-
 						if("Shield")
-							src.EndMult=1.3
-							src.DefMult=1.3
+							src.EndMult=1.2
+							src.DefMult=1.2
+							src.StrMult=1.2
 						if("Staff")
 							src.ForMult=1.2
 							src.OffMult=1.2
-							passives["ManaCapMult"] = 0.1 * usr.SagaLevel
-							passives["SpiritFlow"] = 0.15 * usr.SagaLevel
+							src.DefMult=1.2
+							// passives["ManaCapMult"] = 0.1 * usr.SagaLevel
+							// passives["SpiritFlow"] = 0.15 * usr.SagaLevel
 					passives["SpiritSword"] = 0.2 * usr.SagaLevel
 					passives["PULock"] = 1
 					passives["SwordDamage"] = GetKeychainDamage(usr.KeychainAttached)

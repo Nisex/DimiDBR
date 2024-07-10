@@ -2114,7 +2114,7 @@ mob
 			if(src.Saga in list("Hiten Mitsurugi-Ryuu", "Ansatsuken"))
 				if(src.SagaLevel>=1)
 					if(!Forced)
-						return 	clamp((src.GetSlayerMod() * 1.5) - ignore, 0, glob.MAX_ADDITONAL_DAMAGE_CLAMP)
+						return clamp((src.GetSlayerMod() * 1.5) - ignore, 0, glob.MAX_ADDITONAL_DAMAGE_CLAMP)
 					else
 						return clamp((Forced *1.5) - ignore, 0, glob.MAX_ADDITONAL_DAMAGE_CLAMP)
 			if(!Forced)

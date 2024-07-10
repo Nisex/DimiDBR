@@ -977,7 +977,7 @@ obj
 						passives = list("Flicker" = 1)
 						Flicker=1
 						Mastery=4
-						ClassNeeded = list("Light","Wooden")
+						ClassNeeded = list("Light", "Wooden")
 						Finisher="/obj/Skills/Queue/Finisher/Flash_Strike"
 						verb/Hiten_Mitsurugi_Ryuu()
 							set hidden=1
@@ -989,8 +989,10 @@ obj
 						FlashChange=1
 						Mastery=4
 						Speed_Rave_Style
-							StyleStr=1.5
-							StyleSpd=1.5
+							StyleStr = 1.5
+							StyleSpd = 1.5
+							StyleOff = 1.1
+							StyleDef = 1.1
 							StyleActive="Speed Rave"
 							passives = list("BlurringStrikes" = 1, "AfterImages" = 1, "Steady" = 1)
 							Finisher="/obj/Skills/Queue/Finisher/Fever_Pitch"
@@ -998,8 +1000,9 @@ obj
 								set hidden=1
 								src.Trigger(usr)
 						Critical_Impact_Style
-							StyleStr=1.5
-							StyleEnd=1.5
+							StyleStr = 1.5
+							StyleEnd = 1.5
+							StyleOff = 1.2
 							StyleActive="Critical Impact"
 							passives = list("CriticalChance" = 15, "CriticalDamage" = 0.1, "HeavyHitter" = 1, "CallousedHands" = 0.15)
 							Finisher="/obj/Skills/Queue/Finisher/Fatal_Mode"
@@ -1007,8 +1010,9 @@ obj
 								set hidden=1
 								src.Trigger(usr)
 						Spell_Weaver_Style
-							StyleFor=1.5
-							StyleSpd=1.5
+							StyleFor = 1.5
+							StyleSpd = 1.5
+							StyleDef = 1.1
 							StyleActive="Spell Weaver"
 							passives = list("SpiritFlow" = 0.15, "QuickCast" = 1, "MovingCharge" = 1, "Siphon" = 2)
 							Finisher="/obj/Skills/Queue/Finisher/Magic_Wish"
@@ -1055,7 +1059,7 @@ obj
 								set hidden=1
 								src.Trigger(usr)
 						Wing_Blade_Style
-							StyleStr=1.25
+							StyleStr=1.35
 							StyleEnd=1.25
 							StyleSpd=1.5
 							StyleActive="Wing Blade"
@@ -1073,7 +1077,7 @@ obj
 								set hidden=1
 								src.Trigger(usr)
 						Cyclone_Style
-							StyleStr=1.25
+							StyleStr=1.35
 							StyleFor=1.25
 							StyleSpd=1.5
 							ElementalClass="Wind"
@@ -1088,7 +1092,7 @@ obj
 								set hidden=1
 								src.Trigger(usr)
 						Rock_Breaker_Style
-							StyleStr=1.25
+							StyleStr=1.35
 							StyleEnd=1.5
 							StyleFor=1.25
 							ElementalClass="Earth"
@@ -1103,7 +1107,7 @@ obj
 								set hidden=1
 								src.Trigger(usr)
 						Dark_Impulse_Style
-							StyleStr=1.25
+							StyleStr=1.35
 							StyleEnd=1.5
 							StyleSpd=1.25
 							IconLock='DarknessGlow.dmi'
@@ -1119,7 +1123,7 @@ obj
 						Ghost_Drive_Style
 							StyleEnd=1.25
 							StyleFor=1.5
-							StyleSpd=1.25
+							StyleSpd=1.35
 							StyleActive="Ghost Drive"
 							passives = list("Godspeed" = 1, "Flicker" = 1)
 							Godspeed=1
@@ -1132,7 +1136,7 @@ obj
 						Blade_Charge_Style
 							StyleStr=1.25
 							StyleFor=1.5
-							StyleSpd=1.25
+							StyleSpd=1.35
 							StyleActive="Blade Charge"
 							passives = list("Extend" = 1, "SpiritSword" = 0.75)
 							Extend=1

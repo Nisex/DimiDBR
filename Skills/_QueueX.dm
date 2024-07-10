@@ -817,7 +817,6 @@ obj
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Magic_Wish"
 					FollowUp="/obj/Skills/AutoHit/MagicWish"
 					HitMessage="hopes upon a magic wish!"
-
 				Fire_Storm
 					Projectile="/obj/Skills/Projectile/Fire_Storm"
 					ProjectileCount=10

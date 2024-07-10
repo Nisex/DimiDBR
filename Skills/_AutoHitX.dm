@@ -842,7 +842,7 @@ obj
 				Area="Arc"
 				NoLock=1
 				StrOffense=1
-				DamageMult=3
+				DamageMult=4
 				Distance=5
 				Instinct=1
 				TurfStrike=1
@@ -858,7 +858,7 @@ obj
 			FatalMode
 				Area="Circle"
 				StrOffense=1
-				DamageMult=0.75
+				DamageMult=1
 				Rounds=5
 				Distance=5
 				Slow=1
@@ -878,7 +878,7 @@ obj
 			MagicWish
 				Area="Circle"
 				ForOffense=1
-				DamageMult=0.2
+				DamageMult=0.4
 				Rounds=15
 				RoundMovement=1
 				Size=2
