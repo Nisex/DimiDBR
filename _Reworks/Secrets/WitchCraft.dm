@@ -46,10 +46,10 @@ mob/Admin3/verb/GiveWitchBook()
 	StyleFor = 1.3
 	StyleSpd = 1.1
 	StyleDef = 1.1
-	ElementalClass="Witch"
-	StyleActive="Witch"
-	ElementalOffense="Felfire"
-	Finisher="/obj/Skills/Queue/Finisher/Shifting_Clouds"
+	ElementalClass= "Water" 
+	StyleActive = "Witch"
+	ElementalOffense = "Felfire"
+	Finisher = "/obj/Skills/Queue/Finisher/Sundered_Sky"
 	verb/Witch_Style()
 		set hidden=1
 		src.Trigger(usr)
