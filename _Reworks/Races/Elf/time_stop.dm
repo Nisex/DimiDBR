@@ -1,7 +1,7 @@
 /obj/Skills/Buffs/SlotlessBuffs/Elf/Time_Stop
 	var/tmp/TimeStopped = 0
 	var/tmp/mob/owner = null
-	ActiveMessage = "Fall."
+	var/TriggerMessage = "Fall."
 	passives = list("CoolerAfterImages" = 4, "Godspeed" = 1)
 	Mastery = 1
 	Cooldown=-1
@@ -32,21 +32,21 @@
 				if(B.client)
 					spawn()animate(B.client, color = null, time = 3)
 			Trigger(p, 1)
+			Cooldown()
 
 	proc/StartTimeStop(mob/p)
 		p.client.sayProc("...")
 		applyTimeEffect(p)
-		p.client.sayProc("<[ActiveMessage]", YELL)
+		p.client.sayProc("[TriggerMessage]", YELL)
 		p.TimeStop=1
 		TimeStopped=0
 		ticking_generic+=src
 
 	adjust(mob/p)
 		if(!altered)
-			world<<"we should get here"
 			Mastery = clamp(p.AscensionsAcquired,1,5)
-			world<<"mastery = [Mastery]"
 			passives = list("CoolerAfterImages" = 4, "Godspeed" = 4, "Adrenaline" = 4) // make sure u go fast
+			TimerLimit = 60
 
 
 	verb/Power_Word_Stop()
@@ -54,7 +54,7 @@
 		adjust(usr)
 		var/t = Trigger(usr)
 		// if this passes
-		if(t)
+		if(t && !src.Using)
 			StartTimeStop(usr)
 
 	Trigger(var/mob/User, Override=0)

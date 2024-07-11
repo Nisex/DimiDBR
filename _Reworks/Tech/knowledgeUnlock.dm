@@ -350,8 +350,6 @@ var/knowledgePaths/tech/list/TechnologyTree = list()
 /mob/proc/RemoveTech(knowledgePaths/t, ty)
 	if(istext(t))
 		t = global.vars["[ty]Tree"][t]
-		world<<t
-		world<<t.name
 
 	src << " You have removed the knowledge of <b><u>[t.name]</u></b>!"
 

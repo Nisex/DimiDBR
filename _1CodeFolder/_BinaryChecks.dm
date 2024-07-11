@@ -1389,9 +1389,14 @@ mob
 		HasManaGeneration()
 			if(passive_handler.Get("ManaGeneration"))
 				return 1
+			if(isRace(ELF))
+				return 1
 			return 0
 		GetManaGeneration()
-			return passive_handler.Get("ManaGeneration")
+			var/managen = passive_handler.Get("ManaGeneration")
+			if(isRace(ELF))
+				managen += AscensionsAcquired
+			return managen
 		HasMystic()
 			if(src.Mystic)
 				return 1

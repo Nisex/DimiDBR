@@ -3386,25 +3386,32 @@ obj
 					ActiveMessage="invokes: <font size=+1>ERASE!</font size>"
 					adjust(mob/p)
 						var/asc = p.AscensionsAcquired
-						if(p.passive_handler.Get("HotHundred")||p.passive_handler.Get("Warping"))
-							EndRate = 0.25
-							Radius=1
-							MultiShot=0
-							Distance = 50
-							DamageMult=6
-						else
-							EndRate = 0.25
-							Radius = 2
-							MultiShot = 2 + asc
-							Distance = 5
-							DamageMult= 6 + asc
-							DamageMult/=MultiShot
-					verb/test_Disintegrate()
-						set category="Skills"
-						adjust(usr)
-						usr.UseProjectile(src)
+						if(!altered)
+							if(usr.isInnovative(ELF, "Any"))
+								if(p.passive_handler.Get("HotHundred")||p.passive_handler.Get("Warping"))
+									EndRate = 0.25
+									Radius=1
+									MultiShot=0
+									Distance = 50
+									DamageMult=6
+								else
+									EndRate = 0.25
+									Radius = 2
+									MultiShot = 2 + asc
+									Distance = 5
+									DamageMult= 6 + asc
+									DamageMult /= MultiShot
+							else
+								EndRate = 0.25
+								Radius=1
+								MultiShot=0
+								Distance = 50
+								DamageMult=6
+
+
 					verb/Disintegrate()
 						set category="Skills"
+						adjust(usr)
 						usr.UseProjectile(src)
 				Meteor
 					ElementalClass="Fire"
@@ -3438,25 +3445,36 @@ obj
 					Hover=1
 					ActiveMessage="invokes: <font size=+1>METEO!</font size>"
 					adjust(mob/p)
-						var/asc = p.AscensionsAcquired
-						ManaCost = p.ManaAmount
-						Blasts = ManaCost/(4+asc)
-						ZoneAttack=1
-						ZoneAttackX=18
-						ZoneAttackY=18
-						Homing=1
-						LosesHoming=75
-						HyperHoming=1
-						Speed=1.25
-						IconSize=randValue(0.8,1.5)
-						DamageMult = 9 + (asc)
-						DamageMult/=Blasts
-					verb/test_Meteor()
-						set category="Skills"
-						adjust(usr)
-						usr.UseProjectile(src)
+						if(!altered)
+							if(usr.isInnovative(ELF, "Any"))
+								var/asc = p.AscensionsAcquired
+								ManaCost = p.ManaAmount
+								Blasts = ManaCost/(4+asc)
+								ZoneAttack=1
+								ZoneAttackX=18
+								ZoneAttackY=18
+								Homing=1
+								LosesHoming=75
+								HyperHoming=1
+								Speed=1.25
+								IconSize=randValue(0.8,1.5)
+								DamageMult = 9 + (asc)
+								DamageMult/=Blasts
+							else
+								ManaCost=15
+								Blasts = 0
+								ZoneAttack=1
+								ZoneAttackX=6
+								ZoneAttackY=6
+								Homing=1
+								LosesHoming=100
+								HyperHoming=1
+								Speed=2
+								IconSize=1
+								DamageMult=11
 					verb/Meteor()
 						set category="Skills"
+						adjust(usr)
 						usr.UseProjectile(src)
 
 

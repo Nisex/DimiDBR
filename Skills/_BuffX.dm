@@ -5814,9 +5814,19 @@ NEW VARIABLES
 							VaizardHealth=0.15
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/10)
+							applyToTarget=0
 							TimerLimit=30 + p.getTotalMagicLevel()
 							VaizardShatter=1
+							IconLock='Android Shield.dmi'
+							IconLockBlend=2
+							IconLayer=-1
+							OverlaySize=1.2
 						else
+							applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/ShellApply
+							IconLock=null
+							IconLockBlend=0
+							IconLayer=0
+							OverlaySize=0
 							VaizardHealth=0
 							AffectTarget = 1
 							passives = list()
@@ -5865,7 +5875,17 @@ NEW VARIABLES
 							passives = list("Hardening" = p.getTotalMagicLevel()/5)
 							TimerLimit=30 + p.getTotalMagicLevel()
 							VaizardShatter=1
+							applyToTarget = 0
+							IconLock='Android Shield.dmi'
+							IconLockBlend=2
+							IconLayer=-1
+							OverlaySize=1.2
 						else
+							applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/BarrierApply
+							IconLock=null
+							IconLockBlend=0
+							IconLayer=0
+							OverlaySize=0
 							VaizardHealth=0
 							TimerLimit= initial(TimerLimit)
 							VaizardShatter=0
@@ -5910,6 +5930,22 @@ NEW VARIABLES
 							TimerLimit = 15 + p.getTotalMagicLevel()
 							AffectTarget = 0
 							CastingTime = 1
+							applyToTarget = 0
+							IconLock='Bubble Shield.dmi'
+							IconLockBlend=4
+							IconLayer=-1
+							OverlaySize=1.2
+						else
+							applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/ProtectApply
+							IconLock=null
+							IconLockBlend=0
+							IconLayer=0
+							OverlaySize=0
+							AffectTarget = 1
+							CastingTime = 4
+							passives = list()
+							TimerLimit = initial(TimerLimit)
+							
 
 				verb/Protect()
 					set category="Skills"
@@ -5951,7 +5987,19 @@ NEW VARIABLES
 							passives = list("Hardening" = p.getTotalMagicLevel()/5)
 							TimerLimit= 60 + p.getTotalMagicLevel() * 2
 							VaizardShatter=1
+							applyToTarget = 0
+							IconLock='zekkai.dmi'
+							IconLayer=-1
+							IconLockBlend=2
+							IconApart=1
+							OverlaySize=1.3
 						else
+							IconLock=null
+							IconLayer=0
+							IconLockBlend=0
+							IconApart=0
+							applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Resilient_SphereApply
+							OverlaySize=1.3
 							VaizardHealth=0
 							AffectTarget = 1
 							passives = list()
@@ -6004,8 +6052,19 @@ NEW VARIABLES
 							TimerLimit = 20 + p.getTotalMagicLevel()
 							AffectTarget = 0
 							CastingTime = 1
-
+							applyToTarget = 0
+							IconLock='Bubble Shield.dmi'
+							IconLockBlend=2
+							IconLayer=-1
+							IconApart=1
+							OverlaySize=1.2
 						else
+							applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/ProtegaApply
+							IconLock=null
+							IconLockBlend=0
+							IconLayer=0
+							IconApart=0
+							OverlaySize=0
 							passives = list()
 							AffectTarget = 1
 							CastingTime = 3
