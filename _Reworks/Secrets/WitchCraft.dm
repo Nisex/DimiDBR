@@ -34,7 +34,7 @@ obj/proc/checkIfNoPassives(mob/who)
 		world << "test"
 		who.passive_handler.Set("Maki", 1)
 
-mob/Admin/verb/GiveWitchBook()
+mob/Admin3/verb/GiveWitchBook()
 	var/mob/who = input(usr, "Who do you wish to grant this crack book") in players
 	var/obj/WitchCraft/WitchesBook/G = new
 	G.loc = who
@@ -244,7 +244,7 @@ mob/Admin/verb/GiveWitchBook()
 			usr.SetQueue(src)
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/WitchCounter
-	DefMult = 2
+	DefMult = 1.3 // ur crazy
 	CounterSpell = 1
 	BuffName = "WitchCounter"
 	TimerLimit = 30

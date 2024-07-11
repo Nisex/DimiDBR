@@ -91,7 +91,7 @@
 
 /obj/Skills/Queue/Finisher/UBW_finisher
     InstantStrikes = 6
-    DamageMult = 2
+    DamageMult = 0.75
     FollowUp="/obj/Skills/AutoHit/UBW_FollowUP"
     BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Stunted"
     BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Sword_Flow"
@@ -112,7 +112,7 @@
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Sword_Flow
-    passives = list("ManaGeneration" = 20, "Brutalize" = 3, "Flow" = 1, "Instinct" = 1, "Warping" = 4)
+    passives = list("ManaGeneration" = 20, "Brutalize" = 1.5, "Flow" = 1, "Instinct" = 1, "Warping" = 4)
     Warping=4
     TimerLimit=45
     ActiveMessage="is in the flow of battle!"
@@ -125,7 +125,7 @@
     Distance=3
     Instinct=4
     DamageMult=2
-    Rounds=6
+    Rounds=4
     StrOffense=1
     ActiveMessage="sends a barrage of swords at their enemy!"
     HitSparkIcon='Slash - Zan.dmi'
