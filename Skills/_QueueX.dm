@@ -1888,14 +1888,19 @@ obj
 				Copyable=2
 				name="Kinshasa"//Skill name displayed in message.
 				HitMessage="builds up speed and knees their target in the face!!"
-				DamageMult=2
+				DamageMult=3.5
 				AccuracyMult = 1.15
 				Duration=5
 				SpeedStrike=4
 				Cooldown=30
 				Crippling = 8
 				UnarmedOnly=1
-				EnergyCost=2.5
+				EnergyCost=1.5
+				adjust(mob/p)
+					if(usr.isInnovative(HUMAN, "Unarmed"))
+						Projectile="/obj/Skills/Projectile/KinshasaProjectile"
+					else
+						Projectile=null
 				verb/Kinshasa()
 					set category="Skills"
 					set name="Kinshasa"//Verb name.
@@ -3918,6 +3923,9 @@ obj
 mob
 	proc
 		SetQueue(var/obj/Skills/Queue/Q)
+			if(src.passive_handler.Get("Silenced"))
+				src << "You can't use [Q] you are silenced!"
+				return 0
 			if(Q.Using)
 				return//Can't use if on cooldown.
 			if(Q.StanceNeeded)
@@ -4097,7 +4105,7 @@ mob
 			src.QueuedActivationMessage()
 			src.QueueOverlayAdd()
 			if(src.TomeSpell(Q))
-				Q.Cooldown(1-(0.15*src.TomeSpell(Q)))
+				Q.Cooldown()
 			else
 				Q.Cooldown()
 

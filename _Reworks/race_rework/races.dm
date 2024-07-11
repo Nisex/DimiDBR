@@ -477,7 +477,8 @@ race
 		force = 1.5
 		regeneration = 3
 		imagination = 2
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown, /obj/Skills/Buffs/SlotlessBuffs/Elf/God_Slicer)
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown, /obj/Skills/Buffs/SlotlessBuffs/Elf/God_Slicer, /obj/Skills/AutoHit/Elf/Compel , \
+						/obj/Skills/AutoHit/Elf/Silence, /obj/Skills/AutoHit/Elf/Flee, /obj/Skills/Buffs/SlotlessBuffs/Elf/Time_Stop)
 		passives = list("Adrenaline" = 1, "Innovation" = 1)
 
 

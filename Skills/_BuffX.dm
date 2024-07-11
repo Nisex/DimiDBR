@@ -569,6 +569,9 @@ NEW VARIABLES
 				description += "[i] - [passives[i]]\n"
 	proc
 		Trigger(var/mob/User, Override=0)
+			if(!Override && User.passive_handler.Get("Silenced"))
+				User << "You can't use [src] you are silenced!"
+				return 0
 			if(!Override && User.BuffingUp)
 				return 0
 			if(!Override)
@@ -5805,11 +5808,31 @@ NEW VARIABLES
 				Cooldown=120
 				AffectTarget = 1
 				Range = 12
+				adjust(mob/p)
+					if(!altered)
+						if(usr.isInnovative(ELF, "Any"))
+							VaizardHealth=0.15
+							AffectTarget = 0
+							passives = list("Hardening" = p.getTotalMagicLevel()/10)
+							TimerLimit=30 + p.getTotalMagicLevel()
+							VaizardShatter=1
+						else
+							VaizardHealth=0
+							AffectTarget = 1
+							passives = list()
+							TimerLimit=initial(TimerLimit)
+							VaizardShatter=0
+
+
+
+
 				verb/Shell()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						usr << "You can't use [name] on yourself!"
-						return
+						if(!(usr.isInnovative(ELF, "Any")))
+							usr << "You can't use [name] on yourself!"
+							return
+					adjust(usr)
 					src.Trigger(usr)
 			BarrierApply
 				name = "Barrier"
@@ -5834,11 +5857,27 @@ NEW VARIABLES
 				EndYourself = 1
 				AffectTarget = 1
 				Range = 12
+				adjust(mob/p)
+					if(!altered)
+						if(usr.isInnovative(ELF, "Any"))
+							VaizardHealth=0.3
+							AffectTarget = 0
+							passives = list("Hardening" = p.getTotalMagicLevel()/5)
+							TimerLimit=30 + p.getTotalMagicLevel()
+							VaizardShatter=1
+						else
+							VaizardHealth=0
+							TimerLimit= initial(TimerLimit)
+							VaizardShatter=0
+							AffectTarget = 1
+							passives = list()
 				verb/Barrier()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						usr << "You can't use [name] on yourself!"
-						return
+						if(!(usr.isInnovative(ELF, "Any")))
+							usr << "You can't use [name] on yourself!"
+							return
+					adjust(usr)
 					src.Trigger(usr)
 			ProtectApply
 				name = "Protect"
@@ -5864,11 +5903,21 @@ NEW VARIABLES
 				Cooldown=160
 				AffectTarget = 1
 				Range = 12
+				adjust(mob/p)
+					if(!altered)
+						if(usr.isInnovative(ELF, "Any"))
+							passives = list("PureReduction" = round(p.getTotalMagicLevel()/10,0.1), "DebuffImmune" = p.getTotalMagicLevel()/20, "Sunyata" = round(p.Potential/10,0.5)) // 5% per 10 pot to negate queues
+							TimerLimit = 15 + p.getTotalMagicLevel()
+							AffectTarget = 0
+							CastingTime = 1
+
 				verb/Protect()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						usr << "You can't use [name] on yourself!"
-						return
+						if(!(usr.isInnovative(ELF, "Any")))
+							usr << "You can't use [name] on yourself!"
+							return
+					adjust(usr)
 					src.Trigger(usr)
 			Resilient_SphereApply
 				name = "Resilient Sphere"
@@ -5894,11 +5943,27 @@ NEW VARIABLES
 				Cooldown=-1
 				AffectTarget = 1
 				Range = 12
+				adjust(mob/p)
+					if(!altered)
+						if(usr.isInnovative(ELF, "Any"))
+							VaizardHealth=0.5
+							AffectTarget = 0
+							passives = list("Hardening" = p.getTotalMagicLevel()/5)
+							TimerLimit= 60 + p.getTotalMagicLevel() * 2
+							VaizardShatter=1
+						else
+							VaizardHealth=0
+							AffectTarget = 1
+							passives = list()
+							TimerLimit=initial(TimerLimit)
+							VaizardShatter=0
 				verb/Resilient_Sphere()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						usr << "You can't use [name] on yourself!"
-						return
+						if(!(usr.isInnovative(ELF, "Any")))
+							usr << "You can't use [name] on yourself!"
+							return
+					adjust(usr)
 					src.Trigger(usr)
 
 
@@ -5917,7 +5982,7 @@ NEW VARIABLES
 				IconLayer=-1
 				IconApart=1
 				OverlaySize=1.2
-				TimerLimit=60
+				TimerLimit=40
 				OffMessage="feels the magic protecting them fade away..."
 			Protega
 				ElementalClass="Earth"
@@ -5932,11 +5997,25 @@ NEW VARIABLES
 				EndYourself=1
 				applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/ProtegaApply
 				Range = 10
+				adjust(mob/p)
+					if(!altered)
+						if(usr.isInnovative(ELF, "Any"))
+							passives = list("PureReduction" = round(p.getTotalMagicLevel()/5,0.1), "DebuffImmune" = p.getTotalMagicLevel()/10, "Sunyata" = round(p.Potential/5,0.5)) // 5% per 10 pot to negate queues
+							TimerLimit = 20 + p.getTotalMagicLevel()
+							AffectTarget = 0
+							CastingTime = 1
+
+						else
+							passives = list()
+							AffectTarget = 1
+							CastingTime = 3
 				verb/Protega()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						usr << "You can't use [name] on yourself!"
-						return
+						if(!(usr.isInnovative(ELF, "Any")))
+							usr << "You can't use [name] on yourself!"
+							return
+					adjust(usr)
 					src.Trigger(usr)
 
 			EsunaApply
@@ -9809,7 +9888,7 @@ NEW VARIABLES
 					Shunshin
 						SpdMult=1.6
 						passives = list("TensionLock" = 1,"Warping" = 4, "HotHundred" = 1, "Godspeed" = 3, "BlurringStrikes" = 1)
-						TimerLimit=15
+						TimerLimit=12
 						Afterimages=1
 						ActiveMessage="moves at godspeed for a rapid attack!"
 						OffMessage="restrains their godspeed..."
@@ -14183,7 +14262,7 @@ mob
 
 			if(B.Cooldown)
 				if(src.TomeSpell(B))
-					B.Cooldown(1-(0.15*src.TomeSpell(B)))
+					B.Cooldown()
 				else
 					B.Cooldown(p = src)
 

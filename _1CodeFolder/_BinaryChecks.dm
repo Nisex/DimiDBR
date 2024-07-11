@@ -2886,6 +2886,7 @@ mob
 			if((findtext(string,parentType)))
 				return TRUE
 		isInnovative(reqRace, path)
+			if(Saga) return FALSE
 			if(isRace(reqRace))
 				if(passive_handler.Get("Innovation"))
 					switch(path)
@@ -2900,6 +2901,9 @@ mob
 								return TRUE
 						if("Mystic")
 							if(StyleBuff.ElementalClass) // this is a mystic style
+								return TRUE
+						if("Any")
+							if(StyleBuff)
 								return TRUE
 
 atom

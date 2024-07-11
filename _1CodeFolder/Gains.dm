@@ -474,11 +474,14 @@ mob
 					animate(src.client, color=null, time=1)
 
 			if(src.TimeStop)
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Grimoire/Time_Stop/x in src)
-					src.LoseHealth(5/x.Mastery)
-					x:TimeStopped++
-					if(x:TimeStopped>x.Mastery+1)
+				// find out the cause
+				var/obj/Skills/Buffs/SlotlessBuffs/Grimoire/Time_Stop/ts = FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Grimoire/Time_Stop)
+				if(ts)
+					src.LoseHealth(5/ts.Mastery)
+					ts:TimeStopped++
+					if(ts:TimeStopped>ts.Mastery+1)
 						src.SkillX("Time Stop",x)
+			
 
 			if(scrollTicker)
 				scrollTicker--

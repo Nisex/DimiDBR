@@ -363,6 +363,49 @@ obj
 				Trail='Trail - Death.dmi'
 				TrailSize=1.4
 				Variation=4
+			Thundara
+				Copyable=0
+				ZoneAttack=1
+				Distance=16
+				Blasts=1
+				Charge=1
+				DamageMult=0.2
+				AccMult=1.5
+				Homing=1
+				Explode=1
+				ZoneAttackX=8
+				ZoneAttackY=8
+				Deflectable = 1
+				Hover=5
+				IconLock='lighting_proj.dmi'
+				LockX=-12
+				LockY=-12
+				IconSize=0.5
+				Variation=8
+				Cooldown=15
+				adjust(mob/p)
+					DamageMult = 0.1 + p.getTotalMagicLevel()/100 + p.Potential/200
+					Blasts = clamp(p.getTotalMagicLevel() + p.Potential/25, 3, 15)
+
+			Blizzara
+				Distance=8
+				AccMult=1.3
+				DamageMult=0.1
+				Blasts=10
+				Delay=0.25
+				Speed = 2
+				Stream=-1
+				Cooldown=15
+				Deflectable = 1
+				Homing=1
+				LosesHoming=3
+				IconLock='SnowBurst2.dmi'
+				IconSize=0.7
+				Variation=64
+				adjust(mob/p)
+					DamageMult = 2 + p.getTotalMagicLevel()/10 + p.Potential/25
+					Blasts = 10 + clamp(p.getTotalMagicLevel() + p.Potential/10, 5, 30)
+					DamageMult/=Blasts
 
 			Kick_Blast
 				Copyable=0
@@ -377,7 +420,7 @@ obj
 				FireFromEnemy=0
 				MultiHit=2
 				Knockback=0
-				Cooldown=90
+				Cooldown=15
 				IconSize=1
 				Variation=0
 				IconLock='Air Render.dmi'
@@ -2110,6 +2153,28 @@ obj
 				//No verb because set by queue
 
 ////Unarmed
+			KinshasaProjectile
+				IconLock='Boosting Winds.dmi'
+				IconSize=1
+				Dodgeable=-1
+				Radius=1
+				Striking=1
+				ZoneAttack=1
+				ZoneAttackX=0
+				ZoneAttackY=0
+				FireFromSelf=1
+				FireFromEnemy=0
+				Variation=0
+				StrRate=1
+				EndRate=1
+				Knockback=10
+				MultiHit=4
+				DamageMult=0.25
+				AccMult = 1.25
+				Deflectable=0
+				Distance=10
+				Instinct=2
+
 			GaleStrikeProjectile
 				IconLock='Boosting Winds.dmi'
 				IconSize=2
@@ -4389,6 +4454,9 @@ mob
 	proc
 		UseProjectile(var/obj/Skills/Projectile/Z)
 			. = TRUE
+			if(src.passive_handler.Get("Silenced"))
+				src << "You can't use [Z] you are silenced!"
+				return 0
 			if(src.Stasis)
 				return 0
 			if(Z.Sealed)
@@ -4403,7 +4471,7 @@ mob
 
 				src.ContinuousAttacking=0
 				if(src.TomeSpell(Z))
-					Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
+					Z.Cooldown()
 				else
 					Z.Cooldown()
 			if(Z.MagicNeeded&&!src.HasLimitlessMagic())
@@ -4570,12 +4638,12 @@ mob
 					if(Z.MultiShots>=Z.MultiShot)
 						Z.MultiShots=0
 						if(src.TomeSpell(Z))
-							Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
+							Z.Cooldown()
 						else
 							Z.Cooldown(p = src)
 				else
 					if(src.TomeSpell(Z))
-						Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
+						Z.Cooldown()
 					else
 						Z.Cooldown(p = src)
 			if(Z.Copyable)
@@ -5964,7 +6032,7 @@ mob
 			src.Beaming=0
 			Z.Charging=0
 			if(src.TomeSpell(Z))
-				Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
+				Z.Cooldown()
 			else
 				Z.Cooldown()
 obj

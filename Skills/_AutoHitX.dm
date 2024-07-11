@@ -1560,17 +1560,17 @@ obj
 				UnarmedOnly=1
 				Area="Circle"
 				StrOffense=1
-				DamageMult=1.5
+				DamageMult=1.25
 				ComboMaster = 1
 				GrabMaster = 1
 				Stunner=3
 				Grapple=1
-				Rounds=10
+				Rounds=11
 				ChargeTech=1
 				ChargeTime=1
 				Knockback=1
 				Cooldown=120
-				WindUp=0.5
+				WindUp=0.25
 				WindupMessage="lowers their head..."
 				Size=1
 				EnergyCost=1
@@ -1597,13 +1597,58 @@ obj
 				Cooldown=120
 				adjust(mob/p)
 					if(p.isInnovative(HUMAN, "Unarmed"))
-						p << "er"
+						Area="Around Target"
+						NoLock=1
+						NoAttackLock=1
+						StrOffense=1
+						DamageMult=1 + p.Potential/200
+						Distance=5
+						DistanceAround=4
+						Rounds=10
+						TurfErupt=1.25
+						TurfEruptOffset=6
+						IgnoreAlreadyHit=1
+						ComboMaster=1
+						Launcher=3
+						Icon='Ki Fist Sprite.dmi'
+						Size=3
+						IconX=-30
+						IconY=0
+						Falling=1//animates towards pixel_z=0 while it is displayed
+						HitSparkIcon='BLANK.dmi'
+						WindUp=0
+						HitSparkX=0
+						HitSparkY=0
+						Instinct=1
+						Earthshaking=25
+					else
+						Area="Wide Wave"
+						NoLock=0
+						NoAttackLock=0
+						StrOffense=1
+						DamageMult=11
+						Distance=10
+						DistanceAround=0
+						Rounds=0
+						TurfErupt=0
+						TurfEruptOffset=0
+						IgnoreAlreadyHit=0
+						ComboMaster=0
+						Launcher=0
+						Icon=null
+						Size=initial(Size)
+						IconX=0
+						IconY=0
+						Falling=1//animates towards pixel_z=0 while it is displayed
+						HitSparkIcon=null
+						WindUp=0
+						HitSparkX=0
+						HitSparkY=0
+						Instinct=0
+						Earthshaking=0
 				verb/Hyper_Crash()
 					set category="Skills"
-
-
-
-
+					adjust(usr)
 					usr.Activate(src)
 			Dropkick_Surprise
 				SkillCost=160
@@ -1612,10 +1657,10 @@ obj
 				StrOffense=1
 				Distance=5
 				PassThrough=1
-				DamageMult=13
-				Knockback=10
+				DamageMult=11
+				Knockback=5
 				Jump=1
-				WindUp=0.01
+				WindUp=0.25
 				WindupMessage="leaps into the air!"
 				ActiveMessage="crashes into their opponent with a dropkick!"
 				Cooldown=120
@@ -2584,8 +2629,28 @@ obj
 					ManaCost=3
 					Cooldown=60
 					ActiveMessage="invokes: <font size=+1>BLIZZARD!</font size>"
+					adjust(mob/p)
+						if(!altered)
+							if(usr.isInnovative(ELF, "Any"))
+								Rounds=round(p.getTotalMagicLevel()/5)
+								Knockback=1
+								Distance= 6 + round(p.getTotalMagicLevel()/5)
+								Slow = 3 + p.Potential/10
+								NoLock=1
+								NoAttackLock=1
+								Freezing = 2 + p.Potential/10
+								ManaCost = round(p.getTotalMagicLevel()/3) + 3
+								Slow=0.25
+							else
+								Rounds=initial(Rounds)
+								Knockback=0
+								Distance= 6 
+								Slow = 1
+								Freezing = 2
+								ManaCost = 3
 					verb/Blizzard()
 						set category="Skills"
+						adjust(usr)
 						usr.Activate(src)
 				Blizzara
 					ElementalClass="Water"
@@ -2609,8 +2674,37 @@ obj
 					ManaCost=6
 					Cooldown=60
 					ActiveMessage="invokes: <font size=+1>BLIZZARA!</font size>"
+					adjust(mob/p)
+						// make it cast a projectile that is like hell zone grenade
+						if(!altered)
+							if(usr.isInnovative(ELF, "Any"))
+								if(!Using && usr.ManaAmount >= 11)
+									if(!locate(/obj/Skills/Projectile/Blizzara, usr))
+										usr.AddSkill(new/obj/Skills/Projectile/Blizzara)
+									var/obj/Skills/Projectile/Blizzara/bli = usr.FindSkill(/obj/Skills/Projectile/Blizzara)
+									bli.adjust(usr)
+									usr.UseProjectile(bli)
+									usr.ManaAmount-=5
+									NoLock=1
+									NoAttackLock=1
+									Area="Around Target"
+									Distance=10
+									DistanceAround=3
+									Rounds = clamp(p.getTotalMagicLevel()/5, 1, 4)
+									DamageMult = 1 + p.Potential/25 + p.getTotalMagicLevel()/10
+									DamageMult= clamp(DamageMult/Rounds, 0.001, 15)
+
+								else
+									return
+							else
+								Area="Wide Wave"
+								Distance=6
+								DistanceAround=0
+								Rounds = initial(Rounds)
+								DamageMult = 6
 					verb/Blizzara()
 						set category="Skills"
+						adjust(usr)
 						usr.Activate(src)
 				Blizzaga
 					ElementalClass="Water"
@@ -2634,8 +2728,31 @@ obj
 					ManaCost=9
 					Cooldown=60
 					ActiveMessage="invokes: <font size=+1>BLIZZAGA!</font size>"
+					adjust(mob/p)
+						if(!altered)
+							if(usr.isInnovative(ELF, "Any"))
+								Rounds = 3 + p.Potential/25
+								Distance = 4 + p.getTotalMagicLevel()/2 + p.Potential/25
+								Freezing = 6 + p.getTotalMagicLevel()
+								AdaptRate = 1
+								DamageMult = 6 + p.getTotalMagicLevel()/5 + p.Potential/25
+								ForOffense=0
+								NoLock=1
+								NoAttackLock=1
+								DamageMult/=Rounds
+								ManaCost = 20
+							else
+								Rounds=initial(Rounds)
+								Knockback=0
+								Distance= 6 
+								DamageMult=8
+								ForOffense=1
+								AdaptRate=0
+								Freezing = 6 
+								ManaCost = 9
 					verb/Blizzaga()
 						set category="Skills"
+						adjust(usr)
 						usr.Activate(src)
 
 				Thunder
@@ -2661,24 +2778,32 @@ obj
 					Cooldown=60
 					WindupMessage="invokes: <font size=+1>THUNDER!</font size>"
 					adjust(mob/p)
-						var/asc = p.AscensionsAcquired
-						var/magicLevel = p.getTotalMagicLevel()
-						Rush=5
-						ControlledRush=1
-						Distance = 8
-						Bolt=2
-						Size=0.5
-						WindUp=0.25
-						Rounds= round(magicLevel/5) + asc
-						DamageMult = clamp(magicLevel/3 + asc * 2, 4, 12)
-						ManaCost *= DamageMult/4
-						DamageMult /= (Rounds)
-					verb/test_Thunder()
-						set category="Skills"
-						adjust(usr)
-						usr.Activate(src)
+						if(!altered)
+							if(usr.isInnovative(ELF, "Any"))
+								var/asc = p.AscensionsAcquired
+								var/magicLevel = p.getTotalMagicLevel()
+								Rush=5
+								ControlledRush=1
+								Distance = 8
+								Bolt=2
+								Size=0.5
+								WindUp=0.25
+								Rounds= round(magicLevel/5) + asc
+								DamageMult = clamp(magicLevel/3 + asc * 2, 4, 12)
+								ManaCost *= DamageMult/4
+								DamageMult /= (Rounds)
+							else
+								Rush=0
+								ControlledRush=0
+								Distance = 6
+								Size=1
+								WindUp=1
+								Rounds= initial(Rounds)
+								DamageMult=4
+								ManaCost = 3
 					verb/Thunder()
 						set category="Skills"
+						adjust(usr)
 						usr.Activate(src)
 				Thundara
 					ElementalClass="Wind"
@@ -2702,9 +2827,21 @@ obj
 					adjust(mob/p)
 						// make it cast a projectile that is like hell zone grenade
 						ManaCost = 5
+						if(!altered)
+							if(usr.isInnovative(ELF, "Any"))
+								if(!Using && usr.ManaAmount >= 10)
+									if(!locate(/obj/Skills/Projectile/Thundara, usr))
+										usr.AddSkill(new/obj/Skills/Projectile/Thundara)
+									var/obj/Skills/Projectile/Thundara/th = usr.FindSkill(/obj/Skills/Projectile/Thundara)
+									th.adjust(usr)
+									usr.UseProjectile(th)
+									usr.ManaAmount-=5
+								else
+									return
 
 					verb/Thundara()
 						set category="Skills"
+						adjust(usr)
 						usr.Activate(src)
 				Thundaga
 					ElementalClass="Wind"
@@ -2729,25 +2866,34 @@ obj
 					Cooldown=60
 					WindupMessage="invokes: <font size=+1>THUNDAGA!</font size>"
 					adjust(mob/p)
-						// make it cast a projectile that is like hell zone grenade
-						Rounds = 200
-						DamageMult = 0.1
-						Icon='SweepingKick.dmi'
-						IconX=-32
-						IconY=-32
-						Size = 10
-						Cooldown = 90
-						NoLock=1
-						NoAttackLock=1
-						WindUp=2
-						Thunderstorm=200
-						ManaCost = 25
-					verb/test_Thundaga()
-						set category="Skills"
-						adjust(usr)
-						usr.Activate(src)
+						if(!altered)
+							if(usr.isInnovative(ELF, "Any"))
+								Rounds = 200
+								DamageMult = 0.1
+								Icon='VR Cloud.png'
+								IconX=-13
+								Size = 8
+								Cooldown = 90
+								NoLock=1
+								NoAttackLock=1
+								WindUp=2
+								Thunderstorm=7
+								ManaCost = 25
+							else
+								DamageMult=2
+								Rounds=5
+								Icon=null
+								IconX=0
+								Size = initial(Size)
+								Cooldown = 60
+								NoLock=0
+								NoAttackLock=0
+								WindUp=1
+								Thunderstorm=0
+								ManaCost = 10
 					verb/Thundaga()
 						set category="Skills"
+						adjust(usr)
 						usr.Activate(src)
 
 				Magnet
@@ -5154,6 +5300,9 @@ mob
 	proc
 		Activate(var/obj/Skills/AutoHit/Z)
 			. = TRUE
+			if(src.passive_handler.Get("Silenced"))
+				src << "You can't use [Z] you are silenced!"
+				return 0
 			if(Z.Using)//Skill is on cooldown.
 				return FALSE
 			if(!src.CanAttack(1.5)&&!Z.NoAttackLock)
@@ -5354,7 +5503,7 @@ mob
 				if(Z.WindupMessage)
 					OMsg(src, "<b><font color='[Z.WindupColor]'>[src] [Z.WindupMessage]</font color></b>")
 			if(src.TomeSpell(Z))
-				Z.Cooldown(1-(0.15*src.TomeSpell(Z)))
+				Z.Cooldown()
 			else
 				Z.Cooldown()
 			if(Z.Copyable)
@@ -5441,10 +5590,10 @@ mob
 						spawn()
 							for(var/turf/t in Turf_Circle(src.Target, Z.Thunderstorm))
 								sleep(-1)
-								TurfShift('Night.dmi', t, 6000, src, MOB_LAYER+1)
+								TurfShift('Night.dmi', t, 600, src, MOB_LAYER+1)
 								spawn(5)
 									sleep(-1)
-									TurfShift('Rain.dmi', t, 5990, src, MOB_LAYER+0.5)
+									TurfShift('Rain.dmi', t, 590, src, MOB_LAYER+0.5)
 							spawn(10)
 								src.Frozen=0
 					if(Z.Gravity)
@@ -6698,8 +6847,10 @@ obj
 									if(x in nonoVars)
 										continue // not possible?
 									S.vars[x] = theBuff.vars[x]
+								theBuff.adjust(Owner)
 								break
 						if(!buffFound)
+							S.adjust(Owner)
 							m.AddSkill(S)
 						S.Password = m.name
 
