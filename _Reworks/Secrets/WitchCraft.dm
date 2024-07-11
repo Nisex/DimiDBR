@@ -6,11 +6,10 @@
  */
 
 // Soul for Power
-obj/proc/SunderSoul(mob/P, mob/G)
+obj/proc/SunderSoul(mob/P, mob/G) // P = Pactee, G = Giver.
 	if(!P.client)
 		return
 	var/yesno = input(P, "You are proposed a trade, for your soul, for power by [G]. Do you accept this trade?", "Sunder your soul") in list("Yes", "No")
-	
 	switch(yesno)
 		if("Yes")
 			if(P.NoSoul)
@@ -19,6 +18,7 @@ obj/proc/SunderSoul(mob/P, mob/G)
 			view(20)<< output("<font color=yellow>[P] has accepted the deal !", "output")
 			for(var/obj/WitchCraft/WitchesBook/s in G.contents)
 				s.PactedList += P
+				var/obj/WitchCraft/WitchesBook/NEW = new; NEW.loc = P
 				P.AddSkill(new/obj/Skills/Buffs/Witch_Style)
 				P.AddSkill(new/obj/Skills/AutoHit/Dream_Walk)
 				P.AddSkill(new/obj/Skills/AutoHit/Hex)
@@ -28,11 +28,8 @@ obj/proc/SunderSoul(mob/P, mob/G)
 			view(20)<< output("<font color=yellow>[P] has declined the deal !", "output")
 obj/proc/checkIfNoPassives(mob/who)
 	if(who.passive_handler.Get("Maki"))
-		world << "tes"
 		return
-	else
-		world << "test"
-		who.passive_handler.Set("Maki", 1)
+	who.passive_handler.Set("Maki", 1)
 
 mob/Admin3/verb/GiveWitchBook()
 	var/mob/who = input(usr, "Who do you wish to grant this crack book") in players
@@ -68,19 +65,20 @@ mob/Admin3/verb/GiveWitchBook()
 		set category = "Skills"
 		if(!M.KO)
 			return       
-		var/kill = input(usr, "You're about to kill [M], by ripping apart his soul from his body, creating nothing but a husk behind, are you sure?") in list("Yes", "No")
+		var/kill = input(usr, "You're about to kill [M], by ripping apart their soul from the body, creating nothing but a husk of dust behind, are you sure?") in list("Yes", "No")
 		switch(kill)
 			if("Yes")
 				var/confirm = input(M, "You're about to be killed by [usr], if there has been any rules broken, please hit no, else, hit yes.") in list("Yes","No")
 				switch(confirm)
 					if("Yes")
 						M.NoSoul = 1
-						M.Death(src, "Witchery, has stolen their soul")
+						M.Death(usr, "an icy breath upon their soul, their body crumbling to dust!", SuperDead = 1, NoRemains = 1)
 	
 	verb/Take_Essence(mob/M in get_step(usr, usr.dir))
 		set name = "Take Essence"
 		set category = "Skills"
 		if(!M.KO)
+			usr << "[M] needs to be KO'd!"
 			return
 		if(TakeEssenceCoolDown < world.time )
 			CurrentEssenceAmount += 1
@@ -116,6 +114,7 @@ mob/Admin3/verb/GiveWitchBook()
 		set name = "Witch Apprenticeship"
 		set category = "Roleplay"
 		SunderSoul(M, usr)
+		checkIfNoPassives(M)
 	
 	verb/FelMasterwork()
 		if(src.CurrentEssenceAmount > 20)
@@ -165,7 +164,7 @@ mob/Admin3/verb/GiveWitchBook()
 	Cooldown= 150
 	ManaCost = 50
 	WindupMessage= "hosts up their hand....!!!"
-	ActiveMessage= "slams their hand against the ground, corrupting the ground beneath..!!!"
+	ActiveMessage= "fills their opponents body with a hex..!!!"
 	ComboMaster = 1
 	BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Witch/HexDebuff"
 	verb/Hex()
