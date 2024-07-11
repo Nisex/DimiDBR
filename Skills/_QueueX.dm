@@ -1524,14 +1524,14 @@ obj
 							src.HitSparkSize=2
 							usr.SetQueue(src)
 							return
-						if(locate(/obj/WitchCraft/WitchesBook))
+						if(locate(/obj/Items/WitchCraft/WitchesBook))
 							src.name = "Soulsap Strike"
 							src.DamageMult=1.5
 							src.AccuracyMult = 1.15
 							src.KBAdd=0
 							src.KBMult=1
 							src.Cooldown=20
-							src.HitMessage="grasps hold of their opponent with necrotic energy!"
+							src.HitMessage= "grasps hold of their opponents soul -- Sapping away it's energy!"
 							src.Scorching=0
 							src.Freezing=0
 							src.Paralyzing=0
@@ -1540,9 +1540,7 @@ obj
 							src.Combo=0
 							src.Warp=0
 							src.Rapid=0
-							src.LifeSteal=1
 							src.Crippling=15
-							src.Grapple=1
 							src.NoForcedWhiff=0
 							src.IconLock='BLANK.dmi'
 							src.HitSparkIcon='Icons/NSE/spells/debuff/holywaterflow.dmi'
