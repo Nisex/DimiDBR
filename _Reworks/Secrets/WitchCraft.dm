@@ -38,6 +38,7 @@ mob/Admin3/verb/GiveWitchBook()
 	G.loc = who
 	G.name = input(who, "You have stumbled upon an tome you do not recognize, it's energy seems inviting yet cruel and twisted\n What is it that you will call this Tome?", "Original Copy Name.") as text
 	who.passive_handler.Set("Maki", 1)
+	who.NoSoul = 1
 	who.AddSkill(new/obj/Skills/Buffs/Witch_Style)
 	who.AddSkill(new/obj/Skills/AutoHit/Dream_Walk)
 	who.AddSkill(new/obj/Skills/AutoHit/Hex)
@@ -218,8 +219,8 @@ mob/Admin3/verb/GiveWitchBook()
 	HitMessage=0
 
 /obj/Skills/Queue/Mirror_Match
-	ActiveMessage="fills their "
-	HitMessage="drives the drill into their opponent!"
+	ActiveMessage="fills their surroundings with Mirrors!"
+	HitMessage="slams back the opponents attack from the Mirrors!!"
 	Counter=1
 	NoWhiff=1	
 	DamageMult = 0.1
