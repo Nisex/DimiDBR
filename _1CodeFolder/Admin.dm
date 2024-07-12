@@ -522,34 +522,40 @@ mob/proc/ViewList()
 //var/AdminHelps[0]
 
 mob/proc/PM(var/mob/who, var/AhelpMessage, var/AhelpKey)
-	var/UserInput=input("What do you want to say to [who.key]?") as text|null
+	var/whoKey = who.DisplayKey ? who.DisplayKey : who.key
+	var/UserInput=input("What do you want to say to [whoKey]?") as text|null
+	var/key = DisplayKey ? DisplayKey : src.key
 	if(UserInput)
 		for(var/mob/Players/Q in admins)
+			if(Q?:PingSound)
+				who << sound('Sounds/Ping.ogg')
 			if(Q!=src&&Q!=who)
-				Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> to <a href=?src=\ref[who];action=MasterControl;do=PM2>[who.key]</a href> :[UserInput]"
-		src<<"<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]"
-		who<<"<font color=#00FF99><b>(Admin PM)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> :[UserInput]"
+				Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[key]</a href> to <a href=?src=\ref[who];action=MasterControl;do=PM2>[who.key]</a href> :[UserInput]"
+		src<<"<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[whoKey]</a href> :[UserInput]"
+		who<<"<font color=#00FF99><b>(Admin PM)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=PM2;>[key]</a href> :[UserInput]"
 		for(var/Admin_Help_Object/M in AdminHelps)
 			if( (M.AdminHelp_Message == AhelpMessage) && (M.Character_Key == AhelpKey) )
 				AdminHelps.Remove(M)
 
 mob/proc/PM2(var/mob/who)
-	var/UserInput = input("What do you want to say to [who.key]?") as text|null
+	var/whoKey = who.DisplayKey ? who.DisplayKey : who.key
+	var/UserInput=input("What do you want to say to [whoKey]?") as text|null
+	var/key = DisplayKey ? DisplayKey : src.key
 	if(UserInput&&who)
 		for(var/mob/Players/Q in admins)
-			if(Q?:PingSound)
-				src << sound('Sounds/Ping.ogg')
+			if(Q?:PingSound && who == Q)
+				Q << sound('Sounds/Ping.ogg')
 			if(Q!=src&&Q!=who)
-				Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> to <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]"
-		Log("AdminPM","(Admin PM from [src.key] to [who.key]): [UserInput]")
-		src<<output("<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]", "output")
-		who<<output("<font color=#00FF99><b>(Admin PM)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> :[UserInput]", "output")
-		src<<output("<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]", "oocchat")
-		who<<output("<font color=#00FF99><b>(Admin PM)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> :[UserInput]", "oocchat")
-		src<<output("<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]", "icchat")
-		who<<output("<font color=#00FF99><b>(Admin PM)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> :[UserInput]", "icchat")
-		src<<output("<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]", "loocchat")
-		who<<output("<font color=#00FF99><b>(Admin PM)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=PM2;>[src.key]</a href> :[UserInput]", "loocchat")
+				Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[key]</a href> to <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]"
+		Log("AdminPM","(Admin PM from [key] to [whoKey]): [UserInput]")
+		src<<output("<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[whoKey]</a href> :[UserInput]", "output")
+		who<<output("<font color=#00FF99><b>(Admin PM)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=PM2;>[key]</a href> :[UserInput]", "output")
+		src<<output("<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[whoKey]</a href> :[UserInput]", "oocchat")
+		who<<output("<font color=#00FF99><b>(Admin PM)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=PM2;>[key]</a href> :[UserInput]", "oocchat")
+		src<<output("<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[whoKey]</a href> :[UserInput]", "icchat")
+		who<<output("<font color=#00FF99><b>(Admin PM)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=PM2;>[key]</a href> :[UserInput]", "icchat")
+		src<<output("<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[whoKey]</a href> :[UserInput]", "loocchat")
+		who<<output("<font color=#00FF99><b>(Admin PM)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=PM2;>[key]</a href> :[UserInput]", "loocchat")
 		winset(who, "mainwindow", "flash=-1")
 
 
@@ -708,12 +714,12 @@ mob/Admin2/verb
 
 	AdminChat(c as text)
 		set category = "Admin"
-		Log("Admin", "<b><font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=cyan>Admin Chat:<font color=white>[usr.key]:</b><font color=green> [c]", NoPinkText=1)
+		Log("Admin", "<b><font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=cyan>Admin Chat:<font color=white>[usr.DisplayKey ? "[usr.DisplayKey]([usr.key])": "([usr.key])"]:</b><font color=green> [c]", NoPinkText=1)
 		for(var/mob/Players/M in admins)
 			if(M.Timestamp)
-				M<<"<b><font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=cyan>Admin Chat:<font color=white>[usr.key]:</b><font color=green> [c]"
+				M<<"<b><font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=cyan>Admin Chat:<font color=white>[usr.DisplayKey ? "[usr.DisplayKey]([usr.key])": "([usr.key])"]:</b><font color=green> [c]"
 			else
-				M<<"<b><font color=cyan>Admin Chat:<font color=white>[usr.key]:</b><font color=green> [c]"
+				M<<"<b><font color=cyan>Admin Chat:<font color=white>[usr.DisplayKey ? "[usr.DisplayKey]([usr.key])": "([usr.key])"]:</b><font color=green> [c]"
 
 	Observe_(atom/A as mob|obj in world)
 		set category="Admin"
@@ -1048,7 +1054,7 @@ mob/Admin3/verb
 
 	Announce(msg as text)
 		set category="Admin"
-		world<<"<hr><center><b>[key]</b> announces:<br>[msg]<br><hr>"
+		world<<"<hr><center><b>[DisplayKey]</b> announces:<br>[msg]<br><hr>"
 	Mute(mob/M in players)
 		set category="Admin"
 		if(!M.client)
