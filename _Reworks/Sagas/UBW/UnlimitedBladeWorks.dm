@@ -14,7 +14,6 @@ mob/var/usingUBW = FALSE
 mob
 	proc
 		DomainExpansion(identifier, range, target)
-			world<<"/map_[identifier]_Domain.sav"
 			if(!fexists("Maps/map_[identifier]_Domain.sav"))
 				AdminMessage("[src] has no domain map. please use createswap map and name it map_identifier_Domain")
 				// SwapMaps_SaveChunk("Maps/[identifier]_Domain.sav", locate(_x,_y,_z), locate(endX, endY,_z))
@@ -24,6 +23,7 @@ mob
 			var/list/targets = list()
 			if(target && Target)
 				targets += Target
+				targets += src
 			else if(range)
 				for(var/mob/m in range(range))
 					if(m.client)

@@ -937,7 +937,7 @@ mob/proc/
 				PUThreshold+=50
 */
 			if(src.PowerControl>=PUThreshold)
-				if(!src.ActiveBuff && !ActiveBuff.PULock)
+				if(!src.ActiveBuff || (src.ActiveBuff.BuffName == "Soul Resonance" && !ActiveBuff.PULock))
 					src.Auraz("Remove")
 /*					if(src.Race!="Changeling"||(src.Race=="Changeling"&&src.transActive()==4))*/
 					for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in src)

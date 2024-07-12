@@ -1291,6 +1291,8 @@ NEW VARIABLES
 							src.CyberStigma=2
 							src.SwordName="Moonlight Greatsword"
 							src.ActiveMessage="conjures forth the Moonlight Greatsword, basked in otherworldly lunar radiance..."
+					if(!PULock)
+						passives["PULock"] = 0
 				src.Trigger(usr)
 			verb/Weapon_Soul()
 				set category="Skills"
