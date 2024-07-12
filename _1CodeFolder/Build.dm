@@ -29,7 +29,6 @@ proc/find_savableObjects()
 		var/list/AI = F["AI"]
 		for(var/obj/AI_Spot/ai in AI)
 			F["AI"]>>ai
-			world<<"hrm: [jointext(ai.monsters, " , ")]"
 			F["monInfo"] >> ai.monsters[1]
 			if(!(ai in global.ai_tracker_loop))
 				global.ai_tracker_loop.Add(ai)

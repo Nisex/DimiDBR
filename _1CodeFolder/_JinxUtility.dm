@@ -2012,64 +2012,92 @@ mob
 			var/list/EvilRaces=list(DEMON, DRAGON)
 			var/list/EvilSecrets=list("Vampire", "Werewolf", "Zombie")
 			//these are all bad.
+			var/good = 0
+			var/evil = 0
 			if(src.HasMaki())
-				return 0
+				evil = 1
 			if(src.Race=="Android")
-				return 0
+				evil = 1
 			if(src.Race in EvilRaces && !src.HasHolyMod())
-				return 0
+				evil = 1
 			if(src.Secret in EvilSecrets && !src.HasHolyMod())
-				return 0
+				evil = 1
 			if(src.ShinjinAscension=="Makai")
-				return 0
+				evil = 1
 			if(src.HasHellPower())
-				return 0
+				evil = 1
 			if(src.HasAbyssMod() && !src.HasHolyMod())
-				return 0
+				evil = 1
 			if(istype(src, /mob/Player/AI) && !src.SpiritPower)
-				return 0
+				evil = 1
 			//these are all good.
 			if(src.ShinjinAscension=="Kai")
-				return 1
+				good = 1 
 			if(src.HasHolyMod() && !src.HasAbyssMod())
-				return 1
+				good = 1 
 			if(src.Secret=="Ripple")
-				return 1
+				good = 1 
 			if(src.HasSpiritPower()>=1)
-				return 1
+				good = 1 
+
+			if(passive_handler.Get("Illusion"))
+				if(evil)
+					good = 1
+					evil = 0
+				else if(good)
+					good = 0
+					evil = 1
+
+			if(good)
+				return good
+			if(evil)
+				return evil
+
 			return 0
 		IsEvil()
 			var/list/EvilRaces=list(DEMON, DRAGON)
 			var/list/EvilSecrets=list("Vampire", "Werewolf", "Zombie")
+			var/good = 0
+			var/evil = 0
 			//these are all good.
-			if(src.Race=="Android")
-				return 0
 			if(src.ShinjinAscension=="Kai")
-				return 0
+				good = 1 
 			if(src.HasHolyMod() && !src.HasAbyssMod())
-				return 0
+				good = 1 
 			if(src.HasSpiritPower()>=1)
-				return 0
+				good = 1 
 			//these are all bad.
 			if(src.HasMaki())
-				return 1
+				evil = 1
 			if(KeybladeColor=="Darkness")
-				return 1
+				evil = 1
 			for(var/race in EvilRaces)
 				if(isRace(race))
-					return 1
+					evil = 1
 			if(src.Secret in EvilSecrets)
-				return 1
+				evil = 1
 			if(src.ShinjinAscension=="Makai")
-				return 1
+				evil = 1
 			if(src.HasHellPower())
-				return 1
+				evil = 1
 			if(src.HasAbyssMod())
-				return 1
+				evil = 1
 			if(istype(src, /mob/Player/AI) && !src.SpiritPower)
-				return 1
+				evil = 1
 			if(src.NoDeath && src.Class!="Eldritch")
-				return 1
+				evil = 1
+			if(passive_handler.Get("Illusion"))
+				if(good)
+					good = 0
+					evil = 1
+				else if(evil)
+					good = 1
+					evil = 0
+
+			if(good)
+				return good
+			if(evil)
+				return evil
 			return 0
 
 		HolyDamage(var/mob/P, var/Forced=0)//Stick this in the DoDamage proc.
@@ -3118,7 +3146,7 @@ proc
 	ProjectileDamage(Damage) // This is Power * Damage Mult
 		return Damage*glob.PROJ_DAMAGE_MULT
 	CounterDamage(Damage)
-		return clamp(Damage,0.25,1)
+		return clamp(Damage,0.25,5)
 
 var/list/general_magic_database = list()
 var/list/general_weaponry_database = list()

@@ -10,7 +10,7 @@
     adjust(mob/p)
         var/asc = p.passive_handler.Get("HellRisen") * 4
         TimerLimit = 2 + (asc/2)
-        Cooldown = 20 - (asc*2)
+        Cooldown = 10 - (asc*2)
         Shattering = 5 + (asc*2.5)
         Steady = clamp(asc/2, 0.5, 2)
         PureDamage = -1 + (asc/2)

@@ -27,6 +27,10 @@ proc/randValue(min,max,divider=10)
 	val += Judgment && !Oozaru ? (glob.min_damage_roll/2)*AscensionsAcquired : 0
 	if(src.HasSteady())
 		val += GetSteady()
+	var/negate = 0
+	if(src.Target)
+		negate = Target.passive_handler.Get("Unnerve") * (glob.STEADY_MODIFIER)
+	val-=negate
 	if(val >= glob.upper_damage_roll)
 		val = glob.upper_damage_roll
 	if(val <= min)

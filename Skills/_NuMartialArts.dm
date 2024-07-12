@@ -251,7 +251,7 @@ obj
 						// to stop runtimes
 						SignatureTechnique=2
 						Copyable=0
-						passives = list("Hardening" = 1.5, "Deflection" = 1, "UnarmedDamage" = 1.5, "CounterMaster" = 1, "Momentum" = 1, "Pressure" = 2)
+						passives = list("Hardening" = 1.5, "Deflection" = 1, "UnarmedDamage" = 1.5, "CounterMaster" = 3, "Momentum" = 1, "Pressure" = 2)
 						StyleStr=1.25
 						StyleEnd=1.5
 						StyleOff=1.25
@@ -818,7 +818,7 @@ obj
 						StyleStr=1.25
 						StyleEnd=1.5
 						StyleActive="Phalanx Style"
-						passives = list("Reversal" = 0.25, "Deflection" = 1, "Hardening" = 1.5, "SwordPunching" = 1, "Shearing" = 3)
+						passives = list("Reversal" = 0.25, "Deflection" = 1, "Hardening" = 1.5, "SwordPunching" = 1, "Shearing" = 3, "Unnerve" = 1)
 						Finisher="/obj/Skills/Queue/Finisher/Shield_Vault"
 
 
@@ -847,7 +847,7 @@ obj
 						StyleActive="Butcher"
 						NeedsSword=0
 						SwordPunching=1
-						passives = list("Shearing" = 3, "SlayerMod" = 2, "SwordPunching" = 1, "NeedsSword" = 0)
+						passives = list("Shearing" = 6, "SlayerMod" = 2, "SwordPunching" = 1, "NeedsSword" = 0)
 						Shearing=2
 						SlayerMod=2.5
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Five_Rings_Style")

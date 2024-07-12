@@ -13,7 +13,8 @@ globalTracker
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
-		if(UPDATE_VERSION == p.updateVersion) return
+		if(UPDATE_VERSION == p.updateVersion)
+			return
 		if(p.updateVersion + 1 == UPDATE_VERSION)
 	        // we dont need to generate new datums to update him
 			var/updateversion = "/update/version[p.updateVersion + 1]"
@@ -426,7 +427,55 @@ update
 			
 
 			..()
+	version33
+		version = 33
+	version34
+		version = 34
+		updateMob(mob/p)
+			if(p.isRace(HUMAN) || p.isRace(HALFSAIYAN))
+				p.RPPMult = 1
+				if(p.StyleBuff)
+					p.StyleBuff.Trigger(p, 1)
+				p.refund_all_copyables()
+				p.setMaxRPP()
+				p.RPPSpendable = p.RPPCurrent - p.RPPSpendable
+				if(p.RPPSpendable<0)
+					AdminMessage("[p] has under 0 rppspendable ([p.RPPSpendable])")
+			if(p.isRace(ELF))
+				p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Elf/God_Slicer)
+				p.AddSkill(new/obj/Skills/AutoHit/Elf/Compel)
+				p.AddSkill(new/obj/Skills/AutoHit/Elf/Silence)
+				p.AddSkill(new/obj/Skills/AutoHit/Elf/Flee)
+				p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Elf/Time_Stop)
+			if(p.isRace(DRAGON))
+				p.stat_redo()
+				switch(p.Class)
+					if("Metal")
+						p.passive_handler.Decrease("Juggernaut", 0.25)
+						p.passive_handler.Increase("DeathField", 1.25)
+			if(p.isRace(ELDRITCH))
+				p.passive_handler.Increase("DeathField", 1.015)
+				p.passive_handler.Increase("VoidField", 1.015)
+				p.passive_handler.Decrease("DebuffImmune", 0.25)
 
+			if(p.isRace(DEMON))
+				p.passive_handler.Increase("HellRisen", 0.25)
+
+
+			..()
+	version35
+		version = 35
+		updateMob(mob/p)
+			if(p.isRace(NAMEKIAN))
+				p.RPPMult = 1
+				if(p.StyleBuff)
+					p.StyleBuff.Trigger(p, 1)
+				p.refund_all_copyables()
+				p.setMaxRPP()
+				p.RPPSpendable = p.RPPCurrent - p.RPPSpent
+				if(p.RPPSpendable<0)
+					AdminMessage("[p] has under 0 rppspendable ([p.RPPSpendable])")
+			..()
 /mob/Admin4/verb/whoops()
 	var/listofchanges = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fortunate_Fate/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Disoriented/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Broken_Bones/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Ineffective_Fate/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Shattered/)
 	for(var/mob/p in players)

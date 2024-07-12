@@ -116,7 +116,7 @@
         SwordAscension = asc 
         SwordAscensionSecond = asc 
         SwordAscensionThird = asc 
-        ElementalOffense = "Chaos"
+        ElementalOffense = "Truth"
     verb/God_Slicer()
         set category="Skills"
         if(!usr.BuffOn(src))

@@ -75,6 +75,12 @@ proc
 							OMsg(Attacker, messages[element])
 */
 			switch(element)
+				if("Truth")
+					DamageMod+=2
+					if("HellFire" in defenseElements)
+						DamageMod-=1
+					if("FelFire" in defenseElements)
+						DamageMod-=1
 				if("Ultima")
 					DamageMod+=2
 				if("Mirror")
@@ -84,12 +90,16 @@ proc
 				if("Void")
 					DamageMod+=2
 				if("Felfire")
+					if("Truth" in defenseElements)
+						DamageMod-=1
 					if("Water" in defenseElements)
 						DamageMod += 1.5
 					if("Wind" in defenseElements)
 						DamageMod += 2
 				if("HellFire")
 					DamageMod+=2
+					if("Truth" in defenseElements)
+						DamageMod-=1
 					if("Fire" in defenseElements) // simply consume lesser fire
 						DamageMod+=1
 					if("Wind" in defenseElements)
@@ -125,16 +135,26 @@ proc
 					if("Felfire")
 						Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
 						Defender.AddShatter(2*DebuffIntensity*glob.SHATTER_INTENSITY, Attacker)
-					if("Chaos")
-						if(prob(50))
+					if("Truth")
+						var/whoa = prob(50)
+						if(whoa)
 							Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
-						if(prob(50))
+							Defender.AddPoison(2*DebuffIntensity*glob.POISON_INTENSITY, Attacker)
+						else
+							Defender.AddSlow(3*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
+							Defender.AddShatter(3*DebuffIntensity*glob.SHATTER_INTENSITY, Attacker)
+							Defender.AddShock(3*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
+
+					if("Chaos")
+						if(prob(glob.CHAOS_CHANCE))
+							Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
+						if(prob(glob.CHAOS_CHANCE))
 							Defender.AddSlow(2*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
-						if(prob(50))
+						if(prob(glob.CHAOS_CHANCE))
 							Defender.AddShatter(2*DebuffIntensity*glob.SHATTER_INTENSITY, Attacker)
-						if(prob(50))
+						if(prob(glob.CHAOS_CHANCE))
 							Defender.AddShock(2*DebuffIntensity*glob.SHOCK_INTENSITY, Attacker)
-						if(prob(50))
+						if(prob(glob.CHAOS_CHANCE))
 							Defender.AddPoison(2*DebuffIntensity*glob.POISON_INTENSITY, Attacker)
 					if("Ultima")
 						Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)

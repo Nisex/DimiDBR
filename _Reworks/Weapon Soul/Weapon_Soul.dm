@@ -167,7 +167,7 @@ mob/tierUpSaga(Path)
 
 					if("Green Dragon Crescent Blade")
 						src << "The Green Dragon Crescent Blade shows how to counter any attack..."
-						passive_handler.Increase("Reversal")
+						passive_handler.Increase("Reversal", 0.25)
 						passive_handler.Increase("Adaptation")
 						SagaThreshold("Spd",0.5)
 						SagaThreshold("Str",0.5)

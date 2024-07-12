@@ -931,17 +931,13 @@ mob
 
 				if("Hiten Mitsurugi-Ryuu")
 					//triggers every level
-					src.SagaThreshold("Str", 0.125*src.SagaLevel)
-					src.SagaThreshold("End", 0.125*src.SagaLevel)
-					src.SagaThreshold("Spd", 0.25*src.SagaLevel)
+					src.SagaThreshold("Str", 0.166*src.SagaLevel)
+					src.SagaThreshold("End", 0.166*src.SagaLevel)
+					src.SagaThreshold("Spd", 0.33*src.SagaLevel)
 					passive_handler.Increase("SlayerMod", 0.625)
 					passive_handler.Increase("Pursuer", 0.5)
 					passive_handler.Increase("SuperDash", 0.25)
-					passive_handler.Increase("Godspeed", 0.25)
-					src.SlayerMod+=0.625
-					src.Pursuer+=0.5
-					src.SuperDash+=0.25
-					src.Godspeed+=0.25
+					passive_handler.Increase("Godspeed", 0.5)
 					if(src.SagaLevel==2)
 						if(!locate(/obj/Skills/AutoHit/CoiledSlash, src))
 							src << "You learn how to add the momentum of your spin to perform an unavoidable slash!"
@@ -995,8 +991,7 @@ mob
 							if(prob(50))
 								src << "Your drive for victory sometimes overwhelms you..."
 								src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_Infected)
-					passive_handler.Increase("SlayerMod",0.25)
-					src.SlayerMod+=0.25
+					passive_handler.Increase("SlayerMod",0.5)
 					if(src.SagaLevel==2)
 						src<<"Your Ansatsuken becomes refined enough to use EX versions of your abilities! Remember: every EX version costs 25 Meter."
 						if(!src.AnsatsukenPath)

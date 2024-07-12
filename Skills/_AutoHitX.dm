@@ -2475,7 +2475,7 @@ obj
 				SpecialAttack=1
 				DamageMult=15
 				Chilling=99
-				Stasis=10
+				Stasis=5
 				TurfShift='IceGround.dmi'
 				Distance=15
 				WindUp=0.5
@@ -2489,7 +2489,7 @@ obj
 						DamageMult = 6 + (1.5 * usr.AscensionsAcquired)
 						Cooldown = 60 - (5 * usr.AscensionsAcquired)
 						Distance = 10 + (5 * usr.AscensionsAcquired)
-						Stasis = 10 + (10 * usr.AscensionsAcquired)
+						Stasis = 5 + (2.5 * usr.AscensionsAcquired)
 						ForOffense = 1 + (0.25 * usr.AscensionsAcquired)
 					usr.Activate(src)				
 

@@ -967,19 +967,21 @@ NEW VARIABLES
 
 
 			proc/handleGates(mob/p, increment)
+				var/prev_gates = p.GatesActive
 				if(increment)
 					// handle going up a gate here
 					OffMessage=0
+					if(p.GatesActive+1 != 1)
+						if(p.GatesActive + 1 >= lastGate && world.realtime - lastGateTimer < 24 HOURS)
+							p << "You can't unlock the next gate."
+							return
 					if(p.BuffOn(src))
-						src.Trigger(p, 1)
+						src.Trigger(p, 1, 1)
 						sleep(1)
 						Cooldown=0
 						cooldown_remaining=0
 						Using=0
-					if((GatesLevel+1 != 1) && GatesLevel+1 >= lastGate && world.realtime - lastGateTimer> 24 HOURS)
-						p << "You can't unlock the next gate."
-						return
-					p.GatesActive++
+					p.GatesActive = prev_gates++
 					GatesLevel = p.GatesActive
 					setUpGateVars(p, p.GatesActive)
 					if(p.GatesActive>=2)
@@ -991,7 +993,7 @@ NEW VARIABLES
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Unburdened/ub in p)
 								ub.TimerLimit = 1
 								ub.Trigger(src, 1)
-					src.Trigger(p)
+					src.Trigger(p, 1)
 				else
 					// handle going down a gate here
 					OffMessage="shuts their Gates..."
@@ -1000,19 +1002,19 @@ NEW VARIABLES
 					p.GatesActive = 0
 					lastGate = GatesLevel
 					GatesLevel = 0
-					src.Trigger(p)
+					src.Trigger(p, 1)
 
-			Trigger(mob/User, Override)
+			Trigger(mob/User, Override, dntWound)
 				..()
 				if(!User.BuffOn(src))
 					setCooldown(User.GatesActive)
-					shutOffEffects(User, User.GatesActive)
+					shutOffEffects(User, User.GatesActive, dntWound)
 					User.GatesActive = 0
 					GatesLevel = 0
 				
 
 
-			proc/shutOffEffects(mob/p, level)
+			proc/shutOffEffects(mob/p, level, dontWound = FALSE)
 				p.GatesActive=0
 				lastGateTimer = world.realtime
 				if(level > p.SagaLevel) return
@@ -1021,24 +1023,25 @@ NEW VARIABLES
 				if(taxReduction)
 					tax = clamp(0.05 - taxReduction * level, 0.005, 1)
 
-
+				if(dontWound)
+					return
 				if(!ignoreWounded)
 					if(p.TotalInjury>=35 && p.BPPoison>=0.9)
-						var/Time=RawHours(1)
+						var/Time=RawHours(2)
 						Time/=p.GetRecov()
 						if(Time > p.BPPoisonTimer)
 							p.BPPoisonTimer=Time
 						p.BPPoison=0.9
 						p.OMessage(10, "[p] has been lightly wounded!", "[p]([p.key]) has over 35% injury.")
 					else if(p.TotalInjury>=60 && p.BPPoison>=0.7)
-						var/Time=RawHours(2)
+						var/Time=RawHours(4)
 						Time/=p.GetRecov()
 						if(Time > p.BPPoisonTimer)
 							p.BPPoisonTimer=Time
 						p.BPPoison=0.7
 						p.OMessage(10, "[p] has been heavily wounded!", "[p]([p.key]) has over 60% injury.")
 					else if(p.TotalInjury>=75)
-						var/Time=RawHours(4)
+						var/Time=RawHours(8)
 						Time/=p.GetRecov()
 						if(Time > p.BPPoisonTimer)
 							p.BPPoisonTimer=Time
@@ -5815,15 +5818,18 @@ NEW VARIABLES
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/10)
 							applyToTarget=0
-							TimerLimit=30 + p.getTotalMagicLevel()
+							TimerLimit= 30 + p.getTotalMagicLevel()
 							VaizardShatter=1
 							IconLock='Android Shield.dmi'
 							IconLockBlend=2
 							IconLayer=-1
+							EndYourself= 0
 							OverlaySize=1.2
+							Range = 0
 						else
 							applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/ShellApply
 							IconLock=null
+							EndYourself= 1
 							IconLockBlend=0
 							IconLayer=0
 							OverlaySize=0
@@ -5832,10 +5838,7 @@ NEW VARIABLES
 							passives = list()
 							TimerLimit=initial(TimerLimit)
 							VaizardShatter=0
-
-
-
-
+							Range = 12
 				verb/Shell()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
@@ -5879,18 +5882,22 @@ NEW VARIABLES
 							IconLock='Android Shield.dmi'
 							IconLockBlend=2
 							IconLayer=-1
+							EndYourself = 0
 							OverlaySize=1.2
+							Range = 0
 						else
 							applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/BarrierApply
 							IconLock=null
 							IconLockBlend=0
 							IconLayer=0
 							OverlaySize=0
+							EndYourself = 1
 							VaizardHealth=0
 							TimerLimit= initial(TimerLimit)
 							VaizardShatter=0
 							AffectTarget = 1
 							passives = list()
+							Range = 12 
 				verb/Barrier()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
@@ -5935,6 +5942,8 @@ NEW VARIABLES
 							IconLockBlend=4
 							IconLayer=-1
 							OverlaySize=1.2
+							EndYourself = 0
+							Range = 0
 						else
 							applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/ProtectApply
 							IconLock=null
@@ -5943,8 +5952,10 @@ NEW VARIABLES
 							OverlaySize=0
 							AffectTarget = 1
 							CastingTime = 4
+							EndYourself = 1
 							passives = list()
 							TimerLimit = initial(TimerLimit)
+							Range = 12
 							
 
 				verb/Protect()
@@ -5988,14 +5999,17 @@ NEW VARIABLES
 							TimerLimit= 60 + p.getTotalMagicLevel() * 2
 							VaizardShatter=1
 							applyToTarget = 0
+							EndYourself = 0
 							IconLock='zekkai.dmi'
 							IconLayer=-1
 							IconLockBlend=2
 							IconApart=1
 							OverlaySize=1.3
+							Range = 0
 						else
 							IconLock=null
 							IconLayer=0
+							EndYourself = 1
 							IconLockBlend=0
 							IconApart=0
 							applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Resilient_SphereApply
@@ -6005,6 +6019,7 @@ NEW VARIABLES
 							passives = list()
 							TimerLimit=initial(TimerLimit)
 							VaizardShatter=0
+							Range = 12
 				verb/Resilient_Sphere()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
@@ -6052,12 +6067,14 @@ NEW VARIABLES
 							TimerLimit = 20 + p.getTotalMagicLevel()
 							AffectTarget = 0
 							CastingTime = 1
+							EndYourself = 0
 							applyToTarget = 0
 							IconLock='Bubble Shield.dmi'
 							IconLockBlend=2
 							IconLayer=-1
 							IconApart=1
 							OverlaySize=1.2
+							Range = 0
 						else
 							applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/ProtegaApply
 							IconLock=null
@@ -6065,9 +6082,11 @@ NEW VARIABLES
 							IconLayer=0
 							IconApart=0
 							OverlaySize=0
+							EndYourself = 1
 							passives = list()
 							AffectTarget = 1
 							CastingTime = 3
+							Range = 12
 				verb/Protega()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
@@ -8940,6 +8959,44 @@ NEW VARIABLES
 					else if(usr.SpecialBuff.BuffName=="Genesic Brave")
 						src.SBuffNeeded="Genesic Brave"
 				src.Trigger(usr)
+		Domain_Expansion
+			var/tmp/effected = list()
+			var/range = 10
+			var/identifier = null
+			Cooldown = -1
+			ActiveMessage="releases their Domain!"
+			OffMessage="conceals their Domain...."
+			proc/animation(mob/p, range)
+				if(!range) range = 8
+				for(var/atom/M in range(range, p))
+					spawn()animate(M, color = list(-1,0,0, 0,-1,0, 0,0,-1, 1,1,1), time = 7)
+					effected += M
+				sleep(3)
+				for(var/atom/M in effected)
+					spawn()animate(M, color = null, time = 3)
+					spawn()animate(M, color = list(0.6,0,0.1, 0,0.6,0.1, 0,0,0.7, 0,0,0), time = 3)
+				sleep(6)
+				for(var/atom/M in effected)
+					spawn()animate(M, color = null, time = 3)
+			verb/Domain_Expansion_Target()
+				set category = "Skills"
+				if(usr.Target==usr || !usr.Target)
+					usr << "Can't target [usr.Target == usr ? " yourself" : " not have a target"]."
+					return
+				src.Trigger(usr)
+				if(usr.BuffOn(src)) // this means it worked and its on
+					animation(usr)
+					usr.DomainExpansion(identifier, 0, 1)
+				else
+					usr.stopDomainExapansion()
+			verb/Domain_Expansion_Wide()
+				set category = "Skills"
+				src.Trigger(usr)
+				if(usr.BuffOn(src)) // this means it worked and its on
+					animation(usr, range)
+					usr.DomainExpansion(identifier, range, 0)
+				else
+					usr.stopDomainExapansion()
 		Dividing_Driver
 			WarpZone=1
 			Duel=1

@@ -3388,8 +3388,8 @@ obj
 						var/asc = p.AscensionsAcquired
 						if(!altered)
 							if(usr.isInnovative(ELF, "Any"))
-								if(p.passive_handler.Get("HotHundred")||p.passive_handler.Get("Warping"))
-									EndRate = 0.25
+								if(p.passive_handler.Get("HotHundred") || p.passive_handler.Get("Warping"))
+									EndRate = 0.5
 									Radius=1
 									MultiShot=0
 									Distance = 50
@@ -3402,7 +3402,7 @@ obj
 									DamageMult= 6 + asc
 									DamageMult /= MultiShot
 							else
-								EndRate = 0.25
+								EndRate = 0.5
 								Radius=1
 								MultiShot=0
 								Distance = 50
@@ -3448,7 +3448,7 @@ obj
 						if(!altered)
 							if(usr.isInnovative(ELF, "Any"))
 								var/asc = p.AscensionsAcquired
-								ManaCost = p.ManaAmount
+								ManaCost = clamp(p.ManaAmount, 15,100)
 								Blasts = ManaCost/(4+asc)
 								ZoneAttack=1
 								ZoneAttackX=18

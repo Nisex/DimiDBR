@@ -102,10 +102,15 @@ mob/verb/Refund()
 
 
 
-/mob/proc/refund_all_copyables()
+/mob/proc/refund_all_copyables_old()
 	for(var/obj/Skills/S in Skills)
 		if((S.Copyable>0&&S.SkillCost))
 			refund_skil_old(S)
+
+/mob/proc/refund_all_copyables()
+	for(var/obj/Skills/S in Skills)
+		if((S.Copyable>0&&S.SkillCost))
+			refund_skill(S)
 
 // im going to sin below
 /mob/Admin3/verb/refund_all_old_value(mob/p in world)

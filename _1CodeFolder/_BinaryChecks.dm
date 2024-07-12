@@ -935,7 +935,7 @@ mob
 			return passive_handler.Get("AllowedPower")
 		HasPULock()
 			if(passive_handler.Get("PULock"))
-				return 1
+				return passive_handler.Get("PULock")
 			return 0
 		HasPUSpike()
 			if(passive_handler.Get("PUSpike"))

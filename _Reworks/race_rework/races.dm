@@ -393,7 +393,7 @@ race
 		visual = 'Monster.png'
 
 		passives = list("VenomResistance" = 0.25, "Void" = 1, "SoulFire" = 0.25, "DeathField" = 0.5, "VoidField" = 0.5)
-
+		locked = TRUE
 		strength = 1.5
 		endurance = 2
 		speed = 1
