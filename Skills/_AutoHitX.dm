@@ -2735,7 +2735,7 @@ obj
 								Distance = 4 + p.getTotalMagicLevel()/2 + p.Potential/25
 								Freezing = 6 + p.getTotalMagicLevel()
 								AdaptRate = 1
-								DamageMult = 6 + p.getTotalMagicLevel()/5 + p.Potential/25
+								DamageMult = 5 + p.getTotalMagicLevel()/5 + p.Potential/25
 								ForOffense=0
 								NoLock=1
 								NoAttackLock=1
@@ -2835,6 +2835,7 @@ obj
 									var/obj/Skills/Projectile/Thundara/th = usr.FindSkill(/obj/Skills/Projectile/Thundara)
 									th.adjust(usr)
 									usr.UseProjectile(th)
+									DamageMult=4
 									usr.ManaAmount-=5
 								else
 									return
@@ -2869,7 +2870,7 @@ obj
 						if(!altered)
 							if(usr.isInnovative(ELF, "Any"))
 								Rounds = 200
-								DamageMult = 0.1
+								DamageMult = 0.05
 								Icon='VR Cloud.png'
 								IconX=-13
 								Size = 8

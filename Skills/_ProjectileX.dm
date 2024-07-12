@@ -371,11 +371,13 @@ obj
 				Charge=1
 				DamageMult=0.2
 				AccMult=1.5
+				ForRate=1
 				Homing=1
 				Explode=1
 				ZoneAttackX=8
 				ZoneAttackY=8
 				Deflectable = 1
+				ForRate=1
 				Hover=5
 				IconLock='lighting_proj.dmi'
 				LockX=-12
@@ -384,8 +386,9 @@ obj
 				Variation=8
 				Cooldown=15
 				adjust(mob/p)
-					DamageMult = 0.1 + p.getTotalMagicLevel()/100 + p.Potential/200
+					DamageMult = 0.05 + p.getTotalMagicLevel()/150 + p.Potential/200
 					Blasts = clamp(p.getTotalMagicLevel() + p.Potential/25, 3, 15)
+					
 
 			Blizzara
 				Distance=8
@@ -3399,7 +3402,7 @@ obj
 									Radius = 2
 									MultiShot = 2 + asc
 									Distance = 5
-									DamageMult= 6 + asc
+									DamageMult = 3 + asc
 									DamageMult /= MultiShot
 							else
 								EndRate = 0.5
