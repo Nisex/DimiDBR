@@ -25,5 +25,9 @@
 		set category = "Skills"
 		if(!usr.BuffOn(src))
 			adjust(usr)
-			OMsg(usr, "<b>[usr] has revealed their true nature as a <i>[glob.DEMON_NAME]</i></b>")
+			var/yesno = input(usr, "Are you sure?") in list("Yes", "No")
+			if(yesno == "Yes")
+				OMsg(usr, "<b>[usr] has revealed their true nature as a <i>[glob.DEMON_NAME]</i></b>")
+			else
+				return 0
 		src.Trigger(usr)

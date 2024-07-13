@@ -1,7 +1,17 @@
 obj/Skills/Buffs/SlotlessBuffs/Yata_no_Kagami/Mirror_Protection
-	VaizardShatter = TRUE
-	var/tmp/secondActivation = FALSE
-	var/tmp/storedMana = 0
+	// VaizardShatter = TRUE
+	// var/tmp/secondActivation = FALSE
+	// var/tmp/storedMana = 0
+	passives = list("TotalDeflection" = 1, "TotalReversal" = 1, "Blubber" = 4)
+	ManaCost = 10
+	Cooldown = 120
+	adjust(mob/p)
+		TimerLimit = 10 + (p.AscensionsAcquired * 5)
+		VaizardHealth = 0.05 + (0.05 * p.AscensionsAcquired)
+		Cooldown = 120 - (p.AscensionsAcquired * 10)
+		ManaCost = 10 + (p.AscensionsAcquired * 2)
+
+	/* wasn't working
 	adjust(mob/p)
 		VaizardHealth = storedMana/150
 		storedMana = 0
@@ -25,10 +35,12 @@ obj/Skills/Buffs/SlotlessBuffs/Yata_no_Kagami/Mirror_Protection
 			..()
 			if(User.BuffOn(src))
 				secondActivation = FALSE
-
+*/
 	verb/Mirror_Protection()
 		set name = "Yata no Kagami: Mirror Protection"
 		set category = "Skills"
+		if(!usr.BuffOn(src))
+			adjust(usr)
 		Trigger(usr)
 
 obj/Skills/Yata_no_Kagami/Mirror_Prison

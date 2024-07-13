@@ -1343,6 +1343,8 @@ proc/Deflection_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/Base
 		var/TotalAccuracy = BaseChance * ((Offense*AccMult) / Defense) * 100
 
 		TotalAccuracy = clamp(glob.LOWEST_ACC, TotalAccuracy, 100)
+		if(Defender.passive_handler.Get("TotalDeflection"))
+			return MISS
 
 		if(!prob(TotalAccuracy))
 			if(!prob(TotalAccuracy))
