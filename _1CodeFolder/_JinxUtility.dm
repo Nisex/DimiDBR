@@ -2049,9 +2049,9 @@ mob
 					evil = 1
 
 			if(good)
-				return good
+				return TRUE
 			if(evil)
-				return evil
+				return FALSE
 
 			return 0
 		IsEvil()
@@ -2095,9 +2095,9 @@ mob
 					evil = 0
 
 			if(good)
-				return good
+				return FALSE
 			if(evil)
-				return evil
+				return TRUE
 			return 0
 
 		HolyDamage(var/mob/P, var/Forced=0)//Stick this in the DoDamage proc.

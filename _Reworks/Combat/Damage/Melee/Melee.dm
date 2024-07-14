@@ -82,7 +82,7 @@
 
 	// 				WEAPON DAMAGE 			//
 
-	if(s||HasSwordPunching())
+	if(s)
 		unarmedAtk=0
 		swordAtk=1
 	var/specialAtk = FALSE
