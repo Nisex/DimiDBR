@@ -83,7 +83,7 @@
         return FALSE
 
     proc/truthChoice(mob/p)
-        if(checkTruth(p))
+        if(!checkTruth(p))
             // apply it here
             for(var/x in 1 to p.AscensionsAcquired)
                 switch(p.AscensionsAcquired) // ghetto application

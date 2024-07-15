@@ -4,13 +4,14 @@ obj
 			Read(F)
 				..()
 				// death becomes u
-				var/path = "[type]"
-				var/obj/Skills/Buffs/b = new path
-				for(var/x in b.passives)
-					passives[x] = b.passives[x]
-				if(isnull(passives))
-					world.log << "Hey. [src] didnt get passives."
-					passives = list()
+				if(!(altered || Using))
+					var/path = "[type]"
+					var/obj/Skills/Buffs/b = new path
+					for(var/x in b.passives)
+						passives[x] = b.passives[x]
+					if(isnull(passives))
+						world.log << "Hey. [src] didnt get passives."
+						passives = list()
 			var
 				CorruptionGain
 				AngerPoint // set an anger point
