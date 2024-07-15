@@ -60,12 +60,12 @@ proc/log_func(x, a, b)
 #define GAJALAKA /race/gajalaka
 #define CHANGELING /race/changeling
 
-#define DEBUG_DAMAGE 1
-#define DEBUG_ITEM_DAMAGE 1
-#define DEBUG_MELEE 1
-#define DEBUG_AUTOHIT 1
-#define DEBUG_GRAPPLE 1
-#define DEBUG_PROJECTILE 1
+#define DEBUG_DAMAGE 0
+#define DEBUG_ITEM_DAMAGE 0
+#define DEBUG_MELEE 0
+#define DEBUG_AUTOHIT 0
+#define DEBUG_GRAPPLE 0
+#define DEBUG_PROJECTILE 0
 
 
 //pacts in pacts.dm
