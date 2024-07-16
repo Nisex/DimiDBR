@@ -1070,7 +1070,7 @@ obj
 					else
 						if(usr.AttackQueue)
 							return // prevent heavy strike from overriding
-						if(!usr.Secret|| usr.Secret == "Eldritch" && !usr.CheckSlotless("True Form") || usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus"))//Just default Heavy Strike
+						if(!usr.Secret && !usr.HasWitchCraft() || usr.Secret == "Eldritch" && !usr.CheckSlotless("True Form") || usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus"))//Just default Heavy Strike
 							src.name="Heavy Strike"
 							src.DamageMult=2
 							src.AccuracyMult=1
@@ -1524,7 +1524,8 @@ obj
 							src.HitSparkSize=2
 							usr.SetQueue(src)
 							return
-						if(locate(/obj/Items/WitchCraft/WitchesBook))
+						if(usr.StyleActive == "Witch" && usr.HasWitchCraft())
+							src.ActiveMessage="takes a starting position!"
 							src.name = "Soulsap Strike"
 							src.DamageMult=1.5
 							src.AccuracyMult = 1.15

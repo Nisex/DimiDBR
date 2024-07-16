@@ -1077,11 +1077,11 @@ obj
 								set hidden=1
 								src.Trigger(usr)
 						Wing_Blade_Style
-							StyleStr=1.35
-							StyleEnd=1.25
+							StyleStr=1.25
+							StyleFor=1.25
 							StyleSpd=1.5
 							StyleActive="Wing Blade"
-							passives = list("SweepingStrike" = 1)
+							passives = list("SweepingStrike" = 1, "DoubleStrike" = 1, "BlurringStrikes" = 1, "SpiritSword" = 0.75)
 							SweepingStrike=1
 							SwordIcon='BLANK.dmi'
 							SwordIconSecond='BLANK.dmi'
@@ -1095,14 +1095,14 @@ obj
 								set hidden=1
 								src.Trigger(usr)
 						Cyclone_Style
-							StyleStr=1.35
+							StyleStr=1.25
 							StyleFor=1.25
 							StyleSpd=1.5
 							ElementalClass="Wind"
 							StyleActive="Cyclone"
 							ElementalOffense="Wind"
 							ElementalDefense="Wind"
-							passives = list("Shocking" = 1, "Paralyzing" = 1)
+							passives = list( "TechniqueMastery" = 1.5, "BlurringStrikes" = 1, "Paralyzing" = 1, "SpiritFlow" = 0.25)
 							Shocking=1
 							Paralyzing=0.2
 							Finisher="/obj/Skills/Queue/Finisher/Cyclone"
@@ -1110,53 +1110,51 @@ obj
 								set hidden=1
 								src.Trigger(usr)
 						Rock_Breaker_Style
-							StyleStr=1.35
+							StyleDef=1.25
+							StyleStr=1.25
 							StyleEnd=1.5
-							StyleFor=1.25
 							ElementalClass="Earth"
 							StyleActive="Rock Breaker"
 							ElementalOffense="Earth"
 							ElementalDefense="Earth"
-							passives = list("Crushing" = 1, "Shattering" = 1)
+							passives = list("Hardening" = 1, "Crushing" = 1, "Armorpeeling" = 1, "Callousedhands" = 0.25, "DebuffImmune" = 0.25)
 							Crushing=1
-							Shattering=0.2
 							Finisher="/obj/Skills/Queue/Finisher/Rock_Breaker"
 							verb/Rock_Breaker_Style()
 								set hidden=1
 								src.Trigger(usr)
 						Dark_Impulse_Style
-							StyleStr=1.35
+							StyleStr=1.5
 							StyleEnd=1.5
-							StyleSpd=1.25
 							IconLock='DarknessGlow.dmi'
 							IconUnder=1
+							passives = list("Momentum" = 1, "Callousedhands " = 0.5)
 							LockX=-32
 							LockY=-32
 							StyleActive="Dark Impulse"
-							ElementalOffense="Dark"
+							ElementalOffense = "Dark"
+							ElementalDefense = "Dark"
 							Finisher="/obj/Skills/Queue/Finisher/Dark_Impulse"
 							verb/Dark_Impulse_Style()
 								set hidden=1
 								src.Trigger(usr)
 						Ghost_Drive_Style
-							StyleEnd=1.25
+							StyleOff=1.25
+							StyleDef=1.25
 							StyleFor=1.5
-							StyleSpd=1.35
 							StyleActive="Ghost Drive"
-							passives = list("Godspeed" = 1, "Flicker" = 1)
-							Godspeed=1
-							Flicker=1
+							passives = list("Likewater" = 1, "Godspeed" = 1, "MovingCharge" = 1, "QuickCast" = 1, "SpiritFlow" = 0.5)
 							Afterimages=1
 							Finisher="/obj/Skills/Queue/Finisher/Ghost_Drive"
 							verb/Ghost_Drive_Style()
 								set hidden=1
 								src.Trigger(usr)
 						Blade_Charge_Style
-							StyleStr=1.25
-							StyleFor=1.5
-							StyleSpd=1.35
+							StyleStr = 1.25
+							StyleOff = 1.25
+							StyleFor = 1.5
 							StyleActive="Blade Charge"
-							passives = list("Extend" = 1, "SpiritSword" = 0.75)
+							passives = list("Extend" = 1, "SpiritSword" = 0.75, "SpiritHand" = 1)
 							Extend=1
 							SpiritSword=0.75
 							Finisher="/obj/Skills/Queue/Finisher/Blade_Charge"
@@ -1408,3 +1406,16 @@ obj
 							set hidden=1
 							src.Trigger(usr)
 
+///// WitchCraft	
+					Witch_Style
+						StyleStr = 1.3
+						StyleFor = 1.3
+						StyleSpd = 1.1
+						StyleDef = 1.1
+						ElementalClass= "Water" 
+						StyleActive = "Witch"
+						ElementalOffense = "Felfire"
+						Finisher = "/obj/Skills/Queue/Finisher/Sundered_Sky"
+						verb/Witch_Style()
+							set hidden=1
+							src.Trigger(usr)
