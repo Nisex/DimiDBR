@@ -2482,6 +2482,10 @@ mob
 				Found=0.5
 			if(src.StyleActive=="Sword And Shield")
 				Found=1
+			if(src.StyleActive=="Phalanx Style")
+				Found = 2
+			if(src.StyleActive=="Divine Arts of The Heavenly Demon")
+				Found = 1.5
 			return Found
 
 		UsingIaido()

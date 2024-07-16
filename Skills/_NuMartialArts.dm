@@ -7,8 +7,9 @@ obj
 				if(!(altered || Using))
 					var/path = "[type]"
 					var/obj/Skills/Buffs/b = new path
+					passives = list()
 					for(var/x in b.passives)
-						passives[x] = b.passives[x]
+						passives["[x]"] = b.passives[x]
 					if(isnull(passives))
 						world.log << "Hey. [src] didnt get passives."
 						passives = list()
@@ -822,6 +823,9 @@ obj
 						StyleStr=1.25
 						StyleEnd=1.5
 						StyleActive="Phalanx Style"
+						SwordPunching = 1
+						NoSword = 1
+						NeedsSword = 0 
 						passives = list("Reversal" = 0.25, "Deflection" = 1, "Hardening" = 1.5, "SwordPunching" = 1, "Shearing" = 3, "Unnerve" = 1)
 						Finisher="/obj/Skills/Queue/Finisher/Shield_Vault"
 

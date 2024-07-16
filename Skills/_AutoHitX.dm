@@ -1708,6 +1708,7 @@ obj
 				Launcher=2
 				ComboMaster=1
 				ChargeTech=1
+				GrabMaster = 1
 				ChargeTime=0.25
 				Knockback=1
 				Cooldown=160

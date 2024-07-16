@@ -49,8 +49,15 @@
                 passives["SwordAscension"] = p.AscensionsAcquired + 1
             if("Staff")
                 passives["StaffAscension"] = p.AscensionsAcquired + 1
+            if("Unarmed")
+                passives["UnarmedDamage"] = p.AscensionsAcquired + 1
+        switch(secondDevilArmPick)
             if("Armor")
                 passives["ArmorAscension"] = p.AscensionsAcquired + 1
+            if("Sword")
+                passives["SwordAscension"] = p.AscensionsAcquired + 1
+            if("Staff")
+                passives["StaffAscension"] = p.AscensionsAcquired + 1
             if("Unarmed")
                 passives["UnarmedDamage"] = p.AscensionsAcquired + 1
         ElementalOffense = "HellFire"
