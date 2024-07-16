@@ -16,17 +16,18 @@ obj/proc/SunderSoul(mob/P, mob/G) // P = Pactee, G = Giver.
 				view(20)<< output("<font color=yellow>[P] lacks a soul to strike the deal !", "output")
 				return
 			view(20)<< output("<font color=yellow>[P] has accepted the deal !", "output")
-			for(var/obj/Items/WitchCraft/WitchesBook/s in G.contents)
-				s.PactedList += P
-				var/obj/Items/WitchCraft/WitchesBook/NEW = new; NEW.loc = P
+			for(var/obj/WitchCraft/WitchesBook/s in G.contents)
+				s.PactedList += P.name
+				var/obj/WitchCraft/WitchesBook/NEW = new; NEW.loc = P
 				NEW.name = input(P, "You have been granted your very own copy of [s.name]\n It is time you name your own Tome.", "Choose a name") as text
-				P.AddSkill(new/obj/Skills/Buffs/Witch_Style)
+				P.AddSkill(new/obj/Skills/Buffs/NuStyle/FreeStyle/Witch_Style)
 				P.AddSkill(new/obj/Skills/AutoHit/Dream_Walk)
 				P.AddSkill(new/obj/Skills/AutoHit/Hex)
 				P.AddSkill(new/obj/Skills/Queue/Grave_Curse)
 				P.NoSoul = 1
 		if("No")
 			view(20)<< output("<font color=yellow>[P] has declined the deal !", "output")
+
 obj/proc/checkIfNoPassives(mob/who)
 	if(who.passive_handler.Get("Maki"))
 		return
@@ -34,38 +35,29 @@ obj/proc/checkIfNoPassives(mob/who)
 
 mob/Admin3/verb/GiveWitchBook()
 	var/mob/who = input(usr, "Who do you wish to grant this crack book") in players
-	var/obj/Items/WitchCraft/WitchesBook/G = new
+	var/obj/WitchCraft/WitchesBook/G = new
 	G.loc = who
 	G.name = input(who, "You have stumbled upon an tome you do not recognize, it's energy seems inviting yet cruel and twisted\n What is it that you will call this Tome?", "Original Copy Name.") as text
 	who.passive_handler.Set("Maki", 1)
 	who.NoSoul = 1
-	who.AddSkill(new/obj/Skills/Buffs/Witch_Style)
+	who.AddSkill(new/obj/Skills/Buffs/NuStyle/FreeStyle/Witch_Style)
 	who.AddSkill(new/obj/Skills/AutoHit/Dream_Walk)
 	who.AddSkill(new/obj/Skills/AutoHit/Hex)
 	who.AddSkill(new/obj/Skills/Queue/Grave_Curse)
 
-/obj/Skills/Buffs/Witch_Style
-	StyleStr = 1.3
-	StyleFor = 1.3
-	StyleSpd = 1.1
-	StyleDef = 1.1
-	ElementalClass= "Water" 
-	StyleActive = "Witch"
-	ElementalOffense = "Felfire"
-	Finisher = "/obj/Skills/Queue/Finisher/Sundered_Sky"
-	verb/Witch_Style()
-		set hidden=1
-		src.Trigger(usr)
+mob/Admin3/verb/WitchCheck()
+	if(locate(/obj/WitchCraft/WitchesBook, usr.contents))
+		usr << TRUE
+	else
+		usr << FALSE
 
 
-/obj/Items/WitchCraft/WitchesBook
+/obj/WitchCraft/WitchesBook
 	name = "Unnamed Tome"
 	icon = 'Icons/NSE/Icons/Thot_book.dmi'
 	var/CurrentEssenceAmount = 0
 	var/TakeEssenceCoolDown = 0
 	var/list/PactedList = list()
-	Click()
-		usr << "[src] has count of [src.CurrentEssenceAmount] essence"
 	verb/Kill_Essence(mob/M in get_step(usr, usr.dir))
 		set name = "Drain Essence"
 		set category = "Skills"
@@ -87,7 +79,7 @@ mob/Admin3/verb/GiveWitchBook()
 		if(!M.KO)
 			usr << "[M] needs to be KO'd!"
 			return
-		if(TakeEssenceCoolDown < world.time )
+		if(TakeEssenceCoolDown > world.time )
 			CurrentEssenceAmount += 1
 			view(10) << output("<font color=red>[M] feels as if their body decays slightly at the magic of [usr]..!!", "output")
 			TakeEssenceCoolDown = world.time + 5
@@ -100,7 +92,7 @@ mob/Admin3/verb/GiveWitchBook()
 		var/list/PeopleWithBooks = list("Cancel", "----")
 
 		for(var/mob/M in oview(20, src))
-			if(locate(/obj/Items/WitchCraft/WitchesBook, M))
+			if(locate(/obj/WitchCraft/WitchesBook, M))
 				PeopleWithBooks.Add(M)
 
 		var/mob/who = input(usr, "Which of these people do you wish to give your Essence to?") in PeopleWithBooks
@@ -109,7 +101,7 @@ mob/Admin3/verb/GiveWitchBook()
 			if((src.CurrentEssenceAmount - give) < 0)
 				return
 			else 
-				for(var/obj/Items/WitchCraft/WitchesBook/G in who)
+				for(var/obj/WitchCraft/WitchesBook/G in who)
 					G.CurrentEssenceAmount += give
 	verb/Make_Deal(mob/M in get_step(usr, usr.dir))
 		set name = "Witch Apprenticeship"
@@ -125,6 +117,8 @@ mob/Admin3/verb/GiveWitchBook()
 			var/obj/Items/Sword/Weapon = input(usr, "Select which of the weapons you wish to Fel-Masterwork", "Fel Masterwork") in weapons
 			Weapon.Element = "Felfire"
 			src.CurrentEssenceAmount -= 20
+		else
+			usr << "You do not possess enough essence for this enchantment!"
 
 /obj/Skills/AutoHit/Dream_Walk
 	Area= "Area"
@@ -143,19 +137,22 @@ mob/Admin3/verb/GiveWitchBook()
 	verb/Dream_Walk()
 		set category="Skills"
 		var/resource = 0
-		for(var/obj/Items/WitchCraft/WitchesBook/G in usr)
+		for(var/obj/WitchCraft/WitchesBook/G in usr)
 			resource = G.CurrentEssenceAmount
 		if(resource > 3)
-			for(var/obj/Items/WitchCraft/WitchesBook/G in usr)
+			for(var/obj/WitchCraft/WitchesBook/G in usr)
 				G.CurrentEssenceAmount -= 3
 			usr.Activate(src)
 		else
 			usr << "Not enough Essence [resource] / 3"
 
 /obj/Skills/AutoHit/Hex
-	Area = "Around Target"
-	DamageMult= 2
-	Rounds= 1
+	Area="Target"
+	AdaptRate = 1
+	DamageMult=1
+	Distance=10
+	DelayTime=0
+	HitSparkIcon='BLANK.dmi'
 	TurfDirt= 1
 	ShockIcon= 'Icons/NSE/spells/cast/KrysiaHitspark2.dmi'
 	Shockwave= 4
@@ -198,10 +195,10 @@ mob/Admin3/verb/GiveWitchBook()
 	verb/Grave_Curse()
 		set category="Skills"
 		var/resource = 0
-		for(var/obj/Items/WitchCraft/WitchesBook/G in usr)
+		for(var/obj/WitchCraft/WitchesBook/G in usr)
 			resource = G.CurrentEssenceAmount
 		if(resource > 5)
-			for(var/obj/Items/WitchCraft/WitchesBook/G in usr)
+			for(var/obj/WitchCraft/WitchesBook/G in usr)
 				G.CurrentEssenceAmount -= 5
 			usr.Activate(src)
 		else
@@ -233,10 +230,10 @@ mob/Admin3/verb/GiveWitchBook()
 	verb/Mirror_Match()
 		set category="Skills"
 		var/resource = 0
-		for(var/obj/Items/WitchCraft/WitchesBook/G in usr)
+		for(var/obj/WitchCraft/WitchesBook/G in usr)
 			resource = G.CurrentEssenceAmount
 		if(resource > 5)
-			for(var/obj/Items/WitchCraft/WitchesBook/G in usr)
+			for(var/obj/WitchCraft/WitchesBook/G in usr)
 				G.CurrentEssenceAmount -= 5
 			usr.Activate(src)
 		else

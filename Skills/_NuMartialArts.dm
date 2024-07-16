@@ -1402,3 +1402,16 @@ obj
 							set hidden=1
 							src.Trigger(usr)
 
+///// WitchCraft	
+					Witch_Style
+						StyleStr = 1.3
+						StyleFor = 1.3
+						StyleSpd = 1.1
+						StyleDef = 1.1
+						ElementalClass= "Water" 
+						StyleActive = "Witch"
+						ElementalOffense = "Felfire"
+						Finisher = "/obj/Skills/Queue/Finisher/Sundered_Sky"
+						verb/Witch_Style()
+							set hidden=1
+							src.Trigger(usr)

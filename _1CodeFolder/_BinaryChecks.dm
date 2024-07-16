@@ -1257,6 +1257,11 @@ mob
 			if(secretDatum && Secret == "Ripple")
 				return 1
 			return 0
+		HasWitchCraft()
+			if(locate(/obj/WitchCraft/WitchesBook, src.contents))
+				return 1
+			else
+				return 0
 		GetRipple()
 			var/RippleEffectivness=1
 			if(src.Slow)
