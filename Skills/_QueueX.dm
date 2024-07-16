@@ -2291,7 +2291,7 @@ obj
 
 			Red_Hot_Hundred
 				SignatureTechnique=2
-				DamageMult=0.75
+				DamageMult=1.75
 				AccuracyMult = 1.175
 				Warp=5
 				KBAdd=1

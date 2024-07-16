@@ -7,8 +7,12 @@ ascension
 	Read(F)
 		..()
 		// death becomes u
-		passives = initial(type:passives)
+		var/path = "[type]"
+		var/ascension/a = new path
+		for(var/x in a.passives)
+			passives[x] = a.passives[x]
 		if(isnull(passives))
+			world.log << "Hey. [src] didnt get passives."
 			passives = list()
 
 	var
@@ -497,11 +501,6 @@ ascension
 				world.log << "There was an error finding [p]'s ture form, please fix as their ascension is likely bugged"
 				p << "Please report to the admin or discord that your true form is bugged on asc"
 			return d
-		onAscension(mob/owner)
-			var/result = ..()
-			if(result)
-				owner.demon.selectPassive(owner, "CORRUPTION_PASSIVES", "Buff")
-				owner.demon.selectPassive(owner, "CORRUPTION_DEBUFFS", "Debuff")
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			passives = list("HellPower" = 0.25, "AbyssMod" = 0.25, "SpiritPower" = 0.25, , "HellRisen" = 0.25)
@@ -510,7 +509,11 @@ ascension
 			strength = 0.25
 			endurance = 0.25
 			speed = 0.25
+			on_ascension_message = "You evolve into a stronger demon..."
 			onAscension(mob/owner)
+				if(!applied)
+					owner.demon.selectPassive(owner, "CORRUPTION_PASSIVES", "Buff")
+					owner.demon.selectPassive(owner, "CORRUPTION_DEBUFFS", "Debuff")
 				..()
 				owner.Class = "B"
 
@@ -523,7 +526,11 @@ ascension
 			defense = 0.25
 			offense = 0.25
 			anger = 0.1
+			on_ascension_message = "Your power is unrivaled..."
 			onAscension(mob/owner)
+				if(!applied)
+					owner.demon.selectPassive(owner, "CORRUPTION_PASSIVES", "Buff")
+					owner.demon.selectPassive(owner, "CORRUPTION_DEBUFFS", "Debuff")
 				..()
 				var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da = owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2)
 				if(!da.secondDevilArmPick)

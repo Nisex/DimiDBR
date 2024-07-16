@@ -24,9 +24,9 @@
 			reqCounter-=(UsingIaido()-1)*5
 	if(UsingKendo()&&HasSword())
 		if(s.Class == "Wooden")
-			reqCounter = 10
+			reqCounter = 15
 		else
-			reqCounter = 20
+			reqCounter = 25
 
 	if(UsingSpeedRave())
 		reqCounter = 10

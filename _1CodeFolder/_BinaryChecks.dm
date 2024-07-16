@@ -161,14 +161,13 @@ mob
 			var/Ascensions=0
 			if(s)
 				Total=s.DamageEffectiveness
-				if(UsingKendo())
-					Total = 1.25 // change it to heavy sword damage, fuck it
 				if(s.InnatelyAscended)
 					Ascensions=s.InnatelyAscended
 				else
 					Ascensions=s.Ascended
 				if(src.HasSwordAscension())
 					Ascensions+=src.GetSwordAscension()
+					// change it to heavy sword damage, fuck it
 				if(Ascensions>6)
 					Ascensions=6
 				if(src.Saga)
@@ -176,12 +175,14 @@ mob
 						switch(Saga)
 							if("Weapon Soul")
 								if(src.SagaLevel)
-									Ascensions = SagaLevel
+									Ascensions += SagaLevel
 							if("Hiten Mitsurugi-Ryuu")
-								if(src.SagaLevel>=3)
-									Ascensions += SagaLevel/3
+								if(src.SagaLevel)
+									Ascensions += SagaLevel
 					if(Ascensions>6)
 						Ascensions=6
+				if(UsingKendo())
+					Total = 1.1 + (0.03 * Ascensions)
 				if(s.Glass)
 					Ascensions+=1
 				if(s.Conversions=="Sharp")
@@ -192,8 +193,6 @@ mob
 					Ascensions+=src.GetSwordAscension()
 					if(Ascensions>6)
 						Ascensions=6
-			if(src.UsingKendo())
-				Ascensions++
 			if(src.HasSwordDamageBuff())
 				Ascensions+=src.GetSwordDamageBuff()
 			Total*=1+(Ascensions*glob.SwordAscDamage)
@@ -229,8 +228,6 @@ mob
 					Ascensions+=src.GetSwordAscension()
 					if(Ascensions>6)
 						Ascensions=6
-			if(src.UsingKendo())
-				Ascensions++
 			if(src.HasSwordDelayBuff())
 				Ascensions+=src.GetSwordDelayBuff()
 			Total*=1+(Ascensions*glob.SwordAscDelay)
@@ -266,8 +263,6 @@ mob
 					Ascensions+=src.GetSwordAscension()
 					if(Ascensions>6)
 						Ascensions=6
-			if(src.UsingKendo())
-				Ascensions++
 			if(src.HasSwordAccuracyBuff())
 				Ascensions+=src.GetSwordAccuracyBuff()
 			Total*=1+(Ascensions*glob.SwordAscAcc)
@@ -2445,6 +2440,18 @@ mob
 			var/Found=0
 			var/obj/Items/Sword/S=src.EquippedSword()
 			Found += passive_handler.Get("Fencing")
+			if(S.Class=="Light")
+				var/asc = 0 
+				if(S.InnatelyAscended)
+					asc=S.InnatelyAscended
+				else
+					asc=S.Ascended
+				if(src.HasSwordAscension())
+					asc+=src.GetSwordAscension()
+					// change it to heavy sword damage, fuck it
+				if(asc>6)
+					asc=6
+				Found+=clamp(round(0.16 + (0.16 * asc),0.25),0.16,1)
 			if(src.StyleActive=="Hiten Mitsurugi")
 				Found+=1
 			if(src.StyleActive=="Sword Savant")
@@ -2452,7 +2459,7 @@ mob
 			if(src.StyleActive=="Fencing")
 				Found+=1
 			if(src.StyleActive=="Dual Wield")
-				Found=1
+				Found+=1
 			if(UsingKendo())
 				Found+=1
 			if(src.StyleActive=="Arcane Bladework")
@@ -2460,11 +2467,11 @@ mob
 			if(src.StyleActive=="Battle Mage")
 				Found += 1
 			if(src.StyleActive=="Trinity")
-				Found=1
+				Found+=1
 			if(src.StyleActive=="Five Rings")
-				Found=1
+				Found+=1
 			if(S)
-				if(S.ExtraClass&&S.Class=="Medium")
+				if(S.ExtraClass&&S.Class=="Light")
 					Found+=1
 			return Found
 		UsingGladiator()
@@ -2500,7 +2507,7 @@ mob
 			if(src.StyleActive=="Five Rings")
 				Found=1
 			if(S)
-				if(S.ExtraClass&&S.Class=="Light")
+				if(S.ExtraClass&&S.Class=="Medium")
 					Found+=1
 			return Found
 

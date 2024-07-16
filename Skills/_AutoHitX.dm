@@ -1790,19 +1790,19 @@ obj
 			Lariat
 				SignatureTechnique=2
 				Area="Circle"
-				StrOffense=1
-				ForOffense=1
-				DamageMult=1.1
+				AdaptRate=1.5
+				DamageMult=1.5
 				Rounds=10
 				ComboMaster=1
 				ChargeTech=1
 				ChargeTime=0.5
 				Grapple=1
+				GrabMaster = 1
 				Stunner=3
 				Cooldown=180
-				Size=1
+				Size=2
 				EnergyCost=10
-				GuardBreak=1
+				// GuardBreak=1
 				SpecialAttack=1
 				Rush=5
 				ControlledRush=1
@@ -3463,10 +3463,13 @@ obj
 				adjust(mob/p)
 					if(p.isInnovative(HUMAN, "Sword"))
 						var/pot = p.Potential
-						Distance = 4 + (round(pot/25))
-						Size = 2 + (round(pot/25))
-						Rounds = 2 + (round(pot/25))
-						DamageMult = 0.75 + (round(pot/25))
+						Distance = 1 + (round(pot/25))
+						Size = 1 + (round(pot/25))
+						Rounds = 4 + (round(pot/25))
+						Launcher = 4
+						DamageMult = 0.25 + (round(pot/25))
+						ControlledRush = 2
+						Rush = 5
 					else
 						Distance = 3
 						Size = 0
@@ -3535,11 +3538,12 @@ obj
 						ChargeTech=0
 						ChargeTime=0
 						Size = 4 + (round(pot/25))
+						Distance = 4 + (round(pot/25))
 						Launcher = 2 + (round(pot/25))
-						WindUp=1
+						WindUp=0.25
 						Knockback = 0.001
-						PullIn = Size/2
-						Shearing = 4 + (pot/10)
+						PullIn = Size + 2
+						Shearing = 5 + (pot/5)
 
 					else
 						ControlledRush=1

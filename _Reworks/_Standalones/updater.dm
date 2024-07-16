@@ -476,6 +476,13 @@ update
 				if(p.RPPSpendable<0)
 					AdminMessage("[p] has under 0 rppspendable ([p.RPPSpendable])")
 			..()
+	version36
+		version = 36
+		updateMob(mob/p)
+			if(p.race.ascensions[2].applied && p.AscensionsAcquired < 2)
+				p.race.ascensions[2].applied = FALSE
+				
+			..()
 /mob/Admin4/verb/whoops()
 	var/listofchanges = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fortunate_Fate/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Disoriented/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Broken_Bones/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Ineffective_Fate/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Shattered/)
 	for(var/mob/p in players)

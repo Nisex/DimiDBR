@@ -2304,7 +2304,7 @@ obj
 				FlickBlast=0
 				AttackReplace=1
 				Distance=15
-				DamageMult=2.5
+				DamageMult=8
 				Dodgeable=0
 				Deflectable=0
 				Instinct=2

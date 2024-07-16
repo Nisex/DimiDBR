@@ -18,12 +18,12 @@ proc/randValue(min,max,divider=10)
 	if(UsingZornhau())
 		if(!s)
 			// this means they are in swordless
-			val += 0.25 // let em eat
+			val += 0.2 // let em eat
 		else
 			if(UsingKendo())
-				val += (0.1) + 0.2
+				val += (0.05) + 0.15
 			else
-				val += (0.1) + swordValues[s.Class]
+				val += (0.05) + swordValues[s.Class]
 	val += Judgment && !Oozaru ? (glob.min_damage_roll/2)*AscensionsAcquired : 0
 	if(src.HasSteady())
 		val += GetSteady()
@@ -42,5 +42,5 @@ proc/randValue(min,max,divider=10)
 /mob/proc/GetUnnvere()
 	var/total = passive_handler.Get("Unnerve")
 	if(HasLegendaryPower())
-		total+= HasLegendaryPower()*2
+		total+=HasLegendaryPower()*2
 	return total

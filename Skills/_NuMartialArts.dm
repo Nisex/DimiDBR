@@ -252,7 +252,10 @@ obj
 						// to stop runtimes
 						SignatureTechnique=2
 						Copyable=0
-						passives = list("Hardening" = 1.5, "Deflection" = 1, "UnarmedDamage" = 1.5, "CounterMaster" = 3, "Momentum" = 1, "Pressure" = 2)
+						passives = list("Hardening" = 1.5, "Deflection" = 1, "UnarmedDamage" = 1.5, "CounterMaster" = 3, "Momentum" = 1, "Pressure" = 2, "SwordPunching" = 1, "NeedsSword" = 0, "NoSword" = 1)
+						NeedsSword=0
+						NoSword=1
+						SwordPunching=1
 						StyleStr=1.25
 						StyleEnd=1.5
 						StyleOff=1.25
@@ -270,7 +273,7 @@ obj
 						Copyable=0
 						StyleActive="Iron Fist Style"
 						Finisher="/obj/Skills/Queue/Finisher/Chi_Punch"
-						verb/Divine_Arts_of_The_Heavenly_Demon_Style()
+						verb/Iron_Fist_Style()
 							set hidden=1
 							src.Trigger(usr)
 					Black_Leg_Style
