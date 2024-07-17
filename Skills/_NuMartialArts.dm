@@ -7,7 +7,6 @@ obj
 				if(!(altered || Using))
 					var/path = "[type]"
 					var/obj/Skills/Buffs/b = new path
-					passives = list()
 					for(var/x in b.passives)
 						passives["[x]"] = b.passives[x]
 					if(isnull(passives))
