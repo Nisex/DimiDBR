@@ -137,7 +137,7 @@ var/list/ai_autohit_pool=list(
 	"/obj/Skills/AutoHit/AntennaBeam","/obj/Skills/AutoHit/SweepingKick",\
 	"/obj/Skills/AutoHit/HelicopterKick","/obj/Skills/AutoHit/LegSweep",\
 	"/obj/Skills/AutoHit/RushStrike","/obj/Skills/AutoHit/PhantomStrike",\
-	"/obj/Skills/AutoHit/Dragon_Rush","/obj/Skills/AutoHit/Roundhouse",\
+	"/obj/Skills/AutoHit/DragonRush","/obj/Skills/AutoHit/Roundhouse",\
 	"/obj/Skills/AutoHit/Lightning_Kicks","/obj/Skills/AutoHit/FlyingKick",\
 	"/obj/Skills/AutoHit/FocusPunch","/obj/Skills/AutoHit/ForcePalm",\
 	"/obj/Skills/AutoHit/ForceStomp","/obj/Skills/AutoHit/Clothesline",\

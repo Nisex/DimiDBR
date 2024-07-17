@@ -82,7 +82,6 @@ atom/movable
 
 
 	Read(savefile/F)
-		world.log<<"[F]"
 		..()
 		var/val
 		F["savedIcon"] >> val

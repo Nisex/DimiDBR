@@ -718,8 +718,14 @@ proc/Load_Objects()
 	if(fexists("Saves/Itemsave/File[filenum]"))
 		var/savefile/F=new("Saves/Itemsave/File[filenum]")
 		var/list/L=new
+		if(!F)
+			world.log << "This is [F] it is null"
 		F["Types"]>>L
 		for(var/obj/A in L)
+			if(!A)
+				world.log << "[A] is null"
+				world.log << "[amount] index"
+				continue
 			amount+=1
 			A.loc=locate(A.Saved_X,A.Saved_Y,A.Saved_Z)
 		goto wowza

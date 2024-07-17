@@ -267,10 +267,9 @@
 
 				if(use) ai_next_skill = (world.time + (use.Copyable ? use.Copyable * 5 : 50)) / ai_spammer
 
-			if(!use)
-				for(var/mob/a in HitCheck())
-					dir = get_dir(src, a)
-					Melee1(GLOBAL_AI_DAMAGE)
+			for(var/mob/a in HitCheck())
+				dir = get_dir(src, a)
+				Melee1(GLOBAL_AI_DAMAGE)
 
 		if("ranged")
 
