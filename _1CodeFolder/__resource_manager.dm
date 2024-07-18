@@ -82,6 +82,14 @@ atom/movable
 
 
 	Read(savefile/F)
+		try
+			if(isnull(F)) throw EXCEPTION("[src] is not reading from a file")
+		catch(var/e)
+			world.log << "Exception: [e]"
+			return // this seems self destructive
+		if(!F || isnull(F))
+			world.log<<"This thing doesn't exist!! [src]"
+			return
 		..()
 		var/val
 		F["savedIcon"] >> val

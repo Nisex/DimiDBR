@@ -114,8 +114,9 @@ obj/Skills/Grapple
 		TriggerMessage = "starts spinning"
 
 	Heavenly_Potemkin_Buster
-		DamageMult = 12
+		DamageMult = 12.5
 		StrRate=1
+		EndRate=0.75
 		OneAndDone = 1
 		EffectMult=3
 		Effect="PotemkinBuster"

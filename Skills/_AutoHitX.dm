@@ -379,9 +379,6 @@ obj
 				Instinct=1
 				WindupMessage="channels Chi into their fist..."
 				ActiveMessage="slams their fist into their enemy!"
-				verb/Chi_Punch()
-					set category="Skills"
-					usr.Activate(src)
 
 			Explosive_Finish
 				StrOffense=1

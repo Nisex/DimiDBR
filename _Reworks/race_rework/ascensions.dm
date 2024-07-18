@@ -7,13 +7,14 @@ ascension
 	Read(F)
 		..()
 		// death becomes u
-		var/path = "[type]"
-		var/ascension/a = new path
-		for(var/x in a.passives)
-			passives[x] = a.passives[x]
-		if(isnull(passives))
-			world.log << "Hey. [src] didnt get passives."
-			passives = list()
+		if(!choiceSelected)
+			var/path = "[type]"
+			var/ascension/a = new path
+			for(var/x in a.passives)
+				passives[x] = a.passives[x]
+			if(isnull(passives))
+				world.log << "Hey. [src] didnt get passives."
+				passives = list()
 
 	var
 		powerAdd = 0

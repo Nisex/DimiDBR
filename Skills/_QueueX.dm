@@ -787,10 +787,10 @@ obj
 					FollowUp="/obj/Skills/AutoHit/Shunshin_Massacre"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Shunshin"
 				True_Flash_Strike
-					DamageMult=4
+					DamageMult=2.5
 					Counter=1
 					Warp=10
-					SpeedStrike=4
+					SpeedStrike=2
 					SlayerMod=3
 					FollowUp="/obj/Skills/AutoHit/Shunshin_Massacre"
 					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Godspeed_Assaulted"
@@ -3440,7 +3440,7 @@ obj
 			JawStrike//t1
 				name="Ryushosen"
 				StyleNeeded="Hiten Mitsurugi"
-				DamageMult=5
+				DamageMult=2
 				AccuracyMult = 4
 				SpeedStrike=2
 				KBMult=0.0001
@@ -3456,7 +3456,7 @@ obj
 			FallingBlade//t1
 				name="Ryutsuisen"
 				StyleNeeded="Hiten Mitsurugi"
-				DamageMult=5.5
+				DamageMult=2.5
 				AccuracyMult = 4
 				SpeedStrike=2
 				Dunker=2
@@ -3471,7 +3471,7 @@ obj
 			Twin_Dragon_Slash
 				name="Souryusen"
 				StyleNeeded="Hiten Mitsurugi"
-				DamageMult=7
+				DamageMult=5
 				AccuracyMult = 1.2
 				KBMult=0.0001
 				SpeedStrike=2
@@ -3488,10 +3488,10 @@ obj
 					usr.SetQueue(src)
 			Sheath_Strike
 				HitMessage="whips their sheath to follow up with their blade!"
-				DamageMult=6
+				DamageMult=1
 				AccuracyMult = 1.2
 				KBMult=2
-				SpeedStrike=2
+				SpeedStrike=4
 				Warp=3
 				Shattering=5
 				Stunner=2
@@ -3506,7 +3506,7 @@ obj
 			Nine_Dragons_Strike
 				name="Kuzuryusen"
 				StyleNeeded="Hiten Mitsurugi"
-				DamageMult=1.5
+				DamageMult=0.75
 				AccuracyMult = 1.25
 				KBMult=0.00001
 				SpeedStrike=6

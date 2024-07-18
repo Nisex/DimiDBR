@@ -2444,6 +2444,7 @@ mob
 		UsingFencing()
 			var/Found=0
 			var/obj/Items/Sword/S=src.EquippedSword()
+			if(!S) return 0
 			Found += passive_handler.Get("Fencing")
 			if(S.Class=="Light")
 				var/asc = 0 

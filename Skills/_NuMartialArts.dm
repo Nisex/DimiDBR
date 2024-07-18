@@ -7,11 +7,11 @@ obj
 				if(!(altered || Using))
 					var/path = "[type]"
 					var/obj/Skills/Buffs/b = new path
-					for(var/x in b.passives)
-						passives["[x]"] = b.passives[x]
 					if(isnull(passives))
 						world.log << "Hey. [src] didnt get passives."
 						passives = list()
+					for(var/x in b.passives)
+						passives["[x]"] = b.passives[x]
 			var
 				CorruptionGain
 				AngerPoint // set an anger point
@@ -1080,7 +1080,7 @@ obj
 							StyleFor=1.25
 							StyleSpd=1.5
 							StyleActive="Wing Blade"
-							passives = list("SweepingStrike" = 1, "DoubleStrike" = 1, "BlurringStrikes" = 1, "SpiritSword" = 0.75)
+							passives = list("SweepingStrike" = 1, "DoubleStrike" = 1, "BlurringStrikes" = 1)
 							SweepingStrike=1
 							SwordIcon='BLANK.dmi'
 							SwordIconSecond='BLANK.dmi'
@@ -1116,7 +1116,7 @@ obj
 							StyleActive="Rock Breaker"
 							ElementalOffense="Earth"
 							ElementalDefense="Earth"
-							passives = list("Hardening" = 1, "Crushing" = 1, "Armorpeeling" = 1, "Callousedhands" = 0.25, "DebuffImmune" = 0.25)
+							passives = list("Hardening" = 1, "Crushing" = 1, "ArmorPeeling" = 1, "CallousedHands" = 0.15)
 							Crushing=1
 							Finisher="/obj/Skills/Queue/Finisher/Rock_Breaker"
 							verb/Rock_Breaker_Style()
@@ -1127,7 +1127,7 @@ obj
 							StyleEnd=1.5
 							IconLock='DarknessGlow.dmi'
 							IconUnder=1
-							passives = list("Momentum" = 1, "Callousedhands " = 0.5)
+							passives = list("Momentum" = 1, "CallousedHands " = 0.3)
 							LockX=-32
 							LockY=-32
 							StyleActive="Dark Impulse"

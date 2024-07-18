@@ -688,17 +688,21 @@ proc/Save_Objects()
 	var/E=1
 	var/savefile/F=new("Saves/Itemsave/File[E]")
 	var/list/Types=new
-	for(var/obj/A in global.worldObjectList) if(A.Savable&&A.z)
-		A.Saved_X=A.x
-		A.Saved_Y=A.y
-		A.Saved_Z=A.z
-		Types+=A
-		Amount+=1
-		if(Amount % 250 == 0)
-			F["Types"]<<Types
-			E++
-			F=new("Saves/Itemsave/File[E]")
-			Types=new
+	for(var/obj/A in global.worldObjectList)
+		if(!A)
+			world.log << "null entry"
+			continue
+		if(A.Savable&&A.z)
+			A.Saved_X=A.x
+			A.Saved_Y=A.y
+			A.Saved_Z=A.z
+			Types+=A
+			Amount+=1
+			if(Amount % 250 == 0)
+				F["Types"]<<Types
+				E++
+				F=new("Saves/Itemsave/File[E]")
+				Types=new
 	if(Amount % 250 != 0)
 		F["Types"]<<Types
 	hacklol
@@ -718,8 +722,9 @@ proc/Load_Objects()
 	if(fexists("Saves/Itemsave/File[filenum]"))
 		var/savefile/F=new("Saves/Itemsave/File[filenum]")
 		var/list/L=new
-		if(!F)
-			world.log << "This is [F] it is null"
+		if(length(F["Types"]) < 1)
+			world.log << "[filenum] is under 1 length Types"
+			goto wowza
 		F["Types"]>>L
 		for(var/obj/A in L)
 			if(!A)

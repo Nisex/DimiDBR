@@ -9669,7 +9669,7 @@ NEW VARIABLES
 						SpdMult = 0.75
 						StrMult = 1.5
 						EndMult = 1.5
-						passives = list("Muscle Power" = 1, "TechniqueMastery" = 5, "DeathField" = 7, "Juggernaut"= 5, "KBRes"= 5, "TensionLock" = 1)
+						passives = list("Muscle Power" = 2, "TechniqueMastery" = 3, "DeathField" = 7, "Juggernaut"= 5, "KBRes"= 5, "TensionLock" = 1)
 					Turtle_Martial_Mastery
 						StyleNeeded="Turtle"
 						StrMult=1.1
