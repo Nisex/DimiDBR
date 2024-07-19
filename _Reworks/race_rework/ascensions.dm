@@ -311,9 +311,10 @@ ascension
 					passives["QuickCast"] = 1
 					passives["ManaCapMult"] = 0.25
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
-					passives = list("MovementMastery" = 2, "ManaStats" = 0.5)
+					passives = list("MovementMastery" = 1, "ManaStats" = 0.5)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
-						sf.passives["TechniqueMastery"] = 1
+						sf.passives["TechniqueMastery"] = 0
+						sf.passives["ManaStats"] = 0
 				..()
 
 		three
@@ -1582,8 +1583,8 @@ ascension
 				force = 0.25
 
 			two_become_one
-				passives = list("MovementMastery" = 2, "ManaStats" = 0.25)
+				passives = list( "ManaStats" = 0.25)
 				onAscension(mob/owner)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
-						sf.passives["TechniqueMastery"] = 0
+						sf.passives["TechniqueMastery"] = -1
 					..()

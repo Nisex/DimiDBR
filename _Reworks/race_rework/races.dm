@@ -437,11 +437,11 @@ race
 
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form)
 		passives = list("ManaGeneration" = 2)
-		strength = 2
-		endurance = 1.5
+		strength = 1.5
+		endurance = 1
 		speed = 1
-		force = 0.5
-		offense = 1.25
+		force = 0.75
+		offense = 1.75
 		defense = 1
 		regeneration = 2
 		imagination = 1.5

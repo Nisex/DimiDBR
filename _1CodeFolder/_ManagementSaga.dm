@@ -1593,7 +1593,7 @@ mob
 			if(locate(/obj/Skills/Buffs/SlotlessBuffs/KanshouByakuya, src))
 				LegendaryWeapons.Remove("Kanshou & Byakuya")
 
-			if(locate(/obj/Skills/Projectile/Zone_Attacks/Caladbolg, src))
+			if(locate(/obj/Skills/Projectile/Zone_Attacks/Caladbolg, src))dwa
 				LegendaryWeapons.Remove("Caladbolg")
 
 			if(LegendaryWeapons.len == 0) return

@@ -1419,7 +1419,7 @@ mob
 					End += End * (glob.DEMONIC_DURA_BASE * passive_handler.Get("DemonicDurability"))
 			End+=EndAdded
 			if(src.HasManaStats())
-				End += getManaStatsBoon()
+				End += getManaStatsBoon()/2
 			var/Mod=1
 			Mod+=(src.EndMultTotal-1)
 			if(src.KamuiBuffLock)

@@ -29,7 +29,7 @@ globalTracker
 				del update // i guess loc = null doesn't work cause datums have no loc
 
 
-mob/var/updateVersion = 32
+mob/var/updateVersion = 37
 
 update
 	var/version = 1
@@ -490,18 +490,32 @@ update
 			if(p.isRace(MAKYO))
 				p << "stats changed"
 				p << "ascensions reverted"
-				p.race.ascensions[1].revertAscension(p)
 				p.race.ascensions[2].revertAscension(p)
+				p.race.ascensions[1].revertAscension(p)
 				p.StrAscension = 0
 				p.EndAscension = 0
 				p.ForAscension = 0
 				p.OffAscension = 0
 				p.stat_redo()
-				p.passive_handler.Increase("Juggernaut", 1)
-				p.passive_handler.Increase("HeavyHitter", 1)
-				p << "Make sure ur Jugg / Heavy Hitter is set to 1/1"
-				p.passive_handler.Set("ShonenPower",0.6)
-				p.passive_handler.Set("Siphon",2.5)
+				if(p.AscensionsAcquired == 2)
+					p.passive_handler.Set("Juggernaut", 1)
+					p.passive_handler.Set("HeavyHitter", 1)
+					p << "Make sure ur Jugg / Heavy Hitter is set to 1/1"
+					p.passive_handler.Set("ShonenPower",0.6)
+					p.passive_handler.Set("Siphon",2.5)
+			..()
+	version38
+		version = 38
+		updateMob(mob/p)
+			if(p.isRace(YOKAI))
+				p << "stats changed"
+				p.stat_redo()
+				if(p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
+					p.passive_handler.Set("MovementMastery", 1)
+					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in p.contents)
+						sf.passives["TechniqueMastery"] = 0
+						sf.passives["ManaStats"] = 0
+			..()
 // Thorgigamax Gemenilove 
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )

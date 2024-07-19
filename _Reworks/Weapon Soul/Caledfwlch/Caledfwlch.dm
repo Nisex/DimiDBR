@@ -4,7 +4,7 @@ obj/Items/Sword/Medium/Legendary/WeaponSoul/Sword_of_Glory//Caledfwlch
 	pixel_x=-31
 	pixel_y=-30
 	var/caledLight = TRUE
-	passives = list("SpiritSword" = 0.75)
+	passives = list("SpiritSword" = 0.25)
 
 // it gets excalibur
 
@@ -12,7 +12,7 @@ obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Caledfwlch
 	name = "Heavenly Regalia: The King"
 	StrMult=1.5
 	EndMult=1.5
-	passives = list("CriticalBlock" = 0.5, "Juggernaut" = 0.5, "Reversal" = 0.5, "BlockChance" = 10)
+	passives = list("CriticalBlock" = 0.25, "Juggernaut" = 0.5, "Reversal" = 0.5, "BlockChance" = 25)
 	IconLock='EyeFlameC.dmi'
 	ActiveMessage="resonates their royal treasures: Heavenly Regalia!"
 	OffMessage="'s treasures loses their royal luster..."

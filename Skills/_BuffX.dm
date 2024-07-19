@@ -1158,7 +1158,7 @@ NEW VARIABLES
 								if(istype(usr.EquippedSword(),/obj/Items/Sword/Medium/Legendary/WeaponSoul/Sword_of_Glory))
 									light = usr.EquippedSword():caledLight
 							if(light)
-								passives = list("HolyMod" = usr.SagaLevel, "SpiritSword" = 0.25, "LikeWater" = max(1,usr.SagaLevel/2), "PULock" = 1)
+								passives = list("HolyMod" = usr.SagaLevel, "SpiritSword" = 0.25 * usr.SagaLevel, "LikeWater" = max(1,usr.SagaLevel/2), "PULock" = 1)
 								if(!redacted)
 									src.SwordName="Caledfwlch"
 									src.SwordIcon='Caledfwlch.dmi'
@@ -1170,7 +1170,7 @@ NEW VARIABLES
 									src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
 									src.OffMessage="conceals █████████████.."
 							else
-								passives = list("AbyssMod" = usr.SagaLevel, "SpiritSword" = 0.25, "Instinct" = max(1, usr.SagaLevel/3), "Pursuer" = max(1,usr.SagaLevel/2),"PULock" = 1)
+								passives = list("AbyssMod" = usr.SagaLevel, "SpiritSword" = 0.25 * usr.SagaLevel, "Instinct" = max(1, usr.SagaLevel/3), "Pursuer" = max(1,usr.SagaLevel/2),"PULock" = 1)
 								if(!redacted)
 									src.SwordName="Caledfwlch"
 									src.SwordIcon='Caledfwlch Morgan.dmi'
@@ -4555,7 +4555,7 @@ NEW VARIABLES
 			OffMessage="becomes fully physical once more..."
 			ManaDrain = 0.1
 			ManaLeak = 2
-			ManaThreshold = 25
+			ManaThreshold = 40
 			FatigueThreshold = 25
 			Cooldown=1
 			adjust(mob/p)
@@ -6325,7 +6325,7 @@ NEW VARIABLES
 					set category="Skills"
 					src.Trigger(usr)
 			Progressive_Blade
-				passives = list("SpiritSword" = 0.75)
+				passives = list("SpiritSword" = 0.15)
 				SpiritSword=0.75
 				MakesSword=1
 				FlashDraw=1
@@ -12396,7 +12396,8 @@ mob
 					src.ActiveBuff.passives["BleedHit"] = 0
 					src.ActiveBuff.passives["EnergyLeak"] = 0
 					src.ActiveBuff.passives["ManaLeak"] = 0
-					src.ActiveBuff.passives["GiantForm"] = AscensionsAcquired/2
+					src.ActiveBuff.passives["GiantForm"] = round(AscensionsAcquired/2)
+					src.ActiveBuff.passives["Gospeed"] = AscensionsAcquired
 					src.ActiveBuff.BleedHit=0
 					src.ActiveBuff.EnergyLeak=0
 					src.ActiveBuff.ManaLeak=0
