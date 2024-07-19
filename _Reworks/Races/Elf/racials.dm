@@ -27,7 +27,7 @@
 	HitSparkX=0
 	HitSparkY=0
 	ActiveMessage="manipulates the reality around themselves, forcing their foes to stand still."
-	HealthCost=1
+	HealthCost=0.25
 	adjust(mob/p)
 		Cooldown=90 - (10 * p.AscensionsAcquired)
 		Distance = 5 + (p.AscensionsAcquired)
@@ -45,7 +45,7 @@
 	HitSparkIcon='BLANK.dmi'
 	HitSparkX=0
 	HitSparkY=0
-	HealthCost=1
+	HealthCost=0.25
 	SpecialAttack=1
 	BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Elf_Silence"
 	ActiveMessage="manipulates the reality around themselves, forcing their foes to silence!"
@@ -71,7 +71,7 @@
 	HitSparkY=0
 	Shockwaves=1
 	Shockwave=1
-	HealthCost=1
+	HealthCost=0.25
 	SpecialAttack=1
 	ActiveMessage="manipulates the reality around themselves, forcing their foes to flee!"
 	adjust(mob/p)

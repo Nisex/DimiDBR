@@ -2794,12 +2794,14 @@ mob
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Clash_Defensive/DC in Trg)
 								if(!Trg.BuffOn(DC))
 									var/pursuerBoon = Trg.HasPursuer()
-									DC.TimerLimit = 3 + clamp(pursuerBoon, 1, 3)
+									DC.TimerLimit = 3 + clamp(pursuerBoon, 1, glob.MAX_PURSUER_BOON)
 									DC.Trigger(Trg)
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Clash/DC in src)
 								if(!src.BuffOn(DC))
+									if(isRace(MAKYO) && src.ActiveBuff.BuffName=="Ki Control")
+										DC.passives["Star Surge"] = 1
 									var/pursuerBoon = HasPursuer()
-									DC.TimerLimit = 3 + clamp(pursuerBoon, 1, 3)
+									DC.TimerLimit = 3 + clamp(pursuerBoon, 1, glob.MAX_PURSUER_BOON)
 									DC.Trigger(src)
 					break
 				else

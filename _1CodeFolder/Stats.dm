@@ -713,7 +713,7 @@ mob/proc/
 		// 	EPM+=pot/100
 
 		if(isRace(MAKYO)&&src.ActiveBuff&&!src.HasMechanized())
-			EPM+=0.05*src.AscensionsAcquired
+			EPM+=0.1*src.AscensionsAcquired
 
 		if(EPM<=0)
 			EPM=0.1

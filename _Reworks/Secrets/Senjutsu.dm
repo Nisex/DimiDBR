@@ -17,6 +17,9 @@ var/senjutsuOverloadAlert = FALSE
     var/manaStatPerc = GetManaStats() // 1 per tick
     var/maxStatBoon = 1.5
     var/baseBoon = 0.25 // 0.1 extra stat for 1 mana stat
+    if(isRace(YOKAI))
+        manaStatPerc *= 2
+        maxStatBoon *= 1.5
     if(ManaMax >= 100 && manaStatPerc > 1 && Secret == "Senjutsu") // essentially senjutsu
         maxStatBoon = 4
     var/manaMissing = (ManaAmount / 100) 

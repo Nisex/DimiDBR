@@ -4558,8 +4558,6 @@ NEW VARIABLES
 			ManaLeak = 2
 			Cooldown=1
 			adjust(mob/p)
-				if(!altered)
-					passives = /obj/Skills/Buffs/SlotlessBuffs/Spirit_Form::passives
 			verb/Spirit_Form()
 				set category="Skills"
 				if(!usr.BuffOn(src))
@@ -9593,13 +9591,11 @@ NEW VARIABLES
 				passives = list("PureDamage" = 2, "HotHundred" = 1, "Warping" = 3)
 				HotHundred=1
 				Warping=3
-				Steady=4
 				TimerLimit=3
 			Dragon_Clash_Defensive
 				passives = list("PureDamage" = 1, "HotHundred" = 1, "Warping" = 3)
 				HotHundred=1
 				Warping=3
-				Steady=2
 				TimerLimit=3
 			Transcendant
 				//this will add god ki for a few seconds for a special attack ; )
@@ -10864,10 +10860,11 @@ NEW VARIABLES
 						var/asc = p.AscensionsAcquired
 						ElementalOffense = "Earth"
 						ElementalDefense = "Earth"
-						SpdMult = 0.75 + (0.05 *asc)
-						endAdd = 0.15 * asc
-						passives = list("DeathField" = asc, "PureReduction" = 0.5 + (0.5 * asc), "BlockChance" = 10 + ( 10 * asc ), "CriticalBlock" = 0.05 + (0.05 * asc) ,\
-										"CallousedHands" = 0.15 + ( asc * 0.15), "Hardening" = 0.5 + (0.5 * asc), "LifeGeneration" = 0.25 * asc)
+						SpdMult = 0.6 + (0.05 *asc)
+						DefMult = 0.75 + (0.05 *asc)
+						endAdd = 0.05 * asc
+						passives = list("DeathField" = asc, "PureReduction" = 0.5 + (0.5 * asc), "BlockChance" = 5 + ( 5 * asc ), "CriticalBlock" = 0.05 + (0.05 * asc) ,\
+										"CallousedHands" = 0.15 + ( asc * 0.15), "Hardening" = 0.5 + (0.25 * asc), "LifeGeneration" = 0.25 * asc)
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
 							adjust(User)
@@ -12400,12 +12397,19 @@ mob
 						src.ActiveBuff.AutoAnger=1
 						src.ActiveBuff.AngerMult=2
 						src.ActiveBuff.passives["PUSpike"] = 50
+						src.ActiveBuff.passives["Pursuer"] = 2 * AscensionsAcquired
+						
 					else if(passive_handler.Get("ArtificalStar"))
 						src.ActiveBuff.AutoAnger=1
 						src.ActiveBuff.AngerMult=1.5
 						src.ActiveBuff.passives["PUSpike"] = 25
+						src.ActiveBuff.passives["Pursuer"] = 1.5 * AscensionsAcquired
 					else
-						src.ActiveBuff.AutoAnger=0
+						if(AscensionsAcquired>=2)
+							src.ActiveBuff.AutoAnger=1
+						else
+							src.ActiveBuff.AutoAnger=0
+						src.ActiveBuff.passives["Pursuer"] = 0.5 * AscensionsAcquired
 						src.ActiveBuff.AngerMult = round(2/(8-AscensionsAcquired), 0.01)
 						src.ActiveBuff.passives["PUSpike"] = round(50/(5-AscensionsAcquired))
 						src.ActiveBuff.PUSpike=round(50/(5-AscensionsAcquired))

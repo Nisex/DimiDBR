@@ -5,11 +5,10 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Elf/God_Slicer
     // a spirit-sword esque buff
-    MakesSword=1
+    MakesSword=3
     FlashDraw=1
     SwordName="God Slicer"
     SwordIcon='Ki-Blade.dmi'
-    passives = list("SpiritSword" = 1, "MagicSword" = 1)
     var/truthPassives = list()
     var/truthApplied = 0
     SwordAscension=2
@@ -110,7 +109,7 @@
     adjust(mob/p)
         truthChoice(p)
         var/asc = p.AscensionsAcquired
-        passives = list("SpiritSword" = 1 + (asc/2), "MagicSword" = 1)
+        passives = list("SpiritSword" = (1 + (asc/2)) / 4, "MagicSword" = 1)
         for(var/x in truthPassives)
             passives[x] = truthPassives[x]
         SwordAscension = asc 

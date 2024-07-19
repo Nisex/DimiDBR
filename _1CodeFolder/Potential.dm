@@ -140,6 +140,14 @@ mob
 		potential_ascend(var/Silent=0)
 			if(secretDatum.nextTierUp != 999 && Secret)
 				secretDatum.checkTierUp(src)
+			if(isRace(DEMON))
+				var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = race:findTrueForm(src)
+				if(d.last_charge_gain == 0) d.last_charge_gain = world.realtime
+				if(d.last_charge_gain + 24 HOURS < world.realtime)
+					if(d.current_charges < AscensionsAcquired) 
+						d.last_charge_gain = world.realtime
+						d.current_charges++
+
 			if(!isRace(SAIYAN) || Race!="Changeling")
 				if(Potential>=15)
 					if(SagaLevel < 2 && Saga)

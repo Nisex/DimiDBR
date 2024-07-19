@@ -483,20 +483,18 @@ update
 				p.race.ascensions[2].applied = FALSE
 				
 			..()
-/mob/Admin4/verb/whoops()
-	var/listofchanges = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fortunate_Fate/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Disoriented/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Broken_Bones/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Ineffective_Fate/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Shattered/)
-	for(var/mob/p in players)
-		for(var/x in listofchanges)
-			if(p.FindSkill(x))
-				var/obj/Skills/Buffs/SlotlessBuffs/a = p.FindSkill(x)
-				del a
-				p << "deleted [a] it has been updated."
 
+	version37
+		version = 37
+		updateMob(mob/p)
+			if(p.isRace(MAKYO))
+				p << "stats changed"
+				p.stat_redo()
 // Thorgigamax Gemenilove 
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25
-/globalTracker/var/GAJA_MAX_EXCHANGE = 0.5
+/globalTracker/var/GAJA_MAX_EXCHANGE = 1
 
 /mob/proc/gajaConversionCheck()
 	if(key in glob.COOL_GAJA_PLAYERS)
@@ -505,7 +503,7 @@ update
 /mob/proc/gajaConversionRateUpdate()
 	if(isRace(GAJALAKA) && key in glob.COOL_GAJA_PLAYERS)
 		var/asc = AscensionsAcquired
-		var/ascRate = 0.5 + (0.25 * asc) // 1.25 max
+		var/ascRate = 0.5 + (glob.GAJA_PER_ASC_CONVERSION * asc) // 1.25 max
 		for(var/obj/Money/moni in src)
 			if(moni.Level >= 10000)
 				var/boon = round(moni.Level * 0.00001, 0.1)

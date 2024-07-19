@@ -4,12 +4,12 @@
 	Cooldown = 4
 	AlwaysOn = 1
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/DragonDebuff/Rattled
-    CrippleAffected = 10
-    EndMult = 0.8
-    DefMult = 0.8
-    SpdMult = 0.8
+    CrippleAffected = 3
+    EndMult = 0.9
+    DefMult = 0.4
+    SpdMult = 0.3
     passives = list("PureReduction" =  -1, "Godspeed" = -3)
-    TimerLimit = 10
+    TimerLimit = 20
 
 /obj/Skills/AutoHit/Dragon_Roar
     Area="Circle"
@@ -56,7 +56,7 @@
                 BuffAffected ="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/DragonDebuff/Rattled"
                 Distance = 2 + (asc)
                 Rounds = 1
-                DamageMult = 3 + (asc * 2)
+                DamageMult = 0.5 + (asc * 1)
                 EndDefense = 0.5
             if("Water")
                 ElementalClass="Water"

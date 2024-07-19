@@ -458,6 +458,10 @@ mob/Players
 			ai_followers -= p
 		if(src.party)
 			src.party.remove_member(src)
+		for(var/obj/Skills/Buffs/b in src)
+			world<<"[b] [b.Using] [b.MakesSword]"
+			if(b.Using && (b.MakesSword || b.MakesStaff || b.KiBlade))
+				b.Trigger(src, 1)
 		..()
 		for(var/obj/Skills/s in src)
 			s.AssociatedLegend = null

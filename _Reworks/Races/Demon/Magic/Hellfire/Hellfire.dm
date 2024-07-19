@@ -13,7 +13,9 @@
     TrailX=0
     MultiHit = 5
     TrailY=0
-    AccMult = 1.125
+    AccMult = 3
+    Deflectable = 0
+    Dodgeable = 1
     Speed = 0.75
     Cooldown = 60
     ActiveMessage = "unleashes a wave of Fire!"
@@ -108,7 +110,7 @@
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/OverHeat
     ElementalClass="Fire"
     scalingValues = list("CrippleAffected" = list(12,15,15,20,25,25), \
-    "PoisonAffected" = list(3,6,12,12,15,15), "BurnAffected" = list(10,15,20,20,20,25), "ConfuseAffected" = list(2,3,5,6,8,10), \
+    "PoisonAffected" = list(3,6,12,12,15,15), "BurnAffected" = list(10,15,20,20,20,25), "ConfuseAffected" = list(1,2,3,4,5,6), \
     "TimerLimit" = list(5,8,12,15,20,25))
     ManaCost=5
     AffectTarget=1

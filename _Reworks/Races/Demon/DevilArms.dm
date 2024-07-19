@@ -10,7 +10,7 @@
     StaffName="Demon Rod"
     StaffIcon='MageStaff.dmi'
     ArmorName="Demon Scales"
-    StaffIcon='DevilScale.dmi'
+    ArmorIcon='DevilScale.dmi'
     TextColor="#adf0ff"
     ActiveMessage=null
     OffMessage=null

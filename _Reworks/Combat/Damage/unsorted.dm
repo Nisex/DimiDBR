@@ -1,5 +1,5 @@
 
-globalTracker/var/list/IGNORE_POWER_CLAMP_PASSIVES = list("Wrathful", "LimitBroken")
+globalTracker/var/list/IGNORE_POWER_CLAMP_PASSIVES = list("Wrathful", "LimitBroken", "Star Surge")
 
 
 /mob/proc/ignoresPowerClamp(mob/defender)
@@ -11,10 +11,15 @@ globalTracker/var/list/IGNORE_POWER_CLAMP_PASSIVES = list("Wrathful", "LimitBrok
     for(var/passive in glob.IGNORE_POWER_CLAMP_PASSIVES)
         if(passive_handler|=passive)
             return TRUE
+    if(isRace(MAKYO))
+        if((StarPowered || HellPower) && Health <=25)
+            return TRUE
+        else if(Health <= 5 + (1 * AscensionsAcquired))
+            return TRUE
     if(isRace(DEMON))
         if(CheckSlotless("Corrupt Self"))
             return TRUE
-        if(Health <= 10 + (AscensionsAcquired*5))
+        if(Health <= 15 + (AscensionsAcquired*5))
             if(CheckSlotless("True Form"))
                 return TRUE
     var/godKi = GetGodKi()

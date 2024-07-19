@@ -974,6 +974,8 @@ obj/Skills/Companion/arcane_follower
 		if(!companion_icon) companion_icon = pick('Icons/NPCS/Arcane/SpriteB.dmi','Icons/NPCS/Arcane/SpriteC.dmi','Icons/NPCS/Arcane/SpriteG.dmi','Icons/NPCS/Arcane/SpriteR.dmi','Icons/NPCS/Arcane/SpriteY.dmi')
 		if(!companion_name) companion_name = "Nympharum"
 
+		Mastery = usr.AscensionsAcquired
+
 		if(Mastery != MasterySet)
 			if(bond_damage)
 				usr << "The damage to your bond prevents it from progressing. You must find a way to heal it."
@@ -1066,12 +1068,12 @@ obj/Skills/Companion/arcane_follower
 			a.OffMod = 3 + Mastery/2
 			a.DefMod = 3 + Mastery/2
 			a.RecovMod = 2 + Mastery
-			a.Intimidation = 1 + (Mastery*2)
-			a.Godspeed = Mastery
+			a.Intimidation = 10 + (Mastery*20)
+			a.Godspeed = Mastery+2
 			a.Timeless = 1
-			a.TechniqueMastery = 1
+			a.TechniqueMastery = Mastery*2
 			a.ai_spammer = 10
-			a.Potential = usr.Potential
+			a.Potential = usr.Potential + 10
 			a.Text_Color = text_color
 			a.nymph_mastery=Mastery
 			usr.ai_followers +=a
@@ -1225,7 +1227,7 @@ mob/Player/AI/Nympharum
 						contents += newtype
 
 				ai_spammer = 10
-				TechniqueMastery = 1
+				// TechniqueMastery = 1
 
 		if(src.Health != 100 || src.Energy != 100 || src.ManaAmount != 100)
 			if(world.time >= ai_next_gainloop)

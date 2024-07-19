@@ -2,7 +2,6 @@
 	var/tmp/TimeStopped = 0
 	var/tmp/mob/owner = null
 	var/TriggerMessage = "Fall."
-	passives = list("CoolerAfterImages" = 4, "Godspeed" = 1)
 	Mastery = 1
 	Cooldown=-1
 	proc/applyTimeEffect(mob/p)
@@ -45,7 +44,7 @@
 	adjust(mob/p)
 		if(!altered)
 			Mastery = clamp(p.AscensionsAcquired,1,5)
-			passives = list("CoolerAfterImages" = 4, "Godspeed" = 4, "Adrenaline" = 4) // make sure u go fast
+			passives = list("CoolerAfterImages" = 4, "Godspeed" = 4, "Adrenaline" = 4, , "LimitBroken" = 1) // make sure u go fast
 			TimerLimit = 60
 
 
@@ -56,6 +55,11 @@
 		// if this passes
 		if(t && !src.Using)
 			StartTimeStop(usr)
+	verb/Change_Stop_Trigger()
+		set category = "Utility"
+		TriggerMessage = input(usr, "the message") as text
+		if(length(TriggerMessage) >= 150)
+			TriggerMessage = "Fall."
 
 	Trigger(var/mob/User, Override=0)
 		owner = User
@@ -66,10 +70,11 @@
 			return 0
 		if(!Override)
 			User.BuffingUp++
-		if((User.Health - 2 + (2 * User.AscensionsAcquired)) <= 0)
+		if((User.Health - 0.5 + (0.5 * User.AscensionsAcquired)) <= 0)
 			User << "Not enough health."
 			return 0
 		User.UseBuff(src, Override)
+		User.Health -= 0.5 + (0.5 * User.AscensionsAcquired)
 		User.BuffingUp=0
 		if(!src.BuffName)
 			src.BuffName="[src.name]"

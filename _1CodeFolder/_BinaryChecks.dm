@@ -1532,9 +1532,9 @@ mob
 
 		GetHellScaling()
 			var/Return=1
-			var/Mult=GetHellPower() / 2
+			var/Mult=GetHellPower() / glob.HELL_SCALING_MULT
 			if(HasHellPower() == 2)
-				Mult*=2
+				Mult*=glob.HELL_SCALING_MULT
 				Mult+=round(src.Potential/100, 0.05)
 			var/HealthLost = abs(src.Health-100)
 			Return=1+(((glob.BASE_HELL_SCALING_RATIO * HealthLost) * Mult) ** (1/2))

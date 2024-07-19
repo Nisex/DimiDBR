@@ -627,7 +627,7 @@ mob
 				if(src.Stabilized)
 					src.Confused-=5
 				else
-					src.Confused--
+					src.Confused-=clamp(1 + (src.GetSpd(0.25)), 1, 3)
 				if(src.Confused<=0)
 					src.Confused=0
 
