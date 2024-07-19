@@ -6471,7 +6471,7 @@ obj
 				#if DEBUG_AUTOHIT
 				Owner.log2text("dmg roll - Auto Hit", dmgRoll, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
-				if(m.passive_handler.Get("GiantForm") || m.HasLegendaryPower() >= 1)
+				if(m.passive_handler.Get("GiantForm") || m.HasLegendaryPower() >= 0.5)
 					var/mod = glob.upper_damage_roll / 4
 					dmgRoll = Owner.GetDamageMod(0, mod)
 					#if DEBUG_AUTOHIT
@@ -6606,7 +6606,7 @@ obj
 					FinalDmg*=1.5
 
 				if(m.passive_handler.Get("Siphon")&&src.ForDmg)
-					var/Heal = (FinalDmg * (m.passive_handler.Get("Siphon")/ 5)) * ForDmg
+					var/Heal = (FinalDmg * (m.passive_handler.Get("Siphon")/ 10)) * ForDmg
 					FinalDmg-=Heal //negated
 					m.HealEnergy(Heal)
 

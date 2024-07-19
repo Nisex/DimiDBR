@@ -4550,14 +4550,17 @@ NEW VARIABLES
 
 
 		Spirit_Form
-			passives = list("SpiritForm" = 1, "MovementMastery" = 1, "ManaStats" = 0.25, "TechniqueMastery" = -2, "MartialMagic" = 1, "ManaGeneration" = -2)
 			SpiritForm=1
 			ActiveMessage="shifts into their spiritual body!"
 			OffMessage="becomes fully physical once more..."
 			ManaDrain = 0.1
 			ManaLeak = 2
+			ManaThreshold = 25
+			FatigueThreshold = 25
 			Cooldown=1
 			adjust(mob/p)
+				if(!altered)
+					passives = list("ManaLeak" = 2, "SpiritForm" = 1, "MovementMastery" = 1, "ManaStats" = 0.25, "TechniqueMastery" = -2, "MartialMagic" = 1, "ManaGeneration" = -2, "FatigueLeak" = glob.SPIRIT_FORM_LEAK_VAL- (p.AscensionsAcquired/2))
 			verb/Spirit_Form()
 				set category="Skills"
 				if(!usr.BuffOn(src))
@@ -5649,6 +5652,9 @@ NEW VARIABLES
 							passives = list("CriticalChance" = 2, "BlockChance" = 2, "CriticalDamage" = 0.25, "CriticalBlock" = 0.25, "ArmorAscension" = 0.5, \
 							 "NoDodge" = 1)
 							NoDodge = 1
+							DefMult = 1
+							StrMult = 1 
+							EndMult = 1
 							TimerLimit = 60 + magicLevel
 					if(!usr.BuffOn(src))
 						src.ManaCapMult=(-0.75)
@@ -12390,6 +12396,7 @@ mob
 					src.ActiveBuff.passives["BleedHit"] = 0
 					src.ActiveBuff.passives["EnergyLeak"] = 0
 					src.ActiveBuff.passives["ManaLeak"] = 0
+					src.ActiveBuff.passives["GiantForm"] = AscensionsAcquired/2
 					src.ActiveBuff.BleedHit=0
 					src.ActiveBuff.EnergyLeak=0
 					src.ActiveBuff.ManaLeak=0

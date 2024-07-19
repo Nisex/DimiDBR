@@ -97,10 +97,10 @@ mob
 			// 	src.GainFatigue(defender.GetVoidField()*0.01*min((1/val),1))
 
 			if(src.HasSoftStyle())
-				defender.GainFatigue(val*glob.SOFT_STYLE_RATIO*src.GetSoftStyle())
+				defender.GainFatigue(val*clamp(glob.SOFT_STYLE_RATIO*src.GetSoftStyle(), 0.0001, 0.75))
 			if(src.HasHardStyle())
 				if(!src.CursedWounds())
-					src.DealWounds(defender, val*glob.HARD_STYLE_RATIO*src.GetHardStyle())
+					src.DealWounds(defender, val*clamp(glob.HARD_STYLE_RATIO*src.GetHardStyle(), 0.0001, 0.75))
 			if(src.HasCyberStigma())
 				if(defender.CyberCancel||defender.Mechanized)
 					defender.LoseMana(val*max(defender.Mechanized,defender.CyberCancel)*src.GetCyberStigma())
@@ -228,7 +228,7 @@ mob
 				defender.LoseMana((defender.GetManaLeak()*0.25*leakVal)/4, 1)
 
 			if(src.HasBleedHit())
-				src.WoundSelf(src.GetBleedHit()*0.25*leakVal)
+				src.WoundSelf(src.GetBleedHit()*0.15*leakVal)
 
 			var/mortalStrike = GetMortalStrike()
 			if(mortalStrike > 0  && FightingSeriously(src, 0))
@@ -590,20 +590,38 @@ mob
 					if(defender.UsingMuken())
 						WoundsInflicted=val/defender.GetEnd()
 					else
-						WoundsInflicted=val
+						if(defender.GetEnd(glob.CURSED_WOUNDS_RATE) < 2)
+							WoundsInflicted=val/1+GetEnd(glob.CURSED_WOUNDS_RATE)
+						else
+							WoundsInflicted=val/defender.GetEnd(glob.CURSED_WOUNDS_RATE)
 				else if(src.HasPurity()&&defender.IsEvil())
 					WoundsInflicted=val
 				else if(s||st)
 					if(((s&&s.Element=="Silver")||(st&&st.Element=="Silver"))&&defender.IsEvil())
-						WoundsInflicted=val/1.5
+						if(defender.GetEnd(glob.CURSED_WOUNDS_RATE) < 2)
+							WoundsInflicted=val/1+defender.GetEnd(glob.CURSED_WOUNDS_RATE)
+						else
+							WoundsInflicted=val/defender.GetEnd(glob.CURSED_WOUNDS_RATE)
 					else if(src.SwordWounds())
-						WoundsInflicted=val/clamp(defender.GetRecov(1.75)/(GetSwordDamage(s)), 1.5, 5)
+						if(defender.GetEnd(0.5) < 2)
+							WoundsInflicted=val/clamp(1 + defender.GetEnd(0.5)/(GetSwordDamage(s)), 2, 5)
+						else
+							WoundsInflicted=val/clamp(defender.GetEnd(0.5)/(GetSwordDamage(s)), 2, 5)
 					else
-						WoundsInflicted=val/max(defender.GetRecov(1.75), 1.5)
+						if(defender.GetEnd(0.5) < 2)
+							WoundsInflicted=val/clamp(1 + defender.GetEnd(0.5), 2, 5)
+						else
+							WoundsInflicted=val/clamp(defender.GetEnd(0.5), 2, 5)
 				else
-					WoundsInflicted=val/max(defender.GetRecov(1.75), 1.5)
+					if(defender.GetEnd(0.5) < 2)
+						WoundsInflicted=val/clamp(1 + defender.GetEnd(0.5), 2, 5)
+					else
+						WoundsInflicted=val/clamp(defender.GetEnd(0.5), 2, 5)
 				if(WoundsInflicted<0)
 					WoundsInflicted=0.001
+				if(WoundsInflicted > val)
+					WoundsInflicted = val
+					world.log << "[src] vs [defender] wonds inflict was over val"
 				src.DealWounds(defender, WoundsInflicted)
 
 			if(isplayer(defender))
@@ -639,12 +657,12 @@ mob
 				val*=(1-defender.CyberCancel)
 			if(defender.BioArmor)
 				return
-			// if(src.isRace(MAJIN))
-			// 	val*=0.25
 			if(defender.HasCeramicPlating()||defender.HasPlatedWeights())
 				if(defender.HasPlatedWeights())
 					if(!defender.HasInjuryImmune())
 						defender.TotalInjury+=val/2
+					else
+						defender.TotalInjury+=(val/2) * clamp(1 - defender.GetInjuryImmune(), 0, 0.99)
 				else
 					var/obj/Items/Plating/P=defender.EquippedPlating()
 					if(P.PlatedHealth>0)
@@ -660,6 +678,8 @@ mob
 			else
 				if(!defender.HasInjuryImmune())
 					defender.TotalInjury+=val
+				else
+					defender.TotalInjury+=val * (1 - defender.GetInjuryImmune())
 			if(defender.TotalInjury>=99)
 				defender.TotalInjury=99
 			defender.MaxHealth()

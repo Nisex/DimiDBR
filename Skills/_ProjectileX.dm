@@ -5654,7 +5654,7 @@ obj
 							a:AddShearing(Shearing, src.Owner)
 
 						if(a:passive_handler.Get("Siphon")&&src.ForRate)
-							var/Heal=EffectiveDamage*a:passive_handler.Get("Siphon")*src.ForRate//Energy siphon is a value from 0.1 to 1 which reduces damage and heals energy.
+							var/Heal=EffectiveDamage*(a:passive_handler.Get("Siphon")/10)*src.ForRate//Energy siphon is a value from 0.1 to 1 which reduces damage and heals energy.
 							EffectiveDamage-=Heal//negated
 							a:HealEnergy(Heal)//and transfered into energy.
 						if(src.Burning&&!src.Owner.HasBurning())

@@ -1,38 +1,13 @@
-/*/mob/Admin3/verb/Races()
+/mob/Admin3/verb/Races()
 	set name = "Races"
 	set category = "Admin"
-	var/Human = 0
-	var/Majin = 0
-	var/Saiyan = 0
-	var/HalfSaiyans = 0
-	var/Monster = 0
-	var/Namekian = 0
-	var/Makyo = 0
+	var/list/lol = list()
 	for(var/mob/x in players)
-		switch(x.race)
-			if("Human")
-				Human += 1
-			if("Majin")
-				Majin += 1
-			if("Saiyan")
-				Saiyan += 1
-			if("Half Saiyan")
-				HalfSaiyans += 1
-			if("Monster")
-				Monster += 1
-			if("Namekian")
-				Namekian += 1
-			if("Makyo")
-				Makyo += 1
-	src<<"Humans: [Human]"
-	src<<"Majins: [Majin]"
-	src<<"Saiyans: [Saiyan]"
-	src<<"Half-Saiyans: [HalfSaiyans]"
-	src<<"Monsters: [Monster]"
-	src<<"Namekians: [Namekian]"
-	src<<"Makyos: [Makyo]"
-*/
-
+		var/race = x.race.name
+		lol["[race]"]++
+		src <<"[x] is a [race]"
+	for(var/x in lol)
+		src<<"[x] = [lol[x]]"
 var/GlobalStorage/globalStorage
 
 GlobalStorage

@@ -289,7 +289,7 @@
 
 				damage *= damageMultiplier
 		// 				GIANT FORM 				//
-				if(enemy.passive_handler.Get("GiantForm") || enemy.HasLegendaryPower() >= 1)
+				if(enemy.passive_handler.Get("GiantForm") || enemy.HasLegendaryPower() >= 0.5)
 					var/modifier = glob.upper_damage_roll / 4
 					dmgRoll = GetDamageMod(0, -modifier)
 					#if DEBUG_MELEE
@@ -591,7 +591,7 @@
 							if(enemy.passive_handler.Get("Siphon"))
 								var/usingEnergy = HasSpiritHand() || HasSpiritSword() || HasHybridStrike() || UsingSpiritStrike() ? 1 : 0
 								if(usingEnergy && prob(10 * enemy.passive_handler.Get("Siphon")))
-									var/heal = damage * (enemy.passive_handler.Get("Siphon") / 5)
+									var/heal = damage * (enemy.passive_handler.Get("Siphon") / 10)
 
 									if(HasSpiritSword())
 										heal *= GetSpiritSword()

@@ -451,12 +451,12 @@ race
 		desc = "These spiritual beings are said to have arosen from nowhere, often taking up place as guardians of graveyards, spirit gates and temples."
 		visual = 'Demon.png'
 
-		strength = 1.5
-		endurance = 1.75
-		speed = 1.25
+		strength = 2
+		endurance = 2
+		speed = 0.75
 		force = 1
 		offense = 1.25
-		defense = 1
+		defense = 0.5
 		imagination = 2
 
 	high_faoroan

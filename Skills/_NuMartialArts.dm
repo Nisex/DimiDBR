@@ -318,7 +318,7 @@ obj
 						StyleActive="Gentle Fist"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Drunken_Fist_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Flow_Reversal_Style")
-						passives = list("SoftStyle" = 1, "UnarmedDamage" = 1, "Siphon" = 0.25)
+						passives = list("SoftStyle" = 1, "UnarmedDamage" = 1, "Siphon" = 1)
 						SoftStyle=1
 						Finisher="/obj/Skills/Queue/Finisher/Eight_Trigrams"
 						verb/Gentle_Fist_Style()

@@ -489,7 +489,19 @@ update
 		updateMob(mob/p)
 			if(p.isRace(MAKYO))
 				p << "stats changed"
+				p << "ascensions reverted"
+				p.race.ascensions[1].revertAscension(p)
+				p.race.ascensions[2].revertAscension(p)
+				p.StrAscension = 0
+				p.EndAscension = 0
+				p.ForAscension = 0
+				p.OffAscension = 0
 				p.stat_redo()
+				p.passive_handler.Increase("Juggernaut", 1)
+				p.passive_handler.Increase("HeavyHitter", 1)
+				p << "Make sure ur Jugg / Heavy Hitter is set to 1/1"
+				p.passive_handler.Set("ShonenPower",0.6)
+				p.passive_handler.Set("Siphon",2.5)
 // Thorgigamax Gemenilove 
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
