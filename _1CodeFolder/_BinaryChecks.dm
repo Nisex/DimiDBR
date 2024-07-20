@@ -182,7 +182,7 @@ mob
 					if(Ascensions>6)
 						Ascensions=6
 				if(UsingKendo())
-					Total = 1.1 + (0.03 * Ascensions)
+					Total = 1.03 + (0.03 * Ascensions)
 				if(s.Glass)
 					Ascensions+=1
 				if(s.Conversions=="Sharp")
@@ -866,7 +866,7 @@ mob
 				return 1
 			return 0
 		GetHardStyle()
-			return passive_handler.Get("HardStyle")+(src.KamuiBuffLock*3)
+			return passive_handler.Get("HardStyle")
 		GetDebuffCrash()
 			var/list/Debuffs=list()
 			for(var/sb in SlotlessBuffs)
@@ -939,6 +939,8 @@ mob
 		GetPUSpike()
 			return passive_handler.Get("PUSpike")
 		HasUnstoppable()
+			if(Secret == "Zombie")
+				return 1
 			if(passive_handler.Get("Unstoppable"))
 				return 1
 			return 0

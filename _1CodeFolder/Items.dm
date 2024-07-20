@@ -911,7 +911,7 @@ obj/Items/Sword
 		name="Bastard Sword"
 		Unobtainable=0
 		icon='LightSword.dmi'
-		DamageEffectiveness=1.05
+		DamageEffectiveness=1.025
 		AccuracyEffectiveness=0.9
 		SpeedEffectiveness=1.25
 		HitSparkSize=0.8
@@ -944,7 +944,7 @@ obj/Items/Sword
 		name="Longsword"
 		Unobtainable=0
 		icon='MediumSword.dmi'
-		DamageEffectiveness=1.15
+		DamageEffectiveness=1.05
 		AccuracyEffectiveness=0.875
 		SpeedEffectiveness=1
 		ShatterCounter=400
@@ -1003,7 +1003,7 @@ obj/Items/Sword
 		name="Greatsword"
 		Unobtainable=0
 		icon='HeavySword.dmi'
-		DamageEffectiveness=1.25
+		DamageEffectiveness=1.1
 		AccuracyEffectiveness=0.8
 		SpeedEffectiveness=0.8
 		HitSparkSize=1.2

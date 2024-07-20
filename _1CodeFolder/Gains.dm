@@ -190,6 +190,9 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 				if(SpecialBuff.BuffName == "Ripper Mode")
 					SpecialBuff?:sandevistanUsages = 0
 					src << "Your Sandevistan Usages has been reset."
+		if(Secret == "Zombie" && MeditateTime == 70)
+			zombieGetUps = 0 
+			src << "Your get ups have been reset"
 
 		if(calmcounter<=0)
 			calmcounter=5

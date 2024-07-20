@@ -2738,7 +2738,7 @@ obj
 								NoLock=1
 								NoAttackLock=1
 								DamageMult/=Rounds
-								ManaCost = 20
+								ManaCost = 10
 							else
 								Rounds=initial(Rounds)
 								Knockback=0
@@ -2877,7 +2877,7 @@ obj
 								NoAttackLock=1
 								WindUp=2
 								Thunderstorm=7
-								ManaCost = 25
+								ManaCost = 7.5
 							else
 								DamageMult=2
 								Rounds=5

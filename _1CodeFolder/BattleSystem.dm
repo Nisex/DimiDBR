@@ -84,7 +84,7 @@ mob/proc/Anger(var/Enraged=0)
 					if(!Enraged)OMsg(src, "<font color='red'>[src] becomes angry!</font color>")
 				else
 					if(!Enraged)OMsg(src, "<font color='[src.AngerColor]'>[src] becomes angry!</font color>")
-
+/mob/var/zombieGetUps = 0
 mob/proc/Unconscious(mob/P,var/text)
 	if(src.KO)
 		return
@@ -143,6 +143,13 @@ mob/proc/Unconscious(mob/P,var/text)
 	src.VaizardHealth=0
 	src.ForceCancelBeam()
 	src.ForceCancelBuster()
+	if(Secret == "Zombie")
+		if(HealthCut + 0.1 < 1 && zombieGetUps + 1 <= AscensionsAcquired)
+			Conscious()
+			var/healthcutClose = clamp(0.9-(zombieGetUps/10),0,0.9)
+			HealHealth(30 * (1 - healthcutClose))
+			zombieGetUps++
+
 	if(P && P.Saga == "Kamui" && P.CheckSlotless("Decapitation Mode"))
 		var/a=0
 		for(var/obj/Items/Wearables/w in src)
@@ -2459,6 +2466,7 @@ mob/proc/Knockback(var/Distance,var/mob/P,var/Direction=0, var/Forced=0, var/Ki=
 			if(p.ContinuousOn && !p.StormFall)
 				P.UseProjectile(p)
 			continue
+	Distance*=gatherKBMods()
 	Distance*=getKnockbackMultiplier(P) // gets the knockback multiplier(reduction) for the target
 	if(!Forced)
 		var/chance2Stop = prob(50*(P.HasLegendaryPower()))
@@ -2468,8 +2476,8 @@ mob/proc/Knockback(var/Distance,var/mob/P,var/Direction=0, var/Forced=0, var/Ki=
 	else
 		if((Forced) && (P.is_dashing))
 			Distance *= Forced/(1 + max(P.is_dashing,1) * 0.5)
-	if(Distance>MAX_KB_TIME)
-		Distance=MAX_KB_TIME
+	if(Distance>glob.MAX_KB_TIME)
+		Distance=glob.MAX_KB_TIME
 	if(Distance<=0.5)
 		return
 	if(Distance>=0.5&&Distance<1)
@@ -2478,7 +2486,7 @@ mob/proc/Knockback(var/Distance,var/mob/P,var/Direction=0, var/Forced=0, var/Ki=
 	if(P.Knockbacked)
 		var/orgDistance = Distance
 		P.Knockbacked=Direction
-		Distance -= (P.previousKnockBack * KB_SPEED)
+		Distance -= (P.previousKnockBack * glob.KB_SPEED)
 		P.Knockback+=Distance
 		if(Forced>=3)
 			P.Knockback = (orgDistance) * world.tick_lag
@@ -2647,7 +2655,7 @@ mob/proc/Grab_Mob(var/mob/P, var/Forced=0)
 				aa.last_activity = world.time
 	if(Secret == "Vampire")
 		Forced = 1
-	if(P.passive_handler.Get("Iron Grip"))
+	if(passive_handler.Get("Iron Grip"))
 		Forced = 1
 	if(!Forced && (P.passive_handler.Get("Fishman")||P.HasGiantForm()||P.HasLegendaryPower()>=1)&&!P.KO&&P.icon_state!="Meditate")
 		src.OMessage(10,"[src] fails to get a firm hold on [P]!","[src]([src.key]) fails to grab [ExtractInfo(P)]")

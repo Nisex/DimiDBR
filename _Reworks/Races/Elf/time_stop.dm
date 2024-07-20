@@ -50,7 +50,8 @@
 
 	verb/Power_Word_Stop()
 		set category = "Skills"
-		adjust(usr)
+		if(!usr.BuffOn(src))
+			adjust(usr)
 		var/t = Trigger(usr)
 		// if this passes
 		if(t && !src.Using)

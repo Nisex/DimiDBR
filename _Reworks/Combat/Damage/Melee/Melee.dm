@@ -311,6 +311,12 @@
 					log2text("Damage", "After Item Damage", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 					#endif
+				if(unarmedAtk && HasUnarmedDamage())
+					damage *= 1 + (GetUnarmedDamage()/glob.UNARMED_DAMAGE_DIVISOR)
+					#if DEBUG_MELEE
+					log2text("Damage", "After unarmed Damage", "damageDebugs.txt", "[ckey]/[name]")
+					log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
+					#endif
 				damageMultiplier = 1 // NEW multiplier variable
 		// 				STATS END				//
 
@@ -746,6 +752,12 @@
 
 							if(UsingCriticalImpact())
 								otherDmg *= 1.25
+							
+							if(passive_handler.Get("Quaker"))
+								otherDmg += passive_handler.Get("Quaker")
+							if(passive_handler.Get("QuakerMod"))
+								otherDmg *= passive_handler.Get("QuakerMod")
+
 
 
 						// HIT EFFECTS //
@@ -755,12 +767,12 @@
 									// get everyone around em
 									m.AddSlow(otherDmg/3, src)
 
-							if(otherDmg >= 5 || AttackQueue&&QueuedKBAdd()||SureKB)
+							if(otherDmg >= 3 || AttackQueue&&QueuedKBAdd()||SureKB)
 								if(!shocked)
-									KenShockwave(enemy, Size=clamp(otherDmg * randValue(0.04,0.4), 0.1, 1.5), PixelX = disperseX, PixelY = disperseY, Time=4)
+									KenShockwave(enemy, Size=clamp(otherDmg * randValue(0.001,0.2), 0.0001, 1.5), PixelX = disperseX, PixelY = disperseY, Time=4)
 									var/quakeIntens = otherDmg
-									if(quakeIntens>24)
-										quakeIntens=24
+									if(quakeIntens>14)
+										quakeIntens=14
 									enemy?.Earthquake(quakeIntens, -4,4,-4,4)
 					else
 				// 										MISS START 																//

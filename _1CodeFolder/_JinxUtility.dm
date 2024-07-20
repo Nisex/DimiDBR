@@ -591,7 +591,7 @@ mob
 						WoundsInflicted=val/defender.GetEnd()
 					else
 						if(defender.GetEnd(glob.CURSED_WOUNDS_RATE) < 2)
-							WoundsInflicted=val/1+GetEnd(glob.CURSED_WOUNDS_RATE)
+							WoundsInflicted=val/(1+GetEnd(glob.CURSED_WOUNDS_RATE))
 						else
 							WoundsInflicted=val/defender.GetEnd(glob.CURSED_WOUNDS_RATE)
 				else if(src.HasPurity()&&defender.IsEvil())
@@ -604,22 +604,23 @@ mob
 							WoundsInflicted=val/defender.GetEnd(glob.CURSED_WOUNDS_RATE)
 					else if(src.SwordWounds())
 						if(defender.GetEnd(0.5) < 2)
-							WoundsInflicted=val/clamp(1 + defender.GetEnd(0.5)/(GetSwordDamage(s)), 2, 5)
+							WoundsInflicted=val/clamp((1 + defender.GetEnd(0.5))/(GetSwordDamage(s)), 1, 15)
 						else
-							WoundsInflicted=val/clamp(defender.GetEnd(0.5)/(GetSwordDamage(s)), 2, 5)
+							WoundsInflicted= val / clamp(defender.GetEnd(0.5)/(GetSwordDamage(s)), 1, 15)
 					else
 						if(defender.GetEnd(0.5) < 2)
-							WoundsInflicted=val/clamp(1 + defender.GetEnd(0.5), 2, 5)
+							WoundsInflicted=val/clamp(1 + defender.GetEnd(0.5), 1, 15)
 						else
-							WoundsInflicted=val/clamp(defender.GetEnd(0.5), 2, 5)
+							WoundsInflicted=val/clamp(defender.GetEnd(0.5), 1, 15)
 				else
 					if(defender.GetEnd(0.5) < 2)
-						WoundsInflicted=val/clamp(1 + defender.GetEnd(0.5), 2, 5)
+						WoundsInflicted=val/clamp(1 + defender.GetEnd(0.5), 1, 15)
 					else
-						WoundsInflicted=val/clamp(defender.GetEnd(0.5), 2, 5)
+						WoundsInflicted=val/clamp(defender.GetEnd(0.5), 1, 15)
 				if(WoundsInflicted<0)
 					WoundsInflicted=0.001
 				if(WoundsInflicted > val)
+					world.log << "[WoundsInflicted]"
 					WoundsInflicted = val
 					world.log << "[src] vs [defender] wonds inflict was over val"
 				src.DealWounds(defender, WoundsInflicted)
@@ -2814,14 +2815,16 @@ mob
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Clash_Defensive/DC in Trg)
 								if(!Trg.BuffOn(DC))
 									var/pursuerBoon = Trg.HasPursuer()
-									DC.TimerLimit = 3 + clamp(pursuerBoon, 1, glob.MAX_PURSUER_BOON)
+									DC.TimerLimit = 3 + clamp(0.25 * pursuerBoon, 0.001, glob.MAX_PURSUER_BOON)
 									DC.Trigger(Trg)
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Clash/DC in src)
 								if(!src.BuffOn(DC))
+									var/pursuerBoon = HasPursuer()
+									DC.TimerLimit = 3 + clamp(0.25 * pursuerBoon, 0.001, glob.MAX_PURSUER_BOON)
 									if(isRace(MAKYO) && src.ActiveBuff.BuffName=="Ki Control")
 										DC.passives["Star Surge"] = 1
-									var/pursuerBoon = HasPursuer()
-									DC.TimerLimit = 3 + clamp(pursuerBoon, 1, glob.MAX_PURSUER_BOON)
+										DC.passives["Steady"] = 2
+										DC.TimerLimit = 1.5 + clamp(0.5 * pursuerBoon, 0.001, glob.MAX_PURSUER_BOON)
 									DC.Trigger(src)
 					break
 				else

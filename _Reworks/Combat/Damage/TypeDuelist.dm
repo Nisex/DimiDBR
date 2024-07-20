@@ -1,14 +1,12 @@
 
 /mob/proc/getTypeBonus(unarmed, spirit)
-	if(unarmed && HasUnarmedDamage())
-		. += GetUnarmedDamage()
 	if(spirit && HasSpiritualDamage())
 		. += GetSpiritualDamage()
 
 /mob/proc/getDuelistBonus(mob/defender)
 	if(Target && HasDuelist())
 		if(Target == defender)
-			. += GetDuelist() * glob.PURE_MODIFIER
+			. += GetDuelist()
 
 /obj/Skills/Buffs/proc/incrementLimit(mob/player, option)
 	var/varLimit = option + "Limit"

@@ -194,11 +194,6 @@ obj/Skills/Buffs/SlotlessBuffs/Arcane_Surge
 	ManaLeak=2
 	Cooldown=5
 
-	ActiveSlot=1
-	PULock=1
-	KiControl=1
-	PowerMult=1.5
-
 	TextColor="#adf0ff"
 	KenWave=1
 	KenWaveIcon='SparkleBlue.dmi'
@@ -221,7 +216,7 @@ obj/Skills/Buffs/SlotlessBuffs/Arcane_Surge
 		SuperDash=1 //Compound Gravity.
 		Skimming=1 //The lashings make these boiz fly.
 		Pursuer=1 //Is mobile af
-		passives = list("SuperDash" = 1, "Skimming" = 1, "Pursuer" = 1)
+		passives = list("SuperDash" = 1, "Skimming" = 1, "Pursuer" = 1, "ManaStats" = 0.5)
 		SpdMult=1.4
 		DefMult=1.3
 		OffMult=1.3
@@ -255,7 +250,7 @@ obj/Skills/Buffs/SlotlessBuffs/Arcane_Surge
 			ManaGlow = usr.is_arcane_beast.aura_color
 			if(usr.is_arcane_beast)
 				if(usr.is_arcane_beast.Mastery>=3)
-					passives = list("Siphon" = 2.5, "MovingCharge" = 1, "QuickCast" = 2)
+					passives = list("Siphon" = 2.5, "MovingCharge" = 1, "QuickCast" = 2, "ManaStats" = 0.5)
 					MovingCharge=1
 					QuickCast=2
 				if(usr.is_arcane_beast.Mastery>=4)
@@ -265,7 +260,7 @@ obj/Skills/Buffs/SlotlessBuffs/Arcane_Surge
 
 	Arcane_Empowerment
 		name = "Arcane Empowerment"
-		passives = list("PureReduction" = 1, "Juggernaut" = 1, "Hardening" = 2)
+		passives = list("PureReduction" = 1, "Juggernaut" = 1, "Hardening" = 2, "ManaStats" = 0.5, "SpiritHand" = 2)
 		PureReduction=1
 		Juggernaut=1
 		Hardening=2
@@ -281,12 +276,10 @@ obj/Skills/Buffs/SlotlessBuffs/Arcane_Surge
 			if(usr.is_arcane_beast)
 				if(usr.is_arcane_beast.Mastery>=3)
 					passives["PureReduction"] = 2
-					passives += "HardStyle"
 					passives["HardStyle"] = 0.5
 					PureReduction=2
 					HardStyle=0.5
 				if(usr.is_arcane_beast.Mastery>=4)
-					passives += "ManaStats"
 					passives["ManaStats"] = 1
 					ManaStats=1
 			src.Trigger(usr)

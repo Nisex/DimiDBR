@@ -1966,6 +1966,8 @@ NEW VARIABLES
 				LockY=-32
 				verb/Jinchuuriki()
 					set category="Skills"
+					if(usr.passive_handler.Get("Unstoppable") || usr.HasInjuryImmune())
+						WoundThreshold = 0
 					if(!usr.BuffOn(src))
 						src.NeedsHealth=25+(12.5*src.Mastery)
 						src.TooMuchHealth=50+(6.25*src.Mastery)
@@ -6855,7 +6857,7 @@ NEW VARIABLES
 			Time_Alter
 				SignatureTechnique=3
 				SpecialSlot=1
-				ManaCost=20
+				ManaCost=5
 				Afterimages=1
 				ClientTint=1
 				OffMessage="releases their time magic..."
@@ -12394,13 +12396,10 @@ mob
 					src.ActiveBuff.IconReplace=1
 					src.ActiveBuff.icon=src.ExpandBase
 					src.ActiveBuff.passives["BleedHit"] = 0
-					src.ActiveBuff.passives["EnergyLeak"] = 0
+					src.ActiveBuff.passives["EnergyLeak"] = 4-AscensionsAcquired
 					src.ActiveBuff.passives["ManaLeak"] = 0
 					src.ActiveBuff.passives["GiantForm"] = round(AscensionsAcquired/2)
-					src.ActiveBuff.passives["Gospeed"] = AscensionsAcquired
-					src.ActiveBuff.BleedHit=0
-					src.ActiveBuff.EnergyLeak=0
-					src.ActiveBuff.ManaLeak=0
+					src.ActiveBuff.passives["Godspeed"] = AscensionsAcquired
 					if(src.passive_handler.Get("HellPower")||src.StarPowered)
 						src.ActiveBuff.AutoAnger=1
 						src.ActiveBuff.AngerMult=2
@@ -12413,10 +12412,8 @@ mob
 						src.ActiveBuff.passives["PUSpike"] = 25
 						src.ActiveBuff.passives["Pursuer"] = 1.5 * AscensionsAcquired
 					else
-						if(AscensionsAcquired>=2)
-							src.ActiveBuff.AutoAnger=1
-						else
-							src.ActiveBuff.AutoAnger=0
+						if(AscensionsAcquired)
+							src.ActiveBuff.AngerPoint = 5 * AscensionsAcquired
 						src.ActiveBuff.passives["Pursuer"] = 0.5 * AscensionsAcquired
 						src.ActiveBuff.AngerMult = round(2/(8-AscensionsAcquired), 0.01)
 						src.ActiveBuff.passives["PUSpike"] = round(50/(5-AscensionsAcquired))
