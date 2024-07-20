@@ -676,7 +676,7 @@ mob
 			var/Return=0
 			Return+=passive_handler.Get("BuffMastery")
 			if(Secret=="Haki")
-				Return+=secretDatum.currentTier
+				Return+=round(secretDatum.currentTier/2)
 			var/stp=src.SaiyanTransPower()
 			if(stp)
 				Return+=stp
@@ -1759,6 +1759,8 @@ mob
 		GetConfusing()
 			return passive_handler.Get("Confusing")
 		HasHolyMod()
+			if(HolyMod)
+				return 1
 			if(passive_handler.Get("HolyMod"))
 				return 1
 			if(src.TarotFate=="The Lovers")
@@ -1769,6 +1771,7 @@ mob
 		GetHolyMod()
 			var/Reduce=0
 			var/Extra=0
+			Extra+=HolyMod
 			if(src.TarotFate=="The Lovers")
 				Extra=2.5
 			if(src.TarotFate=="The Hierophant")
@@ -2395,7 +2398,7 @@ mob
 				return 1
 			if(src.StyleActive in list("Balance", "Metta Sutra", "West Star", "Shaolin"))
 				return 1
-			if(Target && (Health <=40 && Target.Health > Health) && passive_handler.Get("Underdog"))
+			if(Target && (Health <=40 + (10 * AscensionsAcquired) && Target.Health > Health) && passive_handler.Get("Underdog"))
 				return 1
 			if(src.UsingYinYang())
 				return 1

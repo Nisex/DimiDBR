@@ -259,12 +259,12 @@
 
 /mob/proc/calculateTrueMult(trueMult, val)
 	var/extra = 0.1*trueMult
+	#if DEBUG_DAMAGE
+	log2text("Damage", "Final Damage Before TrueMult", "damageDebugs.txt", "[src.ckey]/[src.name]")
+	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
+	#endif
 	if(trueMult>0) // altered
 		val *= 1+extra
 	else if(trueMult<0) // altered
 		val/= 1+(-extra)
-	#if DEBUG_DAMAGE
-	log2text("Damage", "Final TrueMult", "damageDebugs.txt", "[src.ckey]/[src.name]")
-	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
-	#endif
 	return val

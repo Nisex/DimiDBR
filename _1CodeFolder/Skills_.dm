@@ -175,8 +175,6 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 				var/Modifier=1
 				if(src.Secret=="Haki")
 					if(src.secretDatum.secretVariable["HakiSpecialization"]=="Observation")
-						Modifier+=2
-					else
 						Modifier+=1
 				if(src.Saga=="Eight Gates")
 					Modifier+=2

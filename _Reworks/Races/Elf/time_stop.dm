@@ -3,7 +3,9 @@
 	var/tmp/mob/owner = null
 	var/TriggerMessage = "Fall."
 	Mastery = 1
+	passives = list("CoolerAfterImages" = 4, "Godspeed" = 4, "Adrenaline" = 4, , "LimitBroken" = 1) // make sure u go fast
 	Cooldown=-1
+	EndYourself = 1
 	proc/applyTimeEffect(mob/p)
 		var/asc = p.AscensionsAcquired
 		if(asc < 1)
@@ -44,8 +46,7 @@
 	adjust(mob/p)
 		if(!altered)
 			Mastery = clamp(p.AscensionsAcquired,1,5)
-			passives = list("CoolerAfterImages" = 4, "Godspeed" = 4, "Adrenaline" = 4, , "LimitBroken" = 1) // make sure u go fast
-			TimerLimit = 60
+			TimerLimit = Mastery*(glob.TIMESTOP_MULTIPLIER/10)
 
 
 	verb/Power_Word_Stop()

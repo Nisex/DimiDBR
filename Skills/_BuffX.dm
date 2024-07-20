@@ -1193,7 +1193,7 @@ NEW VARIABLES
 								src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
 								src.OffMessage="conceals █████████████.."
 						if("Durendal")
-							passives = list("HolyMod" = usr.SagaLevel, "LifeGeneration" = usr.SagaLevel, "PULock" = 1)
+							passives = list("HolyMod" = usr.SagaLevel, "LifeGeneration" = usr.SagaLevel/6, "PULock" = 1)
 							if(!redacted)
 								src.SwordName="Durendal"
 								src.ActiveMessage="calls forth the true form of Durendal, the Sword of Hope!"
@@ -1244,7 +1244,7 @@ NEW VARIABLES
 								if(istype(usr.EquippedSword(),/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Order))
 									light = usr.EquippedSword():caliburLight
 							if(light)
-								passives = list("HolyMod"=usr.SagaLevel,"LifeGeneration"=usr.SagaLevel/2,"Steady"=usr.SagaLevel, "PULock" = 1)
+								passives = list("HolyMod"=usr.SagaLevel,"LifeGeneration"=usr.SagaLevel/8,"Steady"=usr.SagaLevel, "PULock" = 1)
 								if(!redacted)
 									src.SwordName="Soul Calibur"
 									src.SwordIcon='SoulCalibur.dmi'
@@ -1256,7 +1256,7 @@ NEW VARIABLES
 									src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
 									src.OffMessage="conceals █████████████.."
 							else
-								passives = list("AbyssMod"=usr.SagaLevel,"LifeGeneration"=usr.SagaLevel/2,"Steady"=usr.SagaLevel, "PULock" = 1)
+								passives = list("AbyssMod"=usr.SagaLevel,"LifeGeneration"=usr.SagaLevel/8,"Steady"=usr.SagaLevel, "PULock" = 1)
 								if(!redacted)
 									src.SwordName="Soul Calibur"
 									src.SwordIcon='SoulCalibur-Crystal.dmi'
@@ -1979,7 +1979,7 @@ NEW VARIABLES
 							CalmAnger=1
 						else
 							AutoAnger=1
-							passives = list("Maki" = 1, "Curse" = 1, "LifeGeneration" = 0.1, "Deflection" = 2, "AutoAnger" = 1, "Reversal" = Mastery/10)
+							passives = list("Maki" = 1, "Curse" = 1, "LifeGeneration" = 1, "Deflection" = 2, "AutoAnger" = 1, "Reversal" = Mastery/10)
 							CalmAnger=0
 					if(src.Mastery==1)
 						usr << "You don't have enough of a rapport to manipulate your demon at will!"
@@ -2360,7 +2360,7 @@ NEW VARIABLES
 			EndMult=1.3
 			OffMult=1.2
 			DefMult=1.3
-			passives = list("DebuffImmune" = 1, "FluidForm" = 1, "GiantForm"  = 1, "LifeGeneration" = 0.15)
+			passives = list("DebuffImmune" = 1, "FluidForm" = 1, "GiantForm"  = 1, "LifeGeneration" = 0.5)
 			DebuffImmune=1
 			FluidForm=1
 			GiantForm=1
@@ -2378,7 +2378,7 @@ NEW VARIABLES
 			proc/alter(mob/p)
 				if(altered) return
 				HealthHeal = (2/240) * world.tick_lag
-				passives = list("DebuffImmune" = 1, "FluidForm" = 1, "GiantForm"  = 1, "LifeGeneration" = 0.15)
+				passives = list("DebuffImmune" = 1, "FluidForm" = 1, "GiantForm"  = 1, "LifeGeneration" = 0.5)
 		Beast_Trance
 			MagicNeeded=1
 			MagicFocus=1
@@ -7191,7 +7191,7 @@ NEW VARIABLES
 		Sparking_Blast
 			SignatureTechnique=3
 			SpecialSlot=1
-			passives = list("LifeGeneration"=5, "EnergyGeneration" = 5, "ManaGeneration" = 55, "Pursuer" = 3, "PureDamage" = 2, "Instinct" = 2, "Flicker" = 2)
+			passives = list("LifeGeneration"=1, "EnergyGeneration" = 5, "ManaGeneration" = 55, "Pursuer" = 3, "PureDamage" = 2, "Instinct" = 2, "Flicker" = 2)
 			LifeGeneration=5
 			EnergyGeneration=5
 			ManaGeneration=5
@@ -9208,17 +9208,14 @@ NEW VARIABLES
 		Haki
 			Cooldown=0
 			Haki_Armament
-				passives = list("Hardening" = 1, "NoForcedWhiff" = 1, "UnarmedDamage" = 1, "SwordDamage" = 1)
 				Hardening=1
 				NoForcedWhiff=1
-				strAdd = 0.1
-				endAdd = 0.1
 				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					passives = list("Hardening" = clamp(secretLevel,1,2), "NoForcedWhiff" = 1, "UnarmedDamage" = secretLevel/2, "SwordDamage" = secretLevel/2 )
-					strAdd = 0.15 * secretLevel
-					endAdd = 0.15 * secretLevel
+					strAdd = 0.1 * secretLevel
+					endAdd = 0.05 * secretLevel
 				Trigger(mob/User, Override = 1)
 					if(!User.BuffOn(src))
 						adjust(User)
@@ -9226,7 +9223,6 @@ NEW VARIABLES
 
 			Haki_Armor//Specialized
 				TimerLimit=15
-				passives = list("Hardening" = 2, "KBRes" = 2, "KBMult" = 2)
 				Hardening=2
 				KBRes=2
 				KBMult=2
@@ -9235,8 +9231,8 @@ NEW VARIABLES
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
 					passives = list("Hardening" = clamp(secretLevel,1,4), "KBRes" = secretLevel, "KBMult" = secretLevel)
-					StrMult = 1.1 + (0.1 * secretLevel)
-					EndMult = 1.1 + (0.1 * secretLevel)
+					StrMult = 1.05 + (0.05 * secretLevel)
+					EndMult = 1.05 + (0.05 * secretLevel)
 					TimerLimit = 20 + (10 * secretLevel)
 				Trigger(mob/User, Override = 1)
 					if(!User.BuffOn(src))
@@ -9260,7 +9256,6 @@ NEW VARIABLES
 					..()
 			Haki_Shield//Specialized
 				TimerLimit=15
-				passives = list("PureReduction" = 2, "Deflection" = 1, "CounterMaster" = 3, "KBAdd" = 3)
 				PureReduction=2
 				Deflection=1
 				CounterMaster=3
@@ -9269,7 +9264,7 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
-					passives = list("PureReduction" = clamp(secretLevel,1,3), "Deflection" = clamp(secretLevel,1,3), "CounterMaster" = clamp(secretLevel,2,5), "KBAdd" = 3)
+					passives = list("PureReduction" = clamp(secretLevel/2,1,3), "Deflection" = clamp(secretLevel,1,3), "CounterMaster" = clamp(secretLevel,2,5), "KBAdd" = 3)
 					TimerLimit = 15 + (10 * secretLevel)
 				Trigger(mob/User, Override = 1)
 					if(!User.BuffOn(src))
@@ -9278,8 +9273,6 @@ NEW VARIABLES
 			Haki_Shield_Lite//Not specialized
 				TimerLimit=7
 				passives = list("PureReduction" = 1, "Deflection" = 1)
-				PureReduction=2.5
-				Deflection=1
 				ActiveMessage="shields their body from attack with their willpower!"
 				adjust(mob/p)
 					if(altered) return
@@ -9291,32 +9284,30 @@ NEW VARIABLES
 						adjust(User)
 					..()
 			Haki_Observation
-				passives = list("Instinct" = 1, "Flow" = 1, "NoWhiff" = 1)
-				Instinct=1
-				Flow=1
 				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
-					passives = list("Instinct" = clamp(secretLevel/1.5, 1, 3), "Flow" = clamp(secretLevel/1.5, 1, 3), "NoWhiff" = 1)
+					passives = list("Instinct" = clamp(secretLevel, 1, 5), "Flow" = clamp(secretLevel, 1, 5), "NoWhiff" = 1, "CheapShot" = secretLevel/3)
+
 				Trigger(mob/User, Override = 1)
 					if(!User.BuffOn(src))
 						adjust(User)
 					..()
 			Haki_Future_Flash
 				TimerLimit=50
-				OffMult=1.5
-				DefMult=1.5
 				SureHitTimerLimit=15
 				SureDodgeTimerLimit=15
+				Cooldown = 40
 				ActiveMessage="peers into the future to grasp their ambitions!"
 				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
-					TimerLimit = 40 + (10 * secretLevel)
-					OffMult = 1.2 + (0.1 * secretLevel)
+					TimerLimit = 40 + (5 * secretLevel)
+					OffMult = 1.15 + (0.05 * secretLevel)
 					DefMult = 1.2 + (0.1 * secretLevel)
-					SureHitTimerLimit = 40 - (5 * secretLevel)
-					SureDodgeTimerLimit = 40 - (5 * secretLevel)
+					SureHitTimerLimit = 35 - (5 * secretLevel)
+					SureDodgeTimerLimit = 35 - (5 * secretLevel)
+					Cooldown = 60 + (2 * secretLevel)
 				Trigger(mob/User, Override = 1)
 					if(!User.BuffOn(src))
 						adjust(User)
@@ -9336,6 +9327,7 @@ NEW VARIABLES
 					DefMult = 1.1 + (0.05 * secretLevel)
 					SureHitTimerLimit = 45 - (5 * secretLevel)
 					SureDodgeTimerLimit = 45 - (5 * secretLevel)
+					Cooldown = 40 + (2.5 * secretLevel)
 				Trigger(mob/User, Override = 1)
 					if(!User.BuffOn(src))
 						adjust(User)
@@ -9348,8 +9340,8 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
-					TimerLimit = 25 + (5 * secretLevel)
-					passives = list("Flow" = secretLevel/2)
+					TimerLimit = 10 + (5 * secretLevel)
+					passives = list("Flow" = secretLevel)
 				Trigger(mob/User, Override = 1)
 					if(!User.BuffOn(src))
 						adjust(User)
@@ -9362,8 +9354,8 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(altered) return
 					var/secretLevel = p.secretDatum.currentTier
-					TimerLimit = 10 + (5 * secretLevel)
-					passives = list("Flow" = secretLevel/4)
+					TimerLimit = 5 + (5 * secretLevel)
+					passives = list("Flow" = secretLevel/2)
 				Trigger(mob/User, Override = 1)
 					if(!User.BuffOn(src))
 						adjust(User)
@@ -10868,11 +10860,9 @@ NEW VARIABLES
 						var/asc = p.AscensionsAcquired
 						ElementalOffense = "Earth"
 						ElementalDefense = "Earth"
-						SpdMult = 0.6 + (0.05 *asc)
-						DefMult = 0.75 + (0.05 *asc)
 						endAdd = 0.05 * asc
-						passives = list("DeathField" = asc, "PureReduction" = 0.5 + (0.5 * asc), "BlockChance" = 5 + ( 5 * asc ), "CriticalBlock" = 0.05 + (0.05 * asc) ,\
-										"CallousedHands" = 0.15 + ( asc * 0.15), "Hardening" = 0.5 + (0.25 * asc), "LifeGeneration" = 0.25 * asc)
+						passives = list("DeathField" = asc+1, "PureReduction" = 0.25 + (0.25 * asc), "BlockChance" = 5 + ( 5 * asc ), "CriticalBlock" = 0.05 + (0.05 * asc) ,\
+										"CallousedHands" = 0.15 + (asc * 0.15), "Hardening" = 0.5 + (0.25 * asc), "LifeGeneration" = 0.5 * asc)
 					Trigger(mob/User, Override = FALSE)
 						if(!User.BuffOn(src))
 							adjust(User)
@@ -11006,7 +10996,6 @@ NEW VARIABLES
 				TooMuchHealth=75
 				VaizardHealth=2
 				VaizardShatter=1
-				passives = list("Unstoppable" = 1, "LifeGeneration" = 2, "Instinct" = 2, "Flicker" = 1)
 				Unstoppable=1
 				Possessive=1
 				TextColor=rgb(75, 0, 85)
@@ -11288,7 +11277,8 @@ NEW VARIABLES
 				OffMessage="manages to repress their demonic powers..."
 				Trigger(mob/player, Override)
 					if(!altered)
-						passives = list("SpecialBuffLock" = 1,"KillerInstinct" = 0.1 * player.SagaLevel, "Curse" = 1, "Pursuer" = 1, "SlayerMod" = player.SagaLevel*0.25, "HardStyle" = 0.25 + (player.SagaLevel*0.25), "TechniqueMastery" = player.SagaLevel*0.75)
+						passives = list("SpecialBuffLock" = 1,"KillerInstinct" = 0.1 * player.SagaLevel, "Curse" = 1, "Enraged" = player.SagaLevel, \
+						 "SlayerMod" = player.SagaLevel*0.25, "HardStyle" = 0.25 + (player.SagaLevel*0.25), "TechniqueMastery" = player.SagaLevel*0.75)
 						SlayerMod = player.SagaLevel * 0.25
 						HardStyle = 0.25 + (player.SagaLevel * 0.25)
 						TechniqueMastery = player.SagaLevel * 0.75
@@ -11342,7 +11332,7 @@ NEW VARIABLES
 				OffMessage="manages to repress their urges..."
 				Trigger(mob/player, Override)
 					if(!altered)
-						passives = list("SpecialBuffLock" = 1,"KillerInstinct" = clamp(player.SagaLevel/8, 0.1, 1), "Curse" = 1, "Pursuer" = 2, "SlayerMod" = player.SagaLevel*0.75, \
+						passives = list("SpecialBuffLock" = 1,"KillerInstinct" = clamp(player.SagaLevel/8, 0.1, 1), "Curse" = 1, "Enraged" =  2 + player.SagaLevel, "SlayerMod" = player.SagaLevel*0.75, \
 						"HardStyle" = 1 + (player.SagaLevel*0.5), "TechniqueMastery" = player.SagaLevel)
 						SlayerMod = player.SagaLevel * 0.5
 						HardStyle = 1 + (player.SagaLevel * 0.25)
@@ -12318,6 +12308,9 @@ mob
 				src.StyleBuff.Mastery=4
 
 			if(src.StyleBuff.StyleActive=="Ansatsuken")
+				src.StyleBuff.passives["CheapShot"] = 0.25 * SagaLevel
+				src.StyleBuff.passives["UnarmedDamage"] = 0.5 * SagaLevel
+				src.StyleBuff.passives["Duelist"] = round(0.33 * SagaLevel)
 				if(src.SagaLevel>=5)
 					src.StyleBuff.AngerThreshold=2
 					switch(src.AnsatsukenAscension)
@@ -12341,6 +12334,7 @@ mob
 							src.StyleBuff.StyleStr=1.5
 							src.StyleBuff.StyleFor=1.4
 							src.StyleBuff.StyleOff=1.4
+
 
 
 					src.StyleBuff.Mastery=4

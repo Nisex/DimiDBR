@@ -1138,9 +1138,9 @@ mob
 				if(src.Secret=="Zombie")
 					MA+=0.1
 				if(src.Secret=="Haki"&&src.secretDatum.secretVariable["HakiSpecialization"]=="Armament")
-					MA+=0.1 * src.secretDatum.currentTier
-				if(src.Secret=="Haki"&&src.secretDatum.secretVariable["HakiSpecialization"]=="Observation")
 					MA+=0.05 * src.secretDatum.currentTier
+				if(src.Secret=="Haki"&&src.secretDatum.secretVariable["HakiSpecialization"]=="Observation")
+					MA+=0.1 * src.secretDatum.currentTier
 				if(src.Secret=="Ripple")
 					MA+=0.1
 
@@ -2114,7 +2114,6 @@ mob
 				else if(evil)
 					good = 1
 					evil = 0
-
 			if(good)
 				return FALSE
 			if(evil)

@@ -1,5 +1,14 @@
 var/list/worldObjectList = new // Looped through during the saving of objects
 
+/mob/Admin4/verb/checkworldObjectList()
+	for(var/obj/x in worldObjectList)
+		if(x.Savable)
+			if(!x || !x.loc)
+				world<<"erm"
+				worldObjectList.Remove(x)
+
+
+
 proc/find_savableObjects()
 	for(var/obj/_object in world) // Find all objects in the world
 		if(!_object.z||_object.z==0) continue
@@ -698,12 +707,12 @@ proc/Save_Objects()
 			A.Saved_Z=A.z
 			Types+=A
 			Amount+=1
-			if(Amount % 250 == 0)
+			if(Amount % 500 == 0)
 				F["Types"]<<Types
 				E++
 				F=new("Saves/Itemsave/File[E]")
 				Types=new
-	if(Amount % 250 != 0)
+	if(Amount % 500 != 0)
 		F["Types"]<<Types
 	hacklol
 	if(fexists("Saves/Itemsave/File[E++]"))

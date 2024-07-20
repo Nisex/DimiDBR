@@ -3123,7 +3123,6 @@ obj
 					WindUp=1
 					ManaCost=30
 					Cooldown=180
-					GuardBreak=1
 					HitSparkIcon='Hit Effect Pearl.dmi'
 					HitSparkX=-32
 					HitSparkY=-32
@@ -4832,16 +4831,16 @@ obj
 				UnarmedOnly=1
 				Area="Circle"
 				StrOffense=1
-				DamageMult=0.5
+				DamageMult=0.8
 				Crippling=1
 				Icon='SweepingKick.dmi'
 				IconX=-32
 				IconY=-32
 				Rounds=20
-				Cooldown=300
+				Cooldown=200
 				Size=3
 				Distance=3
-				ManaCost=100
+				ManaCost=75
 				Rush=5
 				ControlledRush=1
 				Launcher=3
@@ -6020,7 +6019,7 @@ mob
 				src.dir=EAST
 			if(src.dir==SOUTHWEST || src.dir==NORTHWEST)
 				src.dir=WEST
-			new/obj/AutoHitter(owner=src, arcing=arc, wave=wav, card=car, circle=circ, target=targ, Z=z, TrgLoc=trfloc)
+			return new/obj/AutoHitter(owner=src, arcing=arc, wave=wav, card=car, circle=circ, target=targ, Z=z, TrgLoc=trfloc)
 
 		Strike(var/obj/Skills/AutoHit/Z)
 			src.AutoHitter(0, 0, 0, 0, null, Z)
@@ -6041,7 +6040,7 @@ mob
 			src.AutoHitter(0, 0, 1, 0, null, Z)
 
 		Circle(var/obj/Skills/AutoHit/Z)
-			src.AutoHitter(0, 0, 0, 1, null, Z)
+			return src.AutoHitter(0, 0, 0, 1, null, Z)
 
 		Target(var/mob/trg, var/obj/Skills/AutoHit/Z, var/turf/MissedLoc)
 			if(!MissedLoc)
@@ -6181,7 +6180,6 @@ obj
 			Shearing
 
 			parentRounds = 1
-
 			tmp/list/AlreadyHit
 			tmp/list/autohitChildren
 			tmp/obj/AutoHitter/AHOwner
@@ -6417,7 +6415,8 @@ obj
 								if(m == hitted)
 									weHitThemAlready = TRUE
 									break
-					if(weHitThemAlready)return
+					if(weHitThemAlready)
+						return
 				AlreadyHit |= m
 				for(var/obj/AutoHitter/ah in autohitChildren)
 					ah.AlreadyHit |= m
@@ -6553,10 +6552,13 @@ obj
 					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(src.SpeedStrike/10))),1,3)
 				if(Owner.UsingFencing())
 					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(Owner.UsingFencing()/15))),1,3)
-				if((!ComboMaster || !Owner.HasComboMaster()) && (m.Launched||m.Stunned))
-					FinalDmg *= glob.CCDamageModifier
-					Owner.log2text("FinalDmg - Auto Hit", "After ComboMaster", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
-					Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+				if((m.Launched||m.Stunned))
+					if(ComboMaster || Owner.HasComboMaster())
+						FinalDmg = FinalDmg
+					else
+						FinalDmg *= glob.CCDamageModifier
+						Owner.log2text("FinalDmg - Auto Hit", "After ComboMaster", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+						Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				var/obj/Items/Armor/HittingArmor=m.EquippedArmor()
 				var/obj/Items/Armor/WearingArmor=src.Owner.EquippedArmor()
 				if(HittingArmor)//Reduced damage
@@ -6743,9 +6745,7 @@ obj
 						if(src.MortalBlow>1)
 							if(m.Immortal)
 								m.Immortal=0
-
 				var/damageDealt = src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
-
 				if(!damageDealt)
 					damageDealt = 0
 
