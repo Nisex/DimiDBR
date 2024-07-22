@@ -850,6 +850,8 @@ mob
 		GetFatigueLeak()
 			var/Total=0
 			Total+=passive_handler.Get("FatigueLeak")
+			if(Total >= 3 && isRace(YOKAI))
+				Total -= 0.5 * AscensionsAcquired
 			if(src.GatesActive && src.GatesActive < 8)
 				return Total +(4/src.SagaLevel)
 			return Total
@@ -975,7 +977,7 @@ mob
 			if(dainsleifDrawn)
 				Return += 1+SagaLevel // i hope someone gets cratered by dainsleif
 			if(isRace(MAJIN))
-				Return += Potential * getMajinRates("Damage")
+				Return += AscensionsAcquired * getMajinRates("Damage")
 			return Return
 		HasPureReduction()
 			var/Return=0
@@ -984,7 +986,7 @@ mob
 			if(stp)
 				Return+=stp
 			if(src.isRace(MAJIN))
-				Return += Potential * getMajinRates("Reduction")
+				Return += AscensionsAcquired * getMajinRates("Reduction")
 			if(src.TarotFate=="The Hanged Man")
 				Return-=5
 			if(src.TarotFate=="Justice")

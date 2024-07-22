@@ -5,7 +5,6 @@
 	Mastery = 1
 	passives = list("CoolerAfterImages" = 4, "Godspeed" = 4, "Adrenaline" = 4, , "LimitBroken" = 1) // make sure u go fast
 	Cooldown=-1
-	EndYourself = 1
 	proc/applyTimeEffect(mob/p)
 		var/asc = p.AscensionsAcquired
 		if(asc < 1)

@@ -593,3 +593,8 @@ mob/proc
 		animate(src.client, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1), time=5)
 		sleep(5)
 		animate(src.client, color = null, time=duration)
+	
+	Darkness(duration=100, affect = 5)
+		animate(src.client, color = list(-1,-1,-1, -1,-1,-1, -1,-1,-1, -1,-1,-1), time=affect)
+		sleep(5)
+		animate(src.client, color = null, time=duration)

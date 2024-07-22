@@ -4556,17 +4556,13 @@ NEW VARIABLES
 			ActiveMessage="shifts into their spiritual body!"
 			OffMessage="becomes fully physical once more..."
 			ManaDrain = 0.1
+			passives = list("ManaLeak" = 2, "SpiritForm" = 1, "MovementMastery" = 1, "ManaStats" = 0.25, "TechniqueMastery" = -2, "MartialMagic" = 1, "ManaGeneration" = -2, "FatigueLeak" = 3)
 			ManaLeak = 2
 			ManaThreshold = 40
 			FatigueThreshold = 25
 			Cooldown=1
-			adjust(mob/p)
-				if(!altered)
-					passives = list("ManaLeak" = 2, "SpiritForm" = 1, "MovementMastery" = 1, "ManaStats" = 0.25, "TechniqueMastery" = -2, "MartialMagic" = 1, "ManaGeneration" = -2, "FatigueLeak" = glob.SPIRIT_FORM_LEAK_VAL- (p.AscensionsAcquired/2))
 			verb/Spirit_Form()
 				set category="Skills"
-				if(!usr.BuffOn(src))
-					adjust(usr)
 				if(!usr.BuffOn(src))
 					if(usr.Form1Base)
 						src.IconReplace=1
@@ -6866,7 +6862,7 @@ NEW VARIABLES
 					set category="Skills"
 					if(!usr.BuffOn(src))
 						src.BleedHit=1/src.Mastery
-						passives = list("BleedHit" = 1/src.Mastery, "Instinct" = 1, "Flow" = 1, "BlurringStrikes" = 0.5)
+						passives = list("BleedHit" = 0.75/src.Mastery, "Instinct" = 2, "Flow" = 2, "BlurringStrikes" = 1, "Warping" = 2)
 						HotHundred = 0
 						Warping = 2
 						src.SpdMult=2
@@ -6882,11 +6878,10 @@ NEW VARIABLES
 					set category="Skills"
 					if(!usr.BuffOn(src))
 						src.BleedHit=2/src.Mastery
-						passives = list("BleedHit" = 2/Mastery, "Instinct" = 2, "Flow" = 2, "BlurringStrikes" = 1)
+						passives = list("BleedHit" = 1.5/Mastery, "Instinct" = 3, "Flow" = 3, "BlurringStrikes" = 2, "Warping" = 4)
 						HotHundred = 0
 						Warping = 3
 						src.SpdMult=3
-						src.RecovMult=0.5
 						src.Instinct=2
 						src.Flow=2
 						src.IconTint=list(0.75,0.3,0, 0.4,0.3,0, 0.25,0.15,0, 0,0,0)
@@ -6900,11 +6895,9 @@ NEW VARIABLES
 					if(!usr.BuffOn(src))
 						HotHundred=1
 						Warping=3
-						src.BleedHit=4/src.Mastery
 						src.SpdMult=4
-						src.RecovMult=0.25
 						src.EnergyExpenditure=2
-						passives = list("BleedHit" = 4/Mastery, "Instinct" = 3, "Flow" = 3, "EnergyExpenditure" = 2, "BlurringStrikes" = 2)
+						passives = list("BleedHit" = 3/Mastery, "Instinct" = 4, "Flow" = 4, "EnergyExpenditure" = 2, "BlurringStrikes" = 4)
 						src.Instinct=3
 						src.Flow=3
 						IconTint=list(0.75,0.3,0, 0.4,0.3,0, 0.25,0.15,0, 0,0,0)
