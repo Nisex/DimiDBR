@@ -4637,13 +4637,8 @@ mob
 						return
 			if(Z.GateNeeded)
 				if(src.GatesActive<Z.GateNeeded)
-					if(SagaLevel>=Z.GateNeeded&&Z.GateNeeded!=8)
-						var/difference = Z.GateNeeded-src.GatesActive
-						for(var/x in 1 to difference)
-							ActiveBuff:handleGates(usr, TRUE)
-					else
-						src << "You have to open at least Gate [Z.GateNeeded] to use this skill!"
-						return
+					src << "You have to open at least Gate [Z.GateNeeded] to use this skill!"
+					return
 			if(Z.ClassNeeded)
 				var/obj/Items/Sword/s=src.EquippedSword()
 				if(s.Class!=Z.ClassNeeded && (istype(Z.ClassNeeded, /list) && !(s.Class in Z.ClassNeeded)))

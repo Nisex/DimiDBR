@@ -3949,13 +3949,8 @@ mob
 					src << "You need to open your Eight Gates to use [Q]!"
 					return
 				if(src.GatesActive<Q.GateNeeded)
-					if(SagaLevel>=Q.GateNeeded&&Q.GateNeeded!=8)
-						var/difference = Q.GateNeeded-src.GatesActive
-						for(var/x in 1 to difference)
-							ActiveBuff:handleGates(usr, TRUE)
-					else
-						src << "You have to open at least Gate [Q.GateNeeded] to use this skill!"
-						return
+					src << "You have to open at least Gate [Q.GateNeeded] to use this skill!"
+					return
 			if(Q.MagicNeeded&&!src.HasLimitlessMagic())
 				if(src.HasMechanized()&&src.HasLimitlessMagic()!=1)
 					src << "You lack the ability to use magic!"

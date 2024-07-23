@@ -88,7 +88,7 @@ mob/var
 mob/Admin3/verb
 	SagaManagement(mob/Players/P in players)
 		set category="Admin"
-		var/list/SagaList=list("Cancel","Ansatsuken","Cosmo","Spiral","Hero","Eight Gates","Hiten Mitsurugi-Ryuu","Kamui","Keyblade","King of Braves","Sharingan","Weapon Soul", "Unlimited Blade Works","Force")
+		var/list/SagaList=list("Cancel","Ansatsuken","Cosmo","Spiral","Hero","Hiten Mitsurugi-Ryuu","Kamui","Keyblade","King of Braves","Sharingan","Weapon Soul", "Unlimited Blade Works","Force")
 		if(P.Saga)
 			if(P.SagaLevel>=6)
 				src << "They've already fully mastered the power of their soul."
@@ -258,18 +258,18 @@ mob/Admin3/verb
 						P.AddSkill(new/obj/Skills/AutoHit/Tatsumaki)
 
 
-				if("Eight Gates")
-					P<<"After tirelessly training you finally managed to arrive at the summit of martial arts... <b>Eight Gates</b>!"
-					P.Saga="Eight Gates"
-					P.SagaLevel=1
-					P<<"Your constant hard work shows its effects..."
-					P.SagaThreshold("Str", 0.125)
-					P.SagaThreshold("End", 0.125)
-					P.SagaThreshold("Spd", 0.125)
-					P<<"You learn to shatter your natural limitations. Be wary though: the strain of doing that may haunt your future..."
-					P.AddSkill(new/obj/Skills/Buffs/ActiveBuffs/Eight_Gates)
-					if(!locate(/obj/Skills/Queue/Front_Lotus, P))
-						P.AddSkill(new/obj/Skills/Queue/Front_Lotus)
+				// if("Eight Gates")
+				// 	P<<"After tirelessly training you finally managed to arrive at the summit of martial arts... <b>Eight Gates</b>!"
+				// 	P.Saga="Eight Gates"
+				// 	P.SagaLevel=1
+				// 	P<<"Your constant hard work shows its effects..."
+				// 	P.SagaThreshold("Str", 0.125)
+				// 	P.SagaThreshold("End", 0.125)
+				// 	P.SagaThreshold("Spd", 0.125)
+				// 	P<<"You learn to shatter your natural limitations. Be wary though: the strain of doing that may haunt your future..."
+				// 	P.AddSkill(new/obj/Skills/Buffs/ActiveBuffs/Eight_Gates)
+				// 	if(!locate(/obj/Skills/Queue/Front_Lotus, P))
+				// 		P.AddSkill(new/obj/Skills/Queue/Front_Lotus)
 
 				if("Sharingan")
 					P.SagaLevel=1
@@ -1126,44 +1126,44 @@ mob
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Susanoo)
 							src << "You can manifest a ghastly armor to protect and augment your attacks!"
 
-				if("Eight Gates")
-					src.SagaThreshold("Str", 0.125*src.SagaLevel)
-					src.SagaThreshold("End", 0.125*src.SagaLevel)
-					src.SagaThreshold("Spd", 0.125*src.SagaLevel)
-					if(src.SagaLevel==3)
-						if(!locate(/obj/Skills/Queue/Reverse_Lotus, src))
-							src.AddSkill(new/obj/Skills/Queue/Reverse_Lotus)
-							src << "You learned how to unleash the full might of your body in a devastating sequence of strikes: <b>Reverse Lotus</b>!!!"
-						var/Choice=alert(src, "What kind of strikes does your fighting style focus on?", "Martial Art", "Punches", "Kicks", "Both")
-						if(Choice=="Punches")
-							var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style/bls=new
-							bls.Mastery=4
-							bls.SagaSignature=1
-							src.AddSkill(bls)
-						if(Choice=="Kicks")
-							var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style/bls=new
-							bls.Mastery=4
-							bls.SagaSignature=1
-							src.AddSkill(bls)
-						if(Choice=="Both")
-							var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style/bls=new
-							bls.Mastery=4
-							bls.SagaSignature=1
-							src.AddSkill(bls)
-					if(src.SagaLevel==4)
-						if(!locate(/obj/Skills/Queue/Morning_Peacock, src))
-							src.AddSkill(new/obj/Skills/Queue/Morning_Peacock)
-							src << "You can perform a barrage of strikes that burn away the very air: <b>Morning Peacock</b>!!!"
-					if(src.SagaLevel==5)
-						if(!locate(/obj/Skills/Projectile/Beams/Big/Eight_Gates/Daytime_Tiger, src))
-							src.AddSkill(new/obj/Skills/Projectile/Beams/Big/Eight_Gates/Daytime_Tiger)
-							src << "You can release a wave of pure kinetic force that devours all in its path: <b>Daytime Tiger</b>!!!"
-					if(src.SagaLevel==6)
-						if(!locate(/obj/Skills/Projectile/Evening_Elephant, src))
-							src.AddSkill(new/obj/Skills/Projectile/Evening_Elephant)
-							src << "You can unleash a powerful combination that shakes the foundations of earth: <b>Evening Elephant</b>!!!"
-						//if(!locate(/obj/Skills/AutoHit/Night_Guy, src))
-						//	src.contents+=new/obj/AutoHit/Night_Guy
+				// if("Eight Gates")
+				// 	src.SagaThreshold("Str", 0.125*src.SagaLevel)
+				// 	src.SagaThreshold("End", 0.125*src.SagaLevel)
+				// 	src.SagaThreshold("Spd", 0.125*src.SagaLevel)
+				// 	if(src.SagaLevel==3)
+				// 		if(!locate(/obj/Skills/Queue/Reverse_Lotus, src))
+				// 			src.AddSkill(new/obj/Skills/Queue/Reverse_Lotus)
+				// 			src << "You learned how to unleash the full might of your body in a devastating sequence of strikes: <b>Reverse Lotus</b>!!!"
+				// 		var/Choice=alert(src, "What kind of strikes does your fighting style focus on?", "Martial Art", "Punches", "Kicks", "Both")
+				// 		if(Choice=="Punches")
+				// 			var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style/bls=new
+				// 			bls.Mastery=4
+				// 			bls.SagaSignature=1
+				// 			src.AddSkill(bls)
+				// 		if(Choice=="Kicks")
+				// 			var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style/bls=new
+				// 			bls.Mastery=4
+				// 			bls.SagaSignature=1
+				// 			src.AddSkill(bls)
+				// 		if(Choice=="Both")
+				// 			var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style/bls=new
+				// 			bls.Mastery=4
+				// 			bls.SagaSignature=1
+				// 			src.AddSkill(bls)
+				// 	if(src.SagaLevel==4)
+				// 		if(!locate(/obj/Skills/Queue/Morning_Peacock, src))
+				// 			src.AddSkill(new/obj/Skills/Queue/Morning_Peacock)
+				// 			src << "You can perform a barrage of strikes that burn away the very air: <b>Morning Peacock</b>!!!"
+				// 	if(src.SagaLevel==5)
+				// 		if(!locate(/obj/Skills/Projectile/Beams/Big/Eight_Gates/Daytime_Tiger, src))
+				// 			src.AddSkill(new/obj/Skills/Projectile/Beams/Big/Eight_Gates/Daytime_Tiger)
+				// 			src << "You can release a wave of pure kinetic force that devours all in its path: <b>Daytime Tiger</b>!!!"
+				// 	if(src.SagaLevel==6)
+				// 		if(!locate(/obj/Skills/Projectile/Evening_Elephant, src))
+				// 			src.AddSkill(new/obj/Skills/Projectile/Evening_Elephant)
+				// 			src << "You can unleash a powerful combination that shakes the foundations of earth: <b>Evening Elephant</b>!!!"
+				// 		if(!locate(/obj/Skills/AutoHit/Night_Guy, src))
+				// 			src.contents+=new/obj/AutoHit/Night_Guy
 
 				if("King of Braves")
 					if(src.SagaLevel==2)
