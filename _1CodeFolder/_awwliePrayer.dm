@@ -20,8 +20,7 @@ obj/readPrayers // we hand this out to the dead instead of a typesof(verb) so th
 mob/proc/gatherNames()
 	var/fileName = "Saves/everyName.json"
 	if(!fexists(file(fileName)))
-		world << "yes"
-		text2file("[]", "Saves/everyName.json")	
+		text2file("{}", "Saves/everyName.json")	
 	var/list/fileText = file2text(file(fileName))
 	var/list/alreadyExistingNames = json_decode(fileText)
 	
