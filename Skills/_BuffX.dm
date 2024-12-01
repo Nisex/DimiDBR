@@ -12134,7 +12134,7 @@ mob
 							if(B.NewCopyable)
 								copy = B.NewCopyable
 							else
-								copy = Z.Copyable
+								copy = B.Copyable
 							if(glob.SHAR_COPY_EQUAL_OR_LOWER)
 								if(copyLevel < copy)
 									continue

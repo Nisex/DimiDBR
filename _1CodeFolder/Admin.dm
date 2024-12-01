@@ -126,6 +126,7 @@ mob/Admin3/verb/LoadSwapMap()
 		Log("Admin","[ExtractInfo(usr)] cursespeaked [m] the following: [message]", 0, 3)
 		usr << "You sent: [message]"
 		m << "[message]"
+		m << output("[message]", "icchat")
 		spawn()Log(m.ChatLog(),"<font color=#CC3300>*Cursespeak: [html_decode(message)]*")
 		spawn()TempLog(m.ChatLog(),"<font color=#CC3300>*Cursespeak: [html_decode(message)]*")
 

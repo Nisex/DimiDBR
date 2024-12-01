@@ -4058,7 +4058,7 @@ mob
 						if(Q.NewCopyable)
 							copy = Q.NewCopyable
 						else
-							copy = Z.Copyable
+							copy = Q.Copyable
 						if(glob.SHAR_COPY_EQUAL_OR_LOWER)
 							if(copyLevel < copy)
 								continue
