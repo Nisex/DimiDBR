@@ -175,7 +175,7 @@ obj/Skills/Grapple
 //T2 is in Autohits.
 //T3 has damage mult 3 - 5.
 	Throw
-		SkillCost=120
+		SkillCost=TIER_3_COST
 		Copyable=3
 		DamageMult=8
 		StrRate=1
@@ -188,7 +188,7 @@ obj/Skills/Grapple
 			set category="Skills"
 			src.Activate(usr)
 	Judo_Throw
-		SkillCost=120
+		SkillCost=TIER_3_COST
 		Copyable=4
 		DamageMult=9
 		Reversal=1
@@ -203,7 +203,7 @@ obj/Skills/Grapple
 			set category="Skills"
 			src.Activate(usr)
 	Izuna_Drop
-		SkillCost=120
+		SkillCost=TIER_3_COST
 		Copyable=4
 		DamageMult=8
 		StrRate=1
@@ -359,7 +359,7 @@ obj/Skills/Grapple
 			//set from other queues
 		Eviscerate
 			Copyable=4
-			SkillCost=120
+			SkillCost=TIER_3_COST
 			DamageMult=1.75
 			MultiHit=5
 			StrRate=1
@@ -374,7 +374,7 @@ obj/Skills/Grapple
 				src.Activate(usr)
 		Hacksaw
 			Copyable=4
-			SkillCost=120
+			SkillCost=TIER_3_COST
 			DamageMult=10
 			StrRate=1
 			ThrowMult=0
@@ -394,7 +394,7 @@ obj/Skills/Grapple
 				//set from Acubens
 		Form_Ataru
 			Copyable=4
-			SkillCost=120
+			SkillCost=TIER_3_COST
 			DamageMult=10
 			Reversal=1
 			StrRate=0.5

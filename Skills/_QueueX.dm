@@ -1786,7 +1786,7 @@ obj
 					set name="Uppercut"
 					usr.SetQueue(src)
 			Ikkotsu
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=2
 				HitMessage="delivers a destructive one handed strike!!"
 				DamageMult=2.8
@@ -1804,7 +1804,7 @@ obj
 					set name="Ikkotsu"
 					usr.SetQueue(src)
 			Showstopper
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=2
 				HitMessage="delivers a vicious uppercut!!"
 				DamageMult=2.5
@@ -1822,7 +1822,7 @@ obj
 					set name="Showstopper"
 					usr.SetQueue(src)
 			Dempsey_Roll
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=2
 				ActiveMessage="punches with precisely articulated strikes to create whirlwind-like pull!"
 				name="Dempsey Roll"
@@ -1847,7 +1847,7 @@ obj
 					set name="Dempsey Roll"
 					usr.SetQueue(src)
 			Corkscrew_Blow
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=2
 				ActiveMessage="strikes with cyclone power!"
 				name="Corkscrew Blow"
@@ -1883,7 +1883,7 @@ obj
 					set name="Axe Kick"//Verb name.
 					usr.SetQueue(src)
 			Kinshasa
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=2
 				name="Kinshasa"//Skill name displayed in message.
 				HitMessage="builds up speed and knees their target in the face!!"
@@ -1905,7 +1905,7 @@ obj
 					set name="Kinshasa"//Verb name.
 					usr.SetQueue(src)
 			Piston_Kick
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=2
 				name="Piston Kick"//Skill name displayed in message.
 				HitMessage="launches a shattering front kick with their heel!"
@@ -1923,7 +1923,7 @@ obj
 					set name="Piston Kick"//Verb name.
 					usr.SetQueue(src)
 			Cripple
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=2
 				DamageMult=2
 				AccuracyMult = 1.15
@@ -1939,7 +1939,7 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 			Pin
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=2
 				DamageMult=4
 				AccuracyMult = 1.15
@@ -1985,7 +1985,7 @@ obj
 					set name="Get Dunked"
 					usr.SetQueue(src)
 			Soukotsu
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				name="Soukotsu"
 				DamageMult=2.5
@@ -2010,7 +2010,7 @@ obj
 					set name="Soukotsu"
 					usr.SetQueue(src)
 			Curbstomp
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				name="Curbstomp"
 				DamageMult=13
@@ -2032,7 +2032,7 @@ obj
 					set name="Curbstomp"
 					usr.SetQueue(src)
 			Six_Grand_Openings
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				name="Six Grand Openings"
 				HitMessage="delivers a graceful and crippling blow with their elbow!"
@@ -2053,7 +2053,7 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 			Skullcrusher
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				name="Skullcrusher"
 				HitMessage="brings their elbow down with crushing might!"
@@ -2523,7 +2523,7 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 			Infinity_Trap
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				ActiveMessage="enters a thoughtful stance!"
 				DamageMult=1.1
@@ -2548,7 +2548,7 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 			Zero_Reversal
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				ActiveMessage="enters a low stance!"
 				DamageMult=3
@@ -2570,7 +2570,7 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 			Willow_Dance
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				ActiveMessage="begins to move fluidly, countering incoming blows!"
 				DamageMult=0.9
@@ -2587,7 +2587,7 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 			Larch_Dance
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				ActiveMessage="prepares a murderous chain of counterattacks!"
 				DamageMult=1.1
@@ -2606,7 +2606,7 @@ obj
 //T3
 			Run_Through
 				NeedsSword=1
-				SkillCost=120
+				SkillCost=TIER_3_COST
 				Copyable=3
 				ActiveMessage="grips their weapon strongly!"
 				HitMessage="runs the opponent through with their weapon!"

@@ -1247,7 +1247,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Force_Palm
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				UnarmedOnly=1
 				FlickAttack=1
@@ -1281,7 +1281,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Force_Stomp
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				UnarmedOnly=1
 				Area="Circle"
@@ -1306,7 +1306,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Phantom_Strike
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				UnarmedOnly=1
 				Area="Wave"
@@ -1329,7 +1329,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Dragon_Rush
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				UnarmedOnly=1
 				FlickAttack=3
@@ -1365,7 +1365,7 @@ obj
 					usr.Activate(src)
 
 			Roundhouse_Kick
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=2
 				UnarmedOnly=1
 				Area="Arc"
@@ -1384,7 +1384,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Sweeping_Kick
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				UnarmedOnly=1
 				Area="Circle"
@@ -1407,7 +1407,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Helicopter_Kick
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				UnarmedOnly=1
 				Area="Circle"
@@ -1501,7 +1501,7 @@ obj
 
 //T4 has damage mult 4 - 6.
 			Clothesline
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=4
 				UnarmedOnly=1
 				Area="Circle"
@@ -1520,7 +1520,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Spinning_Clothesline
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				UnarmedOnly=1
 				Area="Circle"
@@ -1552,7 +1552,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Bullrush
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				UnarmedOnly=1
 				Area="Circle"
@@ -1576,7 +1576,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Hyper_Crash
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				Area="Wide Wave"
 				StrOffense=1
@@ -1648,7 +1648,7 @@ obj
 					adjust(usr)
 					usr.Activate(src)
 			Dropkick_Surprise
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				Area="Target"
 				StrOffense=1
@@ -1886,7 +1886,7 @@ obj
 //T3 is in Projectiles - Beams.
 
 			Destruction_Wave
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=4
 				EnergyCost=5
 				Area="Wave"
@@ -1911,7 +1911,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Breaker_Wave
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				EnergyCost=10
 				Area="Wide Wave"
@@ -1938,7 +1938,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Blazing_Storm
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				StrOffense=0
 				ForOffense=1
@@ -1968,7 +1968,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Ghost_Wave
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				EnergyCost=10
 				Area="Wave"
@@ -2606,7 +2606,7 @@ obj
 				MagicNeeded=1
 				Blizzard
 					ElementalClass="Water"
-					SkillCost=80
+					SkillCost=TIER_2_COST
 					Copyable=2
 					Area="Wave"
 					Distance=6
@@ -2652,7 +2652,7 @@ obj
 						usr.Activate(src)
 				Blizzara
 					ElementalClass="Water"
-					SkillCost=80
+					SkillCost=TIER_2_COST
 					Copyable=3
 					PreRequisite=list("/obj/Skills/AutoHit/Magic/Blizzard")
 					Area="Wide Wave"
@@ -2706,7 +2706,7 @@ obj
 						usr.Activate(src)
 				Blizzaga
 					ElementalClass="Water"
-					SkillCost=80
+					SkillCost=TIER_2_COST
 					Copyable=4
 					PreRequisite=list("/obj/Skills/AutoHit/Magic/Blizzara")
 					Area="Circle"
@@ -2756,7 +2756,7 @@ obj
 				Thunder
 					ElementalClass="Wind"
 					FlickAttack=1
-					SkillCost=80
+					SkillCost=TIER_2_COST
 					Copyable=2
 					Distance=6
 					Area="Target"
@@ -2806,7 +2806,7 @@ obj
 				Thundara
 					ElementalClass="Wind"
 					FlickAttack=1
-					SkillCost=80
+					SkillCost=TIER_2_COST
 					Copyable=3
 					PreRequisite=list("/obj/Skills/AutoHit/Magic/Thunder")
 					Area="Circle"
@@ -2845,7 +2845,7 @@ obj
 				Thundaga
 					ElementalClass="Wind"
 					FlickAttack=1
-					SkillCost=80
+					SkillCost=TIER_2_COST
 					Copyable=4
 					PreRequisite=list("/obj/Skills/AutoHit/Magic/Thundara")
 					Area="Around Target"
@@ -2898,7 +2898,7 @@ obj
 				Magnet
 					ElementalClass="Earth"
 					FlickAttack=1
-					SkillCost=160
+					SkillCost=TIER_4_COST
 					Copyable=4
 					StrOffense=0
 					ForOffense=1
@@ -2926,7 +2926,7 @@ obj
 						usr.Activate(src)
 				Gravity
 					ElementalClass="Earth"
-					SkillCost=160
+					SkillCost=TIER_4_COST
 					Copyable=5
 					PreRequisite=list("/obj/Skills/AutoHit/Magic/Magnet")
 					Area="Around Target"
@@ -2957,7 +2957,7 @@ obj
 						usr.Activate(src)
 				Stop
 					ElementalClass="Earth"
-					SkillCost=160
+					SkillCost=TIER_4_COST
 					Copyable=6
 					PreRequisite=list("/obj/Skills/AutoHit/Magic/Gravity")
 					Area="Around Target"
@@ -2992,7 +2992,7 @@ obj
 
 				Flare
 					ElementalClass="Fire"
-					SkillCost=160
+					SkillCost=TIER_4_COST
 					Copyable=6
 					PreRequisite=list("/obj/Skills/Projectile/Magic/Meteor")
 					Area="Around Target"
@@ -3204,7 +3204,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Sword_Pressure
-				SkillCost=40
+				SkillCost= TIER_1_COST
 				Copyable=2
 				NeedsSword=1
 				Area="Wave"
@@ -3226,7 +3226,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Stinger
-				SkillCost=40
+				SkillCost= TIER_1_COST
 				Copyable=2
 				NeedsSword=1
 				Area="Target"
@@ -3266,7 +3266,7 @@ obj
 					adjust(usr)
 					usr.Activate(src)
 			Light_Step
-				SkillCost=40
+				SkillCost= TIER_1_COST
 				Copyable=4
 				NeedsSword=1
 				Area="Wave"
@@ -3296,7 +3296,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Overhead_Divide
-				SkillCost=40
+				SkillCost= TIER_1_COST
 				Copyable=2
 				NeedsSword=1
 				Area="Wave"
@@ -3348,7 +3348,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Vacuum_Render
-				SkillCost=40
+				SkillCost= TIER_1_COST
 				Copyable=2
 				NeedsSword=1
 				Area="Arc"
@@ -3377,7 +3377,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Hack_n_Slash
-				SkillCost=40
+				SkillCost= TIER_1_COST
 				Copyable=2
 				NeedsSword=1
 				Area="Arc"
@@ -3408,7 +3408,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Hamstring
-				SkillCost=40
+				SkillCost= TIER_1_COST
 				Copyable=2
 				NeedsSword=1
 				Area="Arc"
@@ -3437,7 +3437,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Cross_Slash
-				SkillCost=40
+				SkillCost= TIER_1_COST
 				Copyable=2
 				NeedsSword=1
 				Area="Circle"
@@ -3497,7 +3497,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Drill_Spin
-				SkillCost=80
+				SkillCost= TIER_2_COST
 				Copyable=3
 				NeedsSword=1
 				Area="Circle"
@@ -3558,7 +3558,7 @@ obj
 					adjust(usr)
 					usr.Activate(src)
 			Rising_Spire
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				NeedsSword=1
 				Area="Circle"
@@ -3587,7 +3587,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Ark_Brave
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				NeedsSword=1
 				Area="Circle"
@@ -3622,7 +3622,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Judgment
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				NeedsSword=1
 				Area="Circle"
@@ -3684,7 +3684,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Jet_Slice
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				NeedsSword=1
 				Area="Target"
@@ -3755,7 +3755,7 @@ obj
 					adjust(usr)
 					usr.Activate(src)
 			Crowd_Cutter
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				NeedsSword=1
 				Area="Wide Wave"
@@ -3785,7 +3785,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Holy_Justice
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				NeedsSword=1
 				Area="Around Target"
@@ -3815,7 +3815,7 @@ obj
 					set category="Skills"
 					usr.Activate(src)
 			Doom_of_Damocles
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Copyable=5
 				NeedsSword=1
 				Area="Around Target"

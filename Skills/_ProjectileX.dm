@@ -1141,7 +1141,7 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 			Flare_Wave
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=2
 				Distance=25
 				DamageMult=1.25
@@ -1159,7 +1159,7 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 			Death_Beam
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=2
 				Distance=20
 				DamageMult=0.5
@@ -1254,7 +1254,7 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 			Dragon_Nova
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=2
 				Distance=50
 				DamageMult=1
@@ -1277,7 +1277,7 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 			Kienzan
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=2
 				Distance=50
 				DamageMult=2.5 // this shit ass, if u land it u deserve to do damage
@@ -1329,7 +1329,7 @@ obj
 			Warp_Strike
 				NewCost = TIER_1_COST
 				NewCopyable = 2
-				SkillCost=80
+				SkillCost=TIER_1_COST
 				Copyable=3
 				Charge=0.5
 				HomingCharge=2
@@ -1424,7 +1424,7 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 			Stealth_Bomb
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				DamageMult=6.5
 				Knockback=3
@@ -1447,7 +1447,7 @@ obj
 					set category="Skills"
 					usr.UseProjectile(src)
 			Pillar_Bomb
-				SkillCost=80
+				SkillCost=TIER_2_COST
 				Copyable=3
 				Launcher=3
 				DamageMult=6.5
@@ -1475,7 +1475,7 @@ obj
 //T4 gets damage mult 4 - 6.
 			Power_Buster
 				Copyable=4
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Buster=0//rate that blast charges
 				DamageMult=5
 				BusterDamage=0//max damage when fully charged
@@ -1497,7 +1497,7 @@ obj
 					usr.UseProjectile(src)
 			Burst_Buster
 				Copyable=5
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Charge=0.2
 				DamageMult=1.5
 				AccMult=1.25
@@ -1518,7 +1518,7 @@ obj
 					usr.UseProjectile(src)
 			Warp_Buster
 				Copyable=5
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Charge=2
 				Homing=1
 				HyperHoming=1
@@ -1541,7 +1541,7 @@ obj
 					usr.UseProjectile(src)
 			Scatter_Burst
 				Copyable=5
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Blasts=12
 				DamageMult=0.5
 				AccMult=0.5
@@ -1561,7 +1561,7 @@ obj
 					usr.UseProjectile(src)
 			Counter_Buster
 				Copyable=5
-				SkillCost=160
+				SkillCost=TIER_4_COST
 				Buster=0.5//rate that blast charges
 				BusterDamage=1//max damage when fully charged
 				BusterHits=10//multihits when fully charged
@@ -3308,7 +3308,7 @@ obj
 				MagicNeeded=1
 				Fire
 					ElementalClass="Fire"
-					SkillCost=80
+					SkillCost=TIER_2_COST
 					Copyable=2
 					DamageMult=1
 					AccMult=2
@@ -3327,7 +3327,7 @@ obj
 
 				Fira
 					ElementalClass="Fire"
-					SkillCost=80
+					SkillCost=TIER_2_COST
 					Copyable=3
 					PreRequisite=list("/obj/Skills/Projectile/Magic/Fire")
 					DamageMult=4
@@ -3347,7 +3347,7 @@ obj
 						usr.UseProjectile(src)
 				Firaga
 					ElementalClass="Fire"
-					SkillCost=80
+					SkillCost=TIER_2_COST
 					Copyable=4
 					PreRequisite=list("/obj/Skills/Projectile/Magic/Fira")
 					DamageMult=2
@@ -3371,7 +3371,7 @@ obj
 
 				Disintegrate
 					ElementalClass="Fire"
-					SkillCost=160
+					SkillCost=TIER_4_COST
 					Copyable=4
 					Distance=50
 					DamageMult=6
@@ -3420,7 +3420,7 @@ obj
 						usr.UseProjectile(src)
 				Meteor
 					ElementalClass="Fire"
-					SkillCost=160
+					SkillCost=TIER_4_COST
 					Copyable=5
 					PreRequisite=list("/obj/Skills/Projectile/Magic/Disintegrate")
 					Distance=50

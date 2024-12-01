@@ -5006,7 +5006,7 @@ NEW VARIABLES
 
 			Reinforce_Object
 				ElementalClass="Earth"
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=1
 				ManaCost=5
 				TimerLimit=30
@@ -5066,7 +5066,7 @@ NEW VARIABLES
 					src.Trigger(usr)
 			Broken_Phantasm
 				ElementalClass="Earth"
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/Reinforce_Object")
 				Copyable=2
 				passives = list("SwordAscension" = 1, "StaffAscension" = 1, "PureDamage" = 10)
@@ -5110,7 +5110,7 @@ NEW VARIABLES
 					src.Trigger(usr)
 			Reinforce_Self
 				ElementalClass="Earth"
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=3
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/Broken_Phantasm")
 				PureDamage=1
@@ -5145,7 +5145,7 @@ NEW VARIABLES
 
 			Water_Walk
 				ElementalClass="Wind"
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=1
 				ManaCost=5
 				TimerLimit=15
@@ -5164,7 +5164,7 @@ NEW VARIABLES
 					src.Trigger(usr)
 			Swift_Walk
 				ElementalClass="Wind"
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=2
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/Water_Walk")
 				ManaCost=3
@@ -5189,7 +5189,7 @@ NEW VARIABLES
 					src.Trigger(usr)
 			Wind_Walk
 				ElementalClass="Wind"
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=3
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/Swift_Walk")
 				ManaCost=8
@@ -5216,7 +5216,7 @@ NEW VARIABLES
 
 			Magic_Trick
 				ElementalClass="Water"
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=1
 				EndYourself=1
 				ActiveMessage="performs a stunning magic trick!"
@@ -5240,7 +5240,7 @@ NEW VARIABLES
 					src.Trigger(usr)
 			Magic_Act
 				ElementalClass="Water"
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=2
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/Magic_Trick")
 				ManaCost=10
@@ -5328,7 +5328,7 @@ NEW VARIABLES
 
 			Magic_Show
 				ElementalClass="Water"
-				SkillCost=40
+				SkillCost=TIER_1_COST
 				Copyable=3
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/Magic_Act")
 				ManaCost=15
@@ -5476,7 +5476,7 @@ NEW VARIABLES
 
 			Stone_Skin
 				ElementalClass="Earth"
-				SkillCost=120
+				SkillCost=TIER_3_COST
 				Copyable=3
 				ManaCost=3
 				passives = list("Hardening" = 0.5)
@@ -5495,7 +5495,7 @@ NEW VARIABLES
 					src.Trigger(usr)
 			True_Effort
 				ElementalClass="Earth"
-				SkillCost=120
+				SkillCost=TIER_3_COST
 				Copyable=4
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/Stone_Skin")
 				ManaCost=12
@@ -5517,7 +5517,7 @@ NEW VARIABLES
 					src.Trigger(usr)
 			Heroic_Will
 				ElementalClass="Earth"
-				SkillCost=90
+				SkillCost=TIER_3_COST
 				Copyable=5
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/True_Effort")
 				ManaCost=10
@@ -5541,7 +5541,7 @@ NEW VARIABLES
 
 			Mage_Armor
 				ElementalClass="Earth"
-				SkillCost=120
+				SkillCost=TIER_3_COST
 				Copyable=3
 				MakesArmor=1
 				ArmorAscension=1 // maybe somehow a way to make this scale?
@@ -5585,7 +5585,7 @@ NEW VARIABLES
 						usr << "You can't set this while using Mage Armor."
 			Perfect_Warrior
 				ElementalClass="Earth"
-				SkillCost=120
+				SkillCost=TIER_3_COST
 				Copyable=4
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/Mage_Armor")
 				StrMult=1
@@ -5629,7 +5629,7 @@ NEW VARIABLES
 					src.Trigger(usr)
 			Golem_Form
 				ElementalClass="Earth"
-				SkillCost=120
+				SkillCost=TIER_3_COST
 				Copyable=5
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/Perfect_Warrior")
 				Enlarge=2
@@ -5681,7 +5681,7 @@ NEW VARIABLES
 
 			Binding
 				ElementalClass="Poison"
-				SkillCost=120
+				SkillCost=TIER_3_COST
 				Copyable=3
 				CastingTime=2
 				ManaCost=10
@@ -5699,7 +5699,7 @@ NEW VARIABLES
 					src.Trigger(usr)
 			Infect
 				ElementalClass="Poison"
-				SkillCost=120
+				SkillCost=TIER_3_COST
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/Binding")
 				Copyable=4
 				CastingTime=5
@@ -5720,7 +5720,7 @@ NEW VARIABLES
 					src.Trigger(usr)
 			Curse
 				ElementalClass="Poison"
-				SkillCost=120
+				SkillCost=TIER_3_COST
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/Infect")
 				Copyable=5
 				ManaCost=30
