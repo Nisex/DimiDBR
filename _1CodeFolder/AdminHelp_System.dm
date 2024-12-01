@@ -88,7 +88,7 @@ mob/verb/AdminHelp(var/txt as message)
 	AHelp.AdminHelp_Message = txt
 	AdminHelps.Add(AHelp)
 	usr.client.HttpPost(
-		"https://discord.com/api/webhooks/1246590257978146837/4BJgNynvt4xOBb-Sdiv9v58eeAufmC-InT4P_rmnL-wb1ZYPva3fuCDTU3Da8AjhT4Mi",
+		"https://discord.com/api/webhooks/1312209756806447226/yEuvfWyH9Z6ikNja64LPy67GPsf8pyL63ijXAzPAa-28fxOlELh_MDuz1_WCKyWqBSJB",
 		list(
 			content = "	**[usr.key]'s AHelp:** ```"+txt+"```",
 			username = "AdminHelp"

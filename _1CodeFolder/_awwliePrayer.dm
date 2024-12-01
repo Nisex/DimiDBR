@@ -19,9 +19,10 @@ obj/readPrayers // we hand this out to the dead instead of a typesof(verb) so th
 
 mob/proc/gatherNames()
 	var/fileName = "Saves/everyName.json"
-	if(!fexists(file(fileName)))
-		text2file("{}", "Saves/everyName.json")	
 	var/list/fileText = file2text(file(fileName))
+	if(!fexists(file(fileName)))
+		text2file("[]", fileName)
+		fileText = file2text(file(fileName))
 	var/list/alreadyExistingNames = json_decode(fileText)
 	
 	for(var/byondKey in alreadyExistingNames)
@@ -45,18 +46,20 @@ mob/proc/gatherNames()
 
 mob/proc/returnPrayers()
 	var/fileName = "Saves/everyPrayer.json"
-	if(!fexists(file(fileName)))
-		text2file("[]", "Saves/everyPrayer.json")
 	var/list/fileText = file2text(file(fileName))
+	if(!fexists(file(fileName)))
+		text2file("[]", fileName)
+		fileText = file2text(file(fileName))
 	var/list/alreadyExistingPrayers = json_decode(fileText)
 
 	return alreadyExistingPrayers
 
 mob/proc/returnNames()
 	var/fileName = "Saves/everyName.json"
-	if(!fexists(file(fileName)))
-		text2file("[]", "Saves/everyName.json")	
 	var/list/fileText = file2text(file(fileName))
+	if(!fexists(file(fileName)))
+		text2file("[]", fileName)
+		fileText = file2text(file(fileName))
 	var/list/alreadyExistingNames = json_decode(fileText)
 
 	return alreadyExistingNames
@@ -68,9 +71,11 @@ mob/proc/returnNames()
 	set category = "Roleplay"
 	// files we want to write to the prayers..
 	var/fileName = "Saves/everyPrayer.json"
+	var/list/fileText = file2text(file(fileName))
 	if(!fexists(file(fileName)))
-		text2file("[]", "Saves/everyPrayer.json")
-	var/list/alreadyExistingPrayers = returnPrayers()
+		text2file("[]", fileName)
+		fileText = file2text(file(fileName))
+	var/list/alreadyExistingPrayers = json_decode(fileText)	
 	/// We want to get all the names, so we can add the mto a list, and use that to select who we wish to pray to... (they should be dead, I think?)
 	var/list/names = usr.returnNames()
 

@@ -1,5 +1,5 @@
 var/list
-	CodedAdmins=list("XLevi"=4, "Dream Whisperer" = 4, "Niezan2" = 4, "Gogeto25" = 4, "IroquoisRedgrave" = 4, "PresidentJoeBiden" = 4, "ConceptOfDestiny" = 4,  "TheGodofTruth" = 4, "Sakata Gintoki San" = 4)
+	CodedAdmins=list("TheUltimateHope"=4,  "Jcbal"=4, "Gogeto25"=4, "Sakata Gintoki San"=4, "Fractious"=  4, "ShadeofWar"= 4, "Dream Whisperer" =4, "Niezan2" = 4)
 	Admins=new
 	Mappers=new
 	Punishments=new
@@ -22,6 +22,17 @@ mob/var
 mob
 	var
 		MakeUngrabbable=0
+
+mob/verb
+	GetPingSound()
+		set category = "Other"
+		set name = "Toggle Ping Sound"
+		if(usr.PingSound)
+			usr.PingSound = 0
+			usr << "Ping Sound Disabled."
+		else
+			usr.PingSound = 1
+			usr << "Ping Sound Enabled."
 
 /mob/Admin3/verb/CreateSwapMap()
 	set hidden = 1
@@ -697,16 +708,6 @@ mob/Admin2/verb
 		usr.client.togglePref("AdminAlerts")
 		usr << "Admin Alerts will now[usr.client.getPref("AdminAlerts") ? "" : " not"] show."
 
-	GetPingSound()
-		set category = "Admin"
-		set name = "Toggle Ping Sound"
-		if(usr.PingSound)
-			usr.PingSound = 0
-			usr << "Ping Sound Disabled."
-		else
-			usr.PingSound = 1
-			usr << "Ping Sound Enabled."
-
 	AdminPM(mob/M in players)
 		set category="Admin"
 		usr.PM(M)
@@ -773,7 +774,7 @@ mob/Admin2/verb
 				switch(input("IC Announcement or OOC Announcement?") in list("IC", "OOC"))
 					if("IC")
 						usr.client.HttpPost(
-							"https://discord.com/api/webhooks/1247512085877751909/0yYX1bZ84PCRX63g2myzNqIz0N2bpAE4Ziw8bSp7LqfT2uInRhyrNBoqFOPUrH3ygUGk",
+							"https://discord.com/api/webhooks/1312209915900727396/22sKBGg8ih6P36OctFDr50Ll8SrHvfKxZ3k5XPRMuu2E-fjxghoTnvNpe97CYHaG6yxB",
 							list(
 								content = discord_output,
 								username = "Story Announcement"
@@ -781,7 +782,7 @@ mob/Admin2/verb
 						)
 					if("OOC")
 						usr.client.HttpPost(
-							"https://discord.com/api/webhooks/1247512491152379998/a-2QgezHlVOd8ARD4-WPArY0BVIUK0qEMRoaZ7DTk9GUtSSGPUV04OE-yXVucN5TTHh4",
+							"https://discord.com/api/webhooks/1312210105202249839/qigeHypi6AM4TjWHJpFn9QxrutzJUtAfvFzjZEoa1lDZqBTgUgWpqDbIMwEMH1M8lsVc",
 							list(
 								content = discord_output,
 								username = "OOC Announcement"
@@ -846,6 +847,8 @@ mob/Admin2/verb
 		Log("Admin","[ExtractInfo(usr)] sent [ExtractInfo(A)] to spawn.")
 	AdminKill(mob/A in world)
 		set category="Admin"
+		var/confirm = alert(usr, "Are you sure you wanna admin kill [A.name]?",, "Yes", "No")
+		if(!confirm) return
 		A.Death(null,"ADMIN", SuperDead=1)
 		Log("Admin","<font color=red>[ExtractInfo(usr)] admin-killed [ExtractInfo(A)].")
 	DoDamagez(mob/A in world)
@@ -1395,7 +1398,7 @@ mob/Admin3/verb
 			if(YourRPP>0)
 				if(locate(/obj/Skills/Utility/Teachz, P))
 					var/ElderMult=0.5
-					if(P.EraBody=="Senile"||P.Race=="Shinjin")
+					if(P.EraBody=="Senile"||P.isRace(SHINJIN))
 						ElderMult=1
 					P.RPPDonate+=(YourRPP*ElderMult*P.RPPMult*glob.progress.RPPBaseMult)
 					P << "You have gained knowledge on how to help further other's development!"
@@ -1420,7 +1423,7 @@ mob/Admin3/verb
 		if(YourRPP>0)
 			if(locate(/obj/Skills/Utility/Teachz, P))
 				var/ElderMult=0.5
-				if(P.EraBody=="Senile"||P.Race=="Shinjin")
+				if(P.EraBody=="Senile"||P.isRace(SHINJIN))
 					ElderMult=1
 				P.RPPDonate+=(YourRPP*ElderMult*P.RPPMult*glob.progress.RPPBaseMult)
 				P << "You have gained knowledge on how to help further other's development!"
@@ -1448,7 +1451,7 @@ mob/Admin3/verb
 			if(YourRPP>0)
 				if(locate(/obj/Skills/Utility/Teachz, P))
 					var/ElderMult=0.5
-					if(P.EraBody=="Senile"||P.Race=="Shinjin")
+					if(P.EraBody=="Senile"||P.isRace(SHINJIN))
 						ElderMult=1
 					P.RPPDonate=(Cap*ElderMult*P.RPPMult*glob.progress.RPPBaseMult)
 					P << "You have gained knowledge on how to help further other's development!"
@@ -1470,7 +1473,7 @@ mob/Admin3/verb
 		if(YourRPP>0)
 			if(locate(/obj/Skills/Utility/Teachz, P))
 				var/ElderMult=0.5
-				if(P.EraBody=="Senile"||P.Race=="Shinjin")
+				if(P.EraBody=="Senile"||P.isRace(SHINJIN))
 					ElderMult=1
 				P.RPPDonate=(Cap*ElderMult*P.RPPMult*glob.progress.RPPBaseMult)
 				P << "You have gained knowledge on how to help further other's development!"
@@ -1487,7 +1490,7 @@ mob/Admin3/verb
 		set category="Admin"
 		if(locate(/obj/Skills/Utility/Teachz, M))
 			var/ElderMult=0.5
-			if(M.EraBody=="Senile"||M.Race=="Shinjin")
+			if(M.EraBody=="Senile"||M.isRace(SHINJIN))
 				ElderMult=1
 			M.RPPDonate+=(glob.progress.RPPStarting*ElderMult*M.RPPMult*glob.progress.RPPBaseMult)
 			M << "You have gained knowledge on how to help further other's development!"

@@ -5,8 +5,8 @@ var/tmp/list/players = list()
 var/tmp/list/admins = list()
 
 world
-	name="Roleplay Rebirth: Dimitri Edition"
-	status="DBR: Copenlagen"
+	name="Roleplay Rebirth: JCBal Edition"
+	status="A Walk Through Space"
 	turf=/turf/Special/Blank
 	mob= /mob/Creation
 	hub="AmatsuDarkfyre.RoleplayRebirth"
@@ -97,7 +97,6 @@ proc/BootWorld(var/blah)
 			spawn()Add_Technology()
 			spawn()Add_Enchantment()
 			spawn()InitializeSigCombos()
-			LoadAISPawners()
 			globalStorage = new()
 			generateVersionDatum()
 			spawn()
@@ -118,8 +117,7 @@ proc/BootWorld(var/blah)
 			Save_Custom_Turfs()
 			Save_Bodies()
 			SaveIRLNPCs()
-			SaveAISPawners()
-			resourceManager.SaveToSavefile()
+		//	resourceManager.SaveToSavefile()
 			spawn() Save_Objects()
 
 

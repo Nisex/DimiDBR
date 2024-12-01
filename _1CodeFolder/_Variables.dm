@@ -617,7 +617,6 @@ mob/var
 	Asexual=0
 	Warp=0
 	list/GenRaces=new
-	Rewarded
 	Transforming=0
 	TransformingBeyond=0
 	tmp/Observing=0

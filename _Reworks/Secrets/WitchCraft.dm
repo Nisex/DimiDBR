@@ -82,7 +82,7 @@ mob/Admin3/verb/WitchCheck()
 		if(TakeEssenceCoolDown > world.time )
 			CurrentEssenceAmount += 1
 			view(10) << output("<font color=red>[M] feels as if their body decays slightly at the magic of [usr]..!!", "output")
-			TakeEssenceCoolDown = world.time + 5
+			TakeEssenceCoolDown = world.realtime + 4 HOURS
 		else 
 			usr << "You're on cooldown till for... till [time2text(world.time, "Day/hh/mm/ss")]"
 

@@ -4057,6 +4057,8 @@ mob
 						var/copyLevel = getSharCopyLevel(m.SagaLevel)
 						if(Q.NewCopyable)
 							copy = Q.NewCopyable
+						else
+							copy = Z.Copyable
 						if(glob.SHAR_COPY_EQUAL_OR_LOWER)
 							if(copyLevel < copy)
 								continue

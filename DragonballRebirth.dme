@@ -223,10 +223,10 @@
 #define DEBUG
 // END_PREFERENCES
 // BEGIN_INCLUDE
+#include "auxtools.dm"
 #include "skintest.dmf"
 #include "_1CodeFolder\.GridStat.dm"
 #include "_1CodeFolder\__Defines.dm"
-#include "_1CodeFolder\__resource_manager.dm"
 #include "_1CodeFolder\_AITraps.dm"
 #include "_1CodeFolder\_Appearance.dm"
 #include "_1CodeFolder\_awwliePrayer.dm"
@@ -387,6 +387,7 @@
 #include "_Reworks\race_rework\ascensions.dm"
 #include "_Reworks\race_rework\races.dm"
 #include "_Reworks\race_rework\transformations.dm"
+#include "_Reworks\race_rework\Android\ascension.dm"
 #include "_Reworks\race_rework\Namekian\namekRacials.dm"
 #include "_Reworks\Races\Beastman\buffs.dm"
 #include "_Reworks\Races\Demon\_Casting.dm"

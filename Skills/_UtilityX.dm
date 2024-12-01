@@ -49,7 +49,7 @@ obj/Skills/Utility
 					return
 			Choice.RPPSpendable+=(Amount*Choice.GetRPPMult())
 			usr.RPPDonate-=Amount
-			if(usr.Race=="Shinjin"&&usr.ShinjinAscension=="Kai")
+			if(usr.isRace(SHINJIN)&&usr.ShinjinAscension=="Kai")
 				usr.potential_gain(Amount/glob.progress.RPPDaily*50)//kais have a 0.1 potential rate so this is only x5 potential in reality and i really dont think the fuckers are gonna be out there slaying npcs
 			OMsg(usr, "[usr] passes some of their knowledge to [Choice]!")
 			Choice.LastTeach=world.realtime+Day(1)
@@ -106,7 +106,7 @@ obj/Skills/Utility
 				if(Choice.SpendRPP((Choice2.SkillCost*0.5/Choice.GetRPPMult()), Choice2, Training=1))
 					Choice.AddSkill( new Choice2.type )
 					usr.RPPDonate-=Choice2.SkillCost*0.5
-					if(usr.Race=="Shinjin"&&usr.ShinjinAscension=="Kai")
+					if(usr.isRace(SHINJIN)&&usr.ShinjinAscension=="Kai")
 						usr.potential_gain(Choice2.SkillCost*0.5/glob.progress.RPPDaily*50)//kai only have 0.1 potential rate so this is only x5
 					OMsg(usr, "[usr] passes some of their knowledge to [Choice]!")
 					Choice.LastTeach=world.realtime+Day(1)
@@ -152,7 +152,7 @@ obj/Skills/Utility
 					if(usr.Grab)
 						usr << "You need free hands!"
 						return
-					if(!usr.HasMoney(src.Mastery*global.EconomyCost*0.05))
+					if(!usr.HasMoney(src.Mastery*global.EconomyCost*0.2))
 						usr << "You don't have enough money to make a single passable meal!"
 						return
 					src.Using=1
@@ -171,7 +171,7 @@ obj/Skills/Utility
 					rem=round(rem)
 					if(Count>rem)
 						Count=rem
-					var/MatCost=Count*src.Mastery*global.EconomyCost*0.05
+					var/MatCost=Count*src.Mastery*global.EconomyCost*0.2
 					if(!usr.HasMoney(MatCost))
 						usr << "You don't have enough money to make [Count] [currentMeal.name]!"
 					for(var/c=0, c<Count, c++)
@@ -2752,8 +2752,8 @@ obj/Skills/Utility
 
 			var/list/Who=list("Cancel")
 			for(var/mob/m in view(1, usr))
-				if(m.Race=="Android"&&!("Android Creation" in usr.knowledgeTracker.learnedKnowledge))
-					continue
+				/*if(m.isRace(ANDROID)&&!("Android Creation" in usr.knowledgeTracker.learnedKnowledge))
+					continue*/
 				if(m==usr&&!("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge))
 					continue
 				Who+=m
@@ -2804,7 +2804,7 @@ obj/Skills/Utility
 				ModChoices.Remove("Internal Life Support")
 			if(locate(/obj/Skills/Utility/Internal_Communicator, M))
 				ModChoices.Remove("Internal Comms Suite")
-			if(M.Race!="Android" || M.EnergyAssimilators)
+			if(!M.isRace(ANDROID) || M.EnergyAssimilators)
 				ModChoices.Remove("Energy Assimilators")
 			else
 				ModChoices.Remove("Punishment Chip")
@@ -2813,13 +2813,13 @@ obj/Skills/Utility
 			if(!M.CyberCancel)
 				ModChoices.Remove("Failsafe Circuit")
 
-			if(M.HasMilitaryFrame()&&M.Race!="Android")
+			if(M.HasMilitaryFrame()&&!M.isRace(ANDROID))
 				ModChoices.Remove("Ripper Mode")
 				ModChoices.Remove("Armstrong Augmentation")
 				ModChoices.Remove("Ray Gear")
 				ModChoices.Remove("Overdrive")
 
-			if(M.Race=="Android")
+			if(M.isRace(ANDROID))
 				if(M.Maimed||M.HealthCut)
 					ModChoices.Add("Repair")
 
@@ -2914,7 +2914,7 @@ obj/Skills/Utility
 					Cost=EconomyCost/2*(M.Maimed+(M.HealthCut*5))
 					ModDesc="Attempts to repair a damaged android."
 
-			if(M.Race=="Android")
+			if(M.isRace(ANDROID))
 				Cost*=2
 
 			ModDesc="[ModDesc]  It costs [Commas(Cost)] to install.  Do you wish to install this module into [M]?"
@@ -3060,7 +3060,7 @@ obj/Skills/Utility
 						A.Password=input("Input activation code.") as text|null
 
 				if("Ripper Mode")
-					if((M.HasMilitaryFrame()&&M.Race!="Android")||M.Saga)
+					if((M.HasMilitaryFrame()&&!M.isRace(ANDROID))||M.Saga)
 						OMsg(usr, "[usr] tried to install a [ModChoice] into [M]...but their operating memory is already occupied.")
 						src.Using=0
 						return
@@ -3068,7 +3068,7 @@ obj/Skills/Utility
 					M.FusionPowered=1
 					M.ManaPU=1
 				if("Armstrong Augmentation")
-					if((M.HasMilitaryFrame()&&M.Race!="Android")||M.Saga)
+					if((M.HasMilitaryFrame()&&!M.isRace(ANDROID))||M.Saga)
 						OMsg(usr, "[usr] tried to install a [ModChoice] into [M]...but their operating memory is already occupied.")
 						src.Using=0
 						return
@@ -3076,7 +3076,7 @@ obj/Skills/Utility
 					M.FusionPowered=1
 					M.ManaPU=1
 				if("Ray Gear")
-					if((M.HasMilitaryFrame()&&M.Race!="Android")||M.Saga)
+					if((M.HasMilitaryFrame()&&!M.isRace(ANDROID))||M.Saga)
 						OMsg(usr, "[usr] tried to install a [ModChoice] into [M]...but their operating memory is already occupied.")
 						src.Using=0
 						return
@@ -3084,7 +3084,7 @@ obj/Skills/Utility
 					M.FusionPowered=1
 					M.ManaPU=1
 				if("Overdrive")
-					if((M.HasMilitaryFrame()&&M.Race!="Android")||M.Saga)
+					if((M.HasMilitaryFrame()&&!M.isRace(ANDROID))||M.Saga)
 						OMsg(usr, "[usr] tried to install a [ModChoice] into [M]...but their operating memory is already occupied.")
 						src.Using=0
 						return

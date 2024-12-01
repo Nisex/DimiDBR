@@ -39,7 +39,7 @@ obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin//Dainsleif
 
 obj/Skills/Queue/Cursed_Blade
 	ActiveMessage="channels the ruin of their legendary weapon into each and every attack...!"
-	DamageMult=1.5
+	DamageMult=1
 	AccuracyMult=3
 	Combo = 5
 	Shearing = 20
@@ -47,7 +47,7 @@ obj/Skills/Queue/Cursed_Blade
 	Warp = 1
 	NoWhiff = 1
 	Duration = 5
-	Cooldown=90
+	Cooldown=30
 	NeedsSword=1
 	EnergyCost=5
 	HitSparkIcon='Slash - Zero.dmi'

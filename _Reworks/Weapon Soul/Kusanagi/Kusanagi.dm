@@ -17,7 +17,7 @@ obj/Skills/AutoHit/Gale_Slash
 	Launcher=3
 	NoLock=1
 	NoAttackLock=1
-	Cooldown=90
+	Cooldown=30
 	Size=2
 	Rounds=5
 	Icon='SweepingKick.dmi'

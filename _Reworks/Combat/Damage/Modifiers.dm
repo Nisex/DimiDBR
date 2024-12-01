@@ -5,7 +5,6 @@ globalTracker/var/SYMBIOTE_DMG_TEST = 2
         . += (defender.TotalFatigue/20) * (GetSoftStyle() / glob.SOFT_STYLE_DMG_BOON_DIVISOR)
     if(passive_handler.Get("CheapShot"))
         . += (defender.TotalInjury/glob.CHEAP_SHOT_DIVISOR) * (passive_handler.Get("CheapShot"))
-
     if(HasCyberStigma())
         if(defender.CyberCancel || defender.Mechanized || defender.Saga == "King of Braves")
             var/mana = defender.ManaAmount

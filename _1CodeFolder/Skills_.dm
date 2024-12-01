@@ -1,4 +1,19 @@
 
+
+mob/var/cooldownAnnounce = 1
+mob/verb
+	CooldownAnnouncement()
+		set category = "Other"
+		set name = "Toggle Cooldown Announcement"
+		if(usr.cooldownAnnounce)
+			usr.cooldownAnnounce = 0
+			usr << "Cooldown Announcement Disabled."
+		else
+			usr.cooldownAnnounce = 1
+			usr << "Cooldown Announcement Enabled."
+
+
+
 obj/Skills/var
 	cooldown_remaining = 0
 	cooldown_start
@@ -50,7 +65,8 @@ obj/Skills/proc/Cooldown(var/modify=1, var/Time, mob/p)
 				return
 			cooldown_start = world.realtime
 			var/start_time = world.realtime
-			m << "[src] has gone on Cooldown ([Time/10] Seconds)"
+			if(m.cooldownAnnounce && Time/10 > 5)
+				m << "[src] has gone on Cooldown ([Time/10] Seconds)"
 			spawn(Time)
 				if(cooldown_start != start_time) return //This instance of the CD was canceled.
 				src.Using=0
@@ -814,6 +830,8 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 				if(src.PoweringUp)
 					return
 				if(src.Beaming||src.BusterTech)
+					return
+				if(Target && !Target.loc)
 					return
 
 				//UNTARGETED ZANZO

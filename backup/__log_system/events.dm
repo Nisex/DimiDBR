@@ -20,10 +20,6 @@ proc/Log(var/e,var/Info, adminLevel = 1)
 			if(usr.Admin<=4)AdminMessage(Info, adminLevel)
 		else
 			AdminMessage(Info, adminLevel)
-	if(e=="Rewarder")
-		e="Saves/RewarderLogs/Log"
-//		AdminMessage(Info)
-		RewarderMessage(Info)
 	if(e=="AdminPM")
 		e="Saves/AdminLogs/Log"
 	var/numz=1

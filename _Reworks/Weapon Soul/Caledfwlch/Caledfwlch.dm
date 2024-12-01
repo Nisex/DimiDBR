@@ -46,7 +46,7 @@ obj/Skills/Projectile/Weapon_Soul
 		Deflectable=-1
 		HolyMod=5
 		Distance=100
-		Cooldown = 90
+		Cooldown = 60
 		verb/Excalibur()
 			set category = "Skills"
 			usr.UseProjectile(src)

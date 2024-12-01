@@ -450,7 +450,7 @@ mob
 				var/CursedBlood=0
 				var/NoBlood=0
 				NoBlood=defender.CyberCancel
-				if(defender.Race=="Android"||defender.isRace(ELDRITCH)||defender.Secret=="Zombie"||defender.Dead)
+				if(defender.isRace(ANDROID)||defender.isRace(ELDRITCH)||defender.Secret=="Zombie"||defender.Dead)
 					NoBlood=1
 				var/Effectiveness=1
 				if(NoBlood>0)
@@ -480,6 +480,10 @@ mob
 					Effectiveness-=(Effectiveness*defender.CyberCancel)
 				src.HealEnergy(val*(src.GetEnergySteal()*Effectiveness/100))
 				defender.LoseEnergy(val*(src.GetEnergySteal()*Effectiveness/100))
+			if(WeaponSoulType == "Kusanagi" && SagaLevel >= 3)
+				var/value = val * (SagaLevel/100)
+				stealManaMagatama(value)
+				defender.LoseMana(value)
 			if(HasManaSteal())
 				var/value = val * (GetManaSteal() / 100)
 				HealMana(value)
@@ -1200,8 +1204,6 @@ mob
 			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
-			if(src.Race=="Android" && src.EnhancedStrength)
-				Mod+=(src.AscensionsAcquired/10)*src.EnhancedStrength
 			if(src.CheckSlotless("What Must Be Done"))
 				if(SlotlessBuffs["What Must Be Done"])
 					if(SlotlessBuffs["What Must Be Done"].Password)
@@ -1322,8 +1324,6 @@ mob
 			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
-			if(src.Race=="Android" && src.EnhancedForce)
-				Mod+=(src.AscensionsAcquired/10)*src.EnhancedForce
 			if(src.CheckSlotless("What Must Be Done"))
 				if(SlotlessBuffs["What Must Be Done"])
 					if(SlotlessBuffs["What Must Be Done"].Password)
@@ -1428,8 +1428,6 @@ mob
 			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
-			if(src.Race=="Android" && src.EnhancedEndurance)
-				Mod+=(src.AscensionsAcquired/10)*src.EnhancedEndurance
 			if(src.CheckSlotless("What Must Be Done"))
 				if(SlotlessBuffs["What Must Be Done"])
 					if(SlotlessBuffs["What Must Be Done"].Password)
@@ -1611,8 +1609,6 @@ mob
 			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
-			if(src.Race=="Android" && src.EnhancedAggression)
-				Mod+=(src.AscensionsAcquired/10)*src.EnhancedAggression
 			if(src.OffStolen)
 				Mod+=src.OffStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1689,8 +1685,6 @@ mob
 			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
-			if(src.Race=="Android" && src.EnhancedReflexes)
-				Mod+=(src.AscensionsAcquired/10)*src.EnhancedReflexes
 			if(src.DefStolen)
 				Mod+=src.DefStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -2036,8 +2030,6 @@ mob
 			var/good = 0
 			var/evil = 0
 			if(src.HasMaki())
-				evil = 1
-			if(src.Race=="Android")
 				evil = 1
 			if(src.Race in EvilRaces && !src.HasHolyMod())
 				evil = 1
@@ -2549,14 +2541,14 @@ mob
 
 		AddCyberCancel(var/val)
 			src.CyberCancel+=val
-			if(src.Race!="Android")
+			if(!isRace(ANDROID))
 				if(src.CyberCancel>0.75)
 					src.CyberCancel=0.75
 		RemoveCyberCancel(var/val)
 			src.CyberCancel-=val
 			if(src.CyberCancel<0)
 				src.CyberCancel=0
-			if(src.Race=="Android")
+			if(isRace(ANDROID))
 				src.AddCyberCancel(1)
 		SetCyberCancel()
 			src.CyberCancel=0
@@ -2573,7 +2565,7 @@ mob
 			if(src.Race=="Tuffle")
 				src.CyberCancel=0
 				src.Mechanized=0
-			if(src.Race=="Android")
+			if(isRace(ANDROID))
 				src.CyberCancel=1
 				src.Mechanized=1
 		SetEnhanceChipCancel()
@@ -2955,9 +2947,7 @@ mob
 					return
 				if(src.Potential<45&&src.SagaLevel>=3)
 					return
-				if(src.Potential<65&&src.SagaLevel>=4)
-					return
-				if(src.SagaLevel>=5&&!src.SagaAdminPermission)
+				if(src.SagaLevel>=4&&!src.SagaAdminPermission)
 					return
 				src.saga_up_self()
 				return
@@ -2986,14 +2976,6 @@ mob
 
 			if(src.req_pot(45) && src.req_sigs(1, 2))
 				DevelopSignature(src, 2, "Signature")
-
-			if(src.req_pot(65) && src.req_sigs(0, 3))
-				if(!src.InfinityModule && src.ShinjinAscension!="Kai" && src.Race!="Changeling")
-					DevelopSignature(src, 3, "Signature")
-
-			if(src.req_pot(65) && src.req_sigs(2, 2))
-				DevelopSignature(src, 2, "Signature")
-
 
 		YeetSignatures()
 			for(var/obj/Skills/s in src.Skills)
@@ -3047,7 +3029,7 @@ mob
 			if(passive_handler.Get("Transformation Power")) // add straight potential
 				Return+=passive_handler.Get("Transformation Power")
 
-			if(src.Race=="Shinjin")//one determines the other
+			if(isRace(SHINJIN))//one determines the other
 				if(src.ShinjinAscension=="Kai")
 					var/NoFite=2
 					if(src.AscensionsAcquired>0)
@@ -3108,9 +3090,6 @@ mob
 /mob/Admin4/verb/ChangeWipeStartHour(n as num)
 	adjustWipeStartTime(n)
 
-#define SECONDS * 10
-#define MINUTES * 600
-#define HOURS   * 36000
 #define MAX_WIPE_DAYS 500
 #define ANIT_LAG_NUM 100
 

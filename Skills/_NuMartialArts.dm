@@ -682,7 +682,7 @@ obj
 						StyleEnd = 1.5
 						StyleDef = 1.2
 						StyleActive="Gladiator"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Shield_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield")
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Shield_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield")
 						Finisher="/obj/Skills/Queue/Finisher/Challenge"
 						verb/Gladiator_Style()
 							set hidden=1
@@ -824,7 +824,7 @@ obj
 						StyleActive="Phalanx Style"
 						SwordPunching = 1
 						NoSword = 1
-						NeedsSword = 0 
+						NeedsSword = 0
 						passives = list("Reversal" = 0.25, "Deflection" = 1, "Hardening" = 1.5, "SwordPunching" = 1, "Shearing" = 3, "Unnerve" = 1)
 						Finisher="/obj/Skills/Queue/Finisher/Shield_Vault"
 
@@ -1405,13 +1405,13 @@ obj
 							set hidden=1
 							src.Trigger(usr)
 
-///// WitchCraft	
+///// WitchCraft
 					Witch_Style
 						StyleStr = 1.3
 						StyleFor = 1.3
 						StyleSpd = 1.1
 						StyleDef = 1.1
-						ElementalClass= "Water" 
+						ElementalClass= "Water"
 						StyleActive = "Witch"
 						ElementalOffense = "Felfire"
 						Finisher = "/obj/Skills/Queue/Finisher/Sundered_Sky"

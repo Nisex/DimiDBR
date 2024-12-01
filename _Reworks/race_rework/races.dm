@@ -235,7 +235,7 @@ race
 
 	human
 		name = "Human"
-		desc = "Humans are stubborn, steadfast survivors crafted from the God of Truth's dying breath."
+		desc = "Enhanced during cryo sleep, your DNA is the most pure. There were no downsides to your enhancement. You can do things that movie characters could, but retain your shape completely."
 		visual = 'Humans.png'
 
 		passives = list("Desperation" = 1, "Adrenaline" = 0.5, "TechniqueMastery" = 2,"Innovation" = 1)
@@ -252,7 +252,7 @@ race
 
 	half_saiyan
 		name = "Half_Saiyan"
-		desc = "Creatures that shouldn't exist."
+		desc = "A product of inter-breeding or genetic experiments, you could be a child unaware of his heritage living in Elysium, surviving among the Necromorphs on Vegeta, or a lab experiment in a vat. This race should not have been created, but it was."
 		visual = 'Halfie.png'
 
 		locked = TRUE
@@ -280,7 +280,7 @@ race
 
 	saiyan
 		name = "Saiyan"
-		desc = "Otherworldly outsiders, hailing from an empire of Yasai."
+		desc = "They are the victims of the cosmic horror, their entire race has been destroyed. While the \[REDACTED\] wished to \[REDACTED\], it did not foresee that they would be far too gifted at destruction to \[REDACTED\] \n\[REDACTED\] grasped their most empowering legend of the Super Saiyan, and used it to its advantage, practically ending the Saiyan race and besmirching its legacy forever."
 		visual = 'Saiyan.png'
 
 		locked = TRUE
@@ -321,6 +321,7 @@ race
 		passives = list("StaticWalk" = 1, "Steady" = 1)
 		skills = list(/obj/Skills/Absorb, /obj/Skills/Buffs/SlotlessBuffs/Regeneration)
 
+		locked = TRUE
 		intellect = 0.25
 		imagination = 4
 		anger = 1.5
@@ -389,7 +390,7 @@ race
 
 	eldritch
 		name = "Eldritch"
-		desc = "A race of beings that latch onto others, corrupting them like a parasite; usually being the result of such a thing."
+		desc = " Beings that were near the impact site when the meteor destroyed Mexico. They were infected with whatever infected the other organisms on Earth and have gained potent abilities as a result, at the cost of \[REDACTED\]."
 		visual = 'Monster.png'
 
 		passives = list("VenomResistance" = 0.25, "Void" = 1, "SoulFire" = 0.25, "DeathField" = 0.5, "VoidField" = 0.5)
@@ -413,7 +414,7 @@ race
 
 	beastman
 		name = "Beastman"
-		desc = "Humanoids with a variety of animalistic traits dependent on their environment; often split into tribes of Tiger Tribe, Canine Tribe, and Bear Tribe."
+		desc = "Oops. You remember being human. So why do you have some beastlike features?"
 		visual = 'Monstrous.png'
 
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk,/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Ticking_Bomb)
@@ -432,7 +433,7 @@ race
 			..()
 	yokai
 		name = "Yokai"
-		desc = "Spirits said to be the children of the God of Time. Enslaved beneath the elves, these Yokai sport powerful magic; they remain convinced they are part of the harmony of the world."
+		desc = "Spirits forcefully taken from Earth. You had a glorious, immortal form before. You could enjoy the pleasures of the cosmos, and adopt a physical form briefly to enjoy the pleasures of the flesh. \nNow? You are human, only capable of accessing your former spiritual glory for brief instants."
 		visual = 'Makyo.png'
 
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form)
@@ -451,6 +452,7 @@ race
 		desc = "These spiritual beings are said to have arosen from nowhere, often taking up place as guardians of graveyards, spirit gates and temples."
 		visual = 'Demon.png'
 
+		locked = TRUE
 		strength = 2
 		endurance = 2
 		speed = 0.75
@@ -461,7 +463,7 @@ race
 
 	high_faoroan
 		name = "High Faoroan"
-		desc = "The first creation of the God of Truth, able to speak truth into the world with their words. Known as the royalty of Kyoku."
+		desc = "elfs lol"
 		visual = 'Elf.png'
 
 		icon_male = list('MaleElf1.dmi', 'MaleElf2.dmi', 'MaleElf3.dmi', 'MaleElf4.dmi', 'MaleElf5.dmi')
@@ -477,8 +479,7 @@ race
 		force = 1.5
 		regeneration = 3
 		imagination = 2
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown, /obj/Skills/Buffs/SlotlessBuffs/Elf/God_Slicer, /obj/Skills/AutoHit/Elf/Compel , \
-						/obj/Skills/AutoHit/Elf/Silence, /obj/Skills/AutoHit/Elf/Flee, /obj/Skills/Buffs/SlotlessBuffs/Elf/Time_Stop)
+		skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown)
 		passives = list("Adrenaline" = 1, "Innovation" = 1)
 
 
@@ -543,6 +544,8 @@ race
 	alien
 		name = "Alien"
 		desc = "A broad term for a variety of spacefaring species or beings of otherwise unusual origin; the universe is vast and endless! Those that can not be defined by traditonal definitions fall into this category."
+		
+		locked = TRUE
 		power = 1
 		strength = 0.5
 		endurance = 0.5
@@ -586,7 +589,7 @@ race
 		name = "Namekian"
 		icon_neuter = list('Namek1.dmi')
 		gender_options = list("Neuter")
-		desc = "Outsiders from a realm named Gaia, refugees sent to prosper on Copenlagen. These often take on humanoid features with skin tones from green to blue."
+		desc = "You remember being human. Why have you mutated like this? You are so much more in tune with nature. Though you are still made of flesh and bone, you have mutated to be akin to a druid from celtic myth. "
 		visual = 'Namek.png'
 
 		power = 2
@@ -653,6 +656,7 @@ race
 		desc = "Thrifty kobold-like beings, seemingly unimpressive in stature.."
 		visual = 'Gajalaka.png'
 		passives = list("CashCow" = 1, "Blubber" = 0.25)
+		locked = TRUE
 		power = 0.75
 		strength = 0.75
 		endurance = 0.75
@@ -671,4 +675,102 @@ race
 			user.contents += new/obj/Items/Wearables/Icon_68
 			user.contents += new/obj/Items/Wearables/Icon_69
 			user.contents += new/obj/Items/Wearables/Icon_70
+			..()
+
+	android
+		name = "Android"
+		desc = "They are programmed with the directive to protect human-kind. \nMost of them look like toasters, and most of them are mere service models that act like a certain golden android from a popular franchise. While there are rumors of more humanoid Androids, they are typically spread by nutjobs who fear being replaced."
+		visual = 'Demon.png'
+
+		locked = TRUE
+		strength = 0.5
+		endurance = 0.5
+		speed = 0.5
+		offense = 0.5
+		defense = 0.5
+		force = 0.5
+		regeneration = 1.5
+		statPoints = 25
+		anger = 1
+		imagination = 0.05
+		anger_message = "calculates the ideal path to victory."
+		skills = (/obj/Skills/Utility/Android_Integration)
+
+	shinjin
+		name = "Shinjin"
+		desc = "shinjin things man lol"
+		visual = 'Humans.png'
+
+		locked = 1
+
+		power = 1
+		strength = 1
+		endurance = 1
+		force = 1
+		offense = 1
+		defense = 1.25
+		speed = 1
+		anger = 1.5
+		learning = 1
+		onFinalization(mob/user)
+			user.AddSkill(new/obj/Skills/Utility/Telepathy)
+			user.AddSkill(new/obj/Skills/Utility/Sense)
+			user.AddSkill(new/obj/Skills/Telekinesis)
+			user.AddSkill(new/obj/Skills/Utility/Observe)
+			user.AddSkill(new/obj/Skills/Utility/Keep_Body)
+			user.AddSkill(new/obj/Skills/Reincarnation)
+			user.AddSkill(new/obj/Skills/Utility/Teachz)
+			user.Timeless = 1
+			var/Choice
+			var/Confirm
+			while(Confirm!="Yes")
+				Choice=input(user, "Which realm do you swear your loyalty to?", "Shinjin Ascension") in list("Kai", "Makai")
+				switch(Choice)
+					if("Kai")
+						Confirm=alert(user, "Do you pledge your allegiance to the continuity and propserity of the Living Realm?", "Shinjin Ascension", "Yes", "No")
+					if("Makai")
+						Confirm=alert(user, "Do you pledge your allegiance to the expansion and domination of the Demon Realm?", "Shinjin Ascension", "Yes", "No")
+			if(Choice=="Kai")
+				user.passive_handler.Increase("SpiritPower", 1)
+				user.passive_handler.Increase("CalmAnger", 1)
+			if(Choice=="Makai")
+				user.passive_handler.Increase("HellPower", 1)
+				user.passive_handler.Increase("StaticWalk", 1)
+				anger = 2
+				user.NewAnger(2)
+				user.Intimidation=10
+				user.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Majin)
+			user.ShinjinAscension = Choice
+			var/pickedPath = input(user, "Pick a Kaio Direction.") in list("North", "East", "South", "West")
+			user.Class = pickedPath
+			switch(pickedPath)
+				if("North")
+					user.Restoration=1
+					user.Attunement="Earth"
+					user.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kaioken)
+					user.AddSkill(new/obj/Skills/Projectile/Genki_Dama)
+					var/obj/Skills/Buffs/NuStyle/UnarmedStyle/North_Star_Style/nss=new/obj/Skills/Buffs/NuStyle/UnarmedStyle/North_Star_Style
+					user.AddSkill(nss)
+				if("East")
+					user.OxygenMax*=4
+					user.passive_handler.Increase("SpaceWalk", 1)
+					user.Attunement = "Wind"
+					user.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Toppuken)
+					user.AddSkill(new/obj/Skills/AutoHit/Gwych_Dymestl)
+					var/obj/Skills/Buffs/NuStyle/UnarmedStyle/East_Star_Style/ess=new/obj/Skills/Buffs/NuStyle/UnarmedStyle/East_Star_Style
+					user.AddSkill(ess)
+				if("South")
+					user.Attunement="Fire"
+					user.passive_handler.Increase("WalkThroughHell", 1)
+					user.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Rekkaken)
+					user.AddSkill(new/obj/Skills/Projectile/Zone_Attacks/Global_Devastation)
+					var/obj/Skills/Buffs/NuStyle/SwordStyle/South_Star_Style/sss=new/obj/Skills/Buffs/NuStyle/SwordStyle/South_Star_Style
+					user.AddSkill(sss)
+				if("West")
+					user.Attunement = "Water"
+					user.passive_handler.Increase("WaterWalk", 1)
+					user.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kyoukaken)
+					user.AddSkill(new/obj/Skills/AutoHit/Great_Deluge)
+					var/obj/Skills/Buffs/NuStyle/FreeStyle/West_Star_Style/wss=new/obj/Skills/Buffs/NuStyle/FreeStyle/West_Star_Style
+					user.AddSkill(wss)
 			..()

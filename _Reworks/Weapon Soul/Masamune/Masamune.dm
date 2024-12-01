@@ -8,9 +8,9 @@ obj/Skills/AutoHit/Divine_Cleansing
 	Area="Circle"
 	StrOffense=1
 	HitSelf = TRUE
-	DamageMult=2
+	DamageMult=4
 	Cleansing = 1
-	Cooldown=180
+	Cooldown=30
 	Rounds=5
 	Distance = 5
 	RoundMovement=1

@@ -247,7 +247,9 @@ mob/tierUpSaga(path)
 	TurfStrike=1
 	TurfShift='Dirt1.dmi'
 	TurfShiftDuration=1
-	Icon='Glowing Electricity.dmi'
+	Icon='drill.dmi'
+	IconX = -8
+	IconY = -8
 	ActiveMessage="yells: GIGA DRILL BREAKEEEEEERRRRR!!!!"
 	verb/Giga_Drill_Breaker()
 		set category="Skills"

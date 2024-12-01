@@ -808,7 +808,7 @@ mob
 				if(src.OverClockTime<=0)
 					src.OverClockTime=0
 					src.OverClockNerf=0
-					if(src.Race!="Android")
+					if(!isRace(ANDROID))
 						src << "You've recovered from using your powerful ability!"
 					else
 						src << "Your systems have rebooted!"
@@ -824,19 +824,19 @@ mob
 						GatesActive = 0
 
 			if(src.StrTax)
-				src.SubStrTax(0.25/RawDays(1))
+				src.SubStrTax(0.25/3 DAYS)
 			if(src.EndTax)
-				src.SubEndTax(0.25/RawDays(1))
+				src.SubEndTax(0.25/3 DAYS)
 			if(src.SpdTax)
-				src.SubSpdTax(0.25/RawDays(1))
+				src.SubSpdTax(0.25/3 DAYS)
 			if(src.ForTax)
-				src.SubForTax(0.25/RawDays(1))
+				src.SubForTax(0.25/3 DAYS)
 			if(src.OffTax)
-				src.SubOffTax(0.25/RawDays(1))
+				src.SubOffTax(0.25/3 DAYS)
 			if(src.DefTax)
-				src.SubDefTax(0.25/RawDays(1))
+				src.SubDefTax(0.25/3 DAYS)
 			if(src.RecovTax)
-				src.SubRecovTax(0.25/RawDays(1))
+				src.SubRecovTax(0.25/3 DAYS)
 
 			if(src.AngerCD!=0)
 				src.AngerCD=max(src.AngerCD-1,0)

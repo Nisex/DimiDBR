@@ -554,10 +554,12 @@ mob/Players/verb
 			if(transOptions.len>1)
 				var/Choice = input(usr, "Which transformation do you want to edit?", "Change Form Icons") in transOptions
 				if(Choice == "Cancel") goto SKIP
+				Choice = text2path(Choice)
 				var/transformation/transSelected
 				for(var/transformation/t in usr.race.transformations)
-					if(t.type == Choice)
+					if(istype(t, Choice))
 						transSelected = t
+						break
 				var/list/transVisualOptions = list("Cancel", "Base", "Hair", "Icon 1", "Icon 2", "Aura", "Aura Underlay", "Profile")
 				var/aspectPicked=input(usr, "What aspect of your forms do you wish to edit?", "Change Form Icons") in transVisualOptions
 				switch(aspectPicked)

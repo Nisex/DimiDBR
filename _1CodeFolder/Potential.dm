@@ -56,7 +56,7 @@ mob
 					val=MAX_POTENTIAL_PER_KILL
 				src.Potential+=val
 				if(val>0)
-					if(src.Race=="Android")
+					if(isRace(ANDROID))
 						src.HealthCut+=(val/100)
 
 				if(src.Potential>src.PotentialCap && src.PotentialRate>0)
@@ -88,7 +88,7 @@ mob
 			else
 				src.PotentialStatus="Focused"
 
-			if(src.Race=="Shinjin")
+			if(isRace(SHINJIN))
 				var/Cap=Max/100
 
 				if(src.AscensionsAcquired>0&&src.ShinjinAscension=="Makai")

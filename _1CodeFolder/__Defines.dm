@@ -59,6 +59,8 @@ proc/log_func(x, a, b)
 #define BEASTMAN /race/beastman
 #define GAJALAKA /race/gajalaka
 #define CHANGELING /race/changeling
+#define ANDROID /race/android
+#define SHINJIN /race/shinjin
 
 #define DEBUG_DAMAGE 1
 #define DEBUG_ITEM_DAMAGE 1
@@ -100,3 +102,17 @@ proc
 		while(world.tick_usage > 75 && (tickstosleep*world.tick_lag) < 32) //stop if we get to the point where we sleep for seconds at a time
 
 atom/proc/onBumped(atom/Obstacle)
+
+#define SECONDS *10
+#define MINUTES *(60 SECONDS)
+#define HOURS *(60 MINUTES)
+#define DAYS *(24 HOURS)
+#define WEEKS *(7 DAYS)
+#define MONTHS *(4 WEEKS)
+#define YEARS *(12 MONTHS)
+
+#define SECOND SECONDS
+#define MINUTE MINUTES
+#define HOUR HOURS
+#define DAY DAYS
+#define WEEK WEEKS

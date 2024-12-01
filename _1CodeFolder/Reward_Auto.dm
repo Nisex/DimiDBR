@@ -55,12 +55,6 @@ mob
 			var/YourRPP=AddRPP
 			DaysOfWipe()//mak sure globalrpp set.
 
-			if(src.RPPStartingDaysTriggered >= 0)
-				setStartingRPP()
-				src.RPPStartingDaysTriggered=-1
-			else
-				src.RPPStartingDaysTriggered=(-1)
-
 			if(YourRPP>0)
 				var/EMult=glob.progress.RPPBaseMult
 				EMult*=src.GetRPPMult()

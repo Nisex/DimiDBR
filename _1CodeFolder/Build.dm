@@ -7,8 +7,6 @@ var/list/worldObjectList = new // Looped through during the saving of objects
 				world<<"erm"
 				worldObjectList.Remove(x)
 
-
-
 proc/find_savableObjects()
 	for(var/obj/_object in world) // Find all objects in the world
 		if(!_object.z||_object.z==0) continue
@@ -18,32 +16,6 @@ proc/find_savableObjects()
 				del(_object)
 			else continue // If it's already in the world object list, skip it.
 		if(_object.Savable==1) global.worldObjectList+=_object // If it's NOT, and we want it saved, add it to the world object list.
-
-/proc/SaveAISPawners()
-	set background = 1
-	world<<"<small>Server: Saving AI Spawners..."
-	var/savefile/F = new("Saves/Map/AISpawners")
-	for(var/obj/AI_Spot/ai in world)
-		F["AI"]<<ai
-		F["monInfo"]<<ai.monsters[1]
-
-	world<<"<small>Server: AI Spawners Saved."
-
-/proc/LoadAISPawners()
-	set background = 1
-	if(fexists("Saves/Map/AISpawners"))
-		world<<"<small>Server: Loading AI Spawners..."
-		var/savefile/F = new("Saves/Map/AISpawners")
-		sleep(1)
-		var/list/AI = F["AI"]
-		for(var/obj/AI_Spot/ai in AI)
-			F["AI"]>>ai
-			F["monInfo"] >> ai.monsters[1]
-			if(!(ai in global.ai_tracker_loop))
-				global.ai_tracker_loop.Add(ai)
-				world<<"<small>Server: AI Spawner [ai] Loaded."
-		world<<"<small>Server: AI Spawners Loaded."
-
 
 proc/Save_Custom_Turfs()
 	set background = 1
@@ -77,9 +49,10 @@ proc/Save_Custom_Turfs()
 			Xs+=A.x
 			Ys+=A.y
 			Zs+=A.z
-			var/savedIcon = (resourceManager.GetResourceName(A.icon) || resourceManager.GenerateDynResource(A.icon))
+			//var/savedIcon = (resourceManager.GetResourceName(A.icon) || resourceManager.GenerateDynResource(A.icon))
 
-			Icons+=savedIcon
+			//Icons+=savedIcon
+			Icons += A.icon
 			Icons_States+=A.icon_state
 			Densitys+=A.density
 			isRoof+=A.Roof
@@ -181,8 +154,8 @@ proc/Load_Custom_Turfs()
 			Amount+=1
 			DebugAmount += 1
 			var/turf/CustomTurf/T=new A(locate(text2num(list2params(Xs.Copy(Amount,Amount+1))),text2num(list2params(Ys.Copy(Amount,Amount+1))),text2num(list2params(Zs.Copy(Amount,Amount+1)))))
-		//	T.icon = Icons[Amount]
-			T.icon = resourceManager.GetResourceByName(Icons[Amount])
+			T.icon = Icons[Amount]
+			//T.icon = resourceManager.GetResourceByName(Icons[Amount])
 			T.icon_state= Icons_States[Amount]
 			T.density=text2num(list2params(Densitys.Copy(Amount,Amount+1)))
 			T.opacity=text2num(list2params(Opacitys.Copy(Amount,Amount+1)))

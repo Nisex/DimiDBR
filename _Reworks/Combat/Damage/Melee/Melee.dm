@@ -153,7 +153,7 @@
 			devaCounter=0
 
 	if(warpingStrike)
-		if(Target && Target != src && Target in view(warpingStrike, src))
+		if(Target && Target.loc && Target != src && Target in view(warpingStrike, src))
 			forcewarp = Target
 	if(forcewarp)
 		Comboz(forcewarp)

@@ -1267,6 +1267,8 @@ obj/Items/proc/AlignEquip(mob/A, dontUnEquip = FALSE)
 			if(istype(src, /obj/Items/Sword))
 				if(istype(src, /obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin))
 					var/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin/s = src
+					var/confirm = input(A, "Are you sure you want to draw Dainsleif?") in list("Yes", "No")
+					if(confirm == "No") return
 					s.drawDainsleif(A)
 				if(A.NeedsSecondSword() && A.EquippedSword() && !A.EquippedSecondSword())
 					var/found = 0

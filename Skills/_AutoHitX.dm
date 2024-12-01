@@ -355,7 +355,7 @@ obj
 				Instinct=1
 				Cooldown=4
 				Earthshaking=45
-				
+
 			Chi_Punch
 				UnarmedOnly=1
 				Area="Circle"
@@ -2489,7 +2489,7 @@ obj
 						Distance = 10 + (5 * usr.AscensionsAcquired)
 						Stasis = 5 + (2.5 * usr.AscensionsAcquired)
 						ForOffense = 1 + (0.25 * usr.AscensionsAcquired)
-					usr.Activate(src)				
+					usr.Activate(src)
 
 
 			Fire_Breath
@@ -2642,7 +2642,7 @@ obj
 							else
 								Rounds=initial(Rounds)
 								Knockback=0
-								Distance= 6 
+								Distance= 6
 								Slow = 1
 								Freezing = 2
 								ManaCost = 3
@@ -2742,11 +2742,11 @@ obj
 							else
 								Rounds=initial(Rounds)
 								Knockback=0
-								Distance= 6 
+								Distance= 6
 								DamageMult=8
 								ForOffense=1
 								AdaptRate=0
-								Freezing = 6 
+								Freezing = 6
 								ManaCost = 9
 					verb/Blizzaga()
 						set category="Skills"
@@ -4807,12 +4807,12 @@ obj
 				verb/EX_Tatsumaki()
 					var/mob/player = usr
 					var/sagaLevel = usr.SagaLevel
-					var/damage 
+					var/damage
 					var/path = player.AnsatsukenPath == "Tatsumaki" ? 1 : 0
-					var/rounds 
+					var/rounds
 					Cooldown = 60
 					var/launch = 0
-					var/manaCost = 25 
+					var/manaCost = 25
 					if(player.ManaAmount>=manaCost && sagaLevel >= 2)
 						damage = clamp(3 + 0.5 * (usr.SagaLevel), 1.5,12)
 						rounds = clamp(4 + usr.SagaLevel, 4, 11)
@@ -5058,7 +5058,7 @@ obj
 				Gravity=5
 				WindUp=3
 				WindupMessage="prepares to cut through the very space around them in defiance of everything..."
-				DamageMult = 15
+				DamageMult = 4
 				StrOffense=1
 				Stunner = 3
 				ActiveMessage="slashes through the very concept of space, breaking reality to force their desires onto the world with the might of War!"
@@ -5074,7 +5074,7 @@ obj
 				HitSparkY=-16
 				HitSparkTurns=1
 				HitSparkSize=3
-				Cooldown=-1
+				Cooldown= 60
 				EnergyCost=15
 				Instinct=1
 				verb/WarGodDescent()
@@ -5104,7 +5104,7 @@ obj
 				HitSparkY=-32
 				HitSparkTurns=1
 				HitSparkSize=2
-				Cooldown=-1
+				Cooldown=180
 				verb/Deathbringer()
 					set category="Skills"
 					usr.Activate(src)
@@ -5511,6 +5511,8 @@ mob
 						var/copyLevel = getSharCopyLevel(m.SagaLevel)
 						if(Z.NewCopyable)
 							copy = Z.NewCopyable
+						else
+							copy = Z.Copyable
 						if(glob.SHAR_COPY_EQUAL_OR_LOWER)
 							if(copyLevel < copy)
 								continue
@@ -5826,6 +5828,8 @@ mob
 						else
 							src.Circle(Z)
 					if("Target")
+						if(src.x+Z.Distance<src.Target.x||src.x-Z.Distance>src.Target.x||src.y+Z.Distance<src.Target.y||src.y-Z.Distance>src.Target.y)
+							missed=1
 						src.Target(src.Target, Z, missed ? TrgLoc : null)
 						if(missed) src << "[Z] missed because your target is out of range."
 					if("Around Target")
@@ -6395,6 +6399,8 @@ obj
 		proc
 			Damage(var/mob/m)
 				if(m && Owner && m in Owner.ai_followers)
+					return
+				if(!m.passive_handler)
 					return
 				if(!IgnoreAlreadyHit)
 					var/weHitThemAlready = FALSE

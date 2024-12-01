@@ -917,10 +917,178 @@ NEW VARIABLES
 			TimerLimit=1200
 			BuffName="Eight Gates"
 			OffMessage="stops Cultivating..."
+			var/taxReduction = 0
+			var/ignoreWounded = FALSE
+			proc/setUpGateVars(mob/p, num)
+
+				if(altered) return
+				SuperDash=0
+				FatigueHeal=0
+				IconLock=null
+				AuraLock='BLANK.dmi'
+				KenWave=0
+				var/puBoon = num >= 4 ? TRUE : FALSE
+				FatigueHeal = num * 15
+				EnergyHeal = num * 20
+				PUSpike = 50 + (4 * num) // changed to 150%(pu) + 8xgate; so power wall doesnt jackhammer a asshole.
+				FatigueLeak = num+1 / p.SagaLevel
+				BleedHit = p.SagaLevel-1
+				passives = list("PUSpike" = PUSpike, "KiControl" = 1, "PULock" = 1,\
+				"DemonicDurability" = clamp(num*0.2,0.25,4), "HeavyHitter" = num / 8, \
+				"Flicker" = round(clamp(num/2,1,8)), "Godspeed" = round(clamp(num/2,1,8)),\
+				"SuperDash" = puBoon ? 1 : 0)
+				StrMult = 1 + num / 30
+				EndMult = 1 + num / 30
+				SpdMult = 1 + num / 30
+				KenWave=clamp(num / 2, 1, 4)
+
+
+				if(num == 7)
+					PUSpike = 300
+					IconLock='FlameGlowHades.dmi'
+					LockX=-16
+					LockY=-4
+					KenWave=4
+
+
+
+
+			proc/handleGates(mob/p, increment)
+				var/prev_gates = p.GatesActive
+				if(increment)
+					// handle going up a gate here
+					OffMessage=0
+					if(p.GatesActive >= min(8,p.SagaLevel+2))
+						p << "You can't unlock the next gate."
+						return
+					if(p.BuffOn(src))
+						src.Trigger(p, 1, 1)
+						sleep(1)
+						Cooldown=0
+						cooldown_remaining=0
+						Using=0
+					p.GatesActive = prev_gates + 1
+					GatesLevel = p.GatesActive
+					setUpGateVars(p, p.GatesActive)
+					src.Trigger(p, 1)
+				else
+					// handle going down a gate here
+					OffMessage="shuts their Gates..."
+					setCooldown(p.GatesActive)
+					shutOffEffects(p, p.GatesActive)
+					p.GatesActive = 0
+					GatesLevel = 0
+					src.Trigger(p, 1)
+/*
+			Trigger(mob/User, Override, dntWound)
+				..()
+				if(User.BuffOn(src))
+					setCooldown(User.GatesActive)
+					shutOffEffects(User, User.GatesActive, dntWound)
+					User.GatesActive = 0
+					GatesLevel = 0*/
+
+
+
+			proc/shutOffEffects(mob/p, level, dontWound = FALSE)
+				p.GatesActive=0
+
+				var/tax = clamp(0.05 * level, 0.05, 1)
+				if(taxReduction)
+					tax = clamp(0.05 - taxReduction * level, 0.005, 1)
+
+				if(dontWound)
+					return
+				if(!ignoreWounded)
+					if(p.TotalInjury>=35 && p.BPPoison>=0.9)
+						var/Time=RawHours(2)
+						Time/=p.GetRecov()
+						if(Time > p.BPPoisonTimer)
+							p.BPPoisonTimer=Time
+						p.BPPoison=0.9
+						p.OMessage(10, "[p] has been lightly wounded!", "[p]([p.key]) has over 35% injury.")
+					else if(p.TotalInjury>=60 && p.BPPoison>=0.7)
+						var/Time=RawHours(4)
+						Time/=p.GetRecov()
+						if(Time > p.BPPoisonTimer)
+							p.BPPoisonTimer=Time
+						p.BPPoison=0.7
+						p.OMessage(10, "[p] has been heavily wounded!", "[p]([p.key]) has over 60% injury.")
+					else if(p.TotalInjury>=75)
+						var/Time=RawHours(8)
+						Time/=p.GetRecov()
+						if(Time > p.BPPoisonTimer)
+							p.BPPoisonTimer=Time
+						p.BPPoison=0.5
+						p.OMessage(10, "[p] has been grieviously wounded!", "[p]([p.key]) has over 80% injury.")
+
+
+				if(level == 7)
+					tax = 0.5
+				if(level == 8)
+					tax  = 0.99
+				switch(level)
+					if(1)
+						p.GatesNerfPerc=20
+						p.GatesNerf=RawMinutes(45)
+					if(2)
+						p.GatesNerfPerc=25
+						p.GatesNerf=RawMinutes(60)
+					if(3)
+						p.GatesNerfPerc=30
+						p.GatesNerf=RawHours(2)
+					if(4)
+						p.GatesNerfPerc=35
+						p.GatesNerf=RawHours(3)
+					if(5)
+						p.GatesNerfPerc=40
+						p.GatesNerf=RawHours(4)
+					if(6)
+						p.GatesNerfPerc=45
+						p.GatesNerf=RawHours(5)
+					if(7)
+						p.GatesNerfPerc=50
+						p.GatesNerf=RawHours(6)
+
+				p.AddStrTax(tax)
+				p.AddEndTax(tax)
+				p.AddSpdTax(tax)
+
+
+
+			verb/Cultivate()
+				set category = "Skills"
+				if(usr.GatesActive > 8 || usr.GatesActive > min(8,usr.SagaLevel+1))
+					usr<<"You can't do that!!"
+					return
+				handleGates(usr, TRUE)
 
 			verb/Stop_Cultivation()
-			verb/Cultivate()
-				src << "This shit is dead"
+				set category = "Skills"
+				if(!usr)
+					usr = src.loc
+				if(usr.BuffOn(src))
+					handleGates(usr, FALSE)
+				else if(!usr.GatesActive)
+					usr << "You can't close the Gates because they aren't open!!"
+				else if(usr.GatesActive)
+					usr.GatesActive=0
+
+
+			proc/checkUnlocked(mob/p, num)
+				if(p.SagaLevel < num)
+					p << "You haven't unlocked this gate yet!"
+					return 0
+				else
+					return 1
+
+			proc/setCooldown(activeGate)
+				if(activeGate < 5)
+					src.Cooldown = 60
+				else if(activeGate < 7)
+					src.Cooldown = 300
+				else
+					src.Cooldown = 1500
 
 		Weapon_Soul
 			PULock=1
@@ -1033,7 +1201,7 @@ NEW VARIABLES
 								src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
 								src.OffMessage="conceals █████████████.."
 						if("Masamune")
-							passives = list("HolyMod"=usr.SagaLevel*1.5,"Purity"=1,"Steady"=usr.SagaLevel, "PULock" = 1)
+							passives = list("HolyMod"=usr.SagaLevel*2,"Purity"=1,"Steady"=usr.SagaLevel, "PULock" = 1)
 							if(!redacted)
 								src.SwordName="Masamune"
 								src.ActiveMessage="calls forth the true form of Masamune, the Sword of Purity!"
@@ -2574,15 +2742,14 @@ NEW VARIABLES
 				verb/Overdrive()
 					set category="Skills"
 					adjust(usr)
-					switch(usr.Race)
-						if("Android")
-							passives = list("AllOutPU" = 1, "Overdrive" = 1)
-							src.ManaLeak=0
-							src.NeedsHealth=50
-							src.TooMuchHealth=75
-							src.OverClock=0.05
-							src.ActiveMessage="overloads their systems!"
-							src.OffMessage="experiences a temporary shutdown of their systems!"
+					if(usr.isRace(ANDROID))
+						passives = list("AllOutPU" = 1, "Overdrive" = 1)
+						src.ManaLeak=0
+						src.NeedsHealth=50
+						src.TooMuchHealth=75
+						src.OverClock=0.05
+						src.ActiveMessage="overloads their systems!"
+						src.OffMessage="experiences a temporary shutdown of their systems!"
 					src.Trigger(usr)
 			Ripper_Mode
 				SignatureTechnique=3
@@ -2615,18 +2782,15 @@ NEW VARIABLES
 					passives = list("ManaLeak" = 1 - totalPot/200, "HardStyle" = 0.3 * reducedPot, \
 					"Flicker" = clamp(round(reducedPot/5,1), 1, 2), "Pursuer" = clamp(round(reducedPot/5,1), 1, 2), \
 					"Instinct" = reducedPot * 0.5, "Godspeed" = round(reducedPot/2.5, 1), "Steady" = reducedPot * 0.5)
-
+					if(p.isRace(ANDROID))
+						src.ManaLeak=0
+						src.NeedsHealth=50
+						src.TooMuchHealth=75
+						src.ActiveMessage="shuts off their empathy circuit as they overclock their systems!"
 
 
 				verb/Ripper_Mode()
 					set category="Skills"
-					switch(usr.Race)
-						if("Android")
-							passives = list("Steady" = 2, "Godspeed" = 1, "Pursuer" = 1, "Flicker" = 1)
-							src.ManaLeak=0
-							src.NeedsHealth=50
-							src.TooMuchHealth=75
-							src.ActiveMessage="shuts off their empathy circuit as they overclock their systems!"
 					if(!usr.BuffOn(src))
 						adjust(usr)
 					src.Trigger(usr)
@@ -2656,16 +2820,14 @@ NEW VARIABLES
 					passives = list("ManaLeak" = 1 - totalPot/200, "WeaponBreaker" = 0.3 * reducedPot, \
 					"BlockChance" = round(reducedPot/10,1), "CriticalBlock" = round(reducedPot/15), \
 					"Hardening" = reducedPot * 0.5, "Juggernaut" = 1, "DemonicDurability" = reducedPot * 0.3)
+					if(p.isRace(ANDROID))
+						src.ManaLeak=0
+						src.NeedsHealth=50
+						src.TooMuchHealth=75
+						src.ActiveMessage="sheens metallically as they bolster their defenses with the best technology in the world!"
 				verb/Armstrong_Augmentation()
 					set category="Skills"
 					adjust(usr)
-					switch(usr.Race)
-						if("Android")
-							passives = list ("WeaponBreaker" = 1, "Juggernaut" = 1, "Hardening" = 2, "CriticalDamage" = 0.5, "CriticalChance" = 5)
-							src.ManaLeak=0
-							src.NeedsHealth=50
-							src.TooMuchHealth=75
-							src.ActiveMessage="sheens metallically as they bolster their defenses with the best technology in the world!"
 					src.Trigger(usr)
 
 			Ray_Gear
@@ -2688,18 +2850,15 @@ NEW VARIABLES
 					var/reducedPot = totalPot/10
 					passives = list("ManaLeak" = 1 - totalPot/200, "Instinct" = 0.5 * reducedPot, \
 					"QuickCast" = round(reducedPot/10,1), "SpecialStrike" = 1, "MovingCharge" = 1, "SpiritHand" = round(totalPot/4,1))
-
+					if(p.isRace(ANDROID))
+						src.ManaLeak=0
+						src.NeedsHealth=50
+						src.TooMuchHealth=75
+						src.ActiveMessage="becomes a weapon to surpass all!"
 
 				verb/Ray_Gear()
 					set category="Skills"
 					adjust(usr)
-					switch(usr.Race)
-						if("Android")
-							passives = list("Instinct" = 1, "QuickCast" = 3, "SpecialStrike" = 1)
-							src.ManaLeak=0
-							src.NeedsHealth=50
-							src.TooMuchHealth=75
-							src.ActiveMessage="becomes a weapon to surpass all!"
 					src.Trigger(usr)
 
 
@@ -5358,7 +5517,7 @@ NEW VARIABLES
 					src.Trigger(usr)
 			Heroic_Will
 				ElementalClass="Earth"
-				SkillCost=120
+				SkillCost=90
 				Copyable=5
 				PreRequisite=list("/obj/Skills/Buffs/SlotlessBuffs/Magic/True_Effort")
 				ManaCost=10
@@ -5456,7 +5615,7 @@ NEW VARIABLES
 							 "NoDodge" = 1)
 							NoDodge = 1
 							DefMult = 1
-							StrMult = 1 
+							StrMult = 1
 							EndMult = 1
 							TimerLimit = 60 + magicLevel
 					if(!usr.BuffOn(src))
@@ -5706,7 +5865,7 @@ NEW VARIABLES
 							VaizardShatter=0
 							AffectTarget = 1
 							passives = list()
-							Range = 12 
+							Range = 12
 				verb/Barrier()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
@@ -5765,7 +5924,7 @@ NEW VARIABLES
 							passives = list()
 							TimerLimit = initial(TimerLimit)
 							Range = 12
-							
+
 
 				verb/Protect()
 					set category="Skills"
@@ -6123,7 +6282,7 @@ NEW VARIABLES
 				Pursuer=2
 				ActiveMessage="engages their jet pack!"
 				OffMessage="disengages their jet pack..."
-				TimerLimit=300
+				TimerLimit=150
 				verb/Jet_Pack()
 					set category="Skills"
 					src.Trigger(usr)
@@ -6219,7 +6378,7 @@ NEW VARIABLES
 					Pursuer=2
 					ActiveMessage="engages their jet pack!"
 					OffMessage="disengages their jet pack..."
-					TimerLimit=300
+					TimerLimit=150
 					verb/Jet_Pack()
 						set category="Skills"
 						src.Trigger(usr)
@@ -8142,7 +8301,7 @@ NEW VARIABLES
 					usr.stopUnlimitedBladeWorks()
 				usr.AriaCount--
 				usr << "You drop down an aria verse."
-/*
+
 		Copy_Blade
 			MakesSword = 1
 			SwordName="Projected Blade"
@@ -8159,10 +8318,10 @@ NEW VARIABLES
 					usr << "You need a target."
 					return
 				if(!usr.Target.EquippedSword())
-					usr << "Your opponent isn't using a sword!")
+					usr << "Your opponent isn't using a sword!"
 					return
 				if(usr.Target.EquippedSword().Conjured)
-					usr << "This blade has no history, it evades your attempt to copy it!")
+					usr << "This blade has no history, it evades your attempt to copy it!"
 					return
 				if(copiedBlades.len>=((usr.SagaLevel-5)*5))
 					usr << "Your head feels close to bursting, you can't fit anything more...!!"
@@ -8199,7 +8358,8 @@ NEW VARIABLES
 				set category="Skills"
 				if(!usr.getAriaCount())
 					usr << "You can't project without your circuits active!"
-					return*/
+					return
+				src.Trigger(usr)
 
 		Projection
 			MakesSword=1
@@ -8210,17 +8370,17 @@ NEW VARIABLES
 			ActiveMessage="'s hand grips out at air, before projecting a blade forth!"
 			OffMessage = "'s conjured blade shatters in the air!"
 			var/icon/wooden_icon
-			var/wooden_x
-			var/wooden_y
+			var/wooden_x = 0
+			var/wooden_y = 0
 			var/icon/light_icon
-			var/light_x
-			var/light_y
+			var/light_x = 0
+			var/light_y = 0
 			var/icon/med_icon
-			var/med_x
-			var/med_y
+			var/med_x = 0
+			var/med_y = 0
 			var/icon/heavy_icon
-			var/heavy_x
-			var/heavy_y
+			var/heavy_x = 0
+			var/heavy_y = 0
 			verb/Customize_Projects()
 				set category = "Other"
 				var/choice = input(usr, "What icon?") in list("wooden","light","med","heavy")
@@ -11903,7 +12063,7 @@ mob
 							src << "You can't use this buff right now because your power up is sealed."
 							return
 				if(B.Ripple)
-					if(src.Race=="Android")
+					if(isRace(ANDROID))
 						src <<"You do not breathe."
 						return
 					if(src.IsEvil())
@@ -11973,6 +12133,8 @@ mob
 								continue
 							if(B.NewCopyable)
 								copy = B.NewCopyable
+							else
+								copy = Z.Copyable
 							if(glob.SHAR_COPY_EQUAL_OR_LOWER)
 								if(copyLevel < copy)
 									continue
@@ -12197,7 +12359,7 @@ mob
 						src.ActiveBuff.AngerMult=2
 						src.ActiveBuff.passives["PUSpike"] = 50
 						src.ActiveBuff.passives["Pursuer"] = 2 * AscensionsAcquired
-						
+
 					else if(passive_handler.Get("ArtificalStar"))
 						src.ActiveBuff.AutoAnger=1
 						src.ActiveBuff.AngerMult=1.5
@@ -13430,7 +13592,7 @@ mob
 				src.FusionPowered+=1
 			if(B.Overdrive)
 				if(src.MeditateModule)
-					if(src.Race=="Android")
+					if(isRace(ANDROID))
 						src.HealHealth(10)
 					else
 						src.HealWounds(15)
@@ -14011,7 +14173,7 @@ mob
 				src.FusionPowered-=1
 			if(B.Overdrive)
 				if(src.MeditateModule)
-					if(src.Race=="Android")
+					if(isRace(ANDROID))
 						src.DoDamage(src, TrueDamage(15))
 					else
 						src.WoundSelf(20)

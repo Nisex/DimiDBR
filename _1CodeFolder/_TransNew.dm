@@ -106,7 +106,7 @@ proc/DarknessFlash(var/mob/Z, var/SetTime=0)
 				animate(T.client, color=null, time = Time*0.5)
 
 mob/proc/CanTransform()
-	if(src.CyberCancel&&src.Race!="Android")
+	if(src.CyberCancel&&!isRace(ANDROID))
 		return 0
 	if(src.TotalFatigue>=90)
 		src<<"You are too tired to transform!"
@@ -141,7 +141,7 @@ mob/proc/CanTransform()
 	return 1
 
 mob/proc/CanRevert()
-	if(src.CyberCancel&&src.Race!="Android")
+	if(src.CyberCancel&&!isRace(ANDROID))
 		return 0
 	if(src.HasNoRevert())
 		return 0

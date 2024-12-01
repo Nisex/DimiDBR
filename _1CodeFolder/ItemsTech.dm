@@ -1252,7 +1252,7 @@ obj/Items/Tech
 				if(src.Using)
 					usr << "You're already warping your genome!"
 					return
-				if(usr.Race=="Android")
+				if(usr.isRace(ANDROID))
 					return
 				if(usr.icon_state!="Meditate")
 					usr << "You need to be sitting down to use this properly."
@@ -1338,7 +1338,7 @@ obj/Items/Tech
 				if(src.Using)
 					usr << "You're already preparing a revitalization serum!"
 					return
-				if(usr.Race=="Android")
+				if(usr.isRace(ANDROID))
 					return
 				if(usr.icon_state!="Meditate")
 					usr << "You need to be sitting down to use this properly."
@@ -1391,7 +1391,7 @@ obj/Items/Tech
 				if(src.Using)
 					usr << "You're already preparing a super soldier serum!"
 					return
-				if(usr.Race=="Android")
+				if(usr.isRace(ANDROID))
 					return
 				if(usr.icon_state!="Meditate")
 					usr << "You need to be sitting down to use this properly."
@@ -2747,7 +2747,7 @@ obj/Items/Tech
 				usr << "You're already charging something."
 				return
 			src.Using=1
-			if(usr.Race!="Android"&&!usr.HasMechanized())
+			if(!usr.isRace(ANDROID)&&!usr.HasMechanized())
 				usr << "You aren't mechanized enough to use this on yourself!"
 				src.Using=0
 				return
@@ -2943,7 +2943,7 @@ obj/Items/Tech
 				usr << "You're already charging something."
 				return
 			src.Using=1
-			if(usr.Race!="Android"&&!usr.HasMechanized())
+			if(!usr.isRace(ANDROID)&&!usr.HasMechanized())
 				usr << "You aren't mechanized enough to use this on yourself!"
 				src.Using=0
 				return

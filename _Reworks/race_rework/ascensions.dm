@@ -308,8 +308,9 @@ ascension
 					enhanceChips = 1
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
 					passives["ManaGeneration"] = 1
-					passives["QuickCast"] = 1
+					passives["QuickCast"] = 2
 					passives["ManaCapMult"] = 0.25
+					passives["ManaStats"] = 0.25
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
 					passives = list("MovementMastery" = 1, "ManaStats" = 0.5)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
@@ -330,6 +331,7 @@ ascension
 					passives["ManaGeneration"] = 1
 					passives["QuickCast"] = 1
 					passives["ManaCapMult"] = 0.25
+					passives["SpiritStrike"] = 0.25
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
 					passives = list("MovementMastery" = 2, "ManaStats" = 0.25)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
@@ -440,7 +442,7 @@ ascension
 			intimidation = 5
 			passives = list("ManaCapMult" = 0.25, "Deicide" = 1, "Xenobiology" = 1, "SpiritFlow" = 0.25)
 			choices = list("Distort" = /ascension/sub_ascension/high_faoroan/distort, "Define" = /ascension/sub_ascension/high_faoroan/define)
-
+			skills = list(/obj/Skills/Buffs/SlotlessBuffs/Elf/God_Slicer)
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
 			strength = 0.25
@@ -452,6 +454,7 @@ ascension
 			anger = 0.15
 			passives = list("TechniqueMastery" = 1.5, "ManaCapMult" = 0.25, "Deicide" = 1)
 			choices = list("Destroy" = /ascension/sub_ascension/high_faoroan/destroy, "Remove" = /ascension/sub_ascension/high_faoroan/remove)
+			skills = list(/obj/Skills/AutoHit/Elf/Compel)
 
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
@@ -463,6 +466,7 @@ ascension
 			speed = 0.5
 			passives = list("ManaCapMult" = 0.25, "Deicide" = 1, "Xenobiology" = 1)
 			intimidation = 10
+			skills = list(/obj/Skills/AutoHit/Elf/Silence)
 			onAscension(mob/owner)
 				..()
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/high_faoroan/distort)
@@ -481,7 +485,7 @@ ascension
 			speed = 0.5
 			passives = list("ManaCapMult" = 0.25, "Deicide" = 2, "Xenobiology" = 1)
 			choices = list("Conquer" = /ascension/sub_ascension/high_faoroan/conquer, "Obliterate" = /ascension/sub_ascension/high_faoroan/obliterate)
-
+			skills = list(/obj/Skills/AutoHit/Elf/Flee)
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
 			intimidation = 10
@@ -1161,6 +1165,22 @@ ascension
 					passives = list("UnhingedForm" = 0.5)
 					anger = 0.15
 				..()
+
+	shinjin
+		unlock_potential = -1
+		onAscension(mob/owner)
+			skills = list(/obj/Skills/Utility/Unlock_Potential, /obj/Skills/Utility/Bind_To_Plane, /obj/Skills/Teleport/Kai_Kai)
+
+			if(owner.ShinjinAscension=="Kai")
+				passives = list("SpiritPower" = 0.5, "GodKi" = 0.25)
+				skills += /obj/Skills/Utility/Heal
+				skills += /obj/Skills/Utility/Send_Energy
+			if(owner.ShinjinAscension=="Makai")
+				owner.ContractPowered=1
+				intimidation = 50
+				owner.PotentialCap*=2
+				passives = list("GodKi" = 0.5)
+			..()
 
 	gajalaka
 		one

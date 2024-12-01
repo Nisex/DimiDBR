@@ -1665,6 +1665,8 @@ obj
 				IconChargeOverhead=1
 				Cooldown=150
 				Variation=0
+				StrRate = 1
+				ForRate = 0
 				verb/Jecht_Shot()
 					set category="Skills"
 					usr.UseProjectile(src)
@@ -1720,7 +1722,7 @@ obj
 			Spirit_Gun
 				SignatureTechnique=1
 				Distance=50
-				DamageMult=3
+				DamageMult=1.5
 				AccMult=25
 				Explode=3
 				Knockback=1
@@ -1741,7 +1743,7 @@ obj
 					set category="Skills"
 					src.EnergyCost=usr.Energy
 					FatigueCost=EnergyCost/5
-					src.MultiHit=round(src.EnergyCost/2)
+					src.MultiHit=round(src.EnergyCost/10)
 					usr.UseProjectile(src)
 
 			Spirit_Gun_Mega
@@ -1749,7 +1751,7 @@ obj
 				SignatureTechnique=2
 				FatigueCost=80
 				Distance=50
-				DamageMult=1.5
+				DamageMult=2.5
 				AccMult=25
 				Explode=5
 				Knockback=1
@@ -3007,7 +3009,7 @@ obj
 						if(!message)
 							if(!src.Using)
 								OMsg(usr, "[usr] yells: <b>HADOKEN!</B>", "[usr] used Hadoken.")
-						DamageMult = damage/MultiHit
+						DamageMult = damage/multiHit
 						Distance = distance
 						Charge = charge
 						MultiHit = multiHit
@@ -3955,6 +3957,8 @@ obj
 
 				Kamehameha//Well rounded
 					SignatureTechnique=1
+					StrRate = 1
+					ForRate = 0
 					DamageMult=12
 					ChargeRate=2
 					Dodgeable=0
@@ -3968,6 +3972,8 @@ obj
 				Motionless_Kamehameha//Well rounded
 					PreRequisite=list("/obj/Skills/Projectile/Beams/Kamehameha")
 					SignatureTechnique=1
+					StrRate = 1
+					ForRate = 0
 					DamageMult=16
 					Immediate=1
 					Dodgeable=0
@@ -4143,6 +4149,8 @@ obj
 
 					Super_Kamehameha
 						PreRequisite=list("/obj/Skills/Projectile/Beams/Kamehameha")
+						StrRate = 1
+						ForRate = 0
 						SignatureTechnique=2
 						DamageMult=8
 						ChargeRate=3
@@ -4157,6 +4165,8 @@ obj
 							usr.UseProjectile(src)
 					True_Kamehameha
 						AttackReplace=1
+						StrRate = 1
+						ForRate = 0
 						DamageMult=9
 						Distance=60
 						IconLock='BeamKHH.dmi'
@@ -4669,6 +4679,8 @@ mob
 						var/copyLevel = getSharCopyLevel(m.SagaLevel)
 						if(Z.NewCopyable)
 							copy = Z.NewCopyable
+						else
+							copy = Z.Copyable
 						if(glob.SHAR_COPY_EQUAL_OR_LOWER)
 							if(copyLevel < copy)
 								continue

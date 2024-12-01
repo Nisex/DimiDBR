@@ -491,7 +491,7 @@ mob
 		GetBetterAim()
 			return passive_handler.Get("BetterAim")
 		HasMechanized()
-			if(src.Race=="Android")
+			if(isRace(ANDROID))
 				return 1
 			if(passive_handler.Get("Mechanized"))
 				return 1
@@ -890,7 +890,7 @@ mob
 				return 1
 			return 0
 		HasKiControlMastery()
-			if(src.GetGodKi()>=0.25 && src.Race!="Shinjin")
+			if(src.GetGodKi()>=0.25 && !isRace(SHINJIN))
 				return 1
 			if(src.AdaptationCounter&&src.AdaptationTarget)
 				return 1
@@ -898,7 +898,7 @@ mob
 				return 1
 			if(src.isRace(NAMEKIAN)&&src.transActive())
 				return 1
-			if(src.Race=="Shinjin"&&src.Potential>=25)
+			if(isRace(SHINJIN)&&src.Potential>=25)
 				return 1
 			if(src.race in list(DEMON, DRAGON))
 				return 1
@@ -909,13 +909,13 @@ mob
 			var/Total=passive_handler.Get("KiControlMastery")
 			if(src.AdaptationCounter&&src.AdaptationTarget)
 				Total+=src.AdaptationCounter
-			if(src.HasGodKi() && src.Race!="Shinjin")
+			if(src.HasGodKi() && !isRace(SHINJIN))
 				Total+=round(src.GetGodKi()/0.25)
 			if(src.isRace(NAMEKIAN)&&src.transActive())
 				Total+=3
 			if(src.isRace(MAKYO)&&src.AscensionsAcquired)
 				Total+=src.AscensionsAcquired
-			if(src.Race=="Shinjin")
+			if(isRace(SHINJIN))
 				Total+=round(src.Potential/25)
 			if(isRace(DRAGON)||isRace(DEMON))
 				Total+=1
@@ -1299,7 +1299,7 @@ mob
 		HasFlow()
 			if(src.KO)
 				return 0
-			if(passive_handler.Get("Flow"))
+			if(GetFlow())
 				return 1
 			if(src.Secret=="Ripple"&&src.StyleActive)
 				return 1
@@ -1311,7 +1311,7 @@ mob
 				return 1
 
 			if(passive_handler.Get("LikeWater") || passive_handler.Get("Gravity"))
-				if(Target.passive_handler.Get("Instinct") >= GetFlow())
+				if(Target.HasInstinct() >= GetFlow())
 					return 1
 			return 0
 		GetFlow()
@@ -1327,7 +1327,7 @@ mob
 				Extra+=1
 			if(src.DrunkPower())
 				Extra+=2
-			if(Target&&Target.passive_handler.Get("Instinct") >= Base+Extra)
+			if(Target&&Target.HasInstinct() >= Base+Extra)
 				Extra += (passive_handler.Get("LikeWater")) / 2
 			return (Base+Extra)
 		HasInstinct()
@@ -1339,7 +1339,7 @@ mob
 			var/t=src.HighestTrans()
 			if(round(t/4))
 				Return+=1
-			if(Target&&Target.passive_handler.Get("Flow") >= Return)
+			if(Target&&Target.GetFlow() >= Return)
 				Return+=passive_handler.Get("LikeWater") / 2
 			return Return
 		HasSoulSteal()
@@ -1494,7 +1494,7 @@ mob
 			if(m.Saga=="Ansatsuken")
 				if(m.AnsatsukenAscension=="Chikara")
 					Return-=((m.SagaLevel-4)*25)
-			if(src.Race=="Android")
+			if(isRace(ANDROID))
 				Return=100
 
 			if(m)
@@ -1502,7 +1502,7 @@ mob
 					Return-=m.CyberCancel*100
 				if(m.Mechanized && m.Race!="Tuffle")
 					Return-=100
-				if(m.Race=="Android")
+				if(m.isRace(ANDROID))
 					Return=0
 			if(Return>100)
 				Return=100
@@ -1878,7 +1878,7 @@ mob
 		HasCalmAnger()
 			if(passive_handler.Get("CalmAnger"))
 				return 1
-			if(src.Race=="Shinjin" && src.ShinjinAscension=="Makai")
+			if(isRace(SHINJIN) && src.ShinjinAscension=="Makai")
 				return 1
 			if(src.isRace(NAMEKIAN) && src.transActive())
 				return 1
@@ -2265,14 +2265,14 @@ mob
 				if(s.suffix=="*Equipped*")
 					staf=s
 					break
-			if(src.Race=="Android"||src.HasMechanized())
+			if(isRace(ANDROID)||src.HasMechanized())
 				return null
 			else if(staf)
 				return staf
 			else
 				return null
 		CanLoseVitalBP()
-			if(src.Race=="Android")
+			if(isRace(ANDROID))
 				return 0
 			if(src.HasMechanized())
 				return 0
@@ -2291,7 +2291,7 @@ mob
 				return 0
 			if(src.HasGodspeed()>=4)
 				return 0
-			if(src.Race=="Android"/* || isRace(MAJIN)  */)
+			if(isRace(ANDROID)/* || isRace(MAJIN)  */)
 				return 0
 			if(src.LastBreath)
 				return 0
@@ -2309,7 +2309,7 @@ mob
 				return 1
 			return 0
 		OtherRace()
-			if(src.Race in list("Shinjin"))
+			if(isRace(SHINJIN))
 				return 1
 			return 0
 		SureHit()
@@ -2878,7 +2878,7 @@ mob
 			return 0
 		HasManaCapacity(var/Value)
 			var/Total=0
-			if(usr.Race!="Android"&&!usr.HasMechanized())
+			if(!isRace(ANDROID)&&!HasMechanized())
 				Total+=(100-src.TotalCapacity)*src.GetManaCapMult()//Personal reserves
 			for(var/obj/Items/Enchantment/PhilosopherStone/PS in src)
 				if(!PS.ToggleUse) continue
@@ -2916,6 +2916,7 @@ mob
 				return TRUE
 		isInnovative(reqRace, path)
 			if(Saga) return FALSE
+			if(reqRace == HUMAN) return
 			if(isRace(reqRace))
 				if(passive_handler.Get("Innovation"))
 					switch(path)

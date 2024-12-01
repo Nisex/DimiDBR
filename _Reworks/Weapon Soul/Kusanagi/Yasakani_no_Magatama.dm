@@ -25,7 +25,7 @@ mob/proc/gainMagatama()
 	vis_contents += magatama
 
 mob/proc/loseMagatama()
-	if(magatamaBeads.len>0)
+	if(length(magatamaBeads)>0)
 		for(var/obj/Magatama/magatama in magatamaBeads)
 			magatamaBeads -= magatama
 			vis_contents -= magatama
@@ -51,7 +51,7 @@ obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraint
 		if(!usr.BuffOn(src))
 			adjust(usr)
 		var/magatamaFound = FALSE
-		if(usr.magatamaBeads.len>0)
+		if(length(usr.magatamaBeads)>0)
 			magatamaFound = TRUE
 			usr.loseMagatama()
 		if(magatamaFound)

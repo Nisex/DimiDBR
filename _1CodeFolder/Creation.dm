@@ -183,7 +183,6 @@ mob/Players
 		// if(RewardsLastGained > 100)
 		// 	Respec1()
 		// 	quickDirtyRefund()
-		// 	setStartingRPP()
 		setMaxRPP()
 
 		//automation
@@ -238,35 +237,35 @@ mob/Players
 				if(!was_drunk)
 					BPPoisonTimer = max(1,BPPoisonTimer - food_time)
 					if(src.StrTax)
-						src.SubStrTax(0.25/RawDays(1)*food_time, Forced=1)
+						src.SubStrTax(0.25/3 DAYS*food_time, Forced=1)
 					if(src.EndTax)
-						src.SubEndTax(0.25/RawDays(1)*food_time, Forced=1)
+						src.SubEndTax(0.25/3 DAYS*food_time, Forced=1)
 					if(src.SpdTax)
-						src.SubSpdTax(0.25/RawDays(1)*food_time, Forced=1)
+						src.SubSpdTax(0.25/3 DAYS*food_time, Forced=1)
 					if(src.ForTax)
-						src.SubForTax(0.25/RawDays(1)*food_time, Forced=1)
+						src.SubForTax(0.25/3 DAYS*food_time, Forced=1)
 					if(src.OffTax)
-						src.SubOffTax(0.25/RawDays(1)*food_time, Forced=1)
+						src.SubOffTax(0.25/3 DAYS*food_time, Forced=1)
 					if(src.DefTax)
-						src.SubDefTax(0.25/RawDays(1)*food_time, Forced=1)
+						src.SubDefTax(0.25/3 DAYS*food_time, Forced=1)
 					if(src.RecovTax)
-						src.SubRecovTax(0.25/RawDays(1)*food_time, Forced=1)
+						src.SubRecovTax(0.25/3 DAYS*food_time, Forced=1)
 			if(regen_time>food_time)
 				regen_time-=food_time
 				if(src.StrTax)
-					src.SubStrTax(0.25/RawDays(1)*regen_time)
+					src.SubStrTax(0.25/3 DAYS*regen_time)
 				if(src.EndTax)
-					src.SubEndTax(0.25/RawDays(1)*regen_time)
+					src.SubEndTax(0.25/3 DAYS*regen_time)
 				if(src.SpdTax)
-					src.SubSpdTax(0.25/RawDays(1)*regen_time)
+					src.SubSpdTax(0.25/3 DAYS*regen_time)
 				if(src.ForTax)
-					src.SubForTax(0.25/RawDays(1)*regen_time)
+					src.SubForTax(0.25/3 DAYS*regen_time)
 				if(src.OffTax)
-					src.SubOffTax(0.25/RawDays(1)*regen_time)
+					src.SubOffTax(0.25/3 DAYS*regen_time)
 				if(src.DefTax)
-					src.SubDefTax(0.25/RawDays(1)*regen_time)
+					src.SubDefTax(0.25/3 DAYS*regen_time)
 				if(src.RecovTax)
-					src.SubRecovTax(0.25/RawDays(1)*regen_time)
+					src.SubRecovTax(0.25/3 DAYS*regen_time)
 
 			last_online = world.realtime
 
@@ -472,6 +471,11 @@ mob/Players
 		for(var/obj/Items/ite in src)
 			Items.Remove(ite)
 			del ite
+		if(length(magatamaBeads))
+			for(var/i in magatamaBeads)
+				magatamaBeads -= i
+				del i
+			magatamaBeads.Cut()
 		companion_ais.Remove(src)
 		transform = null
 		filters = null
@@ -1072,7 +1076,7 @@ mob/proc
 		src:UniqueID = ++glob.IDCounter
 		glob.IDs += src:UniqueID
 		glob.IDs[src:UniqueID] = "[name]"
-
+		setStartingRPP()
 		if(!Warped)
 			if(src.Race=="Alien"||isRace(BEASTMAN)||isRace(YOKAI))
 				var/Choice=input(src, "Do you want to possess animal characteristics?  These options will give you tails and ears.", "Choose your animal traits.") in list("None", "Cat", "Fox", "Racoon", "Wolf", "Lizard", "Crow", "Bull")

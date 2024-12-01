@@ -1,6 +1,6 @@
 var/global/celestialObjectTicks = Hour(12)/10
 var
-	MoonMessage="The lone local freaky moon shines brightly!"
+	MoonMessage="The lone local moon shines brightly!"
 	MakyoMessage="A cursed star shines in the sky"
 	MoonSetMessage="The lone local moon sets!"
 	MakyoSetMessage="A cursed star disappears from the sky"

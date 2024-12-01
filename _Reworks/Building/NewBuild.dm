@@ -34,7 +34,7 @@ client
 		buildDir = SOUTH
 		list/paintedTurfs
 		list/selectedObjects
-		obj/highlight
+		image/highlight
 		list/highlightedAtoms = list()
 		buildX = 1
 		buildY = 1
@@ -63,13 +63,11 @@ client
 			mob.GenerateHUD()
 
 		CreateHighlight()
-			highlight = new
-			highlight.icon = 'outline.dmi'
-			highlight.pixel_x = -1
-			highlight.pixel_y = -1
-			highlight.vis_flags = VIS_INHERIT_ID
+			highlight = image('outline.dmi', null, layer = 10)
+			src << highlight
+			highlight.pixel_w = -1
+			highlight.pixel_z = -1
 			highlight.plane = 3
-			highlight.layer = 10
 
 		UpdateHighlightColor()
 			highlight.color = mob?.hudColor

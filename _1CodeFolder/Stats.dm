@@ -407,12 +407,12 @@ mob/proc/GetPowerUpRatio()
 		PowerUp+=passive_handler.Get("PUSpike")/100
 	if(src.CyberCancel)
 		if(src.CheckSpecial("Overdrive"))
-			if(src.Race=="Android")
+			if(isRace(ANDROID))
 				PowerUp+=0.5
 			else
 				PowerUp+=1
 		else
-			if(src.Race!="Android")
+			if(!isRace(ANDROID))
 				PowerUp-=PowerUp*src.CyberCancel
 	if(src.HasMovementMastery()&&PowerUp>0)
 		var/mmBonus = src.GetMovementMastery() / glob.MOVEMENT_MASTERY_DIVISOR
@@ -441,12 +441,12 @@ mob/proc/GetPowerUpRatioVisble()
 		PowerUp+=(passive_handler.Get("PUSpike")/100)
 	if(src.CyberCancel)
 		if(src.CheckSpecial("Overdrive"))
-			if(src.Race=="Android")
+			if(isRace(ANDROID))
 				PowerUp+=0.5
 			else
 				PowerUp+=1
 		else
-			if(src.Race!="Android")
+			if(!isRace(ANDROID))
 				PowerUp-=PowerUp*src.CyberCancel
 	if(passive_handler.Get("MovementMastery")&&PowerUp>0)
 		Ratio=1+(PowerUp*(1+(passive_handler.Get("MovementMastery")/8)))

@@ -287,7 +287,7 @@ majinAbsorb/proc/doAbsorb(mob/absorber, mob/absorbee)
         . = errorCodes[4]
         src<< .
         return
-    if(target.Race == "Android")
+    if(target.isRace(ANDROID))
         . = errorCodes[5]
         src << .
         return
