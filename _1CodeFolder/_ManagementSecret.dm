@@ -53,7 +53,7 @@ SecretInfomation
 				potentialRecieved = glob.progress.DaysOfWipe
 				if(currentTier + 1 <= tierUnlocked)
 					tierUp(1, p)*/
-			else if(currentTier > lastCheckedTier)
+			if(currentTier > lastCheckedTier)
 				applySecret(p)
 
 
