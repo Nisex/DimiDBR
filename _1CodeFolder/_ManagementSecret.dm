@@ -30,7 +30,6 @@
 		return secretDatum.currentTier
 	return 0
 
-
 SecretInfomation
 	var
 		name
@@ -50,10 +49,10 @@ SecretInfomation
 
 	proc/checkTierUp(mob/p)
 		if(currentTier < maxTier)
-			if(p.Potential >= potentialRecieved + (glob.progress.PotentialDaily*nextTierUp))
+	/*		if(p.Potential >= potentialRecieved + (glob.progress.PotentialDaily*nextTierUp))
 				potentialRecieved = glob.progress.DaysOfWipe
 				if(currentTier + 1 <= tierUnlocked)
-					tierUp(1, p)
+					tierUp(1, p)*/
 			else if(currentTier > lastCheckedTier)
 				applySecret(p)
 
