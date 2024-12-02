@@ -1058,6 +1058,9 @@ mob/Admin3/verb
 
 	Announce(msg as text)
 		set category="Admin"
+		var/display = usr.key
+		if(DisplayKey)
+			display = DisplayKey
 		world<<"<hr><center><b>[DisplayKey]</b> announces:<br>[msg]<br><hr>"
 	Mute(mob/M in players)
 		set category="Admin"
