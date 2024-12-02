@@ -1327,7 +1327,7 @@ mob
 				Extra+=1
 			if(src.DrunkPower())
 				Extra+=2
-			if(Target&&Target.HasInstinct() >= Base+Extra)
+			if(Target&&Target.passive_handler.Get("Instinct") >= Base+Extra)
 				Extra += (passive_handler.Get("LikeWater")) / 2
 			return (Base+Extra)
 		HasInstinct()
@@ -1339,7 +1339,7 @@ mob
 			var/t=src.HighestTrans()
 			if(round(t/4))
 				Return+=1
-			if(Target&&Target.GetFlow() >= Return)
+			if(Target&&Target.passive_handler.Get("Flow") >= Return)
 				Return+=passive_handler.Get("LikeWater") / 2
 			return Return
 		HasSoulSteal()
