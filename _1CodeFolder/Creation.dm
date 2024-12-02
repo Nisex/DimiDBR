@@ -1,5 +1,5 @@
-#define WIPE_TOPIC "https://docs.google.com/document/d/1pe2uWf5aRKBSjOCKq2F6KzTkf_A_fM80ZS2Dwz8sp3I/edit#heading=h.uc68sooja4h"
-#define DISCORD_INVITE "https://discord.gg/9jjWZJ7dDx"
+#define WIPE_TOPIC "https://docs.google.com/document/d/12IdAaHcVhbcWBK-U7XKyUBE3wb3PeyWpmfjl_xbJlUs/edit?usp=drivesdk"
+#define DISCORD_INVITE "https://discord.gg/NF6S4xwnKy"
 #define PATREON_LINK "https://patreon.com/jordanzoSupport"
 #define KO_FI_LINK "https://ko-fi.com/boberjones"
 #define DONATION_MESSAGE "<a href='[PATREON_LINK]'>Patreon (Monthly)</a> <a href='[KO_FI_LINK]'>Ko-Fi (One Time)</a>"
