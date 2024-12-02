@@ -163,8 +163,13 @@ mob/Players
 		for(var/obj/Skills/Zanzoken/z in src)
 			z.ZanzoAmount=0
 
-		if(updateVersion.version != glob.UPDATE_VERSION)
+		if(updateVersion && updateVersion.version != glob.UPDATE_VERSION)
 			glob.updatePlayer(src)
+		if(!updateVersion)
+			var/updateversion = "/update/version[glob.UPDATE_VERSION]"
+			updateVersion = new updateversion
+			if(isRace(ANDROID) && updateVersion.version == 2)
+				updateVersion.updateMob(src)
 		if(RPPSpendable + RPPSpent > RPPCurrent)
 			AdminMessage("[src] has more rpp than they should.")
 		

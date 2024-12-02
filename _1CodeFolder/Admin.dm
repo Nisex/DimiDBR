@@ -1061,7 +1061,7 @@ mob/Admin3/verb
 		var/display = usr.key
 		if(DisplayKey)
 			display = DisplayKey
-		world<<"<hr><center><b>[DisplayKey]</b> announces:<br>[msg]<br><hr>"
+		world<<"<hr><center><b>[display]</b> announces:<br>[msg]<br><hr>"
 	Mute(mob/M in players)
 		set category="Admin"
 		if(!M.client)
