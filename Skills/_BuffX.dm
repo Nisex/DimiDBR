@@ -855,6 +855,7 @@ NEW VARIABLES
 				proc/init(obj/Items/Gear/Mobile_Suit/mecha, mob/player)
 					PowerMult = 1.25 + (mecha.Level * 0.25) + (player.AngerMax / (8 - mecha.Level))
 					if(player.Saga == "King of Braves")
+						passives["SpecialBuffLock"] = 0
 						SpecialBuffLock = 0
 				Trigger(mob/User, Override)
 					var/obj/Items/Gear/Mobile_Suit/mech = User.findMecha()
