@@ -163,7 +163,7 @@ mob/Players
 		for(var/obj/Skills/Zanzoken/z in src)
 			z.ZanzoAmount=0
 
-		if(updateVersion != glob.UPDATE_VERSION)
+		if(updateVersion.version != glob.UPDATE_VERSION)
 			glob.updatePlayer(src)
 		if(RPPSpendable + RPPSpent > RPPCurrent)
 			AdminMessage("[src] has more rpp than they should.")
@@ -1076,6 +1076,8 @@ mob/proc
 		src:UniqueID = ++glob.IDCounter
 		glob.IDs += src:UniqueID
 		glob.IDs[src:UniqueID] = "[name]"
+		var/updateversion = "/update/version[glob.UPDATE_VERSION]"
+		updateVersion = new updateversion
 		setStartingRPP()
 		if(!Warped)
 			if(src.Race=="Alien"||isRace(BEASTMAN)||isRace(YOKAI))
