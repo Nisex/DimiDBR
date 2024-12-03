@@ -3007,7 +3007,6 @@ obj/Items/Gear
 			usr << "You don't have enough money to upgrade [src]! ([Commas(usr.GetMoney())] / [Commas(NuCost)])"
 			src.Using=0
 			return
-		usr.TakeMoney(NuCost)
 		var/obj/Items/I
 		if(islist(src.UpgradePath))
 			var/choice = input(usr, "What would you like to upgrade [src] into?", "Upgrade") in src.UpgradePath + "Cancel"
@@ -3018,6 +3017,7 @@ obj/Items/Gear
 				I=new choice
 		else
 			I=new src.UpgradePath
+		usr.TakeMoney(NuCost)
 		I.Cost=I.Cost+(NuCost/global.EconomyCost)
 		usr.contents+=I
 		OMsg(usr, "[usr] has upgraded [src] into a new gear!")

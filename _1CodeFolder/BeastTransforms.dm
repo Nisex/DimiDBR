@@ -95,7 +95,9 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Bu
 		if(src.SSJ4Unlocked)return
 		if(src.Dead)return
 		if(transActive)return
-
+		if(src.CheckActive("Ki Control"))
+			for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in src)
+				src.UseBuff(KC)
 		src.Oozaru=1
 		Buff.adjust(src)
 		Buff.Trigger(src, 1)
