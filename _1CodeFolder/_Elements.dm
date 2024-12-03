@@ -15,6 +15,8 @@ proc
 		var/obj/Items/Enchantment/Staff/staf=Attacker.EquippedStaff()
 		var/obj/Items/Sword/sord=Attacker.EquippedSword()
 		var/obj/Items/Armor/armr = Defender.EquippedArmor()
+		var/obj/Items/Sword/sord2 = Attacker.EquippedSecondSword()
+		var/obj/Items/Sword/sord3 = Attacker.EquippedThirdSword()
 
 		if(staf && staf.Element)
 			attackElements |= staf.Element
@@ -22,6 +24,12 @@ proc
 		if(sord && sord.Element)
 			attackElements |= sord.Element
 			DebuffIntensity /= glob.ITEM_DEBUFF_APPLY_NERF // 4 
+		if(sord2)
+			attackElements |= sord2.Element
+			DebuffIntensity /= glob.ITEM_DEBUFF_APPLY_NERF * 1.25
+		if(sord3)
+			attackElements |= sord3.Element
+			DebuffIntensity /= glob.ITEM_DEBUFF_APPLY_NERF * 1.5
 
 		if(onlyTheseElements)
 			attackElements = onlyTheseElements
