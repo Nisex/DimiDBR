@@ -581,11 +581,12 @@ NEW VARIABLES
 				return 0
 			if(src.DashCountLimit)
 				src.DashCount=0
-			User.UseBuff(src, Override)
+			var/returnClause
+			returnClause = User.UseBuff(src, Override)
 			User.BuffingUp=0
 			if(!src.BuffName)
 				src.BuffName="[src.name]"
-			return 1
+			return returnClause
 	ActiveBuffs
 		ActiveSlot=1
 		passives = list()
@@ -3231,6 +3232,8 @@ NEW VARIABLES
 					passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1,"MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.25))
 					MovementMastery = 6 + (player.SagaLevel)
 					Godspeed = 1 + (player.SagaLevel * 0.25)
+					if(!timeLimit)
+						setRandomTime(player)
 				verb/Toggle_Cape()
 					set category="Roleplay"
 					var/image/im=image(icon='goldsaint_cape.dmi', layer=FLOAT_LAYER-3)
@@ -3248,8 +3251,8 @@ NEW VARIABLES
 							usr << "You put your cape on!"
 							src.NoExtraOverlay=0
 				Trigger(var/mob/User, Override = 0)
-					..()
-					if(User.SagaLevel < 5&&!Using)
+					. = ..()
+					if(. && User.SagaLevel < 5&&!Using)
 						del src
 				Aries_Cloth
 					ForMult=1.3
@@ -7102,6 +7105,22 @@ NEW VARIABLES
 					set category="Skills"
 					src.Trigger(usr)
 
+		Necromorph
+			IconLock = 'Necromorph.dmi'
+			LockX = -16
+			LockY = -16
+			passives = list("SwordPunching" = 1, "PureDamage" = -1, "PureReduction" = 10, "NoDodge" = 1, "Instinct" = 1)
+			ActiveMessage = "is taken over by sprawling masses of flesh and necrotization!"
+			OffMessage = "'s fleshy overgrowth recedes..."
+			var/forceZombie = 1
+			verb/Necromorphization()
+				set category = "Skills"
+				if(forceZombie)
+					if(!Using)
+						usr.Secret = "Zombie"
+					else
+						usr.Secret = null
+				src.Trigger(usr)
 //General
 		Posture//for custom shit
 			verb/Posture()
@@ -11319,7 +11338,7 @@ NEW VARIABLES
 					if(!User.BuffOn(src))
 						if(!altered)
 							passives = list("SpecialBuffLock" = 1,"TechniqueMastery" = 2, "MovementMastery" = 3, "Instinct" = 2, "Flicker" = 2, "Curse" = 1)
-
+					..()
 			Kagutsuchi
 				NeedsHealth=50
 				TooMuchHealth=75
@@ -13786,22 +13805,26 @@ mob
 
 			if(B.MakesStaff)
 				var/obj/Items/Enchantment/Staff/s=src.EquippedStaff()
-				s.AlignEquip(src)
-				del s
+				if(s.Conjured)
+					s.AlignEquip(src)
+					del s
 			if(B.MakesSecondSword)
 				var/obj/Items/Sword/s=src.EquippedSecondSword()
-				s.AlignEquip(src)
-				del s
+				if(s.Conjured)
+					s.AlignEquip(src)
+					del s
 			if(B.MakesArmor)
 				var/obj/Items/Sword/s=src.EquippedArmor()
-				s.AlignEquip(src)
-				del s
+				if(s.Conjured)
+					s.AlignEquip(src)
+					del s
 				var/image/im=image(icon='goldsaint_cape.dmi', layer=FLOAT_LAYER-3)
 				src.overlays-=im
 			if(B.MakesSword)
 				var/obj/Items/Sword/s=src.EquippedSword()
-				s.AlignEquip(src)
-				del s
+				if(s.Conjured)
+					s.AlignEquip(src)
+					del s
 				if(B.MakesSword==3)
 					for(s in src)
 						if(s.Conjured)
