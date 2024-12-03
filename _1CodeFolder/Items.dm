@@ -342,8 +342,8 @@ obj/Items
 							ItemMade.loc=usr
 						else
 							ItemMade.loc=usr.loc
-					ItemMade:CreatorKey=usr.ckey
-					ItemMade:CreatorSignature=usr.EnergySignature
+						ItemMade:CreatorKey=usr.ckey
+						ItemMade:CreatorSignature=usr.EnergySignature
 
 
 

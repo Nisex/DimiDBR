@@ -15,6 +15,8 @@
 
 /mob/proc/applyVoidNerf()
 	Maimed++
+	src << "After managing to survive, you're left with a maim."
+	/*
 	var/highestStat = 0
 	var/highestStatName = ""
 	for(var/i in 1 to 5)
@@ -34,7 +36,7 @@
 			highestStat = GetOff()
 			highestStatName = "Off"
 	vars["[highestStatName]Cut"] += 0.1
-	src<<"After managing to survive, you are left with a permanent injury. Your [highestStatName] is cut by 10%."
+	src<<"After managing to survive, you are left with a permanent injury. Your [highestStatName] is cut by 10%."*/
 
 
 

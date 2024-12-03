@@ -1,5 +1,5 @@
-#define WIPE_TOPIC "https://docs.google.com/document/d/1pe2uWf5aRKBSjOCKq2F6KzTkf_A_fM80ZS2Dwz8sp3I/edit#heading=h.uc68sooja4h"
-#define DISCORD_INVITE "https://discord.gg/9jjWZJ7dDx"
+#define WIPE_TOPIC "https://docs.google.com/document/d/12IdAaHcVhbcWBK-U7XKyUBE3wb3PeyWpmfjl_xbJlUs/edit?usp=drivesdk"
+#define DISCORD_INVITE "https://discord.gg/NF6S4xwnKy"
 #define PATREON_LINK "https://patreon.com/jordanzoSupport"
 #define KO_FI_LINK "https://ko-fi.com/boberjones"
 #define DONATION_MESSAGE "<a href='[PATREON_LINK]'>Patreon (Monthly)</a> <a href='[KO_FI_LINK]'>Ko-Fi (One Time)</a>"
@@ -163,8 +163,13 @@ mob/Players
 		for(var/obj/Skills/Zanzoken/z in src)
 			z.ZanzoAmount=0
 
-		if(updateVersion != glob.UPDATE_VERSION)
+		if(updateVersion && updateVersion.version != glob.UPDATE_VERSION)
 			glob.updatePlayer(src)
+		if(!updateVersion)
+			var/updateversion = "/update/version[glob.UPDATE_VERSION]"
+			updateVersion = new updateversion
+			if(isRace(ANDROID) && updateVersion.version == 2)
+				updateVersion.updateMob(src)
 		if(RPPSpendable + RPPSpent > RPPCurrent)
 			AdminMessage("[src] has more rpp than they should.")
 		
@@ -1076,6 +1081,8 @@ mob/proc
 		src:UniqueID = ++glob.IDCounter
 		glob.IDs += src:UniqueID
 		glob.IDs[src:UniqueID] = "[name]"
+		var/updateversion = "/update/version[glob.UPDATE_VERSION]"
+		updateVersion = new updateversion
 		setStartingRPP()
 		if(!Warped)
 			if(src.Race=="Alien"||isRace(BEASTMAN)||isRace(YOKAI))

@@ -1470,11 +1470,11 @@ obj/Items/Tech
 		verb/Communicator_Frequency()
 			set src in usr
 			var/previousFreq = Frequency
-			Frequency=input(usr,"Change your Communicator frequency to what?","Frequency",Frequency)as num
-			if(previousFreq!=Frequency)
-				addToGlobalListeners(src)
-				if(globalListeners[previousFreq])
-					globalListeners[previousFreq] -= src
+			var/newFreq=input(usr,"Change your Communicator frequency to what?","Frequency",Frequency) as num
+			if(previousFreq == newFreq) return
+			removeFromGlobalListeners(src)
+			Frequency = newFreq
+			addToGlobalListeners(src)
 			suffix = "[toggled_on ? "On -- Freq: [Frequency]" : "Off -- Freq:[Frequency]"]"
 	PDA
 		TechType="Telecommunications"

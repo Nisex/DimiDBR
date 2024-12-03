@@ -3,6 +3,8 @@ globalTracker/var/SYMBIOTE_DMG_TEST = 2
 /mob/proc/styleModifiers(mob/defender)
     if(HasSoftStyle())
         . += (defender.TotalFatigue/20) * (GetSoftStyle() / glob.SOFT_STYLE_DMG_BOON_DIVISOR)
+    if(HasHardStyle())
+        . += (defender.TotalInjury/20) * (GetHardStyle() / glob.HARD_STYLE_DMG_BOON_DIVISOR)
     if(passive_handler.Get("CheapShot"))
         . += (defender.TotalInjury/glob.CHEAP_SHOT_DIVISOR) * (passive_handler.Get("CheapShot"))
     if(HasCyberStigma())
