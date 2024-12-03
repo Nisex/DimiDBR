@@ -81,7 +81,7 @@ mob/proc/returnNames()
 
 	var/KeyForWhoThePrayerIs = null
 
-	var/list/nameList4Name= list("Trump","Janus", "The Calamity", "-----------")
+	var/list/nameList4Name= list("Janus", "The Calamity", "-----------")
 
 	for(var/name in names)
 		nameList4Name += name["name"]
