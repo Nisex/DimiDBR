@@ -256,7 +256,7 @@ obj
 					DamageMult=0.8
 					KBAdd = 3
 					InstantStrikes=10
-					FollowUp="/obj/Skills/Queue/AutoHit/Heavenly_Dragon_Violet_Ponds_Annihilation_of_the_Nine_Realms"
+					FollowUp="/obj/Skills/AutoHit/Heavenly_Dragon_Violet_Ponds_Annihilation_of_the_Nine_Realms"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragons_Transient_Enlightenment"
 					HitMessage="Summons the boundless might of their martial arts, entering into a breakthrough by pure technique alone. Roars that turn into unstoppable torrent of energy erupt from their body while it soars through the battlefield, unleashing a symphony of cataclysmic destruction paired with ethereal grace. They have unlocked the ultimate testament to the Heavenly Dragon Stance, a dance of power and honor that surpasses the mortal plane, from the divine heights of the quasi-god realm, they descend as the Heavenly Dragon. Harnessing the boundless force of the Nine converging Realms, they unleash a relentless storm of peerless strength, devastating the battle field."
 
