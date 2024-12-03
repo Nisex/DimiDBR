@@ -1,5 +1,5 @@
 // jesus christ lets get a grip
-
+#define GODS list("Janus", "The Calamity")
 #define WSNAMES list("Masamune", "Durendal", "Kusanagi", "Caledfwlch", "Muramasa", "Soul Calibur", "Soul Edge", "Dainsleif", "Ryui Jingu Bang")
 #define BRONZECLOTHS list("Pegasus","Dragon","Cygnus","Andromeda","Phoenix","Unicorn")
 #define GOLDCLOTHS list("Aries",/* "Taurus" */,"Gemini","Cancer","Leo","Virgo","Libra","Scorpio",/*"Sagittarius"*/,"Capricorn","Aquarius","Pisces")
@@ -400,6 +400,7 @@ globalTracker
 		DainsleifDrain = 0.05
 		infWeaponSoul = TRUE
 		WeaponSoulNames = WSNAMES
+		prayerTargetNames = GODS
 		list/WeaponSoul = list("Muramasa" = FALSE, "Soul Calibur" = FALSE,"Soul Edge" = FALSE,\
  "Dainsleif" = FALSE)
  // false = open, true = taken

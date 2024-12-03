@@ -81,7 +81,11 @@ mob/proc/returnNames()
 
 	var/KeyForWhoThePrayerIs = null
 
-	var/list/nameList4Name= list("Janus", "The Calamity", "-----------")
+	var/list/nameList4Name= list()
+	for(var/god in glob.prayerTargetNames)
+		nameList4Name += god
+	nameList4Name += "------------"
+
 
 	for(var/name in names)
 		nameList4Name += name["name"]
@@ -117,7 +121,7 @@ mob/proc/returnNames()
 		usr<<"Uh oh... something went wrong with saving this prayer.. contact awwlie!"
 		return
 		
-	if(who == "Other" || who =="Trump" || who == "Janus" || who == "The Calamity")
+	if(who in glob.prayerTargetNames)
 		for(var/mob/m in admins)
 			if(!m.PrayerMute&&m.Admin>2)
 				if(who =="Other")
