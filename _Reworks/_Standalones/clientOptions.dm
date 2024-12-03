@@ -11,10 +11,11 @@ Options/
     var/currentFontSize = 8
     var/disableLoginAlert = 0
     var/CombatMessagesInIC = FALSE
+    var/autoAttacking = FALSE
     var/list/savableVars = list("seePronouns", "useSupporter", "useDonator", "disableLoginAlert", "currentFontFamily", "currentFontSize", "ShowOOC", "LOOCinIC", "AllTabOOC", "LOOCinAll", "AdminAlerts", "CombatMessagesInIC")
     proc/savePrefs(ckey)
         . = list()
-        for(var/opt in savableVars)
+        for(var/opt in savableVars - autoAttacking)
             .["[opt]"] += vars[opt]
         if(deleteOldPrefs(ckey))
             var/write = file("[CONFIG_OPTIONS_JSON_FOLDER][ckey].json")
@@ -52,4 +53,5 @@ Options/
 
 /client/proc/getPref(pref)
     return prefs.vars["[pref]"]
+
 
