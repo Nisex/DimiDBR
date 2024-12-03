@@ -171,6 +171,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					src.icon_state=""
 					if(MeditateTime >= 15)
 						src.Tension=0
+						Momentum = 0
 						for(var/obj/Skills/s in src)
 							if(length(s.possible_skills) > 0)
 								for(var/t in s.possible_skills)
