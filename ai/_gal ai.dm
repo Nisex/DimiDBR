@@ -1314,7 +1314,7 @@ mob/Player/AI
 		if(src.Grab)src.Grab_Update()
 
 		if(src.Stasis||src.StasisFrozen)
-			src.Stasis--
+			src.Stasis -= 200
 			if(src.Stasis<=0)
 				src.Stasis=0
 				src.RemoveStasis()
