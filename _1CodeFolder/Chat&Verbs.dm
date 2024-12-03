@@ -889,7 +889,8 @@ mob/Players/verb
 		if(diemodifer<-100)
 			diemodifer=-100
 		var/decision=input("Seperate the dice rolls?") in list("Yes","No")
-		if(decision=="Yes")
+		if(decision=="Yes")	
+			var/oldnum = dieNumber
 			while(dienumber>0)
 				var/die="1d[diesides]"
 				var/dieroll=roll(die)
@@ -897,9 +898,9 @@ mob/Players/verb
 				total+=dieroll
 				dienumber--
 			total+=diemodifer
-			usr.OMessage(10,"<b><font color=red>DICE:</b></font> [usr] rolled a total of [total] ([dienumber]d[diesides]+[diemodifer]), rolls were [textstring].")
+			usr.OMessage(10,"<b><font color=red>DICE:</b></font> [usr] rolled a total of [total] ([oldnum]d[diesides]+[diemodifer]), rolls were [textstring].")
 			for(var/mob/o in  usr.BeingObserved)
-				o << output("<b>(OBSERVE) <font color=red>DICE:</b></font> [usr] rolled a total of [total] ([dienumber]d[diesides]+[diemodifer]), rolls were [textstring].")
+				o << output("<b>(OBSERVE) <font color=red>DICE:</b></font> [usr] rolled a total of [total] ([oldnum]d[diesides]+[diemodifer]), rolls were [textstring].")
 		if(decision=="No")
 			var/dice="[dienumber]d[diesides]+[diemodifer]"
 			var/roll=roll(dice)
