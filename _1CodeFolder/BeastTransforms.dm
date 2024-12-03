@@ -100,6 +100,7 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Bu
 				src.UseBuff(KC)
 		src.Oozaru=1
 		Buff.adjust(src)
+		src.PowerControl=100
 		Buff.Trigger(src, 1)
 
 		src.Anger=2
