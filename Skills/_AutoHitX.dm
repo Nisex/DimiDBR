@@ -5797,6 +5797,7 @@ mob
 				RoundCount*= 1+ src.HasDualCast()
 				RoundCount = floor(RoundCount)
 			while(RoundCount>0)
+				if(!src.Target) break
 				if(Z.Earthshaking)
 					spawn()
 						src.Quake(Z.Earthshaking)

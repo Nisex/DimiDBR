@@ -88,7 +88,8 @@ obj
 		proc
 			EditAI(mob/p)
 				if(p.Admin)
-					p?:Edit(monsters[1])
+					if(length(monsters)>0) 
+						p?:Edit(monsters[1])
 
 			roll_tag()
 				src.name="#[rand(1000,9999)] [src.name]"

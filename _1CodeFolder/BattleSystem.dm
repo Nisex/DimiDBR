@@ -260,7 +260,7 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 	if(istype(src, /mob/Player/AI))
 		if(P)
 			var/mob/Player/AI/a = src
-			if(a.senpai)
+			if(a.senpai && length(a.senpai.monsters))
 				var/aiType = a.senpai.monsters[1].og_name
 				if(!aiType)
 					aiType = a.senpai.monsters[1].name

@@ -1014,11 +1014,11 @@ obj/Skills/Utility
 						usr.TakeMoney(Cost)
 			if(Choice2!="Ultima (True)"||Choice2!="Ultima!?")
 				usr << "You feel exhausted."
-				usr.GainFatigue(50/usr.ArmamentEnchantmentUnlocked)
+				usr.GainFatigue(50/max(1,usr.ArmamentEnchantmentUnlocked))
 			if(Choice2=="Ultima!?")
 				usr << "You feel physically and mentally drained."
-				usr.GainFatigue(200/usr.ArmamentEnchantmentUnlocked)
-				usr.LoseCapacity(200/usr.ArmamentEnchantmentUnlocked)
+				usr.GainFatigue(200/max(1,usr.ArmamentEnchantmentUnlocked))
+				usr.LoseCapacity(200/max(1,usr.ArmamentEnchantmentUnlocked))
 			if(Choice2=="Ultima (True)")
 				usr << "You sacrificed part of your soul for the sake of this project..."
 				usr.EconomyMult/=2

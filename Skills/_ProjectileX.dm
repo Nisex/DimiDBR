@@ -4883,6 +4883,7 @@ mob
 					BlastCount = floor(BlastCount)
 				for(var/i=0, i<BlastCount, i++)
 					BlastAgain
+					if(!src.Target) break
 					if(Z.Homing||Z.LosesHoming)
 						src.dir=get_dir(src,src.Target)
 					if(Z.Feint&&src.Target&&src.Target!=src)
