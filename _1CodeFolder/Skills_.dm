@@ -85,15 +85,19 @@ obj/Skills/proc/Cooldown(var/modify=1, var/Time, mob/p)
 #define get_turf(A) (get_step(A, 0))
 
 /mob/var/tmp/lastZanzoUsage = 0
-
+/mob/var/tmp/lastHit = 0
 mob/Players/verb
+	Auto_Attack()
+		set category = "Skills"
+		client.setPref("autoAttacking", !client.getPref("autoAttacking"))
+		src << "You are [client.getPref("autoAttacking") ? "now Auto Attacking." : "no longer Auto Attacking."]"
 	Attack()
 		set category="Skills"
 		set name="Normal Attack"
-		if(usr.icon_state=="Meditate")
-			usr.SkillX("Meditate",src)
+		if(src.icon_state=="Meditate")
+			src.SkillX("Meditate",src)
 		// get step in front, get all stuff on that turf, only use melee if it has more than a turf
-		usr.Melee1()
+		src.Melee1()
 
 mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 	if(Z)

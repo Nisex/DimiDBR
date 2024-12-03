@@ -315,7 +315,12 @@ mob
 
 		StunCheck(src)
 		StunImmuneCheck(src)
-
+		if(client.getPref("autoAttacking"))
+			var/mob/Players/p = src
+			if(world.time - lastHit < 3 MINUTES)
+				p.Attack()
+			else
+				p.Auto_Attack()
 		if(src.Health <= 15*(1-src.HealthCut))
 			if(Saga == "Cosmo" && SpecialBuff && seventhSenseTriggered == FALSE) // saint
 				if(SagaLevel == 4)

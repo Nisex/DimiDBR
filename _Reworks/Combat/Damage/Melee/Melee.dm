@@ -676,7 +676,7 @@
 							#endif
 							DoDamage(enemy, damage, unarmedAtk, swordAtk, SecondStrike, ThirdStrike)
 							handlePostDamage()
-
+							lastHit = world.time
 				// 										MELEE END																	 //
 							var/shocked=0
 							if((SureKB || AttackQueue&& QueuedKBAdd()) && !NoKB)
@@ -757,7 +757,6 @@
 								otherDmg += passive_handler.Get("Quaker")
 							if(passive_handler.Get("QuakerMod"))
 								otherDmg *= passive_handler.Get("QuakerMod")
-
 
 
 						// HIT EFFECTS //
