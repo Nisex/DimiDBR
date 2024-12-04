@@ -889,8 +889,8 @@ mob/Players/verb
 		if(diemodifer<-100)
 			diemodifer=-100
 		var/decision=input("Seperate the dice rolls?") in list("Yes","No")
-		if(decision=="Yes")	
-			var/oldnum = dieNumber
+		if(decision=="Yes")
+			var/oldnum = dienumber
 			while(dienumber>0)
 				var/die="1d[diesides]"
 				var/dieroll=roll(die)
