@@ -9113,11 +9113,11 @@ NEW VARIABLES
 							"HybridStrike" = 1, "SweepingStrike" = 1, "Flow" = -1, "Instinct" = -1, "PureDamage" = 2, "PureReduction" = 2)
 							VaizardHealth += 0.25 * (usr.SagaLevel-4)
 							Cooldown -= 20 * (usr.SagaLevel-4)
-					if(usr.SagaLevel>=6)
+					if(usr.SagaLevel>=5)
 						DefMult = 0.8
 						src.ActiveMessage="conjures a partially humanoid figure around them!"
 						src.OffMessage="dissipates the mighty avatar..."
-					if(usr.SagaLevel>=7)
+					if(usr.SagaLevel>=6)
 						DefMult = 1
 						Cooldown = 240
 						src.ActiveMessage="conjures a fully humanoid, titanic figure around them!"
