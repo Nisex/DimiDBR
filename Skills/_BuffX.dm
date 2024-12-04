@@ -6822,6 +6822,7 @@ NEW VARIABLES
 				Afterimages=1
 				ClientTint=1
 				OffMessage="releases their time magic..."
+				IconTint=list(0.75,0.3,0, 0.4,0.3,0, 0.25,0.15,0, 0,0,0)
 				verb/Time_Alter_Double_Accel()
 					set name="Time Alter: Double Accel"
 					set category="Skills"
@@ -6833,7 +6834,6 @@ NEW VARIABLES
 						src.SpdMult=2
 						src.Instinct=1
 						src.Flow=1
-						src.IconTint=list(0.75,0.3,0, 0.4,0.3,0, 0.25,0.15,0, 0,0,0)
 						src.ActiveMessage="yells: <b>Time Alter: Double Accel!</b>"
 					src.Trigger(usr)
 					if(usr.BuffOn(src))
@@ -6849,7 +6849,6 @@ NEW VARIABLES
 						src.SpdMult=3
 						src.Instinct=2
 						src.Flow=2
-						src.IconTint=list(0.75,0.3,0, 0.4,0.3,0, 0.25,0.15,0, 0,0,0)
 						src.ActiveMessage="yells: <b>Time Alter: Triple Accel!</b>"
 					src.Trigger(usr)
 					if(usr.BuffOn(src))
@@ -6865,7 +6864,6 @@ NEW VARIABLES
 						passives = list("BleedHit" = 3/Mastery, "Instinct" = 4, "Flow" = 4, "EnergyExpenditure" = 2, "BlurringStrikes" = 4)
 						src.Instinct=3
 						src.Flow=3
-						IconTint=list(0.75,0.3,0, 0.4,0.3,0, 0.25,0.15,0, 0,0,0)
 						ActiveMessage="yells: <b>Time Alter: Square Accel!</b>"
 					src.Trigger(usr)
 					if(usr.BuffOn(src))
