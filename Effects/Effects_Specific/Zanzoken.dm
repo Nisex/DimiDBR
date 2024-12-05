@@ -393,11 +393,15 @@ proc
 		var/changeY=pick(-8,-4,4,8)
 		if(!A.Dodging)
 			A.Dodging=1
+			if(A.filters.len > 0)
+				if(A.filters[A.filters.len])
+					animate(A.filters[A.filters.len], x=changeX/4, y=changeY/4, time=2, flags=ANIMATION_RELATIVE | ANIMATION_PARALLEL)
 			animate(A,pixel_x=changeX, pixel_y=changeY, time=2, flags=ANIMATION_RELATIVE)
-			animate(A.filters[A.filters.len], x=changeX/4, y=changeY/4, time=2, flags=ANIMATION_RELATIVE | ANIMATION_PARALLEL)
 			sleep(2)
 			animate(A,pixel_x=-changeX, pixel_y=-changeY, time=1, flags=ANIMATION_RELATIVE | ANIMATION_PARALLEL)
-			animate(A.filters[A.filters.len], x=0, y=0, time=1)
+			if(A.filters.len > 0) // why
+				if(A.filters[A.filters.len])
+					animate(A.filters[A.filters.len], x=0, y=0, time=1)
 			A.Dodging=0
 	Prediction(mob/A)
 		var/changeX=pick(-16,-8,8,16)
