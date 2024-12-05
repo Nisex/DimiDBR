@@ -2942,9 +2942,7 @@ mob
 					return
 				if(src.Potential<30 && src.SagaLevel>=2)
 					return
-				if(src.Potential<45&&src.SagaLevel>=3)
-					return
-				if(src.SagaLevel>=4&&!src.SagaAdminPermission)
+				if(src.SagaLevel>=3&&!src.SagaAdminPermission)
 					return
 				src.saga_up_self()
 				return
