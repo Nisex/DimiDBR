@@ -3222,7 +3222,7 @@ NEW VARIABLES
 							if(startTime >= timeLimit)
 								temporaryTime = 0
 								p << "Your Gold Cloth has expired!"
-								src.Trigger(p)
+								src.Trigger(p, TRUE)
 								Toggle_Cape()
 								sleep(3)
 								del src
@@ -3250,10 +3250,6 @@ NEW VARIABLES
 							usr.Hairz("Add")
 							usr << "You put your cape on!"
 							src.NoExtraOverlay=0
-				Trigger(var/mob/User, Override = 0)
-					. = ..()
-					if(. && User.SagaLevel < 5&&!Using)
-						del src
 				Aries_Cloth
 					ForMult=1.3
 					EndMult=1.3
@@ -7960,7 +7956,7 @@ NEW VARIABLES
 			BuffTechniques=list("/obj/Skills/Projectile/Beams/Saint_Seiya/Nebula_Chain","/obj/Skills/Queue/Thunder_Wave")
 			Cooldown=150
 			adjust(mob/p)
-				passives = list("SwordAscension" = min(player.SagaLevel, 1), "Extend" = 1, "Deflection" = min(player.SagaLevel-2,1), "Paralyzing" = player.SagaLevel, "Crippling" = player.SagaLevel/2)
+				passives = list("SwordAscension" = min(p.SagaLevel, 1), "Extend" = 1, "Deflection" = min(p.SagaLevel-2,1), "Paralyzing" = p.SagaLevel, "Crippling" = p.SagaLevel/2)
 			verb/Andromeda_Chain()
 				set category="Skills"
 				adjust(usr)
@@ -7971,7 +7967,7 @@ NEW VARIABLES
 				SBuffNeeded="Andromeda Cloth"
 				Cooldown=60
 				adjust(mob/p)
-					passives = list("Flow" = min(player.SagaLevel/2, 1), "LikeWater" = player.SagaLevel, "BackTrack" = min(player.SagaLevel-3, 1))
+					passives = list("Flow" = min(p.SagaLevel/2, 1), "LikeWater" = p.SagaLevel, "BackTrack" = min(p.SagaLevel-3, 1))
 				verb/Rolling_Defense()
 					set category="Skills"
 					adjust(usr)
