@@ -111,12 +111,12 @@ mob/Admin3/verb/LoadSwapMap()
 		sleep(10)
 		world.Reboot()
 
-
+/*
 /mob/Admin3/verb/Stop_All_AI()
 	for(var/obj/AI_Spot/a in world)
 		a.ai_limit = 0
 	for(var/mob/Player/AI/ai in ticking_ai)
-		ai.EndLife(0)
+		ai.EndLife(0)*/
 
 /mob/Admin2/verb/PrivateNarrate(mob/m in players)
 	set category="Admin"

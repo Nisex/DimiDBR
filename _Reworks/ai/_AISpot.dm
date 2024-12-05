@@ -80,6 +80,8 @@ obj
 			if(global.ai_tracker_loop)
 				global.ai_tracker_loop.Add(src)
 		Del()
+			for(var/mob/Player/AI/ai in ai_active)
+				ai.EndLife(0)
 			if(global.ai_tracker_loop)
 				global.ai_tracker_loop.Remove(src)
 				src.loc=null
@@ -88,7 +90,7 @@ obj
 		proc
 			EditAI(mob/p)
 				if(p.Admin)
-					if(length(monsters)>0) 
+					if(length(monsters)>0)
 						p?:Edit(monsters[1])
 
 			roll_tag()
