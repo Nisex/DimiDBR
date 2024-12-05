@@ -1553,7 +1553,7 @@ obj
 				Instinct=1
 				ActiveMessage="spins like a top, crushing anyone caught in their range!"
 				adjust(mob/p)
-					world<<"here"
+				//	world<<"here"
 					if(p.isInnovative(HUMAN, "Unarmed") && !isInnovationDisable(p))
 						Size = 4
 						Rounds= 10 + (p.Potential/10)
