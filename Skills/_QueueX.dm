@@ -2691,38 +2691,56 @@ obj
 			Blade_Dance
 				SignatureTechnique=1
 				NeedsSword=1
-				DamageMult=4
+				DamageMult=2
 				SpeedStrike=4
-				AccuracyMult = 1
+				AccuracyMult = 1.5
 				HitStep=/obj/Skills/Queue/Blade_Dance2
 				Duration=3
 				Rapid=1
 				Instinct=1
-				Cooldown=160
-				EnergyCost=3
+				Cooldown=120
+				EnergyCost=2
 				HitSparkIcon='Slash - Future.dmi'
 				HitSparkX=-32
 				HitSparkY=-32
 				HitSparkTurns=1
 				HitSparkSize=1.5
 				HitMessage="chases their enemy down with a rush of powerful sword strikes!"
-				var/current_hits = 0
+				var/tmp/current_hits = 0
 				verb/Blade_Dance()
 					set category="Skills"
+					if(!Using)
+						current_hits = 0 
 					usr.SetQueue(src)
 			Blade_Dance2
 				NeedsSword=1
-				DamageMult=1
-				SpeedStrike=2
-				AccuracyMult=0.85
+				DamageMult=0.5
+				SpeedStrike=1
+				AccuracyMult=1.25
 				HitStep=/obj/Skills/Queue/Blade_Dance2
 				Duration=4
 				Warp=1
-				EnergyCost=3
+				EnergyCost=1
 				HitSparkIcon='Slash - Future.dmi'
 				HitSparkX=-32
 				HitSparkY=-32
-				HitSparkTurns=1
+				MissMessage = "is too exhausted to swing anymore...(Blade Dance Max Hit)"
+				adjust(mob/p)
+					// find blade dance
+					var/obj/Skills/Queue/Blade_Dance/bd = p.FindSkill(/obj/Skills/Queue/Blade_Dance)
+					bd.current_hits++
+					if(bd.current_hits < 10)
+						DamageMult = 0.5 + (0.25 * bd.current_hits)
+						Warp = round(min(1, bd.current_hits/2))
+						EnergyCost = 1 + bd.current_hits/2
+						SpeedStrike = round(min(1, bd.current_hits/2))
+						Duration = 4 + round(min(1, bd.current_hits/3))
+						AccuracyMult = 1.25 - (0.1 * bd.current_hits)
+					else
+						DamageMult = 0
+						EnergyCost = 0
+						AccuracyMult=0.0001
+						HitStep = FALSE
 			Nirvana_Slash
 				SignatureTechnique=1
 				NeedsSword=1
