@@ -73,7 +73,7 @@
 				SpdMult = 0.4
 				OffMult = 1.4
 		if(p.Potential > OOZARU_POTENTIAL_TRANS)
-			passives["Transformation Power"] = clamp(p.AscensionsAcquired * 2, 1, 50-p.Potential)
+			passives["Transformation Power"] = clamp(p.AscensionsAcquired * 2, 1, 100-p.Potential)
 	verb/Tail_Toggle()
 		set category = "Other"
 		if(usr.Tail)
