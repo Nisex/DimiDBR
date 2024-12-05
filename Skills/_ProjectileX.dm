@@ -3389,10 +3389,13 @@ obj
 					Trail='Trail - Plasma.dmi'
 					Variation=0
 					ActiveMessage="invokes: <font size=+1>ERASE!</font size>"
+					verb/Disable_Innovate()
+						set category = "Other"
+						disableInnovation(usr)
 					adjust(mob/p)
 						var/asc = p.AscensionsAcquired
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any"))
+							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 								if(p.passive_handler.Get("HotHundred") || p.passive_handler.Get("Warping"))
 									EndRate = 0.5
 									Radius=1
@@ -3449,9 +3452,12 @@ obj
 					Explode=2
 					Hover=1
 					ActiveMessage="invokes: <font size=+1>METEO!</font size>"
+					verb/Disable_Innovate()
+						set category = "Other"
+						disableInnovation(usr)
 					adjust(mob/p)
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any"))
+							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 								var/asc = p.AscensionsAcquired
 								ManaCost = clamp(p.ManaAmount, 15,100)
 								Blasts = ManaCost/(4+asc)

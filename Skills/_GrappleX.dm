@@ -231,15 +231,18 @@ obj/Skills/Grapple
 		Effect="Suplex"
 		EffectMult=1
 		Cooldown=60
+		verb/Disable_Innovate()
+			set category = "Other"
+			disableInnovation(usr)
 		adjust(mob/p)
-			if(p.isInnovative(HUMAN, "Unarmed"))
+			if(p.isInnovative(HUMAN, "Unarmed") && !isInnovationDisable(p))
 				Effect="SuperSuplex"
 				TriggerMessage="starts freakifying"
 				EffectMult=0.5
 				Stunner=5
 				OneAndDone=1
 				StrRate=1
-				DamageMult = 3.3 + (p.Potential / 25)
+				DamageMult = 2.8 + (p.Potential / 25)
 			else
 				Effect="Suplex"
 				DamageMult=4.5

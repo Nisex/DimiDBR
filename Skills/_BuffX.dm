@@ -5780,9 +5780,12 @@ NEW VARIABLES
 				Cooldown=120
 				AffectTarget = 1
 				Range = 12
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any"))
+						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 							VaizardHealth=0.15
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/10)
@@ -5811,7 +5814,7 @@ NEW VARIABLES
 				verb/Shell()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")))
+						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(p))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -5839,9 +5842,12 @@ NEW VARIABLES
 				EndYourself = 1
 				AffectTarget = 1
 				Range = 12
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any"))
+						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 							VaizardHealth=0.3
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/5)
@@ -5870,7 +5876,7 @@ NEW VARIABLES
 				verb/Barrier()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")))
+						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(p))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -5899,9 +5905,12 @@ NEW VARIABLES
 				Cooldown=160
 				AffectTarget = 1
 				Range = 12
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any"))
+						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 							passives = list("PureReduction" = round(p.getTotalMagicLevel()/10,0.1), "DebuffImmune" = p.getTotalMagicLevel()/20, "Sunyata" = round(p.Potential/10,0.5)) // 5% per 10 pot to negate queues
 							TimerLimit = 15 + p.getTotalMagicLevel()
 							AffectTarget = 0
@@ -5930,7 +5939,7 @@ NEW VARIABLES
 				verb/Protect()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")))
+						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(p))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -5959,9 +5968,12 @@ NEW VARIABLES
 				Cooldown=-1
 				AffectTarget = 1
 				Range = 12
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any"))
+						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 							VaizardHealth=0.5
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/5)
@@ -5992,7 +6004,7 @@ NEW VARIABLES
 				verb/Resilient_Sphere()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")))
+						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(p))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -6029,9 +6041,12 @@ NEW VARIABLES
 				EndYourself=1
 				applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/ProtegaApply
 				Range = 10
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any"))
+						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 							passives = list("PureReduction" = round(p.getTotalMagicLevel()/5,0.1), "DebuffImmune" = p.getTotalMagicLevel()/10, "Sunyata" = round(p.Potential/5,0.5)) // 5% per 10 pot to negate queues
 							TimerLimit = 20 + p.getTotalMagicLevel()
 							AffectTarget = 0
@@ -6059,7 +6074,7 @@ NEW VARIABLES
 				verb/Protega()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")))
+						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(p))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)

@@ -2916,7 +2916,7 @@ mob
 				return TRUE
 		isInnovative(reqRace, path)
 			if(Saga) return FALSE
-			if(reqRace == HUMAN) return
+			// if(reqRace == HUMAN) return
 			if(isRace(reqRace))
 				if(passive_handler.Get("Innovation"))
 					switch(path)

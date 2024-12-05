@@ -1895,8 +1895,11 @@ obj
 				Crippling = 8
 				UnarmedOnly=1
 				EnergyCost=1.5
+				verb/Disable_Innovate()
+						set category = "Other"
+						disableInnovation(usr)
 				adjust(mob/p)
-					if(usr.isInnovative(HUMAN, "Unarmed"))
+					if(usr.isInnovative(HUMAN, "Unarmed") && !isInnovationDisable(p))
 						Projectile="/obj/Skills/Projectile/KinshasaProjectile"
 					else
 						Projectile=null

@@ -90,6 +90,7 @@ mob/Players/verb
 	Auto_Attack()
 		set category = "Skills"
 		client.setPref("autoAttacking", !client.getPref("autoAttacking"))
+		lastHit = world.time
 		src << "You are [client.getPref("autoAttacking") ? "now Auto Attacking." : "no longer Auto Attacking."]"
 	Attack()
 		set category="Skills"
