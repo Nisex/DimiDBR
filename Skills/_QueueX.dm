@@ -1896,8 +1896,8 @@ obj
 				UnarmedOnly=1
 				EnergyCost=1.5
 				verb/Disable_Innovate()
-						set category = "Other"
-						disableInnovation(usr)
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
 					if(usr.isInnovative(HUMAN, "Unarmed") && !isInnovationDisable(p))
 						Projectile="/obj/Skills/Projectile/KinshasaProjectile"
@@ -2706,6 +2706,7 @@ obj
 				HitSparkTurns=1
 				HitSparkSize=1.5
 				HitMessage="chases their enemy down with a rush of powerful sword strikes!"
+				var/current_hits = 0
 				verb/Blade_Dance()
 					set category="Skills"
 					usr.SetQueue(src)
@@ -4439,6 +4440,7 @@ mob
 				else if(!src.AttackQueue.RanOut&&!src.AttackQueue.Missed&&src.AttackQueue.Hit)
 					if(src.AttackQueue.HitStep)
 						var/obj/Skills/Queue/S=new src.AttackQueue.HitStep
+						S.adjust(src)
 						src.AttackQueue=null
 						src.SetQueue(S)
 						return
