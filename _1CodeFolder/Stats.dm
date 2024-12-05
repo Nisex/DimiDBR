@@ -565,7 +565,8 @@ mob/proc/Recover(var/blah,Amount=1)
 			if(src.NanoBoost)
 				if(src.Health>=75*(1-src.HealthCut)&&src.NanoAnnounce)
 					src.NanoAnnounce=0
-			src:move_speed = MovementSpeed()
+			if(isplayer(src))
+				src:move_speed = MovementSpeed()
 		if("Injury")
 			if(PureRPMode)
 				return
