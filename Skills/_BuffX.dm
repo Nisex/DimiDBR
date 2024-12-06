@@ -6838,14 +6838,9 @@ NEW VARIABLES
 					set name="Time Alter: Double Accel"
 					set category="Skills"
 					if(!usr.BuffOn(src))
-						src.BleedHit=1/src.Mastery
-						passives = list("BleedHit" = 0.75/src.Mastery, "Instinct" = 2, "Flow" = 2, "BlurringStrikes" = 1, "Warping" = 2)
-						HotHundred = 0
-						Warping = 2
-						src.SpdMult=2
-						src.Instinct=1
-						src.Flow=1
-						src.ActiveMessage="yells: <b>Time Alter: Double Accel!</b>"
+						passives = list("BleedHit" = 0.75/src.Mastery, "Instinct" = 2, "Flow" = 2, "BlurringStrikes" = 1, "Warping" = 1)
+						SpdMult=1.5
+						ActiveMessage="yells: <b>Time Alter: Double Accel!</b>"
 					src.Trigger(usr)
 					if(usr.BuffOn(src))
 						animate(usr.client, color = list(0.7,0.7,0.71, 0.79,0.79,0.8, 0.31,0.31,0.32, 0,0,0), time = 3)
@@ -6853,14 +6848,9 @@ NEW VARIABLES
 					set name="Time Alter: Triple Accel"
 					set category="Skills"
 					if(!usr.BuffOn(src))
-						src.BleedHit=2/src.Mastery
-						passives = list("BleedHit" = 1.5/Mastery, "Instinct" = 3, "Flow" = 3, "BlurringStrikes" = 2, "Warping" = 4)
-						HotHundred = 0
-						Warping = 3
-						src.SpdMult=3
-						src.Instinct=2
-						src.Flow=2
-						src.ActiveMessage="yells: <b>Time Alter: Triple Accel!</b>"
+						passives = list("BleedHit" = 1.5/Mastery, "Instinct" = 3, "Flow" = 3, "BlurringStrikes" = 2, "Warping" = 2)
+						SpdMult=2
+						ActiveMessage="yells: <b>Time Alter: Triple Accel!</b>"
 					src.Trigger(usr)
 					if(usr.BuffOn(src))
 						animate(usr.client, color = list(0.7,0.7,0.71, 0.79,0.79,0.8, 0.31,0.31,0.32, 0,0,0), time = 3)
@@ -6868,13 +6858,8 @@ NEW VARIABLES
 					set name="Time Alter: Square Accel"
 					set category="Skills"
 					if(!usr.BuffOn(src))
-						HotHundred=1
-						Warping=3
-						src.SpdMult=4
-						src.EnergyExpenditure=2
-						passives = list("BleedHit" = 3/Mastery, "Instinct" = 4, "Flow" = 4, "EnergyExpenditure" = 2, "BlurringStrikes" = 4)
-						src.Instinct=3
-						src.Flow=3
+						SpdMult=3
+						passives = list("BleedHit" = 3/Mastery, "Instinct" = 4, "Flow" = 4, "EnergyExpenditure" = 4, "BlurringStrikes" = 3, "Warping" = 3)
 						ActiveMessage="yells: <b>Time Alter: Square Accel!</b>"
 					src.Trigger(usr)
 					if(usr.BuffOn(src))
