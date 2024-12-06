@@ -50,6 +50,7 @@ sagaTierUpMessages/Cosmo
 						if(!locate(/obj/Skills/AutoHit/Phoenix_Rising_Wing, src))
 							src.AddSkill(new/obj/Skills/AutoHit/Phoenix_Rising_Wing)
 			if(3)
+				SenseUnlocked = 6
 				var/v2Path = "/obj/Skills/Buffs/SpecialBuffs/Saint_Cloth/Bronze_Cloth_V2/[ClothBronze]_Cloth"
 				for(var/obj/Skills/Buffs/SpecialBuffs/Saint_Cloth/Bronze_Cloth/Buff in src)
 					if(src.BuffOn(Buff))
@@ -161,7 +162,7 @@ sagaTierUpMessages/Cosmo
 						if(!locate(/obj/Skills/AutoHit/Bloody_Rose, src))
 							src.AddSkill(new/obj/Skills/AutoHit/Bloody_Rose)
 			if(6)
-				SenseUnlocked=6
+				SenseUnlocked=8
 
 
 /obj/Skills/Buffs/SlotlessBuffs/SeventhSense
