@@ -1169,7 +1169,7 @@ obj
 							if(usr.CheckSlotless("Haki Observation"))
 								for(var/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Observation/H in usr)
 									H.Trigger(usr)
-							if(usr.HakiSpecialization=="Armament")
+							if(usr.secretDatum.secretVariable["HakiSpecialization"]=="Armament")
 								src.name="Buso: Koka"
 								src.DamageMult = 1 + usr.secretDatum.currentTier
 								src.AccuracyMult = 1.15
