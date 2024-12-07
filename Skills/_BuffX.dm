@@ -5121,7 +5121,7 @@ NEW VARIABLES
 					set category="Skills"
 					if(!altered)
 						if(usr.Saga == "Unlimited Blade Works")
-							ManaCost = usr.getUBWCost(0.5)
+							ManaCost = usr.getUBWCost(0.8)
 							passives = list("PureDamage" = 1 + max(1,usr.getAriaCount()/2), "PureReduction" = 1 + max(1,usr.getAriaCount()/2))
 							PhysicalHitsLimit = 1 + (usr.getAriaCount() * usr.SagaLevel)
 							SpiritHitsLimit = 1 + (usr.getAriaCount() * usr.SagaLevel)
