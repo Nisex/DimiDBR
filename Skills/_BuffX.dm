@@ -3234,7 +3234,7 @@ NEW VARIABLES
 						setRandomTime(player)
 				verb/Toggle_Cape()
 					set category="Roleplay"
-					Cape(user)
+					Cape(usr)
 
 				proc/Cape(mob/user)
 					var/image/im=image(icon='goldsaint_cape.dmi', layer=FLOAT_LAYER-3)
