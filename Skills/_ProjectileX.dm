@@ -3264,7 +3264,7 @@ obj
 						if(!usr.getAriaCount())
 							usr << "You can't project without your circuits active!"
 							return
-						ManaCost = usr.getUBWCost(1.25)
+						ManaCost = usr.getUBWCost(2)
 						DamageMult = clamp(4,(usr.getAriaCount()*2.5), 30)
 						if(usr.getAriaCount() >= 4)
 							Dodgeable = -1
