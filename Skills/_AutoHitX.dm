@@ -4562,7 +4562,7 @@ obj
 				Grapple=1
 				GrabTrigger="/obj/Skills/Grapple/Erupting_Burning_Finger/Removable"
 				Knockback=1
-				WindUp=2
+				WindUp=1
 				WindupIcon='GaoGaoFists.dmi'
 				WindupMessage="begins gathering the forces of Destruction and Creation in their hands!"
 				ActiveMessage="rushes in for the certain kill!"
