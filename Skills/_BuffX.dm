@@ -3223,7 +3223,7 @@ NEW VARIABLES
 								temporaryTime = 0
 								p << "Your Gold Cloth has expired!"
 								src.Trigger(p, TRUE)
-								Toggle_Cape()
+								Cape(p)
 								sleep(3)
 								del src
 
@@ -3234,19 +3234,22 @@ NEW VARIABLES
 						setRandomTime(player)
 				verb/Toggle_Cape()
 					set category="Roleplay"
+					Cape(user)
+
+				proc/Cape(mob/user)
 					var/image/im=image(icon='goldsaint_cape.dmi', layer=FLOAT_LAYER-3)
-					if(usr.SagaLevel<5)
-						usr << "You're not worthy of a cape yet!"
+					if(user.SagaLevel<5)
+						user << "You're not worthy of a cape yet!"
 						return
-					if(usr.BuffOn(src))
+					if(user.BuffOn(src))
 						if(!src.NoExtraOverlay)
-							usr.overlays-=im
-							usr << "You remove your cape!"
+							user.overlays-=im
+							user << "You remove your cape!"
 							src.NoExtraOverlay=1
 						else
-							usr.overlays+=im
-							usr.Hairz("Add")
-							usr << "You put your cape on!"
+							user.overlays+=im
+							user.Hairz("Add")
+							user << "You put your cape on!"
 							src.NoExtraOverlay=0
 				Aries_Cloth
 					ForMult=1.3
@@ -3275,7 +3278,7 @@ NEW VARIABLES
 						src.NoTopOverlay=0
 						adjustments(usr)
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 				Gemini_Cloth
 					StrMult=1.2
 					ForMult=1.2
@@ -3302,7 +3305,7 @@ NEW VARIABLES
 						adjustments(usr)
 						src.NoTopOverlay=0
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 				Cancer_Cloth
 					ForMult=1.4
 					OffMult=1.4
@@ -3324,7 +3327,7 @@ NEW VARIABLES
 						adjustments(usr)
 						src.NoTopOverlay=0
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 				Leo_Cloth
 					StrMult=1.2
 					ForMult=1.1
@@ -3347,7 +3350,7 @@ NEW VARIABLES
 						adjustments(usr)
 						src.NoTopOverlay=0
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 				Virgo_Cloth
 					ForMult=1.4
 					OffMult=1.2
@@ -3368,7 +3371,7 @@ NEW VARIABLES
 						adjustments(usr)
 						src.NoTopOverlay=0
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 				Libra_Cloth
 					OffMult=1.3
 					DefMult=1.3
@@ -3414,7 +3417,7 @@ NEW VARIABLES
 						src.NoTopOverlay=0
 						adjustments(usr)
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 
 				Capricorn_Cloth
 					StrMult=1.3
@@ -3440,7 +3443,7 @@ NEW VARIABLES
 						src.NoTopOverlay=0
 						adjustments(usr)
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 				Aquarius_Cloth
 					ForMult=1.7
 					OffMult=1.1
@@ -3462,7 +3465,7 @@ NEW VARIABLES
 						src.NoTopOverlay=0
 						adjustments(usr)
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 				Pisces_Cloth
 					ForMult=1.2
 					OffMult=1.1
@@ -3484,7 +3487,7 @@ NEW VARIABLES
 						src.NoTopOverlay=0
 						adjustments(usr)
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 
 		Valor_Form
 			FlashChange=1
