@@ -432,7 +432,6 @@
 		// 				HOT HUNDRED 			//
 				var/hh = passive_handler.Get("HotHundred")
 				if(!AttackQueue && (HotHundred || hh || enemy.Launched && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Launchers") || (enemy.Stunned && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Stunners"))))
->>>)
 					hh = HotHundred
 					if(passive_handler.Get("HotHundred") > HotHundred)
 						hh = passive_handler.Get("HotHundred")
