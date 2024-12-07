@@ -621,9 +621,8 @@ mob
 				if(WoundsInflicted<0)
 					WoundsInflicted=0.001
 				if(WoundsInflicted > val)
-					world.log << "[WoundsInflicted]"
+				//	world.log << "[src] vs [defender] wonds([WoundsInflicted]) inflict was over val([val])"
 					WoundsInflicted = val
-					world.log << "[src] vs [defender] wonds inflict was over val"
 				src.DealWounds(defender, WoundsInflicted)
 
 			if(isplayer(defender))
