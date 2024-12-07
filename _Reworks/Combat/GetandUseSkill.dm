@@ -8,6 +8,6 @@ mob/proc/GetAndUseSkill(obj/Skills/S, list2search = Skills, learnSkillIfMissing 
 	if(istype(use, /obj/Skills/Projectile))
 		UseProjectile(use)
 	else if(istype(use, /obj/Skills/Buffs))
-		use:Trigger(src)
+		UseBuff(src)
 	else if(istype(use, /obj/Skills/AutoHit))
 		Activate(use)
