@@ -151,7 +151,7 @@ var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers
 	return FALSE
 
 
-
+/*
 /mob/verb/testRestriction()
 	usr.secretDatum = new/SecretInfomation/HeavenlyRestriction()
 	usr.Secret = "Heavenly Restriction"
@@ -163,4 +163,4 @@ var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers
 /*	var/improv = input(src, "what one") in usr.secretDatum?:secretVariable["Improvements"]
 	world << improv
 	usr.secretDatum?:getBoon(src, improv)*/
-	return
+	return*/
