@@ -473,7 +473,7 @@ obj
 						StyleSpd=1.2
 						ElementalClass=list("Water", "Earth")
 						StyleActive="Dire Wolf"
-						passives=list("Hardening" = 2, "SpiritHand" = 2,)
+						passives=list("Hardening" = 2, "SpiritHand" = 2)
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Devil_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Imperial_Style")
 						ElementalOffense="Earth"
 						ElementalDefense="Earth"
