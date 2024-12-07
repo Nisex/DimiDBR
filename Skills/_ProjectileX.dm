@@ -1891,6 +1891,7 @@ obj
 					src.Radius=1*(src.Mastery-1)
 					src.ZoneAttackY=round(2.5*src.Mastery)
 					src.Explode=1*(src.Mastery**2)
+					HolyMod = 3*Mastery
 					usr.UseProjectile(src)
 			Death_Ball
 				SignatureTechnique=2
