@@ -8,6 +8,8 @@ globalTracker/var/list/IGNORE_POWER_CLAMP_PASSIVES = list("Wrathful", "LimitBrok
         return TRUE
     if(!src.passive_handler || !defender.passive_handler)
         return FALSE
+    if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Power"))
+        return TRUE
     for(var/passive in glob.IGNORE_POWER_CLAMP_PASSIVES)
         if(passive_handler|=passive)
             return TRUE

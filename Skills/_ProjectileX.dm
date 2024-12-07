@@ -4493,12 +4493,20 @@ mob
 			. = TRUE
 			if(src.passive_handler.Get("Silenced"))
 				src << "You can't use [Z] you are silenced!"
-				return 0
+				return FALSE
 			if(src.Stasis)
-				return 0
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore&&Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Projectiles"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore&&Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("All Skills"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore&&Z.NeedsSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armed Skills"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore&&Z.UnarmedOnly && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Unarmed Skills"))
+				return FALSE
 			if(Z.Sealed)
 				src << "You can't use [Z] it is sealed!"
-				return 0
+				return FALSE
 			var/obj/Items/check = EquippedFlyingDevice()
 			if(istype(check))
 				check.ObjectUse(src)

@@ -19,7 +19,7 @@
         if(ko_death)
             Death(null, "dies suddenly!")
             return
-    if(MovementCharges < 3)
+    if(MovementCharges < GetMaxMovementCharges())
         MovementChargeBuildUp()
     Energy+=rand(0,3)
 

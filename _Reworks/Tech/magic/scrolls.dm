@@ -12,6 +12,8 @@
 
     Click()
         if(src in usr) // ?
+            if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+                return
             if(!spell || Using || usr.scrollTicker > 0)
                 usr << "You can't use that right now."
                 return

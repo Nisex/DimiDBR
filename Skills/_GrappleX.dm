@@ -21,6 +21,7 @@ obj/Skills/Grapple
 		ThrowDir/*carries a direction so people dont end up going wonky*/
 		ThrowAdd=0//adds value to kb
 		ThrowMult=1//mult value to kb
+		ThrowSpeed = 0
 
 		TriggerMessage
 		Effect//"Shockwave"
@@ -28,6 +29,8 @@ obj/Skills/Grapple
 		OneAndDone=0//prevents multiple iterations from effectmult
 
 		DrainBlood // for vampire
+
+		DashAfter = FALSE
 ////BASIC
 	skillDescription()
 		..()
@@ -62,8 +65,13 @@ obj/Skills/Grapple
 		proc/resetValues()
 			TriggerMessage = "tosses"
 			Effect = initial(Effect)
+			EffectMult = initial(EffectMult)
 			DamageMult = initial(DamageMult)
 			StrRate = initial(StrRate)
+			ThrowMult = initial(ThrowMult)
+			ThrowAdd = initial(ThrowAdd)
+			ThrowSpeed = initial(ThrowSpeed)
+			DashAfter = FALSE
 		verb/Toss()
 			set category="Skills"
 			if(!usr.Grab && !src.Using)
@@ -93,6 +101,14 @@ obj/Skills/Grapple
 					else if(usr.CheckSlotless("Rotschreck"))
 						boon = 0.5
 					DrainBlood = 1 + boon
+				else if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasImprovement("Throw"))
+					Effect = "Shockwave"
+					EffectMult = usr.secretDatum?:getBoon("Throw")
+					DamageMult = 3 + usr.secretDatum?:getBoon("Throw")
+					ThrowAdd = 2 + usr.secretDatum?:getBoon("Throw")
+					ThrowMult = max(1, usr.secretDatum?:getBoon("Throw") / 2)
+					ThrowSpeed = 2.5/usr.secretDatum?:getBoon("Throw")
+					DashAfter = TRUE
 				else
 					resetValues()
 				src.Activate(usr)
@@ -420,6 +436,14 @@ obj/Skills/Grapple
 			src.ThrowDir=User.dir
 			if(src.Using)
 				return
+			if(!heavenlyRestrictionIgnore&&User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Grapples"))
+				return
+			if(!heavenlyRestrictionIgnore&&User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("All Skills"))
+				return
+			if(!heavenlyRestrictionIgnore&&NeedsSword && User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Armed Skills"))
+				return
+			if(!heavenlyRestrictionIgnore&&UnarmedOnly && User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Unarmed Skills"))
+				return
 			if(User.GrabMove)
 				return//do not allow for grab moves to be mashed
 			if(!User.Grab)
@@ -559,7 +583,7 @@ obj/Skills/Grapple
 				if(src.MaimStrike)
 					User.MaimStrike-=src.MaimStrike
 				OMsg(User, "[User] [src.TriggerMessage] [Trg]!")
-				User.Knockback((dmgRoll*src.ThrowMult)+src.ThrowAdd, Trg, Direction=src.ThrowDir, Forced=1)
+				User.Knockback((dmgRoll*src.ThrowMult)+src.ThrowAdd, Trg, Direction=src.ThrowDir, Forced=1, override_speed = ThrowSpeed)
 				if(src.Stunner)
 					Stun(Trg, src.Stunner)
 				if(src.Effect in list("Suplex", "Drain", "Lotus", "SuperSuplex"))
@@ -608,6 +632,10 @@ obj/Skills/Grapple
 
 				User.GrabMove=0
 				src.Cooldown()
+
+				if(DashAfter)
+					for(var/obj/Skills/Dragon_Dash/dd in src)
+						usr.SkillX("DragonDash",dd)
 				if(removeAfter)
 					User -= src
 					del src

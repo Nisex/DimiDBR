@@ -386,14 +386,11 @@ SecretInfomation
 				if(5)
 					p << "Your mastery of the lunar curse is godly..."
 
-
-
-
-
 	HeavenlyRestriction
 		name = "Heavenly Restriction"
 		givenSkills = list("/obj/Skills/Buffs/SlotlessBuffs/HeavenlyRestriction/HeavenlyRestriction")
-		secretVariable = list("RestrictionTypes", "RestrictionLevel", "RestrictionActive")
+		secretVariable = list("Restrictions" = list(), "Improvements" = list())
+		
 
 
 	SageArts

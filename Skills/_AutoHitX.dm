@@ -5363,6 +5363,14 @@ mob
 				return 0
 			if(Z.Using)//Skill is on cooldown.
 				return FALSE
+			if(!Z.heavenlyRestrictionIgnore && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Autohits"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("All Skills"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore && Z.NeedsSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armed Skills"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore && Z.UnarmedOnly && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Unarmed Skills"))
+				return FALSE
 			if(!src.CanAttack(1.5)&&!Z.NoAttackLock)
 				return FALSE
 			if(Flying)
@@ -6564,6 +6572,8 @@ obj
 				#endif
 				FinalDmg *= dmgMulti
 				FinalDmg *= dmgRoll
+				if(Owner.Secret=="Heavenly Restriction" && Owner.secretDatum?:hasImprovement("Autohits"))
+					FinalDmg *= clamp(Owner.secretDatum?:getBoon("Autohits"), 1, 10)
 				#if DEBUG_AUTOHIT
 				Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif

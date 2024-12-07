@@ -309,7 +309,9 @@ mob/Players/Stat()
 			CHECK_TICK
 			if(isplayer(usr.Target) || istype(usr.Target, /mob/Player))
 				stat("Focused:",Target)
-				if(usr.EnhancedSmell&&!usr.Target.passive_handler.Get("Void"))
+				if(usr.EnhancedSmell&&!usr.Target.passive_handler.Get("Void") || usr.Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
+					if(usr.Secret == "Heavenly Restriction" && usr.secretDatum?:hasRestriction("Senses"))
+						goto Restricted
 					var/Scent=0
 					if(usr.Target.custom_scent)
 						Scent=usr.Target.custom_scent
@@ -317,10 +319,15 @@ mob/Players/Stat()
 						usr.Target.setUpScent()
 					stat("Scent: ", Scent)
 
+				Restricted
+
 				var/WoundIntent
 				var/KillingIntent
 				var/Status
 				var/RPIntent
+
+				if(usr.Secret == "Heavenly Restriction" && usr.secretDatum?:hasRestriction("Senses"))
+					goto Restricted2
 
 				if(usr.Target.HasFakePeace()||(usr.Target.WoundIntent==0&&!usr.Target.SwordWounds()&&!usr.Target.CursedWounds()&&!(usr.IsEvil()&&usr.Target.HasPurity())))
 					WoundIntent="<font color='green'>None</font color>"
@@ -337,21 +344,18 @@ mob/Players/Stat()
 				else
 					Status="<font color='red'>Wounded</font color>"
 
-				if(usr.Target.PureRPMode==0)
-					RPIntent="<font color='green'>RP Mode Off</font color>"
-				else
-					RPIntent="<font color='red'>RP Mode On</font color>"
-
 				stat("Injury Intent: ", WoundIntent)
 				stat("Killing Intent: ", KillingIntent)
-				if(usr.MedicineUnlocked+usr.ImprovedMedicalTechnologyUnlocked>=2&&!usr.Target.passive_handler.Get("Void")&&!usr.Target.HasMechanized())
+
+
+				if(usr.MedicineUnlocked+usr.ImprovedMedicalTechnologyUnlocked>=2&&!usr.Target.passive_handler.Get("Void")&&!usr.Target.HasMechanized() || usr.Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
 					stat("Status:", Status)
 				if(usr.Target.Maimed)
 					stat("<font color='red'>They are maimed.</font color>")
 				if(usr.Target.MortallyWounded)
 					stat("<font color='red'>They are bleeding heavily.</font color>")
 
-				if(!usr.Target.HasGodKi()&&!usr.Target.passive_handler.Get("Void")&&!usr.Target.HasMechanized()&&usr.Target.SenseUnlocked<7)
+				if(!usr.Target.HasGodKi()&&!usr.Target.passive_handler.Get("Void")&&!usr.Target.HasMechanized()&&usr.Target.SenseUnlocked<7 || usr.Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
 					stat("Direction - [get_dist(usr, usr.Target)] tiles away","[CheckDirection(usr.Target)]")
 					stat("Power:","[Get_Sense_Reading(Target)]")
 					if(Target.VaizardHealth)
@@ -364,6 +368,13 @@ mob/Players/Stat()
 					if(usr.HasClarity())
 						stat("Direction - [get_dist(usr, usr.Target)] tiles away","[CheckDirection(usr.Target)]")
 						stat("Health: ","[round(Target.Health)]%")
+
+				Restricted2
+
+				if(usr.Target.PureRPMode==0)
+					RPIntent="<font color='green'>RP Mode Off</font color>"
+				else
+					RPIntent="<font color='red'>RP Mode On</font color>"
 
 				stat("Roleplay Mode: ", RPIntent)
 
@@ -405,6 +416,8 @@ mob/proc/GetPowerUpRatio()
 	var/PowerUp=max(((PowerControl-100)/100),-0.5)
 	if(passive_handler.Get("PUSpike"))
 		PowerUp+=passive_handler.Get("PUSpike")/100
+	if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Power Control"))
+		PowerUp += secretDatum?:getBoon("Power Control")/4
 	if(src.CyberCancel)
 		if(src.CheckSpecial("Overdrive"))
 			if(isRace(ANDROID))
@@ -729,6 +742,9 @@ mob/proc/
 		Ratio*=src.Base()
 		temp_potential_power(src)//get them potential powers
 		Ratio*=src.potential_power_mult
+
+		if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Power"))
+			Ratio *= 1+(secretDatum?:getBoon("Power")/6)
 		//BODY CONDITION INFLUENCES
 		if(!passive_handler.Get("Piloting"))
 			if(!passive_handler.Get("Possessive"))
