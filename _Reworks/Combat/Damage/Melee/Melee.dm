@@ -699,7 +699,7 @@
 									if(swordAtk && HasSwordPunching())
 										hitsparkSword = 0
 									HitEffect(enemy, unarmedAtk, hitsparkSword, SecondStrike, ThirdStrike, disperseX, disperseY)
-								if(AttackQueue.PushOut)
+								if(AttackQueue?.PushOut)
 									var/shockwave = AttackQueue.PushOutWaves
 									var/shockSize = AttackQueue.PushOut
 									var/shockIcon = AttackQueue.PushOutIcon
@@ -707,9 +707,9 @@
 										KenShockwave(enemy, icon = shockIcon, Size = shockSize)
 										shockSize /= 2
 									shocked=1
-								if(AttackQueue.WarpAway)
+								if(AttackQueue?.WarpAway)
 									WarpEffect(enemy, AttackQueue.WarpAway)
-								if(AttackQueue.Launcher)
+								if(AttackQueue?.Launcher)
 									var/time = AttackQueue.Launcher
 									if(!enemy.Launched)
 										spawn()
@@ -717,15 +717,16 @@
 									else
 										enemy.Launched += 5
 
-								if(AttackQueue.InstantStrikes)
+								if(AttackQueue?.InstantStrikes)
 									if(AttackQueue.InstantStrikesDelay)
 										sleep(AttackQueue.InstantStrikesDelay)
 									if(AttackQueue)
 										if(AttackQueue.InstantStrikesPerformed<AttackQueue.InstantStrikes-1)
 											AttackQueue.InstantStrikesPerformed++
 											goto STRIKE
-								QueuedHitMessage(enemy)
-								src.doQueueEffects(enemy)
+								if(AttackQueue)
+									QueuedHitMessage(enemy)
+									src.doQueueEffects(enemy)
 							var/hitsparkSword = swordAtk
 							if(swordAtk && HasSwordPunching())
 								hitsparkSword = 0
