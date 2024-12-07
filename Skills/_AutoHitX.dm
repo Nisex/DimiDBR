@@ -1599,6 +1599,7 @@ obj
 				SkillCost=TIER_4_COST
 				Copyable=5
 				Area="Wide Wave"
+				UnarmedOnly = 1
 				StrOffense=1
 				Distance=10
 				Knockback=10
@@ -1672,6 +1673,7 @@ obj
 					disableInnovation(usr)
 			Dropkick_Surprise
 				SkillCost=TIER_4_COST
+				UnarmedOnly = 1
 				Copyable=5
 				Area="Target"
 				StrOffense=1
