@@ -56,10 +56,13 @@ var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers
 			if(p.BaseStr() > p.BaseFor())
 				return 1.5
 		if("Cybernetics")
-			if(p.isRace(ELDRITCH))
-				return 2
-			if(p.isRace(HUMAN) && p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/human/technology)
-				return 2
+			var/boon = 1
+			boon += p.CyberizeMod
+			return boon
+		if("Magic")
+			var/boon = 1
+			boon += p.passive_handler.Get("ManaCapMult")
+			return boon
 	return 1
 
 /SecretInfomation/HeavenlyRestriction/proc/pickRestriction(mob/p)
