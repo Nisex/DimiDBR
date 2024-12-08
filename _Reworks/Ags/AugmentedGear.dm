@@ -13,7 +13,7 @@ proc/copyatom(atom/a)
 						x = copyatom(val)
 					else
 						x = islist(val) ? val:Copy() : val
-					b.vars[v] = x
+					b.vars[v] += x
 			else
 				b.vars[v] = a.vars[v]
 	return b
