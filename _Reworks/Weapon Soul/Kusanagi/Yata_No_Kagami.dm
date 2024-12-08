@@ -7,7 +7,7 @@ obj/Skills/Buffs/SlotlessBuffs/Yata_no_Kagami/Mirror_Protection
 	Cooldown = 120
 	adjust(mob/p)
 		TimerLimit = 10 + (p.SagaLevel * 5)
-		VaizardHealth = 1 + (0.5 * p.SagaLevel)
+		VaizardHealth = 0.5 + (0.5 * p.SagaLevel)
 		Cooldown = 120 - (p.SagaLevel * 10)
 		ManaCost = 10 + (p.SagaLevel  * 2)
 
