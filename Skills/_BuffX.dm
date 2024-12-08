@@ -8359,11 +8359,15 @@ NEW VARIABLES
 					return
 				usr.OMessage(10, "[usr.name] seems to focus intently on [usr.Target.name]'s [usr.Target.EquippedSword()]...")
 				var/obj/Items/Sword/s = usr.Target.EquippedSword()
-				s = copyatom(s)
-				s.NoSaga = FALSE
-				s.Conjured = TRUE
-				s.suffix = null
-				copiedBlades += s
+
+				s.Update_Description()
+				var/confirm = alert("Do you want to copy this sword?\n[s.desc]",, "Yes", "No")
+				if(confirm == "Yes")
+					s = copyatom(s)
+					s.NoSaga = FALSE
+					s.Conjured = TRUE
+					s.suffix = null
+					copiedBlades += s
 
 			verb/Remove_Blade()
 				set category = "Skills"
