@@ -8638,6 +8638,13 @@ NEW VARIABLES
 						SwordElement = "Chaos"
 					if(10 to 13)
 						SwordElement = null
+				SwordAscension = max(0, usr.getAriaCount() / 2)
+				PureDamage = max(0, round(1, usr.getAriaCount() / 2))
+				Instinct = max(0, usr.getAriaCount() / 3)
+				CursedWounds = 0
+				if(usr.getAriaCount()>=3)
+					CursedWounds = 1
+				/*
 				switch(usr.getAriaCount())
 					if(1)
 						SwordAscension = 2
@@ -8678,7 +8685,7 @@ NEW VARIABLES
 						SwordAscension = 6
 						CursedWounds = 1
 						PureDamage = 4
-						Instinct = 4
+						Instinct = 4*/
 				TimerLimit = 60 * (clamp(1,usr.SagaLevel/2,4))
 				passives = list("PureDamage" = PureDamage, "CursedWounds" = CursedWounds, "Instinct" = Instinct)
 				if(usr.UBWPath=="Feeble"&&usr.SagaLevel>=4)
@@ -8741,7 +8748,11 @@ NEW VARIABLES
 						SwordElement = "HellFire"
 					if(11 to 13)
 						SwordElement = null
-				switch(usr.getAriaCount())
+				SwordAscension = max(0, usr.getAriaCount() / 2)
+				Flow = max(0, round(1, usr.getAriaCount() / 3))
+				Deflection = max(0, usr.getAriaCount() / 2)
+				DoubleStrike = max(0, round(1, usr.getAriaCount() / 2.5))
+/*				switch(usr.getAriaCount())
 					if(1)
 						SwordAscension = 2
 						Flow = 0
@@ -8780,7 +8791,7 @@ NEW VARIABLES
 					if(4 to 6)
 						DoubleStrike = 2
 					if(7 to 9)
-						DoubleStrike = 3
+						DoubleStrike = 3*/
 				passives = list("DoubleStrike" = DoubleStrike, "Flow" = Flow, "Deflection" = Deflection)
 				if(usr.UBWPath=="Feeble"&&usr.SagaLevel>=4)
 					src.VaizardHealth = 0.25*(max(1,usr.SagaLevel-4))
@@ -8842,6 +8853,13 @@ NEW VARIABLES
 						SwordElement = "HellFire"
 					if(11 to 13)
 						SwordElement = null
+				SwordAscension = max(0, usr.getAriaCount() / 2)
+				ManaSeal = max(0, round(1, usr.getAriaCount() / 2))
+				SoftStyle = max(0, usr.getAriaCount() / 3)
+				BulletKill = 0
+				if(usr.getAriaCount() >= 3)
+					BulletKill = 1
+				/*
 				switch(usr.getAriaCount())
 					if(1)
 						SwordAscension = 1
@@ -8882,7 +8900,7 @@ NEW VARIABLES
 						SwordAscension = 5
 						BulletKill = 1
 						ManaSeal = 4
-						SoftStyle = 5
+						SoftStyle = 5*/
 				passives = list("BulletKill" = BulletKill, "SoulFire" = ManaSeal, "SoftStyle" = SoftStyle)
 				if(usr.UBWPath=="Feeble"&&usr.SagaLevel>=4)
 					src.VaizardHealth = 0.25*(max(1,usr.SagaLevel-4))
