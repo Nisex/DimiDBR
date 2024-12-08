@@ -8340,7 +8340,7 @@ NEW VARIABLES
 			OffMessage = "'s conjured blade shatters in the air!"
 			var/SlotsUsed = 0
 			var/list/copiedBlades = list()
-			var/obj/Items/Sword/currentBlade
+			var/obj/Items/Sword/currentBlade = null
 			var/obj/Items/Sword/swordref
 			var/projected = FALSE
 			verb/Copy_Blade()
@@ -8374,6 +8374,7 @@ NEW VARIABLES
 				if(removeThis=="Cancel")
 					return
 
+				if(currentBlade == removeThis) currentBlade = null
 				copiedBlades.Remove(removeThis)
 /*
 			verb/Set_Projection_Name(swordName as text)
