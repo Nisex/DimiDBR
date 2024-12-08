@@ -32,28 +32,28 @@
     proc/swap_stance(version, sagaLevel)
         switch(version)
             if("Striking")
-                StyleStr = 1.4
-                StyleSpd = 1.4
-                StyleOff = 1.4
+                StyleStr = 1.4 + (0.1 * sagaLevel)
+                StyleSpd = 1.4 + (0.1 * sagaLevel)
+                StyleOff = 1.4 + (0.1 * sagaLevel)
                 StyleDef = 1
                 StyleEnd = 1
             if("Defensive")
-                StyleEnd = 1.5
-                StyleSpd = 1.2
-                StyleDef = 1.5
+                StyleEnd = 1.5 + (0.1 * sagaLevel)
+                StyleSpd = 1.2 + (0.1 * sagaLevel)
+                StyleDef = 1.5 + (0.1 * sagaLevel)
                 StyleStr = 1
                 StyleOff = 1
             if("Neutral")
-                StyleStr = 1.3
-                StyleOff = 1.3
-                StyleDef = 1.3
-                StyleSpd = 1.3
-                StyleEnd = 1.3
+                StyleStr = 1.3 + (0.05 * sagaLevel)
+                StyleOff = 1.3 + (0.05 * sagaLevel)
+                StyleDef = 1.3 + (0.05 * sagaLevel)
+                StyleSpd = 1.3 + (0.05 * sagaLevel)
+                StyleEnd = 1.3 + (0.05 * sagaLevel)
             if("Default")
-                StyleStr = 1.2
-                StyleOff = 1.5
-                StyleDef = 1.5
-                StyleSpd = 1.25
+                StyleStr = 1.25 + (0.05 * sagaLevel)
+                StyleOff = 1.5 + (0.1 * sagaLevel)
+                StyleDef = 1.5 + (0.1 * sagaLevel)
+                StyleSpd = 1.25 + (0.05 * sagaLevel)
 
 
     verb/Striking_Stance()
