@@ -9191,7 +9191,6 @@ NEW VARIABLES
 							passives = list("NoDodge" = 0, "GiantForm" = 1,\
 							"HybridStrike" = 1, "SweepingStrike" = 1, "Flow" = -1, "Instinct" = -1, "PureDamage" = 2, "PureReduction" = 2)
 							VaizardHealth += 0.25 * (usr.SagaLevel-4)
-							Cooldown -= 20 * (usr.SagaLevel-4)
 					if(usr.SagaLevel>=5)
 						DefMult = 0.8
 						src.ActiveMessage="conjures a partially humanoid figure around them!"
