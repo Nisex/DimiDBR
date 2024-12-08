@@ -894,11 +894,11 @@ mob
 							src<< "You grasp the understanding of a legendary weapon forgotten to time..."
 							//todo: study summon system & add src as a psuedo t1-3 summon that can piggyback off of summoner's mana to fuel them as they exist, then ubw users mana until they hit 50% and unsummon.
 							UBWLegendaryWeapon()
-							src.SagaThreshold("Str", 0.1*src.SagaLevel)
-							src.SagaThreshold("End", 0.1*src.SagaLevel)
-							src.SagaThreshold("Spd", 0.1*src.SagaLevel)
-							src.SagaThreshold("Off", 0.1*src.SagaLevel)
-							src.SagaThreshold("Def", 0.1*src.SagaLevel)
+							src.SagaThreshold("Str", 0.25*src.SagaLevel)
+							src.SagaThreshold("End", 0.25*src.SagaLevel)
+							src.SagaThreshold("Spd", 0.25*src.SagaLevel)
+							src.SagaThreshold("Off", 0.25*src.SagaLevel)
+							src.SagaThreshold("Def", 0.25*src.SagaLevel)
 							switch(UBWPath)
 								if("Feeble")
 									passive_handler.Increase("Desperation")
