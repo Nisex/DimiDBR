@@ -1,7 +1,7 @@
 
 
 /mob/proc/fixTitle()
-    if(length(information.title) < 1)
+    if(information&&length(information.title) < 1)
         information.addTitle("Noob", "#fff")
 
 //TODO: prob remove as well, dunno if this is being kept
