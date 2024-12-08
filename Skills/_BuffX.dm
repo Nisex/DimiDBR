@@ -8413,7 +8413,7 @@ NEW VARIABLES
 				if(!projected)
 					var/costCalculation = (length(currentBlade.Techniques) + length(currentBlade.passives) + currentBlade.Ascended + currentBlade.InnatelyAscended)/usr.SagaLevel
 					if(usr.UBWPath == "Feeble")
-						costCalculation -= 1
+						costCalculation /= 1 + usr.SagaLevel/6
 					costCalculation = clamp(1, costCalculation, 10)
 					costCalculation *= glob.UBW_COPY_COST
 					if(usr.ManaAmount < costCalculation)
@@ -8428,6 +8428,8 @@ NEW VARIABLES
 					s.ShatterTier = 3
 					if(usr.UBWPath == "Firm")
 						s.ShatterTier -= 1
+						if(usr.SagaLevel >=5)
+							s.ShatterTier -= 1
 					usr.contents += s
 					s.ObjectUse(usr)
 					swordref = s
