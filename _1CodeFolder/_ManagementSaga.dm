@@ -207,6 +207,8 @@ mob/Admin3/verb
 					s.Aria.Add("I have created over a thousand blades.")
 					s.Aria.Add("Unaware of ||||.")
 					P.AddSkill(s)
+					if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Copy_Blade, src))
+						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Copy_Blade)
 					P.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Projection)
 					P.AddSkill(new/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_Savant)
 					P << "You can conjure copies of equipment just from mana..."
@@ -833,9 +835,7 @@ mob
 							src<<"You can reinforce any blade, regardless of your magical skill."
 							src<< "You grasp the understanding of a legendary weapon forgotten to time..."
 							UBWLegendaryWeapon()
-						if(3)/*
-							if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Copy_Blade, src))
-								src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Copy_Blade)*/
+						if(3)
 							var/choice
 							var/confirm
 							while(confirm!="Yes")
@@ -895,11 +895,11 @@ mob
 							src<< "You grasp the understanding of a legendary weapon forgotten to time..."
 							//todo: study summon system & add src as a psuedo t1-3 summon that can piggyback off of summoner's mana to fuel them as they exist, then ubw users mana until they hit 50% and unsummon.
 							UBWLegendaryWeapon()
-							src.SagaThreshold("Str", 0.25*src.SagaLevel)
-							src.SagaThreshold("End", 0.25*src.SagaLevel)
-							src.SagaThreshold("Spd", 0.25*src.SagaLevel)
-							src.SagaThreshold("Off", 0.25*src.SagaLevel)
-							src.SagaThreshold("Def", 0.25*src.SagaLevel)
+							src.SagaThreshold("Str", 0.1*src.SagaLevel)
+							src.SagaThreshold("End", 0.1*src.SagaLevel)
+							src.SagaThreshold("Spd", 0.1*src.SagaLevel)
+							src.SagaThreshold("Off", 0.1*src.SagaLevel)
+							src.SagaThreshold("Def", 0.1*src.SagaLevel)
 							switch(UBWPath)
 								if("Feeble")
 									passive_handler.Increase("Desperation")

@@ -367,6 +367,9 @@ globalTracker
 		//firm multiplies break by a further x5
 		UBW_FIRM_BREAK_MULTIPLIER = 5
 
+		//how much copy_blade costs.
+		UBW_COPY_COST = 6
+
 		MAX_BREAK_MULT = 6
 		MAX_BREAK_VAL = 200
 

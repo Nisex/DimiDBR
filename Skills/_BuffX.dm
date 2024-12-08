@@ -2482,9 +2482,11 @@ NEW VARIABLES
 					if(!altered)
 						if(!usr.BuffOn(src))
 							AngerMult = 0
+							AutoAnger = 0
 							switch(fightingType)
 								if("Berserker")
 									AngerMult = 1.25
+									AutoAnger = 1
 									passives = list("AutoAnger" = 1, "PureReduction" = -1, "PureDamage" = 2, "DoubleStrike" = 1, "HeavyHitter" = 0.5, "Steady" = 1, "CancelDemonicDura" = 1 )
 									StrMult = 1.3
 									ForMult = 1.3
@@ -5125,7 +5127,7 @@ NEW VARIABLES
 					if(!altered)
 						if(usr.Saga == "Unlimited Blade Works")
 							ManaCost = usr.getUBWCost(0.8)
-							passives = list("PureDamage" = 1 + max(1,usr.getAriaCount()/2), "PureReduction" = 1 + max(1,usr.getAriaCount()/2))
+							passives = list("PureDamage" = max(1,usr.getAriaCount()/3), "PureReduction" = max(1,usr.getAriaCount()/3))
 							PhysicalHitsLimit = 1 + (usr.getAriaCount() * usr.SagaLevel)
 							SpiritHitsLimit = 1 + (usr.getAriaCount() * usr.SagaLevel)
 							TimerLimit = 15 * usr.SagaLevel
@@ -8338,9 +8340,12 @@ NEW VARIABLES
 			OffMessage = "'s conjured blade shatters in the air!"
 			var/SlotsUsed = 0
 			var/list/copiedBlades = list()
+			var/obj/Items/Sword/currentBlade
+			var/obj/Items/Sword/swordref
+			var/projected = FALSE
 			verb/Copy_Blade()
 				set category = "Skills"
-				if(!usr.Target)
+				if(!usr.Target || usr.Target == usr)
 					usr << "You need a target."
 					return
 				if(!usr.Target.EquippedSword())
@@ -8349,43 +8354,90 @@ NEW VARIABLES
 				if(usr.Target.EquippedSword().Conjured)
 					usr << "This blade has no history, it evades your attempt to copy it!"
 					return
-				if(copiedBlades.len>=((usr.SagaLevel-5)*5))
+				if(length(copiedBlades)>=(usr.SagaLevel))
 					usr << "Your head feels close to bursting, you can't fit anything more...!!"
 					return
+				usr.OMessage(10, "[usr.name] seems to focus intently on [usr.Target.name]'s [usr.Target.EquippedSword()]...")
+				var/obj/Items/Sword/s = usr.Target.EquippedSword()
+				s = copyatom(s)
+				s.NoSaga = FALSE
+				s.Conjured = TRUE
+				s.suffix = null
+				copiedBlades += s
 
 			verb/Remove_Blade()
 				set category = "Skills"
-				if(SlotsUsed == 0)
-					usr << "You have no copied swords!"
-					return
 				var/list/tempList = copiedBlades
 				tempList += "Cancel"
 				var/removeThis = input("What blade do you want to remove?") in tempList
+				tempList -= "Cancel"
 				if(removeThis=="Cancel")
 					return
-				copiedBlades.Remove(removeThis)
 
+				copiedBlades.Remove(removeThis)
+/*
+			verb/Set_Projection_Name(swordName as text)
+				set hidden = 1
+				var/found = FALSE
+				for(var/obj/Items/Sword/s in copiedBlades)
+					if(s.name == swordName)
+						usr << "Current projection set to [s.name]"
+						found = TRUE
+						currentBlade = s
+						break
+				if(!found)
+					usr << "[swordName] not found in viable projections!"*/
 			verb/Set_Projection()
 				set category = "Skills"
-				if(SlotsUsed == 0)
-					usr << "You have no copied swords!"
-					return
 				var/list/tempList = copiedBlades
 				tempList += "Cancel"
-				var/useThis = input("What blade do you want to use?") in tempList
+				var/obj/Items/Sword/useThis = input("What blade do you want to use?") in tempList
 				if(useThis=="Cancel")
 					return
-				var/obj/Items/Sword/S = useThis
-				SwordClass = S.Class
-				SwordAscension = S.Ascended
-				SwordRefinement = S.ExtraClass
+				usr << "Current projection set to [useThis.name]."
+				currentBlade = useThis
+
 
 			verb/True_Projection()
 				set category="Skills"
 				if(!usr.getAriaCount())
 					usr << "You can't project without your circuits active!"
 					return
-				src.Trigger(usr)
+				if(!currentBlade && !projected)
+					usr << "You don't have a blade selected!"
+					return
+				if(usr.EquippedSword()&&!projected)
+					usr << "You can't have a blade out to project a new one!"
+					return
+				if(!projected)
+					var/costCalculation = (length(currentBlade.Techniques) + length(currentBlade.passives) + currentBlade.Ascended + currentBlade.InnatelyAscended)/usr.SagaLevel
+					if(usr.UBWPath == "Feeble")
+						costCalculation -= 1
+					costCalculation = clamp(1, costCalculation, 10)
+					costCalculation *= glob.UBW_COPY_COST
+					if(usr.ManaAmount < costCalculation)
+						usr << "You don't have the mana to project [currentBlade.name]!"
+						return
+					usr.OMessage(10, "[usr.name] projects a specific blade to their hand; [currentBlade.name]!")
+					usr.LoseMana(costCalculation)
+					var/obj/Items/Sword/s = copyatom(currentBlade)
+					s.Conjured = TRUE
+					s.suffix = null
+					s.NoSaga = FALSE
+					s.ShatterTier = 3
+					if(usr.UBWPath == "Firm")
+						s.ShatterTier -= 1
+					usr.contents += s
+					s.ObjectUse(usr)
+					swordref = s
+					projected = TRUE
+				else
+					for(var/obj/Items/Sword/s in usr.contents)
+						if(s == swordref)
+							usr.OMessage(10, "[usr.name]'s current projection shatters!")
+							s.ObjectUse(usr)	
+							del s
+					projected = FALSE
 
 		Projection
 			MakesSword=1
