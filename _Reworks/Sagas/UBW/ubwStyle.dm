@@ -112,7 +112,7 @@
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Sword_Flow
-    passives = list("ManaGeneration" = 20, "Brutalize" = 1.5, "Flow" = 1, "Instinct" = 1, "Warping" = 4)
+    passives = list("ManaGeneration" = 5, "Brutalize" = 1.5, "Flow" = 1, "Instinct" = 1, "Warping" = 4)
     Warping=4
     TimerLimit=45
     ActiveMessage="is in the flow of battle!"

@@ -290,7 +290,7 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 	// Tick based activity / Timers
 
 
-	if(MovementCharges < 3)
+	if(MovementCharges < GetMaxMovementCharges())
 		MovementChargeBuildUp()
 
 

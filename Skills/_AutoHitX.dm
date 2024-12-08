@@ -4,6 +4,20 @@ mob
 
 obj
 	Skills
+		proc/disableInnovation(mob/p)
+			var/list/current = p.client.getPref("disableInnovate")
+			if(current[name])
+				current[name] = !current[name]
+			else
+				current[name] = TRUE
+			p.client.setPref("disableInnovate", current)
+			p << "Your [name]'s innovation has been [current[name] ? "disable" : "enabled"]"
+		proc/isInnovationDisable(mob/p)
+			var/list/disabled_list = p.client.getPref("disableInnovate")
+			if(disabled_list[name])
+				return TRUE
+			else
+				return FALSE
 		var/list/scalingValues = list()
 		var/list/obj/Skills/possible_skills = list()
 		proc/adjust(mob/p)
@@ -1454,22 +1468,23 @@ obj
 				Instinct=1
 				ActiveMessage="delivers a series of flowing kicks!"
 				adjust(mob/p)
-
 				verb/Lightning_Kicks()
 					set category="Skills"
 					if(!altered)
 						if(usr.isInnovative(HUMAN, "Unarmed"))
-							if(!Using && usr.Energy >= 5)
-								if(!locate(/obj/Skills/Projectile/Kick_Blast, usr))
-									usr.AddSkill(new/obj/Skills/Projectile/Kick_Blast)
-								var/obj/Skills/Projectile/Kick_Blast/kb = usr.FindSkill(/obj/Skills/Projectile/Kick_Blast)
-								kb.adjust(usr)
-								usr.UseProjectile(kb)
-							else
-								return
-
-
+							if(!isInnovationDisable(usr))
+								if(!Using && usr.Energy >= 5)
+									if(!locate(/obj/Skills/Projectile/Kick_Blast, usr))
+										usr.AddSkill(new/obj/Skills/Projectile/Kick_Blast)
+									var/obj/Skills/Projectile/Kick_Blast/kb = usr.FindSkill(/obj/Skills/Projectile/Kick_Blast)
+									kb.adjust(usr)
+									usr.UseProjectile(kb)
+								else
+									return
 					usr.Activate(src)
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 			Flying_Kick
 				NewCost = TIER_3_COST
 				NewCopyable = 4
@@ -1538,7 +1553,8 @@ obj
 				Instinct=1
 				ActiveMessage="spins like a top, crushing anyone caught in their range!"
 				adjust(mob/p)
-					if(p.isInnovative(HUMAN, "Unarmed"))
+				//	world<<"here"
+					if(p.isInnovative(HUMAN, "Unarmed") && !isInnovationDisable(p))
 						Size = 4
 						Rounds= 10 + (p.Potential/10)
 						DamageMult = 1 + (p.Potential/100)
@@ -1550,7 +1566,11 @@ obj
 						PullIn = 0
 				verb/Spinning_Clothesline()
 					set category="Skills"
+					adjust(usr)
 					usr.Activate(src)
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 			Bullrush
 				SkillCost=TIER_4_COST
 				Copyable=5
@@ -1579,6 +1599,7 @@ obj
 				SkillCost=TIER_4_COST
 				Copyable=5
 				Area="Wide Wave"
+				UnarmedOnly = 1
 				StrOffense=1
 				Distance=10
 				Knockback=10
@@ -1593,7 +1614,7 @@ obj
 				ActiveMessage="blasts forward with a super-sonic dash!"
 				Cooldown=120
 				adjust(mob/p)
-					if(p.isInnovative(HUMAN, "Unarmed"))
+					if(p.isInnovative(HUMAN, "Unarmed") && !isInnovationDisable(p))
 						Area="Around Target"
 						NoLock=1
 						NoAttackLock=1
@@ -1647,8 +1668,12 @@ obj
 					set category="Skills"
 					adjust(usr)
 					usr.Activate(src)
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 			Dropkick_Surprise
 				SkillCost=TIER_4_COST
+				UnarmedOnly = 1
 				Copyable=5
 				Area="Target"
 				StrOffense=1
@@ -2629,7 +2654,7 @@ obj
 					ActiveMessage="invokes: <font size=+1>BLIZZARD!</font size>"
 					adjust(mob/p)
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any"))
+							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 								Rounds=round(p.getTotalMagicLevel()/5)
 								Knockback=1
 								Distance= 6 + round(p.getTotalMagicLevel()/5)
@@ -2646,6 +2671,9 @@ obj
 								Slow = 1
 								Freezing = 2
 								ManaCost = 3
+					verb/Disable_Innovate()
+						set category = "Other"
+						disableInnovation(usr)
 					verb/Blizzard()
 						set category="Skills"
 						adjust(usr)
@@ -2672,10 +2700,13 @@ obj
 					ManaCost=6
 					Cooldown=60
 					ActiveMessage="invokes: <font size=+1>BLIZZARA!</font size>"
+					verb/Disable_Innovate()
+						set category = "Other"
+						disableInnovation(usr)
 					adjust(mob/p)
 						// make it cast a projectile that is like hell zone grenade
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any"))
+							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 								if(!Using && usr.ManaAmount >= 11)
 									if(!locate(/obj/Skills/Projectile/Blizzara, usr))
 										usr.AddSkill(new/obj/Skills/Projectile/Blizzara)
@@ -2726,9 +2757,12 @@ obj
 					ManaCost=9
 					Cooldown=60
 					ActiveMessage="invokes: <font size=+1>BLIZZAGA!</font size>"
+					verb/Disable_Innovate()
+						set category = "Other"
+						disableInnovation(usr)
 					adjust(mob/p)
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any"))
+							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 								Rounds = 3 + p.Potential/25
 								Distance = 4 + p.getTotalMagicLevel()/2 + p.Potential/25
 								Freezing = 6 + p.getTotalMagicLevel()
@@ -2775,9 +2809,12 @@ obj
 					CanBeBlocked=0
 					Cooldown=60
 					WindupMessage="invokes: <font size=+1>THUNDER!</font size>"
+					verb/Disable_Innovate()
+						set category = "Other"
+						disableInnovation(usr)
 					adjust(mob/p)
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any"))
+							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 								var/asc = p.AscensionsAcquired
 								var/magicLevel = p.getTotalMagicLevel()
 								Rush=5
@@ -2822,11 +2859,14 @@ obj
 					ManaCost=5
 					Cooldown=60
 					WindupMessage="invokes: <font size=+1>THUNDARA!</font size>"
+					verb/Disable_Innovate()
+						set category = "Other"
+						disableInnovation(usr)
 					adjust(mob/p)
 						// make it cast a projectile that is like hell zone grenade
 						ManaCost = 5
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any"))
+							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 								if(!Using && usr.ManaAmount >= 10)
 									if(!locate(/obj/Skills/Projectile/Thundara, usr))
 										usr.AddSkill(new/obj/Skills/Projectile/Thundara)
@@ -2864,9 +2904,12 @@ obj
 					ManaCost=10
 					Cooldown=60
 					WindupMessage="invokes: <font size=+1>THUNDAGA!</font size>"
+					verb/Disable_Innovate()
+						set category = "Other"
+						disableInnovation(usr)
 					adjust(mob/p)
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any"))
+							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 								Rounds = 200
 								DamageMult = 0.05
 								Icon='VR Cloud.png'
@@ -3239,8 +3282,11 @@ obj
 				Cooldown=30
 				EnergyCost=2
 				ActiveMessage="dashes forward with a jousting strike!"
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
-					if(p.isInnovative(HUMAN, "Sword"))
+					if(p.isInnovative(HUMAN, "Sword") && !isInnovationDisable(p))
 						var/pot = p.Potential
 						PassThrough = 1
 						Rounds = 2 + (round(pot/ 10))
@@ -3457,8 +3503,11 @@ obj
 				TurfShiftDuration=1
 				Cooldown=30
 				ActiveMessage="swings their weapon in a quick pattern!"
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
-					if(p.isInnovative(HUMAN, "Sword"))
+					if(p.isInnovative(HUMAN, "Sword") && !isInnovationDisable(p))
 						var/pot = p.Potential
 						Distance = 1 + (round(pot/25))
 						Size = 1 + (round(pot/25))
@@ -3472,6 +3521,7 @@ obj
 						Size = 0
 						Rounds = 1
 						DamageMult = 1.5
+						ControlledRush = 0
 				verb/Cross_Slash()
 					set category="Skills"
 					adjust(usr)
@@ -3527,8 +3577,11 @@ obj
 				EnergyCost=5
 				Instinct=1
 				ActiveMessage="spins their sword like a drill bit!"
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
-					if(p.isInnovative(HUMAN, "Sword"))
+					if(p.isInnovative(HUMAN, "Sword") && !isInnovationDisable(p))
 						var/pot = p.Potential
 						ControlledRush=0
 						Rush=0
@@ -3700,8 +3753,11 @@ obj
 				ActiveMessage="flickers behind their opponent for an instantaneous slash!"
 				Cooldown=120
 				EnergyCost=10
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
-					if(p.isInnovative(HUMAN, "Sword"))
+					if(p.isInnovative(HUMAN, "Sword") && !isInnovationDisable(p))
 						var/pot = p.Potential
 						Area="Wave"
 						ComboMaster=1
@@ -4506,7 +4562,7 @@ obj
 				Grapple=1
 				GrabTrigger="/obj/Skills/Grapple/Erupting_Burning_Finger/Removable"
 				Knockback=1
-				WindUp=2
+				WindUp=1
 				WindupIcon='GaoGaoFists.dmi'
 				WindupMessage="begins gathering the forces of Destruction and Creation in their hands!"
 				ActiveMessage="rushes in for the certain kill!"
@@ -5306,6 +5362,14 @@ mob
 				src << "You can't use [Z] you are silenced!"
 				return 0
 			if(Z.Using)//Skill is on cooldown.
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Autohits"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("All Skills"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore && Z.NeedsSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armed Skills"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore && Z.UnarmedOnly && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Unarmed Skills"))
 				return FALSE
 			if(!src.CanAttack(1.5)&&!Z.NoAttackLock)
 				return FALSE
@@ -6508,6 +6572,8 @@ obj
 				#endif
 				FinalDmg *= dmgMulti
 				FinalDmg *= dmgRoll
+				if(Owner.Secret=="Heavenly Restriction" && Owner.secretDatum?:hasImprovement("Autohits"))
+					FinalDmg *= clamp(Owner.secretDatum?:getBoon("Autohits"), 1, 10)
 				#if DEBUG_AUTOHIT
 				Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif

@@ -892,6 +892,8 @@ mob
 		HasKiControlMastery()
 			if(src.GetGodKi()>=0.25 && !isRace(SHINJIN))
 				return 1
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Power Control"))
+				return 1
 			if(src.AdaptationCounter&&src.AdaptationTarget)
 				return 1
 			if(passive_handler.Get("KiControlMastery"))
@@ -909,7 +911,9 @@ mob
 			var/Total=passive_handler.Get("KiControlMastery")
 			if(src.AdaptationCounter&&src.AdaptationTarget)
 				Total+=src.AdaptationCounter
-			if(src.HasGodKi() && !isRace(SHINJIN))
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Power Control"))
+				Total += secretDatum?:getBoon("Power Control") / 4
+			if(src.HasGodKi() && src.isRace(SHINJIN))
 				Total+=round(src.GetGodKi()/0.25)
 			if(src.isRace(NAMEKIAN)&&src.transActive())
 				Total+=3
@@ -1293,13 +1297,21 @@ mob
 				return 1
 			return 0
 		HasTelepathy()
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Senses"))
+				return 0
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
+				return 1
 			if(locate(/obj/Skills/Utility/Telepathy, src))
 				return 1
 			return 0
 		HasFlow()
 			if(src.KO)
 				return 0
-			if(GetFlow())
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Senses"))
+				return 0
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
+				return 1
+			if(passive_handler.Get("Flow"))
 				return 1
 			if(src.Secret=="Ripple"&&src.StyleActive)
 				return 1
@@ -1317,6 +1329,10 @@ mob
 		GetFlow()
 			var/Extra=0
 			var/Base = passive_handler.Get("Flow")
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Senses"))
+				return 0
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
+				Extra += secretDatum?:getBoon("Senses")
 			if(src.Secret=="Ripple"&&src.StyleActive)
 				Extra+=1
 			// if(src.Secret=="Vampire"&&src.StyleActive)
@@ -1332,7 +1348,11 @@ mob
 			return (Base+Extra)
 		HasInstinct()
 			var/Return=BaseOff()/4
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Senses"))
+				return 0
 			Return+=passive_handler.Get("Instinct")
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
+				Return += secretDatum?:getBoon("Senses")
 			if(Target)
 				if(isDominating(Target) && passive_handler.Get("HellRisen"))
 					Return += passive_handler.Get("HellRisen") * 2
@@ -1816,6 +1836,8 @@ mob
 			return 0
 		HasNoAnger()
 			if(passive_handler.Get("NoAnger"))
+				return 1
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Anger"))
 				return 1
 			return 0
 		HasAngerThreshold()
@@ -2916,7 +2938,7 @@ mob
 				return TRUE
 		isInnovative(reqRace, path)
 			if(Saga) return FALSE
-			if(reqRace == HUMAN) return
+			// if(reqRace == HUMAN) return
 			if(isRace(reqRace))
 				if(passive_handler.Get("Innovation"))
 					switch(path)

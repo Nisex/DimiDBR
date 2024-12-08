@@ -90,6 +90,7 @@ mob/Players/verb
 	Auto_Attack()
 		set category = "Skills"
 		client.setPref("autoAttacking", !client.getPref("autoAttacking"))
+		lastHit = world.time
 		src << "You are [client.getPref("autoAttacking") ? "now Auto Attacking." : "no longer Auto Attacking."]"
 	Attack()
 		set category="Skills"
@@ -230,6 +231,8 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					return
 				if(src.Knockbacked)
 					return
+				if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Reverse Dash"))
+					GetAndUseSkill(/obj/Skills/Buffs/SlotlessBuffs/Heavenly_Reversal, Buffs, TRUE)
 				var/Distance=5
 				var/Delay=1
 				src.Frozen=1
@@ -342,6 +345,8 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 							ER.adjust(src)
 							src.SetQueue(ER)
 
+				if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Dragon Dash"))
+					Delay = 0.75 / secretDatum?:getBoon("Dragon Dash")
 				if(src.HasSuperDash())
 					Distance+=15*src.GetSuperDash()
 					Delay=0.5/src.GetSuperDash()
@@ -701,6 +706,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 
 			if("PowerUp")
 				if(src.KO)return
+				if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Power Control")) return
 				if(src.PoweringDown)return
 				if(CheckSlotless("Great Ape"))return
 				if(passive_handler.Get("Piloting"))return
@@ -757,6 +763,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 			if("PowerDown")
 				if(src.KO)
 					return
+				if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Power Control")) return
 				if(CheckSlotless("Great Ape"))
 					return
 				if(passive_handler.Get("Piloting"))

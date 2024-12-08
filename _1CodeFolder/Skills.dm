@@ -177,6 +177,8 @@ obj/Skills
 
 	var/copiedBy
 
+	var/heavenlyRestrictionIgnore = FALSE
+
 	proc
 		skillDescription()
 			description = "[src.name]\n"

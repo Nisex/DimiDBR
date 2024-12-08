@@ -1891,6 +1891,7 @@ obj
 					src.Radius=1*(src.Mastery-1)
 					src.ZoneAttackY=round(2.5*src.Mastery)
 					src.Explode=1*(src.Mastery**2)
+					HolyMod = 3*Mastery
 					usr.UseProjectile(src)
 			Death_Ball
 				SignatureTechnique=2
@@ -3264,7 +3265,7 @@ obj
 						if(!usr.getAriaCount())
 							usr << "You can't project without your circuits active!"
 							return
-						ManaCost = usr.getUBWCost(1.25)
+						ManaCost = usr.getUBWCost(2)
 						DamageMult = clamp(4,(usr.getAriaCount()*2.5), 30)
 						if(usr.getAriaCount() >= 4)
 							Dodgeable = -1
@@ -3389,10 +3390,13 @@ obj
 					Trail='Trail - Plasma.dmi'
 					Variation=0
 					ActiveMessage="invokes: <font size=+1>ERASE!</font size>"
+					verb/Disable_Innovate()
+						set category = "Other"
+						disableInnovation(usr)
 					adjust(mob/p)
 						var/asc = p.AscensionsAcquired
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any"))
+							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 								if(p.passive_handler.Get("HotHundred") || p.passive_handler.Get("Warping"))
 									EndRate = 0.5
 									Radius=1
@@ -3449,9 +3453,12 @@ obj
 					Explode=2
 					Hover=1
 					ActiveMessage="invokes: <font size=+1>METEO!</font size>"
+					verb/Disable_Innovate()
+						set category = "Other"
+						disableInnovation(usr)
 					adjust(mob/p)
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any"))
+							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 								var/asc = p.AscensionsAcquired
 								ManaCost = clamp(p.ManaAmount, 15,100)
 								Blasts = ManaCost/(4+asc)
@@ -4487,12 +4494,20 @@ mob
 			. = TRUE
 			if(src.passive_handler.Get("Silenced"))
 				src << "You can't use [Z] you are silenced!"
-				return 0
+				return FALSE
 			if(src.Stasis)
-				return 0
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore&&Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Projectiles"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore&&Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("All Skills"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore&&Z.NeedsSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armed Skills"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore&&Z.UnarmedOnly && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Unarmed Skills"))
+				return FALSE
 			if(Z.Sealed)
 				src << "You can't use [Z] it is sealed!"
-				return 0
+				return FALSE
 			var/obj/Items/check = EquippedFlyingDevice()
 			if(istype(check))
 				check.ObjectUse(src)

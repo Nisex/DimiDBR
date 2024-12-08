@@ -721,10 +721,10 @@ mob
 	proc
 		saga_up_self()
 			if(!src.SagaAdminPermission)
-				if(src.SagaLevel>=4)
+				if(src.SagaLevel>=3)
 					return
 			else
-				if(src.SagaLevel>=4)
+				if(src.SagaLevel>=3)
 					src << "You've been bestowed an additional tier of your Saga purposefully; enjoy your new powers, this is not a bug!"
 
 			src.SagaLevel++

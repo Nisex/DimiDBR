@@ -1051,6 +1051,8 @@ obj
 				Cooldown=15
 				verb/Heavy_Strike()
 					set category="Skills"
+					if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Heavy Strike"))
+						return
 					if(usr.Tension>=100)
 						if(usr.HasTensionLock())
 							return
@@ -1070,12 +1072,49 @@ obj
 					else
 						if(usr.AttackQueue)
 							return // prevent heavy strike from overriding
-						if(!usr.Secret && !usr.HasWitchCraft() || usr.Secret == "Eldritch" && !usr.CheckSlotless("True Form") || usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus"))//Just default Heavy Strike
+						if(!usr.Secret && !usr.HasWitchCraft() || usr.Secret == "Eldritch" && !usr.CheckSlotless("True Form") || usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus") || usr.Secret =="Heavenly Restriction" && !usr.secretDatum?:hasImprovement("Heavy Strike"))//Just default Heavy Strike
 							src.name="Heavy Strike"
 							src.DamageMult=2
 							src.AccuracyMult=1
 							src.KBAdd=5
 							src.KBMult=3
+							src.Cooldown=15
+							src.ActiveMessage=0
+							src.HitMessage=0
+							src.Ooze = 0
+							src.CursedWounds=0
+							src.Scorching=0
+							src.Freezing=0
+							src.Paralyzing=0
+							src.Shattering=0
+							src.Toxic=0
+							src.Combo=0
+							src.Warp=0
+							src.Rapid=0
+							src.LifeSteal=0
+							src.Crippling=0
+							src.Grapple=0
+							Dunker = 0
+							Launcher = 0
+							PushOutWaves = 0
+							PushOut = 0
+							src.NoForcedWhiff=0
+							src.IconLock='BLANK.dmi'
+							src.HitSparkIcon=null
+							src.HitSparkX=0
+							src.HitSparkY=0
+							src.HitSparkTurns=0
+							src.HitSparkSize=1
+							usr.SetQueue(src)
+							return//and that's the end
+						if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasImprovement("Heavy Strike"))
+							src.name="Heavy Strike"
+							src.DamageMult= 2 + usr.secretDatum?:getBoon("Heavy Strike")
+							PushOutWaves = usr.secretDatum?:getBoon("Heavy Strike")
+							PushOut = usr.secretDatum?:getBoon("Heavy Strike")
+							src.AccuracyMult = 1 + usr.secretDatum?:getBoon("Heavy Strike")
+							src.KBAdd = 5 + usr.secretDatum?:getBoon("Heavy Strike")
+							src.KBMult= 1 + usr.secretDatum?:getBoon("Heavy Strike")
 							src.Cooldown=15
 							src.ActiveMessage=0
 							src.HitMessage=0
@@ -1099,8 +1138,11 @@ obj
 							src.HitSparkY=0
 							src.HitSparkTurns=0
 							src.HitSparkSize=1
+							if(usr.Target.Launched)
+								Dunker = usr.secretDatum?:getBoon("Heavy Strike")
+							else
+								Launcher = usr.secretDatum?:getBoon("Heavy Strike")
 							usr.SetQueue(src)
-							return//and that's the end
 						if(usr.Secret == "Eldritch" && usr.CheckSlotless("True Form"))
 							src.name="Maleific Strike"
 							src.DamageMult=3
@@ -1169,7 +1211,7 @@ obj
 							if(usr.CheckSlotless("Haki Observation"))
 								for(var/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Observation/H in usr)
 									H.Trigger(usr)
-							if(usr.HakiSpecialization=="Armament")
+							if(usr.secretDatum.secretVariable["HakiSpecialization"]=="Armament")
 								src.name="Buso: Koka"
 								src.DamageMult = 1 + usr.secretDatum.currentTier
 								src.AccuracyMult = 1.15
@@ -1895,8 +1937,11 @@ obj
 				Crippling = 8
 				UnarmedOnly=1
 				EnergyCost=1.5
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
-					if(usr.isInnovative(HUMAN, "Unarmed"))
+					if(usr.isInnovative(HUMAN, "Unarmed") && !isInnovationDisable(p))
 						Projectile="/obj/Skills/Projectile/KinshasaProjectile"
 					else
 						Projectile=null
@@ -2688,37 +2733,56 @@ obj
 			Blade_Dance
 				SignatureTechnique=1
 				NeedsSword=1
-				DamageMult=4
+				DamageMult=2
 				SpeedStrike=4
-				AccuracyMult = 1
+				AccuracyMult = 1.5
 				HitStep=/obj/Skills/Queue/Blade_Dance2
 				Duration=3
 				Rapid=1
 				Instinct=1
-				Cooldown=160
-				EnergyCost=3
+				Cooldown=120
+				EnergyCost=2
 				HitSparkIcon='Slash - Future.dmi'
 				HitSparkX=-32
 				HitSparkY=-32
 				HitSparkTurns=1
 				HitSparkSize=1.5
 				HitMessage="chases their enemy down with a rush of powerful sword strikes!"
+				var/tmp/current_hits = 0
 				verb/Blade_Dance()
 					set category="Skills"
+					if(!Using)
+						current_hits = 0 
 					usr.SetQueue(src)
 			Blade_Dance2
 				NeedsSword=1
-				DamageMult=1
-				SpeedStrike=2
-				AccuracyMult=0.85
+				DamageMult=0.5
+				SpeedStrike=1
+				AccuracyMult=1.25
 				HitStep=/obj/Skills/Queue/Blade_Dance2
 				Duration=4
 				Warp=1
-				EnergyCost=3
+				EnergyCost=1
 				HitSparkIcon='Slash - Future.dmi'
 				HitSparkX=-32
 				HitSparkY=-32
-				HitSparkTurns=1
+				MissMessage = "is too exhausted to swing anymore...(Blade Dance Max Hit)"
+				adjust(mob/p)
+					// find blade dance
+					var/obj/Skills/Queue/Blade_Dance/bd = p.FindSkill(/obj/Skills/Queue/Blade_Dance)
+					bd.current_hits++
+					if(bd.current_hits < 10)
+						DamageMult = 0.5 + (0.25 * bd.current_hits)
+						Warp = round(min(1, bd.current_hits/2))
+						EnergyCost = 1 + bd.current_hits/2
+						SpeedStrike = round(min(1, bd.current_hits/2))
+						Duration = 4 + round(min(1, bd.current_hits/3))
+						AccuracyMult = 1.25 - (0.1 * bd.current_hits)
+					else
+						DamageMult = 0
+						EnergyCost = 0
+						AccuracyMult=0.0001
+						HitStep = FALSE
 			Nirvana_Slash
 				SignatureTechnique=1
 				NeedsSword=1
@@ -3717,6 +3781,8 @@ obj
 					HitMessage="drives their devastating Pile Bunker forward!"
 					verb/Pile_Bunker()
 						set category="Skills"
+						if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+							return
 						usr.SetQueue(src)
 				Power_Fist
 					NoSword=1
@@ -3735,6 +3801,8 @@ obj
 					HitMessage="discharges the round in their Power Fist!!"
 					verb/Power_Fist()
 						set category="Skills"
+						if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+							return
 						usr.SetQueue(src)
 				Power_Claw
 					DamageMult=1.25
@@ -3750,6 +3818,8 @@ obj
 					HitMessage="crushes their opponent with their Power Claw!"
 					verb/Power_Claw()
 						set category="Skills"
+						if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+							return
 						usr.SetQueue(src)
 				Hook_Grip_Claw
 					DamageMult=5
@@ -3765,6 +3835,8 @@ obj
 					HitMessage="stretches their mechanical appendage to grasp their foe!"
 					verb/Hook_Grip_Claw()
 						set category="Skills"
+						if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+							return
 						usr.SetQueue(src)
 				Integrated
 					Integrated=1
@@ -3790,6 +3862,8 @@ obj
 						HitMessage="drives their devastating Pile Bunker forward!"
 						verb/Pile_Bunker()
 							set category="Skills"
+							if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+								return
 							usr.SetQueue(src)
 					Integrated_Power_Fist
 						NoSword=1
@@ -3812,6 +3886,8 @@ obj
 						HitMessage="discharges the round in their Power Fist!!"
 						verb/Power_Fist()
 							set category="Skills"
+							if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+								return
 							usr.SetQueue(src)
 					Integrated_Power_Claw
 						DamageMult=1.25
@@ -3827,6 +3903,8 @@ obj
 						HitMessage="crushes their opponent with their Power Claw!"
 						verb/Power_Claw()
 							set category="Skills"
+							if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+								return
 							usr.SetQueue(src)
 					Integrated_Hook_Grip_Claw
 						DamageMult=5
@@ -3842,6 +3920,8 @@ obj
 						HitMessage="stretches their mechanical appendage to grasp their foe!"
 						verb/Hook_Grip_Claw()
 							set category="Skills"
+							if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+								return
 							usr.SetQueue(src)
 ////Cybernetics
 			Cyberize
@@ -3858,6 +3938,8 @@ obj
 					HitMessage="delivers an electrified strike!!"
 					verb/Taser_Strike()
 						set category="Skills"
+						if(usr.Secret=="Heavenly Restriction" && (usr.secretDatum?:hasRestriction("Science") || usr.secretDatum?:hasRestriction("Cybernetics")))
+							return
 						usr.SetQueue(src)
 ////Enchantment
 			Megiddo
@@ -3926,7 +4008,15 @@ mob
 				src << "You can't use [Q] you are silenced!"
 				return 0
 			if(Q.Using)
-				return//Can't use if on cooldown.
+				return//Can't use if on cooldown
+			if(!Q.heavenlyRestrictionIgnore&&Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Queues"))
+				return
+			if(!Q.heavenlyRestrictionIgnore&&Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("All Skills"))
+				return
+			if(!Q.heavenlyRestrictionIgnore&&Q.NeedsSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armed Skills"))
+				return
+			if(!Q.heavenlyRestrictionIgnore&&Q.UnarmedOnly && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Unarmed Skills"))
+				return
 			if(Q.StanceNeeded)
 				if(src.StanceActive!=Q.StanceNeeded)
 					src << "You have to be in [Q.StanceNeeded] stance to use this!"
@@ -4436,6 +4526,7 @@ mob
 				else if(!src.AttackQueue.RanOut&&!src.AttackQueue.Missed&&src.AttackQueue.Hit)
 					if(src.AttackQueue.HitStep)
 						var/obj/Skills/Queue/S=new src.AttackQueue.HitStep
+						S.adjust(src)
 						src.AttackQueue=null
 						src.SetQueue(S)
 						return

@@ -3051,7 +3051,7 @@ NEW VARIABLES
 				ArmorAscension=2
 				HairLock=1
 				adjustments(mob/player)
-					MovementMastery = player.SagaLevel * 1.5
+					MovementMastery = player.SagaLevel * 2
 					// Hustle = 1 + (player.SagaLevel * 0.25)
 				Pegasus_Cloth
 					StrMult=1.5
@@ -3066,7 +3066,7 @@ NEW VARIABLES
 					adjustments(mob/player)
 						..()
 						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
-						passives = list("MovementMastery" = player.SagaLevel * 1.5, "ArmorAscension" = 2, "Desperation" = 1 + (player.SagaLevel * 0.5),\
+						passives = list("MovementMastery" = player.SagaLevel * 2, "ArmorAscension" = 2, "Desperation" = 1 + (player.SagaLevel * 1),\
 						 "Godspeed" = 1+ (player.SagaLevel*0.5) )
 						StrMult = 1.3 + (newLevel * 0.1)
 						SpdMult = 1.3 + (newLevel * 0.1)
@@ -3091,7 +3091,7 @@ NEW VARIABLES
 						StrMult = 1.3 + (newLevel * 0.1)
 						EndMult = 1.5 + (newLevel * 0.1)
 						DefMult = 1.3 + (newLevel * 0.1)
-						passives = list("MovementMastery" = player.SagaLevel * 1.5, "ArmorAscension" = 2, "Reversal" = 0.2 + player.SagaLevel * 0.1,\
+						passives = list("MovementMastery" = player.SagaLevel * 2, "ArmorAscension" = 2, "Reversal" = 0.2 + player.SagaLevel * 0.1,\
 						"CriticalBlock" = player.SagaLevel / 8, "BlockChance" = 10 + (player.SagaLevel * 1.5))
 					verb/Don_Cloth()
 						set category="Skills"
@@ -3120,7 +3120,7 @@ NEW VARIABLES
 							OffMult = 1.3 + (newLevel * 0.1)
 							DefMult = 1.3 + (newLevel * 0.1)
 							EndMult = 1.2 + (newLevel * 0.1)
-							passives = list("MovementMastery" =  player.SagaLevel * 1.5, "SpiritStrike" = 1, "ArmorAscension" = 2, "Freezing" = 1 + round(player.SagaLevel / 2,0.5), "VenomImmune" = 1, \
+							passives = list("MovementMastery" =  player.SagaLevel * 2, "SpiritStrike" = 1, "ArmorAscension" = 2, "Freezing" = 1 + player.SagaLevel, "VenomImmune" = 1, \
 							 "WalkThroughHell" = 1, "Erosion" = 0.05 * newLevel)
 					verb/Don_Cloth()
 						set category="Skills"
@@ -3134,7 +3134,7 @@ NEW VARIABLES
 					OffMult=1.2
 					DefMult=1.3
 					SwordPunching = 1
-					BuffTechniques=list("/obj/Skills/Buffs/SlotlessBuffs/Andromeda_Chain")
+					BuffTechniques=list("/obj/Skills/Buffs/SlotlessBuffs/Andromeda_Chain", "/obj/Skills/Buffs/SlotlessBuffs/Andromeda/Rolling_Defense")
 					ArmorIcon='saintandromedav3_armor.dmi'
 					TopOverlayLock='saintandromedav3_helmet.dmi'
 					ActiveMessage="dons the renewed Cloth of Andromeda, embracing its gentle sacrifice..."
@@ -3142,11 +3142,12 @@ NEW VARIABLES
 					adjustments(mob/player)
 						..()
 						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
-						passives = list("MovementMastery" = player.SagaLevel * 1.5, "ArmorAscension" = 2, "SwordPunching" = 1)
-						EndMult = 1.3 + (newLevel * 0.1)
-						SpdMult = 1.3 + (newLevel * 0.1)
-						OffMult = 1.3 + (newLevel * 0.1)
-						DefMult = 1.4 + (newLevel * 0.1)
+						passives = list("MovementMastery" = player.SagaLevel * 2, "ArmorAscension" = 2, "SwordPunching" = 1)
+						SpdMult = 1.2 + (newLevel * 0.1)
+						EndMult = 1.1 + (newLevel * 0.1)
+						StrMult = 1.1 + (newLevel * 0.1)
+						OffMult = 1.2 + (newLevel * 0.1)
+						DefMult = 1.3 + (newLevel * 0.1)
 
 					verb/Don_Cloth()
 						set category="Skills"
@@ -3167,7 +3168,7 @@ NEW VARIABLES
 					adjustments(mob/player)
 						..()
 						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
-						passives = list("MovementMastery" = player.SagaLevel * 1.75, "ArmorAscension" = 3, "SpiritHand" = (player.SagaLevel*0.5))
+						passives = list("MovementMastery" = player.SagaLevel * 2, "ArmorAscension" = 2, "SpiritHand" = (player.SagaLevel*0.5))
 						StrMult = 1.4 + (newLevel * 0.1)
 						ForMult = 1.4 + (newLevel * 0.1)
 						OffMult = 1.3 + (newLevel * 0.1)
@@ -3186,8 +3187,7 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						passives = list("MovementMastery" =  player.SagaLevel * 1.5, "ArmorAscension" = 2, "Pursuer" = 1 + (player.SagaLevel * 0.3), "Flicker" = max(1,player.SagaLevel))
-						MovementMastery = player.SagaLevel * 1.5
+						passives = list("MovementMastery" =  player.SagaLevel * 2, "ArmorAscension" = 2, "Pursuer" = 1 + (player.SagaLevel * 0.3), "Flicker" = max(1,player.SagaLevel))
 						SpdMult = 1.3 + (player.SagaLevel * 0.1)
 						OffMult = 1.1 + (player.SagaLevel * 0.1)
 						DefMult = 1.2 + (player.SagaLevel * 0.1)
@@ -3222,38 +3222,35 @@ NEW VARIABLES
 							if(startTime >= timeLimit)
 								temporaryTime = 0
 								p << "Your Gold Cloth has expired!"
-								src.Trigger(p)
-								Toggle_Cape()
+								src.Trigger(p, TRUE)
+								Cape(p)
 								sleep(3)
 								del src
 
 				adjustments(mob/player)
 					..()
-					passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1,"MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.25))
-					MovementMastery = 6 + (player.SagaLevel)
-					Godspeed = 1 + (player.SagaLevel * 0.25)
+					passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1,"MovementMastery" = 10+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.25))
 					if(!timeLimit)
 						setRandomTime(player)
 				verb/Toggle_Cape()
 					set category="Roleplay"
+					Cape(usr)
+
+				proc/Cape(mob/user)
 					var/image/im=image(icon='goldsaint_cape.dmi', layer=FLOAT_LAYER-3)
-					if(usr.SagaLevel<5)
-						usr << "You're not worthy of a cape yet!"
+					if(user.SagaLevel<5)
+						user << "You're not worthy of a cape yet!"
 						return
-					if(usr.BuffOn(src))
+					if(user.BuffOn(src))
 						if(!src.NoExtraOverlay)
-							usr.overlays-=im
-							usr << "You remove your cape!"
+							user.overlays-=im
+							user << "You remove your cape!"
 							src.NoExtraOverlay=1
 						else
-							usr.overlays+=im
-							usr.Hairz("Add")
-							usr << "You put your cape on!"
+							user.overlays+=im
+							user.Hairz("Add")
+							user << "You put your cape on!"
 							src.NoExtraOverlay=0
-				Trigger(var/mob/User, Override = 0)
-					. = ..()
-					if(. && User.SagaLevel < 5&&!Using)
-						del src
 				Aries_Cloth
 					ForMult=1.3
 					EndMult=1.3
@@ -3272,7 +3269,7 @@ NEW VARIABLES
 						ForMult = 1.4 + ((player.SagaLevel-2) * 0.1)
 						EndMult = 1.4 + ((player.SagaLevel-2) * 0.1)
 						DefMult = 1.5 + ((player.SagaLevel-2) * 0.1)
-						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1,"MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.25), "SpiritFlow" = (player.SagaLevel*0.2), "SpiritHand" = (player.SagaLevel*0.25), "TechniqueMastery" = 3 + (player.SagaLevel/2))
+						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1,"MovementMastery" = 10+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.25), "SpiritFlow" = (player.SagaLevel*0.2), "SpiritHand" = (player.SagaLevel*0.25), "TechniqueMastery" = 3 + (player.SagaLevel/2))
 						SpiritFlow = (player.SagaLevel * 0.2)
 						SpiritHand = (player.SagaLevel * 0.25)
 						TechniqueMastery = 3 + (player.SagaLevel / 2)
@@ -3281,7 +3278,7 @@ NEW VARIABLES
 						src.NoTopOverlay=0
 						adjustments(usr)
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 				Gemini_Cloth
 					StrMult=1.2
 					ForMult=1.2
@@ -3308,7 +3305,7 @@ NEW VARIABLES
 						adjustments(usr)
 						src.NoTopOverlay=0
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 				Cancer_Cloth
 					ForMult=1.4
 					OffMult=1.4
@@ -3330,7 +3327,7 @@ NEW VARIABLES
 						adjustments(usr)
 						src.NoTopOverlay=0
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 				Leo_Cloth
 					StrMult=1.2
 					ForMult=1.1
@@ -3353,7 +3350,7 @@ NEW VARIABLES
 						adjustments(usr)
 						src.NoTopOverlay=0
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 				Virgo_Cloth
 					ForMult=1.4
 					OffMult=1.2
@@ -3374,7 +3371,7 @@ NEW VARIABLES
 						adjustments(usr)
 						src.NoTopOverlay=0
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 				Libra_Cloth
 					OffMult=1.3
 					DefMult=1.3
@@ -3420,7 +3417,7 @@ NEW VARIABLES
 						src.NoTopOverlay=0
 						adjustments(usr)
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 
 				Capricorn_Cloth
 					StrMult=1.3
@@ -3436,17 +3433,17 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1,"MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, \
-						"Godspeed" = 1+(player.SagaLevel*0.25), "SwordAscension" = player.SagaLevel-2)
-						StrMult = 1.2 + ((player.SagaLevel-3) * 0.1)
-						ForMult = 1.2 + ((player.SagaLevel-3) * 0.1)
-						OffMult = 1.3 + ((player.SagaLevel-3) * 0.1)
+						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1,"MovementMastery" = 10+player.SagaLevel, "ArmorAscension" = 3, \
+						"Godspeed" = 1+(player.SagaLevel*0.25), "SwordAscension" = player.SagaLevel-2, "SwordPunching" = 1)
+						StrMult = 1.3 + ((player.SagaLevel-2) * 0.1)
+						ForMult = 1.3 + ((player.SagaLevel-2) * 0.1)
+						OffMult = 1.3 + ((player.SagaLevel-2) * 0.1)
 					verb/Don_Cloth()
 						set category="Skills"
 						src.NoTopOverlay=0
 						adjustments(usr)
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 				Aquarius_Cloth
 					ForMult=1.7
 					OffMult=1.1
@@ -3468,7 +3465,7 @@ NEW VARIABLES
 						src.NoTopOverlay=0
 						adjustments(usr)
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 				Pisces_Cloth
 					ForMult=1.2
 					OffMult=1.1
@@ -3490,7 +3487,7 @@ NEW VARIABLES
 						src.NoTopOverlay=0
 						adjustments(usr)
 						src.Trigger(usr)
-						src.Toggle_Cape()
+						Cape(usr)
 
 		Valor_Form
 			FlashChange=1
@@ -5127,7 +5124,7 @@ NEW VARIABLES
 					set category="Skills"
 					if(!altered)
 						if(usr.Saga == "Unlimited Blade Works")
-							ManaCost = usr.getUBWCost(0.5)
+							ManaCost = usr.getUBWCost(0.8)
 							passives = list("PureDamage" = 1 + max(1,usr.getAriaCount()/2), "PureReduction" = 1 + max(1,usr.getAriaCount()/2))
 							PhysicalHitsLimit = 1 + (usr.getAriaCount() * usr.SagaLevel)
 							SpiritHitsLimit = 1 + (usr.getAriaCount() * usr.SagaLevel)
@@ -5780,9 +5777,12 @@ NEW VARIABLES
 				Cooldown=120
 				AffectTarget = 1
 				Range = 12
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any"))
+						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 							VaizardHealth=0.15
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/10)
@@ -5811,7 +5811,7 @@ NEW VARIABLES
 				verb/Shell()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")))
+						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(usr))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -5839,9 +5839,12 @@ NEW VARIABLES
 				EndYourself = 1
 				AffectTarget = 1
 				Range = 12
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any"))
+						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(usr))
 							VaizardHealth=0.3
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/5)
@@ -5870,7 +5873,7 @@ NEW VARIABLES
 				verb/Barrier()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")))
+						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(usr))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -5899,9 +5902,12 @@ NEW VARIABLES
 				Cooldown=160
 				AffectTarget = 1
 				Range = 12
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any"))
+						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(usr))
 							passives = list("PureReduction" = round(p.getTotalMagicLevel()/10,0.1), "DebuffImmune" = p.getTotalMagicLevel()/20, "Sunyata" = round(p.Potential/10,0.5)) // 5% per 10 pot to negate queues
 							TimerLimit = 15 + p.getTotalMagicLevel()
 							AffectTarget = 0
@@ -5930,7 +5936,7 @@ NEW VARIABLES
 				verb/Protect()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")))
+						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(usr))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -5959,9 +5965,12 @@ NEW VARIABLES
 				Cooldown=-1
 				AffectTarget = 1
 				Range = 12
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any"))
+						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(usr))
 							VaizardHealth=0.5
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/5)
@@ -5992,7 +6001,7 @@ NEW VARIABLES
 				verb/Resilient_Sphere()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")))
+						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(usr))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -6029,9 +6038,12 @@ NEW VARIABLES
 				EndYourself=1
 				applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Magic/ProtegaApply
 				Range = 10
+				verb/Disable_Innovate()
+					set category = "Other"
+					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any"))
+						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(usr))
 							passives = list("PureReduction" = round(p.getTotalMagicLevel()/5,0.1), "DebuffImmune" = p.getTotalMagicLevel()/10, "Sunyata" = round(p.Potential/5,0.5)) // 5% per 10 pot to negate queues
 							TimerLimit = 20 + p.getTotalMagicLevel()
 							AffectTarget = 0
@@ -6059,7 +6071,7 @@ NEW VARIABLES
 				verb/Protega()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")))
+						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(usr))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -6827,14 +6839,9 @@ NEW VARIABLES
 					set name="Time Alter: Double Accel"
 					set category="Skills"
 					if(!usr.BuffOn(src))
-						src.BleedHit=1/src.Mastery
-						passives = list("BleedHit" = 0.75/src.Mastery, "Instinct" = 2, "Flow" = 2, "BlurringStrikes" = 1, "Warping" = 2)
-						HotHundred = 0
-						Warping = 2
-						src.SpdMult=2
-						src.Instinct=1
-						src.Flow=1
-						src.ActiveMessage="yells: <b>Time Alter: Double Accel!</b>"
+						passives = list("BleedHit" = 0.75/src.Mastery, "Instinct" = 2, "Flow" = 2, "BlurringStrikes" = 1, "Warping" = 1)
+						SpdMult=1.5
+						ActiveMessage="yells: <b>Time Alter: Double Accel!</b>"
 					src.Trigger(usr)
 					if(usr.BuffOn(src))
 						animate(usr.client, color = list(0.7,0.7,0.71, 0.79,0.79,0.8, 0.31,0.31,0.32, 0,0,0), time = 3)
@@ -6842,14 +6849,9 @@ NEW VARIABLES
 					set name="Time Alter: Triple Accel"
 					set category="Skills"
 					if(!usr.BuffOn(src))
-						src.BleedHit=2/src.Mastery
-						passives = list("BleedHit" = 1.5/Mastery, "Instinct" = 3, "Flow" = 3, "BlurringStrikes" = 2, "Warping" = 4)
-						HotHundred = 0
-						Warping = 3
-						src.SpdMult=3
-						src.Instinct=2
-						src.Flow=2
-						src.ActiveMessage="yells: <b>Time Alter: Triple Accel!</b>"
+						passives = list("BleedHit" = 1.5/Mastery, "Instinct" = 3, "Flow" = 3, "BlurringStrikes" = 2, "Warping" = 2)
+						SpdMult=2
+						ActiveMessage="yells: <b>Time Alter: Triple Accel!</b>"
 					src.Trigger(usr)
 					if(usr.BuffOn(src))
 						animate(usr.client, color = list(0.7,0.7,0.71, 0.79,0.79,0.8, 0.31,0.31,0.32, 0,0,0), time = 3)
@@ -6857,13 +6859,8 @@ NEW VARIABLES
 					set name="Time Alter: Square Accel"
 					set category="Skills"
 					if(!usr.BuffOn(src))
-						HotHundred=1
-						Warping=3
-						src.SpdMult=4
-						src.EnergyExpenditure=2
-						passives = list("BleedHit" = 3/Mastery, "Instinct" = 4, "Flow" = 4, "EnergyExpenditure" = 2, "BlurringStrikes" = 4)
-						src.Instinct=3
-						src.Flow=3
+						SpdMult=3
+						passives = list("BleedHit" = 3/Mastery, "Instinct" = 4, "Flow" = 4, "EnergyExpenditure" = 4, "BlurringStrikes" = 3, "Warping" = 3)
 						ActiveMessage="yells: <b>Time Alter: Square Accel!</b>"
 					src.Trigger(usr)
 					if(usr.BuffOn(src))
@@ -7944,9 +7941,23 @@ NEW VARIABLES
 			HitSize=0.9
 			BuffTechniques=list("/obj/Skills/Projectile/Beams/Saint_Seiya/Nebula_Chain","/obj/Skills/Queue/Thunder_Wave")
 			Cooldown=150
+			adjust(mob/p)
+				passives = list("SwordAscension" = min(p.SagaLevel, 1), "Extend" = 1, "Deflection" = min(p.SagaLevel-2,1), "Paralyzing" = p.SagaLevel, "Crippling" = p.SagaLevel/2)
 			verb/Andromeda_Chain()
 				set category="Skills"
+				adjust(usr)
 				src.Trigger(usr)
+		Andromeda
+			Rolling_Defense
+				passives = list("Flow" = 1, "LikeWater" = 1, "BackTrack")
+				SBuffNeeded="Andromeda Cloth"
+				Cooldown=60
+				adjust(mob/p)
+					passives = list("Flow" = min(p.SagaLevel/2, 1), "LikeWater" = p.SagaLevel, "BackTrack" = min(p.SagaLevel-3, 1))
+				verb/Rolling_Defense()
+					set category="Skills"
+					adjust(usr)
+					src.Trigger(usr)
 
 ////Gold Cloth
 		Crystal_Wall
@@ -11618,6 +11629,14 @@ mob
 						if(!src.HasSpellFocus(B) && !B.MagicFocus)
 							src << "You need a spell focus to use [B]."
 							return FALSE
+				if(!B.heavenlyRestrictionIgnore&&B.MagicNeeded && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Magic"))
+					return
+				if(!B.heavenlyRestrictionIgnore&&B.MakesSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Sword"))
+					return
+				if(!B.heavenlyRestrictionIgnore&&B.MakesArmor && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armor"))
+					return
+				if(!B.heavenlyRestrictionIgnore&&B.MakesStaff && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Staff"))
+					return
 				if(B.StyleNeeded)
 					if(src.StyleActive!=B.StyleNeeded)
 						src << "You can't trigger [B] without [B.StyleNeeded] active!"
@@ -13429,7 +13448,7 @@ mob
 			if(B.Afterimages)
 				src.Afterimages+=1
 			if(B.AutoAnger)
-				src.Anger=src.AngerMax
+				Anger()
 				passive_handler.Increase("EndlessAnger")
 			if(B.CalmAnger)
 				src.Anger=0

@@ -68,6 +68,9 @@ mob/proc/TwoWayTelepath(var/mob/who, anon)
 				anon=1
 				break
 	if(blah)
+		if(who.Secret == "Heavenly Restriction" && who.secretDatum?:hasRestriction("Senses"))
+			who << "You feel a faint buzz in your head..."
+
 		Log(who.ChatLog(),"(Telepath from [src] to [who]): [blah]")
 		Log(src.ChatLog(),"(Telepath from [src] to [who]): [blah]")
 		Log("Telepath","(Telepath from [src] to [who]): [blah]")
@@ -76,12 +79,16 @@ mob/proc/TwoWayTelepath(var/mob/who, anon)
 		src<< output("<font color=#99FF99><b>(Telepath)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=TPM>[who]</a href> :[blah]", "icchat")
 
 		if(who.HearThoughts)
+			if(who.Secret == "Heavenly Restriction" && who.secretDatum?:hasRestriction("Senses"))
+				goto HeavenlyRestrictionSKIP
 			if(anon)
 				who << output("<font color=#6cd2f8><i> A voice in your head says: \"[blah]\"", "output")
 				who << output("<font color=#6cd2f8><i> A voice in your head says: \"[blah]\"", "icchat")
 			else
 				who << output("<font color=#99FF99><b>(Telepath)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=TPM>[src]</a href> :[blah]", "output")
 				who << output("<font color=#99FF99><b>(Telepath)</b></font>- From  <a href=?src=\ref[src];action=MasterControl;do=TPM>[src]</a href> :[blah]", "icchat")
+
+		HeavenlyRestrictionSKIP
 
 		for(var/mob/Players/m in hearers(25,src))
 			if(m.HasTelepathy() && m.Race != "Shinjin")

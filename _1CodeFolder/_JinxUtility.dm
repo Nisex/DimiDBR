@@ -621,9 +621,8 @@ mob
 				if(WoundsInflicted<0)
 					WoundsInflicted=0.001
 				if(WoundsInflicted > val)
-					world.log << "[WoundsInflicted]"
+				//	world.log << "[src] vs [defender] wonds([WoundsInflicted]) inflict was over val([val])"
 					WoundsInflicted = val
-					world.log << "[src] vs [defender] wonds inflict was over val"
 				src.DealWounds(defender, WoundsInflicted)
 
 			if(isplayer(defender))
@@ -1062,18 +1061,56 @@ mob
 			src.RecovCut+=Val
 			if(src.RecovCut>=1)
 				src.RecovCut=1
+		// forgive the sin below, im not replacing basestat() in all the codebase
 		BaseStr()
-			return (src.StrMod+src.StrAscension+(src.EnhancedStrength*0.2))*StrChaos
+			var/mod = 1
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasImprovement("Strength"))
+					mod = round(clamp(1 + secretDatum?:getBoon(src, "Strength") / 5, 1, 8), 0.1)
+				if(secretDatum?:hasRestriction("Strength"))
+					return 1
+			return ((src.StrMod+src.StrAscension+(src.EnhancedStrength*0.2)) * mod)*StrChaos
 		BaseFor()
-			return (src.ForMod+src.ForAscension+(src.EnhancedForce*0.2))*ForChaos
+			var/mod = 1
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasImprovement("Force"))
+					mod = round(clamp(1 + secretDatum?:getBoon(src, "Force") / 5, 1, 8), 0.1)
+				if(secretDatum?:hasRestriction("Force"))
+					return 1
+			return ((src.ForMod+src.ForAscension+(src.EnhancedForce*0.2)) * mod)*ForChaos
 		BaseEnd()
-			return (src.EndMod+src.EndAscension+(src.EnhancedEndurance*0.2))*EndChaos
+			var/mod = 1
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasImprovement("Endurance"))
+					mod = round(clamp(1 + secretDatum?:getBoon(src, "Endurance") / 5, 1, 8), 0.1)
+				if(secretDatum?:hasRestriction("Endurance"))
+					return 1
+			return ((src.EndMod+src.EndAscension+(src.EnhancedEndurance*0.2)) * mod)*EndChaos
 		BaseSpd()
-			return (src.SpdMod+src.SpdAscension+(src.EnhancedSpeed*0.2))*SpdChaos
+			var/mod = 1
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasImprovement("Speed"))
+					mod = round(clamp(1 + secretDatum?:getBoon(src, "Speed") / 5, 1, 8), 0.1)
+				if(secretDatum?:hasRestriction("Speed"))
+					return 1
+			return ((src.SpdMod+src.SpdAscension+(src.EnhancedSpeed*0.2)) * mod)*SpdChaos
 		BaseOff()
-			return (src.OffMod+src.OffAscension+(src.EnhancedAggression*0.2))*OffChaos
+			var/mod = 1
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasImprovement("Offense"))
+					mod = round(clamp(1 + secretDatum?:getBoon(src, "Offense") / 5, 1, 8), 0.1)
+				if(secretDatum?:hasRestriction("Offense"))
+					return 1
+			return ((src.OffMod+src.OffAscension+(src.EnhancedAggression*0.2)) * mod)*OffChaos
 		BaseDef()
-			return (src.DefMod+src.DefAscension+(src.EnhancedReflexes*0.2))*DefChaos
+			var/mod = 1
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasImprovement("Defense"))
+					mod = round(clamp(1 + secretDatum?:getBoon(src, "Defense") / 5, 1, 8), 0.1)
+				if(secretDatum?:hasRestriction("Defense"))
+					return 1
+			return ((src.DefMod+src.DefAscension+(src.EnhancedReflexes*0.2)) * mod)*DefChaos
+
 		BaseRecov()
 			return (src.RecovMod+src.RecovAscension)*RecovChaos
 
@@ -1221,6 +1258,7 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
+
 
 
 			if(src.Burn)
@@ -2792,6 +2830,8 @@ mob
 //				var/travel_angle = GetAngle(src, Trg)
 //				animate(filters[filters.len], x=sin(travel_angle)*(6/Delay), y=cos(travel_angle)*(6/Delay), time=Delay)
 				step_towards(src,Trg)
+				if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Dragon Dash"))
+					KenShockwave(src, icon='KenShockwave.dmi', Size=secretDatum?:getBoon("Dragon Dash"), Blend=2, Time=3)
 				if(Trg in oview(1, src))
 					MaxDistance=0
 					Delay=0
@@ -2799,7 +2839,7 @@ mob
 					if(Trg.Knockbacked)
 						src.NextAttack=0
 						Trg.StopKB()
-						if(Clashable)
+						if(Clashable || Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Dragon Dash"))
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Clash_Defensive/DC in Trg)
 								if(!Trg.BuffOn(DC))
 									var/pursuerBoon = Trg.HasPursuer()
@@ -2942,9 +2982,7 @@ mob
 					return
 				if(src.Potential<30 && src.SagaLevel>=2)
 					return
-				if(src.Potential<45&&src.SagaLevel>=3)
-					return
-				if(src.SagaLevel>=4&&!src.SagaAdminPermission)
+				if(src.SagaLevel>=3&&!src.SagaAdminPermission)
 					return
 				src.saga_up_self()
 				return
@@ -2955,8 +2993,8 @@ mob
 				DevelopSignature(src, 1, "Style")
 			if(styles_available(2) && src.Potential>=30 && src.req_styles(0, 2))
 				DevelopSignature(src, 2, "Style")
-			if(styles_available(2) && src.Potential>=55 && src.req_styles(1, 2))
-				DevelopSignature(src, 2, "Style")
+		//	if(styles_available(2) && src.Potential>=55 && src.req_styles(1, 2))
+		//		DevelopSignature(src, 2, "Style")
 
 			if(src.req_pot(5) && src.req_sigs(0, 1))
 				DevelopSignature(src, 1, "Signature")
@@ -2971,8 +3009,8 @@ mob
 			if(src.req_pot(30) && src.req_sigs(3, 1))
 				DevelopSignature(src, 1, "Signature")
 
-			if(src.req_pot(45) && src.req_sigs(1, 2))
-				DevelopSignature(src, 2, "Signature")
+			//if(src.req_pot(45) && src.req_sigs(1, 2))
+			//	DevelopSignature(src, 2, "Signature")
 
 		YeetSignatures()
 			for(var/obj/Skills/s in src.Skills)
@@ -2985,6 +3023,9 @@ mob
 			//this ticks per second
 			//partial charges are not able to be used
 			//30 seconds will result in full charges
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Zanzoken"))
+				return
+
 			if(glob.USE_SPEED_IN_ZANZO_RECHARGE)
 				Mult *= clamp(glob.ZANZO_SPEED_LOWEST_CLAMP, GetSpd()**glob.ZANZO_SPEED_EXPONENT, glob.ZANZO_SPEED_HIGHEST_CLAMP)
 			var/flick=src.HasFlicker()
@@ -2994,8 +3035,8 @@ mob
 				return
 			src.MovementCharges+=(glob.ZANZO_FLICKER_BASE_GAIN-(max(0.01,MovementCharges)/3)/10)*Mult
 
-			if(src.MovementCharges>3)
-				src.MovementCharges=3
+			if(src.MovementCharges>GetMaxMovementCharges())
+				src.MovementCharges=GetMaxMovementCharges()
 		GetRPPMult()
 			var/Return=src.RPPMult
 			Return*=src.ConditionRPPMult()
@@ -3038,6 +3079,11 @@ mob
 
 			return Return
 
+		GetMaxMovementCharges()
+			var/amount = 3
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Zanzoken"))
+				amount = 0
+			return amount
 
 		transcend(var/val)
 			if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Transcendant, src))
