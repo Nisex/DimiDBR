@@ -481,7 +481,7 @@ mob
 				src.HealEnergy(val*(src.GetEnergySteal()*Effectiveness/100))
 				defender.LoseEnergy(val*(src.GetEnergySteal()*Effectiveness/100))
 			if(WeaponSoulType == "Kusanagi" && SagaLevel >= 3)
-				var/value = val * (SagaLevel/100)
+				var/value = val * (SagaLevel/10)
 				stealManaMagatama(value)
 				defender.LoseMana(value)
 			if(HasManaSteal())
