@@ -10,6 +10,7 @@ mob/verb/
 	SubmitRP()
 		set hidden = 1
 		set instant = 1
+		if(!rping) return
 
 		usr.overlays -= usr.emoteBubble
 		winset(usr, "RPWindow", "is-visible=false")
