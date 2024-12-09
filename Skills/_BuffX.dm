@@ -8665,7 +8665,7 @@ NEW VARIABLES
 					if(10 to 13)
 						SwordElement = null
 				SwordAscension = max(0, usr.getAriaCount() / 2)
-				PureDamage = max(0, round(1, usr.getAriaCount() / 2))
+				PureDamage = max(0, ceil(usr.getAriaCount() / 2))
 				Instinct = max(0, usr.getAriaCount() / 3)
 				CursedWounds = 0
 				if(usr.getAriaCount()>=3)
@@ -8775,9 +8775,9 @@ NEW VARIABLES
 					if(11 to 13)
 						SwordElement = null
 				SwordAscension = max(0, usr.getAriaCount() / 2)
-				Flow = max(0, round(1, usr.getAriaCount() / 3))
+				Flow = max(0, ceil(usr.getAriaCount() / 3))
 				Deflection = max(0, usr.getAriaCount() / 2)
-				DoubleStrike = max(0, round(1, usr.getAriaCount() / 2.5))
+				DoubleStrike = max(0, ceil(usr.getAriaCount() / 2.5))
 /*				switch(usr.getAriaCount())
 					if(1)
 						SwordAscension = 2
@@ -8880,7 +8880,7 @@ NEW VARIABLES
 					if(11 to 13)
 						SwordElement = null
 				SwordAscension = max(0, usr.getAriaCount() / 2)
-				ManaSeal = max(0, round(1, usr.getAriaCount() / 2))
+				ManaSeal = max(0, ceil(usr.getAriaCount() / 2))
 				SoftStyle = max(0, usr.getAriaCount() / 3)
 				BulletKill = 0
 				if(usr.getAriaCount() >= 3)
