@@ -5304,6 +5304,7 @@ obj
 				Bump(var/atom/a)
 					a.onBumped(src)
 					Hit(a)
+					..()
 				proc/endLife()
 					try
 						Distance = 0
@@ -5510,7 +5511,7 @@ obj
 								return
 							else
 								var/Deflect=0
-/*								var/defIntim = m.GetIntimidation()
+								/*var/defIntim = m.GetIntimidation()
 								var/atkIntim = Owner.GetIntimidation()
 								var/atkIntimIgnore = Owner.GetIntimidationIgnore(m)
 								var/defIntimIgnore = m.GetIntimidationIgnore(Owner)

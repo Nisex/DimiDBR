@@ -231,14 +231,15 @@ mob/tierUpSaga(path)
 	Area="Circle"
 	DamageMult=1.1
 	Rounds=10
-	Knockback = 3
+	Knockback = 1
 	ComboMaster=1
-	Cooldown=230
+	Cooldown=180
 	Size=1
-	EnergyCost=10
+	EnergyCost=7
 	GuardBreak=1
 	SpecialAttack=1
 	Rush=5
+	WindUp = 0.75
 	ControlledRush=1
 	Instinct=1
 	TurfStrike=1
@@ -247,6 +248,7 @@ mob/tierUpSaga(path)
 	Icon='drill.dmi'
 	IconX = -8
 	IconY = -8
+	ChargeTech = 1
 	ActiveMessage="yells: GIGA DRILL BREAKEEEEEERRRRR!!!!"
 	adjust(mob/p)
 		if(p.Saga == "King of Braves" || p.Saga == "Spiral")
@@ -254,14 +256,15 @@ mob/tierUpSaga(path)
 			ControlledRush = 5 + sl
 			AdaptRate = 1.5 + (0.1 * sl)
 			Size = 1 + sl
-			ChargeTime = 0.75 + (0.25 * sl)
-			DamageMult = (0.5 + (round(sl/6))) * (1 + ChargeTime)
+			TurfStrike = Size
+			WindUp = 0.75 + (0.25 * sl)
+			DamageMult = (1 + (round(sl/3))) * max(0.5 + WindUp, 1)
 			Rounds = 18 - (sl * 2)
 			EndDefense = 1 - (0.05 * sl)
 			PullIn = max(0, sl - 4)
 			Primordial = round(sl/4)
 			Executor = max(sl, 5)
-			EnergyCost = 10 + (7.5 * sl)
+			EnergyCost = 7 + (3 * sl)
 	verb/Giga_Drill_Break()
 		set category="Skills"
 		adjust(usr)

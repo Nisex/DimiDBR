@@ -6744,7 +6744,6 @@ obj
 						additonal *= 2
 					if(m.Health <=25)
 						Damage *= 1 + additonal
-
 				if(Primordial)
 					var/additonal = Primordial
 					var/missingHealth = 100-m.Health
