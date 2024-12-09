@@ -166,6 +166,9 @@ ascension
 			owner.SetCyberCancel()
 
 			owner << on_ascension_message
+			postAscension(owner)
+
+		postAscension(mob/owner)
 
 		choiceSelection(mob/owner)
 			if(!choices) return
@@ -382,7 +385,7 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25, "SoulFire" = 0.25, "DeathField" = 1, "VoidField" =1,)
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				owner.secretDatum.tierUp(2, owner)
 				..()
 		two
@@ -391,7 +394,7 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25,"SoulFire" = 0.15, "DeathField" = 1, "VoidField" = 1)
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				owner.secretDatum.tierUp(3, owner)
 				..()
 		three
@@ -403,7 +406,7 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5,"SoulFire" = 0.15, "DeathField" = 3, "VoidField" = 3)
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				owner.secretDatum.tierUp(4, owner)
 				..()
 		four
@@ -415,7 +418,7 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "SoulFire" = 0.15, "DeathField" = 2, "VoidField" = 2)
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				owner.secretDatum.tierUp(5, owner)
 				..()
 		five
@@ -427,7 +430,7 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5,"SoulFire" = 0.15, "DeathField" = 3, "VoidField" = 3)
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				owner.secretDatum.tierUp(6, owner)
 				..()
 	high_faoroan
@@ -467,13 +470,12 @@ ascension
 			passives = list("ManaCapMult" = 0.25, "Deicide" = 1, "Xenobiology" = 1)
 			intimidation = 10
 			skills = list(/obj/Skills/AutoHit/Elf/Silence)
-			onAscension(mob/owner)
-				..()
+			postAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/high_faoroan/distort)
 					owner.AddSkill(new/obj/Skills/AutoHit/Myriad_Truths)
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/high_faoroan/define)
 					owner.AddSkill(new/obj/Skills/AutoHit/Devils_Advocate)
-
+				..()
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			intimidation = 10
@@ -516,7 +518,7 @@ ascension
 			endurance = 0.25
 			speed = 0.25
 			on_ascension_message = "You evolve into a stronger demon..."
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				if(!applied)
 					owner.demon.selectPassive(owner, "CORRUPTION_PASSIVES", "Buff")
 					owner.demon.selectPassive(owner, "CORRUPTION_DEBUFFS", "Debuff")
@@ -533,7 +535,7 @@ ascension
 			offense = 0.25
 			anger = 0.1
 			on_ascension_message = "Your power is unrivaled..."
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				if(!applied)
 					owner.demon.selectPassive(owner, "CORRUPTION_PASSIVES", "Buff")
 					owner.demon.selectPassive(owner, "CORRUPTION_DEBUFFS", "Debuff")
@@ -551,7 +553,7 @@ ascension
 			strength = 0.25
 			force = 0.25
 			endurance = 0.5
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				..()
 				owner.Class = "S"
 		four
@@ -565,7 +567,7 @@ ascension
 			offense = 0.75
 			endurance = 0.25
 			speed = 0.75
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				..()
 				owner.Class = "False King"
 		five
@@ -573,7 +575,7 @@ ascension
 			passives = list("HellPower" = 1, "EndlessAnger" = 1, "SpiritPower" = 0.25)
 			intimidation = 250
 
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				..()
 				owner.Class = "Maou"
 
@@ -585,7 +587,7 @@ ascension
 			defense = 0.25
 			endurance = 0.25
 			passives = list("PureReduction" = 1, "Godspeed" = 1)
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 15
 					b.TooMuchHealth = 20
@@ -600,7 +602,7 @@ ascension
 			speed = 0.25
 			endurance = 0.25
 			passives = list("PureDamage" = 1, "Flicker" = 1)
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 20
 					b.TooMuchHealth = 25
@@ -615,7 +617,7 @@ ascension
 			defense = 0.25
 			endurance = 0.25
 			passives = list("Pursuer" = 1, "Flicker" = 1)
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 25
 					b.TooMuchHealth = 30
@@ -628,7 +630,7 @@ ascension
 			angerPoint = 5
 			endurance = 0.5
 			passives = list("Godspeed" = 1, "PureReduction" = 1)
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 25
 					b.TooMuchHealth = 35
@@ -641,7 +643,7 @@ ascension
 			angerPoint = 5
 			strength = 0.5
 			endurance = 0.5
-			onAscension(mob/owner)
+			postAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
 					b.NeedsHealth = 30
 					b.TooMuchHealth = 50
