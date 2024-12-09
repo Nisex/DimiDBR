@@ -4,7 +4,7 @@ mob/var/tmp/list/magatamaBeads = list()
 mob/var/tmp/manaStolen = 0
 mob/proc/stealManaMagatama(value)
 	manaStolen += value
-	var/magatamaBeadAmount = 25
+	var/magatamaBeadAmount = 15
 	if(ismob(loc))
 		var/mob/m = loc
 		magatamaBeadAmount = getMagatamaMana(m)
@@ -13,7 +13,7 @@ mob/proc/stealManaMagatama(value)
 		manaStolen -= magatamaBeadAmount
 
 mob/proc/getMagatamaMana(mob/m)
-	var/mana = 25
+	var/mana = 15
 	if(m.SpecialBuff&&m.SpecialBuff.name == "Heavenly Regalia: The Three Treasures")
 		mana = 15
 	return mana
