@@ -66,7 +66,7 @@ update
 		updateMob(mob/p)
 			..()
 			if(p.isRace(ANDROID))
-				p.passive_handler.increaseList(list("MovementMastery" = 2))
+				p.passive_handler.decreaseList(list("MovementMastery" = 2))
 				p.race.passives = list("TechniqueMastery" = 3, "MovementMastery" = 2, "PureDamage" = 1, "PureReduction" = 1, "Flicker" = 2)
 				if(p.AscensionsAcquired >= 1)
 					p.passive_handler.decreaseList(list("TechniqueMastery" = 0.5, "MovementMastery" = 2))
