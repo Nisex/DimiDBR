@@ -229,14 +229,10 @@ mob/tierUpSaga(path)
 
 /obj/Skills/AutoHit/Giga_Drill_Breaker
 	Area="Circle"
-	StrOffense=1
-	ForOffense=1
 	DamageMult=1.1
 	Rounds=10
 	ComboMaster=1
-	ChargeTech=1
-	ChargeTime=0.5
-	Cooldown=180
+	Cooldown=230
 	Size=1
 	EnergyCost=10
 	GuardBreak=1
@@ -251,6 +247,21 @@ mob/tierUpSaga(path)
 	IconX = -8
 	IconY = -8
 	ActiveMessage="yells: GIGA DRILL BREAKEEEEEERRRRR!!!!"
-	verb/Giga_Drill_Breaker()
+	adjust(mob/p)
+		if(p.Saga == "King of Braves" || p.Saga == "Spiral")
+			var/sl = p.SagaLevel
+			ControlledRush = 5 + sl
+			AdaptRate = 1.5 + (0.1 * sl)
+			Size = 1 + sl
+			ChargeTime = 0.3 + (0.15 * sl)
+			DamageMult = (1 + (round(sl/6))) * (1 + ChargeTime)
+			Rounds = 18 - (sl * 2)
+			EndDefense = 1 - (0.05 * sl)
+			PullIn = min(0, sl - 2)
+			Primordial = round(sl/2)
+			Executor = max(sl, 5)
+			EnergyCost = 10 + (5 * sl)
+	verb/Giga_Drill_Break()
 		set category="Skills"
+		adjust(usr)
 		usr.Activate(src)
