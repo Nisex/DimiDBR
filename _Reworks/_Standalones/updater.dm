@@ -69,11 +69,11 @@ update
 				p.passive_handler.increaseList(list("MovementMastery" = 2))
 				p.race.passives = list("TechniqueMastery" = 3, "MovementMastery" = 2, "PureDamage" = 1, "PureReduction" = 1, "Flicker" = 2)
 				if(p.AscensionsAcquired >= 1)
-					p.passive_handler.decreaseList(list("MovementMastery" = 2))
+					p.passive_handler.decreaseList(list("TechniqueMastery" = 0.5, "MovementMastery" = 2))
 				if(p.AscensionsAcquired >= 2)
-					p.passive_handler.decreaseList(list("MovementMastery" = 2))
+					p.passive_handler.decreaseList(list("TechniqueMastery" = 0.5,"MovementMastery" = 2))
 				if(p.AscensionsAcquired >= 3)
-					p.passive_handler.decreaseList(list("MovementMastery" = 1))
+					p.passive_handler.decreaseList(list("TechniqueMastery" = 0.5,"MovementMastery" = 1))
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25
