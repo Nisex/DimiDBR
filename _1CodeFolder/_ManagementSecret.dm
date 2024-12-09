@@ -24,11 +24,17 @@
 			Edit+="<td>[Value(A.vars[C])]</td></tr>"
 		usr<<browse(Edit,"window=[A];size=450x600")
 
+/mob/Admin3/verb/TierSecretUp(mob/p in players)
+	if(p.secretDatum)
+		var/confirm = alert(usr, "Are you sure you want to tier up [p]'s  [name]?",,"Yes","No")
+		if(confirm == "No") return
+		p.secretDatum.tierUp()
 
 /mob/proc/getSecretLevel()
 	if(secretDatum)
 		return secretDatum.currentTier
 	return 0
+
 
 SecretInfomation
 	var
@@ -46,7 +52,7 @@ SecretInfomation
 		potentialRecieved = glob.progress.DaysOfWipe*glob.progress.PotentialDaily
 		nextTierUp = 3
 		applySecret(p)
-
+/*
 	proc/checkTierUp(mob/p)
 		if(currentTier < maxTier)
 	/*		if(p.Potential >= potentialRecieved + (glob.progress.PotentialDaily*nextTierUp))
@@ -54,15 +60,15 @@ SecretInfomation
 				if(currentTier + 1 <= tierUnlocked)
 					tierUp(1, p)*/
 			if(currentTier > lastCheckedTier)
-				applySecret(p)
-
+				tierUp(currentTier-lastCheckedTier, p)
+*/
 
 
 	proc/tierUp(num, mob/p)
 		lastCheckedTier = currentTier
 		if(currentTier < maxTier)
-			var/difference = maxTier - currentTier
 			for(var/x in 1 to num)
+				var/difference = maxTier - currentTier
 				if(difference > 0)
 					currentTier++
 					applySecret(p)
@@ -141,9 +147,9 @@ SecretInfomation
 		"/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Future_Flash")
 		secretVariable = list("HakiSpecialization", "HakiCounterArmament", "HakiCounterObservation", "ConquerorsHaki")
 		proc/conQHaki(mob/p)
-			if(!(p.race.name in glob.CONQ_HAKI_RACES))
-				return 0
-			if(prob(2.5*currentTier) && secretVariable["ConquerorsHaki"] != 1)
+		/*	if(!(p.race.name in glob.CONQ_HAKI_RACES))
+				return 0*/
+			if(prob(20*currentTier) && secretVariable["ConquerorsHaki"] != 1)
 				unlockConquerorsHaki(p)
 		proc/unlockConquerorsHaki(mob/p)
 			p << "You have the qualities of a King..."
