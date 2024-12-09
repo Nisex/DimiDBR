@@ -4561,7 +4561,7 @@ obj
 				Hurricane="/obj/Skills/Projectile/King_of_Braves/Brave_Tornado"
 				GuardBreak=1
 				Grapple=1
-				GrabTrigger="/obj/Skills/Grapple/Erupting_Burning_Finger/Removable"
+				GrabTrigger="/obj/Skills/Grapple/Erupting_Burning_Finger/Removeable"
 				Knockback=1
 				WindUp=1
 				WindupIcon='GaoGaoFists.dmi'
