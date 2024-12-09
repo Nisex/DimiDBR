@@ -8383,6 +8383,7 @@ NEW VARIABLES
 					s.NoSaga = FALSE
 					s.Conjured = TRUE
 					s.suffix = null
+					s.Destructable = TRUE
 					copiedBlades += s
 
 			verb/Remove_Blade()
@@ -8450,6 +8451,7 @@ NEW VARIABLES
 					s.Conjured = TRUE
 					s.suffix = null
 					s.NoSaga = FALSE
+					s.Destructable = TRUE
 					s.ShatterTier = 3
 					if(usr.UBWPath == "Firm")
 						s.ShatterTier -= 1
