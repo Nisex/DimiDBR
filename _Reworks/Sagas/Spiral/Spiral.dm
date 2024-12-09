@@ -232,7 +232,11 @@ mob/tierUpSaga(path)
 	StrOffense=1
 	ForOffense=1
 	DamageMult=1.1
+	Dodgeable = 0
+	Deflectable = 0
 	Rounds=10
+	Radius = 3
+	Knockback = 3
 	ComboMaster=1
 	ChargeTech=1
 	ChargeTime=0.5
