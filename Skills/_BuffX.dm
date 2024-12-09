@@ -968,6 +968,23 @@ NEW VARIABLES
 						Using=0
 					p.GatesActive = prev_gates + 1
 					GatesLevel = p.GatesActive
+					switch(GatesLevel)
+						if(1)
+							ActiveMessage = "unleashes the First Gate!"
+						if(2)
+							ActiveMessage = "unleashes the Second Gate!"
+						if(3)
+							ActiveMessage = "unleashes the Third Gate!"
+						if(4)
+							ActiveMessage = "unleashes the Fourth Gate!"
+						if(5)
+							ActiveMessage = "unleashes the Fifth Gate!"
+						if(6)
+							ActiveMessage = "unleashes the Sixth Gate!"
+						if(7)
+							ActiveMessage = "unleashes the Seventh Gate!"
+						if(8)
+							ActiveMessage = "unleashes the Eighth Gate!"
 					setUpGateVars(p, p.GatesActive)
 					src.Trigger(p, 1)
 				else
