@@ -26,9 +26,9 @@
 
 /mob/Admin3/verb/TierSecretUp(mob/p in players)
 	if(p.secretDatum)
-		var/confirm = alert(usr, "Are you sure you want to tier up [p]'s  [name]?",,"Yes","No")
+		var/confirm = alert(usr, "Are you sure you want to tier up [p]'s [p.secretDatum.name]?",,"Yes","No")
 		if(confirm == "No") return
-		p.secretDatum.tierUp()
+		p.secretDatum.tierUp(1, p)
 
 /mob/proc/getSecretLevel()
 	if(secretDatum)
@@ -67,8 +67,8 @@ SecretInfomation
 	proc/tierUp(num, mob/p)
 		lastCheckedTier = currentTier
 		if(currentTier < maxTier)
+			var/difference = maxTier - currentTier
 			for(var/x in 1 to num)
-				var/difference = maxTier - currentTier
 				if(difference > 0)
 					currentTier++
 					applySecret(p)
