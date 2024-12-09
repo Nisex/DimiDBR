@@ -1139,7 +1139,8 @@ obj
 				IconX=-48
 				IconY=-48
 				Size=1
-				Stunner = 1
+				Stunner = 2
+				Cooldown = 60
 				verb/Devils_Advocate()
 					set name = "Devil's Advocate"
 					set category="Skills"
