@@ -7,7 +7,8 @@
 
 /mob/proc/Melee1(dmgmulti=1, spdmulti=1, iconoverlay, forcewarp, MeleeTarget=null, ExtendoAttack=null, SecondStrike, ThirdStrike, accmulti=1, SureKB=0, NoKB=0, IgnoreCounter=0, BreakAttackRate=0)
 
-
+	if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Normal Attack"))
+		return
 	// CHECKS
 	if(Stasis)
 		return
@@ -351,6 +352,8 @@
 					damage *= clamp(sqrt( 1  + ( (GetSpd()) * (speedStrike/15) ) ),1,3)
 				if(AttackQueue)
 					damage *= QueuedDamage(enemy)
+					if(Secret=="Heavenly Restriction" && secretDatum?:hasImprovement("Queues"))
+						damage *= clamp(secretDatum?:getBoon("Queues"), 1, 10)
 					#if DEBUG_MELEE
 					log2text("Damage", "After Queue", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
@@ -381,6 +384,9 @@
 		// 				QUEUE END				//
 
 		// 				MULTIATTACK				//
+				else
+					if(Secret=="Heavenly Restriction" && secretDatum?:hasImprovement("Normal Attack"))
+						damage *= clamp(secretDatum?:getBoon("Basic Attack"), 1, 10)
 				var/multiAtkNerf = 1
 				if(AttackQueue && AttackQueue?.ComboPerformed>0)
 					multiAtkNerf = 1 - clamp(AttackQueue.ComboPerformed * 0.1, 0.1, 0.99)
@@ -425,7 +431,7 @@
 
 		// 				HOT HUNDRED 			//
 				var/hh = passive_handler.Get("HotHundred")
-				if(!AttackQueue && (HotHundred || hh))
+				if(!AttackQueue && (HotHundred || hh || enemy.Launched && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Launchers") || (enemy.Stunned && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Stunners"))))
 					hh = HotHundred
 					if(passive_handler.Get("HotHundred") > HotHundred)
 						hh = passive_handler.Get("HotHundred")
@@ -435,6 +441,10 @@
 					if(hh)
 						lightAtk=0
 						adjust = hh-1
+					if(enemy.Launched && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Launchers"))
+						damage *= 1+secretDatum?:getBoon(src,"Launchers")
+					if(enemy.Stunned && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Stunners"))
+						damage *= 1+secretDatum?:getBoon(src,"Stunners")
 					damage /= max(2,4-adjust)
 					if(glob.LIGHT_ATTACK_SPEED_DMG_ENABLED)
 						damage *= clamp(glob.LIGHT_ATTACK_SPEED_DMG_LOWER,GetSpd()**glob.LIGHT_ATTACK_SPEED_DMG_EXPONENT,glob.LIGHT_ATTACK_SPEED_DMG_UPPER)
@@ -471,6 +481,7 @@
 					// 				FLOW					//
 
 							if(enemy.HasFlow()&&!IgnoreCounter)
+
 								var/BASE_FLOW_PROB = glob.BASE_FLOW_PROB
 								var/flow = enemy.GetFlow()
 								var/instinct = HasInstinct()
@@ -500,12 +511,12 @@
 									if(enemy.CombatCPU)
 										enemy.LoseMana(1)
 					// 				FLOW END				//
-
 					// 				AIS			 			//
 						if(enemy.AfterImageStrike>0&&!dodged)
 							enemy.AfterImageStrike-=1
 							if(enemy.AfterImageStrike<0)
 								enemy.AfterImageStrike=0
+
 							var/instinct = HasInstinct()
 							if(prob(100-(instinct*20)))
 								if(AttackQueue && AttackQueue.HitSparkIcon)
@@ -519,6 +530,7 @@
 								AfterImageStrike(enemy,src,1)
 								dodged = 1
 							else
+
 								StunClear(enemy)
 								AfterImageStrike(enemy,src,0)
 								AfterImageStrike(src,enemy,0)
@@ -533,7 +545,9 @@
 								enemy.AfterImageStrike-=1
 								if(enemy.AfterImageStrike<0)
 									enemy.AfterImageStrike=0
+
 								var/instinct = HasInstinct()
+
 								if(prob(100-(instinct*20)))
 									if(AttackQueue && AttackQueue.HitSparkIcon)
 										disperseX=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)

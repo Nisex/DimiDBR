@@ -1599,6 +1599,7 @@ obj
 				SkillCost=TIER_4_COST
 				Copyable=5
 				Area="Wide Wave"
+				UnarmedOnly = 1
 				StrOffense=1
 				Distance=10
 				Knockback=10
@@ -1672,6 +1673,7 @@ obj
 					disableInnovation(usr)
 			Dropkick_Surprise
 				SkillCost=TIER_4_COST
+				UnarmedOnly = 1
 				Copyable=5
 				Area="Target"
 				StrOffense=1
@@ -4560,7 +4562,7 @@ obj
 				Grapple=1
 				GrabTrigger="/obj/Skills/Grapple/Erupting_Burning_Finger/Removable"
 				Knockback=1
-				WindUp=2
+				WindUp=1
 				WindupIcon='GaoGaoFists.dmi'
 				WindupMessage="begins gathering the forces of Destruction and Creation in their hands!"
 				ActiveMessage="rushes in for the certain kill!"
@@ -5360,6 +5362,14 @@ mob
 				src << "You can't use [Z] you are silenced!"
 				return 0
 			if(Z.Using)//Skill is on cooldown.
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Autohits"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("All Skills"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore && Z.NeedsSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armed Skills"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore && Z.UnarmedOnly && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Unarmed Skills"))
 				return FALSE
 			if(!src.CanAttack(1.5)&&!Z.NoAttackLock)
 				return FALSE
@@ -6562,6 +6572,8 @@ obj
 				#endif
 				FinalDmg *= dmgMulti
 				FinalDmg *= dmgRoll
+				if(Owner.Secret=="Heavenly Restriction" && Owner.secretDatum?:hasImprovement("Autohits"))
+					FinalDmg *= clamp(Owner.secretDatum?:getBoon("Autohits"), 1, 10)
 				#if DEBUG_AUTOHIT
 				Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif

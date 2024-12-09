@@ -230,7 +230,11 @@ mob/tierUpSaga(path)
 /obj/Skills/AutoHit/Giga_Drill_Breaker
 	Area="Circle"
 	DamageMult=1.1
+	Dodgeable = 0
+	Deflectable = 0
 	Rounds=10
+	Radius = 3
+	Knockback = 3
 	ComboMaster=1
 	Cooldown=230
 	Size=1

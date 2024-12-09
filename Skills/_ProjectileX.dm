@@ -1891,6 +1891,7 @@ obj
 					src.Radius=1*(src.Mastery-1)
 					src.ZoneAttackY=round(2.5*src.Mastery)
 					src.Explode=1*(src.Mastery**2)
+					HolyMod = 3*Mastery
 					usr.UseProjectile(src)
 			Death_Ball
 				SignatureTechnique=2
@@ -3264,7 +3265,7 @@ obj
 						if(!usr.getAriaCount())
 							usr << "You can't project without your circuits active!"
 							return
-						ManaCost = usr.getUBWCost(1.25)
+						ManaCost = usr.getUBWCost(2)
 						DamageMult = clamp(4,(usr.getAriaCount()*2.5), 30)
 						if(usr.getAriaCount() >= 4)
 							Dodgeable = -1
@@ -4493,12 +4494,20 @@ mob
 			. = TRUE
 			if(src.passive_handler.Get("Silenced"))
 				src << "You can't use [Z] you are silenced!"
-				return 0
+				return FALSE
 			if(src.Stasis)
-				return 0
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore&&Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Projectiles"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore&&Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("All Skills"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore&&Z.NeedsSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armed Skills"))
+				return FALSE
+			if(!Z.heavenlyRestrictionIgnore&&Z.UnarmedOnly && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Unarmed Skills"))
+				return FALSE
 			if(Z.Sealed)
 				src << "You can't use [Z] it is sealed!"
-				return 0
+				return FALSE
 			var/obj/Items/check = EquippedFlyingDevice()
 			if(istype(check))
 				check.ObjectUse(src)

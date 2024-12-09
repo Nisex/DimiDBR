@@ -443,6 +443,8 @@ obj/Skills/Utility
 		desc="Focus your thoughts to detect nearby entities."
 		verb/Sense()
 			set category="Utility"
+			if(usr.Secret == "Heavenly Restriction" && usr.secretDatum?:hasRestriction("Senses"))
+				return
 			if(Using) return
 			Cooldown()
 			usr << "<font color=#FF0000>You focus your senses...</font>"
@@ -508,20 +510,23 @@ obj/Skills/Utility
 //			usr.SkillX("Telepath",src)
 		verb/Telepathic_Link()
 			set category="Utility"
+			if(usr.Secret == "Heavenly Restriction" && usr.secretDatum?:hasRestriction("Senses"))
+				return
 			var/list/who=list("Cancel")
 			for(var/mob/Players/A in players)
 				who.Add(A)
 			for(var/mob/Players/W in who)
-				if(!usr.SpiritPower)
-					if(!(locate(W.EnergySignature) in usr.EnergySignaturesKnown))
-						if(!(W in hearers(50,usr)))
+				if(!usr.isRace(SHINJIN))
+					if(!usr.passive_handler.Get("SpiritPower"))
+						if(!(locate(W.EnergySignature) in usr.EnergySignaturesKnown))
+							if(!(W in hearers(50,usr)))
+								who.Remove(W)
+						if(!W.EnergySignature)
 							who.Remove(W)
-					if(!W.EnergySignature)
+						if(W.Dead)
+							who.Remove(W)
+					if(usr.Dead&&!usr.HasEnlightenment()&&(W.z!=usr.z))
 						who.Remove(W)
-					if(W.Dead)
-						who.Remove(W)
-				if(usr.Dead&&!usr.HasEnlightenment()&&(W.z!=usr.z))
-					who.Remove(W)
 			var/mob/Players/selector=input("Select a player to telepath.") in who||null
 			if(selector=="Cancel")
 				return
@@ -2703,6 +2708,10 @@ obj/Skills/Utility
 		verb/Augmentation()
 			set category="Utility"
 
+			if(usr.Secret=="Heavenly Restriction" && (usr.secretDatum?:hasRestriction("Science") || usr.secretDatum?:hasRestriction("Cybernetics")))
+				return
+
+
 			var/mob/M//Who's getting operated on?
 			var/ModChoice//What's getting installed?
 			var/Confirm//Are you sure you want to install this mod?
@@ -2754,6 +2763,8 @@ obj/Skills/Utility
 			for(var/mob/m in view(1, usr))
 				/*if(m.isRace(ANDROID)&&!("Android Creation" in usr.knowledgeTracker.learnedKnowledge))
 					continue*/
+				if(m.Secret=="Heavenly Restriction" && (m.secretDatum?:hasRestriction("Science") || m.secretDatum?:hasRestriction("Cybernetics")))
+					continue
 				if(m==usr&&!("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge))
 					continue
 				Who+=m

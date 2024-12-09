@@ -207,6 +207,7 @@ mob/Admin3/verb
 					s.Aria.Add("I have created over a thousand blades.")
 					s.Aria.Add("Unaware of ||||.")
 					P.AddSkill(s)
+					P.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Copy_Blade)
 					P.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Projection)
 					P.AddSkill(new/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_Savant)
 					P << "You can conjure copies of equipment just from mana..."
@@ -833,9 +834,7 @@ mob
 							src<<"You can reinforce any blade, regardless of your magical skill."
 							src<< "You grasp the understanding of a legendary weapon forgotten to time..."
 							UBWLegendaryWeapon()
-						if(3)/*
-							if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Copy_Blade, src))
-								src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Copy_Blade)*/
+						if(3)
 							var/choice
 							var/confirm
 							while(confirm!="Yes")

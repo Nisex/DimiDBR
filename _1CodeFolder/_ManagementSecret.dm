@@ -386,14 +386,13 @@ SecretInfomation
 				if(5)
 					p << "Your mastery of the lunar curse is godly..."
 
-
-
-
-
 	HeavenlyRestriction
 		name = "Heavenly Restriction"
 		givenSkills = list("/obj/Skills/Buffs/SlotlessBuffs/HeavenlyRestriction/HeavenlyRestriction")
-		secretVariable = list("RestrictionTypes", "RestrictionLevel", "RestrictionActive")
+		secretVariable = list("Restrictions" = list(), "Improvements" = list())
+		applySecret(mob/p)
+			var/list/restriction = pickRestriction(p)
+			applySecretVariable(p, restriction, pickImprove(p, restriction))
 
 
 	SageArts
@@ -462,14 +461,14 @@ mob
 		giveSecret(path)
 			path = text2path("/SecretInfomation/[path]")
 			var/SecretInfomation/secret = new path
-			secret.init(src)
 			secretDatum = secret
+			secret.init(src)
 
 mob/Admin3/verb
 	SecretManagement(var/mob/P in players)
 		set category="Admin"
 		if(!P.client) return
-		var/list/Secrets=list("Spirits of The World","Jagan", "Hamon of the Sun", "Werewolf", "Vampire", "Sage Arts", "Haki", "Eldritch")
+		var/list/Secrets=list("Spirits of The World","Jagan", "Hamon of the Sun", "Werewolf", "Vampire", "Sage Arts", "Haki", "Eldritch", "Heavenly Restriction")
 		var/Selection=input(src, "Which aspect of power does [P] awaken to?", "Secret Management") in Secrets
 		if(P.Secret)
 			src << "They already have a secret."
@@ -483,6 +482,9 @@ mob/Admin3/verb
 					var/newpath = replacetext(path, " ", "_")
 					newpath = "Spirits_Of_The_World/[newpath]"
 					P.giveSecret(newpath)
+				if("Heavenly Restriction")
+					P.Secret = "Heavenly Restriction"
+					P.giveSecret("HeavenlyRestriction")
 				if("Jagan")
 					P.Secret = "Jagan"
 					P.giveSecret("Jagan")

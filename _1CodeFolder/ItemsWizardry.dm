@@ -146,6 +146,8 @@ obj/Items/Enchantment
 		icon_state="Cauldron"
 		desc="Cauldrons are used to brew potions and other acts of alchemy."
 		Click()
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			if((src in Alchemy_List))
 				..()
 			else
@@ -494,6 +496,8 @@ obj/Items/Enchantment
 				return
 			if(usr.KO)
 				return
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			if(usr.PureRPMode)
 				usr << "You cannot use potions while in RP Mode."
 				return
@@ -641,6 +645,8 @@ obj/Items/Enchantment
 			Use_Crystal_Ball()
 				set src in usr
 				set category="Utility"
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+					return
 				if(!src.Using)
 					src.Using=1
 
@@ -724,6 +730,8 @@ obj/Items/Enchantment
 		var/DeckPotency=1
 		var/RemainingDraws=7
 		Click()
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			if(src in ToolEnchantment_List || !(src in usr))
 				..()
 			else
@@ -988,6 +996,8 @@ obj/Items/Enchantment
 		var/list/Cards=list("The Fool", "The Magician", "The High Priestess", "The Empress", "The Emperor", "The Hierophant", "The Lovers", "The Chariot", "Strength",\
 		"The Hermit", "Wheel of Fortune", "Justice", "The Hanged Man", "Death", "Temperance", "The Devil", "The Tower", "The Star", "The Moon", "The Sun", "Judgment", "The World")
 		Click()
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			if(src in ToolEnchantment_List)
 				..()
 			else
@@ -1184,6 +1194,8 @@ obj/Items/Enchantment
 		var/Forced//can they remove it?
 
 		Click()
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			if(src in ToolEnchantment_List && !(src in usr))
 				..()
 			else
@@ -1226,6 +1238,8 @@ obj/Items/Enchantment
 			var/mob/Players/Trg
 			var/list/mob/Players/Peeps=list("Cancel")
 			for(var/mob/Players/p in view(1, usr))
+				if(p.Secret=="Heavenly Restriction" && p.secretDatum?:hasRestriction("Magic"))
+					continue
 				Peeps.Add(p)
 			Trg=input(usr, "Who do you want to place this arcane mask on?", "Place Mask") in Peeps
 			if(Trg.KO)
@@ -1556,12 +1570,16 @@ obj/Items/Enchantment
 			usr << browse(HTML,"window=[src];size=450x600")
 		verb
 			Transplant_Crest()
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+					return
 				if(src.Using)
 					return
 				src.Using=1
 				var/list/mob/Players/Options=list("Cancel")
 				if(src.loc==usr)
 					for(var/mob/Players/P in oview(1, usr))
+						if(P.Secret=="Heavenly Restriction" && P.secretDatum?:hasRestriction("Magic"))
+							continue
 						Options.Add(P)
 					for(var/mob/Body/b in oview(1, usr))
 						Options.Add(b)
@@ -1955,6 +1973,8 @@ obj/Items/Enchantment
 			set category=null
 			set src in view(1, usr)
 
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			var/obj/Skills/Teleport/Nexus_Teleport/nt=new
 			nt.FocalPassword=src.Password
 			nt.FocalExceptions.Add(src)
@@ -1977,6 +1997,8 @@ obj/Items/Enchantment
 		verb/Nexus_Summon()
 			set category=null
 			set src in view(1, usr)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			var/PassCheck=input(usr, "Enter the nexus' password to summon one of those with a teleport amulet assigned to this nexus.", "Rally") as text
 			if(PassCheck==src.Password)
 				var/obj/Skills/Teleport/Nexus_Summon/ns=new
@@ -1990,6 +2012,8 @@ obj/Items/Enchantment
 		verb/Nexus_Rally()
 			set category=null
 			set src in view(1, usr)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			var/PassCheck=input(usr, "Enter the nexus' password to summon those with a teleport amulet assigned to this nexus.", "Rally") as text
 			if(PassCheck==src.Password)
 				var/obj/Skills/Teleport/Nexus_Summon/Nexus_Rally/ns=new
@@ -2024,6 +2048,8 @@ obj/Items/Enchantment
 			set category=null
 			set src in usr
 
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			var/obj/Skills/Teleport/Nexus_Teleport/nt=new
 			nt.FocalPassword=src.Password
 			nt.FocalExceptions.Add(src)
@@ -2052,6 +2078,8 @@ obj/Items/Enchantment
 				..()
 			if((src in usr))
 				if(src.Using)
+					return
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
 					return
 				src.Using=1
 				if(!usr.GlobalCooldowns["[src.type]"])
@@ -2119,7 +2147,8 @@ obj/Items/Enchantment
 			if(usr.InMagitekRestrictedRegion())
 				usr << "The dimension generator attempts to form a portal, but it disperses before fully forming."
 				return
-
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			if(!src.DimensionType)
 				var/list/obj/Effects/PocketExit/Available=list()
 				for(var/obj/Effects/PocketExit/PE in world)
@@ -2199,6 +2228,8 @@ obj/Items/Enchantment
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+					return
 				if(src.Using)
 					return
 				if(usr.Grab)
@@ -2251,6 +2282,8 @@ obj/Items/Enchantment
 			Signature//ckey
 		Click()
 			if(src in oview(1, usr))
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+					return
 				if(Signature)
 					var/PassCheck=input(usr, "Enter the password protecting this crystal if you want to change who it is attuned to.", "Change Signature") as text
 					if(PassCheck==src.Password)
@@ -2308,6 +2341,8 @@ obj/Items/Enchantment
 		SubType="Temporal Rewinding"
 		Click()
 			if((src in usr))
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+					return
 				if(usr.HasMechanized())
 					usr<<"They're not affected by the crystal."
 					return

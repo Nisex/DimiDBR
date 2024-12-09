@@ -590,6 +590,7 @@ mob/proc
 				src.StasisFrozen=0
 
 	Blind(var/duration=1000)
+		if(!src.client) return
 		animate(src.client, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1), time=5)
 		sleep(5)
 		animate(src.client, color = null, time=duration)

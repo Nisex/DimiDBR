@@ -1870,7 +1870,7 @@ mob/Admin3/verb
 	// 				global.OokamiMade=1
 	// 				Log("Admin", "[ExtractInfo(usr)] toggled the status of [Choice] (<font color='red'>Made</font color>).")
 
-	Moon_Toggle(var/Z as num)
+	moon_toggle_admin(var/Z as num)
 		set category="Admin"
 		CallMoon(Z)
 		Log("Admin", "[ExtractInfo(src)] forced the moon to shine for z-plane ([Z]).")
