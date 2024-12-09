@@ -8401,6 +8401,8 @@ NEW VARIABLES
 					return
 				usr << "Current projection set to [useThis.name]."
 				currentBlade = useThis
+				currentBlade.Update_Description()
+				usr << "[currentBlade.desc]"
 
 
 			verb/True_Projection()
