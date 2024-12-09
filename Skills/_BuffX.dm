@@ -2510,13 +2510,13 @@ NEW VARIABLES
 									DefMult = 0.8
 								if("Warrior")
 									passives = list("UnarmedDamage" = 1, "Steady" = 1, "PureReduction" = 1, "PureDamage" = 1, "MovementMastery" = 3)
-									StrMult = 1.25
-									ForMult = 1.25
-									EndMult = 1.25
-									OffMult = 1.25
-									DefMult = 1.25
+									StrMult = 1.2
+									ForMult = 1.2
+									EndMult = 1.2
+									OffMult = 1.2
+									DefMult = 1.2
 								if("Hunter")
-									passives = list("Godspeed" = 2, "Flicker" = 1, "Pursuer" = 2, "FluidForm" = 1, "BlurringStrikes" = 0.5)
+									passives = list("Godspeed" = 2, "Flicker" = 1, "Pursuer" = 2, "FluidForm" = 1, "BlurringStrikes" = 1)
 									SpdMult = 1.5
 									OffMult = 1.3
 									DefMult = 1.3
