@@ -2503,8 +2503,7 @@ NEW VARIABLES
 							switch(fightingType)
 								if("Berserker")
 									AngerMult = 1.25
-									AutoAnger = 1
-									passives = list("AutoAnger" = 1, "PureReduction" = -1, "PureDamage" = 2, "DoubleStrike" = 1, "HeavyHitter" = 0.5, "Steady" = 1, "CancelDemonicDura" = 1 )
+									passives = list("PureReduction" = -1, "PureDamage" = 2, "DoubleStrike" = 1, "HeavyHitter" = 0.5, "Steady" = 1, "CancelDemonicDura" = 1 )
 									StrMult = 1.3
 									ForMult = 1.3
 									OffMult = 1.3
