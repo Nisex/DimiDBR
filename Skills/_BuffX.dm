@@ -11306,8 +11306,8 @@ NEW VARIABLES
 					..()
 
 			WillofAlaya
-				NeedsHealth = 25
-				TooMuchHealth = 50
+				NeedsHealth = 75
+				TooMuchHealth = 90
 				Godspeed = 1
 				PowerMult=1.25
 				Intimidation=2
@@ -11320,7 +11320,7 @@ NEW VARIABLES
 				LockX=0
 				LockY=0
 				OffMessage="snaps out of their haze."
-				ActiveMessage="is forced to lock up. <font color='yellow'>OVERRIDE: THREAT TO HUMANITY DETECTED - COUNTER GUARDIAN TEMPORARILY INVOKED.</b></font color>"
+				ActiveMessage="is forced to lock up. <font color='yellow'>OVERRIDE: THREAT TO HUMANITY DETECTED - COUNTER GUARDIAN DEPLOYED.</b></font color>"
 
 				Cooldown=1//Just in case
 				Trigger(mob/player, Override)
@@ -11740,7 +11740,7 @@ mob
 						src << "Your active buffs are locked out!"
 						return
 				if(B.SpecialSlot)
-					if(src.HasSpecialBuffLock()||src.KamuiBuffLock)
+					if(src.HasSpecialBuffLock()||src.KamuiBuffLock||!B.heavenlyRestrictionIgnore&& Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Special Slotter"))
 						src << "Your special buffs are locked out!"
 						return
 				if(B.ActiveBuffLock)
