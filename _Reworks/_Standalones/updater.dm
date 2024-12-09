@@ -61,6 +61,20 @@ update
 				if(p.AscensionsAcquired >= 5)
 					p.passive_handler.increaseList(list("MovementMastery" = 3))
 
+	version3
+		version = 3
+		updateMob(mob/p)
+			..()
+			if(p.isRace(ANDROID))
+				p.passive_handler.decreaseList(list("MovementMastery" = 2))
+				p.race.passives = list("TechniqueMastery" = 3, "MovementMastery" = 2, "PureDamage" = 1, "PureReduction" = 1, "Flicker" = 2)
+				if(p.AscensionsAcquired >= 1)
+					p.passive_handler.decreaseList(list("TechniqueMastery" = 0.5, "MovementMastery" = 2))
+				if(p.AscensionsAcquired >= 2)
+					p.passive_handler.decreaseList(list("TechniqueMastery" = 0.5,"MovementMastery" = 2))
+				if(p.AscensionsAcquired >= 3)
+					p.passive_handler.decreaseList(list("TechniqueMastery" = 0.5,"MovementMastery" = 1))
+
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25
 /globalTracker/var/GAJA_MAX_EXCHANGE = 1

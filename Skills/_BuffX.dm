@@ -8383,19 +8383,23 @@ NEW VARIABLES
 					s.NoSaga = FALSE
 					s.Conjured = TRUE
 					s.suffix = null
+					s.Destructable = TRUE
 					copiedBlades += s
 
 			verb/Remove_Blade()
 				set category = "Skills"
-				var/list/tempList = copiedBlades
-				tempList += "Cancel"
+				var/list/tempList = list("Cancel")
+				for(var/obj/i in copiedBlades)
+					tempList += i.name
 				var/removeThis = input("What blade do you want to remove?") in tempList
-				tempList -= "Cancel"
 				if(removeThis=="Cancel")
 					return
 
-				if(currentBlade == removeThis) currentBlade = null
-				copiedBlades.Remove(removeThis)
+				for(var/obj/j in copiedBlades)
+					if(j.name == removeThis)
+						if(currentBlade == j)
+							currentBlade = null
+						copiedBlades.Remove(j)
 /*
 			verb/Set_Projection_Name(swordName as text)
 				set hidden = 1
@@ -8447,6 +8451,7 @@ NEW VARIABLES
 					s.Conjured = TRUE
 					s.suffix = null
 					s.NoSaga = FALSE
+					s.Destructable = TRUE
 					s.ShatterTier = 3
 					if(usr.UBWPath == "Firm")
 						s.ShatterTier -= 1
