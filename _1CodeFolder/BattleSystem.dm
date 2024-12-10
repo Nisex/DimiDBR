@@ -122,7 +122,7 @@ mob/proc/Unconscious(mob/P,var/text)
 				src.KO=0
 				src.OMessage(15, "...but [src] refuses to go down!", "<font color=red>[src]([src.key]) remains standing despite impossible odds!")
 				src.Health=1
-				src.VaizardHealth+=clamp(Desperation * 2, 3, 10) //actual clutch now.
+				src.VaizardHealth+=clamp(passive_handler.Get("Desperation")* 2, 3, 10) //actual clutch now.
 				src.HealthAnnounce10=2
 				return
 	var/GetUpOdds=1
