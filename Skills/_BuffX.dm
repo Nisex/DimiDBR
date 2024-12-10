@@ -9217,7 +9217,7 @@ NEW VARIABLES
 					return
 				if(!usr.BuffOn(src))
 					passives = list("GiantForm" = 1, "HybridStrike" = 1, "PureReduction" = 1, "Flow" = -1)
-					VaizardHealth = 0.25 * (usr.SagaLevel-3)
+					VaizardHealth = 10 * (usr.SagaLevel-3)
 					EnergyCost = 10 - (usr.SagaLevel-4)
 					FatigueCost = 6 - (usr.SagaLevel-4)
 					switch(usr.SharinganEvolution)
