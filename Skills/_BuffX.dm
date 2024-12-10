@@ -8456,7 +8456,7 @@ NEW VARIABLES
 					s.suffix = null
 					s.NoSaga = FALSE
 					s.Destructable = TRUE
-					s.ShatterTier = 3
+					s.ShatterTier = 2
 					if(usr.UBWPath == "Firm")
 						s.ShatterTier -= 1
 						if(usr.SagaLevel >=5)
