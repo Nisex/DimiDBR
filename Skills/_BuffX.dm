@@ -8400,6 +8400,7 @@ NEW VARIABLES
 						if(currentBlade == j)
 							currentBlade = null
 						copiedBlades.Remove(j)
+						break
 /*
 			verb/Set_Projection_Name(swordName as text)
 				set hidden = 1
@@ -8414,13 +8415,17 @@ NEW VARIABLES
 					usr << "[swordName] not found in viable projections!"*/
 			verb/Set_Projection()
 				set category = "Skills"
-				var/list/tempList = copiedBlades
-				tempList += "Cancel"
-				var/obj/Items/Sword/useThis = input("What blade do you want to use?") in tempList
+				var/list/tempList = list("Cancel")
+				for(var/obj/i in copiedBlades)
+					tempList += i.name
+				var/useThis = input("What blade do you want to use?") in tempList
 				if(useThis=="Cancel")
 					return
-				usr << "Current projection set to [useThis.name]."
-				currentBlade = useThis
+				for(var/obj/j in copiedBlades)
+					if(j.name == useThis)
+						currentBlade = j
+						break
+				usr << "Current projection set to [currentBlade]."
 				currentBlade.Update_Description()
 				usr << "[currentBlade.desc]"
 
