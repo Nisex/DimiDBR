@@ -9212,9 +9212,6 @@ NEW VARIABLES
 			verb/Susanoo()
 				set category="Skills"
 				init(usr)
-				if(usr.HasMechanized())
-					usr<<"no you cant put on a mini mech and then get into a mini mech"
-					return
 				if(!usr.BuffOn(src))
 					passives = list("GiantForm" = 1, "HybridStrike" = 1, "PureReduction" = 1, "Flow" = -1)
 					VaizardHealth = 10 * (usr.SagaLevel-3)
