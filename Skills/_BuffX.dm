@@ -4539,7 +4539,6 @@ NEW VARIABLES
 			passives = list("ManaLeak" = 2, "SpiritForm" = 1, "MovementMastery" = 1, "ManaStats" = 0.25, "TechniqueMastery" = -2, "MartialMagic" = 1, "ManaGeneration" = -2, "FatigueLeak" = 3)
 			ManaLeak = 2
 			ManaThreshold = 40
-			FatigueThreshold = 25
 			Cooldown=1
 			verb/Spirit_Form()
 				set category="Skills"
@@ -9218,7 +9217,7 @@ NEW VARIABLES
 					return
 				if(!usr.BuffOn(src))
 					passives = list("GiantForm" = 1, "HybridStrike" = 1, "PureReduction" = 1, "Flow" = -1)
-					VaizardHealth = 0.25 * (usr.SagaLevel-4)
+					VaizardHealth = 0.25 * (usr.SagaLevel-3)
 					EnergyCost = 10 - (usr.SagaLevel-4)
 					FatigueCost = 6 - (usr.SagaLevel-4)
 					switch(usr.SharinganEvolution)
