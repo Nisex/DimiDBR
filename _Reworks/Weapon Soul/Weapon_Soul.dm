@@ -283,6 +283,9 @@ mob/tierUpSaga(Path)
 							GuanYu.passives["Zornhau"] = 2
 							GuanYu.passives["Iaido"] = 2
 							GuanYu.passives["Fencing"] = 2
-
+			if(6)
+				if(!locate(/obj/Skills/Buffs/SpecialBuffs/OverSoul, src))
+					src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/OverSoul)
+					src << "You've learned to unseal the true form of your legendary weapon."
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia
 	NeedsSword = 1

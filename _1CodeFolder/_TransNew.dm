@@ -1187,7 +1187,6 @@ mob/proc/WeaponSoul() // OverSoul Mechanic
 	if(src.SagaLevel<6)
 		return
 	else
-		src.PowerBoost*=2
 		switch(src.BoundLegend)
 			if("Green Dragon Crescent Blade")
 				Attunement = "Fire"
@@ -1549,7 +1548,6 @@ mob/proc/RevertWS()
 	var/placement=FLOAT_LAYER-3
 	if(s.LayerPriority)
 		placement-=s.LayerPriority
-	src.PowerBoost/=2
 	switch(src.BoundLegend)
 		if("Ryui Jingu Bang")
 			Attunement = null
