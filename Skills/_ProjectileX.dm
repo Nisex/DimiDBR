@@ -4118,7 +4118,7 @@ obj
 						density=1
 						StrRate=0.75
 						ForRate=0.75
-						DamageMult=2.5
+						DamageMult=6
 						Speed=1
 						AccMult = 1.15
 						Crippling = 5
@@ -4129,7 +4129,7 @@ obj
 						Striking=1
 						IconLock='Chain.dmi'
 						ActiveMessage="unleashes their Nebula Chain to keep their foes away!"
-						Cooldown=5
+						Cooldown=30
 						verb/Nebula_Chain()
 							set category="Skills"
 							if(usr.Beaming==4)
