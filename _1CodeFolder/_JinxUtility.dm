@@ -263,9 +263,9 @@ mob
 
 			if(passive_handler.Get("SoulFire")&&FightingSeriously(src, 0))
 				if(!(defender.CyberCancel || defender.Mechanized))
-					defender.LoseMana(val*(passive_handler.Get("SoulFire")/4),1)
-					defender.LoseCapacity(val*0.25*passive_handler.Get("SoulFire"))
-				defender.TotalFatigue+=val*0.25*passive_handler.Get("SoulFire")
+					defender.LoseMana(val*(passive_handler.Get("SoulFire")*SOUL_FIRE_MANA_RATIO),1)
+					defender.LoseCapacity(val*0.25*passive_handler.Get("SoulFire")*SOUL_FIRE_MANA_RATIO)
+				defender.TotalFatigue+=val*0.25*passive_handler.Get("SoulFire")*SOUL_FIRE_FATIGUE_RATIO
 
 			if(defender.CheckSlotless("Protega"))
 				src.LoseHealth(val/10)
