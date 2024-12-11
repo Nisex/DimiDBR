@@ -273,7 +273,9 @@ race
 		onFinalization(mob/user)
 			..()
 			user.Tail(1)
-
+			var/list/transpaths = subtypesof(text2path("/transformation/saiyan"))
+			for(var/i in transpaths)
+				transformations += new i
 
 
 

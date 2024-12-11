@@ -9,7 +9,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = new updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 3
+	var/UPDATE_VERSION = 4
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -74,6 +74,15 @@ update
 					p.passive_handler.decreaseList(list("TechniqueMastery" = 0.5,"MovementMastery" = 2))
 				if(p.AscensionsAcquired >= 3)
 					p.passive_handler.decreaseList(list("TechniqueMastery" = 0.5,"MovementMastery" = 1))
+
+	version4
+		version = 4
+		updateMob(mob/p)
+			..()
+			if(p.isRace(HALFSAIYAN))
+				var/list/transpaths = subtypesof(text2path("/transformation/saiyan"))
+				for(var/i in transpaths)
+					p.race.transformations += new i
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25
