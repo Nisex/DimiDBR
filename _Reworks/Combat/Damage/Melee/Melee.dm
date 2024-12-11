@@ -183,6 +183,7 @@
 	var/windChance = passive_handler.Get("WindRelease")
 	if(!forcewarp&&prob(windChance*5))
 		for(var/mob/m in orange(windChance*3))
+			if(inParty(m.ckey)) continue
 			src.Knockback(windChance, m, Direction=get_dir(m, src))
 
 	// 				RAYCASTING 				//
