@@ -31,9 +31,11 @@
 mob
 	proc
 		inParty(keyLooking)
-			for(var/mob/Players/p in party.members)
-				if(p.ckey == keyLooking)
-					return p
+			if(party)
+				for(var/mob/Players/p in party.members)
+					if(p.ckey == keyLooking)
+						return p
+			return null
 
 proc
 	findPlayer(keyLooking)
