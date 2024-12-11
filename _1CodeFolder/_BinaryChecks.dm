@@ -2989,7 +2989,7 @@ proc
 			if(Offender.SwordWounds())
 				return 1
 			if(Offender.HasPurity())
-				if(Defender&&Defender.IsEvil())
+				if(Defender&&Defender.IsEvil()||Offender.HasBeyondPurity())
 					return 1
 		if(Defender)
 			if(Defender.Lethal)
@@ -3001,6 +3001,6 @@ proc
 			if(Defender.SwordWounds())
 				return 1
 			if(Defender.HasPurity())
-				if(Offender&&Offender.IsEvil())
+				if(Offender&&Offender.IsEvil()||Defender.HasBeyondPurity())
 					return 1
 		return 0

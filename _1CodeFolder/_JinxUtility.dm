@@ -596,7 +596,7 @@ mob
 							WoundsInflicted=val/(1+GetEnd(glob.CURSED_WOUNDS_RATE))
 						else
 							WoundsInflicted=val/defender.GetEnd(glob.CURSED_WOUNDS_RATE)
-				else if(src.HasPurity()&&defender.IsEvil())
+				else if(src.HasPurity()&&defender.IsEvil()||HasPurity()&&BeyondPurity())
 					WoundsInflicted=val
 				else if(s||st)
 					if(((s&&s.Element=="Silver")||(st&&st.Element=="Silver"))&&defender.IsEvil())
