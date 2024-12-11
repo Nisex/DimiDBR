@@ -1127,12 +1127,12 @@ obj
 			Devils_Advocate
 				NoAttackLock=1
 				Area="Wave"
-				Distance=5
+				Distance=7
 				StrOffense=1
 				Knockback=1
 				HitSparkIcon='BLANK.dmi'
-				Slow=1
-				DamageMult=2
+				Slow=4
+				DamageMult=4
 				NoOverlay=1
 				ObjIcon=1
 				Icon='SekiZou.dmi'
