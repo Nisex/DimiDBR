@@ -5862,7 +5862,7 @@ mob
 				RoundCount*= 1+ src.HasDualCast()
 				RoundCount = floor(RoundCount)
 			while(RoundCount>0)
-				if(!src.Target) break
+				//if(!src.Target) break
 				if(Z.Earthshaking)
 					spawn()
 						src.Quake(Z.Earthshaking)
@@ -5894,9 +5894,12 @@ mob
 						else
 							src.Circle(Z)
 					if("Target")
-						if(src.x+Z.Distance<src.Target.x||src.x-Z.Distance>src.Target.x||src.y+Z.Distance<src.Target.y||src.y-Z.Distance>src.Target.y)
-							missed=1
-						src.Target(src.Target, Z, missed ? TrgLoc : null)
+						if(Target)
+							if(src.x+Z.Distance<src.Target.x||src.x-Z.Distance>src.Target.x||src.y+Z.Distance<src.Target.y||src.y-Z.Distance>src.Target.y)
+								missed=1
+							src.Target(src.Target, Z, missed ? TrgLoc : null)
+						else
+							missed = 1
 						if(missed) src << "[Z] missed because your target is out of range."
 					if("Around Target")
 						src.AroundTarget(null, Z, TrgLoc)
