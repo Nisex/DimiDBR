@@ -596,7 +596,7 @@ mob
 							WoundsInflicted=val/(1+GetEnd(glob.CURSED_WOUNDS_RATE))
 						else
 							WoundsInflicted=val/defender.GetEnd(glob.CURSED_WOUNDS_RATE)
-				else if(src.HasPurity()&&defender.IsEvil()||HasPurity()&&BeyondPurity())
+				else if(src.HasPurity()&&defender.IsEvil()||HasPurity()&&HasBeyondPurity())
 					WoundsInflicted=val
 				else if(s||st)
 					if(((s&&s.Element=="Silver")||(st&&st.Element=="Silver"))&&defender.IsEvil())
@@ -2078,13 +2078,13 @@ mob
 				evil = 1
 			//these are all good.
 			if(src.ShinjinAscension=="Kai")
-				good = 1 
+				good = 1
 			if(src.HasHolyMod() && !src.HasAbyssMod())
-				good = 1 
+				good = 1
 			if(src.Secret=="Ripple")
-				good = 1 
+				good = 1
 			if(src.HasSpiritPower()>=1)
-				good = 1 
+				good = 1
 
 			if(passive_handler.Get("Illusion"))
 				if(evil)
@@ -2107,11 +2107,11 @@ mob
 			var/evil = 0
 			//these are all good.
 			if(src.ShinjinAscension=="Kai")
-				good = 1 
+				good = 1
 			if(src.HasHolyMod() && !src.HasAbyssMod())
-				good = 1 
+				good = 1
 			if(src.HasSpiritPower()>=1)
-				good = 1 
+				good = 1
 			//these are all bad.
 			if(src.HasMaki())
 				evil = 1
