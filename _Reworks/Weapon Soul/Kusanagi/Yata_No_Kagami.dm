@@ -4,11 +4,11 @@ obj/Skills/Buffs/SlotlessBuffs/Yata_no_Kagami/Mirror_Protection
 	// var/tmp/storedMana = 0
 	passives = list("TotalDeflection" = 1, "TotalReversal" = 1, "Blubber" = 4)
 	ManaCost = 10
-	Cooldown = 120
+	Cooldown = 160
 	adjust(mob/p)
 		TimerLimit = 10 + (p.SagaLevel * 5)
 		VaizardHealth = 0.5 + (0.5 * p.SagaLevel)
-		Cooldown = 120 - (p.SagaLevel * 10)
+		Cooldown = 160 - (p.SagaLevel * 5)
 		ManaCost = 10 + (p.SagaLevel  * 2)
 
 	/* wasn't working
