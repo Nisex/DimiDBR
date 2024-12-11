@@ -4898,9 +4898,10 @@ mob
 					BlastCount = floor(BlastCount)
 				for(var/i=0, i<BlastCount, i++)
 					BlastAgain
-					if(!src.Target) break
-					if(Z.Homing||Z.LosesHoming)
-						src.dir=get_dir(src,src.Target)
+				//	if(!src.Target) break
+					if(Z.Homing||Z.LosesHoming)	
+						if(Target)
+							src.dir=get_dir(src,src.Target)
 					if(Z.Feint&&src.Target&&src.Target!=src)
 						AfterImage(src)
 						src.Comboz(src.Target)
@@ -4908,7 +4909,7 @@ mob
 					if(Z.ZoneAttack)
 						var/LocateAttempts=0
 						Relocate
-						if(Z.FireFromEnemy)
+						if(Z.FireFromEnemy && Target)
 							Origin=locate(src.Target.x+rand((-1*Z.ZoneAttackX),Z.ZoneAttackX), src.Target.y+rand((-1*Z.ZoneAttackY),Z.ZoneAttackY), src.z)
 						else if(Z.FireFromSelf)
 							Origin=locate(src.x+rand((-1*Z.ZoneAttackX),Z.ZoneAttackX), src.y+rand((-1*Z.ZoneAttackY),Z.ZoneAttackY), src.z)
