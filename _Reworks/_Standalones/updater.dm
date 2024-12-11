@@ -20,13 +20,13 @@ globalTracker
 		if(UPDATE_VERSION == p.updateVersion.version)
 			return
 		if(p.updateVersion.version + 1 == UPDATE_VERSION)
-			var/updateversion = "/update/version[p.updateVersion + 1]"
+			var/updateversion = "/update/version[p.updateVersion.version + 1]"
 			var/update/update = new updateversion
 			update.updateMob(p)
 		else if(p.updateVersion.version + 1 < UPDATE_VERSION)
-			for(var/x in 1 to abs(p.updateVersion - UPDATE_VERSION))
+			for(var/x in 1 to abs(p.updateVersion.version - UPDATE_VERSION))
 				// get the number of updates we are missing
-				var/updateversion = "/update/version[p.updateVersion + 1]"
+				var/updateversion = "/update/version[p.updateVersion.version + 1]"
 				var/update/update = new updateversion
 				update.updateMob(p)
 
