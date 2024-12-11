@@ -245,6 +245,7 @@ mob/tierUpSaga(path)
 	TurfStrike=1
 	TurfShift='Dirt1.dmi'
 	TurfShiftDuration=1
+	ObjIcon = 1
 	Icon='drill.dmi'
 	IconX = -8
 	IconY = -8
