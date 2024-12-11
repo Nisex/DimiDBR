@@ -7966,7 +7966,7 @@ NEW VARIABLES
 				src.Trigger(usr)
 		Andromeda
 			Rolling_Defense
-				passives = list("Flow" = 1, "LikeWater" = 1, "BackTrack")
+				passives = list("Flow" = 1, "LikeWater" = 1, "BackTrack" = 1)
 				SBuffNeeded="Andromeda Cloth"
 				Cooldown=60
 				adjust(mob/p)
