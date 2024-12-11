@@ -11,8 +11,8 @@ mob/proc/Meditation()
 	spawn()
 		if(src.VaizardHealth>0)
 			src.VaizardHealth=0
-		if(length(magatamaBeads))
-			loseMagatama()
+		/*if(length(magatamaBeads))
+			loseMagatama()*/
 		med.delayTimer()
 
 

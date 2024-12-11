@@ -40,6 +40,7 @@ obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraint
 	Cooldown=0
 	AffectTarget = 1
 	Range = 20
+	ManaCost = 15
 	adjust(mob/p)
 		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: The Three Treasures")
 			applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Heavenly_Bead_Constraints
@@ -49,13 +50,13 @@ obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraint
 		set name = "Yasakani no Magatama: Bead Constraint"
 		set category = "Skills"
 		if(!usr.BuffOn(src))
-			adjust(usr)
+			adjust(usr)/*
 		var/magatamaFound = FALSE
 		if(length(usr.magatamaBeads)>0)
 			magatamaFound = TRUE
 			usr.loseMagatama()
-		if(magatamaFound)
-			Trigger(usr)
+		if(magatamaFound)*/
+		Trigger(usr)
 
 obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraints
 	EnergyDrain = 0.1

@@ -480,10 +480,10 @@ mob
 					Effectiveness-=(Effectiveness*defender.CyberCancel)
 				src.HealEnergy(val*(src.GetEnergySteal()*Effectiveness/100))
 				defender.LoseEnergy(val*(src.GetEnergySteal()*Effectiveness/100))
-			if(WeaponSoulType == "Kusanagi" && SagaLevel >= 3)
+			/*if(WeaponSoulType == "Kusanagi" && SagaLevel >= 3)
 				var/value = val/10
 				stealManaMagatama(value * SagaLevel)
-				defender.LoseMana(value)
+				defender.LoseMana(value)*/
 			if(HasManaSteal())
 				var/value = val * (GetManaSteal() / 100)
 				HealMana(value)
