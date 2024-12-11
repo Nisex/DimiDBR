@@ -7970,7 +7970,7 @@ NEW VARIABLES
 				SBuffNeeded="Andromeda Cloth"
 				Cooldown=60
 				adjust(mob/p)
-					passives = list("Flow" = min(p.SagaLevel/2, 1), "LikeWater" = p.SagaLevel, "BackTrack" = min(p.SagaLevel-3, 1))
+					passives = list("Flow" = max(p.SagaLevel/2, 1), "LikeWater" = p.SagaLevel, "BackTrack" = max(p.SagaLevel-3, 1))
 				verb/Rolling_Defense()
 					set category="Skills"
 					adjust(usr)
