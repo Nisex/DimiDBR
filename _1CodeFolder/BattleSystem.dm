@@ -180,7 +180,7 @@ mob/proc/Unconscious(mob/P,var/text)
 	if(GatesActive>0)
 		if(ActiveBuff)
 			if(CheckActive("Eight Gates"))
-				ActiveBuff:Stop_Cultivation()
+				ActiveBuff:handleGates(src, FALSE)
 				GatesActive=0
 		else
 			GatesActive=0
