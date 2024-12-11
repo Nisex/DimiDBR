@@ -74,12 +74,10 @@ mob
 			val = newDoDamage(defender, val, UnarmedAttack, SwordAttack, SecondStrike, ThirdStrike, TrueMult, SpiritAttack, Destructive)
 			if(src.HasPurity())//If damager is pure
 				var/found=0//Assume you haven't found a proper target
-				if(src.HasBeyondPurity())//if you can say fuck off to purity...
-					if(src.HasHolyMod())//Holy things
-						if(defender.IsEvil())//Kill evil things
-							found=1
-					if(!found)//If you don't find what you're supposed to hunt
-						return//Do not do damage
+				if(defender.IsEvil()||src.HasBeyondPurity())
+					found=1
+				if(!found)//If you don't find what you're supposed to hunt
+					return//Do not do damage
 
 			fieldAndDefense(defender, UnarmedAttack, SwordAttack, SpiritAttack, val)
 
