@@ -341,16 +341,17 @@ transformation
 			passives = list("Instinct" = 1, "Flow" = 1, "Flicker" = 1, "Pursuer" = 2, "BuffMastery" = 1, "PureDamage" = 1, "PureReduction" = 1)
 			PUSpeedModifier = 1.5
 			adjust_transformation_visuals(mob/user)
-				if(user.Hair_Base)
+				if(user.Hair_Base && !form_hair_icon)
 					var/icon/x=new(user.Hair_Base)
 					if(x)
 						x.Blend(rgb(160,130,0),ICON_ADD)
 					form_hair_icon=x
 				..()
-				form_icon_1 = image(user.Hair_SSJ2)
-				form_icon_1.blend_mode=BLEND_MULTIPLY
-				form_icon_1.alpha=125
-				form_icon_1.color=list(1,0,0, 0,0.82,0, 0,0,0, -0.26,-0.26,-0.26)
+				if(!form_icon_1)
+					form_icon_1 = image(user.Hair_SSJ2)
+					form_icon_1.blend_mode=BLEND_MULTIPLY
+					form_icon_1.alpha=125
+					form_icon_1.color=list(1,0,0, 0,0.82,0, 0,0,0, -0.26,-0.26,-0.26)
 
 			transform_animation(mob/user)
 				switch(mastery)
