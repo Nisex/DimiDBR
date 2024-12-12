@@ -365,7 +365,7 @@ mob/Players/Stat()
 					stat("Energy: ","[(Target.Energy/Target.EnergyMax)*100]%")
 				else
 					stat("Power: ", "Incomprehensible")
-					if(usr.HasClarity())
+					if(usr.HasClarity( || usr.passive_handler.Get("AdminVision")))
 						stat("Direction - [get_dist(usr, usr.Target)] tiles away","[CheckDirection(usr.Target)]")
 						stat("Health: ","[round(Target.Health)]%")
 
