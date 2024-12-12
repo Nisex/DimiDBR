@@ -9541,7 +9541,7 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(!altered)
 						if(p.Secret == "Werewolf")
-							passives = list("ActiveBuffLock" = 1,"SpecialBuffLock" = 1,"Curse" = 1, "Godspeed" =  p.secretDatum.currentTier*2, "MovementMastery" = p.secretDatum.currentTier * 2,\
+							passives = list("SpecialBuffLock" = 1,"Curse" = 1, "Godspeed" =  p.secretDatum.currentTier*2, "MovementMastery" = p.secretDatum.currentTier * 2,\
 							 "Pursuer" = 2, "BlurringStrikes" = p.secretDatum.currentTier)
 							MovementMastery = p.secretDatum.currentTier * 2
 							Godspeed = p.secretDatum.currentTier * 2
@@ -9550,7 +9550,6 @@ NEW VARIABLES
 							SpdMult = 2 + (p.secretDatum.currentTier * 0.25)
 							OffMult = 1.25 + (p.secretDatum.currentTier * 0.25)
 							DefMult = 1.25 + (p.secretDatum.currentTier * 0.25)
-							PowerMult=1.5
 
 				HealthThreshold=0.1
 				RegenMult=2
@@ -9573,7 +9572,6 @@ NEW VARIABLES
 				IconTransform='FullMoon.dmi'
 				TransformX=-7
 				TransformY=-4
-				ActiveBuffLock=1
 				SpecialBuffLock=1
 				verb/Customize_Full_Moon()
 					set category = "Other"
