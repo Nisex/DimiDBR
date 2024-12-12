@@ -1129,7 +1129,7 @@ NEW VARIABLES
 							src.OffMessage="restrains Guan Yu's fury..."
 
 						if("Ryui Jingu Bang")
-							passives = list("SpiritPower" = usr.SagaLevel*0.25, "Duelist" = usr.SagaLevel*0.5, "Extend" = max(1,usr.SagaLevel/2), "PULock" = 1)
+							passives = list("SpiritPower" = usr.SagaLevel*0.25, "Duelist" = usr.SagaLevel*0.25, "Extend" = max(1,usr.SagaLevel/2), "PULock" = 1)
 							if(!redacted)
 								src.ActiveMessage="calls forth the true form of Ryui Jingu Bang, the Pole of the Monkey King!"
 								src.OffMessage="shrinks Ryui Jingu Bang back down..."
