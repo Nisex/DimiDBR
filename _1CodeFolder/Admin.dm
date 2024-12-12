@@ -310,6 +310,16 @@ mob/Admin3/verb
 					b.Trigger(m)
 			m.Reset_Multipliers()
 
+	FormMastery(mob/p in players)
+		if(!length(p.race.transformations))
+			usr << "[p] doesn't have any transformations!"
+			return
+		var/transformation/chosenTrans = input(usr, "Pick a transformation to boost the mastery of!") in p.race.transformations
+		if(!chosenTrans) return
+		var/chosenMastery = input(usr, "What mastery level do you want [chosenTrans] at? Currently [chosenTrans.mastery] out of 100.") as num|null
+		if(isnull(chosenMastery)) return
+		chosenTrans.mastery = chosenMastery
+
 	Wound_Remove_Mass()
 		set category="Admin"
 		for(var/mob/m in players)
