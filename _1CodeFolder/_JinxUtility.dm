@@ -2152,7 +2152,7 @@ mob
 					return (-1)*src.GetHolyMod()
 				else
 					return (-1)*Forced
-			else if(P.IsEvil())
+			else if(P.IsEvil() || HasBeyondPurity())
 				if(!Forced)
 					return src.GetHolyMod()
 				else
