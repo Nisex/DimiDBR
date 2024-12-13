@@ -696,6 +696,7 @@ mob/Admin2/verb
 			usr.see_invisible=0
 			usr.Incorporeal=0
 			usr.density=1
+			usr.passive_handler.Decrease("AdminVision", 1)
 			usr.Grabbable=1
 			animate(src,alpha=255,time=10)
 		else
@@ -704,6 +705,7 @@ mob/Admin2/verb
 			usr.invisibility=100
 			usr.see_invisible=101
 			usr.Incorporeal=1
+			usr.passive_handler.Increase("AdminVision", 1)
 			usr.density=0
 			usr.Grabbable=0
 			animate(src,alpha=50,time=10)
