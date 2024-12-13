@@ -807,7 +807,7 @@ mob
 			if(src.Kaioken)
 				for(var/obj/Skills/Buffs/SpecialBuffs/Kaioken/kk in src.Buffs)
 					kkmast=kk.Mastery
-				Return+=src.Kaioken
+				Return+=src.Kaioken/kkmast
 			if(src.HasHealthPU())
 				if(src.PowerControl>100)
 					Return*=(src.PowerControl/100)
@@ -815,9 +815,6 @@ mob
 				Return -= (Return / 6) * src.SagaLevel
 			if(src.GatesActive && src.GatesActive<8)
 				Return+=(4/src.SagaLevel)
-			if(src.Kaioken)
-				if(kkmast>src.Kaioken)
-					Return=src.Kaioken/2
 			return Return
 		HasEnergyLeak()
 			if(passive_handler.Get("EnergyLeak"))

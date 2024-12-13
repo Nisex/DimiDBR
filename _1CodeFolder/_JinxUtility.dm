@@ -2158,7 +2158,7 @@ mob
 					return (-1)*src.GetHolyMod()
 				else
 					return (-1)*Forced
-			else if(P.IsEvil())
+			else if(P.IsEvil() || HasBeyondPurity())
 				if(!Forced)
 					return src.GetHolyMod()
 				else
@@ -3013,8 +3013,8 @@ mob
 			if(src.req_pot(30) && src.req_sigs(3, 1))
 				DevelopSignature(src, 1, "Signature")
 
-			//if(src.req_pot(45) && src.req_sigs(1, 2))
-			//	DevelopSignature(src, 2, "Signature")
+			if(src.req_pot(62) && src.req_sigs(1, 2))
+				DevelopSignature(src, 2, "Signature")
 
 		YeetSignatures()
 			for(var/obj/Skills/s in src.Skills)

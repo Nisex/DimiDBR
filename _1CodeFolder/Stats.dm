@@ -365,7 +365,7 @@ mob/Players/Stat()
 					stat("Energy: ","[(Target.Energy/Target.EnergyMax)*100]%")
 				else
 					stat("Power: ", "Incomprehensible")
-					if(usr.HasClarity())
+					if(usr.HasClarity() || usr.passive_handler.Get("AdminVision"))
 						stat("Direction - [get_dist(usr, usr.Target)] tiles away","[CheckDirection(usr.Target)]")
 						stat("Health: ","[round(Target.Health)]%")
 
@@ -695,10 +695,10 @@ mob/proc/
 		if(src.Kaioken)
 			switch(src.Kaioken)
 				if(1)
-					src.PowerControl=150
+					src.PowerControl=160
 					src.KaiokenBP=4/3
 				if(2)
-					src.PowerControl=150
+					src.PowerControl=175
 					src.KaiokenBP=2
 				if(3)
 					src.PowerControl=200

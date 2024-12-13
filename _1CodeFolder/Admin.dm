@@ -310,6 +310,16 @@ mob/Admin3/verb
 					b.Trigger(m)
 			m.Reset_Multipliers()
 
+	FormMastery(mob/p in players)
+		if(!length(p.race.transformations))
+			usr << "[p] doesn't have any transformations!"
+			return
+		var/transformation/chosenTrans = input(usr, "Pick a transformation to boost the mastery of!") in p.race.transformations
+		if(!chosenTrans) return
+		var/chosenMastery = input(usr, "What mastery level do you want [chosenTrans] at? Currently [chosenTrans.mastery] out of 100.") as num|null
+		if(isnull(chosenMastery)) return
+		chosenTrans.mastery = chosenMastery
+
 	Wound_Remove_Mass()
 		set category="Admin"
 		for(var/mob/m in players)
@@ -686,6 +696,7 @@ mob/Admin2/verb
 			usr.see_invisible=0
 			usr.Incorporeal=0
 			usr.density=1
+			usr.passive_handler.Decrease("AdminVision", 1)
 			usr.Grabbable=1
 			animate(src,alpha=255,time=10)
 		else
@@ -694,6 +705,7 @@ mob/Admin2/verb
 			usr.invisibility=100
 			usr.see_invisible=101
 			usr.Incorporeal=1
+			usr.passive_handler.Increase("AdminVision", 1)
 			usr.density=0
 			usr.Grabbable=0
 			animate(src,alpha=50,time=10)
@@ -849,7 +861,7 @@ mob/Admin2/verb
 	AdminKill(mob/A in world)
 		set category="Admin"
 		var/confirm = alert(usr, "Are you sure you wanna admin kill [A.name]?",, "Yes", "No")
-		if(!confirm) return
+		if(confirm == "No") return
 		A.Death(null,"ADMIN", SuperDead=1)
 		Log("Admin","<font color=red>[ExtractInfo(usr)] admin-killed [ExtractInfo(A)].")
 	DoDamagez(mob/A in world)

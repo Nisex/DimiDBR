@@ -892,6 +892,7 @@ obj/Items/Sword
 				Saga = "Weapon Soul"
 
 	Legendary
+		Ascended = 5
 		LegendaryItem = 1
 		TechType=null
 		Unobtainable = 1
@@ -923,7 +924,7 @@ obj/Items/Sword
 		Legendary
 			LegendaryItem=1
 			Unobtainable=1
-			Ascended=1
+			Ascended=5
 			ShatterCounter=700
 			ShatterMax=700
 			Yukianesa
@@ -955,7 +956,7 @@ obj/Items/Sword
 		Legendary
 			LegendaryItem=1
 			Unobtainable=1
-			Ascended=1
+			Ascended=5
 			ShatterCounter=800
 			ShatterMax=800
 
@@ -1015,7 +1016,7 @@ obj/Items/Sword
 		Legendary
 			LegendaryItem=1
 			Unobtainable=1
-			Ascended=1
+			Ascended=5
 			ShatterCounter=1000
 			ShatterMax=1000
 

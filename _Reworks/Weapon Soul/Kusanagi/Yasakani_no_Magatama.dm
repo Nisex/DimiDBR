@@ -41,6 +41,7 @@ obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraint
 	AffectTarget = 1
 	Range = 20
 	ManaCost = 15
+	Cooldown = 90
 	adjust(mob/p)
 		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: The Three Treasures")
 			applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Heavenly_Bead_Constraints

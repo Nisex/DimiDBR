@@ -1129,7 +1129,7 @@ NEW VARIABLES
 							src.OffMessage="restrains Guan Yu's fury..."
 
 						if("Ryui Jingu Bang")
-							passives = list("SpiritPower" = usr.SagaLevel*0.25, "Duelist" = usr.SagaLevel*0.5, "Extend" = max(1,usr.SagaLevel/2), "PULock" = 1)
+							passives = list("SpiritPower" = usr.SagaLevel*0.25, "Duelist" = usr.SagaLevel*0.25, "Extend" = max(1,usr.SagaLevel/2), "PULock" = 1)
 							if(!redacted)
 								src.ActiveMessage="calls forth the true form of Ryui Jingu Bang, the Pole of the Monkey King!"
 								src.OffMessage="shrinks Ryui Jingu Bang back down..."
@@ -1811,9 +1811,12 @@ NEW VARIABLES
 							usr << "Your energy is too focused to ignite the Kaioken."
 							return
 					usr << "Use Power Up to increase your Kaioken level."
+					passive_handler.Set("Kaioken", 1)
 					for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in usr)
 						if(!usr.BuffOn(KC))
 							usr.UseBuff(KC)
+				else
+					passive_handler.Set("Kaioken", 0)
 				usr.Auraz("Remove")
 				src.Trigger(usr)
 		Rekkaken
@@ -7959,7 +7962,7 @@ NEW VARIABLES
 			BuffTechniques=list("/obj/Skills/Projectile/Beams/Saint_Seiya/Nebula_Chain","/obj/Skills/Queue/Thunder_Wave")
 			Cooldown=150
 			adjust(mob/p)
-				passives = list("SwordAscension" = min(p.SagaLevel, 1), "Extend" = 1, "Deflection" = min(p.SagaLevel-2,1), "Paralyzing" = p.SagaLevel, "Crippling" = p.SagaLevel/2)
+				passives = list("SwordAscension" = max(p.SagaLevel, 1), "Extend" = 1, "Deflection" = max(p.SagaLevel-2,1), "Paralyzing" = p.SagaLevel, "Crippling" = p.SagaLevel/2)
 			verb/Andromeda_Chain()
 				set category="Skills"
 				adjust(usr)
@@ -8440,7 +8443,7 @@ NEW VARIABLES
 				if(usr.EquippedSword()&&!projected)
 					usr << "You can't have a blade out to project a new one!"
 					return
-				if(!projected)
+				if(!projected || ! !usr.EquippedSword())
 					var/costCalculation = (length(currentBlade.Techniques) + length(currentBlade.passives) + currentBlade.Ascended + currentBlade.InnatelyAscended)/usr.SagaLevel
 					if(usr.UBWPath == "Feeble")
 						costCalculation /= 1 + usr.SagaLevel/6
@@ -9214,14 +9217,14 @@ NEW VARIABLES
 				init(usr)
 				if(!usr.BuffOn(src))
 					passives = list("GiantForm" = 1, "HybridStrike" = 1, "PureReduction" = 1, "Flow" = -1)
-					VaizardHealth = 1 * (usr.SagaLevel-3)
+					VaizardHealth = 0.75 * (usr.SagaLevel-3)
 					EnergyCost = 10 - (usr.SagaLevel-4)
 					FatigueCost = 6 - (usr.SagaLevel-4)
 					switch(usr.SharinganEvolution)
 						if("Resolve")
 							passives = list("NoDodge" = 0, "GiantForm" = 1,\
 							"HybridStrike" = 1, "SweepingStrike" = 1, "Flow" = -1, "Instinct" = -1, "PureDamage" = 2, "PureReduction" = 2)
-							VaizardHealth += 0.25 * (usr.SagaLevel-3)
+							VaizardHealth += 0.2 * (usr.SagaLevel-3)
 					if(usr.SagaLevel>=5)
 						DefMult = 0.8
 						src.ActiveMessage="conjures a partially humanoid figure around them!"
@@ -9541,7 +9544,7 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(!altered)
 						if(p.Secret == "Werewolf")
-							passives = list("ActiveBuffLock" = 1,"SpecialBuffLock" = 1,"Curse" = 1, "Godspeed" =  p.secretDatum.currentTier*2, "MovementMastery" = p.secretDatum.currentTier * 2,\
+							passives = list("SpecialBuffLock" = 1,"Curse" = 1, "Godspeed" =  p.secretDatum.currentTier*2, "MovementMastery" = p.secretDatum.currentTier * 2,\
 							 "Pursuer" = 2, "BlurringStrikes" = p.secretDatum.currentTier)
 							MovementMastery = p.secretDatum.currentTier * 2
 							Godspeed = p.secretDatum.currentTier * 2
@@ -9550,7 +9553,6 @@ NEW VARIABLES
 							SpdMult = 2 + (p.secretDatum.currentTier * 0.25)
 							OffMult = 1.25 + (p.secretDatum.currentTier * 0.25)
 							DefMult = 1.25 + (p.secretDatum.currentTier * 0.25)
-							PowerMult=1.5
 
 				HealthThreshold=0.1
 				RegenMult=2
@@ -9573,7 +9575,6 @@ NEW VARIABLES
 				IconTransform='FullMoon.dmi'
 				TransformX=-7
 				TransformY=-4
-				ActiveBuffLock=1
 				SpecialBuffLock=1
 				verb/Customize_Full_Moon()
 					set category = "Other"

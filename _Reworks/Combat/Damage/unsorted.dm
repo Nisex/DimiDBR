@@ -1,5 +1,5 @@
 
-globalTracker/var/list/IGNORE_POWER_CLAMP_PASSIVES = list("Wrathful", "LimitBroken", "Star Surge")
+globalTracker/var/list/IGNORE_POWER_CLAMP_PASSIVES = list("Wrathful", "LimitBroken", "Star Surge", "Kaioken")
 
 
 /mob/proc/ignoresPowerClamp(mob/defender)

@@ -637,7 +637,6 @@ obj/Skills/Grapple
 					for(var/obj/Skills/Dragon_Dash/dd in src)
 						usr.SkillX("DragonDash",dd)
 				if(removeAfter)
-					User -= src
-					del src
+					User.DeleteSkill(src)
 			else
 				Log("Admin", "[ExtractInfo(User)] currently has [User.Grab.type] grabbed and attempted to grapple them with [src].")

@@ -5584,7 +5584,7 @@ mob
 						else
 							if(copyLevel <= copy)
 								continue
-						if(m.client&&m.client.address==src.client.address)
+						if(client&&m.client&&m.client.address==src.client.address)
 							continue
 						if(!locate(Z.type, m))
 							var/obj/Skills/copiedSkill = new Z.type

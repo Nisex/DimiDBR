@@ -64,6 +64,7 @@ sagaTierUpMessages/Cosmo
 				if(!locate(/obj/Skills/Utility/Zodiac_Invocation, src))
 					src.AddSkill(new/obj/Skills/Utility/Zodiac_Invocation)
 			if(5)
+				SenseUnlocked = 7
 				switch(src.ClothGold)
 					if("Aries")
 						if(!locate(/obj/Skills/Projectile/Stardust_Revolution, src))
