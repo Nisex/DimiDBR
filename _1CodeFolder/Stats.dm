@@ -695,10 +695,10 @@ mob/proc/
 		if(src.Kaioken)
 			switch(src.Kaioken)
 				if(1)
-					src.PowerControl=150
+					src.PowerControl=160
 					src.KaiokenBP=4/3
 				if(2)
-					src.PowerControl=150
+					src.PowerControl=175
 					src.KaiokenBP=2
 				if(3)
 					src.PowerControl=200
