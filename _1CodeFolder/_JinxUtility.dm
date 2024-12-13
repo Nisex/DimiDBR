@@ -197,9 +197,15 @@ mob
 
 			if(UnarmedAttack || SwordAttack || SpiritAttack)
 
-				if(src.StyleBuff)
-					if(src.Tension<100 && !src.HasTensionLock())
-						src.Tension+=(val) * glob.TENSION_MULTIPLIER
+				if(src.StyleBuff) // devious movements enabled
+					var/maxTension = 100
+					if(HasPassive("Conductor"))
+						maxTension = max(glob.MIN_TENSION, maxTension - GetPassive("Conductor"))
+					if(src.Tension<maxTension && !src.HasTensionLock())
+						var/tensionGain = 0
+						if(HasPassive("Antsy"))
+							tensionGain = GetPassive("Antsy")/10
+						src.Tension+=(val) * (glob.TENSION_MULTIPLIER + tensionGain)
 
 				if(defender.StyleBuff&&defender.StyleBuff)
 					if(defender.Tension<100 && !defender.HasTensionLock())

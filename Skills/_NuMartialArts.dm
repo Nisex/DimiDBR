@@ -264,6 +264,11 @@ obj
 						verb/Divine_Arts_of_The_Heavenly_Demon_Style()
 							set hidden=1
 							src.Trigger(usr)
+						
+					Heavenly_Demon_T3
+						name = "Heavenly_Demons_Chaotic_Way_of_Shattered_Realms"
+						StyleActive = "Heavenly Demon's Chaotic Way of Shattered Realms"
+						
 
 					Iron_Fist_Style
 						passives = list("Deflection" = 2, "UnarmedDamage" = 2, "HardStyle" = 2, "HeavyHitter"= 0.5)
