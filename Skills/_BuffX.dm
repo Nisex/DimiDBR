@@ -8440,7 +8440,7 @@ NEW VARIABLES
 				if(usr.EquippedSword()&&!projected)
 					usr << "You can't have a blade out to project a new one!"
 					return
-				if(!projected)
+				if(!projected || ! !usr.EquippedSword())
 					var/costCalculation = (length(currentBlade.Techniques) + length(currentBlade.passives) + currentBlade.Ascended + currentBlade.InnatelyAscended)/usr.SagaLevel
 					if(usr.UBWPath == "Feeble")
 						costCalculation /= 1 + usr.SagaLevel/6
