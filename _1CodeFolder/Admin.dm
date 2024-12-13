@@ -859,7 +859,7 @@ mob/Admin2/verb
 	AdminKill(mob/A in world)
 		set category="Admin"
 		var/confirm = alert(usr, "Are you sure you wanna admin kill [A.name]?",, "Yes", "No")
-		if(!confirm) return
+		if(confirm == "No") return
 		A.Death(null,"ADMIN", SuperDead=1)
 		Log("Admin","<font color=red>[ExtractInfo(usr)] admin-killed [ExtractInfo(A)].")
 	DoDamagez(mob/A in world)
