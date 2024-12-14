@@ -919,6 +919,7 @@ mob
 			if(!Pacified)src.OMessage(10,"<font color=white><i>[src] becomes calm.","<font color=silver>[src]([src.key]) becomes calm.")
 			src.DefianceCounter=0
 			src.Anger=0
+			race.onCalm(src)
 			src.AngerCD=30
 		AddHealthCut(var/Val)
 			src.HealthCut+=Val
