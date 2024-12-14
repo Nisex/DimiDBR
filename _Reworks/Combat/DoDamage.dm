@@ -80,6 +80,12 @@
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
 
+	if(HasPassive("Powerhouse"))
+		var/boon = round(src.Energy/100 * GetPassive("Powerhouse"),0.1)
+		trueMult += boon
+
+
+
 	var/puredmg = HasPureDamage() ? HasPureDamage() : 0
 	if(!glob.PURE_MOD_POST_CALC)
 		puredmg *= glob.PURE_MODIFIER
