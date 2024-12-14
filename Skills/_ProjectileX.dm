@@ -5716,11 +5716,13 @@ obj
 
 						ElementalCheck(src.Owner, a, onlyTheseElements=bonusElement)
 
-						if(a in src.Owner.party)
+						if(src.Owner.inParty(m.ckey))
 							EffectiveDamage *= glob.PARTY_DAMAGE_NERF
 							if(src.Owner.passive_handler.Get("TeamFighter"))
 								EffectiveDamage /= 1+src.Owner.passive_handler.Get("TeamFighter")
-
+						if(src.Owner.party && src.Owner.passive_handler.Get("TeamHater"))
+							if(m in src.Owner.party.members)
+								EffectiveDamage *= 1+src.Owner.passive_handler.Get("TeamHater")
 						if(src.Owner.HasPurity()||src.Purity)//If damager is pure
 							var/found=0//Assume you haven't found a proper target
 							if(src.Owner.HasBeyondPurity()||src.BeyondPurity)//if you can say fuck off to purity...

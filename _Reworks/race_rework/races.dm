@@ -233,6 +233,9 @@ race
 			for(var/s in skills)
 				user.AddSkill(new s)
 
+		onAnger(mob/user)
+
+		onCalm(mob/user)
 	human
 		name = "Human"
 		desc = "Enhanced during cryo sleep, your DNA is the most pure. There were no downsides to your enhancement. You can do things that movie characters could, but retain your shape completely."
@@ -637,20 +640,38 @@ race
 		name = "Changeling"
 		icon_neuter	=	list('Chilled1.dmi')
 		gender_options = list("Neuter")
-		desc	=	"A strange and adaptive race from the far reaches of deep space, little is none of these mysterious beings other than they are new to the general galactic population!"
+		desc	=	"Adaptive, strange beings."
 		visual	=	'Changeling.png'
 
-		strength	=	1.75
-		endurance	=	1
-		force	=	1.75
+		passives = list("Xenobiology" = 1, "CriticalBlock" = 0.25, "BlockChance" = 0.25, "PureReduction" = 3, "PureDamage" = -5, "AllOutAttack" = 1, "MovementMastery" = -8)
+		statPoints = 4
+		strength	=	0.25
+		endurance	=	2
+		force	=	0.25
 		offense	=	1.5
 		defense	=	1
 		speed	=	1.75
 		anger	=	1
+		anger_point = 25
+		anger_message = "will not stand for this mockery!!"
 
 		onFinalization(mob/user)
-			passives=list("Xenobiology" = 1)
+			. = ..()
+			user.transUnlocked = 3
+			user.Intimidation = 50
+			user.BioArmorMax = 250
+			user.BioArmor = user.BioArmorMax
 
+		onAnger(mob/user)
+			. = ..()
+			user.GetAndUseSkill(/obj/Skills/AutoHit/Imperial_Wrath, user.AutoHits, TRUE)
+			StunClear(user)
+			user.passive_handler.Increase("TeamHater", 1)
+			if(user.Launched)
+				LaunchEnd(user)
+		
+		onCalm(mob/user)
+			user.passive_handler.Decrease("TeamHater", 1)
 
 	gajalaka
 		name="Gajalaka"

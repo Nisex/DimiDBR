@@ -289,6 +289,10 @@
 				log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 				#endif
 
+				if(party && passive_handler.Get("TeamHater"))
+					if(enemy in party)
+						damage *= 1+passive_handler.Get("TeamHater")
+
 				damage *= damageMultiplier
 		// 				GIANT FORM 				//
 				if(enemy.passive_handler.Get("GiantForm") || enemy.HasLegendaryPower() >= 0.5)

@@ -31,6 +31,7 @@
 mob
 	proc
 		inParty(keyLooking)
+			if(isRace(CHANGELING) && Anger) return null
 			if(party)
 				for(var/mob/Players/p in party.members)
 					if(p.ckey == keyLooking)

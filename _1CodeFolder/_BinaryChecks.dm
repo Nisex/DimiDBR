@@ -961,8 +961,10 @@ mob
 			if(p.Power > Power || p.passive_handler.Get("GodKi") > p.passive_handler.Get("GodKi"))
 				return TRUE
 			return FALSE
-		HasPureDamage()
+		HasPureDamage(changelingIgnore = 0)
 			var/Return=0
+			if(!changelingIgnore&&isRace(CHANGELING)&&Anger)
+				return 0
 			Return+=passive_handler.Get("PureDamage")
 			var/stp=src.SaiyanTransPower()
 			if(stp)
@@ -1064,8 +1066,12 @@ mob
 		HasDuelist()
 			if(passive_handler.Get("Duelist"))
 				return 1
+			if(isRace(CHANGELING)&&Anger)
+				return HasPureDamage(1)
 			return 0
 		GetDuelist()
+			if(isRace(CHANGELING)&&Anger)
+				return HasPureDamage(1)
 			return passive_handler.Get("Duelist")
 		HasVanish()
 			if(passive_handler.Get("Vanishing"))
