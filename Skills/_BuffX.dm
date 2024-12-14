@@ -1811,12 +1811,12 @@ NEW VARIABLES
 							usr << "Your energy is too focused to ignite the Kaioken."
 							return
 					usr << "Use Power Up to increase your Kaioken level."
-					passive_handler.Set("Kaioken", 1)
+					usr.passive_handler.Set("Kaioken", 1)
 					for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC in usr)
 						if(!usr.BuffOn(KC))
 							usr.UseBuff(KC)
 				else
-					passive_handler.Set("Kaioken", 0)
+					usr.passive_handler.Set("Kaioken", 0)
 				usr.Auraz("Remove")
 				src.Trigger(usr)
 		Rekkaken
