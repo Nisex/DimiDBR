@@ -640,7 +640,7 @@ transformation
 			form_base = 'Chilled3.dmi'
 			transformation_message = "cracks their tail, entering their Third Form in a burst of power!"
 
-		final_form //intended to probably be their default for most of wipe, or atleast post-ssj scaling
+		final_form
 			PUSpeedModifier = 1.5
 			intimidation = 3
 			pot_trans = 3
