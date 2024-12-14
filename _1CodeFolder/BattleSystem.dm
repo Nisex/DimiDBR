@@ -78,6 +78,8 @@ mob/proc/Anger(var/Enraged=0)
 		Anger=AngerMax
 		if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Anger"))
 			Anger *= 1+(secretDatum?:getBoon("Anger")/4)
+		
+		race.onAnger(src)
 		if(src.AngerMessage)
 			if(!src.AngerColor)
 				if(!Enraged)OMsg(src, "<font color='red'>[src] [src.AngerMessage]</font color>")

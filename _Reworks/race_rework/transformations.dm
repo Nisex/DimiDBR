@@ -46,12 +46,12 @@ mob/proc/Revert(type)
 transformation
 	var
 		list/passives
-		strength
-		endurance
-		force
-		offense
-		defense
-		speed
+		strength = 1
+		endurance = 1
+		force = 1
+		offense = 1
+		defense = 1
+		speed = 1
 		regeneration
 		anger
 		unlock_potential = -1
@@ -175,14 +175,16 @@ transformation
 			user.transActive++
 			user.passive_handler.increaseList(passives)
 
-			user.StrMultTotal += strength
-			user.EndMultTotal += endurance
-			user.ForMultTotal += force
-			user.SpdMultTotal += speed
-			user.OffMultTotal += offense
-			user.DefMultTotal += defense
+			user.StrMultTotal *= strength
+			user.EndMultTotal *= endurance
+			user.ForMultTotal *= force
+			user.SpdMultTotal *= speed
+			user.OffMultTotal *= offense
+			user.DefMultTotal *= defense
 
-
+			user.BioArmorMax += BioArmorMax
+			if(user.BioArmor > user.BioArmorMax)
+				user.BioArmor = user.BioArmorMax
 
 			user.potential_trans = user.Potential+pot_trans
 			if(form_base)
@@ -223,12 +225,22 @@ transformation
 			user.transActive--
 			user.passive_handler.decreaseList(passives)
 
-			user.StrMultTotal -= strength
-			user.EndMultTotal -= endurance
-			user.ForMultTotal -= force
-			user.SpdMultTotal -= speed
-			user.OffMultTotal -= offense
-			user.DefMultTotal -= defense
+			user.StrMultTotal /= strength
+			user.EndMultTotal /= endurance
+			user.ForMultTotal /= force
+			user.SpdMultTotal /= speed
+			user.OffMultTotal /= offense
+			user.DefMultTotal /= defense
+
+			user.BioArmorMax -= BioArmorMax
+			if(user.BioArmor > user.BioArmorMax)
+				user.BioArmor = user.BioArmorMax
+
+			if(stored_base)
+				user.icon = stored_base
+				user.pixel_x = stored_base_x
+				user.pixel_y = stored_base_y
+				stored_base = null
 
 			user.potential_trans = 0
 
@@ -602,9 +614,15 @@ transformation
 			PUSpeedModifier = 1.5
 			intimidation = 3
 			pot_trans = 1
-			BioArmorMax = 25
-			form_base = "Chilled2.dmi"
-			transformation_message = "You loosen your restrictions, entering your second form!"
+			BioArmorMax = -25
+			endurance = 0.8
+			defense = 0.8
+			offense = 1.25
+			force = 1.5
+			strength = 1.5
+			passives = list("PureDamage" = 2, "Instinct" = 1, "Flicker" = 1, "Godspeed" = 1, "PureReduction" = -3, "MovementMastery" = 2)
+			form_base = 'Chilled2.dmi'
+			transformation_message = "cracks their tail, entering their Second Form in a burst of power!"
 
 
 
@@ -612,24 +630,41 @@ transformation
 			PUSpeedModifier = 1.5
 			intimidation = 3
 			pot_trans = 1
-			BioArmorMax = 50
-			form_base = "Chilled3.dmi"
-			transformation_message = "You shatter your restrictions further, donning your third form..."
+			BioArmorMax = -50
+			endurance = 0.8
+			defense = 0.8
+			offense = 1.25
+			force = 1.5
+			strength = 1.5
+			passives = list("PureDamage" = 3, "Instinct" = 1, "Flicker" = 1, "Godspeed" = 1, "PureReduction" = -3, "MovementMastery" = 2)
+			form_base = 'Chilled3.dmi'
+			transformation_message = "cracks their tail, entering their Third Form in a burst of power!"
 
 		final_form //intended to probably be their default for most of wipe, or atleast post-ssj scaling
 			PUSpeedModifier = 1.5
 			intimidation = 3
 			pot_trans = 3
-			BioArmorMax = 75
-			form_base = "Chilled4.dmi"
-			transformation_message = "You become your true self; holding back no longer."
+			BioArmorMax = -75
+			endurance = 0.8
+			defense = 0.8
+			offense = 1.25
+			force = 1.5
+			strength = 1.5
+			passives = list("PureDamage" = 3, "Instinct" = 1, "Flicker" = 1, "Godspeed" = 1, "PureReduction" = -3,  "CriticalBlock" = -0.25, "BlockChance" = -0.25, "CriticalChance" = 0.25, "CriticalDamage" = 0.25, "MovementMastery" = 2)
+			form_base = 'Chilled4.dmi'
+			transformation_message = "cracks their tail, entering their Final Form in a burst of power!"
 
 		fifth_form // at asc 3 they can choose to gain another form, it does more of the same and jug. There is another option coming for asc 3 later that instead is for cyber changelings
 			PUSpeedModifier = 1.5
 			intimidation = 10
-			passives = list("Juggernaut" = 1)
+			endurance = 0.8
+			defense = 0.8
+			offense = 1.25
+			force = 1.5
+			strength = 1.5
+			passives = list("PureDamage" = 3, "Instinct" = 2, "Flicker" = 1, "Godspeed" = 2, "PureReduction" = -3, "Juggernaut" = 1, "MovementMastery" = 2)
 			pot_trans = 5
-			BioArmorMax = 100
-			transformation_message = "You find a form beyond your true self; becoming an monstrous well of power!"
+			BioArmorMax = -100
+			transformation_message = "cracks their tail, entering their Fifth Form in a burst of destructive power!"
 
 

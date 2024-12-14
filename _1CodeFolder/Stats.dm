@@ -358,7 +358,16 @@ mob/Players/Stat()
 				if(!usr.Target.HasGodKi()&&!usr.Target.passive_handler.Get("Void")&&!usr.Target.HasMechanized()&&usr.Target.SenseUnlocked<7 || usr.Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
 					stat("Direction - [get_dist(usr, usr.Target)] tiles away","[CheckDirection(usr.Target)]")
 					stat("Power:","[Get_Sense_Reading(Target)]")
-					if(Target.VaizardHealth)
+					if(Target.BioArmor)
+						var/displayMarks = ""
+						if(Target.BioArmor >= 100)
+							displayMarks = "???"
+						else if(Target.BioArmor < 99 && Target.BioArmor >= 10)
+							displayMarks = "??"
+						else if(Target.BioArmor < 10)
+							displayMarks = "?"
+						stat("Health:", "[Target.Health]([displayMarks])%")
+					else if(Target.VaizardHealth)
 						stat("Health:", "[Target.Health]([Target.VaizardHealth])%")
 					else
 						stat("Health: ","[Target.Health]%")
@@ -760,7 +769,7 @@ mob/proc/
 						Ratio*=src.BPPoison
 				if(src.Maimed)
 					var/Ignore=src.HasMaimMastery()
-					if(Ignore)
+					if(Ignore || isRace(CHANGELING))
 						Ratio*=1
 					else
 						src.MaimsOutstanding=max(src.Maimed-(0.5*src.GetProsthetics()), 0)
@@ -1029,9 +1038,9 @@ mob/proc/Update_Stat_Labels()
 	if(!src.ha)
 		var/ManaMessage="%"
 		if(round(TotalInjury))
-			src<<output("Health: [round(Health)+round(VaizardHealth)] (Injuries:[round(TotalInjury)]%)", "BarHealth")
+			src<<output("Health: [round(Health)+round(VaizardHealth)+round(BioArmor)] (Injuries:[round(TotalInjury)]%)", "BarHealth")
 		else
-			src<<output("Health: [round(Health)+round(VaizardHealth)]%", "BarHealth")
+			src<<output("Health: [round(Health)+round(VaizardHealth)+round(BioArmor)]%", "BarHealth")
 		if(round(TotalFatigue))
 			src<<output("Energy: [round((Energy/EnergyMax)*100)] (Fatigue:[round(TotalFatigue)]%)","BarEnergy")
 		else
@@ -1289,7 +1298,7 @@ mob/proc/Get_Scouter_Reading(mob/B)
 					Ratio*=B.BPPoison
 			if(B.Maimed)
 				var/Ignore=B.HasMaimMastery()
-				if(Ignore)
+				if(Ignore || isRace(CHANGELING))
 					Ratio*=1
 				else
 					B.MaimsOutstanding=max(B.Maimed-(0.5*B.GetProsthetics()), 0)

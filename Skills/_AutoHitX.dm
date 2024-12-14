@@ -2280,6 +2280,22 @@ obj
 					for(var/obj/Skills/AutoHit/Mugetsu/MGT in usr)
 						del MGT
 
+			Imperial_Wrath
+				Area="Circle"
+				Distance=10
+				AdaptRate = 1
+				GuardBreak=1
+				DamageMult=1
+				Knockback=20
+				Cooldown=150
+				Shockwaves=3
+				Shockwave=4
+				SpecialAttack=1
+				Stunner=3
+				HitSparkIcon='BLANK.dmi'
+				HitSparkX=0
+				HitSparkY=0
+				EnergyCost=5
 ///Special
 
 			Kiai
@@ -6670,10 +6686,14 @@ obj
 							else
 								FinalDmg/=glob.AUTOHIT_WHIFF_DAMAGE
 
-				if(m in src.Owner.party)
+				if(src.Owner.inParty(m.ckey))
 					FinalDmg *= glob.PARTY_DAMAGE_NERF
 					if(src.Owner.passive_handler.Get("TeamFighter"))
 						FinalDmg /= 1+src.Owner.passive_handler.Get("TeamFighter")
+
+				if(src.Owner.party && src.Owner.passive_handler.Get("TeamHater"))
+					if(m in src.Owner.party.members)
+						FinalDmg *= 1+src.Owner.passive_handler.Get("TeamHater")
 
 				if(!src.CanBeBlocked&&!src.CanBeDodged)
 					FinalDmg *= glob.AUTOHIT_GLOBAL_DAMAGE

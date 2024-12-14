@@ -1612,20 +1612,17 @@ NEW VARIABLES
 				. = ..()
 				adjust(User)
 
-		OneHundredPercentPower ///splitting this up from FifthForm, asc 2 is this and asc 3 will be fifth form
+		OneHundredPercentPower
 			BuffName="One Hundred Percent Power"
 			UnrestrictedBuff=1
 			NeedsTrans=3
-			StrMult=1.5
-			ForMult=1.5
+			EndMult = 1.5
+			SpdMult = 1.5
 			AuraLock=1
-			passives = list("Flicker" = 2, "Pursuer" = 1, "AllOutPU" = 1)
-			Flicker=2
-			Pursuer=1
+			passives = list("Flicker" = 2, "Flow" = 2, "MovementMastery" = 1, "Pursuer" = 1, "AllOutPU" = 1, "PureReduction" = 3, "PureDamage" = -3, "FatigueLeak" = 2)
 			Cooldown=600
 			KKTWave=3
 			KKTWaveSize=2
-			AllOutPU=1
 			ActiveMessage="erupts with world-shattering power!"
 			OffMessage="releases their awesome power..."
 		FifthForm
