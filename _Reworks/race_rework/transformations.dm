@@ -656,7 +656,7 @@ transformation
 			form_base = 'Chilled4.dmi'
 			transformation_message = "usrName cracks their tail, entering their Final Form in a burst of power!"
 
-		fifth_form // at asc 3 they can choose to gain another form, it does more of the same and jug. There is another option coming for asc 3 later that instead is for cyber changelings
+		fifth_form
 			PUSpeedModifier = 1.5
 			intimidation = 10
 			endurance = 0.8
