@@ -920,7 +920,7 @@ mob
 			src.DefianceCounter=0
 			src.Anger=0
 			race.onCalm(src)
-			src.AngerCD=30
+			src.AngerCD=5
 		AddHealthCut(var/Val)
 			src.HealthCut+=Val
 			if(src.HealthCut>=1)
