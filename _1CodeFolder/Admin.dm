@@ -996,33 +996,48 @@ mob/Admin2/verb
 
 
 	Edit(atom/A in world)
-		set category="Admin"
+		set category = "Admin"
+
 		if(A.type in typesof(/obj/Items))
-			if(A?:Augmented)
+			if (A?:Augmented)
 				A?:EditAll(src)
-		if(A.type in typesof(/obj/Skills))
-			if(length(A?:possible_skills) > 1)
+		else if (A.type in typesof(/obj/Skills))
+			if (length(A?:possible_skills) > 1)
 				A?:EditAll(src)
-		if(istype(A, /obj/AI_Spot))
+		else if (istype(A, /obj/AI_Spot))
 			A?:EditAI(src)
 
-		var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
-		var/list/B = A.vars.Copy()
-		Edit+="[A]<br>[A.type]"
-		Edit+="<table width=10%>"
-		if(usr.Admin<=3)
-			B.Remove("Package","bound_x","bound_y","step_x","step_y","Admin","Profile", "GimmickDesc", "NoVoid", "BaseProfile", "Form1Profile", "Form2Profile", "Form3Profile", "Form4Profile", "Form5Profile", "passive_handler", "race", "ai_owner")
-		else
-			B.Remove("Package","bound_x","bound_y","step_x","step_y","Admin","Profile", "GimmickDesc", "NoVoid", "BaseProfile", "Form1Profile", "Form2Profile", "Form3Profile", "Form4Profile", "Form5Profile", "ai_owner")
-		for(var/C as anything in B)
-			Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"
-			Edit+=C
-			if(isdatum(A.vars[C]))
-				Edit+="<td><a href=byond://?src=\ref[A.vars[C]];action=edit;var=[C]>[C]</td></tr>"
+		var/Edit = "<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
+		Edit += "[A]<br>[A.type]"
+		Edit += "<table width=10%>"
+
+		var/list/B = A.vars
+		var/list/exclude = list("Package", "bound_x", "bound_y", "step_x", "step_y", "Admin", "Profile", "GimmickDesc", 
+								"NoVoid", "BaseProfile", "Form1Profile", "Form2Profile", "Form3Profile", "Form4Profile", 
+								"Form5Profile", "ai_owner")
+
+		if (usr.Admin <= 3)
+			exclude += list("passive_handler", "race")
+
+		for (var/C in B)
+			if (C in exclude)
+				continue
+
+			var/value = Value(A.vars[C])
+			var/row = "<tr><td><a href='byond://?src=\ref[A];action=edit;var=[C]'>[C]</a></td>"
+			if (isdatum(A.vars[C]))
+				row += "<td><a href='byond://?src=\ref[A.vars[C]];action=edit;var=[C]'>[value]</a></td></tr>"
 			else
-				Edit+="<td>[Value(A.vars[C])]</td></tr>"
+				row += "<td>[value]</td></tr>"
+
+			Edit += row
+
 			CHECK_TICK
-		usr<<browse(Edit,"window=[A];size=450x600")
+	
+		Edit += "</table>"
+
+		usr << browse(Edit, "window=[A];size=450x600")
+
 
 /*
 TO BE CORRECTED
@@ -1961,124 +1976,90 @@ mob/Admin4/verb
 		usr << ftp("Saves/Players/")
 
 datum/Topic(A, B[])
-	if(B["action"]=="edit")
-
-
-		if(!usr.Admin&&!usr.Mapper)
-			if(!glob.TESTER_MODE)
-				return
-
-		var/mob/Admin2/p = usr
-		p.Edit(src)
-		var/variable=B["var"]
-		var/oldvariable=vars[variable]
-		var/class
-		if(usr.Mapper && !usr.Admin)
-			class=input("[variable]","") as null|anything in list("Number","Text","File","Null")
-		else if(usr.Admin || glob.TESTER_MODE)
-			class=input("[variable]","") as null|anything in list("Number","Text","File","Type","Reference","Null","List","New Matrix","Color Matrix")
-		if(!class) return
-		if(variable=="Admin")
+	if (B["action"] == "edit")
+		if (!usr.Admin && !usr.Mapper && !glob.TESTER_MODE)
 			return
-		switch(class)
-			if("Null") vars[variable]=null
-			if("Text")
-				if(isnum(vars[variable]))
-					var/confirm=input("This variable is currently a number and probably shouldn't be text. Continue anyways?") in list("No","Yes")
-					if(confirm=="No")
-						return
-				vars[variable]=input("","",vars[variable]) as message
-			if("Number")
-				vars[variable]=input("","",vars[variable]) as num
-			if("File") vars[variable]=input("","",vars[variable]) as file
-			if("Type")
-				vars[variable] = input("Enter type:","Type",vars[variable]) in typesof(/atom)
-			if("Reference")
-				vars[variable] = input("Select reference:","Reference", vars[variable]) as mob|obj|turf|area in world
-			if("List")
-				var/list/l = vars[variable]
-				if(!istype(l, /list))
-					switch(input("Would you like to set [variable] as a list?") in list("Yes","No"))
-						if("Yes")
-							l = new
-							vars[variable]=l
-						if("No") return
-				usr.list_view(l,"[variable]")
-			if("New Matrix")
-				switch(input("Are you sure you would like to set [variable] as a new matrix? a - f components") in list("Yes","No"))
-					if("Yes")
-						var/matrix/m = matrix(
-							input("a") as num,\
-							input("b") as num,\
-							input("c") as num,\
-							input("d") as num,\
-							input("e") as num,\
-							input("f") as num\
-						)
-						vars[variable] = m
 
-			if("Color Matrix")
-				switch(input("Are you sure you would like to set [variable] as a new color matrix?") in list("RGB-Only","RGBA","Cancel"))
-					if("RGB-Only")
-						var/list/l = list(
-							input("rr") as num,\
-							input("rg") as num,\
-							input("rb") as num,\
-							input("gr") as num,\
-							input("gg") as num,\
-							input("gb") as num,\
-							input("br") as num,\
-							input("bg") as num,\
-							input("bb") as num,\
-							input("cr") as num,\
-							input("cg") as num,\
-							input("cb") as num\
-						)
-						vars[variable]=l
-					if("RGBA")
-						var/list/l = list(
-							input("rr") as num,\
-							input("rg") as num,\
-							input("rb") as num,\
-							input("ra") as num,\
-							input("gr") as num,\
-							input("gg") as num,\
-							input("gb") as num,\
-							input("ga") as num,\
-							input("br") as num,\
-							input("bg") as num,\
-							input("bb") as num,\
-							input("ba") as num,\
-							input("ar") as num,\
-							input("ag") as num,\
-							input("ab") as num,\
-							input("aa") as num,\
-							input("cr") as num,\
-							input("cg") as num,\
-							input("cb") as num,\
-							input("ca") as num\
-						)
-						vars[variable]=l
+		var/variable = B["var"]
+		if (!variable || variable == "Admin") return
+		
+		var/class
+		if (usr.Mapper && !usr.Admin)
+			class = input("[variable]: Select type", "") as null|anything in list("Number", "Text", "File", "Null")
+		else
+			class = input("[variable]: Select type", "") as null|anything in list(
+				"Number", "Text", "File", "Type", "Reference", 
+				"Null", "List", "New Matrix", "Color Matrix", "New Type"
+			)
+		if (!class) return
 
-		if(class!="View List")
-
-			Log("Admin","[ExtractInfo(usr)] EDITED [variable] to [vars[variable]] on [ExtractInfo(src)] from [oldvariable].")
+		var/old_value = vars[variable]
+		if (class == "Null")
+			vars[variable] = null
+		else if (class == "Text")
+			if (isnum(vars[variable]))
+				var/confirm = input("This variable is currently a number. Continue?") in list("No", "Yes")
+				if (confirm == "No") return
+			vars[variable] = input("Enter text", "", vars[variable]) as text
+		else if (class == "Number")
+			vars[variable] = input("Enter number", "", vars[variable]) as num
+		else if (class == "File")
+			vars[variable] = input("Select file", "", vars[variable]) as file
+		else if (class == "Type")
+			vars[variable] = input("Enter type", "Type", vars[variable]) in typesof(/atom)
+		else if (class == "Reference")
+			vars[variable] = input("Select reference", "Reference", vars[variable]) as mob|obj|turf|area in world
+		else if (class == "List")
+			var/list/l = vars[variable]
+			if (!istype(l, /list))
+				if (input("Convert [variable] to a list?") in list("No", "Yes") == "Yes")
+					l = new
+					vars[variable] = l
+				else return
+			usr.list_view(l, "[variable]")
+		else if (class == "New Matrix")
+			if (input("Set [variable] as a new matrix? (a-f components)") in list("Yes", "No") == "Yes")
+				vars[variable] = matrix(
+					input("a") as num, input("b") as num, input("c") as num,
+					input("d") as num, input("e") as num, input("f") as num
+				)
+		else if (class == "Color Matrix")
+			var/mode = input("Set [variable] as a color matrix?") in list("RGB-Only", "RGBA", "Cancel")
+			if (mode == "RGB-Only")
+				vars[variable] = list(
+					input("rr") as num, input("rg") as num, input("rb") as num,
+					input("gr") as num, input("gg") as num, input("gb") as num,
+					input("br") as num, input("bg") as num, input("bb") as num,
+					input("cr") as num, input("cg") as num, input("cb") as num
+				)
+			else if (mode == "RGBA")
+				vars[variable] = list(
+					input("rr") as num, input("rg") as num, input("rb") as num, input("ra") as num,
+					input("gr") as num, input("gg") as num, input("gb") as num, input("ga") as num,
+					input("br") as num, input("bg") as num, input("bb") as num, input("ba") as num,
+					input("ar") as num, input("ag") as num, input("ab") as num, input("aa") as num,
+					input("cr") as num, input("cg") as num, input("cb") as num, input("ca") as num
+				)
+		else if (class == "New Type")
+			vars[variable] = new (input("Enter type:", "Type", vars[variable]) in typesof(/datum))
+		
+		if (vars[variable] != old_value)
+			Log("Admin", "[ExtractInfo(usr)] EDITED [variable] to [vars[variable]] on [ExtractInfo(src)] (was [old_value]).")
 		usr:Edit(src)
-	if(B["action"]=="companionskill")
-		if(usr.Admin<1) return
-		var/variable=B["var"]
-		switch(input("Give [variable]?") in list("Yes","No"))
-			if("No") return
-			if("Yes")
-				if(istype(src, /obj/Skills/Companion))
-					var/obj/Skills/Companion/c = src
-					c.companion_techniques += "[variable]"
-					Log("Admin","[ExtractInfo(usr)] created a [variable], and gave to/placed under/near [ExtractInfo(src)].")
 
+	else if (B["action"] == "companionskill")
+		if (usr.Admin < 1) return
+		var/variable = B["var"]
+		if (input("Give [variable]?") in list("Yes", "No") == "Yes" && istype(src, /obj/Skills/Companion))
+			var/obj/Skills/Companion/c = src
+			c.companion_techniques += "[variable]"
+			Log("Admin", "[ExtractInfo(usr)] created a [variable] and assigned it to [ExtractInfo(src)].")
+	
 	.=..()
 
 
-atom/Topic(A,B[])
+
+atom/Topic(A,B[])/*
 	if(B["action"]=="edit")
 		if(!usr.Admin&&!usr.Mapper)
 			if(!glob.TESTER_MODE)
@@ -2178,7 +2159,7 @@ atom/Topic(A,B[])
 		if(class!="View List")
 
 			Log("Admin","[ExtractInfo(usr)] EDITED [variable] to [vars[variable]] on [ExtractInfo(src)] from [oldvariable].")
-		usr:Edit(src)
+		usr:Edit(src)*/
 	if(B["action"]=="companionskill")
 		if(usr.Admin<1) return
 		var/variable=B["var"]
