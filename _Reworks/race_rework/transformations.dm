@@ -217,7 +217,8 @@ transformation
 			user.Auraz("Add")
 
 			if(transformation_message)
-				user << transformation_message
+				var/text=replacetext(transformation_message, "usrName", "[user]")
+				user << text
 
 		revert(mob/user)
 			if(!is_active || !user.CanRevert()) return
@@ -270,7 +271,8 @@ transformation
 			user.AppearanceOff()
 			user.AppearanceOn()
 			if(detrans_message)
-				user << detrans_message
+				var/text=replacetext(detrans_message, "usrName", "[usr]")
+				user << text
 
 
 	saiyan
@@ -622,7 +624,7 @@ transformation
 			strength = 1.5
 			passives = list("PureDamage" = 2, "Instinct" = 1, "Flicker" = 1, "Godspeed" = 1, "PureReduction" = -3, "MovementMastery" = 2)
 			form_base = 'Chilled2.dmi'
-			transformation_message = "cracks their tail, entering their Second Form in a burst of power!"
+			transformation_message = "usrName cracks their tail, entering their Second Form in a burst of power!"
 
 
 
@@ -638,7 +640,7 @@ transformation
 			strength = 1.5
 			passives = list("PureDamage" = 3, "Instinct" = 1, "Flicker" = 1, "Godspeed" = 1, "PureReduction" = -3, "MovementMastery" = 2)
 			form_base = 'Chilled3.dmi'
-			transformation_message = "cracks their tail, entering their Third Form in a burst of power!"
+			transformation_message = "usrName cracks their tail, entering their Third Form in a burst of power!"
 
 		final_form
 			PUSpeedModifier = 1.5
@@ -652,7 +654,7 @@ transformation
 			strength = 1.5
 			passives = list("PureDamage" = 3, "Instinct" = 1, "Flicker" = 1, "Godspeed" = 1, "PureReduction" = -3,  "CriticalBlock" = -0.25, "BlockChance" = -0.25, "CriticalChance" = 0.25, "CriticalDamage" = 0.25, "MovementMastery" = 2)
 			form_base = 'Chilled4.dmi'
-			transformation_message = "cracks their tail, entering their Final Form in a burst of power!"
+			transformation_message = "usrName cracks their tail, entering their Final Form in a burst of power!"
 
 		fifth_form // at asc 3 they can choose to gain another form, it does more of the same and jug. There is another option coming for asc 3 later that instead is for cyber changelings
 			PUSpeedModifier = 1.5
@@ -665,6 +667,6 @@ transformation
 			passives = list("PureDamage" = 3, "Instinct" = 2, "Flicker" = 1, "Godspeed" = 2, "PureReduction" = -3, "Juggernaut" = 1, "MovementMastery" = 2)
 			pot_trans = 5
 			BioArmorMax = -100
-			transformation_message = "cracks their tail, entering their Fifth Form in a burst of destructive power!"
+			transformation_message = "usrName cracks their tail, entering their Fifth Form in a burst of destructive power!"
 
 
