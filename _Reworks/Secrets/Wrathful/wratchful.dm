@@ -26,7 +26,7 @@ scaling with potential as well
 	AutoAnger = 1
 	adjust(mob/p)
 		if(altered) return
-		passives = list("GiantForm" = 1, "AutoAnger" = 1, "Hardening" = round(p.Potential/20,1), \
+		passives = list("GiantForm" = 1, "AutoAnger" = 1, "Hardening" = round(p.Potential/35,1), \
 						"LikeWater" = 2 + round(p.Potential/10,1), \
 						"Meaty Paws" = round(p.Potential/20,1))
 		switch(p.oozaru_type)
@@ -66,7 +66,7 @@ scaling with potential as well
 	BuffName = "Wrathful"
 	adjust(mob/p)
 		if(altered) return
-		passives = list("GiantForm" = 1, "AutoAnger" = 1, "Hardening" = round(p.Potential/15,1), "DemonicDurability" = round(p.Potential/20,1), \
+		passives = list("GiantForm" = 1, "AutoAnger" = 1, "Hardening" = round(p.Potential/25,1), "DemonicDurability" = round(p.Potential/30,1), \
 						"LikeWater" = 2 + round(p.Potential/10,1), \
 						"Meaty Paws" = round(p.Potential/20,1))
 		switch(p.oozaru_type)
