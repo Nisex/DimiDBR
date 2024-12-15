@@ -32,7 +32,7 @@ var/list/heavenly_restrictions = list("Staff" = 1, "Armor" = 2, "Sword" = 1, "He
 "Science" = 4, "Queues" = 3, "Autohits" = 3, "Projectiles" = 3, "Grapples" = 2, "All Skills" = 10, "Force" = 3, "Defense" = 3, "Endurance" = 3, \
 "Cybernetics" = 2, "Strength" = 3, "Speed" = 3, "Offense" = 3, "Normal Attack" = 6, "Grab" = 2, "Zanzoken" = 3, "Senses" = 4, "Anger" = 4, "Power Control" = 3, "Special Slotter" = 4)
 
-var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers", "Stunners", "Heavy Strike", "Dragon Dash", "Senses", "Throw", "Strength", "Force", "Endurance", "Offense", "Defense", "Speed", "Anger", "Power Control", "Power")
+var/list/heavenly_improvements = list("Dragon Clash", "Grab", "Reverse Dash", "Launchers", "Stunners", "Heavy Strike", "Dragon Dash", "Senses", "Throw", "Strength", "Force", "Endurance", "Offense", "Defense", "Speed", "Anger", "Power Control", "Power")
 
 /SecretInfomation/HeavenlyRestriction/proc/modifyRestrictionValues(mob/p, restriction)
 	switch(restriction)
@@ -81,7 +81,7 @@ var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers
 /SecretInfomation/HeavenlyRestriction/proc/pickImprove(mob/p, currentRestricitonChoice)
 	var/atLimit = 1
 	var/selection
-	var/list/restrictions = getRestrictions() + currentRestricitonChoice
+	var/list/restrictions = getRestrictions() + currentRestricitonChoice + getBoons()
 	while(atLimit)
 		selection = input(p, "Pick an improvement") in heavenly_improvements - restrictions
 		if(!(countImprovements(p, selection) >= 3))
@@ -139,6 +139,11 @@ var/list/heavenly_improvements = list("Dragon Clash", "Reverse Dash", "Launchers
 /SecretInfomation/HeavenlyRestriction/proc/getRestrictions()
 	. = list()
 	for(var/index in secretVariable["Restrictions"])
+		. += index
+
+/SecretInfomation/HeavenlyRestriction/proc/getBoons()
+	. = list()
+	for(var/index in secretVariable["Improvements"])
 		. += index
 
 /SecretInfomation/HeavenlyRestriction/proc/hasImprovement(improvement)
