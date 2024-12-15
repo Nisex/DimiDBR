@@ -80,8 +80,8 @@
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
 
-	if(HasPassive("Powerhouse", 1, 0, 0 , 1, 1))
-		var/boon = round(src.Energy/100 * GetPassive("Powerhouse"),0.1)
+	if(passive_handler.Get("Powerhouse"))
+		var/boon = round(src.Energy/100 * passive_handler.Get("Powerhouse"),0.1)
 		trueMult += boon
 
 
