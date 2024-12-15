@@ -1068,53 +1068,17 @@ mob
 				src.RecovCut=1
 		// forgive the sin below, im not replacing basestat() in all the codebase
 		BaseStr()
-			var/mod = 1
-			if(Secret == "Heavenly Restriction")
-				if(secretDatum?:hasImprovement("Strength"))
-					mod = round(clamp(1 + secretDatum?:getBoon(src, "Strength") / 5, 1, 8), 0.1)
-				if(secretDatum?:hasRestriction("Strength"))
-					return 1
-			return ((src.StrMod+src.StrAscension+(src.EnhancedStrength*0.2)) * mod)*StrChaos
+			return ((src.StrMod+src.StrAscension+(src.EnhancedStrength*0.2)))*StrChaos
 		BaseFor()
-			var/mod = 1
-			if(Secret == "Heavenly Restriction")
-				if(secretDatum?:hasImprovement("Force"))
-					mod = round(clamp(1 + secretDatum?:getBoon(src, "Force") / 5, 1, 8), 0.1)
-				if(secretDatum?:hasRestriction("Force"))
-					return 1
-			return ((src.ForMod+src.ForAscension+(src.EnhancedForce*0.2)) * mod)*ForChaos
+			return ((src.ForMod+src.ForAscension+(src.EnhancedForce*0.2)))*ForChaos
 		BaseEnd()
-			var/mod = 1
-			if(Secret == "Heavenly Restriction")
-				if(secretDatum?:hasImprovement("Endurance"))
-					mod = round(clamp(1 + secretDatum?:getBoon(src, "Endurance") / 5, 1, 8), 0.1)
-				if(secretDatum?:hasRestriction("Endurance"))
-					return 1
-			return ((src.EndMod+src.EndAscension+(src.EnhancedEndurance*0.2)) * mod)*EndChaos
+			return ((src.EndMod+src.EndAscension+(src.EnhancedEndurance*0.2)))*EndChaos
 		BaseSpd()
-			var/mod = 1
-			if(Secret == "Heavenly Restriction")
-				if(secretDatum?:hasImprovement("Speed"))
-					mod = round(clamp(1 + secretDatum?:getBoon(src, "Speed") / 5, 1, 8), 0.1)
-				if(secretDatum?:hasRestriction("Speed"))
-					return 1
-			return ((src.SpdMod+src.SpdAscension+(src.EnhancedSpeed*0.2)) * mod)*SpdChaos
+			return ((src.SpdMod+src.SpdAscension+(src.EnhancedSpeed*0.2)))*SpdChaos
 		BaseOff()
-			var/mod = 1
-			if(Secret == "Heavenly Restriction")
-				if(secretDatum?:hasImprovement("Offense"))
-					mod = round(clamp(1 + secretDatum?:getBoon(src, "Offense") / 5, 1, 8), 0.1)
-				if(secretDatum?:hasRestriction("Offense"))
-					return 1
-			return ((src.OffMod+src.OffAscension+(src.EnhancedAggression*0.2)) * mod)*OffChaos
+			return ((src.OffMod+src.OffAscension+(src.EnhancedAggression*0.2)))*OffChaos
 		BaseDef()
-			var/mod = 1
-			if(Secret == "Heavenly Restriction")
-				if(secretDatum?:hasImprovement("Defense"))
-					mod = round(clamp(1 + secretDatum?:getBoon(src, "Defense") / 5, 1, 8), 0.1)
-				if(secretDatum?:hasRestriction("Defense"))
-					return 1
-			return ((src.DefMod+src.DefAscension+(src.EnhancedReflexes*0.2)) * mod)*DefChaos
+			return ((src.DefMod+src.DefAscension+(src.EnhancedReflexes*0.2)))*DefChaos
 
 		BaseRecov()
 			return (src.RecovMod+src.RecovAscension)*RecovChaos
@@ -1233,6 +1197,9 @@ mob
 			// get 25% bonus to strength for each hell power
 			var/Mod=1
 			var/strMult = StrMultTotal
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasImprovement("Strength"))
+					strMult += round(clamp(1 + secretDatum?:getBoon(src, "Strength") / 5, 1, 8), 0.1)
 			if(passive_handler.Get("KillerInstinct") && Health <= 50)
 				strMult += GetKillerInstinct()
 			Mod+=(strMult-1)
@@ -1330,6 +1297,9 @@ mob
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)
 						Str+=(src.Target.GetMAEnd()*0.5*src.AdaptationCounter)
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasRestriction("Strength") && Str > 1)
+					Str = 1
 			if(Str<0.1)
 				Str=0.1
 			return Str
@@ -1360,6 +1330,9 @@ mob
 			var/forMult = ForMultTotal
 			if(passive_handler.Get("KillerInstinct") && Health <= 75)
 				forMult += GetKillerInstinct()
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasImprovement("Force"))
+					forMult += round(clamp(1 + secretDatum?:getBoon(src, "Force") / 5, 1, 8), 0.1)
 			Mod+=(forMult-1)
 			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
@@ -1441,6 +1414,9 @@ mob
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)
 						For+=(src.Target.GetMAEnd()*0.5*src.AdaptationCounter)
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasRestriction("Force") && For > 1)
+					For = 1
 			if(For<0.1)
 				For=0.1
 			return For
@@ -1482,6 +1458,9 @@ mob
 					Mod+=(0.05 * AscensionsAcquired)
 			if(src.EndStolen)
 				Mod+=src.EndStolen*0.5
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasImprovement("Endurance"))
+					Mod += round(clamp(1 + secretDatum?:getBoon(src, "Endurance") / 5, 1, 8), 0.1)
 			var/BM=src.HasBuffMastery()
 			if(BM)
 				if(Mod<=glob.BUFF_MASTERY_LOWTHRESHOLD)
@@ -1534,6 +1513,9 @@ mob
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)
 						End+=((src.Target.GetMAStr()+src.Target.GetMAFor())*0.5*src.AdaptationCounter)
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasRestriction("Endurance") && End > 1)
+					End = 1
 			if(End<0.1)
 				End=0.1
 			return End
@@ -1557,7 +1539,9 @@ mob
 				Mod+=1
 			if(Saga&&src.Saga=="Eight Gates")
 				Mod+=0.05*GatesActive
-
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasImprovement("Speed"))
+					Mod += round(clamp(1 + secretDatum?:getBoon(src, "Speed") / 5, 1, 8), 0.1)
 			if(src.CheckSlotless("What Must Be Done"))
 				if(SlotlessBuffs["What Must Be Done"].Password)
 					Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
@@ -1632,6 +1616,9 @@ mob
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)
 						Spd+=(src.Target.GetMASpd()*0.5*src.AdaptationCounter)
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasRestriction("Speed") && Speed > 1)
+					Speed = 1
 			if(Spd<0.1)
 				Spd=0.1
 			return Spd
@@ -1649,6 +1636,9 @@ mob
 			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasImprovement("Offense"))
+					Mod += round(clamp(1 + secretDatum?:getBoon(src, "Offense") / 5, 1, 8), 0.1)
 			if(src.OffStolen)
 				Mod+=src.OffStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1707,6 +1697,9 @@ mob
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)
 						Off+=(src.Target.GetMADef()*0.5*src.AdaptationCounter)
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasRestriction("Offense") && Off > 1)
+					Off = 1
 			if(Off<0.1)
 				Off=0.1
 			return Off
@@ -1725,6 +1718,9 @@ mob
 			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
 			// 		Mod+=(src.AscensionsAcquired/20)
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasImprovement("Defense"))
+					Mod += round(clamp(1 + secretDatum?:getBoon(src, "Defense") / 5, 1, 8), 0.1)
 			if(src.DefStolen)
 				Mod+=src.DefStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1772,6 +1768,9 @@ mob
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)
 						Def+=(src.Target.GetMAOff()*0.5*src.AdaptationCounter)
+			if(Secret == "Heavenly Restriction")
+				if(secretDatum?:hasRestriction("Defense") && Def > 1)
+					Def = 1
 			if(Def<0.1)
 				Def=0.1
 			return Def
