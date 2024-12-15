@@ -13,7 +13,6 @@ obj
 						SpdMult = 1 + (boon/2)
 						TimerLimit = boon
 					Trigger(mob/User, Override = FALSE)
-						world << "test"
 						if(!User.BuffOn(src))
 							adjust(User)
 						..()
