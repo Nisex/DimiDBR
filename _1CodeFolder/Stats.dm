@@ -1122,8 +1122,17 @@ mob/proc/Update_Stat_Labels()
 			if(src.StyleBuff)
 				winshow(src, "TensionLabel",1)
 				winshow(src, "TensionBar",1)
-				winset(src, "TensionBar", "value=[src.Tension]")
-				if(src.Tension>=100)
+
+				var/maxTension = 100
+				if(passive_handler.Get("Conductor"))
+					maxTension = max(glob.MIN_TENSION, maxTension - passive_handler.Get("Conductor"))
+					winset(src, "TensionBar", "value=[(100-maxTension) + src.Tension]")
+				else
+					winset(src, "TensionBar", "value=[src.Tension]")
+
+
+
+				if(src.Tension>=maxTension)
 					winset(src, "TensionBar", "bar-color='#F00'")
 					winset(src, "TensionLabel", "text-color='#F00'")
 					src << output("FINISHER!!!", "TensionLabel")

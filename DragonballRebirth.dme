@@ -538,6 +538,7 @@
 #include "Skills\_StanceX.dm"
 #include "Skills\_TeleportX.dm"
 #include "Skills\_UtilityX.dm"
+#include "Skills\sorted\newT3s\samsara.dm"
 #include "UpdateNotes\update.dm"
 // END_INCLUDE
 #define floor(x) round(x)

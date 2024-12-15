@@ -27,7 +27,7 @@ scaling with potential as well
 	adjust(mob/p)
 		if(altered) return
 		passives = list("GiantForm" = 1, "AutoAnger" = 1, "Hardening" = round(p.Potential/20,1), \
-						"Flow" = 1 + round(p.Potential/20,1), "Instinct" = 1 + round(p.Potential/20,1), "LikeWater" = 2 + round(p.Potential/10,1), \
+						"LikeWater" = 2 + round(p.Potential/10,1), \
 						"Meaty Paws" = round(p.Potential/20,1))
 		switch(p.oozaru_type)
 			if("Wrathful")
@@ -67,7 +67,7 @@ scaling with potential as well
 	adjust(mob/p)
 		if(altered) return
 		passives = list("GiantForm" = 1, "AutoAnger" = 1, "Hardening" = round(p.Potential/15,1), "DemonicDurability" = round(p.Potential/20,1), \
-						"Flow" = 1 + round(p.Potential/20,1), "Instinct" = 1 + round(p.Potential/20,1), "LikeWater" = 2 + round(p.Potential/10,1), \
+						"LikeWater" = 2 + round(p.Potential/10,1), \
 						"Meaty Paws" = round(p.Potential/20,1))
 		switch(p.oozaru_type)
 			if("Wrathful")
@@ -106,7 +106,7 @@ scaling with potential as well
 	adjust(mob/p)
 		if(altered) return
 		passives = list("GiantForm" = 1, "AutoAnger" = 1, "Hardening" = round(p.Potential/10,1), "DemonicDurability" = round(p.Potential/15,1), "AngerAdaptiveForce" = round(p.Potential/100), \
-						"Powerhouse" = 1)
+						"Powerhouse" = 1 + (p.Potential/75))
 		EndMult = 1 + (p.Potential/75)
 		StrMult = 1 + (p.Potential/75)
 		ForMult = 1 + (p.Potential/75)
@@ -132,7 +132,7 @@ scaling with potential as well
 	adjust(mob/p)
 		if(altered) return
 		passives = list("GiantForm" = 1, "AutoAnger" = 1, "Hardening" = round(p.Potential/5,1), "DemonicDurability" = round(p.Potential/10,1), "AngerAdaptiveForce" = round(p.Potential/100), \
-						"Powerhouse" = 2)
+						"Powerhouse" = 2 + (p.Potential/25))
 		EndMult = 1 + (p.Potential/50)
 		StrMult = 1 + (p.Potential/50)
 		ForMult = 1 + (p.Potential/50)

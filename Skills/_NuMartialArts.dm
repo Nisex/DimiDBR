@@ -266,8 +266,20 @@ obj
 							src.Trigger(usr)
 						
 					Heavenly_Demon_T3
-						name = "Heavenly_Demons_Chaotic_Way_of_Shattered_Realms"
+						name = "Heavenly Demon's Chaotic Way of Shattered Realms"
 						StyleActive = "Heavenly Demon's Chaotic Way of Shattered Realms"
+						SignatureTechnique=3
+						Copyable=0
+						passives = list("Conductor" = 90, "Antsy" = 10, "CounterMaster" = 5, "SwordPunching" = 1, "NeedsSword" = 0, "NoSword" = 1)
+						NeedsSword=0
+						NoSword=1
+						SwordPunching=1
+						StyleStr=1
+						StyleEnd=1
+						StyleOff=1
+						StyleDef=1
+						StyleFor=1
+						Finisher="/obj/Skills/Queue/Finisher/Cycle_of_Samsara"
 						
 
 					Iron_Fist_Style

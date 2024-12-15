@@ -199,12 +199,12 @@ mob
 
 				if(src.StyleBuff) // devious movements enabled
 					var/maxTension = 100
-					if(HasPassive("Conductor"))
-						maxTension = max(glob.MIN_TENSION, maxTension - GetPassive("Conductor"))
+					if(passive_handler.Get("Conductor"))
+						maxTension = max(glob.MIN_TENSION, maxTension - passive_handler.Get("Conductor"))
 					if(src.Tension<maxTension && !src.HasTensionLock())
 						var/tensionGain = 0
-						if(HasPassive("Antsy"))
-							tensionGain = GetPassive("Antsy")/10
+						if(passive_handler.Get("Antsy"))
+							tensionGain = passive_handler.Get("Antsy")/10
 						src.Tension+=(val) * (glob.TENSION_MULTIPLIER + tensionGain)
 
 				if(defender.StyleBuff&&defender.StyleBuff)

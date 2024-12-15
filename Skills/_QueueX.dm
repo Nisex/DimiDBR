@@ -261,7 +261,33 @@ obj
 					HitMessage="Summons the boundless might of their martial arts, entering into a breakthrough by pure technique alone. Roars that turn into unstoppable torrent of energy erupt from their body while it soars through the battlefield, unleashing a symphony of cataclysmic destruction paired with ethereal grace. They have unlocked the ultimate testament to the Heavenly Dragon Stance, a dance of power and honor that surpasses the mortal plane, from the divine heights of the quasi-god realm, they descend as the Heavenly Dragon. Harnessing the boundless force of the Nine converging Realms, they unleash a relentless storm of peerless strength, devastating the battle field."
 
 				
-
+				Cycle_of_Samsara
+					adjust(mob/p)
+						switch(Mastery)
+							if(0)
+								BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/Naraka"
+							if(1)
+								BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/Preta"
+							if(2)
+								BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/Tiryag"
+							if(3)
+								BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/Asura"
+							if(4)
+								BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/Mansuya"
+							if(5)
+								BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/Deva"
+							if(6)
+								BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/Buddha"
+							if(7)
+								BuffSelf=null
+					Warp = 10
+					Instinct = 2
+					PushOut=1
+					PushOutWaves=1
+					Decider = 4
+					DamageMult=1
+					KBAdd = 0.01
+					InstantStrikes=4
 
 
 				Divine_Finisher
@@ -1053,7 +1079,10 @@ obj
 					set category="Skills"
 					if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Heavy Strike"))
 						return
-					if(usr.Tension>=100)
+					var/maxTension = 100
+					if(usr.passive_handler.Get("Conductor"))
+						maxTension = max(glob.MIN_TENSION, 100 - usr.passive_handler.Get("Conductor"))
+					if(usr.Tension>=maxTension)
 						if(usr.HasTensionLock())
 							return
 						if(usr.AttackQueue)
@@ -1061,11 +1090,16 @@ obj
 						usr.Tension=0
 						if(usr.StyleBuff.Finisher)//if the style has a unique finisher
 							var/path=text2path(usr.StyleBuff.Finisher)
+							var/obj/Skills/Queue/q
 							if(!locate(path, usr))
-								usr.AddSkill(new path)//give it an object type to allow for customizations
-							for(var/obj/Skills/Queue/q in usr.Queues)
-								if(q.type==path)
-									usr.SetQueue(q)
+								q = new path
+								usr.AddSkill(q)//give it an object type to allow for customizations
+							else
+								q = usr.FindSkill(path)
+							q.adjust(usr)
+							// for(var/obj/Skills/Queue/q in usr.Queues)
+							// 	if(q.type==path)
+							usr.SetQueue(q)
 						else
 							usr.SetQueue(new/obj/Skills/Queue/Finisher/Generic_Finisher)
 						return
@@ -4490,7 +4524,7 @@ mob
 							s:Activate(ThatBoi)
 			if(src.AttackQueue.BuffSelf)
 				var/path=text2path(src.AttackQueue.BuffSelf)
-				var/obj/S=new path
+				var/obj/Skills/S=new path
 				var/obj/SFound
 				var/AlreadyBuffed=0
 				for(var/obj/Skills/Buffs/SP in src.Buffs)
@@ -4510,6 +4544,12 @@ mob
 						src.AddSkill(new path)
 					S.Password=src.name
 					src.AddSkill(S)//trigger buff on self
+				S.adjust(src)
+				if(S.parent_type==/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara || AttackQueue.type == /obj/Skills/Queue/Finisher/Cycle_of_Samsara)
+					world<<"Here"
+					AttackQueue.Mastery++
+					for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/s in SlotlessBuffs)
+						s.Timer = 0
 				if(S.type==/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/What_Must_Be_Done)
 					if(SlotlessBuffs["What Must Be Done"])
 						SlotlessBuffs["What Must Be Done"].Mastery++
