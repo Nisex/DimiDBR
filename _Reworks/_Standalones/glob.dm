@@ -172,6 +172,7 @@ globalTracker
 		MADNESS_DRAIN_FORM = 2
 		CONQ_HAKI_RACES = list(HUMAN, YOKAI, DEMON, ELF, SAIYAN, NAMEKIAN, MAJIN, MAKYO, DRAGON, BEASTMAN, GAJALAKA, CHANGELING)
 		EXTRA_CONQ_HAKI_POWER = 1.5
+		MONEYORFRAGMENTS = 1 // 1 = fragments, 0 = cash
 // globals
 		WorldBaseAmount = 1
 		WorldDamageMult = 1
