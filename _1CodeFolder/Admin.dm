@@ -862,7 +862,10 @@ mob/Admin2/verb
 		set category="Admin"
 		var/confirm = alert(usr, "Are you sure you wanna admin kill [A.name]?",, "Yes", "No")
 		if(confirm == "No") return
-		A.Death(null,"ADMIN", SuperDead=1)
+		var/customDeath = input(usr, "What do you want the death message to say? The format is 'name has been killed by INPUT', where input is what you put here. Entering nothing defaults to ADMIN.") as text|null
+		if(!customDeath)
+			customDeath = "ADMIN"
+		A.Death(null,customDeath, SuperDead=1)
 		Log("Admin","<font color=red>[ExtractInfo(usr)] admin-killed [ExtractInfo(A)].")
 	DoDamagez(mob/A in world)
 		set category="Admin"
