@@ -1172,6 +1172,8 @@ obj
 							src.HitSparkY=0
 							src.HitSparkTurns=0
 							src.HitSparkSize=1
+							Dunker = 0
+							Launcher = 0
 							if(usr.Target.Launched)
 								Dunker = usr.secretDatum?:getBoon("Heavy Strike")
 							else
