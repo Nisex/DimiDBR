@@ -84,6 +84,15 @@ update
 				for(var/i in transpaths)
 					p.race.transformations += new i
 
+	version5
+		version = 5
+		updateMob(mob/p)
+			..()
+			if(p.isRace(DRAGON))
+				if(p.Class == "Metal")
+					p.passive_handler.increaseList(list("KBRes" = 1))
+					p << "Your KBRes has been set to the correct level"
+					
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25
 /globalTracker/var/GAJA_MAX_EXCHANGE = 1
