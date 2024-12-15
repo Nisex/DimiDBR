@@ -6593,7 +6593,7 @@ obj
 				FinalDmg *= dmgMulti
 				FinalDmg *= dmgRoll
 				if(Owner.Secret=="Heavenly Restriction" && Owner.secretDatum?:hasImprovement("Autohits"))
-					FinalDmg *= clamp(Owner.secretDatum?:getBoon("Autohits"), 1, 10)
+					FinalDmg *= clamp(Owner.secretDatum?:getBoon(Owner,"Autohits"), 1, 10)
 				#if DEBUG_AUTOHIT
 				Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif

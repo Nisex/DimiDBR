@@ -909,7 +909,7 @@ mob
 			if(src.AdaptationCounter&&src.AdaptationTarget)
 				Total+=src.AdaptationCounter
 			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Power Control"))
-				Total += secretDatum?:getBoon("Power Control") / 4
+				Total += secretDatum?:getBoon("Power Control") / 8
 			if(src.HasGodKi() && src.isRace(SHINJIN))
 				Total+=round(src.GetGodKi()/0.25)
 			if(src.isRace(NAMEKIAN)&&src.transActive())
@@ -1335,7 +1335,7 @@ mob
 			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Senses"))
 				return 0
 			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
-				Extra += secretDatum?:getBoon("Senses")
+				Extra += secretDatum?:getBoon(src, "Senses")
 			if(src.Secret=="Ripple"&&src.StyleActive)
 				Extra+=1
 			// if(src.Secret=="Vampire"&&src.StyleActive)
@@ -1355,7 +1355,7 @@ mob
 				return 0
 			Return+=passive_handler.Get("Instinct")
 			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
-				Return += secretDatum?:getBoon("Senses")
+				Return += secretDatum?:getBoon(src, "Senses")
 			if(Target)
 				if(isDominating(Target) && passive_handler.Get("HellRisen"))
 					Return += passive_handler.Get("HellRisen") * 2

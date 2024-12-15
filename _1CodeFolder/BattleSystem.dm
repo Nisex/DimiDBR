@@ -77,7 +77,7 @@ mob/proc/Anger(var/Enraged=0)
 
 		Anger=AngerMax
 		if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Anger"))
-			Anger *= 1+(secretDatum?:getBoon("Anger")/4)
+			Anger *= 1+(secretDatum?:getBoon(src, "Anger")/10)
 		
 		race.onAnger(src)
 		if(src.AngerMessage)
@@ -2569,8 +2569,12 @@ mob/proc/Grab()
 		if(lastZanzoUsage+3 > world.time)
 			return
 		if(src.Target&&src.Target!=src&&ismob(src.Target))
+			var/extraTiles = 0
+			extraTiles += passive_handler.Get("Scoop")
 			if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Grab"))
 				return
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Grab"))
+				extraTiles += secretDatum?:getBoon(src, "Grab")
 			src.DashTo(src.Target, 2 + passive_handler.Get("Scoop"))
 			if(src.Target in oview(1, src))
 				src.Grab_Mob(src.Target)
@@ -2665,6 +2669,8 @@ mob/proc/Grab_Mob(var/mob/P, var/Forced=0)
 	if(Secret == "Vampire")
 		Forced = 1
 	if(passive_handler.Get("Iron Grip"))
+		Forced = 1
+	if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Grab"))
 		Forced = 1
 	if(!Forced && (P.passive_handler.Get("Fishman")||P.HasGiantForm()||P.HasLegendaryPower()>=1)&&!P.KO&&P.icon_state!="Meditate")
 		src.OMessage(10,"[src] fails to get a firm hold on [P]!","[src]([src.key]) fails to grab [ExtractInfo(P)]")

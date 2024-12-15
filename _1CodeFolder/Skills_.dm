@@ -346,7 +346,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 							src.SetQueue(ER)
 
 				if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Dragon Dash"))
-					Delay = 0.75 / secretDatum?:getBoon("Dragon Dash")
+					Delay = 0.75 / secretDatum?:getBoon(src, "Dragon Dash")
 				if(src.HasSuperDash())
 					Distance+=15*src.GetSuperDash()
 					Delay=0.5/src.GetSuperDash()

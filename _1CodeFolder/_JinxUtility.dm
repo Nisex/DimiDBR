@@ -1199,7 +1199,7 @@ mob
 			var/strMult = StrMultTotal
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasImprovement("Strength"))
-					strMult += round(clamp(1 + secretDatum?:getBoon(src, "Strength") / 5, 1, 8), 0.1)
+					strMult += round(clamp(1 + secretDatum?:getBoon(src, "Strength") / 8, 1, 8), 0.1)
 			if(passive_handler.Get("KillerInstinct") && Health <= 50)
 				strMult += GetKillerInstinct()
 			Mod+=(strMult-1)
@@ -1332,7 +1332,7 @@ mob
 				forMult += GetKillerInstinct()
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasImprovement("Force"))
-					forMult += round(clamp(1 + secretDatum?:getBoon(src, "Force") / 5, 1, 8), 0.1)
+					forMult += round(clamp(1 + secretDatum?:getBoon(src, "Force") / 8, 1, 8), 0.1)
 			Mod+=(forMult-1)
 			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
@@ -1460,7 +1460,7 @@ mob
 				Mod+=src.EndStolen*0.5
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasImprovement("Endurance"))
-					Mod += round(clamp(1 + secretDatum?:getBoon(src, "Endurance") / 5, 1, 8), 0.1)
+					Mod += round(clamp(1 + secretDatum?:getBoon(src, "Endurance") / 8, 1, 8), 0.1)
 			var/BM=src.HasBuffMastery()
 			if(BM)
 				if(Mod<=glob.BUFF_MASTERY_LOWTHRESHOLD)
@@ -1541,7 +1541,7 @@ mob
 				Mod+=0.05*GatesActive
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasImprovement("Speed"))
-					Mod += round(clamp(1 + secretDatum?:getBoon(src, "Speed") / 5, 1, 8), 0.1)
+					Mod += round(clamp(1 + secretDatum?:getBoon(src, "Speed") / 8, 1, 8), 0.1)
 			if(src.CheckSlotless("What Must Be Done"))
 				if(SlotlessBuffs["What Must Be Done"].Password)
 					Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
@@ -1638,7 +1638,7 @@ mob
 			// 		Mod+=(src.AscensionsAcquired/20)
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasImprovement("Offense"))
-					Mod += round(clamp(1 + secretDatum?:getBoon(src, "Offense") / 5, 1, 8), 0.1)
+					Mod += round(clamp(1 + secretDatum?:getBoon(src, "Offense") / 8, 1, 8), 0.1)
 			if(src.OffStolen)
 				Mod+=src.OffStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -1720,7 +1720,7 @@ mob
 			// 		Mod+=(src.AscensionsAcquired/20)
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasImprovement("Defense"))
-					Mod += round(clamp(1 + secretDatum?:getBoon(src, "Defense") / 5, 1, 8), 0.1)
+					Mod += round(clamp(1 + secretDatum?:getBoon(src, "Defense") / 8, 1, 8), 0.1)
 			if(src.DefStolen)
 				Mod+=src.DefStolen*0.5
 			var/BM=src.HasBuffMastery()
@@ -2835,7 +2835,7 @@ mob
 //				animate(filters[filters.len], x=sin(travel_angle)*(6/Delay), y=cos(travel_angle)*(6/Delay), time=Delay)
 				step_towards(src,Trg)
 				if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Dragon Dash"))
-					KenShockwave(src, icon='KenShockwave.dmi', Size=secretDatum?:getBoon("Dragon Dash"), Blend=2, Time=3)
+					KenShockwave(src, icon='KenShockwave.dmi', Size=secretDatum?:getBoon(src, "Dragon Dash"), Blend=2, Time=3)
 				if(Trg in oview(1, src))
 					MaxDistance=0
 					Delay=0

@@ -126,7 +126,7 @@ var/list/heavenly_improvements = list("Dragon Clash", "Grab", "Reverse Dash", "L
 		if(index == improvement)
 			totalBoon += secretVariable["Improvements"][index]
 
-	return currentTier * totalBoon
+	return totalBoon
 
 
 /SecretInfomation/HeavenlyRestriction/proc/countImprovements(mob/p, improv)

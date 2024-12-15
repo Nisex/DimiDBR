@@ -358,7 +358,7 @@
 				if(AttackQueue)
 					damage *= QueuedDamage(enemy)
 					if(Secret=="Heavenly Restriction" && secretDatum?:hasImprovement("Queues"))
-						damage *= clamp(secretDatum?:getBoon("Queues"), 1, 10)
+						damage *= clamp(secretDatum?:getBoon(src, "Queues"), 1, 10)
 					#if DEBUG_MELEE
 					log2text("Damage", "After Queue", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
@@ -391,7 +391,7 @@
 		// 				MULTIATTACK				//
 				else
 					if(Secret=="Heavenly Restriction" && secretDatum?:hasImprovement("Normal Attack"))
-						damage *= clamp(secretDatum?:getBoon("Basic Attack"), 1, 10)
+						damage *= clamp(secretDatum?:getBoon(src, "Basic Attack"), 1, 10)
 				var/multiAtkNerf = 1
 				if(AttackQueue && AttackQueue?.ComboPerformed>0)
 					multiAtkNerf = 1 - clamp(AttackQueue.ComboPerformed * 0.1, 0.1, 0.99)
