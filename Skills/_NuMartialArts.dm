@@ -1424,14 +1424,13 @@ obj
 
 ///// WitchCraft
 					Witch_Style
-						StyleStr = 1.3
-						StyleFor = 1.3
+						StyleFor = 1.5
 						StyleSpd = 1.1
-						StyleDef = 1.1
 						ElementalClass= "Water"
 						StyleActive = "Witch"
 						ElementalOffense = "Felfire"
 						Finisher = "/obj/Skills/Queue/Finisher/Sundered_Sky"
+						passives = list("QuickCast" = 1, "Flow" = 0.5, "MartialMagic" = 1)
 						verb/Witch_Style()
 							set hidden=1
 							src.Trigger(usr)

@@ -59,7 +59,7 @@ mob/Admin3/verb/WitchCheck()
 	var/TakeEssenceCoolDown = 0
 	var/list/PactedList = list()
 	verb/Kill_Essence(mob/M in get_step(usr, usr.dir))
-		set name = "Drain Essence"
+		set name = "Drain Essence (Lethal)"
 		set category = "Skills"
 		if(!M.KO)
 			usr << "[M] needs to be KO'd!"		
@@ -72,6 +72,8 @@ mob/Admin3/verb/WitchCheck()
 					if("Yes")
 						M.NoSoul = 1
 						M.Death(usr, "an icy breath upon their soul, their body crumbling to dust!", SuperDead = 1, NoRemains = 1)
+						CurrentEssenceAmount += 5
+
 	
 	verb/Take_Essence(mob/M in get_step(usr, usr.dir))
 		set name = "Take Essence"
@@ -79,12 +81,12 @@ mob/Admin3/verb/WitchCheck()
 		if(!M.KO)
 			usr << "[M] needs to be KO'd!"
 			return
-		if(TakeEssenceCoolDown > world.time )
+		if(TakeEssenceCoolDown > world.realtime )
 			CurrentEssenceAmount += 1
 			view(10) << output("<font color=red>[M] feels as if their body decays slightly at the magic of [usr]..!!", "output")
 			TakeEssenceCoolDown = world.realtime + 4 HOURS
 		else 
-			usr << "You're on cooldown till for... till [time2text(world.time, "Day/hh/mm/ss")]"
+			usr << "You're on cooldown till for... till [time2text(TakeEssenceCoolDown, "Day/hh/mm/ss")]"
 
 	verb/Give_Essence()
 		set name = "Give Essence"
@@ -124,7 +126,7 @@ mob/Admin3/verb/WitchCheck()
 	Area= "Area"
 	AdaptRate= 1
 	DamageMult= 6
-	Rounds= 1
+	Rounds= 10
 	TurfStrike=1
 	TurfShift='Icons/NSE/spells/cast/cruel_thesis.dmi'
 	TurfShiftDuration=3
@@ -139,30 +141,30 @@ mob/Admin3/verb/WitchCheck()
 		var/resource = 0
 		for(var/obj/WitchCraft/WitchesBook/G in usr)
 			resource = G.CurrentEssenceAmount
-		if(resource > 3)
+		if(resource > 1)
 			for(var/obj/WitchCraft/WitchesBook/G in usr)
-				G.CurrentEssenceAmount -= 3
+				G.CurrentEssenceAmount -= 1
 			usr.Activate(src)
 		else
-			usr << "Not enough Essence [resource] / 3"
+			usr << "Not enough Essence [resource] / 1"
 
 /obj/Skills/AutoHit/Hex
 	Area="Target"
 	AdaptRate = 1
-	DamageMult=1
-	Distance=10
-	DelayTime=0
-	HitSparkIcon='BLANK.dmi'
-	TurfDirt= 1
-	ShockIcon= 'Icons/NSE/spells/cast/KrysiaHitspark2.dmi'
-	Shockwave= 4
-	Shockwaves= 1
-	PostShockwave= 1
-	PreShockwave= 0
+	DamageMult = 5
+	Distance = 15
+	DelayTime = 0
+	HitSparkIcon = 'BLANK.dmi'
+	TurfDirt = 1
+	ShockIcon = 'Icons/NSE/spells/cast/KrysiaHitspark2.dmi'
+	Shockwave = 4
+	Shockwaves = 1
+	PostShockwave = 1
+	PreShockwave = 0
 	Cooldown= 150
 	ManaCost = 50
-	WindupMessage= "hosts up their hand....!!!"
-	ActiveMessage= "fills their opponents body with a hex..!!!"
+	WindupMessage = "hosts up their hand....!!!"
+	ActiveMessage = "fills their opponents body with a hex..!!!"
 	ComboMaster = 1
 	BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Witch/HexDebuff"
 	verb/Hex()
@@ -174,6 +176,7 @@ mob/Admin3/verb/WitchCheck()
 /obj/Skills/Buffs/SlotlessBuffs/Witch/HexDebuff
 	StrMult = 0.5
 	ForMult = 0.5
+	EndMult = 0.75
 	SlowAffected = 1
 	IconLock = 'SweatDrop.dmi'
 	TimerLimit = 30
@@ -182,9 +185,10 @@ mob/Admin3/verb/WitchCheck()
 /obj/Skills/Queue/Grave_Curse
 	ActiveMessage="fills the air with terrible images....!!"
 	HitMessage="curses their opponents mind with horrible images...!!"
-	DamageMult = 10 
+	DamageMult = 10
 	AccuracyMult = 1.175
 	Instinct = 1
+	Paralyzing=1
 	Duration = 5
 	KBMult = 0.00001
 	Cooldown = 150
@@ -197,12 +201,12 @@ mob/Admin3/verb/WitchCheck()
 		var/resource = 0
 		for(var/obj/WitchCraft/WitchesBook/G in usr)
 			resource = G.CurrentEssenceAmount
-		if(resource > 5)
+		if(resource > 3)
 			for(var/obj/WitchCraft/WitchesBook/G in usr)
-				G.CurrentEssenceAmount -= 5
+				G.CurrentEssenceAmount -= 3
 			usr.Activate(src)
 		else
-			usr << "Not enough Essence [resource] / 5"
+			usr << "Not enough Essence [resource] / 3"
 		usr.SetQueue(src)
 
 
@@ -218,30 +222,32 @@ mob/Admin3/verb/WitchCheck()
 /obj/Skills/Queue/Mirror_Match
 	ActiveMessage="fills their surroundings with Mirrors!"
 	HitMessage="slams back the opponents attack from the Mirrors!!"
-	Counter=1
-	NoWhiff=1	
+	Counter = 1
+	NoWhiff = 1
+	NoMiss = 1
 	DamageMult = 0.1
 	AccuracyMult = 1.175
 	Instinct = 1
 	Duration = 5
 	KBMult = 0.00001
 	Cooldown = 150
-	BuffSelf = "/obj/Skills/Buffs/SlotlessBuffs/Witch/Counter"
+	BuffSelf = "/obj/Skills/Buffs/SlotlessBuffs/Witch/WitchCounter"
 	verb/Mirror_Match()
 		set category="Skills"
 		var/resource = 0
 		for(var/obj/WitchCraft/WitchesBook/G in usr)
 			resource = G.CurrentEssenceAmount
-		if(resource > 5)
+		if(resource > 3)
 			for(var/obj/WitchCraft/WitchesBook/G in usr)
-				G.CurrentEssenceAmount -= 5
+				G.CurrentEssenceAmount -= 3
 			usr.Activate(src)
 		else
-			usr << "Not enough Essence [resource] / 5"
+			usr << "Not enough Essence [resource] / 3"
 			usr.SetQueue(src)
 
-/obj/Skills/Buffs/SlotlessBuffs/Magic/WitchCounter
+/obj/Skills/Buffs/SlotlessBuffs/Witch/WitchCounter
 	DefMult = 1.3 // ur crazy
 	CounterSpell = 1
+	CounterMaster = 2
 	BuffName = "WitchCounter"
 	TimerLimit = 30
