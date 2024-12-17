@@ -455,6 +455,8 @@ obj/Skills/Utility
 					continue
 				if(M.z!=usr.z)
 					continue
+				if(isRace(DRAGON) && usr.Class == "Gold")
+					
 				if(!M.AdminInviso&&M.PowerControl>25)
 					if((usr.Saga=="Unlimited Blade Works" && usr.SagaLevel >= 2)||(!M.HasGodKi()&&!M.HasVoid()&&!M.HasMechanized()))
 						if((!locate(M.EnergySignature) in usr.EnergySignaturesKnown)&&!usr.SpiritPower)

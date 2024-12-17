@@ -2778,7 +2778,83 @@ obj
 						usr << "You can't use this technique except when in a dire pinch!"
 						return
 					usr.UseProjectile(src)
-
+			Light_Impulse
+				CosmoPowered=1
+				GodPowered=0.25
+				Distance=20
+				DamageMult=16
+				ChargeIcon=1
+				ZoneAttack=1
+				ZoneAttackX=1
+				ZoneAttackY=1
+				FireFromSelf=1
+				FireFromEnemy=0
+				Deflectable=0
+				Homing=1
+				HyperHoming=1
+				Piercing=1
+				Striking=1
+				Cooldown=150
+				Radius = 3
+				IconLock='LightImpulse.dmi'
+				LockX=-32
+				LockY=-32
+				Trail='LightImpulseTrail.dmi'
+				TrailX=-32
+				TrailY=-32
+				TrailDuration=1
+				TrailSize=0.5
+				Variation=8
+				Charge = 1
+				IconChargeOverhead=1
+				IconSize=0.01
+				IconSizeGrowTo=0.6
+				ActiveMessage="roars their Cosmos across their wings into a brilliant display of light towards their enemy!"
+				verb/Light_Impulse()
+					set category="Skills"
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
+						usr << "You can't use this technique except when in a dire pinch!"
+						return
+					usr.UseProjectile(src)
+			Infinity_Break
+				CosmoPowered=1
+				GodPowered=0.25
+				Blasts = 1000 //i see no way this could go wrong !
+				Distance=20
+				DamageMult=0.1
+				ChargeIcon=1
+				ZoneAttack=1
+				ZoneAttackX=1
+				ZoneAttackY=1
+				FireFromSelf=1
+				FireFromEnemy=0
+				Deflectable=0
+				Homing=1
+				HyperHoming=1
+				Piercing=1
+				Striking=1
+				Cooldown=150
+				Radius = 3
+				IconLock='LightImpulse.dmi'
+				LockX=-32
+				LockY=-32
+				Trail='LightImpulseTrail.dmi'
+				TrailX=-32
+				TrailY=-32
+				TrailDuration=1
+				TrailSize=0.5
+				Variation=8
+				Charge = 1
+				IconChargeOverhead=1
+				IconSize=0.01
+				IconSizeGrowTo=0.3
+				ActiveMessage="begins firing off countless darts of Cosmos-infused light!"
+				verb/Infinity_Break()
+					set category="Skills"
+					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
+						usr << "You can't use this technique except when in a dire pinch!"
+						return
+					usr.UseProjectile(src)
 ////Weapon Soul
 			Weapon_Soul
 				Holy_Slash
