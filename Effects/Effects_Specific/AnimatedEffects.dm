@@ -427,7 +427,7 @@ proc
 		sleep(1)
 		if(m.TransformingBeyond)
 			for(var/turf/t in Turf_Circle(m, 18))
-				if(prob(5))
+				if(prob(50))
 					spawn(rand(2,6))
 						var/icon/i = icon('RisingRocks.dmi')
 						t.overlays+=i

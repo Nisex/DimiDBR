@@ -180,7 +180,8 @@ race
 		*/
 		var/list/ascpaths = subtypesof(text2path(replacetext("/ascension/[lowertext(name)]"," ", "_")))
 		var/list/transpaths = subtypesof(text2path(replacetext("/transformation/[lowertext(name)]"," ", "_")))
-
+		if(lowertext(name) == "half_saiyan")
+			transpaths = list()
 		for(var/i in ascpaths)
 			ascensions += new i
 		for(var/i in transpaths)

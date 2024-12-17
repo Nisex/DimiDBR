@@ -948,12 +948,13 @@ mob
 				return 1
 			return 0
 		SaiyanTransPower()
-			if(!isRace(SAIYAN)) return 0
-			var/t = transActive
-			var/hastransmimic = HasTransMimic()
-			if(hastransmimic > transActive)
-				t = hastransmimic
-			return t
+			if(isRace(SAIYAN) || isRace(HALFSAIYAN))
+				var/t = transActive
+				var/hastransmimic = HasTransMimic()
+				if(hastransmimic > transActive)
+					t = hastransmimic
+				return t
+			return 0
 		DrunkPower()
 			if(src.CheckSlotless("Drunken Mastery") && src.Drunk)
 				return 1
@@ -1425,7 +1426,7 @@ mob
 				managen += AscensionsAcquired
 			return managen
 		HasMystic()
-			if(src.Mystic)
+			if(src.Mystic || src.passive_handler.Get("Mystic"))
 				return 1
 			return 0
 		HasMaki()
@@ -1598,6 +1599,13 @@ mob
 			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff())
 				if(src.Target&&!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
 					Total+=src.Target.GetGodKi()/2
+			if(passive_handler.Get("Hidden Potential") && !HasGodKiBuff())
+				if(src.Target)
+					if(src.Target.HasGodKi())
+						if(Target.GetGodKi() > Total)
+							Total=Target.GetGodKi() - Total
+					else
+						Total+=Potential/100
 			if(src.KamuiBuffLock)
 				Total+=0.25
 			if(src.isRace(DRAGON))

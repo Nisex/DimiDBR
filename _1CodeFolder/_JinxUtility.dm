@@ -296,7 +296,8 @@ mob
 			if(defender.HasAdaptation()&&src==defender.Target||src.HasAdaptation()&&defender==src.Target)
 				if(defender.HasAdaptation()&&!defender.CheckSlotless("Great Ape"))
 					defender.AdaptationTarget=src
-					defender.AdaptationCounter+=(val*(defender.AscensionsAcquired/40))
+					var/ticks = defender.passive_handler.Get("Adaptation")
+					defender.AdaptationCounter+=( val*(defender.AscensionsAcquired/40) ) * 1 + (ticks/5)
 					if(defender.AdaptationCounter>=1)
 						defender.AdaptationCounter=1
 						if(!defender.AdaptationAnnounce)
@@ -304,7 +305,8 @@ mob
 							defender.AdaptationAnnounce=1
 				if(src.HasAdaptation()&&!CheckSlotless("Great Ape"))
 					src.AdaptationTarget=defender
-					src.AdaptationCounter+=(val*(src.AscensionsAcquired/40))
+					var/ticks = passive_handler.Get("Adaptation")
+					src.AdaptationCounter+=(val*(src.AscensionsAcquired/40)) * 1 + (ticks/5)
 					if(src.AdaptationCounter>=1)
 						src.AdaptationCounter=1
 						if(!src.AdaptationAnnounce)
@@ -1216,7 +1218,10 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
+
+
+
+			if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(glob.DEVIL_ARM_STAT_MULTS)
@@ -1254,7 +1259,7 @@ mob
 			if(Secret == "Werewolf" && CheckSlotless("Full Moon Form"))
 				Mod += 1 * (secretDatum?:getHungerBoon())
 			var/adaptive = passive_handler.Get("AngerAdaptiveForce")
-			if(adaptive && (src.HasCalmAnger() || EndlessAnger || Anger))
+			if(adaptive && (src.HasCalmAnger() || passive_handler.Get("EndlessAnger") || Anger))
 				if(BaseStr() > BaseFor())
 					Mod += clamp(adaptive,0.1,1)
 				if(BaseStr() == BaseFor())
@@ -1343,7 +1348,7 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
+			if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(glob.DEVIL_ARM_STAT_MULTS)
@@ -1372,7 +1377,7 @@ mob
 			if(src.ForEroded)
 				Mod-=src.ForEroded
 			var/adaptive = passive_handler.Get("AngerAdaptiveForce")
-			if(adaptive && (src.HasCalmAnger() || EndlessAnger || Anger))
+			if(adaptive && (src.HasCalmAnger() || passive_handler.Get("EndlessAnger") || Anger))
 				if(BaseFor() > BaseStr())
 					Mod += clamp(adaptive,0.1,1)
 				if(BaseFor() == BaseStr())
@@ -1450,7 +1455,7 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
+			if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(glob.DEVIL_ARM_STAT_MULTS)
@@ -1547,7 +1552,7 @@ mob
 					Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if(isRace(SAIYAN)&&transActive&&!src.SpecialBuff)
+			if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
 				if(src.race.transformations[transActive].mastery==100)
 					Mod+=0.1
 			if(glob.DEVIL_ARM_STAT_MULTS)

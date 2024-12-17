@@ -204,6 +204,7 @@ transformation
 			user.PUSpeedModifier *= PUSpeedModifier
 
 			if(autoAnger)
+				user.Anger()
 				user.passive_handler.Increase("EndlessAnger")
 
 			is_active = TRUE

@@ -502,7 +502,7 @@ mob
 				if(scrollTicker<=0)
 					scrollTicker=0
 
-			if(isRace(SAIYAN)&&transActive>0)
+			if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive>0)
 				var/Drain = 10
 				if(race.transformations[transActive].mastery<75)
 					Drain=30
