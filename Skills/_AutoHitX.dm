@@ -4766,8 +4766,9 @@ obj
 				Area="Circle"
 				StrOffense=1
 				StyleNeeded="Hiten Mitsurugi"
-				DamageMult=0
+				DamageMult=10
 				Distance=7
+				GuardBreak = 1
 				PassThrough=1
 				Stunner=5
 				PreShockwave=1
