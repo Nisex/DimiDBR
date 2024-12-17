@@ -435,7 +435,7 @@ obj/Items/Tech
 		icon='Tech.dmi'
 		icon_state="Fiber Bond"
 		Cost=5
-		desc="This will apply a permanent level of brittleness to the equipment while improving its damage.  With ten of these, you can transform a medium or heavy sword into a scissor blade."
+		desc="This will apply a permanent level of brittleness to the equipment while improving its damage."
 		Stackable=1
 		Click()
 			if(!(src in usr))
