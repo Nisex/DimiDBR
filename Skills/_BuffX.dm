@@ -1977,6 +1977,7 @@ NEW VARIABLES
 			Vaizard_Mask
 				SignatureTechnique=3
 				ManaThreshold=1
+				CooldownStatic = 1
 				Cooldown=120
 				passives = list("Maki" = 1, "Curse" = 1,"Instinct" = 2, "Pursuer" = 2, "Flicker" = 2)
 				AutoAnger=1
