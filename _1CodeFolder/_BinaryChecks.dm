@@ -713,6 +713,9 @@ mob
 			if(src.KamuiBuffLock)
 				Return++
 				Return++
+			if(Secret == "Vampire")
+				var/secretLevel = getSecretLevel()
+				Return += 1 + (secretLevel / 4) * (1 + (secretDatum.secretVariable["BloodPower"] * 0.25))
 			Return=round(Return)
 			Return=min(8,Return)
 			return Return
@@ -1375,6 +1378,8 @@ mob
 		HasLifeSteal()
 			if(passive_handler.Get("LifeSteal"))
 				return 1
+			if(Secret == "Vampire")
+				return 1
 			if(isRace(MAJIN) && race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
 				return 1
 			return 0
@@ -1382,6 +1387,9 @@ mob
 			var/extra = 0
 			if(isRace(MAJIN) && race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
 				extra += 5 * AscensionsAcquired
+			if(Secret=="Vampire")
+				var/secretLevel = getSecretLevel()
+				extra += 5 + (secretLevel * 2) * (1 + (secretDatum.secretVariable["BloodPower"] * 0.25))
 			return passive_handler.Get("LifeSteal") + extra
 		HasEnergySteal()
 			if(passive_handler.Get("EnergySteal"))

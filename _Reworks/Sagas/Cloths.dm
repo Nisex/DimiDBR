@@ -162,6 +162,13 @@ sagaTierUpMessages/Cosmo
 							src.AddSkill(new/obj/Skills/Queue/Piranhan_Rose)
 						if(!locate(/obj/Skills/AutoHit/Bloody_Rose, src))
 							src.AddSkill(new/obj/Skills/AutoHit/Bloody_Rose)
+					if("Sagittarius")
+						if(!locate(/obj/Skills/Projectile/Light_Impulse, src))
+							src.AddSkill(new/obj/Skills/Projectile/Light_Impulse)
+						if(!locate(/obj/Skills/Projectile/Infinity_Break, src))
+							src.AddSkill(new/obj/Skills/Projectile/Infinity_Break)
+						if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Sagittarius_Bow, src))
+							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Sagittarius_Bow)
 			if(6)
 				SenseUnlocked=8
 

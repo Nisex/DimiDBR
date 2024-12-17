@@ -306,26 +306,47 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 					// rpp gain on ai kill (normal)
 			var/totalValue = 0
 			var/foundMineral = FALSE
-			for(var/obj/Items/mineral/m in src)
-				totalValue += m.value
-				del(m)
-			for(var/obj/Items/mineral/min in P)
-				foundMineral = TRUE
-				if(P.passive_handler.Get("CashCow"))
-					totalValue *= 1+(P.passive_handler.Get("CashCow")/10)
-				min.value += totalValue
-				min.assignState()
-				min.name = "[Commas(round(min.value))] Mana Bits"
-				P << "You've gained [totalValue * 1+(P.passive_handler.Get("CashCow")/10)] Mana Bits!"
-			if(!foundMineral)
-				var/obj/Items/mineral/mineral = new()
-				P.contents += mineral
-				if(P.passive_handler.Get("CashCow"))
-					totalValue *= 1+(P.passive_handler.Get("CashCow")/10)
-				mineral.value = totalValue
-				mineral.assignState()
-				mineral.name = "[Commas(round(mineral.value))] Mana Bits"
-				P << "You've gained [totalValue*1+(P.passive_handler.Get("CashCow")/10)] Mana Bits!"
+			var/foundMoney = FALSE
+			if(glob.MONEYORFRAGMENTS)
+				for(var/obj/Items/mineral/m in src)
+					totalValue += m.value
+					del(m)
+				for(var/obj/Items/mineral/min in P)
+					foundMineral = TRUE
+					if(P.passive_handler.Get("CashCow"))
+						totalValue *= 1+(P.passive_handler.Get("CashCow")/10)
+					min.value += totalValue
+					min.assignState()
+					min.name = "[Commas(round(min.value))] Mana Bits"
+					P << "You've gained [totalValue * 1+(P.passive_handler.Get("CashCow")/10)] Mana Bits!"
+				if(!foundMineral)
+					var/obj/Items/mineral/mineral = new()
+					P.contents += mineral
+					if(P.passive_handler.Get("CashCow"))
+						totalValue *= 1+(P.passive_handler.Get("CashCow")/10)
+					mineral.value = totalValue
+					mineral.assignState()
+					mineral.name = "[Commas(round(mineral.value))] Mana Bits"
+					P << "You've gained [totalValue*1+(P.passive_handler.Get("CashCow")/10)] Mana Bits!"
+			else
+				for(var/obj/Money/m in src)
+					totalValue += m.Level
+					del(m)
+				for(var/obj/Money/money in P)
+					foundMoney = TRUE
+					if(P.passive_handler.Get("CashCow"))
+						totalValue *= 1+(P.passive_handler.Get("CashCow")/10)
+					money.Level += totalValue
+					money.name = "[Commas(round(money.Level))] Cash"
+					P << "You've gained [totalValue * 1+(P.passive_handler.Get("CashCow")/10)] Cash!"
+				if(!foundMoney)
+					var/obj/Money/money = new()
+					P.contents += money
+					if(P.passive_handler.Get("CashCow"))
+						totalValue *= 1+(P.passive_handler.Get("CashCow")/10)
+					money.Level = totalValue
+					money.name = "[Commas(round(money.Level))] Mana Bits"
+					P << "You've gained [totalValue*1+(P.passive_handler.Get("CashCow")/10)] Cash!"				
 
 	if(text)
 		src.OMessage(20,"[src] was just killed by [text]!","<font color=red>[src] was just killed by [text]!")

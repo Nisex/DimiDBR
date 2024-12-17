@@ -36,7 +36,7 @@ mob
 		MoonWarning()
 			if(src.Secret=="Werewolf")
 				src << "You feel the moon begin to rise... "
-			if(src.Tail&&(src.isRace(SAIYAN)||src.Race=="Half Saiyan"))
+			if(src.Tail&&(src.isRace(SAIYAN)||src.isRace(HALFSAIYAN)))
 				src << "You feel the moon begin to rise... "
 			if(src.AdvancedTransmissionTechnologyUnlocked>0)
 				src << "Your observation devices are warning you about full moon... "

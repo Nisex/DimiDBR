@@ -12,9 +12,6 @@
 			DefMult = 1.1
 			ForMult = 1.1
 			SpdMult = 1.1
-			LifeSteal = 5
-			SpaceWalk = 1
-			Godspeed = 1
 			adjust(mob/p)
 				var/secretLevel = p.getSecretLevel()
 				if(p.CheckSlotless("Rotshreck"))
@@ -30,9 +27,6 @@
 					ForMult = 1 + (secretLevel * 0.1)
 					SpdMult = 1.1 + (secretLevel * 0.1)
 
-				LifeSteal = 5 + (secretLevel * 2) * (1 + (p.secretDatum.secretVariable["BloodPower"] * 0.25))
-				Godspeed = 1 + (secretLevel / 4) * (1 + (p.secretDatum.secretVariable["BloodPower"] * 0.25))
-				passives = list("LifeSteal" = LifeSteal, "Godspeed" = Godspeed)
 		Wassail
 			Curse=1
 			Godspeed=1

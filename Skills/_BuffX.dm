@@ -1977,6 +1977,7 @@ NEW VARIABLES
 			Vaizard_Mask
 				SignatureTechnique=3
 				ManaThreshold=1
+				CooldownStatic = 1
 				Cooldown=120
 				passives = list("Maki" = 1, "Curse" = 1,"Instinct" = 2, "Pursuer" = 2, "Flicker" = 2)
 				AutoAnger=1
@@ -3506,6 +3507,27 @@ NEW VARIABLES
 						adjustments(usr)
 						src.Trigger(usr)
 						Cape(usr)
+
+				Sagittarius_Cloth
+					ArmorIcon='goldsaintsagittarius_armor.dmi'
+					TopOverlayLock='goldsaintsagittarius_helmet.dmi'
+					ActiveMessage="dons the Gold Cloth of Sagittarius, embracing its brilliant hope!"
+					OffMessage="discards the Cloth..."
+					adjustments(mob/player)
+						..()
+						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1, "MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.5), "BlurringStrikes" = player.SagaLevel*0.2, "Flow" = player.SagaLevel-3, "Skimming" = 1)
+						SpdMult = 1.4 + ((player.SagaLevel-3) * 0.1)
+						StrMult = 1.1 + ((player.SagaLevel-3) * 0.1)
+						OffMult = 1.1 + ((player.SagaLevel-3) * 0.1)
+					verb/Don_Cloth()
+						set category="Skills"
+						src.NoTopOverlay=0
+						adjustments(usr)
+						src.Trigger(usr)
+						Cape(usr)
+						if(usr.BuffOn(src))
+							var/image/st=image(icon='goldsaintsagittarius_wings.dmi', layer=FLOAT_LAYER)
+							usr.overlays+=st
 
 		Valor_Form
 			FlashChange=1
@@ -8210,6 +8232,20 @@ NEW VARIABLES
 				set name="Kol'co"
 				src.Trigger(usr)
 
+
+		Sagittarius_Bow
+			SignatureTechnique=2
+			MakesStaff=1
+			FlashDraw=1
+			StaffName="Sagittarius Bow"
+			StaffIcon='goldsaintsagittarius_bow.dmi'
+			ActiveMessage="burns their Cosmos to manifest a bow!"
+			OffMessage="dispels their Cosmos-powered bow!"
+			passives = list("SpecialStrike" = 1, "StaffAscension" = 4)
+			verb/Sagittarius_Bow()
+				set category="Skills"
+				src.Trigger(usr)
+
 		Attach_Keychain
 			verb/Attach_Keychain()
 				set category="Skills"
@@ -11296,11 +11332,12 @@ NEW VARIABLES
 
 			Minds_Eye
 				TooMuchHealth = 99.8
+				NeedsHealth = 99
 				WoundIntentRequired = 1
 				LockX=0
 				LockY=0
 				ActiveMessage="takes a deep breath, tapping into the insight of a weapon wielded by none other than a mortal, gained through tenacious training."
-				OffMessage="seems to snap out of their haze,."
+				OffMessage="seems to snap out of their haze."
 				Cooldown=4//Just in case
 				Trigger(mob/player, Override)
 					if(!altered)
