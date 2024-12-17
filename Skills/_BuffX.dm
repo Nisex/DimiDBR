@@ -11347,23 +11347,29 @@ NEW VARIABLES
 					..()
 
 			WillofAlaya
-				NeedsHealth = 50
-				TooMuchHealth = 75
+				NeedsHealth = 75
+				TooMuchHealth = 90
+				Godspeed = 1
 				PowerMult=1.25
 				Intimidation=2
 				AutoAnger=1
+				ManaLeak=0.5
 				TooLittleMana=1
+				Pursuer = 1
 				WoundIntentRequired = 1
 				IconLock='SlayerEyes.dmi'
 				LockX=0
 				LockY=0
 				OffMessage="snaps out of their haze."
-				ActiveMessage="is forced to lock up. <font color='yellow'><i><b>OVERRIDE: THREAT TO HUMANITY DETECTED - COUNTER GUARDIAN DEPLOYED.</b></i></font color>"
+				ActiveMessage="is forced to lock up. <font color='yellow'>OVERRIDE: THREAT TO HUMANITY DETECTED - COUNTER GUARDIAN DEPLOYED.</b></font color>"
 
 				Cooldown=1//Just in case
 				Trigger(mob/player, Override)
 					if(!altered)
-						passives = list("SlayerMod" = player.SagaLevel * 0.25, "ManaLeak" = 0.5, "Godspeed" = floor(player.SagaLevel/2), "Pursuer" = floor(player.SagaLevel/2))
+						passives = list("SlayerMod" = player.SagaLevel * 0.25, "Godspeed" = floor(player.SagaLevel/2), "Pursuer" = floor(player.SagaLevel/2))
+						SlayerMod = player.SagaLevel * 0.25
+						Godspeed = floor(player.SagaLevel / 2)
+						Pursuer = floor(player.SagaLevel / 2)
 					..()
 
 			Satsui_Infected
