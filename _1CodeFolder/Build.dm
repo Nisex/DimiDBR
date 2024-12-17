@@ -642,15 +642,15 @@ proc/Build_Lay(obj/Others/Build/O,mob/P, var/tmpX, var/tmpY, var/tmpZ)
 				CT.Roof = usr.CustomTurfRoof
 				CT.density = O.density
 				CT.opacity = O.opacity
-		if(usr.ShallowMode==1)
+		if(P.ShallowMode==1)
 			_turf.Shallow=1
-		if(usr.BuildOverwrite)
+		if(P.BuildOverwrite)
 			for(var/obj/Turfs/E in C)
 				if(!istype(E, /obj/Special/Teleporter2))
 					del(E)
 			for(var/obj/KatieObj/E in C)
 				del(E)
-		if(usr.WarperOverwrite)
+		if(P.WarperOverwrite)
 			for(var/obj/Special/Teleporter2/q in C)
 				del(q)
 		if(!istype(C,/turf/CustomTurf))
