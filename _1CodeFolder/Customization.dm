@@ -151,7 +151,7 @@ mob/proc/Auraz(var/Z)
 				src.overlays+=tensionas
 
 		else if(src.ClothBronze)
-			var/list/Gold=list("Aries Cloth", /* "Taurus Cloth" */, "Gemini Cloth", "Cancer Cloth", "Leo Cloth", "Virgo Cloth", "Libra Cloth", "Scorpio Cloth", "Capricorn Cloth", "Aquarius Cloth", "Pisces Cloth")
+			var/list/Gold=list("Aries Cloth", /* "Taurus Cloth" */, "Gemini Cloth", "Cancer Cloth", "Leo Cloth", "Virgo Cloth", "Libra Cloth", "Sagittarius Cloth", "Scorpio Cloth", "Capricorn Cloth", "Aquarius Cloth", "Pisces Cloth")
 			if((src.SpecialBuff&&(src.SpecialBuff.BuffName in Gold))||src.ClothBronze==src.ClothGold)
 				src.underlays+=gold2
 				src.underlays+=gold1

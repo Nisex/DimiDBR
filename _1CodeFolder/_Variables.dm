@@ -82,7 +82,7 @@ var
 	MoonlightGreatswordTaken
 
 	list/ConstellationsBronze=list("Pegasus","Dragon","Cygnus","Andromeda","Phoenix", "Unicorn")
-	list/ConstellationsGold=list("Aries",/* "Taurus" */,"Gemini","Cancer","Leo","Virgo","Libra","Scorpio",/*"Sagittarius"*/,"Capricorn","Aquarius","Pisces")
+	list/ConstellationsGold=list("Aries",/* "Taurus" */,"Gemini","Cancer","Leo","Virgo","Libra","Scorpio", "Sagittarius","Capricorn","Aquarius","Pisces")
 
 	Era=1//Keeps track of tiiime
 

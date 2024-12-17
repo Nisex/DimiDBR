@@ -1388,7 +1388,7 @@ mob
 				extra += 5 * AscensionsAcquired
 			if(Secret=="Vampire")
 				var/secretLevel = getSecretLevel()
-				extra += 5 + (secretLevel * 2) * (1 + (p.secretDatum.secretVariable["BloodPower"] * 0.25))
+				extra += 5 + (secretLevel * 2) * (1 + (secretDatum.secretVariable["BloodPower"] * 0.25))
 			return passive_handler.Get("LifeSteal") + extra
 		HasEnergySteal()
 			if(passive_handler.Get("EnergySteal"))
