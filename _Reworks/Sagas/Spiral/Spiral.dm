@@ -54,11 +54,10 @@ obj/proc
 sagaTierUpMessages/Spiral
 	messages = list("You gained the ability to let out the power of your evolution!", \
 	"You feel like you have evolved as a being!", \
-	"Your celestial guardian blesses you with revelations of more advanced techniques!", \
-	"In a severe pinch, you can cry out for assistance to your Zodiac guardian and hope for their protection!", \
-	"You are experiencing the first glimmers of Seventh Sense when in a pinch!", \
-	"Through attaining the Seventh Sense you can invoke the techniques of your Zodiac guardian, if only for a moment!", \
-	"You reach the level of a Golden Saint, standing at the summit as a champion of Gods!"
+	"GIGA DRILL BREAKER is possible!", \
+	"Your evolution begins spiraling ever higher...!!!", \
+	"Your evolution begins to span galaxies in power!", \
+	"? How did you evolve this hard? What are you?"
 	)
 
 var/sagaTierUpMessages/spiralSagaMessages = list("Spiral" = new /sagaTierUpMessages/Spiral())
