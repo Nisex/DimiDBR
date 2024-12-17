@@ -4708,7 +4708,7 @@ obj
 					Scorching = 8 + sagaLevel
 					Toxic = 8 + sagaLevel
 					DamageMult = 4 + (sagaLevel*2)
-					WoundCost = 15 - sagaLevel * 1.25
+					WoundCost = 25 - sagaLevel * 2
 				verb/Amaterasu()
 					set category="Skills"
 					if(usr.SagaLevel>=5)
@@ -4725,7 +4725,7 @@ obj
 				OffTax = 0.02
 				DefTax = 0.02
 				CanBeBlocked=0
-				CanBeDodged=1
+				CanBeDodged=0
 				Distance=7
 				DistanceAround=2
 				HitSparkIcon='Hit Effect Dark.dmi'
@@ -4752,7 +4752,7 @@ obj
 					Scorching = 10 + sagaLevel
 					Toxic = 10 + sagaLevel
 					DamageMult = 4 + (sagaLevel*2)
-					WoundCost = 12 - sagaLevel * 1.25
+					WoundCost = 18 - sagaLevel * 1.5
 				verb/Amaterasu()
 					set category="Skills"
 					if(usr.SagaLevel>=5)
