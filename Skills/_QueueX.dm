@@ -3606,7 +3606,7 @@ obj
 			Nine_Dragons_Strike
 				name="Kuzuryusen"
 				StyleNeeded="Hiten Mitsurugi"
-				DamageMult=0.75
+				DamageMult=1
 				AccuracyMult = 1.25
 				KBMult=0.00001
 				SpeedStrike=6
@@ -3616,7 +3616,7 @@ obj
 				Warp=10
 				Duration=20
 				Finisher=1
-				Cooldown=-1
+				Cooldown=180
 				HitSparkIcon='Hit Effect Ripple.dmi'
 				HitSparkX=-32
 				HitSparkY=-32
