@@ -57,7 +57,7 @@ mob
 			var/list/targets = list()
 			for(var/mob/m in range(15))
 				targets |= m
-			if(!fexists("Maps/[src:UniqueID]_UBW.sav"))
+			if(!fexists("Maps/map_[src:UniqueID]_UBW.sav"))
 				SwapMaps_SaveChunk("[src:UniqueID]_UBW", locate(1,71,1), locate(61, 121,1))
 				SwapMaps_Save("[src:UniqueID]_UBW")
 
