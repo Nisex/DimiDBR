@@ -950,13 +950,13 @@ mob
 			if(passive_handler.Get("Unstoppable"))
 				return 1
 			return 0
-		SaiyanTransPower()
+		SaiyanTransPower()/*
 			if(isRace(SAIYAN) || isRace(HALFSAIYAN))
 				var/t = transActive
 				var/hastransmimic = HasTransMimic()
 				if(hastransmimic > transActive)
 					t = hastransmimic
-				return t
+				return t*/
 			return 0
 		DrunkPower()
 			if(src.CheckSlotless("Drunken Mastery") && src.Drunk)
@@ -1500,16 +1500,12 @@ mob
 
 		GetIntimidationIgnore(var/mob/m)
 			var/Return=0
-			if(src.Race in list("Human"))
+			if(isRace(HUMAN))
 				Return+=100
-			if(src.Race=="Tuffle")
-				Return+=(20*(src.Intelligence+src.Imagination))
 
 			if(m)
-				if(m.Race in list("Human"))
+				if(m.isRace(HUMAN))
 					Return-=100
-				if(m.Race=="Tuffle")
-					Return-=(20*(m.Intelligence+m.Imagination))
 				if(m.isRace(MAKYO))
 					Return-=(5*m.AscensionsAcquired)
 				if(m.HasGodKi())
@@ -1532,7 +1528,7 @@ mob
 			if(m)
 				if(m.CyberCancel)
 					Return-=m.CyberCancel*100
-				if(m.Mechanized && m.Race!="Tuffle")
+				if(m.Mechanized)
 					Return-=100
 				if(m.isRace(ANDROID))
 					Return=0
