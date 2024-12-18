@@ -3511,11 +3511,14 @@ NEW VARIABLES
 				Sagittarius_Cloth
 					ArmorIcon='goldsaintsagittarius_armor.dmi'
 					TopOverlayLock='goldsaintsagittarius_helmet.dmi'
+					IconLock = 'goldsaintsagittarius_wings.dmi'
+					LockX = -32
+					LockY = -32
 					ActiveMessage="dons the Gold Cloth of Sagittarius, embracing its brilliant hope!"
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1, "MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.5), "BlurringStrikes" = player.SagaLevel*0.2, "Flow" = player.SagaLevel-3, "Skimming" = 1)
+						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1, "MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.5), "BlurringStrikes" = player.SagaLevel*0.2, "Flow" = player.SagaLevel-3, "Skimming" = 1, "SpiritFlow" = player.SagaLevel-2)
 						SpdMult = 1.4 + ((player.SagaLevel-3) * 0.1)
 						StrMult = 1.1 + ((player.SagaLevel-3) * 0.1)
 						OffMult = 1.1 + ((player.SagaLevel-3) * 0.1)
@@ -3525,9 +3528,6 @@ NEW VARIABLES
 						adjustments(usr)
 						src.Trigger(usr)
 						Cape(usr)
-						if(usr.BuffOn(src))
-							var/image/st=image(icon='goldsaintsagittarius_wings.dmi', layer=FLOAT_LAYER)
-							usr.overlays+=st
 
 		Valor_Form
 			FlashChange=1
@@ -8234,11 +8234,12 @@ NEW VARIABLES
 
 
 		Sagittarius_Bow
-			SignatureTechnique=2
 			MakesStaff=1
 			FlashDraw=1
 			StaffName="Sagittarius Bow"
 			StaffIcon='goldsaintsagittarius_bow.dmi'
+			StaffX = -32
+			StaffY = -32
 			ActiveMessage="burns their Cosmos to manifest a bow!"
 			OffMessage="dispels their Cosmos-powered bow!"
 			passives = list("SpecialStrike" = 1, "StaffAscension" = 4)
