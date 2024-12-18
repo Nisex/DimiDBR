@@ -38,7 +38,7 @@ mob/verb
 	set hidden = 1
 	var/whichMap = input(usr, "What would you like to call it?") as null|text
 	if(!whichMap) return
-	if(fexists("Maps/[whichMap].sav"))
+	if(fexists("Maps/map_[whichMap].sav"))
 		var/overwrite = alert(usr, "A map already exists with the name [whichMap]! Do you want to override it?",, "Yes", "No")
 		if(overwrite=="Yes") return
 	var/firstX = input(usr, "X1?") as null|num
@@ -54,7 +54,7 @@ mob/Admin3/verb/LoadSwapMap()
 	set hidden = 1
 	var/whichMap = input(usr, "What would you like to call it?") as null|text
 	if(!whichMap) return
-	if(!fexists("Maps/[whichMap].sav"))
+	if(!fexists("Maps/map_[whichMap].sav"))
 		usr << "[whichMap] doesn't exist."
 		return
 	var/swapmap/newMap = SwapMaps_CreateFromTemplate(whichMap)
