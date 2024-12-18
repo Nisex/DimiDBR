@@ -3518,7 +3518,7 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1, "MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.5), "BlurringStrikes" = player.SagaLevel*0.2, "Flow" = player.SagaLevel-3, "Skimming" = 1, "SpiritFlow" = player.SagaLevel-2)
+						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1, "MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "MovingCharge" = 1, "Godspeed" = 1+(player.SagaLevel*0.5), "BlurringStrikes" = player.SagaLevel*0.2, "Flow" = player.SagaLevel-3, "Skimming" = 1, "SpiritFlow" = player.SagaLevel-2)
 						SpdMult = 1.4 + ((player.SagaLevel-3) * 0.1)
 						StrMult = 1.1 + ((player.SagaLevel-3) * 0.1)
 						OffMult = 1.1 + ((player.SagaLevel-3) * 0.1)
