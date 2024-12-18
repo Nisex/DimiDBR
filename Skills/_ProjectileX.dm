@@ -652,6 +652,22 @@ obj
 				IconLock='Arrow - Spirit.dmi'
 				Variation=48
 				Radius=1
+			Sagittarius_Arrow
+				DamageMult=1
+				AccMult=1
+				StrRate=0.5
+				ForRate=0.5
+				EndRate=1
+				Distance=30
+				AttackReplace=1
+				Striking=1
+				Blasts=5
+				IconLock='LightImpulse.dmi'
+				LockX=-32
+				LockY=-32
+				Trail='LightImpulseTrail.dmi'
+				TrailDuration=1
+				TrailSize=0.75
 			Staff_Projectile
 				Radius=0
 				DamageMult=1
@@ -2828,18 +2844,18 @@ obj
 				FireFromSelf=1
 				FireFromEnemy=0
 				Deflectable=0
-				Homing=1
+				Homing=8
 				HyperHoming=1
 				Piercing=1
 				Striking=1
 				Cooldown=200
-				Radius = 3
+				Radius = 1
 				IconLock='LightImpulse.dmi'
 				LockX=-32
 				LockY=-32
 				Trail='LightImpulseTrail.dmi'
 				TrailDuration=1
-				TrailSize=0.5
+				TrailSize=0.75
 				ActiveMessage="begins firing off countless darts of Cosmos-infused light!"
 				verb/Infinity_Break()
 					set category="Skills"
