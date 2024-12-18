@@ -705,19 +705,19 @@ mob/proc/
 			switch(src.Kaioken)
 				if(1)
 					src.PowerControl=160
-					src.KaiokenBP=4/3
+					src.KaiokenBP=1.2
 				if(2)
 					src.PowerControl=175
-					src.KaiokenBP=2
+					src.KaiokenBP=1.3
 				if(3)
 					src.PowerControl=200
-					src.KaiokenBP=2
+					src.KaiokenBP=1.4
 				if(4)
 					src.PowerControl=250
-					src.KaiokenBP=4
+					src.KaiokenBP=1.5
 				if(5)
 					src.PowerControl=300
-					src.KaiokenBP=(20/3)
+					src.KaiokenBP=1.7
 		else
 			src.KaiokenBP=1
 //EPM modifications
