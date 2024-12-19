@@ -32,8 +32,7 @@ world
 
 		WorldLoading=1
 		spawn(100)GlobalSave()
-		GenerateWorldInstances()
-		// log=file("Saves/Errors.log")
+
 		spawn(10)
 
 			BootWorld("Load")
@@ -218,17 +217,6 @@ client
 			if(mob.party)
 				mob.party.remove_member(mob)
 
-			if(mob.Control)
-				var/obj/Items/Tech/SpaceTravel/M=mob.Control
-				if(M in players)
-					M.who=null
-					mob.client.eye=mob
-					mob.Control=null
-				var/obj/Items/Tech/Recon_Drone/N=mob.Control
-				if(N in world)
-					N.who=null
-					mob.client.eye=mob
-					mob.Control=null
 			mob.RemoveWaterOverlay()
 			var/image/A=image(icon='Say Spark.dmi',pixel_y=6)
 			mob.overlays-=A
@@ -269,9 +257,7 @@ client
 
 
 mob/proc/Allow_Move(D)
-	if(!Move_Requirements()&&!src.Control)
-		return
-	if(InVessel())
+	if(!Move_Requirements())
 		return
 	if((src.Beaming||src.BusterTech)&&!src.HasMovingCharge())
 		if(src.Beaming!=2)
@@ -283,12 +269,7 @@ mob/proc/Allow_Move(D)
 		return
 	if(src.PoweringDown)
 		return
-	if(Control)
-		step(Control,D)
-		if(Target&&istype(Target,/obj/Others/Build))
-			Build_Lay(Target,usr, 0, 0, 0)
-		else
-			return
+
 	for(var/mob/P in range(1,usr)) if(P.Grab==usr)
 		var/Grab_Escape = min(60, max(10, world.time - P.GrabTime))
 		var/brolic = P.CheckSlotless("Brolic Grip")

@@ -2448,7 +2448,7 @@ obj/Items/Enchantment
 				OMsg(usr, "[usr] is reborn!")
 				usr.EraAge=glob.progress.Era
 				usr.EraBody="Child"
-				if(usr.isRace(SAIYAN)||usr.Race=="Half Saiyan")
+				if(usr.isRace(SAIYAN)||usr.isRace(HALFSAIYAN))
 					usr.Tail(1)
 
 				src.Using=0

@@ -216,9 +216,8 @@ mob/proc/Unconscious(mob/P,var/text)
 				if(src.BuffOn(B)&&B.Transform&&!B.AlwaysOn)
 					B.Trigger(src)
 					break
-			if(src.Race!="Changeling")
-				src.Revert()
-				src<<"Being knocked out forced you to revert!"
+			src.Revert()
+			src<<"Being knocked out forced you to revert!"
 		if(src.isRace(SAIYAN))
 			src.Oozaru(0)
 	if(src.Grab)
@@ -791,7 +790,6 @@ mob/proc/Leave_Body(var/SuperDead=0, var/Zombie, var/ForceVoid=0)
 	src.Crippled=0
 	src.Confused=0
 	src.Stunned=0
-	A.Race=Race
 	A.Body=Body
 	if(1>=ForceVoid)
 		A.Health=1000

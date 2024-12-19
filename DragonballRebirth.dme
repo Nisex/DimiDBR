@@ -268,7 +268,6 @@
 #include "_1CodeFolder\Items.dm"
 #include "_1CodeFolder\ItemsTech.dm"
 #include "_1CodeFolder\ItemsUnique.dm"
-#include "_1CodeFolder\ItemsVessels.dm"
 #include "_1CodeFolder\ItemsWizardry.dm"
 #include "_1CodeFolder\KatieMap.dm"
 #include "_1CodeFolder\KnowledgeTree.dm"

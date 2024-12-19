@@ -148,32 +148,16 @@ mob
 						d.last_charge_gain = world.realtime
 						d.current_charges++
 
-			if(!isRace(SAIYAN) || Race!="Changeling")
-				if(Potential>=15)
-					if(SagaLevel < 2 && Saga)
-						saga_up_self()
-				if(Potential >= 35 && SagaLevel < 3 && Saga)
+			if(Potential>=15)
+				if(SagaLevel < 2 && Saga)
 					saga_up_self()
-			else if(src.Race=="Changeling")
-				if(src.Potential>=20)
-					if(src.AscensionsUnlocked<1)
-						src.AscensionsUnlocked=1
-						if(!Silent) src << "Meditate to acquire ascension boons."
-				if(src.Potential>=40)
-					if(src.AscensionsUnlocked<2)
-						src.AscensionsUnlocked=2
-						if(!Silent) src << "Meditate to acquire ascension boons."
-				if(src.Potential>=60)
-					if(src.AscensionsUnlocked<3)
-						src.AscensionsUnlocked=3
-						if(!Silent) src << "Meditate to acquire ascension boons."
+			if(Potential >= 35 && SagaLevel < 3 && Saga)
+				saga_up_self()
 
 proc
 	potential_power(var/mob/m)
 		if(m.get_potential()==m.potential_last_checked)
 			return//don't keep getting potential power if the potential hasn't changed
-		if(m.Class in list("Dance", "Potara"))
-			return // dont mess with my fusion power
 
 		var/tier_rem=min(10, (m.get_potential()/10))
 		var/max_tier = min(10,round((glob.progress.totalPotentialToDate*1.25)/10))

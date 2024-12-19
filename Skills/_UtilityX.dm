@@ -2539,9 +2539,6 @@ obj/Skills/Utility
 			for(var/obj/Items/Tech/Beacon/B in world)
 				if(B.BeaconState=="On"&&usr.z==B.z)
 					usr << "<b><font color='green'>(BEACON)</font color></b> - ([B.x], [B.y], [B.z])"
-			for(var/obj/Items/Tech/SpaceTravel/V in world)
-				if(usr.z==V.z)
-					usr << "<b><font color='yellow'>(VEHICLE)</font color></b> - ([V.x], [V.y], [V.z])"
 			for(var/obj/Items/Enchantment/PocketDimensionGenerator/W in world)
 				if(usr.z==W.z)
 					usr << "<b><font color='red'>(DISTURBANCE)</font color></b> - ([W.x], [W.y], [W.z])"

@@ -125,7 +125,7 @@ proc/SenseDetect(atom/A,Range)
 mob/var/list/Tabz=list("Science"="Hide","Build"="Hide","Enchantment"="Hide","Inventory"="Show")
 
 mob/Players/Stat()
-	if(client.show_verb_panel&&!Tabs)
+	if(client.show_verb_panel)
 
 		statpanel("Statistics")
 		if(statpanel("Statistics"))
@@ -625,8 +625,6 @@ mob/proc/Recover(var/blah,Amount=1)
 				return
 			if(src.Oxygen<=10)
 				return
-			if(src.Race=="Changeling")
-				Amount*=7.5
 			if(SenseRobbed>=2&&(src.SenseUnlocked<=src.SenseRobbed&&src.SenseUnlocked>5))
 				Amount/=src.SenseRobbed
 			if(Swim&&passive_handler.Get("Fishman"))
@@ -991,7 +989,7 @@ mob/proc/
 				src.Auraz("Remove")
 				src<<"You are too tired to power up."
 				src.PoweringUp=0
-				if(isRace(SAIYAN)||Race=="Half Saiyan")
+				if(isRace(SAIYAN)||isRace(HALFSAIYAN))
 					if(src.transActive()>0)
 						var/Skip=0
 						if(src.race.transformations[transActive].mastery>=25)
@@ -1009,7 +1007,7 @@ mob/proc/
 				src.PoweringUp=0
 				src.Auraz("Remove")
 				src<<"You are too tired to power up."
-				if(isRace(SAIYAN)|Race=="Half Saiyan")
+				if(isRace(SAIYAN)||isRace(HALFSAIYAN))
 					if(src.transActive>0)
 						var/Skip=0
 						if(src.race.transformations[transActive].mastery>=25)
@@ -1294,7 +1292,7 @@ mob/proc/Get_Scouter_Reading(mob/B)
 				if(B.isRace(YOKAI))
 					if(B.EraBody=="Elder"||(B.EraBody=="Adult"&&B.Aged))
 						AgeRate=1.25
-				if(B.Race=="Half Saiyan"&&B.Anger)
+				if(B.isRace(HALFSAIYAN)&&B.Anger)
 					AgeRate=1
 				Ratio*=AgeRate
 			if(locate(/obj/Seal/Power_Seal, B))
@@ -1333,8 +1331,6 @@ mob/proc/Get_Scouter_Reading(mob/B)
 						a=mult+1
 				else if(B.Anger&&!B.HasNoAnger()&&!B.HiddenAnger)
 					a=B.Anger
-					if(B.Race=="Half Saiyan"&&a<2)
-						a=2
 					if(B.AngerMult>1)
 						var/ang=a-1//Usable anger
 						var/mult=ang*B.AngerMult

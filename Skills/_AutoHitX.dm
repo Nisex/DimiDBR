@@ -5613,10 +5613,6 @@ mob
 					for(var/obj/Items/Tech/Security_Camera/SC in view(10, src))
 						if(Z.PreRequisite.len<1)
 							SC.ObservedTechniques["[Z.type]"]=Z.Copyable
-				spawn()
-					for(var/obj/Items/Tech/Recon_Drone/RD in view(10, src))
-						if(Z.PreRequisite.len<1)
-							RD.ObservedTechniques["[Z.type]"]=Z.Copyable
 			if(Z.PassThrough)
 				if(Z.Area=="Strike")
 					Z.StopAtTarget=1

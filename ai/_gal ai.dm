@@ -1172,10 +1172,6 @@ mob/Player/AI
 								H << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[F.name] transmits: [src] says: [html_encode(T)]", "icchat")
 								Log(H.ChatLog(),"<font color=green>[F.name](Made by [F.CreatorKey]) transmits: [src] says: [html_encode(T)]")
 
-		for(var/obj/Items/Tech/Recon_Drone/FF in view(12,src))
-			if(FF.who)
-				FF.who << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[FF.name] transmits: [src] says: [html_encode(T)]", "output")
-				FF.who << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[FF.name] transmits: [src] says: [html_encode(T)]", "icchat")
 
 		for(var/obj/Items/Tech/Speaker/X in view(6,src)) //This for loop detects Speakers, then determines if they have the Intercom upgrade.
 			for(var/obj/Items/Tech/Speaker/Y in world)
@@ -1190,34 +1186,7 @@ mob/Player/AI
 							M << output("<font color=green><b>([X.name])</b> [src.name]: [html_encode(T)]", "output")
 							M << output("<font color=green><b>([X.name])</b> [src.name]: [html_encode(T)]", "icchat")
 							Log(M.ChatLog(),"<font color=green>([X.name])[src]([src.key]) says: [html_encode(T)]")
-
-		for(var/obj/Items/Tech/SpaceTravel/Ship/A in view(20,src)) //This for loop detects ships around those that use the say verb.
-			for(var/obj/ShipConsole/B in world)
-				if(A.Password==B.Password)
-					for(var/mob/C in hearers(20,B))
-						C << output("<font color=green><b>([A.name] External Camera)</b> [src.name]: [html_encode(T)]", "output")
-						C << output("<font color=green><b>([A.name] External Camera)</b> [src.name]: [html_encode(T)]", "icchat")
-
-		for(var/obj/ShipConsole/AA in view(20,src))
-			for(var/obj/Items/Tech/SpaceTravel/Ship/BB in world)
-				if(AA.Password==BB.Password&&AA.SpeakerToggle==1)
-					for(var/mob/C in hearers(20,BB))
-						C << output("<font color=green><b>([BB.name] External Speaker)</b> [src.name]: [html_encode(T)]", "output")
-						C << output("<font color=green><b>([BB.name] External Speaker)</b> [src.name]: [html_encode(T)]", "icchat")
-
-		for(var/obj/Items/Tech/SpaceTravel/SpacePod/A in view(20,src)) //This for loop detects ships around those that use the say verb.
-			for(var/obj/PodConsole/B in world)
-				if(A.Password==B.Password)
-					for(var/mob/C in hearers(20,B))
-						C << output("<font color=green><b>([A.name] External Camera)</b> [src.name]: [html_encode(T)]", "output")
-						C << output("<font color=green><b>([A.name] External Camera)</b> [src.name]: [html_encode(T)]", "icchat")
-
-		for(var/obj/PodConsole/AA in view(12,src))
-			for(var/obj/Items/Tech/SpaceTravel/SpacePod/BB in world)
-				if(AA.Password==BB.Password&&AA.SpeakerToggle==1)
-					for(var/mob/C in hearers(12,BB))
-						C << output("<font color=green><b>([BB.name] External Speaker)</b> [src.name]: [html_encode(T)]", "output")
-						C << output("<font color=green><b>([BB.name] External Speaker)</b> [src.name]: [html_encode(T)]", "icchat")
+	
 		src.Say_Spark()
 
 	proc/AIGain()
@@ -1919,9 +1888,6 @@ mob/Player/AI
 						Ratio*=1
 				if(locate(/obj/Seal/Power_Seal, src))
 					Ratio*=0.5
-				if(src.Race=="Changeling")
-					if(src.Anger!=0)
-						Ratio*=1+(src.GetHealthBPMult()+src.GetEnergyBPMult())
 				else if(src.CanLoseVitalBP()||src.passive_handler.Get("Anaerobic"))
 					Ratio*=1+(src.GetHealthBPMult()+src.GetEnergyBPMult())
 				if(src.JaganPowerNerf)
@@ -1950,8 +1916,6 @@ mob/Player/AI
 						a*=src.AngerMax
 					else if(Anger&&!src.HasNoAnger())
 						a*=Anger
-						if(src.Race=="Half Saiyan")
-							a=2
 						if(src.AngerMult>1)
 							var/ang=a-1//Usable anger
 							var/mult=ang*src.AngerMult

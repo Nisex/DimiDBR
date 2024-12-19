@@ -66,9 +66,7 @@ mob
 			if(findtext(msg, quotationTextColor))
 				msg = quotationTextColor.Replace(msg, "<font color=\"[Text_Color]\">$0</font>")
 
-			var/list/hearers
-			if(usr.in_vessel) hearers = in_vessel.occupant_refs
-			else hearers = hearers(20,src)
+			var/list/hearers = hearers(20,src)
 
 			var/formattedMessage
 

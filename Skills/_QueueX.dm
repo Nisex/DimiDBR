@@ -4203,10 +4203,7 @@ mob
 					for(var/obj/Items/Tech/Security_Camera/SC in view(10, src))
 						if(IsList(Q.PreRequisite))
 							SC.ObservedTechniques["[Q.type]"]=Q.Copyable
-				spawn()
-					for(var/obj/Items/Tech/Recon_Drone/RD in view(10, src))
-						if(IsList(Q.PreRequisite))
-							RD.ObservedTechniques["[Q.type]"]=Q.Copyable
+
 			if(Q.Counter)
 				KenShockwave(src,icon='KenShockwaveBloodlust.dmi',Size=0.4, Blend=2, Time=2)
 			if(!Q.Combo && src.HasCounterMaster() && CounterMasterTimer <= 0)

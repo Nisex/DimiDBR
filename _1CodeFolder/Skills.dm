@@ -929,7 +929,7 @@ turf/Click(turf/T)
 	if(usr.Target&&istype(usr.Target,/obj/Others/Build) || usr.client.macros.IsPressed("Ctrl"))
 		..()
 
-	else if(usr.Move_Requirements()&&!usr.Control&&!usr.KO)
+	else if(usr.Move_Requirements()&&!usr.KO)
 
 		if(locate(/obj/Skills/Teleport/Instant_Transmission,usr.contents))
 			if(T) if(T.icon)

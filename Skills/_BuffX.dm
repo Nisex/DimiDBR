@@ -4101,10 +4101,7 @@ NEW VARIABLES
 			OffMessage="deactivates the green energy..."
 			proc/setupVars(mob/player)
 				src.ActiveMessage="surrounds their body in a faint green aura!"
-				if(player.Race == "Human")
-					passives = list("Desperation" = 1 + player.SagaLevel/3)
-				else
-					passives = list("Desperation" = player.SagaLevel)
+				passives = list("Desperation" = player.SagaLevel)
 
 				if(player.SagaLevel>=1)
 					ActiveMessage="draws power from their courage as they pulse with green light!"
@@ -6309,8 +6306,6 @@ NEW VARIABLES
 				OffMessage="exceeds the capacity of their shield..."
 				verb/Bubble_Shield()
 					set category="Skills"
-					if(usr.Race=="Android"||usr.Mechanized)
-						src.IconLock='Android Shield.dmi'
 					src.Trigger(usr)
 			Jet_Boots
 				passives = list("SuperDash" = 1, "Skimmming " = 1, "Pursuer" = 1)
@@ -12191,7 +12186,7 @@ mob
 						src << "You can't use [B] to make a staff while already using one!"
 						return
 					if(src.StanceActive)
-						if(src.Race!="Demon"&&!src.ArcaneBladework && (!src.StyleBuff||src.StyleBuff.type!=/obj/Skills/Buffs/NuStyle/SwordStyle/Battle_Mage_Style&&!src.HasMovingCharge()))
+						if(!src.ArcaneBladework && (!src.StyleBuff||src.StyleBuff.type!=/obj/Skills/Buffs/NuStyle/SwordStyle/Battle_Mage_Style&&!src.HasMovingCharge()))
 							src << "You can't use [B] to make a staff while using a stance!"
 							return
 				if(B.NoSword)
@@ -12318,10 +12313,7 @@ mob
 						for(var/obj/Items/Tech/Security_Camera/SC in view(10, src))
 							if(IsList(B.PreRequisite))
 								SC.ObservedTechniques["[B.type]"]=B.Copyable
-					spawn()
-						for(var/obj/Items/Tech/Recon_Drone/RD in view(10, src))
-							if(IsList(B.PreRequisite))
-								RD.ObservedTechniques["[B.type]"]=B.Copyable
+
 				src.StyleBuff=B
 				if(src.Secret=="Ripple")
 					src << "You channel the graceful motions of the Ripple through your style!"
@@ -12337,9 +12329,6 @@ mob
 				B.current_passives = B.passives
 				passive_handler.increaseList(B.passives)
 			if(B.ActiveSlot)//If the buff you pressed the button for is active slots...
-				if(src.Race=="Changeling"&&src.transActive()&&!B.UnrestrictedBuff)
-					src << "No buffs as a changeling in transformations."
-					return
 				if(src.ActiveBuff)//And you already have an active buff...
 					if(!src.BuffOn(B))//Check if it is the buff that is active.
 						src << "You're already using an active buff."
@@ -12355,9 +12344,6 @@ mob
 				return
 
 			if(B.SpecialSlot)
-				if(src.Race=="Changeling"&&src.transActive()&&!B.UnrestrictedBuff)
-					src << "No buffs as a changeling in transformations."
-					return
 				/*
 				if(src.isRace(SAIYAN)&&src.transActive()&&!B.UnrestrictedBuff)
 					src << "No buffs as a saiyan in transformations."

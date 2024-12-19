@@ -91,7 +91,7 @@ mob/proc/TwoWayTelepath(var/mob/who, anon)
 		HeavenlyRestrictionSKIP
 
 		for(var/mob/Players/m in hearers(25,src))
-			if(m.HasTelepathy() && m.Race != "Shinjin")
+			if(m.HasTelepathy() && !isRace(SHINJIN))
 				if(m.HearThoughts&&src!=m)
 					if(anon)
 						m << output("<font color=#6cd2f8><i> A voice in your head says: \"[blah]\"", "output")

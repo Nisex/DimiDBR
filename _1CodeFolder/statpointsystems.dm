@@ -387,8 +387,6 @@ mob/verb/Skill_Points(type as text,skill as text)
 			var/OffenseMin=Z.OffenseModGain*10
 			var/DefenseMin=Z.DefenseModGain*10
 			var/PowerValue=0.25
-			if(src.Race=="Alien"||src.Race=="Android"/* || "Majin"*/)
-				PowerValue=0.75
 			switch(skill)
 				if("Strength")
 					if(type=="-") if(StrMod<=StrengthMin)return

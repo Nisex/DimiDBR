@@ -259,8 +259,6 @@ obj/Items
 	Click()
 		if(src in Technology_List)
 			var/obj/ItemMade
-			var/heh
-			var/list/already=new
 			if(usr.KO)
 				usr << "You cannot create items while KO'd."
 				return
@@ -278,36 +276,6 @@ obj/Items
 				usr << "You don't have enough money to buy [src]."
 				return
 			if(1)
-				if(istype(src,/obj/Items/Tech/SpaceTravel/SpacePod))
-					var/Count=1
-					for(var/obj/Items/Tech/SpaceTravel/SpacePod/SS in world)
-						if(SS in Technology_List)
-							continue
-						world << "a pod was located"
-						world << "checked for 'Pod[Count]'"
-						if(SS.Password=="Pod[Count]")
-							world << "pod value [Count] confirmed"
-							Count++
-						else
-							world << "pod value [Count] never found; assigning [Count]"
-							break
-					if(Count>10)
-						usr << "There are too many space pods made already."
-						return
-					heh=Count
-				if(!heh)
-					if(istype(src,/obj/Items/Tech/SpaceTravel/Ship))
-						for(var/obj/Items/Tech/SpaceTravel/Ship/W in world)
-							already.Add(W.Password)
-						for(var/i=1, i<=10, i++)
-							if(already.Find(i))
-								continue
-							else
-								heh=i
-								break
-						if(!heh)
-							usr<<"There are too many of them!"
-							return
 				if(istype(src,/obj/Items/Tech/Power_Pack))
 					var/MultiMake=input("How many packs would you like to make?")as num|null
 					if(MultiMake==null||MultiMake<=0)
@@ -345,12 +313,6 @@ obj/Items
 						ItemMade:CreatorKey=usr.ckey
 						ItemMade:CreatorSignature=usr.EnergySignature
 
-
-
-					if(istype(src,/obj/Items/Tech/SpaceTravel/SpacePod))
-						ItemMade.Password="Pod[heh]"
-						world << "assigned [ItemMade.Password] to new pod"
-						ItemMade.loc=usr.loc
 					usr << "You made \an [ItemMade]!"
 
 				if(istype(src,/obj/Items/Tech/Scouter))

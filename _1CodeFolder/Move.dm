@@ -5,43 +5,7 @@ mob/var/Decimals=0
 mob/var/warperTimeLock = 0
 
 proc
-	TeleporterBump(var/A,var/Q)
-		if(istype(A,/obj/Special/Teleporter2)||!(istype(A, /obj/Special/Teleporter2/SpecialTele)))
-			var/obj/Special/Teleporter2/_tp=A
-			if(istype(Q,/obj/Items/Tech/SpaceTravel))
-				Q:loc=locate(_tp.gotoX,_tp.gotoY,_tp.gotoZ)
-		if(istype(A,/obj/Special/Teleporter2/SpecialTele))
-			var/obj/Special/Teleporter2/tele=A
-			var/newz
-			if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoAbove)
-				newz=tele.z+1
-			if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoBelow)
-				newz=tele.z-1
-			if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoDeep)
-				newz=tele.z-2
-			if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoHigh)
-				newz=tele.z+2
-			if(istype(Q,/obj/Items/Tech/SpaceTravel))
-				Q:loc=locate(tele.x,tele.y,newz)
-
-
 	PlanetEnterBump(var/A,var/Q)
-		if(istype(A,/obj/Planets))
-			if(istype(A,/obj/Planets/Sanctuary))
-				Q:loc=locate(rand(1,500),rand(1,500),18)
-			else
-				var/obj/Planets/LOL=A
-				var/Wtf=LOL.Zz
-				if(Wtf==3)
-					Q:loc=locate(rand(140,160),rand(480,490),Wtf)
-				else if(Wtf==4)
-					Q:loc=locate(rand(152,172),65,Wtf)
-				else if(Wtf==5)
-					Q:loc=locate(rand(140,160),122,Wtf)
-				else
-					Q:loc=locate(rand(1,240),rand(1,240),Wtf)
-
-
 		if(istype(A,/obj/Items/Tech/Door))
 			var/obj/Items/Tech/Door/B=A
 			var/mob/M=Q
@@ -52,19 +16,6 @@ proc
 				else
 					if(B.Password&&!B.AutoOpen)
 						var/happened
-						for(var/obj/Items/Tech/SpaceTravel/L)
-							if(L==Q)
-								happened=1
-								if(L.DoorPass==B.Password)
-									B.Open()
-								else if(L.DoorPass2==B.Password)
-									B.Open()
-								else if(L.DoorPass3==B.Password)
-									B.Open()
-								else
-									var/Guess=input(L.who,"Manually transmit password to door.") as text
-									if(Guess==B.Password)
-										B.Open()
 						if(!happened)
 							var/eee
 							for(var/obj/Items/Tech/Door_Pass/L in Q)

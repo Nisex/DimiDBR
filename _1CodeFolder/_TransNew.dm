@@ -125,10 +125,6 @@ mob/proc/CanTransform()
 		if(src.SpecialBuff.NeedsSSJ)
 			src<<"Your ascended super state uses too much power to enter another level!"
 			return 0
-		if(src.SpecialBuff.NeedsTrans)
-			if(src.Race=="Changeling"&&src.transUnlocked<4)
-				src<<"Your ascended transformation uses too much power to enter another level!"
-				return 0
 	for(var/b in SlotlessBuffs)
 		var/obj/Skills/Buffs/sb = SlotlessBuffs[b]
 		if(sb)

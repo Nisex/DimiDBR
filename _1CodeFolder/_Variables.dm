@@ -3,15 +3,12 @@
 atom/var
 	tmp/Using=0
 	tmp/mob/Owner
-	tmp/mob/Partner
-	tmp/turf/Spawn_Location
 	Health=100
 	LastIconChange
 	AdminInviso=0
 	FlyOverAble=1
 	IgnoreFlyOver=0
 	UnFlyable=0
-	Race
 	// Current available power, a compilation of many factors. Editing will do nothing
 	Level=1
 	Speed=1
@@ -21,7 +18,6 @@ atom/var
 	Grabbable=1
 	Distance=15
 	Spawn_Timer=0
-	Tabs
 	isOutside
 	isUnderwater
 	PrevX
@@ -48,7 +44,6 @@ mob/var
 	Voiding//void timer, TODO mode
 	ScreenSize
 	tmp/mob/Target
-	tmp/obj/Control //An object you're controlling
 	tmp/Manufactured
 	tmp/PoseEnhancement//Pose for 3 seconds to get a bonus to rippling.
 	tmp/PoseTime//timer
@@ -59,7 +54,6 @@ mob/var
 	tmp/Knockback//The distance to be knocked back.
 	tmp/previousKnockBack // how far you were knocked back last time
 	tmp/Knockbacked//The direction of knockback.
-	tmp/Swapping//new var that controls swapping tomes/gears
 	tmp/Shielding//used for fanciness
 	tmp/Beaming=0//If true when a direction is pressed, do not move, but change directions.
 	tmp/BeamCharging=0.5//Holds the length of time that a beam has been charging for

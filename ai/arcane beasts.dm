@@ -1511,7 +1511,7 @@ mob/Player/AI/Nympharum
 			Power = ai_owner.Power * 0.8
 
 mob/Player/AI/Nympharum/Allow_Move(D)
-	if(!Move_Requirements()&&!src.Control)
+	if(!Move_Requirements())
 		return
 	for(var/mob/P in range(1,usr)) if(P.Grab==usr)
 		view(P)<<"[usr] breaks free of [P]!"

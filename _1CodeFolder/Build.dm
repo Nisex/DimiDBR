@@ -539,7 +539,6 @@ proc/Build_Lay(obj/Others/Build/O,mob/P, var/tmpX, var/tmpY, var/tmpZ)
 		if(tmpX>0||tmpY>0||tmpZ>0)
 			return//no clicky for the common man
 	var/mob/L=P
-	if(P.Control) L=P.Control
 	var/atom/C
 	if(tmpX > 0 || tmpY> 0 || tmpZ> 0)
 		P.buildPreviousX = tmpX

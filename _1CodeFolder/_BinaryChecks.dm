@@ -689,8 +689,6 @@ mob
 					Return += passive_handler.Get("HellRisen") * 2
 			if(src.Saga=="Eight Gates")
 				Return+=2
-			if(src.Race=="Alien" && src.AscensionsAcquired>=5)
-				Return+=2
 			if(src.KamuiBuffLock)
 				Return+=3
 			var/stp=src.SaiyanTransPower()
@@ -824,22 +822,14 @@ mob
 				return 1
 			if(src.transActive()&&!src.HasMystic())
 				if(race.transformations[transActive].mastery>10&&race.transformations[transActive].mastery<75)
-					if(src.Race!="Changeling")
-						return 1
-					else
-						if(src.transActive()>3)
-							return 1
+					return 1
 			return 0
 		GetEnergyLeak()
 			var/Total=0
 			Total+=passive_handler.Get("EnergyLeak")
 			if(src.transActive()&&!src.HasMystic())
 				if(race.transformations[transActive].mastery>10&&race.transformations[transActive].mastery<75)
-					if(src.Race!="Changeling")
-						Total+=src.transActive()*0.25
-					else
-						if(src.transActive()>3)
-							Total+=0.5
+					Total+=src.transActive()*0.25
 			return Total
 		HasFatigueLeak()
 			if(passive_handler.Get("FatigueLeak"))
@@ -2318,7 +2308,7 @@ mob
 			if(src.Kaioken)
 				return 0
 			if(src.AngerMax==1)
-				if(src.Race!="Changeling")
+				if(!isRace(CHANGELING))
 					return 0
 			if(src.SenseUnlocked>5&&src.SenseUnlocked>src.SenseRobbed)
 				return 0
@@ -2854,10 +2844,6 @@ mob
 			if(s.type==/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_Hope)
 				return 1
 			if(s.type==/obj/Items/Sword/Heavy/Legendary/WeaponSoul/Sword_of_the_Moon)
-				return 1
-			return 0
-		HasSSjVars()
-			if(src.Race in list("Saiyan", "Half Saiyan"))
 				return 1
 			return 0
 

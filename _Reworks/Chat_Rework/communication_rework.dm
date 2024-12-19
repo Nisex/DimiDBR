@@ -165,11 +165,6 @@ client/proc/sayProc(T, mode = null)
 	for(var/obj/Items/Tech/Security_Camera/F in view(11,usr)) //This for loop detects Security Cameras around those that use the say verb.
 		F.broadcastToListeners(broadcastMessage)
 
-	for(var/obj/Items/Tech/Recon_Drone/FF in view(11,usr))
-		if(FF.who&&ismob(FF.who))
-			var/mob/pilot = FF.who
-			pilot?.client.outputToChat("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[FF.name] transmits: [usr.name] [sayNoun] [message]", IC_OUTPUT)
-
 	usr.Say_Spark()
 	usr.CheckAFK()
 

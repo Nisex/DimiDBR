@@ -95,7 +95,6 @@ mob/proc/StartFresh()
 	corpse.loc = oldLoc
 /*	PinataExplosion(corpse)
 	OMsg(src, "[src]'s body explodes into a shower of confetti and loot!")*/
-	corpse.Race = Race
 	corpse.Body = Body
 	corpse.EnergyMax=src.EnergyMax
 	corpse.Energy=src.Energy

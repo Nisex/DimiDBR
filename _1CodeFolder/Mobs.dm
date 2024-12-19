@@ -68,23 +68,5 @@ mob/Players
 					src.loc=locate(B.x,B.y,B.z)
 					break
 
-		if(istype(A,/obj/Items/Tech/SpaceTravel/Ship))
-			var/obj/Items/Tech/SpaceTravel/Ship/LOL=A
-			for(var/obj/ShipAirlock/Q)
-				if(Q.Password==LOL.Password)
-					src.loc=locate(Q.x,Q.y-1,Q.z)
-					return
-			AdminMessage("[usr]([usr.key]) tried entering a broken ship!")
-			src<<"This ship is broken! Admins have been alerted."
-
-		if(istype(A,/obj/Items/Tech/SpaceTravel/Boat))
-			var/obj/Items/Tech/SpaceTravel/Boat/LOL=A
-			for(var/obj/BoatEntrance/Q)
-				if(Q.Password==LOL.Password)
-					src.loc=locate(Q.x,Q.y-1,Q.z)
-					return
-			AdminMessage("[usr]([usr.key]) tried entering a broken boat!")
-			src<<"This boat is broken! Admins have been alerted."
-
 		PlanetEnterBump(A,src)
 

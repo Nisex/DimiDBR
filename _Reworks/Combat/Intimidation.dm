@@ -85,7 +85,7 @@
 
     if(!src.CheckSlotless("Majin"))
         var/stp=src.SaiyanTransPower()
-        var/halfieNerf = Race == "Half Saiyan" ? 0.8 : 1
+        var/halfieNerf = isRace(HALFSAIYAN) ? 0.8 : 1
         if(stp)
             switch(stp)
                 if(1)
@@ -110,8 +110,6 @@
                 if(5)
                     Effective*=50
 
-    if(src.Race=="Changeling"&&src.transActive()&&src.AscensionsAcquired)
-        Effective+=(10*src.AscensionsAcquired)
     if(src.CheckActive("Mobile Suit")||src.CheckSlotless("Battosai")||src.CheckSlotless("Susanoo"))
         Effective+=5
         if(Effective<15)

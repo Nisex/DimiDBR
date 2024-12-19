@@ -60,17 +60,9 @@ mob/Players
 				x = PrevX
 				y = PrevY
 				z = PrevZ
-		if(usr.Manufactured)
+		if(usr.Savable==0)
 			usr.Savable=1
-			usr.Redo_Stats()
-			usr.EraAge=glob.progress.Era
-			for(var/obj/Items/Tech/Android_Frame/A in world)
-				if(A.Savable == src.ckey)
-					del A
-		else
-			if(usr.Savable==0)
-				usr.Savable=1
-				usr.Finalize()
+			usr.Finalize()
 		if(!locate(/obj/Money) in src)
 			src.contents += new/obj/Money
 		winshow(usr,"StatsWindow",0)
@@ -134,14 +126,6 @@ mob/Players
 			src.Potential=1
 		src.potential_max()
 
-		if(src.Imagination<=0)
-			if(src.Race=="Android")
-				src.Imagination=0.05
-			else
-				src.Imagination=0.25
-		if(src.Intelligence<=0)
-			src.Intelligence=0.25
-
 		for(var/obj/Skills/Buffs/NuStyle/s in src)
 			src.StyleUnlock(s)
 
@@ -200,11 +184,6 @@ mob/Players
 		if(RPPSpent<0)
 			src<<"RPPSpent was negative, resetting to 0"
 			RPPSpent=0
-
-		if(resetStats && Race in Races_Changed)
-			src<<"Your race was recently changed, your stats have been reset."
-			Redo_Stats()
-			resetStats=FALSE
 
 		if(!killed_AI)
 			killed_AI = list()
@@ -400,8 +379,6 @@ mob/Players
 		for(var/obj/Redo_Stats/r in src)
 			if(r.LoginUse) r.RedoStats(src)
 		if(locate(/obj/Skills/Companion/arcane_follower) in src) is_arcane_beast = locate(/obj/Skills/Companion/arcane_follower) in src
-		for(var/obj/Items/Tech/Vessel/v in world)
-			if("[ckey] [EnergySignature]" in v.occupants) v.AddOccupant(src)
 		for(var/obj/Items/i in src.contents)
 			if(!i.LegendaryItem && i.Augmented)
 				if(i.suffix=="*Equipped*" && i.Techniques.len > 0)
@@ -584,38 +561,6 @@ mob/Creation/verb
 			return
 		verb_delay=world.time+1
 		race_selecting=0
-		if(usr.Race=="Android")
-			var/Choice
-			var/list/Androids=list("Cancel")
-			for(var/obj/Items/Tech/Android_Frame/A in world)
-				if(A.Savable == usr.ckey)
-					Choice = A
-					break
-				if(A.invisibility<=0&&A.CreatorKey)
-					Androids.Add(A)
-			if(!Choice)
-				if(Androids.len<2)
-					usr << "There are no free frames in the world."
-					del usr
-					return
-				Choice = input("There are free Android frames in the world; would you like to activate one of them?","Android Activation") in Androids
-				if(Choice!="Cancel")
-					if(Choice:Password)
-						var/Pass=input(usr, "This item is protected by a password; you have to provide it before inhabiting it.", "Remove Safety") as text
-						if(Choice:Password!=Pass)
-							usr << "That is not the correct password."
-							del usr
-							return
-					usr.loc=Choice:loc
-					usr.name=Choice:name
-					usr.icon=Choice:icon
-					usr.icon_state=Choice:icon_state
-					usr.AscensionsUnlocked=Choice:Level
-					usr.Manufactured=1
-					del Choice
-				else
-					del usr
-					return
 		winshow(usr,"Race_Screen",0)
 		winshow(usr,"Finalize_Screen",1)
 		usr.RacialStats()
@@ -1010,7 +955,6 @@ mob/proc
 	NewMob()
 		var/mob/LOL=new/mob/Players/
 		LOL.name=src.name
-		LOL.Race=src.Race
 		LOL.loc=src.loc
 		LOL.Class=src.Class
 		LOL.icon=src.icon
@@ -1054,15 +998,8 @@ mob/proc
 			src.Potential=0
 			if(!locate(/obj/Money, src))
 				src.contents+=new/obj/Money
-		if(src.Race!="Android"&&src.Class!="Dance"&&src.Class!="Potara")
-			src.EnergyUniqueness=GoCrand(0.8,1.2)
-			src.EnergySignature=rand(1000,9000)
-			// src.ClothGold=pick(global.ConstellationsGold)
-		else
-			src.EnergyUniqueness=1
-			if(src.Class=="Dance"||src.Class=="Potara")
-				src.EnergySignature=rand(9001,9999)
-				src.ClothGold="Ophiuchus"
+		src.EnergyUniqueness=GoCrand(0.8,1.2)
+		src.EnergySignature=rand(1000,9000)
 		race.onFinalization(src)
 
 		src.StrOriginal=src.StrMod
@@ -1080,7 +1017,7 @@ mob/proc
 		updateVersion = new updateversion
 		setStartingRPP()
 		if(!Warped)
-			if(src.Race=="Alien"||isRace(BEASTMAN)||isRace(YOKAI))
+			if(isRace(BEASTMAN)||isRace(YOKAI))
 				var/Choice=input(src, "Do you want to possess animal characteristics?  These options will give you tails and ears.", "Choose your animal traits.") in list("None", "Cat", "Fox", "Racoon", "Wolf", "Lizard", "Crow", "Bull")
 				switch(Choice)
 					if("Cat")
@@ -1112,11 +1049,11 @@ mob/proc
 					src.EraBody=Age
 					if(src.EraBody=="Youth")
 						src.EraAge=glob.progress.Era-src.GetPassedEras("Youth")
-						if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
+						if(src.isRace(SAIYAN)||isRace(HALFSAIYAN))
 							src.Tail(1)
 					else
 						src.EraAge=glob.progress.Era-src.GetPassedEras("Elder")
-						if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
+						if(src.isRace(SAIYAN)||isRace(HALFSAIYAN))
 							src.Tail(1)
 				else
 					src.EraBody="Youth"
@@ -1134,7 +1071,7 @@ mob/proc
 			//spawns can kill beastmens ability to learn anything so this is here now.
 			if(src.Intelligence<=0.25)
 				src.Intelligence=0.25
-			if(src.Imagination<=0.25&&src.Race!="Android")
+			if(src.Imagination<=0.25)
 				src.Imagination=0.25
 
 			if(src.EraAge > 0) //WE ARE ALL ADULTS NOW
@@ -1175,59 +1112,6 @@ mob
 			Return+=(1+src.ModifyLate)//How many eras did it take to become an old, dying fuck?
 			if(Age=="Senile")
 				return Return
-
-
-mob/proc/InhabitDroid(var/obj/Body,var/mob/Mind)
-	var/mob/Players/Droid=new/mob/Players
-	Droid.assigningStats=TRUE
-	Droid.loc=Body.loc
-	Droid.name=Body.name
-	Droid.icon=Body.icon
-	Droid.icon_state=Body.icon_state
-	Droid.Race="Android"
-	Droid.Asexual=1
-	Droid.Manufactured=1
-	Droid.RacialStats()
-	Droid.UpdateBio()
-	Droid.Finalize(Warped=1)
-	Droid.Potential=DaysOfWipe()
-	Droid.AscensionsAcquired=0
-	var/obj/Redo_Stats/r = new
-	r.LoginUse=1
-	Droid.contents+=r
-	Droid.droidFormerEnergysignature=src.EnergySignature
-	var/list/DenyVars=list("client", "key", "loc", "x", "y", "z", "type", "locs", "parent_type", "verbs", "vars", "contents", "Transform", "appearance")
-	for(var/obj/Skills/s in Mind)
-		if(s.AssociatedGear)
-			continue
-		if(s.AssociatedLegend)
-			continue
-		if(s.MagicNeeded)
-			continue
-		if(!locate(s, Droid))
-			var/obj/Skills/NewS=new s.type
-			for(var/x in s.vars)
-				if(x in DenyVars)
-					continue
-				NewS.vars[x]=s.vars[x]
-			Droid.AddSkill(NewS)
-	Droid.ForgingUnlocked=Mind.ForgingUnlocked
-	Droid.RepairAndConversionUnlocked=Mind.RepairAndConversionUnlocked
-	Droid.MedicineUnlocked=Mind.MedicineUnlocked
-	Droid.ImprovedMedicalTechnologyUnlocked=Mind.ImprovedMedicalTechnologyUnlocked
-	Droid.TelecommunicationsUnlocked=Mind.TelecommunicationsUnlocked
-	Droid.AdvancedTransmissionTechnologyUnlocked=Mind.AdvancedTransmissionTechnologyUnlocked
-	Droid.EngineeringUnlocked=Mind.EngineeringUnlocked
-	Droid.CyberEngineeringUnlocked=Mind.CyberEngineeringUnlocked
-	Droid.MilitaryTechnologyUnlocked=Mind.MilitaryTechnologyUnlocked
-	Droid.MilitaryEngineeringUnlocked=Mind.MilitaryEngineeringUnlocked
-	Droid.knowledgeTracker.learnedKnowledge=Mind.knowledgeTracker.learnedKnowledge
-
-	var/mob/Body2=Mind
-	Body2.Leave_Body(SuperDead=1)
-	Mind.client.mob=Droid
-	del Body
-
 
 mob/proc/PilotMecha(var/mob/Mecha,var/mob/Pilot)
 	Mecha.Manufactured=1

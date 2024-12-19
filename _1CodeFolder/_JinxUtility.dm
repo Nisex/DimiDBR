@@ -2081,15 +2081,18 @@ mob
 			var/evil = 0
 			if(src.HasMaki())
 				evil = 1
-			if(src.Race in EvilRaces && !src.HasHolyMod())
-				evil = 1
-			if(src.Secret in EvilSecrets && !src.HasHolyMod())
-				evil = 1
+			if(!HasHolyMod())
+				for(var/evilRaceName in EvilRaces)
+					if(isRace(evilRaceName))
+						evil = 1
+						break
+				if(src.Secret in EvilSecrets)
+					evil = 1
+				if(src.HasAbyssMod())
+					evil = 1
 			if(src.ShinjinAscension=="Makai")
 				evil = 1
 			if(src.HasHellPower())
-				evil = 1
-			if(src.HasAbyssMod() && !src.HasHolyMod())
 				evil = 1
 			if(istype(src, /mob/Player/AI) && !src.SpiritPower)
 				evil = 1
@@ -2612,9 +2615,6 @@ mob
 					src.CyberCancel=src.CyberCancel-(src.CyberCancel*src.CyberizeMod)//remove portion of nerfs
 			if(src.CyberCancel>0)
 				src.Mechanized=1
-			if(src.Race=="Tuffle")
-				src.CyberCancel=0
-				src.Mechanized=0
 			if(isRace(ANDROID))
 				src.CyberCancel=1
 				src.Mechanized=1

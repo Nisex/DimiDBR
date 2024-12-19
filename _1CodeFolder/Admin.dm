@@ -96,9 +96,6 @@ mob/Admin3/verb/LoadSwapMap()
 	if(Alert("You sure you want to shutdown the server?"))
 		var/skip = input(src, "Do you want to skip saving?") in list("Yes", "No")
 		if(skip == "No")
-			for(var/obj/Items/Tech/Vessel/v in world) //safety feature for now until my shitcode is a lil more solid - gal
-				if(v.launch > 0) v.launch = 1
-				else v.launch = 0
 			sleep(1)
 			for(var/mob/Players/Q in players)
 				if(Q.Savable)
@@ -1602,9 +1599,6 @@ mob/Admin3/verb
 	Shutdown()
 		set category="Admin"
 		if(Alert("You sure you want to shutdown the server?"))
-			for(var/obj/Items/Tech/Vessel/v in world) //safety feature for now until my shitcode is a lil more solid - gal
-				if(v.launch > 0) v.launch = 1
-				else v.launch = 0
 			sleep(1)
 			for(var/mob/Players/Q in players)
 				if(Q.Savable)

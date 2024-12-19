@@ -51,8 +51,8 @@ majinAbsorb/proc/addRacialPassive(passiveName)
         return
     racialPassives += passiveName
 
-majinAbsorb/proc/adjustPassive(passiveName, race)
-    if(race == "Shinjin")
+majinAbsorb/proc/adjustPassive(passiveName, race/race)
+    if(race.name == "Shinjin")
         return SHINJINBOOST
     if(passiveName in BOOSTPASSIVES)
         return NORMALBOOST
@@ -233,7 +233,7 @@ majinAbsorb/proc/doAbsorb(mob/absorber, mob/absorbee)
     var/list/racialPassives = absorbee.getRacialPassives()
     var/passiveInQuestion = input(absorber, "Which passive would you like to absorb?", "Absorb") in racialPassives
     var/maxGain
-    var/maxPasssiveCanHave = absorbPassiveTickLimit * adjustPassive(passiveInQuestion, absorbee.Race)
+    var/maxPasssiveCanHave = absorbPassiveTickLimit * adjustPassive(passiveInQuestion, absorbee.race)
 
     var/absorbeePassiveTicks = absorbee.passive_handler.Get(passiveInQuestion)
     if(absorbeePassiveTicks > 0)
@@ -241,7 +241,7 @@ majinAbsorb/proc/doAbsorb(mob/absorber, mob/absorbee)
     else
         return // if they don't have the passive, we can't absorb it
     var/passiveticks = tickPerAbsorb
-    passiveticks *= adjustPassive(passiveInQuestion, absorbee.Race)
+    passiveticks *= adjustPassive(passiveInQuestion, absorbee.race)
     var/existingPassive = absorber.passive_handler.Get(passiveInQuestion) ? absorber.passive_handler.Get(passiveInQuestion) : 0
     // now lets check how much the person absorbing can have
     if((existingPassive + passiveticks) >= maxPasssiveCanHave)

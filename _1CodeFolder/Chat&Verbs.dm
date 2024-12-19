@@ -747,7 +747,7 @@ mob/Players/verb
 						online++
 						View+={"<tr>
 							<td><font size=2>[M.key] ([M.name])/(<a href=?src=\ref[M];action=MasterControl>x</a href>)</td>
-							<td><font size=2>[M.Race] ([M.Class])</td>
+							<td><font size=2>[M.race.name]</td>
 							<td><font size=2>[M.loc] ([M.x],[M.y],[M.z])</td>
 							<td><font size=2>[M.Base]([M.potential_power_mult]) / [M.EraBody]</td>
 							<td><font size=2>[M.RPPSpent], [M.RPPSpendable], [M.RPPSpendable+M.RPPSpent] ([round((M.RPPSpent+M.RPPSpendable)/M.RPPMult,1)])</td>
@@ -784,35 +784,7 @@ mob/Players/verb
 			for(var/i=5, i>0, i--)
 				src.OMessage(30,"[src] - [i]!")
 				sleep(10)
-		//TODO: do it again at the end, so they cant cheese join while in cd
-		for(var/obj/Items/Tech/SpaceTravel/Ship/A in view(30,src)) //This for loop detects ships around those that use the say verb.
-			for(var/obj/ShipConsole/B in world)
-				if(A.Password==B.Password)
-					for(var/mob/C in hearers(6,B))
-						src.OMessage(30,"[src] is counting down! ([time/10] seconds)","<font color=silver>[src]([src.key]) used countdown.")
-						spawn(time)	src.OMessage(30,"[src] ended counting down! (0 seconds)","<font color=silver>[src]([src.key]) ended using countdown.")
-						spawn(time/2)	src.OMessage(30,"[src] counting down! ([time/2/10] seconds)")
-		for(var/obj/ShipConsole/AA in view(5,src))
-			for(var/obj/Items/Tech/SpaceTravel/Ship/BB in world)
-				if(AA.Password==BB.Password&&AA.SpeakerToggle==1)
-					for(var/mob/C in hearers(12,BB))
-						src.OMessage(30,"[src] is counting down! ([time/10] seconds)","<font color=silver>[src]([src.key]) used countdown.")
-						spawn(time)	src.OMessage(30,"[src] ended counting down! (0 seconds)","<font color=silver>[src]([src.key]) ended using countdown.")
-						spawn(time/2)	src.OMessage(30,"[src] counting down! ([time/2/10] seconds)")
-		for(var/obj/Items/Tech/SpaceTravel/SpacePod/A in view(30,src)) //This for loop detects ships around those that use the say verb.
-			for(var/obj/PodConsole/B in world)
-				if(A.Password==B.Password)
-					for(var/mob/C in hearers(6,B))
-						src.OMessage(30,"[src] is counting down! ([time/10] seconds)","<font color=silver>[src]([src.key]) used countdown.")
-						spawn(time)	src.OMessage(30,"[src] ended counting down! (0 seconds)","<font color=silver>[src]([src.key]) ended using countdown.")
-						spawn(time/2)	src.OMessage(30,"[src] counting down! ([time/2/10] seconds)")
-		for(var/obj/PodConsole/AA in view(5,src))
-			for(var/obj/Items/Tech/SpaceTravel/SpacePod/BB in world)
-				if(AA.Password==BB.Password&&AA.SpeakerToggle==1)
-					for(var/mob/C in hearers(12,BB))
-						src.OMessage(30,"[src] is counting down! ([time/10] seconds)","<font color=silver>[src]([src.key]) used countdown.")
-						spawn(time)	src.OMessage(30,"[src] ended counting down! (0 seconds)","<font color=silver>[src]([src.key]) ended using countdown.")
-						spawn(time/2)	src.OMessage(30,"[src] counting down! ([time/2/10] seconds)")
+
 	WoundIntent()
 		set name="Intent to Injure"
 		set category="Roleplay"

@@ -170,7 +170,7 @@ mob
 
 			if(m.Intelligence<0.25)
 				m.Intelligence=0.25
-			if(m.Imagination<0.25&&m.Race!="Android")
+			if(m.Imagination<0.25)
 				m.Imagination=0.25
 
 

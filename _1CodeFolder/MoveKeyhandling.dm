@@ -206,8 +206,6 @@ mob
 						if(!src.EquippedFlyingDevice())
 							flick("Flight",src)
 					if(key1||key2||key3||key4)
-						if(Control)
-							step(Control,key1)
 						if(canMove())
 							/*stepDiagonal()  Test this sometime
 							loop_delay+=MovementSpeed()*/
