@@ -477,7 +477,7 @@
 					// If it was not countered
 					if(hitResolution != MISS)
 						// and they hit in any way
-						if(!enemy.NoDodge)
+						if(!enemy.passive_handler.Get("NoDodge"))
 
 
 					// 				FLOW					//
@@ -543,7 +543,7 @@
 
 					// 	 			NO DODGE				//
 
-							if(enemy.AfterImageStrike>0&&!NoDodge&&!dodged&&!IgnoreCounter)
+							if(enemy.AfterImageStrike>0&&!passive_handler.Get("NoDodge")&&!dodged&&!IgnoreCounter)
 								enemy.AfterImageStrike-=1
 								if(enemy.AfterImageStrike<0)
 									enemy.AfterImageStrike=0

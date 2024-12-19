@@ -614,13 +614,6 @@ obj/Skills/Utility
 					selector << "You feel as if you're being watched."
 				usr.Observing=1
 
-	Unlock_Potential
-		Cooldown=600
-		desc="Unlock the inner potential of a warrior."
-		verb/Unlock_Potential()
-			set category="Utility"
-			usr.SkillX("UnlockPotential", src)
-
 	Grant_Jagan
 		desc="Rip out your own eye to give to someone else."
 		verb/Bestow_Jagan_Eye()
@@ -1604,7 +1597,6 @@ obj/Skills/Utility
 			var/list/mob/Targets=list("Cancel")//The list of grimmable people.
 			var/list/GrimoireChoices=list("Cancel")//Which grims have you grimmed?
 			var/GrimoireDesc//Explains how to grim the grim.
-			var/GrimoireLimit=99//3
 			// global.PureMade=0
 			// global.BlueMade=0
 			// global.RedMade=0

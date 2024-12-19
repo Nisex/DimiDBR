@@ -18,6 +18,7 @@ mob
 		tmp/Mapper=0
 		MapperSight//Flagged by mapper sight duh
 		MapperWalk
+		MapperWaterWalk = FALSE
 		BuildOverwrite=0
 		WarperOverwrite=0
 		Bino=0
@@ -155,22 +156,14 @@ mob
 				usr << "You turn your fly through <font color='red'>OFF</font color>."
 		verb/Toggle_Waterwalk()
 			set category="Mapper"
-			if(!usr.WaterWalk)
+			if(!usr.MapperWaterWalk)
 				usr.passive_handler.Increase("WaterWalk")
-				WaterWalk=1
+				MapperWaterWalk = TRUE
 				usr << "You turn your water walking <font color='green'>ON</font color>."
 			else
 				usr.passive_handler.Decrease("WaterWalk")
-				usr.WaterWalk=0
+				MapperWaterWalk = FALSE
 				usr << "You turn your water walking <font color='red'>OFF</font color>."
-		verb/Toggle_Godspeed()
-			set category="Mapper"
-			if(!usr.Godspeed)
-				usr.Godspeed=1
-				usr << "You turn your godspeed <font color='green'>ON</font color>."
-			else
-				usr.Godspeed=0
-				usr << "You turn your godspeed <font color='red'>OFF</font color>."
 		verb/Invisible_Toggle()
 			set category="Mapper"
 			if(usr.AdminInviso)

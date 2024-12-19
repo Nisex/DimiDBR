@@ -176,10 +176,8 @@ proc
 						if(!Defender.HasVenomImmune()&&Defense!="Poison")
 							Defender.AddPoison(2*DebuffIntensity*glob.POISON_INTENSITY, Attacker)
 					if("Fire")
-						if(!Defender.WalkThroughHell&&!Defender.DemonicPower())
+						if(!Defender.DemonicPower())
 							Defender.AddBurn(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
-						else
-							Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
 					if("Water")
 						Defender.AddSlow(4*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
 					if("Earth")
@@ -310,34 +308,30 @@ mob
 				return
 			if(src.ElementalDefense=="Wind")
 				Value*=1.5//Super Effective
-			if(Attacker && (Attacker == src ? !src.BurningShot : 1))
+			if(Attacker && (Attacker == src ? !src.passive_handler.Get("BurningShot") : 1))
 				if(Attacker.Attunement=="Fire")
 					Value*=1.5
 				else if(Attacker.Attunement=="HellFire")
 					Value*=glob.HELLFIRE_VALUE_MOD
 			if(src.Attunement=="Wind")
 				Value*=1.5
-			if(Attunement=="Fire" && !src.BurningShot)
+			if(Attunement=="Fire" && !src.passive_handler.Get("BurningShot"))
 				Value/=2
 			if(src.Infusion)
 				if(!src.InfusionElement)
 					src.InfusionElement="Fire"
 				Value/=2
-			if(src.HasDebuffImmune() && !src.BurningShot)
+			if(src.HasDebuffImmune() && !src.passive_handler.Get("BurningShot"))
 				Value/=1+src.GetDebuffImmune()
 			Value = Value // this makes 100 impossible ?
 			src.Burn+=Value
-			if(Value >=1 && !src.BurningShot)
+			if(Value >=1 && !src.passive_handler.Get("BurningShot"))
 				animate(src, color = "#ff2643")
 				animate(src, color = src.MobColor, time=5)
 			if(Attacker)
 				var/darkFlame = Attacker.HasDarknessFlame()
 				if(darkFlame&&Attacker!=src)
-					if(Attacker.IsEvil())
-						Attacker.CursedWounds+=1
 					src.AddPoison(Value * 1 + (darkFlame * 0.125), Attacker=Attacker)
-					if(Attacker.IsEvil())
-						Attacker.CursedWounds-=1
 
 			if(src.Burn>100)
 				src.Burn=100

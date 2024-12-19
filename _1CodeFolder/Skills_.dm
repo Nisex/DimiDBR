@@ -942,48 +942,6 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 						return
 					Z.Cooldown()
 
-			if("UnlockPotential")
-				if(src.KO)
-					return
-				var/list/Choices=new
-				Choices+="Cancel"
-				for(var/mob/Players/P in get_step(src,dir)) Choices+=P
-				var/mob/Choice=input(src,"Unlock the Potential of who?") in Choices
-				if(Choice=="Cancel") return
-				if(Choice.Mystic || world.realtime+Day(10) < Choice.PotentialUnlocked)
-					if(Choice.Mystic)
-						OMsg(src, "[src] reached to unlock [Choice]'s potential...but that well has already been tapped!")
-						return
-					else
-						OMsg(src, "[src] reached to unlock [Choice]'s potential...but it's been too soon since it was already tapped!")
-						return
-				if(Choice.PotentialUnlocked<world.realtime+Day(10))
-					Choice.PotentialCap*=2
-					Choice.Potential+=10
-					Choice.Mystic=1
-					Choice.CalmAnger+=1
-					if(Choice.AscensionsUnlocked<5)
-						Choice.AscensionsUnlocked++
-					if(Choice.race.transformations.len>0)
-						Choice.transUnlocked++
-				else
-					Choice.PotentialUnlocked+=world.realtime+Day(10)
-					Choice.Potential+=10
-					Choice.PotentialCap*=1.5
-					if(Choice.AscensionsUnlocked<5)
-						Choice.AscensionsUnlocked++
-				OMsg(src, "[src] brought forth [Choice]'s latent potential!")
-				Log("Admin","[src] has unlocked [Choice]'s Potential. Please investigate if this was unauthorized.")
-				//fuck yourself (temporarily)
-				src.AddStrTax(Choice.Potential/100)
-				src.AddEndTax(Choice.Potential/100)
-				src.AddForTax(Choice.Potential/100)
-				src.AddSpdTax(Choice.Potential/100)
-				src.AddRecovTax(Choice.Potential/100)
-				src.GainFatigue(Choice.Potential)
-				src.LoseCapacity(Choice.Potential)
-				src << "You feel physically and mentally drained after the fact."
-
 
 atom/proc/Quake(var/duration=30, var/globe=0)
 	set waitfor=0

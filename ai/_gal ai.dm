@@ -415,8 +415,6 @@ mob/Player/AI
 		..()
 	icon = 'Makyo1.dmi'
 
-	KiBlade=1 //give these boiz access to kenjutsu
-	CursedWounds=1
 	var/tmp
 		obj/AI_Spot/senpai=null//connector to the spot that spawned the ai
 		shifts_target=0//looks for a new target every 30 * this value seconds

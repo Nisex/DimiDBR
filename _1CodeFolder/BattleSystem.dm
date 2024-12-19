@@ -547,8 +547,6 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 			src.Secret=null
 			src.NoDeath=0
 			src.Timeless=0
-			src.VenomImmune-=1
-			src.SpaceWalk-=1
 
 obj/Regenerate
 	var/X
@@ -839,8 +837,6 @@ mob/proc/Unholy_Alive(mob/P) if(P)
 	P.HealthCut=0.2
 	P.NoDeath=1
 	P.Timeless=1
-	P.VenomImmune+=1
-	P.SpaceWalk+=1
 	P.Revive()
 	P.icon=Z
 	P.Secret="Zombie"
@@ -1110,7 +1106,7 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 			return HIT
 		if(Backfire&&Offender==Defender)
 			return HIT
-		if(Defender.SureDodge&&!Defender.NoDodge)
+		if(Defender.SureDodge&&!Defender.passive_handler.Get("NoDodge"))
 			Defender.SureDodge=0
 			if(Offender.SureHit)
 				return WHIFF

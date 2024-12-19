@@ -1241,13 +1241,13 @@ mob
 
 
 			if(src.Burn)
-				if(src.BurningShot)
+				if(passive_handler.Get("BurningShot"))
 					if(src.Burn>0&&src.Burn<=25)
-						Mod+=0.75*src.BurningShot
+						Mod+=0.75*passive_handler.Get("BurningShot")
 					else if(src.Burn>25&&src.Burn<=75)
-						Mod+=0.5*src.BurningShot
+						Mod+=0.5*passive_handler.Get("BurningShot")
 					else
-						Mod+=0.25*src.BurningShot
+						Mod+=0.25*passive_handler.Get("BurningShot")
 			if(src.Momentum)
 				if(Momentum>=glob.MAX_MOMENTUM_STACKS)
 					Momentum = glob.MAX_MOMENTUM_STACKS
@@ -1367,13 +1367,13 @@ mob
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
 			if(src.Burn)
-				if(src.BurningShot)
+				if(src.passive_handler.Get("BurningShot"))
 					if(src.Burn>0&&src.Burn<=25)
-						Mod+=0.75*src.BurningShot
+						Mod+=0.75*src.passive_handler.Get("BurningShot")
 					else if(src.Burn>25&&src.Burn<=75)
-						Mod+=0.5*src.BurningShot
+						Mod+=0.5*src.passive_handler.Get("BurningShot")
 					else
-						Mod+=0.25*src.BurningShot
+						Mod+=0.25*src.passive_handler.Get("BurningShot")
 
 			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Broken Brave"))
 				if(src.Health<=25*(1-src.HealthCut))
@@ -1572,14 +1572,14 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-			if(src.BurningShot)
+			if(passive_handler.Get("BurningShot"))
 				if(src.Burn)
 					if(src.Burn>0&&src.Burn<=25)
-						Mod+=0.75*src.BurningShot
+						Mod+=0.75*src.passive_handler.Get("BurningShot")
 					else if(src.Burn>25&&src.Burn<=75)
-						Mod+=0.5*src.BurningShot
+						Mod+=0.5*src.passive_handler.Get("BurningShot")
 					else
-						Mod+=0.25*src.BurningShot
+						Mod+=0.25*src.passive_handler.Get("BurningShot")
 			if(src.Slow)
 				if(!src.HasDebuffImmune()>=1)
 					if(src.HasDebuffReversal())
@@ -1658,14 +1658,14 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-			if(src.BurningShot)
+			if(passive_handler.Get("BurningShot"))
 				if(src.Burn)
 					if(src.Burn>0&&src.Burn<=25)
-						Mod+=0.75*src.BurningShot
+						Mod+=0.75*passive_handler.Get("BurningShot")
 					else if(src.Burn>25&&src.Burn<=75)
-						Mod+=0.5*src.BurningShot
+						Mod+=0.5*passive_handler.Get("BurningShot")
 					else
-						Mod+=0.25*src.BurningShot
+						Mod+=0.25*passive_handler.Get("BurningShot")
 			if(src.Shock)
 				if(!src.HasDebuffImmune()>=1)
 					if(src.HasDebuffReversal())
@@ -1740,14 +1740,14 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-			if(src.BurningShot)
+			if(passive_handler.Get("BurningShot"))
 				if(src.Burn)
 					if(src.Burn>0&&src.Burn<=25)
-						Mod+=0.75*src.BurningShot
+						Mod+=0.75*passive_handler.Get("BurningShot")
 					else if(src.Burn>25&&src.Burn<=75)
-						Mod+=0.5*src.BurningShot
+						Mod+=0.5*passive_handler.Get("BurningShot")
 					else
-						Mod+=0.25*src.BurningShot
+						Mod+=0.25*passive_handler.Get("BurningShot")
 			if(src.Shock)
 				if(!src.HasDebuffImmune()>=1)
 					if(src.HasDebuffReversal())
@@ -2324,22 +2324,6 @@ mob
 					src.Quake(20)
 					Gate8Used=1
 					return
-
-		AlienStatAscensions(var/x)
-			src.AlienEvolutionStats+=x
-			var/list/Choices=list("Strength", "Endurance", "Force", "Speed")
-			while(x>0)
-				x--
-				var/Choice=input(src, "What aspect of your biology evolves?", "Alien Ascension") in Choices
-				switch(Choice)
-					if("Strength")
-						src.StrAscension+=0.25
-					if("Endurance")
-						src.EndAscension+=0.25
-					if("Force")
-						src.ForAscension+=0.25
-					if("Speed")
-						src.SpdAscension+=0.25
 
 		AddCyberCancel(var/val)
 			src.CyberCancel+=val

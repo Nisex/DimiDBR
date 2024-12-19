@@ -2584,8 +2584,6 @@ mob
 				return 0
 			if(src.StyleActive=="West Star")
 				return 0
-			if(src.KiBlade)
-				return 0
 			if(src.Saga == "Kamui")
 				return 0
 			if(src.isRace(DEMON) || (CheckSlotless("Satsui no Hado") && SagaLevel>=6))
@@ -2682,8 +2680,6 @@ mob
 		HasDarknessFlame()
 			if(passive_handler.Get("DarknessFlame"))
 				return passive_handler.Get("DarknessFlame")
-			if(DarknessFlame)
-				return DarknessFlame
 			return 0
 		HasAbsoluteZero()
 			if(passive_handler.Get("AbsoluteZero"))

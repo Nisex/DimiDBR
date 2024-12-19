@@ -172,7 +172,7 @@ mob/proc/Auraz(var/Z)
 		else if(src.Saga=="Spiral")
 			src.underlays+=spiral
 
-		else if(src.BurningShot)
+		else if(passive_handler.Get("BurningShot"))
 			src.overlays+=flameaura
 
 		else if(transActive)

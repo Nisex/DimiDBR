@@ -30,7 +30,6 @@ ascensions/majin
                     SpdAscension+=0.1
                     src<<"OH MY GOD ITS 4AM"
             passive_handler.Increase("Blubber")
-            Blubber=1
         if("Super")
             Adaptation=1
             switch(prompt("How do you want to proceed? Flexible (All around Boost) or Focused?", "Asension Choice", list("Flexible", "Focused")))
@@ -96,7 +95,6 @@ ascensions/majin
                     if(BaseEnd() < 1)
                         passive_handler.Increase("UnhingedForm", 0.25)
                     passive_handler.Increase("Pursuer")
-                    Pursuer += 1
                     majinPicks["[AscensionsAcquired]"] = "[choice],Brutality"
                     src<<"You've become a monster, but you're still in control..."
                 if("Anger")
@@ -115,7 +113,6 @@ ascensions/majin
                     if(GetEnd() < 1)
                         passive_handler.Increase("UnhingedForm", 0.125)
                     passive_handler.Increase("Pursuer", 0.5)
-                    Pursuer += 0.5
                     // var/a = AngerMax + 0.075
                     // if(a + 0.075 >= 3)
                     //     a = 3

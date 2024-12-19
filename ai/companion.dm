@@ -117,7 +117,6 @@ obj/Skills/Companion
 				a.AngerMax = (companion_angermax == -1) ? usr.AngerMax : companion_angermax
 				a.AngerPoint = (companion_angerpoint == -1) ? usr.AngerPoint : companion_angerpoint
 				a.Intimidation = (companion_intimidation == -1) ? usr.Intimidation : companion_intimidation
-				a.Godspeed = companion_godspeed
 				a.ai_spammer = companion_skill_aggression
 				a.ko_death = companion_ko_death
 				a.Timeless = 1

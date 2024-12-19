@@ -1187,7 +1187,7 @@ mob
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Protect_Wall)
 						if(!locate(/obj/Skills/Projectile/King_of_Braves/Broken_Phantom, src))
 							src.AddSkill(new/obj/Skills/Projectile/King_of_Braves/Broken_Phantom)
-						src.SpaceWalk+=1
+						passive_handler.Increase("SpaceWalk", 1)
 						src.CyberizeMod+=0.5
 						if(src.CyberizeMod>1)
 							src.CyberizeMod=1
