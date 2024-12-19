@@ -1180,7 +1180,7 @@ mob
 			//gain double value when Overdive is active, unless the user is Android (then only +50%)
 			Str*=src.StrChaos
 			//tarot shit
-			if(passive_handler.Get("Piloting"))
+			if(passive_handler.Get("Piloting")&&findMecha())
 				Str = getMechStat(findMecha(), Str)
 			if(src.StrReplace)
 				Str=StrReplace
@@ -1327,7 +1327,7 @@ mob
 				For += (hellPower/2) * For
 			else
 				For += (0.2 * hellPower) * For
-			if(passive_handler.Get("Piloting"))
+			if(passive_handler.Get("Piloting")&&findMecha())
 				For = getMechStat(findMecha(), For)
 			if(src.HasManaStats())
 				For += getManaStatsBoon()
@@ -1437,7 +1437,7 @@ mob
 			End*=src.EndChaos
 			if(src.EndReplace)
 				End=EndReplace
-			if(passive_handler.Get("Piloting"))
+			if(passive_handler.Get("Piloting")&&findMecha())
 				End = getMechStat(findMecha(), End)
 
 			if(passive_handler.Get("DemonicDurability") && (Anger||HasCalmAnger()))
@@ -1537,7 +1537,7 @@ mob
 
 			if(src.SpdReplace)
 				Spd=SpdReplace
-			if(passive_handler.Get("Piloting"))
+			if(passive_handler.Get("Piloting")&&findMecha())
 				Spd = getMechStat(findMecha(), Spd)
 			Spd+=SpdAdded
 			if(src.HasManaStats())
@@ -1639,7 +1639,7 @@ mob
 			Off+=src.OffAscension
 			Off+=EnhancedAggression ? src.EnhancedAggression*0.2 : 0
 			Off*=src.OffChaos
-			if(passive_handler.Get("Piloting"))
+			if(passive_handler.Get("Piloting")&&findMecha())
 				Off = getMechStat(findMecha(), Off)
 			Off+=OffAdded
 			var/Mod=1
@@ -1721,7 +1721,7 @@ mob
 			Def+=src.DefAscension
 			Def+=EnhancedReflexes ? src.EnhancedReflexes*0.2 : 0
 			Def*=src.DefChaos
-			if(passive_handler.Get("Piloting"))
+			if(passive_handler.Get("Piloting")&&findMecha())
 				Def = getMechStat(findMecha(), Def)
 			Def+=DefAdded
 			var/Mod=1
