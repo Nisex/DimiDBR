@@ -457,7 +457,7 @@ obj/Skills/Utility
 					continue
 				if(!M.AdminInviso&&M.PowerControl>25)
 					if((usr.Saga=="Unlimited Blade Works" && usr.SagaLevel >= 2)||(!M.HasGodKi()&&!M.HasVoid()&&!M.HasMechanized()))
-						if((!locate(M.EnergySignature) in usr.EnergySignaturesKnown)&&!usr.SpiritPower)
+						if((!locate(M.EnergySignature) in usr.EnergySignaturesKnown)&&!usr.passive_handler.Get("SpiritPower"))
 							var/distancecalc=abs(M.x-usr.x)+abs(M.y-usr.y)
 							if(distancecalc<16)
 								if(usr.HasEmptyGrimoire())
@@ -599,10 +599,6 @@ obj/Skills/Utility
 					who.Remove(W)
 				if(W.invisibility)
 					who.Remove(W)
-				if(!usr.HasSpiritPower() && !usr.HasEmptyGrimoire())
-					for(var/obj/Items/Enchantment/Scrying_Ward/SW in range(10,W))
-						if(SW)
-							who.Remove(W)
 				if(usr.Dead&&!usr.HasEnlightenment()&&(W.z!=usr.z))
 					who.Remove(W)
 			var/mob/Players/selector=input("Who do you want to observe?","Observe")in who||null
@@ -1623,9 +1619,6 @@ obj/Skills/Utility
 			if(src.Operating)
 				usr << "You're already running a project!"
 				return
-			if(usr.HumanAscension)
-				if(usr.HumanAscension=="Enchantment")
-					GrimoireLimit+=usr.AscensionsAcquired
 			src.Operating=1
 			// if(global.PureMade<3)//Made less than 3 pure grimoires?
 			// 	if(usr.GrimoiresMade<GrimoireLimit&&(usr.AlchemyUnlocked>=5||usr.ImprovedAlchemyUnlocked>=3))//Made less than 3 types of grimoires?
@@ -3334,7 +3327,7 @@ obj/Skills/Utility
 			var/FailChance=20*((Choice.Power*Choice.EnergyUniqueness)/(usr.Power*usr.EnergyUniqueness))/(usr.SummoningMagicUnlocked+1)
 
 			usr.TakeManaCapacity(Cost)
-			if(prob(FailChance)&&!usr.SpiritPower)
+			if(prob(FailChance)&&!usr.passive_handler.Get("SpiritPower"))
 				OMsg(usr, "[usr] fails their ritual!")
 				src.Using=0
 				return

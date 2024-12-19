@@ -40,16 +40,8 @@ mob/proc/refund_skill(obj/Skills/refunded_skill)
 	if(refunded_skill.name in src.SkillsLocked)
 		src.SkillsLocked -= refunded_skill.name
 
-	if(RPPSpentEvent)
-		var/diff = Refund - RPPSpentEvent
-		RPPSpentEvent -= Refund
-		RPPSpendableEvent += Refund
-		if(diff > 0)
-			RPPSpendable += diff
-			RPPSpent -= diff
-	else
-		RPPSpendable+=Refund
-		RPPSpent-=Refund
+	RPPSpendable+=Refund
+	RPPSpent-=Refund
 	src << "You've have been refunded [refunded_skill] for [Commas(Refund)] RPP."
 	if(usr && src != usr)
 		usr << "You've refunded [refunded_skill] for [Commas(Refund)] RPP."

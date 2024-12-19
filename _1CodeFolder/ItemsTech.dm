@@ -1319,9 +1319,8 @@ obj/Items/Tech
 					src.Using=0
 					return
 				usr.Finalize(Warped=1)
-				if(!usr.Asexual)
-					usr.Gender=alert(usr, "What gender do you want to be?", "Genome Warp", "Male", "Female")
-					usr.gender = lowertext(usr.Gender)
+				usr.Gender=alert(usr, "What gender do you want to be?", "Genome Warp", "Male", "Female")
+				usr.gender = lowertext(usr.Gender)
 				var/Sin=alert(usr, "Do you want to possess animal attributes?", "Genome Warp", "No", "Yes")
 				if(Sin=="Yes")
 					var/Choice=input(usr, "What animal do you want the characteristics of?", "Genome Warp") in list("Cat", "Fox", "Racoon", "Wolf", "Lizard", "Crow", "Bull")

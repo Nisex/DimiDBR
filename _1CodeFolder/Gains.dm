@@ -1659,10 +1659,10 @@ mob
 			if(!src.client.color)
 				animate(src.client, color=list(1,0,0, 0.25,0.75,0, 0.25,0,0.75, 0,0,0), time=3)
 			if(src.KO||src.MortallyWounded>3)
-				if(prob(10*src.MortallyWounded/src.RecovOriginal))
+				if(prob(10*src.MortallyWounded/src.GetRecov()))
 					src.Health-=10/max(src.Health,10)
 					if(src.Health<=-300)
-						if(prob(90/src.RecovOriginal)&&!src.StabilizeModule)
+						if(prob(90/GetRecov())&&!src.StabilizeModule)
 							src.Death(null,"internal injuries!")
 						else
 							src << "You've entered a stable condition."

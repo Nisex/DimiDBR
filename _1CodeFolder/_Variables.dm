@@ -44,7 +44,6 @@ mob/var
 	Voiding//void timer, TODO mode
 	ScreenSize
 	tmp/mob/Target
-	tmp/Manufactured
 	tmp/PoseEnhancement//Pose for 3 seconds to get a bonus to rippling.
 	tmp/PoseTime//timer
 	tmp/BuffingUp=0//to stop people from pushing through weird buff behaviour
@@ -70,16 +69,10 @@ mob/var
 	tmp/Party/party//party party party
 	tmp/StunImmune
 	tmp/GrabTime
-	AntiGodDoor=0
-	ZenkaiEXP=0
-	custom_scent//cummies
-	custom_powerup//dummies
+	custom_scent
+	custom_powerup
 	customPUnameInclude = FALSE
-	fake_unlock=0
-	MaimMastery=0
-	//Stat Variables
-	BaseOriginal=1
-	RPPMult=1//Humangain
+	RPPMult=1
 	EconomyMult=1
 	Intelligence=1//technology modifier
 	Imagination=1//enchantment modifier
@@ -93,7 +86,7 @@ mob/var
 	EnergySignature//holds your unique energy signature
 	list/EnergySignaturesKnown=list()//holds signatures you identified
 	list/ai_alliances=list()//these classes of ai wont attack you
-	tmp/list/obj/Items/Items=list()//items you have
+
 	list/SkillsLocked=list()//paths of skills that have been locked out due to being prerequisites for upgraded versions
 	tmp/SignatureSelecting=0//flag that disables checking for more sigs
 	list/SignatureSelected=list()//names of signatures that have been selected already, so they can be removed from the global list when signature selection is activated
@@ -105,18 +98,13 @@ mob/var
 	tmp/list/obj/Skills/AutoHit/AutoHits=list()//autohits you know
 	tmp/list/obj/Skills/Buffs/Buffs=list()//buffs you know
 	ManaCut=0
-	ManaCapMult=1//x this value to mana cap
+
 	StrAdded=0
 	EndAdded=0
 	ForAdded=0
 	OffAdded=0
 	DefAdded=0
 	SpdAdded=0
-
-
-
-
-	StrOriginal=1
 	StrMultTotal=1
 	StrChaos=1
 	StrAscension=0
@@ -125,7 +113,6 @@ mob/var
 	StrCut=0
 	StrStolen=0
 	StrEroded=0
-	EndOriginal=1
 	EndMultTotal=1
 	EndChaos=1
 	EndAscension=0
@@ -135,7 +122,6 @@ mob/var
 	EndStolen=0
 	EndEroded=0
 	SpdMultTotal=1
-	SpdOriginal=1
 	SpdChaos=1
 	SpdAscension=0
 	SpdReplace=0
@@ -143,7 +129,6 @@ mob/var
 	SpdCut=0
 	SpdStolen=0
 	SpdEroded=0
-	ForOriginal=1
 	ForMultTotal=1
 	ForChaos=1
 	ForReplace=0
@@ -152,7 +137,6 @@ mob/var
 	ForCut=0
 	ForStolen=0
 	ForEroded=0
-	OffOriginal=1
 	OffMultTotal=1
 	OffChaos=1
 	OffAscension=0
@@ -160,7 +144,6 @@ mob/var
 	OffCut=0
 	OffStolen=0
 	OffEroded=0
-	DefOriginal=1
 	DefMultTotal=1
 	DefChaos=1
 	DefAscension=0
@@ -169,7 +152,6 @@ mob/var
 	DefStolen=0
 	DefEroded=0
 	RecovMod=1
-	RecovOriginal=1
 	RecovMultTotal=1
 	RecovChaos=1
 	RecovAscension=0
@@ -216,60 +198,17 @@ mob/var
 	NoRevert=0 //Transformations don't revert.
 	NoVoid //YOU THOUGHT YOU WERE GONNA VOID, BITCH?!
 	NoDeath=0 //it means no worries...for the rest of your daaaays
-	NoForcedWhiff //HAKI ANTIWHIFF
 
-	Flow=0//dojs
-	Instinct=0//Penetrate AIS/WS
-
-	PureDamage=0
-	PureReduction=0
-
-	LifeStealTrue//Inflict healthcut and regenerate your own healthcut.
-
-	SoftStyle//attacks on user generate fatigue, attacks by user give more damage depending on fatigue of enemy
-	HardStyle//attacks on user generate wounds, damage is reduced depending on how wounded enemy is
-	CyberStigma//hitting enemy with attack does battery(mana) damage, less battery(mana) = more damage
-	DeathField//Attacking user at all generates wounds!
-	VoidField//As above but with Fatigue
-	Unstoppable//Injuries are ignored
-
-	SweepingStrike=0
-	SpecialStrike=0
-	StunningStrike=0//Buff and mob var only; this value *10 of inflicting 2 second stun on dodamage.
 
 	Warping//You forcewarp.
 	SuperDash//Mobs have this too now
 	IaidoCounter//Once it hits ten, you get a zoom attack.
 	GladiatorCounter
 
-	SpiritHand//Str*=sqrt(For)
-	SpiritFlow//For*=sqrt(Str) //TOD: Change to PowerFlow / PowerStream
-	BetterAim=0//adds temporary homing to not-homing projectiles
-	MovingCharge=0//Battlemage passive
-
 	MeltyMessage//ppl need to know this shit
-	MeltyBlood//isroth 'my blood hurts u' passive
 	VenomMessage//fuck isroth being unique
-	VenomBlood//fuck'em hard
-
-	Quaking//When you dodamage someone, it makes the screen go shaka shaka.
-	Burning
-	Scorching
-	Chilling
-	Freezing
-	Crushing
-	Shattering
-	Shocking
-	Paralyzing
-	Poisoning
-	Toxic
-	Confusing
-	Disorienting
-	Shearing
-	Crippling
 
 	Attunement//Double X effects, double Y effects
-	VenomResistance//resistance to poison
 
 	SenseRobbed=0
 	tmp/startOfLaunch=0
@@ -282,23 +221,13 @@ mob/var
 	StasisStun//if you're iceblocked from stun rather than true stasis
 	StasisSpace//if you're trapped in space prison
 
-	WeightRestricted=0//Weighted Clothes
-
 	Kaioken//Level of kaioken.
 	KaiokenBP=1//Level of Kaioken intimidate.
-
-	TechniqueMastery=0// Buffs cooldowns
-	MovementMastery=0// Buffs PU effectivness
-	BuffMastery=0//Buffs buffs, nerfs nerfs.
-	QuickCast=0//Divdes how long it takes to cast a skill
 
 	DeathKilled=0//You get one.
 	DeathKillerTargets//used for deathkiller
 	NoSoul//Immediately delete the character when they are truly dead
 
-	DrainlessMana=0//No mana loss.
-	LimitlessMagic=0//No magic restrains
-	ManaStats=0//Boost stats depending on mana amount held
 	ManaSealed=0//Won't generate capacity due to having their circuits stolen by fake philosopher stone
 	ManaDeath=0//TOO MUCH MANA
 	list/Binding//Holds the zplane of binding
@@ -307,33 +236,12 @@ mob/var
 	Phylactery//if 1, make sure their phylactery is in the world
 	PhylacteryNerf=0//take this percent out of anger
 
-	SpiritPower //makes you into an exorcist/spirit medium
-	ShonenPower //makes you into a shonen protagonist
-	HellPower //gives you demonic regen and raaaaaaaaaaaaaaage
-	HellRisen //get up get power
-	LegendaryPower //gives you power of a legend
-
-	HolyMod=0//Does more damage to EVIL.
-	AbyssMod=0//Does more damage to NON-GOOD.
-	SlayerMod=0//Does more damage to NINGEN.
-
-	FluidForm //All attacks whiff.
-	GiantForm //All attacks roll minimum damage.
-	Juggernaut //Unstunnable, can't be knocked back.
 	Immortal //Not timeless, but won't die from age
 	Spiritual//Demons and shinjin and yokai, o mai
-	Restoration//better meditation
-	Anaerobic//higher fatigue = more power
-	Hustle//Attack faster as PU goes higher.
+
 	MovementCharges=0//charges of zanzo/AIS currently possessed (which yan thinks should be replaced by ddash and reverse dash entirely)
 	Infusion//Getting hit by elemental techs can grant you minor versions for ever seconds.
 	InfusionElement
-	Flicker//Auto procs zanzoken sometimes.
-	Adrenaline//Go faster as health goes lower.
-	Xenobiology//alien body structure
-	Longlived
-	Symbiote
-	Metamorean
 
 	//Appearance Variables
 	MobColor=list(1,0,0, 0,1,0, 0,0,1, 0,0,0)//used to define proper color listing to return to mob wise
@@ -378,50 +286,15 @@ mob/var
 	EnhanceChipsMax=4
 	PilotingProwess=0
 
-
-	//Fusion Variables
-	Name_Fusion
-	Profile_Fusion
-	Icon_Fusion
-	Icon_FusionFat
-	Icon_FusionClothes
-	Icon_FusionClothesX
-	Icon_FusionClothesY
-	FusionCKey1//tracks first ckey
-	FusionCKey2//tracks second ckey
-	tmp/FusionObsLock=0//can only observed fused things
-	FusionTimer=0
-
 	PUDrainReduction=1//Reduces PU drain.
 	PUSpeedModifier=1
 	PURestrictionRemove//NOTHING IS SACRED
 
 	Incorporeal=0
 
-
-	ManaSeal
-	Desperation
-	KBRes=1//Divides knockback distance by this value.
-	KBMult=1//Multiplies knockback distance by this value.
-	KBAdd=0//Adds tiles of KB
-	CriticalChance
-	CriticalDamage
-	CriticalBlock
-	BlockChance
-	StealsStats//Steals stats on hit.
-	Erosion//Erodes stats on hit
-
-	DebuffImmune//Void passive
-	DebuffReversal//Ultima passive.
 	ArcaneBladework//Allows you to use swords and staves at the same time.
-	BleedHit//Deals 0.05 damage for each value when you hit someone.
-	ManaLeak//Deals 0.05 mana damage for each value when you hit someone.
 	OverClockNerf//Halves power.
 	OverClockTime//duration of overclock.
-	WeaponBreaker//Holds a value that allows sword breaking.
-	EndlessAnger //Maki effect; anger doesn't fade.
-
-	StableBP//Won't lose BP from health or energy drain.
 	SureHit//All melee attacks hit.
 	SureHitTimer//The active countdown.
 	SureHitTimerLimit//The variable that makes sure that the timer works and resets it.
@@ -429,16 +302,6 @@ mob/var
 	SureDodgeTimer
 	SureDodgeTimerLimit
 	tmp/CounterMasterTimer
-	NoWhiff//Can't whiff.
-	Steady//Consistent damage values.
-	Purity//Can only damage what you're meant to damage...
-	BeyondPurity//...nevermind
-	SoulSteal=0//Like life steal, but it adds vai health instead of actual health.
-	LifeSteal=0//localized variable.  Each level of Lifesteal adds 0.1x to how much life is stolen.
-	LifeGeneration//Every 50 hits, this much health is generated.
-	EnergySteal=0
-	EnergyGeneration//Every 50 hits, this much energy percent is generated.
-	HotHundred//No nerf on light attacks.
 	Afterimages//Jitters effect.
 	EnergySiphon//(not) Raiju skill.
 
@@ -471,15 +334,6 @@ mob/var
 	RPPCurrent=0//normal rpp acquired over THIS character life.
 	RPPSpendable=0//the actual value you can use of your rpp current
 	RPPSpent=0//how much rpp you've spent
-	//as above, but for event
-	RPPTotalEvent
-	RPPCurrentEvent
-	RPPSpendableEvent
-	RPPSpentEvent
-	//these are triggered by daily rewards
-	RPPEventCharges = 0//value from 7 to 0 which holds the number of event charges you have (they trigger automatically at rewards)
-	RPPEventChargesSpent = 0
-	EconomyEventCharges//value from 0 to ? which holds the number of economy-only charges you can trigger with daily rewards.
 
 	RPPStartingDaysTriggered=0//increments
 	RPPDonate=0//Used for elders; can help people hit cap sooner
@@ -489,10 +343,6 @@ mob/var
 	tmp/AFKTimer=24000 // AFK timer stuff
 	AFKTimeLimit=24000 // AFK timer stuff
 	AFKIcon='afk.dmi' // AFK icon
-	AlienRacialActive // Active alien skill
-	AlienRacialPassive // Passive alien skill
-	Fishman
-	RacialsSelected=0
 	CustomObj1Icon=null
 	CustomObj1State=null
 	CustomObj1X=null
@@ -506,11 +356,7 @@ mob/var
 	CustomTurfDensity=0
 	CustomTurfOpacity=0
 	tmp/mob/Transfering=0
-	Asexual=0
 	Warp=0
-	list/GenRaces=new
-	Transforming=0
-	TransformingBeyond=0
 	tmp/Observing=0
 	tmp/SaveDelay
 	tmp/SenseCD
@@ -521,8 +367,6 @@ mob/var
 	PowerUp=0
 	PowerDown=0
 	image/ChargeIcon
-	SSJ=0
-
 	Class="Fighter"
 	KO
 	Build=0
@@ -548,16 +392,11 @@ mob/var
 	DefMod=1
 	SpdMod=1
 
-	SuperDemonBody
-	SuperDemonBody2
 	TrueName//Holds true name for otherworldly beings
 	RPPower=1 //Multiplies overall power, edited by admins to increase power when it is suited to do so.
 	StealthRPPower=1//Multiplies power...invisibly!!
-	StealthAdd=0//Adds power...invisibly!!
 	Body=1
 	//arent all of these useless anyway?
-	PUConstant
-	PUThresholdUp=0
 	PUEffortless
 	PUUnlimited
 
@@ -590,17 +429,6 @@ mob/var
 	TsukiyomiTime
 	Lethal=0 //Lethality
 	Timestamp=0 //Timestamp Setting
-	CustomSpeed=1
-	CustomChargeRate=1
-	CustomPower=1
-	CustomDistance=1
-	CustomEfficiency=1
-	CustomPoints=0
-	Fusee=0
-	Fused=0
-	FusionTarget
-	KiBlade=0
-	ForceStrike=0
 	GrabMove //THIS HAND OF MINE IS BURNING RED
 	DelayedDamage
 	CoinSetting="ZenniBag"
@@ -626,12 +454,6 @@ mob/var
 
 	Meditating
 	MeditationCD=0
-	Mystic
-	Maki
-	Void //No sense, but also no thought reading.
-	MaskType
-	MaskAlpha
-	StanceLock
 	StanceActive
 	Style
 	StyleActive
@@ -645,8 +467,6 @@ mob/var
 	CyberPassiveAngerNerf
 	CyberActiveAngerNerf
 	CyberStatAngerNerf
-	ChakraCrusherUnlocked=0
-	ChakraFreeze//If this is ticked, people have half PU gain.
 	EnhancedHearing=0
 	//New variables; Advanced Stances and Staves give offense and defense.  Swords give offense.  Armor gives defense.
 	ElementalOffense
@@ -676,31 +496,20 @@ mob/var
 	Stabilized=0//Reduce shock/confuse
 	Roided=0//When BP Poison is less than 1, gives you half of the reduced value back
 	BloodDrain
-	LifeDrain
-	BurningShot
 	ManaAmount=100
 	ManaMax=100
-	DoubleStrike
-	TripleStrike
 	Default_Hair
 
 	movementSealed = FALSE
 
-	LastBreath
-
-
 	KiControlMastery=0
-
 
 	PULock
 	PUForce//overrides override...
-
-
 	//JJBA vars
 	TimeStop
 	TimeFrozen
 	WorldImmune=0
-
 
 	//gates
 	GatesNerf
@@ -710,20 +519,8 @@ mob/var
 	TranceCounter
 	TranceObtained
 
-
-	Godspeed
-
 	DelayedKB
 	tmp/mob/DelayedKBCatalyst
-
-	HumanAscension//Fighting, Enchantment, or Technology.  Used for reversion code
-	SaiyanAscension
-	MonsterClass//Warrior, Shaman, Hunter
-	MonsterSource//Power, determination, ingenuity
-	MonsterAscension//Infernal, Celestial, Legendary
-	AlienEvolutionStats//keeps aliens from double tapping stats
-	ShinjinAscension
-
 
 	Transformed=0
 	Oozaru=0
@@ -758,23 +555,9 @@ mob/var
 	BPPoison=1//Reduces BP by an amount.
 	BPPoisonTimer//Determines how long it lasts.
 
-	StaticWalk//Can walk through static
-	SpaceWalk//Doesn't drown in space
-	VenomImmune//Chill in ichor
-	WalkThroughHell//Walk in lava
-	WaterWalk//Walk through...water.  WOWZA
 	RecoilDamage//If this has a value, you'll do damage to yourself.
-	NoDodge//talk shit, get hit
-	NoMiss//Did you talk shit...? >:T
-	MaimStrike//yan with the innuendo... SLAP A BITCH'S ENTIRE ARM OFF
-	CursedWounds//wounds ignore endurance reduction and wound intent
-	SoulFire//damage mana capacity
-	DarknessFlame//lets you have Darkness Flame effects
-	AbsoluteZero//lets you have Absolute Zero effects
 	FusionPowered//so you can be fatigue immune and regen energy in PU
 	CyberLimb=0//The stuff replacing your maims
-	//Consistency changes
-	Pursuer=0//chase them down
 	AuraLocked
 	AuraLockedUnder=0
 	AuraLock
@@ -808,17 +591,8 @@ mob/var
 	TarotFate//holds your tartot trump
 	AllowObservers//Allows people to observe you fighting!
 	list/GlobalCooldowns = list()
-	HeavyHitter // Knockback mult
-	Blubber = 0 // reverse knockbacks at 25% of total per tick
-	DemonicDurability = 0 // Gain more endurance / pure red from anger
-
 
 	SwordPunching = 0 // can punch with swords
-
-
-
-	Extend
-	CounterMaster
 
 	AriaCount = 0
 	UBWPath
@@ -835,6 +609,8 @@ mob/var
 	PrayerMute = FALSE
 
 	tension = 0
+
+	ShinjinAscension
 
 /proc/reduceGodKi(mob/player, num)
 	player.GodKi -= num

@@ -158,30 +158,21 @@ obj
 				p.ai_hostility=1
 				p.passive_handler.Increase("SwordPunching")
 				p.passive_handler.Increase("WaterWalk")
-				p.WaterWalk=1
 				if(mi.seek_destroy)
 					p.ai_hostility=2
 				if(mi.hostile>=2)
 					p.hostile = 2
 				p.WoundIntent=1
 				p.passive_handler.Increase("PureReduction", mi.tank)
-				p.PureReduction=mi.tank
 				p.ai_spammer = mi.spammer
 				if(mi.metal)
-					if(p.PureReduction<5)
-						p.passive_handler.Set("PureReduction", 5)
-						p.PureReduction=5
+					p.passive_handler.Set("PureReduction", 5)
 				p.passive_handler.Increase("PureDamage", mi.dps)
-				p.PureDamage=mi.dps
 				p.passive_handler.Increase("TechniqueMastery", mi.sin)
-				p.TechniqueMastery=mi.sin
 				if(mi.void)
 					p.passive_handler.Increase("SoulFire", 0.5)
-					p.SoulFire=0.5
 					p.passive_handler.Increase("Void")
-					p.Void=1
 					p.passive_handler.Increase("VoidField", 5)
-					p.VoidField=5
 
 				var/potBoon = 0.5 + p.Potential/200
 				p.StrMod = round(mi.str_mod + potBoon, 0.05)
@@ -213,23 +204,14 @@ obj
 
 					if(p.Attunement=="Wind")
 						p.passive_handler.Increase("Skimming", 2)
-						p.Skimming=2
-						p.WaterWalk=0
 					if(p.Attunement=="Water")
 						p.passive_handler.Increase("Fishman")
-						p.Fishman=1
-						p.WaterWalk=0
 					if(p.Attunement=="Chaos")
 						p.passive_handler.Increase("PureDamage", 7)
-						p.PureDamage+=7
 						p.passive_handler.Increase("PureReduction", 7)
-						p.PureReduction+=7
 						p.passive_handler.Increase("DarknessFlame")
-						p.DarknessFlame=1
 						p.passive_handler.Increase("AbsoluteZero")
-						p.AbsoluteZero=1
 						p.passive_handler.Increase("Godspeed", 4)
-						p.Godspeed=4
 					if(p.Attunement=="Dark")
 						p.HealthCut=0
 						p.AngerMax=1.5
@@ -241,50 +223,45 @@ obj
 				var/legen = powerModifier == 1 ? 100 : mi.legend_power
 				if(prob(legen))
 					p.passive_handler.Increase("LegendaryPower", (p.Potential/100))
-					p.LegendaryPower+=(p.Potential/100)
 
 					p.EndMod*=1.5
 					p.DefMod*=1.5
 					p.HealthCut=0
-					p.EndlessAnger=1
+					p.passive_handler.Increase("EndlessAnger", 1)
 					p.shifts_target=1
 					p.name="(FIELD BOSS) [p.name] (Potential: [p.Potential*1.25])"
 				if(prob(mi.spirit_power))
 					p.passive_handler.Increase("SpiritPower", (p.Potential/100))
 					p.passive_handler.Increase("CalmAnger", 1)
-					p.SpiritPower+=(p.Potential/100)
-
 					p.OffMod*=1.5
 					p.SpdMod*=1.5
 					p.HealthCut=0
-					p.CalmAnger=1
 					p.shifts_target=1
 					p.name="Pure [p.name] (Potential: [p.Potential])"
 				if(prob(mi.hell_power))
 					p.passive_handler.Increase("HellPower", (p.Potential/100))
-					p.HellPower+=(p.Potential/100)
 					p.AngerMax+=1
 
 					p.StrMod*=1.5
 					p.ForMod*=1.5
 					p.HealthCut=0
-					p.EndlessAnger=1
+					p.passive_handler.Increase("EndlessAnger", 1)
 					p.shifts_target=1
 					p.name="Demonic [p.name] (Potential: [p.Potential])"
-				if(!p.LegendaryPower && !p.SpiritPower && !p.HellPower && prob(mi.murder_chance))
+				if(prob(mi.murder_chance))
 
 					p.StrMod*=1.5
 					p.ForMod*=1.5
 					p.OffMod*=1.5
 					p.HealthCut=0
-					p.EndlessAnger=1
+					p.passive_handler.Increase("EndlessAnger", 1)
 					p.AngerMax=2
 					p.name="Rare [p.name] (Potential: [p.Potential])"
 				if(p.ai_hostility==1 && prob(mi.hungry_chance))
 
 					p.HealthCut=0.5
 					p.AngerMax=2
-					p.EndlessAnger=1
+					p.passive_handler.Increase("EndlessAnger", 1)
 					p.EndMod/=2
 					p.name="Starving [p.name] (Potential: [p.Potential])"
 				var/epic = powerModifier > 1 ? 100 : mi.epic_power
@@ -292,17 +269,13 @@ obj
 					if(powerModifier >= 2)
 						p.ai_hostility=1
 						p.passive_handler.Increase("PureDamage", 3)
-						p.PureDamage += 3
 						p.passive_handler.Increase("PureReduction", 3)
-						p.PureReduction += 3
 						p.passive_handler.Increase("Godspeed", 3)
-						p.Godspeed += 4
 						p.passive_handler.Increase("GodKi", p.Potential/200)
-						p.GodKi = p.Potential / 200
 						p.HealthCut=0
 						p.Intimidation*=2
 						p.AngerMax=2
-						p.EndlessAnger=1
+						p.passive_handler.Increase("EndlessAnger", 1)
 						p.PowerInvisible*=2
 						p.transform*=2
 						p.shifts_target=1
@@ -320,7 +293,7 @@ obj
 						p.HealthCut=0
 						p.Intimidation*=2
 						p.AngerMax=2
-						p.EndlessAnger=1
+						p.passive_handler.Increase("EndlessAnger", 1)
 						p.PowerInvisible*=2
 						p.transform*=2
 						p.shifts_target=1
@@ -336,7 +309,6 @@ obj
 				if(mi.void)
 					p.AngerMax=1
 					p.passive_handler.Increase("Void", 1)
-					p.Void=1
 				if(mi.enlarge != 1)
 					p.appearance_flags |= PIXEL_SCALE
 					p.transform = matrix()*mi.enlarge

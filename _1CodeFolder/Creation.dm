@@ -28,8 +28,7 @@
 	var/list/OldLoc = list()
 
 /var/list/Races_Changed = list()
-/var/list/typesOfItemsRemoved = list(/obj/Items/Enchantment/Scrying_Ward, /obj/Items/Enchantment/Crystal_Ball, \
-/obj/Items/Enchantment/Arcane_Mask, /obj/Items/Enchantment/Magic_Crest, /obj/Items/Enchantment/ArcanicOrb, \
+/var/list/typesOfItemsRemoved = list(/obj/Items/Enchantment/Arcane_Mask, /obj/Items/Enchantment/Magic_Crest, /obj/Items/Enchantment/ArcanicOrb, \
 /obj/Items/Enchantment/Teleport_Amulet, /obj/Items/Enchantment/Teleport_Nexus, /obj/Items/Enchantment/Dimensional_Cage, \
 /obj/Items/Enchantment/PocketDimensionGenerator, /obj/Items/Enchantment/Crystal_of_Bilocation, \
 /obj/Items/Enchantment/AgeDeceivingPills, /obj/Items/Enchantment/Phylactery, /obj/Items/Enchantment/Elixir_of_Reincarnation, \
@@ -135,11 +134,6 @@ mob/Players
 				e.name="Item"
 
 		src.potential_gain(0, npc=0)//set status message.
-
-		for(var/obj/Items/Enchantment/Crystal_Ball/cb in src)
-			if(cb.suffix)
-				cb.suffix=null
-				Reset_Overlays()
 
 		//stop holding zanzo charges
 		if(ActiveZanzo)
@@ -446,7 +440,6 @@ mob/Players
 		for(var/i in vis_contents)
 			vis_contents -= i
 		for(var/obj/Items/ite in src)
-			Items.Remove(ite)
 			del ite
 		if(length(magatamaBeads))
 			for(var/i in magatamaBeads)
@@ -468,7 +461,6 @@ mob/Players
 		secretDatum = null
 		MonkeySoldiers = null
 		knowledgeTracker = null
-		Items = null
 		equippedSword = null
 		equippedArmor = null
 		equippedWeights = null
@@ -971,7 +963,6 @@ mob/proc
 		LOL.Hair_Base=src.Hair_Base
 		LOL.Hair_Color=src.Hair_Color
 		LOL.Tail=src.Tail
-		LOL.GenRaces=src.GenRaces
 		LOL.AscensionsUnlocked=src.AscensionsUnlocked
 		LOL.race = race
 		LOL.setRace(race, TRUE)
@@ -1001,14 +992,6 @@ mob/proc
 		src.EnergyUniqueness=GoCrand(0.8,1.2)
 		src.EnergySignature=rand(1000,9000)
 		race.onFinalization(src)
-
-		src.StrOriginal=src.StrMod
-		src.EndOriginal=src.EndMod
-		src.SpdOriginal=src.SpdMod
-		src.ForOriginal=src.ForMod
-		src.OffOriginal=src.OffMod
-		src.DefOriginal=src.DefMod
-		src.RecovOriginal=src.RecovMod
 
 		src:UniqueID = ++glob.IDCounter
 		glob.IDs += src:UniqueID
@@ -1114,5 +1097,4 @@ mob
 				return Return
 
 mob/proc/PilotMecha(var/mob/Mecha,var/mob/Pilot)
-	Mecha.Manufactured=1
 	Pilot.client.mob=Mecha

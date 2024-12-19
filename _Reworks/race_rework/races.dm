@@ -771,7 +771,7 @@ race
 			user.Class = pickedPath
 			switch(pickedPath)
 				if("North")
-					user.Restoration=1
+					user.passive_handler.Increase("Restoration", 1)
 					user.Attunement="Earth"
 					user.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kaioken)
 					user.AddSkill(new/obj/Skills/Projectile/Genki_Dama)

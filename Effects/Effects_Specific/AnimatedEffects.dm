@@ -422,22 +422,6 @@ proc
 		Target.Frozen=0
 		animate(Target, pixel_x=0, pixel_y=0, color=null)
 
-	TransformBeyond(var/mob/m) //Handles shiny transes
-		m.Frozen=1
-		sleep(1)
-		if(m.TransformingBeyond)
-			for(var/turf/t in Turf_Circle(m, 18))
-				if(prob(50))
-					spawn(rand(2,6))
-						var/icon/i = icon('RisingRocks.dmi')
-						t.overlays+=i
-						spawn(rand(20, 60))
-							t.overlays-=i
-			spawn(10)
-				TransformBeyond(m)
-				KenShockwave2(m, icon='KenShockwaveGold.dmi', Size=10)
-		m.Frozen=0
-
 	PowerGathering(var/mob/m) //Handles shiny transes
 		sleep(1)
 		spawn(10)
@@ -531,7 +515,7 @@ mob/proc
 	FlickeringGlow(var/mob/m, var/list/Glow=list(1,0.8,0.8, 0,1,0, 0.8,0.8,1, 0,0,0)) //Handles shiny transes
 		if(m.FlickeringGlow) return
 		m.FlickeringGlow=1
-		while(m.TransformingBeyond)
+		while(m.FlickeringGlow)
 			animate(m, color=Glow, time=10, flags=ANIMATION_RELATIVE || ANIMATION_PARALLEL)
 			sleep(10)
 			animate(m, color=src.MobColor, time=10, flags=ANIMATION_RELATIVE || ANIMATION_PARALLEL)

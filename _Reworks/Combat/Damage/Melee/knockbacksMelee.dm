@@ -1,7 +1,6 @@
 /mob/proc/getMeleeKnockback(mob/enemy)
     var/knockDistance = 0
-    if(KBAdd)
-        knockDistance += KBAdd
+    knockDistance += passive_handler.Get("KBAdd")
 
     if(Grab==enemy)
         knockDistance += 5

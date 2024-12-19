@@ -104,16 +104,6 @@ mob
 			var/TotalSpend=src.GetRPPSpendable()
 			if(TotalSpend>=val)
 				var/Remaining=val
-				if(Remaining<=src.RPPSpendableEvent)
-					src.RPPSpendableEvent-=Remaining
-					src.RPPSpentEvent+=Remaining
-					if(src.RPPSpendableEvent<=0)
-						src.RPPSpendableEvent=0
-					Remaining=0
-				else if(Remaining>src.RPPSpendableEvent)
-					Remaining-=src.RPPSpendableEvent
-					src.RPPSpentEvent+=src.RPPSpendableEvent
-					src.RPPSpendableEvent=0
 				if(Remaining>0)
 					src.RPPSpent+=Remaining
 					src.RPPSpendable-=Remaining

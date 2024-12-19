@@ -438,7 +438,6 @@ transformation
 					animate(HF, alpha=210, time=5)
 					sleep(5)
 					animate(HF, alpha=0, time=5)
-					TransformBeyond(user)
 					sleep(5)
 					animate(HF, alpha=210, time=5)
 					animate(user, color = list(1,0,0, 0,1,0, 0,0,1, 1,0.9,0.2), time=10)

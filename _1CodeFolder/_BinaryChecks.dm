@@ -763,14 +763,11 @@ mob
 			if(Target)
 				if(isDominating(Target) && passive_handler.Get("HellRisen") >= 0.75)
 					. += passive_handler.Get("HellRisen")/4
-			if(isHalfDemon())
-				. += 0.15 * src.AscensionsAcquired
 			return .
 		GetMaimStrike()
 			return 0
 			var/Return=0
 			Return += passive_handler.Get("MaimStrike")
-			Return += MaimStrike
 			// if(src.DemonicPower())
 			// 	Return+=0.05 * src.AscensionsAcquired
 			if(src.Saga=="Ansatsuken"&&src.AnsatsukenAscension=="Chikara")
@@ -1424,7 +1421,7 @@ mob
 				managen += AscensionsAcquired
 			return managen
 		HasMystic()
-			if(src.Mystic || src.passive_handler.Get("Mystic"))
+			if(src.passive_handler.Get("Mystic"))
 				return 1
 			return 0
 		HasMaki()
@@ -1443,8 +1440,6 @@ mob
 			if(src.isRace(DEMON))
 				return 1
 			if(src.CheckSlotless("Majin"))
-				return 1
-			if(src.isRace(HUMAN)&&src.HellPower>=2&&src.AscensionsAcquired>=4)
 				return 1
 			return 0
 		HasSpiritPower()
@@ -1786,8 +1781,6 @@ mob
 		GetConfusing()
 			return passive_handler.Get("Confusing")
 		HasHolyMod()
-			if(HolyMod)
-				return 1
 			if(passive_handler.Get("HolyMod"))
 				return 1
 			if(src.TarotFate=="The Lovers")
@@ -1798,7 +1791,6 @@ mob
 		GetHolyMod()
 			var/Reduce=0
 			var/Extra=0
-			Extra+=HolyMod
 			if(src.TarotFate=="The Lovers")
 				Extra=2.5
 			if(src.TarotFate=="The Hierophant")
@@ -2303,7 +2295,7 @@ mob
 				return 0
 			if(src.HasMechanized())
 				return 0
-			if(src.StableBP>=1)
+			if(src.passive_handler.Get("StableBP")>=1)
 				return 0
 			if(src.Kaioken)
 				return 0
@@ -2319,8 +2311,6 @@ mob
 			if(src.HasGodspeed()>=4)
 				return 0
 			if(isRace(ANDROID)/* || isRace(MAJIN)  */)
-				return 0
-			if(src.LastBreath)
 				return 0
 			if(src.CheckSlotless("Berserk"))
 				return 0
@@ -2344,8 +2334,6 @@ mob
 				return 1
 			return 0
 		NoWhiff()
-			if(src.NoWhiff)
-				return 1
 			if(src.passive_handler.Get("NoWhiff"))
 				return 1
 			return 0
@@ -2563,21 +2551,12 @@ mob
 					return 1
 			return 0
 
-
-		isHalfDemon()
-			//TODO come back to this later
-			if(isRace(HUMAN) && HellPower >= 2)
-				return 1
-
-
 		HasSwordPunching()
 			if(passive_handler.Get("SwordPunching"))
 				return 1
 			if(Saga == "Kamui")
 				return 1
 			if(isRace(DEMON)|| (CheckSlotless("Satsui no Hado") && SagaLevel>=6))
-				return 1
-			if(isRace(HUMAN) && isHalfDemon())
 				return 1
 			if(ClothBronze == "Andromeda" && Saga == "Cosmo")
 				return 1

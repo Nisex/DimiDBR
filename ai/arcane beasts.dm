@@ -1062,9 +1062,7 @@ obj/Skills/Companion/arcane_follower
 			a.DefMod = 3 + Mastery/2
 			a.RecovMod = 2 + Mastery
 			a.Intimidation = 10 + (Mastery*20)
-			a.Godspeed = Mastery+2
 			a.Timeless = 1
-			a.TechniqueMastery = Mastery*2
 			a.ai_spammer = 10
 			a.Potential = usr.Potential + 10
 			a.Text_Color = text_color
@@ -1501,7 +1499,6 @@ mob/Player/AI/Nympharum
 		set waitfor=0
 		usr = src
 		Power = ai_owner.Power
-		Instinct = ai_owner.Instinct
 		Power = ai_owner.Power
 
 		if(ai_owner.is_arcane_beast.bond_damage)

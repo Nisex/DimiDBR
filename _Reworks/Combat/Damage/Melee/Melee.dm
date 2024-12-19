@@ -436,10 +436,7 @@
 
 		// 				HOT HUNDRED 			//
 				var/hh = passive_handler.Get("HotHundred")
-				if(!AttackQueue && (HotHundred || hh || enemy.Launched && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Launchers") || (enemy.Stunned && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Stunners"))))
-					hh = HotHundred
-					if(passive_handler.Get("HotHundred") > HotHundred)
-						hh = passive_handler.Get("HotHundred")
+				if(!AttackQueue && (hh || enemy.Launched && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Launchers") || (enemy.Stunned && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Stunners"))))
 					lightAtk = 1
 					var/adjust = 0
 					Comboz(enemy, LightAttack = 1)
@@ -595,7 +592,7 @@
 								var/whiffed = TRUE
 								if(AttackQueue)
 									if(AttackQueue.NoWhiff)
-										if(!enemy.NoForcedWhiff)
+										if(!enemy.passive_handler.Get("NoForcedWhiff"))
 											hitResolution = HIT
 										else
 											hitResolution = MISS // this doesn't do anything

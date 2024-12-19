@@ -564,8 +564,6 @@ obj/Skills/Grapple
 				#endif
 
 				var/Hits=src.MultiHit
-				if(src.MaimStrike)
-					User.MaimStrike+=src.MaimStrike
 				while(Hits)
 					if(!src.EnergyDamage)
 						#if DEBUG_GRAPPLE
@@ -580,8 +578,6 @@ obj/Skills/Grapple
 						Trg.GainFatigue(Damage*src.EnergyDamage)
 						User.HealMana(Damage*src.EnergyDamage)
 					Hits--
-				if(src.MaimStrike)
-					User.MaimStrike-=src.MaimStrike
 				OMsg(User, "[User] [src.TriggerMessage] [Trg]!")
 				User.Knockback((dmgRoll*src.ThrowMult)+src.ThrowAdd, Trg, Direction=src.ThrowDir, Forced=1, override_speed = ThrowSpeed)
 				if(src.Stunner)

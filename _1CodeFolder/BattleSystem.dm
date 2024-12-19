@@ -178,7 +178,6 @@ mob/proc/Unconscious(mob/P,var/text)
 			FD.AlignEquip(src)
 
 	src.MeditationCD=0
-	src.LastBreath=0
 	if(GatesActive>0)
 		if(ActiveBuff)
 			if(CheckActive("Eight Gates"))
@@ -409,7 +408,7 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 				src.KO=1
 				src.Stasis=2000
 				src.icon_state="KO"
-				if(src.VenomBlood)
+				if(passive_handler.Get("VenomBlood"))
 					src.overlays+=image('ArtificalObj.dmi',"Acid")
 				else
 					src.overlays+=image('ArtificalObj.dmi',"Blood")
@@ -421,7 +420,7 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 					src.HealFatigue(50)
 				src.HealHealth(50)
 				src.HealEnergy(50)
-				if(src.VenomBlood)
+				if(passive_handler.Get("VenomBlood"))
 					src.overlays-=image('ArtificalObj.dmi',"Acid")
 				else
 					src.overlays-=image('ArtificalObj.dmi',"Blood")
@@ -707,23 +706,6 @@ mob/proc/Leave_Body(var/SuperDead=0, var/Zombie, var/ForceVoid=0)
 		if(glob.VoidsAllowed||ForceVoid)
 			var/Timer
 			ActuallyDead=1
-			if(src.isRace(HUMAN)&&src.HellPower>=1&&src.HellPower<2&&src.Potential>=50)
-				src.Burn=0
-				src.Poison=0
-				src.Slow=0
-				src.Shatter=0
-				src.Sheared=0
-				src.TotalFatigue=0
-				src.TotalInjury=0
-				src.TotalCapacity=0
-				src.InjuryAnnounce=0
-				src.Health=100
-				src.Energy=100
-				src.ManaAmount=src.ManaMax*src.GetManaCapMult()
-				OMsg(src, "[src] raises to their feet, surrounded by extremely corrupted power...")
-				src.loc=A.loc
-				del A
-				return
 			if(ForceVoid)
 				Timer=Minute(1)//this will always happen
 				ActuallyDead=0
@@ -811,7 +793,7 @@ mob/proc/Leave_Body(var/SuperDead=0, var/Zombie, var/ForceVoid=0)
 		A.Grabbable=0
 		OMsg(A, "[A] turns to ash!")
 	if(!ForceVoid)
-		if(src.VenomBlood)
+		if(passive_handler.Get("VenomBlood"))
 			A.overlays+=image('ArtificalObj.dmi',"Acid")
 		else
 			A.overlays+=image('ArtificalObj.dmi',"Blood")

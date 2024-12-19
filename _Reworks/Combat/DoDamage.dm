@@ -31,8 +31,9 @@
 		triggerLimit("Unarmed")
 	if(spiritAtk)
 		triggerLimit("Spirit")
-	if(Quaking)
-		Quake(Quaking)
+	if(AttackQueue)
+		if(AttackQueue.Quaking)
+			Quake(AttackQueue.Quaking)
 	#if DEBUG_DAMAGE
 	log2text("Damage", "Before BalanceDamage", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")

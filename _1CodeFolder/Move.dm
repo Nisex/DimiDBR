@@ -11,7 +11,7 @@ proc
 			var/mob/M=Q
 			if(B.Password)
 				if(B.GodDoor)
-					if(M.Spawn==B.Password || M.AntiGodDoor)
+					if(M.Spawn==B.Password)
 						B.Open()
 				else
 					if(B.Password&&!B.AutoOpen)

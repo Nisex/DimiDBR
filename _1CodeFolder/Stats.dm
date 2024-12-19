@@ -197,9 +197,6 @@ mob/Players/Stat()
 			stat("----","----")
 			stat("Reward Points:","[round(usr.RPPSpendable)]")
 			stat("Reward Points Used:","[round(usr.RPPSpent)]")
-			if(usr.RPPSpendableEvent || usr.RPPSpentEvent)
-				stat("Event Reward Points:","[round(usr.RPPSpendableEvent)]")
-				stat("Event Reward Points Used:","[round(usr.RPPSpentEvent)]")
 			if(usr.RPPDonate)
 				stat("Donate RPP:", "[round(usr.RPPDonate)]")
 			if(usr.PotentialRate>0)
@@ -490,8 +487,6 @@ mob/proc/Recover(var/blah,Amount=1)
 				return
 			if(src.Transfering)
 				return
-			if(src.LastBreath)
-				return
 			if(src.Oxygen<=10)
 				return
 			if(SenseRobbed>=2&&(src.SenseUnlocked<=src.SenseRobbed&&src.SenseUnlocked>5))
@@ -621,8 +616,6 @@ mob/proc/Recover(var/blah,Amount=1)
 				return
 			if(src.Transfering)
 				return
-			if(src.LastBreath)
-				return
 			if(src.Oxygen<=10)
 				return
 			if(SenseRobbed>=2&&(src.SenseUnlocked<=src.SenseRobbed&&src.SenseUnlocked>5))
@@ -671,7 +664,7 @@ mob/proc/Recover(var/blah,Amount=1)
 			if(Swim&&passive_handler.Get("Fishman"))
 				Amount*=2
 			if(CheckSpecial("Bond Keeper"))
-				Amount*=max(2,2*(1-(ManaAmount/(100*ManaCapMult))))
+				Amount*=max(2,2*(1-(ManaAmount/(100*GetManaCapMult()))))
 			src.HealMana(Amount)
 		if("Capacity")
 			if(PureRPMode)
@@ -874,26 +867,26 @@ mob/proc/
 					if(isRace(HUMAN))
 						Boosted *= 1 + (TotalInjury/50)
 					Recover("Injury",1*Boosted)
-					if(src.Restoration||src.Secret=="Zombie")
+					if(src.passive_handler.Get("Restoration")||src.Secret=="Zombie")
 						Recover("Health",1)
 						Recover("Injury",1)
 						BPPoisonTimer-=15
 				if(src.Energy<src.EnergyMax)
 					Recover("Energy",1)
 					Recover("Fatigue",1.25)
-					if(src.Restoration)
+					if(src.passive_handler.Get("Restoration"))
 						Recover("Energy",1)
 						Recover("Fatigue",1)
 				if(Secret == "Senjutsu")
 					if((CheckSlotless("Senjutsu Focus") || CheckSlotless("Sage Mode")) != 0)
 						var/boon = Secret == "Senjutsu" ? secretDatum.currentTier : 0
 						Recover("Mana",1 + boon)
-						if(src.Restoration)
+						if(src.passive_handler.Get("Restoration"))
 							Recover("Mana",1)
 				else
 					if(ManaAmount<((src.ManaMax-src.TotalCapacity)*src.GetManaCapMult()))
 						Recover("Mana",1)
-					if(src.Restoration)
+					if(src.passive_handler.Get("Restoration"))
 						Recover("Mana",1)
 				Recover("Capacity",2)
 				if(locate(/obj/Regenerate, src))
@@ -909,10 +902,10 @@ mob/proc/
 		if(src.PowerControl<=25)
 			Recover("Fatigue",1)
 			if(src.ManaDeath)
-				ManaAmount-=5*src.ManaCapMult
+				ManaAmount-=5*GetManaCapMult()
 			else if(src.is_arcane_beast || (isRace(YOKAI) && src.AscensionsAcquired>0 && !src.Mechanized && !src.ActiveBuff))
 				if(isRace(YOKAI))
-					Recover("Mana", 1*src.ManaCapMult)
+					Recover("Mana", 1*GetManaCapMult())
 				else
 					Recover("Mana",1)
 
@@ -936,13 +929,6 @@ mob/proc/
 				PUGain*=src.GetRecov(10)
 			else
 				PUGain*=src.GetRecov(10)
-
-			if(src.ChakraFreeze)
-				if(!src.PURestrictionRemove)//You can't freeze the limitless
-					PUGain*=0
-				src.ChakraFreeze--
-				if(src.ChakraFreeze<=0)
-					src.ChakraFreeze=0
 
 			if(src.Kaioken)
 				PUGain=0
@@ -1297,7 +1283,7 @@ mob/proc/Get_Scouter_Reading(mob/B)
 				Ratio*=AgeRate
 			if(locate(/obj/Seal/Power_Seal, B))
 				Ratio*=0.5
-			if(B.CanLoseVitalBP()||B.Anaerobic)
+			if(B.CanLoseVitalBP())
 				Ratio*=1+(B.GetHealthBPMult()+B.GetEnergyBPMult())
 			if(B.JaganPowerNerf)
 				Ratio*=B.JaganPowerNerf
@@ -1361,7 +1347,7 @@ mob/proc/Get_Scouter_Reading(mob/B)
 
 	if(B.Dead&&!B.KeepBody)
 		Ratio*=0.5
-	else if(B.z==glob.DEATH_LOCATION[3]&&!B.CheckActive("Cancer Cloth")&&B.SenseUnlocked<8&&!B.SpiritPower)
+	else if(B.z==glob.DEATH_LOCATION[3]&&!B.CheckActive("Cancer Cloth")&&B.SenseUnlocked<8&&!B.passive_handler.Get("SpiritPower"))
 		Ratio*=0.1
 
 	var/Reading=Ratio

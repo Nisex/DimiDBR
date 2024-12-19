@@ -4319,8 +4319,6 @@ mob
 						src.OMessage(10, "<font color='[rgb(255,153,51)]'><b>[src] [src.AttackQueue.ActiveMessage]</b></font>", "[src]([src.key]) queued [src.AttackQueue].")
 			if(src.AttackQueue.Recoil)
 				src.RecoilDamage=src.AttackQueue.Recoil
-			if(src.AttackQueue.Quaking)
-				src.Quaking=src.AttackQueue.Quaking
 			if(src.AttackQueue.Combo)
 				src.AttackQueue.ComboPerformed=0
 		QueuedHitMessage(var/mob/P)
@@ -4458,8 +4456,6 @@ mob
 				src.AttackQueue.NoWarp=0
 			if(src.AttackQueue.Combo)
 				src.AttackQueue.ComboPerformed=0
-			if(src.AttackQueue.Quaking)
-				src.Quaking=0
 			if(src.AttackQueue.RipplePower>1)
 				src.AttackQueue.DamageMult/=src.AttackQueue.RipplePower
 				src.AttackQueue.AccuracyMult/=src.AttackQueue.RipplePower

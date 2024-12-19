@@ -77,8 +77,3 @@ mob
 					else
 						extraMoney = 0
 				src.GiveMoney(max(0,round(glob.progress.EconomyIncome*src.EconomyMult*src.Intelligence)) + extraMoney)
-
-		reward_self_econ()
-			src.GiveMoney(max(0,glob.progress.EconomyIncome * glob.economy_charge_mult * src.EconomyEventCharges))
-			src << "You've triggered [src.EconomyEventCharges] economy charges."
-			src.EconomyEventCharges=0

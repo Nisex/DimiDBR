@@ -669,10 +669,10 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 				for(var/mob/Players/A in players)
 					who.Add(A)
 				for(var/mob/Players/W in who)
-					if(!(locate(W.EnergySignature) in usr.EnergySignaturesKnown)&&!usr.SpiritPower)
+					if(!(locate(W.EnergySignature) in usr.EnergySignaturesKnown)&&!usr.passive_handler.Get("SpiritPower"))
 						if(!(W in hearers(50,usr)))
 							who.Remove(W)
-					if(!W.EnergySignature&&!usr.SpiritPower)
+					if(!W.EnergySignature&&!usr.passive_handler.Get("SpiritPower"))
 						who.Remove(W)
 				var/mob/Players/selector=input("Select a player to telepath.") in who||null
 				if(selector=="Cancel")
@@ -710,7 +710,6 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 				if(src.PoweringDown)return
 				if(CheckSlotless("Great Ape"))return
 				if(passive_handler.Get("Piloting"))return
-				if(src.Transforming)return
 				if(src.Kaioken)
 					var/Mastery
 					for(var/obj/Skills/Buffs/SpecialBuffs/Kaioken/KK in src)
@@ -767,8 +766,6 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 				if(CheckSlotless("Great Ape"))
 					return
 				if(passive_handler.Get("Piloting"))
-					return
-				if(src.Transforming)
 					return
 				if(src.Kaioken)
 					src << "You douse your Kaioken..."
@@ -872,11 +869,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 								AfterImageGhost(src)
 								src.Comboz(src.Target)
 								src.dir=get_dir(src,src.Target)
-								src.Instinct++
-								src.Instinct++
 								src.Melee1(1, 5, accmulti=1.2, SureKB=1, BreakAttackRate=1)
-								src.Instinct--
-								src.Instinct--
 							else
 								if(src.passive_handler.Get("GiantForm"))
 									var/Wave=2
@@ -887,9 +880,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 									VanishImage(src)
 								src.Comboz(src.Target)
 								src.dir=get_dir(src,src.Target)
-								src.Instinct++
 								src.Melee1(1, 5, accmulti=1.1, SureKB=1, BreakAttackRate=1)
-								src.Instinct--
 						src.MovementCharges--
 						if(MovementCharges<0)
 							MovementCharges=0

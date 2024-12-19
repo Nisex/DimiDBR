@@ -5845,10 +5845,6 @@ obj
 										EffectiveDamage=0
 										break//cancel allied damage
 						if(EffectiveDamage>0)
-							if(src.MaimStrike)
-								src.Owner.MaimStrike+=src.MaimStrike
-							if(src.SoulFire)
-								src.Owner.SoulFire+=src.SoulFire
 							if(src.MortalBlow)
 								if(prob(15*src.MortalBlow) && !a:MortallyWounded)
 									var/MortalDamage = a:Health <=50 ? a:Health * 0.05 : 100 * 0.05
@@ -5896,10 +5892,6 @@ obj
 									RecoverImage(a)
 									a << "You've been stripped of your sense of sight! You find it harder to see!"
 									animate(a:client, color = list(-1,0,0, 0,-1,0, 0,0,-1, 1,1,1), time = 5)
-							if(src.MaimStrike)
-								src.Owner.MaimStrike-=src.MaimStrike
-							if(src.SoulFire)
-								src.Owner.SoulFire-=src.SoulFire
 							src.Backfire=0
 
 						if(src.Owner.Grab||a:Grab)

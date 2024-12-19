@@ -10,7 +10,7 @@ globalTracker/var/SYMBIOTE_DMG_TEST = 2
     if(HasCyberStigma())
         if(defender.CyberCancel || defender.Mechanized || defender.Saga == "King of Braves")
             var/mana = defender.ManaAmount
-            var/manaCap = defender.ManaCapMult
+            var/manaCap = defender.GetManaCapMult()
             var/ratio = mana / manaCap
             ratio = abs(ratio - 100) / 33
             . += ratio * (max(defender.Mechanized,defender.CyberCancel) * (GetCyberStigma() ))

@@ -618,109 +618,6 @@ obj/Items/Enchantment
 				usr.AddSkill(PP)
 				del src
 
-	Scrying_Ward
-		desc="A ward prevents others from observing you while it is in your inventory, or dropped adjacent."
-		Grabbable=1
-		Pickable=1
-		Destructable=1
-		EnchType="ToolEnchantment"
-		SubType="NOT IN"
-		Cost=40
-		Health=5
-		var/Range=10
-		icon='Ward.dmi'
-
-	Crystal_Ball
-		desc="Crystal balls are used to spy upon energy signatures you are familiar with from long distance."
-		EnchType="ToolEnchantment"
-		SubType="NOT IN"
-		Cost=100
-		Health=10
-		Grabbable=1
-		Pickable=1
-		Destructable=1
-		density=0
-		icon='Crystal Ball.dmi'
-		verb
-			Use_Crystal_Ball()
-				set src in usr
-				set category="Utility"
-				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
-					return
-				if(!src.Using)
-					src.Using=1
-
-					if(!usr.GlobalCooldowns["[src.type]"])
-						usr.GlobalCooldowns["[src.type]"] = 0
-					if(!(world.realtime > usr.GlobalCooldowns["[src.type]"] + Hour(3)))
-						usr << "You still need time to recover from your last crystal ball use."
-						src.Using=0
-						return
-					if(usr.ToolEnchantmentUnlocked>=1)
-						var/list/who=list("Cancel","Vision")
-						for(var/mob/Players/M in players)
-							who.Add(M)
-						for(var/mob/Players/W in who)
-							if(W.AdminInviso)
-								who.Remove(W)
-							if(!usr.SpiritPower)
-								if(!(locate(W.EnergySignature) in usr.EnergySignaturesKnown))
-									who.Remove(W)
-								if(!W.EnergySignature)
-									who.Remove(W)
-								if(W.Dead)
-									who.Remove(W)
-							if(W.HasGodKi()||W.PowerControl<=25)
-								who.Remove(W)
-							if(W.invisibility)
-								who.Remove(W)
-							if(!usr.HasSpiritPower())
-								for(var/obj/Items/Enchantment/Scrying_Ward/SW in range(10,W))
-									if(SW)
-										who.Remove(W)
-							if(W.z == glob.VOID_LOCATION[3])
-								who.Remove(W)
-							if(W.z == glob.DEATH_LOCATION[3])
-								who.Remove(W)
-							if(W.z == ArcaneRealmZ)
-								who.Remove(W)
-							if(usr.Dead&&!usr.HasEnlightenment()&&(W.z!=usr.z))
-								who.Remove(W)
-						var/mob/Players/Choice=input(usr, "What player do you want to observe?", "View Crystal Ball") in who
-						if(Choice=="Cancel")
-							src.Using=0
-							return
-						if(Choice=="Vision")
-							var/list/who2=list()
-							for(var/mob/Players/M in players)
-								if(M!=usr&&!M.AdminInviso)
-									who2.Add(M)
-								if(!usr.HasSpiritPower())
-									for(var/obj/Items/Enchantment/Scrying_Ward/SW in range(10,M))
-										if(SW)
-											who2.Remove(M)
-								if(M.z == ArcaneRealmZ)
-									who2.Remove(M)
-							Choice=pick(who2)
-						Observify(usr, Choice)
-						usr.Observing=1
-						usr.GlobalCooldowns["[src.type]"] = world.realtime
-						src.AlignEquip(usr)
-					else
-						usr << "You don't possess the relevant knowledge to use the crystal ball!"
-						src.Using=0
-						return
-				else
-					Observify(usr, usr)
-					usr.Observing=0
-					usr << "You stop looking through the crystal ball."
-					src.Using=0
-					usr.GlobalCooldowns["[src.type]"] = world.realtime
-					if(src.suffix)
-						src.AlignEquip(usr)
-		New()
-			..()
-			src.InternalTimer=world.realtime
 	Tarot_Deck
 		desc="Tarot decks change your stats with a pair of increases and decreases."
 		icon='TarotDeck.dmi'
@@ -1025,7 +922,6 @@ obj/Items/Enchantment
 							if("The High Priestess")
 								DeckDraw="The High Priestess"
 								usr.TarotFate="The High Priestess"
-								usr.SpiritPower+=1
 							if("The Empress")
 								DeckDraw="The Empress"
 								usr.TarotFate="The Empress"

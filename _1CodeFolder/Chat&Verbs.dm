@@ -677,8 +677,6 @@ mob/Players/verb
 		usr.OffMultTotal=1
 		usr.DefMultTotal=1
 		usr.RecovMultTotal=1
-		usr.KBMult=1
-		usr.KBAdd=0
 		sleep(20)
 		usr<<"Stats and power successfully reset to normal."
 	Reset_Overlays()

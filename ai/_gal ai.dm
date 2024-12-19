@@ -406,7 +406,6 @@ mob/Player/AI
 		secretDatum = null
 		MonkeySoldiers = null
 		knowledgeTracker = null
-		Items = null
 		equippedSword = null
 		equippedArmor = null
 		equippedWeights = null
@@ -586,17 +585,10 @@ mob/Player/AI
 				RecovMod = rand(2,3)
 
 				if(prob(10)) //fuck with me nigga
-					GiantForm=1
+					passive_handler.Increase("GiantForm", 1)
 					transform*=2
 					appearance_flags+=512
-				if(prob(15))
-					Godspeed=1
-				TechniqueMastery=rand(1,5)
-				if(prob(5))
-					TechniqueMastery=10
 
-				if(hostile_randomize==2)
-					HellPower=1 //Hell Beasts
 
 				Intimidation = rand(1,15)
 				AngerMax+=rand(1,150)/100
@@ -612,9 +604,6 @@ mob/Player/AI
 
 				difficulty = 1.5 * 1+(Potential/50)
 				difficulty += Intimidation/20
-				if(GiantForm) difficulty+=1
-				if(HardStyle) difficulty+=1
-				if(HellPower) difficulty+=0.5
 				if(Lethal) difficulty+=2
 
 				if(HealthCut) difficulty *= 1 - (HealthCut/2)
@@ -658,7 +647,7 @@ mob/Player/AI
 							if(2)
 								if(prob(5))
 									name = "Feral [name]"
-									HellPower=1
+									passive_handler.Increase("HellPower", 1)
 								else
 									name = "[pick("Murderous","Angry","Aggressive","Hungry","Maddened")] [name]"
 						if(prob(25 * difficulty * rand(1,3)))
@@ -1186,7 +1175,7 @@ mob/Player/AI
 							M << output("<font color=green><b>([X.name])</b> [src.name]: [html_encode(T)]", "output")
 							M << output("<font color=green><b>([X.name])</b> [src.name]: [html_encode(T)]", "icchat")
 							Log(M.ChatLog(),"<font color=green>([X.name])[src]([src.key]) says: [html_encode(T)]")
-	
+
 		src.Say_Spark()
 
 	proc/AIGain()
@@ -1797,8 +1786,6 @@ mob/Player/AI
 								amounttaken=0
 							if(Q.Deluged==1)
 								amounttaken=4
-							if(src.Fishman||src.SpaceWalk||src.FusionPowered)
-								amounttaken=0
 							src.Oxygen-=amounttaken
 							if(src.Oxygen<0)
 								src.Oxygen=0
@@ -1972,20 +1959,20 @@ mob/Player/AI
 					if(Health<(100*(1-src.HealthCut))||src.BioArmor<src.BioArmorMax)
 						Recover("Health",1)
 						Recover("Injury",1)
-						if(src.Restoration||src.Secret=="Zombie")
+						if(passive_handler.Get("Restoration")||src.Secret=="Zombie")
 							Recover("Health",1)
 							Recover("Injury",1)
 							BPPoisonTimer-=15
 					if(src.Energy<src.EnergyMax)
 						Recover("Energy",2)
 						Recover("Fatigue",2)
-						if(src.Restoration)
+						if(src.passive_handler.Get("Restoration"))
 							Recover("Energy",1)
 							Recover("Fatigue",1)
 					if(ManaAmount<((src.ManaMax-src.TotalCapacity)*src.GetManaCapMult())||src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus"))
 						if(!src.HasMechanized())
 							Recover("Mana",1)
-							if(src.Restoration)
+							if(src.passive_handler.Get("Restoration"))
 								Recover("Mana",1)
 					Recover("Capacity",2)
 					if(locate(/obj/Regenerate, src))
@@ -2022,8 +2009,6 @@ mob/Player/AI
 					PUGain*=src.GetRecov(10)
 				else
 					PUGain*=src.GetRecov(10)
-				if(src.ChakraFreeze&&!src.PURestrictionRemove)//You can't freeze the limitless
-					PUGain*=0
 				if(src.Kaioken)
 					PUGain=0
 					src.PoweringUp=0

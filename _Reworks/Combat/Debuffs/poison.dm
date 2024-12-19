@@ -81,8 +81,7 @@ globalTracker/var/LOWER_DEBUFF_CLAMP = 0.001
             if(Burn<0)
                 Burn = 0
         if("Poison")
-            if(VenomResistance)
-                boon = VenomResistance
+            boon += passive_handler.Get("VenomResistance")
             if(Antivenomed)
                 base = 1.25
             if(Poison>0)

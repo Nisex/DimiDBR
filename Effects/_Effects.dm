@@ -133,18 +133,6 @@ obj/Effects
 		density=1
 		Lifetime=-1
 
-	FusionCamera
-		Grabbable=0
-		Savable=0
-		density=1
-		Lifetime=-1
-		verb/RelockCameraToPartner()
-			set src in view(1)
-			if(usr.Fusee)
-				for(var/mob/M in players)
-					if(M.key==usr.FusionTarget)
-						usr.client.eye=M
-
 	PocketPortal
 		Grabbable=0
 		Savable=1

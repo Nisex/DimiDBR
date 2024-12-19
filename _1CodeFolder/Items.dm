@@ -233,14 +233,6 @@ obj/Items
 					del src
 		else
 			loc=get_step(usr,usr.dir)
-			if(istype(src, /obj/Items/Enchantment/Scrying_Ward))
-				var/obj/Items/Enchantment/Scrying_Ward/sw = src
-				for(var/mob/m in view(sw.Range, sw))
-					if(m.BeingObserved)
-						for(var/mob/p in m.BeingObserved)
-							if(p.Observing >= 2 || p.HasSpiritPower()) continue
-							Observify(p,p)
-							p << "Your view of [m] is suddenly broken!"
 
 	verb/DropItem()
 		set name="Drop Item"
@@ -1779,7 +1771,6 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 						var/Choice=alert(User, "Are you ready to unleash the power gained from your weight training!? With your body used to the weights, they'll be abandoned.", "Weight Boost!", "No", "Yes")
 						if(Choice=="Yes")
 							W.AlignEquip(User)
-							User.WeightRestricted=0
 							if(W.Plated)
 								var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Unrestrained/U=new
 								if(User.Saga=="Eight Gates")
@@ -1811,7 +1802,6 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 							W.AlignEquip(User)
 							User.equippedWeights = null
 							W.Unwieldy=1
-							User.WeightRestricted=0
 			else
 				if(User.CyberCancel)
 					User << "Your converted body does not respond to training much."
@@ -1823,7 +1813,6 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 					User.equippedWeights = Dis
 					Dis.InternalTimer=world.realtime+Day(2)
 					Dis.Unwieldy=0
-					User.WeightRestricted=1
 
 		if(istype(src, /obj/Items/Plating))
 			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))

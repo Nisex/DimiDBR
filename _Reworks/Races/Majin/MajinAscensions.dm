@@ -64,7 +64,6 @@ ascensions/majin
                                 choice--
                     src<<"Focus on your strengths, not your weaknesses..."
             passive_handler.Increase("FluidForm")
-            FluidForm=1
         if("Unhinged")
             switch(prompt("What do you lean towards more? Carnage (Less Durability, More Speed) or Destruction (Less Durability, More Damage)", "Ascension Choice", list("Carnage", "Destruction")))
                 if("Carnage")
@@ -107,7 +106,7 @@ ascensions/majin
                     // NewAnger(a)
                     AngerPoint += 5
                     if(AngerPoint >= 65)
-                        EndlessAnger = 1
+                        passive_handler.Increase("EndlessAnger", 1)
                         src<<"You can't seem to calm yourself down."
                     passive_handler.Increase("DemonicDurability", 0.25)
                     src<<"You've lost more control over yourself..."
@@ -123,7 +122,7 @@ ascensions/majin
                     // NewAnger(a)
                     AngerPoint += 2.5
                     if(AngerPoint >= 65)
-                        EndlessAnger = 1
+                        passive_handler.Increase("EndlessAnger", 1)
                     passive_handler.Increase("DemonicDurability", 0.125)
                     src<<"Both the lethality and anger of a monster, how will your control last?"
                     majinPicks["[AscensionsAcquired]"] = "[choice],Both"
@@ -134,36 +133,21 @@ ascensions/majin
                 if("Adaptability")
                     Adaptation += 0.2
                     passive_handler.Increase("Flicker")
-                    Flicker += 1
                     passive_handler.Increase("Hustle", 0.15)
-                    Hustle += 0.15
                     src<<"Your enemy's tactics are your own, you have enhanced your capability to adapt..."
                     majinPicks["[AscensionsAcquired]"] = "[choice],Adaptability"
                 if("Consistency")
                     passive_handler.Increase("Steady", 0.25)
-                    Steady += 0.25
                     passive_handler.Increase("DebuffImmune", 0.15)
-                    DebuffImmune += 0.15
-                    StableBP += 0.5
-                    if(StableBP > 1)
-                        StableBP = 1
                     src<<"You've become more consistent in your abilities, you can now maintain your power..."
                     majinPicks["[AscensionsAcquired]"] = "[choice],Consistency"
                 if("Both")
                     Adaptation += 0.1
                     passive_handler.Increase("Flicker", 0.5)
-                    Flicker += 0.5
                     passive_handler.Increase("Hustle", 0.075)
-                    Hustle += 0.075
                     passive_handler.Increase("StealsStats", AscensionsAcquired > 2 ? 0.05 : 0)
-                    StealsStats += AscensionsAcquired > 2 ? 0.05 : 0
                     passive_handler.Increase("Steady", 0.125)
-                    Steady += 0.125
                     passive_handler.Increase("DebuffImmune", 0.075)
-                    DebuffImmune += 0.075
-                    StableBP += 0.25
-                    if(StableBP > 1)
-                        StableBP = 1
                     src<<"Consistent and adaptable, the best of both world..."
                     majinPicks["[AscensionsAcquired]"] = "[choice],Both"
         if("Become Docile")
@@ -172,14 +156,10 @@ ascensions/majin
             switch(prompt("Where do you focus?", "Narrowing down", list("Stability", "Peace", "Both")))
                 if("Stability")
                     passive_handler.Increase("VenomResistance", 0.5)
-                    VenomResistance += 0.5
                     passive_handler.Increase("DebuffImmune",0.5)
-                    DebuffImmune += 0.5
                     passive_handler.Increase("Juggernaut", 0.5)
-                    Juggernaut += 0.5
-                    if(Juggernaut >= 1)
+                    if(passive_handler.Get("Juggernaut") >= 1)
                         passive_handler.Increase("GiantForm", 1)
-                        GiantForm = 1
                     src<<"You've become more stable, you can now resist the effects of venom..."
                     majinPicks["[AscensionsAcquired]"] = "[choice],Stability"
                 if("Peace")
@@ -188,34 +168,24 @@ ascensions/majin
                     //     passive_handler.Increase("CalmAnger", 1)
                     //     CalmAnger=1
                     passive_handler.Increase("Flow", 0.5)
-                    Flow += 0.5
                     passive_handler.Increase("DeathField", 0.25)
-                    DeathField  += 0.25
                     passive_handler.Increase("VoidField", 0.25)
-                    VoidField  += 0.25
                     src<<"You've become more docile, you can now control your anger better..."
                     majinPicks["[AscensionsAcquired]"] = "[choice],Peace"
 
                 if("Both")
                     passive_handler.Increase("VenomResistance", 0.25)
-                    VenomResistance += 0.25
                     passive_handler.Increase("DebuffImmune",0.25)
-                    DebuffImmune += 0.25
                     passive_handler.Increase("Juggernaut",0.25)
-                    Juggernaut += 0.25
-                    if(Juggernaut >= 1)
+                    if(passive_handler.Get("Juggernaut") >= 1)
                         passive_handler.Increase("GiantForm", 1)
-                        GiantForm = 1
                     // AngerPoint -= 2.5
                     // if(AngerPoint <= 35)
                     //     passive_handler.Increase("CalmAnger", 1)
                     //     CalmAnger=1
                     passive_handler.Increase("Flow", 0.25)
-                    Flow += 0.25
                     passive_handler.Increase("DeathField", 0.125)
-                    VoidField  += 0.125
                     passive_handler.Increase("VoidField", 0.125)
-                    VoidField  += 0.125
                     src<<"You've become more stable and docile, you can now resist the effects of venom and control your anger better..."
                     majinPicks["[AscensionsAcquired]"] = "[choice],Both"
             var/adapt = 0
@@ -224,13 +194,12 @@ ascensions/majin
                     adapt++
             if(adapt >= 2)
                 passive_handler.Increase("StealsStats",AscensionsAcquired > 2 ? 0.1 : 0)
-                StealsStats += AscensionsAcquired > 2 ? 0.1 : 0
             var/Peace = 0
             for(var/x in 1 to majinPicks)
                 if(majinPicks[x] == "Become Docile,Peace" || majinPicks[x] == "Become Docile,Both")
                     Peace++
             if(Peace >= 2 && !CalmAnger)
-                CalmAnger = 1
+                passive_handler.Increase("CalmAnger", 1)
 /mob/proc/MajinAscension2()
     src.AscensionsAcquired=2
     Intimidation+=5
@@ -244,7 +213,6 @@ ascensions/majin
             SpdAscension-=0.05
             passive_handler.Increase("CallousedHands", 0.15)
             passive_handler.Increase("Blubber", 0.5)
-            Blubber+=0.5
         if("Super")
             // SUPER
             StrAscension+=0.05
@@ -271,7 +239,6 @@ ascensions/majin
         if("Innocent")
             passive_handler.Increase("CallousedHands", 0.15)
             passive_handler.Increase("Blubber", 1)
-            Blubber+=1
             EndAscension+=0.25
             DefAscension+=0.15
             StrAscension+=0.15
@@ -304,7 +271,6 @@ ascensions/majin
             passive_handler.Decrease("CallousedHands", 0.15*4)
             passive_handler.Increase("HardenedFrame", 1)
             passive_handler.Increase("Blubber", 1)
-            Blubber+=1
             EndAscension+=0.2
             DefAscension+=0.2
             StrAscension+=0.1
@@ -333,7 +299,6 @@ ascensions/majin
     switch(Class)
         if("Innocent")
             passive_handler.Increase("Blubber", 1)
-            Blubber+=1
             EndAscension+=0.2
             DefAscension+=0.2
             StrAscension+=0.1

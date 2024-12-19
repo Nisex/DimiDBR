@@ -822,7 +822,7 @@ mob
 			if(src.PotionCD)
 				val/=1.25
 			if(is_arcane_beast)
-				val *= max(1,ManaCapMult)
+				val *= max(1,GetManaCapMult())
 			src.ManaAmount+=val
 			src.MaxMana()
 		HealWounds(var/val, var/StableHeal=0)
@@ -1860,61 +1860,7 @@ mob
 			src.AngerMax=1+((src.AngerMax-1)*num)
 		AngerDiv(var/num)
 			src.AngerMax=1+((src.AngerMax-1)/num)
-		AllMult(var/num)
-			src.StrMult(num)
-			src.EndMult(num)
-			src.SpdMult(num)
-			src.ForMult(num)
-			src.OffMult(num)
-			src.DefMult(num)
-		StrAdd(var/num)
-			src.StrMod+=num
-			src.StrOriginal+=num
-		StrMult(var/num)
-			src.StrMod*=num
-			src.StrOriginal*=num
-		StrDiv(var/num)
-			src.StrMod/=num
-			src.StrOriginal/=num
-		EndMult(var/num)
-			src.EndMod*=num
-			src.EndOriginal*=num
-		EndDiv(var/num)
-			src.EndMod/=num
-			src.EndOriginal/=num
-		SpdMult(var/num)
-			src.SpdMod*=num
-			src.SpdOriginal*=num
-		SpdDiv(var/num)
-			src.SpdMod/=num
-			src.SpdOriginal/=num
-		ForAdd(var/num)
-			src.ForMod+=num
-			src.ForOriginal+=num
-		ForMult(var/num)
-			src.ForMod*=num
-			src.ForOriginal*=num
-		ForDiv(var/num)
-			src.ForMod/=num
-			src.ForOriginal/=num
-		OffMult(var/num)
-			src.OffMod*=num
-			src.OffOriginal*=num
-		OffDiv(var/num)
-			src.OffMod/=num
-			src.OffOriginal/=num
-		DefMult(var/num)
-			src.DefMod*=num
-			src.DefOriginal*=num
-		DefDiv(var/num)
-			src.DefMod/=num
-			src.DefOriginal/=num
-		RecovMult(var/num)
-			src.RecovMod*=num
-			src.RecovOriginal*=num
-		RecovDiv(var/num)
-			src.RecovMod/=num
-			src.RecovOriginal/=num
+
 		GetBPM()
 			return (src.potential_power_mult)
 		BPMult(var/num)
@@ -2094,7 +2040,7 @@ mob
 				evil = 1
 			if(src.HasHellPower())
 				evil = 1
-			if(istype(src, /mob/Player/AI) && !src.SpiritPower)
+			if(istype(src, /mob/Player/AI))
 				evil = 1
 			//these are all good.
 			if(src.ShinjinAscension=="Kai")
@@ -2148,7 +2094,7 @@ mob
 				evil = 1
 			if(src.HasAbyssMod())
 				evil = 1
-			if(istype(src, /mob/Player/AI) && !src.SpiritPower)
+			if(istype(src, /mob/Player/AI))
 				evil = 1
 			if(src.NoDeath && src.Class!="Eldritch")
 				evil = 1
@@ -2379,203 +2325,6 @@ mob
 					Gate8Used=1
 					return
 
-		AlienRacials()
-			var/list/Racials=list()
-			var/Choice
-			var/Confirm
-			while(Confirm!="Yes")
-				//Racials.Add("Prodigy")
-				Racials.Add("Juggernaut")
-				if(!src.Attunement || src.Attunement=="Fire")
-					Racials.Add("Pyrokinetic")
-				if(!src.Attunement || src.Attunement=="Water")
-					Racials.Add("Cryogenic")
-				if(!src.Attunement || src.Attunement=="Earth")
-					Racials.Add("Breaker")
-				if(!src.Attunement || src.Attunement=="Wind")
-					Racials.Add("Shocker")
-				Racials.Add("Hustle")
-				Racials.Add("Infusion")
-				Racials.Add("Flicker")
-				Racials.Add("Adrenaline")
-				if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Camouflage, src) && !locate(/obj/Skills/Clairvoyance, src))
-					Racials.Add("Hunter")
-				if(!locate(/obj/Skills/Telekinesis, src) && !locate(/obj/Skills/Utility/Observe, src))
-					Racials.Add("ESP")
-				Racials.Add("Fishman")
-				Racials.Add("Venomblood")
-				Racials.Add("Xenobiology")
-				if(!usr.AscensionsAcquired)
-					//Racials.Add("Longevity") trap pick for this wipe
-					Racials.Add("Genius")//doesnt allow stacking of spiritual and genius
-					//Racials.Add("Symbiotic") foolish samurai warrior
-					Racials.Add("Spiritual")
-				Choice=input("Pick an alien racial.") in Racials
-				switch(Choice)
-					if("Juggernaut")
-						Confirm=alert(usr, "Juggernauts cannot knocked back and recover faster when stunned.  Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Pyrokinetic")
-						Confirm=alert(usr, "You utilize Fire element innately and you can burn people more intensely, but you really hate the cold. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Cryogenic")
-						Confirm=alert(usr, "You utilize Water element innately and you can slow people easier, but shatter effects really hurt you. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Breaker")
-						Confirm=alert(usr, "You utilize Earth element innately and can shatter people harder, but you are more vulnerable to electricity. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Shocker")
-						Confirm=alert(usr, "You utilize Wind element innately and can shock people twice as easily, but you dislike fire. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Hustle")
-						Confirm=alert(usr, "Hustle users move more recklessly and in constant rush. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Anaerobic")
-						Confirm=alert(usr, "Anaerobic aliens grow more efficient with the buildup of fatigue in their muscles. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Infusion")
-						Confirm=alert(usr, "Infusion users can bend the elements used against them to their advantage. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Flicker")
-						Confirm=alert(usr, "Flicker fighters are masters of moving faster than the eye can see. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Adrenaline")
-						Confirm=alert(usr, "Adrenaline fighters go faster as their health goes lower. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Hunter")
-						Confirm=alert(usr, "Hunters possess both the cunning to meld with their environment and improved sensory prowess. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("ESP")
-						Confirm=alert(usr, "Espers possess telekinetic and telepathic abilities. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Genius")
-						Confirm=alert(usr, "Geniuses possess naturally higher intellect making developing new branches of knowledge easier. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Fishman")
-						Confirm=alert(usr, "Fishmen have adjusted to the aquatic life - they do not tire from swimming, heal faster in water and constantly secrete mucus, making them tricky to grapple. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Venomblood")
-						Confirm=alert(usr, "Venombloods are aliens evolved in highly noxious environments. They are highly resistant to various forms of poison and their blood is mildly toxic as well. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Xenobiology")
-						Confirm=alert(usr, "Your anatomy is different enough to make you immune to typical ways of landing critical damage. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Longevity")
-						Confirm=alert(usr, "Compared to other races, your lifespan is notably extensive. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Symbiotic")
-						Confirm=alert(usr, "Compared to other races, your lifeforce is shared with another being - a mysterious symbiotic organism, ready to protect its host at all cost. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Spiritual")
-						Confirm=alert(usr, "You have innate ties to the spirit realm and are more adept at magic. Is this your trait?", "Racial Trait", "Yes", "No")
-					if("Prodigy")
-						Confirm=alert(usr, "Compared to others, you quickly advance your potential as a fighter. Is this your trait?", "Racial Trait", "Yes", "No")
-			switch(Choice)
-				if("Juggernaut")
-					if(src.Juggernaut<1)
-						usr.Juggernaut+=1
-					else
-						usr.Juggernaut+=0.5
-						src.EndAscension+=0.5
-				if("Pyrokinetic")
-					if(usr.Attunement=="Fire")
-						src.DarknessFlame=1
-						src.StrAscension+=0.25
-						src.ForAscension+=0.25
-					else
-						usr.Attunement="Fire"
-						usr.AddSkill(new/obj/Skills/Queue/Blaze_Burst)
-						usr.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Elemental_Infusion)
-				if("Cryogenic")
-					if(src.Attunement=="Water")
-						src.AbsoluteZero=1
-						src.SpdAscension+=0.25
-						src.DefAscension+=0.25
-					else
-						usr.Attunement="Water"
-						usr.AddSkill(new/obj/Skills/Queue/Winter_Shock)
-						usr.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Elemental_Infusion)
-				if("Breaker")
-					if(src.Attunement=="Earth")
-						src.Hardening=3
-						src.EndAscension+=0.25
-						src.OffAscension+=0.25
-					else
-						usr.Attunement="Earth"
-						usr.AddSkill(new/obj/Skills/Queue/Terra_Crack)
-						usr.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Elemental_Infusion)
-				if("Shocker")
-					if(src.Attunement=="Wind")
-						src.StunningStrike=1
-						src.SpdAscension+=0.25
-						src.EndAscension+=0.25
-					else
-						usr.Attunement="Wind"
-						usr.AddSkill(new/obj/Skills/Queue/Aero_Slash)
-						usr.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Elemental_Infusion)
-				if("Hustle")
-					if(usr.Hustle<1)
-						usr.Hustle+=1
-					else
-						usr.Hustle+=0.25
-						usr.SuperDash+=1
-				if("Anaerobic")
-					if(!usr.Anaerobic)
-						usr.Anaerobic+=1
-					else
-						usr.Anaerobic+=0.5
-						usr.MovementMastery+=2.5
-				if("Infusion")
-					if(!usr.Infusion)
-						usr.Infusion+=1
-					else
-						src.DebuffImmune+=0.5
-				if("Flicker")
-					if(usr.Flicker<1)
-						usr.Flicker+=1
-						if(!locate(/obj/Skills/Zanzoken, src))
-							usr.AddSkill(new/obj/Skills/Zanzoken)
-					else
-						usr.Pursuer+=1
-				if("Adrenaline")
-					if(!usr.Adrenaline)
-						usr.Adrenaline+=1
-					else
-						usr.Desperation+=1
-				if("Hunter")
-					if(!usr.EnhancedSmell)
-						usr.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Camouflage)
-						usr.EnhancedSmell=1
-						usr.EnhancedHearing=1
-						usr.see_invisible=71
-					else
-						usr.AddSkill(new/obj/Skills/Clairvoyance)
-				if("ESP")
-					if(!locate(/obj/Skills/Telekinesis, src))
-						usr.AddSkill(new/obj/Skills/Telekinesis)
-						usr.AddSkill(new/obj/Skills/Utility/Telepathy)
-					else
-						usr.AddSkill(new/obj/Skills/Utility/Observe)
-				if("Genius")
-					usr.Intelligence+=0.5
-				if("Fishman")
-					if(!usr.Fishman)
-						usr.Fishman+=1
-					else
-						usr.SpdAscension+=1
-				if("Venomblood")
-					if(!usr.VenomBlood)
-						usr.VenomResistance+=1
-						usr.VenomBlood+=1
-					else
-						usr.AngerMax+=0.125
-				if("Xenobiology")
-					if(!usr.Xenobiology)
-						usr.Xenobiology+=1
-					else
-						usr.RecovAscension+=0.5
-				if("Longevity")
-					usr.Longlived=1
-					usr.ModifyEarly+=1
-					usr.ModifyPrime+=2
-					usr.ModifyLate+=1
-				/*if("Symbiotic")
-					usr.RPPower*=0.8
-					usr.Symbiote=1
-					usr.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Symbiote_Infection)
-					for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Symbiote_Infection/S in usr)
-						S.NameFake=input(usr, "What will be the name of your symbiote?", "Symbiote") as text|null
-						if(S.NameFake==""||S.NameFake==null)
-							S.NameFake="Symbiote"*/
-				if("Spiritual")
-					usr.Spiritual=1
-					usr.Imagination+=1
-				if("Prodigy")
-					usr.PotentialRate+=2
-					if(usr.PotentialRate>5)
-						usr.PotentialRate=5
 		AlienStatAscensions(var/x)
 			src.AlienEvolutionStats+=x
 			var/list/Choices=list("Strength", "Endurance", "Force", "Speed")
@@ -2717,7 +2466,6 @@ mob
 			if(trueDel)
 				del s
 		AddItem(var/obj/Items/I, var/AlreadyHere=0)
-			src.Items.Add(I)
 			if(!AlreadyHere)
 				src.contents+=I
 		AddUnlockedTechnology(var/x)

@@ -431,7 +431,6 @@ NEW VARIABLES
 	var/AngerMessage //modifies anger message
 	var/OldAngerMessage //holds old anger message
 //Mana stuff
-	var/ManaCapMult//Times your maximum mana by this value.
 	var/ManaAdd//Adds this mana when used, removes this amount when turned off.
 	var/ManaStats//If mana is over cap, times all stats by 1.5x*This value.  i.e. 0.5 mana stats would give 1.25x
 	var/DrainlessMana//You cant lose mana.  Seriously.
@@ -440,7 +439,6 @@ NEW VARIABLES
 //Special stuff
 	var/TransLock//lock transes
 	var/TransMimic//adds to trans active value
-	var/MaimMastery//ignore maims
 	var/Reversal//counter autohits
 	var/Desperation//Sets desperation value.  Does cool shit.
 	var/Tension=0//Holds Tension value. Does cool shit.
@@ -4586,241 +4584,6 @@ NEW VARIABLES
 							src.OffMessage=usr.Form1RevertText
 				src.Trigger(usr)
 
-
-		Dragon_Fusion
-			ActiveMessage="combines a fellow fraction to become closer to their original form!"
-			AffectTarget=1
-			Range=1
-			EndYourself=1
-			verb/Dragon_Fusion()
-				set category="Skills"
-				if(!usr.BuffOn(src))
-					var/Confirm
-					if(usr.Target.KO)
-						Confirm="Yes"
-					else if(usr.AscensionsAcquired>usr.Target.AscensionsAcquired&&usr.isRace(DRAGON)&&usr.Target.isRace(DRAGON))
-						Confirm="Yes"
-					else
-						Confirm=alert(usr.Target, "[usr] is trying to merge your consciousness with theirs permanently!  Do you accept?", "Dragon Fusion", "No", "Yes")
-					if(Confirm=="No")
-						return
-					if(usr.Target!=usr&&usr.Target.isRace(DRAGON))
-						if(usr.AngerMax<2&&usr.Target.AngerMax>=2)
-							usr.AngerMax=2
-						if(usr.AngerPoint<75&usr.Target.AngerPoint>=75)
-							usr.AngerPoint=75
-						if(usr.Fishman<1&usr.Target.Fishman>=1)
-							usr.passive_handler.Increase("Fishman")
-							usr.Fishman+=1
-						if(usr.Hardening<1&usr.Target.Hardening>=1)
-							usr.passive_handler.Increase("Hardening")
-							usr.Hardening+=1
-						if(usr.Godspeed<1&usr.Target.Godspeed>=1)
-							usr.Godspeed+=1
-							usr.passive_handler.Increase("Godspeed")
-						if(usr.VenomResistance<2&usr.Target.VenomResistance>=2)
-							usr.VenomResistance+=2
-							usr.passive_handler.Increase("VenomResistance",2)
-						if(usr.Intelligence<2&usr.Target.Intelligence>=2)
-							usr.Intelligence+=1
-							usr.EconomyMult*=1.25
-						if(usr.PowerBoost<1.5&&usr.Target.PowerBoost>=1.5)
-							usr.PowerBoost=1.5
-
-						if(locate(/obj/Skills/AutoHit/Fire_Breath, usr.Target))
-							usr.AddSkill(new/obj/Skills/AutoHit/Fire_Breath)
-						if(locate(/obj/Skills/Projectile/Beams/Ice_Dragon, usr.Target))
-							usr.AddSkill(new/obj/Skills/Projectile/Beams/Ice_Dragon)
-						if(locate(/obj/Skills/Projectile/Shard_Storm, usr.Target))
-							usr.AddSkill(new/obj/Skills/Projectile/Shard_Storm)
-						if(locate(/obj/Skills/Projectile/Beams/Static_Stream, usr.Target))
-							usr.AddSkill(new/obj/Skills/Projectile/Beams/Static_Stream)
-						if(locate(/obj/Skills/AutoHit/Poison_Gas, usr.Target))
-							usr.AddSkill(new/obj/Skills/AutoHit/Poison_Gas)
-						if(locate(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Force, usr.Target))
-							usr.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Force)
-
-						if(usr.Target.StrAscension&&!usr.StrAscension)
-							usr.StrAscension+=0.25
-						if(usr.Target.EndAscension&&!usr.EndAscension)
-							usr.EndAscension+=0.25
-						if(usr.Target.ForAscension&&!usr.ForAscension)
-							usr.ForAscension+=0.25
-						if(usr.Target.OffAscension&&!usr.OffAscension)
-							usr.OffAscension+=0.25
-						if(usr.Target.DefAscension&&!usr.DefAscension)
-							usr.DefAscension+=0.25
-						if(usr.Target.RecovAscension&&!usr.RecovAscension)
-							usr.RecovAscension+=0.25
-						var/Unlock=max(usr.Target.AscensionsAcquired-usr.AscensionsAcquired, 1)
-						usr.AscensionsUnlocked+=Unlock
-						while(usr.AscensionsUnlocked>usr.AscensionsAcquired)
-							usr.CheckAscensions()
-
-						var/list/DenyVars=list("client", "key", "loc", "x", "y", "z", "type", "locs", "parent_type", "verbs", "vars", "contents", "Transform", "appearance")
-						for(var/obj/Skills/s in usr.Target)
-							if(s.AssociatedGear)
-								continue
-							if(s.AssociatedLegend)
-								continue
-							if(!locate(s, usr))
-								var/obj/Skills/NewS=new s.type
-								for(var/x in s.vars)
-									if(x in DenyVars)
-										continue
-									NewS.vars[x]=s.vars[x]
-								usr.AddSkill(NewS)
-
-
-						usr.ArmamentEnchantmentUnlocked=usr.Target.ArmamentEnchantmentUnlocked
-						usr.CrestCreationUnlocked=usr.Target.CrestCreationUnlocked
-						usr.SummoningMagicUnlocked=usr.Target.SummoningMagicUnlocked
-
-						for(var/x in usr.Target.knowledgeTracker.learnedKnowledge)
-							if(x in usr.knowledgeTracker.learnedKnowledge)
-								continue
-							usr.AddUnlockedTechnology(x)//this adds 1 to relevant technology and then adds it to usr.knowledgeTracker.learnedKnowledge list
-
-						for(var/obj/Items/x in usr.Target)
-							x.suffix=0
-							usr.AddItem(x)
-
-						animate(usr, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1), time=10)
-						animate(usr.Target, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1), time=10)
-						sleep(20)
-						animate(usr.Target, alpha=0, time=5)
-						animate(usr, color = null, time=20)
-						sleep(20)
-						OMsg(usr, "[usr.Target] is consumed by [usr] completely!!", "[usr] used Dragon Fusion on [usr.Target] and deleted their save.")
-						usr.Target.Savable=0
-						if(istype(usr.Target, /mob/Players))
-							fdel("Saves/Players/[usr.Target.ckey]")
-						del usr.Target
-					else
-						usr << "This is to be used on dragons only!  Also, not yourself!!"
-						return
-				src.Trigger(usr)
-				if(!usr.BuffOn(src))
-					del src
-
-		Namekian_Fusion
-			ActiveMessage="combines two existences into one!"
-			AffectTarget=1
-			Range=1
-			EndYourself=1
-			KenWave=5
-			KenWaveIcon='fevKiaiG.dmi'
-			verb/Namekian_Fusion()
-				set category="Skills"
-				if(usr.transUnlocked)
-					usr << "You can't fuse with more namekians!"
-					return
-				if(usr.Target && usr.Target.transUnlocked)
-					usr << "You can't fuse with [usr.Target] because they have already fused!"
-					return
-				if(!usr.BuffOn(src))
-					var/Confirm
-					if(usr.Target.KO)
-						Confirm="Yes"
-					else
-						Confirm=alert(usr.Target, "[usr] is trying to merge your consciousness with theirs permanently!  Do you accept?", "Namekian Fusion", "No", "Yes")
-					if(Confirm=="No")
-						return
-					if(usr.Target!=usr&&usr.Target.isRace(NAMEKIAN))
-						switch(usr.Target.Class)
-							if("Warrior")
-								if(usr.Class!=usr.Target.Class)
-									usr.Intimidation*=2
-							if("Dragon")
-								if(usr.Class!=usr.Target.Class)
-									usr.Intelligence=1.5
-									usr.Imagination=1*(4/3)
-
-						if(usr.Target.StrAscension&&!usr.StrAscension)
-							usr.StrAscension=usr.Target.StrAscension
-						if(usr.Target.EndAscension&&!usr.EndAscension)
-							usr.EndAscension=usr.Target.EndAscension
-						if(usr.Target.ForAscension&&!usr.ForAscension)
-							usr.ForAscension=usr.Target.ForAscension
-						if(usr.Target.SpdAscension&&!usr.SpdAscension)
-							usr.SpdAscension=usr.Target.SpdAscension
-						if(usr.Target.OffAscension&&!usr.OffAscension)
-							usr.OffAscension=usr.Target.OffAscension
-						if(usr.Target.DefAscension&&!usr.DefAscension)
-							usr.DefAscension=usr.Target.DefAscension
-						if(usr.Target.RecovAscension&&!usr.RecovAscension)
-							usr.RecovAscension=usr.Target.RecovAscension
-						if(usr.Target.AngerMax>usr.AngerMax)
-							usr.AngerMax=usr.Target.AngerMax
-						if(usr.Target.ManaCapMult>usr.ManaCapMult)
-							usr.ManaCapMult=usr.Target.ManaCapMult
-						if(usr.Target.HellPower>usr.HellPower)
-							usr.HellPower=usr.Target.HellPower
-						var/Unlock=max(usr.Target.AscensionsAcquired-usr.AscensionsAcquired, 1)
-						usr.AscensionsUnlocked+=Unlock
-						while(usr.AscensionsUnlocked>usr.AscensionsAcquired)
-							usr.CheckAscensions()
-
-						var/list/DenyVars=list("client", "key", "loc", "x", "y", "z", "type", "locs", "parent_type", "verbs", "vars", "contents", "Transform", "appearance")
-						for(var/obj/Skills/s in usr.Target)
-							if(s.AssociatedGear)
-								continue
-							if(s.AssociatedLegend)
-								continue
-							if(!locate(s, usr))
-								var/obj/Skills/NewS=new s.type
-								for(var/x in s.vars)
-									if(x in DenyVars)
-										continue
-									NewS.vars[x]=s.vars[x]
-								usr.AddSkill(NewS)
-
-						usr.ForgingUnlocked=usr.Target.ForgingUnlocked
-						usr.RepairAndConversionUnlocked=usr.Target.RepairAndConversionUnlocked
-						usr.MedicineUnlocked=usr.Target.MedicineUnlocked
-						usr.ImprovedMedicalTechnologyUnlocked=usr.Target.ImprovedMedicalTechnologyUnlocked
-						usr.TelecommunicationsUnlocked=usr.Target.TelecommunicationsUnlocked
-						usr.AdvancedTransmissionTechnologyUnlocked=usr.Target.AdvancedTransmissionTechnologyUnlocked
-						usr.EngineeringUnlocked=usr.Target.EngineeringUnlocked
-						usr.CyberEngineeringUnlocked=usr.Target.CyberEngineeringUnlocked
-						usr.MilitaryTechnologyUnlocked=usr.Target.MilitaryTechnologyUnlocked
-						usr.MilitaryEngineeringUnlocked=usr.Target.MilitaryEngineeringUnlocked
-
-						usr.AlchemyUnlocked=usr.Target.AlchemyUnlocked
-						usr.ImprovedAlchemyUnlocked=usr.Target.ImprovedAlchemyUnlocked
-						usr.ToolEnchantmentUnlocked=usr.Target.ToolEnchantmentUnlocked
-						usr.ArmamentEnchantmentUnlocked=usr.Target.ArmamentEnchantmentUnlocked
-						usr.TomeCreationUnlocked=usr.Target.TomeCreationUnlocked
-						usr.CrestCreationUnlocked=usr.Target.CrestCreationUnlocked
-						usr.SummoningMagicUnlocked=usr.Target.SummoningMagicUnlocked
-						usr.SealingMagicUnlocked=usr.Target.SealingMagicUnlocked
-						usr.SpaceMagicUnlocked=usr.Target.SpaceMagicUnlocked
-						usr.TimeMagicUnlocked=usr.Target.TimeMagicUnlocked
-
-						usr.knowledgeTracker.learnedKnowledge=usr.Target.knowledgeTracker.learnedKnowledge
-
-						usr.transUnlocked++
-						usr.RecovChaos+=0.5
-
-						animate(usr, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1), time=10)
-						animate(usr.Target, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1), time=10)
-						sleep(20)
-						animate(usr.Target, alpha=0, time=5)
-						animate(usr, color = null, time=20)
-						sleep(20)
-						Log("Admin", "[ExtractInfo(usr)] ([usr.client.address]) has namekian fused with [ExtractInfo(usr.Target)] ([usr.Target.client.address])!")
-						OMsg(usr, "[usr.Target] melds into [usr] completely!!", "[usr] used Namekian Fusion on [usr.Target] and deleted their save.")
-						usr.Target.Savable=0
-						if(istype(usr.Target, /mob/Players))
-							fdel("Saves/Players/[usr.Target.ckey]")
-						del usr.Target
-					else
-						usr << "This is to be used on Namekians only!  Also, not yourself!!"
-						return
-				src.Trigger(usr)
-				if(!usr.BuffOn(src))
-					del src
-
 //Skill Tree
 		Ki_Armanent
 			Copyable=3
@@ -5650,7 +5413,6 @@ NEW VARIABLES
 							EndMult = 1
 							TimerLimit = 60 + magicLevel
 					if(!usr.BuffOn(src))
-						src.ManaCapMult=(-0.75)
 						src.ManaAdd=(-1)*(usr.ManaAmount*0.75)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Magic/Mage_Armor/MA in usr)
 						src.ArmorIcon=MA.ArmorIcon
@@ -5701,7 +5463,6 @@ NEW VARIABLES
 						 "SweepingStrike" = 1, "CriticalChance" = 5, "BlockChance" = 5, "CriticalDamage" = 0.5, "CriticalBlock" = 0.5, "ArmorAscension" = 1, "NoDodge" = 1)
 							TimerLimit = 120 + magicLevel
 					if(!usr.BuffOn(src))
-						src.ManaCapMult=(-1)
 						src.ManaAdd=(-1)*(usr.ManaAmount*1)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Magic/Mage_Armor/MA in usr)
 						src.ArmorIcon=MA.ArmorIcon
@@ -7062,7 +6823,6 @@ NEW VARIABLES
 				LockX=0
 				LockY=0
 				passives = list("ManaCapMult" = 1, "MagicFocus" = 1)
-				ManaCapMult=1
 				ManaAdd=100
 				ForMult=1.5
 				MagicFocus=1
@@ -7611,8 +7371,6 @@ NEW VARIABLES
 			verb/Majin_Form()
 				set category="Skills"
 				if(!usr.BuffOn(src))
-					if(!usr.HasHellPower())
-						usr.HellPower=1
 					passives = list("HellPower" = 1, "AngerMult" = 1.5, "PowerReplacement" = glob.progress.totalPotentialToDate+5)
 				src.Trigger(usr)
 
@@ -12257,9 +12015,6 @@ mob
 							if(B.AssociatedGear.Uses<=0)
 								src << "[B] is out of power!"
 				if(B.Transform)
-					if(src.Transforming)
-						src <<"You are already transforming!"
-						return
 					if(!(B.Transform in list("Force","Strong","Weak")))
 						if(transActive)
 							src <<"You are already transformed!"
@@ -12867,7 +12622,6 @@ mob
 
 
 			if(B.Transform)
-				src.Transforming=1
 				if(B.Transform=="Force")
 					transUnlocked=min(transUnlocked+1,4)
 					src.Transform()
@@ -12877,7 +12631,6 @@ mob
 					src.PowerBoost*=0.25
 				else
 					src.Transform(B.Transform)
-				src.Transforming=0
 
 			if(B.ClientTint)
 				src.appearance_flags+=16
@@ -13528,7 +13281,6 @@ mob
 					spawn()
 						animate(src, color = src.MobColor, time = 10, flags=ANIMATION_PARALLEL)
 				else if(B.PowerGlows)
-					src.TransformingBeyond=1
 					spawn()
 						src.FlickeringGlow(src, B.PowerGlows)
 				else
@@ -13540,7 +13292,6 @@ mob
 					spawn()
 						animate(src, color = src.MobColor, time = 2, flags=ANIMATION_PARALLEL)
 				else if(B.PowerGlows)
-					src.TransformingBeyond=1
 					spawn()
 						src.FlickeringGlow(src, B.PowerGlows)
 
@@ -13583,8 +13334,6 @@ mob
 			if(B.AngerMessage)
 				B.OldAngerMessage=src.AngerMessage
 				src.AngerMessage=B.AngerMessage
-			if(B.HotHundred)
-				src.HotHundred+=B.HotHundred
 			if(B.PoseEnhancement)
 				src.PoseEnhancement+=B.PoseEnhancement
 			if(B.BioArmor)
@@ -13659,44 +13408,26 @@ mob
 				var/obj/Items/Sword/s=src.EquippedSword()
 				if(s)
 					s.Extend+=B.Extend
-			if(B.KBMult)
-				src.KBMult+=B.KBMult
-			if(B.KBAdd)
-				src.KBAdd+=B.KBAdd
 			if(B.PowerInvisible)
 				src.PowerInvisible*=B.PowerInvisible
 			if(B.PURestrictionRemove)
 				src.PURestrictionRemove+=B.PURestrictionRemove
-			if(B.ConstantPU)
-				src.PUConstant+=1
 			if(B.UnlimitedPU)
 				src.PUUnlimited+=1
 			if(B.EffortlessPU)
 				B.OldEffortlessPU=src.PUEffortless
 				src.PUEffortless=B.EffortlessPU
-			if(B.HighestPU)
-				src.PUThresholdUp+=B.HighestPU
-			if(B.StealsStats)
-				src.StealsStats+=B.StealsStats
-			if(B.KBRes)
-				src.KBRes=B.KBRes
-			if(B.KBMult)
-				src.KBMult=B.KBMult
 			if(B.SureHitTimerLimit)
 				src.SureHitTimerLimit=B.SureHitTimerLimit
 			if(B.SureHitTimerLimit)
 				src.SureHitTimerLimit=B.SureHitTimerLimit
 			if(B.SureDodgeTimerLimit)
 				src.SureDodgeTimerLimit=B.SureDodgeTimerLimit
-			if(B.ManaSeal)
-				src.ManaSeal=B.ManaSeal
 			if(B.Incorporeal)
 				src.density=0
 				src.invisibility=98
 				src.AdminInviso=1
 				src.Incorporeal=1
-			if(B.FluidForm)
-				src.FluidForm+=1
 			if(B.ElementalOffense)
 				src.ElementalOffense=B.ElementalOffense
 			if(B.ElementalDefense)
@@ -13775,12 +13506,8 @@ mob
 				src.GainFatigue(B.FatigueCost)
 			if(B.Kaioken)
 				src.Kaioken=1
-			if(B.BurningShot)
-				src.BurningShot=1
 			if(B.HitSpark)
 				src.SetHitSpark(B.HitSpark, B.HitX, B.HitY, B.HitTurn, B.HitSize)
-			if(B.KiBlade)
-				src.KiBlade+=1
 			if(B.SeeInvisible)
 				src.see_invisible+=B.SeeInvisible+1
 			if(B.Invisible)
@@ -13803,8 +13530,6 @@ mob
 				B.InstantAffected=0
 			if(B.SpiritForm)
 				src.SpiritShift()
-			if(B.TransMimic)
-				src.fake_unlock=B.TransMimic
 			if(B.BuffTechniques.len>0)
 				for(var/x=1, x<=B.BuffTechniques.len, x++)
 					var/path=text2path("[B.BuffTechniques[x]]")
@@ -14038,9 +13763,6 @@ mob
 					src.appearance_flags-=512
 				animate(src, transform = src.transform/B.ProportionShift, time=10)
 
-			if(B.PowerGlows)
-				src.TransformingBeyond=0
-
 			if(B.IconTint&&!B.FlashChange)
 				src.MobColor=list(1,0,0, 0,1,0, 0,0,1, 0,0,0)
 				spawn()
@@ -14091,8 +13813,6 @@ mob
 				src.AngerMult-=B.AngerMult
 			if(B.AngerMessage)
 				src.AngerMessage=B.OldAngerMessage
-			if(B.HotHundred)
-				src.HotHundred-=B.HotHundred
 			if(B.PoseEnhancement)
 				src.PoseEnhancement-=B.PoseEnhancement
 			if(B.BioArmor)
@@ -14105,13 +13825,6 @@ mob
 					src.VaizardHealth=0
 			if(B.KiControlMastery)
 				src.KiControlMastery-=B.KiControlMastery
-			if(B.SpiritPower)
-				src.SpiritPower-=1
-			if(B.SoulFire)
-				src.SoulFire-=B.SoulFire
-			if(B.NoWhiff)
-				src.NoWhiff = 0
-				//world.log<<"what the hell is going on here [src] [B]"
 
 			if(B.ManaGlow)
 				filters -= GlowFilter
@@ -14212,55 +13925,23 @@ mob
 			if(B.PotionCD)
 				src.PotionCD+=B.PotionCD
 
-			if(B.KBMult)
-				if(src.KBMult!=B.KBMult)
-					src.KBMult/=B.KBMult
-				else
-					src.KBMult=0
-			if(B.KBAdd)
-				src.KBAdd-=B.KBAdd
-			if(B.SpaceWalk)
-				src.SpaceWalk-=1
-			if(B.StaticWalk)
-				src.StaticWalk-=1
-			if(B.GiantForm)
-				src.GiantForm-=B.GiantForm
-			if(B.NoDodge)
-				src.NoDodge-=B.NoDodge
 			if(B.AngerStorage)
 				src.AngerMax=B.AngerStorage
 			if(B.PowerInvisible)
 				src.PowerInvisible/=B.PowerInvisible
 			if(B.PURestrictionRemove)
 				src.PURestrictionRemove-=B.PURestrictionRemove
-			if(B.ConstantPU)
-				src.PUConstant-=1
 			if(B.UnlimitedPU)
 				src.PUUnlimited-=1
 			if(B.EffortlessPU)
 				src.PUEffortless=B.OldEffortlessPU
-			if(B.HighestPU)
-				src.PUThresholdUp-=B.HighestPU
-			if(B.StealsStats)
-				src.StealsStats-=B.StealsStats
+			if("StealsStats" in B.passives)
 				src.StrStolen=0
 				src.EndStolen=0
 				src.SpdStolen=0
 				src.ForStolen=0
 				src.OffStolen=0
 				src.DefStolen=0
-			if(B.CriticalChance)
-				src.CriticalChance=0
-			if(B.CriticalDamage)
-				src.CriticalDamage=0
-			if(B.CriticalBlock)
-				src.CriticalBlock=0
-			if(B.BlockChance)
-				src.BlockChance=0
-			if(B.KBRes)
-				src.KBRes=0
-			if(B.KBMult)
-				src.KBMult=0
 			if(B.SureHitTimerLimit)
 				src.SureHitTimerLimit=0
 				src.SureHitTimer=0
@@ -14269,15 +13950,11 @@ mob
 				src.SureDodgeTimerLimit=0
 				src.SureDodgeTimer=0
 				src.SureDodge=0
-			if(B.ManaSeal)
-				src.ManaSeal=0
 			if(B.Incorporeal)
 				src.density=1
 				src.invisibility=0
 				src.AdminInviso=0
 				src.Incorporeal=0
-			if(B.FluidForm)
-				src.FluidForm-=1
 			if(B.ElementalOffense)
 				src.ElementalOffense=null
 			if(B.ElementalDefense)
@@ -14315,8 +13992,6 @@ mob
 				world.log<<"What called? [src] [B]"*/
 			if(B.Warping)
 				src.Warping=0
-			if(B.Juggernaut)
-				src.Juggernaut-=1
 			if(B.Siphon)
 				src.EnergySiphon-=(0.1*B.Siphon)
 			if(B.Intimidation)
@@ -14342,12 +14017,8 @@ mob
 				Flight(src, Land=1)
 			if(B.Kaioken)
 				src.Kaioken=0
-			if(B.BurningShot)
-				src.BurningShot=0
 			if(B.HitSpark)
 				src.ClearHitSpark()
-			if(B.KiBlade)
-				src.KiBlade-=1
 			if(B.ExplosiveFinish)
 				src.Activate(new/obj/Skills/AutoHit/Explosive_Finish)
 			if(B.FINISHINGMOVE)

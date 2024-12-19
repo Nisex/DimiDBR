@@ -233,17 +233,12 @@ mob/Admin3/verb
 					P.passive_handler.Increase("Pursuer", 0.5)
 					P.passive_handler.Increase("SuperDash", 0.25)
 					P.passive_handler.Increase("Godspeed", 0.25)
-					P.SlayerMod+=0.625
-					P.Pursuer+=0.5
-					P.SuperDash+=0.25
-					P.Godspeed+=0.25
 
 				if("Ansatsuken")
 					P<<"You begin to learn of the assassin's fist... <b>Ansatsuken</b>!"
 					P.Saga="Ansatsuken"
 					P.SagaLevel=1
 					P.passive_handler.Increase("SlayerMod", 0.625)
-					P.SlayerMod+=0.625
 					if(!locate(/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style, P))
 						var/obj/Skills/Buffs/NuStyle/s=new/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style
 						P.AddSkill(s)
@@ -310,7 +305,6 @@ mob/Admin3/verb
 				if("Magic Knight")
 					P.SagaLevel=1
 					P.Saga="Magic Knight"
-					P.ManaCapMult+=0.25
 					P << "You stake yourself on a code of honor and truthfulness."
 					var/Weapon=alert(P, "As an Magic Knight, you may draw a blade made of Aether or create a bow and arrow.  Which do you choose?", "Aether Weapon", "Blade", "Bow")
 					switch(Weapon)
@@ -916,18 +910,12 @@ mob
 									passive_handler.Increase("Desperation", 2)
 									passive_handler.Increase("Adrenaline")
 									passive_handler.Increase("DeathField", 2)
-									Desperation += 2
-									Adrenaline ++
-									DeathField += 2
 								if("Strong")
 									src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/WillofAlaya)
 								if("Firm")
 									passive_handler.Increase("SpiritFlow",0.5)
 									passive_handler.Increase("DeathField", 2)
 									passive_handler.Increase("VoidField", 2)
-									SpiritFlow += 0.5
-									DeathField += 2
-									VoidField += 2
 
 						if(6)
 							src.SagaThreshold("Str", 0.25*src.SagaLevel)
@@ -967,7 +955,6 @@ mob
 					if(src.SagaLevel==4)
 						src << "You learn to unleash Hiten Mitsurugi techniques with even faster alacrity!"
 						passive_handler.Increase("MovementMastery", 5)
-						src.MovementMastery+=5
 						var/Choice=alert(src, "Hiten Mitsurugi can follow the path of tradition, embracing the code of a hermit and honorable warrior or can truly become an ultimate tool of murder. What is the mantle you will bear?", "Hiten Path", "Tradition", "Slaughter")
 						if(Choice=="Tradition")
 							src<<"You embrace the path of tradition, sharpening your art and making it a constant presence in your life!"
@@ -1210,80 +1197,6 @@ mob
 						src << "You master using the power of Destruction and Protection simultaneously!"
 						src << "Your Heaven and Hell reaches its perfected form: <b>Genesic Heaven and Hell</b>!"
 
-				if("Magic Knight")
-					var/list/Aethers=list("Strength", "Endurance", "Force", "Offense", "Defense")
-					//Add in Aether selections
-					src.ManaCapMult+=0.25//this triggers every level
-					if(src.SagaLevel==2)
-						//Every level penetrates more end/res and gives more (weapon) ascension
-						src.BetterAim+=1
-						src<<"Your mastery at spells grants your projected energy supernatural accuracy!"
-						src.Juggernaut+=1
-						src<<"Your knightly resolve allows you to withstand many assaults without flinching!"
-					if(src.SagaLevel==3)
-						var/Aether=input(src, "As your mastery of Aether grows, it heightens one of your attributes at rest.  Which attribute?", "Aether Ascension") in Aethers
-						switch(Aether)
-							if("Strength")
-								src.StrAscension+=0.5
-							if("Endurance")
-								src.EndAscension+=0.5
-							if("Force")
-								src.ForAscension+=0.5
-							if("Offense")
-								src.OffAscension+=0.5
-							if("Defense")
-								src.DefAscension+=0.5
-					if(src.SagaLevel==4)
-						src.StunningStrike+=1
-						src<<"Your magical prowess is versatile and constant; a chance blow imbued with mana can stun your enemies!"
-						src.Unstoppable+=1
-						src<<"Your unflagging will carries you through whatever wounds you may face, no matter how grievous!"
-					if(src.SagaLevel==5)
-						var/Aether=input(src, "As your mastery of Aether grows, it heightens one of your attributes at rest.  Which attribute?", "Aether Ascension") in Aethers
-						switch(Aether)
-							if("Strength")
-								src.StrAscension+=0.5
-							if("Endurance")
-								src.EndAscension+=0.5
-							if("Force")
-								src.ForAscension+=0.5
-							if("Offense")
-								src.OffAscension+=0.5
-							if("Defense")
-								src.DefAscension+=0.5
-					if(src.SagaLevel==6)
-						src.SpiritPower+=1
-						src<<"Your devotion blooms in the form of becoming imbued with a truly holy aura!"
-						src.MeltyBlood+=1
-						src<<"The purity of your spirit imbues your blood with fiery wrath for those who commit the sin of bleeding you!"
-					if(src.SagaLevel==7)
-						src << "Your knightly ambition allows you to shatter reason to fulfill your goals!"//Gets barelystanding boost.
-						var/Aether=input(src, "As your mastery of Aether grows, it heightens one of your attributes at rest.  Which attribute?", "Aether Ascension") in Aethers
-						switch(Aether)
-							if("Strength")
-								src.StrAscension+=0.5
-							if("Endurance")
-								src.EndAscension+=0.5
-							if("Force")
-								src.ForAscension+=0.5
-							if("Offense")
-								src.OffAscension+=0.5
-							if("Defense")
-								src.DefAscension+=0.5
-					if(src.SagaLevel==8)
-						src<<"The absolute nature of your vow allows you to shatter all reason in pursuit of your pledge!"//Barelystanding boost is higher.
-						var/Aether=input(src, "As your mastery of Aether grows, it heightens one of your attributes at rest.  Which attribute?", "Aether Ascension") in Aethers
-						switch(Aether)
-							if("Strength")
-								src.StrAscension+=0.5
-							if("Endurance")
-								src.EndAscension+=0.5
-							if("Force")
-								src.ForAscension+=0.5
-							if("Offense")
-								src.OffAscension+=0.5
-							if("Defense")
-								src.DefAscension+=0.5
 
 				if("Kamui")
 					if(src.KamuiType=="Impulse")
@@ -1439,7 +1352,6 @@ mob
 						src << "You develop Blizzara!"
 						src << "You develop Thundara!"
 						passive_handler.Increase("ManaCapMult",0.25)
-						src.ManaCapMult+=0.25
 						if(src.KeybladeColor=="Light")
 							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Wisdom_Form)
 							src << "You learn to interpret every movement with wisdom!"
@@ -1469,7 +1381,6 @@ mob
 						//Master Form
 						//T3 Magic
 						passive_handler.Increase("ManaCapMult",0.25)
-						src.ManaCapMult+=0.25
 						var/Path
 						switch(src.KeybladeType)
 							if("Sword")
@@ -1565,7 +1476,6 @@ mob
 								rf.TripleStrike=1
 								src << "Your Rage develops to allow double casting and triple attacks!"
 						passive_handler.Increase("ManaCapMult",0.5)
-						src.ManaCapMult+=0.5
 						src << "Your mastery of the Keyblade grants you unrivalled magical prowess!"
 						src << "You develop ultimate black magicks: Stopga, Magnetga and Graviga!"
 						src << "You develop ultimate white magicks: Curaga, Esunaga and Holy!"

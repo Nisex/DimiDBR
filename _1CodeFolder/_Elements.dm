@@ -479,30 +479,20 @@ mob
 		AddPoison(var/Value, var/mob/Attacker=null)
 			if(src.Stasis)
 				return
-			if(src.Infusion||src.VenomResistance)
-				if(src.VenomResistance)
-					if(Attacker.Attunement=="HellFire")
-						Value*=glob.HELLFIRE_VALUE_MOD
-						Sheared+=Value/2
-						if(Sheared>=100)
-							Sheared=100
-						Crippled+=Value/3
-						if(Crippled>=100)
-							Crippled=100
-					src.Poison+=Value/(1+src.VenomResistance)
-			else
-				if(Attunement=="Poison")
-					Value/=2
-				Value = Value*(1-(src.Poison/glob.DEBUFF_STACK_RESISTANCE))
-				src.Poison+=Value
 
-				if(Value >=1)
-					animate(src, color = "#ff1cff")
-					animate(src, color = src.MobColor, time=5)
+			if(Attunement=="Poison")
+				Value/=2
+			Value /= 1+passive_handler.Get("VenomResistance")
+			Value = Value*(1-(src.Poison/glob.DEBUFF_STACK_RESISTANCE))
+			src.Poison+=Value
 
-				if(Attacker&&Attacker.CursedWounds())
-					AddShearing(Value/2)
-					AddCrippling(Value/3)
+			if(Value >=1)
+				animate(src, color = "#ff1cff")
+				animate(src, color = src.MobColor, time=5)
+
+			if(Attacker&&Attacker.CursedWounds())
+				AddShearing(Value/2)
+				AddCrippling(Value/3)
 			if(src.Poison>100)
 				src.Poison=100
 			if(src.Poison<0)

@@ -5538,8 +5538,6 @@ mob
 				src.HitSparkDispersion=Z.HitSparkDispersion
 				src.HitSparkDelay=Z.HitSparkDelay
 				src.HitSparkLife=Z.HitSparkLife
-			if(Z.Quaking)
-				src.Quaking=Z.Quaking
 			Z.ExtendMemory=0
 			if(Z.NeedsSword&&src.HasExtend())
 				Z.ExtendMemory=src.GetExtend()
@@ -5749,16 +5747,6 @@ mob
 				src << "<b>You drop [src.AttackQueue.name] from your queue.</b>"
 				src.QueueOverlayRemove()
 				src.ClearQueue()
-			if(Z.Purity)
-				src.Purity+=Z.Purity
-			if(Z.HolyMod)
-				src.HolyMod+=Z.HolyMod
-			if(Z.AbyssMod)
-				src.AbyssMod+=Z.AbyssMod
-			if(Z.SlayerMod)
-				src.SlayerMod+=Z.SlayerMod
-			if(Z.MaimStrike)
-				src.MaimStrike+=Z.MaimStrike
 			if(!Z.Rounds)
 				Z.Rounds=1
 			if(Z.Rounds<3&&!Z.ChargeTech)
@@ -6000,8 +5988,6 @@ mob
 
 			if(Z.CapacityCost)
 				src.LoseCapacity(Z.CapacityCost*CostMultiplier)
-			if(Z.Quaking)
-				src.Quaking=0
 			if(Z.NeedsSword&&Z.ExtendMemory)
 				Z.Distance-=Z.ExtendMemory//...then take the distance away.
 				Z.Size-=Z.ExtendMemory
@@ -6010,40 +5996,8 @@ mob
 			Z.TempEndDef=0
 			if(Z.RoundMovement&&Z.Rounds>1)
 				src.Frozen=0
-			if(Z.Purity)
-				src.Purity-=Z.Purity
-			if(Z.Burning)
-				src.Burning-=Z.Burning
-			if(Z.Scorching)
-				src.Scorching-=Z.Scorching
-			if(Z.Chilling)
-				src.Chilling-=Z.Chilling
-			if(Z.Freezing)
-				src.Freezing-=Z.Freezing
-			if(Z.Crushing)
-				src.Crushing-=Z.Crushing
-			if(Z.Shattering)
-				src.Shattering-=Z.Shattering
-			if(Z.Shocking)
-				src.Shocking-=Z.Shocking
-			if(Z.Paralyzing)
-				src.Paralyzing-=Z.Paralyzing
-			if(Z.Poisoning)
-				src.Poisoning-=Z.Poisoning
-			if(Z.Toxic)
-				src.Toxic-=Z.Toxic
 			if(Z.Attracting)
 				src.Attracting-=Z.Attracting
-			if(Z.Crippling)
-				src.Crippling-=Z.Crippling
-			if(Z.HolyMod)
-				src.HolyMod-=Z.HolyMod
-			if(Z.AbyssMod)
-				src.AbyssMod-=Z.AbyssMod
-			if(Z.SlayerMod)
-				src.SlayerMod-=Z.SlayerMod
-			if(Z.MaimStrike)
-				src.MaimStrike-=Z.MaimStrike
 			if(src.HasRipple())
 				Z.DamageMult/=Z.RipplePower
 				Z.RipplePower=1
@@ -6784,11 +6738,6 @@ obj
 
 				//EFFECTS HERE
 
-				if(src.LifeSteal)
-					src.Owner.LifeSteal+=src.LifeSteal
-				if(src.EnergySteal)
-					src.Owner.EnergySteal+=src.EnergySteal
-
 				if(src.CanBeDodged||m.passive_handler.Get("YataNoKagami"))
 					var/loc=m.loc
 					if(m.AttackQueue&&(m.AttackQueue.Counter||m.AttackQueue.CounterTemp))
@@ -6846,12 +6795,6 @@ obj
 					Owner.gainCorruption((FinalDmg * 2) * glob.CORRUPTION_GAIN)
 				if(src.Owner.UsingAnsatsuken())
 					src.Owner.HealMana(src.Owner.SagaLevel)
-
-				if(src.LifeSteal)
-					src.Owner.LifeSteal-=src.LifeSteal
-
-				if(src.EnergySteal)
-					src.Owner.EnergySteal-=src.EnergySteal
 
 				if(src.Owner.HitSparkIcon!='BLANK.dmi')
 					if(m&&m.Health>0&&src.Launcher&&src.DelayedLauncher)
