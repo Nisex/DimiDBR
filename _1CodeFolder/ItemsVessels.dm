@@ -290,9 +290,7 @@ obj/Items/Tech/Vessel
 			if(B.z==1) continue
 			if(B.z in ArcaneRealmZ) continue
 			if(B.z == glob.DEATH_LOCATION[3]) continue
-			if(B.z == NearDeadZ) continue
-			if(B.z == PhilosopherZ) continue
-			if(B.z == MajinZoneZ) continue
+			if(B.z == glob.VOID_LOCATION[3]) continue
 			if(B.loc == null) continue
 			if(B.BeaconState != "On") continue
 			if(B.Password && B.Password != src.Password) continue

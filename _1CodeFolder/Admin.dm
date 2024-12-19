@@ -271,29 +271,6 @@ mob/Admin3/verb
 		else
 			src << "That tile doesn't exist."
 
-	SetNearDeadSpawn()
-		set category="Admin"
-		var/turf/NewLoc
-		var/X=input(src, "New X for near dead spawn?", "Set Dead Spawn X") as num|null
-		var/Y=input(src, "New Y for near dead spawn?", "Set Dead Spawn Y") as num|null
-		var/Z=input(src, "New Z for near dead spawn?", "Set Dead Spawn Z") as num|null
-		if(X<0)
-			X=0
-		if(Y<0)
-			Y=0
-		if(Z<0)
-			Z=0
-		if(!X||!Y||!Z)
-			return
-		NewLoc=locate(X, Y, Z)
-		if(NewLoc)
-			global.NearDeadX=X
-			global.NearDeadY=Y
-			global.NearDeadZ=Z
-			Log("Admin", "[ExtractInfo(usr)] set the new dead spawn to ([global.NearDeadX], [global.NearDeadY], [global.NearDeadZ])")
-		else
-			src << "That tile doesn't exist."
-
 	ForceResetMultis()
 		set category="Admin"
 		for(var/mob/Players/m in players)
@@ -658,15 +635,6 @@ mob/Admin3/verb
 		world.fps=fpsadjust
 		Log("Admin","World FPS adjusted to [fpsadjust] by [ExtractInfo(usr)].")
 
-	DustToggle()
-		set category="Admin"
-		set name="Dust Toggle"
-		if(global.DustControl==1)
-			global.DustControl=0
-			Log("Admin","[ExtractInfo(usr)] has disabled dust generation.")
-		else
-			global.DustControl=1
-			Log("Admin","[ExtractInfo(usr)] has enabled dust generation.")
 
 mob/Admin2/verb
 
@@ -1386,23 +1354,6 @@ mob/Admin3/verb
 		if(NewRPP>=0)
 			P.RPPSpendable=NewRPP
 			Log("Admin","[ExtractInfo(usr)] set [ExtractInfo(P)]'s total RPP (Spent and Unused) from [Commas(OldRPP)] to [Commas(NewRPP)]. (RPP mult of x[EMult])")
-
-	RPP_Event_Give(var/mob/Players/P in players)
-		set category="Admin"
-		var/confirm=alert(usr, "Are you sure you want to give [P] event credit?", "Give [P] Event Credit", "Yes", "No")
-		if(confirm == "No") return
-		var/howmany = input(usr, "How many event credits do you want to give [P]?") as num
-		if(howmany == 0) return
-
-
-		P.RPPEventCharges+=howmany
-		var/PC=global.RPPEventCharges["[P.ckey]"]
-		if(PC<=0 || PC==null)
-			PC=P.RPPEventCharges
-		else
-			PC+=howmany
-		global.RPPEventCharges["[P.ckey]"]=PC
-		Log("Admin", "[ExtractInfo(usr)] gave [ExtractInfo(P)] event credits. They have [P.RPPEventCharges] RPP charges.")
 
 
 	RPP_Refund(mob/Players/P in players)

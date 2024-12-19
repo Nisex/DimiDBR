@@ -28,41 +28,6 @@ var/globalTracker/glob = new()
 		CHECK_TICK
 	usr<<browse(Edit,"window=[A];size=450x600")
 
-/proc/transferGlobalstoGlob()
-	if(!glob)
-		world<<"[glob] doesn't exist!"
-		glob = new()
-	glob.progress.WipeStart = global.WipeStart
-	glob.progress.DaysOfWipe = global.DaysOfWipe
-	for(var/varName in glob.vars)
-		if(varName == "progress")
-			// recursion moment
-			if(!glob.progress)
-				for(var/progressVars in glob.progress)
-					try
-						glob.progress.vars[progressVars] = global.vars[progressVars]
-					catch
-						world<<"[progressVars] doesn't exist globally!"
-		else
-			try
-				glob.vars[varName] = global.vars[varName]
-			catch
-				switch(varName)
-					if("DEATH_LOCATION")
-						glob.DEATH_LOCATION = list(DeadX, DeadY, DeadZ)
-					// if("DMG_END_EXPONENT")
-					//     glob.DMG_END_EXPONENT = global.DMG2_END_EFFECTIVENESS
-					// if("DMG_STR_EXPONENT")
-					//     glob.DMG_STR_EXPONENT = global.DMG2_STR_EFFECTIVENESS
-					// if("DMG_POWER_EXPONENT")
-					//     glob.DMG_POWER_EXPONENT = global.DMG2_POWER_EFFECTIVENESS
-	world<<"[glob.progress.WipeStart] [glob.progress.DaysOfWipe]"
-	BootWorld("Save")
-
-
-/mob/Admin4/verb/convertGlobalInfo()
-	transferGlobalstoGlob()
-
 /mob/Admin3/verb/Debuff_Apply(n as num)
 	glob.BURN_INTENSITY = n
 	glob.SHOCK_INTENSITY = n
@@ -140,9 +105,9 @@ globalTracker
 //Wipe Specific
 		list/GUILD_RANKINGS = list("Aegis" = 1, "Crimson Dawn" = 2, "Golden Circle" = 3, "Black Ifrit" = 5, "Revenants" = 6)
 		list/VOID_LOCATION = list(144,140,15)
+		list/currentlyVoidingLoc = list(150,150,1)
 		VoidsAllowed = 1
 		VoidChance = 78
-
 
 		IGNORE_NOT_LOGGEDIN_LOGINS = TRUE
 
@@ -429,6 +394,8 @@ globalTracker
 		DESP_DMG_REDUCTION = 4
 
 		STAT_DMG_EXPONENT = 0.75
+
+		list/trueNames = list()
 // FUNCTIONS
 
 globalTracker/proc/takeLimited(option, n)

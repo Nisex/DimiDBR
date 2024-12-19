@@ -2891,7 +2891,6 @@ mob
 				fdel("Saves/Players/[src.ckey]")
 			src.RPPCurrent=src.RPPSpent+src.RPPSpendable
 			src.RPPTotal+=src.RPPCurrent
-			global.RPPTotal["[src.ckey]"]=(src.RPPTotal/src.GetRPPMult())
 			OMsg(src, "[src] fades away slowly, ready to begin a new life...", "[src] reincarnated.")
 			animate(src,alpha=0,time=600)
 			spawn(600)

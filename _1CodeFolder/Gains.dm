@@ -694,7 +694,7 @@ mob
 
 			if(src.Dead)
 				if(src.DeadTime&&src.Savable&&!src.KeepBody)
-					if((src.DeadTime<global.Era))
+					if((src.DeadTime<glob.progress.Era))
 						if(src.HasEnlightenment())
 							src.KeepBody=1
 						if(src.KeepBody)

@@ -63,7 +63,7 @@ mob/Players
 		if(usr.Manufactured)
 			usr.Savable=1
 			usr.Redo_Stats()
-			usr.EraAge=global.Era
+			usr.EraAge=glob.progress.Era
 			for(var/obj/Items/Tech/Android_Frame/A in world)
 				if(A.Savable == src.ckey)
 					del A
@@ -277,11 +277,6 @@ mob/Players
 		if(passive_handler.Get("GiantForm"))
 			if(usr.appearance_flags<512)
 				usr.appearance_flags+=512
-		if(global.ContractBroken)
-			if(usr.ckey in ContractBroken)
-				usr << "One of your contracts was broken while you were asleep!"
-				usr.SummonContract--
-				global.ContractBroken.Remove(usr.ckey)
 		for(var/obj/Skills/Buffs/b in usr.Buffs)
 			if(!b.BuffName)
 				b.BuffName="[b.name]"
@@ -300,15 +295,15 @@ mob/Players
 		if(src.ModifyPrime)
 			src.ModifyPrime=0
 
-		// var/Dif=global.Era-src.EraAge
+		// var/Dif=glob.progress.Era-src.EraAge
 
 		if(icon_state == "KB")
 			icon_state = ""
 		if(src.ParasiteCrest())
 			var/obj/Items/Enchantment/Magic_Crest/mc=src.EquippedCrest()
 			if(!mc.CrestMadeAge)
-				mc.CrestMadeAge=global.Era
-			if(global.Era > mc.CrestMadeAge)
+				mc.CrestMadeAge=glob.progress.Era
+			if(glob.progress.Era > mc.CrestMadeAge)
 				OMsg(src, "[src] struggles as their cursed crest begins to consume them!")
 				spawn(66)
 					src.Death(null, "being consumed by their cursed crest!", SuperDead=99)
@@ -1116,24 +1111,24 @@ mob/proc
 					//=alert(src, "Do you want to start as a youth or an elder?  Youths have not yet reached their full potential as fighters. Elders have already passed it, and may teach younger folks.", "Age", "Youth", "Elder")
 					src.EraBody=Age
 					if(src.EraBody=="Youth")
-						src.EraAge=global.Era-src.GetPassedEras("Youth")
+						src.EraAge=glob.progress.Era-src.GetPassedEras("Youth")
 						if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
 							src.Tail(1)
 					else
-						src.EraAge=global.Era-src.GetPassedEras("Elder")
+						src.EraAge=glob.progress.Era-src.GetPassedEras("Elder")
 						if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
 							src.Tail(1)
 				else
 					src.EraBody="Youth"
-					src.EraAge=global.Era-src.GetPassedEras("Youth")
+					src.EraAge=glob.progress.Era-src.GetPassedEras("Youth")
 			else
 				src.EraAge=-4
 				if(isRace(ELDRITCH) || src.isRace(MAJIN))
-					src.EraAge=global.Era-GetPassedEras("Adult")
+					src.EraAge=glob.progress.Era-GetPassedEras("Adult")
 				src.EraBody="Adult"
 				src << "You've started as a timeless race. You learn slower than others, but can teach younger beings and always have your full power available."
 
-			src.EraBirth=global.Era
+			src.EraBirth=glob.progress.Era
 			src.ChooseSpawn()
 
 			//spawns can kill beastmens ability to learn anything so this is here now.

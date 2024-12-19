@@ -543,7 +543,7 @@ race
 			user.TrueName=input(user, "As a demon, you have a True Name. It should be kept secret. What is your True Name?", "Get True Name") as text
 			user << "The name by which you can be conjured is <b>[user.TrueName]</b>."
 			user << "Please set macros for (Dark Magic), (Hell Fire) and (Corruption), your 3 demon magics."
-			global.TrueNames.Add(user.TrueName)
+			glob.trueNames.Add(user.TrueName)
 			user.client.updateCorruption()
 			user.demon.selectPassive(user, "CORRUPTION_PASSIVES", "Buff", TRUE)
 			user.demon.selectPassive(user, "CORRUPTION_DEBUFFS", "Debuff")

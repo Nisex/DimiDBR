@@ -430,7 +430,7 @@ obj/Skills
 							src.ReturnX=User.x
 							src.ReturnY=User.y
 							src.ReturnZ=User.z
-							Destination=locate(global.NearDeadX, global.NearDeadY, global.NearDeadZ)
+							Destination=locate(glob.VOID_LOCATION[1], glob.VOID_LOCATION[2], glob.VOID_LOCATION[3])
 
 				if(src.WindUpIcon)
 					spawn()

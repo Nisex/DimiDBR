@@ -15,22 +15,6 @@ proc/CelestialBodiesLoop()
 			celestialObjectTicks = Hour(12)/10
 		sleep(10)
 
-proc/MoonSetLoop()
-	while(1)
-		if(global.MoonOut)
-			sleep(Hour(1))
-			for(var/mob/Players/P in players)
-				if(P.z in global.MoonOut)
-					P.MoonSetTrigger()
-			global.MoonOut=list()
-proc/MakyoSetLoop()
-	while(1)
-		if(global.MakyoOut)
-			sleep(Day(1))
-			for(var/mob/Players/P in players)
-				if(P.z in global.MakyoOut)
-					P.MakyoSetTrigger()
-			global.MakyoOut=list()
 mob
 	proc
 		MoonWarning()

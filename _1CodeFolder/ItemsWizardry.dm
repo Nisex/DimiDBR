@@ -678,7 +678,7 @@ obj/Items/Enchantment
 								for(var/obj/Items/Enchantment/Scrying_Ward/SW in range(10,W))
 									if(SW)
 										who.Remove(W)
-							if(W.z == NearDeadZ)
+							if(W.z == glob.VOID_LOCATION[3])
 								who.Remove(W)
 							if(W.z == glob.DEATH_LOCATION[3])
 								who.Remove(W)
@@ -2446,7 +2446,7 @@ obj/Items/Enchantment
 				del C
 
 				OMsg(usr, "[usr] is reborn!")
-				usr.EraAge=global.Era
+				usr.EraAge=glob.progress.Era
 				usr.EraBody="Child"
 				if(usr.isRace(SAIYAN)||usr.Race=="Half Saiyan")
 					usr.Tail(1)
@@ -2503,9 +2503,9 @@ obj/Items/Enchantment
 					usr.EraAge+=1
 					Choice.EraAge-=1
 					OMsg(usr, "[usr] gives [Choice] their excess age!")
-				if(usr.EraAge>global.Era)
+				if(usr.EraAge>glob.progress.Era)
 					usr.Death(null, "being reverted to a time before their birth!", SuperDead=1)
-				if(Choice.EraAge>global.Era)
+				if(Choice.EraAge>glob.progress.Era)
 					Choice.Death(null, "being reverted to a time before their birth!", SuperDead=1)
 				usr << "Relog to change to your new age."
 				Choice << "Relog to change to your new age."

@@ -112,7 +112,7 @@ proc/Destroy(turf/A,var/DestroyDamageMulti)
 		if(!nonDestroyable_turfs.Find("[A.type]") && A.Destructable)
 			if(usr==0)
 				new/turf/Dirt1(locate(A.x,A.y,A.z))
-				A.Destroyer=global.GlobalTurfDestroyer
+				A.Destroyer=null
 			else
 				if(A.Health<DestroyDamageMulti)
 					new/turf/Dirt1(locate(A.x,A.y,A.z))

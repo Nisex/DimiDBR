@@ -440,7 +440,7 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 					A.Z=src.z
 					src.Regenerate(A)
 					A.Level/=2
-					src.loc=locate(global.NearDeadX, global.NearDeadY, global.NearDeadZ)
+					src.loc=locate(glob.VOID_LOCATION[1], glob.VOID_LOCATION[2], glob.VOID_LOCATION[3])
 					return
 				else
 					src << "Your body fails to regenerate rapidly enough... you can feel yourself fading."
@@ -492,10 +492,7 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 			else
 				src.loc=locate(0, 0, 0)
 		else
-			if(NoRemains==3)
-				src.loc=locate(global.PhilosopherX, global.PhilosopherY, global.PhilosopherZ)
-			else
-				src.loc=locate(glob.DEATH_LOCATION[1], glob.DEATH_LOCATION[2], glob.DEATH_LOCATION[3])
+			src.loc=locate(glob.DEATH_LOCATION[1], glob.DEATH_LOCATION[2], glob.DEATH_LOCATION[3])
 
 	if(src.client)
 		Void(SuperDead, Zombie, fakeDeath, 0)
@@ -705,7 +702,7 @@ mob/proc/Leave_Body(var/SuperDead=0, var/Zombie, var/ForceVoid=0)
 	A.name="Body of [src]"
 	A.loc=locate(src.x, src.y, src.z)
 	A.transform=src.transform
-	src.loc=locate(global.NearDeadX, global.NearDeadY, global.NearDeadZ)
+	src.loc=locate(glob.currentlyVoidingLoc[1], glob.currentlyVoidingLoc[2], glob.currentlyVoidingLoc[3])
 
 	if(!SuperDead)
 		if(glob.VoidsAllowed||ForceVoid)

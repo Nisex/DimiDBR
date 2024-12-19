@@ -2980,13 +2980,9 @@ atom
 			if(istype(src, /mob/Players))
 				if(src:HasSpiritPower())
 					SP=1
-			if(src.z == global.MajinZoneZ)
-				return 1
 			if(src.z == glob.DEATH_LOCATION[3] && !dead_use && !SP)
 				return 1
-			else if(src.z == global.PhilosopherZ)
-				return 1
-			else if(src.z == global.NearDeadZ && !dead_use && !SP)
+			else if(src.z == 1)
 				return 1
 			else if(src.z == global.ArcaneRealmZ && !arc_use)
 				return 1

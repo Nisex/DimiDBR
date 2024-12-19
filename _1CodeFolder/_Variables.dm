@@ -1,106 +1,3 @@
-var
-	WorldDamageMult=1 //Damage everyone in the world?
-	WorldDefaultAcc=50 //Global accuracy
-	WorldWhiffRate=25 // Global whiff
-	WorldPUDrain=1 //Sets the drain of PU
-	GetUpVar=1 // KO Timer
-	list/GUILD_RANKINGS = list("Aegis" = 1, "Crimson Dawn" = 2, "Golden Circle" = 3, "Black Ifrit" = 5, "Revenants" = 6)
-	list/CustomCommons=list("Majin","Half-Saiyan", "Android")
-	list/GlobalLandingLocations = list()
-	BaseUpdate=1 //Updates...base.
-	WorldBaseAmount=1 //sets everyones base to a number....mod...bluh bluh.
-
-	WipeStart//Holds the time (midnight) that the wipe started at. Used to define starting RPP and daily potential.
-	DaysOfWipe
-	RPPStarting=120//holds the starting value of rpp
-	RPPStartingDays=2//holds the number of days you will achieve the starting limit in
-	RPPHighest=0//global tracking for the highest amt of rpp
-	RPPLimit=1600//This * RPP gain is the maximum RPP able to be acquired by default.  With EC included, this can be x1.5
-	RPPDaily=60//This is the amount given daily.
-	list/RPPTotal=list()//an associative list which is ckey = RPPTotal. reincarnating someone moves their RPPCurrent to this value
-	list/RPPEventCharges=list()//an associative list which is ckey = total number of EventCharges ever gained. it is set to this value when they create a new character.
-	PotentialDaily=1//amount of potential it can be assumed will be gained daily with minimal effort
-	RPPBaseMult=1
-	MoneyName="Dollars"
-	list/obj/Special/Spawn/Spawns=list()
-
-	DustControl=0 //Dust Toggle!
-	GlobalTurfDestroyer //Global turf destroyer
-
-	VoidsAllowed=1//Allow voids?
-	VoidChance=100//Percent chance of void
-
-	NearDeadX=150//these
-	NearDeadY=150//are
-	NearDeadZ=17//for (almost) dead people
-
-	DeadX=150//these
-	DeadY=150//are
-	DeadZ=18//for dead people
-
-	MajinZoneX=9//these
-	MajinZoneY=63//are
-	MajinZoneZ=1//for yummy people
-
-	PhilosopherX=9//these
-	PhilosopherY=63//are
-	PhilosopherZ=1//for stoned* people
-
-	MoonOut
-	MakyoOut
-
-	list/fusion_locs = list()
-
-	PureMade=0
-	BlueMade=0
-	RedMade=0
-	ChainMade=0
-	BloodMade=0
-	SealMade=0
-	NobleMade=0
-	RagnaMade=0
-	EmptyMade=0
-	StasisMade=0
-	RelativityMade=0
-	YukianesaMade=0
-	BolverkMade=0
-	OokamiMade=0
-
-
-	list/WeaponSoul = list("Caledfwlch","Kusanagi","Durendal","Masamune","SoulCalibur","SoulEdge","Muramasa","Dainsleif","Ryui Jingu Bang","Green Dragon Crescent Blade", "Moonlight Greatsword")
-
-	CaledfwlchTaken
-	KusanagiTaken
-	DurendalTaken
-	MasamuneTaken
-	SoulCaliburTaken
-	SoulEdgeTaken
-	MuramasaTaken
-	DainsleifTaken
-	WukongTaken
-	GuanyuTaken
-	MoonlightGreatswordTaken
-
-	list/ConstellationsBronze=list("Pegasus","Dragon","Cygnus","Andromeda","Phoenix", "Unicorn")
-	list/ConstellationsGold=list("Aries",/* "Taurus" */,"Gemini","Cancer","Leo","Virgo","Libra","Scorpio", "Sagittarius","Capricorn","Aquarius","Pisces")
-
-	Era=1//Keeps track of tiiime
-
-	list/ContractBroken=list()//Holds ckeys of contracts that were broken while people were offline
-	list/TrueNames=list()//Holds list of true names that have been registered.
-
-	SwordAscDamage = 0.05
-	SwordAscAcc = 0.05
-	SwordAscDelay = 0.05
-	StaffAscDamage = 0.05
-	StaffAscAcc = 0.05
-	StaffAscDelay = 0.05
-	ArmorAscDamage = 0.05
-	ArmorAscDelay = 0.05
-	ArmorAscAcc = 0.05
-
-	CCDamageModifier = 0.33
-
 /mob/var/Power = 1
 
 atom/var
@@ -114,6 +11,7 @@ atom/var
 	FlyOverAble=1
 	IgnoreFlyOver=0
 	UnFlyable=0
+	Race
 	// Current available power, a compilation of many factors. Editing will do nothing
 	Level=1
 	Speed=1
@@ -631,7 +529,6 @@ mob/var
 	image/ChargeIcon
 	SSJ=0
 
-	Race
 	Class="Fighter"
 	KO
 	Build=0
