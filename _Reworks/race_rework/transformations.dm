@@ -405,7 +405,7 @@ transformation
 			form_hair_icon = 'Hair_SSj3.dmi'
 			form_icon_1_icon = 'Hair_SSj3.dmi'
 			passives = list("Flicker" = 1, "Pursuer" = 1, "BuffMastery" = 2, "PureDamage" = 1, "PureReduction" = 1)
-			unlock_potential = 75
+			unlock_potential = 65
 
 			adjust_transformation_visuals(mob/user)
 				..()
