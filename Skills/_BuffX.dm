@@ -2444,6 +2444,7 @@ NEW VARIABLES
 				set name="Release Tension!"
 				if(src.Tension||usr.BuffOn(src))
 					src.Trigger(usr, Override=1)
+					usr.Revert(src.Transform)
 				else
 					usr << "Build up Tension first!"
 					return
