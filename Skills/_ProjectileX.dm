@@ -3457,7 +3457,7 @@ obj
 				Disintegrate
 					ElementalClass="Fire"
 					SkillCost=TIER_4_COST
-					Copyable=4
+					Copyable=5
 					Distance=50
 					DamageMult=6
 					Radius=1
