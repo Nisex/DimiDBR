@@ -2415,6 +2415,7 @@ NEW VARIABLES
 			AuraLock=1
 			Transform="Tension"
 			OffMessage="releases their tension..."
+			var/current_tension = 0
 			verb/Psych_Up()
 				set category="Skills"
 				set name="Psych Up!"
@@ -2442,12 +2443,7 @@ NEW VARIABLES
 			verb/Release_Tension()
 				set category="Skills"
 				set name="Release Tension!"
-				if(src.Tension||usr.BuffOn(src))
-					src.Trigger(usr, Override=1)
-					usr.Revert(src.Transform)
-				else
-					usr << "Build up Tension first!"
-					return
+				src.Trigger(usr)
 		Universal
 			NoSword=0
 			NoStaff=0
