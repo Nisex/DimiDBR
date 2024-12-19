@@ -1171,7 +1171,7 @@ ascension
 	shinjin
 		unlock_potential = -1
 		onAscension(mob/owner)
-			skills = list(/obj/Skills/Utility/Unlock_Potential, /obj/Skills/Utility/Bind_To_Plane, /obj/Skills/Teleport/Kai_Kai)
+			skills = list(/obj/Skills/Utility/Bind_To_Plane, /obj/Skills/Teleport/Kai_Kai)
 
 			if(owner.ShinjinAscension=="Kai")
 				passives = list("SpiritPower" = 0.5, "GodKi" = 0.25)
