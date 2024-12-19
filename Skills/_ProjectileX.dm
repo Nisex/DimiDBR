@@ -652,6 +652,22 @@ obj
 				IconLock='Arrow - Spirit.dmi'
 				Variation=48
 				Radius=1
+			Sagittarius_Arrow
+				DamageMult=1
+				AccMult=1
+				StrRate=0.5
+				ForRate=0.5
+				EndRate=1
+				Distance=30
+				AttackReplace=1
+				Striking=1
+				Blasts=5
+				IconLock='LightImpulse.dmi'
+				LockX=-32
+				LockY=-32
+				Trail='LightImpulseTrail.dmi'
+				TrailDuration=1
+				TrailSize=0.75
 			Staff_Projectile
 				Radius=0
 				DamageMult=1
@@ -2803,12 +2819,12 @@ obj
 				TrailX=-32
 				TrailY=-32
 				TrailDuration=1
-				TrailSize=0.5
+				TrailSize=1
 				Variation=8
 				Charge = 1
 				IconChargeOverhead=1
 				IconSize=0.01
-				IconSizeGrowTo=0.6
+				IconSizeGrowTo=2
 				ActiveMessage="roars their Cosmos across their wings into a brilliant display of light towards their enemy!"
 				verb/Light_Impulse()
 					set category="Skills"
@@ -2819,35 +2835,27 @@ obj
 			Infinity_Break
 				CosmoPowered=1
 				GodPowered=0.25
-				Blasts = 1000 //i see no way this could go wrong !
+				Blasts = 250 //i see no way this could go wrong !
 				Distance=20
 				DamageMult=0.1
-				ChargeIcon=1
 				ZoneAttack=1
-				ZoneAttackX=1
-				ZoneAttackY=1
+				ZoneAttackX=4
+				ZoneAttackY=4
 				FireFromSelf=1
 				FireFromEnemy=0
 				Deflectable=0
-				Homing=1
+				Homing=8
 				HyperHoming=1
 				Piercing=1
 				Striking=1
-				Cooldown=150
-				Radius = 3
+				Cooldown=200
+				Radius = 1
 				IconLock='LightImpulse.dmi'
 				LockX=-32
 				LockY=-32
 				Trail='LightImpulseTrail.dmi'
-				TrailX=-32
-				TrailY=-32
 				TrailDuration=1
-				TrailSize=0.5
-				Variation=8
-				Charge = 1
-				IconChargeOverhead=1
-				IconSize=0.01
-				IconSizeGrowTo=0.3
+				TrailSize=0.75
 				ActiveMessage="begins firing off countless darts of Cosmos-infused light!"
 				verb/Infinity_Break()
 					set category="Skills"
@@ -3449,7 +3457,7 @@ obj
 				Disintegrate
 					ElementalClass="Fire"
 					SkillCost=TIER_4_COST
-					Copyable=4
+					Copyable=5
 					Distance=50
 					DamageMult=6
 					Radius=1

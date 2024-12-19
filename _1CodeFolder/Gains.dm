@@ -330,12 +330,7 @@ mob
 		if(src.Health <= 15*(1-src.HealthCut))
 			if(Saga == "Cosmo" && SpecialBuff && seventhSenseTriggered == FALSE) // saint
 				if(SagaLevel == 4)
-					var/obj/Skills/Buffs/SlotlessBuffs/SeventhSense/SS = new()
-					SS = locate() in src
-					if(!SS)
-						SS = new
-						AddSkill(SS)
-					SS.Trigger(src, TRUE)
+					GetAndUseSkill(/obj/Skills/Buffs/SlotlessBuffs/SeventhSense, Buffs, TRUE)
 					seventhSenseTriggered = TRUE
 
 		if(src.Health <= 25*(1-src.HealthCut) && !src.HealthAnnounce25)

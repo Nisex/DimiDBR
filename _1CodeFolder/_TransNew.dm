@@ -161,6 +161,8 @@ mob/proc/CanRevert()
 
 //High Tension
 mob/proc/HighTension(var/x)
+	for(var/obj/Skills/Buffs/SpecialBuffs/High_Tension/T in src)
+		T.current_tension = x
 	var/image/tensiona=image('HTAura.dmi',pixel_x=-16, pixel_y=-4)
 	var/image/tension=image('HighTension.dmi',pixel_x=-32,pixel_y=-32)
 	var/image/tensionh=image(src.Hair_HT, layer=FLOAT_LAYER-1)
@@ -213,6 +215,9 @@ mob/proc/HighTension(var/x)
 			src.Auraz("Remove")
 
 mob/proc/RevertHT()
+	var/tension_reversion
+	for(var/obj/Skills/Buffs/SpecialBuffs/High_Tension/T in src)
+		tension_reversion = T.current_tension
 	var/image/tensiona=image('HTAura.dmi',pixel_x=-16, pixel_y=-4)
 	var/image/tension=image('HighTension.dmi',pixel_x=-32,pixel_y=-32)
 	var/image/tensionh=image(src.Hair_HT, layer=FLOAT_LAYER-1)
@@ -229,13 +234,13 @@ mob/proc/RevertHT()
 	src.overlays-=tensionhs
 	src.overlays-=tensione
 	src.underlays-=tensiona
-	if(src.tension==20)
+	if(tension_reversion==20)
 		src.PowerBoost-=0.25
 		src.EnergyExpenditure-=0.5
-	if(src.tension==50)
+	if(tension_reversion==50)
 		src.PowerBoost-=0.5
 		src.EnergyExpenditure-=1
-	if(src.tension==100)
+	if(tension_reversion==100)
 		src.PowerBoost-=1
 		src.EnergyExpenditure-=2
 	src.StrMultTotal-=0.25
@@ -243,6 +248,8 @@ mob/proc/RevertHT()
 	src.ForMultTotal-=0.25
 	src.SpdMultTotal-=0.25
 	src.tension=0
+	for(var/obj/Skills/Buffs/SpecialBuffs/High_Tension/T in src)
+		T.current_tension = 0
 	src.Hairz("Add")
 	src.Auraz("Remove")
 /*

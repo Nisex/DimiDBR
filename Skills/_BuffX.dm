@@ -2415,6 +2415,7 @@ NEW VARIABLES
 			AuraLock=1
 			Transform="Tension"
 			OffMessage="releases their tension..."
+			var/current_tension = 0
 			verb/Psych_Up()
 				set category="Skills"
 				set name="Psych Up!"
@@ -2442,11 +2443,7 @@ NEW VARIABLES
 			verb/Release_Tension()
 				set category="Skills"
 				set name="Release Tension!"
-				if(src.Tension||usr.BuffOn(src))
-					src.Trigger(usr, Override=1)
-				else
-					usr << "Build up Tension first!"
-					return
+				src.Trigger(usr)
 		Universal
 			NoSword=0
 			NoStaff=0
@@ -3511,11 +3508,14 @@ NEW VARIABLES
 				Sagittarius_Cloth
 					ArmorIcon='goldsaintsagittarius_armor.dmi'
 					TopOverlayLock='goldsaintsagittarius_helmet.dmi'
+					IconLock = 'goldsaintsagittarius_wings.dmi'
+					LockX = -32
+					LockY = -32
 					ActiveMessage="dons the Gold Cloth of Sagittarius, embracing its brilliant hope!"
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1, "MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.5), "BlurringStrikes" = player.SagaLevel*0.2, "Flow" = player.SagaLevel-3, "Skimming" = 1)
+						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1, "MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "MovingCharge" = 1, "Godspeed" = 1+(player.SagaLevel*0.5), "BlurringStrikes" = player.SagaLevel*0.2, "Flow" = player.SagaLevel-3, "Skimming" = 1, "SpiritFlow" = player.SagaLevel-2)
 						SpdMult = 1.4 + ((player.SagaLevel-3) * 0.1)
 						StrMult = 1.1 + ((player.SagaLevel-3) * 0.1)
 						OffMult = 1.1 + ((player.SagaLevel-3) * 0.1)
@@ -3525,9 +3525,6 @@ NEW VARIABLES
 						adjustments(usr)
 						src.Trigger(usr)
 						Cape(usr)
-						if(usr.BuffOn(src))
-							var/image/st=image(icon='goldsaintsagittarius_wings.dmi', layer=FLOAT_LAYER)
-							usr.overlays+=st
 
 		Valor_Form
 			FlashChange=1
@@ -8234,11 +8231,12 @@ NEW VARIABLES
 
 
 		Sagittarius_Bow
-			SignatureTechnique=2
 			MakesStaff=1
 			FlashDraw=1
 			StaffName="Sagittarius Bow"
 			StaffIcon='goldsaintsagittarius_bow.dmi'
+			StaffX = -32
+			StaffY = -32
 			ActiveMessage="burns their Cosmos to manifest a bow!"
 			OffMessage="dispels their Cosmos-powered bow!"
 			passives = list("SpecialStrike" = 1, "StaffAscension" = 4)
@@ -8476,7 +8474,7 @@ NEW VARIABLES
 				if(usr.EquippedSword()&&!projected)
 					usr << "You can't have a blade out to project a new one!"
 					return
-				if(!projected || ! !usr.EquippedSword())
+				if(!projected)
 					var/costCalculation = (length(currentBlade.Techniques) + length(currentBlade.passives) + currentBlade.Ascended + currentBlade.InnatelyAscended)/usr.SagaLevel
 					if(usr.UBWPath == "Feeble")
 						costCalculation /= 1 + usr.SagaLevel/6
@@ -11568,7 +11566,7 @@ NEW VARIABLES
 				BuffName="Sage Mode"
 
 				ManaThreshold=125
-				TooLittleMana=124
+				TooLittleMana=50
 				passives = list("ManaLeak" = 2, "ManaStats" = 1, "DrainlessMana" = 1, "ManaFocus" = 1, "AllOutAttack" = 1, "SuperDash" = 1)
 				ManaLeak=2
 				ManaStats=1

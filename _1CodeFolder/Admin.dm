@@ -38,7 +38,7 @@ mob/verb
 	set hidden = 1
 	var/whichMap = input(usr, "What would you like to call it?") as null|text
 	if(!whichMap) return
-	if(fexists("Maps/[whichMap].sav"))
+	if(fexists("Maps/map_[whichMap].sav"))
 		var/overwrite = alert(usr, "A map already exists with the name [whichMap]! Do you want to override it?",, "Yes", "No")
 		if(overwrite=="Yes") return
 	var/firstX = input(usr, "X1?") as null|num
@@ -54,7 +54,7 @@ mob/Admin3/verb/LoadSwapMap()
 	set hidden = 1
 	var/whichMap = input(usr, "What would you like to call it?") as null|text
 	if(!whichMap) return
-	if(!fexists("Maps/[whichMap].sav"))
+	if(!fexists("Maps/map_[whichMap].sav"))
 		usr << "[whichMap] doesn't exist."
 		return
 	var/swapmap/newMap = SwapMaps_CreateFromTemplate(whichMap)
@@ -1987,17 +1987,21 @@ datum/Topic(A, B[])
 		if (!variable || variable == "Admin") return
 		
 		var/class
-		if (usr.Mapper && !usr.Admin)
-			class = input("[variable]: Select type", "") as null|anything in list("Number", "Text", "File", "Null")
-		else
-			class = input("[variable]: Select type", "") as null|anything in list(
-				"Number", "Text", "File", "Type", "Reference", 
-				"Null", "List", "New Matrix", "Color Matrix", "New Type"
-			)
+		var/list/options = list("Number", "Text", "File", "Null")
+		if(usr.Admin)
+			options += list("Type", "Reference", "List", "New Matrix", "Color Matrix", "New Type")
+		if(istype(src, /datum))
+			options += "Open Edit Sheet"
+		class = input("[variable]: Select type", "") as null|anything in options
 		if (!class) return
-
+		if(class == "Open Edit Sheet")
+			usr:Edit(src)
+			return
 		var/old_value = vars[variable]
 		if (class == "Null")
+			if(!isnull(vars[variable]))
+				var/confirm = input("This variable is currently NOT null. Continue?") in list("No", "Yes")
+				if (confirm == "No") return
 			vars[variable] = null
 		else if (class == "Text")
 			if (isnum(vars[variable]))
@@ -2005,6 +2009,9 @@ datum/Topic(A, B[])
 				if (confirm == "No") return
 			vars[variable] = input("Enter text", "", vars[variable]) as text
 		else if (class == "Number")
+			if(!isnum(vars[variable]))
+				var/confirm = input("This variable is currently not a number. Continue?") in list("No", "Yes")
+				if (confirm == "No") return
 			vars[variable] = input("Enter number", "", vars[variable]) as num
 		else if (class == "File")
 			vars[variable] = input("Select file", "", vars[variable]) as file
@@ -2045,7 +2052,7 @@ datum/Topic(A, B[])
 				)
 		else if (class == "New Type")
 			vars[variable] = new (input("Enter type:", "Type", vars[variable]) in typesof(/datum))
-		
+
 		if (vars[variable] != old_value)
 			Log("Admin", "[ExtractInfo(usr)] EDITED [variable] to [vars[variable]] on [ExtractInfo(src)] (was [old_value]).")
 		usr:Edit(src)
@@ -2234,7 +2241,7 @@ mob/Topic(href,href_list[])
 						var/old_value = theList[theList[old_index]]
 						var/list/options = list("text","num","type","reference","icon","file","list","restore to default")
 						try
-							if(theList[old_index]?:type)
+							if(istype(theList[old_index], /datum))
 								options += "Open Edit Sheet"
 						catch()
 						var/class = input(usr,"Change [theList[old_index]] to what?","Variable Type") as null|anything \

@@ -34,7 +34,7 @@ client
 		buildDir = SOUTH
 		list/paintedTurfs
 		list/selectedObjects
-		image/highlight
+		obj/highlight
 		list/highlightedAtoms = list()
 		buildX = 1
 		buildY = 1
@@ -63,8 +63,10 @@ client
 			mob.GenerateHUD()
 
 		CreateHighlight()
-			highlight = image('outline.dmi', null, layer = 10)
-			src << highlight
+			highlight = new()
+			highlight.icon = 'outline.dmi'
+			highlight.invisibility = 2
+			highlight.layer = 10
 			highlight.pixel_w = -1
 			highlight.pixel_z = -1
 			highlight.plane = 3
