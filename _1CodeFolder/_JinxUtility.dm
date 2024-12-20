@@ -1204,8 +1204,8 @@ mob
 					strMult += round(clamp(1 + secretDatum?:getBoon(src, "Strength") / 8, 1, 8), 0.1)
 			if(passive_handler.Get("KillerInstinct") && Health <= 50)
 				strMult += GetKillerInstinct()
-			if(KaiokenBP)
-				strMult += KaiokenBP-1
+			if(KaiokenBP > 1)
+				strMult += KaiokenBP-0.8
 			Mod+=(strMult-1)
 			if(src.KamuiBuffLock)
 				Mod+=1
@@ -1340,8 +1340,8 @@ mob
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasImprovement("Force"))
 					forMult += round(clamp(1 + secretDatum?:getBoon(src, "Force") / 8, 1, 8), 0.1)
-			if(KaiokenBP)
-				forMult += KaiokenBP-1
+			if(KaiokenBP > 1)
+				forMult += KaiokenBP-0.8
 			Mod+=(forMult-1)
 			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
@@ -1544,7 +1544,7 @@ mob
 				Spd += getManaStatsBoon()
 			var/Mod=1
 			Mod+=(src.SpdMultTotal-1)
-			if(KaiokenBP)
+			if(KaiokenBP > 1)
 				Mod += KaiokenBP-0.5
 			if(src.KamuiBuffLock)
 				Mod+=1
