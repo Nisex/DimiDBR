@@ -1423,13 +1423,11 @@ ascension
 				endurance = 0.25
 				onAscension(mob/owner)
 					. = ..()
-					world<<jointext(owner.race.transformations, " , ")
 					for(var/transformation/saiyan/super_saiyan_3/ssj3 in owner.race.transformations)
 						owner.race.transformations -= ssj3
 						del ssj3
 					owner.race.transformations.Add(new/transformation/half_saiyan/human/ultimate_mode())
 					owner.race.transformations.Add(new/transformation/half_saiyan/human/beast_mode())
-					world<<jointext(owner.race.transformations, " , ")
 			
 			dominating
 				passives = list("KillerInstinct" = 0.05, "Brutalize" = 0.25)
