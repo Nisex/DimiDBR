@@ -327,24 +327,8 @@ mob
 				p.Attack()
 			else
 				p.Auto_Attack()
-		if(src.Health <= 15*(1-src.HealthCut))
-			if(Saga == "Cosmo" && SpecialBuff && seventhSenseTriggered == FALSE) // saint
-				if(SagaLevel == 4)
-					GetAndUseSkill(/obj/Skills/Buffs/SlotlessBuffs/SeventhSense, Buffs, TRUE)
-					seventhSenseTriggered = TRUE
 
 		if(src.Health <= 25*(1-src.HealthCut) && !src.HealthAnnounce25)
-			if(Saga == "Cosmo" && SpecialBuff && seventhSenseTriggered == FALSE) // saint
-				if(SagaLevel >= 5)
-					var/obj/Skills/Buffs/SlotlessBuffs/SeventhSense/SS = new()
-					SS = locate() in src
-					if(!SS)
-						SS = new
-						AddSkill(SS)
-					SS.Trigger(src, TRUE)
-					SS.passives = list("GodKi" = 0.25, "SpiritPower" = 0.25)
-					seventhSenseTriggered = TRUE
-
 
 			var/shonenMoment = ShonenPowerCheck(src)
 			if(shonenMoment)

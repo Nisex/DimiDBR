@@ -61,10 +61,15 @@ sagaTierUpMessages/Cosmo
 				src.AddSkill(new v2Path)
 			if(4)
 				ZodiacCharges++
+				AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/SeventhSense)
 				if(!locate(/obj/Skills/Utility/Zodiac_Invocation, src))
 					src.AddSkill(new/obj/Skills/Utility/Zodiac_Invocation)
 			if(5)
-				SenseUnlocked = 7
+				SenseUnlocked++
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/SeventhSense/SS in src)
+					SS.NeedsHealth = 25
+					SS.TooMuchHealth = 50
+					SS.passives["SpiritPower"] = 0.25
 				switch(src.ClothGold)
 					if("Aries")
 						if(!locate(/obj/Skills/Projectile/Stardust_Revolution, src))
@@ -170,18 +175,18 @@ sagaTierUpMessages/Cosmo
 						if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Sagittarius_Bow, src))
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Sagittarius_Bow)
 			if(6)
-				SenseUnlocked=8
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/SeventhSense/SS in src)
+					SS.NeedsHealth = 40
+					SS.TooMuchHealth = 75
+				SenseUnlocked++
 
-
-/obj/Skills/Buffs/SlotlessBuffs/SeventhSense
+/obj/Skills/Buffs/SlotlessBuffs/SeventhSense // OLD
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/SeventhSense
 	BuffName = "Seventh Sense"
 	SenseUnlocked = 1
 	TooMuchHealth = 30
+	NeedsHealth = 15
+	WoundIntentRequired = TRUE
 	ActiveMessage="burns their Cosmo with full strength and attains the Seventh Sense!!!"
 	OffMessage="has lost their Seventh Sense..."
-	Trigger(mob/p, Override)
-		..()
-		if(!p.BuffOn(src))
-			del src
-
 
