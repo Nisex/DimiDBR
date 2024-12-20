@@ -163,9 +163,9 @@ transformation
 
 		transform(mob/user)
 			if(is_active || !user.CanTransform()) return
-
+				
 			if(user.transUnlocked < user.transActive+1)
-				if(!(user.bypassTransAutomation >= user.transActive+1) && glob.lockTransAutomation && (type in glob.transLocked)) return.
+				if(!(user.bypassTransAutomation >= user.transActive+1) && glob.lockTransAutomation && (type in glob.transLocked)) return
 				if(unlock_potential >= user.Potential) return
 
 			mastery_boons(user)
@@ -473,7 +473,7 @@ transformation
 					animate(HF, alpha=0, time=5)
 					animate(user, color = user.MobColor, time=5)
 					sleep(5)
-					LightningStrike2(src, Offset=4)
+					LightningStrike2(user, Offset=4)
 					spawn()
 						user.Earthquake(30,8,24,8,24,999)
 					animate(HF, alpha=210, time=5)
@@ -505,7 +505,7 @@ transformation
 					animate(HF, alpha=0, time=5)
 					animate(user, color = user.MobColor, time=5)
 					sleep(5)
-					LightningStrike2(src, Offset=4)
+					LightningStrike2(user, Offset=4)
 					animate(HF, alpha=210, time=5)
 					animate(user, color = list(1,0,0, 0,1,0, 0,0,1, 1,0.9,0.2), time=10)
 					sleep(5)
@@ -518,7 +518,7 @@ transformation
 					del HF
 					var/ShockSize=5
 					for(var/wav=5, wav>0, wav--)
-						KenShockwave(src, icon='KenShockwaveGold.dmi', Size=ShockSize, Blend=2, Time=8)
+						KenShockwave(user, icon='KenShockwaveGold.dmi', Size=ShockSize, Blend=2, Time=8)
 						ShockSize/=2
 					spawn(10)
 						animate(user, color = user.MobColor, time=30)

@@ -82,7 +82,10 @@
 			return statDamage
 	// otherwise there is no problem
 	if(HasSpiritHand()&&unarmed)
-		statDamage += GetFor(GetSpiritHand()/4) 
+		if(spirithand > GetSpiritHand())
+			statDamage += GetFor(spirithand/4) // this can b less lines
+		else
+			statDamage += GetFor(GetSpiritHand()/4)
 	if(HasSpiritSword()&&sword)
 		statDamage += GetFor(GetSpiritSword())
 	if(HasHybridStrike())
