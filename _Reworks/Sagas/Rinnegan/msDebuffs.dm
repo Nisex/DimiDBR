@@ -88,7 +88,7 @@ obj/blades
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Busshitsukai_to_Hikari
 	TooMuchHealth = 99.8
-	BurnAffected = 3
+	BurnAffected = 1
 	CrippleAffected = 2
 	EndTaxDrain = 0.00005
 	EndTax = 0.01
