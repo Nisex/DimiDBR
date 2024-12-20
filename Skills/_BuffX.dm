@@ -3107,8 +3107,8 @@ NEW VARIABLES
 						StrMult = 1.3 + (newLevel * 0.1)
 						EndMult = 1.5 + (newLevel * 0.1)
 						DefMult = 1.3 + (newLevel * 0.1)
-						passives = list("MovementMastery" = player.SagaLevel * 2, "ArmorAscension" = 2, "Reversal" = 0.2 + player.SagaLevel * 0.1,\
-						"CriticalBlock" = player.SagaLevel / 8, "BlockChance" = 10 + (player.SagaLevel * 1.5))
+						passives = list("MovementMastery" = player.SagaLevel * 2, "ArmorAscension" = 2, "Reversal" = player.SagaLevel * 0.1,\
+						"CriticalBlock" = player.SagaLevel / 6, "BlockChance" = 10 + (player.SagaLevel * 1.5))
 					verb/Don_Cloth()
 						set category="Skills"
 						adjustments(usr)
