@@ -9,7 +9,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = new updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 4
+	var/UPDATE_VERSION = 6
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -92,7 +92,22 @@ update
 				if(p.Class == "Metal")
 					p.passive_handler.increaseList(list("KBRes" = 1))
 					p << "Your KBRes has been set to the correct level"
-					
+
+	version6
+		version = 6
+		updateMob(mob/p)
+			..()
+			if(p.isRace(SAIYAN)&&length(p.race.transformations) <= 3)
+				p.race.transformations += new/transformation/saiyan/super_saiyan_god
+				p.race.transformations += new/transformation/saiyan/super_saiyan_blue
+			if(p.isRace(HALFSAIYAN)&&p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/half_saiyan/adaptive)
+				for(var/transformation/saiyan/ssj in p.race.transformations)
+					if(istype(ssj, /transformation/saiyan/super_saiyan_3) || istype(ssj, /transformation/saiyan/super_saiyan_god) || istype(ssj, /transformation/saiyan/super_saiyan_blue))
+						p.race.transformations -= ssj
+						del ssj
+				p.race.transformations.Add(new/transformation/half_saiyan/human/ultimate_mode())
+				p.race.transformations.Add(new/transformation/half_saiyan/human/beast_mode())
+
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25
 /globalTracker/var/GAJA_MAX_EXCHANGE = 1
