@@ -1,5 +1,5 @@
 var/list
-	CodedAdmins=list("TheUltimateHope"=4,  "Jcbal"=4, "Gogeto25"=4, "Sakata Gintoki San"=4, "Fractious"=  4, "ShadeofWar"= 4, "Dream Whisperer" =4, "Niezan2" = 4)
+	CodedAdmins=list("Gogeto25"=4, "Sakata Gintoki San"=4, "Niezan2" = 4, "IroquoisRedgrave" = 4)
 	Admins=new
 	Mappers=new
 	Punishments=new
