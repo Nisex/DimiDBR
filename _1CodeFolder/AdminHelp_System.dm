@@ -87,13 +87,14 @@ mob/verb/AdminHelp(var/txt as message)
 	txt=copytext(txt,1,10000)
 	AHelp.AdminHelp_Message = txt
 	AdminHelps.Add(AHelp)
-	usr.client.HttpPost(
-		"https://discord.com/api/webhooks/1312209756806447226/yEuvfWyH9Z6ikNja64LPy67GPsf8pyL63ijXAzPAa-28fxOlELh_MDuz1_WCKyWqBSJB",
-		list(
-			content = "	**[usr.key]'s AHelp:** ```"+txt+"```",
-			username = "AdminHelp"
+	if(glob.discordAdminHelpWebhookURL)
+		usr.client.HttpPost(
+			"[glob.discordAdminHelpWebhookURL]",
+			list(
+				content = "	**[usr.key]'s AHelp:** ```"+txt+"```",
+				username = "AdminHelp"
+			)
 		)
-	)
 	for(var/mob/Players/M in admins)
 		if(M.Admin)
 			M <<"<font color=red>(PLAYER HELP)</font color> <a href=?src=\ref[usr];action=MasterControl;do=PM;ID=[AHelp.UniqueID]>[usr.key]</a href>[M.Controlz(usr)] : [txt]"

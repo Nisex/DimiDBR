@@ -751,21 +751,27 @@ mob/Admin2/verb
 				discord_output = "@everyone [discord_output]"
 				switch(input("IC Announcement or OOC Announcement?") in list("IC", "OOC"))
 					if("IC")
-						usr.client.HttpPost(
-							"https://discord.com/api/webhooks/1312209915900727396/22sKBGg8ih6P36OctFDr50Ll8SrHvfKxZ3k5XPRMuu2E-fjxghoTnvNpe97CYHaG6yxB",
-							list(
-								content = discord_output,
-								username = "Story Announcement"
+						if(glob.discordICAnnounceWebhookURL)
+							usr.client.HttpPost(
+								"[glob.discordICAnnounceWebhookURL]",
+								list(
+									content = discord_output,
+									username = "Story Announcement"
+								)
 							)
-						)
+						else
+							usr << "The OOCAnnounce webhook wasn't set up!"
 					if("OOC")
-						usr.client.HttpPost(
-							"https://discord.com/api/webhooks/1312210105202249839/qigeHypi6AM4TjWHJpFn9QxrutzJUtAfvFzjZEoa1lDZqBTgUgWpqDbIMwEMH1M8lsVc",
-							list(
-								content = discord_output,
-								username = "OOC Announcement"
+						if(glob.discordOOCAnnounceWebhookURL)
+							usr.client.HttpPost(
+								"[glob.discordOOCAnnounceWebhookURL]",
+								list(
+									content = discord_output,
+									username = "OOC Announcement"
+								)
 							)
-						)
+						else
+							usr << "The OOCAnnounce webhook wasn't set up!"
 
 		for(var/mob/M in admins) M<<"[usr] used message (global)."
 

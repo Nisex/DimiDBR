@@ -418,6 +418,10 @@ globalTracker
 		STAT_DMG_EXPONENT = 0.75
 
 		list/trueNames = list()
+
+		discordICAnnounceWebhookURL
+		discordOOCAnnounceWebhookURL
+		discordAdminHelpWebhookURL
 // FUNCTIONS
 
 globalTracker/proc/takeLimited(option, n)
