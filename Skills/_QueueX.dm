@@ -2419,7 +2419,7 @@ obj
 				DamageMult=5
 				AccuracyMult=25
 				Instinct=5
-				Duration=3
+				Duration=8
 				Warp=10
 				HitMessage="yells: HAAAAAAAAAA!"
 				Projectile="/obj/Skills/Projectile/Beams/Big/True_Kamehameha"
