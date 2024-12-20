@@ -558,24 +558,6 @@ mob/proc/Recover(var/blah,Amount=1)
 					src.RecovEroded=0
 			if(Health>10*(1-src.HealthCut)&&src.HealthAnnounce10)
 				src.HealthAnnounce10=0
-			if(seventhSenseTriggered)
-				var/detrigger = FALSE
-				switch(SagaLevel)
-					if(4)
-						if(Health>=25*(1-src.HealthCut))
-							detrigger = TRUE
-					if(5)
-						if(Health>=50*(1-src.HealthCut))
-							detrigger = TRUE
-					if(6)
-						if(Health>=75*(1-src.HealthCut))
-							detrigger = TRUE
-				if(detrigger)
-					seventhSenseTriggered=0
-					for(var/obj/Skills/Buffs/SlotlessBuffs/SeventhSense/SS in src)
-						if(src.BuffOn(SS))
-							SS.Trigger(src, TRUE)
-						del SS
 			if(Health>25*(1-src.HealthCut)&&src.HealthAnnounce25)
 				src.HealthAnnounce25=0
 			if(Health>50*(1-src.HealthCut)&&src.MeltyMessage)

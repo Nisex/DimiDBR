@@ -390,15 +390,15 @@ mob
 			// 			if(s.Class=="Wooden")
 
 			if(defender.HasLifeGeneration())
-				defender.HealHealth(defender.GetLifeGeneration()/10 * val)
+				defender.HealHealth(defender.GetLifeGeneration()/glob.LIFE_GEN_DIVISOR * val)
 				if(defender.Health>=100-100*defender.HealthCut-defender.TotalInjury)
-					defender.HealWounds(0.2*defender.GetLifeGeneration()/10 * val)
+					defender.HealWounds(glob.LIFE_GEN_MULT*defender.GetLifeGeneration()/glob.LIFE_GEN_DIVISOR * val)
 			if(src.HasEnergyGeneration())
-				src.HealFatigue(0.2*src.GetEnergyGeneration()/10 * val)
-				src.HealEnergy(src.GetEnergyGeneration()/10 * val)
+				src.HealFatigue(glob.ENERGY_GEN_MULT*src.GetEnergyGeneration()/glob.ENERGY_GEN_DIVISOR * val)
+				src.HealEnergy(src.GetEnergyGeneration()/glob.ENERGY_GEN_DIVISOR* val)
 			if(defender.HasEnergyGeneration() * val)
-				defender.HealFatigue(0.2*defender.GetEnergyGeneration()/10 * val)
-				defender.HealEnergy(defender.GetEnergyGeneration()/10 * val)
+				defender.HealFatigue(glob.ENERGY_GEN_MULT*defender.GetEnergyGeneration()/glob.ENERGY_GEN_DIVISOR * val)
+				defender.HealEnergy(defender.GetEnergyGeneration()/glob.ENERGY_GEN_DIVISOR * val)
 			if(src.HasManaGeneration())
 				src.HealMana(src.GetManaGeneration()/10)
 			if(defender.HasManaGeneration())
@@ -1180,7 +1180,7 @@ mob
 			//gain double value when Overdive is active, unless the user is Android (then only +50%)
 			Str*=src.StrChaos
 			//tarot shit
-			if(passive_handler.Get("Piloting"))
+			if(passive_handler.Get("Piloting")&&findMecha())
 				Str = getMechStat(findMecha(), Str)
 			if(src.StrReplace)
 				Str=StrReplace
@@ -1204,8 +1204,8 @@ mob
 					strMult += round(clamp(1 + secretDatum?:getBoon(src, "Strength") / 8, 1, 8), 0.1)
 			if(passive_handler.Get("KillerInstinct") && Health <= 50)
 				strMult += GetKillerInstinct()
-			if(KaiokenBP)
-				strMult += KaiokenBP-1
+			if(KaiokenBP > 1)
+				strMult += KaiokenBP-0.8
 			Mod+=(strMult-1)
 			if(src.KamuiBuffLock)
 				Mod+=1
@@ -1327,7 +1327,7 @@ mob
 				For += (hellPower/2) * For
 			else
 				For += (0.2 * hellPower) * For
-			if(passive_handler.Get("Piloting"))
+			if(passive_handler.Get("Piloting")&&findMecha())
 				For = getMechStat(findMecha(), For)
 			if(src.HasManaStats())
 				For += getManaStatsBoon()
@@ -1340,8 +1340,8 @@ mob
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasImprovement("Force"))
 					forMult += round(clamp(1 + secretDatum?:getBoon(src, "Force") / 8, 1, 8), 0.1)
-			if(KaiokenBP)
-				forMult += KaiokenBP-1
+			if(KaiokenBP > 1)
+				forMult += KaiokenBP-0.8
 			Mod+=(forMult-1)
 			// if(src.isRace(HUMAN))
 			// 	if(src.AscensionsAcquired)
@@ -1437,7 +1437,7 @@ mob
 			End*=src.EndChaos
 			if(src.EndReplace)
 				End=EndReplace
-			if(passive_handler.Get("Piloting"))
+			if(passive_handler.Get("Piloting")&&findMecha())
 				End = getMechStat(findMecha(), End)
 
 			if(passive_handler.Get("DemonicDurability") && (Anger||HasCalmAnger()))
@@ -1537,14 +1537,14 @@ mob
 
 			if(src.SpdReplace)
 				Spd=SpdReplace
-			if(passive_handler.Get("Piloting"))
+			if(passive_handler.Get("Piloting")&&findMecha())
 				Spd = getMechStat(findMecha(), Spd)
 			Spd+=SpdAdded
 			if(src.HasManaStats())
 				Spd += getManaStatsBoon()
 			var/Mod=1
 			Mod+=(src.SpdMultTotal-1)
-			if(KaiokenBP)
+			if(KaiokenBP > 1)
 				Mod += KaiokenBP-0.5
 			if(src.KamuiBuffLock)
 				Mod+=1
@@ -1639,7 +1639,7 @@ mob
 			Off+=src.OffAscension
 			Off+=EnhancedAggression ? src.EnhancedAggression*0.2 : 0
 			Off*=src.OffChaos
-			if(passive_handler.Get("Piloting"))
+			if(passive_handler.Get("Piloting")&&findMecha())
 				Off = getMechStat(findMecha(), Off)
 			Off+=OffAdded
 			var/Mod=1
@@ -1721,7 +1721,7 @@ mob
 			Def+=src.DefAscension
 			Def+=EnhancedReflexes ? src.EnhancedReflexes*0.2 : 0
 			Def*=src.DefChaos
-			if(passive_handler.Get("Piloting"))
+			if(passive_handler.Get("Piloting")&&findMecha())
 				Def = getMechStat(findMecha(), Def)
 			Def+=DefAdded
 			var/Mod=1

@@ -327,24 +327,8 @@ mob
 				p.Attack()
 			else
 				p.Auto_Attack()
-		if(src.Health <= 15*(1-src.HealthCut))
-			if(Saga == "Cosmo" && SpecialBuff && seventhSenseTriggered == FALSE) // saint
-				if(SagaLevel == 4)
-					GetAndUseSkill(/obj/Skills/Buffs/SlotlessBuffs/SeventhSense, Buffs, TRUE)
-					seventhSenseTriggered = TRUE
 
 		if(src.Health <= 25*(1-src.HealthCut) && !src.HealthAnnounce25)
-			if(Saga == "Cosmo" && SpecialBuff && seventhSenseTriggered == FALSE) // saint
-				if(SagaLevel >= 5)
-					var/obj/Skills/Buffs/SlotlessBuffs/SeventhSense/SS = new()
-					SS = locate() in src
-					if(!SS)
-						SS = new
-						AddSkill(SS)
-					SS.Trigger(src, TRUE)
-					SS.passives = list("GodKi" = 0.25, "SpiritPower" = 0.25)
-					seventhSenseTriggered = TRUE
-
 
 			var/shonenMoment = ShonenPowerCheck(src)
 			if(shonenMoment)
@@ -498,14 +482,25 @@ mob
 					scrollTicker=0
 
 			if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive>0)
-				var/Drain = 10
-				if(race.transformations[transActive].mastery<75)
-					Drain=30
-				if(Drain>0)
-					if(src.Energy<Drain&&!src.HasNoRevert()&&!src.Dead&&!src.HasMystic())
+				var/cut_off = 0
+				var/drain = 0
+				if(race.transformations[transActive].mastery<100)
+					drain = glob.SSJ_BASE_DRAIN - (glob.SSJ_BASE_DRAIN * (race.transformations[transActive].mastery/100))
+					cut_off = glob.SSJ_BASE_CUT_OFF + (glob.SSJ_CUT_OFF_PER_MAST * (race.transformations[transActive].mastery/100))
+
+				if(drain>0)
+					src.LoseEnergy(drain)
+					var/_mastery = randValue(glob.SSJ_MIN_MASTERY_GAIN,glob.SSJ_MAX_MASTERY_GAIN)
+					if(glob.SSJ_TRANS_NUM_AS_MASTERY_MULT)
+						_mastery *= transActive
+						race.transformations[transActive].mastery+=_mastery
+						if(race.transformations[transActive].mastery>=95)
+							race.transformations[transActive].mastery=100
+					if(Energy < cut_off &&!src.HasNoRevert()&&!src.Dead&&!src.HasMystic())
 						src.Revert()
 						src.LoseEnergy(30)
 						src<<"The strain of Super Saiyan forced you to revert!"
+				
 /*
 			if(src.trans["active"]>3 && src.masteries["4mastery"]<100 && src.Race=="Changeling")
 				if(src.Energy<30&&!src.HasNoRevert())
@@ -1805,7 +1800,7 @@ mob
 						if(isplayer(src))
 							src:move_speed = MovementSpeed()
 					if(!src.KO)
-						var/amounttaken=2
+						var/amounttaken=glob.OXYGEN_DRAIN/glob.OXYGEN_DRAIN_DIVISOR
 						if(loc:Shallow==1)
 							amounttaken=0
 						if(src.PoseEnhancement&&src.Secret=="Ripple")
@@ -1820,13 +1815,14 @@ mob
 							amounttaken=0
 						if(src.FusionPowered)
 							amounttaken=0
-						src.Oxygen-=amounttaken
-						if(src.Oxygen<0)
-							src.Oxygen=0
-						if(src.Oxygen<10)
-							src.LoseEnergy(5)
-							if(src.TotalFatigue>=95)
-								src.Unconscious(null,"fatigue due to swimming! They will drown if not rescued!")
+						if(!PureRPMode)
+							src.Oxygen-=amounttaken
+							if(src.Oxygen<0)
+								src.Oxygen=0
+							if(src.Oxygen<10)
+								src.LoseEnergy(5)
+								if(src.TotalFatigue>=95)
+									src.Unconscious(null,"fatigue due to swimming! They will drown if not rescued!")
 					else
 						if(!isRace(DRAGON))
 							if(BreathingMaskOn==0)

@@ -391,6 +391,7 @@
 #include "_Reworks\race_rework\Android\ascension.dm"
 #include "_Reworks\race_rework\Namekian\namekRacials.dm"
 #include "_Reworks\race_rework\transformations\halfie\beast.dm"
+#include "_Reworks\race_rework\transformations\saiyan\godtransformations.dm"
 #include "_Reworks\Races\Beastman\buffs.dm"
 #include "_Reworks\Races\Demon\_Casting.dm"
 #include "_Reworks\Races\Demon\_DemonDefines.dm"

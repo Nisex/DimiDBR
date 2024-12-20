@@ -2133,7 +2133,7 @@ NEW VARIABLES
 			EndMult=1.3
 			StrMult=1.2
 			SpdMult=1.2
-			passives = list("EnergyGeneration" = 0.3, "ManaGeneration" = 0.1, "SoulFire" = 1, "PureDamage" = 1, "PureReduction" = 1, "LifeSteal" = 10)
+			passives = list("EnergyGeneration" = 3, "ManaGeneration" = 1, "SoulFire" = 1, "PureDamage" = 1, "PureReduction" = 1, "LifeSteal" = 10)
 			IconLock='SparkingBlastSparks.dmi'
 			IconLockBlend=2
 			OverlaySize=0.7
@@ -2151,7 +2151,7 @@ NEW VARIABLES
 				set category="Skills"
 				if(!usr.BuffOn(src))
 					if(!altered)
-						passives = list("EnergyGeneration" = 0.3, "ManaGeneration" = 0.1, "SoulFire" = 1, "PureDamage" = 1, "PureReduction" = 1, "LifeSteal" = 10)
+						passives = list("EnergyGeneration" = 3, "ManaGeneration" = 1, "SoulFire" = 1, "PureDamage" = 1, "PureReduction" = 1, "LifeSteal" = 10)
 					if(!src.Using)
 						usr.Activate(new/obj/Skills/AutoHit/Knockoff_Wave)
 				if(Trigger(usr))
@@ -4440,7 +4440,35 @@ NEW VARIABLES
 			verb/Camouflage()
 				set category="Skills"
 				src.Trigger(usr)
-
+		SaiyanBeyondGod
+			BuffName = "Beyond God"
+			SignatureTechnique=3
+			Mastery=-1
+			UnrestrictedBuff=1
+			StrMult=1.2
+			ForMult=1.2
+			EndMult=1.2
+			SpdMult=1.4
+			DefMult=1.4
+			passives = list("GodKi" = 0.5, "EnergyGeneration" = 5, "Godspeed" = 4, "Flow" = 5,  "BuffMastery" = 5, "PureDamage" = 1, "PureReduction" = 2, \
+								"BackTrack" = 2 , "StunningStrike" = 3, "Sunyata" = 5)
+			PUSpeedModifier=2
+			FlashChange=1
+			KenWave=5
+			KenWaveSize=1
+			KenWaveIcon='KenShockwaveDivine.dmi'
+			ActiveMessage="channels their divinity!"
+			OffMessage="releases their divine form..."
+			verb/Beyond_God()
+				set category="Skills"
+				if(!usr.BuffOn(src))
+					if(usr.transActive>0)
+						src << "You can't handle transforming while using divinity."
+						return
+					usr.transActive = 3
+				src.Trigger(usr)
+				if(!usr.BuffOn(src) && usr.transActive != 4)
+					usr.transActive = 0
 		Saiyan_Dominance
 			AutoAnger=1
 			passives = list("PridefulRage" = 1)
@@ -8227,7 +8255,7 @@ NEW VARIABLES
 				if(usr.EquippedSword()&&!projected)
 					usr << "You can't have a blade out to project a new one!"
 					return
-				if(!projected || ! !usr.EquippedSword())
+				if(!projected)
 					var/costCalculation = (length(currentBlade.Techniques) + length(currentBlade.passives) + currentBlade.Ascended + currentBlade.InnatelyAscended)/usr.SagaLevel
 					if(usr.UBWPath == "Feeble")
 						costCalculation /= 1 + usr.SagaLevel/6

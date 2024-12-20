@@ -422,7 +422,7 @@ SecretInfomation
 					if(!r)
 						p.AddSkill(new/obj/Skills/Queue/Rasengan)
 						p << "You have learned the Rasengan!"
-					focus.ManaStats = 2
+					focus.passives["ManaStats"] = 2
 					nextTierUp = 4
 				if(3)
 					p << "Your mastery of natural energy is coming close to its peak..."
@@ -444,7 +444,7 @@ SecretInfomation
 					if(!r)
 						p.AddSkill(new/obj/Skills/Projectile/Rasenshuriken)
 						p << "You have learned the Rasenshuriken!"
-					focus.ManaStats = 3
+					focus.passives["ManaStats"] = 3
 					nextTierUp = 4
 				if(5)
 					nextTierUp=999

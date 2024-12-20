@@ -104,6 +104,12 @@ proc/DarknessFlash(var/mob/Z, var/SetTime=0)
 			animate(T.client, color=list(0.5,0,0, 0,0.5,0, 0,0,0.5, 0,0,0), time = Time*0.5)
 			spawn(Time*1.5)
 				animate(T.client, color=null, time = Time*0.5)
+mob/proc/isSaiyanHalfie()
+	if(isRace(HALFSAIYAN))
+		if(race.ascensions[1].choiceSelected == /ascension/sub_ascension/half_saiyan/dominating)
+			return 1
+	return 0
+
 
 mob/proc/CanTransform()
 	if(src.CyberCancel&&!isRace(ANDROID))
@@ -134,6 +140,21 @@ mob/proc/CanTransform()
 			if(sb.NeedsTrans)
 				src<<"Your ascended transformation uses too much power to enter another level!"
 				return 0
+	if(isRace(SAIYAN) || isSaiyanHalfie())
+		if(race.transformations[4].type == /transformation/saiyan/super_saiyan_god)
+			if(transActive+1 == 4 && race.transformations[4].first_time)
+				// first time super saiyan god has special conditions
+				var/num_of_saiyans = 0
+				for(var/mob/player in party)
+					if(num_of_saiyans>=4) break
+					if(player == src)
+						continue
+					if((player.isRace(SAIYAN) || player.isRace(HALFSAIYAN)))
+						if(player.Transfering && player.Transfering == src)
+							num_of_saiyans++
+				if(num_of_saiyans<4)
+					src << "You can't transform into this form like that."
+					return 0
 	return 1
 
 mob/proc/CanRevert()
