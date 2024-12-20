@@ -4694,7 +4694,7 @@ obj
 				TurfStrike=1
 				TurfShift='amaterasu.dmi'
 				TurfShiftDuration=90
-				Cooldown=200
+				Cooldown=240
 				WoundCost=15
 				BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Busshitsukai_to_Hikari"
 				ActiveMessage="aims to incinerate their opponents in an ebony pyre!"
@@ -4738,7 +4738,7 @@ obj
 				TurfStrike=1
 				TurfShift='amaterasu.dmi'
 				TurfShiftDuration=90
-				Cooldown=180
+				Cooldown=240
 				WoundCost=10
 				BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Busshitsukai_to_Hikari"
 				ActiveMessage="aims to incinerate their opponents in an ebony pyre!"

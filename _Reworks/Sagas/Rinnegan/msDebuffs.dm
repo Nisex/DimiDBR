@@ -93,7 +93,7 @@ obj/blades
 	EndTaxDrain = 0.00005
 	EndTax = 0.01
 	EnergyDrain = 0.05
-	TimerLimit = 0
+	TimerLimit = 120
 	IconLock='DarknessFlameAura.dmi'
 	LockX=-32
 	LockY=-32
