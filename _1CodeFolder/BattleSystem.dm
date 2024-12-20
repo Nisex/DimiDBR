@@ -879,8 +879,9 @@ proc/getBackSide(mob/offender, mob/defender)
 /mob/Admin3/verb/SimulateAccuracyNOSTATCHANGE()
 	set category = "Debug"
 	var/self = input(src, "Use on self?") in list("Yes", "No")
+	var/mob/Player/p1 = src
 	if(self == "No")
-		src = input(src, "who") in players
+		p1 = input(src, "who") in players
 		Target = input(src, "who") in players
 	if(!Target) 
 		src<< "get an enemy"
@@ -891,26 +892,26 @@ proc/getBackSide(mob/offender, mob/defender)
 	var/misses = 0 
 	var/whiffs = 0
 	var/flowdodge = 0
-	var/obj/Items/Sword/s = EquippedSword()
-	var/obj/Items/Sword/s2 = EquippedSecondSword()
-	if(!s2 && UsingDualWield()) s2 = s
-	var/obj/Items/Sword/s3 = EquippedThirdSword()
-	if(!s3 && UsingTrinityStyle()) s3 = s
-	var/obj/Items/Enchantment/Staff/st = EquippedStaff()
-	var/obj/Items/Armor/atkArmor = EquippedArmor()
+	var/obj/Items/Sword/s = p1.EquippedSword()
+	var/obj/Items/Sword/s2 = p1.EquippedSecondSword()
+	if(!s2 && p1.UsingDualWield()) s2 = s
+	var/obj/Items/Sword/s3 = p1.EquippedThirdSword()
+	if(!s3 && p1.UsingTrinityStyle()) s3 = s
+	var/obj/Items/Enchantment/Staff/st = p1.EquippedStaff()
+	var/obj/Items/Armor/atkArmor = p1.EquippedArmor()
 	var/swordAtk = FALSE
 	if(s || s2 || s3)
 		swordAtk = TRUE
 	for(var/attempts in 1 to looplength)
 		var/newaccmult = accmult
-		var/list/itemMod = getItemDamage(list(s,s2,s3,st), 1, newaccmult, FALSE, FALSE, swordAtk)
+		var/list/itemMod = p1.getItemDamage(list(s,s2,s3,st), 1, newaccmult, FALSE, FALSE, swordAtk)
 		if(s)
 			newaccmult = itemMod[2]
 		if(atkArmor)
-			newaccmult *= GetArmorAccuracy(atkArmor)
+			newaccmult *= p1.GetArmorAccuracy(atkArmor)
 		if(Target.GetFlow())
 			var/enemyflow
-			var/instinct = HasInstinct()
+			var/instinct = p1.HasInstinct()
 			var/base_prob = glob.BASE_FLOW_PROB
 			var/result = 0
 			enemyflow = Target.GetFlow()
@@ -921,7 +922,7 @@ proc/getBackSide(mob/offender, mob/defender)
 			if(prob(base_prob*result))
 				flowdodge++
 				continue
-		var/result = Accuracy_Formula(src, Target, newaccmult, glob.WorldDefaultAcc, 0, 0)
+		var/result = Accuracy_Formula(p1, Target, newaccmult, glob.WorldDefaultAcc, 0, 0)
 		switch(result)
 			if(HIT)
 				hits++
@@ -929,7 +930,7 @@ proc/getBackSide(mob/offender, mob/defender)
 				whiffs++
 			if(MISS)
 				misses++
-	src <<"\nsimulated [looplength] times at \nhits:[hits]([round((hits/looplength)*100)]%)\nwhiffs:[whiffs]([round((whiffs/looplength)*100)]%)\nmisses:[misses]([round((misses/looplength)*100)]%)\nflowdodge:[flowdodge]([round((flowdodge/looplength)*100)]%)\nmissed [((misses+whiffs+flowdodge)/looplength)*100]% of the time"
+	src <<"\nsimulated [p1] vs [Target]  [looplength] times at \nhits:[hits]([round((hits/looplength)*100)]%)\nwhiffs:[whiffs]([round((whiffs/looplength)*100)]%)\nmisses:[misses]([round((misses/looplength)*100)]%)\nflowdodge:[flowdodge]([round((flowdodge/looplength)*100)]%)\nmissed [((misses+whiffs+flowdodge)/looplength)*100]% of the time"
 	src <<"simulating target vs src"
 	hits = 0 
 	misses = 0 
@@ -937,13 +938,13 @@ proc/getBackSide(mob/offender, mob/defender)
 	flowdodge = 0
 	s = Target.EquippedSword()
 	st = Target.EquippedStaff()
-	atkArmor = EquippedArmor()
+	atkArmor = Target.EquippedArmor()
 	swordAtk = FALSE
 	if(s || s2 || s3)
 		swordAtk = TRUE
 	for(var/attempts in 1 to looplength)
 		var/newaccmult = accmult
-		if(HasFlow())
+		if(p1.HasFlow())
 			var/flow
 			var/base_prob = glob.BASE_FLOW_PROB
 			var/result = 0
@@ -961,7 +962,7 @@ proc/getBackSide(mob/offender, mob/defender)
 			newaccmult = itemMod[2]
 		if(atkArmor)
 			newaccmult *= GetArmorAccuracy(atkArmor)
-		var/result = Accuracy_Formula(Target, src, newaccmult, glob.WorldDefaultAcc, 0, 0)
+		var/result = Accuracy_Formula(Target, p1, newaccmult, glob.WorldDefaultAcc, 0, 0)
 		switch(result)
 			if(HIT)
 				hits++
@@ -969,7 +970,7 @@ proc/getBackSide(mob/offender, mob/defender)
 				whiffs++
 			if(MISS)
 				misses++
-	src <<"\nsimulated [looplength] times at \nhits:[hits]([round((hits/looplength)*100)]%)\nwhiffs:[whiffs]([round((whiffs/looplength)*100)]%)\nmisses:[misses]([round((misses/looplength)*100)]%)\nflowdodge:[flowdodge]([round((flowdodge/looplength)*100)]%) missed [((misses+whiffs+flowdodge)/looplength)*100]% of the time"
+	src <<"\nsimulated [Target] vs [p1] [looplength] times at \nhits:[hits]([round((hits/looplength)*100)]%)\nwhiffs:[whiffs]([round((whiffs/looplength)*100)]%)\nmisses:[misses]([round((misses/looplength)*100)]%)\nflowdodge:[flowdodge]([round((flowdodge/looplength)*100)]%) missed [((misses+whiffs+flowdodge)/looplength)*100]% of the time"
 
 mob/var/minhitroll = 0
 /mob/Admin3/verb/SimulateAccuracy()

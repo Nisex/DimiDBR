@@ -785,7 +785,7 @@ mob/proc/
 								a=src.GetAngerThreshold()
 						if(src.DefianceCounter)
 							a+=src.DefianceCounter*0.05
-					if(src.CyberCancel>0)
+					if(src.CyberCancel>0 && !isRace(ANDROID))
 						var/ang=a-1//Usable anger.
 						var/cancel=ang*src.CyberCancel//1 Cyber Cancel = all of usable anger.
 						a-=cancel//take the anger away.

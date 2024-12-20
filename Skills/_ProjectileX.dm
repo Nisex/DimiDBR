@@ -4264,7 +4264,7 @@ obj
 						IconSize=2
 						EnergyCost=15
 						Cooldown=0
-						BeamTime=50
+						BeamTime=1
 
 					Final_Flash
 						SignatureTechnique=2

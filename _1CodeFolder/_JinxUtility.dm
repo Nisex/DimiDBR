@@ -1223,9 +1223,9 @@ mob
 
 
 
-			if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
-				if(src.race.transformations[transActive].mastery==100)
-					Mod+=0.1
+			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
+			// 	if(src.race.transformations[transActive].mastery==100)
+			// 		Mod+=0.1
 			if(glob.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.1 * AscensionsAcquired)
@@ -1352,9 +1352,9 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
-				if(src.race.transformations[transActive].mastery==100)
-					Mod+=0.1
+			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
+			// 	if(src.race.transformations[transActive].mastery==100)
+			// 		Mod+=0.1
 			if(glob.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.1 * AscensionsAcquired)
@@ -1459,9 +1459,9 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
-				if(src.race.transformations[transActive].mastery==100)
-					Mod+=0.1
+			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
+			// 	if(src.race.transformations[transActive].mastery==100)
+			// 		Mod+=0.1
 			if(glob.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.05 * AscensionsAcquired)
@@ -1558,9 +1558,9 @@ mob
 					Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
-				if(src.race.transformations[transActive].mastery==100)
-					Mod+=0.1
+			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
+			// 	if(src.race.transformations[transActive].mastery==100)
+			// 		Mod+=0.1
 			if(glob.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.05 * AscensionsAcquired)

@@ -134,6 +134,9 @@ mob/proc/CanTransform()
 	for(var/b in SlotlessBuffs)
 		var/obj/Skills/Buffs/sb = SlotlessBuffs[b]
 		if(sb)
+			if(sb.CantTrans)
+				src << "Your buff doesn't allow you to transform!"
+				return 0
 			if(sb.NeedsSSJ)
 				src<<"Your ascended super state uses too much power to enter another level!"
 				return 0
