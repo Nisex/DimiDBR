@@ -2326,7 +2326,7 @@ mob
 		CanBeSlowed()
 			if(src.HasLegendaryPower() > 0.75)
 				return 0
-			if(src.HasGodspeed()>=4)
+			if(src.HasGodspeed()>=glob.CAN_BE_SLOWED_GODSPEED)
 				return 0
 			if(isRace(ANDROID)/* || isRace(MAJIN)  */)
 				return 0

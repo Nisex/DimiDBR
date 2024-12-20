@@ -1,8 +1,4 @@
-/mob/verb/fixtransforms()
-	race.transformations[4].first_time = 0
-	race.transformations[4].unlock_potential = 1
-	for(var/transformation/t in race.transformations)
-		t.is_active = 0
+
 /transformation/saiyan/super_saiyan_god
 	passives = list("GodKi" = 0.5, "EnergyGeneration" = 1, "Godspeed" = 4, "Flow" = 4, "BackTrack" = 2, "StunningStrike" = 1, "Sunyata" = 1 )
 	unlock_potential = 80
