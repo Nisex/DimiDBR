@@ -73,7 +73,7 @@ Contract item
     if(alreadySigned(usr.key))
         usr << "You have already signed the contract"
         return
-    sign(usr.name, usr.key, usr)
+    signContract(usr.name, usr.key, usr)
 
 /obj/Items/Contract/verb/Break_Contract()
     if(usr.key != summon)
@@ -148,7 +148,7 @@ Contract item
 /obj/Items/Contract/proc/getSigKeys()
     return sigKeys
 
-/obj/Items/Contract/proc/sign(name,key, mob/p)
+/obj/Items/Contract/proc/signContract(name,key, mob/p)
     if(!usable)
         p << "The contract is broken and can not be signed"
         return

@@ -181,12 +181,20 @@ sagaTierUpMessages/Cosmo
 				SenseUnlocked++
 
 /obj/Skills/Buffs/SlotlessBuffs/SeventhSense // OLD
+
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/SeventhSense
 	BuffName = "Seventh Sense"
 	SenseUnlocked = 1
 	TooMuchHealth = 30
 	NeedsHealth = 15
 	WoundIntentRequired = TRUE
+	Cooldown = 180
 	ActiveMessage="burns their Cosmo with full strength and attains the Seventh Sense!!!"
 	OffMessage="has lost their Seventh Sense..."
-
+	passives = list("GodKi" = 0.25, "SpiritPower" = 0.25)
+	verb/SeventhSense()
+		set category = "Skills"
+		name ="Sevent Sense"
+		if(!usr.BuffOn(src))
+			adjust(usr)		
+		src.Trigger(usr)
