@@ -1423,9 +1423,10 @@ ascension
 				endurance = 0.25
 				onAscension(mob/owner)
 					. = ..()
-					for(var/transformation/saiyan/super_saiyan_3/ssj3 in owner.race.transformations)
-						owner.race.transformations -= ssj3
-						del ssj3
+					for(var/transformation/saiyan/ssj in owner.race.transformations)
+						if(istype(ssj, /transformation/saiyan/super_saiyan_3) || istype(ssj, /transformation/saiyan/super_saiyan_god) || istype(ssj, /transformation/saiyan/super_saiyan_blue))
+							owner.race.transformations -= ssj
+							del ssj
 					owner.race.transformations.Add(new/transformation/half_saiyan/human/ultimate_mode())
 					owner.race.transformations.Add(new/transformation/half_saiyan/human/beast_mode())
 			

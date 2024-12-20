@@ -906,7 +906,7 @@ proc/getBackSide(mob/offender, mob/defender)
 /mob/Admin3/verb/SimulateAccuracyNOSTATCHANGE()
 	set category = "Debug"
 	var/self = input(src, "Use on self?") in list("Yes", "No")
-	var/p1 = src
+	var/mob/Player/p1 = src
 	if(self == "No")
 		p1 = input(src, "who") in players
 		Target = input(src, "who") in players

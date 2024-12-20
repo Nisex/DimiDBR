@@ -14,6 +14,10 @@
 	pot_trans = 5
 	passives = list("Mystic" = 1, "PUSpike" = 65, "Godspeed" = 1.5, "Adaptation" = 4, \
 						"Brutalize" = 2, "LikeWater" = 6, "BuffMastery" = 2)
+	strength = 1.15
+	speed = 1.2
+	force = 1.15
+	offense = 1.2
 	proc/shockwaves(mob/p)
 		set waitfor = 0
 		for(var/wav=25, wav>0, wav--)
@@ -48,7 +52,7 @@
 	// one of these was holding it up
 	mastery_boons(mob/user)
 		// apply scaling passives here
-		passives = list("PUSpike" = user.Potential + round(mastery/2, 10), "Godspeed" = 1.5, "Adaptation" = 4, \
+		passives = list("Mystic" = 1,"PUSpike" = user.Potential + round(mastery/2, 10), "Godspeed" = 1.5, "Adaptation" = 4, \
 						"Brutalize" = 1.5, "LikeWater" = 6 + round(user.Potential/25, 1), "BuffMastery" = 2)
 		pot_trans = max(65, 65 + ((glob.progress.PotentialDaily * 10)- user.Potential))
 	adjust_transformation_visuals(mob/user)

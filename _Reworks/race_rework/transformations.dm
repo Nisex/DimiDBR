@@ -288,6 +288,12 @@ transformation
 			unlock_potential = 40
 			passives = list("Instinct" = 1, "Flow" = 1, "Flicker" = 1, "Pursuer" = 2,  "BuffMastery" = 3, "PureDamage" = 1, "PureReduction" = 1)
 			angerPoint = 75
+			strength = 1.05
+			speed = 1.05
+			force = 1.05
+			offense = 1.05
+			defense = 1.05
+			endurance = 1.05
 
 			adjust_transformation_visuals(mob/user)
 				if(!form_hair_icon&&user.Hair_Base)
@@ -355,6 +361,12 @@ transformation
 			autoAnger = TRUE
 			passives = list("Instinct" = 1, "Flow" = 1, "Flicker" = 1, "Pursuer" = 2, "BuffMastery" = 1, "PureDamage" = 1, "PureReduction" = 1)
 			PUSpeedModifier = 1.5
+			strength = 1.1
+			speed = 1.1
+			force = 1.1
+			offense = 1.1
+			defense = 1.1
+			endurance = 1.1
 			adjust_transformation_visuals(mob/user)
 				if(user.Hair_Base && !form_hair_icon)
 					var/icon/x=new(user.Hair_Base)
@@ -406,7 +418,12 @@ transformation
 			form_icon_1_icon = 'Hair_SSj3.dmi'
 			passives = list("Flicker" = 1, "Pursuer" = 1, "BuffMastery" = 2, "PureDamage" = 1, "PureReduction" = 1)
 			unlock_potential = 65
-
+			strength = 1.1
+			speed = 1.1
+			force = 1.1
+			offense = 1.1
+			defense = 1.1
+			endurance = 1.1
 			adjust_transformation_visuals(mob/user)
 				..()
 				form_icon_1 = image(user.Hair_SSJ3)
