@@ -11592,7 +11592,6 @@ NEW VARIABLES
 				ActiveMessage="momentarily releases their restraints and becomes a creature of darkness!"
 			Sennin_Mode
 				BuffName="Sage Mode"
-
 				ManaThreshold=125
 				TooLittleMana=50
 				passives = list("ManaLeak" = 2, "ManaStats" = 1, "DrainlessMana" = 1, "ManaFocus" = 1, "AllOutAttack" = 1, "SuperDash" = 1)
