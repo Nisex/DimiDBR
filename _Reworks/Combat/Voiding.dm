@@ -14,29 +14,31 @@
 /mob/var/extraVoidChance = 0
 
 /mob/proc/applyVoidNerf()
-	Maimed++
-	src << "After managing to survive, you're left with a maim."
-	/*
-	var/highestStat = 0
-	var/highestStatName = ""
-	for(var/i in 1 to 5)
-		if(BaseStr() > highestStat)
-			highestStat = GetStr()
-			highestStatName = "Str"
-		if(BaseEnd() > highestStat)
-			highestStat = GetEnd()
-			highestStatName = "End"
-		if(BaseFor() > highestStat)
-			highestStat = GetFor()
-			highestStatName = "For"
-		if(BaseDef() > highestStat)
-			highestStat = GetDef()
-			highestStatName = "Def"
-		if(BaseOff() > highestStat)
-			highestStat = GetOff()
-			highestStatName = "Off"
-	vars["[highestStatName]Cut"] += 0.1
-	src<<"After managing to survive, you are left with a permanent injury. Your [highestStatName] is cut by 10%."*/
+	if(glob.VoidMaim)
+		Maimed++
+		src << "After managing to survive, you're left with a maim."
+	if(glob.VoidCut)
+		var/highestStat = 0
+		var/highestStatName = ""
+		for(var/i in 1 to 5)
+			if(BaseStr() > highestStat)
+				highestStat = GetStr()
+				highestStatName = "Str"
+			if(BaseEnd() > highestStat)
+				highestStat = GetEnd()
+				highestStatName = "End"
+			if(BaseFor() > highestStat)
+				highestStat = GetFor()
+				highestStatName = "For"
+			if(BaseDef() > highestStat)
+				highestStat = GetDef()
+				highestStatName = "Def"
+			if(BaseOff() > highestStat)
+				highestStat = GetOff()
+				highestStatName = "Off"
+		var/statCutAmount = clamp(0, glob.VoidCut / 100, 1)
+		vars["[highestStatName]Cut"] += statCutAmount
+		src<<"After managing to survive, you are left with a permanent injury. Your [highestStatName] is cut by [statCutAmount]%."
 
 
 

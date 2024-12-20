@@ -104,10 +104,16 @@ globalTracker
 
 //Wipe Specific
 		list/GUILD_RANKINGS = list("Aegis" = 1, "Crimson Dawn" = 2, "Golden Circle" = 3, "Black Ifrit" = 5, "Revenants" = 6)
+
 		list/VOID_LOCATION = list(144,140,15)
 		list/currentlyVoidingLoc = list(150,150,1)
 		VoidsAllowed = 1
 		VoidChance = 78
+		VoidMaim = TRUE
+		VoidCut = 10
+		VOID_MESSAGE = ""
+		VOID_TIME = 15 MINUTES
+		SHOW_VOID_ROLL = 1
 
 		IGNORE_NOT_LOGGEDIN_LOGINS = TRUE
 
@@ -118,10 +124,6 @@ globalTracker
 		list/REGEN_LOCATION = list()
 		list/NO_SOUL_LOCATION = list(182, 288, 2)
 		HALF_DEMON_POTENTIAL_REQ = 50
-
-		VOID_MESSAGE = ""
-		VOID_TIME = 15 MINUTES
-		SHOW_VOID_ROLL = 1
 
 // - races
 		list/LockedRaces = list()
