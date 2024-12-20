@@ -242,7 +242,6 @@
 #include "_1CodeFolder\_PathFind.dm"
 #include "_1CodeFolder\_Ping.dm"
 #include "_1CodeFolder\_Reports(Credits to SSX).dm"
-#include "_1CodeFolder\_ResourceSpot.dm"
 #include "_1CodeFolder\_TIME.dm"
 #include "_1CodeFolder\_TransNew.dm"
 #include "_1CodeFolder\_updateLoop.dm"

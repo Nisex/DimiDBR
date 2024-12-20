@@ -2482,39 +2482,7 @@ obj/Skills/Utility
 			set name="Monitoring Frequency"
 			set src in usr
 			src.MonitoringFrequency=input(usr,"Change your Internal Communicator Monitoring frequency to what?","Monitoring Frequency")as num
-		verb/Detect()
-			set category=null
-			set src in usr
-			if(src.Detecting)
-				return
-			src.Detecting=1
-			usr << "<font color='green'><i>Scanning...</i></font>"
-			for(var/obj/ResourceSpot/RS in world)
-				if(RS.z==usr.z)
-					var/Distance=(abs(RS.x-usr.x)+abs(RS.y-usr.y))
-					if(Distance<50)
-						var/FontTag
-						switch(RS.suffix)
-							if("(Small)")
-								FontTag="font color='green'>"
-							if("(Moderate)")
-								FontTag="font color='yellow'>"
-							if("(Large)")
-								FontTag="font color='orange'>"
-							if("(Major)")
-								FontTag="font color='red'>"
-							else
-								FontTag="font color='white'>"
-						usr << "<font color='green'><b>Resource Spot - <[FontTag][RS.GetValue(src.Range)]</[FontTag] - [Distance] tiles [usr.CheckDirection(RS)]</b></font color>"
-						if(RS.alpha==50)
-							RS.invisibility=0
-							animate(RS, alpha=255, time=3)
-							spawn(200)
-								animate(RS, alpha=50, time=3)
-								sleep(3)
-								RS.invisibility=98
-			spawn(10)
-				src.Detecting=0
+
 		verb/Scan()
 			set src in usr
 			if(!src.suffix=="*Equipped*")

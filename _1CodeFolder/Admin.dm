@@ -435,9 +435,6 @@ proc/ConvertTime(var/amount)
 	var/end=round(size)
 	return "[Value(end,1)] [ending]\s"
 
-var/list/Writing=new
-
-
 proc/ExtractInfo(var/x)
 	if(istype(x,/mob))
 		if(x:client)
@@ -558,11 +555,6 @@ mob/proc/PM2(var/mob/who)
 /mob/var/PingSound = TRUE
 
 mob/Admin3/verb
-
-	CheckRace(mob/Players/m in players)
-		set category = "Admin"
-		usr << "[m] is a [m.race.name]."
-
 	editRace(mob/Players/m in players)
 		set category = "Admin"
 		usr:Edit(m.race)
@@ -618,17 +610,9 @@ mob/Admin3/verb
 				for(var/o in m.knowledgeTracker.learnedKnowledge)
 					src << "[o]"
 
-	TurfInvincibleToggle(var/mob/M in world)
-		set category="Admin"
-		if(M.TurfInvincible)
-			M.TurfInvincible=0
-			Log("Admin","[ExtractInfo(usr)] has disabled [M.key]'s Build Invincible Turfs flag.")
-		else
-			M.TurfInvincible=1
-			Log("Admin","[ExtractInfo(usr)] has enable [M.key]'s Build Invincible Turfs flag.")
-
 	FPSControl(fpsadjust as num)
 		set category="Admin"
+		set hidden = 1
 		world.fps=fpsadjust
 		Log("Admin","World FPS adjusted to [fpsadjust] by [ExtractInfo(usr)].")
 
@@ -1012,34 +996,7 @@ mob/Admin2/verb
 
 		usr << browse(Edit, "window=[A];size=450x600")
 
-
-/*
-TO BE CORRECTED
-
-	ManuallyCheckLog(var/x as text)
-		set category="Admin"
-		usr.SegmentLogs("Saves/PlayerLogs/[x]/Log")
-
-	ManuallyCheckTempLog(var/x as text)
-		set category="Admin"
-		usr.SegmentTempLogs("Saves/PlayerLogs/[x]/Log")
-
-	ManuallyCheckSkillLog(var/x as text)
-		set category="Admin"
-		usr.SegmentSkillLogs("Saves/PlayerLogs/[x]/Log")*/
-
 mob/Admin3/verb
-	EditAdminNotes()
-		set category="Admin"
-		if(!Writing["AdminNotes"])
-			Writing["AdminNotes"]=1
-			for(var/mob/M in admins) M<<"[usr] is editing the admin notes..."
-			AdminNotes=input(usr,"Notes!","Edit Notes",AdminNotes) as message
-			for(var/mob/F in admins) F<<"[usr] is done editing the admin notes..."
-			Writing["AdminNotes"]=null
-			BootFile("Misc","Save")
-		else usr<<"<b>Someone is already editing the Admin Notes."
-
 	ToggleOOCWorld()
 		set category="Admin"
 		Allow_OOC=!Allow_OOC
@@ -1099,125 +1056,6 @@ mob/Admin3/verb
 			Punishment("Action=Remove&Punishment=Mute&[blah]=[person]")
 			Log("Admin","[ExtractInfo(usr)] unmuted [person].")
 
-	MassTurfUpgrade()
-		set category="Admin"
-		var/warning=input("WARNING: This will cause significant lag if used improperly. Proceed?")in list("Yes","No")
-		if(warning=="No")
-			return
-		else
-			var/simulatedintellevel=input("Input the intel level you wish to upgrade turfs to. Max of 500.")as num
-			if(simulatedintellevel>500)
-				simulatedintellevel=500
-			if(simulatedintellevel<1)
-				simulatedintellevel=1
-			var/turfupgrademode=input("Select a option.")in list("Upgrade on current z","Upgrade all player made","Upgrade ALL")
-			if(turfupgrademode=="Upgrade on current z")
-				var/turf/TurfScan
-				for(TurfScan in block(locate(1,1,usr.z),locate(world.maxx,world.maxy,usr.z)))
-					TurfScan.Health=max(TurfScan.Health,simulatedintellevel*simulatedintellevel*750000)
-			if(turfupgrademode=="Upgrade all player made")
-				var/turf/TurfScan
-				for(TurfScan in Turfs)
-					TurfScan.Health=max(TurfScan.Health,simulatedintellevel*simulatedintellevel*750000)
-			if(turfupgrademode=="Upgrade ALL")
-				var/turf/TurfScan
-				for(TurfScan in world)
-					TurfScan.Health=max(TurfScan.Health,simulatedintellevel*simulatedintellevel*750000)
-
-	TurfReplace(atom/turfClicked in world)
-		set category="Admin"
-		var/SaveDemTurfs=input("Save the turfs you're going to terraform? This is unrecommended for oceans as it will massively bloat the turf save.")in list ("Yes","No")
-		var/list/TurfsInGame=new
-		var/TurfsReplaced=0
-		var/clickedType = turfClicked.type
-		TurfsInGame+=typesof(/turf)
-		var/turf/turfreplacer=input("Pick a turf. This likely will lag the server if done on a turf that's very common on a world, like the oceans.")in TurfsInGame
-		var/turf/TurfScan
-		var/totalcount
-		for(TurfScan in block(locate(1,1,usr.z),locate(world.maxx,world.maxy,usr.z)) )
-			totalcount++
-			if(istype(TurfScan,clickedType))
-				if(!turfClicked.Builder)
-					var/turf/TR=new turfreplacer(locate(TurfScan.x,TurfScan.y,TurfScan.z))
-					TurfsReplaced++
-					if(SaveDemTurfs=="Yes")
-						if(istype(TR,/turf/CustomTurf))
-							CustomTurfs+=TR
-						else
-							Turfs+=TR
-			sleep(0) // sleep as short as possible
-		Log("Admin","[ExtractInfo(usr)] has replaced [TurfsReplaced]/[totalcount] [turfClicked] on Z Plane [usr.z] with [turfreplacer]. Saved: [SaveDemTurfs]")
-
-	TurfDestroyer()
-		set category="Admin"
-		var/CustomTurfsDeleted=0
-		var/RegularTurfsDeleted=0
-		var/confirmation=input("WARNING: This command will clear all turfs on a single Z plane, notably the one you are on. Using this in non emergency situations will result in you being fired.")in list ("No","Yes")
-		switch(confirmation)
-			if("Yes")
-				for(var/turf/A in block(locate(1,1,usr.z),locate(world.maxx,world.maxy,usr.z)))
-					if(istype(A,/turf/CustomTurf))
-						CustomTurfs-=A
-						Turfs-=A
-						CustomTurfsDeleted++
-					else
-						Turfs-=A
-						RegularTurfsDeleted++
-					sleep(0)
-				Log("Admin","[ExtractInfo(usr)] has cleared the turfs located on Z plane [usr.z], deleting [CustomTurfsDeleted] Custom turfs, and [RegularTurfsDeleted] non-custom turfs.")
-
-	ObjectDestroyer()
-		set category="Admin"
-		var/ObjectsDeleted=0
-		var/confirmation=input("WARNING: This command will clear all objects on a single Z plane, notably the one you are on. Using this in non emergency situations will result in you being fired. And likely make Raiishi cry.")in list ("No","Yes")
-		switch(confirmation)
-			if("Yes")
-				for(var/turf/t in block(locate(1,1,usr.z),locate(world.maxx,world.maxy,usr.z)))
-					for(var/obj/A in t.contents)
-						ObjectsDeleted++
-						del(A)
-						sleep(0)
-		Log("Admin","[ExtractInfo(usr)] has cleared the objects located on Z plane [usr.z], deleting [ObjectsDeleted] objects.")
-
-	Transfer(mob/Players/M in players,F as file)
-		switch(alert(M,"[usr] is trying to send you [F] ([File_Size(F)]). Accept?","","Yes","No"))
-			if("Yes")
-				usr<<"[M] accepted the file"
-				M<<ftp(F)
-			if("No") usr<<"[M] declined the file"
-
-	TurfAnnihilatorSpecific()
-		set category="Admin"
-		var/CustomTurfsDeleted=0
-		var/RegularTurfsDeleted=0
-		var/confirmation=input("WARNING: This command will clear all turfs on a single Z plane made by a person you'll be inputting next, notably the one you are on. Using this in non emergency situations will result in you being fired.")in list ("No","Yes")
-		var/ckeyinput=input("Enter the ckey name. ckeys are the same as regular keys but all lowercase. If you are not certain and they are still online, edit them and look for their ckey variable and put that here.")as text
-		switch(confirmation)
-			if("Yes")
-				for(var/turf/A in block(locate(1,1,usr.z),locate(world.maxx,world.maxy,usr.z)))
-					if(A.Builder==ckeyinput)
-						if(istype(A,/turf/CustomTurf))
-							CustomTurfs-=A
-							Turfs-=A
-							CustomTurfsDeleted++
-						else
-							Turfs-=A
-							RegularTurfsDeleted++
-					sleep(0)
-				Log("Admin","[ExtractInfo(usr)] has cleared the turfs built by [ckeyinput] located on Z plane [usr.z], deleting [CustomTurfsDeleted] Custom turfs, and [RegularTurfsDeleted] non-custom turfs.")
-
-	TurfAnnihilator()
-		set category="Admin"
-		var/turfsdestroyed=0
-		var/destroyradius=input("WARNING: This command destroys turfs within the radius you input. If you don't want to do this, put in zero.") as num
-		if(destroyradius==0)
-			return
-		for(var/turf/Destroyer in range(destroyradius,usr))
-			turfsdestroyed++
-			Destroy(Destroyer,9001)
-		usr<<"[turfsdestroyed]"
-		Log("Admin","[ExtractInfo(usr)] has used Turf Annihilator, and successfully deleted [turfsdestroyed] turfs.")
-
 	UnlockAscension(var/mob/m in players)
 		set category="Admin"
 		if(m.passive_handler.Get("Piloting"))
@@ -1270,61 +1108,7 @@ mob/Admin3/verb
 			Punishment("Action=Remove&Punishment=Ban&[blah]=[person]")
 			Log("Admin","[ExtractInfo(usr)] unbanned [person].")
 
-	CancelEditLocks()
-		set category="Admin"
-		Writing["Story"]=null
-		Writing["Notes"]=null
-		Writing["Ranks"]=null
-		Writing["Rules"]=null
-		Log("Admin","[ExtractInfo(usr)] canceled all edit locks.")
-	EditStory()
-		set category="Admin"
-		if(!Writing["Story"])
-			Writing["Story"]=1
-			for(var/mob/M in admins) M<<"Admin is editing the story..."
-			Story=input(usr,"Edit!","Edit Story",Story) as message
-			for(var/mob/F in admins) F<<"Admin is done editing the story..."
-			Writing["Story"]=null
-			BootFile("Misc","Save")
-		else usr<<"<b>Someone is already editing the story."
-	EditNotes()
-		set category="Admin"
-		if(!Writing["Notes"])
-			Writing["Notes"]=1
-			for(var/mob/M in admins) M<<"Admin is editing the log-in notes..."
-			Notes=input(usr,"Notes!","Edit Notes",Notes) as message
-			for(var/mob/F in admins) F<<"Admin is done editing the log-in notes..."
-			Writing["Notes"]=null
-			BootFile("Misc","Save")
-		else usr<<"<b>Someone is already editing the log-in notes."
-	EditRanks()
-		set category="Admin"
-		if(!Writing["Ranks"])
-			Writing["Ranks"]=1
-			for(var/mob/M in admins) M<<"Admin is editing the ranks..."
-			Ranks=input(usr,"Edit!","Edit Ranks",Ranks) as message
-			for(var/mob/F in admins) F<<"Admin is done editing the ranks..."
-			Writing["Ranks"]=null
-			BootFile("Misc","Save")
-		else usr<<"<b>Someone is already editing the story."
 
-/*
-	CreateSpawnPoint()
-		set category="Admin"
-		var/confirm=input("You are creating a spawn point. Once created, the races you select can spawn here. Proceed?") in list("Yes","No")
-		if(confirm=="Yes")
-			var/obj/Special/SpawnPoint/SP=new/obj/Special/SpawnPoint
-			var/races=input("Pick a race to add to the new spawn point!") in list("Cancel","All", "Human", "Half Saiyan", "Makyo", "Namekian", "Saiyan", "Tuffle", "Monster", "Shinjin", "Demon", "Majin", "Dragon", "Alien", "Android", "Changeling")
-			if(races=="Cancel")
-				del(SP)
-				return
-			else
-				SP.RacesAllowed+=races
-				SP.Savable=1
-				SP.DefaultSpawn=0
-				SP.loc=usr.loc
-		else
-			return*/
 	RPP_Set_Starting(var/val as num|null)
 		set category="Admin"
 		if(val==null || !val)
@@ -1500,27 +1284,7 @@ mob/Admin3/verb
 		set category="Admin"
 		m.Admin("RemoveMapper")
 		Log("Admin", "[ExtractInfo(usr)] has removed [ExtractInfo(m)]'s mapper powers!")
-	MakeResourceSpot()
-		set category="Admin"
-		var/val=input(src, "What value will this spot produce?", "Make Resource Spot") as num|null
-		if(!val||val==null||val<=0)
-			return
-		var/obj/ResourceSpot/RS=new/obj/ResourceSpot
-		RS.loc = src.loc
-		RS.Value=val
-		if(RS.Value==glob.progress.EconomyIncome*2)
-			RS.transform*=2
-			RS.suffix="(Small)"
-		else if(RS.Value==glob.progress.EconomyIncome*4)
-			RS.transform*=2.5
-			RS.suffix="(Moderate)"
-		else if(RS.Value==glob.progress.EconomyIncome*6)
-			RS.transform*=3
-			RS.suffix="(Large)"
-		else
-			RS.transform*=5
-			RS.suffix="(Major)"
-		Log("Admin", "[ExtractInfo(usr)] made a new resource spot that produces [RS.Value] at ([RS.x], [RS.y], [RS.z]).")
+
 	Give_Money(var/mob/m in players, var/num as num)
 		set category="Admin"
 		set name="Give Money"
@@ -1529,15 +1293,6 @@ mob/Admin3/verb
 			Highest=m.EconomyMult
 		m.GiveMoney(num*Highest)
 		Log("Admin","[ExtractInfo(usr)] increased [m]'s money by [Commas(num)] (x[Highest] economy mult).")
-	Give_Money_All(var/num as num)
-		set category="Admin"
-		var/Highest
-		for(var/mob/Players/m in players)
-			Highest=glob.progress.EconomyMult
-			if(m.EconomyMult>Highest)
-				Highest=m.EconomyMult
-			m.GiveMoney(num*Highest)
-		Log("Admin","[ExtractInfo(usr)] increased everyone's money by [Commas(num)].")
 
 	Adminize(mob/z in players)
 		set category="Admin"
@@ -1560,17 +1315,7 @@ mob/Admin3/verb
 			Duration=Value(world.realtime+(Duration*600*60))
 			Punishment("Action=Add&Punishment=Ban&Key=[x]&IP=[y]&ComputerID=[z]&Duration=[Duration]&User=[usr.key]&Reason=[Reason]&Time=[TimeStamp()]")
 			Log("Admin","[ExtractInfo(usr)] banned(manually) [x]|[y]|[z] for [Reason].")
-	MassRevive()
-		set category="Admin"
-		var/summon=0
-		if(Alert("You sure you want to mass revive?"))
-			Log("Admin","<font color=blue>[ExtractInfo(usr)] mass revived!")
-			switch(input("Summon them to you?", "", text) in list ("No", "Yes",))
-				if("No") summon=0
-				if("Yes") summon=1
-			for(var/mob/M) if(M.Dead)
-				M.Revive()
-				if(summon) M.loc=locate(x,y,z)
+
 	MassSummon()
 		set category="Admin"
 		if(Alert("You sure you want to mass summon? You require express permission from no one in order to use this."))
@@ -1580,17 +1325,6 @@ mob/Admin3/verb
 				if("Monsters") for(var/mob/M) if(!M.client) M.loc=locate(x+rand(-10,10),y+rand(-10,10),z)
 				if("Both") for(var/mob/M) M.loc=locate(x,y,z)
 
-
-	EditRules()
-		set category="Admin"
-		if(!Writing["Rules"])
-			Writing["Rules"]=1
-			for(var/mob/M in admins) M<<"[usr] is editing the rules..."
-			Rules=input(usr,"Edit!","Edit Rules",Rules) as message
-			for(var/mob/F in admins) F<<"[usr] is done editing the rules..."
-			Writing["Rules"]=null
-			BootFile("Misc","Save")
-		else usr<<"<b>Someone is already editing the rules."
 	DeleteSave(mob/Players/M in players)
 		set category="Admin"
 		switch(input(usr,"Delete [M]'s save?") in list("No","Yes"))

@@ -2870,10 +2870,6 @@ mob
 			if(Money>=Value)
 				return 1
 			return 0
-		HasRadar()
-			for(var/obj/Items/Tech/Radar/r in src)
-				return 1
-			return 0
 		HasManaCapacity(var/Value)
 			var/Total=0
 			if(!isRace(ANDROID)&&!HasMechanized())

@@ -2253,12 +2253,6 @@ mob
 			for(var/obj/Money/m2 in src)
 				defender.icon=m2.icon
 			src.TakeMoney(defender.Level)
-		GetRadarRange()
-			var/Highest=0
-			for(var/obj/Items/Tech/Radar/r in src)
-				if(r.Range>Highest)
-					Highest=r.Range
-			return Highest
 
 		TriggerBinding()
 			if(Binding&&src.z!=src.Binding[3])

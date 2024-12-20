@@ -2048,62 +2048,6 @@ obj/Items/Tech
 					src.AudioRange=3
 			else
 				usr<<"Incorrect password. Disengaging interface."
-	Megaphone
-
-
-	Radar
-		Health=10
-		TechType="AdvancedTransmissionTechnology"
-		SubType="Any"
-		icon='Radar.dmi'
-		Cost=0.5
-		var/Range=1
-		var/tmp/Detecting=0
-		desc="Use this to find resource spots."
-		verb
-			Detect()
-				set category=null
-				set src in usr
-				if(src.Detecting)
-					return
-				src.Detecting=1
-				usr << "<font color='green'><i>Scanning...</i></font>"
-				for(var/obj/ResourceSpot/RS in world)
-					if(RS.z==usr.z)
-						var/Distance=(abs(RS.x-usr.x)+abs(RS.y-usr.y))
-						if(Distance<src.Range*20)
-							var/FontTag
-							switch(RS.suffix)
-								if("(Small)")
-									FontTag="font color='green'>"
-								if("(Moderate)")
-									FontTag="font color='yellow'>"
-								if("(Large)")
-									FontTag="font color='orange'>"
-								if("(Major)")
-									FontTag="font color='red'>"
-								else
-									FontTag="font color='white'>"
-							usr << "<font color='green'><b>Resource Spot - <[FontTag][RS.GetValue(src.Range)]</[FontTag] - [Distance] tiles [usr.CheckDirection(RS)]</b></font color>"
-							if(RS.alpha==50)
-								RS.invisibility=0
-								animate(RS, alpha=255, time=3)
-								spawn(200)
-									animate(RS, alpha=50, time=3)
-									sleep(3)
-									RS.invisibility=98
-				spawn(10)
-					src.Detecting=0
-		verb
-			Upgrade()
-				set category=null
-				set src in usr
-				if(src.Range>=3*usr.AdvancedTransmissionTechnologyUnlocked)
-					usr << "This radar is as upgraded as you can make it!"
-					return
-				else
-					src.Range=3*usr.AdvancedTransmissionTechnologyUnlocked
-					OMsg(usr, "[usr] upgrades their [src]!")
 
 	Scouter
 		Health=5
@@ -2115,46 +2059,6 @@ obj/Items/Tech
 		var/Range=1
 		var/tmp/Detecting=0
 		desc="This device uses technology to guage the power of the enemy. It can also find money. \n(Warning: This device isn't always accurate, and can be fooled by certain techniques.) \n((No Refunds))"
-		verb/Scouter_Detect()
-			set category=null
-			set src in usr
-			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
-				OMsg(usr, "[src] explodes in [usr]'s hand!")
-				del src
-				return
-			if(src.Detecting)
-				return
-			if(!src.suffix=="*Equipped*")
-				usr << "You have to equip the scouter to use it!"
-				return
-			src.Detecting=1
-			usr << "<font color='green'><i>Scanning...</i></font>"
-			for(var/obj/ResourceSpot/RS in world)
-				if(RS.z==usr.z)
-					var/Distance=(abs(RS.x-usr.x)+abs(RS.y-usr.y))
-					if(Distance<src.Range*10)
-						var/FontTag
-						switch(RS.suffix)
-							if("(Small)")
-								FontTag="font color='green'>"
-							if("(Moderate)")
-								FontTag="font color='yellow'>"
-							if("(Large)")
-								FontTag="font color='orange'>"
-							if("(Major)")
-								FontTag="font color='red'>"
-							else
-								FontTag="font color='white'>"
-						usr << "<font color='green'><b>Resource Spot - <[FontTag][RS.GetValue(src.Range)]</[FontTag] - [Distance] tiles [usr.CheckDirection(RS)]</b></font color>"
-						if(RS.alpha==50)
-							RS.invisibility=0
-							animate(RS, alpha=255, time=3)
-							spawn(200)
-								animate(RS, alpha=50, time=3)
-								sleep(3)
-								RS.invisibility=98
-			spawn(10)
-				src.Detecting=0
 		verb/Scouter_Scan()
 			set src in usr
 			if(!(world.realtime>src.InternalTimer+Second(5)))
