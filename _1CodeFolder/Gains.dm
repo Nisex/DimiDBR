@@ -1816,7 +1816,7 @@ mob
 						if(isplayer(src))
 							src:move_speed = MovementSpeed()
 					if(!src.KO)
-						var/amounttaken=2
+						var/amounttaken=glob.OXYGEN_DRAIN/glob.OXYGEN_DRAIN_DIVISOR
 						if(loc:Shallow==1)
 							amounttaken=0
 						if(src.PoseEnhancement&&src.Secret=="Ripple")
@@ -1831,13 +1831,14 @@ mob
 							amounttaken=0
 						if(src.FusionPowered)
 							amounttaken=0
-						src.Oxygen-=amounttaken
-						if(src.Oxygen<0)
-							src.Oxygen=0
-						if(src.Oxygen<10)
-							src.LoseEnergy(5)
-							if(src.TotalFatigue>=95)
-								src.Unconscious(null,"fatigue due to swimming! They will drown if not rescued!")
+						if(!PureRPMode)
+							src.Oxygen-=amounttaken
+							if(src.Oxygen<0)
+								src.Oxygen=0
+							if(src.Oxygen<10)
+								src.LoseEnergy(5)
+								if(src.TotalFatigue>=95)
+									src.Unconscious(null,"fatigue due to swimming! They will drown if not rescued!")
 					else
 						if(!isRace(DRAGON))
 							if(BreathingMaskOn==0)
