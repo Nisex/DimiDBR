@@ -72,10 +72,6 @@
 		KenShockwave2(user, icon='KenShockwaveGold.dmi', Size=70, Time = 45)
 		user.Earthquake(60,-8,8,-8,8,999)
 
-
-
-
-
 /transformation/half_saiyan/human/beast_mode // XD
 
 	passives = list("Hidden Potential" = 1)
