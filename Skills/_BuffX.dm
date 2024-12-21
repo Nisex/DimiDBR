@@ -13805,6 +13805,8 @@ mob
 			if(B.FlashChange)
 				src.MobColor=list(1,0,0, 0,1,0, 0,0,1, 0,0,0)
 				animate(src, color = src.MobColor, time=10)
+			if(B.PowerGlows)
+				FlickeringGlow=0
 
 			if(B.VanishImage)
 				src.VanishPersonal=null

@@ -709,7 +709,7 @@ window "mainwindow"
 		background-color = #000000
 		is-default = true
 		saved-params = "pos;size;is-maximized"
-		title = "Roleplay Rebirth: Giga Tower"
+		title = "Roleplay Rebirth: Copenlagen"
 		statusbar = false
 		macro = "macro"
 		menu = "menu"

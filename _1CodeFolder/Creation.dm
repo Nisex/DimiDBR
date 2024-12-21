@@ -317,7 +317,6 @@ mob/Players
 		if(src.StasisSpace)
 			spawn()animate(src.client, color = list(-1,0,0, 0,-1,0, 0,0,-1, 0,1,1))
 
-		spawn()src.FlickeringGlow(src)
 		spawn()src.WindupGlow(src)
 		var/obj/Items/Sword/sord
 		for(var/obj/Items/Sword/s in src)

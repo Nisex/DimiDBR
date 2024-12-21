@@ -5,8 +5,8 @@ var/tmp/list/players = list()
 var/tmp/list/admins = list()
 
 world
-	name="Roleplay Rebirth: JCBal Edition"
-	status="A Walk Through Space"
+	name="Roleplay Rebirth: Dimtri Edition"
+	status="Copenlagen: Modern"
 	turf=/turf/Special/Blank
 	mob= /mob/Creation
 	hub="AmatsuDarkfyre.RoleplayRebirth"
