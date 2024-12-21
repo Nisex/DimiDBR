@@ -380,6 +380,7 @@ mob/Players
 		if(Secret == "Vampire")
 			//TODO add blood hud here
 			Secret = "Vampire"
+			
 
 
 		if(AllowObservers)

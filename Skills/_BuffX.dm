@@ -9849,19 +9849,19 @@ NEW VARIABLES
 						StrMult=1.25
 						OffMult=1.25
 						EndMult=1.5
-						passives = list("Juggernaut" = 1, "Deflection" = 0.5, "WeaponBreaker" = 2, "Disorienting" = 2,"Momentum" = 1, "CallousedHands" = 0.3)
+						passives = list("Juggernaut" = 1, "Deflection" = 0.5, "WeaponBreaker" = 2, "Disorienting" = 2,"Momentum" = 1, "CallousedHands" = 0.15)
 						ActiveMessage="achieves the peak of their breakthrough..."
 						OffMessage="comes back down to mortal level..."
 					Emergent_Demon_Breakthrough
 						StyleNeeded="Divine Arts of The Heavenly Demon"
-						passives = list("Hardening" = 1.5, "Deflection" = 2, "UnarmedDamage" = 2, "CounterMaster" = 10, "Momentum" = 2, "CallousedHands" = 0.6)
+						passives = list("Hardening" = 1.5, "Deflection" = 2, "UnarmedDamage" = 2, "CounterMaster" = 10, "Momentum" = 2, "CallousedHands" = 0.3)
 						StrMult=1.5
 						SpdMult=1.5
 						ActiveMessage="presses on the cusp of the Ultimate Heavenly Demon Realm!"
 						OffMessage="fails their tribulation..."
 					Chi_Augmentation
 						StyleNeeded="Iron Fist Style"
-						passives = list("Godspeed" = 3, "UnarmedDamage" = 2, "StunningStrike" = 3, "CallousedHands" = 1, "HardenedFrame" = 1, "EnergySteal" = 100)
+						passives = list("Godspeed" = 3, "UnarmedDamage" = 2, "StunningStrike" = 3, "CallousedHands" = 0.5, "HardenedFrame" = 1, "EnergySteal" = 100)
 						EndMult=1.5
 						OffMult=1.5
 						ActiveMessage="channels Chi through their very body!"

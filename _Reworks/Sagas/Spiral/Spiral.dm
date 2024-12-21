@@ -254,13 +254,12 @@ mob/tierUpSaga(path)
 		if(p.Saga == "King of Braves" || p.Saga == "Spiral")
 			var/sl = p.SagaLevel
 			ControlledRush = 5 + sl
-			AdaptRate = 1.5 + (0.1 * sl)
+			AdaptRate = 1.1 + (0.15 * sl)
 			Size = 1 + sl
 			TurfStrike = Size
-			WindUp = 0.75 + (0.25 * sl)
-			DamageMult = (1 + (round(sl/3))) * max(0.5 + WindUp, 1)
-			Rounds = 18 - (sl * 2)
-			EndDefense = 1 - (0.05 * sl)
+			WindUp = 0.1 + (0.15 * sl)
+			DamageMult = (0.65 + (round(sl/3))) * max(0.15 + WindUp, 1)
+			Rounds = 12 - (sl * 2)
 			PullIn = max(0, sl - 4)
 			Primordial = round(sl/4)
 			Executor = max(sl, 5)
