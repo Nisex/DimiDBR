@@ -429,6 +429,7 @@
 #include "_Reworks\Sagas\Finn\FinnSword.dm"
 #include "_Reworks\Sagas\Kamui\kamui.dm"
 #include "_Reworks\Sagas\Kamui\oldbuffs.dm"
+#include "_Reworks\Sagas\Mecha\KoC\courage.dm"
 #include "_Reworks\Sagas\Rinnegan\msDebuffs.dm"
 #include "_Reworks\Sagas\Rinnegan\rinneganBuff.dm"
 #include "_Reworks\Sagas\Rinnegan\rinneganSkills.dm"

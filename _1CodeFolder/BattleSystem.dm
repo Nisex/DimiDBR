@@ -366,7 +366,6 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 		if(src.BloodPower>=2)
 			var/obj/Items/Sword/s=P.EquippedSword()
 			var/obj/Items/Enchantment/Staff/st=P.EquippedStaff()
-			var/adjust = 0
 			if(s||st)
 				if((s && s.Element=="Silver")||(st && st.Element=="Silver"))
 					adjust = 1

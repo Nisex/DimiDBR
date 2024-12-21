@@ -65,3 +65,5 @@ sagaInfo
 	var/list/choicePassives = list()
 	var/list/chosenChoices = list()
 	var/list/skillsPerTier = list()
+	var/list/choicesPaths = list()
+	var/list/pathsPicked = list()
