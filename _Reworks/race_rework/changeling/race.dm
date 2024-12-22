@@ -6,7 +6,7 @@ race
 		name = "Changeling"
 		icon_neuter	=	list('Chilled1.dmi')
 		gender_options = list("Neuter")
-		desc	=	"Adaptive, strange beings."
+		desc	=	"Twisted and changed by Mortis’ influence, these poor souls have been splintered into entities that mutate and evolve to match the harshest of conditions. Their body is often covered in a thick hide to be shed."
 		visual	=	'Changeling.png'
 
 		passives = list("Xenobiology" = 1, "Juggernaut" = 1, "CriticalBlock" = 0.25, "BlockChance" = 0.25, "PureReduction" = 3, "PureDamage" = -5, "AllOutAttack" = 1, "MovementMastery" = -8)

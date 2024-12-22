@@ -3,8 +3,7 @@ race
 		name = "Namekian"
 		icon_neuter = list('Namek1.dmi')
 		gender_options = list("Neuter")
-		desc = "You remember being human. Why have you mutated like this? You are so much more in tune with nature. Though you are still made of flesh and bone, you have mutated to be akin to a druid from celtic myth. "
-		visual = 'Namek.png'
+		desc = "A race that once came from distant stars, now fully sublimated into Copenlagen. Though many have mutated into slug-like beings, they share many traits unique to plant-life and possess a unique affinity with nature."		visual = 'Namek.png'
 
 		power = 2
 		strength = 1.5

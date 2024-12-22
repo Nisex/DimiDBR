@@ -2,10 +2,10 @@ race
 	gajalaka
 		name="Gajalaka"
 		icon_neuter= list('Gajalaka.dmi', 'Gaja EX.dmi', 'Gaja EX Maim.dmi')
-		desc = "Thrifty kobold-like beings, seemingly unimpressive in stature.."
+		desc = "Gajalaka are native to Mt. Red. Descendants of the illustrious Shiny-Rock tribe, they are incredibly resilient and often extremely affluent. They’re the illuminati."
 		visual = 'Gajalaka.png'
 		passives = list("CashCow" = 1, "Blubber" = 0.25)
-		locked = TRUE
+
 		power = 0.75
 		strength = 0.75
 		endurance = 0.75

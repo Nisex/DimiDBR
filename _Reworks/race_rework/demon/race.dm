@@ -1,7 +1,7 @@
 race
 	demon
 		name = "Demon"
-		desc = "Aspects of the Demon King's essence, shattered and splintered into their own forms until evolving into their own being."
+		desc = "A fragment of the formerly whole god known as Koek, the Shatter-Spawns bear a highly destructive potency that very few have ever hoped to control. Upon death, their souls return to the great demon Koek. They are often associated with ill omens, and the few that master their base instincts prefer to keep their identities hidden."
 		visual = 'Eldritch.png'
 		locked = TRUE
 		power = 5

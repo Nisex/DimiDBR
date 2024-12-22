@@ -1,7 +1,7 @@
 race
 	beastman
 		name = "Beastman"
-		desc = "Oops. You remember being human. So why do you have some beastlike features?"
+		desc = "Bearers of Al-Munshaq’s will, these survivors from Najim Ha’aar now live as natives within Mt. Red. They are fierce people with origins spanning across many cultures."
 		visual = 'Monstrous.png'
 
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk,/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Ticking_Bomb)

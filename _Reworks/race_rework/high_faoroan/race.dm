@@ -1,7 +1,7 @@
 race
 	high_faoroan
 		name = "High Faoroan"
-		desc = "elfs lol"
+		desc = "Beautiful creatures born from the flesh of Koyroyal, they hold powers which can manipulate reality as children of the God of Truth. They are long-lived, and their pride in their abilities often result in a snobbish behavior. The deluge has been unkind to them, forcing them into seclusion and secrecy."
 		visual = 'Elf.png'
 
 		icon_male = list('MaleElf1.dmi', 'MaleElf2.dmi', 'MaleElf3.dmi', 'MaleElf4.dmi', 'MaleElf5.dmi')

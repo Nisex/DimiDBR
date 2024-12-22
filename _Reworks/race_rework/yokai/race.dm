@@ -1,8 +1,7 @@
 race
 	yokai
 		name = "Yokai"
-		desc = "Spirits forcefully taken from Earth. You had a glorious, immortal form before. You could enjoy the pleasures of the cosmos, and adopt a physical form briefly to enjoy the pleasures of the flesh. \nNow? You are human, only capable of accessing your former spiritual glory for brief instants."
-		visual = 'Makyo.png'
+		desc = "Having been transformed into mortal bodies ages ago, Yokai were once spirits who lived in harmony with nature. As mortals, they have the ability to briefly tap into their full spiritual potential in bursts. Yokai remain distinctive with their ties to the arcane and the spiritual aspects of Copenlagen."		visual = 'Makyo.png'
 
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form)
 		passives = list("ManaGeneration" = 2)

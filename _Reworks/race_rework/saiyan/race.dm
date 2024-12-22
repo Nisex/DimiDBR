@@ -1,8 +1,7 @@
 race
 	saiyan
 		name = "Saiyan"
-		desc = "They are the victims of the cosmic horror, their entire race has been destroyed. While the \[REDACTED\] wished to \[REDACTED\], it did not foresee that they would be far too gifted at destruction to \[REDACTED\] \n\[REDACTED\] grasped their most empowering legend of the Super Saiyan, and used it to its advantage, practically ending the Saiyan race and besmirching its legacy forever."
-		visual = 'Saiyan.png'
+		desc = "Myths speak of a floating island anchored to the earth by a magical relic populated by a tribe of powerful monks bearing monkey tails. These pious monks travel the world in search of challenge and act with purpose, be it with pride, resilient will, or adaptive spirit."		visual = 'Saiyan.png'
 
 		locked = TRUE
 
