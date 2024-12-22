@@ -645,30 +645,6 @@ obj/Skills/Grapple
 			else
 				Log("Admin", "[ExtractInfo(User)] currently has [User.Grab.type] grabbed and attempted to grapple them with [src].")
 
-
-/mob/verb/testAnimation(n as num, t as num)
-	set category = "Debug"
-	if(!Target)
-		turnDynamic(src, n, t)
-	else
-		turnDynamic(Target, n, t)
-
-/mob/verb/heylisten()
-	set category = "Debug"
-	if(!Target)
-		return
-	for(var/i in 1 to 5)
-		Target.SpinAnimation2(speed = 10 - i/2, a = src)
-	animate(src, pixel_z = 0, time = 5, flags=ANIMATION_PARALLEL)
-	animate(Target, pixel_z = 0, time = 16, flags=ANIMATION_PARALLEL)
-	Target.reset_animation()
-
-/mob/verb/rest_animation()
-	set category = "Debug"
-	if(!Target)
-		return
-	Target.reset_animation()
-
 /mob/proc/SpinAnimation2(speed = 10, loops = 0, clockwise = 0, segments = 4, mob/a)
 	if(!segments)
 		return
@@ -699,30 +675,3 @@ obj/Skills/Grapple
 			animate(src, pixel_x = -32 + (i*16), pixel_y = (i == 2 ? -16 : 0), time = speed)
 		a.dir = directions[i]
 		sleep(speed)
-
-
-	// animate(Target, transform=matrix().Turn(-90), time = speed, flags=ANIMATION_PARALLEL)
-	// animate(Target, pixel_x = -16, time = speed, flags=ANIMATION_PARALLEL)
-	// sleep(speed*1.5)
-	// dir = SOUTH
-	// animate(Target, transform=matrix().Turn(-180), time = speed, flags=ANIMATION_PARALLEL)
-	// animate(Target, pixel_x = 0, pixel_y = -16, time = speed, flags=ANIMATION_PARALLEL)
-	// sleep(speed*1.5)
-	// dir = EAST
-	// animate(Target, transform=matrix().Turn(90), time = speed, flags=ANIMATION_PARALLEL)
-	// animate(Target, pixel_x = 16, pixel_y = 0, time = speed, flags=ANIMATION_PARALLEL)
-	// sleep(speed*1.5)
-	// dir = NORTH
-	// animate(Target, transform=matrix().Turn(0), time = speed, flags=ANIMATION_PARALLEL)
-	// animate(Target, pixel_x = 0, pixel_y = 16, time = speed, flags=ANIMATION_PARALLEL)
-	// sleep(speed*1.5)
-
-/mob/proc/reset_animation()
-	transform = matrix()
-	pixel_x = 0
-	pixel_y = 0
-	pixel_z = 0
-	if(Target)
-		Target.pixel_x = 0
-		Target.pixel_y = 0
-		Target.pixel_z = 0
