@@ -337,12 +337,30 @@ proc
 		User.Frozen=0
 		Target.Frozen=0
 
+
+	SpinTornado(mob/a, mob/d,  time = 5)
+		d.loc=a.loc
+		d.dir = SOUTH
+		a.Frozen=2
+		d.Frozen=2
+		for(var/i in 1 to time)
+			d.SpinAnimation2(speed = 8 - i/2, a = a)
+		animate(a, pixel_z = 0, time = 2, flags=ANIMATION_PARALLEL)
+		animate(d, pixel_z = 0, pixel_y = 0, time = 4, flags=ANIMATION_PARALLEL)
+		a.Frozen=0
+		d.Frozen=0
+
+
 	Turn(var/mob/a, var/Time=1)
 		while(Time>=0)
 			animate(a,dir=turn(a.dir,90),time=1, flags=ANIMATION_PARALLEL)
 			Time--
 			sleep(1)
-
+	turnDynamic(mob/p, angle = 90,t = 1, amount = 1)
+		while(amount >=0)
+			animate(p, transform=matrix().Turn(angle), time = t, flags=ANIMATION_PARALLEL)
+			amount--
+			sleep(1)
 	WarpEffect(var/mob/Target, var/EffectType)
 		if(EffectType==1)
 			Target.Stasis=100
@@ -477,9 +495,20 @@ proc
 			var/obj/Effects/Crater/C=new
 			C.loc=A.loc
 			animate(C, transform=matrix()*Size, time=3)
+			spawn(rand(30,90))  // kill
+				animate(C, transform=matrix(), time = 1)
+				spawn(3)  // me 
+					del C
 		else
 			for(var/obj/Effects/Crater/B in A.loc)
 				animate(B, transform=matrix()*Size, time=3)
+				spawn(rand(30,90)) // kill 
+					animate(B, transform=matrix(), time = 1)
+					spawn(3) // me 
+						del B
+		
+					
+			
 
 	Dust(turf/A, var/Size=1, var/Layer=EFFECTS_LAYER)
 		set waitfor=0
