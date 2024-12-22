@@ -1590,15 +1590,15 @@ ascension
 						tc.passives["DrainlessMana"] = 1
 						tc.passives["SlayerMod"] = 2
 						tc.passives["WeaponBreaker"] = 1
-						tc.passives["Erosion"] = 1
+						tc.passives["Erosion"] = 0.25
 					..()
 
 			obliterate
 				onAscension(mob/owner)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in owner.contents)
 						tc.passives["WeaponBreaker"] = 1
-						tc.passives["Hellpower"] = 1
-						tc.passives["Erosion"] = 1
+						tc.passives["Hellpower"] = 0.25
+						tc.passives["Erosion"] = 0.25
 					..()
 
 			rest

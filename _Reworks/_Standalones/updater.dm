@@ -9,7 +9,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = new updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 6
+	var/UPDATE_VERSION = 7
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -107,6 +107,19 @@ update
 						del ssj
 				p.race.transformations.Add(new/transformation/half_saiyan/human/ultimate_mode())
 				p.race.transformations.Add(new/transformation/half_saiyan/human/beast_mode())
+
+	version7
+		version = 7
+		updateMob(mob/p)
+			..()
+			if(p.isRace(ELF)&&p.AscensionsAcquired >= 4)
+				if(p.race.ascensions[4].choiceSelected == /ascension/sub_ascension/high_faoroan/obliterate)
+					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in p.contents)
+						tc.passives["Erosion"] = 0.25
+						tc.passives["Hellpower"] = 0.25
+				else if(p.race.ascensions[4].choiceSelected == /ascension/sub_ascension/high_faoroan/conquer)
+					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in p.contents)
+						tc.passives["Erosion"] = 0.25
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25
