@@ -583,43 +583,45 @@ obj/Skills/Grapple
 				if(src.MaimStrike)
 					User.MaimStrike-=src.MaimStrike
 				OMsg(User, "[User] [src.TriggerMessage] [Trg]!")
-				User.Knockback((dmgRoll*src.ThrowMult)+src.ThrowAdd, Trg, Direction=src.ThrowDir, Forced=1, override_speed = ThrowSpeed)
-				if(src.Stunner)
-					Stun(Trg, src.Stunner)
 				if(src.Effect in list("Suplex", "Drain", "Lotus", "SuperSuplex"))
 					src.OneAndDone=1
 				var/Times=src.EffectMult
-				spawn()
-					if(src.OneAndDone)
-						Times=1
-					while(Times)
-						switch(src.Effect)
-							if("Shockwave")
-								KenShockwave(Trg)
-							if("Bang")
-								Bang(Trg.loc, 1.3, Offset=0.75)
-							if("Lightning")
-								LightningStrike2(Trg, Offset=GoCrand(0.5,0.1*src.EffectMult))
-							if("Lotus")
-								LotusEffect(User, Trg, src.EffectMult)
-							if("MuscleBuster")
-								MuscleBusterEffect(User, Trg, src.EffectMult)
-							if("PotemkinBuster")
-								PotemkinBusterEffect(User, Trg, EffectMult)
-							if("Suplex")
-								SuplexEffect(User, Trg)
-							if("SuperSuplex")
-								LotusEffect(User, Trg, src.EffectMult)
-								SuplexEffect(User, Trg)
-							if("Strike")
-								User.HitEffect(Trg)
-							if("Drain")
-								animate(Trg, color=list(1,1,1, 0,1,0, 1,1,1, 0,0,0), time=10, flags=ANIMATION_RELATIVE)
-								sleep(10)
-								animate(Trg, color=Trg.MobColor, time=10, flags=ANIMATION_RELATIVE)
-								sleep(10)
-						sleep(2)
-						Times--
+				if(src.OneAndDone)
+					Times=1
+				while(Times)
+					switch(src.Effect)
+						if("Shockwave")
+							KenShockwave(Trg)
+						if("Bang")
+							Bang(Trg.loc, 1.3, Offset=0.75)
+						if("Lightning")
+							LightningStrike2(Trg, Offset=GoCrand(0.5,0.1*src.EffectMult))
+						if("Lotus")
+							LotusEffect(User, Trg, src.EffectMult)
+						if("MuscleBuster")
+							MuscleBusterEffect(User, Trg, src.EffectMult)
+						if("PotemkinBuster")
+							PotemkinBusterEffect(User, Trg, EffectMult)
+						if("Suplex")
+							SuplexEffect(User, Trg)
+						if("SuperSuplex")
+							LotusEffect(User, Trg, src.EffectMult)
+							SuplexEffect(User, Trg)
+						if("Strike")
+							User.HitEffect(Trg)
+						if("Drain")
+							animate(Trg, color=list(1,1,1, 0,1,0, 1,1,1, 0,0,0), time=10, flags=ANIMATION_RELATIVE)
+							sleep(10)
+							animate(Trg, color=Trg.MobColor, time=10, flags=ANIMATION_RELATIVE)
+							sleep(10)
+						if("SpinTornado")
+							SpinTornado(User, Trg, EffectMult)
+							ThrowDir=NORTH
+					sleep(2)
+					Times--
+				User.Knockback((dmgRoll*src.ThrowMult)+src.ThrowAdd, Trg, Direction=src.ThrowDir, Forced=1, override_speed = ThrowSpeed)
+				if(src.Stunner)
+					Stun(Trg, src.Stunner)
 					sleep(5)//final effects
 					switch(src.Effect)
 						if("Bang")//biggest boom
@@ -629,14 +631,98 @@ obj/Skills/Grapple
 							KenShockwave(Trg, src.EffectMult/2)
 						if("Strike")
 							KenShockwave(Trg, src.EffectMult)
+						if("SpinTornado")
+							Crater(Trg,1.5)
 
 				User.GrabMove=0
 				src.Cooldown()
 
 				if(DashAfter)
-					for(var/obj/Skills/Dragon_Dash/dd in src)
-						usr.SkillX("DragonDash",dd)
+					for(var/obj/Skills/Dragon_Dash/dd in User)
+						User.SkillX("DragonDash",dd)
 				if(removeAfter)
 					User.DeleteSkill(src)
 			else
 				Log("Admin", "[ExtractInfo(User)] currently has [User.Grab.type] grabbed and attempted to grapple them with [src].")
+
+
+/mob/verb/testAnimation(n as num, t as num)
+	set category = "Debug"
+	if(!Target)
+		turnDynamic(src, n, t)
+	else
+		turnDynamic(Target, n, t)
+
+/mob/verb/heylisten()
+	set category = "Debug"
+	if(!Target)
+		return
+	for(var/i in 1 to 5)
+		Target.SpinAnimation2(speed = 10 - i/2, a = src)
+	animate(src, pixel_z = 0, time = 5, flags=ANIMATION_PARALLEL)
+	animate(Target, pixel_z = 0, time = 16, flags=ANIMATION_PARALLEL)
+	Target.reset_animation()
+
+/mob/verb/rest_animation()
+	set category = "Debug"
+	if(!Target)
+		return
+	Target.reset_animation()
+
+/mob/proc/SpinAnimation2(speed = 10, loops = 0, clockwise = 0, segments = 4, mob/a)
+	if(!segments)
+		return
+	var/segment = 360/segments
+	if(!clockwise)
+		segment = -segment
+	var/list/matrices = list()
+	for(var/i in 1 to segments-1)
+		var/matrix/M = matrix(transform)
+		M.Turn(segment*i)
+		matrices += M
+	var/matrix/last = matrix(transform)
+	matrices += last
+
+	speed /= segments
+	var/list/directions = list(WEST, SOUTH, EAST, NORTH)
+	a.dir = directions[1]
+	var/new_z = a.pixel_z + 6
+	animate(a, pixel_z = new_z, time = 8, flags=ANIMATION_PARALLEL)
+	animate(src, transform = matrices[1], time = speed, flags=ANIMATION_PARALLEL)
+	animate(src, pixel_x = -16, pixel_y = 0, pixel_z = new_z, time = speed)
+	sleep(speed)
+	for(var/i in 2 to segments) //2 because 1 is covered above
+		animate(src,transform = matrices[i], time = speed, flags=ANIMATION_PARALLEL)
+		if(i == segments)
+			animate(src, pixel_x = 0, pixel_y = 16, time = speed)
+		else
+			animate(src, pixel_x = -32 + (i*16), pixel_y = (i == 2 ? -16 : 0), time = speed)
+		a.dir = directions[i]
+		sleep(speed)
+
+
+	// animate(Target, transform=matrix().Turn(-90), time = speed, flags=ANIMATION_PARALLEL)
+	// animate(Target, pixel_x = -16, time = speed, flags=ANIMATION_PARALLEL)
+	// sleep(speed*1.5)
+	// dir = SOUTH
+	// animate(Target, transform=matrix().Turn(-180), time = speed, flags=ANIMATION_PARALLEL)
+	// animate(Target, pixel_x = 0, pixel_y = -16, time = speed, flags=ANIMATION_PARALLEL)
+	// sleep(speed*1.5)
+	// dir = EAST
+	// animate(Target, transform=matrix().Turn(90), time = speed, flags=ANIMATION_PARALLEL)
+	// animate(Target, pixel_x = 16, pixel_y = 0, time = speed, flags=ANIMATION_PARALLEL)
+	// sleep(speed*1.5)
+	// dir = NORTH
+	// animate(Target, transform=matrix().Turn(0), time = speed, flags=ANIMATION_PARALLEL)
+	// animate(Target, pixel_x = 0, pixel_y = 16, time = speed, flags=ANIMATION_PARALLEL)
+	// sleep(speed*1.5)
+
+/mob/proc/reset_animation()
+	transform = matrix()
+	pixel_x = 0
+	pixel_y = 0
+	pixel_z = 0
+	if(Target)
+		Target.pixel_x = 0
+		Target.pixel_y = 0
+		Target.pixel_z = 0

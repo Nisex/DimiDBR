@@ -178,7 +178,7 @@ mob
 				src.LoseHealth(val)
 				return
 			var/tmpval = val
-/*
+
 			if(defender.key=="Vuffa" && defender.findVuffa())
 				if(defender.findVuffa().vuffaMoment)
 					tmpval*=1000000
@@ -186,7 +186,7 @@ mob
 						OMsg(defender, "<font color='[rgb(255, 0, 0)]'>[defender.findVuffa().vuffaMessage]</font color>")
 					else
 						OMsg(src, "<font color='[rgb(255, 0, 0)]'>[defender] takes a critical hit! They take [val] damage!</font color>")
-*/
+
 			defender.LoseHealth(max(0,tmpval))
 
 			if(defender.Flying)
