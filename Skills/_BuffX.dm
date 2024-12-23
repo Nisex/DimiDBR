@@ -11595,7 +11595,7 @@ NEW VARIABLES
 				BuffName="Sage Mode"
 				ManaThreshold=125
 				TooLittleMana=50
-				passives = list("ManaLeak" = 2, "ManaStats" = 1, "DrainlessMana" = 1, "ManaFocus" = 1, "AllOutAttack" = 1, "SuperDash" = 1)
+				passives = list("ManaLeak" = 2, "ManaStats" = 1, "DrainlessMana" = 1, "MagicFocus" = 1, "AllOutAttack" = 1, "SuperDash" = 1)
 				ManaLeak=2
 				ManaStats=1
 				DrainlessMana=1
