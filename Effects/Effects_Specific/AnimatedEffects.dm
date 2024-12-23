@@ -343,10 +343,13 @@ proc
 		d.dir = SOUTH
 		a.Frozen=2
 		d.Frozen=2
+		var/image/im = image('TornadoDirected.dmi', a, "", FLY_LAYER, NORTH, -8,-8)
+		a.overlays += im
 		for(var/i in 1 to time)
 			d.SpinAnimation2(speed = 8 - i/2, a = a)
-		animate(a, pixel_z = 0, time = 2, flags=ANIMATION_PARALLEL)
-		animate(d, pixel_z = 0, pixel_y = 0, time = 4, flags=ANIMATION_PARALLEL)
+		a.overlays -= im
+		animate(a, pixel_z = 0, time = 4, flags=ANIMATION_PARALLEL)
+		animate(d, pixel_z = 0, pixel_y = 0, time = 3, flags=ANIMATION_PARALLEL)
 		a.Frozen=0
 		d.Frozen=0
 
