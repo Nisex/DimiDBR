@@ -187,6 +187,7 @@ obj/Skills/Grapple
 		TriggerMessage="casts all of their disgust upon"
 		Effect="Bang"
 		EffectMult=5
+
 //T1 is in Queues.
 //T2 is in Autohits.
 //T3 has damage mult 3 - 5.

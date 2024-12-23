@@ -457,7 +457,7 @@
 #include "_Reworks\Secrets\Vampire\BloodGauge.dm"
 #include "_Reworks\Secrets\Vampire\VampireBuffs.dm"
 #include "_Reworks\Secrets\Wrathful\wratchful.dm"
-#include "_Reworks\Sigs\Scaling\Sins\futurediary.dm"
+#include "_Reworks\Sigs\Scaling\FutureDiary\futurediary.dm"
 #include "_Reworks\Sigs\Scaling\Sins\gluttony.dm"
 #include "_Reworks\Sigs\Scaling\Sins\sinMasterFile.dm"
 #include "_Reworks\Tech\knowledge.dm"
@@ -545,6 +545,10 @@
 #include "Skills\_TeleportX.dm"
 #include "Skills\_UtilityX.dm"
 #include "Skills\sorted\newT3s\samsara.dm"
+#include "Skills\sorted\T5\armed.dm"
+#include "Skills\sorted\T5\magic.dm"
+#include "Skills\sorted\T5\unarmed.dm"
+#include "Skills\sorted\T5\universal.dm"
 #include "UpdateNotes\update.dm"
 // END_INCLUDE
 #define floor(x) round(x)
