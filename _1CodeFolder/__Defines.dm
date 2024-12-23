@@ -4,6 +4,7 @@ proc/log_func(x, a, b)
 #define TIER_2_COST 60
 #define TIER_3_COST 90
 #define TIER_4_COST 120
+#define TIER_5_COST 200
 
 
 

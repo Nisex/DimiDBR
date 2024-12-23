@@ -259,10 +259,10 @@ mob/tierUpSaga(path)
 			TurfStrike = Size
 			WindUp = 0.1 + (0.15 * sl)
 			DamageMult = (0.65 + (round(sl/3))) * max(0.15 + WindUp, 1)
-			Rounds = 12 - (sl * 2)
+			Rounds = 18 - (sl * 2)
 			PullIn = max(0, sl - 4)
 			Primordial = round(sl/4)
-			Executor = max(sl, 5)
+			Executor = max(sl, 3)
 			EnergyCost = 7 + (3 * sl)
 	verb/Giga_Drill_Break()
 		set category="Skills"

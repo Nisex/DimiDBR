@@ -710,7 +710,7 @@ mob
 			src.MaxHealth()
 			var/Absorb = passive_handler.Get("AbsorbingDamage")
 			var/Limit = passive_handler.Get("AbsorbLimit")
-			if(Absorb < Limit)
+			if(Absorb <= Limit)
 				passive_handler.Increase("AbsorbingDamage", val)
 				if(Absorb >= Limit)
 					passive_handler.Set("AbsorbingDamage", Limit)
