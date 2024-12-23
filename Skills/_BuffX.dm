@@ -7108,6 +7108,7 @@ NEW VARIABLES
 					set category="Skills"
 					src.Trigger(usr)
 			OverDrive
+				MagicNeeded=0
 				Frost_End
 					TimerLimit=30
 					Cooldown=-1
