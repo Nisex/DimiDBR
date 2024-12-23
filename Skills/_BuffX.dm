@@ -7152,6 +7152,7 @@ NEW VARIABLES
 						src.Trigger(usr)
 
 			Slaying_God
+				MagicNeeded = FALSE
 				Cooldown=30
 				PhysicalHitsLimit=1
 				passives = list("CounterMaster" = 10)
