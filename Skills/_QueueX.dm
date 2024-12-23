@@ -3748,7 +3748,6 @@ obj
 				ActiveMessage="forms a ball of chakra in their hand!"
 				HitMessage="slams their opponent with a ball of chakra!"
 				AccuracyMult = 1.175
-				SignatureTechnique=1
 				Paralyzing=1
 				KBAdd = 2
 				Dunker = 1
@@ -3771,7 +3770,6 @@ obj
 				ActiveMessage="forms a massive ball of chakra in their hand!"
 				HitMessage="slams their opponent with a massive ball of chakra!"
 				AccuracyMult = 1.175
-				SignatureTechnique=1
 				Paralyzing=1
 				KBAdd = 4
 				Dunker = 1
