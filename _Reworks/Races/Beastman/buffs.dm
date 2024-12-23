@@ -23,7 +23,7 @@
         getRegenRate(User)
         ..()
 
-var/tmp/beastmanMessage = FALSE
+mob/var/tmp/beastmanMessage = FALSE
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Ticking_Bomb
     TooMuchHealth = 55
@@ -103,5 +103,5 @@ var/tmp/beastmanMessage = FALSE
         DamageMult = dmg * 0.5 + (0.25*asc)
         Size = 3 + (1*asc)
         Distance = 4 + (1*asc)
-    
+
 
