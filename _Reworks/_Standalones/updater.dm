@@ -107,13 +107,6 @@ update
 						del ssj
 				p.race.transformations.Add(new/transformation/half_saiyan/human/ultimate_mode())
 				p.race.transformations.Add(new/transformation/half_saiyan/human/beast_mode())
-	version6
-		version = 7
-		updateMob(mob/p)
-			..()
-			if(p.isRace(ELF)&&p.AscensionsAcquired==4)
-				for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in p.contents)
-					tc.passives["Erosion"] = 0.1
 
 	version7
 		version = 7
