@@ -710,11 +710,14 @@ mob
 			src.MaxHealth()
 			var/Absorb = passive_handler.Get("AbsorbingDamage")
 			var/Limit = passive_handler.Get("AbsorbLimit")
-			if(Absorb <= Limit)
-				passive_handler.Increase("AbsorbingDamage", val)
-				if(Absorb >= Limit)
-					passive_handler.Set("AbsorbingDamage", Limit)
-					src << "You have reached the absorb limit!"
+			if(Absorb && Limit)
+				if(Absorb <= Limit)
+					passive_handler.Increase("AbsorbingDamage", val)
+					if(Absorb >= Limit)
+						passive_handler.Set("AbsorbingDamage", Limit)
+						if(!beastmanMessage)
+							beastmanMessage = TRUE
+							src << "You have reached the absorb limit!"
 			if(isRace(MAJIN))
 				if(majinPassive != null)
 					majinPassive.tryDropBlob(src)

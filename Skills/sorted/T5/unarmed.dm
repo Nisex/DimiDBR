@@ -11,9 +11,9 @@
 
 
 /mob/var/tmp/last_jump_animation = 0
-/mob/verb/testJump()
+/*/mob/verb/testJump()
     set category = "Debug"
-    jump_animation(locate(x+10,y+10,z))
+    jump_animation(locate(x+10,y+10,z))*/
     
 // CREDIT: Xerif 
 /mob/proc/jump_animation(turf/target_turf)

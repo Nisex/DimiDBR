@@ -23,7 +23,7 @@
         getRegenRate(User)
         ..()
 
-
+var/tmp/beastmanMessage = FALSE
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Ticking_Bomb
     TooMuchHealth = 55
@@ -59,6 +59,7 @@
             Trigger(usr, Override = 1) // set off to cooldown
             usr.Activate(h)
             usr.VaizardHealth += dmg / 2
+            usr.beastmanMessage = FALSE
             // buuuutt just in case
             usr.passive_handler.Set("AbsorbingDamage", 0)
             passives["AbsorbingDamage"] = 1
