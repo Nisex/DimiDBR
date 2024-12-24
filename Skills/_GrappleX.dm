@@ -508,6 +508,9 @@ obj/Skills/Grapple
 				else
 					if(src.ForRate)
 						statPower += User.GetFor(src.ForRate)
+				if(HarderTheyFall)
+					var/enemyEnd = Trg.GetEnd()
+					statPower += enemyEnd * (HarderTheyFall/10)
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple Stat Power", statPower, "damageDebugs.txt", User.ckey)
 				#endif
@@ -547,6 +550,10 @@ obj/Skills/Grapple
 				Damage *= dmgRoll
 				var/extra = User.passive_handler.Get("Muscle Power") / glob.MUSCLE_POWER_DIVISOR
 				Damage *= DamageMult
+				if(HarderTheyFall && Trg.BioArmor)
+					Damage *= 1 + Trg.BioArmor / glob.HARDER_THEY_FALL_BIO_DIVISOR // i want to make the ticks matter, but cant formulate an idea how
+				if(HarderTheyFall && Trg.VaizardHealth)
+					Damage *= 1 + Trg.VaizardHealth / glob.HARDER_THEY_FALL_VAI_DIVISOR // i want to make the ticks matter, but cant formulate an idea how
 				Damage *= (unarmedBoon + extra) // unarmed boon is 0.5,
 				Damage *= glob.GRAPPLE_DAMAGE_MULT
 				#if DEBUG_GRAPPLE
@@ -556,14 +563,12 @@ obj/Skills/Grapple
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple Damage item dmg", Damage, "damageDebugs.txt", User.ckey)
 				#endif
-
 				if(Accuracy_Formula(User, Trg, AccMult=DamageMult/10, BaseChance=glob.WorldDefaultAcc, IgnoreNoDodge=0) == WHIFF)
 					if(!User.NoWhiff())
 						Damage/=glob.GRAPPLE_WHIFF_DAMAGE
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple Whiff Reduc", Damage, "damageDebugs.txt", User.ckey)
 				#endif
-
 				var/Hits=src.MultiHit
 				if(src.MaimStrike)
 					User.MaimStrike+=src.MaimStrike
@@ -618,6 +623,8 @@ obj/Skills/Grapple
 						if("SpinTornado")
 							SpinTornado(User, Trg, EffectMult)
 							ThrowDir=NORTH
+						if("ShowStopper")
+							ShowStopper(User, Trg, 4 + (clamp(Trg.GetEnd(), 1, 10)))
 					sleep(2)
 					Times--
 				User.Knockback((dmgRoll*src.ThrowMult)+src.ThrowAdd, Trg, Direction=src.ThrowDir, Forced=1, override_speed = ThrowSpeed)
@@ -634,6 +641,8 @@ obj/Skills/Grapple
 							KenShockwave(Trg, src.EffectMult)
 						if("SpinTornado")
 							Crater(Trg,1.5)
+						if("ShowStopper")
+							Trg.icon_state = ""
 
 				User.GrabMove=0
 				src.Cooldown()
