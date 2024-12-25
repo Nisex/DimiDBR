@@ -181,7 +181,7 @@ mob/Admin2/verb
 		set category = "Admin"
 		var/html = "<body bgcolor=#000000 text=#339999><b>Current Passives:</b><br>"
 		for(var/passive in m.passive_handler.passives)
-			if(m.passive_handler.passives[passive]>0)
+			if(m.passive_handler.passives[passive])
 				html += "<b>[passive] : [m.passive_handler.passives[passive]]</b><br>"
 		usr<<browse(html,"window=[m]'s Passives;size=450x600")
 

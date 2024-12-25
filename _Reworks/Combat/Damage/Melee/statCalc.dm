@@ -95,7 +95,8 @@
 
 
 /mob/proc/getEndStat(n)
-	return GetEnd(n)
+	return GetEnd(n) // who did this, was this me??
+
 
 
 

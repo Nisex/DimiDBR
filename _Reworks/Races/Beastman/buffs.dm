@@ -1,3 +1,30 @@
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_the_Half_Beast
+    TooMuchHealth = 30
+    NeedsHealth = 10
+    UnrestrictedBuff=1
+    Cooldown=-1
+    CooldownStatic=1
+    CooldownScaling=1
+    HealthHeal = 0.5
+    StableHeal = 1
+    TimerLimit = 20
+    ActiveMessage="'s heart begins to pump into overdrive!"
+    OffMessage="'s heart can't keep up..."
+    proc/getRegenRate(mob/p)
+        var/baseHeal = 2.5
+        if(!altered)
+            var/asc = p.AscensionsAcquired
+            baseHeal *= asc
+            var/amt = baseHeal
+            HealthHeal = (amt / 8-asc) * world.tick_lag // health per tick(?)
+            WoundHeal = HealthHeal/2
+            TimerLimit = 8-asc             // ticks per regen
+    Trigger(mob/User, Override)
+        getRegenRate(User)
+        ..()
+
+mob/var/tmp/beastmanMessage = FALSE
+
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Ticking_Bomb
     TooMuchHealth = 55
     NeedsHealth = 50
@@ -32,6 +59,7 @@
             Trigger(usr, Override = 1) // set off to cooldown
             usr.Activate(h)
             usr.VaizardHealth += dmg / 2
+            usr.beastmanMessage = FALSE
             // buuuutt just in case
             usr.passive_handler.Set("AbsorbingDamage", 0)
             passives["AbsorbingDamage"] = 1
@@ -54,7 +82,7 @@
     Shockwaves=1
     PostShockwave=1
     PreShockwave=0
-    WindUp=0.5
+    WindUp=0.25
     Earthshaking=20
     Instinct=1
     Icon='roundhouse.dmi'
@@ -72,8 +100,8 @@
     ActiveMessage="unleashes a vacuum powered slash!"
     adjust(mob/p, dmg)
         var/asc = p.AscensionsAcquired
-        DamageMult = dmg * 0.5 +( 0.25*asc)
-        Size = 2 + (1*asc)
-        Distance = 3 + (1*asc)
-    
+        DamageMult = dmg * 0.5 + (0.25*asc)
+        Size = 3 + (1*asc)
+        Distance = 4 + (1*asc)
+
 

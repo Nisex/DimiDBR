@@ -364,32 +364,11 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 		if(src.BloodPower>=2)
 			var/obj/Items/Sword/s=P.EquippedSword()
 			var/obj/Items/Enchantment/Staff/st=P.EquippedStaff()
-			var/adjust = 0
 			if(s||st)
 				if((s && s.Element=="Silver")||(st && st.Element=="Silver"))
-					adjust = 1
 					src.OMessage(20,"[src]'s existence is purged from the world!","<font color=red>[src] was purified [P]([P.key])!")
 				else if(P.Secret=="Ripple"&&P.HasPurity())
-					adjust = 2
 					src.OMessage(20,"[src] is completely destroyed by the Ripple running through their body!","<font color=red>[src] was purified [P]([P.key])!")
-			if(src.BloodPower<=2)
-				src.BloodPower=2
-			if(src.BloodPower>2)
-				src.Stasis=2000
-				sleep(30)
-				src.Conscious()
-				src.OMessage(15,"...but [src] uses a consumed life to come back to life!","<font color=red>[src]([src.key]) consumes a life!")
-				animate(src, color = list(0.7,0,0, 0,0,0, 0,0,0, 0,0,0), time = 15)
-				spawn(15)
-					animate(src, color = src.MobColor, time = 35)
-				src.HealWounds(30)
-				src.HealFatigue(30)
-				src.HealHealth(30)
-				src.HealEnergy(30)
-				src.HealMana(30)
-				src.Stasis=0
-				return
-			src.BloodPower-=(0.5+(1.5*adjust))
 
 		if(src.Phylactery)
 			for(var/obj/Items/Enchantment/Phylactery/Phy in world)
@@ -2719,28 +2698,29 @@ mob/proc/Grab_Effects(var/mob/P)
 				if(istype(P, /mob/Player/AI))
 					src << "[P] is an AI!"
 					return
-				//TODO VAMPIRE LETHAL
-				var/Choice=alert(src, "Do you wish to drain the life out of [P]?", "Vampire Grab", "Just A Little", "Yes", "No")
+				//TODO VAMPIRE LETHAL				
+				var/Choice=alert(src, "Do you wish to convert [P] to a vampire?", "Vampire Grab", "Yes", "No")
 				if(P in range(1, src))
 					if(Choice=="Yes")
 						src.Grab=null
-						P.Death(null, "[src] sucking out their life essence!!", 1, Zombie=1)
-						P.BloodPower++
-						src.TotalInjury/=2
-						src.TotalFatigue/=2
-						src.HealHealth(50)
-						src.HealEnergy(25)
-						src.HealMana(25)
-					if(Choice=="Just A Little")
-						OMsg(src, "[src] drives their hand into [P], draining away their life force!")
-						P.BloodPower+=0.25
-						if(!P.MortallyWounded)
-							P.MortallyWounded+=1
-							P.Health=-1
-							src.HealHealth(25)
-							src.HealEnergy(10)
-							src.HealMana(10)
-							//doesn't heal wounds and such
+						src.TotalInjury/=4
+						src.TotalFatigue/=4
+						src.HealHealth(src.secretDatum.currentTier * 3)
+						src.HealEnergy(src.secretDatum.currentTier * 3)
+						if(!P.Secret)
+							var/likelihood = secretDatum.currentTier * 10
+							if(prob(likelihood))
+								P.Secret="Vampire"
+								P.giveSecret("Vampire")
+							else
+								P.Death(src, "[src] sucking out their life essence!!")
+
+						else
+							P.Death(src, "[src] sucking out their life essence!!")
+
+
+
+
 		if((src.Secret=="Werewolf"&&(src.CheckSlotless("New Moon Form")||src.CheckSlotless("Full Moon Form"))))
 			if(P.KO&&istype(P, /mob/Players))
 				if(istype(P, /mob/Player/AI))

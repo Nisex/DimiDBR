@@ -3105,8 +3105,8 @@ NEW VARIABLES
 						StrMult = 1.3 + (newLevel * 0.1)
 						EndMult = 1.5 + (newLevel * 0.1)
 						DefMult = 1.3 + (newLevel * 0.1)
-						passives = list("MovementMastery" = player.SagaLevel * 2, "ArmorAscension" = 2, "Reversal" = 0.2 + player.SagaLevel * 0.1,\
-						"CriticalBlock" = player.SagaLevel / 8, "BlockChance" = 10 + (player.SagaLevel * 1.5))
+						passives = list("MovementMastery" = player.SagaLevel * 2, "ArmorAscension" = 2, "Reversal" = player.SagaLevel * 0.1,\
+						"CriticalBlock" = player.SagaLevel / 6, "BlockChance" = 10 + (player.SagaLevel * 1.5))
 					verb/Don_Cloth()
 						set category="Skills"
 						adjustments(usr)
@@ -6863,6 +6863,7 @@ NEW VARIABLES
 					set category="Skills"
 					src.Trigger(usr)
 			OverDrive
+				MagicNeeded=0
 				Frost_End
 					TimerLimit=30
 					Cooldown=-1
@@ -6906,6 +6907,7 @@ NEW VARIABLES
 						src.Trigger(usr)
 
 			Slaying_God
+				MagicNeeded = FALSE
 				Cooldown=30
 				PhysicalHitsLimit=1
 				passives = list("CounterMaster" = 10)
@@ -9602,19 +9604,19 @@ NEW VARIABLES
 						StrMult=1.25
 						OffMult=1.25
 						EndMult=1.5
-						passives = list("Juggernaut" = 1, "Deflection" = 0.5, "WeaponBreaker" = 2, "Disorienting" = 2,"Momentum" = 1, "CallousedHands" = 0.3)
+						passives = list("Juggernaut" = 1, "Deflection" = 0.5, "WeaponBreaker" = 2, "Disorienting" = 2,"Momentum" = 1, "CallousedHands" = 0.15)
 						ActiveMessage="achieves the peak of their breakthrough..."
 						OffMessage="comes back down to mortal level..."
 					Emergent_Demon_Breakthrough
 						StyleNeeded="Divine Arts of The Heavenly Demon"
-						passives = list("Hardening" = 1.5, "Deflection" = 2, "UnarmedDamage" = 2, "CounterMaster" = 10, "Momentum" = 2, "CallousedHands" = 0.6)
+						passives = list("Hardening" = 1.5, "Deflection" = 2, "UnarmedDamage" = 2, "CounterMaster" = 10, "Momentum" = 2, "CallousedHands" = 0.3)
 						StrMult=1.5
 						SpdMult=1.5
 						ActiveMessage="presses on the cusp of the Ultimate Heavenly Demon Realm!"
 						OffMessage="fails their tribulation..."
 					Chi_Augmentation
 						StyleNeeded="Iron Fist Style"
-						passives = list("Godspeed" = 3, "UnarmedDamage" = 2, "StunningStrike" = 3, "CallousedHands" = 1, "HardenedFrame" = 1, "EnergySteal" = 100)
+						passives = list("Godspeed" = 3, "UnarmedDamage" = 2, "StunningStrike" = 3, "CallousedHands" = 0.5, "HardenedFrame" = 1, "EnergySteal" = 100)
 						EndMult=1.5
 						OffMult=1.5
 						ActiveMessage="channels Chi through their very body!"
@@ -11345,10 +11347,9 @@ NEW VARIABLES
 				ActiveMessage="momentarily releases their restraints and becomes a creature of darkness!"
 			Sennin_Mode
 				BuffName="Sage Mode"
-
 				ManaThreshold=125
 				TooLittleMana=50
-				passives = list("ManaLeak" = 2, "ManaStats" = 1, "DrainlessMana" = 1, "ManaFocus" = 1, "AllOutAttack" = 1, "SuperDash" = 1)
+				passives = list("ManaLeak" = 2, "ManaStats" = 1, "DrainlessMana" = 1, "MagicFocus" = 1, "AllOutAttack" = 1, "SuperDash" = 1)
 				ManaLeak=2
 				ManaStats=1
 				DrainlessMana=1

@@ -178,7 +178,7 @@ mob
 				src.LoseHealth(val)
 				return
 			var/tmpval = val
-/*
+
 			if(defender.key=="Vuffa" && defender.findVuffa())
 				if(defender.findVuffa().vuffaMoment)
 					tmpval*=1000000
@@ -186,7 +186,7 @@ mob
 						OMsg(defender, "<font color='[rgb(255, 0, 0)]'>[defender.findVuffa().vuffaMessage]</font color>")
 					else
 						OMsg(src, "<font color='[rgb(255, 0, 0)]'>[defender] takes a critical hit! They take [val] damage!</font color>")
-*/
+
 			defender.LoseHealth(max(0,tmpval))
 
 			if(defender.Flying)
@@ -710,11 +710,14 @@ mob
 			src.MaxHealth()
 			var/Absorb = passive_handler.Get("AbsorbingDamage")
 			var/Limit = passive_handler.Get("AbsorbLimit")
-			if(Absorb < Limit)
-				passive_handler.Increase("AbsorbingDamage", val)
-				if(Absorb >= Limit)
-					passive_handler.Set("AbsorbingDamage", Limit)
-					src << "You have reached the absorb limit!"
+			if(Absorb && Limit)
+				if(Absorb <= Limit)
+					passive_handler.Increase("AbsorbingDamage", val)
+					if(Absorb >= Limit)
+						passive_handler.Set("AbsorbingDamage", Limit)
+						if(!beastmanMessage)
+							beastmanMessage = TRUE
+							src << "You have reached the absorb limit!"
 			if(isRace(MAJIN))
 				if(majinPassive != null)
 					majinPassive.tryDropBlob(src)

@@ -1984,6 +1984,7 @@ obj
 				verb/Kinshasa()
 					set category="Skills"
 					set name="Kinshasa"//Verb name.
+					adjust(src)
 					usr.SetQueue(src)
 			Piston_Kick
 				SkillCost=TIER_1_COST
@@ -3747,7 +3748,6 @@ obj
 				ActiveMessage="forms a ball of chakra in their hand!"
 				HitMessage="slams their opponent with a ball of chakra!"
 				AccuracyMult = 1.175
-				SignatureTechnique=1
 				Paralyzing=1
 				KBAdd = 2
 				Dunker = 1
@@ -3770,7 +3770,6 @@ obj
 				ActiveMessage="forms a massive ball of chakra in their hand!"
 				HitMessage="slams their opponent with a massive ball of chakra!"
 				AccuracyMult = 1.175
-				SignatureTechnique=1
 				Paralyzing=1
 				KBAdd = 4
 				Dunker = 1

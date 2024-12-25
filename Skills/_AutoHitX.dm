@@ -6717,11 +6717,11 @@ obj
 					if(m.Health<=5)
 						additonal *= 2
 					if(m.Health <=25)
-						Damage *= 1 + additonal
+						FinalDmg *= 1 + additonal
 				if(Primordial)
 					var/additonal = Primordial
 					var/missingHealth = 100-m.Health
-					Damage *= 1 + ((additonal * missingHealth)/100)
+					FinalDmg *= 1 + ((additonal * missingHealth)/100)
 				if(ApplySlow)
 					m.AddSlow(ApplySlow, Owner)
 				if(grabNerf)
