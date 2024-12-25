@@ -198,8 +198,10 @@ transformation
 			if(form_profile)
 				stored_profile = user.Profile
 				user.Profile = form_profile
-			priorAngerPoint = user.AngerPoint
-			user.AngerPoint = angerPoint
+
+			if(angerPoint)
+				priorAngerPoint = user.AngerPoint
+				user.AngerPoint = angerPoint
 
 			user.PUSpeedModifier *= PUSpeedModifier
 
@@ -246,8 +248,9 @@ transformation
 
 			user.potential_trans = 0
 
-			user.AngerPoint = priorAngerPoint
-			priorAngerPoint = null
+			if(priorAngerPoint)
+				user.AngerPoint = priorAngerPoint
+				priorAngerPoint = null
 
 			user.PUSpeedModifier /= PUSpeedModifier
 
