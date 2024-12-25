@@ -6,7 +6,7 @@ ascension
 			strength = 0.25
 			force = 0.25
 			offense = 0.25
-			choices = list("Genius" = /ascension/sub_ascension/yokai/genius, "Grand Caster" = /ascension/sub_ascension/yokai/grand_caster, "Two become One" = /ascension/sub_ascension/yokai/two_become_one)
+			choices = list("Grand Caster" = /ascension/sub_ascension/yokai/grand_caster, "Two become One" = /ascension/sub_ascension/yokai/two_become_one)
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
@@ -14,10 +14,7 @@ ascension
 			force = 0.25
 			offense = 0.25
 			onAscension(mob/owner)
-				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/genius)
-					cyberizeModAdd = 0.25
-					enhanceChips = 1
-				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
 					passives["ManaGeneration"] = 1
 					passives["QuickCast"] = 2
 					passives["ManaCapMult"] = 0.25
@@ -35,10 +32,7 @@ ascension
 			force = 0.25
 			offense = 0.25
 			onAscension(mob/owner)
-				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/genius)
-					cyberizeModAdd = 0.25
-					ecoAdd = 0.5
-				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
 					passives["ManaGeneration"] = 1
 					passives["QuickCast"] = 1
 					passives["ManaCapMult"] = 0.25
@@ -55,10 +49,7 @@ ascension
 			force = 0.25
 			endurance = 0.25
 			onAscension(mob/owner)
-				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/genius)
-					enhanceChips = 2
-					ecoAdd = 0.5
-				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
 					passives["SpiritStrike"] = 0.25
 					passives["ManaCapMult"] = 0.25
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
@@ -73,10 +64,7 @@ ascension
 			force = 0.25
 			endurance = 0.25
 			onAscension(mob/owner)
-				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/genius)
-					ecoAdd = 0.5
-					enhanceChips = 2
-				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
 					passives["SpiritStrike"] = 0.75
 					passives["ManaCapMult"] = 0.25
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
@@ -89,15 +77,6 @@ ascension
 ascension
 	sub_ascension
 		yokai
-			genius
-				rppAdd = 0.25
-				ecoAdd = 0.75
-				intelligenceAdd = 1
-				cyberizeModAdd = 1
-				imaginationAdd = 0.5
-				pilotingProwess = 1.5
-				enhanceChips = 1
-
 			grand_caster
 				passives = list("QuickCast" = 1, "ManaGeneration" = 2)
 				offense = 0.25
