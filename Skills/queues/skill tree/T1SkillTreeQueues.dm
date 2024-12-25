@@ -1,7 +1,7 @@
 obj
-    Skills
-        Queue
-            //UNARMED
+	Skills
+		Queue
+			//UNARMED
 			Ikkotsu
 				SkillCost=TIER_1_COST
 				Copyable=2
@@ -178,7 +178,7 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 
-            //UNIVERSAL
+			//UNIVERSAL
 			Light_Rush
 				NewCost=TIER_1_COST
 				NewCopyable=2

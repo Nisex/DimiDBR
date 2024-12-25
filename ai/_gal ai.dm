@@ -1314,11 +1314,6 @@ mob/Player/AI
 									if(prob(5))
 										spawn(rand(2,6))
 											var/icon/i = icon('RisingRocks.dmi')
-											if(Z.name=="Excalibur")
-												if(locate(/obj/Skills/Queue/Holy_Blade, usr))
-													i='SparkleGold.dmi'
-												else
-													i='DarkShockD.dmi'
 											t.overlays+=i
 											spawn(rand(10, 30))
 												t.overlays-=i

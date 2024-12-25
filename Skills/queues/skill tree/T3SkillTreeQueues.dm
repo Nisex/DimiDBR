@@ -1,7 +1,7 @@
 obj
-    Skills
-        Queue
-            //SWORD
+	Skills
+		Queue
+			//SWORD
 			Run_Through
 				NeedsSword=1
 				SkillCost=TIER_3_COST

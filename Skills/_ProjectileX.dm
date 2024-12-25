@@ -4411,14 +4411,6 @@ obj
 							Cooldown=-1
 							verb/Excalibur()
 								set category="Skills"
-								if(locate(/obj/Skills/Queue/Holy_Blade, usr))
-									IconLock='BeamBig3.dmi'
-									LockX=-16
-									LockY=-16
-								else if(locate(/obj/Skills/Queue/Darkness_Blade, usr))
-									IconLock='BeamBig3D.dmi'
-									LockX=-16
-									LockY=-16
 								usr.UseProjectile(src)
 					Jagan
 						Dragon_of_the_Darkness_Flame

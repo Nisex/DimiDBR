@@ -1,7 +1,7 @@
 obj
 	Skills
 		Queue
-            //UNARMED
+			//UNARMED
 			Meteor_Combination
 				SignatureTechnique=2
 				DamageMult=10
@@ -129,7 +129,7 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 
-            //UNIVERSAL
+			//UNIVERSAL
 			True_Kamehameha
 				PreRequisite=list("/obj/Skills/Projectile/Beams/Big/Super_Kamehameha")
 				SignatureTechnique=2
@@ -190,8 +190,8 @@ obj
 				Projectile="/obj/Skills/Projectile/Beams/Big/Final_Shine"
 				ProjectileBeam=1
 
-            //ARMED
-        	Omnislash
+			//ARMED
+			Omnislash
 				SignatureTechnique=2
 				name="Omnislash"
 				ActiveMessage="begins to glow with limitless bravery!"

@@ -1,7 +1,7 @@
 obj
-    Skills
-        Queue
-            //SWORD
+	Skills
+		Queue
+			//SWORD
 			Infinity_Trap
 				SkillCost=TIER_2_COST
 				Copyable=3

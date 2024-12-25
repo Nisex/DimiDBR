@@ -1,3 +1,6 @@
+obj
+	Skills
+		Queue
 			GET_DUNKED
 				SkillCost=160
 				Copyable=4

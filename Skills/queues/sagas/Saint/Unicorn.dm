@@ -1,7 +1,7 @@
 obj
-    Skills
-        Queue
-		    Unicorn_Combination
+	Skills
+		Queue
+			Unicorn_Combination
 				DamageMult=6
 				AccuracyMult = 1.25
 				Duration=5

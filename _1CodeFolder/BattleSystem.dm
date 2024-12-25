@@ -305,7 +305,7 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 			var/totalValue = 0
 			var/foundMineral = FALSE
 			var/foundMoney = FALSE
-			if(P.moneyGrindedDaily < glob.DailyGrindCap * P.EconomyMult)
+			if(P.moneyGrindedDaily < glob.progress.DailyGrindCap * P.EconomyMult)
 				if(glob.MONEYORFRAGMENTS)
 					for(var/obj/Items/mineral/m in src)
 						totalValue += m.value
@@ -314,8 +314,8 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 						foundMineral = TRUE
 						if(P.passive_handler.Get("CashCow"))
 							totalValue *= 1+(P.passive_handler.Get("CashCow")/10)
-						if(totalValue + P.moneyGrindedDaily > glob.DailyGrindCap * P.EconomyMult)
-							totalValue = glob.DailyGrindCap * P.EconomyMult - P.moneyGrindedDaily
+						if(totalValue + P.moneyGrindedDaily > glob.progress.DailyGrindCap * P.EconomyMult)
+							totalValue = glob.progress.DailyGrindCap * P.EconomyMult - P.moneyGrindedDaily
 						P.moneyGrindedDaily += totalValue
 						min.value += totalValue
 						min.assignState()
@@ -326,8 +326,8 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 						P.contents += mineral
 						if(P.passive_handler.Get("CashCow"))
 							totalValue *= 1+(P.passive_handler.Get("CashCow")/10)
-						if(totalValue + P.moneyGrindedDaily > glob.DailyGrindCap * P.EconomyMult)
-							totalValue = glob.DailyGrindCap * P.EconomyMult - P.moneyGrindedDaily
+						if(totalValue + P.moneyGrindedDaily > glob.progress.DailyGrindCap * P.EconomyMult)
+							totalValue = glob.progress.DailyGrindCap * P.EconomyMult - P.moneyGrindedDaily
 						P.moneyGrindedDaily += totalValue
 						mineral.value = totalValue
 						mineral.assignState()
@@ -341,8 +341,8 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 						foundMoney = TRUE
 						if(P.passive_handler.Get("CashCow"))
 							totalValue *= 1+(P.passive_handler.Get("CashCow")/10)
-						if(totalValue + P.moneyGrindedDaily > glob.DailyGrindCap * P.EconomyMult)
-							totalValue = glob.DailyGrindCap * P.EconomyMult - P.moneyGrindedDaily
+						if(totalValue + P.moneyGrindedDaily > glob.progress.DailyGrindCap * P.EconomyMult)
+							totalValue = glob.progress.DailyGrindCap * P.EconomyMult - P.moneyGrindedDaily
 						P.moneyGrindedDaily += totalValue
 						money.Level += totalValue
 						money.name = "[Commas(round(money.Level))] Cash"
@@ -352,8 +352,8 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 						P.contents += money
 						if(P.passive_handler.Get("CashCow"))
 							totalValue *= 1+(P.passive_handler.Get("CashCow")/10)
-						if(totalValue + P.moneyGrindedDaily > glob.DailyGrindCap * P.EconomyMult)
-							totalValue = glob.DailyGrindCap * P.EconomyMult - P.moneyGrindedDaily
+						if(totalValue + P.moneyGrindedDaily > glob.progress.DailyGrindCap * P.EconomyMult)
+							totalValue = glob.progress.DailyGrindCap * P.EconomyMult - P.moneyGrindedDaily
 						P.moneyGrindedDaily += totalValue
 						money.Level = totalValue
 						money.name = "[Commas(round(money.Level))] Mana Bits"
