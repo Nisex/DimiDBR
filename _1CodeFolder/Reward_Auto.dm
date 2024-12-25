@@ -77,3 +77,5 @@ mob
 					else
 						extraMoney = 0
 				src.GiveMoney(max(0,round(glob.progress.EconomyIncome*src.EconomyMult*src.Intelligence)) + extraMoney)
+
+			moneyGrindedDaily = 0

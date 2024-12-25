@@ -612,6 +612,8 @@ mob/var
 
 	ShinjinAscension
 
+	moneyGrindedDaily = 0
+
 /proc/reduceGodKi(mob/player, num)
 	player.GodKi -= num
 	if(num < 0)

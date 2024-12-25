@@ -55,6 +55,7 @@ progressTracker
 		EconomyCost = 1000
 		EconomyMana = 100
 		EconomyMult = 1
+		DailyGrindCap = 1000
 		maxAscension = 5
 		MoneyName = "Dollars"
 
