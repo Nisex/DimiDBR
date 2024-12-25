@@ -11,6 +11,7 @@ race
 		offense = 0.5
 		defense = 0.5
 		force = 0.5
+		economy = 3
 		regeneration = 1.5
 		statPoints = 25
 		anger = 1
