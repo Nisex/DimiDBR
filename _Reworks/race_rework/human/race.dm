@@ -12,4 +12,4 @@ race
 		defense = 1.25
 		speed = 1
 		anger = 1.5
-		learning = 1
+		learning = 1.25
