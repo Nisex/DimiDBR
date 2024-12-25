@@ -1,3 +1,4 @@
+#warn ATTACH A FEW PASSIVES & MOVES TO THE BLADES THEMSELVES.
 mob/proc/gainWeaponSoul()
 	src << "You feel your soul resonate with a weapon..."
 	src.Saga="Weapon Soul"

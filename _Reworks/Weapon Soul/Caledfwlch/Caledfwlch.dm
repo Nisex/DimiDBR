@@ -19,7 +19,7 @@ obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Caledfwlch
 	verb/Heavenly_Regalia()
 		set category="Skills"
 		src.Trigger(usr)
-
+#warn MAKE EXCALIBUR COOLER
 obj/Skills/Projectile/Weapon_Soul
 	Excalibur
 		IconLock='Excaliblast.dmi'
