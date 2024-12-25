@@ -1,3 +1,4 @@
+#warn MAKE DRAGONS COOL AGAIN
 race
 	dragon
 		name = "Dragon"
