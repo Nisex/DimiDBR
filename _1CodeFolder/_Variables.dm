@@ -350,6 +350,7 @@ mob/var
 	CustomObj1Density=null
 	CustomObj1Opacity=null
 	CustomObj1Layer=3
+	CustomObjEdge = FALSE
 	CustomTurfIcon='ArtificalObj.dmi'
 	CustomTurfState="QuestionMark"
 	CustomTurfRoof=0

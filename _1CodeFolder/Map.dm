@@ -58,6 +58,7 @@ obj/Turfs
 				usr.CustomObj1Opacity=src.opacity
 				usr.CustomObj1X=src.pixel_x
 				usr.CustomObj1Y=src.pixel_y
+				usr.CustomObjEdge = src:edge
 			C.icon=src.icon
 			C.icon_state=src.icon_state
 			C.layer=src.layer
@@ -2893,6 +2894,7 @@ obj/Turfs
 			icon='NewObjects.dmi'
 			icon_state="129"
 	CustomObj1
+		var/edge = FALSE
 		icon='ArtificalObj.dmi'
 		icon_state="QuestionMark"
 	Rock

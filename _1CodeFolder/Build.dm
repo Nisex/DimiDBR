@@ -512,27 +512,6 @@ mob/var/buildPreviousX = 0
 mob/var/buildPreviousY = 0
 mob/var/buildPreviousZ = 0
 
-/mob/var/useCustomObjSettings = 0
-/mob/var/useCustomTurfSettings = 0
-
-// /mob/verb/useCustomObjSettings()
-// 	set category = "Mapper"
-// 	if(usr.useCustomObjSettings == 0)
-// 		usr.useCustomObjSettings = 1
-// 		usr<<"You will now use custom object settings."
-// 	else if(usr.useCustomObjSettings == 1)
-// 		usr.useCustomObjSettings = 0
-// 		usr<<"You will now use default object settings."
-// /mob/verb/useCustomTurfSettings()
-// 	set category = "Mapper"
-// 	if(usr.useCustomTurfSettings == 0)
-// 		usr.useCustomTurfSettings = 1
-// 		usr<<"You will now use custom turf settings."
-// 	else if(usr.useCustomTurfSettings == 1)
-// 		usr.useCustomTurfSettings = 0
-// 		usr<<"You will now use default turf settings."
-
-
 
 proc/Build_Lay(obj/Others/Build/O,mob/P, var/tmpX, var/tmpY, var/tmpZ)
 	if(!P.Admin&&!P.Mapper)
@@ -570,43 +549,53 @@ proc/Build_Lay(obj/Others/Build/O,mob/P, var/tmpX, var/tmpY, var/tmpZ)
 		C.Savable=1
 		worldObjectList+=C
 		if(istype(C,/obj/Turfs/CustomObj1))
+			var/obj/Turfs/CustomObj1/customObj=C
 			if(usr.useCustomObjSettings)
 				if(P.CustomObj1Icon)
-					C.icon=P.CustomObj1Icon
+					customObj.icon=P.CustomObj1Icon
 				else
-					C.icon=O.icon
+					customObj.icon=O.icon
 				if(P.CustomObj1State)
-					C.icon_state=P.CustomObj1State
+					customObj.icon_state=P.CustomObj1State
 				else
-					C.icon_state=O.icon_state
+					customObj.icon_state=O.icon_state
 				if(P.CustomObj1Layer)
-					C.layer=P.CustomObj1Layer
+					customObj.layer=P.CustomObj1Layer
 				else
 					C.layer=O.layer
 				if(P.CustomObj1Density)
-					C.density=P.CustomObj1Density
+					customObj.density=P.CustomObj1Density
 				else
-					C.density=O.density
+					customObj.density=O.density
 				if(P.CustomObj1Opacity)
-					C.opacity=P.CustomObj1Opacity
+					customObj.opacity=P.CustomObj1Opacity
 				else
-					C.opacity=O.opacity
+					customObj.opacity=O.opacity
 				if(P.CustomObj1X)
-					C.pixel_x=P.CustomObj1X
+					customObj.pixel_x=P.CustomObj1X
 				else
-					C.pixel_x=O.pixel_x
+					customObj.pixel_x=O.pixel_x
 				if(P.CustomObj1Y)
-					C.pixel_y=P.CustomObj1Y
+					customObj.pixel_y=P.CustomObj1Y
 				else
-					C.pixel_y=O.pixel_y
+					customObj.pixel_y=O.pixel_y
+				if(P.CustomObjEdge)
+					customObj.edge=P.CustomObjEdge
+				else
+					if(istype(O,/obj/Turfs/CustomObj1))
+						var/obj/Turfs/CustomObj1/CT=O
+						customObj.edge=CT.edge
 			else
-				C.icon=O.icon
-				C.icon_state=O.icon_state
-				C.layer=O.layer
-				C.density=O.density
-				C.opacity=O.opacity
-				C.pixel_x=O.pixel_x
-				C.pixel_y=O.pixel_y
+				customObj.icon=O.icon
+				customObj.icon_state=O.icon_state
+				customObj.layer=O.layer
+				customObj.density=O.density
+				customObj.opacity=O.opacity
+				customObj.pixel_x=O.pixel_x
+				customObj.pixel_y=O.pixel_y
+				if(istype(O,/obj/Turfs/CustomObj1))
+					var/obj/Turfs/CustomObj1/CT=O
+					customObj.edge=CT.edge
 		else
 			C.icon_state = O.icon_state
 

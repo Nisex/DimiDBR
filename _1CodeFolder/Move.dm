@@ -115,12 +115,19 @@ mob/Move()
 		for(var/obj/Turfs/Edges/A in loc)
 			if((A.dir in list(dir,turn(dir,45),turn(dir,-45))))
 				return
+		for(var/obj/Turfs/CustomObj1/customObject in loc)
+			if(customObject.edge && (customObject.dir in list(dir,turn(dir,45),turn(dir,-45))))
+				return
 	..()
 
 	if(!src.Incorporeal&&!src.passive_handler.Get("Skimming")&&!src.is_dashing&&!isai(src)&&!Knockback)
 		for(var/obj/Turfs/Edges/A in loc)
 			if(!(A.dir in list(dir,turn(dir,90),turn(dir,-90),turn(dir,45),turn(dir,-45))))
 				loc=Former_Location
+				break
+		for(var/obj/Turfs/CustomObj1/customObject in loc)
+			if(customObject.edge && (customObject.dir in list(dir,turn(dir,90),turn(dir,-90),turn(dir,45),turn(dir,-45))))
+				loc = Former_Location
 				break
 
 	if(src.Grab)
