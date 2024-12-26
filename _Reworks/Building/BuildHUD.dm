@@ -74,7 +74,6 @@ obj/screen_object/toggle_grouper
 
 	proc
 		AddButton(obj/screen_object/screen_button/toggle/B)
-			group ||= list()
 			if(!B) return
 			group |= B
 			B.button_group = src
@@ -144,6 +143,10 @@ proc/DirectionToState(direction)
 		if(SOUTH) return "S"
 		if(EAST) return "E"
 		if(WEST) return "W"
+		if(NORTHWEST) return "NW"
+		if(NORTHEAST) return "NE"
+		if(SOUTHWEST) return "SW"
+		if(SOUTHEAST) return "SE"
 
 obj/screen_object/screen_button/offset
 	icon = 'build mode small icons.dmi'
@@ -162,11 +165,9 @@ obj/screen_object/screen_button/toggle/direction
 
 	Activate()
 		..()
+		if(istype(usr?.Target, /obj/Turfs/CustomObj1))
+			usr?.CustomObj1State = DirectionToState(build_dir)
 		usr?.client?.buildDir = build_dir
-
-	Deactivate()
-		..()
-		usr?.client?.buildDir = SOUTH
 
 obj/screen_object/screen_button/toggle/build_button
 	plane = 10
@@ -227,7 +228,7 @@ mob/proc/AddBuildButtons()
 	G.AddOverlays(build_hud_holder)
 
 	G = new
-	for(var/i in CARDINAL_DIRECTIONS)
+	for(var/i in CARDINAL_DIRECTIONS+ORDINAL_DIRECTIONS)
 		var/obj/screen_object/screen_button/toggle/direction/B = new(client)
 		B.icon_state = DirectionToState(i)
 		B.build_dir = i
@@ -242,11 +243,19 @@ mob/proc/AddBuildButtons()
 			B.pixel_y -= floor((8 * scale) + (8 * scale) / 4)
 			B.pixel_x -= floor((8 * scale) + (8 * scale) / 4)
 		if(i == SOUTH)
-			B.pixel_y -= floor((8 * scale) + (8 * scale) / 4)
+			B.pixel_y -= floor((16 * scale) + (16 * scale) / 4)
+		if(i == NORTHEAST)
+			B.pixel_x += floor((8 * scale) + (8 * scale) / 4)
+		if(i == NORTHWEST)
+			B.pixel_x -= floor((8 * scale) + (8 * scale) / 4)
+		if(i == SOUTHEAST)
+			B.pixel_y -= floor((16 * scale) + (16 * scale) / 4)
+			B.pixel_x += floor((8 * scale) + (8 * scale) / 4)
+		if(i == SOUTHWEST)
+			B.pixel_y -= floor((16 * scale) + (16 * scale) / 4)
+			B.pixel_x -= floor((8 * scale) + (8 * scale) / 4)
 		B.color = hudColor
 		G.AddButton(B)
-		if(i == NORTH)
-			G.SetActive(B)
 	count++
 	G.AddOverlays(build_hud_holder)
 
@@ -254,7 +263,7 @@ mob/proc/AddBuildButtons()
 		var/obj/screen_object/screen_button/offset/B = new(client)
 		B.icon_state = i
 		B.transform = matrix().Scale(scale)
-		B.pixel_y = floor(-((16 * scale) + (16 * scale) / 2) * count)
+		B.pixel_y = floor(-((18 * scale) + (18 * scale) / 2) * count)
 		B.pixel_y += floor(8 * scale)
 		B.pixel_x = -floor((16 * scale) / 4)
 		if(i == "RIGHT")
