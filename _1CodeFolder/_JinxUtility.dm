@@ -2216,34 +2216,35 @@ mob
 				defender.Level+=Value
 				defender.name="[Commas(round(defender.Level))] [glob.progress.MoneyName]"
 			src << "You've gained [Commas(round(Value))] [glob.progress.MoneyName]."
-		TakeManaCapacity(var/Value)
+		TakeManaCapacity(var/Value, ignorePhiloStone = FALSE)
 			var/Remaining=Value
-			for(var/obj/Magic_Circle/MC in range(3, src))
-				if(!MC.Locked)
-					Remaining*=0.9
-				else
-					if(MC.Creator==src.ckey)
-						Remaining*=0.75
-				break
-			for(var/obj/Items/Enchantment/PhilosopherStone/PS in src)
-				if(!PS.ToggleUse) continue
-				if(Remaining==PS.CurrentCapacity)
-					Remaining=0
-					PS.CurrentCapacity=0
-				else if(Remaining>PS.CurrentCapacity)
-					Remaining-=PS.CurrentCapacity
-					PS.CurrentCapacity=0
-				else if(PS.CurrentCapacity>Remaining)
-					PS.CurrentCapacity-=Remaining
-					Remaining=0
-				if(0>=PS.CurrentCapacity) if(istype(PS, /obj/Items/Enchantment/PhilosopherStone/Magicite))
-					src << "You burn out the mana in one of your magicite stones, causing it to crumble."
-					contents-=PS
-					PS.loc = null //garbage collection
-					for(var/atom/a in PS.contents) PS.contents-=a //incase they sealed it i guess
-				PS.desc="A philosopher's stone is the result of a sapient being transmuted into pure mana.  They regenerate capacity.<br>Your [PS] has [PS.CurrentCapacity] / [PS.MaxCapacity] capacity generated."
-				if(Remaining==0)
+			if(!ignorePhiloStone)
+				for(var/obj/Magic_Circle/MC in range(3, src))
+					if(!MC.Locked)
+						Remaining*=0.9
+					else
+						if(MC.Creator==src.ckey)
+							Remaining*=0.75
 					break
+				for(var/obj/Items/Enchantment/PhilosopherStone/PS in src)
+					if(!PS.ToggleUse) continue
+					if(Remaining==PS.CurrentCapacity)
+						Remaining=0
+						PS.CurrentCapacity=0
+					else if(Remaining>PS.CurrentCapacity)
+						Remaining-=PS.CurrentCapacity
+						PS.CurrentCapacity=0
+					else if(PS.CurrentCapacity>Remaining)
+						PS.CurrentCapacity-=Remaining
+						Remaining=0
+					if(0>=PS.CurrentCapacity) if(istype(PS, /obj/Items/Enchantment/PhilosopherStone/Magicite))
+						src << "You burn out the mana in one of your magicite stones, causing it to crumble."
+						contents-=PS
+						PS.loc = null //garbage collection
+						for(var/atom/a in PS.contents) PS.contents-=a //incase they sealed it i guess
+					PS.desc="A philosopher's stone is the result of a sapient being transmuted into pure mana.  They regenerate capacity.<br>Your [PS] has [PS.CurrentCapacity] / [PS.MaxCapacity] capacity generated."
+					if(Remaining==0)
+						break
 			if(Remaining>0)
 				src.LoseCapacity(Remaining)
 				//This proc only gets called if it has already been checked that someone has enough to pay...So nothing else should be necessary.

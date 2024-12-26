@@ -2870,20 +2870,21 @@ mob
 			if(Money>=Value)
 				return 1
 			return 0
-		HasManaCapacity(var/Value)
+		HasManaCapacity(var/Value, ignorePhiloStone = FALSE)
 			var/Total=0
 			if(!isRace(ANDROID)&&!HasMechanized())
 				Total+=(100-src.TotalCapacity)*src.GetManaCapMult()//Personal reserves
-			for(var/obj/Items/Enchantment/PhilosopherStone/PS in src)
-				if(!PS.ToggleUse) continue
-				Total+=PS.CurrentCapacity
-			for(var/obj/Magic_Circle/MC in range(3, src))
-				if(!MC.Locked)
-					Total/=0.9
-				else
-					if(MC.Creator==src.ckey)
-						Total/=0.75
-				break
+			if(!ignorePhiloStone)
+				for(var/obj/Items/Enchantment/PhilosopherStone/PS in src)
+					if(!PS.ToggleUse) continue
+					Total+=PS.CurrentCapacity
+				for(var/obj/Magic_Circle/MC in range(3, src))
+					if(!MC.Locked)
+						Total/=0.9
+					else
+						if(MC.Creator==src.ckey)
+							Total/=0.75
+					break
 			if(Total>=Value)
 				return 1
 			return 0

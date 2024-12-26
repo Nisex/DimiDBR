@@ -125,6 +125,13 @@ ArmamentEnchantment -> tome creation (articact manufactioning + ArmamentEnchantm
     name = "Soul Infusion"
     requires = list("Magical Forging")
 
+/knowledgePaths/magic/RitualMagic
+    name = "RitualMagic"
+    breakthrough = TRUE
+    requires = list("ToolEnchantment")
+/knowledgePaths/magic/Introductory_Ritual_Magics
+    name = "Introductory Ritual Magics"
+    requires = list("RitualMagic")
 
 /knowledgePaths/magic/TomeCreation
     name = "TomeCreation"

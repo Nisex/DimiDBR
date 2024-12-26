@@ -585,7 +585,7 @@ mob/Admin3/verb
 				"Tome Cleansing", "Tome Security", "Tome Translation", "Tome Binding", "Tome Excerpts",
 				"Turf Sealing", "Object Sealing", "Power Sealing", "Mobility Sealing", "Command Sealing",
 				"Teleportation", "Dimensional Manipulation", "Retrieval", "Bilocation", "Dimensional Restriction",
-				"Transmigration", "Lifespan Extension", "Temporal Displacement", "Temporal Acceleration", "Temporal Rewinding")
+				"Transmigration", "Lifespan Extension", "Temporal Displacement", "Temporal Acceleration", "Temporal Rewinding", "Ritual Magic", "Introductory Ritual Magics")
 				for(var/o in m.knowledgeTracker.learnedKnowledge)
 					Options.Remove(o)
 				var/Choice=input(usr, "What breakthrough do you want to grant to [m]?", "Tech Unlock") in Options
