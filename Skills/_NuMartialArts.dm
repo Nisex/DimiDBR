@@ -1401,7 +1401,7 @@ obj
 						StyleStr=1.25
 						StyleFor=1.25
 						StyleSpd=1.5
-						passives = list("IdealStrike" = 1, "HybridStrike" = 1, "WeaponBreaker" = 3, "Flicker" = 3, "Pursuer" = 3, "SuperDash" = 2, "SwordPunching" = 1, "TechniqueMastery" = 10, "MovementMastery" = 8, "MartialMagic" = 1, "MovingCharge" = 1)
+						passives = list("IdealStrike" = 1, "WeaponBreaker" = 2, "Flicker" = 2, "Pursuer" = 3, "SuperDash" = 2, "SwordPunching" = 1, "TechniqueMastery" = 2, "MovementMastery" = 6, "MartialMagic" = 1, "MovingCharge" = 1)
 						HybridStrike=1
 						WeaponBreaker=3
 						Flicker=3
