@@ -4177,14 +4177,6 @@ NEW VARIABLES
 			ABuffNeeded=list("Soul Resonance")
 			verb/OverSoul()
 				set category="Skills"
-				if(usr.SagaLevel<8)
-					src.TimerLimit=90
-					NeedsHealth=50
-					TooMuchHealth=75
-				else
-					src.TimerLimit=0
-					src.NeedsHealth=0
-					src.TooMuchHealth=0
 				if(usr.BoundLegend=="Caledfwlch")
 					HealthHeal=0.25
 					WoundHeal=1
