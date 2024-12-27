@@ -23,7 +23,7 @@
 
 // prob shouldn't make more objs, but w/e
 
-
+/*
 
 /mob/verb/testBeast()
     set category = "Debug"
@@ -89,7 +89,7 @@
     plane_master.vis_contents += bleh
     plane_master.vis_contents += test
     blankHolder.vis_contents += lightness
-    blankHolder.vis_contents += dorkness 
+    blankHolder.vis_contents += dorkness
     animate(plane_master, transform=matrix().Scale(126), time = 20, easing = CUBIC_EASING)
     sleep(16)
     var/obj/tester = new()
@@ -114,7 +114,7 @@
     dorkness.alpha = 0
     sleep(2)
     lightness.alpha = 0
-    del dorkness 
+    del dorkness
     del test
     plane_master.screen_loc = "CENTER,CENTER"
     animate(plane_master, transform=matrix())
@@ -128,8 +128,8 @@
     sleep(8)
     plane_master.vis_contents -= bleh
     del bleh
-    lightness.alpha = 0 
+    lightness.alpha = 0
     blankHolder.vis_contents -= lightness
     del blankHolder
     del lightness
-    client.eye = src
+    client.eye = src*/

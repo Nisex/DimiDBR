@@ -35,7 +35,7 @@
 	appearance_flags = PIXEL_SCALE
 	layer = FLY_LAYER
 	proc/fadeOut()
-		animate(src, alpha = 0, time = 10)  
+		animate(src, alpha = 0, time = 10)
 	energy
 		particles = new/particles/energy
 		layer = FLY_LAYER+0.1
@@ -44,9 +44,9 @@
 		New()
 			. = ..()
 			filters = list(filter(type="outline", size = 1, flags = OUTLINE_SQUARE, color = rgb(255,255,255)) , \
-							filter(type="motion_blur",y = 8/5, x = 8/10)) 
+							filter(type="motion_blur",y = 8/5, x = 8/10))
 		particles = new/particles/energy2
-		  
+
 
 /datum/effect
 	parent_type = /atom/movable
@@ -90,9 +90,10 @@
 	Test2
 		emitters = list(new/obj/emitter/energy2)
 
-
+/*
 /mob/verb/emit(n as num)
 	var/datum/effect/Test2/t2 = new(src,n)
 	animate(t2.emitters[1], alpha = 120, time = n / 2)
 	sleep(n/2)
 	animate(t2.emitters[1], alpha = 0, time = n / 4)
+*/

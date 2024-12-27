@@ -564,6 +564,7 @@ mob/proc/Regenerate(var/obj/Regenerate/R in src)
 
 
 mob/Body
+	var/description
 	KO=1
 	var/DeathTime
 	var/TrulyDead=1//dont nerf people who are voiding naturally
@@ -603,7 +604,13 @@ mob/Body
 		if(Target)
 			Target << "Your body has been destroyed."
 		..()
-
+	Click()
+		..()
+		if(!glob.ALLOW_CLICK_CORPSE) return
+		if(!description)
+			description = input(usr, "What sort of description would you like to set upon this body? How were they killed?\n The format is 'Name's corpse' INPUT ", "Dead Body") as message
+		else
+			usr << "[src] [description]"
 /proc/SaveIRLNPCs()
 	set background = 1
 	var/savefile/F = new("Saves/IRLNPCs")
