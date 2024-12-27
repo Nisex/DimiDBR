@@ -8447,6 +8447,7 @@ NEW VARIABLES
 					s.Conjured = TRUE
 					s.suffix = null
 					s.Destructable = TRUE
+					s.ShatterCounter = s.ShatterMax
 					copiedBlades += s
 
 			verb/Remove_Blade()
