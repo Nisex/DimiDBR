@@ -133,6 +133,19 @@ globalTracker
 		TESTER_WHITE_LIST = list("Digi-Daisuke","RevealingFortune","Zamas2","Niezan", "Etro", "AMajin", "Redsarge", "Gogeto25",\
  "Tilthour", "Sakata Gintoki San", "Hellbante", "FoxMagnus")
 
+// TARGETING
+		LIMIT_CLICKS = TRUE
+		CLICK_SAME_Z_FORCE = TRUE
+		MAX_CLICK_DISTANCE = 30
+		CANT_CLICK_INVS = TRUE
+		ADMIN_INVIS_ONLY = FALSE
+		BREAK_TARGET = TRUE
+		BREAK_TARGET_ON_Z_CHANGE = TRUE
+		BREAK_TARGET_ON_DIST = FALSE
+
+
+
+
 //INTIM
 		INTIMRATIO = 500
 		NEWINTIMCALC = TRUE

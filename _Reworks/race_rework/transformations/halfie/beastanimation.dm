@@ -9,17 +9,17 @@
 /obj/dorkness
     icon = 'blackcutin.dmi'
     alpha = 0
-    layer = FLY_LAYER
+    layer = 999
 
 /obj/lightness
     icon = 'lightcutin.dmi'
     alpha = 0
-    layer = FLY_LAYER
+    layer = 999
 
 /obj/flicker
     icon = 'flickercutin.dmi'
     alpha = 0
-    layer = FLY_LAYER
+    layer = 999
 
 // prob shouldn't make more objs, but w/e
 
@@ -28,10 +28,10 @@
 /mob/verb/testBeast()
     set category = "Debug"
     var/oldview = client.view
-    Quake(30)
     client.eye = locate(50,50,21)
-    client.perspective = EDGE_PERSPECTIVE
-    client.edge_limit = "SOUTHWEST to NORTHEAST"
+    Quake(30, 1)
+    // client.perspective = EDGE_PERSPECTIVE
+    // client.edge_limit = "SOUTHWEST to NORTHEAST"
     var/obj/blankHolder = new()
     var/obj/dorkness/dorkness = new()
     var/obj/lightness/lightness = new()
@@ -56,6 +56,14 @@
     // animation start
     animate(i2, pixel_y=-64,time = 20)
     flick("", i)
+    var/obj/bleh = new()
+    bleh.appearance = src.appearance
+    bleh.screen_loc = "CENTER+1,CENTER+1"
+    bleh.appearance_flags = PIXEL_SCALE | KEEP_TOGETHER
+    bleh.dir = SOUTH
+    bleh.layer = 10
+    bleh.transform = matrix().Scale(4)
+    client.screen += bleh
     sleep(15)
     animate(dorkness, alpha = 255, time = 10)
     sleep(15)
@@ -69,24 +77,34 @@
     var/obj/plane_test/plane_master = new()
     plane_master.screen_loc = "LEFT,BOTTOM"
     client.screen += plane_master
-    var/obj/bleh = new()
-    bleh.appearance = src.appearance
-    bleh.screen_loc = "CENTER,CENTER"
-    bleh.appearance_flags = PIXEL_SCALE | KEEP_TOGETHER
-    bleh.dir = SOUTH
 
     var/obj/test = new()
     test.icon = 'SharinganEyes.dmi'
     test.appearance_flags = PIXEL_SCALE | KEEP_TOGETHER
     test.layer = MOB_LAYER
 
-
+    client.screen -= bleh
+    bleh.transform = matrix()
+    bleh.layer = MOB_LAYER
     plane_master.vis_contents += bleh
     plane_master.vis_contents += test
     blankHolder.vis_contents += lightness
     blankHolder.vis_contents += dorkness 
     animate(plane_master, transform=matrix().Scale(126), time = 20, easing = CUBIC_EASING)
-    sleep(30)
+    sleep(16)
+    var/obj/tester = new()
+    tester.transform = matrix().Scale(0.001)
+    tester.pixel_x=175
+    tester.pixel_y=250
+    tester.icon = 'GodOrb.dmi'
+    tester.color = rgb(174, 0, 0, 255)
+    tester.appearance_flags = PIXEL_SCALE | KEEP_TOGETHER
+    tester.layer = FLY_LAYER
+    plane_master.vis_contents += tester
+    var/matrix/M = matrix().Scale(0.25)
+    animate(tester, transform = M, time = 10)
+    sleep(8)
+    del tester
     lightness.alpha = 255
     sleep(2)
     lightness.alpha = 0
@@ -104,10 +122,10 @@
     var/datum/effect/Test2/t = new(bleh, 250)
     t.emitters[1].alpha = 155
     animate(t.emitters[1], alpha = 255, time = 20)
-    sleep(80)
-    animate(lightness, alpha = 255, time = 2)
+    sleep(75)
+    animate(lightness, alpha = 255, time = 7)
     del t
-    sleep(10)
+    sleep(8)
     plane_master.vis_contents -= bleh
     del bleh
     lightness.alpha = 0 

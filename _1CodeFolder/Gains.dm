@@ -327,7 +327,14 @@ mob
 				p.Attack()
 			else
 				p.Auto_Attack()
-
+		if(glob.BREAK_TARGET)
+			if(glob.BREAK_TARGET_ON_Z_CHANGE && Target)
+				if(Target.z != src.z)
+					Target = null
+			if(glob.BREAK_TARGET_ON_DIST && Target)
+				if(get_dist(Target,src) >= glob.BREAK_TARGET_ON_DIST)
+					Target = null
+			
 		if(src.Health <= 25*(1-src.HealthCut) && !src.HealthAnnounce25)
 
 			var/shonenMoment = ShonenPowerCheck(src)
@@ -1530,7 +1537,7 @@ mob
 				src.DoDamage(src,glob.DainsleifDrain/SagaLevel)
 
 			if(cursedSheathValue)
-				cursedSheathValue -= 0.5/SagaLevel
+				cursedSheathValue -= 0.5/SagaLevel //TODO: ADD A HUD
 				cursedSheathValue = clamp(0, cursedSheathValue, SagaLevel*50)
 
 			for(var/obj/Skills/Buffs/SlotlessBuffs/Implants/Internal_Explosive/B in src.Buffs)

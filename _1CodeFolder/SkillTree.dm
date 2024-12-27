@@ -2,7 +2,7 @@ var/list/SkillTreeList=list("BlastT1"=list(),"BlastT2"=list(),"BlastT3"=list(), 
 "BlastT4"=list(),"SwordT1"=list(),"SwordT2"=list(),"SwordT3"=list(),"SwordT4"=list(),\
 "BeamT1"=list(),"BeamT2"=list(),"BeamT3"=list(),"BeamT4"=list(),\
 "MagicT1"=list(),"MagicT2"=list(),"MagicT3"=list(),"MagicT4"=list(),\
-"UnarmedT1"=list(),"UnarmedT2"=list(),"UnarmedT3"=list(),"UnarmedT4"=list(),\
+"UnarmedT1"=list(),"UnarmedT2"=list(),"UnarmedT3"=list(),"UnarmedT4"=list(), "UnarmedT5" = list(),\
 "UnarmedStyles"=list(),"ElementalStyles"=list(),"SpiritStyles"=list(),"SwordStyles"=list())
 proc/MakeSkillTreeList()
 	for(var/x in SkillTree)
@@ -75,6 +75,10 @@ var/list/SkillTree=list(
 			"/obj/Skills/AutoHit/Spinning_Clothesline"=160,
 			"/obj/Skills/AutoHit/Hyper_Crash"=160,
 			"/obj/Skills/AutoHit/Dropkick_Surprise"=160
+),
+"UnarmedT5"=list(
+			"/obj/Skills/Grapple/The_Show_Stopper"=TIER_5_COST
+
 ),
 
 "BlastT1"=list(

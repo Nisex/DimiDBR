@@ -7,6 +7,13 @@ mob/Players/proc/ExamineInflol(mob/p)
 mob/Click()
 	if(usr.client.macros.IsPressed("Alt") && usr.Observing)
 		usr?:ExamineInflol(src)
+	if(glob.CANT_CLICK_INVS)
+		if((!glob.ADMIN_INVIS_ONLY && (src.invisibility >= usr)) || src.AdminInviso)
+			return
+	if(glob.LIMIT_CLICKS)
+		if((glob.CLICK_SAME_Z_FORCE && src.z != usr.z) || get_dist(src, usr) > glob.MAX_CLICK_DISTANCE)
+			usr << "You are either not on the same z, or the person is too far."
+			return
 	if(usr.Target!=src)
 		for(var/sb in usr.SlotlessBuffs)
 			var/obj/Skills/Buffs/b = usr.SlotlessBuffs[sb]
