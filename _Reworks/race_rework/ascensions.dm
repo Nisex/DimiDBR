@@ -992,7 +992,23 @@ ascension
 			unlock_potential = 80
 			intimidation = 10
 			passives = list("Brutalize" = 0.25, "Desperation" = 0.5)
-
+			onAscension(mob/owner)
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/half_saiyan/adaptive)
+					passives["TechniqueMastery"] = 0.25
+					passives["Adrenaline"] = 0.5
+					passives["Desperation"] = 0.5
+					strength = 0.25
+					defense = 0.25
+					offense = 0.5
+					force = 0.25
+				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/half_saiyan/dominating)
+					passives["Brutalize"] = 0.5
+					passives["KillerInstinct"] = 0.05
+					strength = 0.25
+					force = 0.25
+					offense = 0.5
+					speed = 0.5
+				..()
 
 
 
