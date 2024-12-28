@@ -234,6 +234,7 @@
 	return TRUE
 
 /mob/proc/fieldAndDefense(mob/defender, unarmed, sword, spiritAtk, val)
+	if(!val) return
 	if(defender.UsingVoidDefense())
 		if(defender.TotalFatigue>0)
 			defender.HealFatigue(val/3)
