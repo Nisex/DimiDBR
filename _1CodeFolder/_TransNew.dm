@@ -148,7 +148,7 @@ mob/proc/CanTransform()
 				src<<"Your ascended transformation uses too much power to enter another level!"
 				return 0
 	if(isRace(SAIYAN) || isSaiyanHalfie())
-		if(race.transformations[4].type == /transformation/saiyan/super_saiyan_god)
+		if(length(race.transformations) >= 4 && race.transformations[4].type == /transformation/saiyan/super_saiyan_god)
 			if(transActive+1 == 4 && race.transformations[4].first_time)
 				// first time super saiyan god has special conditions
 				var/num_of_saiyans = 0

@@ -4502,8 +4502,9 @@ mob
 							src << "[src.AttackQueue] is out of power!"
 			if(src.AttackQueue.Hit)
 				if(src.AttackQueue.GrabTrigger)
+					var/grabPath = src.AttackQueue.GrabTrigger
 					for(var/obj/Skills/Grapple/g in src.Skills)
-						if(g.type==text2path(src.AttackQueue.GrabTrigger))
+						if(g.type==text2path(grabPath))
 							g.Activate(src)
 			if(src.AttackQueue.Hit)
 				if(src.AttackQueue.FollowUp)
