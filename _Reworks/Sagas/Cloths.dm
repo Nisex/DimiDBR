@@ -68,6 +68,8 @@ sagaTierUpMessages/Cosmo
 				SenseUnlocked++
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/SeventhSense/SS in src)
 					SS.NeedsHealth = 25
+					SS.ActiveMessage="burns their Cosmo with full strength and attains the Eighth Sense!!!"
+					SS.OffMessage="has lost their Eighth Sense..."
 					SS.TooMuchHealth = 50
 					SS.passives["SpiritPower"] = 0.25
 				switch(src.ClothGold)

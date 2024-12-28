@@ -3246,7 +3246,7 @@ NEW VARIABLES
 				adjustments(mob/player)
 					..()
 					passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1,"MovementMastery" = 10+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.25))
-					if(!timeLimit)
+					if(!timeLimit&&player.SagaLevel < 5)
 						setRandomTime(player)
 				verb/Toggle_Cape()
 					set category="Roleplay"
