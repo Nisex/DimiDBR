@@ -5094,6 +5094,7 @@ obj
 				DamageMult=2//First step is 1 damage
 				StepsDamage=1//fourth step is 5 damage
 				ActiveMessage="whiffs their swing, causing a powerful wave of pressure!"
+				Cooldown = 10
 
 			Crystal_Tomb
 				NeedsSword=1

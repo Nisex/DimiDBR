@@ -615,6 +615,7 @@ obj
 				Blasts=5
 				IconLock='Dancing.dmi'
 				Variation=6
+				Cooldown = 2
 				//No verb because it is created manually.
 			Rock_Bits
 				Distance=30
@@ -652,6 +653,7 @@ obj
 				IconLock='Arrow - Spirit.dmi'
 				Variation=48
 				Radius=1
+				Cooldown = 2
 			Sagittarius_Arrow
 				DamageMult=1
 				AccMult=1
@@ -668,6 +670,7 @@ obj
 				Trail='LightImpulseTrail.dmi'
 				TrailDuration=1
 				TrailSize=0.75
+				Cooldown = 2
 			Staff_Projectile
 				Radius=0
 				DamageMult=1
@@ -681,6 +684,7 @@ obj
 				IconLock='Blast - Small.dmi'
 				Variation=48
 				Radius=1
+				Cooldown = 4
 			Fenrir
 				NoTransplant=1
 				Cooldown=60

@@ -867,10 +867,8 @@
 					NextAttack+=15
 			else if(src.CheckSpecial("Wisdom Form"))
 				GetAndUseSkill(/obj/Skills/Projectile/Wisdom_Form_Blast, Projectiles, TRUE)
-				NextAttack+=15
 			else if(src.CheckSlotless("OverSoul"))
 				GetAndUseSkill(/obj/Skills/AutoHit/DurendalPressure, AutoHits, TRUE)
-				NextAttack+=15
 			else if(src.CheckSlotless("Heavenly Ring Dance"))
 				if(src.Target&&src.Target!=src)
 					src.Target.Frozen=1
@@ -908,13 +906,10 @@
 			else if(src.CheckSlotless("Libra Armory")&&src.AttackQueue)
 				GetAndUseSkill(/obj/Skills/Projectile/Libra_Slash, Projectiles, TRUE)
 				src.ClearQueue()
-				NextAttack+=15
 			else if(src.CheckSlotless("Spirit Bow"))
 				GetAndUseSkill(/obj/Skills/Projectile/Aether_Arrow, Projectiles, TRUE)
-				NextAttack+=15
 			else if(src.CheckSlotless("Sagittarius Bow")&&!AttackQueue&&!passive_handler.Get("HotHundred"))
 				GetAndUseSkill(/obj/Skills/Projectile/Sagittarius_Arrow, Projectiles, TRUE)
-				NextAttack += 15
 			else if(st&&st.modifiedAttack)
 				if(!locate(/obj/Skills/Projectile/Staff_Projectile, Projectiles))
 					src.AddSkill(new/obj/Skills/Projectile/Staff_Projectile)
@@ -933,14 +928,6 @@
 							pc.DamageMult = 1.5
 							pc.Speed = 1.25
 					src.UseProjectile(pc)
-				switch(st.Class)
-					if("Wand")
-						NextAttack += 2
-					if("Rod")
-						NextAttack += 5
-					if("Staff")
-						NextAttack += 10
-				NextAttack+=15
 			return
 
 /mob/var/Momentum = 0
