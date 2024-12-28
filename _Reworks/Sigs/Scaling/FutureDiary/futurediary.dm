@@ -107,9 +107,11 @@ mob/proc/levelUpDiary(mob/M)
 	OffMult = 1.1
 	DefMult = 1.2
 	SpecialSlot = 1
-	Cooldown = 2 MINUTES
+	Cooldown = 300
+	name = "Future Diary"
 	BuffName = "Future Diary"
-	TimerLimit = 2 MINUTES
+	ActiveMessage = "begins to read the future!"
+	OffMessage = "closes off their diary!"
 	verb/Future_Diary()
 		set category = "Skills"
 		if(!usr.BuffOn(src))
@@ -196,7 +198,7 @@ mob/proc/levelUpDiary(mob/M)
 							passives = list("HolyMod" = 4, "PUSpike" = 5, "Instinct" = 3)
 							DefMult = 1.6 
 							EndMult = 1.3
-
+		src.Trigger(usr)
 ///
 ///	Skills
 ///
