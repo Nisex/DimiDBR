@@ -223,7 +223,10 @@ mob
 								if(dir==NORTHEAST||dir==NORTHWEST||dir==SOUTHEAST||dir==SOUTHWEST)
 									loop_delay *= glob.DIAG_LOOP_DELAY
 								move_speed = MovementSpeed()
-								sleep(world.tick_lag * (loop_delay + move_speed))
+								var/delay = loop_delay + move_speed
+								if(src.Crippled)
+									delay*=glob.MAX_CRIPPLE_MULT*(Crippled/glob.CRIPPLE_DIVISOR)
+								sleep(world.tick_lag * (delay))
 								continue
 					sleep(world.tick_lag)
 					// if(loop_delay>=1)

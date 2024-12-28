@@ -82,4 +82,6 @@
 
 /transformation/half_saiyan/human/beast_mode // XD
 
+	form_aura_icon = 'Amazing Super Beast Aura.dmi'
+	form_aura_x = -32
 	passives = list("Hidden Potential" = 1)

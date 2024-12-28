@@ -609,20 +609,8 @@ NEW VARIABLES
 				if(altered) return
 				if(selectedPassive == "None")
 					p.PoweredFormSetup()
-				var/boon = p.Potential / 25
-				switch(selectedPassive)
-					if("Flicker")
-						if(boon < 1)
-							boon = 1
-						passives = list("Flicker"=round(boon), "KiControl" = 1, "EnergyLeak" = 1)
-					if("Godspeed")
-						if(boon < 1)
-							boon = 1
-						passives = list("Godspeed"=round(boon), "KiControl" = 1, "EnergyLeak" = 1)
-					if("Pursuer")
-						if(boon < 1)
-							boon = 1
-						passives = list("Pursuer"=round(boon), "KiControl" = 1, "EnergyLeak" = 1)
+				var/boon = clamp(p.Potential / 25, 1, 4)
+				passives = list("[selectedPassive]" = boon, "KiControl" = 1, "EnergyLeak" = 1)
 
 			Trigger(var/mob/User, Override=0)
 				init(User)
@@ -3515,7 +3503,8 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1, "MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "MovingCharge" = 1, "Godspeed" = 1+(player.SagaLevel*0.5), "BlurringStrikes" = player.SagaLevel*0.2, "Flow" = player.SagaLevel-3, "Skimming" = 1, "SpiritFlow" = player.SagaLevel-2, "MovingCharge" = 1)
+						passives = list("DebuffImmune" = 1, "SpaceWalk" = 1, "StaticWalk" = 1, "MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "MovingCharge" = 1, \
+										"Godspeed" = 1+(player.SagaLevel*0.5), "BlurringStrikes" = player.SagaLevel*0.2, "Flow" = player.SagaLevel-3, "Skimming" = 1, "SpiritFlow" = player.SagaLevel-2)
 						SpdMult = 1.4 + ((player.SagaLevel-3) * 0.1)
 						StrMult = 1.1 + ((player.SagaLevel-3) * 0.1)
 						OffMult = 1.1 + ((player.SagaLevel-3) * 0.1)

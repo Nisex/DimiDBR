@@ -41,10 +41,14 @@ globalTracker/var/LOWER_DEBUFF_CLAMP = 0.001
     if(dmg < 0)
         world.log << "[src] Debuff Damage is negative [dmg], [typeOfDebuff]"
         dmg = 0.001
-    var/desp = passive_handler.Get("Desperation")
-    if(prob(desp*10)&&!HasInjuryImmune())
-        WoundSelf(dmg/desp)
-        dmg = 0
+    var/desp = clamp(passive_handler.Get("Desperation"), 0.1, glob.DESP_PROC_LIMIT)
+    if(prob(desp)*(glob.DESP_PROC_CHANCE * 2)&&!src.HasInjuryImmune())
+        desp = clamp(desp, 1, glob.DESP_DIVISOR_LIMIT)
+        if(glob.DESP_REDUCE_DAMAGE)
+            src.WoundSelf(dmg/desp)//Take all damage as wounds
+        else
+            WoundSelf(dmg)
+        dmg=0//but no health damage.
     // anger will not reduce debuff damage
 
     if(VaizardHealth)

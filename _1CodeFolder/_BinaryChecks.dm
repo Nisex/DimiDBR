@@ -1607,7 +1607,7 @@ mob
 				if(src.Target)
 					if(src.Target.HasGodKi())
 						if(Target.GetGodKi() > Total)
-							Total=Target.GetGodKi() - Total
+							Total=Target.GetGodKi()
 					else
 						Total+=Potential/100
 			if(src.KamuiBuffLock)

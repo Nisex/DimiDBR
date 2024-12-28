@@ -49,9 +49,14 @@ mob
 					src.BioArmor=0
 				else
 					val=0
-			var/desp = passive_handler.Get("Desperation")
-			if(prob(desp)*10&&!src.HasInjuryImmune())
-				src.WoundSelf(val/desp)//Take all damage as wounds
+			var/desp = clamp(passive_handler.Get("Desperation"), 0.1, glob.DESP_PROC_LIMIT)
+			
+			if(prob(desp)*glob.DESP_PROC_CHANCE&&!src.HasInjuryImmune())
+				desp = clamp(desp, 1, glob.DESP_DIVISOR_LIMIT)
+				if(glob.DESP_REDUCE_DAMAGE)
+					src.WoundSelf(val/desp)//Take all damage as wounds
+				else
+					WoundSelf(val)
 				val=0//but no health damage.
 			src.Health-=val
 			if(src.CursedWounds())
@@ -144,9 +149,14 @@ mob
 
 			if(defender.passive_handler.Get("Desperation")&&!defender.HasInjuryImmune())
 				if(FightingSeriously(src,defender))
-					if(prob(5*defender.passive_handler.Get("Desperation")))
-						defender.WoundSelf(val/sqrt(1+defender.passive_handler.Get("Desperation")))//Take all damage as wounds
-						val=0//reduce damag ehard
+					var/desp = clamp(passive_handler.Get("Desperation"), 0.1, glob.DESP_PROC_LIMIT)
+					if(prob(desp)*glob.DESP_PROC_CHANCE)
+						desp = clamp(desp, 1, glob.DESP_DIVISOR_LIMIT)
+						if(glob.DESP_REDUCE_DAMAGE)
+							defender.WoundSelf(val/sqrt(1+desp))//Take all damage as wounds
+						else
+							WoundSelf(val)
+						val=0//but no health damage.
 
 			if(defender.KO&&!src.Lethal)
 				val=0
