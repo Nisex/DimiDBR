@@ -327,7 +327,7 @@ mob
 				p.Attack()
 			else
 				p.Auto_Attack()
-		if(glob.BREAK_TARGET)
+		if(glob.BREAK_TARGET && !src.Admin)
 			if(glob.BREAK_TARGET_ON_Z_CHANGE && Target)
 				if(Target.z != src.z)
 					Target = null
