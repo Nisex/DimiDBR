@@ -13,23 +13,23 @@
 	position = generator("vector", list(0,0), list(0,0))
 	friction = 0.1
 	drift = generator("box", list(-6, -6), list(6, 6))
-	spin = generator("num", -90,90)
+	//spin = generator("num", -90,90)
 	color = "#57004f"
 /particles/energy2
 	icon = 'turq_haze.dmi'
 	width = 1000
 	height = 1000
-	spawning = 25
-	count = 1000
-	grow = 0.1
-	scale = 0.25
-	gravity = list(0,7)
-	lifespan = 32
-	fade = 9
-	position = generator("vector", list(-40,-40), list(40,-40))
+	spawning = 50
+	count = 1500
+	grow = 0.2
+	scale = 0.3
+	gravity = list(0,16)
+	lifespan = 64
+	fade = 32
+	position = generator("vector", list(-64,-40), list(64,-40))
 	friction = 0.33
-	drift = generator("box", list(-4, -4), list(4, 4))
-	// spin = generator("num", -45,45)
+	drift = generator("circle", list(-8, -8), list(8, 8))
+	spin = generator("num", -45,45)
 	// color = rgb(56, 176, 255, 255)
 /obj/emitter
 	appearance_flags = PIXEL_SCALE

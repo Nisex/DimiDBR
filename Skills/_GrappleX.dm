@@ -643,7 +643,8 @@ obj/Skills/Grapple
 							Crater(Trg,1.5)
 						if("ShowStopper")
 							Trg.icon_state = ""
-
+				if(Crippling)
+					Trg.AddCrippling(Crippling,User)
 				User.GrabMove=0
 				src.Cooldown()
 

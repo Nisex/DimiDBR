@@ -4547,7 +4547,6 @@ mob
 					src.AddSkill(S)//trigger buff on self
 				S.adjust(src)
 				if(S.parent_type==/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara || AttackQueue.type == /obj/Skills/Queue/Finisher/Cycle_of_Samsara)
-					world<<"Here"
 					AttackQueue.Mastery++
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/s in SlotlessBuffs)
 						s.Timer = 0
