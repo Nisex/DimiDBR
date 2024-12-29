@@ -4,7 +4,7 @@ race
 		icon_neuter= list('Gajalaka.dmi', 'Gaja EX.dmi', 'Gaja EX Maim.dmi')
 		desc = "Gajalaka are native to Mt. Red. Descendants of the illustrious Shiny-Rock tribe, they are incredibly resilient and often extremely affluent. They’re the illuminati."
 		visual = 'Gajalaka.png'
-		passives = list("CashCow" = 1, "Blubber" = 0.25)
+		passives = list("Desperation" = 1,"CashCow" = 1, "Blubber" = 0.25)
 
 		power = 0.75
 		strength = 0.75

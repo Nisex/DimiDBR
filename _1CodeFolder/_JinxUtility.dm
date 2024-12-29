@@ -49,10 +49,15 @@ mob
 					src.BioArmor=0
 				else
 					val=0
-			var/desp = passive_handler.Get("Desperation")
-			if(prob(desp)*10&&!src.HasInjuryImmune())
-				src.WoundSelf(val/desp)//Take all damage as wounds
-				val=0//but no health damage.
+			var/persistence = passive_handler["Persistence"]
+			if(prob(persistence) * glob.PERSISTENCE_CHANCE_SELF&&!HasInjuryImmune())
+				if(glob.PERSISTENCE_DIVIDES_DAMAGE)
+					var/clamped = clamp(persistence, glob.PRESISTENCE_DIVISOR_MIN, glob.PRESISTENCE_DIVISOR_MAX)
+					WoundSelf(val/clamped)
+				else
+					WoundSelf(val)
+				if(glob.PERSISTENCE_NEGATES_DAMAGE)
+					val = 0
 			src.Health-=val
 			if(src.CursedWounds())
 				src.WoundSelf(val)
