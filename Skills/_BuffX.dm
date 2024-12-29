@@ -917,21 +917,21 @@ NEW VARIABLES
 				var/puBoon = num >= 4 ? TRUE : FALSE
 				FatigueHeal = num * 15
 				EnergyHeal = num * 20
-				PUSpike = 50 + (4 * num) // changed to 150%(pu) + 8xgate; so power wall doesnt jackhammer a asshole.
+				PUSpike = 50 + (glob.GATES_PUSPIKE_BASE * num) // changed to 150%(pu) + 8xgate; so power wall doesnt jackhammer a asshole.
 				FatigueLeak = num+1 / p.SagaLevel
 				BleedHit = p.SagaLevel-1
 				passives = list("PUSpike" = PUSpike, "KiControl" = 1, "PULock" = 1,\
 				"DemonicDurability" = clamp(num*0.2,0.25,4), "HeavyHitter" = num / 8, \
 				"Flicker" = round(clamp(num/2,1,8)), "Godspeed" = round(clamp(num/2,1,8)),\
 				"SuperDash" = puBoon ? 1 : 0)
-				StrMult = 1 + num / 30
-				EndMult = 1 + num / 30
-				SpdMult = 1 + num / 30
+				StrMult = 1 + num / glob.GATES_STAT_MULT_DIVISOR
+				EndMult = 1 + num / glob.GATES_STAT_MULT_DIVISOR
+				SpdMult = 1 + num / glob.GATES_STAT_MULT_DIVISOR
 				KenWave=clamp(num / 2, 1, 4)
 
 
 				if(num == 7)
-					PUSpike = 300
+					passives["PUSpike"] = 300
 					IconLock='FlameGlowHades.dmi'
 					LockX=-16
 					LockY=-4
@@ -992,7 +992,9 @@ NEW VARIABLES
 					User.GatesActive = 0
 					GatesLevel = 0*/
 
-
+			verb/Check_Power_Nerf_Timer()
+				set hidden = 1
+				src << "Total: [p.BPPoison=0.9], Off @ [time2text(usr.BPPoisonTimer, "MM:DD:hh:mm:ss", "est")]"
 
 			proc/shutOffEffects(mob/p, level, dontWound = FALSE)
 				p.GatesActive=0
@@ -1080,7 +1082,7 @@ NEW VARIABLES
 
 
 			proc/checkUnlocked(mob/p, num)
-				if(p.SagaLevel < num)
+				if(p.SagaLevel + 2 < num)
 					p << "You haven't unlocked this gate yet!"
 					return 0
 				else
