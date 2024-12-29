@@ -185,6 +185,7 @@ globalTracker
 		MADNESS_DRAIN_FORM = 2
 		CONQ_HAKI_RACES = list(HUMAN, YOKAI, DEMON, ELF, SAIYAN, NAMEKIAN, MAJIN, MAKYO, DRAGON, BEASTMAN, GAJALAKA, CHANGELING)
 		EXTRA_CONQ_HAKI_POWER = 1.5
+		CONQ_HAKI_CHANCE = 6
 		MONEYORFRAGMENTS = 1 // 1 = fragments, 0 = cash
 // globals
 		WorldBaseAmount = 1
@@ -367,7 +368,7 @@ globalTracker
 
 		HARDER_THEY_FALL_BIO_DIVISOR = 100 // if u use this when changie first start it will do big damage
 		HARDER_THEY_FALL_VAI_DIVISOR = 25 // more often no1 has this much vai, in hindsight deus ex machima will give kob more tha nthis, but they will suffer 2x damage ig
-		
+
 // dmg rolls
 		min_damage_roll = 0.3
 		upper_damage_roll = 0.9

@@ -991,7 +991,7 @@ NEW VARIABLES
 
 			verb/Check_Power_Nerf_Timer()
 				set hidden = 1
-				src << "Total: [p.BPPoison=0.9], Off @ [time2text(usr.BPPoisonTimer, "MM:DD:hh:mm:ss", "est")]"
+				src << "Total: [usr.BPPoison=0.9], Off @ [time2text(usr.BPPoisonTimer, "MM:DD:hh:mm:ss", "est")]"
 
 			proc/shutOffEffects(mob/p, level, dontWound = FALSE)
 				p.GatesActive=0
@@ -8512,7 +8512,7 @@ NEW VARIABLES
 					for(var/obj/Items/Sword/s in usr.contents)
 						if(s == swordref)
 							usr.OMessage(10, "[usr.name]'s current projection shatters!")
-							s.ObjectUse(usr)	
+							s.ObjectUse(usr)
 							del s
 					projected = FALSE
 
