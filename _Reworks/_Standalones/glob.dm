@@ -280,6 +280,12 @@ globalTracker
 		WorldPUDrain = 1
 		DMG_CALC_2 = TRUE
 // global mults
+		GATES_PUSPIKE_BASE = 6
+		GATES_STAT_MULT_DIVISOR = 25
+
+
+
+
 		ENERGY_GEN_DIVISOR = 10
 		ENERGY_GEN_MULT = 0.2
 		LIFE_GEN_DIVISOR = 10

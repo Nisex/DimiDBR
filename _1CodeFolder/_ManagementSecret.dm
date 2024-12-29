@@ -149,7 +149,7 @@ SecretInfomation
 		proc/conQHaki(mob/p)
 		/*	if(!(p.race.name in glob.CONQ_HAKI_RACES))
 				return 0*/
-			if(prob(20*currentTier) && secretVariable["ConquerorsHaki"] != 1)
+			if(prob(glob.CONQ_HAKI_CHANCE*currentTier) && secretVariable["ConquerorsHaki"] != 1)
 				unlockConquerorsHaki(p)
 		proc/unlockConquerorsHaki(mob/p)
 			p << "You have the qualities of a King..."
