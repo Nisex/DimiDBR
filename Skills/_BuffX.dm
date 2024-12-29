@@ -829,7 +829,7 @@ NEW VARIABLES
 				ManaHeal=100
 				InstantAffect=1
 				PowerReplacement=10
-				passives = list("Piloting" = 1, "SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1)
+				passives = list("Piloting" = 1, "SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, "NoDodge" = 1)
 				Piloting=1
 				FusionPowered=1
 				NoAnger=1

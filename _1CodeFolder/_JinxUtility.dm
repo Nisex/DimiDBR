@@ -1735,7 +1735,12 @@ mob
 			Def+=EnhancedReflexes ? src.EnhancedReflexes*0.2 : 0
 			Def*=src.DefChaos
 			if(passive_handler.Get("Piloting")&&findMecha())
-				Def = getMechStat(findMecha(), Def)
+				if(PilotingProwess>=7)
+					Def = getMechStat(findMecha(), Def) * 0.25
+				else
+					Def = 0.25
+
+
 			Def+=DefAdded
 			var/Mod=1
 			Mod+=(src.DefMultTotal-1)
