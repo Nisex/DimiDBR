@@ -120,11 +120,11 @@ mob/proc/Unconscious(mob/P,var/text)
 		return
 	if(src.passive_handler.Get("Desperation"))
 		if(src.HealthAnnounce10<=1&&FightingSeriously(P,src))
-			if(prob((src.passive_handler.Get("Desperation")*2.5)+5))
+			if(prob((src.passive_handler.Get("Desperation")*glob.DESP_GETUP_CHANCE)+5))
 				src.KO=0
 				src.OMessage(15, "...but [src] refuses to go down!", "<font color=red>[src]([src.key]) remains standing despite impossible odds!")
 				src.Health=1
-				src.VaizardHealth+=clamp(passive_handler.Get("Desperation")* 2, 3, 10) //actual clutch now.
+				src.VaizardHealth+=clamp(passive_handler.Get("Desperation")* glob.DESP_VAI_MULT, glob.DESP_VAI_MIN, glob.DESP_VAI_MAX) //actual clutch now.
 				src.HealthAnnounce10=2
 				return
 	var/GetUpOdds=1
@@ -570,6 +570,7 @@ mob/proc/Regenerate(var/obj/Regenerate/R in src)
 
 
 mob/Body
+	var/description
 	KO=1
 	var/DeathTime
 	var/TrulyDead=1//dont nerf people who are voiding naturally
@@ -609,7 +610,13 @@ mob/Body
 		if(Target)
 			Target << "Your body has been destroyed."
 		..()
-
+	Click()
+		..()
+		if(!glob.ALLOW_CLICK_CORPSE) return
+		if(!description)
+			description = input(usr, "What sort of description would you like to set upon this body? How were they killed?\n The format is 'Name's corpse' INPUT ", "Dead Body") as message
+		else
+			usr << "[src] [description]"
 /proc/SaveIRLNPCs()
 	set background = 1
 	var/savefile/F = new("Saves/IRLNPCs")
@@ -2452,7 +2459,7 @@ mob/proc/Knockback(var/Distance,var/mob/P,var/Direction=0, var/Forced=0, var/Ki=
 	if(!Direction)
 		Direction=src.dir
 	if(P.passive_handler.Get("Desperation"))
-		if(prob(5*P.passive_handler.Get("Desperation")))
+		if(prob(glob.DESP_KB_RES_CHANCE*P.passive_handler.Get("Desperation")))
 			Distance=0
 	Forced+=isForced()
 	if(P.ContinuousAttacking)

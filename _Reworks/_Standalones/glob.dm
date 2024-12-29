@@ -99,6 +99,19 @@ globalTracker
 		TESTER_WHITE_LIST = list("Digi-Daisuke","RevealingFortune","Zamas2","Niezan", "Etro", "AMajin", "Redsarge", "Gogeto25",\
  "Tilthour", "Sakata Gintoki San", "Hellbante", "FoxMagnus")
 
+// TARGETING
+		LIMIT_CLICKS = TRUE
+		CLICK_SAME_Z_FORCE = TRUE
+		MAX_CLICK_DISTANCE = 30
+		CANT_CLICK_INVS = TRUE
+		ADMIN_INVIS_ONLY = FALSE
+		BREAK_TARGET = TRUE
+		BREAK_TARGET_ON_Z_CHANGE = TRUE
+		BREAK_TARGET_ON_DIST = FALSE
+
+
+
+
 //INTIM
 		INTIMRATIO = 500
 		NEWINTIMCALC = TRUE
@@ -140,6 +153,7 @@ globalTracker
 		MADNESS_DRAIN_FORM = 2
 		CONQ_HAKI_RACES = list(HUMAN, YOKAI, DEMON, ELF, SAIYAN, NAMEKIAN, MAJIN, MAKYO, DRAGON, BEASTMAN, GAJALAKA, CHANGELING)
 		EXTRA_CONQ_HAKI_POWER = 1.5
+		CONQ_HAKI_CHANCE = 6
 		MONEYORFRAGMENTS = 1 // 1 = fragments, 0 = cash
 // globals
 		WorldBaseAmount = 1
@@ -149,6 +163,30 @@ globalTracker
 		celestialObjectTicks
 		NoSagaRaces = list(DEMON, DRAGON, ELF, SAIYAN)
 // combat
+		OVERHWELMING_BASE_END_NERF = 0.05
+		OVERHWELMING_SHATTER_APPLY = 150
+		OVERHWELMING_BASE_PR_NERF = 0.05
+		OVERHWELMING_BASE_FLOW = 0.15
+		BEAST_OVERHWELMING_STATIC = 20
+		RUPTURE_BASE_DAMAGE = 2
+
+
+
+		DESP_PROC_LIMIT = 6
+		DESP_PROC_CHANCE = 3
+		DESP_DIVISOR_LIMIT = 8
+		DESP_REDUCE_DAMAGE = FALSE
+		DESP_VAI_MULT = 2
+		DESP_VAI_MIN = 5
+		DESP_VAI_MAX = 15
+		DESP_KB_RES_CHANCE = 2.5
+		DESP_GETUP_CHANCE = 8
+		MAX_CRIPPLE_MULT = 2
+		CRIPPLE_DIVISOR = 100
+
+		MECH_LEVEL_MULT = 0.15
+		PILOT_MULT = 0.09
+
 
 		DEVIL_ARM_STAT_MULTS = FALSE
 		POSE_TIME_NEEDED = 2
@@ -211,6 +249,12 @@ globalTracker
 		WorldPUDrain = 1
 		DMG_CALC_2 = TRUE
 // global mults
+		GATES_PUSPIKE_BASE = 6
+		GATES_STAT_MULT_DIVISOR = 25
+
+
+
+
 		ENERGY_GEN_DIVISOR = 10
 		ENERGY_GEN_MULT = 0.2
 		LIFE_GEN_DIVISOR = 10
@@ -292,7 +336,7 @@ globalTracker
 
 		HARDER_THEY_FALL_BIO_DIVISOR = 100 // if u use this when changie first start it will do big damage
 		HARDER_THEY_FALL_VAI_DIVISOR = 25 // more often no1 has this much vai, in hindsight deus ex machima will give kob more tha nthis, but they will suffer 2x damage ig
-		
+
 // dmg rolls
 		min_damage_roll = 0.3
 		upper_damage_roll = 0.9
@@ -422,6 +466,9 @@ globalTracker
 		DESP_DMG_REDUCTION = 4
 
 		STAT_DMG_EXPONENT = 0.75
+
+
+		ALLOW_CLICK_CORPSE = 0
 
 		list/trueNames = list()
 

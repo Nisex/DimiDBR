@@ -260,7 +260,7 @@ obj
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragons_Transient_Enlightenment"
 					HitMessage="Summons the boundless might of their martial arts, entering into a breakthrough by pure technique alone. Roars that turn into unstoppable torrent of energy erupt from their body while it soars through the battlefield, unleashing a symphony of cataclysmic destruction paired with ethereal grace. They have unlocked the ultimate testament to the Heavenly Dragon Stance, a dance of power and honor that surpasses the mortal plane, from the divine heights of the quasi-god realm, they descend as the Heavenly Dragon. Harnessing the boundless force of the Nine converging Realms, they unleash a relentless storm of peerless strength, devastating the battle field."
 
-				
+
 				Cycle_of_Samsara
 					adjust(mob/p)
 						switch(Mastery)
@@ -305,7 +305,7 @@ obj
 					KBAdd = 0.01
 					FollowUp="/obj/Skills/AutoHit/The_Heavenly_Demons_Fist_That_Cleaves_Through_Heaven_And_Divides_The_Sea"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Emergent_Demon_Breakthrough"
-					
+
 				Chi_Punch
 					Warp = 4
 					DamageMult=1
@@ -1507,7 +1507,7 @@ obj
 							src.HitSparkTurns=1
 							src.HitSparkSize=1
 							usr.SetQueue(src)
-							return							
+							return
 						if(usr.Secret=="Zombie")
 							src.name="Death Grasp"
 							src.DamageMult=2.5
@@ -2360,8 +2360,9 @@ mob
 							src << "[src.AttackQueue] is out of power!"
 			if(src.AttackQueue.Hit)
 				if(src.AttackQueue.GrabTrigger)
+					var/grabPath = src.AttackQueue.GrabTrigger
 					for(var/obj/Skills/Grapple/g in src.Skills)
-						if(g.type==text2path(src.AttackQueue.GrabTrigger))
+						if(g.type==text2path(grabPath))
 							g.Activate(src)
 			if(src.AttackQueue.Hit)
 				if(src.AttackQueue.FollowUp)
@@ -2405,7 +2406,6 @@ mob
 					src.AddSkill(S)//trigger buff on self
 				S.adjust(src)
 				if(S.parent_type==/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara || AttackQueue.type == /obj/Skills/Queue/Finisher/Cycle_of_Samsara)
-					world<<"Here"
 					AttackQueue.Mastery++
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/s in SlotlessBuffs)
 						s.Timer = 0

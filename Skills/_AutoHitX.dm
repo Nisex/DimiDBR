@@ -5094,6 +5094,7 @@ obj
 				DamageMult=2//First step is 1 damage
 				StepsDamage=1//fourth step is 5 damage
 				ActiveMessage="whiffs their swing, causing a powerful wave of pressure!"
+				Cooldown = 10
 
 			Crystal_Tomb
 				NeedsSword=1
@@ -5539,6 +5540,10 @@ mob
 				src.HitSparkDelay=Z.HitSparkDelay
 				src.HitSparkLife=Z.HitSparkLife
 			Z.ExtendMemory=0
+			if(Z.UnarmedOnly&&passive_handler["Gum Gum"])
+				Z.ExtendMemory=passive_handler["Gum Gum"]
+				Z.Distance+=Z.ExtendMemory
+				Z.Size+=Z.ExtendMemory
 			if(Z.NeedsSword&&src.HasExtend())
 				Z.ExtendMemory=src.GetExtend()
 				Z.Distance+=Z.ExtendMemory//Increase distance for this shot...

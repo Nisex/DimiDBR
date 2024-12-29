@@ -149,9 +149,14 @@ mob
 
 			if(defender.passive_handler.Get("Desperation")&&!defender.HasInjuryImmune())
 				if(FightingSeriously(src,defender))
-					if(prob(5*defender.passive_handler.Get("Desperation")))
-						defender.WoundSelf(val/sqrt(1+defender.passive_handler.Get("Desperation")))//Take all damage as wounds
-						val=0//reduce damag ehard
+					var/desp = clamp(passive_handler.Get("Desperation"), 0.1, glob.DESP_PROC_LIMIT)
+					if(prob(desp)*glob.DESP_PROC_CHANCE)
+						desp = clamp(desp, 1, glob.DESP_DIVISOR_LIMIT)
+						if(glob.DESP_REDUCE_DAMAGE)
+							defender.WoundSelf(val/sqrt(1+desp))//Take all damage as wounds
+						else
+							WoundSelf(val)
+						val=0//but no health damage.
 
 			if(defender.KO&&!src.Lethal)
 				val=0
@@ -1730,7 +1735,12 @@ mob
 			Def+=EnhancedReflexes ? src.EnhancedReflexes*0.2 : 0
 			Def*=src.DefChaos
 			if(passive_handler.Get("Piloting")&&findMecha())
-				Def = getMechStat(findMecha(), Def)
+				if(PilotingProwess>=7)
+					Def = getMechStat(findMecha(), Def) * 0.25
+				else
+					Def = 0.25
+
+
 			Def+=DefAdded
 			var/Mod=1
 			Mod+=(src.DefMultTotal-1)

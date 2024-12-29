@@ -948,7 +948,7 @@ atom/proc/Quake(var/duration=30, var/globe=0)
 	if(duration == null || duration == 0)
 		return
 	while(duration)
-		duration-=1
+		duration-=world.tick_lag
 		if(!globe)
 			for(var/mob/M in view(src))
 				if(M.client)
@@ -971,7 +971,7 @@ atom/proc/Quake(var/duration=30, var/globe=0)
 						M.client.pixel_y=0
 		if(duration<0)
 			duration=0
-		sleep(1)
+		sleep(world.tick_lag)
 
 atom/proc/Earthquake(var/duration=30,var/xpixelmin=0,var/xpixelmax=5,var/ypixelmin=0,var/ypixelmax=5, var/globe=0)
 	while(duration)

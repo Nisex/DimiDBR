@@ -107,6 +107,7 @@ passive
 						if(!isnum(value))
 							CRASH("ERROR: [settingPassive] was set to [value] which is not a number!")
 						tmp_passives[settingPassive] = value
-
+		operator[](passive) // alternative way of checking passives. shorthand if(passive|="zornhau") returns the value of zornhau
+			Get(passive)
 		operator|=(passive) // alternative way of checking passives. shorthand if(passive|="zornhau") returns the value of zornhau
 			Get(passive)

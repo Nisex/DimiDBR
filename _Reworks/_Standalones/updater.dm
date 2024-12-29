@@ -121,6 +121,23 @@ update
 					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in p.contents)
 						tc.passives["Erosion"] = 0.25
 
+	version8
+		version = 8
+		updateMob(mob/p)
+			..()
+			if(p.isRace(HALFSAIYAN) && p.Potential >= 80)
+				if(p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/half_saiyan/adaptive)
+					p.race.strength += 0.25
+					p.race.defense +=  0.25
+					p.race.offense +=  0.5
+					p.race.force +=  0.25
+				if(p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/half_saiyan/dominating)
+					p.race.strength += 0.25
+					p.race.force += 0.25
+					p.race.offense += 0.5
+					p.race.speed += 0.5
+
+
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25
 /globalTracker/var/GAJA_MAX_EXCHANGE = 1

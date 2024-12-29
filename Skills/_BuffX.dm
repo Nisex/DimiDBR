@@ -607,20 +607,8 @@ NEW VARIABLES
 				if(altered) return
 				if(selectedPassive == "None")
 					p.PoweredFormSetup()
-				var/boon = p.Potential / 25
-				switch(selectedPassive)
-					if("Flicker")
-						if(boon < 1)
-							boon = 1
-						passives = list("Flicker"=round(boon), "KiControl" = 1, "EnergyLeak" = 1)
-					if("Godspeed")
-						if(boon < 1)
-							boon = 1
-						passives = list("Godspeed"=round(boon), "KiControl" = 1, "EnergyLeak" = 1)
-					if("Pursuer")
-						if(boon < 1)
-							boon = 1
-						passives = list("Pursuer"=round(boon), "KiControl" = 1, "EnergyLeak" = 1)
+				var/boon = clamp(p.Potential / 25, 1, 4)
+				passives = list("[selectedPassive]" = boon, "KiControl" = 1, "EnergyLeak" = 1)
 
 			Trigger(var/mob/User, Override=0)
 				init(User)
@@ -839,7 +827,7 @@ NEW VARIABLES
 				ManaHeal=100
 				InstantAffect=1
 				PowerReplacement=10
-				passives = list("Piloting" = 1, "SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1)
+				passives = list("Piloting" = 1, "SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, "NoDodge" = 1)
 				Piloting=1
 				FusionPowered=1
 				NoAnger=1
@@ -927,28 +915,25 @@ NEW VARIABLES
 				var/puBoon = num >= 4 ? TRUE : FALSE
 				FatigueHeal = num * 15
 				EnergyHeal = num * 20
-				PUSpike = 50 + (4 * num) // changed to 150%(pu) + 8xgate; so power wall doesnt jackhammer a asshole.
+				PUSpike = 50 + (glob.GATES_PUSPIKE_BASE * num) // changed to 150%(pu) + 8xgate; so power wall doesnt jackhammer a asshole.
 				FatigueLeak = num+1 / p.SagaLevel
 				BleedHit = p.SagaLevel-1
 				passives = list("PUSpike" = PUSpike, "KiControl" = 1, "PULock" = 1,\
 				"DemonicDurability" = clamp(num*0.2,0.25,4), "HeavyHitter" = num / 8, \
 				"Flicker" = round(clamp(num/2,1,8)), "Godspeed" = round(clamp(num/2,1,8)),\
 				"SuperDash" = puBoon ? 1 : 0)
-				StrMult = 1 + num / 30
-				EndMult = 1 + num / 30
-				SpdMult = 1 + num / 30
+				StrMult = 1 + num / glob.GATES_STAT_MULT_DIVISOR
+				EndMult = 1 + num / glob.GATES_STAT_MULT_DIVISOR
+				SpdMult = 1 + num / glob.GATES_STAT_MULT_DIVISOR
 				KenWave=clamp(num / 2, 1, 4)
 
 
 				if(num == 7)
-					PUSpike = 300
+					passives["PUSpike"] = 300
 					IconLock='FlameGlowHades.dmi'
 					LockX=-16
 					LockY=-4
 					KenWave=4
-
-
-
 
 			proc/handleGates(mob/p, increment)
 				var/prev_gates = p.GatesActive
@@ -1002,7 +987,9 @@ NEW VARIABLES
 					User.GatesActive = 0
 					GatesLevel = 0*/
 
-
+			verb/Check_Power_Nerf_Timer()
+				set hidden = 1
+				src << "Total: [usr.BPPoison=0.9], Off @ [time2text(usr.BPPoisonTimer, "MM:DD:hh:mm:ss", "est")]"
 
 			proc/shutOffEffects(mob/p, level, dontWound = FALSE)
 				p.GatesActive=0
@@ -1090,7 +1077,7 @@ NEW VARIABLES
 
 
 			proc/checkUnlocked(mob/p, num)
-				if(p.SagaLevel < num)
+				if(p.SagaLevel + 2 < num)
 					p << "You haven't unlocked this gate yet!"
 					return 0
 				else
@@ -3244,7 +3231,7 @@ NEW VARIABLES
 				adjustments(mob/player)
 					..()
 					passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1,"MovementMastery" = 10+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.25))
-					if(!timeLimit)
+					if(!timeLimit&&player.SagaLevel < 5)
 						setRandomTime(player)
 				verb/Toggle_Cape()
 					set category="Roleplay"
@@ -3513,7 +3500,8 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						passives = list("DebuffImmune" = 1, "SpaceWalk" =1, "StaticWalk" = 1, "MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "MovingCharge" = 1, "Godspeed" = 1+(player.SagaLevel*0.5), "BlurringStrikes" = player.SagaLevel*0.2, "Flow" = player.SagaLevel-3, "Skimming" = 1, "SpiritFlow" = player.SagaLevel-2)
+						passives = list("DebuffImmune" = 1, "SpaceWalk" = 1, "StaticWalk" = 1, "MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "MovingCharge" = 1, \
+										"Godspeed" = 1+(player.SagaLevel*0.5), "BlurringStrikes" = player.SagaLevel*0.2, "Flow" = player.SagaLevel-3, "Skimming" = 1, "SpiritFlow" = player.SagaLevel-2)
 						SpdMult = 1.4 + ((player.SagaLevel-3) * 0.1)
 						StrMult = 1.1 + ((player.SagaLevel-3) * 0.1)
 						OffMult = 1.1 + ((player.SagaLevel-3) * 0.1)
@@ -4172,14 +4160,6 @@ NEW VARIABLES
 			ABuffNeeded=list("Soul Resonance")
 			verb/OverSoul()
 				set category="Skills"
-				if(usr.SagaLevel<8)
-					src.TimerLimit=90
-					NeedsHealth=50
-					TooMuchHealth=75
-				else
-					src.TimerLimit=0
-					src.NeedsHealth=0
-					src.TooMuchHealth=0
 				if(usr.BoundLegend=="Caledfwlch")
 					HealthHeal=0.25
 					WoundHeal=1
@@ -7342,11 +7322,9 @@ NEW VARIABLES
 		Sacrifice
 			passives = list("ManaStats" = 1, "Anaerobic" = 1, "Desperation" = 4, "CursedWounds" = 1)
 			Cooldown = -1
-			HealthCost = 1
+			HealthCost = 25
 			verb/Sacrifice()
 				set category = "Skills"
-				if(!usr.BuffOn(src))
-					Health = 25
 				src.Trigger(usr)
 
 		Golden_Form /// simple, sweet, just a straight fuckin boost. Could in theory be thrown at a Changeling at any point in the wipe if their deserving
@@ -8200,6 +8178,7 @@ NEW VARIABLES
 					s.Conjured = TRUE
 					s.suffix = null
 					s.Destructable = TRUE
+					s.ShatterCounter = s.ShatterMax
 					copiedBlades += s
 
 			verb/Remove_Blade()
@@ -8286,7 +8265,7 @@ NEW VARIABLES
 					for(var/obj/Items/Sword/s in usr.contents)
 						if(s == swordref)
 							usr.OMessage(10, "[usr.name]'s current projection shatters!")
-							s.ObjectUse(usr)	
+							s.ObjectUse(usr)
 							del s
 					projected = FALSE
 

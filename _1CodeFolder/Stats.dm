@@ -791,7 +791,7 @@ mob/proc/
 						a-=cancel//take the anger away.
 						if(a<1)//Only nerf anger.
 							a=1
-/*					if(src.PhylacteryNerf)
+			/*					if(src.PhylacteryNerf)
 						a-=(a*src.PhylacteryNerf)*/
 					if(a<=0)
 						a=0.01
@@ -821,7 +821,10 @@ mob/proc/
 
 		if(Power < 1)
 			Power = 1
-
+		if(passive_handler["Hidden Potential"] && Target)
+			if(Target.Power > Power)
+				Power = Target.Power
+				Power*=GetPowerUpRatio()
 		var/nerf = GetPowerUpRatio()+EPM > 2.3 ? 1 : 0
 		power_display=get_power_tier(0, Power, nerf)
 

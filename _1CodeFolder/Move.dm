@@ -99,8 +99,6 @@ mob/proc/MovementSpeed()
 			Delay/=2
 		else
 			Delay*=4
-	if(src.Crippled)
-		Delay*=2
 	if(src.Attracted)
 		Delay*=4
 	if(src.SenseRobbed>=1&&(src.SenseUnlocked<=src.SenseRobbed&&src.SenseUnlocked>5))

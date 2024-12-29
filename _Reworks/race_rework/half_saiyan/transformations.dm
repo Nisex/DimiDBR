@@ -78,4 +78,16 @@
 
 /transformation/half_saiyan/human/beast_mode // XD
 
-	passives = list("Hidden Potential" = 1)
+	form_aura_icon = 'Super Amazing Beast Aura.dmi'
+	form_aura_x = -32
+	passives = list("Hidden Potential" = 1, "Mystic" = 1, "PUSpike" = 1, "BuffMastery" = 1, \
+					"LikeWater" = 1, "Brutalize"= 1, "Momentum" = 1, "Rupture" = 1, "Overwhelming" = 1,"Heavy Attack" = "Beast Mode")
+	// Rupture applies a debuff that causes bleed damage, overwhelming applies a debuff that increases damage dealt
+	mastery_boons(mob/user)
+		var/pot = user.Potential
+		passives = list("Hidden Potential" = 1, "Mystic" = 1, "PUSpike" = round(pot) + round(mastery/2, 10), "BuffMastery" = 4, \
+					"LikeWater" = 8 + round(pot/25, 1), "Brutalize" = 4, "Momentum" = 10, "Rupture" = 1, "Overwhelming" = glob.BEAST_OVERHWELMING_STATIC,"Heavy Attack" = "Beast", \
+					"TechniqueMastery" = 5)
+		pot_trans = 90
+
+

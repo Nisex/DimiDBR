@@ -1,4 +1,4 @@
-
+/mob/var/last_overwhelm_apply = 1
 
 /proc/getDeciderDamage(playerHealth, sourceHealth)
 	var/healthDifference = abs(playerHealth - sourceHealth)
@@ -707,6 +707,9 @@
 												enemy.Knockback(knockDistance / clamp(5-blubber, 1,4),src)
 												knockDistance  *= 1 - (0.10 * blubber)
 									Knockback(knockDistance, enemy)
+									if(passive_handler["Heavy Attack"])
+										if(passive_handler["Heavy Attack"] == "Beast")
+											DashTo(enemy, 25, 0.75, 0)
 							if(AttackQueue)
 								if(AttackQueue.HitSparkDispersion)
 									disperseX=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
@@ -774,6 +777,37 @@
 								otherDmg += passive_handler.Get("Quaker")
 							if(passive_handler.Get("QuakerMod"))
 								otherDmg *= passive_handler.Get("QuakerMod")
+							
+							if(passive_handler["Rupture"])
+								if(enemy.SlotlessBuffs["Rupture"])
+									enemy.SlotlessBuffs["Rupture"]:add_stack(enemy, src)
+								else
+									var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/ss = FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Rupture)
+									if(ss)
+										ss.adjust(enemy)
+										ss.Password = enemy.name
+									else
+										var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Rupture/r = new()
+										enemy.AddSkill(r)
+										r.adjust(enemy)
+										r.Password = enemy.name
+							// i feel this can go to a proc but i wont do that, lol
+							if(passive_handler["Overwhelming"] && last_overwhelm_apply + 5 < world.time)
+								if(enemy.SlotlessBuffs["Overwhelming"])
+									enemy.SlotlessBuffs["Overwhelming"]:add_stack(enemy, src)
+								else
+									var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/ss = FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Cornered)
+									if(ss)
+										ss.adjust(enemy)
+										ss.Password = enemy.name
+									else
+										var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Cornered/r = new()
+										enemy.AddSkill(r)
+										r.adjust(enemy)
+										r.Password = enemy.name
+								last_overwhelm_apply = world.time
+
+									
 
 
 						// HIT EFFECTS //
@@ -864,10 +898,8 @@
 					NextAttack+=15
 			else if(src.CheckSpecial("Wisdom Form"))
 				GetAndUseSkill(/obj/Skills/Projectile/Wisdom_Form_Blast, Projectiles, TRUE)
-				NextAttack+=15
 			else if(src.CheckSlotless("OverSoul"))
 				GetAndUseSkill(/obj/Skills/AutoHit/DurendalPressure, AutoHits, TRUE)
-				NextAttack+=15
 			else if(src.CheckSlotless("Heavenly Ring Dance"))
 				if(src.Target&&src.Target!=src)
 					src.Target.Frozen=1
@@ -905,13 +937,10 @@
 			else if(src.CheckSlotless("Libra Armory")&&src.AttackQueue)
 				GetAndUseSkill(/obj/Skills/Projectile/Libra_Slash, Projectiles, TRUE)
 				src.ClearQueue()
-				NextAttack+=15
 			else if(src.CheckSlotless("Spirit Bow"))
 				GetAndUseSkill(/obj/Skills/Projectile/Aether_Arrow, Projectiles, TRUE)
-				NextAttack+=15
 			else if(src.CheckSlotless("Sagittarius Bow")&&!AttackQueue&&!passive_handler.Get("HotHundred"))
 				GetAndUseSkill(/obj/Skills/Projectile/Sagittarius_Arrow, Projectiles, TRUE)
-				NextAttack += 15
 			else if(st&&st.modifiedAttack)
 				if(!locate(/obj/Skills/Projectile/Staff_Projectile, Projectiles))
 					src.AddSkill(new/obj/Skills/Projectile/Staff_Projectile)
@@ -930,14 +959,6 @@
 							pc.DamageMult = 1.5
 							pc.Speed = 1.25
 					src.UseProjectile(pc)
-				switch(st.Class)
-					if("Wand")
-						NextAttack += 2
-					if("Rod")
-						NextAttack += 5
-					if("Staff")
-						NextAttack += 10
-				NextAttack+=15
 			return
 
 /mob/var/Momentum = 0

@@ -3,10 +3,6 @@
 /mob/var/MinCorruption = 0
 
 
-/particles
-
-
-
 /mob/proc/gainCorruption(n)
     if(!isRace(DEMON)) return
     if(Corruption + n < MaxCorruption)
