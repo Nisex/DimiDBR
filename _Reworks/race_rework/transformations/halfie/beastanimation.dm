@@ -42,6 +42,7 @@
         if(addto)
             addto += src
 // prob shouldn't make more objs, but w/e
+/*
 /mob/verb/testBeast()
     set category = "Debug"
     var/oldview = client.view
@@ -135,4 +136,4 @@
     del blankHolder
     del lightness
     client.eye = src
-    overlays += aura
+    overlays += aura*/
