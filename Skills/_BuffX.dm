@@ -7567,11 +7567,9 @@ NEW VARIABLES
 		Sacrifice
 			passives = list("ManaStats" = 1, "Anaerobic" = 1, "Desperation" = 4, "CursedWounds" = 1)
 			Cooldown = -1
-			HealthCost = 1
+			HealthCost = 25
 			verb/Sacrifice()
 				set category = "Skills"
-				if(!usr.BuffOn(src))
-					Health = 25
 				src.Trigger(usr)
 
 		Golden_Form /// simple, sweet, just a straight fuckin boost. Could in theory be thrown at a Changeling at any point in the wipe if their deserving
