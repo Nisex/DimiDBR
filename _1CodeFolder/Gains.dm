@@ -327,11 +327,11 @@ mob
 				p.Attack()
 			else
 				p.Auto_Attack()
-		if(glob.BREAK_TARGET && !src.Admin && ismob(Target))
-			if(glob.BREAK_TARGET_ON_Z_CHANGE && Target)
+		if(glob.BREAK_TARGET && !src.Admin && Target && ismob(Target))
+			if(glob.BREAK_TARGET_ON_Z_CHANGE)
 				if(Target.z != src.z)
 					Target = null
-			if(glob.BREAK_TARGET_ON_DIST && Target)
+			if(glob.BREAK_TARGET_ON_DIST)
 				if(get_dist(Target,src) >= glob.BREAK_TARGET_ON_DIST)
 					Target = null
 			
