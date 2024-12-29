@@ -129,9 +129,7 @@ mob/Admin3/verb
 				if("Spiral")
 					P.Saga="Spiral"
 					P.SagaLevel=1
-					var/path = "/obj/Skills/Buffs/SpecialBuff/Spiral"
-					var/obj/Skills/Buffs/SpecialBuff/h = new path
-					P.AddSkill(h)
+					P.AddSkill(new/obj/Skills/Buffs/SpecialBuff/Spiral)
 					tierUpSaga("Spiral")
 				if("Cosmo")
 					P.Saga="Cosmo"

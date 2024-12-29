@@ -1,4 +1,4 @@
-
+/mob/var/last_overwhelm_apply = 1
 
 /proc/getDeciderDamage(playerHealth, sourceHealth)
 	var/healthDifference = abs(playerHealth - sourceHealth)
@@ -710,6 +710,9 @@
 												enemy.Knockback(knockDistance / clamp(5-blubber, 1,4),src)
 												knockDistance  *= 1 - (0.10 * blubber)
 									Knockback(knockDistance, enemy)
+									if(passive_handler["Heavy Attack"])
+										if(passive_handler["Heavy Attack"] == "Beast")
+											DashTo(enemy, 25, 0.75, 0)
 							if(AttackQueue)
 								if(AttackQueue.HitSparkDispersion)
 									disperseX=rand((-1)*AttackQueue.HitSparkDispersion, AttackQueue.HitSparkDispersion)
@@ -777,6 +780,37 @@
 								otherDmg += passive_handler.Get("Quaker")
 							if(passive_handler.Get("QuakerMod"))
 								otherDmg *= passive_handler.Get("QuakerMod")
+							
+							if(passive_handler["Rupture"])
+								if(enemy.SlotlessBuffs["Rupture"])
+									enemy.SlotlessBuffs["Rupture"]:add_stack(enemy, src)
+								else
+									var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/ss = FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Rupture)
+									if(ss)
+										ss.adjust(enemy)
+										ss.Password = enemy.name
+									else
+										var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Rupture/r = new()
+										enemy.AddSkill(r)
+										r.adjust(enemy)
+										r.Password = enemy.name
+							// i feel this can go to a proc but i wont do that, lol
+							if(passive_handler["Overwhelming"] && last_overwhelm_apply + 5 < world.time)
+								if(enemy.SlotlessBuffs["Overwhelming"])
+									enemy.SlotlessBuffs["Overwhelming"]:add_stack(enemy, src)
+								else
+									var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/ss = FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Cornered)
+									if(ss)
+										ss.adjust(enemy)
+										ss.Password = enemy.name
+									else
+										var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Cornered/r = new()
+										enemy.AddSkill(r)
+										r.adjust(enemy)
+										r.Password = enemy.name
+								last_overwhelm_apply = world.time
+
+									
 
 
 						// HIT EFFECTS //

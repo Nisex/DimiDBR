@@ -16,7 +16,10 @@ mob/proc/AppearanceOn()
 
 	if(src.ActiveBuff)
 		if(src.ActiveBuff.IconLock)
-			var/image/im=image(icon=src.ActiveBuff.IconLock, pixel_x=src.ActiveBuff.LockX, pixel_y=src.ActiveBuff.LockY, layer=FLOAT_LAYER-src.ActiveBuff.IconLayer)
+			var/state = ""
+			if(ActiveBuff.IconState)
+				state = ActiveBuff.IconState
+			var/image/im=image(icon=src.ActiveBuff.IconLock, icon_state = state, pixel_x=src.ActiveBuff.LockX, pixel_y=src.ActiveBuff.LockY, layer=FLOAT_LAYER-src.ActiveBuff.IconLayer)
 			im.blend_mode=src.ActiveBuff.IconLockBlend
 			im.transform*=src.ActiveBuff.OverlaySize
 			if(src.CheckActive("Mobile Suit")&&src.ActiveBuff.BuffName!="Mobile Suit")

@@ -5542,6 +5542,10 @@ mob
 			if(Z.Quaking)
 				src.Quaking=Z.Quaking
 			Z.ExtendMemory=0
+			if(Z.UnarmedOnly&&passive_handler["Gum Gum"])
+				Z.ExtendMemory=passive_handler["Gum Gum"]
+				Z.Distance+=Z.ExtendMemory
+				Z.Size+=Z.ExtendMemory
 			if(Z.NeedsSword&&src.HasExtend())
 				Z.ExtendMemory=src.GetExtend()
 				Z.Distance+=Z.ExtendMemory//Increase distance for this shot...
