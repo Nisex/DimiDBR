@@ -364,6 +364,7 @@
 #include "_Reworks\Combat\Monsters\dominatingBuff.dm"
 #include "_Reworks\Combat\Monsters\hellrisen.dm"
 #include "_Reworks\Combat\RPPGain\RPPDefines.dm"
+#include "_Reworks\Combat\Skills\debuffs.dm"
 #include "_Reworks\Kamui\Scissor_Blade.dm"
 #include "_Reworks\libs\_event.dm"
 #include "_Reworks\libs\anymacro.dm"
