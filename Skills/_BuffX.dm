@@ -920,10 +920,6 @@ NEW VARIABLES
 				PUSpike = 50 + (4 * num) // changed to 150%(pu) + 8xgate; so power wall doesnt jackhammer a asshole.
 				FatigueLeak = num+1 / p.SagaLevel
 				BleedHit = p.SagaLevel-1
-				passives = list("PUSpike" = PUSpike, "KiControl" = 1, "PULock" = 1,\
-				"DemonicDurability" = clamp(num*0.2,0.25,4), "HeavyHitter" = num / 8, \
-				"Flicker" = round(clamp(num/2,1,8)), "Godspeed" = round(clamp(num/2,1,8)),\
-				"SuperDash" = puBoon ? 1 : 0)
 				StrMult = 1 + num / 30
 				EndMult = 1 + num / 30
 				SpdMult = 1 + num / 30
@@ -937,7 +933,10 @@ NEW VARIABLES
 					LockY=-4
 					KenWave=4
 
-
+				passives = list("PUSpike" = PUSpike, "KiControl" = 1, "PULock" = 1,\
+				"DemonicDurability" = clamp(num*0.2,0.25,4), "HeavyHitter" = num / 8, \
+				"Flicker" = round(clamp(num/2,1,8)), "Godspeed" = round(clamp(num/2,1,8)),\
+				"SuperDash" = puBoon ? 1 : 0)
 
 
 			proc/handleGates(mob/p, increment)
