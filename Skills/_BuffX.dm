@@ -942,7 +942,7 @@ NEW VARIABLES
 
 
 				if(num >= 5)
-					passives["Kaioken"] = 1
+					passives["Kaioken"] = 1 // gates should die what the freak ?
 
 				if(num == 7)
 					passives["PUSpike"] = 300
@@ -9051,8 +9051,6 @@ NEW VARIABLES
 
 		Protect_Shade
 			TimerLimit=5
-			VaizardHealth=0.5
-			VaizardShatter=1
 			IconLock='Android Shield.dmi'
 			IconLockBlend=2
 			IconLayer=-1
@@ -9060,10 +9058,14 @@ NEW VARIABLES
 			OverlaySize=1.2
 			ActiveMessage="projects an unbreakable barrier!"
 			OffMessage="collapses their barrier..."
-			Cooldown=300
+			Cooldown=180
 			SBuffNeeded="Protect Brave"
 			verb/Protect_Shade()
 				set category="Skills"
+				if(!usr.BuffOn(src))
+					passives = list("Deflection" = usr.SagaLevel/2, "Reversal" = 0.1 * usr.SagaLevel)
+					TimerLimit = 10 * usr.SagaLevel
+					Cooldown = 180 - (15 * usr.SagaLevel)
 				if(usr.SpecialBuff)
 					if(usr.SpecialBuff.BuffName!="Genesic Brave"&&src.SBuffNeeded!="Protect Brave")
 						src.SBuffNeeded="Protect Brave"
@@ -9085,6 +9087,10 @@ NEW VARIABLES
 			SBuffNeeded="Protect Brave"
 			verb/Protect_Wall()
 				set category="Skills"
+				if(!usr.BuffOn(src))
+					VaizardHealth = 1.5 * usr.SagaLevel
+					TimerLimit = 5 * usr.SagaLevel
+					Cooldown = 300
 				if(usr.SpecialBuff)
 					if(usr.SpecialBuff.BuffName!="Genesic Brave"&&src.SBuffNeeded!="Protect Brave")
 						src.SBuffNeeded="Protect Brave"
@@ -9092,17 +9098,17 @@ NEW VARIABLES
 						src.SBuffNeeded="Genesic Brave"
 				src.Trigger(usr)
 		Plasma_Hold
-			TimerLimit=10
+			TimerLimit=2
 			TargetOverlay='Overdrive.dmi'
 			TargetOverlayX=0
 			TargetOverlayY=0
 			Connector='BE.dmi'
 			StunAffected=1
 			AffectTarget=1
-			Range=7
+			Range=14
 			ActiveMessage="shoots crackling plasma at their target!"
 			OffMessage="releases their hold..."
-			Cooldown=450
+			Cooldown=30
 			SBuffNeeded="Protect Brave"
 			verb/Plasma_Hold()
 				set category="Skills"
@@ -9153,10 +9159,11 @@ NEW VARIABLES
 		Dividing_Driver
 			WarpZone=1
 			Duel=1
+			passives = list("Duelist" = 1, "CoolerAfterImages" = 3)
 			CastingTime=2
 			KenWave=3
 			KenWaveSize=3
-			Range=5
+			Range=15
 			KenWaveIcon='KenShockwaveLegend.dmi'
 			TurfShift='StarPixel.dmi'
 			Cooldown=-1

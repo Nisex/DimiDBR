@@ -372,10 +372,10 @@ mob
 				src.OMessage(10, "<b><font color=#00FF55>[src] calls upon the power of Destruction for one final push!", "[src]([src.key]) has 10% health left.</font></b>")
 			else if(src.SpecialBuff&&src.SpecialBuff.BuffName=="Protect Brave")
 				src.OMessage(10, "<b><font color=#00FF55>[src] calls upon the power of Protection for one final push!", "[src]([src.key]) has 10% health left.</font></b>")
-				src.VaizardHealth+=5*src.SagaLevel
+				src.VaizardHealth+=2.5*src.SagaLevel
 			else if(src.SpecialBuff&&src.SpecialBuff.BuffName=="Genesic Brave")
 				src.OMessage(10, "<b><font color=#00FF55>[src] unites the powers of Destruction and Protection to defy the odds!", "[src]([src.key]) has 10% health left.</font></b>")
-				src.VaizardHealth+=2.5*src.SagaLevel
+				src.VaizardHealth+=0.5*src.SagaLevel
 			else
 				if(src.Secret!="Zombie")
 					if(!src.BarelyStandingMessage)

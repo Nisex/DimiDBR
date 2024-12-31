@@ -5610,10 +5610,10 @@ obj
 									Rate = abs(Rate)/10*/
 								if(src.Deflectable&&!a:KO)
 									if(a:HasDeflection())
-										if(!Deflection_Formula(src.Owner, a, (accmult /** Rate*/ * (src.MultiHit+1))/(1+a:GetDeflection()), BaseChance=(glob.WorldDefaultAcc), Backfire=src.Backfire))
+										if(!Deflection_Formula(src.Owner, a, (accmult /** Rate*/ * ( min(0.1,1 - (src.MultiHit * 0.025) ) ) /(1+a:GetDeflection())), BaseChance=(glob.WorldDefaultAcc), Backfire=src.Backfire))
 											Deflect=1
 									else
-										if(!Deflection_Formula(src.Owner, a, accmult /** Rate*/ * (src.MultiHit+1), BaseChance=(glob.WorldDefaultAcc), Backfire=src.Backfire))
+										if(!Deflection_Formula(src.Owner, a, accmult /** Rate*/ * min(0.1,1 - (src.MultiHit * 0.025)), BaseChance=(glob.WorldDefaultAcc), Backfire=src.Backfire))
 											Deflect=1
 									if(Deflect)
 										var/list/Dirs=list(NORTH, NORTHEAST, NORTHWEST, EAST, WEST, SOUTHEAST, SOUTHWEST, SOUTH)
