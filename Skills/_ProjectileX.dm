@@ -4180,14 +4180,15 @@ obj
 					Soaring_Dragon_Lord
 						CosmoPowered=1
 						StrRate=1
-						EndRate=1
-						DamageMult=8.5
-						BeamTime=10
+						EndRate=0.75
+						DamageMult=10
+						BeamTime=15
 						Dodgeable=0
 						Deflectable=0
 						Immediate=1
 						Piercing=1
-						Knockback=0
+						Striking=1
+						Knockback=1
 						Distance=50
 						IconLock='Rozan_Beam.dmi'
 						IconSize=1

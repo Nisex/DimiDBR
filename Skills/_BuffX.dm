@@ -9088,7 +9088,7 @@ NEW VARIABLES
 			verb/Protect_Wall()
 				set category="Skills"
 				if(!usr.BuffOn(src))
-					VaizardHealth = 1.5 * usr.SagaLevel
+					VaizardHealth = (1.5 * usr.SagaLevel) / 10
 					TimerLimit = 5 * usr.SagaLevel
 					Cooldown = 300
 				if(usr.SpecialBuff)
@@ -11162,7 +11162,7 @@ NEW VARIABLES
 					passives = list("Unstoppable" = 1, "Hardening" = 1 + (0.5 * asc), "LifeSteal" = 1.5*asc, "Godspeed" = 1+(asc), "SweepingStrike" = 1)
 					VaizardHealth = 15 + p.GetEnd() + (p.TotalInjury/25) + (asc)
 
-					VaizardHealth/= 10
+					VaizardHealth /= 10
 					// this was 17.5% guys lol
 					if(asc>=1)
 						if(!locate(/obj/Skills/AutoHit/Symbiote_Tendril_Wave, p.AutoHits))
