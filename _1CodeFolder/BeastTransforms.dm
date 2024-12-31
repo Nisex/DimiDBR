@@ -88,9 +88,9 @@
 			SpdMult = 0.5
 			OffMult = 1.5
 			TimerLimit = 1200
-			VaizardHealth = 1 + p.AscensionsAcquired
+			VaizardHealth = 1 + (p.AscensionsAcquired/1.5)
 			VaizardShatter = 1
-			PowerMult = 2
+			PowerMult = 1.5
 
 
 	Trigger(var/mob/User, Override=0)
