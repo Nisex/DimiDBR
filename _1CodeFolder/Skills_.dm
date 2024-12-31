@@ -708,7 +708,9 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 				if(src.KO)return
 				if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Power Control")) return
 				if(src.PoweringDown)return
-				if(CheckSlotless("Great Ape"))return
+				if(CheckSlotless("Great Ape"))
+					CanTransform()
+					return
 				if(passive_handler.Get("Piloting"))return
 				if(src.Transforming)return
 				if(src.Kaioken)

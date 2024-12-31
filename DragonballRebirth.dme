@@ -396,6 +396,7 @@
 #include "_Reworks\race_rework\transformations\halfie\beastanimation.dm"
 #include "_Reworks\race_rework\transformations\halfie\emitters.dm"
 #include "_Reworks\race_rework\transformations\saiyan\godtransformations.dm"
+#include "_Reworks\race_rework\transformations\saiyan\ssj4_transformation.dm"
 #include "_Reworks\Races\Beastman\buffs.dm"
 #include "_Reworks\Races\Demon\_Casting.dm"
 #include "_Reworks\Races\Demon\_DemonDefines.dm"

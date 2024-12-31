@@ -117,9 +117,6 @@ mob/proc/CanTransform()
 	if(src.TotalFatigue>=90)
 		src<<"You are too tired to transform!"
 		return 0
-	for(var/obj/Oozaru/O in src)
-		if(O.icon)
-			return 0
 	if(src.ActiveBuff)
 		if(src.ActiveBuff.NeedsSSJ)
 			src<<"Your ascended super state uses too much power to enter another level!"
@@ -162,6 +159,9 @@ mob/proc/CanTransform()
 				if(num_of_saiyans<4)
 					src << "You can't transform into this form like that."
 					return 0
+		if(length(race.transformations) >= 4 && race.transformations[4].type == /transformation/saiyan/super_saiyan_4 && transActive+1 == 4)
+			src << "You can't transform into this form like that."
+			return 0
 	return 1
 
 mob/proc/CanRevert()
@@ -1357,8 +1357,7 @@ mob/proc/WeaponSoul() // OverSoul Mechanic
 			if("Masamune")
 				src.ElementalOffense="Light"
 				src.ElementalDefense="Light"
-				passive_handler.Increase("HolyMod", 5)
-				passive_handler.Increase("BeyondPurity")
+				passive_handler.Increase("HolyMod", 10)
 				passive_handler.Increase("CalmAnger")
 				passive_handler.Increase("SpiritPower")
 				src.HolyMod+=5//kill demons

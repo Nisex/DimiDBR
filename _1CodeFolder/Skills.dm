@@ -691,8 +691,7 @@ obj/Skills
 			sleep(10)
 
 	False_Moon
-		Cooldown=86400
-		CooldownStatic=1
+		Cooldown=-1
 		desc="Create a false moon."
 		verb/FalseMoon()
 			set name="False Moon"

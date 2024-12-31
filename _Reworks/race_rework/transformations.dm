@@ -161,12 +161,14 @@ transformation
 				user.overlays -= form_aura
 				user.underlays -= form_aura_underlay
 
-		transform(mob/user)
-			if(is_active || !user.CanTransform()) return
-				
-			if(user.transUnlocked < user.transActive+1)
-				if(!(user.bypassTransAutomation >= user.transActive+1) && glob.lockTransAutomation && (type in glob.transLocked)) return
-				if(unlock_potential >= user.Potential) return
+		transform(mob/user, force)
+			if(is_active) return
+			if(!force)
+				if(!user.CanTransform()) return
+					
+				if(user.transUnlocked < user.transActive+1)
+					if(!(user.bypassTransAutomation >= user.transActive+1) && glob.lockTransAutomation && (type in glob.transLocked)) return
+					if(unlock_potential >= user.Potential) return
 
 			mastery_boons(user)
 
