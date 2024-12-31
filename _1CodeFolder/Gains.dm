@@ -1254,8 +1254,6 @@ mob
 				for(var/h in src.SlotlessBuffs)
 					var/obj/Skills/Buffs/b = SlotlessBuffs[h]
 					if(b)
-						// if(b.coolerAfterImages)
-						// 	coolerFlashImage(src, b.coolerAfterImages)
 
 						if(b.Afterimages)
 							if(prob(b.Afterimages*25))
