@@ -941,6 +941,9 @@ NEW VARIABLES
 				KenWave=clamp(num / 2, 1, 4)
 
 
+				if(num >= 5)
+					passives["Kaioken"] = 1
+
 				if(num == 7)
 					passives["PUSpike"] = 300
 					IconLock='FlameGlowHades.dmi'
@@ -12569,7 +12572,7 @@ mob
 					src.ActiveBuff.OverlayTransLock=1
 					src.ActiveBuff.AuraLock=1
 					// src.ActiveBuff.SenseUnlocked=1
-					if(src.SagaLevel==6)
+					if(src.SagaLevel==4)
 						switch(src.ClothGold)
 							if("Aries")
 								if(!locate(/obj/Skills/Projectile/Stardust_Revolution, src))
