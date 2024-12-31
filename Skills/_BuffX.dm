@@ -857,7 +857,12 @@ NEW VARIABLES
 				"/obj/Skills/Projectile/Gear/Installed/Installed_Missile_Launcher", \
 				"/obj/Skills/Buffs/SlotlessBuffs/WeaponSystems/Beam_Saber")
 					init(obj/Items/Gear/Mobile_Suit/mecha, mob/player)
-						passives = list("Piloting" = 1, "SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, "Godspeed" = mecha.Level, "SuperDash" = 1, "Pursuer" = mecha.Level, "Flicker" = mecha.Level, "Flow" = (mecha.Level * 0.25) + 1)
+						passives = list("Piloting" = 1, "SpecialBuffLock" = 1,"GiantForm" = 1,\
+									 "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, \
+									 "Godspeed" = mecha.Level, "SuperDash" = 1, "Pursuer" = mecha.Level, "Flicker" = mecha.Level, \
+									 "Flow" = (mecha.Level * 0.25) + 1, "NoDodge" = 1)
+						if(player.PilotingProwess >= 7)
+							passives["NoDodge"] = 0
 						Afterimages = 1
 						..()
 				Tank
@@ -866,8 +871,11 @@ NEW VARIABLES
 				"/obj/Skills/Projectile/Gear/Installed/Installed_Plasma_Gatling", \
 				"/obj/Skills/Projectile/Gear/Installed/Installed_Missile_Launcher", \
 				"/obj/Skills/Buffs/SlotlessBuffs/WeaponSystems/Beam_Saber")
-					init(obj/Items/Gear/Mobile_Suit/mecha)
-						passives = list("Piloting" = 1,"SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, "Juggernaut" = mecha.Level, "Reversal" = 0.5, "BlockChance" = mecha.Level*3, "CriticalBlock" = mecha.Level*0.5)
+					init(obj/Items/Gear/Mobile_Suit/mecha, mob/player)
+						passives = list("Piloting" = 1,"SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, \
+						"Juggernaut" = mecha.Level, "Reversal" = 0.5, "BlockChance" = mecha.Level*3, "CriticalBlock" = mecha.Level*0.5, "NoDodge" = 1)
+						if(player.PilotingProwess >= 7)
+							passives["NoDodge"] = 0
 						VaizardHealth = mecha.Level * 0.2
 						..()
 				Assault
@@ -876,8 +884,11 @@ NEW VARIABLES
 				"/obj/Skills/Projectile/Gear/Installed/Installed_Plasma_Gatling", \
 				"/obj/Skills/Projectile/Gear/Installed/Installed_Missile_Launcher", \
 				"/obj/Skills/Buffs/SlotlessBuffs/WeaponSystems/Beam_Saber")
-					init(obj/Items/Gear/Mobile_Suit/mecha)
-						passives = list("Piloting" = 1,"SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, "CriticalChance" = mecha.Level*3, "CriticalDamage" = mecha.Level*0.25, "Steady" = mecha.Level, "Duelist" = mecha.Level)
+					init(obj/Items/Gear/Mobile_Suit/mecha, mob/player)
+						passives = list("Piloting" = 1,"SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, \
+						"CriticalChance" = mecha.Level*3, "CriticalDamage" = mecha.Level*0.25, "Steady" = mecha.Level, "Duelist" = mecha.Level, "NoDodge" = 1)
+						if(player.PilotingProwess >= 7)
+							passives["NoDodge"] = 0
 						..()
 
 
