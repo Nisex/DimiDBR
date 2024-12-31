@@ -9,7 +9,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = new updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 7
+	var/UPDATE_VERSION = 9
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -136,6 +136,13 @@ update
 					p.race.force += 0.25
 					p.race.offense += 0.5
 					p.race.speed += 0.5
+
+	version9
+		version = 9
+		updateMob(mob/p)
+			..()
+			if(p.isRace(SAIYAN))
+				p.race.transformations += new/transformation/saiyan/super_saiyan_4
 
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
