@@ -391,6 +391,7 @@
 #include "_Reworks\race_rework\Android\race.dm"
 #include "_Reworks\race_rework\beastman\ascensions.dm"
 #include "_Reworks\race_rework\beastman\race.dm"
+#include "_Reworks\race_rework\beastman\racial\beastmanracials.dm"
 #include "_Reworks\race_rework\changeling\ascensions.dm"
 #include "_Reworks\race_rework\changeling\race.dm"
 #include "_Reworks\race_rework\changeling\transformations.dm"
@@ -578,6 +579,8 @@
 #include "Skills\_StanceX.dm"
 #include "Skills\_TeleportX.dm"
 #include "Skills\_UtilityX.dm"
+#include "Skills\buffs\races\beastman\beastmanbuffs.dm"
+#include "Skills\projectiles\races\beastman\beastmanprojectiles.dm"
 #include "Skills\queues\finishers\T1Finishers.dm"
 #include "Skills\queues\gear\Cyberize.dm"
 #include "Skills\queues\gear\NoxNyoctore.dm"
@@ -619,6 +622,7 @@
 #include "Skills\sorted\T5\magic.dm"
 #include "Skills\sorted\T5\unarmed.dm"
 #include "Skills\sorted\T5\universal.dm"
+#include "Skills\utility\races\beastman\beastmanutility.dm"
 #include "UpdateNotes\update.dm"
 // END_INCLUDE
 #define floor(x) round(x)

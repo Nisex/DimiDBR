@@ -120,11 +120,11 @@ mob/proc/Unconscious(mob/P,var/text)
 		return
 	if(src.passive_handler.Get("Desperation"))
 		if(src.HealthAnnounce10<=1&&FightingSeriously(P,src))
-			if(prob((src.passive_handler.Get("Desperation")*glob.DESP_GETUP_CHANCE)+5))
+			if(prob((src.passive_handler.Get("Desperation")*glob.TENACITY_GETUP_CHANCE)+5))
 				src.KO=0
 				src.OMessage(15, "...but [src] refuses to go down!", "<font color=red>[src]([src.key]) remains standing despite impossible odds!")
 				src.Health=1
-				src.VaizardHealth+=clamp(passive_handler.Get("Desperation")* glob.DESP_VAI_MULT, glob.DESP_VAI_MIN, glob.DESP_VAI_MAX) //actual clutch now.
+				src.VaizardHealth+=clamp(passive_handler.Get("Desperation")* glob.TENACITY_VAI_MULT, glob.TENACITY_VAI_MIN, glob.TENACITY_VAI_MAX) //actual clutch now.
 				src.HealthAnnounce10=2
 				return
 	var/GetUpOdds=1
@@ -2458,9 +2458,6 @@ mob/proc/Knockback(var/Distance,var/mob/P,var/Direction=0, var/Forced=0, var/Ki=
 		return
 	if(!Direction)
 		Direction=src.dir
-	if(P.passive_handler.Get("Desperation"))
-		if(prob(glob.DESP_KB_RES_CHANCE*P.passive_handler.Get("Desperation")))
-			Distance=0
 	Forced+=isForced()
 	if(P.ContinuousAttacking)
 		for(var/obj/Skills/Projectile/p in P.contents)

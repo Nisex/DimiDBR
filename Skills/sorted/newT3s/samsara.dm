@@ -24,7 +24,7 @@
                         "Pressure" = 1)
     Tiryag
         passives = list("Conductor" = -25, "Antsy" = -2, "Hardening" = 2, "Momentum" = 2, "Deflection" = 1, \
-                        "Pressure" = 2)
+                        "Pressure" = 1)
         StrMult=1.4
         ForMult=1.4
         SpdMult=1.4
@@ -33,7 +33,7 @@
         DefMult=1.4
     Asura
         passives = list("Conductor" = -25, "Momentum" = 2, "LikeWater" = 8, "Antsy" = -3, \
-                        "Pressure" = 3)
+                        "Pressure" = 1)
         offAdd = 0.25
         defAdd = 0.25
         spdAdd = 0.25

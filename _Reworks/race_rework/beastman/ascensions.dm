@@ -6,6 +6,7 @@ ascension
 			strength = 0.25
 			defense = 0.25
 			endurance = 0.25
+			choices = list("Ferocious" = /ascension/sub_ascension/beastman/ferocious, "Nimble" = /ascension/sub_ascension/beastman/nimble, "Niche" = /ascension/sub_ascension/beastman/niche)
 			passives = list("PureReduction" = 1, "Godspeed" = 1)
 			postAscension(mob/owner)
 				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
@@ -71,3 +72,10 @@ ascension
 					b.passives = list("AngerAdaptiveForce" = 0.5, "Void" = 1, "Brutalize" = 3)
 					b.VaizardHealth = 2.0
 				..()
+
+
+/ascension/sub_ascension/beastman/ferocious
+
+/ascension/sub_ascension/beastman/nimble
+
+/ascension/sub_ascension/beastman/niche

@@ -149,10 +149,10 @@ mob
 
 			if(defender.passive_handler.Get("Desperation")&&!defender.HasInjuryImmune())
 				if(FightingSeriously(src,defender))
-					var/desp = clamp(passive_handler.Get("Desperation"), 0.1, glob.DESP_PROC_LIMIT)
-					if(prob(desp)*glob.DESP_PROC_CHANCE)
-						desp = clamp(desp, 1, glob.DESP_DIVISOR_LIMIT)
-						if(glob.DESP_REDUCE_DAMAGE)
+					var/desp = clamp(passive_handler.Get("Desperation"), 0.1, glob.MAX_PERSISTENCE_CALCULATED)
+					if(prob(desp)*glob.PERSISTENCE_CHANCE)
+						desp = clamp(desp, 1, glob.PRESISTENCE_DIVISOR_MAX)
+						if(glob.PERSISTENCE_NEGATES_DAMAGE)
 							defender.WoundSelf(val/sqrt(1+desp))//Take all damage as wounds
 						else
 							WoundSelf(val)
