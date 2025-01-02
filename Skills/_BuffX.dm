@@ -5338,7 +5338,7 @@ NEW VARIABLES
 				verb/Magic_Act()
 					set category="Utility"
 					if(!usr.BuffOn(src))
-						var/Choices=list("Cancel", "Disguise", "Confuse", "Stun")
+						var/Choices=list("Cancel", "Confuse", "Stun")
 						var/Mode=input(usr, "What act do you perform?", "Magic Act") in Choices
 						switch(Mode)
 							if("Cancel")
@@ -5367,19 +5367,6 @@ NEW VARIABLES
 									if(prob(20))
 										Stun(m, 5)
 										OMsg(m, "[m] is stunned by the act!")
-									else
-										OMsg(m, "[m] isn't impressed by [usr]'s act.")
-							if("Pacify")
-								src.PhysicalHitsLimit=0
-								src.SpiritHitsLimit=0
-								src.EndYourself=1
-								src.ActiveMessage="performs a pacifying act!"
-								src.OffMessage=0
-								src.FakePeace=0
-								for(var/mob/Players/m in oviewers(5,usr))
-									if(prob(10))
-										m.AddPacifying(5)
-										OMsg(m, "[m] is rendered stupified by the act!")
 									else
 										OMsg(m, "[m] isn't impressed by [usr]'s act.")
 					src.Trigger(usr)
@@ -5466,7 +5453,7 @@ NEW VARIABLES
 				verb/Magic_Show()
 					set category="Utility"
 					if(!usr.BuffOn(src))
-						var/Choices=list("Cancel", "Disappear", "Disguise", "Confuse", "Stun")
+						var/Choices=list("Cancel", "Disappear", "Confuse", "Stun")
 						var/Mode=input(usr, "What show do you perform?", "Magic Show") in Choices
 						switch(Mode)
 							if("Cancel")
