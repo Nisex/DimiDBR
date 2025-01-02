@@ -161,9 +161,9 @@ transformation
 				user.overlays -= form_aura
 				user.underlays -= form_aura_underlay
 
-		transform(mob/user, force)
+		transform(mob/user, forceTrans)
 			if(is_active) return
-			if(!force)
+			if(!forceTrans)
 				if(!user.CanTransform()) return
 					
 				if(user.transUnlocked < user.transActive+1)
