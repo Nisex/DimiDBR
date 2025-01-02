@@ -4394,7 +4394,7 @@ mob
 							break
 					if(!BuffFound)
 						src.AddSkill(new path)
-					S.Password=src.name
+					S.Password=src?:UniqueID
 					P.AddSkill(S)
 
 			if(src.AttackQueue.Projectile)

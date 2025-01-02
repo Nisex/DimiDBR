@@ -512,6 +512,7 @@ NEW VARIABLES
 	var/Xenobiology//weird body stuffs
 	var/Maki//demon stuff
 	var/Infatuated//cant harm what you love...
+	var/InfatuatedID
 	var/AdrenalBoost//getting whacked gives you BP
 	var/PoseEnhancement
 	var/MagicFocus//operates as a magic focus
@@ -535,6 +536,7 @@ NEW VARIABLES
 	var/PotionCD=0
 	var/NeedsVary=0//alters the health threshold of an autonomous buff to make it less reliable
 	var/NeedsPassword=0//allows alteration of buffs that are applied on-hit only
+	var/FadeByDeath = FALSE
 	var/NeedsAlignment=0//trigger conditionally on being good/evil
 	var/TooMuchHealth=0//Once this value is passed, the buff deactivates.
 	var/TooLittleMana=0//Once this value is passed, the buff deactivates.
@@ -11251,6 +11253,7 @@ NEW VARIABLES
 				Infatuated=2
 				ActiveMessage="has their mind trapped by a demonic illusion! They need to witness death to regain freedom!"
 				OffMessage="feels the effects of the curse fading away..."
+				FadeByDeath = 1
 				KenWave=3
 				KenWaveSize=0.7
 				KenWaveBlend=2

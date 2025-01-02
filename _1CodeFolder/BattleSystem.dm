@@ -256,6 +256,15 @@ mob/proc/Conscious()
 mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extraChance, fakeDeath)
 	BreakViewers() //STOP LOOKING AT ME THE SHAME OF DEATH TOO MUCH
 
+	if(isplayer(src))
+		for(var/mob/m in viewers(20, src))
+			for(var/b in m.SlotlessBuffs)
+				var/obj/Skills/Buffs/SlotlessBuffs/A = m.SlotlessBuffs[b]
+				if(A.NeedsPassword&&A.FadeByDeath)
+					A.Timer = 1
+					A.TimerLimit = 1
+					A.Trigger(m, 1)
+
 	if(src.NoVoid)
 		SuperDead=1
 

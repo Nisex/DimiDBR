@@ -51,7 +51,7 @@
 	log2text("Damage", "After BalanceDamage", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
-	val /= getInfactuation(defender.name)
+	val /= getInfactuation(defender)
 	#if DEBUG_DAMAGE
 	log2text("Damage", "After Infactuation", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
