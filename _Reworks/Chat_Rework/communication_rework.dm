@@ -146,6 +146,7 @@ client/proc/sayProc(T, mode = null)
 
 	for(var/mob/hearer as anything in transmitTo) //hearers always returns a list of mobs; free performance.
 		if(!hearer.client) continue
+		if(sayNoun != "LOOCs:" && hearer.Mapper && hearer.invisibility) return
 		if(sayNoun == "LOOCs:")
 			hearer?.client.outputToChat("[header][hearer.Controlz(usr)] [sayNoun] [message]", LOOC_OUTPUT)
 		else
@@ -191,6 +192,7 @@ client/verb/Whisper(T as text)
 
 	for(var/mob/E as anything in transmitTo)
 		if(!E.client) continue
+		if(E.Mapper && E.invisibility) return
 		if(E.Secret == "Heavenly Restriction" && E.secretDatum?:hasRestriction("Senses"))
 			continue
 		if(E.EnhancedHearing)
