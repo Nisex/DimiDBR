@@ -2863,9 +2863,6 @@ obj
 				ActiveMessage="begins firing off countless darts of Cosmos-infused light!"
 				verb/Infinity_Break()
 					set category="Skills"
-					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
-						usr << "You can't use this technique except when in a dire pinch!"
-						return
 					usr.UseProjectile(src)
 ////Weapon Soul
 			Weapon_Soul
