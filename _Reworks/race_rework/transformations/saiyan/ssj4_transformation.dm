@@ -45,6 +45,8 @@ transformation
 
 			revert(mob/user)
 				. = ..()
+				if(!is_active || !user.CanRevert()) return
+				user.transActive = 0
 				user.TailIcon = previousTailIcon
 				user.TailIconUnderlay = previousTailUnderlayIcon
 				user.TailIconWrapped = previousTailWrappedIcon
