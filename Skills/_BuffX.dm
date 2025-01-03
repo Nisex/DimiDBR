@@ -4175,9 +4175,9 @@ NEW VARIABLES
 			OffMult=1.3
 			DefMult=1.2
 			SpdMult=2
-			NeedsHealth=50
-			TooMuchHealth=75
 			Transform="Weapon"
+			Slotless = TRUE
+			SpecialSlot = FALSE
 			ABuffNeeded=list("Soul Resonance")
 			verb/OverSoul()
 				set category="Skills"
