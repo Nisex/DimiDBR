@@ -422,6 +422,7 @@
 #include "_Reworks\race_rework\saiyan\ascensions.dm"
 #include "_Reworks\race_rework\saiyan\god_transformations.dm"
 #include "_Reworks\race_rework\saiyan\race.dm"
+#include "_Reworks\race_rework\saiyan\ssj4_transformation.dm"
 #include "_Reworks\race_rework\saiyan\transformations.dm"
 #include "_Reworks\race_rework\shinjin\ascensions.dm"
 #include "_Reworks\race_rework\shinjin\race.dm"
