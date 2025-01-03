@@ -660,8 +660,7 @@ mob/proc/RevertWS()
 		if("Masamune")
 			src.ElementalOffense=null
 			src.ElementalDefense=null
-			passive_handler.Decrease("HolyMod", 5)
-			passive_handler.Decrease("BeyondPurity")
+			passive_handler.Decrease("HolyMod", 10)
 			passive_handler.Decrease("CalmAnger")
 			passive_handler.Decrease("SpiritPower")
 		if("Durendal")
