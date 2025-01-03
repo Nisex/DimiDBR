@@ -1,7 +1,7 @@
 /mob/proc/getInfactuation(mob/defender)
 	for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/buff in src)
-		if(buff.Infatuated&&buff.Password==defender)
-			return 1+buff.Infatuated
+		if(buff.passives["Infatuated"]&&buff.Password == defender?:UniqueID)
+			return 1+buff.passives["Infatuated"]
 	return 1
 /mob/proc/getCritAndBlock(mob/defender, damage)
 	var/critChance = passive_handler.Get("CriticalChance")

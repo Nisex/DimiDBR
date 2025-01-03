@@ -74,6 +74,32 @@
 				OffMult = 1.4
 		if(p.Potential > OOZARU_POTENTIAL_TRANS)
 			passives["Transformation Power"] = clamp(p.AscensionsAcquired * 2, 1, 10)
+		if(length(p.race.transformations) >= 4 && p.race.transformations[4].type == /transformation/saiyan/super_saiyan_4 && p.transUnlocked >= 4)
+			IconTransform = 'SSJOozaru.dmi'
+			passives["Transformation Power"] = clamp(p.AscensionsAcquired * 5, 1, 40)
+			passives["Flow"] = 4
+			passives["Instinct"] = 4
+			passives["Meaty Paws"] = 2 + (p.AscensionsAcquired /2)
+			passives["Juggernaut"] = 1 + (p.AscensionsAcquired / 2)
+			passives["BuffMastery"] = 5 + (p.AscensionsAcquired / 10)
+			StrMult = 1.5
+			ForMult = 1.5
+			EndMult = 1.5
+			SpdMult = 0.5
+			OffMult = 1.5
+			TimerLimit = 1200
+			VaizardHealth = 1 + (p.AscensionsAcquired/1.5)
+			VaizardShatter = 1
+			PowerMult = 1.5
+
+
+	Trigger(var/mob/User, Override=0)
+		. = ..()
+		if(!User.BuffOn(src))
+			if((length(User.race.transformations) >= 4 && User.race.transformations[4].type == /transformation/saiyan/super_saiyan_4 && User.transUnlocked >= 4) && User.CanTransform() && !User.transActive)
+				User.transActive = 3
+				User.race.transformations[4].transform(User, TRUE)
+
 	verb/Tail_Toggle()
 		set category = "Other"
 		if(usr.Tail)
@@ -92,7 +118,6 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Bu
 		src.oozaru_type = input(src, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")
 	if(Go_Oozaru)
 		if(!src.Tail)return
-		if(src.SSJ4Unlocked)return
 		if(src.Dead)return
 		if(transActive)return
 		if(src.CheckActive("Ki Control"))

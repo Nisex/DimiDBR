@@ -1265,9 +1265,10 @@ mob
 				if(Momentum>=glob.MAX_MOMENTUM_STACKS)
 					Momentum = glob.MAX_MOMENTUM_STACKS
 				Mod *= 1 + (src.Momentum * (glob.MOMENTUM_BASE_BOON * clamp(src.passive_handler.Get("Momentum"), 0.1, glob.MOMENTUM_MAX_BOON)))
-			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Broken Brave"))
-				if(src.Health<=25*(1-src.HealthCut))
-					Mod+=min(10/src.Health,1)
+			if(glob.KOB_GETS_STATS_LOW_LIFE)
+				if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Broken Brave"))
+					if(src.Health<=25*(1-src.HealthCut))
+						Mod+=min(10/src.Health,1)
 			if(src.StrEroded)
 				Mod-=src.StrEroded
 
@@ -1388,9 +1389,10 @@ mob
 					else
 						Mod+=0.25*src.passive_handler.Get("BurningShot")
 
-			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Broken Brave"))
-				if(src.Health<=25*(1-src.HealthCut))
-					Mod+=min(10/src.Health,1)
+			if(glob.KOB_GETS_STATS_LOW_LIFE)
+				if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Broken Brave"))
+					if(src.Health<=25*(1-src.HealthCut))
+						Mod+=min(10/src.Health,1)
 			if(src.ForEroded)
 				Mod-=src.ForEroded
 			var/adaptive = passive_handler.Get("AngerAdaptiveForce")
@@ -1497,9 +1499,10 @@ mob
 			// 			Mod-=0.75*src.BurningShot
 			// 		else
 			// 			Mod-=1*src.BurningShot
-			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Protect Brave"))
-				if(src.Health<=25*(1-src.HealthCut))
-					Mod+=min(10/src.Health,1)
+			if(glob.KOB_GETS_STATS_LOW_LIFE)
+				if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Protect Brave"))
+					if(src.Health<=25*(1-src.HealthCut))
+						Mod+=min(10/src.Health,1)
 			if(src.Harden)
 				if(Harden>=glob.MAX_HARDEN)
 					Harden = glob.MAX_HARDEN
@@ -1839,10 +1842,11 @@ mob
 			// 			Mod-=0.75*src.BurningShot
 			// 		else
 			// 			Mod-=1*src.BurningShot
-			if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Protect Brave"))
-				if(src.Health<=25*(1-src.HealthCut))
-					var/thisVar = 10/Health < 0 ? 0.1 : 10/Health
-					Mod+=thisVar
+			if(glob.KOB_GETS_STATS_LOW_LIFE)
+				if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Protect Brave"))
+					if(src.Health<=25*(1-src.HealthCut))
+						var/thisVar = 10/Health < 0 ? 0.1 : 10/Health
+						Mod+=thisVar
 			if(src.RecovEroded)
 				Mod-=src.RecovEroded
 

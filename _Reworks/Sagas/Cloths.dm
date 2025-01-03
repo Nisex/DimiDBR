@@ -61,6 +61,10 @@ sagaTierUpMessages/Cosmo
 				src.AddSkill(new v2Path)
 			if(4)
 				ZodiacCharges++
+				if(!ClothGold)
+					PickGoldCloth()
+					if(!glob.infConstellations)
+						glob.takeLimited("GoldConstellation", ClothGold)
 				AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/SeventhSense)
 				if(!locate(/obj/Skills/Utility/Zodiac_Invocation, src))
 					src.AddSkill(new/obj/Skills/Utility/Zodiac_Invocation)

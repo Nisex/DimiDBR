@@ -2863,9 +2863,6 @@ obj
 				ActiveMessage="begins firing off countless darts of Cosmos-infused light!"
 				verb/Infinity_Break()
 					set category="Skills"
-					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
-						usr << "You can't use this technique except when in a dire pinch!"
-						return
 					usr.UseProjectile(src)
 ////Weapon Soul
 			Weapon_Soul
@@ -4180,14 +4177,15 @@ obj
 					Soaring_Dragon_Lord
 						CosmoPowered=1
 						StrRate=1
-						EndRate=1
-						DamageMult=8.5
-						BeamTime=10
+						EndRate=0.75
+						DamageMult=10
+						BeamTime=15
 						Dodgeable=0
 						Deflectable=0
 						Immediate=1
 						Piercing=1
-						Knockback=0
+						Striking=1
+						Knockback=1
 						Distance=50
 						IconLock='Rozan_Beam.dmi'
 						IconSize=1
@@ -5599,10 +5597,10 @@ obj
 									Rate = abs(Rate)/10*/
 								if(src.Deflectable&&!a:KO)
 									if(a:HasDeflection())
-										if(!Deflection_Formula(src.Owner, a, (accmult /** Rate*/ * (src.MultiHit+1))/(1+a:GetDeflection()), BaseChance=(glob.WorldDefaultAcc), Backfire=src.Backfire))
+										if(!Deflection_Formula(src.Owner, a, (accmult /** Rate*/ * ( min(0.1,1 - (src.MultiHit * 0.025) ) ) /(1+a:GetDeflection())), BaseChance=(glob.WorldDefaultAcc), Backfire=src.Backfire))
 											Deflect=1
 									else
-										if(!Deflection_Formula(src.Owner, a, accmult /** Rate*/ * (src.MultiHit+1), BaseChance=(glob.WorldDefaultAcc), Backfire=src.Backfire))
+										if(!Deflection_Formula(src.Owner, a, accmult /** Rate*/ * min(0.1,1 - (src.MultiHit * 0.025)), BaseChance=(glob.WorldDefaultAcc), Backfire=src.Backfire))
 											Deflect=1
 									if(Deflect)
 										var/list/Dirs=list(NORTH, NORTHEAST, NORTHWEST, EAST, WEST, SOUTHEAST, SOUTHWEST, SOUTH)

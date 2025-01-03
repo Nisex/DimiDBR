@@ -4200,6 +4200,8 @@ obj
 				ForOffense=1
 				WindUp=0.5
 
+				Rush = 10
+				ControlledRush = 1
 				WindupIcon=1
 				Slow=1
 				HitSparkIcon='Hit Effect Ripple.dmi'

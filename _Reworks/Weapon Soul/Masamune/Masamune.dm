@@ -30,7 +30,7 @@ obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Masamune
 	StrMult=1.3
 	OffMult=1.3
 	DefMult=1.3
-	passives = list("BeyondPurity" = 1) // may god have mercy on my soul
+	passives = list("BeyondPurity" = 1, "HolyMod" = 10) // may god have mercy on my soul
 	IconLock='EyeFlameC.dmi'
 	ActiveMessage="'s soothing treasures ring in resonance: Heavenly Regalia!"
 	OffMessage="'s treasures lose their healing luster..."

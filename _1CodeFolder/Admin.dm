@@ -1070,6 +1070,19 @@ mob/Admin3/verb
 		if(M.client)
 			var/blah=input("Unlock to what form?") as num | null
 			if(!blah) return
+			if(isRace(SAIYAN) && blah == 4)
+				var/godor4 = input("SSJ God or SSJ4?") in list("SSJ God", "SSJ4")
+				if(godor4 == "SSJ4")
+					for(var/transformation/saiyan/ssj in M.race.transformations)
+						if(istype(ssj, /transformation/saiyan/super_saiyan_god) || istype(ssj, /transformation/saiyan/super_saiyan_blue))
+							M.race.transformations -= ssj
+							del ssj
+					M.AddSkill(new/obj/Skills/False_Moon)
+				else
+					for(var/transformation/saiyan/ssj in M.race.transformations)
+						if(istype(ssj, /transformation/saiyan/super_saiyan_4))
+							M.race.transformations -= ssj
+							del ssj
 			M.transUnlocked = blah
 			Log("Admin","[ExtractInfo(usr)] unlocked [ExtractInfo(M)] 's form([blah])")
 

@@ -126,6 +126,8 @@ proc
 		animate(User,pixel_z=-48,time=DownTime, easing=QUAD_EASING, flags=ANIMATION_END_NOW | ANIMATION_RELATIVE)
 
 	SuplexEffect(var/mob/User, var/mob/Target) //MATTHEEEEEEEEW
+		if(!User || !Target || User.loc == null || Target.loc == null)
+			return
 		User.Frozen=2
 		Target.Frozen=2
 		animate(Target, pixel_z=24, time=5, flags=ANIMATION_RELATIVE)
@@ -144,6 +146,8 @@ proc
 
 	RozanEffect(var/mob/User, var/mob/Target, var/TimeMod=1)
 		set waitfor=0
+		if(!User || !Target || User.loc == null || Target.loc == null)
+			return
 		User.Frozen=2
 		Target.Frozen=2
 		var/obj/Effects/RozanEffect/SE=new
@@ -174,6 +178,8 @@ proc
 		Target.Frozen=0
 	ShoryukenEffect(var/mob/User, var/mob/Target, var/TimeMod=1)
 		set waitfor=0
+		if(!User || !Target || User.loc == null || Target.loc == null)
+			return
 		User.Frozen=2
 		Target.Frozen=2
 		var/obj/Effects/ShoryukenEffect/SE=new
@@ -210,6 +216,8 @@ proc
 		Target.Frozen=0
 	GoshoryukenEffect(var/mob/User, var/mob/Target, var/TimeMod=1)
 		set waitfor=0
+		if(!User || !Target || User.loc == null || Target.loc == null)
+			return
 		User.Frozen=2
 		Target.Frozen=2
 		var/obj/Effects/GoshoryukenEffect/SE=new
@@ -247,6 +255,8 @@ proc
 
 
 	MuscleBusterEffect(mob/p, mob/t, TimeMod=1)
+		if(!t || !p || p.loc == null || t.loc == null)
+			return
 		p.loc = t.loc
 		p.dir = EAST
 		t.dir = WEST
@@ -274,6 +284,8 @@ proc
 
 
 	PotemkinBusterEffect(mob/p, mob/t, TimeMod=1)
+		if(!t || !p || p.loc == null || t.loc == null)
+			return
 		p.loc = t.loc
 		p.dir = EAST
 		t.dir = WEST
@@ -308,6 +320,8 @@ proc
 
 
 	LotusEffect(var/mob/User, var/mob/Target, var/TimeMod=1)
+		if(!User || !Target || User.loc == null || Target.loc == null)
+			return
 		User.loc=Target.loc
 		User.Frozen=2
 		Target.Frozen=2
@@ -339,6 +353,8 @@ proc
 
 
 	SpinTornado(mob/a, mob/d,  time = 5)
+		if(!d || !a || d.loc == null || a.loc == null)
+			return
 		d.loc=a.loc
 		d.dir = SOUTH
 		a.Frozen=2

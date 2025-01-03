@@ -510,6 +510,7 @@ NEW VARIABLES
 	var/Xenobiology//weird body stuffs
 	var/Maki//demon stuff
 	var/Infatuated//cant harm what you love...
+	var/InfatuatedID
 	var/AdrenalBoost//getting whacked gives you BP
 	var/PoseEnhancement
 	var/MagicFocus//operates as a magic focus
@@ -533,6 +534,7 @@ NEW VARIABLES
 	var/PotionCD=0
 	var/NeedsVary=0//alters the health threshold of an autonomous buff to make it less reliable
 	var/NeedsPassword=0//allows alteration of buffs that are applied on-hit only
+	var/FadeByDeath = FALSE
 	var/NeedsAlignment=0//trigger conditionally on being good/evil
 	var/TooMuchHealth=0//Once this value is passed, the buff deactivates.
 	var/TooLittleMana=0//Once this value is passed, the buff deactivates.
@@ -855,7 +857,12 @@ NEW VARIABLES
 				"/obj/Skills/Projectile/Gear/Installed/Installed_Missile_Launcher", \
 				"/obj/Skills/Buffs/SlotlessBuffs/WeaponSystems/Beam_Saber")
 					init(obj/Items/Gear/Mobile_Suit/mecha, mob/player)
-						passives = list("Piloting" = 1, "SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, "Godspeed" = mecha.Level, "SuperDash" = 1, "Pursuer" = mecha.Level, "Flicker" = mecha.Level, "Flow" = (mecha.Level * 0.25) + 1)
+						passives = list("Piloting" = 1, "SpecialBuffLock" = 1,"GiantForm" = 1,\
+									 "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, \
+									 "Godspeed" = mecha.Level, "SuperDash" = 1, "Pursuer" = mecha.Level, "Flicker" = mecha.Level, \
+									 "Flow" = (mecha.Level * 0.25) + 1, "NoDodge" = 1)
+						if(player.PilotingProwess >= 7)
+							passives["NoDodge"] = 0
 						Afterimages = 1
 						..()
 				Tank
@@ -864,8 +871,11 @@ NEW VARIABLES
 				"/obj/Skills/Projectile/Gear/Installed/Installed_Plasma_Gatling", \
 				"/obj/Skills/Projectile/Gear/Installed/Installed_Missile_Launcher", \
 				"/obj/Skills/Buffs/SlotlessBuffs/WeaponSystems/Beam_Saber")
-					init(obj/Items/Gear/Mobile_Suit/mecha)
-						passives = list("Piloting" = 1,"SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, "Juggernaut" = mecha.Level, "Reversal" = 0.5, "BlockChance" = mecha.Level*3, "CriticalBlock" = mecha.Level*0.5)
+					init(obj/Items/Gear/Mobile_Suit/mecha, mob/player)
+						passives = list("Piloting" = 1,"SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, \
+						"Juggernaut" = mecha.Level, "Reversal" = 0.5, "BlockChance" = mecha.Level*3, "CriticalBlock" = mecha.Level*0.5, "NoDodge" = 1)
+						if(player.PilotingProwess >= 7)
+							passives["NoDodge"] = 0
 						VaizardHealth = mecha.Level * 0.2
 						..()
 				Assault
@@ -874,8 +884,11 @@ NEW VARIABLES
 				"/obj/Skills/Projectile/Gear/Installed/Installed_Plasma_Gatling", \
 				"/obj/Skills/Projectile/Gear/Installed/Installed_Missile_Launcher", \
 				"/obj/Skills/Buffs/SlotlessBuffs/WeaponSystems/Beam_Saber")
-					init(obj/Items/Gear/Mobile_Suit/mecha)
-						passives = list("Piloting" = 1,"SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, "CriticalChance" = mecha.Level*3, "CriticalDamage" = mecha.Level*0.25, "Steady" = mecha.Level, "Duelist" = mecha.Level)
+					init(obj/Items/Gear/Mobile_Suit/mecha, mob/player)
+						passives = list("Piloting" = 1,"SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffImmune" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, \
+						"CriticalChance" = mecha.Level*3, "CriticalDamage" = mecha.Level*0.25, "Steady" = mecha.Level, "Duelist" = mecha.Level, "NoDodge" = 1)
+						if(player.PilotingProwess >= 7)
+							passives["NoDodge"] = 0
 						..()
 
 
@@ -927,6 +940,9 @@ NEW VARIABLES
 				SpdMult = 1 + num / glob.GATES_STAT_MULT_DIVISOR
 				KenWave=clamp(num / 2, 1, 4)
 
+
+				if(num >= 5)
+					passives["Kaioken"] = 1 // gates should die what the freak ?
 
 				if(num == 7)
 					passives["PUSpike"] = 300
@@ -3016,7 +3032,7 @@ NEW VARIABLES
 					OffMessage="discards the Cloth..."
 					adjustments(mob/player)
 						..()
-						passives = list("MovementMastery" =  player.SagaLevel * 1.5, "ArmorAscension" = 2, "SpiritHand" = (player.SagaLevel*0.25))
+						passives = list("MovementMastery" =  player.SagaLevel * 1.5, "ArmorAscension" = 2, "SpiritHand" = player.SagaLevel)
 						StrMult = 1.1 + (player.SagaLevel * 0.1)
 						ForMult = 1.1 + (player.SagaLevel * 0.1)
 						OffMult = 1 + (player.SagaLevel * 0.1)
@@ -3169,7 +3185,7 @@ NEW VARIABLES
 					adjustments(mob/player)
 						..()
 						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
-						passives = list("MovementMastery" = player.SagaLevel * 2, "ArmorAscension" = 2, "SpiritHand" = (player.SagaLevel*0.5))
+						passives = list("MovementMastery" = player.SagaLevel * 2, "ArmorAscension" = 2, "SpiritHand" = player.SagaLevel*1.5)
 						StrMult = 1.4 + (newLevel * 0.1)
 						ForMult = 1.4 + (newLevel * 0.1)
 						OffMult = 1.3 + (newLevel * 0.1)
@@ -5082,7 +5098,7 @@ NEW VARIABLES
 				verb/Magic_Act()
 					set category="Utility"
 					if(!usr.BuffOn(src))
-						var/Choices=list("Cancel", "Disguise", "Confuse", "Stun")
+						var/Choices=list("Cancel", "Confuse", "Stun")
 						var/Mode=input(usr, "What act do you perform?", "Magic Act") in Choices
 						switch(Mode)
 							if("Cancel")
@@ -5111,19 +5127,6 @@ NEW VARIABLES
 									if(prob(20))
 										Stun(m, 5)
 										OMsg(m, "[m] is stunned by the act!")
-									else
-										OMsg(m, "[m] isn't impressed by [usr]'s act.")
-							if("Pacify")
-								src.PhysicalHitsLimit=0
-								src.SpiritHitsLimit=0
-								src.EndYourself=1
-								src.ActiveMessage="performs a pacifying act!"
-								src.OffMessage=0
-								src.FakePeace=0
-								for(var/mob/Players/m in oviewers(5,usr))
-									if(prob(10))
-										m.AddPacifying(5)
-										OMsg(m, "[m] is rendered stupified by the act!")
 									else
 										OMsg(m, "[m] isn't impressed by [usr]'s act.")
 					src.Trigger(usr)
@@ -5210,7 +5213,7 @@ NEW VARIABLES
 				verb/Magic_Show()
 					set category="Utility"
 					if(!usr.BuffOn(src))
-						var/Choices=list("Cancel", "Disappear", "Disguise", "Confuse", "Stun")
+						var/Choices=list("Cancel", "Disappear", "Confuse", "Stun")
 						var/Mode=input(usr, "What show do you perform?", "Magic Show") in Choices
 						switch(Mode)
 							if("Cancel")
@@ -8790,8 +8793,6 @@ NEW VARIABLES
 
 		Protect_Shade
 			TimerLimit=5
-			VaizardHealth=0.5
-			VaizardShatter=1
 			IconLock='Android Shield.dmi'
 			IconLockBlend=2
 			IconLayer=-1
@@ -8799,10 +8800,14 @@ NEW VARIABLES
 			OverlaySize=1.2
 			ActiveMessage="projects an unbreakable barrier!"
 			OffMessage="collapses their barrier..."
-			Cooldown=300
+			Cooldown=180
 			SBuffNeeded="Protect Brave"
 			verb/Protect_Shade()
 				set category="Skills"
+				if(!usr.BuffOn(src))
+					passives = list("Deflection" = usr.SagaLevel/2, "Reversal" = 0.1 * usr.SagaLevel)
+					TimerLimit = 10 * usr.SagaLevel
+					Cooldown = 180 - (15 * usr.SagaLevel)
 				if(usr.SpecialBuff)
 					if(usr.SpecialBuff.BuffName!="Genesic Brave"&&src.SBuffNeeded!="Protect Brave")
 						src.SBuffNeeded="Protect Brave"
@@ -8824,6 +8829,10 @@ NEW VARIABLES
 			SBuffNeeded="Protect Brave"
 			verb/Protect_Wall()
 				set category="Skills"
+				if(!usr.BuffOn(src))
+					VaizardHealth = (1.5 * usr.SagaLevel) / 10
+					TimerLimit = 5 * usr.SagaLevel
+					Cooldown = 300
 				if(usr.SpecialBuff)
 					if(usr.SpecialBuff.BuffName!="Genesic Brave"&&src.SBuffNeeded!="Protect Brave")
 						src.SBuffNeeded="Protect Brave"
@@ -8831,17 +8840,17 @@ NEW VARIABLES
 						src.SBuffNeeded="Genesic Brave"
 				src.Trigger(usr)
 		Plasma_Hold
-			TimerLimit=10
+			TimerLimit=2
 			TargetOverlay='Overdrive.dmi'
 			TargetOverlayX=0
 			TargetOverlayY=0
 			Connector='BE.dmi'
 			StunAffected=1
 			AffectTarget=1
-			Range=7
+			Range=14
 			ActiveMessage="shoots crackling plasma at their target!"
 			OffMessage="releases their hold..."
-			Cooldown=450
+			Cooldown=30
 			SBuffNeeded="Protect Brave"
 			verb/Plasma_Hold()
 				set category="Skills"
@@ -8892,10 +8901,11 @@ NEW VARIABLES
 		Dividing_Driver
 			WarpZone=1
 			Duel=1
+			passives = list("Duelist" = 1, "CoolerAfterImages" = 3)
 			CastingTime=2
 			KenWave=3
 			KenWaveSize=3
-			Range=5
+			Range=15
 			KenWaveIcon='KenShockwaveLegend.dmi'
 			TurfShift='StarPixel.dmi'
 			Cooldown=-1
@@ -9824,11 +9834,10 @@ NEW VARIABLES
 						StyleNeeded="East Star"
 						ManaGlow="#fff"
 						ManaGlowSize=2
-						passives = list("TensionLock" = 1,"SoftStyle" = 2, "PureDamage" = 5, "PureReduction" = -5, "SuperDash" = 1, "DashMaster" = 1)
+						passives = list("TensionLock" = 1,"SoftStyle" = 2, "PureDamage" = 5, "PureReduction" = -5, "SuperDash" = 1, "Pursuer" = 5)
 						StrMult=1.5
 						ForMult=1.5
 						SuperDash=1
-						DashMaster=1
 						DashCountLimit=4
 						ActiveMessage="abandons all defensive posturing! You're in for a wild ride now!"
 						OffMessage="disperses their immense wind pressure..."
@@ -10894,7 +10903,7 @@ NEW VARIABLES
 					passives = list("Unstoppable" = 1, "Hardening" = 1 + (0.5 * asc), "LifeSteal" = 1.5*asc, "Godspeed" = 1+(asc), "SweepingStrike" = 1)
 					VaizardHealth = 15 + p.GetEnd() + (p.TotalInjury/25) + (asc)
 
-					VaizardHealth/= 10
+					VaizardHealth /= 10
 					// this was 17.5% guys lol
 					if(asc>=1)
 						if(!locate(/obj/Skills/AutoHit/Symbiote_Tendril_Wave, p.AutoHits))
@@ -10983,6 +10992,7 @@ NEW VARIABLES
 				Infatuated=2
 				ActiveMessage="has their mind trapped by a demonic illusion! They need to witness death to regain freedom!"
 				OffMessage="feels the effects of the curse fading away..."
+				FadeByDeath = 1
 				KenWave=3
 				KenWaveSize=0.7
 				KenWaveBlend=2
@@ -12299,11 +12309,14 @@ mob
 					src.ActiveBuff.OverlayTransLock=1
 					src.ActiveBuff.AuraLock=1
 					// src.ActiveBuff.SenseUnlocked=1
-					if(src.SagaLevel==6)
+					if(src.SagaLevel==4)
 						switch(src.ClothGold)
 							if("Aries")
 								if(!locate(/obj/Skills/Projectile/Stardust_Revolution, src))
 									src.AddSkill(new/obj/Skills/Projectile/Stardust_Revolution)
+							if("Sagittarius")
+								if(!locate(/obj/Skills/Projectile/Light_Impulse, src))
+									src.AddSkill(new/obj/Skills/Projectile/Light_Impulse)
 							if("Gemini")
 								if(!locate(/obj/Skills/Projectile/Galaxian_Explosion, src))
 									src.AddSkill(new/obj/Skills/Projectile/Galaxian_Explosion)
