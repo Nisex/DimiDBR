@@ -10081,11 +10081,10 @@ NEW VARIABLES
 						StyleNeeded="East Star"
 						ManaGlow="#fff"
 						ManaGlowSize=2
-						passives = list("TensionLock" = 1,"SoftStyle" = 2, "PureDamage" = 5, "PureReduction" = -5, "SuperDash" = 1, "DashMaster" = 1)
+						passives = list("TensionLock" = 1,"SoftStyle" = 2, "PureDamage" = 5, "PureReduction" = -5, "SuperDash" = 1, "Pursuer" = 5)
 						StrMult=1.5
 						ForMult=1.5
 						SuperDash=1
-						DashMaster=1
 						DashCountLimit=4
 						ActiveMessage="abandons all defensive posturing! You're in for a wild ride now!"
 						OffMessage="disperses their immense wind pressure..."
