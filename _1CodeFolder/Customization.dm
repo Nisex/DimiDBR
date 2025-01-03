@@ -582,7 +582,7 @@ mob/proc
 					continue
 				Row++
 				src<<output(BT,"GridX:1,[Row]")
-				src<<output("[Commas(BT.Cost*global.EconomyCost)]","GridX:2,[Row]")
+				src<<output("[Commas(BT.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 
 			if(usr.ForgingUnlocked)
 				Row++
@@ -593,11 +593,11 @@ mob/proc
 					if(WF.SubType=="Any")
 						Row++
 						src<<output(WF,"GridX:1,[Row]")
-						src<<output("[Commas(WF.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(WF.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 					else if(WF.SubType in usr.knowledgeTracker.learnedKnowledge)
 						Row++
 						src<<output(WF,"GridX:1,[Row]")
-						src<<output("[Commas(WF.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(WF.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 
 			if(usr.RepairAndConversionUnlocked)
 				Row++
@@ -608,11 +608,11 @@ mob/proc
 					if(WC.SubType=="Any")
 						Row++
 						src<<output(WC,"GridX:1,[Row]")
-						src<<output("[Commas(WC.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(WC.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 					else if(WC.SubType in usr.knowledgeTracker.learnedKnowledge)
 						Row++
 						src<<output(WC,"GridX:1,[Row]")
-						src<<output("[Commas(WC.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(WC.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 
 			if(usr.MedicineUnlocked)
 				Row++
@@ -623,11 +623,11 @@ mob/proc
 					if(M.SubType=="Any")
 						Row++
 						src<<output(M,"GridX:1,[Row]")
-						src<<output("[Commas(M.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(M.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 					else if(M.SubType in usr.knowledgeTracker.learnedKnowledge)
 						Row++
 						src<<output(M,"GridX:1,[Row]")
-						src<<output("[Commas(M.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(M.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 
 			if(usr.ImprovedMedicalTechnologyUnlocked)
 				Row++
@@ -638,11 +638,11 @@ mob/proc
 					if(IMT.SubType=="Any")
 						Row++
 						src<<output(IMT,"GridX:1,[Row]")
-						src<<output("[Commas(IMT.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(IMT.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 					else if(IMT.SubType in usr.knowledgeTracker.learnedKnowledge)
 						Row++
 						src<<output(IMT,"GridX:1,[Row]")
-						src<<output("[Commas(IMT.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(IMT.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 
 			if(usr.TelecommunicationsUnlocked)
 				Row++
@@ -653,11 +653,11 @@ mob/proc
 					if(CT.SubType=="Any")
 						Row++
 						src<<output(CT,"GridX:1,[Row]")
-						src<<output("[Commas(CT.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(CT.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 					else if(CT.SubType in usr.knowledgeTracker.learnedKnowledge)
 						Row++
 						src<<output(CT,"GridX:1,[Row]")
-						src<<output("[Commas(CT.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(CT.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 
 			if(usr.AdvancedTransmissionTechnologyUnlocked)
 				Row++
@@ -668,11 +668,11 @@ mob/proc
 					if(ST.SubType=="Any")
 						Row++
 						src<<output(ST,"GridX:1,[Row]")
-						src<<output("[Commas(ST.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(ST.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 					else if(ST.SubType in usr.knowledgeTracker.learnedKnowledge)
 						Row++
 						src<<output(ST,"GridX:1,[Row]")
-						src<<output("[Commas(ST.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(ST.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 
 			if(usr.EngineeringUnlocked||usr.MilitaryTechnologyUnlocked)
 				Row++
@@ -683,7 +683,7 @@ mob/proc
 					else
 						Row++
 						src<<output(PP,"GridX:1,[Row]")
-						src<<output("[Commas(PP.Cost*global.EconomyCost)]", "GridX:2,[Row]")
+						src<<output("[Commas(PP.Cost*glob.progress.EconomyCost)]", "GridX:2,[Row]")
 
 			if(usr.EngineeringUnlocked)
 				Row++
@@ -694,11 +694,11 @@ mob/proc
 					if(MS.SubType=="Any")
 						Row++
 						src<<output(MS,"GridX:1,[Row]")
-						src<<output("[Commas(MS.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(MS.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 					else if(MS.SubType in usr.knowledgeTracker.learnedKnowledge)
 						Row++
 						src<<output(MS,"GridX:1,[Row]")
-						src<<output("[Commas(MS.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(MS.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 
 			if(usr.CyberEngineeringUnlocked)
 				Row++
@@ -709,11 +709,11 @@ mob/proc
 					if(PE.SubType=="Any")
 						Row++
 						src<<output(PE,"GridX:1,[Row]")
-						src<<output("[Commas(PE.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(PE.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 					else if(PE.SubType in usr.knowledgeTracker.learnedKnowledge)
 						Row++
 						src<<output(PE,"GridX:1,[Row]")
-						src<<output("[Commas(PE.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(PE.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 
 			if(usr.MilitaryTechnologyUnlocked)
 				Row++
@@ -724,11 +724,11 @@ mob/proc
 					if(E2.SubType=="Any")
 						Row++
 						src<<output(E2,"GridX:1,[Row]")
-						src<<output("[Commas(E2.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(E2.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 					else if(E2.SubType in usr.knowledgeTracker.learnedKnowledge)
 						Row++
 						src<<output(E2,"GridX:1,[Row]")
-						src<<output("[Commas(E2.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(E2.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 
 			if(usr.MilitaryEngineeringUnlocked)
 				Row++
@@ -739,11 +739,11 @@ mob/proc
 					if(ST.SubType=="Any")
 						Row++
 						src<<output(ST,"GridX:1,[Row]")
-						src<<output("[Commas(ST.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(ST.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 					else if(ST.SubType in usr.knowledgeTracker.learnedKnowledge)
 						Row++
 						src<<output(ST,"GridX:1,[Row]")
-						src<<output("[Commas(ST.Cost*global.EconomyCost)]","GridX:2,[Row]")
+						src<<output("[Commas(ST.Cost*glob.progress.EconomyCost)]","GridX:2,[Row]")
 
 		if(Z=="Enchant")
 			src<<output("Magical goods! Boil and bubble...","SelectedCustomize")
@@ -753,7 +753,7 @@ mob/proc
 					continue
 				Row++
 				src<<output(BT,"GridX:1,[Row]")
-				src<<output("[Commas(BT.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+				src<<output("[Commas(BT.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 
 			if(usr.AlchemyUnlocked)
 				Row++
@@ -764,11 +764,11 @@ mob/proc
 					if(WF.SubType=="Any")
 						Row++
 						src<<output(WF,"GridX:1,[Row]")
-						src<<output("[Commas(WF.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(WF.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 					else if(WF.SubType in usr.knowledgeTracker.learnedMagic)
 						Row++
 						src<<output(WF,"GridX:1,[Row]")
-						src<<output("[Commas(WF.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(WF.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 
 			if(usr.ImprovedAlchemyUnlocked)
 				Row++
@@ -779,11 +779,11 @@ mob/proc
 					if(WC.SubType=="Any")
 						Row++
 						src<<output(WC,"GridX:1,[Row]")
-						src<<output("[Commas(WC.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(WC.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 					else if(WC.SubType in usr.knowledgeTracker.learnedMagic)
 						Row++
 						src<<output(WC,"GridX:1,[Row]")
-						src<<output("[Commas(WC.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(WC.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 
 			if(usr.ToolEnchantmentUnlocked)
 				Row++
@@ -794,11 +794,11 @@ mob/proc
 					if(M.SubType=="Any")
 						Row++
 						src<<output(M,"GridX:1,[Row]")
-						src<<output("[Commas(M.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(M.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 					else if(M.SubType in usr.knowledgeTracker.learnedMagic)
 						Row++
 						src<<output(M,"GridX:1,[Row]")
-						src<<output("[Commas(M.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(M.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 
 			if(usr.ArmamentEnchantmentUnlocked)
 				Row++
@@ -809,11 +809,11 @@ mob/proc
 					if(IMT.SubType=="Any")
 						Row++
 						src<<output(IMT,"GridX:1,[Row]")
-						src<<output("[Commas(IMT.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(IMT.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 					else if(IMT.SubType in usr.knowledgeTracker.learnedMagic)
 						Row++
 						src<<output(IMT,"GridX:1,[Row]")
-						src<<output("[Commas(IMT.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(IMT.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 
 			if(usr.TomeCreationUnlocked)
 				Row++
@@ -824,11 +824,11 @@ mob/proc
 					if(CT.SubType=="Any")
 						Row++
 						src<<output(CT,"GridX:1,[Row]")
-						src<<output("[Commas(CT.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(CT.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 					else if(CT.SubType in usr.knowledgeTracker.learnedMagic)
 						Row++
 						src<<output(CT,"GridX:1,[Row]")
-						src<<output("[Commas(CT.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(CT.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 
 			if(usr.CrestCreationUnlocked)
 				Row++
@@ -839,11 +839,11 @@ mob/proc
 					if(ST.SubType=="Any")
 						Row++
 						src<<output(ST,"GridX:1,[Row]")
-						src<<output("[Commas(ST.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(ST.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 					else if(ST.SubType in usr.knowledgeTracker.learnedMagic)
 						Row++
 						src<<output(ST,"GridX:1,[Row]")
-						src<<output("[Commas(ST.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(ST.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 
 			if(usr.SummoningMagicUnlocked)
 				Row++
@@ -854,11 +854,11 @@ mob/proc
 					if(MS.SubType=="Any")
 						Row++
 						src<<output(MS,"GridX:1,[Row]")
-						src<<output("[Commas(MS.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(MS.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 					else if(MS.SubType in usr.knowledgeTracker.learnedMagic)
 						Row++
 						src<<output(MS,"GridX:1,[Row]")
-						src<<output("[Commas(MS.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(MS.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 
 			if(usr.SealingMagicUnlocked)
 				Row++
@@ -869,11 +869,11 @@ mob/proc
 					if(PE.SubType=="Any")
 						Row++
 						src<<output(PE,"GridX:1,[Row]")
-						src<<output("[Commas(PE.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(PE.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 					else if(PE.SubType in usr.knowledgeTracker.learnedMagic)
 						Row++
 						src<<output(PE,"GridX:1,[Row]")
-						src<<output("[Commas(PE.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(PE.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 
 			if(usr.SpaceMagicUnlocked)
 				Row++
@@ -884,15 +884,15 @@ mob/proc
 					if(E2.SubType=="Any")
 						Row++
 						src<<output(E2,"GridX:1,[Row]")
-						src<<output("[Commas(E2.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(E2.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 					else if(E2.SubType in usr.knowledgeTracker.learnedMagic)
 						Row++
 						if(istype(E2, /obj/Items/Enchantment/PocketDimensionGenerator))
 							src<<output(E2,"GridX:1,[Row]")
-							src<<output("[Commas(E2.Cost*(EconomyCost))]","GridX:2,[Row]")
+							src<<output("[Commas(E2.Cost*(glob.progress.EconomyCost))]","GridX:2,[Row]")
 						else
 							src<<output(E2,"GridX:1,[Row]")
-							src<<output("[Commas(E2.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+							src<<output("[Commas(E2.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 
 			if(usr.TimeMagicUnlocked)
 				Row++
@@ -903,11 +903,11 @@ mob/proc
 					if(ST.SubType=="Any")
 						Row++
 						src<<output(ST,"GridX:1,[Row]")
-						src<<output("[Commas(ST.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(ST.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 					else if(ST.SubType in usr.knowledgeTracker.learnedMagic)
 						Row++
 						src<<output(ST,"GridX:1,[Row]")
-						src<<output("[Commas(ST.Cost*(EconomyMana/100))]","GridX:2,[Row]")
+						src<<output("[Commas(ST.Cost*(glob.progress.EconomyMana/100))]","GridX:2,[Row]")
 
 		if(Z=="MaxMana")
 			for(var/mob/Players/Q in players)

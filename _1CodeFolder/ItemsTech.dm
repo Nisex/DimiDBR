@@ -119,7 +119,7 @@ proc/Add_Technology()
 
 
 proc/Can_Afford_Technology(mob/P,obj/Items/O) for(var/obj/Money/M in P) if(M.Level>=Technology_Price(P, O)) return 1
-proc/Technology_Price(mob/P,obj/Items/O) return O.Cost*global.EconomyCost
+proc/Technology_Price(mob/P,obj/Items/O) return O.Cost*glob.progress.EconomyCost
 
 mob
 	var
@@ -2963,7 +2963,7 @@ obj/Items/Gear
 		else
 			I=new src.UpgradePath
 		usr.TakeMoney(NuCost)
-		I.Cost=I.Cost+(NuCost/global.EconomyCost)
+		I.Cost=I.Cost+(NuCost/glob.progress.EconomyCost)
 		usr.contents+=I
 		OMsg(usr, "[usr] has upgraded [src] into a new gear!")
 		src.Using=0

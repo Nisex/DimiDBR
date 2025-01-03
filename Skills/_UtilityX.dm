@@ -152,7 +152,7 @@ obj/Skills/Utility
 					if(usr.Grab)
 						usr << "You need free hands!"
 						return
-					if(!usr.HasMoney(src.Mastery*global.EconomyCost*0.2))
+					if(!usr.HasMoney(src.Mastery*glob.progress.EconomyCost*0.2))
 						usr << "You don't have enough money to make a single passable meal!"
 						return
 					src.Using=1
@@ -171,7 +171,7 @@ obj/Skills/Utility
 					rem=round(rem)
 					if(Count>rem)
 						Count=rem
-					var/MatCost=Count*src.Mastery*global.EconomyCost*0.2
+					var/MatCost=Count*src.Mastery*glob.progress.EconomyCost*0.2
 					if(!usr.HasMoney(MatCost))
 						usr << "You don't have enough money to make [Count] [currentMeal.name]!"
 					for(var/c=0, c<Count, c++)
@@ -372,7 +372,7 @@ obj/Skills/Utility
 			if(usr.Grab)
 				usr << "You need free hands!"
 				return
-			if(!usr.HasMoney(src.Mastery*global.EconomyCost*0.0625))
+			if(!usr.HasMoney(src.Mastery*glob.progress.EconomyCost*0.0625))
 				usr << "You don't have enough money to make a single passable drink!"
 				return
 			src.Using=1
@@ -387,7 +387,7 @@ obj/Skills/Utility
 			rem=round(rem)
 			if(Count>rem)
 				Count=rem
-			var/MatCost=Count*src.Mastery*global.EconomyCost*0.0625
+			var/MatCost=Count*src.Mastery*glob.progress.EconomyCost*0.0625
 			if(!usr.HasMoney(MatCost))
 				usr << "You don't have enough money to make [Count] [src.suffix]!"
 			for(var/c=0, c<Count, c++)
@@ -862,7 +862,7 @@ obj/Skills/Utility
 						usr << "You don't have any armors to upgrade!"
 						return
 					Chosen=input("What armor do you wish to upgrade?", "Upgrade Equipment")in armors
-			var/Cost=global.EconomyCost
+			var/Cost=glob.progress.EconomyCost
 
 			var/list/Upgrades=list("Cancel")
 			if(Type=="Sword"||Type=="Staff")//armors don't get reinforced
@@ -1268,7 +1268,7 @@ obj/Skills/Utility
 			if(src.Using)
 				return
 			src.Using=1
-			var/Cost=0.2*global.EconomyMana
+			var/Cost=0.2*glob.progress.EconomyMana
 			var/Confirm=alert(usr, "Do you wish to seal your CURRENT LOCATION?  It will cost [Commas(Cost)] capacity.", "Seal Turf", "No", "Yes")
 			if(Confirm=="No")
 				src.Using=0
@@ -1299,7 +1299,7 @@ obj/Skills/Utility
 			if(src.Using)
 				return
 			src.Using=1
-			var/Cost=0.5*global.EconomyMana
+			var/Cost=0.5*glob.progress.EconomyMana
 			var/list/obj/Options=list("Cancel")
 			for(var/obj/O in get_step(usr, usr.dir))
 				Options.Add(O)
@@ -1341,7 +1341,7 @@ obj/Skills/Utility
 			if(src.Using)
 				return
 			src.Using=1
-			var/Cost=1*global.EconomyMana
+			var/Cost=1*glob.progress.EconomyMana
 			var/list/mob/Players/Options=list("Cancel")
 			for(var/mob/Players/P in get_step(usr, usr.dir))
 				if(locate(/obj/Seal/Power_Seal, P))
@@ -1397,7 +1397,7 @@ obj/Skills/Utility
 			if(src.Using)
 				return
 			src.Using=1
-			var/Cost=0.5*global.EconomyMana
+			var/Cost=0.5*glob.progress.EconomyMana
 			var/list/mob/Players/Options=list("Cancel")
 			for(var/mob/Players/P in get_step(usr, usr.dir))
 				if(locate(/obj/Seal, P))
@@ -1457,7 +1457,7 @@ obj/Skills/Utility
 			if(src.Using)
 				return
 			src.Using=1
-			var/Cost=global.EconomyMana
+			var/Cost=glob.progress.EconomyMana
 			if(!usr.HasManaCapacity(Cost))
 				usr << "You don't have enough capacity to try to form a seal!  It takes [Commas(Cost)] capacity."
 				src.Using=0
@@ -1498,7 +1498,7 @@ obj/Skills/Utility
 			if(Choice=="Cancel")
 				src.Using=0
 				return
-			var/Cost=0.25*global.EconomyMana
+			var/Cost=0.25*glob.progress.EconomyMana
 			if(!usr.HasManaCapacity(Cost))
 				usr << "You don't have enough capacity to try to break a seal!  It takes [Commas(Cost)] capacity."
 				src.Using=0
@@ -1588,7 +1588,7 @@ obj/Skills/Utility
 		var/Operating//Don't spam this.
 		verb/Grimoire_Arcana()
 			set category="Utility"
-			var/Economy=EconomyMana//Now based on MANA!
+			var/Economy=glob.progress.EconomyMana//Now based on MANA!
 			var/mob/M//Who's getting the grimgrim?
 			var/GrimoireChoice//What grim is m getting grimmed?
 			var/Consent//PLEASE DO NOT RAPE THE GRIMGRIM.
@@ -2299,7 +2299,7 @@ obj/Skills/Utility
 				usr << "[Choice] isn't prepared to have surgery used on them!  Make them lay down."
 				src.Using=0
 				return
-			Cost=0.25*global.EconomyCost
+			Cost=0.25*glob.progress.EconomyCost
 			if(usr.HasMoney(Cost))
 				usr.TakeMoney(Cost)
 			else
@@ -2356,7 +2356,7 @@ obj/Skills/Utility
 			if(Choice=="Cancel")
 				src.Using=0
 				return
-			Cost=2.5*global.EconomyCost
+			Cost=2.5*glob.progress.EconomyCost
 			if(usr.HasMoney(Cost))
 				usr.TakeMoney(Cost)
 			else
@@ -2537,7 +2537,7 @@ obj/Skills/Utility
 			switch(Choice)
 				if("Launch")
 					if(!(usr.z in src.ZPlanes))
-						var/Cost=30*global.EconomyCost
+						var/Cost=30*glob.progress.EconomyCost
 						var/Confirm=alert(usr, "It will cost [Commas(Cost)] resources to build and launch a satellite camera.  Do you want to do this?", "Satellite Surveilance", "No", "Yes")
 						if(Confirm=="Yes")
 							if(usr.HasMoney(Cost))
@@ -2792,87 +2792,87 @@ obj/Skills/Utility
 
 			switch(ModChoice)
 				if("Enhanced Strength")
-					Cost=EconomyCost*2.5
+					Cost=glob.progress.EconomyCost*2.5
 					ModDesc="Enhanced Strength increases Strength."
 				if("Enhanced Force")
-					Cost=EconomyCost*2.5
+					Cost=glob.progress.EconomyCost*2.5
 					ModDesc="Enhanced Force increases Force."
 				if("Enhanced Endurance")
-					Cost=EconomyCost*2.5
+					Cost=glob.progress.EconomyCost*2.5
 					ModDesc="Enhanced Endurance increases Endurance."
 				if("Enhanced Aggression")
-					Cost=EconomyCost*2.5
+					Cost=glob.progress.EconomyCost*2.5
 					ModDesc="Enhanced Aggression increases Offense."
 				if("Enhanced Reflexes")
-					Cost=EconomyCost*2.5
+					Cost=glob.progress.EconomyCost*2.5
 					ModDesc="Enhanced Reflexes increases Defense."
 				if("Enhanced Speed")
-					Cost=EconomyCost*2.5
+					Cost=glob.progress.EconomyCost*2.5
 					ModDesc="Enhanced Speed increases Speed."
 
 				if("Internal Comms Suite")
-					Cost=EconomyCost*2
+					Cost=glob.progress.EconomyCost*2
 					ModDesc="Internal Suite allows the augmented to use internal systems to scan precise power levels and access wireless communications."
 				if("Blade Mode")
-					Cost=EconomyCost*10
+					Cost=glob.progress.EconomyCost*10
 					ModDesc="Blade Mode allows high speed calculations improving accuracy and swiftness of delivered blows!"
 				if("Taser Strike")
-					Cost=EconomyCost*5
+					Cost=glob.progress.EconomyCost*5
 					ModDesc="Taser Strike delivers an electric shock to the opponent to allow for more openings!"
 				if("Machine Gun Flurry")
-					Cost=EconomyCost*5
+					Cost=glob.progress.EconomyCost*5
 					ModDesc="Machine Fun Flurry unleashes a rush of blows once enough momentum has been gathered!"
 				if("Rocket Punch")
-					Cost=EconomyCost*5
+					Cost=glob.progress.EconomyCost*5
 					ModDesc="Rocket Punch fires a mechanized appendage for an explosive assault!"
 				if("Stealth Systems")
-					Cost=EconomyCost*5
+					Cost=glob.progress.EconomyCost*5
 					ModDesc="Stealth Systems allow the augmented to visually disguise themselves when they lower their power!"
 				if("Nano Boost")
-					Cost=EconomyCost*20
+					Cost=glob.progress.EconomyCost*20
 					ModDesc="Nano Boost gives the subject a sudden surge of cybernetic power!"
 				if("Combat CPU")
-					Cost=EconomyCost*20
+					Cost=glob.progress.EconomyCost*20
 					ModDesc="Combat CPU allows the augmented to automatically burn some battery in order to constantly run simulations of the current engagement; bottom line: better evasion."
 				if("Reconstructive Nanobots")
-					Cost=EconomyCost*25
+					Cost=glob.progress.EconomyCost*25
 					ModDesc="Reconstructive Nanobots repair the augmented when they enter a rest cycle with precise efficiency."
 				if("Internal Life Support")
-					Cost=EconomyCost*10
+					Cost=glob.progress.EconomyCost*10
 					ModDesc="Internal Life Support prevent the augmented from perishing to mortal wounds."
 				if("Energy Assimilators")
-					Cost=EconomyCost*20
+					Cost=glob.progress.EconomyCost*20
 					ModDesc="Energy Assimilators are small, orb-like constructs fitted into the palm of a hand meant to consume energy on direct contact with source."
 
 
 				if("Punishment Chip")
-					Cost=EconomyCost*10
+					Cost=glob.progress.EconomyCost*10
 					ModDesc="Install a simple electric circuit inside your target's nervous system."
 				if("Failsafe Circuit")
-					Cost=EconomyCost*25
+					Cost=glob.progress.EconomyCost*25
 					ModDesc="Install a failsafe circuit inside your target to allow turning off its power in case of disobedience."
 				if("Explosive Implantation")
-					Cost=EconomyCost*100
+					Cost=glob.progress.EconomyCost*100
 					ModDesc="Install a powerful explosive device inside your target."
 
 				if("Ripper Mode")
-					Cost=EconomyCost*300
+					Cost=glob.progress.EconomyCost*300
 					ModDesc="Ripper Mode allows the augmented to present a facsimile of sadism to greatly bolster speed and offensive prowess."
 				if("Armstrong Augmentation")
-					Cost=EconomyCost*300
+					Cost=glob.progress.EconomyCost*300
 					ModDesc="Armstrong Augmentation allows the augmented to forge a powerful nanite shell in response to physical trauma; increases strength and endurance while forsaking defense. "
 				if("Ray Gear")
-					Cost=EconomyCost*300
+					Cost=glob.progress.EconomyCost*300
 					ModDesc="Ray Gear provides the augmented with unparalleled firepower and integrates ranged capabilities into their basic combat protocols while sapping their battery."
 				if("Infinity Drive")
-					Cost=EconomyCost*500
+					Cost=glob.progress.EconomyCost*500
 					ModDesc="Infinity Drive allows a fusion-powered augmented to constantly support their overall performance with their nigh-infinite energy outpour."
 				if("Overdrive")
-					Cost=EconomyCost*500
+					Cost=glob.progress.EconomyCost*500
 					ModDesc="Overdrive allows the augmented to overclock every cybernetically enhanced aspect in exchange for battery life."
 
 				if("Repair")
-					Cost=EconomyCost/2*(M.Maimed+(M.HealthCut*5))
+					Cost=glob.progress.EconomyCost/2*(M.Maimed+(M.HealthCut*5))
 					ModDesc="Attempts to repair a damaged android."
 
 			if(M.isRace(ANDROID))
@@ -3268,7 +3268,7 @@ obj/Skills/Utility
 				src.Using=0
 				return
 			//var/Cost=0.75*global.EconomyMana//75 capacity
-			var/Cost=0.25*global.EconomyMana
+			var/Cost=0.25*glob.progress.EconomyMana
 
 			if(!usr.HasManaCapacity(Cost))
 				usr << "You don't have enough capacity to summon a spirit!  It takes [Commas(Cost)] capacity."

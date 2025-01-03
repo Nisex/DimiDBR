@@ -1,27 +1,3 @@
-var/EconomyMult=0.8//This is a multiplier to everyone's money gain.
-var/EconomyIncome=30//average gain if you invest 100 rpp
-var/EconomyCost=40//average...uh...cost.
-var/EconomyMana=100//New default for mana is 100
-
-mob/Admin3
-	verb/EconomyIncomeSet(var/num as num)
-		set category="Admin"
-		EconomyIncome=num
-		Log("Admin", "[src.key] has set the base economy wage to [Commas(EconomyIncome)].")
-	verb/EconomyCostSet(var/num as num)
-		set category="Admin"
-		EconomyCost=num
-		Log("Admin", "[src.key] has set the base price for technology to [Commas(EconomyCost)].")
-	verb/EconomyManaSet(var/num as num)
-		set category="Admin"
-		EconomyMana=num
-		Log("Admin", "[src.key] has set the base price for enchantment to [Commas(EconomyMana)].")
-	verb/EconomyMultSet(var/num as num)
-		set category="Admin"
-		global.EconomyMult=num
-		Log("Admin", "[src.key] has set the economy mult to x[global.EconomyMult].")
-
-
 obj
 	Savable=1
 	var/Unobtainable=0
@@ -336,13 +312,13 @@ obj/Items
 
 
 			if(istype(src, /obj/Items/Enchantment/PocketDimensionGenerator))
-				if(!usr.HasFragments(src.Cost*global.EconomyCost))
+				if(!usr.HasFragments(src.Cost*glob.progress.EconomyCost))
 					usr << "You don't have enough fragments to buy [src]."
 					return
 				else
-					usr.TakeFragments(src.Cost*global.EconomyCost)
-			if(usr.HasManaCapacity(src.Cost*(global.EconomyMana/100)))
-				usr.TakeManaCapacity(src.Cost*(global.EconomyMana/100))
+					usr.TakeFragments(src.Cost*glob.progress.EconomyCost)
+			if(usr.HasManaCapacity(src.Cost*(glob.progress.EconomyMana/100)))
+				usr.TakeManaCapacity(src.Cost*(glob.progress.EconomyMana/100))
 				ItemMade=new src.type
 				if(istype(src, /obj/Items/Enchantment/Tome))
 					ItemMade:init(1, usr)
@@ -652,7 +628,7 @@ obj/Items/WeightedClothing//we are now a DBZ rip ... or is it pokemon?
 			if(src.Plated)
 				usr << "[src] already has plating applied to it!"
 				return
-			var/PCost=(global.EconomyCost*0.5)
+			var/PCost=(glob.progress.EconomyCost*0.5)
 			var/Choice=alert(usr, "Do you want to apply refractive and ceramic plating to your weights?  This will apply the effects of both types of plating as well as make the weights much heavier!  It costs [Commas(PCost)] to apply.  Do you want to do this?", "Apply Plating", "No", "Yes")
 			if(Choice=="No")
 				return

@@ -614,7 +614,7 @@ mob/Player/AI
 						if(prob(25 * difficulty * rand(1,3)))
 							contents += new/obj/Money
 							for(var/obj/Money/m in src)
-								m.Level = round(EconomyCost * min(0.4, (0.1 * difficulty)))
+								m.Level = round(glob.progress.EconomyCost * min(0.4, (0.1 * difficulty)))
 								m.name = "[m.Level] Credits"
 						if(prob(10))
 							contents += new/obj/Items/Enchantment/PhilosopherStone/Magicite
@@ -626,7 +626,7 @@ mob/Player/AI
 						if(prob(50 * difficulty * rand(1,3)))
 							contents += new/obj/Money
 							for(var/obj/Money/m in src)
-								m.Level = round(EconomyCost * min(0.4, (0.15 * difficulty)))
+								m.Level = round(glob.progress.EconomyCost * min(0.4, (0.15 * difficulty)))
 								m.name = "[m.Level] Credits"
 						if(prob(5))
 							contents += new/obj/Items/Enchantment/PhilosopherStone/Magicite
@@ -651,7 +651,7 @@ mob/Player/AI
 						if(prob(25 * difficulty * rand(1,3)))
 							contents += new/obj/Money
 							for(var/obj/Money/m in src)
-								m.Level = round(EconomyCost * max(0.05,min(0.4, (0.075* ai_hostility * difficulty))))
+								m.Level = round(glob.progress.EconomyCost * max(0.05,min(0.4, (0.075* ai_hostility * difficulty))))
 								m.name = "[m.Level] Credits"
 						if(prob(5) && ai_hostility)
 							contents += new/obj/Items/Enchantment/PhilosopherStone/Magicite

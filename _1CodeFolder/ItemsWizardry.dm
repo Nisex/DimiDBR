@@ -201,7 +201,7 @@ obj/Items/Enchantment
 								if(Amt>usr.TotalCapacity)
 									Amt=usr.TotalCapacity
 								if(Amt&&Amt>0)
-									var/Cost=Amt*(global.EconomyCost/10)
+									var/Cost=Amt*(glob.progress.EconomyCost/10)
 									var/Confirm=alert(usr, "Restoring [round(Amt)] capacity will cost [Commas(round(Cost))] [glob.progress.MoneyName].  Do you want to spend it?", "Restore Capacity", "No", "Yes")
 									if(Confirm=="No")
 										src.Using=0
@@ -224,7 +224,7 @@ obj/Items/Enchantment
 								if(Amt>(PS.MaxCapacity-PS.CurrentCapacity))
 									Amt=(PS.MaxCapacity-PS.CurrentCapacity)
 								if(Amt&&Amt>0)
-									var/Cost=Amt*(global.EconomyCost*1.25)
+									var/Cost=Amt*(glob.progress.EconomyCost*1.25)
 									var/Confirm=alert(usr, "Restoring [round(Amt)] capacity will cost [Commas(round(Cost))] [glob.progress.MoneyName].  Do you want to spend it?", "Restore Capacity", "No", "Yes")
 									if(Confirm=="No")
 										src.Using=0
@@ -468,7 +468,7 @@ obj/Items/Enchantment
 							src.Using=0
 							return
 						if("Transmute Philosopher Stone")
-							var/Cost=(global.EconomyCost*100*(global.EconomyMana/100))
+							var/Cost=(glob.progress.EconomyCost*100*(glob.progress.EconomyMana/100))
 							var/Confirm=alert(usr, "Do you want to create an artificial Philosopher Stone?  This will cost [Commas(Cost)] resources!", "Create Artificial Philosopher Stone", "No", "Yes")
 							if(Confirm=="Yes")
 								if(usr.HasMoney(Cost))
@@ -1250,7 +1250,7 @@ obj/Items/Enchantment
 				usr << "The tome lacks the capacity to fit this spell."
 				src.Using=0
 				return
-			var/Cost=global.EconomyMana/4*Choice:Copyable
+			var/Cost=glob.progress.EconomyMana/4*Choice:Copyable
 			if(usr.HasManaCapacity(Cost))
 				usr.TakeManaCapacity(Cost)
 				usr << "You've scribed [Choice] into your [src]!"
@@ -1298,7 +1298,7 @@ obj/Items/Enchantment
 					if(MultiMake==null||MultiMake<=0)
 						src.Using=0
 						return
-					var/MultiCost=global.EconomyMana/10*MultiMake
+					var/MultiCost=glob.progress.EconomyMana/10*MultiMake
 					if(usr.HasManaCapacity(MultiCost))
 						usr.TakeManaCapacity(MultiCost)
 						usr << "You expanded your [src]!"
@@ -1374,7 +1374,7 @@ obj/Items/Enchantment
 								src.Using=0
 								return
 					else
-						var/Cost=global.EconomyMana/4
+						var/Cost=glob.progress.EconomyMana/4
 						if(usr.HasManaCapacity(Cost))
 							src.Password=input(usr, "Enter the password you wish to secure this tome with.", "Secure Tome") as text|null
 							usr.TakeManaCapacity(Cost)
@@ -1396,7 +1396,7 @@ obj/Items/Enchantment
 						usr << "There aren't any spells in [src] that you don't know!"
 						src.Using=0
 						return
-					var/Cost=global.EconomyMana/4
+					var/Cost=glob.progress.EconomyMana/4
 					var/obj/Skills/Learn=input(usr, "What spell do you want to learn from [src]?", "Study Tome") in Scribed
 					if(Learn=="Cancel")
 						src.Using=0
@@ -1425,7 +1425,7 @@ obj/Items/Enchantment
 						src.Using=0
 						return
 					else
-						var/Cost=global.EconomyMana/2
+						var/Cost=glob.progress.EconomyMana/2
 						if(usr.HasManaCapacity(Cost))
 							usr.TakeManaCapacity(Cost)
 							src.Stealable=0
@@ -1537,7 +1537,7 @@ obj/Items/Enchantment
 						var/Choice=alert(usr, "Do you want to expend capacity to force this Magic Crest to accept you?", "Steal Crest", "No", "Yes")
 						if(Choice=="No")
 							return
-						var/Cost=global.EconomyMana/2
+						var/Cost=glob.progress.EconomyMana/2
 						if(usr.HasManaCapacity(Cost))
 							var/Kill=0
 							if(src.Parasite)
@@ -1618,7 +1618,7 @@ obj/Items/Enchantment
 					src.Using=0
 					return
 				else
-					var/Cost=global.EconomyMana/2
+					var/Cost=glob.progress.EconomyMana/2
 					if(usr.HasManaCapacity(Cost))
 						usr.TakeManaCapacity(Cost)
 						var/obj/Skills/S=new Choice.type
