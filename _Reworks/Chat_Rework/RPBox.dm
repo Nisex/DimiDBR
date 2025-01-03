@@ -79,7 +79,7 @@ mob
 
 			for(var/mob/E as anything in hearers)
 				if(!E.client) continue
-				if(!E.Admin && E.Mapper && E.invisibility) return
+				if(!E.Admin && E.Mapper && E.invisibility) continue
 				E.client.outputToChat("[E.Controlz(src)][formattedMessage]", IC_OUTPUT)
 
 				Log(E.ChatLog(),"<font color=red>*[name]([key]) [html_decode(formattedMessage)]*")
