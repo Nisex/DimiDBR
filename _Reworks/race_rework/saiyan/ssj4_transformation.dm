@@ -57,8 +57,18 @@ transformation
 
 			transform_animation(mob/user)
 				user.Quake(40)
-				user.TransformingBeyond=1
-				TransformBeyond(user)
+				user.Frozen=1
+				KenShockwave2(user, icon='KenShockwaveGold.dmi', Size=10)
+				for(var/turf/t in Turf_Circle(user, 18))
+					if(prob(50))
+						spawn(rand(2,6))
+							var/icon/i = icon('RisingRocks.dmi')
+							t.overlays+=i
+							spawn(rand(20, 60))
+								t.overlays-=i
+				spawn(10)
+					KenShockwave2(user, icon='KenShockwaveGold.dmi', Size=10)
+				user.Frozen=0
 				animate(user, color = list(1,0,0, 0,1,0, 0,0,1, 1,0.9,0.2), time=20)
 				sleep(20)
 
@@ -68,4 +78,3 @@ transformation
 					ShockSize/=2
 				spawn(10)
 					animate(user, color = user.MobColor, time=20)
-				user.TransformingBeyond=0
