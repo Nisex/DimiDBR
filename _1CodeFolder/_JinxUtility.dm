@@ -2721,7 +2721,6 @@ mob
 			else
 				return 0
 		// THIS IS WHERE POTENTIAL CHECKING IS!!
-		//TODO: ALTER FOR WHAT TACO/GAL WANT
 		PotentialSkillCheck()
 			if(!locate(/obj/Skills/Zanzoken, src))
 				if(src.req_pot(1))
@@ -2741,9 +2740,9 @@ mob
 			if(!src.SignatureCheck)
 				return
 			if(src.Saga)
-				if(src.Potential<15 && SagaLevel>=1)
+				if(src.Potential<15 && SagaLevel>=1) // t2
 					return
-				if(src.Potential<30 && src.SagaLevel>=2)
+				if(src.Potential<30 && src.SagaLevel>=2) // t3
 					return
 				if(src.SagaLevel>=3&&!src.SagaAdminPermission)
 					return
@@ -2764,15 +2763,12 @@ mob
 			if(src.req_pot(10) && src.req_sigs(1, 1))
 				DevelopSignature(src, 1, "Signature")
 
-			if(src.req_pot(15) && src.req_sigs(2, 1))
-				DevelopSignature(src, 1, "Signature")
-
 			if(src.req_pot(25) && src.req_sigs(0, 2))
 				DevelopSignature(src, 2, "Signature")
-			if(src.req_pot(30) && src.req_sigs(3, 1))
+			if(src.req_pot(30) && src.req_sigs(2, 1))
 				DevelopSignature(src, 1, "Signature")
 
-			if(src.req_pot(62) && src.req_sigs(1, 2))
+			if(src.req_pot(60) && src.req_sigs(1, 2))
 				DevelopSignature(src, 2, "Signature")
 
 		YeetSignatures()
