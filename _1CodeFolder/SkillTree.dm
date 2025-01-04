@@ -185,6 +185,7 @@ var/list/SkillTree=list(
 			"/obj/Skills/AutoHit/Sword_Pressure"=40,
 			"/obj/Skills/AutoHit/Light_Step"=40,
 			"/obj/Skills/AutoHit/Overhead_Divide"=40,
+			"/obj/Skills/Queue/Sword_Clinch"=40,
 
 			"/obj/Skills/AutoHit/Hack_n_Slash"=40,
 			"/obj/Skills/AutoHit/Vacuum_Render"=40,

@@ -227,3 +227,22 @@ obj
 				verb/Burst_Combination()
 					set category="Skills"
 					usr.SetQueue(src)
+
+			Sword_Clinch
+				SkillCost=TIER_1_COST
+				Copyable=2
+				DamageMult=4
+				AccuracyMult = 1.15
+				Instinct=2
+				Grapple=1
+				KBMult=0.001
+				Warp=3
+				Crippling=6
+				NeedsSword = 1
+				Duration=5
+				Cooldown=30
+				EnergyCost=2.5
+				HitMessage="secures their opposition with their blade!"
+				verb/Sword_Clinch()
+					set category="Skills"
+					usr.SetQueue(src)
