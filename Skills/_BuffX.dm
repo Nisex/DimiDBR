@@ -7947,7 +7947,6 @@ NEW VARIABLES
 							ActiveMessage="draws a legendary spear from their armory!"
 							OffMessage="sheathes their spear..."
 				src.Trigger(usr)
-		Katekao
 		Excalibur
 			NoSword=1
 			NoStaff=1

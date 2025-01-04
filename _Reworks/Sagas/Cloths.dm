@@ -140,8 +140,6 @@ sagaTierUpMessages/Cosmo
 							src.AddSkill(new/obj/Skills/AutoHit/Restriction)
 						if(!locate(/obj/Skills/Queue/Antares, src))
 							src.AddSkill(new/obj/Skills/Queue/Antares)
-						if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Katekao, src))
-							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Katekao)
 					if("Capricorn")
 						if(!locate(/obj/Skills/Projectile/Sacred_Sword, src))
 							src.AddSkill(new/obj/Skills/Projectile/Sacred_Sword)
