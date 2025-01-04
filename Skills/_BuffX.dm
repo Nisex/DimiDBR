@@ -4419,7 +4419,7 @@ NEW VARIABLES
 			PULock=1
 			passives = list("PULock" = 1)
 			AllowedPower=0.5
-			Invisible=70
+			Invisible=20
 			Cooldown=150
 			ActiveMessage="blends in with their surroundings..."
 			OffMessage="reveals themselves!"
@@ -5137,7 +5137,7 @@ NEW VARIABLES
 						src.PhysicalHitsLimit=0
 						src.SpiritHitsLimit=0
 						src.EndYourself=0
-						src.Invisible=70
+						src.Invisible=20
 						src.AllowedPower=0.2
 						src.FakePeace=0
 						ActiveMessage="uses a spell to hide their existence!"
@@ -5214,7 +5214,7 @@ NEW VARIABLES
 								src.PhysicalHitsLimit=0
 								src.SpiritHitsLimit=0
 								src.EndYourself=0
-								src.Invisible=70
+								src.Invisible=20
 								src.AllowedPower=0.2
 								src.FakePeace=0
 								src.ActiveMessage="uses a spell to hide their existence!"
@@ -10629,7 +10629,7 @@ NEW VARIABLES
 			Sensing
 				AlwaysOn=1
 				TimerLimit=300
-				SeeInvisible=70
+				SeeInvisible=20
 				KenWaveIcon='KenShockwaveGod.dmi'
 				KenWave=1
 				KenWaveSize=1

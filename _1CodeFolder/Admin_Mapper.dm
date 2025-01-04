@@ -254,8 +254,8 @@ mob
 			else
 				usr<<"<font color=green>You are now invisible.</font color>"
 				usr.AdminInviso=1
-				usr.invisibility=100
-				usr.see_invisible=101
+				usr.invisibility=85
+				usr.see_invisible=86
 				animate(usr, alpha=50, time=10)
 		verb/ToggleUnFlyable()
 			set category="Mapper"

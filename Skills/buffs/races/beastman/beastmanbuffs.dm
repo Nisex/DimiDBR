@@ -22,6 +22,6 @@
     proc/init(mob/p)
 
 /obj/Skills/Buffs/SlotlessBuffs/Racial/Blend_In
-    Invisible = 50
+    Invisible = 22
 
 /obj/Skills/Projectile/Racial/Fox_Fire_Barrage
