@@ -2583,8 +2583,8 @@ obj
 				Blasts=10
 				Distance=14
 				DistanceVariance=1
-				MultiHit=10
-				DamageMult=1.1
+				MultiHit=5
+				DamageMult=0.9
 				Explode=2
 				Charge=2
 				Delay=2
@@ -2838,7 +2838,6 @@ obj
 					usr.UseProjectile(src)
 			Infinity_Break
 				CosmoPowered=1
-				GodPowered=0.25
 				Blasts = 250 //i see no way this could go wrong !
 				Distance=20
 				DamageMult=0.1
