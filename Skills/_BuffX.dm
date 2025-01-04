@@ -3563,36 +3563,22 @@ NEW VARIABLES
 							src.SwordDelaySecond=GetKeychainDelay(usr.SyncAttached)
 							src.SwordElementSecond=GetKeychainElement(usr.SyncAttached)
 							src.SwordIconSecond=GetKeychainIconReversed(usr.SyncAttached)
-							passives = list("ManaLeak" = 2, "Pursuer" = 1, "Flicker" = 1, "StunningStrike" = 1, "DoubleStrike" = 1, "MasterfulCasting" = 1 )
+							passives = list("ManaLeak" = 2, "Pursuer" = 1, "Flicker" = 1, "StunningStrike" = 1, "DoubleStrike" = 1 + usr.SagaLevel/3, "MasterfulCasting" = 1)
 							if(usr.SyncAttached=="Way To Dawn")
-								passives["HolyMod"] = 3
-								passives["AbyssMod"] = 3
-								src.HolyMod=3
-								src.AbyssMod=3
-							else
-								src.HolyMod=0
-								src.AbyssMod=0
+								passives["HolyMod"] = 3 + (usr.SagaLevel/2)
+								passives["AbyssMod"] = 3 + (usr.SagaLevel/2)
+
 							if(usr.SyncAttached=="Fenrir")
-								passives["SlayerMod"] = 1.5
-								src.Steady=8
-							else
-								src.Steady=0
+								passives["SlayerMod"] = 3 + (usr.SagaLevel/2)
+
 							if(usr.SyncAttached=="Chaos Ripper")
 								passives["Burning"] = 3
 								passives["Scorching"] = 3
 								passives["DarknessFlame"] = 3
-								src.Burning=1
-								src.Scorching=1
-								src.DarknessFlame=1
-							else
-								src.Burning=0
-								src.Scorching=0
-								src.DarknessFlame=0
+	
 							if(usr.SyncAttached=="No Name")
 								passives["StealsStats"] = 1
-								src.StealsStats=0
-							else
-								src.StealsStats=0
+
 							usr.LimitCounter+=1
 				src.Trigger(usr)
 		Wisdom_Form
@@ -3600,7 +3586,7 @@ NEW VARIABLES
 			ABuffNeeded=list("Keyblade")
 			ManaLeak=1
 			ManaThreshold=1
-			passives = list("ManaLeak"= 1, "QuickCast"= 2, "Skimming" = 1, "SpecialStrike" = 1)
+			passives = list("ManaLeak"= 1, "QuickCast"= 2, "Skimming" = 1, "DualCast" = 1, "SpecialStrike" = 1)
 			ForMult=1.5
 			DefMult=1.5
 			KenWave=1
@@ -3667,7 +3653,7 @@ NEW VARIABLES
 							src.SwordDelaySecond=GetKeychainDelay(usr.SyncAttached)
 							src.SwordElementSecond=GetKeychainElement(usr.SyncAttached)
 							src.SwordIconSecond=GetKeychainIconReversed(usr.SyncAttached)
-							passives = list("ManaLeak" = 2, "SwordAscensionSecond" = 2, "TechniqueMastery" = 5, "Pursuer" = 1, "QuickCast" = 2, "Flicker" = 1, "DoubleStrike" = 1, "MovingCharge" = 1)
+							passives = list("ManaLeak" = 2, "SwordAscensionSecond" = 2, "TechniqueMastery" = 10, "Pursuer" = 1, "QuickCast" = 4, "Flicker" = 1, "DoubleStrike" = 3, "DualCast" = 1, "MovementMastery" = 8, "MovingCharge" = 1)
 							if(usr.SyncAttached=="Way To Dawn")
 								passives["HolyMod"] = 3
 								passives["AbyssMod"] = 3
@@ -3747,7 +3733,7 @@ NEW VARIABLES
 							src.SwordDelaySecond=GetKeychainDelay(usr.SyncAttached)
 							src.SwordElementSecond=GetKeychainElement(usr.SyncAttached)
 							src.SwordIconSecond=GetKeychainIconReversed(usr.SyncAttached)
-							passives = list("ManaLeak" = 0.5, "SwordAscensionSecond" = 2, "TechniqueMastery" = 10, "Pursuer" = 1, "QuickCast" = 2, "Flicker" = 1, "DoubleStrike" = 1, "MovingCharge" = 1, "TripleStrike" = 1, "CalmAnger" = 1, "GodKi" = 0.25)
+							passives = list("ManaLeak" = 0.5, "SwordAscensionSecond" = 2, "TechniqueMastery" = 10, "Pursuer" = 1, "QuickCast" = 2, "Flicker" = 1, "DualCast" = 1, "DoubleStrike" = 3, "MovingCharge" = 1, "TripleStrike" = 1, "CalmAnger" = 1, "GodKi" = 1)
 							if(usr.SyncAttached=="Way To Dawn")
 								passives["HolyMod"] = 3
 								passives["AbyssMod"] = 3
@@ -5587,7 +5573,7 @@ NEW VARIABLES
 					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
+						if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 							VaizardHealth=0.15
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/10)
@@ -5616,7 +5602,7 @@ NEW VARIABLES
 				verb/Shell()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(usr))
+						if(!(usr.isInnovative(ELF, "Any") || usr.Saga="Keyblade") && !isInnovationDisable(usr))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -5649,7 +5635,7 @@ NEW VARIABLES
 					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(usr))
+						if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 							VaizardHealth=0.3
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/5)
@@ -5678,7 +5664,7 @@ NEW VARIABLES
 				verb/Barrier()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(usr))
+						if(!((usr.isInnovative(ELF, "Any") || usr.Saga="Keyblade")) && !isInnovationDisable(usr))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -5712,7 +5698,7 @@ NEW VARIABLES
 					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(usr))
+						if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 							passives = list("PureReduction" = round(p.getTotalMagicLevel()/10,0.1), "DebuffImmune" = p.getTotalMagicLevel()/20, "Sunyata" = round(p.Potential/10,0.5)) // 5% per 10 pot to negate queues
 							TimerLimit = 15 + p.getTotalMagicLevel()
 							AffectTarget = 0
@@ -5741,7 +5727,7 @@ NEW VARIABLES
 				verb/Protect()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(usr))
+						if(!((p.isInnovative(ELF, "Any") || p.Saga="Keyblade")) && !isInnovationDisable(usr))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -5775,7 +5761,7 @@ NEW VARIABLES
 					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(usr))
+						if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 							VaizardHealth=0.5
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/5)
@@ -5806,7 +5792,7 @@ NEW VARIABLES
 				verb/Resilient_Sphere()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(usr))
+						if(!((usr.isInnovative(ELF, "Any") || usr.Saga="Keyblade")) && !isInnovationDisable(usr))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -5848,7 +5834,7 @@ NEW VARIABLES
 					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(usr))
+						if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 							passives = list("PureReduction" = round(p.getTotalMagicLevel()/5,0.1), "DebuffImmune" = p.getTotalMagicLevel()/10, "Sunyata" = round(p.Potential/5,0.5)) // 5% per 10 pot to negate queues
 							TimerLimit = 20 + p.getTotalMagicLevel()
 							AffectTarget = 0
@@ -5876,7 +5862,7 @@ NEW VARIABLES
 				verb/Protega()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any")) && !isInnovationDisable(usr))
+						if(!((p.isInnovative(ELF, "Any") || p.Saga="Keyblade")) && !isInnovationDisable(usr))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -10922,15 +10908,15 @@ NEW VARIABLES
 				StrMult=1.5
 				SpdMult=1.5
 				AutoAnger=1
-				passives = list("SpecialBuffLock" = 1, "Curse" = 1, "Pursuer" = 1, "Flicker" = 1, "StunningStrike" = 1, "DoubleStrike" = 1)
+				passives = list("SpecialBuffLock" = 1, "Curse" = 1, "Pursuer" = 1, "Flicker" = 1, "StunningStrike" = 1, "DoubleStrike" = 3, "TechniqueMastery" = 5, "MovementMastery" = 5, "QuickCast" = 2, "Godspeed" = 1)
 				Intimidation=1.25
 				Curse=1
 				Pursuer=1
 				Flicker=1
 				StunningStrike=1
 				DoubleStrike=1
-				NeedsHealth=60
-				TooMuchHealth=75
+				NeedsHealth=75
+				TooMuchHealth=90
 				AuraLock='AntiAura.dmi'
 				AuraX=-18
 				AuraY=-22
@@ -11078,17 +11064,17 @@ NEW VARIABLES
 				DarkChange=1
 				AlwaysOn=1
 				PowerMult=1.25
-				StrMult=1.3
-				SpdMult=1.3
+				StrMult=1.5
+				EndMult = 1.5
+				SpdMult=1.5
 				RecovMult=1.5
-				passives = list("ActiveBuffLock" = 1,"SpecialBuffLock" = 1,"Godspeed" = 1, "Curse" = 1, "ManaLeak" = 2, "MartialMagic" = 1 )
+				passives = list("ActiveBuffLock" = 1,"SpecialBuffLock" = 1,"Godspeed" = 1, "Curse" = 1, "ManaLeak" = 2, "MartialMagic" = 1, "SwordPunching" = 1)
 				Intimidation=2
-				Godspeed=1
 				AutoAnger=1
-				Curse=1
-				ManaLeak=2
 				TooLittleMana=1
 				AuraLock='AntiAura.dmi'
+				VaizardHealth = 1
+				VaizardShatter = 1
 				AuraX=-18
 				AuraY=-22
 				KenWave=3
@@ -11100,7 +11086,7 @@ NEW VARIABLES
 				IconApart=1
 				ActiveMessage="is overwhelmed by their inner darkness!"
 				OffMessage="exhausts the dark energy..."
-				Cooldown=1//Just in case
+				Cooldown = 1
 
 			Minds_Eye
 				TooMuchHealth = 99.8

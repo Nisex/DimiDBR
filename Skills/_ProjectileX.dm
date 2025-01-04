@@ -3480,7 +3480,7 @@ obj
 					adjust(mob/p)
 						var/asc = p.AscensionsAcquired
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
+							if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 								if(p.passive_handler.Get("HotHundred") || p.passive_handler.Get("Warping"))
 									EndRate = 0.5
 									Radius=1
@@ -3542,7 +3542,7 @@ obj
 						disableInnovation(usr)
 					adjust(mob/p)
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
+							if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 								var/asc = p.AscensionsAcquired
 								ManaCost = clamp(p.ManaAmount, 15,100)
 								Blasts = ManaCost/(4+asc)

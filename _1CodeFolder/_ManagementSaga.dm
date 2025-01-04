@@ -289,6 +289,8 @@ mob/Admin3/verb
 						P.contents+=new/obj/Items/Symbiotic/Kamui/KamuiSenketsu
 						var/obj/Items/Sword/Medium/Scissor_Blade/SB = new()
 						P.AddItem(SB)
+						var/ScissorBladeClass = input(P, "What class would you like to set the Scissor Blade to?") in list("Light", "Medium", "Heavy")
+						P.SwordClass = ScissorBladeClass
 						P << "A sword weaved from fibers finds its way into a case in your care. (Sheath to put it in it's case.)"
 
 					else if(P.KamuiType=="Junketsu")
@@ -351,11 +353,20 @@ mob/Admin3/verb
 						if("A Shield of Kindness")
 							P.KeybladeType="Shield"
 					var/Color=alert(P, "Light or Darkness?", "Keyblade", "Light", "Darkness")
+					P.passive_handler
 					P.AddSkill(new/obj/Skills/Buffs/ActiveBuffs/Keyblade)
 					P<<"You awaken the [P.KeybladeType] of your heart!"
 					P.Saga="Keyblade"
 					P.SagaLevel=1
 					P.KeybladeColor=Color
+
+					P.AddSkill(new/obj/Skills/Projectile/Magic/Fire)
+					P.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzard)
+					P.AddSkill(new/obj/Skills/AutoHit/Magic/Thunder)
+					P.AddSkill(new/obj/Skills/Projectile/Magic/Fira)
+					P.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzara)
+					P.AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
+					P << "You've mastered the magical arts of Fire, Blizzard and Thunder! Along with Fira, Blizzara and Thundara!"
 					switch(P.KeybladeColor)
 						if("Light")
 							P.KeychainAttached="Kingdom Key"
@@ -1195,17 +1206,10 @@ mob
 
 
 				if("Kamui")
-					if(src.KamuiType=="Impulse")
-						src.SagaThreshold("Str", 0.2*src.SagaLevel)
-						src.SagaThreshold("End", 0.2*src.SagaLevel)
-						src.PUForce+=0.5
-					else if(src.KamuiType=="Purity")
-						src.SagaThreshold("Spd", 0.4*src.SagaLevel)
-
 					if(src.SagaLevel==2)
 						if(src.KamuiType=="Purity")
 							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Resolve)
-						if(src.KamuiType=="Impulse")
+						if(src.KamuiType=="Senketsu")
 							var/choice
 							var/confirm
 							while(confirm!="Yes")
@@ -1222,7 +1226,7 @@ mob
 								if("Kamui Shippu")
 									src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiShippu)
 									src << "You've attained a new form for your Kamui: Kamui Shippu!"
-						else if(src.KamuiType=="Purity")
+						else if(src.KamuiType=="Junketsu")
 							src << "With each movement forward towards the realization of your ideals, your resolve strengthens..."
 					if(src.SagaLevel==3)
 						if(src.KamuiType=="Impulse")
@@ -1293,10 +1297,11 @@ mob
 								src.AddSkill(new/obj/Skills/Buffs/NuStyle/SwordStyle/Command/Thunderbolt_Style)
 						src << "You've obtained the [Choice2] command style!"
 
-						src.AddSkill(new/obj/Skills/Projectile/Magic/Fire)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzard)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Thunder)
-						src << "You've mastered the magical arts of Fire, Blizzard and Thunder!"
+						src.AddSkill(new/obj/Skills/AutoHit/Magic/Stop)
+						src.AddSkill(new/obj/Skills/AutoHit/Magic/Gravity)
+						src.AddSkill(new/obj/Skills/AutoHit/Magic/Magnet)
+						src << "You've mastered the black magical arts of Stop, Magnet and Gravity!"
+
 					if(src.SagaLevel==3)
 						//T2 Command Style
 						//Keychain
@@ -1331,6 +1336,20 @@ mob
 							if("Promises")
 								src.Keychains.Add("Oathkeeper")
 						src << "You've obtained your devotion keychain!"
+
+						src.AddSkill(new/obj/Skills/Projectile/Magic/Firaga)
+						src.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzaga)
+						src.AddSkill(new/obj/Skills/AutoHit/Magic/Thundaga)
+						src << "You develop Firaga!"
+						src << "You develop Blizzaga!"
+						src << "You develop Thundaga!"
+						src.AddSkill(new/obj/Skills/Projectile/Magic/Meteor)
+						src.AddSkill(new/obj/Skills/Projectile/Magic/Disintegrate)
+						src.AddSkill(new/obj/Skills/Autohit/Magic/Flare)
+						src << "You develop Meteor!"
+						src << "You develop Disintegrate!"
+						src << "You develop Flare!"
+
 					if(src.SagaLevel==4)
 						//Valor Form
 						//T2 Magic
@@ -1338,41 +1357,18 @@ mob
 							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Valor_Form)
 							src << "You learn to imbue every action with valor!"
 							src << "Use the Attach Keychain verb to set your sync keyblade for Valor Form."
+							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Wisdom_Form)
+							src << "You learn to imbue every action with wisdom!"
 						else
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Rage_Form)
 							src << "Your reliance on darkness will empower you when pressed to your limits!"
-						src.AddSkill(new/obj/Skills/Projectile/Magic/Fira)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzara)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
-						src << "You develop Fira!"
-						src << "You develop Blizzara!"
-						src << "You develop Thundara!"
-						passive_handler.Increase("ManaCapMult",0.25)
-						if(src.KeybladeColor=="Light")
-							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Wisdom_Form)
-							src << "You learn to interpret every movement with wisdom!"
-							src << "Your newly discovered wisdom increases your magical prowess!"
-						else
-							for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Rage_Form/rf in src)
-								rf.OffMult=1.5
-								rf.ForMult=1.5
-								rf.passives["TechniqueMastery"] = 5
-								rf.passives["MovementMastery"] = 5
-								rf.passives["QuickCast"] = 2
-								rf.passives["Godspeed"] = 1
-								rf.TechniqueMastery=5
-								rf.MovementMastery=5
-								rf.Intimidation=1.5
-								rf.QuickCast=2
-								rf.Godspeed=1
-								rf.NeedsHealth=35
-								rf.TooMuchHealth=85
-								src << "Your Rage develops to allow for more efficient movement!"
 
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Stop)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Gravity)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Magnet)
-						src << "You've mastered the black magical arts of Stop, Magnet and Gravity!"
+						src << "You develop ultimate black magicks: Stopga, Magnetga and Graviga!"
+						src.AddSkill(new/obj/Skills/AutoHit/Magic/Graviga)
+						src.AddSkill(new/obj/Skills/AutoHit/Magic/Stopga)
+						src.AddSkill(new/obj/Skills/AutoHit/Magic/Magnetga)
+						passive_handler.Increase("ManaCapMult",0.25)
+
 					if(src.SagaLevel==5)
 						//Master Form
 						//T3 Magic
@@ -1402,26 +1398,11 @@ mob
 								rf.passives["PureDamage"] = 2
 								rf.passives["PureReduction"] = 2
 								rf.passives["Juggernaut"] = 1
-								rf.TechniqueMastery=10
-								rf.MovementMastery=10
-								rf.Intimidation=1.75
-								rf.Godspeed=2
-								rf.Pursuer=2
-								rf.Flicker=2
-								rf.QuickCast=2
-								rf.PureDamage=2
-								rf.PureReduction=2
-								rf.Juggernaut=1
-								rf.NeedsHealth=45
-								rf.TooMuchHealth=95
+								rf.NeedsHealth=80
+								rf.TooMuchHealth=99
 								src << "Your Rage develops to allow for more primally powerful blows!"
 
-						src.AddSkill(new/obj/Skills/Projectile/Magic/Firaga)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzaga)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Thundaga)
-						src << "You develop Firaga!"
-						src << "You develop Blizzaga!"
-						src << "You develop Thundaga!"
+
 						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Cure)
 						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Esuna)
 						src << "You've mastered the white magical arts of Cure and Esuna!"
@@ -1444,6 +1425,8 @@ mob
 							if("Duality")
 								src.Keychains.Add("Way To Dawn")
 						src << "You've obtained your antagonism keychain!"
+
+
 					if(src.SagaLevel==6)
 						//Final Form
 						//More Majjyk
@@ -1458,26 +1441,14 @@ mob
 								rf.EndMult=1.5
 								rf.passives["PureDamage"] = 5
 								rf.passives["PureReduction"] = 5
+								rf.passives["GodKi"] = 0.5
 								rf.passives["Flicker"] = 3
 								rf.passives["DualCast"] = 1
 								rf.passives["TripleStrike"] = 1
-								rf.PureDamage=5
-								rf.PureReduction=5
-								rf.Intimidation=2
-								rf.Flicker=3
-								rf.DualCast=1
-								rf.AngerMult=2
-								rf.NeedsHealth=50
-								rf.TooMuchHealth=99
-								rf.TripleStrike=1
 								src << "Your Rage develops to allow double casting and triple attacks!"
 						passive_handler.Increase("ManaCapMult",0.5)
 						src << "Your mastery of the Keyblade grants you unrivalled magical prowess!"
-						src << "You develop ultimate black magicks: Stopga, Magnetga and Graviga!"
 						src << "You develop ultimate white magicks: Curaga, Esunaga and Holy!"
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Graviga)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Stopga)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Magnetga)
 						src.AddSkill(new/obj/Skills/AutoHit/Magic/Holy)
 						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Curaga)
 						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Esunaga)

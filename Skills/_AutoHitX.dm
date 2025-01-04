@@ -2671,7 +2671,7 @@ obj
 					ActiveMessage="invokes: <font size=+1>BLIZZARD!</font size>"
 					adjust(mob/p)
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
+							if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 								Rounds=round(p.getTotalMagicLevel()/5)
 								Knockback=1
 								Distance= 6 + round(p.getTotalMagicLevel()/5)
@@ -2723,7 +2723,7 @@ obj
 					adjust(mob/p)
 						// make it cast a projectile that is like hell zone grenade
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
+							if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 								if(!Using && usr.ManaAmount >= 11)
 									if(!locate(/obj/Skills/Projectile/Blizzara, usr))
 										usr.AddSkill(new/obj/Skills/Projectile/Blizzara)
@@ -2779,7 +2779,7 @@ obj
 						disableInnovation(usr)
 					adjust(mob/p)
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
+							if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 								Rounds = 3 + p.Potential/25
 								Distance = 4 + p.getTotalMagicLevel()/2 + p.Potential/25
 								Freezing = 6 + p.getTotalMagicLevel()
@@ -2831,7 +2831,7 @@ obj
 						disableInnovation(usr)
 					adjust(mob/p)
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
+							if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 								var/asc = p.AscensionsAcquired
 								var/magicLevel = p.getTotalMagicLevel()
 								Rush=5
@@ -2883,7 +2883,7 @@ obj
 						// make it cast a projectile that is like hell zone grenade
 						ManaCost = 5
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
+							if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 								if(!Using && usr.ManaAmount >= 10)
 									if(!locate(/obj/Skills/Projectile/Thundara, usr))
 										usr.AddSkill(new/obj/Skills/Projectile/Thundara)
@@ -2926,7 +2926,7 @@ obj
 						disableInnovation(usr)
 					adjust(mob/p)
 						if(!altered)
-							if(usr.isInnovative(ELF, "Any") && !isInnovationDisable(p))
+							if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 								Rounds = 200
 								DamageMult = 0.05
 								Icon='VR Cloud.png'
