@@ -467,8 +467,8 @@ mob/proc/GetPowerUpRatioVisble()
 		else
 			if(!isRace(ANDROID))
 				PowerUp-=PowerUp*src.CyberCancel
-	if(passive_handler.Get("MovementMastery")&&PowerUp>0)
-		Ratio=1+(PowerUp*(1+(passive_handler.Get("MovementMastery")/8)))
+	if(HasMovementMastery()&&PowerUp>0)
+		Ratio=1+(PowerUp*(1+(GetMovementMastery()/glob.MOVEMENT_MASTERY_DIVISOR)))
 	else
 		Ratio=1+PowerUp
 	if(!src.HasKiControl()&&!src.PoweringUp)
@@ -700,7 +700,7 @@ mob/proc/
 		var/EPM=src.Power_Multiplier
 		if(src.HasMovementMastery())
 			if(src.ActiveBuff && src.ActiveBuff.PowerMult > 1 && (GetPowerUpRatio()<=1))
-				EPM+=((src.ActiveBuff.PowerMult-1) * (1+(src.GetMovementMastery()/8)))-(src.ActiveBuff.PowerMult-1)
+				EPM+=((src.ActiveBuff.PowerMult-1) * (1+(src.GetMovementMastery()/glob.MOVEMENT_MASTERY_DIVISOR)))-(src.ActiveBuff.PowerMult-1)
 
 		if(src.PowerEroded)
 			EPM-=src.PowerEroded

@@ -1073,12 +1073,16 @@ mob
 		HasMovementMastery()
 			if(passive_handler.Get("MovementMastery"))
 				return 1
+			if(Saga=="Cosmo")
+				return 1
 			return 0
 		GetMovementMastery()
 			var/Total=0
 			Total+=passive_handler.Get("MovementMastery")
 			if(src.DrunkPower())
 				Total+=2
+			if(Saga=="Cosmo" && !SpecialBuff)
+				Total += SagaLevel * 2.5
 			return Total
 		HasPhysicalHitsLimit()
 			if(passive_handler.Get("PhysicalHitsLimit"))
