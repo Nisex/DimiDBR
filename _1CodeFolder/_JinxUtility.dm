@@ -2148,7 +2148,7 @@ mob
 			else if(src.HasSpiritPower()>=0.25)
 				if(!Forced)
 					var/spiritPower = (HasSpiritPower() / 2)
-					return clamp(src.GetHolyMod()*spiritPower, 1, 10)
+					return max(src.GetHolyMod()*spiritPower, 1)
 				else
 					return Forced
 			else
