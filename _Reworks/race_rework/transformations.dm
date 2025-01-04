@@ -123,6 +123,8 @@ transformation
 
 		first_time = TRUE
 
+		revertToTrans = null
+
 	proc
 		adjust_transformation_visuals(mob/user)
 			form_glow = image(icon=form_glow_icon,icon_state = form_glow_icon_state,pixel_x = form_glow_x, pixel_y = form_glow_y)
@@ -229,6 +231,8 @@ transformation
 			if(!is_active || !user.CanRevert()) return
 
 			user.transActive--
+			if(!isnull(revertToTrans))
+				user.transActive = revertToTrans
 			user.passive_handler.decreaseList(passives)
 
 			user.StrMultTotal /= strength

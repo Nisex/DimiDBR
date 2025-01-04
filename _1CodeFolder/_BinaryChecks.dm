@@ -1581,10 +1581,11 @@ mob
 						Total+=(0.25*src.HasSpiritPower()*0.5)//halved rate for god ki saints
 			if(src.SenseUnlocked>6&&(src.SenseUnlocked>src.SenseRobbed))
 				if(src.SenseUnlocked>=7)
-					if(SagaLevel >= 5 || src.Health<=25 || src.InjuryAnnounce)
-						Total+=0.25
+					Total+=0.25
 				if(src.SenseUnlocked>=8)
-					Total+=1
+					Total+=0.75
+				if(SenseUnlocked >= 9)
+					Total += 1
 			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff())
 				if(src.Target&&!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
 					Total+=src.Target.GetGodKi()/2

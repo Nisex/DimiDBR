@@ -9,6 +9,7 @@ transformation
 			defense = 1.5
 			strength = 1.3
 			force = 1.3
+			revertToTrans = 0
 			var/previousTailIcon
 			var/previousTailUnderlayIcon
 			var/previousTailWrappedIcon
@@ -25,7 +26,7 @@ transformation
 
 			mastery_boons(mob/user)
 				passives = list("GiantForm" = 1, "Juggernaut" = 1+(mastery/25), "BuffMastery" = 5 + (mastery/10), "SweepingStrike" = 1, "Brutalize" = 3, "Meaty Paws" = 2 + (mastery/50), "KiControlMastery" = 3 + (mastery/50), "PureReduction" = 5 + (mastery/10),\
-				"LifeGeneration" = 5 + (mastery/10), "Unstoppable" = 1, "AllOutAttack" = 1, "Reversal" = 0.3 + (mastery/20), "Flow" = 4, "Instinct" = 4, "Transformation Power" = clamp(user.AscensionsAcquired * 3, 1, 20))
+				"LifeGeneration" = 5 + (mastery/10), "Unstoppable" = 1, "AllOutAttack" = 1, "Reversal" = 0.3 + (mastery/200), "Flow" = 4, "Instinct" = 4, "Transformation Power" = clamp(user.AscensionsAcquired * 3, 1, 20))
 				speed = 1.5 + (mastery/200)
 				endurance = 1.5 + (mastery/200)
 				offense = 1.5 + (mastery/200)
