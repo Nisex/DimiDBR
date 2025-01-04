@@ -429,7 +429,7 @@ proc
 			spawn(4)
 				RecoverImage(Target)
 			sleep(12)
-			// Target.Leave_Body(ForceVoid=1.5)
+			Target.Leave_Body(ForceVoid=1.5)
 		else if(EffectType==4)
 			Target.Stasis=100
 			sleep(30)
