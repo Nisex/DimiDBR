@@ -11235,8 +11235,8 @@ NEW VARIABLES
 			Demon_Grasp
 				AlwaysOn=1
 				NeedsPassword=1
-				passives = list("Infatuated" = 2)
-				Infatuated=2
+				passives = list("Infatuated" = 1.5)
+				Infatuated=1
 				ActiveMessage="has their mind trapped by a demonic illusion! They need to witness death to regain freedom!"
 				OffMessage="feels the effects of the curse fading away..."
 				FadeByDeath = 1
