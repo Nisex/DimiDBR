@@ -1924,10 +1924,6 @@ mob/Player/AI
 
 			if(src.Target)
 				if(ismob(src.Target))
-					if(src.CheckSlotless("Saiyan Soul"))
-						if(!HasAdaptation()&&!src.Target.CheckSlotless("Saiyan Soul"))
-							if(Power<src.Target.Power)
-								Power=src.Target.Power/src.Target.GetPowerUpRatio()
 					if(src.HasMirrorStats()&&!src.Target.HasMirrorStats()&&!src.Target.CheckSlotless("Saiyan Soul"))
 						Power=src.Target.Power/src.Target.GetPowerUpRatio()
 

@@ -812,9 +812,6 @@ mob/proc/
 
 			if(src.Target)
 				if(ismob(src.Target))
-					if(src.CheckSlotless("Saiyan Soul")&&!src.Target.CheckSlotless("Saiyan Soul"))
-						if(Power<src.Target.Power)
-							Ratio=src.Target.Power/src.Target.GetPowerUpRatio()
 					if(src.HasMirrorStats()&&!src.Target.HasMirrorStats()&&!src.Target.CheckSlotless("Saiyan Soul"))
 						Ratio=src.Target.Power/src.Target.GetPowerUpRatio()
 		Power=Ratio*GetPowerUpRatio()

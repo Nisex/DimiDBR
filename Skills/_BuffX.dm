@@ -4536,7 +4536,7 @@ NEW VARIABLES
 			adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired
 				passives = list()
-				passives["TechniqueMastery"] = 1*zenkaiLevel
+				passives["TechniqueMastery"] = 0.5*zenkaiLevel
 				passives["MovementMastery"] = 2*zenkaiLevel
 				var/passiveLimit = zenkaiLevel
 				var/passiveNumber = 0

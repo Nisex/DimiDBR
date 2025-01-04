@@ -1592,7 +1592,7 @@ mob
 					Total += 1
 			if(src.CheckSlotless("Saiyan Soul")&&!src.HasGodKiBuff())
 				if(src.Target&&!src.Target.CheckSlotless("Saiyan Soul")&&src.Target.HasGodKi())
-					Total+=src.Target.GetGodKi()/2
+					Total+=src.Target.GetGodKi()/3
 			if(passive_handler.Get("Hidden Potential") && !HasGodKiBuff())
 				if(src.Target)
 					if(src.Target.HasGodKi())
