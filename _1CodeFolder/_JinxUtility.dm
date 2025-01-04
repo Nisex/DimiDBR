@@ -2014,6 +2014,14 @@ mob
 				else//this is in case the sword was dual / triple wielded
 					var/obj/Items/Sword/ActualSword=src.EquippedSword()
 					ActualSword.ObjectUse(User=src)
+				if(length(s.Techniques)>0)
+					for(var/obj/Skills/skill in Skills)
+						if(skill.AssociatedGear==s)
+							if(istype(/obj/Skills/Buffs, skill))
+								var/obj/Skills/Buffs/Buff = skill
+								if(Buff && BuffOn(Buff))
+									Buff.Trigger(src, Override=1)
+							del skill
 				spawn(10)
 					s.suffix="*Broken*"//unequip that bitch
 					s.Broken=1//can't be worn (for nyow)
