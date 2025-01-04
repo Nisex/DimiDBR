@@ -609,7 +609,7 @@ NEW VARIABLES
 				if(altered) return
 				if(selectedPassive == "None")
 					p.PoweredFormSetup()
-				var/boon = clamp(p.Potential / 25, 1, 4)
+				var/boon = clamp(p.Potential / 50, 1, 2)
 				passives = list("[selectedPassive]" = boon, "KiControl" = 1, "EnergyLeak" = 1)
 
 			Trigger(var/mob/User, Override=0)
