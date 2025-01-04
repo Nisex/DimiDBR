@@ -221,6 +221,13 @@ mob/proc/AppearanceOn()
 
 	if(src.Dead)
 		src.overlays+='Halo.dmi'
+	
+	if(SpecialBuff)
+		var/obj/Skills/Buffs/SpecialBuff/SB = SpecialBuff
+		if(!NoExtraOverlay && SagaLevel >= 5 && istype(SB, /obj/Skills/Buffs/SpecialBuff/Saint_Cloth/Gold_Cloth))
+			var/image/im=image(icon='goldsaint_cape.dmi', layer=FLOAT_LAYER-3)
+			user.overlays+=im
+			user.Hairz("Add")
 
 	for(var/obj/Items/Gear/Mobile_Suit/I in src)
 		if(I.suffix=="*Equipped*"||I.suffix=="*Equipped (Second)*"||I.suffix=="*Equipped (Third)*")
