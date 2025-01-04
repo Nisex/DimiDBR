@@ -3586,7 +3586,7 @@ NEW VARIABLES
 			ABuffNeeded=list("Keyblade")
 			ManaLeak=1
 			ManaThreshold=1
-			passives = list("ManaLeak"= 1, "QuickCast"= 2, "Skimming" = 1, "DualCast" = 1, "SpecialStrike" = 1)
+			passives = list("ManaLeak"= 1, "QuickCast"= 2, "TechniqueMastery" = 5, "Skimming" = 1, "DualCast" = 1, "SpecialStrike" = 1)
 			ForMult=1.5
 			DefMult=1.5
 			KenWave=1
