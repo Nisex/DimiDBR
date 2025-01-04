@@ -1784,14 +1784,8 @@ NEW VARIABLES
 
 		Kaioken
 			SignatureTechnique=3
-			EnergyThreshold=10
 			UnrestrictedBuff=1
 			Kaioken=1
-			passives = list ("Kaioken" = 1, "Pursuer" = 2, "SuperDash" = 1, "Flicker" = 1, "Instinct" = 1, "AllOutPU" = 1)
-			Pursuer=2
-			SuperDash=1
-			Flicker=1
-			Instinct=1
 			EnergyMult=2
 			IconLock='Kaioken.dmi'
 			LockX=-32
@@ -1822,11 +1816,7 @@ NEW VARIABLES
 			UnrestrictedBuff=1
 			EnergyMult=2
 			BurnAffected=2
-			BurningShot=1
 			passives = list("BurningShot" = 1, "NoWhiff" = 1, "SuperDash" = 1, "Pursuer" = 1)
-			NoWhiff=1
-			SuperDash=1
-			Pursuer=1
 			IconLock='SSGAura.dmi'
 			IconLockBlend=4
 			LockX=-32
@@ -1834,41 +1824,48 @@ NEW VARIABLES
 			ActiveMessage="ignites their life-force into a sacrifical pyre!!"
 			OffMessage="burns out..."
 			TextColor=rgb(255, 55, 0)
+			adjust(mob/p)
+				passives = list("BurningShot" = 1, "NoWhiff" = 1, "SuperDash" = 1 + p.Potential/30, "Pursuer" = 1 + p.Potential/30)
+				OffMult = 1 + p.Potential/300
+				StrMult = 1 + p.Potential/300
 			verb/Burning_Shot()
 				set name="Rekkaken"
 				set category="Skills"
+				adjust(usr)
 				src.Trigger(usr)
 		Kyoukaken//wet wet fist
 			SignatureTechnique=3
-			HealthThreshold=50
 			UnrestrictedBuff=1
 			EnergyMult=2
 			passives = list("MirrorStats" = 1, "Flow" = 1, "Instinct" = 1, "LikeWater" = 4, "FluidForm" = 1)
-			MirrorStats=1
-			Flow=1
-			Instinct=1
 			ActiveMessage="reflects their opponent's power like a still lake!"
 			OffMessage="returns to their own movements, unable to hold the simulacrum..."
 			TextColor=rgb(65, 177, 218)
+			adjust(mob/p)
+				passives = list("MirrorStats" = 1, "Flow" = 1 + p.Potential/30, "Instinct" = 1 + p.Potential/30, "LikeWater" = 2 + p.Potential/30, "FluidForm" = 1)
+				OffMult = 1 + p.Potential/300
+				DefMult = 1 + p.Potential/300
 			verb/Kyoukaken()
 				set category="Skills"
+				adjust(usr)
 				src.Trigger(usr)
 		Toppuken//wind wind fist
 			SignatureTechnique=3
 			EnergyMult=2
 			UnrestrictedBuff=1
 			passives = list("Erosion" = 0.5, "SoulFire" = 1, "SoulFire" = 1, "WeaponBreaker" = 2, "DeathField" = 5, "VoidField" = 5)
-			Erosion=0.5
-			ManaSeal=1
-			SoulFire=1
-			WeaponBreaker=2
-			DeathField=5
-			VoidField=5
+			SpdMult = 1.25
+			DefMult = 1.25
 			ActiveMessage="gently erodes everything..."
 			OffMessage="recalls their eroding aura..."
 			TextColor=rgb(224, 224, 235)
+			adjust(mob/p)
+				passives = list("Erosion" = 0.1 + p.Potential/150, "SoulFire" = 1 + p.Potential/30, "WeaponBreaker" = 2 + p.Potential/30, "DeathField" = 5 + p.Potential/10, "VoidField" = 5 + p.Potential/10)
+				SpdMult = 1.25 + p.Potential/300
+				DefMult = 1.25 + p.Potential/300
 			verb/Toppuken()
 				set category="Skills"
+				adjust(usr)
 				src.Trigger(usr)
 //General
 		Adrenaline_Rush
