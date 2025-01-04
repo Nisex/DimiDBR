@@ -1774,12 +1774,22 @@ NEW VARIABLES
 			TextColor=rgb(255, 231, 108)
 			ActiveMessage="roars and bulks up enormously as their power shatters reason!"
 			OffMessage="releases their legendary power..."
+			adjust(mob/p)
+				passives = list("PureReduction" = p.Potential / 10, "GiantForm" = 1, "LifeGeneration" = 2 + p.Potential / 10)
+				PowerMult = 1.2 + p.Potential / 200
+				Intimidation = 2 + p.Potential / 200
+				StrMult = 1.2 + p.Potential / 200
+				ForMult = 1.2 + p.Potential / 200
+				EndMult = 1.3 + p.Potential / 200
+				SpdMult = 1.3 + p.Potential / 200
+
 			verb/Legendary_Super_Saiyan()
 				set category="Skills"
 				HairLock=usr.Hair_SSJ2
 				if(usr.ExpandBase)
 					IconReplace=1
 					icon=usr.ExpandBase
+				adjust(usr)
 				src.Trigger(usr)
 
 		Kaioken
