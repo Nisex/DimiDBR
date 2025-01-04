@@ -475,7 +475,6 @@ obj/Items/Enchantment
 									usr.TakeMoney(Cost)
 									var/obj/Items/Enchantment/PhilosopherStone/Artificial/a=new
 									a.SoulStrength=2
-									a.SoulSignature=rand(9001,9999)
 									usr.contents+=a
 									usr << "You've created an artificial Philosopher Stone!"
 								else
@@ -2509,8 +2508,7 @@ obj/Items/Enchantment
 		var/MaxCapacity
 		var/RegenRate
 		var/SoulStrength//regen+recov at moment of stoning
-		var/SoulIdentity//key of fake stone's magic
-		var/SoulSignature//energy signature of the stone
+		var/SoulIdentity//UID of person stoned
 		var/ToggleUse = 1
 		New()
 			..()
@@ -2521,14 +2519,29 @@ obj/Items/Enchantment
 			Update_Description()
 
 		UpdatesDescription=1
+		Fake
+			CurrentCapacity = 200
+			MaxCapacity = 200
+			RegenRate = 1
+			proc/reintegrate(mob/Players/user)
+				if(SoulIdentity==user.UniqueID)
+					user.ManaSealed = 0
+					OMsg(user, "[user] has been reintegrated with their magical circuits!")
+					del src
+				else
+					user << "This stone doesn't belong to your circuits!"
+
+			verb/Reintegrate_Stone()
+				set name = "Reintegrate Stone"
+				reintegrate(usr)
 		True
-			CurrentCapacity=1000
-			MaxCapacity=1000
+			CurrentCapacity=400
+			MaxCapacity=400
 			RegenRate=1
 		Artificial
 			name="Philosopher Stone (Artificial)"
-			CurrentCapacity=1000
-			MaxCapacity=1000
+			CurrentCapacity=200
+			MaxCapacity=200
 			RegenRate=1
 		Magicite
 			name="Magicite Stone"
@@ -2537,7 +2550,6 @@ obj/Items/Enchantment
 			MaxCapacity=1
 			RegenRate=0
 			SoulStrength=2
-			SoulSignature="1"
 			Update_Description()
 				src.desc="A magicite stone, operating as a source of mana.<br>Your [src] mana storage: [round(src.CurrentCapacity)] / [src.MaxCapacity]"
 				if(ToggleUse)

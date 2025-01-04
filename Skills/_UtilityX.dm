@@ -1090,21 +1090,36 @@ obj/Skills/Utility
 				sleep(5)
 				animate(Choice, alpha=0, time=10)
 				sleep(10)
-				var/obj/Items/Enchantment/PhilosopherStone/True/f=new
-				f.SoulStrength=round(Choice.Potential/10,1) // CHANGED TO FIT TIER SYSTEM
-				f.SoulIdentity="[Choice.ckey]"
-				f.SoulSignature="[Choice.EnergySignature]"
-				f.loc=Choice.loc
-				var/Chance=glob.VoidChance
-				var/c_red=Choice.Potential/100
-				Chance-=(Chance*c_red)
-				if(Chance<0)
-					Chance=0
-				Chance=round(Chance)
-				Choice.Death(null, "having their body and soul converted into a Philosopher's Stone!", NoRemains=3)
-				if(prob(Chance))
-					usr.Maimed++
+				var/Chance = Choice.getExtraVoidChance()
+				var/rolls = 1 + Choice.getVoidRolls()
+				var/voided = FALSE
+				while(rolls>0)
+					var/roll = rand(Chance, 100)
+					if(roll >= 100-glob.VoidChance)
+						voided = TRUE
+						break
+					else
+						rolls--
+						voided = FALSE
+					if(rolls<0)
+						rolls = 0
+
+				if(!voided)
+					var/obj/Items/Enchantment/PhilosopherStone/True/f=new
+					f.SoulStrength = round(Choice.Potential/10,1)
+					f.SoulIdentity = Choice?:UniqueID
+					f.loc = Choice.loc
+					Choice.Death(null, "having their body and soul converted into a Philosopher's Stone!", NoRemains=3)
+				else
 					OMsg(usr, "[usr] loses control of their forbidden spell and has a core part of their being claimed by the transmutation!")
+					OMsg(usr, "The magic chaotically lashes out and sends [Choice] hurtling into the void!")
+					usr.Maimed++
+					var/obj/Items/Enchantment/PhilosopherStone/Fake/f = new
+					f.SoulStrength = round(Choice.Potential/20,1)
+					f.SoulIdentity = Choice?:UniqueID
+					f.loc = Choice.loc
+					Choice.loc = locate(glob.VOID_LOCATION[1], glob.VOID_LOCATION[2], glob.VOID_LOCATION[3])
+
 				src.Using=0
 				src.LastTransmute=world.realtime+Day(2)
 			else
@@ -3213,7 +3228,7 @@ obj/Skills/Utility
 					if(b.DeathKillerTargets==m.key)
 						valid+=m
 				for(var/obj/Items/Enchantment/PhilosopherStone/True/ps in get_step(usr,usr.dir))
-					if(ps.SoulIdentity=="[m.ckey]"&&ps.SoulSignature=="[m.EnergySignature]")
+					if(ps.SoulIdentity==m.UniqueID)
 						valid+=m
 				for(m in get_step(usr,usr.dir))
 					valid+=m
@@ -3230,7 +3245,7 @@ obj/Skills/Utility
 			OMsg(usr, "[usr] kills death's effects on [Choice], reviving their soul!")
 			for(var/obj/Items/Enchantment/PhilosopherStone/True/ps in get_step(usr,usr.dir))
 				if(ps)
-					if(ps.SoulIdentity=="[Choice.ckey]"&&ps.SoulSignature=="[Choice.EnergySignature]")
+					if(ps.SoulIdentity==Choice?:UniqueID)
 						Choice.loc=ps.loc
 						del ps
 			for(var/mob/Body/b in view(usr, 3))

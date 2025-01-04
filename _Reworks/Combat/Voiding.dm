@@ -1,5 +1,21 @@
 
+mob/proc/getExtraVoidChance(extraChance = 0)
+	var/Chance = 0
+	if(Saga == "King of Braves")
+		Chance += SagaLevel * 1.5
+	if(ClothBronze == "Phoeinx")
+		Chance += SagaLevel * 2
+	return Chance
 
+mob/proc/getVoidRolls(extraRolls = 0)
+	var/rolls = 1 + extraRolls
+	if(Saga == "King of Braves")
+		rolls += 1
+	if(ClothBronze == "Phoenix")
+		if(totalExtraVoidRolls >= 1)
+			rolls += totalExtraVoidRolls
+			totalExtraVoidRolls--
+	return rolls
 
 /mob/Admin3/verb/AutoVoidKill(mob/A in players)
 	set category = "Admin"
@@ -143,24 +159,16 @@ mob/proc/StartFresh()
 /mob/var/totalExtraVoidRolls = 0
 #define SPIRITS_NAMES list("Goetic Virtue", "Stellar Constellation", "Elven Sanctuary")
 
-mob/proc/Void(override, zombie, forceVoid, extraChance,extraRolls)
+mob/proc/Void(override, zombie, forceVoid, extraChance = 0, extraRolls = 0)
 	var/actuallyDead
-	var/Chance = forceVoid == TRUE ? 100 : extraChance + extraVoidChance
-	var/rolls = 1 + extraRolls
+	var/Chance = getExtraVoidChance(extraChance)
+	if(forceVoid) Chance = 100
+	var/rolls = getVoidRolls(extraRolls)
 	var/oldLoc = loc
 	if(Chance >= 100)
 		Chance = 100
 	if(override)
 		Chance = 0
-	if(Saga=="King of Braves")
-		rolls+=1
-		Chance += SagaLevel * 1.5
-
-	if(ClothBronze == "Phoenix")
-		if(totalExtraVoidRolls >= 1)
-			rolls += totalExtraVoidRolls
-			totalExtraVoidRolls--
-		Chance += SagaLevel * 2
 
 	if(secretDatum && secretDatum.name in SPIRITS_NAMES)
 		extraChance -= Potential/4 + (secretDatum.currentTier * 5)
@@ -214,11 +222,12 @@ mob/proc/Void(override, zombie, forceVoid, extraChance,extraRolls)
 						src<<"You rolled a [roll] and the roll to beat was [100-glob.VoidChance]! Congratulations, you have voided!"
 					rolls = 0
 					actuallyDead = 0
+					break
 				else
 					rolls--
 					actuallyDead = 1
 					if(glob.SHOW_VOID_ROLL)
-						src<<"You rolled a [roll] and the roll to beat was [100-glob.VoidChance]!"
+						src<<"You rolled a [roll] and the roll to beat was [100-glob.VoidChance]! You have died!"
 				if(rolls<0)
 					rolls = 0
 
