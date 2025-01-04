@@ -1,7 +1,7 @@
 // aids
 // make it so basically when they use flow, they drain energy or something
 // but also make it not spammable
-globalTracker/var/BASE_FLOW_PROB = 4
+globalTracker/var/BASE_FLOW_PROB = 5
 globalTracker/var/BASE_FLUIDFORM_PROB = 10
 globalTracker/var/BASE_BACKTRACK_PROB = 8
 

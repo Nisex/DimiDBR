@@ -65,18 +65,18 @@ progressTracker
 
 
 // rpp
-		totalRPPToDate = 1680 // a dynamic variable, that just gets added to every day tick
-		RPPDaily = 30
-		RPPLimit = 1680
-		RPPStarting = 800
-		RPPStartingDays = 3
+		totalRPPToDate = 0 // a dynamic variable, that just gets added to every day tick
+		RPPDaily = 15
+		RPPLimit = 0
+		RPPStarting = 80
+		RPPStartingDays = 0
 		RPPBaseMult = 1
 
 
 
 // time
 		WipeStart = 0
-		DaysOfWipe = 32
+		DaysOfWipe = 1
 
 
 /****************************************************
@@ -114,7 +114,7 @@ globalTracker
 
 //INTIM
 		INTIMRATIO = 500
-		NEWINTIMCALC = TRUE
+		NEWINTIMCALC = FALSE
 
 //Wipe Specific
 		list/GUILD_RANKINGS = list("Aegis" = 1, "Crimson Dawn" = 2, "Golden Circle" = 3, "Black Ifrit" = 5, "Revenants" = 6)
@@ -157,7 +157,7 @@ globalTracker
 		MONEYORFRAGMENTS = 1 // 1 = fragments, 0 = cash
 // globals
 		WorldBaseAmount = 1
-		WorldDamageMult = 1
+		WorldDamageMult = 1.5
 		WorldDefaultAcc = 50
 		WorldWhiffRate = 25
 		celestialObjectTicks
@@ -226,12 +226,12 @@ globalTracker
 
 
 		LIGHT_ATTACK_SPEED_DMG_ENABLED = 1
-		LIGHT_ATTACK_SPEED_DMG_EXPONENT = 0.3
+		LIGHT_ATTACK_SPEED_DMG_EXPONENT = 0.4
 		LIGHT_ATTACK_SPEED_DMG_LOWER = 0.5
 		LIGHT_ATTACK_SPEED_DMG_UPPER = 3
 
 		ZANZO_SPEED_EXPONENT = 0.25
-		ZANZO_SPEED_HIGHEST_CLAMP = 2
+		ZANZO_SPEED_HIGHEST_CLAMP = 4
 		ZANZO_SPEED_LOWEST_CLAMP = 0.25
 
 
@@ -281,7 +281,7 @@ globalTracker
 
 		SSJ_MIN_MASTERY_GAIN = 0.01
 		SSJ_MAX_MASTERY_GAIN = 0.02
-		SSJ_TRANS_NUM_AS_MASTERY_MULT = TRUE
+		AUTO_SSJ_MASTERY = FALSE
 
 		OXYGEN_DRAIN = 3
 		OXYGEN_DRAIN_DIVISOR = 2
@@ -290,7 +290,7 @@ globalTracker
 
 
 
-		GLOBAL_BEAM_DAMAGE_DIVISOR = 30
+		GLOBAL_BEAM_DAMAGE_DIVISOR = 35
 		GLOBAL_QUEUE_DAMAGE = 0.85
 		GLOBAL_MELEE_MULT = 0.9
 		GLOBAL_POWER_MULT = 1
@@ -301,7 +301,7 @@ globalTracker
 		SOFT_STYLE_RATIO = 0.3
 		SOFT_STYLE_DMG_BOON_DIVISOR = 2
 		HARD_STYLE_DMG_BOON_DIVISOR = 3
-		SOUL_FIRE_MANA_RATIO = 0.3
+		SOUL_FIRE_MANA_RATIO = 0.25
 		SOUL_FIRE_FATIGUE_RATIO = 0.05
 		CHEAP_SHOT_DIVISOR = 40
 		HARD_STYLE_RATIO = 0.1
@@ -310,8 +310,8 @@ globalTracker
 		GRAPPLE_MELEE_BOON = 1.5
 		GRIPPY_MOD = 0.25
 		CLAMP_POWER = TRUE
-		MIN_POWER_DIFF = 0.7
-		MAX_POWER_DIFF = 1.3
+		MIN_POWER_DIFF = 0.5
+		MAX_POWER_DIFF = 1.5
 		AUTOHIT_GRAB_NERF = 0.5
 		PARTY_DAMAGE_NERF = 0.8
 		MOD_AFTER_ACC = TRUE
@@ -330,15 +330,15 @@ globalTracker
 // effectiveness (dmg calc  shit)
 		MELEE_EFFECTIVENESS = 1
 		PROJECTILE_EFFECTIVNESS = 1
-		GRAPPLE_EFFECTIVNESS = 3
+		GRAPPLE_EFFECTIVNESS = 2
 		AUTOHIT_EFFECTIVNESS = 2
-		GRAPPLE_DAMAGE_MULT = 0.75
+		GRAPPLE_DAMAGE_MULT = 1
 		MUSCLE_POWER_DIVISOR = 4
 		MAX_PURSUER_BOON = 10
 		DMG_END_EXPONENT = 0.4
 		DMG_STR_EXPONENT = 0.4
 		DMG_POWER_EXPONENT = 0.3
-		PURE_MODIFIER = 0.75
+		PURE_MODIFIER = 0.5
 		PURE_MOD_POST_CALC = TRUE
 		TENSION_MULTIPLIER = 1
 		MIN_TENSION = 10
@@ -346,7 +346,7 @@ globalTracker
 		FIELD_MODIFIERS = 0.01
 		GLUTTONY_MODIFIER = 0.14
 		STEADY_MODIFIER = 0.05
-		UNARMED_DAMAGE_DIVISOR = 6
+		UNARMED_DAMAGE_DIVISOR = 15
 
 
 		HARDER_THEY_FALL_BIO_DIVISOR = 100 // if u use this when changie first start it will do big damage
@@ -376,8 +376,8 @@ globalTracker
 		ARMOR_GLOBAL_ACCURACY_NERF = 0.2
 
 
-		AUTOHIT_WHIFF_DAMAGE = 4
-		AUTOHIT_MISS_DAMAGE = 10
+		AUTOHIT_WHIFF_DAMAGE = 2
+		AUTOHIT_MISS_DAMAGE = 5
 
 		//Whiff dmg is now rand between these.
 		MIN_WHIFF_DMG = 1.25
@@ -430,11 +430,11 @@ globalTracker
 		MAX_BREAK_VAL = 200
 
 
-		DEICIDE_DAMAGE_DIVISOR = 4
-		HOLY_DAMAGE_DIVISOR = 4
-		ABYSS_DAMAGE_DIVISOR = 4
-		SLAYER_DAMAGE_DIVISOR = 4
-		ENRAGED_DAMAGE_DIVISOR = 4
+		DEICIDE_DAMAGE_DIVISOR = 2
+		HOLY_DAMAGE_DIVISOR = 2
+		ABYSS_DAMAGE_DIVISOR = 2
+		SLAYER_DAMAGE_DIVISOR = 2
+		ENRAGED_DAMAGE_DIVISOR = 2
 		MAX_ADDITONAL_DAMAGE_CLAMP = 10
 		SPIRIT_FORM_BASE_RATE = 0.15
 		SPIRIT_FORM_LEAK_VAL = 3

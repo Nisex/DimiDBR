@@ -161,9 +161,9 @@ mob/Players
 			key4=0
 
 globalTracker/var/BASE_LOOP_DELAY = 1.25
-globalTracker/var/GODSPEED_NEEDED = 6
-globalTracker/var/SPEED_NEEDED = 6
-globalTracker/var/DIAG_LOOP_DELAY = 2
+globalTracker/var/GODSPEED_NEEDED = 999
+globalTracker/var/SPEED_NEEDED = 999
+globalTracker/var/DIAG_LOOP_DELAY = 1.15
 globalTracker/var/GODSPEED_LOOP_DELAY = 0.8
 
 

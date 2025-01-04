@@ -1,7 +1,7 @@
 /globalTracker/var/MAX_KB_MULT = 5
 /globalTracker/var/MAX_KB_RES = 0.25
 /globalTracker/var/MAX_KB_TIME = 25
-/globalTracker/var/KB_SPEED = 0.5 // was 0.15
+/globalTracker/var/KB_SPEED = 0.75 // was 0.15
 //TODO convert to glob
 gatherKBMods
 /mob/proc/getLegendPMult()

@@ -414,7 +414,7 @@ atom/proc/CheckDirection(var/mob/M)
 		if(SOUTHWEST)
 			. = "South West"
 
-globalTracker/var/MOVEMENT_MASTERY_DIVISOR = 12
+globalTracker/var/MOVEMENT_MASTERY_DIVISOR = 10
 
 
 mob/proc/GetPowerUpRatio()

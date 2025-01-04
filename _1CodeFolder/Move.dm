@@ -53,10 +53,10 @@ proc
 						B.Open()
 			else
 				B.Open()
-globalTracker/var/SPEED_DELAY = 4
-globalTracker/var/GOD_SPEED_MULT = 0.25
-globalTracker/var/TOTAL_SPEED_BONUS = 1
-globalTracker/var/SPEED_DELAY_LOWEST = 2
+globalTracker/var/SPEED_DELAY = 3
+globalTracker/var/GOD_SPEED_MULT = 0.2
+globalTracker/var/TOTAL_SPEED_BONUS = 0.4
+globalTracker/var/SPEED_DELAY_LOWEST = 1.75
 mob/proc/MovementSpeed()
 	var/Spd=max(0.1,round(sqrt(src.GetSpd(glob.TOTAL_SPEED_BONUS)),0.1))
 	var/SpdMult = 0

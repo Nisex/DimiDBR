@@ -498,7 +498,7 @@ mob
 				if(drain>0)
 					src.LoseEnergy(drain)
 					var/_mastery = randValue(glob.SSJ_MIN_MASTERY_GAIN,glob.SSJ_MAX_MASTERY_GAIN)
-					if(glob.SSJ_TRANS_NUM_AS_MASTERY_MULT)
+					if(glob.AUTO_SSJ_MASTERY)
 						_mastery *= transActive
 						race.transformations[transActive].mastery+=_mastery
 						if(race.transformations[transActive].mastery>=95)

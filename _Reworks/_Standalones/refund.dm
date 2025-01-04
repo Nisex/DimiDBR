@@ -1,4 +1,4 @@
-globalTracker/var/pot_between_refunds = 5
+globalTracker/var/pot_between_refunds = 2
 
 mob/var/last_refund_pot = 0
 mob/var/refund_banned = FALSE
