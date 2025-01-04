@@ -1180,13 +1180,6 @@ mob
 			Return=passive_handler.Get("SuperDash")
 			if(src.SenseUnlocked>5&&src.SenseUnlocked>src.SenseRobbed)
 				Return+=1
-			var/ta=src.transActive()
-			var/tm=src.HasTransMimic()
-			if(ta || tm)
-				if(tm > ta)
-					Return+=round(tm/4)
-				else
-					Return+=round(ta/4)
 			Return=round(Return)
 			return Return
 		GetSuperDash()
