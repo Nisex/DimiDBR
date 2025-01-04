@@ -471,6 +471,8 @@ mob
 				var/Effectiveness=1
 				if(NoBlood>0)
 					Effectiveness-=(Effectiveness*NoBlood)
+				if(defender.ActiveBuff && defender.ActiveBuff.BuffName == "Life Fiber Synchronize")
+					Effectiveness += min(0,4 - defender.SagaLevel)
 				if(defender.passive_handler.Get("MeltyBlood") && NoBlood<1)
 					CursedBlood=1
 					Effectiveness += defender.passive_handler.Get("MeltyBlood")

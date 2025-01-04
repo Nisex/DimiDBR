@@ -278,24 +278,22 @@ mob/Admin3/verb
 					var/choice
 					var/confirm
 					while(confirm!="Yes")
-						choice=alert(P, "What kind of weave do you represent?", "Kamui", "Purity", "Impulse")
+						choice=alert(P, "What kind of weave do you represent?", "Kamui", "Senketsu", "Junketsu")
 						switch(choice)
-							if("Impulse")
-								confirm=alert(P, "The path of Impulse highlights the unity between clothes and humanity, recklessly fighting alongside one another.  Is this your weave?", "Kamui Path", "Yes", "No")
-							if("Purity")
-								confirm=alert(P, "The path of Purity highlights humanity's superiority over clothing, using them as protective garment subjugated by your will.  Is this your weave?", "Kamui Path", "Yes", "No")
+							if("Senketsu")
+								confirm=alert(P, "Senketsu highlights the unity between clothes and humanity, recklessly fighting alongside one another.  Is this your weave?", "Kamui Path", "Yes", "No")
+							if("Junketsu")
+								confirm=alert(P, "Junketsu highlights humanity's superiority over clothing, using them as protective garment subjugated by your will.  Is this your weave?", "Kamui Path", "Yes", "No")
 					P.KamuiType=choice
-					if(P.KamuiType=="Impulse")
+					if(P.KamuiType=="Senketsu")
 						P.contents+=new/obj/Items/Symbiotic/Kamui/KamuiSenketsu
-						P.SagaThreshold("Str", 0.2)
-						P.SagaThreshold("End", 0.2)
-					else if(P.KamuiType=="Purity")
+						var/obj/Items/Sword/Medium/Scissor_Blade/SB = new()
+						P.AddItem(SB)
+						P << "A sword weaved from fibers finds its way into a case in your care. (Sheath to put it in it's case.)"
+
+					else if(P.KamuiType=="Junketsu")
 						P.contents+=new/obj/Items/Symbiotic/Kamui/KamuiJunketsu
 						P.SagaThreshold("Spd", 0.4)
-
-					var/obj/Items/Sword/Medium/Scissor_Blade/SB = new()
-					P.AddItem(SB)
-					P << "A sword weaved from fibers finds its way into a case in your care."
 
 					P<<"You are cloaked in unearthly robes... <b>Kamui</b>!"
 					P<<"<i>Let's get naked.</i>"

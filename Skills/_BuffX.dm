@@ -6329,6 +6329,9 @@ NEW VARIABLES
 					passives = list("LifeSteal" = lifeSteal, "Extend" = extend)
 				verb/Decapitation_Mode()
 					set category="Skills"
+					if(usr.Saga == "Kamui" && usr.SagaLevel < 2)
+						usr << "You don't know how to use this aspect of your scissor blade yet!"
+						return
 					if(!usr.BuffOn(src))
 						var/obj/Items/Sword/s=usr.EquippedSword()
 						src.SwordIcon=s.iconAlt

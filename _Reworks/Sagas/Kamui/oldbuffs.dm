@@ -14,7 +14,6 @@
 		KenWaveX=105
 		KenWaveY=105
 		KamuiSenketsu
-			HealthThreshold=25
 			PowerMult=1
 			StrMult=1.25
 			EndMult=1.25
@@ -35,15 +34,10 @@
 			adjust(mob/p)
 				if(altered) return
 				var/level = p.SagaLevel
-				PowerMult = 1
-				SpdMult = 1.2
-				StrMult = 1.2
-				EndMult = 1.2
-				HealthCost = clamp(15 - (5 * level), 0, 15)
-				WoundCost = clamp(15 - (5 * level), 0, 15)
-				VaizardHealth = clamp(1.5 - (0.5 * level), 0, 1.5)
-				HealthThreshold = clamp(25 - (5 * level), 5, 25)
-
+				SpdMult = 1.2 + (level * 0.05)
+				StrMult = 1.2 + (level * 0.05)
+				EndMult = 1.2 + (level * 0.05)
+				passives = list("KiControl" = 1, "HealthPU" = 1, "BleedHit" = 0.5, "Shameful" = level, "Desperation" = level, "Adrenaline" = level / 2, "Underdog" = level / 2, "DemonicDurability" = level)
 
 
 			verb/Life_Fiber_Synchronize()
@@ -61,7 +55,7 @@
 					if(usr.Saga=="Kamui")
 						src.ActiveMessage="feeds blood into their Kamui, drawing on its full power.  Life Fiber Synchronize!"
 						src.OffMessage="runs out of blood to feed their Kamui, releasing the transformed state..."
-						if(usr.KamuiType=="Impulse")
+						if(usr.KamuiType=="Senketsu")
 							switch(usr.SagaLevel)
 								if(2)
 									src.VaizardHealth=1

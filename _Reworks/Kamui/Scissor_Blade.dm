@@ -6,8 +6,7 @@ obj
 					name="Scissor Blade"
 					icon='scissorcasetilted.dmi'
 					UnderlayIcon = 'scissorcasetilted_under.dmi'
-					passives = list("Shearing" = 0.5)
-					Shearing=0.5
+					passives = list("Shearing" = 1)
 					iconAlt='Scissor_blade_decap.dmi'
 					iconAltX=-32
 					iconAltY=-32
@@ -17,6 +16,24 @@ obj
 					unsheatheIcon = 'scissor_blade.dmi'
 					unsheatheOffsetX = -16
 					unsheatheOffsetY = -16
+
+					verb/Set_Sword_Class()
+						if(usr.Saga == "Kamui" && usr.SagaLevel < 3)
+							usr << "You don't know how to use this aspect of your scissor blade yet!"
+							return
+						if(usr.Saga != "Kamui" || !usr.Saga)
+							usr << "You don't know how to modify the scissor blade!"
+							return
+						SwordClass = input("What class would you like to set the Scissor Blade to?") in list("Light", "Medium", "Heavy")
+
+					verb/Set_Alternate_Sword_Class()
+						if(usr.Saga == "Kamui" && usr.SagaLevel < 3)
+							usr << "You don't know how to use this aspect of your scissor blade yet!"
+							return
+						if(usr.Saga != "Kamui" || !usr.Saga)
+							usr << "You don't know how to modify the scissor blade!"
+							return
+						ClassAlt = input("What class would you like to set the Scissor Blade to?") in list("Light", "Medium", "Heavy")
 
 					verb/Restyle_Scissor_Blade_Case()
 						var/caseType = input("What type of Case would you like?") in list("Slanted", "Straight")
