@@ -11,8 +11,10 @@ obj/Skills/Buffs/SlotlessBuffs/Niohoggrs_Chains
 			applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Niohoggr_World_Restrain
 		else
 			applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Niohoggr_Restrain
+		Cooldown = 120 - (p.SagaLevel * 4)
+		ManaCost = 15 - p.SagaLevel
 	verb/Chains()
-		set name = "Níðhöggrs's Chains"
+		set name = "Nï¿½ï¿½hï¿½ggrs's Chains"
 		set category = "Skills"
 		if(!usr.BuffOn(src))
 			adjust(usr)

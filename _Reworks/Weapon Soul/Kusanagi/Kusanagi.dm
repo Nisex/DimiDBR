@@ -14,7 +14,7 @@ obj/Skills/AutoHit/Gale_Slash
 	StrOffense=1
 	DamageMult=2
 	ManaDrain = 2
-	Launcher=3
+	Launcher=1
 	NoLock=1
 	NoAttackLock=1
 	Cooldown=30
@@ -27,8 +27,12 @@ obj/Skills/AutoHit/Gale_Slash
 	CanBeDodged=1
 	Knockback = 5
 	ActiveMessage="lets loose a sweeping gale of wind around them!"
+	adjust(mob/p)
+		DamageMult = 2 + p.SagaLevel
+		Launcher = 1 + p.SagaLevel
 	verb/Gale_Slash()
 		set category="Skills"
+		adjust(usr)
 		usr.Activate(src)
 
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Kusanagi

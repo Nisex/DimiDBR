@@ -19,7 +19,7 @@ obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Caledfwlch
 	verb/Heavenly_Regalia()
 		set category="Skills"
 		src.Trigger(usr)
-#warn MAKE EXCALIBUR COOLER
+
 obj/Skills/Projectile/Weapon_Soul
 	Excalibur
 		IconLock='Excaliblast.dmi'
@@ -47,8 +47,16 @@ obj/Skills/Projectile/Weapon_Soul
 		HolyMod=5
 		Distance=100
 		Cooldown = 60
+		adjust(mob/p)
+			DamageMult = 1 + (p.SagaLevel / 2)
+			Radius = 3 + p.SagaLevel
+			IconSize = 1 + p.SagaLevel
+			Homing = 1 + p.SagaLevel
+			LosesHoming = 1 + p.SagaLevel
+			HolyMod = 5 + p.SagaLevel
 		verb/Excalibur()
 			set category = "Skills"
+			adjust(usr)
 			usr.UseProjectile(src)
 
 	Excalibur_Morgan
@@ -76,6 +84,13 @@ obj/Skills/Projectile/Weapon_Soul
 		Deflectable=-1
 		Distance=100
 		Cooldown = 90
+		adjust(mob/p)
+			DamageMult = 0.25 + (p.SagaLevel / 4)
+			Radius = 3 + p.SagaLevel
+			IconSize = 1 + p.SagaLevel
+			Homing = 1 + p.SagaLevel
+			LosesHoming = 1 + p.SagaLevel
 		verb/Excalibur_Morgan()
 			set category = "Skills"
+			adjust(usr)
 			usr.UseProjectile(src)

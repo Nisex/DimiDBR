@@ -1,7 +1,7 @@
 obj/Skills/AutoHit/Purifying_Frost
 	NeedsSword=1
 	Area="Circle"
-	Cleansing = 2
+	Cleansing = 5
 	ControlledRush=1
 	Rush=3
 	ChargeTech=1
@@ -29,6 +29,11 @@ obj/Skills/AutoHit/Purifying_Frost
 	EnergyCost=5
 	Instinct=1
 	ActiveMessage="'s soothing blade causes frost to snap out!"
+	adjust(mob/p)
+		Size = p.SagaLevel
+		DamageMult = 2 + p.SagaLevel
+		Rush = 3 + p.SagaLevel
 	verb/Purifying_Frost()
 		set category="Skills"
+		adjust(usr)
 		usr.Activate(src)

@@ -27,8 +27,12 @@ obj/Skills/AutoHit/Soul_Drain
 	Cooldown=30
 	EnergyCost=15
 	Instinct=1
+	adjust(mob/p)
+		DamageMult = 3 + p.SagaLevel
+		WindUp = 1 - p.SagaLevel/10
 	verb/Soul_Drain()
 		set category="Skills"
+		adjust(usr)
 		usr.Activate(src)
 
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Soul_Edge
