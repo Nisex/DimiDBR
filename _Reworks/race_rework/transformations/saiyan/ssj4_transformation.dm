@@ -9,6 +9,7 @@ transformation
 			defense = 1.5
 			strength = 1.3
 			force = 1.3
+			revertToTrans = 0
 			var/previousTailIcon
 			var/previousTailUnderlayIcon
 			var/previousTailWrappedIcon
