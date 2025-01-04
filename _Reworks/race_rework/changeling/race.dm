@@ -1,5 +1,3 @@
-#warn NERF CHANGELINGS TO SCALE BIOARMOR BETTER WITH ASCENSIONS & POTENTIAL
-
 race
 	changeling
 		locked = TRUE
@@ -23,9 +21,8 @@ race
 
 		onFinalization(mob/user)
 			. = ..()
-			user.transUnlocked = 3
 			user.Intimidation = 50
-			user.BioArmorMax = 250
+			user.BioArmorMax = 100
 			user.BioArmor = user.BioArmorMax
 
 		onAnger(mob/user)

@@ -92,8 +92,7 @@ SecretInfomation
 
 	Jagan
 		name = "Jagan Eye"
-#warn REMOVE OBSERVE
-		givenSkills = list("/obj/Skills/Buffs/SpecialBuffs/Cursed/Jagan_Eye", "/obj/Skills/Utility/Telepathy", "/obj/Skills/Utility/Observe", "obj/Skills/Telekinisis" )
+		givenSkills = list("/obj/Skills/Buffs/SpecialBuffs/Cursed/Jagan_Eye", "/obj/Skills/Utility/Telepathy", "obj/Skills/Telekinisis" )
 		givenVariables = list("EnhancedHearing", "EnhancedSmell")
 
 		applySecret(mob/p)
