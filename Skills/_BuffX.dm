@@ -5862,7 +5862,7 @@ NEW VARIABLES
 				verb/Protega()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!((p.isInnovative(ELF, "Any") || p.Saga="Keyblade")) && !isInnovationDisable(usr))
+						if(!((usr.isInnovative(ELF, "Any") || usr.Saga="Keyblade")) && !isInnovationDisable(usr))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)

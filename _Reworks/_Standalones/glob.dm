@@ -456,7 +456,10 @@ globalTracker
 // not sure why he made them all variable, but its more flexibility= FALSE
 
 		/// Dainsleif Drain
-		DainsleifDrain = 0.05
+		DainsleifDrainAmount = 0.005
+		DainsleifDrain = FALSE
+
+		
 		infWeaponSoul = TRUE
 		WeaponSoulNames = WSNAMES
 		prayerTargetNames = GODS
