@@ -1202,7 +1202,7 @@ obj/Items/proc/AlignEquip(mob/A, dontUnEquip = FALSE)
 						var/confirm = input(A, "Are you sure you want to draw Dainsleif?") in list("Yes", "No")
 						if(confirm == "No") return
 						s.drawDainsleif(A)
-					s-DainsleifDrain(A)
+					s.DainsleifDrain(A)
 				if(A.NeedsSecondSword() && A.EquippedSword() && !A.EquippedSecondSword())
 					var/found = 0
 					for(var/obj/Items/Sword/s in A)
