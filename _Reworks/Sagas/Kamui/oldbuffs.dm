@@ -37,7 +37,7 @@
 				SpdMult = 1.2 + (level * 0.05)
 				StrMult = 1.2 + (level * 0.05)
 				EndMult = 1.2 + (level * 0.05)
-				passives = list("KiControl" = 1, "HealthPU" = 1, "BleedHit" = 0.5, "Shameful" = level, "Desperation" = level, "Adrenaline" = level / 2, "Underdog" = level / 2, "DemonicDurability" = level)
+				passives = list("KiControl" = 1, "HealthPU" = 1, "BleedHit" = 0.5, "Shameful Display" = level, "Desperation" = level, "Adrenaline" = level / 2, "Underdog" = level / 2, "DemonicDurability" = level)
 
 
 			verb/Life_Fiber_Synchronize()
