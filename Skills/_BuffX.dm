@@ -4055,13 +4055,8 @@ NEW VARIABLES
 		// 		src.Trigger(usr)
 
 		Denjin_Renki
-			ManaCost=100
 			ForMult=2
-			SoftStyle=2
-			StunningStrike=1
-			SpiritHand=1
-			Paralyzing=1
-			passives = list("SoftStyle" = 2, "StunningStrike" = 1, "SpiritHand" = 1, "Paralyzing" = 1)
+			passives = list("SoftStyle" = 2, "StunningStrike" = 1, "SpiritHand" = 2, "Paralyzing" = 1)
 			IconLock='Ripple Arms.dmi'
 			LockX=0
 			LockY=0
@@ -4069,15 +4064,12 @@ NEW VARIABLES
 			Cooldown=120
 			ActiveMessage="projects a disciplined aura as their fists crackle with lightning!"
 			OffMessage="releases their tremendous focus..."
+			adjust(mob/p)
+				passives = list("SoftStyle" = p.SagaLevel, "StunningStrike" = p.SagaLevel/2, "SpiritHand" = p.SagaLevel / 1.25, "Paralyzing" = p.SagaLevel/2)
 			verb/Denjin_Renki()
 				set category="Skills"
 				if(!usr.BuffOn(src))
-					if(usr.SagaLevel<7)
-						src.ManaCost=100
-					if(usr.SagaLevel==7)
-						src.ManaCost=50
-					if(usr.SagaLevel>=8)
-						src.ManaCost=0
+					adjust(usr)
 				src.Trigger(User=usr, Override=TRUE)
 
 		King_Of_Braves
