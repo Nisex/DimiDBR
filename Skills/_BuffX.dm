@@ -11129,12 +11129,8 @@ NEW VARIABLES
 				SpecialBuffLock=1
 				StrMult=1.25
 				ForMult=1.15
-				KillerInstinct = 1
 				RegenMult=0.5
 				VaizardHealth=0.5
-				Curse=1
-				Pursuer=1
-				HardStyle=0.5
 				HitSpark='Hit Effect Satsui.dmi'
 				HitX=-32
 				HitY=-32
@@ -11148,9 +11144,6 @@ NEW VARIABLES
 					if(!altered)
 						passives = list("SpecialBuffLock" = 1,"KillerInstinct" = 0.1 * player.SagaLevel, "Curse" = 1, "Enraged" = player.SagaLevel, \
 						 "SlayerMod" = player.SagaLevel*0.25, "HardStyle" = 0.25 + (player.SagaLevel*0.25), "TechniqueMastery" = player.SagaLevel*0.75)
-						SlayerMod = player.SagaLevel * 0.25
-						HardStyle = 0.25 + (player.SagaLevel * 0.25)
-						TechniqueMastery = player.SagaLevel * 0.75
 					..()
 
 			Kyoi_no_Hado
@@ -11173,7 +11166,7 @@ NEW VARIABLES
 				OffMessage="loses their connection to the Kyoi no Hado..."
 				Trigger(mob/player, Override)
 					if(!altered)
-						passives = list("TechniqueMastery" = player.SagaLevel, "BuffMastery" = player.SagaLevel/2, "LikeWater" = player.SagaLevel-4, "Sunyata" = player.SagaLevel-4, \
+						passives = list("TechniqueMastery" = player.SagaLevel, "BuffMastery" = player.SagaLevel/2, "LikeWater" = player.SagaLevel-2, "Sunyata" = player.SagaLevel-2, \
 						"FluidForm" = 1)
 					..()
 
