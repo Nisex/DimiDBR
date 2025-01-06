@@ -2671,7 +2671,7 @@ obj
 					ActiveMessage="invokes: <font size=+1>BLIZZARD!</font size>"
 					adjust(mob/p)
 						if(!altered)
-							if((usr.isInnovative(ELF, "Any") || usr.Saga="Keyblade") && !isInnovationDisable(p))
+							if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 								Rounds=round(p.getTotalMagicLevel()/5)
 								Knockback=1
 								Distance= 6 + round(p.getTotalMagicLevel()/5)
@@ -2723,7 +2723,7 @@ obj
 					adjust(mob/p)
 						// make it cast a projectile that is like hell zone grenade
 						if(!altered)
-							if((usr.isInnovative(ELF, "Any") || usr.Saga="Keyblade") && !isInnovationDisable(p))
+							if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
 								if(!Using && usr.ManaAmount >= 11)
 									if(!locate(/obj/Skills/Projectile/Blizzara, usr))
 										usr.AddSkill(new/obj/Skills/Projectile/Blizzara)
