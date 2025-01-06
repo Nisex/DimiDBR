@@ -58,7 +58,7 @@ mob/proc/returnNames()
 	var/fileName = "Saves/everyName.json"
 	var/list/fileText = file2text(file(fileName))
 	if(!fexists(file(fileName)))
-		text2file("[]", fileName)
+		text2file("{}", fileName)
 		fileText = file2text(file(fileName))
 	var/list/alreadyExistingNames = json_decode(fileText)
 
@@ -73,7 +73,7 @@ mob/proc/returnNames()
 	var/fileName = "Saves/everyPrayer.json"
 	var/list/fileText = file2text(file(fileName))
 	if(!fexists(file(fileName)))
-		text2file("[]", fileName)
+		text2file("{}", fileName)
 		fileText = file2text(file(fileName))
 	var/list/alreadyExistingPrayers = json_decode(fileText)	
 	/// We want to get all the names, so we can add the mto a list, and use that to select who we wish to pray to... (they should be dead, I think?)
