@@ -790,6 +790,8 @@ mob
 		HasBleedHit()
 			if(passive_handler.Get("BleedHit"))
 				return 1
+			if(passive_handler.Get("Shameful Display"))
+				return 1
 			if(src.GatesActive && src.GatesActive<8)
 				return 1
 			if(src.CheckSpecial("Kaioken"))
@@ -809,8 +811,10 @@ mob
 			if(src.HasHealthPU())
 				if(src.PowerControl>100)
 					Return*=(src.PowerControl/100)
-			if(src.Saga=="Kamui")
-				Return -= (Return / 6) * src.SagaLevel
+			if(passive_handler.Get("Shameful Display"))
+				var/viewCount = getSenketsuViewers()
+				viewCount /= passive_handler.Get("Shameful Display")
+				Return += sqrt(viewCount)
 			if(src.GatesActive && src.GatesActive<8)
 				Return+=(4/src.SagaLevel)
 			return Return
@@ -957,9 +961,12 @@ mob
 			if(!changelingIgnore&&isRace(CHANGELING)&&Anger)
 				return 0
 			Return+=passive_handler.Get("PureDamage")
-			var/stp=src.SaiyanTransPower()
-			if(stp)
-				Return+=stp
+			if(passive_handler.Get("Shameful Display"))
+				var/viewCount = getSenketsuViewers()
+				if(passive_handler.Get("Shameful Display") >= 4)
+					Return += sqrt(viewCount)
+				else
+					Return -= sqrt(viewCount)
 			if(src.DrunkPower())
 				Return+=3
 			if(src.TarotFate=="The Hanged Man")
@@ -1302,6 +1309,13 @@ mob
 				return 0
 			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
 				return 1
+			if(passive_handler.Get("Shameful Display"))
+				var/viewCount = getSenketsuViewers()
+				if(viewCount)
+					if(passive_handler.Get("Shameful Display") >= 4)
+						return 1
+					else
+						return 0
 			if(passive_handler.Get("Flow"))
 				return 1
 			if(src.Secret=="Ripple"&&src.StyleActive)
@@ -1326,6 +1340,10 @@ mob
 				Extra += secretDatum?:getBoon(src, "Senses")
 			if(src.Secret=="Ripple"&&src.StyleActive)
 				Extra+=1
+			if(passive_handler.Get("Shameful Display"))
+				var/viewCount = getSenketsuViewers()
+				if(passive_handler.Get("Shameful Display") >= 4)
+					Extra += sqrt(viewCount)
 			// if(src.Secret=="Vampire"&&src.StyleActive)
 			// 	Extra+=1
 			if(src.Secret=="Haki")
@@ -1342,6 +1360,12 @@ mob
 			if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Senses"))
 				return 0
 			Return+=passive_handler.Get("Instinct")
+			if(passive_handler.Get("Shameful Display"))
+				var/viewCount = getSenketsuViewers()
+				if(passive_handler.Get("Shameful Display") >= 4)
+					Return += sqrt(viewCount)
+				else
+					Return -= sqrt(viewCount)
 			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
 				Return += secretDatum?:getBoon(src, "Senses")
 			if(Target)
@@ -1352,6 +1376,8 @@ mob
 				Return+=1
 			if(Target&&Target.passive_handler.Get("Flow") >= Return)
 				Return+=passive_handler.Get("LikeWater") / 2
+			if(Return < 0)
+				Return = 0
 			return Return
 		HasSoulSteal()
 			if(passive_handler.Get("SoulSteal"))
@@ -2552,8 +2578,6 @@ mob
 		HasSwordPunching()
 			if(passive_handler.Get("SwordPunching"))
 				return 1
-			if(Saga == "Kamui")
-				return 1
 			if(isRace(DEMON)|| (CheckSlotless("Satsui no Hado") && SagaLevel>=6))
 				return 1
 			if(ClothBronze == "Andromeda" && Saga == "Cosmo")
@@ -2581,8 +2605,6 @@ mob
 			if(src.StyleActive=="Rhythm of War")
 				return 0
 			if(src.StyleActive=="West Star")
-				return 0
-			if(src.Saga == "Kamui")
 				return 0
 			if(src.isRace(DEMON) || (CheckSlotless("Satsui no Hado") && SagaLevel>=6))
 				return 0
@@ -2629,8 +2651,6 @@ mob
 			if(src.CheckSlotless("Libra Armory"))
 				return 0
 			if(src.Saga == "Cosmo" && src.ClothBronze=="Andromeda")
-				return 0
-			if(src.Saga == "Kamui")
 				return 0
 			if(src.isRace(DEMON) || (CheckSlotless("Satsui no Hado") && SagaLevel>=6))
 				return 0
@@ -2908,9 +2928,9 @@ mob
 			if((findtext(string,parentType)))
 				return TRUE
 		isInnovative(reqRace, path)
-			if(Saga) return FALSE
+			if(Saga&&Saga!="Keyblade") return FALSE
 			// if(reqRace == HUMAN) return
-			if(isRace(reqRace))
+			if(isRace(reqRace) || path == "Any" && reqRace == ELF && Saga=="Keyblade")
 				if(passive_handler.Get("Innovation"))
 					switch(path)
 						if("Sword")

@@ -5,7 +5,7 @@
 
 mob
 	proc
-
+		
 		AscAvailable()
 			src.potential_ascend(Silent=1)
 			if(race.ascensions.len==0) return
@@ -161,15 +161,14 @@ mob
 			if(defender.KO&&!src.Lethal)
 				val=0
 
-			if(defender.CheckSpecial("Kamui Unite") && defender.GodKi < 1)
-				val+=(1-defender.GodKi)
+			if(defender.CheckSpecial("Kamui Unite") && defender.passive_handler.Get("GodKi") < 1)
 				if(defender.Health<=10)
 					defender.TotalInjury=0
 					defender.TotalFatigue=0
-					defender.Health += (100 * (1 - defender.GodKi))
-					defender.Energy += (100 * (1 - defender.GodKi))
+					defender.Health += (50 * (1 - defender.passive_handler.Get("GodKi")))
+					defender.Energy += (50 * (1 - defender.passive_handler.Get("GodKi")))
 					defender.BPPoison=1
-					defender.GodKi+=0.25
+					defender.passive_handler.Increase("GodKi", 0.25)
 					OMsg(defender, "<font color='red'><font size=+2>[defender] stitches themselves back together with life fibers!</font size></font color>")
 
 
@@ -2027,6 +2026,7 @@ mob
 				spawn(10)
 					s.suffix="*Broken*"//unequip that bitch
 					s.Broken=1//can't be worn (for nyow)
+					s.onBroken()
 					if(s.Glass)
 						OMsg(src, "[src]'s glass weaponry shatters into a million pieces!")
 						del s

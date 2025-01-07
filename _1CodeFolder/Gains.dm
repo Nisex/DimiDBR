@@ -553,6 +553,9 @@ mob
 						src.Death(null, "their phylactery being destroyed!", SuperDead=1, NoRemains=1)
 */
 
+			if(passive_handler.Get("ContinuallyStun"))
+				if(prob(passive_handler.Get("ContinuallyStun")))
+					Stun(src, rand(1,3))
 
 			if(movementSealed)
 				for(var/obj/Seal/S in src)

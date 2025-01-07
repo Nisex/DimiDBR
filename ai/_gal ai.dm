@@ -1964,13 +1964,6 @@ mob/Player/AI
 							if(src.passive_handler.Get("Restoration"))
 								Recover("Mana",1)
 					Recover("Capacity",2)
-					if(locate(/obj/Regenerate, src))
-						if(!src.Regenerating)
-							for(var/obj/Regenerate/A in src)
-								if(A.Level<1)
-									A.Level+=0.1
-									if(A.Level>=1)
-										A.Level=1
 				else
 					Recover("Energy",1)
 

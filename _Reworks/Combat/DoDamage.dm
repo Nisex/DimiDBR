@@ -91,6 +91,12 @@
 	if(!glob.PURE_MOD_POST_CALC)
 		puredmg *= glob.PURE_MODIFIER
 	trueMult += puredmg
+
+	var/lifeFiberRending = passive_handler.Get("Life Fiber Rending")
+	lifeFiberRending *= glob.LIFE_FIBER_RENDING_MODIFIER
+	if(lifeFiberRending)
+		if(defender.KamuiType == "Senketsu" || defender.Secret == "Vampire" || defender.GetSlotless("Life Fiber Hybrid"))
+			trueMult += lifeFiberRending
 	#if DEBUG_DAMAGE
 	log2text("trueMult", "After Puredmg", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")

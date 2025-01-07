@@ -113,6 +113,25 @@ obj/Items
 	var/SwordPunching
 	var/list/passives = list()
 	var/list/current_passives
+
+	proc/onBroken()
+
+
+	proc/setStatLine()
+		switch(Class)
+			if("Light")
+				DamageEffectiveness=1.025
+				AccuracyEffectiveness=0.9
+				SpeedEffectiveness=1.25
+			if("Medium")
+				DamageEffectiveness=1.05
+				AccuracyEffectiveness=0.875
+				SpeedEffectiveness=1
+			if("Heavy")
+				DamageEffectiveness=1.1
+				AccuracyEffectiveness=0.8
+				SpeedEffectiveness=0.8
+
 	proc/startBreaking(dmg, val, mob/owner, mob/attacker, type)
 		if(val > glob.MAX_BREAK_MULT)
 			val = glob.MAX_BREAK_MULT
@@ -1115,15 +1134,17 @@ obj/Items/Symbiotic
 
 	Kamui
 		Unwieldy=1
+		var/wornInform = FALSE
 		KamuiSenketsu
-			// icon='senketsu.dmi'
-			icon='Kamui_Uniform.dmi'
+			icon='senketsu.dmi'
 			name="Senketsu"
+			var/wornByJunketsu = FALSE
 			Techniques=list("/obj/Skills/Buffs/ActiveBuffs/Kamui/KamuiSenketsu")
+
 		KamuiJunketsu
-			// icon='junketsu.dmi'
-			icon='JunKamui_Uniform.dmi'
+			icon='junketsu.dmi'
 			name="Junketsu"
+			var/wornBySenketsu = FALSE
 			Techniques=list("/obj/Skills/Buffs/ActiveBuffs/Kamui/KamuiJunketsu")
 
 /mob/proc/UsingLightSaber()
@@ -1202,7 +1223,6 @@ obj/Items/proc/AlignEquip(mob/A, dontUnEquip = FALSE)
 						var/confirm = input(A, "Are you sure you want to draw Dainsleif?") in list("Yes", "No")
 						if(confirm == "No") return
 						s.drawDainsleif(A)
-					s.DainsleifDrain(A)
 				if(A.NeedsSecondSword() && A.EquippedSword() && !A.EquippedSecondSword())
 					var/found = 0
 					for(var/obj/Items/Sword/s in A)
@@ -1245,6 +1265,23 @@ obj/Items/proc/AlignEquip(mob/A, dontUnEquip = FALSE)
 			else
 				if(istype(src, /obj/Items/Armor))
 					A.equippedArmor = src
+
+				// TODO: replace this whole damn proc with 'onEquip()' calls for items. holy shit just clean up the whole equip code
+				if(istype(src, /obj/Items/Symbiotic/Kamui/KamuiSenketsu))
+					var/obj/Items/Symbiotic/Kamui/KamuiSenketsu/KS = src
+					if(A.Saga=="Kamui" && A.KamuiType == "Junketsu")
+						KS.wornByJunketsu = TRUE
+				if(istype(src, /obj/Items/Symbiotic/Kamui/KamuiJunketsu))
+					var/obj/Items/Symbiotic/Kamui/KamuiJunketsu/KJ = src
+					if(A.Saga=="Kamui" && A.KamuiType == "Senketsu" && A.SagaLevel >= 4 && !KJ.wornBySenketsu)
+						KJ.wornBySenketsu = TRUE
+						A << "A bit of your blood seems to infuse into Junketsu..."
+						src.Techniques += list("/obj/Skills/Buffs/SpecialBuffs/Kamui_Senpu", "/obj/Skills/Buffs/SpecialBuffs/Kamui_Senpu_Zanken")
+					if(A.Saga == "Kamui" && A.KamuiType == "Junketsu" && KJ.wornBySenketsu && !KJ.wornInform)
+						A << "The remanents of the Senketsu wearer's blood have awoken something new in your Kamui!"
+						A << "Kamui Senpu & Kamui Senpu Zanken beckon to your imperial will!"
+						KJ.wornInform = TRUE
+
 				suffix="*Equipped*"
 		else if(istype(src,/obj/Items/Gear/Mobile_Suit))
 			src.suffix="*Equipped*"

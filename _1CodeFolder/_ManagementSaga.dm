@@ -290,15 +290,23 @@ mob/Admin3/verb
 						var/obj/Items/Sword/Medium/Scissor_Blade/SB = new()
 						P.AddItem(SB)
 						var/ScissorBladeClass = input(P, "What class would you like to set the Scissor Blade to?") in list("Light", "Medium", "Heavy")
-						P.SwordClass = ScissorBladeClass
+						SB.Class = ScissorBladeClass
+						SB.setStatLine()
 						P << "A sword weaved from fibers finds its way into a case in your care. (Sheath to put it in it's case.)"
+						P << "Sheer embarassment washes over you, you feel like if you were to wear this, you'd practically be naked...! You can't even imagine if you had to wear it in front of others..."
+						P<<"You are cloaked in unearthly robes... <b>Kamui</b>!"
+						P<<"<i>Let's get naked.</i>"
 
 					else if(P.KamuiType=="Junketsu")
-						P.contents+=new/obj/Items/Symbiotic/Kamui/KamuiJunketsu
-						P.SagaThreshold("Spd", 0.4)
-
-					P<<"You are cloaked in unearthly robes... <b>Kamui</b>!"
-					P<<"<i>Let's get naked.</i>"
+						P.contents += new/obj/Items/Sword/Heavy/Secret_Sword_Bakuzan
+						P.passive_handler.Increase("SwordPunching")
+						P.passive_handler.Increase("CriticalHit", 0.1)
+						P.passive_handler.Increase("CriticalChance", 10)
+						P.passive_handler.Increase("CriticalBlock", 0.1)
+						P.passive_handler.Increase("BlockChance", 10)
+						P.passive_handler.Increase("LikeWater", 2)
+						P.SureHitTimer = 25
+						P.SureDodgeTimer = 25
 
 				if("Magic Knight")
 					P.SagaLevel=1
@@ -353,7 +361,6 @@ mob/Admin3/verb
 						if("A Shield of Kindness")
 							P.KeybladeType="Shield"
 					var/Color=alert(P, "Light or Darkness?", "Keyblade", "Light", "Darkness")
-					P.passive_handler
 					P.AddSkill(new/obj/Skills/Buffs/ActiveBuffs/Keyblade)
 					P<<"You awaken the [P.KeybladeType] of your heart!"
 					P.Saga="Keyblade"
@@ -1207,8 +1214,6 @@ mob
 
 				if("Kamui")
 					if(src.SagaLevel==2)
-						if(src.KamuiType=="Purity")
-							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Resolve)
 						if(src.KamuiType=="Senketsu")
 							var/choice
 							var/confirm
@@ -1219,52 +1224,117 @@ mob
 										confirm=alert(src, "Kamui Senjin makes it so that your Kamui can assume a battle ready form, focused on potent strikes and endurance.  Do you wish to gain this form?", "Kamui Senjin", "Yes", "No")
 									if("Kamui Shippu")
 										confirm=alert(src, "Kamui Shippu makes it so that your Kamui can assume a speedy form, focused on evasion and elusive manuevers.  Do you wish to gain this form?", "Kamui Shippu", "Yes", "No")
+							
 							switch(choice)
 								if("Kamui Senjin")
-									src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiSenjin)
+									src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kamui_Senjin)
+									AddSkill(new/obj/Skills/Queue/Senjin_Shredder)
 									src << "You've attained a new form for your Kamui: Kamui Senjin!"
+									src << "You've obtained Senjin Shredder; requiring Senjin active to shred your opponents against your many blades!"
+
 								if("Kamui Shippu")
-									src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiShippu)
+									src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kamui_Shippu)
+									AddSkill(new/obj/Skills/AutoHit/Shippu_Rush)
 									src << "You've attained a new form for your Kamui: Kamui Shippu!"
+									src << "You've obtained Shippu Rush; requiring Shippu active to rush your opponents down with your jet-like speed!"
+
+							src << "The stares of others still bother you heavily, but not as much anymore!"
+							src << "You can now properly utilize your scissor blade with Decapitation Mode & Sen-i-Soshitsu!"
+							src << "You feel as if your blood may boil over at any moment if you get too angry..."
+							src << "You begin to find strands of Kamui threads occasionally peeking out of your body..."
+							RecovMod *= 2
+
 						else if(src.KamuiType=="Junketsu")
-							src << "With each movement forward towards the realization of your ideals, your resolve strengthens..."
+							src << "You gain the means to form an empire!"
+							var/name = input(src, "What do you want the empire to be named?") as text
+							var/guild/guild = new()
+							guild.name = name
+							guild.id = ++glob.guildIDTicker
+							glob.guilds += guild
+							guild.joinGuild(src)
+							guild.ownerID = src?:UniqueID
+							guild.checkVerbs(src)
+							src << "Your empire, [guild.name], is now created."
+							src << "You gain the means to assign pieces of life fibers to infuse into your subjects; enough for four roles!"
+							AddSkill(new/obj/Skills/Bestow_Life_Fiber/Bestow_Disciplinary_Chair)
+							src << "An Disciplinary Committee Chair, someone to take the harshest of assaults at your walls."
+							AddSkill(new/obj/Skills/Bestow_Life_Fiber/Bestow_Athletic_Chair)
+							src << "An Athletic Committee Chair, someone with the agility to outpace even the fastest."
+							AddSkill(new/obj/Skills/Bestow_Life_Fiber/Bestow_Non_Athletic_Chair)
+							src << "An Non-Athletic Committee Chair, someone to manage the magic of your empire."
+							AddSkill(new/obj/Skills/Bestow_Life_Fiber/Bestow_Information_and_Strategy_Chair)
+							src << "An Information & Strategy Committee Chair, someone to manage the technology of your empire."
+
 					if(src.SagaLevel==3)
-						if(src.KamuiType=="Impulse")
-							if(locate(/obj/Skills/Buffs/SpecialBuffs/KamuiSenjin, src))
-								src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiShippu)
+						if(src.KamuiType=="Senketsu")
+							if(locate(/obj/Skills/Buffs/SpecialBuffs/Kamui_Senjin, src))
+								src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kamui_Shippu)
+								AddSkill(new/obj/Skills/AutoHit/Shippu_Rush)
 								src << "You've attained a new form for your Kamui: Kamui Shippu!"
-							else if(locate(/obj/Skills/Buffs/SpecialBuffs/KamuiShippu, src))
-								src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiSenjin)
+								src << "You've obtained Shippu Rush; requiring Shippu active to rush your opponents down with your jet-like speed!"
+
+							else if(locate(/obj/Skills/Buffs/SpecialBuffs/Kamui_Shippu, src))
+								src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kamui_Senjin)
+								AddSkill(new/obj/Skills/Queue/Senjin_Shredder)
 								src << "You've attained a new form for your Kamui: Kamui Senjin!"
-						else if(src.KamuiType=="Purity")
-							src << "Through your trials, your resolve sharpens, cutting deeper than glass, sharp enough to sever any thread..."
+								src << "You've obtained Senjin Shredder; requiring Senjin active to shred your opponents against your many blades!"
+
+							src << "You can now tweak the size of the life fibers in your scissor blade to your whim!"
+							src << "The stares of others don't bother you so much anymore!"
+
+						else if(src.KamuiType=="Junketsu")
+							src << "You gain a set of life fibers donned into an aggressive, hateful thing - Kamui Junketsu."
+							contents += new/obj/Items/Symbiotic/Kamui/KamuiJunketsu
+
 					if(src.SagaLevel==4)
-						if(src.KamuiType=="Impulse")
-							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiSenjinShippu)
-							src << "Through adapting to your trials and your own impulsive ambition, you've merged the two forms of your Kamui!"
-							src << "Now you can access Senjin Shippu!"
-						else if(src.KamuiType=="Purity")
+						if(src.KamuiType=="Senketsu")
+							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kamui_Senjin_Shippu)
+							src << "Through adapting to your trials and your own impulsive ambition, you've merged the two forms of your Kamui - Senjin Shippu!"
+							src << "You feel as if those eyes on your form just bolster you, instead of hamper you! You feel fully in sync with your Kamui!"
+							src << "You can now tweak the size of the life fibers in your scissor blade to your whim!"
+						else if(src.KamuiType=="Junketsu")
 							src << "Though your body may fail you, your ambition will reach across the world!"
-							src << "Your resolve allows you to force your Kamui to take on a new form: Kamui Senpu!"
-							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiSenpu)
+
 					if(src.SagaLevel==5)
-						if(src.KamuiType=="Impulse")
-							src << "You've united entirely with your Kamui, and you fight as one with no downsides!"
-						else if(src.KamuiType=="Purity")
-							src << "Your resolve allows you to force your Kamui to take on new form: Senpu Zanken!"
-							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiSenpuZanken)
+						if(src.KamuiType=="Senketsu")
+							src << "You've united entirely with your Kamui, and you fight as one with hardly any downsides!"
+							src << "Your whole body has become suffused with life fibers - allowing you to regenerate even the most grievous of wounds!"
+							passive_handler.Increase("Unstoppable", 1)
+							AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
+							for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/R in src)
+								R.RegenerateLimbs=1
+							var/obj/Regenerate/deathRegen = new()
+							deathRegen.Level = 1
+							contents += deathRegen
+
+						else if(src.KamuiType=="Junketsu")
+							var/choice
+							var/confirm
+							while(confirm != "Yes")
+								choice = input("Two paths beckon before you; that of Clothes, or that of Rebellion. You may select to see more before confirming.") in list("Clothes", "Rebellion")
+								var/confirmText
+								if(choice == "Clothes")
+									confirmText = "The path of Shinra Koketsu; to devote your existence towards that of subjugating others beneath the glory of Life Fibers. A path that forsakes Junketsu, but enhances the self with all the glory of Life Fibers have to offer."
+								if(choice == "Rebellion")
+									confirmText = "The path of Junketsu; to show that life fibers are just another thing meant to be brought to heel beneath you. A path that will enhance Junketsu further, pushing the Kamui beyond it's usual limits."
+								confirm = input("[confirmText] <br><br>Are you sure about your decision?") in list("Yes", "No")
+							if(choice == "Clothes")
+								KamuiType = "Shinra Koketsu"
+							
+							if(choice == "Rebellion")
+								src << "placeholder"
+
 					if(src.SagaLevel==6)
 						if(src.KamuiType=="Impulse")
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/R in src)
 								R.RegenerateLimbs=1
-							if(src.RecovMod < 3)
-								src.RecovMod=3
+							src.RecovMod *= 2
+							src << "You gain the ability to unite with your kamui..."
+							src.contents+=new/obj/Skills/Buffs/SpecialBuffs/Kamui_Unite
 							src << "Your being has merged with life fibers."
 						else if(src.KamuiType=="Purity")
 							src << "Unshatterable, your resolve gains a twofold edge...Your goals are nearly within your grasp."
-						src << "You gain the ability to unite with your kamui..."
-						src.contents+=new/obj/Skills/Buffs/SpecialBuffs/Kamui_Unite
 				if("Keyblade")
 					if(src.SagaLevel==2)
 						switch(src.KeybladeType)
@@ -1345,7 +1415,7 @@ mob
 						src << "You develop Thundaga!"
 						src.AddSkill(new/obj/Skills/Projectile/Magic/Meteor)
 						src.AddSkill(new/obj/Skills/Projectile/Magic/Disintegrate)
-						src.AddSkill(new/obj/Skills/Autohit/Magic/Flare)
+						src.AddSkill(new/obj/Skills/AutoHit/Magic/Flare)
 						src << "You develop Meteor!"
 						src << "You develop Disintegrate!"
 						src << "You develop Flare!"

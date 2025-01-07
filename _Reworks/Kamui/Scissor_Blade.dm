@@ -24,7 +24,8 @@ obj
 						if(usr.Saga != "Kamui" || !usr.Saga)
 							usr << "You don't know how to modify the scissor blade!"
 							return
-						SwordClass = input("What class would you like to set the Scissor Blade to?") in list("Light", "Medium", "Heavy")
+						Class = input("What class would you like to set the Scissor Blade to?") in list("Light", "Medium", "Heavy")
+						setStatLine()
 
 					verb/Set_Alternate_Sword_Class()
 						if(usr.Saga == "Kamui" && usr.SagaLevel < 3)

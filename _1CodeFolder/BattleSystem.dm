@@ -75,6 +75,12 @@ mob/proc/Anger(var/Enraged=0)
 					V.Trigger(src)
 					return
 
+		if(CheckActive("Kamui Senketsu") && !CheckSlotless("Life Fiber Berserker") && (!Saga || Saga != "Kamui" || SagaLevel > 1 && SagaLevel < 4))
+			if(Saga == "Kamui" && prob(50 - SagaLevel * 5))
+				GetAndUseSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Life_Fiber_Berserker)
+			else if(!Saga || Saga != "Kamui")
+				GetAndUseSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Life_Fiber_Berserker)
+
 		Anger=AngerMax
 		if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Anger"))
 			Anger *= 1+(secretDatum?:getBoon(src, "Anger")/10)

@@ -23,10 +23,11 @@ proc
 			return
 		if(!m.client)
 			return
-		if(m.InUBW&&m.MadeOfSwords)
-			return
-		if(m.StunImmune)
-			return
+		if(m.Saga != "Kamui" && !m.CheckActive("Kamui Senketsu"))
+			if(m.InUBW&&m.MadeOfSwords)
+				return
+			if(m.StunImmune)
+				return
 		if(m.CheckSlotless("Great Ape"))
 			amount *= 0.75
 		if(m.HasLegendaryPower() > 0.25 || m.passive_handler.Get("Juggernaut"))
@@ -82,7 +83,7 @@ proc
 				var/mod = (mob.HasLegendaryPower() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
 				mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))
 	StunImmuneCheck(mob/mob)
-		if(mob.StunImmune)
+		if(mob.StunImmune && mob.Saga != "Kamui" && !mob.CheckActive("Kamui Senketsu"))
 			if(mob.StunImmune<world.time)
 				mob.StunImmune=0
 			else

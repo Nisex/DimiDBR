@@ -202,6 +202,7 @@ guild
 				return
 			members |= p.UniqueID
 			p.inGuilds |= id
+			p.checkGuildVerbs()
 
 		removeMember(mob/Players/p)
 			if(p.UniqueID in members)

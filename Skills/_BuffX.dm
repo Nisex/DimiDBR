@@ -5565,7 +5565,7 @@ NEW VARIABLES
 					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
+						if(p.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 							VaizardHealth=0.15
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/10)
@@ -5594,7 +5594,7 @@ NEW VARIABLES
 				verb/Shell()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!(usr.isInnovative(ELF, "Any") || usr.Saga="Keyblade") && !isInnovationDisable(usr))
+						if(!(usr.isInnovative(ELF, "Any") && !isInnovationDisable(usr)))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -5627,7 +5627,7 @@ NEW VARIABLES
 					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
+						if(p.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 							VaizardHealth=0.3
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/5)
@@ -5656,7 +5656,7 @@ NEW VARIABLES
 				verb/Barrier()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!((usr.isInnovative(ELF, "Any") || usr.Saga="Keyblade")) && !isInnovationDisable(usr))
+						if(!(usr.isInnovative(ELF, "Any") && !isInnovationDisable(usr)))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -5690,7 +5690,7 @@ NEW VARIABLES
 					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
+						if(p.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 							passives = list("PureReduction" = round(p.getTotalMagicLevel()/10,0.1), "DebuffImmune" = p.getTotalMagicLevel()/20, "Sunyata" = round(p.Potential/10,0.5)) // 5% per 10 pot to negate queues
 							TimerLimit = 15 + p.getTotalMagicLevel()
 							AffectTarget = 0
@@ -5719,7 +5719,7 @@ NEW VARIABLES
 				verb/Protect()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!((p.isInnovative(ELF, "Any") || p.Saga="Keyblade")) && !isInnovationDisable(usr))
+						if(!(usr.isInnovative(ELF, "Any") && !isInnovationDisable(usr)))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -5753,7 +5753,7 @@ NEW VARIABLES
 					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
+						if(p.isInnovative(ELF, "Any")&& !isInnovationDisable(p))
 							VaizardHealth=0.5
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/5)
@@ -5784,7 +5784,7 @@ NEW VARIABLES
 				verb/Resilient_Sphere()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!((usr.isInnovative(ELF, "Any") || usr.Saga="Keyblade")) && !isInnovationDisable(usr))
+						if(!(usr.isInnovative(ELF, "Any") && !isInnovationDisable(usr)))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -5826,7 +5826,7 @@ NEW VARIABLES
 					disableInnovation(usr)
 				adjust(mob/p)
 					if(!altered)
-						if((p.isInnovative(ELF, "Any") || p.Saga="Keyblade") && !isInnovationDisable(p))
+						if(p.isInnovative(ELF, "Any") && !isInnovationDisable(p))
 							passives = list("PureReduction" = round(p.getTotalMagicLevel()/5,0.1), "DebuffImmune" = p.getTotalMagicLevel()/10, "Sunyata" = round(p.Potential/5,0.5)) // 5% per 10 pot to negate queues
 							TimerLimit = 20 + p.getTotalMagicLevel()
 							AffectTarget = 0
@@ -5854,7 +5854,7 @@ NEW VARIABLES
 				verb/Protega()
 					set category="Skills"
 					if(usr.Target==usr&&!altered)
-						if(!((usr.isInnovative(ELF, "Any") || usr.Saga="Keyblade")) && !isInnovationDisable(usr))
+						if(!(usr.isInnovative(ELF, "Any")&& !isInnovationDisable(usr)))
 							usr << "You can't use [name] on yourself!"
 							return
 					adjust(usr)
@@ -12998,19 +12998,7 @@ mob
 				if(s)
 					B.SwordClassOld=s.Class
 					s.Class=B.SwordClass
-					switch(s.Class)
-						if("Light")
-							s.DamageEffectiveness=1.15
-							s.AccuracyEffectiveness=0.9
-							s.SpeedEffectiveness=1.25
-						if("Medium")
-							s.DamageEffectiveness=1.25
-							s.AccuracyEffectiveness=0.8
-							s.SpeedEffectiveness=1
-						if("Heavy")
-							s.DamageEffectiveness=1.35
-							s.AccuracyEffectiveness=0.7
-							s.SpeedEffectiveness=0.8
+					s.setStatLine()
 			if(B.SwordName&&!B.MakesSword)
 				var/obj/Items/Sword/s = src.EquippedSword()
 				if(s)
@@ -13699,19 +13687,7 @@ mob
 				var/obj/Items/Sword/s = src.EquippedSword()
 				if(s)
 					s.Class=B.SwordClassOld
-					switch(s.Class)
-						if("Light")
-							s.DamageEffectiveness=1.15
-							s.AccuracyEffectiveness=0.9
-							s.SpeedEffectiveness=1
-						if("Medium")
-							s.DamageEffectiveness=1.25
-							s.AccuracyEffectiveness=0.8
-							s.SpeedEffectiveness=0.95
-						if("Heavy")
-							s.DamageEffectiveness=1.35
-							s.AccuracyEffectiveness=0.7
-							s.SpeedEffectiveness=0.9
+					s.setStatLine()
 			if(B.SwordName)
 				var/obj/Items/Sword/s = src.EquippedSword()
 				if(s&&s.Password)
