@@ -410,17 +410,20 @@ mob/Players/verb
 			usr<<output(x,"skilltreegrid:[1],[p]")
 			p++
 
+
+
+/globalTracker/var/list/KI_CONTROL_PASSIVES = list("")
+
+
 mob/proc
 	PoweredFormSetup()
 		src << "Powering up to a certain level will activate your Powered Form which will provide a sharp increase in your fighting prowess!"
 		var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC=new
-		var/list/Passives=list("Flicker", "Godspeed", "Pursuer")
-		var/passive = input(src, "Pick a focus") in Passives
-		KC.selectedPassive=passive
+		KC.selectedPassive = input(src, "Pick a focus") in glob.KI_CONTROL_PASSIVES
+		while(length(KC.selectedStats)<3)
+			KC.selectedStats[length(KC.selectedStats)] = input(src, "Pick a stat") in list("Str", "For", "Spd", "End", "Off","Def")
 		KC.init(src)
 		if(src.isRace(MAKYO))
 			KC.icon=src.ExpandBase
 			KC.IconReplace=1
 		src.AddSkill(KC)
-		resetPU = FALSE
-		resetPU1 = FALSE

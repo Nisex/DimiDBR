@@ -605,13 +605,15 @@ NEW VARIABLES
 			ActiveMessage="augments their body with excess energy!"
 			OffMessage="loosens the control on their ki..."
 			var/selectedPassive = "None"
+			var/selectedStats = list()
 			proc/init(mob/p)
 				if(altered) return
 				if(selectedPassive == "None")
 					p.PoweredFormSetup()
-				var/boon = clamp(p.Potential / 50, 1, 2)
-				passives = list("[selectedPassive]" = boon, "KiControl" = 1, "EnergyLeak" = 1)
-
+				passives = list("[selectedPassive]" = 1, "KiControl" = 1, "EnergyLeak" = 1)
+				vars["[selectedStats[1]]Mult"] = 1.15
+				vars["[selectedStats[2]]Mult"] = 1.1
+				vars["[selectedStats[3]]Mult"] = 1.05
 			Trigger(var/mob/User, Override=0)
 				init(User)
 				..()
@@ -7446,7 +7448,7 @@ NEW VARIABLES
 				var/Choice
 				if(!usr.BuffOn(src))
 					var/modify_sword_num = 1
-					if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Dual_Wield_Style) in usr) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style) in usr))
+					if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi) in usr) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style) in usr))
 						var/list/options = list("Primary","Secondary")
 						if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style) in usr)) options += "Tertiary"
 						switch(input("Which sword would you like to modify?") in options)
@@ -7513,7 +7515,7 @@ NEW VARIABLES
 				var/Choice
 				if(!usr.BuffOn(src))
 					var/modify_sword_num = 1
-					if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Dual_Wield_Style) in src) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style) in src))
+					if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi) in src) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style) in src))
 						var/list/options = list("Primary","Secondary")
 						if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style) in src)) options += "Tertiary"
 						switch(input("Which sword would you like to modify?") in options)
@@ -11401,7 +11403,7 @@ mob
 						if(src.StyleBuff.NeedsSword)
 							src << "[src.StyleBuff] can no longer be used without a sword!"
 							src.StyleBuff.Trigger(src, Override=1)
-				if(B.type==/obj/Skills/Buffs/NuStyle/SwordStyle/Champloo_Style)
+				if(B.type==/obj/Skills/Buffs/NuStyle/SwordStyle)
 					if(src.ActiveBuff)
 						if(!src.ActiveBuff.KiBlade && (src.ActiveBuff.NoSword||src.ActiveBuff.UsesStance))
 							src << "[src.ActiveBuff] cannot be used with a sword and no Champloo Style."
