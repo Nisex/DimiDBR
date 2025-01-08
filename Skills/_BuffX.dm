@@ -11835,6 +11835,29 @@ mob
 						src << "You are not advanced enough to use this!"
 						return
 				if(!B.AllOutAttack)
+					if(B.ResourceCost)
+						var/resourceName = B.ResourceCost[1]
+						if(vars[resourceName])
+							// the cost associated exists
+							var/storage = vars[resourceName]
+							var/cost = B.ResourceCost[2]
+							if(storage - cost < 0)
+								src << " you need more [resourceName]"
+								return FALSE
+					if(B.ResourceThreshold)
+						var/resourceName = B.ResourceThreshold[1]
+						if(vars[resourceName])
+							// the cost associated exists
+							var/storage = vars[resourceName]
+							var/threshold = B.ResourceThreshold[2]
+							if(resourceName in list("Health","Energy"))
+								if(storage<threshold*(1-vars["[resourceName]Cut"]))
+									if(!B.Autonomous)
+										src << "You don't have enough [resourceName] to use [B]"
+									return FALSE
+								
+						
+
 					if(B.CorruptionCost)
 						if(src.Corruption - B.CorruptionCost < 0)
 							src << "You need more corruption"
