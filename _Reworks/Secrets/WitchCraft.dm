@@ -57,6 +57,7 @@ mob/Admin3/verb/WitchCheck()
 	icon = 'Icons/NSE/Icons/Thot_book.dmi'
 	var/CurrentEssenceAmount = 0
 	var/TakeEssenceCoolDown = 0
+	var/canPact = 0
 	var/list/PactedList = list()
 	verb/Kill_Essence(mob/M in get_step(usr, usr.dir))
 		set name = "Drain Essence (Lethal)"
@@ -108,10 +109,13 @@ mob/Admin3/verb/WitchCheck()
 	verb/Make_Deal(mob/M in get_step(usr, usr.dir))
 		set name = "Witch Apprenticeship"
 		set category = "Roleplay"
-		SunderSoul(M, usr)
-		checkIfNoPassives(M)
-	
-	verb/FelMasterwork()
+		if(canPact)
+			SunderSoul(M, usr)
+			checkIfNoPassives(M)
+			canPact = FALSE
+		else
+			usr << "You can't pact someone as of this moment! You do have enought potent to make the deal."
+	verb/FelMasterwork() 
 		if(src.CurrentEssenceAmount > 20)
 			var/list/weapons = list()
 			for(var/obj/Items/Sword/Weapon in usr)
