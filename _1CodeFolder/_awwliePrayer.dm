@@ -48,7 +48,7 @@ mob/proc/returnPrayers()
 	var/fileName = "Saves/everyPrayer.json"
 	var/list/fileText = file2text(file(fileName))
 	if(!fexists(file(fileName)))
-		text2file("[]", fileName)
+		text2file("{}", fileName)
 		fileText = file2text(file(fileName))
 	var/list/alreadyExistingPrayers = json_decode(fileText)
 

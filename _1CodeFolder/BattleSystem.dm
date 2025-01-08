@@ -338,6 +338,7 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 						min.assignState()
 						min.name = "[Commas(round(min.value))] Mana Bits"
 						P << "You've gained [totalValue * 1+(P.passive_handler.Get("CashCow")/10)] Mana Bits!"
+						min.checkDuplicate(P)
 					if(!foundMineral)
 						var/obj/Items/mineral/mineral = new()
 						P.contents += mineral
@@ -364,6 +365,7 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 						money.Level += totalValue
 						money.name = "[Commas(round(money.Level))] Cash"
 						P << "You've gained [totalValue * 1+(P.passive_handler.Get("CashCow")/10)] Cash!"
+						money.checkDuplicate(P)
 					if(!foundMoney)
 						var/obj/Money/money = new()
 						P.contents += money
@@ -375,7 +377,7 @@ mob/proc/Death(mob/P,var/text,var/SuperDead=0, var/NoRemains=0, var/Zombie, extr
 						money.Level = totalValue
 						money.name = "[Commas(round(money.Level))] Mana Bits"
 						P << "You've gained [totalValue*1+(P.passive_handler.Get("CashCow")/10)] Cash!"		
-
+			
 	if(text)
 		src.OMessage(20,"[src] was just killed by [text]!","<font color=red>[src] was just killed by [text]!")
 	if(P)

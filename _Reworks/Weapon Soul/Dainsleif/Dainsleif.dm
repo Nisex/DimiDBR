@@ -11,7 +11,7 @@ obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin//Dainsleif
 			p << "You draw the blade from it sheathe and are barely able to contain its immense bloodlust. The sword cries out, waning for blood."
 			OMsg(p, "[p.name] draws their blade from its sheathe and they can barely contain it. The Sword of Ruin wans for blood...")
 		p.dainsleifDrawn = TRUE
-		spawn(20)dainsleifDrain(p)
+		spawn(20) dainsleifDrain(p)
 	proc/onKill(mob/atk, mob/defend)
 		hasKilled = TRUE
 		OMsg(atk, "The Sword of Ruin's blood lust has been sated by [defend.name]'s death!")
@@ -39,37 +39,13 @@ obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin//Dainsleif
 			return TRUE
 
 	proc/dainsleifDrain(mob/p)
-		if(glob.DainsleifDrain && p.dainsleifDrawn)	
+		if(glob.DainsleifDrain && p.dainsleifDrawn)
 			while(p.dainsleifDrawn)
-				sleep(world.tick_lag + 10)
+				sleep(10)
 				if(!p.KO)
 					p.DoDamage(p, glob.DainsleifDrainAmount / p.SagaLevel)
-obj/Skills/Queue/Cursed_Blade
-	ActiveMessage="channels the ruin of their legendary weapon into each and every attack...!"
-	DamageMult=1
-	AccuracyMult=3
-	Combo = 5
-	Shearing = 20
-	SweepStrike=1
-	Warp = 1
-	NoWhiff = 1
-	Duration = 5
-	Cooldown=30
-	NeedsSword=1
-	EnergyCost=5
-	HitSparkIcon='Slash - Zero.dmi'
-	HitSparkX=-32
-	HitSparkY=-32
-	HitSparkSize=1.5
-	adjust(mob/p)
-		if(p.cursedSheathValue)
-			DamageMult = 1.5 + p.cursedSheathValue/200
-			Combo = 5 + p.cursedSheathValue/100
-	verb/Cursed_Blade()
-		set category="Skills"
-		adjust(usr)
-		usr.SetQueue(src)
-
+		else
+			return .
 
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Dainsleif
 	name = "Heavenly Regalia: Ruined World"

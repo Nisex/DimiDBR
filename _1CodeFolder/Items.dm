@@ -31,6 +31,18 @@ obj/Money
 				OMsg(usr, "[usr] steals [Commas(round(Amount))] [glob.progress.MoneyName] from [src.loc]!")
 				usr.GiveMoney(Amount)
 
+	proc/checkDuplicate(mob/p)
+		var/counter = 0
+		var/list/moneyList = list()
+		if(locate(/obj/Money, p))
+			for(var/obj/Money/money in p)
+				counter ++
+				moneyList.Add(money)
+			while(counter > 1)
+				var/obj/choice = input(p, "You have duplicate's of Money, please select which one to delete", "Money") in moneyList
+				moneyList.Remove(choice)
+				counter --
+				del choice
 obj/Items
 	Pickable=1
 	Stealable=1
@@ -1223,6 +1235,7 @@ obj/Items/proc/AlignEquip(mob/A, dontUnEquip = FALSE)
 						var/confirm = input(A, "Are you sure you want to draw Dainsleif?") in list("Yes", "No")
 						if(confirm == "No") return
 						s.drawDainsleif(A)
+					spawn(-1) s.dainsleifDrain(A)
 				if(A.NeedsSecondSword() && A.EquippedSword() && !A.EquippedSecondSword())
 					var/found = 0
 					for(var/obj/Items/Sword/s in A)
