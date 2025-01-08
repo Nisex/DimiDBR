@@ -1147,18 +1147,8 @@ mob
 							src.AddSkill(new/obj/Skills/Queue/Reverse_Lotus)
 							src << "You learned how to unleash the full might of your body in a devastating sequence of strikes: <b>Reverse Lotus</b>!!!"
 						var/Choice=alert(src, "What kind of strikes does your fighting style focus on?", "Martial Art", "Punches", "Kicks", "Both")
-						if(Choice=="Punches")
-							var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style/bls=new
-							bls.Mastery=4
-							bls.SagaSignature=1
-							src.AddSkill(bls)
 						if(Choice=="Kicks")
 							var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style/bls=new
-							bls.Mastery=4
-							bls.SagaSignature=1
-							src.AddSkill(bls)
-						if(Choice=="Both")
-							var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style/bls=new
 							bls.Mastery=4
 							bls.SagaSignature=1
 							src.AddSkill(bls)
