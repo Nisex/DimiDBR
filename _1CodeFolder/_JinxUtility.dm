@@ -1509,7 +1509,7 @@ mob
 					Harden = glob.MAX_HARDEN
 				Mod *= 1 + (src.Harden * (glob.HARDENING_BASE * clamp(src.GetHardening(), 0.1, glob.MAX_HARDENING)))
 			if(src.Shatter)
-				if(!src.HasDebuffImmune()>=1)
+				if(!src.HasDebuffResistance()>=1)
 					if(src.HasDebuffReversal())
 						Mod*=1 + Shatter * glob.DEBUFF_EFFECTIVENESS
 					else
@@ -1598,7 +1598,7 @@ mob
 					else
 						Mod+=0.25*src.passive_handler.Get("BurningShot")
 			if(src.Slow)
-				if(!src.HasDebuffImmune()>=1)
+				if(!src.HasDebuffResistance()>=1)
 					if(src.HasDebuffReversal())
 						Mod*=1 + (Slow * glob.DEBUFF_EFFECTIVENESS)
 					else
@@ -1684,7 +1684,7 @@ mob
 					else
 						Mod+=0.25*passive_handler.Get("BurningShot")
 			if(src.Shock)
-				if(!src.HasDebuffImmune()>=1)
+				if(!src.HasDebuffResistance()>=1)
 					if(src.HasDebuffReversal())
 						Mod*=1 + (Shock * glob.DEBUFF_EFFECTIVENESS)
 					else
@@ -1771,7 +1771,7 @@ mob
 					else
 						Mod+=0.25*passive_handler.Get("BurningShot")
 			if(src.Shock)
-				if(!src.HasDebuffImmune()>=1)
+				if(!src.HasDebuffResistance()>=1)
 					if(src.HasDebuffReversal())
 						Mod*=1 + (Shock * glob.DEBUFF_EFFECTIVENESS)
 					else
@@ -2295,7 +2295,7 @@ mob
 				OMsg(src, "[src] suddenly appears as a result of their binding!")
 
 		SetStasis(var/StasisTime)
-			if(src.HasDebuffImmune())
+			if(src.HasDebuffResistance())
 				StasisTime/=2
 			src.Stasis=StasisTime
 			if(!src.StasisFrozen)

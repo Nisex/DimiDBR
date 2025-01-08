@@ -914,7 +914,7 @@ mob
 									passive_handler.Increase("Desperation")
 									passive_handler.Increase("WeaponBreaker")
 								if("Firm")
-									passive_handler.Increase("DebuffImmune",0.5)
+									passive_handler.Increase("DebuffResistance",0.5)
 									passive_handler.Increase("PureReduction",2)
 						if(5)
 							Adaptation += 0.5

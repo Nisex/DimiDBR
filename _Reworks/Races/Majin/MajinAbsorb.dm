@@ -101,11 +101,11 @@ majinAbsorb/proc/adjustPassive(passiveName, race/race)
                             . += "StealsStats"
                     if("Consistency")
                         . += "Steady"
-                        . += "DebuffImmune"
+                        . += "DebuffResistance"
                         . += "StableBP"
                     if("Both")
                         . += "Steady"
-                        . += "DebuffImmune"
+                        . += "DebuffResistance"
                         . += "StableBP"
                         . += "Adaptation"
                         . += "Flicker"
@@ -116,14 +116,14 @@ majinAbsorb/proc/adjustPassive(passiveName, race/race)
                 switch(newPickslist[2])
                     if("Stability")
                         . += "VenomResistance"
-                        . += "DebuffImmune"
+                        . += "DebuffResistance"
                         . += "Juggernaut"
                     if("Peace")
                         . += "Flow"
                         . += "VoidField"
                     if("Both")
                         . += "VenomResistance"
-                        . += "DebuffImmune"
+                        . += "DebuffResistance"
                         . += "Juggernaut"
                         . += "Flow"
                         . += "VoidField"
@@ -198,7 +198,7 @@ proc/removeDuplicates(list/list1)
             . += "MovementMastery"
         if(ELDRITCH)
             . += "SpaceWalk"
-            . += "DebuffImmune"
+            . += "DebuffResistance"
             . += "VenomResistance"
             . += "SoulFire"
             . += "DeathField"

@@ -45,7 +45,7 @@ obj/proc
 			if(MAKYO)
 				passiveList = list("DemonicDurability"=0.25 * M.SagaLevel, "HeavyHitter"=0.25 * M.SagaLevel)
 			if(DRAGON)
-				passiveList = list("DebuffImmune"=0.15 * M.SagaLevel, "BuffMastery"=0.25 * M.SagaLevel)
+				passiveList = list("DebuffResistance"=0.15 * M.SagaLevel, "BuffMastery"=0.25 * M.SagaLevel)
 			if(GAJALAKA)
 				passiveList = list("DemonicDurability"=0.25 * M.SagaLevel, "CashCow"=0.25 * M.SagaLevel)
 		return passiveList

@@ -36,7 +36,7 @@ var/list/randomPassives = list("PureDamage",
 "Godspeed", "Void", "NoWhiff", "HolyMod", "AbyssMod",
 "VenomImmune", "CounterMaster", "TechniqueMastery",
 "HybridStrike", "SpiritStrike", "Extend", "MovementMastery", "UnlimitedPU",
-"CriticalBlock", "Unstoppable", "DebuffImmune")
+"CriticalBlock", "Unstoppable", "DebuffResistance")
 mob/var/futureDiaryLevel = 0 // maxes out at 4.
 mob/var/whichDiary = 0 /// 1, 2, 3, 4 look for above...
 

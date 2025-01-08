@@ -94,8 +94,8 @@ globalTracker
 
 		progressTracker/progress = new()
 // TESTER
-		TESTER_MODE
-		LIVE_TESTING = 1
+		TESTER_MODE = FALSE
+		LIVE_TESTING = FALSE
 		TESTER_WHITE_LIST = list("Digi-Daisuke","RevealingFortune","Zamas2","Niezan", "Etro", "AMajin", "Redsarge", "Gogeto25",\
  "Tilthour", "Sakata Gintoki San", "Hellbante", "FoxMagnus")
 
@@ -307,7 +307,7 @@ globalTracker
 		HARD_STYLE_RATIO = 0.1
 		CURSED_WOUNDS_RATE = 0.25
 		GLOBAL_EXPONENT_MULT = 1/3
-		GRAPPLE_MELEE_BOON = 1.5
+		GRAPPLE_MELEE_BOON = 1.25
 		GRIPPY_MOD = 0.25
 		CLAMP_POWER = TRUE
 		MIN_POWER_DIFF = 0.5

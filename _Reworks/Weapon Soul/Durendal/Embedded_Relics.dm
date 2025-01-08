@@ -88,7 +88,7 @@ obj/Skills/Buffs/SlotlessBuffs/Durendal_Relics/Saints_Raiment
 	ManaGlow = "#48df66"
 	ManaGlowSize = 1
 	CantHaveTheseBuffs = list("Saints Tooth", "Saints Blood", "Saints Hair")
-	passives = list("PureReduction" = 4, "PureDamage" = -2, "DebuffImmune" = 0.5)
+	passives = list("PureReduction" = 4, "PureDamage" = -2, "DebuffResistance" = 0.5)
 	ActiveMessage = "'s legendary weapon coils up their arm with the Raiment of a Saint."
 	OffMessage = "'s legendary weapon releases their wielder's arm..."
 	adjust(mob/p)

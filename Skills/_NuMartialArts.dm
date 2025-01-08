@@ -78,28 +78,6 @@ obj
 					NoSword=1
 					NoStaff=1
 
-
-					// NEW SHIT
-					Lucha_Libre_Style
-
-						Copyable = 0
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Red_Cyclone_Style")
-						StyleStr=1.15
-						StyleEnd=1.15
-						passives = list("Muscle Power" = 1, "Grippy" = 2, "Scoop" = 1)
-						StyleActive="Lucha Libre"
-						Finisher="/obj/Skills/Queue/Finisher/Hold"
-
-					Red_Cyclone_Style
-						SignatureTechnique=1
-						Copyable=0
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ubermensch_Style")
-						StyleStr=1.15
-						StyleEnd=1.3
-						passives = list("Muscle Power" = 2, "Grippy" = 4, "Scoop" = 2, "Iron Grip" = 1)
-						StyleActive="Red Cyclone"
-						Finisher="/obj/Skills/Queue/Finisher/Leg_Grab"
-
 					Ubermensch_Style
 						SignatureTechnique=2
 						Copyable=0
@@ -109,41 +87,6 @@ obj
 						StyleActive="Ubermensch"
 						Finisher="/obj/Skills/Queue/Finisher/Command_Grab"
 
-
-					Murim_Style
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Shield_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style")
-						StyleStr=1.1
-						StyleEnd=1.1
-						StyleSpd=1.1
-						passives = list("Hardening" = 1)
-						StyleActive="Heavenly"
-						Finisher="/obj/Skills/Queue/Finisher/Heavenly_Storm_Dragon_Emergence"
-						verb/Murim_Style()
-							set hidden=1
-							src.Trigger(usr)
-
-					Turtle_Style
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Crane_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Gentle_Fist_Style",\
-						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Cat_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style")
-						StyleStr=1.1
-						StyleEnd=1.1
-						StyleFor=1.1
-						StyleActive="Turtle"
-						Finisher="/obj/Skills/Queue/Finisher/Iron_Fortress"
-						verb/Turtle_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Crane_Style
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Gentle_Fist_Style",\
-						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Snake_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style")
-						StyleEnd=1.1
-						StyleFor=1.1
-						StyleSpd=1.1
-						StyleActive="Crane"
-						Finisher="/obj/Skills/Queue/Finisher/Fire_Dancer"
-						verb/Crane_Style()
-							set hidden=1
-							src.Trigger(usr)
 
 					Earth_Style
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Water_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style",\
@@ -209,20 +152,6 @@ obj
 							set hidden=1
 							src.Trigger(usr)
 					//Signature Styles T1
-					Wushu_Style
-						SignatureTechnique=1
-						Copyable=0
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon", \
-						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Iron_Fist_Style")
-						StyleStr=1.15
-						StyleEnd=1.15
-						StyleDef=1.15
-						passives = list("Hardening" = 1, "Deflection" = 0.5, "UnarmedDamage" = 1, "CounterMaster" = 1, "Momentum" = 0.5, "Pressure" = 1)
-						StyleActive="Heavenly Dragon Stance"
-						Finisher="/obj/Skills/Queue/Finisher/Heavenly_Dragons_Omniscient_Surge"
-						verb/Wushu_Style()
-							set hidden=1
-							src.Trigger(usr)
 
 
 					Divine_Arts_of_The_Heavenly_Demon
@@ -267,20 +196,6 @@ obj
 						StyleActive="Iron Fist Style"
 						Finisher="/obj/Skills/Queue/Finisher/Chi_Punch"
 						verb/Iron_Fist_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Black_Leg_Style
-						SignatureTechnique=1
-						Copyable=0
-						StyleStr=1.15
-						StyleSpd=1.3
-						StyleActive="Black Leg"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Golden_Kirin_Style",\
-						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Sunlit_Sky_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Devil_Leg_Style")
-						passives = list("UnarmedDamage" = 1, "BlurringStrikes" = 1, "Instinct" = 1)
-						UnarmedDamage=1
-						Finisher="/obj/Skills/Queue/Finisher/Mouton_Shot"
-						verb/Black_Leg_Style()
 							set hidden=1
 							src.Trigger(usr)
 					// Strong_Fist_Style

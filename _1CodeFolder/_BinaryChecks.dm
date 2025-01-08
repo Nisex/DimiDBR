@@ -1155,12 +1155,12 @@ mob
 			return 0
 		GetFatigueImmune()
 			return passive_handler.Get("FatigueImmune")
-		HasDebuffImmune()
-			if(passive_handler.Get("DebuffImmune"))
+		HasDebuffResistance()
+			if(passive_handler.Get("DebuffResistance"))
 				return 1
 			return 0
-		GetDebuffImmune()
-			return passive_handler.Get("DebuffImmune")
+		GetDebuffResistance()
+			return passive_handler.Get("DebuffResistance")
 		HasVenomImmune()
 			if(passive_handler.Get("VenomImmune"))
 				return 1

@@ -46,8 +46,8 @@ proc
 			var/DebuffRate=GetDebuffRate(element, Defense, ForcedDebuff)
 			if(Attacker.SenseUnlocked>5&&Attacker.SenseUnlocked>Attacker.SenseRobbed)
 				DebuffRate+=10*(Attacker.SenseUnlocked-5)
-			if(Defender.HasDebuffImmune())
-				DebuffRate/=1+Defender.GetDebuffImmune()
+			if(Defender.HasDebuffResistance())
+				DebuffRate/=1+Defender.GetDebuffResistance()
 			if(Defender.HasIntimidation())
 				var/Effective=Defender.GetIntimidation()
 				var/Ratio=Attacker.GetIntimidationIgnore(Defender)
@@ -59,7 +59,7 @@ proc
 			if(DebuffRate<0)
 				DebuffRate=0
 /*
-			if(!damageOnly&&!Defender.HasDebuffImmune())
+			if(!damageOnly&&!Defender.HasDebuffResistance())
 				switch(element)
 					if("Fire")
 						if(!Defender.Burn)
@@ -321,8 +321,8 @@ mob
 				if(!src.InfusionElement)
 					src.InfusionElement="Fire"
 				Value/=2
-			if(src.HasDebuffImmune() && !src.passive_handler.Get("BurningShot"))
-				Value/=1+src.GetDebuffImmune()
+			if(src.HasDebuffResistance() && !src.passive_handler.Get("BurningShot"))
+				Value/=1+src.GetDebuffResistance()
 			Value = Value // this makes 100 impossible ?
 			src.Burn+=Value
 			if(Value >=1 && !src.passive_handler.Get("BurningShot"))
@@ -364,8 +364,8 @@ mob
 				if(!src.InfusionElement)
 					src.InfusionElement="Water"
 				Value/=2
-			if(src.HasDebuffImmune())
-				Value/=1+src.GetDebuffImmune()
+			if(src.HasDebuffResistance())
+				Value/=1+src.GetDebuffResistance()
 			Value = Value*(1-(src.Slow/glob.DEBUFF_STACK_RESISTANCE))
 			src.Slow+=Value
 
@@ -409,8 +409,8 @@ mob
 			if(Attunement=="Earth")
 				Value/=2
 
-			if(src.HasDebuffImmune())
-				Value/=1+src.GetDebuffImmune()
+			if(src.HasDebuffResistance())
+				Value/=1+src.GetDebuffResistance()
 			Value = Value*(1-(src.Shatter/glob.DEBUFF_STACK_RESISTANCE))
 			src.Shatter+=Value
 
@@ -448,8 +448,8 @@ mob
 			if(Attunement=="Wind")
 				Value/=2
 
-			if(src.HasDebuffImmune())
-				Value/=1+src.GetDebuffImmune()
+			if(src.HasDebuffResistance())
+				Value/=1+src.GetDebuffResistance()
 			Value = Value*(1-(src.Shock/glob.DEBUFF_STACK_RESISTANCE))
 			src.Shock+=Value
 
@@ -588,33 +588,33 @@ mob
 
 			if(src.Shatter)
 				if(src.Sprayed)
-					src.Shatter-=(src.GetEnd(0.25)+src.GetDef(0.1))*2*(1+src.GetDebuffImmune())
+					src.Shatter-=(src.GetEnd(0.25)+src.GetDef(0.1))*2*(1+src.GetDebuffResistance())
 				else
-					src.Shatter-=(src.GetEnd(0.25)+src.GetDef(0.1))*(1+src.GetDebuffImmune())
+					src.Shatter-=(src.GetEnd(0.25)+src.GetDef(0.1))*(1+src.GetDebuffResistance())
 				if(src.Shatter<=0)
 					src.Shatter=0
 
 			if(src.Slow)
 				if(src.Cooled)
-					src.Slow-=(src.GetEnd(0.25)+src.GetSpd(0.1))*2*(1+src.GetDebuffImmune())
+					src.Slow-=(src.GetEnd(0.25)+src.GetSpd(0.1))*2*(1+src.GetDebuffResistance())
 				else
-					src.Slow-=(src.GetEnd(0.25)+src.GetSpd(0.1))*(1+src.GetDebuffImmune())
+					src.Slow-=(src.GetEnd(0.25)+src.GetSpd(0.1))*(1+src.GetDebuffResistance())
 				if(src.Slow<=0)
 					src.Slow=0
 
 			if(src.Shock)
 				if(src.Stabilized)
-					src.Shock-=(src.GetEnd(0.25)+src.GetSpd(0.1))*2*(1+src.GetDebuffImmune())
+					src.Shock-=(src.GetEnd(0.25)+src.GetSpd(0.1))*2*(1+src.GetDebuffResistance())
 				else
-					src.Shock-=(src.GetEnd(0.25)+src.GetSpd(0.1))*(1+src.GetDebuffImmune())
+					src.Shock-=(src.GetEnd(0.25)+src.GetSpd(0.1))*(1+src.GetDebuffResistance())
 				if(src.Shock<=0)
 					src.Shock=0
 
 			if(src.Crippled)
 				if(src.Sprayed)
-					src.Crippled-=(src.GetSpd(0.25)+src.GetDef(0.1))*2*(1+src.GetDebuffImmune())
+					src.Crippled-=(src.GetSpd(0.25)+src.GetDef(0.1))*2*(1+src.GetDebuffResistance())
 				else
-					src.Crippled-=(src.GetSpd(0.25)+src.GetDef(0.1))*(1+src.GetDebuffImmune())
+					src.Crippled-=(src.GetSpd(0.25)+src.GetDef(0.1))*(1+src.GetDebuffResistance())
 				if(src.Crippled<=0)
 					src.Crippled=0
 
