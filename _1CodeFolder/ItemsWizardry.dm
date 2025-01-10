@@ -2025,7 +2025,7 @@ obj/Items/Enchantment
 				usr.Target.Grabbable=0
 				usr.Target.Incorporeal=1
 				usr.Target.invisibility=90
-				usr.Target.Stasis=120
+				usr.Target.SetStasis(120)
 				usr.Target.StasisSpace=1
 				spawn()animate(usr.Target.client, color = list(-1,0,0, 0,-1,0, 0,0,-1, 0,1,1), time = 5)
 				OMsg(usr, "[usr] locks [usr.Target] in an isolated space!")

@@ -5901,7 +5901,7 @@ obj
 							spawn()
 								LaunchEffect(src.Owner, a, Launcher )
 						if(src.Stasis&&!a:StasisFrozen)
-							a:SetStasis(src.Stasis)
+							a:SetStasis(src.Stasis.world.tick_lag)
 
 						if(src.Striking)
 							src.Owner.HitEffect(a)

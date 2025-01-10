@@ -104,7 +104,7 @@
 		p.Target.Grabbable=0
 		p.Target.Incorporeal=1
 		p.Target.invisibility=90
-		p.Target.Stasis=timer[asc]
+		p.Target.SetStasis(timer[asc])
 		p.Target.StasisSpace=1
 		spawn()animate(p.Target.client, color = list(-1,0,0, 0,-1,0, 0,0,-1, 0,1,1), time = 5)
 		OMsg(usr, "[usr] locks [usr.Target] in an isolated space!")

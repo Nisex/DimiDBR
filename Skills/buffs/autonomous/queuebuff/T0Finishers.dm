@@ -20,4 +20,4 @@
         StrMult=1.1
         EndMult=1.1
         ForMult=1.1
-        passives = list("BuffMastery" = 1, "DebuffResistance" = 1,"TensionLock" = 1)// not sure what 2 do w/ it
+        passives = list("BuffMastery" = 1, "StyleMastery" = 1, "DebuffResistance" = 1,"TensionLock" = 1)// not sure what 2 do w/ it

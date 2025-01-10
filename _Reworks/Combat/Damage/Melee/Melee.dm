@@ -962,6 +962,7 @@
 			return
 
 /mob/var/Momentum = 0
+/mob/var/Fury = 0
 /mob/proc/handlePostDamage()
 	if(passive_handler.Get("Mortal Will"))
 		passive_handler.Increase("MortalStacks")
@@ -975,4 +976,7 @@
 	var/momentum = passive_handler.Get("Momentum")
 	if(momentum)
 		if(prob(glob.BASE_MOMENTUM_CHANCE * momentum))
-			Momentum = clamp( Momentum + momentum/glob.MOMENTUM_DIVISOR, 0 , glob.MAX_MOMENTUM_STACKS)
+			Momentum = clamp( Momentum + momentum/glob.MOMENTUM_DIVISOR, 0 , passive_handler["Relentlessness"] ? 100 :glob.MAX_MOMENTUM_STACKS)
+	if(passive_handler["Fury"])
+		if(prob(glob.BASE_FURY_CHANCE * passive_handler["Fury"]))
+			Fury = clamp(Fury + passive_handler["Fury"]/glob.FURY_DIVISOR, 0, passive_handler["Relentlessness"] ? 100 : glob.MAX_FURY_STACKS)

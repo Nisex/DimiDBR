@@ -6,6 +6,12 @@
 /globalTracker/var/MOMENTUM_BASE_BOON = 0.005
 /globalTracker/var/MOMENTUM_MAX_BOON = 4
 
+/globalTracker/var/BASE_FURY_CHANCE = 20
+/globalTracker/var/MAX_FURY_STACKS = 20
+/globalTracker/var/FURY_DIVISOR = 4
+
+/globalTracker/var/FURY_BASE_BOON = 0.005
+/globalTracker/var/FURY_MAX_BOON = 4
 
 
 /mob/proc/applySoftCC(mob/defender, val)

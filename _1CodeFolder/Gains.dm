@@ -764,6 +764,14 @@ mob
 				src.Harden--
 				if(src.Harden<=0)
 					src.Harden=0
+			if(Momentum)
+				passive_handler["Relentlessness"] ? Momentum - (1 + Momentum/50) : Momentum--
+				if(Momentum <0)
+					Momentum=0
+			if(Fury)
+				passive_handler["Relentlessness"] ? Fury - (1 + Fury/50) : Fury--
+				if(Fury <0)
+					Fury=0
 
 			if(src.SureHitTimerLimit)
 				if(!src.SureHit)

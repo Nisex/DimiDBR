@@ -112,6 +112,10 @@ mob
 			// 	if(defender.MovementCharges<1)
 			// 		defender.MovementChargeBuildUp(val)
 
+
+			if(defender.passive_handler["Dim Mak"])
+				defender.passive_handler.Increase("Dim Mak", val)
+
 			if(defender.VaizardHealth)
 				if(glob.SYMBIOTE_DMG_TEST && CheckSlotless("Symbiote Infection"))
 					val *= glob.SYMBIOTE_DMG_TEST
@@ -1114,74 +1118,39 @@ mob
 		GetRecovMult()
 			return src.RecovMultTotal
 
-		GetMAStr()
-			var/MA=0
-			if(src.StyleBuff)
-				MA=(src.StyleBuff.StyleStr-1)
-				// if(src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus"))
-				// 	MA+=0.3
-				if(src.Secret=="Haki"&&src.secretDatum.secretVariable["HakiSpecialization"]=="Armament")
-					MA+=0.1 * src.secretDatum.currentTier
-				if(src.Secret=="Werewolf"&&!(src.CheckSlotless("Half Moon Form")))
-					MA+=0.1
-				if(src.Secret=="Zombie")
-					MA+=0.1
-			return MA
-		GetMAEnd()
-			var/MA=0
-			if(src.StyleBuff)
-				MA=(src.StyleBuff.StyleEnd-1)
-				if(src.Secret=="Haki")
-					MA+=0.05 * src.secretDatum.currentTier
+		GetMA(stat)
+			if(StyleBuff)
+				var/MA = StyleBuff.vars["Style[stat]"]-1
 
-			return MA
-		GetMAFor()
-			var/MA=0
-			if(src.StyleBuff)
-				MA=(src.StyleBuff.StyleFor-1)
-				if(src.Secret=="Zombie")
-					MA+=0.1
-				if(src.Secret=="Haki")
-					MA+=0.05 * src.secretDatum.currentTier
+				if(passive_handler["StyleMastery"])
+					MA *= 1 + (passive_handler["StyleMastery"]/glob.STYLE_MASTERY_DIVISOR)
 
-			return MA
-		GetMASpd()
-			var/MA=0
-			if(src.StyleBuff)
-				MA=(src.StyleBuff.StyleSpd-1)
-				if(src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus"))
-					MA+=0.2
-			return MA
-		GetMAOff()
-			var/MA=0
-			if(src.StyleBuff)
-				MA=(src.StyleBuff.StyleOff-1)
-				if(src.Secret=="Werewolf"&&(!src.CheckSlotless("Half Moon Form")))
-					MA+=0.2
-				if(src.Secret=="Zombie")
+				if(Secret=="Zombie" && stat in list("Str","For", "Off","Def"))
 					MA+=0.1
-				if(src.Secret=="Haki"&&src.secretDatum.secretVariable["HakiSpecialization"]=="Armament")
-					MA+=0.05 * src.secretDatum.currentTier
-				if(src.Secret=="Haki"&&src.secretDatum.secretVariable["HakiSpecialization"]=="Observation")
-					MA+=0.1 * src.secretDatum.currentTier
-				if(src.Secret=="Ripple")
+				
+				if((Secret=="Werewolf"&&(!CheckSlotless("Half Moon Form"))) && stat in list("Str", "Off"))
 					MA+=0.1
 
-			return MA
-		GetMADef()
-			var/MA=0
-			if(src.StyleBuff)
-				MA=(src.StyleBuff.StyleDef-1)
-				if(src.Secret=="Haki"&&src.secretDatum.secretVariable["HakiSpecialization"]=="Observation")
-					MA+=0.1 * src.secretDatum.currentTier
-				if(src.Secret=="Haki"&&src.secretDatum.secretVariable["HakiSpecialization"]=="Armament")
-					MA+=0.05 * src.secretDatum.currentTier
-				if(src.Secret=="Ripple")
-					MA+=0.2
-				if(src.Secret=="Zombie")
-					MA+=0.1
 
-			return MA
+				if(Secret=="Haki")
+					if(secretDatum.secretVariable["HakiSpecialization"]=="Armament")
+						if(stat=="Str")
+							MA += 0.1 * secretDatum.currentTier
+						else if(stat=="Off"||stat=="Def")
+							MA += 0.05 * secretDatum.currentTier
+					
+					if(secretDatum.secretVariable["HakiSpecialization"]=="Observation")
+						if(stat=="Off"||stat=="Def")
+							MA += 0.1 * secretDatum.currentTier
+
+
+
+					if(stat in list("End","For"))
+						MA += 0.05 * secretDatum.currentTier
+
+
+				return MA
+			return 0
 
 
 		GetStr(var/Mult=1)
@@ -1263,8 +1232,6 @@ mob
 					else
 						Mod+=0.25*passive_handler.Get("BurningShot")
 			if(src.Momentum)
-				if(Momentum>=glob.MAX_MOMENTUM_STACKS)
-					Momentum = glob.MAX_MOMENTUM_STACKS
 				Mod *= 1 + (src.Momentum * (glob.MOMENTUM_BASE_BOON * clamp(src.passive_handler.Get("Momentum"), 0.1, glob.MOMENTUM_MAX_BOON)))
 			if(glob.KOB_GETS_STATS_LOW_LIFE)
 				if(src.SpecialBuff&&(src.SpecialBuff.BuffName=="Genesic Brave"||src.SpecialBuff.BuffName=="Broken Brave"))
@@ -1309,16 +1276,16 @@ mob
 					Str += UnhingedForm
 				else
 					Str += total
-			Str+=src.GetMAStr()
+			Str+=src.GetMA("Str")
 
 
 			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-			// 	Str+=src.Target.GetMAEnd()*0.5
+			// 	Str+=src.Target.GetMA("End")*0.5
 			// else
 			if(src.HasAdaptation())
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)
-						Str+=(src.Target.GetMAEnd()*0.5*src.AdaptationCounter)
+						Str+=(src.Target.GetMA("End")*0.5*src.AdaptationCounter)
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasRestriction("Strength") && Str > 1)
 					Str = 1
@@ -1419,7 +1386,7 @@ mob
 				TotalTax=0.9
 			var/Sub=For*TotalTax
 			For-=Sub
-			For+=src.GetMAFor()
+			For+=src.GetMA("For")
 			if(src.passive_handler.Get("UnhingedForm"))
 				var/UnhingedForm = src.passive_handler.Get("UnhingedForm")
 				var/perRange = UnhingedForm/30
@@ -1433,12 +1400,12 @@ mob
 				else
 					For += total
 			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-			// 	For+=src.Target.GetMAEnd()*0.5
+			// 	For+=src.Target.GetMA("End")*0.5
 			// else
 			if(src.HasAdaptation())
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)
-						For+=(src.Target.GetMAEnd()*0.5*src.AdaptationCounter)
+						For+=(src.Target.GetMA("End")*0.5*src.AdaptationCounter)
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasRestriction("Force") && For > 1)
 					For = 1
@@ -1505,8 +1472,11 @@ mob
 					if(src.Health<=25*(1-src.HealthCut))
 						Mod+=min(10/src.Health,1)
 			if(src.Harden)
-				if(Harden>=glob.MAX_HARDEN)
-					Harden = glob.MAX_HARDEN
+				var/max = glob.MAX_HARDEN
+				if(passive_handler["IronMantle"])
+					max = 999
+				if(Harden>=max)
+					Harden = max
 				Mod *= 1 + (src.Harden * (glob.HARDENING_BASE * clamp(src.GetHardening(), 0.1, glob.MAX_HARDENING)))
 			if(src.Shatter)
 				if(!src.HasDebuffResistance()>=1)
@@ -1531,14 +1501,14 @@ mob
 				TotalTax=0.9
 			var/Sub=End*TotalTax
 			End-=Sub
-			End+=src.GetMAEnd()
+			End+=src.GetMA("End")
 			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-			// 	End+=(src.Target.GetMAStr()+src.Target.GetMAFor())*0.5
+			// 	End+=(src.Target.GetMA("Str")+src.Target.GetMA("For"))*0.5
 			// else
 			if(src.HasAdaptation())
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)
-						End+=((src.Target.GetMAStr()+src.Target.GetMAFor())*0.5*src.AdaptationCounter)
+						End+=((src.Target.GetMA("Str")+src.Target.GetMA("For"))*0.5*src.AdaptationCounter)
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasRestriction("Endurance") && End > 1)
 					End = 1
@@ -1583,6 +1553,8 @@ mob
 					Mod+=(0.05 * AscensionsAcquired)
 			if(src.SpdStolen)
 				Mod+=src.SpdStolen*0.5
+			if(src.Fury)
+				Mod *= 1 + (src.Fury * (glob.FURY_BASE_BOON * clamp(src.passive_handler.Get("Fury"), 0.1, glob.FURY_MAX_BOON)))
 			var/BM=src.HasBuffMastery()
 			if(BM)
 				if(Mod<=glob.BUFF_MASTERY_LOWTHRESHOLD)
@@ -1636,14 +1608,14 @@ mob
 					Spd += UnhingedForm
 				else
 					Spd += total
-			Spd+=src.GetMASpd()
+			Spd+=src.GetMA("Spd")
 			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-			// 	Spd+=src.Target.GetMASpd()*0.5
+			// 	Spd+=src.Target.GetMA("Spd")*0.5
 			// else
 			if(src.HasAdaptation())
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)
-						Spd+=(src.Target.GetMASpd()*0.5*src.AdaptationCounter)
+						Spd+=(src.Target.GetMA("Spd")*0.5*src.AdaptationCounter)
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasRestriction("Speed") && Speed > 1)
 					Speed = 1
@@ -1717,14 +1689,14 @@ mob
 					Off += UnhingedForm
 				else
 					Off += total
-			Off+=src.GetMAOff()
+			Off+=src.GetMA("Off")
 			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-			// 	Off+=src.Target.GetMADef()*0.5
+			// 	Off+=src.Target.GetMA("Def")*0.5
 			// else
 			if(src.HasAdaptation())
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)
-						Off+=(src.Target.GetMADef()*0.5*src.AdaptationCounter)
+						Off+=(src.Target.GetMA("Def")*0.5*src.AdaptationCounter)
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasRestriction("Offense") && Off > 1)
 					Off = 1
@@ -1793,14 +1765,14 @@ mob
 				TotalTax=0.9
 			var/Sub=Def*TotalTax
 			Def-=Sub
-			Def+=src.GetMADef()
+			Def+=src.GetMA("Def")
 			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-			// 	Def+=src.Target.GetMAOff()*0.5
+			// 	Def+=src.Target.GetMA("Off")*0.5
 			// else
 			if(src.HasAdaptation())
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)
-						Def+=(src.Target.GetMAOff()*0.5*src.AdaptationCounter)
+						Def+=(src.Target.GetMA("Off")*0.5*src.AdaptationCounter)
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasRestriction("Defense") && Def > 1)
 					Def = 1
@@ -2296,7 +2268,7 @@ mob
 
 		SetStasis(var/StasisTime)
 			if(src.HasDebuffResistance())
-				StasisTime/=2
+				StasisTime/=min(1.5,passive_handler["DebuffResistance"])
 			src.Stasis=StasisTime
 			if(!src.StasisFrozen)
 				src.StasisEffect("Form")

@@ -592,6 +592,7 @@
 #include "Skills\_UtilityX.dm"
 #include "Skills\autohit\T0Finishers.dm"
 #include "Skills\buffs\autonomous\queuebuff\T0Finishers.dm"
+#include "Skills\buffs\autonomous\queuebuff\T1Finishers.dm"
 #include "Skills\buffs\races\beastman\beastmanbuffs.dm"
 #include "Skills\projectiles\races\beastman\beastmanprojectiles.dm"
 #include "Skills\queues\finishers\T0Finishers.dm"

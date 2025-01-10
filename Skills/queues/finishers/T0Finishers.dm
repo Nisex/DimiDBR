@@ -71,4 +71,4 @@
         DamageMult = 1.5
         KBAdd = 3
         Projectile="/obj/Skills/Projectile/Beams/Kamehameha"
-		ProjectileBeam=1
+        ProjectileBeam=1

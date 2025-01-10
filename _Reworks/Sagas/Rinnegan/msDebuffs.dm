@@ -72,7 +72,7 @@ obj/blades
 		target.Grabbable = 0
 		target.Incorporeal = 1
 		target.invisibility = 90
-		target.Stasis = TimerLimit
+		target.SetStasis(TimerLimit)
 		target.StasisSpace = 1
 
 	proc/animateTorture(mob/target)

@@ -6851,7 +6851,7 @@ obj
 					m.AddShearing(Shearing,src.Owner)
 
 				if(src.Stasis)
-					m.SetStasis(src.Stasis)
+					m.SetStasis(src.Stasis*world.tick_lag)
 
 				if(src.Launcher&&!src.DelayedLauncher)
 					var/Time=src.Launcher
