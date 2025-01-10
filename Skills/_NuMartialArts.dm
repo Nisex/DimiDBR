@@ -1040,18 +1040,6 @@ obj
 					NeedsSword=0
 					NoSword=0
 					NoStaff=0
-					Shield_Style
-						StyleEnd=1.5
-						StyleDef=1.5
-						StyleSpd=0.8
-						StyleStr=1.2
-						StyleActive="Shield"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield")
-						passives = list("Hardening" = 1)
-						Finisher="/obj/Skills/Queue/Finisher/Shield_Bash"
-						verb/Shield_Style()
-							set hidden = 1
-							src.Trigger(usr)
 
 					Feral_Style
 						StyleStr=1.3

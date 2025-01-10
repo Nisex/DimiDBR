@@ -1,7 +1,8 @@
 /obj/Skills/Buffs/NuStyle/UnarmedStyle
 	Lucha_Libre_Style
 		Copyable = 0
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Red_Cyclone_Style")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Red_Cyclone_Style", \
+				"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Shaolin_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wing_Chun_Style")
 		StyleStr=1.15
 		StyleEnd=1.15
 		passives = list("Muscle Power" = 1, "Grippy" = 2, "Scoop" = 1)
@@ -15,14 +16,15 @@
 		StyleStr=1.1
 		StyleEnd=1.1
 		StyleSpd=1.1
-		passives = list("Hardening" = 1)
+		passives = list("Momentum" = 1)
 		StyleActive="Heavenly"
 		Finisher="/obj/Skills/Queue/Finisher/Heavenly_Storm_Dragon_Emergence"
 		verb/Murim_Style()
 			set hidden=1
 			src.Trigger(usr)
 	Shaolin_Style
-		StyleComboUnlock=list()
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tai_Chi_Style",\
+		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lucha_Libre_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wing_Chun_Style")
 		StyleStr=1.05
 		StyleFor=1.05
 		StyleEnd=1.05
@@ -35,28 +37,27 @@
 		verb/Shaolin_Style()
 			set hidden=1
 			src.Trigger(usr)
-
-
-
 	Turtle_Style
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Crane_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Gentle_Fist_Style",\
-		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Cat_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Shaolin_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tai_Chi_Style",\
+		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Shield_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg")
 		StyleStr=1.1
 		StyleEnd=1.1
 		StyleFor=1.1
 		StyleActive="Turtle"
-		Finisher="/obj/Skills/Queue/Finisher/Iron_Fortress"
+		passives = list("Flow" = 1, "Instinct" = 1 )
+		Finisher="/obj/Skills/Queue/Finisher/Four_Virtues"
 		verb/Turtle_Style()
 			set hidden=1
 			src.Trigger(usr)
-	Crane_Style
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Gentle_Fist_Style",\
-		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Snake_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style")
-		StyleEnd=1.1
-		StyleFor=1.1
-		StyleSpd=1.1
-		StyleActive="Crane"
-		Finisher="/obj/Skills/Queue/Finisher/Fire_Dancer"
-		verb/Crane_Style()
-			set hidden=1
+	Shield_Style
+		StyleEnd=1.2
+		StyleSpd=0.9
+		StyleStr=1.2
+		StyleActive="Shield"
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield", \
+		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg")
+		passives = list("Hardening" = 1)
+		Finisher="/obj/Skills/Queue/Finisher/Shield_Bash"
+		verb/Shield_Style()
+			set hidden = 1
 			src.Trigger(usr)

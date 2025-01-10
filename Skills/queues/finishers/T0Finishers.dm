@@ -46,4 +46,29 @@
         KBAdd = 3
         PushOut=1
         PushOutWaves=1
-         HitMessage="channels the force of Arhat!"
+        HitMessage="channels the force of Arhat!"
+    
+    Four_Virtues
+        FollowUp="/obj/Skills/Queue/Finisher/Tranquility"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Unlocked_Potential"
+        Warp = 3
+        DamageMult = 1.5
+        Launcher = 5
+        PushOut=1
+        PushOutWaves=1
+        HitMessage=""
+
+    Tranquility
+        FollowUp="/obj/Skills/Queue/Finisher/Ultimate_Fist"
+        Warp = 3
+        DamageMult = 1.5
+        Dunker = 1
+        PushOut=1
+        PushOutWaves=1
+        HitMessage=""
+    
+    Ultimate_Fist
+        DamageMult = 1.5
+        KBAdd = 3
+        Projectile="/obj/Skills/Projectile/Beams/Kamehameha"
+		ProjectileBeam=1
