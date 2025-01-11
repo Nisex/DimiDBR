@@ -1,47 +1,11 @@
-/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Death_Mark
-    passives = list("Dim Mak" = 0.01)
-    TimerLimit = 30
-    Level = 1
-    IconLock='RosePetals.dmi'
-    adjust(timer, lvl)
-        TimerLimit = timer
-        Level = lvl
-    Trigger(mob/User, Override)
-        if(User.BuffOn(src))
-            // we r calling an end to it
-            var/damage2do = User.passive_handler["Dim Mak"]
-            User.passive_handler.Set("Dim Mak", 0.01)
-            damage2do /= min(1,100-15 * Level)// applier's style tier
-        . = ..()
-        
-/obj/Skills/AutoHit/One_Inch_Finisher
-    UnarmedOnly=1
-    FlickAttack=1
-    Area="Strike"
-    StrOffense=2
-    DamageMult=3
-    Stunner=3
-    Rush=3
-    RushDelay=0.1
-    ControlledRush=1
-    Knockback=0
-    Quaking=4
-    PreShockwave=1
-    PreShockwaveDelay=1
-    PostShockwave=0
-    Shockwaves=2
-    Shockwave=0.5
-    ShockIcon='KenShockwaveFocus.dmi'
-    ShockBlend=2
-    ShockDiminish=1.15
-    ShockTime=4
-    ActiveMessage="curls up their fingers into a fist and delivers a crushing blow!!!"
+
 
 /obj/Skills/Queue/Finisher
     Dark_Dragon_Commandment
         Combo=5
         DamageMult=0.5
         Instinct=2
+        InstantStrikes = 5
         FollowUp="/obj/Skills/Autohit/One_Inch_Finisher"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Wing_Chun_Essence"
 

@@ -78,16 +78,6 @@ obj
 					NoSword=1
 					NoStaff=1
 
-					Ubermensch_Style
-						SignatureTechnique=2
-						Copyable=0
-						StyleEnd=1.3
-						StyleStr=1.3
-						passives = list("Muscle Power" = 4, "Grippy" = 5, "Scoop" = 2, "Iron Grip" = 1, "DeathField" = 3)
-						StyleActive="Ubermensch"
-						Finisher="/obj/Skills/Queue/Finisher/Command_Grab"
-
-
 					Earth_Style
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Water_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style",\
 						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wind_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style")
@@ -152,23 +142,6 @@ obj
 							set hidden=1
 							src.Trigger(usr)
 					//Signature Styles T1
-
-
-					Divine_Arts_of_The_Heavenly_Demon
-						// to stop runtimes
-						SignatureTechnique=2
-						Copyable=0
-						passives = list("Hardening" = 1.5, "Deflection" = 1, "UnarmedDamage" = 1.5, "CounterMaster" = 3, "Momentum" = 1, "Pressure" = 2, "SwordPunching" = 1, "NeedsSword" = 0, "NoSword" = 1)
-						NeedsSword=0
-						NoSword=1
-						SwordPunching=1
-						StyleStr=1.3
-						StyleEnd=1.3
-						StyleActive="Divine Arts of The Heavenly Demon"
-						Finisher="/obj/Skills/Queue/Finisher/Divine_Finisher"
-						verb/Divine_Arts_of_The_Heavenly_Demon_Style()
-							set hidden=1
-							src.Trigger(usr)
 						
 					Heavenly_Demon_T3
 						name = "Heavenly Demon's Chaotic Way of Shattered Realms"

@@ -39,7 +39,7 @@
 			src.Trigger(usr)
 	Turtle_Style
 		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Shaolin_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tai_Chi_Style",\
-		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Shield_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg")
+		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Fire_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg")
 		StyleStr=1.1
 		StyleEnd=1.1
 		StyleFor=1.1
@@ -54,8 +54,7 @@
 		StyleSpd=0.9
 		StyleStr=1.2
 		StyleActive="Shield"
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield", \
-		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield")
 		passives = list("Hardening" = 1)
 		Finisher="/obj/Skills/Queue/Finisher/Shield_Bash"
 		verb/Shield_Style()

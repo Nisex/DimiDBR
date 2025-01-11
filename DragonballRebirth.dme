@@ -591,6 +591,7 @@
 #include "Skills\_TeleportX.dm"
 #include "Skills\_UtilityX.dm"
 #include "Skills\autohit\T0Finishers.dm"
+#include "Skills\autohit\T1Finishers.dm"
 #include "Skills\buffs\autonomous\queuebuff\T0Finishers.dm"
 #include "Skills\buffs\autonomous\queuebuff\T1Finishers.dm"
 #include "Skills\buffs\races\beastman\beastmanbuffs.dm"
@@ -640,6 +641,7 @@
 #include "Skills\sorted\T5\universal.dm"
 #include "Skills\styles\t0martialstyles.dm"
 #include "Skills\styles\t1martialstyles.dm"
+#include "Skills\styles\t2martialstyles.dm"
 #include "Skills\utility\races\beastman\beastmanutility.dm"
 #include "UpdateNotes\update.dm"
 // END_INCLUDE
