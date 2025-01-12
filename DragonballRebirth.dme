@@ -475,6 +475,7 @@
 #include "_Reworks\Sagas\Kamui\kamui.dm"
 #include "_Reworks\Sagas\Kamui\oldbuffs.dm"
 #include "_Reworks\Sagas\Kamui\Senketsu.dm"
+#include "_Reworks\Sagas\Kamui\Shinra_Koketsu.dm"
 #include "_Reworks\Sagas\Mecha\KoC\buffs.dm"
 #include "_Reworks\Sagas\Mecha\KoC\courage.dm"
 #include "_Reworks\Sagas\Mecha\KoC\skills.dm"
