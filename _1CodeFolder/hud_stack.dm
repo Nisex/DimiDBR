@@ -5,7 +5,7 @@
 	layer = FLOAT_LAYER
 	blend_mode = BLEND_INSET_OVERLAY
 	proc/animateBar(x_offset, time2death)
-		animate(src, pixel_x = x_offset, time=time2death, easing = SINE_EASING)
+		animate(src, pixel_x = x_offset, time=time2death, easing = LINEAR_EASING)
 /obj/Container
 	appearance_flags = KEEP_TOGETHER
 	icon = 'smallbar.dmi'
@@ -57,14 +57,23 @@ client/proc/remove_hud(id)
 		client.screen+=barbg
 		meter.animateBar(-32,4)
 	Update()
-		barbg.maptext = "<small>[client.mob.vars["[linked_var]"]]"
-		var/gap = 32 - glob.vars["MAX_[uppertext(linked_var)]_STACKS"] 
-		if(client.mob.vars["[linked_var]"] > glob.vars["MAX_[uppertext(linked_var)]_STACKS"] )
-			meter.animateBar(clamp(client.mob.vars["[linked_var]"]/3, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
+		var/val = client.mob.vars["[linked_var]"]
+		if(val > 0)
+			if(holder.alpha == 0 || barbg.alpha == 0)
+				animate(holder, alpha = 255, time = 2)
+				animate(barbg, alpha = 255, time = 2)
+			barbg.maptext = "<small>[val]"
+			var/gap = 32 - glob.vars["MAX_[uppertext(linked_var)]_STACKS"] 
+			if(val > glob.vars["MAX_[uppertext(linked_var)]_STACKS"] )
+				meter.animateBar(clamp(val/3, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
+			else
+				if(val <= gap)
+					gap = 0
+				meter.animateBar(clamp(val+gap, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
 		else
-			if(client.mob.vars["[linked_var]"] <= gap)
-				gap = 0
-			meter.animateBar(clamp(client.mob.vars["[linked_var]"]+gap, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
+			animate(holder, alpha = 0, time = 2)
+			animate(barbg, alpha = 0, time = 2)
+
 
 #define BAR_X_LOCS list("Fury" = 1, "Momentum" = 1, "Harden" = 1)
 #define BAR_Y_LOCS list("Fury" = 80, "Momentum" = 124, "Harden" = 168)
