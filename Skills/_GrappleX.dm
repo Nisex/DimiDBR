@@ -128,6 +128,7 @@ obj/Skills/Grapple
 		EffectMult=2
 		OneAndDone=1
 		Effect="MuscleBuster"
+		HarderTheyFall = 3
 		TriggerMessage = "starts spinning"
 
 	Heavenly_Potemkin_Buster
@@ -136,8 +137,18 @@ obj/Skills/Grapple
 		EndRate=0.75
 		OneAndDone = 1
 		EffectMult=3
+		HarderTheyFall = 4
 		Effect="PotemkinBuster"
 
+	Ryukoha
+		DamageMult = 6
+		HarderTheyFall = 1.5
+		EffectMult=1.5
+		Effect="Lotus"
+		OneAndDone = 1
+		EndRate=0.75
+		StrRate=0.75
+		
 
 	Lotus_Drop
 		DamageMult=5

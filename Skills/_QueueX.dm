@@ -88,19 +88,19 @@ obj
 
 
 
-			var/SpiritStrike//Targets End with Force
-			var/HybridStrike//For+Str
-			var/SpiritHand//Sunlight stance
-			var/SpiritSword//duh
-			var/KiBlade//duh
+			var/SpiritStrike //Targets End with Force
+			var/HybridStrike //For+Str
+			var/SpiritHand //Sunlight stance
+			var/SpiritSword //duh
+			var/KiBlade //duh
 			var/PridefulRage
 
 			var/ManaGain
 
 			//Instinct //Ignore AIS/WS
 			var/Steady //It do what steady do.
-			var/WeaponBreaker//WHAT DO U THINK?!
-			var/MortalBlow//WHHHHHHHHHHHAAAAAAAAAA-
+			var/WeaponBreaker //WHAT DO U THINK?!
+			var/MortalBlow //WHHHHHHHHHHHAAAAAAAAAA-
 
 			var/HitSparkIcon//you
 			var/HitSparkX//know
@@ -182,18 +182,6 @@ obj
 				Generic_Finisher
 					name="Finishing Blow"
 
-				Command_Grab
-					Instinct=2
-					Grapple=1
-					KBMult=0.001
-					SweepStrike=2
-					Crushing = 20
-					DamageMult = 4
-					UnarmedOnly=1
-					GrabTrigger="/obj/Skills/Grapple/Heavenly_Potemkin_Buster"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Potemkin_Buster"
-					HitMessage="grabs hold of their enemy!"
-
 				Cycle_of_Samsara
 					adjust(mob/p)
 						switch(Mastery)
@@ -221,31 +209,6 @@ obj
 					DamageMult=1
 					KBAdd = 0.01
 					InstantStrikes=4
-
-
-				Divine_Finisher
-					name = "Heavenly Demon's Radiant Divine Palm that Shatters the Nine Heavens and Illuminates the Eternal Night"
-					Warp = 10
-					Bolt = 1
-					Shining = 1
-					Explosive = 1
-					Instinct = 2
-					PushOut=1
-					PushOutWaves=4
-					SweepStrike=2
-					Decider=4
-					DamageMult=3
-					KBAdd = 0.01
-					FollowUp="/obj/Skills/AutoHit/The_Heavenly_Demons_Fist_That_Cleaves_Through_Heaven_And_Divides_The_Sea"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Emergent_Demon_Breakthrough"
-
-				Chi_Punch
-					Warp = 4
-					DamageMult=1
-					Launcher=7
-					KBAdd = 0.01
-					FollowUp="/obj/Skills/AutoHit/Chi_Punch"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Chi_Augmentation"
 
 				Iron_Fortress
 					Shattering=20

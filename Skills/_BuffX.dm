@@ -9556,13 +9556,6 @@ NEW VARIABLES
 						OffMessage="completes the Cat Kata..."
 
 					//t1 sig styles
-					Emergent_Demon_Breakthrough
-						StyleNeeded="Divine Arts of The Heavenly Demon"
-						passives = list("Hardening" = 1.5, "Deflection" = 2, "UnarmedDamage" = 2, "CounterMaster" = 10, "Momentum" = 2, "CallousedHands" = 0.3)
-						StrMult=1.5
-						SpdMult=1.5
-						ActiveMessage="presses on the cusp of the Ultimate Heavenly Demon Realm!"
-						OffMessage="fails their tribulation..."
 					Chi_Augmentation
 						StyleNeeded="Iron Fist Style"
 						passives = list("Godspeed" = 3, "UnarmedDamage" = 2, "StunningStrike" = 3, "CallousedHands" = 0.5, "HardenedFrame" = 1, "EnergySteal" = 100)

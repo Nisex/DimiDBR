@@ -28,6 +28,22 @@ obj
 
 //Martial
 			NuStyle
+				var/tensionStorage = 0
+				var/last_storage = 0
+				var/tmp/triggerTension 
+				proc/turnOff(mob/p)
+					tensionStorage = p.Tension
+					last_storage = world.time
+					Trigger(usr, 1)
+					cooldown_remaining = 0
+				proc/giveBackTension(mob/p)
+					if(last_storage + 1200 > world.time) // this should never happen ?
+						// we can give it back
+						if(tensionStorage)
+							p.Tension = tensionStorage
+							tensionStorage = 0
+					else
+						tensionStorage = 0
 				skillDescription()
 					..()
 					if(StyleStr)
@@ -158,19 +174,6 @@ obj
 						StyleDef=1
 						StyleFor=1
 						Finisher="/obj/Skills/Queue/Finisher/Cycle_of_Samsara"
-						
-
-					Iron_Fist_Style
-						passives = list("Deflection" = 2, "UnarmedDamage" = 2, "HardStyle" = 2, "HeavyHitter"= 0.5)
-						StyleStr=1.3
-						StyleOff=1.3
-						SignatureTechnique=2
-						Copyable=0
-						StyleActive="Iron Fist Style"
-						Finisher="/obj/Skills/Queue/Finisher/Chi_Punch"
-						verb/Iron_Fist_Style()
-							set hidden=1
-							src.Trigger(usr)
 					// Strong_Fist_Style
 					// 	SignatureTechnique=1
 					// 	Copyable=0
