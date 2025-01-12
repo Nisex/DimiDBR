@@ -16,6 +16,6 @@
 	var/defInjuries = defender ? defender.TotalInjury/100 : 0
 	. = 0
 	if(bonusRatio)
-		. +=  round(((atkVal * bonusRatio) * passive_handler.Get("Desperation")) * injuries, 0.01) * glob.DESP_DMG_MULTIPLIER
+		. +=  round(((atkVal * bonusRatio) * passive_handler.Get("Desperation")) * injuries, 0.01) * glob.UNDERDOG_DMG_MULTIPLER
 	if(defBonusRatio)
-		. -=  round(((defVal * defBonusRatio) * defender.passive_handler.Get("Desperation")) * defInjuries, 0.01) * glob.DESP_DMG_REDUCTION
+		. -=  round(((defVal * defBonusRatio) * defender.passive_handler.Get("Desperation")) * defInjuries, 0.01) * glob.UNDERDOG_RED_MULTIPLER

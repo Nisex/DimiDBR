@@ -220,7 +220,7 @@ mob
 							tensionGain = passive_handler.Get("Antsy")/10
 						src.Tension+=(val) * (glob.TENSION_MULTIPLIER + tensionGain)
 
-				if(defender.StyleBuff&&defender.StyleBuff)
+				if(defender.StyleBuff&&defender.StyleBuff) //TODO finish this
 					if(defender.Tension<100 && !defender.HasTensionLock())
 						defender.Tension+=(val*0.75) * glob.TENSION_MULTIPLIER
 			var/leakVal = val/GLOBAL_LEAK_REDUCTION
@@ -1472,7 +1472,7 @@ mob
 					if(src.Health<=25*(1-src.HealthCut))
 						Mod+=min(10/src.Health,1)
 			if(src.Harden)
-				var/max = glob.MAX_HARDEN
+				var/max = glob.MAX_HARDEN_STACKS
 				if(passive_handler["IronMantle"])
 					max = 999
 				if(Harden>=max)

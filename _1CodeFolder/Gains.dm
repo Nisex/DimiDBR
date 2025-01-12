@@ -759,17 +759,22 @@ mob
 										src.Quake((14+2*Z.DamageMult))
 
 			src.Debuffs()
-
 			if(src.Harden)
 				src.Harden--
+				if(hudIsLive("Harden"))
+					client.hud_ids["Harden"]?:Update()
 				if(src.Harden<=0)
 					src.Harden=0
 			if(Momentum)
 				passive_handler["Relentlessness"] ? Momentum - (1 + Momentum/50) : Momentum--
+				if(hudIsLive("Momentum"))
+					client.hud_ids["Momentum"]?:Update()
 				if(Momentum <0)
 					Momentum=0
 			if(Fury)
 				passive_handler["Relentlessness"] ? Fury - (1 + Fury/50) : Fury--
+				if(hudIsLive("Fury"))
+					client.hud_ids["Fury"]?:Update()
 				if(Fury <0)
 					Fury=0
 

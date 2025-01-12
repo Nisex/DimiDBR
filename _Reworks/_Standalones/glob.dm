@@ -189,6 +189,10 @@ globalTracker
 		TENACITY_VAI_MIN = 2
 		TENACITY_VAI_MAX = 14
 
+
+		UNDERDOG_DMG_MULTIPLER = 1
+		UNDERDOG_RED_MULTIPLER = 1
+
 		KOB_GETS_STATS_LOW_LIFE = 0
 		
 		MAX_CRIPPLE_MULT = 2
@@ -252,6 +256,7 @@ globalTracker
 		BASE_DEBUFF_REDUCTION_DIVISOR_UPPER = 1
 		ZORNHAU_MULT = 0.15
 //EXTRAS?? //
+		MORTAL_BLOW_CHANCE = 8
 		MULTIHIT_NERF = FALSE
 		GetUpVar = 1 // how fast u get up ?
 		MAGIC_BASE_COST = 50
@@ -474,16 +479,13 @@ globalTracker
 		list/GoldConstellation = list("Aries" = FALSE,"Gemini" = FALSE,"Cancer" = FALSE,"Leo" = FALSE,"Virgo" = FALSE,"Libra" = FALSE,\
 "Scorpio" = FALSE,"Capricorn" = FALSE,"Aquarius" = FALSE,"Pisces" = FALSE, "Sagittarius" = FALSE)
 
-		CHIKARA_WHITELIST = TRUE
-
-		DESP_DMG_MULTIPLIER = 4
-		DESP_DMG_REDUCTION = 4
+		CHIKARA_WHITELIST = FALSE
 
 		STAT_DMG_EXPONENT = 0.75
 
 
 		ALLOW_CLICK_CORPSE = 0
-
+		STACK_ANIMATE_TIME = 4
 		list/trueNames = list()
 
 		discordICAnnounceWebhookURL
