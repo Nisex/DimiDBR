@@ -56,7 +56,7 @@
         Launcher = 5
         PushOut=1
         PushOutWaves=1
-        HitMessage=""
+        HitMessage="starts that there combo!"
 
     Tranquility
         FollowUp="/obj/Skills/Queue/Finisher/Ultimate_Fist"
@@ -65,7 +65,7 @@
         Dunker = 1
         PushOut=1
         PushOutWaves=1
-        HitMessage=""
+        HitMessage="leads into it"
     
     Ultimate_Fist
         DamageMult = 1.5
