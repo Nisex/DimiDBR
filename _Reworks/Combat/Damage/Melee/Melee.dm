@@ -663,8 +663,8 @@
 										knockDistance += 5 * AttackQueue.Dunker
 										damage *= 1 + (AttackQueue.Dunker / 30)
 								if(AttackQueue.MortalBlow)
-									if(prob(8 * AttackQueue.MortalBlow) && !enemy.MortallyWounded)
-										var/mortalDmg = enemy.Health * 0.05
+									if(prob(glob.MORTAL_BLOW_CHANCE * AttackQueue.MortalBlow) && !enemy.MortallyWounded)
+										var/mortalDmg = enemy.Health * 0.05 // 5% of current
 										enemy.LoseHealth(mortalDmg)
 										enemy.WoundSelf(mortalDmg/2)
 										enemy.MortallyWounded += 1
@@ -745,7 +745,7 @@
 
 								if(AttackQueue?.InstantStrikes)
 									if(AttackQueue.InstantStrikesDelay)
-										sleep(AttackQueue.InstantStrikesDelay)
+										sleep(AttackQueue.InstantStrikesDelay*world.tick_lag)
 									if(AttackQueue)
 										if(AttackQueue.InstantStrikesPerformed<AttackQueue.InstantStrikes-1)
 											AttackQueue.InstantStrikesPerformed++
