@@ -1264,7 +1264,7 @@ mob
 				return 1
 			return 0
 		HasWitchCraft()
-			if(locate(/obj/WitchCraft/WitchesBook, src.contents))
+			if(locate(/obj/Items/WitchCraft/WitchesBook, src.contents))
 				return 1
 			else
 				return 0

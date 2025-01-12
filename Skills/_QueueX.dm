@@ -1372,7 +1372,7 @@ obj
 							usr.SetQueue(src)
 							return
 						if(usr.StyleActive == "Witch" && usr.HasWitchCraft())
-							src.ActiveMessage="takes a starting position!"
+							src.ActiveMessage="weaves their hands towards the central mass of their enemies!"
 							src.name = "Soulsap Strike"
 							src.DamageMult=1.5
 							src.AccuracyMult = 1.15
@@ -1381,12 +1381,12 @@ obj
 							src.Cooldown=20
 							src.HitMessage= "grasps hold of their opponents soul -- Sapping away it's energy!"
 							src.Scorching=0
-							src.Freezing=0
+							src.Freezing=1
 							src.Paralyzing=0
 							src.CursedWounds=5
 							src.Decider = 1
 							src.Combo=0
-							src.Warp=0
+							src.Warp=2
 							src.Rapid=0
 							src.Crippling=15
 							src.NoForcedWhiff=0

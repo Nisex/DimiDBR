@@ -16,9 +16,9 @@ obj/proc/SunderSoul(mob/P, mob/G) // P = Pactee, G = Giver.
 				view(20)<< output("<font color=yellow>[P] lacks a soul to strike the deal !", "output")
 				return
 			view(20)<< output("<font color=yellow>[P] has accepted the deal !", "output")
-			for(var/obj/WitchCraft/WitchesBook/s in G.contents)
+			for(var/obj/Items/WitchCraft/WitchesBook/s in G.contents)
 				s.PactedList += P.name
-				var/obj/WitchCraft/WitchesBook/NEW = new; NEW.loc = P
+				var/obj/Items/WitchCraft/WitchesBook/NEW = new; NEW.loc = P
 				NEW.name = input(P, "You have been granted your very own copy of [s.name]\n It is time you name your own Tome.", "Choose a name") as text
 				P.AddSkill(new/obj/Skills/Buffs/NuStyle/FreeStyle/Witch_Style)
 				P.AddSkill(new/obj/Skills/AutoHit/Dream_Walk)
@@ -35,7 +35,7 @@ obj/proc/checkIfNoPassives(mob/who)
 
 mob/Admin3/verb/GiveWitchBook()
 	var/mob/who = input(usr, "Who do you wish to grant this crack book") in players
-	var/obj/WitchCraft/WitchesBook/G = new
+	var/obj/Items/WitchCraft/WitchesBook/G = new
 	G.loc = who
 	G.name = input(who, "You have stumbled upon an tome you do not recognize, it's energy seems inviting yet cruel and twisted\n What is it that you will call this Tome?", "Original Copy Name.") as text
 	who.passive_handler.Set("Maki", 1)
@@ -44,15 +44,7 @@ mob/Admin3/verb/GiveWitchBook()
 	who.AddSkill(new/obj/Skills/AutoHit/Dream_Walk)
 	who.AddSkill(new/obj/Skills/AutoHit/Hex)
 	who.AddSkill(new/obj/Skills/Queue/Grave_Curse)
-
-mob/Admin3/verb/WitchCheck()
-	if(locate(/obj/WitchCraft/WitchesBook, usr.contents))
-		usr << TRUE
-	else
-		usr << FALSE
-
-
-/obj/WitchCraft/WitchesBook
+/obj/Items/WitchCraft/WitchesBook
 	name = "Unnamed Tome"
 	icon = 'Icons/NSE/Icons/Thot_book.dmi'
 	var/CurrentEssenceAmount = 0
@@ -73,8 +65,8 @@ mob/Admin3/verb/WitchCheck()
 					if("Yes")
 						M.NoSoul = 1
 						M.Death(usr, "an icy breath upon their soul, their body crumbling to dust!", SuperDead = 1, NoRemains = 1)
-						CurrentEssenceAmount += 5
-
+						src.CurrentEssenceAmount += 5
+						usr << "You feel yourself empowered, your [src.name] now contains [CurrentEssenceAmount] essence!"
 	
 	verb/Take_Essence(mob/M in get_step(usr, usr.dir))
 		set name = "Take Essence"
@@ -82,12 +74,13 @@ mob/Admin3/verb/WitchCheck()
 		if(!M.KO)
 			usr << "[M] needs to be KO'd!"
 			return
-		if(TakeEssenceCoolDown > world.realtime )
-			CurrentEssenceAmount += 1
+		if(TakeEssenceCoolDown < world.realtime )
+			src.CurrentEssenceAmount += 1
 			view(10) << output("<font color=red>[M] feels as if their body decays slightly at the magic of [usr]..!!", "output")
 			TakeEssenceCoolDown = world.realtime + 4 HOURS
+			usr << "You feel yourself slightly empowered, your [src.name] now contains [CurrentEssenceAmount] essence!"
 		else 
-			usr << "You're on cooldown till for... till [time2text(TakeEssenceCoolDown, "Day/hh/mm/ss")]"
+			usr << "You're on cooldown till [time2text(TakeEssenceCoolDown, "hh:ss") ]"
 
 	verb/Give_Essence()
 		set name = "Give Essence"
@@ -95,17 +88,20 @@ mob/Admin3/verb/WitchCheck()
 		var/list/PeopleWithBooks = list("Cancel", "----")
 
 		for(var/mob/M in oview(20, src))
-			if(locate(/obj/WitchCraft/WitchesBook, M))
+			if(locate(/obj/Items/WitchCraft/WitchesBook, M))
 				PeopleWithBooks.Add(M)
 
 		var/mob/who = input(usr, "Which of these people do you wish to give your Essence to?") in PeopleWithBooks
+		if(who == "----" || "Cancel")
+			return
 		if(src.CurrentEssenceAmount > 0)
 			var/give = input(usr, "You have currently [src.CurrentEssenceAmount], how many of them do you wish to give to [who]?", "Give Essence") as num
 			if((src.CurrentEssenceAmount - give) < 0)
 				return
 			else 
-				for(var/obj/WitchCraft/WitchesBook/G in who)
+				for(var/obj/Items/WitchCraft/WitchesBook/G in who)
 					G.CurrentEssenceAmount += give
+
 	verb/Make_Deal(mob/M in get_step(usr, usr.dir))
 		set name = "Witch Apprenticeship"
 		set category = "Roleplay"
@@ -115,16 +111,21 @@ mob/Admin3/verb/WitchCheck()
 			canPact = FALSE
 		else
 			usr << "You can't pact someone as of this moment! You do have enought potent to make the deal."
-	verb/FelMasterwork() 
-		if(src.CurrentEssenceAmount > 20)
+
+	verb/FelMasterwork()
+		var/cost = 20
+		if(src.CurrentEssenceAmount > cost)
 			var/list/weapons = list()
 			for(var/obj/Items/Sword/Weapon in usr)
 				weapons += Weapon
 			var/obj/Items/Sword/Weapon = input(usr, "Select which of the weapons you wish to Fel-Masterwork", "Fel Masterwork") in weapons
 			Weapon.Element = "Felfire"
-			src.CurrentEssenceAmount -= 20
+			src.CurrentEssenceAmount -= cost
 		else
-			usr << "You do not possess enough essence for this enchantment!"
+			usr << "You do not possess enough essence for this enchantment! [CurrentEssenceAmount] / [cost]"
+	Click()
+		..()
+		usr << "[src.name] holds [CurrentEssenceAmount] amounts of essence"
 
 /obj/Skills/AutoHit/Dream_Walk
 	Area= "Area"
@@ -143,14 +144,72 @@ mob/Admin3/verb/WitchCheck()
 	verb/Dream_Walk()
 		set category="Skills"
 		var/resource = 0
-		for(var/obj/WitchCraft/WitchesBook/G in usr)
+		var/cost = 0.1
+		for(var/obj/Items/WitchCraft/WitchesBook/G in usr)
 			resource = G.CurrentEssenceAmount
-		if(resource > 1)
-			for(var/obj/WitchCraft/WitchesBook/G in usr)
-				G.CurrentEssenceAmount -= 1
+		if(resource > cost)
+			for(var/obj/Items/WitchCraft/WitchesBook/G in usr)
+				G.CurrentEssenceAmount -= cost
 			usr.Activate(src)
 		else
-			usr << "Not enough Essence [resource] / 1"
+			usr << "Not enough Essence [resource] / [cost]"
+
+
+/obj/Skills/Queue/Grave_Curse
+	ActiveMessage="fills the air with terrible images....!!"
+	HitMessage="curses their opponents mind with horrible images...!!"
+	DamageMult = 10
+	AccuracyMult = 1.175
+	Instinct = 1
+	Paralyzing=1
+	Duration = 5
+	KBMult = 0.00001
+	Cooldown = 150
+	Quaking = 5
+	PushOut = 5
+	PushOutWaves = 3
+	BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Witch/Grave_Curse"
+	PushOutIcon = 'Icons/NSE/spells/cast/KrysiaExplosion.dmi'
+	verb/Grave_Curse()
+		set category="Skills"
+		var/resource = 0
+		var/cost = 0.5
+		for(var/obj/Items/WitchCraft/WitchesBook/G in usr)
+			resource = G.CurrentEssenceAmount
+		if(resource > 3)
+			for(var/obj/Items/WitchCraft/WitchesBook/G in usr)
+				G.CurrentEssenceAmount -= cost
+			usr.SetQueue(src)
+		else
+			usr << "Not enough Essence [resource] / [cost]"
+
+
+
+/obj/Skills/Queue/Mirror_Match
+	ActiveMessage="fills their surroundings with Mirrors!"
+	HitMessage="slams back the opponents attack from the Mirrors!!"
+	Counter = 1
+	NoWhiff = 1
+	NoMiss = 1
+	DamageMult = 0.1
+	AccuracyMult = 1.175
+	Instinct = 1
+	Duration = 5
+	KBMult = 0.00001
+	Cooldown = 150
+	BuffSelf = "/obj/Skills/Buffs/SlotlessBuffs/Witch/WitchCounter"
+	verb/Mirror_Match()
+		set category="Skills"
+		var/resource = 0
+		var/cost = 0.4
+		for(var/obj/Items/WitchCraft/WitchesBook/G in usr)
+			resource = G.CurrentEssenceAmount
+		if(resource > cost)
+			for(var/obj/Items/WitchCraft/WitchesBook/G in usr)
+				G.CurrentEssenceAmount -= cost
+			usr.SetQueue(src)
+		else
+			usr << "Not enough Essence [resource] / [cost]"
 
 /obj/Skills/AutoHit/Hex
 	Area="Target"
@@ -173,46 +232,7 @@ mob/Admin3/verb/WitchCheck()
 	BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Witch/HexDebuff"
 	verb/Hex()
 		set category="Skills"
-		adjust(usr.Target)
 		usr.Activate(src)
-
-
-/obj/Skills/Buffs/SlotlessBuffs/Witch/HexDebuff
-	StrMult = 0.5
-	ForMult = 0.5
-	EndMult = 0.75
-	SlowAffected = 1
-	IconLock = 'SweatDrop.dmi'
-	TimerLimit = 30
-
-
-/obj/Skills/Queue/Grave_Curse
-	ActiveMessage="fills the air with terrible images....!!"
-	HitMessage="curses their opponents mind with horrible images...!!"
-	DamageMult = 10
-	AccuracyMult = 1.175
-	Instinct = 1
-	Paralyzing=1
-	Duration = 5
-	KBMult = 0.00001
-	Cooldown = 150
-	Quaking = 5
-	PushOut = 5
-	PushOutWaves = 3
-	PushOutIcon = 'Icons/NSE/spells/cast/KrysiaExplosion.dmi'
-	verb/Grave_Curse()
-		set category="Skills"
-		var/resource = 0
-		for(var/obj/WitchCraft/WitchesBook/G in usr)
-			resource = G.CurrentEssenceAmount
-		if(resource > 3)
-			for(var/obj/WitchCraft/WitchesBook/G in usr)
-				G.CurrentEssenceAmount -= 3
-			usr.Activate(src)
-		else
-			usr << "Not enough Essence [resource] / 3"
-		usr.SetQueue(src)
-
 
 /obj/Skills/Queue/Finisher/Sundered_Sky
 	DamageMult=6.5
@@ -223,35 +243,30 @@ mob/Admin3/verb/WitchCheck()
 	BuffSelf=0
 	HitMessage=0
 
-/obj/Skills/Queue/Mirror_Match
-	ActiveMessage="fills their surroundings with Mirrors!"
-	HitMessage="slams back the opponents attack from the Mirrors!!"
-	Counter = 1
-	NoWhiff = 1
-	NoMiss = 1
-	DamageMult = 0.1
-	AccuracyMult = 1.175
-	Instinct = 1
-	Duration = 5
-	KBMult = 0.00001
-	Cooldown = 150
-	BuffSelf = "/obj/Skills/Buffs/SlotlessBuffs/Witch/WitchCounter"
-	verb/Mirror_Match()
-		set category="Skills"
-		var/resource = 0
-		for(var/obj/WitchCraft/WitchesBook/G in usr)
-			resource = G.CurrentEssenceAmount
-		if(resource > 3)
-			for(var/obj/WitchCraft/WitchesBook/G in usr)
-				G.CurrentEssenceAmount -= 3
-			usr.Activate(src)
-		else
-			usr << "Not enough Essence [resource] / 3"
-			usr.SetQueue(src)
+
+
+
+
+
+/// Debuffs / Buffs
 
 /obj/Skills/Buffs/SlotlessBuffs/Witch/WitchCounter
-	DefMult = 1.3 // ur crazy
+	DefMult = 1.3 
 	CounterSpell = 1
 	CounterMaster = 2
 	BuffName = "WitchCounter"
+	TimerLimit = 30
+
+/obj/Skills/Buffs/SlotlessBuffs/Witch/Grave_Curse
+	ActiveMessage="begins to fall in to pieces!"
+	TimerLimit = 30
+	passives = list("GodSpeed" = -4, "PureReduction" = -2 )
+
+/obj/Skills/Buffs/SlotlessBuffs/Witch/HexDebuff
+	ActiveMessage="begins to fall apart!"
+	StrMult = 0.5
+	ForMult = 0.5
+	EndMult = 0.75
+	SlowAffected = 1
+	IconLock = 'SweatDrop.dmi'
 	TimerLimit = 30
