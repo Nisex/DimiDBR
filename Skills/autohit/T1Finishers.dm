@@ -1,0 +1,45 @@
+/obj/Skills/AutoHit
+    One_Inch_Finisher
+        UnarmedOnly=1
+        FlickAttack=1
+        Area="Strike"
+        StrOffense=2
+        DamageMult=3
+        Stunner=3
+        Rush=3
+        RushDelay=0.1
+        ControlledRush=1
+        Knockback=0
+        Quaking=4
+        PreShockwave=1
+        PreShockwaveDelay=1
+        PostShockwave=0
+        Shockwaves=2
+        Shockwave=0.5
+        ShockIcon='KenShockwaveFocus.dmi'
+        ShockBlend=2
+        ShockDiminish=1.15
+        ShockTime=4
+        ActiveMessage="curls up their fingers into a fist and delivers a crushing blow!!!"
+    Flamberge_Shot
+        Area="Wide Wave"
+        NoLock=1
+        NoAttackLock=1
+        Distance=5
+        DamageMult=2
+        StrOffense=1
+        ForOffense=1
+        EndDefense=1
+        Knockback=10
+        Scorching=100
+        ActiveMessage="follows up with an incendiary kick!!"
+        HitSparkIcon='Hit Effect Ripple.dmi'
+        HitSparkX=-32
+        HitSparkY=-32
+        HitSparkSize=3
+        HitSparkTurns=0
+        HitSparkLife=7
+        TurfStrike=1
+        TurfShift='Dirt1.dmi'
+        TurfShiftDuration=30
+        Cooldown=4

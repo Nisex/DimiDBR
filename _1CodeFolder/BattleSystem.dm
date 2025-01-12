@@ -1153,6 +1153,9 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 						return HIT
 				else
 					Defender.tailResistanceTraining(5)
+			if(prob(1))
+				// smirk
+				OMsg(Defender, "[Defender] is getting Ashton'd.")
 
 			AccMult*=1.2
 
@@ -1163,7 +1166,7 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 
 
 		if(Offender.AttackQueue)
-			AccMult*=Offender.QueuedAccuracy()
+			AccMult+=Offender.QueuedAccuracy()
 
 		if(Offender.SenseRobbed>=4&&(Offender.SenseUnlocked<=Offender.SenseRobbed&&Offender.SenseUnlocked>5))
 			AccMult*=(1-(Offender.SenseRobbed*0.1))

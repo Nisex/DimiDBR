@@ -5,7 +5,7 @@ ascension
 			endurance = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25, "SoulFire" = 0.25, "DeathField" = 1, "VoidField" =1,)
+			passives = list("DebuffResistance" = 0.25, "VenomResistance" = 0.25, "SoulFire" = 0.25, "DeathField" = 1, "VoidField" =1,)
 			postAscension(mob/owner)
 				owner.secretDatum.tierUp(2, owner)
 				..()
@@ -14,7 +14,7 @@ ascension
 			endurance = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.25,"SoulFire" = 0.15, "DeathField" = 1, "VoidField" = 1)
+			passives = list("DebuffResistance" = 0.25, "VenomResistance" = 0.25,"SoulFire" = 0.15, "DeathField" = 1, "VoidField" = 1)
 			postAscension(mob/owner)
 				owner.secretDatum.tierUp(3, owner)
 				..()
@@ -26,7 +26,7 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5,"SoulFire" = 0.15, "DeathField" = 3, "VoidField" = 3)
+			passives = list("DebuffResistance" = 0.25, "VenomResistance" = 0.5,"SoulFire" = 0.15, "DeathField" = 3, "VoidField" = 3)
 			postAscension(mob/owner)
 				owner.secretDatum.tierUp(4, owner)
 				..()
@@ -38,7 +38,7 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5, "SoulFire" = 0.15, "DeathField" = 2, "VoidField" = 2)
+			passives = list("DebuffResistance" = 0.25, "VenomResistance" = 0.5, "SoulFire" = 0.15, "DeathField" = 2, "VoidField" = 2)
 			postAscension(mob/owner)
 				owner.secretDatum.tierUp(5, owner)
 				..()
@@ -50,7 +50,7 @@ ascension
 			offense = 0.25
 			defense = 0.25
 			speed = 0.25
-			passives = list("DebuffImmune" = 0.25, "VenomResistance" = 0.5,"SoulFire" = 0.15, "DeathField" = 3, "VoidField" = 3)
+			passives = list("DebuffResistance" = 0.25, "VenomResistance" = 0.5,"SoulFire" = 0.15, "DeathField" = 3, "VoidField" = 3)
 			postAscension(mob/owner)
 				owner.secretDatum.tierUp(6, owner)
 				..()

@@ -182,17 +182,17 @@ ascension
 
 				consistency
 					choices = list()
-					passives = list("Steady" = 0.25, "DebuffImmune" = 0.15, "StableBP" = 0.5)
+					passives = list("Steady" = 0.25, "DebuffResistance" = 0.15, "StableBP" = 0.5)
 
 				both
 					choices = list()
-					passives = list("Adaptation" = 0.1, "Flicker" = 0.5, "Hustle" = 0.075, "Steady" = 0.175, "DebuffImmune" = 0.075, "StableBP" = 0.25)
+					passives = list("Adaptation" = 0.1, "Flicker" = 0.5, "Hustle" = 0.075, "Steady" = 0.175, "DebuffResistance" = 0.075, "StableBP" = 0.25)
 
 			become_docile
 				choices = list("Stability" = /ascension/sub_ascension/majin/become_docile/stability, "Peace" = /ascension/sub_ascension/majin/become_docile/peace, "Both" = /ascension/sub_ascension/majin/become_docile/both)
 				stability
 					choices = list()
-					passives = list("VenomResistance" = 0.25, "DebuffImmune" = 0.25, "Juggernaut" = 0.5)
+					passives = list("VenomResistance" = 0.25, "DebuffResistance" = 0.25, "Juggernaut" = 0.5)
 
 					onAscension(mob/owner)
 						if(owner.passive_handler.Get("Juggernaut")+passives["Juggernaut"] >= 1)
@@ -205,7 +205,7 @@ ascension
 
 				both
 					choices = list()
-					passives = list("VenomResistance" = 0.25, "DebuffImmune" = 0.25, "Juggernaut" = 0.25, "Flow" = 0.25, "DeathField" = 0.25, "VoidField" = 0.25)
+					passives = list("VenomResistance" = 0.25, "DebuffResistance" = 0.25, "Juggernaut" = 0.25, "Flow" = 0.25, "DeathField" = 0.25, "VoidField" = 0.25)
 
 					onAscension(mob/owner)
 						if(owner.passive_handler.Get("Juggernaut")+passives["Juggernaut"] >= 1)

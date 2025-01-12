@@ -81,7 +81,7 @@ globalTracker/var/LOWER_DEBUFF_CLAMP = 0.001
             if(Cooled)
                 base = 1.5
             if(Burn>0)
-                Burn -= base + ((GetEnd(0.15)+GetStr(0.15)) * (1+ (GetDebuffImmune() / 4))  )
+                Burn -= base + ((GetEnd(0.15)+GetStr(0.15)) * (1+ (GetDebuffResistance() / 4))  )
             if(Burn<0)
                 Burn = 0
         if("Poison")
@@ -89,7 +89,7 @@ globalTracker/var/LOWER_DEBUFF_CLAMP = 0.001
             if(Antivenomed)
                 base = 1.25
             if(Poison>0)
-                Poison -= base + (GetEnd(0.15) * (1 + (GetDebuffImmune() / 4)+boon))
+                Poison -= base + (GetEnd(0.15) * (1 + (GetDebuffResistance() / 4)+boon))
             if(Poison<0)
                 Poison = 0
 

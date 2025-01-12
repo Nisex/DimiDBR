@@ -45,7 +45,7 @@
     },
     "ARMOR_PASSIVES_I": {
         "Juggernaut": [0.25, 4],
-        "DebuffImmune": [0.25, 2],
+        "DebuffResistance": [0.25, 2],
         "Hardening": [0.5, 5],
         "CallousedHands": [0.15, 1]
     },

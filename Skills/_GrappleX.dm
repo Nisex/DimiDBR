@@ -114,29 +114,41 @@ obj/Skills/Grapple
 				src.Activate(usr)
 ////AUTO TRIGGER
 	Muscle_Buster
-		DamageMult = 9
-		StrRate = 1
+		DamageMult = 4
+		StrRate = 1.5
 		EffectMult=3
 		OneAndDone=1
+		HarderTheyFall = 2
 		Effect="MuscleBuster"
 		TriggerMessage = "lifts, flips, and slams"
 
 	Giant_Swing
-		DamageMult = 12
-		StrRate = 1
+		DamageMult = 8
+		StrRate = 1.25
 		EffectMult=2
 		OneAndDone=1
 		Effect="MuscleBuster"
+		HarderTheyFall = 3
 		TriggerMessage = "starts spinning"
 
 	Heavenly_Potemkin_Buster
-		DamageMult = 12.5
+		DamageMult = 12
 		StrRate=1
 		EndRate=0.75
 		OneAndDone = 1
 		EffectMult=3
+		HarderTheyFall = 4
 		Effect="PotemkinBuster"
 
+	Ryukoha
+		DamageMult = 6
+		HarderTheyFall = 1.5
+		EffectMult=1.5
+		Effect="Lotus"
+		OneAndDone = 1
+		EndRate=0.75
+		StrRate=0.75
+		
 
 	Lotus_Drop
 		DamageMult=5
@@ -149,7 +161,7 @@ obj/Skills/Grapple
 		ThrowAdd=0
 		//Set from other queues
 	True_Lotus
-		DamageMult=7.5
+		DamageMult=8
 		StrRate=1
 		TriggerMessage="embraces the full power of their youth to spiral into a lotus drop to crack the skull of"
 		Effect="Lotus"
@@ -194,7 +206,7 @@ obj/Skills/Grapple
 	Throw
 		SkillCost=TIER_3_COST
 		Copyable=3
-		DamageMult=8
+		DamageMult=2
 		StrRate=1
 		ThrowAdd=5
 		ThrowMult=1.5
@@ -207,7 +219,7 @@ obj/Skills/Grapple
 	Judo_Throw
 		SkillCost=TIER_3_COST
 		Copyable=4
-		DamageMult=9
+		DamageMult=4
 		Reversal=1
 		Stunner=2
 		StrRate=1
@@ -222,7 +234,7 @@ obj/Skills/Grapple
 	Izuna_Drop
 		SkillCost=TIER_3_COST
 		Copyable=4
-		DamageMult=8
+		DamageMult=4
 		StrRate=1
 		ThrowAdd=0
 		ThrowMult=0
@@ -259,7 +271,7 @@ obj/Skills/Grapple
 				Stunner=5
 				OneAndDone=1
 				StrRate=1
-				DamageMult = 2.8 + (p.Potential / 25)
+				DamageMult = 4 + (p.Potential / 50)
 			else
 				Effect="Suplex"
 				DamageMult=4.5
@@ -293,9 +305,9 @@ obj/Skills/Grapple
 		UnarmedOnly=0
 		NeedsSword=0
 		SignatureTechnique=1
-		DamageMult=12
-		StrRate=0.75
-		ForRate=3
+		DamageMult=8
+		StrRate=1
+		ForRate=2
 		TriggerMessage="shoves their grossly incandescent hand through"
 		Effect="Bang"
 		EffectMult=5
@@ -311,9 +323,9 @@ obj/Skills/Grapple
 		UnarmedOnly=0
 		NeedsSword=0
 		SignatureTechnique=1
-		DamageMult=12
-		ForRate=1.5
-		StrRate=0.5
+		DamageMult=8
+		ForRate=3
+		StrRate=0
 		TriggerMessage="fills their grasp with lightning and takes hold of"
 		Effect="Lightning"
 		EffectMult=5
@@ -358,9 +370,8 @@ obj/Skills/Grapple
 		Impale
 			Copyable=3
 			SkillCost=120
-			DamageMult=9
-			StrRate=0.5
-			ForRate=2
+			DamageMult=4
+			StrRate=1.5
 			TriggerMessage="impales"
 			Effect="Strike"
 			EffectMult=2
@@ -370,8 +381,8 @@ obj/Skills/Grapple
 				set category="Skills"
 				src.Activate(usr)
 		Blade_Drive//run through pt 2
-			DamageMult=8.5
-			StrRate=0.8
+			DamageMult=5
+			StrRate=1
 			ThrowMult=2
 			TriggerMessage="drives their weapon through the guts of"
 			Effect="Shockwave"
@@ -380,7 +391,7 @@ obj/Skills/Grapple
 		Eviscerate
 			Copyable=4
 			SkillCost=TIER_3_COST
-			DamageMult=1.75
+			DamageMult=1
 			MultiHit=5
 			StrRate=1
 			ThrowMult=0
@@ -395,7 +406,7 @@ obj/Skills/Grapple
 		Hacksaw
 			Copyable=4
 			SkillCost=TIER_3_COST
-			DamageMult=10
+			DamageMult=8
 			StrRate=1
 			ThrowMult=0
 			ThrowAdd=0
@@ -415,10 +426,9 @@ obj/Skills/Grapple
 		Form_Ataru
 			Copyable=4
 			SkillCost=TIER_3_COST
-			DamageMult=10
+			DamageMult=6
 			Reversal=1
-			StrRate=0.5
-			ForRate=2
+			StrRate=2
 			ThrowMult=0
 			ThrowAdd=1
 			TriggerMessage="does a slashing flip to break free of"

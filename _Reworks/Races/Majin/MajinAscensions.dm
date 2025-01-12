@@ -135,7 +135,7 @@ ascensions/majin
                     majinPicks["[AscensionsAcquired]"] = "[choice],Adaptability"
                 if("Consistency")
                     passive_handler.Increase("Steady", 0.25)
-                    passive_handler.Increase("DebuffImmune", 0.15)
+                    passive_handler.Increase("DebuffResistance", 0.15)
                     src<<"You've become more consistent in your abilities, you can now maintain your power..."
                     majinPicks["[AscensionsAcquired]"] = "[choice],Consistency"
                 if("Both")
@@ -144,7 +144,7 @@ ascensions/majin
                     passive_handler.Increase("Hustle", 0.075)
                     passive_handler.Increase("StealsStats", AscensionsAcquired > 2 ? 0.05 : 0)
                     passive_handler.Increase("Steady", 0.125)
-                    passive_handler.Increase("DebuffImmune", 0.075)
+                    passive_handler.Increase("DebuffResistance", 0.075)
                     src<<"Consistent and adaptable, the best of both world..."
                     majinPicks["[AscensionsAcquired]"] = "[choice],Both"
         if("Become Docile")
@@ -153,7 +153,7 @@ ascensions/majin
             switch(prompt("Where do you focus?", "Narrowing down", list("Stability", "Peace", "Both")))
                 if("Stability")
                     passive_handler.Increase("VenomResistance", 0.5)
-                    passive_handler.Increase("DebuffImmune",0.5)
+                    passive_handler.Increase("DebuffResistance",0.5)
                     passive_handler.Increase("Juggernaut", 0.5)
                     if(passive_handler.Get("Juggernaut") >= 1)
                         passive_handler.Increase("GiantForm", 1)
@@ -172,7 +172,7 @@ ascensions/majin
 
                 if("Both")
                     passive_handler.Increase("VenomResistance", 0.25)
-                    passive_handler.Increase("DebuffImmune",0.25)
+                    passive_handler.Increase("DebuffResistance",0.25)
                     passive_handler.Increase("Juggernaut",0.25)
                     if(passive_handler.Get("Juggernaut") >= 1)
                         passive_handler.Increase("GiantForm", 1)

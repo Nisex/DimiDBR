@@ -88,19 +88,19 @@ obj
 
 
 
-			var/SpiritStrike//Targets End with Force
-			var/HybridStrike//For+Str
-			var/SpiritHand//Sunlight stance
-			var/SpiritSword//duh
-			var/KiBlade//duh
+			var/SpiritStrike //Targets End with Force
+			var/HybridStrike //For+Str
+			var/SpiritHand //Sunlight stance
+			var/SpiritSword //duh
+			var/KiBlade //duh
 			var/PridefulRage
 
 			var/ManaGain
 
 			//Instinct //Ignore AIS/WS
 			var/Steady //It do what steady do.
-			var/WeaponBreaker//WHAT DO U THINK?!
-			var/MortalBlow//WHHHHHHHHHHHAAAAAAAAAA-
+			var/WeaponBreaker //WHAT DO U THINK?!
+			var/MortalBlow //WHHHHHHHHHHHAAAAAAAAAA-
 
 			var/HitSparkIcon//you
 			var/HitSparkX//know
@@ -181,85 +181,6 @@ obj
 				HitMessage="strikes their opponent with a powerful blow!"
 				Generic_Finisher
 					name="Finishing Blow"
-				Hold
-					Instinct=2
-					Grapple=1
-					KBMult=0.001
-					SweepStrike=1
-					DamageMult = 2
-					UnarmedOnly=1
-					GrabTrigger="/obj/Skills/Grapple/Muscle_Buster"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Anger_Of_The_Beast"
-					HitMessage="grabs hold of their enemy!"
-				Leg_Grab
-					Instinct=2
-					Grapple=1
-					KBMult=0.001
-					SweepStrike=1
-					Crushing = 5
-					DamageMult = 4
-					UnarmedOnly=1
-					GrabTrigger="/obj/Skills/Grapple/Giant_Swing"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Iron_Muscle"
-					HitMessage="grabs hold of their enemy!"
-				Command_Grab
-					Instinct=2
-					Grapple=1
-					KBMult=0.001
-					SweepStrike=2
-					Crushing = 20
-					DamageMult = 4
-					UnarmedOnly=1
-					GrabTrigger="/obj/Skills/Grapple/Heavenly_Potemkin_Buster"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Potemkin_Buster"
-					HitMessage="grabs hold of their enemy!"
-
-
-				Heavenly_Storm_Dragon_Emergence
-					Warp = 10
-					Bolt = 1
-					Shining = 1
-					Explosive = 1
-					Shocking = 0.25
-					Shattering = 0.25
-					Instinct = 1
-					PushOut=5
-					PushOutWaves=5
-					Decider = 2
-					DamageMult=0.5
-					InstantStrikes=30
-					FollowUp="/obj/Skills/Queue/Finisher/Heavenly_Dragon_Raging_Tempest"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragon_Ascendant_Zenith"
-					HitMessage="taps into their ancestral arts! With a roar that echoes through the realms, the force quakes the earth and tears through the skies! The tempest of its fury is a celestial ballet, weaving destruction and honor into the fabric of existence. The path of the Heavenly Dragon has descended upon the mortal realms from the quasi-god realm! Their very presence shakes and alters the fragile reality they reside in! A maelstrom of everlasting power continues to surge, ascending higher and higher! Until the peak of Murim Martial Arts conquers all! That is the Zenith... A god among man!"
-				Heavenly_Dragon_Raging_Tempest
-					Warp = 3
-					Combo=30
-					DamageMult = 0.15
-					Bolt = 1
-					Shining = 1
-					Explosive = 1
-					KBAdd = 0.001
-					PushOut=1
-					PushOutWaves=1
-					BuffSelf=0
-				Heavenly_Dragons_Omniscient_Surge
-					Warp = 10
-					Bolt = 1
-					Shining = 1
-					Explosive = 1
-					Shocking = 0.5
-					Shattering = 0.5
-					Instinct = 2
-					PushOut=2
-					PushOutWaves=2
-					Decider = 4
-					DamageMult=0.8
-					KBAdd = 3
-					InstantStrikes=10
-					FollowUp="/obj/Skills/AutoHit/Heavenly_Dragon_Violet_Ponds_Annihilation_of_the_Nine_Realms"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragons_Transient_Enlightenment"
-					HitMessage="Summons the boundless might of their martial arts, entering into a breakthrough by pure technique alone. Roars that turn into unstoppable torrent of energy erupt from their body while it soars through the battlefield, unleashing a symphony of cataclysmic destruction paired with ethereal grace. They have unlocked the ultimate testament to the Heavenly Dragon Stance, a dance of power and honor that surpasses the mortal plane, from the divine heights of the quasi-god realm, they descend as the Heavenly Dragon. Harnessing the boundless force of the Nine converging Realms, they unleash a relentless storm of peerless strength, devastating the battle field."
-
 
 				Cycle_of_Samsara
 					adjust(mob/p)
@@ -288,31 +209,6 @@ obj
 					DamageMult=1
 					KBAdd = 0.01
 					InstantStrikes=4
-
-
-				Divine_Finisher
-					name = "Heavenly Demon's Radiant Divine Palm that Shatters the Nine Heavens and Illuminates the Eternal Night"
-					Warp = 10
-					Bolt = 1
-					Shining = 1
-					Explosive = 1
-					Instinct = 2
-					PushOut=1
-					PushOutWaves=4
-					SweepStrike=2
-					Decider=4
-					DamageMult=3
-					KBAdd = 0.01
-					FollowUp="/obj/Skills/AutoHit/The_Heavenly_Demons_Fist_That_Cleaves_Through_Heaven_And_Divides_The_Sea"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Emergent_Demon_Breakthrough"
-
-				Chi_Punch
-					Warp = 4
-					DamageMult=1
-					Launcher=7
-					KBAdd = 0.01
-					FollowUp="/obj/Skills/AutoHit/Chi_Punch"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Chi_Augmentation"
 
 				Iron_Fortress
 					Shattering=20
@@ -353,12 +249,6 @@ obj
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Body_Mastery"
 					HitMessage="carries their opponent through a brutal haymaker!"
 					FollowUp="/obj/Skills/AutoHit/Strongest_Fist"
-				Mouton_Shot
-					KBMult=0.001
-					Crippling=10
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Spirit_Mastery"
-					HitMessage="springs into a handstand, launching a destructive kick from below!"
-					FollowUp="/obj/Skills/AutoHit/Flamberge_Shot"
 				Rolling_Sobat
 					Warp=5
 					Paralyzing=10
@@ -2235,11 +2125,12 @@ mob
 
 			if(src.AttackQueue.BuffAffected)
 				var/path=text2path(src.AttackQueue.BuffAffected)
-				var/obj/S=new path
+				var/obj/Skills/Buffs/S=new path
 				var/AlreadyBuffed=0
 				for(var/obj/Skills/SP in P)
 					if(SP.type==S.type)
 						AlreadyBuffed=1
+						S = SP
 						break
 				if(!AlreadyBuffed)
 					var/BuffFound=0
@@ -2256,6 +2147,8 @@ mob
 						src.AddSkill(new path)
 					S.Password=src?:UniqueID
 					P.AddSkill(S)
+				if(S.type == /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Death_Mark)
+					S.adjust(StyleBuff.SignatureTechnique * 15, StyleBuff.SignatureTechnique)
 
 			if(src.AttackQueue.Projectile)
 				var/path=text2path(src.AttackQueue.Projectile)

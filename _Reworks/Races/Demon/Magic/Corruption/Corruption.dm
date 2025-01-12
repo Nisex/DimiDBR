@@ -104,7 +104,7 @@
 		p.Target.Grabbable=0
 		p.Target.Incorporeal=1
 		p.Target.invisibility=90
-		p.Target.Stasis=timer[asc]
+		p.Target.SetStasis(timer[asc])
 		p.Target.StasisSpace=1
 		spawn()animate(p.Target.client, color = list(-1,0,0, 0,-1,0, 0,0,-1, 0,1,1), time = 5)
 		OMsg(usr, "[usr] locks [usr.Target] in an isolated space!")
@@ -114,7 +114,7 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self
 	Cooldown = -1
-	scalingValues = list("LifeGeneration" = list(1,1,1.5,2,2,2.5), "DebuffImmune" = list(0.25,0.5,0.75,1,1,1), \
+	scalingValues = list("LifeGeneration" = list(1,1,1.5,2,2,2.5), "DebuffResistance" = list(0.25,0.5,0.75,1,1,1), \
 	"TechniqueMastery" = list(2,3,5,5,8), "Godspeed" = list(1,2,3,4,5), "Adrenaline" = list(1,2,2,3,3,3), "IdealStrike" = list(1,1,1,1,1,1), \
 	"FullyEffecient" = list(1,1,1,1,1,1), "CoolerAfterImages" = list(3,4,4,4,4,4), "CorruptAffected" = list(1,1,1,1,1,1))
 	AutoAnger = 1

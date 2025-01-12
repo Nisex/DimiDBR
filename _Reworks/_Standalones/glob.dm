@@ -94,8 +94,8 @@ globalTracker
 
 		progressTracker/progress = new()
 // TESTER
-		TESTER_MODE
-		LIVE_TESTING = 1
+		TESTER_MODE = FALSE
+		LIVE_TESTING = FALSE
 		TESTER_WHITE_LIST = list("Digi-Daisuke","RevealingFortune","Zamas2","Niezan", "Etro", "AMajin", "Redsarge", "Gogeto25",\
  "Tilthour", "Sakata Gintoki San", "Hellbante", "FoxMagnus")
 
@@ -170,6 +170,10 @@ globalTracker
 		BEAST_OVERHWELMING_STATIC = 20
 		RUPTURE_BASE_DAMAGE = 2
 
+		SUNYATA_BASE_CHANCE = 5
+		INTERCEPTION_BASE_CHANCE = 5
+		INTERCEPTION_NEGATES_DAMAGE = 1
+
 
 		PERSISTENCE_CHANCE_SELF = 6
 		PERSISTENCE_CHANCE = 3
@@ -185,17 +189,12 @@ globalTracker
 		TENACITY_VAI_MIN = 2
 		TENACITY_VAI_MAX = 14
 
-		KOB_GETS_STATS_LOW_LIFE = 0
 
-		DESP_PROC_LIMIT = 6
-		DESP_PROC_CHANCE = 3
-		DESP_DIVISOR_LIMIT = 8
-		DESP_REDUCE_DAMAGE = FALSE
-		DESP_VAI_MULT = 2
-		DESP_VAI_MIN = 5
-		DESP_VAI_MAX = 15
-		DESP_KB_RES_CHANCE = 2.5
-		DESP_GETUP_CHANCE = 8
+		UNDERDOG_DMG_MULTIPLER = 1
+		UNDERDOG_RED_MULTIPLER = 1
+
+		KOB_GETS_STATS_LOW_LIFE = 0
+		
 		MAX_CRIPPLE_MULT = 2
 		CRIPPLE_DIVISOR = 100
 
@@ -209,6 +208,7 @@ globalTracker
 		MAX_HARDEN = 20
 		DEMONIC_DURA_BASE = 0.04
 		MAX_HARDENING = 5
+		STYLE_MASTERY_DIVISOR = 10
 		HARDENING_BASE = 0.006
 		REGEN_ASC_ONE_HEAL = 3
 		HEALTH_POTION_NERF = 4
@@ -256,6 +256,7 @@ globalTracker
 		BASE_DEBUFF_REDUCTION_DIVISOR_UPPER = 1
 		ZORNHAU_MULT = 0.15
 //EXTRAS?? //
+		MORTAL_BLOW_CHANCE = 8
 		MULTIHIT_NERF = FALSE
 		GetUpVar = 1 // how fast u get up ?
 		MAGIC_BASE_COST = 50
@@ -307,7 +308,7 @@ globalTracker
 		HARD_STYLE_RATIO = 0.1
 		CURSED_WOUNDS_RATE = 0.25
 		GLOBAL_EXPONENT_MULT = 1/3
-		GRAPPLE_MELEE_BOON = 1.5
+		GRAPPLE_MELEE_BOON = 1.25
 		GRIPPY_MOD = 0.25
 		CLAMP_POWER = TRUE
 		MIN_POWER_DIFF = 0.5
@@ -478,16 +479,13 @@ globalTracker
 		list/GoldConstellation = list("Aries" = FALSE,"Gemini" = FALSE,"Cancer" = FALSE,"Leo" = FALSE,"Virgo" = FALSE,"Libra" = FALSE,\
 "Scorpio" = FALSE,"Capricorn" = FALSE,"Aquarius" = FALSE,"Pisces" = FALSE, "Sagittarius" = FALSE)
 
-		CHIKARA_WHITELIST = TRUE
-
-		DESP_DMG_MULTIPLIER = 4
-		DESP_DMG_REDUCTION = 4
+		CHIKARA_WHITELIST = FALSE
 
 		STAT_DMG_EXPONENT = 0.75
 
 
 		ALLOW_CLICK_CORPSE = 0
-
+		STACK_ANIMATE_TIME = 4
 		list/trueNames = list()
 
 		discordICAnnounceWebhookURL

@@ -34,8 +34,8 @@ proc
 			var/mod = (m.HasLegendaryPower() * 0.5) + m.passive_handler.Get("Juggernaut") * 0.25
 			amount /= 1 + mod
 
-		if(m.HasDebuffImmune())
-			amount/=(m.GetDebuffImmune()*0.75)
+		if(m.HasDebuffResistance())
+			amount/=(m.GetDebuffResistance()*0.75)
 		if(m.ContinuousAttacking)
 			for(var/obj/Skills/Projectile/p in m.contents)
 				if(p.ContinuousOn && !p.StormFall)

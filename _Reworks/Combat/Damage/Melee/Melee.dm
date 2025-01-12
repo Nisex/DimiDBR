@@ -568,9 +568,16 @@
 									AfterImageStrike(src,enemy,0)
 					// 				NO DODGE END		//
 						if(AttackQueue && enemy.passive_handler.Get("Sunyata"))
-							if( prob(enemy.passive_handler.Get("Sunyata") * 5))
+							if( prob(enemy.passive_handler.Get("Sunyata") * glob.SUNYATA_BASE_CHANCE))
 								OMsg(enemy, "<b><font color=#ff0000>[enemy] has negated [src]'s attack!</font></b>")
 								dodged = 1
+						if(AttackQueue && enemy.passive_handler["Interception"])
+							if(prob(enemy.passive_handler["Interception"] * glob.INTERCEPTION_BASE_CHANCE))
+								OMsg(enemy, "<b><font color=#ff0000>[enemy] reverses [src]'s attack!</font></b>")
+								if(glob.INTERCEPTION_NEGATES_DAMAGE)
+									dodged = 1
+								enemy.SetQueue(AttackQueue)
+								ClearQueue() //TODO: TEST THIS
 						if(!dodged)
 					// 				HIT					//
 
@@ -656,8 +663,8 @@
 										knockDistance += 5 * AttackQueue.Dunker
 										damage *= 1 + (AttackQueue.Dunker / 30)
 								if(AttackQueue.MortalBlow)
-									if(prob(8 * AttackQueue.MortalBlow) && !enemy.MortallyWounded)
-										var/mortalDmg = enemy.Health * 0.05
+									if(prob(glob.MORTAL_BLOW_CHANCE * AttackQueue.MortalBlow) && !enemy.MortallyWounded)
+										var/mortalDmg = enemy.Health * 0.05 // 5% of current
 										enemy.LoseHealth(mortalDmg)
 										enemy.WoundSelf(mortalDmg/2)
 										enemy.MortallyWounded += 1
@@ -738,7 +745,7 @@
 
 								if(AttackQueue?.InstantStrikes)
 									if(AttackQueue.InstantStrikesDelay)
-										sleep(AttackQueue.InstantStrikesDelay)
+										sleep(AttackQueue.InstantStrikesDelay*world.tick_lag)
 									if(AttackQueue)
 										if(AttackQueue.InstantStrikesPerformed<AttackQueue.InstantStrikes-1)
 											AttackQueue.InstantStrikesPerformed++
@@ -962,7 +969,8 @@
 			return
 
 /mob/var/Momentum = 0
-/mob/proc/handlePostDamage()
+/mob/var/Fury = 0
+/mob/proc/handlePostDamage(mob/enemy)
 	if(passive_handler.Get("Mortal Will"))
 		passive_handler.Increase("MortalStacks")
 		if(passive_handler.Get("MortalStacks") >= 6)
@@ -973,6 +981,16 @@
 				cp.adjust(src)
 				src.UseProjectile(cp)
 	var/momentum = passive_handler.Get("Momentum")
+	var/acu = enemy.passive_handler["Acupuncture"]
 	if(momentum)
-		if(prob(glob.BASE_MOMENTUM_CHANCE * momentum))
-			Momentum = clamp( Momentum + momentum/glob.MOMENTUM_DIVISOR, 0 , glob.MAX_MOMENTUM_STACKS)
+		if(acu && prob(acu * glob.ACUPUNCTURE_BASE_CHANCE))
+			Momentum = clamp( Momentum - acu/glob.ACUPUNCTURE_DIVISOR, 0 , passive_handler["Relentlessness"] ? 100 : glob.MAX_MOMENTUM_STACKS)
+		else
+			if(prob(glob.BASE_MOMENTUM_CHANCE * momentum))
+				Momentum = clamp( Momentum + momentum/glob.MOMENTUM_DIVISOR, 0 , passive_handler["Relentlessness"] ? 100 :glob.MAX_MOMENTUM_STACKS)
+	if(passive_handler["Fury"])
+		if(acu && prob(acu * glob.ACUPUNCTURE_BASE_CHANCE))
+			Fury = clamp( Fury - acu/glob.ACUPUNCTURE_DIVISOR, 0 , passive_handler["Relentlessness"] ? 100 : glob.MAX_FURY_STACKS)
+		else
+			if(prob(glob.BASE_FURY_CHANCE * passive_handler["Fury"]))
+				Fury = clamp(Fury + passive_handler["Fury"]/glob.FURY_DIVISOR, 0, passive_handler["Relentlessness"] ? 100 : glob.MAX_FURY_STACKS)

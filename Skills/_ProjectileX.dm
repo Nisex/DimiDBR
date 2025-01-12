@@ -4048,8 +4048,7 @@ obj
 
 				Kamehameha//Well rounded
 					SignatureTechnique=1
-					StrRate = 1
-					ForRate = 0
+					AdaptRate=1
 					DamageMult=12
 					ChargeRate=2
 					Dodgeable=0
@@ -4063,8 +4062,7 @@ obj
 				Motionless_Kamehameha//Well rounded
 					PreRequisite=list("/obj/Skills/Projectile/Beams/Kamehameha")
 					SignatureTechnique=1
-					StrRate = 1
-					ForRate = 0
+					AdaptRate=1
 					DamageMult=16
 					Immediate=1
 					Dodgeable=0
@@ -4078,6 +4076,7 @@ obj
 
 				Galic_Gun
 					SignatureTechnique=1
+					AdaptRate=1
 					DamageMult=5
 					ChargeRate=1.5
 					Dodgeable=0
@@ -5902,7 +5901,7 @@ obj
 							spawn()
 								LaunchEffect(src.Owner, a, Launcher )
 						if(src.Stasis&&!a:StasisFrozen)
-							a:SetStasis(src.Stasis)
+							a:SetStasis(src.Stasis.world.tick_lag)
 
 						if(src.Striking)
 							src.Owner.HitEffect(a)

@@ -270,6 +270,7 @@ mob/Admin3/verb
 					P.Saga="Sharingan"
 					P.AddSkill(new/obj/Skills/AutoHit/Sharingan_Genjutsu)
 					P.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Sharingan)
+					P.AddSkill(new/obj/Skills/Buffs/NuStyle/UnarmedStyle/Move_Duplication)
 					P<<"The curse of hatred blooms in you..."
 
 				if("Kamui")
@@ -914,7 +915,7 @@ mob
 									passive_handler.Increase("Desperation")
 									passive_handler.Increase("WeaponBreaker")
 								if("Firm")
-									passive_handler.Increase("DebuffImmune",0.5)
+									passive_handler.Increase("DebuffResistance",0.5)
 									passive_handler.Increase("PureReduction",2)
 						if(5)
 							Adaptation += 0.5
@@ -1147,18 +1148,8 @@ mob
 							src.AddSkill(new/obj/Skills/Queue/Reverse_Lotus)
 							src << "You learned how to unleash the full might of your body in a devastating sequence of strikes: <b>Reverse Lotus</b>!!!"
 						var/Choice=alert(src, "What kind of strikes does your fighting style focus on?", "Martial Art", "Punches", "Kicks", "Both")
-						if(Choice=="Punches")
-							var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style/bls=new
-							bls.Mastery=4
-							bls.SagaSignature=1
-							src.AddSkill(bls)
 						if(Choice=="Kicks")
 							var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style/bls=new
-							bls.Mastery=4
-							bls.SagaSignature=1
-							src.AddSkill(bls)
-						if(Choice=="Both")
-							var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style/bls=new
 							bls.Mastery=4
 							bls.SagaSignature=1
 							src.AddSkill(bls)
