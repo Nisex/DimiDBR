@@ -9,12 +9,12 @@
     TensionLock = 0
     TimerLimit = 450
     Cooldown = 0
-    StrMult=1.2
-    ForMult=1.2
-    SpdMult=1.2
-    EndMult=1.2
-    OffMult=1.2
-    DefMult=1.2
+    StrMult=1.1
+    ForMult=1.1
+    SpdMult=1.1
+    EndMult=1.1
+    OffMult=1.1
+    DefMult=1.1
     ActiveMessage = "enters the next realm of Samsara."
     
     Naraka
@@ -25,12 +25,12 @@
     Tiryag
         passives = list("Conductor" = -25, "Antsy" = -2, "Hardening" = 2, "Momentum" = 2, "Deflection" = 1, \
                         "Pressure" = 1)
-        StrMult=1.4
-        ForMult=1.4
-        SpdMult=1.4
-        EndMult=1.4
-        OffMult=1.4
-        DefMult=1.4
+        StrMult=1.2
+        ForMult=1.2
+        SpdMult=1.2
+        EndMult=1.2
+        OffMult=1.2
+        DefMult=1.2
     Asura
         passives = list("Conductor" = -25, "Momentum" = 2, "LikeWater" = 8, "Antsy" = -3, \
                         "Pressure" = 1)
