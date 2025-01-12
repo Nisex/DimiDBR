@@ -270,6 +270,7 @@ mob/Admin3/verb
 					P.Saga="Sharingan"
 					P.AddSkill(new/obj/Skills/AutoHit/Sharingan_Genjutsu)
 					P.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Sharingan)
+					P.AddSkill(new/obj/Skills/Buffs/NuStyle/UnarmedStyle/Move_Duplication)
 					P<<"The curse of hatred blooms in you..."
 
 				if("Kamui")

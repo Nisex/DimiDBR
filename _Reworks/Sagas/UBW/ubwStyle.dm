@@ -6,49 +6,32 @@
     passives = list("SwordPunching" = 1, "SwordDamage" = 1)
     NeedsSword = 0
     Mastery = 4
-    StyleStr = 1.25
-    StyleOff = 1.5
-    StyleDef = 1.5
-    StyleSpd = 1.25
+    StyleStr = 1.15
+    StyleOff = 1.15
+    StyleDef = 1.15
+    StyleSpd = 1.15
     Cooldown = 0
     Finisher="/obj/Skills/Queue/Finisher/UBW_finisher"
-    var/tensionStorage = 0
-    var/last_storage = 0
-    var/tmp/triggerTension 
-    proc/turnOff(mob/p)
-        tensionStorage = p.Tension
-        last_storage = world.time
-        Trigger(usr, 1)
-        cooldown_remaining = 0
-    proc/giveBackTension(mob/p)
-        if(last_storage + 1200 > world.time) // this should never happen ?
-            // we can give it back
-            if(tensionStorage)
-                p.Tension = tensionStorage
-                tensionStorage = 0
-        else
-            tensionStorage = 0
-    
     proc/swap_stance(version, sagaLevel)
         switch(version)
             if("Striking")
-                StyleStr = 1.4 + (0.1 * sagaLevel)
-                StyleSpd = 1.4 + (0.1 * sagaLevel)
-                StyleOff = 1.4 + (0.1 * sagaLevel)
+                StyleStr = 1.15 + (0.05 * sagaLevel)
+                StyleSpd = 1.15 + (0.05 * sagaLevel)
+                StyleOff = 1.15 + (0.05 * sagaLevel)
                 StyleDef = 1
                 StyleEnd = 1
             if("Defensive")
-                StyleEnd = 1.5 + (0.1 * sagaLevel)
-                StyleSpd = 1.2 + (0.1 * sagaLevel)
-                StyleDef = 1.5 + (0.1 * sagaLevel)
+                StyleEnd = 1.15 + (0.05 * sagaLevel)
+                StyleSpd = 1.15 + (0.05 * sagaLevel)
+                StyleDef = 1.15 + (0.05 * sagaLevel)
                 StyleStr = 1
                 StyleOff = 1
             if("Neutral")
-                StyleStr = 1.3 + (0.05 * sagaLevel)
-                StyleOff = 1.3 + (0.05 * sagaLevel)
-                StyleDef = 1.3 + (0.05 * sagaLevel)
-                StyleSpd = 1.3 + (0.05 * sagaLevel)
-                StyleEnd = 1.3 + (0.05 * sagaLevel)
+                StyleStr = 1.1 + (0.05 * sagaLevel)
+                StyleOff = 1.1 + (0.05 * sagaLevel)
+                StyleDef = 1.1 + (0.05 * sagaLevel)
+                StyleSpd = 1.1 + (0.05 * sagaLevel)
+                StyleEnd = 1.1 + (0.05 * sagaLevel)
             if("Default")
                 StyleStr = 1.25 + (0.05 * sagaLevel)
                 StyleOff = 1.5 + (0.1 * sagaLevel)
