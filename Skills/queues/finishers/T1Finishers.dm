@@ -12,6 +12,7 @@
     Dim_Mak
         BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Death_Mark"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Contempt_for_the_Weak"
+        //TODO: finisher this
 
     Leg_Grab
         Instinct=2

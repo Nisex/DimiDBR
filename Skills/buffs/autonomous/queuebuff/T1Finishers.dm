@@ -29,11 +29,11 @@
         StyleNeeded = "Tai Chi"
         DefMult=0.8
         EndMult=0.8
-        StrMult=1.5 // 0.3 so far
-        OffMult=1.2 // freebie
-        SpdMult=1.2 // other .2
+        StrMult=1.3 // 0.3 so far
+        OffMult=1.3 // freebie
+        SpdMult=1.3 // other .2
         // flip flop the stats
-        passives = list("BuffMastery" = 2, "StyleMastery" = 2, "Brutalize" = 1, "TensionLock" = 1)
+        passives = list("BuffMastery" = 1, "StyleMastery" = 2, "Brutalize" = 1, "TensionLock" = 1)
     Iron_Muscle
         StyleNeeded = "Red Cyclone"
         VaizardHealth = 0.3

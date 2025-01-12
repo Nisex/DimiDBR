@@ -55,7 +55,7 @@
 		StyleEnd=1.3
 		StyleOff=1.15
 		StyleDef=1.3
-		passives = list("Fa Jin" = 2,"Acupuncture" = 1, "Flow" = 1, "Soft Style" = 1)
+		passives = list("Fa Jin" = 2,"Acupuncture" = 1, "Flow" = 1, "Interception" = 1)
 		StyleActive="Tai Chi"
 		Finisher="/obj/Skills/Queue/Finisher/Dim_Mak"
 	
