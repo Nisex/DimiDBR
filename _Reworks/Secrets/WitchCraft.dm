@@ -88,7 +88,7 @@ mob/Admin3/verb/GiveWitchBook()
 		var/list/PeopleWithBooks = list("Cancel", "----")
 
 		for(var/mob/M in oview(20, src))
-			if(locate(/obj/Items/WitchCraft/WitchesBook, M))
+			if(locate(/obj/Items/WitchCraft/WitchesBook, M.contents))
 				PeopleWithBooks.Add(M)
 
 		var/mob/who = input(usr, "Which of these people do you wish to give your Essence to?") in PeopleWithBooks
