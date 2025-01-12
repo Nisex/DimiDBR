@@ -1,0 +1,40 @@
+/obj/Skills/AutoHit
+	Shitenketsu
+		FlickAttack=3
+		Area="Circle"
+		NoLock=1
+		NoAttackLock=1
+		StrOffense=1
+		Rush=3
+		Rounds=5
+		DamageMult=2
+		ControlledRush=3
+		Launcher=3
+		DelayedLauncher=1
+		ComboMaster=1
+		HitSparkIcon='Hit Effect.dmi'
+		HitSparkX=-32
+		HitSparkY=-32
+		HitSparkCount=10
+		HitSparkDispersion=12
+	Jarret_Jarret
+		Area="Circle"
+		NoLock=1
+		NoAttackLock=1
+		RoundMovement=0
+		Distance=3
+		Instinct=4
+		DamageMult=1.5
+		Rounds=10
+		ComboMaster = 1
+		StrOffense=1
+		EndDefense=1
+		WindUp=0.2
+		CanBeDodged=1
+		WindupMessage="sets themselves into a handstand..."
+		ActiveMessage="lets their legs rip like a top!!"
+		Icon='SweepingKick.dmi'
+		IconX=-32
+		IconY=-32
+		IconTime=10
+		Cooldown=4
