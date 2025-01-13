@@ -1,5 +1,5 @@
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Death_Mark
-    passives = list("Dim Mak" = 0.01)
+    passives = list("Dim Mak" = 1)
     TimerLimit = 30
     Level = 1
     IconLock='RosePetals.dmi'
@@ -12,12 +12,12 @@
         if(User.BuffOn(src))
             // we r calling an end to it
             var/damage2do = User.passive_handler["Dim Mak"]
-            User.passive_handler.Set("Dim Mak", 0.01)
-            world<< "DEBUG: DEATH MARK TRACKED [damage2do] TOTAL DAMAGE"
-            damage2do /= min(1,100-15 * Level)// applier's style tier
-            world<< "DEBUG: DEATH MARK DID [damage2do] DAMAGE"
+            User.passive_handler.Set("Dim Mak", 1)
+            world<< "DEBUG: DEATH MARK TRACKED ([damage2do]) TOTAL DAMAGE"
+            damage2do /= clamp((15*Level)/100, 0.1, 1)// applier's style tier
+            world<< "DEBUG: DEATH MARK DID ([damage2do]) DAMAGE"
             User.LoseHealth(damage2do)
-        . = ..()
+        ..()
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher
     Wing_Chun_Essence

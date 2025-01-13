@@ -760,19 +760,25 @@ mob
 
 			src.Debuffs()
 			if(src.Harden)
-				src.Harden--
+				src.Harden -= glob.BASE_STACK_REDUCTION
 				if(hudIsLive("Harden"))
 					client.hud_ids["Harden"]?:Update()
 				if(src.Harden<=0)
 					src.Harden=0
 			if(Momentum)
-				passive_handler["Relentlessness"] ? Momentum - (1 + Momentum/50) : Momentum--
+				if(passive_handler["Relentlessness"])
+					Momentum = round(Momentum - (glob.BASE_STACK_REDUCTION + Momentum/40))
+				else
+					Momentum -= glob.BASE_STACK_REDUCTION
 				if(hudIsLive("Momentum"))
 					client.hud_ids["Momentum"]?:Update()
 				if(Momentum <0)
 					Momentum=0
 			if(Fury)
-				passive_handler["Relentlessness"] ? Fury - (1 + Fury/50) : Fury--
+				if(passive_handler["Relentlessness"])
+					Fury = round(Fury - (glob.BASE_STACK_REDUCTION + Fury/50))
+				else
+					Fury -= glob.BASE_STACK_REDUCTION
 				if(hudIsLive("Fury"))
 					client.hud_ids["Fury"]?:Update()
 				if(Fury <0)
@@ -1595,6 +1601,7 @@ mob
 								A.Trigger(src,Override=1)
 				if(A.AlwaysOn)
 					if(!A.Using&&!A.SlotlessOn)
+						world<<"[A] is always on, triggering"
 						A.Trigger(src,Override=1)
 
 				//Deactivations

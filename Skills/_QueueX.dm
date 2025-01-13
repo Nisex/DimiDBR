@@ -2125,6 +2125,7 @@ mob
 
 			if(src.AttackQueue.BuffAffected)
 				var/path=text2path(src.AttackQueue.BuffAffected)
+				world<<"here is path: [path]"
 				var/obj/Skills/Buffs/S=new path
 				var/AlreadyBuffed=0
 				for(var/obj/Skills/SP in P)
@@ -2149,6 +2150,7 @@ mob
 					P.AddSkill(S)
 				if(S.type == /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Death_Mark)
 					S.adjust(StyleBuff.SignatureTechnique * 15, StyleBuff.SignatureTechnique)
+				S.Password=src?:UniqueID
 
 			if(src.AttackQueue.Projectile)
 				var/path=text2path(src.AttackQueue.Projectile)
@@ -2257,7 +2259,6 @@ mob
 					for(var/obj/Skills/Grapple/g in src.Skills)
 						if(g.type==text2path(grabPath))
 							g.Activate(src)
-			if(src.AttackQueue.Hit)
 				if(src.AttackQueue.FollowUp)
 					var/mob/ThatBoi=src
 					var/path=text2path(src.AttackQueue.FollowUp)

@@ -693,7 +693,6 @@ proc/Load_Objects()
 		var/savefile/F=new("Saves/Itemsave/File[filenum]")
 		var/list/L=new
 		if(length(F["Types"]) < 1)
-			world.log << "[filenum] is under 1 length Types"
 			goto wowza
 		F["Types"]>>L
 		for(var/obj/A in L)

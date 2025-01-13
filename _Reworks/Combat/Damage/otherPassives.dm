@@ -1,20 +1,20 @@
-/globalTracker/var/BASE_HARDENING_CHANCE = 20
-/globalTracker/var/BASE_MOMENTUM_CHANCE = 20
+/globalTracker/var/BASE_HARDENING_CHANCE = 50
+/globalTracker/var/BASE_MOMENTUM_CHANCE = 50
 /globalTracker/var/MAX_HARDEN_STACKS = 32
-/globalTracker/var/HARDEN_DIVISOR = 4
+/globalTracker/var/HARDEN_DIVISOR = 2
 /globalTracker/var/MAX_MOMENTUM_STACKS = 32
-/globalTracker/var/MOMENTUM_DIVISOR = 4
+/globalTracker/var/MOMENTUM_DIVISOR = 2
 /globalTracker/var/ACUPUNCTURE_BASE_CHANCE = 8
-/globalTracker/var/ACUPUNCTURE_DIVISOR = 4
+/globalTracker/var/ACUPUNCTURE_DIVISOR = 2
 
-/globalTracker/var/MOMENTUM_BASE_BOON = 0.005
+/globalTracker/var/MOMENTUM_BASE_BOON = 0.0005
 /globalTracker/var/MOMENTUM_MAX_BOON = 4
 
-/globalTracker/var/BASE_FURY_CHANCE = 20
+/globalTracker/var/BASE_FURY_CHANCE = 50
 /globalTracker/var/MAX_FURY_STACKS = 32
 /globalTracker/var/FURY_DIVISOR = 4
 
-/globalTracker/var/FURY_BASE_BOON = 0.005
+/globalTracker/var/FURY_BASE_BOON = 0.0005
 /globalTracker/var/FURY_MAX_BOON = 4
 /mob/proc/applySoftCC(mob/defender, val)
     if(defender.HasHardening())

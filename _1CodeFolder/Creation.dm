@@ -786,7 +786,7 @@ var/list/TechLockOut=list()
 
 mob/var/tmp/race_index = 1
 
-mob/proc/UpdateRaceScreen(change)
+mob/proc/UpdateRaceScreen(change = 1)
 	var/race/r
 
 	//TODO: pretty sure this can cause issues if theres absolutely nothing unlocked. would be smart to have a bail-out.

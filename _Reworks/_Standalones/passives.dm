@@ -16,8 +16,10 @@ passive
 	proc
 
 		Get(passive) // returns value of passive if it exists/has anything
+			
 			return passives[passive] ? passives[passive] : 0
-
+		operator[](passive)
+			return Get(passive)
 		getAll() //outputs in text, will be used for some sort of psuedo-assess
 			var/passiveText="Passives:"
 			for(var/p in passives)
@@ -107,7 +109,5 @@ passive
 						if(!isnum(value))
 							CRASH("ERROR: [settingPassive] was set to [value] which is not a number!")
 						tmp_passives[settingPassive] = value
-		operator[](passive) // alternative way of checking passives. shorthand if(passive|="zornhau") returns the value of zornhau
-			Get(passive)
 		operator|=(passive) // alternative way of checking passives. shorthand if(passive|="zornhau") returns the value of zornhau
 			Get(passive)

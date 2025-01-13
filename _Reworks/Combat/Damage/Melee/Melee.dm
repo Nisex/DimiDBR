@@ -698,7 +698,7 @@
 							log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 							#endif
 							DoDamage(enemy, damage, unarmedAtk, swordAtk, SecondStrike, ThirdStrike)
-							handlePostDamage()
+							handlePostDamage(enemy)
 							lastHit = world.time
 				// 										MELEE END																	 //
 							var/shocked=0
@@ -983,14 +983,15 @@
 	var/momentum = passive_handler.Get("Momentum")
 	var/acu = enemy.passive_handler["Acupuncture"]
 	if(momentum)
-		if(acu && prob(acu * glob.ACUPUNCTURE_BASE_CHANCE))
-			Momentum = clamp( Momentum - acu/glob.ACUPUNCTURE_DIVISOR, 0 , passive_handler["Relentlessness"] ? 100 : glob.MAX_MOMENTUM_STACKS)
+		if(acu)
+			if(prob(acu * glob.ACUPUNCTURE_BASE_CHANCE))
+				Momentum = clamp( Momentum - acu/glob.ACUPUNCTURE_DIVISOR, 0 , passive_handler["Relentlessness"] ? 100 : glob.MAX_MOMENTUM_STACKS)
 		else
 			if(prob(glob.BASE_MOMENTUM_CHANCE * momentum))
-				Momentum = clamp( Momentum + momentum/glob.MOMENTUM_DIVISOR, 0 , passive_handler["Relentlessness"] ? 100 :glob.MAX_MOMENTUM_STACKS)
+				Momentum = clamp( round(Momentum + (1 + momentum/glob.MOMENTUM_DIVISOR)), 0 , passive_handler["Relentlessness"] ? 100 : glob.MAX_MOMENTUM_STACKS)
 	if(passive_handler["Fury"])
 		if(acu && prob(acu * glob.ACUPUNCTURE_BASE_CHANCE))
 			Fury = clamp( Fury - acu/glob.ACUPUNCTURE_DIVISOR, 0 , passive_handler["Relentlessness"] ? 100 : glob.MAX_FURY_STACKS)
 		else
 			if(prob(glob.BASE_FURY_CHANCE * passive_handler["Fury"]))
-				Fury = clamp(Fury + passive_handler["Fury"]/glob.FURY_DIVISOR, 0, passive_handler["Relentlessness"] ? 100 : glob.MAX_FURY_STACKS)
+				Fury = clamp(Fury + 1 + passive_handler["Fury"]/glob.FURY_DIVISOR, 0, passive_handler["Relentlessness"] ? 100 : glob.MAX_FURY_STACKS)

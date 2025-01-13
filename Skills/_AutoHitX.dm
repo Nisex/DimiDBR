@@ -5973,6 +5973,9 @@ mob
 
 			if(Z.CapacityCost)
 				src.LoseCapacity(Z.CapacityCost*CostMultiplier)
+			if(Z.UnarmedOnly&&passive_handler["Gum Gum"])
+				Z.Distance-=Z.ExtendMemory
+				Z.Size-=Z.ExtendMemory
 			if(Z.NeedsSword&&Z.ExtendMemory)
 				Z.Distance-=Z.ExtendMemory//...then take the distance away.
 				Z.Size-=Z.ExtendMemory
