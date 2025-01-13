@@ -25,6 +25,8 @@
 	adjust(mob/p)
 		if(altered) return
 		var/level = p.SagaLevel
+		if(!level || level < 1)
+			level = 1
 		PowerMult = 1 + level/20
 		SureHitTimerLimit = 30 - (level * 3)
 		SureDodgeTimerLimit = 30 - (level * 3)
@@ -37,6 +39,10 @@
 
 	verb/Life_Fiber_Override()
 		set category="Skills"
+		if(usr.Saga != "Kamui" || usr.Secret != "Haki")
+			usr.TotalInjury += 90
+			usr.Unconscious(null, "Junketsu going insane and trying to lash away all the blood from their body!")
+			return
 		if(!usr.BuffOn(src))
 			adjust(usr)
 		src.Trigger(usr)
@@ -91,54 +97,74 @@ obj/Items/Sword/Light/Bakuzan_Koryu
 	Bestow_Disciplinary_Chair
 		role = "Disciplinary Chair"
 		verb/Bestow_Disciplinary_Chair()
+			set category = "Utility"
 			if(!usr.Target)
 				usr << "You require a target to do this!"
 				return
 			var/mob/m = usr.Target
+			OMsg(usr, "[usr] extends a singular long red thread towards [m]...")
 			if(consentCheck(usr, m, "Disciplinary Chair"))
 				var/doubleCheck = input(usr, "Are you sure you want to make [m] the Disciplinary Chair?") in list("Yes", "No")
 				if(doubleCheck == "Yes")
+					OMsg(usr, "[m]'s body accepts the thread!")
 					m.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Life_Fiber_Hybrid/Disciplinary_Chair)
-				else return
+				else
+					OMsg(usr, "[usr] retracts the thread!")
+					return
 
 	Bestow_Athletic_Chair
 		role = "Athletic Chair"
 		verb/Bestow_Athletic_Chair()
+			set category = "Utility"
 			if(!usr.Target)
 				usr << "You require a target to do this!"
 				return
 			var/mob/m = usr.Target
+			OMsg(usr, "[usr] extends a singular long red thread towards [m]...")
 			if(consentCheck(usr, m))
 				var/doubleCheck = input(usr, "Are you sure you want to make [m] the [role]?") in list("Yes", "No")
 				if(doubleCheck == "Yes")
+					OMsg(usr, "[m]'s body accepts the thread!")
 					m.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Life_Fiber_Hybrid/Athletics_Chair)
-				else return
+				else
+					OMsg(usr, "[usr] retracts the thread!")
+					return
 
 	Bestow_Non_Athletic_Chair
 		role = "Non Athletic Chair"
 		verb/Bestow_Non_Athletic_Chair()
+			set category = "Utility"
 			if(!usr.Target)
 				usr << "You require a target to do this!"
 				return
 			var/mob/m = usr.Target
+			OMsg(usr, "[usr] extends a singular long red thread towards [m]...")
 			if(consentCheck(usr, m))
 				var/doubleCheck = input(usr, "Are you sure you want to make [m] the [role]?") in list("Yes", "No")
 				if(doubleCheck == "Yes")
+					OMsg(usr, "[m]'s body accepts the thread!")
 					m.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Life_Fiber_Hybrid/Non_Athletics_Chair)
-				else return
+				else
+					OMsg(usr, "[usr] retracts the thread!")
+					return
 
 	Bestow_Information_and_Strategy_Chair
 		role = "Information and Strategy Chair"
 		verb/Bestow_Information_and_Strategy_Chair()
+			set category = "Utility"
 			if(!usr.Target)
 				usr << "You require a target to do this!"
 				return
 			var/mob/m = usr.Target
+			OMsg(usr, "[usr] extends a singular long red thread towards [m]...")
 			if(consentCheck(usr, m))
 				var/doubleCheck = input(usr, "Are you sure you want to make [m] the [role]?") in list("Yes", "No")
 				if(doubleCheck == "Yes")
+					OMsg(usr, "[m]'s body accepts the thread!")
 					m.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Life_Fiber_Hybrid/Information_and_Strategy_Chair)
-				else return
+				else
+					OMsg(usr, "[usr] retracts the thread!")
+					return
 
 /obj/Skills/Buffs/SlotlessBuffs/Life_Fiber_Hybrid
 	Disciplinary_Chair

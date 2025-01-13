@@ -709,8 +709,7 @@ mob
 			if(src.InfinityModule)
 				Return+=1
 			if(src.KamuiBuffLock)
-				Return++
-				Return++
+				Return += 3
 			if(Secret == "Vampire")
 				var/secretLevel = getSecretLevel()
 				Return += 1 + (secretLevel / 4) * (1 + (secretDatum.secretVariable["BloodPower"] * 0.25))
@@ -741,7 +740,7 @@ mob
 				return 1
 			return 0
 		GetDeathField()
-			return passive_handler.Get("DeathField")+(src.KamuiBuffLock*10)
+			return passive_handler.Get("DeathField")+(src.KamuiBuffLock*5)
 		HasVoidField()
 			if(passive_handler.Get("VoidField"))
 				return 1
@@ -859,7 +858,7 @@ mob
 				return 1
 			return 0
 		GetHardStyle()
-			return passive_handler.Get("HardStyle")
+			return passive_handler.Get("HardStyle") + (KamuiBuffLock * 4)
 		GetDebuffCrash()
 			var/list/Debuffs=list()
 			for(var/sb in SlotlessBuffs)
@@ -1264,7 +1263,7 @@ mob
 				return 1
 			return 0
 		HasWitchCraft()
-			if(locate(/obj/WitchCraft/WitchesBook, src.contents))
+			if(locate(/obj/Items/WitchCraft/WitchesBook, src.contents))
 				return 1
 			else
 				return 0
@@ -1620,7 +1619,7 @@ mob
 					else
 						Total+=Potential/100
 			if(src.KamuiBuffLock)
-				Total+=0.25
+				Total+=0.75
 			if(src.isRace(DRAGON))
 				if(src.AscensionsAcquired==6 && Total<0.5)
 					Total=0.5//fully ascended dragon

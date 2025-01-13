@@ -35,6 +35,7 @@ Tomes:
     if(!m)
         m = new()
         m.Move(p)
+    m.checkDuplicate(p)
     var/num = input(src, "How many fragments?") as num
     m.value += num
     m.assignState(num)

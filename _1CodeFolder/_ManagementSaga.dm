@@ -1311,21 +1311,30 @@ mob
 								confirm = input("[confirmText] <br><br>Are you sure about your decision?") in list("Yes", "No")
 							if(choice == "Clothes")
 								KamuiType = "Shinra Koketsu"
-							
+								passive_handler.Increase("Unstoppable", 1)
+								AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
+								for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/R in src)
+									R.RegenerateLimbs=1
+								if(usr.CheckActive("Life Fiber Override"))
+									usr.ActiveBuff.Trigger(usr)
+								for(var/obj/Items/Symbiotic/Kamui/KamuiJunketsu/ks in usr)
+									if(ks.suffix)
+										ks.AlignEquip(usr)
+									del ks
+
 							if(choice == "Rebellion")
 								src << "placeholder"
 
 					if(src.SagaLevel==6)
-						if(src.KamuiType=="Impulse")
-							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
-							for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/R in src)
-								R.RegenerateLimbs=1
+						if(src.KamuiType=="Senketsu")
 							src.RecovMod *= 2
 							src << "You gain the ability to unite with your kamui..."
 							src.contents+=new/obj/Skills/Buffs/SpecialBuffs/Kamui_Unite
 							src << "Your being has merged with life fibers."
-						else if(src.KamuiType=="Purity")
+						else if(src.KamuiType=="Junketsu")
 							src << "Unshatterable, your resolve gains a twofold edge...Your goals are nearly within your grasp."
+						else if (KamuiType == "Shinra Koketsu")
+							contents += new/obj/Items/Symbiotic/Kamui/Shinra_Koketsu 
 				if("Keyblade")
 					if(src.SagaLevel==2)
 						switch(src.KeybladeType)

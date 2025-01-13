@@ -1151,13 +1151,19 @@ obj/Items/Symbiotic
 			icon='senketsu.dmi'
 			name="Senketsu"
 			var/wornByJunketsu = FALSE
-			Techniques=list("/obj/Skills/Buffs/ActiveBuffs/Kamui/KamuiSenketsu")
+			Techniques=list("/obj/Skills/Buffs/ActiveBuffs/Kamui/Kamui_Senketsu")
 
 		KamuiJunketsu
 			icon='junketsu.dmi'
 			name="Junketsu"
 			var/wornBySenketsu = FALSE
-			Techniques=list("/obj/Skills/Buffs/ActiveBuffs/Kamui/KamuiJunketsu")
+			Techniques=list("/obj/Skills/Buffs/ActiveBuffs/Kamui/Kamui_Junketsu")
+
+		Shinra_Koketsu
+			icon = 'shinrakoketsu.dmi'
+			pixel_x = -48
+			pixel_y = -48
+			Techniques = list("/obj/Skills/Buffs/ActiveBuffs/Kamui/Shinra_Koketsu")
 
 /mob/proc/UsingLightSaber()
 	var/list/lightSaberBuffs = list("Great Lightsaber", "Lightsaber", "Crossguard Lightsaber", \
