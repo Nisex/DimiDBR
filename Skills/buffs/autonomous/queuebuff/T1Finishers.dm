@@ -14,7 +14,7 @@
             var/damage2do = User.passive_handler["Dim Mak"]
             User.passive_handler.Set("Dim Mak", 1)
             world<< "DEBUG: DEATH MARK TRACKED ([damage2do]) TOTAL DAMAGE"
-            damage2do /= clamp((15*Level)/100, 0.1, 1)// applier's style tier
+            damage2do *= clamp((15*Level)/100, 0.1, 1)// applier's style tier
             world<< "DEBUG: DEATH MARK DID ([damage2do]) DAMAGE"
             User.LoseHealth(damage2do)
         ..()
