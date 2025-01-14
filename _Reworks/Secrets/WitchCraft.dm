@@ -118,7 +118,13 @@ mob/Admin3/verb/GiveWitchBook()
 			var/list/weapons = list()
 			for(var/obj/Items/Sword/Weapon in usr)
 				weapons += Weapon
-			var/obj/Items/Sword/Weapon = input(usr, "Select which of the weapons you wish to Fel-Masterwork", "Fel Masterwork") in weapons
+			if(weapons.len == 0)
+				usr << "You do not have any sword to enchant"
+				return .	
+			var/obj/Items/Sword/Weapon = input(usr, "Select which of the weapons you wish to Fel-Masterwork", "Fel Masterwork") in weapons + "Cancel"
+			if(Weapon == "Cancel") 
+				usr << "You chose to reserve your Essence"
+				return .
 			Weapon.Element = "Felfire"
 			src.CurrentEssenceAmount -= cost
 		else
