@@ -52,23 +52,23 @@ obj/Skills/Mental_Refitting
 	var/lifeFiberHybridID
 	verb/Life_Fiber_Hybridize()
 		set category = "Utility"
-			if(!usr.Target)
-				usr << "You require a target to do this!"
-				return
-			var/mob/m = usr.Target
-			OMsg(usr, "[usr] extends countless long red threads towards [m]...")
-			var/confirm = input(usr, "Are you sure you want to use this on [m], it will confirm after - this is a one time use verb.") in list("Yes", "No")
-			if(confirm == "No") return
-			if(consentCheck(usr, m))
-				var/doubleCheck = input(usr, "Are you sure you want to make [m] into a [role]?") in list("Yes", "No")
-				if(doubleCheck == "Yes")
-					OMsg(usr, "[m]'s body accepts the countless threads, becoming something so - so much more!")
-					m << "Your whole body is now integrated with fibers - you can feel your very existence rewrite itself to accomodate this..."
-					m << "You know at a thought - that any attacks against the one who did this to you? They'd do hardly a thing as your very body would resist..."
-					m.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Life_Fiber_Hybrid)
-					for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Life_Fiber_Hybrid/lfh in m.contents)
-						lfh.Password = usr?:UniqueID 
-				else return
+		if(!usr.Target)
+			usr << "You require a target to do this!"
+			return
+		var/mob/m = usr.Target
+		OMsg(usr, "[usr] extends countless long red threads towards [m]...")
+		var/confirm = input(usr, "Are you sure you want to use this on [m], it will confirm after - this is a one time use verb.") in list("Yes", "No")
+		if(confirm == "No") return
+		if(consentCheck(usr, m))
+			var/doubleCheck = input(usr, "Are you sure you want to make [m] into a [role]?") in list("Yes", "No")
+			if(doubleCheck == "Yes")
+				OMsg(usr, "[m]'s body accepts the countless threads, becoming something so - so much more!")
+				m << "Your whole body is now integrated with fibers - you can feel your very existence rewrite itself to accomodate this..."
+				m << "You know at a thought - that any attacks against the one who did this to you? They'd do hardly a thing as your very body would resist..."
+				m.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Life_Fiber_Hybrid)
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Life_Fiber_Hybrid/lfh in m.contents)
+					lfh.Password = usr?:UniqueID 
+			else return
 
 obj/Skills/Buffs/SlotlessBuffs/Autonomous/Life_Fiber_Hybrid
 	AlwaysOn=1

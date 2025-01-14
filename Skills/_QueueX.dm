@@ -2039,6 +2039,8 @@ mob
 				Damage = 0.1
 			if(src.AttackQueue.DamageMult>=0)
 				var/dmgMult = src.AttackQueue.DamageMult
+				if(passive_handler["Fa Jin"] && canFaJin())
+					dmgMult+= passive_handler["Fa Jin"] * glob.FA_JIN_BASE_DMG_ADD
 				Damage*=dmgMult
 			if(Damage>0 && glob.GLOBAL_QUEUE_DAMAGE > 0)
 				Damage *= glob.GLOBAL_QUEUE_DAMAGE
@@ -2054,6 +2056,8 @@ mob
 			var/KB=0
 			if(src.AttackQueue.KBAdd)
 				KB+=src.AttackQueue.KBAdd
+			if(passive_handler["Fa Jin"] && canFaJin())
+				KB+= passive_handler["Fa Jin"] * glob.FA_JIN_BASE_KB_ADD
 			//One day, passives.
 			return KB
 		QueuedKBMult()
@@ -2080,6 +2084,8 @@ mob
 			src.AttackQueue.Hit=1
 			src.AttackQueue.Missed=0
 			src.AttackQueue.RanOut=0
+			if(canFaJin())
+				last_fa_jin = world.time
 			if(istype(src.AttackQueue, /obj/Skills/Queue/Shoryuken))
 				if(src.AttackQueue.ShoryukenEffect==2)
 					OMsg(src, "[src] yells: SHORYUKEN!", "[src] used Shoryuken.")
@@ -2176,6 +2182,8 @@ mob
 			src.AttackQueue.Missed=1
 			src.AttackQueue.Hit=0
 			src.AttackQueue.RanOut=0
+			if(canFaJin())
+				last_fa_jin = world.time
 			if(src.AttackQueue.CustomOff)
 				OMsg(src, "[src.AttackQueue.CustomOff]")
 			else

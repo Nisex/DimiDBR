@@ -114,7 +114,8 @@ mob
 			if(defender.passive_handler["Dim Mak"]>0)
 				world<<"ahaha here."
 				defender.passive_handler.Increase("Dim Mak", val)
-
+			if(glob.MOMENTUM_PROCS_OFF_DAMAGE)
+				handlePostDamage(defender)
 			if(defender.VaizardHealth)
 				if(glob.SYMBIOTE_DMG_TEST && CheckSlotless("Symbiote Infection"))
 					val *= glob.SYMBIOTE_DMG_TEST

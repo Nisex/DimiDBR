@@ -481,7 +481,14 @@ mob
 					ts:TimeStopped++
 					if(ts:TimeStopped>ts.Mastery+1)
 						src.SkillX("Time Stop",x)
-			
+			if(passive_handler["Fa Jin"])
+				if(canFaJin())
+					if(fa_jin_effect)
+						if(fa_jin_effect.alpha == 0)
+							fa_jin_effect()
+							src << "Your fa jin is ready!"
+						
+
 
 			if(scrollTicker)
 				scrollTicker--

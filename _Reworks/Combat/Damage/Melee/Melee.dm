@@ -576,8 +576,8 @@
 								OMsg(enemy, "<b><font color=#ff0000>[enemy] reverses [src]'s attack!</font></b>")
 								if(glob.INTERCEPTION_NEGATES_DAMAGE)
 									dodged = 1
-								enemy.SetQueue(AttackQueue)
-								ClearQueue() //TODO: TEST THIS
+								ClearQueue()
+								enemy.InterceptionStrike(src, enemy.passive_handler["Interception"])
 						if(!dodged)
 					// 				HIT					//
 
@@ -698,11 +698,12 @@
 							log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 							#endif
 							DoDamage(enemy, damage, unarmedAtk, swordAtk, SecondStrike, ThirdStrike)
-							handlePostDamage(enemy)
+							if(!glob.MOMENTUM_PROCS_OFF_DAMAGE)
+								handlePostDamage(enemy) // it already proc'd
 							lastHit = world.time
 				// 										MELEE END																	 //
 							var/shocked=0
-							if((SureKB || AttackQueue&& QueuedKBAdd()) && !NoKB)
+							if((SureKB || AttackQueue && QueuedKBAdd()) && !NoKB)
 								knockDistance = round(knockDistance)
 								if(SureKB && knockDistance < max(SureKB, 5))
 									knockDistance = max(SureKB, 5)
