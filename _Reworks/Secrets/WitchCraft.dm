@@ -24,6 +24,7 @@ obj/proc/SunderSoul(mob/P, mob/G) // P = Pactee, G = Giver.
 				P.AddSkill(new/obj/Skills/AutoHit/Dream_Walk)
 				P.AddSkill(new/obj/Skills/AutoHit/Hex)
 				P.AddSkill(new/obj/Skills/Queue/Grave_Curse)
+				P.AddSkill(new/obj/Skills/Queue/Mirror_Match)
 				P.NoSoul = 1
 		if("No")
 			view(20)<< output("<font color=yellow>[P] has declined the deal !", "output")
@@ -44,6 +45,8 @@ mob/Admin3/verb/GiveWitchBook()
 	who.AddSkill(new/obj/Skills/AutoHit/Dream_Walk)
 	who.AddSkill(new/obj/Skills/AutoHit/Hex)
 	who.AddSkill(new/obj/Skills/Queue/Grave_Curse)
+	who.AddSkill(new/obj/Skills/Queue/Mirror_Match)
+
 /obj/Items/WitchCraft/WitchesBook
 	name = "Unnamed Tome"
 	icon = 'Icons/NSE/Icons/Thot_book.dmi'
@@ -127,6 +130,7 @@ mob/Admin3/verb/GiveWitchBook()
 				return .
 			Weapon.Element = "Felfire"
 			src.CurrentEssenceAmount -= cost
+			OMsg(usr, "[usr] weaves their hands upon [Weapon.name] encasing it in their <b>flames</b>!")
 		else
 			usr << "You do not possess enough essence for this enchantment! [CurrentEssenceAmount] / [cost]"
 	Click()
@@ -134,13 +138,14 @@ mob/Admin3/verb/GiveWitchBook()
 		usr << "[src.name] holds [CurrentEssenceAmount] amounts of essence"
 
 /obj/Skills/AutoHit/Dream_Walk
-	Area= "Area"
+	Area="Circle"
 	AdaptRate= 1
 	DamageMult= 6
 	Rounds= 10
 	TurfStrike=1
-	TurfShift='Icons/NSE/spells/cast/cruel_thesis.dmi'
-	TurfShiftDuration=3
+	TurfShift= 'Icons/NSE/spells/tilebuff/corruption.dmi'
+	TurfShiftLayer = 5
+	Icon = 'Icons/Effects/DarkKiai.dmi'
 	PreShockwave= 0
 	Cooldown= 120
 	Earthshaking= 20
@@ -161,6 +166,8 @@ mob/Admin3/verb/GiveWitchBook()
 			usr << "Not enough Essence [resource] / [cost]"
 
 
+
+
 /obj/Skills/Queue/Grave_Curse
 	ActiveMessage="fills the air with terrible images....!!"
 	HitMessage="curses their opponents mind with horrible images...!!"
@@ -174,7 +181,7 @@ mob/Admin3/verb/GiveWitchBook()
 	Quaking = 5
 	PushOut = 5
 	PushOutWaves = 3
-	BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Witch/Grave_Curse"
+	BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Witch/Grave_Curse"
 	PushOutIcon = 'Icons/NSE/spells/cast/KrysiaExplosion.dmi'
 	verb/Grave_Curse()
 		set category="Skills"
@@ -203,7 +210,7 @@ mob/Admin3/verb/GiveWitchBook()
 	Duration = 5
 	KBMult = 0.00001
 	Cooldown = 150
-	BuffSelf = "/obj/Skills/Buffs/SlotlessBuffs/Witch/WitchCounter"
+	BuffSelf = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Witch/WitchCounter"
 	verb/Mirror_Match()
 		set category="Skills"
 		var/resource = 0
@@ -234,11 +241,11 @@ mob/Admin3/verb/GiveWitchBook()
 	ManaCost = 50
 	WindupMessage = "hosts up their hand....!!!"
 	ActiveMessage = "fills their opponents body with a hex..!!!"
-	ComboMaster = 1
-	BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Witch/HexDebuff"
+	BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Witch/HexDebuff"
 	verb/Hex()
 		set category="Skills"
 		usr.Activate(src)
+
 
 /obj/Skills/Queue/Finisher/Sundered_Sky
 	DamageMult=6.5
@@ -256,23 +263,37 @@ mob/Admin3/verb/GiveWitchBook()
 
 /// Debuffs / Buffs
 
-/obj/Skills/Buffs/SlotlessBuffs/Witch/WitchCounter
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Witch/WitchCounter
+	IconLock = 'ExcaliTrail.dmi'
 	DefMult = 1.3 
 	CounterSpell = 1
 	CounterMaster = 2
 	BuffName = "WitchCounter"
+	NeedsPassword = 1
 	TimerLimit = 30
+	Cooldown = 4
+	AlwaysOn = 1
 
-/obj/Skills/Buffs/SlotlessBuffs/Witch/Grave_Curse
-	ActiveMessage="begins to fall in to pieces!"
-	TimerLimit = 30
+
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Witch/Grave_Curse
 	passives = list("GodSpeed" = -4, "PureReduction" = -2 )
+	IconLock = 'Magicwish.dmi'
+	ActiveMessage="begins to fall in to pieces!"
+	NeedsPassword = 1
+	TimerLimit = 30
+	Cooldown = 4
+	AlwaysOn = 1
 
-/obj/Skills/Buffs/SlotlessBuffs/Witch/HexDebuff
+
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Witch/HexDebuff
 	ActiveMessage="begins to fall apart!"
 	StrMult = 0.5
 	ForMult = 0.5
 	EndMult = 0.75
 	SlowAffected = 1
-	IconLock = 'SweatDrop.dmi'
 	TimerLimit = 30
+	NeedsPassword = 1
+	TimerLimit = 30
+	Cooldown = 4
+	AlwaysOn = 1
+	IconLock = 'SweatDrop.dmi'
