@@ -12,7 +12,9 @@ obj
 					iconAltY=-32
 					ClassAlt="Heavy"
 					Cost = 0
-					Techniques=list("/obj/Skills/Buffs/SlotlessBuffs/WeaponSystems/Decapitation_Mode", "/obj/Skills/Queue/Sen_I_Soshitsu", "/obj/Skills/AutoHit/Life_Fiber_Weave")
+					LegendaryItem = 1
+					Saga = "Kamui"
+					TierTechniques=list(null, list("/obj/Skills/Buffs/SlotlessBuffs/WeaponSystems/Decapitation_Mode", "/obj/Skills/Queue/Sen_I_Soshitsu", "/obj/Skills/AutoHit/Life_Fiber_Weave"), null, null, null, null)
 					unsheatheIcon = 'scissor_blade.dmi'
 					unsheatheOffsetX = -16
 					unsheatheOffsetY = -16
@@ -21,7 +23,7 @@ obj
 						if(usr.Saga == "Kamui" && usr.SagaLevel < 3)
 							usr << "You don't know how to use this aspect of your scissor blade yet!"
 							return
-						if(usr.Saga != "Kamui" || !usr.Saga)
+						if(usr.Saga != "Kamui")
 							usr << "You don't know how to modify the scissor blade!"
 							return
 						Class = input("What class would you like to set the Scissor Blade to?") in list("Light", "Medium", "Heavy")

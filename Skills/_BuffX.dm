@@ -6287,9 +6287,9 @@ NEW VARIABLES
 		WeaponSystems
 
 			Decapitation_Mode
-				NeedsHealth=75
+				TooMuchHealth = 99
+				NeedsHealth = 75
 				NeedsSword=1
-				HealthCost = 10
 				passives = list("Extend" = 1)
 				Extend=1
 				TextColor=rgb(255, 0, 0)
@@ -6299,7 +6299,6 @@ NEW VARIABLES
 					var/lifeSteal
 					var/extend
 					if(user.Saga=="Kamui")
-						HealthCost = 10-user.SagaLevel
 						lifeSteal = user.SagaLevel*5
 						extend = max(1,ceil(user.SagaLevel/3))
 					else
@@ -6309,9 +6308,6 @@ NEW VARIABLES
 					passives = list("LifeSteal" = lifeSteal, "Extend" = extend)
 				verb/Decapitation_Mode()
 					set category="Skills"
-					if(usr.Saga == "Kamui" && usr.SagaLevel < 2)
-						usr << "You don't know how to use this aspect of your scissor blade yet!"
-						return
 					if(!usr.BuffOn(src))
 						var/obj/Items/Sword/s=usr.EquippedSword()
 						src.SwordIcon=s.iconAlt

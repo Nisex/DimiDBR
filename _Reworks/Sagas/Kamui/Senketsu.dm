@@ -99,16 +99,17 @@ obj/Skills/AutoHit/Shippu_Rush
 	Knockback=1
 	Cooldown=90
 	Size=1
-	Rush=3
+	Rush=7
 	ControlledRush=1
 	Hurricane="/obj/Skills/Projectile/GravityTornado"
-	HurricaneDelay=0.5
+	HurricaneDelay=0.3
 	WindUp=0.1
 	WindupIcon=2
 	ActiveMessage="fires their jets at max capacity, kicking up a storm as they launch themselves at their target!"
 	verb/Shippu_Rush()
 		set category="Skills"
 		if(!usr.CheckSpecial("Kamui Shippu")&&!usr.CheckSpecial("Kamui Senjin Shippu"))
+			usr << "You need to be using Kamui Shippu or Senjin Shippu to use this!"
 			return
 		usr.Activate(src)
 
