@@ -780,10 +780,6 @@ mob/var/Plan=1
 mob/var/Rac=1
 mob/var/Tin=1
 
-var/list/SagaLockOut=list()
-var/list/RaceLock=list()
-var/list/TechLockOut=list()
-
 mob/var/tmp/race_index = 1
 
 mob/proc/UpdateRaceScreen(change = 1)
