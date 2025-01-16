@@ -6,12 +6,15 @@ mob/proc
 			savedRoleplay = replacetext(savedRoleplay, "\'", "\\\\'")
 			savedRoleplay = replacetext(savedRoleplay, "\"", "\\\"")
 
+mob/var/tmp/lastRPTime = 0
+
 mob/verb/
 	SubmitRP()
 		set hidden = 1
 		set instant = 1
 		if(!rping) return
-
+		if(lastRPTime >= world.time) return
+		lastRPTime = world.time + 10
 		usr.overlays -= usr.emoteBubble
 		winset(usr, "RPWindow", "is-visible=false")
 		var/msg = winget(usr, "RPWindow.rpbox", "text")
