@@ -2538,7 +2538,8 @@ mob
 			if(src.StyleActive=="Divine Arts of The Heavenly Demon")
 				Found = 1.5
 			return Found
-
+		UsingFTG()
+			return passive_handler["Flying Thunder God"]
 		UsingIaido()
 			var/Found=0
 			var/obj/Items/Sword/S=src.EquippedSword()

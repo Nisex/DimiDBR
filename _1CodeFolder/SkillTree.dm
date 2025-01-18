@@ -412,7 +412,7 @@ mob/Players/verb
 
 
 
-/globalTracker/var/list/KI_CONTROL_PASSIVES = list("")
+/globalTracker/var/list/KI_CONTROL_PASSIVES = list("Flicker", "")
 
 
 mob/proc
@@ -420,8 +420,10 @@ mob/proc
 		src << "Powering up to a certain level will activate your Powered Form which will provide a sharp increase in your fighting prowess!"
 		var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC=new
 		KC.selectedPassive = input(src, "Pick a focus") in glob.KI_CONTROL_PASSIVES
+		var/list/stats = list("Str", "For", "Spd", "End", "Off","Def")
 		while(length(KC.selectedStats)<3)
-			KC.selectedStats[length(KC.selectedStats)] = input(src, "Pick a stat") in list("Str", "For", "Spd", "End", "Off","Def")
+			KC.selectedStats += input(src, "Pick a stat") in stats
+			stats -= KC.selectedStats[length(KC.selectedStats)]
 		KC.init(src)
 		if(src.isRace(MAKYO))
 			KC.icon=src.ExpandBase

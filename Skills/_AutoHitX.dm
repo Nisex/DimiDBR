@@ -5163,6 +5163,54 @@ obj
 				verb/Deathbringer()
 					set category="Skills"
 					usr.Activate(src)
+			True_Excalibur
+				NeedsSword=1
+				ABuffNeeded="Soul Resonance"
+				EnergyCost=25
+				Area="Arc"
+				Distance=20
+				DelayTime=2
+				ComboMaster=1
+				CursedWounds=1
+				HolyMod=4
+				Quaking=8
+				Divide=1
+				PreShockwave=1
+				Shockwaves=1
+				Shockwave=1
+				ShockIcon='fevKiaiDS.dmi'
+				Speed=0.5
+				NoForcedWhiff=1
+				Instinct=3
+				DamageMult=9
+				Stunner=5
+				Launcher=6
+				Rounds=10
+				RoundMovement=0
+				StrOffense=1
+				EndDefense=0.75
+				ForOffense=1
+				Cooldown=-1
+				//HitSparkIcon='Hit Effect Excal.dmi'
+				HitSparkX=-32
+				HitSparkY=-32
+				HitSparkTurns=1
+				HitSparkSize=7
+				TurfShift='Excalitrail.dmi'
+				TurfStrike=1
+				Shearing=15
+				Slow=1
+				WindUp=1
+				WindupIcon='Ripple Radiance.dmi'
+				WindupIconUnder=1
+				WindupIconX=-32
+				WindupIconY=-32
+				GuardBreak=1//Can't be dodged or blocked
+				WindupMessage="raises their blade overhead as holy energy takes shape around them..."
+				ActiveMessage="releases a holy slash that mows the area before them in a wave of light!"
+				verb/True_Excalibur()
+					set category="Skills"
+					usr.Activate(src)
 
 //Cybernetics and enchantment
 			Gear

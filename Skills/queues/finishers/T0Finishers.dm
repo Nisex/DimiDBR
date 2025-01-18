@@ -60,6 +60,7 @@
 
     Tranquility
         FollowUp="/obj/Skills/Queue/Finisher/Ultimate_Fist"
+        BuffSelf=null
         Warp = 3
         DamageMult = 1.5
         Dunker = 1
@@ -70,5 +71,6 @@
     Ultimate_Fist
         DamageMult = 1.5
         KBAdd = 3
-        Projectile="/obj/Skills/Projectile/Beams/Kamehameha"
+        Projectile="/obj/Skills/Projectile/Beams/The_Original_Kamehameha"
         ProjectileBeam=1
+        BuffSelf=null

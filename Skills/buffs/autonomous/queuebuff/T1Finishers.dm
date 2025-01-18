@@ -2,7 +2,7 @@
     passives = list("Dim Mak" = 1)
     TimerLimit = 30
     Level = 1
-    IconLock='RosePetals.dmi'
+    IconLock='death_mark.dmi'
     ActiveMessage = "has been marked for death!"
     OffMessage = "takes internal damage from the Death Mark!"
     adjust(timer, lvl)

@@ -20,8 +20,6 @@
 			usr.AddSkill(new S)
 
 /mob
-	var/resetPU = TRUE
-	var/resetPU1 = TRUE
 	var/resetStats = TRUE
 	var/massReset = TRUE
 	var/totalRecall = 0
@@ -170,11 +168,6 @@ mob/Players
 
 		//automation
 		src.reward_auto()//checks to see if its been a day
-
-		if(locate(/obj/Skills/Buffs/ActiveBuffs/Ki_Control, src) && (resetPU||resetPU1))
-			for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/ki in src)
-				del ki
-			src.PoweredFormSetup()
 		if(RPPSpent<0)
 			src<<"RPPSpent was negative, resetting to 0"
 			RPPSpent=0
@@ -183,7 +176,7 @@ mob/Players
 			killed_AI = list()
 
 		if(last_online)
-			var regen_time = (world.realtime - last_online)/10 //Seconds.
+			var regen_time = (world.realtime - last_online) / 10 //Seconds.
 			if((TotalInjury + TotalFatigue + TotalCapacity) >= 10)
 				usr << "You have been offline for [round(((world.realtime - last_online)/10)/60)] minutes. Your wound timer, injury, capacity, and fatigue have been restored accordingly."
 			var/purerpmode

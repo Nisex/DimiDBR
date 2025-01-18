@@ -21,3 +21,19 @@
         EndMult=1.1
         ForMult=1.1
         passives = list("BuffMastery" = 1, "StyleMastery" = 1, "DebuffResistance" = 1,"TensionLock" = 1)// not sure what 2 do w/ it
+    
+    Unlocked_Potential
+        StyleNeeded="Turtle"
+
+        adjust(mob/p)
+            // this is goofy, sigh
+            var/ascension/nextasc = p.race.ascensions[p.AscensionsAcquired+1]
+            passives = nextasc.passives
+            passives["MovementMastery"] = 3
+            StrMult = 1+nextasc.strength // problematic late game but i doubt ppl will go base turtle for it, this will however b swole for saga users
+            OffMult = 1+nextasc.offense
+            DefMult = 1+nextasc.defense
+            EndMult = 1+nextasc.endurance
+            ForMult = 1+nextasc.force
+            SpdMult = 1+nextasc.speed
+

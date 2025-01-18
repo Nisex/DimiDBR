@@ -483,10 +483,11 @@ mob
 						src.SkillX("Time Stop",x)
 			if(passive_handler["Fa Jin"])
 				if(canFaJin())
-					if(fa_jin_effect)
-						if(fa_jin_effect.alpha == 0)
-							fa_jin_effect()
-							src << "Your fa jin is ready!"
+					if(!fa_jin_effect)
+						generate_fa_jin()
+					if(fa_jin_effect.alpha == 0)
+						fa_jin_effect()
+						src << "Your fa jin is ready!"
 						
 
 
@@ -810,11 +811,7 @@ mob
 			if(InDevaPath())
 				devaCounter++
 
-			if(src.UsingIaido())
-				src.IaidoCounter++
-			if(src.UsingKendo())
-				src.IaidoCounter++
-			if(src.UsingSpeedRave())
+			if(src.UsingFTG())
 				src.IaidoCounter++
 			if(UsingGladiator())
 				GladiatorCounter++

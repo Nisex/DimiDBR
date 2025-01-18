@@ -1885,7 +1885,7 @@ obj
 				Distance=100
 				IconSize=0.05
 				Deflectable=0
-				Cooldown=10800
+				Cooldown=-1
 				Knockback=1
 				Homing=1
 				HyperHoming=1
@@ -4045,7 +4045,17 @@ obj
 //T4 is above and also in Autohits.
 
 //T5 has damage mult 5, usually.
-
+				The_Original_Kamehameha
+					AdaptRate = 1
+					DamageMult=2
+					ChargeRate = 8
+					Dodgeable = 0
+					IconLock='BeamKHH.dmi'
+					Instinct=4
+					Knockback=2
+					BeamTime=12
+					Distance=30
+					Immediate=1
 				Kamehameha//Well rounded
 					SignatureTechnique=1
 					AdaptRate=1

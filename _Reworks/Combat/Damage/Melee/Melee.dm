@@ -68,7 +68,9 @@
 	if(!ThirdStrike)
 		MultiStrike(SecondStrike, ThirdStrike) // trigger double/triple strike if applicable
 	var/warpingStrike = getWarpingStrike() // get warping strike if applicable
-	var/reqCounter = counterWarp(s,s2,s3)
+	var/reqCounter = 99//counterWarp(s,s2,s3)
+	if(passive_handler["Flying Thunder God"])
+		reqCounter = 15 - passive_handler["Flying Thunder God"]
 	if(IaidoCounter>=reqCounter)
 		warpingStrike = 5
 	if(Warping || passive_handler.Get("Warping"))
@@ -156,8 +158,8 @@
 	if(warpingStrike)
 		if(Target && Target.loc && Target != src && Target in view(warpingStrike, src))
 			forcewarp = Target
-	if(forcewarp)
-		Comboz(forcewarp)
+	if(forcewarp && Target.z == z)
+		var/obj/FTG_seeker/_k = new(locate(x,y,z), Target, src) //TODO: make this a normal projectile maybe? does no damage, but throws this, idk that way it can be used as a follow up
 		if(IaidoCounter)
 			IaidoCounter = 0
 
