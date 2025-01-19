@@ -16,7 +16,13 @@
         Finisher="/obj/Skills/Queue/Finisher/Cycle_of_Samsara"
     Jeet_Kune_Do
         SignatureTechnique=3
-
+        // no ideas as of yet
+        StyleEnd = 1.25
+        StyleDef = 1.25
+        StyleSpd = 1.25
+        StyleStr = 1.25
+        passives = list("LikeWater" = 4, "Fa Jin" = 3, "Interception" = 3, "Gum Gum" = 1, "Acupuncture" = 2, "Flow" = 2, "Instinct" = 2, \
+                        "Momentum" = 1.5, "Hardening" = 1.5, "Pressure" = 2, "Soft Style" = 1, "FluidForm" = 1)
         verb/Jeet_Kune_Do()
             set hidden=1
             src.Trigger(usr)
@@ -29,9 +35,11 @@
     
     Flying_Thunder_God
         SignatureTechnique=3
-        passives = list("Flying Thunder God" = 1) 
+        passives = list("Flying Thunder God" = 1, "BlurringStrike" = 1, "Fury" = 1.5, "Fa Jin" = 2, "Instinct" = 2, "Secret Knives" = "FTG", \
+        "SwordPunching" = 1, "NeedsSword" = 0, "NoSword" = 1)
         // make it so every cooldown like iaido, also make the tracker appear on hud
         // make an animation for the tp
+        
         verb/Flying_Thunder_God()
             set hidden=1
             src.Trigger(usr)

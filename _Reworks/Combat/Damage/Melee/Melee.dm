@@ -72,7 +72,7 @@
 	if(passive_handler["Flying Thunder God"])
 		reqCounter = 15 - passive_handler["Flying Thunder God"]
 	if(IaidoCounter>=reqCounter)
-		warpingStrike = 5
+		warpingStrike = 50
 	if(Warping || passive_handler.Get("Warping"))
 		var/warp = Warping
 		if(passive_handler.Get("Warping") > Warping)
@@ -158,10 +158,14 @@
 	if(warpingStrike)
 		if(Target && Target.loc && Target != src && Target in view(warpingStrike, src))
 			forcewarp = Target
-	if(forcewarp && Target.z == z)
-		var/obj/FTG_seeker/_k = new(locate(x,y,z), Target, src) //TODO: make this a normal projectile maybe? does no damage, but throws this, idk that way it can be used as a follow up
-		if(IaidoCounter)
-			IaidoCounter = 0
+	if((forcewarp && Target.z == z))
+		if(passive_handler["Flying Thunder God"] && IaidoCounter>=reqCounter)
+			var/obj/FTG_seeker/_k = new(locate(x,y,z), Target, src) //TODO: make this a normal projectile maybe? does no damage, but throws this, idk that way it can be used as a follow up
+			if(IaidoCounter)
+				IaidoCounter = 0
+		else
+			Comboz(forcewarp)
+
 
 	// 				WARPING END				//
 
@@ -856,21 +860,19 @@
 						if(AttackQueue)
 							spawn()
 								QueuedMissMessage()
-				if(forcewarp)
-					if(src.StyleActive=="Secret Knife" || (UBWPath == "Firm" && SagaLevel >=3))
-						if(!locate(/obj/Skills/Projectile/Secret_Knives, src))
-							src.AddSkill(new/obj/Skills/Projectile/Secret_Knives)
-						for(var/obj/Skills/Projectile/Secret_Knives/sk in src)
-							sk.adjust(src)
-							src.UseProjectile(sk)
-					if(src.StyleActive=="Blade Singing")
-						if(!locate(/obj/Skills/Projectile/Murder_Music, src))
-							src.AddSkill(new/obj/Skills/Projectile/Murder_Music)
-						for(var/obj/Skills/Projectile/Murder_Music/sk in src)
-							if(src.CheckSlotless("Legend of Black Heaven"))
-								if(sk.IconLock=='CheckmateKnives.dmi')
-									sk.IconLock='Soundwave.dmi'
-							src.UseProjectile(sk)
+				if(passive_handler["Tossing"] && passive_handler["Secret Knives"])
+					var/sk = passive_handler["Secret Knives"]
+					if(prob(passive_handler["Tossing"] * glob.SECRET_KNIFE_CHANCE))
+						var/path = "/obj/Skills/Projectile/[sk]"
+						var/obj/Skills/Projectile/p = FindSkill(path)
+						if(!ispath(text2path(path)))
+							path = /obj/Skills/Projectile/Secret_Knives
+							world.log << "[sk] PATH FOR SECRET KNIVES DOESN'T EXIST!"
+						if(!p)
+							p = new path
+							AddSkill(p)
+						p.adjust(src)
+						src.UseProjectile(p)
 
 				if(delay<=0.5)
 					delay = 0.5

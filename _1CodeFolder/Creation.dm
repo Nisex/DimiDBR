@@ -410,7 +410,9 @@ mob/Players
 		if(src in admins)
 			admins -= src
 		// mainLoop -= src
-
+		if(fa_jin_effect)
+			vis_contents -= fa_jin_effect
+			del fa_jin_effect
 		if(length(savedRoleplay) >= 1)
 			if(fexists("Saved Roleplays/[key].txt"))
 				fdel("Saved Roleplays/[key].txt")

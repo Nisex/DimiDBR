@@ -65,11 +65,11 @@ client/proc/remove_hud(id)
 			barbg.maptext = "<small>[val]"
 			var/gap = 32 - glob.vars["MAX_[uppertext(linked_var)]_STACKS"] 
 			if(val > glob.vars["MAX_[uppertext(linked_var)]_STACKS"] )
-				meter.animateBar(clamp(val/3, 0, 37) - 37,glob.STACK_ANIMATE_TIME)
+				meter.animateBar(clamp(val/3, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
 			else
 				if(val <= gap)
 					gap = 0
-				meter.animateBar(clamp(val+gap, 0, 37) - 37,glob.STACK_ANIMATE_TIME)
+				meter.animateBar(clamp(val+gap, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
 		else
 			animate(holder, alpha = 0, time = 2)
 			animate(barbg, alpha = 0, time = 2)

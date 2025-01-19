@@ -5285,13 +5285,6 @@ obj
 					src.FadeOut=Z.FadeOut
 					src.GoldScatter = Z.GoldScatter
 					BeamCharge = BeamCharging
-/*
-					if(Owner.passive_handler.Get("MissileSystem"))
-						Z.Hover = 7
-						HyperHoming = 1
-						Homing=src.Owner.Target
-						Speed= initial(Speed) * 1.5
-*/
 					var/OldVary=Z.Variation
 					if(Z.TempStream)
 						Z.Variation/=Z.Stream
@@ -5318,6 +5311,8 @@ obj
 						if(Z.IconVariance)
 							src.icon_state="[rand(1,Z.IconVariance)]"
 							src.transform*=GoCrand(0.75,1.25)
+						if(Z.takeAppearance)
+							appearance = m.appearance
 					else
 						src.icon=IconUsed
 						src.pixel_x=Z.LockX
@@ -5384,6 +5379,8 @@ obj
 						if(Z.GrowingLife)
 							spawn()
 								animate(src,transform=matrix()*Z.IconSizeGrowTo, time=10, easing=CUBIC_EASING)
+						if(Z.takeAppearance)
+							appearance = m.appearance
 						src.Life()
 				Bump(var/atom/a)
 					a.onBumped(src)

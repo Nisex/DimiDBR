@@ -488,6 +488,9 @@ mob
 					if(fa_jin_effect.alpha == 0)
 						fa_jin_effect()
 						src << "Your fa jin is ready!"
+			else
+				if(fa_jin_effect && fa_jin_effect in vis_contents)
+					fa_jin_effect.alpha = 0
 						
 
 

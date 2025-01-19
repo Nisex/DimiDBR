@@ -112,7 +112,6 @@ mob
 			// 	if(defender.MovementCharges<1)
 			// 		defender.MovementChargeBuildUp(val)
 			if(defender.passive_handler["Dim Mak"]>0)
-				world<<"ahaha here."
 				defender.passive_handler.Increase("Dim Mak", val)
 			if(glob.MOMENTUM_PROCS_OFF_DAMAGE)
 				handlePostDamage(defender)
