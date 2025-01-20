@@ -492,7 +492,9 @@ mob
 				if(fa_jin_effect && fa_jin_effect in vis_contents)
 					fa_jin_effect.alpha = 0
 						
-
+			if(passive_handler["Flying Thunder God"])
+				if(hudIsLive("FTG", /obj/hud_ftg))
+					client.hud_ids["FTG"]?:Update()
 
 			if(scrollTicker)
 				scrollTicker--
@@ -772,7 +774,7 @@ mob
 			src.Debuffs()
 			if(src.Harden)
 				src.Harden -= glob.BASE_STACK_REDUCTION
-				if(hudIsLive("Harden"))
+				if(hudIsLive("Harden", /obj/bar))
 					client.hud_ids["Harden"]?:Update()
 				if(src.Harden<=0)
 					src.Harden=0
@@ -781,7 +783,7 @@ mob
 					Momentum = round(Momentum - (glob.BASE_STACK_REDUCTION + Momentum/40))
 				else
 					Momentum -= glob.BASE_STACK_REDUCTION
-				if(hudIsLive("Momentum"))
+				if(hudIsLive("Momentum", /obj/bar))
 					client.hud_ids["Momentum"]?:Update()
 				if(Momentum <0)
 					Momentum=0
@@ -790,7 +792,7 @@ mob
 					Fury = round(Fury - (glob.BASE_STACK_REDUCTION + Fury/50))
 				else
 					Fury -= glob.BASE_STACK_REDUCTION
-				if(hudIsLive("Fury"))
+				if(hudIsLive("Fury", /obj/bar))
 					client.hud_ids["Fury"]?:Update()
 				if(Fury <0)
 					Fury=0

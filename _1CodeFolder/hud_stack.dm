@@ -1,5 +1,27 @@
 #define CHAT_STYLE "<font face='Comic Sans' size=0.33>"
 
+/obj/hud_ftg
+	icon = 'kunai.dmi'
+	dir = EAST
+	layer = FLY_LAYER
+	alpha = 0
+	var/tmp/client/client
+	New(client/_client, o, _x, _y)
+		screen_loc = "1:[_x],1:[_y]"
+		client = _client
+
+	Update()
+		var/ftg = client.mob.passive_handler["Flying Thunder God"]
+		var/counter = client.mob.IaidoCounter
+		if(ftg)
+			if(counter >= (15 - ftg))
+				if(alpha != 255)
+					animate(src, alpha = 255, time = 5, easing = SINE_EASING)
+					filters = filter(type="outline", size=1, color=rgb(255, 255, 255))
+			else
+				if(alpha != 0)
+					animate(src, alpha = 0, time = 2, easing = SINE_EASING)
+					filters = list()
 /obj/Bar
 	icon = 'smallbar.dmi'
 	icon_state = "fill"
@@ -77,16 +99,18 @@ client/proc/remove_hud(id)
 			animate(barbg, alpha = 0, time = 2)
 
 
-#define BAR_X_LOCS list("Fury" = 1, "Momentum" = 1, "Harden" = 1)
-#define BAR_Y_LOCS list("Fury" = 80, "Momentum" = 124, "Harden" = 168)
+#define BAR_X_LOCS list("Fury" = 1, "Momentum" = 1, "Harden" = 1, "FTG" = 1)
+#define BAR_Y_LOCS list("Fury" = 80, "Momentum" = 124, "Harden" = 168, "FTG" = 32)
 
-/mob/proc/hudIsLive(option)
+/mob/proc/hudIsLive(option, path)
 	if(client.hud_ids[option])
 		return TRUE
 	else 
 
-		client.add_hud(option, new/obj/bar(client, option, BAR_X_LOCS[option], BAR_Y_LOCS[option]))
-	
+		client.add_hud(option, new path(client, option, BAR_X_LOCS[option], BAR_Y_LOCS[option]))
+		return FALSE
+
+
 
 /mob/verb/test_stacks()
 	set category = "Debug"
