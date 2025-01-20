@@ -1,3 +1,5 @@
+#define CHAT_STYLE "<font face='Comic Sans' size=0.33>"
+
 /obj/Bar
 	icon = 'smallbar.dmi'
 	icon_state = "fill"
@@ -50,8 +52,8 @@ client/proc/remove_hud(id)
 		holder.screen_loc = "1:[_x],1:[_y]"
 		barbg = new(o)
 		barbg.screen_loc = "1:[_x],1:[_y-7]"
-		barbg.maptext = "<small>[client.mob.vars["[linked_var]"]]"
-		barbg.maptext_y = 12
+		barbg.maptext = "[CHAT_STYLE][client.mob.vars["[linked_var]"]]"
+		barbg.maptext_y = 16
 		barbg.maptext_width = 62
 		client.screen+=holder
 		client.screen+=barbg
@@ -62,7 +64,7 @@ client/proc/remove_hud(id)
 			if(holder.alpha == 0 || barbg.alpha == 0)
 				animate(holder, alpha = 255, time = 2)
 				animate(barbg, alpha = 255, time = 2)
-			barbg.maptext = "<small>[val]"
+			barbg.maptext = "[CHAT_STYLE][val]"
 			var/gap = 32 - glob.vars["MAX_[uppertext(linked_var)]_STACKS"] 
 			if(val > glob.vars["MAX_[uppertext(linked_var)]_STACKS"] )
 				meter.animateBar(clamp(val/3, 0, 32) - 32,glob.STACK_ANIMATE_TIME)

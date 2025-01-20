@@ -54,7 +54,3 @@
         verb/Iron_Fist_Style()
             set hidden=1
             src.Trigger(usr)
-
-
-//TODO: implement fa jin w/ overlay, implement harden, etc stack as screen overlays, add targeting overlay
-//TODO: erm? 

@@ -17,6 +17,7 @@ proc/MakeSkillTreeList()
 				while(findtextEx(namez, "/"))
 					namez=copytext(namez, pos+1)
 			s.path=z
+			s.icon_state = lowertext(namez)
 			if(Tier)
 				switch(Tier)
 					if("1")
@@ -225,10 +226,9 @@ var/list/SkillTree=list(
 ),
 
 "UnarmedStyles"=list(
+			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Shaolin_Style"=20,
+			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Shield_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Crane_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Snake_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Cat_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Murim_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lucha_Libre_Style"=20
 ),
@@ -249,11 +249,11 @@ var/list/SkillTree=list(
 ),
 
 "SwordStyles"=list(
-			"/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style"=20,
+			"/obj/Skills/Buffs/NuStyle/SwordStyle/Ittoryu_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/SwordStyle/Fencing_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/SwordStyle/Zornhau_Style"=20,
+			"/obj/Skills/Buffs/NuStyle/SwordStyle/Ulfberht_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/SwordStyle/Swordless_Style"=20
+			"/obj/Skills/Buffs/NuStyle/SwordStyle/Chain_Style"=20
 ),
 
 )
@@ -298,8 +298,12 @@ obj/SkillTreeObj
 	var/path
 	var/cost
 	var/tier
-	icon='skilltree.dmi'
+	icon='background.dmi'
 	layer=9999
+	New()
+		. = ..()
+		icon_state = lowertext(replacetext(replacetext(path,"/obj/Skills/Buffs/NuStyle/UnarmedStyle", ""), "_Style", ""))
+
 	Click()
 
 		var/path=text2path("[src.path]")

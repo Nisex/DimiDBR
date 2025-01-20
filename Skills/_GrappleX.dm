@@ -139,6 +139,15 @@ obj/Skills/Grapple
 		EffectMult=3
 		HarderTheyFall = 4
 		Effect="PotemkinBuster"
+	
+	Tombstone_Piledriver
+		DamageMult = 13
+		HarderTheyFall = 6
+		StrRate=1.5
+		EndRate=0.75
+		EffectMult=3
+		Effect="PotemkinBuster" //TODO: MAKE ANIMATION LATER
+		TriggerMessage = "is dropping the tombstone on"
 
 	Ryukoha
 		DamageMult = 6

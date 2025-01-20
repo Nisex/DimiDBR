@@ -875,10 +875,28 @@ obj
 					else
 						if(usr.AttackQueue)
 							return // prevent heavy strike from overriding
+
+						if(usr.passive_handler["Heavy Strike"])
+							switch(usr.passive_handler["Heavy Strike"])
+								if("Wrestling")
+									Grapple = 1
+									KBAdd =0
+									KBMult = 0
+									DamageMult = 4
+									AccuracyMult = 2
+									HitMessage = "puts his hands on em'."
+									Duration=7
+									Cooldown = 20
+						else
+							// reset all
+							Grapple = 0
+
+
 						if(!usr.Secret && !usr.HasWitchCraft() || usr.Secret == "Eldritch" && !usr.CheckSlotless("True Form") || usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus") || usr.Secret =="Heavenly Restriction" && !usr.secretDatum?:hasImprovement("Heavy Strike"))//Just default Heavy Strike
 							src.name="Heavy Strike"
 							src.DamageMult=2
 							src.AccuracyMult=1
+							Duration=5
 							src.KBAdd=5
 							src.KBMult=3
 							src.Cooldown=15

@@ -2881,8 +2881,7 @@ window "skilltree"
 		text-color = #0080c0
 		background-color = #0a0a0a
 		saved-params = "is-checked"
-		text = "UNIVERSAL"
-		command = "skilltreez \"SpiritStyles\""
+		text = "REDACTED"
 	elem "button61"
 		type = BUTTON
 		pos = 203,32
@@ -2894,7 +2893,7 @@ window "skilltree"
 		text-color = #ff0000
 		background-color = #0a0a0a
 		saved-params = "is-checked"
-		text = "MYSTIC"
+		text = "ELEMENTAL"
 		command = "skilltreez \"ElementalStyles\""
 	elem "button91"
 		type = BUTTON
@@ -2907,7 +2906,7 @@ window "skilltree"
 		text-color = #00ff00
 		background-color = #0a0a0a
 		saved-params = "is-checked"
-		text = "MARTIAL"
+		text = "UNARMED"
 		command = "skilltreez \"UnarmedStyles\""
 	elem "button89"
 		type = BUTTON
@@ -2998,7 +2997,7 @@ window "skilltree"
 		text-color = #6710c7
 		background-color = #0a0a0a
 		saved-params = "is-checked"
-		text = "ARMED"
+		text = "WEAPON"
 		command = "skilltreez \"SwordStyles\""
 	elem "button65"
 		type = BUTTON

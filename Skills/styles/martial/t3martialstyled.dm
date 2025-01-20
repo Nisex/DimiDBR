@@ -21,14 +21,22 @@
         StyleDef = 1.25
         StyleSpd = 1.25
         StyleStr = 1.25
-        passives = list("LikeWater" = 4, "Fa Jin" = 3, "Interception" = 3, "Gum Gum" = 1, "Acupuncture" = 2, "Flow" = 2, "Instinct" = 2, \
-                        "Momentum" = 1.5, "Hardening" = 1.5, "Pressure" = 2, "Soft Style" = 1, "FluidForm" = 1)
+        passives = list("LikeWater" = 4, "Fa Jin" = 3, "Interception" = 3, "Sunyata" = 3 , "Gum Gum" = 1, "Acupuncture" = 2, \
+                        "Flow" = 2, "Instinct" = 2, "Momentum" = 1.5, "Hardening" = 1.5, "Pressure" = 2, "Soft Style" = 1, \
+                        "FluidForm" = 1)
+        Finisher="/obj/Skills/Queue/Finisher/Be_Water"
         verb/Jeet_Kune_Do()
             set hidden=1
             src.Trigger(usr)
     All_Star_Wrestling
         SignatureTechnique=3
-
+        StyleEnd=1.5
+        StyleStr=1.5
+        passives = list("Heavy Strike" = "Wrestling", "Muscle Power" = 6, "Grippy" = 5, \
+                        "Scoop" = 3, "Iron Grip" = 1, "DeathField" = 5, "Gum Gum" = 2, "Hardening" = 2, \
+                        "Momentum" = 2)
+        StyleActive="All Star Wrestling"
+        Finisher="/obj/Skills/Queue/Finisher/Big_Boot"
         verb/All_Star_Wrestling()
             set hidden=1
             src.Trigger(usr)
@@ -41,85 +49,5 @@
         // make an animation for the tp
         
         verb/Flying_Thunder_God()
-            set hidden=1
-            src.Trigger(usr)
-
-
-
-
-    North_Star_Style
-        SignatureTechnique=3
-        Copyable=0
-        StyleStr=1.25
-        StyleEnd=1.75
-        ElementalClass="Earth"
-        StyleActive="North Star"
-        passives = list("HardStyle" = 3, "SoftStyle" = 3, "UnarmedDamage" = 3, "CounterMaster" = 5)
-        HardStyle=3
-        SoftStyle=3
-        UnarmedDamage=3
-        CounterMaster=5
-        HitSpark='HitsparkStar.dmi'
-        HitX=0
-        HitY=0
-        HitTurn=0
-        Finisher="/obj/Skills/Queue/Finisher/Pressure_Point"
-        verb/North_Star_Style()
-            set hidden=1
-            src.Trigger(usr)
-    Imperial_Style
-        SignatureTechnique=3
-        Copyable=0
-        StyleStr=1.5
-        StyleFor=1.5
-        ElementalClass=list("Water", "Fire", "Earth", "Wind", "Poison")
-        ElementalOffense="Void"
-        ElementalDefense="Void"
-        passives = list("DarknessFlame" = 2, "UnarmedDamage" = 1, "SpiritHand" = 4, "Void" = 1)
-        DarknessFlame=2
-        UnarmedDamage=1
-        SpiritHand=1
-        Void=1
-        name="Imperial Devil Style"
-        StyleActive="Imperial Devil"
-        Finisher="/obj/Skills/Queue/Finisher/Imperial_Assessment"
-        verb/Imperial_Style()
-            set hidden=1
-            src.Trigger(usr)
-    East_Star_Style
-        SignatureTechnique=3
-        Copyable=0
-        StyleEnd=1.5
-        StyleSpd=1.5
-        passives = list("SoftStyle" = 3, "SoulFire" = 3, "CyberStigma" = 3, "CounterMaster" = 3, "VoidField" = 10, "DeathField" = 10)
-        SoftStyle=3
-        ManaSeal=3
-        CyberStigma=3
-        CounterMaster=3
-        VoidField=10
-        DeathField=10
-        NoStaff = 0
-        StyleActive="East Star"
-        ElementalClass=list("Water", "Fire", "Earth", "Wind", "Poison")
-        Finisher="/obj/Skills/Queue/Finisher/Over_The_Horizon"
-        verb/East_Star_Style()
-            set hidden=1
-            src.Trigger(usr)
-    Atomic_Karate_Style
-        SignatureTechnique=3
-        Copyable=0
-        StyleStr=1.5
-        StyleFor=1.5
-        passives = list("SpiritHand" = 4, "SpiritFlow" = 1, "CyberStigma" = 4, "PureDamage" = 2, "PureReduction" = 2)
-        NoStaff = 0
-        SpiritHand=1
-        SpiritFlow=1
-        CyberStigma=3
-        ElementalClass=list("Water", "Fire", "Earth", "Wind", "Poison")
-        StyleActive="Atomic Karate"
-        ElementalOffense="Ultima"
-        ElementalDefense="Ultima"
-        Finisher="/obj/Skills/Queue/Finisher/Atomic_Split"
-        verb/Atomic_Karate_Style()
             set hidden=1
             src.Trigger(usr)

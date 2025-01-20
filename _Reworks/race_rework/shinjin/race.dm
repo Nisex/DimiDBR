@@ -51,28 +51,24 @@ race
 					user.Attunement="Earth"
 					user.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kaioken)
 					user.AddSkill(new/obj/Skills/Projectile/Genki_Dama)
-					var/obj/Skills/Buffs/NuStyle/UnarmedStyle/North_Star_Style/nss=new/obj/Skills/Buffs/NuStyle/UnarmedStyle/North_Star_Style
-					user.AddSkill(nss)
+					// var/obj/Skills/Buffs/NuStyle/UnarmedStyle/North_Star_Style/nss=new/obj/Skills/Buffs/NuStyle/UnarmedStyle/North_Star_Style
 				if("East")
 					user.OxygenMax*=4
 					user.passive_handler.Increase("SpaceWalk", 1)
 					user.Attunement = "Wind"
 					user.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Toppuken)
 					user.AddSkill(new/obj/Skills/AutoHit/Gwych_Dymestl)
-					var/obj/Skills/Buffs/NuStyle/UnarmedStyle/East_Star_Style/ess=new/obj/Skills/Buffs/NuStyle/UnarmedStyle/East_Star_Style
-					user.AddSkill(ess)
+					// var/obj/Skills/Buffs/NuStyle/UnarmedStyle/East_Star_Style/ess=new/obj/Skills/Buffs/NuStyle/UnarmedStyle/East_Star_Style
 				if("South")
 					user.Attunement="Fire"
 					user.passive_handler.Increase("WalkThroughHell", 1)
 					user.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Rekkaken)
 					user.AddSkill(new/obj/Skills/Projectile/Zone_Attacks/Global_Devastation)
-					var/obj/Skills/Buffs/NuStyle/SwordStyle/South_Star_Style/sss=new/obj/Skills/Buffs/NuStyle/SwordStyle/South_Star_Style
-					user.AddSkill(sss)
+					// var/obj/Skills/Buffs/NuStyle/SwordStyle/South_Star_Style/sss=new/obj/Skills/Buffs/NuStyle/SwordStyle/South_Star_Style
 				if("West")
 					user.Attunement = "Water"
 					user.passive_handler.Increase("WaterWalk", 1)
 					user.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kyoukaken)
 					user.AddSkill(new/obj/Skills/AutoHit/Great_Deluge)
-					var/obj/Skills/Buffs/NuStyle/FreeStyle/West_Star_Style/wss=new/obj/Skills/Buffs/NuStyle/FreeStyle/West_Star_Style
-					user.AddSkill(wss)
+					// var/obj/Skills/Buffs/NuStyle/FreeStyle/West_Star_Style/wss=new/obj/Skills/Buffs/NuStyle/FreeStyle/West_Star_Style
 			..()
