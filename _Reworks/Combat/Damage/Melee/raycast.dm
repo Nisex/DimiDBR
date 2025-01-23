@@ -1,5 +1,7 @@
-/mob/proc/getEnemies()
+/mob/proc/getEnemies(forcehit = null)
     var/list/mob/people = list()
+    if(forcehit)
+        people+=forcehit
     var/obj/Skills/Queue/q = AttackQueue
 
     // normally get the block in front and return anybody on it

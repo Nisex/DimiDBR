@@ -234,11 +234,7 @@ var/list/SkillTree=list(
 ),
 
 "SpiritStyles"=list(
-			"/obj/Skills/Buffs/NuStyle/FreeStyle/Feral_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/FreeStyle/Flow_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/FreeStyle/Breaker_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/FreeStyle/Blitz_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/FreeStyle/Shield_Style"=20
+
 ),
 
 "ElementalStyles"=list(

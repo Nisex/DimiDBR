@@ -23,3 +23,20 @@
         Instinct=1
         Cooldown=4
         Earthshaking=15
+    Mjolnir
+        Area = "Around Target"
+        icon = 'GGG_Hammer.dmi'
+        Falling = 1
+        NoLock=1
+        NoAttackLock=1
+        StrOffense=1
+        Rounds = 15
+        DamageMult = 0.2
+        Distance=1
+        DistanceAround=1
+        IgnoreAlreadyHit=1
+        StrOffense=1
+        Size=1
+        Instinct=1
+        Cooldown=4
+        Earthshaking=5

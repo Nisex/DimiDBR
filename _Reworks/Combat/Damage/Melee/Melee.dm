@@ -5,7 +5,7 @@
 	var/damageMultiplier = 2 * (2.7** (-healthDifference/10))
 	return round(damageMultiplier, 0.01)
 
-/mob/proc/Melee1(dmgmulti=1, spdmulti=1, iconoverlay, forcewarp, MeleeTarget=null, ExtendoAttack=null, SecondStrike, ThirdStrike, accmulti=1, SureKB=0, NoKB=0, IgnoreCounter=0, BreakAttackRate=0)
+/mob/proc/Melee1(dmgmulti=1, spdmulti=1, iconoverlay, forcewarp, forcedTarget=null, ExtendoAttack=null, SecondStrike, ThirdStrike, accmulti=1, SureKB=0, NoKB=0, IgnoreCounter=0, BreakAttackRate=0)
 
 	if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Normal Attack"))
 		return
@@ -194,7 +194,7 @@
 
 	// 				RAYCASTING 				//
 
-	var/list/mob/enemies = getEnemies()
+	var/list/mob/enemies = getEnemies(forcedTarget)
 
 	// 				RAYCASTING END			//
 
@@ -690,14 +690,26 @@
 
 							// reduce damage by 1% for every 0.1 damage effectiveness, 1 damage effectiveness = 10% damage reduction
 							//TODO ARMOR AT THE END
+							if(enemy.passive_handler["Parry"] && (s || s2 || s3))
+								if(prob(enemy.passive_handler["Parry"] * glob.PARRY_CHANCE))
+									damage /= enemy.passive_handler["Parry"] * glob.PARRY_REDUCTION_MULT
+									world<<"DEBUG: [ENEMY] PROC'D PARRY, REDUCING DAMAGE BY [enemy.passive_handler["Parry"] * glob.PARRY_REDUCTION_MULT]"
+									enemy.Melee1(forcedTarget=src) // this does mean that they will hit from no matter the range if hit by melee
 							if(defArmor&&!passive_handler.Get("ArmorPeeling"))
 								var/dmgEffective = enemy.GetArmorDamage(defArmor)
-								damage -=  damage * dmgEffective/10
+								if(passive_handler["Half-Sword"])
+									dmgEffective -= passive_handler["Half-Sword"] * glob.HALF_SWORD_ARMOR_REDUCTION
+									world<<"DEBUG: [dmgEffective += passive_handler["Half-Sword"] * glob.HALF_SWORD_ARMOR_REDUCTION] reduced to [dmgEffective] after [passive_handler["Half-Sword"] * glob.HALF_SWORD_ARMOR_REDUCTION] half-sword reduction"
+								if(dmgEffective>0)
+									damage -=  damage * dmgEffective/10
+								else
+									damage += damage * abs(dmgEffective/10)
 								#if DEBUG_MELEE
 								log2text("damage", "After Armor", "damageDebugs.txt", "[ckey]/[name]")
 								log2text("damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 								#endif
-
+							if(passive_handler["Half-Sword"] && !defArmor)
+								damage += damage * (passive_handler["Half-Sword"]/glob.HALF_SWORD_UNARMOURED_DIVISOR)
 							damage *= glob.GLOBAL_MELEE_MULT
 							#if DEBUG_MELEE
 							log2text("Damage", "After Global Multiplier", "damageDebugs.txt", "[ckey]/[name]")

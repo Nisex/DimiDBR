@@ -37,3 +37,74 @@
             ForMult = 1+nextasc.force
             SpdMult = 1+nextasc.speed
 
+// WEAPON 
+    Kiri_Otoshi // cutting down
+        IconLock='SweatDrop.dmi'
+        IconApart=1
+        name = "Cutting Down"
+        OffMult=1.15
+        StrMult=1.25
+        DefMult=1.1
+        passives = list("Steady" = 1, "Instinct" = 1)
+    
+    // the debuff 
+    Shredded
+        IconLock='Stun.dmi'
+        IconApart=1
+        EndMult=0.9
+        DefMult=0.8
+        ActiveMessage="has been ripped apart!"
+        OffMessage="shakes off their damage."
+    
+
+    Tyrfing
+        IconLock='SweatDrop.dmi'
+        IconApart=1
+        name = "Finger of the War God"
+        passives = list("HeavyHitter" = 0.5, "CheapShot" = 0.5, "HardStyle" = 1) //TODo: COME BACK TO THIS
+        StrMult=1.3
+        OffMult=1.2
+        DefMult=1.2
+        SpdMult=0.8
+    
+    Ragnarok
+        IconLock='Stun.dmi'
+        IconApart=1
+        name = "Final Destiny of the Gods"
+        passives = list("ArmorAscension" = -1)
+        EndMult = 0.7
+        // total tank death
+    
+
+    Champion_Pride
+        IconLock='SweatDrop.dmi'
+        IconApart=1
+        passives = list("NoDodge" = 1, "Duelist" = 1)
+        OffMult = 1.2
+        StrMult = 1.3
+        ActiveMessage="is filled with a champion's pride!"
+        OffMessage="loses his fighting high."
+    
+    Marked
+        IconLock='Stun.dmi'
+        IconApart=1
+        passives = list("NoDodge" = 1, "Duelist" = 1)
+        EndMult = 0.8
+        SpdMult = 0.9
+        StrMult = 0.9
+
+    Emperor_Time
+        IconLock='SweatDrop.dmi'
+        IconApart=1
+        passive = list("Flow" = 1, "Instinct" = 1, "SweepingStrikes" = 1)
+        SpdMult = 1.15
+        OffMult = 1.15
+    Judgment_Chain
+        IconLock='Stun.dmi'
+        IconApart=1
+        CrippleAffected = 2
+        SpdMult = 0.8
+        DefMult = 0.9
+
+
+

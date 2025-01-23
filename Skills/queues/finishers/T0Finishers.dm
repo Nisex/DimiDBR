@@ -1,3 +1,4 @@
+// UNARMED
 /obj/Skills/Queue/Finisher/
     Hold
         Instinct=2
@@ -74,3 +75,63 @@
         Projectile="/obj/Skills/Projectile/Beams/The_Original_Kamehameha"
         ProjectileBeam=1
         BuffSelf=null
+
+
+
+// WEAPON
+    Shishi_Sonson
+        InstantStrikes = 11
+        DamageMult = 1.5
+        Instinct = 4
+        AccuracyMult = 3
+        FollowUp="/obj/Skills/AutoHit/Shishi_Sonson"
+        HitMessage="rapidly charges into their target!"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Shredded"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Kiri_Otoshi"
+    
+    La_Rapiere_des_Sorel
+        Combo = 3
+        DamageMult = 0.75
+        InstantStrikes = 2
+        Shocking = 25
+        FollowUp="/obj/Skills/AutoHit/Royal_Poison"
+        HitMessage="decimates their opponent with an onslaught of blows!"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Guard_Break"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Critical_Edge"
+    
+    Skofnung
+        FollowUp="/obj/Skills/AutoHit/Mjolnir"
+        HitMessage="decimates their opponent with an onslaught of blows!"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Ragnarok"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Tyrfing"
+    
+    Challenge
+        Warp=10
+        DamageMult = 2
+        KBMult=0.001
+        Instinct = 1
+        FollowUp="/obj/Skills/Queue/AutoHit/Duel"
+        HitMessage="darts at their enemy!"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Champion_Pride"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Marked"
+
+    // Mist_Finer
+    //     Warp=10
+    //     FollowUp="/obj/Skills/Queue/Finisher/Drawing_Mist"
+    //     HitMessage="strikes out with such speed and precision that their blade disappears!"
+    // Drawing_Mist
+    //     Warp=10
+    //     DamageMult=3
+    //     SpeedStrike=4
+    //     HitMessage="draws their blade back in from the dispersed mist!"
+    //     BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Off_Balance"
+    //     BuffSelf=0
+    Grand_Cross
+        InstantStrikes = 4
+        DamageMult = 1.1
+        Combo = 3
+        HolyMod = 1
+        FollowUp="/obj/Skills/Queue/AutoHit/Uppercut"
+        HitMessage=""
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Emperor_Time"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Judgment_Chain"

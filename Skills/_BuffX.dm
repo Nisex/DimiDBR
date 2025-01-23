@@ -10210,14 +10210,6 @@ NEW VARIABLES
 					DebuffCrash="Poison"
 
 				//sword finisher debuffs
-				Champion_Pride
-					IconLock='SweatDrop.dmi'
-					IconApart=1
-					passives = list("NoDodge" = 1, "Duelist" = 1)
-					OffMult = 1.2
-					StrMult = 1.2
-					ActiveMessage="is filled with a champion's pride!"
-					OffMessage="loses his fighting high."
 
 
 

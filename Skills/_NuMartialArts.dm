@@ -481,53 +481,6 @@ obj
 				SwordStyle
 					NeedsSword=1
 					NoStaff=1
-					Gladiator_Style
-						// A style that builds into the sword and shield style, disarms your enemy every few seconds
-						StyleOff = 1.1
-						StyleEnd = 1.1
-						StyleDef = 1.1
-						StyleActive="Gladiator"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Shield_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield")
-						Finisher="/obj/Skills/Queue/Finisher/Challenge"
-						verb/Gladiator_Style()
-							set hidden=1
-							src.Trigger(usr)
-
-					Fencing_Style
-						StyleSpd=1.15
-						StyleOff=1.15
-						StyleActive="Fencing"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi",\
-						"/obj/Skills/Buffs/NuStyle/SwordStyle/Zornhau_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Kendo_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Vicious_Moon"
-						verb/Fencing_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Berserker_Style
-						StyleStr=1.3
-						StyleEnd=0.85
-						StyleSpd=1.15
-						StyleActive="Berserker"
-						StyleComboUnlock=list()
-						Finisher="/obj/Skills/Queue/Finisher/"
-						verb/Zornhau_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Swordless_Style
-						NeedsSword=0
-						NoSword=1
-						passives = list("SwordPunching" = 1, "NeedsSword" = 0, "NoSword" = 1)
-						SwordPunching=1
-						StyleStr=1.1
-						StyleDef=1.1
-						StyleOff=1.1
-						StyleActive="Living Weapon"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Zornhau_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Champloo_Style",\
-						"/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Secret_Knife_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Hammer_Fall"
-						verb/Swordless_Style()
-							set hidden=1
-							src.Trigger(usr)
 
 //Signature Style T1
 					Sword_And_Shield
