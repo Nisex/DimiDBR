@@ -49,3 +49,51 @@
         FollowUp="/obj/Skills/AutoHit/Heavenly_Dragon_Violet_Ponds_Annihilation_of_the_Nine_Realms"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragons_Transient_Enlightenment"
         HitMessage="Summons the boundless might of their martial arts, entering into a breakthrough by pure technique alone. Roars that turn into unstoppable torrent of energy erupt from their body while it soars through the battlefield, unleashing a symphony of cataclysmic destruction paired with ethereal grace. They have unlocked the ultimate testament to the Heavenly Dragon Stance, a dance of power and honor that surpasses the mortal plane, from the divine heights of the quasi-god realm, they descend as the Heavenly Dragon. Harnessing the boundless force of the Nine converging Realms, they unleash a relentless storm of peerless strength, devastating the battle field."
+
+
+
+    Behemoth_Typhoon
+        Steady = 4
+        WeaponBreaker = 2
+        Crushing = 20
+        Finisher = 1
+        DamageMult = 1
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Arena_Champion"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Finisher/QueueBuff/Marked"
+        HitMessage=""
+        FollowUp="/obj/Skills/AutoHit/Giga_Impact"
+    Rashomon
+        DamageMult=2
+        Warp=3
+        SpeedStrike=3
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Shredded"
+        HitMessage=""
+        FollowUp="/obj/Skills/Queue/Finisher/Rashomon"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Nito_Ichi"
+    Roppon_me_Morote_Tsuki
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Shredded"
+        HitMessage=""
+        FollowUp="/obj/Skills/Queue/Finisher/"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Iai"
+    Moon_Fall
+        DamageMult=2
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Guard_Break"
+        HitMessage=""
+        FollowUp="/obj/Skills/Queue/Finisher/The_Moon"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Crescent_Blessing"
+    Zwerchhau
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fimbulwinter"
+        HitMessage=""
+        FollowUp="/obj/Skills/Queue/Finisher/Great_Cleave"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Zwercopter"
+
+
+    // Dual_Flurry
+    //     Combo=20
+    //     DamageMult=0.5
+    //     PushOutWaves=0
+    //     HitMessage="rips through their opponent with countless slashes!"
+    //     IconLock='CircleWind.dmi'
+    //     LockX=-32
+    //     LockY=-32
+    //     BuffSelf=0

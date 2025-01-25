@@ -43,7 +43,7 @@
     
     Flying_Thunder_God
         SignatureTechnique=3
-        passives = list("Flying Thunder God" = 1, "BlurringStrike" = 1, "Fury" = 1.5, "Fa Jin" = 2, "Instinct" = 2, "Secret Knives" = "FTG", \
+        passives = list("Flying Thunder God" = 1, "BlurringStrike" = 1, "Fury" = 1.5, "Fa Jin" = 2, "Instinct" = 2, "Secret Knives" = "FTG", "Tossing" = 2, \
         "SwordPunching" = 1, "NeedsSword" = 0, "NoSword" = 1)
         // make it so every cooldown like iaido, also make the tracker appear on hud
         // make an animation for the tp

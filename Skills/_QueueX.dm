@@ -2152,9 +2152,10 @@ mob
 				GoshoryukenEffect(src, P, Time)
 
 			if(src.AttackQueue.BuffAffected)
+				world<<"[src.AttackQueue.BuffAffected]"
 				var/path=text2path(src.AttackQueue.BuffAffected)
 				world<<"here is path: [path]"
-				var/obj/Skills/Buffs/S=new path
+				var/obj/Skills/Buffs/S=new src.AttackQueue.BuffAffected
 				var/AlreadyBuffed=0
 				for(var/obj/Skills/SP in P)
 					if(SP.type==S.type)

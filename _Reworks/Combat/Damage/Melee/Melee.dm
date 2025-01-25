@@ -5,6 +5,22 @@
 	var/damageMultiplier = 2 * (2.7** (-healthDifference/10))
 	return round(damageMultiplier, 0.01)
 
+/mob/proc/lightRush(mob/enemy, option)
+	if("Launch")
+		if(enemy.Launched)
+			if(passive_handler["Sajire Rush"])
+				return TRUE
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Launchers"))
+				return TRUE
+	else if("Stun")
+		if(enemy.Stunned)
+			if(passive_handler["Sajire Rush"])
+				return TRUE
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Stunners"))
+				return TRUE
+	return FALSE
+
+
 /mob/proc/Melee1(dmgmulti=1, spdmulti=1, iconoverlay, forcewarp, forcedTarget=null, ExtendoAttack=null, SecondStrike, ThirdStrike, accmulti=1, SureKB=0, NoKB=0, IgnoreCounter=0, BreakAttackRate=0)
 
 	if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Normal Attack"))
@@ -441,25 +457,29 @@
 		// 				STATUS END				//
 
 		// 				HOT HUNDRED 			//
-				var/hh = passive_handler.Get("HotHundred")
-				if(!AttackQueue && (hh || enemy.Launched && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Launchers") || (enemy.Stunned && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Stunners"))))
+				var/hh = (passive_handler.Get("HotHundred") || passive_handler["Speed Force"] >= 2) ? TRUE : FALSE
+				if(!AttackQueue && (hh || lightRush(enemy, "Launch") || lightRush(enemy, "Stun")))
 					lightAtk = 1
 					var/adjust = 0
 					Comboz(enemy, LightAttack = 1)
-					if(hh)
+					if(passive_handler.Get("HotHundred"))
 						lightAtk=0
 						adjust = hh-1
 					if(enemy.Launched && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Launchers"))
 						damage *= 1+secretDatum?:getBoon(src,"Launchers")
 					if(enemy.Stunned && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Stunners"))
 						damage *= 1+secretDatum?:getBoon(src,"Stunners")
-					damage /= max(2,4-adjust)
+					if(passive_handler["Speed Force"])
+						damage *= 0 + (0.25 * passive_handler["Speed Force"])
+					else
+						damage /= max(2,4-adjust)
 					if(glob.LIGHT_ATTACK_SPEED_DMG_ENABLED)
 						damage *= clamp(glob.LIGHT_ATTACK_SPEED_DMG_LOWER,GetSpd()**glob.LIGHT_ATTACK_SPEED_DMG_EXPONENT,glob.LIGHT_ATTACK_SPEED_DMG_UPPER)
 					if(!adjust)
 						NoKB=1
 					if(SecondStrike || ThirdStrike)
 						damage *= 0.3
+
 					NextAttack = world.time + 1.25
 					#if DEBUG_MELEE
 					log2text("Damage", "After HotHundred", "damageDebugs.txt", "[ckey]/[name]")
@@ -693,8 +713,13 @@
 							if(enemy.passive_handler["Parry"] && (s || s2 || s3))
 								if(prob(enemy.passive_handler["Parry"] * glob.PARRY_CHANCE))
 									damage /= enemy.passive_handler["Parry"] * glob.PARRY_REDUCTION_MULT
-									world<<"DEBUG: [ENEMY] PROC'D PARRY, REDUCING DAMAGE BY [enemy.passive_handler["Parry"] * glob.PARRY_REDUCTION_MULT]"
-									enemy.Melee1(forcedTarget=src) // this does mean that they will hit from no matter the range if hit by melee
+									world<<"DEBUG: [enemy] PROC'D PARRY, REDUCING DAMAGE BY [enemy.passive_handler["Parry"] * glob.PARRY_REDUCTION_MULT]"
+									enemy.Melee1(dmgmulti = 0.25 *enemy.passive_handler["Parry"], forcedTarget=src) // this does mean that they will hit from no matter the range if hit by melee
+							if(enemy.passive_handler["Iaijutsu"])
+								if(prob(enemy.passive_handler["Iaijutsu"] * glob.IAI_CHANCE))
+									world<<"DEBUG: [enemy] PROC'D IAIJUTSU on [src]"
+									enemy.Melee1(dmgmulti = 0.15 * enemy.passive_handler["Iaijutsu"], forcedTarget = src)
+							
 							if(defArmor&&!passive_handler.Get("ArmorPeeling"))
 								var/dmgEffective = enemy.GetArmorDamage(defArmor)
 								if(passive_handler["Half-Sword"])

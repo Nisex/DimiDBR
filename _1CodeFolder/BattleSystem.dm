@@ -1423,13 +1423,17 @@ mob/proc/Comboz(mob/M, LightAttack=0, ignoreTiledistance = FALSE)
 					break
 
 mob/proc/SpeedDelay(var/Modifier=1)
-	var/Spd=src.GetSpd()**0.6
-	var/Delay=12/Spd
-	if(Delay>=20)
-		Delay=20
+	var/Spd=src.GetSpd()**glob.ATTACK_DELAY_EXPONENT
+	var/Delay=glob.ATTACK_DELAY_DIVISOR/Spd
+	if(passive_handler["Speed Force"])
+		Delay = glob.ATTACK_DELAY_DIVISOR/(GetSpd()**2)
+	if(Delay>=glob.ATTACK_DELAY_MAX)
+		Delay=glob.ATTACK_DELAY_MAX
 	if(src.HasBlastShielding())
 		Delay*=1.5
-	return max(Delay,2)
+	if(passive_handler["Speed Force"])
+		return max(Delay,0.33)
+	return max(Delay,glob.ATTACK_DELAY_MIN)
 
 
 mob/proc/Knockback(var/Distance,var/mob/P,var/Direction=0, var/Forced=0, var/Ki=0, var/override_speed = 0, trueForced = 0)

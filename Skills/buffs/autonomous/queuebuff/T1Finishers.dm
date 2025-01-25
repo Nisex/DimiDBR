@@ -57,3 +57,34 @@
         passives = list("TensionLock" = 1, "Deflection" = 0.5, "Disorienting" = 2,"Momentum" = 2, "CallousedHands" = 0.1, "MovementMastery" = 3)
         ActiveMessage="achieves the peak of their breakthrough..."
         OffMessage="comes back down to mortal level..."
+    
+
+    Nito_Ichi
+        StyleSpd=1.25
+        StyleStr=1.25
+        passives = list("TensionLock" = 1, "Momentum" = 1, "DoubleStrike" = 1,\
+                        "Steady" = 2, "Instinct" = 2)
+        
+    Iai
+        StyleSpd = 1.5
+        StyleStr = 0.75
+        StyleOff = 1.25
+        passives = list("TensionLock" = 1, "Speed Force" = 1, "Iaijutsu" = 1, "Relentlessness" = 1, "Fury" = 3)
+    
+
+    Crescent_Blessing
+        passives = list("Tossing" = 1.5, ) // not sure 
+    
+
+    Fimbulwinter
+        passives = list("PureReduction" = -0.5)
+        CrippleAffected = 2
+        SlowAffected = 2
+
+    Zwercopter
+        passives = list("Half-Sword" = 0.5, "Zornhau" = 0.5, "Momentum" = 2, "HeavyHitter" = 1, "CheapShot" = 1,\
+                     "HardStyle" = 1)
+        StrMult=1.3
+        OffMult=1.2
+        DefMult=1.2
+        SpdMult=0.8

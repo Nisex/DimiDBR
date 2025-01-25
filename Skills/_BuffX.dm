@@ -11400,7 +11400,7 @@ mob
 						if(src.StanceBuff.NoStaff&&src.HasStaff())
 							src << "[src.StanceBuff] cannot be used with a staff and no Battle Mage."
 							src.StanceBuff.Trigger(src, Override=1)
-				if(B.type==/obj/Skills/Buffs/NuStyle/SwordStyle/Swordless_Style)
+				if(B.type==/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu)
 					if(src.ActiveBuff)
 						if(src.ActiveBuff.NeedsSword)
 							src << "[src.ActiveBuff] cannot be used without a sword and no Living Weapon stance."

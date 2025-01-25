@@ -300,26 +300,7 @@ obj
 
 
 //Auto^2hits
-			Duel
-				NoLock=1
-				NoAttackLock=1
-				StrOffense=1
-				EndDefense=0.75
-				DamageMult=2
-				Area="Circle"
-				Distance=4
-				GuardBreak = 1
-				TurfErupt=2
-				TurfEruptOffset=3
-				Slow=1
-				Crushing = 10
-				Knockback=0.001
-				ActiveMessage="issues a duel to their enemy!"
-				HitSparkIcon='BLANK.dmi'
-				HitSparkX=0
-				HitSparkY=0
-				Cooldown=4
-				Earthshaking=15
+
 			Heavenly_Dragon_Violet_Ponds_Annihilation_of_the_Nine_Realms
 				NoLock=1
 				NoAttackLock=1

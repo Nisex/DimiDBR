@@ -1899,6 +1899,8 @@ mob
 		HasSteady()
 			if(passive_handler.Get("Steady"))
 				return 1
+			if(passive_handler.Get("Zornhau"))
+				return 1
 			return 0
 		GetSteady()
 			var/total = passive_handler.Get("Steady") * (glob.STEADY_MODIFIER)
@@ -2529,14 +2531,16 @@ mob
 			var/Found=0
 			if(src.StyleActive=="Sword Savant")
 				Found+=0.25 + (0.125 * SagaLevel)
-			if(src.StyleActive=="Gladiator")
-				Found=0.5
-			if(src.StyleActive=="Sword And Shield")
-				Found=1
-			if(src.StyleActive=="Phalanx Style")
-				Found = 2
-			if(src.StyleActive=="Divine Arts of The Heavenly Demon")
-				Found = 1.5
+			if(passive_handler["Disarm"])
+				Found = passive_handler["Disarm"]
+			// if(src.StyleActive=="Gladiator")
+			// 	Found=0.5
+			// if(src.StyleActive=="Sword And Shield")
+			// 	Found=1
+			// if(src.StyleActive=="Phalanx Style")
+			// 	Found = 2
+			// if(src.StyleActive=="Divine Arts of The Heavenly Demon")
+			// 	Found = 1.5
 			return Found
 		UsingFTG()
 			return passive_handler["Flying Thunder God"]

@@ -36,8 +36,6 @@
             EndMult = 1+nextasc.endurance
             ForMult = 1+nextasc.force
             SpdMult = 1+nextasc.speed
-
-// WEAPON 
     Kiri_Otoshi // cutting down
         IconLock='SweatDrop.dmi'
         IconApart=1
@@ -96,7 +94,7 @@
     Emperor_Time
         IconLock='SweatDrop.dmi'
         IconApart=1
-        passive = list("Flow" = 1, "Instinct" = 1, "SweepingStrikes" = 1)
+        passives = list("Flow" = 1, "Instinct" = 1, "SweepingStrikes" = 1)
         SpdMult = 1.15
         OffMult = 1.15
     Judgment_Chain
