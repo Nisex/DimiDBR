@@ -231,12 +231,13 @@ mob/Admin3/verb
 					P.passive_handler.Increase("Pursuer", 0.5)
 					P.passive_handler.Increase("SuperDash", 0.25)
 					P.passive_handler.Increase("Godspeed", 0.25)
-
+					P.passive_handler.Set("FavoredPrey", "All")
 				if("Ansatsuken")
 					P<<"You begin to learn of the assassin's fist... <b>Ansatsuken</b>!"
 					P.Saga="Ansatsuken"
 					P.SagaLevel=1
 					P.passive_handler.Increase("SlayerMod", 0.625)
+					P.passive_handler.Set("FavoredPrey", "All")
 					if(!locate(/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style, P))
 						var/obj/Skills/Buffs/NuStyle/s=new/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style
 						P.AddSkill(s)

@@ -1,5 +1,7 @@
-#define Swordsmanship list("Hiten Mitsurugi-Ryuu", "Weapon Soul")
-
+#define Swordsmanship list("Hiten Mitsurugi-Ryuu","Unlimited Blade Works", "Weapon Soul")
+#define SECRETS list("Spirits of The World","Jagan", "Hamon of the Sun", "Werewolf", "Vampire", "Sage Arts", "Haki", "Eldritch", "Heavenly Restriction")
+#define SAGAS list("Ansatsuken","Eight Gates","Cosmo","Spiral","Hero","Hiten Mitsurugi-Ryuu","Kamui","Keyblade","King of Braves","Sharingan","Weapon Soul", "Unlimited Blade Works","Force")
+#define RACES list("Android", "Human", "Beastman", "Changeling", "Demon". "Dragon", "Eldritch","Gajalaka","Half_Saiyan", "High_Faoroan","Majin","Makyo","Namekian","Saiyan","Shinjin","Yokai")
 
 mob
 	proc
@@ -1835,13 +1837,32 @@ mob
 			if(src.TarotFate=="The Lovers")
 				Extra=2.5
 			return (passive_handler.Get("AbyssMod")+Extra-Reduce)
-		HasSlayerMod()
+		HasSlayerMod(mob/enemy)
 			if(passive_handler.Get("SlayerMod"))
-				return 1
+				if(passive_handler["FavoredPrey"] == "All")
+					return 1
+				if(passive_handler["FavoredPrey"] == "Secrets")
+					if(enemy.secretDatum.name)
+						return 1
+						"FavoredPrey" = "Races"
+				else if(passive_handler["FavoredPrey"] == "Sagas")
+					if(enemy.Saga)
+						return 1
+				else if(passive_handler["FavoredPrey"] in SAGAS)
+					if(enemy.Saga == passive_handler["FavoredPrey"])
+						return 1
+				else if(passive_handler["FavoredPrey"] in SECRETS)
+					if(enemy.secretDatum.name == passive_handler["FavoredPrey"])
+						return 1
+				else if(passive_handler["FavoredPrey"] == "Races" && !enemy.secretDatum.name)
+						return 1
+				else if(passive_handler["FavoredPrey"] in RACES)
+					if(enemy.race.name == passive_handler["FavoredPrey"])
+						return 1
+				return 0
 			return 0
 		GetSlayerMod()
-			var/Reduce=0
-			return (passive_handler.Get("SlayerMod")-Reduce)
+			return passive_handler.Get("SlayerMod")
 		HasBeyondPurity()
 			if(passive_handler.Get("BeyondPurity"))
 				return 1

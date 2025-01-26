@@ -1197,7 +1197,7 @@ NEW VARIABLES
 								src.OffMessage="conceals █████████████.."
 						if("Dainsleif")
 							HealthDrain = 0
-							passives = list("SlayerMod" = usr.SagaLevel/2, "MortalStrike" = 0.5, "AbyssMod" = usr.SagaLevel/2, "LifeSteal" = usr.SagaLevel*5, "Curse" = 1, "PULock" = 1)
+							passives = list("SlayerMod" = usr.SagaLevel/2, "FavoredPrey" = "Races", "MortalStrike" = 0.5, "AbyssMod" = usr.SagaLevel/2, "LifeSteal" = usr.SagaLevel*5, "Curse" = 1, "PULock" = 1)
 
 							if(!redacted)
 								src.SwordName="Dainsleif"
@@ -1537,7 +1537,7 @@ NEW VARIABLES
 						src.HolyMod=0
 						src.AbyssMod=0
 					if(usr.KeychainAttached=="Fenrir")
-						passives = list("PULock" = 1, "MagicSword" = 1, "SwordAscension" = 2, "SlayerMod" = 1.5)
+						passives = list("PULock" = 1, "MagicSword" = 1, "SwordAscension" = 2, "SlayerMod" = 1.5, "FavoredPrey" = "Races")
 					else
 						src.Steady=0
 					if(usr.KeychainAttached=="Chaos Ripper")
@@ -3339,7 +3339,8 @@ NEW VARIABLES
 						ForMult = 1.3 + ((player.SagaLevel-3) * 0.1)
 						OffMult = 1.3 + ((player.SagaLevel-3) * 0.1)
 						DefMult = 1.2 + ((player.SagaLevel-3) * 0.1)
-						passives = list("DebuffResistance" = 1, "SpaceWalk" =1, "StaticWalk" = 1,"MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, "Godspeed" = 1+(player.SagaLevel*0.25), "MartialMagic" = 1, "AbyssMod" = player.SagaLevel*2, "SlayerMod" = 3+(player.SagaLevel/2), "SpiritPower" = player.SagaLevel*0.25)
+						passives = list("DebuffResistance" = 1, "SpaceWalk" =1, "StaticWalk" = 1,"MovementMastery" = 8+player.SagaLevel, "ArmorAscension" = 3, \
+						"Godspeed" = 1+(player.SagaLevel*0.25), "MartialMagic" = 1, "AbyssMod" = player.SagaLevel*2, "SlayerMod" = 3+(player.SagaLevel/2), "FavoredPrey" = "Races", "SpiritPower" = player.SagaLevel*0.25)
 
 					verb/Don_Cloth()
 						set category="Skills"
@@ -3572,6 +3573,7 @@ NEW VARIABLES
 
 							if(usr.SyncAttached=="Fenrir")
 								passives["SlayerMod"] = 3 + (usr.SagaLevel/2)
+								passives["FavoredPrey"] = "Races"
 
 							if(usr.SyncAttached=="Chaos Ripper")
 								passives["Burning"] = 3
@@ -3666,6 +3668,7 @@ NEW VARIABLES
 								src.AbyssMod=0
 							if(usr.SyncAttached=="Fenrir")
 								passives["SlayerMod"] = 1.5
+								passives["FavoredPrey"] = "Races"
 								src.Steady=8
 							else
 								src.Steady=0
@@ -3746,6 +3749,7 @@ NEW VARIABLES
 								src.AbyssMod=0
 							if(usr.SyncAttached=="Fenrir")
 								passives["SlayerMod"] = 1.5
+								passives["FavoredPrey"] = "Races"
 								src.Steady=8
 							else
 								src.Steady=0
@@ -6499,7 +6503,7 @@ NEW VARIABLES
 					ManaGlowSize = 1
 					TimerLimit = 10 + (mecha.Level * 10)
 					PhysicalHitsLimit = mecha.Level * 5
-					passives = list("Shearing" = mecha.Level/2, "SlayerMod" = mecha.Level/2, "Steady" = mecha.Level/2, "Extend" = mecha.Level/2 + 1)
+					passives = list("Shearing" = mecha.Level/2, "SlayerMod" = mecha.Level/2, "FavoredPrey" = "Races", "Steady" = mecha.Level/2, "Extend" = mecha.Level/2 + 1)
 					Shearing = mecha.Level/2
 					SlayerMod = mecha.Level/2
 					Steady = mecha.Level/2
@@ -11077,7 +11081,7 @@ NEW VARIABLES
 				Cooldown=1//Just in case
 				Trigger(mob/player, Override)
 					if(!altered)
-						passives = list("SlayerMod" = player.SagaLevel * 0.25, "Godspeed" = floor(player.SagaLevel/2), "Pursuer" = floor(player.SagaLevel/2))
+						passives = list("SlayerMod" = player.SagaLevel * 0.25, "FavoredPrey" = "All", "Godspeed" = floor(player.SagaLevel/2), "Pursuer" = floor(player.SagaLevel/2))
 						SlayerMod = player.SagaLevel * 0.25
 						Godspeed = floor(player.SagaLevel / 2)
 						Pursuer = floor(player.SagaLevel / 2)

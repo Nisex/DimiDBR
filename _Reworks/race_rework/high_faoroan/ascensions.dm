@@ -106,6 +106,7 @@ ascension
 					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in owner.contents)
 						tc.passives["DrainlessMana"] = 1
 						tc.passives["SlayerMod"] = 2
+						tc.passives["FavoredPrey"] = "Races"
 						tc.passives["WeaponBreaker"] = 1
 						tc.passives["Erosion"] = 0.25
 					..()
