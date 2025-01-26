@@ -481,6 +481,7 @@ mob/Creation
 		winshow(usr, "Hunger", 0)
 		if(copytext(usr.key,1,6)=="Guest")
 			usr<<"Guest keys are disabled at this time, please login using a real key!"
+			sleep(10)
 			del(usr)
 
 		for(var/e in list("Health","Energy","Power","Mana"))
