@@ -5,7 +5,11 @@
     var/obj/Skills/Queue/q = AttackQueue
 
     // normally get the block in front and return anybody on it
-
+    if(passive_handler["Hit Scan"])
+        if(get_dist(src, Target) <= 1 + passive_handler["Hit Scan"])
+            people += Target
+            if(!(Target in get_step(src,dir)))
+                NextAttack+=glob.HIT_SCAN_DELAY
     if(q && q.PrecisionStrike)
         if(get_dist(src, Target) <= q.PrecisionStrike)
             people += Target

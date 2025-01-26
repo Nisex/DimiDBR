@@ -583,35 +583,6 @@ obj
 				IconTime=10
 				Cooldown=4
 
-
-			Giga_Impact
-				Area="Circle"
-				NoLock=1
-				NoAttackLock=1
-				RoundMovement=0
-				Distance=5
-				Instinct=4
-				DamageMult=3
-				Rounds=2
-				StrOffense=1
-				EndDefense=0.5
-				PullIn = 5
-				TurfErupt=2
-				TurfEruptOffset=3
-				Earthshaking = 15
-				ActiveMessage="slams their enemy into the ground, resulting in a giant(giga) impact!"
-				HitSparkIcon='Slash - Zan.dmi'
-				HitSparkX=-16
-				HitSparkY=-16
-				HitSparkSize=1
-				HitSparkTurns=1
-				HitSparkLife=10
-				Icon='SweepingKick.dmi'
-				IconX=-32
-				IconY=-32
-				IconTime=10
-				Cooldown=4
-
 			Flowing_Slash_Follow_Up
 				Area="Strike"
 				NoLock=1

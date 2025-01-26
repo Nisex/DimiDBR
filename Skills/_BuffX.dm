@@ -10,6 +10,10 @@ NEW VARIABLES
 	var/MissleSystem // Makes Projectiles into homing
 	var/PowerPole // variable number = to how far an attack can reach
 	var/GiantSwings // variable number  = to size of attack aoe
+	var/HitScanIcon = null
+	var/HitScanHitSpark = null
+	var/HitScanHitSparkX = 0
+	var/HitScanHitSparkY = 0
 
 //Stats
 	var/strAdd = 0
@@ -12544,7 +12548,12 @@ mob
 			if(B.BuffName=="Regeneration")
 				if(src.HasHellPower())
 					B.RegenerateLimbs=1
-
+			if(B.HitScanIcon)
+				HitScanIcon = B.HitScanIcon
+			if(B.HitScanHitSpark)
+				HitScanHitSpark = B.HitScanHitSpark
+				HitScanHitSparkX = B.HitScanHitSparkX
+				HitScanHitSparkY = B.HitScanHitSparkY
 			// HERE
 			src.StrAdded += B.strAdd
 			src.EndAdded += B.endAdd
@@ -12572,7 +12581,12 @@ mob
 				src:move_speed = MovementSpeed()
 
 		RemoveSlotlessBuff(var/obj/Skills/Buffs/B)
-
+			if(B.HitScanIcon)
+				HitScanIcon = null
+			if(B.HitScanHitSpark)
+				HitScanHitSpark = null
+				HitScanHitSparkX = null
+				HitScanHitSparkY = null
 			src.StrAdded -= B.strAdd
 			src.EndAdded -= B.endAdd
 			src.SpdAdded -= B.spdAdd

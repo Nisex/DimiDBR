@@ -35,6 +35,24 @@ mob
 				m.vis_contents += HE
 				HE.pixel_x+=DisperseX
 				HE.pixel_y+=DisperseY
+			else if(HitScanHitSpark)
+				var/AMT = 1
+				var/icon=src.HitScanHitSpark
+				var/iconx=src.HitScanHitSparkX
+				var/icony=src.HitScanHitSparkY
+				while(AMT)
+					AMT--
+					var/obj/Effects/HE=new(icon, iconx, icony, 0, 1, 3)
+					HE.appearance_flags = KEEP_APART | RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+					HE.dir=src.dir
+					HE?.pixel_z=m?.pixel_z
+					if(istype(m, /mob))
+						HE.Target=m
+					else
+						HE.loc=m
+					m.vis_contents += HE
+					sleep(1)
+			
 			else if(src.HitSparkIcon)//used by autos
 				var/AMT=src.HitSparkCount
 				var/icon=src.HitSparkIcon

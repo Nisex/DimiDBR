@@ -163,6 +163,7 @@ globalTracker
 		celestialObjectTicks
 		NoSagaRaces = list(DEMON, DRAGON, ELF, SAIYAN)
 // combat
+		HIT_SCAN_DELAY = 5
 		OVERHWELMING_BASE_END_NERF = 0.05
 		OVERHWELMING_SHATTER_APPLY = 150
 		OVERHWELMING_BASE_PR_NERF = 0.05
@@ -272,6 +273,7 @@ globalTracker
 		WorldPUDrain = 1
 		DMG_CALC_2 = TRUE
 // global mults
+
 		GATES_PUSPIKE_BASE = 6
 		GATES_STAT_MULT_DIVISOR = 25
 		SECRET_KNIFE_CHANCE = 100

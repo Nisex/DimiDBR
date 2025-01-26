@@ -1,11 +1,15 @@
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher
     Heavenly_Dragon_Ascendant_Zenith
+        IconLock='SweatDrop.dmi'
+        IconApart=1
         passives = list("HardenedFrame" = 1, "Steady" = 1, "TensionLock" = 1)
         EndMult = 1.3
         StrMult = 1.2
         ActiveMessage="is grasping for their next breakthrough..!"
         OffMessage="has failed their tribulation..."
     Anger_Of_The_Beast
+        IconLock='SweatDrop.dmi'
+        IconApart=1
         StyleNeeded="Lucha Libre"
         StrMult=1.25
         EndMult=1.25
@@ -14,6 +18,8 @@
         OffMessage="'s inner beast calms down..."
     
     Shaolin_Step
+        IconLock='SweatDrop.dmi'
+        IconApart=1
         StyleNeeded="Shaolin"
         OffMult=1.1
         DefMult=1.1
@@ -24,7 +30,8 @@
     
     Unlocked_Potential
         StyleNeeded="Turtle"
-
+        IconLock='SweatDrop.dmi'
+        IconApart=1
         adjust(mob/p)
             // this is goofy, sigh
             var/ascension/nextasc = p.race.ascensions[p.AscensionsAcquired+1]

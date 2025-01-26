@@ -176,7 +176,7 @@
 			forcewarp = Target
 	if((forcewarp && Target.z == z))
 		if(passive_handler["Flying Thunder God"] && IaidoCounter>=reqCounter)
-			var/obj/FTG_seeker/_k = new(locate(x,y,z), Target, src) //TODO: make this a normal projectile maybe? does no damage, but throws this, idk that way it can be used as a follow up
+			new/obj/tracker/FTG_seeker(locate(x,y,z), Target, src) //TODO: make this a normal projectile maybe? does no damage, but throws this, idk that way it can be used as a follow up
 			if(IaidoCounter)
 				IaidoCounter = 0
 		else
@@ -439,6 +439,8 @@
 
 		// 				STATUS 					//
 				flick("Attack",src)
+				if(passive_handler["Hit Scan"]) // this is troublesome
+					new/obj/tracker(locate(x,y,z),enemy, src, HitScanIcon, HitScanHitSpark,HitScanHitSparkX, HitScanHitSparkY)
 				var/countered=0
 
 				if(AttackQueue && AttackQueue.Dunker && enemy.Launched)

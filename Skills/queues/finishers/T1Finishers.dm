@@ -68,32 +68,34 @@
         SpeedStrike=3
         BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Shredded"
         HitMessage=""
-        FollowUp="/obj/Skills/Queue/Finisher/Rashomon"
+        FollowUp="/obj/Skills/AutoHit/Rashomon"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Nito_Ichi"
     Roppon_me_Morote_Tsuki
+        InstantStrikes = 3
+        DamageMult = 2
+        SpeedStrike = 2
         BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Shredded"
         HitMessage=""
-        FollowUp="/obj/Skills/Queue/Finisher/"
+        FollowUp="/obj/Skills/Queue/Finisher/Body_Flicker_Technique"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Iai"
+    Body_Flicker_Technique
+        Combo=20
+        DamageMult = 0.15
+        HitMessage="rips through their opponent with countless slashes!"
+        BuffSelf=0
+        HitSparkIcon = 'Slash_Multi.dmi'
     Moon_Fall
         DamageMult=2
         BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Guard_Break"
         HitMessage=""
-        FollowUp="/obj/Skills/Queue/Finisher/The_Moon"
+        FollowUp="/obj/Skills/AutoHit/The_Moon"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Crescent_Blessing"
     Zwerchhau
+        HarderTheyFall = 1
+        DamageMult = 2
+        Decider = 2
+        DrawIn = 3
         BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fimbulwinter"
         HitMessage=""
-        FollowUp="/obj/Skills/Queue/Finisher/Great_Cleave"
+        FollowUp="/obj/Skills/AutoHit/Great_Cleave"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Zwercopter"
-
-
-    // Dual_Flurry
-    //     Combo=20
-    //     DamageMult=0.5
-    //     PushOutWaves=0
-    //     HitMessage="rips through their opponent with countless slashes!"
-    //     IconLock='CircleWind.dmi'
-    //     LockX=-32
-    //     LockY=-32
-    //     BuffSelf=0
