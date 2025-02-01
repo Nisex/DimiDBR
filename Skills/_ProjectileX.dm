@@ -5,6 +5,17 @@ obj
 		var/NewCost // we will do this the hard way.
 		var/NewCopyable // sigh
 		Projectile
+			proc
+				EdgeOfMapProjectile()
+					var/turf/t=get_step(src, src.dir)
+					if(!t)
+						return 1
+					if(t.x==0||t.y==0||t.z==0)
+						return 1
+					if(t)
+						if(istype(t, /turf/Special/Blank))
+							return 1
+					return 0
 			adjust(mob/p)
 			proc/Trigger(mob/p, Override = 0)
 				adjust(p)
@@ -431,37 +442,6 @@ obj
 					DamageMult = 0.3 + p.Potential /100
 					Blasts = 1 + (round(p.Potential / 25))
 			
-			Secret_Knives
-				AdaptRate=1
-				Blasts=4
-				DamageMult=0.25
-				AccMult=1
-				AttackReplace=1
-				ZoneAttack=1
-				Distance=30
-				Homing=1
-				HomingCharge=3
-				HomingDelay=1
-				HyperHoming=1
-				Striking=1
-				Instinct=1
-				ZoneAttackX=5
-				ZoneAttackY=5
-				FireFromEnemy=0
-				FireFromSelf=1
-				Hover=8
-				IconLock='CheckmateKnives.dmi'
-				Variation=8
-				FlickBlast=0
-				Cooldown=3
-				adjust(mob/p)
-					Blasts = rand(5,8)
-					DamageMult = 0.2
-					Cooldown = rand(6,9)
-					if((p.UBWPath == "Firm" && p.SagaLevel >=3))
-						Blasts = rand(2 + p.SagaLevel, 8 + p.SagaLevel)
-						DamageMult = rand(0.1 + (p.SagaLevel * 0.05), 0.15 + (p.SagaLevel * 0.05))
-						Cooldown = rand(7,12) - p.SagaLevel
 
 
 			Murder_Music
@@ -5202,6 +5182,10 @@ obj
 					src.Radius=Z.Radius
 					if(Z.TempRadius)
 						src.Radius=Z.TempRadius
+					if(Z.Bounce)
+						Bounce = Z.Bounce
+						TotalBounce = Z.TotalBounce
+						CurrentBounce = 0
 					src.HomingCharge=Z.HomingCharge
 					src.HomingChargeSpent=0
 					src.HomingDelay=Z.HomingDelay
@@ -5450,8 +5434,11 @@ obj
 
 						if(src.HyperHoming&&src.Homing)
 							if(a!=src.Owner.Target)
-								src.loc=a.loc
-								return
+								if(forcedTarget)
+									src.loc = forcedTarget?:loc
+								else
+									src.loc=a.loc
+									return
 						if(a==src.Owner&&!src.Backfire)
 							src.loc=a.loc
 							return
@@ -5494,10 +5481,10 @@ obj
 						if(itemMods[2]>0)
 							accmult *= itemMods[2]
 						if(!a:Stasis)
-
-							if(a:GatesActive&&!a:NoDodge&&src.Dodgeable>0)
+							var/mob/p = a
+							if(p.passive_handler["Neo"]&&!p.HasNoDodge()&&src.Dodgeable>0)
 								var/dir=get_dir(src,a)
-								if(prob(a:GatesActive*12.5))
+								if(prob(p.passive_handler["Neo"]*glob.NEO_DODGERATE))
 									src.loc = a.loc
 									StunClear(a)
 									AfterImageStrike(a, src.Owner)
@@ -5509,7 +5496,7 @@ obj
 									return
 
 							if(a:HasFlow()&&!a:NoDodge&&src.Dodgeable>0)
-								if(prob(getFlowCalc(6, a:GetFlow(), src.Owner.HasInstinct())))
+								if(prob(getFlowCalc(glob.BASE_FLOW_PROB/2, a:GetFlow(), src.Owner.HasInstinct())))
 									var/dir=get_dir(src,a)
 									AfterImage(a)
 									if(src.Area=="Beam")
@@ -5649,8 +5636,6 @@ obj
 						if(CosmoPowered)
 							if(!src.Owner.SpecialBuff)
 								src.DamageMult*=1+(src.Owner.SenseUnlocked-5)
-
-
 						var/str = StrRate ? Owner.GetStr(StrRate) : 0
 						var/force = ForRate ? Owner.GetFor(ForRate) : 0
 						if(AdaptRate)
@@ -5707,6 +5692,8 @@ obj
 						#if DEBUG_PROJECTILE
 						Owner.log2text("PROJ Damage final", Damage, "damageDebugs.txt", Owner.ckey)
 						#endif
+						if(Bounce)
+							Damage *= max(1-glob.BOUNCE_REDUCTION * CurrentBounce, 0.25)
 						if(src.Owner.HasRipple())
 							if(src.Owner.Oxygen>=BreathCost)
 								var/RipplePower=(1+(0.25*src.Owner.GetRipple()*max(1,src.Owner.PoseEnhancement*2)))
@@ -5858,7 +5845,7 @@ obj
 									src.Owner.HealMana(src.Owner.SagaLevel/8)
 							else
 								if(MultDamage > 1) EffectiveDamage *= MultDamage
-								if(!(Piercing && m && AlreadyHit["[m.ckey]"] >= MultiHit + 1))
+								if(!(Piercing && m && (AlreadyHit["[m.ckey]"] >= MultiHit + 1)) || Bounce)
 									if(!AlreadyHit["[m.ckey]"]) AlreadyHit["[m.ckey]"] = 0
 									EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.01, 1)
 									src.Owner.DoDamage(a, EffectiveDamage, SpiritAttack=1, Destructive=src.Destructive)
@@ -5912,7 +5899,7 @@ obj
 
 						if(src.Striking)
 							src.Owner.HitEffect(a)
-							if(src.DamageMult>=0.2)
+							if(src.DamageMult>=0.4)
 								KenShockwave(a, Size=max((src.DamageMult+src.Knockback+src.Owner.Intimidation/50)*max(2*src.Owner.GetGodKi(),1)*GoCrand(0.04,0.4),0.2),PixelX=src.VariationX,PixelY=src.VariationY)
 						if(src.Slashing)
 							Slash(a, src.Owner.EquippedSword())
@@ -5940,7 +5927,12 @@ obj
 									ProjectileFinish()
 									return
 							else
-								ProjectileFinish()
+								if(Bounce && CurrentBounce++ < TotalBounce)
+									forcedTarget = findNextTarget(a, Owner)
+									if(forcedTarget == 0)
+										ProjectileFinish()
+								else
+									ProjectileFinish()
 								return
 						else
 							if(src.Homing)
@@ -5986,7 +5978,13 @@ obj
 
 					src.Distance--
 					..()
-
+				var/tmp/mob/forcedTarget
+				proc/findNextTarget(mob/p, mob/o)
+					for(var/mob/a in view(Bounce, p))
+						if(a == p || a == o || a.PureRPMode || a.Stasis || o.inParty(a.ckey))
+							continue
+						return a
+					return 0
 				proc/ProjectileFinish() //This function should allow the garbage collector to take care of projectiles. For this to work, make sure all references TOWARD the projectile are cleansed.
 					//Or it will persist even in the void
 					walk(src, 0)
@@ -6041,7 +6039,6 @@ obj
 							else
 								Bang(src.loc, Size=0.5, Offset=0, PX=src.VariationX+src.TrailX, PY=src.VariationY+src.TrailY)
 					endLife()
-
 				proc
 					Life()
 						Cooldown=-1 //Keeps active projectiles from moving onto the player during their movements.
@@ -6054,6 +6051,8 @@ obj
 							if(src.Homing)
 								if(!src.Owner.Target)
 									Distance=0
+								if(forcedTarget)
+									Homing = forcedTarget
 								if(src.LosesHoming)
 									var/Time=src.LosesHoming
 									spawn(Time)
@@ -6080,9 +6079,13 @@ obj
 										src.HomingChargeSpent=0
 							if(src.HyperHoming&&src.Homing||src.HomingCharge&&!src.Homing)
 								if(src.Owner)
+									
 									if(src.Owner.Target&&ismob(src.Owner.Target))
-										if(src.Owner.Target in view(src.Radius, src))
-											src.Bump(src.Owner.Target)
+										var/target = src.Owner.Target
+										if(forcedTarget)
+											target = forcedTarget
+										if(target in view(src.Radius, src))
+											src.Bump(target)
 							else
 								for(var/atom/a in view(src.Radius, src))
 									if(src.StormFall&&a.pixel_z!=src.pixel_z)

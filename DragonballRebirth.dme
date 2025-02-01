@@ -659,7 +659,7 @@
 #include "Skills\styles\martial\t0martialstyles.dm"
 #include "Skills\styles\martial\t1martialstyles.dm"
 #include "Skills\styles\martial\t2martialstyles.dm"
-#include "Skills\styles\martial\t3martialstyled.dm"
+#include "Skills\styles\martial\t3martialstyles.dm"
 #include "Skills\styles\weapon\t0weaponstyles.dm"
 #include "Skills\styles\weapon\t1weaponstyles.dm"
 #include "Skills\utility\races\beastman\beastmanutility.dm"

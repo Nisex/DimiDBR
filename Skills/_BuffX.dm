@@ -941,7 +941,7 @@ NEW VARIABLES
 				passives = list("PUSpike" = PUSpike, "KiControl" = 1, "PULock" = 1,\
 				"DemonicDurability" = clamp(num*0.2,0.25,4), "HeavyHitter" = num / 8, \
 				"Flicker" = round(clamp(num/2,1,8)), "Godspeed" = round(clamp(num/2,1,8)),\
-				"SuperDash" = puBoon ? 1 : 0)
+				"SuperDash" = puBoon ? 1 : 0, "Neo" = num)
 				StrMult = 1 + num / glob.GATES_STAT_MULT_DIVISOR
 				EndMult = 1 + num / glob.GATES_STAT_MULT_DIVISOR
 				SpdMult = 1 + num / glob.GATES_STAT_MULT_DIVISOR

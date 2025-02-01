@@ -6735,7 +6735,7 @@ obj
 						if(m.CanAttack())
 							m.Melee1(Damage,2,0,0,null,null,0,0,2,1)
 					if(m.HasFlow())
-						if(prob(getFlowCalc(6, m.GetFlow(), src.Owner.HasInstinct() )))
+						if(prob(getFlowCalc(glob.BASE_FLOW_PROB/2, m.GetFlow(), src.Owner.HasInstinct() )))
 							if(!src.TurfStrike)
 								spawn()
 									src.Owner.HitEffect(loc, src.UnarmedTech, src.SwordTech)

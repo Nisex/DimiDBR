@@ -1,6 +1,8 @@
 /obj/Skills/Projectile
     var/takeAppearance = FALSE
-
+    var/Bounce = FALSE
+    var/TotalBounce = 0
+    var/CurrentBounce = 0
     Secret_Knives
         AdaptRate=1
         Blasts=4
@@ -25,14 +27,46 @@
         FlickBlast=0
         Cooldown=3
         adjust(mob/p)
-            Blasts = rand(5,8)
-            DamageMult = 0.15
+            Blasts = rand(4,8)
+            DamageMult = 0.2
             Cooldown = rand(6,9)
             if((p.UBWPath == "Firm" && p.SagaLevel >=3))
                 Blasts = rand(2 + p.SagaLevel, 8 + p.SagaLevel)
                 DamageMult = rand(0.1 + (p.SagaLevel * 0.05), 0.15 + (p.SagaLevel * 0.05))
                 Cooldown = rand(7,12) - p.SagaLevel
-
+    Khonshu
+        AdaptRate=1
+        Blasts=4
+        Bounce = 5
+        TotalBounce = 3
+        DamageMult=0.25
+        AccMult=1
+        AttackReplace=1
+        ZoneAttack=1
+        Distance=30
+        Homing=1
+        HomingCharge=3
+        HomingDelay=1
+        HyperHoming=1
+        Striking=1
+        Instinct=1
+        ZoneAttackX=8
+        ZoneAttackY=8
+        FireFromEnemy=0
+        FireFromSelf=1
+        Hover=4
+        IconLock='CheckmateKnives.dmi'
+        Variation=8
+        FlickBlast=0
+        Cooldown=3
+        adjust(mob/p)
+            Blasts = rand(4,8)
+            DamageMult = 0.2
+            Cooldown = rand(6,9)
+            if((p.UBWPath == "Firm" && p.SagaLevel >=3))
+                Blasts = rand(2 + p.SagaLevel, 8 + p.SagaLevel)
+                DamageMult = rand(0.1 + (p.SagaLevel * 0.05), 0.15 + (p.SagaLevel * 0.05))
+                Cooldown = rand(7,12) - p.SagaLevel
     FTG
         AdaptRate=1
         Blasts=8
