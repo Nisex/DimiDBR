@@ -1,6 +1,7 @@
 #define GOLD_DRAGON_FORMULA 1000000
 #define GAJALAKA_MULT 1.2
 #define ROUND_DIVIDE(N,N2) round(N/N2,0.15)
+#define PURE_GRIM_SCALING FALSE
 obj/Skills/Buffs
 	Cooldown=1
 /**
@@ -6774,40 +6775,46 @@ NEW VARIABLES
 					BuffTechniques = general_magic_database
 					src.Trigger(usr)
 			Pure_Grimoire
-				passives = list("BuffMastery" = 2.5)
-				BuffMastery=2.5
+				passives = list("BuffMastery" = 3, "StyleMastery" = 3)
+				StrMult = 1.15
+				SpdMult = 1.15
+				OffMult = 1.15
+				DefMult = 1.15
+				EndMult = 1.15
 				Cooldown=4
 				TextColor=rgb(255, 240, 245)
 				ActiveMessage="fills their blank Grimoire with their power, greatly enhancing it!"
 				OffMessage="seals their Grimoire..."
 				adjust(mob/p)
-					if(!altered)
-						var/typeOfDamage
-						if(p.usingStyle("SwordStyle"))
-							typeOfDamage = "Sword"
-						else if(p.usingStyle("UnarmedStyle"))
-							typeOfDamage = "Unarmed"
-						else if(p.usingStyle("FreeStyle"))
-							typeOfDamage = "Free"
-						else if(p.usingStyle("Mystic"))
-							typeOfDamage = "Spiritual"
-						var/pot = p.Potential
-						if(typeOfDamage == "Free")
-							passives["SwordDamage"] = 1 + (round(pot/20, 0.25))
-							passives["UnarmedDamage"] = 1 + (round(pot/20, 0.25))
-						else
-							passives["[typeOfDamage]Damage"] = 1 + (round(pot/10, 0.5))
-						passives["Godspeed"] = 2 + (round(pot/25))
-						passives["BuffMastery"] = 2 + (round(pot/10, 0.5))
-						passives["TechniqueMastery"] = 2 +( round(pot/10, 0.5))
-						passives["BlurringStrikes"] = 1 +( round(pot/50))
-						passives["CallousedHands"] = 0.15 +( round(pot/100, 0.1))
-						passives["HybridStrike"] = ( round(pot/100, 0.1))
-						StrMult = 1 + (pot/100)
-						SpdMult = 1 + (pot/100)
-						OffMult = 1 + (pot/100)
-						DefMult = 1 + (pot/100)
-						EndMult = 1 + (pot/100)
+					if(PURE_GRIM_SCALING)
+						if(p.key in glob.WILL_NOT_TARP_LIST)
+							if(!altered)
+								var/typeOfDamage
+								if(p.usingStyle("SwordStyle"))
+									typeOfDamage = "Sword"
+								else if(p.usingStyle("UnarmedStyle"))
+									typeOfDamage = "Unarmed"
+								else if(p.usingStyle("FreeStyle"))
+									typeOfDamage = "Free"
+								else if(p.usingStyle("Mystic"))
+									typeOfDamage = "Spiritual"
+								var/pot = p.Potential
+								if(typeOfDamage == "Free")
+									passives["SwordDamage"] = 1 + (round(pot/20, 0.25))
+									passives["UnarmedDamage"] = 1 + (round(pot/20, 0.25))
+								else
+									passives["[typeOfDamage]Damage"] = 1 + (round(pot/10, 0.5))
+								passives["Godspeed"] = 2 + (round(pot/25))
+								passives["BuffMastery"] = 2 + (round(pot/10, 0.5))
+								passives["TechniqueMastery"] = 2 +( round(pot/10, 0.5))
+								passives["BlurringStrikes"] = 1 +( round(pot/50))
+								passives["CallousedHands"] = 0.15 +( round(pot/100, 0.1))
+								passives["HybridStrike"] = ( round(pot/100, 0.1))
+								StrMult = 1 + (pot/100)
+								SpdMult = 1 + (pot/100)
+								OffMult = 1 + (pot/100)
+								DefMult = 1 + (pot/100)
+								EndMult = 1 + (pot/100)
 				verb/Pure_Grimoire()
 					set category="Skills"
 					if(!usr.StyleBuff)

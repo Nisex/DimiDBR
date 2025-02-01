@@ -162,6 +162,7 @@ globalTracker
 		WorldWhiffRate = 25
 		celestialObjectTicks
 		NoSagaRaces = list(DEMON, DRAGON, ELF, SAIYAN)
+		WILL_NOT_TARP_LIST = list("JustLat", "TheUltimateHope")
 // combat
 		HIT_SCAN_DELAY = 5
 		OVERHWELMING_BASE_END_NERF = 0.05
