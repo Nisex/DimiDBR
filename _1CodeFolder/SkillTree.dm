@@ -263,8 +263,11 @@ var/list/SkillTree=list(
 					"/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter"=9999,
 					"/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style"=9999,),
 "SwordStylesT3"=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Two_Heaven_As_One"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Acrobat"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Fierce_Diety"=9999),
+"SwordStylesT4"=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Way_of_the_Kensei"=9999,
 					"/obj/Skills/Buffs/NuStyle/SwordStyle/Kyutoryu"=9999,
-					"/obj/Skills/Buffs/NuStyle/SwordStyle/Fierce_Diety"=9999)
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/War_God"=9999)
 
 )
 
@@ -388,7 +391,7 @@ mob/Players/verb
 					x = 1
 					y++
 			world<<winget(usr, "skilltreegrid", "cells")
-			for(var/tier in 1 to 3)
+			for(var/tier in 1 to 4)
 				var/string = "[z]T[num2text(tier)]" // STYLESTX
 				p = 1
 				for(var/obj/SkillTreeObj/s in SkillTreeList[string])
