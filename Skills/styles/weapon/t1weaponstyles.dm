@@ -8,7 +8,7 @@
 		StyleStr=1.15
 		StyleDef=1.15
 		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx", \
-		"/obj/Skills/Buffs/NuStyle/SwordStyle/Kunst_des_Fechtens"="/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter_Style",\
+		"/obj/Skills/Buffs/NuStyle/SwordStyle/Kunst_des_Fechtens"="/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter",\
 		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon",\
 		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wing_Chun"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phoenix_Eye_Fist")
 		passives = list("SwordPunching" = 1, "Secret Knives" = "Khonshu", "Tossing" = 1)
@@ -25,6 +25,7 @@
 		StyleActive="Two Swords as One"
 		StyleOff=1.3
 		StyleSpd=1.15
+		NeedsSecondSword = 1
 		Finisher="/obj/Skills/Queue/Finisher/Rashomon"
 		verb/Nito_Ichi_Style()
 			set hidden=1
@@ -57,7 +58,8 @@
 	Kunst_des_Fechtens
 		SignatureTechnique=1
 		Copyable=0
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu"="/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter_Style")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu"="/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter",
+							"/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Berserk")
 		passives = list("Half-Sword" = 1.5, "Zornhau" = 1)
 		StyleActive="Art of Fighting"
 		StyleStr=1.3

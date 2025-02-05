@@ -394,10 +394,6 @@ window "OOCChatTab"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
-		outer-size = 654x494
-		outer-pos = 291,0
-		inner-pos = 7,7
-		screen-size = 2560x1400
 	elem "oocchat"
 		type = OUTPUT
 		pos = 0,0
@@ -425,11 +421,6 @@ window "RPWindow"
 		statusbar = false
 		can-close = false
 		can-minimize = false
-		outer-size = 656x518
-		outer-pos = 291,0
-		inner-size = 640x479
-		inner-pos = 8,31
-		screen-size = 2560x1400
 	elem "button8"
 		type = BUTTON
 		pos = 320,447
@@ -1169,10 +1160,6 @@ window "rpane"
 		can-minimize = false
 		can-resize = false
 		is-pane = true
-		outer-size = 654x494
-		outer-pos = 291,0
-		inner-pos = 7,7
-		screen-size = 2560x1400
 	elem "rpanewindow"
 		type = CHILD
 		pos = 0,0
@@ -2859,7 +2846,7 @@ window "reportview"
 window "skilltree"
 	elem "skilltree"
 		type = MAIN
-		pos = 291,0
+		pos = 384,0
 		size = 408x420
 		anchor1 = -1,-1
 		anchor2 = -1,-1
@@ -2870,6 +2857,11 @@ window "skilltree"
 		can-minimize = false
 		can-resize = false
 		macro = "macro"
+		outer-size = 426x467
+		outer-pos = 384,0
+		inner-size = 408x420
+		inner-pos = 9,38
+		screen-size = 2560x1390
 	elem "button6"
 		type = BUTTON
 		pos = 103,32
@@ -2882,6 +2874,7 @@ window "skilltree"
 		background-color = #0a0a0a
 		saved-params = "is-checked"
 		text = "REDACTED"
+		command = ""
 	elem "button61"
 		type = BUTTON
 		pos = 203,32
@@ -3115,11 +3108,8 @@ window "skilltree"
 		is-default = true
 		drop-zone = false
 		saved-params = ""
-		cells = 1x0
 		current-cell = 1,1
-		show-lines = none
 		highlight-color = #000000
-		is-list = true
 	elem "STRewardPoints"
 		type = LABEL
 		pos = 0,0

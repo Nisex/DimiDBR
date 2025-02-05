@@ -276,8 +276,12 @@ mob
 		HasSwordAscension()
 			if(passive_handler.Get("SwordAscension"))
 				return 1
+			if(passive_handler.Get("The Way"))
+				return 1
 			return 0
 		GetSwordAscension()
+			if(passive_handler.Get("The Way"))
+				return glob.MAX_SWORD_ASCENSION
 			return passive_handler.Get("SwordAscension")
 		HasSwordDamageBuff()
 			if(passive_handler.Get("SwordDamage"))
@@ -1582,6 +1586,10 @@ mob
 			return Return
 
 		HasGodKi()
+			if(passive_handler["DisableGodKi"])
+				return 0
+			if(glob.T3_STYLES_GODKI_VALUE>0 && StyleBuff?.SignatureTechnique==3)
+				return 1
 			if(passive_handler.Get("GodKi"))
 				return 1
 			if(src.SenseUnlocked>6&&(src.SenseUnlocked>src.SenseRobbed))
@@ -1596,7 +1604,10 @@ mob
 				return 1
 			return 0
 		GetGodKi()
+			
 			var/Total=passive_handler.Get("GodKi")
+			if(glob.T3_STYLES_GODKI_VALUE>0 && StyleBuff?.SignatureTechnique==3)
+				Total+=glob.T3_STYLES_GODKI_VALUE
 			if(src.HasSpiritPower()>=1 && FightingSeriously(src, 0))
 				if(src.Health<=(30+src.TotalInjury)*src.HasSpiritPower())
 					if(src.SenseUnlocked<7)//saintz
@@ -1777,8 +1788,6 @@ mob
 			return passive_handler.Get("Enraging")
 		HasDoubleStrike()
 			if(passive_handler.Get("DoubleStrike"))
-				return 1
-			if(passive_handler.Get("TripleStrike"))
 				return 1
 			return 0
 		GetDoubleStrike()
@@ -2650,8 +2659,7 @@ mob
 				return 1
 			return 0
 		UsingKendo()
-			if(HasSword()&&equippedSword:Class=="Wooden"&&src.StyleActive=="Kendo")
-				return 1
+
 			return 0
 		NotUsingChamploo()
 			if(src.StyleActive=="Secret Knife")

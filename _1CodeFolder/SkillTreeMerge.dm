@@ -21,7 +21,7 @@ mob
 					for(var/x in ns.StyleComboUnlock)
 						if(!x) return //hmm?
 						var/advanced_path=ns.StyleComboUnlock[x]
-						if(!advanced_path) return
+						if(!advanced_path || advanced_path == null) return
 						var/obj/Skills/aps=new advanced_path
 						if(locate(aps, src))
 							del aps

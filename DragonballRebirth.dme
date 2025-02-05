@@ -662,6 +662,9 @@
 #include "Skills\styles\martial\t3martialstyles.dm"
 #include "Skills\styles\weapon\t0weaponstyles.dm"
 #include "Skills\styles\weapon\t1weaponstyles.dm"
+#include "Skills\styles\weapon\t2weaponstyles.dm"
+#include "Skills\styles\weapon\t3weaponstyles.dm"
+#include "Skills\styles\weapon\t4weaponstyles.dm"
 #include "Skills\utility\races\beastman\beastmanutility.dm"
 #include "UpdateNotes\update.dm"
 // END_INCLUDE

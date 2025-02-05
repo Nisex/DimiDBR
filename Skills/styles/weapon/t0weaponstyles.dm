@@ -1,8 +1,8 @@
 /obj/Skills/Buffs/NuStyle/SwordStyle
     Ittoryu_Style
         passives = list("Musoken" = 1)
-        StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fencing_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi",\
-        "/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido",\
+        StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fencing_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style",\
+        "/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style",\
         "/obj/Skills/Buffs/NuStyle/SwordStyle/Ulfberht_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Kunst_des_Fechtens",\
         "/obj/Skills/Buffs/NuStyle/SwordStyle/Chain_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Konshu")
         StyleStr = 1.15
@@ -17,7 +17,7 @@
         StyleOff=1.15
         StyleActive="Fencing"
         passives = list("Parry" = 1)
-        StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Ittoryu_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi",\
+        StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Ittoryu_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style",\
         "/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style")
         Finisher="/obj/Skills/Queue/Finisher/La_Rapiere_des_Sorel"
         verb/Fencing_Style()
@@ -41,7 +41,7 @@
         StyleActive="Gladiator"
         passives = list("Disarm" = 0.5)
         StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Fencing_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style",\
-        "/obj/Skills/Buffs/NuStyle/FreeStyle/Ittoryu_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido")
+        "/obj/Skills/Buffs/NuStyle/FreeStyle/Ittoryu_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style")
         Finisher="/obj/Skills/Queue/Finisher/Challenge"
         verb/Gladiator_Style()
             set hidden=1

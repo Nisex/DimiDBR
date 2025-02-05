@@ -7459,9 +7459,9 @@ NEW VARIABLES
 				var/Choice
 				if(!usr.BuffOn(src))
 					var/modify_sword_num = 1
-					if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi) in usr) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style) in usr))
+					if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi) in usr) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in usr))
 						var/list/options = list("Primary","Secondary")
-						if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style) in usr)) options += "Tertiary"
+						if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in usr)) options += "Tertiary"
 						switch(input("Which sword would you like to modify?") in options)
 							if("Secondary") modify_sword_num=2
 							if("Tertiary") modify_sword_num=3
@@ -7526,9 +7526,9 @@ NEW VARIABLES
 				var/Choice
 				if(!usr.BuffOn(src))
 					var/modify_sword_num = 1
-					if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi) in src) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style) in src))
+					if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi) in src) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in src))
 						var/list/options = list("Primary","Secondary")
-						if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style) in src)) options += "Tertiary"
+						if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in src)) options += "Tertiary"
 						switch(input("Which sword would you like to modify?") in options)
 							if("Secondary") modify_sword_num=2
 							if("Tertiary") modify_sword_num=3
@@ -13020,7 +13020,7 @@ mob
 
 			if(B.NeedsSecondSword && !B.NeedsThirdSword && B.MakesSword != 3)
 				for(var/obj/Items/Sword/s in src)
-					if(s.suffix=="*Equipped*"||s.suffix=="*Broken*")
+					if(s.suffix=="*Equipped*"||(s.suffix=="*Broken*" && !passive_handler["Sword Master"]))
 						continue
 					s.AlignEquip(src)
 					s.suffix="*Equipped (Second)*"
@@ -13030,7 +13030,7 @@ mob
 				var/src2=0
 				var/src3=0
 				for(var/obj/Items/Sword/s in src)
-					if(s.suffix=="*Equipped*"||s.suffix=="*Broken*")
+					if(s.suffix=="*Equipped*"||(s.suffix=="*Broken*" && !passive_handler["Sword Master"]))
 						continue
 					if(!src2)
 						s.AlignEquip(src)
@@ -13707,7 +13707,7 @@ mob
 					s.ExtraClass = B.SwordRefinement
 			if(B.NeedsSecondSword)
 				for(var/obj/Items/Sword/s in src)
-					if(s.suffix=="*Equipped*"||s.suffix=="*Broken*")
+					if(s.suffix=="*Equipped*"||(s.suffix=="*Broken*" && !passive_handler["Sword Master"]))
 						continue
 					src.overlays-=image(icon=s.icon, pixel_x=s.pixel_x, pixel_y=s.pixel_y)
 					s.AlignEquip(src)
@@ -13715,8 +13715,9 @@ mob
 			if(B.NeedsThirdSword)
 				var/src2=0
 				var/src3=0
+				
 				for(var/obj/Items/Sword/s in src)
-					if(s.suffix=="*Equipped*"||s.suffix=="*Broken*")
+					if(s.suffix=="*Equipped*"||(s.suffix=="*Broken*" && !passive_handler["Sword Master"]))
 						continue
 					if(!src2)
 						src.overlays-=image(icon=s.icon, pixel_x=s.pixel_x, pixel_y=s.pixel_y)

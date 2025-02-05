@@ -21,6 +21,7 @@
         StyleDef = 1.25
         StyleSpd = 1.25
         StyleStr = 1.25
+        StyleActive="Jeet Kune Do"
         passives = list("LikeWater" = 4, "Fa Jin" = 3, "Interception" = 3, "Sunyata" = 3 , "Gum Gum" = 1, "Acupuncture" = 2, \
                         "Flow" = 2, "Instinct" = 2, "Momentum" = 1.5, "Hardening" = 1.5, "Pressure" = 2, "Soft Style" = 1, \
                         "FluidForm" = 1)
@@ -47,7 +48,8 @@
         "SwordPunching" = 1, "NeedsSword" = 0, "NoSword" = 1)
         // make it so every cooldown like iaido, also make the tracker appear on hud
         // make an animation for the tp
-        
+        StyleActive="Flying Thunder God"
+        Finisher="/obj/Skills/Queue/Finisher/Be_Water" //TODO: make a finisher here
         verb/Flying_Thunder_God()
             set hidden=1
             src.Trigger(usr)

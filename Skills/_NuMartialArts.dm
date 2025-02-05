@@ -256,7 +256,7 @@ obj
 						StyleOff=1.15
 						StyleSpd=1.3
 						StyleActive="Nito Ichi"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Secret_Knife_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style",\
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Secret_Knife_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu",\
 						"/obj/Skills/Buffs/NuStyle/FreeStyle/Soul_Crushing_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Arcane_Bladework_Style")
 						passives = list("BlurringStrikes", "DoubleStrike" = 1, "NeedsSecondSword" = 1)
 						DoubleStrike=1
@@ -290,59 +290,10 @@ obj
 						NeedsSword=0
 
 						StyleActive="Assassination"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi"="/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style",\
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi"="/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu",\
 						"/obj/Skills/Buffs/NuStyle/FreeStyle/Resonance_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Blade_Singing_Style")
 						Finisher="/obj/Skills/Queue/Finisher/Flying_Barcelona"
 						verb/Secret_Knife_Style()
-							set hidden=1
-							src.Trigger(usr)
-
-//Signature Style T2
-					Phalanx_Style
-						SignatureTechnique=2
-						Copyable=0
-						StyleOff=1.25
-						StyleStr=1.25
-						StyleEnd=1.5
-						StyleActive="Phalanx Style"
-						SwordPunching = 1
-						NoSword = 1
-						NeedsSword = 0
-						passives = list("Reversal" = 0.25, "Deflection" = 1, "Hardening" = 1.5, "SwordPunching" = 1, "Shearing" = 3, "Unnerve" = 1)
-						Finisher="/obj/Skills/Queue/Finisher/Shield_Vault"
-
-
-					Trinity_Style
-						SignatureTechnique=2
-						NeedsThirdSword=1
-						Copyable=0
-
-						StyleStr=1.5
-						StyleSpd=1.5
-						StyleActive="Trinity"
-						passives = list("SweepingStrike" = 1, "DoubleStrike" = 2, "TripleStrike" = 0.5, "NeedsThirdSword" = 1)
-						DoubleStrike=2
-						TripleStrike=0.5
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Butcher_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Five_Rings_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Ogre_Cutter"
-						verb/Trinity_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Butcher_Style
-						SignatureTechnique=2
-						Copyable=0
-
-						StyleStr=1.5
-						StyleSpd=1.5
-						StyleActive="Butcher"
-						NeedsSword=0
-						SwordPunching=1
-						passives = list("Shearing" = 6, "SlayerMod" = 2, "SwordPunching" = 1, "NeedsSword" = 0)
-						Shearing=2
-						SlayerMod=2.5
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Five_Rings_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Crimson_Fountain"
-						verb/Butcher_Style()
 							set hidden=1
 							src.Trigger(usr)
 					Arcane_Bladework_Style

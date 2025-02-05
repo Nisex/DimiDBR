@@ -816,8 +816,8 @@
 					// 										OTHER DMG START 															//
 							var/otherDmg = (damage+(GetIntimidation()/100)*(1+(2*GetGodKi())))
 
-							if(UsingZornhau()&&HasSword())
-								otherDmg *= 1 + (UsingZornhau()*glob.ZORNHAU_MULT)
+							// if(UsingZornhau()&&HasSword())
+							// 	otherDmg *= 1 + (UsingZornhau()*glob.ZORNHAU_MULT)
 
 							if(UsingKendo()&&HasSword()&&CountStyles(2))
 								if(s.Class == "Wooden")

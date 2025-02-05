@@ -3,7 +3,7 @@ var/list/SkillTreeList=list("BlastT1"=list(),"BlastT2"=list(),"BlastT3"=list(), 
 "BeamT1"=list(),"BeamT2"=list(),"BeamT3"=list(),"BeamT4"=list(),\
 "MagicT1"=list(),"MagicT2"=list(),"MagicT3"=list(),"MagicT4"=list(),\
 "UnarmedT1"=list(),"UnarmedT2"=list(),"UnarmedT3"=list(),"UnarmedT4"=list(), "UnarmedT5" = list(),\
-"UnarmedStyles"=list(),"ElementalStyles"=list(),"SpiritStyles"=list(),"SwordStyles"=list())
+"UnarmedStyles"=list(),"ElementalStyles"=list(),"SpiritStyles"=list(),"SwordStyles"=list(),"SwordStylesT1"=list(), "SwordStylesT2"=list(),"SwordStylesT3"=list() )
 proc/MakeSkillTreeList()
 	for(var/x in SkillTree)
 		var/Tier = null
@@ -30,7 +30,9 @@ proc/MakeSkillTreeList()
 						s.cost=TIER_4_COST
 			else
 				s.cost=SkillTree[x][z]
+				s.tier = 0
 			s.name="[namez] ([s.cost])"
+			s.tier = Tier
 			SkillTreeList[x]+=s
 
 var/list/SkillTree=list(
@@ -251,44 +253,20 @@ var/list/SkillTree=list(
 			"/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/SwordStyle/Chain_Style"=20
 ),
+"SwordStylesT1"=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Kunst_des_Fechtens"=9999),
+"SwordStylesT2"=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Berserk"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style"=9999,),
+"SwordStylesT3"=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Two_Heaven_As_One"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Kyutoryu"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Fierce_Diety"=9999)
 
 )
-
-/*
-mob
-	verb
-		Saga_Invest()
-			set hidden=1
-			if(!usr.Saga)
-				usr << "You do not possess a saga to invest in."
-				return
-			if(usr.SagaLevel>=6)
-				usr << "You have trained your saga to the highest known level."
-				return
-			var/Req=usr.SagaEXPReq()-usr.SagaEXP
-			if(Req<=0)//if you have the next level ready, reject
-				usr << "You have invested enough for your next saga level already, but you must advance your fighting potential further."
-				return
-			var/Invest=input(usr, "How much RPP do you want to invest into your saga progression?", "Saga Invest (1-[Req])") as num|null
-			if(!Invest || Invest==null || Invest <= 0)
-				usr << "Invalid invest amount."
-				return
-			if(Invest > usr.GetRPPSpendable())
-				Invest=usr.GetRPPSpendable()
-			if(Invest > Req)
-				Invest=Req
-			switch(alert(usr, "Are you sure you want to invest [Invest] RPP into your saga development?", "Saga Invest ([Invest])", "No", "Yes"))
-				if("No")
-					usr << "You have not invested in your saga."
-					return
-				if("Yes")
-					if(usr.SpendRPP(Invest, "Saga Investment", Training=1))
-						usr.SagaEXP+=Invest
-						usr << "You invest [Invest] RPP into your saga development!"
-
-		Buy_Stances()
-			set hidden=1
-*/
 
 obj/SkillTreeObj
 	var/path
@@ -299,7 +277,7 @@ obj/SkillTreeObj
 	New()
 		. = ..()
 		icon_state = lowertext(replacetext(replacetext(path,"/obj/Skills/Buffs/NuStyle/UnarmedStyle", ""), "_Style", ""))
-
+		
 	Click()
 
 		var/path=text2path("[src.path]")
@@ -335,7 +313,8 @@ obj/SkillTreeObj
 		if(Confirm=="No")
 			del(s)
 			return
-
+		if(s.SignatureTechnique>=1)
+			return
 		if(locate(s,usr.contents))
 			usr << "You've already learned [s]."
 			del(s)
@@ -376,17 +355,11 @@ obj/SkillTreeObj
 						del s2
 						return
 
-
 		if(usr.SpendRPP(src.cost, "[s]", Training=1))
 			usr.AddSkill(s)
 			if(s.type==/obj/Skills/Power_Control)
 				if(!locate(/obj/Skills/Buffs/ActiveBuffs/Ki_Control, usr))
 					usr.PoweredFormSetup()
-			// if(s.type in typesof(/obj/Skills/Buffs/NuStyle))
-			// 	var/obj/Skills/Buffs/NuStyle/ns=s
-/*
-			if(s:PreRequisite.len>0)
-				usr.PrerequisiteRemove(s)*/
 		..()
 
 
@@ -405,10 +378,29 @@ mob/Players/verb
 		usr<<output("RPP: [round(usr.GetRPPSpendable())]","STRewardPoints")
 		sleep(1)
 		var/p=1//used as a positioning locator for rows/columns
-		for(var/obj/SkillTreeObj/x in SkillTreeList[z])
-			//p++
-			usr<<output(x,"skilltreegrid:[1],[p]")
-			p++
+		if(copytext(z, length(z)-5, length(z)+1) == "Styles")
+			var/x = 1
+			var/y = 1
+			for(var/obj/SkillTreeObj/s in SkillTreeList[z])
+				usr<<output(s,"skilltreegrid:[x],[y]")
+				x++
+				if(x>2)
+					x = 1
+					y++
+			world<<winget(usr, "skilltreegrid", "cells")
+			for(var/tier in 1 to 3)
+				var/string = "[z]T[num2text(tier)]" // STYLESTX
+				p = 1
+				for(var/obj/SkillTreeObj/s in SkillTreeList[string])
+					usr<<output(s,"skilltreegrid:[x],[y]")
+					x++
+					if(x>2)
+						x = 1
+						y++
+			world<<winget(usr, "skilltreegrid", "cells")
+		else
+			for(var/obj/SkillTreeObj/x in SkillTreeList[z])
+				usr<<output(x,"skilltreegrid:[p++],[0]")
 
 
 

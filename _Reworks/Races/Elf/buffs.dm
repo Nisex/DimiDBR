@@ -29,9 +29,9 @@
         var/Choice
         if(!usr.BuffOn(src))
             var/modify_sword_num = 1
-            if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi) in usr) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style) in usr))
+            if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi) in usr) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in usr))
                 var/list/options = list("Primary","Secondary")
-                if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style) in usr)) options += "Tertiary"
+                if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in usr)) options += "Tertiary"
                 switch(input("Which sword would you like to modify?") in options)
                     if("Secondary") modify_sword_num=2
                     if("Tertiary") modify_sword_num=3

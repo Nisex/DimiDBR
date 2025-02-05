@@ -1621,7 +1621,7 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 				return
 			var/obj/Items/Enchantment/Staff/staf=User.EquippedStaff()
 			var/obj/Items/Sword/sord=User.EquippedSword()
-			if(src.Broken)
+			if(src.Broken && !User.passive_handler["Sword Master"])
 				User << "[src] is broken; it can't be wielded right now."
 				return
 			if(sord)

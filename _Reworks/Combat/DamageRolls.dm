@@ -11,9 +11,9 @@ proc/randValue(min,max,divider=10)
 	var/max = glob.upper_damage_roll+upperMod
 	var/obj/Items/Sword/s = src.EquippedSword()
 	var/list/swordValues = list("Wooden"=0.05,"Light"=0.075,"Medium"=0.125,"Heavy"=0.15)
-	if(UsingZornhau())
-		var/zorn = UsingZornhau()
-		min += (glob.min_damage_roll/4) * zorn 
+	// if(UsingZornhau())
+	// 	var/zorn = UsingZornhau()
+	// 	min += (glob.min_damage_roll/4) * zorn 
 	var/val = randValue(min,max)
 	if(UsingZornhau())
 		if(!s)

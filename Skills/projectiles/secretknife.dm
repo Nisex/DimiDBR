@@ -3,6 +3,78 @@
     var/Bounce = FALSE
     var/TotalBounce = 0
     var/CurrentBounce = 0
+    GodSlayer
+        AttackReplace=1
+        Distance=30
+        AdaptRate=1
+        Crippling=1
+        Blasts=1
+        DamageMult=0.75
+        HyperHoming=1
+        AccMult=2
+        Homing=1
+        HomingCharge=1
+        HomingDelay=5
+        Piercing=1
+        Striking=1
+        Instinct=1
+        IconLock='Arrow - Flare.dmi'
+        IconSize=1
+        Trail='Trail - Flare.dmi'
+        TrailSize=1
+        Variation=4
+        FlickBlast=0
+    Atlatl 
+        AdaptRate=1
+        Blasts=1
+        DamageMult=5
+        AccMult=2
+        AttackReplace=1
+        ZoneAttack=1
+        Distance=60
+        Homing=1
+        HomingCharge=3
+        HomingDelay=1
+        HyperHoming=1
+        Striking=1
+        Instinct=2
+        Crippling = 50
+        ZoneAttackX=2
+        ZoneAttackY=2
+        FireFromEnemy=0
+        FireFromSelf=1
+        Hover=2
+        IconLock='spear.dmi'
+        FlickBlast=0
+        Cooldown=8
+        adjust(mob/p)
+
+
+    Stake
+        AdaptRate=1
+        Blasts=8
+        DamageMult=0.33
+        AccMult=1
+        AttackReplace=1
+        ZoneAttack=1
+        Distance=55
+        Homing=1
+        HomingCharge=3
+        HomingDelay=1
+        HyperHoming=1
+        Striking=1
+        Instinct=2
+        Crippling = 15
+        ZoneAttackX=12
+        ZoneAttackY=12
+        FireFromEnemy=0
+        FireFromSelf=1
+        Hover=4
+        IconLock='stake.dmi'
+        Variation=8
+        FlickBlast=0
+        Cooldown=6
+        adjust(mob/p)
     Secret_Knives
         AdaptRate=1
         Blasts=4
@@ -45,8 +117,8 @@
         ZoneAttack=1
         Distance=30
         Homing=1
-        HomingCharge=3
-        HomingDelay=1
+        HomingCharge=1
+        HomingDelay=3
         HyperHoming=1
         Striking=1
         Instinct=1
@@ -55,7 +127,7 @@
         FireFromEnemy=0
         FireFromSelf=1
         Hover=4
-        IconLock='CheckmateKnives.dmi'
+        IconLock='Ankh.dmi'
         Variation=8
         FlickBlast=0
         Cooldown=3
@@ -66,7 +138,7 @@
             if((p.UBWPath == "Firm" && p.SagaLevel >=3))
                 Blasts = rand(2 + p.SagaLevel, 8 + p.SagaLevel)
                 DamageMult = rand(0.1 + (p.SagaLevel * 0.05), 0.15 + (p.SagaLevel * 0.05))
-                Cooldown = rand(7,12) - p.SagaLevel
+                Cooldown = rand(6,10) - p.SagaLevel
     FTG
         AdaptRate=1
         Blasts=8
@@ -93,7 +165,7 @@
         takeAppearance = TRUE
         adjust(mob/p)
 
-
+    
     Murder_Music
         AttackReplace=1
         ZoneAttack=1
