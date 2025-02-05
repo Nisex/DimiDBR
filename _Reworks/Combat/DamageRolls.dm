@@ -15,24 +15,26 @@ proc/randValue(min,max,divider=10)
 	// 	var/zorn = UsingZornhau()
 	// 	min += (glob.min_damage_roll/4) * zorn 
 	var/val = randValue(min,max)
-	if(UsingZornhau())
-		if(!s)
-			// this means they are in swordless
-			val += 0.2 // let em eat
-		else
-			if(UsingKendo())
-				val += (0.05) + 0.15
-			else
-				val += (0.05) + swordValues[s.Class]
+	// if(UsingZornhau())
+	// 	if(!s)
+	// 		// this means they are in swordless
+	// 		val += 0.2 // let em eat
+	// 	else
+	// 		if(UsingKendo())
+	// 			val += (0.05) + 0.15
+	// 		else
+	// 			val += (0.05) + swordValues[s.Class]
 	val += Judgment && !Oozaru ? (glob.min_damage_roll/2)*AscensionsAcquired : 0
 	if(src.HasSteady())
 		val += GetSteady()
-		if(passive_handler["Zornhau"] && Target)
+		if(s && passive_handler["Zornhau"] && Target)
 			var/zorn = 0 
 			if(Target.equippedArmor)
 				zorn = (passive_handler["Zornhau"] * 2)
+				world << "DEBUG: ZORNHAU IS GIVING STEADY [zorn] (THEY ARE ARMORED)"
 			else
 				zorn = passive_handler["Zornhau"]
+				world << "DEBUG: ZORNHAU IS GIVING STEADY [zorn] (THEY AREN'T ARMORED)"
 			zorn *= glob.STEADY_MODIFIER
 	var/negate = 0
 	if(src.Target)

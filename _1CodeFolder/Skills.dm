@@ -162,7 +162,7 @@ obj/Skills
 	var/CustomCharge//totally custom
 
 	var/HeavyHitter
-
+	var/HeavyOnly
 	var/copiedBy
 
 	var/heavenlyRestrictionIgnore = FALSE
@@ -213,6 +213,8 @@ obj/Skills
 
 				if(NeedsSword)
 					description += "Requires Sword.\n"
+				if(HeavyOnly)
+					description += "Heavy Sword Only.\n"
 				if(NoSword)
 					description += "Unarmed Only.\n"
 				if(BuffSelf)

@@ -11543,6 +11543,10 @@ mob
 						if(!HasSwordPunching())
 							src << "You must be using a sword to use [B]."
 							return
+					if(B.HeavyOnly)
+						if(s.Class != "Heavy")
+							src << "You must use a Heavy Sword with [B]."
+							return
 				if(B.NeedsSecondSword)
 					var/found=0
 					for(var/obj/Items/Sword/s in src)
@@ -13715,7 +13719,7 @@ mob
 			if(B.NeedsThirdSword)
 				var/src2=0
 				var/src3=0
-				
+
 				for(var/obj/Items/Sword/s in src)
 					if(s.suffix=="*Equipped*"||(s.suffix=="*Broken*" && !passive_handler["Sword Master"]))
 						continue

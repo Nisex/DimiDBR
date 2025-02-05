@@ -17,11 +17,12 @@
         SignatureTechnique = 2
         StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu"="/obj/Skills/Buffs/NuStyle/SwordStyle/Two_Heaven_As_One",
                             "/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter"="/obj/Skills/Buffs/NuStyle/SwordStyle/Fierce_Diety")
-        passives = list("Rage" = 1, "Half-Sword" = 2, "Zornhau" = 2, "HeavyOnly" = 1, "Parry" = 2.5,"Disarm" = 2,\
+        passives = list("Rage" = 1, "Half-Sword" = 2, "Zornhau" = 2, "Parry" = 2.5,"Disarm" = 2,\
                          "Hardening" = 1, "Deflection" = 0.5)
         StyleOff=1.3
         StyleStr=1.45
         StyleEnd=0.85
+        HeavyOnly=1
         StyleActive="Guts Berserk"
     Witch_Hunter
         SignatureTechnique = 2
