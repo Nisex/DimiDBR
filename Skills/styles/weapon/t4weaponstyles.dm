@@ -27,4 +27,4 @@
                         "Shearing" = 10, "Deflection" = 5, "Disarm" = 5,"Parry" = 5, "Momentum" = 5, "Hardening" = 5, \
                         "Secret Knives" = "GodSlayer", "Tossing" = 5, "Pressure" = 5, "Unnerve" = 5)
                         // either throw swords at them, or runes, depending on icon_state do a different effect
-    
+

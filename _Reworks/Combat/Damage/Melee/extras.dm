@@ -81,7 +81,7 @@ HitScanIcon
     FTG_seeker 
         icon = 'kunai.dmi' // make this changable w/ the style
         end_effect()
-            owner.Comboz(target)
+            owner.Comboz(target, 0, TRUE)
             LightningBolt(target, 1)
             ticking_generic-=src
             del src

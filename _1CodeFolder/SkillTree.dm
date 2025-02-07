@@ -3,7 +3,9 @@ var/list/SkillTreeList=list("BlastT1"=list(),"BlastT2"=list(),"BlastT3"=list(), 
 "BeamT1"=list(),"BeamT2"=list(),"BeamT3"=list(),"BeamT4"=list(),\
 "MagicT1"=list(),"MagicT2"=list(),"MagicT3"=list(),"MagicT4"=list(),\
 "UnarmedT1"=list(),"UnarmedT2"=list(),"UnarmedT3"=list(),"UnarmedT4"=list(), "UnarmedT5" = list(),\
-"UnarmedStyles"=list(),"ElementalStyles"=list(),"SpiritStyles"=list(),"SwordStyles"=list(),"SwordStylesT1"=list(), "SwordStylesT2"=list(),"SwordStylesT3"=list() )
+"UnarmedStyles"=list(),"UnarmedStylesT1"=list(), "UnarmedStylesT2"=list(),"UnarmedStylesT3"=list(), "UnarmedStylesT4"=list(), \
+"ElementalStyles"=list(),"SpiritStyles"=list(),"SwordStyles"=list(), \
+"SwordStylesT1"=list(), "SwordStylesT2"=list(),"SwordStylesT3"=list(), "SwordStylesT4"=list() )
 proc/MakeSkillTreeList()
 	for(var/x in SkillTree)
 		var/Tier = null
@@ -234,6 +236,29 @@ var/list/SkillTree=list(
 			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Murim_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lucha_Libre_Style"=20
 ),
+"UnarmedStylesT1"=list(
+	"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Red_Cyclone_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Wushu_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Black_Leg_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Wing_Chun_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Tai_Chi_Style"=9999
+					),
+"UnarmedStylesT2"=list(
+	"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Ubermensch_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Mantis_And_Crane_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Long_Fist_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Divine_Arts_of_The_Heavenly_Demon"=9999
+					),
+"UnarmedStylesT3"=list(
+	"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Flying_Thunder_God"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Jeet_Kune_Do"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/All_Star_Wrestling"=9999
+					),
+"UnarmedStylesT4"=list(
+	"/obj/Skills/Buffs/NuStyle/UnarmedStyles/God_Fist"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Ten_Directions"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Giga_Galaxy_Wrestling"=9999
+					),
 
 "SpiritStyles"=list(
 
@@ -264,10 +289,10 @@ var/list/SkillTree=list(
 					"/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style"=9999,),
 "SwordStylesT3"=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Two_Heaven_As_One"=9999,
 					"/obj/Skills/Buffs/NuStyle/SwordStyle/Acrobat"=9999,
-					"/obj/Skills/Buffs/NuStyle/SwordStyle/Fierce_Diety"=9999),
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Fierce_Deity"=9999),
 "SwordStylesT4"=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Way_of_the_Kensei"=9999,
 					"/obj/Skills/Buffs/NuStyle/SwordStyle/Kyutoryu"=9999,
-					"/obj/Skills/Buffs/NuStyle/SwordStyle/War_God"=9999)
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/War_God"=9999),
 
 )
 
@@ -390,7 +415,6 @@ mob/Players/verb
 				if(x>2)
 					x = 1
 					y++
-			world<<winget(usr, "skilltreegrid", "cells")
 			for(var/tier in 1 to 4)
 				var/string = "[z]T[num2text(tier)]" // STYLESTX
 				p = 1
@@ -400,7 +424,6 @@ mob/Players/verb
 					if(x>2)
 						x = 1
 						y++
-			world<<winget(usr, "skilltreegrid", "cells")
 		else
 			for(var/obj/SkillTreeObj/x in SkillTreeList[z])
 				usr<<output(x,"skilltreegrid:[p++],[0]")

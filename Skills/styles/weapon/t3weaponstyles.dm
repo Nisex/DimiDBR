@@ -20,7 +20,7 @@
         StyleOff=1.25
         StyleStr=1.25
         NeedsThirdSword = 1
-    Fierce_Diety
+    Fierce_Deity
         SignatureTechnique = 3
         StyleOff=1.25
         StyleStr=1.5

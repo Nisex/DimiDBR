@@ -1123,11 +1123,9 @@ mob
 				if(Target)
 					if(Target.passive_handler["Musoken"] && equippedSword)
 						if(passive_handler["Musoken"])
-							world<<"DEBUG: MUSOKEN IS ON BOTH [Target] and [src], [MA]/2 = [MA/2]"
 							MA /= 2
 						else
 							MA = 0
-							world<<"DEBUG: MUSOKEN IS ON [Target] MAOff = [MA]"
 
 				if(passive_handler["StyleMastery"])
 					MA *= 1 + (passive_handler["StyleMastery"]/glob.STYLE_MASTERY_DIVISOR)

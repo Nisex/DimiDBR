@@ -31,10 +31,8 @@ proc/randValue(min,max,divider=10)
 			var/zorn = 0 
 			if(Target.equippedArmor)
 				zorn = (passive_handler["Zornhau"] * 2)
-				world << "DEBUG: ZORNHAU IS GIVING STEADY [zorn] (THEY ARE ARMORED)"
 			else
 				zorn = passive_handler["Zornhau"]
-				world << "DEBUG: ZORNHAU IS GIVING STEADY [zorn] (THEY AREN'T ARMORED)"
 			zorn *= glob.STEADY_MODIFIER
 	var/negate = 0
 	if(src.Target)

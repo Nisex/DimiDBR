@@ -1391,7 +1391,10 @@ mob/proc/Comboz(mob/M, LightAttack=0, ignoreTiledistance = FALSE)
 	if(last_combo >= world.time) return
 	last_combo = world.time
 	var/list/dirs = list(NORTH,SOUTH,EAST,WEST,NORTHWEST,SOUTHWEST,NORTHEAST,SOUTHEAST)
-	if(M in view(15, src))
+	var/limit = 15
+	if(ignoreTiledistance)
+		limit  = 100
+	if(M in view(limit, src))
 		var/turf/W
 		if(M.z!=src.z)
 			return //lol you can't combo through dimensions anymore.  sad.

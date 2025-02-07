@@ -88,7 +88,7 @@
 	if(passive_handler["Flying Thunder God"])
 		reqCounter = 15 - passive_handler["Flying Thunder God"]
 	if(IaidoCounter>=reqCounter)
-		warpingStrike = 50
+		warpingStrike = 100
 	if(Warping || passive_handler.Get("Warping"))
 		var/warp = Warping
 		if(passive_handler.Get("Warping") > Warping)
@@ -172,7 +172,7 @@
 			devaCounter=0
 
 	if(warpingStrike)
-		if(Target && Target.loc && Target != src && Target in view(warpingStrike, src))
+		if(Target && Target.loc && Target != src && Target && get_dist(Target, src) < warpingStrike)
 			forcewarp = Target
 	if((forcewarp && Target.z == z))
 		if(passive_handler["Flying Thunder God"] && IaidoCounter>=reqCounter)
@@ -715,18 +715,16 @@
 							if(enemy.passive_handler["Parry"] && (s || s2 || s3))
 								if(prob(enemy.passive_handler["Parry"] * glob.PARRY_CHANCE))
 									damage /= enemy.passive_handler["Parry"] * glob.PARRY_REDUCTION_MULT
-									world<<"DEBUG: [enemy] PROC'D PARRY, REDUCING DAMAGE BY [enemy.passive_handler["Parry"] * glob.PARRY_REDUCTION_MULT]"
 									enemy.Melee1(dmgmulti = 0.25 *enemy.passive_handler["Parry"], forcedTarget=src) // this does mean that they will hit from no matter the range if hit by melee
 							if(enemy.passive_handler["Iaijutsu"])
 								if(prob(enemy.passive_handler["Iaijutsu"] * glob.IAI_CHANCE))
-									world<<"DEBUG: [enemy] PROC'D IAIJUTSU on [src]"
 									enemy.Melee1(dmgmulti = 0.15 * enemy.passive_handler["Iaijutsu"], forcedTarget = src)
 							
 							if(defArmor&&!passive_handler.Get("ArmorPeeling"))
 								var/dmgEffective = enemy.GetArmorDamage(defArmor)
 								if(passive_handler["Half-Sword"])
 									dmgEffective -= passive_handler["Half-Sword"] * glob.HALF_SWORD_ARMOR_REDUCTION
-									world<<"DEBUG: [dmgEffective += passive_handler["Half-Sword"] * glob.HALF_SWORD_ARMOR_REDUCTION] reduced to [dmgEffective] after [passive_handler["Half-Sword"] * glob.HALF_SWORD_ARMOR_REDUCTION] half-sword reduction"
+									// world<<"DEBUG: [dmgEffective += passive_handler["Half-Sword"] * glob.HALF_SWORD_ARMOR_REDUCTION] reduced to [dmgEffective] after [passive_handler["Half-Sword"] * glob.HALF_SWORD_ARMOR_REDUCTION] half-sword reduction"
 								if(dmgEffective>0)
 									damage -=  damage * dmgEffective/10
 								else

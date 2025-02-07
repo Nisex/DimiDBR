@@ -16,7 +16,7 @@
     Berserk
         SignatureTechnique = 2
         StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu"="/obj/Skills/Buffs/NuStyle/SwordStyle/Two_Heaven_As_One",
-                            "/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter"="/obj/Skills/Buffs/NuStyle/SwordStyle/Fierce_Diety")
+                            "/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter"="/obj/Skills/Buffs/NuStyle/SwordStyle/Fierce_Deity")
         passives = list("Rage" = 1, "Half-Sword" = 2, "Zornhau" = 2, "Parry" = 2.5,"Disarm" = 2,\
                          "Hardening" = 1, "Deflection" = 0.5)
         StyleOff=1.3
@@ -26,7 +26,7 @@
         StyleActive="Guts Berserk"
     Witch_Hunter
         SignatureTechnique = 2
-        StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Berserk"="/obj/Skills/Buffs/NuStyle/SwordStyle/Fierce_Diety")
+        StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Berserk"="/obj/Skills/Buffs/NuStyle/SwordStyle/Fierce_Deity")
         passives = list("FavoredPrey" = "Secrets", "SlayerMod" = 2 , "Shearing" = 6, "SwordPunching" = 1, "Secret Knives" = "Stake", \
                         "Tossing" = 2, "Half-Sword" = 2, "Zornhau" = 1.5)
         StyleOff=1.15
