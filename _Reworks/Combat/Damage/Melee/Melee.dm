@@ -160,7 +160,7 @@
 
 	// 				WARPING 				//
 
-	if(devaCounter >= 15)
+	if(devaCounter >= 15 || passive_handler["AirBend"] && can_use_style_effect("AirBend"))
 		if(Target && Target != src && Target in view(10, src))
 			var/mob/tgt = Target
 			tgt.Knockbacked=1
@@ -170,6 +170,9 @@
 			tgt.Knockbacked=0
 			animate(pixel_z = 0, easing = ELASTIC_EASING, time = 1.5)
 			devaCounter=0
+			if(passive_handler["AirBend"])
+				world<<"DEBUG: Airbend proc on melee"
+				last_style_effect = world.time
 
 	if(warpingStrike)
 		if(Target && Target.loc && Target != src && Target && get_dist(Target, src) < warpingStrike)

@@ -9,7 +9,7 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			intimidation = 5
-			passives = list("ManaCapMult" = 0.25, "Deicide" = 1, "Xenobiology" = 1, "SpiritFlow" = 0.25)
+			passives = list("ManaCapMult" = 0.25, "Deicide" = 1, "Xenobiology" = 1, "SpiritFlow" = 1)
 			choices = list("Distort" = /ascension/sub_ascension/high_faoroan/distort, "Define" = /ascension/sub_ascension/high_faoroan/define)
 			skills = list(/obj/Skills/Buffs/SlotlessBuffs/Elf/God_Slicer)
 		two

@@ -44,28 +44,4 @@
         passives = list("Reversal" = 0.25, "Deflection" = 1, "Hardening" = 1.5, "Parry" = 2, "Disarm" = 2, "SwordPunching" = 1,\
                  "Unnerve" = 1, "Secret Knives" = "Atlatl", "Tossing" = 2)
         Finisher="/obj/Skills/Queue/Finisher/Shield_Vault"
-
-
-                    /*
-
-					Butcher_Style
-						SignatureTechnique=2
-						Copyable=0
-
-						StyleStr=1.5
-						StyleSpd=1.5
-						StyleActive="Butcher"
-						NeedsSword=0
-						SwordPunching=1
-						passives = list("Shearing" = 6, "SlayerMod" = 2, "SwordPunching" = 1, "NeedsSword" = 0)
-						Shearing=2
-						SlayerMod=2.5
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu"="/obj/Skills/Buffs/NuStyle/SwordStyle/Five_Rings_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Crimson_Fountain"
-						verb/Butcher_Style()
-							set hidden=1
-							src.Trigger(usr)
-
-
-                    */
     

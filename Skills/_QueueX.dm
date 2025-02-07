@@ -305,27 +305,6 @@ obj
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Death_Mastery"
 					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Bio_Break"
 
-				Mountain_Crusher
-					DamageMult=1.5
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Earth_Empowerment"
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Crystal_Crumbling"
-					HitMessage="decimates with an Earth-empowered elbow strike to the sternum!"
-				Shifting_Clouds
-					DamageMult=1.5
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Wind_Empowerment"
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Constant_Cyclone"
-					HitMessage="steps forward, dropping their Wind-empowered fist like a bolt of lightning!"
-				Hellraiser
-					DamageMult=1.5
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fire_Empowerment"
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Continued_Conflagration"
-					HitMessage="ducks, spins, and delivers an explosive Fire-empowered backhand slam!"
-				Split_River
-					DamageMult=1.5
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Water_Empowerment"
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Corrosive_Chill"
-					HitMessage="crashes down like a wave with a Water-empowered wheel kick!"
-
 				//t1 sig styles
 				Ray_Divider
 					DamageMult=2

@@ -1086,18 +1086,30 @@ mob
 			if(src.RecovCut>=1)
 				src.RecovCut=1
 		// forgive the sin below, im not replacing basestat() in all the codebase
+		getEnhanced(statName)
+			var/enhance = vars["Enhanced[statName]"]*0.2
+			if(Target)
+				if(Target.passive_handler["Rusting"])
+					enhance *= (Poison * (glob.RUSTING_RATE * passive_handler["Rusting"])) / 100
+			return enhance
 		BaseStr()
-			return ((src.StrMod+src.StrAscension+(src.EnhancedStrength*0.2)))*StrChaos
+			var/enhanced = getEnhanced("Strength")
+			return ((src.StrMod+src.StrAscension+(enhanced)))*StrChaos
 		BaseFor()
-			return ((src.ForMod+src.ForAscension+(src.EnhancedForce*0.2)))*ForChaos
+			var/enhanced = getEnhanced("Force")
+			return ((src.ForMod+src.ForAscension+(enhanced)))*ForChaos
 		BaseEnd()
-			return ((src.EndMod+src.EndAscension+(src.EnhancedEndurance*0.2)))*EndChaos
+			var/enhanced = getEnhanced("Endurance")
+			return ((src.EndMod+src.EndAscension+(enhanced)))*EndChaos
 		BaseSpd()
-			return ((src.SpdMod+src.SpdAscension+(src.EnhancedSpeed*0.2)))*SpdChaos
+			var/enhanced = getEnhanced("Speed")
+			return ((src.SpdMod+src.SpdAscension+(enhanced)))*SpdChaos
 		BaseOff()
-			return ((src.OffMod+src.OffAscension+(src.EnhancedAggression*0.2)))*OffChaos
+			var/enhanced = getEnhanced("Aggresssion")
+			return ((src.OffMod+src.OffAscension+(enhanced)))*OffChaos
 		BaseDef()
-			return ((src.DefMod+src.DefAscension+(src.EnhancedReflexes*0.2)))*DefChaos
+			var/enhanced = getEnhanced("Reflexes")
+			return ((src.DefMod+src.DefAscension+(enhanced)))*DefChaos
 
 		BaseRecov()
 			return (src.RecovMod+src.RecovAscension)*RecovChaos
@@ -1164,7 +1176,8 @@ mob
 			//mecha suits replace base stats with their level up to max value of 3, which is a cutoff line for many races
 			Str+=src.StrAscension
 			//stat ascensions gained through racial or saga improvements
-			Str+=src.EnhancedStrength ? src.EnhancedStrength * 0.2 : 0
+			var/enhanced = getEnhanced("Strength")
+			Str+=src.EnhancedStrength ? enhanced : 0
 			//cyber stats boosters.
 			//gain double value when Overdive is active, unless the user is Android (then only +50%)
 			Str*=src.StrChaos
@@ -1302,7 +1315,8 @@ mob
 		GetFor(var/Mult=1)
 			var/For=src.ForMod
 			For+=src.ForAscension
-			For+=(EnhancedForce ? src.EnhancedForce*0.2 : 0)
+			var/enhanced = getEnhanced("Force")
+			For+=src.EnhancedForce ? enhanced : 0
 			For*=src.ForChaos
 			if(src.ForReplace)
 				For=ForReplace
@@ -1422,7 +1436,8 @@ mob
 		GetEnd(var/Mult=1)
 			var/End=src.EndMod
 			End+=src.EndAscension
-			End+=EnhancedEndurance ? src.EnhancedEndurance*0.2 : 0
+			var/enhanced = getEnhanced("Endurance")
+			End+=EnhancedEndurance ? enhanced : 0
 			End*=src.EndChaos
 			if(src.EndReplace)
 				End=EndReplace
@@ -1525,7 +1540,8 @@ mob
 		GetSpd(var/Mult=1)
 			var/Spd=src.SpdMod
 			Spd+=src.SpdAscension
-			Spd+=EnhancedSpeed ? src.EnhancedSpeed*0.2 : 0
+			var/enhanced = getEnhanced("Speed")
+			Spd+=EnhancedSpeed ? enhanced : 0
 			Spd*=src.SpdChaos
 
 			if(src.SpdReplace)
@@ -1632,7 +1648,8 @@ mob
 		GetOff(var/Mult=1)
 			var/Off=src.OffMod
 			Off+=src.OffAscension
-			Off+=EnhancedAggression ? src.EnhancedAggression*0.2 : 0
+			var/enhanced = getEnhanced("Aggression")
+			Off+=EnhancedAggression ? enhanced : 0
 			Off*=src.OffChaos
 			if(passive_handler.Get("Piloting")&&findMecha())
 				Off = getMechStat(findMecha(), Off)
@@ -1714,7 +1731,8 @@ mob
 			var/Def=src.DefMod
 
 			Def+=src.DefAscension
-			Def+=EnhancedReflexes ? src.EnhancedReflexes*0.2 : 0
+			var/enhanced = getEnhanced("Reflexes")
+			Def+=EnhancedReflexes ? enhanced : 0
 			Def*=src.DefChaos
 			if(passive_handler.Get("Piloting")&&findMecha())
 				if(PilotingProwess>=7)

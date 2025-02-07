@@ -4735,6 +4735,15 @@ mob
 				if(s.Class!=Z.ClassNeeded && (istype(Z.ClassNeeded, /list) && !(s.Class in Z.ClassNeeded)))
 					src << "You need a [istype(Z.ClassNeeded, /list) ? Z.ClassNeeded[1] : Z.ClassNeeded]-class weapon to use this technique."
 					return
+			if(Owner.passive_handler["WaveDancer"])
+				if(Owner.last_style_effect + can_use_style_effect("WaveDancer") < world.time) // could tie this simply to the ability. but w/e
+					// we throw here
+					var/obj/Skills/AutoHit/ww = FindSkill(/obj/Skills/AutoHit/Water_Wave)
+					if(!ww)
+						AddSkill(new/obj/Skills/AutoHit)
+					Activate(ww)
+					world<<"DEBUG: WaveDancer proc'd"
+					last_style_effect = world.time
 			if(Z.StormFall)
 				Z.Homing=0//You can't home if you're just going down, down, in an earlier round...
 			if(Z.Blasts<1)
@@ -5655,26 +5664,13 @@ obj
 								def = 1
 							else
 								def = clamp(a:GetEnd(EndRate)/2, 1, a:GetEnd(EndRate))
-						var/fortrig = FALSE
 						if(force)
 							atk += force
-							fortrig = TRUE
-							if(src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow()) 
-								if(src.Owner.StyleActive!="Moonlight"&&src.Owner.StyleActive!="Astral")
-									//SpiritFlow
-									atk += Owner.GetFor(Owner.passive_handler.Get("SpiritFlow")) / 4
-								else
-									//Moonlight
-									atk += Owner.GetFor(Owner.passive_handler.Get("SpiritFlow")) / 2
 						if(str)
 							atk += str
-							if((src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow())&&!fortrig)
-								if(src.Owner.StyleActive!="Moonlight"&&src.Owner.StyleActive!="Astral")
-									//SpiritFlow
-									atk += Owner.GetFor(Owner.passive_handler.Get("SpiritFlow")) / 4
-								else
-									//Moonlight
-									atk += Owner.GetFor(Owner.passive_handler.Get("SpiritFlow")) / 2
+						if(Owner.HasSpiritFlow())
+							var/sf = Owner.passive_handler.Get("SpiritFlow")  / glob.SPIRIT_FLOW_DIVISOR
+							atk += Owner.GetFor(sf)
 						if(atk<1)
 							atk=1
 						if(glob.DMG_CALC_2)

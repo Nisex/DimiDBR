@@ -333,6 +333,11 @@ mob
 				if(darkFlame&&Attacker!=src)
 					src.AddPoison(Value * 1 + (darkFlame * 0.125), Attacker=Attacker)
 
+			if(Attacker.passive_handler["Combustion"] && Burn >= Attacker.passive_handler["Combustion"])
+				Burn = 0
+				implodeDebuff(Attacker.passive_handler["Combustion"], "Burn")
+
+
 			if(src.Burn>100)
 				src.Burn=100
 			if(src.Burn<0)
@@ -379,6 +384,9 @@ mob
 					src.Shock+=Value/2
 					if(src.Shock>100)
 						src.Shock=100
+			if(Attacker.passive_handler["IceAge"] && Slow >= Attacker.passive_handler["IceAge"])
+				Slow = 0
+				implodeDebuff(Attacker.passive_handler["Combustion"], "Chill")
 			if(src.Slow>100)
 				src.Slow=100
 			if(src.Slow<0)

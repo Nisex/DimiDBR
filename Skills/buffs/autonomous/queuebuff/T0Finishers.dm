@@ -113,3 +113,65 @@
 
 
 
+    Stone_Fist_Technique
+        StyleNeeded="Earth"
+        ManaGlow="#794512"
+        ManaGlowSize=1
+        IconLock=null
+        passives = list("TensionLock" = 1, "Hardening" = 1, "CallousedHands" = 0.15)
+        StrMult=1.1
+        ForMult=1.2
+        EndMult=1.2
+        ActiveMessage="channels mystic forces through their Earth Kata!"
+        OffMessage="completes the Earth Kata..."
+    Burning_Hands
+        StyleNeeded="Fire"
+        ManaGlow="#c06"
+        ManaGlowSize=1
+        IconLock=null
+        passives = list("TensionLock" = 1, "Burning" = 4, "SpiritHand" = 1)
+        StrMult=1.2
+        ForMult=1.3
+        ActiveMessage="channels mystic forces through their Fire Kata!"
+        OffMessage="completes the Fire Kata..."
+    Water_Empowerment
+        StyleNeeded="Water"
+        ManaGlow="#06c"
+        ManaGlowSize=1
+        IconLock=null
+        passives = list("TensionLock" = 1, "Chilling" = 4, "Steady" = 1)
+        ForMult=1.2
+        OffMult=1.3
+        ActiveMessage="channels mystic forces through their Water Kata!"
+        OffMessage="completes the Water Kata..."
+    Wind_Empowerment
+        StyleNeeded="Wind"
+        ManaGlow="#0c6"
+        ManaGlowSize=1
+        IconLock=null
+        passives = list("TensionLock" = 1, "Shocking" = 4, "Flicker" = 1 , "Pursuer" = 1)
+        ForMult=1.2
+        SpdMult=1.3
+        ActiveMessage="channels mystic forces through their Wind Kata!"
+        OffMessage="completes the Wind Kata..."
+
+    Crumbling
+        IconTint=rgb(153,75,0)
+        EndMult=0.8
+        StrMult=0.9
+        ShatterAffected=5
+    Buffered
+        IconTint=rgb(0,153,75)
+        SpdMult=0.8
+        OffMult=0.9
+        ShockAffected=5
+    Ignited
+        IconTint=rgb(153,0,75)
+        EndMult=0.9
+        ForMult=0.8
+        BurnAffected=5
+    Chilled
+        IconTint=rgb(0,75, 153)
+        SlowAffected=5
+        DefMult=0.8
+        SpdMult=0.9

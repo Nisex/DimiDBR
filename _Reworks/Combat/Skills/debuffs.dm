@@ -19,6 +19,18 @@
 			do_effect(p, dealer)
 			total_stacks = 0
 
+
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare
+	AlwaysOn = 0
+	NeedsPassword = 0
+	New(limit, icon)
+		. = ..()
+		TimerLimit = limit
+		IconLock = icon
+	
+	
+
+
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Rupture
 	HealthDrain = 0.01
 	TimerLimit = 25

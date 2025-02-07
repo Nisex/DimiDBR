@@ -318,6 +318,14 @@ mob
 
 		if(src.PureRPMode&&!Stasis)
 			src.Stasis=1
+		else
+			if(passive_handler["EntanglingRoots"] && can_use_style_effect("EntaglingRoots"))
+				var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare/s = FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare)
+				if(!s)
+					AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare)
+				s.Trigger(src, TRUE)
+				world<< "SNARE TRIGGERED"
+				last_style_effect = world.time
 
 		StunCheck(src)
 		StunImmuneCheck(src)

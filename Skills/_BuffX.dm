@@ -9703,49 +9703,6 @@ NEW VARIABLES
 						ActiveMessage="channels mystic forces through their Elemental Kata!"
 						OffMessage="completes the Elemental Kata..."
 						passives = list("TensionLock" = 1)
-					Earth_Empowerment
-						StyleNeeded="Earth"
-						ManaGlow="#c60"
-						ManaGlowSize=1
-						IconLock=null
-						passives = list("TensionLock" = 1)
-						StrMult=1.1
-						ForMult=1.2
-						EndMult=1.2
-						ActiveMessage="channels mystic forces through their Earth Kata!"
-						OffMessage="completes the Earth Kata..."
-					Fire_Empowerment
-						StyleNeeded="Fire"
-						ManaGlow="#c06"
-						ManaGlowSize=1
-						IconLock=null
-						passives = list("TensionLock" = 1)
-						StrMult=1.2
-						ForMult=1.2
-						ActiveMessage="channels mystic forces through their Fire Kata!"
-						OffMessage="completes the Fire Kata..."
-					Water_Empowerment
-						StyleNeeded="Water"
-						ManaGlow="#06c"
-						ManaGlowSize=1
-						IconLock=null
-						passives = list("TensionLock" = 1)
-						StrMult=1.2
-						ForMult=1.1
-						OffMult=1.3
-						ActiveMessage="channels mystic forces through their Water Kata!"
-						OffMessage="completes the Water Kata..."
-					Wind_Empowerment
-						StyleNeeded="Wind"
-						ManaGlow="#0c6"
-						ManaGlowSize=1
-						IconLock=null
-						passives = list("TensionLock" = 1)
-						StrMult=1.1
-						ForMult=1.2
-						SpdMult=1.3
-						ActiveMessage="channels mystic forces through their Wind Kata!"
-						OffMessage="completes the Wind Kata..."
 
 					Cyber_Crusher
 						StyleNeeded="Circuit Break"
@@ -10177,26 +10134,6 @@ NEW VARIABLES
 					ActiveMessage="flexes their arm with brolic strength!"
 					OffMessage="relaxes their vicious power..."
 				//these last for 10 seconds so they will stack about 30 of their elemental debuffs.
-				Crystal_Crumbling
-					IconTint=rgb(153,75,0)
-					EndMult=0.8
-					StrMult=0.8
-					ShatterAffected=3
-				Constant_Cyclone
-					IconTint=rgb(0,153,75)
-					SpdMult=0.8
-					DefMult=0.8
-					ShockAffected=3
-				Continued_Conflagration
-					IconTint=rgb(153,0,75)
-					EndMult=0.8
-					DefMult=0.8
-					BurnAffected=3
-				Corrosive_Chill
-					IconTint=rgb(0,75, 153)
-					SlowAffected=3
-					EndMult=0.8
-					ForMult=0.8
 
 				Astral_Drain
 					IconTint=rgb(0, 75, 153)

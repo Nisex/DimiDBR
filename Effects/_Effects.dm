@@ -391,6 +391,15 @@ obj/Effects
 					pixel_z=Target:pixel_z
 					if(loc != null)
 						goto Start
+	Freeze
+		icon='ice aura.dmi'
+		Lifetime = 7
+		New(CustomIcon, CustomX, CustomY, CustomTurn, CustomSize, Life)
+			. = ..()
+			flick("Form", src)
+			sleep(5)
+			flick("", src)
+
 
 	Bang
 		icon='fevExplosion.dmi'

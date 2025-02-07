@@ -5709,6 +5709,11 @@ mob
 			else
 				if(Z.ActiveMessage)
 					OMsg(src, "<b><font color='[Z.ActiveColor]'>[src] [Z.ActiveMessage]</font color></b>")
+			if(passive_handler["AirBend"] && can_use_style_effect("AirBend"))
+				flick("KB", Target)
+				step_away(Target, src)
+				last_style_effect = world.time
+				world<<"DEBUG: Airbend proc on autohit"
 			if(!Z.SpecialAttack)
 				if(src.UsingSpiritStrike())
 					Z.TempStrOff=0
@@ -6484,11 +6489,9 @@ obj
 				else
 					Owner << "Your auto hit could not calculate the damage it just did!! Report this !!"
 				var/dmgMulti = Damage
-				if(src.SpecialAttack&&(src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow()))
-					if(src.Owner.StyleActive!="Moonlight"&&src.Owner.StyleActive!="Astral")
-						atk += Owner.GetStr(Owner.passive_handler.Get("SpiritFlow")) / 4
-					else
-						atk += Owner.GetStr(Owner.passive_handler.Get("SpiritFlow"))  / 2
+				if(Owner.HasSpiritFlow())
+					var/sf = Owner.passive_handler.Get("SpiritFlow")  / glob.SPIRIT_FLOW_DIVISOR
+					atk += Owner.GetFor(sf)
 				#if DEBUG_AUTOHIT
 				Owner.log2text("atk - Auto Hit", atk, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif

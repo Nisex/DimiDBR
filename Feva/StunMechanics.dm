@@ -66,11 +66,13 @@ proc
 				mob.overlays-='IceCoffin.dmi'
 				var/mod = (mob.HasLegendaryPower() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
 				mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))
+				if(mob.passive_handler["Shellshocked"])
+					mob.passive_handler.Set("Shellschocked", 0)
 			else
 				return 1
 	StunClear(mob/mob)
 		if(mob.Stunned)
-			if(mob.CheckSlotless("Mind Dominated")) // this should b some passive that causes this
+			if(mob.CheckSlotless("Mind Dominated") || mob.passive_handler["Shellshocked"]) // this should b some passive that causes this
 			// however, fuck you
 				mob << "You feel unable to clear your head."
 			else

@@ -50,7 +50,6 @@ globalTracker/var/LOWER_DEBUFF_CLAMP = 0.001
             WoundSelf(dmg)
         dmg=0//but no health damage.
     // anger will not reduce debuff damage
-
     if(VaizardHealth)
         reduceVaiHealth(dmg)
     if(BioArmor)
@@ -93,7 +92,30 @@ globalTracker/var/LOWER_DEBUFF_CLAMP = 0.001
             if(Poison<0)
                 Poison = 0
 
+/mob/var/tmp/last_implode
+mob/proc/implodeDebuff(n, type)
+    if(last_implode + glob.IMPLODE_CD < world.time)
+        switch(type)
+            if("Burn")
+                // fevExplosion
+                var/obj/Effects/Bang/b = new()
+                b.Target = src
+                vis_contents += b
+                world<<" DEBUG: BURN IMPLODED FROM COMBUSTION [Health * (n/glob.IMPLODE_DIVISOR)]"
+                Health -= Health * (n/glob.IMPLODE_DIVISOR)
+            if("Chill")
+                var/obj/Effects/Freeze/b = new()
+                b.Target = src
+                vis_contents += b
+                if(StunImmune)
+                    StunImmune = 0
+                StasisStun = 1
+                Stun(src, 2)
+                passive_handler.Set("Shellshocked", 1)
+                
 
+
+        last_implode = world.time
 
 
 
