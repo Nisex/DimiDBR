@@ -4,6 +4,7 @@ var/currentBurn = 0
 var/currentPoi = 0 
 
 /mob/Admin4/verb/fillTension()
+	set category = "Debug"
 	Tension = 100
 /mob/Admin3/verb/Admin_Screen_Size()
 	set category="Other"

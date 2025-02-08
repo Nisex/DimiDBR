@@ -130,27 +130,27 @@
     Unstoppable_Force
         DamageMult=1.5
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Stone_Fist_Technique"
-        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Crumbling"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Crumbling"
         HitMessage="decimates with an Earth-empowered elbow strike to the sternum!"
         FollowUp = "/obj/Skills/AutoHit/Rock_Trail"
     Whirlwind
         DamageMult=1.5
         KBAdd = 3
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Wind_Empowerment"
-        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Buffered"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Buffered"
         HitMessage="steps forward, dropping their Wind-empowered fist like a bolt of lightning!"
         FollowUp = "/obj/Skills/Projectile/Blades_of_Wind"
     Dancing_Flame_Attack
         DamageMult=1.5
         Scorching = 25
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Burning_Hands"
-        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Ignited"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Ignited"
         HitMessage="ducks, spins, and delivers an explosive Fire-empowered backhand slam!"
         FollowUp = "/obj/Skills/AutoHit/Great_Fire_Annihilation"
     Surfing_Stream
         DamageMult=1.5
         
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Water_Empowerment"
-        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Chilled"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Chilled"
         HitMessage="crashes down like a wave with a Water-empowered wheel kick!"
         FollowUp = "/obj/Skills/AutoHit/Azure_Dragon_Palm"

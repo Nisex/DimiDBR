@@ -23,6 +23,7 @@
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare
 	AlwaysOn = 0
 	NeedsPassword = 0
+	passives = list("Snared" = 1)
 	New(limit, icon)
 		. = ..()
 		TimerLimit = limit

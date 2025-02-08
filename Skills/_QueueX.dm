@@ -2290,6 +2290,7 @@ mob
 			if(src.AttackQueue.BuffSelf)
 				var/path=text2path(src.AttackQueue.BuffSelf)
 				var/obj/Skills/S=new path
+				world<<"[path]"
 				var/obj/SFound
 				var/AlreadyBuffed=0
 				for(var/obj/Skills/Buffs/SP in src.Buffs)
@@ -2305,11 +2306,13 @@ mob
 							if(x in DenyVars)
 								continue
 							S.vars[x]=SFound.vars  [x]
-					if(!SFound)
-						src.AddSkill(new path)
-					S.Password=src.name
-					src.AddSkill(S)//trigger buff on self
-				S.adjust(src)
+						src.AddSkill(S)//trigger buff on self
+						S.adjust(src)
+					else 
+						S = new path()
+						S.adjust(src)
+						src.AddSkill(S)
+				S.Password=src.name
 				if(S.parent_type==/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara || AttackQueue.type == /obj/Skills/Queue/Finisher/Cycle_of_Samsara)
 					AttackQueue.Mastery++
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/s in SlotlessBuffs)

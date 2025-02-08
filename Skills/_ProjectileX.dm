@@ -4735,12 +4735,13 @@ mob
 				if(s.Class!=Z.ClassNeeded && (istype(Z.ClassNeeded, /list) && !(s.Class in Z.ClassNeeded)))
 					src << "You need a [istype(Z.ClassNeeded, /list) ? Z.ClassNeeded[1] : Z.ClassNeeded]-class weapon to use this technique."
 					return
-			if(Owner.passive_handler["WaveDancer"])
-				if(Owner.last_style_effect + can_use_style_effect("WaveDancer") < world.time) // could tie this simply to the ability. but w/e
+			if(passive_handler["WaveDancer"])
+				if(can_use_style_effect("WaveDancer")) // could tie this simply to the ability. but w/e
 					// we throw here
-					var/obj/Skills/AutoHit/ww = FindSkill(/obj/Skills/AutoHit/Water_Wave)
+					var/obj/Skills/AutoHit/Water_Wave/ww = FindSkill(/obj/Skills/AutoHit/Water_Wave)
 					if(!ww)
-						AddSkill(new/obj/Skills/AutoHit)
+						ww = new()
+						AddSkill(ww)
 					Activate(ww)
 					world<<"DEBUG: WaveDancer proc'd"
 					last_style_effect = world.time

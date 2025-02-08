@@ -114,7 +114,6 @@
 
 
     Stone_Fist_Technique
-        StyleNeeded="Earth"
         ManaGlow="#794512"
         ManaGlowSize=1
         IconLock=null
@@ -125,7 +124,6 @@
         ActiveMessage="channels mystic forces through their Earth Kata!"
         OffMessage="completes the Earth Kata..."
     Burning_Hands
-        StyleNeeded="Fire"
         ManaGlow="#c06"
         ManaGlowSize=1
         IconLock=null
@@ -135,7 +133,6 @@
         ActiveMessage="channels mystic forces through their Fire Kata!"
         OffMessage="completes the Fire Kata..."
     Water_Empowerment
-        StyleNeeded="Water"
         ManaGlow="#06c"
         ManaGlowSize=1
         IconLock=null
@@ -145,7 +142,6 @@
         ActiveMessage="channels mystic forces through their Water Kata!"
         OffMessage="completes the Water Kata..."
     Wind_Empowerment
-        StyleNeeded="Wind"
         ManaGlow="#0c6"
         ManaGlowSize=1
         IconLock=null

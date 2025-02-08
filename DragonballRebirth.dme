@@ -607,7 +607,7 @@
 #include "Skills\buffs\races\beastman\beastmanbuffs.dm"
 #include "Skills\grapple\finishers\T2Finishers.dm"
 #include "Skills\projectiles\secretknife.dm"
-#include "Skills\projectiles\T0Finishers.dm"
+#include "Skills\projectiles\T0Projectiles.dm"
 #include "Skills\projectiles\races\beastman\beastmanprojectiles.dm"
 #include "Skills\queues\finishers\T0Finishers.dm"
 #include "Skills\queues\finishers\T1Finishers.dm"

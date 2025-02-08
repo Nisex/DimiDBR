@@ -265,10 +265,11 @@ var/list/SkillTree=list(
 ),
 
 "ElementalStyles"=list(
-			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Earth_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wind_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Fire_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Water_Style"=20
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Earth_Moving"=20,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Wind_Summoning"=20,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Fire_Weaving"=20,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"=20,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Plague_Bringer"=20
 ),
 
 "SwordStyles"=list(
@@ -425,8 +426,14 @@ mob/Players/verb
 						x = 1
 						y++
 		else
-			for(var/obj/SkillTreeObj/x in SkillTreeList[z])
-				usr<<output(x,"skilltreegrid:[p++],[0]")
+			var/x = 1
+			var/y = 1
+			for(var/obj/SkillTreeObj/s in SkillTreeList[z])
+				usr<<output(s,"skilltreegrid:[x],[y]")
+				x++
+				if(x>2)
+					x = 1
+					y++
 
 
 

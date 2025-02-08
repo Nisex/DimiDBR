@@ -1087,7 +1087,7 @@ mob
 				src.RecovCut=1
 		// forgive the sin below, im not replacing basestat() in all the codebase
 		getEnhanced(statName)
-			var/enhance = vars["Enhanced[statName]"]*0.2
+			var/enhance = vars["Enhanced[statName]"] * 0.2
 			if(Target)
 				if(Target.passive_handler["Rusting"])
 					enhance *= (Poison * (glob.RUSTING_RATE * passive_handler["Rusting"])) / 100
@@ -1105,7 +1105,7 @@ mob
 			var/enhanced = getEnhanced("Speed")
 			return ((src.SpdMod+src.SpdAscension+(enhanced)))*SpdChaos
 		BaseOff()
-			var/enhanced = getEnhanced("Aggresssion")
+			var/enhanced = getEnhanced("Aggression")
 			return ((src.OffMod+src.OffAscension+(enhanced)))*OffChaos
 		BaseDef()
 			var/enhanced = getEnhanced("Reflexes")
