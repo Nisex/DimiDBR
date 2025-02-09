@@ -12162,10 +12162,16 @@ mob
 			src.DefMultTotal-=(src.StyleBuff.DefMult-1)
 			src.RecovMultTotal-=(src.StyleBuff.RecovMult-1)
 			src.AllSkillsRemove(src.StyleBuff)
+			if(StyleBuff.BuffSelf)
+				var/obj/Skills/Buffs/s = FindSkill(StyleBuff.BuffSelf)
+				s.TimerLimit = 1
+				s.AlwaysOn = 0
+				AllSkillsRemove(s)
 			OMsg(src, "[src] relaxes their [src.StyleBuff]...")
 			src.Tension=0
 			src.StanceActive=0
 			src.StyleBuff=null
+			
 			if(isplayer(src))
 				src:move_speed = MovementSpeed()
 
@@ -12563,7 +12569,8 @@ mob
 
 		AllSkillsAdd(var/obj/Skills/Buffs/B)
 
-
+			if(B.BuffSelf)
+				buffSelf(B.BuffSelf)
 
 			if(B.Transform)
 				if(B.Transform=="Force")

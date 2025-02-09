@@ -2271,56 +2271,11 @@ mob
 						if(g.type==text2path(grabPath))
 							g.Activate(src)
 				if(src.AttackQueue.FollowUp)
-					var/mob/ThatBoi=src
-					var/path=text2path(src.AttackQueue.FollowUp)
-					spawn()
-						var/obj/Skills/s=new path
-						if(!locate(s.type, ThatBoi))
-							ThatBoi.contents+=s
-						else
-							s=locate(s.type, ThatBoi)
-						if(s.type in typesof(/obj/Skills/AutoHit))
-							ThatBoi.Activate(s)
-						if(s.type in typesof(/obj/Skills/Projectile))
-							ThatBoi.UseProjectile(s)
-						if(s.type in typesof(/obj/Skills/Queue))
-							ThatBoi.SetQueue(s)
-						if(s.type in typesof(/obj/Skills/Grapple))
-							s:Activate(ThatBoi)
+					spawn(AttackQueue.FollowUpDelay) // EWWWW
+						throwFollowUp(AttackQueue.FollowUp)
+
 			if(src.AttackQueue.BuffSelf)
-				var/path=text2path(src.AttackQueue.BuffSelf)
-				var/obj/Skills/S=new path
-				world<<"[path]"
-				var/obj/SFound
-				var/AlreadyBuffed=0
-				for(var/obj/Skills/Buffs/SP in src.Buffs)
-					if(SP.type == S.type)
-						SFound=SP
-						if(src.BuffOn(SP))
-							AlreadyBuffed=1
-						break
-				if(!AlreadyBuffed)
-					if(SFound)
-						var/list/DenyVars=list("client", "key", "loc", "x", "y", "z", "type", "locs", "parent_type", "verbs", "vars", "contents", "Transform", "appearance")
-						for(var/x in SFound.vars)
-							if(x in DenyVars)
-								continue
-							S.vars[x]=SFound.vars  [x]
-						src.AddSkill(S)//trigger buff on self
-						S.adjust(src)
-					else 
-						S = new path()
-						S.adjust(src)
-						src.AddSkill(S)
-				S.Password=src.name
-				if(S.parent_type==/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara || AttackQueue.type == /obj/Skills/Queue/Finisher/Cycle_of_Samsara)
-					AttackQueue.Mastery++
-					for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/s in SlotlessBuffs)
-						s.Timer = 0
-				if(S.type==/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/What_Must_Be_Done)
-					if(SlotlessBuffs["What Must Be Done"])
-						SlotlessBuffs["What Must Be Done"].Mastery++
-						SlotlessBuffs["What Must Be Done"].TimerLimit+=300
+				buffSelf(AttackQueue.BuffSelf)
 			if(!src.AttackQueue.Step&&!src.AttackQueue.MissStep&&!src.AttackQueue.HitStep)
 				src.AttackQueue=null
 			else

@@ -2,29 +2,29 @@
 
 /obj/Skills/Buffs/NuStyle/MysticStyle
 	StyleFor = 1.15
-	passives = list("SpiritFlow" = 0.25)
+	passives = list("SpiritFlow" = 	1)
 	Fire_Weaving
-		passives = list("SpiritFlow" = 0.25, "Burning" = 1, "Combustion" = 25)
+		passives = list("SpiritFlow" = 1, "Burning" = 1, "Combustion" = 25)
 		StyleFor = 1.3
 		Finisher="/obj/Skills/Queue/Finisher/Dancing_Flame_Attack"
 		StyleActive="Fire Weaving"
 	Water_Bending
-		passives = list("SpiritFlow" = 0.25, "Chilling" = 1, "WaveDancer" = 1)
+		passives = list("SpiritFlow" = 1, "Chilling" = 1, "WaveDancer" = 1)
 		StyleOff = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Surfing_Stream"
 		StyleActive="Water Bending"
 	Earth_Moving
-		passives = list("SpiritFlow" = 0.25, "Shattering" = 1, "EntanglingRoots" = 1)
+		passives = list("SpiritFlow" = 1, "Shattering" = 1, "EntanglingRoots" = 1)
 		StyleEnd = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Unstoppable_Force"
 		StyleActive="Earth Moving"
 	Wind_Summoning
-		passives = list("SpiritFlow" = 0.25, "Shocking" = 1, "AirBend" = 1)
+		passives = list("SpiritFlow" = 1, "Shocking" = 1, "AirBend" = 1)
 		StyleSpd = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Whirlwind"
 		StyleActive="Wind Summoning"
 	Plague_Bringer
-		passives = list("SpiritFlow" = 0.25, "Poisoning" = 1, "Rusting" = 1)
+		passives = list("SpiritFlow" = 1, "Poisoning" = 1, "Rusting" = 1)
 		StyleDef = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/"
 		StyleActive="Plague Bringer"
@@ -44,13 +44,16 @@
 	TurfShift='WaterBlue.dmi'
 	TurfShiftDuration=3
 	Cooldown=5
+	HitSparkIcon='BLANK.dmi'
+	HitSparkX=0
+	HitSparkY=0
 
 /mob/proc/can_use_style_effect(passive_name)
 	if(last_style_effect == 0)
 		return TRUE
 	var/static_cd = glob.STYLE_EFFECT_CD
 	var/cd = static_cd - ((static_cd/5)*passive_handler["[passive_name]"])
-	world<<"[last_style_effect] + [cd] < [world.time]"
 	if(last_style_effect + cd < world.time)
 		return TRUE
+	world<<"DEBUG: STYLE EFFECT ON CD"
 	return FALSE

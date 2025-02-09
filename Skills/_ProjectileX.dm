@@ -5809,18 +5809,11 @@ obj
 							EffectiveDamage*=1+src.Owner.SlayerDamage(a, Forced=src.SlayerMod)/glob.SLAYER_DAMAGE_DIVISOR
 						if(src.WarpUser)
 							src.Owner.Comboz(a)
-						if(src.FollowUp)
-							var/mob/ThatBoi=src.Owner
-							var/path=text2path(src.FollowUp)
-							var/obj/Skills/s=new path
-							if(!locate(s.type, ThatBoi))
-								ThatBoi.contents+=s
-							if(s.type in typesof(/obj/Skills/AutoHit))
-								ThatBoi.Activate(s)
-							if(s.type in typesof(/obj/Skills/Projectile))
-								ThatBoi.UseProjectile(s)
-							if(s.type in typesof(/obj/Skills/Queue))
-								ThatBoi.SetQueue(s)
+						if(FollowUp)
+							spawn(FollowUpDelay)
+								Owner.throwFollowUp(FollowUp)
+						if(BuffSelf)
+							Owner.buffSelf(BuffSelf)
 						if(istype(src.Owner, /mob/Player/AI))
 							if(istype(a, /mob/Player/AI))
 								for(var/x in src.Owner:ai_alliances)

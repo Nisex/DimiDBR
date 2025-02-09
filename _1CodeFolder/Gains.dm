@@ -1619,7 +1619,6 @@ mob
 								A.Trigger(src,Override=1)
 				if(A.AlwaysOn)
 					if(!A.Using&&!A.SlotlessOn)
-						world<<"[A] is always on, triggering"
 						A.Trigger(src,Override=1)
 
 				//Deactivations
@@ -1678,7 +1677,7 @@ mob
 								A.Trigger(src,Override=1)
 								continue
 
-				if(A.AlwaysOn)//This only gets run if it has been deactivated
+				if(A.AlwaysOn) //This only gets run if it has been deactivated
 					if(A.Using)
 						del A
 

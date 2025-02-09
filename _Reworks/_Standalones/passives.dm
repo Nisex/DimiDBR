@@ -75,7 +75,8 @@ passive
 								passives[settingPassive] = 0
 							else
 								CRASH("ERROR: [settingPassive] was increased by [value] which is not a number!")
-						passives[settingPassive] -= value // - (-1) is +1 , - 1 is -1
+						else
+							passives[settingPassive] -= value // - (-1) is +1 , - 1 is -1
 				if(TRUE)
 					for(var/settingPassive in settingPassiveList)
 						var/value = settingPassiveList[settingPassive]

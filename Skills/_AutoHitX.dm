@@ -5599,7 +5599,11 @@ mob
 			if(Z.PassThrough)
 				if(Z.Area=="Strike")
 					Z.StopAtTarget=1
-
+			if(Z.FollowUp)
+				spawn(Z.FollowUpDelay)
+					throwFollowUp(Z.FollowUp)
+			if(Z.BuffSelf)
+				src.buffSelf(Z.BuffSelf)
 			var/missed = 0 //If the target is out of range at the end of a windup.
 			if(Z.WindUp)
 				src.Grab_Release()
@@ -6213,6 +6217,10 @@ obj
 			tmp/list/autohitChildren
 			tmp/obj/AutoHitter/AHOwner
 
+			FollowUp
+			BuffSelf
+			FollowUpDelay
+
 		Update()
 			..()
 
@@ -6247,7 +6255,9 @@ obj
 				src.DistanceMax=Z.DistanceAround
 			src.Target=target
 			src.NoPierce=Z.NoPierce
-
+			FollowUp = Z.FollowUp
+			FollowUpDelay = Z.FollowUpDelay
+			BuffSelf = Z.BuffSelf
 			src.Damage=Z.DamageMult
 			src.StepsDamage=Z.StepsDamage
 			src.MagicNeeded=Z.MagicNeeded

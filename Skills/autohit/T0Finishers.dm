@@ -40,6 +40,21 @@
         Instinct=1
         Cooldown=4
         Earthshaking=5
+    Shishi_Sonson
+        Area="Wave"
+        ComboMaster=1
+        StrOffense=1
+        PassThrough=1
+        DamageMult=5
+        Size=4
+        Stunner = 2
+        Distance=4
+        ActiveMessage="passes on by."
+        Instinct=1
+        TurfShift='Dirt.dmi'
+        TurfShiftDuration = 10
+        FollowUp = "/obj/Skills/AutoHit/Uppercut"
+
     Uppercut
         Area="Wave"
         ComboMaster=1
