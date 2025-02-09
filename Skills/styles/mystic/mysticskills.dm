@@ -1,8 +1,7 @@
 /obj/Skills/AutoHit/Hurricane
 	ElementalClass="Wind"
-	FlickAttack=1
-	Distance=6
-	Size = 5
+	Distance=2
+	Size = 2
 	TurfShift = 'Air Slash.dmi'
 	TurfShiftDuration=3
 	TurfStrike=2
@@ -20,7 +19,6 @@
 	Cooldown = 5
 /obj/Skills/AutoHit/Thunder_Bolt
 	ElementalClass="Wind"
-	FlickAttack=1
 	Distance=12
 	Area="Target"
 	AdaptRate=1
@@ -44,11 +42,13 @@
 	TurfShiftDuration=3
 	DamageMult = 0.2
 	SpecialAttack = 1
+	AdaptRate=1
+	DamageMult = 0.3
 	CanBeDodged = 0
 	CanBeBlocked = 0
 	Cooldown = 5
-	Distance = 12
-	Size = 3
+	Distance = 2
+	Size = 2
 	HitSparkIcon='BLANK.dmi'
 	HitSparkX=0
 	HitSparkY=0

@@ -1,27 +1,64 @@
 #define CHAT_STYLE "<font face='Comic Sans' size=0.33>"
 
-/obj/hud_ftg
-	icon = 'kunai.dmi'
-	dir = EAST
+
+/obj/hud
+
 	layer = FLY_LAYER
 	alpha = 0
+	var/tmp/obj/appear
 	var/tmp/client/client
+	proc/pulse()
+		set waitfor = FALSE
+		animate(appear, transform=matrix().Scale(1.25), time = 2, loop = -1)
+		animate(transform=matrix(), time = 2)
 	New(client/_client, o, _x, _y)
 		screen_loc = "1:[_x],1:[_y]"
 		client = _client
+	mystic
+		icon = 'BLANK.dmi'
+		icon_state = "dot"
+		proc/mysticTicker()
+			var/next_cast = client.mob.last_style_effect + glob.STYLE_EFFECT_CD 
+			animate(src, alpha = clamp(255-(next_cast - world.time), 0 , 255), time = 1)
+			// appear.alpa = alpha
+			if(next_cast - world.time <= 0 && length(appear.filters) < 1)
+				appear.filters = filter(type="outline", size=1, color=rgb(255, 234, 47))
+				pulse()
+			if(alpha <= 0 && length(appear.filters) > 0)
+				appear.filters = list()
+				animate(appear, flags = ANIMATION_END_NOW)
+		New(client/_client, o, _x, _y)
+			. = ..()
+			appear = new()
+			switch(o)
+				if("MysticT0")
+					appear.icon = 'chargedMystic.dmi'
+				if("MysticT1")
+					appear.icon = 'ui.dmi'
+			appear.layer = FLY_LAYER
+			appear.alpha = 255
+			vis_contents += appear
+		Update()
+			mysticTicker()
+				
 
-	Update()
-		var/ftg = client.mob.passive_handler["Flying Thunder God"]
-		var/counter = client.mob.IaidoCounter
-		if(ftg)
-			if(counter >= (15 - ftg))
-				if(alpha != 255)
-					animate(src, alpha = 255, time = 5, easing = SINE_EASING)
-					filters = filter(type="outline", size=1, color=rgb(255, 255, 255))
-			else
-				if(alpha != 0)
-					animate(src, alpha = 0, time = 2, easing = SINE_EASING)
-					filters = list()
+	ftg
+		icon = 'kunai.dmi'
+		dir = EAST
+		layer = FLY_LAYER
+		alpha = 0
+		Update()
+			var/ftg = client.mob.passive_handler["Flying Thunder God"]
+			var/counter = client.mob.IaidoCounter
+			if(ftg)
+				if(counter >= (15 - ftg))
+					if(alpha != 255)
+						animate(src, alpha = 255, time = 5, easing = SINE_EASING)
+						filters = filter(type="outline", size=1, color=rgb(255, 255, 255))
+				else
+					if(alpha != 0)
+						animate(src, alpha = 0, time = 2, easing = SINE_EASING)
+						filters = list()
 /obj/Bar
 	icon = 'smallbar.dmi'
 	icon_state = "fill"
@@ -99,8 +136,8 @@ client/proc/remove_hud(id)
 			animate(barbg, alpha = 0, time = 2)
 
 
-#define BAR_X_LOCS list("Fury" = 1, "Momentum" = 1, "Harden" = 1, "FTG" = 1)
-#define BAR_Y_LOCS list("Fury" = 80, "Momentum" = 124, "Harden" = 168, "FTG" = 32)
+#define BAR_X_LOCS list("Fury" = 1, "Momentum" = 1, "Harden" = 1, "FTG" = 1, "MysticT0" = 1, "MysticT1" = 32)
+#define BAR_Y_LOCS list("Fury" = 86, "Momentum" = 118, "Harden" = 150, "FTG" = 32, "MysticT0" = 64, "MysticT1" = 64)
 
 /mob/proc/hudIsLive(option, path)
 	if(client.hud_ids[option])

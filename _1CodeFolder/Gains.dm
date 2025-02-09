@@ -500,9 +500,26 @@ mob
 			else
 				if(fa_jin_effect && fa_jin_effect in vis_contents)
 					fa_jin_effect.alpha = 0
-						
+
+			var/mystic = UsingMysticStyle()
+			if(mystic[1] == TRUE)
+				if(mystic[2] >= 0)
+					if(hudIsLive("MysticT0", /obj/hud/mystic))
+						client.hud_ids["MysticT0"]?:Update()
+				if(mystic[2] >= 1)
+					if(hudIsLive("MysticT1", /obj/hud/mystic))
+						client.hud_ids["MysticT1"]?:Update()
+			else
+				if(hudIsLive("MysticT0", /obj/hud/mystic))
+					client.remove_hud("MysticT0")
+				if(hudIsLive("MysticT1", /obj/hud/mystic))
+					client.remove_hud("MysticT1")
+
+
+
+
 			if(passive_handler["Flying Thunder God"])
-				if(hudIsLive("FTG", /obj/hud_ftg))
+				if(hudIsLive("FTG", /obj/hud/ftg))
 					client.hud_ids["FTG"]?:Update()
 
 			if(scrollTicker)
@@ -1462,7 +1479,16 @@ mob
 								src.AddRecovTax(b.RecovTaxDrain)
 							if(b.RecovCutDrain)
 								src.AddRecovCut(b.RecovCutDrain)
+							if(isAChild(b.type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura))
+								var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/aura = b
+								if(aura.TossSkill)
+									world<<"[aura.last_toss] + [glob.FAMILIAR_SKILL_CD] < [world.time]"
+									if(aura.last_toss + glob.FAMILIAR_SKILL_CD < world.time && (Target && Target != src))
+										aura.last_toss = world.time
+										throwFollowUp(aura.skillToToss)
+							
 						else
+
 							if(src.Target&&get_dist(src,src.Target) > b.Range)
 								b.Trigger(src, Override=1)
 								continue

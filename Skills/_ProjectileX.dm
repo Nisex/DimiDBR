@@ -5376,6 +5376,11 @@ obj
 						if(Z.takeAppearance)
 							appearance = m.appearance
 						src.Life()
+					if(FollowUp)
+						spawn(FollowUpDelay)
+							Owner.throwFollowUp(FollowUp)
+					if(BuffSelf)
+						Owner.buffSelf(BuffSelf)
 				Bump(var/atom/a)
 					a.onBumped(src)
 					Hit(a)
@@ -5809,11 +5814,6 @@ obj
 							EffectiveDamage*=1+src.Owner.SlayerDamage(a, Forced=src.SlayerMod)/glob.SLAYER_DAMAGE_DIVISOR
 						if(src.WarpUser)
 							src.Owner.Comboz(a)
-						if(FollowUp)
-							spawn(FollowUpDelay)
-								Owner.throwFollowUp(FollowUp)
-						if(BuffSelf)
-							Owner.buffSelf(BuffSelf)
 						if(istype(src.Owner, /mob/Player/AI))
 							if(istype(a, /mob/Player/AI))
 								for(var/x in src.Owner:ai_alliances)

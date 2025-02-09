@@ -12164,8 +12164,6 @@ mob
 			src.AllSkillsRemove(src.StyleBuff)
 			if(StyleBuff.BuffSelf)
 				var/obj/Skills/Buffs/s = FindSkill(StyleBuff.BuffSelf)
-				s.TimerLimit = 1
-				s.AlwaysOn = 0
 				AllSkillsRemove(s)
 			OMsg(src, "[src] relaxes their [src.StyleBuff]...")
 			src.Tension=0
@@ -14126,8 +14124,12 @@ mob
 			if(B.AlwaysOn)
 				if(B.NeedsPassword)
 					if(B.Password)
+						if(B in src.SlotlessBuffs)
+							src.SlotlessBuffs.Remove(B)
 						del B
 				else
+					if(B in src.SlotlessBuffs)
+						src.SlotlessBuffs.Remove(B)
 					del B
 
 

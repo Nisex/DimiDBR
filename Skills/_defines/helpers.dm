@@ -20,6 +20,7 @@ proc/isAChild(typePath, parentPath)
     return s
 
 /mob/proc/throwFollowUp(path)
+    set waitfor = FALSE
     path = text2path(path)
     var/obj/Skills/s = findOrAddSkill(path)
     s.adjust(src)

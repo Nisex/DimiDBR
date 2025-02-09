@@ -2486,6 +2486,10 @@ mob
 				if(!equippedSword)
 					return 1
 			return 0
+		UsingMysticStyle()
+			if(isAChild(StyleBuff?:type, /obj/Skills/Buffs/NuStyle/MysticStyle))
+				return list(TRUE, StyleBuff?:SignatureTechnique)
+			return list(FALSE, FALSE)
 		UsingMasteredMagicStyle()
 			if(src.Saga=="Keyblade")
 				if(src.SagaLevel>=4)

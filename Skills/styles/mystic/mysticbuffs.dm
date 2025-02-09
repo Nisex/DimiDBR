@@ -8,7 +8,7 @@
     AuraLock = 'Terra Might.dmi'
     LockX=-16
     LockY=16
-    AuraX=-10
+    AuraX=-8
     AuraY=-10
     Water
         IconLock = 'SpriteC.dmi'

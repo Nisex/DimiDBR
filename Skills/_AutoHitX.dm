@@ -5356,6 +5356,7 @@ obj
 mob
 	proc
 		Activate(var/obj/Skills/AutoHit/Z)
+			set waitfor = FALSE
 			. = TRUE
 			if(src.passive_handler.Get("Silenced"))
 				src << "You can't use [Z] you are silenced!"
