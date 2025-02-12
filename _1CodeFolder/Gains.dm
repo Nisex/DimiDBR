@@ -1487,7 +1487,7 @@ mob
 							if(isAChild(b.type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura))
 								var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/aura = b
 								if(aura.TossSkill)
-									if(aura.last_toss + glob.FAMILIAR_SKILL_CD < world.time && (Target && Target != src))
+									if((aura.last_toss - ((passive_handler["Familiar"]-1) * glob.FAMILIAR_CD_REDUCTION)) + glob.FAMILIAR_SKILL_CD < world.time && (Target && Target != src))
 										aura.last_toss = world.time
 										throwFollowUp(aura.skillToToss)
 							

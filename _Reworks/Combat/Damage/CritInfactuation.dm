@@ -21,6 +21,10 @@
 		blockChance += 5
 		critBlock += 0.1
 	if(prob(critChance)) 
+		if(passive_handler["ThunderHerald"])
+			var/obj/Skills/s = findOrAddSkill(/obj/Skills/AutoHit/Thunder_Bolt)
+			s.adjust(src)
+			Activate(s)
 		damage *= 1+critDMG
 	if(prob(blockChance))
 		damage /= 1+critBlock

@@ -23,7 +23,7 @@
 	Area="Target"
 	AdaptRate=1
 	DamageMult=1.5
-	Paralyzing=5
+	Paralyzing=15
 	Size=1
 	Bolt=2
 	HitSparkIcon='BLANK.dmi'
@@ -32,7 +32,11 @@
 	SpecialAttack=1
 	CanBeDodged=0
 	CanBeBlocked=0
-	Cooldown = 1
+	Cooldown = 0.5
+	adjust(mob/p)
+		Cooldown = max(1 - (p.Potential/110), 0.1)
+		Paralyzing = 5 + p.Potential/2
+		DamageMult = 1 + round(p.Potential/50)
 /obj/Skills/AutoHit/Earthquake
 	Earthshaking = 5
 	Area="Around Target"
@@ -57,14 +61,14 @@
 
 /obj/Skills/Projectile/Bubblebeam
 	IconLock = 'WaterPrison.dmi'
-	Distance=35
+	Distance=15
 	AccMult=2
 	DamageMult=0.2
-	Speed = 0.66
+	Speed = 1.33
 	Knockback=0
-	Blasts=15
+	Blasts=10
 	Continuous=1
-	Variation=15
+	Variation=64
 	IconSize = 0.25
 	Chilling = 10
 	Homing = 3
@@ -80,3 +84,52 @@
 	Burning = 50
 	Homing = 3
 	HomingDelay = 2
+
+/obj/Skills/AutoHit/Hyper_Inferno
+	Area="Wave"
+	AdaptRate=1
+	DamageMult=1
+	ComboMaster=1
+	ControlledRush=3
+	Rush=7
+	Instinct=2
+	Knockback=15
+	Cooldown=15
+	HitSparkIcon='Hit Effect.dmi'
+	HitSparkX=-32
+	HitSparkY=-32
+	HitSparkTurns=1
+	HitSparkSize=0.8
+	HitSparkCount=20
+	HitSparkDispersion=24
+	HitSparkDelay=1
+	Hurricane="/obj/Skills/Projectile/Inferno"
+	HurricaneDelay=0.1
+	WindupMessage="spins rapidly, invoking a tornado that whisks their target!"
+	ActiveMessage="bursts forward to deliver a storm of rapid strikes!!"
+/obj/Skills/Projectile/Inferno
+	FlickBlast=0
+	AttackReplace=1
+	Distance=7
+	DamageMult=3
+	Dodgeable=0
+	Deflectable=0
+	Instinct=2
+	Radius=1
+	ZoneAttack=1
+	ZoneAttackX=0
+	ZoneAttackY=0
+	FireFromSelf=1
+	FireFromEnemy=0
+	Knockback=0
+	Piercing=1
+	IconLock='FireTornadoHead.dmi'
+	IconSize=1
+	LockX=-8
+	LockY=-8
+	Variation=0
+	Trail='FireTornadoTrail.dmi'
+	TrailDuration=20
+	TrailSize=3
+	TrailX=-8
+	TrailY=-8

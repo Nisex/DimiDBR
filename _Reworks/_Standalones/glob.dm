@@ -235,6 +235,7 @@ globalTracker
 		TECHNIQUE_MASTERY_DIVISOR = 10
 		TECHNIQUE_MASTERY_LIMIT = 2.5 // 1+(techmastery/10) is formula. 2.5 = 15 techmastery before no more does nothing at effectiveness = 1
 		FAMILIAR_SKILL_CD = 500
+		FAMILIAR_CD_REDUCTION = 30
 		SKILL_BRANCH_LOCK = 1
 
 		Q_DIVISOR = 10

@@ -866,9 +866,12 @@ obj
 									HitMessage = "puts his hands on em'."
 									Duration=7
 									Cooldown = 20
+								if("Inferno")
+									FollowUp = "/obj/Skills/AutoHit/Hyper_Inferno"
 						else
 							// reset all
 							Grapple = 0
+							FollowUp = null
 
 
 						if(!usr.Secret && !usr.HasWitchCraft() || usr.Secret == "Eldritch" && !usr.CheckSlotless("True Form") || usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus") || usr.Secret =="Heavenly Restriction" && !usr.secretDatum?:hasImprovement("Heavy Strike"))//Just default Heavy Strike

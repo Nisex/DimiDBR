@@ -893,7 +893,7 @@ NEW VARIABLES
 				"/obj/Skills/Buffs/SlotlessBuffs/WeaponSystems/Beam_Saber")
 					init(obj/Items/Gear/Mobile_Suit/mecha, mob/player)
 						passives = list("Piloting" = 1,"SpecialBuffLock" = 1,"GiantForm" = 1, "DebuffResistance" = 2, "VenomImmune" = 1, "SweepingStrike" = 1, \
-						"CriticalChance" = mecha.Level*3, "CriticalDamage" = mecha.Level*0.25, "Steady" = mecha.Level, "Duelist" = mecha.Level, "NoDodge" = 1)
+						"CriticalChance" = mecha.Level*7, "CriticalDamage" = mecha.Level*0.15, "Steady" = mecha.Level, "Duelist" = mecha.Level, "NoDodge" = 1)
 						if(player.PilotingProwess >= 7)
 							passives["NoDodge"] = 0
 						..()
@@ -2720,7 +2720,7 @@ NEW VARIABLES
 				SpdMult=2
 				SureDodgeTimerLimit=10
 				SureHitTimerLimit=10
-				passives = list("CriticalChance" = 50, "BlockChance" = 50, "CriticalDamage" = 2, "CriticalBlock" = 2, "Flicker" = 2, "Reversal" =1, "SuperDash" = 2, "SwordAscension" = 2, "SwordDamage" = 2, "SwordAccuracy" = 2, "SwordDelay" = 2, "Extend" = 2, "SpiritHand" = 1, "Steady" = 9, "GiantForm" = 1, "FluidForm" = 1, "GodKi" = 1)
+				passives = list("CriticalChance" = 50, "BlockChance" = 50, "CriticalDamage" = 1, "CriticalBlock" = 1, "Flicker" = 2, "Reversal" =1, "SuperDash" = 2, "SwordAscension" = 2, "SwordDamage" = 2, "SwordAccuracy" = 2, "SwordDelay" = 2, "Extend" = 2, "SpiritHand" = 1, "Steady" = 9, "GiantForm" = 1, "FluidForm" = 1, "GodKi" = 1)
 				IconLock='DarknessFlame.dmi'
 				HitSpark='Slash - Black.dmi'
 				HitSize=1.5
@@ -5434,8 +5434,6 @@ NEW VARIABLES
 				DefMult=1 //0.3
 				CriticalChance=5
 				BlockChance=5
-				CriticalDamage=2
-				CriticalBlock=2
 				SweepingStrike=1
 				MakesArmor=1
 				ArmorAscension=1
@@ -5452,7 +5450,7 @@ NEW VARIABLES
 						var/magicLevel = usr.getTotalMagicLevel()
 						if(magicLevel>=20) // max magic
 							passives = list("Mechanized" = 1, "Xenobiology" = 1, "GiantForm" = 1, \
-						 "SweepingStrike" = 1, "CriticalChance" = 5, "BlockChance" = 5, "CriticalDamage" = 1, "CriticalBlock" = 1, "ArmorAscension" = 2)
+						 "SweepingStrike" = 1, "CriticalChance" = 5, "BlockChance" = 5, "CriticalDamage" = 0.25, "CriticalBlock" = 0.25, "ArmorAscension" = 2)
 							StrMult = 1 + (magicLevel * 0.015)
 							EndMult = 1 + (magicLevel * 0.015)
 							SpdMult = 1 - (magicLevel * 0.015)
@@ -5460,7 +5458,7 @@ NEW VARIABLES
 							TimerLimit = 120 + magicLevel
 						else
 							passives = list("Mechanized" = 1, "Xenobiology" = 1, \
-						 "SweepingStrike" = 1, "CriticalChance" = 5, "BlockChance" = 5, "CriticalDamage" = 0.5, "CriticalBlock" = 0.5, "ArmorAscension" = 1, "NoDodge" = 1)
+						 "SweepingStrike" = 1, "CriticalChance" = 5, "BlockChance" = 5, "CriticalDamage" = 0.15, "CriticalBlock" = 0.15, "ArmorAscension" = 1, "NoDodge" = 1)
 							TimerLimit = 120 + magicLevel
 					if(!usr.BuffOn(src))
 						src.ManaAdd=(-1)*(usr.ManaAmount*1)

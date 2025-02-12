@@ -667,6 +667,7 @@
 #include "Skills\styles\mystic\mysticskills.dm"
 #include "Skills\styles\mystic\t0mysticstyles.dm"
 #include "Skills\styles\mystic\t1mysticstyles.dm"
+#include "Skills\styles\mystic\t2mysticstyles.dm"
 #include "Skills\styles\weapon\t0weaponstyles.dm"
 #include "Skills\styles\weapon\t1weaponstyles.dm"
 #include "Skills\styles\weapon\t2weaponstyles.dm"
