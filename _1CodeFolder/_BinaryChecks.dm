@@ -2487,8 +2487,9 @@ mob
 					return 1
 			return 0
 		UsingMysticStyle()
-			if(isAChild(StyleBuff?:type, /obj/Skills/Buffs/NuStyle/MysticStyle))
-				return list(TRUE, StyleBuff?:SignatureTechnique)
+			if(!StyleBuff) return list(FALSE, FALSE)
+			if(isAChild(StyleBuff.type, /obj/Skills/Buffs/NuStyle/MysticStyle))
+				return list(TRUE, StyleBuff.SignatureTechnique)
 			return list(FALSE, FALSE)
 		UsingMasteredMagicStyle()
 			if(src.Saga=="Keyblade")

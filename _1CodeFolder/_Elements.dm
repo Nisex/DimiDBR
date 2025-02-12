@@ -386,7 +386,7 @@ mob
 						src.Shock=100
 			if(Attacker.passive_handler["IceAge"] && Slow >= Attacker.passive_handler["IceAge"])
 				Slow = 0
-				implodeDebuff(Attacker.passive_handler["Combustion"], "Chill")
+				implodeDebuff(Attacker.passive_handler["IceAge"], "Chill")
 			if(src.Slow>100)
 				src.Slow=100
 			if(src.Slow<0)

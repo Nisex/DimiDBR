@@ -101,16 +101,15 @@ mob/proc/implodeDebuff(n, type)
                 var/obj/Effects/Bang/b = new()
                 b.Target = src
                 vis_contents += b
-                world<<" DEBUG: BURN IMPLODED FROM COMBUSTION [Health * (n/glob.IMPLODE_DIVISOR)]"
                 Health -= Health * (n/glob.IMPLODE_DIVISOR)
             if("Chill")
-                var/obj/Effects/Freeze/b = new()
+                var/obj/Effects/Freeze/b = new(overwrite_alpha = 255)
                 b.Target = src
                 vis_contents += b
                 if(StunImmune)
                     StunImmune = 0
                 StasisStun = 1
-                Stun(src, 2)
+                Stun(src, 4)
                 passive_handler.Set("Shellshocked", 1)
                 
 

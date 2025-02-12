@@ -171,7 +171,6 @@
 			animate(pixel_z = 0, easing = ELASTIC_EASING, time = 1.5)
 			devaCounter=0
 			if(passive_handler["AirBend"])
-				world<<"DEBUG: Airbend proc on melee"
 				last_style_effect = world.time
 
 	if(warpingStrike)
@@ -727,7 +726,6 @@
 								var/dmgEffective = enemy.GetArmorDamage(defArmor)
 								if(passive_handler["Half-Sword"])
 									dmgEffective -= passive_handler["Half-Sword"] * glob.HALF_SWORD_ARMOR_REDUCTION
-									// world<<"DEBUG: [dmgEffective += passive_handler["Half-Sword"] * glob.HALF_SWORD_ARMOR_REDUCTION] reduced to [dmgEffective] after [passive_handler["Half-Sword"] * glob.HALF_SWORD_ARMOR_REDUCTION] half-sword reduction"
 								if(dmgEffective>0)
 									damage -=  damage * dmgEffective/10
 								else

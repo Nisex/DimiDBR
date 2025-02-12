@@ -13,9 +13,7 @@
             // we r calling an end to it
             var/damage2do = User.passive_handler["Dim Mak"]
             User.passive_handler.Set("Dim Mak", 1)
-            world<< "DEBUG: DEATH MARK TRACKED ([damage2do]) TOTAL DAMAGE"
             damage2do *= clamp((15*Level)/100, 0.1, 1)// applier's style tier
-            world<< "DEBUG: DEATH MARK DID ([damage2do]) DAMAGE"
             User.LoseHealth(damage2do)
         ..()
 
@@ -90,9 +88,9 @@
         IconLock='SweatDrop.dmi'
         IconApart=1
         passives = list("Tossing" = 1.5, "SlayerMod" = 1, "FavoredPrey" = "Races", "Hit Scan" = 2 ) // not sure 
-        StyleOff = 1.15
-        StyleStr = 1.15
-        StyleSpd = 1.15
+        StyleOff = 1.2
+        StyleStr = 1.2
+        StyleSpd = 1.1
         HitScanIcon = 'standard_shuriken.dmi'
         HitScanHitSpark = 'Hit_Effect_KanjuriKanKan.dmi'
 
@@ -112,3 +110,25 @@
         OffMult=1.2
         DefMult=1.2
         SpdMult=0.8
+    
+    Magma_Fist
+        ForMult=1.3
+        EndMult=1.2
+        passives = list("Hardening" = 2, "CallousedHands" = 0.15, "Burning" = 3, "Crushing" = 5)
+
+    Cool_Guy
+        OffMult=1.15
+        ForMult=1.15
+        EndMult=1.2
+        passives = list("Freezing" = 5, "Shattering" = 3, "Hardening" = 2, "Steady" = 2)
+
+    Conduit
+        SpdMult=1.2
+        ForMult=1.2
+        OffMult=1.1
+        passives = list("Paralyzing" = 5, "Chilling" = 3, "Steady" = 1, "Flicker" = 2, "Pursuer" = 2)
+
+    Fire_Fist
+        passives = list("SpiritHand" = 1, "Scorching" = 5, "Shocking" = 3, "Flicker" = 1, "Pursuer" = 1)
+        ForMult=1.3
+        StrMult=1.2

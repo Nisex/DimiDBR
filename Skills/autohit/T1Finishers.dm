@@ -136,3 +136,16 @@
 		TurfShift='Dirt1.dmi'
 		TurfShiftDuration=10
 		Cooldown=4
+	
+	Orb_of_Storms
+		Area="Around Target"
+		AdaptRate = 1
+		DamageMult=0.1
+		Rounds=20
+		Shattering=1
+		RoundMovement=1
+		Size=4
+		Icon='Elec Ball Blue.dmi'
+		IconX=-32
+		IconY=-32
+		FlickSpin=1

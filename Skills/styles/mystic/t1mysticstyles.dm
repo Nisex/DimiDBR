@@ -7,7 +7,7 @@
         StyleActive = "Magma"
         StyleFor = 1.2
         StyleEnd = 1.2
-        Finisher = "/obj/Skills/Queue/Finisher/"
+        Finisher = "/obj/Skills/Queue/Finisher/Major_Eruption"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Earth"
     Ice
         SignatureTechnique = 1
@@ -17,7 +17,7 @@
         StyleOff = 1.15
         StyleEnd = 1.15
         StyleFor = 1.15
-        Finisher = "/obj/Skills/Queue/Finisher/"
+        Finisher = "/obj/Skills/Queue/Finisher/Ice_Time"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Water"
     Storm
         SignatureTechnique = 1
@@ -27,7 +27,7 @@
         StyleSpd = 1.15
         StyleOff = 1.15
         StyleFor = 1.15
-        Finisher = "/obj/Skills/Queue/Finisher/"
+        Finisher = "/obj/Skills/Queue/Finisher/Stormweaver"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Wind"
     Inferno
         SignatureTechnique = 1
@@ -36,5 +36,5 @@
         StyleActive = "Inferno"
         StyleFor = 1.3
         StyleSpd = 1.15
-        Finisher="/obj/Skills/Queue/Finisher/"
+        Finisher="/obj/Skills/Queue/Finisher/Sunshine_Flame"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Fire"

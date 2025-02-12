@@ -17,17 +17,20 @@
 	mystic
 		icon = 'BLANK.dmi'
 		icon_state = "dot"
+		var/tmp/obj/Skills/obj_to_ref
+		var/var_to_ref
 		proc/mysticTicker()
-			var/next_cast = client.mob.last_style_effect + glob.STYLE_EFFECT_CD 
+			var/next_cast = client.mob.can_use_style_effect(FALSE)
+			if(obj_to_ref)
+				next_cast = obj_to_ref.vars["[var_to_ref]"] + glob.FAMILIAR_SKILL_CD
 			animate(src, alpha = clamp(255-(next_cast - world.time), 0 , 255), time = 1)
-			// appear.alpa = alpha
 			if(next_cast - world.time <= 0 && length(appear.filters) < 1)
 				appear.filters = filter(type="outline", size=1, color=rgb(255, 234, 47))
 				pulse()
 			if(alpha <= 0 && length(appear.filters) > 0)
 				appear.filters = list()
 				animate(appear, flags = ANIMATION_END_NOW)
-		New(client/_client, o, _x, _y)
+		New(client/_client, o, _x, _y, obj/thing, vari)
 			. = ..()
 			appear = new()
 			switch(o)
@@ -37,6 +40,10 @@
 					appear.icon = 'ui.dmi'
 			appear.layer = FLY_LAYER
 			appear.alpha = 255
+
+			if(thing)
+				obj_to_ref = thing
+				var_to_ref = vari
 			vis_contents += appear
 		Update()
 			mysticTicker()
@@ -87,11 +94,12 @@ client/proc/add_hud(id, atom/movable/a)
 	screen += hud_ids[id] = a
 	return a
 client/proc/remove_hud(id)
-	screen -= hud_ids[id]
-	mob.contents -= hud_ids[id]
 	if(hud_ids[id])
-		del hud_ids[id] // it should already b gone but 2 make sure, who knows
-	hud_ids -= id
+		screen -= hud_ids[id]
+		mob.contents -= hud_ids[id]
+		if(hud_ids[id])
+			del hud_ids[id] // it should already b gone but 2 make sure, who knows
+		hud_ids -= id
 
 /obj/bar
 	var/tmp/linked_var = ""
@@ -139,12 +147,11 @@ client/proc/remove_hud(id)
 #define BAR_X_LOCS list("Fury" = 1, "Momentum" = 1, "Harden" = 1, "FTG" = 1, "MysticT0" = 1, "MysticT1" = 32)
 #define BAR_Y_LOCS list("Fury" = 86, "Momentum" = 118, "Harden" = 150, "FTG" = 32, "MysticT0" = 64, "MysticT1" = 64)
 
-/mob/proc/hudIsLive(option, path)
+/mob/proc/hudIsLive(option, path, toss_obj,var_callback)
 	if(client.hud_ids[option])
 		return TRUE
 	else 
-
-		client.add_hud(option, new path(client, option, BAR_X_LOCS[option], BAR_Y_LOCS[option]))
+		client.add_hud(option, new path(client, option, BAR_X_LOCS[option], BAR_Y_LOCS[option], toss_obj, var_callback))
 		return FALSE
 
 

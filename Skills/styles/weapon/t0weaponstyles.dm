@@ -4,7 +4,7 @@
         StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fencing_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style",\
         "/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style",\
         "/obj/Skills/Buffs/NuStyle/SwordStyle/Ulfberht_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Kunst_des_Fechtens",\
-        "/obj/Skills/Buffs/NuStyle/SwordStyle/Chain_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Konshu")
+        "/obj/Skills/Buffs/NuStyle/SwordStyle/Chain_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu")
         StyleStr = 1.15
         StyleOff = 1.15
         StyleActive="Ittoryu"

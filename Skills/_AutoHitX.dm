@@ -5718,7 +5718,6 @@ mob
 				flick("KB", Target)
 				step_away(Target, src)
 				last_style_effect = world.time
-				world<<"DEBUG: Airbend proc on autohit"
 			if(!Z.SpecialAttack)
 				if(src.UsingSpiritStrike())
 					Z.TempStrOff=0

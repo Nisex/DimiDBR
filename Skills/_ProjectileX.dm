@@ -4743,7 +4743,6 @@ mob
 						ww = new()
 						AddSkill(ww)
 					Activate(ww)
-					world<<"DEBUG: WaveDancer proc'd"
 					last_style_effect = world.time
 			if(Z.StormFall)
 				Z.Homing=0//You can't home if you're just going down, down, in an earlier round...

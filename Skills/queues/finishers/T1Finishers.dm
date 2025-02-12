@@ -99,3 +99,28 @@
         HitMessage=""
         FollowUp="/obj/Skills/AutoHit/Great_Cleave"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Zwercopter"
+    
+
+
+
+    Major_Eruption
+        FollowUp="/obj/Skills/Projectile/Meteor_Volcano"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Magma_Fist"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Crumbling"
+        DamageMult = 2
+    Ice_Time
+        Stunner = 4
+        DamageMult = 2
+        FollowUp="/obj/Skills/Projectile/Two_Thorn_Pikes"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Chilled"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Cool_Guy"
+    Stormweaver
+        DamageMult = 2
+        FollowUp="/obj/Skills/Autohit/Orb_of_Storms"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Buffered"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Conduit"
+    Sunshine_Flame
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Flame_Fist"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Ignited"
+        FollowUp="/obj/Skills/Projectile/Precept_Flame_Emperor"
+        DamageMult = 2
