@@ -38,3 +38,11 @@
 		IconY=-32
 		IconTime=10
 		Cooldown=4
+	Ice_Ply
+		AdaptRate = 1
+		SpecialAttack=1
+		DamageMult=4
+		Stasis=5
+		TurfShift='IceGround.dmi'
+		Distance=5
+		Area="Circle"

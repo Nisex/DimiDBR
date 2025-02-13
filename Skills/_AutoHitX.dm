@@ -2444,7 +2444,7 @@ obj
 				ForOffense=1.5
 				SpecialAttack=1
 				DamageMult=15
-				Chilling=99
+				Chilling=150
 				Stasis=5
 				TurfShift='IceGround.dmi'
 				Distance=15
