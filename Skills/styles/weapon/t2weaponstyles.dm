@@ -13,6 +13,9 @@
                     "NeedsSecondSword" = 1, "NeedsThirdSword" = 1, "Iaijutsu" = 1.5, "Musoken" = 1)
         NeedsSecondSword = 1
         NeedsThirdSword = 1
+        verb/Santoryu()
+            set hidden=1
+            src.Trigger(usr)
     Berserk
         SignatureTechnique = 2
         StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu"="/obj/Skills/Buffs/NuStyle/SwordStyle/Two_Heaven_As_One",
@@ -24,6 +27,9 @@
         StyleEnd=0.85
         HeavyOnly=1
         StyleActive="Guts Berserk"
+        verb/Berserk()
+            set hidden=1
+            src.Trigger(usr)
     Witch_Hunter
         SignatureTechnique = 2
         StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Berserk"="/obj/Skills/Buffs/NuStyle/SwordStyle/Fierce_Deity")
@@ -33,6 +39,9 @@
         StyleStr=1.3
         StyleEnd=1.15
         StyleActive="Witch Hunter"
+        verb/Witch_Hunter()
+            set hidden=1
+            src.Trigger(usr)
     Phalanx_Style
         SignatureTechnique=2
         Copyable=0
@@ -44,4 +53,7 @@
         passives = list("Reversal" = 0.25, "Deflection" = 1, "Hardening" = 1.5, "Parry" = 2, "Disarm" = 2, "SwordPunching" = 1,\
                  "Unnerve" = 1, "Secret Knives" = "Atlatl", "Tossing" = 2)
         Finisher="/obj/Skills/Queue/Finisher/Shield_Vault"
+        verb/Phalanx_Style()
+            set hidden=1
+            src.Trigger(usr)
     

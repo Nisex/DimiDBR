@@ -14,6 +14,9 @@
         StyleDef=1
         StyleFor=1
         Finisher="/obj/Skills/Queue/Finisher/Cycle_of_Samsara"
+        verb/Heavenly_Demon_T3()
+            set hidden=1
+            src.Trigger(usr)
     Jeet_Kune_Do
         SignatureTechnique=3
         // no ideas as of yet

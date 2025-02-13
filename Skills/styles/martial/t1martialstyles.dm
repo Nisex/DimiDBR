@@ -46,6 +46,9 @@
 		passives = list("Fa Jin" = 2, "Momentum" = 1, "BlurringStrikes" = 0.5, "Interception" = 1)
 		StyleActive="Wing Chun"
 		Finisher="/obj/Skills/Queue/Finisher/Dark_Dragon_Commandment"
+		verb/Wing_Chun_Style()
+			set hidden=1
+			src.Trigger(usr)
 	Tai_Chi_Style
 		SignatureTechnique=1
 		Copyable=0
@@ -58,4 +61,7 @@
 		passives = list("Fa Jin" = 2,"Acupuncture" = 1, "Flow" = 1, "Interception" = 1)
 		StyleActive="Tai Chi"
 		Finisher="/obj/Skills/Queue/Finisher/Dim_Mak"
+		verb/Tai_Chi_Style()
+			set hidden=1
+			src.Trigger(usr)
 	

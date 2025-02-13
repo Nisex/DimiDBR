@@ -7,6 +7,9 @@
         passives = list("Muscle Power" = 4, "Grippy" = 5, "Scoop" = 2, "Iron Grip" = 1, "DeathField" = 3)
         StyleActive="Ubermensch"
         Finisher="/obj/Skills/Queue/Finisher/Command_Grab"
+        verb/Ubermensch_Style()
+			set hidden=1
+			src.Trigger(usr)
     Mantis_And_Crane_Style
         passives = list("Acupuncture" = 2, "Interception" = 2, "Flow" = 2, "Soft Style" = 1, "FluidForm" = 1)
         StyleDef=1.45
@@ -41,6 +44,9 @@
             swap_stance()
             Trigger(usr, 1)
             giveBackTension(usr)
+        verb/Mantis_And_Crane_Style()
+			set hidden=1
+			src.Trigger(usr)
     Long_Fist_Style
         passives = list("Fa Jin" = 2, "Gum Gum" = 1, "Acupuncture" = 1.5, "Flow" = 1, \
                         "Momentum" = 1.5, "Hardening" = 1.5, "Pressure" = 1)
@@ -51,6 +57,6 @@
         Copyable=0
         StyleActive="Long Fist Style"
         Finisher="/obj/Skills/Queue/Finisher/Jarret_Jarret"
-        verb/Iron_Fist_Style()
+        verb/Long_Fist_Style()
             set hidden=1
             src.Trigger(usr)

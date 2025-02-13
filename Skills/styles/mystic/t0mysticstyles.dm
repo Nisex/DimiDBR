@@ -10,7 +10,8 @@
 		StyleFor = 1.3
 		Finisher="/obj/Skills/Queue/Finisher/Dancing_Flame_Attack"
 		StyleActive="Fire Weaving"
-
+		ElementalOffense = "Fire"
+		ElementalDefense = "Fire"
 	Water_Bending
 		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Earth_Moving"="/obj/Skills/Buffs/NuStyle/MysticStyle/Ice",\
 							"/obj/Skills/Buffs/NuStyle/MysticStyle/Wind_Summoning"="/obj/Skills/Buffs/NuStyle/MysticStyle/Storm")
@@ -18,12 +19,16 @@
 		StyleOff = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Surfing_Stream"
 		StyleActive="Water Bending"
+		ElementalOffense = "Water"
+		ElementalDefense = "Water"
 	Earth_Moving
 		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"="/obj/Skills/Buffs/NuStyle/MysticStyle/Ice")
 		passives = list("SpiritFlow" = 1, "Shattering" = 1, "EntanglingRoots" = 1)
 		StyleEnd = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Unstoppable_Force"
 		StyleActive="Earth Moving"
+		ElementalOffense = "Earth"
+		ElementalDefense = "Earth"
 	Wind_Summoning
 		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Fire_Weaving"="/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno", \
 							"/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"="/obj/Skills/Buffs/NuStyle/MysticStyle/Storm")
@@ -31,12 +36,16 @@
 		StyleSpd = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Whirlwind"
 		StyleActive="Wind Summoning"
+		ElementalOffense = "Wind"
+		ElementalDefense = "Wind"
 	Plague_Bringer
 		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker")
 		passives = list("SpiritFlow" = 1, "Poisoning" = 1, "Rusting" = 1)
 		StyleDef = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/"
 		StyleActive="Plague Bringer"
+		ElementalOffense = "Poison"
+		ElementalDefense = "Poison"
 
 
 /obj/Skills/AutoHit/Water_Wave
