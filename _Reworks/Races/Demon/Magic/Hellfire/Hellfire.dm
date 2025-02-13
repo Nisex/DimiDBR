@@ -91,9 +91,9 @@
                 if("Slow")
                     target.AddCrippling(scalingValues[x][asc])
         if(!target:move_disabled)
-            if(prob(6*asc))
+            if(prob(glob.HELLSTORM_SNARERATE*asc))
                 target:move_disabled = TRUE
-                spawn(5*asc)
+                spawn(glob.HELLSTORM_SNAREDURATION*asc)
                     target:move_disabled = FALSE
 
 /mob/proc/getHellStormDamage()

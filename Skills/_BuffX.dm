@@ -12088,26 +12088,16 @@ mob
 					src.StyleBuff.HitSize=0.5
 
 			if(src.StyleBuff.StyleActive=="Hiten Mitsurugi")
-				if(src.SagaLevel>=2)
-					if(src.StyleBuff.Godspeed<1)
-						src.StyleBuff.passives["Godspeed"] = 1
-				if(src.SagaLevel>=4)
-					if(src.StyleBuff.Flicker<2)
-						src.StyleBuff.passives["Flicker"] = 2
-				if(src.SagaLevel>=6)
-					if(src.StyleBuff.Godspeed<2)
-						src.StyleBuff.passives["Godspeed"] = 2
-				if(src.SagaLevel>=8)
-					if(src.StyleBuff.Flicker<3)
-						src.StyleBuff.passives["Flicker"] = 3
-						src.StyleBuff.Flicker+=1
+				StyleBuff.passives["Godspeed"] = SagaLevel/2
+				StyleBuff.passives["Flicker"] = SagaLevel/2
+				StyleBuff.passives["BlurringStrikes"] = SagaLevel/6
 
 				src.StyleBuff.Mastery=4
 
 			if(src.StyleBuff.StyleActive=="Ansatsuken")
 				src.StyleBuff.passives["CheapShot"] = 0.25 * SagaLevel
 				src.StyleBuff.passives["UnarmedDamage"] = 0.5 * SagaLevel
-				src.StyleBuff.passives["Duelist"] = round(0.33 * SagaLevel)
+				src.StyleBuff.passives["Duelist"] = round(0.33 * SagaLevel, 1)
 				if(src.SagaLevel>=5)
 					src.StyleBuff.AngerThreshold=2
 					switch(src.AnsatsukenAscension)

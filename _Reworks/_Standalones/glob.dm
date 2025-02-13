@@ -117,6 +117,7 @@ globalTracker
 //INTIM
 		INTIMRATIO = 500
 		NEWINTIMCALC = FALSE
+		INTIM_REDUCES_DEBUFFS
 
 //Wipe Specific
 		list/GUILD_RANKINGS = list("Aegis" = 1, "Crimson Dawn" = 2, "Golden Circle" = 3, "Black Ifrit" = 5, "Revenants" = 6)
@@ -375,6 +376,8 @@ globalTracker
 		TENSION_MULTIPLIER = 1
 		MIN_TENSION = 10
 		CORRUPTION_GAIN = 1.25
+		HELLSTORM_SNARERATE = 3
+		HELLSTORM_SNAREDURATION = 3
 		FIELD_MODIFIERS = 0.01
 		GLUTTONY_MODIFIER = 0.14
 		STEADY_MODIFIER = 0.05

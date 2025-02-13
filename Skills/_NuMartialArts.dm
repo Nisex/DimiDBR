@@ -225,7 +225,7 @@ obj
 						StyleFor=1.25
 						StyleSpd=1.25
 						StyleActive="Ansatsuken"
-						passives = list("AllOutAttack" = 1)
+						passives = list("Pursuer" = 1, "HardStyle" = 1)
 						ManaCost=100
 						Mastery=4
 						AllOutAttack=1
@@ -425,7 +425,7 @@ obj
 						StyleStr=1.5
 						StyleSpd=1.5
 						StyleActive="Hiten Mitsurugi"
-						passives = list("Flicker" = 1)
+						passives = list("Godspeed" = 1, "BlurringStrikes" = 0.25, "Flicker" = 1)
 						Flicker=1
 						Mastery=4
 						ClassNeeded = list("Light", "Wooden")
