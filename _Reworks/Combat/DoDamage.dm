@@ -15,7 +15,7 @@
 
 /* DAMAGE HANDLING */
 
-/mob/proc/newDoDamage(mob/defender, val, unarmed, sword, secondhit, thirdhit, trueMult, spiritAtk, destructive)
+/mob/proc/newDoDamage(mob/defender, val, unarmed, sword, secondhit, thirdhit, trueMult, spiritAtk, destructive, autohit)
 	if(inStasis() || defender.inStasis())
 		return
 	if(defender == src)
@@ -57,7 +57,8 @@
 	log2text("Damage", "After Infactuation", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
-	val = getCritAndBlock(defender, val)
+	if((unarmed || sword) || (spiritAtk && !autohit && passive_handler["IceHerald"]) || (autohit && passive_handler["DemonicEmpower"]))
+		val = getCritAndBlock(defender, val)
 	#if DEBUG_DAMAGE
 	log2text("Damage", "After CritAndBlock", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")

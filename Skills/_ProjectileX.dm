@@ -5667,8 +5667,10 @@ obj
 								powerDif = clamp(powerDif, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
 						var/atk = 0
 						if(Owner.isSuperCharged(Owner))
+							var/oldEnd = EndRate
 							EndRate -=  clamp(glob.SUPERCHARGERATE * Owner.passive_handler["SuperCharge"], 0, 1)
 							Owner.StyleBuff.last_super_charge = world.time
+							world<<"DEBUG: NEW ENDRATE = [EndRate] from [oldEnd]"
 						var/def = a:getEndStat(1) * EndRate
 						if(src.Owner.UsingPridefulRage())
 							if(Owner.passive_handler.Get("PridefulRage") >= 2)
@@ -5843,8 +5845,7 @@ obj
 								if(!(Piercing && m && (AlreadyHit["[m.ckey]"] >= MultiHit + 1)) || Bounce)
 									if(!AlreadyHit["[m.ckey]"]) AlreadyHit["[m.ckey]"] = 0
 									EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.01, 1)
-									if(Owner.passive_handler["IceHerald"])
-										EffectiveDamage = Owner.getCritAndBlock(FALSE, EffectiveDamage)
+
 									src.Owner.DoDamage(a, EffectiveDamage, SpiritAttack=1, Destructive=src.Destructive)
 									if(CorruptionGain)
 										Owner.gainCorruption((EffectiveDamage * 1.5) * glob.CORRUPTION_GAIN)

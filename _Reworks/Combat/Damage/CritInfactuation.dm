@@ -26,11 +26,12 @@
 		critDMG += 0.1
 	if(prob(critChance)) 
 		if(passive_handler["ThunderHerald"])
+			world<<"DEBUG: thunder herald proc"
 			var/obj/Skills/s = findOrAddSkill(/obj/Skills/AutoHit/Thunder_Bolt)
 			s.adjust(src)
-
 			Activate(s)
 		if(passive_handler["IceHerald"])
+			world<<"DEBUG: ice herald proc"
 			var/obj/Skills/s = findOrAddSkill(/obj/Skills/AutoHit/Icy_Wind)
 			s.adjust(src)
 			Activate(s)

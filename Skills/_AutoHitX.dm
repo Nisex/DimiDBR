@@ -6619,7 +6619,7 @@ obj
 								if(src.Damage>0.1)
 									KenShockwave(m, icon='KenShockwave.dmi', Size=dmgRoll, Time=3)
 									m.Knockback(src.Knockback+(reversalChance*2.5) , src.Owner, Direction=get_dir(m, src.Owner))
-								m.DoDamage(src.Owner, (FinalDmg/5), UnarmedAttack=src.UnarmedTech, SwordAttack=src.SwordTech, SpiritAttack=src.SpecialAttack)
+								m.DoDamage(src.Owner, (FinalDmg/5), UnarmedAttack=src.UnarmedTech, SwordAttack=src.SwordTech, SpiritAttack=src.SpecialAttack, Autohit = TRUE)
 								if(src.Bang)
 									Bang(src.Owner.loc, src.Bang)
 								if(src.Scratch)
