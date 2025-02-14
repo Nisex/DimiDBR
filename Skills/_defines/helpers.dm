@@ -43,3 +43,16 @@ mob/proc/buffSelf(path)
         s.adjust(src)
     s.Password = UniqueID
     cycleStackingBuffs(s)
+
+mob/proc/isSuperCharged(mob/p)
+    if(p.passive_handler["SuperCharge"])
+        if(StyleBuff.last_super_charge + glob.SUPERCHARGECD < world.time)
+            return TRUE
+    return FALSE
+
+mob/proc/UsingHotnCold()
+    if(StyleActive == "Hot Style")
+        return TRUE
+    if(StyleActive == "Cold Style")
+        return TRUE
+    return FALSE

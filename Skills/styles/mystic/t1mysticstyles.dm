@@ -2,13 +2,14 @@
 
 	Magma
 		SignatureTechnique = 1
-		passives = list("SpiritFlow" = 2, "Familiar" = 1, "Magmic" = 1, "Burning" = 2.5, "Shattering" = 2.5, \
+		passives = list("SpiritFlow" = 2, "Familiar" = 1, "Burning" = 2.5, "Shattering" = 2.5, \
 						"Combustion" = 30, "Harden" = 1)
 		StyleActive = "Magma"
 		StyleFor = 1.2
 		StyleEnd = 1.2
 		Finisher = "/obj/Skills/Queue/Finisher/Major_Eruption"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Earth"
+		BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Magmic_Shield") 
 		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Storm"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma",\
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire")
 		ElementalOffense = "Fire"

@@ -32,3 +32,50 @@
         EndMult=0.6
         passives = list("ComboMaster" = 1, "Gum Gum" = 1, "Relentlessness" = 1, "Momentum" = 1.5, "Flow" = 2,\
                         "BuffMastery" = 3, "Brutalize" = 1.5, "MovementMastery" = 3, "TensionLock" = 1)
+    
+
+
+    Cooled_Down
+        EndMult = 1.5
+        SpdMult = 0.75
+        ForMult = 1.25
+        passives = list("CallousedHands" = 0.15, "Freezing" = 10, "Juggernaut" = 2.5, "KBRes" = 2.5, \
+                        "Shattering" = 10, "Steady" = 4, "Hardening" = 2)
+    Heated_Up
+        ForMult = 1.5
+        EndMult = 0.75
+        SpdMult = 1.25
+        passives = list("SpiritHand" = 1, "Scorching" = 10, "BlurringStrikes" = 0.5, "GodSpeed" = 2, \
+                        "Shattering" = 10, "Flicker" = 2, "Pursuer" = 2, "Momentum" = 2)
+
+    X_Buster
+        passives = list("Hit Scan" = 2, "SpiritStrike" = 1, "EnergyGeneration" = 2.5, "MovingCharge" = 1, "QuickCast" = 1, \
+                        "SpiritFlow" = 1, "Paralyzing" = 10, "Shattering" = 10, "SuperCharge" = 1)
+        HitScanIcon = 'Plasma1.dmi'
+        HitScanHitSpark = 'Trail - Plasma.dmi'
+        ForMult = 1.3
+        SpdMult = 1.2
+
+
+    Plasma_Burned
+        passives = list("PureReduction" = -1, "Flow" = -2, "GodSpeed" = -1)
+        
+
+
+    In_the_Details
+        passives = list("KillerInstinct" = 0.1, "HellPower" = 0.5, "GodSpeed" = 2, "DebuffResistance" = 0.25, \
+                        "Steady" = 2, "Scorching" = 15, "Toxic" = 10, "CursedWounds" = 1)
+        HealthDrain = 0.033
+        DefMult = 0.75
+        EndMult = 0.75
+        StrMult = 1.5
+        ForMult = 1.5
+        TimerLimit = 30
+
+    Frozen_Summit
+        passives = list("CriticalChance" = 25, "BlockChance" = 25, "CriticalBlock" = 0.25, "GiantForm" = 1, \
+                        "MovingCharge" = 1, "QuickCast" = 1, "Freezing" = 10, "Shattering" = 10, "LifeGeneration" = 1.5, \
+                        "LikeWater" = 4)
+        EndMult=1.2
+        ForMult=1.2
+        DefMult=1.2

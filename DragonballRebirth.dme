@@ -610,6 +610,7 @@
 #include "Skills\projectiles\secretknife.dm"
 #include "Skills\projectiles\T0Projectiles.dm"
 #include "Skills\projectiles\T1Finishers.dm"
+#include "Skills\projectiles\T2Finisher.dm"
 #include "Skills\projectiles\races\beastman\beastmanprojectiles.dm"
 #include "Skills\queues\finishers\T0Finishers.dm"
 #include "Skills\queues\finishers\T1Finishers.dm"

@@ -1,6 +1,14 @@
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Magmic_Shield
+	passives = list("Magmic" = 1)
+	AlwaysOn = 1
+	Cooldown = 60
+	TimerLimit = 0
+	BuffName = "Magmic Shield"
+	name = "Magmic Shield"
+
 /obj/Skills/AutoHit/Hurricane
 	ElementalClass="Wind"
-	Distance=2
+	Distance=12
 	Size = 2
 	TurfShift = 'Air Slash.dmi'
 	TurfShiftDuration=3
@@ -37,6 +45,29 @@
 		Cooldown = max(1 - (p.Potential/110), 0.1)
 		Paralyzing = 5 + p.Potential/2
 		DamageMult = 1 + round(p.Potential/50)
+/obj/Skills/AutoHit/Icy_Wind
+	ElementalClass="Water"
+	Area="Around Target"
+	AdaptRate=1
+	DamageMult=1.25
+	Freezing=65
+	Distance=12
+	Size = 2
+	TurfShift = 'Blizzard.dmi'
+	TurfShiftDuration=3
+	TurfStrike=2
+	HitSparkIcon='BLANK.dmi'
+	HitSparkX=0
+	HitSparkY=0
+	SpecialAttack=1
+	CanBeDodged=0
+	CanBeBlocked=0
+	Cooldown = 0.5
+	adjust(mob/p)
+		Cooldown = max(1.5 - (p.Potential/110), 0.1)
+		Freezing = 50 + p.Potential/2
+		DamageMult = 0.25 + round(p.Potential/100)
+		Rounds = 5 + round(p.Potential/20)
 /obj/Skills/AutoHit/Earthquake
 	Earthshaking = 5
 	Area="Around Target"
@@ -51,7 +82,7 @@
 	CanBeDodged = 0
 	CanBeBlocked = 0
 	Cooldown = 5
-	Distance = 2
+	Distance = 12
 	Size = 2
 	HitSparkIcon='BLANK.dmi'
 	HitSparkX=0

@@ -44,7 +44,6 @@ mob/proc/InterceptionStrike(stacks)
 /mob/verb/testFaJinEffect()
     set category = "Debug"
     fa_jin_effect()
-HitScanIcon
 /obj/tracker
     var/tmp/mob/owner
     var/tmp/mob/target

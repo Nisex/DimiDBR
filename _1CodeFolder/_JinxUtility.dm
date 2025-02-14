@@ -198,7 +198,10 @@ mob
 						OMsg(defender, "<font color='[rgb(255, 0, 0)]'>[defender.findVuffa().vuffaMessage]</font color>")
 					else
 						OMsg(src, "<font color='[rgb(255, 0, 0)]'>[defender] takes a critical hit! They take [val] damage!</font color>")
-
+			if(passive_handler["CoolingDown"])
+				StyleBuff?:hotCold -= tmpval * glob.HOTNCOLD_MODIFIER
+			else if(passive_handler["HeatingUp"])
+				StyleBuff?:hotCold += tmpval * glob.HOTNCOLD_MODIFIER
 			defender.LoseHealth(max(0,tmpval))
 
 			if(defender.Flying)
@@ -1321,6 +1324,9 @@ mob
 			if(src.ForReplace)
 				For=ForReplace
 			For+=ForAdded
+			if(UsingHotnCold())
+				if(StyleBuff?:hotCold>0)
+					For+=StyleBuff?:hotCold/glob.HOTNCOLD_STAT_DIVISOR
 			if(HasShonenPower())
 				var/spPower = GetShonenPower() > 0 ? GetShonenPower() : 0
 				For += (0.1*spPower) * For
@@ -1448,6 +1454,9 @@ mob
 				if(!passive_handler.Get("CancelDemonicDura"))
 					End += End * (glob.DEMONIC_DURA_BASE * passive_handler.Get("DemonicDurability"))
 			End+=EndAdded
+			if(UsingHotnCold())
+				if(StyleBuff?:hotCold<0)
+					End+=abs(StyleBuff?:hotCold)/glob.HOTNCOLD_STAT_DIVISOR
 			if(src.HasManaStats())
 				End += getManaStatsBoon()/2
 			var/Mod=1
@@ -1549,6 +1558,11 @@ mob
 			if(passive_handler.Get("Piloting")&&findMecha())
 				Spd = getMechStat(findMecha(), Spd)
 			Spd+=SpdAdded
+			if(UsingHotnCold())
+				if(StyleBuff?:hotCold<0)
+					Spd-=abs(StyleBuff?:hotCold)/glob.HOTNCOLD_STAT_DIVISOR
+				else
+					Spd+=abs(StyleBuff?:hotCold)/glob.HOTNCOLD_STAT_DIVISOR
 			if(src.HasManaStats())
 				Spd += getManaStatsBoon()
 			var/Mod=1

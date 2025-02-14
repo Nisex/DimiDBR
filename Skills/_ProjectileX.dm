@@ -5602,6 +5602,9 @@ obj
 								if(Rate < 0)
 									Rate = abs(Rate)/10*/
 								if(src.Deflectable&&!a:KO)
+									if(Owner.passive_handler["Magmic"] && Owner.SlotlessBuffs["Magmic Shield"])
+										Deflect = 1
+										Owner.SlotlessBuffs["Magmic Shield"].Trigger(Owner, TRUE)
 									if(a:HasDeflection())
 										if(!Deflection_Formula(src.Owner, a, (accmult /** Rate*/ * ( min(0.1,1 - (src.MultiHit * 0.025) ) ) /(1+a:GetDeflection())), BaseChance=(glob.WorldDefaultAcc), Backfire=src.Backfire))
 											Deflect=1
@@ -5663,6 +5666,9 @@ obj
 							if(!Owner.ignoresPowerClamp())
 								powerDif = clamp(powerDif, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
 						var/atk = 0
+						if(Owner.isSuperCharged(Owner))
+							EndRate -=  clamp(glob.SUPERCHARGERATE * Owner.passive_handler["SuperCharge"], 0, 1)
+							Owner.StyleBuff.last_super_charge = world.time
 						var/def = a:getEndStat(1) * EndRate
 						if(src.Owner.UsingPridefulRage())
 							if(Owner.passive_handler.Get("PridefulRage") >= 2)
@@ -5837,6 +5843,8 @@ obj
 								if(!(Piercing && m && (AlreadyHit["[m.ckey]"] >= MultiHit + 1)) || Bounce)
 									if(!AlreadyHit["[m.ckey]"]) AlreadyHit["[m.ckey]"] = 0
 									EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.01, 1)
+									if(Owner.passive_handler["IceHerald"])
+										EffectiveDamage = Owner.getCritAndBlock(FALSE, EffectiveDamage)
 									src.Owner.DoDamage(a, EffectiveDamage, SpiritAttack=1, Destructive=src.Destructive)
 									if(CorruptionGain)
 										Owner.gainCorruption((EffectiveDamage * 1.5) * glob.CORRUPTION_GAIN)
@@ -5999,22 +6007,6 @@ obj
 					if(!src.Killed && src.Owner)
 						if(src.Explode)
 							Bang(src.loc, Size=src.Explode, Offset=0, PX=src.VariationX, PY=src.VariationY, icon_override = ExplodeIcon)
-							// for(var/mob/m in view(src.Explode, src))
-							// 	if(istype(m, /mob/Player/AI))
-							// 		continue//dont hurt ais with explosions that they are too dumb to avoid
-
-							// 	var/EffectiveDamage
-							// 	if(Damage>=0)
-							// 		EffectiveDamage=Damage*src.Explode//remove the true damage aspect
-							// 	else
-							// 		EffectiveDamage=Damage*(-1)*src.Explode
-							// 	EffectiveDamage/=m.GetEnd(src.EndRate)
-							// 	EffectiveDamage/=m.Power
-							// 	if(m.HasDeflection())
-							// 		EffectiveDamage*=max(1-(0.25*m.GetDeflection()),0.25)
-							// 	if(m.HasBlastShielding())
-							// 		EffectiveDamage/=2**3
-							// 	src.Owner.DoDamage(m, EffectiveDamage/(10**3), Destructive=src.Destructive)
 						if(src.Cluster)
 							for(var/c=src.ClusterCount, c>0, c--)
 								if(src.ClusterAdjust)

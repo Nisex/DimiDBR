@@ -83,6 +83,10 @@ proc
 						if(!Defender.Burn)
 							OMsg(Attacker, messages[element])
 */
+			if(Attacker.passive_handler["Amplify"])
+				DebuffIntensity += Attacker.passive_handler["Amplify"] * glob.AMPLIFY_MODIFIER
+			if(Attacker.UsingHotnCold())
+				DebuffIntensity += abs(Attacker.StyleBuff?:hotCold)/glob.HOTNCOLD_DEBUFF_DIVISOR
 			switch(element)
 				if("Truth")
 					DamageMod+=2

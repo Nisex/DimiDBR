@@ -710,6 +710,7 @@ window "mainwindow"
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
+		background-color = none
 		saved-params = "splitter"
 		right = "rpane"
 		is-vert = true
@@ -821,7 +822,7 @@ window "mapwindow"
 		text = "STORAGE"
 	elem "Storage"
 		type = BAR
-		pos = 561,392
+		pos = 561,393
 		size = 113x20
 		anchor1 = 100,100
 		anchor2 = -1,-1
@@ -834,7 +835,7 @@ window "mapwindow"
 		dir = east
 	elem "HungerLabel"
 		type = LABEL
-		pos = 560,371
+		pos = 565,394
 		size = 113x20
 		anchor1 = 100,100
 		anchor2 = -1,-1
@@ -862,7 +863,7 @@ window "mapwindow"
 		dir = east
 	elem "MovementLabel"
 		type = LABEL
-		pos = 9,379
+		pos = 7,420
 		size = 30x30
 		anchor1 = 0,100
 		anchor2 = -1,-1
@@ -877,9 +878,9 @@ window "mapwindow"
 		text = "0"
 	elem "StyleLabel"
 		type = LABEL
-		pos = 9,412
+		pos = 564,438
 		size = 113x20
-		anchor1 = 0,100
+		anchor1 = 100,100
 		anchor2 = -1,-1
 		font-family = "@Microsoft JhengHei Light"
 		font-size = 9
@@ -892,7 +893,7 @@ window "mapwindow"
 		text = "STYLE"
 	elem "MovementBar"
 		type = BAR
-		pos = 42,394
+		pos = 39,438
 		size = 83x15
 		anchor1 = 0,100
 		anchor2 = -1,-1
@@ -933,7 +934,7 @@ window "mapwindow"
 		text = "TENSION"
 	elem "HardenLabel"
 		type = LABEL
-		pos = 236,435
+		pos = 236,436
 		size = 55x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
@@ -948,10 +949,10 @@ window "mapwindow"
 		text = "Harden"
 	elem "BarWound"
 		type = LABEL
-		pos = 561,412
+		pos = 122,9
 		size = 113x20
-		anchor1 = 100,100
-		anchor2 = -1,-1
+		anchor1 = 0,0
+		anchor2 = 0,0
 		font-family = "@Microsoft JhengHei Light"
 		font-size = 12
 		font-style = "bold"
@@ -978,7 +979,7 @@ window "mapwindow"
 		text = "WATCHERS ON"
 	elem "BarPotion"
 		type = LABEL
-		pos = 410,412
+		pos = 410,413
 		size = 55x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
@@ -993,7 +994,7 @@ window "mapwindow"
 		text = "Shear"
 	elem "BarShock"
 		type = LABEL
-		pos = 294,435
+		pos = 294,436
 		size = 55x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
@@ -1008,10 +1009,10 @@ window "mapwindow"
 		text = "Shock"
 	elem "BarRP"
 		type = LABEL
-		pos = 561,435
+		pos = 446,5
 		size = 113x20
-		anchor1 = 100,100
-		anchor2 = -1,-1
+		anchor1 = 0,0
+		anchor2 = 0,0
 		font-family = "@Microsoft JhengHei Light"
 		font-size = 9
 		font-style = "bold"
@@ -1023,7 +1024,7 @@ window "mapwindow"
 		text = "RP MODE"
 	elem "BarSlow"
 		type = LABEL
-		pos = 294,412
+		pos = 294,413
 		size = 55x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
@@ -1038,7 +1039,7 @@ window "mapwindow"
 		text = "Chill"
 	elem "BarBreak"
 		type = LABEL
-		pos = 236,412
+		pos = 236,413
 		size = 55x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
@@ -1053,7 +1054,7 @@ window "mapwindow"
 		text = "Shatter"
 	elem "BarOxygen"
 		type = LABEL
-		pos = 410,435
+		pos = 410,436
 		size = 55x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
@@ -1068,7 +1069,7 @@ window "mapwindow"
 		text = "Oxygen"
 	elem "BarPoison"
 		type = LABEL
-		pos = 352,435
+		pos = 352,436
 		size = 55x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
@@ -1083,7 +1084,7 @@ window "mapwindow"
 		text = "Poison"
 	elem "BarBurning"
 		type = LABEL
-		pos = 352,412
+		pos = 352,413
 		size = 55x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
@@ -2857,11 +2858,6 @@ window "skilltree"
 		can-minimize = false
 		can-resize = false
 		macro = "macro"
-		outer-size = 426x467
-		outer-pos = 384,0
-		inner-size = 408x420
-		inner-pos = 9,38
-		screen-size = 2560x1390
 	elem "button6"
 		type = BUTTON
 		pos = 103,32

@@ -46,3 +46,25 @@
 		TurfShift='IceGround.dmi'
 		Distance=5
 		Area="Circle"
+	Dantes_Inferno
+		Area = "Circle"
+		Distance = 8
+		Size = 1
+		TurfShift = 'Flaming Rain.dmi'
+		Scorching = 15
+		Rounds = 50
+		SpecialAttack = 1
+		DamageMult = 4
+		AdaptRate = 1
+		EndDefense = 0.75
+	Flashfire_Fist
+		Area = "Wave"
+		TurfShift='BurnedGround.dmi'
+		Distance=5
+		SpecialAttack = 1
+		Size = 3
+		DamageMult = 4
+		AdaptRate = 1
+		Rush = 3
+		EndDefense = 1
+		Scorching = 50

@@ -18,7 +18,7 @@
 
 
 proc
-	Stun(mob/m,amount=5)
+	Stun(mob/m,amount=5, ignoreImmune = FALSE)
 		if(!m)
 			return
 		if(!m.client)
@@ -26,7 +26,7 @@ proc
 		if(m.Saga != "Kamui" && !m.CheckActive("Kamui Senketsu"))
 			if(m.InUBW&&m.MadeOfSwords)
 				return
-			if(m.StunImmune)
+			if(m.StunImmune && !ignoreImmune)
 				return
 		if(m.CheckSlotless("Great Ape"))
 			amount *= 0.75

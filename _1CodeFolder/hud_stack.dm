@@ -38,6 +38,9 @@
 					appear.icon = 'chargedMystic.dmi'
 				if("MysticT1")
 					appear.icon = 'ui.dmi'
+				if("SuperCharge")
+					appear.icon = 'background.dmi'
+					appear.icon_state = "plasma_style"
 			appear.layer = FLY_LAYER
 			appear.alpha = 255
 
@@ -144,8 +147,8 @@ client/proc/remove_hud(id)
 			animate(barbg, alpha = 0, time = 2)
 
 
-#define BAR_X_LOCS list("Fury" = 1, "Momentum" = 1, "Harden" = 1, "FTG" = 1, "MysticT0" = 1, "MysticT1" = 32)
-#define BAR_Y_LOCS list("Fury" = 86, "Momentum" = 118, "Harden" = 150, "FTG" = 32, "MysticT0" = 64, "MysticT1" = 64)
+#define BAR_X_LOCS list("Fury" = 1, "Momentum" = 1, "Harden" = 1, "FTG" = 1, "MysticT0" = 1, "MysticT1" = 32, "SuperCharge" = 32)
+#define BAR_Y_LOCS list("Fury" = 86, "Momentum" = 118, "Harden" = 150, "FTG" = 32, "MysticT0" = 64, "MysticT1" = 64, "SuperCharge" = 32)
 
 /mob/proc/hudIsLive(option, path, toss_obj,var_callback)
 	if(client.hud_ids[option])

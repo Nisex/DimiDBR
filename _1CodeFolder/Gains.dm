@@ -516,9 +516,10 @@ mob
 					if(aura)
 						if(hudIsLive("MysticT1", /obj/hud/mystic, aura, "last_toss"))
 							client.hud_ids["MysticT1"]?:Update()
-			else
-				client.remove_hud("MysticT0")
-				client.remove_hud("MysticT1")
+			
+			if(passive_handler["SuperCharge"])
+				if(hudIsLive("SuperCharge", /obj/hud/mystic, StyleBuff, "last_super_charge" ))
+					client.hud_ids["SuperCharge"].Update()
 
 
 
@@ -803,6 +804,13 @@ mob
 										src.Quake((14+2*Z.DamageMult))
 
 			src.Debuffs()
+			if(UsingHotnCold())
+				var/val = StyleBuff?:hotCold
+				if(val < 0)
+					Slow += abs(val)/glob.HOTNCOLD_DEBUFF_DIVISOR
+					Crippled += abs(val)/(glob.HOTNCOLD_DEBUFF_DIVISOR*2)
+				else
+					Burn += val/glob.HOTNCOLD_DEBUFF_DIVISOR
 			if(src.Harden)
 				src.Harden -= glob.BASE_STACK_REDUCTION
 				if(hudIsLive("Harden", /obj/bar))

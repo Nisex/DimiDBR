@@ -406,7 +406,6 @@ mob/Players/verb
 		winset(usr,"skilltreegrid","cells=0x0")//clears grid
 		usr<<output("RPP: [round(usr.GetRPPSpendable())]","STRewardPoints")
 		sleep(1)
-		var/p=1//used as a positioning locator for rows/columns
 		if(copytext(z, length(z)-5, length(z)+1) == "Styles")
 			var/x = 1
 			var/y = 1
@@ -418,7 +417,6 @@ mob/Players/verb
 					y++
 			for(var/tier in 1 to 4)
 				var/string = "[z]T[num2text(tier)]" // STYLESTX
-				p = 1
 				for(var/obj/SkillTreeObj/s in SkillTreeList[string])
 					usr<<output(s,"skilltreegrid:[x],[y]")
 					x++

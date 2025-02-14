@@ -1,5 +1,5 @@
 /mob/var/tmp/last_style_effect = 0
-
+/obj/Skills/Buffs/var/tmp/last_super_charge = -500
 /obj/Skills/Buffs/NuStyle/MysticStyle
 	StyleFor = 1.15
 	passives = list("SpiritFlow" = 	1)

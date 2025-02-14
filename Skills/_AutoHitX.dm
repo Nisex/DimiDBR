@@ -6614,6 +6614,8 @@ obj
 					if(m.HasAutoReversal())
 						if(!src.SpecialAttack||m.passive_handler.Get("TotalReversal"))
 							if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldDefaultAcc, IgnoreNoDodge=1) == (HIT || WHIFF))
+								if(m.passive_handler["Magmic"] && m.SlotlessBuffs["Magmic Shield"])
+									m.SlotlessBuffs["Magmic Shield"].Trigger(m, TRUE)
 								if(src.Damage>0.1)
 									KenShockwave(m, icon='KenShockwave.dmi', Size=dmgRoll, Time=3)
 									m.Knockback(src.Knockback+(reversalChance*2.5) , src.Owner, Direction=get_dir(m, src.Owner))
