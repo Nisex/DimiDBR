@@ -9,6 +9,7 @@
 /obj/Skills/AutoHit/Hurricane
 	ElementalClass="Wind"
 	Distance=12
+	DistanceAround = 3
 	Size = 2
 	TurfShift = 'Air Slash.dmi'
 	TurfShiftDuration=3
@@ -28,30 +29,31 @@
 /obj/Skills/AutoHit/Thunder_Bolt
 	ElementalClass="Wind"
 	Distance=12
+	NoAttackLock=1
 	Area="Target"
 	AdaptRate=1
 	DamageMult=1.5
 	Paralyzing=15
 	Size=1
 	Bolt=2
-	HitSparkIcon='BLANK.dmi'
-	HitSparkX=0
-	HitSparkY=0
 	SpecialAttack=1
 	CanBeDodged=0
 	CanBeBlocked=0
 	Cooldown = 0.5
 	adjust(mob/p)
+		world<<"adjust maxxing"
 		Cooldown = max(1 - (p.Potential/110), 0.1)
 		Paralyzing = 5 + p.Potential/2
 		DamageMult = 1 + round(p.Potential/50)
 /obj/Skills/AutoHit/Icy_Wind
 	ElementalClass="Water"
+	NoAttackLock=1
 	Area="Around Target"
 	AdaptRate=1
 	DamageMult=1.25
 	Freezing=65
 	Distance=12
+	DistanceAround = 1
 	Size = 2
 	TurfShift = 'Blizzard.dmi'
 	TurfShiftDuration=3

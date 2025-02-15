@@ -199,9 +199,9 @@ mob
 					else
 						OMsg(src, "<font color='[rgb(255, 0, 0)]'>[defender] takes a critical hit! They take [val] damage!</font color>")
 			if(passive_handler["CoolingDown"])
-				StyleBuff?:hotCold -= tmpval * glob.HOTNCOLD_MODIFIER
+				StyleBuff?:hotCold = clamp(StyleBuff?:hotCold - tmpval * glob.HOTNCOLD_MODIFIER, -100, 100)
 			else if(passive_handler["HeatingUp"])
-				StyleBuff?:hotCold += tmpval * glob.HOTNCOLD_MODIFIER
+				StyleBuff?:hotCold  = clamp(StyleBuff?:hotCold + tmpval * glob.HOTNCOLD_MODIFIER, -100, 100)
 			defender.LoseHealth(max(0,tmpval))
 
 			if(defender.Flying)

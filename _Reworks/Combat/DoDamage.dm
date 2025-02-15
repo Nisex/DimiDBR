@@ -58,6 +58,7 @@
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
 	if((unarmed || sword) || (spiritAtk && !autohit && passive_handler["IceHerald"]) || (autohit && passive_handler["DemonicEmpower"]))
+		world<<"Can Crit, [unarmed] || [sword] == [(unarmed || sword)], spiritAtk & not autohit w/ IceHerald [spiritAtk && !autohit && passive_handler["IceHerald"]]"
 		val = getCritAndBlock(defender, val)
 	#if DEBUG_DAMAGE
 	log2text("Damage", "After CritAndBlock", "damageDebugs.txt", "[src.ckey]/[src.name]")

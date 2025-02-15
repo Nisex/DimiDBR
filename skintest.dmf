@@ -980,11 +980,11 @@ window "mapwindow"
 	elem "BarPotion"
 		type = LABEL
 		pos = 410,413
-		size = 55x20
+		size = 64x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
 		font-family = "@Microsoft JhengHei Light"
-		font-size = 7
+		font-size = 6
 		font-style = "bold"
 		text-color = #a40000
 		background-color = #000000
@@ -995,11 +995,11 @@ window "mapwindow"
 	elem "BarShock"
 		type = LABEL
 		pos = 294,436
-		size = 55x20
+		size = 64x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
 		font-family = "@Microsoft JhengHei Light"
-		font-size = 7
+		font-size = 6
 		font-style = "bold"
 		text-color = #0080c0
 		background-color = #000000
@@ -1025,11 +1025,11 @@ window "mapwindow"
 	elem "BarSlow"
 		type = LABEL
 		pos = 294,413
-		size = 55x20
+		size = 64x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
 		font-family = "@Microsoft JhengHei Light"
-		font-size = 7
+		font-size = 6
 		font-style = "bold"
 		text-color = #00ffff
 		background-color = #000000
@@ -1040,11 +1040,11 @@ window "mapwindow"
 	elem "BarBreak"
 		type = LABEL
 		pos = 236,413
-		size = 55x20
+		size = 64x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
 		font-family = "@Microsoft JhengHei Light"
-		font-size = 7
+		font-size = 6
 		font-style = "bold"
 		text-color = #ffff00
 		background-color = #000000
@@ -1055,11 +1055,11 @@ window "mapwindow"
 	elem "BarOxygen"
 		type = LABEL
 		pos = 410,436
-		size = 55x20
+		size = 64x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
 		font-family = "@Microsoft JhengHei Light"
-		font-size = 7
+		font-size = 6
 		font-style = "bold"
 		text-color = #efff80
 		background-color = #000000
@@ -1070,11 +1070,11 @@ window "mapwindow"
 	elem "BarPoison"
 		type = LABEL
 		pos = 352,436
-		size = 55x20
+		size = 64x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
 		font-family = "@Microsoft JhengHei Light"
-		font-size = 7
+		font-size = 6
 		font-style = "bold"
 		text-color = #00ff00
 		background-color = #000000
@@ -1085,11 +1085,11 @@ window "mapwindow"
 	elem "BarBurning"
 		type = LABEL
 		pos = 352,413
-		size = 55x20
+		size = 64x20
 		anchor1 = 50,100
 		anchor2 = -1,-1
 		font-family = "@Microsoft JhengHei Light"
-		font-size = 7
+		font-size = 6
 		font-style = "bold"
 		text-color = #ff0000
 		background-color = #000000

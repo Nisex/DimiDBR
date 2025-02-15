@@ -5358,10 +5358,12 @@ mob
 		Activate(var/obj/Skills/AutoHit/Z)
 			set waitfor = FALSE
 			. = TRUE
+			world<<"[Z] || here"
 			if(src.passive_handler.Get("Silenced"))
 				src << "You can't use [Z] you are silenced!"
 				return 0
 			if(Z.Using)//Skill is on cooldown.
+				world<<"Using lock"
 				return FALSE
 			if(!Z.heavenlyRestrictionIgnore && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Autohits"))
 				return FALSE
@@ -5510,6 +5512,7 @@ mob
 				if(Corruption - Z.CorruptionCost < 0)
 					src << "You don't have enough Corruption to activate [Z]"
 					return FALSE
+			world<<"past checks ye?"
 			if(Z.HitSparkIcon)
 				src.HitSparkIcon=Z.HitSparkIcon
 				src.HitSparkX=Z.HitSparkX
@@ -5554,6 +5557,7 @@ mob
 			var/turf/TrgLoc
 			if(Z.Area=="Around Target"||Z.Area=="Target")
 				TrgLoc=src.Target.loc
+				world<<"wait..."
 				if(Target.passive_handler.Get("CounterSpell"))
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Magic/Counterspell/s in Target)
 						if(s.Using)
@@ -5706,7 +5710,8 @@ mob
 					if(src.Target.z!=src.z)
 						missed=1
 					if(!Z.Rush)//This one doesn't apply to rushes.
-						if(src.x+Z.Distance<src.Target.x||src.x-Z.Distance>src.Target.x||src.y+Z.Distance<src.Target.y||src.y-Z.Distance>src.Target.y)
+						if(get_dist(src, Target) > Distance)
+							world<<"missed here"
 							missed=1
 
 			if(Z.CustomActive)
@@ -5890,7 +5895,9 @@ mob
 							src.Circle(Z)
 					if("Target")
 						if(Target)
-							if(src.x+Z.Distance<src.Target.x||src.x-Z.Distance>src.Target.x||src.y+Z.Distance<src.Target.y||src.y-Z.Distance>src.Target.y)
+							if(get_dist(src, Target) > Distance)
+								world<<"we miss?"
+							// if(src.x+Z.Distance<src.Target.x||src.x-Z.Distance>src.Target.x||src.y+Z.Distance<src.Target.y||src.y-Z.Distance>src.Target.y)
 								missed=1
 							src.Target(src.Target, Z, missed ? TrgLoc : null)
 						else
@@ -6230,6 +6237,7 @@ obj
 			if(!owner)
 				loc = null
 				return
+			world<<"this is activating?"
 			AlreadyHit = list()
 			autohitChildren = list()
 			src.IgnoreAlreadyHit = Z.IgnoreAlreadyHit
@@ -7238,12 +7246,14 @@ obj
 										src.Damage(m)
 						goto Kill
 				if(src.Target)
+					world<<"we should get here"
 					if(src.Slow)
 						src.Owner.Frozen=1
 						sleep(src.Slow*world.tick_lag)
 						src.Damage(src.Owner.Target)
 						src.Owner.Frozen=0
 					else
+						world<<"damage is done ehre"
 						src.Damage(src.Target)
 					goto Kill
 				while(src.Distance>0)

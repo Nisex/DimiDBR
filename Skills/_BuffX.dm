@@ -12152,9 +12152,10 @@ mob
 			src.AllSkillsRemove(src.StyleBuff)
 			if(StyleBuff.BuffSelf)
 				var/obj/Skills/Buffs/s = FindSkill(StyleBuff.BuffSelf)
-				var/name2remove = s.name
-				AllSkillsRemove(s)
-				SlotlessBuffs -= name2remove //TODO: this may still not work
+				if(s)
+					var/name2remove = s.name
+					AllSkillsRemove(s)
+					SlotlessBuffs -= name2remove //TODO: this may still not work
 			OMsg(src, "[src] relaxes their [src.StyleBuff]...")
 			src.Tension=0
 			src.StanceActive=0

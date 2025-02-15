@@ -17,7 +17,7 @@ mob/proc/RemoveWaterOverlay()
 	src.underlays-=image('The Ripple.dmi', pixel_x=-32, pixel_y=-32)
 
 mob/var/calmcounter=5
-
+mob/var/HotnCold
 mob/var/tmp/last_gain_loop
 var/global/update_loop/gain_loop/gain_loop = new()
 
@@ -509,6 +509,7 @@ mob
 				if(mystic[2] >= 1)
 					// we must find the aura buff
 					var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/aura
+					world<<"here!!"
 					for(var/a in SlotlessBuffs)
 						a = SlotlessBuffs[a]
 						if(isAChild(a?:type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura ))
@@ -516,10 +517,17 @@ mob
 					if(aura)
 						if(hudIsLive("MysticT1", /obj/hud/mystic, aura, "last_toss"))
 							client.hud_ids["MysticT1"]?:Update()
-			
+			else
+				if(client.hud_ids["MysticT0"])
+					client.remove_hud("MysticT0")
+				if(client.hud_ids["MysticT1"])
+					client.remove_hud("MysticT1")
 			if(passive_handler["SuperCharge"])
 				if(hudIsLive("SuperCharge", /obj/hud/mystic, StyleBuff, "last_super_charge" ))
 					client.hud_ids["SuperCharge"].Update()
+			else
+				if(client.hud_ids["SuperCharge"])
+					client.remove_hud("SuperCharge")
 
 
 
@@ -527,6 +535,9 @@ mob
 			if(passive_handler["Flying Thunder God"])
 				if(hudIsLive("FTG", /obj/hud/ftg))
 					client.hud_ids["FTG"]?:Update()
+			else
+				if(client.hud_ids["FTG"])
+					client.remove_hud("FTG")
 
 			if(scrollTicker)
 				scrollTicker--
@@ -806,11 +817,17 @@ mob
 			src.Debuffs()
 			if(UsingHotnCold())
 				var/val = StyleBuff?:hotCold
+				HotnCold = round(val,1)
+				if(hudIsLive("HotnCold", /obj/bar))
+					client.hud_ids["HotnCold"]?:Update()
 				if(val < 0)
-					Slow += abs(val)/glob.HOTNCOLD_DEBUFF_DIVISOR
-					Crippled += abs(val)/(glob.HOTNCOLD_DEBUFF_DIVISOR*2)
+					AddSlow(abs(val)/glob.HOTNCOLD_DEBUFF_DIVISOR)
+					AddCrippling(abs(val)/(glob.HOTNCOLD_DEBUFF_DIVISOR*4))
 				else
-					Burn += val/glob.HOTNCOLD_DEBUFF_DIVISOR
+					AddBurn(abs(val)/(glob.HOTNCOLD_DEBUFF_DIVISOR))
+			else
+				if(client.hud_ids["HotnCold"])
+					client.remove_hud("HotnCold")
 			if(src.Harden)
 				src.Harden -= glob.BASE_STACK_REDUCTION
 				if(hudIsLive("Harden", /obj/bar))

@@ -2491,7 +2491,8 @@ mob
 					return 1
 			return 0
 		UsingMysticStyle()
-			if(!StyleBuff) return list(FALSE, FALSE)
+			if(!StyleBuff)
+				return list(FALSE, FALSE)
 			if(isAChild(StyleBuff.type, /obj/Skills/Buffs/NuStyle/MysticStyle))
 				return list(TRUE, StyleBuff.SignatureTechnique)
 			return list(FALSE, FALSE)

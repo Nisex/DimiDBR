@@ -20,16 +20,21 @@
 		var/tmp/obj/Skills/obj_to_ref
 		var/var_to_ref
 		proc/mysticTicker()
-			var/next_cast = client.mob.can_use_style_effect(FALSE)
-			if(obj_to_ref)
-				next_cast = obj_to_ref.vars["[var_to_ref]"] + glob.FAMILIAR_SKILL_CD
-			animate(src, alpha = clamp(255-(next_cast - world.time), 0 , 255), time = 1)
-			if(next_cast - world.time <= 0 && length(appear.filters) < 1)
-				appear.filters = filter(type="outline", size=1, color=rgb(255, 234, 47))
-				pulse()
-			if(alpha <= 0 && length(appear.filters) > 0)
+			if(client.mob.UsingMysticStyle()[1]==TRUE && client.mob.StyleBuff)
+				var/next_cast = client.mob.can_use_style_effect(FALSE)
+				if(obj_to_ref)
+					next_cast = obj_to_ref.vars["[var_to_ref]"] + glob.FAMILIAR_SKILL_CD
+				animate(src, alpha = clamp(255-(next_cast - world.time), 0 , 255), time = 1)
+				if(next_cast - world.time <= 0 && length(appear.filters) < 1)
+					appear.filters = filter(type="outline", size=1, color=rgb(255, 234, 47))
+					pulse()
+				if(alpha <= 0 && length(appear.filters) > 0)
+					appear.filters = list()
+					animate(appear, flags = ANIMATION_END_NOW)
+			else
+				alpha = 0
 				appear.filters = list()
-				animate(appear, flags = ANIMATION_END_NOW)
+				animate(appear)
 		New(client/_client, o, _x, _y, obj/thing, vari)
 			. = ..()
 			appear = new()
@@ -129,26 +134,35 @@ client/proc/remove_hud(id)
 		client.screen+=barbg
 		meter.animateBar(-32,4)
 	Update()
+		
 		var/val = client.mob.vars["[linked_var]"]
-		if(val > 0)
+		if(linked_var == "HotnCold")
 			if(holder.alpha == 0 || barbg.alpha == 0)
 				animate(holder, alpha = 255, time = 2)
 				animate(barbg, alpha = 255, time = 2)
-			barbg.maptext = "[CHAT_STYLE][val]"
-			var/gap = 32 - glob.vars["MAX_[uppertext(linked_var)]_STACKS"] 
-			if(val > glob.vars["MAX_[uppertext(linked_var)]_STACKS"] )
-				meter.animateBar(clamp(val/3, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
-			else
-				if(val <= gap)
-					gap = 0
-				meter.animateBar(clamp(val+gap, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
+			if(linked_var == "HotnCold")
+				meter.animateBar(clamp(val/3, -33, 33) , glob.STACK_ANIMATE_TIME)
+				barbg.maptext = "[CHAT_STYLE][val]"
 		else
-			animate(holder, alpha = 0, time = 2)
-			animate(barbg, alpha = 0, time = 2)
+			if(val > 0)
+				if(holder.alpha == 0 || barbg.alpha == 0)
+					animate(holder, alpha = 255, time = 2)
+					animate(barbg, alpha = 255, time = 2)
+				barbg.maptext = "[CHAT_STYLE][val]"
+				var/gap = 32 - glob.vars["MAX_[uppertext(linked_var)]_STACKS"] 
+				if(val > glob.vars["MAX_[uppertext(linked_var)]_STACKS"] )
+					meter.animateBar(clamp(val/3, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
+				else
+					if(val <= gap)
+						gap = 0
+					meter.animateBar(clamp(val+gap, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
+			else
+				animate(holder, alpha = 0, time = 2)
+				animate(barbg, alpha = 0, time = 2)
 
 
-#define BAR_X_LOCS list("Fury" = 1, "Momentum" = 1, "Harden" = 1, "FTG" = 1, "MysticT0" = 1, "MysticT1" = 32, "SuperCharge" = 32)
-#define BAR_Y_LOCS list("Fury" = 86, "Momentum" = 118, "Harden" = 150, "FTG" = 32, "MysticT0" = 64, "MysticT1" = 64, "SuperCharge" = 32)
+#define BAR_X_LOCS list("Fury" = 1, "Momentum" = 1, "Harden" = 1, "FTG" = 1, "MysticT0" = 1, "MysticT1" = 32, "SuperCharge" = 32, "HotnCold" = 128)
+#define BAR_Y_LOCS list("Fury" = 86, "Momentum" = 118, "Harden" = 150, "FTG" = 32, "MysticT0" = 64, "MysticT1" = 64, "SuperCharge" = 32, "HotnCold" = 1)
 
 /mob/proc/hudIsLive(option, path, toss_obj,var_callback)
 	if(client.hud_ids[option])

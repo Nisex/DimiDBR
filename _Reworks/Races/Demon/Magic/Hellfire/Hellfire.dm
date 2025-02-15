@@ -1,3 +1,4 @@
+
 /obj/Skills/Projectile/Magic/HellFire/Hellpyre
     scalingValues = list("Blasts" = list(4,5,6,6,8,10), "DamageMult" = list(4,6,8,10,12,15), \
     "Delay" = list(8,4,3,2,1,1))
@@ -21,6 +22,7 @@
     ActiveMessage = "unleashes a wave of Fire!"
     ManaCost = 5
     Delay = 8
+    MagicNeeded = 0
     CorruptionGain = 1
     proc/returnToInit()
         if(!altered)
@@ -52,6 +54,7 @@
     ManaCost = 8
     TimerLimit = 10
     EndYourself=1
+    MagicNeeded = 0
     ActiveMessage = "rains down an onslaught of fire!"
     adjust(mob/p)
         scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm::scalingValues
@@ -120,6 +123,7 @@
     ConfuseAffected = 1
     BurnAffected = 10
     TimerLimit = 5
+    MagicNeeded = 0
     Cooldown = 60
     TargetOverlay = 'DarkShock.dmi'
     ActiveMessage = "swells fire within their target."
@@ -137,4 +141,7 @@
     Trigger(mob/User, Override)
         adjust(User)
         ..()
+    verb/OverHeat()
+        set category = "Skills"
+        src.Trigger(usr, 0 )
         
