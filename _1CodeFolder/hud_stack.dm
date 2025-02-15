@@ -103,10 +103,18 @@ client/proc/add_hud(id, atom/movable/a)
 	return a
 client/proc/remove_hud(id)
 	if(hud_ids[id])
+		hud_ids[id].alpha = 0
+		var/obj/thing = hud_ids[id]
 		screen -= hud_ids[id]
 		mob.contents -= hud_ids[id]
-		if(hud_ids[id])
-			del hud_ids[id] // it should already b gone but 2 make sure, who knows
+		if(istype(thing, /obj/bar))
+			var/obj/bar/thing1 = thing
+			screen -= thing1.holder
+			screen -= thing1.barbg
+			del thing1.holder
+			del thing1.barbg
+			del thing1.meter
+		del thing
 		hud_ids -= id
 
 /obj/bar

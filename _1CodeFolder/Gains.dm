@@ -509,7 +509,6 @@ mob
 				if(mystic[2] >= 1)
 					// we must find the aura buff
 					var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/aura
-					world<<"here!!"
 					for(var/a in SlotlessBuffs)
 						a = SlotlessBuffs[a]
 						if(isAChild(a?:type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura ))

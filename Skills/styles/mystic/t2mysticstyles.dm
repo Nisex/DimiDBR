@@ -16,6 +16,7 @@
 			sleep(2)
 			..()
 		StyleActive = "Hellfire"
+		SignatureTechnique = 2
 
 	Plasma
 		ElementalOffense = "Wind"
@@ -27,6 +28,7 @@
 						"Godspeed" = 2, "AirBend" = 1.5, "Hardening" = 2, "Burning" = 2, "Shattering" = 5, "Shocking" = 2, "Chilling" = 2)
 		Finisher="/obj/Skills/Queue/Finisher/Mega_Arm" // Super_mega_buster
 		StyleActive = "Plasma"
+		SignatureTechnique = 2
 	Blizzard
 		ElementalOffense = "Water"
 		ElementalDefense = "Wind"
@@ -35,6 +37,7 @@
 						"Freezing" = 5, "Shocking" = 5, "AirBend" = 2, "WaveDancer" = 1.5)
 		Finisher="/obj/Skills/Queue/Finisher/Frostfist"
 		StyleActive = "Blizzard"
+		SignatureTechnique = 2
 	Hot_n_Cold
 		var/hotCold = 0 // -100 is 100% cold, 100 is 100% hot
 		StyleActive = "Hot Style"
@@ -45,6 +48,7 @@
 		StyleFor = 1.45
 		StyleOff = 1.15
 		StyleActive = "Hot Style"
+		SignatureTechnique = 2
 		proc/swap_stance()
 			if(StyleActive == "Hot Style")
 				StyleActive = "Cold Style"

@@ -41,7 +41,6 @@
 	CanBeBlocked=0
 	Cooldown = 0.5
 	adjust(mob/p)
-		world<<"adjust maxxing"
 		Cooldown = max(1 - (p.Potential/110), 0.1)
 		Paralyzing = 5 + p.Potential/2
 		DamageMult = 1 + round(p.Potential/50)
