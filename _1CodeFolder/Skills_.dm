@@ -39,7 +39,7 @@ obj/Skills/proc/Cooldown(var/modify=1, var/Time, mob/p)
 					else if(TM > 0)
 						modify/=clamp((1+(TM)),0.1,glob.TECHNIQUE_MASTERY_LIMIT)
 			else
-				if(m.passive_handler.Get("Hustle")||m.HasLegendaryPower() > 0.25)
+				if(m.Hustling())
 					modify*=0.75
 			if(glob.SKILL_BRANCH_LOCK&&LockOut.len>0)
 				for(var/obj/Skills/otherSkills in m.Skills)

@@ -1,7 +1,7 @@
 /obj/Skills/Buffs/NuStyle/MysticStyle
 	Hellfire
 		passives = list("SpiritFlow" = 3, "Familiar" = 2, "Combustion" = 60, "Heavy Strike" = "Inferno",\
-						"Scorching" = 1)
+						"Scorching" = 4)
 		ElementalOffense = "HellFire"
 		ElementalDefense = "Fire"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Fire"
@@ -17,8 +17,10 @@
 			..()
 		StyleActive = "Hellfire"
 		SignatureTechnique = 2
-
-	Plasma
+		verb/Hellfire()
+			set hidden=1
+			src.Trigger(usr)
+	Plasma_Style
 		ElementalOffense = "Wind"
 		ElementalDefense = "Fire"
 		StyleFor = 1.3
@@ -29,15 +31,24 @@
 		Finisher="/obj/Skills/Queue/Finisher/Mega_Arm" // Super_mega_buster
 		StyleActive = "Plasma"
 		SignatureTechnique = 2
-	Blizzard
+		verb/Plasma_Style()
+			set hidden=1
+			src.Trigger(usr)
+	Blizzard_Bringer
 		ElementalOffense = "Water"
 		ElementalDefense = "Wind"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Water"
-		passives = list("IceHerald" = 1,"Familiar" = 2, "ThunderHerald" = 1, "CriticalChance" = 20, "CriticalDamage" = 0.2, "SpiritFlow" = 3, "Hardening" = 2, \
-						"Freezing" = 5, "Shocking" = 5, "AirBend" = 2, "WaveDancer" = 1.5)
+		passives = list("IceHerald" = 1,"IceAge" = 40, "Familiar" = 2, "ThunderHerald" = 1, "CriticalChance" = 25, "CriticalDamage" = 0.2,\
+						"SpiritFlow" = 3, "Hardening" = 2,"Freezing" = 8, "Rain" = 8, "AirBend" = 2, "WaveDancer" = 1.5, "Godspeed" = 2)
 		Finisher="/obj/Skills/Queue/Finisher/Frostfist"
 		StyleActive = "Blizzard"
+		StyleOff=1.15
+		StyleSpd=1.15
+		StyleFor=1.3
 		SignatureTechnique = 2
+		verb/Blizzard_Bringer()
+			set hidden=1
+			src.Trigger(usr)
 	Hot_n_Cold
 		var/hotCold = 0 // -100 is 100% cold, 100 is 100% hot
 		StyleActive = "Hot Style"
@@ -49,6 +60,9 @@
 		StyleOff = 1.15
 		StyleActive = "Hot Style"
 		SignatureTechnique = 2
+		verb/Hot_n_Cold()
+			set hidden=1
+			src.Trigger(usr)
 		proc/swap_stance()
 			if(StyleActive == "Hot Style")
 				StyleActive = "Cold Style"

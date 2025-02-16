@@ -67,8 +67,35 @@
 	adjust(mob/p)
 		Cooldown = max(1.5 - (p.Potential/110), 0.1)
 		Freezing = 50 + p.Potential/2
-		DamageMult = 0.25 + round(p.Potential/100)
+		DamageMult = 0.25 + round(p.Potential/150)
 		Rounds = 5 + round(p.Potential/20)
+/obj/Skills/AutoHit/HellfireRain
+	ElementalClass="Hellfire"
+	NoAttackLock=1
+	Area="Around Target"
+	AdaptRate=1
+	DamageMult=0.5
+	Distance=12
+	DistanceAround = 3
+	Rounds=5
+	DarknessFlame = 6
+	Size = 2
+	TurfShift = 'Flaming Rain.dmi'
+	TurfShiftDuration=3
+	TurfStrike=2
+	HitSparkIcon='BLANK.dmi'
+	HitSparkX=0
+	HitSparkY=0
+	SpecialAttack=1
+	CanBeDodged=0
+	CanBeBlocked=0
+	Cooldown = 0.5
+	adjust(mob/p)
+		Cooldown = max(2 - (p.Potential/110), 0.1)
+		DarknessFlame = 6 + p.Potential/25
+		DamageMult = 0.3 + round(p.Potential/150)
+		Rounds = 5 + round(p.Potential/20)
+
 /obj/Skills/AutoHit/Earthquake
 	Earthshaking = 5
 	Area="Around Target"
@@ -143,11 +170,11 @@
 	FlickBlast=0
 	AttackReplace=1
 	Distance=7
-	DamageMult=3
+	DamageMult=1.5
 	Dodgeable=0
 	Deflectable=0
 	Instinct=2
-	Radius=1
+	Radius=2
 	ZoneAttack=1
 	ZoneAttackX=0
 	ZoneAttackY=0
@@ -162,6 +189,52 @@
 	Variation=0
 	Trail='FireTornadoTrail.dmi'
 	TrailDuration=20
-	TrailSize=3
+	TrailSize=1
+	TrailX=-8
+	TrailY=-8
+
+/obj/Skills/AutoHit/HellfireInferno
+	Area="Wave"
+	AdaptRate=1
+	DamageMult=1.5
+	ComboMaster=1
+	ControlledRush=3
+	Rush=7
+	Instinct=2
+	Knockback=15
+	Cooldown=15
+	HitSparkIcon='Hit Effect.dmi'
+	HitSparkX=-32
+	HitSparkY=-32
+	HitSparkTurns=1
+	HitSparkSize=0.8
+	HitSparkCount=20
+	HitSparkDispersion=24
+	HitSparkDelay=1
+	Hurricane="/obj/Skills/Projectile/HelfireInferno"
+	HurricaneDelay=0.1
+	WindupMessage="spins rapidly, invoking a tornado that whisks their target!"
+	ActiveMessage="bursts forward to deliver a storm of rapid strikes!!"
+/obj/Skills/Projectile/HelfireInferno
+	FlickBlast=0
+	AttackReplace=1
+	Distance=7
+	DamageMult=2.5
+	Dodgeable=0
+	Deflectable=0
+	Instinct=2
+	Radius=4
+	FireFromSelf=1
+	FireFromEnemy=0
+	Knockback=0
+	Piercing=1
+	IconLock='FireTornadoHead.dmi'
+	IconSize=1
+	LockX=-8
+	LockY=-8
+	Variation=0
+	Trail='FireTornadoTrail.dmi'
+	TrailDuration=20
+	TrailSize=1
 	TrailX=-8
 	TrailY=-8

@@ -954,9 +954,6 @@ mob
 					t = hastransmimic
 				return t*/
 			return 0
-		DrunkPower()
-			if(src.CheckSlotless("Drunken Mastery") && src.Drunk)
-				return 1
 		isUnderDog(mob/p)
 			if(p.Power > Power || p.passive_handler.Get("GodKi") > p.passive_handler.Get("GodKi"))
 				return TRUE
@@ -966,14 +963,15 @@ mob
 			if(!changelingIgnore&&isRace(CHANGELING)&&Anger)
 				return 0
 			Return+=passive_handler.Get("PureDamage")
+
 			if(passive_handler.Get("Shameful Display"))
 				var/viewCount = getSenketsuViewers()
 				if(passive_handler.Get("Shameful Display") >= 4)
 					Return += sqrt(viewCount)
 				else
 					Return -= sqrt(viewCount)
-			if(src.DrunkPower())
-				Return+=3
+			if(passive_handler["Rage"] && Health <= 50)
+				Return += clamp((100-Health) * passive_handler["Rage"]/glob.RAGE_DIVISOR, 0.1, glob.MAX_RAGEPUREDAMAGE)
 			if(src.TarotFate=="The Hanged Man")
 				Return+=5
 			if(src.TarotFate=="Justice")
@@ -993,11 +991,16 @@ mob
 				Return+=stp
 			if(src.isRace(MAJIN))
 				Return += AscensionsAcquired * getMajinRates("Reduction")
+			if(passive_handler["Rage"] && Health <= 50)
+				Return -= clamp((100-Health) * passive_handler["Rage"]/glob.RAGE_DIVISOR, 0, glob.MAX_RAGEPUREDAMAGE)
 			if(src.TarotFate=="The Hanged Man")
 				Return-=5
 			if(src.TarotFate=="Justice")
 				Return+=5
 			return Return
+		Hustling()
+			if(passive_handler.Get("Hustle") || HasLegendaryPower() > 0.25 || (passive_handler["Rage"] && Health <= 25))
+				return 1
 		HasWalking()
 			if(locate(/obj/Skills/Walking, src))
 				return 1
@@ -1091,8 +1094,6 @@ mob
 		GetMovementMastery()
 			var/Total=0
 			Total+=passive_handler.Get("MovementMastery")
-			if(src.DrunkPower())
-				Total+=2
 			if(Saga=="Cosmo" && !SpecialBuff)
 				Total += SagaLevel * 2.5
 			return Total
@@ -1359,8 +1360,6 @@ mob
 				Extra++
 			if(src.CombatCPU)
 				Extra+=1
-			if(src.DrunkPower())
-				Extra+=2
 			if(Target&&Target.passive_handler.Get("Instinct") >= Base+Extra)
 				Extra += (passive_handler.Get("LikeWater")) / 2
 			return (Base+Extra)
@@ -1395,6 +1394,8 @@ mob
 		GetSoulSteal()
 			return passive_handler.Get("SoulSteal")
 		HasLifeSteal()
+			if(passive_handler["Rage"] && Health <= 75)
+				return 1
 			if(passive_handler.Get("LifeSteal"))
 				return 1
 			if(Secret == "Vampire")
@@ -1404,6 +1405,8 @@ mob
 			return 0
 		GetLifeSteal()
 			var/extra = 0
+			if(passive_handler["Rage"] && Health <= 75)
+				extra = 5 * passive_handler["Rage"]
 			if(isRace(MAJIN) && race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
 				extra += 5 * AscensionsAcquired
 			if(Secret=="Vampire")

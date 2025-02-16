@@ -35,6 +35,11 @@
 			var/obj/Skills/s = findOrAddSkill(/obj/Skills/AutoHit/Icy_Wind)
 			s.adjust(src)
 			Activate(s)
+		if(passive_handler["DemonicInfusion"])
+			world<<"DEBUG: DemonicInfustion proc"
+			var/obj/Skills/s = findOrAddSkill(/obj/Skills/AutoHit/HellfireRain)
+			s.adjust(src)
+			Activate(s)
 		damage *= 1+critDMG
 	if(prob(blockChance))
 		damage /= 1+critBlock

@@ -868,6 +868,8 @@ obj
 									Cooldown = 20
 								if("Inferno")
 									FollowUp = "/obj/Skills/AutoHit/Hyper_Inferno"
+								if("HellfireInferno")
+									FollowUp = "/obj/Skills/AutoHit/HellfireInferno"
 						else
 							// reset all
 							Grapple = 0

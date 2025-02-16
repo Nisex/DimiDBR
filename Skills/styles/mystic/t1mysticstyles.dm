@@ -1,6 +1,6 @@
 /obj/Skills/Buffs/NuStyle/MysticStyle
 
-	Magma
+	Magma_Walker
 		SignatureTechnique = 1
 		passives = list("SpiritFlow" = 2, "Familiar" = 1, "Burning" = 2.5, "Shattering" = 2.5, \
 						"Combustion" = 30, "Harden" = 1)
@@ -14,7 +14,10 @@
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire")
 		ElementalOffense = "Fire"
 		ElementalDefense = "Earth"
-	Ice
+		verb/Magma_Walker()
+			set hidden=1
+			src.Trigger(usr)
+	Ice_Dancing
 		SignatureTechnique = 1
 		passives = list("SpiritFlow" = 2, "Familiar" = 1, "IceAge" = 50, "Chilling" = 4, "Shattering" = 1, \
 						"Harden" = 1, "WaveDancer" = 1.5)
@@ -28,7 +31,10 @@
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold")
 		ElementalOffense = "Water"
 		ElementalDefense = "Earth"
-	Storm
+		verb/Ice_Dancing()
+			set hidden=1
+			src.Trigger(usr)
+	Stormbringer
 		SignatureTechnique = 1
 		passives = list("SpiritFlow" = 2, "Familiar" = 1, "ThunderHerald" = 1, "CriticalChance" = 15, "CriticalDamage" = 0.1, \
 						"Rain" = 5, "GodSpeed" = 1, "AirBend"= 1.5)
@@ -42,6 +48,9 @@
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard")
 		ElementalOffense = "Wind"
 		ElementalDefense = "Water"
+		verb/Stormbringer()
+			set hidden=1
+			src.Trigger(usr)
 	Inferno
 		SignatureTechnique = 1
 		passives = list("SpiritFlow" = 2, "Familiar" = 1, "Combustion" = 45, "Heavy Strike" = "Inferno",\
@@ -55,3 +64,6 @@
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold")
 		ElementalOffense = "Wind"
 		ElementalDefense = "Fire"
+		verb/Inferno()
+			set hidden=1
+			src.Trigger(usr)

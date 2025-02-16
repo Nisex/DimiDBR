@@ -145,6 +145,8 @@ globalTracker
 // - races
 		list/LockedRaces = list()
 		list/CustomCommons = list("Majin","Half-Saiyan", "Android")
+		RAGE_DIVISOR = 200
+		MAX_RAGEPUREDAMAGE = 5
 		BASE_HELL_SCALING_RATIO = 0.01
 		HELL_SCALING_MULT = 1.5
 		DEMON_NAME = "Shatterspawn"
@@ -351,6 +353,7 @@ globalTracker
 	
 		SUPERCHARGECD = 500
 		SUPERCHARGERATE = 0.1
+		ATOMIZERRATE = 0.1
 		GLADIATOR_DISARM_MAX = 600
 		DISARM_TIMER = 100
 		BASE_FLOW_PROB = 5

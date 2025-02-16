@@ -15,3 +15,4 @@
         EndMult = 1.75
         passives = list("Muscle Power" = 4, "TechniqueMastery" = 5, "DeathField" = 7, \
                         "Juggernaut"= 5, "KBRes"= 5, "PureReduction" = 2, "GiantForm" = 1,  "TensionLock" = 1)
+

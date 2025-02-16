@@ -20,7 +20,7 @@
         SignatureTechnique = 2
         StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu"="/obj/Skills/Buffs/NuStyle/SwordStyle/Two_Heaven_As_One",
                             "/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter"="/obj/Skills/Buffs/NuStyle/SwordStyle/Fierce_Deity")
-        passives = list("Rage" = 1, "Half-Sword" = 2, "Zornhau" = 2, "Parry" = 2.5,"Disarm" = 2,\
+        passives = list("AngerAdaptiveForce" = 0.25, "Rage" = 1, "Half-Sword" = 2, "Zornhau" = 2, "Parry" = 2.5,"Disarm" = 2,\
                          "Hardening" = 1, "Deflection" = 0.5)
         StyleOff=1.3
         StyleStr=1.45

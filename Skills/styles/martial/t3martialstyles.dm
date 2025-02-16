@@ -51,6 +51,8 @@
         "SwordPunching" = 1, "NeedsSword" = 0, "NoSword" = 1)
         // make it so every cooldown like iaido, also make the tracker appear on hud
         // make an animation for the tp
+        StyleSpd = 1.5
+        StyleOff = 1.5
         StyleActive="Flying Thunder God"
         Finisher="/obj/Skills/Queue/Finisher/Be_Water" //TODO: make a finisher here
         verb/Flying_Thunder_God()

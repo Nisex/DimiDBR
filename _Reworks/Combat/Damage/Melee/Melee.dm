@@ -69,7 +69,7 @@
 			delay = pCombo
 		if(!AttackQueue)
 			#if DEBUG_MELEE
-			log2text("Damageroll", "Starting DamageRoll", "damageDebugs.txt", "[ckey]/[name]")
+			log2text("Damageroll", "Starting DamageRoll", "damageDebugs.txt", "[ckey]/ [name]")
 			#endif
 		else
 			if(AttackQueue.Rapid || AttackQueue.Launcher)
@@ -742,6 +742,7 @@
 							log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 							#endif
 							if(enemy.passive_handler["Magmic"] && enemy.SlotlessBuffs["Magmic Shield"])
+								world<<"magmic shield proc q"
 								Stun(src, 3, TRUE)
 								enemy.SlotlessBuffs["Magmic Shield"].Trigger(enemy, TRUE)
 							DoDamage(enemy, damage, unarmedAtk, swordAtk, SecondStrike, ThirdStrike)

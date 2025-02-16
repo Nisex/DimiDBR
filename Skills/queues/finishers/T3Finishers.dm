@@ -26,3 +26,13 @@
         GrabTrigger="/obj/Skills/Grapple/Tombstone_Piledriver"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/The_8th_Wonder_Of_The_World"
         HitMessage="places their foot to the face of their fellow wrestler!"
+
+    Soul_Seller
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/True_Form/Demon"
+        FollowUp="/obj/Skills/Autohit/Minor_Reality_Corruption"
+        HitMessage = "sells their soul for a brief boost to power!"
+    Atomic_Dismantling
+        FollowUp="/obj/Skills/Autohit/Atomic_Dismantling"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Dismantled"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Magnetism"
+        HitMessage = "takes apart their foe's defense atomically!"

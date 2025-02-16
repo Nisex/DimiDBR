@@ -4,7 +4,7 @@
 	StyleFor = 1.15
 	passives = list("SpiritFlow" = 	1)
 	Fire_Weaving
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Earth_Moving"="/obj/Skills/Buffs/NuStyle/MysticStyle/Magma", \
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Earth_Moving"="/obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker", \
 				"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style")
 		passives = list("SpiritFlow" = 1, "Burning" = 1, "Combustion" = 25)
 		StyleFor = 1.3
@@ -12,32 +12,44 @@
 		StyleActive="Fire Weaving"
 		ElementalOffense = "Fire"
 		ElementalDefense = "Fire"
+		verb/Fire_Weaving()
+			set hidden=1
+			src.Trigger(usr)
 	Water_Bending
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Earth_Moving"="/obj/Skills/Buffs/NuStyle/MysticStyle/Ice",\
-							"/obj/Skills/Buffs/NuStyle/MysticStyle/Wind_Summoning"="/obj/Skills/Buffs/NuStyle/MysticStyle/Storm")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Earth_Moving"="/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancer",\
+							"/obj/Skills/Buffs/NuStyle/MysticStyle/Wind_Summoning"="/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer")
 		passives = list("SpiritFlow" = 1, "Chilling" = 1, "WaveDancer" = 1)
 		StyleOff = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Surfing_Stream"
 		StyleActive="Water Bending"
 		ElementalOffense = "Water"
 		ElementalDefense = "Water"
+		verb/Water_Bending()
+			set hidden=1
+			src.Trigger(usr)
 	Earth_Moving
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"="/obj/Skills/Buffs/NuStyle/MysticStyle/Ice")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"="/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancer")
 		passives = list("SpiritFlow" = 1, "Shattering" = 1, "EntanglingRoots" = 1)
 		StyleEnd = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Unstoppable_Force"
 		StyleActive="Earth Moving"
 		ElementalOffense = "Earth"
 		ElementalDefense = "Earth"
+		verb/Earth_Moving()
+			set hidden=1
+			src.Trigger(usr)
 	Wind_Summoning
 		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Fire_Weaving"="/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno", \
-							"/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"="/obj/Skills/Buffs/NuStyle/MysticStyle/Storm")
+							"/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"="/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer")
 		passives = list("SpiritFlow" = 1, "Shocking" = 1, "AirBend" = 1)
 		StyleSpd = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Whirlwind"
 		StyleActive="Wind Summoning"
 		ElementalOffense = "Wind"
 		ElementalDefense = "Wind"
+		verb/Plague_Bringer()
+			set hidden=1
+			src.Trigger(usr)
 	Plague_Bringer
 		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker")
 		passives = list("SpiritFlow" = 1, "Poisoning" = 1, "Rusting" = 1)
@@ -46,7 +58,9 @@
 		StyleActive="Plague Bringer"
 		ElementalOffense = "Poison"
 		ElementalDefense = "Poison"
-
+		verb/Plague_Bringer()
+			set hidden=1
+			src.Trigger(usr)
 
 /obj/Skills/AutoHit/Water_Wave
 	Copyable = 0
@@ -84,6 +98,3 @@
 		if((last_style_effect + cd) < world.time)
 			return (last_style_effect + cd)
 	return FALSE
-
-/mob/verb/testIceAge()
-	Target.implodeDebuff(1, "Chill")
