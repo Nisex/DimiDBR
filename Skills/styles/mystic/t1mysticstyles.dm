@@ -3,7 +3,7 @@
 	Magma_Walker
 		SignatureTechnique = 1
 		passives = list("SpiritFlow" = 2, "Familiar" = 1, "Burning" = 2.5, "Shattering" = 2.5, \
-						"Combustion" = 30, "Harden" = 1)
+						"Combustion" = 30, "Hardening" = 1)
 		StyleActive = "Magma"
 		StyleFor = 1.2
 		StyleEnd = 1.2

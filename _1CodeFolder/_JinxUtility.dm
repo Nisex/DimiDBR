@@ -3,6 +3,8 @@
 
 /globalTracker/var/DEBUFF_EFFECTIVENESS = 0.004
 
+
+
 mob
 	proc
 		
@@ -70,7 +72,6 @@ mob
 					src.Unconscious(null, "succumbing to poison!")
 				if(!src.Burn&&!src.Poison)
 					src.Unconscious()
-
 		DoDamage(var/mob/defender, var/val, var/UnarmedAttack=0, var/SwordAttack=0, var/SecondStrike, var/ThirdStrike, var/TrueMult=0, var/SpiritAttack=0, var/Destructive=0, Autohit = FALSE)
 			#if DEBUG_DAMAGE
 			log2text("Damage", "Start DoDamage", "damageDebugs.txt", src.ckey)
@@ -1141,35 +1142,23 @@ mob
 							MA /= 2
 						else
 							MA = 0
-
 				if(passive_handler["StyleMastery"])
 					MA *= 1 + (passive_handler["StyleMastery"]/glob.STYLE_MASTERY_DIVISOR)
-
 				if(Secret=="Zombie" && stat in list("Str","For", "Off","Def"))
 					MA+=0.1
-				
 				if((Secret=="Werewolf"&&(!CheckSlotless("Half Moon Form"))) && stat in list("Str", "Off"))
 					MA+=0.1
-
-
 				if(Secret=="Haki")
 					if(secretDatum.secretVariable["HakiSpecialization"]=="Armament")
 						if(stat=="Str")
 							MA += 0.1 * secretDatum.currentTier
 						else if(stat=="Off"||stat=="Def")
 							MA += 0.05 * secretDatum.currentTier
-					
 					if(secretDatum.secretVariable["HakiSpecialization"]=="Observation")
 						if(stat=="Off"||stat=="Def")
 							MA += 0.1 * secretDatum.currentTier
-
-
-
 					if(stat in list("End","For"))
 						MA += 0.05 * secretDatum.currentTier
-
-				
-
 				return MA
 			return 0
 
@@ -1225,12 +1214,6 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-
-
-
-			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
-			// 	if(src.race.transformations[transActive].mastery==100)
-			// 		Mod+=0.1
 			if(glob.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.1 * AscensionsAcquired)
@@ -1242,9 +1225,6 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-
-
-
 			if(src.Burn)
 				if(passive_handler.Get("BurningShot"))
 					if(src.Burn>0&&src.Burn<=25)
@@ -1271,7 +1251,6 @@ mob
 				if(BaseStr() == BaseFor())
 					// lol
 					Mod += clamp(adaptive/2,0.05, 0.5)
-
 			Str*=Mod
 			Str*=Mult
 			if(src.HasMirrorStats())
@@ -1299,11 +1278,6 @@ mob
 				else
 					Str += total
 			Str+=src.GetMA("Str")
-
-
-			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-			// 	Str+=src.Target.GetMA("End")*0.5
-			// else
 			if(src.HasAdaptation())
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)

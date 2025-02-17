@@ -81,7 +81,7 @@
 				StyleFor = 1.45
 				StyleOff = 1.15
 				BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Fire"
-				passives = list("HeatingUp" = 1,"Familiar" = 2, "Amplify" = 2, "Heavy Strike" = "Inferno", "Scorching" = 10, "Combustion" = 60, "SpiritFlow" = 3, "SpiritHand" = 1)
+				passives = list("HeatingUp" = 1,"Familiar" = 2, "Amplify" = 2, "Heavy Strike" = "Inferno", "Scorching" = 10, "Combustion" = 50, "SpiritFlow" = 3, "SpiritHand" = 1)
 
 				Finisher="/obj/Skills/Queue/Finisher/Jet_Kindling" 
 		verb/Swap_Stance()
