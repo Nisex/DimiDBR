@@ -36,7 +36,7 @@
 						"Instinct" = 2, "Flicker" = 2, "Fury" = 2.5, "Iaijutsu" = 2, "BlurringStrikes" = 0.5, "Rain" = 5)
 		// crits deal an extra amount based on the enemy's max health
 		StyleSpd = 1.3
-		Styleoff = 1.15
+		StyleOff = 1.15
 		StyleActive="Art of Order"
 		verb/Art_of_Order()
 			set hidden=1
