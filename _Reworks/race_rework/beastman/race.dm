@@ -48,7 +48,7 @@ race
 					p.passive_handler.Increase("Hardening", 1)
 					p.passive_handler.Increase("Instinct", 1)
 					p.passive_handler.Increase("Nimbus", 1)
-					p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Never_Fall)
+					p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Never_Fall)
 				if("Unseen Predator")
 					p.passive_handler.Set("Heavy Strike" , "Unseen Predator")
 					p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Racial/Savagery)

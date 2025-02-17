@@ -179,6 +179,7 @@
 				AfterImageGhost(src)
 				DashTo(Target, glob.NIMBUSRANGE + passive_handler["Nimbus"])
 				src.OMessage(10,"[src] [nimbus_message] [src.Target]!","<font color=red>[src]([src.key]) used Nimbus.")
+				// TODO: make hud later if we feel like it chat
 	if(warpingStrike)
 		if(Target && Target.loc && Target != src && Target && get_dist(Target, src) < warpingStrike)
 			forcewarp = Target

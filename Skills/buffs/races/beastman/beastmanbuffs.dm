@@ -2,7 +2,6 @@
     // since grit won't b used elsewhere i could just make it consume the grit on active, but that is sloppy
     // otherwise i can replace the usesX vars and make it 1 variable BUT I AM LAZY AS HELL
     ResourceCost = list("Grit", 0) // consumes all grit on use
-/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Never_Fall
 
 /obj/Skills/Buffs/SlotlessBuffs/Racial/Savagery
 

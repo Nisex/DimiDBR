@@ -1674,6 +1674,8 @@ mob
 				if(A.AlwaysOn)
 					if(!A.Using&&!A.SlotlessOn)
 						A.Trigger(src,Override=1)
+					if(A.Triggers)
+						A.Triggers.checkTrigger(src, A)
 
 				//Deactivations
 				if(A.SlotlessOn)
