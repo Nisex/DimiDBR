@@ -58,3 +58,124 @@ obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Dainsleif
 	verb/Heavenly_Regalia()
 		set category="Skills"
 		src.Trigger(usr)
+	
+obj/Skills/Queue
+	Blood_Craving
+		HitMessage="upward slash rends their target! The trickles of ichor form into a red barrier!"
+		ActiveMessage="sword gleams blood red!"
+		ABuffNeeded="Soul Resonance"
+		DamageMult=0.75
+		FollowUp="/obj/Skills/AutoHit/Bloody_CravingEnhanced" 
+		FollowUpDelay=1
+		Duration=5
+		KBMult=0.00001
+		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/We_Dine"
+		Cooldown=30
+		NeedsSword=1
+		EnergyCost=2
+		name="Blood Craving"
+		verb/Blood_Craving()
+			set category="Skills"
+			set name="Blood Craving"
+			usr.SetQueue(src)
+
+obj/Skills/AutoHit/Bloody_CravingEnhanced
+	NeedsSword=1
+	Area="Wave"
+	ComboMaster=1
+	GuardBreak=1
+	StrOffense=1
+	PassThrough=1
+	PreShockwave=1
+	PostShockwave=0
+	Shockwave=2
+	Shockwaves=2
+	DamageMult=5
+	Knockback=0
+	Distance=8
+	HitSparkIcon='Hit Effect Vampire.dmi'
+	ActiveMessage="is followed by some piercing trickles of ichor! "
+	Cooldown=1
+	EnergyCost=3
+
+obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/We_Dine
+	passives = list("SwordAscension" = 1,"HardStyle" = 0.5, "Deflection" = 1)
+	VaizardHealth=0.2
+	TimerLimit=10
+	IconLock='Blood Shield.dmi'
+	LockX=0
+	LockY=0
+
+obj/Skills/Queue/Destined_Death
+	HitMessage="pierces the opponent with Dainslief! It gleams a beautiful dark red!"
+	FollowUp="/obj/Skills/AutoHit/Destined_Death2"
+	FollowUpDelay=1
+	DamageMult=3
+	AccuracyMult=2
+	Dominator=1
+	Duration=7
+	Instinct=1
+	Stunner=6
+	Launcher=1
+	ABuffNeeded="Soul Resonance"
+	BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Blood_Lusted"
+	NeedsSword=1
+	EnergyCost=10
+	Cooldown=120
+	name="Destined Death"
+	verb/Destined_Death()
+		set category="Skills"
+		set name="Destined Death"
+		usr.SetQueue(src)
+	
+obj/Skills/AutoHit/Destined_Death2
+	NeedsSword=1
+	Area="Circle"
+	StrOffense=1
+	EndDefense=1
+	DamageMult=2
+	Shearing=10
+	CursedWounds=1
+	ComboMaster=1
+	DelayTime=6
+	Cooldown=60
+	Knockback=2
+	Size=1
+	Distance=13
+	Rounds=5
+	Rush=0
+	ControlledRush=0
+	RoundMovement=0
+	Shockwaves=1
+	Shockwave=1
+	ShockIcon='KenShockwaveBloodlust.dmi'
+	ShockBlend=1
+	ShockDiminish=2
+	ShockTime=12
+	PostShockwave=1
+	Icon='BloodGather.dmi'
+	IconX=-0
+	IconY=-0
+	HitSparkIcon='BloodGather.dmi'
+	HitSparkX=0
+	HitSparkY=0
+	HitSparkTurns=1
+	HitSparkSize=1
+	HitSparkDispersion=1
+	TurfStrike=1
+	TurfShift='BloodGather.dmi'
+	TurfShiftDuration=1
+	TurfShiftDurationSpawn=1
+	TurfShiftDurationDespawn=1
+	EnergyCost=3
+	Quaking=10
+	Earthshaking=10
+	ActiveMessage="raises Dainslief as blood pulls from the area and gathers within it!"
+
+obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Blood_Lusted
+	passives = list("Maki" = 1,"Steady" = 1,"HardStyle" = 1, "TechniqueMastery" = 2, "Momentum" = 1, "Duelist" = 1, "Killer Instinct" = 0.10, "SuperDash" = 1,)
+	TimerLimit=60
+	ManaGlow=rgb(165,0,0)
+	ManaGlowSize=3
+	LockX=0
+	LockY=0

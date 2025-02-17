@@ -114,7 +114,7 @@ obj/Magic_Circle
 	var/Creator//holds creator ckey
 	var/Locked=1//only cuts creator mana
 	var/currentRitualID = null
-	proc/ritualAnimation()
+/*	proc/ritualAnimation()
 		
 	verb/triggerRitual()
 		if(!currentRitualID) return
@@ -133,7 +133,7 @@ obj/Magic_Circle
 		if(length(validRituals)==1) return
 		var/chosenRitual = input(usr, "Pick a ritual.") in validRituals
 		if(chosenRitual == "Cancel") return
-		currentRitualID = chosenRitual
+		currentRitualID = chosenRitual*/
 
 	verb/Toggle()
 		set src in range(1, usr)

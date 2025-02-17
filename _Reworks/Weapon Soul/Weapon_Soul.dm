@@ -26,11 +26,12 @@ mob/proc/gainWeaponSoul()
 			new/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin(src)
 			src << "You feel Dainsleif ebb in your hand, letting you unleash ruinous power with it's Cursed Blade..."
 			src.AddSkill(new/obj/Skills/Queue/Cursed_Blade)
+			AddSkill(new/obj/Skills/Queue/Blood_Craving)
 
 		if("Caledfwlch")
 			new/obj/Items/Sword/Medium/Legendary/WeaponSoul/Sword_of_Glory(src)
 			src << "You feel the ability to invoke an almighty beam rise up, shooting through your veins with a cry of Excalibur!"
-			AddSkill(new/obj/Skills/Projectile/Weapon_Soul/Excalibur)
+			AddSkill(new/obj/Skills/Queue/Excalibur)
 
 		if("Muramasa")
 			new/obj/Items/Sword/Light/Legendary/WeaponSoul/Bane_of_Blades(src)
@@ -79,6 +80,7 @@ mob/tierUpSaga(Path)
 					if("Dainsleif")
 						src << "Dainsleif's sheath grows with the power of the damage you inflict on others. . ."
 						passive_handler.Increase("CursedSheath")
+						AddSkill(new/obj/Skills/Queue/Destined_Death)
 
 					if("Caledfwlch")
 						src << "A sheath manifests in your soul, capable of healing any injuries; Avalon."
@@ -139,6 +141,7 @@ mob/tierUpSaga(Path)
 						src << "A set of Armor coats your frame, allowing you to weather the strongest of blows."
 						src.contents += new/obj/Items/Armor/Plated_Armor/Noble_Armor
 						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Noble_Shield)
+						AddSkill(new/obj/Skills/AutoHit/True_Excalibur)
 
 					if("Muramasa")
 						src << "Muramasa makes your body become a little closer to a demon's..."

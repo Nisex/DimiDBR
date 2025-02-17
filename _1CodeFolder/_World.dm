@@ -39,7 +39,7 @@ world
 		BuildGeneralMagicDatabase()
 		BuildGeneralWeaponryDatabase()
 		GeneratePlayActionDatabase()
-		initRitualDatabase()
+		//initRitualDatabase()
 		world.SetConfig("APP/admin", "XLevi", "role=admin")
 		world.SetConfig("APP/admin", "Niezan", "role=admin")
 

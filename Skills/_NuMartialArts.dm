@@ -181,7 +181,7 @@ obj
 					// 	StyleStr=1.5
 					// 	StyleEnd=1.5
 					// 	StyleActive="Strong Fist"
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Golden_Kirin_Style",\
+					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Golden_Kirin_Style",
 					// 	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Dire_Wolf_Style")
 					// 	passives = list("HardStyle" = 1, "HeavyHitter" = 0.25, "Instinct" = 1, "UnarmedDamage" = 1)
 					// 	HardStyle=1
@@ -198,7 +198,7 @@ obj
 					// 	StyleFor=1.25
 					// 	StyleSpd=1.5
 					// 	StyleActive="Gentle Fist"
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Drunken_Fist_Style",\
+					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Drunken_Fist_Style",
 					// 	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Flow_Reversal_Style")
 					// 	passives = list("SoftStyle" = 1, "UnarmedDamage" = 1, "Siphon" = 1)
 					// 	SoftStyle=1
@@ -213,7 +213,7 @@ obj
 					// 	StyleStr=1.5
 					// 	StyleFor=1.5
 					// 	StyleActive="Lightning Kickboxing"
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Gentle_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Drunken_Fist_Style",\
+					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Gentle_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Drunken_Fist_Style",
 					// 	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Inverse_Poison_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phage_Style")
 					// 	passives = list("SpiritHand" = 1, "TechniqueMastery" = 2, "UnarmedDamage" = 1)
 					// 	Finisher="/obj/Skills/Queue/Finisher/Rolling_Sobat"
@@ -255,7 +255,7 @@ obj
 					// 	ElementalClass=list("Fire", "Water", "Poison")
 					// 	passives = list("PureDamage" = 2, "Toxic" = 1)
 					// 	StyleActive="Inverse Poison"
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Entropy_Style",\
+					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Entropy_Style",
 					// 	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phage_Style")
 					// 	ElementalOffense="Poison"
 					// 	IconLock='Toxic Arms.dmi'
@@ -275,7 +275,7 @@ obj
 					// 	StyleSpd=1.35
 					// 	ElementalClass=list("Fire", "Wind")
 					// 	StyleActive="Sunlight"
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Moonlit_Lake_Style",\
+					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Moonlit_Lake_Style",
 					// 	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Devil_Leg_Style")
 					// 	passives = list("SpiritHand" = 2, "SpiritFlow" = 0.5)
 					// 	NoStaff = 0
@@ -302,7 +302,7 @@ obj
 					// 	ElementalClass=list("Water", "Earth")
 					// 	passives = list("StableBP" = 0.5, "Hardening" = 1, "SpiritHand" = 1)
 					// 	StyleActive="Tranquil Dove"
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Sunlit_Sky_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Moonlit_Lake_Style",\
+					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Sunlit_Sky_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Moonlit_Lake_Style",
 					// 	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Dire_Wolf_Style")
 					// 	ElementalOffense="Water"
 					// 	ElementalDefense="Earth"

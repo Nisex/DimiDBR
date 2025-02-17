@@ -386,6 +386,9 @@ globalTracker
 		AUTOHIT_WHIFF_DAMAGE = 2
 		AUTOHIT_MISS_DAMAGE = 5
 
+
+		AUTOHIT_WAVE_OFFSHOOT_DAMAGE_DIVISOR = 1
+
 		//Whiff dmg is now rand between these.
 		MIN_WHIFF_DMG = 1.25
 		MAX_WHIFF_DMG = 1.5

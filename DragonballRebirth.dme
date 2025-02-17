@@ -523,7 +523,6 @@
 #include "_Reworks\Tech\magic\magicUnlock.dm"
 #include "_Reworks\Tech\magic\scrolls.dm"
 #include "_Reworks\Tech\magic\tomeRework.dm"
-#include "_Reworks\Tech\magic\rituals\rituals_core.dm"
 #include "_Reworks\Unsorted\adminStuff.dm"
 #include "_Reworks\Unsorted\PreWipe.dm"
 #include "_Reworks\Unsorted\SameHouse.dm"

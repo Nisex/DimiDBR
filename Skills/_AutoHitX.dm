@@ -5163,7 +5163,7 @@ obj
 				verb/Deathbringer()
 					set category="Skills"
 					usr.Activate(src)
-			True_Excalibur
+			/*True_Excalibur
 				NeedsSword=1
 				ABuffNeeded="Soul Resonance"
 				EnergyCost=25
@@ -5210,7 +5210,7 @@ obj
 				ActiveMessage="releases a holy slash that mows the area before them in a wave of light!"
 				verb/True_Excalibur()
 					set category="Skills"
-					usr.Activate(src)
+					usr.Activate(src)*/
 
 //Cybernetics and enchantment
 			Gear
@@ -7435,7 +7435,7 @@ obj
 				src.DistanceMax=AH.Wave
 				src.Distance=src.DistanceMax
 
-				src.Damage= AH.Damage / 8
+				src.Damage= AH.Damage / glob.AUTOHIT_WAVE_OFFSHOOT_DAMAGE_DIVISOR
 				src.StrDmg=AH.StrDmg
 				src.ForDmg=AH.ForDmg
 				src.EndRes=AH.EndRes
