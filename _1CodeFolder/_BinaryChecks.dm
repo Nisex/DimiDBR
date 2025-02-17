@@ -2888,6 +2888,15 @@ mob
 			if(Frozen||is_dashing||!Target||Target&&!ismob(Target)||Target==src||Beaming==2||TimeFrozen||Knockbacked)
 				return FALSE
 			return TRUE
+		HasTarget()
+			if(Target && Target.loc && Target != src)
+				return TRUE
+			if(!Target)
+				return FALSE
+		TargetInRange(n)
+			if(HasTarget() && get_dist(src, Target) <= n)
+				return TRUE
+			return FALSE
 		CanAttack(ModifyAttack=0)
 			if(ModifyAttack >= 0 && (NextAttack-ModifyAttack > world.time))
 				return 0

@@ -172,7 +172,13 @@
 			devaCounter=0
 			if(passive_handler["AirBend"])
 				last_style_effect = world.time
-
+	if(passive_handler["Nimbus"] && last_nimbus + glob.NIMBUSCD - (passive_handler["Nimbus"]))
+		if(HasTarget() && TargetInRange(glob.NIMBUSRANGE + passive_handler["Nimbus"]))
+			if(CanDash())
+				is_dashing++
+				AfterImageGhost(src)
+				DashTo(Target, glob.NIMBUSRANGE + passive_handler["Nimbus"])
+				src.OMessage(10,"[src] [nimbus_message] [src.Target]!","<font color=red>[src]([src.key]) used Nimbus.")
 	if(warpingStrike)
 		if(Target && Target.loc && Target != src && Target && get_dist(Target, src) < warpingStrike)
 			forcewarp = Target

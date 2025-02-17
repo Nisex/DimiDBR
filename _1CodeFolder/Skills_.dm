@@ -287,7 +287,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					src.IncDashCount()
 
 			if("DragonDash")
-				if(Frozen||is_dashing||!Target||Target&&!ismob(Target)||Target==src||Beaming==2||TimeFrozen||Knockbacked)
+				if(!CanDash())
 					return
 
 				var/Modifier = (src.HasPursuer()/10)
