@@ -80,7 +80,7 @@ mob/tierUpSaga(Path)
 					if("Dainsleif")
 						src << "Dainsleif's sheath grows with the power of the damage you inflict on others. . ."
 						passive_handler.Increase("CursedSheath")
-						AddSkill(new/obj/Skills/Queue/Destined_Death)
+						AddSkill(new/obj/Skills/AutoHit/Destined_Death)
 
 					if("Caledfwlch")
 						src << "A sheath manifests in your soul, capable of healing any injuries; Avalon."

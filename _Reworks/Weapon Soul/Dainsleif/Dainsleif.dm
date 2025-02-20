@@ -105,30 +105,7 @@ obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/We_Dine
 	IconLock='Blood Shield.dmi'
 	LockX=0
 	LockY=0
-
-obj/Skills/Queue/Destined_Death
-	HitMessage="pierces the opponent with Dainslief! It gleams a beautiful dark red!"
-	FollowUp="/obj/Skills/AutoHit/Destined_Death2"
-	FollowUpDelay=1
-	DamageMult=3
-	AccuracyMult=2
-	Dominator=1
-	Duration=7
-	Instinct=1
-	Stunner=6
-	Launcher=1
-	ABuffNeeded="Soul Resonance"
-	BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Blood_Lusted"
-	NeedsSword=1
-	EnergyCost=10
-	Cooldown=120
-	name="Destined Death"
-	verb/Destined_Death()
-		set category="Skills"
-		set name="Destined Death"
-		usr.SetQueue(src)
-	
-obj/Skills/AutoHit/Destined_Death2
+obj/Skills/AutoHit/Destined_Death
 	NeedsSword=1
 	Area="Circle"
 	StrOffense=1
@@ -138,10 +115,10 @@ obj/Skills/AutoHit/Destined_Death2
 	CursedWounds=1
 	ComboMaster=1
 	DelayTime=6
-	Cooldown=60
+	Cooldown=90
 	Knockback=2
 	Size=1
-	Distance=13
+	Distance=12
 	Rounds=5
 	Rush=0
 	ControlledRush=0
@@ -156,6 +133,8 @@ obj/Skills/AutoHit/Destined_Death2
 	Icon='BloodGather.dmi'
 	IconX=-0
 	IconY=-0
+	ABuffNeeded="Soul Resonance"
+	BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Blood_Lusted"
 	HitSparkIcon='BloodGather.dmi'
 	HitSparkX=0
 	HitSparkY=0
@@ -170,7 +149,10 @@ obj/Skills/AutoHit/Destined_Death2
 	EnergyCost=3
 	Quaking=10
 	Earthshaking=10
-	ActiveMessage="raises Dainslief as blood pulls from the area and gathers within it!"
+	ActiveMessage="raises Dainslief as ichor pulls from the area and gathers within it!"
+	verb/Destined_Death()
+		set category="Skills"
+		usr.Activate(src)
 
 obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Blood_Lusted
 	passives = list("Maki" = 1,"Steady" = 1,"HardStyle" = 1, "TechniqueMastery" = 2, "Momentum" = 1, "Duelist" = 1, "Killer Instinct" = 0.10, "SuperDash" = 1,)
