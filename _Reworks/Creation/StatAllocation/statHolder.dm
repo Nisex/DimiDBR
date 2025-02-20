@@ -58,29 +58,3 @@
         invested+=n
     proc/operator-=(n)
         invested-=n
-
-obj/SavedStats
-	var
-		BaseStatsSet = 0
-		StrengthBaseStat = 0
-		EnduranceBaseStat = 0
-		SpeedBaseStat = 0
-		ForceBaseStat = 0
-		OffenseBaseStat = 0
-		DefenseBaseStat = 0
-
-		StrengthModPoints = 0
-		EnduranceModPoints = 0
-		SpeedModPoints = 0
-		ForceModPoints = 0
-		ResistanceModPoints = 0
-		OffenseModPoints = 0
-		DefenseModPoints = 0
-
-		StrengthModGain=1
-		EnduranceModGain=1
-		SpeedModGain=1
-		ForceModGain=1
-		ResistanceModGain=1
-		OffenseModGain=1
-		DefenseModGain=1

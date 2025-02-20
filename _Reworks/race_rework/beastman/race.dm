@@ -24,8 +24,6 @@ race
 						"Feather Cowl" = list(0.75, 2, 0.75, 1, 2, 1), "Feather Knife" = list(1.5, 0.75, 1, 1.5, 1, 1.75), \
 						"Spirit Walker" = list(1, 1, 1.5, 1.5, 1.5, 1), "Shapeshifter" = list(1.25,1.25,1.25,1.25,1.25,1.25), \
 						"Trickster" = list(1, 1, 2, 1, 1.5, 1), "Fox Fire" = list(1.5, 1, 2, 1.5, 0.75, 0.75 ))
-		
-		
 		imagination = 1
 		var/MaxGrit = 0
 		var/Grit = 0 
@@ -33,22 +31,8 @@ race
 		onFinalization(mob/user)
 			user.EnhancedSmell=1
 			user.EnhancedHearing=1
-			ascensions[1].choiceSelection(user) // force them to pick their ascension type here, without applying it
-			src << "Information to what each racial does: "
-			var/f = list("Heart of The Beastman", "Monkey King", "Unseen Predator", "Undying Rage")
-			var/nim = list("Feather Maker")
-			var/nic = list("Spirit Walker", "Shapeshifter", "Trickster", "Fox Fire")
-			while(Racial == "" || Racial == "Cancel")
-				switch(ascensions[1].choiceSelected)
-					if("Ferocious")
-						Racial = input(user, "What racial do you want?", "Racial") in f + "Cancel"
-					if("Nimble")
-						Racial = input(user, "What racial do you want?", "Racial") in nim + "Cancel"
-						if(Racial == "Feather Maker")
-							Racial = input(user, "What racial do you want?", "Racial") in list("Feather Knife", "Feather Cloak", "Cancel")
-					if("Niche")
-						Racial = input(user, "What racial do you want?", "Racial") in nic + "Cancel"
-				sleep(world.tick_lag)
+			Racial = user.Class
+			GiveRacial(user)
 			..()
 		
 		proc/GiveRacial(mob/p)

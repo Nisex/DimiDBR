@@ -19,9 +19,6 @@ mob/proc/stat_redo()
 	SetStat("Offense", race.getStat("offense"))
 	SetStat("Defense", race.getStat("defense"))
 	src.UpdateBio()
-	for(var/obj/SavedStats/Z in src)
-		del(Z)
-	src.contents+=new/obj/SavedStats
 	src.GetIncrements()
 	race_selecting = FALSE
 

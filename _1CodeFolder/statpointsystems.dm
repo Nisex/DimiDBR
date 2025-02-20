@@ -136,7 +136,5 @@ mob/verb/Skill_Points_Done()
 		stat_redoing = FALSE
 		race_selecting = TRUE
 	winshow(src,"Finalize_Screen",0)
-	for(var/obj/SavedStats/Z in usr.contents)
-		del(Z)
 	if(!usr.Savable)
 		usr.NewMob()

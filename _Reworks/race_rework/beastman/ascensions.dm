@@ -2,7 +2,6 @@ ascension
 	beastman
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			choices = list("Ferocious" = /ascension/sub_ascension/beastman/ferocious, "Nimble" = /ascension/sub_ascension/beastman/nimble, "Niche" = /ascension/sub_ascension/beastman/niche)
 			passives = list()
 			onAscension(mob/owner)
 				var/choice = owner.race?:Racial
