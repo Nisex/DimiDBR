@@ -32,7 +32,7 @@ obj
 			var
 				CorruptionGain
 
-
+				FoxFire
 				DistanceMax//This will keep the largest possible distance
 				DistanceVariance=0//if you want the things to sometimes blow up early
 				Area="Blast"//What type of projectile?  Blast...
@@ -4648,7 +4648,8 @@ mob
 							if(src.TotalInjury+Z.WoundCost*glob.WorldDamageMult>99)
 								return 0
 						if(Z.EnergyCost)
-							if(src.Energy<Z.EnergyCost)
+							var/drain = passive_handler["Drained"] ? Z.EnergyCost * (1 + passive_handler["Drained"]/10) : Z.EnergyCost
+							if(src.Energy<drain)
 								if(!src.CheckSpecial("One Hundred Percent Power")&&!src.CheckSpecial("Fifth Form")&&!CheckActive("Eight Gates"))
 									return 0
 						if(Z.FatigueCost)
@@ -4943,7 +4944,8 @@ mob
 				else if(src.Beaming==2)
 					src.BeamStop(Z)
 					if(Z.EnergyCost)
-						src.LoseEnergy((Z.EnergyCost)/Drain)
+						var/drain = passive_handler["Drained"] ? Z.EnergyCost * (1 + passive_handler["Drained"]/10) : Z.EnergyCost
+						src.LoseEnergy((drain)/Drain)
 					if(Z.ManaCost)
 						var/drain = src.passive_handler.Get("MasterfulCasting") ? Z.ManaCost - (Z.ManaCost * (passive_handler.Get("MasterfulCasting") * 0.3)) : Z.ManaCost
 						if(drain <= 0)
@@ -5002,7 +5004,8 @@ mob
 					if(Z.Continuous)
 						if(Z.ContinuousOn)
 							if(Z.EnergyCost)
-								src.LoseEnergy(Z.EnergyCost/10/Drain)
+								var/drain = passive_handler["Drained"] ? Z.EnergyCost * (1 + passive_handler["Drained"]/10) : Z.EnergyCost
+								src.LoseEnergy(drain/10/Drain)
 							if(Z.ManaCost)
 								if(Z.ManaCost)
 									var/drain = src.passive_handler.Get("MasterfulCasting") ? Z.ManaCost - (Z.ManaCost * (passive_handler.Get("MasterfulCasting") * 0.3)) : Z.ManaCost
@@ -5065,7 +5068,8 @@ mob
 					if(Z.WoundCost)
 						src.WoundSelf(Z.WoundCost*glob.WorldDamageMult/Drain)
 					if(Z.EnergyCost)
-						src.LoseEnergy(Z.EnergyCost/Drain)
+						var/drain = passive_handler["Drained"] ? Z.EnergyCost * (1 + passive_handler["Drained"]/10) : Z.EnergyCost
+						src.LoseEnergy(drain/Drain)
 					if(Z.FatigueCost)
 						src.GainFatigue(Z.FatigueCost/Drain)
 					if(Z.ManaCost)
@@ -5106,7 +5110,8 @@ mob
 						if(Z.WoundCost)
 							src.WoundSelf(Z.WoundCost*glob.WorldDamageMult/Drain)
 						if(Z.EnergyCost)
-							src.LoseEnergy(Z.EnergyCost/Drain)
+							var/drain = passive_handler["Drained"] ? Z.EnergyCost * (1 + passive_handler["Drained"]/10) : Z.EnergyCost
+							src.LoseEnergy(drain/Drain)
 						if(Z.FatigueCost)
 							src.GainFatigue(Z.FatigueCost/Drain)
 						if(Z.ManaCost)
@@ -5183,6 +5188,7 @@ obj
 					src.Area=Z.Area
 					src.DistanceMax=Z.Distance
 					src.Distance=Z.Distance
+					FoxFire = Z.FoxFire
 					if(Z.ChainBeam)
 						src.Distance=Z.Distance-Z.BeamTimeUsed
 						src.KillDelay=Z.BeamTimeUsed
@@ -5757,7 +5763,12 @@ obj
 							a:AddCrippling(Crippling, src.Owner)
 						if(Shearing)
 							a:AddShearing(Shearing, src.Owner)
-
+						if(Owner.Attunement == "Fox Fire")
+							var/heal = EffectiveDamage * ( (1 + Owner.AscensionsAcquired + (FoxFire))/10)
+							a:LoseEnergy(heal/2)
+							a:LoseMana(heal/2)
+							Owner.HealEnergy(heal/2)
+							Owner.HealMana(heal/2)
 						if(a:passive_handler.Get("Siphon")&&src.ForRate)
 							var/Heal=EffectiveDamage*(a:passive_handler.Get("Siphon")/10)*src.ForRate//Energy siphon is a value from 0.1 to 1 which reduces damage and heals energy.
 							EffectiveDamage-=Heal//negated

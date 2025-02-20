@@ -42,6 +42,7 @@ obj
 				ABuffNeeded
 				SBuffNeeded
 				GateNeeded
+				FoxFire
 				//ClassNeeded
 				IgnoreAlreadyHit = FALSE
 				Duration
@@ -5491,7 +5492,8 @@ mob
 				if(src.ForceBar<Z.ForceCost&&!Z.AllOutAttack)
 					return
 			if(Z.EnergyCost)
-				if(src.Energy<Z.EnergyCost&&!Z.AllOutAttack)
+				var/drain = passive_handler["Drained"] ? Z.EnergyCost * (1 + passive_handler["Drained"]/10) : Z.EnergyCost
+				if(src.Energy<drain&&!Z.AllOutAttack)
 					if(!src.CheckSpecial("One Hundred Percent Power")&&!src.CheckSpecial("Fifth Form")&&!CheckActive("Eight Gates"))
 						return
 			if(Z.ManaCost && !src.HasDrainlessMana() && !Z.AllOutAttack)
@@ -5962,7 +5964,8 @@ mob
 			if(Z.WoundCost)
 				src.WoundSelf(Z.WoundCost*CostMultiplier*glob.WorldDamageMult)
 			if(Z.EnergyCost)
-				src.LoseEnergy(Z.EnergyCost*CostMultiplier)
+				var/drain = passive_handler["Drained"] ? Z.EnergyCost * (1 + passive_handler["Drained"]/10) : Z.EnergyCost
+				src.LoseEnergy(drain*CostMultiplier)
 			if(Z.ForceCost)
 				src.LoseForce(Z.ForceCost*CostMultiplier)
 			if(Z.FatigueCost)
@@ -6101,7 +6104,7 @@ obj
 
 			Cleansing = 0
 			ManaDrain
-
+			FoxFire
 			hitSelf = 0
 
 			Arcing//Triggers offshoots on every step that expand outwards.  Higher than 1 means that every X steps the range will widen.
@@ -6276,6 +6279,7 @@ obj
 				src.EndRes=Z.EndDefense
 			if(Z.AdaptRate)
 				AdaptDmg = Z.AdaptRate
+			FoxFire = Z.FoxFire
 			ManaDrain = Z.ManaDrain
 			src.Executor = Z.Executor
 			src.Primordial = Z.Primordial
@@ -6659,7 +6663,12 @@ obj
 					var/Heal = (FinalDmg * (m.passive_handler.Get("Siphon")/ 10)) * ForDmg
 					FinalDmg-=Heal //negated
 					m.HealEnergy(Heal)
-
+				if(Owner.Attunement == "Fox Fire")
+					var/heal = FinalDmg * ( (1 + Owner.AscensionsAcquired + (FoxFire))/10)
+					m:LoseEnergy(heal/2)
+					m:LoseMana(heal/2)
+					Owner.HealEnergy(heal/2)
+					Owner.HealMana(heal/2)
 				if(m.HasDeflection()&&!src.CanBeDodged)
 					if(m.CheckSlotless("Deflector Shield"))
 						if(!m.Shielding)

@@ -574,6 +574,8 @@ NEW VARIABLES
 				description += "[i] - [passives[i]]\n"
 	proc
 		Trigger(var/mob/User, Override=0)
+			if(!User.BuffOn(src))
+				adjust(User) // why didnt we just add this here
 			if(!Override && User.passive_handler.Get("Silenced"))
 				User << "You can't use [src] you are silenced!"
 				return 0
@@ -1295,221 +1297,6 @@ NEW VARIABLES
 				set category="Skills"
 				Legendary_Weapon()
 
-
-		// Kamui
-		// 	KiControl=1
-		// 	HealthPU=1
-		// 	passives = list ("KiControl" = 1, "HealthPU" = 1, "BleedHit" = 0.5)
-		// 	StripEquip=1
-		// 	FlashChange=1
-		// 	HairLock=1
-		// 	IconLayer=3
-		// 	KenWave=1
-		// 	KenWaveIcon='SparkleRed.dmi'
-		// 	KenWaveSize=5
-		// 	KenWaveTime=30
-		// 	KenWaveX=105
-		// 	KenWaveY=105
-		// 	KamuiSenketsu
-		// 		HealthThreshold=25
-		// 		PowerMult=1
-		// 		StrMult=1.25
-		// 		EndMult=1.25
-		// 		SpdMult=1.5
-		// 		Cooldown=60
-		// 		IconLock='senketsu_activated.dmi'
-		// 		TopOverlayLock='senketsu_activated_headpiece.dmi'
-		// 		TopOverlayX=0
-		// 		TopOverlayY=0
-		// 		ActiveMessage="feeds blood into their Kamui, drawing on its full power.  Life Fiber Synchronize!"
-		// 		OffMessage="runs out of blood to feed their Kamui, releasing the transformed state..."
-		// 		BuffName="Life Fiber Synchronize"
-		// 		verb/Life_Fiber_Synchronize()
-		// 			set category="Skills"
-		// 			if(!usr.BuffOn(src))
-		// 				if(usr.SagaLevel<1||usr.Saga!="Kamui")
-		// 					src.PowerMult=1.15
-		// 					src.StrMult=1.25
-		// 					src.EndMult=1.25
-		// 					src.SpdMult=0.1
-		// 					src.RegenMult=0.1
-		// 					src.ActiveMessage="attempts to wear a Kamui which they have no connection to!"
-		// 					src.OffMessage="has their strepower stolen from them..."
-		// 				if(usr.Saga=="Kamui")
-		// 					src.PowerMult=1
-		// 					src.StrMult=1.15
-		// 					src.EndMult=1.15
-		// 					src.SpdMult=1.2
-		// 					src.HealthCost=15
-		// 					src.WoundCost=15
-		// 					src.VaizardHealth=1.5
-		// 					src.RegenMult=1
-		// 					src.ActiveMessage="feeds blood into their Kamui, drawing on its full power.  Life Fiber Synchronize!"
-		// 					src.OffMessage="runs out of blood to feed their Kamui, releasing the transformed state..."
-		// 					if(usr.KamuiType=="Impulse")
-		// 						switch(usr.SagaLevel)
-		// 							if(2)
-		// 								src.HealthThreshold=5
-		// 								src.WoundCost=10
-		// 								src.HealthCost=10
-		// 								src.VaizardHealth=1
-		// 								src.IconLock='senketsu_v2.dmi'
-		// 								src.TopOverlayLock='senketsu_v2_headpiece.dmi'
-		// 								src.TopOverlayX=0
-		// 								src.TopOverlayY=0
-		// 								src.ActiveMessage="feeds blood into their Kamui, drawing on its full power.  Life Fiber Synchronize!"
-		// 								src.OffMessage="runs out of blood to feed their Kamui, releasing the transformed state..."
-		// 							if(3)
-		// 								src.HealthThreshold=5
-		// 								src.WoundCost=5
-		// 								src.HealthCost=5
-		// 								src.VaizardHealth=0.5
-		// 								src.IconLock='senketsu_v2.dmi'
-		// 								src.TopOverlayLock='senketsu_v2_headpiece.dmi'
-		// 								src.TopOverlayX=0
-		// 								src.TopOverlayY=0
-		// 								src.ActiveMessage="feeds blood into their Kamui, drawing on its full power.  Life Fiber Synchronize!"
-		// 								src.OffMessage="runs out of blood to feed their Kamui, releasing the transformed state..."
-		// 							if(4)
-		// 								src.HealthThreshold=5
-		// 								src.WoundCost=0
-		// 								src.HealthCost=0
-		// 								src.VaizardHealth=0
-		// 								src.IconLock='senketsu_v2.dmi'
-		// 								src.TopOverlayLock='senketsu_v2_headpiece.dmi'
-		// 								src.TopOverlayX=0
-		// 								src.TopOverlayY=0
-		// 								src.ActiveMessage="feeds blood into their Kamui, drawing on its full power.  Life Fiber Synchronize!"
-		// 								src.ActiveMessage="feeds blood into their Kamui, drawing on its full power.  Life Fiber Synchronize!"
-		// 								src.OffMessage="runs out of blood to feed their Kamui, releasing the transformed state..."
-		// 							if(5)
-		// 								src.HealthThreshold=5
-		// 								src.WoundCost=0
-		// 								src.HealthCost=0
-		// 								src.VaizardHealth=0
-		// 								src.IconLock='senketsu_v2.dmi'
-		// 								src.TopOverlayLock='senketsu_v2_headpiece.dmi'
-		// 								src.TopOverlayX=0
-		// 								src.TopOverlayY=0
-		// 								src.ActiveMessage="feeds blood into their Kamui, drawing on its full power.  Life Fiber Synchronize!"
-		// 								src.OffMessage="runs out of blood to feed their Kamui, releasing the transformed state..."
-		// 							if(6)
-		// 								src.HealthThreshold=0
-		// 								passives = list ("HealthPU" = 1, "BleedHit" = 1, "FatigueLeak" = 1, "TechniqueMastery" = 5)
-		// 								src.TechniqueMastery=5
-		// 								src.EnergyMult=1.5 //Counteract PowerMult drains. Perfect Syncronization!!!1111
-		// 								src.WoundCost=0
-		// 								src.HealthCost=0
-		// 								src.VaizardHealth=0
-		// 								src.IconLock='senketsu_v2.dmi'
-		// 								src.TopOverlayLock='senketsu_v2_headpiece.dmi'
-		// 								src.TopOverlayX=0
-		// 								src.TopOverlayY=0
-		// 								src.ActiveMessage="synchronizes perfectly with their Kamui!"
-		// 								src.ActiveMessage="synchronizes perfectly with their Kamui!"
-		// 								src.OffMessage="separates from their Kamui..."
-		// 							if(7)
-		// 								src.HealthThreshold=0
-		// 								passives = list ("HealthPU" = 1, "BleedHit" = 1, "FatigueLeak" = 1, "TechniqueMastery" = 5)
-		// 								src.TechniqueMastery=5
-		// 								src.EnergyMult=1.5
-		// 								src.WoundCost=0
-		// 								src.HealthCost=0
-		// 								src.VaizardHealth=0
-		// 								src.IconLock='senketsu_v2.dmi'
-		// 								src.TopOverlayLock='senketsu_v2_headpiece.dmi'
-		// 								src.TopOverlayX=0
-		// 								src.TopOverlayY=0
-		// 								src.ActiveMessage="synchronizes perfectly with their Kamui!"
-		// 								src.ActiveMessage="synchronizes perfectly with their Kamui!"
-		// 								src.OffMessage="separates from their Kamui..."
-		// 							if(8)
-		// 								src.HealthThreshold=0
-		// 								passives = list ("HealthPU" = 1, "BleedHit" = 1, "FatigueLeak" = 1, "TechniqueMastery" = 5)
-		// 								src.TechniqueMastery=5
-		// 								src.EnergyMult=1.5
-		// 								src.WoundCost=0
-		// 								src.HealthCost=0
-		// 								src.VaizardHealth=0
-		// 								src.IconLock='senketsu_v2.dmi'
-		// 								src.TopOverlayLock='senketsu_v2_headpiece.dmi'
-		// 								src.TopOverlayX=0
-		// 								src.TopOverlayY=0
-		// 								src.ActiveMessage="synchronizes perfectly with their Kamui!"
-		// 								src.ActiveMessage="synchronizes perfectly with their Kamui!"
-		// 								src.OffMessage="separates from their Kamui..."
-		// 			src.Trigger(usr)
-		// 	KamuiJunketsu
-		// 		OverClock=0.25
-		// 		PowerMult = 1
-		// 		StrMult=1.25
-		// 		EndMult=1.25
-		// 		SpdMult=1.25
-		// 		RegenMult=0.5
-		// 		Cooldown=5
-		// 		IconLock='junketsu_activated.dmi'
-		// 		TopOverlayLock='junketsu_activated_headpiece.dmi'
-		// 		TopOverlayX=0
-		// 		TopOverlayY=0
-		// 		BuffName="Life Fiber Override"
-		// 		ActiveMessage="forces their blood into their Kamui, making use of its full power.  Life Fiber Override!"
-		// 		OffMessage="relaxes their bloodflow, allowing the Kamui they wear to revert..."
-		// 		verb/Life_Fiber_Override()
-		// 			set category="Skills"
-		// 			if(!usr.BuffOn(src))
-		// 				if(usr.SagaLevel<1||usr.Saga!="Kamui")
-		// 					src.PowerMult=2
-		// 					src.OverClock=1
-		// 					src.StrMult=1.25
-		// 					src.EndMult=1.25
-		// 					src.SpdMult=0.1
-		// 					src.RegenMult=0.1
-		// 					src.ActiveMessage="is having the life sucked out of them by a Kamui!"
-		// 					src.OffMessage="manages to take the Kamui off..."
-		// 				else if(usr.Saga=="Kamui")
-		// 					switch(usr.SagaLevel)
-		// 						if(3)
-		// 							src.OverClock=0.15
-		// 							src.StrMult=1.25
-		// 							src.EndMult=1.25
-		// 							src.SpdMult=1.25
-		// 							src.RegenMult=0.5
-		// 						if(4)
-		// 							src.OverClock=0.15
-		// 							src.StrMult=1.25
-		// 							src.EndMult=1.25
-		// 							src.SpdMult=1.25
-		// 							src.RegenMult=0.5
-		// 						if(5)
-		// 							src.OverClock=0.05
-		// 							src.StrMult=1.5
-		// 							src.EndMult=1.5
-		// 							src.SpdMult=1.5
-		// 							src.RegenMult=0.5
-		// 						if(6)
-		// 							src.OverClock=0.05
-		// 							src.StrMult=1.5
-		// 							src.EndMult=1.5
-		// 							src.SpdMult=1.5
-		// 							src.RegenMult=0.5
-		// 						if(7)
-		// 							src.OverClock=0.05
-		// 							src.StrMult=1.5
-		// 							src.EndMult=1.5
-		// 							src.SpdMult=1.5
-		// 							src.RegenMult=0.5
-		// 						if(8)
-		// 							src.OverClock=0.05
-		// 							src.StrMult=1.5
-		// 							src.EndMult=1.5
-		// 							src.SpdMult=1.5
-		// 							src.RegenMult=0.5
-		// 				if(usr.KamuiType=="Impulse")
-		// 					src.IconLock='JunKamui_Stage_2_RyuVer.dmi'
-		// 					src.TopOverlayLock='JunKamui_Stage_2_RyuVer_Pauldrons-Headpiece.dmi'
-		// 					src.TopOverlayX=0
-		// 					src.TopOverlayY=0
-		// 			src.Trigger(usr)
 		Persona
 
 		Keyblade
@@ -9401,12 +9188,11 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(!altered)
 						passives = list("Curse" = 1, "Godspeed" =  1+p.AscensionsAcquired, \
-										"MovementMastery" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"], 50),\
 						 				"Pursuer" = 2,
 										"CallousedHands" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],250), \
 						  				"Hardening" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],50), \
 										"Flicker" = ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],25), \
-										"AngerThreshold" = 1 + (0.125 * p.AscensionsAcquired))
+										"AngerThreshold" = 1.125 + (0.125 * p.AscensionsAcquired))
 						PowerMult=1+(0.05+(0.05*ROUND_DIVIDE(p.secretDatum.secretVariable["Madness"],25)))
 						// passives["PureReduction"] = p.AscensionsAcquired
 						TimerLimit = 55 + (p.secretDatum.secretVariable["Madness"]/5)
@@ -11752,10 +11538,17 @@ mob
 				if(!B.AllOutAttack)
 					if(B.ResourceCost)
 						var/resourceName = B.ResourceCost[1]
+						var/storage = 0
+						var/cost = B.ResourceCost[2]
 						if(vars[resourceName])
 							// the cost associated exists
-							var/storage = vars[resourceName]
-							var/cost = B.ResourceCost[2]
+							storage = vars[resourceName]
+						else
+							if(passive_handler[resourceName])
+								storage = passive_handler[resourceName]
+						if(cost == 999)
+							cost = storage
+						else
 							if(storage - cost < 0)
 								src << " you need more [resourceName]"
 								return FALSE
@@ -11813,7 +11606,8 @@ mob
 								src << "You don't have enough health to activate [B]."
 							return
 					if(B.EnergyCost)
-						if(src.Energy<B.EnergyCost)
+						var/drain = passive_handler["Drained"] ? B.EnergyCost * (1 + passive_handler["Drained"]/10) : B.EnergyCost
+						if(src.Energy<drain)
 							if(!B.Autonomous)
 								src << "You don't have enough energy to activate [B]."
 							return
@@ -13416,7 +13210,8 @@ mob
 			if(B.HealthCost)
 				src.DoDamage(src, TrueDamage(B.HealthCost))
 			if(B.EnergyCost)
-				src.LoseEnergy(B.EnergyCost)
+				var/drain = passive_handler["Drained"] ? B.EnergyCost * (1 + passive_handler["Drained"]/10) : B.EnergyCost
+				src.LoseEnergy(drain)
 			if(B.ManaCost)
 				if(!src.TomeSpell(B))
 					src.LoseMana(B.ManaCost)
@@ -13424,6 +13219,21 @@ mob
 					src.LoseMana(B.ManaCost*(1-(0.45*src.TomeSpell(B))))
 				if(B.CorruptionGain)
 					gainCorruption((B.ManaCost / 1.5) * glob.CORRUPTION_GAIN)
+			if(B.ResourceCost)
+				var/resourceName = B.ResourceCost[1]
+				var/cost = B.ResourceCost[2]
+				if(vars[resourceName])
+					// the cost associated exists
+					vars[resourceName] -= cost
+					if(vars[resourceName] < 0)
+						vars[resourceName] = 0
+				else
+					if(passive_handler[resourceName])
+						passive_handler[resourceName] -= cost
+						if(passive_handler[resourceName] < 0)
+							passive_handler[resourceName] = 0 // shouldnt b possible
+
+				
 			if(B.CorruptionCost)
 				gainCorruption(-B.CorruptionCost)
 			if(B.CapacityCost)

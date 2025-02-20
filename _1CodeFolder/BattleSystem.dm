@@ -103,6 +103,8 @@ mob/proc/Unconscious(mob/P,var/text)
 		return
 	if(P)
 		if(!istype(src,/mob/Player/FevaSplits))
+			if(P.passive_handler["Undying Rage"])
+				P.Health += 2.5 + (glob.racials.UNDYINGRAGE_HEAL * P.AscensionsAcquired)
 			src.OMessage(15,"[src] is knocked out by [P]!","<font color=red>[src]([src.key]) is knocked out by [P]([P.key])")
 			if(FightingSeriously(P,0)||src.BPPoison<1||src.MortallyWounded)
 				src.KOBrutal=1
@@ -133,6 +135,9 @@ mob/proc/Unconscious(mob/P,var/text)
 				src.VaizardHealth+=clamp(passive_handler.Get("Desperation")* glob.TENACITY_VAI_MULT, glob.TENACITY_VAI_MIN, glob.TENACITY_VAI_MAX) //actual clutch now.
 				src.HealthAnnounce10=2
 				return
+	if(passive_handler["Undying Rage"])
+		Health = 0.1
+		return
 	var/GetUpOdds=1
 	if(src.KOBrutal)
 		GetUpOdds=2

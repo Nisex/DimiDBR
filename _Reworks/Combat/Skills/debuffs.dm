@@ -28,8 +28,37 @@
 		. = ..()
 		TimerLimit = limit
 		IconLock = icon
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Soul_Drained
+	TimerLimit = 30
+	IconLock='drained.dmi'
+	max_stacks = 4
+	do_effect(mob/defender, mob/attacker)
+		attacker.HealHealth(total_stacks * glob.racials.SOULDRAINHEAL)
+		defender.LoseHealth((total_stacks * glob.racials.SOULDRAINHEAL)/2)
+		OMsg(defender, "[attacker] drains [defender]'s life force.")
+
+	adjust(mob/enemy, mob/attacker)
+		TimerLimit = 25 + (5 * attacker.AscensionsAcquired)
+		max_stacks = glob.racials.SOULDRAINMAX + attacker.AscensionsAcquired
+		passives = list("Drained" = glob.racials.SOULDRAINPER * total_stacks)
 	
-	
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Marked_Prey
+	HealthDrain = 0.005
+	TimerLimit = 30
+	IconLock='marked.dmi'
+	max_stacks = 4
+	do_effect(mob/defender, mob/attacker)
+		var/obj/Skills/s = defender.findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Thrill_of_the_Hunt)
+		s.adjust(defender)
+		s.Password = defender.name
+		OMsg(defender, "[attacker] starts to hunt [defender].")
+		
+	adjust(mob/enemy, mob/attacker)
+		TimerLimit = 25 + (5 * attacker.AscensionsAcquired)
+		max_stacks = glob.racials.MARKEDPREYBASESTACKS + attacker.AscensionsAcquired
+		endAdd = -glob.racials.MARKEDPREYENDREDUC * total_stacks
+		passives = list("PureReduction" = -glob.racials.MARKEDPREYPURERED * total_stacks)
+
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Rupture
@@ -39,6 +68,7 @@
 	max_stacks = 3
 	do_effect(mob/defender, mob/attacker)
 		defender.LoseHealth(attacker.passive_handler["Rupture"] * glob.RUPTURE_BASE_DAMAGE)
+		OMsg(defender, "[defender]'s wound fully ruptures, causing massive damage!")
 	adjust(mob/p)
 		switch(total_stacks)
 			if(1)
@@ -56,8 +86,9 @@
 	TimerLimit = 10
 	IconLock='Cornered.dmi'
 	do_effect(mob/defender, mob/attacker)
-		Stun(defender, 8)
+		Stun(defender, 8, 1)
 		defender.Shatter = glob.OVERHWELMING_SHATTER_APPLY
+		OMsg(defender, "[defender] completely shuts down, becoming defenseless.")
 	adjust(mob/p, mob/attacker)
 		max_stacks = attacker.passive_handler["Overwhelming"]
 		if(total_stacks > 2)

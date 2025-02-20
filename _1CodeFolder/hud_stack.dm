@@ -14,12 +14,18 @@
 	New(client/_client, o, _x, _y)
 		screen_loc = "1:[_x],1:[_y]"
 		client = _client
+	beastman
+		icon = 'BLANK.dmi'
+		icon_state = "dot"
+		var/tmp/obj/Skills/obj_to_ref
+		var/var_to_ref
+
 	mystic
 		icon = 'BLANK.dmi'
 		icon_state = "dot"
 		var/tmp/obj/Skills/obj_to_ref
 		var/var_to_ref
-		proc/mysticTicker()
+		proc/mysticTicker() // make this dynamic prob
 			if(client.mob.UsingMysticStyle()[1]==TRUE && client.mob.StyleBuff)
 				var/next_cast = client.mob.can_use_style_effect(FALSE)
 				if(obj_to_ref)
@@ -169,8 +175,8 @@ client/proc/remove_hud(id)
 				animate(barbg, alpha = 0, time = 2)
 
 
-#define BAR_X_LOCS list("Fury" = 1, "Momentum" = 1, "Harden" = 1, "FTG" = 1, "MysticT0" = 1, "MysticT1" = 32, "SuperCharge" = 32, "HotnCold" = 128)
-#define BAR_Y_LOCS list("Fury" = 86, "Momentum" = 118, "Harden" = 150, "FTG" = 32, "MysticT0" = 64, "MysticT1" = 64, "SuperCharge" = 32, "HotnCold" = 1)
+#define BAR_X_LOCS list("Fury" = 1, "Momentum" = 1, "Harden" = 1, "FTG" = 1, "MysticT0" = 1, "MysticT1" = 32, "SuperCharge" = 32, "HotnCold" = 128, "Grit" = 192)
+#define BAR_Y_LOCS list("Fury" = 86, "Momentum" = 118, "Harden" = 150, "FTG" = 32, "MysticT0" = 64, "MysticT1" = 64, "SuperCharge" = 32, "HotnCold" = 1, "Grit" = 1)
 
 /mob/proc/hudIsLive(option, path, toss_obj,var_callback)
 	if(client.hud_ids[option])

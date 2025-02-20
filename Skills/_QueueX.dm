@@ -870,6 +870,7 @@ obj
 									FollowUp = "/obj/Skills/AutoHit/Hyper_Inferno"
 								if("HellfireInferno")
 									FollowUp = "/obj/Skills/AutoHit/HellfireInferno"
+									
 						else
 							// reset all
 							Grapple = 0
@@ -1872,7 +1873,8 @@ mob
 				if(src.Health<Q.HealthCost*glob.WorldDamageMult&&!Q.AllOutAttack)
 					return
 			if(Q.EnergyCost)
-				if(src.Energy<Q.EnergyCost&&!Q.AllOutAttack)
+				var/drain = passive_handler["Drained"] ? Q.EnergyCost * (1 + passive_handler["Drained"]/10) : Q.EnergyCost
+				if(src.Energy<drain&&!Q.AllOutAttack)
 					if(!src.CheckSpecial("One Hundred Percent Power")&&!src.CheckSpecial("Fifth Form")&&!CheckActive("Eight Gates"))
 						return
 			if(Q.ManaCost && !src.HasDrainlessMana() && !Q.AllOutAttack)
@@ -2134,9 +2136,7 @@ mob
 				GoshoryukenEffect(src, P, Time)
 
 			if(src.AttackQueue.BuffAffected)
-				world<<"[src.AttackQueue.BuffAffected]"
 				var/path=text2path(src.AttackQueue.BuffAffected)
-				world<<"here is path: [path]"
 				var/obj/Skills/Buffs/S=new src.AttackQueue.BuffAffected
 				var/AlreadyBuffed=0
 				for(var/obj/Skills/SP in P)
@@ -2238,11 +2238,13 @@ mob
 			if(src.AttackQueue.WoundCost)
 				src.WoundSelf(src.AttackQueue.WoundCost*glob.WorldDamageMult)
 			if(src.AttackQueue.EnergyCost)
-				src.LoseEnergy(src.AttackQueue.EnergyCost)
+				var/drain = passive_handler["Drained"] ? src.AttackQueue.EnergyCost * (1 + passive_handler["Drained"]/10) : src.AttackQueue.EnergyCost
+				src.LoseEnergy(drain)
 			if(src.AttackQueue.ForceCost)
 				src.LoseForce(src.AttackQueue.ForceCost)
 			if(src.AttackQueue.FatigueCost)
 				src.GainFatigue(src.AttackQueue.FatigueCost)
+				
 			if(src.AttackQueue.ManaGain)
 				src.HealMana(AttackQueue.ManaGain)
 			if(src.AttackQueue.ManaCost)

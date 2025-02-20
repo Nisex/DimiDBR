@@ -203,6 +203,8 @@ mob
 				StyleBuff?:hotCold = clamp(StyleBuff?:hotCold - tmpval * glob.HOTNCOLD_MODIFIER, -100, 100)
 			else if(passive_handler["HeatingUp"])
 				StyleBuff?:hotCold  = clamp(StyleBuff?:hotCold + tmpval * glob.HOTNCOLD_MODIFIER, -100, 100)
+			if(passive_handler["Grit"])
+				AdjustGrit("add", tmpval*glob.racials.GRITMULT)
 			defender.LoseHealth(max(0,tmpval))
 
 			if(defender.Flying)
@@ -727,6 +729,8 @@ mob
 			src.Health-=val
 			src.MaxHealth()
 			var/Absorb = passive_handler.Get("AbsorbingDamage")
+			if(passive_handler["Grit"])
+				AdjustGrit("add", val*glob.racials.GRITMULT)
 			if(Absorb)
 				passive_handler.Increase("AbsorbingDamage", val)
 			if(isRace(MAJIN))
@@ -1207,7 +1211,7 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-			if(glob.DEVIL_ARM_STAT_MULTS)
+			if(glob.racials.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.1 * AscensionsAcquired)
 			if(src.StrStolen)
@@ -1330,7 +1334,7 @@ mob
 			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
 			// 	if(src.race.transformations[transActive].mastery==100)
 			// 		Mod+=0.1
-			if(glob.DEVIL_ARM_STAT_MULTS)
+			if(glob.racials.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.1 * AscensionsAcquired)
 			if(src.ForStolen)
@@ -1442,7 +1446,7 @@ mob
 			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
 			// 	if(src.race.transformations[transActive].mastery==100)
 			// 		Mod+=0.1
-			if(glob.DEVIL_ARM_STAT_MULTS)
+			if(glob.racials.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.05 * AscensionsAcquired)
 			if(src.EndStolen)
@@ -1551,7 +1555,7 @@ mob
 			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
 			// 	if(src.race.transformations[transActive].mastery==100)
 			// 		Mod+=0.1
-			if(glob.DEVIL_ARM_STAT_MULTS)
+			if(glob.racials.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.05 * AscensionsAcquired)
 			if(src.SpdStolen)

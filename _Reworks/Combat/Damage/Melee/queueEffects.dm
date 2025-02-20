@@ -32,7 +32,22 @@
                     Dust(turf)
     if(AttackQueue.Grapple)
         Grab_Mob(enemy, Forced=1)
-    
+    if(istype(AttackQueue, /obj/Skills/Queue/Heavy_Strike))
+        if(passive_handler["Heavy Strike"] == "Unseen Predator")
+            if(enemy.SlotlessBuffs["Marked Prey"])
+                enemy.SlotlessBuffs["Marked Prey"]:add_stack(enemy,src)
+            else
+                var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/ss = findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Marked_Prey)
+                ss.adjust(enemy, src)
+                ss.Password = enemy.name
+        if(passive_handler["Heavy Strike"] == "Fox Fire")
+            if(enemy.SlotlessBuffs["Soul Drained"])
+                enemy.SlotlessBuffs["Soul Drained"]:add_stack(enemy, src)
+            else
+                var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/ss = findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Soul_Drained)
+                ss.adjust(enemy, src)
+                ss.Password = enemy.name
+
     if(AttackQueue.Explosive)
         Bang(enemy.loc, AttackQueue.Explosive)
     if(AttackQueue.Shining)

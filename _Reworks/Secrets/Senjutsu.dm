@@ -18,7 +18,7 @@ var/senjutsuOverloadAlert = FALSE
     var/maxStatBoon = 1.25
     var/baseBoon = glob.MANA_STATS_BASE_BOON // 0.1 extra stat for 1 mana stat
     if(isRace(YOKAI))
-        baseBoon = glob.YOKAI_MANA_STATS_BASE_BOON
+        baseBoon = glob.racials.YOKAI_MANA_STATS_BASE_BOON
         manaStatPerc *= 1.25
         maxStatBoon = 2
     if(ManaMax >= 100 && manaStatPerc > 1 && Secret == "Senjutsu") // essentially senjutsu

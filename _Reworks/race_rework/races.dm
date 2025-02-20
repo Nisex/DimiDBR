@@ -4,7 +4,7 @@ races are stored as text macros; this serves two purposes.
 If a typo occurs, BYOND will throw errors.
 This is also done so we can easily check types.
 */
-
+#define STAT2INDEX list("strength" = 1, "endurance" = 2, "force" = 3, "offense" = 4, "defense" = 5, "speed" = 6)
 var/list/races = list()
 
 proc
@@ -70,7 +70,9 @@ obj
 			..()
 			usr.icon = icon
 			if(istype(usr, /mob/Creation))
-				usr<<output(usr, "IconUpdate:1,[usr]")
+				usr.dir = SOUTH
+				usr.screen_loc = "IconUpdate:1,1"
+				usr.client.screen += usr
 mob
 	var
 		race/race
@@ -108,7 +110,9 @@ race
 	var
 		// the formal name for the race
 		name = ""
-
+		classes = list("Shonen")
+		current_class = 1 // first index
+		class_info = list("Generic DBR Character #341")
 		//gender options. so far implemented ones are Male, Female & Neuter. Neuter is for namekians or so on.
 		gender_options = list("Male", "Female")
 		//the icon used for male gender
@@ -136,13 +140,13 @@ race
 		statPoints = 10
 
 		//1 = 1 for these.
-		strength = 1
+		strength = 1 // if we change this to class = num, it will break everything
 		endurance = 1
 		force = 1
 		offense = 1
 		defense = 1
 		speed = 1
-
+		stats_per_class = list() //NIEZAAAAANNNNN 
 		anger_message = "becomes angry!"
 		anger_point = 50
 
@@ -188,6 +192,15 @@ race
 			transformations += new i
 
 	proc
+		getChoice(ascLevel)
+			return ascensions[ascLevel].choiceSelected
+		getClass()
+			return classes[current_class]
+		getStat(stat)
+			if(length(stats_per_class))
+				return stats_per_class[getClass()][STAT2INDEX[stat]]
+			else
+				return vars[stat]
 		onDeselection(mob/user)
 			user.overlays -= overlays
 

@@ -343,7 +343,9 @@ mob
 			if(glob.BREAK_TARGET_ON_DIST)
 				if(get_dist(Target,src) >= glob.BREAK_TARGET_ON_DIST)
 					Target = null
-			
+		if(passive_handler["Grit"]>=1 && Health <= clamp(AscensionsAcquired * 15, 15, 75))
+			var/value = passive_handler["Grit"] / glob.racials.GRITDIVISOR
+			HealHealth(value)
 		if(src.Health <= 25*(1-src.HealthCut) && !src.HealthAnnounce25)
 
 			var/shonenMoment = ShonenPowerCheck(src)
@@ -542,18 +544,19 @@ mob
 				scrollTicker--
 				if(scrollTicker<=0)
 					scrollTicker=0
-
+			if(passive_handler["Grit"])
+				AdjustGrit("sub", glob.racials.GRITSUBTRACT)
 			if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive>0)
 				var/cut_off = 0
 				var/drain = 0
 				if(race.transformations[transActive].mastery<100)
-					drain = glob.SSJ_BASE_DRAIN - (glob.SSJ_BASE_DRAIN * (race.transformations[transActive].mastery/100))
-					cut_off = glob.SSJ_BASE_CUT_OFF + (glob.SSJ_CUT_OFF_PER_MAST * (race.transformations[transActive].mastery/100))
+					drain = glob.racials.SSJ_BASE_DRAIN - (glob.racials.SSJ_BASE_DRAIN * (race.transformations[transActive].mastery/100))
+					cut_off = glob.racials.SSJ_BASE_CUT_OFF + (glob.racials.SSJ_CUT_OFF_PER_MAST * (race.transformations[transActive].mastery/100))
 
 				if(drain>0)
 					src.LoseEnergy(drain)
-					var/_mastery = randValue(glob.SSJ_MIN_MASTERY_GAIN,glob.SSJ_MAX_MASTERY_GAIN)
-					if(glob.AUTO_SSJ_MASTERY)
+					var/_mastery = randValue(glob.racials.SSJ_MIN_MASTERY_GAIN,glob.racials.SSJ_MAX_MASTERY_GAIN)
+					if(glob.racials.AUTO_SSJ_MASTERY)
 						_mastery *= transActive
 						race.transformations[transActive].mastery+=_mastery
 						if(race.transformations[transActive].mastery>=95)
@@ -827,6 +830,9 @@ mob
 			else
 				if(client.hud_ids["HotnCold"])
 					client.remove_hud("HotnCold")
+			if(passive_handler["Grit"])
+				if(hudIsLive("Grit", /obj/bar))
+					client.hud_ids["Grit"]?:Update()
 			if(src.Harden)
 				src.Harden -= glob.BASE_STACK_REDUCTION
 				if(hudIsLive("Harden", /obj/bar))
@@ -1336,8 +1342,8 @@ mob
 					var/obj/Skills/Buffs/b = SlotlessBuffs[h]
 					if(b)
 
-						if(b.Afterimages)
-							if(prob(b.Afterimages*25))
+						if(b.Afterimages || b.passives["AfterImages"])
+							if(prob((b.Afterimages + b.passives["AfterImages"]) *25))
 								FlashImage(src)
 						if(b.HealthDrain)
 							src.DoDamage(src, TrueDamage(b.HealthDrain))

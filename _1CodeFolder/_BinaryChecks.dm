@@ -1720,6 +1720,8 @@ mob
 				return 1
 			if(src.Attunement=="Water")
 				return 1
+			if(Attunement=="Fox Fire")
+				return 1
 			if(src.InfusionElement=="Water")
 				return 1
 			return 0

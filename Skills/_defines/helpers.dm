@@ -13,15 +13,20 @@ proc/isAChild(typePath, parentPath)
         s:Activate(src)
 
 /mob/proc/findOrAddSkill(path) // find it, regardless
-    var/obj/Skills/s = FindSkill(path)
-    if(!s)
-        s = new path
-        AddSkill(s)
+    var/obj/Skills/s 
+    if(ispath(path))
+        s = FindSkill(path)
+        if(!s)
+            s = new path
+    else
+        s = path
+    AddSkill(s)
     return s
 
 /mob/proc/throwFollowUp(path)
     set waitfor = FALSE
-    path = text2path(path)
+    if(istext(path))
+        path = text2path(path)
     var/obj/Skills/s = findOrAddSkill(path)
     s.adjust(src)
     throwSkill(s)
@@ -38,7 +43,8 @@ proc/isAChild(typePath, parentPath)
 
 
 mob/proc/buffSelf(path)
-    path = text2path(path) // everything else has text useless to change it now, also makes edit easier
+    if(istext(path))
+        path = text2path(path) // everything else has text useless to change it now, also makes edit easier
     var/obj/Skills/s = findOrAddSkill(path)
     if(!SlotlessBuffs[s.name])
         s.adjust(src)
