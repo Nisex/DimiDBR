@@ -516,7 +516,7 @@ mob
 						if(isAChild(a?:type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura ))
 							aura = a
 					if(aura)
-						if(hudIsLive("MysticT1", /obj/hud/mystic, aura, "last_toss"))
+						if(hudIsLive("MysticT1", /obj/hud/mystic, src, "last_aura_toss"))
 							client.hud_ids["MysticT1"]?:Update()
 			else
 				if(client.hud_ids["MysticT0"])
@@ -1517,8 +1517,8 @@ mob
 							if(isAChild(b.type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura))
 								var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/aura = b
 								if(aura.TossSkill)
-									if((aura.last_toss - ((passive_handler["Familiar"]-1) * glob.FAMILIAR_CD_REDUCTION)) + glob.FAMILIAR_SKILL_CD < world.time && (Target && Target != src))
-										aura.last_toss = world.time
+									if((last_aura_toss - ((passive_handler["Familiar"]-1) * glob.FAMILIAR_CD_REDUCTION)) + glob.FAMILIAR_SKILL_CD < world.time && (Target && Target != src))
+										last_aura_toss = world.time
 										throwFollowUp(aura.skillToToss)
 							
 						else

@@ -7,7 +7,6 @@ mob/proc/RacialStats(statsinquestion)
 	displayStats()
 mob/proc/displayStats()
 	for(var/x in list("Strength","Endurance","Force","Offense","Defense","Speed"))
-		world<<"setting [x] to [statArchive.calc_stat(statArchive.vars[x])]"
 		winset(src, "[x]", "text=[statArchive.calc_stat(statArchive.vars[x])]")
 
 

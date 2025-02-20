@@ -4,7 +4,6 @@
     NeedsPassword = 1
     var/obj/Skills/skillToToss = null
     var/TossSkill = 1
-    var/tmp/last_toss = -500
     AuraLock = 'Terra Might.dmi'
     LockX=-16
     LockY=16

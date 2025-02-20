@@ -6,7 +6,6 @@
     var/datum/stat/Offense = new()
     var/datum/stat/Defense = new()
     proc/reset(l)
-        world<<"l is [l]"
         if(islist(l))
             var/list/stats = l
             Strength.base = stats[1]
