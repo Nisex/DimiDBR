@@ -1740,7 +1740,7 @@ mob
 								continue
 
 				if(A.AlwaysOn) //This only gets run if it has been deactivated
-					if(A.Using)
+					if(A.Using && !A.doNotDelete)
 						del A
 
 		if(src.Energy<=0)

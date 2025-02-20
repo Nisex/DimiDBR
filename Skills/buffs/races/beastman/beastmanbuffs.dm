@@ -149,9 +149,11 @@
 		set category = "Stances"
 		usr.preForm()
 		Trigger(usr)
-/obj/Skills/Buffs/SlotlessBuffs/Racial/Shapeshift
+/obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Shapeshift
+	var/datum/customBuff/c_buff = new()
 	proc/init(mob/p)
-
+		world<<"here 3"
+		c_buff.init(p, src)
 /obj/Skills/Buffs/SlotlessBuffs/Racial/Blend_In
 	Invisible = 22
 	ActiveMessage = "blends into their surroundings"

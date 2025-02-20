@@ -312,6 +312,7 @@
 #include "_Reworks\_Standalones\supporterBenefits.dm"
 #include "_Reworks\_Standalones\updater.dm"
 #include "_Reworks\_Standalones\buffTriggers\bufftrigger.dm"
+#include "_Reworks\_Standalones\customBuff\custombuff.dm"
 #include "_Reworks\_Standalones\Imitate\_InfoDatum.dm"
 #include "_Reworks\_Standalones\Imitate\imitate.dm"
 #include "_Reworks\_Standalones\Language\_languageDefines.dm"

@@ -52,9 +52,9 @@
 		Size = 1
 		TurfShift = 'Flaming Rain.dmi'
 		Scorching = 15
-		Rounds = 50
+		Rounds = 5
 		SpecialAttack = 1
-		DamageMult = 4
+		DamageMult = 0.33
 		AdaptRate = 1
 		EndDefense = 0.75
 	Flashfire_Fist

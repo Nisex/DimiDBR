@@ -544,6 +544,7 @@ NEW VARIABLES
 	var/TooMuchHealth=0//Once this value is passed, the buff deactivates.
 	var/TooLittleMana=0//Once this value is passed, the buff deactivates.
 	var/AlwaysOn=0//If the object exists in the target, its always on.  When it gets turned off, delete it
+	var/doNotDelete = 0 
 	var/ActiveBuffLock=0//Prevents active buffs from being used
 	var/SpecialBuffLock=0//Prevents special buffs from being used
 	var/TensionLock=0//TODO: rename to tension lock

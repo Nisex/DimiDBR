@@ -547,6 +547,8 @@ mob/Creation/verb
 			return
 		if(!(world.time > verb_delay))
 			return
+		statArchive = new()
+		statArchive.reset(list(1,1,1,1,1,1))
 		verb_delay=world.time+1
 		race_selecting=0
 		winshow(usr,"Race_Screen",0)
@@ -656,6 +658,8 @@ mob/Creation/verb
 				race.current_class = 1
 			else
 				race.current_class++
+			Class = race.classes[race.current_class]
+			setAllStats()
 			winset(usr, "Finalize_Screen.className", "text=\"[race.classes[race.current_class]]\"")
 			if(usr.isRace(NAMEKIAN))
 				if(usr.Class=="Warrior")

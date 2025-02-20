@@ -37,18 +37,18 @@ mob
 						then set the rewards last gained to the current day
 
 			*/
-			if(RewardsLastGained < DaysOfWipe())
-				var/Dif=((glob.progress.DaysOfWipe-RewardsLastGained))
-				Dif=round(Dif)
-				if(Dif > glob.progress.DaysOfWipe)
-					Dif=glob.progress.DaysOfWipe
-				var/Statement=1
-				while(Dif>0)
-					src << "Gaining routine RPP for [Statement] day\s."
-					reward_self()
-					Statement++
-					Dif--
-				RewardsLastGained=glob.progress.DaysOfWipe
+			// if(RewardsLastGained < DaysOfWipe())
+			// 	var/Dif=((glob.progress.DaysOfWipe-RewardsLastGained))
+			// 	Dif=round(Dif)
+			// 	if(Dif > glob.progress.DaysOfWipe)
+			// 		Dif=glob.progress.DaysOfWipe
+			// 	var/Statement=1
+			// 	while(Dif>0)
+			// 		src << "Gaining routine RPP for [Statement] day\s."
+			// 		reward_self()
+			// 		Statement++
+			// 		Dif--
+			// 	RewardsLastGained=glob.progress.DaysOfWipe
 		reward_self()
 			var/AddRPP=glob.progress.RPPDaily/6
 			var/YourRPP=AddRPP

@@ -7,9 +7,14 @@ mob/proc/RacialStats(statsinquestion)
 	displayStats()
 mob/proc/displayStats()
 	for(var/x in list("Strength","Endurance","Force","Offense","Defense","Speed"))
-		winset(src, "[x]", "text=[statArchive.calc_stat(statArchive.vars[x])]")
+		winset(src, "Finalize_Screen.[x]", "text=[statArchive.calc_stat(statArchive.vars[x])]")
 
-
+/mob/proc/setAllStats()
+	for(var/x in list("Strength","Endurance","Force","Offense","Defense","Speed"))
+		var/org = x
+		if(x == "Speed")
+			x = "Spd"
+		vars["[copytext(x,1,4)]Mod"] = statArchive.calc_stat(statArchive.vars[org])
 
 mob/verb/Skill_Points(type as text,skill as text)
 	set name=".Skill_Points"
@@ -29,17 +34,11 @@ mob/verb/Skill_Points(type as text,skill as text)
 	if(!statArchive.adjust(type, skill))
 		src << "You can't."
 	else
-		winset(src,"[skill]","text=[statArchive.calc_stat(statArchive.vars[skill])]")
+		winset(src,"Finalize_Screen.[skill]","text=[statArchive.calc_stat(statArchive.vars[skill])]")
 		Points-=Increase
-		winset(src,"Points Remaining","text=[Points]")
+		winset(src,"Finalize_Screen.Points Remaining","text=[Points]")
+	setAllStats()
 	return
-
-	if(type=="-")
-		if(Points==Max_Points) return
-		Increase=-1
-	if(type=="+")
-		Increase=1
-		if(Points==0) return
 
 obj/Redo_Stats
 	var/LoginUse
@@ -73,7 +72,7 @@ mob/proc/Redo_Stats()
 	del C
 
 mob/proc/PerkDisplay()
-	winset(src,"Points Remaining","text=[Points]")
+	winset(src,"Finalize_Screen.Points Remaining","text=[Points]")
 	winset(src,"RaceBP","text=\"[Define_Average(PotentialRate)] Power Rate\"")
 	winset(src,"Race RPP","text=\"[Define_Average(RPPMult)] RPP Mult\"")
 	winset(src,"Race Intellect", "text=\"[Define_Average(Intelligence)] Intellect\"")

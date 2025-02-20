@@ -42,11 +42,14 @@
         var/denom_mod = glob.progress.DENOMINATOR_MOD
         return round(s.base + (per_point * (s.invested/(denom_base+denom_mod * s.invested))), 0.01)
 
-    proc/calc_stat(datum/stat/stat)
+    proc/calc_stat(datum/stat/stat, custom_buff = FALSE)
         var/base = stat.base
         var/invested = stat.invested
-        if(glob.progress.STAT_DIMINISHING_RETURNS && base + (invested *glob.progress.STAT_PER_POINT) > glob.progress.STAT_DIMINISHING_THRESHOLD)
-            return exponential_scaling(stat)
+        if(custom_buff)
+            return base + (invested * 0.05 )
+        else
+            if(glob.progress.STAT_DIMINISHING_RETURNS && base + (invested *glob.progress.STAT_PER_POINT) > glob.progress.STAT_DIMINISHING_THRESHOLD)
+                return exponential_scaling(stat)
         return base + (invested * glob.progress.STAT_PER_POINT)
         
 /datum/stat

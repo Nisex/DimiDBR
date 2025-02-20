@@ -22,7 +22,7 @@ race
 		stats_per_class = list("Heart of The Beastman" = list(1.25, 1.5, 1, 1.25, 1, 1.5), "Monkey King" = list(1.25,1.25,1.25,1.25,1.25,1.25),\
 						"Unseen Predator" = list(1.5, 1, 1, 1.5, 1, 1.5), "Undying Rage" = list(1.5, 1, 1, 1, 1, 2), \
 						"Feather Cowl" = list(0.75, 2, 0.75, 1, 2, 1), "Feather Knife" = list(1.5, 0.75, 1, 1.5, 1, 1.75), \
-						"Spirit Walker" = list(1, 1, 1.5, 1.5, 1.5, 1), "Shapeshifter" = list(1.25,1.25,1.25,1.25,1.25,1.25), \
+						"Spirit Walker" = list(1, 1, 1.5, 1.5, 1.5, 1), "Shapeshifter" = list(0.75,0.75,0.75,0.75,0.75,0.75), \
 						"Trickster" = list(1, 1, 2, 1, 1.5, 1), "Fox Fire" = list(1.5, 1, 2, 1.5, 0.75, 0.75 ))
 		imagination = 1
 		var/MaxGrit = 0
@@ -32,6 +32,8 @@ race
 			user.EnhancedSmell=1
 			user.EnhancedHearing=1
 			Racial = user.Class
+			world<<"we are here"
+			world<<"[Racial] || [user.Class]"
 			GiveRacial(user)
 			..()
 		
@@ -71,8 +73,9 @@ race
 					p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Spirit_Walker/Turtle_Form)
 				
 				if("Shapeshifter")
-					var/obj/Skills/Buffs/SlotlessBuffs/Racial/Shapeshift/s = new()
+					var/obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Shapeshift/s = new()
 					p.AddSkill(s)
+					world<<"here"
 					s.init(p) // set up the shapeshift buff
 				
 				if("Trickster")
