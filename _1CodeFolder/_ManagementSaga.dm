@@ -372,10 +372,8 @@ mob/Admin3/verb
 					P.AddSkill(new/obj/Skills/Projectile/Magic/Fire)
 					P.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzard)
 					P.AddSkill(new/obj/Skills/AutoHit/Magic/Thunder)
-					P.AddSkill(new/obj/Skills/Projectile/Magic/Fira)
-					P.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzara)
-					P.AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
-					P << "You've mastered the magical arts of Fire, Blizzard and Thunder! Along with Fira, Blizzara and Thundara!"
+					P.AddSkill(new/obj/Skills/Queue/Ars_Arcanum)
+					P << "You've mastered the magical arts of Fire, Blizzard and Thunder, and Ars Arcanum!"
 					switch(P.KeybladeColor)
 						if("Light")
 							P.KeychainAttached="Kingdom Key"
@@ -1362,10 +1360,13 @@ mob
 								src.AddSkill(new/obj/Skills/Buffs/NuStyle/SwordStyle/Command/Thunderbolt_Style)
 						src << "You've obtained the [Choice2] command style!"
 
+						AddSkill(new/obj/Skills/Projectile/Magic/Fira)
+						AddSkill(new/obj/Skills/AutoHit/Magic/Blizzara)
+						AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
 						src.AddSkill(new/obj/Skills/AutoHit/Magic/Stop)
 						src.AddSkill(new/obj/Skills/AutoHit/Magic/Gravity)
 						src.AddSkill(new/obj/Skills/AutoHit/Magic/Magnet)
-						src << "You've mastered the black magical arts of Stop, Magnet and Gravity!"
+						src << "You've mastered the black magical arts of Stop, Magnet and Gravity as well as Fira, Blizzara and Thundara!"
 
 					if(src.SagaLevel==3)
 						//T2 Command Style

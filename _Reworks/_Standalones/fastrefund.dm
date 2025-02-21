@@ -50,7 +50,7 @@ var/list/MagicList = list("Alchemy","Healing Herbs", "Refreshment Herbs", "Magic
 "Spell Focii", "Artifact Manufacturing", "Magical Communication", "Magical Vehicles", "Warding Glyphs", \
 "Tome Cleansing", "Tome Security", "Tome Translation", "Tome Binding", "Tome Excerpts", "Turf Sealing", "Object Sealing", \
 "Teleportation", "Retrieval", "Bilocation", \
-"Transmigration", "Lifespan Extension", "Temporal Displacement", "Temporal Acceleration", "Temporal Rewinding", "RitualMagic", "Introductory Ritual Magics")
+"Transmigration", "Lifespan Extension", "Temporal Displacement", "Temporal Acceleration", "Temporal Rewinding"/*, "RitualMagic", "Introductory Ritual Magics"*/)
 
 /var/list/MagicSubList= list("Alchemy" = list("Healing Herbs", "Refreshment Herbs", "Magic Herbs", "Toxic Herbs", "Philter Herbs") ,\
 "ImprovedAlchemy" = list("Stimulant Herbs", "Relaxant Herbs", "Numbing Herbs", "Distillation Process", "Mutagenic Herbs"),\
@@ -59,7 +59,7 @@ var/list/MagicList = list("Alchemy","Healing Herbs", "Refreshment Herbs", "Magic
 "SealingMagic" = list("Turf Sealing", "Object Sealing", "Power Sealing", "Mobility Sealing", "Command Sealing"),\
 "SpaceMagic" = list("Teleportation", "Retrieval", "Bilocation"),\
 "TimeMagic" = list("Transmigration", "Lifespan Extension", "Temporal Displacement", "Temporal Acceleration", "Temporal Rewinding"),
-"RitualMagic" = list("Introductory Ritual Magics"))
+/*"RitualMagic" = list("Introductory Ritual Magics")*/)
 
 
 

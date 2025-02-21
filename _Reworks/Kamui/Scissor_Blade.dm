@@ -15,9 +15,9 @@ obj
 					LegendaryItem = 1
 					Saga = "Kamui"
 					TierTechniques=list(null, list("/obj/Skills/Buffs/SlotlessBuffs/WeaponSystems/Decapitation_Mode", "/obj/Skills/Queue/Sen_I_Soshitsu", "/obj/Skills/AutoHit/Life_Fiber_Weave"), null, null, null, null)
-					unsheatheIcon = 'scissor_blade.dmi'
-					unsheatheOffsetX = -16
-					unsheatheOffsetY = -16
+					icon = 'scissor_blade.dmi'
+					pixel_x = -16
+					pixel_y = -16
 
 					verb/Set_Sword_Class()
 						if(usr.Saga == "Kamui" && usr.SagaLevel < 3)

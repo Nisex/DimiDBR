@@ -174,7 +174,7 @@ obj
 						StyleDef=1
 						StyleFor=1
 						Finisher="/obj/Skills/Queue/Finisher/Cycle_of_Samsara"
-					
+
 
 					Circuit_Breaker_Style
 						SignatureTechnique=1

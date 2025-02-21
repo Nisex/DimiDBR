@@ -37,7 +37,7 @@ mob/proc/getSenketsuViewers()
 		StrMult = 1.2 + (level * 0.05)
 		EndMult = 1.2 + (level * 0.05)
 
-		if(!usr.Saga||usr.Saga!="Kamui")
+		if(usr.Saga!="Kamui")
 			ActiveMessage="attempts to wear a Kamui which they have no connection to!<br><center><font color='red'>Life Fiber ?Synchronize?: Kamui Senketsu!?!?</font color></center>"
 			OffMessage="has their power stolen from them..."
 			passives = list("KiControl" = 1, "HealthPU" = 1, "BleedHit" = 2, "Shameful Display" = 1, "Persistence" = 3, "UnderDog" = 3, "DemonicDurability" = 2, "ContinuallyStun" = 5)
