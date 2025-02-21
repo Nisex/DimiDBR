@@ -32,11 +32,11 @@ proc/isAChild(typePath, parentPath)
     throwSkill(s)
     
 /mob/proc/cycleStackingBuffs(var/obj/Skills/S)
-    if(S.parent_type==/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara || AttackQueue?:type == /obj/Skills/Queue/Finisher/Cycle_of_Samsara)
+    if(isAChild(AttackQueue:type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara) || istype(AttackQueue?:type, /obj/Skills/Queue/Finisher/Cycle_of_Samsara))
         AttackQueue.Mastery++
         for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/s in SlotlessBuffs)
             s.Timer = 0
-    if(S.type==/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/What_Must_Be_Done)
+    if(istype(AttackQueue?:type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/What_Must_Be_Done))
         if(SlotlessBuffs["What Must Be Done"])
             SlotlessBuffs["What Must Be Done"].Mastery++
             SlotlessBuffs["What Must Be Done"].TimerLimit+=300

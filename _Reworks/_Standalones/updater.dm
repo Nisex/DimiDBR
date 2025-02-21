@@ -9,7 +9,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = new updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 9
+	var/UPDATE_VERSION = 1
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -41,108 +41,6 @@ update
 		p.updateVersion = src
 
 	version1
-
-	version2
-		version = 2
-		updateMob(mob/p)
-			..()
-			if(p.isRace(ANDROID))
-				p << "The Elysium helpfully supplies a few upgrades to aid you on your glorious mission, glory to Humanity."
-				p.passive_handler.increaseList(list("TechniqueMastery" = 3, "MovementMastery" = 4, "PureDamage" = 1, "PureReduction" = 1, "Flicker" = 2))
-				p.race.passives = list("TechniqueMastery" = 3, "MovementMastery" = 4, "PureDamage" = 1, "PureReduction" = 1, "Flicker" = 2)
-				if(p.AscensionsAcquired >= 1)
-					p.passive_handler.increaseList(list("TechniqueMastery" = 0.5, "MovementMastery" = 3))
-				if(p.AscensionsAcquired >= 2)
-					p.passive_handler.increaseList(list("TechniqueMastery" = 0.5, "MovementMastery" = 3))
-				if(p.AscensionsAcquired >= 3)
-					p.passive_handler.increaseList(list("TechniqueMastery" = 0.5, "MovementMastery" = 3))
-				if(p.AscensionsAcquired >= 4)
-					p.passive_handler.increaseList(list("TechniqueMastery" = 0.5, "MovementMastery" = 3))
-				if(p.AscensionsAcquired >= 5)
-					p.passive_handler.increaseList(list("MovementMastery" = 3))
-
-	version3
-		version = 3
-		updateMob(mob/p)
-			..()
-			if(p.isRace(ANDROID))
-				p.passive_handler.decreaseList(list("MovementMastery" = 2))
-				p.race.passives = list("TechniqueMastery" = 3, "MovementMastery" = 2, "PureDamage" = 1, "PureReduction" = 1, "Flicker" = 2)
-				if(p.AscensionsAcquired >= 1)
-					p.passive_handler.decreaseList(list("TechniqueMastery" = 0.5, "MovementMastery" = 2))
-				if(p.AscensionsAcquired >= 2)
-					p.passive_handler.decreaseList(list("TechniqueMastery" = 0.5,"MovementMastery" = 2))
-				if(p.AscensionsAcquired >= 3)
-					p.passive_handler.decreaseList(list("TechniqueMastery" = 0.5,"MovementMastery" = 1))
-
-	version4
-		version = 4
-		updateMob(mob/p)
-			..()
-			if(p.isRace(HALFSAIYAN))
-				var/list/transpaths = subtypesof(text2path("/transformation/saiyan"))
-				for(var/i in transpaths)
-					p.race.transformations += new i
-
-	version5
-		version = 5
-		updateMob(mob/p)
-			..()
-			if(p.isRace(DRAGON))
-				if(p.Class == "Metal")
-					p.passive_handler.increaseList(list("KBRes" = 1))
-					p << "Your KBRes has been set to the correct level"
-
-	version6
-		version = 6
-		updateMob(mob/p)
-			..()
-			if(p.isRace(SAIYAN)&&length(p.race.transformations) <= 3)
-				p.race.transformations += new/transformation/saiyan/super_saiyan_god
-				p.race.transformations += new/transformation/saiyan/super_saiyan_blue
-			if(p.isRace(HALFSAIYAN)&&p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/half_saiyan/adaptive)
-				for(var/transformation/saiyan/ssj in p.race.transformations)
-					if(istype(ssj, /transformation/saiyan/super_saiyan_3) || istype(ssj, /transformation/saiyan/super_saiyan_god) || istype(ssj, /transformation/saiyan/super_saiyan_blue))
-						p.race.transformations -= ssj
-						del ssj
-				p.race.transformations.Add(new/transformation/half_saiyan/human/ultimate_mode())
-				p.race.transformations.Add(new/transformation/half_saiyan/human/beast_mode())
-
-	version7
-		version = 7
-		updateMob(mob/p)
-			..()
-			if(p.isRace(ELF)&&p.AscensionsAcquired >= 4)
-				if(p.race.ascensions[4].choiceSelected == /ascension/sub_ascension/high_faoroan/obliterate)
-					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in p.contents)
-						tc.passives["Erosion"] = 0.25
-						tc.passives["HellPower"] = 0.25
-				else if(p.race.ascensions[4].choiceSelected == /ascension/sub_ascension/high_faoroan/conquer)
-					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in p.contents)
-						tc.passives["Erosion"] = 0.25
-
-	version8
-		version = 8
-		updateMob(mob/p)
-			..()
-			if(p.isRace(HALFSAIYAN) && p.Potential >= 80)
-				if(p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/half_saiyan/adaptive)
-					p.race.strength += 0.25
-					p.race.defense +=  0.25
-					p.race.offense +=  0.5
-					p.race.force +=  0.25
-				if(p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/half_saiyan/dominating)
-					p.race.strength += 0.25
-					p.race.force += 0.25
-					p.race.offense += 0.5
-					p.race.speed += 0.5
-
-	version9
-		version = 9
-		updateMob(mob/p)
-			..()
-			if(p.isRace(SAIYAN))
-				p.race.transformations += new/transformation/saiyan/super_saiyan_4
 
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )

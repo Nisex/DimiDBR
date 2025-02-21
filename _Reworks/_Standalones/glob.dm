@@ -135,7 +135,8 @@ globalTracker
 		LIVE_TESTING = FALSE
 		TESTER_WHITE_LIST = list("Digi-Daisuke","RevealingFortune","Zamas2","Niezan", "Etro", "AMajin", "Redsarge", "Gogeto25",\
  "Tilthour", "Sakata Gintoki San", "Hellbante", "FoxMagnus")
-
+		ALLOW_OTHER_NATIONALITIES = FALSE
+		ALLOW_SECOND_NATIONALITIES = FALSE
 // TARGETING
 		LIMIT_CLICKS = TRUE
 		CLICK_SAME_Z_FORCE = TRUE
@@ -445,6 +446,9 @@ globalTracker
 		AUTOHIT_WHIFF_DAMAGE = 2
 		AUTOHIT_MISS_DAMAGE = 5
 
+
+		AUTOHIT_WAVE_OFFSHOOT_DAMAGE_DIVISOR = 1
+
 		//Whiff dmg is now rand between these.
 		MIN_WHIFF_DMG = 1.25
 		MAX_WHIFF_DMG = 1.5
@@ -545,7 +549,7 @@ globalTracker
 		CHIKARA_WHITELIST = FALSE
 
 		STAT_DMG_EXPONENT = 0.75
-
+		SOULTUGMULT = 5
 
 		ALLOW_CLICK_CORPSE = 0
 		STACK_ANIMATE_TIME = 4

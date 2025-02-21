@@ -172,7 +172,7 @@
 			devaCounter=0
 			if(passive_handler["AirBend"])
 				last_style_effect = world.time
-	if(passive_handler["Nimbus"] && last_nimbus + glob.NIMBUSCD - (passive_handler["Nimbus"]))
+	if(passive_handler["Nimbus"] && last_nimbus + glob.NIMBUSCD - (passive_handler["Nimbus"]) < world.time)
 		if(HasTarget() && TargetInRange(glob.NIMBUSRANGE + passive_handler["Nimbus"]))
 			if(CanDash())
 				is_dashing++
@@ -750,7 +750,6 @@
 							log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 							#endif
 							if(enemy.passive_handler["Magmic"] && enemy.SlotlessBuffs["Magmic Shield"])
-								world<<"magmic shield proc q"
 								Stun(src, 3, TRUE)
 								enemy.SlotlessBuffs["Magmic Shield"].Trigger(enemy, TRUE)
 							DoDamage(enemy, damage, unarmedAtk, swordAtk, SecondStrike, ThirdStrike)

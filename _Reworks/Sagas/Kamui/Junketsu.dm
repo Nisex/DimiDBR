@@ -39,7 +39,7 @@
 
 	verb/Life_Fiber_Override()
 		set category="Skills"
-		if(usr.Saga != "Kamui" || usr.Secret != "Haki")
+		if(usr.Saga != "Kamui" && usr.Secret != "Haki")
 			usr.TotalInjury += 90
 			usr.Unconscious(null, "Junketsu going insane and trying to lash away all the blood from their body!")
 			return

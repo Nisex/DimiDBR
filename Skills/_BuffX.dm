@@ -767,7 +767,7 @@ NEW VARIABLES
 				DefMult=0.7
 				RecovMult=0.5
 				MakesArmor=1
-				passives = list("Mechanized" = 1, "PULock" = 1, "CallousedHands" = 0.25)
+				passives = list("Mechanized" = 1, "PULock" = 1)
 				ArmorAscension = 1
 				ArmorClass="Heavy"
 				ArmorIcon='BLANK.dmi'

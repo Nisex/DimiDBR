@@ -325,7 +325,6 @@ mob
 					s = new(glob.ROOTS_DURATION, 'root.dmi')
 					Target.AddSkill(s)
 				s.Trigger(Target, TRUE)
-				world<< "SNARE TRIGGERED"
 				last_style_effect = world.time
 
 		StunCheck(src)

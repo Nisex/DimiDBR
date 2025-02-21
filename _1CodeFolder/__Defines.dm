@@ -5,7 +5,7 @@ proc/log_func(x, a, b)
 #define TIER_3_COST 90
 #define TIER_4_COST 120
 #define TIER_5_COST 200
-
+#define DIRS list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
 
 
 #define isai(a) istype(a, /mob/Player/AI)
@@ -63,12 +63,12 @@ proc/log_func(x, a, b)
 #define ANDROID /race/android
 #define SHINJIN /race/shinjin
 
-#define DEBUG_DAMAGE 1
-#define DEBUG_ITEM_DAMAGE 1
-#define DEBUG_MELEE 1
-#define DEBUG_AUTOHIT 1
-#define DEBUG_GRAPPLE 1
-#define DEBUG_PROJECTILE 1
+#define DEBUG_DAMAGE 0
+#define DEBUG_ITEM_DAMAGE 0
+#define DEBUG_MELEE 0
+#define DEBUG_AUTOHIT 0
+#define DEBUG_GRAPPLE 0
+#define DEBUG_PROJECTILE 0
 
 
 //pacts in pacts.dm

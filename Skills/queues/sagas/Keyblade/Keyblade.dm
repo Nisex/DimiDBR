@@ -24,3 +24,54 @@ obj
 				Combo=10
 				Duration=5
 				//no verb because it is set from melee
+
+obj/Skills/Queue
+	Ars_Arcanum
+		DamageMult=2
+		AccuracyMult=1.15
+		Duration=5
+		KBMult=0.00001
+		Cooldown=60
+		Opener=1
+		Stunner=1
+		NeedsSword=1
+		EnergyCost=1
+		Quaking=5
+		HitStep=/obj/Skills/Queue/Ars_Arcanum2
+		PushOut=1
+		PushOutWaves=1
+		PushOutIcon='KenShockwaveGold.dmi'
+		ActiveMessage="Keyblade covers itself in magical energy!"
+		HitMessage="crushes the opponent's guard with a downward stirke!"
+		verb/Ars_Arcanum()
+			set category="Skills"
+			usr.SetQueue(src)
+	Ars_Arcanum2
+		HitMessage="begins to rapidly pile on strikes with their keyblade!"
+		DamageMult=0.5
+		AccuracyMult=5
+		Duration=5
+		KBMult=0.00001
+		PushOut=1
+		PushOutWaves=1
+		PushOutIcon='KenShockwaveGold.dmi'
+		Combo=5
+		NeedsSword=1
+		Quaking=2
+		EnergyCost=1.
+		HitStep=/obj/Skills/Queue/Ars_Arcanum3
+	Ars_Arcanum3
+		HitMessage="finishes the combo with a powerful jab!"
+		DamageMult=4.5
+		AccuracyMult=10
+		Duration=5
+		KBMult=2
+		KBAdd=5
+		PushOut=1
+		PushOutWaves=1
+		PushOutIcon='KenShockwaveGold.dmi'
+		HolyMod=2
+		Decider=1
+		NeedsSword=1
+		Quaking=10
+		EnergyCost=2

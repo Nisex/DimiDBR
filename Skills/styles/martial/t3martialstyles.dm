@@ -14,7 +14,7 @@
         StyleDef=1
         StyleFor=1
         Finisher="/obj/Skills/Queue/Finisher/Cycle_of_Samsara"
-        verb/Heavenly_Demon_T3()
+        verb/Heavenly_Demons_Chaotic_Way_of_Shattered_Realms()
             set hidden=1
             src.Trigger(usr)
     Jeet_Kune_Do

@@ -4,7 +4,6 @@ ascension
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			onAscension(mob/owner)
 				if(!applied)
-					world<<"here 1"
 					var/choice = owner.race?:Racial
 					switch(choice)
 						if("Heart of The Beastman")
@@ -65,8 +64,8 @@ ascension
 							force = 0.1
 						
 						if("Fox Fire")
-							owner.passive_handler.Increase("SoftStyle", 0.5)
-							owner.passive_handler.Increase("Soulfire", 0.5)
+							owner.passive_handler.Increase("SoftStyle", 1)
+							owner.passive_handler.Increase("Soulfire", 1)
 							offense = 0.25
 							force = 0.5
 				..()
@@ -134,32 +133,24 @@ ascension
 							force = 0.1
 						
 						if("Fox Fire")
-							owner.passive_handler.Increase("SoftStyle", 0.5)
-							owner.passive_handler.Increase("Soulfire", 0.5)
+							owner.passive_handler.Increase("SoftStyle", 1)
+							owner.passive_handler.Increase("Soulfire", 1)
 							offense = 0.25
 							force = 0.5
 				..()
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
-			angerPoint = 5
-			speed = 0.25
-			defense = 0.25
-			endurance = 0.25
-			passives = list("Pursuer" = 1, "Flicker" = 1)
+
 			postAscension(mob/owner)
 				..()
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
-			angerPoint = 5
-			endurance = 0.5
-			passives = list("Godspeed" = 1, "PureReduction" = 1)
+
 			postAscension(mob/owner)
 				..()
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
-			angerPoint = 5
-			strength = 0.5
-			endurance = 0.5
+
 			postAscension(mob/owner)
 				..()
 

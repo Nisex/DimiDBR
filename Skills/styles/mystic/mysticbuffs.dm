@@ -2,7 +2,7 @@
     AlwaysOn = 1
     TimerLimit = 0
     NeedsPassword = 1
-    var/obj/Skills/skillToToss = null
+    var/skillToToss = null
     var/TossSkill = 1
     AuraLock = 'Terra Might.dmi'
     LockX=-16

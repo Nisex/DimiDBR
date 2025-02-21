@@ -7,7 +7,6 @@
         trigger_at = 50
         trigger_ref = "AbsorbingDamage"
         set_to = 1
-        reference_this_var = "passive_handler"
 
         init(mob/p, obj/Skills/Buffs/SlotlessBuffs/b)
             parent_buff = b
@@ -29,7 +28,7 @@
     FlickSpin=1
     Cooldown = 20
     adjust(mob/p)
-        DamageMult = (5 - (p.AscensionsAcquired * 5)) / 100
+        DamageMult = (2 - (p.AscensionsAcquired * 0.25))
         Rounds = 1 + (p.AscensionsAcquired)
 
 
@@ -40,6 +39,10 @@
     Never_Fall
         AlwaysOn = 1
         passives = list("AbsorbingDamage" = 1)
-        Trigger(mob/User, Override)
+        New(mob/User)
             . = ..()
+            if(User)
+                Triggers = new/datum/BuffTrigger/NeverFall(User, src)
+        Trigger(mob/User, Override)
             Triggers = new/datum/BuffTrigger/NeverFall(User, src)
+            ..()

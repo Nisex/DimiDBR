@@ -40,17 +40,17 @@
         SpdMult = 0.75
         ForMult = 1.25
         passives = list("CallousedHands" = 0.15, "Freezing" = 10, "Juggernaut" = 2.5, "KBRes" = 2.5, \
-                        "Shattering" = 10, "Steady" = 4, "Hardening" = 2)
+                        "Shattering" = 10, "Steady" = 4, "Hardening" = 2, "TensionLock" = 1)
     Heated_Up
         ForMult = 1.5
         EndMult = 0.75
         SpdMult = 1.25
         passives = list("SpiritHand" = 1, "Scorching" = 10, "BlurringStrikes" = 0.5, "GodSpeed" = 2, \
-                        "Shattering" = 10, "Flicker" = 2, "Pursuer" = 2, "Momentum" = 2)
+                        "Shattering" = 10, "Flicker" = 2, "Pursuer" = 2, "Momentum" = 2, "TensionLock" = 1)
 
     X_Buster
         passives = list("Hit Scan" = 2, "SpiritStrike" = 1, "EnergyGeneration" = 2.5, "MovingCharge" = 1, "QuickCast" = 1, \
-                        "SpiritFlow" = 1, "Paralyzing" = 10, "Shattering" = 10, "SuperCharge" = 1)
+                        "SpiritFlow" = 1, "Paralyzing" = 10, "Shattering" = 10, "SuperCharge" = 1, "TensionLock" = 1)
         HitScanIcon = 'Plasma1.dmi'
         HitScanHitSpark = 'Trail - Plasma.dmi'
         ForMult = 1.3
@@ -64,7 +64,7 @@
 
     In_the_Details
         passives = list("KillerInstinct" = 0.1, "HellPower" = 0.5, "GodSpeed" = 2, "DebuffResistance" = 0.25, \
-                        "Steady" = 2, "Scorching" = 15, "Toxic" = 10, "CursedWounds" = 1)
+                        "Steady" = 2, "Scorching" = 15, "Toxic" = 10, "CursedWounds" = 1, "TensionLock" = 1)
         HealthDrain = 0.033
         DefMult = 0.75
         EndMult = 0.75
@@ -75,7 +75,7 @@
     Frozen_Summit
         passives = list("CriticalChance" = 25, "BlockChance" = 25, "CriticalBlock" = 0.25, "GiantForm" = 1, \
                         "MovingCharge" = 1, "QuickCast" = 1, "Freezing" = 10, "Shattering" = 10, "LifeGeneration" = 1.5, \
-                        "LikeWater" = 4)
+                        "LikeWater" = 4, "TensionLock" = 1)
         EndMult=1.2
         ForMult=1.2
         DefMult=1.2

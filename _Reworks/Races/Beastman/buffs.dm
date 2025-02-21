@@ -25,48 +25,6 @@
 
 mob/var/tmp/beastmanMessage = FALSE
 
-/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Ticking_Bomb
-    TooMuchHealth = 55
-    NeedsHealth = 50
-    HealthThreshold = 0.1
-    passives = list("AbsorbingDamage" = 1, "AbsorbLimit" = 1)
-    ActiveMessage = "prepares themselves for incoming damage!"
-    Cooldown = -1
-    adjust(mob/p)
-        var/asc = p.AscensionsAcquired
-        passives["AbsorbLimit"] = 5 + (5 * asc)
-        passives["AbsorbingDamage"] = 1
-
-    Trigger(mob/User, Override)
-        if(!User.BuffOn(src))
-            // update
-            adjust(User)
-        ..()
-
-    verb/Unleash_Rage()
-        set category = "Skills"
-        if(usr.BuffOn(src)) // this means it has proc'd
-            // find the autohit, if not, make it
-            // adjust the auto hit
-            // cast the autohit, send on cooldown
-            var/obj/Skills/AutoHit/Haymaker/h = usr.FindSkill(/obj/Skills/AutoHit/Haymaker)
-            if(!h)
-                h = new()
-                usr.AddSkill(h)
-            var/dmg = usr.passive_handler.Get("AbsorbingDamage")
-            h.adjust(usr, dmg) // sets up the damage and what not
-            passives["AbsorbingDamage"] = dmg // this should do it
-            Trigger(usr, Override = 1) // set off to cooldown
-            usr.Activate(h)
-            usr.VaizardHealth += dmg / 2
-            usr.beastmanMessage = FALSE
-            // buuuutt just in case
-            usr.passive_handler.Set("AbsorbingDamage", 0)
-            passives["AbsorbingDamage"] = 1
-        else
-            usr << "The buff isn't even active yet."
-
-
 /obj/Skills/AutoHit/Haymaker
     Copyable=0
     NeedsSword=0

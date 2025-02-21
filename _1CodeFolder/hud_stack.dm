@@ -61,7 +61,7 @@
 			vis_contents += appear
 		Update()
 			mysticTicker()
-				
+
 
 	ftg
 		icon = 'kunai.dmi'
@@ -100,7 +100,7 @@
 	New(state)
 		icon_state = state
 
-		
+
 
 client/var/list/hud_ids = list()
 
@@ -113,13 +113,7 @@ client/proc/remove_hud(id)
 		var/obj/thing = hud_ids[id]
 		screen -= hud_ids[id]
 		mob.contents -= hud_ids[id]
-		if(istype(thing, /obj/bar))
-			var/obj/bar/thing1 = thing
-			screen -= thing1.holder
-			screen -= thing1.barbg
-			del thing1.holder
-			del thing1.barbg
-			del thing1.meter
+
 		del thing
 		hud_ids -= id
 
@@ -131,6 +125,14 @@ client/proc/remove_hud(id)
 	screen_loc = "LEFT,BOTTOM"
 	icon = 'smallbar.dmi'
 	var/tmp/client/client
+
+	Del()
+		. = ..()
+		client.screen -= holder
+		client.screen -= barbg
+		del holder
+		del barbg
+		del meter
 	New(client/_client, o, _x, _y)
 		name = "screen object"
 		client = _client
@@ -141,7 +143,10 @@ client/proc/remove_hud(id)
 		holder.screen_loc = "1:[_x],1:[_y]"
 		barbg = new(o)
 		barbg.screen_loc = "1:[_x],1:[_y-7]"
-		barbg.maptext = "[CHAT_STYLE][client.mob.vars["[linked_var]"]]"
+		if(linked_var == "Grit")
+			barbg.maptext = "[CHAT_STYLE][client.mob.passive_handler["[linked_var]"]]"
+		else
+			barbg.maptext = "[CHAT_STYLE][client.mob.vars["[linked_var]"]]"
 		barbg.maptext_y = 16
 		barbg.maptext_width = 62
 		client.screen+=holder
@@ -149,8 +154,9 @@ client/proc/remove_hud(id)
 		meter.animateBar(-32,4)
 	Update()
 		
-		var/val = client.mob.vars["[linked_var]"]
+		var/val
 		if(linked_var == "HotnCold")
+			val = client.mob.vars["[linked_var]"]
 			if(holder.alpha == 0 || barbg.alpha == 0)
 				animate(holder, alpha = 255, time = 2)
 				animate(barbg, alpha = 255, time = 2)
@@ -158,12 +164,15 @@ client/proc/remove_hud(id)
 				meter.animateBar(clamp(val/3, -33, 33) , glob.STACK_ANIMATE_TIME)
 				barbg.maptext = "[CHAT_STYLE][val]"
 		else
+			if(linked_var == "Grit")
+				val = client.mob.passive_handler["Grit"]
+				
 			if(val > 0)
 				if(holder.alpha == 0 || barbg.alpha == 0)
 					animate(holder, alpha = 255, time = 2)
 					animate(barbg, alpha = 255, time = 2)
 				barbg.maptext = "[CHAT_STYLE][val]"
-				var/gap = 32 - glob.vars["MAX_[uppertext(linked_var)]_STACKS"] 
+				var/gap = 32 - glob.vars["MAX_[uppertext(linked_var)]_STACKS"]
 				if(val > glob.vars["MAX_[uppertext(linked_var)]_STACKS"] )
 					meter.animateBar(clamp(val/3, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
 				else
@@ -181,14 +190,6 @@ client/proc/remove_hud(id)
 /mob/proc/hudIsLive(option, path, toss_obj,var_callback)
 	if(client.hud_ids[option])
 		return TRUE
-	else 
+	else
 		client.add_hud(option, new path(client, option, BAR_X_LOCS[option], BAR_Y_LOCS[option], toss_obj, var_callback))
 		return FALSE
-
-
-
-/mob/verb/test_stacks()
-	set category = "Debug"
-	Fury = 20
-	Harden = 40
-	Momentum = 80

@@ -10,8 +10,7 @@
 		currentGrit/=10
 		VaizardHealth = currentGrit
 	verb/The_Grit()
-		if(!usr.BuffOn(src))
-			adjust(usr)
+		set category = "Skills"
 		Trigger(usr)
 
 
@@ -33,6 +32,7 @@
 		DamageMult = 1.5 + (p.AscensionsAcquired * 0.25)
 		Dominator = 2 + (p.AscensionsAcquired * 0.5)
 		Finisher = 2 + (p.AscensionsAcquired * 0.5)
+		Cooldown = 45 - (p.AscensionsAcquired * 5)
 	
 	verb/Savagery()
 		set category = "Skills"
@@ -42,8 +42,6 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Ripped // TODO: make the buffedaffected attackQ work correctly n make this scale
 	passives = list("PureReduction" = -0.5)
-/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Soul_Drained
-	passives = list()
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Thrill_of_the_Hunt
 	AlwaysOn = 1
 	NeedsPassword = 1

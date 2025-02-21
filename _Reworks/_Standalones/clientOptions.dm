@@ -5,6 +5,7 @@ client/var/Options/prefs = new()
 
 Options/
     var/seePronouns = 1
+    var/usePronouns = 1
     var/useSupporter = 0
     var/useDonator = 1
     var/currentFontFamily = "Gotham Book"
