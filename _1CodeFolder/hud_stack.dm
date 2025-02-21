@@ -190,11 +190,3 @@ client/proc/remove_hud(id)
 	else
 		client.add_hud(option, new path(client, option, BAR_X_LOCS[option], BAR_Y_LOCS[option], toss_obj, var_callback))
 		return FALSE
-
-
-
-/mob/verb/test_stacks()
-	set category = "Debug"
-	Fury = 20
-	Harden = 40
-	Momentum = 80

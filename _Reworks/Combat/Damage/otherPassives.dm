@@ -29,6 +29,8 @@
     // if(HasHardening())
     //     if(prob(glob.BASE_HARDENING_CHANCE * GetHardening()))
     //         Harden = clamp(Harden + GetHardening()/4, 0, 20)
+    if(passive_handler["SoulTug"] && (defender.CyberCancel||defender.Mechanized))
+        AddConfusing(passive_handler["SoulTug"]*glob.SOULTUGMULT)
     if(HasDisorienting())
         if(prob(GetDisorienting()*25))
             defender.AddConfusing(clamp(val, 1,10) * 1.25)

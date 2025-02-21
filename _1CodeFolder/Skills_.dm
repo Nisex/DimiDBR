@@ -880,7 +880,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 										Wave/=2
 								else
 									VanishImage(src)
-								src.Comboz(src.Target)
+								src.Comboz(src.Target, FALSE, FALSE, passive_handler["Backstabber"])
 								src.dir=get_dir(src,src.Target)
 								src.Melee1(1, 5, accmulti=1.1, SureKB=1, BreakAttackRate=1)
 						src.MovementCharges--

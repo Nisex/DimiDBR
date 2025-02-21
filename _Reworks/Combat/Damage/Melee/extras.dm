@@ -41,9 +41,6 @@ mob/proc/InterceptionStrike(stacks)
 /mob/var/HitScanHitSparkX = 0
 /mob/var/HitScanHitSparkY = 0 
 
-/mob/verb/testFaJinEffect()
-    set category = "Debug"
-    fa_jin_effect()
 /obj/tracker
     var/tmp/mob/owner
     var/tmp/mob/target

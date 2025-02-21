@@ -871,34 +871,35 @@ mob/proc/Revive()
 		Dead=0
 
 
-proc/getBackSide(mob/offender, mob/defender)
+proc/getBackSide(mob/offender, mob/defender, diags = FALSE)
 	var/resultingDir = get_dir(offender, defender)
-	switch(defender.dir)
-		if(NORTH)
-			if(resultingDir in list(NORTH, NORTHWEST, NORTHEAST))
-				return 1
-		if(SOUTH)
-			if(resultingDir in list(SOUTH, SOUTHEAST, SOUTHWEST))
-				return 1
-		if(EAST)
-			if(resultingDir in list(EAST, NORTHEAST, SOUTHEAST))
-				return 1
-		if(WEST)
-			if(resultingDir in list(WEST, NORTHWEST, SOUTHWEST))
-				return 1
-		if(NORTHWEST)
-			if(resultingDir in list(NORTHWEST, NORTH, WEST))
-				return 1
-		if(NORTHEAST)
-			if(resultingDir in list(NORTHEAST, NORTH, EAST))
-				return 1
-		if(SOUTHWEST)
-			if(resultingDir in list(SOUTHWEST, SOUTH, WEST))
-				return 1
-		if(SOUTHEAST)
-			if(resultingDir in list(SOUTHEAST, SOUTH, EAST))
-				return 1
-	return 0
+	. = opposite_dirs[resultingDir]
+	if(diags)
+		switch(defender.dir)
+			if(NORTH)
+				if(resultingDir in list(NORTH, NORTHWEST, NORTHEAST))
+					return 1
+			if(SOUTH)
+				if(resultingDir in list(SOUTH, SOUTHEAST, SOUTHWEST))
+					return 1
+			if(EAST)
+				if(resultingDir in list(EAST, NORTHEAST, SOUTHEAST))
+					return 1
+			if(WEST)
+				if(resultingDir in list(WEST, NORTHWEST, SOUTHWEST))
+					return 1
+			if(NORTHWEST)
+				if(resultingDir in list(NORTHWEST, NORTH, WEST))
+					return 1
+			if(NORTHEAST)
+				if(resultingDir in list(NORTHEAST, NORTH, EAST))
+					return 1
+			if(SOUTHWEST)
+				if(resultingDir in list(SOUTHWEST, SOUTH, WEST))
+					return 1
+			if(SOUTHEAST)
+				if(resultingDir in list(SOUTHEAST, SOUTH, EAST))
+					return 1
 /mob/Admin3/verb/SimulateAccuracyNOSTATCHANGE()
 	set category = "Debug"
 	var/self = input(src, "Use on self?") in list("Yes", "No")
@@ -1380,7 +1381,9 @@ proc/Deflection_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/Base
 		return MISS
 
 mob/var/tmp/last_combo
-mob/proc/Comboz(mob/M, LightAttack=0, ignoreTiledistance = FALSE)
+var/static/list/opposite_dirs = list(SOUTH,NORTH,NORTH|SOUTH,WEST,SOUTHWEST,NORTHWEST,NORTH|SOUTH|WEST,EAST,SOUTHEAST,NORTHEAST,NORTH|SOUTH|EAST,WEST|EAST,WEST|EAST|NORTH,WEST|EAST|SOUTH,WEST|EAST|NORTH|SOUTH)
+
+mob/proc/Comboz(mob/M, LightAttack=0, ignoreTiledistance = FALSE, landBehind = FALSE)
 	if(last_combo >= world.time) return
 	last_combo = world.time
 	var/list/dirs = list(NORTH,SOUTH,EAST,WEST,NORTHWEST,SOUTHWEST,NORTHEAST,SOUTHEAST)
@@ -1400,6 +1403,9 @@ mob/proc/Comboz(mob/M, LightAttack=0, ignoreTiledistance = FALSE)
 			dirs-=direction
 
 			W=get_step(M, direction)
+			if(landBehind)
+				W=get_step(M, opposite_dirs[M.dir])
+				world<<opposite_dirs[M.dir]
 			if(W)
 				if(istype(W,/turf/Special/Blank))
 					return

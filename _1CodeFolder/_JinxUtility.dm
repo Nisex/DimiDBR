@@ -199,12 +199,18 @@ mob
 						OMsg(defender, "<font color='[rgb(255, 0, 0)]'>[defender.findVuffa().vuffaMessage]</font color>")
 					else
 						OMsg(src, "<font color='[rgb(255, 0, 0)]'>[defender] takes a critical hit! They take [val] damage!</font color>")
+			if(getBackSide(src, defender, passive_handler["Fault Finder"]) && passive_handler["Backshot"])
+				tmpval *= 1 + (passive_handler["Backshot"]/10)
+
+
+			
 			if(passive_handler["CoolingDown"])
 				StyleBuff?:hotCold = clamp(StyleBuff?:hotCold - tmpval * glob.HOTNCOLD_MODIFIER, -100, 100)
 			else if(passive_handler["HeatingUp"])
 				StyleBuff?:hotCold  = clamp(StyleBuff?:hotCold + tmpval * glob.HOTNCOLD_MODIFIER, -100, 100)
 			if(passive_handler["Grit"])
 				AdjustGrit("add", tmpval*glob.racials.GRITMULT)
+			
 			defender.LoseHealth(max(0,tmpval))
 
 			if(defender.Flying)
