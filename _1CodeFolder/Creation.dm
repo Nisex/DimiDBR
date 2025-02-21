@@ -553,6 +553,7 @@ mob/Creation/verb
 		verb_delay=world.time+1
 		race_selecting=0
 		Class = race.classes[race.current_class]
+		winset(usr, "Finalize_Screen.className", "text=\"[race.classes[race.current_class]]\"")
 		winshow(usr,"Race_Screen",0)
 		winshow(usr,"Finalize_Screen",1)
 		if(length(race.stats_per_class) > 0)

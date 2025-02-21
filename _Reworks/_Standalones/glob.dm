@@ -135,7 +135,8 @@ globalTracker
 		LIVE_TESTING = FALSE
 		TESTER_WHITE_LIST = list("Digi-Daisuke","RevealingFortune","Zamas2","Niezan", "Etro", "AMajin", "Redsarge", "Gogeto25",\
  "Tilthour", "Sakata Gintoki San", "Hellbante", "FoxMagnus")
-
+		ALLOW_OTHER_NATIONALITIES = FALSE
+		ALLOW_SECOND_NATIONALITIES = FALSE
 // TARGETING
 		LIMIT_CLICKS = TRUE
 		CLICK_SAME_Z_FORCE = TRUE

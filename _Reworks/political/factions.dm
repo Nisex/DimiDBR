@@ -28,9 +28,9 @@
 
 
 characterInformation
-    var/faction = "ERROR"
+    var/faction = "UNEMPLOYED"
     var/factionColor = "#6c0303d7"
-    var/job = "Unregistered"
+    var/job = "BROKE BOY"
     var/jobColor = "#0ba800ff"
 
     proc/assignJob(mob/admin, mob/target)
