@@ -90,6 +90,7 @@
 #define FILE_DIR "Icons/Majins/MajinHair"
 #define FILE_DIR "Icons/Mask"
 #define FILE_DIR "Icons/New"
+#define FILE_DIR "Icons/New/hats"
 #define FILE_DIR "Icons/NPCS"
 #define FILE_DIR "Icons/NPCS/Animals"
 #define FILE_DIR "Icons/NPCS/Aquatics"

@@ -34,7 +34,7 @@ obj/Skills/Queue
 		Cooldown=60
 		Opener=1
 		Stunner=1
-		SwordOnly=1
+		NeedsSword=1
 		EnergyCost=1
 		Quaking=5
 		HitStep=/obj/Skills/Queue/Ars_Arcanum2
@@ -56,7 +56,7 @@ obj/Skills/Queue
 		PushOutWaves=1
 		PushOutIcon='KenShockwaveGold.dmi'
 		Combo=5
-		SwordOnly=1
+		NeedsSword=1
 		Quaking=2
 		EnergyCost=1.
 		HitStep=/obj/Skills/Queue/Ars_Arcanum3
@@ -72,6 +72,6 @@ obj/Skills/Queue
 		PushOutIcon='KenShockwaveGold.dmi'
 		HolyMod=2
 		Decider=1
-		SwordOnly=1
+		NeedsSword=1
 		Quaking=10
 		EnergyCost=2
