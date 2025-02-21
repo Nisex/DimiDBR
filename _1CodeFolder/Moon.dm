@@ -116,7 +116,7 @@ proc/CallStar(var/OnlyZ=null)
 				P.MakyoTrigger()
 		else
 			P.MakyoTrigger()
-	sleep(glob.MAKYO_TOTAL_TIME)
+	sleep(glob.racials.MAKYO_TOTAL_TIME)
 	starActive = FALSE
 	for(var/mob/Players/P in players)
 		if(OnlyZ)

@@ -3,6 +3,8 @@
 
 /globalTracker/var/DEBUFF_EFFECTIVENESS = 0.004
 
+
+
 mob
 	proc
 		
@@ -70,13 +72,12 @@ mob
 					src.Unconscious(null, "succumbing to poison!")
 				if(!src.Burn&&!src.Poison)
 					src.Unconscious()
-
-		DoDamage(var/mob/defender, var/val, var/UnarmedAttack=0, var/SwordAttack=0, var/SecondStrike, var/ThirdStrike, var/TrueMult=0, var/SpiritAttack=0, var/Destructive=0)
+		DoDamage(var/mob/defender, var/val, var/UnarmedAttack=0, var/SwordAttack=0, var/SecondStrike, var/ThirdStrike, var/TrueMult=0, var/SpiritAttack=0, var/Destructive=0, Autohit = FALSE)
 			#if DEBUG_DAMAGE
 			log2text("Damage", "Start DoDamage", "damageDebugs.txt", src.ckey)
 			log2text("Damage", val, "damageDebugs.txt", src.ckey)
 			#endif
-			val = newDoDamage(defender, val, UnarmedAttack, SwordAttack, SecondStrike, ThirdStrike, TrueMult, SpiritAttack, Destructive)
+			val = newDoDamage(defender, val, UnarmedAttack, SwordAttack, SecondStrike, ThirdStrike, TrueMult, SpiritAttack, Destructive, Autohit)
 			if(src.HasPurity())//If damager is pure
 				var/found=0//Assume you haven't found a proper target
 				if(defender.IsEvil()||src.HasBeyondPurity())
@@ -112,7 +113,6 @@ mob
 			// 	if(defender.MovementCharges<1)
 			// 		defender.MovementChargeBuildUp(val)
 			if(defender.passive_handler["Dim Mak"]>0)
-				world<<"ahaha here."
 				defender.passive_handler.Increase("Dim Mak", val)
 			if(glob.MOMENTUM_PROCS_OFF_DAMAGE)
 				handlePostDamage(defender)
@@ -151,9 +151,9 @@ mob
 					defender.Anger()
 					val/=defender.AngerMax
 
-			if(defender.passive_handler.Get("Desperation")&&!defender.HasInjuryImmune())
+			if(defender.passive_handler.Get("Persistence")&&!defender.HasInjuryImmune())
 				if(FightingSeriously(src,defender))
-					var/desp = clamp(passive_handler.Get("Desperation"), 0.1, glob.MAX_PERSISTENCE_CALCULATED)
+					var/desp = clamp(passive_handler.Get("Persistence"), 0.1, glob.MAX_PERSISTENCE_CALCULATED)
 					if(prob(desp)*glob.PERSISTENCE_CHANCE)
 						desp = clamp(desp, 1, glob.PRESISTENCE_DIVISOR_MAX)
 						if(glob.PERSISTENCE_NEGATES_DAMAGE)
@@ -199,7 +199,12 @@ mob
 						OMsg(defender, "<font color='[rgb(255, 0, 0)]'>[defender.findVuffa().vuffaMessage]</font color>")
 					else
 						OMsg(src, "<font color='[rgb(255, 0, 0)]'>[defender] takes a critical hit! They take [val] damage!</font color>")
-
+			if(passive_handler["CoolingDown"])
+				StyleBuff?:hotCold = clamp(StyleBuff?:hotCold - tmpval * glob.HOTNCOLD_MODIFIER, -100, 100)
+			else if(passive_handler["HeatingUp"])
+				StyleBuff?:hotCold  = clamp(StyleBuff?:hotCold + tmpval * glob.HOTNCOLD_MODIFIER, -100, 100)
+			if(passive_handler["Grit"])
+				AdjustGrit("add", tmpval*glob.racials.GRITMULT)
 			defender.LoseHealth(max(0,tmpval))
 
 			if(defender.Flying)
@@ -724,15 +729,10 @@ mob
 			src.Health-=val
 			src.MaxHealth()
 			var/Absorb = passive_handler.Get("AbsorbingDamage")
-			var/Limit = passive_handler.Get("AbsorbLimit")
-			if(Absorb && Limit)
-				if(Absorb <= Limit)
-					passive_handler.Increase("AbsorbingDamage", val)
-					if(Absorb >= Limit)
-						passive_handler.Set("AbsorbingDamage", Limit)
-						if(!beastmanMessage)
-							beastmanMessage = TRUE
-							src << "You have reached the absorb limit!"
+			if(passive_handler["Grit"])
+				AdjustGrit("add", val*glob.racials.GRITMULT)
+			if(Absorb)
+				passive_handler.Increase("AbsorbingDamage", val)
 			if(isRace(MAJIN))
 				if(majinPassive != null)
 					majinPassive.tryDropBlob(src)
@@ -1087,18 +1087,30 @@ mob
 			if(src.RecovCut>=1)
 				src.RecovCut=1
 		// forgive the sin below, im not replacing basestat() in all the codebase
+		getEnhanced(statName)
+			var/enhance = vars["Enhanced[statName]"] * 0.2
+			if(Target)
+				if(Target.passive_handler["Rusting"])
+					enhance *= (Poison * (glob.RUSTING_RATE * passive_handler["Rusting"])) / 100
+			return enhance
 		BaseStr()
-			return ((src.StrMod+src.StrAscension+(src.EnhancedStrength*0.2)))*StrChaos
+			var/enhanced = getEnhanced("Strength")
+			return ((src.StrMod+src.StrAscension+(enhanced)))*StrChaos
 		BaseFor()
-			return ((src.ForMod+src.ForAscension+(src.EnhancedForce*0.2)))*ForChaos
+			var/enhanced = getEnhanced("Force")
+			return ((src.ForMod+src.ForAscension+(enhanced)))*ForChaos
 		BaseEnd()
-			return ((src.EndMod+src.EndAscension+(src.EnhancedEndurance*0.2)))*EndChaos
+			var/enhanced = getEnhanced("Endurance")
+			return ((src.EndMod+src.EndAscension+(enhanced)))*EndChaos
 		BaseSpd()
-			return ((src.SpdMod+src.SpdAscension+(src.EnhancedSpeed*0.2)))*SpdChaos
+			var/enhanced = getEnhanced("Speed")
+			return ((src.SpdMod+src.SpdAscension+(enhanced)))*SpdChaos
 		BaseOff()
-			return ((src.OffMod+src.OffAscension+(src.EnhancedAggression*0.2)))*OffChaos
+			var/enhanced = getEnhanced("Aggression")
+			return ((src.OffMod+src.OffAscension+(enhanced)))*OffChaos
 		BaseDef()
-			return ((src.DefMod+src.DefAscension+(src.EnhancedReflexes*0.2)))*DefChaos
+			var/enhanced = getEnhanced("Reflexes")
+			return ((src.DefMod+src.DefAscension+(enhanced)))*DefChaos
 
 		BaseRecov()
 			return (src.RecovMod+src.RecovAscension)*RecovChaos
@@ -1121,34 +1133,29 @@ mob
 		GetMA(stat)
 			if(StyleBuff)
 				var/MA = StyleBuff.vars["Style[stat]"]-1
-
+				if(Target)
+					if(Target.passive_handler["Musoken"] && equippedSword)
+						if(passive_handler["Musoken"])
+							MA /= 2
+						else
+							MA = 0
 				if(passive_handler["StyleMastery"])
 					MA *= 1 + (passive_handler["StyleMastery"]/glob.STYLE_MASTERY_DIVISOR)
-
 				if(Secret=="Zombie" && stat in list("Str","For", "Off","Def"))
 					MA+=0.1
-				
 				if((Secret=="Werewolf"&&(!CheckSlotless("Half Moon Form"))) && stat in list("Str", "Off"))
 					MA+=0.1
-
-
 				if(Secret=="Haki")
 					if(secretDatum.secretVariable["HakiSpecialization"]=="Armament")
 						if(stat=="Str")
 							MA += 0.1 * secretDatum.currentTier
 						else if(stat=="Off"||stat=="Def")
 							MA += 0.05 * secretDatum.currentTier
-					
 					if(secretDatum.secretVariable["HakiSpecialization"]=="Observation")
 						if(stat=="Off"||stat=="Def")
 							MA += 0.1 * secretDatum.currentTier
-
-
-
 					if(stat in list("End","For"))
 						MA += 0.05 * secretDatum.currentTier
-
-
 				return MA
 			return 0
 
@@ -1158,7 +1165,8 @@ mob
 			//mecha suits replace base stats with their level up to max value of 3, which is a cutoff line for many races
 			Str+=src.StrAscension
 			//stat ascensions gained through racial or saga improvements
-			Str+=src.EnhancedStrength ? src.EnhancedStrength * 0.2 : 0
+			var/enhanced = getEnhanced("Strength")
+			Str+=src.EnhancedStrength ? enhanced : 0
 			//cyber stats boosters.
 			//gain double value when Overdive is active, unless the user is Android (then only +50%)
 			Str*=src.StrChaos
@@ -1203,13 +1211,7 @@ mob
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
 				Mod+=0.25
-
-
-
-			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
-			// 	if(src.race.transformations[transActive].mastery==100)
-			// 		Mod+=0.1
-			if(glob.DEVIL_ARM_STAT_MULTS)
+			if(glob.racials.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.1 * AscensionsAcquired)
 			if(src.StrStolen)
@@ -1220,9 +1222,6 @@ mob
 					Mod*=(1+(BM*glob.BUFF_MASTERY_LOWMULT))
 				else if(Mod>=glob.BUFF_MASTER_HIGHTHRESHOLD)
 					Mod*=(1+(BM*glob.BUFF_MASTERY_HIGHMULT))
-
-
-
 			if(src.Burn)
 				if(passive_handler.Get("BurningShot"))
 					if(src.Burn>0&&src.Burn<=25)
@@ -1249,7 +1248,6 @@ mob
 				if(BaseStr() == BaseFor())
 					// lol
 					Mod += clamp(adaptive/2,0.05, 0.5)
-
 			Str*=Mod
 			Str*=Mult
 			if(src.HasMirrorStats())
@@ -1277,11 +1275,6 @@ mob
 				else
 					Str += total
 			Str+=src.GetMA("Str")
-
-
-			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-			// 	Str+=src.Target.GetMA("End")*0.5
-			// else
 			if(src.HasAdaptation())
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)
@@ -1296,11 +1289,15 @@ mob
 		GetFor(var/Mult=1)
 			var/For=src.ForMod
 			For+=src.ForAscension
-			For+=(EnhancedForce ? src.EnhancedForce*0.2 : 0)
+			var/enhanced = getEnhanced("Force")
+			For+=src.EnhancedForce ? enhanced : 0
 			For*=src.ForChaos
 			if(src.ForReplace)
 				For=ForReplace
 			For+=ForAdded
+			if(UsingHotnCold())
+				if(StyleBuff?:hotCold>0)
+					For+=StyleBuff?:hotCold/glob.HOTNCOLD_STAT_DIVISOR
 			if(HasShonenPower())
 				var/spPower = GetShonenPower() > 0 ? GetShonenPower() : 0
 				For += (0.1*spPower) * For
@@ -1337,7 +1334,7 @@ mob
 			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
 			// 	if(src.race.transformations[transActive].mastery==100)
 			// 		Mod+=0.1
-			if(glob.DEVIL_ARM_STAT_MULTS)
+			if(glob.racials.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.1 * AscensionsAcquired)
 			if(src.ForStolen)
@@ -1416,7 +1413,8 @@ mob
 		GetEnd(var/Mult=1)
 			var/End=src.EndMod
 			End+=src.EndAscension
-			End+=EnhancedEndurance ? src.EnhancedEndurance*0.2 : 0
+			var/enhanced = getEnhanced("Endurance")
+			End+=EnhancedEndurance ? enhanced : 0
 			End*=src.EndChaos
 			if(src.EndReplace)
 				End=EndReplace
@@ -1427,6 +1425,9 @@ mob
 				if(!passive_handler.Get("CancelDemonicDura"))
 					End += End * (glob.DEMONIC_DURA_BASE * passive_handler.Get("DemonicDurability"))
 			End+=EndAdded
+			if(UsingHotnCold())
+				if(StyleBuff?:hotCold<0)
+					End+=abs(StyleBuff?:hotCold)/glob.HOTNCOLD_STAT_DIVISOR
 			if(src.HasManaStats())
 				End += getManaStatsBoon()/2
 			var/Mod=1
@@ -1445,7 +1446,7 @@ mob
 			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
 			// 	if(src.race.transformations[transActive].mastery==100)
 			// 		Mod+=0.1
-			if(glob.DEVIL_ARM_STAT_MULTS)
+			if(glob.racials.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.05 * AscensionsAcquired)
 			if(src.EndStolen)
@@ -1519,7 +1520,8 @@ mob
 		GetSpd(var/Mult=1)
 			var/Spd=src.SpdMod
 			Spd+=src.SpdAscension
-			Spd+=EnhancedSpeed ? src.EnhancedSpeed*0.2 : 0
+			var/enhanced = getEnhanced("Speed")
+			Spd+=EnhancedSpeed ? enhanced : 0
 			Spd*=src.SpdChaos
 
 			if(src.SpdReplace)
@@ -1527,6 +1529,11 @@ mob
 			if(passive_handler.Get("Piloting")&&findMecha())
 				Spd = getMechStat(findMecha(), Spd)
 			Spd+=SpdAdded
+			if(UsingHotnCold())
+				if(StyleBuff?:hotCold<0)
+					Spd-=abs(StyleBuff?:hotCold)/glob.HOTNCOLD_STAT_DIVISOR
+				else
+					Spd+=abs(StyleBuff?:hotCold)/glob.HOTNCOLD_STAT_DIVISOR
 			if(src.HasManaStats())
 				Spd += getManaStatsBoon()
 			var/Mod=1
@@ -1548,7 +1555,7 @@ mob
 			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
 			// 	if(src.race.transformations[transActive].mastery==100)
 			// 		Mod+=0.1
-			if(glob.DEVIL_ARM_STAT_MULTS)
+			if(glob.racials.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.05 * AscensionsAcquired)
 			if(src.SpdStolen)
@@ -1626,7 +1633,8 @@ mob
 		GetOff(var/Mult=1)
 			var/Off=src.OffMod
 			Off+=src.OffAscension
-			Off+=EnhancedAggression ? src.EnhancedAggression*0.2 : 0
+			var/enhanced = getEnhanced("Aggression")
+			Off+=EnhancedAggression ? enhanced : 0
 			Off*=src.OffChaos
 			if(passive_handler.Get("Piloting")&&findMecha())
 				Off = getMechStat(findMecha(), Off)
@@ -1708,7 +1716,8 @@ mob
 			var/Def=src.DefMod
 
 			Def+=src.DefAscension
-			Def+=EnhancedReflexes ? src.EnhancedReflexes*0.2 : 0
+			var/enhanced = getEnhanced("Reflexes")
+			Def+=EnhancedReflexes ? enhanced : 0
 			Def*=src.DefChaos
 			if(passive_handler.Get("Piloting")&&findMecha())
 				if(PilotingProwess>=7)
@@ -1961,24 +1970,29 @@ mob
 			src.OMessage(10, "[src]'s sword has shattered!!", "[src]([src.key]) got their sword broken.")
 			if(src.StyleBuff)
 				if(src.StyleBuff.NeedsSword||src.StyleBuff.MakesSword)
-					src.StyleBuff.Trigger(src, Override=1)
+					if(!passive_handler["Sword Master"])
+						src.StyleBuff.Trigger(src, Override=1)
 					if(src.StyleBuff.MakesSword)
+
 						del(s)
 			if(src.ActiveBuff)
 				if(src.ActiveBuff.NeedsSword||src.ActiveBuff.MakesSword)
-					src.ActiveBuff.Trigger(src, Override=1)
+					if(!passive_handler["Sword Master"])
+						src.StyleBuff.Trigger(src, Override=1)
 					if(src.ActiveBuff.MakesSword)
 						del(s)
 			if(src.SpecialBuff)
 				if(src.SpecialBuff.NeedsSword||src.SpecialBuff.MakesSword)
-					src.SpecialBuff.Trigger(src, Override=1)
+					if(!passive_handler["Sword Master"])
+						src.StyleBuff.Trigger(src, Override=1)
 					if(src.SpecialBuff.MakesSword)
 						del(s)
 			for(var/b in SlotlessBuffs)
 				var/obj/Skills/Buffs/SlotlessBuffs/sb = SlotlessBuffs[b]
 				if(sb)
 					if(sb.NeedsSword||sb.MakesSword)
-						sb.Trigger(src, Override=1)
+						if(!passive_handler["Sword Master"])
+							src.StyleBuff.Trigger(src, Override=1)
 						if(sb.MakesSword)
 							del(s)
 			if(s)
@@ -2151,20 +2165,23 @@ mob
 				var/spiritPower = (HasSpiritPower() / 2)
 				return clamp(src.GetAbyssMod()*spiritPower, 0.001, 10)
 		SlayerDamage(mob/P, Forced=0)
-			if(P.UsingMuken())
-				return (-1)*src.GetSlayerMod()
-			var/ignore = P.passive_handler.Get("Xenobiology")
-			if(src.Saga in list("Hiten Mitsurugi-Ryuu", "Ansatsuken"))
-				if(src.SagaLevel>=1)
-					if(!Forced)
-						return clamp((src.GetSlayerMod() * 1.5) - ignore, 0, glob.MAX_ADDITONAL_DAMAGE_CLAMP)
-					else
-						return clamp((Forced *1.5) - ignore, 0, glob.MAX_ADDITONAL_DAMAGE_CLAMP)
-			if(!Forced)
-				return clamp((src.GetSlayerMod() * 1.5) - ignore, 0, glob.MAX_ADDITONAL_DAMAGE_CLAMP)
-			else
-				return clamp(Forced - ignore, 0, glob.MAX_ADDITONAL_DAMAGE_CLAMP)
-			return 1
+			if(HasSlayerMod(P))
+				if(P.UsingMuken())
+					return (-1)*src.GetSlayerMod()
+				var/ignore = P.passive_handler.Get("Xenobiology")
+				if(ignore && ((passive_handler["FavoredPrey"] == P.race.name) || passive_handler["FavoredPrey"] == "All"))
+					ignore = 0
+				if(src.Saga in list("Hiten Mitsurugi-Ryuu", "Ansatsuken"))
+					if(src.SagaLevel>=1)
+						if(!Forced)
+							return clamp((src.GetSlayerMod() * 1.5) - ignore, 0, glob.SLAYER_DAMAGE_CLAMP)
+						else
+							return clamp((Forced *1.5) - ignore, 0, glob.SLAYER_DAMAGE_CLAMP)
+				if(!Forced)
+					return clamp((src.GetSlayerMod() * 1.5) - ignore, 0, glob.SLAYER_DAMAGE_CLAMP)
+				else
+					return clamp(Forced - ignore, 0, glob.SLAYER_DAMAGE_CLAMP)
+				return 1
 
 		SpiritShift()
 			var/SFStr=src.BaseFor()+(glob.SPIRIT_FORM_BASE_RATE*src.AscensionsAcquired*(src.BaseStr()-src.BaseFor()))

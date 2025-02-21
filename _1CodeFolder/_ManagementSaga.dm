@@ -231,12 +231,13 @@ mob/Admin3/verb
 					P.passive_handler.Increase("Pursuer", 0.5)
 					P.passive_handler.Increase("SuperDash", 0.25)
 					P.passive_handler.Increase("Godspeed", 0.25)
-
+					P.passive_handler.Set("FavoredPrey", "All")
 				if("Ansatsuken")
 					P<<"You begin to learn of the assassin's fist... <b>Ansatsuken</b>!"
 					P.Saga="Ansatsuken"
 					P.SagaLevel=1
 					P.passive_handler.Increase("SlayerMod", 0.625)
+					P.passive_handler.Set("FavoredPrey", "All")
 					if(!locate(/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style, P))
 						var/obj/Skills/Buffs/NuStyle/s=new/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style
 						P.AddSkill(s)
@@ -908,9 +909,9 @@ mob
 							src.SagaThreshold("Def", 0.25*src.SagaLevel)
 							switch(UBWPath)
 								if("Feeble")
-									passive_handler.Increase("Desperation")
+									passive_handler.Increase("Tenacity")
 								if("Strong")
-									passive_handler.Increase("Desperation")
+									// passive_handler.Increase("Desperation")
 									passive_handler.Increase("WeaponBreaker")
 								if("Firm")
 									passive_handler.Increase("DebuffResistance",0.5)
@@ -920,7 +921,7 @@ mob
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Minds_Eye)
 							switch(UBWPath)
 								if("Feeble")
-									passive_handler.Increase("Desperation", 2)
+									passive_handler.Increase("Tenacity", 2)
 									passive_handler.Increase("Adrenaline")
 									passive_handler.Increase("DeathField", 2)
 								if("Strong")
@@ -1145,12 +1146,6 @@ mob
 						if(!locate(/obj/Skills/Queue/Reverse_Lotus, src))
 							src.AddSkill(new/obj/Skills/Queue/Reverse_Lotus)
 							src << "You learned how to unleash the full might of your body in a devastating sequence of strikes: <b>Reverse Lotus</b>!!!"
-						var/Choice=alert(src, "What kind of strikes does your fighting style focus on?", "Martial Art", "Punches", "Kicks", "Both")
-						if(Choice=="Kicks")
-							var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style/bls=new
-							bls.Mastery=4
-							bls.SagaSignature=1
-							src.AddSkill(bls)
 					if(src.SagaLevel==4)
 						if(!locate(/obj/Skills/Queue/Morning_Peacock, src))
 							src.AddSkill(new/obj/Skills/Queue/Morning_Peacock)

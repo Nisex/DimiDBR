@@ -1980,8 +1980,9 @@ mob/Topic(href,href_list[])
 						var/old_key = theList[old_index]
 						var/list/options = list("text","num","type","reference","icon","file","list","restore to default")
 						try
-							if(theList[old_index]?:type)
-								options += "Open Edit Sheet"
+							if(isdatum(theList[old_index]))
+								if(theList[old_index]?:type)
+									options += "Open Edit Sheet"
 						catch()
 						var/class = input(usr,"Change [theList[old_index]] to what?","Variable Type") as null|anything \
 							in options

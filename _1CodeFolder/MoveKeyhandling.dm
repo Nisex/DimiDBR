@@ -246,7 +246,9 @@ mob
 			canMove()
 //				if(Control) return TRUE
 				//if(!Allow_Move()) return FALSE
-				if(move_disabled)return FALSE
+				if(move_disabled || passive_handler["Snared"]>0)
+					world<<"SNARE IS CURRENTLY [passive_handler["Snared"]]"
+					return FALSE
 				return TRUE
 
 

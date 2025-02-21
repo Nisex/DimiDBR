@@ -4,8 +4,8 @@ globalTracker
 		IDCounter = 0
 
 mob
-	Players
-		var/UniqueID
+	var/UniqueID
+
 
 proc
 	findPlayerByUID(uid)

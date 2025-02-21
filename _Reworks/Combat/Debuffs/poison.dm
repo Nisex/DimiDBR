@@ -41,7 +41,7 @@ globalTracker/var/LOWER_DEBUFF_CLAMP = 0.001
     if(dmg < 0)
         world.log << "[src] Debuff Damage is negative [dmg], [typeOfDebuff]"
         dmg = 0.001
-    var/desp = clamp(passive_handler.Get("Desperation"), 0.1, glob.MAX_PERSISTENCE_CALCULATED)
+    var/desp = clamp(passive_handler.Get("Persistence"), 0.1, glob.MAX_PERSISTENCE_CALCULATED)
     if(prob(desp)*(glob.PERSISTENCE_CHANCE * 2)&&!src.HasInjuryImmune())
         desp = clamp(desp, 1, glob.PRESISTENCE_DIVISOR_MAX)
         if(glob.PERSISTENCE_NEGATES_DAMAGE)
@@ -50,7 +50,6 @@ globalTracker/var/LOWER_DEBUFF_CLAMP = 0.001
             WoundSelf(dmg)
         dmg=0//but no health damage.
     // anger will not reduce debuff damage
-
     if(VaizardHealth)
         reduceVaiHealth(dmg)
     if(BioArmor)
@@ -93,7 +92,29 @@ globalTracker/var/LOWER_DEBUFF_CLAMP = 0.001
             if(Poison<0)
                 Poison = 0
 
+/mob/var/tmp/last_implode
+mob/proc/implodeDebuff(n, type)
+    if(last_implode + glob.IMPLODE_CD < world.time)
+        switch(type)
+            if("Burn")
+                // fevExplosion
+                var/obj/Effects/Bang/b = new()
+                b.Target = src
+                vis_contents += b
+                Health -= Health * (n/glob.IMPLODE_DIVISOR)
+            if("Chill")
+                var/obj/Effects/Freeze/b = new(overwrite_alpha = 255)
+                b.Target = src
+                vis_contents += b
+                if(StunImmune)
+                    StunImmune = 0
+                StasisStun = 1
+                Stun(src, 4)
+                passive_handler.Set("Shellshocked", 1)
+                
 
+
+        last_implode = world.time
 
 
 

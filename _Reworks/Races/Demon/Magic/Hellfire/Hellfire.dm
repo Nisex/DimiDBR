@@ -1,3 +1,4 @@
+
 /obj/Skills/Projectile/Magic/HellFire/Hellpyre
     scalingValues = list("Blasts" = list(4,5,6,6,8,10), "DamageMult" = list(4,6,8,10,12,15), \
     "Delay" = list(8,4,3,2,1,1))
@@ -21,6 +22,7 @@
     ActiveMessage = "unleashes a wave of Fire!"
     ManaCost = 5
     Delay = 8
+    MagicNeeded = 0
     CorruptionGain = 1
     proc/returnToInit()
         if(!altered)
@@ -41,7 +43,7 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
     ElementalClass="Fire"
-    scalingValues = list("Damage" = list(0.3,0.5,0.7,0.8,1,1), "Distance" = list(5,10,15,15,20,20), \
+    scalingValues = list("Damage" = list(0.3,0.5,0.7,0.8,1,1), "Distance" = list(3,6,10,15,20,20), \
     "DarknessFlame" = list(6,12,15,20,25,25), "Slow" = list(6,10,12,12,15,20), "Burning" = list(10,15,20,25,25,30), "Duration" = list(200,300,300,350,400,600), \
     "Adapt" = list(1,1,1,1,1), "CorruptionGain" = list(1,1,1,1,1) )
     makSpace = new/spaceMaker/HellFire
@@ -52,6 +54,7 @@
     ManaCost = 8
     TimerLimit = 10
     EndYourself=1
+    MagicNeeded = 0
     ActiveMessage = "rains down an onslaught of fire!"
     adjust(mob/p)
         scalingValues = /obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm::scalingValues
@@ -91,9 +94,9 @@
                 if("Slow")
                     target.AddCrippling(scalingValues[x][asc])
         if(!target:move_disabled)
-            if(prob(6*asc))
+            if(prob(glob.HELLSTORM_SNARERATE*asc))
                 target:move_disabled = TRUE
-                spawn(5*asc)
+                spawn(glob.HELLSTORM_SNAREDURATION*asc)
                     target:move_disabled = FALSE
 
 /mob/proc/getHellStormDamage()
@@ -120,6 +123,7 @@
     ConfuseAffected = 1
     BurnAffected = 10
     TimerLimit = 5
+    MagicNeeded = 0
     Cooldown = 60
     TargetOverlay = 'DarkShock.dmi'
     ActiveMessage = "swells fire within their target."
@@ -137,4 +141,7 @@
     Trigger(mob/User, Override)
         adjust(User)
         ..()
+    verb/OverHeat()
+        set category = "Skills"
+        src.Trigger(usr, 0 )
         

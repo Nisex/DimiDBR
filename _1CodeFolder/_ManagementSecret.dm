@@ -311,10 +311,10 @@ SecretInfomation
 				secretVariable["Madness"] += amount
 
 		proc/releaseMadness(mob/user)
-			var/tierEffectiveness = glob.MADNESS_DRAIN - (user.AscensionsAcquired/2)
+			var/tierEffectiveness = glob.racials.MADNESS_DRAIN - (user.AscensionsAcquired/2)
 			// LESS = MORE
 			if(user.CheckSlotless("True Form"))
-				tierEffectiveness = clamp(tierEffectiveness-glob.MADNESS_DRAIN_FORM, 0.5, glob.MADNESS_DRAIN)
+				tierEffectiveness = clamp(tierEffectiveness-glob.racials.MADNESS_DRAIN_FORM, 0.5, glob.racials.MADNESS_DRAIN)
 			secretVariable["Madness"] -= tierEffectiveness
 			if(secretVariable["Madness"] <= 0)
 				secretVariable["Madness"] = 0

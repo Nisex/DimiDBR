@@ -48,14 +48,15 @@ proc
 				DebuffRate+=10*(Attacker.SenseUnlocked-5)
 			if(Defender.HasDebuffResistance())
 				DebuffRate/=1+Defender.GetDebuffResistance()
-			if(Defender.HasIntimidation())
-				var/Effective=Defender.GetIntimidation()
-				var/Ratio=Attacker.GetIntimidationIgnore(Defender)
-				var/Ignored=Effective*Ratio
-				Effective-=Ignored
-				if(Effective<0)
-					Effective=0
-				DebuffRate-=Effective/10
+			if(glob.INTIM_REDUCES_DEBUFFS)
+				if(Defender.HasIntimidation())
+					var/Effective=Defender.GetIntimidation()
+					var/Ratio=Attacker.GetIntimidationIgnore(Defender)
+					var/Ignored=Effective*Ratio
+					Effective-=Ignored
+					if(Effective<0)
+						Effective=0
+					DebuffRate-=Effective/10
 			if(DebuffRate<0)
 				DebuffRate=0
 /*
@@ -82,6 +83,10 @@ proc
 						if(!Defender.Burn)
 							OMsg(Attacker, messages[element])
 */
+			if(Attacker.passive_handler["Amplify"])
+				DebuffIntensity += Attacker.passive_handler["Amplify"] * glob.AMPLIFY_MODIFIER
+			if(Attacker.UsingHotnCold())
+				DebuffIntensity += abs(Attacker.StyleBuff?:hotCold)/glob.HOTNCOLD_DEBUFF_DIVISOR
 			switch(element)
 				if("Truth")
 					DamageMod+=2
@@ -332,6 +337,11 @@ mob
 				var/darkFlame = Attacker.HasDarknessFlame()
 				if(darkFlame&&Attacker!=src)
 					src.AddPoison(Value * 1 + (darkFlame * 0.125), Attacker=Attacker)
+			if(Attacker)
+				if(Attacker.passive_handler["Combustion"] && Burn >= Attacker.passive_handler["Combustion"])
+					Burn = 0
+					implodeDebuff(Attacker.passive_handler["Combustion"], "Burn")
+
 
 			if(src.Burn>100)
 				src.Burn=100
@@ -379,6 +389,10 @@ mob
 					src.Shock+=Value/2
 					if(src.Shock>100)
 						src.Shock=100
+			if(Attacker)
+				if(Attacker.passive_handler["IceAge"] && Slow >= Attacker.passive_handler["IceAge"])
+					Slow = 0
+					implodeDebuff(Attacker.passive_handler["IceAge"], "Chill")
 			if(src.Slow>100)
 				src.Slow=100
 			if(src.Slow<0)

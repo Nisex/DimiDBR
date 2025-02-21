@@ -4,7 +4,6 @@ var/list/worldObjectList = new // Looped through during the saving of objects
 	for(var/obj/x in worldObjectList)
 		if(x.Savable)
 			if(!x || !x.loc)
-				world<<"erm"
 				worldObjectList.Remove(x)
 
 proc/find_savableObjects()

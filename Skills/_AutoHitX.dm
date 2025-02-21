@@ -42,6 +42,7 @@ obj
 				ABuffNeeded
 				SBuffNeeded
 				GateNeeded
+				FoxFire
 				//ClassNeeded
 				IgnoreAlreadyHit = FALSE
 				Duration
@@ -300,26 +301,7 @@ obj
 
 
 //Auto^2hits
-			Duel
-				NoLock=1
-				NoAttackLock=1
-				StrOffense=1
-				EndDefense=0.75
-				DamageMult=2
-				Area="Circle"
-				Distance=4
-				GuardBreak = 1
-				TurfErupt=2
-				TurfEruptOffset=3
-				Slow=1
-				Crushing = 10
-				Knockback=0.001
-				ActiveMessage="issues a duel to their enemy!"
-				HitSparkIcon='BLANK.dmi'
-				HitSparkX=0
-				HitSparkY=0
-				Cooldown=4
-				Earthshaking=15
+
 			Heavenly_Dragon_Violet_Ponds_Annihilation_of_the_Nine_Realms
 				NoLock=1
 				NoAttackLock=1
@@ -590,35 +572,6 @@ obj
 				TurfEruptOffset=3
 				Earthshaking = 15
 				ActiveMessage="unleashes a swing of pure strength forward!"
-				HitSparkIcon='Slash - Zan.dmi'
-				HitSparkX=-16
-				HitSparkY=-16
-				HitSparkSize=1
-				HitSparkTurns=1
-				HitSparkLife=10
-				Icon='SweepingKick.dmi'
-				IconX=-32
-				IconY=-32
-				IconTime=10
-				Cooldown=4
-
-
-			Giga_Impact
-				Area="Circle"
-				NoLock=1
-				NoAttackLock=1
-				RoundMovement=0
-				Distance=5
-				Instinct=4
-				DamageMult=3
-				Rounds=2
-				StrOffense=1
-				EndDefense=0.5
-				PullIn = 5
-				TurfErupt=2
-				TurfEruptOffset=3
-				Earthshaking = 15
-				ActiveMessage="slams their enemy into the ground, resulting in a giant(giga) impact!"
 				HitSparkIcon='Slash - Zan.dmi'
 				HitSparkX=-16
 				HitSparkY=-16
@@ -2492,7 +2445,7 @@ obj
 				ForOffense=1.5
 				SpecialAttack=1
 				DamageMult=15
-				Chilling=99
+				Chilling=150
 				Stasis=5
 				TurfShift='IceGround.dmi'
 				Distance=15
@@ -5404,6 +5357,7 @@ obj
 mob
 	proc
 		Activate(var/obj/Skills/AutoHit/Z)
+			set waitfor = FALSE
 			. = TRUE
 			if(src.passive_handler.Get("Silenced"))
 				src << "You can't use [Z] you are silenced!"
@@ -5538,7 +5492,8 @@ mob
 				if(src.ForceBar<Z.ForceCost&&!Z.AllOutAttack)
 					return
 			if(Z.EnergyCost)
-				if(src.Energy<Z.EnergyCost&&!Z.AllOutAttack)
+				var/drain = passive_handler["Drained"] ? Z.EnergyCost * (1 + passive_handler["Drained"]/10) : Z.EnergyCost
+				if(src.Energy<drain&&!Z.AllOutAttack)
 					if(!src.CheckSpecial("One Hundred Percent Power")&&!src.CheckSpecial("Fifth Form")&&!CheckActive("Eight Gates"))
 						return
 			if(Z.ManaCost && !src.HasDrainlessMana() && !Z.AllOutAttack)
@@ -5647,7 +5602,11 @@ mob
 			if(Z.PassThrough)
 				if(Z.Area=="Strike")
 					Z.StopAtTarget=1
-
+			if(Z.FollowUp)
+				spawn(Z.FollowUpDelay)
+					throwFollowUp(Z.FollowUp)
+			if(Z.BuffSelf)
+				src.buffSelf(Z.BuffSelf)
 			var/missed = 0 //If the target is out of range at the end of a windup.
 			if(Z.WindUp)
 				src.Grab_Release()
@@ -5749,7 +5708,7 @@ mob
 					if(src.Target.z!=src.z)
 						missed=1
 					if(!Z.Rush)//This one doesn't apply to rushes.
-						if(src.x+Z.Distance<src.Target.x||src.x-Z.Distance>src.Target.x||src.y+Z.Distance<src.Target.y||src.y-Z.Distance>src.Target.y)
+						if(get_dist(src, Target) > Distance)
 							missed=1
 
 			if(Z.CustomActive)
@@ -5757,6 +5716,10 @@ mob
 			else
 				if(Z.ActiveMessage)
 					OMsg(src, "<b><font color='[Z.ActiveColor]'>[src] [Z.ActiveMessage]</font color></b>")
+			if(passive_handler["AirBend"] && can_use_style_effect("AirBend"))
+				flick("KB", Target)
+				step_away(Target, src)
+				last_style_effect = world.time
 			if(!Z.SpecialAttack)
 				if(src.UsingSpiritStrike())
 					Z.TempStrOff=0
@@ -5929,7 +5892,8 @@ mob
 							src.Circle(Z)
 					if("Target")
 						if(Target)
-							if(src.x+Z.Distance<src.Target.x||src.x-Z.Distance>src.Target.x||src.y+Z.Distance<src.Target.y||src.y-Z.Distance>src.Target.y)
+							if(get_dist(src, Target) > Distance)
+							// if(src.x+Z.Distance<src.Target.x||src.x-Z.Distance>src.Target.x||src.y+Z.Distance<src.Target.y||src.y-Z.Distance>src.Target.y)
 								missed=1
 							src.Target(src.Target, Z, missed ? TrgLoc : null)
 						else
@@ -6000,7 +5964,8 @@ mob
 			if(Z.WoundCost)
 				src.WoundSelf(Z.WoundCost*CostMultiplier*glob.WorldDamageMult)
 			if(Z.EnergyCost)
-				src.LoseEnergy(Z.EnergyCost*CostMultiplier)
+				var/drain = passive_handler["Drained"] ? Z.EnergyCost * (1 + passive_handler["Drained"]/10) : Z.EnergyCost
+				src.LoseEnergy(drain*CostMultiplier)
 			if(Z.ForceCost)
 				src.LoseForce(Z.ForceCost*CostMultiplier)
 			if(Z.FatigueCost)
@@ -6139,7 +6104,7 @@ obj
 
 			Cleansing = 0
 			ManaDrain
-
+			FoxFire
 			hitSelf = 0
 
 			Arcing//Triggers offshoots on every step that expand outwards.  Higher than 1 means that every X steps the range will widen.
@@ -6256,6 +6221,10 @@ obj
 			tmp/list/autohitChildren
 			tmp/obj/AutoHitter/AHOwner
 
+			FollowUp
+			BuffSelf
+			FollowUpDelay
+
 		Update()
 			..()
 
@@ -6290,7 +6259,9 @@ obj
 				src.DistanceMax=Z.DistanceAround
 			src.Target=target
 			src.NoPierce=Z.NoPierce
-
+			FollowUp = Z.FollowUp
+			FollowUpDelay = Z.FollowUpDelay
+			BuffSelf = Z.BuffSelf
 			src.Damage=Z.DamageMult
 			src.StepsDamage=Z.StepsDamage
 			src.MagicNeeded=Z.MagicNeeded
@@ -6308,6 +6279,7 @@ obj
 				src.EndRes=Z.EndDefense
 			if(Z.AdaptRate)
 				AdaptDmg = Z.AdaptRate
+			FoxFire = Z.FoxFire
 			ManaDrain = Z.ManaDrain
 			src.Executor = Z.Executor
 			src.Primordial = Z.Primordial
@@ -6532,11 +6504,9 @@ obj
 				else
 					Owner << "Your auto hit could not calculate the damage it just did!! Report this !!"
 				var/dmgMulti = Damage
-				if(src.SpecialAttack&&(src.Owner.UsingMoonlight()||src.Owner.HasSpiritFlow()))
-					if(src.Owner.StyleActive!="Moonlight"&&src.Owner.StyleActive!="Astral")
-						atk += Owner.GetStr(Owner.passive_handler.Get("SpiritFlow")) / 4
-					else
-						atk += Owner.GetStr(Owner.passive_handler.Get("SpiritFlow"))  / 2
+				if(Owner.HasSpiritFlow())
+					var/sf = Owner.passive_handler.Get("SpiritFlow")  / glob.SPIRIT_FLOW_DIVISOR
+					atk += Owner.GetFor(sf)
 				#if DEBUG_AUTOHIT
 				Owner.log2text("atk - Auto Hit", atk, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
@@ -6649,10 +6619,12 @@ obj
 					if(m.HasAutoReversal())
 						if(!src.SpecialAttack||m.passive_handler.Get("TotalReversal"))
 							if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldDefaultAcc, IgnoreNoDodge=1) == (HIT || WHIFF))
+								if(m.passive_handler["Magmic"] && m.SlotlessBuffs["Magmic Shield"])
+									m.SlotlessBuffs["Magmic Shield"].Trigger(m, TRUE)
 								if(src.Damage>0.1)
 									KenShockwave(m, icon='KenShockwave.dmi', Size=dmgRoll, Time=3)
 									m.Knockback(src.Knockback+(reversalChance*2.5) , src.Owner, Direction=get_dir(m, src.Owner))
-								m.DoDamage(src.Owner, (FinalDmg/5), UnarmedAttack=src.UnarmedTech, SwordAttack=src.SwordTech, SpiritAttack=src.SpecialAttack)
+								m.DoDamage(src.Owner, (FinalDmg/5), UnarmedAttack=src.UnarmedTech, SwordAttack=src.SwordTech, SpiritAttack=src.SpecialAttack, Autohit = TRUE)
 								if(src.Bang)
 									Bang(src.Owner.loc, src.Bang)
 								if(src.Scratch)
@@ -6691,7 +6663,12 @@ obj
 					var/Heal = (FinalDmg * (m.passive_handler.Get("Siphon")/ 10)) * ForDmg
 					FinalDmg-=Heal //negated
 					m.HealEnergy(Heal)
-
+				if(Owner.Attunement == "Fox Fire")
+					var/heal = FinalDmg * ( (1 + Owner.AscensionsAcquired + (FoxFire))/10)
+					m:LoseEnergy(heal/2)
+					m:LoseMana(heal/2)
+					Owner.HealEnergy(heal/2)
+					Owner.HealMana(heal/2)
 				if(m.HasDeflection()&&!src.CanBeDodged)
 					if(m.CheckSlotless("Deflector Shield"))
 						if(!m.Shielding)
@@ -6783,7 +6760,7 @@ obj
 						if(m.CanAttack())
 							m.Melee1(Damage,2,0,0,null,null,0,0,2,1)
 					if(m.HasFlow())
-						if(prob(getFlowCalc(6, m.GetFlow(), src.Owner.HasInstinct() )))
+						if(prob(getFlowCalc(glob.BASE_FLOW_PROB/2, m.GetFlow(), src.Owner.HasInstinct() )))
 							if(!src.TurfStrike)
 								spawn()
 									src.Owner.HitEffect(loc, src.UnarmedTech, src.SwordTech)

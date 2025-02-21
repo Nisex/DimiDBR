@@ -49,3 +49,78 @@
         FollowUp="/obj/Skills/AutoHit/Heavenly_Dragon_Violet_Ponds_Annihilation_of_the_Nine_Realms"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragons_Transient_Enlightenment"
         HitMessage="Summons the boundless might of their martial arts, entering into a breakthrough by pure technique alone. Roars that turn into unstoppable torrent of energy erupt from their body while it soars through the battlefield, unleashing a symphony of cataclysmic destruction paired with ethereal grace. They have unlocked the ultimate testament to the Heavenly Dragon Stance, a dance of power and honor that surpasses the mortal plane, from the divine heights of the quasi-god realm, they descend as the Heavenly Dragon. Harnessing the boundless force of the Nine converging Realms, they unleash a relentless storm of peerless strength, devastating the battle field."
+
+
+
+    Behemoth_Typhoon
+        Steady = 4
+        WeaponBreaker = 2
+        Crushing = 20
+        Finisher = 1
+        DamageMult = 1
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Arena_Champion"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Finisher/QueueBuff/Marked"
+        HitMessage=""
+        FollowUp="/obj/Skills/AutoHit/Giga_Impact"
+    Rashomon
+        DamageMult=2
+        Warp=3
+        SpeedStrike=3
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Shredded"
+        HitMessage=""
+        FollowUp="/obj/Skills/AutoHit/Rashomon"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Nito_Ichi"
+    Roppon_me_Morote_Tsuki
+        InstantStrikes = 3
+        DamageMult = 2
+        SpeedStrike = 2
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Shredded"
+        HitMessage=""
+        FollowUp="/obj/Skills/Queue/Finisher/Body_Flicker_Technique"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Iai"
+    Body_Flicker_Technique
+        Combo=20
+        DamageMult = 0.15
+        HitMessage="rips through their opponent with countless slashes!"
+        BuffSelf=0
+        HitSparkIcon = 'Slash_Multi.dmi'
+    Moon_Fall
+        DamageMult=2
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Guard_Break"
+        HitMessage=""
+        FollowUp="/obj/Skills/AutoHit/The_Moon"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Crescent_Blessing"
+    Zwerchhau
+        HarderTheyFall = 1
+        DamageMult = 2
+        Decider = 2
+        DrawIn = 3
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fimbulwinter"
+        HitMessage=""
+        FollowUp="/obj/Skills/AutoHit/Great_Cleave"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Zwercopter"
+    
+
+
+
+    Major_Eruption
+        FollowUp="/obj/Skills/Projectile/Meteor_Volcano"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Magma_Fist"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Crumbling"
+        DamageMult = 2
+    Ice_Time
+        Stunner = 4
+        DamageMult = 2
+        FollowUp="/obj/Skills/Projectile/Two_Thorn_Pikes"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Chilled"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Cool_Guy"
+    Stormweaver
+        DamageMult = 2
+        FollowUp="/obj/Skills/Autohit/Orb_of_Storms"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Buffered"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Conduit"
+    Sunshine_Flame
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Flame_Fist"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Ignited"
+        FollowUp="/obj/Skills/Projectile/Precept_Flame_Emperor"
+        DamageMult = 2

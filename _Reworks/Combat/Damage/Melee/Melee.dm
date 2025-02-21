@@ -5,7 +5,23 @@
 	var/damageMultiplier = 2 * (2.7** (-healthDifference/10))
 	return round(damageMultiplier, 0.01)
 
-/mob/proc/Melee1(dmgmulti=1, spdmulti=1, iconoverlay, forcewarp, MeleeTarget=null, ExtendoAttack=null, SecondStrike, ThirdStrike, accmulti=1, SureKB=0, NoKB=0, IgnoreCounter=0, BreakAttackRate=0)
+/mob/proc/lightRush(mob/enemy, option)
+	if("Launch")
+		if(enemy.Launched)
+			if(passive_handler["Sajire Rush"])
+				return TRUE
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Launchers"))
+				return TRUE
+	else if("Stun")
+		if(enemy.Stunned)
+			if(passive_handler["Sajire Rush"])
+				return TRUE
+			if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Stunners"))
+				return TRUE
+	return FALSE
+
+
+/mob/proc/Melee1(dmgmulti=1, spdmulti=1, iconoverlay, forcewarp, forcedTarget=null, ExtendoAttack=null, SecondStrike, ThirdStrike, accmulti=1, SureKB=0, NoKB=0, IgnoreCounter=0, BreakAttackRate=0)
 
 	if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Normal Attack"))
 		return
@@ -53,7 +69,7 @@
 			delay = pCombo
 		if(!AttackQueue)
 			#if DEBUG_MELEE
-			log2text("Damageroll", "Starting DamageRoll", "damageDebugs.txt", "[ckey]/[name]")
+			log2text("Damageroll", "Starting DamageRoll", "damageDebugs.txt", "[ckey]/ [name]")
 			#endif
 		else
 			if(AttackQueue.Rapid || AttackQueue.Launcher)
@@ -72,7 +88,7 @@
 	if(passive_handler["Flying Thunder God"])
 		reqCounter = 15 - passive_handler["Flying Thunder God"]
 	if(IaidoCounter>=reqCounter)
-		warpingStrike = 5
+		warpingStrike = 100
 	if(Warping || passive_handler.Get("Warping"))
 		var/warp = Warping
 		if(passive_handler.Get("Warping") > Warping)
@@ -144,7 +160,7 @@
 
 	// 				WARPING 				//
 
-	if(devaCounter >= 15)
+	if(devaCounter >= 15 || passive_handler["AirBend"] && can_use_style_effect("AirBend"))
 		if(Target && Target != src && Target in view(10, src))
 			var/mob/tgt = Target
 			tgt.Knockbacked=1
@@ -154,14 +170,28 @@
 			tgt.Knockbacked=0
 			animate(pixel_z = 0, easing = ELASTIC_EASING, time = 1.5)
 			devaCounter=0
-
+			if(passive_handler["AirBend"])
+				last_style_effect = world.time
+	if(passive_handler["Nimbus"] && last_nimbus + glob.NIMBUSCD - (passive_handler["Nimbus"]))
+		if(HasTarget() && TargetInRange(glob.NIMBUSRANGE + passive_handler["Nimbus"]))
+			if(CanDash())
+				is_dashing++
+				AfterImageGhost(src)
+				DashTo(Target, glob.NIMBUSRANGE + passive_handler["Nimbus"])
+				src.OMessage(10,"[src] [nimbus_message] [src.Target]!","<font color=red>[src]([src.key]) used Nimbus.")
+				last_nimbus = world.time
+				// TODO: make hud later if we feel like it chat
 	if(warpingStrike)
-		if(Target && Target.loc && Target != src && Target in view(warpingStrike, src))
+		if(Target && Target.loc && Target != src && Target && get_dist(Target, src) < warpingStrike)
 			forcewarp = Target
-	if(forcewarp && Target.z == z)
-		var/obj/FTG_seeker/_k = new(locate(x,y,z), Target, src) //TODO: make this a normal projectile maybe? does no damage, but throws this, idk that way it can be used as a follow up
-		if(IaidoCounter)
-			IaidoCounter = 0
+	if((forcewarp && Target.z == z))
+		if(passive_handler["Flying Thunder God"] && IaidoCounter>=reqCounter)
+			new/obj/tracker/FTG_seeker(locate(x,y,z), Target, src) //TODO: make this a normal projectile maybe? does no damage, but throws this, idk that way it can be used as a follow up
+			if(IaidoCounter)
+				IaidoCounter = 0
+		else
+			Comboz(forcewarp)
+
 
 	// 				WARPING END				//
 
@@ -190,7 +220,7 @@
 
 	// 				RAYCASTING 				//
 
-	var/list/mob/enemies = getEnemies()
+	var/list/mob/enemies = getEnemies(forcedTarget)
 
 	// 				RAYCASTING END			//
 
@@ -261,7 +291,7 @@
 				var/def = enemy.getEndStat(1)
 				var/brutalize = GetBrutalize()
 				if(brutalize)
-					def -= (def * clamp(brutalize, 0.01, 0.5)) // MOVE THIS TO A GET PROC SO IT CAN BE TRACKED
+					def -= (def * clamp(brutalize, 0.01, 0.9)) // MOVE THIS TO A GET PROC SO IT CAN BE TRACKED
 				var/damageMultiplier = dmgmulti
 
 				#if DEBUG_MELEE
@@ -419,6 +449,8 @@
 
 		// 				STATUS 					//
 				flick("Attack",src)
+				if(passive_handler["Hit Scan"]) // this is troublesome
+					new/obj/tracker(locate(x,y,z),enemy, src, HitScanIcon, HitScanHitSpark,HitScanHitSparkX, HitScanHitSparkY)
 				var/countered=0
 
 				if(AttackQueue && AttackQueue.Dunker && enemy.Launched)
@@ -437,25 +469,29 @@
 		// 				STATUS END				//
 
 		// 				HOT HUNDRED 			//
-				var/hh = passive_handler.Get("HotHundred")
-				if(!AttackQueue && (hh || enemy.Launched && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Launchers") || (enemy.Stunned && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Stunners"))))
+				var/hh = (passive_handler.Get("HotHundred") || passive_handler["Speed Force"] >= 2) ? TRUE : FALSE
+				if(!AttackQueue && (hh || lightRush(enemy, "Launch") || lightRush(enemy, "Stun")))
 					lightAtk = 1
 					var/adjust = 0
 					Comboz(enemy, LightAttack = 1)
-					if(hh)
+					if(passive_handler.Get("HotHundred"))
 						lightAtk=0
 						adjust = hh-1
 					if(enemy.Launched && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Launchers"))
 						damage *= 1+secretDatum?:getBoon(src,"Launchers")
 					if(enemy.Stunned && Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Stunners"))
 						damage *= 1+secretDatum?:getBoon(src,"Stunners")
-					damage /= max(2,4-adjust)
+					if(passive_handler["Speed Force"])
+						damage *= 0 + (0.25 * passive_handler["Speed Force"])
+					else
+						damage /= max(2,4-adjust)
 					if(glob.LIGHT_ATTACK_SPEED_DMG_ENABLED)
 						damage *= clamp(glob.LIGHT_ATTACK_SPEED_DMG_LOWER,GetSpd()**glob.LIGHT_ATTACK_SPEED_DMG_EXPONENT,glob.LIGHT_ATTACK_SPEED_DMG_UPPER)
 					if(!adjust)
 						NoKB=1
 					if(SecondStrike || ThirdStrike)
 						damage *= 0.3
+
 					NextAttack = world.time + 1.25
 					#if DEBUG_MELEE
 					log2text("Damage", "After HotHundred", "damageDebugs.txt", "[ckey]/[name]")
@@ -686,19 +722,37 @@
 
 							// reduce damage by 1% for every 0.1 damage effectiveness, 1 damage effectiveness = 10% damage reduction
 							//TODO ARMOR AT THE END
+							if(enemy.passive_handler["Parry"] && (s || s2 || s3))
+								if(prob(enemy.passive_handler["Parry"] * glob.PARRY_CHANCE))
+									damage /= enemy.passive_handler["Parry"] * glob.PARRY_REDUCTION_MULT
+									enemy.Melee1(dmgmulti = 0.25 *enemy.passive_handler["Parry"], forcedTarget=src) // this does mean that they will hit from no matter the range if hit by melee
+							if(enemy.passive_handler["Iaijutsu"])
+								if(prob(enemy.passive_handler["Iaijutsu"] * glob.IAI_CHANCE))
+									enemy.Melee1(dmgmulti = 0.15 * enemy.passive_handler["Iaijutsu"], forcedTarget = src)
+							
 							if(defArmor&&!passive_handler.Get("ArmorPeeling"))
 								var/dmgEffective = enemy.GetArmorDamage(defArmor)
-								damage -=  damage * dmgEffective/10
+								if(passive_handler["Half-Sword"])
+									dmgEffective -= passive_handler["Half-Sword"] * glob.HALF_SWORD_ARMOR_REDUCTION
+								if(dmgEffective>0)
+									damage -=  damage * dmgEffective/10
+								else
+									damage += damage * abs(dmgEffective/10)
 								#if DEBUG_MELEE
 								log2text("damage", "After Armor", "damageDebugs.txt", "[ckey]/[name]")
 								log2text("damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 								#endif
-
+							if(passive_handler["Half-Sword"] && !defArmor)
+								damage += damage * (passive_handler["Half-Sword"]/glob.HALF_SWORD_UNARMOURED_DIVISOR)
 							damage *= glob.GLOBAL_MELEE_MULT
 							#if DEBUG_MELEE
 							log2text("Damage", "After Global Multiplier", "damageDebugs.txt", "[ckey]/[name]")
 							log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 							#endif
+							if(enemy.passive_handler["Magmic"] && enemy.SlotlessBuffs["Magmic Shield"])
+								world<<"magmic shield proc q"
+								Stun(src, 3, TRUE)
+								enemy.SlotlessBuffs["Magmic Shield"].Trigger(enemy, TRUE)
 							DoDamage(enemy, damage, unarmedAtk, swordAtk, SecondStrike, ThirdStrike)
 							if(!glob.MOMENTUM_PROCS_OFF_DAMAGE)
 								handlePostDamage(enemy) // it already proc'd
@@ -773,8 +827,8 @@
 					// 										OTHER DMG START 															//
 							var/otherDmg = (damage+(GetIntimidation()/100)*(1+(2*GetGodKi())))
 
-							if(UsingZornhau()&&HasSword())
-								otherDmg *= 1 + (UsingZornhau()*glob.ZORNHAU_MULT)
+							// if(UsingZornhau()&&HasSword())
+							// 	otherDmg *= 1 + (UsingZornhau()*glob.ZORNHAU_MULT)
 
 							if(UsingKendo()&&HasSword()&&CountStyles(2))
 								if(s.Class == "Wooden")
@@ -856,21 +910,19 @@
 						if(AttackQueue)
 							spawn()
 								QueuedMissMessage()
-				if(forcewarp)
-					if(src.StyleActive=="Secret Knife" || (UBWPath == "Firm" && SagaLevel >=3))
-						if(!locate(/obj/Skills/Projectile/Secret_Knives, src))
-							src.AddSkill(new/obj/Skills/Projectile/Secret_Knives)
-						for(var/obj/Skills/Projectile/Secret_Knives/sk in src)
-							sk.adjust(src)
-							src.UseProjectile(sk)
-					if(src.StyleActive=="Blade Singing")
-						if(!locate(/obj/Skills/Projectile/Murder_Music, src))
-							src.AddSkill(new/obj/Skills/Projectile/Murder_Music)
-						for(var/obj/Skills/Projectile/Murder_Music/sk in src)
-							if(src.CheckSlotless("Legend of Black Heaven"))
-								if(sk.IconLock=='CheckmateKnives.dmi')
-									sk.IconLock='Soundwave.dmi'
-							src.UseProjectile(sk)
+				if(passive_handler["Tossing"] && passive_handler["Secret Knives"])
+					var/sk = passive_handler["Secret Knives"]
+					if(prob(passive_handler["Tossing"] * glob.SECRET_KNIFE_CHANCE))
+						var/path = "/obj/Skills/Projectile/[sk]"
+						var/obj/Skills/Projectile/p = FindSkill(path)
+						if(!ispath(text2path(path)))
+							path = /obj/Skills/Projectile/Secret_Knives
+							world.log << "[sk] PATH FOR SECRET KNIVES DOESN'T EXIST!"
+						if(!p)
+							p = new path
+							AddSkill(p)
+						p.adjust(src)
+						src.UseProjectile(p)
 
 				if(delay<=0.5)
 					delay = 0.5

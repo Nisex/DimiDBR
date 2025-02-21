@@ -4,18 +4,18 @@ ascension
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			choices = list("Adaptive" = /ascension/sub_ascension/half_saiyan/adaptive, "Dominating" = /ascension/sub_ascension/half_saiyan/dominating)
 			intimidation = 10
-			passives = list("Desperation" = 1, "TechniqueMastery" = -0.5, "Adrenaline" = 0.25)
+			passives = list("Tenacity" = 1, "Adrenaline" = 0.25)
 			anger = 0.25
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
 			intimidation = 10
-			passives = list("Brutalize" = 0.25, "Desperation" = 0.5)
+			passives = list("Brutalize" = 0.25, "Tenacity" = 0.5)
 
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/half_saiyan/adaptive)
 					passives["TechniqueMastery"] = 0.5
 					passives["Adrenaline"] = 0.5
-					passives["Desperation"] = 0.5
+					passives["Tenacity"] = 0.5
 					speed = 0.25
 					strength = 0.25
 					defense = 0.25
@@ -32,13 +32,13 @@ ascension
 		three
 			unlock_potential = 40
 			intimidation = 10
-			passives = list("Brutalize" = 0.25, "Desperation" = 0.5, "TechniqueMastery" = -1)
+			passives = list("Brutalize" = 0.25, "Tenacity" = 0.5, "TechniqueMastery" = -1)
 
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/half_saiyan/adaptive)
 					passives["TechniqueMastery"] = 1.5
 					passives["Adrenaline"] = 0.5
-					passives["Desperation"] = 0.5
+					passives["Tenacity"] = 0.5
 					defense = 0.25
 					strength = 0.25
 					offense = 0.25
@@ -54,13 +54,13 @@ ascension
 		four
 			unlock_potential = 65
 			intimidation = 10
-			passives = list("Brutalize" = 0.25, "Desperation" = 0.5)
+			passives = list("Brutalize" = 0.25, "Tenacity" = 0.5)
 
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/half_saiyan/adaptive)
 					passives["TechniqueMastery"] = 0.5
 					passives["Adrenaline"] = 0.5
-					passives["Desperation"] = 0.5
+					passives["Tenacity"] = 0.5
 					strength = 0.25
 					defense = 0.25
 					offense = 0.5
@@ -77,7 +77,7 @@ ascension
 		five
 			unlock_potential = 80
 			intimidation = 10
-			passives = list("Brutalize" = 0.25, "Desperation" = 0.5)
+			passives = list("Brutalize" = 0.25, "Tenacity" = 0.5)
 
 ascension
 	sub_ascension

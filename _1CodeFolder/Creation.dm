@@ -410,7 +410,9 @@ mob/Players
 		if(src in admins)
 			admins -= src
 		// mainLoop -= src
-
+		if(fa_jin_effect)
+			vis_contents -= fa_jin_effect
+			del fa_jin_effect
 		if(length(savedRoleplay) >= 1)
 			if(fexists("Saved Roleplays/[key].txt"))
 				fdel("Saved Roleplays/[key].txt")
@@ -479,6 +481,7 @@ mob/Creation
 		winshow(usr, "Hunger", 0)
 		if(copytext(usr.key,1,6)=="Guest")
 			usr<<"Guest keys are disabled at this time, please login using a real key!"
+			sleep(10)
 			del(usr)
 
 		for(var/e in list("Health","Energy","Power","Mana"))
@@ -544,13 +547,21 @@ mob/Creation/verb
 			return
 		if(!(world.time > verb_delay))
 			return
+		statArchive = new()
+		statArchive.reset(list(1,1,1,1,1,1))
 		verb_delay=world.time+1
 		race_selecting=0
+		Class = race.classes[race.current_class]
 		winshow(usr,"Race_Screen",0)
 		winshow(usr,"Finalize_Screen",1)
-		usr.RacialStats()
+		if(length(race.stats_per_class) > 0)
+			usr.RacialStats(race.stats_per_class[race.getClass()])
+		else
+			usr.RacialStats(race)
 		usr.UpdateBio()
-		usr<<output(usr, "IconUpdate:1,[usr]")
+		usr.dir = SOUTH
+		usr.screen_loc = "IconUpdate:1,1"
+		client.screen += usr
 		spawn()
 			Namez//label
 			src.name=html_encode(copytext(input(src,"Name? (25 letter limit)"),1,25))
@@ -587,9 +598,14 @@ mob/Creation/proc
 		winshow(usrr,"Race_Screen",0)
 		winshow(usrr,"Finalize_Screen",1)
 		usrr.UpdateBio()
-		usrr.RacialStats()
+		if(length(race.stats_per_class) > 0)
+			usrr.RacialStats(race.stats_per_class[race.getClass()])
+		else
+			usrr.RacialStats(race)
 		usrr.UpdateBio()
-		usrr<<output(usr, "IconUpdate:1,[usrr]")
+		usrr.dir = SOUTH
+		usrr.screen_loc = "IconUpdate:1,1"
+		usrr.client.screen += usr
 		spawn()
 			Namez//label
 			usrr.name=html_encode(copytext(input(usrr,"Name? (25 letter limit)"),1,25))
@@ -639,14 +655,18 @@ mob/Creation/verb
 				del(src)
 			usr.UpdateBio()
 		if(blah=="Class")
+			if(race.current_class + 1 > length(race.classes))
+				race.current_class = 1
+			else
+				race.current_class++
+			Class = race.classes[race.current_class]
+			setAllStats()
+			winset(usr, "Finalize_Screen.className", "text=\"[race.classes[race.current_class]]\"")
 			if(usr.isRace(NAMEKIAN))
 				if(usr.Class=="Warrior")
 					usr.Class="Dragon"
 				else if(usr.Class=="Dragon")
 					usr.Class="Warrior"
-
-			usr.RacialStats()
-			spawn()usr.UpdateBio()
 
 		if(blah=="Sex")
 			var/list/options = usr.race.gender_options
@@ -659,9 +679,11 @@ mob/Creation/verb
 				usr.Gender = options[next_index]
 			else
 				usr.Gender = options[1]
-			usr.RacialStats()
-			usr.UpdateBio()
-			return
+		if(length(race.stats_per_class) > 0)
+			usr.RacialStats(race.stats_per_class[race.getClass()])
+		else
+			usr.RacialStats(race)
+		spawn()usr.UpdateBio()
 
 	ToggleHelp(var/blah as text)
 		set name=".ToggleHelp"
@@ -672,13 +694,14 @@ mob/Creation/verb
 		if(blah=="Name")
 			alert("This will be what other people see you as, it's your character's In Character (IC) name.")
 		if(blah=="Class")
-			alert("Wizards are energy/magic users, sacrificing physical skills. Fighers are just the default. Technologists are more intelluctual over combat skills, some races may have alternate classes.")
+			if(race.current_class > length(race.class_info))
+				alert("There is no information on this class...")
+			else
+				alert("[race.class_info[race.current_class]]")
 		if(blah=="Sex")
-			alert("Female or Male...used for breeding purposes.")
+			alert("not used at all btw")
 		if(blah=="Race")
 			alert("Odds are you already read the blurb.")
-		if(blah=="Size")
-			alert("Mediums are default, small are agile, large are gigantic. Will complete later..")
 		if(blah=="Battle Power")
 			alert("This determines how fast (or slow) you gain Battle Power (BP).")
 		if(blah=="Zenkai")
@@ -720,55 +743,6 @@ mob/proc/UpdateBio()
 	winset(src,"LabelName","text=\"[name]\"")
 
 var/mob/tmp/sex_ticker = 1
-mob
-	verb/ToggleBlah2(blah as text)
-		set name=".ToggleBlah"
-		set hidden=1
-		if(!(world.time > verb_delay)) return
-		verb_delay=world.time+1
-		if(!src.Redoing_Stats)
-			return
-		if(blah=="Name")
-			Namez
-			src.name=html_encode(copytext(input(src,"Name? (25 letter limit)"),1,25))
-			if(!src.name)
-				goto Namez
-				return
-			usr.UpdateBio()
-		else if(blah=="Class")
-			if(usr.isRace(NAMEKIAN))
-				if(usr.Class=="Warrior")
-					usr.Class="Dragon"
-				else if(usr.Class=="Dragon")
-					usr.Class="Warrior"
-				else if(usr.Class=="Fighter")
-					usr.Class="Warrior"
-
-			usr.RacialStats()
-			spawn()usr.UpdateBio()
-
-		else if(blah=="Sex")
-			var/list/options = usr.race.gender_options
-			var/current_index = options.Find(usr.Gender)
-
-			if (current_index != -1)
-				var/next_index = (current_index + 1) % (options.len+1)
-				if(next_index == 0)
-					next_index = 1
-				usr.Gender = options[next_index]
-			else
-				usr.Gender = options[1]
-
-			usr.RacialStats()
-			usr.UpdateBio()
-
-			if(usr.Gender == "Male")
-				usr.icon = race.icon_male
-			else if(usr.Gender == "Female")
-				usr.icon = race.icon_female
-			else if(usr.Gender == "Neuter")
-				usr.icon = race.icon_neuter
-
 mob/var/Plan=1
 mob/var/Rac=1
 mob/var/Tin=1
@@ -807,6 +781,7 @@ mob/proc/UpdateRaceScreen(change = 1)
 		usr.Gender = options[1]
 	winset(src,"RaceName","text=[race.name]")
 	winset(usr,"Iconz","image=[race.visual]")
+	winset(src, "className", "text=[race.classes[race.current_class]]")
 	src << output(race.desc,"raceblurb")
 
 obj/Login

@@ -71,8 +71,12 @@ passive
 					for(var/settingPassive in settingPassiveList)
 						var/value = settingPassiveList[settingPassive]
 						if(!isnum(value))
-							CRASH("ERROR: [settingPassive] was decreased by [value] which is not a number!")
-						passives[settingPassive] -= value // - (-1) is +1 , - 1 is -1
+							if(istext(value))
+								passives[settingPassive] = 0
+							else
+								CRASH("ERROR: [settingPassive] was increased by [value] which is not a number!")
+						else
+							passives[settingPassive] -= value // - (-1) is +1 , - 1 is -1
 				if(TRUE)
 					for(var/settingPassive in settingPassiveList)
 						var/value = settingPassiveList[settingPassive]
@@ -86,8 +90,12 @@ passive
 					for(var/settingPassive in settingPassiveList)
 						var/value = settingPassiveList[settingPassive]
 						if(!isnum(value))
-							CRASH("ERROR: [settingPassive] was increased by [value] which is not a number!")
-						passives[settingPassive] += value
+							if(istext(value))
+								passives[settingPassive] = value
+							else
+								CRASH("ERROR: [settingPassive] was increased by [value] which is not a number!")
+						else
+							passives[settingPassive] += value
 				if(TRUE)
 					for(var/settingPassive in settingPassiveList)
 						var/value = settingPassiveList[settingPassive]

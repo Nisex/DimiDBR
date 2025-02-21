@@ -2,34 +2,142 @@ ascension
 	beastman
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			angerPoint = 5
-			strength = 0.25
-			defense = 0.25
-			endurance = 0.25
-			choices = list("Ferocious" = /ascension/sub_ascension/beastman/ferocious, "Nimble" = /ascension/sub_ascension/beastman/nimble, "Niche" = /ascension/sub_ascension/beastman/niche)
-			passives = list("PureReduction" = 1, "Godspeed" = 1)
-			postAscension(mob/owner)
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
-					b.NeedsHealth = 15
-					b.TooMuchHealth = 20
-					b.AngerMult = 1.3
-					b.passives = list("AngerAdaptiveForce" = 0.1, "Brutalize" = 1)
-					b.VaizardHealth = 0.5
+			onAscension(mob/owner)
+				if(!applied)
+					world<<"here 1"
+					var/choice = owner.race?:Racial
+					switch(choice)
+						if("Heart of The Beastman")
+							owner.passive_handler.Increase("Blubber", 0.25)
+							endurance = 0.35
+							strength = 0.4
+						if("Monkey King")
+							owner.passive_handler.Increase("Nimbus", 1)
+							endurance = 0.15
+							strength = 0.15
+							offense = 0.15
+							defense = 0.15
+							speed = 0.15
+							force = 0.15
+						if("Unseen Predator")
+							owner.passive_handler.Increase("Steady", 1)
+							owner.passive_handler.Increase("Brutalize", 0.5)
+							strength = 0.25
+							offense = 0.25
+							speed = 0.25
+						if("Undying Rage")
+							owner.passive_handler.Increase("Momentum", 1)
+							owner.passive_handler.Increase("KillerInstinct", 0.1)
+							strength = 0.5
+							speed = 0.5
+							offense = 0.25
+							defense = -0.25
+							endurance = -0.25
+						if("Feather Cloak")
+							owner.passive_handler.Increase("BlockChance", 25)
+							owner.passive_handler.Increase("CriticalBlock", 0.15)
+							endurance = 0.5
+							defense = 0.5
+							strength = -0.25
+						if("Feather Knife")
+							owner.passive_handler.Increase("CriticalChance", 25)
+							owner.passive_handler.Increase("CriticalDamage", 0.15)
+							offense = 0.5
+							speed = 0.25
+						if("Spirit Walker")
+							owner.passive_handler.Increase("Flow", 2)
+							owner.passive_handler.Increase("Instinct", 2)
+							endurance = 0.25
+							strength = 0.1
+							offense = 0.2
+							defense = 0.2
+						if("Shapeshifter")
+							owner << "currently not working"
+						
+						if("Trickster")
+							ecoAdd = 1
+							imaginationAdd = 0.5
+							endurance = 0.1
+							strength = 0.1
+							offense = 0.1
+							defense = 0.1
+							speed = 0.1
+							force = 0.1
+						
+						if("Fox Fire")
+							owner.passive_handler.Increase("SoftStyle", 0.5)
+							owner.passive_handler.Increase("Soulfire", 0.5)
+							offense = 0.25
+							force = 0.5
 				..()
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
-			angerPoint = 5
-			strength = 0.25
-			speed = 0.25
-			endurance = 0.25
-			passives = list("PureDamage" = 1, "Flicker" = 1)
-			postAscension(mob/owner)
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
-					b.NeedsHealth = 20
-					b.TooMuchHealth = 25
-					b.AngerMult = 1.35
-					b.passives = list("AngerAdaptiveForce" = 0.2 , "Brutalize" = 1.5)
-					b.VaizardHealth = 1
+			onAscension(mob/owner)
+				if(!applied)
+					var/choice = owner.race?:Racial
+					switch(choice)
+						if("Heart of The Beastman")
+							owner.passive_handler.Increase("Blubber", 0.25)
+							endurance = 0.35
+							strength = 0.4
+						if("Monkey King")
+							owner.passive_handler.Increase("Nimbus", 1)
+							endurance = 0.15
+							strength = 0.15
+							offense = 0.15
+							defense = 0.15
+							speed = 0.15
+							force = 0.15
+						if("Unseen Predator")
+							owner.passive_handler.Increase("Steady", 1)
+							owner.passive_handler.Increase("Brutalize", 0.5)
+							strength = 0.25
+							offense = 0.25
+							speed = 0.25
+						if("Undying Rage")
+							owner.passive_handler.Increase("Momentum", 1)
+							owner.passive_handler.Increase("KillerInstinct", 0.1)
+							strength = 0.5
+							speed = 0.5
+							offense = 0.25
+							defense = -0.25
+							endurance = -0.25
+						if("Feather Cloak")
+							owner.passive_handler.Increase("BlockChance", 25)
+							owner.passive_handler.Increase("CriticalBlock", 0.15)
+							endurance = 0.5
+							defense = 0.5
+							strength = -0.25
+						if("Feather Knife")
+							owner.passive_handler.Increase("CriticalChance", 25)
+							owner.passive_handler.Increase("CriticalDamage", 0.15)
+							offense = 0.5
+							speed = 0.25
+						if("Spirit Walker")
+							owner.passive_handler.Increase("Flow", 2)
+							owner.passive_handler.Increase("Instinct", 2)
+							endurance = 0.25
+							strength = 0.1
+							offense = 0.2
+							defense = 0.2
+						if("Shapeshifter")
+							owner << "currently not working"
+						
+						if("Trickster")
+							ecoAdd = 1
+							imaginationAdd = 0.5
+							endurance = 0.1
+							strength = 0.1
+							offense = 0.1
+							defense = 0.1
+							speed = 0.1
+							force = 0.1
+						
+						if("Fox Fire")
+							owner.passive_handler.Increase("SoftStyle", 0.5)
+							owner.passive_handler.Increase("Soulfire", 0.5)
+							offense = 0.25
+							force = 0.5
 				..()
 		three
 			unlock_potential = ASCENSION_THREE_POTENTIAL
@@ -39,12 +147,6 @@ ascension
 			endurance = 0.25
 			passives = list("Pursuer" = 1, "Flicker" = 1)
 			postAscension(mob/owner)
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
-					b.NeedsHealth = 25
-					b.TooMuchHealth = 30
-					b.AngerMult = 1.4
-					b.passives = list("AngerAdaptiveForce" = 0.3, "Void" = 1, "Brutalize" = 2)
-					b.VaizardHealth = 1.5
 				..()
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
@@ -52,12 +154,6 @@ ascension
 			endurance = 0.5
 			passives = list("Godspeed" = 1, "PureReduction" = 1)
 			postAscension(mob/owner)
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
-					b.NeedsHealth = 25
-					b.TooMuchHealth = 35
-					b.AngerMult = 1.45
-					b.passives = list("AngerAdaptiveForce" = 0.4, "Void" = 1, "Brutalize" = 2.5)
-					b.VaizardHealth = 1.5
 				..()
 		five
 			unlock_potential = ASCENSION_FIVE_POTENTIAL
@@ -65,12 +161,6 @@ ascension
 			strength = 0.5
 			endurance = 0.5
 			postAscension(mob/owner)
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in owner.Buffs)
-					b.NeedsHealth = 30
-					b.TooMuchHealth = 50
-					b.AngerMult = 1.5
-					b.passives = list("AngerAdaptiveForce" = 0.5, "Void" = 1, "Brutalize" = 3)
-					b.VaizardHealth = 2.0
 				..()
 
 

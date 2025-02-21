@@ -10,18 +10,6 @@ mob
 			usr << "<center>[text]</center>"
 
 obj/Skills
-	Projectile
-		proc
-			EdgeOfMapProjectile()
-				var/turf/t=get_step(src, src.dir)
-				if(!t)
-					return 1
-				if(t.x==0||t.y==0||t.z==0)
-					return 1
-				if(t)
-					if(istype(t, /turf/Special/Blank))
-						return 1
-				return 0
 	Level=100
 	var/CorruptionCost
 	var/Copied = FALSE
@@ -31,8 +19,8 @@ obj/Skills
 	var/AdaptRate
 	var/MultiTrail = 0
 	var/SignatureTechnique
-	var/SignatureName//lets you label things by a string other than the object name e.g. "Advanced White Magic"
-	var/SagaSignature=0//lets sagas keep the signature
+	var/SignatureName //lets you label things by a string other than the object name e.g. "Advanced White Magic"
+	var/SagaSignature=0 //lets sagas keep the signature
 
 	var/Cooldown
 	var/CooldownStatic=0
@@ -53,14 +41,14 @@ obj/Skills
 	var/PureDamage=0
 	var/PureReduction=0
 
-	var/list/PreRequisite=list()//Used for skill tree shit.
-	var/list/LockOut=list()//Also used for skill tree shit.
-	var/Copyable//Used to avoid dealing with skill tree shit.
-	var/CooldownNote//Displayed on cooldown!!
+	var/list/PreRequisite=list() //Used for skill tree shit.
+	var/list/LockOut=list() //Also used for skill tree shit.
+	var/Copyable //Used to avoid dealing with skill tree shit.
+	var/CooldownNote //Displayed on cooldown!!
 
 	var/StyleNeeded
 
-	var/MagicNeeded //lock people who aren't magic enough out from using this
+	var/MagicNeeded  //lock people who aren't magic enough out from using this
 
 	var/NoSword
 	var/NeedsSword
@@ -68,20 +56,20 @@ obj/Skills
 
 	var/NoStaff
 	var/NeedsStaff
-	var/StaffClassNeeded//just in case
+	var/StaffClassNeeded //just in case
 
-	var/Instinct //Penetrate AIS and WS
-	var/NoForcedWhiff //Super anti whiff
-	var/MaimStrike //if it does 25+ damage, maim.
+	var/Instinct  //Penetrate AIS and WS
+	var/NoForcedWhiff  //Super anti whiff
+	var/MaimStrike  //if it does 25+ damage, maim.
 
-	var/DeathField //get this NONstatic amount of wounds just for slapping someone.
-	var/VoidField //get this NONstatic amount of fatigue just for slapping someone.
+	var/DeathField  //get this NONstatic amount of wounds just for slapping someone.
+	var/VoidField  //get this NONstatic amount of fatigue just for slapping someone.
 	var/SoftStyle
 	var/HardStyle
-	var/CyberStigma//Like Soft/Hard Styles, but for cybernetics
+	var/CyberStigma //Like Soft/Hard Styles, but for cybernetics
 
-	var/LifeStealTrue//Applies health cuts and heals your health cuts
-	var/SoulSteal//Adds stolen health to vaizard health.
+	var/LifeStealTrue //Applies health cuts and heals your health cuts
+	var/SoulSteal //Adds stolen health to vaizard health.
 	var/LifeSteal
 	var/LifeGeneration
 	var/EnergySteal
@@ -89,92 +77,92 @@ obj/Skills
 	var/ManaSteal
 	var/ManaGeneration
 
-	var/NoDodge//can always touch this
-	var/NoMiss//cant stop touching that
+	var/NoDodge //can always touch this
+	var/NoMiss //cant stop touching that
 
-	var/HealthCost=0//Cost of health; pretty much just used for kikohohohoho.
-	var/WoundCost=0//ya...
-	var/HeavyStrain=0//as above, though it may include some other finishers
-	var/EnergyCost=0//Cost of energy.
-	var/FatigueCost=0//Cost of fatigue.  Additional to energy.
+	var/HealthCost=0 //Cost of health; pretty much just used for kikohohohoho.
+	var/WoundCost=0 //ya...
+	var/HeavyStrain=0 //as above, though it may include some other finishers
+	var/EnergyCost=0 //Cost of energy.
+	var/FatigueCost=0 //Cost of fatigue.  Additional to energy.
 	var/ManaCost=0
 	var/CapacityCost=0
-	var/IconChargeOverhead//Hovers a blast above the user's head instead of doing charge animation.
-	var/GrowingLife//Projectiles grows during its active time
-	var/AllOutAttack//Allows you to use energy you don't have to complete the tech.
+	var/IconChargeOverhead //Hovers a blast above the user's head instead of doing charge animation.
+	var/GrowingLife //Projectiles grows during its active time
+	var/AllOutAttack //Allows you to use energy you don't have to complete the tech.
 
-	//Elemental shit.
-	var/Burning=0//makes burning chance roll
-	var/Scorching=0//just adds fucking burns
-	var/Chilling=0//slow chance
-	var/Freezing=0//Add slow
-	var/Crushing=0//shatter chance
-	var/Shattering=0//add shatter
-	var/Shocking=0//shock chance
-	var/Paralyzing=0//add shock
-	var/Poisoning//poison chance
-	var/Toxic//poison add
-	var/Purity//You can only hurt what you're meant to
-	var/BeyondPurity//nvm
-	var/HolyMod//holy dmg
-	var/AbyssMod//unholy dmg
-	var/SlayerMod//mortal dmg
-	var/ShonenPower // become MC
-	var/SpiritPower//become medium
-	var/LegendaryPower//become giant
-	var/HellPower//become satan
-	var/Disorienting //rolls for confuse
-	var/Confusing //adds confuse
-	var/Stunner=0//Stuns for this amount of time
-	var/Shearing//Debuffs regen
-	var/Crippling//Cripples movement
-	var/Excruciating//fucks up senses
-	var/Attracting//Makes you follow someone, probably.
-	var/Terrifying//Makes them chicken out instead!
-	var/Pacifying //Divides power by AngerMax for this length of time
-	var/Enraging//Triggers anger for this amount of time
+	 //Elemental shit.
+	var/Burning=0 //makes burning chance roll
+	var/Scorching=0 //just adds fucking burns
+	var/Chilling=0 //slow chance
+	var/Freezing=0 //Add slow
+	var/Crushing=0 //shatter chance
+	var/Shattering=0 //add shatter
+	var/Shocking=0 //shock chance
+	var/Paralyzing=0 //add shock
+	var/Poisoning //poison chance
+	var/Toxic //poison add
+	var/Purity //You can only hurt what you're meant to
+	var/BeyondPurity //nvm
+	var/HolyMod //holy dmg
+	var/AbyssMod //unholy dmg
+	var/SlayerMod //mortal dmg
+	var/ShonenPower  // become MC
+	var/SpiritPower //become medium
+	var/LegendaryPower //become giant
+	var/HellPower //become satan
+	var/Disorienting  //rolls for confuse
+	var/Confusing  //adds confuse
+	var/Stunner=0 //Stuns for this amount of time
+	var/Shearing //Debuffs regen
+	var/Crippling //Cripples movement
+	var/Excruciating //fucks up senses
+	var/Attracting //Makes you follow someone, probably.
+	var/Terrifying //Makes them chicken out instead!
+	var/Pacifying  //Divides power by AngerMax for this length of time
+	var/Enraging  //Triggers anger for this amount of time
 	var/CursedWounds
 	var/SoulFire
-	var/DarknessFlame//It does darkness flame things!
-	var/AbsoluteZero//It does absolute zero things!
+	var/DarknessFlame  //It does darkness flame things!
+	var/AbsoluteZero  //It does absolute zero things!
 	var/CosmoPowered
-	var/GodPowered//this makes the technique add Transcendant buff and use GodPowered as god ki.
+	var/GodPowered  //this makes the technique add Transcendant buff and use GodPowered as god ki.
 	var/Destructive
-	var/DashMaster//spam ddash. should be limited.
+	var/DashMaster  //spam ddash. should be limited.
 
 	var/DoubleStrike
 	var/TripleStrike
 
 
-	//only projectiles have this function rn
-	var/FollowUp//holds a text path of a skill that will be triggered...
-	var/FollowUpDelay//after waiting this amt of time
+	 //only projectiles have this function rn
+	var/FollowUp = null //holds a text path of a skill that will be triggered...
+	var/FollowUpDelay = 0  //after waiting this amt of time
 
-	var/Controlling//Love potion effects TODO: Remove/discontinue for...
+	var/Controlling //Love potion effects TODO: Remove/discontinue for...
 	var/BuffSelf
 	var/BuffAffected
 
-	//we street fighter now vars
-	var/Grapple//IT GRAPPLES
+	 //we street fighter now vars
+	var/Grapple //IT GRAPPLES
 	var/GrabTrigger=0
-	var/Launcher//IT LAUNCHES
-	var/DelayedLauncher//...but it waits first
+	var/Launcher //IT LAUNCHES
+	var/DelayedLauncher //...but it waits first
 
-	//Gear vars
-	var/Integrated//If this is flagged, it will autoreload using some mana.
-	var/obj/Items/AssociatedLegend//holds the object thats related to the skills
-	var/obj/Items/Gear/AssociatedGear//holds the object that has uses
-	var/CrestGranted//Flagged as 1 for skills which have only been granted via crest.  This takes them away when the crest is removed.
-	var/NoTransplant//dont let people crest these spells
-	var/ElementalClass//Styles can flag this and allow skills in the same class to be used regardless of tome/crest presence.  Can be a list too.
+	 //Gear vars
+	var/Integrated //If this is flagged, it will autoreload using some mana.
+	var/obj/Items/AssociatedLegend //holds the object thats related to the skills
+	var/obj/Items/Gear/AssociatedGear //holds the object that has uses
+	var/CrestGranted //Flagged as 1 for skills which have only been granted via crest.  This takes them away when the crest is removed.
+	var/NoTransplant //dont let people crest these spells
+	var/ElementalClass //Styles can flag this and allow skills in the same class to be used regardless of tome/crest presence.  Can be a list too.
 
-	//words words words
-	var/CustomActive//Totally Custom
-	var/CustomOff//totally custom
-	var/CustomCharge//totally custom
+	 //words words words
+	var/CustomActive //Totally Custom
+	var/CustomOff //totally custom
+	var/CustomCharge //totally custom
 
 	var/HeavyHitter
-
+	var/HeavyOnly
 	var/copiedBy
 
 	var/heavenlyRestrictionIgnore = FALSE
@@ -225,6 +213,8 @@ obj/Skills
 
 				if(NeedsSword)
 					description += "Requires Sword.\n"
+				if(HeavyOnly)
+					description += "Heavy Sword Only.\n"
 				if(NoSword)
 					description += "Unarmed Only.\n"
 				if(BuffSelf)
@@ -793,18 +783,18 @@ obj/Skills
 							sleep(1)
 						Tgt.Knockbacked=0
 						Tgt.icon_state=""
-				// else
-				// 	src.Cooldown(1/12)
-				// 	var/Wave=5
-				// 	for(var/wav=Wave, wav>0, wav--)
-				// 		KenShockwave(usr, icon='KenShockwave.dmi', Size=Wave)
-				// 		Wave/=2
-				// 	for(var/mob/m in view(16, usr))
-				// 		if(m==usr)
-				// 			continue
-				// 		usr.Knockback(30,m,Direction=get_dir(usr,m),Forced=1)
-				// 		m.Frozen=0
-				// 		m.Flying=0
+				 // else
+				 // 	src.Cooldown(1/12)
+				 // 	var/Wave=5
+				 // 	for(var/wav=Wave, wav>0, wav--)
+				 // 		KenShockwave(usr, icon='KenShockwave.dmi', Size=Wave)
+				 // 		Wave/=2
+				 // 	for(var/mob/m in view(16, usr))
+				 // 		if(m==usr)
+				 // 			continue
+				 // 		usr.Knockback(30,m,Direction=get_dir(usr,m),Forced=1)
+				 // 		m.Frozen=0
+				 // 		m.Flying=0
 		verb/Asura_Path()
 			set hidden=1
 			set category="Skills"
@@ -835,7 +825,7 @@ obj/Skills
 				if(Tgt&&Tgt.IsGrabbed()==usr)
 					src.Cooldown()
 					usr.Grab_Release()
-					// Tgt.Leave_Body(ForceVoid=1)
+					 // Tgt.Leave_Body(ForceVoid=1)
 				OMsg(usr, "[usr] tears [Tgt]'s soul out of their body!")
 		verb/Beast_Path()
 			set hidden=1
@@ -908,8 +898,8 @@ mob
 				if(x.isRace(NAMEKIAN) && !x.counterpart)
 					choice+=x
 		if(length(choice) < 1) return
-		//sloppy but better than before
-		choice = input(usr, "what person?") in choice // should work
+		 //sloppy but better than before
+		choice = input(usr, "what person?") in choice  // should work
 		if((input(choice, "Do you want to be [usr]'s counterpart?", "Request") in list("Yes", "No")) == "No" )
 			return
 		choice.counterpart = usr.ckey

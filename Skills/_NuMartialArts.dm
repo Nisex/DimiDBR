@@ -174,52 +174,7 @@ obj
 						StyleDef=1
 						StyleFor=1
 						Finisher="/obj/Skills/Queue/Finisher/Cycle_of_Samsara"
-					// Strong_Fist_Style
-					// 	SignatureTechnique=1
-					// 	Copyable=0
 
-					// 	StyleStr=1.5
-					// 	StyleEnd=1.5
-					// 	StyleActive="Strong Fist"
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Golden_Kirin_Style",
-					// 	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Dire_Wolf_Style")
-					// 	passives = list("HardStyle" = 1, "HeavyHitter" = 0.25, "Instinct" = 1, "UnarmedDamage" = 1)
-					// 	HardStyle=1
-					// 	HeavyHitter=0.15
-					// 	Finisher="/obj/Skills/Queue/Finisher/Rising_Wind"
-					// 	verb/Strong_Fist_Style()
-					// 		set hidden=1
-					// 		src.Trigger(usr)
-					// Gentle_Fist_Style
-					// 	SignatureTechnique=1
-					// 	Copyable=0
-
-					// 	StyleEnd=1.25
-					// 	StyleFor=1.25
-					// 	StyleSpd=1.5
-					// 	StyleActive="Gentle Fist"
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Drunken_Fist_Style",
-					// 	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Flow_Reversal_Style")
-					// 	passives = list("SoftStyle" = 1, "UnarmedDamage" = 1, "Siphon" = 1)
-					// 	SoftStyle=1
-					// 	Finisher="/obj/Skills/Queue/Finisher/Eight_Trigrams"
-					// 	verb/Gentle_Fist_Style()
-					// 		set hidden=1
-					// 		src.Trigger(usr)
-					// Lightning_Kickboxing_Style
-					// 	SignatureTechnique=1
-					// 	Copyable=0
-
-					// 	StyleStr=1.5
-					// 	StyleFor=1.5
-					// 	StyleActive="Lightning Kickboxing"
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Gentle_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Drunken_Fist_Style",
-					// 	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Inverse_Poison_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phage_Style")
-					// 	passives = list("SpiritHand" = 1, "TechniqueMastery" = 2, "UnarmedDamage" = 1)
-					// 	Finisher="/obj/Skills/Queue/Finisher/Rolling_Sobat"
-					// 	verb/Lightning_Kickboxing_Style()
-					// 		set hidden=1
-					// 		src.Trigger(usr)
 
 					Circuit_Breaker_Style
 						SignatureTechnique=1
@@ -243,74 +198,7 @@ obj
 						verb/Circuit_Breaker_Style()
 							set hidden=1
 							src.Trigger(usr)
-					// Inverse_Poison_Style
-					// 	SignatureTechnique=1
-					// 	Copyable=0
 
-					// 	StyleStr=1.25
-					// 	StyleEnd=1.25
-					// 	StyleFor=1.25
-					// 	StyleSpd=1.25
-					// 	NoStaff = 0
-					// 	ElementalClass=list("Fire", "Water", "Poison")
-					// 	passives = list("PureDamage" = 2, "Toxic" = 1)
-					// 	StyleActive="Inverse Poison"
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Entropy_Style",
-					// 	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phage_Style")
-					// 	ElementalOffense="Poison"
-					// 	IconLock='Toxic Arms.dmi'
-					// 	LockX=0
-					// 	LockY=0
-					// 	Finisher="/obj/Skills/Queue/Finisher/Badlands"
-					// 	verb/Inverse_Poison_Style()
-					// 		set hidden=1
-					// 		src.Trigger(usr)
-					// Sunlit_Sky_Style
-					// 	SignatureTechnique=1
-					// 	Copyable=0
-
-					// 	StyleStr=1.15
-					// 	StyleEnd=1.15
-					// 	StyleFor=1.35
-					// 	StyleSpd=1.35
-					// 	ElementalClass=list("Fire", "Wind")
-					// 	StyleActive="Sunlight"
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Moonlit_Lake_Style",
-					// 	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Devil_Leg_Style")
-					// 	passives = list("SpiritHand" = 2, "SpiritFlow" = 0.5)
-					// 	NoStaff = 0
-					// 	SpiritHand=1
-					// 	HitSpark='fevExplosion.dmi'
-					// 	HitX=-32
-					// 	HitY=-32
-					// 	HitSize=0.5
-					// 	ElementalOffense="Fire"
-					// 	ElementalDefense="Wind"
-					// 	Finisher="/obj/Skills/Queue/Finisher/Crimson_Star_Road"
-					// 	verb/Sunlit_Sky_Style()
-					// 		set hidden=1
-					// 		src.Trigger(usr)
-					// Tranquil_Dove_Style
-					// 	SignatureTechnique=1
-					// 	Copyable=0
-
-					// 	StyleStr=1.3
-					// 	StyleEnd=1.2
-					// 	StyleFor=1.2
-					// 	StyleSpd=1.3
-					// 	NoStaff = 0
-					// 	ElementalClass=list("Water", "Earth")
-					// 	passives = list("StableBP" = 0.5, "Hardening" = 1, "SpiritHand" = 1)
-					// 	StyleActive="Tranquil Dove"
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Sunlit_Sky_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Moonlit_Lake_Style",
-					// 	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Dire_Wolf_Style")
-					// 	ElementalOffense="Water"
-					// 	ElementalDefense="Earth"
-					// 	Finisher="/obj/Skills/Queue/Finisher/Surprise_Rose"
-					// 	verb/Tranquil_Dove_Style()
-					// 		set hidden=1
-					// 		src.Trigger(usr)
-						//Signature Styles T2
 					Drunken_Fist_Style
 						SignatureTechnique=2
 						Copyable=0
@@ -327,139 +215,7 @@ obj
 							set name="Drunken Fist Style"
 							set hidden=1
 							src.Trigger(usr)
-					// Golden_Kirin_Style
-					// 	SignatureTechnique=2
-					// 	Copyable=0
-					// 	StyleStr=1.5
-					// 	StyleEnd=1.5
-					// 	passives = list("UnarmedDamage" = 2, "HardStyle" = 2, "HeavyHitter" = 0.5, "Flicker" = 1, "FluidForm" = 1)
-					// 	UnarmedDamage=2.5
-					// 	HardStyle=2
-					// 	HeavyHitter = 0.5
-					// 	Flicker=1
-					// 	FluidForm=1
-					// 	StyleActive="Golden Kirin"
-
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Drunken_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/North_Star_Style")
-					// 	Finisher="/obj/Skills/Queue/Finisher/Galactica_Phantom"
-					// 	verb/Golden_Kirin_Style()
-					// 		set hidden=1
-					// 		src.Trigger(usr)
-					// Dire_Wolf_Style
-					// 	SignatureTechnique=2
-					// 	Copyable=0
-
-					// 	StyleStr=1.2
-					// 	StyleEnd=1.3
-					// 	StyleFor=1.3
-					// 	StyleSpd=1.2
-					// 	ElementalClass=list("Water", "Earth")
-					// 	StyleActive="Dire Wolf"
-					// 	passives=list("Hardening" = 2, "SpiritHand" = 2)
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Devil_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Imperial_Style")
-					// 	ElementalOffense="Earth"
-					// 	ElementalDefense="Earth"
-					// 	Finisher="/obj/Skills/Queue/Finisher/Spiral_Fang"
-					// 	verb/Dire_Wolf_Style()
-					// 		set hidden=1
-					// 		src.Trigger(usr)
-					// Moonlit_Lake_Style
-					// 	SignatureTechnique=2
-					// 	Copyable=0
-
-					// 	StyleStr=1.35
-					// 	StyleEnd=1.35
-					// 	StyleFor=1.15
-					// 	StyleSpd=1.15
-					// 	ElementalClass=list("Fire", "Wind", "Earth", "Water")
-					// 	StyleActive="Moonlight"
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Entropy_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Atomic_Karate_Style")
-					// 	passives = list("SpiritFlow" = 1, "SpiritHand" = 2, "Hardening" = 1, "StableBP" = 1)
-					// 	NoStaff = 0
-					// 	SpiritFlow=1
-					// 	SpiritHand=1
-					// 	ElementalOffense="Water"
-					// 	ElementalDefense="Void"
-					// 	Finisher="/obj/Skills/Queue/Finisher/Astral_Shot"
-					// 	verb/Moonlit_Lake_Style()
-					// 		set hidden=1
-					// 		src.Trigger(usr)
-
-					// Entropy_Style
-					// 	SignatureTechnique=2
-					// 	Copyable=0
-
-					// 	StyleSpd=1.5
-					// 	StyleOff=1.5
-					// 	NoStaff = 0
-					// 	ElementalClass=list("Water", "Fire", "Earth", "Wind", "Poison")
-					// 	StyleActive="Entropy"
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Moonlit_Lake_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Atomic_Karate_Style")
-					// 	passives = list("CyberStigma" = 4, "Flow" = 2, "FluidForm" = 1)
-					// 	CyberStigma=2
-					// 	ElementalOffense="Chaos"
-					// 	ElementalDefense="Chaos"
-					// 	Finisher="/obj/Skills/Queue/Finisher/Immortal_Change"
-					// 	verb/Entropy_Style()
-					// 		set hidden=1
-					// 		src.Trigger(usr)
-					// Devil_Leg_Style
-					// 	SignatureTechnique=2
-					// 	Copyable=0
-					// 	StyleStr=1.5
-					// 	StyleFor=1.5
-					// 	passives = list("SpiritHand" = 2, "DarknessFlame" = 1, "UnarmedDamage" = 2)
-					// 	SpiritHand=1
-					// 	DarknessFlame=1
-					// 	StyleActive="Devil Leg"
-					// 	ElementalOffense="Fire"
-					// 	ElementalDefense="Poison"
-					// 	ElementalClass=list("Fire", "Poison", "Wind")
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Dire_Wolf_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Imperial_Style")
-					// 	Finisher="/obj/Skills/Queue/Finisher/Maiden_Masher"
-					// 	verb/Devil_Leg_Style()
-					// 		set hidden=1
-					// 		src.Trigger(usr)
-					// Flow_Reversal_Style
-					// 	SignatureTechnique=2
-					// 	Copyable=0
-					// 	StyleEnd=1.5
-					// 	StyleSpd=1.5
-					// 	passives = list("SoftStyle" = 2, "CyberStigma" = 4, "SoulFire" = 4)
-					// 	SoftStyle=2
-					// 	CyberStigma=2
-					// 	ManaSeal=2
-					// 	NoStaff = 0
-					// 	StyleActive="Flow Reversal"
-					// 	ElementalOffense="Earth"
-					// 	ElementalDefense="Wind"
-					// 	ElementalClass=list("Wind", "Earth")
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phage_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/East_Star_Style")
-					// 	Finisher="/obj/Skills/Queue/Finisher/Maxima_Press"
-					// 	verb/Flow_Reversal_Style()
-					// 		set hidden=1
-					// 		src.Trigger(usr)
-					// Phage_Style
-					// 	SignatureTechnique=2
-					// 	Copyable=0
-					// 	StyleDef=1.5
-					// 	StyleEnd=1.5
-					// 	passives = list("CounterMaster" = 2, "UnarmedDamage" = 2, "VoidField" = 4, "DeathField" = 4)
-					// 	CounterMaster=2
-					// 	VoidField=2
-					// 	DeathField=2
-					// 	NoStaff = 0
-					// 	StyleActive="Phage"
-					// 	ElementalOffense="Poison"
-					// 	ElementalDefense="Poison"
-					// 	ElementalClass=list("Water", "Fire", "Poison")
-					// 	StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Flow_Reversal_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/East_Star_Style")
-					// 	Finisher="/obj/Skills/Queue/Finisher/Morbid_Angel"
-					// 	verb/Phage_Style()
-					// 		set hidden=1
-					// 		src.Trigger(usr)
-					//Signature Styles T3
-
+					
 					//Unarmed Saga Styles
 					Ansatsuken_Style
 						Copyable=0
@@ -469,7 +225,7 @@ obj
 						StyleFor=1.25
 						StyleSpd=1.25
 						StyleActive="Ansatsuken"
-						passives = list("AllOutAttack" = 1)
+						passives = list("Pursuer" = 1, "HardStyle" = 1)
 						ManaCost=100
 						Mastery=4
 						AllOutAttack=1
@@ -481,53 +237,6 @@ obj
 				SwordStyle
 					NeedsSword=1
 					NoStaff=1
-					Gladiator_Style
-						// A style that builds into the sword and shield style, disarms your enemy every few seconds
-						StyleOff = 1.1
-						StyleEnd = 1.1
-						StyleDef = 1.1
-						StyleActive="Gladiator"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Shield_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield")
-						Finisher="/obj/Skills/Queue/Finisher/Challenge"
-						verb/Gladiator_Style()
-							set hidden=1
-							src.Trigger(usr)
-
-					Fencing_Style
-						StyleSpd=1.15
-						StyleOff=1.15
-						StyleActive="Fencing"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi",\
-						"/obj/Skills/Buffs/NuStyle/SwordStyle/Zornhau_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Kendo_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Vicious_Moon"
-						verb/Fencing_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Berserker_Style
-						StyleStr=1.3
-						StyleEnd=0.85
-						StyleSpd=1.15
-						StyleActive="Berserker"
-						StyleComboUnlock=list()
-						Finisher="/obj/Skills/Queue/Finisher/"
-						verb/Zornhau_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Swordless_Style
-						NeedsSword=0
-						NoSword=1
-						passives = list("SwordPunching" = 1, "NeedsSword" = 0, "NoSword" = 1)
-						SwordPunching=1
-						StyleStr=1.1
-						StyleDef=1.1
-						StyleOff=1.1
-						StyleActive="Living Weapon"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Zornhau_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Champloo_Style",\
-						"/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Secret_Knife_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Hammer_Fall"
-						verb/Swordless_Style()
-							set hidden=1
-							src.Trigger(usr)
 
 //Signature Style T1
 					Sword_And_Shield
@@ -547,7 +256,7 @@ obj
 						StyleOff=1.15
 						StyleSpd=1.3
 						StyleActive="Nito Ichi"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Secret_Knife_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style",\
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Secret_Knife_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu",\
 						"/obj/Skills/Buffs/NuStyle/FreeStyle/Soul_Crushing_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Arcane_Bladework_Style")
 						passives = list("BlurringStrikes", "DoubleStrike" = 1, "NeedsSecondSword" = 1)
 						DoubleStrike=1
@@ -581,59 +290,10 @@ obj
 						NeedsSword=0
 
 						StyleActive="Assassination"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi"="/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style",\
+						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi"="/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu",\
 						"/obj/Skills/Buffs/NuStyle/FreeStyle/Resonance_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Blade_Singing_Style")
 						Finisher="/obj/Skills/Queue/Finisher/Flying_Barcelona"
 						verb/Secret_Knife_Style()
-							set hidden=1
-							src.Trigger(usr)
-
-//Signature Style T2
-					Phalanx_Style
-						SignatureTechnique=2
-						Copyable=0
-						StyleOff=1.25
-						StyleStr=1.25
-						StyleEnd=1.5
-						StyleActive="Phalanx Style"
-						SwordPunching = 1
-						NoSword = 1
-						NeedsSword = 0
-						passives = list("Reversal" = 0.25, "Deflection" = 1, "Hardening" = 1.5, "SwordPunching" = 1, "Shearing" = 3, "Unnerve" = 1)
-						Finisher="/obj/Skills/Queue/Finisher/Shield_Vault"
-
-
-					Trinity_Style
-						SignatureTechnique=2
-						NeedsThirdSword=1
-						Copyable=0
-
-						StyleStr=1.5
-						StyleSpd=1.5
-						StyleActive="Trinity"
-						passives = list("SweepingStrike" = 1, "DoubleStrike" = 2, "TripleStrike" = 0.5, "NeedsThirdSword" = 1)
-						DoubleStrike=2
-						TripleStrike=0.5
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Butcher_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Five_Rings_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Ogre_Cutter"
-						verb/Trinity_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Butcher_Style
-						SignatureTechnique=2
-						Copyable=0
-
-						StyleStr=1.5
-						StyleSpd=1.5
-						StyleActive="Butcher"
-						NeedsSword=0
-						SwordPunching=1
-						passives = list("Shearing" = 6, "SlayerMod" = 2, "SwordPunching" = 1, "NeedsSword" = 0)
-						Shearing=2
-						SlayerMod=2.5
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Trinity_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Five_Rings_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Crimson_Fountain"
-						verb/Butcher_Style()
 							set hidden=1
 							src.Trigger(usr)
 					Arcane_Bladework_Style
@@ -765,7 +425,7 @@ obj
 						StyleStr=1.5
 						StyleSpd=1.5
 						StyleActive="Hiten Mitsurugi"
-						passives = list("Flicker" = 1)
+						passives = list("Godspeed" = 1, "BlurringStrikes" = 0.25, "Flicker" = 1)
 						Flicker=1
 						Mastery=4
 						ClassNeeded = list("Light", "Wooden")

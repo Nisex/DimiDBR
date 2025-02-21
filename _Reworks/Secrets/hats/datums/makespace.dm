@@ -50,14 +50,12 @@ spaceMaker
 					if(T in turfs)
 						continue
 					if(amount && totalApplied + 1 > amount)
-						world<<"instant break?"
 						break
 					turfs += T
 					T.applyEffect(effect2Apply, toDeath, p)
 					totalApplied++
 			if("Random")
 				// random would imply its limited
-				world.log << "Randomly picking [amount] turfs"
 				for(var/i = 0; i < amount; i++)
 					var/turf/T = pick(openTurfs)
 					//world<< "Picked [T] ([T.x], [T.y])  from [openTurfs]"

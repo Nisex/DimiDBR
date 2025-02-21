@@ -17,7 +17,7 @@ mob/proc/RemoveWaterOverlay()
 	src.underlays-=image('The Ripple.dmi', pixel_x=-32, pixel_y=-32)
 
 mob/var/calmcounter=5
-
+mob/var/HotnCold
 mob/var/tmp/last_gain_loop
 var/global/update_loop/gain_loop/gain_loop = new()
 
@@ -318,6 +318,15 @@ mob
 
 		if(src.PureRPMode&&!Stasis)
 			src.Stasis=1
+		else
+			if(passive_handler["EntanglingRoots"] && can_use_style_effect("EntaglingRoots") && Target != src)
+				var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare/s = Target.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare)
+				if(!s)
+					s = new(glob.ROOTS_DURATION, 'root.dmi')
+					Target.AddSkill(s)
+				s.Trigger(Target, TRUE)
+				world<< "SNARE TRIGGERED"
+				last_style_effect = world.time
 
 		StunCheck(src)
 		StunImmuneCheck(src)
@@ -334,7 +343,9 @@ mob
 			if(glob.BREAK_TARGET_ON_DIST)
 				if(get_dist(Target,src) >= glob.BREAK_TARGET_ON_DIST)
 					Target = null
-			
+		if(passive_handler["Grit"]>=1 && Health <= clamp(AscensionsAcquired * 15, 15, 75))
+			var/value = passive_handler["Grit"] / glob.racials.GRITDIVISOR
+			HealHealth(value)
 		if(src.Health <= 25*(1-src.HealthCut) && !src.HealthAnnounce25)
 
 			var/shonenMoment = ShonenPowerCheck(src)
@@ -488,25 +499,64 @@ mob
 					if(fa_jin_effect.alpha == 0)
 						fa_jin_effect()
 						src << "Your fa jin is ready!"
-						
+			else
+				if(fa_jin_effect && fa_jin_effect in vis_contents)
+					fa_jin_effect.alpha = 0
 
+			var/mystic = UsingMysticStyle()
+			if(mystic[1] == TRUE)
+				if(mystic[2] >= 0)
+					if(hudIsLive("MysticT0", /obj/hud/mystic))
+						client.hud_ids["MysticT0"]?:Update()
+				if(mystic[2] >= 1)
+					// we must find the aura buff
+					var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/aura
+					for(var/a in SlotlessBuffs)
+						a = SlotlessBuffs[a]
+						if(isAChild(a?:type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura ))
+							aura = a
+					if(aura)
+						if(hudIsLive("MysticT1", /obj/hud/mystic, src, "last_aura_toss"))
+							client.hud_ids["MysticT1"]?:Update()
+			else
+				if(client.hud_ids["MysticT0"])
+					client.remove_hud("MysticT0")
+				if(client.hud_ids["MysticT1"])
+					client.remove_hud("MysticT1")
+			if(passive_handler["SuperCharge"])
+				if(hudIsLive("SuperCharge", /obj/hud/mystic, StyleBuff, "last_super_charge" ))
+					client.hud_ids["SuperCharge"].Update()
+			else
+				if(client.hud_ids["SuperCharge"])
+					client.remove_hud("SuperCharge")
+
+
+
+
+			if(passive_handler["Flying Thunder God"])
+				if(hudIsLive("FTG", /obj/hud/ftg))
+					client.hud_ids["FTG"]?:Update()
+			else
+				if(client.hud_ids["FTG"])
+					client.remove_hud("FTG")
 
 			if(scrollTicker)
 				scrollTicker--
 				if(scrollTicker<=0)
 					scrollTicker=0
-
+			if(passive_handler["Grit"])
+				AdjustGrit("sub", glob.racials.GRITSUBTRACT)
 			if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive>0)
 				var/cut_off = 0
 				var/drain = 0
 				if(race.transformations[transActive].mastery<100)
-					drain = glob.SSJ_BASE_DRAIN - (glob.SSJ_BASE_DRAIN * (race.transformations[transActive].mastery/100))
-					cut_off = glob.SSJ_BASE_CUT_OFF + (glob.SSJ_CUT_OFF_PER_MAST * (race.transformations[transActive].mastery/100))
+					drain = glob.racials.SSJ_BASE_DRAIN - (glob.racials.SSJ_BASE_DRAIN * (race.transformations[transActive].mastery/100))
+					cut_off = glob.racials.SSJ_BASE_CUT_OFF + (glob.racials.SSJ_CUT_OFF_PER_MAST * (race.transformations[transActive].mastery/100))
 
 				if(drain>0)
 					src.LoseEnergy(drain)
-					var/_mastery = randValue(glob.SSJ_MIN_MASTERY_GAIN,glob.SSJ_MAX_MASTERY_GAIN)
-					if(glob.AUTO_SSJ_MASTERY)
+					var/_mastery = randValue(glob.racials.SSJ_MIN_MASTERY_GAIN,glob.racials.SSJ_MAX_MASTERY_GAIN)
+					if(glob.racials.AUTO_SSJ_MASTERY)
 						_mastery *= transActive
 						race.transformations[transActive].mastery+=_mastery
 						if(race.transformations[transActive].mastery>=95)
@@ -767,9 +817,25 @@ mob
 										src.Quake((14+2*Z.DamageMult))
 
 			src.Debuffs()
+			if(UsingHotnCold())
+				var/val = StyleBuff?:hotCold
+				HotnCold = round(val,1)
+				if(hudIsLive("HotnCold", /obj/bar))
+					client.hud_ids["HotnCold"]?:Update()
+				if(val < 0)
+					AddSlow(abs(val)/glob.HOTNCOLD_DEBUFF_DIVISOR)
+					AddCrippling(abs(val)/(glob.HOTNCOLD_DEBUFF_DIVISOR*4))
+				else
+					AddBurn(abs(val)/(glob.HOTNCOLD_DEBUFF_DIVISOR))
+			else
+				if(client.hud_ids["HotnCold"])
+					client.remove_hud("HotnCold")
+			if(passive_handler["Grit"])
+				if(hudIsLive("Grit", /obj/bar))
+					client.hud_ids["Grit"]?:Update()
 			if(src.Harden)
 				src.Harden -= glob.BASE_STACK_REDUCTION
-				if(hudIsLive("Harden"))
+				if(hudIsLive("Harden", /obj/bar))
 					client.hud_ids["Harden"]?:Update()
 				if(src.Harden<=0)
 					src.Harden=0
@@ -778,7 +844,7 @@ mob
 					Momentum = round(Momentum - (glob.BASE_STACK_REDUCTION + Momentum/40))
 				else
 					Momentum -= glob.BASE_STACK_REDUCTION
-				if(hudIsLive("Momentum"))
+				if(hudIsLive("Momentum", /obj/bar))
 					client.hud_ids["Momentum"]?:Update()
 				if(Momentum <0)
 					Momentum=0
@@ -787,7 +853,7 @@ mob
 					Fury = round(Fury - (glob.BASE_STACK_REDUCTION + Fury/50))
 				else
 					Fury -= glob.BASE_STACK_REDUCTION
-				if(hudIsLive("Fury"))
+				if(hudIsLive("Fury", /obj/bar))
 					client.hud_ids["Fury"]?:Update()
 				if(Fury <0)
 					Fury=0
@@ -1276,8 +1342,8 @@ mob
 					var/obj/Skills/Buffs/b = SlotlessBuffs[h]
 					if(b)
 
-						if(b.Afterimages)
-							if(prob(b.Afterimages*25))
+						if(b.Afterimages || b.passives["AfterImages"])
+							if(prob((b.Afterimages + b.passives["AfterImages"]) *25))
 								FlashImage(src)
 						if(b.HealthDrain)
 							src.DoDamage(src, TrueDamage(b.HealthDrain))
@@ -1448,7 +1514,15 @@ mob
 								src.AddRecovTax(b.RecovTaxDrain)
 							if(b.RecovCutDrain)
 								src.AddRecovCut(b.RecovCutDrain)
+							if(isAChild(b.type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura))
+								var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/aura = b
+								if(aura.TossSkill)
+									if((last_aura_toss - ((passive_handler["Familiar"]-1) * glob.FAMILIAR_CD_REDUCTION)) + glob.FAMILIAR_SKILL_CD < world.time && (Target && Target != src))
+										last_aura_toss = world.time
+										throwFollowUp(aura.skillToToss)
+							
 						else
+
 							if(src.Target&&get_dist(src,src.Target) > b.Range)
 								b.Trigger(src, Override=1)
 								continue
@@ -1605,8 +1679,9 @@ mob
 								A.Trigger(src,Override=1)
 				if(A.AlwaysOn)
 					if(!A.Using&&!A.SlotlessOn)
-						world<<"[A] is always on, triggering"
 						A.Trigger(src,Override=1)
+					if(A.Triggers)
+						A.Triggers.checkTrigger(src, A)
 
 				//Deactivations
 				if(A.SlotlessOn)
@@ -1664,8 +1739,8 @@ mob
 								A.Trigger(src,Override=1)
 								continue
 
-				if(A.AlwaysOn)//This only gets run if it has been deactivated
-					if(A.Using)
+				if(A.AlwaysOn) //This only gets run if it has been deactivated
+					if(A.Using && !A.doNotDelete)
 						del A
 
 		if(src.Energy<=0)

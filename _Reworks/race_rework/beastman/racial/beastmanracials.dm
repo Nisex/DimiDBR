@@ -65,3 +65,7 @@ Niche/Spirtual-
         innate fox fire attunemnt that chills and steals mana/energy on hit (with autohits/projectiles only)
         gain Fox-fire a For homing projectile that causes burning when it hits an enemy, and applies fox fire attunement more intensely
 */
+
+
+/mob/var/tmp/last_nimbus = -100
+/mob/var/nimbus_message = " rides a cloud towards "

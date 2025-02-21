@@ -336,7 +336,7 @@ obj/Effects
 		//pixel_y
 		Lifetime=10//This is how long it takes for the effect to fade.
 		Size//Multiply icon size by this value
-	New(var/CustomIcon=0, var/CustomX=0, var/CustomY=0, var/CustomTurn=0, var/CustomSize=1, var/Life=0)
+	New(var/CustomIcon=0, var/CustomX=0, var/CustomY=0, var/CustomTurn=0, var/CustomSize=1, var/Life=0, overwrite_alpha=0)
 		var/matrix/SizeState=matrix()
 		if(CustomIcon)
 			src.icon=CustomIcon
@@ -361,7 +361,7 @@ obj/Effects
 		else if(!Lifetime)
 			src.Lifetime=10
 		spawn(1)
-			animate(src,alpha=0,time=src.Lifetime)
+			animate(src,alpha=overwrite_alpha,time=src.Lifetime)
 
 		if(Lifetime > 0)
 			spawn(src.Lifetime+1)//Hopefully this doesn't fuck things up.
@@ -391,6 +391,12 @@ obj/Effects
 					pixel_z=Target:pixel_z
 					if(loc != null)
 						goto Start
+	Freeze
+		icon='Icons/Effects/ice aura.dmi'
+		Lifetime = 12
+		pixel_x=-8
+		pixel_y=-2
+		alpha = 255
 
 	Bang
 		icon='fevExplosion.dmi'

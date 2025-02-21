@@ -1,9 +1,9 @@
 /mob/proc/desperationCheck()
 	var/bonus = 1
-	if(passive_handler.Get("Desperation") && !HasInjuryImmune())
+	if(passive_handler.Get("UnderDog") && !HasInjuryImmune())
 		// they are able to get the bonus
-		bonus += Saga == "King of Braves" ? 0.25 : 0
-		bonus += isRace(HUMAN) ? 0.25 : 0
+		bonus += Saga == "King of Braves" ? 0.15 : 0
+		bonus += isRace(HUMAN) ? 0.15 : 0
 		return bonus
 	return FALSE
 
@@ -16,6 +16,6 @@
 	var/defInjuries = defender ? defender.TotalInjury/100 : 0
 	. = 0
 	if(bonusRatio)
-		. +=  round(((atkVal * bonusRatio) * passive_handler.Get("Desperation")) * injuries, 0.01) * glob.UNDERDOG_DMG_MULTIPLER
+		. +=  round(((atkVal * bonusRatio) * passive_handler.Get("UnderDog")) * injuries, 0.01) * glob.UNDERDOG_DMG_MULTIPLER
 	if(defBonusRatio)
-		. -=  round(((defVal * defBonusRatio) * defender.passive_handler.Get("Desperation")) * defInjuries, 0.01) * glob.UNDERDOG_RED_MULTIPLER
+		. -=  round(((defVal * defBonusRatio) * defender.passive_handler.Get("UnderDog")) * defInjuries, 0.01) * glob.UNDERDOG_RED_MULTIPLER

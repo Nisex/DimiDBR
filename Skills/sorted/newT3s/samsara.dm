@@ -43,7 +43,7 @@
         SureDodgeTimerLimit = 15
         SureHitTimerLimit = 15
     Mansuya
-        passives = list("Desperation" = 3, "DemonicDurability" = 2, "Underdog" = 1, "Pressure" = 2)
+        passives = list("Tenacity" = 3, "Persistence" = 3, "UnderDog" = 3, "DemonicDurability" = 2, "Pressure" = 2)
     Deva
         passives = list("Deicide" = 5, "Momentum" = 4, "UnarmedDamage" = 2, "Deflection" = 2, "Hardening" = 5)
     Buddha

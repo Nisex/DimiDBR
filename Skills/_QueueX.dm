@@ -305,27 +305,6 @@ obj
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Death_Mastery"
 					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Bio_Break"
 
-				Mountain_Crusher
-					DamageMult=1.5
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Earth_Empowerment"
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Crystal_Crumbling"
-					HitMessage="decimates with an Earth-empowered elbow strike to the sternum!"
-				Shifting_Clouds
-					DamageMult=1.5
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Wind_Empowerment"
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Constant_Cyclone"
-					HitMessage="steps forward, dropping their Wind-empowered fist like a bolt of lightning!"
-				Hellraiser
-					DamageMult=1.5
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fire_Empowerment"
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Continued_Conflagration"
-					HitMessage="ducks, spins, and delivers an explosive Fire-empowered backhand slam!"
-				Split_River
-					DamageMult=1.5
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Water_Empowerment"
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Corrosive_Chill"
-					HitMessage="crashes down like a wave with a Water-empowered wheel kick!"
-
 				//t1 sig styles
 				Ray_Divider
 					DamageMult=2
@@ -875,10 +854,34 @@ obj
 					else
 						if(usr.AttackQueue)
 							return // prevent heavy strike from overriding
+
+						if(usr.passive_handler["Heavy Strike"])
+							switch(usr.passive_handler["Heavy Strike"])
+								if("Wrestling")
+									Grapple = 1
+									KBAdd =0
+									KBMult = 0
+									DamageMult = 4
+									AccuracyMult = 2
+									HitMessage = "puts his hands on em'."
+									Duration=7
+									Cooldown = 20
+								if("Inferno")
+									FollowUp = "/obj/Skills/AutoHit/Hyper_Inferno"
+								if("HellfireInferno")
+									FollowUp = "/obj/Skills/AutoHit/HellfireInferno"
+									
+						else
+							// reset all
+							Grapple = 0
+							FollowUp = null
+
+
 						if(!usr.Secret && !usr.HasWitchCraft() || usr.Secret == "Eldritch" && !usr.CheckSlotless("True Form") || usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus") || usr.Secret =="Heavenly Restriction" && !usr.secretDatum?:hasImprovement("Heavy Strike"))//Just default Heavy Strike
 							src.name="Heavy Strike"
 							src.DamageMult=2
 							src.AccuracyMult=1
+							Duration=5
 							src.KBAdd=5
 							src.KBMult=3
 							src.Cooldown=15
@@ -1870,7 +1873,8 @@ mob
 				if(src.Health<Q.HealthCost*glob.WorldDamageMult&&!Q.AllOutAttack)
 					return
 			if(Q.EnergyCost)
-				if(src.Energy<Q.EnergyCost&&!Q.AllOutAttack)
+				var/drain = passive_handler["Drained"] ? Q.EnergyCost * (1 + passive_handler["Drained"]/10) : Q.EnergyCost
+				if(src.Energy<drain&&!Q.AllOutAttack)
 					if(!src.CheckSpecial("One Hundred Percent Power")&&!src.CheckSpecial("Fifth Form")&&!CheckActive("Eight Gates"))
 						return
 			if(Q.ManaCost && !src.HasDrainlessMana() && !Q.AllOutAttack)
@@ -2041,7 +2045,6 @@ mob
 				var/dmgMult = src.AttackQueue.DamageMult
 				if(passive_handler["Fa Jin"] && canFaJin())
 					dmgMult+= passive_handler["Fa Jin"] * glob.FA_JIN_BASE_DMG_ADD
-					world<<"DEBUG: FA JIN INCREASED DAMAGE FROM [dmgMult - passive_handler["Fa Jin"] * glob.FA_JIN_BASE_DMG_ADD] to [dmgMult + passive_handler["Fa Jin"] * glob.FA_JIN_BASE_DMG_ADD]"
 				Damage*=dmgMult
 			if(Damage>0 && glob.GLOBAL_QUEUE_DAMAGE > 0)
 				Damage *= glob.GLOBAL_QUEUE_DAMAGE
@@ -2060,7 +2063,6 @@ mob
 			if(passive_handler["Fa Jin"] && canFaJin())
 
 				KB+= passive_handler["Fa Jin"] * glob.FA_JIN_BASE_KB_ADD
-				world<<"DEBUG: FA JIN INCREASED DAMAGE FROM [KB - passive_handler["Fa Jin"] * glob.FA_JIN_BASE_KB_ADD] to [KB + passive_handler["Fa Jin"] * glob.FA_JIN_BASE_KB_ADD]"
 			//One day, passives.
 			return KB
 		QueuedKBMult()
@@ -2135,8 +2137,7 @@ mob
 
 			if(src.AttackQueue.BuffAffected)
 				var/path=text2path(src.AttackQueue.BuffAffected)
-				world<<"here is path: [path]"
-				var/obj/Skills/Buffs/S=new path
+				var/obj/Skills/Buffs/S=new src.AttackQueue.BuffAffected
 				var/AlreadyBuffed=0
 				for(var/obj/Skills/SP in P)
 					if(SP.type==S.type)
@@ -2237,11 +2238,13 @@ mob
 			if(src.AttackQueue.WoundCost)
 				src.WoundSelf(src.AttackQueue.WoundCost*glob.WorldDamageMult)
 			if(src.AttackQueue.EnergyCost)
-				src.LoseEnergy(src.AttackQueue.EnergyCost)
+				var/drain = passive_handler["Drained"] ? src.AttackQueue.EnergyCost * (1 + passive_handler["Drained"]/10) : src.AttackQueue.EnergyCost
+				src.LoseEnergy(drain)
 			if(src.AttackQueue.ForceCost)
 				src.LoseForce(src.AttackQueue.ForceCost)
 			if(src.AttackQueue.FatigueCost)
 				src.GainFatigue(src.AttackQueue.FatigueCost)
+				
 			if(src.AttackQueue.ManaGain)
 				src.HealMana(AttackQueue.ManaGain)
 			if(src.AttackQueue.ManaCost)
@@ -2273,53 +2276,11 @@ mob
 						if(g.type==text2path(grabPath))
 							g.Activate(src)
 				if(src.AttackQueue.FollowUp)
-					var/mob/ThatBoi=src
-					var/path=text2path(src.AttackQueue.FollowUp)
-					spawn()
-						var/obj/Skills/s=new path
-						if(!locate(s.type, ThatBoi))
-							ThatBoi.contents+=s
-						else
-							s=locate(s.type, ThatBoi)
-						if(s.type in typesof(/obj/Skills/AutoHit))
-							ThatBoi.Activate(s)
-						if(s.type in typesof(/obj/Skills/Projectile))
-							ThatBoi.UseProjectile(s)
-						if(s.type in typesof(/obj/Skills/Queue))
-							ThatBoi.SetQueue(s)
-						if(s.type in typesof(/obj/Skills/Grapple))
-							s:Activate(ThatBoi)
+					spawn(AttackQueue.FollowUpDelay) // EWWWW
+						throwFollowUp(AttackQueue.FollowUp)
+
 			if(src.AttackQueue.BuffSelf)
-				var/path=text2path(src.AttackQueue.BuffSelf)
-				var/obj/Skills/S=new path
-				var/obj/SFound
-				var/AlreadyBuffed=0
-				for(var/obj/Skills/Buffs/SP in src.Buffs)
-					if(SP.type == S.type)
-						SFound=SP
-						if(src.BuffOn(SP))
-							AlreadyBuffed=1
-						break
-				if(!AlreadyBuffed)
-					if(SFound)
-						var/list/DenyVars=list("client", "key", "loc", "x", "y", "z", "type", "locs", "parent_type", "verbs", "vars", "contents", "Transform", "appearance")
-						for(var/x in SFound.vars)
-							if(x in DenyVars)
-								continue
-							S.vars[x]=SFound.vars  [x]
-					if(!SFound)
-						src.AddSkill(new path)
-					S.Password=src.name
-					src.AddSkill(S)//trigger buff on self
-				S.adjust(src)
-				if(S.parent_type==/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara || AttackQueue.type == /obj/Skills/Queue/Finisher/Cycle_of_Samsara)
-					AttackQueue.Mastery++
-					for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/s in SlotlessBuffs)
-						s.Timer = 0
-				if(S.type==/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/What_Must_Be_Done)
-					if(SlotlessBuffs["What Must Be Done"])
-						SlotlessBuffs["What Must Be Done"].Mastery++
-						SlotlessBuffs["What Must Be Done"].TimerLimit+=300
+				buffSelf(AttackQueue.BuffSelf)
 			if(!src.AttackQueue.Step&&!src.AttackQueue.MissStep&&!src.AttackQueue.HitStep)
 				src.AttackQueue=null
 			else

@@ -9,7 +9,7 @@ ascension
 			defense = 0.25
 			speed = 0.25
 			intimidation = 5
-			passives = list("ManaCapMult" = 0.25, "Deicide" = 1, "Xenobiology" = 1, "SpiritFlow" = 0.25)
+			passives = list("ManaCapMult" = 0.25, "Deicide" = 1, "Xenobiology" = 1, "SpiritFlow" = 1)
 			choices = list("Distort" = /ascension/sub_ascension/high_faoroan/distort, "Define" = /ascension/sub_ascension/high_faoroan/define)
 			skills = list(/obj/Skills/Buffs/SlotlessBuffs/Elf/God_Slicer)
 		two
@@ -88,7 +88,7 @@ ascension
 			destroy
 				onAscension(mob/owner)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in owner.contents)
-						tc.passives["Desperation"] = 2
+						tc.passives["Persistence"] = 2
 						tc.passives["Unstoppable"] = 1
 						tc.passives["MartialMagic"] = 1
 					..()
@@ -106,6 +106,7 @@ ascension
 					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in owner.contents)
 						tc.passives["DrainlessMana"] = 1
 						tc.passives["SlayerMod"] = 2
+						tc.passives["FavoredPrey"] = "Races"
 						tc.passives["WeaponBreaker"] = 1
 						tc.passives["Erosion"] = 0.25
 					..()
