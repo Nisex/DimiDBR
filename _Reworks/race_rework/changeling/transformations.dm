@@ -38,7 +38,7 @@ transformation
 			offense = 1.25
 			force = 1.5
 			strength = 1.5
-			passives = list("PureDamage" = 3, "Instinct" = 1, "Flicker" = 1, "Godspeed" = 1, "PureReduction" = -3,  "CriticalBlock" = -0.25, "BlockChance" = -0.25, "CriticalChance" = 0.25, "CriticalDamage" = 0.25, "MovementMastery" = 2)
+			passives = list("PureDamage" = 3, "Instinct" = 1, "Flicker" = 1, "Godspeed" = 1, "PureReduction" = -3,  "CriticalBlock" = -0.25, "BlockChance" = -25, "CriticalChance" = 0.25, "CriticalDamage" = 0.25, "MovementMastery" = 2)
 			form_base = 'Chilled4.dmi'
 			transformation_message = "usrName cracks their tail, entering their Final Form in a burst of power!"
 

@@ -5673,11 +5673,9 @@ obj
 								powerDif = clamp(powerDif, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
 						var/atk = 0
 						if(Owner.isSuperCharged(Owner))
-							var/oldEnd = EndRate
 							EndRate -=  clamp(glob.SUPERCHARGERATE * Owner.passive_handler["SuperCharge"], 0, 1)
 							Owner.StyleBuff.last_super_charge = world.time
 						if(Owner.passive_handler["Atomizer"])
-							var/oldEnd = EndRate
 							EndRate = clamp(EndRate - (EndRate * (Owner.passive_handler["Atomizer"] * glob.ATOMIZERRATE)), 0.0001, 2)
 						var/def = a:getEndStat(1) * EndRate
 						if(src.Owner.UsingPridefulRage())
