@@ -7,10 +7,8 @@
     proc/getChildBoons(mob/p)
         passives += p.secretDatum:applyPassives(p)
         hat_name = "[replacetext("[p.secretDatum.type]", "/SecretInfomation/Spirits_Of_The_World/", "")]"
-        world<<hat_name
     proc/setup_visuals()
         if(!IconLock)
-            world<<"here"
             switch(hat_name)
                 if("Goetic_Virtue")
                     IconLock= 'WitchHatBLACK.dmi'

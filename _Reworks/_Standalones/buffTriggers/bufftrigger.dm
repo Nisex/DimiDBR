@@ -17,7 +17,6 @@
         if(ispath(text2path(triggerThing)))
             p.throwFollowUp(triggerThing)
         if(set_to)
-            world<<"here is the set_to"
             if(reference_this_var)
                 reference_this.vars[reference_this_var][trigger_ref] = set_to
             else
