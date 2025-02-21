@@ -24,6 +24,7 @@
 		icon = 'BLANK.dmi'
 		icon_state = "dot"
 		var/tmp/obj/Skills/obj_to_ref
+		var/var_to_ref
 		proc/mysticTicker() // make this dynamic prob
 			if(client.mob.UsingMysticStyle()[1]==TRUE && client.mob.StyleBuff)
 				var/next_cast = client.mob.can_use_style_effect(FALSE)
@@ -162,6 +163,7 @@ client/proc/remove_hud(id)
 		else
 			if(linked_var == "Grit")
 				val = client.mob.passive_handler["Grit"]
+				
 			if(val > 0)
 				if(holder.alpha == 0 || barbg.alpha == 0)
 					animate(holder, alpha = 255, time = 2)

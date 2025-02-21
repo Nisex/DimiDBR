@@ -1,6 +1,7 @@
 /globalTracker/var/BASE_HARDENING_CHANCE = 50
 /globalTracker/var/BASE_MOMENTUM_CHANCE = 50
 /globalTracker/var/MAX_HARDEN_STACKS = 32
+/globalTracker/var/MAX_GRIT_STACKS = 100
 /globalTracker/var/HARDEN_DIVISOR = 2
 /globalTracker/var/MAX_MOMENTUM_STACKS = 32
 /globalTracker/var/MOMENTUM_DIVISOR = 2
