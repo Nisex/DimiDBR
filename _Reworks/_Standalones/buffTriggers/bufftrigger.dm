@@ -18,7 +18,6 @@
             p.throwFollowUp(triggerThing)
         if(set_to)
             reference_this?:vars[reference_this_var][trigger_ref] = set_to
-            world<<"reference_this?:vars[reference_this_var][trigger_ref]"
     proc/checkTrigger(mob/p, obj/Skills/Buffs/SlotlessBuffs/b)
         if(trigger)
             switch(trigger_when)

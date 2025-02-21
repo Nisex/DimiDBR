@@ -172,7 +172,7 @@
 			devaCounter=0
 			if(passive_handler["AirBend"])
 				last_style_effect = world.time
-	if(passive_handler["Nimbus"] && last_nimbus + glob.NIMBUSCD - (passive_handler["Nimbus"]))
+	if(passive_handler["Nimbus"] && last_nimbus + glob.NIMBUSCD - (passive_handler["Nimbus"]) < world.time)
 		if(HasTarget() && TargetInRange(glob.NIMBUSRANGE + passive_handler["Nimbus"]))
 			if(CanDash())
 				is_dashing++
