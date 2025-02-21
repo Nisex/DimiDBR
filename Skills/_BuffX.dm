@@ -1971,7 +1971,7 @@ NEW VARIABLES
 			NeedsHealth=50
 			TooMuchHealth=51
 			OverClock=0.1
-			passives = list ("Desperation" = 1, "AutoAnger" = 1, "AngerThreshhold" = 2)
+			passives = list ("Persistence" = 1, "UnderDog" = 1, "Tenacity" = 1, "AutoAnger" = 1, "AngerThreshhold" = 2)
 			AutoAnger=1
 			Desperation=1
 			SpdMult=2
@@ -1990,12 +1990,14 @@ NEW VARIABLES
 								return
 							else
 								WoundCost = 25
-								var/desp = usr.passive_handler.Get("Desperation")
-								if(desp >= 6)
+								var/desp = usr.passive_handler.Get("Persistence")
+								var/underDog = usr.passive_handler.Get("UnderDog")
+								var/tenacity = usr.passive_handler.Get("Tenacity")
+								if(desp >= 6 || underDog >= 6 || tenacity >= 6)
 									// they r gorked
-									passives = list("Desperation" = 1, "AngerThreshold" = 2,"Adrenaline" = 2, "LimitBroken" = 1)
+									passives = list("Persistence" = 1, "UnderDog" = 1, "Tenacity" = 1, "AngerThreshold" = 2,"Adrenaline" = 2, "LimitBroken" = 1)
 								else
-									passives = list("Desperation" = 6 - desp, "AngerThreshold" = 2, "Adrenaline" = 2, "LimitBroken" = 1)
+									passives = list("Persistence" = 6 - desp, "UnderDog" = 6 - underDog, "Tenacity" = 6 - tenacity, "AngerThreshold" = 2, "Adrenaline" = 2, "LimitBroken" = 1)
 								PowerMult = 1.5
 								HealthDrain = 0.006
 								StrMult = 1.3
@@ -2010,12 +2012,14 @@ NEW VARIABLES
 								return
 							else
 								WoundCost = 15
-								var/desp = usr.passive_handler.Get("Desperation")
-								if(desp >= 4)
+								var/desp = usr.passive_handler.Get("Persistence")
+								var/underDog = usr.passive_handler.Get("UnderDog")
+								var/tenacity = usr.passive_handler.Get("Tenacity")
+								if(desp >= 4 || underDog >= 4 || tenacity >= 4)
 									// they r gorked
-									passives = list("Desperation" = 0.5, "AngerThreshold" = 1.75, "MovementMastery" = 2, "Adrenaline" = 0.5)
+									passives = list("Persistence" = 1, "UnderDog" = 1, "Tenacity" = 1, "AngerThreshold" = 2,"Adrenaline" = 2, "LimitBroken" = 1)
 								else
-									passives = list("Desperation" = 4 - desp, "AngerThreshold" = 1.75,"MovementMastery" = 2, "Adrenaline" = 0.5)
+									passives = list("Persistence" = 6 - desp, "UnderDog" = 6 - underDog, "Tenacity" = 6 - tenacity, "AngerThreshold" = 2, "Adrenaline" = 2, "LimitBroken" = 1)
 								PowerMult = 1.15
 								HealthDrain = 0.003
 								StrMult = 1.2
@@ -2029,12 +2033,14 @@ NEW VARIABLES
 								usr<<"You have too much injuries to use Limit Break 1"
 							else
 								WoundCost = 5
-								var/desp = usr.passive_handler.Get("Desperation")
-								if(desp >= 1)
+								var/desp = usr.passive_handler.Get("Persistence")
+								var/underDog = usr.passive_handler.Get("UnderDog")
+								var/tenacity = usr.passive_handler.Get("Tenacity")
+								if(desp >=  1 || underDog >= 1 || tenacity >= 1)
 									// they r gorked
-									passives = list("Desperation" = 0.5, "MovementMastery" = 3, "Adrenaline" = 0.25)
+									passives = list("Persistence" = 1, "UnderDog" = 1, "Tenacity" = 1, "AngerThreshold" = 2,"Adrenaline" = 2, "LimitBroken" = 1)
 								else
-									passives = list("Desperation" = 2 - desp, "MovementMastery" = 3, "Adrenaline" = 0.25)
+									passives = list("Persistence" = 6 - desp, "UnderDog" = 6 - underDog, "Tenacity" = 6 - tenacity, "AngerThreshold" = 2, "Adrenaline" = 2, "LimitBroken" = 1)
 								StrMult = 1.2
 								SpdMult = 1.2
 								OffMult = 1.2
@@ -2742,7 +2748,7 @@ NEW VARIABLES
 					adjustments(mob/player)
 						..()
 						if(!altered)
-							passives = list("MovementMastery" =  player.SagaLevel * 1.25, "ArmorAscension" = 1, "Desperation" = 0.4 + (player.SagaLevel * 0.3), "Godspeed" = 1 + (player.SagaLevel * 0.4))
+							passives = list("MovementMastery" =  player.SagaLevel * 1.25, "ArmorAscension" = 1, "Tenacity" = 0.4 + (player.SagaLevel * 0.3), "Persistence" = 0.4 + (player.SagaLevel * 0.3), "UnderDog" = 0.4 + (player.SagaLevel * 0.3), "Godspeed" = 1 + (player.SagaLevel * 0.4))
 							StrMult = 1 + (player.SagaLevel * 0.1)
 							SpdMult = 1 + (player.SagaLevel * 0.1)
 					verb/Don_Cloth()
@@ -2881,8 +2887,8 @@ NEW VARIABLES
 					adjustments(mob/player)
 						..()
 						var/newLevel = clamp(player.SagaLevel - 2, 1,4)
-						passives = list("MovementMastery" = player.SagaLevel * 2, "ArmorAscension" = 2, "Desperation" = 1 + (player.SagaLevel * 1),\
-						 "Godspeed" = 1+ (player.SagaLevel*0.5) )
+						passives = list("MovementMastery" = player.SagaLevel * 2, "ArmorAscension" = 2, "Tenacity" = 1 + (player.SagaLevel * 1), "Persistence" = 1 + (player.SagaLevel * 1), \
+									 "UnderDog" = 1 + (player.SagaLevel * 1), "Godspeed" = 1+ (player.SagaLevel*0.5) )
 						StrMult = 1.3 + (newLevel * 0.1)
 						SpdMult = 1.3 + (newLevel * 0.1)
 						Desperation = 1 + (player.SagaLevel * 0.5)
@@ -3874,13 +3880,13 @@ NEW VARIABLES
 		King_Of_Braves
 			Cooldown = 1
 			PowerGlows=list(1,0.8,0.8, 0,1,0, 0.8,0.8,1, 0,0,0)
-			passives = list("Desperation" = 1)
+			passives = list("Tenacity" = 1)
 			Desperation=1
 			ActiveMessage="surrounds their body in a faint green aura!"
 			OffMessage="deactivates the green energy..."
 			proc/setupVars(mob/player)
 				src.ActiveMessage="surrounds their body in a faint green aura!"
-				passives = list("Desperation" = player.SagaLevel)
+				passives = list("Tenacity" = player.SagaLevel)
 
 				if(player.SagaLevel>=1)
 					ActiveMessage="draws power from their courage as they pulse with green light!"
@@ -7103,7 +7109,7 @@ NEW VARIABLES
 				src.Trigger(usr)
 
 		Sacrifice
-			passives = list("ManaStats" = 1, "Anaerobic" = 1, "Desperation" = 4, "CursedWounds" = 1)
+			passives = list("ManaStats" = 1, "Anaerobic" = 1, "Tenacity" = 4, "CursedWounds" = 1)
 			Cooldown = -1
 			HealthCost = 25
 			verb/Sacrifice()

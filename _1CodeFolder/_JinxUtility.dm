@@ -151,9 +151,9 @@ mob
 					defender.Anger()
 					val/=defender.AngerMax
 
-			if(defender.passive_handler.Get("Desperation")&&!defender.HasInjuryImmune())
+			if(defender.passive_handler.Get("Persistence")&&!defender.HasInjuryImmune())
 				if(FightingSeriously(src,defender))
-					var/desp = clamp(passive_handler.Get("Desperation"), 0.1, glob.MAX_PERSISTENCE_CALCULATED)
+					var/desp = clamp(passive_handler.Get("Persistence"), 0.1, glob.MAX_PERSISTENCE_CALCULATED)
 					if(prob(desp)*glob.PERSISTENCE_CHANCE)
 						desp = clamp(desp, 1, glob.PRESISTENCE_DIVISOR_MAX)
 						if(glob.PERSISTENCE_NEGATES_DAMAGE)

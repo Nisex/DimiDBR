@@ -18,7 +18,7 @@ race
 		imagination = 1
 		intellect = 1
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Oozaru)
-		passives = list("Desperation" = 0.5, "TechniqueMastery" = 1, "Brutalize" = 0.25, "Adrenaline" = 0.25)
+		passives = list("Tenacity" = 0.5, "Brutalize" = 0.25, "Adrenaline" = 0.5)
 
 		onFinalization(mob/user)
 			..()

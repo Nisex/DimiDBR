@@ -16,6 +16,9 @@
     proc/trigger(mob/p,  obj/Skills/Buffs/SlotlessBuffs/b, triggerThing)
         if(ispath(text2path(triggerThing)))
             p.throwFollowUp(triggerThing)
+        if(set_to)
+            reference_this?:vars[reference_this_var][trigger_ref] = set_to
+            world<<"reference_this?:vars[reference_this_var][trigger_ref]"
     proc/checkTrigger(mob/p, obj/Skills/Buffs/SlotlessBuffs/b)
         if(trigger)
             switch(trigger_when)
@@ -24,4 +27,5 @@
                     if(thing2compare >= trigger_at)
                         trigger(p, b, trigger)
                         if(set_to)
-                            thing2compare = set_to
+                            reference_this?:vars[reference_this_var][trigger_ref] = set_to
+                            world<<"reference_this?:vars[reference_this_var][trigger_ref]"

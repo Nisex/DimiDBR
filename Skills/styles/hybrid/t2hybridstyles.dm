@@ -25,7 +25,7 @@
 		StyleComboUnlock=list()
 		passives = list("Fury" = 2, "Momentum" = 2,  "Hardening" = 2, "SpiritHand" = 2, "Instinct" = 2, \
 						"Flow" = 2, "SpiritFlow" = 2, "Combustion" = 40, "Scorching" = 5, "Shattering" = 5)
-		Finisher="/obj/Skills/Queue/Finisher/Hell_Memories"
+		Finisher="/obj/Skills/Queue/Finisher/Bauf_Burst"
 		verb/Ifrit_Jambe()
 			set hidden=1
 			src.Trigger(usr)
@@ -38,6 +38,7 @@
 		StyleSpd = 1.3
 		StyleOff = 1.15
 		StyleActive="Art of Order"
+		Finisher="/obj/Skills/Queue/Finisher/Alpha_Strike"
 		verb/Art_of_Order()
 			set hidden=1
 			Trigger(usr)
@@ -48,7 +49,7 @@
 		passives = list("Rusting" = 2, "SoulTug" = 1, "SpiritHand" = 1, "SpiritFlow" = 1, "CyberStigma" = 4, \
 			"Toxic" = 4, "Instinct" = 1, "Flow" = 1, "Hardening" = 1)
 		
-
+	Finisher="/obj/Skills/Queue/Finisher/Psycho_Barrage"
 
 	Phoenix_Eye_Fist // unarmed + armed
 		SignatureTechnique=2
@@ -61,7 +62,7 @@
 		StyleOff = 1.15
 		StyleSpd = 1.15
 		StyleDef = 1.15
-		Finisher="/obj/Skills/Queue/Finisher/"
+		Finisher="/obj/Skills/Queue/Finisher/Icy_Glare"
 		StyleActive = "Pheonix_Eye_Fist"
 
 

@@ -1506,18 +1506,6 @@ mob
 			return 0
 		GetPowerReplacement()
 			return src.passive_handler.Get("PowerReplacement")
-		HasDesperation()
-			if(passive_handler.Get("Desperation"))
-				return 1
-			if(src.TarotFate=="The Tower")
-				return 1
-			return 0
-		GetDesperation()
-			var/Extra=0
-			if(src.TarotFate=="The Tower")
-				Extra=2
-			return (passive_handler.Get("Desperation")+Extra)
-
 		GetIntimidationIgnore(var/mob/m)
 			var/Return=0
 			if(isRace(HUMAN))
@@ -2477,8 +2465,6 @@ mob
 			if(src.passive_handler.Get("Adaptation"))
 				return 1
 			if(src.StyleActive in list("Balance", "Metta Sutra", "West Star", "Shaolin"))
-				return 1
-			if(Target && (Health <=40 + (10 * AscensionsAcquired) && Target.Health > Health) && passive_handler.Get("Underdog"))
 				return 1
 			if(src.UsingYinYang())
 				return 1

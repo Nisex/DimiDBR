@@ -88,7 +88,7 @@ ascension
 			destroy
 				onAscension(mob/owner)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in owner.contents)
-						tc.passives["Desperation"] = 2
+						tc.passives["Persistence"] = 2
 						tc.passives["Unstoppable"] = 1
 						tc.passives["MartialMagic"] = 1
 					..()

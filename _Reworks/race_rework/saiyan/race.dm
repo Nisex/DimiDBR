@@ -4,7 +4,7 @@ race
 		desc = "Myths speak of a floating island anchored to the earth by a magical relic populated by a tribe of powerful monks bearing monkey tails. These pious monks travel the world in search of challenge and act with purpose, be it with pride, resilient will, or adaptive spirit."
 		visual = 'Saiyan.png'
 
-		locked = TRUE
+		locked = FALSE
 
 		strength = 1.5
 		endurance = 1.5

@@ -26,6 +26,7 @@
 	HitSparkX=-16
 	HitSparkY=-16
 	EnergyCost = 3
+	Cooldown = 45
 
 
 	adjust(mob/p)
@@ -152,8 +153,18 @@
 /obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Shapeshift
 	var/datum/customBuff/c_buff = new()
 	proc/init(mob/p)
-		world<<"here 3"
 		c_buff.init(p, src)
+	adjust(mob/p)
+		if(p.BuffOn(src))
+			return
+		var/list/full2short = list("Strength" = "str", "Force" = "for", "Endurance" = "end", "Offense" = "off", "Defense" = "def", \
+									"Speed" = "spd")
+		for(var/x in full2short)
+			var/raa = "[uppertext(copytext(full2short[x],1,2))][copytext(full2short[x], 2,4)]"
+			vars["[raa]Mult"] = c_buff.statsadd.calc_stat(c_buff.statsmult.vars[x], TRUE)
+			vars["[full2short[x]]Add"] = c_buff.statsadd.calc_stat(c_buff.statsadd.vars[x], TRUE)
+		
+		passives = list(c_buff.current_passives)
 /obj/Skills/Buffs/SlotlessBuffs/Racial/Blend_In
 	Invisible = 22
 	ActiveMessage = "blends into their surroundings"

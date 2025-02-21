@@ -165,19 +165,16 @@ proc/removeDuplicates(list/list1)
         if(MAJIN)
             . = getMajinRacials()
         if("Half Saiyan")
-            . += "Desperation"
         if(ELF)
             . += "Deicide"
             . += "TechniqueMastery"
             . += "Flow"
             . += "Unstoppable"
-            . += "Desperation"
             . += "SwordPunching"
         if(SAIYAN)
             . += "Intimidation"
             . += "MovementMastery"
         if(HUMAN)
-            . += "Desperation"
             . += "PilotingProwess"
             . += "Adrenaline"
             . += "DemonicDurability"

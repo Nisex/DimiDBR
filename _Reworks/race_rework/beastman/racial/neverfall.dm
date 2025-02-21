@@ -27,9 +27,10 @@
     IconX=-32
     IconY=-32
     FlickSpin=1
+    Cooldown = 20
     adjust(mob/p)
-        DamageMult = (50 - (p.AscensionsAcquired * 5)) / 100
-        Rounds = 2 + (p.AscensionsAcquired)
+        DamageMult = (5 - (p.AscensionsAcquired * 5)) / 100
+        Rounds = 1 + (p.AscensionsAcquired)
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous

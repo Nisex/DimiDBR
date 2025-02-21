@@ -5,7 +5,6 @@ race
 		name = "Beastman"
 		desc = "Bearers of Al-Munshaq’s will, these survivors from Najim Ha’aar now live as natives within Mt. Red. They are fierce people with origins spanning across many cultures."
 		visual = 'Monstrous.png'
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk,/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Ticking_Bomb)
 		strength = 1.25
 		endurance = 1.25
 		force = 1.25
@@ -14,6 +13,7 @@ race
 		speed = 1.25
 		regeneration = 1.5
 		intellect = 0.5
+		recovery = 2
 		classes = list("Heart of The Beastman", "Monkey King", "Unseen Predator", "Undying Rage", \
 						"Feather Cowl", "Feather Knife", "Spirit Walker", "Shapeshifter", "Trickster", \
 						"Fox Fire")
@@ -32,8 +32,6 @@ race
 			user.EnhancedSmell=1
 			user.EnhancedHearing=1
 			Racial = user.Class
-			world<<"we are here"
-			world<<"[Racial] || [user.Class]"
 			GiveRacial(user)
 			..()
 		
@@ -75,8 +73,8 @@ race
 				if("Shapeshifter")
 					var/obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Shapeshift/s = new()
 					p.AddSkill(s)
-					world<<"here"
-					s.init(p) // set up the shapeshift buff
+					s.init(p)
+					// set up the shapeshift buff
 				
 				if("Trickster")
 					imagination = 1.5

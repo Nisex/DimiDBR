@@ -69,8 +69,6 @@ mob/proc/GetGenome()
 			m.boons["RegenAscension"] = 1
 			m.skills |= "/obj/Skills/Buffs/SlotlessBuffs/Regeneration"
 		if("Makyo")
-		if("Human")
-			m.boons["Desperation"] = 3
 		if("Shinjin")
 			m.boons["Timeless"] = 1
 			m.skills |= "/obj/Skills/Telekinesis"

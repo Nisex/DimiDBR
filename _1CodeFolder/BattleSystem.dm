@@ -126,13 +126,13 @@ mob/proc/Unconscious(mob/P,var/text)
 				src.ActiveBuff:Stop_Cultivation()//deactivate...
 				GatesActive=0
 		return
-	if(src.passive_handler.Get("Desperation"))
+	if(src.passive_handler.Get("Tenacity"))
 		if(src.HealthAnnounce10<=1&&FightingSeriously(P,src))
-			if(prob((src.passive_handler.Get("Desperation")*glob.TENACITY_GETUP_CHANCE)+5))
+			if(prob((src.passive_handler.Get("Tenacity")*glob.TENACITY_GETUP_CHANCE)+5))
 				src.KO=0
 				src.OMessage(15, "...but [src] refuses to go down!", "<font color=red>[src]([src.key]) remains standing despite impossible odds!")
 				src.Health=1
-				src.VaizardHealth+=clamp(passive_handler.Get("Desperation")* glob.TENACITY_VAI_MULT, glob.TENACITY_VAI_MIN, glob.TENACITY_VAI_MAX) //actual clutch now.
+				src.VaizardHealth+=clamp(passive_handler.Get("Tenacity")* glob.TENACITY_VAI_MULT, glob.TENACITY_VAI_MIN, glob.TENACITY_VAI_MAX) //actual clutch now.
 				src.HealthAnnounce10=2
 				return
 	if(passive_handler["Undying Rage"])
@@ -1197,13 +1197,6 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 					AccMult-=(Defender.HasFluidForm()*glob.FLUID_FORM_RATE)*AccMult
 				if(AccMult<1)
 					AccMult=1
-		if(Offender.passive_handler.Get("Desperation"))
-			var/healthRemaining = Offender.Health
-			if(healthRemaining <= 10)
-				var/baseBoon = glob.DESPERATION_HIT_CHANCE * Offender.passive_handler.Get("Desperation") // max Desperation soembody can have is 6
-				baseBoon = clamp(baseBoon, 0.001, glob.DESPERATION_MAX_HIT_CHANCE)
-				AccMult *= 1 + (baseBoon * (11 - healthRemaining))
-		// ! DESPERATION GIVES A BONUS TO HIT CHANCE ! //
 		var/GodKiDif = 1
 		if(Offender.GetGodKi())
 			GodKiDif = 1 + Offender.GetGodKi()
@@ -1340,11 +1333,6 @@ proc/Deflection_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/Base
 				AccMult-=(0.2*AccMult) * cumAvoidance
 				if(AccMult<1)
 					AccMult=1
-		if(Offender.passive_handler.Get("Desperation"))
-			var/healthRemaining = 100 - Offender.Health
-			if(healthRemaining <= 10)
-				var/baseBoon = 0.01 * Offender.passive_handler.Get("Desperation") // max Desperation soembody can have is 6
-				AccMult *= 1 + (baseBoon * (11 - healthRemaining))
 
 
 		var/GodKiDif = 1

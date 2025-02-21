@@ -41,7 +41,7 @@ globalTracker/var/LOWER_DEBUFF_CLAMP = 0.001
     if(dmg < 0)
         world.log << "[src] Debuff Damage is negative [dmg], [typeOfDebuff]"
         dmg = 0.001
-    var/desp = clamp(passive_handler.Get("Desperation"), 0.1, glob.MAX_PERSISTENCE_CALCULATED)
+    var/desp = clamp(passive_handler.Get("Persistence"), 0.1, glob.MAX_PERSISTENCE_CALCULATED)
     if(prob(desp)*(glob.PERSISTENCE_CHANCE * 2)&&!src.HasInjuryImmune())
         desp = clamp(desp, 1, glob.PRESISTENCE_DIVISOR_MAX)
         if(glob.PERSISTENCE_NEGATES_DAMAGE)

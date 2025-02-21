@@ -458,7 +458,7 @@ mob/proc/WeaponSoul() // OverSoul Mechanic
 				passive_handler.Increase("Juggernaut")
 				passive_handler.Increase("GiantForm")
 				passive_handler.Increase("SpecialStrike")
-				passive_handler.Increase("Desperation", 3)
+				passive_handler.Increase("Persistence", 3)
 				var/image/w=image(icon=s.icon, pixel_x=s.pixel_x, pixel_y=s.pixel_y, loc=src, layer=EFFECTS_LAYER)
 				animate(w, alpha=0, color=list(1,0,0, 0,1,0, 0,0,1, 1,1,1))
 				sleep(10)
@@ -668,7 +668,7 @@ mob/proc/RevertWS()
 			passive_handler.Decrease("Juggernaut")
 			passive_handler.Decrease("GiantForm")
 			passive_handler.Decrease("SpecialStrike")
-			passive_handler.Decrease("Desperation", 3)
+			passive_handler.Decrease("Tenacity", 3)
 			src.overlays-='PaladinMode.dmi'
 			src.transform/=1.5
 		if("Soul Calibur")

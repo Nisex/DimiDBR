@@ -465,8 +465,6 @@
 #include "_Reworks\Races\Elf\racials.dm"
 #include "_Reworks\Races\Elf\time_stop.dm"
 #include "_Reworks\Races\Halfie\HalfieAscensions.dm"
-#include "_Reworks\Races\hellspawn\ascensions.dm"
-#include "_Reworks\Races\hellspawn\buffs.dm"
 #include "_Reworks\Races\Majin\_MajinDefines.dm"
 #include "_Reworks\Races\Majin\Majin.dm"
 #include "_Reworks\Races\Majin\MajinAbsorb.dm"

@@ -174,7 +174,7 @@ globalTracker
 		list/Spawns = list()
 
 
-		list/DEATH_LOCATION = list(250, 250, 2)
+		list/DEATH_LOCATION = list(233, 238, 2)
 		list/REGEN_LOCATION = list()
 		list/NO_SOUL_LOCATION = list(182, 288, 2)
 		HALF_DEMON_POTENTIAL_REQ = 50
@@ -372,7 +372,7 @@ globalTracker
 		MOD_AFTER_ACC = TRUE
 		MANA_STATS_BASE_BOON = 0.15
 		NIMBUSRANGE = 10
-		NIMBUSCD = 10
+		NIMBUSCD = 25
 		SUPERCHARGECD = 500
 		SUPERCHARGERATE = 0.1
 		ATOMIZERRATE = 0.1

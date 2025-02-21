@@ -520,7 +520,7 @@ window "custom_buff_add"
 		border = line
 		saved-params = "is-checked"
 		text = "FINISH"
-		command = ".Custom_Buff_Done"
+		command = ".custom_buff_point_done \"add\""
 	elem "Points Remaining"
 		type = LABEL
 		pos = 195,1
@@ -966,7 +966,7 @@ window "custom_buff_mult"
 		border = line
 		saved-params = "is-checked"
 		text = "FINISH"
-		command = ".custom_buff_point_Done"
+		command = ".custom_buff_point_done \"mult\""
 	elem "Points Remaining"
 		type = LABEL
 		pos = 195,1
