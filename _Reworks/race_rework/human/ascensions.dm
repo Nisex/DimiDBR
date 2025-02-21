@@ -18,11 +18,13 @@ ascension
 			passives = list("Tenacity" = 1, "Adrenaline" = 0.5, "TechniqueMastery" = 0.5, "DemonicDurability" = 1)
 			new_anger_message = "grows desperate!"
 			on_ascension_message = "You learn the meaning of desperation..."
+			anger = 0.05
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
 			passives = list("Tenacity" = 1, "Adrenaline" = 1, "TechniqueMastery" = 0.5, "DemonicDurability" = 1)
 			new_anger_message = "grows determined!"
 			on_ascension_message = "You learn the meaning of responsibility..."
+			anger = 0.1
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/human/hero)
 					passives["UnderDog"] = 0.5
@@ -39,6 +41,7 @@ ascension
 			passives = list("Tenacity" = 1, "TechniqueMastery" = 1, "DemonicDurability" = 0.5)
 			new_anger_message="grows confident!"
 			on_ascension_message = "You learn the meaning of confidence..."
+			anger = 0.1
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/human/hero)
 					passives["UnderDog"] = 1

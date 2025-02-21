@@ -165,6 +165,9 @@
 			vars["[full2short[x]]Add"] = c_buff.statsadd.calc_stat(c_buff.statsadd.vars[x], TRUE)
 		
 		passives = list(c_buff.current_passives)
+	verb/Shapeshift()
+		set category = "Skills"
+		Trigger(usr)
 /obj/Skills/Buffs/SlotlessBuffs/Racial/Blend_In
 	Invisible = 22
 	ActiveMessage = "blends into their surroundings"
