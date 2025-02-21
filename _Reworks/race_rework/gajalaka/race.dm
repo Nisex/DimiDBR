@@ -25,6 +25,7 @@ race
 		skills = list(/obj/Skills/Projectile/Goblin_Greed)
 
 		onFinalization(mob/user)
+			user << "TENTATIVE WIP RACE, EXPECTED END OF NEXT WEEK (2/28/2025)"
 			user.EnhancedSmell=1
 			user.CyberizeMod = 0.5
 			user.contents += new/obj/Items/Wearables/Icon_67
