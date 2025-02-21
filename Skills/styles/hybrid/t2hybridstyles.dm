@@ -49,7 +49,10 @@
 		passives = list("Rusting" = 2, "SoulTug" = 1, "SpiritHand" = 1, "SpiritFlow" = 1, "CyberStigma" = 4, \
 			"Toxic" = 4, "Instinct" = 1, "Flow" = 1, "Hardening" = 1)
 		
-	Finisher="/obj/Skills/Queue/Finisher/Psycho_Barrage"
+		Finisher="/obj/Skills/Queue/Finisher/Psycho_Barrage"
+		verb/Psycho_Boxing()
+			set hidden=1
+			Trigger(usr)
 
 	Phoenix_Eye_Fist // unarmed + armed
 		SignatureTechnique=2
@@ -64,6 +67,9 @@
 		StyleDef = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Icy_Glare"
 		StyleActive = "Pheonix_Eye_Fist"
+		verb/Phoenix_Eye_Fist()
+			set hidden=1
+			Trigger(usr)
 
 
 

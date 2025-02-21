@@ -89,7 +89,6 @@
 		IconLock='spear.dmi'
 		FlickBlast=0
 		Cooldown=8
-		adjust(mob/p)
 
 
 	Stake
@@ -116,7 +115,6 @@
 		Variation=8
 		FlickBlast=0
 		Cooldown=6
-		adjust(mob/p)
 	Secret_Knives
 		AdaptRate=1
 		Blasts=4

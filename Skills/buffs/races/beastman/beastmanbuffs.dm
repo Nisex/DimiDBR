@@ -42,8 +42,6 @@
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Ripped // TODO: make the buffedaffected attackQ work correctly n make this scale
 	passives = list("PureReduction" = -0.5)
-/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Soul_Drained
-	passives = list()
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Thrill_of_the_Hunt
 	AlwaysOn = 1
 	NeedsPassword = 1

@@ -46,7 +46,7 @@ mob
 					HE.appearance_flags = KEEP_APART | RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 					HE.dir=src.dir
 					HE?.pixel_z=m?.pixel_z
-					if(istype(m, /mob))
+					if(ismob(m))
 						HE.Target=m
 					else
 						HE.loc=m

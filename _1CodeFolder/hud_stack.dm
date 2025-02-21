@@ -113,13 +113,7 @@ client/proc/remove_hud(id)
 		var/obj/thing = hud_ids[id]
 		screen -= hud_ids[id]
 		mob.contents -= hud_ids[id]
-		if(istype(thing, /obj/bar))
-			var/obj/bar/thing1 = thing
-			screen -= thing1.holder
-			screen -= thing1.barbg
-			del thing1.holder
-			del thing1.barbg
-			del thing1.meter
+		
 		del thing
 		hud_ids -= id
 
@@ -131,6 +125,15 @@ client/proc/remove_hud(id)
 	screen_loc = "LEFT,BOTTOM"
 	icon = 'smallbar.dmi'
 	var/tmp/client/client
+
+	Del()
+		. = ..()
+		var/obj/bar/thing1 = thing
+		screen -= thing1.holder
+		screen -= thing1.barbg
+		del thing1.holder
+		del thing1.barbg
+		del thing1.meter
 	New(client/_client, o, _x, _y)
 		name = "screen object"
 		client = _client
