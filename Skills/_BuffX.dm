@@ -1,5 +1,4 @@
-#define GOLD_DRAGON_FORMULA 1000000
-#define GAJALAKA_MULT 1.2
+
 #define ROUND_DIVIDE(N,N2) round(N/N2,0.15)
 #define PURE_GRIM_SCALING FALSE
 obj/Skills/Buffs
@@ -7251,7 +7250,7 @@ NEW VARIABLES
 				var/Choice
 				if(!usr.BuffOn(src))
 					var/modify_sword_num = 1
-					if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi) in usr) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in usr))
+					if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style) in usr) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in usr))
 						var/list/options = list("Primary","Secondary")
 						if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in usr)) options += "Tertiary"
 						switch(input("Which sword would you like to modify?") in options)
@@ -7318,7 +7317,7 @@ NEW VARIABLES
 				var/Choice
 				if(!usr.BuffOn(src))
 					var/modify_sword_num = 1
-					if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi) in src) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in src))
+					if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style) in src) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in src))
 						var/list/options = list("Primary","Secondary")
 						if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in src)) options += "Tertiary"
 						switch(input("Which sword would you like to modify?") in options)
@@ -10382,36 +10381,6 @@ NEW VARIABLES
 				Cooldown=1
 
 //Racial
-			The_Power_Of_Shiny // Gajalaka's Racial, The power of money
-				TextColor=rgb(95,60,95)
-				NeedsHealth = 50
-				TooMuchHealth = 75
-				HealthThreshold = 0.001
-				ActiveMessage = "gains the faint glitter of gold in their aura!"
-				OffMessage = "loses some of that goblin greed..."
-				Cooldown = 120
-				passives = list("PureDamage" = 1, "PureReduction" = 1)
-				adjust(mob/p)
-					if(altered) return
-					//var/asc = p.AscensionsAcquired
-					var/money
-					for(var/obj/Money/m in p.contents)
-						money = m.Level
-					var/baseMultMod = 1 + max(0,money/(GOLD_DRAGON_FORMULA * GAJALAKA_MULT))
-					passives = list("PureDamage" = p.AscensionsAcquired * 0.1 + (baseMultMod), "PureReduction" =  p.AscensionsAcquired * 0.1 + (baseMultMod))
-					PowerMult = baseMultMod
-					SpdMult = baseMultMod
-					StrMult = baseMultMod
-					OffMult = baseMultMod
-					DefMult = baseMultMod
-					EndMult = baseMultMod
-					ForMult = baseMultMod
-
-				Trigger(mob/User, Override = FALSE)
-					if(!User.BuffOn(src))
-						adjust(User)
-					..()
-
 			Dragon_Rage
 				NeedsHealth = 50
 				TooMuchHealth = 75
@@ -10497,7 +10466,7 @@ NEW VARIABLES
 						NeedsHealth = 10 + (5 * asc)
 						TooMuchHealth = 20 + (5 * asc)
 
-						var/baseMultMod = 1 + max(0,money/GOLD_DRAGON_FORMULA)
+						var/baseMultMod = 1 + max(0,money/glob.racials.GOLD_DRAGON_FORMULA)
 						PowerMult = baseMultMod
 						SpdMult = baseMultMod
 						StrMult = baseMultMod
@@ -10518,27 +10487,6 @@ NEW VARIABLES
 					OffMessage = "loses some of that sinner's greed..."
 					Cooldown = 120
 					adjust(mob/p)
-						if(altered) return
-						var/asc = p.AscensionsAcquired
-						var/money
-						for(var/obj/Money/m in p.contents)
-							money = m.Level
-						NeedsHealth = 10 + (5 * asc)
-						TooMuchHealth = 20 + (5 * asc)
-
-						var/baseMultMod = 1 + max(0,money/GOLD_DRAGON_FORMULA)
-						PowerMult = baseMultMod
-						SpdMult =baseMultMod
-						StrMult = baseMultMod
-						OffMult = baseMultMod
-						DefMult = baseMultMod
-						EndMult = baseMultMod
-						ForMult = baseMultMod
-
-					Trigger(mob/User, Override = FALSE)
-						if(!User.BuffOn(src))
-							adjust(User)
-						..()
 			Berserk
 				NeedsHealth=10
 				TooMuchHealth=15

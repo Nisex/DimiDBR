@@ -1025,7 +1025,27 @@
 
 /mob/var/Momentum = 0
 /mob/var/Fury = 0
-/mob/proc/handlePostDamage(mob/enemy)
+/mob/proc/handlePostDamage(mob/enemy, damage)
+	if(passive_handler["LeakCash"])
+		for(var/obj/Money/money in src.contents)
+			if(money.Level>0)
+				var/newX = 0
+				var/newY = 0
+				if(!glob.racials.CASHLEAKREMOVES)
+					newX = src.x + rand(-3, 3)
+					newY = src.y + rand(-3, 3)
+					for(var/i = 0, i < 10; i++)
+						var/turf/t = locate(newX,newY,src.z)
+						if(t.density)
+							if(i == 9) break
+							newX = src.x + rand(-3, 3)
+							newY = src.y + rand(-3, 3)
+							continue
+						else
+							break
+				var/obj/gold/gold = new()
+				gold.createPile(src, enemy, newX, newY, src.z, glob.racials.CASHLEAKREMOVES)
+				src << "You feel a need to go collect your coins before they're stolen!"
 	if(passive_handler.Get("Mortal Will"))
 		passive_handler.Increase("MortalStacks")
 		if(passive_handler.Get("MortalStacks") >= 6)
@@ -1035,18 +1055,19 @@
 			for(var/obj/Skills/Projectile/Comet_Spear/cp in src)
 				cp.adjust(src)
 				src.UseProjectile(cp)
-	var/momentum = passive_handler.Get("Momentum")
-	var/acu = enemy.passive_handler["Acupuncture"]
-	if(momentum)
-		if(acu)
-			if(prob(acu * glob.ACUPUNCTURE_BASE_CHANCE))
-				Momentum = clamp( Momentum - acu/glob.ACUPUNCTURE_DIVISOR, 0 , passive_handler["Relentlessness"] ? 100 : glob.MAX_MOMENTUM_STACKS)
-		else
-			if(prob(glob.BASE_MOMENTUM_CHANCE * momentum))
-				Momentum = clamp( round(Momentum + (1 + momentum/glob.MOMENTUM_DIVISOR)), 0 , passive_handler["Relentlessness"] ? 100 : glob.MAX_MOMENTUM_STACKS)
-	if(passive_handler["Fury"])
-		if(acu && prob(acu * glob.ACUPUNCTURE_BASE_CHANCE))
-			Fury = clamp( Fury - acu/glob.ACUPUNCTURE_DIVISOR, 0 , passive_handler["Relentlessness"] ? 100 : glob.MAX_FURY_STACKS)
-		else
-			if(prob(glob.BASE_FURY_CHANCE * passive_handler["Fury"]))
-				Fury = clamp(Fury + 1 + passive_handler["Fury"]/glob.FURY_DIVISOR, 0, passive_handler["Relentlessness"] ? 100 : glob.MAX_FURY_STACKS)
+	if(glob.MOMENTUM_PROCS_OFF_DAMAGE)
+		var/momentum = passive_handler.Get("Momentum")
+		var/acu = enemy.passive_handler["Acupuncture"]
+		if(momentum)
+			if(acu)
+				if(prob(acu * glob.ACUPUNCTURE_BASE_CHANCE))
+					Momentum = clamp( Momentum - acu/glob.ACUPUNCTURE_DIVISOR, 0 , passive_handler["Relentlessness"] ? 100 : glob.MAX_MOMENTUM_STACKS)
+			else
+				if(prob(glob.BASE_MOMENTUM_CHANCE * momentum))
+					Momentum = clamp( round(Momentum + (1 + momentum/glob.MOMENTUM_DIVISOR)), 0 , passive_handler["Relentlessness"] ? 100 : glob.MAX_MOMENTUM_STACKS)
+		if(passive_handler["Fury"])
+			if(acu && prob(acu * glob.ACUPUNCTURE_BASE_CHANCE))
+				Fury = clamp( Fury - acu/glob.ACUPUNCTURE_DIVISOR, 0 , passive_handler["Relentlessness"] ? 100 : glob.MAX_FURY_STACKS)
+			else
+				if(prob(glob.BASE_FURY_CHANCE * passive_handler["Fury"]))
+					Fury = clamp(Fury + 1 + passive_handler["Fury"]/glob.FURY_DIVISOR, 0, passive_handler["Relentlessness"] ? 100 : glob.MAX_FURY_STACKS)

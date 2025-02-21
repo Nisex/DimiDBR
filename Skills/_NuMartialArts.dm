@@ -239,63 +239,6 @@ obj
 					NoStaff=1
 
 //Signature Style T1
-					Sword_And_Shield
-						SignatureTechnique=1
-						Copyable=0
-						StyleEnd=1.3
-						StyleStr=1.15
-						StyleActive="Sword And Shield"
-						passives = list("Hardening" = 1, "Deflection" = 0.5)
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Champloo_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style",\
-						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon")
-						Finisher="/obj/Skills/Queue/Finisher/Behemoth_Typhoon"
-					Nito_Ichi//iaido + fencing
-						SignatureTechnique=1
-						NeedsSecondSword=1
-						Copyable=0
-						StyleOff=1.15
-						StyleSpd=1.3
-						StyleActive="Nito Ichi"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Secret_Knife_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu",\
-						"/obj/Skills/Buffs/NuStyle/FreeStyle/Soul_Crushing_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Arcane_Bladework_Style")
-						passives = list("BlurringStrikes", "DoubleStrike" = 1, "NeedsSecondSword" = 1)
-						DoubleStrike=1
-						Finisher="/obj/Skills/Queue/Finisher/Geo_de_Ray"
-						verb/Nito_Ichi()
-							set hidden=1
-							src.Trigger(usr)
-					Kunst_des_Fechtens//fencing + zornhau
-						SignatureTechnique=1
-						Copyable=0
-
-						StyleStr=1.3
-						StyleEnd=0.85
-						StyleOff=1.3
-						StyleActive="German Longsword"
-						passives = list("Zornhau" = 1)
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Champloo_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Butcher_Style",\
-						"/obj/Skills/Buffs/NuStyle/FreeStyle/Spirit_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Battle_Mage_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Ichimonji"
-						verb/Kendo_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Assassination_Style// iaido + swordless
-						SignatureTechnique=1
-						Copyable=0
-						passives = list("SwordPunching" = 1)
-						SwordPunching=1
-						StyleStr=1.15
-						StyleEnd=1.15
-						StyleSpd=1.15
-						NeedsSword=0
-
-						StyleActive="Assassination"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi"="/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu",\
-						"/obj/Skills/Buffs/NuStyle/FreeStyle/Resonance_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Blade_Singing_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Flying_Barcelona"
-						verb/Secret_Knife_Style()
-							set hidden=1
-							src.Trigger(usr)
 					Arcane_Bladework_Style
 						SignatureTechnique=2
 						Copyable=0
@@ -665,7 +608,7 @@ obj
 						MovingCharge=1
 						StyleActive="Soul Crushing"
 						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Spirit_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Shunko_Style",\
-						"/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi"="/obj/Skills/Buffs/NuStyle/SwordStyle/Arcane_Bladework_Style")
+						"/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Arcane_Bladework_Style")
 						Finisher="/obj/Skills/Queue/Finisher/Impact_Palm"
 						verb/Soul_Crushing_Style()
 							set hidden=1

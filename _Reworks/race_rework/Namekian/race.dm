@@ -14,8 +14,8 @@ race
 		defense = 1.25
 		speed = 1.25
 		anger = 1.5
-		imagination = 2
-		intellect = 1.5
+		imagination = 1.5
+		intellect = 1
 		learning = 1
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Queue/Infestation)
 		/* /obj/Skills/AutoHit/AntennaBeam */

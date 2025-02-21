@@ -16,6 +16,6 @@ race
 		defense = 2
 		force = 1.5
 		regeneration = 3
-		imagination = 2
+		imagination = 3
 		skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown)
 		passives = list("Adrenaline" = 1, "Innovation" = 1)

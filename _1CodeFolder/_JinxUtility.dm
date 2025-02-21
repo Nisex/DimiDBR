@@ -114,8 +114,7 @@ mob
 			// 		defender.MovementChargeBuildUp(val)
 			if(defender.passive_handler["Dim Mak"]>0)
 				defender.passive_handler.Increase("Dim Mak", val)
-			if(glob.MOMENTUM_PROCS_OFF_DAMAGE)
-				handlePostDamage(defender)
+			handlePostDamage(defender)
 			if(defender.VaizardHealth)
 				if(glob.SYMBIOTE_DMG_TEST && CheckSlotless("Symbiote Infection"))
 					val *= glob.SYMBIOTE_DMG_TEST

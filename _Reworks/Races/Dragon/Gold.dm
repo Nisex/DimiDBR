@@ -7,20 +7,24 @@ obj/gold
 	var/tmp/mob/sourceOfDropping
 	var/amount = 0
 
-	proc/createPile(mob/owner, mob/causer, _x,_y,_z)
+	proc/createPile(mob/owner, mob/causer, _x,_y,_z, removeOnLeak = FALSE)
 		loc = locate(owner.x, owner.y, owner.z)
 		alpha = 0
 		originalOwner = owner
 		sourceOfDropping = causer
 		for(var/obj/Money/m in originalOwner)
-			amount = rand(1,m.Level/(25/1+causer.AscensionsAcquired))
+			amount = rand(1,m.Level/(glob.racials.GAJACASHDROPDIVISOR-(1+causer.AscensionsAcquired * 10)))
+			amount = round(amount, 1)
 			m.Level -= amount
-		name = "[Commas(amount)] coins!"
-		flyingOutAnimation(_x, _y)
-		loc = locate(_x, _y, _z)
-		pixel_x = 0
-		pixel_y = 0
-		pixel_z = 0
+		if(removeOnLeak)
+			del src
+		else
+			name = "[Commas(amount)] coins!"
+			flyingOutAnimation(_x, _y)
+			loc = locate(_x, _y, _z)
+			pixel_x = 0
+			pixel_y = 0
+			pixel_z = 0
 	Cross(atom/obstacle)
 		..()
 		if(istype(obstacle, /mob/Players))

@@ -67,7 +67,7 @@
         OffMessage="comes back down to mortal level..."
     
 
-    Nito_Ichi
+    Nito_Ichi_Style
         IconLock='SweatDrop.dmi'
         IconApart=1
         StyleSpd=1.25

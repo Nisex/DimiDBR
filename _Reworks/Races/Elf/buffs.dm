@@ -29,7 +29,7 @@
         var/Choice
         if(!usr.BuffOn(src))
             var/modify_sword_num = 1
-            if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi) in usr) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in usr))
+            if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style) in usr) || (locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in usr))
                 var/list/options = list("Primary","Secondary")
                 if((locate(/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu) in usr)) options += "Tertiary"
                 switch(input("Which sword would you like to modify?") in options)
@@ -106,7 +106,7 @@
                         var/passive = input(p, "what passive") in TRUTH_PASSIVES_ASC_3
                         truthPassives += TRUTH_PASSIVES_ASC_3[passive]
                         truthApplied = 4
-    adjust(mob/p)
+    adjust(mob/p, )
         truthChoice(p)
         var/asc = p.AscensionsAcquired
         passives = list("SpiritSword" = (1 + (asc/2)) / 4, "MagicSword" = 1)

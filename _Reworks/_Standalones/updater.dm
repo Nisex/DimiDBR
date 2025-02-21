@@ -116,7 +116,7 @@ update
 				if(p.race.ascensions[4].choiceSelected == /ascension/sub_ascension/high_faoroan/obliterate)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in p.contents)
 						tc.passives["Erosion"] = 0.25
-						tc.passives["Hellpower"] = 0.25
+						tc.passives["HellPower"] = 0.25
 				else if(p.race.ascensions[4].choiceSelected == /ascension/sub_ascension/high_faoroan/conquer)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/The_Crown/tc in p.contents)
 						tc.passives["Erosion"] = 0.25
