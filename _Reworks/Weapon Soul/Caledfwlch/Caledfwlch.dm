@@ -57,7 +57,7 @@ obj/Skills/AutoHit/True_Excalibur
 	HolyMod=4
 	Quaking=8
 	Divide=1
-	Preshockwave=1
+	PreShockwave=1
 	Shockwaves=1
 	Shockwave=1
 	ShockIcon='fevKiaiDS.dmi'
@@ -83,7 +83,7 @@ obj/Skills/AutoHit/True_Excalibur
 	TurfStrike=1
 	Shearing=15
 	Slow=1
-	Windup=1
+	WindUp=1
 	WindupIcon='Ripple Radiance.dmi'
 	WindupIconUnder=1
 	WindupIconX=-32

@@ -61,7 +61,7 @@
 			vis_contents += appear
 		Update()
 			mysticTicker()
-				
+
 
 	ftg
 		icon = 'kunai.dmi'
@@ -100,7 +100,7 @@
 	New(state)
 		icon_state = state
 
-		
+
 
 client/var/list/hud_ids = list()
 
@@ -113,7 +113,7 @@ client/proc/remove_hud(id)
 		var/obj/thing = hud_ids[id]
 		screen -= hud_ids[id]
 		mob.contents -= hud_ids[id]
-		
+
 		del thing
 		hud_ids -= id
 
@@ -128,12 +128,11 @@ client/proc/remove_hud(id)
 
 	Del()
 		. = ..()
-		var/obj/bar/thing1 = thing
-		screen -= thing1.holder
-		screen -= thing1.barbg
-		del thing1.holder
-		del thing1.barbg
-		del thing1.meter
+		client.screen -= holder
+		client.screen -= barbg
+		del holder
+		del barbg
+		del meter
 	New(client/_client, o, _x, _y)
 		name = "screen object"
 		client = _client
@@ -151,7 +150,7 @@ client/proc/remove_hud(id)
 		client.screen+=barbg
 		meter.animateBar(-32,4)
 	Update()
-		
+
 		var/val = client.mob.vars["[linked_var]"]
 		if(linked_var == "HotnCold")
 			if(holder.alpha == 0 || barbg.alpha == 0)
@@ -166,7 +165,7 @@ client/proc/remove_hud(id)
 					animate(holder, alpha = 255, time = 2)
 					animate(barbg, alpha = 255, time = 2)
 				barbg.maptext = "[CHAT_STYLE][val]"
-				var/gap = 32 - glob.vars["MAX_[uppertext(linked_var)]_STACKS"] 
+				var/gap = 32 - glob.vars["MAX_[uppertext(linked_var)]_STACKS"]
 				if(val > glob.vars["MAX_[uppertext(linked_var)]_STACKS"] )
 					meter.animateBar(clamp(val/3, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
 				else
@@ -184,7 +183,7 @@ client/proc/remove_hud(id)
 /mob/proc/hudIsLive(option, path, toss_obj,var_callback)
 	if(client.hud_ids[option])
 		return TRUE
-	else 
+	else
 		client.add_hud(option, new path(client, option, BAR_X_LOCS[option], BAR_Y_LOCS[option], toss_obj, var_callback))
 		return FALSE
 
