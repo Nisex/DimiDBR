@@ -9,7 +9,7 @@ var/list/SkillTreeList=list("BlastT1"=list(),"BlastT2"=list(),"BlastT3"=list(), 
 proc/MakeSkillTreeList()
 	for(var/x in SkillTree)
 		var/Tier = null
-		if(!(x in list("UnarmedStyles","ElementalStyles","SpiritStyles","SwordStyles")))
+		if(!(x in list("UnarmedStyles","ElementalStyles","SpiritStyles","SwordStyles", "UnarmedStylesT1", "UnarmedStylesT2", "UnarmedStylesT3", "UnarmedStylesT4", "SwordStylesT1", "SwordStylesT2", "SwordStylesT3", "SwordStylesT4")))
 			Tier = copytext(x,length(x), 0)
 		for(var/z in SkillTree[x])
 			var/obj/SkillTreeObj/s = new
@@ -20,6 +20,7 @@ proc/MakeSkillTreeList()
 					namez=copytext(namez, pos+1)
 			s.path=z
 			s.icon_state = lowertext(namez)
+
 			if(Tier)
 				switch(Tier)
 					if("1")
@@ -237,27 +238,27 @@ var/list/SkillTree=list(
 			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lucha_Libre_Style"=20
 ),
 "UnarmedStylesT1"=list(
-	"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Red_Cyclone_Style"=9999,
-					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Wushu_Style"=9999,
-					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Black_Leg_Style"=9999,
-					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Wing_Chun_Style"=9999,
-					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Tai_Chi_Style"=9999
+	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Red_Cyclone_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wing_Chun_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tai_Chi_Style"=9999
 					),
 "UnarmedStylesT2"=list(
-	"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Ubermensch_Style"=9999,
-					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Mantis_And_Crane_Style"=9999,
-					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Long_Fist_Style"=9999,
-					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Divine_Arts_of_The_Heavenly_Demon"=9999
+	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ubermensch_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Mantis_And_Crane_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Long_Fist_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon"=9999
 					),
 "UnarmedStylesT3"=list(
-	"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Flying_Thunder_God"=9999,
-					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Jeet_Kune_Do"=9999,
-					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/All_Star_Wrestling"=9999
+	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Flying_Thunder_God"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Jeet_Kune_Do"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/All_Star_Wrestling"=9999
 					),
 "UnarmedStylesT4"=list(
-	"/obj/Skills/Buffs/NuStyle/UnarmedStyles/God_Fist"=9999,
-					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Ten_Directions"=9999,
-					"/obj/Skills/Buffs/NuStyle/UnarmedStyles/Giga_Galaxy_Wrestling"=9999
+	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/God_Fist"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ten_Directions"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Giga_Galaxy_Wrestling"=9999
 					),
 
 "SpiritStyles"=list(
