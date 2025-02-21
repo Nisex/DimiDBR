@@ -114,7 +114,7 @@ augments -
 	proc/adjust_custom_buff(mob/p, obj/Skills/Buffs/parent_buff)
 		parent_buff.being_editted = TRUE
 		selecting_aguments = TRUE
-		select_augments(p)
+		select_augment(p)
 		while(selecting_aguments)
 			sleep(1)
 		statsadd.reset(list(0,0,0,0,0,0))
