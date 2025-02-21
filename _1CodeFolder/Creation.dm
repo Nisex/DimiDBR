@@ -848,13 +848,14 @@ client
 			if(fexists("Saves/Players/[src.ckey]"))
 				var/savefile/F=new("Saves/Players/[src.ckey]")
 				F["mob"] >> src.mob
-				if(mob.isRace(MAJIN))
-					if(!mob.majinPassive)
-						mob.majinPassive = new(mob)
-					if(!mob.majinAbsorb)
-						mob<<"lacking majin absorb"
-						mob.majinAbsorb = new()
-						mob.findAlteredVariables()
+				if(mob)
+					if(mob.isRace(MAJIN))
+						if(!mob.majinPassive)
+							mob.majinPassive = new(mob)
+						if(!mob.majinAbsorb)
+							mob<<"lacking majin absorb"
+							mob.majinAbsorb = new()
+							mob.findAlteredVariables()
 
 				var/donator/d_info = donationInformation.getDonator(key = src.key)
 				var/supporter/s_info = donationInformation.getSupporter(key = src.key)
