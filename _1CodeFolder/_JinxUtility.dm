@@ -3,7 +3,7 @@
 
 /globalTracker/var/DEBUFF_EFFECTIVENESS = 0.004
 
-
+/mob/var/AbsorbingDamage = 0
 
 mob
 	proc
@@ -738,7 +738,7 @@ mob
 			if(passive_handler["Grit"])
 				AdjustGrit("add", val*glob.racials.GRITMULT)
 			if(Absorb)
-				passive_handler.Increase("AbsorbingDamage", val)
+				AbsorbingDamage += val
 			if(isRace(MAJIN))
 				if(majinPassive != null)
 					majinPassive.tryDropBlob(src)

@@ -143,9 +143,10 @@ mob/Players
 			glob.updatePlayer(src)
 		if(!updateVersion)
 			var/updateversion = "/update/version[glob.UPDATE_VERSION]"
-			updateVersion = new updateversion
-			if(isRace(ANDROID) && updateVersion.version == 2)
-				updateVersion.updateMob(src)
+			if(ispath(updateversion))
+				updateVersion = new updateversion
+				if(isRace(ANDROID) && updateVersion.version == 2)
+					updateVersion.updateMob(src)
 		if(RPPSpendable + RPPSpent > RPPCurrent)
 			AdminMessage("[src] has more rpp than they should.")
 		
@@ -1035,9 +1036,9 @@ mob/proc
 					src.PotentialLastDailyGain=glob.progress.DaysOfWipe-1
 				src.RewardsLastGained=glob.progress.DaysOfWipe-1
 				//set these to wipe start so that the login code will give them their rewards and allow them to grind potentialz
-			//information.setPronouns(TRUE)
+			information.setNationality(src)
+			information.setPronouns(TRUE)
 			killed_AI = list()
-
 			// information.pickFaction(src)
 			if(key in VuffaKeys)
 				giveVuffaMoment()

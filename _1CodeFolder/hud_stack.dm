@@ -143,7 +143,10 @@ client/proc/remove_hud(id)
 		holder.screen_loc = "1:[_x],1:[_y]"
 		barbg = new(o)
 		barbg.screen_loc = "1:[_x],1:[_y-7]"
-		barbg.maptext = "[CHAT_STYLE][client.mob.vars["[linked_var]"]]"
+		if(linked_var == "Grit")
+			barbg.maptext = "[CHAT_STYLE][client.mob.passive_handler["[linked_var]"]]"
+		else
+			barbg.maptext = "[CHAT_STYLE][client.mob.vars["[linked_var]"]]"
 		barbg.maptext_y = 16
 		barbg.maptext_width = 62
 		client.screen+=holder

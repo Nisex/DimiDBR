@@ -170,12 +170,12 @@ mob/Players/verb
 				src<<A.desc
 		else if(ismob(A))
 			usr<<"This is: [A]"
-			/*
+			
 			var/mob/person = A
 			if(client.getPref("seePronouns"))
 				usr<<person.information.getInformation(A, TRUE)
 			else
-				usr<<person.information.getInformation(A, FALSE)*/
+				usr<<person.information.getInformation(A, FALSE)
 			if(A:transActive())
 				usr << browse(A:ReturnProfile(A:transActive()), "window=[A];size=900x650")
 			else if(locate(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form, A.contents))

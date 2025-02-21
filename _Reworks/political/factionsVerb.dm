@@ -31,7 +31,7 @@
         return
     var/choice = input(src, "Pick a faction", "Faction") in FACTIONS
     b.information.setFaction(choice)
-/*
+
 /mob/Admin3/verb/changeNationalities(mob/b in players)
     set name = "Change Nationalities"
     if(!b.client)
@@ -45,7 +45,7 @@
     if(!b.client)
         return
     b.information.setNationality(b)
-*/
+
 /mob/verb/customizePU()
     set name = "Customize: PU Charging"
     set category = "Other"

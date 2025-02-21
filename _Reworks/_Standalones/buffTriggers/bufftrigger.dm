@@ -8,7 +8,7 @@
     var/trigger_ref// flexibility
     var/atom/reference_this // what to reference
     var/reference_this_var // yawn
-    var/set_to
+    var/set_to = 0
     proc/init(mob/p, obj/Skills/Buffs/SlotlessBuffs/b)
     New(mob/p, obj/Skills/Buffs/SlotlessBuffs/b)
         init(p, b)
@@ -17,14 +17,24 @@
         if(ispath(text2path(triggerThing)))
             p.throwFollowUp(triggerThing)
         if(set_to)
-            reference_this?:vars[reference_this_var][trigger_ref] = set_to
+            world<<"here is the set_to"
+            if(reference_this_var)
+                reference_this.vars[reference_this_var][trigger_ref] = set_to
+            else
+                reference_this.vars[trigger_ref] = set_to
     proc/checkTrigger(mob/p, obj/Skills/Buffs/SlotlessBuffs/b)
         if(trigger)
             switch(trigger_when)
                 if("EqualOrMore")
-                    var/thing2compare = reference_this?:vars[reference_this_var][trigger_ref]
+                    var/thing2compare
+                    if(reference_this_var)
+                        thing2compare = reference_this?:vars[reference_this_var][trigger_ref]
+                    else
+                        thing2compare = reference_this.vars[trigger_ref]
                     if(thing2compare >= trigger_at)
                         trigger(p, b, trigger)
                         if(set_to)
-                            reference_this?:vars[reference_this_var][trigger_ref] = set_to
-                            world<<"reference_this?:vars[reference_this_var][trigger_ref]"
+                            if(reference_this_var)
+                                reference_this.vars[reference_this_var][trigger_ref] = set_to
+                            else
+                                reference_this.vars[trigger_ref] = set_to
