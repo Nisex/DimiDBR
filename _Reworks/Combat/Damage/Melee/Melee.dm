@@ -172,7 +172,7 @@
 			devaCounter=0
 			if(passive_handler["AirBend"])
 				last_style_effect = world.time
-	if(passive_handler["Nimbus"] && last_nimbus + glob.NIMBUSCD - (passive_handler["Nimbus"]) < world.time)
+	if(passive_handler["Nimbus"] && last_nimbus + glob.NIMBUSCD - (passive_handler["Nimbus"]*10) < world.time)
 		if(HasTarget() && TargetInRange(glob.NIMBUSRANGE + passive_handler["Nimbus"]))
 			if(CanDash())
 				is_dashing++
@@ -193,9 +193,9 @@
 			Comboz(forcewarp)
 
 
-	// 				WARPING END				//
+		//	WARPING END	//
 
-	// 				DELAY	 				//
+		//	DELAY	//
 
 	delay = adjustDelay(delay)
 

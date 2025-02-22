@@ -187,6 +187,7 @@
 	Speed=1.5
 	IconChargeOverhead=1
 	IconLock = 'Elec Ball Blue.dmi'
+	Cooldown = 60
 
 	verb/Fox_Fire_Barrage()
 		set category = "Skills"

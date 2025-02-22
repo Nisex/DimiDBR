@@ -39,6 +39,7 @@
 
 	adjust(mob/enemy, mob/attacker)
 		if(!attacker) return
+		IconState = "[total_stacks]"
 		TimerLimit = 25 + (5 * attacker.AscensionsAcquired)
 		max_stacks = glob.racials.SOULDRAINMAX + attacker.AscensionsAcquired
 		passives = list("Drained" = glob.racials.SOULDRAINPER * total_stacks)
@@ -57,6 +58,7 @@
 		
 	adjust(mob/enemy, mob/attacker)
 		if(!attacker) return
+		IconState = "[total_stacks]"
 		TimerLimit = 25 + (5 * attacker.AscensionsAcquired)
 		max_stacks = glob.racials.MARKEDPREYBASESTACKS + attacker.AscensionsAcquired
 		endAdd = -glob.racials.MARKEDPREYENDREDUC * total_stacks
