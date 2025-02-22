@@ -1,1 +1,0 @@
-/obj/Skills/Projectile/Racial/Fox_Fire_Barrage

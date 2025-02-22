@@ -99,7 +99,7 @@ characterInformation*/
 
 //TODO: somebody else can do examine
 /mob/var/hidingInformation = FALSE
-/mob/verb/Hide_Informaiton()
+/mob/verb/Hide_Information()
     set category = "Other"
     hidingInformation = !hidingInformation
     src << "The ID Card is [hidingInformation ? "not hidden." : "hidden"]"
@@ -140,16 +140,17 @@ characterInformation/proc/getInformation(mob/p, pronouns)
 //     else
     if(pronouns)
         var/theyString = p.subjectpronoun() == "They" ? "use" : "uses"
+        var/theyString2 = p.subjectpronoun() == "They" ? "are" : "is"
         msg={"
 <font face='courier'><font color='#color'>[p.name]'s ID Card is visable.
 <font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font>
 [p.subjectpronoun()] [theyString] [p.subjectpronoun()]/[p.possessivepronoun()]
-[p.subjectpronoun()] are of [nationality] [secondNationality ? "and [secondNationality] nationality." : "nationality."]"}
+[p.subjectpronoun()] [theyString2] [nationality] [secondNationality ? "and [secondNationality] nationality." : "nationality."]"}
     else
         msg={"
 <font face='courier'><font color='#color'>[p.name]'s ID Card is visable.
 <font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font>
-[p.subjectpronoun()] are of [nationality] [secondNationality ? "and [secondNationality] nationality." : "nationality."]
+[p.subjectpronoun()] is of [nationality] [secondNationality ? "and [secondNationality] nationality." : "nationality."]
 "}
 
     return msg

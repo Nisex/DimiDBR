@@ -85,6 +85,6 @@ race
 				
 				if("Fox Fire")
 					p.Attunement = "Fox Fire"
-					p.passive_handler.Set("Heavy Attack" , "Fox Fire")
+					p.passive_handler.passives["Heavy Strike"] = "Fox Fire"
 					p.AddSkill(new/obj/Skills/Projectile/Racial/Fox_Fire_Barrage)
 

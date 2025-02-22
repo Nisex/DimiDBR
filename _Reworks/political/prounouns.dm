@@ -3,10 +3,14 @@
 
 /mob/proc/subjectpronoun()
 	if(!client) return "It"
+	if(!information.pronouns[1])
+		information.setDefaultPronouns()
 	return information.pronouns[1]
 
 /mob/proc/objectpronoun()
 	if(!client) return "It"
+	if(!information.pronouns[2])
+		information.setDefaultPronouns()
 	return information.pronouns[2]
 
 /mob/proc/possessivepronoun()
@@ -22,8 +26,16 @@
 
 
 characterInformation
-	var/list/pronouns = list()
+	var/list/pronouns = list("He","Him")
 	var/seePronouns = TRUE
+	proc/setDefaultPronouns()
+		switch(usr.Gender)
+			if("Male")
+				pronouns = list(SUBJECT_PRONOUNS[1],OBJECT_PRONOUNS[1])
+			if("Female")
+				pronouns = list(SUBJECT_PRONOUNS[2],OBJECT_PRONOUNS[2])
+			if("neuter")
+				pronouns = list("It","It")
 	proc/setPronouns(firsttime)
 		if(usr.client.getPref("usePronouns") == 1)
 			if(firsttime)
@@ -51,6 +63,14 @@ characterInformation
 				var/subject = input(usr,"What is your subject pronoun? (He, She, They, It)") in SUBJECT_PRONOUNS
 				var/object = input(usr,"What is your object pronoun? (Him, Her, Them, It)") in OBJECT_PRONOUNS
 				pronouns = list(subject, object)
+		else
+			switch(usr.Gender)
+				if("Male")
+					pronouns = list(SUBJECT_PRONOUNS[1],OBJECT_PRONOUNS[1])
+				if("Female")
+					pronouns = list(SUBJECT_PRONOUNS[2],OBJECT_PRONOUNS[2])
+				if("neuter")
+					pronouns = list("It","It")
 	proc/seeOthersPronouns()
 		usr.client.setPref("seePronouns", !usr.client.prefs.seePronouns)
 		usr<<"[usr.client.getPref("seePronouns") ? "You can now see other people's pronouns." : "You can no longer see other people's pronouns."]"

@@ -38,9 +38,11 @@
 		OMsg(defender, "[attacker] drains [defender]'s life force.")
 
 	adjust(mob/enemy, mob/attacker)
+		if(!attacker) return
 		TimerLimit = 25 + (5 * attacker.AscensionsAcquired)
 		max_stacks = glob.racials.SOULDRAINMAX + attacker.AscensionsAcquired
 		passives = list("Drained" = glob.racials.SOULDRAINPER * total_stacks)
+		OMsg(enemy, "[attacker] inflicts [enemy] with a draining spell...")
 	
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Marked_Prey
 	HealthDrain = 0.005
@@ -54,6 +56,7 @@
 		OMsg(defender, "[attacker] starts to hunt [defender].")
 		
 	adjust(mob/enemy, mob/attacker)
+		if(!attacker) return
 		TimerLimit = 25 + (5 * attacker.AscensionsAcquired)
 		max_stacks = glob.racials.MARKEDPREYBASESTACKS + attacker.AscensionsAcquired
 		endAdd = -glob.racials.MARKEDPREYENDREDUC * total_stacks

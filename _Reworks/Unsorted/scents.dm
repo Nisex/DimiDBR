@@ -2,7 +2,7 @@
 /var/list/scents = list(
     "HUMAN" = list("Sweat", "Gamer Musk", "Flowery", "Cologne"), \
     "NAMEKIAN" = list("Grass", "Forest", "Spices"), \
-    "GAJALAKA" = list("Dirt", "Gold", "Musky", "Greed"), \
+    "Chakardi" = list("Money", "Gold", "Greed"), \
     "ELVES" = list("Society", "Rich", "Noble","Royalty"), \
     "SAIYAN" = list("Musk", "Animalistic", "Sweaty", "Unbathed"), \
     "MAKYO" = list("Garlic", "Feet", "Alcohol" ), \

@@ -1,4 +1,4 @@
-#define WIPE_TOPIC "https://docs.google.com/document/d/12IdAaHcVhbcWBK-U7XKyUBE3wb3PeyWpmfjl_xbJlUs/edit?usp=drivesdk"
+#define WIPE_TOPIC "https://docs.google.com/document/d/1EuMHH0eGPEpUIb6uMGQcLJAF20HMjPX5CXb_zMVI388/edit?usp=sharing"
 #define DISCORD_INVITE "https://discord.gg/NF6S4xwnKy"
 #define PATREON_LINK "https://patreon.com/jordanzoSupport"
 #define KO_FI_LINK "https://ko-fi.com/boberjones"
@@ -859,6 +859,8 @@ client
 
 				var/donator/d_info = donationInformation.getDonator(key = src.key)
 				var/supporter/s_info = donationInformation.getSupporter(key = src.key)
+				if(length(mob.information.pronouns) < 1 || !mob.information.pronouns)
+					mob.information.setPronouns(TRUE)
 				var/alreadydisplayed = FALSE
 				if(d_info)
 					if(d_info.getTier() >= 2)

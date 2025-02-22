@@ -13,7 +13,7 @@ proc/isAChild(typePath, parentPath)
         s:Activate(src)
 
 /mob/proc/findOrAddSkill(path) // find it, regardless
-    var/obj/Skills/s 
+    var/obj/Skills/s = null 
     if(ispath(path))
         s = FindSkill(path)
         if(!s)
@@ -36,7 +36,7 @@ proc/isAChild(typePath, parentPath)
         AttackQueue.Mastery++
         for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/s in SlotlessBuffs)
             s.Timer = 0
-    if(istype(AttackQueue?:type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/What_Must_Be_Done))
+    if(istype(AttackQueue, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/What_Must_Be_Done))
         if(SlotlessBuffs["What Must Be Done"])
             SlotlessBuffs["What Must Be Done"].Mastery++
             SlotlessBuffs["What Must Be Done"].TimerLimit+=300
