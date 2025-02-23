@@ -2137,31 +2137,10 @@ mob
 
 			if(src.AttackQueue.BuffAffected)
 				var/path=text2path(src.AttackQueue.BuffAffected)
-				var/obj/Skills/Buffs/S=new src.AttackQueue.BuffAffected
-				var/AlreadyBuffed=0
-				for(var/obj/Skills/SP in P)
-					if(SP.type==S.type)
-						AlreadyBuffed=1
-						S = SP
-						break
-				if(!AlreadyBuffed)
-					var/BuffFound=0
-					for(var/obj/Skills/Ssrc in src)
-						if(Ssrc.type==S.type)
-							BuffFound=1
-							var/list/DenyVars=list("client", "key", "loc", "x", "y", "z", "type", "locs", "parent_type", "verbs", "vars", "contents", "Transform", "appearance")
-							for(var/x in Ssrc.vars)
-								if(x in DenyVars)
-									continue
-								S.vars[x]=Ssrc.vars[x]
-							break
-					if(!BuffFound)
-						src.AddSkill(new path)
-					S.Password=src?:UniqueID
-					P.AddSkill(S)
-				if(S.type == /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Death_Mark)
+				var/obj/Skills/Buffs/S = P.findOrAddSkill(path)
+				S.Password=P.name
+				if(istype(S, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Death_Mark))
 					S.adjust(StyleBuff.SignatureTechnique * 15, StyleBuff.SignatureTechnique)
-				S.Password=src?:UniqueID
 
 			if(src.AttackQueue.Projectile)
 				var/path=text2path(src.AttackQueue.Projectile)

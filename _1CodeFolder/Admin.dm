@@ -560,6 +560,9 @@ mob/Admin3/verb
 		usr:Edit(m.race)
 		for(var/ascensions/a in m.race.ascensions)
 			usr:Edit(a)
+	editInformation(mob/Players/m in players)
+		set category = "Admin"
+		usr:Edit(m.information)
 
 	Tech_Unlock(mob/Players/m in players)
 		set category="Admin"

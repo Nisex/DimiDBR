@@ -12,6 +12,9 @@ var/knowledgePaths/magic/list/MagicTree = list()
 	var/list/buyList = list()
 	var/int = Intelligence
 	var/imag = Imagination
+	if(passive_handler["Spiritual Tactician"])
+		imag = Imagination * (glob.racials.SPIRITTACTMULT)
+		int = imag
 	switch(pathType)
 		if("Magic")
 			if(Imagination == 0)
@@ -24,7 +27,7 @@ var/knowledgePaths/magic/list/MagicTree = list()
 						int = Imagination
 				if(int < 0.5)
 					int = 0.5
-				theCost /= Intelligence // can only increase it by half, so majins dont cry
+				theCost /= int // can only increase it by half, so majins dont cry
 			if(passive_handler["Spiritual Tactician"])
 				if(Imagination < Intelligence)
 					imag = Intelligence
@@ -35,6 +38,8 @@ var/knowledgePaths/magic/list/MagicTree = list()
 				fillMagicTree()
 		if("Technology")
 			theCost = glob.TECH_BASE_COST / int
+			if(glob.MAGIC_INTELL_MATTERS && passive_handler["Spiritual Tactician"])
+				theCost /= imag
 			if(theCost < 1)
 				theCost = 1
 			if(length(TechnologyTree) < 1)

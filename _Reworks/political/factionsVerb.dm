@@ -107,7 +107,7 @@ characterInformation*/
 
 characterInformation/proc/getInformation(mob/p, pronouns)
     if(p.hidingInformation)
-        return "[p.subjectpronoun()] has no ID Card"
+        return "[p.subjectpronoun() == "They" ? "They have" : "[p.subjectpronoun()] has"] no ID Card"
     var/msg = ""
     // if(rankingNumber == "ERROR")
     //     rankingNumber = num2text(rand(1000,9001))
@@ -144,7 +144,7 @@ characterInformation/proc/getInformation(mob/p, pronouns)
         msg={"
 <font face='courier'><font color='#color'>[p.name]'s ID Card is visable.
 <font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font>
-[p.subjectpronoun()] [theyString] [p.subjectpronoun()]/[p.possessivepronoun()]
+[p.subjectpronoun()] [theyString] [pronouns[1]]/[pronouns[2]]
 [p.subjectpronoun()] [theyString2] [nationality] [secondNationality ? "and [secondNationality] nationality." : "nationality."]"}
     else
         msg={"

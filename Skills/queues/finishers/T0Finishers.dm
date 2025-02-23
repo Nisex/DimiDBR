@@ -154,3 +154,12 @@
         BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Chilled"
         HitMessage="crashes down like a wave with a Water-empowered wheel kick!"
         FollowUp = "/obj/Skills/AutoHit/Azure_Dragon_Palm"
+    
+
+    Acid_Rain
+        DamageMult = 1.5
+        Toxic = 25
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Poison_Fist"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Poisoned"
+        HitMessage="brings down the acid rain!"
+        FollowUp = "/obj/Skills/AutoHit/Toxic_Wheel"

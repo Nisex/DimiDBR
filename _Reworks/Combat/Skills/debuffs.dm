@@ -10,8 +10,8 @@
 	proc/add_stack(mob/p, mob/dealer)
 		if(total_stacks + 1 < max_stacks)
 			total_stacks++
-			Trigger(p, TRUE)
-			adjust(p)
+			if(p.BuffOn(src))
+				Trigger(p, TRUE)
 			Trigger(p, TRUE)
 		else
 			// max stacks
@@ -30,6 +30,8 @@
 		IconLock = icon
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Soul_Drained
 	TimerLimit = 30
+	AlwaysOn = 0
+	NeedsPassword = 0
 	IconLock='drained.dmi'
 	max_stacks = 4
 	do_effect(mob/defender, mob/attacker)
@@ -37,28 +39,28 @@
 		defender.LoseHealth((total_stacks * glob.racials.SOULDRAINHEAL)/2)
 		OMsg(defender, "[attacker] drains [defender]'s life force.")
 
-	adjust(mob/enemy, mob/attacker)
-		if(!attacker) return
+	adjust(mob/attacker)
 		IconState = "[total_stacks]"
 		TimerLimit = 25 + (5 * attacker.AscensionsAcquired)
 		max_stacks = glob.racials.SOULDRAINMAX + attacker.AscensionsAcquired
 		passives = list("Drained" = glob.racials.SOULDRAINPER * total_stacks)
-		OMsg(enemy, "[attacker] inflicts [enemy] with a draining spell...")
 	
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Marked_Prey
 	HealthDrain = 0.005
 	TimerLimit = 30
+	AlwaysOn = 0
+	NeedsPassword = 0
 	IconLock='marked.dmi'
+	IconState = "1"
 	max_stacks = 4
 	do_effect(mob/defender, mob/attacker)
-		var/obj/Skills/s = defender.findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Thrill_of_the_Hunt)
-		s.adjust(defender)
-		s.Password = defender.name
+		var/obj/Skills/s = attacker.findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Thrill_of_the_Hunt)
+		s.adjust(attacker)
+		s.Password = attacker.name
 		OMsg(defender, "[attacker] starts to hunt [defender].")
 		
-	adjust(mob/enemy, mob/attacker)
-		if(!attacker) return
-		IconState = "[total_stacks]"
+	adjust(mob/attacker)
+		IconState = num2text(total_stacks)
 		TimerLimit = 25 + (5 * attacker.AscensionsAcquired)
 		max_stacks = glob.racials.MARKEDPREYBASESTACKS + attacker.AscensionsAcquired
 		endAdd = -glob.racials.MARKEDPREYENDREDUC * total_stacks

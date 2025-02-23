@@ -5,11 +5,14 @@ var/list/SkillTreeList=list("BlastT1"=list(),"BlastT2"=list(),"BlastT3"=list(), 
 "UnarmedT1"=list(),"UnarmedT2"=list(),"UnarmedT3"=list(),"UnarmedT4"=list(), "UnarmedT5" = list(),\
 "UnarmedStyles"=list(),"UnarmedStylesT1"=list(), "UnarmedStylesT2"=list(),"UnarmedStylesT3"=list(), "UnarmedStylesT4"=list(), \
 "ElementalStyles"=list(),"SpiritStyles"=list(),"SwordStyles"=list(), \
-"SwordStylesT1"=list(), "SwordStylesT2"=list(),"SwordStylesT3"=list(), "SwordStylesT4"=list() )
+"SwordStylesT1"=list(), "SwordStylesT2"=list(),"SwordStylesT3"=list(), "SwordStylesT4"=list(), \
+"ElementalStylesT1"=list(), "ElementalStylesT2"=list(),"ElementalStylesT3"=list(), "ElementalStylesT4"=list() )
 proc/MakeSkillTreeList()
 	for(var/x in SkillTree)
 		var/Tier = null
-		if(!(x in list("UnarmedStyles","ElementalStyles","SpiritStyles","SwordStyles", "UnarmedStylesT1", "UnarmedStylesT2", "UnarmedStylesT3", "UnarmedStylesT4", "SwordStylesT1", "SwordStylesT2", "SwordStylesT3", "SwordStylesT4")))
+		if(!(x in list("UnarmedStyles","ElementalStyles", "ElementalStylesT1", "ElementalStylesT2", \
+		"ElementalStylesT3","SpiritStyles","SwordStyles", "UnarmedStylesT1", "UnarmedStylesT2", \
+		"UnarmedStylesT3", "UnarmedStylesT4", "SwordStylesT1", "SwordStylesT2", "SwordStylesT3", "SwordStylesT4")))
 			Tier = copytext(x,length(x), 0)
 		for(var/z in SkillTree[x])
 			var/obj/SkillTreeObj/s = new
@@ -272,7 +275,23 @@ var/list/SkillTree=list(
 			"/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"=20,
 			"/obj/Skills/Buffs/NuStyle/MysticStyle/Plague_Bringer"=20
 ),
-
+"ElementalStylesT1"=list(
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"=9999
+),
+"ElementalStylesT2"=list(
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma_Style"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard_Bringer"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold"=9999
+),
+"ElementalStylesT3"=list(
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Oblivion_Storm"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Annihilation"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Omnimancer"=9999
+),
 "SwordStyles"=list(
 			"/obj/Skills/Buffs/NuStyle/SwordStyle/Ittoryu_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/SwordStyle/Fencing_Style"=20,

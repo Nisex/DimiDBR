@@ -247,6 +247,7 @@ mob
 //				if(Control) return TRUE
 				//if(!Allow_Move()) return FALSE
 				if(move_disabled || passive_handler["Snared"]>0)
+					world<<"SNARE IS CURRENTLY [passive_handler["Snared"]]"
 					return FALSE
 				return TRUE
 
@@ -288,10 +289,10 @@ mob
 
 				if(dir_x)
 					if(prob(src.Confused) || passive_handler.Get("Manic") ? prob(passive_handler.Get("Manic") * 5) : 0)
-						dir_x = pick(DIRS)
+						dir_x = pick(DIRSX)
 					if(dir_y)
 						if(prob(src.Confused) || passive_handler.Get("Manic") ? prob(passive_handler.Get("Manic") * 5) : 0)
-							dir_y = pick(DIRS)
+							dir_y = pick(DIRSY)
 
 						//	If you don't want diagonal steps broken in two use this line.
 						if(src.Beaming!=2&&!src.Stasis&&!src.Frozen&&!src.Launched&&!src.Stunned&&!src.PoweringUp)
@@ -307,7 +308,7 @@ mob
 						return 1
 					else
 						if(prob(src.Confused) || passive_handler.Get("Manic") ? prob(passive_handler.Get("Manic") * 5) : 0)
-							dir_x = pick(DIRS)
+							dir_x = pick(DIRSX)
 						if(src.Beaming!=2&&!src.Stasis&&!src.Frozen&&!src.Launched&&!src.Stunned&&!src.PoweringUp)
 							src.dir=dir_x
 						if(src.Attracted&&get_dist(src, src.AttractedTo)>=3)
@@ -319,7 +320,7 @@ mob
 				else
 					if(dir_y)
 						if(prob(src.Confused) || passive_handler.Get("Manic") ? prob(passive_handler.Get("Manic") * 5) : 0)
-							dir_y = pick(DIRS)
+							dir_y = pick(DIRSY)
 						if(src.Beaming!=2&&!src.Stasis&&!src.Frozen&&!src.Launched&&!src.Stunned&&!src.PoweringUp)
 							src.dir=dir_y
 						if(src.Attracted&&get_dist(src, src.AttractedTo)>=3)

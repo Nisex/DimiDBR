@@ -22,7 +22,7 @@ race
 		stats_per_class = list("Heart of The Beastman" = list(1.25, 1.5, 1, 1.25, 1, 1.5), "Monkey King" = list(1.25,1.25,1.25,1.25,1.25,1.25),\
 						"Unseen Predator" = list(1.5, 1, 1, 1.5, 1, 1.5), "Undying Rage" = list(1.5, 1, 1, 1, 1, 2), \
 						"Feather Cowl" = list(0.75, 2, 0.75, 1, 2, 1), "Feather Knife" = list(1.5, 0.75, 1, 1.5, 1, 1.75), \
-						"Spirit Walker" = list(1, 1, 1.5, 1.5, 1.5, 1), "Shapeshifter" = list(0.75,0.75,0.75,0.75,0.75,0.75), \
+						"Spirit Walker" = list(1, 1, 1.5, 1.5, 1.5, 1), "Shapeshifter" = list(1,1,1,1,1,1), \
 						"Trickster" = list(1, 1, 2, 1, 1.5, 1), "Fox Fire" = list(1.5, 1, 2, 1.5, 0.75, 0.75 ))
 		imagination = 1
 		var/MaxGrit = 0
@@ -47,7 +47,7 @@ race
 					var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Never_Fall/nf = new(p)
 					p.AddSkill(nf)
 				if("Unseen Predator")
-					p.passive_handler.Set("Heavy Strike" , "Unseen Predator")
+					p.passive_handler.passives["Heavy Strike"] = "Unseen Predator"
 					p.AddSkill(new/obj/Skills/Queue/Racial/Beastman/Savagery)
 				if("Undying Rage")
 					p.passive_handler.Increase("Fury", 1)
@@ -57,12 +57,14 @@ race
 					p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Feather_Cowl)
 					p.passive_handler.Increase("Hardening", 1)
 					p.passive_handler.Increase("Pressure", 1)
+					p.passive_handler.Increase("SwordPunching", 1)
 				
 				if("Feather Knife")
 					p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Clean_Cuts)
 					p.passive_handler.Set("Secret Knives", "Feathers")
 					p.passive_handler.Increase("Tossing", 1)
 					p.passive_handler.Increase("Momentum", 1)
+					p.passive_handler.Increase("SwordPunching", 1)
 				
 
 				if("Spirit Walker")
@@ -78,7 +80,7 @@ race
 					// set up the shapeshift buff
 				
 				if("Trickster")
-					imagination = 1.5
+					imagination = 2
 					p.passive_handler.Increase("Spiritual Tactician", 1)
 					p.AddSkill(new/obj/Skills/Utility/Imitate)
 					p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Racial/Blend_In)

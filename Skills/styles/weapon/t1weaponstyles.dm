@@ -33,7 +33,6 @@
 	Iaido_Style
 		SignatureTechnique=1
 		Copyable=0
-		NeedsSecondSword=1
 		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu_Style")
 		passives = list("Iaijutsu" = 1, "Musoken" = 1, "BlurringStrikes" = 0.5)
 		StyleActive="Seitei Iaido"

@@ -12,7 +12,7 @@
 			set hidden=1
 			src.Trigger(usr)
 	Murim_Style
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Shield_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Shield_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style")
 		StyleStr=1.1
 		StyleEnd=1.1
 		StyleSpd=1.1

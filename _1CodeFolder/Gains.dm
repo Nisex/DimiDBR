@@ -318,8 +318,9 @@ mob
 
 		if(src.PureRPMode&&!Stasis)
 			src.Stasis=1
-		else
-			if(passive_handler["EntanglingRoots"] && can_use_style_effect("EntaglingRoots") && Target != src)
+
+		if(passive_handler["EntanglingRoots"] && can_use_style_effect("EntaglingRoots") && Target != src)
+			if(!PureRPMode)
 				var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare/s = Target.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare)
 				if(!s)
 					s = new(glob.ROOTS_DURATION, 'root.dmi')

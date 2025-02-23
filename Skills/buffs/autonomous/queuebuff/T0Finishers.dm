@@ -171,3 +171,8 @@
         SlowAffected=5
         DefMult=0.8
         SpdMult=0.9
+    Poisoned
+        IconTint=rgb(129, 0, 143)
+        PoisonAffected=5
+        DefMult=0.8
+        SpdMult=0.9

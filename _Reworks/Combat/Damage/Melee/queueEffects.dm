@@ -38,15 +38,13 @@
                 enemy.SlotlessBuffs["Marked Prey"]:add_stack(enemy,src)
             else
                 var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/ss = enemy.findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Marked_Prey)
-                ss.adjust(enemy, src)
-                ss.Password = enemy.name
+                ss:add_stack(enemy,src)
         if(passive_handler["Heavy Strike"] == "Fox Fire")
             if(enemy.SlotlessBuffs["Soul Drained"])
                 enemy.SlotlessBuffs["Soul Drained"]:add_stack(enemy, src)
             else
                 var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/ss = enemy.findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Soul_Drained)
-                ss.adjust(enemy, src)
-                ss.Password = enemy.name
+                ss:add_stack(enemy,src)
 
     if(AttackQueue.Explosive)
         Bang(enemy.loc, AttackQueue.Explosive)

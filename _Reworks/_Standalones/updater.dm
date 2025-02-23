@@ -9,7 +9,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = new updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 1
+	var/UPDATE_VERSION = 2
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -41,6 +41,21 @@ update
 		p.updateVersion = src
 
 	version1
+
+	version2
+		updateMob(mob/p)
+			if(p.isRace(BEASTMAN))
+				switch(p.race?:Racial)
+					if("Unseen Predator")
+						p.passive_handler.passives["Heavy Strike"] = "Unseen Predator"
+					if("Trickster")
+						p.Imagination = 2
+						p.Intelligence = 1
+					if("Feather Knife")
+						p.passive_handler.passives["SwordPunching"] = 1
+					if("Feather Cowl")
+						p.passive_handler.passives["SwordPunching"] = 1
+					
 
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )

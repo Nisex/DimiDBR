@@ -24,7 +24,7 @@
 	HitSparkIcon = 'MasterSlash.dmi'
 	HitSparkX=-16
 	HitSparkY=-16
-	EnergyCost = 3
+	EnergyCost = 2.5
 	Cooldown = 45
 
 
@@ -41,7 +41,9 @@
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Ripped // TODO: make the buffedaffected attackQ work correctly n make this scale
+	TimerLimit = 30
 	passives = list("PureReduction" = -0.5)
+	ActiveMessage = "'s body is ripped to shreds!"
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Thrill_of_the_Hunt
 	AlwaysOn = 1
 	NeedsPassword = 1
@@ -84,12 +86,12 @@
 	EnergyCost = 6
 	EnergyDrain = 0.05
 	TimerLimit = 30
-	Cooldown = 180
+	Cooldown = 120
 	adjust(mob/p)
 		var/asc = p.AscensionsAcquired
 		passives = list("Hit Scan" = 1 + (asc/2), "Momentum" = 0.5 + asc/2, "Fury" = 0.5 + asc/2, "Relentlessness" = 1, "Tossing" = clamp(asc/2, 0, 2.5))
-		TimerLimit = 10 + (glob.racials.FEATHERDUR * asc)
-		Cooldown = 180 - ((glob.racials.FEATHERDUR*2) * asc)
+		TimerLimit = 25 + (glob.racials.FEATHERDUR * asc)
+		Cooldown = 120 - ((glob.racials.FEATHERDUR*2) * asc)
 	verb/Clean_Cuts()
 		set category = "Skills"
 		Trigger(usr)

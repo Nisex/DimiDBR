@@ -449,8 +449,9 @@
 
 		// 				STATUS 					//
 				flick("Attack",src)
-				if(passive_handler["Hit Scan"]) // this is troublesome
-					new/obj/tracker(locate(x,y,z),enemy, src, HitScanIcon, HitScanHitSpark,HitScanHitSparkX, HitScanHitSparkY)
+				// if(passive_handler["Hit Scan"]) // this is troublesome
+				// 	new/obj/tracker(locate(x,y,z),enemy, src, HitScanIcon, HitScanHitSpark,HitScanHitSparkX, HitScanHitSparkY)
+				//TODO: come back to this
 				var/countered=0
 
 				if(AttackQueue && AttackQueue.Dunker && enemy.Launched)
@@ -531,7 +532,7 @@
 									result = flow - instinct
 								else
 									result = flow
-								var/backtrack = enemy.passive_handler.Get("Backtrack")
+								var/backtrack = enemy.passive_handler.Get("BackTrack")
 								if(prob((BASE_FLOW_PROB*result) + glob.BASE_BACKTRACK_PROB * backtrack))
 									if(AttackQueue && AttackQueue.HitSparkIcon)
 										var/hitsparkSword = swordAtk

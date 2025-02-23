@@ -11937,6 +11937,7 @@ mob
 					src.ActiveBuff.passives["ManaLeak"] = 0
 					src.ActiveBuff.passives["GiantForm"] = round(AscensionsAcquired/2)
 					src.ActiveBuff.passives["Godspeed"] = AscensionsAcquired
+					src.ActiveBuff.AutoAnger=0
 					if(src.passive_handler.Get("HellPower")||src.StarPowered)
 						src.ActiveBuff.AutoAnger=1
 						src.ActiveBuff.AngerMult=2

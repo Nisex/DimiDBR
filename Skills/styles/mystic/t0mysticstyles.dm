@@ -17,7 +17,7 @@
 			set hidden=1
 			src.Trigger(usr)
 	Water_Bending
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Earth_Moving"="/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancer",\
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Earth_Moving"="/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing",\
 							"/obj/Skills/Buffs/NuStyle/MysticStyle/Wind_Summoning"="/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer")
 		passives = list("SpiritFlow" = 1, "Chilling" = 1, "WaveDancer" = 1)
 		StyleOff = 1.15
@@ -29,7 +29,7 @@
 			set hidden=1
 			src.Trigger(usr)
 	Earth_Moving
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"="/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancer")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"="/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing")
 		passives = list("SpiritFlow" = 1, "Shattering" = 1, "EntanglingRoots" = 1)
 		StyleEnd = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Unstoppable_Force"
@@ -55,7 +55,7 @@
 		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker")
 		passives = list("SpiritFlow" = 1, "Poisoning" = 1, "Rusting" = 1)
 		StyleDef = 1.15
-		Finisher="/obj/Skills/Queue/Finisher/"
+		Finisher="/obj/Skills/Queue/Finisher/Acid_Rain"
 		StyleActive="Plague Bringer"
 		ElementalOffense = "Poison"
 		ElementalDefense = "Poison"

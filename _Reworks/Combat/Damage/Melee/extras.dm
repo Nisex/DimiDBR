@@ -47,6 +47,7 @@ mob/proc/InterceptionStrike(stacks)
     var/tmp/hitSpark = null
     var/tmp/hs_y
     var/tmp/hs_x
+    var/tmp/life = 0
     New(loc, _target, _owner, _icon, _hs, _hsX = 0, _hsY = 0 )
         . = ..()
         //if(owner.styleActive?:FTG_icon)
@@ -66,6 +67,8 @@ mob/proc/InterceptionStrike(stacks)
         del src
     Update()
         // get distance, increase speed the further they move, prob
+        if(!target || life>= 100)
+            end_effect()
         if(src.loc == target.loc)
             owner.HitEffect(target, null, null, null)
             end_effect()
@@ -74,6 +77,7 @@ mob/proc/InterceptionStrike(stacks)
             if(distance >= 6)
                 distance*=2
             step_towards(src, target, 32 * (1.5 + distance/10))  
+        life+=world.tick_lag
     FTG_seeker 
         icon = 'kunai.dmi' // make this changable w/ the style
         end_effect()

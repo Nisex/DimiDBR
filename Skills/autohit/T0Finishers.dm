@@ -66,6 +66,19 @@
         Distance=3
         ActiveMessage="uppercuts their foe!"
         Instinct=1
+    Toxic_Wheel
+        Area="Circle"
+        ComboMaster=1
+        AdaptRate=1
+        DamageMult=5
+        Size=2
+        Knockback=1
+        Distance=3
+        Area="Circle"
+        TurfShift='poisoncloud.dmi'
+        TurfShiftDuration = 10
+        ActiveMessage="releases a wheel of toxic energy."
+        Instinct=1
     Duel
         NoLock=1
         NoAttackLock=1
@@ -122,7 +135,7 @@
         TurfErupt=1.25
         TurfEruptOffset=6
         IgnoreAlreadyHit=1
-        Icon='Ki Fist Sprite.dmi'
+        Icon='FIRE_FIST.dmi'
         Size=1
         IconX=-30
         IconY=0

@@ -10,7 +10,7 @@
     
     verb/Activate_Void()
         set category = "Roleplay"
-        usr.passive_handler["Void"] = !usr.passive_handler["Void"]
+        usr.passive_handler.Set("Void", !usr.passive_handler.passives["Void"])
         usr << "Void is [usr.passive_handler["Void"] ? "on" : "off"]."
 
 
