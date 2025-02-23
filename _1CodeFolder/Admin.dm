@@ -105,6 +105,7 @@ mob/Admin3/verb/LoadSwapMap()
 			world<<"<font size=2><font color=#FFFF00>Shutting down in 60 seconds. Please stop all actions at this time."
 			sleep(800)
 		world<<"we get past it all"
+		world<<"SNARE IS CURRENTLY 0"
 		sleep(10)
 		world.Reboot()
 
@@ -1364,6 +1365,7 @@ mob/Admin3/verb
 			world<<"<font size=2><font color=#FFFF00>Shutting down in 60 seconds. Please stop all actions at this time."
 			sleep(600)
 			world<<"we get past it all"
+			world<<"SNARE IS CURRENTLY 0"
 			shutdown()
 
 	SaveWorld()

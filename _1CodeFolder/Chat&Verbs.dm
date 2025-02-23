@@ -652,7 +652,7 @@ mob/Players/verb
 		if(!(world.time > usr.verb_delay)) return
 		is_dashing = 0
 		if(isRace(BEASTMAN) && race?:Racial == "Feather Knife")
-			passive_handler["Secret Knives"] = "Feathers"
+			passive_handler.passives["Secret Knives"] = "Feathers"
 		usr.verb_delay=world.time+1
 		for(var/b in usr.SlotlessBuffs)
 			var/obj/Skills/Buffs/x = usr.SlotlessBuffs[b]

@@ -12758,7 +12758,8 @@ mob
 				if(B.BuffName=="Ki Control")
 					if(B.OverlayTransLock)
 						goto IgnoreIcon
-				var/image/im=image(icon=B.IconLock, pixel_x=B.LockX, pixel_y=B.LockY, layer=FLOAT_LAYER-B.IconLayer)
+				
+				var/image/im=image(icon=B.IconLock, pixel_x=B.LockX, pixel_y=B.LockY, B.IconState, layer=FLOAT_LAYER-B.IconLayer)
 				im.blend_mode=B.IconLockBlend
 				im.transform*=B.OverlaySize
 				if(B.OverlaySize>=2)

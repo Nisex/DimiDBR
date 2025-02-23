@@ -22,7 +22,15 @@
 
 
 /mob/proc/Melee1(dmgmulti=1, spdmulti=1, iconoverlay, forcewarp, forcedTarget=null, ExtendoAttack=null, SecondStrike, ThirdStrike, accmulti=1, SureKB=0, NoKB=0, IgnoreCounter=0, BreakAttackRate=0)
-
+	if(glob.AURASPELLONATTACK)
+		for(var/a in SlotlessBuffs)
+			var/obj/Skills/Buffs/b = SlotlessBuffs[a]
+			if(isAChild(b.type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura))
+				var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/aura = b
+				if(aura.TossSkill)
+					if((last_aura_toss - ((passive_handler["Familiar"]-1) * glob.FAMILIAR_CD_REDUCTION)) + glob.FAMILIAR_SKILL_CD < world.time && (Target && Target != src))
+						last_aura_toss = world.time
+						throwFollowUp(aura.skillToToss)
 	if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Normal Attack"))
 		return
 	// CHECKS

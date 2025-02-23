@@ -1,9 +1,11 @@
-/obj/Skills/Buffs/var/IconState
+/obj/Skills/Buffs/var/IconState = ""
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff
 	NeedsPassword = 1
 	TimerLimit = 1
 	Cooldown = 4
 	AlwaysOn = 1
+	LockX=0
+	LockY=0
 	var/max_stacks = 1
 	var/total_stacks = 0
 	proc/do_effect()

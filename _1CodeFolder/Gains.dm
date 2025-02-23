@@ -1514,12 +1514,13 @@ mob
 								src.AddRecovTax(b.RecovTaxDrain)
 							if(b.RecovCutDrain)
 								src.AddRecovCut(b.RecovCutDrain)
-							if(isAChild(b.type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura))
-								var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/aura = b
-								if(aura.TossSkill)
-									if((last_aura_toss - ((passive_handler["Familiar"]-1) * glob.FAMILIAR_CD_REDUCTION)) + glob.FAMILIAR_SKILL_CD < world.time && (Target && Target != src))
-										last_aura_toss = world.time
-										throwFollowUp(aura.skillToToss)
+							if(!glob.AURASPELLONATTACK)
+								if(isAChild(b.type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura))
+									var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/aura = b
+									if(aura.TossSkill)
+										if((last_aura_toss - ((passive_handler["Familiar"]-1) * glob.FAMILIAR_CD_REDUCTION)) + glob.FAMILIAR_SKILL_CD < world.time && (Target && Target != src))
+											last_aura_toss = world.time
+											throwFollowUp(aura.skillToToss)
 							
 						else
 

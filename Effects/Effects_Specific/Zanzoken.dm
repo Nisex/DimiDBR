@@ -373,10 +373,12 @@ proc
 						KenShockwave(Target,icon='KenShockwave.dmi',Size=max(A.GetIntimidation()+Target.GetIntimidation()*GoCrand(0.04,0.4),0.2),PixelX=((Target.x-A.x)*(-16)+pick(-12,-8,8,12)),PixelY=((Target.y-A.y)*(-16)+pick(-12,-8,8,12)), Time=6)
 						sleep(5)
 				if(glob.AISCLASHLOCKSMOVEMENT)
-					Target?:move_disabled = FALSE
+					if(Target)
+						Target?:move_disabled = FALSE
 					A?:move_disabled = FALSE
 				A.loc = StartA
-				Target.loc = StartT
+				if(Target)
+					Target.loc = StartT
 				animate(A,alpha=255, time=1, flags=ANIMATION_END_NOW | ANIMATION_PARALLEL)
 				animate(Target,alpha=255, time=1, flags=ANIMATION_END_NOW | ANIMATION_PARALLEL)
 			else

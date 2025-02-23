@@ -4,6 +4,8 @@
     NeedsPassword = 1
     var/skillToToss = null
     var/TossSkill = 1
+    var/icon2change = null
+    var/auraIcon2Change = null
     AuraLock = 'Terra Might.dmi'
     LockX=-16
     LockY=16

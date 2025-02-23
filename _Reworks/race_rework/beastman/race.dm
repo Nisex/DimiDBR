@@ -61,7 +61,7 @@ race
 				
 				if("Feather Knife")
 					p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Clean_Cuts)
-					p.passive_handler.Set("Secret Knives", "Feathers")
+					p.passive_handler.passives["Secret Knives"] = "Feathers"
 					p.passive_handler.Increase("Tossing", 1)
 					p.passive_handler.Increase("Momentum", 1)
 					p.passive_handler.Increase("SwordPunching", 1)

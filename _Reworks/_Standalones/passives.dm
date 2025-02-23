@@ -40,7 +40,7 @@ passive
 					increaseList(passive, temp)
 
 		Set(passive, value = 0, temp = FALSE) // directly sets a passive
-			if(!isnull(value))
+			if(isnull(value))
 				CRASH("ERROR: [passive] was set to [value] which is not a number!")
 			switch(islist(passive))
 				if(FALSE)

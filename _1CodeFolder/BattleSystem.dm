@@ -872,9 +872,9 @@ mob/proc/Revive()
 
 
 proc/getBackSide(mob/offender, mob/defender, diags = FALSE)
-	var/resultingDir = get_dir(offender, defender)
-	. = opposite_dirs[resultingDir]
-	if(diags)
+	if(defender)
+		var/resultingDir = get_dir(offender, defender)
+		// . = opposite_dirs[resultingDir]
 		switch(defender.dir)
 			if(NORTH)
 				if(resultingDir in list(NORTH, NORTHWEST, NORTHEAST))
@@ -1405,7 +1405,6 @@ mob/proc/Comboz(mob/M, LightAttack=0, ignoreTiledistance = FALSE, landBehind = F
 			W=get_step(M, direction)
 			if(landBehind)
 				W=get_step(M, opposite_dirs[M.dir])
-				world<<opposite_dirs[M.dir]
 			if(W)
 				if(istype(W,/turf/Special/Blank))
 					return

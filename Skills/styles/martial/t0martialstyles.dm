@@ -39,7 +39,7 @@
 			src.Trigger(usr)
 	Turtle_Style
 		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Shaolin_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tai_Chi_Style",\
-		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Fire_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg")
+		"/obj/Skills/Buffs/NuStyle/MysticStyle/Fire_Weaving"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg")
 		StyleStr=1.1
 		StyleEnd=1.1
 		StyleFor=1.1

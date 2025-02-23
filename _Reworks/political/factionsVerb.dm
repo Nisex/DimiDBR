@@ -105,7 +105,7 @@ characterInformation*/
     src << "The ID Card is [hidingInformation ? "not hidden." : "hidden"]"
 
 
-characterInformation/proc/getInformation(mob/p, pronouns)
+characterInformation/proc/getInformation(mob/p, see_pronouns)
     if(p.hidingInformation)
         return "[p.subjectpronoun() == "They" ? "They have" : "[p.subjectpronoun()] has"] no ID Card"
     var/msg = ""
@@ -138,13 +138,13 @@ characterInformation/proc/getInformation(mob/p, pronouns)
 
 
 //     else
-    if(pronouns)
+    if(see_pronouns)
         var/theyString = p.subjectpronoun() == "They" ? "use" : "uses"
         var/theyString2 = p.subjectpronoun() == "They" ? "are" : "is"
         msg={"
 <font face='courier'><font color='#color'>[p.name]'s ID Card is visable.
 <font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font>
-[p.subjectpronoun()] [theyString] [pronouns[1]]/[pronouns[2]]
+[p.subjectpronoun()] [theyString] [src.pronouns[1]]/[src.pronouns[2]]
 [p.subjectpronoun()] [theyString2] [nationality] [secondNationality ? "and [secondNationality] nationality." : "nationality."]"}
     else
         msg={"

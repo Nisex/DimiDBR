@@ -10,7 +10,7 @@
 		Finisher = "/obj/Skills/Queue/Finisher/Major_Eruption"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Earth"
 		BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Magmic_Shield") 
-		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Storm"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma",\
+		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma",\
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire")
 		ElementalOffense = "Fire"
 		ElementalDefense = "Earth"
@@ -27,7 +27,7 @@
 		StyleFor = 1.15
 		Finisher = "/obj/Skills/Queue/Finisher/Ice_Time"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Water"
-		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Storm"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard",\
+		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard",\
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold")
 		ElementalOffense = "Water"
 		ElementalDefense = "Earth"
@@ -45,7 +45,7 @@
 		Finisher = "/obj/Skills/Queue/Finisher/Stormweaver"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Wind"
 		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Magma"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma",\
-								"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard")
+								"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard")
 		ElementalOffense = "Wind"
 		ElementalDefense = "Water"
 		verb/Stormbringer()
@@ -60,8 +60,8 @@
 		StyleSpd = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Sunshine_Flame"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Fire"
-		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Magma"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire",\
-								"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold")
+		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire",\
+								"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold")
 		ElementalOffense = "Wind"
 		ElementalDefense = "Fire"
 		verb/Inferno()
