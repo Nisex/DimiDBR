@@ -3406,7 +3406,8 @@ obj
 				Copyable=2
 				NeedsSword=1
 				Area="Arc"
-				Rush=1
+				Rush = 2
+				ControlledRush = 1
 				Launcher=2
 				StrOffense=1
 				DamageMult=2.8
