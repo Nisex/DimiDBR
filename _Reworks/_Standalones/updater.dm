@@ -4,19 +4,25 @@ essentially check if we are -on update x, if not, update to x, if so, do nothing
 
 // make it so on world load we make the current version datum and use it for all people
 proc/generateVersionDatum()
-	var/updateversion = text2path("update/version[glob.UPDATE_VERSION]")
+	var/update/updateversion
+	for(var/i in subtypesof(/update/))
+		var/update/check = new i
+		if(updateversion && check.version > updateversion.version)
+			updateversion = check
+		else if (!updateversion)
+			updateversion = check
 	if(updateversion)
-		glob.currentUpdate = new updateversion
+		glob.currentUpdate = updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 3
+	var/UPDATE_VERSION = 4
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
 		if(!p.updateVersion)
 			var/updateversion = "/update/version[glob.UPDATE_VERSION]"
 			p.updateVersion = new updateversion
-			p.updateVersion.updateMob(p)
+			p.updateVersion.updateMob(p)	
 		if(UPDATE_VERSION == p.updateVersion.version)
 			return
 		if(p.updateVersion.version + 1 == UPDATE_VERSION)
