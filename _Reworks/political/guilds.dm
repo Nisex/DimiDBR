@@ -50,10 +50,14 @@ proc
 
 mob
 	proc
-		checkGuildVerbs()
+		checkVerbs()
 			for(var/guild/guild in glob.guilds)
 				guild.updateListing(src)
 				guild.checkVerbs(src)
+			if(isRace(MAKYO))
+				verbs += /mob/proc/toggle_makyo_boons
+			if(isRace(BEASTMAN) && race?:Racial == "Monkey King")
+				verbs += /mob/proc/change_nimbus_message
 
 guild
 	verb
@@ -202,7 +206,7 @@ guild
 				return
 			members |= p.UniqueID
 			p.inGuilds |= id
-			p.checkGuildVerbs()
+			p.checkVerbs()
 
 		removeMember(mob/Players/p)
 			if(p.UniqueID in members)

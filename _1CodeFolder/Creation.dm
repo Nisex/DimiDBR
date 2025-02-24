@@ -85,7 +85,7 @@ mob/Players
 			if(src.isRace(DEMON))
 				da.name="Devil Arm ([src.TrueName])"
 
-		checkGuildVerbs()
+		checkVerbs()
 
 		addMissingSkills()
 		if(glob.TESTER_MODE)

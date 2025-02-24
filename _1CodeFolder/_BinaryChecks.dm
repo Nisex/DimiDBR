@@ -1116,6 +1116,7 @@ mob
 		HasAutoReversal()
 			if(passive_handler.Get("Reversal"))
 				return 1
+			world<<"[passive_handler["Magmic"]] and [SlotlessBuffs["Magmic Shield"]]"
 			if(passive_handler["Magmic"] && SlotlessBuffs["Magmic Shield"])
 				return 1
 			return 0

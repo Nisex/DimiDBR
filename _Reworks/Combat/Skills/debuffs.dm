@@ -8,6 +8,11 @@
 	LockY=0
 	var/max_stacks = 1
 	var/total_stacks = 0
+	Trigger(mob/User, Override)
+		. = ..()
+		if(User.BuffOn(src))
+			// this fades off
+			total_stacks = 0
 	proc/do_effect()
 	proc/add_stack(mob/p, mob/dealer)
 		if(total_stacks + 1 < max_stacks)
@@ -55,6 +60,7 @@
 	IconLock='marked.dmi'
 	IconState = "1"
 	max_stacks = 4
+
 	do_effect(mob/defender, mob/attacker)
 		var/obj/Skills/s = attacker.findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Thrill_of_the_Hunt)
 		s.adjust(attacker)

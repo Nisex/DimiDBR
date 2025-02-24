@@ -23,11 +23,19 @@
 			return "Their"
 		if("It")
 			return "Its"
-
+/globalTracker/var/MAXCATCHLINELENGTH = 40
 
 characterInformation
 	var/list/pronouns = list("He","Him")
 	var/seePronouns = TRUE
+	var/catchline = "I am not a broke boy..."
+	proc/setCatchLine()
+		var/max_length = glob.MAXCATCHLINELENGTH
+		var/inP = input(usr, "What is your catchline?") as text | null
+		if(length(inP) > max_length)
+			usr << "too long, try again"
+		else
+			catchline = inP
 	proc/setDefaultPronouns()
 		switch(usr.Gender)
 			if("Male")
@@ -85,3 +93,7 @@ characterInformation
 	set category = "Other"
 	information.setPronouns(FALSE)
 	usr<<"[information.pronouns[1]]/[information.pronouns[2]] are now your pronouns."
+
+/mob/verb/Set_Catchline()
+	set category = "Other"
+	information.setCatchLine()

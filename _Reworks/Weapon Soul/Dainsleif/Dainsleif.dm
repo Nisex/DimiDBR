@@ -155,7 +155,7 @@ obj/Skills/AutoHit/Destined_Death
 		usr.Activate(src)
 
 obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Blood_Lusted
-	passives = list("Maki" = 1,"Steady" = 1,"HardStyle" = 1, "TechniqueMastery" = 2, "Momentum" = 1, "Duelist" = 1, "Killer Instinct" = 0.10, "SuperDash" = 1,)
+	passives = list("Maki" = 1,"Steady" = 1,"HardStyle" = 1, "TechniqueMastery" = 2, "Momentum" = 1, "Duelist" = 1, "KillerInstinct" = 0.10, "SuperDash" = 1,)
 	TimerLimit=60
 	ManaGlow=rgb(165,0,0)
 	ManaGlowSize=3

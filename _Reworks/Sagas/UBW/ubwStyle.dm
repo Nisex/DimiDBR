@@ -3,7 +3,7 @@
     Copyable = 0
     SagaSignature = 1
     StyleActive = "Sword Savant"
-    passives = list("SwordPunching" = 1, "SwordDamage" = 1)
+    passives = list("SwordPunching" = 1, "SwordDamage" = 1, "NeedsSword" = 0, "Sword Master" = 1)
     NeedsSword = 0
     Mastery = 4
     StyleStr = 1.15

@@ -186,7 +186,9 @@
 				is_dashing++
 				AfterImageGhost(src)
 				DashTo(Target, glob.NIMBUSRANGE + passive_handler["Nimbus"])
-				src.OMessage(10,"[src] [nimbus_message] [src.Target]!","<font color=red>[src]([src.key]) used Nimbus.")
+				var/msg = replacetext(nimbus_message, "player_name", "[src]")
+				msg = replacetext(nimbus_message, "target_name", "[src.Target]")
+				src.OMessage(10,"[msg]","<font color=red>[src]([src.key]) used Nimbus.")
 				last_nimbus = world.time
 				// TODO: make hud later if we feel like it chat
 	if(warpingStrike)
@@ -758,8 +760,11 @@
 							log2text("Damage", "After Global Multiplier", "damageDebugs.txt", "[ckey]/[name]")
 							log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 							#endif
+							world<<"[enemy.passive_handler["Magmic"]] && [enemy.SlotlessBuffs["Magmic Shield"]]"
 							if(enemy.passive_handler["Magmic"] && enemy.SlotlessBuffs["Magmic Shield"])
+								world<<"here "
 								Stun(src, 3, TRUE)
+								enemy.SlotlessBuffs["Magmic Shield"].Password = null
 								enemy.SlotlessBuffs["Magmic Shield"].Trigger(enemy, TRUE)
 							DoDamage(enemy, damage, unarmedAtk, swordAtk, SecondStrike, ThirdStrike)
 							if(!glob.MOMENTUM_PROCS_OFF_DAMAGE)

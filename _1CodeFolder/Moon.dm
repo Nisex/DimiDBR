@@ -51,7 +51,7 @@ mob
 			if(src.AdvancedTransmissionTechnologyUnlocked>0)
 				src << "Your observation devices are warning you about an unusual celestial object... "
 		MakyoTrigger()
-			if(src.isRace(MAKYO))
+			if(src.isRace(MAKYO) && race?:accepting_boons)
 				if(src.PotentialRate<2)
 					src.PotentialRate+=0.25
 					if(src.PotentialRate>2)

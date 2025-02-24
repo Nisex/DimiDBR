@@ -23,8 +23,6 @@
 	pastDay = text2num(pastDay)
 	return (currentDay - pastDay)
 
-
-
 mob
 	proc
 		reward_auto()
@@ -40,6 +38,8 @@ mob
 			if(RewardsLastGained < DaysOfWipe())
 				var/Dif=((glob.progress.DaysOfWipe-RewardsLastGained))
 				Dif=round(Dif)
+				if(DEBUGGING)
+					Dif = 1
 				if(Dif > glob.progress.DaysOfWipe)
 					Dif=glob.progress.DaysOfWipe
 				var/Statement=1

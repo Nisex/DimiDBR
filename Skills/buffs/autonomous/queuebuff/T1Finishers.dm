@@ -95,14 +95,14 @@
         HitScanHitSpark = 'Hit_Effect_KanjuriKanKan.dmi'
 
     Fimbulwinter
-        IconLock='Ice_Aura_2.dmi'
+        IconLock='SweatDrop.dmi'
         IconApart=1
         passives = list("PureReduction" = -0.5)
         CrippleAffected = 2
         SlowAffected = 2
 
     Zwercopter
-        IconLock='SweatDrop.dmi'
+        IconLock='Ice_Aura_2.dmi'
         IconApart=1
         passives = list("Half-Sword" = 0.5, "Zornhau" = 0.5, "Momentum" = 2, "HeavyHitter" = 1, "CheapShot" = 1,\
                      "HardStyle" = 1, "TensionLock" = 1)

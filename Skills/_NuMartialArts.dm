@@ -532,7 +532,6 @@ obj
 							StyleActive="Blade Charge"
 							passives = list("Extend" = 1, "SpiritSword" = 0.75, "SpiritHand" = 1)
 							Extend=1
-							SpiritSword=0.75
 							Finisher="/obj/Skills/Queue/Finisher/Blade_Charge"
 							verb/Blade_Charge_Style()
 								set hidden=1

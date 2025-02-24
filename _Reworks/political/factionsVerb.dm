@@ -111,33 +111,6 @@ characterInformation/proc/getInformation(mob/p, see_pronouns)
     var/msg = ""
     // if(rankingNumber == "ERROR")
     //     rankingNumber = num2text(rand(1000,9001))
-
-
-//     if(p.Summonable)
-//         if(pronouns)
-//             var/theyString = p.subjectpronoun() == "They" ? "use" : "uses"
-//             var/theyString2 = p.subjectpronoun() == "They" ? "are" : "is"
-//             msg={"
-// <font face='courier'><font color='#color'>\[SYSTEM: ERROR! ERROR! [p.name]'s information...\]
-// \[SYSTEM: <font color='[factionColor]'>[faction] (<font color='[jobColor]'>Summon?</font>)</font> Character Sheet...\]
-// \[SYSTEM: [p.subjectpronoun()] [theyString] [p.subjectpronoun()]/[p.possessivepronoun()] pronouns. \]
-// \[SYSTEM: [p.subjectpronoun()] [theyString2] of UNKNOWN descent.\]
-// \[SYSTEM: Race: <font color='red'>ERROR</font>\]
-// \[SYSTEM: Class: <font color='red'>ERROR</font>\]
-// \[SYSTEM: Tier: [p.SummonTier]\]
-// \[SYSTEM: Closing Character Sheet...]</font color></font face> "}
-//         else
-//             msg={"
-// <font face='courier'><font color='#color'>\[SYSTEM: ERROR! ERROR! [p.name]'s information...\]
-// \[SYSTEM: <font color='[factionColor]'>[faction] (<font color='[jobColor]'>Summon?</font>)</font> Character Sheet...\]
-// \[SYSTEM: [p.subjectpronoun()] is of UNKNOWN descent.\]
-// \[SYSTEM: Race: <font color='red'>ERROR</font>\]
-// \[SYSTEM: Class: <font color='red'>ERROR</font>\]
-// \[SYSTEM: Tier: [p.SummonTier]\]
-// \[SYSTEM: Closing Character Sheet...]</font color></font face> "}
-
-
-//     else
     if(see_pronouns)
         var/theyString = p.subjectpronoun() == "They" ? "use" : "uses"
         var/theyString2 = p.subjectpronoun() == "They" ? "are" : "is"
@@ -145,12 +118,13 @@ characterInformation/proc/getInformation(mob/p, see_pronouns)
 <font face='courier'><font color='#color'>[p.name]'s ID Card is visable.
 <font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font>
 [p.subjectpronoun()] [theyString] [src.pronouns[1]]/[src.pronouns[2]]
-[p.subjectpronoun()] [theyString2] [nationality] [secondNationality ? "and [secondNationality] nationality." : "nationality."]"}
+[p.subjectpronoun()] [theyString2] [nationality] [secondNationality ? "and [secondNationality] nationality." : "nationality."]
+<i>"[catchline]"</i>"}
     else
         msg={"
 <font face='courier'><font color='#color'>[p.name]'s ID Card is visable.
 <font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font>
 [p.subjectpronoun()] is of [nationality] [secondNationality ? "and [secondNationality] nationality." : "nationality."]
-"}
+<i>"[catchline]"</i>"}
 
     return msg

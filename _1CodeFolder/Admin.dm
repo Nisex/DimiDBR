@@ -33,6 +33,14 @@ mob/verb
 		else
 			usr.PingSound = 1
 			usr << "Ping Sound Enabled."
+	SetPingVolume()
+		set category = "Other"
+		set name = "Set Ping Volume"
+		var/n = input(src, "What volume?") as num
+		if(n > 100 || n < 0)
+			src << " too high or low "
+		else
+			PingVolume = n
 
 /mob/Admin3/verb/CreateSwapMap()
 	set hidden = 1
@@ -522,7 +530,7 @@ mob/proc/PM(var/mob/who, var/AhelpMessage, var/AhelpKey)
 	if(UserInput)
 		for(var/mob/Players/Q in admins)
 			if(Q?:PingSound)
-				who << sound('Sounds/Ping.ogg')
+				who << sound('Sounds/Ping.ogg', volume = Q?:PingVolume)
 			if(Q!=src&&Q!=who)
 				Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[key]</a href> to <a href=?src=\ref[who];action=MasterControl;do=PM2>[who.key]</a href> :[UserInput]"
 		src<<"<font color=#00FF99><b>(Admin PM)</b></font>- To  <a href=?src=\ref[who];action=MasterControl;do=PM2;>[whoKey]</a href> :[UserInput]"
@@ -538,7 +546,7 @@ mob/proc/PM2(var/mob/who)
 	if(UserInput&&who)
 		for(var/mob/Players/Q in admins)
 			if(Q?:PingSound && who == Q)
-				Q << sound('Sounds/Ping.ogg')
+				Q << sound('Sounds/Ping.ogg',volume = Q?:PingVolume)
 			if(Q!=src&&Q!=who)
 				Q<<"<font color=#00FF99><b>(Admin PM)</b></font> <a href=?src=\ref[src];action=MasterControl;do=PM2;>[key]</a href> to <a href=?src=\ref[who];action=MasterControl;do=PM2;>[who.key]</a href> :[UserInput]"
 		Log("AdminPM","(Admin PM from [key] to [whoKey]): [UserInput]")
@@ -554,6 +562,7 @@ mob/proc/PM2(var/mob/who)
 
 
 /mob/var/PingSound = TRUE
+/mob/var/PingVolume = 30
 
 mob/Admin3/verb
 	editRace(mob/Players/m in players)

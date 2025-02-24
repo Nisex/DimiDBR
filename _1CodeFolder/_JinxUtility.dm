@@ -2897,7 +2897,7 @@ mob
 /mob/Admin4/verb/ChangeWipeStartHour(n as num)
 	adjustWipeStartTime(n)
 
-#define MAX_WIPE_DAYS 500
+#define MAX_WIPE_DAYS 360
 #define ANIT_LAG_NUM 100
 
 
@@ -2925,7 +2925,7 @@ proc
 			glob.progress.DaysOfWipe=round(days)
 			glob.progress.incrementTotal()
 		// glob.RPPStarting=(glob.RPPDaily)*glob.progress.DaysOfWipe
-		if(glob.progress.DaysOfWipe>MAX_WIPE_DAYS || glob.progress.DaysOfWipe > ANIT_LAG_NUM)
+		if(glob.progress.DaysOfWipe>MAX_WIPE_DAYS)
 			glob.progress.DaysOfWipe = MAX_WIPE_DAYS
 		return glob.progress.DaysOfWipe
 	Today()
