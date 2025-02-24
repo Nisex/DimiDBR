@@ -5607,7 +5607,6 @@ obj
 								if(src.Deflectable&&!a:KO)
 									if(Owner.passive_handler["Magmic"] && Owner.SlotlessBuffs["Magmic Shield"])
 										Deflect = 1
-										Owner.SlotlessBuffs["Magmic Shield"].Password = null
 										Owner.SlotlessBuffs["Magmic Shield"].Trigger(Owner, TRUE)
 									if(a:HasDeflection())
 										if(!Deflection_Formula(src.Owner, a, (accmult /** Rate*/ * ( min(0.1,1 - (src.MultiHit * 0.025) ) ) /(1+a:GetDeflection())), BaseChance=(glob.WorldDefaultAcc), Backfire=src.Backfire))

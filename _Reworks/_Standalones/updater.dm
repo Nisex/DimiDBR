@@ -9,7 +9,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = new updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 2
+	var/UPDATE_VERSION = 3
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -55,6 +55,12 @@ update
 						p.passive_handler.passives["SwordPunching"] = 1
 					if("Feather Cowl")
 						p.passive_handler.passives["SwordPunching"] = 1
+		
+	version3
+		updateMob(mob/p)
+			for(var/obj/Skills/Buffs/NuStyle/MysticStyle/ms in src)
+				if(istype(ms, /obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker))
+					ms.BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/Magmic_Shield")
 
 					
 

@@ -760,11 +760,8 @@
 							log2text("Damage", "After Global Multiplier", "damageDebugs.txt", "[ckey]/[name]")
 							log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")
 							#endif
-							world<<"[enemy.passive_handler["Magmic"]] && [enemy.SlotlessBuffs["Magmic Shield"]]"
 							if(enemy.passive_handler["Magmic"] && enemy.SlotlessBuffs["Magmic Shield"])
-								world<<"here "
 								Stun(src, 3, TRUE)
-								enemy.SlotlessBuffs["Magmic Shield"].Password = null
 								enemy.SlotlessBuffs["Magmic Shield"].Trigger(enemy, TRUE)
 							DoDamage(enemy, damage, unarmedAtk, swordAtk, SecondStrike, ThirdStrike)
 							if(!glob.MOMENTUM_PROCS_OFF_DAMAGE)

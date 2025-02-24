@@ -881,6 +881,8 @@ client
 						mob.vampireBlood = new(mob, 6,70)
 				if(mob:assigningStats)
 					mob.Redo_Stats()
+				if(mob.updateVersion && mob.updateVersion.version != glob.UPDATE_VERSION)
+					glob.updatePlayer(mob)
 
 
 

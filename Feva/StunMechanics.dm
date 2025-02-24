@@ -42,7 +42,6 @@ proc
 					m.UseProjectile(p)
 				continue
 		var/Stun_Amount=world.time+(amount*8)
-		world<<"stunning for [Stun_Amount]"
 		if(m.Stunned)
 			m.Stunned+=(amount*2)
 			if(m.Stunned > m.last_stunned + glob.MAX_STUN_TIME)

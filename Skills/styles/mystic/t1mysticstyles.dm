@@ -9,7 +9,7 @@
 		StyleEnd = 1.2
 		Finisher = "/obj/Skills/Queue/Finisher/Major_Eruption"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Earth"
-		BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Magmic_Shield") 
+		BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/Magmic_Shield") 
 		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma",\
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire")
 		ElementalOffense = "Fire"

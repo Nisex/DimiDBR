@@ -1642,6 +1642,9 @@ mob
 					if(A.NeedsPassword)
 						if(!A.Password)
 							continue
+					if(A.SlotlessBuffNeeded)
+						if(!(A.SlotlessBuffNeeded in SlotlessBuffs))
+							continue
 					if(A.ABuffNeeded)
 						if(!src.ActiveBuff)
 							continue
@@ -1741,8 +1744,9 @@ mob
 								continue
 
 				if(A.AlwaysOn) //This only gets run if it has been deactivated
-					if(A.Using && !A.doNotDelete)
-						del A
+					if(A.Using)
+						if(!A.doNotDelete)
+							del A
 
 		if(src.Energy<=0)
 			src.Energy=1

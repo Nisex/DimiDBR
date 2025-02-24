@@ -6616,14 +6616,11 @@ obj
 				if(WearingArmor)//Reduced delay and accuracy
 					Precision*=src.Owner.GetArmorAccuracy(WearingArmor)
 				var/reversalChance = m.GetAutoReversal()
-				world<<"reversalChance : [reversalChance]"
 				if(prob(reversalChance * 100))
 					if(m.HasAutoReversal())
 						if(!src.SpecialAttack||m.passive_handler.Get("TotalReversal"))
 							if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldDefaultAcc, IgnoreNoDodge=1) == (HIT || WHIFF))
 								if(m.passive_handler["Magmic"] && m.SlotlessBuffs["Magmic Shield"])
-									world<<"trigger Magmic Shield"
-									m.SlotlessBuffs["Magmic Shield"].Password = null
 									m.SlotlessBuffs["Magmic Shield"].Trigger(m, TRUE)
 								if(src.Damage>0.1)
 									KenShockwave(m, icon='KenShockwave.dmi', Size=dmgRoll, Time=3)
