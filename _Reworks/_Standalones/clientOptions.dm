@@ -29,8 +29,7 @@ Options/
             if(read)
                 thing2Return = json_decode(file2text(read))
                 for(var/opt in vars)
-                    if(thing2Return[opt])
-                        vars[opt] = thing2Return["[opt]"]
+                    vars[opt] = thing2Return[opt]
     proc/deleteOldPrefs(ckey)
         . = 1
         if(fexists("[CONFIG_OPTIONS_JSON_FOLDER][ckey].json"))
