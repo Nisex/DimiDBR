@@ -310,6 +310,7 @@
 #include "_Reworks\_Standalones\passives.dm"
 #include "_Reworks\_Standalones\PateronGet.dm"
 #include "_Reworks\_Standalones\refund.dm"
+#include "_Reworks\_Standalones\RPFlags.dm"
 #include "_Reworks\_Standalones\stat_redo.dm"
 #include "_Reworks\_Standalones\supporterBenefits.dm"
 #include "_Reworks\_Standalones\updater.dm"
