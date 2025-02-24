@@ -37,12 +37,13 @@ update
 	var/version = 1
 
 	proc/updateMob(mob/p)
-	//	p << "You have been updated to version [version]"
+		p << "You have been updated to version [version]"
 		p.updateVersion = src
 
 	version1
 
 	version2
+		version = 2
 		updateMob(mob/p)
 			if(p.isRace(BEASTMAN))
 				switch(p.race?:Racial)
@@ -57,10 +58,39 @@ update
 						p.passive_handler.passives["SwordPunching"] = 1
 		
 	version3
+		version = 3
 		updateMob(mob/p)
-			for(var/obj/Skills/Buffs/NuStyle/MysticStyle/ms in src)
+			for(var/obj/Skills/Buffs/NuStyle/ms in src)
 				if(istype(ms, /obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker))
 					ms.BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/Magmic_Shield")
+				if(istype(ms, /obj/Skills/Buffs/NuStyle/SwordStyle/Sword_Savant))
+					ms.passives = list("SwordPunching" = 1, "SwordDamage" = 1, "NeedsSword" = 0, "Sword Master" = 1)
+				
+				
+			if(p.isRace(HUMAN))
+				p.RPPMult = 1.25
+	version4
+		updateMob(mob/p)
+			if(p.isRace(BEASTMAN))
+				switch(p.race?:Racial)
+					if("Unseen Predator")
+						p.passive_handler.passives["Heavy Strike"] = "Unseen Predator"
+					if("Trickster")
+						p.Imagination = 2
+						p.Intelligence = 1
+					if("Feather Knife")
+						p.passive_handler.passives["SwordPunching"] = 1
+					if("Feather Cowl")
+						p.passive_handler.passives["SwordPunching"] = 1
+			for(var/obj/Skills/Buffs/NuStyle/ms in src)
+				if(istype(ms, /obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker))
+					ms.BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/Magmic_Shield")
+				if(istype(ms, /obj/Skills/Buffs/NuStyle/SwordStyle/Sword_Savant))
+					ms.passives = list("SwordPunching" = 1, "SwordDamage" = 1, "NeedsSword" = 0, "Sword Master" = 1)
+				
+				
+			if(p.isRace(HUMAN))
+				p.RPPMult = 1.25
 
 					
 

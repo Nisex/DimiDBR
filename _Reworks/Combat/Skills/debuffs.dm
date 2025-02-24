@@ -16,10 +16,11 @@
 	proc/do_effect()
 	proc/add_stack(mob/p, mob/dealer)
 		if(total_stacks + 1 < max_stacks)
-			total_stacks++
+			var/stacks = total_stacks + 1
 			if(p.BuffOn(src))
 				Trigger(p, TRUE)
 			Trigger(p, TRUE)
+			total_stacks = stacks
 		else
 			// max stacks
 			TimerLimit = 1

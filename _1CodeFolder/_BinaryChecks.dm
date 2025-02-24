@@ -2973,6 +2973,8 @@ mob
 			var/string = "[StyleBuff.type]"
 			if((findtext(string,parentType)))
 				return TRUE
+			if(passive_handler["HybridStyle"] == "[parentType]")
+				return TRUE
 		isInnovative(reqRace, path)
 			if(Saga&&Saga!="Keyblade") return FALSE
 			// if(reqRace == HUMAN) return
@@ -2989,7 +2991,7 @@ mob
 							if(usingStyle("FreeStyle"))
 								return TRUE
 						if("Mystic")
-							if(StyleBuff.ElementalClass) // this is a mystic style
+							if(usingStyle("MysticStyle")) // this is a mystic style
 								return TRUE
 						if("Any")
 							if(StyleBuff)

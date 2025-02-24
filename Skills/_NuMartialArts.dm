@@ -94,69 +94,6 @@ obj
 					NoSword=1
 					NoStaff=1
 
-					Earth_Style
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Water_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style",\
-						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wind_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style")
-						StyleStr=1.1
-						StyleEnd=1.1
-						StyleFor=1.1
-						NoStaff = 0
-						ElementalClass="Earth"
-						StyleActive="Earth"
-						ElementalOffense="Earth"
-						ElementalDefense="Earth"
-						Finisher="/obj/Skills/Queue/Finisher/Mountain_Crusher"
-						verb/Earth_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Wind_Style
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Fire_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Sunlit_Sky_Style",\
-						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Earth_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style")
-						StyleStr=1.1
-						StyleFor=1.1
-						StyleSpd=1.1
-						NoStaff = 0
-						ElementalClass="Wind"
-						StyleActive="Wind"
-						ElementalOffense="Wind"
-						ElementalDefense="Wind"
-						Finisher="/obj/Skills/Queue/Finisher/Shifting_Clouds"
-						verb/Wind_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Fire_Style
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Water_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Inverse_Poison_Style",\
-						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wind_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Sunlit_Sky_Style")
-						StyleEnd=1.1
-						StyleFor=1.1
-						StyleSpd=1.1
-						NoStaff = 0
-						ElementalClass="Fire"
-						StyleActive="Fire"
-						ElementalOffense="Fire"
-						ElementalDefense="Fire"
-						IconLock='Flaming Arms.dmi'
-						LockX=0
-						LockY=0
-						Finisher="/obj/Skills/Queue/Finisher/Hellraiser"
-						verb/Fire_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Water_Style
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Earth_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style",\
-						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Fire_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Inverse_Poison_Style")
-						StyleStr=1.1
-						StyleEnd=1.1
-						StyleSpd=1.1
-						NoStaff = 0
-						ElementalClass="Water"
-						StyleActive="Water"
-						ElementalOffense="Water"
-						ElementalDefense="Water"
-						Finisher="/obj/Skills/Queue/Finisher/Split_River"
-						verb/Water_Style()
-							set hidden=1
-							src.Trigger(usr)
 					//Signature Styles T1
 						
 					Heavenly_Demon_T3
