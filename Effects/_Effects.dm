@@ -408,20 +408,20 @@ obj/Effects
 		icon_state = "parry"
 		pixel_x=18
 		pixel_y=18
-		Lifetime=8
+		Lifetime=6
 
 	Iai
 		icon='wordeffects.dmi'
 		icon_state = "iai"
 		pixel_x=18
 		pixel_y=18
-		Lifetime=8
+		Lifetime=6
 	Interception
 		icon='wordeffects.dmi'
 		icon_state = "interception"
 		pixel_x=18
 		pixel_y=18
-		Lifetime=8
+		Lifetime=6
 	Dirt
 		icon='fevExplosion - Dust.dmi'
 		pixel_x=-32

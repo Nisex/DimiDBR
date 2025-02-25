@@ -165,8 +165,9 @@ client/proc/remove_hud(id)
 				barbg.maptext = "[CHAT_STYLE][val]"
 			return
 		if(linked_var == "Grit")
-			val = client.mob.passive_handler["Grit"]
-				
+			val = client.mob.passive_handler.Get("Grit")
+		else
+			val = client.mob.vars["[linked_var]"]
 		if(val > 0)
 			if(holder.alpha == 0 || barbg.alpha == 0)
 				animate(holder, alpha = 255, time = 2)

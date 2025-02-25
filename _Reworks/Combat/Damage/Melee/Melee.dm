@@ -21,7 +21,7 @@
 	return FALSE
 
 
-/mob/proc/Melee1(dmgmulti=1, spdmulti=1, iconoverlay, forcewarp, forcedTarget=null, ExtendoAttack=null, SecondStrike, ThirdStrike, accmulti=1, SureKB=0, NoKB=0, IgnoreCounter=0, BreakAttackRate=0)
+/mob/proc/Melee1(dmgmulti=1, spdmulti=1, iconoverlay, forcewarp, forcedTarget=null, ExtendoAttack=null, SecondStrike, ThirdStrike, accmulti=1, SureKB=0, NoKB=0, IgnoreCounter=0, BreakAttackRate=0, hitback = 0)
 	if(glob.AURASPELLONATTACK)
 		for(var/a in SlotlessBuffs)
 			var/obj/Skills/Buffs/b = SlotlessBuffs[a]
@@ -268,7 +268,7 @@
 		NextAttack += delay
 		var/Disarm = 0
 		if(UsingGladiator())
-			if(GladiatorCounter >= glob.GLADIATOR_DISARM_MAX * 6-UsingGladiator())
+			if(GladiatorCounter >= glob.GLADIATOR_DISARM_MAX * 6-UsingGladiator())	
 				Disarm = 1
 				GladiatorCounter = 0
 		for(var/mob/enemy in enemies)
@@ -629,6 +629,7 @@
 								var/obj/Effects/Interception/p = new()
 								p.Target = enemy
 								enemy.vis_contents += p
+								flick(p, "interception")
 								enemy.InterceptionStrike(src, enemy.passive_handler["Interception"])
 						if(!dodged)
 					// 				HIT					//
@@ -737,21 +738,21 @@
 							// reduce damage by 1% for every 0.1 damage effectiveness, 1 damage effectiveness = 10% damage reduction
 							//TODO ARMOR AT THE END
 							if(enemy.passive_handler["Parry"] && (s || s2 || s3 || swordAtk))
-								if(prob(enemy.passive_handler["Parry"] * glob.PARRY_CHANCE))
+
+								if(prob(enemy.passive_handler["Parry"] * glob.PARRY_CHANCE) && hitback <= glob.MAX_CHAIN_PARRY)
 									var/obj/Effects/Parry/p = new()
 									p.Target = enemy
 									enemy.vis_contents += p
-									world<<"Old parry damage [damage]"
+									flick(p, "parry")
 									damage /= enemy.passive_handler["Parry"] * glob.PARRY_REDUCTION_MULT
-									world<<"Parry dmg muli: [damageMultiplier + (glob.PARRY_BASE_DMG * enemy.passive_handler["Parry"])] | damage after red [damage]"
-									enemy.Melee1(dmgmulti = damageMultiplier + (glob.PARRY_BASE_DMG * enemy.passive_handler["Parry"]), forcedTarget=src) // this does mean that they will hit from no matter the range if hit by melee
+									enemy.Melee1(dmgmulti = (glob.PARRY_BASE_DMG * enemy.passive_handler["Parry"]), forcedTarget=src, hitback=hitback+1) // this does mean that they will hit from no matter the range if hit by melee
 							if(enemy.passive_handler["Iaijutsu"])
-								if(prob(enemy.passive_handler["Iaijutsu"] * glob.IAI_CHANCE))
+								if(prob(enemy.passive_handler["Iaijutsu"] * glob.IAI_CHANCE) && hitback <= glob.MAX_CHAIN_PARRY)
 									var/obj/Effects/Iai/p = new()
 									p.Target = enemy
 									enemy.vis_contents += p
-									world<<"IAI DAMAGE: [damageMultiplier + (glob.IAI_BASE_DAMAGE) * enemy.passive_handler["Iaijutsu"]]"
-									enemy.Melee1(dmgmulti = damageMultiplier + (glob.IAI_BASE_DAMAGE * enemy.passive_handler["Iaijutsu"]), forcedTarget = src)
+									flick(p, "iai")
+									enemy.Melee1(dmgmulti =(glob.IAI_BASE_DAMAGE * enemy.passive_handler["Iaijutsu"]), forcedTarget = src, hitback=hitback+1)
 							
 							if(defArmor&&!passive_handler.Get("ArmorPeeling"))
 								var/dmgEffective = enemy.GetArmorDamage(defArmor)

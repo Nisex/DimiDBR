@@ -233,6 +233,9 @@ client
 			for(var/x in hud_ids)
 				remove_hud(x)
 			mob.AppearanceOff()
+			for(var/obj/fa_jin/fa in mob.vis_contents)
+				mob.vis_contents -= fa
+				del fa // hrm
 			if(mob.Savable)
 				mob.client.SaveChar()
 			sleep(10)

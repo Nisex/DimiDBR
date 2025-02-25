@@ -494,11 +494,11 @@ mob
 						src.SkillX("Time Stop",x)
 			if(passive_handler["Fa Jin"])
 				if(canFaJin())
+					if(!fa_jin_effect)
+						generate_fa_jin()
 					if(fa_jin_effect.alpha == 0)
 						fa_jin_effect()
 						src << "Your fa jin is ready!"
-					else
-						generate_fa_jin()
 			else
 				if(fa_jin_effect || fa_jin_effect in vis_contents) // ??
 					vis_contents -= fa_jin_effect

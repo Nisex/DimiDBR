@@ -64,7 +64,6 @@ proc
 				S.appearance_flags=66
 				mob.overlays-=S
 				mob.Stunned=0
-				mob.StasisStun=0
 				mob.overlays-='IceCoffin.dmi'
 				var/mod = (mob.HasLegendaryPower() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
 				mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))
@@ -82,7 +81,6 @@ proc
 				S.appearance_flags=66
 				mob.overlays-=S
 				mob.Stunned=0
-				mob.StasisStun=0
 				mob.overlays-='IceCoffin.dmi'
 				var/mod = (mob.HasLegendaryPower() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
 				mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))

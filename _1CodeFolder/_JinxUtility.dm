@@ -440,7 +440,6 @@ mob
 				if(src.CheckSlotless("Frost End"))
 					if(SwordAttack&&defender.Stunned)
 						defender.overlays+='IceCoffin.dmi'
-						defender.StasisStun=1
 				if(src.CheckSlotless("AntiForm"))
 					src.ManaAmount-=1
 					if(src.ManaAmount<0)

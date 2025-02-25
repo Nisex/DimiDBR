@@ -1122,10 +1122,17 @@ NEW VARIABLES
 			PowerMult=1.5
 			var/redacted = FALSE
 			BuffName="Soul Resonance"
+			var/multsSet = FALSE
 			verb/Legendary_Weapon()
 				set hidden=1
 				if(!usr.BuffOn(src))
 					src.SwordIcon=null
+					if(!multsSet)
+						for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/ki in src)
+							vars["[ki.selectedStats[1]]Mult"] = 1.15
+							vars["[ki.selectedStats[2]]Mult"] = 1.1
+							vars["[ki.selectedStats[3]]Mult"] = 1.05
+							multsSet = TRUE
 					switch(usr.BoundLegend)
 						if("Redacted")
 							passives = list("Instinct" = 1, "Flow" = 1, "PULock" = 1)
@@ -11839,7 +11846,7 @@ mob
 			if(src.StyleBuff.StyleActive=="Hiten Mitsurugi")
 				StyleBuff.passives["Godspeed"] = SagaLevel/2
 				StyleBuff.passives["Flicker"] = SagaLevel/2
-				StyleBuff.passives["BlurringStrikes"] = SagaLevel/6
+				StyleBuff.passives["BlurringStrikes"] = round(SagaLevel/6,0.05)
 
 				src.StyleBuff.Mastery=4
 

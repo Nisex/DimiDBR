@@ -108,7 +108,6 @@ mob/proc/implodeDebuff(n, type)
                 vis_contents += b
                 if(StunImmune)
                     StunImmune = 0
-                StasisStun = 1
                 Stun(src, 4)
                 passive_handler.Set("Shellshocked", 1)
                 

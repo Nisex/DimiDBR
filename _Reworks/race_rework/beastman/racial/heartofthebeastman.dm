@@ -3,9 +3,9 @@
     switch(option)
         if("add")
             if(passive_handler["Grit"] + val <= maxGrit)
-                passive_handler.Increase("Grit", val)
+                passive_handler.Increase("Grit", round(val, 0.1))
         if("sub")
             if(passive_handler["Grit"] - val >= 1)
-                passive_handler.Decrease("Grit", val)
+                passive_handler.Decrease("Grit", round(val, 0.1))
         if("reset")
             passive_handler["Grit"] = 0

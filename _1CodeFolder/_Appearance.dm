@@ -240,7 +240,3 @@ mob/proc/AppearanceOn()
 mob/proc/AppearanceOff()
 	src.overlays=null
 	src.underlays=null
-	for(var/obj/fa_jin/fa in src)
-		if(fa in vis_contents)
-			vis_contents -= fa
-		del fa // hrm

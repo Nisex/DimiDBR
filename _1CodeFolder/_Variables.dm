@@ -203,7 +203,7 @@ mob/var
 	Warping//You forcewarp.
 	SuperDash//Mobs have this too now
 	IaidoCounter//Once it hits ten, you get a zoom attack.
-	GladiatorCounter
+	GladiatorCounter = 9999
 
 	MeltyMessage//ppl need to know this shit
 	VenomMessage//fuck isroth being unique
@@ -218,7 +218,6 @@ mob/var
 	tmp/Stunned
 	Stasis//Can't take damage but can't take action.
 	StasisFrozen//is in iceblock
-	StasisStun//if you're iceblocked from stun rather than true stasis
 	StasisSpace//if you're trapped in space prison
 
 	Kaioken//Level of kaioken.
