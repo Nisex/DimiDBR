@@ -9,6 +9,8 @@ mob/proc/pick_refund_skill(mob/target = src)
 	for(var/obj/Skills/S in target.Skills)
 		if(S.Copyable>0&&S.SkillCost>1&&!S.Copied)
 			Refundable.Add(S)
+		else if(istype(/obj/Skills/Buffs/NuStyle) && !S.Copied  && !S.SignatureTechnique && !S.SignatureTechnique && S.SkillCost > 1)
+			Refundable.Add(S)
 	var/obj/Skills/Choice=input(src, "What skill are you refunding?", "RPP Refund") in Refundable
 	if(Choice=="Cancel")
 		return
