@@ -12,7 +12,7 @@
 		SignatureTechnique=1
 		Copyable=0
 		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon", \
-		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Iron_Fist_Style")
+		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Mantis_And_Crane_Style")
 		StyleStr=1.15
 		StyleEnd=1.15
 		StyleDef=1.15
@@ -29,7 +29,7 @@
 		StyleFor=1.15
 		StyleEnd=1.15
 		StyleActive="Black Leg"
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Iron_Fist_Style", \
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Mantis_And_Crane_Style", \
 		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Magma_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ifrit_Jambe")
 		passives = list("Hardening" = 1, "SpiritHand" = 1, "Instinct" = 1, "Flow" = 1)
 		Finisher="/obj/Skills/Queue/Finisher/Mouton_Shot"
