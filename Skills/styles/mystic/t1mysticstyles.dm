@@ -9,6 +9,12 @@
 		StyleEnd = 1.2
 		Finisher = "/obj/Skills/Queue/Finisher/Major_Eruption"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Earth"
+		IconLock = 'SpriteG.dmi'
+		AuraLock = 'Terra Might.dmi'
+		LockX=-16
+		LockY=16
+		AuraX=-8
+		AuraY=-10
 		BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/Magmic_Shield") 
 		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma",\
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire")
@@ -27,6 +33,12 @@
 		StyleFor = 1.15
 		Finisher = "/obj/Skills/Queue/Finisher/Ice_Time"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Water"
+		IconLock = 'SpriteC.dmi'
+		AuraLock = 'Terra Might.dmi'
+		LockX=-16
+		LockY=16
+		AuraX=-8
+		AuraY=-10
 		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard",\
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold")
 		ElementalOffense = "Water"
@@ -44,6 +56,12 @@
 		StyleFor = 1.15
 		Finisher = "/obj/Skills/Queue/Finisher/Stormweaver"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Wind"
+		IconLock = 'SpriteY.dmi'
+		AuraLock = 'Terra Might.dmi'
+		LockX=-16
+		LockY=16
+		AuraX=-8
+		AuraY=-10
 		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Magma"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma",\
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard")
 		ElementalOffense = "Wind"
@@ -60,6 +78,12 @@
 		StyleSpd = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Sunshine_Flame"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Fire"
+		IconLock = 'SpriteR.dmi'
+		AuraLock = 'Terra Might.dmi'
+		LockX=-16
+		LockY=16
+		AuraX=-8
+		AuraY=-10
 		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire",\
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold")
 		ElementalOffense = "Wind"
