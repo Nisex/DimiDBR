@@ -40,8 +40,8 @@
         StyleDef = 1.1
         StyleActive="Gladiator"
         passives = list("Disarm" = 1)
-        StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Fencing_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style",\
-        "/obj/Skills/Buffs/NuStyle/FreeStyle/Ittoryu_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style")
+        StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fencing_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style",\
+        "/obj/Skills/Buffs/NuStyle/SwordStyle/Ittoryu_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style")
         Finisher="/obj/Skills/Queue/Finisher/Challenge"
         verb/Gladiator_Style()
             set hidden=1

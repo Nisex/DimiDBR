@@ -52,7 +52,7 @@
 			set hidden=1
 			src.Trigger(usr)
 	Plague_Bringer
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style")
 		passives = list("SpiritFlow" = 1, "Poisoning" = 1, "Rusting" = 1)
 		StyleDef = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Acid_Rain"
