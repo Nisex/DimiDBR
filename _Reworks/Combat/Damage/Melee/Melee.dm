@@ -187,7 +187,7 @@
 				AfterImageGhost(src)
 				DashTo(Target, glob.NIMBUSRANGE + passive_handler["Nimbus"])
 				var/msg = replacetext(nimbus_message, "player_name", "[src]")
-				msg = replacetext(nimbus_message, "target_name", "[src.Target]")
+				msg = replacetext(msg, "target_name", "[src.Target]")
 				src.OMessage(10,"[msg]","<font color=red>[src]([src.key]) used Nimbus.")
 				last_nimbus = world.time
 				// TODO: make hud later if we feel like it chat
