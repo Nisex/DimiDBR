@@ -9,7 +9,7 @@ RPFlag
 	density = 0
 	opacity = 0
 
-	var/requiresItem = ""
+	var/requiresItem = null
 
 	Crossed(atom/movable/O)
 		if(isplayer(O))
@@ -23,6 +23,8 @@ RPFlag
 						return TRUE
 				O << "That seems like a bad idea..."
 				return FALSE
+			else
+				return TRUE
 
 /obj/Items/Tech/SpaceMask/Rebreather
 	// its 9 am 
@@ -32,7 +34,7 @@ mob/Admin3/verb/CreateRPFlag()
 	if(!nameofFlag)
 		return
 	var/RPFlag/rpflag = new(usr.loc)
-	var/flagNeedsXItem = input(usr, "What item does the flay need to be passable") in typesof(/obj/Items) + "None"
+	var/flagNeedsXItem = input(usr, "What item does the flag need?") in "None" + typesof(/obj/Items)
 	if(flagNeedsXItem != "None")
 		rpflag.requiresItem = flagNeedsXItem
 	rpflag.name = nameofFlag
