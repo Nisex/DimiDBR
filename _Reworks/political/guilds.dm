@@ -22,6 +22,26 @@ mob/Players/var/list/inGuilds = list()
 	whatGuild.checkVerbs(player)
 	usr << "[player] is now assigned as leader of [whatGuild]!"
 
+/mob/Admin3/verb/toggleGuildGiveRanking()
+	var/guild/whatGuild = input(usr, "What guild ") as null|anything in glob.guilds
+	if(!whatGuild) return
+	whatGuild.givesRanking = !whatGuild.givesRanking
+	usr << "[whatGuild] can [whatGuild.givesRanking ? "now":"not"] give rankings"
+
+/mob/Admin3/verb/alterGuildGankTier()
+	var/guild/whatGuild = input(usr, "What guild ") as null|anything in glob.guilds
+	if(!whatGuild || !whatGuild.givesRanking) return
+	var/cancel = FALSE
+	while(cancel != TRUE)
+		var/i = input(usr, "What tier can they give? Use 'Cancel' to exit.") as text
+		if(i == "Cancel" || i == "cancel")
+			cancel = TRUE
+			break // lol
+		else
+			if(i in whatGuild.tiersCanGive)
+				whatGuild.tiersCanGive += i
+		sleep(1)
+
 /mob/Admin3/verb/forceJoinGuild(mob/player in world)
 	var/guild/whatGuild = input(usr, "What guild do you want to make [player.name] join?") as null|anything in glob.guilds
 	if(!whatGuild) return
@@ -156,6 +176,18 @@ guild
 				guild.guildTransaction(howManyFragments)
 			else
 				usr << "You do not have the right to do deez"
+		
+		assignRankingTier()
+			set name = "Assign Ranking"
+			set category = "Guild"
+			var/mob/p = input(usr, "Whomstve") in oview(2, src)
+			if(!p) return
+			p.information.rankingTier = input(usr, "What tier") in tiersCanGive
+			p.information.rankingNumber = input(usr, "what number? Your max is [maxNumberCanGive]") as num
+			if(p.information.rankingNumber > maxNumberCanGive)
+				p.information.rankingNumber = 0
+				usr << "try again..."
+		
 guild
 	var
 		name
@@ -166,7 +198,9 @@ guild
 		list/members = list()// by UniqueID
 		payOutRate = 0.25 // 0.25 = 4 fragments into 1 money
 		id
-
+		givesRanking = FALSE
+		tiersCanGive = list()
+		maxNumberCanGive = 10
 	proc
 		showMemberList(mob/Players/p)
 			p << getMemberList()
@@ -183,6 +217,8 @@ guild
 				p.verbs += /guild/verb/removeOfficer
 				p.verbs += /guild/verb/transferOwnershipVerb
 				p.verbs += /guild/verb/guildExchange
+				if(givesRanking)
+					p.verbs += /guild/verb/assignRankingTier
 			if((p.UniqueID == ownerID) || (p.UniqueID in officers))
 				p.verbs += /guild/verb/addGuildMember
 				p.verbs += /guild/verb/removeGuildMember

@@ -159,8 +159,6 @@ mob/Players
 		if(isplayer(src))
 			move_speed = MovementSpeed()
 
-		fixTitle()
-
 		GiveJobVerbs()
 		// if(RewardsLastGained > 100)
 		// 	Respec1()
@@ -411,9 +409,6 @@ mob/Players
 		if(src in admins)
 			admins -= src
 		// mainLoop -= src
-		if(fa_jin_effect)
-			vis_contents -= fa_jin_effect
-			del fa_jin_effect
 		if(length(savedRoleplay) >= 1)
 			if(fexists("Saved Roleplays/[key].txt"))
 				fdel("Saved Roleplays/[key].txt")

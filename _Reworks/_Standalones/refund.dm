@@ -19,22 +19,6 @@ mob/proc/refund_skill(obj/Skills/refunded_skill)
 	var/Refund=refunded_skill.SkillCost
 	if(refunded_skill.NewCost)
 		Refund = refunded_skill.NewCost
-	/*if(refunded_skill.Copyable)
-		if(refunded_skill.NewCopyable)
-			refunded_skill.Copyable = refunded_skill.NewCopyable
-		switch(refunded_skill.Copyable)
-			if(1) // these r maostly gone
-				Refund = TIER_1_COST
-			if(2)
-				Refund = TIER_1_COST
-			if(3)
-				Refund = TIER_2_COST
-			if(4)
-				Refund = TIER_3_COST
-			if(5)
-				Refund = TIER_4_COST*/
-
-
 	if(refunded_skill.Mastery>1)
 		Refund+=(Refund*(refunded_skill.Mastery-1))
 	if(refunded_skill.name in src.SkillsLocked)
