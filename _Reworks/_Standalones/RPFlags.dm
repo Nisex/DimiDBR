@@ -49,7 +49,7 @@ mob/Admin3/verb/CreateRPFlag()
 	if(!nameofFlag)
 		return
 	var/RPFlag/rpflag = new(usr.loc)
-	var/flagNeedsXItem = input(usr, "What item does the flag need?") in list("None" + typesof(/obj/Items))
+	var/flagNeedsXItem = input(usr, "What item does the flag need?") in list("None") + typesof(/obj/Items)
 	if(flagNeedsXItem != "None")
 		var/trulyNeed = input(usr, "Does the flag truly need [flagNeedsXItem]?") in list("Yes", "No")
 		if(trulyNeed == "Yes")
