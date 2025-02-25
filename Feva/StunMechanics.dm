@@ -44,20 +44,22 @@ proc
 		var/Stun_Amount=world.time+(amount*8)
 		if(m.Stunned)
 			m.Stunned+=(amount*2)
-			if(m.Stunned > m.last_stunned + glob.MAX_STUN_TIME)
-				m.Stunned = m.last_stunned + glob.MAX_STUN_TIME
+			if(m.Stunned > m.last_stunned + glob.MAX_STUN_ADDITION)
+				m.Stunned = m.last_stunned + glob.MAX_STUN_ADDITION
 		else
 			var/obj/Effects/Stun/S=new
 			S.appearance_flags=66
 			m.Stunned=Stun_Amount
 			m.last_stunned = world.time
+			if(m.Stunned > m.last_stunned + glob.MAX_STUN_TIME)
+				m.Stunned = m.last_stunned + glob.MAX_STUN_TIME
 			m.overlays+=S
 			m.ForceCancelBeam()
 			m.ForceCancelBuster()
 	StunCheck(mob/mob)
 
 		if(mob.Stunned)
-			if(mob.Stunned<=world.time)
+			if(mob.Stunned<=world.time || mob.last_stunned + glob.MAX_STUN_TIME < world.time)
 				var/obj/Effects/Stun/S=new
 				S.appearance_flags=66
 				mob.overlays-=S

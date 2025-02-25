@@ -268,7 +268,7 @@
 		NextAttack += delay
 		var/Disarm = 0
 		if(UsingGladiator())
-			if(GladiatorCounter >= glob.GLADIATOR_DISARM_MAX * 2-UsingGladiator())
+			if(GladiatorCounter >= glob.GLADIATOR_DISARM_MAX * 6-UsingGladiator())
 				Disarm = 1
 				GladiatorCounter = 0
 		for(var/mob/enemy in enemies)
@@ -626,6 +626,9 @@
 								if(glob.INTERCEPTION_NEGATES_DAMAGE)
 									dodged = 1
 								ClearQueue()
+								var/obj/Effects/Interception/p = new()
+								p.Target = enemy
+								enemy.vis_contents += p
 								enemy.InterceptionStrike(src, enemy.passive_handler["Interception"])
 						if(!dodged)
 					// 				HIT					//
@@ -733,13 +736,22 @@
 
 							// reduce damage by 1% for every 0.1 damage effectiveness, 1 damage effectiveness = 10% damage reduction
 							//TODO ARMOR AT THE END
-							if(enemy.passive_handler["Parry"] && (s || s2 || s3))
+							if(enemy.passive_handler["Parry"] && (s || s2 || s3 || swordAtk))
 								if(prob(enemy.passive_handler["Parry"] * glob.PARRY_CHANCE))
+									var/obj/Effects/Parry/p = new()
+									p.Target = enemy
+									enemy.vis_contents += p
+									world<<"Old parry damage [damage]"
 									damage /= enemy.passive_handler["Parry"] * glob.PARRY_REDUCTION_MULT
-									enemy.Melee1(dmgmulti = 0.25 *enemy.passive_handler["Parry"], forcedTarget=src) // this does mean that they will hit from no matter the range if hit by melee
+									world<<"Parry dmg muli: [damageMultiplier + (glob.PARRY_BASE_DMG * enemy.passive_handler["Parry"])] | damage after red [damage]"
+									enemy.Melee1(dmgmulti = damageMultiplier + (glob.PARRY_BASE_DMG * enemy.passive_handler["Parry"]), forcedTarget=src) // this does mean that they will hit from no matter the range if hit by melee
 							if(enemy.passive_handler["Iaijutsu"])
 								if(prob(enemy.passive_handler["Iaijutsu"] * glob.IAI_CHANCE))
-									enemy.Melee1(dmgmulti = 0.15 * enemy.passive_handler["Iaijutsu"], forcedTarget = src)
+									var/obj/Effects/Iai/p = new()
+									p.Target = enemy
+									enemy.vis_contents += p
+									world<<"IAI DAMAGE: [damageMultiplier + (glob.IAI_BASE_DAMAGE) * enemy.passive_handler["Iaijutsu"]]"
+									enemy.Melee1(dmgmulti = damageMultiplier + (glob.IAI_BASE_DAMAGE * enemy.passive_handler["Iaijutsu"]), forcedTarget = src)
 							
 							if(defArmor&&!passive_handler.Get("ArmorPeeling"))
 								var/dmgEffective = enemy.GetArmorDamage(defArmor)

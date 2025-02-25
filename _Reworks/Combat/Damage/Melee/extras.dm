@@ -1,9 +1,5 @@
 mob/proc/InterceptionStrike(stacks)
-    var/obj/Skills/AutoHit/Counter/_counter
-    for(var/obj/Skills/AutoHit/Counter/c in src)
-        _counter = c
-    if(!_counter)
-        AddSkill(_counter)
+    var/obj/Skills/AutoHit/Counter/_counter = findOrAddSkill(/obj/Skills/AutoHit/Counter)
     _counter.adjust(src, stacks)
     Activate(_counter)
 
@@ -19,6 +15,7 @@ mob/proc/InterceptionStrike(stacks)
     alpha = 0
     pixel_x = -12
     pixel_y = 12
+    mouse_opacity = 0
 
 /mob/var/tmp/last_fa_jin = 0 
 /mob/var/tmp/obj/fa_jin/fa_jin_effect

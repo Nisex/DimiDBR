@@ -154,7 +154,7 @@ client/proc/remove_hud(id)
 		meter.animateBar(-32,4)
 	Update()
 		
-		var/val
+		var/val = 0 
 		if(linked_var == "HotnCold")
 			val = client.mob.vars["[linked_var]"]
 			if(holder.alpha == 0 || barbg.alpha == 0)
@@ -163,25 +163,25 @@ client/proc/remove_hud(id)
 			if(linked_var == "HotnCold")
 				meter.animateBar(clamp(val/3, -33, 33) , glob.STACK_ANIMATE_TIME)
 				barbg.maptext = "[CHAT_STYLE][val]"
-		else
-			if(linked_var == "Grit")
-				val = client.mob.passive_handler["Grit"]
+			return
+		if(linked_var == "Grit")
+			val = client.mob.passive_handler["Grit"]
 				
-			if(val > 0)
-				if(holder.alpha == 0 || barbg.alpha == 0)
-					animate(holder, alpha = 255, time = 2)
-					animate(barbg, alpha = 255, time = 2)
-				barbg.maptext = "[CHAT_STYLE][val]"
-				var/gap = 32 - glob.vars["MAX_[uppertext(linked_var)]_STACKS"]
-				if(val > glob.vars["MAX_[uppertext(linked_var)]_STACKS"] )
-					meter.animateBar(clamp(val/3, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
-				else
-					if(val <= gap)
-						gap = 0
-					meter.animateBar(clamp(val+gap, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
+		if(val > 0)
+			if(holder.alpha == 0 || barbg.alpha == 0)
+				animate(holder, alpha = 255, time = 2)
+				animate(barbg, alpha = 255, time = 2)
+			barbg.maptext = "[CHAT_STYLE][val]"
+			var/gap = 32 - glob.vars["MAX_[uppertext(linked_var)]_STACKS"]
+			if(val > glob.vars["MAX_[uppertext(linked_var)]_STACKS"] )
+				meter.animateBar(clamp(val/3, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
 			else
-				animate(holder, alpha = 0, time = 2)
-				animate(barbg, alpha = 0, time = 2)
+				if(val <= gap)
+					gap = 0
+				meter.animateBar(clamp(val+gap, 0, 32) - 32,glob.STACK_ANIMATE_TIME)
+		else
+			animate(holder, alpha = 0, time = 2)
+			animate(barbg, alpha = 0, time = 2)
 
 
 #define BAR_X_LOCS list("Fury" = 1, "Momentum" = 1, "Harden" = 1, "FTG" = 1, "MysticT0" = 1, "MysticT1" = 32, "SuperCharge" = 32, "HotnCold" = 128, "Grit" = 192)

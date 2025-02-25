@@ -494,14 +494,16 @@ mob
 						src.SkillX("Time Stop",x)
 			if(passive_handler["Fa Jin"])
 				if(canFaJin())
-					if(!fa_jin_effect)
-						generate_fa_jin()
 					if(fa_jin_effect.alpha == 0)
 						fa_jin_effect()
 						src << "Your fa jin is ready!"
+					else
+						generate_fa_jin()
 			else
-				if(fa_jin_effect && fa_jin_effect in vis_contents)
-					fa_jin_effect.alpha = 0
+				if(fa_jin_effect || fa_jin_effect in vis_contents) // ??
+					vis_contents -= fa_jin_effect
+					fa_jin_effect.loc = null
+					del fa_jin_effect
 
 			var/mystic = UsingMysticStyle()
 			if(mystic[1] == TRUE)
@@ -855,7 +857,7 @@ mob
 					Fury -= glob.BASE_STACK_REDUCTION
 				if(hudIsLive("Fury", /obj/bar))
 					client.hud_ids["Fury"]?:Update()
-				if(Fury <0)
+				if(Fury<0)
 					Fury=0
 
 			if(src.SureHitTimerLimit)

@@ -432,7 +432,7 @@ obj
 					HitMessage="leaps onto their target with their shield before delivering an onslaught of slashes with their spear!"
 					FollowUp="/obj/Skills/AutoHit/Comet_Spear"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Mortal_Will"
-
+					DamageMult = 1
 
 
 				Ogre_Cutter
@@ -1853,6 +1853,9 @@ mob
 				var/obj/Items/Sword/s=src.EquippedSword()
 				if(Q.NeedsSword)
 					if(passive_handler.Get("Disarmed"))
+						src << "You are disarmed you can't use [Q]."
+						return
+					if(passive_handler.Get("Disarmed") && HasSwordPunching())
 						src << "You are disarmed you can't use [Q]."
 						return
 					if((!s && !HasSwordPunching()) && !src.UsingBattleMage())

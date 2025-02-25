@@ -4678,7 +4678,11 @@ mob
 				if(passive_handler.Get("Disarmed"))
 					src << "You are disarmed you can't use [Z]."
 					return
+
 				if(!src.EquippedSword())
+					if(passive_handler.Get("Disarmed") && HasSwordPunching())
+						src << "You are disarmed you can't use [Z]."
+						return
 					if(!src.HasSwordPunching()&& !src.UsingBattleMage())
 						src << "You need a sword to use this technique!"
 						return

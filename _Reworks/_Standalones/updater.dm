@@ -76,6 +76,7 @@ update
 			if(p.isRace(HUMAN))
 				p.RPPMult = 1.25
 	version4
+		version = 4
 		updateMob(mob/p)
 			if(p.isRace(BEASTMAN))
 				switch(p.race?:Racial)
@@ -94,9 +95,22 @@ update
 				if(istype(ms, /obj/Skills/Buffs/NuStyle/SwordStyle/Sword_Savant))
 					ms.passives = list("SwordPunching" = 1, "SwordDamage" = 1, "NeedsSword" = 0, "Sword Master" = 1)
 				
+		
 				
 			if(p.isRace(HUMAN))
 				p.RPPMult = 1.25
+	version5
+		version = 5
+		updateMob(mob/p)
+			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style/d in p)
+				if(p.BuffOn(d))
+					d.Trigger(p)
+				d.passives["Disarm"] = 1.5
+			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style/d in p)
+				if(p.BuffOn(d))
+					d.Trigger(p)
+				d.passives["Disarm"] = 1
+			p.information.resetRanking()
 
 					
 

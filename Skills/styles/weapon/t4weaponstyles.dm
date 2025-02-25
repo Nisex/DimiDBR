@@ -30,7 +30,7 @@
         StyleStr=2
         StyleEnd=1.5
         passives = list("DisableGodKi" = 1, "Deicide" = 10, "Rage" = 5, "Half-Sword" = 5, "Zornhau" = 5, "FavoredPrey" = "Everything", \
-                        "Shearing" = 10, "Deflection" = 5, "Disarm" = 5,"Parry" = 5, "Momentum" = 5, "Hardening" = 5, \
+                        "Shearing" = 10, "Deflection" = 5, "Disarm" = 3,"Parry" = 5, "Momentum" = 5, "Hardening" = 5, \
                         "Secret Knives" = "GodSlayer", "Tossing" = 5, "Pressure" = 5, "Unnerve" = 5)
                         // either throw swords at them, or runes, depending on icon_state do a different effect
         verb/War_God()

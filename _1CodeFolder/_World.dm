@@ -230,9 +230,9 @@ client
 			mob.PoweringDown=0
 			mob.AfterImageStrike=0
 			mob.Grounded=0
-
+			for(var/x in hud_ids)
+				remove_hud(x)
 			mob.AppearanceOff()
-
 			if(mob.Savable)
 				mob.client.SaveChar()
 			sleep(10)

@@ -46,7 +46,7 @@
 		SignatureTechnique=1
 		Copyable=0
 		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx")
-		passives = list("Parry" = 2, "Disarm" = 1, "Hardening" = 1, "Deflection" = 0.5)
+		passives = list("Parry" = 2, "Disarm" = 1.5, "Hardening" = 1, "Deflection" = 0.5)
 		StyleActive="Dardi School"
 		StyleOff=1.15
 		StyleEnd=1.3

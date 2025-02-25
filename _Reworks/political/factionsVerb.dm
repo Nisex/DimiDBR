@@ -119,12 +119,14 @@ characterInformation/proc/getInformation(mob/p, see_pronouns)
 <font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font>
 [p.subjectpronoun()] [theyString] [src.pronouns[1]]/[src.pronouns[2]]
 [p.subjectpronoun()] [theyString2] [nationality] [secondNationality ? "and [secondNationality] nationality." : "nationality."]
-<i>"[catchline]"</i>"}
+<i>"[catchline]"</i>\n
+[getInfo()]"}
     else
         msg={"
 <font face='courier'><font color='#color'>[p.name]'s ID Card is visible.
 <font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font>
 [p.subjectpronoun()] is of [nationality] [secondNationality ? "and [secondNationality] nationality." : "nationality."]
-<i>"[catchline]"</i>"}
+<i>"[catchline]"</i>\n
+[getInfo()]"}
 
     return msg

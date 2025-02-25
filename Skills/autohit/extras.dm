@@ -20,6 +20,6 @@
     ShockTime=4
     ActiveMessage="counters the incoming attack!"
     adjust(mob/p, stacks)
-        DamageMult = 0.5 * stacks
+        DamageMult = 1.5 + (0.5 * stacks)
         Crippling = 15 * stacks
 
