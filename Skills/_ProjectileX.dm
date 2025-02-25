@@ -1677,8 +1677,8 @@ obj
 				Speed=1.45
 				Crippling=1
 				Distance=50
-				DamageMult=5
-				EnergyCost=30
+				DamageMult=3.5
+				EnergyCost=25
 				Deflectable=0
 				AccMult=0.75
 				Homing=1
@@ -1722,7 +1722,7 @@ obj
 			Spirit_Gun
 				SignatureTechnique=1
 				Distance=50
-				DamageMult=1.5
+				DamageMult=4.5
 				AccMult=25
 				Explode=3
 				Knockback=1
@@ -1744,6 +1744,7 @@ obj
 					src.EnergyCost=usr.Energy
 					FatigueCost=EnergyCost/5
 					src.MultiHit=round(src.EnergyCost/10)
+					src.DamageMult=round(4.5 + EnergyCost/10)
 					usr.UseProjectile(src)
 
 			Spirit_Gun_Mega
@@ -1751,7 +1752,7 @@ obj
 				SignatureTechnique=2
 				FatigueCost=80
 				Distance=50
-				DamageMult=2.5
+				DamageMult=6
 				AccMult=25
 				Explode=5
 				Knockback=1
@@ -1772,6 +1773,7 @@ obj
 				verb/Spirit_Gun_Mega()
 					set category="Skills"
 					src.MultiHit=round(FatigueCost/4)
+					src.DamageMult=round(6 + FatigueCost/15)
 					usr.UseProjectile(src)
 			Sekiha_Tenkyoken
 				SignatureTechnique=2

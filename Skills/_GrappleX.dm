@@ -521,12 +521,12 @@ obj/Skills/Grapple
 				var/itemDmg = 1
 				if(src.StrRate)
 					if(src.ForRate)
-						statPower = User.getStatDmg2(spirithand = ForRate) * StrRate
+						statPower = User.getStatDmg2(unarmed = !NeedsSword, sword = NeedsSword, spirithand = ForRate) * StrRate
 					else
-						statPower = User.getStatDmg2() * StrRate
+						statPower = User.getStatDmg2(unarmed = !NeedsSword, sword = NeedsSword,) * StrRate
 				else
 					if(src.ForRate)
-						statPower += User.GetFor(src.ForRate)
+						statPower += User.GetFor(src.ForRate,)
 				if(HarderTheyFall)
 					var/enemyEnd = Trg.GetEnd()
 					statPower += enemyEnd * (HarderTheyFall/10)
