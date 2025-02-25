@@ -10,14 +10,27 @@ RPFlag
 	opacity = 0
 
 	var/requiresItem = null
+	var/trulyRequiresItem = FALSE
 
 	Crossed(atom/movable/O)
 		if(isplayer(O))
 			var/mob/Players/p = O
-			AdminMessage("[p] has crossed a RPFlag titled ([name]) at [x],[y],[z]!")
+			var/message = "[p] has crossed a RPFlag titled ([name]) at [x],[y],[z]"
+			if(requiresItem)
+				var/found = FALSE
+				for(var/obj/Items/i in p)
+					if(istype(i, requiresItem))
+						found = TRUE
+						break
+				if(!found)
+					message += " without a [requiresItem]!"
+				else
+					message += "!"
+			AdminMessage("[message]")
+
 	Cross(atom/movable/O)
 		if(isplayer(O))
-			if(requiresItem)
+			if(requiresItem&&trulyRequiresItem)
 				for(var/obj/Items/i in O)
 					if(istype(i, requiresItem))
 						return TRUE
@@ -36,5 +49,8 @@ mob/Admin3/verb/CreateRPFlag()
 	var/RPFlag/rpflag = new(usr.loc)
 	var/flagNeedsXItem = input(usr, "What item does the flag need?") in "None" + typesof(/obj/Items)
 	if(flagNeedsXItem != "None")
+		var/trulyNeed = input(usr, "Does the flag truly need [flagNeedsXItem]?") in list("Yes", "No")
+		if(trulyNeed == "Yes")
+			rpflag.trulyRequiresItem = TRUE
 		rpflag.requiresItem = flagNeedsXItem
 	rpflag.name = nameofFlag
