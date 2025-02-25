@@ -21,5 +21,5 @@
     ActiveMessage="counters the incoming attack!"
     adjust(mob/p, stacks)
         DamageMult = 0.5 * stacks
-        Crippling = 33 * stacks
+        Crippling = 15 * stacks
 

@@ -15,7 +15,7 @@ RPFlag
 			AdminMessage("[p] has crossed a RPFlag titled ([name]) at [x],[y],[z]!")
 
 mob/Admin3/verb/CreateRPFlag()
-	var/nameofFlag = input(usr, "What do you want the flag to be titled?") as text||null
+	var/nameofFlag = input(usr, "What do you want the flag to be titled?") as text|null
 	if(!nameofFlag)
 		return
 	var/RPFlag/rpflag = new(usr.loc)

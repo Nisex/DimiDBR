@@ -309,12 +309,13 @@ mob/Players/Stat()
 				if(usr.EnhancedSmell&&!usr.Target.passive_handler.Get("Void") || usr.Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
 					if(usr.Secret == "Heavenly Restriction" && usr.secretDatum?:hasRestriction("Senses"))
 						goto Restricted
-					var/Scent=0
+					var/Scent="Sewage"
 					if(usr.Target.custom_scent)
 						Scent=usr.Target.custom_scent
+						stat("Scent: ", usr.Target.custom_scent)
 					else
 						usr.Target.setUpScent()
-					stat("Scent: ", Scent)
+						stat("Scent: ", Scent)
 
 				Restricted
 

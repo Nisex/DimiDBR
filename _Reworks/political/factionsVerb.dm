@@ -102,7 +102,7 @@ characterInformation*/
 /mob/verb/Hide_Information()
     set category = "Other"
     hidingInformation = !hidingInformation
-    src << "The ID Card is [hidingInformation ? "not hidden." : "hidden"]"
+    src << "The ID Card is [hidingInformation ? "hidden." : "not hidden."]"
 
 
 characterInformation/proc/getInformation(mob/p, see_pronouns)

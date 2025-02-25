@@ -27,6 +27,7 @@
 		DamageMult=0.15
 		MultiHit=20
 		AccMult=25
+		Knockback = 5
 		Radius=4
 		Charge=0.33
 		Explode=2

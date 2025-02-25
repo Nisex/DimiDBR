@@ -112,30 +112,6 @@ obj
 						StyleFor=1
 						Finisher="/obj/Skills/Queue/Finisher/Cycle_of_Samsara"
 
-
-					Circuit_Breaker_Style
-						SignatureTechnique=1
-						Copyable=0
-
-						StyleStr=1.1
-						StyleEnd=1.1
-						StyleFor=1.1
-						StyleSpd=1.15
-						NoStaff = 0
-						ElementalClass=list("Wind", "Earth")
-						StyleActive="Circuit Break"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Inverse_Poison_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Entropy_Style",\
-						"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Gentle_Fist_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Flow_Reversal_Style")
-						ElementalOffense="Earth"
-						ElementalDefense="Wind"
-						passives = list("CyberStigma" = 4, "PureDamage" = 0.5, "PureReduction" = 0.5)
-						CyberStigma=1
-						IconLock='Overdrive.dmi'
-						Finisher="/obj/Skills/Queue/Finisher/Ray_Divider"
-						verb/Circuit_Breaker_Style()
-							set hidden=1
-							src.Trigger(usr)
-
 					Drunken_Fist_Style
 						SignatureTechnique=2
 						Copyable=0
