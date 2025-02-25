@@ -15,7 +15,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 4
+	var/UPDATE_VERSION = 6
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -119,8 +119,23 @@ update
 			p.information.resetRanking()
 			p.information.title = null
 
-					
-
+	version6
+		version = 6
+		updateMob(mob/p)
+			. = ..()
+			for(var/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style/turtle in p)
+				turtle.StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Shaolin_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tai_Chi_Style",\
+		"/obj/Skills/Buffs/NuStyle/MysticStyle/Fire_Weaving"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style")
+			for(var/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style/gladiator in p)
+			    gladiator.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fencing_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style",\
+        "/obj/Skills/Buffs/NuStyle/SwordStyle/Ittoryu_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style")
+			for(var/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style/black_leg in p)
+				black_leg.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Mantis_And_Crane_Style", \
+		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Magma_Walker"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ifrit_Jambe")
+			for(var/Skills/Buffs/NuStyle/MysticStyle/Plague_Bringer/pb in p)
+				pb.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style")
+			for(var/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style/is in p)
+				is.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu")
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25
