@@ -155,10 +155,6 @@
 			Attack("ranged")
 			last_activity = world.time
 
-
-#define DIRS list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
-
-
 /proc/skimOppdir(step)
 	switch(step)
 		if(NORTH)
