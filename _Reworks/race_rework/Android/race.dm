@@ -17,5 +17,6 @@ race
 		anger = 1
 		imagination = 0.05
 		anger_message = "calculates the ideal path to victory."
+		skills = list(/obj/Skills/Utility/Cybernetic_Augmentation)
 		passives = list("TechniqueMastery" = 3, "MovementMastery" = 2, "PureDamage" = 1, "PureReduction" = 1, "Flicker" = 2)
 		skills = (/obj/Skills/Utility/Android_Integration)
