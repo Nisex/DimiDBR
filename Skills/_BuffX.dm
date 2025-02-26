@@ -1128,11 +1128,11 @@ NEW VARIABLES
 				if(!usr.BuffOn(src))
 					src.SwordIcon=null
 					if(!multsSet)
-						for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/ki in src)
-							vars["[ki.selectedStats[1]]Mult"] = 1.15
-							vars["[ki.selectedStats[2]]Mult"] = 1.1
-							vars["[ki.selectedStats[3]]Mult"] = 1.05
-							multsSet = TRUE
+						var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/ki = usr.FindSkill(/obj/Skills/Buffs/ActiveBuffs/Ki_Control)
+						vars["[ki.selectedStats[1]]Mult"] = 1.15
+						vars["[ki.selectedStats[2]]Mult"] = 1.1
+						vars["[ki.selectedStats[3]]Mult"] = 1.05
+						multsSet = TRUE
 					switch(usr.BoundLegend)
 						if("Redacted")
 							passives = list("Instinct" = 1, "Flow" = 1, "PULock" = 1)
