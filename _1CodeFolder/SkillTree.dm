@@ -4,15 +4,17 @@ var/list/SkillTreeList=list("BlastT1"=list(),"BlastT2"=list(),"BlastT3"=list(), 
 "MagicT1"=list(),"MagicT2"=list(),"MagicT3"=list(),"MagicT4"=list(),\
 "UnarmedT1"=list(),"UnarmedT2"=list(),"UnarmedT3"=list(),"UnarmedT4"=list(), "UnarmedT5" = list(),\
 "UnarmedStyles"=list(),"UnarmedStylesT1"=list(), "UnarmedStylesT2"=list(),"UnarmedStylesT3"=list(), "UnarmedStylesT4"=list(), \
-"ElementalStyles"=list(),"SpiritStyles"=list(),"SwordStyles"=list(), \
+"ElementalStyles"=list(),"HybridStyle"=list(),"SwordStyles"=list(), \
 "SwordStylesT1"=list(), "SwordStylesT2"=list(),"SwordStylesT3"=list(), "SwordStylesT4"=list(), \
-"ElementalStylesT1"=list(), "ElementalStylesT2"=list(),"ElementalStylesT3"=list(), "ElementalStylesT4"=list() )
+"ElementalStylesT1"=list(), "ElementalStylesT2"=list(),"ElementalStylesT3"=list(), "ElementalStylesT4"=list(),\
+"HybridStyleT1"=list(), "HybridStylet2"=list(), "HybridStylet3"=list(), "HybridStylet4"=list() )
 proc/MakeSkillTreeList()
 	for(var/x in SkillTree)
 		var/Tier = null
 		if(!(x in list("UnarmedStyles","ElementalStyles", "ElementalStylesT1", "ElementalStylesT2", \
-		"ElementalStylesT3","SpiritStyles","SwordStyles", "UnarmedStylesT1", "UnarmedStylesT2", \
-		"UnarmedStylesT3", "UnarmedStylesT4", "SwordStylesT1", "SwordStylesT2", "SwordStylesT3", "SwordStylesT4")))
+		"ElementalStylesT3","HybridStyle","SwordStyles", "UnarmedStylesT1", "UnarmedStylesT2", \
+		"UnarmedStylesT3", "UnarmedStylesT4", "SwordStylesT1", "SwordStylesT2", "SwordStylesT3", "SwordStylesT4",\
+		"HybridStyleT1"=list(), "HybridStylet2"=list(), "HybridStylet3"=list(), "HybridStylet4"=list())))
 			Tier = copytext(x,length(x), 0)
 		for(var/z in SkillTree[x])
 			var/obj/SkillTreeObj/s = new
@@ -264,7 +266,16 @@ var/list/SkillTree=list(
 					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Giga_Galaxy_Wrestling"=9999
 					),
 
-"SpiritStyles"=list(
+"HybridStyles"=list(
+
+),
+"HybridStylesT1"=list(
+
+),
+"HybridStylesT2"=list(
+
+),
+"HybridStylesT3"=list(
 
 ),
 

@@ -653,6 +653,10 @@ mob/Players/verb
 		is_dashing = 0
 		if(isRace(BEASTMAN) && race?:Racial == "Feather Knife")
 			passive_handler.passives["Secret Knives"] = "Feathers"
+		if(isRace(BEASTMAN) && race?:Racial == "Monkey King")
+			var/obj/Skills/Buffs/s = findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Never_Fall/)
+			if(!s.Using)
+				s.Trigger(src, TRUE)
 		usr.verb_delay=world.time+1
 		for(var/b in usr.SlotlessBuffs)
 			var/obj/Skills/Buffs/x = usr.SlotlessBuffs[b]

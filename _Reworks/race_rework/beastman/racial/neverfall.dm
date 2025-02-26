@@ -38,6 +38,7 @@
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman
     Never_Fall
         AlwaysOn = 1
+        doNotDelete = 1
         passives = list("AbsorbingDamage" = 1)
         New(mob/User)
             . = ..()

@@ -62,6 +62,7 @@ mob/var
 	tmp/list/BeingTargetted=list() //list of mobs currently targetting
 	tmp/is_dashing = 0
 	tmp/verb_delay = 0
+	tmp/last_autohit
 	tmp/GlowFilter
 	tmp/ArmamentGlow
 	tmp/FlickeringGlow

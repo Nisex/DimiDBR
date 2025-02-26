@@ -3726,7 +3726,7 @@ window "skilltree"
 		background-color = #0a0a0a
 		saved-params = "is-checked"
 		text = "REDACTED"
-		command = ""
+		command = "skilltreez \"HybridStyles\""
 	elem "button61"
 		type = BUTTON
 		pos = 203,32

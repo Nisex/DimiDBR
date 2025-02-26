@@ -1628,7 +1628,7 @@ obj
 				SignatureTechnique=1
 				UnarmedOnly=1
 				Area="Circle"
-				StrOffense=1
+				AdaptRate=1
 				DamageMult=13
 				TurfDirt=1
 				Distance=5
@@ -1640,6 +1640,7 @@ obj
 				PostShockwave=1
 				PreShockwave=0
 				Cooldown=150
+				Rush=4
 				WindUp=1
 				Earthshaking=20
 				Instinct=1
@@ -1684,9 +1685,8 @@ obj
 				SignatureTechnique=1
 				UnarmedOnly=1
 				Area="Circle"
-				StrOffense=0
-				ForOffense=1
-				DamageMult=0.8
+				AdaptRate = 1 
+				DamageMult=1.2
 				ComboMaster=1
 				Rounds=10
 				ChargeTech=1
@@ -5360,6 +5360,9 @@ mob
 		Activate(var/obj/Skills/AutoHit/Z)
 			set waitfor = FALSE
 			. = TRUE
+			if(glob.CUCK_MACROSTRINGS)
+				if(last_autohit + glob.MACROCHECKTIME > world.time)
+					return FALSE
 			if(src.passive_handler.Get("Silenced"))
 				src << "You can't use [Z] you are silenced!"
 				return 0
@@ -5558,6 +5561,7 @@ mob
 			if(!Z.NoLock)
 				src.AutoHitting=1
 			var/turf/TrgLoc
+			last_autohit = world.time
 			if(Z.Area=="Around Target"||Z.Area=="Target")
 				TrgLoc=src.Target.loc
 				if(Target.passive_handler.Get("CounterSpell"))
@@ -6764,7 +6768,7 @@ obj
 						if(m.CanAttack())
 							m.Melee1(Damage,2,0,0,null,null,0,0,2,1)
 					if(m.HasFlow())
-						if(prob(getFlowCalc(glob.BASE_FLOW_PROB/2, m.GetFlow(), src.Owner.HasInstinct() )))
+						if(prob(getFlowCalc(Owner, m)))
 							if(!src.TurfStrike)
 								spawn()
 									src.Owner.HitEffect(loc, src.UnarmedTech, src.SwordTech)

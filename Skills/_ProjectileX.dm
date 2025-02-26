@@ -1374,10 +1374,10 @@ obj
 				NewCopyable = 2
 				SkillCost=80
 				Copyable=3
-				Blasts=16
-				DamageMult=1.25
+				Blasts=12
+				DamageMult=1.3
 				Radius=1
-				AccMult=50
+				AccMult=3
 				Deflectable=0
 				Static=1
 				Distance=100
@@ -1385,12 +1385,12 @@ obj
 				LockX=0
 				LockY=0
 				ZoneAttack=1
-				ZoneAttackX=7
-				ZoneAttackY=7
-				Hover=8
+				ZoneAttackX=6
+				ZoneAttackY=6
+				Hover=16
 				FireFromSelf=1
 				FireFromEnemy=0
-				Cooldown=30
+				Cooldown=60
 				Explode=2
 				EnergyCost=4
 				verb/Energy_Minefield()
@@ -1658,15 +1658,13 @@ obj
 				EnergyCost=6
 				Charge=1
 				Piercing=1
-				Dodgeable=0
+				Dodgeable=1
 				Deflectable=0
 				Launcher=1
 				MultiHit=4
 				IconChargeOverhead=1
 				Cooldown=150
 				Variation=0
-				StrRate = 1
-				ForRate = 0
 				verb/Jecht_Shot()
 					set category="Skills"
 					usr.UseProjectile(src)
@@ -5506,6 +5504,7 @@ obj
 						if(!a:Stasis)
 							var/mob/p = a
 							if(p.passive_handler["Neo"]&&!p.HasNoDodge()&&src.Dodgeable>0)
+								world<<"neo maybe?"
 								var/dir=get_dir(src,a)
 								if(prob(p.passive_handler["Neo"]*glob.NEO_DODGERATE))
 									src.loc = a.loc
@@ -5517,9 +5516,10 @@ obj
 										if(src.Area!="Beam")
 											src.Backfire=1
 									return
-
-							if(a:HasFlow()&&!a:NoDodge&&src.Dodgeable>0)
-								if(prob(getFlowCalc(glob.BASE_FLOW_PROB/2, a:GetFlow(), src.Owner.HasInstinct())))
+							world<<"here"
+							if(m.HasFlow()&&!m.HasNoDodge()&&src.Dodgeable>0)
+								if(prob(getFlowCalc(Owner, m )) )
+									world<<"flow proc'd "
 									var/dir=get_dir(src,a)
 									AfterImage(a)
 									if(src.Area=="Beam")
@@ -5540,13 +5540,13 @@ obj
 									if(a:CheckSlotless("Combat CPU"))
 										a:LoseMana(1)
 									return
-
+							world<<"here 1"
 							if(a:AfterImageStrike&&src.Dodgeable>0)
 								var/dir=get_dir(src,a)
 								a:AfterImageStrike-=1
 								if(a:AfterImageStrike<0)
 									a:AfterImageStrike=0
-								if(!a:NoDodge)
+								if(!m.HasNoDodge())
 									AfterImage(a)
 									if(src.Area=="Beam")
 										for(var/obj/Skills/Projectile/Beams/Z in src.Owner)
@@ -5856,6 +5856,7 @@ obj
 									src.Owner.HealMana(src.Owner.SagaLevel/8)
 							else
 								if(MultDamage > 1) EffectiveDamage *= MultDamage
+								// if not piercing and theres a mob and they are already hit by key and that calue is over or equal multihit+1
 								if(!(Piercing && m && (AlreadyHit["[m.ckey]"] >= MultiHit + 1)) || Bounce)
 									if(!AlreadyHit["[m.ckey]"]) AlreadyHit["[m.ckey]"] = 0
 									EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.01, 1)
