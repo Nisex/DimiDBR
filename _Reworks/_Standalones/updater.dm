@@ -20,7 +20,7 @@ globalTracker
 
 	proc/updatePlayer(mob/p)
 		if(!p.updateVersion)
-			var/updateversion = "/update/version[glob.UPDATE_VERSION]"
+			var/updateversion = "/update/version[UPDATE_VERSION]"
 			p.updateVersion = new updateversion
 			p.updateVersion.updateMob(p)	
 		if(UPDATE_VERSION == p.updateVersion.version)
@@ -51,6 +51,7 @@ update
 	version2
 		version = 2
 		updateMob(mob/p)
+			. = ..()
 			if(p.isRace(BEASTMAN))
 				switch(p.race?:Racial)
 					if("Unseen Predator")
@@ -66,6 +67,7 @@ update
 	version3
 		version = 3
 		updateMob(mob/p)
+			. = ..()
 			for(var/obj/Skills/Buffs/NuStyle/ms in src)
 				if(istype(ms, /obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker))
 					ms.BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/Magmic_Shield")
@@ -78,6 +80,7 @@ update
 	version4
 		version = 4
 		updateMob(mob/p)
+			. = ..()
 			if(p.isRace(BEASTMAN))
 				switch(p.race?:Racial)
 					if("Unseen Predator")
@@ -102,6 +105,7 @@ update
 	version5
 		version = 5
 		updateMob(mob/p)
+			. = ..()
 			if(p.isRace(HUMAN))
 				var/pot_keep = p.Potential
 				for(var/obj/Skills/s in p)
