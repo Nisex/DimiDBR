@@ -102,12 +102,6 @@ update
 	version5
 		version = 5
 		updateMob(mob/p)
-			if(p.isRace(HUMAN))
-				var/pot_keep = p.Potential
-				for(var/obj/Skills/s in p)
-					if(s.SkillCost || s.NewCost)
-						p.refund_skill(s)
-				p.Potential = pot_keep
 			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style/d in p)
 				if(p.BuffOn(d))
 					d.Trigger(p)
