@@ -5504,7 +5504,7 @@ obj
 						if(!a:Stasis)
 							var/mob/p = a
 							if(p.passive_handler["Neo"]&&!p.HasNoDodge()&&src.Dodgeable>0)
-								world<<"neo maybe?"
+							//	world<<"neo maybe?"
 								var/dir=get_dir(src,a)
 								if(prob(p.passive_handler["Neo"]*glob.NEO_DODGERATE))
 									src.loc = a.loc
@@ -5516,10 +5516,10 @@ obj
 										if(src.Area!="Beam")
 											src.Backfire=1
 									return
-							world<<"here"
+							//world<<"here"
 							if(m.HasFlow()&&!m.HasNoDodge()&&src.Dodgeable>0)
 								if(prob(getFlowCalc(Owner, m )) )
-									world<<"flow proc'd "
+									//world<<"flow proc'd "
 									var/dir=get_dir(src,a)
 									AfterImage(a)
 									if(src.Area=="Beam")
@@ -5540,7 +5540,7 @@ obj
 									if(a:CheckSlotless("Combat CPU"))
 										a:LoseMana(1)
 									return
-							world<<"here 1"
+							//world<<"here 1"
 							if(a:AfterImageStrike&&src.Dodgeable>0)
 								var/dir=get_dir(src,a)
 								a:AfterImageStrike-=1
