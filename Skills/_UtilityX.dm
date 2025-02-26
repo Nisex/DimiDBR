@@ -2690,7 +2690,7 @@ obj/Skills/Utility
 				return
 			src.Using=1
 
-			if("Cyber Augmentations" in usr.knowledgeTracker.learnedKnowledge)
+			if("Cyber Augmentations" in usr.knowledgeTracker.learnedKnowledge || (M == usr && usr.isRace(ANDROID)))
 				ModChoices.Add("Enhanced Strength")
 				ModChoices.Add("Enhanced Force")
 				ModChoices.Add("Enhanced Endurance")
@@ -2698,7 +2698,7 @@ obj/Skills/Utility
 				ModChoices.Add("Enhanced Reflexes")
 				ModChoices.Add("Enhanced Speed")
 
-			if("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge)
+			if("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge || (M == usr && usr.isRace(ANDROID)))
 				ModChoices.Add("Internal Comms Suite")//talky in your heady
 				ModChoices.Add("Blade Mode")//Cyberrush
 				ModChoices.Add("Taser Strike")
@@ -2711,13 +2711,13 @@ obj/Skills/Utility
 				ModChoices.Add("Internal Life Support")
 				ModChoices.Add("Energy Assimilators")
 
-			if("War Crimes" in usr.knowledgeTracker.learnedKnowledge)
+			if("War Crimes" in usr.knowledgeTracker.learnedKnowledge || (M == usr && usr.isRace(ANDROID)))
 				ModChoices.Add("Punishment Chip")
 				ModChoices.Add("Failsafe Circuit")
 				ModChoices.Add("Explosive Implantation")
 
 			//These are unlocked by default
-			if("Singularity" in usr.knowledgeTracker.learnedKnowledge)
+			if("Singularity" in usr.knowledgeTracker.learnedKnowledge || (M == usr && usr.isRace(ANDROID)))
 				ModChoices.Add("Ripper Mode")
 				ModChoices.Add("Armstrong Augmentation")
 				ModChoices.Add("Ray Gear")
@@ -2730,7 +2730,7 @@ obj/Skills/Utility
 					continue*/
 				if(m.Secret=="Heavenly Restriction" && (m.secretDatum?:hasRestriction("Science") || m.secretDatum?:hasRestriction("Cybernetics")))
 					continue
-				if(m==usr&&!("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge))
+				if(m==usr&&!("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge) || (M == usr && usr.isRace(ANDROID)))
 					continue
 				Who+=m
 			if(Who.len<1)
