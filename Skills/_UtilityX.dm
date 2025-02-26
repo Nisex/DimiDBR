@@ -2690,7 +2690,7 @@ obj/Skills/Utility
 				return
 			src.Using=1
 
-			if("Cyber Augmentations" in usr.knowledgeTracker.learnedKnowledge || (M == usr && usr.isRace(ANDROID)))
+			if("Cyber Augmentations" in usr.knowledgeTracker.learnedKnowledge || (usr.isRace(ANDROID)))
 				ModChoices.Add("Enhanced Strength")
 				ModChoices.Add("Enhanced Force")
 				ModChoices.Add("Enhanced Endurance")
@@ -2698,7 +2698,7 @@ obj/Skills/Utility
 				ModChoices.Add("Enhanced Reflexes")
 				ModChoices.Add("Enhanced Speed")
 
-			if("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge || (M == usr && usr.isRace(ANDROID)))
+			if("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge || (usr.isRace(ANDROID)))
 				ModChoices.Add("Internal Comms Suite")//talky in your heady
 				ModChoices.Add("Blade Mode")//Cyberrush
 				ModChoices.Add("Taser Strike")
@@ -2711,13 +2711,13 @@ obj/Skills/Utility
 				ModChoices.Add("Internal Life Support")
 				ModChoices.Add("Energy Assimilators")
 
-			if("War Crimes" in usr.knowledgeTracker.learnedKnowledge || (M == usr && usr.isRace(ANDROID)))
+			if("War Crimes" in usr.knowledgeTracker.learnedKnowledge || (usr.isRace(ANDROID)))
 				ModChoices.Add("Punishment Chip")
 				ModChoices.Add("Failsafe Circuit")
 				ModChoices.Add("Explosive Implantation")
 
 			//These are unlocked by default
-			if("Singularity" in usr.knowledgeTracker.learnedKnowledge || (M == usr && usr.isRace(ANDROID)))
+			if("Singularity" in usr.knowledgeTracker.learnedKnowledge || (usr.isRace(ANDROID)))
 				ModChoices.Add("Ripper Mode")
 				ModChoices.Add("Armstrong Augmentation")
 				ModChoices.Add("Ray Gear")
@@ -2739,6 +2739,10 @@ obj/Skills/Utility
 				return
 
 			M=input(usr, "Who do you want to install cybernetics in?", "Cybernetic Augmentation") in Who
+			if(usr.isRace(ANDROID) && M!=usr)
+				usr << "You can only augment yourself!"
+				src.Using=0
+				return
 			if(M=="Cancel")
 				OMsg(usr, "[usr] decides not to tinker.")
 				src.Using=0
