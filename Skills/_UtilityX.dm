@@ -2730,7 +2730,7 @@ obj/Skills/Utility
 					continue*/
 				if(m.Secret=="Heavenly Restriction" && (m.secretDatum?:hasRestriction("Science") || m.secretDatum?:hasRestriction("Cybernetics")))
 					continue
-				if(m==usr&&!("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge) || (M == usr && usr.isRace(ANDROID)))
+				if(m==usr&&!(("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge)||usr.isRace(ANDROID)))
 					continue
 				Who+=m
 			if(Who.len<1)
