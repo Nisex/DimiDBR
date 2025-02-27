@@ -38,7 +38,7 @@ mob/proc/refund_skill(obj/Skills/refunded_skill)
 					var/obj/Skills/Buffs/s = S
 					if(src.BuffOn(s))
 						s.Trigger(src, Override=1)
-				if(istype(S, /obj/Skills/Buffs/NuStyle))
+				/*if(istype(S, /obj/Skills/Buffs/NuStyle))
 					if(S:StyleComboUnlock)
 						if(IsList(S:StyleComboUnlock))
 							for(var/x in S:StyleComboUnlock)
@@ -47,7 +47,7 @@ mob/proc/refund_skill(obj/Skills/refunded_skill)
 								if(!advanced_path) return
 								var/obj/Skills/Buffs/NuStyle/StyleToRefund = locate(advanced_path) in src
 								if(StyleToRefund)
-									refund_skill(StyleToRefund)
+									refund_skill(StyleToRefund)*/
 				del S
 				break
 	for(var/obj/Skills/Buffs/NuStyle/s in src)
