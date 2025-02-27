@@ -154,12 +154,12 @@ update
 						p.passive_handler.Set("MartialMagic", 1)
 					if("Heart")
 						p.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_Liberation)
-			var/obj/Skills/Buffs/water = FindSkill(/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending)
+			var/obj/Skills/Buffs/NuStyle/water = p.FindSkill(/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending)
 			if(water)
 				water.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Earth_Moving"="/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing",\
 							"/obj/Skills/Buffs/NuStyle/MysticStyle/Wind_Summoning"="/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer", \
 							"/obj/Skills/Buffs/NuStyle/MysticStyle/Plague_Bringer"="/obj/Skills/Buffs/NuStyle/MysticStyle/Bloodmancer")
-			var/obj/Skills/Buffs/plague = FindSkill(/obj/Skills/Buffs/NuStyle/MysticStyle/Plague_Bringer)
+			var/obj/Skills/Buffs/NuStyle/plague = p.FindSkill(/obj/Skills/Buffs/NuStyle/MysticStyle/Plague_Bringer)
 			if(plague)
 				plague.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style", \
 							"/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"="/obj/Skills/Buffs/NuStyle/MysticStyle/Bloodmancer")
