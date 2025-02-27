@@ -42,7 +42,7 @@
     owner = null
     tick_on = null
     loc = null
-/obj/leftOver/proc/init()
+/obj/leftOver/proc/init(mob/p)
     ticking_generic += src
     owner = p
     for(var/mob/m in loc)
@@ -58,7 +58,7 @@
         loc = locate(T.x, T.y, T.z)
         alpha = 0
         lifetime = (5 SECONDS) * style_value
-        init()
+        init(p)
         animate(src, alpha = 255, time = 5, easing = ELASTIC_EASING)
     Cross(atom/movable/O)
         if(ismob(O) && O != owner)
@@ -103,7 +103,7 @@
         power = 2+style_value
         lifetime = (15 SECONDS) * style_value
         proc_params = list("Value" = style_value*glob.DEBUFF_INTENSITY, "Attacker" = owner)
-        init()
+        init(p)
         animate(src, alpha = 255, time = 5, easing = ELASTIC_EASING)
     on_death()
         animate(src, alpha = 0, time = 5, easing = ELASTIC_EASING)
