@@ -154,7 +154,7 @@ mob/Players/verb
 		set src in range(1, usr)
 		if(!(world.time > usr.verb_delay)) return
 		usr.verb_delay=world.time+1
-		if(!src.KO)
+		if(!src.KO || istype(src, /mob/Body))
 			usr << "You can only use this on unconscious opponents."
 			return
 		usr.Grid("Loot", Lootee=src)
