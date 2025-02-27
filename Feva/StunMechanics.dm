@@ -68,7 +68,7 @@ proc
 				var/mod = (mob.HasLegendaryPower() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
 				mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))
 				if(mob.passive_handler["Shellshocked"])
-					mob.passive_handler.Set("Shellschocked", 0)
+					mob.passive_handler.Set("Shellshocked", 0)
 			else
 				return 1
 	StunClear(mob/mob)

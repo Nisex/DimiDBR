@@ -497,6 +497,10 @@ mob
 			if(Value >=1)
 				animate(src, color = "#ff1cff")
 				animate(src, color = src.MobColor, time=5)
+			if(Attacker && client)
+				if(Attacker.passive_handler["BlindingVenom"])
+					if(!BlindingVenom)
+						BlindingVenom=Attacker.passive_handler["BlindingVenom"]
 
 			if(Attacker&&Attacker.CursedWounds())
 				AddShearing(Value/2)

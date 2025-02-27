@@ -278,14 +278,18 @@ obj
 					Hiten_Mitsurugi_Ryuu
 						Copyable=0
 						SagaSignature=1
-						StyleStr=1.5
-						StyleSpd=1.5
+						StyleStr=1 // ???
+						StyleSpd=1
 						StyleActive="Hiten Mitsurugi"
 						passives = list("Godspeed" = 1, "BlurringStrikes" = 0.25, "Flicker" = 1)
 						Flicker=1
 						Mastery=4
 						ClassNeeded = list("Light", "Wooden")
 						Finisher="/obj/Skills/Queue/Finisher/Flash_Strike"
+						adjust(mob/p)
+							StyleStr = 1.1 + (p.SagaLevel * 0.05)
+							StyleSpd = 1.1 + (p.SagaLevel * 0.1)
+							StyleOff = 1.1 + (p.SagaLevel * 0.05)
 						verb/Hiten_Mitsurugi_Ryuu()
 							set hidden=1
 							src.Trigger(usr)
@@ -303,16 +307,25 @@ obj
 							StyleActive="Speed Rave"
 							passives = list("BlurringStrikes" = 1, "AfterImages" = 1, "Steady" = 1)
 							Finisher="/obj/Skills/Queue/Finisher/Fever_Pitch"
+							adjust(mob/p)
+								StyleStr = 1.2 + (0.05 * p.SagaLevel)
+								StyleSpd = 1.2 + (0.05 * p.SagaLevel)
+								StyleOff = 1 + (0.05 * p.SagaLevel)
+								StyleDef = 1 + (0.05 * p.SagaLevel)
 							verb/Speed_Rave_Style()
 								set hidden=1
 								src.Trigger(usr)
 						Critical_Impact_Style
-							StyleStr = 1.5
-							StyleEnd = 1.5
-							StyleOff = 1.2
+							StyleStr = 1
+							StyleEnd = 1
+							StyleOff = 1
 							StyleActive="Critical Impact"
 							passives = list("CriticalChance" = 15, "CriticalDamage" = 0.1, "HeavyHitter" = 1, "CallousedHands" = 0.15)
 							Finisher="/obj/Skills/Queue/Finisher/Fatal_Mode"
+							adjust(mob/p)
+								StyleStr = 1.2 + (0.1 * p.SagaLevel)
+								StyleEnd = 1.2 + (0.1 * p.SagaLevel)
+								StyleOff = 1 + (0.05 * p.SagaLevel)
 							verb/Critical_Impact_Style()
 								set hidden=1
 								src.Trigger(usr)
@@ -323,12 +336,16 @@ obj
 							StyleActive="Spell Weaver"
 							passives = list("SpiritFlow" = 0.15, "QuickCast" = 1, "MovingCharge" = 1, "Siphon" = 2)
 							Finisher="/obj/Skills/Queue/Finisher/Magic_Wish"
+							adjust(mob/p)
+								StyleFor = 1.1 + (0.1 * p.SagaLevel)
+								StyleSpd = 1.2 + (0.05 * p.SagaLevel)
+								StyleDef = 1 + (0.05 * p.SagaLevel)
 							verb/Spell_Weaver_Style()
 								set hidden=1
 								src.Trigger(usr)
 						Firestorm_Style
-							StyleStr=1.5
-							StyleFor=1.5
+							StyleStr=1
+							StyleFor=1
 							ElementalClass="Fire"
 							StyleActive="Firestorm"
 							ElementalOffense="Fire"
@@ -336,12 +353,15 @@ obj
 							passives = list("Burning" = 1)
 							Burning=1
 							Finisher="/obj/Skills/Queue/Finisher/Fire_Storm"
+							adjust(mob/p)
+								StyleFor = 1 + (0.1 * p.SagaLevel)
+								StyleStr = 1 + (0.1 * p.SagaLevel)
 							verb/Firestorm_Style()
 								set hidden=1
 								src.Trigger(usr)
 						Diamond_Dust_Style
-							StyleEnd=1.5
-							StyleFor=1.5
+							StyleEnd=1
+							StyleFor=1
 							ElementalClass="Water"
 							StyleActive="Diamond Dust"
 							ElementalOffense="Water"
@@ -349,6 +369,9 @@ obj
 							passives = list("Chilling" = 1)
 							Chilling=1
 							Finisher="/obj/Skills/Queue/Finisher/Diamond_Dust"
+							adjust(mob/p)
+								StyleFor = 1 + (0.1 * p.SagaLevel)
+								StyleEnd = 1 + (0.1 * p.SagaLevel)
 							verb/Diamond_Dust_Style()
 								set hidden=1
 								src.Trigger(usr)
@@ -362,6 +385,9 @@ obj
 							passives = list("Shocking" = 1)
 							Shocking=1
 							Finisher="/obj/Skills/Queue/Finisher/Thunderbolt"
+							adjust(mob/p)
+								StyleSpd = 1 + (0.1 * p.SagaLevel)
+								StyleEnd = 1 + (0.1 * p.SagaLevel)
 							verb/Thunderbolt_Style()
 								set hidden=1
 								src.Trigger(usr)
@@ -380,6 +406,10 @@ obj
 							IconLockBlend=2
 							IconApart=1
 							Finisher="/obj/Skills/Queue/Finisher/Wing_Blade"
+							adjust(mob/p)
+								StyleSpd = 1 + (0.05 * p.SagaLevel)
+								StyleEnd = 1 + (0.05 * p.SagaLevel)
+								StyleSpd = 1 + (0.1 * p.SagaLevel)
 							verb/Wing_Blade_Style()
 								set hidden=1
 								src.Trigger(usr)
@@ -395,6 +425,10 @@ obj
 							Shocking=1
 							Paralyzing=0.2
 							Finisher="/obj/Skills/Queue/Finisher/Cyclone"
+							adjust(mob/p)
+								StyleStr = 1 + (0.05 * p.SagaLevel)
+								StyleFor = 1 + (0.05 * p.SagaLevel)
+								StyleSpd = 1 + (0.1 * p.SagaLevel)
 							verb/Cyclone_Style()
 								set hidden=1
 								src.Trigger(usr)
@@ -409,6 +443,10 @@ obj
 							passives = list("Hardening" = 1, "Crushing" = 1, "ArmorPeeling" = 1, "CallousedHands" = 0.15)
 							Crushing=1
 							Finisher="/obj/Skills/Queue/Finisher/Rock_Breaker"
+							adjust(mob/p)
+								StyleDef = 1 + (0.05 * p.SagaLevel)
+								StyleStr = 1 + (0.05 * p.SagaLevel)
+								StyleEnd = 1 + (0.1 * p.SagaLevel)
 							verb/Rock_Breaker_Style()
 								set hidden=1
 								src.Trigger(usr)
@@ -424,6 +462,9 @@ obj
 							ElementalOffense = "Dark"
 							ElementalDefense = "Dark"
 							Finisher="/obj/Skills/Queue/Finisher/Dark_Impulse"
+							adjust(mob/p)
+								StyleStr = 1 + (0.1 * p.SagaLevel)
+								StyleEnd = 1 + (0.1 * p.SagaLevel)
 							verb/Dark_Impulse_Style()
 								set hidden=1
 								src.Trigger(usr)
@@ -435,6 +476,10 @@ obj
 							passives = list("Likewater" = 1, "Godspeed" = 1, "MovingCharge" = 1, "QuickCast" = 1, "SpiritFlow" = 0.5)
 							Afterimages=1
 							Finisher="/obj/Skills/Queue/Finisher/Ghost_Drive"
+							adjust(mob/p)
+								StyleOff = 1 + (0.05 * p.SagaLevel)
+								StyleDef = 1 + (0.05 * p.SagaLevel)
+								StyleFor = 1 + (0.1 * p.SagaLevel)
 							verb/Ghost_Drive_Style()
 								set hidden=1
 								src.Trigger(usr)
@@ -446,6 +491,10 @@ obj
 							passives = list("Extend" = 1, "SpiritSword" = 0.75, "SpiritHand" = 1)
 							Extend=1
 							Finisher="/obj/Skills/Queue/Finisher/Blade_Charge"
+							adjust(mob/p)
+								StyleStr = 1 + (0.05 * p.SagaLevel)
+								StyleOff = 1 + (0.05 * p.SagaLevel)
+								StyleFor = 1 + (0.1 * p.SagaLevel)
 							verb/Blade_Charge_Style()
 								set hidden=1
 								src.Trigger(usr)
@@ -454,235 +503,7 @@ obj
 					NeedsSword=0
 					NoSword=0
 					NoStaff=0
-
-					Feral_Style
-						StyleStr=1.3
-						StyleEnd=1.5
-						StyleSpd=1.2
-						StyleActive="Feral"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Blitz_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Spirit_Style",\
-						"/obj/Skills/Buffs/NuStyle/FreeStyle/Flow_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Yin_Yang_Style")
-						passives = list("Instinct" = 1)
-						Instinct=1
-						Finisher="/obj/Skills/Queue/Finisher/Berserker_Claw"
-						verb/Feral_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Flow_Style
-						StyleEnd=1.4
-						StyleFor=1.2
-						StyleSpd=1.4
-						StyleActive="Flow"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Breaker_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Soul_Crushing_Style",\
-						"/obj/Skills/Buffs/NuStyle/FreeStyle/Feral_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Yin_Yang_Style")
-						passives = list("Flow" = 1)
-						Flow=1
-						Finisher="/obj/Skills/Queue/Finisher/Evac_Toss"
-						verb/Flow_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Breaker_Style
-						StyleStr=1.3
-						StyleEnd=1.4
-						StyleFor=1.3
-						StyleActive="Breaker"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Flow_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Soul_Crushing_Style",\
-						"/obj/Skills/Buffs/NuStyle/FreeStyle/Blitz_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Resonance_Style")
-						passives = list("WeaponBreaker" = 1)
-						WeaponBreaker=1
-						Finisher="/obj/Skills/Queue/Finisher/Armor_Piercer"
-						verb/Breaker_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Blitz_Style
-						StyleStr=1.3
-						StyleEnd=1.3
-						StyleSpd=1.4
-						StyleActive="Blitz"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Feral_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Spirit_Style",\
-						"/obj/Skills/Buffs/NuStyle/FreeStyle/Breaker_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Resonance_Style")
-						passives = list("Flicker" = 1, "Pursuer" = 1)
-						Flicker=1
-						Pursuer=1
-						Finisher="/obj/Skills/Queue/Finisher/Riot_Stamp"
-						verb/Blitz_Style()
-							set hidden=1
-							src.Trigger(usr)
-//Signature Style T1
-					Soul_Crushing_Style
-						SignatureTechnique=1
-						Copyable=0
-						StyleFor=1.5
-						StyleEnd=1.5
-						passives = list("SpiritStrike" = 1, "WeaponBreaker" = 1, "MovingCharge" = 1)
-						SpiritStrike=1
-						WeaponBreaker=1
-						MovingCharge=1
-						StyleActive="Soul Crushing"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Spirit_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Shunko_Style",\
-						"/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Arcane_Bladework_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Impact_Palm"
-						verb/Soul_Crushing_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Spirit_Style
-						SignatureTechnique=1
-						Copyable=0
-						StyleFor=1.5
-						StyleSpd=1.5
-						passives = list("Flicker" = 1, "Pursuer" = 1)
-						Flicker=1
-						Pursuer=1
-						StyleActive="Spirit"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Soul_Crushing_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Shunko_Style",\
-						"/obj/Skills/Buffs/NuStyle/SwordStyle/Kendo_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Battle_Mage_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Superbia"
-						verb/Spirit_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Yin_Yang_Style
-						SignatureTechnique=1
-						Copyable=0
-						StyleOff=1.25
-						StyleDef=1.25
-						StyleEnd=1.5
-						passives = list("Flow" = 0.5, "Instinct" = 0.5, "LikeWater" = 1, "CounterMaster" = 2)
-						//adaptation passive
-						StyleActive="Balance"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Resonance_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Metta_Sutra_Style",\
-						"/obj/Skills/Buffs/NuStyle/SwordStyle/Champloo_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Shaolin_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Turn_of_Fortune"
-						verb/Yin_Yang_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Resonance_Style
-						SignatureTechnique=1
-						Copyable=0
-						StyleStr=1.5
-						StyleFor=1.5
-						passives = list("WeaponBreaker" = 2, "Pursuer" = 1, "Flicker" = 1)
-						WeaponBreaker=2
-						Pursuer=1
-						Flicker=1
-						StyleActive="Resonance"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Yin_Yang_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Metta_Sutra_Style",\
-						"/obj/Skills/Buffs/NuStyle/SwordStyle/Secret_Knife_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Blade_Singing_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Chemical_Love"
-						verb/Resonance_Style()
-							set hidden=1
-							src.Trigger(usr)
-
-
-//Signature Style T2
-					Shunko_Style
-						SignatureTechnique=2
-						Copyable=0
-						StyleStr=1.4
-						StyleFor=1.4
-						StyleEnd=1.1
-						StyleSpd=1.1
-						passives = list("IdealStrike" = 1, "HybridStrike" = 0.5, "MartialMagic" = 1,\
-						"TechniqueMastery" = 2.5,"MovingCharge" = 1)
-						StyleActive="Shunko"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Blade_Singing_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/Rhythm_of_War_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Raioken"
-						verb/Shunko_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Metta_Sutra_Style
-						SignatureTechnique=2
-						Copyable=0
-						StyleStr=1.1
-						StyleFor=1.1
-						StyleEnd=1.4
-						StyleSpd=1.4
-						passives = list("WeaponBreaker" = 3, "Flow" = 1, "Instinct" = 1, "LikeWater" = 2, "Flicker" = 1, "Pursuer" = 1, "CounterMaster" = 4)
-						WeaponBreaker=3
-						Flow=2
-						Instinct=2
-						//adaptation
-						Flicker=1
-						Pursuer=1
-						StyleActive="Metta Sutra"
-						ElementalDefense="Mirror"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Shaolin_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/West_Star_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Karaniyam"
-						verb/Metta_Sutra_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Shaolin_Style
-						SignatureTechnique=2
-						Copyable=0
-						NoStaff=0
-						StyleStr=1.5
-						StyleFor=1.5
-						passives = list("Flow" = 2, "Instinct" = 2, "SwordPunching" = 1)
-						Flow=2
-						Instinct=2
-						//adaptation passive
-						//champloo's sord punching
-						SwordPunching=1
-						StyleActive="Shaolin"
-						ElementalOffense="Mirror"
-						StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/FreeStyle/Metta_Sutra_Style"="/obj/Skills/Buffs/NuStyle/FreeStyle/West_Star_Style")
-						Finisher="/obj/Skills/Queue/Finisher/Bicycle_Kick"
-						verb/Shaolin_Style()
-							set hidden=1
-							src.Trigger(usr)
-
-//Signature Style T3
-					West_Star_Style
-						SignatureTechnique=3
-						Copyable=0
-						NoStaff=0
-						StyleEnd=1.5
-						StyleSpd=1.5
-						passives = list("WeaponBreaker" = 4, "Flow" = 3, "Instinct" = 3, "Flicker" = 2, "Pursuer" = 2, "SwordPunching" = 1)
-						WeaponBreaker=4
-						Flow=3
-						Instinct=3
-						Flicker=2
-						Pursuer=2
-						//adaptation
-						//Champloo's sword punching
-						SwordPunching=1
-						ElementalOffense="Mirror"
-						ElementalDefense="Mirror"
-						ElementalClass="Water"
-						StyleActive="West Star"
-						Finisher="/obj/Skills/Queue/Finisher/Journey_End"
-						verb/West_Star_Style()
-							set hidden=1
-							src.Trigger(usr)
-					Rhythm_of_War_Style
-						SignatureTechnique=3
-						Copyable=0
-						StyleStr=1.25
-						StyleFor=1.25
-						StyleSpd=1.5
-						passives = list("IdealStrike" = 1, "WeaponBreaker" = 2, "Flicker" = 2, "Pursuer" = 3, "SuperDash" = 2, "SwordPunching" = 1, "TechniqueMastery" = 2, "MovementMastery" = 6, "MartialMagic" = 1, "MovingCharge" = 1)
-						HybridStrike=1
-						WeaponBreaker=3
-						Flicker=3
-						Pursuer=3
-						SuperDash=2
-						SwordPunching=1
-						TechniqueMastery=10
-						MovementMastery=8
-						MartialMagic=1
-						MovingCharge=1
-						HitSpark='Hit Effect Vampire.dmi'
-						HitX=-32
-						HitY=-32
-						HitTurn=0
-						HitSize=1
-						StyleActive="Rhythm of War"
-						Finisher="/obj/Skills/Queue/Finisher/Death_Rattle"
-						verb/Rhythm_of_War_Style()
-							set hidden=1
-							src.Trigger(usr)
-
-///// WitchCraft
+				// WitchCraft
 					Witch_Style
 						StyleFor = 1.5
 						StyleSpd = 1.1

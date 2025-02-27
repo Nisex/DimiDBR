@@ -31,6 +31,13 @@
 					if((last_aura_toss - ((passive_handler["Familiar"]-1) * glob.FAMILIAR_CD_REDUCTION)) + glob.FAMILIAR_SKILL_CD < world.time && (Target && Target != src))
 						last_aura_toss = world.time
 						throwFollowUp(aura.skillToToss)
+		if(passive_handler["EntanglingRoots"] && can_use_style_effect("EntaglingRoots") && Target != src)
+			var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare/s = Target.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare)
+			if(!s)
+				s = new(glob.ROOTS_DURATION, 'root.dmi')
+				Target.AddSkill(s)
+			s.Trigger(Target, TRUE)
+			last_style_effect = world.time
 	if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Normal Attack"))
 		return
 	// CHECKS
@@ -423,7 +430,7 @@
 							if(!T.density)
 								CHECK_TICK
 							//	world << "LOCATION: [T.x], [T.y], [T.z]"
-								new/obj/Ooze(T.x, T.y, T.z, src)
+								new/obj/leftOver/Ooze(T.x, T.y, T.z, src)
 					#if DEBUG_MELEE
 					log2text("Knockback", "After Queue", "damageDebugs.txt", "[ckey]/[name]")
 					log2text("Knockback", knockDistance, "damageDebugs.txt", "[ckey]/[name]")
@@ -643,7 +650,14 @@
 										AddSkill(db)
 									//TODO TEST THIS TO MAKE SURE IT IS WORKING
 									UseProjectile(db)
-					// 				WHIFFING		 			//
+							if(passive_handler["LingeringPoison"])
+								if(prob(glob.LINGERCHANCE * passive_handler["LingeringPoison"]))
+									var/linger =  passive_handler["LingeringPoison"]
+									world<<"wow it b lingering"
+									new/obj/leftOver/poisonCloud(locate(x+rand(-5+linger, (5-linger)), y+rand(-5+linger, (5-linger)), z), src,  passive_handler["LingeringPoison"])
+							
+							
+							// 				WHIFFING		 			//
 							#if DEBUG_MELEE
 							log2text("Damage", "Start of Hit", "damageDebugs.txt", "[ckey]/[name]")
 							log2text("Damage", damage, "damageDebugs.txt", "[ckey]/[name]")

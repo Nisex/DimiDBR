@@ -505,7 +505,8 @@ mob/Creation
 		if(glob.TESTER_MODE)
 			usr<<"<font color=red><b>TESTER MODE IS ENABLED!</b></font>"
 		usr.loc=locate(1,7,1)
-
+		client.client_plane_master = new()
+		client.screen += client.client_plane_master
 	Logout()
 		if(src in admins)
 			admins -= src

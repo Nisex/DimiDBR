@@ -1,5 +1,5 @@
 /mob/var/characterInformation/information = new()
-#define NATIONALITIES list("Redian", "Daryan Empire", "Agarthan", "Passer Peaks", "Avalonian", "Najmi")
+/globalTracker/var/NATIONALITIES = list("Redian", "Daryan Empire", "Agarthan", "Passer Peaks", "Najmi")
 //list("American", "British", "Canadian", "Chinese", "Polish", "French", "German", "Italian", "Japanese", "Russian", "Mexican", "Puerto Rican", "Kenyan", "African","Austrian", "Austrialian", "Irish","Swedish","Korean")
 #define FACTIONS list()
 #define FACTION_COLORS list()

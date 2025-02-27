@@ -49,7 +49,7 @@
 	Stormbringer
 		SignatureTechnique = 1
 		passives = list("SpiritFlow" = 2, "Familiar" = 1, "ThunderHerald" = 1, "CriticalChance" = 15, "CriticalDamage" = 0.1, \
-						"Rain" = 5, "GodSpeed" = 1, "AirBend"= 1.5)
+						"Rain" = 5, "GodSpeed" = 1, "AirBend"= 1.5, "WaveDancer" = 1)
 		StyleActive = "Storm"
 		StyleSpd = 1.15
 		StyleOff = 1.15
@@ -91,3 +91,21 @@
 		verb/Inferno()
 			set hidden=1
 			src.Trigger(usr)
+	Bloodmancer
+		SignatureTechnique = 1
+		passives = list("Familiar" = 1, "SpiritFlow" = 2, "Poisoning" = 3, "BlindingVenom" = 1.5, "Rusting" = 2, \
+					"BloodEruption" = 1, "LingeringPoison" = 1)
+		
+		StyleActive = "Bloodmancer"
+		Finisher="/obj/Skills/Queue/Finisher/Bloodcurdle"
+		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Poison"
+		IconLock = 'SpriteR.dmi'
+		AuraLock = 'Terra Might.dmi'
+		LockX=-16
+		LockY=16
+		AuraX=-8
+		AuraY=-10
+		// erupt blood that makes slowing pools of murky water around the target
+		// lingering = chance to leave behind poison clouds when you hit with a melee
+		// Aura ideas:
+		// spawn a spinning clothesline esque blood mist that applies shearing and heals you

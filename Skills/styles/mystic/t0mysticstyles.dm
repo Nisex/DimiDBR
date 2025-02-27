@@ -52,8 +52,9 @@
 			set hidden=1
 			src.Trigger(usr)
 	Plague_Bringer
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style")
-		passives = list("SpiritFlow" = 1, "Poisoning" = 1, "Rusting" = 1)
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style", \
+							"/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"="/obj/Skills/Buffs/NuStyle/MysticStyle/Bloodmancer")
+		passives = list("SpiritFlow" = 1, "Poisoning" = 1, "Rusting" = 1, "BlindingVenom" = 1)
 		StyleDef = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Acid_Rain"
 		StyleActive="Plague Bringer"
@@ -87,7 +88,7 @@
 	var/static_cd = glob.STYLE_EFFECT_CD
 	var/cd = static_cd
 	if(!passive_name)
-		for(var/x in list("AirBend", "WaveDancer", "EntaglingRoots"))
+		for(var/x in list("AirBend", "WaveDancer", "EntaglingRoots", "BlindingVenom", "BloodEruption"))
 			if(x in passive_handler.passives)
 				if(passive_handler["[x]"] > 0)
 					passive_name = x

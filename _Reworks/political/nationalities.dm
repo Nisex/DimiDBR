@@ -4,7 +4,7 @@ characterInformation
     var/nationality = "Redian"
     var/secondNationality = FALSE
     proc/setNationality(mob/p)
-        nationality = input(p, "What nationality are you?") in NATIONALITIES
+        nationality = input(p, "What nationality are you?") in glob.NATIONALITIES
         if(glob.ALLOW_OTHER_NATIONALITIES)
             if(nationality == "Other")
                 var/tempNationality = input(p, "What nationality?") as text
@@ -26,7 +26,7 @@ characterInformation
         if(glob.ALLOW_SECOND_NATIONALITIES)
             var/yesno = input(p, "Do you have a second nationality?") in list("Yes", "No")
             if(yesno == "Yes")
-                secondNationality = input(p, "What is your second nationality?") in NATIONALITIES - nationality
+                secondNationality = input(p, "What is your second nationality?") in glob.NATIONALITIES - nationality
                 if(glob.ALLOW_OTHER_NATIONALITIES)
                     if(secondNationality == "Other")
                         var/tempsecondNationality = input(p, "What nationality?") as text

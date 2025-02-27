@@ -319,15 +319,6 @@ mob
 		if(src.PureRPMode&&!Stasis)
 			src.Stasis=1
 
-		if(passive_handler["EntanglingRoots"] && can_use_style_effect("EntaglingRoots") && Target != src)
-			if(!PureRPMode)
-				var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare/s = Target.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare)
-				if(!s)
-					s = new(glob.ROOTS_DURATION, 'root.dmi')
-					Target.AddSkill(s)
-				s.Trigger(Target, TRUE)
-				last_style_effect = world.time
-
 		StunCheck(src)
 		StunImmuneCheck(src)
 		if(client.getPref("autoAttacking"))

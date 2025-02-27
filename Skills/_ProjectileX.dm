@@ -1374,8 +1374,8 @@ obj
 				NewCopyable = 2
 				SkillCost=80
 				Copyable=3
-				Blasts=12
-				DamageMult=1.3
+				Blasts=21
+				DamageMult=0.75
 				Radius=1
 				AccMult=3
 				Deflectable=0
@@ -1385,12 +1385,12 @@ obj
 				LockX=0
 				LockY=0
 				ZoneAttack=1
-				ZoneAttackX=6
-				ZoneAttackY=6
-				Hover=16
+				ZoneAttackX=12
+				ZoneAttackY=12
+				Hover=25
 				FireFromSelf=1
 				FireFromEnemy=0
-				Cooldown=60
+				Cooldown=45
 				Explode=2
 				EnergyCost=4
 				verb/Energy_Minefield()
@@ -4746,6 +4746,16 @@ mob
 						AddSkill(ww)
 					Activate(ww)
 					last_style_effect = world.time
+			if(passive_handler["BloodEruption"] && Target)
+				world<<"here?"
+				if(can_use_style_effect("BloodEruption"))
+					var/be = passive_handler["BloodEruption"]
+					world<<"it erupting"
+					for(var/turf/T in block(locate(Target.x - 1+be, Target.y - 1+be, Target.z), locate(Target.x + 1+be, Target.y + 1+be, Target.z)))
+						world<<"[T] [T.x] [T.y] [T.z]"
+						if(!T.density)
+							CHECK_TICK
+							new/obj/leftOver/Blood(T, src)
 			if(Z.StormFall)
 				Z.Homing=0//You can't home if you're just going down, down, in an earlier round...
 			if(Z.Blasts<1)
@@ -5504,7 +5514,6 @@ obj
 						if(!a:Stasis)
 							var/mob/p = a
 							if(p.passive_handler["Neo"]&&!p.HasNoDodge()&&src.Dodgeable>0)
-							//	world<<"neo maybe?"
 								var/dir=get_dir(src,a)
 								if(prob(p.passive_handler["Neo"]*glob.NEO_DODGERATE))
 									src.loc = a.loc
@@ -5516,10 +5525,8 @@ obj
 										if(src.Area!="Beam")
 											src.Backfire=1
 									return
-							//world<<"here"
 							if(m.HasFlow()&&!m.HasNoDodge()&&src.Dodgeable>0)
 								if(prob(getFlowCalc(Owner, m )) )
-									//world<<"flow proc'd "
 									var/dir=get_dir(src,a)
 									AfterImage(a)
 									if(src.Area=="Beam")
@@ -5540,7 +5547,6 @@ obj
 									if(a:CheckSlotless("Combat CPU"))
 										a:LoseMana(1)
 									return
-							//world<<"here 1"
 							if(a:AfterImageStrike&&src.Dodgeable>0)
 								var/dir=get_dir(src,a)
 								a:AfterImageStrike-=1

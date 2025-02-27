@@ -653,6 +653,8 @@ mob/Players/verb
 		is_dashing = 0
 		if(isRace(BEASTMAN) && race?:Racial == "Feather Knife")
 			passive_handler.passives["Secret Knives"] = "Feathers"
+		if(isRace(BEASTMAN) && race?:Racial == "Fox Fire")
+			passive_handler.passives["Heavy Strike"] = "Fox Fire"
 		if(isRace(BEASTMAN) && race?:Racial == "Monkey King")
 			var/obj/Skills/Buffs/s = findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Never_Fall/)
 			if(!s.Using)

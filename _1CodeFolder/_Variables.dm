@@ -473,6 +473,7 @@ mob/var
 	ElementalOffense
 	ElementalDefense
 	Poison=0
+	BlindingVenom = 0
 	Burn=0
 	Slow=0
 	Shatter=0

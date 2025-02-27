@@ -49,8 +49,7 @@
 
 /mob/proc/refundOldMagicShit()
 	var/cost
-	var/list/trees = list("Alchemy","ToolEnchantment", "TomeCreation", \
-	"SealingMagic")
+	var/list/trees = list("Alchemy","ToolEnchantment", "TomeCreation", "SealingMagic")
 	var/list/higherTrees = list("ImprovedAlchemy", "ArmamentEnchantment", "CrestCreation", "SealingMagic", "TimeMagic")
 	for(var/tree in trees)
 		var/unlockedVar = "[tree]Unlocked"

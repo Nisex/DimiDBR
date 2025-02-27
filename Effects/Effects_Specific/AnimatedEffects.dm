@@ -1,4 +1,5 @@
 /mob/var/in_grapple
+/client/var/tmp/obj/client_plane_master/client_plane_master
 proc
 	LeaveImage(var/mob/Players/User=0, var/Image, var/PX=0, var/PY=0, var/PZ=0, var/Size=1, var/Under=0, var/Time, var/turf/AltLoc=0, var/Dir=SOUTH)
 		var/image/i
@@ -621,6 +622,20 @@ mob/proc
 				del i
 				src.StasisFrozen=0
 
+	flash(dur, _color, rampup)
+		if(!src.client) return
+		animate(src.client, color = _color, time = rampup, easing = ELASTIC_EASING)
+		sleep(rampup)
+		animate(src.client, color = null, time = dur)
+
+	drunkeffect(dur)
+		if(!client.client_plane_master)
+			client.client_plane_master = new()
+			client.screen += client.client_plane_master
+		client.client_plane_master.filters = filter(type="blur", size=1)
+		sleep(dur)
+		client.client_plane_master.filters = null
+
 	Blind(var/duration=1000)
 		if(!src.client) return
 		animate(src.client, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1), time=5)
@@ -631,3 +646,11 @@ mob/proc
 		animate(src.client, color = list(-1,-1,-1, -1,-1,-1, -1,-1,-1, -1,-1,-1), time=affect)
 		sleep(5)
 		animate(src.client, color = null, time=duration)
+
+
+/mob/verb/poisonself()
+	passive_handler.Set("BlindingVenom", 2 )
+	AddPoison(200, src)
+/mob/verb/testflash()
+	flash(100, rgb(75, 0, 91), 2)
+	drunkeffect(90)

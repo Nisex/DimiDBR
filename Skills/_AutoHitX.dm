@@ -1485,7 +1485,6 @@ obj
 				Instinct=1
 				ActiveMessage="spins like a top, crushing anyone caught in their range!"
 				adjust(mob/p)
-				//	world<<"here"
 					if(p.isInnovative(HUMAN, "Unarmed") && !isInnovationDisable(p))
 						Size = 4
 						Rounds= 10 + (p.Potential/10)
@@ -5640,14 +5639,10 @@ mob
 							if(!src.AuraLocked&&!src.HasKiControl())
 								src.Auraz("Remove")
 				if(Z.Hurricane)
-					var/path=text2path(Z.Hurricane)
-					if(!locate(path, src))
-						src.AddSkill(new path)
+					var/obj/Skills/s = findOrAddSkill(text2path(Z.Hurricane))
 					spawn(Z.HurricaneDelay*10)
 						src.dir=get_dir(src,src.Target)
-						for(var/obj/Skills/Projectile/p in src)
-							if(istype(p, path))
-								src.UseProjectile(p)
+						src.UseProjectile(s)
 				else
 					spawn()src.WindupGlow(src)
 				if(Z.Float||Z.Ice||Z.Thunderstorm||Z.Gravity)
@@ -6804,7 +6799,7 @@ obj
 						if(src.MortalBlow>1)
 							if(m.Immortal)
 								m.Immortal=0
-				var/damageDealt = src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive)
+				var/damageDealt = src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive, innateLifeSteal = LifeSteal)
 				if(!damageDealt)
 					damageDealt = 0
 

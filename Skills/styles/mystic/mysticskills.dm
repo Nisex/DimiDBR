@@ -157,25 +157,41 @@
 	Homing = 3
 	HomingDelay = 2
 
+
+
+/obj/Skills/AutoHit/Blood_Whips
+	Area="Circle"
+	ComboMaster=1
+	AdaptRate=1
+	DamageMult=0.05
+	Rounds=60
+	Cooldown=30
+	NoLock = 1
+	NoAttackLock = 1
+	Size=3
+	Icon='bloodmiasma.dmi'
+	HitSparkIcon = 'Hit Effect Vampire.dmi'
+	HitSparkX = -32
+	HitSparkY = -32
+	Instinct=2
+	LifeSteal = 100
+	ActiveMessage="summons a miasma of blood around themselves."
+
+
 /obj/Skills/AutoHit/Hyper_Inferno
 	Area="Wave"
 	AdaptRate=1
-	DamageMult=1
+	DamageMult=0.15
 	ComboMaster=1
-	ControlledRush=3
-	Rush=7
 	NoLock = 1 
 	Instinct=2
-	Knockback=15
-	Cooldown=15
+	NoAttackLock=1
+	Knockback=3
+	Cooldown=45
 	HitSparkIcon='Hit Effect.dmi'
 	HitSparkX=-32
 	HitSparkY=-32
-	HitSparkTurns=1
-	HitSparkSize=0.8
-	HitSparkCount=20
-	HitSparkDispersion=24
-	HitSparkDelay=1
+	WindUp=0.1
 	Hurricane="/obj/Skills/Projectile/Inferno"
 	HurricaneDelay=0.1
 	WindupMessage="spins rapidly, invoking a tornado that whisks their target!"
@@ -183,8 +199,8 @@
 /obj/Skills/Projectile/Inferno
 	FlickBlast=0
 	AttackReplace=1
-	Distance=7
-	DamageMult=1.5
+	Distance=21
+	DamageMult=0.25
 	Dodgeable=0
 	Deflectable=0
 	Instinct=2
@@ -194,27 +210,27 @@
 	ZoneAttackY=0
 	FireFromSelf=1
 	FireFromEnemy=0
-	Knockback=0
+	Knockback=2
 	Piercing=1
 	IconLock='FireTornadoHead.dmi'
-	IconSize=1
-	LockX=-8
-	LockY=-8
+	IconSize=0.25
+	LockX=-32
+	LockY=-32
 	Variation=0
 	Trail='FireTornadoTrail.dmi'
-	TrailDuration=20
+	TrailDuration=8
 	TrailSize=1
-	TrailX=-8
-	TrailY=-8
+	TrailX=-32
+	TrailY=-32
 
 /obj/Skills/AutoHit/HellfireInferno
 	Area="Wave"
 	AdaptRate=1
-	DamageMult=1.5
+	DamageMult=0.3
 	NoLock = 1 
 	ComboMaster=1
-	ControlledRush=3
-	Rush=7
+	NoAttackLock=1
+	NoLock=1
 	Instinct=2
 	Knockback=15
 	Cooldown=15
@@ -226,6 +242,7 @@
 	HitSparkCount=20
 	HitSparkDispersion=24
 	HitSparkDelay=1
+	WindUp=0.1
 	Hurricane="/obj/Skills/Projectile/HelfireInferno"
 	HurricaneDelay=0.1
 	WindupMessage="spins rapidly, invoking a tornado that whisks their target!"
@@ -234,7 +251,7 @@
 	FlickBlast=0
 	AttackReplace=1
 	Distance=7
-	DamageMult=2.5 
+	DamageMult=0.8 
 	Dodgeable=0
 	Deflectable=0
 	Instinct=2

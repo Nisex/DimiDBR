@@ -1,18 +1,13 @@
-obj
+/obj/leftOver
 	Ooze
 		icon='Ichor Turf.dmi'
 		icon_state="ground"
-		density = 0
-		Grabbable = 0
-		Attackable = 0
-		Destructable = 0
-		var/tmp/mob/owner
-		var/tmp/list/tick_on = list()
-		var/strength = 3
-		var/lifetime = 30 SECONDS
-
+		power = 3
+		lifetime = 30 SECONDS
+		proc_to_call = "AddPoison"
 		New(_x,_y,_z, mob/p)
 			loc = locate(_x,_y,_z)
+			proc_params = list("Value" = power*2, "Attacker" = owner)
 			ticking_generic += src
 			owner = p
 			for(var/mob/m in loc)
@@ -23,22 +18,12 @@ obj
 					owner = null
 					tick_on = null
 					loc = null
-
-		Cross(atom/movable/O)
-			if(ismob(O) && O != owner)
-				tick_on |= O
-			. = ..()
-
-		Uncross(atom/movable/O)
-			if(ismob(O) && O != owner)
-				if(O in tick_on)
-					tick_on -= O
-			. = ..()
-
-		proc
+		Update()
 			on_tick()
-				for(var/mob/m in tick_on)
-					m.AddPoison(2*strength, Owner)
+		on_tick()
+			for(var/mob/m in tick_on)
+				m.AddPoison(2*power, owner)
+				// call(m,proc_to_call)(list2params(proc_params))
 
 
 /mob/Admin4/verb/SetMadnessToMax()

@@ -72,7 +72,7 @@ mob
 					src.Unconscious(null, "succumbing to poison!")
 				if(!src.Burn&&!src.Poison)
 					src.Unconscious()
-		DoDamage(var/mob/defender, var/val, var/UnarmedAttack=0, var/SwordAttack=0, var/SecondStrike, var/ThirdStrike, var/TrueMult=0, var/SpiritAttack=0, var/Destructive=0, Autohit = FALSE)
+		DoDamage(var/mob/defender, var/val, var/UnarmedAttack=0, var/SwordAttack=0, var/SecondStrike, var/ThirdStrike, var/TrueMult=0, var/SpiritAttack=0, var/Destructive=0, Autohit = FALSE, innateLifeSteal = FALSE)
 			#if DEBUG_DAMAGE
 			log2text("Damage", "Start DoDamage", "damageDebugs.txt", src.ckey)
 			log2text("Damage", val, "damageDebugs.txt", src.ckey)
@@ -209,7 +209,13 @@ mob
 				StyleBuff?:hotCold  = clamp(StyleBuff?:hotCold + tmpval * glob.HOTNCOLD_MODIFIER, -100, 100)
 			if(passive_handler["Grit"])
 				AdjustGrit("add", tmpval*glob.racials.GRITMULT)
-			
+			if(passive_handler["BlindingVenom"] && can_use_style_effect("BlindingVenom"))
+				if(client)
+					var/dur = passive_handler["BlindingVenom"]*glob.VENOMBLINDMULT
+					defender.flash(dur, rgb(137, 0, 161), 2)
+					defender.drunkeffect(dur)
+					defender.RemoveTarget()
+					defender.Grab_Release()
 			defender.LoseHealth(max(0,tmpval))
 
 			if(defender.Flying)
@@ -474,7 +480,7 @@ mob
 				s.addMadness(defender,val)
 				defender.Update_Stat_Labels()
 
-			if(src.HasLifeSteal())
+			if(src.HasLifeSteal() || innateLifeSteal)
 				var/CursedBlood=0
 				var/NoBlood=0
 				NoBlood=defender.CyberCancel
@@ -494,9 +500,9 @@ mob
 					Effectiveness+= defender.passive_handler.Get("VenomBlood")
 					src.AddPoison(val*Effectiveness,defender)
 				if(!CursedBlood)
-					src.HealHealth(val*src.GetLifeSteal()*Effectiveness/100)
+					src.HealHealth(val*(src.GetLifeSteal() + innateLifeSteal)*Effectiveness/100)
 					if(src.Health>=(100-100*src.HealthCut-src.TotalInjury))
-						src.HealWounds(0.2*val*src.GetLifeSteal()*Effectiveness/100)
+						src.HealWounds(0.2*val*(src.GetLifeSteal() + innateLifeSteal)*Effectiveness/100)
 			if(src.HasLifeStealTrue())
 				defender.AddHealthCut(val/200)
 				if(defender.HealthCut>=0.15)

@@ -166,7 +166,7 @@
 			vars["[raa]Mult"] = c_buff.statsadd.calc_stat(c_buff.statsmult.vars[x], TRUE)
 			vars["[full2short[x]]Add"] = c_buff.statsadd.calc_stat(c_buff.statsadd.vars[x], TRUE)
 		
-		passives = list(c_buff.current_passives)
+		passives = c_buff.current_passives
 	verb/Shapeshift()
 		set category = "Skills"
 		Trigger(usr)

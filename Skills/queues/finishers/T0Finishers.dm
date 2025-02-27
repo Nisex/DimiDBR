@@ -163,3 +163,11 @@
         BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Poisoned"
         HitMessage="brings down the acid rain!"
         FollowUp = "/obj/Skills/AutoHit/Toxic_Wheel"
+    
+    Rusting_Wake
+        DamageMult = 1.5
+        Toxic = 25
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Wire_Puller"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Rusted"
+        HitMessage="envokes the power of rust!"
+        FollowUp = "/obj/Skills/AutoHit/Toxic_Wheel"

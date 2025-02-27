@@ -12,3 +12,6 @@
         skillToToss = "/obj/Skills/AutoHit/Earthquake"
     Wind
         skillToToss = "/obj/Skills/AutoHit/Hurricane"
+    
+    Poison
+        skillToToss="/obj/Skills/AutoHit/Blood_Whips"

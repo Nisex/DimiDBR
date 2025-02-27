@@ -13,6 +13,8 @@ mob/proc/Meditation()
 			src.VaizardHealth=0
 		if(passive_handler.Get("AbsorbingDamage"))
 			AbsorbingDamage = 0
+		if(passive_handler["Shellshocked"])
+			passive_handler.Set("Shellshocked", 0)
 		/*if(length(magatamaBeads))
 			loseMagatama()*/
 		med.delayTimer()
