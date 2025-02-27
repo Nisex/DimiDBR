@@ -18,7 +18,8 @@
 			src.Trigger(usr)
 	Water_Bending
 		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Earth_Moving"="/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing",\
-							"/obj/Skills/Buffs/NuStyle/MysticStyle/Wind_Summoning"="/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer")
+							"/obj/Skills/Buffs/NuStyle/MysticStyle/Wind_Summoning"="/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer", \
+							"/obj/Skills/Buffs/NuStyle/MysticStyle/Plague_Bringer"="/obj/Skills/Buffs/NuStyle/MysticStyle/Bloodmancer")
 		passives = list("SpiritFlow" = 1, "Chilling" = 1, "WaveDancer" = 1)
 		StyleOff = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Surfing_Stream"

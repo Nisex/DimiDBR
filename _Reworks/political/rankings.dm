@@ -14,7 +14,7 @@ characterInformation
 
     proc/resetRanking()
         setRankingTier("")
-        setRankingNumber(0)
+        setRankingNumber("")
 
     proc/addTitle(newTitle,hex)
         title += "<font color=[hex]>[newTitle]</font>"

@@ -292,12 +292,7 @@ obj
 					HitMessage="unleashes their wrath on the opponent, engulfing them in an explosive wave of dark flame!"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Devil_Luck"
 					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Devil_Fire"
-				Maxima_Press
-					DamageMult=3
-					Launcher=3
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Forced_Mechanize"
-					HitMessage="drags their opponent by their face, launching them up with a magnetic charge!"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Reversal_Mastery"
+				
 				Morbid_Angel
 					DamageMult=3
 					Launcher=3

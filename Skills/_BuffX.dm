@@ -13886,7 +13886,7 @@ mob
 					src.SlotlessBuffs.Remove(B) // diouble time ?
 				DeleteSkill(B, TRUE)
 				return
-			if(B.AlwaysOn)
+			if(B.AlwaysOn && !B.doNotDelete)
 				if(B.NeedsPassword)
 					if(B.Password)
 						if(B in src.SlotlessBuffs)

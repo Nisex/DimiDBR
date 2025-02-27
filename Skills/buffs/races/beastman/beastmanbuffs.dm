@@ -43,13 +43,17 @@
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Ripped // TODO: make the buffedaffected attackQ work correctly n make this scale
 	TimerLimit = 30
 	passives = list("PureReduction" = -0.5)
+	adjust(mob/p)
+		passives = list("PureReduction" = -0.5 - (0.25 * p.AscensionsAcquired)) // this is calling owner'a sc, which im aware of but fuck it
 	ActiveMessage = "'s body is ripped to shreds!"
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Thrill_of_the_Hunt
 	AlwaysOn = 1
 	NeedsPassword = 1
 	TimerLimit = 30
 	Crippling = 15
-	passives = list("Brutalize" = 1.5, "Afterimages" = 2)
+	passives = list("Brutalize" = 1.5, "Afterimages" = 2, "Crippling" = 5)
+	adjust(mob/p)
+		passives = list("Brutalize" = 1.5 + (0.25 * p.AscensionsAcquired), "Afterimages" = 2, "Crippling" = 5)
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Undying_Rage
 	TooMuchHealth = 1
@@ -59,6 +63,7 @@
 	ActiveMessage = "is too angry to die!"
 	adjust(mob/p)
 		TimerLimit = 5 + (glob.racials.UNDYINGRAGE_DURATION* (p.AscensionsAcquired))
+		passives = list("Undying Rage" = 1, "Relentlessness" = 1)
 	Trigger(mob/User, Override)
 		. = ..()
 		if(!User.BuffOn(src))

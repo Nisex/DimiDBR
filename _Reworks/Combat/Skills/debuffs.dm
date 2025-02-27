@@ -61,7 +61,7 @@
 	IconLock='marked.dmi'
 	IconState = "1"
 	max_stacks = 4
-
+	ActiveMessage = "has been marked!"
 	do_effect(mob/defender, mob/attacker)
 		var/obj/Skills/s = attacker.findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Thrill_of_the_Hunt)
 		s.adjust(attacker)
@@ -72,8 +72,8 @@
 		IconState = num2text(total_stacks)
 		TimerLimit = 25 + (5 * attacker.AscensionsAcquired)
 		max_stacks = glob.racials.MARKEDPREYBASESTACKS + attacker.AscensionsAcquired
-		endAdd = -glob.racials.MARKEDPREYENDREDUC * total_stacks
-		passives = list("PureReduction" = -glob.racials.MARKEDPREYPURERED * total_stacks)
+		endAdd = -(glob.racials.MARKEDPREYENDREDUC * attacker.AscensionsAcquired) * total_stacks
+		passives = list("PureReduction" = (-glob.racials.MARKEDPREYPURERED * attacker.AscensionsAcquired) * total_stacks)
 
 
 

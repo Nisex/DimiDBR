@@ -982,6 +982,9 @@ mob
 				Return += 1+SagaLevel // i hope someone gets cratered by dainsleif
 			if(isRace(MAJIN))
 				Return += AscensionsAcquired * getMajinRates("Damage")
+			if(passive_handler["Rebel Heart"])
+				var/h = (100-Health/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"]
+				Return += h
 			return Return
 		HasPureReduction()
 			var/Return=0
@@ -997,6 +1000,9 @@ mob
 				Return-=5
 			if(src.TarotFate=="Justice")
 				Return+=5
+			if(passive_handler["Rebel Heart"])
+				var/h = (100-Health/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"]
+				Return += h
 			return Return
 		Hustling()
 			if(passive_handler.Get("Hustle") || HasLegendaryPower() > 0.25 || (passive_handler["Rage"] && Health <= 25))

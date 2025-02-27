@@ -62,7 +62,7 @@
         IconApart=1
         StrMult=1.25
         EndMult=1.25
-        passives = list("TensionLock" = 1, "Deflection" = 0.5, "Disorienting" = 2,"Momentum" = 2, "CallousedHands" = 0.1, "MovementMastery" = 3, "TensionLock" = 1)
+        passives = list("TensionLock" = 1, "Deflection" = 0.5, "Disorienting" = 2,"Momentum" = 2, "MovementMastery" = 3, "TensionLock" = 1)
         ActiveMessage="achieves the peak of their breakthrough..."
         OffMessage="comes back down to mortal level..."
     
@@ -81,7 +81,7 @@
         StyleSpd = 1.5
         StyleStr = 0.75
         StyleOff = 1.25
-        passives = list("AfterImages" =4, "TensionLock" = 1, "Speed Force" = 1, "Iaijutsu" = 1, "Relentlessness" = 1, "Fury" = 3, "TensionLock" = 1)
+        passives = list("AfterImages" = 4, "TensionLock" = 1, "Speed Force" = 1, "Iaijutsu" = 1, "Relentlessness" = 1, "Fury" = 3, "TensionLock" = 1)
     
 
     Crescent_Blessing
@@ -132,3 +132,13 @@
         passives = list("SpiritHand" = 1, "Scorching" = 5, "Shocking" = 3, "Flicker" = 1, "Pursuer" = 1, "TensionLock" = 1)
         ForMult=1.3
         StrMult=1.2
+    
+    Bloodsurge
+        passives = list("LifeSteal" = 5, "Toxic" = 3, "TensionLock" = 1, "GodSpeed" = 2, "TechniqueMastery" = 3, "Hustle" = 1)
+        ForMult = 1.3
+        SpdMult = 1.2
+    Itchy_Blood
+        passives = list("GodSpeed" = -1)
+        ConfuseAffected = 5
+        ShearAffected = 5
+        PoisonAffected=5

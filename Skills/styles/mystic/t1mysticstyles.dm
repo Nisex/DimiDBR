@@ -95,8 +95,14 @@
 		SignatureTechnique = 1
 		passives = list("Familiar" = 1, "SpiritFlow" = 2, "Poisoning" = 3, "BlindingVenom" = 1.5, "Rusting" = 2, \
 					"BloodEruption" = 1, "LingeringPoison" = 1)
-		
 		StyleActive = "Bloodmancer"
+		StyleFor = 1.3
+		StyleOff = 1.15
+		ElementalOffense="Poison"
+		ElementalDefense="Water"
+		verb/Bloodmancer()
+			set hidden=1
+			src.Trigger(usr)
 		Finisher="/obj/Skills/Queue/Finisher/Bloodcurdle"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Poison"
 		IconLock = 'SpriteR.dmi'
@@ -105,7 +111,3 @@
 		LockY=16
 		AuraX=-8
 		AuraY=-10
-		// erupt blood that makes slowing pools of murky water around the target
-		// lingering = chance to leave behind poison clouds when you hit with a melee
-		// Aura ideas:
-		// spawn a spinning clothesline esque blood mist that applies shearing and heals you

@@ -3240,7 +3240,7 @@ obj
 						Knockback = 1
 						Launcher = 2
 						ComboMaster = 1
-						DamageMult = 0.4 + (pot / 25)
+						DamageMult = 2 + (pot / 40)
 						TurfStrike=2
 						TurfShift='Dirt1.dmi'
 						TurfShiftDuration=3
@@ -3461,7 +3461,7 @@ obj
 						Size = 1 + (round(pot/25))
 						Rounds = 4 + (round(pot/25))
 						Launcher = 4
-						DamageMult = 0.25 + (round(pot/25))
+						DamageMult = 1.5 + (round(pot/25))
 						ControlledRush = 2
 						Rush = 5
 					else

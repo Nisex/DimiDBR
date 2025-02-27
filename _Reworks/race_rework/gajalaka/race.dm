@@ -22,10 +22,20 @@ race
 		speed = 0.75
 		intellect = 1.5
 		imagination = 2
+		economy = 2
 		skills = list(/obj/Skills/Projectile/Goblin_Greed)
 
 		onFinalization(mob/user)
-			user << "TENTATIVE WIP RACE, EXPECTED END OF NEXT WEEK (2/28/2025)"
+			switch(user.Class)
+				if("Acolyte")
+					user.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Acolyte)
+				if("Rebel")
+					user.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Rebel)
+				if("Nobility")
+					user.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Noble)
+					user.passive_handler.Set("MartialMagic", 1)
+				if("Heart")
+					user.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_Liberation)
 			user.EnhancedSmell=1
 			user.CyberizeMod = 0.5
 			user.contents += new/obj/Items/Wearables/Icon_67

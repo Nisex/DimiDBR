@@ -59,3 +59,11 @@
 		t.timeToDeath = 150 + (100 * p.AscensionsAcquired)
 		t.ownerOfEffect=p
 		ticking_turfs+=t
+
+
+/turf/proc/applyLeftOver(mob/p, leftover, time2death)
+	effects+=leftover
+	Deluged=1
+	timeToDeath = time2death
+	ownerOfEffect=p
+	ticking_turfs+=src

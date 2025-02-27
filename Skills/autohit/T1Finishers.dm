@@ -149,3 +149,15 @@
 		IconX=-32
 		IconY=-32
 		FlickSpin=1
+	
+	Hemoplague
+		Area="Around Target"
+		AdaptRate = 1
+		DamageMult=3
+		SpecialAttack=1
+		Crippling=5
+		TurfShift='BloodRain.dmi'
+		TurfShiftLayer=MOB_LAYER+1
+		TurfShiftDuration=0
+		TurfShiftDurationSpawn=3
+		TurfShiftDurationDespawn=7

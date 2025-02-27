@@ -117,7 +117,7 @@
         ManaGlow="#794512"
         ManaGlowSize=1
         IconLock=null
-        passives = list("TensionLock" = 1, "Hardening" = 1, "CallousedHands" = 0.15)
+        passives = list("TensionLock" = 1, "Hardening" = 1, "CallousedHands" = 0.1)
         StrMult=1.1
         ForMult=1.2
         EndMult=1.2

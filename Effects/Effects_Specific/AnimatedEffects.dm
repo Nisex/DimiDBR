@@ -623,12 +623,15 @@ mob/proc
 				src.StasisFrozen=0
 
 	flash(dur, _color, rampup)
+		set waitfor = 0
 		if(!src.client) return
 		animate(src.client, color = _color, time = rampup, easing = ELASTIC_EASING)
 		sleep(rampup)
 		animate(src.client, color = null, time = dur)
 
 	drunkeffect(dur)
+		set waitfor = 0
+		if(!client) return
 		if(!client.client_plane_master)
 			client.client_plane_master = new()
 			client.screen += client.client_plane_master

@@ -4747,15 +4747,13 @@ mob
 					Activate(ww)
 					last_style_effect = world.time
 			if(passive_handler["BloodEruption"] && Target)
-				world<<"here?"
 				if(can_use_style_effect("BloodEruption"))
 					var/be = passive_handler["BloodEruption"]
-					world<<"it erupting"
-					for(var/turf/T in block(locate(Target.x - 1+be, Target.y - 1+be, Target.z), locate(Target.x + 1+be, Target.y + 1+be, Target.z)))
-						world<<"[T] [T.x] [T.y] [T.z]"
+					for(var/turf/T in Turf_Circle(Target, be))
 						if(!T.density)
 							CHECK_TICK
-							new/obj/leftOver/Blood(T, src)
+							var/obj/leftOver/Blood/b = new(T, src, be)
+							T.applyLeftOver(src, b, b.lifetime)
 			if(Z.StormFall)
 				Z.Homing=0//You can't home if you're just going down, down, in an earlier round...
 			if(Z.Blasts<1)
@@ -5935,7 +5933,7 @@ obj
 										src.Owner.Knockback(1, a, src.dir, Ki=1, Forced=2, override_speed=src.Speed)
 								else
 									src.Owner.Knockback(src.Knockback, a, src.dir, Ki=1)
-//						NoKB
+						//						NoKB
 
 						if(!src.Piercing)
 							if(src.MultiHit)

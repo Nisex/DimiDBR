@@ -47,10 +47,13 @@
         Cooldown = -1
         passives = list("Rebel Heart" = 1) // scaling mults and pure dmg/red based on health lost
         AllOutAttack = 1
-        
+        IconLock='Double Slaughter.dmi'
+        LockX = -2
+        LockY = -2
         adjust(mob/p)
             passives["Rebel Heart"] = 1+p.AscensionsAcquired
             passives["ShonenPower"] = (1+p.AscensionsAcquired)/4
+            passives["SwordPunching"] = 1
             FatigueDrain = 0.0025 * 1+p.AscensionsAcquired
     
 
@@ -66,6 +69,9 @@
         adjust(mob/p)
             if(altered) return
             gaja_calcs(p, glob.racials.GAJALAKA_SCHOLAR, 0.35)
+            var/asc = p.AscensionsAcquired
+            passives = list("MasterfulCasting" = 1, "QuickCast" = max(1+asc,3), "MovingCharge" = 1, \
+                "TechniqueMastery" = 1+asc, "DualCast" = clamp(4-asc,0,1), "ManaGeneration" = 1+asc)
 
     Heart_of_Liberation
         TextColor=rgb(207, 172, 0)
@@ -75,8 +81,8 @@
         ActiveMessage = "'s heart beats like a drum!'"
         OffMessage = "'s heart calms down...'"
         Cooldown = -1
-        passives = list() 
-
+        passives = list()
+        IconLock='Skull Kid Hat.dmi'
         adjust(mob/p)
             if(altered) return
             gaja_calcs(p, glob.racials.GAJALAKA_HEART, 0.5)

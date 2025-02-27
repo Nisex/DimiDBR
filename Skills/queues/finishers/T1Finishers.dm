@@ -124,3 +124,15 @@
         BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Ignited"
         FollowUp="/obj/Skills/Projectile/Precept_Flame_Emperor"
         DamageMult = 2
+    
+    Bloodcurdle
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Bloodsurge"
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Itchy_Blood"
+        FollowUp="/obj/Skills/AutoHit/Hemoplague"
+        DamageMult = 2
+    Maxima_Press
+        DamageMult=3
+        Launcher=3
+        BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Forced_Mechanize"
+        HitMessage="drags their opponent by their face, launching them up with a magnetic charge!"
+        BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Reversal_Mastery"

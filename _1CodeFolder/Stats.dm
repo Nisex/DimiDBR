@@ -808,13 +808,14 @@ mob/proc/
 				if(race.transformations[transActive].mastery==100)
 					Ratio *= 1 + (0.15 * transActive)
 
-			if(src.TarotFate=="The Sun")
-				Ratio*=1.5
-
 			if(src.Target)
 				if(ismob(src.Target))
 					if(src.HasMirrorStats()&&!src.Target.HasMirrorStats()&&!src.Target.CheckSlotless("Saiyan Soul"))
 						Ratio=src.Target.Power/src.Target.GetPowerUpRatio()
+		
+		if(passive_handler["Rebel Heart"])
+			var/h = ((100-Health/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/5
+			Ratio+=h
 		Power=Ratio*GetPowerUpRatio()
 
 		if(Power < 1)

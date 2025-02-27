@@ -636,7 +636,7 @@
 								var/obj/Effects/Interception/p = new()
 								p.Target = enemy
 								enemy.vis_contents += p
-								flick(p, "interception")
+								flick( "interception", p )
 								enemy.InterceptionStrike(src, enemy.passive_handler["Interception"])
 						if(!dodged)
 					// 				HIT					//
@@ -653,9 +653,7 @@
 							if(passive_handler["LingeringPoison"])
 								if(prob(glob.LINGERCHANCE * passive_handler["LingeringPoison"]))
 									var/linger =  passive_handler["LingeringPoison"]
-									world<<"wow it b lingering"
 									new/obj/leftOver/poisonCloud(locate(x+rand(-5+linger, (5-linger)), y+rand(-5+linger, (5-linger)), z), src,  passive_handler["LingeringPoison"])
-							
 							
 							// 				WHIFFING		 			//
 							#if DEBUG_MELEE
@@ -757,7 +755,7 @@
 									var/obj/Effects/Parry/p = new()
 									p.Target = enemy
 									enemy.vis_contents += p
-									flick(p, "parry")
+									flick("parry", p)
 									damage /= enemy.passive_handler["Parry"] * glob.PARRY_REDUCTION_MULT
 									enemy.Melee1(dmgmulti = (glob.PARRY_BASE_DMG * enemy.passive_handler["Parry"]), forcedTarget=src, hitback=hitback+1) // this does mean that they will hit from no matter the range if hit by melee
 							if(enemy.passive_handler["Iaijutsu"])
@@ -765,7 +763,7 @@
 									var/obj/Effects/Iai/p = new()
 									p.Target = enemy
 									enemy.vis_contents += p
-									flick(p, "iai")
+									flick("iai", p)
 									enemy.Melee1(dmgmulti =(glob.IAI_BASE_DAMAGE * enemy.passive_handler["Iaijutsu"]), forcedTarget = src, hitback=hitback+1)
 							
 							if(defArmor&&!passive_handler.Get("ArmorPeeling"))

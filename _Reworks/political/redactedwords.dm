@@ -15,9 +15,6 @@ var/list/redactedwords = list()
         usr << "Added word to redacted list."
 
 mob/proc/redactBannedWords(text)
-    // if(key in list("Gogeto25", "Taco938"))
-    //     world<<"here"
-    //     return text
     if(length(redactedwords) < 1)
         redactedwords = list()
     for(var/x in redactedwords)

@@ -7,14 +7,14 @@ var/list/SkillTreeList=list("BlastT1"=list(),"BlastT2"=list(),"BlastT3"=list(), 
 "ElementalStyles"=list(),"HybridStyle"=list(),"SwordStyles"=list(), \
 "SwordStylesT1"=list(), "SwordStylesT2"=list(),"SwordStylesT3"=list(), "SwordStylesT4"=list(), \
 "ElementalStylesT1"=list(), "ElementalStylesT2"=list(),"ElementalStylesT3"=list(), "ElementalStylesT4"=list(),\
-"HybridStyleT1"=list(), "HybridStylet2"=list(), "HybridStylet3"=list(), "HybridStylet4"=list() )
+"HybridStylesT1"=list(), "HybridStylesT2"=list(), "HybridStylesT3"=list(), "HybridStylesT4"=list() )
 proc/MakeSkillTreeList()
 	for(var/x in SkillTree)
 		var/Tier = null
 		if(!(x in list("UnarmedStyles","ElementalStyles", "ElementalStylesT1", "ElementalStylesT2", \
 		"ElementalStylesT3","HybridStyle","SwordStyles", "UnarmedStylesT1", "UnarmedStylesT2", \
 		"UnarmedStylesT3", "UnarmedStylesT4", "SwordStylesT1", "SwordStylesT2", "SwordStylesT3", "SwordStylesT4",\
-		"HybridStyleT1"=list(), "HybridStylet2"=list(), "HybridStylet3"=list(), "HybridStylet4"=list())))
+		"HybridStylesT1", "HybridStylesT2", "HybridStylesT3", "HybridStylesT4")))
 			Tier = copytext(x,length(x), 0)
 		for(var/z in SkillTree[x])
 			var/obj/SkillTreeObj/s = new
@@ -269,11 +269,14 @@ var/list/SkillTree=list(
 "HybridStyles"=list(
 
 ),
-"HybridStylesT1"=list(
+"HybridStylesT1"=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style"=99999
 
 ),
-"HybridStylesT2"=list(
-
+"HybridStylesT2"=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon"=9999, 
+"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ifrit_Jambe"=9999,
+"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Psycho_Boxing"=9999,
+"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phoenix_Eye_Fist"=9999,
+"/obj/Skills/Buffs/NuStyle/SwordStyle/Art_of_Order"=9999
 ),
 "HybridStylesT3"=list(
 
@@ -290,7 +293,8 @@ var/list/SkillTree=list(
 			"/obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker"=9999,
 			"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing"=9999,
 			"/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"=9999,
-			"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"=9999
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Bloodmancer"=9999
 ),
 "ElementalStylesT2"=list(
 			"/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire"=9999,
