@@ -98,6 +98,7 @@
     New(turf/_loc, mob/p, style_value)
         loc = locate(_loc.x,_loc.y,_loc.z)
         alpha = 0
+        animate(src, transform=matrix().Scale(2))
         animate(src, alpha = 255, time = 5)
         power = 5+style_value
         lifetime = (15 SECONDS) * style_value
@@ -113,8 +114,8 @@
             on_death()
         else
             on_tick()
-            if(owner)
-                step_towards(src, owner)
+            if(owner.Target)
+                step_towards(src, owner.Target, 3 * world.tick_lag)
 
         
 
