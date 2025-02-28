@@ -19,10 +19,13 @@ mob/proc/InterceptionStrike(stacks)
 
 /mob/var/tmp/last_fa_jin = 0 
 /mob/var/tmp/obj/fa_jin/fa_jin_effect
+/mob/var/icon/fa_jin_icon // prob make it admin only ye 
 
 /mob/proc/generate_fa_jin()
     if(!fa_jin_effect)
         fa_jin_effect = new()
+        if(fa_jin_icon)
+            fa_jin_effect.icon = fa_jin_icon
         vis_contents += fa_jin_effect
         animate(fa_jin_effect, alpha = 255, time=2)
 /mob/proc/fa_jin_effect()

@@ -276,7 +276,7 @@ mob/Admin3/verb/GiveWitchBook()
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Witch/Grave_Curse
-	passives = list("GodSpeed" = -4, "PureReduction" = -2 )
+	passives = list("Godspeed" = -4, "PureReduction" = -2 )
 	IconLock = 'Magicwish.dmi'
 	ActiveMessage="begins to fall in to pieces!"
 	NeedsPassword = 1

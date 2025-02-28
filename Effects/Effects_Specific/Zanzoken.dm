@@ -344,7 +344,7 @@ proc
 			var/StartA=A.loc
 			var/StartT=Target.loc
 			if(Target.AfterImageStrike||(locate(/obj/Skills/Zanzoken, Target))&&prob(20))
-				if(glob.AISCLASHLOCKSMOVEMENT)
+				if(glob.AISCLASHLOCKSMOVEMENT && Target.client)
 					Target?:move_disabled = TRUE
 					A?:move_disabled = TRUE
 				animate(A,alpha=0,time=2, flags=ANIMATION_END_NOW )

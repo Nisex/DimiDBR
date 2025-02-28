@@ -45,7 +45,7 @@
         ForMult = 1.5
         EndMult = 0.75
         SpdMult = 1.25
-        passives = list("SpiritHand" = 1, "Scorching" = 10, "BlurringStrikes" = 0.5, "GodSpeed" = 2, \
+        passives = list("SpiritHand" = 1, "Scorching" = 10, "BlurringStrikes" = 0.5, "Godspeed" = 2, \
                         "Shattering" = 10, "Flicker" = 2, "Pursuer" = 2, "Momentum" = 2, "TensionLock" = 1)
 
     X_Buster
@@ -58,12 +58,12 @@
 
 
     Plasma_Burned
-        passives = list("PureReduction" = -1, "Flow" = -2, "GodSpeed" = -1)
+        passives = list("PureReduction" = -1, "Flow" = -2, "Godspeed" = -1)
         
 
 
     In_the_Details
-        passives = list("KillerInstinct" = 0.1, "HellPower" = 0.5, "GodSpeed" = 2, "DebuffResistance" = 0.25, \
+        passives = list("KillerInstinct" = 0.1, "HellPower" = 0.5, "Godspeed" = 2, "DebuffResistance" = 0.25, \
                         "Steady" = 2, "Scorching" = 15, "Toxic" = 10, "CursedWounds" = 1, "TensionLock" = 1)
         HealthDrain = 0.033
         DefMult = 0.75

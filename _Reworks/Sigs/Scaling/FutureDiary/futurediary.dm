@@ -255,7 +255,7 @@ mob/proc/levelUpDiary(mob/M)
 	NeedsHealth = 50
 	TooMuchHealth = 75
 	SureDodgeTimerLimit	= 5
-	passives = list("GodSpeed" = 1, "Flow" = 1)
+	passives = list("Godspeed" = 1, "Flow" = 1)
 
 
 /obj/Skills/Buffs/SlotlessBuffs/FutureDiary/FutureRead

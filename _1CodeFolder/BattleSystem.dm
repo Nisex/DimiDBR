@@ -1665,11 +1665,11 @@ mob/proc/Grab_Mob(var/mob/P, var/Forced=0)
 		if((P.passive_handler.Get("Fishman")||P.HasGiantForm()||P.HasLegendaryPower()>=1)&&!P.KO&&P.icon_state!="Meditate")
 			src.OMessage(10,"[src] fails to get a firm hold on [P]!","[src]([src.key]) fails to grab [ExtractInfo(P)]")
 			return
-		src.Grab=P
-		src.GrabTime = world.time
-		src.OMessage(10,"[src] grabbed [P]!","[src]([src.key]) grabs [ExtractInfo(P)]")
-		src.Grab_Update()
-		src.Grab_Effects(P)
+	src.Grab=P
+	src.GrabTime = world.time
+	src.OMessage(10,"[src] grabbed [P]!","[src]([src.key]) grabs [ExtractInfo(P)]")
+	src.Grab_Update()
+	src.Grab_Effects(P)
 
 mob/proc/Grab_Release()
 	src.Grab=null

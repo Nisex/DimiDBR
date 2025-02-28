@@ -49,7 +49,7 @@
 	Stormbringer
 		SignatureTechnique = 1
 		passives = list("SpiritFlow" = 2, "Familiar" = 1, "ThunderHerald" = 1, "CriticalChance" = 15, "CriticalDamage" = 0.1, \
-						"Rain" = 5, "GodSpeed" = 1, "AirBend"= 1.5, "WaveDancer" = 1)
+						"Rain" = 5, "Godspeed" = 1, "AirBend"= 1.5, "WaveDancer" = 1)
 		StyleActive = "Storm"
 		StyleSpd = 1.15
 		StyleOff = 1.15

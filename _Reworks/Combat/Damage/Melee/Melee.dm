@@ -653,7 +653,7 @@
 							if(passive_handler["LingeringPoison"])
 								if(prob(glob.LINGERCHANCE * passive_handler["LingeringPoison"]))
 									var/linger =  passive_handler["LingeringPoison"]
-									new/obj/leftOver/poisonCloud(locate(x+rand(-5+linger, (5-linger)), y+rand(-5+linger, (5-linger)), z), src,  passive_handler["LingeringPoison"])
+									new/obj/leftOver/poisonCloud(locate(x+rand(-8+linger, (8-linger)), y+rand(-8+linger, (8-linger)), z), src,  passive_handler["LingeringPoison"])
 							
 							// 				WHIFFING		 			//
 							#if DEBUG_MELEE

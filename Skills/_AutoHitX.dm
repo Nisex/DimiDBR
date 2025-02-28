@@ -1639,7 +1639,7 @@ obj
 				PostShockwave=1
 				PreShockwave=0
 				Cooldown=150
-				Rush=4
+				Rush=1
 				WindUp=1
 				Earthshaking=20
 				Instinct=1
@@ -3237,11 +3237,12 @@ obj
 						var/pot = p.Potential
 						PassThrough = 1
 						Rounds = 2 + (round(pot/ 10))
+						StepsDamage=pot/1000
 						Knockback = 1
 						Launcher = 2
 						ComboMaster = 1
 						Rush=0
-						DamageMult = 2 + (pot / 40)
+						DamageMult = 0.5 + (pot / 100)
 						TurfStrike=2
 						TurfShift='Dirt1.dmi'
 						TurfShiftDuration=3
@@ -3460,9 +3461,10 @@ obj
 						var/pot = p.Potential
 						Distance = 1 + (round(pot/25))
 						Size = 1 + (round(pot/25))
+						StepsDamage = round(pot/1000)
 						Rounds = 4 + (round(pot/25))
 						Launcher = 4
-						DamageMult = 1.5 + (round(pot/25))
+						DamageMult = 0.2 + (round(pot/25))
 						ControlledRush = 2
 						Rush = 5
 					else
@@ -5812,7 +5814,7 @@ mob
 						if(length(src.filters) < 1)
 							AppearanceOn()
 
-						animate(src.filters[length(src.filters)], x=sin(travel_angle)*(6/Z.RushDelay), y=cos(travel_angle)*(6/Z.RushDelay), time=Z.RushDelay)
+						//animate(src.filters[length(src.filters)], x=sin(travel_angle)*(6/Z.RushDelay), y=cos(travel_angle)*(6/Z.RushDelay), time=Z.RushDelay)
 						step_towards(src,src.Target)
 						if(get_dist(src,src.Target)==1)
 							GO=0
@@ -5828,10 +5830,10 @@ mob
 							DelayRelease--
 							sleep(1)
 					else
-						var/travel_angle = dir2angle(src.dir)
+						//var/travel_angle = dir2angle(src.dir)
 						if(length(src.filters) < 1)
 							AppearanceOn()
-						animate(src.filters[filters.len], x=sin(travel_angle)*(6/Z.RushDelay), y=cos(travel_angle)*(6/Z.RushDelay), time=Z.RushDelay)
+						//animate(src.filters[filters.len], x=sin(travel_angle)*(6/Z.RushDelay), y=cos(travel_angle)*(6/Z.RushDelay), time=Z.RushDelay)
 						step(src,src.dir)
 						if(Z.Area=="Strike"||Z.Area=="Arc"||Z.Area=="Cone")
 							for(var/atom/a in get_step(src,dir))
@@ -6792,11 +6794,12 @@ obj
 					if(src.MortalBlow<0)
 						m.MortallyWounded+=4
 					else
-						if(prob(20*src.MortalBlow) && !m.MortallyWounded)
-							var/MortalDamage = m.Health * 0.15
-							m.LoseHealth(MortalDamage)
-							m.WoundSelf(MortalDamage)
-							src.Owner << "<b><font color=#ff0000>You mortally wound [m]!</font></b>"
+						if(prob(glob.MORTAL_BLOW_CHANCE * MortalBlow) && !m.MortallyWounded)
+							var/mortalDmg = m.Health * 0.05 // 5% of current
+							m.LoseHealth(mortalDmg)
+							m.WoundSelf(mortalDmg)
+							m.MortallyWounded += 1
+							OMsg(m, "<b><font color=#ff0000>[src] has dealt a mortal blow to [m]!</font></b>")
 						if(src.MortalBlow>1)
 							if(m.Immortal)
 								m.Immortal=0

@@ -40,10 +40,6 @@
         AlwaysOn = 1
         doNotDelete = 1
         passives = list("AbsorbingDamage" = 1)
-        New(mob/User)
-            . = ..()
-            if(User)
-                Triggers = new/datum/BuffTrigger/NeverFall(User, src)
         Trigger(mob/User, Override)
             Triggers = new/datum/BuffTrigger/NeverFall(User, src)
             ..()

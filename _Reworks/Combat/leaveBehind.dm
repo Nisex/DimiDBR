@@ -98,23 +98,23 @@
     New(turf/_loc, mob/p, style_value)
         loc = locate(_loc.x,_loc.y,_loc.z)
         alpha = 0
+        animate(src, alpha = 255, time = 5)
         power = 5+style_value
         lifetime = (15 SECONDS) * style_value
         proc_params = list("Value" = style_value*glob.DEBUFF_INTENSITY, "Attacker" = owner)
         init(p)
-        animate(src, alpha = 255, time = 10)
+        owner = p
         ..()
-    on_death()
-        animate(src, alpha = 0, time = 10)
-        ..()
-
-
+        spawn(5)
+            animate(src, alpha = 0, time = lifetime-5)
     Update()
         lifetime-=world.tick_lag
         if(lifetime<=0)
             on_death()
         else
             on_tick()
+            if(owner)
+                step_towards(src, owner)
 
         
 

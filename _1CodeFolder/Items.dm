@@ -818,6 +818,7 @@ obj/Items/Sword
 	var/iconAltX=0
 	var/iconAltY=0
 	var/ClassAlt=null
+	var/noHistory = TRUE
 	icon_state="Inventory"
 	TechType="Forge"
 	UpdatesDescription=1

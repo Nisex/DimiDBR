@@ -368,6 +368,7 @@ NEW VARIABLES
 	var/NeedsSecondSword//MOAR!!
 	var/NeedsThirdSword//MOAAR!!
 	var/MakesSword//Conjures a sword which is then equipped.
+	var/swordHasHistory
 	var/MakesSecondSword//Conjures a second sword which is then equipped.
 	var/MakesThirdSword
 	//One day, we may need to make third swords.  But fuck that shit, for real, yo.
@@ -1319,6 +1320,7 @@ NEW VARIABLES
 			PowerMult=1.5
 			SwordX=-32
 			SwordY=-32
+			swordHasHistory=1
 			passives = list("MagicSword" = 1)
 			Cooldown=30
 			verb/Summon_Keyblade()
@@ -7955,7 +7957,7 @@ NEW VARIABLES
 				if(!usr.Target.EquippedSword())
 					usr << "Your opponent isn't using a sword!"
 					return
-				if(usr.Target.EquippedSword().Conjured)
+				if(usr.Target.EquippedSword().Conjured && usr.Target.EquippedSword().noHistory)
 					usr << "This blade has no history, it evades your attempt to copy it!"
 					return
 				if(length(copiedBlades)>=(usr.SagaLevel))
@@ -12565,6 +12567,8 @@ mob
 					s.SpiritSword+=B.SpiritSword
 				if(B.Extend)
 					s.Extend+=B.Extend
+				if(B.swordHasHistory)
+					s.noHistory = FALSE
 				s.Conjured=1
 				s.Cost=0
 				s.Stealable=0

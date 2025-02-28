@@ -26,6 +26,13 @@ race
 		skills = list(/obj/Skills/Projectile/Goblin_Greed)
 
 		onFinalization(mob/user)
+			user.EnhancedSmell=1
+			user.CyberizeMod = 0.5
+			user.contents += new/obj/Items/Wearables/Icon_67
+			user.contents += new/obj/Items/Wearables/Icon_68
+			user.contents += new/obj/Items/Wearables/Icon_69
+			user.contents += new/obj/Items/Wearables/Icon_70
+			..()
 			switch(user.Class)
 				if("Acolyte")
 					user.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Acolyte)
@@ -36,10 +43,3 @@ race
 					user.passive_handler.Set("MartialMagic", 1)
 				if("Heart")
 					user.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_Liberation)
-			user.EnhancedSmell=1
-			user.CyberizeMod = 0.5
-			user.contents += new/obj/Items/Wearables/Icon_67
-			user.contents += new/obj/Items/Wearables/Icon_68
-			user.contents += new/obj/Items/Wearables/Icon_69
-			user.contents += new/obj/Items/Wearables/Icon_70
-			..()

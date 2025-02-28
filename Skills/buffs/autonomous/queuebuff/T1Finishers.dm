@@ -134,11 +134,11 @@
         StrMult=1.2
     
     Bloodsurge
-        passives = list("LifeSteal" = 5, "Toxic" = 3, "TensionLock" = 1, "GodSpeed" = 2, "TechniqueMastery" = 3, "Hustle" = 1)
+        passives = list("LifeSteal" = 5, "Toxic" = 3, "TensionLock" = 1, "Godspeed" = 2, "TechniqueMastery" = 3, "Hustle" = 1)
         ForMult = 1.3
         SpdMult = 1.2
     Itchy_Blood
-        passives = list("GodSpeed" = -1)
+        passives = list("Godspeed" = -1)
         ConfuseAffected = 5
         ShearAffected = 5
         PoisonAffected=5

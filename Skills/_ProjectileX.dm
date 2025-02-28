@@ -5847,12 +5847,13 @@ obj
 										break//cancel allied damage
 						if(EffectiveDamage>0)
 							if(src.MortalBlow)
-								if(prob(15*src.MortalBlow) && !a:MortallyWounded)
-									var/MortalDamage = a:Health <=50 ? a:Health * 0.05 : 100 * 0.05
-									a:LoseHealth(MortalDamage)
-									a:WoundSelf(MortalDamage)
-									a:MortallyWounded+=1
-									src.Owner << "<b><font color=#ff0000>You mortally injure [a]!</font></b>"
+
+								if(prob(glob.MORTAL_BLOW_CHANCE * MortalBlow) && !m.MortallyWounded)
+									var/mortalDmg = m.Health * 0.05 // 5% of current
+									m.LoseHealth(mortalDmg)
+									m.WoundSelf(mortalDmg)
+									m.MortallyWounded += 1
+									OMsg(m, "<b><font color=#ff0000>[src] has dealt a mortal blow to [m]!</font></b>")
 
 							if(src.Area=="Beam")
 								src.Owner.DoDamage(a, (EffectiveDamage/glob.GLOBAL_BEAM_DAMAGE_DIVISOR), SpiritAttack=1, Destructive=src.Destructive)
