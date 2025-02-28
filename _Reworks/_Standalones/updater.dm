@@ -15,7 +15,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 6
+	var/UPDATE_VERSION = 9
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -181,7 +181,29 @@ update
 			if(p.isRace(NAMEKIAN))
 				if(p.Class == "Dragon")
 					p.AddSkill(new/obj/Skills/Utility/Send_Energy)
-	
+	version9
+		version = 9
+		updateMob(mob/p)
+			. = ..()
+			for(var/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing/id in p)
+				id.StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard_Bringer",\
+								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold")
+			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style/nis in p)
+				nis.StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu")
+			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style/ds in p)
+				ds.StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style")
+			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu/fok in p)
+				fok.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style", \
+		"/obj/Skills/Buffs/NuStyle/SwordStyle/Kunst_des_Fechtens"="/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter",\
+		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon",\
+		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wing_Chun_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phoenix_Eye_Fist")
+			for(var/obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker/mw in p)
+				mw.StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma_Style",\
+								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire")
+			for(var/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer/sb in p)
+				sb.StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma_Style",\
+								"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard_Bringer")
+
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25
 /globalTracker/var/GAJA_MAX_EXCHANGE = 1

@@ -1,12 +1,12 @@
 
 /datum/BuffTrigger
     var/tmp/owner
-    var/obj/Skills/Buffs/SlotlessBuffs/parent_buff
+    var/tmp/obj/Skills/Buffs/SlotlessBuffs/parent_buff
     var/trigger // trigger this
     var/trigger_when // when this happens
     var/trigger_at // at what?
     var/trigger_ref// flexibility
-    var/atom/reference_this // what to reference
+    var/tmp/atom/reference_this // what to reference
     var/reference_this_var // yawn
     var/set_to = 0
     proc/init(mob/p, obj/Skills/Buffs/SlotlessBuffs/b)

@@ -7,10 +7,10 @@
 		StyleOff=1.15
 		StyleStr=1.15
 		StyleDef=1.15
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx", \
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style", \
 		"/obj/Skills/Buffs/NuStyle/SwordStyle/Kunst_des_Fechtens"="/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter",\
 		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon",\
-		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wing_Chun"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phoenix_Eye_Fist")
+		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wing_Chun_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phoenix_Eye_Fist")
 		passives = list("SwordPunching" = 1, "Secret Knives" = "Khonshu", "Tossing" = 1)
 		StyleActive="Fist of Khonshu"
 		Finisher="/obj/Skills/Queue/Finisher/Moon_Fall"
@@ -20,7 +20,7 @@
 	Nito_Ichi_Style
 		SignatureTechnique=1
 		Copyable=0
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu_Style")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu")
 		passives = list("Fury" = 1, "DoubleStrike" = 1, "NeedsSecondSword" = 1, "Musoken" = 1)
 		StyleActive="Two Swords as One"
 		StyleOff=1.3
@@ -45,7 +45,7 @@
 	Dardi_Style
 		SignatureTechnique=1
 		Copyable=0
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style")
 		passives = list("Parry" = 2, "Disarm" = 1.5, "Hardening" = 1, "Deflection" = 0.5)
 		StyleActive="Dardi School"
 		StyleOff=1.15
