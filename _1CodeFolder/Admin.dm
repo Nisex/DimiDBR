@@ -804,6 +804,12 @@ mob/Admin2/verb
 		M.loc=locate(x,y,z)
 		Log("Admin","[ExtractInfo(usr)] teleported [ExtractInfo(M)] to [x],[y],[z].")
 
+	globallyIndestructable()
+		set category = "Admin"
+		set hidden = 1
+		for(var/obj/Turfs/t in world)
+			t.Destructable = FALSE
+			t.Grabbable = FALSE
 
 	AdminRename(atom/A in world)
 		set category="Admin"
