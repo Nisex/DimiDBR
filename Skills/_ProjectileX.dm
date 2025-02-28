@@ -1742,7 +1742,7 @@ obj
 					src.EnergyCost=usr.Energy
 					FatigueCost=EnergyCost/5
 					src.MultiHit=round(src.EnergyCost/10)
-					src.DamageMult=round(4.5 + EnergyCost/10)
+					src.DamageMult=round(4.5 + EnergyCost/10) / MultiHit
 					usr.UseProjectile(src)
 
 			Spirit_Gun_Mega
@@ -1771,7 +1771,7 @@ obj
 				verb/Spirit_Gun_Mega()
 					set category="Skills"
 					src.MultiHit=round(FatigueCost/4)
-					src.DamageMult=round(6 + FatigueCost/15)
+					src.DamageMult=round(6 + FatigueCost/15) / MultiHit
 					usr.UseProjectile(src)
 			Sekiha_Tenkyoken
 				SignatureTechnique=2
