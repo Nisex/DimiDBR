@@ -6,7 +6,7 @@
 		var/race = x.race.name
 		lol["[race]"]++
 		if(x.isRace(BEASTMAN))
-			lol["[x?:Racial]"]++
+			lol["[x.Class]"]++
 
 	for(var/x in lol)
 		src<<"[x] = [lol[x]]"

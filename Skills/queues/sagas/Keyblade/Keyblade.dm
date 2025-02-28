@@ -58,7 +58,7 @@ obj/Skills/Queue
 		Combo=5
 		NeedsSword=1
 		Quaking=2
-		EnergyCost=1.
+		EnergyCost=1
 		HitStep=/obj/Skills/Queue/Ars_Arcanum3
 	Ars_Arcanum3
 		HitMessage="finishes the combo with a powerful jab!"
