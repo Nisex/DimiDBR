@@ -115,7 +115,7 @@
         else
             on_tick()
             if(owner.Target)
-                step_towards(src, owner.Target, 3 * world.tick_lag)
+                step_towards(src, owner.Target, 32)
 
         
 
