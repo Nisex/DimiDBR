@@ -116,7 +116,7 @@ obj
 					set category = "Other"
 					disableInnovation(usr)
 				adjust(mob/p)
-					if(usr.isInnovative(HUMAN, "Unarmed") && !isInnovationDisable(p))
+					if(p.isInnovative(HUMAN, "Unarmed") && !isInnovationDisable(p))
 						Projectile="/obj/Skills/Projectile/KinshasaProjectile"
 					else
 						Projectile=null
