@@ -178,6 +178,9 @@
 /obj/Skills/Buffs/SlotlessBuffs/Racial/Blend_In
 	Invisible = 22
 	ActiveMessage = "blends into their surroundings"
+	verb/Blend_In()
+		set category = "Utility"
+		Trigger(usr)
 /obj/Skills/Projectile/Racial/Fox_Fire_Barrage
 	FoxFire = 2
 	Homing = 1

@@ -40,7 +40,7 @@
 		AuraX=-8
 		AuraY=-10
 		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard_Bringer",\
-								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold")
+								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno" = "/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold")
 		ElementalOffense = "Water"
 		ElementalDefense = "Earth"
 		verb/Ice_Dancing()

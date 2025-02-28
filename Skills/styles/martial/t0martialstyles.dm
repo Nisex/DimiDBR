@@ -54,7 +54,7 @@
 		StyleSpd=0.9
 		StyleStr=1.2
 		StyleActive="Shield"
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Murim_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style")
 		passives = list("Hardening" = 1)
 		Finisher="/obj/Skills/Queue/Finisher/Shield_Bash"
 		verb/Shield_Style()

@@ -5824,7 +5824,7 @@ mob
 								src.Target.Frozen=1
 								spawn(3)
 									src.Target.Frozen=0
-						GO-=1
+						GO-=world.tick_lag
 						DelayRelease+=Z.RushDelay
 						if(DelayRelease>=1)
 							DelayRelease--
@@ -5852,6 +5852,7 @@ mob
 						if(DelayRelease>=1)
 							DelayRelease--
 							sleep(1)
+					sleep(world.tick_lag)
 				src.is_dashing--
 				if(is_dashing<0)
 					is_dashing=0
