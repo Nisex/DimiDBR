@@ -5104,7 +5104,7 @@ obj
 				Area="Target"
 				GuardBreak=1
 				StopAtTarget=1
-				MortalBlow=1
+				MortalBlow=2
 				PostShockwave=0
 				PreShockwave=1
 				Shockwave=5
@@ -5115,7 +5115,7 @@ obj
 				HitSparkY=-32
 				HitSparkTurns=1
 				HitSparkSize=2
-				Cooldown=-1
+				Cooldown=180
 				verb/Deathbringer()
 					set category="Skills"
 					usr.Activate(src)
