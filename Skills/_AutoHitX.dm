@@ -1684,7 +1684,7 @@ obj
 				SignatureTechnique=1
 				UnarmedOnly=1
 				Area="Circle"
-				AdaptRate = 1 
+				AdaptRate = 1
 				DamageMult=1.2
 				ComboMaster=1
 				Rounds=10
@@ -5810,7 +5810,7 @@ mob
 					VanishImage(src)
 				while(GO>0)
 					if(Z.ControlledRush&&src.Target)
-						var/travel_angle = GetAngle(src, src.Target)
+					//	var/travel_angle = GetAngle(src, src.Target)
 						if(length(src.filters) < 1)
 							AppearanceOn()
 
