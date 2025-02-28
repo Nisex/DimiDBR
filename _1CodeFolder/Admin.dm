@@ -21,7 +21,7 @@ mob/var
 
 mob
 	var
-		MakeUngrabbable=0
+		MakeUngrabbable=TRUE
 
 mob/verb
 	GetPingSound()
