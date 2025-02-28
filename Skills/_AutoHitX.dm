@@ -3240,6 +3240,7 @@ obj
 						Knockback = 1
 						Launcher = 2
 						ComboMaster = 1
+						Rush=0
 						DamageMult = 2 + (pot / 40)
 						TurfStrike=2
 						TurfShift='Dirt1.dmi'

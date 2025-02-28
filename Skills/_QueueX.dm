@@ -171,6 +171,7 @@ obj
 				AccuracyMult=20
 				KBMult=0.001
 				Decider=1
+				Instinct=4
 				Finisher=1
 				Rapid=1
 				Warp=3
