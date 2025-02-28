@@ -21,7 +21,7 @@ mob/var
 
 mob
 	var
-		MakeUngrabbable=0
+		MakeUngrabbable=TRUE
 
 mob/verb
 	GetPingSound()
@@ -804,6 +804,12 @@ mob/Admin2/verb
 		M.loc=locate(x,y,z)
 		Log("Admin","[ExtractInfo(usr)] teleported [ExtractInfo(M)] to [x],[y],[z].")
 
+	globallyIndestructable()
+		set category = "Admin"
+		set hidden = 1
+		for(var/obj/Turfs/t in world)
+			t.Destructable = FALSE
+			t.Grabbable = FALSE
 
 	AdminRename(atom/A in world)
 		set category="Admin"
@@ -1905,6 +1911,17 @@ atom/Topic(A,B[])/*
 		switch(class)
 			if("Give To")
 				src.contents+=new variable
+				if(istype(variable, /obj/Skills))
+					var/mob/m = src
+					if(istype(variable, /obj/Skills/Queue))
+						m.Queues.Add(variable)
+					else if(istype(variable, /obj/Skills/AutoHit))
+						m.AutoHits.Add(variable)
+					else if(istype(variable, /obj/Skills/Projectile))
+						m.Projectiles.Add(variable)
+					else if(istype(variable, /obj/Skills/Buffs))
+						m.Buffs.Add(variable)
+					m.Skills.Add(variable)
 			if("Make Under")
 				var/XYZMode=input("Would you like to place this object relative to the person it's being placed under?","") as null|anything in list("Yes","No")
 				switch(XYZMode)

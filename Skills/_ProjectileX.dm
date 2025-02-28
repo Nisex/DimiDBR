@@ -5391,8 +5391,9 @@ obj
 							appearance = m.appearance
 						src.Life()
 					if(FollowUp)
-						spawn(FollowUpDelay)
-							Owner.throwFollowUp(FollowUp)
+						if(FollowUpDelay != -1)
+							spawn(FollowUpDelay)
+								Owner.throwFollowUp(FollowUp)
 					if(BuffSelf)
 						Owner.buffSelf(BuffSelf)
 				Bump(var/atom/a)
@@ -5921,6 +5922,10 @@ obj
 								KenShockwave(a, Size=max((src.DamageMult+src.Knockback+src.Owner.Intimidation/50)*max(2*src.Owner.GetGodKi(),1)*GoCrand(0.04,0.4),0.2),PixelX=src.VariationX,PixelY=src.VariationY)
 						if(src.Slashing)
 							Slash(a, src.Owner.EquippedSword())
+
+						if(FollowUp)
+							if(FollowUpDelay == -1)
+								Owner.throwFollowUp(FollowUp)
 
 						if(src.Knockback)
 							if(src.Area=="Beam")

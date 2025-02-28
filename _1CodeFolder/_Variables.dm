@@ -538,7 +538,7 @@ mob/var
 
 	NPCImmune
 	BuildGiven
-	TurfInvincible=0
+	TurfInvincible=TRUE
 	TotalFatigue=0
 	TotalInjury=0
 	TotalCapacity=0//Philosopher stones are notably harder to meme with

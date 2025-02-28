@@ -16,7 +16,7 @@
 		AuraX=-8
 		AuraY=-10
 		BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/Magmic_Shield") 
-		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma",\
+		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma_Style",\
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire")
 		ElementalOffense = "Fire"
 		ElementalDefense = "Earth"
@@ -39,7 +39,7 @@
 		LockY=16
 		AuraX=-8
 		AuraY=-10
-		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard",\
+		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard_Bringer",\
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold")
 		ElementalOffense = "Water"
 		ElementalDefense = "Earth"
@@ -62,8 +62,8 @@
 		LockY=16
 		AuraX=-8
 		AuraY=-10
-		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Magma"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma",\
-								"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard")
+		StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma_Style",\
+								"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard_Bringer")
 		ElementalOffense = "Wind"
 		ElementalDefense = "Water"
 		verb/Stormbringer()
