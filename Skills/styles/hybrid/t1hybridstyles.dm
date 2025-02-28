@@ -10,6 +10,6 @@
 		StyleFor = 1.25
 		StyleStr = 1.25
 		StyleActive = "Circuit Breaker"
-		verb/Bloodmancer()
+		verb/Circuit_Breaker_Style()
 			set hidden=1
 			src.Trigger(usr)

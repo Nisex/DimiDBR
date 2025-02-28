@@ -14,7 +14,7 @@
 	Meteor_Volcano
 		Distance=45
 		AccMult=2
-		DamageMult=0.1
+		DamageMult=0.075
 		Speed = 0.33
 		Blasts=60
 		IconSize = 0.1

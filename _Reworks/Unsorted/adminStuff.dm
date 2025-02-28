@@ -12,7 +12,7 @@
 		src<<"[x] = [lol[x]]"
 
 /mob/Admin3/verb/Styles()
-	set name = "Races"
+	set name = "Styles"
 	set category = "Admin"
 	var/list/lol = list()
 	for(var/mob/x in players)

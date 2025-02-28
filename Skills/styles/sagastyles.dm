@@ -5,6 +5,7 @@
 		SagaSignature = 1
 		passives = list("SwordPunching" = 1)
 		NeedsSword = 0
+		StyleActive = "Copy Wheel"
 		adjust(mob/p)
 			StyleOff = 1.1 + (0.05 * p.SagaLevel)
 			StyleDef = 1.1 + (0.05 * p.SagaLevel)

@@ -24,7 +24,7 @@
 	TurfShiftDuration=3
 	TurfStrike=2
 	Area="Around Target"
-	Rounds = 10
+	Rounds = 5
 	DamageMult = 0.1
 	HitSparkIcon='BLANK.dmi'
 	HitSparkX=0
@@ -53,7 +53,7 @@
 	adjust(mob/p)
 		Cooldown = max(1 - (p.Potential/110), 0.1)
 		Paralyzing = 5 + p.Potential/2
-		DamageMult = 1 + round(p.Potential/50)
+		DamageMult = 0.5 + round(p.Potential/50)
 /obj/Skills/AutoHit/Icy_Wind
 	ElementalClass="Water"
 	NoAttackLock=1
@@ -77,8 +77,8 @@
 	Cooldown = 0.5
 	adjust(mob/p)
 		Cooldown = max(1.5 - (p.Potential/110), 0.1)
-		Freezing = 50 + p.Potential/2
-		DamageMult = 0.25 + round(p.Potential/150)
+		Freezing = 15 + p.Potential/2
+		DamageMult = 1 + round(p.Potential/50)
 		Rounds = 5 + round(p.Potential/20)
 /obj/Skills/AutoHit/HellfireRain
 	ElementalClass="Hellfire"
@@ -105,7 +105,7 @@
 	adjust(mob/p)
 		Cooldown = max(2 - (p.Potential/110), 0.1)
 		DarknessFlame = 6 + p.Potential/25
-		DamageMult = 0.3 + round(p.Potential/150)
+		DamageMult = 1 + round(p.Potential/50)
 		Rounds = 5 + round(p.Potential/20)
 
 /obj/Skills/AutoHit/Earthquake
@@ -113,10 +113,11 @@
 	Area="Around Target"
 	Rounds = 5
 	NoLock = 1 
+	NoAttackLock=1
 	TurfStrike=2
 	TurfShift='Dirt.dmi'
 	TurfShiftDuration=3
-	DamageMult = 0.2
+	DamageMult = 1
 	SpecialAttack = 1
 	AdaptRate=1
 	DamageMult = 0.3
@@ -135,7 +136,7 @@
 	IconLock = 'WaterPrison.dmi'
 	Distance=15
 	AccMult=2
-	DamageMult=0.2
+	DamageMult=0.05
 	Speed = 1.33
 	Knockback=0
 	Blasts=10
@@ -149,7 +150,7 @@
 /obj/Skills/Projectile/Fire_Blast
 	IconLock = 'FireBlast.dmi'
 	Blasts = 1
-	DamageMult = 1.3
+	DamageMult = 0.75
 	Distance = 25
 	Speed = 0.33
 	IconSize = 2
@@ -164,11 +165,13 @@
 	ComboMaster=1
 	AdaptRate=1
 	DamageMult=0.05
-	Rounds=60
+	Rounds=30
 	Cooldown=30
 	NoLock = 1
 	NoAttackLock = 1
 	Size=3
+	NeedsSword = 0
+	UnarmedOnly = 0
 	Icon='bloodmiasma.dmi'
 	HitSparkIcon = 'Hit Effect Vampire.dmi'
 	HitSparkX = -32

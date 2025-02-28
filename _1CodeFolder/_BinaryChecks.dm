@@ -958,6 +958,8 @@ mob
 			if(p.Power > Power || p.passive_handler.Get("GodKi") > p.passive_handler.Get("GodKi"))
 				return TRUE
 			return FALSE
+		missingHealth()
+			return 100-Health
 		HasPureDamage(changelingIgnore = 0)
 			var/Return=0
 			if(!changelingIgnore&&isRace(CHANGELING)&&Anger)
@@ -971,7 +973,7 @@ mob
 				else
 					Return -= sqrt(viewCount)
 			if(passive_handler["Rage"] && Health <= 50)
-				Return += clamp((100-Health) * passive_handler["Rage"]/glob.RAGE_DIVISOR, 0.1, glob.MAX_RAGEPUREDAMAGE)
+				Return += clamp((missingHealth()) * passive_handler["Rage"]/glob.RAGE_DIVISOR, 0.1, glob.MAX_RAGEPUREDAMAGE)
 			if(src.TarotFate=="The Hanged Man")
 				Return+=5
 			if(src.TarotFate=="Justice")
@@ -983,7 +985,7 @@ mob
 			if(isRace(MAJIN))
 				Return += AscensionsAcquired * getMajinRates("Damage")
 			if(passive_handler["Rebel Heart"])
-				var/h = (100-Health/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"]
+				var/h = ((missingHealth())/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"]
 				Return += h
 			return Return
 		HasPureReduction()
@@ -995,13 +997,13 @@ mob
 			if(src.isRace(MAJIN))
 				Return += AscensionsAcquired * getMajinRates("Reduction")
 			if(passive_handler["Rage"] && Health <= 50)
-				Return -= clamp((100-Health) * passive_handler["Rage"]/glob.RAGE_DIVISOR, 0, glob.MAX_RAGEPUREDAMAGE)
+				Return -= clamp((missingHealth()) * passive_handler["Rage"]/glob.RAGE_DIVISOR, 0, glob.MAX_RAGEPUREDAMAGE)
 			if(src.TarotFate=="The Hanged Man")
 				Return-=5
 			if(src.TarotFate=="Justice")
 				Return+=5
 			if(passive_handler["Rebel Heart"])
-				var/h = (100-Health/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"]
+				var/h = (missingHealth()/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"]
 				Return += h
 			return Return
 		Hustling()

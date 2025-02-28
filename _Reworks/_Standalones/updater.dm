@@ -146,14 +146,14 @@ update
 			if(p.isRace(GAJALAKA))
 				switch(p.Class)
 					if("Acolyte")
-						p.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Acolyte)
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Acolyte)
 					if("Rebel")
-						p.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Rebel)
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Rebel)
 					if("Nobility")
-						p.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Noble)
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Noble)
 						p.passive_handler.Set("MartialMagic", 1)
 					if("Heart")
-						p.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_Liberation)
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_Liberation)
 			var/obj/Skills/Buffs/NuStyle/water = p.FindSkill(/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending)
 			if(water)
 				water.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Earth_Moving"="/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing",\
@@ -163,7 +163,24 @@ update
 			if(plague)
 				plague.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style", \
 							"/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"="/obj/Skills/Buffs/NuStyle/MysticStyle/Bloodmancer")
-						
+	version8
+		version = 8
+		updateMob(mob/p)
+			. = ..()
+			if(p.isRace(GAJALAKA))
+				switch(p.Class)
+					if("Acolyte")
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Acolyte)
+					if("Rebel")
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Rebel)
+					if("Nobility")
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Noble)
+						p.passive_handler.Set("MartialMagic", 1)
+					if("Heart")
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_Liberation)
+			if(p.isRace(NAMEKIAN))
+				if(p.Class == "Dragon")
+					p.AddSkill(new/obj/Skills/Utility/Send_Energy)
 	
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25

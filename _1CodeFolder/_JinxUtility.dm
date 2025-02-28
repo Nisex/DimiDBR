@@ -1260,7 +1260,7 @@ mob
 					// lol
 					Mod += clamp(adaptive/2,0.05, 0.5)
 			if(passive_handler["Rebel Heart"])
-				var/h = (((100-Health)/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/10
+				var/h = (((missingHealth())/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/10
 				Mod+=h
 			Str*=Mod
 			Str*=Mult
@@ -1373,7 +1373,7 @@ mob
 					if(src.Health<=25*(1-src.HealthCut))
 						Mod+=min(10/src.Health,1)
 			if(passive_handler["Rebel Heart"])
-				var/h = (((100-Health)/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/10
+				var/h = (((missingHealth())/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/10
 				Mod+=h
 			if(src.ForEroded)
 				Mod-=src.ForEroded
@@ -1484,7 +1484,7 @@ mob
 					if(src.Health<=25*(1-src.HealthCut))
 						Mod+=min(10/src.Health,1)
 			if(passive_handler["Rebel Heart"])
-				var/h = (((100-Health)/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/10
+				var/h = (((missingHealth())/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/10
 				Mod+=h
 			if(src.Harden)
 				var/max = glob.MAX_HARDEN_STACKS
@@ -1578,7 +1578,7 @@ mob
 				Mod *= 1 + (src.Fury * (glob.FURY_BASE_BOON * clamp(src.passive_handler.Get("Fury"), 0.1, glob.FURY_MAX_BOON)))
 			var/BM=src.HasBuffMastery()
 			if(passive_handler["Rebel Heart"])
-				var/h = (((100-Health)/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/10
+				var/h = (((missingHealth())/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/10
 				Mod+=h
 			if(BM)
 				if(Mod<=glob.BUFF_MASTERY_LOWTHRESHOLD)
@@ -1687,7 +1687,7 @@ mob
 					else
 						Mod*= 1 - (Shock * glob.DEBUFF_EFFECTIVENESS)
 			if(passive_handler["Rebel Heart"])
-				var/h = (((100-Health)/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/10
+				var/h = (((missingHealth())/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/10
 				Mod+=h
 			if(src.OffEroded)
 				Mod-=src.OffEroded
@@ -1778,7 +1778,7 @@ mob
 					else
 						Mod*=1 - (Shock * glob.DEBUFF_EFFECTIVENESS)
 			if(passive_handler["Rebel Heart"])
-				var/h = (((100-Health)/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/10
+				var/h = (((missingHealth())/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/10
 				Mod+=h
 			if(src.DefEroded)
 				Mod-=src.DefEroded

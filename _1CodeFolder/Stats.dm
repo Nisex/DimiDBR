@@ -814,7 +814,7 @@ mob/proc/
 						Ratio=src.Target.Power/src.Target.GetPowerUpRatio()
 		
 		if(passive_handler["Rebel Heart"])
-			var/h = ((100-Health/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/5
+			var/h = ((missingHealth()/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/5
 			Ratio+=h
 		Power=Ratio*GetPowerUpRatio()
 

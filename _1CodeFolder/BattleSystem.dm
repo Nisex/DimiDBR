@@ -599,6 +599,7 @@ mob/Body
 	var/DeathTime
 	var/TrulyDead=1//dont nerf people who are voiding naturally
 	Savable=1
+	Grabbable = 1
 	New()
 		DeathTime=world.realtime
 		..()
@@ -1653,10 +1654,17 @@ mob/proc/Grab_Mob(var/mob/P, var/Forced=0)
 		Forced = 1
 	if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Grab"))
 		Forced = 1
-	if(!Forced && (P.passive_handler.Get("Fishman")||P.HasGiantForm()||P.HasLegendaryPower()>=1)&&!P.KO&&P.icon_state!="Meditate")
-		src.OMessage(10,"[src] fails to get a firm hold on [P]!","[src]([src.key]) fails to grab [ExtractInfo(P)]")
-		return
-	else
+	if(!Forced)
+		if(istype(P, /mob/Body))
+			src.Grab=P
+			src.GrabTime = world.time
+			src.OMessage(10,"[src] grabbed [P]!","[src]([src.key]) grabs [ExtractInfo(P)]")
+			src.Grab_Update()
+			src.Grab_Effects(P)
+			return
+		if((P.passive_handler.Get("Fishman")||P.HasGiantForm()||P.HasLegendaryPower()>=1)&&!P.KO&&P.icon_state!="Meditate")
+			src.OMessage(10,"[src] fails to get a firm hold on [P]!","[src]([src.key]) fails to grab [ExtractInfo(P)]")
+			return
 		src.Grab=P
 		src.GrabTime = world.time
 		src.OMessage(10,"[src] grabbed [P]!","[src]([src.key]) grabs [ExtractInfo(P)]")
