@@ -5,12 +5,12 @@ race
 		visual = 'Demon.png'
 		var/accepting_boons = TRUE
 		locked = FALSE
-		strength = 2
-		endurance = 2
-		speed = 0.75
-		force = 1
-		offense = 1.25
-		defense = 0.5
+		strength = 1.5
+		endurance = 1.75
+		speed = 1 
+		force = 1.25
+		offense = 1
+		defense = 1 
 		imagination = 2
 		passives = list("Juggernaut" = 0.5, "DemonicDurability" = 0.5, "HeavyHitter" = 0.5, "ShonenPower" = 0.15)
 		onFinalization(mob/user)

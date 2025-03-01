@@ -431,6 +431,7 @@
 #include "_Reworks\race_rework\gajalaka\racials\heart_manifestation.dm"
 #include "_Reworks\race_rework\half_saiyan\ascensions.dm"
 #include "_Reworks\race_rework\half_saiyan\beastanimation.dm"
+#include "_Reworks\race_rework\half_saiyan\buffs.dm"
 #include "_Reworks\race_rework\half_saiyan\emitters.dm"
 #include "_Reworks\race_rework\half_saiyan\race.dm"
 #include "_Reworks\race_rework\half_saiyan\transformations.dm"
