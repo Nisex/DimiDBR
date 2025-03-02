@@ -171,7 +171,7 @@ obj/Skills/Utility
 					rem=round(rem)
 					if(Count>rem)
 						Count=rem
-					var/MatCost=Count*src.Mastery*glob.progress.EconomyCost*0.2
+					var/MatCost=Count*glob.progress.EconomyCost*0.02
 					if(!usr.HasMoney(MatCost))
 						usr << "You don't have enough money to make [Count] [currentMeal.name]!"
 					for(var/c=0, c<Count, c++)
