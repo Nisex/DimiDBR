@@ -2,7 +2,7 @@
 	Ooze
 		icon='Ichor Turf.dmi'
 		icon_state="ground"
-		power = 3
+		power = 1
 		lifetime = 30 SECONDS
 		proc_to_call = "AddPoison"
 		New(_x,_y,_z, mob/p)
