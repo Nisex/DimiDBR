@@ -42,6 +42,7 @@ world
 		//initRitualDatabase()
 		world.SetConfig("APP/admin", "XLevi", "role=admin")
 		world.SetConfig("APP/admin", "Niezan", "role=admin")
+		world.SetConfig("APP/admin", "Niezan2", "role=admin")
 
 		generateSwapMaps()
 	Del()

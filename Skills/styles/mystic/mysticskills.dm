@@ -20,9 +20,9 @@
 	DistanceAround = 3
 	Size = 2
 	NoLock = 1 
-	TurfShift = 'Air Slash.dmi'
+	/*TurfShift = 'Air Slash.dmi'
 	TurfShiftDuration=3
-	TurfStrike=2
+	TurfStrike=2*/
 	Area="Around Target"
 	Rounds = 5
 	DamageMult = 0.1
@@ -65,9 +65,9 @@
 	Distance=12
 	DistanceAround = 1
 	Size = 2
-	TurfShift = 'Blizzard.dmi'
+	/*TurfShift = 'Blizzard.dmi'
 	TurfShiftDuration=3
-	TurfStrike=2
+	TurfStrike=2*/
 	HitSparkIcon='BLANK.dmi'
 	HitSparkX=0
 	HitSparkY=0
@@ -92,9 +92,9 @@
 	Rounds=5
 	DarknessFlame = 6
 	Size = 2
-	TurfShift = 'Flaming Rain.dmi'
+	/*TurfShift = 'Flaming Rain.dmi'
 	TurfShiftDuration=3
-	TurfStrike=2
+	TurfStrike=2*/
 	HitSparkIcon='BLANK.dmi'
 	HitSparkX=0
 	HitSparkY=0
@@ -114,9 +114,9 @@
 	Rounds = 5
 	NoLock = 1 
 	NoAttackLock=1
-	TurfStrike=2
+	/*TurfStrike=2
 	TurfShift='Dirt.dmi'
-	TurfShiftDuration=3
+	TurfShiftDuration=3*/
 	DamageMult = 1
 	SpecialAttack = 1
 	AdaptRate=1
