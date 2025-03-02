@@ -857,6 +857,8 @@
 
 							if(UsingAnsatsuken())
 								HealMana(clamp(damage * SagaLevel, 0.005, 20), 1)
+							if(passive_handler["RenameMana"])
+								HealMana(clamp(damage * (Potential/10), 0.005, 25), 1)
 							if(GetAttracting())
 								enemy.AddAttracting(GetAttracting(), src)
 					// 										OTHER DMG START 															//

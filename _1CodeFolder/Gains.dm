@@ -335,8 +335,9 @@ mob
 				if(get_dist(Target,src) >= glob.BREAK_TARGET_ON_DIST)
 					Target = null
 		if(passive_handler["Grit"]>=1 && Health <= clamp(AscensionsAcquired * 15, 15, 75))
-			var/value = passive_handler["Grit"] / glob.racials.GRITDIVISOR
-			HealHealth(value)
+			if(!PureRPMode)
+				var/value = passive_handler["Grit"] / glob.racials.GRITDIVISOR
+				HealHealth(value)
 		if(src.Health <= 25*(1-src.HealthCut) && !src.HealthAnnounce25)
 
 			var/shonenMoment = ShonenPowerCheck(src)

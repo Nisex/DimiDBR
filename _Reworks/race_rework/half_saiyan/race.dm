@@ -26,10 +26,10 @@ race
 		onFinalization(mob/user)
 			..()
 			if(user.Class == "Compassion")
-				AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/HalfSaiyan/Hidden_Potential)
+				user.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/HalfSaiyan/Hidden_Potential)
 				anger = 1.4
 			else
-				AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/HalfSaiyan/Saiyan_Pride)
+				user.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/HalfSaiyan/Saiyan_Pride)
 			user.Tail(1)
 			var/list/transpaths = subtypesof(text2path("/transformation/saiyan"))
 			for(var/i in transpaths)

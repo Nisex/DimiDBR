@@ -102,6 +102,10 @@ mob/proc/Unconscious(mob/P,var/text)
 	if(src.KO)
 		return
 	if(P)
+		var/obj/Skills/Buffs/undying = P.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Undying_Rage)
+		if(undying && !undying.Using)
+			undying.Trigger(P ,TRUE)
+			return
 		if(!istype(src,/mob/Player/FevaSplits))
 			if(P.passive_handler["Undying Rage"])
 				P.Health += 2.5 + (glob.racials.UNDYINGRAGE_HEAL * P.AscensionsAcquired)

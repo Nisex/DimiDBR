@@ -8,7 +8,8 @@
     ActiveMessage="unleashes the anger they keep locked in a cage!"
     OffMessage="calms their yasai rage..."
 
-    adjust(mob/p)
+    adjust(mob/p)  
+        var/asc = p.AscensionsAcquired
         NeedsHealth = clamp(10 + (asc * 5), 10, 25)
         TooMuchHealth = clamp(15 + (asc * 2.5), 15, 50)
         AngerMult = 1.2 + (asc*0.1)
@@ -25,5 +26,6 @@
     OffMessage="..."
 
     adjust(mob/p)
+        var/asc = p.AscensionsAcquired
         passives = list("Steady" = 0.5 + (0.5 * asc), "PureDamage" = 0.25 * asc, "Persistence" =  0.5 + (0.25 * asc))
         

@@ -46,6 +46,14 @@ obj
 						tensionStorage = 0
 				skillDescription()
 					..()
+					if(SignatureTechnique)
+						description += "Signature Tier [SignatureTechnique]\n"
+						for(var/x in StyleComboUnlock)
+							var/splitup = splittext(x, "/")
+							var/splitupEnd = splittext(StyleComboUnlock[x], "/")
+							var/finalStringX = replacetext(splitup[length(splitup)], "_", " ")
+							var/finalStringEnd = replacetext(splitupEnd[length(splitupEnd)], "_", " ")
+							description += "This Style + [finalStringX] = [finalStringEnd]\n"
 					if(StyleStr)
 						if(StyleStr  < 1 &&  StyleStr  > 0)
 							description += "Strength Reduction: [1-StyleStr]\n"
