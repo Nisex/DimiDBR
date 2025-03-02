@@ -3219,7 +3219,7 @@ obj
 				SkillCost= TIER_1_COST
 				Copyable=2
 				NeedsSword=1
-				Area="Target"
+				Area="Strike"
 				Distance=4
 				StrOffense=1
 				NoPierce=1
