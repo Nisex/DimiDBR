@@ -3470,6 +3470,9 @@ obj
 					else
 						Distance = 3
 						Size = 0
+						Launcher = 0
+						StepsDamage = 0
+						Rush = 1
 						Rounds = 1
 						DamageMult = 1.5
 						ControlledRush = 0
