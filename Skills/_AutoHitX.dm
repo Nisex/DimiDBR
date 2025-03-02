@@ -3472,7 +3472,6 @@ obj
 						Launcher = 0
 						StepsDamage = 0
 						Rush = 1
-						StepsDamage = 1
 						Rounds = 0
 						DamageMult = 1.5
 						Launcher = 0 
