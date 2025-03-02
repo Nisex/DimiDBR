@@ -11504,7 +11504,7 @@ mob
 						var/resourceName = B.ResourceCost[1]
 						var/storage = 0
 						var/cost = B.ResourceCost[2]
-						if(vars[resourceName])
+						if(resourceName in vars) //AHAHAHA! 
 							// the cost associated exists
 							storage = vars[resourceName]
 						else
@@ -13190,16 +13190,16 @@ mob
 			if(B.ResourceCost)
 				var/resourceName = B.ResourceCost[1]
 				var/cost = B.ResourceCost[2]
-				if(vars[resourceName])
+				if(resourceName in vars)
 					// the cost associated exists
 					vars[resourceName] -= cost
 					if(vars[resourceName] < 0)
 						vars[resourceName] = 0
 				else
 					if(passive_handler[resourceName])
-						passive_handler[resourceName] -= cost
+						passive_handler.Decrease(resourceName, cost)
 						if(passive_handler[resourceName] < 0)
-							passive_handler[resourceName] = 0 // shouldnt b possible
+							passive_handler.Set(resourceName, 0 )// shouldnt b possible
 
 				
 			if(B.CorruptionCost)

@@ -102,6 +102,10 @@ mob/proc/Unconscious(mob/P,var/text)
 	if(src.KO)
 		return
 	if(P)
+		var/obj/Skills/Buffs/undying = P.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Undying_Rage)
+		if(undying && !undying.Using)
+			undying.Trigger(P ,TRUE)
+			return
 		if(!istype(src,/mob/Player/FevaSplits))
 			if(P.passive_handler["Undying Rage"])
 				P.Health += 2.5 + (glob.racials.UNDYINGRAGE_HEAL * P.AscensionsAcquired)
@@ -1533,9 +1537,8 @@ mob
 		src.Knockbacked=null
 		src.Knockback=null
 		if(src.Dunked)
-			var/Dunk=src.Dunked
 			spawn()
-				Crater(src,round(Dunk/2))
+				Crater(src,round(1+Dunked))
 			src.Dunked=0
 		else if(prob(20)&&src.pixel_z==0&&!DustBlock)
 			Dust(src.loc)

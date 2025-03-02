@@ -2198,7 +2198,7 @@ obj
 				EndRate=0.75
 				Knockback=1
 				MultiHit=8
-				DamageMult=1.5
+				DamageMult=2.5
 				AccMult = 1.25
 				Deflectable=0
 				Distance=10

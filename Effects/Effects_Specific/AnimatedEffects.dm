@@ -120,6 +120,7 @@ proc
 			del i
 
 	Jump(var/mob/User, var/UpTime=3, var/FloatTime=0, var/DownTime=2)
+		set waitfor = 0
 		animate(User,pixel_z=48,time=UpTime, easing=BACK_EASING, flags=ANIMATION_END_NOW | ANIMATION_RELATIVE)
 		sleep(UpTime)
 		if(FloatTime)

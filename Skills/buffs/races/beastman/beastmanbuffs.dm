@@ -56,14 +56,14 @@
 		passives = list("Brutalize" = 1.5 + (0.25 * p.AscensionsAcquired), "Afterimages" = 2, "Crippling" = 5)
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Undying_Rage
-	TooMuchHealth = 1
-	NeedsHealth = 0.1
+	TooMuchHealth = 3
+	NeedsHealth = 1
 	passives = list("Undying Rage" = 1)
 	Cooldown = -1
 	ActiveMessage = "is too angry to die!"
 	adjust(mob/p)
 		TimerLimit = 5 + (glob.racials.UNDYINGRAGE_DURATION* (p.AscensionsAcquired))
-		passives = list("Undying Rage" = 1, "Relentlessness" = 1)
+		passives = list("Undying Rage" = 1, "Relentlessness" = 1, "Adrenaline" = 3)
 	Trigger(mob/User, Override)
 		. = ..()
 		if(!User.BuffOn(src))
@@ -103,7 +103,7 @@
 /mob/proc/preForm()
 	if(SlotlessBuffs["Pheonix Form"] || SlotlessBuffs["Ram Form"] || SlotlessBuffs["Bear Form"] || SlotlessBuffs["Turtle Form"])
 		for(var/index in SlotlessBuffs)
-			if(isAChild(SlotlessBuffs[index].type, /obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Spirit_Walker))
+			if(istype(SlotlessBuffs[index], /obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Spirit_Walker))
 				SlotlessBuffs[index].Trigger(src, TRUE)
 				
 

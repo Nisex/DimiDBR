@@ -8,7 +8,7 @@ race
 		visual	=	'Changeling.png'
 
 		passives = list("Xenobiology" = 1, "Juggernaut" = 1, "CriticalBlock" = 0.25, "BlockChance" = 25, "PureReduction" = 3, "PureDamage" = -5, "AllOutAttack" = 1, "MovementMastery" = -8)
-		statPoints = 4
+		statPoints 	= 8
 		strength	=	0.25
 		endurance	=	2
 		force	=	0.25

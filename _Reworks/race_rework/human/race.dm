@@ -13,3 +13,5 @@ race
 		speed = 1
 		anger = 1.5
 		learning = 1.25
+		intellect = 2
+		imagination = 1.5

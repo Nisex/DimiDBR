@@ -2493,7 +2493,7 @@ mob
 			if(!StyleBuff)
 				return list(FALSE, FALSE)
 				
-			if(isAChild(StyleBuff.type, /obj/Skills/Buffs/NuStyle/MysticStyle))
+			if(istype(StyleBuff, /obj/Skills/Buffs/NuStyle/MysticStyle))
 				return list(TRUE, StyleBuff.SignatureTechnique)
 			return list(FALSE, FALSE)
 		UsingMasteredMagicStyle()

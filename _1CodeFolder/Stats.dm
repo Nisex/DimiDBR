@@ -1016,6 +1016,8 @@ mob/proc/Update_Stat_Labels()
 			src<<output("SUPER: [round(ManaAmount/ManaMax*100)]","BarMana")
 		else if(src.HasMechanized())
 			src<<output("Battery: [round(ManaAmount/ManaMax*100)]","BarMana")
+		else if(passive_handler["RenameMana"])
+			src<<output("[passive_handler["RenameMana"]]: [round(ManaAmount/ManaMax*100)]","BarMana")
 		else
 			src<<output("Mana: [round((ManaAmount/100)*100)][ManaMessage]","BarMana")
 		if(!src.Kaioken)
