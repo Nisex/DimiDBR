@@ -466,8 +466,8 @@
 
 		// 				STATUS 					//
 				flick("Attack",src)
-				// if(passive_handler["Hit Scan"]) // this is troublesome
-				// 	new/obj/tracker(locate(x,y,z),enemy, src, HitScanIcon, HitScanHitSpark,HitScanHitSparkX, HitScanHitSparkY)
+				if(passive_handler["Hit Scan"]) // this is troublesome
+					new/obj/tracker(locate(x,y,z),enemy, src, HitScanIcon, HitScanHitSpark,HitScanHitSparkX, HitScanHitSparkY)
 				//TODO: come back to this
 				var/countered=0
 

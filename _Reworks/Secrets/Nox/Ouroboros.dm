@@ -45,7 +45,7 @@ when the last three inputs are a combo is will result in a super (?)
 
 /obj/Skills/Utility/Ouroboros
     var/last_triggered = ""
-    var/inputQueue = list()
+    var/list/inputQueue = list()
 
 
     verb/Ouroboros()
@@ -84,8 +84,11 @@ when the last three inputs are a combo is will result in a super (?)
         var/obj/Skills/Utility/Ouroboros/oo = usr.inRekka()
         if(oo)
             adjust(usr)
-            usr.Activate(src)
-            oo.Ouroboros()
+            var/acitvated = usr.Activate(src)
+            if(acitvated)
+                oo.Ouroboros()
+                oo.last_triggered = name
+            oo.inputQueue.Add(name)
 
 /obj/Skills/AutoHit/Ouroboros/Rising_Fang
 

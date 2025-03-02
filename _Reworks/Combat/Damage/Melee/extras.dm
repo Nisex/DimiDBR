@@ -37,8 +37,8 @@ mob/proc/InterceptionStrike(stacks)
     
 /mob/var/HitScanIcon = null
 /mob/var/HitScanHitSpark = null
-/mob/var/HitScanHitSparkX = 0
-/mob/var/HitScanHitSparkY = 0 
+/mob/var/HitScanHitSparkX = -32
+/mob/var/HitScanHitSparkY = -32
 
 /obj/tracker
     var/tmp/mob/owner

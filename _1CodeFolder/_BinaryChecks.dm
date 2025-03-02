@@ -1867,8 +1867,10 @@ mob
 				else if(passive_handler["FavoredPrey"] in SECRETS)
 					if(enemy.secretDatum.name == passive_handler["FavoredPrey"])
 						return 1
-				else if(passive_handler["FavoredPrey"] == "Races" && !enemy.secretDatum.name)
-					return 1
+				else if(passive_handler["FavoredPrey"] == "Races")
+					if(enemy)
+						if(!enemy.secretDatum)
+							return 1
 				else if(passive_handler["FavoredPrey"] in RACES)
 					if(enemy.race.name == passive_handler["FavoredPrey"])
 						return 1

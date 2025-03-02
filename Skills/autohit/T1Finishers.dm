@@ -27,11 +27,11 @@
 		NoAttackLock=1
 		Distance=5
 		DamageMult=2
-		StrOffense=1
-		ForOffense=1
+		StrOffense=0.5
+		ForOffense=0.5
 		EndDefense=1
 		Knockback=10
-		Scorching=100
+		Scorching=30
 		ActiveMessage="follows up with an incendiary kick!!"
 		HitSparkIcon='Hit Effect Ripple.dmi'
 		HitSparkX=-32
@@ -99,7 +99,7 @@
 		NoAttackLock=1
 		AdaptRate=1
 		DamageMult=0.15
-		Distance=2
+		Distance=12
 		DistanceAround=4
 		Rounds=20
 		IgnoreAlreadyHit=1

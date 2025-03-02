@@ -27,8 +27,8 @@
         HitMessage="grabs hold of their enemy!"
     Mouton_Shot
         KBMult=0.001
-        Crippling=100
-        DamageMult=3
+        Crippling=30
+        DamageMult=2.5
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Diable_Jambe"
         HitMessage="springs into a handstand, launching a destructive kick from below!"
         FollowUp="/obj/Skills/AutoHit/Flamberge_Shot"

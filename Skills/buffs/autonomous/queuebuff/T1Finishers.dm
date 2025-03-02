@@ -83,7 +83,13 @@
         StyleOff = 1.25
         passives = list("AfterImages" = 4, "TensionLock" = 1, "Speed Force" = 1, "Iaijutsu" = 1, "Relentlessness" = 1, "Fury" = 3, "TensionLock" = 1)
     
-
+    Guard_Break
+        IconLock='Stun.dmi'
+        IconApart=1
+        EndMult=0.8
+        DefMult=0.8
+        ActiveMessage="can't mount a counter attack!"
+        OffMessage="shakes off their anxiety!"
     Crescent_Blessing
         IconLock='SweatDrop.dmi'
         IconApart=1
