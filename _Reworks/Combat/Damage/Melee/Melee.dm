@@ -25,7 +25,7 @@
 	if(glob.AURASPELLONATTACK)
 		for(var/a in SlotlessBuffs)
 			var/obj/Skills/Buffs/b = SlotlessBuffs[a]
-			if(isAChild(b.type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura))
+			if(istype(b, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura))
 				var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/aura = b
 				if(aura.TossSkill)
 					if((last_aura_toss - ((passive_handler["Familiar"]-1) * glob.FAMILIAR_CD_REDUCTION)) + glob.FAMILIAR_SKILL_CD < world.time && (Target && Target != src))

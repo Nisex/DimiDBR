@@ -507,7 +507,7 @@ mob
 					var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/aura
 					for(var/a in SlotlessBuffs)
 						a = SlotlessBuffs[a]
-						if(isAChild(a?:type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura ))
+						if(istype(a, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura ))
 							aura = a
 					if(aura)
 						if(hudIsLive("MysticT1", /obj/hud/mystic, src, "last_aura_toss"))
@@ -1509,7 +1509,7 @@ mob
 							if(b.RecovCutDrain)
 								src.AddRecovCut(b.RecovCutDrain)
 							if(!glob.AURASPELLONATTACK)
-								if(isAChild(b.type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura))
+								if(istype(b, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura))
 									var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/aura = b
 									if(aura.TossSkill)
 										if((last_aura_toss - ((passive_handler["Familiar"]-1) * glob.FAMILIAR_CD_REDUCTION)) + glob.FAMILIAR_SKILL_CD < world.time && (Target && Target != src))

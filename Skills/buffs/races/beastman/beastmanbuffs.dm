@@ -103,7 +103,7 @@
 /mob/proc/preForm()
 	if(SlotlessBuffs["Pheonix Form"] || SlotlessBuffs["Ram Form"] || SlotlessBuffs["Bear Form"] || SlotlessBuffs["Turtle Form"])
 		for(var/index in SlotlessBuffs)
-			if(isAChild(SlotlessBuffs[index].type, /obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Spirit_Walker))
+			if(istype(SlotlessBuffs[index], /obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Spirit_Walker))
 				SlotlessBuffs[index].Trigger(src, TRUE)
 				
 

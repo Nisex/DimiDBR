@@ -13199,7 +13199,7 @@ mob
 					if(passive_handler[resourceName])
 						passive_handler.Decrease(resourceName, cost)
 						if(passive_handler[resourceName] < 0)
-							passive_handler.Set(resourceName, 0 ) = 0 // shouldnt b possible
+							passive_handler.Set(resourceName, 0 )// shouldnt b possible
 
 				
 			if(B.CorruptionCost)

@@ -1919,7 +1919,7 @@ atom/Topic(A,B[])/*
 						m.AutoHits.Add(variable)
 					else if(istype(variable, /obj/Skills/Projectile))
 						m.Projectiles.Add(variable)
-					else if(isAChild(variable, /obj/Skills/Buffs)) //IS TYPE DOESNT DO CHILDREN KILLS NIEZAN
+					else if(istype(variable, /obj/Skills/Buffs)) //IS TYPE DOESNT DO CHILDREN KILLS NIEZAN
 						m.Buffs.Add(variable)
 					m.Skills.Add(variable)
 			if("Make Under")

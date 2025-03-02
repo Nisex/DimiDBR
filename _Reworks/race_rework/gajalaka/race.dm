@@ -38,6 +38,7 @@ race
 					user.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Acolyte)
 				if("Rebel")
 					user.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Rebel)
+					user.passive_handler.Set("SwordPunching", 1)
 				if("Nobility")
 					user.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Noble)
 					user.passive_handler.Set("MartialMagic", 1)

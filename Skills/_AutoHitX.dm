@@ -156,7 +156,7 @@ obj
 				TempForOff
 				TempEndDef
 				SpecialAttack=0//ignores all of the above
-
+				Dunker
 				ComboMaster//Does not lose damage against stunned and / or launched people.
 				GuardBreak//Can't be dodged, blocked or reversaled.
 				CanBeDodged//AIS can trigger and avoid these
@@ -1639,7 +1639,6 @@ obj
 				PostShockwave=1
 				PreShockwave=0
 				Cooldown=150
-				Rush=1
 				WindUp=1
 				Earthshaking=20
 				Instinct=1
@@ -3470,9 +3469,12 @@ obj
 					else
 						Distance = 3
 						Size = 0
-						Rounds = 1
+						StepsDamage = 1
+						Rounds = 0
 						DamageMult = 1.5
+						Launcher = 0 
 						ControlledRush = 0
+						Rush = 1 
 				verb/Cross_Slash()
 					set category="Skills"
 					adjust(usr)
@@ -6138,7 +6140,7 @@ obj
 			Knockback//Number of KB tiles.
 			ChargeTech//Is this a charge move?  Does it carry the enemy with it?  This only affects KB, it doesn't trigger any other charging behavior.
 			ComboMaster // it dont lose damage against stunned/launched nerds
-
+			Dunker
 			UnarmedTech
 			SwordTech
 			SpecialAttack
@@ -6320,6 +6322,7 @@ obj
 			src.TurfShiftDurationDespawn=Z.TurfShiftDurationDespawn
 			src.Flash=Z.Flash
 			src.ComboMaster=Z.ComboMaster
+			Dunker = Z.Dunker
 			src.CanBeBlocked=Z.CanBeBlocked
 			src.CanBeDodged=Z.CanBeDodged
 			src.Slow=Z.Slow
@@ -6606,9 +6609,7 @@ obj
 				if(Owner.UsingFencing())
 					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(Owner.UsingFencing()/15))),1,3)
 				if((m.Launched||m.Stunned))
-					if(ComboMaster || Owner.HasComboMaster())
-						FinalDmg = FinalDmg
-					else
+					if(!(ComboMaster || Owner.HasComboMaster() || Dunker))
 						FinalDmg *= glob.CCDamageModifier
 						Owner.log2text("FinalDmg - Auto Hit", "After ComboMaster", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 						Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
@@ -6804,6 +6805,15 @@ obj
 						if(src.MortalBlow>1)
 							if(m.Immortal)
 								m.Immortal=0
+				var/extraKnock=0
+				if(m.Launched && Dunker)
+					m.Dunked = Dunker
+					extraKnock = 1 + (2 * Dunker)
+					FinalDmg *= 1 + (Dunker/10)
+					spawn()
+						Jump(Owner)
+					spawn(3)
+						LaunchEnd(m)
 				var/damageDealt = src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive, innateLifeSteal = LifeSteal)
 				if(!damageDealt)
 					damageDealt = 0
@@ -6833,8 +6843,7 @@ obj
 				if(src.Grapple)
 					if(!src.Owner.Grab)
 						src.Owner.Grab_Mob(m, Forced=1)
-
-				if(src.Knockback)
+				if(src.Knockback||extraKnock)
 					if(src.ChargeTech)
 						if(m!=src.Owner.Grab)
 							var delay
@@ -6844,7 +6853,7 @@ obj
 						if(src.UnarmedTech)
 							KenShockwave(m, Size=min((src.Knockback+src.Owner.Intimidation/50)*max(2*src.Owner.GetGodKi(),1)*GoCrand(0.04,0.4),0.2),PixelX=pick(-12,-8,8,12),PixelY=pick(-12,-8,8,12))
 						if(m!=src.Owner.Grab)
-							src.Owner.Knockback(src.Knockback, m, Direction=get_dir(src.Owner, m))
+							src.Owner.Knockback(src.Knockback+extraKnock, m, get_dir(src.Owner, m), extraKnock)
 
 				if(PullIn)
 					src.Owner.Knockback(PullIn, m, Direction=get_dir(m, Owner))

@@ -1,15 +1,15 @@
-proc/isAChild(typePath, parentPath)
-    if(typePath in typesof(parentPath))
-        return TRUE
-    return FALSE
+// proc/isAChild(typePath, parentPath)
+//     if(typePath in typesof(parentPath))
+//         return TRUE
+//     return FALSE
 /mob/proc/throwSkill(obj/Skills/s)
-    if(isAChild(s.type, /obj/Skills/AutoHit))
+    if(istype(s, /obj/Skills/AutoHit))
         Activate(s)
-    else if(isAChild(s.type, /obj/Skills/Projectile))
+    else if(istype(s, /obj/Skills/Projectile))
         UseProjectile(s)
-    else if(isAChild(s.type, /obj/Skills/Queue))
+    else if(istype(s, /obj/Skills/Queue))
         SetQueue(s)
-    else if(isAChild(s.type, /obj/Skills/Grapple))
+    else if(istype(s, /obj/Skills/Grapple))
         s:Activate(src)
 
 /mob/proc/findOrAddSkill(path) // find it, regardless
@@ -32,7 +32,7 @@ proc/isAChild(typePath, parentPath)
     throwSkill(s)
     
 /mob/proc/cycleStackingBuffs(var/obj/Skills/S)
-    if(isAChild(AttackQueue?:type, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara) || istype(AttackQueue?:type, /obj/Skills/Queue/Finisher/Cycle_of_Samsara))
+    if(istype(AttackQueue, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara) || istype(AttackQueue?:type, /obj/Skills/Queue/Finisher/Cycle_of_Samsara))
         AttackQueue.Mastery++
         for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/s in SlotlessBuffs)
             s.Timer = 0

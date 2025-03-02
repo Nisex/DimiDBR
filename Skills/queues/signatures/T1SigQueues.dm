@@ -71,7 +71,7 @@ obj
 			Volleyball_Fist
 				SignatureTechnique=1
 				UnarmedOnly=1
-				DamageMult=8
+				DamageMult=6
 				AccuracyMult = 1.35
 				KBMult=0.00001
 				Stunner=1
@@ -98,7 +98,7 @@ obj
 				Warp=3
 				Rapid=1
 				Launcher=3
-				EnergyCost=5
+				EnergyCost=8
 				HitMessage="launches their opponent in the air like a volleyball!"
 			Volleyball_Fist3
 				UnarmedOnly=1
@@ -142,11 +142,11 @@ obj
 					usr.SetQueue(src)
 			Blade_Dance2
 				NeedsSword=1
-				DamageMult=0.5
-				SpeedStrike=1
+				DamageMult=1
+				SpeedStrike=2
 				AccuracyMult=1.25
 				HitStep=/obj/Skills/Queue/Blade_Dance2
-				Duration=4
+				Duration=5
 				Warp=1
 				EnergyCost=1
 				HitSparkIcon='Slash - Future.dmi'
@@ -158,12 +158,12 @@ obj
 					var/obj/Skills/Queue/Blade_Dance/bd = p.FindSkill(/obj/Skills/Queue/Blade_Dance)
 					bd.current_hits++
 					if(bd.current_hits < 10)
-						DamageMult = 0.5 + (0.25 * bd.current_hits)
+						DamageMult = 1 + (0.25 * bd.current_hits)
 						Warp = round(min(1, bd.current_hits/2))
-						EnergyCost = 1 + bd.current_hits/2
+						EnergyCost = 0.5 + bd.current_hits/2
 						SpeedStrike = round(min(1, bd.current_hits/2))
 						Duration = 4 + round(min(1, bd.current_hits/3))
-						AccuracyMult = 1.25 - (0.1 * bd.current_hits)
+						AccuracyMult = 1.5 - (0.1 * bd.current_hits)
 					else
 						DamageMult = 0
 						EnergyCost = 0
@@ -195,7 +195,7 @@ obj
 				SignatureTechnique=1
 				name="Soul Tear Storm"
 				ActiveMessage="begins to glow with ethereal darkness!"
-				DamageMult=2.25
+				DamageMult=3.5
 				AccuracyMult = 1.175
 				KBMult=0.00001
 				Combo=5

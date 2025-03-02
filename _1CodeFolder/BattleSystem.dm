@@ -1537,9 +1537,8 @@ mob
 		src.Knockbacked=null
 		src.Knockback=null
 		if(src.Dunked)
-			var/Dunk=src.Dunked
 			spawn()
-				Crater(src,round(Dunk/2))
+				Crater(src,round(1+Dunked))
 			src.Dunked=0
 		else if(prob(20)&&src.pixel_z==0&&!DustBlock)
 			Dust(src.loc)
