@@ -50,6 +50,8 @@ Party
 			if((!m in src.members))
 				return
 			src.members << "[m] has been removed from the party!"
+			src.members.Remove(m)
+			m.party = null
 			if(src.leader==m)
 				if(src.members.len>0)
 					src.leader=src.members[1]
@@ -58,8 +60,6 @@ Party
 					del src
 			if(src)
 				src.highest_potential()
-			src.members.Remove(m)
-			m.party = null
 
 		highest_potential()
 			var/highest=0
