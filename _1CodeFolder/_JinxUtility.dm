@@ -2628,7 +2628,7 @@ mob
 								if(!src.BuffOn(DC))
 									var/pursuerBoon = HasPursuer()
 									DC.TimerLimit = 3 + clamp(0.25 * pursuerBoon, 0.001, glob.MAX_PURSUER_BOON)
-									if(isRace(MAKYO) && src.ActiveBuff.BuffName=="Ki Control")
+									if(isRace(MAKYO) && ActiveBuff && src.ActiveBuff.BuffName=="Ki Control")
 										DC.passives["Star Surge"] = 1
 										DC.passives["Steady"] = 2
 										DC.TimerLimit = 1.5 + clamp(0.5 * pursuerBoon, 0.001, glob.MAX_PURSUER_BOON)
