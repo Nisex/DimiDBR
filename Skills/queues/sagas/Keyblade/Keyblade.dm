@@ -31,7 +31,7 @@ obj/Skills/Queue
 		AccuracyMult=1.15
 		Duration=5
 		KBMult=0.00001
-		Cooldown=60
+		Cooldown=90
 		Opener=1
 		Stunner=1
 		NeedsSword=1
@@ -62,7 +62,7 @@ obj/Skills/Queue
 		HitStep=/obj/Skills/Queue/Ars_Arcanum3
 	Ars_Arcanum3
 		HitMessage="finishes the combo with a powerful jab!"
-		DamageMult=4.5
+		DamageMult=1.5
 		AccuracyMult=10
 		Duration=5
 		KBMult=2

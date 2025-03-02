@@ -114,7 +114,7 @@ obj/Skills/Projectile/ExcaliburProjectile
 	Knockback=1
 	Trail='ExcaliTrail.dmi'
 	MultiHit=8
-	DamageMult=1.15
+	DamageMult=0.9
 	AccMult=1.5
 	Deflectable=0
 	Distance=20

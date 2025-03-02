@@ -1,6 +1,6 @@
 obj/Skills/Queue/Blazing_Slash
 	ActiveMessage="channels the might of ancient saints into a slash worthy of a pyre!"
-	DamageMult=4
+	DamageMult=2.5
 	AccuracyMult=3
 	KBMult=3
 	SweepStrike=1
