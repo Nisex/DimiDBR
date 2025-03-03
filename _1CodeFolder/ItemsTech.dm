@@ -1252,12 +1252,6 @@ obj/Items/Tech
 							continue
 						if(A.icon_state!="Meditate")
 							A.icon_state="Meditate"
-						var/obj/Items/Enchantment/Flying_Device/efd=A.EquippedFlyingDevice()
-						if(efd)
-							efd.AlignEquip(A)
-						if(A.Flying)
-							Flight(A, Land=1)
-							A<< "You can't fly in a tank..."
 						if(A.Swim==1)
 							A<< "Your Regeneration tank has sunk underwater, and crushed by water pressure!"
 							del src
