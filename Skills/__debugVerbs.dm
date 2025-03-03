@@ -22,7 +22,7 @@ mob/var/currentPoi = 0
 /mob/Admin3/verb/trackburning()
 	set category = "Debug"
 	glob.TRACKING_BURNING = !glob.TRACKING_BURNING
-	if(!TRACKING_BURNING)
+	if(!glob.TRACKING_BURNING)
 		currentBurn = 0
 
 /mob/Admin3/verb/trackpoison()
