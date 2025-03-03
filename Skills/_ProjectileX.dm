@@ -177,7 +177,7 @@ obj
 				ActiveColor=rgb(255,0,0)
 
 				GoldScatter
-
+				Snaring
 			skillDescription()
 				..()
 				if(MaimCost)
@@ -342,9 +342,10 @@ obj
 				Speed=1
 				Instinct=1
 				Distance=10
-				DamageMult=0.5
+				DamageMult=0.3
 				Radius=1
 				Piercing=1
+				AdaptRate=1
 				AccMult=30
 				Knockback=3
 				Explode=1
@@ -363,7 +364,8 @@ obj
 				AttackReplace=1
 				Blasts=1
 				Distance=7
-				DamageMult=0.2
+				DamageMult=0.1
+				AdaptRate=1
 				AccMult=30
 				Dodgeable=0
 				Speed=0
@@ -5220,6 +5222,7 @@ obj
 					src.AccMult=Z.AccMult
 					if(Z.TempAccuracy)
 						src.AccMult=Z.TempAccuracy
+					Snaring = Z.Snaring
 					src.ChargeRate=Z.ChargeRate
 					src.ChargeMessage=Z.ChargeMessage
 					src.CustomCharge=Z.CustomCharge
@@ -5903,6 +5906,8 @@ obj
 							src.Owner.Grab_Release()
 							a:Grab_Release()
 						SkipDamage
+						if(Snaring)
+							m.applySnare(sNARING, 'root.dmi')
 						if(src.Stunner)
 							Stun(a, src.Stunner+src.Owner.GetStunningStrike())
 							if(src.Stunner>=5)

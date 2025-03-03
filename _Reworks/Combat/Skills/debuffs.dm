@@ -32,6 +32,12 @@
 	AlwaysOn = 0
 	NeedsPassword = 0
 	passives = list("Snared" = 1)
+	adjust(mob/p, limit = 3, _icon = 'root.dmi')
+		if(limit)
+			TimerLimit = limit
+		if(_icon)
+			IconLock = _icon
+		..()
 	New(limit, icon)
 		. = ..()
 		TimerLimit = limit

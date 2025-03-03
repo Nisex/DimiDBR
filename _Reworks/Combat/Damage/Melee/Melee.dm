@@ -36,6 +36,9 @@
 			if(!s)
 				s = new(glob.ROOTS_DURATION, 'root.dmi')
 				Target.AddSkill(s)
+			else
+				s.TimerLimit = glob.ROOTS_DURATION
+				s.IconLock = 'root.dmi'
 			s.Trigger(Target, TRUE)
 			last_style_effect = world.time
 	if(Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Normal Attack"))

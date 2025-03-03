@@ -103,13 +103,13 @@ mob/Players/verb
 mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 	if(Z)
 		if(!locate(Z) in src)
-			return
+			return  FALSE
 	if(src.KO||src.Stunned||src.AutoHitting||src.Frozen>=2)
-		return
+		return  FALSE
 	if(src.Stasis)
-		return
+		return  FALSE
 	if(Z.Using && Wut!="Zanzoken")
-		return
+		return FALSE
 	if(Z.MagicNeeded&&!src.HasLimitlessMagic())
 		if(src.HasMechanized()&&src.HasLimitlessMagic()!=1)
 			src << "You lack the ability to use magic!"

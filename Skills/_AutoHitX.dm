@@ -2022,7 +2022,6 @@ obj
 				HitSparkCount=7
 				HitSparkDispersion=4
 				Launcher=4
-				ComboMaster = 1
 				DelayedLauncher=1
 				Cooldown=150
 				EnergyCost=5
@@ -6812,9 +6811,8 @@ obj
 					m.Dunked = Dunker
 					extraKnock = 1 + (2 * Dunker)
 					FinalDmg *= 1 + (Dunker/10)
+					flick("KB", Owner)
 					spawn()
-						Jump(Owner)
-					spawn(3)
 						LaunchEnd(m)
 				var/damageDealt = src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive, innateLifeSteal = LifeSteal)
 				if(!damageDealt)
