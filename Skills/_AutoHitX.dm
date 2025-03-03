@@ -3224,7 +3224,7 @@ obj
 				NoPierce=1
 				Knockback=3
 				DamageMult=2.2
-				Rush=1
+				Rush=2
 				Cooldown=30
 				EnergyCost=2
 				ActiveMessage="dashes forward with a jousting strike!"
@@ -3240,7 +3240,7 @@ obj
 						Knockback = 1
 						Launcher = 2
 						ComboMaster = 1
-						Rush=0
+						Rush=3
 						DamageMult = 0.5 + (pot / 100)
 						TurfStrike=2
 						TurfShift='Dirt1.dmi'
@@ -3252,6 +3252,7 @@ obj
 						Launcher = 0
 						ComboMaster = 0
 						DamageMult = 2.2
+						Rush = 2
 						TurfStrike=0
 						TurfShift=0
 						TurfShiftDuration=0
