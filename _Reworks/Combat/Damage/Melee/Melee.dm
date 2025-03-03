@@ -22,7 +22,7 @@
 
 
 /mob/proc/Melee1(dmgmulti=1, spdmulti=1, iconoverlay, forcewarp, forcedTarget=null, ExtendoAttack=null, SecondStrike, ThirdStrike, accmulti=1, SureKB=0, NoKB=0, IgnoreCounter=0, BreakAttackRate=0, hitback = 0)
-	if(glob.AURASPELLONATTACK)
+	if(glob.AURASPELLONATTACK && !AttackQueue)
 		for(var/a in SlotlessBuffs)
 			var/obj/Skills/Buffs/b = SlotlessBuffs[a]
 			if(istype(b, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura))
