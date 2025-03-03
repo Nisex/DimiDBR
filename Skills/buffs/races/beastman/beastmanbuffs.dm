@@ -7,7 +7,7 @@
 	ResourceCost = list("Grit", 999) // consumes all grit on use
 	adjust(mob/p)
 		var/currentGrit = p.passive_handler["Grit"]
-		currentGrit/=10
+		currentGrit/=100
 		VaizardHealth = currentGrit
 	verb/The_Grit()
 		set category = "Skills"

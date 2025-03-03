@@ -12,6 +12,9 @@ Ouroboros is summoned from a special space, and can directly attack the soul or 
     NoSaga=1
     CalmAnger=1
     MagicSword=1
+    icon = 'ouroboros (1).dmi'
+    pixel_x = -16
+    pixel_y = -16
     // Element="Void"
     // void offense would have 2 do something
     Techniques=list("/obj/Skills/Utility/Ouroboros", "/obj/Skills/AutoHit/Ouroboros/Devouring_Fang", "/obj/Skills/AutoHit/Ouroboros/Rising_Fang", "/obj/Skills/AutoHit/Ouroboros/Falling_Fang")
@@ -131,3 +134,19 @@ when the last three inputs are a combo is will result in a super (?)
             adjust(usr)
             usr.Activate(src)
             oo.Ouroboros()
+
+/obj/Skills/Projectile/Ouroboros/Hungry_Coils
+    Distance=1
+    DamageMult=1
+    AccMult=99
+    Radius=2
+    // Cooldown=30
+    IconLock='ouroboros_blast.dmi'
+    IconSize=1
+    Variation=0
+    adjust(mob/p)
+        Distance = 3 + round(p.Potential/25, 1)
+        //Cooldown=30
+    verb/Hungry_Coils()
+        set category="Skills"
+        usr.UseProjectile(src)

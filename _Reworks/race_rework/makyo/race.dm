@@ -8,8 +8,8 @@ race
 		strength = 1.5
 		endurance = 1.75
 		speed = 1 
-		force = 1
-		offense = 1.25
+		force = 1 // 1.25?
+		offense = 1.25 // 1.25? 
 		defense = 1 
 		imagination = 2
 		passives = list("Juggernaut" = 0.5, "DemonicDurability" = 0.5, "HeavyHitter" = 0.5, "ShonenPower" = 0.15)
