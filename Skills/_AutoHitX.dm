@@ -5830,10 +5830,11 @@ mob
 								spawn(3)
 									src.Target.Frozen=0
 						GO-=world.tick_lag
-						DelayRelease+=Z.RushDelay
-						if(DelayRelease>=1)
-							DelayRelease--
-							sleep(1)
+						if(GO > 0)
+							DelayRelease+=Z.RushDelay
+							if(DelayRelease>=1)
+								DelayRelease--
+								sleep(1)
 					else
 						//var/travel_angle = dir2angle(src.dir)
 						if(length(src.filters) < 1)
@@ -5852,11 +5853,12 @@ mob
 									continue
 								if(a.density)
 									GO=0
-						GO-=world.tick_lag
-						DelayRelease+=Z.RushDelay
-						if(DelayRelease>=1)
-							DelayRelease--
-							sleep(1)
+						GO-= world.tick_lag
+						if(GO > 0)
+							DelayRelease+=Z.RushDelay
+							if(DelayRelease>=1)
+								DelayRelease--
+								sleep(1)
 				src.is_dashing--
 				if(is_dashing<0)
 					is_dashing=0
