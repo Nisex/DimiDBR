@@ -40,6 +40,7 @@
                 if("blizzard")
                     ElementalOffense = "Water"
                     ElementalDefense = "Wind"
+                    ElementalClass = list("Wind","Water")
                     BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Water"
                     passives = list("IceHerald" = 1,"Familiar" = 2, "ThunderHerald" = 1, "CriticalChance" = 20, "CriticalDamage" = 0.2, "SpiritFlow" = 4, "Hardening" = 2, \
                                     "Freezing" = 5, "Shocking" = 5, "AirBend" = 2, "WaveDancer" = 1.5)
@@ -53,6 +54,7 @@
 						"Scorching" = 1)
                     ElementalOffense = "HellFire"
                     ElementalDefense = "Fire"
+                    ElementalClass = "Fire"
                     BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Fire"
                     StyleFor = 1.6
                     Finisher="/obj/Skills/Queue/Finisher/Deal_with_the_Devil"
@@ -68,6 +70,7 @@
                 if("plasma")
                     ElementalOffense = "Wind"
                     ElementalDefense = "Fire"
+                    ElementalClass = list("Fire","Wind")
                     StyleFor = 1.3
                     StyleSpd = 1.3
                     BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Earth"

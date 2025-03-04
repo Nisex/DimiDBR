@@ -20,6 +20,7 @@
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire")
 		ElementalOffense = "Fire"
 		ElementalDefense = "Earth"
+		ElementalClass = "Fire"
 		verb/Magma_Walker()
 			set hidden=1
 			src.Trigger(usr)
@@ -43,6 +44,7 @@
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno" = "/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold")
 		ElementalOffense = "Water"
 		ElementalDefense = "Earth"
+		ElementalClass = "Water"
 		verb/Ice_Dancing()
 			set hidden=1
 			src.Trigger(usr)
@@ -66,6 +68,7 @@
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard_Bringer")
 		ElementalOffense = "Wind"
 		ElementalDefense = "Water"
+		ElementalClass = "Wind"
 		verb/Stormbringer()
 			set hidden=1
 			src.Trigger(usr)
@@ -88,6 +91,7 @@
 								"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold")
 		ElementalOffense = "Wind"
 		ElementalDefense = "Fire"
+		ElementalClass = "Fire"
 		verb/Inferno()
 			set hidden=1
 			src.Trigger(usr)
@@ -100,9 +104,7 @@
 		StyleOff = 1.15
 		ElementalOffense="Poison"
 		ElementalDefense="Water"
-		verb/Bloodmancer()
-			set hidden=1
-			src.Trigger(usr)
+		ElementalClass = "Poison"
 		Finisher="/obj/Skills/Queue/Finisher/Bloodcurdle"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Poison"
 		IconLock = 'SpriteR.dmi'
@@ -111,3 +113,6 @@
 		LockY=16
 		AuraX=-8
 		AuraY=-10
+		verb/Bloodmancer()
+			set hidden=1
+			src.Trigger(usr)

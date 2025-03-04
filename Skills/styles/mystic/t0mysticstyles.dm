@@ -13,6 +13,7 @@
 		StyleActive="Fire Weaving"
 		ElementalOffense = "Fire"
 		ElementalDefense = "Fire"
+		ElementalClass = "Fire"
 		verb/Fire_Weaving()
 			set hidden=1
 			src.Trigger(usr)
@@ -26,6 +27,7 @@
 		StyleActive="Water Bending"
 		ElementalOffense = "Water"
 		ElementalDefense = "Water"
+		ElementalClass = "Water"
 		verb/Water_Bending()
 			set hidden=1
 			src.Trigger(usr)
@@ -37,6 +39,7 @@
 		StyleActive="Earth Moving"
 		ElementalOffense = "Earth"
 		ElementalDefense = "Earth"
+		ElementalClass = "Earth"
 		verb/Earth_Moving()
 			set hidden=1
 			src.Trigger(usr)
@@ -49,6 +52,7 @@
 		StyleActive="Wind Summoning"
 		ElementalOffense = "Wind"
 		ElementalDefense = "Wind"
+		ElementalClass = "Wind"
 		verb/Plague_Bringer()
 			set hidden=1
 			src.Trigger(usr)
@@ -61,6 +65,7 @@
 		StyleActive="Plague Bringer"
 		ElementalOffense = "Poison"
 		ElementalDefense = "Poison"
+		ElementalClass = "Poison"
 		verb/Plague_Bringer()
 			set hidden=1
 			src.Trigger(usr)
