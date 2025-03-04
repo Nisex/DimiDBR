@@ -194,6 +194,7 @@ globalTracker
 		CONQ_HAKI_CHANCE = 6
 		MONEYORFRAGMENTS = 1 // 1 = fragments, 0 = cash
 		REBELHEARTMOD=200
+		SATSUICHANCE= 10
 // globals
 		WorldBaseAmount = 1
 		WorldDamageMult = 1.5

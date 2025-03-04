@@ -183,8 +183,6 @@ mob
 									Ascensions += SagaLevel
 					if(Ascensions>6)
 						Ascensions=6
-				if(UsingKendo())
-					Total = 1.03 + (0.03 * Ascensions)
 				if(s.Glass)
 					Ascensions+=1
 				if(s.Conversions=="Sharp")

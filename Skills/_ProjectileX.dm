@@ -1376,8 +1376,8 @@ obj
 				NewCopyable = 2
 				SkillCost=80
 				Copyable=3
-				Blasts=21
-				DamageMult=0.75
+				Blasts=10
+				DamageMult=0.33
 				Radius=1
 				AccMult=3
 				Deflectable=0
@@ -1387,16 +1387,25 @@ obj
 				LockX=0
 				LockY=0
 				ZoneAttack=1
-				ZoneAttackX=12
-				ZoneAttackY=12
-				Hover=25
-				FireFromSelf=1
-				FireFromEnemy=0
-				Cooldown=45
-				Explode=2
-				EnergyCost=4
+				ZoneAttackX=8
+				ZoneAttackY=8
+				Hover=16
+				FireFromSelf=0
+				FireFromEnemy=1
+				Cooldown=30
+				Explode=1
+				EnergyCost=6
 				verb/Energy_Minefield()
 					set category="Skills"
+					if(!Using)
+						FireFromEnemy = 0
+						FireFromSelf = 1
+					usr.UseProjectile(src)
+				verb/Energy_Minefield_Target()
+					set category="Skills"
+					if(!Using)
+						FireFromEnemy = 1
+						FireFromSelf = 0
 					usr.UseProjectile(src)
 			Tracking_Bomb
 				NewCost = TIER_3_COST
@@ -5868,7 +5877,7 @@ obj
 								// if not piercing and theres a mob and they are already hit by key and that calue is over or equal multihit+1
 								if(!(Piercing && m && (AlreadyHit["[m.ckey]"] >= MultiHit + 1)) || Bounce)
 									if(!AlreadyHit["[m.ckey]"]) AlreadyHit["[m.ckey]"] = 0
-									EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.01, 1)
+									EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.1, 1)
 
 									src.Owner.DoDamage(a, EffectiveDamage, SpiritAttack=1, Destructive=src.Destructive)
 									if(CorruptionGain)
@@ -5907,7 +5916,7 @@ obj
 							a:Grab_Release()
 						SkipDamage
 						if(Snaring)
-							m.applySnare(sNARING, 'root.dmi')
+							m.applySnare(Snaring, 'root.dmi')
 						if(src.Stunner)
 							Stun(a, src.Stunner+src.Owner.GetStunningStrike())
 							if(src.Stunner>=5)

@@ -1628,7 +1628,7 @@ obj
 				UnarmedOnly=1
 				Area="Circle"
 				AdaptRate=1
-				DamageMult=13
+				DamageMult=9
 				TurfDirt=1
 				Distance=5
 				Knockback=10
@@ -1684,7 +1684,7 @@ obj
 				UnarmedOnly=1
 				Area="Circle"
 				AdaptRate = 1
-				DamageMult=1.2
+				DamageMult=1.3
 				ComboMaster=1
 				Rounds=10
 				ChargeTech=1
@@ -1693,9 +1693,10 @@ obj
 				Grapple=1
 				Stunner=1
 				Launcher=1
+				GrabMaster=1
 				Cooldown=150
 				Size=1
-				EnergyCost=10
+				EnergyCost=13
 				Icon='Novabolt.dmi'
 				IconX=-33
 				IconY=-33
@@ -1711,7 +1712,7 @@ obj
 				FlickAttack=1
 				Area="Strike"
 				StrOffense=2
-				DamageMult=9
+				DamageMult=7
 				GuardBreak=1
 				Stunner=3
 				Rush=3
@@ -1997,10 +1998,11 @@ obj
 				NeedsSword=1
 				FlickAttack=3
 				Area="Circle"
+				Distance=2
 				StrOffense=1
 				CanBeDodged = 0
 				CanBeBlocked = 0
-				DamageMult=14
+				DamageMult=8
 				DelayTime=0
 				PreShockwave=1
 				PreShockwaveDelay=1
@@ -2036,7 +2038,7 @@ obj
 				Area="Circle"
 				StrOffense=1
 				Distance=4
-				DamageMult=11.5
+				DamageMult=7
 				Knockback=10
 				WindUp=0.5
 				Slow=1
@@ -2059,12 +2061,12 @@ obj
 			Slam_Wave
 				SignatureTechnique=1
 				NeedsSword=1
-				Area="Circle"
+				Area="Cone"
 				StrOffense=1
-				DamageMult=11.5
+				DamageMult=10
 				TurfDirt=1
 				Distance=1
-				Jump=2
+				Jump=1
 				Knockback=10
 				FlickAttack=2
 				GuardBreak=1
@@ -2073,18 +2075,17 @@ obj
 				Shockwaves=1
 				PostShockwave=1
 				HitSparkIcon='BLANK.dmi'
-				Stunner=3
 				Cooldown=150
-				EnergyCost=10
+				EnergyCost=5
 				Earthshaking=1
 				Instinct=1
 				ActiveMessage="leaps in the air before falling back down, weapon-first!"
 				verb/Slam_Wave()
 					set category="Skills"
 					var/obj/Items/Sword/S=usr.EquippedSword()
-					src.Distance=round(usr.GetSwordDamage(S)*2,1)
-					src.Shockwave=round(usr.GetSwordDamage(S)*2,1)
-					src.Earthshaking=round(usr.GetSwordDamage(S)*2,1)
+					src.Distance=round(usr.GetSwordDamage(S),1)
+					src.Shockwave=round(usr.GetSwordDamage(S),1)
+					src.Earthshaking=round(usr.GetSwordDamage(S),1)
 					usr.Activate(src)
 
 			Zantetsuken
@@ -2277,8 +2278,8 @@ obj
 					usr.Activate(src)
 			Chidori
 				Area="Strike"
-				StrOffense=1
-				ForOffense=1
+				SignatureTechnique=1
+				AdaptRate=1
 				Rush=20
 				SpecialAttack=1
 				CanBeDodged=0
@@ -2297,8 +2298,8 @@ obj
 				HitSparkX=-32
 				HitSparkY=-32
 				HitSparkSize=1
-				Cooldown=-1
-				EnergyCost=15
+				Cooldown=150
+				EnergyCost=8
 				Instinct=1
 				verb/Chidori()
 					set category="Skills"
@@ -3639,7 +3640,7 @@ obj
 				DamageMult=0.35
 				Rounds=20
 				ComboMaster=1
-				Size=1
+				Size=2
 				EnergyCost=5
 				Icon='CircleWind.dmi'
 				IconX=-32
@@ -5851,7 +5852,7 @@ mob
 									continue
 								if(a.density)
 									GO=0
-						GO-=1
+						GO-=world.tick_lag
 						DelayRelease+=Z.RushDelay
 						if(DelayRelease>=1)
 							DelayRelease--
