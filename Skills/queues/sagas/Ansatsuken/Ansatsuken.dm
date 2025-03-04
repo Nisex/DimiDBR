@@ -16,7 +16,7 @@ obj
 					ShoryukenEffect=initial(ShoryukenEffect)
 				proc/activate(mob/player)
 					ManaCost = 0
-					Launcher=2
+					Launcher=1
 					var/sagaLevel = player.SagaLevel
 					var/damage = clamp(2 + 2*(sagaLevel), 4, 12)
 					var/path = player.AnsatsukenPath == "Shoryuken" ? 1 : 0
@@ -36,7 +36,7 @@ obj
 					if(player.ManaAmount>=manaCost && sagaLevel >= 2)
 						ManaCost = manaCost
 						ShoryukenEffect=2
-						Launcher=6
+						Launcher=3
 						hitMessage = "unleashes the power of the Dragon with an overpowering uppercut!"
 						if(path)
 							damage =  clamp(6 + 2*(sagaLevel), 4, 18)
