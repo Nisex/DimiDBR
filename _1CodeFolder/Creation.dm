@@ -618,7 +618,55 @@ mob/Creation/proc
 				del(usrr)
 				return
 			usrr.UpdateBio()
+mob/Players/verb
+	ToggleBlah(var/blah as text)
+		set name=".ToggleBlah"
+		set hidden=1
+		if(race_selecting)
+			return
+		if(!(world.time > verb_delay))
+			return
+		verb_delay=world.time+1
+		if(blah=="Name")
+			Namez
+			src.name=html_encode(copytext(input(src,"Name? (25 letter limit)"),1,25))
+			if(!src.name)
+				goto Namez
+				return
+			if(findtext(name,"\n"))
+				world<<"[key] ([client.address]) tried to use their name to spam. They were booted."
+				del(src)
+			usr.UpdateBio()
+		if(blah=="Class")
+			if(race.current_class + 1 > length(race.classes))
+				race.current_class = 1
+			else
+				race.current_class++
+			Class = race.classes[race.current_class]
+			setAllStats()
+			winset(usr, "Finalize_Screen.className", "text=\"[race.classes[race.current_class]]\"")
+			if(usr.isRace(NAMEKIAN))
+				if(usr.Class=="Warrior")
+					usr.Class="Dragon"
+				else if(usr.Class=="Dragon")
+					usr.Class="Warrior"
 
+		if(blah=="Sex")
+			var/list/options = usr.race.gender_options
+			var/current_index = options.Find(usr.Gender)
+
+			if (current_index != -1)
+				var/next_index = (current_index + 1) % (options.len+1)
+				if(next_index == 0)
+					next_index = 1
+				usr.Gender = options[next_index]
+			else
+				usr.Gender = options[1]
+		if(length(race.stats_per_class) > 0)
+			usr.RacialStats(race.stats_per_class[race.getClass()])
+		else
+			usr.RacialStats(race)
+		spawn()usr.UpdateBio()
 mob/Creation/verb
 	AbortingCC()
 		set hidden=1

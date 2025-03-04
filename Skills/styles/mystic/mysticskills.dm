@@ -3,7 +3,7 @@
 	var/SlotlessBuffNeeded = null
 /obj/Skills/Buffs/SlotlessBuffs/Magmic_Shield
 	passives = list("Magmic" = 1)
-	Cooldown = 60
+	Cooldown = 120
 	TimerLimit = 0
 	BuffName = "Magmic Shield"
 	name = "Magmic Shield"

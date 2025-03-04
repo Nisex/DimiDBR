@@ -211,6 +211,8 @@ update
 			if(p.isRace(GAJALAKA))
 				if(p.Class == "Rebel")
 					p.passive_handler.Set("SwordPunching", 1)
+			if(p.isRace(HALFSAIYAN))
+				p.stat_redo()
 
 
 

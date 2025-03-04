@@ -13,7 +13,7 @@
         BuffAffected = "/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Death_Mark"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Contempt_for_the_Weak"
         //TODO: finisher this
-
+        DamageMult=2
     Leg_Grab
         Instinct=2
         Grapple=1

@@ -149,9 +149,9 @@ globalTracker
 		BREAK_TARGET_ON_Z_CHANGE = TRUE
 		BREAK_TARGET_ON_DIST = FALSE
 
-		ROOTS_DURATION = 3
+		ROOTS_DURATION = 2
 		AISCLASHLOCKSMOVEMENT = TRUE
-
+		OUROMACROLOCK = 2
 
 
 //INTIM
@@ -195,6 +195,7 @@ globalTracker
 		CONQ_HAKI_CHANCE = 6
 		MONEYORFRAGMENTS = 1 // 1 = fragments, 0 = cash
 		REBELHEARTMOD=200
+		SATSUICHANCE= 10
 // globals
 		WorldBaseAmount = 1
 		WorldDamageMult = 1.5

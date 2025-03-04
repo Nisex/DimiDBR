@@ -1000,7 +1000,7 @@ mob
 
 					if(src.SagaLevel>=1&&src.SagaLevel<4)
 						if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_Infected, src))
-							if(prob(50))
+							if(prob(glob.SATSUICHANCE))
 								src << "Your drive for victory sometimes overwhelms you..."
 								src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_Infected)
 					passive_handler.Increase("SlayerMod",0.5)

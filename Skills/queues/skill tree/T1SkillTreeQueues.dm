@@ -184,7 +184,7 @@ obj
 				NewCopyable=2
 				SkillCost=80
 				Copyable=3
-				DamageMult=0.25
+				DamageMult=0.75
 				AccuracyMult = 1.175
 				Duration=5
 				Combo=4
@@ -200,7 +200,7 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 			Light_Rush2
-				DamageMult=0.25
+				DamageMult=0.15
 				AccuracyMult=25
 				Duration=3
 				Warp=10
@@ -211,7 +211,7 @@ obj
 				name="Burst Combination"
 				SkillCost=80
 				Copyable=3
-				DamageMult=0.4
+				DamageMult=0.3
 				AccuracyMult = 1.175
 				Stunner=1
 				Duration=5

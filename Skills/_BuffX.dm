@@ -10785,13 +10785,13 @@ NEW VARIABLES
 
 			Satsui_Infected
 				name="Satsui no Hado"
-				NeedsHealth = 30
-				TooMuchHealth = 55
+				NeedsHealth = 15
+				TooMuchHealth = 16
 				SpecialBuffLock=1
 				StrMult=1.25
 				ForMult=1.15
 				RegenMult=0.5
-				VaizardHealth=0.5
+				VaizardHealth=0.2
 				HitSpark='Hit Effect Satsui.dmi'
 				HitX=-32
 				HitY=-32
@@ -10801,11 +10801,12 @@ NEW VARIABLES
 				TextColor=rgb(215, 0, 0)
 				ActiveMessage="has fallen victim to their demonic impulse to win at any cost!"
 				OffMessage="manages to repress their demonic powers..."
-				Trigger(mob/player, Override)
-					if(!altered)
-						passives = list("SpecialBuffLock" = 1,"KillerInstinct" = 0.1 * player.SagaLevel, "Curse" = 1, "Enraged" = player.SagaLevel, \
-						 "SlayerMod" = player.SagaLevel*0.25, "HardStyle" = 0.25 + (player.SagaLevel*0.25), "TechniqueMastery" = player.SagaLevel*0.75)
-					..()
+				adjust(mob/p)
+					passives = list("SpecialBuffLock" = 1,"KillerInstinct" = 0.05 * p.SagaLevel, "Curse" = 1, "Enraged" = p.SagaLevel, \
+					"SlayerMod" = p.SagaLevel*0.25, "HardStyle" = 0.25 + (p.SagaLevel*0.25), "TechniqueMastery" = p.SagaLevel*0.75)
+					NeedsHealth = 15 + (2.5 * p.SagaLevel)
+					TooMuchHealth = NeedsHealth + p.SagaLevel
+					VaizardHealth = 0.1 * p.SagaLevel
 
 			Kyoi_no_Hado
 				// like water, sunyata (% chance to negate queues, maybe not finishers)

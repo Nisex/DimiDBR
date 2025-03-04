@@ -77,7 +77,7 @@ mob/proc/MovementSpeed()
 		Delay*=3
 	if(src.CanBeSlowed())
 		var/CombatSlow=10/max(src.Health,1)
-		if(CombatSlow>1)
+		if(CombatSlow>1 && !passive_handler["Undying Rage"])
 			var/Adren = passive_handler.Get("Adrenaline")
 			if(Adren)
 				if(CombatSlow<2)
