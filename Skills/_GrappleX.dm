@@ -401,7 +401,7 @@ obj/Skills/Grapple
 			Copyable=4
 			SkillCost=TIER_3_COST
 			DamageMult=1
-			MultiHit=5
+			MultiHit=8
 			StrRate=1
 			ThrowMult=0
 			ThrowAdd=0
