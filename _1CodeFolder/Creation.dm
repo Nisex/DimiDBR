@@ -47,6 +47,7 @@
 
 mob/Players
 	Login()
+		winset(usr, null, "browser-options=find")
 		client.perspective=MOB_PERSPECTIVE
 		players += usr
 		usr.density=1
@@ -470,6 +471,7 @@ client/Del()
 
 mob/Creation
 	Login()
+		winset(usr, null, "browser-options=find")
 		client.perspective=MOB_PERSPECTIVE | EDGE_PERSPECTIVE
 		usr.client.view=8
 		usr<<browse("[basehtml][Notes]")
