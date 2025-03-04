@@ -88,7 +88,7 @@ mob/proc/GetAssess()
 	<tr><td>Transformation Potential:</td><td>[src.potential_trans]/100</td></tr>
 	<tr><td>Average Stats: [StatAverage]</td></tr>
 	<tr><td>Magic Level: [getTotalMagicLevel()]</td></tr>
-			</table>"}
+			</table></html>"}
 /*	<tr><td>True Tier:</td><td>[POWER_TIERS[potential_power_tier]]</td></tr>
 	<tr><td>Display Tier:</td><td>[POWER_TIERS[power_display]]</td></tr>*/
 

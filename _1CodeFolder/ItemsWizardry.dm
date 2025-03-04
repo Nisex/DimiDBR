@@ -1477,8 +1477,8 @@ obj/Items/Enchantment
 		var/Parasite=0//makes bad thing happen
 		var/CrestMadeAge=0//the era that the crest was made on
 		verb/Examine()
-			var/head="<title>[src]</title><body bgcolor=#000000 text=#339999>"
-			var/close="</body>"
+			var/head="<html><title>[src]</title><body bgcolor=#000000 text=#339999>"
+			var/close="</body></html>"
 			var/content="<table>"
 			for(var/obj/Skills/x in src.Spells)
 				content+="<tr><td>[x]</td></tr>"

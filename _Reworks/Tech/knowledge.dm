@@ -46,7 +46,7 @@ Fast Actig -> Automed dispensers
     if(!player.client) return
     if(player.knowledgeTracker)
         var/atom/A = player.knowledgeTracker
-        var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
+        var/Edit="<html><Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
         var/list/B=new
         Edit+="[A]<br>[A.type]"
         Edit+="<table width=10%>"
@@ -55,6 +55,7 @@ Fast Actig -> Automed dispensers
             Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"
             Edit+=C
             Edit+="<td>[Value(A.vars[C])]</td></tr>"
+        Edit += "</html>"
         usr<<browse(Edit,"window=[A];size=450x600")
 
 

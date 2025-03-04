@@ -125,7 +125,7 @@ blobDropper/proc/resetVariables(mob/Players/p)
 /mob/Admin3/verb/openBlobdatum(mob/player in players)
     if(player.majinPassive)
         var/atom/A = player.majinPassive
-        var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
+        var/Edit="<html><Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
         var/list/B=new
         Edit+="[A]<br>[A.type]"
         Edit+="<table width=10%>"
@@ -135,6 +135,7 @@ blobDropper/proc/resetVariables(mob/Players/p)
             Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"
             Edit+=C
             Edit+="<td>[Value(A.vars[C])]</td></tr>"
+        Edit += "</html>"
         usr<<browse(Edit,"window=[A];size=450x600")
 
 

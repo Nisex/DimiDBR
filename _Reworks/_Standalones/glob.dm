@@ -10,7 +10,7 @@ var/globalTracker/glob = new()
 	set name = "Edit Global Variables"
 	set category = "Admin"
 	var/atom/A = glob
-	var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
+	var/Edit="<html><Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
 	var/list/B=new
 	Edit+="[A]<br>[A.type]"
 	Edit+="<table width=10%>"
@@ -26,6 +26,7 @@ var/globalTracker/glob = new()
 		else
 			Edit+="<td>[Value(A.vars[C])]</td></tr>"
 		CHECK_TICK
+	Edit += "</html>"
 	usr<<browse(Edit,"window=[A];size=450x600")
 
 /mob/Admin3/verb/Debuff_Apply(n as num)

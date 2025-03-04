@@ -150,7 +150,7 @@ mob
 			if(istype(A, /mob)||istype(A, /area))
 				src << "Nah."
 				return
-			var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
+			var/Edit="<html><Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
 			var/list/B=new
 			Edit+="[A]<br>[A.type]"
 			Edit+="<table width=10%>"
@@ -163,6 +163,7 @@ mob
 				Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"
 				Edit+=C
 				Edit+="<td>[Value(A.vars[C])]</td></tr>"
+			usr << "</html>"
 			usr<<browse(Edit,"window=[A];size=450x600")
 		verb/XYZ_Teleport()
 			set category="Mapper"

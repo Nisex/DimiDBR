@@ -984,7 +984,7 @@ mob/Admin2/verb
 		else if (istype(A, /obj/AI_Spot))
 			A?:EditAI(src)
 
-		var/Edit = "<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
+		var/Edit = "<html><Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
 		Edit += "[A]<br>[A.type]"
 		Edit += "<table width=10%>"
 
@@ -1011,7 +1011,7 @@ mob/Admin2/verb
 
 			CHECK_TICK
 	
-		Edit += "</table>"
+		Edit += "</table></html>"
 
 		usr << browse(Edit, "window=[A];size=450x600")
 
@@ -1690,6 +1690,7 @@ mob/Admin4/verb
 		var/View={"<html><head><title>Logs</title><body>
 				<font size=3><font color=red>[lawl]<hr><font size=2><font color=black>"}
 		View+=ISF
+		View += "</html>"
 		src<<browse(View,"window=Log;size=500x300")
 
 	DownloadSaves()

@@ -80,7 +80,7 @@ GlobalStorage
 /mob/Admin2/verb/Give_Make(mob/A in world)
 	set category="Admin"
 	set name="Give/Make"
-	var/blah={"<Magic><body bgcolor=#000000 text="white" link="red">"}
+	var/blah={"<html><Magic><body bgcolor=#000000 text="white" link="red">"}
 	blah+="[A]<br>[A.type]"
 	blah+="<table width=10%>"
 	var/info =""
@@ -97,6 +97,7 @@ GlobalStorage
 			info = globalStorage.turfHTML
 		if("Cancel") return
 	blah += replacetext(info,"INSERTHERE","\ref[A]")
+	blah += "</html>"
 	usr<<browse(blah,"window=[A];size=450x600")
 
 

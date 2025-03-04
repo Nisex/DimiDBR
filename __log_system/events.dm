@@ -88,8 +88,8 @@ mob/proc/SegmentLogs(var/e)
 		var/file=input("What one do you want to read?","Rebirth") in entries
 		file = file("[e][file]")
 		var/ISF=file2text(file)
-		var/View={"<html><head><title>Logs</title><body>
-<font size=3><font color=red>[file]<hr><font size=2><font color=black>[ISF]"}
+		var/View={"<html><head><title>Logs</title></head><body>
+<font size=3><font color=red>[file]<hr><font size=2><font color=black>[ISF]</body></html>"}
 		src<<browse(View,"window=Log;size=500x550")
 
 	else
@@ -159,8 +159,8 @@ mob/proc/SegmentTempLogs(var/e)
 		if(Blah&&wtf>1)
 			var/lawl=input("What one do you want to read?","Rebirth") in Blah
 			var/ISF=file2text(lawl)
-			var/View={"<html><head><title>Logs</title><body>
-<font size=3><font color=red>[lawl]<hr><font size=2><font color=black>[ISF]"}
+			var/View={"<html><head><title>Logs</title></head><body>
+<font size=3><font color=red>[lawl]<hr><font size=2><font color=black>[ISF]</body></html>"}
 			src<<browse(View,"window=Log;size=500x550")
 
 		else
@@ -180,8 +180,8 @@ mob/proc/SegmentArchiveLogs(var/e)
 		if(Blah&&wtf>1)
 			var/lawl=input("What one do you want to read?","Rebirth") in Blah
 			var/ISF=file2text(lawl)
-			var/View={"<html><head><title>Logs</title><body>
-<font size=3><font color=red>[lawl]<hr><font size=2><font color=black>[ISF]"}
+			var/View={"<html><head><title>Logs</title></head><body>
+<font size=3><font color=red>[lawl]<hr><font size=2><font color=black>[ISF]</body></html>"}
 			src<<browse(View,"window=Log;size=500x550")
 
 		else
@@ -201,8 +201,8 @@ mob/proc/SegmentSkillLogs(var/e)
 		if(Blah&&wtf>1)
 			var/lawl=input("What one do you want to read?","Rebirth") in Blah
 			var/ISF=file2text(lawl)
-			var/View={"<html><head><title>Logs</title><body>
-<font size=3><font color=red>[lawl]<hr><font size=2><font color=black>[ISF]"}
+			var/View={"<html><head><title>Logs</title></head><body>
+<font size=3><font color=red>[lawl]<hr><font size=2><font color=black>[ISF]</body></html>"}
 			src<<browse(View,"window=Log;size=500x550")
 
 		else

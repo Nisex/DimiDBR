@@ -130,7 +130,7 @@ mob/proc/returnNames()
 					m << "A prayer reaches for [who] from [usr]...<br>[prayer]"
 
 /mob/proc/ReadPrayers(mob/M)
-	var/prayerHTML = {"
+	var/prayerHTML = {"<html>
 	<title>[M]'s Prayer Cards</title>
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&display=swap');
@@ -206,13 +206,14 @@ mob/proc/returnNames()
 
 		"}
 
+	prayerHTML += "</html>"
 	M << browse(prayerHTML ,"size=600x600,window=Title")
 
 /mob/Admin2/verb/ReadAllPlayerPrayers()
 	set name = "Read All Prayers"
 	set category = "Admin"
 	
-	var/prayerHTML = {"
+	var/prayerHTML = {"<html>
 	<title>All Prayers</title>
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&display=swap');
@@ -287,6 +288,7 @@ mob/proc/returnNames()
 
 	"}
 
+	prayerHTML += "</html>"
 	usr << browse(prayerHTML ,"size=600x600,window=Title")
 
 /mob/Admin2/verb/CheckOnlyGodPrayers()

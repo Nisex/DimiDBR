@@ -176,18 +176,23 @@ mob/Players/verb
 				usr<<person.information.getInformation(A, TRUE)
 			else
 				usr<<person.information.getInformation(A, FALSE)
+			var/profileHTML = "<html>"
 			if(A:transActive())
-				usr << browse(A:ReturnProfile(A:transActive()), "window=[A];size=900x650")
-			else if(locate(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form, A.contents))
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/SF in A.contents)
+				profileHTML += person.ReturnProfile(person.transActive())
+			if(locate(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form, person.contents))
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/SF in person.contents)
 					if(SF.SlotlessOn)
-						usr << browse(A:ReturnProfile(1), "window=[A];size=900x650")
-					else
-						usr << browse(A:Profile, "window=[A];size=900x650")
-			else
-				usr << browse(A:Profile, "window=[A];size=900x650")
+						profileHTML = person.ReturnProfile(1)
+			if(profileHTML == "<html>")
+				profileHTML += person.Profile
+			
+			profileHTML += "</html>"
+
+			usr << browse(profileHTML, "window=[A];size=900x650")
+
 			if(A:GimmickDesc!="")
 				usr << browse(A:GimmickDesc, "window=Gimmick;size=325x325")
+
 		A.Examined(src)
 
 	Rename(var/atom/A as mob|obj in view(usr,5))

@@ -77,8 +77,8 @@ Tomes:
         upgradeLimit = 2 * t
 
     verb/Examine()
-        var/header ="<title>[src]</title><body bgcolor=#000000 text=#339999>"
-        var/close = "</body>"
+        var/header ="<html><title>[src]</title><body bgcolor=#000000 text=#339999>"
+        var/close = "</body></html>"
         var/content = ""
         content += "\[SPELL SLOTS: [currentSpellSlots] / [spellSlots]([maxSpellSlots])\]<br>"
         content += "\[TIER: [tier]\]<br>\[UPGRADES: [upgrades] / [upgradeLimit]\]<br>"

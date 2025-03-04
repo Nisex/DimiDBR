@@ -70,7 +70,7 @@ mob/Admin2/verb/ModifyCompanion(obj/Skills/Companion/A in world)
 	var/choice = input("??") as null|anything in options
 	switch(choice)
 		if("Add Companion Skill")
-			var/blah={"<Magic><body bgcolor=#000000 text="white" link="red">"}
+			var/blah={"<html><Magic><body bgcolor=#000000 text="white" link="red">"}
 			var/list/B=new
 			blah+="[A]<br>[A.type]"
 			blah+="<table width=10%>"
@@ -79,6 +79,7 @@ mob/Admin2/verb/ModifyCompanion(obj/Skills/Companion/A in world)
 				blah+="<td><a href=byond://?src=\ref[A];action=companionskill;var=[C]>"
 				blah+="[C]"
 				blah+="<td></td></tr>"
+			blah += "</html>"
 			usr<<browse(blah,"window=[A];size=450x600")
 		if("Add Squad Member")
 			for()
