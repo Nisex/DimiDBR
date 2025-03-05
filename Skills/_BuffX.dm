@@ -1168,7 +1168,6 @@ NEW VARIABLES
 								passives = list("HolyMod" = usr.SagaLevel, "SpiritSword" = 0.25 * usr.SagaLevel, "LikeWater" = max(1,usr.SagaLevel/2), "PULock" = 1)
 								if(!redacted)
 									src.SwordName="Caledfwlch"
-									src.SwordIcon='Caledfwlch.dmi'
 									src.ActiveMessage="calls forth the true form of Caledfwlch, the Sword of Glory!"
 									src.OffMessage="conceals Caledfwlch's glory..."
 								else
@@ -1180,7 +1179,6 @@ NEW VARIABLES
 								passives = list("AbyssMod" = usr.SagaLevel, "SpiritSword" = 0.25 * usr.SagaLevel, "Instinct" = max(1, usr.SagaLevel/3), "Pursuer" = max(1,usr.SagaLevel/2),"PULock" = 1)
 								if(!redacted)
 									src.SwordName="Caledfwlch"
-									src.SwordIcon='Caledfwlch Morgan.dmi'
 									src.ActiveMessage="calls forth the true form of Caledfwlch Morgan, the Shadow Sword of Glory!"
 									src.OffMessage="conceals Caledfwlch's glory..."
 								else
@@ -1253,8 +1251,6 @@ NEW VARIABLES
 							if(light)
 								passives = list("HolyMod"=usr.SagaLevel,"LifeGeneration"=usr.SagaLevel/8,"Steady"=usr.SagaLevel, "PULock" = 1)
 								if(!redacted)
-									src.SwordName="Soul Calibur"
-									src.SwordIcon='SoulCalibur.dmi'
 									src.ActiveMessage="calls forth the true form of Soul Calibur, the Purified Blade of Order!"
 									src.OffMessage="restricts Soul Calibur's order..."
 								else
@@ -1265,8 +1261,6 @@ NEW VARIABLES
 							else
 								passives = list("AbyssMod"=usr.SagaLevel,"LifeGeneration"=usr.SagaLevel/8,"Steady"=usr.SagaLevel, "PULock" = 1)
 								if(!redacted)
-									src.SwordName="Soul Calibur"
-									src.SwordIcon='SoulCalibur-Crystal.dmi'
 									src.ActiveMessage="calls forth the true form of Soul Calibur, the Crystal Blade of Order!"
 									src.OffMessage="restricts Soul Calibur's order..."
 								else
