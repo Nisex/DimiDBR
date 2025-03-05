@@ -4765,6 +4765,7 @@ mob
 							CHECK_TICK
 							var/obj/leftOver/Blood/b = new(T, src, be)
 							T.applyLeftOver(src, b, b.lifetime)
+					last_style_effect = world.time
 			if(Z.StormFall)
 				Z.Homing=0//You can't home if you're just going down, down, in an earlier round...
 			if(Z.Blasts<1)

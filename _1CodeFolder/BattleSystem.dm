@@ -237,6 +237,11 @@ mob/proc/Unconscious(mob/P,var/text)
 			src.Oozaru(0)
 	if(src.Grab)
 		src.Grab_Release()
+	Poison = 0
+	Burn = 0
+	Shatter = 0
+	Slow = 0
+	Shock = 0
 
 
 

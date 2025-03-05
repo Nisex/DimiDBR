@@ -93,7 +93,7 @@ globalTracker/var/LOWER_DEBUFF_CLAMP = 0.001
 					if(!client.client_plane_master) // 3 checks lol ! maybe move this to new noob!
 						client.client_plane_master = new()
 						client.screen += client.client_plane_master
-					client.client_plane_master.filters = filter(type="blur", size=BlindingVenom*(Poison/100))
+					client.client_plane_master.filters = filter(type="blur", size=BlindingVenom*(Poison/150))
 			if(Poison<=0)
 				Poison = 0
 				if(BlindingVenom)

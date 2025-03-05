@@ -650,11 +650,3 @@ mob/proc
 		animate(src.client, color = list(-1,-1,-1, -1,-1,-1, -1,-1,-1, -1,-1,-1), time=affect)
 		sleep(5)
 		animate(src.client, color = null, time=duration)
-
-
-/mob/verb/poisonself()
-	passive_handler.Set("BlindingVenom", 2 )
-	AddPoison(200, src)
-/mob/verb/testflash()
-	flash(100, rgb(75, 0, 91), 2)
-	drunkeffect(90)
