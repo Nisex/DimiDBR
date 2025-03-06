@@ -1149,6 +1149,8 @@ obj
 				DamageMult=1.25
 				Knockback=3
 				Radius=2
+				Homing=4
+				LosesHoming=2
 				MultiShot=3
 				EnergyCost=3
 				IconLock='Excaliblast.dmi'
@@ -1164,9 +1166,8 @@ obj
 				SkillCost=TIER_1_COST
 				Copyable=2
 				Distance=20
-				DamageMult=0.5
+				DamageMult=4
 				AccMult=2
-				MultiShot=5
 				Crippling=3
 				Speed=0
 				Knockback=0.001
@@ -1208,7 +1209,7 @@ obj
 				SkillCost=40
 				Copyable=2
 				Distance=30
-				DamageMult=2.5
+				DamageMult=2
 				Blasts=3
 				AccMult=2
 				Launcher=4
@@ -1216,10 +1217,10 @@ obj
 				Striking=1
 				Homing=1
 				HomingCharge=1
-				HomingDelay=1
+				HomingDelay=0.5
 				EnergyCost=8
-				Delay=5
-				Speed=1.5
+				Delay=3
+				Speed=1
 				IconChargeOverhead=1
 				Explode=1
 				Cooldown=90
@@ -1238,7 +1239,7 @@ obj
 				Distance=20
 				Blasts=20
 				Charge=1
-				DamageMult=0.2
+				DamageMult=0.15
 				AccMult=0.8
 				Homing=1
 				Explode=1
@@ -1282,27 +1283,24 @@ obj
 				SkillCost=TIER_1_COST
 				Copyable=2
 				Distance=50
-				DamageMult=2.5 // this shit ass, if u land it u deserve to do damage
+				DamageMult=1.5 // this shit ass, if u land it u deserve to do damage
 				EnergyCost=5
 				Deflectable=0
-				Charge=1
+				Charge=0.5
 				IconChargeOverhead=1
 				IconLock='Kienzan.dmi'
 				LockX=0
 				LockY=0
 				IconSize=0.1
-				IconSizeGrowTo=1.5
+				IconSizeGrowTo=2
 				Cooldown=30
 				Slashing=1
 				Piercing=1
 				Variation=0
-				MaimStrike=2//If damage > 12.5%, maim
+				MortalBlow=0.25//If damage > 12.5%, maim
 				verb/Kienzan()
 					set category="Skills"
 					usr.UseProjectile(src)
-
-//T2 has damage mult 2 - 3.5. Some are located in Queues.
-
 			Sudden_Storm
 				NewCost = TIER_3_COST
 				NewCopyable = 4
