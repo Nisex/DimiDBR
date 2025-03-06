@@ -4,7 +4,7 @@
 //     return FALSE
 /mob/proc/throwSkill(obj/Skills/s)
     if(istype(s, /obj/Skills/AutoHit))
-        Activate(s)
+        Activate(s, TRUE)
     else if(istype(s, /obj/Skills/Projectile))
         UseProjectile(s)
     else if(istype(s, /obj/Skills/Queue))
