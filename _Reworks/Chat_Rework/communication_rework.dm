@@ -1,22 +1,4 @@
-#define WHISPER_RADIUS 1
-#define SAY_RADIUS 12
-#define YELL_RADIUS 20
-var/regex/LOOCRegex = new(@"^[\(\)\{\}]|[\(\)\{\}]$")
-var/regex/yellRegex = new(@"!!!$")
-var/regex/questionRegex = new(@"\?$")
-var/regex/whisperSlashRegex = new(@"^/w\s")
-var/regex/yellSlashRegex = new(@"^/y\s")
-#define IC_OUTPUT list("icchat", "output")
-#define LOOC_OUTPUT list("loocchat","oocchat","output")
-#define ALL_OUTPUT list("loocchat","oocchat","output", "icchat")
-#define ALL_NOT_IC_OUTPUT list("loocchat","oocchat","output")
 
-#define YELL "yell"
-#define WHISPER "whisper"
-#define OBSERVE_HEADER "<b>(OBSERVE)</b>"
-
-#define YELL_NOUNS list("shouts:", "yells:", "screams:")
-#define QUESTION_NOUNS list("questions:", "queries:", "asks:")
 
 mob/proc/Controlz(mob/M)
 	if(src.Admin)
