@@ -108,6 +108,9 @@ obj
 				TurfShiftDuration=30
 				TurfShiftDurationSpawn=10
 				TurfShiftDurationDespawn=10
+				TurfShiftState =""
+				TurfShiftX = 0
+				TurfShiftY = 0
 				Flash//Taiyoken effect
 
 				WindupIcon=0
@@ -3438,7 +3441,7 @@ obj
 				NeedsSword=1
 				Area="Circle"
 				Distance=3
-				Rush=1
+				Rush=2
 				StrOffense=1
 				DamageMult=1.5
 				EnergyCost=3
@@ -3458,18 +3461,18 @@ obj
 					disableInnovation(usr)
 				adjust(mob/p)
 					if(p.isInnovative(HUMAN, "Sword") && !isInnovationDisable(p))
+						Area="Wave"
+						PassThrough = 1
 						var/pot = p.Potential
-						Distance = 1 + (round(pot/25))
-						Size = 1 + (round(pot/25))
-						StepsDamage = round(pot/1000)
-						Rounds = 4 + (round(pot/25))
-						Launcher = 4
-						DamageMult = 0.2 + (round(pot/25))
-						ControlledRush = 2
-						Rush = 5
+						Distance = 4 + (round(pot/25))
+						Size = 2 + (round(pot/25))
+						DamageMult = 1 + (round(pot/100))
+						EnergyCost = 6 + (round(pot/25))
+						Rush=0
+						FollowUp="/obj/Skills/AutoHit/Cross_Slash_Inno_Follow"
 					else
 						Distance = 3
-						Size = 0
+						Size = 1
 						Launcher = 0
 						StepsDamage = 0
 						Rush = 1
@@ -3478,10 +3481,41 @@ obj
 						Launcher = 0 
 						ControlledRush = 0
 						Rush = 1 
+						FollowUp=null
 				verb/Cross_Slash()
 					set category="Skills"
 					adjust(usr)
 					usr.Activate(src)
+			
+			Cross_Slash_Inno_Follow
+				name = "Parting Seas"
+				Copyable=0
+				NeedsSword=1
+				Area="Circle"
+				Distance=3
+				StrOffense=1
+				NoAttackLock=1
+				DamageMult=1
+				Icon='BladeCharge.dmi'
+				IconX=-32
+				IconY=-32
+				HitSparkIcon='Slash - Zan.dmi'
+				HitSparkX=-16
+				HitSparkY=-16
+				HitSparkTurns=1
+				HitSparkSize=1.5
+				HitSparkDispersion=1
+				Cooldown=30
+				ActiveMessage="swings their weapon in a quick pattern!"
+				adjust(mob/p)
+					var/pot = p.Potential
+					Size = 1 + round(pot/25)
+					DamageMult = 0.5
+					StepsDamage = 0.1 + round(pot/500)
+					Launcher = 2 + round(pot/25)
+					ComboMaster = 1
+					Rounds = 5
+
 
 //T2
 			Hero_Spin
@@ -5364,10 +5398,10 @@ obj
 
 mob
 	proc
-		Activate(var/obj/Skills/AutoHit/Z)
+		Activate(var/obj/Skills/AutoHit/Z, ignoreCuck = FALSE)
 			set waitfor = FALSE
 			. = TRUE
-			if(glob.CUCK_MACROSTRINGS)
+			if(glob.CUCK_MACROSTRINGS && !ignoreCuck)
 				if(last_autohit + glob.MACROCHECKTIME > world.time)
 					return FALSE
 			if(src.passive_handler.Get("Silenced"))
@@ -6176,6 +6210,9 @@ obj
 			TurfShiftDuration
 			TurfShiftDurationSpawn
 			TurfShiftDurationDespawn
+			TurfShiftState
+			TurfShiftX
+			TurfShiftY
 			Flash
 
 			Slow//Autohit doesn't hit instantly
@@ -6324,6 +6361,10 @@ obj
 			src.TurfShiftDuration=Z.TurfShiftDuration
 			src.TurfShiftDurationSpawn=Z.TurfShiftDurationSpawn
 			src.TurfShiftDurationDespawn=Z.TurfShiftDurationDespawn
+			TurfShiftState = Z.TurfShiftState
+			TurfShiftX = Z.TurfShiftX
+			TurfShiftY = Z.TurfShiftY
+			
 			src.Flash=Z.Flash
 			src.ComboMaster=Z.ComboMaster
 			Dunker = Z.Dunker
@@ -6952,7 +6993,7 @@ obj
 
 										if(src.TurfShift)
 											sleep(-1)
-											TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
+											TurfShift(src.TurfShift,t, src.TurfShiftDuration,src.Owner, src.TurfShiftLayer, src.TurfShiftDurationSpawn, src.TurfShiftDurationDespawn, TurfShiftState,TurfShiftX, TurfShiftY)
 										for(var/mob/m in t.contents)
 											if(!hitSelf&&m==src.Owner)
 												continue
@@ -7010,7 +7051,7 @@ obj
 											if(t in view(Rounds, src.TargetLoc))
 												continue
 											sleep(-1)
-											TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
+											TurfShift(src.TurfShift,t, src.TurfShiftDuration,src.Owner, src.TurfShiftLayer, src.TurfShiftDurationSpawn, src.TurfShiftDurationDespawn, TurfShiftState,TurfShiftX, TurfShiftY)
 									for(var/mob/m in view(Rounds, src.TargetLoc))
 										if(m in view(Rounds-1, src.TargetLoc))//Don't doublehit people
 											continue
@@ -7058,7 +7099,7 @@ obj
 										dist = round(dist)
 									for(var/turf/t in Turf_Circle(src.TargetLoc, dist))
 										sleep(-1)
-										TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
+										TurfShift(src.TurfShift,t, src.TurfShiftDuration,src.Owner, src.TurfShiftLayer, src.TurfShiftDurationSpawn, src.TurfShiftDurationDespawn, TurfShiftState,TurfShiftX, TurfShiftY)
 								for(var/turf/t in Turf_Circle(src.TargetLoc, src.Distance))
 									sleep(-1)
 									for(var/mob/m in t)
@@ -7094,7 +7135,7 @@ obj
 								if(src.TurfShift)
 									for(var/turf/t in view(src.Distance, src.TargetLoc))
 										sleep(-1)
-										TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
+										TurfShift(src.TurfShift,t, src.TurfShiftDuration,src.Owner, src.TurfShiftLayer, src.TurfShiftDurationSpawn, src.TurfShiftDurationDespawn, TurfShiftState,TurfShiftX, TurfShiftY)
 								for(var/mob/m in view(src.Distance, src.TargetLoc))
 									if(!hitSelf&&src.Owner!=m)
 										src.Damage(m)
@@ -7123,7 +7164,7 @@ obj
 												ticking_turfs+=t
 										if(src.TurfShift)
 											sleep(-1)
-											TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
+											TurfShift(src.TurfShift,t, src.TurfShiftDuration,src.Owner, src.TurfShiftLayer, src.TurfShiftDurationSpawn, src.TurfShiftDurationDespawn, TurfShiftState,TurfShiftX, TurfShiftY)
 										for(var/mob/m in t.contents)
 											if(!hitSelf&&m==src.Owner)
 												continue
@@ -7181,7 +7222,7 @@ obj
 											if(t in view(Rounds, src.Owner))
 												continue
 											sleep(-1)
-											TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
+											TurfShift(src.TurfShift,t, src.TurfShiftDuration,src.Owner, src.TurfShiftLayer, src.TurfShiftDurationSpawn, src.TurfShiftDurationDespawn, TurfShiftState,TurfShiftX, TurfShiftY)
 									for(var/mob/m in view(Rounds, src.Owner))
 										if(m in view(Rounds-1, src.Owner))//Don't doublehit people
 											continue
@@ -7226,7 +7267,7 @@ obj
 								if(src.TurfShift)
 									for(var/turf/t in Turf_Circle(src.Owner, src.Distance))
 										sleep(-1)
-										TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
+										TurfShift(src.TurfShift,t, src.TurfShiftDuration,src.Owner, src.TurfShiftLayer, src.TurfShiftDurationSpawn, src.TurfShiftDurationDespawn, TurfShiftState,TurfShiftX, TurfShiftY)
 								for(var/turf/t in Turf_Circle(src.Owner, src.Distance))
 									sleep(-1)
 									for(var/mob/m in t)
@@ -7262,7 +7303,7 @@ obj
 								if(src.TurfShift)
 									for(var/turf/t in view(src.Distance, src.Owner))
 										sleep(-1)
-										TurfShift(src.TurfShift, t, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
+										TurfShift(src.TurfShift,t, src.TurfShiftDuration,src.Owner, src.TurfShiftLayer, src.TurfShiftDurationSpawn, src.TurfShiftDurationDespawn, TurfShiftState,TurfShiftX, TurfShiftY)
 								for(var/mob/m in view(src.Distance, src.Owner))
 									if(!hitSelf&&src.Owner!=m)
 										src.Damage(m)
@@ -7311,7 +7352,7 @@ obj
 							t.overlays-=i
 					if(src.TurfShift)
 						sleep(-1)
-						TurfShift(src.TurfShift, src.loc, src.TurfShiftDuration, src.Owner, layer=src.TurfShiftLayer, Spawn=src.TurfShiftDurationSpawn, Despawn=src.TurfShiftDurationDespawn)
+						TurfShift(src.TurfShift, src.loc, src.TurfShiftDuration, src.Owner, src.TurfShiftLayer, src.TurfShiftDurationSpawn,src.TurfShiftDurationDespawn , TurfShiftState, TurfShiftX, TurfShiftY)
 
 					if(src.Arcing)
 						var/Arc=0
@@ -7389,6 +7430,9 @@ obj
 				src.TurfShiftDuration=AH.TurfShiftDuration
 				src.TurfShiftDurationSpawn=AH.TurfShiftDurationSpawn
 				src.TurfShiftDurationDespawn=AH.TurfShiftDurationDespawn
+				src.TurfShiftState=AH.TurfShiftState
+				src.TurfShiftX=AH.TurfShiftX
+				src.TurfShiftY=AH.TurfShiftY
 				src.TurfErupt=AH.TurfErupt
 				src.TurfEruptOffset=AH.TurfEruptOffset
 				src.TurfDirt=AH.TurfDirt
@@ -7453,6 +7497,9 @@ obj
 				src.TurfShiftDuration=AH.TurfShiftDuration
 				src.TurfShiftDurationSpawn=AH.TurfShiftDurationSpawn
 				src.TurfShiftDurationDespawn=AH.TurfShiftDurationDespawn
+				src.TurfShiftState=AH.TurfShiftState
+				src.TurfShiftX=AH.TurfShiftX
+				src.TurfShiftY=AH.TurfShiftY
 				src.TurfErupt=AH.TurfErupt
 				src.TurfEruptOffset=AH.TurfEruptOffset
 				src.TurfDirt=AH.TurfDirt
@@ -7518,6 +7565,9 @@ obj
 				src.TurfShiftDuration=AH.TurfShiftDuration
 				src.TurfShiftDurationSpawn=AH.TurfShiftDurationSpawn
 				src.TurfShiftDurationDespawn=AH.TurfShiftDurationDespawn
+				src.TurfShiftState=AH.TurfShiftState
+				src.TurfShiftX=AH.TurfShiftX
+				src.TurfShiftY=AH.TurfShiftY
 				src.TurfErupt=AH.TurfErupt
 				src.TurfEruptOffset=AH.TurfEruptOffset
 				src.TurfDirt=AH.TurfDirt
