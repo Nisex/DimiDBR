@@ -134,6 +134,18 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					src.CheckAscensions()
 					if(isRace(DEMON))
 						race?:checkReward(src)
+					if(isRace(BEASTMAN) && race?:Racial == "Monkey King")
+						var/obj/Skills/Buffs/s = findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Never_Fall/)
+						if(!s.Using)
+							s.Trigger(src, TRUE)
+					if(isRace(HALFSAIYAN))
+						switch(Class) // leave this in until they all get it
+							if("Compassion")
+								findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/HalfSaiyan/Hidden_Potential)
+								src << "You have gained Hidden Potential"
+							if("Anger")
+								findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/HalfSaiyan/Saiyan_Pride)
+								src << "You have gained Saiyan Pride"
 					removeBlobBuffs()
 					if(!src.SignatureSelecting)
 						src.SignatureSelecting=1

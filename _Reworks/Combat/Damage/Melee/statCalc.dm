@@ -43,7 +43,7 @@
 
 
 
-/mob/proc/getStatDmg2(damage, unarmed, sword, sunlight, spirithand)
+/mob/proc/getStatDmg2(damage, unarmed, sword, sunlight, spirithand, autohit)
 	// ABILITY and DAMAGE roll should be first
 	// so a queue should happen here vs later
 	if(!unarmed&&!sword)
@@ -63,7 +63,8 @@
 		statDamage = GetStr(1)
 	if(passive_handler.Get("HardenedFrame"))
 		statDamage = GetEnd(1)
-
+	if(!glob.EXTRASTATSONAUTOHIT && autohit && !passive_handler["Divine Technique"])
+		return statDamage
 	var/endExtra = passive_handler.Get("CallousedHands")
 	if(endExtra>0)
 		statDamage += GetEnd(endExtra) 

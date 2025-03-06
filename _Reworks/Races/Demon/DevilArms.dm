@@ -63,7 +63,7 @@
         ElementalOffense = "HellFire"
     verb/Devil_Arm()
         set category = "Skills"
-        if(!usr.isRace(DEMON)) return
+        if(!usr.isRace(DEMON) && glob.DEVILARMDEMONONLY) return
         if(!usr.BuffOn(src) && checkEvolve(usr) )
             evolve(usr)
             usr << "Activate again after."

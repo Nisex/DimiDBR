@@ -2755,35 +2755,35 @@ mob
 			if(!src.SignatureCheck)
 				return
 			if(src.Saga)
-				if(src.Potential<15 && SagaLevel>=1) // t2
+				if(src.Potential<glob.progress.SAGA_T2_POT && SagaLevel>=1) // t2
 					return
-				if(src.Potential<30 && src.SagaLevel>=2) // t3
+				if(src.Potential<glob.progress.SAGA_T3_POT && src.SagaLevel>=2) // t3
 					return
 				if(src.SagaLevel>=3&&!src.SagaAdminPermission)
 					return
 				src.saga_up_self()
 				return
-
-			if(styles_available(1) && src.Potential>=5 && src.req_styles(0, 1))
+			
+			if(styles_available(1) && src.Potential>=glob.progress.T1_STYLES[1] && src.req_styles(0, 1))
 				DevelopSignature(src, 1, "Style")
-			if(styles_available(1) && src.Potential>=20 && src.req_styles(1, 1))
+			if(styles_available(1) && src.Potential>=glob.progress.T1_STYLES[2] && src.req_styles(1, 1))
 				DevelopSignature(src, 1, "Style")
-			if(styles_available(2) && src.Potential>=30 && src.req_styles(0, 2))
+			if(styles_available(2) && src.Potential>=glob.progress.T2_STYLES[1] && src.req_styles(0, 2))
 				DevelopSignature(src, 2, "Style")
-		//	if(styles_available(2) && src.Potential>=55 && src.req_styles(1, 2))
-		//		DevelopSignature(src, 2, "Style")
+			if(styles_available(2) && src.Potential>=glob.progress.T2_STYLES[2] && src.req_styles(1, 2))
+				DevelopSignature(src, 2, "Style")
 
-			if(src.req_pot(5) && src.req_sigs(0, 1))
+			if(src.req_pot(glob.progress.T1_SIGS[1]) && src.req_sigs(0, 1))
 				DevelopSignature(src, 1, "Signature")
-			if(src.req_pot(10) && src.req_sigs(1, 1))
+			if(src.req_pot(glob.progress.T1_SIGS[2]) && src.req_sigs(1, 1))
 				DevelopSignature(src, 1, "Signature")
 
-			if(src.req_pot(25) && src.req_sigs(0, 2))
+			if(src.req_pot(glob.progress.T2_SIGS[1]) && src.req_sigs(0, 2))
 				DevelopSignature(src, 2, "Signature")
-			if(src.req_pot(30) && src.req_sigs(2, 1))
+			if(src.req_pot(glob.progress.T1_SIGS[3]) && src.req_sigs(2, 1))
 				DevelopSignature(src, 1, "Signature")
 
-			if(src.req_pot(60) && src.req_sigs(1, 2))
+			if(src.req_pot(glob.progress.T2_SIGS[2]) && src.req_sigs(1, 2))
 				DevelopSignature(src, 2, "Signature")
 
 		YeetSignatures()
