@@ -467,8 +467,9 @@ proc
 			PowerGathering(m)
 			KKTShockwave(m, icon='fevKiai.dmi', Size=0.5)
 
-	TurfShift(var/Shift, var/turf/t, var/Time=30, var/mob/m, var/layer=MOB_LAYER-0.5, var/Spawn=10, var/Despawn=10,var/state)
-		var/image/i=image(icon=Shift, layer=layer, loc=t)
+	TurfShift(var/Shift, var/turf/t, var/Time=30, var/mob/m, var/layer=MOB_LAYER-0.5, var/Spawn=10, var/Despawn=10,var/state, _piX, piY)
+		var/image/i=image(icon=Shift, layer=layer, loc=t, dir = m.dir, pixel_x = _piX, pixel_y = piY)
+		i.dir = m.dir
 		i.mouse_opacity = 0
 		animate(i, alpha=0)
 		world << i
@@ -488,6 +489,7 @@ proc
 		else if(Shift=='amaterasu.dmi')
 			i.layer=MOB_LAYER
 			i.icon_state="[rand(1,13)]"
+		flick(i.icon_state, i)
 		animate(i, alpha=255, time=Spawn)
 		spawn(10+Time)
 			animate(i, alpha=0, time=Despawn)

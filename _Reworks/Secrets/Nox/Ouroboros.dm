@@ -45,6 +45,7 @@ when the last three inputs are a combo is will result in a super (?)
 
 /mob/Admin4/verb/giveOuroboros()
 	src.contents += new/obj/Items/Sword/Light/Nox/Ouroboros
+	AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Nox/The_Unholy_Wrath_of_the_Basilisk)
 
 
 
@@ -90,8 +91,13 @@ when the last three inputs are a combo is will result in a super (?)
 	TurfStrike=1
 	GuardBreak = 1
 	ComboMaster = 1
-	TurfShift='Dirt1.dmi'
-	TurfShiftDuration=10
+	TurfShift='ouroborostile.dmi'
+	HitSparkIcon='BLANK.dmi'
+	TurfShiftDuration=6
+	TurfShiftDurationSpawn = 1
+	TurfShiftDurationDespawn = 5
+	TurfShiftX = -6
+	TurfShiftY = -6
 	// Cooldown = 45
 
 	adjust(mob/p)
@@ -115,9 +121,12 @@ when the last three inputs are a combo is will result in a super (?)
 	AdaptRate = 1
 	Launcher = 4
 	DamageMult=1
+	Hit
 	// Cooldown=45 
-	TurfShift='Dirt1.dmi'
-	TurfShiftDuration=10
+	TurfShift='ouroborostile.dmi'
+	TurfShiftDuration=6
+	TurfShiftDurationSpawn = 1
+	TurfShiftDurationDespawn = 5
 	adjust(mob/p)
 		DamageMult = 1.5 + (p.Potential/25)
 		// Cooldown = 45 - (p.Potential/10)
@@ -136,8 +145,10 @@ when the last three inputs are a combo is will result in a super (?)
 	Dunker = 1
 	DamageMult=1
 	// Cooldown=45 
-	TurfShift='Dirt1.dmi'
-	TurfShiftDuration=10
+	TurfShift='ouroborostile.dmi'
+	TurfShiftDuration=6
+	TurfShiftDurationSpawn = 1
+	TurfShiftDurationDespawn = 5
 	adjust(mob/p)
 		DamageMult = 1.5 + (p.Potential/25)
 		Dunker = 1 + (p.Potential/25)
@@ -222,3 +233,20 @@ when the last three inputs are a combo is will result in a super (?)
 		s.Trigger(src, TRUE)
 	
 	// this could be better i think?
+
+
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Nox/The_Unholy_Wrath_of_the_Basilisk
+	KenWave=1
+	KenWaveIcon='Azure Crest.dmi'
+	KenWaveSize=0.2
+	KenWaveX=-785
+	KenWaveY=-389
+	IconTint=rgb(11, 159, 4)
+	ManaGlow = "#000"
+	ManaGlowSize=0.5
+	NeedsHealth=25
+	TooMuchHealth=30
+	ActiveMessage = "RAAAAAHH RIIICKKKKYYYY"
+	IconLock='Susanoo Blade.dmi'
+	LockX=-32
+	LockY=-32
