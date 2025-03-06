@@ -60,7 +60,7 @@
         DamageMult = 1
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Arena_Champion"
         BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Finisher/QueueBuff/Marked"
-        HitMessage=""
+        HitMessage="BEHEMOTH TYPHOOOOOOONNNNN"
         FollowUp="/obj/Skills/AutoHit/Giga_Impact"
     Rashomon
         DamageMult=2

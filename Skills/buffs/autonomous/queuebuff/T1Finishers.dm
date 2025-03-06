@@ -53,7 +53,7 @@
         StyleNeeded="Black Leg"
         StrMult=1.25
         ForMult=1.25
-        passives = list("TensionLock" = 1, "SpiritHand" = 1, "CallousedHands" = 0.1, "Pursuer" = 2, "Instinct" = 2, "TensionLock" = 1)
+        passives = list("TensionLock" = 1, "SpiritHand" = 1, "Pursuer" = 2, "Instinct" = 2, "TensionLock" = 1)
         ActiveMessage="ignites their legs!"
         OffMessage="burns out..."
     Heavenly_Dragons_Transient_Enlightenment
@@ -120,7 +120,7 @@
     Magma_Fist
         ForMult=1.3
         EndMult=1.2
-        passives = list("Hardening" = 2, "CallousedHands" = 0.15, "Burning" = 3, "Crushing" = 5, "TensionLock" = 1)
+        passives = list("Hardening" = 2, "BlockChance" = 25, "CriticalBlock" = 0.15, "Burning" = 3, "Crushing" = 5, "TensionLock" = 1)
 
     Cool_Guy
         OffMult=1.15
