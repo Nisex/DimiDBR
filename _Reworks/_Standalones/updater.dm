@@ -211,8 +211,7 @@ update
 			if(p.isRace(GAJALAKA))
 				if(p.Class == "Rebel")
 					p.passive_handler.Set("SwordPunching", 1)
-			if(p.isRace(HALFSAIYAN) || p.isRace(YOKAI) || p.isRace(MAJIN) || p.isRace(MAKYO) || p.isRace(CHANGELING) || p.isRace(NAMEKIAN))
-				p.stat_redo()
+			p.stat_redo()
 			var/list/statMods = list("Str", "Spd", "End", "For", "Off","Def")
 			switch(p.Saga)
 				if("Keyblade")
@@ -236,12 +235,12 @@ update
 						if("Thunder")
 							p.AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
 							p.AddSkill(new/obj/Skills/AutoHit/Magic/Thundaga)
-				if("Gates")
-					for(var/x in statMods)
-						p.vars["[x]Ascension"] = 0
-				if("Hiten Mitsurugi-Ryuu")
-					for(var/x in statMods)
-						p.vars["[x]Ascension"] = 0
+				if("Weapon Soul")
+					if(p.BoundLegend == "Green Dragon Crescent Blade")
+						p.passive_handler.Increase("Extend")
+						
+			for(var/x in statMods)
+				p.vars["[x]Ascension"] = 0
 
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )

@@ -938,11 +938,11 @@ mob
 									passive_handler.Increase("VoidField", 2)
 
 						if(6)
-							src.SagaThreshold("Str", 0.25*src.SagaLevel)
-							src.SagaThreshold("End", 0.25*src.SagaLevel)
-							src.SagaThreshold("Spd", 0.25*src.SagaLevel)
-							src.SagaThreshold("Off", 0.25*src.SagaLevel)
-							src.SagaThreshold("Def", 0.25*src.SagaLevel)
+							// src.SagaThreshold("Str", 0.25*src.SagaLevel)
+							// src.SagaThreshold("End", 0.25*src.SagaLevel)
+							// src.SagaThreshold("Spd", 0.25*src.SagaLevel)
+							// src.SagaThreshold("Off", 0.25*src.SagaLevel)
+							// src.SagaThreshold("Def", 0.25*src.SagaLevel)
 							passive_handler.Increase("GodKi", 0.75)
 							UBWLegendaryWeapon()
 							src<< "You grasp the understanding of a legendary weapon forgotten to time..."

@@ -116,7 +116,8 @@ mob/tierUpSaga(Path)
 					if("Green Dragon Crescent Blade")
 						src << "The Green Dragon Crescent Blade unveils the secrets to an unstoppable rush..."
 						passive_handler.Increase("Flow")
-						SagaThreshold("Spd",2)
+						passive_handler.Increase("Extend")
+						// SagaThreshold("Spd",2)
 
 
 			if(3)
@@ -149,8 +150,8 @@ mob/tierUpSaga(Path)
 							muramasa.Element = "Dark"
 							muramasa.passives = list("WeaponBreaker" = 2, "AbyssMod" = 4)
 						passive_handler.Increase("PureDamage",2)
-						SagaThreshold("Spd",1)
-						SagaThreshold("Str",1)
+						// SagaThreshold("Spd",1)
+						// SagaThreshold("Str",1)
 
 					if("Masamune")
 						src << "The hilt of Masamune glitters in the light, offering it's blessed nature to aid your attacks..."
@@ -172,9 +173,9 @@ mob/tierUpSaga(Path)
 						src << "The Green Dragon Crescent Blade shows how to counter any attack..."
 						passive_handler.Increase("Reversal", 0.25)
 						passive_handler.Increase("Adaptation")
-						SagaThreshold("Spd",0.5)
-						SagaThreshold("Str",0.5)
-						SagaThreshold("End",0.5)
+						// SagaThreshold("Spd",0.5)
+						// SagaThreshold("Str",0.5)
+						// SagaThreshold("End",0.5)
 
 			if(4)
 				src << "The power of Heavenly Regalia becomes avaliable to you by resonating your treasures!"
