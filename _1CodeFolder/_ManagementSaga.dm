@@ -72,6 +72,7 @@ mob/var
 	//KEYBLADES
 	KeybladeType
 	KeybladeColor
+	KeybladePath
 	list/Keychains=list()
 	KeychainAttached
 	SyncAttached
@@ -255,9 +256,9 @@ mob/Admin3/verb
 					P.Saga="Eight Gates"
 					P.SagaLevel=1
 					P<<"Your constant hard work shows its effects..."
-					P.SagaThreshold("Str", 0.125)
-					P.SagaThreshold("End", 0.125)
-					P.SagaThreshold("Spd", 0.125)
+					// P.SagaThreshold("Str", 0.125)
+					// P.SagaThreshold("End", 0.125)
+					// P.SagaThreshold("Spd", 0.125)
 					P<<"You learn to shatter your natural limitations. Be wary though: the strain of doing that may haunt your future..."
 					P.AddSkill(new/obj/Skills/Buffs/ActiveBuffs/Eight_Gates)
 					if(!locate(/obj/Skills/Queue/Front_Lotus, P))
@@ -365,10 +366,15 @@ mob/Admin3/verb
 					P.Saga="Keyblade"
 					P.SagaLevel=1
 					P.KeybladeColor=Color
-
-					P.AddSkill(new/obj/Skills/Projectile/Magic/Fire)
-					P.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzard)
-					P.AddSkill(new/obj/Skills/AutoHit/Magic/Thunder)
+					var/inp = input(P, "What path of magic will you fall under?") in list("Fire", "Ice", "Thunder")
+					P.KeybladePath = inp
+					switch(KeybladePath)
+						if("Fire")
+							P.AddSkill(new/obj/Skills/Projectile/Magic/Fire)
+						if("Ice")
+							P.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzard)
+						if("Thunder")
+							P.AddSkill(new/obj/Skills/AutoHit/Magic/Thunder)
 					P.AddSkill(new/obj/Skills/Queue/Ars_Arcanum)
 					P << "You've mastered the magical arts of Fire, Blizzard and Thunder, and Ars Arcanum!"
 					switch(P.KeybladeColor)
@@ -899,11 +905,11 @@ mob
 							src<< "You grasp the understanding of a legendary weapon forgotten to time..."
 							//todo: study summon system & add src as a psuedo t1-3 summon that can piggyback off of summoner's mana to fuel them as they exist, then ubw users mana until they hit 50% and unsummon.
 							UBWLegendaryWeapon()
-							src.SagaThreshold("Str", 0.25*src.SagaLevel)
-							src.SagaThreshold("End", 0.25*src.SagaLevel)
-							src.SagaThreshold("Spd", 0.25*src.SagaLevel)
-							src.SagaThreshold("Off", 0.25*src.SagaLevel)
-							src.SagaThreshold("Def", 0.25*src.SagaLevel)
+							// src.SagaThreshold("Str", 0.25*src.SagaLevel)
+							// src.SagaThreshold("End", 0.25*src.SagaLevel)
+							// src.SagaThreshold("Spd", 0.25*src.SagaLevel)
+							// src.SagaThreshold("Off", 0.25*src.SagaLevel)
+							// src.SagaThreshold("Def", 0.25*src.SagaLevel)
 							switch(UBWPath)
 								if("Feeble")
 									passive_handler.Increase("Tenacity")
@@ -1132,9 +1138,9 @@ mob
 							src << "You can manifest a ghastly armor to protect and augment your attacks!"
 
 				if("Eight Gates")
-					src.SagaThreshold("Str", 0.125*src.SagaLevel)
-					src.SagaThreshold("End", 0.125*src.SagaLevel)
-					src.SagaThreshold("Spd", 0.125*src.SagaLevel)
+					// src.SagaThreshold("Str", 0.125*src.SagaLevel)
+					// src.SagaThreshold("End", 0.125*src.SagaLevel)
+					// src.SagaThreshold("Spd", 0.125*src.SagaLevel)
 					if(src.SagaLevel==3)
 						if(!locate(/obj/Skills/Queue/Reverse_Lotus, src))
 							src.AddSkill(new/obj/Skills/Queue/Reverse_Lotus)
@@ -1352,15 +1358,14 @@ mob
 							if("Thunderbolt")
 								src.AddSkill(new/obj/Skills/Buffs/NuStyle/SwordStyle/Command/Thunderbolt_Style)
 						src << "You've obtained the [Choice2] command style!"
-
-						AddSkill(new/obj/Skills/Projectile/Magic/Fira)
-						AddSkill(new/obj/Skills/AutoHit/Magic/Blizzara)
-						AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Stop)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Gravity)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Magnet)
-						src << "You've mastered the black magical arts of Stop, Magnet and Gravity as well as Fira, Blizzara and Thundara!"
-
+						switch(KeybladePath)
+							if("Fire")
+								AddSkill(new/obj/Skills/Projectile/Magic/Fira)
+							if("Ice")
+								AddSkill(new/obj/Skills/AutoHit/Magic/Blizzara)
+							if("Thunder")
+								AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
+						
 					if(src.SagaLevel==3)
 						//T2 Command Style
 						//Keychain
@@ -1395,19 +1400,13 @@ mob
 							if("Promises")
 								src.Keychains.Add("Oathkeeper")
 						src << "You've obtained your devotion keychain!"
-
-						src.AddSkill(new/obj/Skills/Projectile/Magic/Firaga)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzaga)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Thundaga)
-						src << "You develop Firaga!"
-						src << "You develop Blizzaga!"
-						src << "You develop Thundaga!"
-						src.AddSkill(new/obj/Skills/Projectile/Magic/Meteor)
-						src.AddSkill(new/obj/Skills/Projectile/Magic/Disintegrate)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Flare)
-						src << "You develop Meteor!"
-						src << "You develop Disintegrate!"
-						src << "You develop Flare!"
+						switch(KeybladePath)
+							if("Fire")
+								AddSkill(new/obj/Skills/Projectile/Magic/Firaga)
+							if("Ice")
+								AddSkill(new/obj/Skills/AutoHit/Magic/Blizzaga)
+							if("Thunder")
+								AddSkill(new/obj/Skills/AutoHit/Magic/Thundaga)
 
 					if(src.SagaLevel==4)
 						//Valor Form
@@ -1422,10 +1421,14 @@ mob
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Rage_Form)
 							src << "Your reliance on darkness will empower you when pressed to your limits!"
 
-						src << "You develop ultimate black magicks: Stopga, Magnetga and Graviga!"
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Graviga)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Stopga)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Magnetga)
+						switch(KeybladePath)
+							if("Fire")
+								src.AddSkill(new/obj/Skills/Projectile/Magic/Meteor)
+							if("Ice")
+								src.AddSkill(new/obj/Skills/AutoHit/Magic/Flare)
+							if("Thunder")
+								src.AddSkill(new/obj/Skills/Projectile/Magic/Disintegrate)
+						src.AddSkill(new/obj/Skills/Projectile/Magic/Meteor)
 						passive_handler.Increase("ManaCapMult",0.25)
 
 					if(src.SagaLevel==5)
