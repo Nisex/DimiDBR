@@ -3606,6 +3606,7 @@ obj
 				NeedsSword=1
 				Area="Circle"
 				StrOffense=1
+				ComboMaster = 1
 				DamageMult=1.8
 				Cooldown=60
 				Knockback=0
