@@ -137,7 +137,7 @@ obj/Skills
 	 //only projectiles have this function rn
 	var/FollowUp = null //holds a text path of a skill that will be triggered...
 	var/FollowUpDelay = 0  //after waiting this amt of time
-
+	var/ThrowOnCounter
 	var/Controlling //Love potion effects TODO: Remove/discontinue for...
 	var/BuffSelf
 	var/BuffAffected

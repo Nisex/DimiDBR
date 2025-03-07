@@ -372,6 +372,38 @@ proc
 		d.Frozen=0
 
 
+	Stomp(mob/atk, mob/def, _time = 1, repeat = 0)
+		if(!atk || !def || atk.loc == null || def.loc == null)
+			return
+		atk.Frozen=2
+		def.Frozen=2
+		var/orgdir = atk.dir
+		atk.dir = SOUTH
+		atk.loc=def.loc
+		def.icon_state = "KO"
+		def.layer = MOB_LAYER-0.25
+		animate(atk, pixel_z = 26, time=1)
+		sleep(1)
+		for(var/x in 1 to repeat)
+			animate(atk, pixel_z = 46, time=_time)
+			animate(pixel_z = 24, time=_time)
+			KenShockwave(def,Size=1)
+			Dust(def.loc,_time)
+			for(var/turf/t in Turf_Circle(def, 2))
+				TurfShift('Dirt1.dmi', t, 1, atk)
+			sleep(_time*2)
+		def.icon_state = ""
+		flick("Attack", atk)
+		atk.dir = orgdir
+		atk.pixel_x = 0
+		atk.pixel_z = 0
+		def.layer = MOB_LAYER
+		def.pixel_x = 0
+		atk.Frozen = 0
+		def.Frozen = 0
+
+
+
 	Turn(var/mob/a, var/Time=1)
 		while(Time>=0)
 			animate(a,dir=turn(a.dir,90),time=1, flags=ANIMATION_PARALLEL)

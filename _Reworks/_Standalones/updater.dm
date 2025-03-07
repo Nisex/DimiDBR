@@ -15,7 +15,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 9
+	var/UPDATE_VERSION = 10
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -213,6 +213,35 @@ update
 					p.passive_handler.Set("SwordPunching", 1)
 			if(p.isRace(HALFSAIYAN) || p.isRace(YOKAI) || p.isRace(MAJIN) || p.isRace(MAKYO) || p.isRace(CHANGELING) || p.isRace(NAMEKIAN))
 				p.stat_redo()
+			var/list/statMods = list("Str", "Spd", "End", "For", "Off","Def")
+			switch(p.Saga)
+				if("Keyblade")
+					p.KeybladePath = input(p, "Keyblade magic path?") in list("Fire", "Ice", "Thunder")
+					var/list/magicks2remove = list("/obj/Skills/Projectile/Magic/Fira","/obj/Skills/AutoHit/Magic/Blizzara", \
+						"/obj/Skills/AutoHit/Magic/Thundara", "/obj/Skills/Autohit/Magic/Stop", "/obj/Skills/Autohit/Magic/Gravity", \
+						"/obj/Skills/Autohit/Magic/Magnet", "/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/Projectile/Magic/Blizzard", "/obj/Skills/Projectile/Magic/Thunder")
+
+					for(var/x in magicks2remove)
+						var/obj/Skills/s = p.FindSkill(x)
+						p.contents -= s
+						p << "[s] removed."
+						del s
+					switch(p.KeybladePath)
+						if("Fire")
+							p.AddSkill(new/obj/Skills/Projectile/Magic/Fira)
+							p.AddSkill(new/obj/Skills/Projectile/Magic/Firaga)
+						if("Ice")
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzara)
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzaga)
+						if("Thunder")
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Thundaga)
+				if("Gates")
+					for(var/x in statMods)
+						p.vars["[x]Ascension"] = 0
+				if("Hiten Mitsurugi-Ryuu")
+					for(var/x in statMods)
+						p.vars["[x]Ascension"] = 0
 
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )

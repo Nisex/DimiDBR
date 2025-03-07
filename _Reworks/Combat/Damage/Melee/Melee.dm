@@ -195,7 +195,7 @@
 			if(CanDash())
 				is_dashing++
 				AfterImageGhost(src)
-				DashTo(Target, glob.NIMBUSRANGE + passive_handler["Nimbus"])
+				DashTo(Target, glob.NIMBUSRANGE + passive_handler["Nimbus"], 1 - (passive_handler["Nimbus"]/4), 0)
 				var/msg = replacetext(nimbus_message, "player_name", "[src]")
 				msg = replacetext(msg, "target_name", "[src.Target]")
 				src.OMessage(10,"[msg]","<font color=red>[src]([src.key]) used Nimbus.")
@@ -768,7 +768,9 @@
 									enemy.vis_contents += p
 									flick("iai", p)
 									enemy.Melee1(dmgmulti =(glob.IAI_BASE_DAMAGE * enemy.passive_handler["Iaijutsu"]), forcedTarget = src, hitback=hitback+1)
-							
+							if(enemy.passive_handler["Perfect Counter"])
+								// if only we could ping the thing that is giving this
+								enemy.TriggerPerfectCounter(src) // i cant actually test this
 							if(defArmor&&!passive_handler.Get("ArmorPeeling"))
 								var/dmgEffective = enemy.GetArmorDamage(defArmor)
 								if(passive_handler["Half-Sword"])

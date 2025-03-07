@@ -640,6 +640,8 @@ obj/Skills/Grapple
 							ThrowDir=NORTH
 						if("ShowStopper")
 							ShowStopper(User, Trg, 4 + (clamp(Trg.GetEnd(), 1, 10)))
+						if("Stomp")
+							Stomp(User, Trg, 2, EffectMult)
 					sleep(2)
 					Times--
 				User.Knockback((dmgRoll*src.ThrowMult)+src.ThrowAdd, Trg, Direction=src.ThrowDir, Forced=1, override_speed = ThrowSpeed)

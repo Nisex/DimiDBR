@@ -10789,7 +10789,7 @@ NEW VARIABLES
 				ActiveMessage="has fallen victim to their demonic impulse to win at any cost!"
 				OffMessage="manages to repress their demonic powers..."
 				adjust(mob/p)
-					passives = list("SpecialBuffLock" = 1,"KillerInstinct" = 0.05 * p.SagaLevel, "Curse" = 1, "Enraged" = p.SagaLevel, \
+					passives = list("SpecialBuffLock" = 1,"KillerInstinct" = 0.1 * p.SagaLevel, "Curse" = 1, "Enraged" = p.SagaLevel, \
 					"SlayerMod" = p.SagaLevel*0.25, "HardStyle" = 0.25 + (p.SagaLevel*0.25), "TechniqueMastery" = p.SagaLevel*0.75)
 					NeedsHealth = 15 + (2.5 * p.SagaLevel)
 					TooMuchHealth = NeedsHealth + p.SagaLevel
@@ -11795,6 +11795,14 @@ mob
 			if(B.Slotless)//If a buff is designated as slotless...
 				if(B.SlotlessOn)//And it's marked as on...
 					passive_handler.decreaseList(B.current_passives)
+					if(B.Counter && B.CounterHit)
+						if(B.WarpOnCounter && Target)
+							DashTo(Target,B.WarpOnCounter, 0.1, 0)
+						if(B.ThrowOnCounter) // this generally always has to b this tho
+							if(B.FollowUp)
+								spawn(B.FollowUpDelay)
+									throwFollowUp(B.FollowUp)
+						B.CounterHit=0
 					src.RemoveSlotlessBuff(B)//Remove it.
 				else//But if it's not on...
 					src.AddSlotlessBuff(B)//Add it.

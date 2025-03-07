@@ -40,4 +40,5 @@ mob
 					usr.AdaptationCounter=0
 					usr.AdaptationTarget=null
 					usr.AdaptationAnnounce=null
+
 					Z.Cooldown()

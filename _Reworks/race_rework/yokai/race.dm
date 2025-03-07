@@ -9,7 +9,7 @@ race
 		strength = 1.25
 		endurance = 1.25
 		speed = 1
-		force = 1
+		force = 1.25
 		offense = 1.25
 		defense = 1
 		regeneration = 2

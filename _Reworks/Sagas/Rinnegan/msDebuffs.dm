@@ -110,3 +110,24 @@ obj/blades
 	passives = list("NoDodge" = 1, "FluidForm" = -4)
 	IconLock = 'SweatDrop.dmi'
 	TimerLimit = 35
+
+
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/AchillesHeel
+	NeedsPassword = 1
+	Cooldown = 15
+	AlwaysOn = 1
+	CrippleAffected = 2
+	SpdMult = 0.9
+	DefMult = 0.9
+	passives = list("Flow" = -1, "Godspeed" = -2)
+	IconLock = 'LegendSparks.dmi'
+	TimerLimit = 20
+
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Staggered
+	NeedsPassword = 1
+	Cooldown = 15
+	AlwaysOn = 1
+	ShatterAffected = 2
+	passives = list("Shellshocked" = 1, "Flow" = -1)
+	IconLock = 'LegendSparks.dmi'
+	TimerLimit = 30

@@ -7,9 +7,9 @@ ascension
 					var/choice = owner.race?:Racial
 					switch(choice)
 						if("Heart of The Beastman")
-							owner.passive_handler.Increase("Blubber", 0.25)
-							endurance = 0.35
-							strength = 0.4
+							owner.passive_handler.Increase("Adrenaline", 1)
+							endurance = 0.25
+							strength = 0.5
 						if("Monkey King")
 							owner.passive_handler.Increase("Nimbus", 1)
 							endurance = 0.15
@@ -26,7 +26,7 @@ ascension
 							speed = 0.25
 						if("Undying Rage")
 							owner.passive_handler.Increase("Momentum", 1)
-							owner.passive_handler.Increase("KillerInstinct", 0.1)
+							owner.passive_handler.Increase("KillerInstinct", 0.05)
 							strength = 0.5
 							speed = 0.5
 							offense = 0.25
@@ -44,15 +44,16 @@ ascension
 							offense = 0.5
 							speed = 0.25
 						if("Spirit Walker")
-							owner.passive_handler.Increase("Flow", 2)
-							owner.passive_handler.Increase("Instinct", 2)
+							owner.passive_handler.Increase("Flow", 1)
+							owner.passive_handler.Increase("Instinct", 1)
 							endurance = 0.25
 							strength = 0.1
 							offense = 0.2
 							defense = 0.2
 						if("Shapeshifter")
-							owner << "currently not working"
-						
+							var/obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Shapeshift/s = owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Shapeshift)
+							s.c_buff.adjust_custom_buff(owner, s)
+
 						if("Trickster")
 							ecoAdd = 1
 							imaginationAdd = 0.5

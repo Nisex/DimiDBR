@@ -60,8 +60,21 @@
 	var/preCrit = val
 	if((unarmed || sword) || (spiritAtk && !autohit && passive_handler["IceHerald"]) || (autohit && passive_handler["DemonicInfusion"]))
 		val = getCritAndBlock(defender, val)
-		if(val > preCrit && passive_handler["Wuju"] == 1)
-			val += glob.BASE_WUJUDAMAGE
+		if(val > preCrit)
+			if(passive_handler["Wuju"] == 1)
+				val += glob.BASE_WUJUDAMAGE
+			var/obj/Effects/crit/p = new()
+			p.Target = defender
+			defender.vis_contents += p
+			flick("crit", p)
+		else
+			if(val < preCrit)
+				var/obj/Effects/critB/p = new()
+				p.Target = defender
+				defender.vis_contents += p
+				flick("critblock", p)
+
+			
 	#if DEBUG_DAMAGE
 	log2text("Damage", "After CritAndBlock", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")

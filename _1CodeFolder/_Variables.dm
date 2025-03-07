@@ -584,6 +584,8 @@ mob/var
 	Adaptation
 	AdaptationCounter=0
 	tmp/mob/AdaptationTarget
+	ShonenCounter
+	ShonenAnnounce
 	AdaptationAnnounce
 	mob/var/tmp/Swim=0
 	NextSerum//holds realtime of the next time you can use a revitalization serum

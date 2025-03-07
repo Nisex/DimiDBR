@@ -323,6 +323,29 @@ mob
 				if(defender.Anger)
 					defender.DefianceCalcs(val, src)
 
+			if(defender.passive_handler["Shonen"]&&defender.Target)
+				if(defender.Health < defender.Target.Health && Health < 50 + 5 * defender.AscensionsAcquired)
+					defender.ShonenCounter+=(val * (defender.AscensionsAcquired/40)) * 1 + (defender.passive_handler["Shonen"]/5)
+					if(defender.ShonenCounter>=glob.SHONENCOUNTERLIMIT)
+						defender.ShonenCounter=1
+						if(!defender.ShonenAnnounce)
+							defender << "This is your...Momment! (No App)"
+							var/obj/Skills/Buffs/s = defender.findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Racial/Human/Deus_Ex_Machina)
+							if(!defender.BuffOn(s))
+								s.Trigger(defender, TRUE)
+							defender.ShonenAnnounce=1
+			if(passive_handler["Shonen"]&&defender==Target)
+				if(Health < Target.Health && Health < 50 + 5 * AscensionsAcquired)
+					ShonenCounter+=(val * (AscensionsAcquired/40)) * 1 + (passive_handler["Shonen"]/5)
+					if(ShonenCounter>=glob.SHONENCOUNTERLIMIT)
+						ShonenCounter=1
+						if(!ShonenAnnounce)
+							src << "This is your...Momment! (No App)"
+							var/obj/Skills/Buffs/s = findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Racial/Human/Deus_Ex_Machina)
+							if(!BuffOn(s))
+								s.Trigger(src, TRUE)
+							ShonenAnnounce=1
+
 			if(defender.HasAdaptation()&&src==defender.Target||src.HasAdaptation()&&defender==src.Target)
 				if(defender.HasAdaptation()&&!defender.CheckSlotless("Great Ape"))
 					defender.AdaptationTarget=src

@@ -409,7 +409,18 @@ obj/Effects
 		pixel_x=18
 		pixel_y=18
 		Lifetime=6
-
+	crit
+		icon='wordeffects.dmi'
+		icon_state = "crit"
+		pixel_x=18
+		pixel_y=18
+		Lifetime=6
+	critB
+		icon='wordeffects.dmi'
+		icon_state = "critblock"
+		pixel_x=18
+		pixel_y=18
+		Lifetime=6
 	Iai
 		icon='wordeffects.dmi'
 		icon_state = "iai"

@@ -5,7 +5,7 @@ ascension
 			passives = list("TechniqueMastery" = 1)
 			strength = 0.25
 			force = 0.25
-			offense = 0.25
+			offense = 0.5
 			choices = list("Grand Caster" = /ascension/sub_ascension/yokai/grand_caster, "Two become One" = /ascension/sub_ascension/yokai/two_become_one)
 
 		two

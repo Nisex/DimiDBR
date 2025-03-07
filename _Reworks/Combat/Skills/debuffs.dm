@@ -28,6 +28,7 @@
 			total_stacks = 0
 
 
+
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare
 	AlwaysOn = 0
 	NeedsPassword = 0

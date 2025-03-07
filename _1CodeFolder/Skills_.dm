@@ -328,7 +328,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 								H.Trigger(src)
 
 				var/Distance=20
-				var/Delay=0.75
+				var/Delay=0.5
 				if(src.Beaming||src.BusterTech)
 					if(!src.HasMovingCharge())
 						Distance=5

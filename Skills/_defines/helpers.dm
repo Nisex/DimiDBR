@@ -63,3 +63,23 @@ mob/proc/UsingHotnCold()
     if(StyleActive == "Cold Style")
         return TRUE
     return FALSE
+
+/mob/proc/applySnare(limit, _icon, force = FALSE)
+	var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare/s = findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare) // try to find it
+	if(force)
+		if(BuffOn(s))
+			s.Trigger(src, TRUE) // this will force it off
+	if(!BuffOn(s))
+		s.adjust(src, limit, _icon) // regardless adjust it, no need to make it new, just add or find it
+		s.Trigger(src, TRUE)
+	
+	// this could be better i think?
+
+
+/mob/proc/TriggerPerfectCounter(mob/attacker)
+    // thhis shit blows
+    for(var/obj/Skills/Buffs/sb in src)
+        if(sb.Counter && sb.Using)
+            // trigger it as the counter will go off on deactivate XD
+            sb.CounterHit = 1
+            sb.Trigger(src, TRUE)

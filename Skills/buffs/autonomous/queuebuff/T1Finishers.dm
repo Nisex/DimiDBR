@@ -14,6 +14,7 @@
             var/damage2do = User.passive_handler["Dim Mak"]
             User.passive_handler.Set("Dim Mak", 1)
             damage2do *= clamp((15*Level)/100, 0.1, 1)// applier's style tier
+            OMsg(User, "[User]'s Death Mark implodes!")
             User.LoseHealth(damage2do)
         ..()
 

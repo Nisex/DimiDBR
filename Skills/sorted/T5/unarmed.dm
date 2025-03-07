@@ -17,6 +17,8 @@
 
 
 /mob/var/tmp/last_jump_animation = 0
+
+
 proc/ShowStopper(mob/attacker, mob/defender, effectMult)
 	attacker.Frozen=2
 	defender.Frozen=2

@@ -7,7 +7,6 @@ ascension
 			passives = list("Brutalize" = 0.25)
 			// GIVE MY NIGGAS SOMETHING TO EAT WITH
 			strength = 0.25
-			offense = 0.25
 			endurance = 0.25
 
 		two
