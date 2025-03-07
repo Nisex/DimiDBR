@@ -3609,6 +3609,7 @@ obj
 				NeedsSword=1
 				Area="Circle"
 				StrOffense=1
+				ComboMaster = 1
 				DamageMult=1.8
 				Cooldown=60
 				Knockback=0
@@ -3849,6 +3850,7 @@ obj
 				TurfEruptOffset=6
 				DelayTime=1
 				Stunner=3
+				ComboMaster = 1
 				Icon='SwordHugeHolyJustice.dmi'
 				Size=1
 				IconX=-159
@@ -3879,6 +3881,7 @@ obj
 				TurfEruptOffset=6
 				DelayTime=1
 				Stunner=3
+				ComboMaster = 1
 				Icon='SwordHugeDoomofDamocles.dmi'
 				Size=1
 				IconX=-159

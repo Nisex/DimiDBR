@@ -140,7 +140,8 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Bu
 		src.Oozaru=0
 
 		for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src.SlotlessBuffs)
-			B.Trigger(src, Override = 1)
+			if(src.BuffUsing(B))
+				B.Trigger(src, Override = 1)
 
 obj/Oozaru
 
