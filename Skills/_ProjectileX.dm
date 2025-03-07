@@ -1709,7 +1709,7 @@ obj
 			Blaster_Shell
 				SignatureTechnique=1
 				Distance=25
-				DamageMult= 3.6
+				DamageMult= 4.5
 				AccMult = 1.15
 				Dodgeable=0
 				Instinct=1
@@ -3887,7 +3887,7 @@ obj
 							usr.UseProjectile(src)
 					Bardic_Scream
 						Distance=30
-						DamageMult=2
+						DamageMult=1.15
 						AccMult=2
 						Radius=1
 						MultiHit=5
@@ -5876,7 +5876,7 @@ obj
 								// if not piercing and theres a mob and they are already hit by key and that calue is over or equal multihit+1
 								if(!(Piercing && m && (AlreadyHit["[m.ckey]"] >= MultiHit + 1)) || Bounce)
 									if(!AlreadyHit["[m.ckey]"]) AlreadyHit["[m.ckey]"] = 0
-									EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.1, 1)
+									//EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.1, 1)
 
 									src.Owner.DoDamage(a, EffectiveDamage, SpiritAttack=1, Destructive=src.Destructive)
 									if(CorruptionGain)
