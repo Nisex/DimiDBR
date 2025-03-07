@@ -165,7 +165,7 @@ mob/proc/Tail(Add_Tail=1)
 		overlays-=T
 		overlays-=T2
 		underlays-=T3
-		//Oozaru(0)
+		Oozaru(0)
 		overlays+=T2
 /mob/proc/triggerOozaru()
 	if(isRace(SAIYAN) || isRace(HALFSAIYAN))
