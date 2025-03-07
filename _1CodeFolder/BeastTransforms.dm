@@ -140,7 +140,8 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Bu
 		src.Oozaru=0
 
 		for(var/obj/Skills/Buffs/SlotlessBuffs/Oozaru/B in src.SlotlessBuffs)
-			B.Trigger(src, Override = 1)
+			if(src.BuffUsing(B))
+				B.Trigger(src, Override = 1)
 
 obj/Oozaru
 
@@ -164,7 +165,7 @@ mob/proc/Tail(Add_Tail=1)
 		overlays-=T
 		overlays-=T2
 		underlays-=T3
-		Oozaru(0)
+		//Oozaru(0)
 		overlays+=T2
 /mob/proc/triggerOozaru()
 	if(isRace(SAIYAN) || isRace(HALFSAIYAN))
