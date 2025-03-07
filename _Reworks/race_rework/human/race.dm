@@ -4,6 +4,7 @@ race
 		desc = "Humans remain to be the most common race in the world. They are considered to be the most adaptive and the most resolute of all. Ancient creation stories suggest they were born as the final creation of the god Koyroyal."
 		visual = 'Humans.png'
 		passives = list("Tenacity" = 1, "Adrenaline" = 1, "Innovation" = 1)
+		statPoints = 12
 		power = 1
 		strength = 1
 		endurance = 1

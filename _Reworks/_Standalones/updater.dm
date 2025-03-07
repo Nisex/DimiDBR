@@ -211,9 +211,8 @@ update
 			if(p.isRace(GAJALAKA))
 				if(p.Class == "Rebel")
 					p.passive_handler.Set("SwordPunching", 1)
-			if(p.isRace(HALFSAIYAN))
+			if(p.isRace(HALFSAIYAN) || p.isRace(YOKAI) || p.isRace(MAJIN) || p.isRace(MAKYO) || p.isRace(CHANGELING) || p.isRace(NAMEKIAN))
 				p.stat_redo()
-
 
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )

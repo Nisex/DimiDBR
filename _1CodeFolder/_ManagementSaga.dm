@@ -224,9 +224,6 @@ mob/Admin3/verb
 						P.AddSkill(new/obj/Skills/Queue/JawStrike)
 					if(!locate(/obj/Skills/Queue/FallingBlade,P))
 						P.AddSkill(new/obj/Skills/Queue/FallingBlade)
-					P.SagaThreshold("Spd", 0.25)
-					P.SagaThreshold("Str", 0.125)
-					P.SagaThreshold("End", 0.125)
 					P.passive_handler.Increase("SlayerMod", 0.625)
 					P.passive_handler.Increase("Pursuer", 0.5)
 					P.passive_handler.Increase("SuperDash", 0.25)
@@ -943,10 +940,6 @@ mob
 
 
 				if("Hiten Mitsurugi-Ryuu")
-					//triggers every level
-					src.SagaThreshold("Str", 0.166*src.SagaLevel)
-					src.SagaThreshold("End", 0.166*src.SagaLevel)
-					src.SagaThreshold("Spd", 0.33*src.SagaLevel)
 					passive_handler.Increase("SlayerMod", 0.625)
 					passive_handler.Increase("Pursuer", 0.5)
 					passive_handler.Increase("SuperDash", 0.25)

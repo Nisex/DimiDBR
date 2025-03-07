@@ -9360,13 +9360,6 @@ NEW VARIABLES
 						OffMessage="completes the Cat Kata..."
 
 					//t1 sig styles
-					Chi_Augmentation
-						StyleNeeded="Iron Fist Style"
-						passives = list("Godspeed" = 3, "UnarmedDamage" = 2, "StunningStrike" = 3, "CallousedHands" = 0.5, "HardenedFrame" = 1, "EnergySteal" = 100)
-						EndMult=1.5
-						OffMult=1.5
-						ActiveMessage="channels Chi through their very body!"
-						OffMessage="relinquishes their chi absorption..."
 					Ki_Flow_Mastery
 						StyleNeeded="Gentle Fist"
 						ForMult=1.5
@@ -9774,7 +9767,7 @@ NEW VARIABLES
 
 					//t2 sig styles
 					Mortal_Will
-						passives= list("Mortal Will" = 1, "MortalStacks" = 1, "CallousedHands" = 0.45, "StunningStrike" = 3, "ComboMaster" = 1, "Deflection" = 1, "Reversal" = 0.25 )
+						passives= list("Mortal Will" = 1, "MortalStacks" = 1, "BlockChance" = 33, "CriticalBlock" = 0.3, "StunningStrike" = 3, "ComboMaster" = 1, "Deflection" = 1, "Reversal" = 0.25 )
 						ActiveMessage = "channels the will of a Phalanx!"
 						OffMessage = "falls out of flow..."
 					Trinity_Mastery
@@ -10078,7 +10071,7 @@ NEW VARIABLES
 
 				Arena_Champion
 					BuffName = "Champion of The Arena"
-					passives = list("DoubleStrike" = 1, "Deflection" = 0.5,  "CallousedHands" = 0.3, "StunningStrike" = 1.5, "ComboMaster" = 1)
+					passives = list("DoubleStrike" = 1, "Deflection" = 0.5, "Duelist" = 0.5, "StunningStrike" = 1.5, "ComboMaster" = 1)
 					EndMult = 1.2
 					OffMult = 1.2
 					DefMult = 0.4

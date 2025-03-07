@@ -142,7 +142,7 @@
 	forAdd = 0.25
 	adjust(mob/p)
 		var/asc = p.AscensionsAcquired
-		passives = list("StunningStrike" = 1+asc, "Combomaster" = 1,  "CheapShot" = asc/2, "Instinct" = asc)
+		passives = list("StunningStrike" = 1+asc, "ComboMaster" = 1,  "CheapShot" = asc/2, "Instinct" = asc)
 	verb/Bear_Form()
 		set category = "Stances"
 		usr.preForm()

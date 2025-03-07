@@ -114,6 +114,13 @@ progressTracker
 		WipeStart = 0
 		DaysOfWipe = 1
 
+		SAGA_T2_POT = 15
+		SAGA_T3_POT = 30
+
+		T1_STYLES = list(10, 20)
+		T2_STYLES = list(30, 45)
+		T1_SIGS = list(5, 10, 30)
+		T2_SIGS = list(25, 55)
 
 /****************************************************
   *  *  *  *  *  * * GLOBAL TRACKER  *  *  *  *  *  *
@@ -148,7 +155,7 @@ globalTracker
 		BREAK_TARGET = TRUE
 		BREAK_TARGET_ON_Z_CHANGE = TRUE
 		BREAK_TARGET_ON_DIST = FALSE
-
+		DEVILARMDEMONONLY = FALSE
 		ROOTS_DURATION = 2
 		AISCLASHLOCKSMOVEMENT = TRUE
 		OUROMACROLOCK = 2
@@ -195,7 +202,7 @@ globalTracker
 		CONQ_HAKI_CHANCE = 6
 		MONEYORFRAGMENTS = 1 // 1 = fragments, 0 = cash
 		REBELHEARTMOD=200
-		SATSUICHANCE= 10
+		SATSUICHANCE = 10
 // globals
 		WorldBaseAmount = 1
 		WorldDamageMult = 1.5
@@ -220,7 +227,7 @@ globalTracker
 		BEAST_OVERHWELMING_STATIC = 20
 		RUPTURE_BASE_DAMAGE = 2
 		SUNYATA_BASE_CHANCE = 15
-		INTERCEPTION_BASE_CHANCE = 25
+		INTERCEPTION_BASE_CHANCE = 10
 		INTERCEPTION_NEGATES_DAMAGE = 1
 
 		MOMENTUM_PROCS_OFF_DAMAGE = 1
@@ -293,7 +300,7 @@ globalTracker
 		ZANZO_SPEED_LOWEST_CLAMP = 0.25
 
 
-		USE_SPEED_IN_ZANZO_RECHARGE = 0
+		USE_SPEED_IN_ZANZO_RECHARGE = 1
 
 
 		ZANZO_FLICKER_DIVISOR = 10
@@ -401,7 +408,7 @@ globalTracker
 		SPIRIT_FLOW_DIVISOR = 4 
 		LINGERCHANCE = 5
 		GRAPPLE_WHIFF_DAMAGE = 3
-
+		EXTRASTATSONAUTOHIT = FALSE
 // effectiveness (dmg calc  shit)
 		MELEE_EFFECTIVENESS = 1
 		PROJECTILE_EFFECTIVNESS = 1
