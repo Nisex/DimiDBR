@@ -3847,6 +3847,7 @@ obj
 				TurfEruptOffset=6
 				DelayTime=1
 				Stunner=3
+				ComboMaster = 1
 				Icon='SwordHugeHolyJustice.dmi'
 				Size=1
 				IconX=-159
@@ -3877,6 +3878,7 @@ obj
 				TurfEruptOffset=6
 				DelayTime=1
 				Stunner=3
+				ComboMaster = 1
 				Icon='SwordHugeDoomofDamocles.dmi'
 				Size=1
 				IconX=-159
