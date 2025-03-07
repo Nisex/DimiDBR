@@ -6,9 +6,10 @@ obj
 				SkillCost=TIER_1_COST
 				Copyable=2
 				HitMessage="delivers a destructive one handed strike!!"
-				DamageMult=2.8
+				DamageMult=2
 				AccuracyMult = 1.1
-				Dominator=1
+				Dominator=2
+				Crippling=5
 				Duration=5
 				KBAdd=10
 				Launcher=1
@@ -24,11 +25,10 @@ obj
 				SkillCost=TIER_1_COST
 				Copyable=2
 				HitMessage="delivers a vicious uppercut!!"
-				DamageMult=2.5
+				DamageMult=2.2
 				AccuracyMult = 1.15
-				Stunner=2
-				Launcher=2
-				Duration=5
+				Launcher=3
+				Duration=6
 				KBMult=0.00001
 				Cooldown=30
 				UnarmedOnly=1
@@ -43,16 +43,17 @@ obj
 				Copyable=2
 				ActiveMessage="punches with precisely articulated strikes to create whirlwind-like pull!"
 				name="Dempsey Roll"
-				DamageMult=1
+				DamageMult=0.33
 				AccuracyMult = 1.15
+				Determinator=1
 				KBMult=0.01
 				KBAdd=1
 				Duration=8
 				Cooldown=30
 				UnarmedOnly=1
-				Combo=4
-				Warp=4
-				Stunner=2
+				Combo=5
+				Warp=6
+				Stunner=3
 				IconLock='dempsey.dmi'
 				LockX=-16
 				LockY=-16
@@ -104,7 +105,7 @@ obj
 				Copyable=2
 				name="Kinshasa"//Skill name displayed in message.
 				HitMessage="builds up speed and knees their target in the face!!"
-				DamageMult=3.5
+				DamageMult=1.5
 				AccuracyMult = 1.15
 				Duration=5
 				SpeedStrike=4
@@ -130,11 +131,11 @@ obj
 				Copyable=2
 				name="Piston Kick"//Skill name displayed in message.
 				HitMessage="launches a shattering front kick with their heel!"
-				DamageMult=2.8
+				DamageMult=1.8
 				Shattering = 12
+				HarderTheyFall=0.5
 				AccuracyMult = 1.1
-				SpeedStrike=2
-				Opener=1
+				Opener=3
 				Duration=5
 				Cooldown=30
 				UnarmedOnly=1
@@ -146,13 +147,13 @@ obj
 			Cripple
 				SkillCost=TIER_1_COST
 				Copyable=2
-				DamageMult=2
+				DamageMult=1.5
 				AccuracyMult = 1.15
 				Duration=5
 				Cooldown=30
-				Crippling=12
+				Crippling=50
 				SpeedStrike=2
-				SweepStrike=1
+				SweepStrike=2
 				UnarmedOnly=1
 				EnergyCost=2.5
 				HitMessage="delivers a crippling strike!"
@@ -162,13 +163,13 @@ obj
 			Pin
 				SkillCost=TIER_1_COST
 				Copyable=2
-				DamageMult=4
+				DamageMult=2.8
 				AccuracyMult = 1.15
 				Instinct=2
 				Grapple=1
 				KBMult=0.001
 				Warp=3
-				SpeedStrike=1
+				SweepStrike=1
 				UnarmedOnly=1
 				Duration=5
 				Cooldown=30
@@ -211,9 +212,9 @@ obj
 				name="Burst Combination"
 				SkillCost=80
 				Copyable=3
-				DamageMult=0.3
+				DamageMult=0.15
 				AccuracyMult = 1.175
-				Stunner=1
+				Stunner=2
 				Duration=5
 				Combo=10
 				Projectile="/obj/Skills/Projectile/BurstBlast"
@@ -231,7 +232,7 @@ obj
 			Sword_Clinch
 				SkillCost=TIER_1_COST
 				Copyable=2
-				DamageMult=4
+				DamageMult=3
 				AccuracyMult = 1.15
 				Instinct=2
 				Grapple=1

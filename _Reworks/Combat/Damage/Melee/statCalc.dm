@@ -43,7 +43,7 @@
 
 
 
-/mob/proc/getStatDmg2(damage, unarmed, sword, sunlight, spirithand, autohit)
+/mob/proc/getStatDmg2(damage, unarmed, sword, sunlight, spirithand, autohit = FALSE)
 	// ABILITY and DAMAGE roll should be first
 	// so a queue should happen here vs later
 	if(!unarmed&&!sword)

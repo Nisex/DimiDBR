@@ -118,8 +118,9 @@
 
 /obj/Skills/AutoHit/Sin/Gluttony/Consumption_Aura
     New(timer, value)
-        Rounds = timer
-        DamageMult = (value/15)/Rounds
+        if(timer && value)
+            Rounds = timer
+            DamageMult = (value/15)/Rounds
         ..()
     Area="Circle"
     StrOffense = 1

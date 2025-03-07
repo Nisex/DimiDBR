@@ -1,0 +1,183 @@
+obj
+	Skills/AutoHit
+		Force_Palm
+			SkillCost=TIER_2_COST
+			Copyable=3
+			UnarmedOnly=1
+			FlickAttack=1
+			Area="Arc"
+			ComboMaster=1
+			Distance=5
+			Slow=0
+			Knockback=10
+			PreShockwave=1
+			PostShockwave=0
+			Shockwaves=1
+			Shockwave=0.5
+			ShockIcon='KenShockwave.dmi'
+			ShockBlend=2
+			ShockTime=4
+			NoPierce=0
+			StrOffense=1
+			EndDefense=1
+			DamageMult=6
+			Cooldown=60
+			HitSparkIcon='BLANK.dmi'
+			HitSparkX=0
+			HitSparkY=0
+			EnergyCost=3
+			Earthshaking=5
+			WindUp=1
+			Instinct=1
+			WindupMessage="focuses their chi..."
+			ActiveMessage="sends a wave of force with a single palm thrust!"
+			verb/Force_Palm()
+				set category="Skills"
+				usr.Activate(src)
+		Force_Stomp
+			SkillCost=TIER_2_COST
+			Copyable=3
+			UnarmedOnly=1
+			Area="Circle"
+			ComboMaster=1
+			Distance=4
+			StrOffense=1
+			DamageMult=5
+			Cooldown=60
+			Stunner=2
+			Knockback=25
+			Size=2
+			HitSparkIcon='BLANK.dmi'
+			HitSparkX=0
+			HitSparkY=0
+			Shockwaves=3
+			Shockwave=1
+			EnergyCost=3
+			SpecialAttack=1
+			Earthshaking=15
+			ActiveMessage="lifts their leg before performing a tremor-inducing stomp!"
+			verb/Force_Stomp()
+				set category="Skills"
+				usr.Activate(src)
+		Phantom_Strike
+			SkillCost=TIER_2_COST
+			Copyable=3
+			UnarmedOnly=1
+			Area="Wave"
+			ComboMaster=1
+			GuardBreak=1
+			StrOffense=1
+			PassThrough=1
+			PreShockwave=1
+			PostShockwave=0
+			Shockwave=2
+			Shockwaves=2
+			DamageMult=11
+			Knockback=2
+			Distance=4
+			ActiveMessage="vanishes with a burst of speed to strike at their foe!"
+			Cooldown=60
+			EnergyCost=6
+			Instinct=1
+			verb/Phantom_Strike()
+				set category="Skills"
+				usr.Activate(src)
+		Dragon_Rush
+			SkillCost=TIER_2_COST
+			Copyable=3
+			UnarmedOnly=1
+			FlickAttack=3
+			Area="Circle"
+			NoLock=1
+			NoAttackLock=1
+			StrOffense=1
+			DamageMult=3.5
+			DelayTime=0
+			PreShockwave=1
+			PreShockwaveDelay=1
+			PostShockwave=0
+			Shockwaves=2
+			Shockwave=0.5
+			ShockIcon='KenShockwaveLegend.dmi'
+			ShockBlend=2
+			ShockDiminish=1.15
+			ShockTime=4
+			Rush=6
+			ControlledRush=1
+			HitSparkIcon='Hit Effect.dmi'
+			HitSparkX=-32
+			HitSparkY=-32
+			HitSparkCount=10
+			HitSparkDispersion=12
+			Launcher=3
+			DelayedLauncher=1
+			Cooldown=60
+			EnergyCost=5
+			ActiveMessage="rushes forward to deliver a flurry of strikes!"
+			verb/Dragon_Rush()
+				set category="Skills"
+				usr.Activate(src)
+
+		Roundhouse_Kick
+			SkillCost=TIER_2_COST
+			Copyable=2
+			UnarmedOnly=1
+			Area="Arc"
+			ComboMaster=1
+			Distance=4
+			StrOffense=1
+			DamageMult=4.8
+			Knockback=3
+			Cooldown=60
+			Icon='roundhouse.dmi'
+			IconX=-16
+			IconY=-16
+			EnergyCost=2
+			ActiveMessage="delivers a roundhouse kick!"
+			verb/Roundhouse_Kick()
+				set category="Skills"
+				usr.Activate(src)
+		Sweeping_Kick
+			SkillCost=TIER_2_COST
+			Copyable=3
+			UnarmedOnly=1
+			Area="Circle"
+			Distance=1
+			StrOffense=1
+			DamageMult=1.8
+			Launcher=3
+			NoLock=1
+			NoAttackLock=1
+			Cooldown=60
+			Size=0.75
+			Rounds=3
+			Icon='SweepingKick.dmi'
+			IconX=-32
+			IconY=-32
+			EnergyCost=3
+			CanBeDodged=1
+			ActiveMessage="sweeps the legs from under their opponent!"
+			verb/Leg_Sweep()
+				set category="Skills"
+				usr.Activate(src)
+		Helicopter_Kick
+			SkillCost=TIER_2_COST
+			Copyable=3
+			UnarmedOnly=1
+			Area="Circle"
+			StrOffense=1
+			DamageMult=1.25
+			Cooldown=60
+			Rounds=5
+			Shattering=1
+			RoundMovement=1
+			Size=2
+			Icon='SweepingKick.dmi'
+			IconX=-32
+			IconY=-32
+			FlickSpin=1
+			EnergyCost=2
+			ActiveMessage="throws their body into a handstand while delivering numerous spin kick!"
+			verb/Helicopter_Kick()
+				set category="Skills"
+				usr.Activate(src)

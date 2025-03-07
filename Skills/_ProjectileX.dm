@@ -364,7 +364,7 @@ obj
 				AttackReplace=1
 				Blasts=1
 				Distance=7
-				DamageMult=0.1
+				DamageMult=0.25
 				AdaptRate=1
 				AccMult=30
 				Dodgeable=0
@@ -1398,12 +1398,16 @@ obj
 					if(!Using)
 						FireFromEnemy = 0
 						FireFromSelf = 1
+						ZoneAttackX=4
+						ZoneAttackY=4
 					usr.UseProjectile(src)
 				verb/Energy_Minefield_Target()
 					set category="Skills"
 					if(!Using)
 						FireFromEnemy = 1
 						FireFromSelf = 0
+						ZoneAttackX=5
+						ZoneAttackY=5
 					usr.UseProjectile(src)
 			Tracking_Bomb
 				NewCost = TIER_3_COST
@@ -1611,7 +1615,7 @@ obj
 					usr.UseProjectile(src)
 			Buster_Barrage
 				SignatureTechnique=1
-				Distance=30
+				Distance=15
 				AccMult=2
 				DamageMult=1
 				Blasts=10
@@ -1620,19 +1624,20 @@ obj
 				Explode=1
 				Homing=1
 				Knockback=1
-				LosesHoming=0
 				Charge=1
 				Delay=0.85
-				Stream=-1
-				ZoneAttack=1
-				ZoneAttackX=4
-				ZoneAttackY=4
-				Hover=3
 				IconLock='Blast - Rapid.dmi'
-				Variation=12
+				Stream=-1
+				Deflectable = 1
+				Homing=1
+				LosesHoming=3
+				Blasts=23
+				Continuous=1
+				Variation=24
 				verb/Buster_Barrage()
 					set category="Skills"
 					usr.UseProjectile(src)
+			
 			Makosen
 				SignatureTechnique=1
 				Distance=50
@@ -1656,10 +1661,13 @@ obj
 					usr.UseProjectile(src)
 			Jecht_Shot
 				SignatureTechnique=1
-				AdaptRate = 1
+
+				StrRate=0.3
+				ForRate=0.7
 				EndRate=1
-				Distance=30
-				DamageMult=4
+				Distance=15
+				DamageMult=2
+				Blasts=2
 				AccMult = 1.15
 				Homing=1
 				HomingDelay=2
@@ -1668,7 +1676,7 @@ obj
 				Charge=1
 				Piercing=1
 				Dodgeable=1
-				Deflectable=0
+				Deflectable=1
 				Launcher=1
 				MultiHit=4
 				IconChargeOverhead=1
@@ -2184,7 +2192,7 @@ obj
 				EndRate=1
 				Knockback=10
 				MultiHit=4
-				DamageMult=0.25
+				DamageMult=0.2
 				AccMult = 1.25
 				Deflectable=0
 				Distance=10
@@ -3122,8 +3130,6 @@ obj
 								Radius = 2
 								IconSize = 1.5
 								Knockback = 6
-							if(!src.Using)
-								OMsg(usr, "[usr] yells: <b>HADOOOOOOKEN!</B>", "[usr] used Hadoken.")
 							Charge=0.75
 							Distance = 25
 							usr.UseProjectile(src)
@@ -3210,7 +3216,7 @@ obj
 					//No verb because it is set from melee
 				Hellzone_Grenade
 					SignatureTechnique=1
-					EnergyCost=20
+					EnergyCost=15
 					Speed = 0.25
 					Distance=20
 					Blasts=15
@@ -3218,7 +3224,7 @@ obj
 					DamageMult=0.7
 					Instinct=1
 					AccMult=2
-					Homing=1
+					Homing=3
 					Explode=1
 					ZoneAttackX=3
 					ZoneAttackY=3

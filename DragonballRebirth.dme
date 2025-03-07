@@ -439,7 +439,6 @@
 #include "_Reworks\race_rework\high_faoroan\ascensions.dm"
 #include "_Reworks\race_rework\high_faoroan\race.dm"
 #include "_Reworks\race_rework\human\ascensions.dm"
-#include "_Reworks\race_rework\human\buffs.dm"
 #include "_Reworks\race_rework\human\race.dm"
 #include "_Reworks\race_rework\majin\ascensions.dm"
 #include "_Reworks\race_rework\majin\race.dm"

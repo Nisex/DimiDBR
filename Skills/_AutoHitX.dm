@@ -160,6 +160,7 @@ obj
 				TempEndDef
 				SpecialAttack=0//ignores all of the above
 				Dunker
+				Destroyer
 				ComboMaster//Does not lose damage against stunned and / or launched people.
 				GuardBreak//Can't be dodged, blocked or reversaled.
 				CanBeDodged//AIS can trigger and avoid these
@@ -1189,191 +1190,10 @@ obj
 				ShockBlend=2
 				ShockDiminish=1.15
 				ShockTime=4
-				Quaking=10
+				Earthshaking=10
 				Instinct=1
 				ActiveMessage="focuses their entire power into a devastating strike!"
 				verb/Focus_Punch()
-					set category="Skills"
-					usr.Activate(src)
-			Force_Palm
-				SkillCost=TIER_2_COST
-				Copyable=3
-				UnarmedOnly=1
-				FlickAttack=1
-				Area="Arc"
-				ComboMaster=1
-				Distance=5
-				Slow=0
-				Knockback=10
-				PreShockwave=1
-				PostShockwave=0
-				Shockwaves=1
-				Shockwave=0.5
-				ShockIcon='KenShockwave.dmi'
-				ShockBlend=2
-				ShockTime=4
-				NoPierce=0
-				StrOffense=1
-				EndDefense=1
-				DamageMult=6
-				Cooldown=60
-				HitSparkIcon='BLANK.dmi'
-				HitSparkX=0
-				HitSparkY=0
-				EnergyCost=3
-				Quaking=5
-				WindUp=1
-				Instinct=1
-				WindupMessage="focuses their chi..."
-				ActiveMessage="sends a wave of force with a single palm thrust!"
-				verb/Force_Palm()
-					set category="Skills"
-					usr.Activate(src)
-			Force_Stomp
-				SkillCost=TIER_2_COST
-				Copyable=3
-				UnarmedOnly=1
-				Area="Circle"
-				ComboMaster=1
-				Distance=4
-				StrOffense=1
-				DamageMult=5
-				Cooldown=60
-				Stunner=2
-				Knockback=25
-				Size=2
-				HitSparkIcon='BLANK.dmi'
-				HitSparkX=0
-				HitSparkY=0
-				Shockwaves=3
-				Shockwave=1
-				EnergyCost=3
-				SpecialAttack=1
-				Earthshaking=15
-				ActiveMessage="lifts their leg before performing a tremor-inducing stomp!"
-				verb/Force_Stomp()
-					set category="Skills"
-					usr.Activate(src)
-			Phantom_Strike
-				SkillCost=TIER_2_COST
-				Copyable=3
-				UnarmedOnly=1
-				Area="Wave"
-				ComboMaster=1
-				GuardBreak=1
-				StrOffense=1
-				PassThrough=1
-				PreShockwave=1
-				PostShockwave=0
-				Shockwave=2
-				Shockwaves=2
-				DamageMult=11
-				Knockback=2
-				Distance=4
-				ActiveMessage="vanishes with a burst of speed to strike at their foe!"
-				Cooldown=60
-				EnergyCost=6
-				Instinct=1
-				verb/Phantom_Strike()
-					set category="Skills"
-					usr.Activate(src)
-			Dragon_Rush
-				SkillCost=TIER_2_COST
-				Copyable=3
-				UnarmedOnly=1
-				FlickAttack=3
-				Area="Circle"
-				NoLock=1
-				NoAttackLock=1
-				StrOffense=1
-				DamageMult=3.5
-				DelayTime=0
-				PreShockwave=1
-				PreShockwaveDelay=1
-				PostShockwave=0
-				Shockwaves=2
-				Shockwave=0.5
-				ShockIcon='KenShockwaveLegend.dmi'
-				ShockBlend=2
-				ShockDiminish=1.15
-				ShockTime=4
-				Rush=6
-				ControlledRush=1
-				HitSparkIcon='Hit Effect.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkCount=10
-				HitSparkDispersion=12
-				Launcher=3
-				DelayedLauncher=1
-				Cooldown=60
-				EnergyCost=5
-				ActiveMessage="rushes forward to deliver a flurry of strikes!"
-				verb/Dragon_Rush()
-					set category="Skills"
-					usr.Activate(src)
-
-			Roundhouse_Kick
-				SkillCost=TIER_2_COST
-				Copyable=2
-				UnarmedOnly=1
-				Area="Arc"
-				ComboMaster=1
-				Distance=4
-				StrOffense=1
-				DamageMult=4.8
-				Knockback=3
-				Cooldown=60
-				Icon='roundhouse.dmi'
-				IconX=-16
-				IconY=-16
-				EnergyCost=2
-				ActiveMessage="delivers a roundhouse kick!"
-				verb/Roundhouse_Kick()
-					set category="Skills"
-					usr.Activate(src)
-			Sweeping_Kick
-				SkillCost=TIER_2_COST
-				Copyable=3
-				UnarmedOnly=1
-				Area="Circle"
-				Distance=1
-				StrOffense=1
-				DamageMult=1.8
-				Launcher=3
-				NoLock=1
-				NoAttackLock=1
-				Cooldown=60
-				Size=0.75
-				Rounds=3
-				Icon='SweepingKick.dmi'
-				IconX=-32
-				IconY=-32
-				EnergyCost=3
-				CanBeDodged=1
-				ActiveMessage="sweeps the legs from under their opponent!"
-				verb/Leg_Sweep()
-					set category="Skills"
-					usr.Activate(src)
-			Helicopter_Kick
-				SkillCost=TIER_2_COST
-				Copyable=3
-				UnarmedOnly=1
-				Area="Circle"
-				StrOffense=1
-				DamageMult=1.25
-				Cooldown=60
-				Rounds=5
-				Shattering=1
-				RoundMovement=1
-				Size=2
-				Icon='SweepingKick.dmi'
-				IconX=-32
-				IconY=-32
-				FlickSpin=1
-				EnergyCost=2
-				ActiveMessage="throws their body into a handstand while delivering numerous spin kick!"
-				verb/Helicopter_Kick()
 					set category="Skills"
 					usr.Activate(src)
 			Lightning_Kicks
@@ -1629,18 +1449,23 @@ obj
 			Cast_Fist
 				SignatureTechnique=1
 				UnarmedOnly=1
-				Area="Circle"
-				AdaptRate=1
-				DamageMult=9
+				Area="Cone"
+				StrOffense=1
+				DamageMult=3
 				TurfDirt=1
 				Distance=5
+				Size=3
 				Knockback=10
 				FlickAttack=1
 				ShockIcon='KenShockwave.dmi'
 				Shockwave=5
 				Shockwaves=1
+				Launcher=3
 				PostShockwave=1
 				PreShockwave=0
+				BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Muscle_Expand"
+				FollowUp="/obj/Skills/Queue/Warping_Fist"
+				FollowUpDelay=10
 				Cooldown=150
 				WindUp=1
 				Earthshaking=20
@@ -1654,10 +1479,9 @@ obj
 			Wolf_Fang_Fist
 				SignatureTechnique=1
 				UnarmedOnly=1
-				FlickAttack=3
-				Area="Wave"
+				Area="Circle"
 				StrOffense=1
-				DamageMult=1.6
+				DamageMult=1
 				IgnoreAlreadyHit=TRUE
 				Rounds=10
 				Stunner=0.5
@@ -1665,11 +1489,15 @@ obj
 				ComboMaster=1
 				ChargeTech=1
 				GrabMaster = 1
-				ChargeTime=0.25
-				Knockback=1
+				ChargeTime=1.5
+				Grapple=1
 				Cooldown=160
-				Size=1
+				// Size=1
 				EnergyCost=5
+				TurfShift='Dirt1.dmi'
+				TurfShiftDurationSpawn = 1
+				TurfShiftDuration = 5
+				TurfShiftDurationDespawn = 4
 				ActiveMessage="rushes while attacking with the ferocity of a wolf!"
 				HitSparkIcon='WolfFF.dmi'
 				HitSparkX=0
@@ -1717,23 +1545,25 @@ obj
 				StrOffense=2
 				DamageMult=7
 				GuardBreak=1
-				Stunner=3
-				Rush=3
+
+				Destroyer = 5 // make it do more dmg if tht guy is stunned or launched, ig this is dunker for stuns
+				Dunker = 3
+
+				Rush=1
 				RushDelay=0.1
-				ControlledRush=3
+				ControlledRush=1
 				Knockback=0
-				Quaking=5
-				Shattering=55
+				Earthshaking=15
 				PreShockwave=1
 				PreShockwaveDelay=1
-				PostShockwave=0
-				Shockwaves=2
+				PostShockwave=1
+				Shockwaves=4
 				Shockwave=0.5
 				ShockIcon='KenShockwaveFocus.dmi'
 				ShockBlend=2
 				ShockDiminish=1.15
 				ShockTime=4
-				WindUp=0.1
+				WindUp=0.5
 				WindupMessage="extends their arm towards the opponent, reaching them with the tips of their fingers..."
 				ActiveMessage="curls up their fingers into a fist and delivers a crushing blow!!!"
 				EnergyCost=5
@@ -1999,14 +1829,14 @@ obj
 			Shining_Sword_Slash
 				SignatureTechnique=1
 				NeedsSword=1
-				FlickAttack=3
 				Area="Circle"
 				Distance=2
+				Size=2
 				StrOffense=1
 				CanBeDodged = 0
 				CanBeBlocked = 0
 				DamageMult=8
-				DelayTime=0
+				DelayTime=0.25
 				PreShockwave=1
 				PreShockwaveDelay=1
 				PostShockwave=0
@@ -2018,7 +1848,6 @@ obj
 				ShockTime=4
 				GuardBreak=1
 				Rush=5
-
 				ControlledRush=1
 				HitSparkIcon='Slash - Future.dmi'
 				HitSparkX=-32
@@ -2262,7 +2091,7 @@ obj
 				Distance=10
 				AdaptRate = 1
 				DamageMult = 4
-				Flash=35
+				Flash=40
 				WindUp=0.5
 				WindupIcon='BLANK.dmi'
 				WindupMessage="brings their hands to their face..."
@@ -3663,7 +3492,7 @@ obj
 				TurfShift='Dirt1.dmi'
 				TurfShiftDuration=3
 				EnergyCost=10
-				Quaking=10
+				Earthshaking=10
 				ActiveMessage="releases a hyper destructive slash!"
 				verb/Ark_Brave()
 					set category="Skills"
@@ -5174,7 +5003,7 @@ obj
 				ComboMaster=1
 				CursedWounds=1
 				HolyMod=4
-				Quaking=8
+				Earthshaking=8
 				Divide=1
 				PreShockwave=1
 				Shockwaves=1
@@ -6185,6 +6014,7 @@ obj
 			ChargeTech//Is this a charge move?  Does it carry the enemy with it?  This only affects KB, it doesn't trigger any other charging behavior.
 			ComboMaster // it dont lose damage against stunned/launched nerds
 			Dunker
+			Destroyer
 			UnarmedTech
 			SwordTech
 			SpecialAttack
@@ -6374,6 +6204,7 @@ obj
 			src.Flash=Z.Flash
 			src.ComboMaster=Z.ComboMaster
 			Dunker = Z.Dunker
+			Destroyer = Z.Destroyer
 			src.CanBeBlocked=Z.CanBeBlocked
 			src.CanBeDodged=Z.CanBeDodged
 			src.Slow=Z.Slow
@@ -6660,17 +6491,27 @@ obj
 				if(Owner.UsingFencing())
 					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(Owner.UsingFencing()/15))),1,3)
 				if((m.Launched||m.Stunned))
-					if(!(ComboMaster || Owner.HasComboMaster() || Dunker))
+					if(!(ComboMaster || Owner.HasComboMaster() || Dunker || Destroyer))
 						FinalDmg *= glob.CCDamageModifier
 						Owner.log2text("FinalDmg - Auto Hit", "After ComboMaster", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 						Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+					if(m.Stunned && Destroyer)
+						FinalDmg *= 1 + (Destroyer/10)
 				var/obj/Items/Armor/HittingArmor=m.EquippedArmor()
 				var/obj/Items/Armor/WearingArmor=src.Owner.EquippedArmor()
 				if(HittingArmor)//Reduced damage
 					var/dmgEffective = m.GetArmorDamage(HittingArmor)
-					FinalDmg -= FinalDmg * dmgEffective/10
+					if(Owner.passive_handler["Half-Sword"])
+						dmgEffective -= Owner.passive_handler["Half-Sword"] * glob.HALF_SWORD_ARMOR_REDUCTION
+					if(dmgEffective>0)
+						FinalDmg -=  FinalDmg * dmgEffective/10
+					else
+						FinalDmg += FinalDmg * abs(dmgEffective/10)
 					Owner.log2text("FinalDmg - Auto Hit", "After HittingArmor", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 					Owner.log2text("FinalDmg - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
+				if(Owner.passive_handler["Half-Sword"] && !HittingArmor)
+					FinalDmg += FinalDmg * (Owner.passive_handler["Half-Sword"]/glob.HALF_SWORD_UNARMOURED_DIVISOR)
+				
 				if(WearingArmor)//Reduced delay and accuracy
 					Precision*=src.Owner.GetArmorAccuracy(WearingArmor)
 				var/reversalChance = m.GetAutoReversal()
@@ -6916,7 +6757,7 @@ obj
 							animate(m.client, color = list(-1,-1,-1, -1,-1,-1, -1,-1,-1, 1,1,1), time = 5)
 							m.TsukiyomiTime=6
 				if(src.Flash)
-					m.Blind(src.Flash*10)
+					m.Blind(src.Flash*(10*world.tick_lag))
 					m.RemoveTarget()
 					m.Grab_Release()
 

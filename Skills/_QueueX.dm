@@ -2014,14 +2014,14 @@ mob
 
 			if(AttackQueue.Dominator)
 				if(Health>P.Health)
-					var/ratio = (clamp(Health / P.Health, 1, 4) / glob.Q_DIVISOR)
+					var/ratio = clamp(Health / P.Health, 1, 4)
 					if(ratio > 0)
-						Damage+=ratio
+						Damage+= (ratio-1) *( AttackQueue.Dominator / 4)
 			if(AttackQueue.Determinator)
 				if(Health<P.Health&&Health!=0)
-					var/ratio = clamp( P.Health / Health, 1, 4) / glob.Q_DIVISOR
+					var/ratio = clamp( P.Health / Health, 1, 4)
 					if(ratio > 0)
-						Damage+=ratio
+						Damage+= (ratio-1) * (AttackQueue.Determinator / 4)
 
 			if(src.AttackQueue.Delayer)
 				var/addDamage = 1 + (clamp(src.AttackQueue.Delayer*src.AttackQueue.DelayerTime, 0.1, 3)/ glob.Q_DIVISOR)
@@ -2035,6 +2035,10 @@ mob
 
 			if(src.AttackQueue.GodPowered)
 				src.transcend(src.AttackQueue.GodPowered)
+			if(AttackQueue.HarderTheyFall && P.BioArmor)
+				Damage +=  P.BioArmor / glob.HARDER_THEY_FALL_BIO_DIVISOR // i want to make the ticks matter, but cant formulate an idea how
+			if(AttackQueue.HarderTheyFall && P.VaizardHealth)
+				Damage += P.VaizardHealth / glob.HARDER_THEY_FALL_VAI_DIVISOR // i want to make the ticks matter, but cant formulate an idea how
 			if(src.AttackQueue.CosmoPowered)
 				if(!src.SpecialBuff)
 					Damage+=(0.5+(src.SenseUnlocked-4))

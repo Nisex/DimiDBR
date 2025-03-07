@@ -945,9 +945,9 @@ NEW VARIABLES
 				"DemonicDurability" = clamp(num*0.2,0.25,4), "HeavyHitter" = num / 8, \
 				"Flicker" = round(clamp(num/2,1,8)), "Godspeed" = round(clamp(num/2,1,8)),\
 				"SuperDash" = puBoon ? 1 : 0, "Neo" = num)
-				StrMult = 1 + num / glob.GATES_STAT_MULT_DIVISOR
-				EndMult = 1 + num / glob.GATES_STAT_MULT_DIVISOR
-				SpdMult = 1 + num / glob.GATES_STAT_MULT_DIVISOR
+				StrMult = 1.15 + num / glob.GATES_STAT_MULT_DIVISOR
+				EndMult = 1.1 + num / glob.GATES_STAT_MULT_DIVISOR
+				SpdMult = 1.05 + num / glob.GATES_STAT_MULT_DIVISOR
 				KenWave=clamp(num / 2, 1, 4)
 
 
@@ -9919,6 +9919,7 @@ NEW VARIABLES
 				Brolic_Grip
 					ActiveMessage="flexes their arm with brolic strength!"
 					OffMessage="relaxes their vicious power..."
+					passives = list("Grippy" = 6, "Muscle Power" = 1)
 				//these last for 10 seconds so they will stack about 30 of their elemental debuffs.
 
 				Astral_Drain
@@ -11958,7 +11959,7 @@ mob
 						if(AscensionsAcquired)
 							src.ActiveBuff.AngerPoint = 5 * AscensionsAcquired
 						src.ActiveBuff.passives["Pursuer"] = 0.5 * AscensionsAcquired
-						src.ActiveBuff.AngerMult = round(2/(8-AscensionsAcquired), 0.01)
+						src.ActiveBuff.AngerMult = 1 + round(2/(8-AscensionsAcquired), 0.01)
 						src.ActiveBuff.passives["PUSpike"] = round(50/(5-AscensionsAcquired))
 						src.ActiveBuff.PUSpike=round(50/(5-AscensionsAcquired))
 				if(src.Saga=="Spiral")

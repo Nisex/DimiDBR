@@ -34,8 +34,8 @@ obj
 				DamageMult=3
 				AccuracyMult = 1.15
 				KBMult=0.00001
-				SpeedStrike=1
-				SweepStrike=1
+				SpeedStrike=2
+				SweepStrike=2
 				Counter=1
 				Warp=2
 				Duration=5
@@ -57,18 +57,32 @@ obj
 				AccuracyMult = 1.15
 				Duration=8
 				Cooldown=60
+				Launcher=2
 				NeedsSword=1
 				MultiHit=3
 				InstantStrikes=2
 				InstantStrikesDelay=1
 				Counter=1
-				EnergyCost=1
+				EnergyCost=4
 				verb/Willow_Dance()
 					set category="Skills"
 					usr.SetQueue(src)
-			Larch_Dance
+			Gravity_Blade // NEW REPLACEMENT
 				SkillCost=TIER_2_COST
 				Copyable=3
+				HarderTheyFall=1
+				Opener=1
+				Cooldown=60
+				Duration=5
+				ActiveMessage="prepares a chain of giant-toppling attacks!"
+				DamageMult=0.3
+				AccuracyMult=1.1
+				NeedsSword=1
+				EnergyCost=5
+				InstantStrikes=10
+				InstantStrikesDelay=1.5
+
+			Larch_Dance // REMOVED
 				ActiveMessage="prepares a murderous chain of counterattacks!"
 				DamageMult=1.1
 				AccuracyMult = 1.1
@@ -78,7 +92,7 @@ obj
 				InstantStrikes=5
 				InstantStrikesDelay=1
 				Counter=1
-				EnergyCost=1
+				EnergyCost=5
 				verb/Larch_Dance()
 					set category="Skills"
 					usr.SetQueue(src)

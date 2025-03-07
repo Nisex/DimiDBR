@@ -14,6 +14,11 @@ ascension
 						defense=0.25
 						endurance=0.25
 						anger = 0.1
+						for(var/transformation/saiyan/super_saiyan_3/ssj3 in owner.race.transformations)
+							owner.race.transformations -= ssj3
+							del ssj3
+						owner.race.transformations.Add(new/transformation/half_saiyan/human/ultimate_mode())
+						owner.race.transformations.Add(new/transformation/half_saiyan/human/beast_mode())
 					if("Anger")
 						passives["Enrage"]=1
 						passives["CheapShot"]=0.5

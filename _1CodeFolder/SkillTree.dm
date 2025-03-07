@@ -210,7 +210,7 @@ var/list/SkillTree=list(
 			"/obj/Skills/AutoHit/Ark_Brave"=80,
 			"/obj/Skills/AutoHit/Judgment"=80,
 
-			"/obj/Skills/Queue/Larch_Dance"=80,
+			"/obj/Skills/Queue/Gravity_Blade"=80,
 			"/obj/Skills/Queue/Willow_Dance"=80,
 			"/obj/Skills/Queue/Zero_Reversal"=80,
 			"/obj/Skills/Queue/Infinity_Trap"=80

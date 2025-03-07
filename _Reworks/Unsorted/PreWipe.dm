@@ -23,14 +23,14 @@
 var/allSkills = list()
 
 
-// /mob/Admin4/verb/giveAllSignatures()
-//     set name = "Give All Signatures"
-//     set category = "Admin"
-//     giveAllSigs()
-// /mob/Admin4/verb/giveAllSkills()
-//     set name = "Give All Skill Tree"
-//     set category = "Admin"
-//     giveAllSkillTree()
+/mob/Admin4/verb/giveAllSignatures()
+    set name = "Give All Signatures"
+    set category = "Admin"
+    giveAllSigs()
+/mob/Admin4/verb/giveAllSkills()
+    set name = "Give All Skill Tree"
+    set category = "Admin"
+    giveAllSkillTree()
 
 
 
@@ -75,7 +75,7 @@ var/allSkills = list()
     for(var/obj/Skills/a in allSkills)
         if(a.SignatureTechnique == tier)
             var/obj/Skills/newSkill = new a.type
-            src.AddSkill(a)
+            src.AddSkill(newSkill)
             newSkill.Cooldown = 10
 
 /proc/giveTesterVerbs(mob/p)

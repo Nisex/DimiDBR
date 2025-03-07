@@ -1,12 +1,24 @@
 obj
 	Skills
 		Queue
+
+			Warping_Fist // followup on an autohit
+				Warp=50
+				Cooldown=150
+				Dunker=5
+				DamageMult=2
+				Instinct=2
+				Duration=12
+				AccuracyMult=2
+				FollowUp=TRUE
+				ActiveMessage="warps behind their target!"
+				HitMessage="slams their target into the ground!"
             //UNARMED
 			Aura_Punch
 				SignatureTechnique=1
 				ActiveMessage="begins concentrating power..."
 				HitMessage="unleashes a devasatating punch!"
-				DamageMult=12
+				DamageMult=9
 				AccuracyMult = 1.175
 				KBMult=5
 				Duration=6
@@ -43,7 +55,7 @@ obj
 				AccuracyMult = 1.25
 				Duration=5
 				Stunner=2
-				Crippling=412
+				Crippling=15
 				Shearing=25
 				Combo=5
 				Rapid=1
@@ -51,6 +63,7 @@ obj
 				Instinct=2
 				UnarmedOnly=1
 				EnergyCost=5
+				Confusing=25
 				HitMessage="confuses the opponent's senses with a volley of pressure point strikes!"
 				verb/Nerve_Shot()
 					set category="Skills"
@@ -71,7 +84,7 @@ obj
 			Volleyball_Fist
 				SignatureTechnique=1
 				UnarmedOnly=1
-				DamageMult=6
+				DamageMult=4
 				AccuracyMult = 1.35
 				KBMult=0.00001
 				Stunner=1
@@ -82,14 +95,14 @@ obj
 				Rapid=1
 				Opener=1
 				Cooldown=150
-				EnergyCost=5
+				EnergyCost=3
 				HitMessage="staggers the opponent by sliding at their legs!"
 				verb/Volleyball_Fist()
 					set category="Skills"
 					usr.SetQueue(src)
 			Volleyball_Fist2
 				UnarmedOnly=1
-				DamageMult=5
+				DamageMult=4
 				AccuracyMult = 1.175
 				KBMult=0.00001
 				HitStep=/obj/Skills/Queue/Volleyball_Fist3
@@ -98,11 +111,11 @@ obj
 				Warp=3
 				Rapid=1
 				Launcher=3
-				EnergyCost=8
+				EnergyCost=3
 				HitMessage="launches their opponent in the air like a volleyball!"
 			Volleyball_Fist3
 				UnarmedOnly=1
-				DamageMult=5
+				DamageMult=4
 				Instinct=5
 				AccuracyMult = 1.175
 				KBAdd=5
@@ -110,8 +123,8 @@ obj
 				PushOut=3
 				PushOutWaves=3
 				Quaking=5
-				Dunker=2
-				EnergyCost=5
+				Dunker=4
+				EnergyCost=8
 				HitMessage="violently spikes the opponent towards the ground!!!"
 
 

@@ -313,7 +313,9 @@
 				if(brutalize)
 					def -= (def * clamp(brutalize, 0.01, 0.9)) // MOVE THIS TO A GET PROC SO IT CAN BE TRACKED
 				var/damageMultiplier = dmgmulti
-
+				if(AttackQueue.HarderTheyFall)
+					var/enemyEnd = enemy.GetEnd()
+					atk += enemyEnd * (AttackQueue.HarderTheyFall/10)
 				#if DEBUG_MELEE
 				log2text("DamageMod", "newDmgMod", "damageDebugs.txt", "[ckey]/[name]")
 				log2text("DamageMod", damage, "damageDebugs.txt", "[ckey]/[name]")

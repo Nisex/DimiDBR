@@ -25,6 +25,8 @@
 
 /mob/proc/throwFollowUp(path)
     set waitfor = FALSE
+    if(path == TRUE)
+        return // AHAHAHAH!
     if(istext(path))
         path = text2path(path)
     var/obj/Skills/s = findOrAddSkill(path)
