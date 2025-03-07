@@ -118,6 +118,9 @@ mob/Admin3/verb
 				return
 			else
 				selection=input("Select a Tier S to grant. This will set them to T1 in it, granting whatever verbs at that level.") in SagaList
+			for(var/obj/Skills/Buffs/NuStyle/s in P)
+				if(P.BuffOn(s))
+					s.Trigger(usr, TRUE)
 			switch(selection)
 				if("Hero")
 					P.Saga="Hero"
