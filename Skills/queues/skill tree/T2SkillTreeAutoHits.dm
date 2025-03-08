@@ -29,7 +29,6 @@ obj
 			Earthshaking=5
 			WindUp=0.6
 			Instinct=1
-			Determinator=1
 			WindupMessage="focuses their chi..."
 			ActiveMessage="sends a wave of force with a single palm thrust!"
 			verb/Force_Palm()
@@ -180,5 +179,178 @@ obj
 			EnergyCost=2
 			ActiveMessage="throws their body into a handstand while delivering numerous spin kick!"
 			verb/Helicopter_Kick()
+				set category="Skills"
+				usr.Activate(src)
+		Hero_Spin
+			SkillCost=80
+			Copyable=2
+			NeedsSword=1
+			Area="Circle"
+			StrOffense=1
+			DamageMult=4.8
+			Cooldown=60
+			Knockback=3
+			Size=1
+			Icon='CircleWind.dmi'
+			IconX=-32
+			IconY=-32
+			EnergyCost=2
+			ActiveMessage="spins with a powerful slash!"
+			verb/Hero_Spin()
+				set category="Skills"
+				usr.Activate(src)
+		Drill_Spin
+			SkillCost= TIER_2_COST
+			Copyable=3
+			NeedsSword=1
+			Area="Circle"
+			Shearing=1
+			ControlledRush=1
+			Rush=3
+			ChargeTech=1
+			ChargeTime=1
+			Rounds=5
+			StrOffense=1
+			DamageMult=1
+			Cooldown=60
+			Knockback=1
+			Size=1
+			Icon='CircleWind.dmi'
+			IconX=-32
+			IconY=-32
+			HitSparkIcon='Slash.dmi'
+			HitSparkX=-32
+			HitSparkY=-32
+			HitSparkTurns=1
+			HitSparkSize=1
+			HitSparkDispersion=1
+			TurfStrike=1
+			TurfShift='Dirt1.dmi'
+			TurfShiftDuration=1
+			EnergyCost=5
+			Instinct=1
+			ActiveMessage="spins their sword like a drill bit!"
+			verb/Disable_Innovate()
+				set category = "Other"
+				disableInnovation(usr)
+			adjust(mob/p)
+				if(p.isInnovative(HUMAN, "Sword") && !isInnovationDisable(p))
+					var/pot = p.Potential
+					ControlledRush=0
+					Rush=0
+					ChargeTech=0
+					ChargeTime=0
+					Size = 4 + (round(pot/25))
+					Distance = 4 + (round(pot/25))
+					Launcher = 2 + (round(pot/25))
+					WindUp=0.25
+					Knockback = 0.001
+					PullIn = Size + 2
+					Shearing = 5 + (pot/5)
+
+				else
+					ControlledRush=1
+					Rush=3
+					ChargeTech=1
+					ChargeTime=1
+					Size = 1
+					Launcher = 0
+					WindUp=0
+					Knockback = 1
+					PullIn = 0
+					Shearing = 1
+			verb/Drill_Spin()
+				set category="Skills"
+				adjust(usr)
+				usr.Activate(src)
+		Rising_Spire
+			SkillCost=TIER_2_COST
+			Copyable=3
+			NeedsSword=1
+			Area="Circle"
+			StrOffense=1
+			ComboMaster = 1
+			DamageMult=1.8
+			Cooldown=60
+			Knockback=0
+			Rounds=3
+			Launcher=2
+			NoLock=1
+			NoAttackLock=1
+			Size=1
+			Icon='CircleWind.dmi'
+			IconX=-32
+			IconY=-32
+			HitSparkIcon='Slash.dmi'
+			HitSparkX=-32
+			HitSparkY=-32
+			HitSparkTurns=1
+			HitSparkSize=1
+			HitSparkDispersion=1
+			TurfStrike=1
+			EnergyCost=4
+			ActiveMessage="spins upwards with their weapon extended!"
+			verb/Rising_Spire()
+				set category="Skills"
+				usr.Activate(src)
+		Ark_Brave
+			SkillCost=TIER_2_COST
+			Copyable=3
+			NeedsSword=1
+			Area="Circle"
+			StrOffense=1
+			EndDefense=1
+			DamageMult=5
+			Cooldown=60
+			Knockback=5
+			Size=2
+			Distance=2
+			Rush=2
+			ControlledRush=1
+			RoundMovement=0
+			WindUp=1
+			WindupMessage="charges their blade with imperial willpower!"
+			Icon='SweepingKick.dmi'
+			IconX=-32
+			IconY=-32
+			HitSparkIcon='Slash.dmi'
+			HitSparkX=-32
+			HitSparkY=-32
+			HitSparkTurns=1
+			HitSparkSize=1
+			HitSparkDispersion=1
+			TurfStrike=1
+			TurfShift='Dirt1.dmi'
+			TurfShiftDuration=3
+			EnergyCost=10
+			Earthshaking=10
+			ActiveMessage="releases a hyper destructive slash!"
+			verb/Ark_Brave()
+				set category="Skills"
+				usr.Activate(src)
+		Judgment
+			SkillCost=TIER_2_COST
+			Copyable=3
+			NeedsSword=1
+			Area="Circle"
+			StrOffense=1
+			Cooldown = 60
+			DamageMult=0.35
+			Rounds=20
+			ComboMaster=1
+			Size=2
+			EnergyCost=5
+			Icon='CircleWind.dmi'
+			IconX=-32
+			IconY=-32
+			HitSparkIcon='Slash - Zan.dmi'
+			HitSparkX=-16
+			HitSparkY=-16
+			HitSparkTurns=1
+			HitSparkSize=1
+			HitSparkDispersion=1
+			TurfStrike=1
+			ActiveMessage="spins for glory!"
+			verb/Judgment()
 				set category="Skills"
 				usr.Activate(src)

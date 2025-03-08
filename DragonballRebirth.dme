@@ -667,6 +667,7 @@
 #include "Skills\queues\secrets\Vampire.dm"
 #include "Skills\queues\signatures\T1SigQueues.dm"
 #include "Skills\queues\signatures\T2SigQueues.dm"
+#include "Skills\queues\skill tree\T1SkillTreeAutoHits.dm"
 #include "Skills\queues\skill tree\T1SkillTreeQueues.dm"
 #include "Skills\queues\skill tree\T2SkillTreeAutoHits.dm"
 #include "Skills\queues\skill tree\T2SkillTreeQueues.dm"
