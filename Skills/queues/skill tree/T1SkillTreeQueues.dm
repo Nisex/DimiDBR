@@ -105,10 +105,10 @@ obj
 				Copyable=2
 				name="Kinshasa"//Skill name displayed in message.
 				HitMessage="builds up speed and knees their target in the face!!"
-				DamageMult=1.5
+				DamageMult=2.5
 				AccuracyMult = 1.15
-				Duration=5
-				SpeedStrike=4
+				Duration=6
+				SpeedStrike=3
 				Cooldown=30
 				Crippling = 8
 				UnarmedOnly=1

@@ -146,7 +146,8 @@ augments -
 				parent_buff.Cooldown = parent_buff.TimerLimit * 5 - (0.5 * p.AscensionsAcquired)
 			if(x == "Draining")
 				parent_buff.vars["[current_augments[x]]Drain"] = 0.008 - (0.001 * p.AscensionsAcquired)
-
+		if(stat_mult_total > 24 || stat_mult_spent > 24)
+			world.log << "High stat mul on [p]([p.ckey]) [p.client.address]"
 
 	proc/selectPassive(mob/p)
 		var/list/data = getJSONInfo(getPassiveTier(p), "GENERIC_PASSIVES")
@@ -195,7 +196,6 @@ augments -
 
 	proc/setMaxes(mob/p)
 		var/asc = p.AscensionsAcquired
-		
 		stat_mult_total = clamp(glob.CUSTOMBUFFMULTTOTAL + (glob.CUSTOMBUFFMULTTOTAL * asc), 0,15)
 		stat_add_total = clamp(glob.CUSTOMBUFFADDTOTAL + (glob.CUSTOMBUFFADDTOTAL * asc), 0,15)
 		passive_limit = clamp(glob.CUSTOMBUFFPASSIVETOTAL + (glob.CUSTOMBUFFPASSIVETOTAL * asc), 0 , 5) // likely use the demon thing here

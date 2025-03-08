@@ -125,7 +125,7 @@ obj/Items
 	var/SwordPunching
 	var/list/passives = list()
 	var/list/current_passives
-
+	
 	proc/onBroken()
 
 
@@ -883,6 +883,9 @@ obj/Items/Sword
 		Cost=0.3
 		Class="Light"
 		SubType="Weapons"
+		unsheatheIcon = 'KATANA SILVER.dmi'
+		unsheatheOffsetX = -16
+		unsheatheOffsetY = -16
 		Legendary
 			LegendaryItem=1
 			Unobtainable=1
@@ -898,6 +901,7 @@ obj/Items/Sword
 				CalmAnger=1
 				MagicSword=1
 				Element="Water"
+				unsheatheIcon = 'Yukianesa.dmi'
 				passives = list("CalmAnger" = 1, "MagicSword" = 1, "ManaGeneration" = 3, "AngerThreshold" = 1.5)
 				ManaGeneration=3
 				Techniques=list("/obj/Skills/Buffs/SlotlessBuffs/Grimoire/OverDrive/Frost_End", "/obj/Skills/AutoHit/FrostBite", "/obj/Skills/Projectile/Sword/TougaHyoujin", "/obj/Skills/Queue/KokujinYukikaze")
@@ -915,6 +919,9 @@ obj/Items/Sword
 		Cost=0.4
 		Class="Medium"
 		SubType="Weapons"
+		unsheatheIcon = 'Kagata.dmi'
+		unsheatheOffsetX = -16
+		unsheatheOffsetY = -16
 		Legendary
 			LegendaryItem=1
 			Unobtainable=1
@@ -965,7 +972,7 @@ obj/Items/Sword
 	Heavy
 		name="Greatsword"
 		Unobtainable=0
-		icon='HeavySword.dmi'
+		icon='Sheath Taco In Sword.dmi'
 		DamageEffectiveness=1.1
 		AccuracyEffectiveness=0.8
 		SpeedEffectiveness=0.8
@@ -975,6 +982,12 @@ obj/Items/Sword
 		Cost=0.5
 		Class="Heavy"
 		SubType="Weapons"
+		unsheatheIcon = 'Taco Blade.dmi'
+		unsheatheOffsetX = -32
+		unsheatheOffsetY = -32
+		sheatheIcon = 'Sheath Taco Empty.dmi'
+		org_icon = 'Sheath Taco In Sword.dmi'
+		removeSheathedOnUnSheathe = FALSE
 		Legendary
 			LegendaryItem=1
 			Unobtainable=1

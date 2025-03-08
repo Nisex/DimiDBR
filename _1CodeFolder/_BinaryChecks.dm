@@ -2198,7 +2198,9 @@ mob
 		SwordWounds()
 			for(var/obj/Items/Sword/s in src)
 				if(findtext(s.suffix, "Equipped"))
-					if((s.Class != "Wooden") && GetSwordDamage(s)>1)
+					if(s.Class == "Wooden" || !s.unsheathed)
+						return 0
+					if(GetSwordDamage(s)>1)
 						return 1
 			return 0
 			/*if(src.HasSword())
@@ -2976,7 +2978,9 @@ mob
 			if(passive_handler["HybridStyle"] == "[parentType]")
 				return TRUE
 		isInnovative(reqRace, path)
-			if(Saga&&Saga!="Keyblade") return FALSE
+			if(!glob.SAGAINNOVATION)
+				if(Saga&&Saga!="Keyblade")
+					return FALSE
 			// if(reqRace == HUMAN) return
 			if(isRace(reqRace) || path == "Any" && reqRace == ELF && Saga=="Keyblade")
 				if(passive_handler.Get("Innovation"))
