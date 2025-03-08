@@ -7,7 +7,7 @@
 
 mob
 	proc
-		
+
 		AscAvailable()
 			src.potential_ascend(Silent=1)
 			if(race.ascensions.len==0) return
@@ -202,7 +202,7 @@ mob
 				tmpval *= 1 + (passive_handler["Backshot"]/10)
 
 
-			
+
 			if(passive_handler["CoolingDown"])
 				StyleBuff?:hotCold = clamp(StyleBuff?:hotCold - tmpval * glob.HOTNCOLD_MODIFIER, -100, 100)
 			else if(passive_handler["HeatingUp"])
@@ -998,7 +998,7 @@ mob
 				src.StrTax=1
 		SubStrTax(var/Val, var/Forced=0)
 			if(src.Satiated&&!Drunk||Forced)
-				Val*=1.5
+				Val*=4
 			src.StrTax-=Val
 			if(src.StrTax<=0)
 				src.StrTax=0
@@ -1400,7 +1400,7 @@ mob
 				Mod+=h
 			if(src.ForEroded)
 				Mod-=src.ForEroded
-			
+
 			var/adaptive = passive_handler.Get("AngerAdaptiveForce")
 			if(adaptive && (src.HasCalmAnger() || passive_handler.Get("EndlessAnger") || Anger))
 				if(BaseFor() > BaseStr())
@@ -2786,7 +2786,7 @@ mob
 					return
 				src.saga_up_self()
 				return
-			
+
 			if(styles_available(1) && src.Potential>=glob.progress.T1_STYLES[1] && src.req_styles(0, 1))
 				DevelopSignature(src, 1, "Style")
 			if(styles_available(1) && src.Potential>=glob.progress.T1_STYLES[2] && src.req_styles(1, 1))

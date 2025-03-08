@@ -150,7 +150,7 @@ mob/Players
 					updateVersion.updateMob(src)
 		if(RPPSpendable + RPPSpent > RPPCurrent)
 			AdminMessage("[src] has more rpp than they should.")
-		
+
 		if(isRace(DEMON))
 			for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/s in src)
 				for(var/ss in s.possible_skills)
@@ -208,35 +208,35 @@ mob/Players
 				if(!was_drunk)
 					BPPoisonTimer = max(1,BPPoisonTimer - food_time)
 					if(src.StrTax)
-						src.SubStrTax(0.25/3 DAYS*food_time, Forced=1)
+						src.SubStrTax(0.25/(1 DAYS)*food_time, Forced=1)
 					if(src.EndTax)
-						src.SubEndTax(0.25/3 DAYS*food_time, Forced=1)
+						src.SubEndTax(0.25/(1 DAYS)*food_time, Forced=1)
 					if(src.SpdTax)
-						src.SubSpdTax(0.25/3 DAYS*food_time, Forced=1)
+						src.SubSpdTax(0.25/(1 DAYS)*food_time, Forced=1)
 					if(src.ForTax)
-						src.SubForTax(0.25/3 DAYS*food_time, Forced=1)
+						src.SubForTax(0.25/(1 DAYS)*food_time, Forced=1)
 					if(src.OffTax)
-						src.SubOffTax(0.25/3 DAYS*food_time, Forced=1)
+						src.SubOffTax(0.25/(1 DAYS)*food_time, Forced=1)
 					if(src.DefTax)
-						src.SubDefTax(0.25/3 DAYS*food_time, Forced=1)
+						src.SubDefTax(0.25/(1 DAYS)*food_time, Forced=1)
 					if(src.RecovTax)
-						src.SubRecovTax(0.25/3 DAYS*food_time, Forced=1)
+						src.SubRecovTax(0.25/(1 DAYS)*food_time, Forced=1)
 			if(regen_time>food_time)
 				regen_time-=food_time
 				if(src.StrTax)
-					src.SubStrTax(0.25/3 DAYS*regen_time)
+					src.SubStrTax(0.25/(1 DAYS*regen_time))
 				if(src.EndTax)
-					src.SubEndTax(0.25/3 DAYS*regen_time)
+					src.SubEndTax(0.25/(1 DAYS)*regen_time)
 				if(src.SpdTax)
-					src.SubSpdTax(0.25/3 DAYS*regen_time)
+					src.SubSpdTax(0.25/(1 DAYS)*regen_time)
 				if(src.ForTax)
-					src.SubForTax(0.25/3 DAYS*regen_time)
+					src.SubForTax(0.25/(1 DAYS)*regen_time)
 				if(src.OffTax)
-					src.SubOffTax(0.25/3 DAYS*regen_time)
+					src.SubOffTax(0.25/(1 DAYS)*regen_time)
 				if(src.DefTax)
-					src.SubDefTax(0.25/3 DAYS*regen_time)
+					src.SubDefTax(0.25/(1 DAYS)*regen_time)
 				if(src.RecovTax)
-					src.SubRecovTax(0.25/3 DAYS*regen_time)
+					src.SubRecovTax(0.25/(1 DAYS)*regen_time)
 
 			last_online = world.realtime
 
@@ -340,7 +340,7 @@ mob/Players
 		if(Secret == "Vampire")
 			//TODO add blood hud here
 			Secret = "Vampire"
-			
+
 
 
 		if(AllowObservers)
