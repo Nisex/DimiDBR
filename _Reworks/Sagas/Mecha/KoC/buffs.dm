@@ -59,7 +59,7 @@
 		set category="Skills"
 		src.Trigger(usr)
 /obj/Skills/Buffs/SlotlessBuffs/Veiled_Reality // drain DeM when at 50% to gain a part of its power now
-
+	ResourceCost = list("Deus Ex Machina", 1/2)
 	verb/Libera_Me_From_Hell()
 		set category = "Skills"
 

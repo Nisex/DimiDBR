@@ -11500,6 +11500,8 @@ mob
 								storage = passive_handler[resourceName]
 						if(cost == 999)
 							cost = storage
+						else if(cost == 0.5)
+							cost = storage/2
 						else
 							if(storage - cost < 0)
 								src << " you need more [resourceName]"
