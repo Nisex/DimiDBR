@@ -544,7 +544,7 @@ NEW VARIABLES
 	var/TooMuchHealth=0//Once this value is passed, the buff deactivates.
 	var/TooLittleMana=0//Once this value is passed, the buff deactivates.
 	var/AlwaysOn=0//If the object exists in the target, its always on.  When it gets turned off, delete it
-	var/doNotDelete = 0 
+	var/doNotDelete = 0
 	var/ActiveBuffLock=0//Prevents active buffs from being used
 	var/SpecialBuffLock=0//Prevents special buffs from being used
 	var/TensionLock=0//TODO: rename to tension lock
@@ -1015,7 +1015,7 @@ NEW VARIABLES
 
 			verb/Check_Power_Nerf_Timer()
 				set hidden = 1
-				src << "Total: [usr.GatesNerfPerc], Off @ [time2text(usr.GatesNerf, "MM:DD:hh:mm:ss", "est")]"
+				usr << "Total: [usr.GatesNerfPerc]%, Off @ [time2text(usr.GatesNerf, "MM/DD  hh:mm:ss", "est")]"
 
 			proc/shutOffEffects(mob/p, level, dontWound = FALSE)
 				p.GatesActive=0
@@ -1076,7 +1076,6 @@ NEW VARIABLES
 					if(7)
 						p.GatesNerfPerc=50
 						p.GatesNerf=RawHours(6)
-
 				p.AddStrTax(tax)
 				p.AddEndTax(tax)
 				p.AddSpdTax(tax)
@@ -3380,7 +3379,7 @@ NEW VARIABLES
 								passives["Burning"] = 3
 								passives["Scorching"] = 3
 								passives["DarknessFlame"] = 3
-	
+
 							if(usr.SyncAttached=="No Name")
 								passives["StealsStats"] = 1
 
@@ -9317,7 +9316,7 @@ NEW VARIABLES
 						OffMessage="has failed their tribulation..."
 
 
-					
+
 					Potemkin_Buster
 						StyleNeeded = "Ubermensch"
 						VaizardHealth = 0.3
@@ -11493,7 +11492,7 @@ mob
 						var/resourceName = B.ResourceCost[1]
 						var/storage = 0
 						var/cost = B.ResourceCost[2]
-						if(resourceName in vars) //AHAHAHA! 
+						if(resourceName in vars) //AHAHAHA!
 							// the cost associated exists
 							storage = vars[resourceName]
 						else
@@ -11516,8 +11515,8 @@ mob
 									if(!B.Autonomous)
 										src << "You don't have enough [resourceName] to use [B]"
 									return FALSE
-								
-						
+
+
 
 					if(B.CorruptionCost)
 						if(src.Corruption - B.CorruptionCost < 0)
@@ -11915,7 +11914,7 @@ mob
 			src.Tension=0
 			src.StanceActive=0
 			src.StyleBuff=null
-			
+
 			if(isplayer(src))
 				src:move_speed = MovementSpeed()
 
@@ -12766,7 +12765,7 @@ mob
 				if(B.BuffName=="Ki Control")
 					if(B.OverlayTransLock)
 						goto IgnoreIcon
-				
+
 				var/image/im=image(icon=B.IconLock, pixel_x=B.LockX, pixel_y=B.LockY, icon_state = B.IconState, layer=FLOAT_LAYER-B.IconLayer)
 				im.blend_mode=B.IconLockBlend
 				im.transform*=B.OverlaySize
@@ -13198,7 +13197,7 @@ mob
 						if(passive_handler[resourceName] < 0)
 							passive_handler.Set(resourceName, 0 )// shouldnt b possible
 
-				
+
 			if(B.CorruptionCost)
 				gainCorruption(-B.CorruptionCost)
 			if(B.CapacityCost)
