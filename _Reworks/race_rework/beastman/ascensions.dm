@@ -32,7 +32,7 @@ ascension
 							offense = 0.25
 							defense = -0.25
 							endurance = -0.25
-						if("Feather Cloak")
+						if("Feather Cowl")
 							owner.passive_handler.Increase("BlockChance", 25)
 							owner.passive_handler.Increase("CriticalBlock", 0.15)
 							endurance = 0.5
@@ -102,7 +102,7 @@ ascension
 							offense = 0.25
 							defense = -0.25
 							endurance = -0.25
-						if("Feather Cloak")
+						if("Feather Cowl")
 							owner.passive_handler.Increase("BlockChance", 25)
 							owner.passive_handler.Increase("CriticalBlock", 0.15)
 							endurance = 0.5
