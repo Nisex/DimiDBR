@@ -241,6 +241,12 @@ update
 						
 			for(var/x in statMods)
 				p.vars["[x]Ascension"] = 0
+	version11
+		version = 11
+		updateMob(mob/p)
+			. = ..()
+			if(p.isRace(HALFSAIYAN))
+				p.stat_redo()
 
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
