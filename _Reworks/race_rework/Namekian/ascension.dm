@@ -5,30 +5,31 @@ ascension
 		one
 			unlock_potential	=	ASCENSION_ONE_POTENTIAL
 			onAscension(mob/owner)
-				switch(owner.Class)
-					if("Demon")
-						//power = 0.75
-						strength = 0.25
-						speed = 0.25
-						endurance = 0.25
-						anger = 0.15 // 1.4
-						passives = list("Hellrisen" = 0.25)
-					if("Dragon")  /// after the merge, unmerged Dragon and Warrior will also receive some scaling power. Levi added it in for Gaja's in his push
-						///power = 0.75
-						passives = list("SpiritFlow" = 0.25)
-						force = 0.5
-						imaginationAdd = 0.5
-						recovery = 0.25
-						skills = list(/obj/Skills/Utility/Send_Energy)
-					if("Warrior")
-						//power = 1
-						passives = list("Duelist" = 0.5)
-						strength = 0.25
-						endurance = 0.25
-				if(owner.Class=="Dragon")
-					for(var/obj/Skills/Utility/Send_Energy/se in owner.contents)
-						se.SagaSignature=1
-						se.SignatureTechnique=0
+				if(!applied)
+					switch(owner.Class)
+						if("Demon")
+							//power = 0.75
+							strength = 0.25
+							speed = 0.25
+							endurance = 0.25
+							anger = 0.15 // 1.4
+							passives = list("Hellrisen" = 0.25)
+						if("Dragon")  /// after the merge, unmerged Dragon and Warrior will also receive some scaling power. Levi added it in for Gaja's in his push
+							///power = 0.75
+							passives = list("SpiritFlow" = 0.25)
+							force = 0.5
+							imaginationAdd = 0.5
+							recovery = 0.25
+							skills = list(/obj/Skills/Utility/Send_Energy)
+						if("Warrior")
+							//power = 1
+							passives = list("Duelist" = 0.5)
+							strength = 0.25
+							endurance = 0.25
+					if(owner.Class=="Dragon")
+						for(var/obj/Skills/Utility/Send_Energy/se in owner.contents)
+							se.SagaSignature=1
+							se.SignatureTechnique=0
 				..()
 		two
 			unlock_potential	=	ASCENSION_TWO_POTENTIAL

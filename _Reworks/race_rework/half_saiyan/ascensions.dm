@@ -5,28 +5,29 @@ ascension
 			intimidation = 10
 			passives = list("Tenacity" = 1, "Adrenaline" = 0.25)
 			onAscension(mob/owner)
-				switch(owner.Class)
-					if("Compassion")
-						passives["UnderDog"] = 0.5
-						passives["TechniqueMastery"] = 1
-						speed=0.25
-						strength=0.25
-						defense=0.25
-						endurance=0.25
-						anger = 0.1
-						for(var/transformation/saiyan/super_saiyan_3/ssj3 in owner.race.transformations)
-							owner.race.transformations -= ssj3
-							del ssj3
-						owner.race.transformations.Add(new/transformation/half_saiyan/human/ultimate_mode())
-						owner.race.transformations.Add(new/transformation/half_saiyan/human/beast_mode())
-					if("Anger")
-						passives["Enrage"]=1
-						passives["CheapShot"]=0.5
-						passives["Brutalize"]=0.25
-						offense = 0.25
-						strength = 0.5
-						force = 0.25
-						anger = 0.25
+				if(!applied)
+					switch(owner.Class)
+						if("Compassion")
+							passives["UnderDog"] = 0.5
+							passives["TechniqueMastery"] = 1
+							speed=0.25
+							strength=0.25
+							defense=0.25
+							endurance=0.25
+							anger = 0.1
+							for(var/transformation/saiyan/super_saiyan_3/ssj3 in owner.race.transformations)
+								owner.race.transformations -= ssj3
+								del ssj3
+							owner.race.transformations.Add(new/transformation/half_saiyan/human/ultimate_mode())
+							owner.race.transformations.Add(new/transformation/half_saiyan/human/beast_mode())
+						if("Anger")
+							passives["Enrage"]=1
+							passives["CheapShot"]=0.5
+							passives["Brutalize"]=0.25
+							offense = 0.25
+							strength = 0.5
+							force = 0.25
+							anger = 0.25
 				..()
 
 		two

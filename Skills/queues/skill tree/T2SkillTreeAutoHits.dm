@@ -7,9 +7,9 @@ obj
 			FlickAttack=1
 			Area="Arc"
 			ComboMaster=1
-			Distance=5
+			Distance=6
 			Slow=0
-			Knockback=10
+			Knockback=3
 			PreShockwave=1
 			PostShockwave=0
 			Shockwaves=1
@@ -20,15 +20,16 @@ obj
 			NoPierce=0
 			StrOffense=1
 			EndDefense=1
-			DamageMult=6
+			DamageMult=4
 			Cooldown=60
 			HitSparkIcon='BLANK.dmi'
 			HitSparkX=0
 			HitSparkY=0
 			EnergyCost=3
 			Earthshaking=5
-			WindUp=1
+			WindUp=0.6
 			Instinct=1
+			Determinator=1
 			WindupMessage="focuses their chi..."
 			ActiveMessage="sends a wave of force with a single palm thrust!"
 			verb/Force_Palm()
@@ -42,11 +43,11 @@ obj
 			ComboMaster=1
 			Distance=4
 			StrOffense=1
-			DamageMult=5
+			DamageMult=4
 			Cooldown=60
 			Stunner=2
-			Knockback=25
-			Size=2
+			Knockback=15
+			Size=4
 			HitSparkIcon='BLANK.dmi'
 			HitSparkX=0
 			HitSparkY=0
@@ -86,7 +87,7 @@ obj
 			SkillCost=TIER_2_COST
 			Copyable=3
 			UnarmedOnly=1
-			FlickAttack=3
+			FlickAttack=1
 			Area="Circle"
 			NoLock=1
 			NoAttackLock=1

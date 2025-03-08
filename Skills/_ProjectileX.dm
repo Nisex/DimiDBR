@@ -1617,8 +1617,7 @@ obj
 				SignatureTechnique=1
 				Distance=15
 				AccMult=2
-				DamageMult=1
-				Blasts=10
+				DamageMult=0.5
 				EnergyCost=15
 				Cooldown=120
 				Explode=1
