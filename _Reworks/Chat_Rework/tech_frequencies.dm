@@ -35,7 +35,7 @@ proc/removeFromGlobalListeners(obj/Items/Tech/listener)
 obj/Items/Tech/proc/broadcastToListeners(msg)
 //	if(!Active) return
 	if(!Frequency) return
-	if((z in globalTracker.ZBlockedComms) || (src.loc.z in globalTracker.ZBlockedComms))
+	if((z in glob.ZBlockedComms) || (src.loc.z in glob.ZBlockedComms))
 		if(ismob(loc))
 			var/broadcastFormattingPersonal = "[BROADCAST_COLOR]<b>([name])</b> BZZZZTTT..."
 			var/mob/owner = loc
@@ -54,7 +54,7 @@ obj/Items/Tech/proc/broadcastToListeners(msg)
 obj/Items/Tech/proc/recieveBroadcast(msg)
 //	if(!Active) return
 	if(!Frequency) return
-	if((z in globalTracker.ZBlockedComms) || (src.loc.z in globalTracker.ZBlockedComms))
+	if((z in glob.ZBlockedComms) || (src.loc.z in glob.ZBlockedComms))
 		if(ismob(loc))
 			var/broadcastFormattingPersonal = "[BROADCAST_COLOR]<b>([name])</b> BZZZZTTT..."
 			var/mob/owner = loc
