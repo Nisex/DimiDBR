@@ -181,6 +181,72 @@ obj
 			verb/Helicopter_Kick()
 				set category="Skills"
 				usr.Activate(src)
+		
+		Three_Thousand_Worlds
+			SkillCost= TIER_2_COST
+			Copyable=3
+			NeedsSword=1
+			Area="Circle"
+			DamageMult=2
+			Rounds=2
+			ChargeTech=1
+			StrOffense=1
+			ChargeFlight=1
+			ChargeTime=0.75
+			Grapple=1
+			GrabTrigger="/obj/Skills/AutoHit/Oni_Giri"
+			GrabMaster=1
+			Cooldown=60
+			Size=1
+			FlickSpin=1
+			EnergyCost=2
+			NoLock=1
+			NoAttackLock=1
+			Icon='CircleWind.dmi'
+			IconX=-32
+			IconY=-32
+			HitSparkIcon='Slash.dmi'
+			HitSparkX=-32
+			HitSparkY=-32
+			HitSparkTurns=1
+			HitSparkSize=1
+			HitSparkDispersion=1
+			TurfStrike=1
+			ActiveMessage="shreds a path forward!"
+			verb/Disable_Innovate()
+				set category = "Other"
+				disableInnovation(usr)
+			adjust(mob/p)
+				if(p.isInnovative(HUMAN, "Sword") && !isInnovationDisable(p))
+					GrabTrigger="/obj/Skills/Grapple/Sword/No_Worries"
+					Rounds = 2 + round(p.Potential/25)
+					HealthCost=2
+					WoundCost=2
+				else
+					GrabTrigger="/obj/Skills/AutoHit/Oni_Giri"
+					HealthCost=0
+					WoundCost=0
+					Rounds = 2
+			verb/Three_Thousand_Worlds()
+				set category="Skills"
+				adjust(usr)
+				usr.Activate(src)
+		Oni_Giri
+			Copyable=0
+			Area="Circle"
+			Distance=2
+			GrabMaster=1
+			DamageMult=2
+			AdaptRate=1
+			Size=2
+			HitSparkIcon='Slash.dmi'
+			HitSparkX=-32
+			HitSparkY=-32
+			HitSparkTurns=1
+			HitSparkSize=1
+			HitSparkDispersion=1
+			TurfStrike=1
+			GrabTrigger="/obj/Skills/Grapple/Sword/Shank"
 		Hero_Spin
 			SkillCost=80
 			Copyable=2
@@ -240,12 +306,11 @@ obj
 					Rush=0
 					ChargeTech=0
 					ChargeTime=0
-					Size = 4 + (round(pot/25))
-					Distance = 4 + (round(pot/25))
-					Launcher = 2 + (round(pot/25))
-					WindUp=0.25
+					Size = 2 + (round(pot/25))
+					Distance = 6 + (round(pot/25))
+					WindUp=0.75
 					Knockback = 0.001
-					PullIn = Size + 2
+					PullIn = Size + 4
 					Shearing = 5 + (pot/5)
 
 				else
@@ -267,17 +332,20 @@ obj
 			SkillCost=TIER_2_COST
 			Copyable=3
 			NeedsSword=1
-			Area="Circle"
+			Distance=1
+			PassThrough=1
+			Slow=0.75
+			Area="Wave"
 			StrOffense=1
 			ComboMaster = 1
-			DamageMult=1.8
+			DamageMult=1
 			Cooldown=60
 			Knockback=0
-			Rounds=3
+			Rounds=4
 			Launcher=2
 			NoLock=1
 			NoAttackLock=1
-			Size=1
+			Size=2
 			Icon='CircleWind.dmi'
 			IconX=-32
 			IconY=-32

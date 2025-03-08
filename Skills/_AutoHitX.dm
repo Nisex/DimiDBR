@@ -1869,7 +1869,7 @@ obj
 				NeedsSword=1
 				Area="Circle"
 				StrOffense=1
-				Distance=3
+				Distance=5
 				DamageMult=6
 				Knockback=15
 				WindUp=0.5
@@ -4175,15 +4175,15 @@ obj
 				StyleNeeded="Ansatsuken"
 				proc/alter(mob/player)
 					ManaCost = 0
-					var/damage = clamp(2 + 0.3 * (usr.SagaLevel/2), 0.4, 11)
+					var/damage = clamp(0.5 + 0.3 * (usr.SagaLevel/2), 0.4, 11)
 					var/path = player.AnsatsukenPath == "Tatsumaki" ? 1 : 0
-					var/rounds = clamp(1 + (usr.SagaLevel), 2, 8)
+					var/rounds = clamp(2 + (usr.SagaLevel), 2, 8)
 					var/cooldown = 40
 					var/launch = 0
 					if(path)
 						cooldown = 30
-						damage = clamp(3 + 0.4 * (usr.SagaLevel), 0.8, 11)
-						rounds = clamp(usr.SagaLevel+2, 2, 8)
+						damage = clamp(1.2 + 0.4 * (usr.SagaLevel), 0.8, 11)
+						rounds = clamp(1 + usr.SagaLevel+2, 2, 8)
 					DamageMult = damage
 					Cooldown = cooldown
 					Rounds = rounds
@@ -5412,9 +5412,9 @@ mob
 					src.AddSkill(new path)
 				src.Grab_Update()
 				if(src.Grab)
-					for(var/obj/Skills/Grapple/g in src.Skills)
+					for(var/obj/Skills/g in src.Skills)
 						if(g.type == path)
-							g.Activate(src)
+							throwSkill(g)
 							break
 			if(Z.AssociatedGear)
 				if(!Z.AssociatedGear.InfiniteUses)

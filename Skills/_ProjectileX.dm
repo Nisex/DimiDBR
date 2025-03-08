@@ -1374,7 +1374,7 @@ obj
 				NewCopyable = 2
 				SkillCost=80
 				Copyable=3
-				Blasts=10
+				Blasts=12
 				DamageMult=0.33
 				Radius=1
 				AccMult=3
@@ -1387,7 +1387,7 @@ obj
 				ZoneAttack=1
 				ZoneAttackX=8
 				ZoneAttackY=8
-				Hover=16
+				Hover=24
 				FireFromSelf=0
 				FireFromEnemy=1
 				Cooldown=30
@@ -1419,7 +1419,7 @@ obj
 				Radius=1
 				AccMult=50
 				Deflectable=0
-				Speed=2.25
+				Speed=1.5
 				RandomPath=2
 				LosesHoming=9
 				HomingCharge=100
@@ -2191,9 +2191,9 @@ obj
 				EndRate=1
 				Knockback=10
 				MultiHit=4
-				DamageMult=0.2
+				DamageMult=0.15
 				AccMult = 1.25
-				Deflectable=0
+				Deflectable=1
 				Distance=10
 				Instinct=2
 

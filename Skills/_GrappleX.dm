@@ -397,6 +397,13 @@ obj/Skills/Grapple
 			Effect="Shockwave"
 			EffectMult=3
 			//set from other queues
+		Shank
+			DamageMult=1
+			StrRate=1
+			ThrowMult=3
+			ThrowAdd=1
+			Effect="Shockwave"
+			EffectMult=0.1
 		Eviscerate
 			Copyable=4
 			SkillCost=TIER_3_COST
@@ -432,6 +439,15 @@ obj/Skills/Grapple
 				TriggerMessage="uses their legs to crush"
 				Cooldown=0
 				//set from Acubens
+		No_Worries
+			Copyable = 0
+			DamageMult=8
+			StrRate=1.5
+			Stunner=3
+			Effect="Shockwave"
+			EffectMult=1
+			Cooldown=60
+			TriggerMessage="tries to commit double suicide with "
 		Form_Ataru
 			Copyable=4
 			SkillCost=TIER_3_COST
