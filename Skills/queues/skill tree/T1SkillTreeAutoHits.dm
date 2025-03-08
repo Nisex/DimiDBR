@@ -29,9 +29,9 @@ obj
 					Knockback=0
 					Rounds= 2 + round(p.Potential/25)
 					Size = 1 + round(p.Potential/50)
-					Windup=0.5
+					WindUp=0.5
 					Distance = 12
-					DamageMult = 2 + p.Potental/100
+					DamageMult = 2 + p.Potential/100
 
 				else
 					Area = "Wave"
@@ -39,7 +39,7 @@ obj
 					Knockback=5
 					Rounds = 0
 					Size = 0
-					Windup=0
+					WindUp=0
 					Distance = 6
 
 			verb/Sword_Pressure()
