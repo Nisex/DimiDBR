@@ -49,14 +49,14 @@ obj
 			SkillCost= TIER_1_COST
 			Copyable=2
 			NeedsSword=1
-			Area="Wave"
+			Area="Strike"
 			PassThrough=1
 			Distance=4
 			StrOffense=1
 			NoPierce=1
 			Knockback=3
 			DamageMult=2.2
-			Rush=2
+			Rush=3
 			Cooldown=30
 			EnergyCost=2
 			ActiveMessage="dashes forward with a jousting strike!"
@@ -72,7 +72,8 @@ obj
 					Knockback = 1
 					Launcher = 2
 					ComboMaster = 1
-					Rush=3
+					Size = 3
+					Distance = 12
 					DamageMult = 0.5 + (pot / 100)
 					TurfStrike=2
 					TurfShift='Dirt1.dmi'
@@ -80,6 +81,8 @@ obj
 				else
 					PassThrough = 0
 					Rounds = 1
+					Size = 0
+					Distance = 4
 					Knockback = 3
 					Launcher = 0
 					ComboMaster = 0
@@ -97,12 +100,12 @@ obj
 			Copyable=4
 			NeedsSword=1
 			Area="Wave"
-			Distance=2
+			Distance=4
 			PassThrough=1
 			StrOffense=1
 			DamageMult=1.5
 			EnergyCost=3
-			Rounds = 2
+			Rounds = 1
 			HitSparkIcon='Slash.dmi'
 			HitSparkX=-32
 			HitSparkY=-32
