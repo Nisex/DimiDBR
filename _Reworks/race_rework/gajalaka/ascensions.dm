@@ -35,7 +35,7 @@ ascension
 							defense = 0.25
 							strength = 0.25
 							passives = list("Tenacity" = 1,"DebuffResistance" = 0.25, "DemonicDurability" = 0.25)
-					..()
+				..()
 
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL

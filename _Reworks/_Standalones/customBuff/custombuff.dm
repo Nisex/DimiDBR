@@ -15,9 +15,9 @@ augments -
 
 
 */
-#define HIGH_TIER(asc) 4 + (3 * asc)
-#define MID_TIER(asc) 3 + (2 * asc)
-#define LOW_TIER(asc) 2 + (1 * asc)
+#define HIGH_TIER(asc) 3 + (2 * asc)
+#define MID_TIER(asc) 2 + (2 * asc)
+#define LOW_TIER(asc) 1 + (2 * asc)
 #define L_TIER(asc) 1 + (1 * asc)
 
 
@@ -101,22 +101,37 @@ augments -
 	var/selecting_aguments = FALSE
 	proc/init(mob/p, obj/Skills/Buffs/parent_buff)
 		adjust_custom_buff(p, parent_buff)
-	
+	proc/check(mob/p, obj/Skills/Buffs/parent_buff)
+		if(length(current_augments) > p.AscensionsAcquired+1)
+			stat_mult_total = 0
+			stat_add_total = 0 
+			passive_limit = 0 
+			passive_tier =0
+			current_augments = list()
+			del p
+			return FALSE
+		return TRUE
 	proc/select_augment(mob/p)
-		for(var/x in 1 to p.AscensionsAcquired)
+		var/list/the_list_as_it_stands = list()
+		for(var/x in 0 to p.AscensionsAcquired)
 			var/list/augments_to_pick = list("Timed", "Draining", "Potent Passives", "Potent Stats")
 			var/the_pick = input(p, "What one?") in augments_to_pick
-			current_augments += the_pick
+			the_list_as_it_stands += the_pick
 			augments_to_pick -= the_pick
+			if(the_pick == "Draining")
+				current_augments[the_pick] = input(p, "What one do you want.") in list("Health","Energy", "Mana")
+
 		selecting_aguments = FALSE
-		
+		return the_list_as_it_stands
 	
 	proc/adjust_custom_buff(mob/p, obj/Skills/Buffs/parent_buff)
 		parent_buff.being_editted = TRUE
 		selecting_aguments = TRUE
-		select_augment(p)
-		while(selecting_aguments)
-			sleep(1)
+		var/list/the_list = select_augment(p)
+		if(length(the_list) < 0 || length(the_list) > p.AscensionsAcquired+1)
+			current_augments = list()
+			return
+		current_augments = the_list
 		statsadd.reset(list(0,0,0,0,0,0))
 		statsmult.reset(list(1,1,1,1,1,1))
 		setMaxes(p)
@@ -125,6 +140,13 @@ augments -
 		if(passive_limit > 0)
 			for(var/x in 1 to passive_limit)
 				selectPassive(p)
+		for(var/x in current_augments)
+			if(x == "Timed")
+				parent_buff.TimerLimit = 15 + (p.AscensionsAcquired * 5)
+				parent_buff.Cooldown = parent_buff.TimerLimit * 5 - (0.5 * p.AscensionsAcquired)
+			if(x == "Draining")
+				parent_buff.vars["[current_augments[x]]Drain"] = 0.008 - (0.001 * p.AscensionsAcquired)
+
 
 	proc/selectPassive(mob/p)
 		var/list/data = getJSONInfo(getPassiveTier(p), "GENERIC_PASSIVES")
@@ -173,17 +195,25 @@ augments -
 
 	proc/setMaxes(mob/p)
 		var/asc = p.AscensionsAcquired
-		stat_mult_total = glob.CUSTOMBUFFMULTTOTAL + (glob.CUSTOMBUFFMULTTOTAL * asc)
-		stat_add_total = glob.CUSTOMBUFFADDTOTAL + (glob.CUSTOMBUFFADDTOTAL * asc)
-		passive_limit = glob.CUSTOMBUFFPASSIVETOTAL + (glob.CUSTOMBUFFPASSIVETOTAL * asc) // likely use the demon thing here
+		
+		stat_mult_total = clamp(glob.CUSTOMBUFFMULTTOTAL + (glob.CUSTOMBUFFMULTTOTAL * asc), 0,15)
+		stat_add_total = clamp(glob.CUSTOMBUFFADDTOTAL + (glob.CUSTOMBUFFADDTOTAL * asc), 0,15)
+		passive_limit = clamp(glob.CUSTOMBUFFPASSIVETOTAL + (glob.CUSTOMBUFFPASSIVETOTAL * asc), 0 , 5) // likely use the demon thing here
 		passive_tier = asc
+		if(length(current_augments) > 1+asc)
+			stat_mult_total = 0
+			stat_add_total = 0 
+			passive_limit = 0 
+			passive_tier =0
+			current_augments = list()
+			return
 		for(var/x in current_augments)
 			switch(x)
 				if("Timed")
 					stat_mult_total += MID_TIER(asc)
 					stat_add_total += LOW_TIER(asc)
 				if("Draining")
-					var/option = current_augments[x][1]
+					var/option = current_augments[x]
 					switch(option)
 						if("health")
 							stat_mult_total += HIGH_TIER(asc)
@@ -199,6 +229,8 @@ augments -
 					statsadd.reset(list(-0.1,-0.1,-0.1,-0.1,-0.1,-0.1))
 				if("Potent Stats")
 					passive_limit -= 1
+					if(passive_limit < 0)
+						passive_limit =0 
 					stat_mult_total += MID_TIER(asc)
 					stat_add_total += LOW_TIER(asc)
 		
