@@ -197,7 +197,7 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 					SpecialBuff?:sandevistanUsages = 0
 					src << "Your Sandevistan Usages has been reset."
 		if(Secret == "Zombie" && MeditateTime == 70)
-			zombieGetUps = 0 
+			zombieGetUps = 0
 			src << "Your get ups have been reset"
 
 		if(calmcounter<=0)
@@ -559,7 +559,7 @@ mob
 						src.Revert()
 						src.LoseEnergy(30)
 						src<<"The strain of Super Saiyan forced you to revert!"
-				
+
 /*
 			if(src.trans["active"]>3 && src.masteries["4mastery"]<100 && src.Race=="Changeling")
 				if(src.Energy<30&&!src.HasNoRevert())
@@ -913,19 +913,19 @@ mob
 						GatesActive = 0
 
 			if(src.StrTax)
-				src.SubStrTax((0.25/3) DAYS)
+				src.SubStrTax(0.25/(2 DAYS))
 			if(src.EndTax)
-				src.SubEndTax((0.25/3) DAYS)
+				src.SubEndTax(0.25/(2 DAYS))
 			if(src.SpdTax)
-				src.SubSpdTax((0.25/3 )DAYS)
+				src.SubSpdTax(0.25/(2 DAYS))
 			if(src.ForTax)
-				src.SubForTax((0.25/3) DAYS)
+				src.SubForTax(0.25/(2 DAYS))
 			if(src.OffTax)
-				src.SubOffTax((0.25/3 )DAYS)
+				src.SubOffTax(0.25/(2 DAYS))
 			if(src.DefTax)
-				src.SubDefTax((0.25/3) DAYS)
+				src.SubDefTax(0.25/(2 DAYS))
 			if(src.RecovTax)
-				src.SubRecovTax((0.25/3 )DAYS)
+				src.SubRecovTax(0.25/(2 DAYS))
 
 			if(src.AngerCD!=0)
 				src.AngerCD=max(src.AngerCD-1,0)
@@ -1515,7 +1515,7 @@ mob
 										if((last_aura_toss - ((passive_handler["Familiar"]-1) * glob.FAMILIAR_CD_REDUCTION)) + glob.FAMILIAR_SKILL_CD < world.time && (Target && Target != src))
 											last_aura_toss = world.time
 											throwFollowUp(aura.skillToToss)
-							
+
 						else
 
 							if(src.Target&&get_dist(src,src.Target) > b.Range)
