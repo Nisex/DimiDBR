@@ -39,7 +39,7 @@
 	Wing_Chun_Style
 		SignatureTechnique=1
 		Copyable=0
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Assassination_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phoenix_Eye_Fist")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phoenix_Eye_Fist")
 		StyleSpd=1.15
 		StyleOff=1.15
 		StyleDef=1.15

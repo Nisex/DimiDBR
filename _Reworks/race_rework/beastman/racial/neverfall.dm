@@ -9,10 +9,11 @@
         set_to = 1
 
         init(mob/p, obj/Skills/Buffs/SlotlessBuffs/b)
-            parent_buff = b
-            owner = p
-            trigger_at = 50 - (p.AscensionsAcquired * 5)
-            reference_this = p // likely good to make this a .vars otherwise or some sort of list to refernce vars
+            if(p)
+                parent_buff = b
+                owner = p
+                trigger_at = 50 - (p.AscensionsAcquired * 5)
+                reference_this = p // likely good to make this a .vars otherwise or some sort of list to refernce vars
 
 
 

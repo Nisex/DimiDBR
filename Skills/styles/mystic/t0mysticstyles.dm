@@ -92,6 +92,8 @@
 	if(last_style_effect == 0)
 		return TRUE
 	var/static_cd = glob.STYLE_EFFECT_CD
+	if(passive_name == "BlindingVenom")
+		static_cd += glob.BLINDINGVENOM_CD
 	var/cd = static_cd
 	if(!passive_name)
 		for(var/x in list("AirBend", "WaveDancer", "EntaglingRoots", "BlindingVenom", "BloodEruption"))

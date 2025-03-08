@@ -15,7 +15,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 10
+	var/UPDATE_VERSION = 11
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -247,6 +247,23 @@ update
 			. = ..()
 			if(p.isRace(HALFSAIYAN))
 				p.stat_redo()
+				p.race.fixAscensions()
+			if(p.isRace(GAJALAKA))
+				p.race.fixAscensions()
+			var/obj/Skills/s = p.FindSkill(/obj/Skills/Queue/Larch_Dance)
+			if(s)
+				p << "Larch Dance removed."
+				del s
+				p.RPPSpendable += TIER_2_COST
+				p.RPPSpent -= TIER_2_COST
+	
+	version12
+		version = 12
+		updateMob(mob/p)
+			. = ..()
+			if(p.isRace(HALFSAIYAN))
+				p.race.fixAscensions()
+			
 
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )

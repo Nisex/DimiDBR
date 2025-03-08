@@ -22,7 +22,7 @@ SoldierTracker
     var/owner_ref
     New(mob/p, dmg, timer)
         owner_ref = "\ref[p]"
-        damageValue = clamp(dmg / 10, 0.1,1)
+        damageValue = clamp(dmg / 2, 0.1,1)
         timeLimit = timer
         lastAttack = 0
         attackDelay = 10
@@ -65,7 +65,7 @@ SoldierTracker
         ForMult = 3
         SpdMult = 3
         OffMult = 3
-        passives = list("BackTrack" = 1, "Flow" = 1, "Instinct" = 1, "GodKi" = 1, "NoWhiff" = 1, "NoMiss" = 1)
+        passives = list("BackTrack" = 1, "Flow" = 1, "Instinct" = 1, "GodKi" = 1, "NoWhiff" = 1, "NoMiss" = 1, "MonkeyKing" = 4)
         FlashChange=1
         HairLock=1
         AuraLock='BLANK.dmi'

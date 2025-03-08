@@ -50,10 +50,6 @@ ascension
 							strength = 0.1
 							offense = 0.2
 							defense = 0.2
-						if("Shapeshifter")
-							var/obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Shapeshift/s = owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Shapeshift)
-							s.c_buff.adjust_custom_buff(owner, s)
-
 						if("Trickster")
 							ecoAdd = 1
 							imaginationAdd = 0.5
@@ -70,6 +66,10 @@ ascension
 							offense = 0.25
 							force = 0.5
 				..()
+				if(!applied)
+					if(owner.Class == "Shapeshifter")
+						var/obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Shapeshift/s = owner.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Racial/Beastman/Shapeshift)
+						s.c_buff.adjust_custom_buff(owner, s)
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
 			onAscension(mob/owner)

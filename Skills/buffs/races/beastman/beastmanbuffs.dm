@@ -164,6 +164,8 @@
 	adjust(mob/p)
 		if(p.BuffOn(src))
 			return
+		if(!c_buff.check(p, src))
+			return
 		var/list/full2short = list("Strength" = "str", "Force" = "for", "Endurance" = "end", "Offense" = "off", "Defense" = "def", \
 									"Speed" = "spd")
 		for(var/x in full2short)
@@ -172,9 +174,13 @@
 			vars["[full2short[x]]Add"] = c_buff.statsadd.calc_stat(c_buff.statsadd.vars[x], TRUE)
 		
 		passives = c_buff.current_passives
-	verb/Shapeshift()
-		set category = "Skills"
-		Trigger(usr)
+	verb/Adjust_Shapeshifter()
+		set category = "Utility"
+		if(!usr.BuffOn(src) && !c_buff.selecting_aguments)
+			c_buff.adjust_custom_buff(usr, src)
+			if(!c_buff.check(usr, src))
+				return
+
 /obj/Skills/Buffs/SlotlessBuffs/Racial/Blend_In
 	Invisible = 22
 	ActiveMessage = "blends into their surroundings"

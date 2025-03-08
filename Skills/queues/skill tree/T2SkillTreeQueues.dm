@@ -81,7 +81,9 @@ obj
 				EnergyCost=5
 				InstantStrikes=10
 				InstantStrikesDelay=1.5
-
+				verb/Gravity_Blade()
+					set category="Skills"
+					usr.SetQueue(src)
 			Larch_Dance // REMOVED
 				ActiveMessage="prepares a murderous chain of counterattacks!"
 				DamageMult=1.1

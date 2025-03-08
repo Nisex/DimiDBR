@@ -182,8 +182,9 @@ race
 			if it isn't, you have to manually add them.
 			this is so it's very easy and automatic to throw ascensions in and out.
 		*/
-		var/list/ascpaths = subtypesof(text2path(replacetext("/ascension/[lowertext(name)]"," ", "_")))
-		var/list/transpaths = subtypesof(text2path(replacetext("/transformation/[lowertext(name)]"," ", "_")))
+		var/name_typed = replacetext("[type]", "/race/", "")
+		var/list/ascpaths = subtypesof(text2path(replacetext("/ascension/[name_typed]"," ", "_")))
+		var/list/transpaths = subtypesof(text2path(replacetext("/transformation/[name_typed]"," ", "_")))
 		if(lowertext(name) == "half_saiyan")
 			transpaths = list()
 		for(var/i in ascpaths)
@@ -192,6 +193,11 @@ race
 			transformations += new i
 
 	proc
+		fixAscensions()
+			var/name_typed = replacetext(type, "/race/", "")
+			var/list/ascpaths = subtypesof(text2path(replacetext("/ascension/[name_typed]"," ", "_")))
+			for(var/i in ascpaths)
+				ascensions += new i
 		getChoice(ascLevel)
 			return ascensions[ascLevel].choiceSelected
 		getClass()

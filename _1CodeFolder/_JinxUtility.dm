@@ -329,7 +329,7 @@ mob
 					if(defender.ShonenCounter>=glob.SHONENCOUNTERLIMIT)
 						defender.ShonenCounter=1
 						if(!defender.ShonenAnnounce)
-							defender << "This is your...Momment! (No App)"
+							defender << "This is your...Moment! (No App)"
 							var/obj/Skills/Buffs/s = defender.findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Racial/Human/Deus_Ex_Machina)
 							if(!defender.BuffOn(s))
 								s.Trigger(defender, TRUE)
@@ -340,7 +340,7 @@ mob
 					if(ShonenCounter>=glob.SHONENCOUNTERLIMIT)
 						ShonenCounter=1
 						if(!ShonenAnnounce)
-							src << "This is your...Momment! (No App)"
+							src << "This is your...Moment! (No App)"
 							var/obj/Skills/Buffs/s = findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Racial/Human/Deus_Ex_Machina)
 							if(!BuffOn(s))
 								s.Trigger(src, TRUE)
