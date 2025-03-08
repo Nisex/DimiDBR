@@ -1,6 +1,7 @@
 #define BROADCAST_RANGE 12
 #define BROADCAST_COLOR "<font color=green>"
 var/tmp/list/globalListeners = list()
+globalTracker/var/list/ZBlockedComms = list()
 
 globalListener
 	var/tmp/list/connected = list()
@@ -34,6 +35,18 @@ proc/removeFromGlobalListeners(obj/Items/Tech/listener)
 obj/Items/Tech/proc/broadcastToListeners(msg)
 //	if(!Active) return
 	if(!Frequency) return
+	if((z in globalTracker.ZBlockedComms) || (src.loc.z in globalTracker.ZBlockedComms))
+		if(ismob(loc))
+			var/broadcastFormattingPersonal = "[BROADCAST_COLOR]<b>([name])</b> BZZZZTTT..."
+			var/mob/owner = loc
+			owner.client.outputToChat(broadcastFormattingPersonal, IC_OUTPUT)
+			Log(owner.ChatLog(),broadcastFormattingPersonal)
+			Log(owner.sanitizedChatLog(),broadcastFormattingPersonal)
+		else
+			var/broadcastFormattingAllAround = "[BROADCAST_COLOR]<b>([name]) crackles to life from the floor:</b> BZZZZZTTT..."
+			for(var/mob/m in hearers(BROADCAST_RANGE,src))
+				m.client.outputToChat(broadcastFormattingAllAround, IC_OUTPUT)
+		return
 	for(var/globalListener/listener in globalListeners)
 		if(listener.freq == Frequency)
 			listener.outputToComms(src, msg)
@@ -41,6 +54,18 @@ obj/Items/Tech/proc/broadcastToListeners(msg)
 obj/Items/Tech/proc/recieveBroadcast(msg)
 //	if(!Active) return
 	if(!Frequency) return
+	if((z in globalTracker.ZBlockedComms) || (src.loc.z in globalTracker.ZBlockedComms))
+		if(ismob(loc))
+			var/broadcastFormattingPersonal = "[BROADCAST_COLOR]<b>([name])</b> BZZZZTTT..."
+			var/mob/owner = loc
+			owner.client.outputToChat(broadcastFormattingPersonal, IC_OUTPUT)
+			Log(owner.ChatLog(),broadcastFormattingPersonal)
+			Log(owner.sanitizedChatLog(),broadcastFormattingPersonal)
+		else
+			var/broadcastFormattingAllAround = "[BROADCAST_COLOR]<b>([name]) crackles to life from the floor:</b> BZZZZZTTT..."
+			for(var/mob/m in hearers(BROADCAST_RANGE,src))
+				m.client.outputToChat(broadcastFormattingAllAround, IC_OUTPUT)
+		return
 	if(ismob(loc))
 		var/broadcastFormattingPersonal = "[BROADCAST_COLOR]<b>([name])</b>[msg]"
 		var/mob/owner = loc
