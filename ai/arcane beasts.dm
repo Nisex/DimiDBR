@@ -967,8 +967,6 @@ obj/Skills/Companion/arcane_follower
 		if(!companion_icon) companion_icon = pick('Icons/NPCS/Arcane/SpriteB.dmi','Icons/NPCS/Arcane/SpriteC.dmi','Icons/NPCS/Arcane/SpriteG.dmi','Icons/NPCS/Arcane/SpriteR.dmi','Icons/NPCS/Arcane/SpriteY.dmi')
 		if(!companion_name) companion_name = "Nympharum"
 
-		Mastery = usr.AscensionsAcquired
-
 		if(Mastery != MasterySet)
 			if(bond_damage)
 				usr << "The damage to your bond prevents it from progressing. You must find a way to heal it."
