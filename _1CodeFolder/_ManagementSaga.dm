@@ -89,7 +89,7 @@ mob/var
 mob/Admin3/verb
 	SagaManagement(mob/Players/P in players)
 		set category="Admin"
-		var/list/SagaList=list("Cancel","Ansatsuken","Eight Gates","Cosmo","Spiral","Hero","Hiten Mitsurugi-Ryuu","Kamui","Keyblade","King of Braves","Sharingan","Weapon Soul", "Unlimited Blade Works","Force")
+		var/list/SagaList=list("Cancel","Ansatsuken","Eight Gates","Cosmo","Spiral","King of Courage", "Hero","Hiten Mitsurugi-Ryuu","Kamui","Keyblade","King of Braves","Sharingan","Weapon Soul", "Unlimited Blade Works","Force")
 		if(P.Saga)
 			if(P.SagaLevel>=6)
 				src << "They've already fully mastered the power of their soul."
@@ -135,6 +135,11 @@ mob/Admin3/verb
 					P.SagaLevel=1
 					P.AddSkill(new/obj/Skills/Buffs/SpecialBuff/Spiral)
 					tierUpSaga("Spiral")
+				if("King of Courage")
+					P.Saga="King of Courage"
+					P.SagaLevel=1
+					P.AddSkill(new/obj/Skills/Buffs/SpecialBuff/King_Of_Courage)
+					tierUpSaga("King of Courage")
 				if("Cosmo")
 					P.Saga="Cosmo"
 					P.SagaLevel=1

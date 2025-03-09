@@ -19,7 +19,8 @@ Ouroboros is summoned from a special space, and can directly attack the soul or 
 	// void offense would have 2 do something
 	Techniques=list("/obj/Skills/Utility/Ouroboros", "/obj/Skills/AutoHit/Ouroboros/Devouring_Fang", "/obj/Skills/AutoHit/Ouroboros/Rising_Fang", "/obj/Skills/AutoHit/Ouroboros/Falling_Fang", \
 					"/obj/Skills/Projectile/Ouroboros/Hungry_Coils", "/obj/Skills/Ouroboros/Serpents_Redemption", "/obj/Skills/Ouroboros/Serpents_Pull", "/obj/Skills/Buffs/SlotlessBuffs/Ouroboros/Serpents_Haste", \
-					"/obj/Skills/Buffs/SlotlessBuffs/Ouroboros/Serpents_Haste", "/obj/Skills/AutoHit/Ouroboros/Snake_Bite", "/obj/Skills/Buffs/SlotlessBuffs/Ouroboros/Venomous_Bite")
+					"/obj/Skills/Buffs/SlotlessBuffs/Ouroboros/Serpents_Haste", "/obj/Skills/AutoHit/Ouroboros/Snake_Bite", "/obj/Skills/Buffs/SlotlessBuffs/Ouroboros/Venomous_Bite", \
+					"/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Nox/The_Unholy_Wrath_of_the_Basilisk", "/obj/Skills/Buffs/SlotlessBuffs/Grimoire/OverDrive/Jormungandr")
 
 
 /*

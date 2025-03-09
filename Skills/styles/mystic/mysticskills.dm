@@ -117,10 +117,9 @@
 	/*TurfStrike=2
 	TurfShift='Dirt.dmi'
 	TurfShiftDuration=3*/
-	DamageMult = 1
+	DamageMult = 0.1
 	SpecialAttack = 1
 	AdaptRate=1
-	DamageMult = 0.3
 	CanBeDodged = 0
 	CanBeBlocked = 0
 	Cooldown = 5
@@ -150,7 +149,7 @@
 /obj/Skills/Projectile/Fire_Blast
 	IconLock = 'FireBlast.dmi'
 	Blasts = 1
-	DamageMult = 0.75
+	DamageMult = 1
 	Distance = 25
 	Speed = 0.33
 	IconSize = 2

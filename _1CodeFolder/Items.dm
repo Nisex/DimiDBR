@@ -2132,6 +2132,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 			if(suffix=="*Equipped*")
 				current_passives = passives
 				User.passive_handler.increaseList(passives)
+				if("RenameMana" in passives)
+					User.ManaAmount = 0
 			else if(suffix == null)
 				User.passive_handler.decreaseList(current_passives)
 

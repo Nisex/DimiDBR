@@ -72,13 +72,14 @@
 
 /obj/Skills/AutoHit/Water_Wave
 	Copyable = 0
-	Area="Wave"
+	Area="Cone"
 	ComboMaster=1
-	Distance=15
-	Size = 6
+	Distance = 5
+	Size = 4
 	AdaptRate = 1
 	DamageMult=1
-	Slow = 0.5
+	Slow = 0.25
+	Chilling=5
 	Knockback = 2
 	TurfStrike=2
 	TurfShift='WaterBlue.dmi'

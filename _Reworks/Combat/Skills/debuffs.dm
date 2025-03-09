@@ -76,6 +76,7 @@
 		OMsg(defender, "[attacker] starts to hunt [defender].")
 		
 	adjust(mob/attacker)
+		total_stacks = clamp(total_stacks, 1, 10)
 		IconState = num2text(total_stacks)
 		TimerLimit = 25 + (5 * attacker.AscensionsAcquired)
 		max_stacks = glob.racials.MARKEDPREYBASESTACKS + attacker.AscensionsAcquired

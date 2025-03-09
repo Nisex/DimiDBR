@@ -3881,14 +3881,17 @@ NEW VARIABLES
 		King_Of_Braves
 			Cooldown = 1
 			PowerGlows=list(1,0.8,0.8, 0,1,0, 0.8,0.8,1, 0,0,0)
-			passives = list("Tenacity" = 1)
-			Desperation=1
+			passives = list("Tenacity" = 1, "UnderDog" = 0.5)
 			ActiveMessage="surrounds their body in a faint green aura!"
 			OffMessage="deactivates the green energy..."
 			proc/setupVars(mob/player)
 				src.ActiveMessage="surrounds their body in a faint green aura!"
-				passives = list("Tenacity" = player.SagaLevel)
-
+				passives = list("Tenacity" = player.SagaLevel, "UnderDog" = player.SagaLevel/2)
+				if(BuffName == "Genesic Brave")
+					if(player.SagaLevel < 4)
+						TimerLimit = 30 + (10 * player.SagaLevel)
+					else
+						TimerLimit = 0
 				if(player.SagaLevel>=1)
 					ActiveMessage="draws power from their courage as they pulse with green light!"
 				if(player.SagaLevel>=2)
@@ -3902,10 +3905,9 @@ NEW VARIABLES
 					Trigger(usr, TRUE)
 					usr<<"You swap to Broken Brave!"
 					setupVars(usr)
-					StrMult=1.25
-					EndMult=1
-					ForMult=1.25
-					RegenMult=1
+					StrMult=1.15 + (0.05 * player.SagaLevel)
+					EndMult=1 + (0.025 * player.SagaLevel)
+					ForMult=1.15 + (0.05 * player.SagaLevel)
 					BuffName="Broken Brave"
 					ExhaustedMessage = " begins fighting fiercely like a lion!"
 					DesperateMessage = " calls upon the power of Destruction for one final push!"
@@ -3918,10 +3920,10 @@ NEW VARIABLES
 					Trigger(usr, TRUE)
 					usr<<"You swap to Protect Brave!"
 					setupVars(usr)
-					StrMult=1
-					EndMult=1.25
-					ForMult=1
-					DefMult=1.25
+					StrMult=1 + (0.025 * player.SagaLevel)
+					EndMult=1.15 + (0.05 * player.SagaLevel)
+					ForMult=1 + (0.025 * player.SagaLevel)
+					DefMult=1.15 + (0.05 * player.SagaLevel)
 					BuffName="Protect Brave"
 					ExhaustedMessage = " begins fighting defensively like a machine!"
 					DesperateMessage = " calls upon the power of Protection for one final push!"
@@ -3930,16 +3932,12 @@ NEW VARIABLES
 					Trigger(usr)
 			verb/Genesic_Brave()
 				set category="Skills"
-				if(usr.SagaLevel<6)
-					usr<<"Sorry, you can't use this yet."
-					return
 				if(usr.SpecialBuff&&usr.SpecialBuff.BuffName!="Genesic Brave")
 					Trigger(usr, TRUE)
 					setupVars(usr)
-					StrMult=1.25
-					EndMult=1.25
-					ForMult=1.25
-					RegenMult=1.25
+					StrMult=1.15 + (0.05 * player.SagaLevel)
+					EndMult=1.15 + (0.05 * player.SagaLevel)
+					ForMult=1.15 + (0.05 * player.SagaLevel)
 					BuffName="Genesic Brave"
 					ExhaustedMessage = " begins fighting with the power of a god!"
 					DesperateMessage = " calls upon the power of Creation for one final push!"
