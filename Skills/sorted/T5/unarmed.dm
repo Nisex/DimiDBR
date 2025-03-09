@@ -68,7 +68,7 @@ proc/ShowStopper(mob/attacker, mob/defender, effectMult)
 	if(client)
 		client.pixel_x = 0
 		client.pixel_y = 0
-	src.loc = target_turf
+	//src.loc = target_turf
 	Crater(src, 0.75)
 	Dust(target_turf, 4, 4)
 	spawn(1)
@@ -112,7 +112,7 @@ proc/ShowStopper(mob/attacker, mob/defender, effectMult)
 		client.pixel_x = 0
 		client.pixel_y = 0
 
-	src.loc = target_turf
+	//src.loc = target_turf
 
 	spawn(1)
 		animate_movement = old
