@@ -15,7 +15,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 11
+	var/UPDATE_VERSION = 12
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -261,7 +261,7 @@ update
 		version = 12
 		updateMob(mob/p)
 			. = ..()
-			if(p.isRace(HALFSAIYAN))
+			if(p.isRace(GAJALAKA))
 				p.race.fixAscensions()
 			
 

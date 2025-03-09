@@ -3905,9 +3905,9 @@ NEW VARIABLES
 					Trigger(usr, TRUE)
 					usr<<"You swap to Broken Brave!"
 					setupVars(usr)
-					StrMult=1.15 + (0.05 * player.SagaLevel)
-					EndMult=1 + (0.025 * player.SagaLevel)
-					ForMult=1.15 + (0.05 * player.SagaLevel)
+					StrMult=1.15 + (0.05 * usr.SagaLevel)
+					EndMult=1 + (0.025 * usr.SagaLevel)
+					ForMult=1.15 + (0.05 * usr.SagaLevel)
 					BuffName="Broken Brave"
 					ExhaustedMessage = " begins fighting fiercely like a lion!"
 					DesperateMessage = " calls upon the power of Destruction for one final push!"
@@ -3920,10 +3920,10 @@ NEW VARIABLES
 					Trigger(usr, TRUE)
 					usr<<"You swap to Protect Brave!"
 					setupVars(usr)
-					StrMult=1 + (0.025 * player.SagaLevel)
-					EndMult=1.15 + (0.05 * player.SagaLevel)
-					ForMult=1 + (0.025 * player.SagaLevel)
-					DefMult=1.15 + (0.05 * player.SagaLevel)
+					StrMult=1 + (0.025 * usr.SagaLevel)
+					EndMult=1.15 + (0.05 * usr.SagaLevel)
+					ForMult=1 + (0.025 * usr.SagaLevel)
+					DefMult=1.15 + (0.05 * usr.SagaLevel)
 					BuffName="Protect Brave"
 					ExhaustedMessage = " begins fighting defensively like a machine!"
 					DesperateMessage = " calls upon the power of Protection for one final push!"
@@ -3935,9 +3935,9 @@ NEW VARIABLES
 				if(usr.SpecialBuff&&usr.SpecialBuff.BuffName!="Genesic Brave")
 					Trigger(usr, TRUE)
 					setupVars(usr)
-					StrMult=1.15 + (0.05 * player.SagaLevel)
-					EndMult=1.15 + (0.05 * player.SagaLevel)
-					ForMult=1.15 + (0.05 * player.SagaLevel)
+					StrMult=1.15 + (0.05 * usr.SagaLevel)
+					EndMult=1.15 + (0.05 * usr.SagaLevel)
+					ForMult=1.15 + (0.05 * usr.SagaLevel)
 					BuffName="Genesic Brave"
 					ExhaustedMessage = " begins fighting with the power of a god!"
 					DesperateMessage = " calls upon the power of Creation for one final push!"
