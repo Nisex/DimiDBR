@@ -730,25 +730,6 @@ mob
 				if(!src.HasKiControl()&&!src.PoweringUp)
 					src.PowerControl=100
 
-/*
-			if(src.EraDeathClock&&!src.EraDeathTrigger)
-				if(src.Dead)
-					src.EraDeathClock=0
-				if(src.Timeless)
-					src.EraDeathClock=0
-				if(src.Immortal)
-					src.EraDeathClock=0
-				if(src.EraDeathClock)
-					if(world.realtime>src.EraDeathClock)
-						src.EraDeathTrigger=1
-						src << "<font size=+1 color=#ff0000><b>You will die shortly. Please think of your last words.</b></font>"
-						sleep(600)
-						if(src.ParasiteCrest())
-							src.Death(null, "living a short and painful life!", SuperDead=10)
-						else
-							src.Death(null, "living a long and satisfying life!", SuperDead=10)
-*/
-
 			if(src.Dead)
 				if(src.DeadTime&&src.Savable&&!src.KeepBody)
 					if((src.DeadTime<glob.progress.Era))

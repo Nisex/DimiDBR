@@ -403,7 +403,7 @@ obj/Skills/Grapple
 			ThrowMult=3
 			ThrowAdd=1
 			Effect="Shockwave"
-			EffectMult=0.1
+			EffectMult=1
 		Eviscerate
 			Copyable=4
 			SkillCost=TIER_3_COST

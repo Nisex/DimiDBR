@@ -307,7 +307,6 @@ obj
 					ChargeTech=0
 					ChargeTime=0
 					Size = 2 + (round(pot/25))
-					Distance = 6 + (round(pot/25))
 					WindUp=0.75
 					Knockback = 0.001
 					PullIn = Size + 4
@@ -319,6 +318,7 @@ obj
 					ChargeTech=1
 					ChargeTime=1
 					Size = 1
+					Distance = 1
 					Launcher = 0
 					WindUp=0
 					Knockback = 1

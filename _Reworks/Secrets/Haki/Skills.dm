@@ -110,7 +110,7 @@
 
 /obj/Skills/Queue/Haki/Galaxy_Impact
     NoWhiff = 1
-    Delayer = 1.5
+    Delayer = 0.2
     Decider = 2
     Duration = 8
     Cooldown = 160
