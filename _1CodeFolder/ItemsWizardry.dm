@@ -2587,6 +2587,24 @@ obj/Items/Enchantment/Staff
 	SubType="Spell Focii"
 	desc="Spell focii alter the effects of fighting with Spells and energy attacks; they are also required to cast more complex magic."
 
+	postCreation(mob/buyer, obj/Items/ItemMade)
+		var/Choice = input("What icon would you like for the staff?") in list ("Red","Grey","Brown","Red 2","Green","Cyan","Red 3")
+		switch(Choice)
+			if("Red")
+				ItemMade.icon = 'MageStaff.dmi'
+			if("Grey")
+				ItemMade.icon = 'MageStaff2.dmi'
+			if("Brown")
+				ItemMade.icon = 'MageStaff3.dmi'
+			if("Red 2")
+				ItemMade.icon = 'MageStaff4.dmi'
+			if("Green")
+				ItemMade.icon = 'MageStaff5.dmi'
+			if("Cyan")
+				ItemMade.icon = 'MageStaff6.dmi'
+			if("Red 3")
+				ItemMade.icon = 'MageStaff8.dmi'
+
 	generateEquipImage(mob/equipper)
 		. = ..()
 		if(equipper.CheckActive("Mobile Suit") && Conjured)

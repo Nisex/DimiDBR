@@ -118,11 +118,18 @@ obj/Items
 	var/tmp/image/equipImage
 	var/tmp/image/underlayEquipImage
 
+	var/equipped = FALSE
+
 	proc/onBroken()
 
 	proc/Equip(mob/equipper, force = FALSE)
-	
+		equipped = TRUE
+		visuallyEquip(equipper)
+
 	proc/unEquip(mob/equipper, force = FALSE)
+		if(!equipped) return
+		equipped = FALSE
+		removeVisuals(equipper)
 
 	proc/generateEquipImage(mob/equipper)
 		var/placement = FLOAT_LAYER-3
@@ -138,10 +145,18 @@ obj/Items
 		if(UnderlayIcon)
 			underlayEquipImage = image(icon = src.UnderlayIcon, pixel_x = src.UnderlayX, pixel_y = src.UnderlayY)
 
-	proc/visuallyEquip(mob/equipper)
-		// im sure we could cache equipment images for 0.2% performance increase but also lol.
+	proc/removeVisuals(mob/equipper)
+		if(equipImage)
+			equipper.overlays -= equipImage
+		if(underlayEquipImage)
+			equipper.underlays -= underlayEquipImage
+
 		equipImage = null
 		underlayEquipImage = null
+
+	proc/visuallyEquip(mob/equipper)
+		// im sure we could cache equipment images for 0.2% performance increase but also lol.
+		removeVisuals(equipper)
 		generateEquipImage()
 		if(equipImage)
 			equipper.overlays += equipImage
@@ -196,9 +211,6 @@ obj/Items
 
 	verb/Set_Underlay()
 		set src in usr
-		if(src.suffix=="*Equipped*")
-			usr << "Take [src] off before adding an underlay."
-			return
 		if(src.UnderlayIcon)
 			src.UnderlayIcon=null
 			src.UnderlayX=0
@@ -208,6 +220,8 @@ obj/Items
 		src.UnderlayIcon=input(usr, "What icon do you want to display as an underlay?", "Underlay Icon") as icon|null
 		src.UnderlayX=input(usr, "Pixel X?", "Underlay Icon") as num|null
 		src.UnderlayY=input(usr, "Pixel Y?", "Underlay Icon") as num|null
+		if(equipped)
+			visuallyEquip(usr)
 		usr << "Done."
 
 	verb/Set_Layer()
@@ -231,20 +245,6 @@ obj/Items
 			src.ObjectUse(usr)
 
 	proc/Drop()
-		if(src.PermEquip)
-			if(istype(src, /obj/Items/Enchantment/Magic_Crest))
-				usr << "You can't drop this, you can only transplant it!"
-				return
-
-			usr << "You can't drop this!"
-			return
-		// if(Augmented)
-		// 	usr<<"You can't drop this!"
-		// 	return
-		if(LegendaryItem)
-			usr << "You can't drop this!"
-			return
-
 		if(src.Stackable)
 			var/Drop=input(usr, "How many [src]s do you want to drop?", "Drop") as num|null
 			if(Drop>0&&Drop)
@@ -262,104 +262,100 @@ obj/Items
 
 	verb/DropItem()
 		set name="Drop Item"
-		var/Nope=0
-		if(istype(src,/obj/Items/Sword))
-			if(src:ProjectionBlade)
-				usr << "Your magic blade dissolves."
-				del src
-				return
-		if(src.suffix=="*Equipped*")
-			Nope=1
-		if(Nope)
-			usr<<"You can't drop a equiped item. Take it off first!"
+
+		if(suffix=="*Equipped*" || PermEquip || LegendaryItem)
+			usr << "You can't drop this item!"
 			return
+
 		Drop()
+
+	proc/attemptToCreateTech(mob/buyer)
+		var/obj/Items/itemMade
+		if(Can_Afford_Technology(buyer, src))
+			var/price = Technology_Price(buyer, src)
+			var/obj/Items/ItemMade=new src.type
+			if(Stackable)
+				var/MultiMake = input(buyer, "How many [src]'s would you like to make?") as num|null
+				if(MultiMake == null || MultiMake <= 0)
+					return
+				var/MultiCost = Technology_Price(buyer,src)
+				price = MultiCost*MultiMake
+				for(var/obj/Money/M in buyer)
+					if(M.Level < price)
+						buyer << "You cannot afford to make that many [src]! You need [Commas(MultiCost*MultiMake)] resources to make [MultiMake] [src]."
+						return
+				var/found = FALSE
+				for(var/obj/Items/o in buyer)
+					if(o.type==type)
+						found = TRUE
+						o.TotalStack++
+						usr << "You stack a new [ItemMade]."
+						del ItemMade
+						break
+				if(!found)
+					ItemMade=new src.type
+					ItemMade.TotalStack=MultiMake
+					ItemMade.suffix="[ItemMade.TotalStack]"
+			buyer.TakeMoney(price)
+			buyer.UpdateTechnologyWindow()
+
+			postCreation(buyer, itemMade)
+
+	proc/attemptToCreateMagic(mob/buyer)
+		var/obj/Items/ItemMade
+		if(buyer.HasManaCapacity(src.Cost*(glob.progress.EconomyMana/100)))
+			buyer.TakeManaCapacity(src.Cost*(glob.progress.EconomyMana/100))
+			ItemMade=new src.type
+			if(istype(src, /obj/Items/Enchantment/Tome))
+				ItemMade:init(1, usr)
+		else
+			buyer << "You don't have enough capacity stored to make [src]!"
+			return
+		buyer.UpdateTechnologyWindow()
+
+		postCreation(buyer, ItemMade)
+
+	proc/postCreation(mob/buyer, obj/Items/ItemMade)
+		if(ItemMade)
+			if(ItemMade.Grabbable)
+				ItemMade.loc=buyer
+			else
+				ItemMade.loc=buyer.loc
+			ItemMade.CreatorKey=buyer.ckey
+			ItemMade.CreatorSignature = buyer.EnergySignature
+
+			buyer << "You made \an [ItemMade]!"
+
+	proc/Examine(mob/user)
+		if(src.UpdatesDescription)
+			src.Update_Description()
+		if(src.desc)
+			usr << src.desc
+		else
+			usr << "[src] has no description."
+
 	Click()
 		if(src in Technology_List)
-			var/obj/ItemMade
 			if(usr.KO)
 				usr << "You cannot create items while KO'd."
 				return
 			var/Mode=alert(usr, "Do you want to buy the item or examine it?", "[src]", "Buy", "Examine")
+
 			if(Mode=="Examine")
-				if(istype(src,/obj/Items))
-					if(src:UpdatesDescription)
-						src:Update_Description()
-				if(src.desc)
-					usr<<src.desc
-				else
-					usr << "[src] has no description."
+				Examine(usr)
 				return
-			if(!usr.HasMoney(src.Cost))
-				usr << "You don't have enough money to buy [src]."
-				return
-			if(1)
-				if(istype(src,/obj/Items/Tech/Power_Pack))
-					var/MultiMake=input("How many packs would you like to make?")as num|null
-					if(MultiMake==null||MultiMake<=0)
-						return
-					var/MultiCost=Technology_Price(usr,src)
-					for(var/obj/Money/M in usr)
-						if(M.Level>=MultiCost*MultiMake)
-							usr.TakeMoney(MultiCost*MultiMake)
-							var/obj/Items/Tech/Power_Pack/P=new type(usr.loc)
-							P.TotalStack=MultiMake
-							P.suffix="[MultiMake]"
-							if(MultiMake>1)
-								usr<<"You made [MultiMake] [src]."
-						else
-							usr<<"You don't have enough money! You need [Commas(MultiCost*MultiMake)] resources to make [MultiMake] [src]."
-					return
-				if(Can_Afford_Technology(usr, src))
-					usr.TakeMoney(Technology_Price(usr, src))
-					usr.UpdateTechnologyWindow()
-
-
-					ItemMade=new src.type
-					if(ItemMade:Stackable)
-						var/stacktype=ItemMade.type
-						for(var/obj/Items/o in usr)
-							if(o.type==stacktype)
-								o.TotalStack++
-								usr << "You stack a new [ItemMade]."
-								del ItemMade
-					if(ItemMade)
-						if(ItemMade.Grabbable)
-							ItemMade.loc=usr
-						else
-							ItemMade.loc=usr.loc
-						ItemMade:CreatorKey=usr.ckey
-						ItemMade:CreatorSignature=usr.EnergySignature
-
-					usr << "You made \an [ItemMade]!"
-
-				if(istype(src,/obj/Items/Tech/Scouter))
-					if(ItemMade:ScouterIcon!=1)
-						ItemMade:ScouterIcon=1
-						var/Choice=input("What icon would you like for the scouter?") in list ("Green","Blue","Red","Purple")
-						switch(Choice)
-							if("Green")
-								ItemMade:icon='GreenScouter.dmi'
-							if("Blue")
-								ItemMade:icon='BlueScouter.dmi'
-							if("Red")
-								ItemMade:icon='RedScouter.dmi'
-							if("Purple")
-								ItemMade:icon='PurpleScouter.dmi'
+			
+			attemptToCreateTech(usr)
 
 		else if(src in Enchantment_List)
-			var/obj/ItemMade
-			var/Mode=alert(usr, "Do you want to buy the item or examine it?", "[src]", "Buy", "Examine")
-			if(Mode=="Examine")
-				if(istype(src,/obj/Items))
-					if(src:UpdatesDescription)
-						src:Update_Description()
-				if(src.desc)
-					usr<<src.desc
-				else
-					usr << "[src] has no description."
+			if(usr.KO)
+				usr << "You cannot create items while KO'd."
 				return
+			var/Mode=alert(usr, "Do you want to buy the item or examine it?", "[src]", "Buy", "Examine")
 
+			if(Mode=="Examine")
+				Examine(usr)
+				return
 
 			if(istype(src, /obj/Items/Enchantment/PocketDimensionGenerator))
 				if(!usr.HasFragments(src.Cost*glob.progress.EconomyCost))
@@ -367,47 +363,10 @@ obj/Items
 					return
 				else
 					usr.TakeFragments(src.Cost*glob.progress.EconomyCost)
-			if(usr.HasManaCapacity(src.Cost*(glob.progress.EconomyMana/100)))
-				usr.TakeManaCapacity(src.Cost*(glob.progress.EconomyMana/100))
-				ItemMade=new src.type
-				if(istype(src, /obj/Items/Enchantment/Tome))
-					ItemMade:init(1, usr)
-				if(ItemMade.Grabbable)
-					ItemMade.loc=usr
-				else
-					ItemMade.loc=usr.loc
-				ItemMade:CreatorKey=usr.ckey
-				ItemMade:CreatorSignature=usr.EnergySignature
-				usr << "You made \an [ItemMade]!"
-			else
-				usr << "You don't have enough capacity stored to make [src]!"
-				return
-			usr.UpdateTechnologyWindow()
-			if(istype(src,/obj/Items/Enchantment/Staff))
-				if(ItemMade:StaffIconSelected!=1)
-					var/Choice=input("What icon would you like for the staff?") in list ("Red","Grey","Brown","Red 2","Green","Cyan","Red 3")
-					switch(Choice)
-						if("Red")
-							ItemMade:icon='MageStaff.dmi'
-							ItemMade:StaffIconSelected=1
-						if("Grey")
-							ItemMade:icon='MageStaff2.dmi'
-							ItemMade:StaffIconSelected=1
-						if("Brown")
-							ItemMade:icon='MageStaff3.dmi'
-							ItemMade:StaffIconSelected=1
-						if("Red 2")
-							ItemMade:icon='MageStaff4.dmi'
-							ItemMade:StaffIconSelected=1
-						if("Green")
-							ItemMade:icon='MageStaff5.dmi'
-							ItemMade:StaffIconSelected=1
-						if("Cyan")
-							ItemMade:icon='MageStaff6.dmi'
-							ItemMade:StaffIconSelected=1
-						if("Red 3")
-							ItemMade:icon='MageStaff8.dmi'
-							ItemMade:StaffIconSelected=1
+					return
+
+			attemptToCreateMagic(usr)
+
 		else if(src in Clothes_List)
 			if(icon == initial(icon)&&usr.IconClicked==0)
 				usr.IconClicked=1
@@ -419,12 +378,10 @@ obj/Items
 				A.blend_mode = BLEND_OVERLAY
 				A.icon=newIcon
 				usr.contents+=A
+
 		else
-			if(!usr.Saga||(usr.Saga&&!src.NoSaga)||(usr.Saga&&src.NoSaga&&src.suffix=="*Equipped*"))
-				src.ObjectUse()
-			else
-				usr << "[src] does not resonate with your legendary abilities."
-				return
+			src.ObjectUse(usr)
+
 
 	Edibles
 		Health=1
@@ -1366,22 +1323,17 @@ obj/Items/proc/AlignEquip(mob/A, dontUnEquip = FALSE)
 	return 1
 
 
-obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
+obj/Items/proc/ObjectUse(mob/Players/User)
 	var/Looted=0
-	if(locate(/obj/Seal, src))
-		for(var/obj/Seal/S in src)
-			if(User.ckey!=S.Creator)
-				usr << "This item has been sealed!  You must break the seal before you can use it."
-				return
-
+	for(var/obj/Seal/S in src)
+		if(User.ckey!=S.Creator)
+			usr << "This item has been sealed!  You must break the seal before you can use it."
+			return
 
 	if(!(src in User))
 		if(ismob(src.loc))
 			if(src.loc:KO)
 				Looted=1
-
-
-
 
 	if(istype(src, /obj/Items/Cursed_Gear))
 		var/obj/Items/Cursed_Gear/ag=src
@@ -1400,6 +1352,7 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 						if(ag.Augment)
 							var/obj/Skills/Buffs/b=text2path(ag.Augment)
 							usr.AddSkill(new b)
+
 	if(src.suffix=="*Equipped*"&&src.PermEquip)
 		if(istype(src,/obj/Items/Enchantment/Magic_Crest)&&Looted)
 			var/mob/Players/OldLoc=src.loc

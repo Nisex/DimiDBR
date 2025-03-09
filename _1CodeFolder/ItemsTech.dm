@@ -2053,6 +2053,19 @@ obj/Items/Tech
 		var/Range=1
 		var/tmp/Detecting=0
 		desc="This device uses technology to guage the power of the enemy. It can also find money. \n(Warning: This device isn't always accurate, and can be fooled by certain techniques.) \n((No Refunds))"
+		
+		postCreation(buyer)
+			var/Choice = input(buyer, "What icon would you like for the scouter?") in list ("Green","Blue","Red","Purple")
+			switch(Choice)
+				if("Green")
+					icon = 'GreenScouter.dmi'
+				if("Blue")
+					icon = 'BlueScouter.dmi'
+				if("Red")
+					icon = 'RedScouter.dmi'
+				if("Purple")
+					icon = 'PurpleScouter.dmi'
+
 		verb/Scouter_Scan()
 			set src in usr
 			if(!(world.realtime>src.InternalTimer+Second(5)))
@@ -2837,6 +2850,7 @@ obj/Items/Tech
 		Cost=0.1
 		desc="Use this to restore power to your Gear."
 		Stackable=1
+
 		verb/Recharge_Gear()
 			set category=null
 			set src in usr
