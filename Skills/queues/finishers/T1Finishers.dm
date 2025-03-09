@@ -6,7 +6,7 @@
         DamageMult=0.5
         Instinct=2
         InstantStrikes = 5
-        FollowUp="/obj/Skills/Autohit/One_Inch_Finisher"
+        FollowUp="/obj/Skills/AutoHit/One_Inch_Finisher"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Wing_Chun_Essence"
 
     Dim_Mak
@@ -116,7 +116,7 @@
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Cool_Guy"
     Stormweaver
         DamageMult = 2
-        FollowUp="/obj/Skills/Autohit/Orb_of_Storms"
+        FollowUp="/obj/Skills/AutoHit/Orb_of_Storms"
         BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Buffered"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Conduit"
     Sunshine_Flame

@@ -621,6 +621,7 @@
 #include "Skills\autohit\T1Finishers.dm"
 #include "Skills\autohit\T2Finishers.dm"
 #include "Skills\autohit\T3Finisher.dm"
+#include "Skills\buffs\autonomous\sigs.dm"
 #include "Skills\buffs\autonomous\queuebuff\T0Finishers.dm"
 #include "Skills\buffs\autonomous\queuebuff\T1Finishers.dm"
 #include "Skills\buffs\autonomous\queuebuff\T2Finishers.dm"

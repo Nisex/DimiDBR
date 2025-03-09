@@ -1,1 +1,1 @@
-/obj/Skills/Autohit/Jest_of_the_Dead
+/obj/Skills/AutoHit/Jest_of_the_Dead

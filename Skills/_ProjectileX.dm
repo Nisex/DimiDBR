@@ -1490,7 +1490,7 @@ obj
 				Copyable=4
 				SkillCost=TIER_4_COST
 				Buster=0//rate that blast charges
-				DamageMult=5
+				DamageMult=4
 				BusterDamage=0//max damage when fully charged
 				MultiHit=3
 				BusterRadius=1//max radius from charging
@@ -1512,7 +1512,7 @@ obj
 				Copyable=5
 				SkillCost=TIER_4_COST
 				Charge=0.2
-				DamageMult=1.5
+				DamageMult=1
 				AccMult=1.25
 				Radius=1
 				BusterRadius=2
@@ -1582,7 +1582,7 @@ obj
 				BusterAccuracy=10
 				BusterSize=2//purely aesthetic
 				Knockback=1
-				DamageMult=2.2
+				DamageMult=2
 				MultiHit=5
 				Instinct=1
 				AccMult=2.5

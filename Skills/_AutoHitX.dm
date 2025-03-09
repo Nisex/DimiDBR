@@ -1707,7 +1707,7 @@ obj
 				FlickAttack=1
 				Distance=15
 				ForOffense=1
-				DamageMult=16
+				DamageMult=11
 				Scorching = 10
 				Stunner=3
 				TurfErupt=2
@@ -1732,7 +1732,7 @@ obj
 				StrOffense=0
 				ForOffense=1
 				Rounds=10
-				DamageMult=1.5
+				DamageMult=1.1
 				Area="Around Target"
 				FlickAttack=1
 				Distance=15
@@ -1769,7 +1769,7 @@ obj
 				NoAttackLock=1
 				ControlledRush=1
 				Rounds=3
-				DamageMult=4.5
+				DamageMult=4
 				ComboMaster=1
 				Launcher=4
 				TurfErupt=2
@@ -2726,7 +2726,7 @@ obj
 					Copyable=4
 					StrOffense=0
 					ForOffense=1
-					DamageMult=0.3
+					DamageMult=0.66
 					Area="Around Target"
 					SpecialAttack=1
 					NoLock=1
@@ -2822,7 +2822,7 @@ obj
 					Area="Around Target"
 					Distance=15
 					DistanceAround=7
-					DamageMult=11
+					DamageMult=8
 					ManaCost=20
 					Cooldown=120
 					GuardBreak=1
@@ -3098,7 +3098,7 @@ obj
 						PostShockwave=0
 						Shockwave=2
 						Shockwaves=2
-						DamageMult= 4 + (pot/100)
+						DamageMult= 5 + (pot/100)
 						Rounds = 2
 						Stunner=2
 						Distance= 4 + (round(pot/10))
@@ -3153,7 +3153,7 @@ obj
 				Shockwave=2
 				Shockwaves=2
 				DamageMult=12
-				WindUp=0.1
+				WindUp=0.5
 				WindupMessage="sheathes their blade..."
 				ActiveMessage="blasts through all opposition in a blink of an eye!"
 				HitSparkIcon='Slash.dmi'
@@ -3175,9 +3175,8 @@ obj
 				Copyable=5
 				NeedsSword=1
 				Area="Around Target"
-				StrOffense=0.5
-				ForOffense=1
-				DamageMult=1
+				AdaptRate=1.5
+				DamageMult=0.5
 				HolyMod=2.5
 				Distance=5
 				DistanceAround=3
@@ -3188,7 +3187,7 @@ obj
 				Stunner=3
 				ComboMaster = 1
 				Icon='SwordHugeHolyJustice.dmi'
-				Size=1
+				Size=0.5
 				IconX=-159
 				IconY=0
 				Falling=1//animates towards pixel_z=0 while it is displayed
@@ -3206,9 +3205,8 @@ obj
 				Copyable=5
 				NeedsSword=1
 				Area="Around Target"
-				StrOffense=1
-				ForOffense=0.5
-				DamageMult=0.75
+				AdaptRate=1.5
+				DamageMult=0.5
 				AbyssMod=2.5
 				Distance=5
 				DistanceAround=3
@@ -3219,7 +3217,7 @@ obj
 				Stunner=3
 				ComboMaster = 1
 				Icon='SwordHugeDoomofDamocles.dmi'
-				Size=1
+				Size=0.5
 				IconX=-159
 				IconY=0
 				Falling=1//animates towards pixel_z=0 while it is displayed

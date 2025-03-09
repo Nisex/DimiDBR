@@ -217,8 +217,8 @@ update
 				if("Keyblade")
 					p.KeybladePath = input(p, "Keyblade magic path?") in list("Fire", "Ice", "Thunder")
 					var/list/magicks2remove = list("/obj/Skills/Projectile/Magic/Fira","/obj/Skills/AutoHit/Magic/Blizzara", \
-						"/obj/Skills/AutoHit/Magic/Thundara", "/obj/Skills/Autohit/Magic/Stop", "/obj/Skills/Autohit/Magic/Gravity", \
-						"/obj/Skills/Autohit/Magic/Magnet", "/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/Projectile/Magic/Blizzard", "/obj/Skills/Projectile/Magic/Thunder")
+						"/obj/Skills/AutoHit/Magic/Thundara", "/obj/Skills/AutoHit/Magic/Stop", "/obj/Skills/AutoHit/Magic/Gravity", \
+						"/obj/Skills/AutoHit/Magic/Magnet", "/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/Projectile/Magic/Blizzard", "/obj/Skills/Projectile/Magic/Thunder")
 
 					for(var/x in magicks2remove)
 						var/obj/Skills/s = p.FindSkill(x)
@@ -263,6 +263,34 @@ update
 			. = ..()
 			if(p.isRace(GAJALAKA))
 				p.race.fixAscensions()
+	version13
+		version = 13
+		updateMob(mob/p)
+			. = ..()
+			switch(p.Saga)
+				if("Keyblade")
+					p.KeybladePath = input(p, "Keyblade magic path?") in list("Fire", "Ice", "Thunder")
+					var/list/magicks2remove = list("/obj/Skills/Projectile/Magic/Fira","/obj/Skills/AutoHit/Magic/Blizzara", \
+						"/obj/Skills/AutoHit/Magic/Thundara", "/obj/Skills/AutoHit/Magic/Stop", "/obj/Skills/AutoHit/Magic/Gravity", \
+						"/obj/Skills/AutoHit/Magic/Magnet", "/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/Projectile/Magic/Blizzard", "/obj/Skills/Projectile/Magic/Thunder")
+
+					for(var/x in magicks2remove)
+						var/obj/Skills/s = p.FindSkill(x)
+						p.contents -= s
+						p << "[s] removed."
+						del s
+					switch(p.KeybladePath)
+						if("Fire")
+							p.AddSkill(new/obj/Skills/Projectile/Magic/Fira)
+							p.AddSkill(new/obj/Skills/Projectile/Magic/Firaga)
+						if("Ice")
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzara)
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzaga)
+						if("Thunder")
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Thundaga)
+			
+
 			
 
 

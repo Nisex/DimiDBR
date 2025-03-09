@@ -12,7 +12,7 @@ obj
 				PushOut=3
 				PushOutWaves=2
 				Finisher=1
-				Dunker=1
+				Dunker=4
 				Warp=2
 				Stunner=3
 				UnarmedOnly=1
@@ -27,7 +27,7 @@ obj
 				SkillCost=TIER_4_COST
 				Copyable=5
 				name="Soukotsu"
-				DamageMult=2.5
+				DamageMult=4
 				AccuracyMult = 1.1
 				Duration=5
 				KBAdd=10
@@ -37,7 +37,7 @@ obj
 				InstantStrikesDelay=1.5
 				Finisher=1
 				Warp=3
-				Dunker=1
+				Dunker=2
 				Stunner=2
 				Instinct=1
 				UnarmedOnly=1
@@ -52,7 +52,7 @@ obj
 				SkillCost=TIER_4_COST
 				Copyable=5
 				name="Curbstomp"
-				DamageMult=13
+				DamageMult=10
 				AccuracyMult = 1.1
 				Duration=5
 				KBMult=0.0001
@@ -75,7 +75,7 @@ obj
 				Copyable=5
 				name="Six Grand Openings"
 				HitMessage="delivers a graceful and crippling blow with their elbow!"
-				DamageMult=7.5
+				DamageMult=8
 				AccuracyMult = 1.175
 				Duration=5
 				Counter=1
@@ -96,7 +96,7 @@ obj
 				Copyable=5
 				name="Skullcrusher"
 				HitMessage="brings their elbow down with crushing might!"
-				DamageMult=7
+				DamageMult=5
 				InstantStrikes=2
 				InstantStrikesDelay=1.5
 				AccuracyMult = 1.1

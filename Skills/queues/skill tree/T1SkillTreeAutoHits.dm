@@ -31,6 +31,7 @@ obj
 					Size = 1 + round(p.Potential/50)
 					WindUp=0.5
 					Distance = 12
+					DistanceAround=4
 					DamageMult = 2 + p.Potential/100
 
 				else
@@ -67,13 +68,15 @@ obj
 				if(p.isInnovative(HUMAN, "Sword") && !isInnovationDisable(p))
 					var/pot = p.Potential
 					PassThrough = 1
+					Area="Wave"
 					Rounds = 2 + (round(pot/ 10))
 					StepsDamage=pot/1000
 					Knockback = 1
 					Launcher = 2
 					ComboMaster = 1
-					Size = 3
-					Distance = 12
+					Size = 1
+					Distance = 4
+					Slow=1.5
 					DamageMult = 0.5 + (pot / 100)
 					TurfStrike=2
 					TurfShift='Dirt1.dmi'
@@ -81,7 +84,8 @@ obj
 				else
 					PassThrough = 0
 					Rounds = 1
-					Size = 0
+					Slow=0
+					Size = 1
 					Distance = 4
 					Knockback = 3
 					Launcher = 0
@@ -211,7 +215,7 @@ obj
 			Copyable=2
 			NeedsSword=1
 			Area="Arc"
-			Distance=2
+			Distance=3
 			StrOffense=1
 			DamageMult=0.35
 			RoundMovement=0
