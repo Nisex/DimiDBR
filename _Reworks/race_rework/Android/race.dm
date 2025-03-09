@@ -5,15 +5,15 @@ race
 		visual = 'Demon.png'
 
 		locked = TRUE
-		strength = 0.5
-		endurance = 0.5
-		speed = 0.5
-		offense = 0.5
-		defense = 0.5
-		force = 0.5
+		strength = 1
+		endurance = 1
+		speed = 1
+		offense = 1
+		defense = 1
+		force = 1
 		economy = 3
 		regeneration = 1.5
-		statPoints = 25
+		statPoints = 20
 		anger = 1
 		imagination = 0.05
 		anger_message = "calculates the ideal path to victory."

@@ -1,7 +1,7 @@
 var/list/SkillTreeList=list("BlastT1"=list(),"BlastT2"=list(),"BlastT3"=list(), \
-"BlastT4"=list(),"SwordT1"=list(),"SwordT2"=list(),"SwordT3"=list(),"SwordT4"=list(),\
-"BeamT1"=list(),"BeamT2"=list(),"BeamT3"=list(),"BeamT4"=list(),\
-"MagicT1"=list(),"MagicT2"=list(),"MagicT3"=list(),"MagicT4"=list(),\
+"BlastT4"=list(),"SwordT1"=list(),"SwordT2"=list(),"SwordT3"=list(),"SwordT4"=list(),"SwordT5"=list(),\
+"BeamT1"=list(),"BeamT2"=list(),"BeamT3"=list(),"BeamT4"=list(),"BlastT5"=list(),\
+"MagicT1"=list(),"MagicT2"=list(),"MagicT3"=list(),"MagicT4"=list(),"MagicT5"=list(),\
 "UnarmedT1"=list(),"UnarmedT2"=list(),"UnarmedT3"=list(),"UnarmedT4"=list(), "UnarmedT5" = list(),\
 "UnarmedStyles"=list(),"UnarmedStylesT1"=list(), "UnarmedStylesT2"=list(),"UnarmedStylesT3"=list(), "UnarmedStylesT4"=list(), \
 "ElementalStyles"=list(),"HybridStyle"=list(),"SwordStyles"=list(), \
@@ -36,6 +36,8 @@ proc/MakeSkillTreeList()
 						s.cost=TIER_3_COST
 					if("4")
 						s.cost=TIER_4_COST
+					if("5")
+						s.cost=TIER_5_COST
 			else
 				s.cost=SkillTree[x][z]
 				s.tier = 0

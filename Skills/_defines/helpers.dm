@@ -14,8 +14,10 @@
 
 /mob/proc/findOrAddSkill(path) // find it, regardless
     var/obj/Skills/s = null 
-    if(ispath(path))
+    if(ispath(path) || istext(path))
         s = FindSkill(path)
+        if(istext(path))
+            path = text2path(path)
         if(!s)
             s = new path
     else

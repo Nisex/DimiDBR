@@ -124,7 +124,7 @@ obj
 				verb/Kinshasa()
 					set category="Skills"
 					set name="Kinshasa"//Verb name.
-					adjust(src)
+					adjust(usr)
 					usr.SetQueue(src)
 			Piston_Kick
 				SkillCost=TIER_1_COST

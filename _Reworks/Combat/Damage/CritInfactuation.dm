@@ -11,19 +11,21 @@
 	if(defender)
 		blockChance = defender.passive_handler.Get("BlockChance")
 		critBlock = defender.passive_handler.Get("CriticalBlock")
-	if(UsingMartialStyle())
-		critChance += 5
-		critDMG += 0.1
+	var/martialStyle = usingStyle("UnarmedStyle")
+	var/defenderMartialStyle = usingStyle("UnarmedStyle")
+	if(martialStyle)
+		critChance += 5 + (2.5 * StyleBuff.SignatureTechnique)
+		critDMG += 0.05 + (0.05 * StyleBuff.SignatureTechnique)
+		if(Saga && SagaLevel)
+			critChance += 5 + (2.5 * SagaLevel)
+			critDMG += 0.1 + (0.05 * SagaLevel)
 	if(defender)
-		if(defender.UsingMartialStyle())
-			blockChance += 5
-			critBlock += 0.1
-		if(defender.UsingMasteredMartialStyle())
-			blockChance += 5
-			critBlock += 0.1
-	if(UsingMasteredMartialStyle())
-		critChance += 5
-		critDMG += 0.1
+		if(defenderMartialStyle)
+			blockChance += 5 + (5 * StyleBuff.SignatureTechnique)
+			critBlock += 0.05 + (0.05 * StyleBuff.SignatureTechnique)
+			if(Saga && SagaLevel)
+				blockChance += 5 + (2.5 * SagaLevel)
+				critBlock += 0.1 + (0.05 * SagaLevel)
 	if(prob(critChance)) 
 		if(passive_handler["ThunderHerald"])
 			var/obj/Skills/s = findOrAddSkill(/obj/Skills/AutoHit/Thunder_Bolt)

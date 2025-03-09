@@ -2,13 +2,13 @@
 /obj/Skills/Grapple/The_Show_Stopper
 	SkillCost=TIER_5_COST
 	Stunner=5
-	DamageMult=18
+	DamageMult=12
 	HarderTheyFall=5
 	Crippling = 50
 	StrRate=2
 	ForRate=0
 	Effect="ShowStopper"
-	Cooldown=1
+	Cooldown=150
 	OneAndDone=1
 	verb/The_Show_Stopper()
 		set category="Skills"

@@ -8,4 +8,4 @@
             if(passive_handler["Grit"] - val >= 1)
                 passive_handler.Decrease("Grit", round(val, 0.1))
         if("reset")
-            passive_handler["Grit"] = 0
+            passive_handler["Grit"] = 1

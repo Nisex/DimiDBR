@@ -12,7 +12,7 @@ mob
 						if(locate(aps, src))
 							del aps
 							continue
-						if(x == null)
+						if(x == null || isnull(x) || x == "")
 							continue
 						var/obj/Skills/bps=new x
 						if(locate(bps, src))

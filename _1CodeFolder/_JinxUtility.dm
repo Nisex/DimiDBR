@@ -2476,6 +2476,8 @@ mob
 				Return=src.Profile
 			return Return
 		AddSkill(var/obj/Skills/S, var/AlreadyHere=0)
+			if(!S)
+				return
 			if(S.type in typesof(/obj/Skills/Queue))
 				src.Queues.Add(S)
 			else if(S.type in typesof(/obj/Skills/AutoHit))
@@ -2750,6 +2752,7 @@ mob
 					var/path=styles_available[x]
 					if(isnull(path))
 						continue
+				
 					var/obj/Skills/s=new path
 					if(s.SignatureTechnique==tier)
 						return 1

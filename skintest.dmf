@@ -486,11 +486,6 @@ window "custom_buff_add"
 		can-minimize = false
 		can-resize = false
 		image-mode = tile
-		outer-size = 265x260
-		outer-pos = 384,0
-		inner-size = 247x213
-		inner-pos = 9,38
-		screen-size = 2560x1390
 	elem "GoBack"
 		type = BUTTON
 		pos = 0,184
@@ -932,11 +927,6 @@ window "custom_buff_mult"
 		can-minimize = false
 		can-resize = false
 		image-mode = tile
-		outer-size = 265x260
-		outer-pos = 384,0
-		inner-size = 247x213
-		inner-pos = 9,38
-		screen-size = 2560x1390
 	elem "GoBack"
 		type = BUTTON
 		pos = 0,184
@@ -2365,11 +2355,6 @@ window "Finalize_Screen"
 		can-minimize = false
 		can-resize = false
 		image-mode = tile
-		outer-size = 1026x323
-		outer-pos = 384,0
-		inner-size = 1008x276
-		inner-pos = 9,38
-		screen-size = 2560x1390
 	elem "button51"
 		type = BUTTON
 		pos = 322,212
@@ -2633,11 +2618,6 @@ window "Finalize_Screen"
 		border = line
 		drop-zone = false
 		saved-params = ""
-		cells = 1x1
-		current-cell = 1,1
-		show-lines = none
-		show-names = false
-		highlight-color = #000000
 	elem "ChangeIcon"
 		type = BUTTON
 		pos = 81,175
@@ -3714,6 +3694,11 @@ window "skilltree"
 		can-minimize = false
 		can-resize = false
 		macro = "macro"
+		outer-size = 426x467
+		outer-pos = 384,0
+		inner-size = 408x420
+		inner-pos = 9,38
+		screen-size = 2560x1390
 	elem "button6"
 		type = BUTTON
 		pos = 103,32
@@ -3766,6 +3751,19 @@ window "skilltree"
 		saved-params = "is-checked"
 		text = "TIER 4"
 		command = "skilltreez \"SwordT4\""
+	elem "button97"
+		type = BUTTON
+		pos = 306,167
+		size = 102x24
+		anchor1 = 0,40
+		anchor2 = 25,45
+		font-family = "@Microsoft JhengHei Light"
+		font-size = 9
+		text-color = #004623
+		background-color = #0a0a0a
+		saved-params = "is-checked"
+		text = "TIER 5"
+		command = "skilltreez \"SwordT5\""
 	elem "button87"
 		type = BUTTON
 		pos = 0,144
@@ -3779,6 +3777,19 @@ window "skilltree"
 		saved-params = "is-checked"
 		text = "TIER 4"
 		command = "skilltreez \"UnarmedT4\""
+	elem "button99"
+		type = BUTTON
+		pos = 0,167
+		size = 102x24
+		anchor1 = 0,40
+		anchor2 = 25,45
+		font-family = "@Microsoft JhengHei Light"
+		font-size = 9
+		text-color = #004623
+		background-color = #0a0a0a
+		saved-params = "is-checked"
+		text = "TIER 5"
+		command = "skilltreez \"UnarmedT5\""
 	elem "button86"
 		type = BUTTON
 		pos = 306,120
@@ -3870,6 +3881,19 @@ window "skilltree"
 		saved-params = "is-checked"
 		text = "TIER 4"
 		command = "skilltreez \"BlastT4\""
+	elem "button123"
+		type = BUTTON
+		pos = 103,167
+		size = 102x24
+		anchor1 = 0,40
+		anchor2 = 25,45
+		font-family = "@Microsoft JhengHei Light"
+		font-size = 9
+		text-color = #004623
+		background-color = #0a0a0a
+		saved-params = "is-checked"
+		text = "TIER 5"
+		command = "skilltreez \"BlastT5\""
 	elem "button67"
 		type = BUTTON
 		pos = 103,120
@@ -3896,6 +3920,19 @@ window "skilltree"
 		saved-params = "is-checked"
 		text = "TIER 4"
 		command = "skilltreez \"MagicT4\""
+	elem "button127"
+		type = BUTTON
+		pos = 203,167
+		size = 102x24
+		anchor1 = 0,40
+		anchor2 = 25,45
+		font-family = "@Microsoft JhengHei Light"
+		font-size = 9
+		text-color = #004623
+		background-color = #0a0a0a
+		saved-params = "is-checked"
+		text = "TIER 5"
+		command = "skilltreez \"MagicT5\""
 	elem "button64"
 		type = BUTTON
 		pos = 203,96
@@ -3960,6 +3997,7 @@ window "skilltree"
 		is-default = true
 		drop-zone = false
 		saved-params = ""
+		cells = 1x1
 		current-cell = 1,1
 		highlight-color = #000000
 	elem "STRewardPoints"
