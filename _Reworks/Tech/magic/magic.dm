@@ -31,6 +31,8 @@ ArmamentEnchantment -> tome creation (articact manufactioning + ArmamentEnchantm
     total += TimeMagicUnlocked
     total += SealingMagicUnlocked
     total += SummoningMagicUnlocked
+    if(passive_handler.Get("Crimson Grimoire"))
+        total = 20
     if(total >= MAX_MAGIC_LEVEL)
         total = MAX_MAGIC_LEVEL
     TotalMagicLevel = total

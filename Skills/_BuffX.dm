@@ -6552,7 +6552,7 @@ NEW VARIABLES
 								usr.EraDeathClock=world.realtime+DeathClock
 								usr << "You will die from overexertion soon. Use your remaining time well."
 			Crimson_Grimoire
-				passives = list("LimitlessMagic" = 1, "MagicFocus" = 1)
+				passives = list("LimitlessMagic" = 1, "MagicFocus" = 1, "Crimson Grimoire" = 1)
 				LimitlessMagic=1
 				TimerLimit=90
 				Cooldown=180
