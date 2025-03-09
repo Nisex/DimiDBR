@@ -2586,6 +2586,17 @@ obj/Items/Enchantment/Staff
 	EnchType="ToolEnchantment"
 	SubType="Spell Focii"
 	desc="Spell focii alter the effects of fighting with Spells and energy attacks; they are also required to cast more complex magic."
+
+	generateEquipImage(mob/equipper)
+		. = ..()
+		if(equipper.CheckActive("Mobile Suit") && Conjured)
+			equipImage.transform*=3
+			equipImage.appearance_flags+=512
+			underlayEquipImage.transform*=3
+			underlayEquipImage.appearance_flags+=512
+		if(equipper.ArmamentGlow)
+			equipImage.filters += equipper.ArmamentGlow
+
 	NonElemental
 		Wand
 			name="Null Wand"
