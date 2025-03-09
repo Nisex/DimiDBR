@@ -61,43 +61,8 @@ obj
 			Cooldown=30
 			EnergyCost=2
 			ActiveMessage="dashes forward with a jousting strike!"
-			verb/Disable_Innovate()
-				set category = "Other"
-				disableInnovation(usr)
-			adjust(mob/p)
-				if(p.isInnovative(HUMAN, "Sword") && !isInnovationDisable(p))
-					var/pot = p.Potential
-					PassThrough = 1
-					Area="Wave"
-					Rounds = 2 + (round(pot/ 10))
-					StepsDamage=pot/1000
-					Knockback = 1
-					Launcher = 2
-					ComboMaster = 1
-					Size = 1
-					Distance = 4
-					Slow=1.5
-					DamageMult = 0.5 + (pot / 100)
-					TurfStrike=2
-					TurfShift='Dirt1.dmi'
-					TurfShiftDuration=3
-				else
-					PassThrough = 0
-					Rounds = 1
-					Slow=0
-					Size = 1
-					Distance = 4
-					Knockback = 3
-					Launcher = 0
-					ComboMaster = 0
-					DamageMult = 2.2
-					Rush = 2
-					TurfStrike=0
-					TurfShift=0
-					TurfShiftDuration=0
 			verb/Stinger()
 				set category="Skills"
-				adjust(usr)
 				usr.Activate(src)
 		Light_Step
 			SkillCost= TIER_1_COST
