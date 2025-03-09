@@ -1997,57 +1997,63 @@ mob
 		QueuedDamage(var/mob/P)
 			var/Damage=1
 			// this acts as a multiplier, so something like a 5 damage mult will result in insane numbers
-
-			if(AttackQueue.Finisher)
-				var/ratio = (clamp((100-P.Health) / 50, 1, AttackQueue.Finisher+1) / glob.Q_DIVISOR)
-				if(ratio > 0)
-					Damage+=ratio
-			if(AttackQueue.Opener)
-				var/ratio = (clamp(P.Health / 50, 1, AttackQueue.Opener+1) / glob.Q_DIVISOR)
-				if(ratio > 0)
-					Damage+=ratio
-
+			DEBUGMSG("START DAMAGE: [Damage]")
+			if(AttackQueue.Finisher && P.Health < 50)
+				var/missing = abs(P.Health-50)
+				var/extra = missing * (glob.FINISHERDMG * AttackQueue.Finisher)
+				Damage+=extra // glob (0.5% * finisher) extra damage for every health under 50 )
+			DEBUGMSG("NEW DAMAGE AFTER FINISHER: [Damage]")
+			if(AttackQueue.Opener && P.Health > 50)
+				var/missing = abs(50-P.Health)
+				var/extra = missing * (glob.OPENERDMG * AttackQueue.Opener)
+				Damage+=extra
+			DEBUGMSG("NEW DAMAGE AFTER OPENER: [Damage]")
 			if(src.AttackQueue.Decider)
-				var/DeciderDmg = getDeciderDamage(Health, P.Health)
-				if(DeciderDmg > 0)
-					Damage*=DeciderDmg
-
+				var/deciderDmg = glob.DECIDERDMG * AttackQueue.Decider // the extra amount of damage to do in the case everyiong = 1
+				var/healthcloseness = abs(Health - P.Health)/100
+				deciderDmg *= (1 - healthcloseness)
+				if(deciderDmg > 0)
+					Damage+=deciderDmg
+			DEBUGMSG("NEW DAMAGE AFTER DECIDER: [Damage]")
 			if(AttackQueue.Dominator)
 				if(Health>P.Health)
 					var/ratio = clamp(Health / P.Health, 1, 4)
 					if(ratio > 0)
 						Damage+= (ratio-1) *( AttackQueue.Dominator / 4)
+			DEBUGMSG("NEW DAMAGE AFTER DOMINATOR: [Damage]")
 			if(AttackQueue.Determinator)
 				if(Health<P.Health&&Health!=0)
 					var/ratio = clamp( P.Health / Health, 1, 4)
 					if(ratio > 0)
 						Damage+= (ratio-1) * (AttackQueue.Determinator / 4)
-
+			DEBUGMSG("NEW DAMAGE AFTER DETERMINATOR: [Damage]")
 			if(src.AttackQueue.Delayer)
-				var/addDamage = 1 + (clamp(src.AttackQueue.Delayer*src.AttackQueue.DelayerTime, 0.1, 3)/ glob.Q_DIVISOR)
-				Damage*=(addDamage)
-
+				var/addDamage = src.AttackQueue.Delayer*src.AttackQueue.DelayerTime
+				Damage+=(addDamage)
+			DEBUGMSG("NEW DAMAGE AFTER DELAYER: [Damage]")
 			if(src.AttackQueue.SpeedStrike>0)
-				Damage *= clamp(sqrt( ( 1+ ( src.GetSpd())*( src.AttackQueue.SpeedStrike/10 ) ) ),1 ,3)
-
+				Damage *= clamp(sqrt( ( 1+ ( src.GetSpd())*( src.AttackQueue.SpeedStrike/glob.SPEEDSTRIKEDIVISOR ) ) ),1 ,3)
+			DEBUGMSG("NEW DAMAGE AFTER SPEEDSTRIKE: [Damage]")
 			if(src.AttackQueue.SweepStrike>0)
-				Damage *= clamp(sqrt(( 1+ (P.GetSpd())*(src.AttackQueue.SweepStrike/10))),1 ,3)
-
+				Damage *= clamp(sqrt(( 1+ (P.GetSpd())*(src.AttackQueue.SweepStrike/glob.SWEEPSTRIKEDIVISOR))),1 ,3)
+			DEBUGMSG("NEW DAMAGE AFTER SWEEPSTRIKE: [Damage]")
 			if(src.AttackQueue.GodPowered)
 				src.transcend(src.AttackQueue.GodPowered)
 			if(AttackQueue.HarderTheyFall && P.BioArmor)
 				Damage +=  P.BioArmor / glob.HARDER_THEY_FALL_BIO_DIVISOR // i want to make the ticks matter, but cant formulate an idea how
 			if(AttackQueue.HarderTheyFall && P.VaizardHealth)
 				Damage += P.VaizardHealth / glob.HARDER_THEY_FALL_VAI_DIVISOR // i want to make the ticks matter, but cant formulate an idea how
+			DEBUGMSG("NEW DAMAGE AFTER HARDERTHEYFALL: [Damage]")
 			if(src.AttackQueue.CosmoPowered)
 				if(!src.SpecialBuff)
 					Damage+=(0.5+(src.SenseUnlocked-4))
-			if(Damage<0)
-				Damage = 0.1
+			if(Damage<1)
+				Damage = 1
 			if(src.AttackQueue.DamageMult>=0)
 				var/dmgMult = src.AttackQueue.DamageMult
 				if(passive_handler["Fa Jin"] && canFaJin())
 					dmgMult+= passive_handler["Fa Jin"] * glob.FA_JIN_BASE_DMG_ADD
+				DEBUGMSG("NEW DAMAGE AFTER FA JIN (FINAL DAMAGE): [Damage]")
 				Damage*=dmgMult
 			if(Damage>0 && glob.GLOBAL_QUEUE_DAMAGE > 0)
 				Damage *= glob.GLOBAL_QUEUE_DAMAGE

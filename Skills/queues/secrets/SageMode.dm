@@ -35,7 +35,7 @@ obj
 				ManaCost = 15
 				Cooldown = 120
 				DamageMult = 2.5
-				Delayer=0.5
+				Delayer=0.25
 				Duration = 6
 				KBMult = 1.5
 				Shearing=3

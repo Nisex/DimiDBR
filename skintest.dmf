@@ -3759,7 +3759,7 @@ window "skilltree"
 		anchor2 = 25,45
 		font-family = "@Microsoft JhengHei Light"
 		font-size = 9
-		text-color = #004623
+		text-color =rgb(31, 0, 52)
 		background-color = #0a0a0a
 		saved-params = "is-checked"
 		text = "TIER 5"
@@ -3785,7 +3785,7 @@ window "skilltree"
 		anchor2 = 25,45
 		font-family = "@Microsoft JhengHei Light"
 		font-size = 9
-		text-color = #004623
+		text-color = rgb(1, 75, 1)
 		background-color = #0a0a0a
 		saved-params = "is-checked"
 		text = "TIER 5"

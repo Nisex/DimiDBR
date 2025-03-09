@@ -5,8 +5,8 @@ obj
 			Warping_Fist // followup on an autohit
 				Warp=50
 				Cooldown=150
-				Dunker=5
-				DamageMult=2
+				Dunker=3
+				DamageMult=4
 				Instinct=2
 				Duration=12
 				AccuracyMult=2
@@ -21,9 +21,9 @@ obj
 				DamageMult=9
 				AccuracyMult = 1.175
 				KBMult=5
-				Duration=6
+				Duration=7
 				Instinct=2
-				Delayer=0.25//add 1 damage mult every second that this is queued but hasnt been punched yet
+				Delayer=0.1//add 1 damage mult every second that this is queued but hasnt been punched yet
 				Warp=5
 				Cooldown=150
 				EnergyCost=5

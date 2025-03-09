@@ -4,6 +4,10 @@
 #define BRONZECLOTHS list("Pegasus","Dragon","Cygnus","Andromeda","Phoenix","Unicorn")
 #define GOLDCLOTHS list("Aries",/* "Taurus" */,"Gemini","Cancer","Leo","Virgo","Libra","Scorpio", "Sagittarius","Capricorn","Aquarius","Pisces")
 
+proc/DEBUGMSG(msg)
+	if(DEBUGGING)
+		world<<"DEBUG: [msg]"
+
 var/globalTracker/glob = new()
 
 /mob/Admin2/verb/editGlobalVariables()
@@ -289,8 +293,11 @@ globalTracker
 		SKILL_BRANCH_LOCK = 1
 
 		Q_DIVISOR = 10
-
-
+		FINISHERDMG = 0.005
+		OPENERDMG = 0.005
+		DECIDERDMG = 0.2
+		SPEEDSTRIKEDIVISOR = 5
+		SWEEPSTRIKEDIVISOR = 5
 		LIGHT_ATTACK_SPEED_DMG_ENABLED = 1
 		LIGHT_ATTACK_SPEED_DMG_EXPONENT = 0.4
 		LIGHT_ATTACK_SPEED_DMG_LOWER = 0.5
