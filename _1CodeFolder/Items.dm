@@ -53,15 +53,6 @@ obj/Items
 	var/spdAdd = 0
 	var/offAdd = 0
 	var/defAdd = 0
-
-
-
-
-
-
-
-
-
 	var/list/Creator=new
 	var/CreatorKey
 	var/CreatorSignature
@@ -71,9 +62,7 @@ obj/Items
 	var/UnderlayIcon
 	var/UnderlayX
 	var/UnderlayY
-
 	var/InternalTimer
-
 	var/EquipIcon
 	var/LayerPriority=0//1-9, higher ones are displayed above others
 	var/IsHat//Is the object a hat?!
@@ -126,8 +115,38 @@ obj/Items
 	var/list/passives = list()
 	var/list/current_passives
 
+	var/tmp/image/equipImage
+	var/tmp/image/underlayEquipImage
+
 	proc/onBroken()
 
+	proc/Equip(mob/equipper, force = FALSE)
+	
+	proc/unEquip(mob/equipper, force = FALSE)
+
+	proc/generateEquipImage(mob/equipper)
+		var/placement = FLOAT_LAYER-3
+		if(LayerPriority)
+			placement -= src.LayerPriority
+		if(IsHat)
+			placement = FLOAT_LAYER-1
+
+		var/equipIcon = EquipIcon ? EquipIcon : icon
+
+		equipImage = image(icon = equipIcon, pixel_x = src.pixel_x, pixel_y = src.pixel_y, layer = placement)
+
+		if(UnderlayIcon)
+			underlayEquipImage = image(icon = src.UnderlayIcon, pixel_x = src.UnderlayX, pixel_y = src.UnderlayY)
+
+	proc/visuallyEquip(mob/equipper)
+		// im sure we could cache equipment images for 0.2% performance increase but also lol.
+		equipImage = null
+		underlayEquipImage = null
+		generateEquipImage()
+		if(equipImage)
+			equipper.overlays += equipImage
+		if(underlayEquipImage)
+			equipper.underlays += underlayEquipImage
 
 	proc/setStatLine()
 		switch(Class)
@@ -726,6 +745,15 @@ obj/Items/Armor
 	Repairable=1
 	TechType="Forge"
 	SubType="Armor"
+
+	generateEquipImage(mob/equipper)
+		. = ..()
+		if(equipper.CheckActive("Mobile Suit") && Conjured)
+			equipImage.transform*=3
+			equipImage.appearance_flags+=512
+			underlayEquipImage.transform*=3
+			underlayEquipImage.appearance_flags+=512
+
 	Mobile_Armor
 		name="Armored Vest"
 		Class="Light"
@@ -823,6 +851,17 @@ obj/Items/Sword
 	TechType="Forge"
 	UpdatesDescription=1
 	Repairable=1
+
+	generateEquipImage(mob/equipper)
+		. = ..()
+		if(equipper.CheckActive("Mobile Suit") && Conjured)
+			equipImage.transform*=3
+			equipImage.appearance_flags+=512
+			underlayEquipImage.transform*=3
+			underlayEquipImage.appearance_flags+=512
+		if(equipper.ArmamentGlow)
+			equipImage.filters += equipper.ArmamentGlow
+
 	Wooden
 		name="Training Sword"
 		Unobtainable=0
