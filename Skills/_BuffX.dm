@@ -11871,7 +11871,7 @@ mob
 							src.StyleBuff.StyleOff=1.5
 							src.StyleBuff.passives["CalmAnger"] = 1
 							src.StyleBuff.CalmAnger=1
-							if(src.SagaLevel>7)
+							if(src.SagaLevel==6)
 								src.StyleBuff.passives["Unstoppable"] = 1
 								src.StyleBuff.Unstoppable=1
 								src.StyleBuff.passives["LifeGeneration"] = 2.5
