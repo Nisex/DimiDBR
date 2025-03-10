@@ -152,7 +152,7 @@ obj/Skills/Utility
 					if(usr.Grab)
 						usr << "You need free hands!"
 						return
-					if(!usr.HasMoney(src.Mastery*glob.progress.EconomyCost*0.2))
+					if(!usr.HasMoney(glob.progress.EconomyCost*0.02))
 						usr << "You don't have enough money to make a single passable meal!"
 						return
 					src.Using=1
