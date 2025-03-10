@@ -85,7 +85,8 @@ proc
 				var/mod = (mob.HasLegendaryPower() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
 				mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))
 	StunImmuneCheck(mob/mob)
-		if(mob.StunImmune && mob.Saga != "Kamui" && !mob.CheckActive("Kamui Senketsu"))
+		// stunned, not kamui, not senketsu
+		if(mob.StunImmune && mob.passive_handler["ContinuallyStun"])
 			if(mob.StunImmune<world.time)
 				mob.StunImmune=0
 			else

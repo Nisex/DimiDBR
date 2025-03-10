@@ -61,7 +61,7 @@
 	Area="Around Target"
 	AdaptRate=1
 	DamageMult=1.25
-	Freezing=65
+	Freezing=15
 	Distance=12
 	DistanceAround = 1
 	Size = 2
@@ -169,6 +169,7 @@
 	NoLock = 1
 	NoAttackLock = 1
 	Size=3
+	PullIn = 5
 	NeedsSword = 0
 	UnarmedOnly = 0
 	Icon='bloodmiasma.dmi'

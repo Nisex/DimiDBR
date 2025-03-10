@@ -19,6 +19,14 @@
 		if(!locate(S, usr.contents))
 			usr.AddSkill(new S)
 
+/mob/verb/See_Targets_Target()
+	set category="Skills"
+	if(Target && Target.Target)
+		Target.Target.Click()
+	
+
+
+
 /mob
 	var/resetStats = TRUE
 	var/massReset = TRUE
