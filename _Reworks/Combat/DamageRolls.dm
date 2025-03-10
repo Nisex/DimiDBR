@@ -21,6 +21,7 @@ proc/randValue(min,max,divider=10)
 			else
 				zorn = passive_handler["Zornhau"]
 			zorn *= glob.STEADY_MODIFIER
+			val += zorn
 	var/negate = 0
 	if(src.Target)
 		negate = GetUnnvere() * (glob.STEADY_MODIFIER)

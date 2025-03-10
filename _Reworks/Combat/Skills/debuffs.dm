@@ -27,7 +27,12 @@
 			do_effect(p, dealer)
 			total_stacks = 0
 
-
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Over_Exerted
+	adjust(mob/p)
+		SpdMult = 0.75
+		passives = list("Drained" = 6 - round(p.Potential/25, 1), "EnergyLeak" = 1)
+		CrippleAffected = 1
+		TimerLimit = 30 - round(p.Potential/5)
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Snare
 	AlwaysOn = 0

@@ -3881,12 +3881,12 @@ NEW VARIABLES
 		King_Of_Braves
 			Cooldown = 1
 			PowerGlows=list(1,0.8,0.8, 0,1,0, 0.8,0.8,1, 0,0,0)
-			passives = list("Tenacity" = 1, "UnderDog" = 0.5)
+			passives = list("Tenacity" = 1, "UnderDog" = 0.5, "Persistence" = 1)
 			ActiveMessage="surrounds their body in a faint green aura!"
 			OffMessage="deactivates the green energy..."
 			proc/setupVars(mob/player)
 				src.ActiveMessage="surrounds their body in a faint green aura!"
-				passives = list("Tenacity" = player.SagaLevel, "UnderDog" = player.SagaLevel/2)
+				passives = list("Tenacity" = player.SagaLevel, "UnderDog" = player.SagaLevel/2, "Persistence" = player.SagaLevel)
 				if(BuffName == "Genesic Brave")
 					if(player.SagaLevel < 4)
 						TimerLimit = 30 + (10 * player.SagaLevel)
@@ -8558,21 +8558,29 @@ NEW VARIABLES
 			SwordX=-6
 			SwordY=-13
 			passives = list("SwordAscension" = 1, "SpiritSword" = 0.5)
-			SwordAscension=1
-			SpiritSword=0.5
 			SwordClass="Wooden"
-			ActiveMessage="condenses their bravery into a weapon!"
-			verb/Modify_Will_Knife()
+			ActiveMessage="condenses their bravery!"
+			var/saved_icon = null
+			verb/Modify_Armament()
 				set category="Skills"
 				src.SwordIcon=input(usr, "What icon will your Will Knife use?", "Will Knife Icon") as icon|null
 				src.SwordX=input(usr, "Pixel X offset.", "Will Knife Icon") as num
 				src.SwordY=input(usr, "Pixel Y offset.", "Will Knife Icon") as num
 				src.SwordClass=input(usr, "What class will your Will Knife be?", "Will Knife Icon") in list("Heavy", "Medium", "Light", "Wooden")
-
-			verb/Will_Knife()
+				saved_icon = input(usr, "What do you want your unarmed variant icon to be?") as icon|null
+				LockX = input(usr, "Pixel X offset.", "Unarmed Variant Icon") as num
+				LockY = input(usr, "Pixel Y offset.", "Unarmed Variant Icon") as num
+			adjust(mob/p)
+				if(p.usingStyle("UnarmedStyle"))
+					MakesSword = 0
+					passives = list("UnarmedDamage" = clamp(usr.SagaLevel/2, 1,6), "SpiritHand" = 0.8 * (usr.SagaLevel), "SwordPunching" = 1)
+					IconLock = saved_icon
+				else
+					passives = list("SwordAscension" = clamp(usr.SagaLevel - 1,1,6), "SpiritSword" = 0.2 * (usr.SagaLevel), "SwordPunching" = 1)
+					MakesSword = 1
+					IconLock = null
+			verb/Audacious_Bravery_Armament()
 				set category="Skills"
-				if(!usr.BuffOn(src) && !altered)
-					passives = list("SwordAscension" = clamp(usr.SagaLevel - 1,1,6), "SpiritSword" = 0.2 * (usr.SagaLevel))
 				src.Trigger(usr)
 
 		Protect_Shade

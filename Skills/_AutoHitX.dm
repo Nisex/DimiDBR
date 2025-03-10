@@ -2119,9 +2119,8 @@ obj
 				CanBeDodged=0
 				CanBeBlocked=1
 				DamageMult=11
-				SlayerMod=30
 				Stunner=3
-				MortalBlow=0.25
+				MortalBlow=1
 				Knockback=0
 				WindUp=1
 				WindupIcon='Chidori.dmi'
@@ -2135,10 +2134,64 @@ obj
 				Cooldown=150
 				EnergyCost=8
 				Instinct=1
+				proc/reset2default()
+					Area="Strike"
+					AdaptRate=1
+					Rush=20
+					SpecialAttack=1
+					CanBeDodged=0
+					CanBeBlocked=1
+					DamageMult=11
+					Stunner=3
+					MortalBlow=1
+					Knockback=0
+					WindUp=1
+					WindupIcon='Chidori.dmi'
+					WindupMessage="begins charging lightning into their palm!"
+					ActiveMessage="rushes in with terrifying piercing force!"
+					Icon='Chidori.dmi'
+					HitSparkIcon='Hit Effect Vampire.dmi'
+					HitSparkX=-32
+					HitSparkY=-32
+					HitSparkSize=1
+					EnergyCost=8
+					Instinct=1
+					Rounds = 0
+					ChargeTech = 0
+					ChargeTime = 0
+					TurfShift=null
+					TurfShiftDuration=0
+					TurfShiftDurationSpawn = 0
+					TurfShiftDurationDespawn = 0
+				adjust(mob/p)
+					if(p.isInnovative(HUMAN, "Any") && !isInnovationDisable(p))
+						name = "Lightning Blade"
+						Area = "Circle"
+
+						ChargeTime = 1.5 - (p.Potential/100)
+						ChargeTech = 1
+						WindUp = 2 - (p.Potential/100)
+						Rush = 3
+						Rounds = 30
+						TurfShift='Glowing Electricity.dmi'
+						TurfShiftDuration=6
+						TurfShiftDurationSpawn = 1
+						TurfShiftDurationDespawn = 5
+						Grapple = 1
+						GrabMaster = 1
+						DamageMult = 0.2
+						Quaking = 10
+						GrabTrigger = "/obj/Skills/Grapple/Lightning_Blade"
+						WindupMessage="begins charging an excessive amount of lightning in their palm!"
+						ActiveMessage="rushes in with the sound of one thousand chirping birds following!"
+						BuffSelf = /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Over_Exerted
+					else
+						reset2default()
 				verb/Chidori()
 					set category="Skills"
 					if(usr.Saga=="Sharingan")
 						src.ControlledRush=1
+					adjust(usr)
 					usr.Activate(src)
 			Super_Explosive_Wave
 				SignatureTechnique=1

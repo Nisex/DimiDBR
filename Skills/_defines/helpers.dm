@@ -87,3 +87,11 @@ mob/proc/UsingHotnCold()
             // trigger it as the counter will go off on deactivate XD
             sb.CounterHit = 1
             sb.Trigger(src, TRUE)
+
+
+/mob/proc/getPower(mob/def)
+    var/powerDif = Power / def.Power
+    if(glob.CLAMP_POWER)
+        if(!ignoresPowerClamp())
+            powerDif = clamp(powerDif, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
+    return powerDif

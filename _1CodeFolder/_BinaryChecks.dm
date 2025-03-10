@@ -972,10 +972,6 @@ mob
 					Return -= sqrt(viewCount)
 			if(passive_handler["Rage"] && Health <= 50)
 				Return += clamp((missingHealth()) * passive_handler["Rage"]/glob.RAGE_DIVISOR, 0.1, glob.MAX_RAGEPUREDAMAGE)
-			if(src.TarotFate=="The Hanged Man")
-				Return+=5
-			if(src.TarotFate=="Justice")
-				Return-=5
 			if(passive_handler.Get("CursedSheath"))
 				Return += cursedSheathValue/100
 			if(dainsleifDrawn)
@@ -2509,26 +2505,6 @@ mob
 			if(src.isRace(MAJIN))
 				return 1
 			return 0
-		UsingZornhau()
-			var/Found=0
-			var/obj/Items/Sword/S=src.EquippedSword()
-			Found += passive_handler.Get("Zornhau")
-			if(src.StyleActive=="Sword Savant")
-				Found+=0.25 + (0.25 * SagaLevel)
-			if(src.StyleActive=="Zornhau")
-				Found=1
-			if(UsingKendo())
-				Found=1
-			if(src.StyleActive=="Champloo")
-				Found=1
-			if(src.StyleActive=="Butcher")
-				Found=1
-			if(src.StyleActive=="Five Rings")
-				Found=1
-			if(S)
-				if(S.ExtraClass&&S.Class=="Heavy")
-					Found+=1
-			return Found
 		UsingFencing()
 			var/Found=0
 			var/obj/Items/Sword/S=src.EquippedSword()

@@ -29,6 +29,9 @@
 		..()
 		if(User.BuffOn(src))
 			User.ActiveZanzo = 1 + (User.Potential/33)
+	verb/Serpents_Haste()
+		set category = "Skills"
+		Trigger(usr)
 
 
 /obj/Skills/AutoHit/Ouroboros/Snake_Bite
