@@ -4168,23 +4168,25 @@ obj
 				Size=1
 				Rush=3
 				ControlledRush=1
+				IgnoreAlreadyHit=1
+				// CanBeBlocked=0
+				// CanBeDodged=0
 				ComboMaster=1
 				StyleNeeded="Ansatsuken"
 				proc/alter(mob/player)
 					ManaCost = 0
-					var/damage = clamp(0.5 + 0.3 * (usr.SagaLevel/2), 0.4, 11)
+					var/damage = clamp(0.6 + 0.3 * (usr.SagaLevel/2), 0.3, 3)
 					var/path = player.AnsatsukenPath == "Tatsumaki" ? 1 : 0
-					var/rounds = clamp(2 + (usr.SagaLevel), 2, 8)
+					var/rounds = 3
 					var/cooldown = 40
 					var/launch = 0
 					if(path)
 						cooldown = 30
-						damage = clamp(1.2 + 0.4 * (usr.SagaLevel), 0.8, 11)
-						rounds = clamp(1 + usr.SagaLevel+2, 2, 8)
+						damage = clamp(0.6 + 0.5 * (usr.SagaLevel/2), 0.3, 5)
+						rounds = 3
 					DamageMult = damage
 					Cooldown = cooldown
 					Rounds = rounds
-					DamageMult/= Rounds
 					Launcher = launch
 				verb/Tatsumaki()
 					set category="Skills"
@@ -4193,27 +4195,25 @@ obj
 					ChargeTime=0.75
 					usr.Activate(src)
 				verb/EX_Tatsumaki()
+					set category="Skills"
 					var/mob/player = usr
 					var/sagaLevel = usr.SagaLevel
-					var/damage
 					var/path = player.AnsatsukenPath == "Tatsumaki" ? 1 : 0
-					var/rounds
 					Cooldown = 60
 					var/launch = 0
 					var/manaCost = 25
 					if(player.ManaAmount>=manaCost && sagaLevel >= 2)
-						damage = clamp(3 + 0.5 * (usr.SagaLevel), 1.5,12)
-						rounds = clamp(4 + usr.SagaLevel, 4, 11)
+						DamageMult = clamp(0.7 + 0.3 * (usr.SagaLevel), 0.3,4)
+						Rounds = 4
 						if(path)
-							damage = clamp(5 + 0.6 * (usr.SagaLevel), 1, 14)
-							rounds = clamp(4 + usr.SagaLevel, 4, 11)
-						DamageMult = damage/rounds
+							DamageMult = clamp(1 + 0.3 * (usr.SagaLevel), 0.3, 6)
+							Rounds = 4
 						ManaCost = manaCost
 						launch = 3
 						Launcher=launch
 						ActiveMessage="rises high in the air with a terrifying whirlwind of kicks!!"
 					ChargeTech = 1
-					ChargeTime=1.25
+					ChargeTime=0.5
 					usr.Activate(src)
 			ShinkuTatsumaki
 				UnarmedOnly=1
@@ -5919,7 +5919,7 @@ obj
 					#endif
 				var/def = m.getEndStat(1) * EndRes
 				if(def<0)
-					def=0.1
+					def=0.01
 				if(m.HasPridefulRage())
 					if(m.isRace(SAIYAN))
 						if(Owner.passive_handler.Get("PridefulRage") >= 2)
@@ -5991,9 +5991,9 @@ obj
 					m << "You feel a need to go collect your coins before they're stolen!"
 
 				if(src.SpeedStrike>0)
-					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(src.SpeedStrike/10))),1,3)
+					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(src.SpeedStrike/glob.SPEEDSTRIKEDIVISOR))),1,3)
 				if(Owner.UsingFencing())
-					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(Owner.UsingFencing()/15))),1,3)
+					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(Owner.UsingFencing()/glob.SPEEDSTRIKEDIVISOR+5))),1,3)
 				if((m.Launched||m.Stunned))
 					if(!(ComboMaster || Owner.HasComboMaster() || Dunker || Destroyer))
 						FinalDmg *= glob.CCDamageModifier
@@ -6044,10 +6044,12 @@ obj
 					if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldDefaultAcc, IgnoreNoDodge=0) == WHIFF)
 						if(!src.Owner.NoWhiff())
 							var/obj/Items/Sword/s = Owner.EquippedSword()
+							DEBUGMSG("WHIFFED [FinalDmg] be4")
 							if(s)
 								FinalDmg/=max(1,(glob.AUTOHIT_WHIFF_DAMAGE*(1/Owner.GetSwordAccuracy(s))))
 							else
 								FinalDmg/=glob.AUTOHIT_WHIFF_DAMAGE
+							DEBUGMSG("WHIFFED [FinalDmg]")
 
 				if(src.Owner.inParty(m.ckey))
 					FinalDmg *= glob.PARTY_DAMAGE_NERF
@@ -6173,7 +6175,9 @@ obj
 							return
 
 					if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldDefaultAcc, IgnoreNoDodge=0) == MISS)
+						DEBUGMSG("LOL AUTOHITS CAN MISS ? [Damage]")
 						Damage /= glob.AUTOHIT_MISS_DAMAGE
+						DEBUGMSG("after FR")
 
 					if(m.AfterImageStrike)
 						if(!src.TurfStrike)
@@ -6209,7 +6213,8 @@ obj
 					flick("KB", Owner)
 					spawn()
 						LaunchEnd(m)
-				var/damageDealt = src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive, innateLifeSteal = LifeSteal)
+				var/damageDealt = src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive, innateLifeSteal = LifeSteal, Autohit = TRUE)
+				DEBUGMSG("FINAL TOTAL DAMAGE DEALT! [damageDealt]")
 				if(!damageDealt)
 					damageDealt = 0
 
@@ -6348,6 +6353,7 @@ obj
 										for(var/mob/m in t.contents)
 											if(!hitSelf&&m==src.Owner)
 												continue
+											DEBUGMSG("WE HAVE HIT [m] on [src]")
 											src.Damage(m)
 									for(var/turf/t in Turf_Circle_Edge(src.TargetLoc, Rounds))
 										if(src.TurfErupt)
@@ -6408,6 +6414,7 @@ obj
 											continue
 										if(!hitSelf&&m==src.Owner)
 											continue
+										DEBUGMSG("WE HAVE HIT [m] on [src] 1")
 										src.Damage(m)
 								sleep(src.Slow*world.tick_lag)
 							src.Owner.Frozen=0
@@ -6455,6 +6462,7 @@ obj
 									sleep(-1)
 									for(var/mob/m in t)
 										if(!hitSelf&&src.Owner!=m)
+											DEBUGMSG("WE HAVE HIT [m] on [src] 2")
 											src.Damage(m)
 							else//If less than 3 distance...
 								if(src.TurfErupt)
@@ -6489,6 +6497,7 @@ obj
 										TurfShift(src.TurfShift,t, src.TurfShiftDuration,src.Owner, src.TurfShiftLayer, src.TurfShiftDurationSpawn, src.TurfShiftDurationDespawn, TurfShiftState,TurfShiftX, TurfShiftY)
 								for(var/mob/m in view(src.Distance, src.TargetLoc))
 									if(!hitSelf&&src.Owner!=m)
+										DEBUGMSG("WE HAVE HIT [m] on [src] 3")
 										src.Damage(m)
 						goto Kill
 					else
@@ -6519,6 +6528,7 @@ obj
 										for(var/mob/m in t.contents)
 											if(!hitSelf&&m==src.Owner)
 												continue
+											DEBUGMSG("WE HAVE HIT [m] on [src] 4")
 											src.Damage(m)
 									for(var/turf/t in Turf_Circle_Edge(src.Owner, Rounds))
 										if(src.TurfErupt)
@@ -6579,6 +6589,7 @@ obj
 											continue
 										if(!hitSelf&&m==src.Owner)
 											continue
+										DEBUGMSG("WE HAVE HIT [m] on [src] 5")
 										src.Damage(m)
 								sleep(src.Slow*world.tick_lag)
 							src.Owner.Frozen=0
@@ -6623,6 +6634,7 @@ obj
 									sleep(-1)
 									for(var/mob/m in t)
 										if(!hitSelf&&src.Owner!=m)
+											DEBUGMSG("WE HAVE HIT [m] on [src] 6")
 											src.Damage(m)
 							else//If less than 3 distance...
 								if(src.TurfErupt)
@@ -6657,15 +6669,18 @@ obj
 										TurfShift(src.TurfShift,t, src.TurfShiftDuration,src.Owner, src.TurfShiftLayer, src.TurfShiftDurationSpawn, src.TurfShiftDurationDespawn, TurfShiftState,TurfShiftX, TurfShiftY)
 								for(var/mob/m in view(src.Distance, src.Owner))
 									if(!hitSelf&&src.Owner!=m)
+										DEBUGMSG("WE HAVE HIT [m] on [src] 7")
 										src.Damage(m)
 						goto Kill
 				if(src.Target)
 					if(src.Slow)
 						src.Owner.Frozen=1
 						sleep(src.Slow*world.tick_lag)
+						DEBUGMSG("WE HAVE HIT [Owner.Target] on [src] 10")
 						src.Damage(src.Owner.Target)
 						src.Owner.Frozen=0
 					else
+						DEBUGMSG("WE HAVE HIT [Target] on [src] 9")
 						src.Damage(src.Target)
 					goto Kill
 				while(src.Distance>0)

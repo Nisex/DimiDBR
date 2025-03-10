@@ -2533,7 +2533,8 @@ mob
 			var/Found=0
 			var/obj/Items/Sword/S=src.EquippedSword()
 			if(!S) return 0
-			Found += passive_handler.Get("Fencing")
+			Found += passive_handler.Get("Iaijutsu")
+
 			if(S.Class=="Light")
 				var/asc = 0 
 				if(S.InnatelyAscended)
@@ -2542,7 +2543,6 @@ mob
 					asc=S.Ascended
 				if(src.HasSwordAscension())
 					asc+=src.GetSwordAscension()
-					// change it to heavy sword damage, fuck it
 				if(asc>6)
 					asc=6
 				Found+=clamp(round(0.16 + (0.16 * asc),0.25),0.16,1)
@@ -2550,20 +2550,6 @@ mob
 				Found+=1
 			if(src.StyleActive=="Sword Savant")
 				Found+=0.25 + (0.25 * SagaLevel)
-			if(src.StyleActive=="Fencing")
-				Found+=1
-			if(src.StyleActive=="Dual Wield")
-				Found+=1
-			if(UsingKendo())
-				Found+=1
-			if(src.StyleActive=="Arcane Bladework")
-				Found+=1
-			if(src.StyleActive=="Battle Mage")
-				Found += 1
-			if(src.StyleActive=="Trinity")
-				Found+=1
-			if(src.StyleActive=="Five Rings")
-				Found+=1
 			if(S)
 				if(S.ExtraClass&&S.Class=="Light")
 					Found+=1
@@ -2977,6 +2963,7 @@ mob
 				return TRUE
 			if(passive_handler["HybridStyle"] == "[parentType]")
 				return TRUE
+			return FALSE
 		isInnovative(reqRace, path)
 			if(!glob.SAGAINNOVATION)
 				if(Saga&&Saga!="Keyblade")

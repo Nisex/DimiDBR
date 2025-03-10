@@ -67,7 +67,6 @@
 	AdaptRate = 1
 	Launcher = 4
 	DamageMult=1
-	Hit
 	// Cooldown=45 
 	TurfShift='ouroborostile.dmi'
 	TurfShiftDuration=6

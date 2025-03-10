@@ -50,11 +50,12 @@
         IconLock='Double Slaughter.dmi'
         LockX = -2
         LockY = -2
+        FatigueDrain = 0.0008
         adjust(mob/p)
             passives["Rebel Heart"] = 1+p.AscensionsAcquired
             passives["ShonenPower"] = (1+p.AscensionsAcquired)/4
             passives["SwordPunching"] = 1
-            FatigueDrain = 0.0025 * 1+p.AscensionsAcquired
+            FatigueDrain = 0.0008 * (1+p.AscensionsAcquired)
     
 
     Heart_of_The_Noble
