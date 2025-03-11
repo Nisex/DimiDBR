@@ -501,6 +501,7 @@ proc
 			KKTShockwave(m, icon='fevKiai.dmi', Size=0.5)
 
 	TurfShift(var/Shift, var/turf/t, var/Time=30, var/mob/m, var/layer=MOB_LAYER-0.5, var/Spawn=10, var/Despawn=10,var/state, _piX, piY)
+		if(!m) return
 		var/image/i=image(icon=Shift, layer=layer, loc=t, dir = m.dir, pixel_x = _piX, pixel_y = piY)
 		i.dir = m.dir
 		i.mouse_opacity = 0

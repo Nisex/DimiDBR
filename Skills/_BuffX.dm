@@ -4297,6 +4297,7 @@ NEW VARIABLES
 			OffMessage="finally gives in to the pain..."
 			adjust(mob/user)
 				var/zenkaiLevel = user.AscensionsAcquired/10
+				passives = list("Adrenaline" = 1)
 				//scales off how low hp is
 				PowerMult = clamp((1+(zenkaiLevel/2))/user.Health,1, 1.5)
 			verb/Saiyan_Grit()
