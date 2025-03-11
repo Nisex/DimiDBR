@@ -940,8 +940,16 @@ proc/getBackSide(mob/offender, mob/defender, diags = FALSE)
 		glob.upper_damage_roll = dmgrolls[2]
 	if(_range)
 		var/total_iteration = (max_range-min_range)/per_change
+		var/statInQuestion = input(src, "what stat") in list("Str", "End")
+		if(statInQuestion == "End")
+			StrReplace = input(src, "What srt do u want") as num
+		else
+			Target.EndReplace = input(src, "What end do u want") as num
 		for(var/i in 0 to total_iteration)
-			Target.EndReplace = min_range + (per_change * i)
+			if(statInQuestion == "End")
+				Target.EndReplace = min_range + (per_change * i)
+			else
+				StrReplace = min_range + (per_change * i)
 			for(var/attempts in 1 to looplength)
 				var/result = Melee1(BreakAttackRate=1)
 				damageMatrix["[result]"]++
@@ -958,8 +966,7 @@ proc/getBackSide(mob/offender, mob/defender, diags = FALSE)
 				Target.TotalInjury=0
 				Target.BPPoison=1
 				Target.BPPoisonTimer=0
-		
-
+				Energy=EnergyMax
 			var/average
 			var/sum
 			var/msg = {"Simulated [p1] vs [Target]
@@ -969,12 +976,15 @@ proc/getBackSide(mob/offender, mob/defender, diags = FALSE)
 				msg += "( [x] Dmg for [damageMatrix[x]] times ), "
 			average = sum/looplength
 
-			msg += {"\n
+			msg += {"
 [p1] did a total of [sum] damage to [Target].
 The average damage was [average] over [looplength] times.
 [p1] has [GetStr()] Str, and [GetFor()] For. 
 [Target] has [Target.GetEnd()] End."}
 			src << msg
+			damageMatrix = list()
+			sum = 0
+			average = 0
 	else
 		for(var/attempts in 1 to looplength)
 			var/result = Melee1(BreakAttackRate=1)
@@ -1012,7 +1022,9 @@ The average damage was [average] over [looplength] times.
 		src << msg
 	if(forcedmgrolls)
 		glob.min_damage_roll = orgdmgrolls[1] 
-		glob.upper_damage_roll = orgdmgrolls[2] 
+		glob.upper_damage_roll = orgdmgrolls[2]
+		StrReplace = 0
+		Target.EndReplace = 0 
 /mob/Admin3/verb/SimulateAccuracyNOSTATCHANGE()
 	set category = "Debug"
 	var/self = input(src, "Use on self?") in list("Yes", "No")
@@ -1784,6 +1796,11 @@ mob/proc/Grab_Mob(var/mob/P, var/Forced=0)
 
 mob/proc/Grab_Release()
 	src.Grab=null
+
+
+
+
+
 
 mob/proc/Grab_Update()
 	if(src.Grab)

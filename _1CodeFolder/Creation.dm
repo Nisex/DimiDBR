@@ -302,7 +302,8 @@ mob/Players
 			break
 
 		// mainLoop += src
-		gain_loop.Add(src)
+		ticking_generic.Add(src)
+		// gain_loop.Add(src)
 		if(isRace(DEMON))
 			client.updateCorruption()
 		var/list/lol=list("butt3","butt4")
@@ -413,7 +414,8 @@ mob/Players
 		players -= src
 		if(dancing) transform=dancing
 		last_online = world.realtime
-		gain_loop.Remove(src)
+		// gain_loop.Remove(src)
+		ticking_generic.Remove(src)
 
 		if(src in admins)
 			admins -= src

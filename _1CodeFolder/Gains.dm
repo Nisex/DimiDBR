@@ -40,11 +40,11 @@ update_loop/gain_loop
 		updaters.len = 10
 		for(var/index = 1 to 10 step 1)
 			updaters[index] = list()
-		for()
-			for(var/list/l in updaters)
-				for(var/mob/updater in l)
-					updater.GainLoop()
-				sleep(world.tick_lag)
+		// for()
+		// 	for(var/list/l in updaters)
+		// 		for(var/mob/updater in l)
+		// 			updater.GainLoop()
+		// 		sleep(world.tick_lag)
 
 var/game_loop/mainLoop = new(0, "newGainLoop")
 //** TESTED AND WORKS!! **/
@@ -315,18 +315,16 @@ mob
 		if(!src.client)
 			gain_loop.Remove(src)
 			return
-
 		if(src.PureRPMode&&!Stasis)
 			src.Stasis=1
-
-		StunCheck(src)
-		StunImmuneCheck(src)
 		if(client.getPref("autoAttacking"))
 			var/mob/Players/p = src
 			if(world.time - lastHit < 3 MINUTES)
 				p.Attack()
 			else
 				p.Auto_Attack()
+		StunCheck(src)
+		StunImmuneCheck(src)
 		if(glob.BREAK_TARGET && !src.Admin && Target && ismob(Target))
 			if(glob.BREAK_TARGET_ON_Z_CHANGE)
 				if(Target.z != src.z)
