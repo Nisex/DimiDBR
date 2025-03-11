@@ -78,6 +78,7 @@ mob
 			log2text("Damage", val, "damageDebugs.txt", src.ckey)
 			#endif
 			val = newDoDamage(defender, val, UnarmedAttack, SwordAttack, SecondStrike, ThirdStrike, TrueMult, SpiritAttack, Destructive, Autohit)
+			DEBUGMSG("val after newDoDamage [val]")
 			if(src.HasPurity())//If damager is pure
 				var/found=0//Assume you haven't found a proper target
 				if(defender.IsEvil()||src.HasBeyondPurity())
