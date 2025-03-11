@@ -6824,6 +6824,7 @@ obj
 				src.Owner=AH.Owner
 				src.Side=side
 				AlreadyHit = list()
+				autohitChildren = list()
 				AH.autohitChildren += src
 				if(src.Side)
 					if(src.Owner.dir!=NORTHEAST&&src.Owner.dir!=NORTHWEST&&src.Owner.dir!=SOUTHEAST&&src.Owner.dir!=SOUTHWEST)
@@ -6898,6 +6899,7 @@ obj
 				AHOwner = AH
 				src.Owner=AH.Owner
 				AlreadyHit = list()
+				autohitChildren = list()
 				AH.autohitChildren += src
 				src.Side=side
 				if(src.Side)
@@ -6963,6 +6965,7 @@ obj
 				AHOwner = AH
 				src.Owner=AH.Owner
 				AlreadyHit = list()
+				autohitChildren = list()
 				AH.autohitChildren += src
 				src.Side=side
 				if(src.Side==1)
