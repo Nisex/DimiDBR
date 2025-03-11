@@ -795,7 +795,7 @@
 							if(enemy.passive_handler["Magmic"] && enemy.SlotlessBuffs["Magmic Shield"])
 								Stun(src, 3, TRUE)
 								enemy.SlotlessBuffs["Magmic Shield"].Trigger(enemy, TRUE)
-							DoDamage(enemy, damage, unarmedAtk, swordAtk, SecondStrike, ThirdStrike)
+							var/dmgValue = DoDamage(enemy, damage, unarmedAtk, swordAtk, SecondStrike, ThirdStrike)
 							if(!glob.MOMENTUM_PROCS_OFF_DAMAGE)
 								handlePostDamage(enemy) // it already proc'd
 							lastHit = world.time
@@ -932,6 +932,7 @@
 									if(quakeIntens>14)
 										quakeIntens=14
 									enemy?.Earthquake(quakeIntens, -4,4,-4,4)
+							return dmgValue
 					else
 				// 										MISS START 																//
 						if(enemy.CheckSpecial("Ultra Instinct"))
@@ -970,6 +971,7 @@
 
 				if(delay<=0.5)
 					delay = 0.5
+			
 	else
 		var/TurfDamage=(src.potential_power_mult*src.PowerBoost*src.Power_Multiplier*src.AngerMax)*(src.GetStr(3)+src.GetFor(2)+src.GetIntimidation()+(10*src.GetWeaponBreaker()))
 		for(var/turf/T in get_step(src,src.dir))

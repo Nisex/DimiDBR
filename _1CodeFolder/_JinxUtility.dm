@@ -217,6 +217,7 @@ mob
 					defender.RemoveTarget()
 					defender.Grab_Release()
 					last_style_effect = world.time
+			DEBUGMSG("this is the damage actually dealt: [tmpval]")
 			defender.LoseHealth(max(0,tmpval))
 
 			if(defender.Flying)

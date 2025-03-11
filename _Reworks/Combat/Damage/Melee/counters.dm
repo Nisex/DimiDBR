@@ -4,24 +4,6 @@
 	"Dual" = list(13, 5, 8, 13),\
 	"Iaido" = list(25, 10, 15, 25))
 	var/reqCounter = 0
-	if(UsingIaido())
-		if(HasSword())
-			var/style = "Iaido"
-			if(UsingTrinityStyle())
-				style = "Trinity"
-				reqCounter += reqs[style][swordTypes[s.Class]]
-				reqCounter += reqs[style][swordTypes[s2.Class]]
-				reqCounter += reqs[style][swordTypes[s3.Class]]
-			else if(UsingDualWield())
-				style = "Dual"
-				reqCounter += reqs[style][swordTypes[s.Class]]
-				reqCounter += reqs[style][swordTypes[s2.Class]]
-			else
-				reqCounter += reqs[style][swordTypes[s.Class]]
-		else
-			reqCounter = 10
-		if(UsingIaido()>1)
-			reqCounter-=(UsingIaido()-1)*5
 	if(UsingKendo()&&HasSword())
 		if(s.Class == "Wooden")
 			reqCounter = 15

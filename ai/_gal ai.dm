@@ -1345,8 +1345,6 @@ mob/Player/AI
 					src.SureDodge=1
 					src.SureDodgeTimer=src.SureDodgeTimerLimit
 
-		if(src.UsingIaido())
-			src.IaidoCounter++
 		if(src.UsingKendo())
 			src.IaidoCounter++
 		if(src.UsingSpeedRave())

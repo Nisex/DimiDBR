@@ -911,6 +911,48 @@ proc/getBackSide(mob/offender, mob/defender, diags = FALSE)
 			if(SOUTHEAST)
 				if(resultingDir in list(SOUTHEAST, SOUTH, EAST))
 					return 1
+/mob/Admin3/verb/simulateAttacks()
+	var/self = input(src, "Use on self?") in list("Yes", "No")
+	var/mob/Player/p1 = src
+	if(self == "No")
+		p1 = input(src, "who") in players
+		Target = input(src, "who") in players
+	if(!Target) 
+		src<< "get an enemy"
+		return
+	var/looplength = input(src, "How many attempts") as num
+	var/list/damageMatrix = list()
+	var/forcedmgrolls = input(src, "Force the dmg rolsl temp?") in list(1,0)
+	var/orgdmgrolls = list(glob.min_damage_roll, glob.upper_damage_roll)
+	var/dmgrolls = list(glob.min_damage_roll, glob.upper_damage_roll)
+	if(forcedmgrolls)
+		dmgrolls[1] = input(src, "What is the min?") as num
+		dmgrolls[2] = input(src, "What is the upper?") as num
+		glob.min_damage_roll = dmgrolls[1]
+		glob.upper_damage_roll = dmgrolls[2]
+	for(var/attempts in 1 to looplength)
+		var/result = Melee1(BreakAttackRate=1)
+		damageMatrix["[result]"]++
+	
+	if(forcedmgrolls)
+		glob.min_damage_roll = orgdmgrolls[1] 
+		glob.upper_damage_roll = orgdmgrolls[2] 
+	var/average
+	var/sum
+	var/msg = {"Simulated [p1] vs [Target]
+	[looplength] times."}
+	for(var/x in damageMatrix)
+		sum += text2num(x) * damageMatrix[x] // the number and the instances
+		msg += "( [x] Dmg for [damageMatrix[x]] times ), "
+	average = sum/looplength
+
+	msg += {"\n
+	[p1] did a total of [sum] damage to [Target].
+	The average damage was [average] over [looplength] times.
+	[p1] has [GetStr()] Str, and [GetFor()] For. 
+	[Target] has [Target.GetEnd()] End."}
+
+	src << msg
 /mob/Admin3/verb/SimulateAccuracyNOSTATCHANGE()
 	set category = "Debug"
 	var/self = input(src, "Use on self?") in list("Yes", "No")

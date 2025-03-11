@@ -294,8 +294,11 @@
 	log2text("Damage", "Final Damage Before TrueMult", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
+	DEBUGMSG("extra is: [extra], val is: [val], [trueMult]")
 	if(trueMult>0) // altered
 		val *= 1+extra
+		DEBUGMSG("[val]")
 	else if(trueMult<0) // altered
 		val/= 1+(-extra)
+		DEBUGMSG("[val], [-extra]")
 	return val

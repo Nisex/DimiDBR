@@ -1459,6 +1459,7 @@ obj
 				ShockIcon='KenShockwave.dmi'
 				Shockwave=5
 				Shockwaves=1
+				PassThrough=1
 				Launcher=5
 				PostShockwave=1
 				PreShockwave=0
@@ -3947,6 +3948,7 @@ obj
 				GrabTrigger="/obj/Skills/Grapple/Erupting_Burning_Finger/Removeable"
 				Knockback=1
 				WindUp=1
+				GrabMaster=1
 				WindupIcon='GaoGaoFists.dmi'
 				WindupMessage="begins gathering the forces of Destruction and Creation in their hands!"
 				ActiveMessage="rushes in for the certain kill!"
@@ -5949,17 +5951,23 @@ obj
 				else if(StrDmg && !ForDmg)
 					atk = Owner.getStatDmg2() * StrDmg
 				else if(StrDmg && ForDmg)
-					atk = Owner.GetStr(StrDmg) *  1 + (Owner.GetFor(ForDmg)/10)
+					if(glob.AUTOHIT_HYBRID_AS_MULT)
+						atk = Owner.GetStr(StrDmg) *1 + (Owner.GetFor(ForDmg)/10)
+					else
+						atk = Owner.GetStr(StrDmg) + (Owner.GetFor(ForDmg))
 				else
 					Owner << "Your auto hit could not calculate the damage it just did!! Report this !!"
+				DEBUGMSG("atk final is: [atk]")
 				var/dmgMulti = Damage
 				if(Owner.HasSpiritFlow())
 					var/sf = Owner.passive_handler.Get("SpiritFlow")  / glob.SPIRIT_FLOW_DIVISOR
 					atk += Owner.GetFor(sf)
+				DEBUGMSG("atk final (post spiritflow) is: [atk]")
 				#if DEBUG_AUTOHIT
 				Owner.log2text("atk - Auto Hit", atk, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
 				var/dmgRoll = Owner.GetDamageMod()
+				DEBUGMSG("dmgRoll is: [dmgRoll]")
 				#if DEBUG_AUTOHIT
 				Owner.log2text("dmg roll - Auto Hit", dmgRoll, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
@@ -5996,8 +6004,10 @@ obj
 				#if DEBUG_AUTOHIT
 				Owner.log2text("FinalDmg(before dmgRoll) - Auto Hit", FinalDmg, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
+				DEBUGMSG("FinalDmg is: [FinalDmg]")
 				FinalDmg *= dmgMulti
 				FinalDmg *= dmgRoll
+				DEBUGMSG("FinalDmg (After roll/multi) is: [FinalDmg]")
 				if(Owner.Secret=="Heavenly Restriction" && Owner.secretDatum?:hasImprovement("Autohits"))
 					FinalDmg *= clamp(Owner.secretDatum?:getBoon(Owner,"Autohits"), 1, 10)
 				#if DEBUG_AUTOHIT
@@ -6336,6 +6346,8 @@ obj
 
 				if(src.WarpAway)
 					WarpEffect(m, src.WarpAway)
+				
+
 
 
 				if(BuffAffected)
