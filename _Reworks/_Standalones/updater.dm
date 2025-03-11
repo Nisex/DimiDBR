@@ -15,7 +15,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 12
+	var/UPDATE_VERSION = 14
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -289,10 +289,19 @@ update
 						if("Thunder")
 							p.AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
 							p.AddSkill(new/obj/Skills/AutoHit/Magic/Thundaga)
-			
-
-			
-
+	version14
+		version = 14
+		updateMob(mob/p)
+			. = ..()
+			for(var/obj/Skills/Buffs/NuStyle/style in p)
+				var/name = style.name
+				if(style == p.StyleBuff)
+					style.Trigger(p, TRUE)
+				var/styletype = style.type
+				del style
+				p.AddSkill(new styletype)
+				var/obj/Skills/Buffs/NuStyle/newstyle = p.FindSkill(styletype)
+				newstyle.name = name
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25
