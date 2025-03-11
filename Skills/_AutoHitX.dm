@@ -2088,11 +2088,11 @@ obj
 				SignatureTechnique=1
 				AllOutAttack=1
 				Area="Circle"
-				Distance=10
+				Distance=8
 				AdaptRate = 1
 				DamageMult = 4
 				Flash=40
-				WindUp=0.5
+				WindUp=0.75
 				WindupIcon='BLANK.dmi'
 				WindupMessage="brings their hands to their face..."
 				SpecialAttack=1
@@ -2164,6 +2164,7 @@ obj
 					TurfShiftDuration=0
 					TurfShiftDurationSpawn = 0
 					TurfShiftDurationDespawn = 0
+					name = "Chidori"
 				adjust(mob/p)
 					if(p.isInnovative(HUMAN, "Any") && !isInnovationDisable(p))
 						name = "Lightning Blade"
@@ -6276,6 +6277,7 @@ obj
 					flick("KB", Owner)
 					spawn()
 						LaunchEnd(m)
+				DEBUGMSG("FINAL TOTAL DAMAGE DEALT before do damage! [FinalDmg]")
 				var/damageDealt = src.Owner.DoDamage(m, FinalDmg, src.UnarmedTech, src.SwordTech, Destructive=src.Destructive, innateLifeSteal = LifeSteal, Autohit = TRUE)
 				DEBUGMSG("FINAL TOTAL DAMAGE DEALT! [damageDealt]")
 				if(!damageDealt)

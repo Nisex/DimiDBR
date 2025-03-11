@@ -925,14 +925,30 @@ proc/getBackSide(mob/offender, mob/defender, diags = FALSE)
 	var/forcedmgrolls = input(src, "Force the dmg rolsl temp?") in list(1,0)
 	var/orgdmgrolls = list(glob.min_damage_roll, glob.upper_damage_roll)
 	var/dmgrolls = list(glob.min_damage_roll, glob.upper_damage_roll)
+	var/_range = input(src, "Do you want to do a range?") in list(1,0)
+	var/min_range
+	var/max_range 
+	var/per_change
+	if(_range)
+		min_range = input(src, "min_range") as num
+		max_range = input(src, "max_range") as num
+		per_change = input(src, "per_change") as num
 	if(forcedmgrolls)
 		dmgrolls[1] = input(src, "What is the min?") as num
 		dmgrolls[2] = input(src, "What is the upper?") as num
 		glob.min_damage_roll = dmgrolls[1]
 		glob.upper_damage_roll = dmgrolls[2]
-	for(var/attempts in 1 to looplength)
-		var/result = Melee1(BreakAttackRate=1)
-		damageMatrix["[result]"]++
+	if(_range)
+		var/total_iteration = (max_range-min_range)/per_change
+		for(var/i in 0 to total_iteration)
+			Target.EndReplace = min_range + (per_change * i)
+			for(var/attempts in 1 to looplength)
+				var/result = Melee1(BreakAttackRate=1)
+				damageMatrix["[result]"]++
+	else
+		for(var/attempts in 1 to looplength)
+			var/result = Melee1(BreakAttackRate=1)
+			damageMatrix["[result]"]++
 	
 	if(forcedmgrolls)
 		glob.min_damage_roll = orgdmgrolls[1] 
@@ -940,17 +956,17 @@ proc/getBackSide(mob/offender, mob/defender, diags = FALSE)
 	var/average
 	var/sum
 	var/msg = {"Simulated [p1] vs [Target]
-	[looplength] times."}
+[looplength] times."}
 	for(var/x in damageMatrix)
 		sum += text2num(x) * damageMatrix[x] // the number and the instances
 		msg += "( [x] Dmg for [damageMatrix[x]] times ), "
 	average = sum/looplength
 
 	msg += {"\n
-	[p1] did a total of [sum] damage to [Target].
-	The average damage was [average] over [looplength] times.
-	[p1] has [GetStr()] Str, and [GetFor()] For. 
-	[Target] has [Target.GetEnd()] End."}
+[p1] did a total of [sum] damage to [Target].
+The average damage was [average] over [looplength] times.
+[p1] has [GetStr()] Str, and [GetFor()] For. 
+[Target] has [Target.GetEnd()] End."}
 
 	src << msg
 /mob/Admin3/verb/SimulateAccuracyNOSTATCHANGE()

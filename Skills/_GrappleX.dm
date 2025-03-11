@@ -119,8 +119,7 @@ obj/Skills/Grapple
 		EffectMult=1
 		DamageMult=2
 		AdaptRate = 1
-		ThrowMult=2
-		ThrowAdd=8
+		ThrowAdd=15
 		TriggerMessage = "stabs their lightning infused hand into"
 
 

@@ -19,7 +19,6 @@
 
     //def intim = 5, atk intim = 0, intim ignore = 0
 
-    DEBUGMSG("[defIntim], [atkIntim] |ignore [defIntimIgnore], [atkIntimIgnore]| val [val]")
 
     val = getSSIntim(defender, val)
     if(val > 1)
@@ -30,13 +29,11 @@
         return 0
     if(val <=0)
         val = 1
-    DEBUGMSG("val: [val]")
     if(glob.NEWINTIMCALC)
         if(val > atkIntim)
             totalMult = -((val - atkIntim) / glob.INTIMRATIO)
         else
             totalMult = ((atkIntim - val) / glob.INTIMRATIO)
-        DEBUGMSG("totalMul: [totalMult]")
     if(totalMult >= 10)
         totalMult = 10
     if(totalMult <= -10)

@@ -8560,7 +8560,7 @@ NEW VARIABLES
 			passives = list("SwordAscension" = 1, "SpiritSword" = 0.5)
 			SwordClass="Wooden"
 			ActiveMessage="condenses their bravery!"
-			var/saved_icon = null
+			var/saved_icon = 'GaoGaoFists.dmi'
 			verb/Modify_Armament()
 				set category="Skills"
 				src.SwordIcon=input(usr, "What icon will your Will Knife use?", "Will Knife Icon") as icon|null
