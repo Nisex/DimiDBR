@@ -113,6 +113,17 @@ obj/Skills/Grapple
 					resetValues()
 				src.Activate(usr)
 ////AUTO TRIGGER
+	Lightning_Blade
+		OneAndDone = 1
+		Effect = "Shockwave"
+		EffectMult=1
+		DamageMult=2
+		AdaptRate = 1
+		ThrowMult=2
+		ThrowAdd=8
+		TriggerMessage = "stabs their lightning infused hand into"
+
+
 	Muscle_Buster
 		DamageMult = 4
 		StrRate = 1.5
@@ -523,13 +534,14 @@ obj/Skills/Grapple
 			if(ismob(User.Grab))
 				User.GrabMove=1
 				var/mob/Trg=User.Grab
+				// Trg.isGrabbed = TRUE
 				User.Grab=null
 				var/dmgRoll = User.GetDamageMod()
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple dmg roll ", dmgRoll, "damageDebugs.txt", User.ckey)
 				#endif
 				// get their damage roll, they don't get to ignore it cause its a grapple
-				var/userPower = User.Power / Trg.Power
+				var/userPower = User.getPower(Trg)
 				var/statPower = 1
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple User Power", userPower, "damageDebugs.txt", User.ckey)
@@ -544,7 +556,7 @@ obj/Skills/Grapple
 					if(src.ForRate)
 						statPower += User.GetFor(src.ForRate,)
 				if(HarderTheyFall)
-					var/enemyEnd = Trg.GetEnd()
+					var/enemyEnd = Trg.GetEnd(1)
 					statPower += enemyEnd * (HarderTheyFall/10)
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple Stat Power", statPower, "damageDebugs.txt", User.ckey)
@@ -563,7 +575,7 @@ obj/Skills/Grapple
 				#if DEBUG_GRAPPLE
 				User.log2text("Grapple Item Damage", itemDmg, "damageDebugs.txt", User.ckey)
 				#endif
-				var/endFactor = Trg.getEndStat(1)
+				var/endFactor = Trg.getEndStat(EndRate)
 				if(User.HasPridefulRage())
 					if(User.passive_handler.Get("PridefulRage") >= 2)
 						endFactor = 1
@@ -658,12 +670,12 @@ obj/Skills/Grapple
 							ShowStopper(User, Trg, 4 + (clamp(Trg.GetEnd(), 1, 10)))
 						if("Stomp")
 							Stomp(User, Trg, 2, EffectMult)
-					sleep(2)
+					sleep(world.tick_lag)
 					Times--
 				User.Knockback((dmgRoll*src.ThrowMult)+src.ThrowAdd, Trg, Direction=src.ThrowDir, Forced=1, override_speed = ThrowSpeed)
 				if(src.Stunner)
 					Stun(Trg, src.Stunner)
-					sleep(5)//final effects
+					// sleep(5)//final effects
 					switch(src.Effect)
 						if("Bang")//biggest boom
 							Bang(Trg.loc, src.EffectMult, Offset=0)
@@ -679,6 +691,7 @@ obj/Skills/Grapple
 				if(Crippling)
 					Trg.AddCrippling(Crippling,User)
 				User.GrabMove=0
+				// Trg.isGrabbed = FALSE
 				src.Cooldown()
 
 				if(DashAfter)
@@ -688,6 +701,45 @@ obj/Skills/Grapple
 					User.DeleteSkill(src)
 			else
 				Log("Admin", "[ExtractInfo(User)] currently has [User.Grab.type] grabbed and attempted to grapple them with [src].")
+
+
+/obj/Skills/Grapple/proc/doGrappleEffects(Times, mob/User, mob/Trg, EffectMult)
+	set waitfor = 0
+	while(Times)
+		switch(src.Effect)
+			if("Shockwave")
+				KenShockwave(Trg)
+			if("Bang")
+				Bang(Trg.loc, 1.3, Offset=0.75)
+			if("Lightning")
+				LightningStrike2(Trg, Offset=GoCrand(0.5,0.1*src.EffectMult))
+			if("Lotus")
+				LotusEffect(User, Trg, src.EffectMult)
+			if("MuscleBuster")
+				MuscleBusterEffect(User, Trg, src.EffectMult)
+			if("PotemkinBuster")
+				PotemkinBusterEffect(User, Trg, EffectMult)
+			if("Suplex")
+				SuplexEffect(User, Trg)
+			if("SuperSuplex")
+				LotusEffect(User, Trg, src.EffectMult)
+				SuplexEffect(User, Trg)
+			if("Strike")
+				User.HitEffect(Trg)
+			if("Drain")
+				animate(Trg, color=list(1,1,1, 0,1,0, 1,1,1, 0,0,0), time=10, flags=ANIMATION_RELATIVE)
+				sleep(10)
+				animate(Trg, color=Trg.MobColor, time=10, flags=ANIMATION_RELATIVE)
+				sleep(10)
+			if("SpinTornado")
+				SpinTornado(User, Trg, EffectMult)
+				ThrowDir=NORTH
+			if("ShowStopper")
+				ShowStopper(User, Trg, 4 + (clamp(Trg.GetEnd(), 1, 10)))
+			if("Stomp")
+				Stomp(User, Trg, 2, EffectMult)
+		sleep(world.tick_lag)
+		Times--
 
 /mob/proc/SpinAnimation2(speed = 10, loops = 0, clockwise = 0, segments = 4, mob/a)
 	if(!segments)

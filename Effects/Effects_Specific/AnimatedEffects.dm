@@ -216,6 +216,7 @@ proc
 		animate(User,pixel_z=0,time=5)
 		User.Frozen=0
 		Target.Frozen=0
+		Target.isGrabbed = FALSE
 	GoshoryukenEffect(var/mob/User, var/mob/Target, var/TimeMod=1)
 		set waitfor=0
 		if(!User || !Target || User.loc == null || Target.loc == null)
@@ -254,7 +255,7 @@ proc
 		animate(User,pixel_z=0,time=5)
 		User.Frozen=0
 		Target.Frozen=0
-
+		Target.isGrabbed = FALSE
 
 	MuscleBusterEffect(mob/p, mob/t, TimeMod=1)
 		if(!t || !p || p.loc == null || t.loc == null)
@@ -674,13 +675,13 @@ mob/proc
 		sleep(dur)
 		client.client_plane_master.filters = null
 
-	Blind(var/duration=1000)
+	Blind(var/duration=1000, startup = 2)
 		if(!src.client) return
-		animate(src.client, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1), time=5)
-		sleep(5)
+		animate(src.client, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1), time=startup)
+		sleep(startup)
 		animate(src.client, color = null, time=duration)
 	
 	Darkness(duration=100, affect = 5)
 		animate(src.client, color = list(-1,-1,-1, -1,-1,-1, -1,-1,-1, -1,-1,-1), time=affect)
-		sleep(5)
+		sleep(affect)
 		animate(src.client, color = null, time=duration)

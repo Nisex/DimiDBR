@@ -2539,32 +2539,6 @@ mob
 			return Found
 		UsingFTG()
 			return passive_handler["Flying Thunder God"]
-		UsingIaido()
-			var/Found=0
-			var/obj/Items/Sword/S=src.EquippedSword()
-			Found += passive_handler.Get("Iaido")
-			if(src.StyleActive=="Sword Savant")
-				Found+=0.25 + (0.25 * SagaLevel)
-			if(src.StyleActive=="Iaido")
-				Found=1
-			if(src.StyleActive=="Dual Wield")
-				Found=1
-			if(src.StyleActive=="Secret Knife")
-				Found=1
-			if(src.StyleActive=="Arcane Bladework")
-				Found=1
-			if(src.StyleActive=="Trinity")
-				Found=1
-			if(src.StyleActive=="Blade Singing")
-				Found=1
-			if(src.StyleActive=="Rhythm of War")
-				Found=1
-			if(src.StyleActive=="Five Rings")
-				Found=1
-			if(S)
-				if(S.ExtraClass&&S.Class=="Medium")
-					Found+=1
-			return Found
 
 
 		InDevaPath()

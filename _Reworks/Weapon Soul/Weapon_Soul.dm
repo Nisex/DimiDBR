@@ -285,8 +285,7 @@ mob/tierUpSaga(Path)
 					if("Green Dragon Crescent Blade")
 						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Guan_Yu/GuanYu in src.Buffs)
 							GuanYu.passives["Zornhau"] = 2
-							GuanYu.passives["Iaido"] = 2
-							GuanYu.passives["Fencing"] = 2
+							GuanYu.passives["Iaijutsu"] = 2
 			if(6)
 				if(!locate(/obj/Skills/Buffs/SpecialBuffs/OverSoul, src))
 					src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/OverSoul)

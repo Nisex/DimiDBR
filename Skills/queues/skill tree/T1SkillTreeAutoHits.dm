@@ -42,6 +42,7 @@ obj
 					Size = 0
 					WindUp=0
 					Distance = 6
+					DamageMult=2.8
 
 			verb/Sword_Pressure()
 				set category="Skills"
