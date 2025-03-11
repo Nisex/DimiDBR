@@ -13,6 +13,7 @@
                     "NeedsSecondSword" = 1, "NeedsThirdSword" = 1, "Iaijutsu" = 1.5, "Musoken" = 1)
         NeedsSecondSword = 1
         NeedsThirdSword = 1
+        //TODO HAS NO FINISHER!
         verb/Santoryu()
             set hidden=1
             src.Trigger(usr)
@@ -27,6 +28,7 @@
         StyleEnd=0.85
         HeavyOnly=1
         StyleActive="Guts Berserk"
+        //TODO HAS NO FINISHER!
         verb/Berserk()
             set hidden=1
             src.Trigger(usr)
@@ -39,6 +41,7 @@
         StyleStr=1.3
         StyleEnd=1.15
         StyleActive="Witch Hunter"
+        //TODO HAS NO FINISHER!
         verb/Witch_Hunter()
             set hidden=1
             src.Trigger(usr)

@@ -916,6 +916,8 @@ mob/Admin2/verb
 		A.seventhSenseTriggered = 0
 		A.TotalFatigue=0
 		A.TotalInjury=0
+		A.BPPoison=1
+		A.BPPoisonTimer=0
 //		A.TotalCapacity=0
 		A.InjuryAnnounce=0
 		Log("Admin","<font color=aqua>[ExtractInfo(usr)] complete-admin-healed [ExtractInfo(A)].")

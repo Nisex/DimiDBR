@@ -945,30 +945,74 @@ proc/getBackSide(mob/offender, mob/defender, diags = FALSE)
 			for(var/attempts in 1 to looplength)
 				var/result = Melee1(BreakAttackRate=1)
 				damageMatrix["[result]"]++
-	else
-		for(var/attempts in 1 to looplength)
-			var/result = Melee1(BreakAttackRate=1)
-			damageMatrix["[result]"]++
-	
-	if(forcedmgrolls)
-		glob.min_damage_roll = orgdmgrolls[1] 
-		glob.upper_damage_roll = orgdmgrolls[2] 
-	var/average
-	var/sum
-	var/msg = {"Simulated [p1] vs [Target]
-[looplength] times."}
-	for(var/x in damageMatrix)
-		sum += text2num(x) * damageMatrix[x] // the number and the instances
-		msg += "( [x] Dmg for [damageMatrix[x]] times ), "
-	average = sum/looplength
+				if(Target.KO)
+					Target.Conscious()
+				Target.Health=100
+				Target.Energy=Target.EnergyMax
+				Target.Burn=0
+				Target.Poison=0
+				Target.Slow=0
+				Target.Shock=0
+				Target.Shatter=0
+				Target.TotalFatigue=0
+				Target.TotalInjury=0
+				Target.BPPoison=1
+				Target.BPPoisonTimer=0
+		
 
-	msg += {"\n
+			var/average
+			var/sum
+			var/msg = {"Simulated [p1] vs [Target]
+[looplength] times."}
+			for(var/x in damageMatrix)
+				sum += text2num(x) * damageMatrix[x] // the number and the instances
+				msg += "( [x] Dmg for [damageMatrix[x]] times ), "
+			average = sum/looplength
+
+			msg += {"\n
 [p1] did a total of [sum] damage to [Target].
 The average damage was [average] over [looplength] times.
 [p1] has [GetStr()] Str, and [GetFor()] For. 
 [Target] has [Target.GetEnd()] End."}
+			src << msg
+	else
+		for(var/attempts in 1 to looplength)
+			var/result = Melee1(BreakAttackRate=1)
+			damageMatrix["[result]"]++
+			if(Target.KO)
+				Target.Conscious()
+			Target.Health=100
+			Target.Energy=Target.EnergyMax
+			Target.Burn=0
+			Target.Poison=0
+			Target.Slow=0
+			Target.Shock=0
+			Target.Shatter=0
+			Target.TotalFatigue=0
+			Target.TotalInjury=0
+			Target.BPPoison=1
+			Target.BPPoisonTimer=0
+		
 
-	src << msg
+		var/average
+		var/sum
+		var/msg = {"Simulated [p1] vs [Target]
+[looplength] times."}
+		for(var/x in damageMatrix)
+			sum += text2num(x) * damageMatrix[x] // the number and the instances
+			msg += "( [x] Dmg for [damageMatrix[x]] times ), "
+		average = sum/looplength
+
+		msg += {"\n
+[p1] did a total of [sum] damage to [Target].
+The average damage was [average] over [looplength] times.
+[p1] has [GetStr()] Str, and [GetFor()] For. 
+[Target] has [Target.GetEnd()] End."}
+	
+		src << msg
+	if(forcedmgrolls)
+		glob.min_damage_roll = orgdmgrolls[1] 
+		glob.upper_damage_roll = orgdmgrolls[2] 
 /mob/Admin3/verb/SimulateAccuracyNOSTATCHANGE()
 	set category = "Debug"
 	var/self = input(src, "Use on self?") in list("Yes", "No")

@@ -5686,6 +5686,7 @@ obj
 			toDeath = life
 			src.Owner=owner
 			parentRounds = Z.Rounds
+
 			if(owner.Grab && !Z.GrabMaster)
 				grabNerf = 1
 			src.Arcing=arcing
@@ -5932,7 +5933,8 @@ obj
 					if(m.passive_handler.Get("CounterSpell"))
 						OMsg(m, "[m]'s counterspell negates the spells damage!")
 						return
-				grabNerf = Owner.Grab ? 1 : 0
+				// grabNerf = Owner.Grab && ! ? 1 : 0
+				world<<"GrabNerf: [grabNerf]"
 				var/FinalDmg
 				var/powerDif = Owner.Power/m.Power
 				if(glob.CLAMP_POWER)
@@ -6128,6 +6130,7 @@ obj
 					FinalDmg *= glob.AUTOHIT_GLOBAL_DAMAGE
 				else
 					FinalDmg*=1.5
+				DEBUGMSG("after glob mod: [FinalDmg]")
 
 				if(m.passive_handler.Get("Siphon")&&src.ForDmg)
 					var/Heal = (FinalDmg * (m.passive_handler.Get("Siphon")/ 10)) * ForDmg
@@ -6146,9 +6149,11 @@ obj
 							spawn()
 								m.ForceField()
 					FinalDmg*=max(1-(0.25*m.GetDeflection()),0.3)
+					DEBUGMSG("after Deflection: [FinalDmg]")
 
 				if(m.HasBlastShielding()&&!src.CanBeDodged)
 					FinalDmg/=2**3
+					DEBUGMSG("after BlastShielding: [FinalDmg]")
 
 				var/list/Elements = list()
 				if(Scorching||Burning)
@@ -6209,6 +6214,7 @@ obj
 					m.AddSlow(ApplySlow, Owner)
 				if(grabNerf)
 					FinalDmg *= glob.AUTOHIT_GRAB_NERF
+					DEBUGMSG("after grabNerf: [FinalDmg]")
 //TODO: Remove a whole lot of those
 				if(src.Bang)
 					Bang(m.loc, src.Bang)
@@ -6420,7 +6426,6 @@ obj
 										for(var/mob/m in t.contents)
 											if(!hitSelf&&m==src.Owner)
 												continue
-											DEBUGMSG("WE HAVE HIT [m] on [src]")
 											src.Damage(m)
 									for(var/turf/t in Turf_Circle_Edge(src.TargetLoc, Rounds))
 										if(src.TurfErupt)
@@ -6481,7 +6486,6 @@ obj
 											continue
 										if(!hitSelf&&m==src.Owner)
 											continue
-										DEBUGMSG("WE HAVE HIT [m] on [src] 1")
 										src.Damage(m)
 								sleep(src.Slow*world.tick_lag)
 							src.Owner.Frozen=0
@@ -6529,7 +6533,6 @@ obj
 									sleep(-1)
 									for(var/mob/m in t)
 										if(!hitSelf&&src.Owner!=m)
-											DEBUGMSG("WE HAVE HIT [m] on [src] 2")
 											src.Damage(m)
 							else//If less than 3 distance...
 								if(src.TurfErupt)
@@ -6564,7 +6567,6 @@ obj
 										TurfShift(src.TurfShift,t, src.TurfShiftDuration,src.Owner, src.TurfShiftLayer, src.TurfShiftDurationSpawn, src.TurfShiftDurationDespawn, TurfShiftState,TurfShiftX, TurfShiftY)
 								for(var/mob/m in view(src.Distance, src.TargetLoc))
 									if(!hitSelf&&src.Owner!=m)
-										DEBUGMSG("WE HAVE HIT [m] on [src] 3")
 										src.Damage(m)
 						goto Kill
 					else
@@ -6595,7 +6597,6 @@ obj
 										for(var/mob/m in t.contents)
 											if(!hitSelf&&m==src.Owner)
 												continue
-											DEBUGMSG("WE HAVE HIT [m] on [src] 4")
 											src.Damage(m)
 									for(var/turf/t in Turf_Circle_Edge(src.Owner, Rounds))
 										if(src.TurfErupt)
@@ -6656,7 +6657,6 @@ obj
 											continue
 										if(!hitSelf&&m==src.Owner)
 											continue
-										DEBUGMSG("WE HAVE HIT [m] on [src] 5")
 										src.Damage(m)
 								sleep(src.Slow*world.tick_lag)
 							src.Owner.Frozen=0
@@ -6701,7 +6701,6 @@ obj
 									sleep(-1)
 									for(var/mob/m in t)
 										if(!hitSelf&&src.Owner!=m)
-											DEBUGMSG("WE HAVE HIT [m] on [src] 6")
 											src.Damage(m)
 							else//If less than 3 distance...
 								if(src.TurfErupt)
@@ -6736,18 +6735,15 @@ obj
 										TurfShift(src.TurfShift,t, src.TurfShiftDuration,src.Owner, src.TurfShiftLayer, src.TurfShiftDurationSpawn, src.TurfShiftDurationDespawn, TurfShiftState,TurfShiftX, TurfShiftY)
 								for(var/mob/m in view(src.Distance, src.Owner))
 									if(!hitSelf&&src.Owner!=m)
-										DEBUGMSG("WE HAVE HIT [m] on [src] 7")
 										src.Damage(m)
 						goto Kill
 				if(src.Target)
 					if(src.Slow)
 						src.Owner.Frozen=1
 						sleep(src.Slow*world.tick_lag)
-						DEBUGMSG("WE HAVE HIT [Owner.Target] on [src] 10")
 						src.Damage(src.Owner.Target)
 						src.Owner.Frozen=0
 					else
-						DEBUGMSG("WE HAVE HIT [Target] on [src] 9")
 						src.Damage(src.Target)
 					goto Kill
 				while(src.Distance>0)
