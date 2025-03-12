@@ -165,10 +165,11 @@ mob/var
 	AngerColor
 	HiddenAnger //hide BP from anger
 	CalmAnger //Never get angry unless something forces you to.  Like maki.
-	ExhaustedMessage
+	ExhaustedMessage = "looks very exhausted"
 	ExhaustedColor
-	BarelyStandingMessage
+	BarelyStandingMessage = "can hardly hold themselves up"
 	BarelyStandingColor
+	BeatenMessage = "is beaten within inches of their life"
 
 	Potential=1
 	PotentialStatus="Distracted"

@@ -48,265 +48,6 @@ update_loop/gain_loop
 
 var/game_loop/mainLoop = new(0, "newGainLoop")
 //** TESTED AND WORKS!! **/
-/mob/proc/checkHealthAlert()
-	//50% injury check
-	var/exhaustedMessage = SpecialBuff ? SpecialBuff.ExhaustedMessage : FALSE
-	var/desperateMessage = SpecialBuff ? SpecialBuff.DesperateMessage : FALSE
-	if(TotalInjury > 50 && !src.InjuryAnnounce && Secret!="Zombie")
-		OMessage(10, "[src] looks beaten half to death!")
-		InjuryAnnounce = 1
-
-	// Nanite Check
-	if(NanoBoost && Health<=25*(1-HealthCut)&&!NanoAnnounce)
-		OMsg(src, "<font color='green'>[src]'s nanites respond to their physical trauma, bolstering their cybernetic power!</font color>")
-		NanoAnnounce = 1
-	// 25% health check
-	if(Health < 25*(1-HealthCut) && !HealthAnnounce25)
-		if(exhaustedMessage)
-			OMessage(10, "<font color=#00FF55>[src] [exhaustedMessage]", "[src]([src.key]) has 25% health left.</font>")
-		else
-			if(Secret != "Zombie")
-				if(!ExhaustedColor)
-					OMessage(10, "<font color=#F07E1F>[src] [ExhaustedMessage ? "[ExhaustedMessage]" : " looks exhausted!"]!", "[src]([src.key]) has 25% health left.</font>")
-				else
-					OMessage(10,"font color='[ExhaustedColor]'> [src] [ExhaustedMessage ? "[ExhaustedMessage]" : " looks exhausted!"]!", "[src]([src.key]) has 25% health left.</font>")
-				HealthAnnounce25 = 1
-
-	// 10% health check
-	if(Health < 10*(1-HealthCut) && !HealthAnnounce10)
-		if(desperateMessage)
-			OMessage(10, "<font color=#00FF55>[src] [desperateMessage]", "[src]([src.key]) has 10% health left.</font>")
-		else
-			if(Secret !="Zombie")
-				if(!BarelyStandingColor)
-					OMessage(10, "<font color=#F07E1F>[src] [BarelyStandingMessage ? "[BarelyStandingMessage]" : " is barely standing!"]!", "[src]([src.key]) has 10% health left.</font>")
-				else
-					OMessage(10,"font color='[BarelyStandingColor]'>[src] [BarelyStandingMessage ? "[BarelyStandingMessage]" : " is barely standing!"]!", "[src]([src.key]) has 10% health left.</font>")
-			HealthAnnounce10 = 1
-//**TESTED AND WORKS */
-/mob/proc/reduceErodeStolen()
-	if(src.StrStolen)
-		src.StrStolen-=0.1
-		if(src.StrStolen<0)
-			src.StrStolen=0
-	if(src.EndStolen)
-		src.EndStolen-=0.1
-		if(src.EndStolen<0)
-			src.EndStolen=0
-	if(src.SpdStolen)
-		src.SpdStolen-=0.1
-		if(src.SpdStolen<0)
-			src.SpdStolen=0
-	if(src.ForStolen)
-		src.ForStolen-=0.1
-		if(src.ForStolen<0)
-			src.ForStolen=0
-	if(src.OffStolen)
-		src.OffStolen-=0.1
-		if(src.OffStolen<0)
-			src.OffStolen=0
-	if(src.DefStolen)
-		src.DefStolen-=0.1
-		if(src.DefStolen<0)
-			src.DefStolen=0
-	if(src.PowerEroded>0)
-		src.PowerEroded-=0.02
-		if(src.PowerEroded<0)
-			src.PowerEroded=0
-	if(src.StrEroded>0)
-		src.StrEroded-=0.02
-		if(src.StrEroded<0)
-			src.StrEroded=0
-	if(src.EndEroded>0)
-		src.EndEroded-=0.02
-		if(src.EndEroded<0)
-			src.EndEroded=0
-	if(src.SpdEroded>0)
-		src.SpdEroded-=0.02
-		if(src.SpdEroded<0)
-			src.SpdEroded=0
-	if(src.ForEroded>0)
-		src.ForEroded-=0.02
-		if(src.ForEroded<0)
-			src.ForEroded=0
-	if(src.OffEroded>0)
-		src.OffEroded-=0.02
-		if(src.OffEroded<0)
-			src.OffEroded=0
-	if(src.DefEroded>0)
-		src.DefEroded-=0.02
-		if(src.DefEroded<0)
-			src.DefEroded=0
-	if(src.RecovEroded>0)
-		src.RecovEroded-=0.02
-		if(src.RecovEroded<0)
-			src.RecovEroded=0
-
-
-
-
-
-/mob/proc/meditationChecks()
-	if(icon_state == "Meditate")
-		MeditateTime++
-
-		if(Corruption>MinCorruption&&isRace(DEMON))
-			Corruption -= 5 - (AscensionsAcquired/2)
-			Corruption = max(MinCorruption, Corruption)
-		if(Secret == "Eldritch")
-			var/SecretInfomation/Eldritch/s = secretDatum
-			s.releaseMadness(src)
-
-		if(Health>=75*(1-HealthCut) && Anger!=0)
-			calmcounter--
-		else
-			calmcounter=5
-
-		if(Secret == "Vampire" && MeditateTime == 10)
-			var/obj/Skills/Buffs/SlotlessBuffs/R = GetSlotless("Rotshreck")
-			if(R && R.NeedsHealth == 0)
-				R.NeedsHealth = 25
-				R.TooMuchHealth = 50
-				R:adjust(src)
-				src<<"You no longer fear for your life..."
-		if(MeditateTime >= 5)
-			for(var/obj/Skills/Queue/Finisher/Cycle_of_Samsara/cos in src)
-				cos.Mastery = 0
-			for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/s in SlotlessBuffs)
-				s.Timer = 400
-
-
-		if(MeditateTime >= 15)
-			reduceErodeStolen()
-
-		if(MeditateTime == 15)
-			if(isRace(MAJIN))
-				majinPassive.resetVariables(src)
-			for(var/obj/Skills/s in Skills)
-				if(s.possible_skills)
-					for(var/index in s.possible_skills)
-						if(s.possible_skills[index].Cooldown<0 && s.possible_skills[index].Using)
-							src << "One or more of your skills will be made available to you again when you stop meditating."
-				if(s.Cooldown<0 && s.Using)
-					src << "One or more of your skills will be made available to you again when you stop meditating."
-				break
-
-		if(MeditateTime == 40)
-			if(SpecialBuff)
-				if(SpecialBuff.BuffName == "Ripper Mode")
-					SpecialBuff?:sandevistanUsages = 0
-					src << "Your Sandevistan Usages has been reset."
-		if(Secret == "Zombie" && MeditateTime == 70)
-			zombieGetUps = 0
-			src << "Your get ups have been reset"
-
-		if(calmcounter<=0)
-			calmcounter=5
-			if(Anger)
-				Calm()
-		if(MeditateTime == 15)
-			usr << "If any skills reset on Meditate, they've been reset."
-		if(CheckSpecial("Jinchuuriki") || CheckSpecial("Vaizard Mask"))
-			if(SpecialBuff.Mastery <= 1)
-				SpecialBuff.Trigger(src, Override=1)
-	else
-		MeditateTime=0
-//**TESTED AND WORKS **/
-/mob/proc/drainTransformations(trans, transMastery)
-	// TRANS / TRANSMASTERY FOR CHANGIE 4TH FORM
-	var/drain
-	if(trans && transMastery <= 75)
-		drain = round(30 - ((transMastery - 5) * 30) / (75 - 5), 1)
-		if(drain < 0)
-			drain = 0
-		if(Energy < drain && !HasNoRevert() && !Dead && !HasMystic())
-
-			Revert()
-			LoseEnergy(drain)
-			src<<"The strain of your transformation forced you to revert."
-
-	if(trans==4 && transMastery < 100 && isRace(CHANGELING))
-		drain = round(30 - (40 * log(1 + transMastery / 100)), 1)
-		if(drain < 0)
-			drain = 1
-		if(Energy < drain && !HasNoRevert())
-			GainFatigue(drain)
-			Revert()
-			src<<"The strain of Golden Form forced you to revert!"
-
-/mob/proc/doLoopTimers()
-	if(Lethal-- <= 0 && Lethal)
-		Lethal = 0
-		OMsg(src, "font color='grey'>[src] will no longer deal lethal damage.</font color>")
-	// Move this to a different loop, most likely
-
-	if(TsukiyomiTime-- <= 0 && TsukiyomiTime)
-		TsukiyomiTime = 0
-		animate(client, color=null, time=1)
-		OMsg(src, "font color='grey'>[src] is no longer trapped in Tsukiyomi.</font color>")
-
-	if(warperTimeLock>0)
-		warperTimeLock--
-		warperTimeLock = max(0, warperTimeLock)
-
-	if(TimeStop)
-		var/obj/Skills/Buffs/SlotlessBuffs/Grimoire/Time_Stop/book = new
-		book = locate() in src
-		LoseHealth(5/book.Mastery)
-		book:TimeStopped++
-		if(book:TimeStopped>book.Mastery+1)
-			SkillX("Time Stop",x)
-	var/obj/Skills/Devils_Deal/dd = findDevilsDeal(src)
-	if(dd)
-		if(CurrentlySummoned)
-			dd.incrementSummonReturnTime(1)
-			if(dd.getSummonReturnTime() >= dd.getHomeTime())
-				dd.returnToOrg(src)
-				OMsg(src, "font color='grey'>[src] is no longer being summoned.</font color>")
-
-
-/mob/proc/newGainLoop()
-	set waitfor = 0
-
-	// var/mob/players/M = null
-	// var/val = 0
-
-
-
-
-	if(!client)
-		mainLoop -= src
-		return
-	if(src.KO&&src.icon_state!="KO")
-		src.icon_state="KO"
-	if(src.PureRPMode)
-		if(!src.Stasis)
-			src.Stasis=1
-		return // Don't do anything else if in Pure RP mode.
-	checkHealthAlert()
-
-	meditationChecks()
-
-	drainTransformations(transActive, race.transformations[transActive].mastery)
-
-	if(Grab) Grab_Update()
-	EnergyMax = 100
-
-	doLoopTimers()
-	// Tick based activity / Timers
-
-
-	if(MovementCharges < GetMaxMovementCharges())
-		MovementChargeBuildUp()
-
-
-
-
-
-
-	Update_Stat_Labels()
-
-
 mob/var/seventhSenseTriggered = 0
 
 mob
@@ -400,59 +141,7 @@ mob
 		Update_Stat_Labels()
 
 		if(!src.PureRPMode)
-
-			// if(calmcounter<=0)
-			// 	calmcounter=5
-			// 	if(Anger)
-			// 		src.Calm()
-
-
 			meditationChecks()
-			// if(icon_state == "Meditate")
-			// 	MeditateTime++
-
-			// 	if(src.Health>=75*(1-src.HealthCut)&&src.Anger!=0)
-			// 		calmcounter--
-			// 	else
-			// 		calmcounter=5
-
-			// 	if(Secret == "Vampire" && MeditateTime == 10)
-			// 		var/obj/Skills/Buffs/SlotlessBuffs/R = GetSlotless("Rotshreck")
-			// 		if(R && R.NeedsHealth == 0)
-			// 			R.NeedsHealth = 25
-			// 			R.TooMuchHealth = 50
-			// 			R:adjust(src)
-			// 			src<<"You no longer fear for your life..."
-			// 	if(MeditateTime == 15)
-			// 		if(isRace(MAJIN))
-			// 			majinPassive.resetVariables(src)
-			// 		for(var/obj/Skills/s in Skills) if(s.Cooldown<0 && s.Using)
-			// 			src << "One or more of your skills will be made available to you again when you stop meditating."
-			// 			break
-			// 		if(CheckSpecial("Jinchuuriki"))
-			// 			for(var/obj/Skills/Buffs/SpecialBuffs/Cursed/Jinchuuriki/J in Buffs)
-			// 				if(J.Mastery > 1)
-			// 					break
-			// 				else
-			// 					J.Trigger(src,Override=1)
-			// 					break
-			// 		if(CheckSpecial("Vaizard Mask"))
-			// 			for(var/obj/Skills/Buffs/SpecialBuffs/Cursed/Vaizard_Mask/V in Buffs)
-			// 				if(V.Mastery > 1)
-			// 					break
-			// 				else
-			// 					V.Trigger(src,Override=1)
-			// 					break
-			// 	if(MeditateTime == 40)
-			// 		if(SpecialBuff)
-			// 			if(SpecialBuff.BuffName == "Ripper Mode")
-			// 				SpecialBuff?:sandevistanUsages = 0
-			// 				src << "Your Sandevistan Usages has been reset."
-			// 		// dmn i dont want to search for the buff if it is inactive
-			// 		// cant let it reset on trigger
-
-			// else
-			// 	MeditateTime=0
 
 			if(src.Lethal)
 				src.Lethal--
@@ -558,13 +247,6 @@ mob
 						src.LoseEnergy(30)
 						src<<"The strain of Super Saiyan forced you to revert!"
 
-/*
-			if(src.trans["active"]>3 && src.masteries["4mastery"]<100 && src.Race=="Changeling")
-				if(src.Energy<30&&!src.HasNoRevert())
-					src.GainFatigue(30)
-					src.Revert()
-					src<<"The strain of Golden Form forced you to revert!"
-*/
 
 			if(src.Transfering)
 				var/mob/Players/M=src.Transfering
@@ -587,21 +269,6 @@ mob
 				// send to spawn
 				loc = locate(100,100,3)
 				voiding = 0
-
-
-/*
-			if(src.Phylactery&&!src.Dead)
-				spawn()
-					var/found=0
-					for(var/obj/Items/Enchantment/Phylactery/Phy in world)
-						if(Phy.Signature==src.ckey)
-							found=1
-							break
-					if(!found)
-						src.Phylactery=0
-						src.NoDeath=0
-						src.Death(null, "their phylactery being destroyed!", SuperDead=1, NoRemains=1)
-*/
 
 			if(passive_handler.Get("ContinuallyStun"))
 				if(prob(passive_handler.Get("ContinuallyStun")))
@@ -921,24 +588,6 @@ mob
 				if(src.Binding&&Binding.len>0)
 					src.TriggerBinding()
 
-/*
-			if(src.FusionTimer>0)
-				src.FusionTimer--
-				if(src.KO)
-					src.FusionTimer=0
-				if(src.FusionTimer<=0)
-					if(src.Class in list("Dance","Potara"))
-						global.fusion_locs["[ckey] and [Fusee]"] = list("x"=x,"y"=y,"z"=z)
-						for(var/mob/Players/M in players)
-							if(M!=src)
-								if(M.ckey==src.FusionCKey2)
-									M.client.eye=M
-									M.client.perspective=MOB_PERSPECTIVE
-									M.client.LoadChar()
-									break
-						src.client.LoadChar()
-					else
-						src.RPPower=1*/
 			if(src.GimmickTimer)
 				src.GimmickTimer--
 				if(src.GimmickTimer<=0)
@@ -953,12 +602,7 @@ mob
 						src.Drunk=0
 						src << "You recover from your drunkenness."
 					src << "You feel less full."
-			/*
-			if(src.Aged)
-				src.Aged--
-				if(src.Aged<=0)
-					src.Aged=0
-					src << "You return to your younger form!"*/
+
 			if(src.Doped)
 				src.Doped--
 				if(src.Doped<=0)
@@ -1595,7 +1239,7 @@ mob
 						if(b.TimerLimit)
 							if(!isnum(b.Timer))
 								b.Timer=0
-							b.Timer+=world.tick_lag
+							b.Timer+=(world.tick_lag)/10
 							if(b.Timer>=b.TimerLimit)
 								b.Trigger(src, Override=1) // BUFF END //
 								continue

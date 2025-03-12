@@ -92,13 +92,16 @@
 	appearance_flags = KEEP_TOGETHER
 	icon = 'smallbar.dmi'
 	icon_state = "background"
-	New(newloc, obj/Bar/b)
+	New(newloc, obj/Bar/b, loc_x, loc_y)
 		vis_contents += b
+		if(loc_x && loc_y)
+			screen_loc = "1:[loc_x],1:[loc_y]"
 
 /obj/barbg
 	icon = 'barbgs.dmi'
 	New(state)
 		icon_state = state
+		
 
 
 

@@ -2835,20 +2835,21 @@ mob
 				Mult*=clamp(glob.ZANZO_FLICKER_LOWEST_CLAMP,1+(flick/glob.ZANZO_FLICKER_DIVISOR), glob.ZANZO_FLICKER_HIGHEST_CLAMP)
 			if(src.AfterImageStrike)
 				return
-			src.MovementCharges+=(glob.ZANZO_FLICKER_BASE_GAIN-(max(0.01,MovementCharges)/3)/10)*Mult
-
+			var/add = (glob.ZANZO_FLICKER_BASE_GAIN-(max(0.01,MovementCharges)/3)/10)*Mult 
+			add /= world.tick_lag SECOND
+			src.MovementCharges+=add
+			var/alteration = -36 + (36 * (MovementCharges - round(MovementCharges)))
+			if(client.hud_ids["Zanzoken"])
+				world<<alteration
+				client.hud_ids["Zanzoken"].meter.animateBar(alteration, world.tick_lag)
 			if(src.MovementCharges>GetMaxMovementCharges())
 				src.MovementCharges=GetMaxMovementCharges()
 		GetRPPMult()
 			var/Return=src.RPPMult
 			Return*=src.ConditionRPPMult()
-			if(src.TarotFate=="The Hermit")
-				Return*=1.5
 			return Return
 		ConditionRPPMult()
 			var/Return=1
-			if(src.ParasiteCrest())
-				Return*=2
 			return Return
 		Base()
 			var/base = src.Base * BASE_MOD

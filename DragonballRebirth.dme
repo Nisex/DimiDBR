@@ -384,6 +384,8 @@
 #include "_Reworks\Combat\RPPGain\RPPDefines.dm"
 #include "_Reworks\Combat\Skills\debuffs.dm"
 #include "_Reworks\Creation\StatAllocation\statHolder.dm"
+#include "_Reworks\Foundation\_Gains.dm"
+#include "_Reworks\Foundation\zanzoken.dm"
 #include "_Reworks\Kamui\Scissor_Blade.dm"
 #include "_Reworks\libs\_event.dm"
 #include "_Reworks\libs\anymacro.dm"
