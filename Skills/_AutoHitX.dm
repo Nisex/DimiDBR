@@ -6062,7 +6062,7 @@ obj
 				if(src.SpeedStrike>0)
 					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(src.SpeedStrike/glob.SPEEDSTRIKEDIVISOR))),1,3)
 				if(Owner.UsingFencing())
-					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(Owner.UsingFencing()/glob.SPEEDSTRIKEDIVISOR+5))),1,3)
+					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(Owner.UsingFencing()/glob.SPEEDSTRIKEDIVISOR))),1,3)
 				if((m.Launched||m.Stunned))
 					if(!(ComboMaster || Owner.HasComboMaster() || Dunker || Destroyer))
 						FinalDmg *= glob.CCDamageModifier
