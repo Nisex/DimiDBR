@@ -5712,7 +5712,7 @@ obj
 						if(str)
 							atk += str
 						if(Owner.HasSpiritFlow())
-							var/sf = Owner.passive_handler.Get("SpiritFlow")  / glob.SPIRIT_FLOW_DIVISOR
+							var/sf = Owner.GetSpiritFlow()  / glob.SPIRIT_FLOW_DIVISOR
 							atk += Owner.GetFor(sf)
 						if(atk<1)
 							atk=1

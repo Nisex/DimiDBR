@@ -5963,7 +5963,7 @@ obj
 				DEBUGMSG("atk final is: [atk]")
 				var/dmgMulti = Damage
 				if(Owner.HasSpiritFlow())
-					var/sf = Owner.passive_handler.Get("SpiritFlow")  / glob.SPIRIT_FLOW_DIVISOR
+					var/sf = Owner.GetSpiritFlow() / glob.SPIRIT_FLOW_DIVISOR
 					atk += Owner.GetFor(sf)
 				DEBUGMSG("atk final (post spiritflow) is: [atk]")
 				#if DEBUG_AUTOHIT

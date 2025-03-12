@@ -2884,10 +2884,10 @@ obj/Skills/Utility
 					Cost=glob.progress.EconomyCost*300
 					ModDesc="Ray Gear provides the augmented with unparalleled firepower and integrates ranged capabilities into their basic combat protocols while sapping their battery."
 				if("Infinity Drive")
-					Cost=glob.progress.EconomyCost*500
+					Cost=glob.progress.EconomyCost*300
 					ModDesc="Infinity Drive allows a fusion-powered augmented to constantly support their overall performance with their nigh-infinite energy outpour."
 				if("Overdrive")
-					Cost=glob.progress.EconomyCost*500
+					Cost=glob.progress.EconomyCost*300
 					ModDesc="Overdrive allows the augmented to overclock every cybernetically enhanced aspect in exchange for battery life."
 
 				if("Repair")
