@@ -52,7 +52,7 @@ mob
 				else
 					val=0
 			var/persistence = passive_handler["Persistence"]
-			if(prob(persistence) * glob.PERSISTENCE_CHANCE_SELF&&!HasInjuryImmune())
+			if(prob(persistence * glob.PERSISTENCE_CHANCE_SELF)&&!HasInjuryImmune())
 				if(glob.PERSISTENCE_DIVIDES_DAMAGE)
 					var/clamped = clamp(persistence, glob.PRESISTENCE_DIVISOR_MIN, glob.PRESISTENCE_DIVISOR_MAX)
 					WoundSelf(val/clamped)
