@@ -1246,7 +1246,9 @@ mob
 					if(SlotlessBuffs["What Must Be Done"].Password)
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
-				Mod+=0.25
+				var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/ki = usr.FindSkill(/obj/Skills/Buffs/ActiveBuffs/Ki_Control)
+				if(ki && "Str" in ki.selectedStats)
+					Mult += round(glob.progress.totalPotentialToDate,5) / 150 * ki.StrMult
 			if(glob.racials.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.1 * AscensionsAcquired)
@@ -1369,7 +1371,9 @@ mob
 					if(SlotlessBuffs["What Must Be Done"].Password)
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
-				Mod+=0.25
+				var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/ki = usr.FindSkill(/obj/Skills/Buffs/ActiveBuffs/Ki_Control)
+				if(ki && "For" in ki.selectedStats)
+					Mult += round(glob.progress.totalPotentialToDate,5) / 150 * ki.ForMult
 			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
 			// 	if(src.race.transformations[transActive].mastery==100)
 			// 		Mod+=0.1
@@ -1485,7 +1489,9 @@ mob
 					if(SlotlessBuffs["What Must Be Done"].Password)
 						Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
-				Mod+=0.25
+				var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/ki = usr.FindSkill(/obj/Skills/Buffs/ActiveBuffs/Ki_Control)
+				if(ki && "End" in ki.selectedStats)
+					Mult += round(glob.progress.totalPotentialToDate,5) / 150 * ki.EndMult
 			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
 			// 	if(src.race.transformations[transActive].mastery==100)
 			// 		Mod+=0.1
@@ -1590,13 +1596,16 @@ mob
 				if(SlotlessBuffs["What Must Be Done"].Password)
 					Mod+=min(0.5, SlotlessBuffs["What Must Be Done"].Mastery/10)
 			if(src.InfinityModule)
-				Mod+=0.25
+				var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/ki = usr.FindSkill(/obj/Skills/Buffs/ActiveBuffs/Ki_Control)
+				if(ki && "Spd" in ki.selectedStats)
+					Mult += round(glob.progress.totalPotentialToDate,5) / 150 * ki.SpdMult
 			// if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive&&!src.SpecialBuff)
 			// 	if(src.race.transformations[transActive].mastery==100)
 			// 		Mod+=0.1
 			if(glob.racials.DEVIL_ARM_STAT_MULTS)
 				if(src.CheckSlotless("Devil Arm")&&!src.SpecialBuff)
 					Mod+=(0.05 * AscensionsAcquired)
+
 			if(src.SpdStolen)
 				Mod+=src.SpdStolen*0.5
 			if(src.Fury)

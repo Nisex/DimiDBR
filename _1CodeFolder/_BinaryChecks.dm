@@ -710,8 +710,6 @@ mob
 			var/t=src.HighestTrans()
 			if(t)
 				Return+=t/2
-			if(src.InfinityModule)
-				Return+=1
 			if(src.KamuiBuffLock)
 				Return += 3
 			if(Secret == "Vampire")
@@ -729,8 +727,6 @@ mob
 				Return += clamp(secretDatum.currentTier/2, 1, 2)
 			Return+=passive_handler.Get("Flicker")
 			Return+=src.SaiyanTransPower()
-			if(src.InfinityModule)
-				Return++
 			if(src.KamuiBuffLock)
 				Return += 2
 			if(Target)
@@ -890,6 +886,8 @@ mob
 				return 1
 			if(src.AdaptationCounter&&src.AdaptationTarget)
 				return 1
+			if(InfinityModule)
+				return 1
 			if(passive_handler.Get("KiControlMastery"))
 				return 1
 			if(src.isRace(NAMEKIAN)&&src.transActive())
@@ -911,6 +909,8 @@ mob
 				Total+=round(src.GetGodKi()/0.25)
 			if(src.isRace(NAMEKIAN)&&src.transActive())
 				Total+=3
+			if(InfinityModule)
+				Total += 5
 			if(src.isRace(MAKYO)&&src.AscensionsAcquired)
 				Total+=src.AscensionsAcquired
 			if(isRace(SHINJIN))
@@ -1090,6 +1090,8 @@ mob
 		HasMovementMastery()
 			if(passive_handler.Get("MovementMastery"))
 				return 1
+			if(InfinityModule)
+				return 1
 			if(Saga=="Cosmo")
 				return 1
 			return 0
@@ -1098,6 +1100,8 @@ mob
 			Total+=passive_handler.Get("MovementMastery")
 			if(Saga=="Cosmo" && !SpecialBuff)
 				Total += SagaLevel * 2.5
+			if(InfinityModule)
+				Total += round(glob.progress.totalPotentialToDate,5) / 10
 			return Total
 		HasPhysicalHitsLimit()
 			if(passive_handler.Get("PhysicalHitsLimit"))
@@ -1164,9 +1168,14 @@ mob
 		HasFatigueImmune()
 			if(passive_handler.Get("FatigueImmune"))
 				return 1
+			if(InfinityModule)
+				return 1
 			return 0
 		GetFatigueImmune()
-			return passive_handler.Get("FatigueImmune")
+			var/Return = passive_handler.Get("FatigueImmune")
+			if(InfinityModule)
+				Return += 1
+			return Return
 		HasDebuffResistance()
 			if(passive_handler.Get("DebuffResistance"))
 				return 1
@@ -1190,6 +1199,8 @@ mob
 			Return=passive_handler.Get("SuperDash")
 			if(src.SenseUnlocked>5&&src.SenseUnlocked>src.SenseRobbed)
 				Return+=1
+			if(InfinityModule)
+				Return += round(glob.progress.totalPotentialToDate,5) / 25
 			Return=round(Return)
 			return Return
 		GetSuperDash()
@@ -1199,6 +1210,8 @@ mob
 				Total+=1
 				if(src.SenseUnlocked>=7)
 					Total+=1
+			if(InfinityModule)
+				Total += round(glob.progress.totalPotentialToDate,5) / 25
 			Total=round(Total)
 			return min(Total,2)
 		HasDeflection()
@@ -1338,7 +1351,8 @@ mob
 				return 1
 			if(src.CombatCPU)
 				return 1
-
+			if(InfinityModule)
+				return 1
 			if(passive_handler.Get("LikeWater") || passive_handler.Get("Gravity"))
 				if(Target.HasInstinct() >= GetFlow())
 					return 1
@@ -1362,6 +1376,8 @@ mob
 				Extra++
 			if(src.CombatCPU)
 				Extra+=1
+			if(InfinityModule)
+				Extra += round(glob.progress.totalPotentialToDate,5) / 25
 			if(Target&&Target.passive_handler.Get("Instinct") >= Base+Extra)
 				Extra += (passive_handler.Get("LikeWater")) / 2
 			return (Base+Extra)
@@ -1384,6 +1400,8 @@ mob
 			var/t=src.HighestTrans()
 			if(round(t/4))
 				Return+=1
+			if(InfinityModule)
+				Return += round(glob.progress.totalPotentialToDate,5) / 25
 			if(Target&&Target.passive_handler.Get("Flow") >= Return)
 				Return+=passive_handler.Get("LikeWater") / 2
 			if(Return < 0)
@@ -1988,7 +2006,14 @@ mob
 				return 1
 			if(src.TarotFate=="The Emperor")
 				return 1
+			if(InfinityModule)
+				return 1
 			return 0
+		GetSpiritFlow()
+			var/Return = passive_handler.Get("SpiritFlow")
+			if(InfinityModule)
+				Return += round(glob.progress.totalPotentialToDate,5) / 50
+			return Return
 		HasSpiritSword()//Str(0.75)+For(0.75)
 			if(passive_handler.Get("SpiritSword"))
 				return 1
@@ -1998,9 +2023,14 @@ mob
 		HasHybridStrike()//Str(0.75)+For(0.75)
 			if(passive_handler.Get("HybridStrike"))
 				return 1
+			if(InfinityModule)
+				return 1
 			return 0
 		GetHybridStrike()//Str(0.75)+For(0.75)
-			return passive_handler.Get("HybridStrike")/2
+			var/Return = passive_handler.Get("HybridStrike")
+			if(InfinityModule)
+				Return += round(glob.progress.totalPotentialToDate,5) / 50
+			return Return
 		HasSpiritStrike()//For v.s. End
 			if(passive_handler.Get("SpiritStrike"))
 				return 1

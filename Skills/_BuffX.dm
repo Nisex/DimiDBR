@@ -2567,14 +2567,6 @@ NEW VARIABLES
 				verb/Overdrive()
 					set category="Skills"
 					adjust(usr)
-					if(usr.isRace(ANDROID))
-						passives = list("AllOutPU" = 1, "Overdrive" = 1)
-						src.ManaLeak=0
-						src.NeedsHealth=50
-						src.TooMuchHealth=75
-						src.OverClock=0.05
-						src.ActiveMessage="overloads their systems!"
-						src.OffMessage="experiences a temporary shutdown of their systems!"
 					src.Trigger(usr)
 			Ripper_Mode
 				SignatureTechnique=3
@@ -2607,12 +2599,6 @@ NEW VARIABLES
 					passives = list("ManaLeak" = 1 - totalPot/200, "HardStyle" = 0.3 * reducedPot, \
 					"Flicker" = clamp(round(reducedPot/5,1), 1, 2), "Pursuer" = clamp(round(reducedPot/5,1), 1, 2), \
 					"Instinct" = reducedPot * 0.5, "Godspeed" = round(reducedPot/2.5, 1), "Steady" = reducedPot * 0.5)
-					if(p.isRace(ANDROID))
-						src.ManaLeak=0
-						src.NeedsHealth=50
-						src.TooMuchHealth=75
-						src.ActiveMessage="shuts off their empathy circuit as they overclock their systems!"
-
 
 				verb/Ripper_Mode()
 					set category="Skills"
@@ -2645,11 +2631,6 @@ NEW VARIABLES
 					passives = list("ManaLeak" = 1 - totalPot/200, "WeaponBreaker" = 0.3 * reducedPot, \
 					"BlockChance" = round(reducedPot/10,1), "CriticalBlock" = round(reducedPot/15), \
 					"Hardening" = reducedPot * 0.5, "Juggernaut" = 1, "DemonicDurability" = reducedPot * 0.3)
-					if(p.isRace(ANDROID))
-						src.ManaLeak=0
-						src.NeedsHealth=50
-						src.TooMuchHealth=75
-						src.ActiveMessage="sheens metallically as they bolster their defenses with the best technology in the world!"
 				verb/Armstrong_Augmentation()
 					set category="Skills"
 					adjust(usr)
@@ -2675,11 +2656,6 @@ NEW VARIABLES
 					var/reducedPot = totalPot/10
 					passives = list("ManaLeak" = 1 - totalPot/200, "Instinct" = 0.5 * reducedPot, \
 					"QuickCast" = round(reducedPot/10,1), "SpecialStrike" = 1, "MovingCharge" = 1, "SpiritHand" = round(totalPot/4,1))
-					if(p.isRace(ANDROID))
-						src.ManaLeak=0
-						src.NeedsHealth=50
-						src.TooMuchHealth=75
-						src.ActiveMessage="becomes a weapon to surpass all!"
 
 				verb/Ray_Gear()
 					set category="Skills"
@@ -3892,6 +3868,8 @@ NEW VARIABLES
 						TimerLimit = 30 + (10 * player.SagaLevel)
 					else
 						TimerLimit = 0
+				else
+					TimerLimit = 0
 				if(player.SagaLevel>=1)
 					ActiveMessage="draws power from their courage as they pulse with green light!"
 				if(player.SagaLevel>=2)

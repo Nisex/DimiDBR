@@ -4158,7 +4158,9 @@ obj
 				StyleNeeded="Hiten Mitsurugi"
 				Area="Arc"
 				StrOffense=1
-				DamageMult=7
+				DamageMult = 3
+				Launcher = 2
+				ComboMaster = 1
 				EnergyCost=2
 				Rush=3
 				ControlledRush=1
@@ -4186,10 +4188,11 @@ obj
 				StyleNeeded="Hiten Mitsurugi"
 				Area="Circle"
 				StrOffense=1
-				DamageMult=1.25
-				IgnoreAlreadyHit = 1
+				DamageMult=5
 				ChargeTech=1
 				SpeedStrike = 2
+				Crippling = 50
+				PassThrough = 1
 				ChargeTime=0
 				DelayTime=0
 				Cooldown=60
@@ -5963,7 +5966,7 @@ obj
 				DEBUGMSG("atk final is: [atk]")
 				var/dmgMulti = Damage
 				if(Owner.HasSpiritFlow())
-					var/sf = Owner.passive_handler.Get("SpiritFlow")  / glob.SPIRIT_FLOW_DIVISOR
+					var/sf = Owner.GetSpiritFlow() / glob.SPIRIT_FLOW_DIVISOR
 					atk += Owner.GetFor(sf)
 				DEBUGMSG("atk final (post spiritflow) is: [atk]")
 				#if DEBUG_AUTOHIT
@@ -6059,7 +6062,7 @@ obj
 				if(src.SpeedStrike>0)
 					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(src.SpeedStrike/glob.SPEEDSTRIKEDIVISOR))),1,3)
 				if(Owner.UsingFencing())
-					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(Owner.UsingFencing()/glob.SPEEDSTRIKEDIVISOR+5))),1,3)
+					FinalDmg *= clamp(sqrt(1+((Owner.GetSpd())*(Owner.UsingFencing()/glob.SPEEDSTRIKEDIVISOR))),1,3)
 				if((m.Launched||m.Stunned))
 					if(!(ComboMaster || Owner.HasComboMaster() || Dunker || Destroyer))
 						FinalDmg *= glob.CCDamageModifier
