@@ -49,7 +49,7 @@
 	Copyable=0
 	ManaCost=30
 	passives = list("Instinct" = 1, "Pursuer" = 1, "NoDodge" = 1)
-	VaizardHealth = 1
+	VaizardHealth = 10
 	TextColor=rgb(63, 241, 111)
 	ActiveMessage="exerts their will power to encase themselves with plot armor!"
 	OffMessage="isn't able to keep up their deception..."

@@ -1,6 +1,6 @@
 obj/Skills/Buffs/SlotlessBuffs/Blessed_Guard
 	passives = list("PureDamage"=-2)
-	VaizardHealth = 1.5
+	VaizardHealth = 10
 	VaizardShatter = 1
 	TimerLimit = 30
 	Cooldown = 160

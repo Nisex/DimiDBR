@@ -886,7 +886,7 @@ NEW VARIABLES
 						"Juggernaut" = mecha.Level, "Reversal" = 0.5, "BlockChance" = mecha.Level*3, "CriticalBlock" = mecha.Level*0.5, "NoDodge" = 1)
 						if(player.PilotingProwess >= 7)
 							passives["NoDodge"] = 0
-						VaizardHealth = mecha.Level * 0.2
+						VaizardHealth = mecha.Level * 2
 						..()
 				Assault
 					BuffName = "Mobile Suit"
@@ -1828,7 +1828,7 @@ NEW VARIABLES
 							DefMult = 1.3 + (0.1 * Mastery)
 					passives = list("ManaLeak" = 4-Mastery, "PureReduction" = (Mastery * 0.5)+ pRedBoost, "PureDamage" = (Mastery * 0.5) + pDmgBoost, \
 					"Maki" = 1, "Curse" = 1,"Instinct" = 2, "Pursuer" = 2, "Flicker" = 2)
-					VaizardHealth = 1 + (0.25 * Mastery)
+					VaizardHealth = 5 + (2.5 * Mastery)
 					VaizardShatter = 1
 				verb/Don_Mask()
 					set category="Skills"
@@ -4310,7 +4310,7 @@ NEW VARIABLES
 						usr << "Your rage hasn't spiked high enough yet!"
 						return
 					else
-						src.VaizardHealth=(usr.DefianceCounter/8)
+						src.VaizardHealth=(usr.DefianceCounter)
 						src.VaizardShatter=1
 						src.FINISHINGMOVE=1
 						src.DefianceRetaliate=1
@@ -5342,7 +5342,7 @@ NEW VARIABLES
 			*/
 
 			ShellApply
-				VaizardHealth = 0.3
+				VaizardHealth = 3
 				MagicNeeded = 0
 				name = "Shell"
 				IconLock='Android Shield.dmi'
@@ -5369,7 +5369,7 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(!altered)
 						if(p.isInnovative(ELF, "Any") && !isInnovationDisable(p))
-							VaizardHealth=0.15
+							VaizardHealth=1.5
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/10)
 							applyToTarget=0
@@ -5404,7 +5404,7 @@ NEW VARIABLES
 					src.Trigger(usr)
 			BarrierApply
 				name = "Barrier"
-				VaizardHealth = 0.5
+				VaizardHealth = 5
 				MagicNeeded = 0
 				IconLock='Android Shield.dmi'
 				IconLockBlend=2
@@ -5431,7 +5431,7 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(!altered)
 						if(p.isInnovative(ELF, "Any") && !isInnovationDisable(p))
-							VaizardHealth=0.3
+							VaizardHealth=3
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/5)
 							TimerLimit=30 + p.getTotalMagicLevel()
@@ -5529,7 +5529,7 @@ NEW VARIABLES
 					src.Trigger(usr)
 			Resilient_SphereApply
 				name = "Resilient Sphere"
-				VaizardHealth = 1
+				VaizardHealth = 10
 				VaizardShatter=1
 				MagicNeeded = 0
 				IconLock='zekkai.dmi'
@@ -5557,7 +5557,7 @@ NEW VARIABLES
 				adjust(mob/p)
 					if(!altered)
 						if(p.isInnovative(ELF, "Any")&& !isInnovationDisable(p))
-							VaizardHealth=0.5
+							VaizardHealth=5
 							AffectTarget = 0
 							passives = list("Hardening" = p.getTotalMagicLevel()/5)
 							TimerLimit= 60 + p.getTotalMagicLevel() * 2
@@ -5847,7 +5847,7 @@ NEW VARIABLES
 			Bubble_Shield
 				passives = list("NoDodge" = 1)
 				NoDodge=1
-				VaizardHealth=0.5
+				VaizardHealth=5
 				VaizardShatter=1
 				TimerLimit=5
 				Cooldown=300
@@ -5944,7 +5944,7 @@ NEW VARIABLES
 				Integrated_Bubble_Shield
 					passives = list("NoDodge" = 1)
 					NoDodge=1
-					VaizardHealth=0.5
+					VaizardHealth=5
 					VaizardShatter=1
 					TimerLimit=5
 					Cooldown=240
@@ -6158,7 +6158,7 @@ NEW VARIABLES
 					if(!mecha) return
 					passives = list("BetterAim" = 3, "PureReduction" = mecha.Level/2)
 					PureReduction = mecha.Level/2
-					VaizardHealth = mecha.Level * 0.15
+					VaizardHealth = mecha.Level * 1.5
 					TimerLimit = 10 + (mecha.Level * 5)
 					Cooldown = 120 - (mecha.Level * 10)
 				verb/Fortress_Mode()
@@ -6180,7 +6180,7 @@ NEW VARIABLES
 					if(!mecha) return
 					passives = list("Juggernaut" = mecha.Level/2, "PureReduction" = mecha.Level)
 					PureReduction = mecha.Level
-					VaizardHealth = mecha.Level * 0.25
+					VaizardHealth = mecha.Level * 2.5
 					Juggernaut = mecha.Level / 2
 					TimerLimit = 5 + (mecha.Level * 5)
 				verb/Unbreakable_Mode()
@@ -8307,7 +8307,7 @@ NEW VARIABLES
 				TimerLimit = 60 * (clamp(1,usr.SagaLevel/2,4))
 				passives = list("PureDamage" = PureDamage, "CursedWounds" = CursedWounds, "Instinct" = Instinct)
 				if(usr.UBWPath=="Feeble"&&usr.SagaLevel>=4)
-					src.VaizardHealth = 0.25*(max(1,usr.SagaLevel-4))
+					src.VaizardHealth = 2.5*(max(1,usr.SagaLevel-4))
 					WoundCost = 5 - (max(1,usr.SagaLevel-4))
 				else
 					src.VaizardHealth = 0
@@ -8412,7 +8412,7 @@ NEW VARIABLES
 						DoubleStrike = 3*/
 				passives = list("DoubleStrike" = DoubleStrike, "Flow" = Flow, "Deflection" = Deflection)
 				if(usr.UBWPath=="Feeble"&&usr.SagaLevel>=4)
-					src.VaizardHealth = 0.25*(max(1,usr.SagaLevel-4))
+					src.VaizardHealth = 2.5*(max(1,usr.SagaLevel-4))
 					WoundCost = 5 - (max(1,usr.SagaLevel-4))
 				else
 					src.VaizardHealth = 0
@@ -8521,7 +8521,7 @@ NEW VARIABLES
 						SoftStyle = 5*/
 				passives = list("BulletKill" = BulletKill, "SoulFire" = ManaSeal, "SoftStyle" = SoftStyle)
 				if(usr.UBWPath=="Feeble"&&usr.SagaLevel>=4)
-					src.VaizardHealth = 0.25*(max(1,usr.SagaLevel-4))
+					src.VaizardHealth = 2.5*(max(1,usr.SagaLevel-4))
 					WoundCost = 5 - (max(1,usr.SagaLevel-4))
 				else
 					src.VaizardHealth = 0
@@ -8530,7 +8530,7 @@ NEW VARIABLES
 
 		Rho_Aias
 			TimerLimit=100
-			VaizardHealth=0.5
+			VaizardHealth=5
 			VaizardShatter=1
 			IconLock='RhoAias.dmi'
 			LockX = -48
@@ -8548,7 +8548,7 @@ NEW VARIABLES
 					usr << "You can't project without your circuits active!"
 					return
 				ManaCost = usr.getUBWCost(1.5)
-				VaizardHealth = usr.getAriaCount()/3
+				VaizardHealth = usr.getAriaCount()/6
 				WoundCost = usr.getAriaCount() / 3
 				src.Trigger(usr)
 
@@ -8623,7 +8623,7 @@ NEW VARIABLES
 			verb/Protect_Wall()
 				set category="Skills"
 				if(!usr.BuffOn(src))
-					VaizardHealth = (1.5 * usr.SagaLevel) / 10
+					VaizardHealth = (1.5 * usr.SagaLevel)
 					TimerLimit = 5 * usr.SagaLevel
 					Cooldown = 300
 				if(usr.SpecialBuff)
@@ -8813,14 +8813,14 @@ NEW VARIABLES
 				init(usr)
 				if(!usr.BuffOn(src))
 					passives = list("GiantForm" = 1, "HybridStrike" = 1, "PureReduction" = 1, "Flow" = -1)
-					VaizardHealth = 0.75 * (usr.SagaLevel-3)
+					VaizardHealth = 6 * (usr.SagaLevel-3)
 					EnergyCost = 10 - (usr.SagaLevel-4)
 					FatigueCost = 6 - (usr.SagaLevel-4)
 					switch(usr.SharinganEvolution)
 						if("Resolve")
 							passives = list("NoDodge" = 0, "GiantForm" = 1,\
 							"HybridStrike" = 1, "SweepingStrike" = 1, "Flow" = -1, "Instinct" = -1, "PureDamage" = 2, "PureReduction" = 2)
-							VaizardHealth += 0.2 * (usr.SagaLevel-3)
+							VaizardHealth += 2 * (usr.SagaLevel-3)
 					if(usr.SagaLevel>=5)
 						DefMult = 0.8
 						src.ActiveMessage="conjures a partially humanoid figure around them!"
@@ -9073,7 +9073,7 @@ NEW VARIABLES
 					set category="Skills"
 					src.Trigger(usr)
 			Life_Magnetism_Overdrive
-				VaizardHealth=0.5
+				VaizardHealth=2.5
 				VaizardShatter=1
 				TimerLimit=10//lasts for 10 seconds.
 				IconLock='Ripple Barrier.dmi'
@@ -9326,7 +9326,7 @@ NEW VARIABLES
 
 					Potemkin_Buster
 						StyleNeeded = "Ubermensch"
-						VaizardHealth = 0.3
+						VaizardHealth = 2
 						DefMult = 0.75
 						SpdMult = 0.75
 						StrMult = 1.5
@@ -10536,9 +10536,7 @@ NEW VARIABLES
 					if(altered) return
 					var/asc = p.AscensionsAcquired
 					passives = list("Unstoppable" = 1, "Hardening" = 1 + (0.5 * asc), "LifeSteal" = 1.5*asc, "Godspeed" = 1+(asc), "SweepingStrike" = 1)
-					VaizardHealth = 15 + p.GetEnd() + (p.TotalInjury/25) + (asc)
-
-					VaizardHealth /= 10
+					VaizardHealth = 1.5 + p.GetEnd() + (p.TotalInjury/25) + (asc)
 					// this was 17.5% guys lol
 					if(asc>=1)
 						if(!locate(/obj/Skills/AutoHit/Symbiote_Tendril_Wave, p.AutoHits))
@@ -10784,8 +10782,7 @@ NEW VARIABLES
 				SpecialBuffLock=1
 				StrMult=1.25
 				ForMult=1.15
-				RegenMult=0.5
-				VaizardHealth=0.2
+				VaizardHealth=2
 				HitSpark='Hit Effect Satsui.dmi'
 				HitX=-32
 				HitY=-32
@@ -10800,7 +10797,7 @@ NEW VARIABLES
 					"SlayerMod" = p.SagaLevel*0.25, "HardStyle" = 0.25 + (p.SagaLevel*0.25), "TechniqueMastery" = p.SagaLevel*0.75)
 					NeedsHealth = 15 + (2.5 * p.SagaLevel)
 					TooMuchHealth = NeedsHealth + p.SagaLevel
-					VaizardHealth = 0.1 * p.SagaLevel
+					VaizardHealth = 1 * p.SagaLevel
 
 			Kyoi_no_Hado
 				// like water, sunyata (% chance to negate queues, maybe not finishers)
@@ -10834,8 +10831,7 @@ NEW VARIABLES
 				StrMult=1.5
 				ForMult=1.3
 				KillerInstinct = 1
-				RegenMult=0.5
-				VaizardHealth=0.5
+				VaizardHealth=1
 				Curse=1
 				Pursuer=2
 				HardStyle=1.5
@@ -13034,7 +13030,7 @@ mob
 			if(B.BioArmor)
 				src.BioArmor+=B.BioArmor
 			if(B.VaizardHealth)
-				src.VaizardHealth+=10*B.VaizardHealth
+				src.VaizardHealth+=B.VaizardHealth
 			if(B.KiControlMastery)
 				src.KiControlMastery+=B.KiControlMastery
 			if(B.GatesLevel)
@@ -13522,7 +13518,7 @@ mob
 				if(src.BioArmor<0)
 					src.BioArmor=0
 			if(B.VaizardHealth)
-				src.VaizardHealth-=15*B.VaizardHealth
+				src.VaizardHealth-=B.VaizardHealth
 				if(src.VaizardHealth<0)
 					src.VaizardHealth=0
 			if(B.KiControlMastery)

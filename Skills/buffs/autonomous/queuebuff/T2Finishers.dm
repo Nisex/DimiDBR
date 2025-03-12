@@ -10,7 +10,7 @@
     
     Potemkin_Buster
         StyleNeeded = "Ubermensch"
-        VaizardHealth = 0.2
+        VaizardHealth = 2
         DefMult = 0.75
         SpdMult = 0.75
         StrMult = 1.5

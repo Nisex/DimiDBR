@@ -113,7 +113,7 @@ scaling with potential as well
 		AngerMult = 1 + (p.Potential/100)
 		EnergyHeal = 0.005 * p.Potential
 		HealthDrain = 0.011 - (p.Potential * 0.00005)
-		VaizardHealth = (10 * (p.Potential/100)) / 10
+		VaizardHealth = (10 * (p.Potential/100))
 		if(p.Potential>=75)
 			passives["Wrathful"] = 1
 	Trigger(mob/User, Override=FALSE)
@@ -139,7 +139,7 @@ scaling with potential as well
 		HealthDrain = 0.015 - (p.Potential * 0.00008)
 		EnergyHeal = 0.01 * p.Potential
 		AngerMult = 1 + (p.Potential/50)
-		VaizardHealth = (10 * (p.Potential/100)) / 10
+		VaizardHealth = (10 * (p.Potential/100)) 
 		if(p.Potential>=50)
 			passives["Wrathful"] = 1
 	Trigger(mob/User, Override=FALSE)

@@ -42,7 +42,7 @@
         IconLock='SweatDrop.dmi'
         IconApart=1
         StyleNeeded = "Red Cyclone"
-        VaizardHealth = 0.3
+        VaizardHealth = 1.5
         DefMult = 0.3
         SpdMult = 0.5
         StrMult = 1.5

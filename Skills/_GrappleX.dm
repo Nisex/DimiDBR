@@ -254,6 +254,7 @@ obj/Skills/Grapple
 		SkillCost=TIER_3_COST
 		Copyable=4
 		DamageMult=4
+		EndRate = 0.8
 		StrRate=1
 		ThrowAdd=0
 		ThrowMult=0
@@ -270,7 +271,7 @@ obj/Skills/Grapple
 		NewCopyable = 3
 		SkillCost=120
 		Copyable=4
-		DamageMult=4
+		DamageMult=3
 		Stunner=3
 		StrRate=1
 		ThrowAdd=1
@@ -290,10 +291,10 @@ obj/Skills/Grapple
 				Stunner=5
 				OneAndDone=1
 				StrRate=1
-				DamageMult = 4 + (p.Potential / 50)
+				DamageMult = 2.5 + (p.Potential / 50)
 			else
 				Effect="Suplex"
-				DamageMult=4.5
+				DamageMult=3
 				EffectMult=1
 				Stunner=3
 				StrRate=1

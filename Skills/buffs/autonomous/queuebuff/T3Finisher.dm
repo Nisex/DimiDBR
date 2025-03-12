@@ -8,7 +8,7 @@
     
     The_8th_Wonder_Of_The_World
         StyleNeeded = "All Star Wrestling"
-        VaizardHealth = 0.5
+        VaizardHealth = 5
         DefMult = 0.75
         SpdMult = 0.75
         StrMult = 1.75

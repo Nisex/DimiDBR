@@ -100,7 +100,7 @@ obj/Skills/AutoHit/Bloody_CravingEnhanced
 
 obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/We_Dine
 	passives = list("SwordAscension" = 1,"HardStyle" = 0.5, "Deflection" = 1)
-	VaizardHealth=0.2
+	VaizardHealth=2
 	TimerLimit=10
 	IconLock='Blood Shield.dmi'
 	LockX=0
