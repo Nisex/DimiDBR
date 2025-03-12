@@ -4158,7 +4158,9 @@ obj
 				StyleNeeded="Hiten Mitsurugi"
 				Area="Arc"
 				StrOffense=1
-				DamageMult=7
+				DamageMult = 3
+				Launcher = 2
+				ComboMaster = 1
 				EnergyCost=2
 				Rush=3
 				ControlledRush=1
@@ -4186,10 +4188,11 @@ obj
 				StyleNeeded="Hiten Mitsurugi"
 				Area="Circle"
 				StrOffense=1
-				DamageMult=1.25
-				IgnoreAlreadyHit = 1
+				DamageMult=5
 				ChargeTech=1
 				SpeedStrike = 2
+				Crippling = 50
+				PassThrough = 1
 				ChargeTime=0
 				DelayTime=0
 				Cooldown=60
