@@ -3868,6 +3868,8 @@ NEW VARIABLES
 						TimerLimit = 30 + (10 * player.SagaLevel)
 					else
 						TimerLimit = 0
+				else
+					TimerLimit = 0
 				if(player.SagaLevel>=1)
 					ActiveMessage="draws power from their courage as they pulse with green light!"
 				if(player.SagaLevel>=2)
