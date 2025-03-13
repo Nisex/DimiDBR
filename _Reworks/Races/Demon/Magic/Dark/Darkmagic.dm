@@ -69,7 +69,7 @@
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Dominate_Mind_Apply
 	BuffName = "Dominate Mind Applied"
 	MagicNeeded = 0
-	StunAffected = 10
+	StunAffected = 1
 	ConfuseAffected = 100
 	InstantAffect = 1
 	TimerLimit = 10

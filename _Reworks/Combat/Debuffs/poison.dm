@@ -34,7 +34,7 @@ globalTracker/var/LOWER_DEBUFF_CLAMP = 0.001
 			if(Antivenomed)
 				damage = damage / 2
 		
-	return clamp(damage, glob.LOWER_DEBUFF_CLAMP, glob.MAX_DEBUFF_CLAMP)
+	return clamp(damage, glob.LOWER_DEBUFF_CLAMP, glob.MAX_DEBUFF_CLAMP) /10 // XD
 
 /mob/proc/doDebuffDamage(typeOfDebuff)
 	var/dmg = getDebuffDamage(typeOfDebuff)

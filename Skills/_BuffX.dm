@@ -4501,15 +4501,15 @@ NEW VARIABLES
 			Hold_PersonApply
 				MagicNeeded = 0
 				CrippleAffected = 1
-				StunAffected = 4
+				StunAffected = 0.4
 				InstantAffect = 1
 				TimerLimit = 15
 				ActiveMessage="is held in place by magic!"
 				OffMessage="has been released by their magical restraints!"
 				adjust(mob/p)
 					var/magicLevel = p.getTotalMagicLevel()
-					StunAffected = round(1 + (magicLevel / 4))
-					CrippleAffected = round(magicLevel * 2)
+					StunAffected = round(1 + (magicLevel / 4))/10
+					CrippleAffected = round(magicLevel * 2) /10
 					TimerLimit = round(5 + (magicLevel / 2))
 			Hold_Person
 				Copyable=0
@@ -6041,7 +6041,7 @@ NEW VARIABLES
 			Stun_Chip
 				TimerLimit=1
 				FlashChange=1
-				StunAffected=5
+				StunAffected=0.5
 				CrippleAffected=5
 				ShockAffected=5
 				Cooldown=200
@@ -8617,10 +8617,10 @@ NEW VARIABLES
 			TargetOverlayX=0
 			TargetOverlayY=0
 			Connector='BE.dmi'
-			StunAffected=1
+			StunAffected=0.3
 			AffectTarget=1
 			Range=14
-			ActiveMessage="shoots crackling plasma at their target!"
+			ActiveMessage="shoots crackling plasma at their target!" //TODO: come back to this
 			OffMessage="releases their hold..."
 			Cooldown=30
 			SBuffNeeded="Protect Brave"

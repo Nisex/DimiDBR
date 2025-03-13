@@ -39,7 +39,7 @@ obj/blades
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Seishinkai_to_Yami
 	var/tmp/mob/tmpAppearanceMob
 	var/tmp/obj/blades/b
-	StunAffected = 1
+	StunAffected = 0.1
 	HealthDrain = 0.005
 	TimerLimit = 10
 	Trigger(mob/User, Override = FALSE)
