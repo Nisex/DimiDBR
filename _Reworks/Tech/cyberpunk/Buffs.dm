@@ -11,7 +11,7 @@
     passives = list("CoolerAfterImages" = 4)
     TimerLimit = 10
     Cooldown = 60
-    HealthDrain = 0.01
+    HealthDrain = 0.001
     adjust(mob/p)
         if(altered) return
         var/totalPotRounded = round(glob.progress.totalPotentialToDate,10) // get the total pot
@@ -33,7 +33,7 @@
             TimerLimit = 10 + (totalPotRounded/10)
             if(p.SpecialBuff?:sandevistanUsages >= 0)
                 var/usages = p.SpecialBuff?:sandevistanUsages
-                HealthDrain = 0.0005 + (0.005 * usages)
+                HealthDrain = 0.00005 + (0.0005 * usages)
                 HealthCost = (usages >= 3 ? 1.5 * usages : usages) / 5
                 Cooldown = usages >= 3 ? Cooldown + (usages * 5) : Cooldown
         else
@@ -47,7 +47,7 @@
             TimerLimit = 13 + (totalPotRounded/5)
             if(p.SpecialBuff?:sandevistanUsages >= 0)
                 var/usages = p?:SpecialBuff.sandevistanUsages
-                HealthDrain = 0.0005 + (0.0005 * usages)
+                HealthDrain = 0.00005 + (0.00005 * usages)
                 HealthCost = (usages >= 3 ? 0.5 * usages : usages) / 5
                 Cooldown = usages >= 3 ? Cooldown + (usages * 10) : Cooldown
 

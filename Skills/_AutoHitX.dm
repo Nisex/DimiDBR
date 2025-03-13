@@ -5946,7 +5946,7 @@ obj
 						OMsg(m, "[m]'s counterspell negates the spells damage!")
 						return
 				// grabNerf = Owner.Grab && ! ? 1 : 0
-				world<<"GrabNerf: [grabNerf]"
+				//world<<"GrabNerf: [grabNerf]"
 				var/FinalDmg
 				var/powerDif = Owner.Power/m.Power
 				if(glob.CLAMP_POWER)

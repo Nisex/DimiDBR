@@ -55,7 +55,7 @@ ascension
 				else if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
 					passives = list("MovementMastery" = 2, "ManaStats" = 0.25)
 					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in owner.contents)
-						sf.ManaDrain -= 0.05
+						sf.ManaDrain -= 0.005
 				..()
 
 		five

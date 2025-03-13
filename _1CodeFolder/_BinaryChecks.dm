@@ -1580,7 +1580,7 @@ mob
 			if(src.HasHellPower() == 2)
 				Effective+=1
 			if(src.KaiokenBP>1)
-				Effective+=1
+				Effective*=KaiokenBP
 			if(Effective>1)
 				return 1
 			return 0
