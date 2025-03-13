@@ -985,9 +985,7 @@ mob
 		HasPureReduction()
 			var/Return=0
 			Return+=passive_handler.Get("PureReduction")
-			var/stp=src.SaiyanTransPower()
-			if(stp)
-				Return+=stp
+			Return += passive_handler.Get("LegendaryPower") * 3
 			if(src.isRace(MAJIN))
 				Return += AscensionsAcquired * getMajinRates("Reduction")
 			if(passive_handler["Rage"] && Health <= 50)
@@ -1503,8 +1501,7 @@ mob
 			var/Extra=0
 			if(src.TarotFate=="Judgment")
 				Extra=1
-			if(passive_handler&&passive_handler.Get("LegendaryPower"))
-				return min(1+Extra, passive_handler.Get("LegendaryPower")+Extra)
+			Extra += passive_handler.Get("LegendaryPower")
 			return 0
 		HasHellPower()
 			if(CheckSlotless("Satsui no Hado") && SagaLevel>=6)
@@ -1572,9 +1569,7 @@ mob
 				Effective+=1
 			if(src.isRace(DEMON)||src.isRace(MAJIN))
 				Effective+=1
-			var/stp=src.SaiyanTransPower()
-			if(stp)
-				Effective+=1
+			Effective *= 1 + passive_handler.Get("LegendaryPower")
 			if(src.CheckActive("Mobile Suit")||src.CheckSlotless("Battosai")||src.CheckSlotless("Susanoo"))
 				Effective+=1
 			if(src.Health<(1-src.HealthCut)&&src.HealthAnnounce10&&src.Saga=="King of Braves"&&src.SpecialBuff)
@@ -1928,10 +1923,7 @@ mob
 		HasGiantForm()
 			if(passive_handler.Get("GiantForm"))
 				return 1
-			if(src.HasLegendaryPower()>=1)
-				return 1
-			var/t=src.HighestTrans()
-			if(round(t/4))//only do it for ssj4
+			if(src.HasLegendaryPower()>=0.5)
 				return 1
 			return 0
 		HighestTrans()

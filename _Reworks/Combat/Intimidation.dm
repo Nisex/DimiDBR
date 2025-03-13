@@ -66,6 +66,7 @@
         Effective*=1 + (src.Potential/25)
     if(isRace(DRAGON))
         Effective += AscensionsAcquired * 25
+    Effective *= 1 + passive_handler.Get("LegendaryPower")
     if(src.isRace(MAJIN))
         var/unhingedBoon = Class == "Unhinged" ? 1 : 0
         if(unhingedBoon)
@@ -96,18 +97,9 @@
                 if(4)
                     Effective*=10
             Effective *= halfieNerf
+
         if(src.isRace(MAKYO)&&src.ActiveBuff&&src.AscensionsAcquired&&!src.CyberCancel)
-            switch(src.AscensionsAcquired)
-                if(1)
-                    Effective*=4
-                if(2)
-                    Effective*=10
-                if(3)
-                    Effective*=15
-                if(4)
-                    Effective*=30
-                if(5)
-                    Effective*=50
+            Effective *= AscensionsAcquired
 
     if(src.CheckActive("Mobile Suit")||src.CheckSlotless("Battosai")||src.CheckSlotless("Susanoo"))
         Effective+=5
