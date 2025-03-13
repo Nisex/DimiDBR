@@ -83,23 +83,8 @@
             if(5)
                 Effective*= 8 + unhingedBoon
 
-    if(!src.CheckSlotless("Majin"))
-        var/stp=src.SaiyanTransPower()
-        var/halfieNerf = isRace(HALFSAIYAN) ? 0.8 : 1
-        if(stp)
-            switch(stp)
-                if(1)
-                    Effective*=3
-                if(2)
-                    Effective*=5
-                if(3)
-                    Effective*=7
-                if(4)
-                    Effective*=10
-            Effective *= halfieNerf
-
-        if(src.isRace(MAKYO)&&src.ActiveBuff&&src.AscensionsAcquired&&!src.CyberCancel)
-            Effective *= 2 + AscensionsAcquired
+     if(src.isRace(MAKYO)&&src.ActiveBuff&&src.AscensionsAcquired&&!src.CyberCancel)
+        Effective *= 2 + (AscensionsAcquired*2)
 
     if(src.CheckActive("Mobile Suit")||src.CheckSlotless("Battosai")||src.CheckSlotless("Susanoo"))
         Effective+=5
