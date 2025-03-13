@@ -1782,10 +1782,11 @@ NEW VARIABLES
 				SignatureTechnique=3
 				ManaThreshold=1
 				CooldownStatic = 1
-				Cooldown=120
+				Cooldown=60
 				passives = list("Maki" = 1, "Curse" = 1,"Instinct" = 2, "Pursuer" = 2, "Flicker" = 2)
 				AutoAnger=1
 				VaizardHealth=1
+				CooldownScaling = 1
 				ActiveMessage="is taken over by a violent rage as a mask forms on their face!"
 				OffMessage="violently rips off their mask as it shatters into fragments..."
 				verb/Customize_Mask()
@@ -1830,11 +1831,11 @@ NEW VARIABLES
 					"Maki" = 1, "Curse" = 1,"Instinct" = 2, "Pursuer" = 2, "Flicker" = 2)
 					VaizardHealth = 5 + (2.5 * Mastery)
 					VaizardShatter = 1
+					Cooldown=60
 				verb/Don_Mask()
 					set category="Skills"
 					if(!usr.BuffOn(src))
 						changeVariables(usr)
-						src.Cooldown=120/src.Mastery
 					src.Trigger(usr)
 
 		Aphotic_Shield
