@@ -1621,7 +1621,7 @@ NEW VARIABLES
 			SignatureTechnique=3
 			UnrestrictedBuff=1
 			EnergyMult=2
-			BurnAffected=2
+			BurnAffected=0.2
 			passives = list("BurningShot" = 1, "NoWhiff" = 1, "SuperDash" = 1, "Pursuer" = 1)
 			IconLock='SSGAura.dmi'
 			IconLockBlend=4
@@ -5251,8 +5251,8 @@ NEW VARIABLES
 				EndYourself=1
 				AffectTarget=1
 				Range=10
-				SlowAffected=10
-				CrippleAffected=10
+				SlowAffected=1
+				CrippleAffected=1
 				TargetOverlay='StormArmor 2.dmi'
 				ActiveMessage="restrains their target's movements with binding magic!"
 				OffMessage="completes their bind..."
@@ -5270,10 +5270,10 @@ NEW VARIABLES
 				EndYourself=1
 				AffectTarget=1
 				Range=10
-				PoisonAffected=2
-				ShearAffected=2
-				SlowAffected=10
-				CrippleAffected=10
+				PoisonAffected=0.2
+				ShearAffected=0.2
+				SlowAffected=1
+				CrippleAffected=1
 				TargetOverlay='Overdrive.dmi'
 				ActiveMessage="fills their target's veins with a venomous curse!"
 				OffMessage="completes their curse..."
@@ -5294,10 +5294,10 @@ NEW VARIABLES
 				// RecovTaxDrain=0.03
 				HealthHeal= -0.5
 				TimerLimit = 5
-				PoisonAffected=2
-				ShearAffected=2
-				SlowAffected=5
-				CrippleAffected=5
+				PoisonAffected=0.2
+				ShearAffected=0.2
+				SlowAffected=0.5
+				CrippleAffected=0.5
 				Range=5
 				TargetOverlay='StormArmor.dmi'
 				ActiveMessage="saps their target's lifeforce with a malicious curse!"
@@ -5645,12 +5645,12 @@ NEW VARIABLES
 			EsunaApply
 				StableHeal=1
 				FatigueHeal=20
-				BurnAffected=-10
-				SlowAffected=-10
-				ShockAffected=-10
-				ShatterAffected=-10
-				PoisonAffected=-10
-				ShearAffected=-10
+				BurnAffected=-1
+				SlowAffected=-1
+				ShockAffected=-0
+				ShatterAffected=-1
+				PoisonAffected=-1
+				ShearAffected=-1
 				TimerLimit=4
 				MagicNeeded = 0
 			Esuna
@@ -5683,12 +5683,12 @@ NEW VARIABLES
 			EsunagaApply
 				StableHeal=1
 				FatigueHeal=35
-				BurnAffected=-20
-				SlowAffected=-20
-				ShockAffected=-20
-				ShatterAffected=-20
-				PoisonAffected=-20
-				ShearAffected=-20
+				BurnAffected=-2
+				SlowAffected=-2
+				ShockAffected=-2
+				ShatterAffected=-2
+				PoisonAffected=-2
+				ShearAffected=-2
 				TimerLimit=4
 				MagicNeeded = 0
 			Esunaga
@@ -6042,8 +6042,8 @@ NEW VARIABLES
 				TimerLimit=1
 				FlashChange=1
 				StunAffected=5
-				CrippleAffected=50
-				ShockAffected=50
+				CrippleAffected=5
+				ShockAffected=5
 				Cooldown=200
 				TextColor=rgb(255, 0, 0)
 				OffMessage="is jolted by an internal electric shock!"
@@ -7747,7 +7747,7 @@ NEW VARIABLES
 			AffectTarget=1
 			AbsoluteZero=1
 			Range=10
-			SlowAffected=5
+			SlowAffected=0.5
 			TargetOverlay='SnowRing.dmi'
 			ActiveMessage="entraps their opponent with a ring of frigid air!"
 			OffMessage="calms their freezing Cosmo..."
@@ -7825,9 +7825,9 @@ NEW VARIABLES
 		Eye_of_Chaos
 			NeedsSword=1
 			TaxThreshold=0.5
-			EndTaxDrain=0.0025
-			SpdTaxDrain=0.0025
-			RecovTaxDrain=0.0025
+			EndTaxDrain=0.00025
+			SpdTaxDrain=0.00025
+			RecovTaxDrain=0.00025
 			FatigueDrain=0.005
 			ABuffNeeded=list("Soul Resonance")
 			NeedsHealth=50
@@ -8702,8 +8702,8 @@ NEW VARIABLES
 
 		Mangekyou_Sharingan
 			TaxThreshold=0.7
-			OffTaxDrain=0.0002
-			DefTaxDrain=0.0002
+			OffTaxDrain=0.00002
+			DefTaxDrain=0.00002
 			SBuffNeeded="Sharingan"
 			passives = list("AutoAnger" = 1,"BuffMastery" = 5, "Deflection" = 1, "Flow" = 1)
 			BuffMastery=5
@@ -8746,8 +8746,8 @@ NEW VARIABLES
 							src.Deflection= 1 + usr.SagaLevel / 4
 							Godspeed= usr.SagaLevel / 4
 							if(OffTaxDrain||DefTaxDrain)
-								OffTaxDrain=0.004
-								DefTaxDrain=0.004
+								OffTaxDrain=0.0004
+								DefTaxDrain=0.0004
 				src.Trigger(usr)
 		Susanoo
 			DarkChange=1
@@ -9909,9 +9909,9 @@ NEW VARIABLES
 
 				Astral_Drain
 					IconTint=rgb(0, 75, 153)
-					SlowAffected=3
-					ShatterAffected=3
-					ShockAffected=3
+					SlowAffected=0.3
+					ShatterAffected=0.3
+					ShockAffected=0.3
 					RecovMult=0.5
 				Ultima_Break
 					IconTint=rgb(153, 153, 75)
@@ -9924,13 +9924,13 @@ NEW VARIABLES
 					KenWaveSize=5
 					KenWaveX=76
 					KenWaveY=76
-					BurnAffected=5
-					PoisonAffected=5
+					BurnAffected=0.5
+					PoisonAffected=0.5
 					DebuffCrash=list("Fire", "Poison")
 				Bio_Break
 					IconTint=rgb(51, 204, 102)
 					RegenMult=0.1
-					PoisonAffected=5
+					PoisonAffected=0.5
 					DebuffCrash="Poison"
 
 				//sword finisher debuffs
@@ -10013,13 +10013,13 @@ NEW VARIABLES
 					passives = list("NoDodge" = 1, "PureDamage" = -2.5, "BleedHit" = 1)
 					FatigueDrain=0.35
 					ManaDrain=2.5
-					BurnAffected=2
-					SlowAffected=2
-					ShatterAffected=2
-					PoisonAffected=2
-					ShockAffected=2
-					ShearAffected=2
-					CrippleAffected=2
+					BurnAffected=0.2
+					SlowAffected=0.2
+					ShatterAffected=0.2
+					PoisonAffected=0.2
+					ShockAffected=0.2
+					ShearAffected=0.2
+					CrippleAffected=0.2
 					ActiveMessage="knows that they are absolute trash..."
 					OffMessage="remembers that they are a garbage can, not a garbage cannot!"
 				Radioactive
@@ -10027,10 +10027,10 @@ NEW VARIABLES
 					ManaGlow=rgb(0, 255, 0)
 					ManaGlowSize=2
 					passives = list("BleedHit" = 1)
-					BurnAffected=10
-					PoisonAffected=10
-					ShearAffected=10
-					CrippleAffected=10
+					BurnAffected=1
+					PoisonAffected=1
+					ShearAffected=1
+					CrippleAffected=1
 					DebuffCrash=list("Fire", "Poison")
 					ActiveMessage="is sickened by their radioactive exposure!"
 					OffMessage="shakes off their radiation sickness!"
@@ -10151,9 +10151,9 @@ NEW VARIABLES
 					IconApart=1
 					passives = list("NoDodge" = 1)
 					NoDodge=1
-					ShatterAffected=10
-					SlowAffected=10
-					CrippleAffected=10
+					ShatterAffected=1
+					SlowAffected=1
+					CrippleAffected=1
 					ActiveMessage="knows that they're in for some pain! They have to escape!"
 					OffMessage="stands their ground!"
 				Ineffective_Fate
@@ -10195,13 +10195,13 @@ NEW VARIABLES
 					DebuffCrash="Poison"
 					IconTint=rgb(153, 0, 153)
 					TimerLimit=5
-					PoisonAffected=10
+					PoisonAffected=1
 					OffMessage="feels the poison boil through their body in an instant!"
 				Solar_Break
 					DebuffCrash="Fire"
 					IconTint=rgb(153, 153, 0)
 					TimerLimit=5
-					BurnAffected=10
+					BurnAffected=1
 					passives = list("PureReduction" = -1)
 					OffMessage="is consumed by flames!!"
 				Anger_Break
@@ -10391,7 +10391,7 @@ NEW VARIABLES
 
 				Heat_Of_Passion
 					// Fire Dragon Racial, mimics Berserk
-					BurnAffected = 1
+					BurnAffected = 0.1
 					NeedsHealth = 50
 					TooMuchHealth = 75
 					ActiveMessage = "ignites themselves in a blaze of passion!!"
@@ -10861,8 +10861,8 @@ NEW VARIABLES
 				TooMuchHealth=75
 				ElementalOffense="Fire"
 				ElementalDefense="Fire"
-				OffTaxDrain=0.0002
-				DefTaxDrain=0.0002
+				OffTaxDrain=0.00002
+				DefTaxDrain=0.00002
 				passives = list("DarknessFlame" = 1, "DeathField" = 5)
 				DarknessFlame=1
 				DeathField=5

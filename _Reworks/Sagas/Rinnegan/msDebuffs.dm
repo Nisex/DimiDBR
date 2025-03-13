@@ -30,8 +30,8 @@ obj/blades
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Genjutsu
 	DefMult = 0.75
 	passives = list("Instinct" = -1, "Flow" = -1)
-	ShockAffected = 1
-	SlowAffected = 1
+	ShockAffected = 0.1
+	SlowAffected = 0.1
 	IconLock = 'SweatDrop.dmi'
 	TimerLimit = 20
 
@@ -88,9 +88,9 @@ obj/blades
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Busshitsukai_to_Hikari
 	TooMuchHealth = 99.8
-	BurnAffected = 3
+	BurnAffected = 0.3
 	CrippleAffected = 2
-	EndTaxDrain = 0.00005
+	EndTaxDrain = 0.000005
 	EndTax = 0.01
 	EnergyDrain = 0.005
 	TimerLimit = 0
@@ -116,7 +116,7 @@ obj/blades
 	NeedsPassword = 1
 	Cooldown = 15
 	AlwaysOn = 1
-	CrippleAffected = 2
+	CrippleAffected = 0.2
 	SpdMult = 0.9
 	DefMult = 0.9
 	passives = list("Flow" = -1, "Godspeed" = -2)
@@ -127,7 +127,7 @@ obj/blades
 	NeedsPassword = 1
 	Cooldown = 15
 	AlwaysOn = 1
-	ShatterAffected = 2
+	ShatterAffected = 0.2
 	passives = list("Shellshocked" = 1, "Flow" = -1)
 	IconLock = 'LegendSparks.dmi'
 	TimerLimit = 30

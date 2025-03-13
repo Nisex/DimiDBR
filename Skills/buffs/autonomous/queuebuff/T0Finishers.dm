@@ -155,24 +155,24 @@
         IconTint=rgb(153,75,0)
         EndMult=0.8
         StrMult=0.9
-        ShatterAffected=5
+        ShatterAffected=0.5
     Buffered
         IconTint=rgb(0,153,75)
         SpdMult=0.8
         OffMult=0.9
-        ShockAffected=5
+        ShockAffected=0.5
     Ignited
         IconTint=rgb(153,0,75)
         EndMult=0.9
         ForMult=0.8
-        BurnAffected=5
+        BurnAffected=0.5
     Chilled
         IconTint=rgb(0,75, 153)
-        SlowAffected=5
+        SlowAffected=0.5
         DefMult=0.8
         SpdMult=0.9
     Poisoned
         IconTint=rgb(129, 0, 143)
-        PoisonAffected=5
+        PoisonAffected=0.5
         DefMult=0.8
         SpdMult=0.9

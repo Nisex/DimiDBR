@@ -704,7 +704,7 @@ mob
 
 				if(src.ActiveBuff.WaveringAngerLimit)
 					if(src.ActiveBuff.WaveringAnger<src.ActiveBuff.WaveringAngerLimit)
-						src.ActiveBuff.WaveringAnger++
+						src.ActiveBuff.WaveringAnger += 0.1
 						if(src.ActiveBuff.WaveringAnger>=src.ActiveBuff.WaveringAngerLimit)
 							if(prob(33))
 								src.SetNoAnger(src.ActiveBuff, 1)
@@ -714,39 +714,39 @@ mob
 
 				if(src.ActiveBuff.WoundHeal)
 					if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
-						src.HealWounds(src.GetRecov(src.ActiveBuff.WoundHeal))
+						src.HealWounds(src.GetRecov(src.ActiveBuff.WoundHeal)/10)
 				if(src.ActiveBuff.FatigueHeal)
 					if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
 						if(src.ActiveBuff.StableHeal)
-							src.HealFatigue(src.ActiveBuff.FatigueHeal,1)
+							src.HealFatigue(src.ActiveBuff.FatigueHeal/10,1)
 						else
-							src.HealFatigue(src.GetRecov(src.ActiveBuff.FatigueHeal))
+							src.HealFatigue(src.GetRecov(src.ActiveBuff.FatigueHeal)/10)
 				if(src.ActiveBuff.CapacityHeal)
 					if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
-						src.HealCapacity(src.ActiveBuff.CapacityHeal)
+						src.HealCapacity(src.ActiveBuff.CapacityHeal/10)
 				if(src.ActiveBuff.HealthHeal)
 					if((src.Health+src.TotalInjury)>=100||(src.TotalInjury&&src.icon_state=="Meditate"))
 						if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
-							src.HealWounds(src.GetRecov(src.ActiveBuff.HealthHeal))
+							src.HealWounds(src.GetRecov(src.ActiveBuff.HealthHeal)/10)
 					else
 						if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
-							src.HealHealth(src.GetRecov(src.ActiveBuff.HealthHeal))
+							src.HealHealth(src.GetRecov(src.ActiveBuff.HealthHeal)/10)
 				if(src.ActiveBuff.EnergyHeal)
 					if((src.Energy+src.TotalFatigue)>=100||(src.TotalFatigue&&src.icon_state=="Meditate"))
 						if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
 							if(src.ActiveBuff.StableHeal)
-								src.HealFatigue(src.ActiveBuff.EnergyHeal,1)
+								src.HealFatigue(src.ActiveBuff.EnergyHeal/10,1)
 							else
-								src.HealFatigue(src.GetRecov(src.ActiveBuff.EnergyHeal))
+								src.HealFatigue(src.GetRecov(src.ActiveBuff.EnergyHeal)/10)
 					else
 						if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
 							if(src.ActiveBuff.StableHeal)
-								src.HealEnergy(src.ActiveBuff.EnergyHeal,1)
+								src.HealEnergy(src.ActiveBuff.EnergyHeal/10,1)
 							else
-								src.HealEnergy(src.GetRecov(src.ActiveBuff.EnergyHeal))
+								src.HealEnergy(src.GetRecov(src.ActiveBuff.EnergyHeal)/10)
 				if(src.ActiveBuff.ManaHeal)
 					if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
-						src.HealMana(src.ActiveBuff.ManaHeal)
+						src.HealMana(src.ActiveBuff.ManaHeal/10)
 				if(src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)
 					src.ActiveBuff.InstantAffected=1
 
