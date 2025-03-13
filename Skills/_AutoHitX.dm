@@ -1958,8 +1958,8 @@ obj
 				IgnoreAlreadyHit = 1
 				DamageMult=2
 				Knockback=10
-				Stunner=1
 				Launcher=1
+				SpeedStrike = 1
 				PassThrough=1
 				GuardBreak=1
 				WindUp=0.25
