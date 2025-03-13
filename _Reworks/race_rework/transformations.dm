@@ -283,3 +283,26 @@ transformation
 			if(detrans_message)
 				var/text=replacetext(detrans_message, "usrName", "[usr]")
 				user << text
+
+		applyDrain(mob/user)
+			var/cut_off = 0
+			var/drain = 0
+
+			if(mastery<100)
+				drain = glob.racials.SSJ_BASE_DRAIN - (glob.racials.SSJ_BASE_DRAIN * (mastery/100))
+				cut_off = glob.racials.SSJ_BASE_CUT_OFF + (glob.racials.SSJ_CUT_OFF_PER_MAST * (mastery/100))
+
+			if(drain>0)
+				user.LoseEnergy(drain)
+				if(glob.racials.AUTO_SSJ_MASTERY)
+					gainMastery()
+				if(user.Energy < cut_off &&!user.HasNoRevert()&&!user.Dead&&!user.HasMystic())
+					user.Revert()
+					user.LoseEnergy(30)
+					user << "The strain of [transformation] is too much for you to handle!"
+		
+		gainMastery(mob/user)
+			if(mastery >= 100) return
+			mastery += randValue(glob.racials.SSJ_MIN_MASTERY_GAIN,glob.racials.SSJ_MAX_MASTERY_GAIN)
+			if(mastery > 100)
+				mastery=100

@@ -227,25 +227,9 @@ mob
 					scrollTicker=0
 			if(passive_handler["Grit"])
 				AdjustGrit("sub", glob.racials.GRITSUBTRACT)
-			if((isRace(SAIYAN) || isRace(HALFSAIYAN))&&transActive>0)
-				var/cut_off = 0
-				var/drain = 0
-				if(race.transformations[transActive].mastery<100)
-					drain = glob.racials.SSJ_BASE_DRAIN - (glob.racials.SSJ_BASE_DRAIN * (race.transformations[transActive].mastery/100))
-					cut_off = glob.racials.SSJ_BASE_CUT_OFF + (glob.racials.SSJ_CUT_OFF_PER_MAST * (race.transformations[transActive].mastery/100))
-
-				if(drain>0)
-					src.LoseEnergy(drain)
-					var/_mastery = randValue(glob.racials.SSJ_MIN_MASTERY_GAIN,glob.racials.SSJ_MAX_MASTERY_GAIN)
-					if(glob.racials.AUTO_SSJ_MASTERY)
-						_mastery *= transActive
-						race.transformations[transActive].mastery+=_mastery
-						if(race.transformations[transActive].mastery>=95)
-							race.transformations[transActive].mastery=100
-					if(Energy < cut_off &&!src.HasNoRevert()&&!src.Dead&&!src.HasMystic())
-						src.Revert()
-						src.LoseEnergy(30)
-						src<<"The strain of Super Saiyan forced you to revert!"
+			if(transActive)
+				var/transformation/trans = race.transformations[transActive]
+				trans.applyDrain(src)
 
 
 			if(src.Transfering)
