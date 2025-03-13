@@ -99,7 +99,7 @@
             Effective *= halfieNerf
 
         if(src.isRace(MAKYO)&&src.ActiveBuff&&src.AscensionsAcquired&&!src.CyberCancel)
-            Effective *= AscensionsAcquired
+            Effective *= 2 + AscensionsAcquired
 
     if(src.CheckActive("Mobile Suit")||src.CheckSlotless("Battosai")||src.CheckSlotless("Susanoo"))
         Effective+=5
