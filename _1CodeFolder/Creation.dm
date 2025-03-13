@@ -173,6 +173,9 @@ mob/Players
 		// 	Respec1()
 		// 	quickDirtyRefund()
 		setMaxRPP()
+		if(!client.getPref("oldZanzo"))
+			client.add_hud("Zanzoken", new/obj/bar/zanzo(client, null, 1, 1))
+			client.hud_ids["Zanzoken"].Update(0, MovementCharges)
 
 		//automation
 		src.reward_auto()//checks to see if its been a day

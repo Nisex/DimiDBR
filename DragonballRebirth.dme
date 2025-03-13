@@ -400,6 +400,7 @@
 #include "_Reworks\Meme\IRLNPCs.dm"
 #include "_Reworks\Meme\vuffa.dm"
 #include "_Reworks\Mob\update.dm"
+#include "_Reworks\Mob\verbs.dm"
 #include "_Reworks\Passives\KillerInstinct.dm"
 #include "_Reworks\Passives\ShonenPower.dm"
 #include "_Reworks\political\_politicalDefines.dm"
