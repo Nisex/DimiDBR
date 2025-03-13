@@ -743,6 +743,8 @@ mob
 			if(!src.SagaAdminPermission)
 				if(src.SagaLevel>=3)
 					return
+				if(!src.SignatureCheck)
+					return
 			else
 				if(src.SagaLevel>=3)
 					src << "You've been bestowed an additional tier of your Saga purposefully; enjoy your new powers, this is not a bug!"

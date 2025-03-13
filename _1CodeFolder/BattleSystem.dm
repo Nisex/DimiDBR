@@ -1454,7 +1454,7 @@ proc/Deflection_Formula(var/mob/Offender,var/mob/Defender,var/AccMult=1,var/Base
 				if(AccMult>1)
 					AccMult=1
 		if(Defender.HasClarity()||Defender.HasFluidForm()||Defender.HasIntuition())
-			var/cumAvoidance = (Defender.HasClarity()/4) + (Defender.HasIntuition() / 4) + Defender.passive_handler.Get("FluidForm")
+			var/cumAvoidance = (Defender.HasClarity()/4) + (Defender.HasIntuition() / 4) + Defender.HasFluidForm()
 			if(AccMult>1)
 				AccMult-=(0.2*AccMult) * cumAvoidance
 				if(AccMult<1)

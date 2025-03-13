@@ -885,7 +885,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 								src.dir=get_dir(src,src.Target)
 								src.Melee1(1, 5, accmulti=1.2, SureKB=1, BreakAttackRate=1)
 							else
-								if(src.passive_handler.Get("GiantForm"))
+								if(HasGiantForm())
 									var/Wave=2
 									for(var/wav=Wave, wav>0, wav--)
 										KenShockwave(src, icon='fevKiai.dmi', Size=Wave)

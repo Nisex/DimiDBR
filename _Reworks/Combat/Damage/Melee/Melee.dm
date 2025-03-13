@@ -349,7 +349,7 @@
 
 				damage *= damageMultiplier
 		// 				GIANT FORM 				//
-				if(enemy.passive_handler.Get("GiantForm") || enemy.HasLegendaryPower() >= 0.5)
+				if(enemy.HasGiantForm())
 					var/modifier = glob.upper_damage_roll / 4
 					dmgRoll = GetDamageMod(0, -modifier)
 					#if DEBUG_MELEE

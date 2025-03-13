@@ -1950,12 +1950,16 @@ obj
 			Shadow_Cut
 				SignatureTechnique=2
 				NeedsSword=1
-				Area="Wide Wave"
+				Area="Wider Wave"
 				StrOffense=1
 				Distance=7
 				DelayTime=7
 				Rounds=7
+				IgnoreAlreadyHit = 1
 				DamageMult=2
+				Knockback=10
+				Launcher=1
+				SpeedStrike = 1
 				PassThrough=1
 				GuardBreak=1
 				WindUp=0.25
@@ -5330,6 +5334,8 @@ mob
 						src.Wave(Z)
 					if("Wide Wave")
 						src.WideWave(Z)
+					if("Wider Wave")
+						src.WiderWave(Z)
 					if("Circle")
 						if(Z.Persistent)
 							src.Persistent(Z, Z.Duration)
@@ -5517,6 +5523,9 @@ mob
 
 		WideWave(var/obj/Skills/AutoHit/Z)
 			src.AutoHitter(0, 2, 0, 0, null, Z)
+
+		WiderWave(var/obj/Skills/AutoHit/Z)
+			src.AutoHitter(0, 3, 0, 0, null, Z)
 
 		Cardinal(var/obj/Skills/AutoHit/Z)
 			src.AutoHitter(0, 0, 1, 0, null, Z)
@@ -5977,7 +5986,7 @@ obj
 				#if DEBUG_AUTOHIT
 				Owner.log2text("dmg roll - Auto Hit", dmgRoll, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
-				if(m.passive_handler.Get("GiantForm") || m.HasLegendaryPower() >= 0.5)
+				if(m.HasGiantForm())
 					var/mod = glob.upper_damage_roll / 4
 					dmgRoll = Owner.GetDamageMod(0, mod)
 					#if DEBUG_AUTOHIT
