@@ -1787,7 +1787,7 @@ obj
 				verb/Spirit_Gun_Mega()
 					set category="Skills"
 					src.MultiHit=round(FatigueCost/4)
-					src.DamageMult=round(6 + FatigueCost/15) / MultiHit
+					src.DamageMult=0.01+(FatigueCost/90)
 					usr.UseProjectile(src)
 			Sekiha_Tenkyoken
 				SignatureTechnique=2
