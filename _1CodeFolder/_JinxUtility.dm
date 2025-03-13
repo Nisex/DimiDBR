@@ -2838,21 +2838,21 @@ mob
 				return
 
 			if(glob.USE_SPEED_IN_ZANZO_RECHARGE)
-				Mult *= clamp(glob.ZANZO_SPEED_LOWEST_CLAMP, GetSpd()**glob.ZANZO_SPEED_EXPONENT, glob.ZANZO_SPEED_HIGHEST_CLAMP)
+				Mult *= clamp(GetSpd()**glob.ZANZO_SPEED_EXPONENT, glob.ZANZO_SPEED_LOWEST_CLAMP, glob.ZANZO_SPEED_HIGHEST_CLAMP)
 			var/flick=src.HasFlicker()
 			if(flick)
-				Mult*=clamp(glob.ZANZO_FLICKER_LOWEST_CLAMP,1+(flick/glob.ZANZO_FLICKER_DIVISOR), glob.ZANZO_FLICKER_HIGHEST_CLAMP)
+				Mult*=clamp(1+(flick/glob.ZANZO_FLICKER_DIVISOR),glob.ZANZO_FLICKER_LOWEST_CLAMP, glob.ZANZO_FLICKER_HIGHEST_CLAMP)
 			if(src.AfterImageStrike)
 				return
 			var/add = (glob.ZANZO_FLICKER_BASE_GAIN-(max(0.01,MovementCharges)/3)/10)*Mult 
 			add /= world.tick_lag SECOND
 			src.MovementCharges+=add
-			var/alteration = -36 + (36 * (MovementCharges - round(MovementCharges)))
-			if(client.hud_ids["Zanzoken"])
-				world<<alteration
-				client.hud_ids["Zanzoken"].meter.animateBar(alteration, world.tick_lag)
 			if(src.MovementCharges>GetMaxMovementCharges())
 				src.MovementCharges=GetMaxMovementCharges()
+			if(client.hud_ids["Zanzoken"])
+				var/alteration = -36 + (36 * (MovementCharges - round(MovementCharges)))
+				world<<add
+				client.hud_ids["Zanzoken"].Update(alteration, round(MovementCharges))
 		GetRPPMult()
 			var/Return=src.RPPMult
 			Return*=src.ConditionRPPMult()

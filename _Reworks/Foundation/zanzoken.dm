@@ -1,5 +1,6 @@
 /obj/bar/zanzo
     alpha = 255
+    var/tmp/mob/owner
     New(client/_client, o, _x, _y)
         // overwrite it
         name = "Zanzoken"
@@ -9,7 +10,17 @@
         holder.alpha = 255
         client.screen += holder
         meter.animateBar(0,4)
+        owner = client.mob
 
+    Update(add, total_charges)
+        if(total_charges >= 3)
+            meter.color = "#F00"
+        else if(total_charges >= 2)
+            meter.color = "#0f0"
+        else 
+            meter.color = "#666"
+        meter.animateBar(add, world.tick_lag)
+        holder.maptext = "[total_charges]"
 // so basically, we need (current + 1) - current
 // or bro just do current - round(current), duh
 // anyway it should be 36 (?) to fully offset it to 0, the issue is this shit is going opposite, so its -

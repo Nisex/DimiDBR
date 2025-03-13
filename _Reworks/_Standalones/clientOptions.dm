@@ -13,8 +13,9 @@ Options/
     var/disableLoginAlert = 0
     var/CombatMessagesInIC = FALSE
     var/autoAttacking = FALSE
+    var/oldZanzo = FALSE
     var/list/disableInnovate = list()
-    var/list/savableVars = list("seePronouns", "usePronouns", "useSupporter", "useDonator", "disableLoginAlert", "currentFontFamily", "currentFontSize", "ShowOOC", "LOOCinIC", "AllTabOOC", "LOOCinAll", "AdminAlerts", "CombatMessagesInIC", "disableInnovate")
+    var/list/savableVars = list("oldZanzo","seePronouns", "usePronouns", "useSupporter", "useDonator", "disableLoginAlert", "currentFontFamily", "currentFontSize", "ShowOOC", "LOOCinIC", "AllTabOOC", "LOOCinAll", "AdminAlerts", "CombatMessagesInIC", "disableInnovate")
     proc/savePrefs(ckey)
         . = list()
         for(var/opt in savableVars - autoAttacking)
