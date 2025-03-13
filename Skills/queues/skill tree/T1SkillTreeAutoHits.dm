@@ -274,12 +274,14 @@ obj
 					FollowUp="/obj/Skills/AutoHit/Cross_Slash_Inno_Follow"
 				else
 					Distance = 3
+					PassThrough = 0
 					Size = 1
 					Launcher = 0
 					StepsDamage = 0
-					Rush = 1
+					Rush = 2
 					Rounds = 0
 					DamageMult = 1.5
+					EnergyCost = 3
 					Launcher = 0 
 					ControlledRush = 0
 					Rush = 1 
