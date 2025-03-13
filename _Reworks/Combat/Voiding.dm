@@ -248,11 +248,12 @@ mob/proc/Void(override, zombie, forceVoid, extraChance = 0, extraRolls = 0)
 		else
 			// voided
 			src << glob.VOID_MESSAGE
-			void_timer = world.realtime + glob.VOID_TIME
+		//	void_timer = world.realtime + glob.VOID_TIME
 			voiding = TRUE
 			Conscious()
 			src.loc = locate(glob.VOID_LOCATION[1], glob.VOID_LOCATION[2], glob.VOID_LOCATION[3])
 			applyVoidNerf()
+			voiding = FALSE
 	if(src.Grab)
 		src.Grab_Release()
 	var/mob/m=src.IsGrabbed()

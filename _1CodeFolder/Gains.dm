@@ -227,6 +227,7 @@ mob
 					scrollTicker=0
 			if(passive_handler["Grit"])
 				AdjustGrit("sub", glob.racials.GRITSUBTRACT)
+
 			if(transActive)
 				var/transformation/trans = race.transformations[transActive]
 				trans.applyDrain(src)
@@ -238,25 +239,28 @@ mob
 				if(!src.KO)
 					if(get_dist(M, src)<=15)
 						if(src.ManaAmount>0)
-							val=1
+							val=0.1
 							src.LoseEnergy(val)
-							src.LoseMana(1)
+							src.LoseMana(val)
 							M.HealEnergy(val*src.Imagination)
-							M.HealWounds(1*src.Imagination)
-							M.HealFatigue(1*src.Imagination)
-							M.HealMana(1*src.Imagination)
+							M.HealWounds(val*src.Imagination)
+							M.HealFatigue(val*src.Imagination)
+							M.HealMana(val*src.Imagination)
 							missile('SE.dmi', src, M)
 						else
 							src.Transfering=null
+				else
+					Transfering = null
 
+		/* not used
 			if(void_timer < world.realtime && voiding)
 				// send to spawn
 				loc = locate(100,100,3)
-				voiding = 0
+				voiding = 0*/
 
 			if(passive_handler.Get("ContinuallyStun"))
-				if(prob(passive_handler.Get("ContinuallyStun")))
-					Stun(src, rand(1,3))
+				if(prob(passive_handler.Get("ContinuallyStun")/10))
+					Stun(src, rand(1,2))
 
 			if(movementSealed)
 				for(var/obj/Seal/S in src)
@@ -268,7 +272,7 @@ mob
 			var/obj/Skills/Devils_Deal/dd = findDevilsDeal(src)
 			if(dd)
 				if(CurrentlySummoned)
-					dd.incrementSummonReturnTime(1)
+					dd.incrementSummonReturnTime(0.1)
 					if(dd.getSummonReturnTime() >= dd.getHomeTime())
 						if(src.Grab)
 							src.Grab_Release()
@@ -312,9 +316,10 @@ mob
 						vampire.drainBlood()
 						vampireBlood.fillGauge(clamp(secretDatum.secretVariable["BloodPower"]/4, 0, 1), 10)
 				if(src.icon_state=="Train"&&!src.PoseEnhancement)
-					src.PoseTime++
+					src.PoseTime += 0.1
 					if(src.PoseTime==5)
 						src << "The restraints of your bloodlust crumble away as you dissolve into a living shadow!!"
+
 			if(src.Secret == "Werewolf")
 				if(secretDatum.secretVariable["Hunger Active"] == 1)
 					var/SecretInfomation/Werewolf/s = secretDatum
@@ -337,8 +342,8 @@ mob
 
 
 			if(src.ManaDeath)
-				src.WoundSelf(0.2*(src.ManaAmount/ManaMax))
-				ManaAmount-=1.5*(src.ManaAmount/ManaMax)
+				src.WoundSelf(0.02*(src.ManaAmount/ManaMax))
+				ManaAmount-=0.15*(src.ManaAmount/ManaMax)
 				if(src.ManaAmount<=ManaMax && src.ManaDeath)
 					src.ManaDeath=0
 					ManaAmount = ManaMax
@@ -349,7 +354,7 @@ mob
 				if(src.icon_state=="Train"&&!src.PoseEnhancement)
 					if(src.Secret=="Werewolf"&&!src.PoseTime)
 						src << "You focus your instincts perfectly on the chosen target, ready to leap any second!"
-					src.PoseTime++
+					src.PoseTime += 0.1
 					if(src.PoseTime>=glob.POSE_TIME_NEEDED)
 						if(Secret=="Eldritch")
 							icon_state = ""
@@ -371,7 +376,7 @@ mob
 					src.RemoveStasis()
 
 			if(src.AttackQueue&&src.AttackQueue.Delayer)
-				src.AttackQueue.DelayerTime++
+				src.AttackQueue.DelayerTime += 0.1
 				if(src.AttackQueue.DelayerTime==src.AttackQueue.Duration-2)
 					src << "Your <b>[src.AttackQueue]</b> is fully charged!! Attack before you lose the power!!"
 
@@ -399,7 +404,7 @@ mob
 
 			if(src.BusterTech && src.BusterCharging<100)
 
-				src.BusterCharging+=(100/RawSeconds(5)) * src.BusterTech.Buster * src.GetRecov()
+				src.BusterCharging+=(100/RawSeconds(5)) * src.BusterTech.Buster * src.GetRecov() / 10
 
 				if(src.BusterCharging>100)
 					src.BusterCharging=100
@@ -410,7 +415,7 @@ mob
 				for(var/obj/Skills/Projectile/Beams/Z in src)
 					if(Z.Charging&&Z.ChargeRate)
 						if(src.BeamCharging>=0.5&&src.BeamCharging<=Z.ChargeRate)
-							src.BeamCharging+=src.GetRecov(0.2)
+							src.BeamCharging+=src.GetRecov(0.2) /10
 							if(src.BeamCharging>Z.ChargeRate)
 								src.BeamCharging=Z.ChargeRate
 
@@ -484,13 +489,13 @@ mob
 
 			if(src.SureHitTimerLimit)
 				if(!src.SureHit)
-					src.SureHitTimer--
+					src.SureHitTimer -= 0.1
 					if(src.SureHitTimer<=0)
 						src.SureHit=1
 						src.SureHitTimer=src.SureHitTimerLimit
 			if(src.SureDodgeTimerLimit)
 				if(!src.SureDodge)
-					src.SureDodgeTimer--
+					src.SureDodgeTimer -= 0.1
 					if(src.SureDodgeTimer<=0)
 						src.SureDodge=1
 						src << "<b><i>You have a sure dodge stack!</b></i>"
@@ -499,17 +504,17 @@ mob
 
 
 			if(InDevaPath())
-				devaCounter++
+				devaCounter += 0.1
 
 			if(src.UsingFTG())
-				src.IaidoCounter++
+				src.IaidoCounter += 0.1
 			if(UsingGladiator())
-				GladiatorCounter++
+				GladiatorCounter += 0.1
 
 			if(src.BPPoisonTimer)
-				src.BPPoisonTimer--
+				src.BPPoisonTimer -= 0.1
 				if(src.Satiated&&!Drunk)
-					src.BPPoisonTimer--
+					src.BPPoisonTimer -= 0.1
 				if(src.BPPoisonTimer<=0)
 					if(src.BPPoison==0.5)
 						src.BPPoisonTimer=RawHours(3)
@@ -521,9 +526,9 @@ mob
 						src.BPPoison=1
 						src.BPPoisonTimer=0
 			if(src.OverClockNerf)
-				src.OverClockTime--
+				src.OverClockTime -= 0.1
 				if(src.Satiated&&!Drunk)
-					src.OverClockTime--
+					src.OverClockTime -= 0.1
 				if(src.OverClockTime<=0)
 					src.OverClockTime=0
 					src.OverClockNerf=0
@@ -533,9 +538,9 @@ mob
 						src << "Your systems have rebooted!"
 			if(src.GatesNerfPerc)
 				if(src.GatesNerf>0)
-					src.GatesNerf--
+					src.GatesNerf -= 0.1
 					if(src.Satiated&&!Drunk)
-						src.GatesNerf--
+						src.GatesNerf -= 0.1
 					if(src.GatesNerf<=0)
 						src.GatesNerfPerc=0
 						src.GatesNerf=0
@@ -543,43 +548,43 @@ mob
 						GatesActive = 0
 
 			if(src.StrTax)
-				src.SubStrTax(1/(1 DAYS))
+				src.SubStrTax(1/(2 DAYS))
 			if(src.EndTax)
-				src.SubEndTax(1/(1 DAYS))
+				src.SubEndTax(1/(2 DAYS))
 			if(src.SpdTax)
-				src.SubSpdTax(1/(1 DAYS))
+				src.SubSpdTax(1/(2 DAYS))
 			if(src.ForTax)
-				src.SubForTax(1/(1 DAYS))
+				src.SubForTax(1/(2 DAYS))
 			if(src.OffTax)
-				src.SubOffTax(1/(1 DAYS))
+				src.SubOffTax(1/(2 DAYS))
 			if(src.DefTax)
-				src.SubDefTax(1/(1 DAYS))
+				src.SubDefTax(1/(2 DAYS))
 			if(src.RecovTax)
-				src.SubRecovTax(1/(1 DAYS))
+				src.SubRecovTax(1/(2 DAYS))
 
 			if(src.AngerCD!=0)
-				src.AngerCD=max(src.AngerCD-1,0)
+				src.AngerCD=max(src.AngerCD-0.1,0)
 			if(src.PotionCD!=0)
-				src.PotionCD=max(src.PotionCD-1,0)
+				src.PotionCD=max(src.PotionCD-0.1,0)
 
 			if(src.CounterMasterTimer)
-				src.CounterMasterTimer = max(0, CounterMasterTimer-1)
+				src.CounterMasterTimer = max(0, CounterMasterTimer-0.1)
 
 			if(src.BindingTimer>=1)
-				src.BindingTimer--
+				src.BindingTimer -= 0.1
 				if(src.BindingTimer<=0)
 					src.BindingTimer=0
 				if(src.Binding&&Binding.len>0)
 					src.TriggerBinding()
 
 			if(src.GimmickTimer)
-				src.GimmickTimer--
+				src.GimmickTimer -= 0.1
 				if(src.GimmickTimer<=0)
 					src.GimmickTimer=0
 					src.GimmickDesc=""
 
 			if(src.Satiated)
-				src.Satiated--
+				src.Satiated -= 0.1
 				if(src.Satiated<=0)
 					src.Satiated=0
 					if(src.Drunk)
@@ -588,32 +593,32 @@ mob
 					src << "You feel less full."
 
 			if(src.Doped)
-				src.Doped--
+				src.Doped -= 0.1
 				if(src.Doped<=0)
 					src.Doped=0
 					src << "Your painkillers wear off."
 			if(src.Antivenomed)
-				src.Antivenomed--
+				src.Antivenomed -= 0.1
 				if(src.Antivenomed<=0)
 					src.Antivenomed=0
 					src << "Your antivenom wears off."
 			if(src.Cooled)
-				src.Cooled--
+				src.Cooled -= 0.1
 				if(src.Cooled<=0)
 					src.Cooled=0
 					src<<"Your cooling spray wears off."
 			if(src.Sprayed)
-				src.Sprayed--
+				src.Sprayed -= 0.1
 				if(src.Sprayed<=0)
 					src.Sprayed=0
 					src<<"Your sealing spray wears off."
 			if(src.Stabilized)
-				src.Stabilized--
+				src.Stabilized -= 0.1
 				if(src.Stabilized<=0)
 					src.Stabilized=0
 					src<<"Your focus stabilizer wears off."
 			if(src.Roided)
-				src.Roided--
+				src.Roided -= 0.1
 				if(src.Roided<=0)
 					src.Roided=0
 					src<<"Your steroids wear off, leaving you feeling worn out and sore!"

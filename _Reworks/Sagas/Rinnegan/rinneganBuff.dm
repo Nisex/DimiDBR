@@ -161,7 +161,7 @@ Mangekyou_Sharingan
 				src.Trigger(usr)
 		Rinnegan
 			SBuffNeeded="Sharingan"
-			WoundDrain=0.05
+			WoundDrain=0.005
 			GodKi=0.5
 			Cooldown=-1
 			IconLock='RinneganEyes.dmi'

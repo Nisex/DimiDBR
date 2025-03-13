@@ -40,7 +40,7 @@ obj/blades
 	var/tmp/mob/tmpAppearanceMob
 	var/tmp/obj/blades/b
 	StunAffected = 1
-	HealthDrain = 0.05
+	HealthDrain = 0.005
 	TimerLimit = 10
 	Trigger(mob/User, Override = FALSE)
 		if(!User.BuffOn(src))
@@ -92,7 +92,7 @@ obj/blades
 	CrippleAffected = 2
 	EndTaxDrain = 0.00005
 	EndTax = 0.01
-	EnergyDrain = 0.05
+	EnergyDrain = 0.005
 	TimerLimit = 0
 	IconLock='DarknessFlameAura.dmi'
 	LockX=-32

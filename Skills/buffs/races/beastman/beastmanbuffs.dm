@@ -89,7 +89,7 @@
 	HitScanIcon = 'feathers.dmi'
 	HitScanHitSpark = 'Slash_-_Ragna.dmi'
 	EnergyCost = 6
-	EnergyDrain = 0.05
+	EnergyDrain = 0.005
 	TimerLimit = 30
 	Cooldown = 120
 	adjust(mob/p)
