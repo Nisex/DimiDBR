@@ -470,19 +470,19 @@ mob
 						GatesActive = 0
 
 			if(src.StrTax)
-				src.SubStrTax(1/(2 DAYS))
+				src.SubStrTax(0.5/(2 DAYS))
 			if(src.EndTax)
-				src.SubEndTax(1/(2 DAYS))
+				src.SubEndTax(0.5/(2 DAYS))
 			if(src.SpdTax)
-				src.SubSpdTax(1/(2 DAYS))
+				src.SubSpdTax(0.5/(2 DAYS))
 			if(src.ForTax)
-				src.SubForTax(1/(2 DAYS))
+				src.SubForTax(0.5/(2 DAYS))
 			if(src.OffTax)
-				src.SubOffTax(1/(2 DAYS))
+				src.SubOffTax(0.5/(2 DAYS))
 			if(src.DefTax)
-				src.SubDefTax(1/(2 DAYS))
+				src.SubDefTax(0.5/(2 DAYS))
 			if(src.RecovTax)
-				src.SubRecovTax(1/(2 DAYS))
+				src.SubRecovTax(0.5/(2 DAYS))
 
 			if(src.AngerCD!=0)
 				src.AngerCD=max(src.AngerCD-0.1,0)
@@ -886,11 +886,11 @@ mob
 									GainFatigue(b.DrainAll*2)
 								else
 									drainedOut = 1
-							
+
 							if(drainedOut)
 								b.Trigger(src, TRUE)
 								src << "You can't keep up with the cost...!"
-							
+
 						if(b.HealthDrain)
 							src.DoDamage(src, TrueDamage(b.HealthDrain))
 						if(b.HealthThreshold&&!b.AllOutAttack)
