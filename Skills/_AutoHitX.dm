@@ -4202,7 +4202,7 @@ obj
 				Cooldown=60
 				Distance = 3
 				Size=1
-				Rounds=10
+				Rounds=6
 				Icon='Air Slash.dmi'
 				IconX=-8
 				IconY=-8
