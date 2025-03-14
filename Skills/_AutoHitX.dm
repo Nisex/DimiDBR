@@ -4190,7 +4190,7 @@ obj
 				name="Ryukansen"
 				NeedsSword=1
 				StyleNeeded="Hiten Mitsurugi"
-				Area="Circle"
+				Area="Wave"
 				StrOffense=1
 				DamageMult=5
 				ChargeTech=1
@@ -4200,6 +4200,7 @@ obj
 				ChargeTime=0
 				DelayTime=0
 				Cooldown=60
+				Distance = 3
 				Size=1
 				Rounds=10
 				Icon='Air Slash.dmi'
