@@ -72,7 +72,7 @@ obj
 			PostShockwave=0
 			Shockwave=2
 			Shockwaves=2
-			DamageMult=11
+			DamageMult=4
 			Knockback=2
 			Distance=4
 			ActiveMessage="vanishes with a burst of speed to strike at their foe!"
