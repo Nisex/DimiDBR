@@ -108,7 +108,7 @@ obj
 
 			Red_Hot_Hundred
 				SignatureTechnique=2
-				DamageMult=1.75
+				DamageMult=0.75
 				AccuracyMult = 1.175
 				Warp=5
 				KBAdd=1
@@ -134,7 +134,7 @@ obj
 				PreRequisite=list("/obj/Skills/Projectile/Beams/Big/Super_Kamehameha")
 				SignatureTechnique=2
 				UnarmedOnly=1
-				DamageMult=12
+				DamageMult=4
 				AccuracyMult = 1.175
 				Instinct=5
 				HitStep=/obj/Skills/Queue/True_Kamehameha2
@@ -195,7 +195,7 @@ obj
 				SignatureTechnique=2
 				name="Omnislash"
 				ActiveMessage="begins to glow with limitless bravery!"
-				DamageMult=2
+				DamageMult=0.5
 				AccuracyMult = 1.25
 				KBMult=0.00001
 				KBAdd=2

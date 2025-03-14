@@ -18,6 +18,10 @@
 			else
 				OMessage(10,"font color='[ExhaustedColor]'> [src] [exhaustedMessage]!", "[src]([src.key]) has 25% health left.</font>")
 			HealthAnnounce25 = 1
+		var/shonenMoment = ShonenPowerCheck(src)
+		if(shonenMoment)
+			VaizardHealth += triggerPlotArmor(shonenMoment, HasUnstoppable())
+			src.OMessage(10, "<font color=#c3b329>[src]'s will to be a HERO gives them a second wind!</font>", "[src]([src.key]) has triggered plot armor.")
 
 	// 10% health check
 	if(Health < 10*(1-HealthCut) && !HealthAnnounce10)
@@ -127,31 +131,34 @@
 			src<<"The strain of Golden Form forced you to revert!"
 
 /mob/proc/doLoopTimers()
-	if(Lethal-- <= 0 && Lethal)
-		Lethal = 0
-		OMsg(src, "font color='grey'>[src] will no longer deal lethal damage.</font color>")
+	if(Lethal)
+		Lethal-= world.tick_lag
+		if(Lethal <= 0)
+			Lethal = 0
+			OMsg(src, "font color='grey'>[src] will no longer deal lethal damage.</font color>")
 	// Move this to a different loop, most likely
-
-	if(TsukiyomiTime-- <= 0 && TsukiyomiTime)
-		TsukiyomiTime = 0
-		animate(client, color=null, time=1)
-		OMsg(src, "font color='grey'>[src] is no longer trapped in Tsukiyomi.</font color>")
+	if(TsukiyomiTime)
+		TsukiyomiTime-= world.tick_lag
+		if(TsukiyomiTime<= 0 && TsukiyomiTime)
+			TsukiyomiTime = 0
+			animate(client, color=null, time=1)
+			OMsg(src, "font color='grey'>[src] is no longer trapped in Tsukiyomi.</font color>")
 
 	if(warperTimeLock>0)
-		warperTimeLock--
+		warperTimeLock-= world.tick_lag
 		warperTimeLock = max(0, warperTimeLock)
 
 	if(TimeStop)
 		var/obj/Skills/Buffs/SlotlessBuffs/Grimoire/Time_Stop/book = new
 		book = locate() in src
-		LoseHealth(5/book.Mastery)
-		book:TimeStopped++
+		LoseHealth(0.5/book.Mastery)
+		book:TimeStopped+= world.tick_lag
 		if(book:TimeStopped>book.Mastery+1)
 			SkillX("Time Stop",x)
 	var/obj/Skills/Devils_Deal/dd = findDevilsDeal(src)
 	if(dd)
 		if(CurrentlySummoned)
-			dd.incrementSummonReturnTime(1)
+			dd.incrementSummonReturnTime(world.tick_lag)
 			if(dd.getSummonReturnTime() >= dd.getHomeTime())
 				dd.returnToOrg(src)
 				OMsg(src, "font color='grey'>[src] is no longer being summoned.</font color>")
@@ -174,10 +181,6 @@
 		// return 
 	if(!PureRPMode)
 		checkHealthAlert()
-		if(Lethal)
-			Lethal -= world.tick_lag SECOND
-			if(Lethal<=0)
-				OMsg(src, "<font color='grey'>[src] will no longer deal lethal damage.</font color>")
 		meditationChecks()
 		if(MovementCharges < GetMaxMovementCharges())
 			MovementChargeBuildUp()
@@ -189,11 +192,6 @@
 
 		doLoopTimers()
 		// Tick based activity / Timers
-
-
-
-
-
 
 		Update_Stat_Labels()
 

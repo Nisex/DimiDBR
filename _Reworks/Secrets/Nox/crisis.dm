@@ -8,8 +8,8 @@
 	IconTint=rgb(11, 159, 4)
 	ManaGlow = "#000"
 	ManaGlowSize=0.5
-	NeedsHealth=25
-	TooMuchHealth=30
+	NeedsHealth=10
+	TooMuchHealth=11
 	ActiveMessage = "RAAAAAHH RIIICKKKKYYYY"
 	IconLock='Susanoo Blade.dmi'
 	Earthshaking = 15

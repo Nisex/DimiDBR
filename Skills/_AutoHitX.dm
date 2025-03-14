@@ -1895,7 +1895,7 @@ obj
 			Slam_Wave
 				SignatureTechnique=1
 				NeedsSword=1
-				Area="Cone"
+				Area="Wider Wave"
 				StrOffense=1
 				DamageMult=10
 				TurfDirt=1
@@ -1917,9 +1917,9 @@ obj
 				verb/Slam_Wave()
 					set category="Skills"
 					var/obj/Items/Sword/S=usr.EquippedSword()
-					src.Distance=round(usr.GetSwordDamage(S),1)
-					src.Shockwave=round(usr.GetSwordDamage(S),1)
-					src.Earthshaking=round(usr.GetSwordDamage(S),1)
+					var/list/bleh = list("Light" = 1, "Medium" = 2, "Heavy" = 3)
+					src.Distance=bleh[S.Class] + usr.GetSwordAscension()
+					WindUp = bleh[S.Class] - 0.75
 					usr.Activate(src)
 
 			Zantetsuken
@@ -1935,7 +1935,7 @@ obj
 				Area="Target"
 				GuardBreak=1
 				PassThrough=1
-				MortalBlow=0.25
+				MortalBlow=1
 				HitSparkIcon='Slash - Zan.dmi'
 				HitSparkX=-16
 				HitSparkY=-16
@@ -1953,16 +1953,15 @@ obj
 				Area="Wider Wave"
 				StrOffense=1
 				Distance=7
-				DelayTime=7
+				DelayTime=2
 				Rounds=7
 				IgnoreAlreadyHit = 1
 				DamageMult=2
 				Knockback=10
-				Launcher=1
 				SpeedStrike = 1
 				PassThrough=1
 				GuardBreak=1
-				WindUp=0.25
+				WindUp=0.1
 				WindupMessage="sheathes their blade..."
 				ActiveMessage="begins to step through the battlefield like a passing shadow!"
 				HitSparkIcon='JudgmentCut.dmi'
@@ -1986,9 +1985,9 @@ obj
 				NeedsSword=1
 				Area="Circle"
 				StrOffense=1
-				Distance=10
+				Distance=7
 				PassTo=1
-				DamageMult=17.5
+				DamageMult=16.5
 				WindUp=1
 				GuardBreak=1
 				Knockback=25
@@ -5116,7 +5115,7 @@ mob
 							var/image/i
 							var/turf/adjustedT
 							for(var/turf/t in Turf_Circle(src.Target, Z.Gravity))
-								if(t.x == Target.x && t.y == Target.y && Z.RagingDemonAnimation)
+								if(t.x == Target.x && t.y == Target.y)
 									adjustedT = t
 								sleep(-1)
 								TurfShift('Gravity.dmi', adjustedT, 30, src, MOB_LAYER+1)

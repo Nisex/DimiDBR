@@ -482,6 +482,7 @@ mob/proc/GetPowerUpRatioVisble()
 	return Ratio
 
 mob/proc/Recover(var/blah,Amount=1)
+	Amount/=10
 	switch(blah)
 		if("Health")
 			if(PureRPMode)
@@ -874,10 +875,10 @@ mob/proc/
 						Recover("Mana",1)
 				Recover("Capacity",2)
 			else
-				Recover("Energy",1)
+				Recover("Energy",0.5)
 
 		if(src.PowerControl<=25)
-			Recover("Fatigue",1)
+			Recover("Fatigue",0.5)
 			if(src.ManaDeath)
 				ManaAmount-=5*GetManaCapMult()
 			else if(src.is_arcane_beast || (isRace(YOKAI) && src.AscensionsAcquired>0 && !src.Mechanized && !src.ActiveBuff))

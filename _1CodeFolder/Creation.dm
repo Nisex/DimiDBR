@@ -174,7 +174,7 @@ mob/Players
 		// 	quickDirtyRefund()
 		setMaxRPP()
 		if(!client.getPref("oldZanzo"))
-			client.add_hud("Zanzoken", new/obj/bar/zanzo(client, null, 1, 1))
+			client.add_hud("Zanzoken", new/obj/bar/zanzo(client, null, 3, 6))
 			client.hud_ids["Zanzoken"].Update(0, MovementCharges)
 
 		//automation

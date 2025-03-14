@@ -97,7 +97,7 @@ NEW VARIABLES
 	var/HealthHeal=0
 	var/HealthThreshold=0 //Lowest health that the buff can be up at.
 	var/StaticHeal=0
-
+	var/DrainAll=0
 	var/EnergyDrain=0
 	var/EnergyHeal=0
 	var/EnergyThreshold=0
@@ -8170,20 +8170,30 @@ NEW VARIABLES
 			KenWaveY=105
 			ActiveMessage="taps into their greatest Noble Phantasm: <b>Avalon</b>."
 			OffMessage="lets the Fae artifact fade back into slumber."
-			ManaCost=10
-			TimerLimit=10
-			Cooldown=-1
+			DrainAll=0.5
+			// TimerLimit=10
+			Cooldown=0
+			var/last_avalon = 0
+			adjust(mob/p)
+				DrainAll = 0.7-(p.SagaLevel*0.1)
+				HealthHeal = 0.025+(p.SagaLevel*0.01)
 			verb/Avalon()
 				set category="Skills"
-				if(usr.BPPoison<1)
-					usr.BPPoison=1
-					usr.BPPoisonTimer=0
-				var/baseHeal = usr.SagaLevel + (0.1 * abs(Health-100))
-				HealthHeal = (baseHeal/TimerLimit)
-				if(usr.Maimed>0)
-					usr.Maimed--
-					OMsg(usr, "[src] regrows a maiming as the Fae magics course through them!")
 				src.Trigger(usr)
+			verb/Stitch_Wounds()
+				set category="Skills"
+				if(usr.ManaAmount >= 25 && last_avalon + glob.AVALON_COOLDOWN < world.time)
+					if(usr.BPPoison<1)
+						usr.BPPoison=1
+						usr.BPPoisonTimer=0
+					if(usr.Maimed>0)
+						usr.Maimed--
+						OMsg(usr, "[src] regrows a maiming as the Fae magics course through them!")
+					last_avalon = world.time
+					usr << "Avalon maim heal will be back in [glob.AVALON_COOLDOWN/10] seconds."
+					usr.LoseMana(25)
+				else
+					usr << "You need 25 mana."
 
 		GaeBolg
 			MakesSword=1

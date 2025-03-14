@@ -772,21 +772,22 @@ mob
 			if(isRace(MAJIN))
 				if(majinPassive != null)
 					majinPassive.tryDropBlob(src)
-		LoseEnergy(var/val)
+		LoseEnergy(var/val, _static = FALSE)
 			if(src.FusionPowered)
 				return
-			val/=1+src.GetKiControlMastery()
-			val*=src.Power_Multiplier
-			if(src.GetPowerUpRatio()>1)
-				var/PowerUpPercent=GetPowerUpRatio()-1
-				if(src.HasMovementMastery())
-					PowerUpPercent/=1+(src.GetMovementMastery()/8)
-				val*=(1+(PowerUpPercent/src.PUDrainReduction))
-			if(src.Kaioken)
-				if(src.Anger)
-					val*=src.Anger
-			if(src.PotionCD)
-				val*=1.25
+			if(!_static)
+				val/=1+src.GetKiControlMastery()
+				val*=src.Power_Multiplier
+				if(src.GetPowerUpRatio()>1)
+					var/PowerUpPercent=GetPowerUpRatio()-1
+					if(src.HasMovementMastery())
+						PowerUpPercent/=1+(src.GetMovementMastery()/8)
+					val*=(1+(PowerUpPercent/src.PUDrainReduction))
+				if(src.Kaioken)
+					if(src.Anger)
+						val*=src.Anger
+				if(src.PotionCD)
+					val*=1.25
 			src.Energy-=val
 			if(src.Energy<0)
 				src.Energy=0

@@ -73,68 +73,7 @@ mob
 			if(glob.BREAK_TARGET_ON_DIST)
 				if(get_dist(Target,src) >= glob.BREAK_TARGET_ON_DIST)
 					Target = null
-		if(passive_handler["Grit"]>=1 && Health <= clamp(AscensionsAcquired * 15, 15, 75))
-			if(!PureRPMode)
-				var/value = passive_handler["Grit"] / glob.racials.GRITDIVISOR
-				HealHealth(value)
-		if(src.Health <= 25*(1-src.HealthCut) && !src.HealthAnnounce25)
-
-			var/shonenMoment = ShonenPowerCheck(src)
-			if(shonenMoment)
-				VaizardHealth += triggerPlotArmor(shonenMoment, HasUnstoppable())
-				src.OMessage(10, "<font color=#c3b329>[src]'s will to be a HERO gives them a second wind!</font>", "[src]([src.key]) has triggered plot armor.")
-
-
-			if(src.SpecialBuff&&src.SpecialBuff.BuffName=="Broken Brave")
-				src.OMessage(10, "<font color=#00FF55>[src] begins fighting fiercely like a lion!", "[src]([src.key]) has 25% health left.</font>")
-			else if(src.SpecialBuff&&src.SpecialBuff.BuffName=="Protect Brave")
-				src.OMessage(10, "<font color=#00FF55>[src] begins fighting tenaciously like a machine!", "[src]([src.key]) has 25% health left.</font>")
-			else if(src.SpecialBuff&&src.SpecialBuff.BuffName=="Genesic Brave")
-				src.OMessage(10, "<font color=#00FF55>[src] begins fighting fiercely and tenaciously with the power of Courage!", "[src]([src.key]) has 25% health left.</font>")
-			else
-				if(src.Secret!="Zombie")
-					if(!src.ExhaustedMessage)
-						if(!src.ExhaustedColor)
-							src.OMessage(10, "[src] looks exhausted!", "[src]([src.key]) has 25% health left.")
-						else
-							src.OMessage(10, "<font color='[src.ExhaustedColor]'>[src] looks exhausted!</font color>", "[src]([src.key]) has 25% health left.")
-					else
-						if(!src.ExhaustedColor)
-							src.OMessage(10, "[src] [src.ExhaustedMessage]", "[src]([src.key]) has 25% health left.")
-						else
-							src.OMessage(10, "<font color='[src.ExhaustedColor]'>[src] [src.ExhaustedMessage]</font color>", "[src]([src.key]) has 25% health left.")
-			if(src.NanoBoost)
-				OMsg(src, "<font color='green'>[src]'s nanites respond to their physical trauma, bolstering their cybernetic power!</font color>")
-			src.HealthAnnounce25=1
-
-		if(src.Health <= 10*(1-src.HealthCut)&& !src.HealthAnnounce10)
-
-
-			if(src.SpecialBuff&&src.SpecialBuff.BuffName=="Broken Brave")
-				src.OMessage(10, "<b><font color=#00FF55>[src] calls upon the power of Destruction for one final push!", "[src]([src.key]) has 10% health left.</font></b>")
-			else if(src.SpecialBuff&&src.SpecialBuff.BuffName=="Protect Brave")
-				src.OMessage(10, "<b><font color=#00FF55>[src] calls upon the power of Protection for one final push!", "[src]([src.key]) has 10% health left.</font></b>")
-				src.VaizardHealth+=2.5*src.SagaLevel
-			else if(src.SpecialBuff&&src.SpecialBuff.BuffName=="Genesic Brave")
-				src.OMessage(10, "<b><font color=#00FF55>[src] unites the powers of Destruction and Protection to defy the odds!", "[src]([src.key]) has 10% health left.</font></b>")
-				src.VaizardHealth+=0.5*src.SagaLevel
-			else
-				if(src.Secret!="Zombie")
-					if(!src.BarelyStandingMessage)
-						if(!src.BarelyStandingColor)
-							src.OMessage(10, "[src] is barely standing up!", "[src]([src.key]) has 10% health left.")
-						else
-							src.OMessage(10, "<font color='[src.BarelyStandingColor]'>[src] is barely standing up!</font color>", "[src]([src.key]) has 10% health left.")
-					else
-						if(!src.BarelyStandingColor)
-							src.OMessage(10, "[src] [src.BarelyStandingMessage]", "[src]([src.key]) has 10% health left.")
-						else
-							src.OMessage(10, "<font color='[src.BarelyStandingColor]'>[src] [src.BarelyStandingMessage]</font color>", "[src]([src.key]) has 10% health left.")
-			src.HealthAnnounce10=1
-
-		if(src.TotalInjury > 50 && !src.InjuryAnnounce && src.Secret!="Zombie")
-			src.OMessage(10, "[src] looks beaten half to death!", "[src]([src.key]) has 50% injury.")
-			src.InjuryAnnounce=1
+		checkHealthAlert()
 
 		if(src.Grab) src.Grab_Update()
 
@@ -142,35 +81,19 @@ mob
 
 		if(!src.PureRPMode)
 			meditationChecks()
+			if(MovementCharges < GetMaxMovementCharges())
+				MovementChargeBuildUp()
+			if(transActive)
+				drainTransformations(transActive, race.transformations[transActive].mastery)
 
-			if(src.Lethal)
-				src.Lethal--
-				if(src.Lethal<=0)
-					src.Lethal=0
-					OMsg(src, "<font color='grey'>[src] will no longer deal lethal damage.</font color>")
+			if(Grab) Grab_Update()
+			EnergyMax = 100
 
-
-			if(src.MovementCharges<3)
-				src.MovementChargeBuildUp()
-
-			else
-				src.MovementCharges=3
-			Update_Stat_Labels()
-
-			if(src.TsukiyomiTime)
-				src.TsukiyomiTime--
-				if(src.TsukiyomiTime<=0)
-					src.TsukiyomiTime=0
-					animate(src.client, color=null, time=1)
-
-			if(src.TimeStop)
-				// find out the cause
-				var/obj/Skills/Buffs/SlotlessBuffs/Grimoire/Time_Stop/ts = FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Grimoire/Time_Stop)
-				if(ts)
-					src.LoseHealth(5/ts.Mastery)
-					ts:TimeStopped++
-					if(ts:TimeStopped>ts.Mastery+1)
-						src.SkillX("Time Stop",x)
+			doLoopTimers()
+			if(passive_handler["Grit"]>=1 && Health <= clamp(AscensionsAcquired * 15, 15, 75))
+				var/value = passive_handler["Grit"] / glob.racials.GRITDIVISOR
+				HealHealth(value)
+		// Tick based activity / Timers
 			if(passive_handler["Fa Jin"])
 				if(canFaJin())
 					if(!fa_jin_effect)
@@ -951,6 +874,24 @@ mob
 						if(b.Afterimages || b.passives["AfterImages"])
 							if(prob((b.Afterimages + b.passives["AfterImages"]) *25))
 								FlashImage(src)
+						if(b.DrainAll)
+							var/drainedOut = 0
+							if(ManaAmount>0)
+								LoseMana(b.DrainAll)
+							else if(TotalCapacity<=99)
+								LoseCapacity(b.DrainAll)
+							else
+								if(Energy>=1)
+									LoseEnergy(b.DrainAll*1.75, TRUE)
+								else if(TotalFatigue<98)
+									GainFatigue(b.DrainAll*2)
+								else
+									drainedOut = 1
+							
+							if(drainedOut)
+								b.Trigger(src, TRUE)
+								src << "You can't keep up with the cost...!"
+							
 						if(b.HealthDrain)
 							src.DoDamage(src, TrueDamage(b.HealthDrain))
 						if(b.HealthThreshold&&!b.AllOutAttack)
@@ -1420,7 +1361,7 @@ mob
 						if(src.Oxygen<0)
 							src.Oxygen=0
 					if(src.Oxygen<10)
-						src.LoseEnergy(20)
+						src.LoseEnergy(2.0)
 						if(src.TotalFatigue>=95)
 							src.DamageSelf(TrueDamage(0.1))
 							if(src.Health<-300)

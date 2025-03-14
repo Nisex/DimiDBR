@@ -448,7 +448,7 @@
 						damage *= clamp(secretDatum?:getBoon(src, "Basic Attack"), 1, 10)
 				var/multiAtkNerf = 1
 				if(AttackQueue && AttackQueue?.ComboPerformed>0)
-					multiAtkNerf = 1 - clamp(AttackQueue.ComboPerformed * 0.1, 0.1, 0.99)
+					// multiAtkNerf = 1 - clamp(AttackQueue.ComboPerformed * 0.1, 0.1, 0.99)
 					damage *= multiAtkNerf
 					#if DEBUG_MELEE
 					log2text("Damage", "After MultiAtkNerf", "damageDebugs.txt", "[ckey]/[name]")
