@@ -2253,7 +2253,7 @@ obj/Items/Enchantment
 	Crystal_of_Reversal
 		icon='ReCrystal.dmi'
 		desc="A crystal that will selectively rewind the user's time, restoring particularly grevious wounds at the cost of physical development."
-		Cost=3000
+		Cost=1500
 		EnchType="TimeMagic"
 		SubType="Temporal Rewinding"
 		Click()
