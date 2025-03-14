@@ -79,6 +79,8 @@ obj/Skills/Yata_no_Kagami/Mirror_Prison
 
 obj/Mirror
 	density = 1
+	Destructable = FALSE
+	Grabbable = FALSE
 	icon = 'Yata_no_Kagami Mirror.dmi'
 	proc/onSpawn(timer)
 		spawn(timer)

@@ -28,8 +28,8 @@ obj/Skills/AutoHit/Gale_Slash
 	Knockback = 5
 	ActiveMessage="lets loose a sweeping gale of wind around them!"
 	adjust(mob/p)
-		DamageMult = 2 + p.SagaLevel
-		Launcher = 1 + p.SagaLevel
+		DamageMult = 0.5 + (p.SagaLevel/4)
+		Launcher = 0.5 + (p.SagaLevel/2)
 	verb/Gale_Slash()
 		set category="Skills"
 		adjust(usr)

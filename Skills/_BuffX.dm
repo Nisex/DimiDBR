@@ -11845,6 +11845,13 @@ mob
 				src.StyleBuff.passives["CheapShot"] = 0.25 * SagaLevel
 				src.StyleBuff.passives["UnarmedDamage"] = 0.5 * SagaLevel
 				src.StyleBuff.passives["Duelist"] = round(0.33 * SagaLevel, 1)
+				switch(src.AnsatsukenPath)
+					if("Hadoken")
+						StyleBuff.Finisher="/obj/Skills/Queue/Finisher/Isshin"
+					if("Shoryuken")
+						StyleBuff.Finisher="/obj/Skills/Queue/Finisher/Shoryureppa1"
+					if("Tatsumaki")
+						StyleBuff.Finisher="/obj/Skills/Queue/Finisher/Shippu_Jinraikyaku"
 				if(src.SagaLevel>=5)
 					src.StyleBuff.AngerThreshold=2
 					switch(src.AnsatsukenAscension)
