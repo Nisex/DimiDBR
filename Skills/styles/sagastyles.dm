@@ -14,7 +14,7 @@
 			set hidden=1
 			src.Trigger(usr)
 		
-		Finisher="/obj/Skills/Queue/Finisher/Early_Sacrafice"
+		Finisher="/obj/Skills/Queue/Finisher/Early_Sacrifice"
 
 
 /obj/Skills/Queue/Finisher/Early_Sacrifice
