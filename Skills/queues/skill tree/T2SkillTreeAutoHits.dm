@@ -5,11 +5,11 @@ obj
 			Copyable=3
 			UnarmedOnly=1
 			FlickAttack=1
-			Area="Arc"
+			Area="Cone"
 			ComboMaster=1
-			Distance=6
-			Slow=0
-			Knockback=3
+			Destroyer = 2
+			Distance=3
+			Knockback=10
 			PreShockwave=1
 			PostShockwave=0
 			Shockwaves=1
@@ -19,15 +19,15 @@ obj
 			ShockTime=4
 			NoPierce=0
 			StrOffense=1
-			EndDefense=1
-			DamageMult=4
+			EndDefense=0.9
+			DamageMult=4.5
 			Cooldown=60
 			HitSparkIcon='BLANK.dmi'
 			HitSparkX=0
 			HitSparkY=0
 			EnergyCost=3
 			Earthshaking=5
-			WindUp=0.6
+			WindUp=1
 			Instinct=1
 			WindupMessage="focuses their chi..."
 			ActiveMessage="sends a wave of force with a single palm thrust!"
@@ -42,10 +42,10 @@ obj
 			ComboMaster=1
 			Distance=4
 			StrOffense=1
-			DamageMult=4
+			DamageMult=1
 			Cooldown=60
 			Stunner=2
-			Knockback=15
+			Knockback=12
 			Size=4
 			HitSparkIcon='BLANK.dmi'
 			HitSparkX=0
@@ -54,6 +54,7 @@ obj
 			Shockwave=1
 			EnergyCost=3
 			SpecialAttack=1
+			BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/AchillesHeel/Disgruntled
 			Earthshaking=15
 			ActiveMessage="lifts their leg before performing a tremor-inducing stomp!"
 			verb/Force_Stomp()

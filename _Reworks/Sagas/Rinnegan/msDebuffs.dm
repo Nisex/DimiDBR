@@ -122,6 +122,22 @@ obj/blades
 	passives = list("Flow" = -1, "Godspeed" = -2)
 	IconLock = 'LegendSparks.dmi'
 	TimerLimit = 20
+	Disgruntled
+		SpdMult=1
+		DefMult=1
+		CrippleAffected = 0.1
+		ShatterAffected = 0.1
+		TimerLimit=10
+		passives = list("Godspeed" = -1, "Flow" = -0.5)
+
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Staggered
+	NeedsPassword = 1
+	Cooldown = 15
+	AlwaysOn = 1
+	ShatterAffected = 0.2
+	passives = list("Shellshocked" = 1, "Flow" = -1)
+	IconLock = 'LegendSparks.dmi'
+	TimerLimit = 30
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Staggered
 	NeedsPassword = 1
