@@ -135,14 +135,14 @@
 		Lethal-= world.tick_lag
 		if(Lethal <= 0)
 			Lethal = 0
-			OMsg(src, "font color='grey'>[src] will no longer deal lethal damage.</font color>")
+			OMsg(src, "<font color='grey'>[src] will no longer deal lethal damage.</font color>")
 	// Move this to a different loop, most likely
 	if(TsukiyomiTime)
 		TsukiyomiTime-= world.tick_lag
 		if(TsukiyomiTime<= 0 && TsukiyomiTime)
 			TsukiyomiTime = 0
 			animate(client, color=null, time=1)
-			OMsg(src, "font color='grey'>[src] is no longer trapped in Tsukiyomi.</font color>")
+			OMsg(src, "<font color='grey'>[src] is no longer trapped in Tsukiyomi.</font color>")
 
 	if(warperTimeLock>0)
 		warperTimeLock-= world.tick_lag
@@ -161,7 +161,7 @@
 			dd.incrementSummonReturnTime(world.tick_lag)
 			if(dd.getSummonReturnTime() >= dd.getHomeTime())
 				dd.returnToOrg(src)
-				OMsg(src, "font color='grey'>[src] is no longer being summoned.</font color>")
+				OMsg(src, "<font color='grey'>[src] is no longer being summoned.</font color>")
 
 
 /mob/proc/newGainLoop()

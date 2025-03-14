@@ -74,7 +74,7 @@
 	Cooldown = 180
 	adjust(mob/p)
 		var/asc = p.AscensionsAcquired
-		VaizardHealth = (100-p.Health * (0.05 + (glob.racials.COWLSHIELDVAL * asc) ) ) 
+		VaizardHealth = ((100-p.Health) * (0.05 + (glob.racials.COWLSHIELDVAL * asc) ) ) 
 		passives = list("Hardening" = clamp(asc, 1, 5), "Deflection" = 0.5 + (asc * 0.5), "Reversal" = 0.1 + (asc * 0.1))
 		VaizardShatter = 1
 		Cooldown = 180 - (asc * 15)

@@ -285,7 +285,6 @@ mob
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form/fmf in src)
 								fmf.Trigger(src)
 						if(src.HasRipple())
-							src << "The Ripple flows through your body perfectly!  You have gained full control over your breathing!!"
 							if(src.Swim==1)
 								src.RemoveWaterOverlay()
 								src.underlays+=image('The Ripple.dmi', pixel_x=-32, pixel_y=-32)

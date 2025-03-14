@@ -37,7 +37,6 @@ obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraint
 	applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraints
 	ActiveMessage = "tosses a chain of beads forth!"
 	EndYourself = 1
-	Cooldown=0
 	AffectTarget = 1
 	Range = 20
 	ManaCost = 15
