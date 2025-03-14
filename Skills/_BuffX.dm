@@ -1015,7 +1015,7 @@ NEW VARIABLES
 
 			verb/Check_Power_Nerf_Timer()
 				set hidden = 1
-				usr << "Total: [usr.GatesNerfPerc]%, Off @ [time2text(usr.GatesNerf, "MM/DD  hh:mm:ss", "est")]"
+				usr << "Total: [usr.GatesNerfPerc]%, Recovers in [time2text(usr.GatesNerf, "hh:mm:ss", "est")]"
 
 			proc/shutOffEffects(mob/p, level, dontWound = FALSE)
 				p.GatesActive=0
