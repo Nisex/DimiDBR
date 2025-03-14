@@ -11,9 +11,11 @@
 		"/obj/Skills/Buffs/NuStyle/SwordStyle/Kunst_des_Fechtens"="/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter",\
 		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon",\
 		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wing_Chun_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phoenix_Eye_Fist")
-		passives = list("SwordPunching" = 1, "Secret Knives" = "Khonshu", "Tossing" = 1, "Extend" = 1)
+		passives = list("HybridStyle" = "UnarmedStyle", "SwordPunching" = 1, "Secret Knives" = "Khonshu", "Tossing" = 1, "Extend" = 1)
 		StyleActive="Fist of Khonshu"
 		Finisher="/obj/Skills/Queue/Finisher/Moon_Fall"
+		adjust(mob/p)
+			passives = list("HybridStyle" = "UnarmedStyle", "SwordPunching" = 1, "Secret Knives" = "Khonshu", "Tossing" = 1, "Extend" = 1)
 		verb/Fist_of_Khonshu()
 			set hidden=1
 			src.Trigger(usr)

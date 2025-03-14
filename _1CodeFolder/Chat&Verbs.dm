@@ -664,6 +664,9 @@ mob/Players/verb
 			var/obj/Skills/Buffs/s = findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Never_Fall/)
 			if(!s.Using)
 				s.Trigger(src, TRUE)
+		if(isRace(BEASTMAN) && race?:Racial == "Heart of The Beastman")
+			passive_handler.Set("Grit", 1)
+
 		usr.verb_delay=world.time+1
 		for(var/b in usr.SlotlessBuffs)
 			var/obj/Skills/Buffs/x = usr.SlotlessBuffs[b]
