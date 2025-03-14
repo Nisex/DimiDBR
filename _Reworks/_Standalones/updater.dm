@@ -302,6 +302,15 @@ update
 				p.AddSkill(new styletype)
 				var/obj/Skills/Buffs/NuStyle/newstyle = p.FindSkill(styletype)
 				newstyle.name = name
+	version15
+		version = 15
+		updateMob(mob/o)
+			. = ..()
+			if(o.Saga == "King of Braves")
+				var/obj/Skills/s = o.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Plasma_Hold)
+				if(s)
+					del s
+				o.findOrAddSkill(new/obj/Skills/AutoHit/Plasma_Hold)
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25

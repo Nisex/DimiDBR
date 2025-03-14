@@ -1176,8 +1176,8 @@ mob
 							src.AddSkill(new/obj/Skills/Queue/DrillKnee)
 						src << "You can form an energy drill out of your body, capable of delivering deciding strikes!"
 					if(src.SagaLevel==3)
-						if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Plasma_Hold, src))
-							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Plasma_Hold)
+						if(!locate(/obj/Skills/AutoHit/Plasma_Hold, src))
+							src.AddSkill(new/obj/Skills/AutoHit/Plasma_Hold)
 						if(!locate(/obj/Skills/AutoHit/Hell_And_Heaven, src))
 							src << "You become capable of delivering the ultimate finishing move: Hell and Heaven!"
 							src.AddSkill(new/obj/Skills/AutoHit/Hell_And_Heaven)

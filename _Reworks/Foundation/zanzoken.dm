@@ -1,7 +1,5 @@
 /obj/bar/zanzo
     alpha = 255
-    maptext_x = 16
-    maptext_y = 4
     var/tmp/mob/owner
     New(client/_client, o, _x, _y)
         // overwrite it
@@ -9,9 +7,13 @@
         meter = new()
         holder = new(b=meter, loc_x=_x, loc_y=_y)
         barbg = new("zanzoken")
+        barbg.layer = 2
         barbg.screen_loc = "1:[_x-1],1:[_y-2]"
         client = _client
         holder.alpha = 255
+        holder.maptext_x = 16
+        holder.maptext_y = 7
+        holder.filters = list(filter(type="outline", size=1, color=rgb(255, 255, 255)))
         client.screen += holder
         client.screen += barbg
         meter.animateBar(0,4)

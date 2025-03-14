@@ -22,3 +22,15 @@ obj/Skills/Queue/DrillKnee
 			else if(usr.SpecialBuff.BuffName=="Genesic Brave")
 				src.SBuffNeeded="Genesic Brave"
 		usr.SetQueue(src)
+
+/obj/Skills/AutoHit/Plasma_Hold
+	Area = "Target"
+	Snaring = 5
+	SnaringOverlay='Overdrive.dmi'
+	Distance=14
+	DamageMult=1
+	ActiveMessage="shoots crackling plasma at their target!" //TODO: come back to this
+	Cooldown=30
+	verb/Plasma_Hold()
+		set category="Skills"
+		usr.Activate(src)

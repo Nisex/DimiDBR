@@ -34,7 +34,8 @@ obj
 				Cleansing = 0
 				ManaDrain = 0
 				HitSelf = 0
-
+				Snaring
+				SnaringOverlay
 				NoPierce=0//If this is flagged it will make a technique terminate after hitting something.
 				CorruptionGain = 0
 				UnarmedOnly
@@ -3974,7 +3975,7 @@ obj
 			Goldion_Hammer
 				StrOffense=1
 				ForOffense=1
-				DamageMult=15
+				DamageMult=21
 				Area="Circle"
 				Distance=5
 				TurfErupt=2
@@ -5554,7 +5555,8 @@ obj
 			Duration
 			Persistent = FALSE
 			CorruptionGain
-
+			Snaring
+			SnaringOverlay
 			Cleansing = 0
 			ManaDrain
 			FoxFire
@@ -5739,6 +5741,8 @@ obj
 				AdaptDmg = Z.AdaptRate
 			FoxFire = Z.FoxFire
 			ManaDrain = Z.ManaDrain
+			Snaring=Z.Snaring
+			SnaringOverlay=Z.SnaringOverlay
 			src.Executor = Z.Executor
 			src.Primordial = Z.Primordial
 			src.RagingDemonAnimation = Z.RagingDemonAnimation
@@ -6235,7 +6239,8 @@ obj
 					LightningBolt(m, src.Bolt, src.BoltOffset)
 				if(src.Punt)
 					Hit_Effect(m, Size=src.Punt)
-
+				if(Snaring)
+					m.applySnare(Snaring, SnaringOverlay)
 				//EFFECTS HERE
 
 				if(src.CanBeDodged||m.passive_handler.Get("YataNoKagami"))
