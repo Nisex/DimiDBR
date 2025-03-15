@@ -14,8 +14,6 @@ mob/Click()
 		if((glob.CLICK_SAME_Z_FORCE && src.z != usr.z) || get_dist(src, usr) > glob.MAX_CLICK_DISTANCE)
 			usr << "You are either not on the same z, or the person is too far."
 			return
-	if(usr.z != glob.DEATH_LOCATION[3] && src.z == glob.DEATH_LOCATION[3])
-		return
 	if(usr.Target!=src)
 		for(var/sb in usr.SlotlessBuffs)
 			var/obj/Skills/Buffs/b = usr.SlotlessBuffs[sb]

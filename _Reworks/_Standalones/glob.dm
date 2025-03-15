@@ -40,11 +40,6 @@ var/globalTracker/glob = new()
 	glob.SHATTER_INTENSITY = n
 	glob.POISON_INTENSITY= n
 
-gains
-	var
-		NANOHEALTH = 25
-
-
 racials
 	var
 		MARKEDPREYBASESTACKS = 5
@@ -144,14 +139,11 @@ globalTracker
 			progress = new()
 		if(!racials)
 			racials = new()
-		if(!gains)
-			gains = new()
 
 	var
 
 		progressTracker/progress = new()
 		racials/racials = new()
-		gains/gains = new()
 // TESTER
 		TESTER_MODE = FALSE
 		LIVE_TESTING = FALSE
@@ -160,13 +152,13 @@ globalTracker
 		ALLOW_OTHER_NATIONALITIES = FALSE
 		ALLOW_SECOND_NATIONALITIES = FALSE
 // TARGETING
-		LIMIT_CLICKS = FALSE
-		CLICK_SAME_Z_FORCE = FALSE
+		LIMIT_CLICKS = TRUE
+		CLICK_SAME_Z_FORCE = TRUE
 		MAX_CLICK_DISTANCE = 30
 		CANT_CLICK_INVS = TRUE
 		ADMIN_INVIS_ONLY = FALSE
-		BREAK_TARGET = FALSE
-		BREAK_TARGET_ON_Z_CHANGE = FALSE
+		BREAK_TARGET = TRUE
+		BREAK_TARGET_ON_Z_CHANGE = TRUE
 		BREAK_TARGET_ON_DIST = FALSE
 		DEVILARMDEMONONLY = FALSE
 		ROOTS_DURATION = 2

@@ -1,4 +1,4 @@
-/mob/proc/checkHealthAlert()
+z/mob/proc/checkHealthAlert()
 	//50% injury check
 	var/exhaustedMessage = SpecialBuff ? SpecialBuff.ExhaustedMessage : ExhaustedMessage
 	var/desperateMessage = SpecialBuff ? SpecialBuff.DesperateMessage : BarelyStandingMessage

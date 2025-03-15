@@ -47,8 +47,7 @@
 	Dardi_Style
 		SignatureTechnique=1
 		Copyable=0
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style",
-							"/obj/Skills/Buffs/NuStyle/SwordStyle/Kunst_des_Fechtens"="/obj/Skills/Buffs/NuStyle/SwordStyle/Berserk")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style")
 		passives = list("Parry" = 2, "Disarm" = 1.5, "Hardening" = 1, "Deflection" = 0.5)
 		StyleActive="Dardi School"
 		StyleOff=1.15

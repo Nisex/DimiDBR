@@ -1,5 +1,20 @@
 /mob/proc/counterWarp(obj/Items/Sword/s, obj/Items/Sword/s2, obj/Items/Sword/s3)
+	var/list/swordTypes = list("Wooden" = 1, "Light" = 2, "Medium" = 3, "Heavy" = 4)
+	var/list/reqs = list("Trininty" = list(8, 3, 5, 8), \
+	"Dual" = list(13, 5, 8, 13),\
+	"Iaido" = list(25, 10, 15, 25))
 	var/reqCounter = 0
+	if(UsingKendo()&&HasSword())
+		if(s.Class == "Wooden")
+			reqCounter = 15
+		else
+			reqCounter = 25
+
+	if(UsingSpeedRave())
+		reqCounter = 10
+	if(reqCounter == 0)
+		reqCounter = 999
+
 	return reqCounter
 
 /mob/proc/counterShit(mob/enemy, ignore)
