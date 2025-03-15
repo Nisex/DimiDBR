@@ -2851,7 +2851,7 @@ mob
 				src.MovementCharges=GetMaxMovementCharges()
 			if(client&&client.hud_ids["Zanzoken"])
 				var/alteration = -36 + (36 * (MovementCharges - round(MovementCharges)))
-				world<<add
+			//	world<<add
 				client.hud_ids["Zanzoken"].Update(alteration, round(MovementCharges))
 		GetRPPMult()
 			var/Return=src.RPPMult

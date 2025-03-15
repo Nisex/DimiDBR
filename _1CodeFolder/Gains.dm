@@ -40,11 +40,11 @@ update_loop/gain_loop
 		updaters.len = 10
 		for(var/index = 1 to 10 step 1)
 			updaters[index] = list()
-		// for()
-		// 	for(var/list/l in updaters)
-		// 		for(var/mob/updater in l)
-		// 			updater.GainLoop()
-		// 		sleep(world.tick_lag)
+		for()
+			for(var/list/l in updaters)
+				for(var/mob/updater in l)
+					updater.GainLoop()
+				sleep(world.tick_lag)
 
 var/game_loop/mainLoop = new(0, "newGainLoop")
 //** TESTED AND WORKS!! **/
@@ -312,9 +312,9 @@ mob/var/seventhSenseTriggered = 0
 mob
 	proc/GainLoop()
 		set waitfor=0 //Wanna avoid staggering global gains loop on one person.
-	//	if(!src.client)
-	//		gain_loop.Remove(src)
-	//		return
+		if(!src.client)
+			gain_loop.Remove(src)
+			return
 		if(src.PureRPMode&&!Stasis)
 			src.Stasis=1
 		if(client && client.getPref("autoAttacking"))
@@ -342,7 +342,8 @@ mob
 			// 	if(Anger)
 			// 		src.Calm()
 
-
+			if(MovementCharges < GetMaxMovementCharges())
+				MovementChargeBuildUp()
 			meditationChecks()
 			// if(icon_state == "Meditate")
 			// 	MeditateTime++
@@ -396,12 +397,6 @@ mob
 					src.Lethal=0
 					OMsg(src, "<font color='grey'>[src] will no longer deal lethal damage.</font color>")
 
-
-			if(src.MovementCharges<3)
-				src.MovementChargeBuildUp()
-
-			else
-				src.MovementCharges=3
 			Update_Stat_Labels()
 
 			if(src.TsukiyomiTime)
@@ -673,8 +668,7 @@ mob
 
 				if(src.BusterTech && src.BusterCharging<100)
 
-				src.BusterCharging+=(100/RawSeconds(5)) * src.BusterTech.Buster * src.GetRecov()
-
+					src.BusterCharging+=(100/RawSeconds(5)) * src.BusterTech.Buster * src.GetRecov()
 					if(src.BusterCharging>100)
 						src.BusterCharging=100
 						src << "Your buster technique is fully charged!"
@@ -1404,20 +1398,18 @@ mob
 		src.MaxMana()
 		src.MaxOxygen()
 
-		if(ticker % 10 == 0)
-
-			if(client&&src.MortallyWounded)
-				if(!src.client.color)
-					animate(src.client, color=list(1,0,0, 0.25,0.75,0, 0.25,0,0.75, 0,0,0), time=3)
-				if(src.KO||src.MortallyWounded>3)
-					if(prob(10*src.MortallyWounded/src.GetRecov()))
-						src.Health-=10/max(src.Health,10)
-						if(src.Health<=-300)
-							if(prob(90/GetRecov())&&!src.StabilizeModule)
-								src.Death(null,"internal injuries!")
-							else
-								src << "You've entered a stable condition."
-								src.MortallyWounded=0
+		if(client&&src.MortallyWounded)
+			if(!src.client.color)
+				animate(src.client, color=list(1,0,0, 0.25,0.75,0, 0.25,0,0.75, 0,0,0), time=3)
+			if(src.KO||src.MortallyWounded>3)
+				if(prob(10*src.MortallyWounded/src.GetRecov()))
+					src.Health-=10/max(src.Health,10)
+					if(src.Health<=-300)
+						if(prob(90/GetRecov())&&!src.StabilizeModule)
+							src.Death(null,"internal injuries!")
+						else
+							src << "You've entered a stable condition."
+							src.MortallyWounded=0
 
 
 
