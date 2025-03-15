@@ -41,12 +41,11 @@ proc
 				if(p.ContinuousOn && !p.StormFall)
 					m.UseProjectile(p)
 				continue
-		var/_seconds = world.tick_lag SECONDS
-		var/Stun_Amount=world.time+(amount*(_seconds))
+		var/Stun_Amount=world.time+(amount*8)
 		if(m.Stunned)
-			m.Stunned+=(amount*(_seconds/4))
-			if(m.Stunned > m.Stunned + glob.MAX_STUN_ADDITION)
-				m.Stunned = m.Stunned + glob.MAX_STUN_ADDITION
+			m.Stunned+=(amount*2)
+			if(m.Stunned > m.last_stunned + glob.MAX_STUN_ADDITION)
+				m.Stunned = m.last_stunned + glob.MAX_STUN_ADDITION
 		else
 			var/obj/Effects/Stun/S=new
 			S.appearance_flags=66
@@ -68,10 +67,8 @@ proc
 				mob.overlays-='IceCoffin.dmi'
 				var/mod = (mob.HasLegendaryPower() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
 				mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))
-				mob << "You can't be stunned for another [glob.STUN_IMMUNE_TIMER*(1+mod)/10]"
 				if(mob.passive_handler["Shellshocked"])
 					mob.passive_handler.Set("Shellshocked", 0)
-					mob << "You are no longer Shellshocked..."
 			else
 				return 1
 	StunClear(mob/mob)
@@ -87,7 +84,6 @@ proc
 				mob.overlays-='IceCoffin.dmi'
 				var/mod = (mob.HasLegendaryPower() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
 				mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))
-				mob << "You can't be stunned for another [glob.STUN_IMMUNE_TIMER*(1+mod)/10]"
 	StunImmuneCheck(mob/mob)
 		// stunned, not kamui, not senketsu
 		if(mob.StunImmune && mob.passive_handler["ContinuallyStun"])

@@ -651,11 +651,11 @@ mob
 						if(src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus"))
 							src << "You managed to mold some natural energy!"
 
-				if(src.Stasis||src.StasisFrozen)
-					src.Stasis-=world.tick_lag
-					if(src.Stasis<=0)
-						src.Stasis=0
-						src.RemoveStasis()
+			if(src.Stasis||src.StasisFrozen)
+				src.Stasis-=world.tick_lag
+				if(src.Stasis<=0)
+					src.Stasis=0
+					src.RemoveStasis()
 
 			if(src.AttackQueue&&src.AttackQueue.Delayer)
 				src.AttackQueue.DelayerTime++
@@ -1419,9 +1419,203 @@ mob
 								src << "You've entered a stable condition."
 								src.MortallyWounded=0
 
-			if(isturf(loc))
-				var/turf/T = loc
-				T.GainLoop(src)
+
+
+	//Okay, stuff past here may be sources of lag. This is just a comment to note this.
+		var/BreathingMaskOn=0
+		if(isturf(loc))
+			var/turf/T = loc
+			if(T.effectApplied)
+				//TODO if u reuse this make it a switch
+				switch(T.effectApplied)
+					if("Stellar")
+						if(!passive_handler.Get("Constellation"))
+						// start draining or somethin
+							if(Energy > 1)
+								Energy -= 0.15
+							if(TotalFatigue < 99)
+								TotalFatigue += 0.15
+						else
+							if(Energy < 99)
+								Energy += 0.15
+							if(TotalFatigue > 0)
+								TotalFatigue -= 0.15
+				if(isdatum(T.effectApplied))
+					if((istype(T.effectApplied, /datum/DemonRacials)))
+						if(src != T.ownerOfEffect)
+							T.effectApplied?:applyDebuffs(src, T.ownerOfEffect)
+					if((istype(T.effectApplied, /obj/Skills/Buffs)))
+						if(src != T.ownerOfEffect)
+							var/mob/p = T.ownerOfEffect
+							var/dmg = p.getHellStormDamage()
+							T.effectApplied?:applyEffects(src, T.ownerOfEffect, dmg)
+
+			if(!passive_handler.Get("StaticWalk")&&!src.Dead)
+				if(istype(loc,/turf/Special/Static))
+					src.Health-=0.05
+				if(istype(loc,/turf/Dirt99))
+					src.Health-=0.05
+			if(istype(loc,/turf/Special/Stars)||istype(loc,/turf/Special/EventStars))
+				for(var/obj/Items/Tech/SpaceMask/SM in src)
+					if(SM.suffix)
+						BreathingMaskOn=1
+				if(BreathingMaskOn==0)
+					if(!passive_handler.Get("SpaceWalk")&&(!src.race in list(MAJIN,DRAGON)))
+						src.Oxygen-=rand(2,4)
+						if(src.Oxygen<0)
+							src.Oxygen=0
+					if(src.Oxygen<10)
+						src.LoseEnergy(20)
+						if(src.TotalFatigue>=95)
+							src.DamageSelf(TrueDamage(1))
+							if(src.Health<-300)
+								if(prob(20)&&!src.StabilizeModule)
+									src.Death(null,"oxygen deprivation!")
+				else if(BreathingMaskOn==1)
+					if(src.Oxygen<(src.OxygenMax/max(src.SenseRobbed,1)))
+						src.Oxygen+=rand(1,3)
+					if(src.icon_state=="Train"&&src.Secret=="Ripple")
+						src.Oxygen+=(src.OxygenMax/max(src.SenseRobbed,1))*0.2
+						if(src.Oxygen>=(src.OxygenMax/max(src.SenseRobbed,1))*2)
+							src.Oxygen=(src.OxygenMax/max(src.SenseRobbed,1))*2
+					if(src.Oxygen<10)
+						src.LoseEnergy(20)
+						if(src.TotalFatigue>=95)
+							src.DamageSelf(TrueDamage(1))
+							if(src.Health<-300)
+								if(prob(20)&&!src.StabilizeModule)
+									src.Death(null,"oxygen deprivation!")
+			else if(loc:Deluged||istype(loc,/turf/Waters)||istype(loc,/turf/Special/Ichor_Water)||istype(loc,/turf/Special/Midgar_Ichor))
+				var/IgnoresWater=0
+				if(passive_handler.Get("Fishman")||passive_handler.Get("SpaceWalk")||src.race in list(MAJIN,DRAGON))
+					BreathingMaskOn=1
+				for(var/obj/Items/Tech/SpaceMask/SM in src)
+					if(SM.suffix)
+						BreathingMaskOn=1
+				for(var/mob/P in range(1,src))
+					if(P.Grab==src)
+						IgnoresWater=1
+				if((passive_handler.Get("Skimming")+is_dashing) || src.Flying || src.HasWaterWalk() || src.HasGodspeed()>=2)
+					IgnoresWater=1
+					if(src.Swim)
+						src.Swim=0
+						src.RemoveWaterOverlay()
+						if(isplayer(src))
+							src:move_speed = MovementSpeed()
+						//do easiest conditions first
+						if((src.PoseEnhancement&&src.Secret=="Ripple"&&!(src.Flying&&!passive_handler.Get("Skimming"))+is_dashing))
+							src.underlays+=image('The Ripple.dmi', pixel_x=-32, pixel_y=-32)
+					else if(src.Secret=="Ripple")
+						src.RemoveWaterOverlay()
+						if((src.PoseEnhancement&&!src.Flying&&!(passive_handler.Get("Skimming"))+is_dashing))
+							src.underlays+=image('The Ripple.dmi', pixel_x=-32, pixel_y=-32)
+				if(!IgnoresWater)
+					if(istype(loc,/turf/Waters/Water7))
+						if(!src.HasWalkThroughHell())
+							if(!isRace(DEMON)&&!src.HasHellPower())
+								src.AddBurn(10)
+					else
+						if(src.Burn)
+							src.Burn-=(src.Burn/20)
+							if(src.Burn<0)
+								src.Burn=0
+					if(istype(loc,/turf/Special/Ichor_Water) && !src.HasVenomImmune())
+						src.AddPoison(2)
+					if(istype(loc,/turf/Waters/WaterD) && !src.HasVenomImmune())
+						src.AddPoison(2)
+					if(istype(loc,/turf/Special/Midgar_Ichor) && !src.HasVenomImmune())
+						src.AddPoison(1)
+					if(istype(loc,/turf/Special/Midgar_IchorWall) && !src.HasVenomImmune())
+						src.AddPoison(1)
+					if(istype(loc,/turf/Special/MidgarIchorW) && !src.HasVenomImmune())
+						src.AddPoison(1)
+					if(istype(loc,/turf/Special/MidgarIchorE) && !src.HasVenomImmune())
+						src.AddPoison(1)
+					if(istype(loc,/turf/Special/MidgarIchorN) && !src.HasVenomImmune())
+						src.AddPoison(1)
+					if(istype(loc,/turf/Special/MidgarIchorS) && !src.HasVenomImmune())
+						src.AddPoison(1)
+					if(Swim==0)
+						src.RemoveWaterOverlay()
+						spawn()
+							if(loc:Deluged)
+								src.overlays+=image('WaterOverlay.dmi',"Deluged")
+								var/mob/p = loc:ownerOfEffect
+								if(p!= src)
+
+									src.AddSlow(10 + (5 * p.AscensionsAcquired))
+									src.AddShock(10 + (5 * p.AscensionsAcquired))
+							else if(src.PoseEnhancement&&src.Secret=="Ripple")
+								src.underlays+=image('The Ripple.dmi', pixel_x=-32, pixel_y=-32)
+							else if(loc.type==/turf/Waters/Water7/LavaTile)
+								src.overlays+=image('LavaTileOverlay.dmi')
+							else
+								src.overlays+=image('WaterOverlay.dmi',"[loc.icon_state]")
+					if(!Swim)
+						Swim=1
+						if(isplayer(src))
+							src:move_speed = MovementSpeed()
+					if(!src.KO)
+						var/amounttaken=glob.OXYGEN_DRAIN/glob.OXYGEN_DRAIN_DIVISOR
+						if(loc:Shallow==1)
+							amounttaken=0
+						if(src.PoseEnhancement&&src.Secret=="Ripple")
+							amounttaken=0
+						if(BreathingMaskOn)
+							amounttaken=0
+						if(loc:Deluged==1)
+							amounttaken=4
+						if(isRace(DRAGON))
+							amounttaken=0
+						if(passive_handler.Get("Fishman")||passive_handler.Get("SpaceWalk"))
+							amounttaken=0
+						if(src.FusionPowered)
+							amounttaken=0
+						if(!PureRPMode)
+							src.Oxygen-=amounttaken
+							if(src.Oxygen<0)
+								src.Oxygen=0
+							if(src.Oxygen<10)
+								src.LoseEnergy(5)
+								if(src.TotalFatigue>=95)
+									src.Unconscious(null,"fatigue due to swimming! They will drown if not rescued!")
+					else
+						if(!isRace(DRAGON))
+							if(BreathingMaskOn==0)
+								src.Oxygen=0
+								src.DamageSelf(TrueDamage(1))
+								if(src.Health<-300)
+									if(prob(20)&&!src.StabilizeModule)
+										src.Death(null,"oxygen deprivation!")
+							else
+								if(src.Oxygen<(src.OxygenMax/max(src.SenseRobbed,1)))
+									src.Oxygen=min(src.Oxygen+(rand(1,3)),(src.OxygenMax/max(src.SenseRobbed,1)))
+								if(src.Oxygen<10)
+									src.LoseEnergy(20)
+									if(src.TotalFatigue>=95)
+										src.DamageSelf(TrueDamage(1))
+										if(src.Health<-300)
+											if(prob(20)&&!src.StabilizeModule)
+												src.Death(null,"oxygen deprivation!")
+			else
+				if(Swim==1)
+					src.RemoveWaterOverlay()
+					Swim=0
+					if(isplayer(src))
+						src:move_speed = MovementSpeed()
+				if(src.Oxygen<(src.OxygenMax/max(src.SenseRobbed,1)))
+					src.Oxygen=min(src.Oxygen+(rand(1,3)),(src.OxygenMax/max(src.SenseRobbed,1)))
+				if(src.icon_state=="Train"&&src.Secret=="Ripple")
+					src.Oxygen+=(src.OxygenMax/max(src.SenseRobbed,1))*0.2
+					if(src.Oxygen>=(src.OxygenMax/max(src.SenseRobbed,1))*2)
+						src.Oxygen=(src.OxygenMax/max(src.SenseRobbed,1))*2
+				if(src.Oxygen<10)
+					src.LoseEnergy(20)
+					if(src.TotalFatigue>=95)
+						src.DamageSelf(TrueDamage(1))
+						if(src.Health<-300)
+							if(prob(20)&&!src.StabilizeModule)
+								src.Death(null,"oxygen deprivation!")
 
 			if(src.AFKTimer>0)
 				src.AFKTimer -= 1

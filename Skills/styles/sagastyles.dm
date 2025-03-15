@@ -39,5 +39,5 @@
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Genjutsud
 	BuffName = "Gunjutsu'd"
 	CrippleAffected = 3
-	StunAffected = 0.3
+	StunAffected = 3
 	TimerLimit = 15
