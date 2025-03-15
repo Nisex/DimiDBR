@@ -66,7 +66,7 @@
 		passives = list("Drained" = glob.racials.SOULDRAINPER * total_stacks)
 	
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Marked_Prey
-	HealthDrain = 0.0005
+	HealthDrain = 0.005
 	TimerLimit = 30
 	AlwaysOn = 0
 	NeedsPassword = 0
@@ -91,7 +91,7 @@
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Rupture
-	HealthDrain = 0.001
+	HealthDrain = 0.01
 	TimerLimit = 25
 	IconLock='Bleed.dmi'
 	max_stacks = 3
@@ -102,11 +102,11 @@
 		switch(total_stacks)
 			if(1)
 				IconState = "1"
-				HealthDrain = 0.0025
+				HealthDrain = 0.025
 				ShearAffected = 1
 			if(2)
 				IconState = "2"
-				HealthDrain = 0.005
+				HealthDrain = 0.05
 				ShearAffected = 2
 				CrippleAffected = 2
 

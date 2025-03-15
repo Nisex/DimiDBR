@@ -39,8 +39,8 @@ obj/blades
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/MSDebuff/Seishinkai_to_Yami
 	var/tmp/mob/tmpAppearanceMob
 	var/tmp/obj/blades/b
-	StunAffected = 0.1
-	HealthDrain = 0.005
+	StunAffected = 1
+	HealthDrain = 0.05
 	TimerLimit = 10
 	Trigger(mob/User, Override = FALSE)
 		if(!User.BuffOn(src))
@@ -92,7 +92,7 @@ obj/blades
 	CrippleAffected = 2
 	EndTaxDrain = 0.000005
 	EndTax = 0.01
-	EnergyDrain = 0.005
+	EnergyDrain = 0.05
 	TimerLimit = 0
 	IconLock='DarknessFlameAura.dmi'
 	LockX=-32

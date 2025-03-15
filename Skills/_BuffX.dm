@@ -1980,7 +1980,7 @@ NEW VARIABLES
 			AutoAnger=1
 			Desperation=1
 			SpdMult=2
-			HealthDrain = 0.0001
+			HealthDrain = 0.001
 			Cooldown=-1
 			ActiveMessage="goes beyonds their limits!"
 			OffMessage="cannot push themselves any further..."
@@ -2004,7 +2004,7 @@ NEW VARIABLES
 								else
 									passives = list("Persistence" = 6 - desp, "UnderDog" = 6 - underDog, "Tenacity" = 6 - tenacity, "AngerThreshold" = 2, "Adrenaline" = 2, "LimitBroken" = 1)
 								PowerMult = 1.5
-								HealthDrain = 0.0006
+								HealthDrain = 0.006
 								StrMult = 1.3
 								EndMult = 0.6
 								DefMult = 0.6
@@ -2026,7 +2026,7 @@ NEW VARIABLES
 								else
 									passives = list("Persistence" = 6 - desp, "UnderDog" = 6 - underDog, "Tenacity" = 6 - tenacity, "AngerThreshold" = 2, "Adrenaline" = 2, "LimitBroken" = 1)
 								PowerMult = 1.15
-								HealthDrain = 0.0003
+								HealthDrain = 0.003
 								StrMult = 1.2
 								EndMult = 0.8
 								DefMult = 0.8
@@ -2564,7 +2564,7 @@ NEW VARIABLES
 					EndMult = 0.6 + clamp(totalPot/150, 0.1, 0.4)
 					DefMult = 0.6 + clamp(totalPot/150, 0.1, 0.4)
 					var/reducedPot = totalPot/10
-					ManaDrain = 0.0008 - (0.0001 * reducedPot)
+					ManaDrain = 0.008 - (0.001 * reducedPot)
 					passives = list("ManaLeak" = 1 - totalPot/200 )
 
 
@@ -3978,20 +3978,20 @@ NEW VARIABLES
 							src.OffMult=1.2
 							src.DefMult=1.3
 							src.SureDodgeTimerLimit=40
-							passives = list("Maki" = 1, "PUSpike" = 10, "Flow" = 1)
+							passives = list("Maki" = 1, "PUSpike" = 10, "Flow" = 1, "FatigueDrain"  = 0.1)
 							src.Instinct=0
 							src.Flow=1
-							src.FatigueDrain=0.01
+							src.FatigueDrain=0.1
 							AngerPoint = 15
 							ActiveMessage="is filled with cold rage as their eyes turn red and one tomoe appears in their iris!"
 						if(2)
 							src.OffMult=1.2
 							src.DefMult=1.3
 							src.SureDodgeTimerLimit=35
-							passives = list("Maki" = 1, "PUSpike" = 20, "Flow" = 1, "Instinct" = 1)
+							passives = list("Maki" = 1, "PUSpike" = 20, "Flow" = 1, "Instinct" = 1, "FatigueDrain"  = 0.05)
 							src.Instinct=1
 							src.Flow=1
-							src.FatigueDrain=0.005
+							src.FatigueDrain=0.05
 							PUSpike=20
 							AngerPoint = 20
 							ActiveMessage="is filled with cold rage as their eyes turn red and two tomoe appear in their iris!"
@@ -4341,7 +4341,7 @@ NEW VARIABLES
 			SpiritForm=1
 			ActiveMessage="shifts into their spiritual body!"
 			OffMessage="becomes fully physical once more..."
-			ManaDrain = 0.01
+			ManaDrain = 0.1
 			passives = list("ManaLeak" = 2, "SpiritForm" = 1, "MovementMastery" = 1, "ManaStats" = 0.25, "TechniqueMastery" = -2, "MartialMagic" = 1, "ManaGeneration" = -2, "FatigueLeak" = 3)
 			ManaLeak = 2
 			ManaThreshold = 40
@@ -4496,7 +4496,7 @@ NEW VARIABLES
 				OffMessage="lowers their shield..."
 				adjust(mob/p)
 					var/magicLevel = p.getTotalMagicLevel()
-					ManaDrain = 0.12 - (0.004 * magicLevel)
+					ManaDrain = 1.2 - (0.04 * magicLevel)
 					passives["Deflection"] = 1 + round(magicLevel / 10)
 					if(magicLevel >= 10)
 						passives["BulletKill"] = 1
@@ -4557,7 +4557,7 @@ NEW VARIABLES
 					SpdMult = 1 + (magicLevel * 0.01)
 					Godspeed = round(magicLevel / 10)
 					DoubleStrike = 1
-					ManaDrain = 0.001
+					ManaDrain = 0.01
 					SpdTax = 0.03
 				verb/Haste()
 					set category="Skills"
@@ -7546,8 +7546,8 @@ NEW VARIABLES
 				src.Trigger(usr)
 		Heavenly_Ring_Dance
 			NeedsHealth=50
-			FatigueDrain=0.075
-			passives = list("CastingTime" = 2, "SpecialStrike" = 1)
+			FatigueDrain=0.75
+			passives = list("CastingTime" = 2, "FatigueDrain" = 0.75, "SpecialStrike" = 1)
 			CastingTime=2
 			TurfShift='Mandala.dmi'
 			KenWave=1
@@ -7831,10 +7831,10 @@ NEW VARIABLES
 		Eye_of_Chaos
 			NeedsSword=1
 			TaxThreshold=0.5
-			EndTaxDrain=0.00025
-			SpdTaxDrain=0.00025
-			RecovTaxDrain=0.00025
-			FatigueDrain=0.005
+			EndTaxDrain=0.0025
+			SpdTaxDrain=0.0025
+			RecovTaxDrain=0.0025
+			FatigueDrain=0.05
 			ABuffNeeded=list("Soul Resonance")
 			NeedsHealth=50
 			FINISHINGMOVE=1
@@ -9986,7 +9986,7 @@ NEW VARIABLES
 					IconApart=1
 					DefMult=0.6
 					EndMult=0.6
-					WoundDrain = 0.001
+					WoundDrain = 0.01
 					ActiveMessage="has been impaled!"
 					OffMessage="regains their composure!"
 				Tri_Break
@@ -10000,7 +10000,7 @@ NEW VARIABLES
 					IconTint=rgb(51, 102, 204)
 					StrMult=0.6
 					ForMult=0.6
-					ManaDrain = 0.1
+					passives = list("ManaDrain" = 1)
 					ActiveMessage="has had their mana flow inverted!"
 					OffMessage="regains control of their magical reserves..."
 				Evasion_Negation
@@ -10027,7 +10027,7 @@ NEW VARIABLES
 					IconLock='SweatDrop.dmi'
 					IconApart=1
 					passives = list("NoDodge" = 1, "PureDamage" = -2.5, "BleedHit" = 1)
-					FatigueDrain=0.35
+					FatigueDrain=3.5
 					ManaDrain=2.5
 					BurnAffected=0.2
 					SlowAffected=0.2
@@ -10189,7 +10189,7 @@ NEW VARIABLES
 					OffMessage="regains their vitality!"
 
 				Self_Shattered
-					EnergyDrain=1
+					EnergyDrain=10
 					passives = list("BleedHit" = 1, "FatigueLeak" = 1, "ManaLeak" = 1)
 					BleedHit=1
 					FatigueLeak=1
@@ -10204,7 +10204,8 @@ NEW VARIABLES
 
 				Forced_Mechanize
 					Mechanized=1
-					ManaDrain=0.2
+					passives = list("ManaDrain" = 2, "Mechanized" = 1)
+					ManaDrain=2
 					IconTint=list(0.3,0.3,0.3, 0.59,0.59,0.59, 0.11,0.11,0.11, 0,0,0)
 					OffMessage="breaks through the mechanization!"
 				Venom_Break
@@ -10367,9 +10368,9 @@ NEW VARIABLES
 			Disturbed
 				AlwaysOn=1
 				TimerLimit=3600
-				HealthDrain=0.0025
-				EnergyDrain=0.0025
-				ManaDrain=0.0025
+				HealthDrain=0.025
+				EnergyDrain=0.025
+				ManaDrain=0.025
 				IconLock='BraveSparks.dmi'
 				IconLockBlend=2
 				OverlaySize=0.7
@@ -10629,7 +10630,7 @@ NEW VARIABLES
 			Punishment_of_Hell
 				AlwaysOn=1
 				KenWave=1
-				WoundDrain=0.01
+				WoundDrain=0.1
 				ActiveMessage="experiences the suffering of Hell Realm - constant pain and injury!"
 				KenWaveSize=1
 				KenWaveBlend=2
@@ -10640,7 +10641,7 @@ NEW VARIABLES
 			Punishment_of_Spectres
 				AlwaysOn=1
 				KenWave=1
-				FatigueDrain=0.02
+				FatigueDrain=0.2
 				ActiveMessage="experiences the suffering of Specter Realm - nagging emptiness and hunger!"
 				KenWaveSize=1
 				KenWaveBlend=2

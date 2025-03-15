@@ -604,38 +604,35 @@ mob
 			if(src.Burn)
 				doDebuffDamage("Burn")
 
-			var/innateDebuffResistance = src.GetEnd(0.025)
-			innateDebuffResistance *= 1 + GetDebuffResistance()
-
 			if(src.Shatter)
 				if(src.Sprayed)
-					src.Shatter -= innateDebuffResistance + GetDef(0.01) * 2
+					src.Shatter-=(src.GetEnd(0.25)+src.GetDef(0.1))*2*(1+src.GetDebuffResistance())
 				else
-					src.Shatter -= innateDebuffResistance + GetDef(0.01)
+					src.Shatter-=(src.GetEnd(0.25)+src.GetDef(0.1))*(1+src.GetDebuffResistance())
 				if(src.Shatter<=0)
 					src.Shatter=0
 
 			if(src.Slow)
 				if(src.Cooled)
-					src.Slow-= innateDebuffResistance + GetSpd(0.01) * 2
+					src.Slow-=(src.GetEnd(0.25)+src.GetSpd(0.1))*2*(1+src.GetDebuffResistance())
 				else
-					src.Slow-= innateDebuffResistance + GetSpd(0.01)
+					src.Slow-=(src.GetEnd(0.25)+src.GetSpd(0.1))*(1+src.GetDebuffResistance())
 				if(src.Slow<=0)
 					src.Slow=0
 
 			if(src.Shock)
 				if(src.Stabilized)
-					src.Shock-= innateDebuffResistance + GetSpd(0.01) * 2
+					src.Shock-=(src.GetEnd(0.25)+src.GetSpd(0.1))*2*(1+src.GetDebuffResistance())
 				else
-					src.Shock-= innateDebuffResistance + GetSpd(0.01)
+					src.Shock-=(src.GetEnd(0.25)+src.GetSpd(0.1))*(1+src.GetDebuffResistance())
 				if(src.Shock<=0)
 					src.Shock=0
 
 			if(src.Crippled)
 				if(src.Sprayed)
-					src.Crippled-= innateDebuffResistance + GetSpd(0.025) * 2
+					src.Crippled-=(src.GetSpd(0.25)+src.GetDef(0.1))*2*(1+src.GetDebuffResistance())
 				else
-					src.Crippled-= innateDebuffResistance + GetSpd(0.025)
+					src.Crippled-=(src.GetSpd(0.25)+src.GetDef(0.1))*(1+src.GetDebuffResistance())
 				if(src.Crippled<=0)
 					src.Crippled=0
 
@@ -643,26 +640,26 @@ mob
 				if(src.Stabilized)
 					src.Confused-=5
 				else
-					src.Confused-=clamp(1 + (src.GetSpd(0.025)), 1, 3)
+					src.Confused-=clamp(1 + (src.GetSpd(0.25)), 1, 3)
 				if(src.Confused<=0)
 					src.Confused=0
 
 			if(src.Sheared)
 				if(src.Sprayed)
 					if(src.icon_state=="Meditate")
-						src.Sheared-=0.4
+						src.Sheared-=4
 					else
-						src.Sheared-=0.05
+						src.Sheared-=0.5
 				else
 					if(src.icon_state=="Meditate")
-						src.Sheared-=0.2
+						src.Sheared-=2
 					else
-						src.Sheared-=0.025
+						src.Sheared-=0.25
 			if(src.Sheared<=0)
 				src.Sheared=0
 
 			if(src.Attracted&&!src.Confused&&!src.Stunned)
-				src.Attracted -= 0.1
+				src.Attracted--
 				if(src.Attracted<=0)
 					src.Attracted=0
 					src.AttractedTo=0

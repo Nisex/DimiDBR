@@ -65,7 +65,7 @@
     In_the_Details
         passives = list("KillerInstinct" = 0.1, "HellPower" = 0.5, "Godspeed" = 2, "DebuffResistance" = 0.25, \
                         "Steady" = 2, "Scorching" = 15, "Toxic" = 10, "CursedWounds" = 1, "TensionLock" = 1)
-        HealthDrain = 0.0033
+        HealthDrain = 0.033
         DefMult = 0.75
         EndMult = 0.75
         StrMult = 1.5

@@ -501,24 +501,22 @@ mob
 					src<<"The strain of Golden Form forced you to revert!"
 */
 
-				if(src.Transfering)
-					var/mob/Players/M=src.Transfering
-					var/val
-					if(!src.KO)
-						if(get_dist(M, src)<=15)
-							if(src.ManaAmount>0)
-								val=0.1
-								src.LoseEnergy(val)
-								src.LoseMana(val)
-								M.HealEnergy(val*src.Imagination)
-								M.HealWounds(val*src.Imagination)
-								M.HealFatigue(val*src.Imagination)
-								M.HealMana(val*src.Imagination)
-								missile('SE.dmi', src, M)
-							else
-								src.Transfering=null
-					else
-						Transfering = null
+			if(src.Transfering)
+				var/mob/Players/M=src.Transfering
+				var/val
+				if(!src.KO)
+					if(get_dist(M, src)<=15)
+						if(src.ManaAmount>0)
+							val=1
+							src.LoseEnergy(val)
+							src.LoseMana(1)
+							M.HealEnergy(val*src.Imagination)
+							M.HealWounds(1*src.Imagination)
+							M.HealFatigue(1*src.Imagination)
+							M.HealMana(1*src.Imagination)
+							missile('SE.dmi', src, M)
+						else
+							src.Transfering=null
 
 			/* not used
 				if(void_timer < world.realtime && voiding)
@@ -600,7 +598,7 @@ mob
 								vampire.drainBlood()
 								vampireBlood.fillGauge(clamp(secretDatum.secretVariable["BloodPower"]/4, 0, 1), 10)
 						if(src.icon_state=="Train"&&!src.PoseEnhancement)
-							src.PoseTime += 0.1
+							src.PoseTime += 1
 							if(src.PoseTime==5)
 								src << "The restraints of your bloodlust crumble away as you dissolve into a living shadow!!"
 
@@ -625,32 +623,33 @@ mob
 										fmf.Trigger(src, Override=1)
 
 
-					if(src.ManaDeath)
-						src.WoundSelf(0.02*(src.ManaAmount/ManaMax))
-						ManaAmount-=0.15*(src.ManaAmount/ManaMax)
-						if(src.ManaAmount<=ManaMax && src.ManaDeath)
-							src.ManaDeath=0
-							ManaAmount = ManaMax
-							senjutsuOverloadAlert=FALSE
-							src << "You exhaust your natural energy, avoiding death by overexposure."
+			if(src.ManaDeath)
+				src.WoundSelf(0.2*(src.ManaAmount/ManaMax))
+				ManaAmount-=1.5*(src.ManaAmount/ManaMax)
+				if(src.ManaAmount<=ManaMax && src.ManaDeath)
+					src.ManaDeath=0
+					ManaAmount = ManaMax
+					senjutsuOverloadAlert=FALSE
+					src << "You exhaust your natural energy, avoiding death by overexposure."
 
-					if(src.HasRipple()||(!src.CheckSlotless("Half Moon Form")&&!src.CheckSlotless("Full Moon Form"))||src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus")||Secret=="Eldritch"&&!CheckSlotless("True Form"))
-						if(src.icon_state=="Train"&&!src.PoseEnhancement)
-							if(src.Secret=="Werewolf"&&!src.PoseTime)
-								src << "You focus your instincts perfectly on the chosen target, ready to leap any second!"
-							src.PoseTime += 1
-							if(src.PoseTime>=glob.POSE_TIME_NEEDED)
-								if(Secret=="Eldritch")
-									icon_state = ""
-									PoseTime = 0
-									for(var/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form/fmf in src)
-										fmf.Trigger(src)
-								if(src.HasRipple())
-									if(src.Swim==1)
-										src.RemoveWaterOverlay()
-										src.underlays+=image('The Ripple.dmi', pixel_x=-32, pixel_y=-32)
-								if(src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus"))
-									src << "You managed to mold some natural energy!"
+			if(src.HasRipple()||(!src.CheckSlotless("Half Moon Form")&&!src.CheckSlotless("Full Moon Form"))||src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus")||Secret=="Eldritch"&&!CheckSlotless("True Form"))
+				if(src.icon_state=="Train"&&!src.PoseEnhancement)
+					if(src.Secret=="Werewolf"&&!src.PoseTime)
+						src << "You focus your instincts perfectly on the chosen target, ready to leap any second!"
+					src.PoseTime++
+					if(src.PoseTime>=glob.POSE_TIME_NEEDED)
+						if(Secret=="Eldritch")
+							icon_state = ""
+							PoseTime = 0
+							for(var/obj/Skills/Buffs/SlotlessBuffs/Eldritch/True_Form/fmf in src)
+								fmf.Trigger(src)
+						if(src.HasRipple())
+							src << "The Ripple flows through your body perfectly!  You have gained full control over your breathing!!"
+							if(src.Swim==1)
+								src.RemoveWaterOverlay()
+								src.underlays+=image('The Ripple.dmi', pixel_x=-32, pixel_y=-32)
+						if(src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus"))
+							src << "You managed to mold some natural energy!"
 
 				if(src.Stasis||src.StasisFrozen)
 					src.Stasis-=world.tick_lag
@@ -658,10 +657,10 @@ mob
 						src.Stasis=0
 						src.RemoveStasis()
 
-				if(src.AttackQueue&&src.AttackQueue.Delayer)
-					src.AttackQueue.DelayerTime += 1
-					if(src.AttackQueue.DelayerTime==src.AttackQueue.Duration-2)
-						src << "Your <b>[src.AttackQueue]</b> is fully charged!! Attack before you lose the power!!"
+			if(src.AttackQueue&&src.AttackQueue.Delayer)
+				src.AttackQueue.DelayerTime++
+				if(src.AttackQueue.DelayerTime==src.AttackQueue.Duration-2)
+					src << "Your <b>[src.AttackQueue]</b> is fully charged!! Attack before you lose the power!!"
 
 				if(src.PowerControl>100)
 					if(!src.HasKiControl()&&!src.PoweringUp)
@@ -674,7 +673,7 @@ mob
 
 				if(src.BusterTech && src.BusterCharging<100)
 
-					src.BusterCharging+=(100/RawSeconds(5)) * src.BusterTech.Buster * src.GetRecov() / 10
+				src.BusterCharging+=(100/RawSeconds(5)) * src.BusterTech.Buster * src.GetRecov()
 
 					if(src.BusterCharging>100)
 						src.BusterCharging=100
@@ -755,94 +754,99 @@ mob
 					if(Fury<0)
 						Fury=0
 
+			if(src.SureHitTimerLimit)
+				if(!src.SureHit)
+					src.SureHitTimer--
+					if(src.SureHitTimer<=0)
+						src.SureHit=1
+						src.SureHitTimer=src.SureHitTimerLimit
+			if(src.SureDodgeTimerLimit)
+				if(!src.SureDodge)
+					src.SureDodgeTimer--
+					if(src.SureDodgeTimer<=0)
+						src.SureDodge=1
+						src << "<b><i>You have a sure dodge stack!</b></i>"
+						src.SureDodgeTimer=src.SureDodgeTimerLimit
 
-				if(src.SureHitTimerLimit)
-					if(!src.SureHit)
-						src.SureHitTimer -= 1
-						if(src.SureHitTimer<=0)
-							src.SureHit=1
-							src.SureHitTimer=src.SureHitTimerLimit
-				if(src.SureDodgeTimerLimit)
-					if(!src.SureDodge)
-						src.SureDodgeTimer -= 1
-						if(src.SureDodgeTimer<=0)
-							src.SureDodge=1
-							src << "<b><i>You have a sure dodge stack!</b></i>"
-							src.SureDodgeTimer=src.SureDodgeTimerLimit
-	/*
-				if(InDevaPath())
-					devaCounter += 0.1*/
 
+
+			if(InDevaPath())
+				devaCounter++
+
+			if(src.UsingFTG())
+				src.IaidoCounter++
+			if(UsingGladiator())
+				GladiatorCounter++
 				if(passive_handler["Flying Thunder God"])
 					src.IaidoCounter += 1
 				if(UsingGladiator())
 					GladiatorCounter += 1
 
-				if(src.BPPoisonTimer)
-					src.BPPoisonTimer -= 1
+			if(src.BPPoisonTimer)
+				src.BPPoisonTimer--
+				if(src.Satiated&&!Drunk)
+					src.BPPoisonTimer--
+				if(src.BPPoisonTimer<=0)
+					if(src.BPPoison==0.5)
+						src.BPPoisonTimer=RawHours(3)
+						src.BPPoison=0.7
+					else if(src.BPPoison==0.7)
+						src.BPPoisonTimer=RawHours(1)
+						src.BPPoison=0.9
+					else
+						src.BPPoison=1
+						src.BPPoisonTimer=0
+			if(src.OverClockNerf)
+				src.OverClockTime--
+				if(src.Satiated&&!Drunk)
+					src.OverClockTime--
+				if(src.OverClockTime<=0)
+					src.OverClockTime=0
+					src.OverClockNerf=0
+					if(!isRace(ANDROID))
+						src << "You've recovered from using your powerful ability!"
+					else
+						src << "Your systems have rebooted!"
+			if(src.GatesNerfPerc)
+				if(src.GatesNerf>0)
+					src.GatesNerf--
 					if(src.Satiated&&!Drunk)
-						src.BPPoisonTimer -= 1
-					if(src.BPPoisonTimer<=0)
-						if(src.BPPoison==0.5)
-							src.BPPoisonTimer=RawHours(3)
-							src.BPPoison=0.7
-						else if(src.BPPoison==0.7)
-							src.BPPoisonTimer=RawHours(1)
-							src.BPPoison=0.9
-						else
-							src.BPPoison=1
-							src.BPPoisonTimer=0
-				if(src.OverClockNerf)
-					src.OverClockTime -= 1
-					if(src.Satiated&&!Drunk)
-						src.OverClockTime -= 1
-					if(src.OverClockTime<=0)
-						src.OverClockTime=0
-						src.OverClockNerf=0
-						if(!isRace(ANDROID))
-							src << "You've recovered from using your powerful ability!"
-						else
-							src << "Your systems have rebooted!"
-				if(src.GatesNerfPerc)
-					if(src.GatesNerf>0)
-						src.GatesNerf -= 1
-						if(src.Satiated&&!Drunk)
-							src.GatesNerf -= 1
-						if(src.GatesNerf<=0)
-							src.GatesNerfPerc=0
-							src.GatesNerf=0
-							src << "You've recovered from the strain of your ability!"
-							GatesActive = 0
+						src.GatesNerf--
+					if(src.GatesNerf<=0)
+						src.GatesNerfPerc=0
+						src.GatesNerf=0
+						src << "You've recovered from the strain of your ability!"
+						GatesActive = 0
 
-				if(src.StrTax)
-					src.SubStrTax(0.5/(2 DAYS))
-				if(src.EndTax)
-					src.SubEndTax(0.5/(2 DAYS))
-				if(src.SpdTax)
-					src.SubSpdTax(0.5/(2 DAYS))
-				if(src.ForTax)
-					src.SubForTax(0.5/(2 DAYS))
-				if(src.OffTax)
-					src.SubOffTax(0.5/(2 DAYS))
-				if(src.DefTax)
-					src.SubDefTax(0.5/(2 DAYS))
-				if(src.RecovTax)
-					src.SubRecovTax(0.5/(2 DAYS))
+			if(src.StrTax)
+				src.SubStrTax(1/(1 DAYS))
+			if(src.EndTax)
+				src.SubEndTax(1/(1 DAYS))
+			if(src.SpdTax)
+				src.SubSpdTax(1/(1 DAYS))
+			if(src.ForTax)
+				src.SubForTax(1/(1 DAYS))
+			if(src.OffTax)
+				src.SubOffTax(1/(1 DAYS))
+			if(src.DefTax)
+				src.SubDefTax(1/(1 DAYS))
+			if(src.RecovTax)
+				src.SubRecovTax(1/(1 DAYS))
 
 				if(src.AngerCD)
 					src.AngerCD=max(src.AngerCD-1,0)
 				if(src.PotionCD)
 					src.PotionCD=max(src.PotionCD-1,0)
 
-				if(src.CounterMasterTimer)
-					src.CounterMasterTimer = max(0, CounterMasterTimer-1)
+			if(src.CounterMasterTimer)
+				src.CounterMasterTimer = max(0, CounterMasterTimer-1)
 
-				if(src.BindingTimer)
-					src.BindingTimer -= 1
-					if(src.BindingTimer<=0)
-						src.BindingTimer=0
-					if(src.Binding&&Binding.len>0)
-						src.TriggerBinding()
+			if(src.BindingTimer>=1)
+				src.BindingTimer--
+				if(src.BindingTimer<=0)
+					src.BindingTimer=0
+				if(src.Binding&&Binding.len>0)
+					src.TriggerBinding()
 
 /*
 			if(src.FusionTimer>0)
