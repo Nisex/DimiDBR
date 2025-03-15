@@ -1070,7 +1070,7 @@ obj/Skills/Utility
 					return
 			var/list/mob/Targets=list()
 			for(var/mob/m in get_step(usr, usr.dir))
-				if(m.KO&&!m.ECCHARACTER&&!m.isRace(ANDROID)&&!m.ManaSealed&&!istype(m, /mob/Player/FevaSplits)&&!istype(m, /mob/Player/AI))
+				if(m.KO&&!m.isRace(ANDROID)&&!m.ManaSealed&&!istype(m, /mob/Player/FevaSplits)&&!istype(m, /mob/Player/AI))
 					if(m.client&&m.client.address!=usr.client.address)//lol no u can not make alts to eat...
 						Targets.Add(m)
 			if(Targets.len>0)
