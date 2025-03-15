@@ -237,13 +237,13 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 /mob/proc/doLoopTimers()
 	if(Lethal-- <= 0 && Lethal)
 		Lethal = 0
-		OMsg(src, "font color='grey'>[src] will no longer deal lethal damage.</font color>")
+		OMsg(src, "<font color='grey'>[src] will no longer deal lethal damage.</font color>")
 	// Move this to a different loop, most likely
 
 	if(TsukiyomiTime-- <= 0 && TsukiyomiTime)
 		TsukiyomiTime = 0
 		animate(client, color=null, time=1)
-		OMsg(src, "font color='grey'>[src] is no longer trapped in Tsukiyomi.</font color>")
+		OMsg(src, "<font color='grey'>[src] is no longer trapped in Tsukiyomi.</font color>")
 
 	if(warperTimeLock>0)
 		warperTimeLock--

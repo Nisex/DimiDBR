@@ -969,7 +969,7 @@ mob
 			if(SenseRobbed>=2)
 				KeyOxygen/=src.SenseRobbed
 			if(src.Oxygen>KeyOxygen)
-				src.Oxygen-=0.1
+				src.Oxygen-=1
 		Calm(var/Pacified=0)
 			if(passive_handler.Get("EndlessAnger"))
 				return

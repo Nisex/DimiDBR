@@ -482,7 +482,6 @@ mob/proc/GetPowerUpRatioVisble()
 	return Ratio
 
 mob/proc/Recover(var/blah,Amount=1)
-	Amount/=10
 	switch(blah)
 		if("Health")
 			if(PureRPMode)

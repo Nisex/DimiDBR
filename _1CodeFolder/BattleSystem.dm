@@ -1822,7 +1822,7 @@ mob/proc/Grab_Effects(var/mob/P)
 	if(src.HasRipple())
 		if(src.Oxygen > src.OxygenMax*0.9)
 			src.OMessage(10,"[src] channels the Ripple into [P]...","[src]([src.key]) tests [ExtractInfo(P)]")
-			src.Oxygen-=0.01*src.OxygenMax
+			src.Oxygen-=0.1*src.OxygenMax
 			if(P.IsEvil())
 				src.OMessage(10,"[P] shudders from sudden pain!")
 			else
