@@ -290,7 +290,7 @@ mob/Admin3/verb/GiveWitchBook()
 	StrMult = 0.5
 	ForMult = 0.5
 	EndMult = 0.75
-	SlowAffected = 0.1
+	SlowAffected = 1
 	TimerLimit = 30
 	NeedsPassword = 1
 	TimerLimit = 30

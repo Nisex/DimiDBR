@@ -118,10 +118,10 @@
     ManaCost=5
     AffectTarget=1
     Range=15
-    CrippleAffected= 0.1
-    PoisonAffected = 0.1
-    ConfuseAffected = 0.1
-    BurnAffected = 1
+    CrippleAffected=10
+    PoisonAffected = 10
+    ConfuseAffected = 1
+    BurnAffected = 10
     TimerLimit = 5
     MagicNeeded = 0
     Cooldown = 60

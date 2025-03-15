@@ -105,8 +105,8 @@
         IconLock='SweatDrop.dmi'
         IconApart=1
         passives = list("PureReduction" = -0.5)
-        CrippleAffected = 0.2
-        SlowAffected = 0.2
+        CrippleAffected = 2
+        SlowAffected = 2
 
     Zwercopter
         IconLock='Ice_Aura_2.dmi'
@@ -146,6 +146,6 @@
         SpdMult = 1.2
     Itchy_Blood
         passives = list("Godspeed" = -1)
-        ConfuseAffected = 0.5
-        ShearAffected = 0.5
-        PoisonAffected = 0.5
+        ConfuseAffected = 5
+        ShearAffected = 5
+        PoisonAffected=5

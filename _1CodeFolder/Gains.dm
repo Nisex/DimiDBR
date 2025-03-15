@@ -919,18 +919,325 @@ mob
 					src.OverClockNerf+=0.25
 					src.OverClockTime+=RawHours(6)
 
+			var/safety=0
+			while(src.ActiveBuff)
+				if(safety!=0) break
+				safety++
+				if(src.ActiveBuff.HealthDrain)
+					src.DoDamage(src, TrueDamage(src.ActiveBuff.HealthDrain))
+				if(src.ActiveBuff.HealthThreshold&&!src.ActiveBuff.AllOutAttack)
+					if(src.Health<src.ActiveBuff.HealthThreshold*(1-src.HealthCut)||src.KO)
+						if(src.CheckActive("Eight Gates"))
+							src.ActiveBuff:Stop_Cultivation()
+							GatesActive=0
+						else
+							src.ActiveBuff.Trigger(src,Override=1)
+						GatesActive=0
+						break
 
-				if(cursedSheathValue)
-					cursedSheathValue -= 0.5/SagaLevel //TODO: ADD A HUD
-					cursedSheathValue = clamp(0, cursedSheathValue, SagaLevel*50)
+				if(src.ActiveBuff.WoundDrain)
+					src.WoundSelf(src.ActiveBuff.WoundDrain)
+				if(src.ActiveBuff.WoundThreshold&&!src.ActiveBuff.AllOutAttack)
+					if(src.TotalInjury>=src.ActiveBuff.WoundThreshold)
+						src.ActiveBuff.Trigger(src,Override=1)
+						break
 
-			if(ActiveBuff)
-				ActiveBuff.GainLoop(src)
-			
-			if(SpecialBuff)
-				SpecialBuff.GainLoop(src)
+				if(src.ActiveBuff.EnergyDrain)
+					src.LoseEnergy(src.ActiveBuff.EnergyDrain)
+				if(src.ActiveBuff.EnergyThreshold&&!src.ActiveBuff.AllOutAttack)
+					if(src.Energy<src.ActiveBuff.EnergyThreshold*(1-src.EnergyCut))
+						src.ActiveBuff.Trigger(src,Override=1)
+						break
 
-			if(length(SlotlessBuffs))
+				if(src.ActiveBuff.FatigueDrain)
+					src.GainFatigue(src.ActiveBuff.FatigueDrain)
+				if(src.ActiveBuff.FatigueThreshold&&!src.ActiveBuff.AllOutAttack)
+					if(src.TotalFatigue>=src.ActiveBuff.FatigueThreshold)
+						if(src.CheckActive("Eight Gates"))
+							src.ActiveBuff:Stop_Cultivation()
+							GatesActive=0
+						else
+							src.ActiveBuff.Trigger(src,Override=1)
+						break
+
+				if(src.ActiveBuff.CapacityDrain)
+					src.LoseCapacity(src.ActiveBuff.CapacityDrain)
+				if(src.ActiveBuff.CapacityThreshold&&!src.ActiveBuff.AllOutAttack)
+					if(src.TotalCapacity>=src.ActiveBuff.CapacityThreshold)
+						src.ActiveBuff.Trigger(src,Override=1)
+						break
+
+				if(src.ActiveBuff.ManaDrain)
+					src.LoseMana(src.ActiveBuff.ManaDrain,1)
+				if(src.ActiveBuff.ManaThreshold&&!src.ActiveBuff.AllOutAttack)
+					if(src.ManaAmount<src.ActiveBuff.ManaThreshold)
+						src.ActiveBuff.Trigger(src,Override=1)
+						break
+
+				if(src.ActiveBuff.VaizardShatter)
+					if(src.VaizardHealth<=0)
+						src.ActiveBuff.Trigger(src,Override=1)
+						break
+
+				if(src.ActiveBuff.TimerLimit)
+					if(!isnum(src.ActiveBuff.Timer))//If the timer isn't a number...
+						src.ActiveBuff.Timer=0//Make it 0.
+					src.ActiveBuff.Timer+=world.tick_lag
+					if(src.ActiveBuff.Timer>=src.ActiveBuff.TimerLimit)//If the timer has filled up entirely...
+						if(src.CheckActive("Eight Gates"))
+							src.ActiveBuff:Stop_Cultivation()
+							GatesActive=0
+						else
+							src.ActiveBuff.Trigger(src,Override=1)//toggle it off.
+						break
+
+				if(src.ActiveBuff.TooMuchHealth)
+					if(src.Health>=src.ActiveBuff.TooMuchHealth)
+						src.ActiveBuff.Trigger(src,Override=1)
+						break
+
+				if(src.ActiveBuff.WaveringAngerLimit)
+					if(src.ActiveBuff.WaveringAnger<src.ActiveBuff.WaveringAngerLimit)
+						src.ActiveBuff.WaveringAnger++
+						if(src.ActiveBuff.WaveringAnger>=src.ActiveBuff.WaveringAngerLimit)
+							if(prob(33))
+								src.SetNoAnger(src.ActiveBuff, 1)
+							else
+								src.SetNoAnger(src.ActiveBuff, 0)
+							src.ActiveBuff.WaveringAnger=0
+
+				if(src.ActiveBuff.WoundHeal)
+					if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
+						src.HealWounds(src.GetRecov(src.ActiveBuff.WoundHeal))
+				if(src.ActiveBuff.FatigueHeal)
+					if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
+						if(src.ActiveBuff.StableHeal)
+							src.HealFatigue(src.ActiveBuff.FatigueHeal,1)
+						else
+							src.HealFatigue(src.GetRecov(src.ActiveBuff.FatigueHeal))
+				if(src.ActiveBuff.CapacityHeal)
+					if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
+						src.HealCapacity(src.ActiveBuff.CapacityHeal)
+				if(src.ActiveBuff.HealthHeal)
+					if((src.Health+src.TotalInjury)>=100||(src.TotalInjury&&src.icon_state=="Meditate"))
+						if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
+							src.HealWounds(src.GetRecov(src.ActiveBuff.HealthHeal))
+					else
+						if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
+							src.HealHealth(src.GetRecov(src.ActiveBuff.HealthHeal))
+				if(src.ActiveBuff.EnergyHeal)
+					if((src.Energy+src.TotalFatigue)>=100||(src.TotalFatigue&&src.icon_state=="Meditate"))
+						if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
+							if(src.ActiveBuff.StableHeal)
+								src.HealFatigue(src.ActiveBuff.EnergyHeal,1)
+							else
+								src.HealFatigue(src.GetRecov(src.ActiveBuff.EnergyHeal))
+					else
+						if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
+							if(src.ActiveBuff.StableHeal)
+								src.HealEnergy(src.ActiveBuff.EnergyHeal,1)
+							else
+								src.HealEnergy(src.GetRecov(src.ActiveBuff.EnergyHeal))
+				if(src.ActiveBuff.ManaHeal)
+					if((src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)||!src.ActiveBuff.InstantAffect)
+						src.HealMana(src.ActiveBuff.ManaHeal)
+				if(src.ActiveBuff.InstantAffect&&!src.ActiveBuff.InstantAffected)
+					src.ActiveBuff.InstantAffected=1
+
+				if(src.ActiveBuff.BurnAffected)
+					src.AddBurn(src.ActiveBuff.BurnAffected,src)
+				if(src.ActiveBuff.SlowAffected)
+					src.AddSlow(src.ActiveBuff.SlowAffected,src)
+				if(src.ActiveBuff.ShockAffected)
+					src.AddShock(src.ActiveBuff.ShockAffected,src)
+				if(src.ActiveBuff.ShatterAffected)
+					src.AddShatter(src.ActiveBuff.ShatterAffected,src)
+				if(src.ActiveBuff.PoisonAffected)
+					src.AddPoison(src.ActiveBuff.PoisonAffected,src)
+
+				if(src.ActiveBuff.StrTaxDrain)
+					src.AddStrTax(src.ActiveBuff.StrTaxDrain)
+				if(src.ActiveBuff.StrCutDrain)
+					src.AddStrCut(src.ActiveBuff.StrCutDrain)
+				if(src.ActiveBuff.EndTaxDrain)
+					src.AddEndTax(src.ActiveBuff.EndTaxDrain)
+				if(src.ActiveBuff.EndCutDrain)
+					src.AddEndCut(src.ActiveBuff.EndCutDrain)
+				if(src.ActiveBuff.SpdTaxDrain)
+					src.AddSpdTax(src.ActiveBuff.SpdTaxDrain)
+				if(src.ActiveBuff.SpdCutDrain)
+					src.AddSpdCut(src.ActiveBuff.SpdCutDrain)
+				if(src.ActiveBuff.ForTaxDrain)
+					src.AddForTax(src.ActiveBuff.ForTaxDrain)
+				if(src.ActiveBuff.ForCutDrain)
+					src.AddForCut(src.ActiveBuff.ForCutDrain)
+				if(src.ActiveBuff.OffTaxDrain)
+					src.AddOffTax(src.ActiveBuff.OffTaxDrain)
+				if(src.ActiveBuff.OffCutDrain)
+					src.AddOffCut(src.ActiveBuff.OffCutDrain)
+				if(src.ActiveBuff.DefTaxDrain)
+					src.AddDefTax(src.ActiveBuff.DefTaxDrain)
+				if(src.ActiveBuff.DefCutDrain)
+					src.AddDefCut(src.ActiveBuff.DefCutDrain)
+				if(src.ActiveBuff.RecovTaxDrain)
+					src.AddRecovTax(src.ActiveBuff.RecovTaxDrain)
+				if(src.ActiveBuff.RecovCutDrain)
+					src.AddRecovCut(src.ActiveBuff.RecovCutDrain)
+				break
+			safety=0
+			while(src.SpecialBuff)
+				if(safety!=0) break
+				safety++
+				if(src.SpecialBuff.HealthDrain)
+					src.DoDamage(src, TrueDamage(src.SpecialBuff.HealthDrain))
+				if(src.SpecialBuff.HealthThreshold&&!src.SpecialBuff.AllOutAttack)
+					if(src.Health<src.SpecialBuff.HealthThreshold*(1-src.HealthCut)||src.KO)
+						src.SpecialBuff.Trigger(src,Override=1)
+						break
+
+				if(src.SpecialBuff.WoundDrain)
+					src.WoundSelf(src.SpecialBuff.WoundDrain)
+				if(src.SpecialBuff.WoundThreshold&&!src.SpecialBuff.AllOutAttack)
+					if(src.TotalInjury>=src.SpecialBuff.WoundThreshold)
+						src.SpecialBuff.Trigger(src,Override=1)
+						break
+
+				if(src.SpecialBuff.EnergyDrain)
+					src.LoseEnergy(src.SpecialBuff.EnergyDrain)
+				if(src.SpecialBuff.EnergyThreshold&&!src.SpecialBuff.AllOutAttack)
+					if(src.Energy<src.SpecialBuff.EnergyThreshold*(1-src.EnergyCut))
+						src.SpecialBuff.Trigger(src,Override=1)
+						break
+
+				if(src.SpecialBuff.FatigueDrain)
+					src.GainFatigue(src.SpecialBuff.FatigueDrain)
+				if(src.SpecialBuff.FatigueThreshold&&!src.SpecialBuff.AllOutAttack)
+					if(src.TotalFatigue>=src.SpecialBuff.FatigueThreshold)
+						src.SpecialBuff.Trigger(src,Override=1)
+						break
+
+				if(src.SpecialBuff.CapacityDrain)
+					src.LoseCapacity(src.SpecialBuff.CapacityDrain)
+				if(src.SpecialBuff.CapacityThreshold&&!src.SpecialBuff.AllOutAttack)
+					if(src.TotalCapacity>=src.SpecialBuff.CapacityThreshold)
+						src.SpecialBuff.Trigger(src,Override=1)
+						break
+
+				if(src.SpecialBuff.ManaDrain)
+					src.LoseMana(src.SpecialBuff.ManaDrain,1)
+				if(src.SpecialBuff.ManaThreshold&&!src.SpecialBuff.AllOutAttack)
+					if(src.ManaAmount<src.SpecialBuff.ManaThreshold)
+						src.SpecialBuff.Trigger(src,Override=1)
+						break
+
+				if(src.SpecialBuff.VaizardShatter)
+					if(src.VaizardHealth<=0)
+						src.SpecialBuff.Trigger(src,Override=1)
+						break
+
+				if(src.SpecialBuff.TimerLimit)
+					if(!isnum(src.SpecialBuff.Timer))
+						src.SpecialBuff.Timer=0
+					src.SpecialBuff.Timer+=world.tick_lag
+					if(src.SpecialBuff.Timer>=src.SpecialBuff.TimerLimit)
+						src.SpecialBuff.Trigger(src,Override=1)
+						break
+
+				if(src.SpecialBuff.TooMuchHealth)
+					if(src.Health>=src.SpecialBuff.TooMuchHealth)
+						src.SpecialBuff.Trigger(src,Override=1)
+						break
+
+				if(src.SpecialBuff.WaveringAngerLimit)
+					if(src.SpecialBuff.WaveringAnger<src.SpecialBuff.WaveringAngerLimit)
+						src.SpecialBuff.WaveringAnger++
+						if(src.SpecialBuff.WaveringAnger>=src.SpecialBuff.WaveringAngerLimit)
+							if(prob(33))
+								src.SetNoAnger(src.SpecialBuff, 1)
+							else
+								src.SetNoAnger(src.SpecialBuff, 0)
+							src.SpecialBuff.WaveringAnger=0
+
+				if(src.SpecialBuff.WoundHeal)
+					src.HealWounds(src.GetRecov(src.SpecialBuff.WoundHeal))
+				if(src.SpecialBuff.FatigueHeal)
+					src.HealFatigue(src.GetRecov(src.SpecialBuff.FatigueHeal))
+				if(src.SpecialBuff.CapacityHeal)
+					src.HealCapacity(src.SpecialBuff.CapacityHeal)
+				if(src.SpecialBuff.HealthHeal)
+					if((src.Health+src.TotalInjury)>=100||(src.TotalInjury&&src.icon_state=="Meditate"))
+						if(src.SpecialBuff.StableHeal)
+							src.HealWounds(src.SpecialBuff.HealthHeal)
+						else
+							src.HealWounds(src.GetRecov(src.SpecialBuff.HealthHeal))
+					else
+						if(src.SpecialBuff.StableHeal)
+							src.HealHealth(src.SpecialBuff.HealthHeal)
+						else
+							src.HealHealth(src.GetRecov(src.SpecialBuff.HealthHeal))
+				if(src.SpecialBuff.EnergyHeal)
+					if((src.Energy+src.TotalFatigue)>=100||(src.TotalFatigue&&src.icon_state=="Meditate"))
+						if(src.SpecialBuff.StableHeal)
+							src.HealFatigue(src.SpecialBuff.EnergyHeal,1)
+						else
+							src.HealFatigue(src.GetRecov(src.SpecialBuff.EnergyHeal))
+					else
+						if(src.SpecialBuff.StableHeal)
+							src.HealEnergy(src.SpecialBuff.EnergyHeal,1)
+						else
+							src.HealEnergy(src.GetRecov(src.SpecialBuff.EnergyHeal))
+				if(src.SpecialBuff.ManaHeal)
+					src.HealMana(src.SpecialBuff.ManaHeal)
+
+				if(src.SpecialBuff.BurnAffected)
+					src.AddBurn(src.SpecialBuff.BurnAffected,src)
+				if(src.SpecialBuff.SlowAffected)
+					src.AddSlow(src.SpecialBuff.SlowAffected,src)
+				if(src.SpecialBuff.ShockAffected)
+					src.AddShock(src.SpecialBuff.ShockAffected,src)
+				if(src.SpecialBuff.ShatterAffected)
+					src.AddShatter(src.SpecialBuff.ShatterAffected,src)
+				if(src.SpecialBuff.PoisonAffected)
+					src.AddPoison(src.SpecialBuff.PoisonAffected,src)
+
+				if(src.SpecialBuff.StrTaxDrain)
+					src.AddStrTax(src.SpecialBuff.StrTaxDrain)
+				if(src.SpecialBuff.StrCutDrain)
+					src.AddStrCut(src.SpecialBuff.StrCutDrain)
+				if(src.SpecialBuff.EndTaxDrain)
+					src.AddEndTax(src.SpecialBuff.EndTaxDrain)
+				if(src.SpecialBuff.EndCutDrain)
+					src.AddEndCut(src.SpecialBuff.EndCutDrain)
+				if(src.SpecialBuff.SpdTaxDrain)
+					src.AddSpdTax(src.SpecialBuff.SpdTaxDrain)
+				if(src.SpecialBuff.SpdCutDrain)
+					src.AddSpdCut(src.SpecialBuff.SpdCutDrain)
+				if(src.SpecialBuff.ForTaxDrain)
+					src.AddForTax(src.SpecialBuff.ForTaxDrain)
+				if(src.SpecialBuff.ForCutDrain)
+					src.AddForCut(src.SpecialBuff.ForCutDrain)
+				if(src.SpecialBuff.OffTaxDrain)
+					src.AddOffTax(src.SpecialBuff.OffTaxDrain)
+				if(src.SpecialBuff.OffCutDrain)
+					src.AddOffCut(src.SpecialBuff.OffCutDrain)
+				if(src.SpecialBuff.DefTaxDrain)
+					src.AddDefTax(src.SpecialBuff.DefTaxDrain)
+				if(src.SpecialBuff.DefCutDrain)
+					src.AddDefCut(src.SpecialBuff.DefCutDrain)
+				if(src.SpecialBuff.RecovTaxDrain)
+					src.AddRecovTax(src.SpecialBuff.RecovTaxDrain)
+				if(src.SpecialBuff.RecovCutDrain)
+					src.AddRecovCut(src.SpecialBuff.RecovCutDrain)
+
+				if(src.SpecialBuff.BuffName in Gold)
+					SpecialBuff?:checkForEnd(src)
+					// if(src.SagaLevel<7||src.Saga!="Cosmo")
+					// 	if(prob(0.5**max(src.SenseUnlocked-5,0)))
+					// 		src.SpecialBuff.Trigger(src, Override=1)
+					// 		break
+				break
+
+			if(src.SlotlessBuffs.len>0)
 				for(var/h in src.SlotlessBuffs)
 					var/obj/Skills/Buffs/b = SlotlessBuffs[h]
 					if(b)
