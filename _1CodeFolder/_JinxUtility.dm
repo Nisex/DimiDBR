@@ -2846,7 +2846,6 @@ mob
 			if(src.AfterImageStrike)
 				return
 			var/add = (glob.ZANZO_FLICKER_BASE_GAIN-(max(0.01,MovementCharges)/3)/10)*Mult 
-			add /= world.tick_lag SECOND
 			src.MovementCharges+=add
 			if(src.MovementCharges>GetMaxMovementCharges())
 				src.MovementCharges=GetMaxMovementCharges()
@@ -2857,9 +2856,13 @@ mob
 		GetRPPMult()
 			var/Return=src.RPPMult
 			Return*=src.ConditionRPPMult()
+			if(src.TarotFate=="The Hermit")
+				Return*=1.5
 			return Return
 		ConditionRPPMult()
 			var/Return=1
+			if(src.ParasiteCrest())
+				Return*=2
 			return Return
 		Base()
 			var/base = src.Base * BASE_MOD
