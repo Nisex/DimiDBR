@@ -657,96 +657,96 @@ mob
 				if(src.AttackQueue.DelayerTime==src.AttackQueue.Duration-2)
 					src << "Your <b>[src.AttackQueue]</b> is fully charged!! Attack before you lose the power!!"
 
-				if(src.PowerControl>100)
-					if(!src.HasKiControl()&&!src.PoweringUp)
-						src.PowerControl=100
+			if(src.PowerControl>100)
+				if(!src.HasKiControl()&&!src.PoweringUp)
+					src.PowerControl=100
 
-				if(src.KOTimer)
-					src.KOTimer -= 1
-					if(src.KOTimer<=0)
-						src.Conscious()
+			if(src.KOTimer)
+				src.KOTimer -= 1
+				if(src.KOTimer<=0)
+					src.Conscious()
 
-				if(src.BusterTech && src.BusterCharging<100)
+			if(src.BusterTech && src.BusterCharging<100)
 
-					src.BusterCharging+=(100/RawSeconds(5)) * src.BusterTech.Buster * src.GetRecov()
-					if(src.BusterCharging>100)
-						src.BusterCharging=100
-						src << "Your buster technique is fully charged!"
+				src.BusterCharging+=(100/RawSeconds(5)) * src.BusterTech.Buster * src.GetRecov()
+				if(src.BusterCharging>100)
+					src.BusterCharging=100
+					src << "Your buster technique is fully charged!"
 
 
-				if(src.Beaming)
-					for(var/obj/Skills/Projectile/Beams/Z in Skills)
-						if(Z.Charging&&Z.ChargeRate)
-							if(src.BeamCharging>=0.5&&src.BeamCharging<=Z.ChargeRate)
-								src.BeamCharging+=src.GetRecov(0.2)
-								if(src.BeamCharging>Z.ChargeRate)
-									src.BeamCharging=Z.ChargeRate
+			if(src.Beaming)
+				for(var/obj/Skills/Projectile/Beams/Z in Skills)
+					if(Z.Charging&&Z.ChargeRate)
+						if(src.BeamCharging>=0.5&&src.BeamCharging<=Z.ChargeRate)
+							src.BeamCharging+=src.GetRecov(0.2)
+							if(src.BeamCharging>Z.ChargeRate)
+								src.BeamCharging=Z.ChargeRate
 
-								//aesthetics
-								if(src.BeamCharging>=(0.5*Z.ChargeRate))
-									if(Z.name=="Aurora Execution")
-										if(src.BeamCharging<Z.ChargeRate)
-											var/image/i=image('Aurora.dmi',icon_state="[rand(1,3)]", layer=EFFECTS_LAYER, loc=src)
-											i.blend_mode=BLEND_ADD
-											animate(i, alpha=0)
-											world << i
-											i.transform*=30
-											animate(i, alpha=200, time=5)
-											src.BeamCharging=Z.ChargeRate
-											spawn(150)
-												animate(i, alpha=0, time=5)
-												sleep(5)
-												del i
-									else
-										for(var/turf/t in Turf_Circle(src, 10))
-											if(prob(5))
-												spawn(rand(2,6))
-													var/icon/i = icon('RisingRocks.dmi')
-													t.overlays+=i
-													spawn(rand(10, 30))
-														t.overlays-=i
-										if(src.BeamCharging==Z.ChargeRate)
-											src.Quake((14+2*Z.DamageMult))
+							//aesthetics
+							if(src.BeamCharging>=(0.5*Z.ChargeRate))
+								if(Z.name=="Aurora Execution")
+									if(src.BeamCharging<Z.ChargeRate)
+										var/image/i=image('Aurora.dmi',icon_state="[rand(1,3)]", layer=EFFECTS_LAYER, loc=src)
+										i.blend_mode=BLEND_ADD
+										animate(i, alpha=0)
+										world << i
+										i.transform*=30
+										animate(i, alpha=200, time=5)
+										src.BeamCharging=Z.ChargeRate
+										spawn(150)
+											animate(i, alpha=0, time=5)
+											sleep(5)
+											del i
+								else
+									for(var/turf/t in Turf_Circle(src, 10))
+										if(prob(5))
+											spawn(rand(2,6))
+												var/icon/i = icon('RisingRocks.dmi')
+												t.overlays+=i
+												spawn(rand(10, 30))
+													t.overlays-=i
+									if(src.BeamCharging==Z.ChargeRate)
+										src.Quake((14+2*Z.DamageMult))
 
-				src.Debuffs()
-				if(UsingHotnCold())
-					var/val = StyleBuff?:hotCold
-					HotnCold = round(val,1)
-					if(client&&hudIsLive("HotnCold", /obj/bar))
-						client.hud_ids["HotnCold"]?:Update()
-					if(val < 0)
-						AddSlow(abs(val)/glob.HOTNCOLD_DEBUFF_DIVISOR)
-						AddCrippling(abs(val)/(glob.HOTNCOLD_DEBUFF_DIVISOR*4))
-					else
-						AddBurn(abs(val)/(glob.HOTNCOLD_DEBUFF_DIVISOR))
+			src.Debuffs()
+			if(UsingHotnCold())
+				var/val = StyleBuff?:hotCold
+				HotnCold = round(val,1)
+				if(client&&hudIsLive("HotnCold", /obj/bar))
+					client.hud_ids["HotnCold"]?:Update()
+				if(val < 0)
+					AddSlow(abs(val)/glob.HOTNCOLD_DEBUFF_DIVISOR)
+					AddCrippling(abs(val)/(glob.HOTNCOLD_DEBUFF_DIVISOR*4))
 				else
-					if(client&&client.hud_ids["HotnCold"])
-						client.remove_hud("HotnCold")
-				if(passive_handler["Grit"])
-					if(client&&hudIsLive("Grit", /obj/bar))
-						client.hud_ids["Grit"]?:Update()
-				if(src.Harden)
-					src.Harden = max(0, src.Harden - glob.BASE_STACK_REDUCTION)
-					if(client&&hudIsLive("Harden", /obj/bar))
-						client.hud_ids["Harden"]?:Update()
-				if(Momentum)
-					if(passive_handler["Relentlessness"])
-						Momentum = round(Momentum - (glob.BASE_STACK_REDUCTION + Momentum/40))
-					else
-						Momentum -= glob.BASE_STACK_REDUCTION
-					if(client&&hudIsLive("Momentum", /obj/bar))
-						client.hud_ids["Momentum"]?:Update()
-					if(Momentum <0)
-						Momentum=0
-				if(Fury)
-					if(passive_handler["Relentlessness"])
-						Fury = round(Fury - (glob.BASE_STACK_REDUCTION + Fury/50))
-					else
-						Fury -= glob.BASE_STACK_REDUCTION
-					if(client&&hudIsLive("Fury", /obj/bar))
-						client.hud_ids["Fury"]?:Update()
-					if(Fury<0)
-						Fury=0
+					AddBurn(abs(val)/(glob.HOTNCOLD_DEBUFF_DIVISOR))
+			else
+				if(client&&client.hud_ids["HotnCold"])
+					client.remove_hud("HotnCold")
+			if(passive_handler["Grit"])
+				if(client&&hudIsLive("Grit", /obj/bar))
+					client.hud_ids["Grit"]?:Update()
+			if(src.Harden)
+				src.Harden = max(0, src.Harden - glob.BASE_STACK_REDUCTION)
+				if(client&&hudIsLive("Harden", /obj/bar))
+					client.hud_ids["Harden"]?:Update()
+			if(Momentum)
+				if(passive_handler["Relentlessness"])
+					Momentum = round(Momentum - (glob.BASE_STACK_REDUCTION + Momentum/40))
+				else
+					Momentum -= glob.BASE_STACK_REDUCTION
+				if(client&&hudIsLive("Momentum", /obj/bar))
+					client.hud_ids["Momentum"]?:Update()
+				if(Momentum <0)
+					Momentum=0
+			if(Fury)
+				if(passive_handler["Relentlessness"])
+					Fury = round(Fury - (glob.BASE_STACK_REDUCTION + Fury/50))
+				else
+					Fury -= glob.BASE_STACK_REDUCTION
+				if(client&&hudIsLive("Fury", /obj/bar))
+					client.hud_ids["Fury"]?:Update()
+				if(Fury<0)
+					Fury=0
 
 			if(src.SureHitTimerLimit)
 				if(!src.SureHit)
