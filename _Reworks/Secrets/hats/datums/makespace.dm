@@ -135,8 +135,7 @@ spaceMaker
 	for(var/image/i in effects)
 		i.loc = null
 	ownerOfEffect = null
-	if(Deluged)
-		Deluged = 0
+	Deluged = initial(Deluged)
 	
 
 /turf/proc/fadeEffects()

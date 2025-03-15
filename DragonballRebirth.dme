@@ -307,6 +307,7 @@
 #include "_Reworks\_Standalones\clientOptions.dm"
 #include "_Reworks\_Standalones\CookingBrewingRecipes.dm"
 #include "_Reworks\_Standalones\fastrefund.dm"
+#include "_Reworks\_Standalones\Gain_Rewrite.dm"
 #include "_Reworks\_Standalones\glob.dm"
 #include "_Reworks\_Standalones\IDs.dm"
 #include "_Reworks\_Standalones\passives.dm"

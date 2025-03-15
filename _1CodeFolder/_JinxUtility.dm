@@ -2850,7 +2850,7 @@ mob
 			src.MovementCharges+=add
 			if(src.MovementCharges>GetMaxMovementCharges())
 				src.MovementCharges=GetMaxMovementCharges()
-			if(client.hud_ids["Zanzoken"])
+			if(client&&client.hud_ids["Zanzoken"])
 				var/alteration = -36 + (36 * (MovementCharges - round(MovementCharges)))
 				//world<<add
 				client.hud_ids["Zanzoken"].Update(alteration, round(MovementCharges))

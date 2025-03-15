@@ -484,6 +484,10 @@ turf
 		icon_state="Dirt99"
 		PrimaryTurfType="Floor"
 		SecondaryTurfType="Dirt"
+		GainLoop(mob/source)
+			..()
+			if(!source.passive_handler.Get("StaticWalk")&&!source.Dead)
+				source.Health -= 0.005
 	DirtA1
 		icon='wastes.png'
 		PrimaryTurfType="Floor"
@@ -3683,16 +3687,25 @@ turf/Special
 		Buildable = 1
 		icon='Special.dmi'
 		icon_state="Special5"
+		GainLoop(mob/source)
+			..()
+			if(!source.passive_handler.Get("StaticWalk")&&!source.Dead)
+				source.Health -= 0.005
 
 	Stars
 		icon = 'StarPixel.dmi'
 		icon_state="2"
 		Health=1345345400000000000000000
+		GainLoop(mob/source)
+			..()
+			source.loseOxygen(1)
 	EventStars
 		icon='StarPixel.dmi'
 		icon_state="3"
 		Health=100000000000
-
+		GainLoop(mob/source)
+			..()
+			source.loseOxygen(1)
 	DemonWorldPortal
 		icon='Demon World Test.dmi'
 		Health=1000000000

@@ -1000,6 +1000,7 @@ mob/proc/
 
 mob/proc/Update_Stat_Labels()
 	set waitfor=0
+	if(!client) return
 	if(!src.ha)
 		var/ManaMessage="%"
 		if(round(TotalInjury))

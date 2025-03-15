@@ -927,6 +927,9 @@ NEW VARIABLES
 			OffMessage="stops Cultivating..."
 			var/taxReduction = 0
 			var/ignoreWounded = FALSE
+			HandleBuffDeactivation(mob/source)
+				Stop_Cultivation()
+				source.GatesActive = 0
 			proc/setUpGateVars(mob/p, num)
 
 				if(altered) return
@@ -3007,6 +3010,9 @@ NEW VARIABLES
 				var/temporaryTime = 0
 				var/timeLimit
 				var/startTime = 0
+				GainLoop(mob/source)
+					..()
+					checkForEnd(source)
 				proc/setRandomTime(mob/p)
 					var/bonus = p.SagaLevel * 1000
 					var/roll = rand(1000, 1200) // between 20 seconds and 2 minutes
