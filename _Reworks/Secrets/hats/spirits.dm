@@ -78,7 +78,7 @@ SecretInfomation/Spirits_Of_The_World // when given make them make a choice, thi
 	Elven_Sanctuary
 		applyPassives(mob/p)
 			var/pot = p.Potential
-			. = list("LegendaryPower" = currentTier/4, "SpiritFlow" = 1, "SpiritualDamage" = currentTier*1.25 + pot/25)
+			. = list("Mythical" = currentTier/4, "SpiritFlow" = 1, "SpiritualDamage" = currentTier*1.25 + pot/25)
 		applySecret(mob/p)
 			switch(currentTier)
 				if(1)

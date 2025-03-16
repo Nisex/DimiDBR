@@ -66,7 +66,7 @@
 		Effective*=1 + (src.Potential/25)
 	if(isRace(DRAGON))
 		Effective += AscensionsAcquired * 25
-	Effective *= 1 + passive_handler.Get("LegendaryPower")
+	Effective *= 1 + passive_handler.Get("Mythical")
 	if(src.isRace(MAJIN))
 		var/unhingedBoon = Class == "Unhinged" ? 1 : 0
 		if(unhingedBoon)

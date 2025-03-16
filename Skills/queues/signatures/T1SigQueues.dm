@@ -123,7 +123,7 @@ obj
 				PushOut=3
 				PushOutWaves=3
 				Quaking=5
-				Dunker=4
+				Dunker=1
 				EnergyCost=8
 				HitMessage="violently spikes the opponent towards the ground!!!"
 

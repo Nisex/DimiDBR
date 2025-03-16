@@ -1144,7 +1144,7 @@ NEW VARIABLES
 							src.ActiveMessage="calls forth the true form of █████████████, the ███████ of ████████!"
 							src.OffMessage="conceals █████████████.."
 						if("Green Dragon Crescent Blade")
-							passives = list("Duelist" = max(1,usr.SagaLevel/2), "Hardening" = usr.SagaLevel/2, "LegendaryPower" = usr.SagaLevel*0.25, "PULock" = 1)
+							passives = list("Duelist" = max(1,usr.SagaLevel/2), "Hardening" = usr.SagaLevel/2, "Mythical" = usr.SagaLevel*0.16, "PULock" = 1)
 							src.ActiveMessage="calls forth the true form of the Green Dragon Crescent Blade, the Spear of War!"
 							src.OffMessage="restrains Guan Yu's fury..."
 
@@ -1555,15 +1555,7 @@ NEW VARIABLES
 			SignatureTechnique=3
 			Transform="Force"
 			UnrestrictedBuff=1
-			StrMult=1.2
-			ForMult=1.2
-			EndMult=1.3
-			SpdMult=1.3
 			passives = list("PureReduction" = 5, "GiantForm" = 1)
-			PureReduction=5
-			GiantForm=1
-			EnergyHeal=1
-			FatigueHeal=1
 			KenWave=5
 			KenWaveSize=5
 			KenWaveIcon='KenShockwaveLegend.dmi'
@@ -1574,13 +1566,13 @@ NEW VARIABLES
 			ActiveMessage="roars and bulks up enormously as their power shatters reason!"
 			OffMessage="releases their legendary power..."
 			adjust(mob/p)
-				passives = list("PureReduction" = p.Potential / 10, "GiantForm" = 1, "LifeGeneration" = 2 + p.Potential / 10)
+				passives = list("PureReduction" = p.Potential / 25, "GiantForm" = 1, "LifeGeneration" = p.Potential / 100)
 				PowerMult = 1.2 + p.Potential / 200
 				Intimidation = 2 + p.Potential / 200
 				StrMult = 1.2 + p.Potential / 200
 				ForMult = 1.2 + p.Potential / 200
 				EndMult = 1.3 + p.Potential / 200
-				SpdMult = 1.3 + p.Potential / 200
+				SpdMult = 1.1 + p.Potential / 200
 
 			verb/Legendary_Super_Saiyan()
 				set category="Skills"
@@ -6779,8 +6771,8 @@ NEW VARIABLES
 				set category="Skills"
 				src.Trigger(usr)
 		Embrace_Legend
-			passives = list("LegendaryPower" = 1)
-			LegendaryPower=1
+			passives = list("Mythical" = 1)
+			Mythical=1
 			ActiveMessage="roars as they embrace their legendary power!"
 			OffMessage="regains their senses..."
 			verb/Embrace_Legend()
@@ -11856,7 +11848,7 @@ mob
 					if("Hadoken")
 						StyleBuff.Finisher="/obj/Skills/Queue/Finisher/Isshin"
 					if("Shoryuken")
-						StyleBuff.Finisher="/obj/Skills/Queue/Finisher/Shoryureppa1"
+						StyleBuff.Finisher="/obj/Skills/Queue/Finisher/Shin_Shoryuken"
 					if("Tatsumaki")
 						StyleBuff.Finisher="/obj/Skills/Queue/Finisher/Shippu_Jinraikyaku"
 				if(src.SagaLevel>=5)

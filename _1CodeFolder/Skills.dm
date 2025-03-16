@@ -109,7 +109,7 @@ obj/Skills
 	var/SlayerMod //mortal dmg
 	var/ShonenPower  // become MC
 	var/SpiritPower //become medium
-	var/LegendaryPower //become giant
+	var/Mythical //become giant
 	var/HellPower //become satan
 	var/Disorienting  //rolls for confuse
 	var/Confusing  //adds confuse

@@ -318,7 +318,7 @@ var/list/ai_database = list(
 		techniques=list("/obj/Skills/Projectile/Shine_Shot","/obj/Skills/Projectile/Charge","/obj/Skills/Projectile/Blast")),
 
 	"xenomorph praetorian" = new/ai_sheet(id="xenomorphpraetorian",properties=list(icon='xenomorph.dmi',name="Xenomorph Praetorian",\
-		BaseMod=10,ai_adapting_power=1,LegendaryPower=1,\
+		BaseMod=10,ai_adapting_power=1,Mythical=1,\
 		StrMod=7,EndMod=5,ForMod=1.5,OffMod=5,DefMod=1.5,SpdMod=4,Potential=100,\
 		ai_hostility=2,ai_wander=1,ai_alliances=list("Xenomorph")),\
 		techniques=list("/obj/Skills/AutoHit/RushStrike","/obj/Skills/AutoHit/PhantomStrike","/obj/Skills/AutoHit/Knockoff_Wave","/obj/Skills/Projectile/Shine_Shot","/obj/Skills/Projectile/Dragon_Buster")),
@@ -1841,7 +1841,7 @@ mob/Player/AI
 //Ratio
 		var/Ratio=1
 		Ratio*=EPM
-		if(src.HasLegendaryPower())
+		if(src.HasMythical())
 			Ratio*=1.5
 		potential_last_checked=-1
 		Ratio*=src.Base()

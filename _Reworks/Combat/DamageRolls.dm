@@ -36,6 +36,6 @@ proc/randValue(min,max,divider=10)
 
 /mob/proc/GetUnnvere()
 	var/total = passive_handler.Get("Unnerve")
-	if(HasLegendaryPower())
-		total+=HasLegendaryPower()*2
+	if(HasMythical())
+		total+=HasMythical()*2
 	return total

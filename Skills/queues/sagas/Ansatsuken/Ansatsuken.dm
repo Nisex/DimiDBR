@@ -51,49 +51,49 @@ obj
 					resetVars()
 					activate(usr)
 					usr.SetQueue(src)
-
-			Shin_Shoryuken
+			Shinryureppa
 				StyleNeeded="Ansatsuken"
 				HitMessage="shouts '<b>SHIN...</b>' as they strike their opponent with a rising blow!!!"
-				DamageMult=16
+				DamageMult=10
 				AccuracyMult = 1.25
 				KBMult=0.00001
-				Duration=5
 				Cooldown=180
 				PushOut=3
+				Finisher=1
 				AllOutAttack=1
 				ManaCost=100
 				Instinct=4
-				Stunner=3
+				Duration=10
 				Rapid=1
-				HitStep=/obj/Skills/Queue/Shin_Shoryuken2
-				verb/Shin_Shoryuken()
-					set category="Skills"
-					set name="Shin-Shoryuken"
-					if(usr.AnsatsukenAscension=="Satsui")
-						src.HitMessage="shouts '<b>METSU...</b>' as they strike their opponent with a rising blow!!!"
-						src.HitStep=/obj/Skills/Queue/Metsu_Shoryuken2
-					usr.SetQueue(src)
-			Shin_Shoryuken2
+				HitStep=/obj/Skills/Queue/Shinryureppa_chain
+			Shinryureppa_chain
 				StyleNeeded="Ansatsuken"
-				HitMessage="shouts '<b>SHORYUKEN!</b>' as they spike their opponent into the heavens with a divine uppercut!!!"
+				HitMessage="shouts '<b>RYUREPPA!</b>' as they spike their opponent into the heavens with a divine uppercut!!!"
 				DamageMult=5
 				AccuracyMult = 1.25
 				KBMult=0.00001
-				Duration=5
 				Warp=5
 				Instinct=4
 				ShoryukenEffect=2
-			Metsu_Shoryuken2
+				PushOut=3
+				Finisher=4
+				Duration=5
+				Launcher=4
+				HitStep=/obj/Skills/Queue/Shinryureppa_dunker
+			Shinryureppa_dunker
 				StyleNeeded="Ansatsuken"
-				HitMessage="shouts '<b>SHORYUKEN!</b>' as they spike their opponent into the heavens with a divine uppercut!!!"
-				DamageMult=5
+				HitMessage="shouts '<b>RYUREPPA!</b>' as they spike their opponent into the heavens with a divine uppercut!!!"
+				DamageMult=2
 				AccuracyMult = 1.25
 				KBMult=0.00001
-				Duration=5
 				Warp=5
 				Instinct=4
-				GoshoryukenEffect=2
+				ShoryukenEffect=2
+				PushOut=3
+				Finisher = 8
+				Duration = 5
+				Dunker = 5
+
 
 			Messatsu_Goshoryu
 				GoshoryukenEffect=0.75

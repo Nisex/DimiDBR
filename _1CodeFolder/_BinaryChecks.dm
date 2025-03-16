@@ -984,8 +984,8 @@ mob
 			return Return
 		HasPureReduction()
 			var/Return=0
-			Return+=passive_handler.Get("PureReduction")
-			Return += passive_handler.Get("LegendaryPower") * 3
+			Return += passive_handler.Get("PureReduction")
+			Return += passive_handler.Get("Mythical") * glob.MYTHICALPUREREDMULT
 			if(src.isRace(MAJIN))
 				Return += AscensionsAcquired * getMajinRates("Reduction")
 			if(passive_handler["Rage"] && Health <= 50)
@@ -999,7 +999,7 @@ mob
 				Return += h
 			return Return
 		Hustling()
-			if(passive_handler.Get("Hustle") || HasLegendaryPower() > 0.25 || (passive_handler["Rage"] && Health <= 25))
+			if(passive_handler.Get("Hustle") || HasMythical() > 0.25 || (passive_handler["Rage"] && Health <= 25))
 				return 1
 		HasWalking()
 			if(locate(/obj/Skills/Walking, src))
@@ -1497,11 +1497,9 @@ mob
 			return 0
 		HasSpiritPower()
 			return passive_handler.Get("SpiritPower")
-		HasLegendaryPower()
+		HasMythical()
 			var/Extra=0
-			if(src.TarotFate=="Judgment")
-				Extra=1
-			Extra += passive_handler.Get("LegendaryPower")
+			Extra += passive_handler.Get("Mythical")
 			return 0
 		HasHellPower()
 			if(CheckSlotless("Satsui no Hado") && SagaLevel>=6)
@@ -1534,8 +1532,8 @@ mob
 				if(m.isRace(MAKYO))
 					Return-=(5*m.AscensionsAcquired)
 				if(m.HasGodKi())
-					if(src.HasLegendaryPower())
-						Return-=(m.GetGodKi())*(100-(src.HasLegendaryPower()*100))
+					if(src.HasMythical())
+						Return-=(m.GetGodKi())*(100-(src.HasMythical()*100))
 					else
 						Return-=m.GetGodKi()*100
 			if(src.HasGodKi())
@@ -1569,7 +1567,7 @@ mob
 				Effective+=1
 			if(src.isRace(DEMON)||src.isRace(MAJIN))
 				Effective+=1
-			Effective *= 1 + passive_handler.Get("LegendaryPower")
+			Effective *= 1 + passive_handler.Get("Mythical")
 			if(src.CheckActive("Mobile Suit")||src.CheckSlotless("Battosai")||src.CheckSlotless("Susanoo"))
 				Effective+=1
 			if(src.Health<(1-src.HealthCut)&&src.HealthAnnounce10&&src.Saga=="King of Braves"&&src.SpecialBuff)
@@ -1652,7 +1650,7 @@ mob
 				return passive_handler.Get("FluidForm")
 			if( passive_handler.Get("Gravity"))
 				return passive_handler.Get("Gravity")
-			if(src.HasLegendaryPower()>=1)
+			if(src.HasMythical()>=1)
 				return 1
 			if(src.HasEmptyGrimoire())
 				return 1
@@ -1923,7 +1921,7 @@ mob
 		HasGiantForm()
 			if(passive_handler.Get("GiantForm"))
 				return 1
-			if(src.HasLegendaryPower()>=0.5)
+			if(src.HasMythical()>=0.5)
 				return 1
 			return 0
 		HighestTrans()
@@ -2385,7 +2383,7 @@ mob
 				return 0
 			return 1
 		CanBeSlowed()
-			if(src.HasLegendaryPower() > 0.75)
+			if(src.HasMythical() > 0.75)
 				return 0
 			if(src.HasGodspeed()>=glob.CAN_BE_SLOWED_GODSPEED)
 				return 0

@@ -30,8 +30,8 @@ proc
 				return
 		if(m.CheckSlotless("Great Ape"))
 			amount *= 0.75
-		if(m.HasLegendaryPower() > 0.25 || m.passive_handler.Get("Juggernaut"))
-			var/mod = (m.HasLegendaryPower() * 0.5) + m.passive_handler.Get("Juggernaut") * 0.25
+		if(m.HasMythical() > 0.25 || m.passive_handler.Get("Juggernaut"))
+			var/mod = (m.HasMythical() * 0.5) + m.passive_handler.Get("Juggernaut") * 0.25
 			amount /= 1 + mod
 
 		if(m.HasDebuffResistance())
@@ -65,7 +65,7 @@ proc
 				mob.overlays-=S
 				mob.Stunned=0
 				mob.overlays-='IceCoffin.dmi'
-				var/mod = (mob.HasLegendaryPower() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
+				var/mod = (mob.HasMythical() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
 				mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))
 				if(mob.passive_handler["Shellshocked"])
 					mob.passive_handler.Set("Shellshocked", 0)
@@ -82,7 +82,7 @@ proc
 				mob.overlays-=S
 				mob.Stunned=0
 				mob.overlays-='IceCoffin.dmi'
-				var/mod = (mob.HasLegendaryPower() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
+				var/mod = (mob.HasMythical() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
 				mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))
 	StunImmuneCheck(mob/mob)
 		// stunned, not kamui, not senketsu

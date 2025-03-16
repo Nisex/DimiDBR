@@ -1226,8 +1226,8 @@ mob/proc/Get_Scouter_Reading(mob/B)
 
 	Ratio*=EPM
 
-	if(B.HasLegendaryPower())
-		Ratio*= 1 + (2*B.HasLegendaryPower())
+	if(B.HasMythical())
+		Ratio*= 1 + (2*B.HasMythical())
 	if(B.HasHellPower())
 		Ratio*=(B.GetHellScaling() * 1500)
 	Ratio*=B.Base() * 100

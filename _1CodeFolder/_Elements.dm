@@ -557,7 +557,7 @@ mob
 			// 		Value=0
 			if(isRace(DRAGON) && Class == "Wind")
 				Value /= 2
-			if(src.HasLegendaryPower() > 0.75)
+			if(src.HasMythical() > 0.75)
 				Value = Value*(1-(src.Crippled/glob.DEBUFF_STACK_RESISTANCE))
 				src.Crippled+=Value
 			if(src.Crippled>100)

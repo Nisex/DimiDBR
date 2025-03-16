@@ -82,7 +82,7 @@ obj/Items
 	var/BoundEquip//defines true owner
 	var/LegendaryItem//Does this have verbs associated with it / a Tier S?
 	var/SpiritPower//gives spirit power
-	var/LegendaryPower//gives legendary power
+	var/Mythical//gives legendary power
 	var/HellPower //gives hell power
 	var/ShonenPower //makes you into a shonen protagonist
 	var/TrueLegend //flagged so that a bunch of legendaries don't spawn when you boot up the world...

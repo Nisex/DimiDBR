@@ -685,7 +685,7 @@
 								for(var/obj/Skills/Projectile/DancingBlast/db in src)
 									src.UseProjectile(db)
 									break
-						if(P.GiantForm || P.HasLegendaryPower() >= 1)
+						if(P.GiantForm || P.HasMythical() >= 1)
 							Damage/=DamageRoll
 							var/modifier = upper_damage_roll / 4
 							DamageRoll = GetDamageMod(0, -modifier)

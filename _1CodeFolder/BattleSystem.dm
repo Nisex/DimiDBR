@@ -1582,10 +1582,10 @@ mob/proc/Knockback(var/Distance,var/mob/P,var/Direction=0, var/Forced=0, var/Ki=
 	Distance*=gatherKBMods()
 	Distance*=getKnockbackMultiplier(P) // gets the knockback multiplier(reduction) for the target
 	if(!Forced)
-		var/chance2Stop = prob(50*(P.HasLegendaryPower()))
+		var/chance2Stop = prob(50*(P.HasMythical()))
 		if(P.is_dashing || chance2Stop)
 			return
-		Distance /= 1 + ((/*P.passive_handler.Get("Juggernaut") + P.HasLegendaryPower()*/ P.is_dashing) * 0.5)
+		Distance /= 1 + ((/*P.passive_handler.Get("Juggernaut") + P.HasMythical()*/ P.is_dashing) * 0.5)
 	else
 		if((Forced) && (P.is_dashing))
 			Distance *= Forced/(1 + max(P.is_dashing,1) * 0.5)
@@ -1785,7 +1785,7 @@ mob/proc/Grab_Mob(var/mob/P, var/Forced=0)
 			src.Grab_Update()
 			src.Grab_Effects(P)
 			return
-		if((P.passive_handler.Get("Fishman")||P.HasGiantForm()||P.HasLegendaryPower()>=1)&&!P.KO&&P.icon_state!="Meditate")
+		if((P.passive_handler.Get("Fishman")||P.HasGiantForm()||P.HasMythical()>=1)&&!P.KO&&P.icon_state!="Meditate")
 			src.OMessage(10,"[src] fails to get a firm hold on [P]!","[src]([src.key]) fails to grab [ExtractInfo(P)]")
 			return
 	src.Grab=P

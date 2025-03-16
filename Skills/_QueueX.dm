@@ -633,6 +633,36 @@ obj
 					KBAdd=5
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Hado_Kakusei"
 					FollowUp="/obj/Skills/Projectile/Hadoken_Effect"
+				
+				Shin_Shoryuken
+					StyleNeeded="Ansatsuken"
+					HitMessage="shouts '<b>SHIN...</b>' as they strike their opponent with a rising blow!!!"
+					DamageMult=4
+					AccuracyMult = 1.25
+					KBMult=0.00001
+					PushOut=3
+					AllOutAttack=1
+					Instinct=4
+					Stunner=3
+					Duration=10
+					Rapid=1
+					HitStep=/obj/Skills/Queue/Finisher/Shin_Shoryuken2
+
+
+				Shin_Shoryuken2
+					StyleNeeded="Ansatsuken"
+					HitMessage="shouts '<b>SHORYUKEN!</b>' as they spike their opponent into the heavens with a divine uppercut!!!"
+					DamageMult=6
+					AccuracyMult = 1.25
+					KBMult=0.00001
+					Duration=5
+					Warp=5
+					Instinct=4
+					Launcher=3
+					ShoryukenEffect=2
+					Shattering=30
+					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heat_Rush"
+
 				Shoryureppa1
 					DamageMult=7
 					name="Shoryureppa"

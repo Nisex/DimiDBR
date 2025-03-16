@@ -632,7 +632,7 @@
 							if( prob(enemy.passive_handler.Get("Sunyata") * glob.SUNYATA_BASE_CHANCE))
 								OMsg(enemy, "<b><font color=#ff0000>[enemy] has negated [src]'s attack!</font></b>")
 								dodged = 1
-						if(AttackQueue && enemy.passive_handler["Interception"])
+						if((AttackQueue && enemy.passive_handler["Interception"]) && !AttackQueue.Finisher)
 							if(prob(enemy.passive_handler["Interception"] * glob.INTERCEPTION_BASE_CHANCE))
 								OMsg(enemy, "<b><font color=#ff0000>[enemy] reverses [src]'s attack!</font></b>")
 								if(glob.INTERCEPTION_NEGATES_DAMAGE)
@@ -731,7 +731,7 @@
 										NoKB = 0
 										SureKB = 0
 										knockDistance += 5 * AttackQueue.Dunker
-										damage *= 1 + (AttackQueue.Dunker / 30)
+										damage *= 1 + (AttackQueue.Dunker / 10)
 								if(AttackQueue.MortalBlow)
 									if(prob(glob.MORTAL_BLOW_CHANCE * AttackQueue.MortalBlow) && !enemy.MortallyWounded)
 										var/mortalDmg = enemy.Health * 0.05 // 5% of current
@@ -799,7 +799,7 @@
 							if(!glob.MOMENTUM_PROCS_OFF_DAMAGE)
 								handlePostDamage(enemy) // it already proc'd
 							lastHit = world.time
-				// 										MELEE END																	 //
+					// 										MELEE END																	 //
 							var/shocked=0
 							if((SureKB || AttackQueue && QueuedKBAdd()) && !NoKB)
 								knockDistance = round(knockDistance)
@@ -934,7 +934,7 @@
 									enemy?.Earthquake(quakeIntens, -4,4,-4,4)
 							return dmgValue
 					else
-				// 										MISS START 																//
+							//		MISS START  //
 						if(enemy.CheckSpecial("Ultra Instinct"))
 							if(AttackQueue)
 								if(AttackQueue.HitSparkIcon)
@@ -956,6 +956,7 @@
 							spawn()
 								QueuedMissMessage()
 				if(passive_handler["Tossing"] && passive_handler["Secret Knives"])
+					world<<"hey lol"
 					var/sk = passive_handler["Secret Knives"]
 					if(prob(passive_handler["Tossing"] * glob.SECRET_KNIFE_CHANCE))
 						var/path = "/obj/Skills/Projectile/[sk]"

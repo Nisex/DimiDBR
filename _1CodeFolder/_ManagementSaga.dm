@@ -1026,7 +1026,7 @@ mob
 							if("Shoryuken")
 								src << "Your Shoryuken and EX-Shoryuken improve!"
 								for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style/ans in src)
-									ans.Finisher="/obj/Skills/Queue/Finisher/Shoryureppa1"
+									ans.Finisher="/obj/Skills/Queue/Finisher/Shin_Shoryuken"
 									src << "You learn to perform the special finisher: Shoryureppa!"
 							if("Tatsumaki")
 								src << "Your Tatsumaki and EX-Tatsumaki improve!"
@@ -1040,9 +1040,9 @@ mob
 									src << "You've developed almighty energy projection: Shinku Hadoken!"
 									src.AddSkill(new/obj/Skills/Projectile/Ansatsuken/Shinku_Hadoken)
 							if("Shoryuken")
-								if(!locate(/obj/Skills/Queue/Shin_Shoryuken, src))
+								if(!locate(/obj/Skills/Queue/Shinryureppa, src))
 									src << "You've developed peerless coordination: Shinku Shoryuken!"
-									src.AddSkill(new/obj/Skills/Queue/Shin_Shoryuken)
+									src.AddSkill(new/obj/Skills/Queue/Shinryureppa)
 							if("Tatsumaki")
 								if(!locate(/obj/Skills/AutoHit/ShinkuTatsumaki, src))
 									src << "You've developed domineering aerial power: Shinku Tatsumaki!"

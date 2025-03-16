@@ -5,7 +5,7 @@
 //TODO convert to glob
 gatherKBMods
 /mob/proc/getLegendPMult()
-    return HasLegendaryPower()*0.5
+    return HasMythical()*0.5
 /mob/proc/gatherKBMods()
     . = 0
     . += HasGiantForm() * 2
@@ -25,7 +25,7 @@ gatherKBMods
         // get the defenders anti kb measures
         if(!defender.passive_handler)
             return 1
-        var/mod = ( ((defender.HasGiantForm() * 0.15) + (defender.HasLegendaryPower() * 0.5) + (defender.passive_handler.Get("Juggernaut") * 0.05)) )
+        var/mod = ( ((defender.HasGiantForm() * 0.15) + (defender.HasMythical() * 0.5) + (defender.passive_handler.Get("Juggernaut") * 0.05)) )
         mod += clamp(defender.passive_handler.Get("KBRes") * 0.1, 0, 1)
         var/res = 1 - mod
         if(res < glob.MAX_KB_RES)
