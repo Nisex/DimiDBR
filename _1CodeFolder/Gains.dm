@@ -827,10 +827,10 @@ mob
 			if(src.RecovTax)
 				src.SubRecovTax(1/(1 DAYS))
 
-				if(src.AngerCD)
-					src.AngerCD=max(src.AngerCD-1,0)
-				if(src.PotionCD)
-					src.PotionCD=max(src.PotionCD-1,0)
+			if(src.AngerCD)
+				src.AngerCD=max(src.AngerCD-1,0)
+			if(src.PotionCD)
+				src.PotionCD=max(src.PotionCD-1,0)
 
 			if(src.CounterMasterTimer)
 				src.CounterMasterTimer = max(0, CounterMasterTimer-1)
