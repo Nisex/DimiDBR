@@ -70,7 +70,7 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 					OMessage(10, "<font color=#F07E1F>[src] [ExhaustedMessage ? "[ExhaustedMessage]" : " looks exhausted!"]!", "[src]([src.key]) has 25% health left.</font>")
 				else
 					OMessage(10,"font color='[ExhaustedColor]'> [src] [ExhaustedMessage ? "[ExhaustedMessage]" : " looks exhausted!"]!", "[src]([src.key]) has 25% health left.</font>")
-				HealthAnnounce25 = 1
+		HealthAnnounce25 = 1
 
 	// 10% health check
 	if(Health < 10*(1-HealthCut) && !HealthAnnounce10)
@@ -82,7 +82,7 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 					OMessage(10, "<font color=#F07E1F>[src] [BarelyStandingMessage ? "[BarelyStandingMessage]" : " is barely standing!"]!", "[src]([src.key]) has 10% health left.</font>")
 				else
 					OMessage(10,"font color='[BarelyStandingColor]'>[src] [BarelyStandingMessage ? "[BarelyStandingMessage]" : " is barely standing!"]!", "[src]([src.key]) has 10% health left.</font>")
-			HealthAnnounce10 = 1
+		HealthAnnounce10 = 1
 //**TESTED AND WORKS */
 /mob/proc/reduceErodeStolen()
 	if(src.StrStolen)
