@@ -712,8 +712,8 @@ mob/proc/
 		// 	var/pot=src.get_potential()
 		// 	EPM+=pot/100
 
-		if(isRace(MAKYO)&&src.ActiveBuff&&!src.HasMechanized())
-			EPM+=0.1*src.AscensionsAcquired
+		// if(isRace(MAKYO)&&src.ActiveBuff&&!src.HasMechanized())
+		// 	EPM+=0.1*src.AscensionsAcquired
 
 		if(EPM<=0)
 			EPM=0.1

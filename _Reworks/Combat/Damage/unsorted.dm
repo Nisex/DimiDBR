@@ -16,8 +16,6 @@ globalTracker/var/list/IGNORE_POWER_CLAMP_PASSIVES = list("Wrathful", "LimitBrok
     if(isRace(MAKYO))
         if((StarPowered || passive_handler.Get("HellPower")) && Health <=25)
             return TRUE
-        else if(Health <= 5 + (1 * AscensionsAcquired))
-            return TRUE
     if(isRace(DEMON))
         if(CheckSlotless("Corrupt Self"))
             return TRUE

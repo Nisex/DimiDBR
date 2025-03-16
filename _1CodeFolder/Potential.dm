@@ -64,12 +64,9 @@ mob
 
 			src.potential_max()
 
-			if(src.Potential>=5)
+			if(src.Potential>=15)
 				if(passive_handler.Get("KiControlMastery")<1)
 					passive_handler.Set("KiControlMastery", 1)
-			if(src.Potential>=15)
-				if(passive_handler.Get("KiControlMastery")<2)
-					passive_handler.Set("KiControlMastery", 2)
 
 
 			src.potential_ascend()

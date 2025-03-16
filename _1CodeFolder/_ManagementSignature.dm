@@ -1,4 +1,5 @@
 var/list/Tier1 = list(
+	"Chidori" = "/obj/Skills/AutoHit/Chidori",
 	"Send Energy" = "/obj/Skills/Utility/Send_Energy",
 	"Kiai" = "/obj/Skills/AutoHit/Kiai",
 	"Taiyoken" = "/obj/Skills/AutoHit/Taiyoken",
@@ -63,7 +64,6 @@ var/list/Tier2 = list(
 	"Sunlight Spear" = "/obj/Skills/Projectile/Magic/Uber_Shots/Sunlight_Spear",
 	"Shin Kikoho" = "/obj/Skills/AutoHit/Shin_Kikoho",
 	"Zantetsuken" = "/obj/Skills/AutoHit/Zantetsuken",
-	"Shadow Cut" = "/obj/Skills/AutoHit/Shadow_Cut",
 	"Thousand Man Slayer" = "/obj/Skills/AutoHit/Thousand_Man_Slayer",
 	"Omnislash" = "/obj/Skills/Queue/Omnislash",
 	"Spirit Sword" = "/obj/Skills/Buffs/SlotlessBuffs/Spirit_Sword",

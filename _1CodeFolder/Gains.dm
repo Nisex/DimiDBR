@@ -1247,7 +1247,16 @@ mob
 								LoseCapacity(b.DrainAll)
 							else
 								if(Energy>=1)
-									LoseEnergy(b.DrainAll*1.75, TRUE)
+									Energy-=b.DrainAll*1.75
+									if(Energy<0)
+										Energy=0
+									if(Energy<=10 && src.HasHealthPU() && src.PowerControl>100)
+										PowerControl=100
+										src << "You lose your gathered power..."
+										Auraz("Remove")
+										src<<"You are too tired to power up."
+										PoweringUp=0
+									GainFatigue((b.DrainAll*1.75)/10)
 								else if(TotalFatigue<98)
 									GainFatigue(b.DrainAll*2)
 								else

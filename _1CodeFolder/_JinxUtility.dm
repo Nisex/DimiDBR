@@ -797,7 +797,7 @@ mob
 				src.Auraz("Remove")
 				src<<"You are too tired to power up."
 				src.PoweringUp=0
-			src.GainFatigue(val/30)
+			src.GainFatigue(val/glob.FATIGUEDIVIDE)
 		GainFatigue(var/val)
 			if(src.FusionPowered)
 				return
@@ -1126,7 +1126,7 @@ mob
 		// forgive the sin below, im not replacing basestat() in all the codebase
 		getEnhanced(statName)
 			var/enhance = vars["Enhanced[statName]"] * 0.2
-			if(Target)
+			if(Target && ismob(Target))
 				if(Target.passive_handler["Rusting"])
 					enhance *= (Poison * (glob.RUSTING_RATE * passive_handler["Rusting"])) / 100
 			return enhance

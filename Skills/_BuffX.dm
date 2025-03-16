@@ -1378,15 +1378,15 @@ NEW VARIABLES
 		SpecialSlot=1
 //Racial
 		Giant_Form//for Warrior  Nameks instead!
-			NeedsHealth=50
-			TooMuchHealth=75
-			StrMult = 1.5
-			EndMult = 2
+			NeedsHealth=30
+			TooMuchHealth=35
+			StrMult = 1.2
+			EndMult = 1.2
 			DefMult = 0.5
 			SpdMult = 0.5
 			Enlarge=2
-			passives = list("GiantForm" = 1, "Sweeping Strikes" = 1, "NoDodge" = 1)
-			GiantForm=1
+			EnergyThreshold = 1
+			passives = list("GiantForm" = 1, "Sweeping Strikes" = 1, "NoDodge" = 1, "EnergyLeak" = 1)
 			ActiveMessage="channels their regenerative abilities into a bout of monstrous growth!"
 			OffMessage="shrinks to normal size..."
 			Cooldown=0
@@ -1397,8 +1397,9 @@ NEW VARIABLES
 		Daimou_Form//for Demon Nameks!
 			NeedsHealth=50
 			TooMuchHealth=75
-			StrMult=1.25
-			ForMult=1.25
+			StrMult=1.1
+			ForMult=1.1
+			EnergyThreshold = 1
 			passives = list("Hellrisen" = 0.25, "Hellpower" = 0.1, "Flicker" = 1)
 			ActiveMessage="unleashes the herectical power of the Demon clan!"
 			OffMessage="discards the Demon clan's abominal power..."
@@ -1406,7 +1407,7 @@ NEW VARIABLES
 			KenWave=2
 			KenWaveIcon="LightningRed.dmi"
 			adjust(mob/p)
-				passives = list("HellRisen" = 0.25 * (p.AscensionsAcquired-1), "Hellpower" = p.AscensionsAcquired/10, "Flicker" = round(p.AscensionsAcquired/2, 1))
+				passives = list("HellRisen" = 0.25 * (p.AscensionsAcquired-1), "Hellpower" = p.AscensionsAcquired/10, "Flicker" = round(p.AscensionsAcquired/2, 1),  "EnergyLeak" = 2)
 
 			Trigger(mob/User, Override)
 				. = ..()
@@ -8173,8 +8174,8 @@ NEW VARIABLES
 			Cooldown=0
 			var/last_avalon = 0
 			adjust(mob/p)
-				DrainAll = 0.7-(p.SagaLevel*0.1)
-				HealthHeal = 0.025+(p.SagaLevel*0.01)
+				DrainAll = 0.8-(p.SagaLevel*0.1)
+				HealthHeal = 0.2+(p.SagaLevel*0.01)
 			verb/Avalon()
 				set category="Skills"
 				src.Trigger(usr)
@@ -11937,7 +11938,7 @@ mob
 					src.ActiveBuff.IconReplace=1
 					src.ActiveBuff.icon=src.ExpandBase
 					src.ActiveBuff.passives["BleedHit"] = 0
-					src.ActiveBuff.passives["EnergyLeak"] = 4-AscensionsAcquired
+					src.ActiveBuff.passives["EnergyLeak"] = max(4-AscensionsAcquired,1)
 					src.ActiveBuff.passives["ManaLeak"] = 0
 					src.ActiveBuff.passives["GiantForm"] = round(AscensionsAcquired/2)
 					src.ActiveBuff.passives["Godspeed"] = AscensionsAcquired
@@ -11958,8 +11959,8 @@ mob
 							src.ActiveBuff.AngerPoint = 5 * AscensionsAcquired
 						src.ActiveBuff.passives["Pursuer"] = 0.5 * AscensionsAcquired
 						src.ActiveBuff.AngerMult = 1 + round(2/(8-AscensionsAcquired), 0.01)
-						src.ActiveBuff.passives["PUSpike"] = round(50/(5-AscensionsAcquired))
-						src.ActiveBuff.PUSpike=round(50/(5-AscensionsAcquired))
+						src.ActiveBuff.passives["PUSpike"] = round(25/(5-AscensionsAcquired))
+						src.ActiveBuff.PUSpike=round(25/(5-AscensionsAcquired))
 				if(src.Saga=="Spiral")
 					src.ActiveBuff.ActiveMessage="channels their evolution with full strength!!!"
 					src.ActiveBuff.OffMessage="calms their evolution..."

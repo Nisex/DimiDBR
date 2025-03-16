@@ -103,14 +103,14 @@ ascension
 							defense = -0.25
 							endurance = -0.25
 						if("Feather Cowl")
-							owner.passive_handler.Increase("BlockChance", 25)
-							owner.passive_handler.Increase("CriticalBlock", 0.15)
+							owner.passive_handler.Increase("BlockChance", 10)
+							owner.passive_handler.Increase("CriticalBlock", 0.1)
 							endurance = 0.5
 							defense = 0.5
 							strength = -0.25
 						if("Feather Knife")
-							owner.passive_handler.Increase("CriticalChance", 25)
-							owner.passive_handler.Increase("CriticalDamage", 0.15)
+							owner.passive_handler.Increase("CriticalChance", 10)
+							owner.passive_handler.Increase("CriticalDamage", 0.1)
 							offense = 0.5
 							speed = 0.25
 						if("Spirit Walker")

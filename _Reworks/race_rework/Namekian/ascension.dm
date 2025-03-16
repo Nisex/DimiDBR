@@ -38,8 +38,6 @@ ascension
 					if("Demon")
 						//power = 1
 						offense = 0.25
-						defense = 0.25
-						speed = 0.25
 						strength = 0.25
 						anger = 0.1 // 1.5
 						skills = list(/obj/Skills/Buffs/SpecialBuffs/Daimou_Form)
@@ -54,10 +52,10 @@ ascension
 
 					if("Warrior")
 						//power = 1.5
-						passives = list(,"Duelist" = 1)
+						passives = list("Duelist" = 1)
 						intimidation = 10
-						strength = 0.5
-						endurance = 0.5
+						strength = 0.25
+						endurance = 0.25
 						skills = list(/obj/Skills/Buffs/SpecialBuffs/Giant_Form)
 				..()
 		three

@@ -549,9 +549,6 @@ mob
 		AddCrippling(var/Value, var/mob/Attacker=null)
 			if(src.Stasis)
 				return
-			if(isRace(MAKYO) || GetSpd() < 1.25)
-				Value = 0
-				return
 			// if(src.isRace(MAJIN))
 			// 	if(!src.AscensionsAcquired||src.AscensionsAcquired>=3)
 			// 		Value=0
