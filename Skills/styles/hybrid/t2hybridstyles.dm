@@ -28,6 +28,7 @@
 		Finisher="/obj/Skills/Queue/Finisher/Bauf_Burst"
 		verb/Ifrit_Jambe()
 			set hidden=1
+			
 			src.Trigger(usr)
 
 	Psycho_Boxing // mystic+unarmed (anti cyborg)

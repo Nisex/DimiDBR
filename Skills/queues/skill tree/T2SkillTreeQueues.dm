@@ -70,16 +70,16 @@ obj
 			Gravity_Blade // NEW REPLACEMENT
 				SkillCost=TIER_2_COST
 				Copyable=3
-				HarderTheyFall=1
+				HarderTheyFall=3
 				Opener=1
 				Cooldown=60
 				Duration=5
 				ActiveMessage="prepares a chain of giant-toppling attacks!"
-				DamageMult=0.3
+				DamageMult=1.2
 				AccuracyMult=1.1
 				NeedsSword=1
 				EnergyCost=5
-				InstantStrikes=10
+				InstantStrikes=4
 				InstantStrikesDelay=1.5
 				verb/Gravity_Blade()
 					set category="Skills"

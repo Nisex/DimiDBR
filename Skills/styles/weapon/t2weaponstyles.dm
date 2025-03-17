@@ -13,7 +13,7 @@
                     "NeedsSecondSword" = 1, "NeedsThirdSword" = 1, "Iaijutsu" = 1.5, "Musoken" = 1)
         NeedsSecondSword = 1
         NeedsThirdSword = 1
-        //TODO HAS NO FINISHER!
+        Finisher=/obj/Skills/Queue/Finisher/King_of_Hell
         verb/Santoryu()
             set hidden=1
             src.Trigger(usr)
@@ -28,6 +28,7 @@
         StyleEnd=0.85
         HeavyOnly=1
         StyleActive="Guts Berserk"
+        Finisher=/obj/Skills/Queue/Finisher/Dragon_Slayer
         //TODO HAS NO FINISHER!
         verb/Berserk()
             set hidden=1

@@ -73,9 +73,27 @@
         TimerLimit = 30
 
     Frozen_Summit
-        passives = list("CriticalChance" = 25, "BlockChance" = 25, "CriticalBlock" = 0.25, "GiantForm" = 1, \
+        passives = list("BlockChance" = 25, "CriticalBlock" = 0.25, "GiantForm" = 1, \
                         "MovingCharge" = 1, "QuickCast" = 1, "Freezing" = 10, "Shattering" = 10, "LifeGeneration" = 1.5, \
                         "LikeWater" = 4, "TensionLock" = 1)
         EndMult=1.2
         ForMult=1.2
         DefMult=1.2
+    
+    Firefox_Style
+        passives = list("AfterImages" = 4, "TensionLock" = 1, "Speed Force" = 2, "Iaijutsu" = 1,\
+                        "Relentlessness" = 1, "Fury" = 4, "TripleStrike" = 0.5, "Momentum" = 2, "Steady" = 3, \
+                         "TensionLock" = 1)
+        SpdMult=1.5
+        IconLock='SweatDrop.dmi'
+        IconApart=1
+    
+    Indomitable_Will
+        IconLock='SweatDrop.dmi'
+        IconApart=1
+        passives = list("Duelist" = 2, "Half-Sword" = 1, "Zornhau" = 1, "NoDodge" = 1, "LifeGeneration" = 1, \
+                        "KBRes" = 4, "Hardening" = 3, "Adrenaline" = 2, "Unnerve" = 2, "Pressure" = 1, "TensionLock" = 1)
+        StrMult=1.35
+        EndMult=1.35
+        SpdMult=0.75
+        VaizardHealth=2

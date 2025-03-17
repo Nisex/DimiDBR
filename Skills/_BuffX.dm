@@ -3882,45 +3882,49 @@ NEW VARIABLES
 				if(istype(usr.SpecialBuff, type) && usr.SpecialBuff.BuffName!="Broken Brave")
 					Trigger(usr, TRUE)
 					usr<<"You swap to Broken Brave!"
+					BuffName="Broken Brave"
 					setupVars(usr)
+					TimerLimit = 0
 					StrMult=1.15 + (0.05 * usr.SagaLevel)
 					EndMult=1 + (0.025 * usr.SagaLevel)
 					ForMult=1.15 + (0.05 * usr.SagaLevel)
-					BuffName="Broken Brave"
 					ExhaustedMessage = " begins fighting fiercely like a lion!"
 					DesperateMessage = " calls upon the power of Destruction for one final push!"
 					Trigger(usr, TRUE)
 				else
+					setupVars(usr)
 					Trigger(usr)
 			verb/Protect_Brave()
 				set category="Skills"
 				if(istype(usr.SpecialBuff, type) && usr.SpecialBuff.BuffName!="Protect Brave")
 					Trigger(usr, TRUE)
 					usr<<"You swap to Protect Brave!"
+					BuffName="Protect Brave"
 					setupVars(usr)
 					StrMult=1 + (0.025 * usr.SagaLevel)
 					EndMult=1.15 + (0.05 * usr.SagaLevel)
 					ForMult=1 + (0.025 * usr.SagaLevel)
 					DefMult=1.15 + (0.05 * usr.SagaLevel)
-					BuffName="Protect Brave"
 					ExhaustedMessage = " begins fighting defensively like a machine!"
 					DesperateMessage = " calls upon the power of Protection for one final push!"
 					Trigger(usr, TRUE)
 				else
+					setupVars(usr)
 					Trigger(usr)
 			verb/Genesic_Brave()
 				set category="Skills"
 				if(usr.SpecialBuff&&usr.SpecialBuff.BuffName!="Genesic Brave")
 					Trigger(usr, TRUE)
+					BuffName="Genesic Brave"
 					setupVars(usr)
 					StrMult=1.15 + (0.05 * usr.SagaLevel)
 					EndMult=1.15 + (0.05 * usr.SagaLevel)
 					ForMult=1.15 + (0.05 * usr.SagaLevel)
-					BuffName="Genesic Brave"
 					ExhaustedMessage = " begins fighting with the power of a god!"
 					DesperateMessage = " calls upon the power of Creation for one final push!"
 					Trigger(usr, TRUE)
 				else
+					setupVars(usr)
 					Trigger(usr)
 
 		OverSoul

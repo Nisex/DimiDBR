@@ -956,7 +956,6 @@
 							spawn()
 								QueuedMissMessage()
 				if(passive_handler["Tossing"] && passive_handler["Secret Knives"])
-					world<<"hey lol"
 					var/sk = passive_handler["Secret Knives"]
 					if(prob(passive_handler["Tossing"] * glob.SECRET_KNIFE_CHANCE))
 						var/path = "/obj/Skills/Projectile/[sk]"

@@ -48,6 +48,41 @@
 
     // end unarmed
 
+
+    King_of_Hell
+        
+        SpeedStrike = 2
+        SweepStrike = 2
+        Quaking=5
+        PushOut=1
+        FollowUp=/obj/Skills/Queue/Finisher/Kokujo_O_Tatsumaki
+        BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Firefox_Style
+        BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Shredded
+
+    Kokujo_O_Tatsumaki
+        Combo=25
+        DamageMult = 0.1
+        HitMessage="rips through their opponent with countless slashes!"
+        BuffSelf=0
+        HitSparkIcon = 'Slash_Multi.dmi'
+    Body_Flicker_Technique
+        Combo=20
+        DamageMult = 0.15
+        HitMessage="rips through their opponent with countless slashes!"
+        BuffSelf=0
+        HitSparkIcon = 'Slash_Multi.dmi'
+
+    Dragon_Slayer
+        HarderTheyFall=4
+        Stunner=4
+        KBMult = 0.0001
+        // FollowUp=/obj/Skills/AutoHit/Mountain_Cleave
+        DamageMult = 3
+        Decider = 4
+        BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Indomitable_Will
+        BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fimbulwinter
+
+
     Divine_Finisher
         name = "Heavenly Demon's Radiant Divine Palm that Shatters the Nine Heavens and Illuminates the Eternal Night"
         Warp = 10
