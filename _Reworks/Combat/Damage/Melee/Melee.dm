@@ -932,7 +932,6 @@
 									if(quakeIntens>14)
 										quakeIntens=14
 									enemy?.Earthquake(quakeIntens, -4,4,-4,4)
-							return dmgValue
 					else
 							//		MISS START  //
 						if(enemy.CheckSpecial("Ultra Instinct"))
