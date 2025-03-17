@@ -40,7 +40,8 @@ RPFlag
 				return TRUE
 
 /obj/Items/Tech/SpaceMask/Rebreather
-	TechType = "DISABLED"
+	TechType = "Rebreather"
+	Cost = 1
 	name = "Rebreather"
 	desc = "A rebreather specifically designed to ward off the effects of the miasma."
 	// its 9 am 
