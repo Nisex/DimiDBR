@@ -11846,9 +11846,10 @@ mob
 				src.StyleBuff.Mastery=4
 
 			if(src.StyleBuff.StyleActive=="Ansatsuken")
+				var/unarmed = glob.UNARMED_DAMAGE_DIVISOR/6
 				src.StyleBuff.passives["CheapShot"] = 0.25 * SagaLevel
-				src.StyleBuff.passives["UnarmedDamage"] = 0.5 * SagaLevel
-				src.StyleBuff.passives["Duelist"] = round(0.33 * SagaLevel, 1)
+				src.StyleBuff.passives["UnarmedDamage"] = round(unarmed * SagaLevel,0.5)
+				src.StyleBuff.passives["Duelist"] = 0.5 * SagaLevel
 				switch(src.AnsatsukenPath)
 					if("Hadoken")
 						StyleBuff.Finisher="/obj/Skills/Queue/Finisher/Isshin"
