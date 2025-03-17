@@ -18,8 +18,7 @@
         passives = list("Muscle Power" = 2, "TechniqueMastery" = 3, "DeathField" = 7, "Juggernaut"= 5, "KBRes"= 5, "TensionLock" = 1)
     Emergent_Demon_Breakthrough
         StyleNeeded="Divine Arts of The Heavenly Demon"
-        passives = list("Hardening" = 1.5, "Deflection" = 2, "UnarmedDamage" = 2, "Momentum" = 2, "Unnerve" = 2,\
-                        ) //TODO come back 2 this perhaps
+        passives = list("Hardening" = 1.5, "Deflection" = 2, "UnarmedDamage" = 2, "Momentum" = 2, "Unnerve" = 2, "TensionLock" = 1)  //TODO come back 2 this perhaps
         StrMult=1.3
         SpdMult=1.2
         ActiveMessage="presses on the cusp of the Ultimate Heavenly Demon Realm!"
@@ -30,7 +29,7 @@
         DefMult=1.3
         StrMult=1.3
         EndMult=0.6
-        passives = list("ComboMaster" = 1, "Gum Gum" = 1, "Relentlessness" = 1, "Momentum" = 1.5, "Flow" = 2,\
+        passives = list("ComboMaster" = 1, "Gum Gum" = 1, "Relentlessness" = 1, "Momentum" = 2, "Flow" = 2,\
                         "BuffMastery" = 3, "Brutalize" = 1.5, "MovementMastery" = 3, "TensionLock" = 1)
     
 
@@ -81,9 +80,9 @@
         DefMult=1.2
     
     Firefox_Style
-        passives = list("AfterImages" = 4, "TensionLock" = 1, "Speed Force" = 2, "Iaijutsu" = 1,\
-                        "Relentlessness" = 1, "Fury" = 4, "TripleStrike" = 0.5, "Momentum" = 2, "Steady" = 3, \
-                         "TensionLock" = 1)
+        passives = list("AfterImages" = 4, "Speed Force" = 2, "Iaijutsu" = 1, "Relentlessness" = 1, \
+                        "Fury" = 4, "TripleStrike" = 0.5, "Momentum" = 1.5, \
+                        "TensionLock" = 1)
         SpdMult=1.5
         IconLock='SweatDrop.dmi'
         IconApart=1
@@ -92,8 +91,26 @@
         IconLock='SweatDrop.dmi'
         IconApart=1
         passives = list("Duelist" = 2, "Half-Sword" = 1, "Zornhau" = 1, "NoDodge" = 1, "LifeGeneration" = 1, \
-                        "KBRes" = 4, "Hardening" = 3, "Adrenaline" = 2, "Unnerve" = 2, "Pressure" = 1, "TensionLock" = 1)
+                        "KBRes" = 4, "Hardening" = 3, "Unnerve" = 2, "Pressure" = 1, "TensionLock" = 1)
         StrMult=1.35
         EndMult=1.35
         SpdMult=0.75
         VaizardHealth=2
+    
+
+    Righteous_Crusade
+        IconLock='SweatDrop.dmi'
+        IconApart=1
+        passives = list("Tossing" = 2, "SlayerMod" = 2, "FavoredPrey" = "All",  "Hit Scan" = 2 , "HolyMod" = 2,  \
+        "TensionLock" = 1) // not sure 
+        StyleOff = 1.2
+        StyleStr = 1.2
+        StyleSpd = 1.1
+        HitScanIcon = 'stake.dmi'
+        HitScanHitSpark = 'Hit_Effect_KanjuriKanKan.dmi'
+    Staked
+        passives = list("Staked" = 1, "Godspeed" = -2, "Flow" = -1)
+        CrippleAffected = 3
+        HealthDrain = 0.025
+        SpdMult=0.75
+        DefMult=0.8

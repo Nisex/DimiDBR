@@ -796,6 +796,7 @@
 								Stun(src, 3, TRUE)
 								enemy.SlotlessBuffs["Magmic Shield"].Trigger(enemy, TRUE)
 							var/dmgValue = DoDamage(enemy, damage, unarmedAtk, swordAtk, SecondStrike, ThirdStrike)
+							. = dmgValue
 							if(!glob.MOMENTUM_PROCS_OFF_DAMAGE)
 								handlePostDamage(enemy) // it already proc'd
 							lastHit = world.time

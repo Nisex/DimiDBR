@@ -68,3 +68,12 @@
 		Rush = 3
 		EndDefense = 1
 		Scorching = 50
+	
+	Pinning_Stake
+		Area = "Target"
+		Snaring = 4
+		Distance = 4
+		DamagEMult = 4
+		AdaptRate = 1
+		Shattering = 25
+		HitSparkIcon='HitsparkStar.dmi'

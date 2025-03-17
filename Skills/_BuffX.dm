@@ -4101,8 +4101,8 @@ NEW VARIABLES
 						return 1.25
 					if("Namekian")
 						return 0.8
-				if(p.Secret == "Werewolf")
-					return 1
+				if(p.Secret == "Werewolf" || p.Secret == "Vampire")
+					return 1.1
 
 			proc/getRegenRate(mob/p)
 				var/baseHeal = 1.5
@@ -4113,14 +4113,14 @@ NEW VARIABLES
 				if(!altered)
 					if(p.Potential <= ASCENSION_ONE_POTENTIAL)
 						var/raceModifier = getRaceModifier(p)
-						HealthHeal = ((glob.REGEN_ASC_ONE_HEAL * raceModifier)/TimerLimit) * world.tick_lag
+						HealthHeal = ((glob.REGEN_ASC_ONE_HEAL * raceModifier)/TimerLimit)
 					else
 						var/raceModifier = getRaceModifier(p)
 						var/asc = p.AscensionsAcquired
 						var/amt = (baseHeal + raceModifier) + ( ((perMissing + (missingPerAsc * asc)) + (raceModifier/raceDivisor)) * (100 - p.Health))
 						var/divider = asc * raceModifier > 0 ? asc * raceModifier : 1
 						var/time = 12 / divider
-						HealthHeal = (amt / time) * world.tick_lag // health per tick(?)
+						HealthHeal = (amt / time) // health per tick(?)
 						WoundHeal = HealthHeal/2
 						TimerLimit = time             // ticks per regen
 						EnergyCost = amt / 4

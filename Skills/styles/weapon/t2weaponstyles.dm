@@ -29,7 +29,6 @@
         HeavyOnly=1
         StyleActive="Guts Berserk"
         Finisher=/obj/Skills/Queue/Finisher/Dragon_Slayer
-        //TODO HAS NO FINISHER!
         verb/Berserk()
             set hidden=1
             src.Trigger(usr)
@@ -43,7 +42,6 @@
         StyleEnd=1.15
         StyleActive="Witch Hunter"
         Finisher=/obj/Skills/Queue/Finisher/Hunt
-        //TODO HAS NO FINISHER!
         verb/Witch_Hunter()
             set hidden=1
             src.Trigger(usr)

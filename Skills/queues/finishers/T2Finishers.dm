@@ -58,7 +58,7 @@
         FollowUp=/obj/Skills/Queue/Finisher/Kokujo_O_Tatsumaki
         BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Firefox_Style
         BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Shredded
-
+        HitMessage = "breaks off into a relentless pursuit!"
     Kokujo_O_Tatsumaki
         Combo=25
         DamageMult = 0.1
@@ -75,8 +75,17 @@
         Decider = 4
         BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Indomitable_Will
         BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fimbulwinter
-
+        HitMessage = "sends a massive cleaving sword strike forward!"
     Hunt
+        Dominator = 3
+
+        BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Righteous_Crusade
+        BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Staked
+        DamageMult = 3
+        Stunner = 2
+        KBMult = 3
+        HitMessage = "prepares the hunt by pinning their prey to the ground!"
+        FollowUp=/obj/Skills/AutoHit/Pinning_Stake
         
 
     Divine_Finisher

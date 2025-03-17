@@ -858,6 +858,9 @@ mob
 				src.Tension=max(0, Tension-(val*1.5))
 			else if(Tension != 100)
 				src.Tension=max(0, Tension-(val*0.75))
+			if(passive_handler["Staked"])
+				val = 0
+			// SURELY NO PROBLEMS HERE
 			src.Health+=val
 			src.MaxHealth()
 		HealEnergy(var/val, var/StableHeal=0)
