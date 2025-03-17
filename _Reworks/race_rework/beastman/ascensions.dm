@@ -78,8 +78,9 @@ ascension
 					switch(choice)
 						if("Heart of The Beastman")
 							owner.passive_handler.Increase("Blubber", 0.25)
-							endurance = 0.35
-							strength = 0.4
+							endurance = 0.25
+							strength = 0.25
+							speed = 0.25
 						if("Monkey King")
 							owner.passive_handler.Increase("Nimbus", 1)
 							endurance = 0.15
@@ -97,29 +98,26 @@ ascension
 						if("Undying Rage")
 							owner.passive_handler.Increase("Momentum", 1)
 							owner.passive_handler.Increase("KillerInstinct", 0.1)
-							strength = 0.5
-							speed = 0.5
+							strength = 0.25
+							speed = 0.25
 							offense = 0.25
-							defense = -0.25
-							endurance = -0.25
 						if("Feather Cowl")
 							owner.passive_handler.Increase("BlockChance", 10)
 							owner.passive_handler.Increase("CriticalBlock", 0.1)
-							endurance = 0.5
-							defense = 0.5
-							strength = -0.25
+							speed = 0.5
+							offense = 0.25
 						if("Feather Knife")
 							owner.passive_handler.Increase("CriticalChance", 10)
 							owner.passive_handler.Increase("CriticalDamage", 0.1)
-							offense = 0.5
+							strength = 0.25
 							speed = 0.25
+							endurance = 0.25
 						if("Spirit Walker")
 							owner.passive_handler.Increase("Flow", 2)
 							owner.passive_handler.Increase("Instinct", 2)
+							force = 0.25
+							strength = 0.25
 							endurance = 0.25
-							strength = 0.1
-							offense = 0.2
-							defense = 0.2
 						if("Shapeshifter")
 							owner << "currently not working"
 						

@@ -70,6 +70,11 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 					OMessage(10, "<font color=#F07E1F>[src] [ExhaustedMessage ? "[ExhaustedMessage]" : " looks exhausted!"]!", "[src]([src.key]) has 25% health left.</font>")
 				else
 					OMessage(10,"font color='[ExhaustedColor]'> [src] [ExhaustedMessage ? "[ExhaustedMessage]" : " looks exhausted!"]!", "[src]([src.key]) has 25% health left.</font>")
+		var/shonenMoment = ShonenPowerCheck(src)
+		if(shonenMoment)
+			VaizardHealth += triggerPlotArmor(shonenMoment, HasUnstoppable())
+			src.OMessage(10, "<font color=#c3b329>[src]'s will to be a HERO gives them a second wind!</font>", "[src]([src.key]) has triggered plot armor.")
+
 		HealthAnnounce25 = 1
 
 	// 10% health check

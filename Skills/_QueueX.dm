@@ -863,7 +863,9 @@ obj
 							return
 						usr.Tension=0
 						if(usr.StyleBuff.Finisher)//if the style has a unique finisher
-							var/path=text2path(usr.StyleBuff.Finisher)
+							var/path = usr.StyleBuff.Finisher
+							if(!ispath(usr.StyleBuff.Finisher))
+								path=text2path(usr.StyleBuff.Finisher)
 							var/obj/Skills/Queue/q
 							if(!locate(path, usr))
 								q = new path
