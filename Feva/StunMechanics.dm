@@ -1,22 +1,6 @@
 
 /mob/var/tmp/last_stunned = 0
 
-/mob/Admin3/verb/changeStunImmune()
-	set category = "Admin"
-	set name = "Change Stun Immune Timer"
-	glob.STUN_IMMUNE_TIMER = input("Enter the new stun immune timer as seconds") as num
-	glob.STUN_IMMUNE_TIMER = glob.STUN_IMMUNE_TIMER * 10
-	if(glob.STUN_IMMUNE_TIMER < 1 || glob.STUN_IMMUNE_TIMER > 100)
-		world << "Stun immune timer changed to [glob.STUN_IMMUNE_TIMER/10] seconds."
-
-/mob/Admin3/verb/changeMaxStun()
-	set category = "Admin"
-	set name = "Change Max Stun Time"
-	glob.MAX_STUN_TIME = input("Enter the new stun time as seconds") as num
-	glob.MAX_STUN_TIME = glob.MAX_STUN_TIME * 10
-	world << "Max stunned time changed to [glob.MAX_STUN_TIME/10] seconds."
-
-
 proc
 	Stun(mob/m,amount=5, ignoreImmune = FALSE)
 		if(!m)
@@ -41,9 +25,9 @@ proc
 				if(p.ContinuousOn && !p.StormFall)
 					m.UseProjectile(p)
 				continue
-		var/Stun_Amount=world.time+(amount*8)
+		var/Stun_Amount=world.time+(amount*10)
 		if(m.Stunned)
-			m.Stunned+=(amount*2)
+			m.Stunned+=(amount*4)
 			if(m.Stunned > m.last_stunned + glob.MAX_STUN_ADDITION)
 				m.Stunned = m.last_stunned + glob.MAX_STUN_ADDITION
 		else
@@ -67,8 +51,10 @@ proc
 				mob.overlays-='IceCoffin.dmi'
 				var/mod = (mob.HasMythical() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
 				mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))
+				mob << "You can't be stunned for another [glob.STUN_IMMUNE_TIMER*(1+mod)/10]"
 				if(mob.passive_handler["Shellshocked"])
 					mob.passive_handler.Set("Shellshocked", 0)
+					mob << "You are no longer Shellshocked..."
 			else
 				return 1
 	StunClear(mob/mob)
@@ -84,9 +70,10 @@ proc
 				mob.overlays-='IceCoffin.dmi'
 				var/mod = (mob.HasMythical() * 0.5) + mob.passive_handler.Get("Juggernaut") * 0.25
 				mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))
+				mob << "You can't be stunned for another [glob.STUN_IMMUNE_TIMER*(1+mod)/10]"
 	StunImmuneCheck(mob/mob)
 		// stunned, not kamui, not senketsu
-		if(mob.StunImmune && mob.passive_handler["ContinuallyStun"])
+		if(mob.StunImmune)
 			if(mob.StunImmune<world.time)
 				mob.StunImmune=0
 			else

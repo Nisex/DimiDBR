@@ -26,5 +26,5 @@
             meter.color = "#0f0"
         else 
             meter.color = "#666"
-        meter.animateBar(add, world.tick_lag)
+        meter.animateBar(add, world.tick_lag*10)
         holder.maptext = "[total_charges]"

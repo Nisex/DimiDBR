@@ -442,7 +442,7 @@ globalTracker
 		FIELD_MODIFIERS = 0.01
 		GLUTTONY_MODIFIER = 0.14
 		STEADY_MODIFIER = 0.05
-		UNARMED_DAMAGE_DIVISOR = 15
+		UNARMED_DAMAGE_DIVISOR = 10
 
 
 		HARDER_THEY_FALL_BIO_DIVISOR = 100 // if u use this when changie first start it will do big damage
@@ -462,7 +462,7 @@ globalTracker
 // CC related
 		CCDamageModifier = 0.33
 		STUN_IMMUNE_TIMER = 250
-		MAX_STUN_ADDITION = 50
+		MAX_STUN_ADDITION = 100
 		MAX_STUN_TIME = 800
 		LAUNCH_LOCKOUT = 200
 		MAX_LAUNCH_TIME = 25

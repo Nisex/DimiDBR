@@ -395,7 +395,9 @@ mob
 
 			// else
 			// 	MeditateTime=0
-
+			var/grit_value = passive_handler["Grit"]
+			if (grit_value >= 1 && Health <= clamp(15 + AscensionsAcquired * 10, 15, 75))
+				HealHealth(grit_value / glob.racials.GRITDIVISOR)
 			if(src.Lethal)
 				src.Lethal--
 				if(src.Lethal<=0)
@@ -541,7 +543,7 @@ mob
 
 			if(passive_handler.Get("ContinuallyStun"))
 				if(prob(passive_handler.Get("ContinuallyStun")))
-					Stun(src, rand(1,3))
+					Stun(src, rand(1,3), TRUE)
 
 				if(movementSealed)
 					for(var/obj/Seal/S in src)
@@ -915,8 +917,8 @@ mob
 				if(src.Roided<=0)
 					src.Roided=0
 					src<<"Your steroids wear off, leaving you feeling worn out and sore!"
-					src.OverClockNerf+=0.25
-					src.OverClockTime+=RawHours(6)
+					src.OverClockNerf+=0.15
+					src.OverClockTime+=RawHours(1)
 
 			var/safety=0
 			while(src.ActiveBuff)
