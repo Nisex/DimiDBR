@@ -780,7 +780,7 @@ mob
 				val*=src.Power_Multiplier
 				if(src.GetPowerUpRatio()>1)
 					var/PowerUpPercent=GetPowerUpRatio()-1
-					if(src.HasMovementMastery())
+					if(src.HasMovementMastery()>=1) // this run timed a 0 somehow
 						PowerUpPercent/=1+(src.GetMovementMastery()/8)
 					val*=(1+(PowerUpPercent/src.PUDrainReduction))
 				if(src.Kaioken)

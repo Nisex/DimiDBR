@@ -1123,7 +1123,7 @@ obj/Items/Tech
 					src.Using=0
 					return
 				if(!Choice.Roided)
-					Choice.Roided=120
+					Choice.Roided=240
 					Choice<<"You've had a steroid applied to you!  Your power is increased!"
 					del(src)
 				else
