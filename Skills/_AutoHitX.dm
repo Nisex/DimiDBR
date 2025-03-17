@@ -547,7 +547,7 @@ obj
 				NoAttackLock=1
 				Distance=5
 				Instinct=1
-				DamageMult=5
+				DamageMult=3
 				StrOffense=1
 				EndDefense=0.75
 				ActiveMessage="ruptures the ground with their mega-powerful slash!"

@@ -65,23 +65,19 @@
         HitMessage="rips through their opponent with countless slashes!"
         BuffSelf=0
         HitSparkIcon = 'Slash_Multi.dmi'
-    Body_Flicker_Technique
-        Combo=20
-        DamageMult = 0.15
-        HitMessage="rips through their opponent with countless slashes!"
-        BuffSelf=0
-        HitSparkIcon = 'Slash_Multi.dmi'
 
     Dragon_Slayer
         HarderTheyFall=4
         Stunner=4
         KBMult = 0.0001
-        // FollowUp=/obj/Skills/AutoHit/Mountain_Cleave
+        FollowUp=/obj/Skills/AutoHit/Divide_Effect
         DamageMult = 3
         Decider = 4
         BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Indomitable_Will
         BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fimbulwinter
 
+    Hunt
+        
 
     Divine_Finisher
         name = "Heavenly Demon's Radiant Divine Palm that Shatters the Nine Heavens and Illuminates the Eternal Night"

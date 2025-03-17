@@ -72,7 +72,7 @@
 
 /obj/Skills/AutoHit/Water_Wave
 	Copyable = 0
-	Area="Cone"
+	Area="Wider Wave"
 	ComboMaster=1
 	Distance = 5
 	Size = 4

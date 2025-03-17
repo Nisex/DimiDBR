@@ -42,6 +42,7 @@
         StyleStr=1.3
         StyleEnd=1.15
         StyleActive="Witch Hunter"
+        Finisher=/obj/Skills/Queue/Finisher/Hunt
         //TODO HAS NO FINISHER!
         verb/Witch_Hunter()
             set hidden=1
