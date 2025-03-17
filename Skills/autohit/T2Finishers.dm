@@ -73,7 +73,7 @@
 		Area = "Target"
 		Snaring = 4
 		Distance = 4
-		DamagEMult = 4
+		DamageMult = 4
 		AdaptRate = 1
 		Shattering = 25
 		HitSparkIcon='HitsparkStar.dmi'
