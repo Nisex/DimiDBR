@@ -1,6 +1,50 @@
 mob
 	proc
 		StyleUnlock(obj/Skills/Buffs/NuStyle/ns)//this proc accepts a style object as a parameter so it doesnt check for all styles ever
+			if(!ns.StyleComboUnlock) return
+			if(!islist(ns.StyleComboUnlock)) return
+			ns.initUnlock()
+			var/list/preReq = ns.StyleComboUnlock
+
+			// each entry is either a text path or a path, keep that in mind, with text, if it ends in 'any' we need to find the above type
+			for(var/pr in preReq)
+				if(!pr || pr == null || pr == "") return
+				var/obj/Skills/Buffs/NuStyle/nextPath = preReq[pr]
+				if(!nextPath || nextPath == null || nextPath == "") return
+				if(!ispath(nextPath))
+					nextPath = text2path(nextPath)
+				if(locate(nextPath, src))
+					continue
+				else
+					nextPath = new nextPath
+				// we have it bro
+				var/thePath = pr
+				var/obj/Skills/Buffs/NuStyle/found = 0
+				if(!ispath(thePath))
+					if(findtext(thePath, "/_Any"))
+						// this implies it is any sword style
+						var/par = replacetext(thePath, "/_Any", "")
+						// should b the parent
+						// var/obj/Skills/s = FindSkill(text2path(par))
+						// world<<"[s]"
+						for(var/obj/Skills/Buffs/NuStyle/style in src)
+							if(istype(style, text2path(par)) && style.SignatureTechnique >= nextPath.SignatureTechnique-1)
+								found = style
+								break
+					else
+						thePath = text2path(thePath)
+				
+				if(!found)
+					if(locate(thePath, src))
+						found = thePath
+					else return
+
+				if(!SignatureStyles.Find("[nextPath.name]"))
+					SignatureStyles[nextPath.name] = nextPath.type
+					src << "You can now unlock [nextPath.name] by investing a Tier [nextPath.SignatureTechnique] Signature into it!"
+				del nextPath
+			return
+
 			if(ns.StyleComboUnlock)//does this even exist?)
 				if(IsList(ns.StyleComboUnlock))
 					for(var/x in ns.StyleComboUnlock)

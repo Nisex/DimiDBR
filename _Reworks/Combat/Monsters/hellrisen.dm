@@ -1,7 +1,9 @@
 /mob/proc/FindSkill(typePath)
     if(ispath(typePath) || istext(typePath))
+        if(ispath(typePath))
+            return locate(typePath, src)
         for(var/obj/Skills/skill in src)
-            if(skill.type == typePath || "[skill.type]" == "[typePath]")
+            if("[skill.type]" == "[typePath]")
                 return skill
     else
         if(typePath in src)

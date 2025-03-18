@@ -29,8 +29,7 @@
 		StyleFor=1.15
 		StyleEnd=1.15
 		StyleActive="Black Leg"
-		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Mantis_And_Crane_Style", \
-		"/obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ifrit_Jambe")
+		StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Mantis_And_Crane_Style")
 		passives = list("Hardening" = 1, "SpiritHand" = 1, "Instinct" = 1, "Flow" = 1)
 		Finisher="/obj/Skills/Queue/Finisher/Mouton_Shot"
 		verb/Black_Leg_Style()

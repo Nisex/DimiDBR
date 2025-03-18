@@ -18,24 +18,24 @@
 	Ifrit_Jambe // mystic+unarmed
 		SignatureTechnique=2
 		Copyable=0
-		StyleStr=1.15
-		StyleFor=1.15
-		StyleEnd=1.15
+		StyleStr=1.25
+		StyleFor=1.25
+		StyleEnd=1.1
 		StyleActive="Ifrit Jambe"
-		StyleComboUnlock=list()
-		passives = list("HybridStyle" = "MysticStyle","Fury" = 2, "Momentum" = 2,  "Hardening" = 2, "SpiritHand" = 2, "Instinct" = 2, \
-						"Flow" = 2, "SpiritFlow" = 2, "Combustion" = 40, "Scorching" = 5, "Shattering" = 5)
+		passives = list("HybridStyle" = "MysticStyle","Fury" = 2, "Momentum" = 2,  "Hardening" = 2, "SpiritHand" = 1.5, "Instinct" = 2, \
+						"Flow" = 2, "SpiritFlow" = 1.5, "Combustion" = 40, "Scorching" = 5, "Shattering" = 5)
 		Finisher="/obj/Skills/Queue/Finisher/Bauf_Burst"
 		verb/Ifrit_Jambe()
 			set hidden=1
-			
 			src.Trigger(usr)
 
 	Psycho_Boxing // mystic+unarmed (anti cyborg)
 		SignatureTechnique=2
-		passives = list("HybridStyle" = "MysticStyle", "Rusting" = 2, "SoulTug" = 1, "SpiritHand" = 1, "SpiritFlow" = 1, "CyberStigma" = 4, \
+		passives = list("HybridStyle" = "MysticStyle", "Rusting" = 2, "SoulTug" = 1, "SpiritHand" = 1.5, "SpiritFlow" = 1.5, "CyberStigma" = 4, \
 			"Toxic" = 4, "Instinct" = 1, "Flow" = 1, "Hardening" = 1)
-		
+		StyleStr=1.3
+		StyleFor=1.3
+		StyleActive="Psycho Boxing"
 		Finisher="/obj/Skills/Queue/Finisher/Psycho_Barrage"
 		verb/Psycho_Boxing()
 			set hidden=1

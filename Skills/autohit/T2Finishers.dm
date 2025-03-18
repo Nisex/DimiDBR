@@ -73,7 +73,30 @@
 		Area = "Target"
 		Snaring = 4
 		Distance = 4
-		DamagEMult = 4
+		DamageMult = 4
 		AdaptRate = 1
 		Shattering = 25
 		HitSparkIcon='HitsparkStar.dmi'
+	
+	Beef_Burst
+		Area="Wide Wave"
+		NoLock=1
+		NoAttackLock=1
+		Distance=5
+		DamageMult=2
+		StrOffense=1
+		ForOffense=1
+		EndDefense=1
+		Knockback=10
+		Scorching=30
+		ActiveMessage="follows up with an incendiary kick!!"
+		HitSparkIcon='Hit Effect Ripple.dmi'
+		HitSparkX=-32
+		HitSparkY=-32
+		HitSparkSize=3
+		HitSparkTurns=0
+		HitSparkLife=7
+		TurfStrike=1
+		TurfShift='Dirt1.dmi'
+		TurfShiftDuration=30
+		Cooldown=4

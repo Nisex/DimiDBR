@@ -133,11 +133,15 @@ proc/DevelopSignature(mob/m, Tier, Type)
 		if (usr.SignatureStyles.len > 0)
 			for (var/x in usr.SignatureStyles)
 				if (x in usr.SignatureSelected) continue
-				var/paff = usr.SignatureStyles[x]
-				var/obj/Skills/test = new paff
+				var/obj/Skills/test 
+				if(istext(usr.SignatureStyles[x]))
+					var/b = usr.SignatureStyles[x]
+					test = new b
+				else
+					test = usr.SignatureStyles[x]
 				if (test.SignatureTechnique == Tier)
 					options.Add("[x]")
-					options["[x]"] = usr.SignatureStyles["[x]"]
+					options["[x]"] = test
 		else
 			usr << "You have no signature styles to learn!"
 			return
@@ -146,10 +150,13 @@ proc/DevelopSignature(mob/m, Tier, Type)
 	var/obj/Skills/new_skill = input("Tier [Tier] [Type] Development") as null|anything in options
 	if (!new_skill) return
 	if (!istype(options[new_skill], /list))
-		if (!ispath(text2path(options[new_skill]))) return
+		if (!ispath(options[new_skill])) return
 		var/obj/Skills/check = SkillInit[new_skill]
 		if (!isobj(check))
-			check = text2path(options[new_skill])
+			if(istext(options[new_skill]))
+				check = text2path(options[new_skill])
+			else
+				check = options[new_skill]
 			check = new check
 			SkillInit[new_skill] = check
 		check.skillDescription()
@@ -170,7 +177,7 @@ proc/DevelopSignature(mob/m, Tier, Type)
 				return
 		switch (input("[textdesc]Would you like to develop [new_skill]?") in list("Yes", "No"))
 			if ("Yes")
-				var/path = text2path(options[new_skill])
+				var/path = options[new_skill]
 				var/obj/Skills/s = new path
 				usr.AddSkill(s)
 				var/Name = s.name

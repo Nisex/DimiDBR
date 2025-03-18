@@ -114,3 +114,12 @@
         HealthDrain = 0.025
         SpdMult=0.75
         DefMult=0.8
+    Ifrit_Jambe
+        IconLock='SweatDrop.dmi'
+        IconApart=1
+        StrMult=1.25
+        ForMult=1.25
+        passives = list("TensionLock" = 1, "SpiritHand" = 0.5, "Flicker" = 2, "Pursuer" = 2, "Instinct" = 2, "Momentum" = 2, \
+                        "Scorching" = 5, "SpiritFlow" = 0.5)
+        ActiveMessage="ignites their legs!"
+        OffMessage="burns out..."

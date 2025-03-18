@@ -105,13 +105,23 @@
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Emergent_Demon_Breakthrough"
 
     Bauf_Burst // ifrit
+        KBMult=0.001
+        Crippling=15
+        Scorching=15
+        DamageMult=3
+        BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Ifrit_Jambe
+        HitMessage="springs into a handstand, launching a destructive kick from below!"
+        FollowUp=/obj/Skills/AutoHit/Beef_Burst
+
+
 
     Icy_Glare
-
+        BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Cool_Guy
     Alpha_Strike
-
+        BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Conduit
 
     Psycho_Barrage
+        BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Reversal_Mastery
 
     // end hybird?
 

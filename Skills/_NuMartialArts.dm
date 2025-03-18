@@ -44,6 +44,12 @@ obj
 							tensionStorage = 0
 					else
 						tensionStorage = 0
+				proc/initUnlock()
+					// hehe
+					var/obj/Skills/Buffs/NuStyle/eh = new type
+					StyleComboUnlock = eh.StyleComboUnlock.Copy()
+					del eh
+					// i think unlocky enough i may have 2 instead make a new one, transfer it and then blah blah
 				skillDescription()
 					..()
 					if(SignatureTechnique)
@@ -92,7 +98,7 @@ obj
 								description += "Defense Add: [StyleDef-1]\n"
 
 				var/StylePrimeUnlock //obtained from getting mastery 4; can be a list
-				var/StyleComboUnlock=list()//obtained from getting mastery 3 in 2 styles; MUST be a list
+				var/list/StyleComboUnlock=list()//obtained from getting mastery 3 in 2 styles; MUST be a list
 				Mastery=0
 				Copyable=0
 				SkillCost=20
