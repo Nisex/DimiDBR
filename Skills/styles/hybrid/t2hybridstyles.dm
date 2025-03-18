@@ -47,7 +47,7 @@
 				"Extend" = 1, "Gum Gum" = 1, "Tossing" = 1.5, "Secret Knives" = "Secret_Knives", "NeedsSword" = 0, "NoSword" = 1)
 		adjust(mob/p)
 			passives = list("HybridStyle" = "SwordStyle","Backstabber" = 1, "Backshot" = 2.5, "Fa Jin" = 2, "Momentum" = 2, "BlurringStrikes" = 0.5, "Interception" = 1.5, \
-				"Extend" = 1, "Gum Gum" = 1, "Tossing" = 1.5, "Secret Knives" = "Secret_Knives", "NeedsSword" = 0, "NoSword" = 1)
+				"Extend" = 1, "Gum Gum" = 1, "Tossing" = 1.5, "Secret Knives" = "Secret_Knives", "SwordPunching" = 1,  "NeedsSword" = 0, "NoSword" = 1)
 		NeedsSword=0
 		NoSword=1
 		SwordPunching=1
@@ -56,7 +56,7 @@
 		StyleSpd = 1.15
 		StyleDef = 1.15
 		Finisher="/obj/Skills/Queue/Finisher/Icy_Glare"
-		StyleActive = "Pheonix_Eye_Fist"
+		StyleActive = "Pheonix Eye Fist"
 		verb/Phoenix_Eye_Fist()
 			set hidden=1
 			Trigger(usr)

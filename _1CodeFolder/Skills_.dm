@@ -129,7 +129,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 						if(a.Target==src && (a.WoundIntent || a.Lethal))
 							src << "You're in too much danger to begin resting."
 							return
-					// src.gatherNames()
+					src.gatherNames() // should b on load/login
 					reward_auto()
 					src.CheckAscensions()
 					if(isRace(DEMON))

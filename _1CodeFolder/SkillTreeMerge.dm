@@ -5,7 +5,6 @@ mob
 			if(!islist(ns.StyleComboUnlock)) return
 			ns.initUnlock()
 			var/list/preReq = ns.StyleComboUnlock
-
 			// each entry is either a text path or a path, keep that in mind, with text, if it ends in 'any' we need to find the above type
 			for(var/pr in preReq)
 				if(!pr || pr == null || pr == "") return
@@ -37,7 +36,6 @@ mob
 				if(!found)
 					if(locate(thePath, src))
 						found = thePath
-					else return
 
 				if(!SignatureStyles.Find("[nextPath.name]"))
 					SignatureStyles[nextPath.name] = nextPath.type

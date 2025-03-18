@@ -33,6 +33,7 @@ obj
 				CorruptionGain
 
 				FoxFire
+				while_warping = FALSE
 				DistanceMax//This will keep the largest possible distance
 				DistanceVariance=0//if you want the things to sometimes blow up early
 				Area="Blast"//What type of projectile?  Blast...
@@ -1914,7 +1915,7 @@ obj
 				Dodgeable=-1
 				Distance=150
 				Deflectable=1
-				Cooldown=-1
+				Cooldown=180
 				Knockback=1
 				Homing=1
 				HyperHoming=1
@@ -1950,7 +1951,7 @@ obj
 				Dodgeable=-1
 				Distance=150
 				Deflectable=1
-				Cooldown=-1
+				Cooldown=180
 				Knockback=1
 				Homing=1
 				HyperHoming=1
@@ -4572,6 +4573,8 @@ mob
 			if(src.passive_handler.Get("Silenced"))
 				src << "You can't use [Z] you are silenced!"
 				return FALSE
+			if(src.passive_handler.Get("HotHundred") || src.passive_handler.Get("Warping") || (src.AttackQueue && src.AttackQueue.Combo))
+				Z.while_warping = TRUE
 			if(src.Stasis)
 				return FALSE
 			if(!Z.heavenlyRestrictionIgnore&&Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Projectiles"))
@@ -5232,6 +5235,8 @@ obj
 					src.DamageMult=Z.DamageMult
 					if(Z.TempDamage)
 						src.DamageMult=Z.TempDamage
+					if(Z.while_warping)
+						DamageMult /= glob.WHILEWARPINGNERF
 					src.AccMult=Z.AccMult
 					if(Z.TempAccuracy)
 						src.AccMult=Z.TempAccuracy

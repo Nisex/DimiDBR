@@ -20,35 +20,49 @@ obj
 					var/sagaLevel = player.SagaLevel
 					var/damage = clamp(1.5 + 1*(sagaLevel), 2, 12)
 					var/path = player.AnsatsukenPath == "Shoryuken" ? 1 : 0
-					var/manaCost = 35 // how much u need for ex
 					var/cooldown = 40
 					var/hitMessage = "strikes their opponent into the air with a fearsome uppercut!!"
 					ShoryukenEffect=1
 					Shattering = 3 * sagaLevel
 					if(path)
-						manaCost -= 10
 						cooldown -= 10
 						damage =  clamp(1.5 + 2*(sagaLevel), 2, 13)
-						hitMessage = "strikes their opponent into the air with a fearsome uppercut!!"
 					if(player.AnsatsukenAscension=="Satsui")
 						Shattering *= 1.25
 						GoshoryukenEffect=1
-					if(player.ManaAmount>=manaCost && sagaLevel >= 2)
-						ManaCost = manaCost
-						ShoryukenEffect=1.5
-						Launcher=3
-						hitMessage = "unleashes the power of the Dragon with an overpowering uppercut!"
-						if(path)
-							damage =  clamp(5 + 2*(sagaLevel), 4, 18)
-						else
-							damage = clamp(3 + 2*(sagaLevel), 3, 15)
-
 					DamageMult = damage
 					HitMessage = hitMessage
 					Cooldown = cooldown
 				verb/Shoryuken()
 					set category="Skills"
 					resetVars()
+					activate(usr)
+					usr.SetQueue(src)
+			EX_Shoryuken
+				StyleNeeded="Ansatsuken"
+				AccuracyMult = 2
+				Launcher=3
+				Duration=5
+				Finisher=1
+				Shattering = 25
+				Cooldown=150
+				ShoryukenEffect=1.5
+				ManaCost = 35
+				HitMessage = "unleashes the power of the Dragon with an overpowering uppercut!"
+				proc/activate(mob/p)
+					var/sagaLevel = p.SagaLevel
+					if(p.AnsatsukenPath == "Shoryuken")
+						DamageMult = clamp(6 + (1.5*sagaLevel), 6, 15)
+						Cooldown = 150 - (sagaLevel * 15)
+					else
+						DamageMult = clamp(4 + (1*sagaLevel), 4, 15)
+						Cooldown = 150 - (sagaLevel * 10)
+					if(p.AnsatsukenAscension=="Satsui")
+						Shattering *= 2
+						GoshoryukenEffect=1
+
+				verb/EX_Shoryuken()
+					set category="Skills"
 					activate(usr)
 					usr.SetQueue(src)
 			Shinryureppa

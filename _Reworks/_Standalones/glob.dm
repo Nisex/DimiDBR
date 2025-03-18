@@ -347,7 +347,7 @@ globalTracker
 		WorldPUDrain = 1
 		DMG_CALC_2 = TRUE
 // global mults
-
+		WHILEWARPINGNERF = 10
 		GATES_PUSPIKE_BASE = 6
 		GATES_STAT_MULT_DIVISOR = 25
 		SECRET_KNIFE_CHANCE = 100

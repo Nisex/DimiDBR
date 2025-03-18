@@ -150,6 +150,8 @@ proc/DevelopSignature(mob/m, Tier, Type)
 	var/obj/Skills/new_skill = input("Tier [Tier] [Type] Development") as null|anything in options
 	if (!new_skill) return
 	if (!istype(options[new_skill], /list))
+		if(istext(options[new_skill]))
+			options[new_skill] = text2path(options[new_skill])
 		if (!ispath(options[new_skill])) return
 		var/obj/Skills/check = SkillInit[new_skill]
 		if (!isobj(check))

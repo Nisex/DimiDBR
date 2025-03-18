@@ -51,7 +51,7 @@ obj
 				DamageMult=1//Damage on top of whatever stat calculations.
 				StepsDamage//Every step adds this value to damage mult.
 				Knockback//Does the technique knockback?  If so, how far?
-
+				while_warping = FALSE
 				//Cooldown
 
 				//These four can be used in any combination.
@@ -4258,26 +4258,41 @@ obj
 					ChargeTech = 1
 					ChargeTime=0.75
 					usr.Activate(src)
+			EX_Tatsumaki
+				UnarmedOnly=1
+				Area="Circle"
+				StrOffense=1
+				Icon='SweepingKick.dmi'
+				IconX=-32
+				IconY=-32
+				Cooldown=150
+				Size=2
+				Rush=3
+				ControlledRush=3
+				IgnoreAlreadyHit=1
+				// CanBeBlocked=0
+				// CanBeDodged=0
+				ComboMaster=1
+				ChargeTech = 1
+				ChargeTime=0.5
+				ActiveMessage="rises high in the air with a terrifying whirlwind of kicks!!"
+				StyleNeeded="Ansatsuken"
+				adjust(mob/p)
+					if(p.AnsatsukenPath == "Tatsumaki")
+						Launcher = 3
+						Rounds = 8
+						DamageMult = 1 + (0.2 *p.SagaLevel)
+						Cooldown = 150 - (15 * p.SagaLevel)
+					else
+						Launcher = 0
+						Rounds = 6
+						DamageMult = 0.7 + (0.15 *p.SagaLevel)
+						Cooldown = 150 - (15 * p.SagaLevel)
+
+
 				verb/EX_Tatsumaki()
 					set category="Skills"
-					var/mob/player = usr
-					var/sagaLevel = usr.SagaLevel
-					var/path = player.AnsatsukenPath == "Tatsumaki" ? 1 : 0
-					Cooldown = 60
-					var/launch = 0
-					var/manaCost = 25
-					if(player.ManaAmount>=manaCost && sagaLevel >= 2)
-						DamageMult = clamp(0.7 + 0.3 * (usr.SagaLevel), 0.3,4)
-						Rounds = 4
-						if(path)
-							DamageMult = clamp(1 + 0.3 * (usr.SagaLevel), 0.3, 6)
-							Rounds = 4
-						ManaCost = manaCost
-						launch = 3
-						Launcher=launch
-						ActiveMessage="rises high in the air with a terrifying whirlwind of kicks!!"
-					ChargeTech = 1
-					ChargeTime=0.5
+					adjust(usr)
 					usr.Activate(src)
 			ShinkuTatsumaki
 				UnarmedOnly=1
@@ -4810,6 +4825,8 @@ mob
 			if(src.passive_handler.Get("Silenced"))
 				src << "You can't use [Z] you are silenced!"
 				return 0
+			if(src.passive_handler.Get("HotHundred") || src.passive_handler.Get("Warping") || (src.AttackQueue && src.AttackQueue.Combo))
+				Z.while_warping = TRUE
 			if(Z.Using)//Skill is on cooldown.
 				return FALSE
 			if(!Z.heavenlyRestrictionIgnore && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Autohits"))
@@ -5578,7 +5595,7 @@ obj
 			StepsDamage=0
 			StepsTaken=0//A variable for easy recording
 			list/DamageSteps=list()//This is a variable that allows damage to scale based on the steps taken by the projectile.  Think Tipper.
-
+			while_warping = FALSE
 			StrDmg//Does it factor in strength?
 			ForDmg//Does it factor in force?
 			//Mark both for hybrid.
@@ -5726,6 +5743,8 @@ obj
 			src.Damage=Z.DamageMult
 			src.StepsDamage=Z.StepsDamage
 			src.MagicNeeded=Z.MagicNeeded
+			if(Z.while_warping)
+				Damage /= glob.WHILEWARPINGNERF
 			if(Z.TempStrOff && !Z.StrOffense)
 				src.StrDmg=Z.TempStrOff
 			else

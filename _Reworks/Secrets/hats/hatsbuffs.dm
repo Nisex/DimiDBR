@@ -5,7 +5,7 @@
     passives = list("MartialMagic" = 1, "Gravity" = 1)
     var/hat_name
     proc/getChildBoons(mob/p)
-        passives += p.secretDatum:applyPassives(p)
+        passives = p.secretDatum:applyPassives(p)
         hat_name = "[replacetext("[p.secretDatum.type]", "/SecretInfomation/Spirits_Of_The_World/", "")]"
     proc/setup_visuals()
         if(!IconLock)
