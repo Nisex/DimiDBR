@@ -111,6 +111,7 @@ mob/proc/implodeDebuff(n, type)
 				b.Target = src
 				vis_contents += b
 				Health -= Health * (n/glob.IMPLODE_DIVISOR)
+				Burn = 0
 			if("Chill")
 				var/obj/Effects/Freeze/b = new(overwrite_alpha = 255)
 				b.Target = src
@@ -119,7 +120,7 @@ mob/proc/implodeDebuff(n, type)
 					StunImmune = 0
 				Stun(src, 4)
 				passive_handler.Set("Shellshocked", 1)
-				
+				Slow = 0
 
 
 		last_implode = world.time

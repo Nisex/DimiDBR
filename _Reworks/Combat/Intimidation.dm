@@ -84,7 +84,7 @@
 				Effective*= 8 + unhingedBoon
 
 	if(src.isRace(MAKYO)&&src.ActiveBuff&&src.AscensionsAcquired&&!src.CyberCancel)
-		Effective *= 2 + (AscensionsAcquired*2)
+		Effective *= 1.25 + (AscensionsAcquired*0.25)
 
 	if(src.CheckActive("Mobile Suit")||src.CheckSlotless("Battosai")||src.CheckSlotless("Susanoo"))
 		Effective+=5

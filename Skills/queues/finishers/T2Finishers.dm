@@ -55,6 +55,7 @@
         SweepStrike = 2
         Quaking=5
         PushOut=1
+        DamageMult = 2
         FollowUp=/obj/Skills/Queue/Finisher/Kokujo_O_Tatsumaki
         BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Firefox_Style
         BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Shredded
@@ -116,9 +117,28 @@
 
 
     Icy_Glare
-        BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Cool_Guy
+        Stunner=8
+        BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Time_Skip
+        BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Time_Freeze
+        DamageMult = 3
+        Explosive = 1
+        KBMult = 0.0001
+        HitMessage = "unleashes a barrage of punches so fast it is like they stopped time..."
+        FollowUp=/obj/Skills/AutoHit/Deadly_Intent
     Alpha_Strike
-        BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Conduit
+        SpeedStrike = 2
+        SweepStrike = 2
+        Quaking=5
+        PushOut=1
+        DamageMult = 2
+        FollowUp=/obj/Skills/Queue/Finisher/Wuju
+        BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Alpha_Strike
+        HitMessage = "breaks off into a relentless pursuit!"
+    Wuju
+        Combo=10
+        DamageMult = 0.1
+        BuffSelf=0
+        HitSparkIcon = 'Slash_Multi.dmi'
 
     Psycho_Barrage
         BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Reversal_Mastery

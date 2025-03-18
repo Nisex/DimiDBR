@@ -16,13 +16,13 @@ ascension
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
 			choices = list("Hero" = /ascension/sub_ascension/human/hero, "Innovative" = /ascension/sub_ascension/human/innovative)
-			passives = list("Tenacity" = 1, "Shonen" = 1,  "TechniqueMastery" = 1)
+			passives = list("Tenacity" = 1, "Shonen" = 1,  "TechniqueMastery" = 1, "ShonenPower" = 0.15)
 			new_anger_message = "grows desperate!"
 			on_ascension_message = "You learn the meaning of desperation..."
 			anger = 0.1
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
-			passives = list("Tenacity" = 1, "Shonen" = 1,  "TechniqueMastery" = 0.5)
+			passives = list("Tenacity" = 1, "Shonen" = 1,  "TechniqueMastery" = 0.5, "ShonenPower" = 0.15)
 			new_anger_message = "grows determined!"
 			on_ascension_message = "You learn the meaning of responsibility..."
 			anger = 0.1

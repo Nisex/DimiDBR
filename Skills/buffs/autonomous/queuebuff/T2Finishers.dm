@@ -86,7 +86,13 @@
         SpdMult=1.5
         IconLock='SweatDrop.dmi'
         IconApart=1
-    
+    Alpha_Strike
+        passives = list("AfterImages" = 4, "Godspeed" = 4, "Speed Force" = 2, "Iaijutsu" = 1, "Rain" = 5,\
+                         "CriticalChance" = 33, "TensionLock" = 1)
+        SpdMult=1.5
+        TimerLimit = 10
+        IconLock='SweatDrop.dmi'
+        IconApart=1
     Indomitable_Will
         IconLock='SweatDrop.dmi'
         IconApart=1
@@ -123,3 +129,17 @@
                         "Scorching" = 5, "SpiritFlow" = 0.5)
         ActiveMessage="ignites their legs!"
         OffMessage="burns out..."
+    
+
+    Time_Skip
+        IconLock='SweatDrop.dmi'
+        IconApart=1
+        StrMult=1.2
+        SpdMult=1.2
+        OffMult=1.1
+        passives = list("Backshot" = 2.5, "Flicker" = 4, "Tossing" = 2, "TensionLock" = 1, "SlayerMod" = 2, "FavoredPrey" = "All", \
+                        "ComboMaster" = 1)
+
+    Time_Freeze
+        IconLock='Stun.dmi'
+        passives = list("Shellshocked" = 1, "NoDodge" = 1)

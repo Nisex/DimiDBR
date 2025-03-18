@@ -43,8 +43,11 @@
 
 	Phoenix_Eye_Fist // unarmed + armed
 		SignatureTechnique=2
-		passives = list("HybridStyle" = "SwordStyle","Backstabber" = 1, "Backshot" = 1, "Fa Jin" = 2, "Momentum" = 2, "BlurringStrikes" = 0.5, "Interception" = 1.5, \
-				"Extend" = 1, "Gum Gum" = 1, "Tossing" = 1.5, "Secret Knives" = "Knives", "NeedsSword" = 0, "NoSword" = 1)
+		passives = list("HybridStyle" = "SwordStyle","Backstabber" = 1, "Backshot" = 2.5, "Fa Jin" = 2, "Momentum" = 2, "BlurringStrikes" = 0.5, "Interception" = 1.5, \
+				"Extend" = 1, "Gum Gum" = 1, "Tossing" = 1.5, "Secret Knives" = "Secret_Knives", "NeedsSword" = 0, "NoSword" = 1)
+		adjust(mob/p)
+			passives = list("HybridStyle" = "SwordStyle","Backstabber" = 1, "Backshot" = 2.5, "Fa Jin" = 2, "Momentum" = 2, "BlurringStrikes" = 0.5, "Interception" = 1.5, \
+				"Extend" = 1, "Gum Gum" = 1, "Tossing" = 1.5, "Secret Knives" = "Secret_Knives", "NeedsSword" = 0, "NoSword" = 1)
 		NeedsSword=0
 		NoSword=1
 		SwordPunching=1
@@ -60,7 +63,7 @@
 
 /obj/Skills/Buffs/NuStyle/SwordStyle/Art_of_Order// mystic+armed
 	SignatureTechnique=2
-	passives = list("HybridStyle" = "MysticStyle","Wuju" = 1, "CriticalChance" = 33, "CriticalDamage"= 0.05, "SpiritSword" = 2, "ThunderHerald" = 1, \
+	passives = list("HybridStyle" = "MysticStyle", "Wuju" = 1, "CriticalChance" = 33, "CriticalDamage"= 0.05, "SpiritSword" = 2, "ThunderHerald" = 1, \
 					"Instinct" = 2, "Flicker" = 2, "Fury" = 2.5, "Iaijutsu" = 2, "BlurringStrikes" = 0.5, "Rain" = 5)
 	// crits deal an extra amount based on the enemy's max health
 	StyleSpd = 1.3

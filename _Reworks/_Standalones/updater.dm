@@ -15,7 +15,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 14
+	var/UPDATE_VERSION = 16
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -311,6 +311,15 @@ update
 				if(s)
 					del s
 				o.findOrAddSkill(new/obj/Skills/AutoHit/Plasma_Hold)
+	version16
+		version = 16
+		updateMob(mob/o)
+			. = ..()
+			if(o.isRace(MAKYO))
+				o.passive_handler.Set("ShonenPower", 0)
+			if(o.isRace(HUMAN))
+				if(o.passive_handler["ShonenPower"] < 0.3)
+					o.passive_handler.Set("ShonenPower", 0.3)
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25
