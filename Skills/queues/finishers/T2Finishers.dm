@@ -124,7 +124,7 @@
         Explosive = 1
         KBMult = 0.0001
         HitMessage = "unleashes a barrage of punches so fast it is like they stopped time..."
-        FollowUp=/obj/Skills/AutoHit/Deadly_Intent
+        // FollowUp=/obj/Skills/AutoHit/Deadly_Intent
     Alpha_Strike
         SpeedStrike = 2
         SweepStrike = 2
