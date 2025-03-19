@@ -33,10 +33,11 @@
                 StyleSpd = 1.1 + (0.05 * sagaLevel)
                 StyleEnd = 1.1 + (0.05 * sagaLevel)
             if("Default")
-                StyleStr = 1.25 + (0.05 * sagaLevel)
-                StyleOff = 1.5 + (0.1 * sagaLevel)
-                StyleDef = 1.5 + (0.1 * sagaLevel)
-                StyleSpd = 1.25 + (0.05 * sagaLevel)
+                StyleStr = 1.15 + (0.05 * sagaLevel)
+                StyleOff = 1.15 + (0.05 * sagaLevel)
+                StyleDef = 1.15 + (0.05 * sagaLevel)
+                StyleSpd = 1.15 + (0.05 * sagaLevel)
+                StyleEnd = 1
 
 
     verb/Striking_Stance()
@@ -68,8 +69,8 @@
         src.Trigger(usr, 1)
         giveBackTension(usr)
 
-        
-            
+
+
 
 
 /obj/Skills/Queue/Finisher/UBW_finisher
