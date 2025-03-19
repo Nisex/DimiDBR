@@ -29,6 +29,8 @@ mob/proc/InterceptionStrike(stacks)
         vis_contents += fa_jin_effect
         animate(fa_jin_effect, alpha = 255, time=2)
 /mob/proc/fa_jin_effect()
+    if(!fa_jin_effect)
+        generate_fa_jin()
     if(fa_jin_effect.alpha == 255)
         animate(fa_jin_effect, alpha = 0, time=2)
     else

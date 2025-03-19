@@ -6410,8 +6410,10 @@ obj
 							path = text2path(BuffAffected[result])
 						else
 							path = text2path(pick(BuffAffected))
-					else
+					else if(istext(BuffAffected))
 						path = text2path(BuffAffected)
+					else
+						path = BuffAffected
 					S = new path
 					if(m.SlotlessBuffs[S.BuffName])
 						AlreadyBuffed = 1

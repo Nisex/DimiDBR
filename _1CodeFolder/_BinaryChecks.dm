@@ -1861,7 +1861,7 @@ mob
 				if(passive_handler["FavoredPrey"] == "All")
 					return 1
 				if(passive_handler["FavoredPrey"] == "Secrets")
-					if(enemy.secretDatum.name)
+					if(enemy.secretDatum && enemy.secretDatum.name)
 						return 1
 				else if(passive_handler["FavoredPrey"] == "Sagas")
 					if(enemy.Saga)
@@ -1870,7 +1870,7 @@ mob
 					if(enemy.Saga == passive_handler["FavoredPrey"])
 						return 1
 				else if(passive_handler["FavoredPrey"] in SECRETS)
-					if(enemy.secretDatum.name == passive_handler["FavoredPrey"])
+					if(enemy.secretDatum && enemy.secretDatum.name == passive_handler["FavoredPrey"])
 						return 1
 				else if(passive_handler["FavoredPrey"] == "Races")
 					if(enemy)

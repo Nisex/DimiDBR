@@ -2019,7 +2019,7 @@ mob
 
 			if(Q.Duration >= 0)
 				spawn(Q.Duration*10)//After the duration...
-					if(src.AttackQueue==Q)
+					if(AttackQueue&&src.AttackQueue==Q)
 						if(src.AttackQueue.ComboPerformed<1&&src.AttackQueue.InstantStrikesPerformed<1)
 							src.AttackQueue.RanOut=1
 							src.AttackQueue.Hit=0
