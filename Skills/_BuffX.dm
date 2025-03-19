@@ -8534,7 +8534,7 @@ NEW VARIABLES
 					usr << "You can't project without your circuits active!"
 					return
 				ManaCost = usr.getUBWCost(1.5)
-				VaizardHealth = usr.getAriaCount()/6
+				VaizardHealth = usr.getAriaCount()*2.5
 				WoundCost = usr.getAriaCount() / 3
 				src.Trigger(usr)
 
