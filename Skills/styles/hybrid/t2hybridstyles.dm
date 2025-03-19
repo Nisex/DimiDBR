@@ -63,7 +63,7 @@
 
 /obj/Skills/Buffs/NuStyle/SwordStyle/Art_of_Order// mystic+armed
 	SignatureTechnique=2
-	passives = list("HybridStyle" = "MysticStyle", "Wuju" = 1, "CriticalChance" = 33, "CriticalDamage"= 0.05, "SpiritSword" = 2, "ThunderHerald" = 1, \
+	passives = list("HybridStyle" = "MysticStyle", "Wuju" = 1, "CriticalChance" = 33, "CriticalDamage"= 0.05, "SpiritSword" = 1, "ThunderHerald" = 1, \
 					"Instinct" = 2, "Flicker" = 2, "Fury" = 2.5, "Iaijutsu" = 2, "BlurringStrikes" = 0.5, "Rain" = 5)
 	// crits deal an extra amount based on the enemy's max health
 	StyleSpd = 1.3

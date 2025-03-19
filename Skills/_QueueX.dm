@@ -905,7 +905,7 @@ obj
 							FollowUp = null
 
 
-						if(!usr.Secret && !usr.HasWitchCraft() || usr.Secret == "Eldritch" && !usr.CheckSlotless("True Form") || usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus") || usr.Secret =="Heavenly Restriction" && !usr.secretDatum?:hasImprovement("Heavy Strike"))//Just default Heavy Strike
+						if(!usr.Secret && !usr.HasWitchCraft() || usr.Secret == "Spirits of The World"|| usr.Secret == "Eldritch" && !usr.CheckSlotless("True Form") || usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus") || usr.Secret =="Heavenly Restriction" && !usr.secretDatum?:hasImprovement("Heavy Strike"))//Just default Heavy Strike
 							src.name="Heavy Strike"
 							src.DamageMult=2
 							src.AccuracyMult=1

@@ -36,8 +36,10 @@ mob
 				if(!found)
 					if(locate(thePath, src))
 						found = thePath
+					else
+						continue
 
-				if(!SignatureStyles.Find("[nextPath.name]"))
+				if(!SignatureStyles.Find("[nextPath.name]") && found)
 					SignatureStyles[nextPath.name] = nextPath.type
 					src << "You can now unlock [nextPath.name] by investing a Tier [nextPath.SignatureTechnique] Signature into it!"
 				del nextPath

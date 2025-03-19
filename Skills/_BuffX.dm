@@ -3863,13 +3863,6 @@ NEW VARIABLES
 			proc/setupVars(mob/player)
 				src.ActiveMessage="surrounds their body in a faint green aura!"
 				passives = list("Tenacity" = player.SagaLevel, "UnderDog" = player.SagaLevel/2, "Persistence" = player.SagaLevel)
-				if(BuffName == "Genesic Brave")
-					if(player.SagaLevel < 4)
-						TimerLimit = 30 + (10 * player.SagaLevel)
-					else
-						TimerLimit = 0
-				else
-					TimerLimit = 0
 				if(player.SagaLevel>=1)
 					ActiveMessage="draws power from their courage as they pulse with green light!"
 				if(player.SagaLevel>=2)
@@ -8176,25 +8169,26 @@ NEW VARIABLES
 			DrainAll=0.5
 			// TimerLimit=10
 			Cooldown=0
-			var/last_avalon = 0
+			var/tmp/last_avalon = 0
 			adjust(mob/p)
-				DrainAll = 0.8-(p.SagaLevel*0.1)
-				HealthHeal = 0.2+(p.SagaLevel*0.01)
+				DrainAll = 1-(p.SagaLevel*0.1)
+				HealthHeal = 0.3+(p.SagaLevel*0.01)
 			verb/Avalon()
 				set category="Skills"
 				src.Trigger(usr)
 			verb/Stitch_Wounds()
 				set category="Skills"
-				if(usr.ManaAmount >= 25 && last_avalon + glob.AVALON_COOLDOWN < world.time)
-					if(usr.BPPoison<1)
-						usr.BPPoison=1
-						usr.BPPoisonTimer=0
-					if(usr.Maimed>0)
-						usr.Maimed--
-						OMsg(usr, "[src] regrows a maiming as the Fae magics course through them!")
-					last_avalon = world.time
-					usr << "Avalon maim heal will be back in [glob.AVALON_COOLDOWN/10] seconds."
-					usr.LoseMana(25)
+				if(usr.ManaAmount >= 25)
+					if(last_avalon + glob.AVALON_COOLDOWN < world.time)
+						if(usr.BPPoison<1)
+							usr.BPPoison=1
+							usr.BPPoisonTimer=0
+						if(usr.Maimed>0)
+							usr.Maimed--
+							OMsg(usr, "[src] regrows a maiming as the Fae magics course through them!")
+						last_avalon = world.time
+						usr << "Avalon maim heal will be back in [glob.AVALON_COOLDOWN/10] seconds."
+						usr.LoseMana(25)
 				else
 					usr << "You need 25 mana."
 

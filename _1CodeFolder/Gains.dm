@@ -1253,8 +1253,9 @@ mob
 							else if(TotalCapacity<=99)
 								LoseCapacity(b.DrainAll)
 							else
+								var/valueEnergy = (b.DrainAll*2) * Power_Multiplier
 								if(Energy>=1)
-									Energy-=b.DrainAll*1.75
+									Energy-=valueEnergy
 									if(Energy<0)
 										Energy=0
 									if(Energy<=10 && src.HasHealthPU() && src.PowerControl>100)
@@ -1263,9 +1264,9 @@ mob
 										Auraz("Remove")
 										src<<"You are too tired to power up."
 										PoweringUp=0
-									GainFatigue((b.DrainAll*1.75)/10)
+									GainFatigue(valueEnergy/10)
 								else if(TotalFatigue<98)
-									GainFatigue(b.DrainAll*2)
+									GainFatigue(valueEnergy*1.5)
 								else
 									drainedOut = 1
 

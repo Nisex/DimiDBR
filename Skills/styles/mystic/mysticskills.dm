@@ -203,7 +203,7 @@
 	FlickBlast=0
 	AttackReplace=1
 	Distance=21
-	DamageMult=0.25
+	DamageMult=0.5
 	Dodgeable=0
 	Deflectable=0
 	Instinct=2
@@ -229,7 +229,7 @@
 /obj/Skills/AutoHit/HellfireInferno
 	Area="Wave"
 	AdaptRate=1
-	DamageMult=0.3
+	DamageMult=0.75
 	NoLock = 1 
 	ComboMaster=1
 	NoAttackLock=1

@@ -320,6 +320,11 @@ update
 			if(o.isRace(HUMAN))
 				if(o.passive_handler["ShonenPower"] < 0.3)
 					o.passive_handler.Set("ShonenPower", 0.3)
+	version16
+		version = 16
+		updateMob(mob/o)
+			. = ..()
+			o.SignatureStyles = list()
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25

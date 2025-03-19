@@ -80,6 +80,9 @@ obj
 				Duration=10
 				Rapid=1
 				HitStep=/obj/Skills/Queue/Shinryureppa_chain
+				verb/Shinryureppa()
+					set category="Skills"
+					usr.SetQueue(src)
 			Shinryureppa_chain
 				StyleNeeded="Ansatsuken"
 				HitMessage="shouts '<b>RYUREPPA!</b>' as they spike their opponent into the heavens with a divine uppercut!!!"
