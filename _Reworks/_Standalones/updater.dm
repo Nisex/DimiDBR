@@ -15,7 +15,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 16
+	var/UPDATE_VERSION = 17
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -320,8 +320,8 @@ update
 			if(o.isRace(HUMAN))
 				if(o.passive_handler["ShonenPower"] < 0.3)
 					o.passive_handler.Set("ShonenPower", 0.3)
-	version16
-		version = 16
+	version17
+		version = 17
 		updateMob(mob/o)
 			. = ..()
 			o.SignatureStyles = list()

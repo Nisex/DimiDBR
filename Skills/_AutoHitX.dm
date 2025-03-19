@@ -4827,6 +4827,8 @@ mob
 				return 0
 			if(src.passive_handler.Get("HotHundred") || src.passive_handler.Get("Warping") || (src.AttackQueue && src.AttackQueue.Combo))
 				Z.while_warping = TRUE
+			else
+				Z.while_warping = FALSE
 			if(Z.Using)//Skill is on cooldown.
 				return FALSE
 			if(!Z.heavenlyRestrictionIgnore && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Autohits"))
@@ -5745,6 +5747,7 @@ obj
 			src.MagicNeeded=Z.MagicNeeded
 			if(Z.while_warping)
 				Damage /= glob.WHILEWARPINGNERF
+				Z.while_warping = FALSE
 			if(Z.TempStrOff && !Z.StrOffense)
 				src.StrDmg=Z.TempStrOff
 			else

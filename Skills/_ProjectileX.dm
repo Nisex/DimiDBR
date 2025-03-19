@@ -4575,6 +4575,8 @@ mob
 				return FALSE
 			if(src.passive_handler.Get("HotHundred") || src.passive_handler.Get("Warping") || (src.AttackQueue && src.AttackQueue.Combo))
 				Z.while_warping = TRUE
+			else
+				Z.while_warping = FALSE
 			if(src.Stasis)
 				return FALSE
 			if(!Z.heavenlyRestrictionIgnore&&Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Projectiles"))
@@ -5237,6 +5239,7 @@ obj
 						src.DamageMult=Z.TempDamage
 					if(Z.while_warping)
 						DamageMult /= glob.WHILEWARPINGNERF
+						Z.while_warping = FALSE
 					src.AccMult=Z.AccMult
 					if(Z.TempAccuracy)
 						src.AccMult=Z.TempAccuracy
