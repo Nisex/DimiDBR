@@ -7,11 +7,10 @@ proc
 			return
 		if(!m.client)
 			return
-		if(m.Saga != "Kamui" && !m.CheckActive("Kamui Senketsu"))
-			if(m.InUBW&&m.MadeOfSwords)
-				return
-			if(m.StunImmune && !ignoreImmune)
-				return
+		if(m.InUBW&&m.MadeOfSwords)
+			return
+		if(m.StunImmune && !ignoreImmune)
+			return
 		if(m.CheckSlotless("Great Ape"))
 			amount *= 0.75
 		if(m.HasMythical() > 0.25 || m.passive_handler.Get("Juggernaut"))
@@ -72,7 +71,6 @@ proc
 				mob.StunImmune=world.time+(glob.STUN_IMMUNE_TIMER*(1+mod))
 				mob << "You can't be stunned for another [glob.STUN_IMMUNE_TIMER*(1+mod)/10]"
 	StunImmuneCheck(mob/mob)
-		// stunned, not kamui, not senketsu
 		if(mob.StunImmune)
 			if(mob.StunImmune<world.time)
 				mob.StunImmune=0
