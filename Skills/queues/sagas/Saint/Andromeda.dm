@@ -1,5 +1,5 @@
 obj/Skills/Queue/Thunder_Wave
-	DamageMult=2
+	DamageMult=0.75
 	Instinct=3
 	Launcher=1
 	Paralyzing=10

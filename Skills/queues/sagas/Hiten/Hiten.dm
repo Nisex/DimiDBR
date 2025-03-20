@@ -70,7 +70,7 @@ obj
 			Nine_Dragons_Strike
 				name="Kuzuryusen"
 				StyleNeeded="Hiten Mitsurugi"
-				DamageMult=1
+				DamageMult=0.75
 				AccuracyMult = 1.25
 				KBMult=0.00001
 				SpeedStrike=6

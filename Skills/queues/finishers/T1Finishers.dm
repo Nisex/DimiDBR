@@ -72,7 +72,7 @@
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Nito_Ichi_Style"
     Roppon_me_Morote_Tsuki
         InstantStrikes = 3
-        DamageMult = 2
+        DamageMult = 1
         SpeedStrike = 2
         BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Shredded"
         HitMessage=""

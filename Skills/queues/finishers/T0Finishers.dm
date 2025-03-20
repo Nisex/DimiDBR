@@ -21,7 +21,7 @@
         PushOut=2
         PushOutWaves=3
         Decider = 2
-        DamageMult=0.15
+        DamageMult=0.25
         InstantStrikes=10
         FollowUp="/obj/Skills/Queue/Finisher/Heavenly_Dragon_Raging_Tempest"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragon_Ascendant_Zenith"
@@ -81,7 +81,7 @@
 // WEAPON
     Shishi_Sonson
         InstantStrikes = 11
-        DamageMult = 1.5
+        DamageMult = 0.15
         Instinct = 4
         AccuracyMult = 3
         FollowUp="/obj/Skills/AutoHit/Shishi_Sonson"
@@ -118,7 +118,7 @@
 
     Grand_Cross
         InstantStrikes = 4
-        DamageMult = 1.1
+        DamageMult = 0.75
         HolyMod = 1
         FollowUp="/obj/Skills/AutoHit/Uppercut"
         HitMessage=""

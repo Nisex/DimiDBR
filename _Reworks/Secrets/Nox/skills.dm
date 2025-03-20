@@ -37,7 +37,7 @@
 /obj/Skills/AutoHit/Ouroboros/Snake_Bite
 	Area="Circle"
 	AdaptRate = 1
-	DamageMult=2
+	DamageMult = 1
 	CanBeDodged = 0
 	CanBeBlocked = 0
 	GuardBreak = 1
@@ -48,13 +48,14 @@
 	ChargeTime=0.75
 	Grapple=1
 	GrabMaster=1
+	ManaCost = 50
 	Size=1
 	Instinct = 10
 	TurfShift='ouroborostile.dmi'
 	TurfShiftDuration=6
 	TurfShiftDurationSpawn = 1
 	TurfShiftDurationDespawn = 5
-	Cooldown = 1 
+	Cooldown = 120
 	verb/Snake_Bite()
 		set category="Skills"
 		usr.Activate(src)
@@ -65,7 +66,7 @@
 	AdaptRate=1
 	ThrowAdd=1
 	ThrowMult=2
-	EffectMult = 4
+	EffectMult = 3
 	OneAndDone = 1
 	TriggerMessage="delivers a devastating kick to"
 	Effect="Stomp"
