@@ -78,8 +78,7 @@
         BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fimbulwinter
         HitMessage = "sends a massive cleaving sword strike forward!"
     Hunt
-        Dominator = 3
-
+        Dominator = 1
         BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Righteous_Crusade
         BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Staked
         DamageMult = 3

@@ -9,5 +9,5 @@
         P.setRace(HUMAN, FALSE)
         P.loc = src.loc
         P.icon = 'Namek1.dmi'
-        ticking_generic += P
+        gain_loop.Add(P)
         i--

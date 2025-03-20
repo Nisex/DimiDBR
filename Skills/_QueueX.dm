@@ -2051,7 +2051,7 @@ mob
 				if(Health>P.Health)
 					var/ratio = clamp(Health / P.Health, 1, 4)
 					if(ratio > 0)
-						Damage+= (ratio-1) *( AttackQueue.Dominator / 4)
+						Damage += (ratio-1) * ( AttackQueue.Dominator / 4)
 			DEBUGMSG("NEW DAMAGE AFTER DOMINATOR: [Damage]")
 			if(AttackQueue.Determinator)
 				if(Health<P.Health&&Health!=0)
