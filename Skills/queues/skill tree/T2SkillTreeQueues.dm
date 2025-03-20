@@ -6,7 +6,7 @@ obj
 				SkillCost=TIER_2_COST
 				Copyable=3
 				ActiveMessage="enters a thoughtful stance!"
-				DamageMult=1.1
+				DamageMult=0.8
 				AccuracyMult = 1.15
 				KBMult=0.00001
 				Stunner=3

@@ -202,8 +202,8 @@ obj
 //Autoblasts
 			Comet_Spear
 				Distance=15
-				DamageMult = 4
-				EndRate = 0.75
+				DamageMult = 2
+				EndRate = 1
 				Dodgeable=-1
 				AccMult = 5
 				Speed=1

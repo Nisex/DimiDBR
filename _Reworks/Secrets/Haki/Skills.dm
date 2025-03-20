@@ -84,7 +84,7 @@
     Cooldown = 30
     InstantStrikes = 2
     Shocking = 5
-    DamageMult = 0.5
+    DamageMult = 1
     EnergyCost = 1.5
     FollowUp = "/obj/Skills/AutoHit/Haki/Kings_Infusion_Follow"
     verb/Kings_Infusion()
@@ -116,7 +116,7 @@
     Cooldown = 160
     InstantStrikes = 3
     Launcher = 3
-    DamageMult = 1.5
+    DamageMult = 1
     EnergyCost = 15
     FollowUp = "/obj/Skills/AutoHit/Haki/Galaxy_Impact_Follow"
     HitSparkIcon = 'Icons/HitWind.dmi'
@@ -146,7 +146,7 @@
     Knockback = 1
     GuardBreak = 1
     Cooldown=4
-    DamageMult = 14
+    DamageMult = 11
     HitSparkIcon = 'Icons/GojoHitspark.dmi'
     TurfShift = 'Icons/LavaRock2.dmi'
     TurfShiftDuration = 15

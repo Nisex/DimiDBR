@@ -11,7 +11,7 @@ obj
 				InstantStrikes = 5
 				EnergyCost = 6
 				Cooldown = 60
-				DamageMult = 1.5
+				DamageMult = 1
 				Duration = 5
 				KBMult = 1.15
 				Shearing=1
@@ -34,7 +34,7 @@ obj
 				EnergyCost = 6
 				ManaCost = 15
 				Cooldown = 120
-				DamageMult = 2.5
+				DamageMult = 1.5
 				Delayer=0.25
 				Duration = 6
 				KBMult = 1.5

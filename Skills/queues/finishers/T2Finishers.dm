@@ -18,7 +18,7 @@
 		// make animation that makes a clone rapidly strike at from angles, not 2 hard
         InstantStrikes = 13
         InstantStrikesDelay = 0.5
-        DamageMult = 1.5 // by the time 13 hits this will b 20% dmg
+        DamageMult = 0.2
         MortalBlow = 0.5
         FollowUp="/obj/Skills/AutoHit/Shitenketsu"
         BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Cruel_Shadow"
@@ -26,7 +26,7 @@
     Teiga // damage
         InstantStrikes = 11
         InstantStrikesDelay = 1
-        DamageMult = 1.25
+        DamageMult = 0.35
         MortalBlow = 1
         Grapple=1
         GrabTrigger="/obj/Skills/Grapple/Ryukoha"
@@ -78,8 +78,7 @@
         BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fimbulwinter
         HitMessage = "sends a massive cleaving sword strike forward!"
     Hunt
-        Dominator = 3
-
+        Dominator = 1
         BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Righteous_Crusade
         BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Staked
         DamageMult = 3

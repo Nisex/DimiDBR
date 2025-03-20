@@ -569,10 +569,10 @@ obj
 				RoundMovement=0
 				Distance=8
 				Instinct=4
-				DamageMult=5
+				DamageMult=2
 				Rounds=2
-				StrOffense=1.25
-				EndDefense=0.35
+				StrOffense=1
+				EndDefense=0.75
 				TurfErupt=2
 				TurfEruptOffset=3
 				Earthshaking = 15

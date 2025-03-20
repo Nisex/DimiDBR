@@ -28,5 +28,9 @@
 		. = ..()
 		if(!User.BuffOn(src))
 			CounterHit = 0
+	
+	verb/Venomous_Bite()
+		set category = "Skills"
+		Trigger(usr)
 
 

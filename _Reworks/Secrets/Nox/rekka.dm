@@ -44,11 +44,11 @@
 	TurfShiftDurationDespawn = 5
 	TurfShiftX = -6
 	TurfShiftY = -6
-	// Cooldown = 45
+	Cooldown = 45
 
 	adjust(mob/p)
 		DamageMult = 1.5 + (p.Potential/25)
-		// Cooldown = 45 - (p.Potential/10)
+		Cooldown = 45 - (p.Potential/10)
 	verb/Devouring_Fang()
 		set category = "Skills"
 		var/obj/Skills/Utility/Ouroboros/oo = usr.inRekka()
@@ -67,14 +67,14 @@
 	AdaptRate = 1
 	Launcher = 4
 	DamageMult=1
-	// Cooldown=45 
+	Cooldown=45 
 	TurfShift='ouroborostile.dmi'
 	TurfShiftDuration=6
 	TurfShiftDurationSpawn = 1
 	TurfShiftDurationDespawn = 5
 	adjust(mob/p)
 		DamageMult = 1.5 + (p.Potential/25)
-		// Cooldown = 45 - (p.Potential/10)
+		Cooldown = 45 - (p.Potential/10)
 	verb/Rising_Fang()
 		set category = "Skills"
 		var/obj/Skills/Utility/Ouroboros/oo = usr.inRekka()
@@ -89,7 +89,7 @@
 	AdaptRate = 1
 	Dunker = 1
 	DamageMult=1
-	// Cooldown=45 
+	Cooldown=45 
 	TurfShift='ouroborostile.dmi'
 	TurfShiftDuration=6
 	TurfShiftDurationSpawn = 1
@@ -97,7 +97,7 @@
 	adjust(mob/p)
 		DamageMult = 1.5 + (p.Potential/25)
 		Dunker = 1 + (p.Potential/25)
-		// Cooldown = 45 - (p.Potential/10)
+		Cooldown = 45 - (p.Potential/10)
 	verb/Falling_Fang()
 		set category = "Skills"
 		var/obj/Skills/Utility/Ouroboros/oo = usr.inRekka()
@@ -114,7 +114,7 @@
 	Dodgeable=0
 	Striking=1
 	Radius=1
-	// Cooldown=30
+	Cooldown=30
 	IconLock='ouroboros_blast.dmi'
 	IconSize=0.5
 	Variation=0
