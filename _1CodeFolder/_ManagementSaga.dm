@@ -1027,7 +1027,7 @@ mob
 								src << "Your Shoryuken and EX-Shoryuken improve!"
 								for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style/ans in src)
 									ans.Finisher="/obj/Skills/Queue/Finisher/Shin_Shoryuken"
-									src << "You learn to perform the special finisher: Shoryureppa!"
+									src << "You learn to perform the special finisher: Shin Shoryuken!"
 							if("Tatsumaki")
 								src << "Your Tatsumaki and EX-Tatsumaki improve!"
 								for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style/ans in src)
@@ -1041,7 +1041,7 @@ mob
 									src.AddSkill(new/obj/Skills/Projectile/Ansatsuken/Shinku_Hadoken)
 							if("Shoryuken")
 								if(!locate(/obj/Skills/Queue/Shinryureppa, src))
-									src << "You've developed peerless coordination: Shinku Shoryuken!"
+									src << "You've developed peerless coordination: Shinryureppa!"
 									src.AddSkill(new/obj/Skills/Queue/Shinryureppa)
 							if("Tatsumaki")
 								if(!locate(/obj/Skills/AutoHit/ShinkuTatsumaki, src))
@@ -1217,7 +1217,7 @@ mob
 										confirm=alert(src, "Kamui Senjin makes it so that your Kamui can assume a battle ready form, focused on potent strikes and endurance.  Do you wish to gain this form?", "Kamui Senjin", "Yes", "No")
 									if("Kamui Shippu")
 										confirm=alert(src, "Kamui Shippu makes it so that your Kamui can assume a speedy form, focused on evasion and elusive manuevers.  Do you wish to gain this form?", "Kamui Shippu", "Yes", "No")
-							
+
 							switch(choice)
 								if("Kamui Senjin")
 									src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kamui_Senjin)
@@ -1336,7 +1336,7 @@ mob
 						else if(src.KamuiType=="Junketsu")
 							src << "Unshatterable, your resolve gains a twofold edge...Your goals are nearly within your grasp."
 						else if (KamuiType == "Shinra Koketsu")
-							contents += new/obj/Items/Symbiotic/Kamui/Shinra_Koketsu 
+							contents += new/obj/Items/Symbiotic/Kamui/Shinra_Koketsu
 				if("Keyblade")
 					if(src.SagaLevel==2)
 						switch(src.KeybladeType)
@@ -1375,7 +1375,7 @@ mob
 								AddSkill(new/obj/Skills/AutoHit/Magic/Blizzara)
 							if("Thunder")
 								AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
-						
+
 					if(src.SagaLevel==3)
 						//T2 Command Style
 						//Keychain
