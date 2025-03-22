@@ -72,8 +72,8 @@
         TimerLimit = 30
 
     Frozen_Summit
-        passives = list("BlockChance" = 25, "CriticalBlock" = 0.25, "GiantForm" = 1, \
-                        "MovingCharge" = 1, "QuickCast" = 1, "Freezing" = 10, "Shattering" = 10, "LifeGeneration" = 1.5, \
+        passives = list("BlockChance" = 25, "CriticalBlock" = 0.25, \
+                        "MovingCharge" = 1, "QuickCast" = 1, "Freezing" = 10, "Shattering" = 10, "LifeGeneration" = 0.5, \
                         "LikeWater" = 4, "TensionLock" = 1)
         EndMult=1.2
         ForMult=1.2
