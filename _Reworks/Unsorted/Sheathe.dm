@@ -7,7 +7,7 @@
     var/removeSheathedOnUnSheathe = TRUE
     var/sheatheIcon
     var/org_icon
-    var/unsheatheSound = sound("sword-unsheathe.wav")
+    // var/unsheatheSound = sound("sword-unsheathe.wav")
     proc/addUnsheathedState()
         if(suffix && unsheatheIcon)
             var/image/im1 = image(icon=unsheatheIcon, layer=src.layer, pixel_x=unsheatheOffsetX, pixel_y=unsheatheOffsetY)
@@ -70,7 +70,7 @@
             usr<<"You already have your sword unsheathed."
             return
         unsheathed = TRUE
-        view(5, usr) << sound(unsheatheSound, 0, 0 , 25)
+        // view(5, usr) << sound(unsheatheSound, 0, 0 , 25)
         addUnsheathedState()
 
 
