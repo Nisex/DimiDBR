@@ -1320,7 +1320,7 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 		if(Defender.HasClarity()||Defender.HasFluidForm()||Defender.HasIntuition())
 			if(AccMult>1)
 				if(Defender.HasFluidForm())
-					AccMult-=(Defender.HasFluidForm()*glob.FLUID_FORM_RATE)*AccMult
+					AccMult-=(Defender.HasFluidForm()*glob.FLUID_FORM_RATE)
 				if(AccMult<1)
 					AccMult=1
 		var/GodKiDif = 1

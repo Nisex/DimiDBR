@@ -1407,11 +1407,14 @@ NEW VARIABLES
 			KenWave=2
 			KenWaveIcon="LightningRed.dmi"
 			adjust(mob/p)
-				passives = list("HellRisen" = 0.25 * (p.AscensionsAcquired-1), "Hellpower" = p.AscensionsAcquired/10, "Flicker" = round(p.AscensionsAcquired/2, 1),  "EnergyLeak" = 2)
-
-			Trigger(mob/User, Override)
-				. = ..()
-				adjust(User)
+				passives = list("HellRisen" = 0.25 * (p.AscensionsAcquired-1), "Hellpower" = p.AscensionsAcquired/10, "Flicker" = round(p.AscensionsAcquired/2, 1),  "EnergyLeak" = 1)
+				StrMult=1.1 + (p.Potential/250)
+				ForMult=1.1 + (p.Potential/250)
+				DefMult=0.9
+			
+			verb/Daimou_Form()
+				set category="Skills"
+				src.Trigger(usr)
 
 		OneHundredPercentPower
 			BuffName="One Hundred Percent Power"

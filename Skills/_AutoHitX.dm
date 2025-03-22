@@ -6123,7 +6123,7 @@ obj
 				if(WearingArmor)//Reduced delay and accuracy
 					Precision*=src.Owner.GetArmorAccuracy(WearingArmor)
 				var/reversalChance = m.GetAutoReversal()
-				if(prob(reversalChance * 100))
+				if(prob(reversalChance * 100) && currentRounds == 1)
 					if(m.HasAutoReversal())
 						if(!src.SpecialAttack||m.passive_handler.Get("TotalReversal"))
 							if(Accuracy_Formula(src.Owner, m, AccMult=Precision, BaseChance=glob.WorldDefaultAcc, IgnoreNoDodge=1) == (HIT || WHIFF))

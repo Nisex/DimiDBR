@@ -25,7 +25,7 @@
 	Cooldown = 15
 	TimerLimit = 0.1
 	ManaCost = 2.5
-	Trigger(mob/User, Overwrite = FALSE)
+	Trigger(mob/User, Override = FALSE)
 		..()
 		if(User.BuffOn(src))
 			User.ActiveZanzo = 1 + (User.Potential/33)

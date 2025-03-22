@@ -1550,8 +1550,7 @@ mob
 							if(loc:Deluged)
 								src.overlays+=image('WaterOverlay.dmi',"Deluged")
 								var/mob/p = loc:ownerOfEffect
-								if(p!= src)
-
+								if(p!= src && p)
 									src.AddSlow(10 + (5 * p.AscensionsAcquired))
 									src.AddShock(10 + (5 * p.AscensionsAcquired))
 							else if(src.PoseEnhancement&&src.Secret=="Ripple")
