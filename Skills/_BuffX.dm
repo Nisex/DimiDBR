@@ -11960,7 +11960,7 @@ mob
 						if(AscensionsAcquired)
 							src.ActiveBuff.AngerPoint = 5 * AscensionsAcquired
 						src.ActiveBuff.passives["Pursuer"] = 0.5 * AscensionsAcquired
-						src.ActiveBuff.AngerMult = round(2/(6-AscensionsAcquired), 0.01)
+						src.ActiveBuff.AngerMult = round(2/(8-AscensionsAcquired), 0.01)
 						src.ActiveBuff.passives["PUSpike"] = round(25/(5-AscensionsAcquired))
 						src.ActiveBuff.PUSpike=round(25/(5-AscensionsAcquired))
 				if(src.Saga=="Spiral")
