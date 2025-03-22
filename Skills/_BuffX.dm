@@ -11947,20 +11947,20 @@ mob
 					src.ActiveBuff.AutoAnger=0
 					if(src.passive_handler.Get("HellPower")||src.StarPowered)
 						src.ActiveBuff.AutoAnger=1
-						src.ActiveBuff.AngerStorage=1
+						src.ActiveBuff.AngerMult=2
 						src.ActiveBuff.passives["PUSpike"] = 50
 						src.ActiveBuff.passives["Pursuer"] = 2 * AscensionsAcquired
 
 					else if(passive_handler.Get("ArtificalStar"))
 						src.ActiveBuff.AutoAnger=1
-						src.ActiveBuff.AngerStorage=0.5
+						src.ActiveBuff.AngerMult=1.5
 						src.ActiveBuff.passives["PUSpike"] = 25
 						src.ActiveBuff.passives["Pursuer"] = 1.5 * AscensionsAcquired
 					else
 						if(AscensionsAcquired)
 							src.ActiveBuff.AngerPoint = 5 * AscensionsAcquired
 						src.ActiveBuff.passives["Pursuer"] = 0.5 * AscensionsAcquired
-						src.ActiveBuff.AngerStorage = round(1/(7-AscensionsAcquired), 0.01)
+						src.ActiveBuff.AngerMult = round(2/(6-AscensionsAcquired), 0.01)
 						src.ActiveBuff.passives["PUSpike"] = round(25/(5-AscensionsAcquired))
 						src.ActiveBuff.PUSpike=round(25/(5-AscensionsAcquired))
 				if(src.Saga=="Spiral")
