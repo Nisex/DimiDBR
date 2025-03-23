@@ -2,7 +2,7 @@ ascension
 	yokai
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			passives = list("TechniqueMastery" = 1)
+			passives = list("TechniqueMastery" = 1, "Touch of Death" = 1)
 			strength = 0.25
 			force = 0.25
 			offense = 0.5
@@ -13,6 +13,7 @@ ascension
 			strength = 0.25
 			force = 0.25
 			offense = 0.25
+			passives = list("Touch of Death" = 1)
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
 					passives["ManaGeneration"] = 1

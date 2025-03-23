@@ -208,8 +208,8 @@ NEW VARIABLES
 	var/HairY
 	var/Enlarge//Makes icon get fukcnig huge. TODO: Replace all functionalities with ProportionShift
 	var/ProportionShift//uses transfrom matrix to fuck with proportions
-	var/IconReplace//Icon replaces base icon.
-	var/IconTransform//COMPLETE HENSHIN
+	var/IconReplace //Icon replaces base icon.
+	var/IconTransform //COMPLETE HENSHIN
 	var/TransformX
 	var/TransformY
 	var/alphaChange
@@ -4335,10 +4335,12 @@ NEW VARIABLES
 			ActiveMessage="shifts into their spiritual body!"
 			OffMessage="becomes fully physical once more..."
 			ManaDrain = 0.1
-			passives = list("ManaLeak" = 2, "SpiritForm" = 1, "MovementMastery" = 1, "ManaStats" = 0.25, "TechniqueMastery" = -2, "MartialMagic" = 1, "ManaGeneration" = -2, "FatigueLeak" = 3)
+			passives = list("ManaLeak" = 2, "SpiritForm" = 1, "MovementMastery" = 1, "ManaStats" = 0.25, "TechniqueMastery" = -2, "MartialMagic" = 1, "ManaGeneration" = -2, "FatigueLeak" = 3, "Cryokenesis" = 1)
 			ManaLeak = 2
 			ManaThreshold = 40
 			Cooldown=1
+			adjust(mob/p)
+				passives["Cryokenesis"] = 1 + p.AscensionsAcquired
 			verb/Spirit_Form()
 				set category="Skills"
 				if(!usr.BuffOn(src))
@@ -11945,6 +11947,7 @@ mob
 					src.ActiveBuff.passives["GiantForm"] = round(AscensionsAcquired/2)
 					src.ActiveBuff.passives["Godspeed"] = AscensionsAcquired
 					src.ActiveBuff.AutoAnger=0
+					src.ActiveBuff.AngerStorage=0
 					if(src.passive_handler.Get("HellPower")||src.StarPowered)
 						src.ActiveBuff.AutoAnger=1
 						src.ActiveBuff.AngerMult=2

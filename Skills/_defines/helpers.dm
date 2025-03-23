@@ -95,3 +95,19 @@ mob/proc/UsingHotnCold()
         if(!ignoresPowerClamp())
             powerDif = clamp(powerDif, glob.MIN_POWER_DIFF, glob.MAX_POWER_DIFF)
     return powerDif
+
+
+/mob/proc/applyDebuff(mob/def, path ,passive_needed = FALSE, last_used = FALSE, cooldown = FALSE)
+    if(def && path)
+        if(!(passive_needed && passive_handler[passive_needed])) return
+        if(!(last_used && lasts_list[last_used] + cooldown < world.time)) return
+        var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/ss = def.FindSkill(path)
+        if(!ss)
+            ss = new path
+            def.AddSkill(ss)
+        ss.adjust(src, def)
+        ss:add_stack(def, src)
+        src << "You have applied [ss.name] to [def]!"
+        def << "You feel the effects of [ss.name] being applied to you!"
+        if(last_used)
+            lasts_list[last_used] = world.time

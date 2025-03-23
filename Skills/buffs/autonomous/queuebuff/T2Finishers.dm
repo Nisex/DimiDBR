@@ -44,7 +44,7 @@
         ForMult = 1.5
         EndMult = 0.75
         SpdMult = 1.25
-        passives = list("SpiritHand" = 1, "Scorching" = 10, "BlurringStrikes" = 0.5, "Godspeed" = 2, \
+        passives = list("SpiritHand" = 1, "Scorching" = 10, "BlurringStrikes" = 0.25, "Godspeed" = 2, \
                         "Shattering" = 10, "Flicker" = 2, "Pursuer" = 2, "Momentum" = 2, "TensionLock" = 1)
 
     X_Buster
@@ -107,7 +107,7 @@
     Righteous_Crusade
         IconLock='SweatDrop.dmi'
         IconApart=1
-        passives = list("Tossing" = 2, "SlayerMod" = 2, "FavoredPrey" = "All",  "Hit Scan" = 2 , "HolyMod" = 2,  \
+        passives = list("Tossing" = 2, "SlayerMod" = 1, "FavoredPrey" = "All",  "Hit Scan" = 2 , "HolyMod" = 2,  \
         "TensionLock" = 1) // not sure 
         StyleOff = 1.2
         StyleStr = 1.2
@@ -143,3 +143,22 @@
     Time_Freeze
         IconLock='Stun.dmi'
         passives = list("Shellshocked" = 1, "NoDodge" = 1)
+    
+
+    Silence
+        IconLock='SweatDrop.dmi'
+        passives = list("Silence" = 1)
+        TimerLimit = 3
+    Bloodrage
+        StrMult=1.5
+        SpdMult=1.5
+        EndMult=0.5
+        AngerMult=1.25
+        passives = list("NoDodge" = 1, "Flicker" = 2, "Pursuer" = 2, "PureDamage" = 0.5, "Instinct" = 2, \
+         "Speed Force" = 1 , "Sajire Rush" = 1, "Poisoning" = 5, "Enrage" = 1)
+    Ruptured
+        IconLock='Bleed.dmi'
+        IconState = "1"
+        passives = list("Don't Move" = 1)
+        TimerLimit = 10
+

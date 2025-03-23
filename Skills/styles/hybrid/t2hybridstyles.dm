@@ -43,10 +43,10 @@
 
 	Phoenix_Eye_Fist // unarmed + armed
 		SignatureTechnique=2
-		passives = list("HybridStyle" = "SwordStyle","Backstabber" = 1, "Backshot" = 2.5, "Fa Jin" = 2, "Momentum" = 2, "BlurringStrikes" = 0.5, "Interception" = 1.5, \
+		passives = list("HybridStyle" = "SwordStyle","Backstabber" = 1, "Backshot" = 2.5, "Fa Jin" = 2, "Momentum" = 2, "BlurringStrikes" = 0.25, "Interception" = 1.5, \
 				"Extend" = 1, "Gum Gum" = 1, "Tossing" = 1.5, "Secret Knives" = "Secret_Knives", "NeedsSword" = 0, "NoSword" = 1)
 		adjust(mob/p)
-			passives = list("HybridStyle" = "SwordStyle","Backstabber" = 1, "Backshot" = 2.5, "Fa Jin" = 2, "Momentum" = 2, "BlurringStrikes" = 0.5, "Interception" = 1.5, \
+			passives = list("HybridStyle" = "SwordStyle","Backstabber" = 1, "Backshot" = 2.5, "Fa Jin" = 2, "Momentum" = 2, "BlurringStrikes" = 0.25, "Interception" = 1.5, \
 				"Extend" = 1, "Gum Gum" = 1, "Tossing" = 1.5, "Secret Knives" = "Secret_Knives", "SwordPunching" = 1,  "NeedsSword" = 0, "NoSword" = 1)
 		NeedsSword=0
 		NoSword=1
@@ -61,15 +61,36 @@
 			set hidden=1
 			Trigger(usr)
 
+/obj/Skills/Buffs/NuStyle/SwordStyle/Bloodseeker
+	SignatureTechnique=2
+	passives = list("HybridStyle" = "MysticStyle", "Serrated" = 1, "Familiar" = 2, \
+		"SpiritFlow" = 2, "BlindingVenom" = 2, "BloodEruption" = 2, "LingeringPoison" = 1,\
+		"SpiritSword" = 1, "Crippling" = 3, "Poisoning" = 3, "Pursuer" = 1, )
+	// crits deal an extra amount based on the enemy's max health
+	StyleStr = 1.15
+	StyleFor = 1.15
+	StyleOff = 1.15
+	StyleActive="Bloodseeker"
+	Finisher="/obj/Skills/Queue/Finisher/Blood_Rite"
+	BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Poison"
+	verb/Bloodseeker()
+		set hidden=1
+		Trigger(usr)
+
+
 /obj/Skills/Buffs/NuStyle/SwordStyle/Art_of_Order// mystic+armed
 	SignatureTechnique=2
-	passives = list("HybridStyle" = "MysticStyle", "Wuju" = 1, "CriticalChance" = 33, "CriticalDamage"= 0.05, "SpiritSword" = 1, "ThunderHerald" = 1, \
-					"Instinct" = 2, "Flicker" = 2, "Fury" = 2.5, "Iaijutsu" = 2, "BlurringStrikes" = 0.5, "Rain" = 5)
+	passives = list("HybridStyle" = "MysticStyle", "Wuju" = 1, "CriticalChance" = 10, "CriticalDamage"= 0.05, "SpiritSword" = 1, "ThunderHerald" = 1, \
+					"Instinct" = 1, "Flicker" = 1, "Fury" = 2.5, "Iaijutsu" = 2, "BlurringStrikes" = 0.25, "Rain" = 3)
 	// crits deal an extra amount based on the enemy's max health
 	StyleSpd = 1.3
 	StyleOff = 1.15
 	StyleActive="Art of Order"
 	Finisher="/obj/Skills/Queue/Finisher/Alpha_Strike"
+	adjust(mob/p)
+		passives = list("HybridStyle" = "MysticStyle", "Wuju" = 1, "CriticalChance" = 10, "CriticalDamage"= 0.05, "SpiritSword" = 1, "ThunderHerald" = 1, \
+					"Instinct" = 1, "Flicker" = 1, "Fury" = 2.5, "Iaijutsu" = 2, "BlurringStrikes" = 0.25, "Rain" = 3)
+
 	verb/Art_of_Order()
 		set hidden=1
 		Trigger(usr)

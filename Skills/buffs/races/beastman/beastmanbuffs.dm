@@ -41,10 +41,11 @@
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Ripped // TODO: make the buffedaffected attackQ work correctly n make this scale
-	TimerLimit = 30
+	TimerLimit = 15
 	passives = list("PureReduction" = -0.5)
 	adjust(mob/p)
 		passives = list("PureReduction" = -0.5 - (0.25 * p.AscensionsAcquired)) // this is calling owner'a sc, which im aware of but fuck it
+		TimerLimit = 15 + (5 * p.AscensionsAcquired)
 	ActiveMessage = "'s body is ripped to shreds!"
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Thrill_of_the_Hunt
 	AlwaysOn = 1
@@ -53,17 +54,22 @@
 	Crippling = 15
 	passives = list("Brutalize" = 1.5, "Afterimages" = 2, "Crippling" = 5)
 	adjust(mob/p)
-		passives = list("Brutalize" = 1.5 + (0.25 * p.AscensionsAcquired), "Afterimages" = 2, "Crippling" = 5)
+		Crippling= 5 + 5 * p.AscensionsAcquired
+		passives = list("Brutalize" = 1.25 + (0.5 * p.AscensionsAcquired), "GodSpeed" = p.AscensionsAcquired,  "Afterimages" = 2, "Crippling" = 5 + 5 * p.AscensionsAcquired)
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Undying_Rage
 	TooMuchHealth = 3
 	NeedsHealth = 1
 	passives = list("Undying Rage" = 1)
 	Cooldown = -1
+	SpdMult=1.5
+	DefMult=0.5
+	EndMult=0.9
 	ActiveMessage = "is too angry to die!"
 	adjust(mob/p)
-		TimerLimit = 5 + (glob.racials.UNDYINGRAGE_DURATION* (p.AscensionsAcquired))
-		passives = list("Undying Rage" = 1, "Relentlessness" = 1, "Adrenaline" = 3)
+		TimerLimit = 10 + (glob.racials.UNDYINGRAGE_DURATION * (p.AscensionsAcquired))
+		passives = list("Undying Rage" = 1, "Fury" = 1 + p.AscensionsAcquired, "GodSpeed" = 3, "Relentlessness" = 1, "Adrenaline" = 3, "LifeSteal" = 25 + (15 * p.AscensionsAcquired), \
+						"PureReduction" = -1 , "Enrage" = p.AscensionsAcquired, "Rage" = p.AscensionsAcquired)
 	Trigger(mob/User, Override)
 		. = ..()
 		if(!User.BuffOn(src))
@@ -94,7 +100,7 @@
 	Cooldown = 120
 	adjust(mob/p)
 		var/asc = p.AscensionsAcquired
-		passives = list("Hit Scan" = 1 + (asc/2), "Momentum" = 0.5 + asc/2, "Fury" = 0.5 + asc/2, "Relentlessness" = 1, "Tossing" = clamp(asc/2, 0, 2.5))
+		passives = list("Hit Scan" = 1 + (asc/2), "Momentum" = 0.5 + asc/2, "Fury" = 1 + asc/2, "Relentlessness" = 1, "Tossing" = clamp(asc/2, 0, 2.5))
 		TimerLimit = 25 + (glob.racials.FEATHERDUR * asc)
 		Cooldown = 120 - ((glob.racials.FEATHERDUR*2) * asc)
 	verb/Clean_Cuts()
@@ -119,6 +125,7 @@
 	adjust(mob/p)
 		var/asc = p.AscensionsAcquired
 		passives = list("SweepingStrikes" = 1, "Extend" = 1 + (asc/4), "Gum Gum" = 1 + (asc/4), "ComboMaster" = 1)
+		Cooldown = 120 - (10 *p.AscensionsAcquired)
 	verb/Pheonix_Form()
 		set category = "Stances"
 		usr.preForm()
@@ -132,6 +139,7 @@
 	adjust(mob/p)
 		var/asc = p.AscensionsAcquired
 		passives = list("Godspeed" = 1 + (asc/2), "BlurringStrikes" = clamp(asc/4, 0.25, 1), "Brutalize" = 0.5 + (asc/2))
+		Cooldown = 120 - (10 *p.AscensionsAcquired)
 	verb/Ram_Form()
 		set category = "Stances"
 		usr.preForm()
@@ -142,7 +150,8 @@
 	forAdd = 0.25
 	adjust(mob/p)
 		var/asc = p.AscensionsAcquired
-		passives = list("StunningStrike" = 1+asc, "ComboMaster" = 1,  "CheapShot" = asc/2, "Instinct" = asc)
+		passives = list("StunningStrike" = 2.5+asc, "ComboMaster" = 1,  "CheapShot" = asc/2, "Instinct" = asc)
+		Cooldown = 120 - (10 *p.AscensionsAcquired)
 	verb/Bear_Form()
 		set category = "Stances"
 		usr.preForm()
@@ -152,7 +161,8 @@
 	defAdd = -0.5
 	adjust(mob/p)
 		var/asc = p.AscensionsAcquired
-		passives = list("Hardening" = 0.5 + asc/2,  "HardenedFrame" = 1, "DeathField" = 1+asc*2)
+		passives = list("Hardening" = 2 + asc/2,  "HardenedFrame" = 1, "DeathField" = 2+asc*2)
+		Cooldown = 120 - (10 *p.AscensionsAcquired)
 	verb/Turtle_Form()
 		set category = "Stances"
 		usr.preForm()

@@ -405,7 +405,25 @@ mob
 					OMsg(src, "<font color='grey'>[src] will no longer deal lethal damage.</font color>")
 
 			Update_Stat_Labels()
-
+			if(grabbed && grabbed.Grab == src)
+				if(grabbed.passive_handler["Touch of Death"])
+					LoseHealth(glob.racials.TOD_DMG_PER_TICK * grabbed.passive_handler["Touch of Death"])
+				if(grabbed.passive_handler["Cryokenesis"])
+					CryokenesisTime++
+					if(passive_handler["Fishman"])
+						CryokenesisTime++
+					if(CryokenesisTime>=glob.racials.CRYOKENESISMAX)
+						var/obj/Effects/Freeze/b = new(overwrite_alpha = 255)
+						b.Target = src
+						vis_contents += b
+						if(StunImmune)
+							StunImmune = 0
+						Stun(src, 1+grabbed.passive_handler["Cryokenesis"])
+						passive_handler.Set("Shellshocked", 1)
+						LoseHealth(glob.racials.CRYOKENESISDAMAGE*grabbed.passive_handler["Cryokenesis"])
+						CryokenesisTime=0
+			else
+				grabbed = null
 			if(src.TsukiyomiTime)
 				src.TsukiyomiTime--
 				if(src.TsukiyomiTime<=0)

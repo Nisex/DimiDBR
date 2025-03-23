@@ -34,18 +34,9 @@
         Grab_Mob(enemy, Forced=1)
     if(istype(AttackQueue, /obj/Skills/Queue/Heavy_Strike))
         if(passive_handler["Heavy Strike"] == "Unseen Predator")
-            if(enemy.SlotlessBuffs["Marked Prey"])
-                enemy.SlotlessBuffs["Marked Prey"]:add_stack(enemy,src)
-            else
-                var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/ss = enemy.findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Marked_Prey)
-                ss:add_stack(enemy,src)
+            applyDebuff(enemy, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Marked_Prey, FALSE, FALSE, FALSE)
         if(passive_handler["Heavy Strike"] == "Fox Fire")
-            if(enemy.SlotlessBuffs["Soul Drained"])
-                enemy.SlotlessBuffs["Soul Drained"]:add_stack(enemy, src)
-            else
-                var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/ss = enemy.findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Soul_Drained)
-                ss:add_stack(enemy,src)
-
+            applyDebuff(enemy, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Soul_Drained, FALSE, FALSE, FALSE)
     if(AttackQueue.Explosive)
         Bang(enemy.loc, AttackQueue.Explosive)
     if(AttackQueue.Shining)

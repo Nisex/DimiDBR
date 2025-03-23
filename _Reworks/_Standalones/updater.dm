@@ -325,6 +325,11 @@ update
 		updateMob(mob/o)
 			. = ..()
 			o.SignatureStyles = list()
+	version18
+		version = 18
+		updateMob(mob/o)
+			. = ..()
+			
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25

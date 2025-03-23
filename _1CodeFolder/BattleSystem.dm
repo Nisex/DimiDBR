@@ -1284,7 +1284,7 @@ proc/Accuracy_Formula(mob/Offender,mob/Defender,AccMult=1,BaseChance=glob.WorldD
 						return HIT
 				else
 					Defender.tailResistanceTraining(5)
-			if(prob(0.1))
+			if(prob(0.5))
 				// smirk
 				OMsg(Defender, "[Defender] is getting Ashton'd.")
 
@@ -1780,6 +1780,7 @@ mob/proc/Grab_Mob(var/mob/P, var/Forced=0)
 	if(!Forced)
 		if(istype(P, /mob/Body))
 			src.Grab=P
+			P.grabbed = src
 			src.GrabTime = world.time
 			src.OMessage(10,"[src] grabbed [P]!","[src]([src.key]) grabs [ExtractInfo(P)]")
 			src.Grab_Update()
@@ -1789,13 +1790,21 @@ mob/proc/Grab_Mob(var/mob/P, var/Forced=0)
 			src.OMessage(10,"[src] fails to get a firm hold on [P]!","[src]([src.key]) fails to grab [ExtractInfo(P)]")
 			return
 	src.Grab=P
+	P.grabbed = src
 	src.GrabTime = world.time
 	src.OMessage(10,"[src] grabbed [P]!","[src]([src.key]) grabs [ExtractInfo(P)]")
 	src.Grab_Update()
 	src.Grab_Effects(P)
 
+
+
+/mob/var/tmp/mob/Player/grabbed = null
 mob/proc/Grab_Release()
+	src.Grab.grabbed = null
+	sleep(1)
+	
 	src.Grab=null
+
 
 
 
@@ -1804,6 +1813,7 @@ mob/proc/Grab_Release()
 
 mob/proc/Grab_Update()
 	if(src.Grab)
+		Grab.grabbed = src
 		src.Grab.loc=src.loc
 		if(isai(Grab)&&!Grab.KO)
 			var/grabbing = Grab

@@ -89,6 +89,25 @@
 		passives = list("PureReduction" = (-glob.racials.MARKEDPREYPURERED + (glob.racials.MARKEDPREYPURERED * attacker.AscensionsAcquired)) * total_stacks)
 
 
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Festered_Wound
+	HealthDrain = 0.1
+	TimerLimit = 5
+	AlwaysOn = 0
+	NeedsPassword = 0
+	IconLock='Bleed.dmi'
+	IconState = "1"
+	max_stacks = 2
+	ActiveMessage = "has started to bleed!"
+	OffMessage = "has stopped bleeding..."
+	do_effect(mob/defender, mob/attacker)
+		
+	adjust(mob/attacker, mob/defender)
+		var/ratio = clamp(defender.Health / 100, 0.1, 0.9)
+		HealthDrain = 0.25 * ratio
+		PoisonAffected = 5 * ratio
+		TimerLimit = round(5 + (2.5 * ratio), 1)
+		// higher health = better
+		
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Rupture
 	HealthDrain = 0.01

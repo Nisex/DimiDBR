@@ -124,7 +124,7 @@ obj/Skills/Grapple
 
 
 	Muscle_Buster
-		DamageMult = 4
+		DamageMult = 2
 		StrRate = 1.5
 		EffectMult=3
 		OneAndDone=1
@@ -133,7 +133,7 @@ obj/Skills/Grapple
 		TriggerMessage = "lifts, flips, and slams"
 
 	Giant_Swing
-		DamageMult = 8
+		DamageMult = 4
 		StrRate = 1.25
 		EffectMult=2
 		OneAndDone=1
@@ -142,7 +142,7 @@ obj/Skills/Grapple
 		TriggerMessage = "starts spinning"
 
 	Heavenly_Potemkin_Buster
-		DamageMult = 12
+		DamageMult = 6
 		StrRate=1
 		EndRate=0.75
 		OneAndDone = 1
@@ -151,7 +151,7 @@ obj/Skills/Grapple
 		Effect="PotemkinBuster"
 	
 	Tombstone_Piledriver
-		DamageMult = 13
+		DamageMult = 8
 		HarderTheyFall = 6
 		StrRate=1.5
 		EndRate=0.75
@@ -160,7 +160,7 @@ obj/Skills/Grapple
 		TriggerMessage = "is dropping the tombstone on"
 
 	Ryukoha
-		DamageMult = 6
+		DamageMult = 4
 		HarderTheyFall = 1.5
 		EffectMult=1.5
 		Effect="Lotus"

@@ -2176,8 +2176,8 @@ obj
 
 						ChargeTime = 1.5 - (p.Potential/100)
 						ChargeTech = 1
-						WindUp = 2 - (p.Potential/100)
-						Rush = 3
+						WindUp = 2.5 - (p.Potential/100)
+						Rush = 2
 						Rounds = 30
 						TurfShift='Glowing Electricity.dmi'
 						TurfShiftDuration=6
@@ -2185,7 +2185,7 @@ obj
 						TurfShiftDurationDespawn = 5
 						Grapple = 1
 						GrabMaster = 1
-						DamageMult = 0.2
+						DamageMult = 0.1
 						Quaking = 10
 						GrabTrigger = "/obj/Skills/Grapple/Lightning_Blade"
 						WindupMessage="begins charging an excessive amount of lightning in their palm!"

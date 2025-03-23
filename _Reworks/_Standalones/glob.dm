@@ -49,7 +49,7 @@ racials
 		SOULDRAINPER = 0.5
 		SOULDRAINHEAL = 0.5
 		UNDYINGRAGE_HEAL = 2.5
-		UNDYINGRAGE_DURATION = 2.5
+		UNDYINGRAGE_DURATION = 3
 		COWLSHIELDVAL = 0.025
 		DEVIL_ARM_STAT_MULTS = FALSE
 		DEMON_NAME = "Shatterspawn"
@@ -72,6 +72,9 @@ racials
 		MAKYO_TOTAL_TIME = 18000//30 minutes
 		FEATHERDUR = 5
 		SPIRITTACTMULT = 2
+		CRYOKENESISMAX = 30
+		CRYOKENESISDAMAGE = 2
+		TOD_DMG_PER_TICK = 0.05
 
 progressTracker
 
@@ -268,6 +271,7 @@ globalTracker
 		
 		MAX_CRIPPLE_MULT = 2
 		CRIPPLE_DIVISOR = 100
+		RUPTURED_MOVE_DMG = 0.05
 
 		MECH_LEVEL_MULT = 0.15
 		PILOT_MULT = 0.09
@@ -367,10 +371,10 @@ globalTracker
 
 		CAN_BE_SLOWED_GODSPEED = 6
 		SAGAINNOVATION = TRUE
-		FA_JIN_BASE_DMG_ADD = 1.25
-		FA_JIN_BASE_KB_ADD = 1
-		FA_JIN_BASE_COOLDOWN = 300
-		FA_JIN_COOLDOWN_REDUCTION = 30
+		FA_JIN_BASE_DMG_ADD = 1.75
+		FA_JIN_BASE_KB_ADD = 3
+		FA_JIN_BASE_COOLDOWN = 250
+		FA_JIN_COOLDOWN_REDUCTION = 25
 		BASE_WUJUDAMAGE = 0.015
 		GLOBAL_BEAM_DAMAGE_DIVISOR = 35
 		GLOBAL_QUEUE_DAMAGE = 0.85
@@ -401,6 +405,8 @@ globalTracker
 		NIMBUSRANGE = 10
 		NIMBUSCD = 150
 		SUPERCHARGECD = 500
+		SERRATEDCD = 300
+		SERRATEDCHANCE = 2.5
 		SUPERCHARGERATE = 0.1
 		ATOMIZERRATE = 0.1
 		GLADIATOR_DISARM_MAX = 750
@@ -449,8 +455,8 @@ globalTracker
 		HARDER_THEY_FALL_VAI_DIVISOR = 25 // more often no1 has this much vai, in hindsight deus ex machima will give kob more tha nthis, but they will suffer 2x damage ig
 
 // dmg rolls
-		min_damage_roll = 0.3
-		upper_damage_roll = 0.9
+		min_damage_roll = 0.2
+		upper_damage_roll = 0.8
 
 //SPEED COOLDOWN SHIT
 		SPEED_COOLDOWN_MODE = 0
@@ -460,10 +466,10 @@ globalTracker
 
 
 // CC related
-		CCDamageModifier = 0.33
+		CCDamageModifier = 0.1
 		STUN_IMMUNE_TIMER = 250
 		MAX_STUN_ADDITION = 100
-		MAX_STUN_TIME = 800
+		MAX_STUN_TIME = 600
 		LAUNCH_LOCKOUT = 200
 		MAX_LAUNCH_TIME = 25
 		TIMESTOP_MULTIPLIER = 70

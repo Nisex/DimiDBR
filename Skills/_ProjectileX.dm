@@ -3068,30 +3068,25 @@ obj
 					Cooldown=40
 					ActiveMessage = "HADOKEN!"
 					activate(mob/player)
-						var/cooldown = 40
+						var/cooldown = 30
 						var/sagaLevel = player.SagaLevel
-						var/damage = 2 + 1.5 * sagaLevel
+						var/damage = 1.5 + 1 * sagaLevel
 						var/ansatsukenPath = player.AnsatsukenPath == "Hadoken" ? 1 : 0
 						var/distance = 30
 						var/charge = 0.25
-						var/manaCost = 25
-						var/multiHit = 5
 						var/iconSize = 1
 						var/stunner = 0
 						Knockback = 2
 						if(ansatsukenPath)
-							manaCost -= 10
-							cooldown -= 10
-							charge = 0.1
-							damage = 3 + 1.5 * sagaLevel
-							stunner = clamp(0.25 * sagaLevel, 0.25, 2)
+							cooldown -= 5
+							damage = 2 + 1.5 * sagaLevel
 							Knockback = 3
 						if(player.AnsatsukenAscension == "Satsui" && src.IconLock == 'Hadoken.dmi')
 							src.IconLock = 'Hadoken - Satsui.dmi'
-						DamageMult = damage/multiHit
+						DamageMult = damage
 						Distance = distance
 						Charge = charge
-						MultiHit = multiHit
+						MultiHit = 0
 						IconSize = iconSize
 						Radius = 1
 						Stunner = stunner
@@ -3106,35 +3101,35 @@ obj
 						FireFromSelf=1
 						FireFromEnemy=0
 						usr.UseProjectile(src)
-					verb/EX_Hadoken()
-						var/mob/player = usr
-						var/sagaLevel = player.SagaLevel
-						var/ansatsukenPath = player.AnsatsukenPath == "Hadoken" ? 1 : 0
-						var/manaCost = 25
-						if(player.ManaAmount >= manaCost && sagaLevel >= 2)
-							ManaCost = manaCost
-							Knockback = 4
-							DamageMult = 3 + 1.5 * sagaLevel
-							MultiHit = 3 + clamp(2 + sagaLevel, 5, 10)
+				
+				Hadoken_EX
+					DamageMult = 3
+					MultiHit = 3
+					Stunner = 2
+					Radius = 1
+					IconSize = 1.25
+					Dodgeable=0
+					Cooldown = 150
+					adjust(mob/p)
+						Charge=1.5
+						Distance = 20
+						Knockback = 4
+						DamageMult = 1 + (1 * p.SagaLevel)
+						MultiHit = 2 + (1*p.SagaLevel)
+						DamageMult/=MultiHit
+						Radius = 1
+						IconSize = 1.25
+						if(p.AnsatsukenPath == "Hadoken")
+							Charge = 1
+							DamageMult = 1.5 + (1.5 * p.SagaLevel)
 							DamageMult/=MultiHit
-							Stunner = 2
-							Radius = 1
-							IconSize = 1.25
-							Dodgeable=0
-							Cooldown = 60
-							if(ansatsukenPath)
-								DamageMult = 5 + 2.25 * sagaLevel
-								MultiHit = 2 + clamp(sagaLevel*2,  4, 20)
-								DamageMult/=MultiHit
-								Stunner = 3
-								Radius = 2
-								IconSize = 1.5
-								Knockback = 6
-							Charge=0.75
+							Radius = 2
+							IconSize = 2
 							Distance = 25
-							usr.UseProjectile(src)
-						else
-							usr << "no super."
+					verb/EX_Hadoken()
+						set category = "Skills"
+						adjust(usr)
+						usr.UseProjectile(src)
 				Shinku_Hadoken
 					Distance=40
 					Charge=0.5

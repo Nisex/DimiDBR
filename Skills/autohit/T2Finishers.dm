@@ -100,3 +100,18 @@
 		TurfShift='Dirt1.dmi'
 		TurfShiftDuration=30
 		Cooldown=4
+	
+
+	Rupture
+		Area = "Target"
+		NoLock=1
+		NoAttackLock=1
+		Distance=50
+		DamageMult=3
+		StrOffense=1
+		ForOffense=1
+		EndDefense=1
+		Cooldown=4
+		BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Ruptured
+		//TODO: finish
+	

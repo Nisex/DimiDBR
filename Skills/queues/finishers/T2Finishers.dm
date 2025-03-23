@@ -133,6 +133,17 @@
         FollowUp=/obj/Skills/Queue/Finisher/Wuju
         BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Alpha_Strike
         HitMessage = "breaks off into a relentless pursuit!"
+    Blood_Rite
+        Crippling=100
+        Quaking=2
+        PushOut=1
+        DamageMult=1
+        FollowUp=/obj/Skills/AutoHit/Rupture
+        BuffSelf=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Bloodrage
+        BuffAffected=/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Silence
+
+
+
     Wuju
         Combo=10
         DamageMult = 0.1

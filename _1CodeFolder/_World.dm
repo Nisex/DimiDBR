@@ -279,11 +279,13 @@ mob/proc/Allow_Move(D)
 		var/Grab_Escape = min(60, max(10, world.time - P.GrabTime))
 		var/brolic = P.CheckSlotless("Brolic Grip")
 		var/grippy = P.passive_handler.Get("Grippy")
-		if(brolic || grippy)
+		var/ToD = P.passive_handler["Touch of Death"]
+		if(brolic || grippy || ToD)
 			if(brolic)
 				brolic = 2 // make it 2
+			
 			grippy *= glob.GRIPPY_MOD 
-			Grab_Escape=Grab_Escape*( ( src.Power*src.GetStr() ) / ( P.Power*(P.GetStr() * (brolic + grippy)) ) )
+			Grab_Escape=Grab_Escape*( ( src.Power*src.GetStr() ) / ( P.Power*(P.GetStr() * (ToD + brolic + grippy)) ) )
 		else
 			Grab_Escape=Grab_Escape*((src.Power*src.GetStr())/(P.Power*P.GetStr()))
 		if(prob(Grab_Escape))

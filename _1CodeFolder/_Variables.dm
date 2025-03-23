@@ -428,6 +428,7 @@ mob/var
 	Charge_Icon
 	MortallyWounded
 	TsukiyomiTime
+	tmp/CryokenesisTime = 0 
 	Lethal=0 //Lethality
 	Timestamp=0 //Timestamp Setting
 	GrabMove //THIS HAND OF MINE IS BURNING RED

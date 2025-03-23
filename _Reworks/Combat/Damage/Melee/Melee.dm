@@ -1,5 +1,5 @@
-/mob/var/last_overwhelm_apply = 1
 
+/mob/var/tmp/list/lasts_list = list("overwhelm" = -999, "rupture" = -999, "serrated" = -999)
 /proc/getDeciderDamage(playerHealth, sourceHealth)
 	var/healthDifference = abs(playerHealth - sourceHealth)
 	var/damageMultiplier = 2 * (2.7** (-healthDifference/10))
@@ -886,36 +886,13 @@
 								otherDmg += passive_handler.Get("Quaker")
 							if(passive_handler.Get("QuakerMod"))
 								otherDmg *= passive_handler.Get("QuakerMod")
-							
 							if(passive_handler["Rupture"])
-								if(enemy.SlotlessBuffs["Rupture"])
-									enemy.SlotlessBuffs["Rupture"]:add_stack(enemy, src)
-								else
-									var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/ss = FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Rupture)
-									if(ss)
-										ss.adjust(enemy)
-										ss.Password = enemy.name
-									else
-										var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Rupture/r = new()
-										enemy.AddSkill(r)
-										r.adjust(enemy)
-										r.Password = enemy.name
-							// i feel this can go to a proc but i wont do that, lol
-							if(passive_handler["Overwhelming"] && last_overwhelm_apply + 5 < world.time)
-								if(enemy.SlotlessBuffs["Overwhelming"])
-									enemy.SlotlessBuffs["Overwhelming"]:add_stack(enemy, src)
-								else
-									var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/ss = FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Cornered)
-									if(ss)
-										ss.adjust(enemy)
-										ss.Password = enemy.name
-									else
-										var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Cornered/r = new()
-										enemy.AddSkill(r)
-										r.adjust(enemy)
-										r.Password = enemy.name
-								last_overwhelm_apply = world.time
-
+								applyDebuff(enemy, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Rupture, "Rupture","rupture", 200)
+							if(passive_handler["Overwhelming"])
+								applyDebuff(enemy, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Cornered, "Overwhelming","overwhelm", 200)
+							if(passive_handler["Serrated"] && (s || s2 || s3))
+								if(prob(passive_handler["Serrated"] * glob.SERRATEDCHANCE))
+									applyDebuff(enemy, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Festered_Wound, "Serrated", "serrated", glob.SERRATEDCD)
 									
 
 
