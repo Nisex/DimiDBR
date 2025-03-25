@@ -785,11 +785,10 @@ obj
 					IconLock='BlastTracer.dmi'
 					Blasts=5
 					Distance=30
-					DamageMult=0.65
-					StrRate=0.5
-					ForRate=0.5
+					DamageMult=0.15
+					AdaptRate=1
 					EndRate=1
-					AccMult=0.75
+					AccMult=0.33
 					Paralyzing=0.2
 					Homing=1
 					LosesHoming=3
@@ -805,11 +804,10 @@ obj
 					IconLock='BlastTracer.dmi'
 					Distance=30
 					DamageMult=0.2
-					StrRate=0.5
-					ForRate=0.5
+					AdaptRate=1
 					EndRate=1
-					AccMult=0.3
-					Paralyzing=0.2
+					AccMult=0.2
+					Paralyzing=0.3
 					Blasts=30
 					Cooldown=60
 					ChargeMessage="revs up their Plasma Gatling!!"
@@ -885,11 +883,10 @@ obj
 						IconLock='BlastTracer.dmi'
 						Blasts=5
 						Distance=30
-						DamageMult=0.65
-						StrRate=0.5
-						ForRate=0.5
+						DamageMult=0.3
+						AdaptRate=1
 						EndRate=1
-						AccMult=0.4
+						AccMult=0.2
 						Paralyzing=0.2
 						Homing=1
 						LosesHoming=3
@@ -905,10 +902,9 @@ obj
 						Variation=8
 						IconLock='BlastTracer.dmi'
 						DamageMult=0.2
-						StrRate=0.5
-						ForRate=0.5
+						AdaptRate=1
 						EndRate=1
-						AccMult=0.75
+						AccMult=0.3
 						Paralyzing=0.2
 						Cooldown=60
 						Blasts=30
@@ -3086,7 +3082,7 @@ obj
 						DamageMult = damage
 						Distance = distance
 						Charge = charge
-						MultiHit = 0
+						MultiHit = 5
 						IconSize = iconSize
 						Radius = 1
 						Stunner = stunner
@@ -3114,14 +3110,14 @@ obj
 						Charge=1.5
 						Distance = 20
 						Knockback = 4
-						DamageMult = 1 + (1 * p.SagaLevel)
-						MultiHit = 2 + (1*p.SagaLevel)
+						DamageMult = 2 + (1 * p.SagaLevel)
+						MultiHit = 3 + (1.5*p.SagaLevel)
 						DamageMult/=MultiHit
 						Radius = 1
 						IconSize = 1.25
 						if(p.AnsatsukenPath == "Hadoken")
 							Charge = 1
-							DamageMult = 1.5 + (1.5 * p.SagaLevel)
+							DamageMult = 3 + (1.5 * p.SagaLevel)
 							DamageMult/=MultiHit
 							Radius = 2
 							IconSize = 2
@@ -4146,14 +4142,14 @@ obj
 //SAINT SEIYA
 				Saint_Seiya
 					Soaring_Mountain_Dragon
+						AttackReplace=1
 						CosmoPowered=1
 						StrRate=1
 						EndRate=0.75
 						DamageMult=12
 						BeamTime=7
 						Dodgeable=0
-						Immediate=1
-						Piercing=1
+						Piercing=0
 						Striking=1
 						Knockback=1
 						Distance=20
@@ -5878,7 +5874,7 @@ obj
 									src.Owner.HealMana(src.Owner.SagaLevel/8)
 							else
 								if(MultDamage > 1) EffectiveDamage *= MultDamage
-								// if not piercing and theres a mob and they are already hit by key and that calue is over or equal multihit+1
+								// if not (piercing and theres a mob and they are already hit by key and that value is over or equal multihit+1)
 								if(!(Piercing && m && (AlreadyHit["[m.ckey]"] >= MultiHit + 1)) || Bounce)
 									if(!AlreadyHit["[m.ckey]"]) AlreadyHit["[m.ckey]"] = 0
 									//EffectiveDamage *= clamp((1 - (0.1 *AlreadyHit["[m.ckey]"])), 0.1, 1)

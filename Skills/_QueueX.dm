@@ -2102,7 +2102,6 @@ mob
 			if(src.AttackQueue.KBAdd)
 				KB+=src.AttackQueue.KBAdd
 			if(passive_handler["Fa Jin"] && canFaJin())
-
 				KB+= passive_handler["Fa Jin"] * glob.FA_JIN_BASE_KB_ADD
 			//One day, passives.
 			return KB

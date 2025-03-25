@@ -1,7 +1,8 @@
-/globalTracker/var/MAX_KB_MULT = 5
+/globalTracker/var/MAX_KB_MULT = 2
 /globalTracker/var/MAX_KB_RES = 0.25
-/globalTracker/var/MAX_KB_TIME = 25
+/globalTracker/var/MAX_KB_TIME = 15
 /globalTracker/var/KB_SPEED = 0.75 // was 0.15
+/globalTracker/var/KBMODDIVIDER = 2
 //TODO convert to glob
 gatherKBMods
 /mob/proc/getLegendPMult()
@@ -12,6 +13,8 @@ gatherKBMods
     . += getLegendPMult()
     . += passive_handler.Get("HeavyHitter")
     . += 1 + passive_handler.Get("KBMult")
+    var/zanzibarbreeze =  . 
+    . = zanzibarbreeze/glob.KBMODDIVIDER
     if(. > glob.MAX_KB_MULT)
         . = glob.MAX_KB_MULT
 

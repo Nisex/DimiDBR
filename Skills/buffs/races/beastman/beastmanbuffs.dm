@@ -68,8 +68,9 @@
 	ActiveMessage = "is too angry to die!"
 	adjust(mob/p)
 		TimerLimit = 10 + (glob.racials.UNDYINGRAGE_DURATION * (p.AscensionsAcquired))
+		var/wT = 1.5 - p.passive_handler["Wrathful Tenacity"]
 		passives = list("Undying Rage" = 1, "Fury" = 1 + p.AscensionsAcquired, "GodSpeed" = 3, "Relentlessness" = 1, "Adrenaline" = 3, "LifeSteal" = 25 + (15 * p.AscensionsAcquired), \
-						"PureReduction" = -1 , "Enrage" = p.AscensionsAcquired, "Rage" = p.AscensionsAcquired)
+						"Enrage" = p.AscensionsAcquired, "Rage" = p.AscensionsAcquired, "Wrathful Tenacity" = wT) // 150% of str as end
 	Trigger(mob/User, Override)
 		. = ..()
 		if(!User.BuffOn(src))

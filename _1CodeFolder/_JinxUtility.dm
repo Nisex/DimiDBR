@@ -1481,6 +1481,8 @@ mob
 					End+=abs(StyleBuff?:hotCold)/glob.HOTNCOLD_STAT_DIVISOR
 			if(src.HasManaStats())
 				End += getManaStatsBoon()/2
+			if(passive_handler["Wrathful Tenacity"] && (Anger || HasCalmAnger()))
+				End += GetStr() * (passive_handler["Wrathful Tenacity"])
 			var/Mod=1
 			Mod+=(src.EndMultTotal-1)
 			if(src.KamuiBuffLock)
@@ -1552,13 +1554,10 @@ mob
 			var/Sub=End*TotalTax
 			End-=Sub
 			End+=src.GetMA("End")
-			// if(src.UsingYinYang()&&src.Target&&src.Target!=src&&!src.Target.UsingYinYang()&&istype(src.Target, /mob/Players))
-			// 	End+=(src.Target.GetMA("Str")+src.Target.GetMA("For"))*0.5
-			// else
 			if(src.HasAdaptation())
 				if(src.AdaptationCounter!=0&&!CheckSlotless("Great Ape"))
 					if(src.Target&&src.AdaptationTarget==src.Target)
-						End+=((src.Target.GetMA("Str")+src.Target.GetMA("For"))*0.5*src.AdaptationCounter)
+						End+=(((src.Target.GetMA("Str")+src.Target.GetMA("For"))*0.5)*src.AdaptationCounter)
 			if(Secret == "Heavenly Restriction")
 				if(secretDatum?:hasRestriction("Endurance") && End > 1)
 					End = 1
@@ -3000,14 +2999,7 @@ proc
 
 proc
 	TrueDamage(Damage)
-		if(Damage>10)
-			return Damage*5
-		else if(Damage>5)
-			return Damage*10
-		else if(Damage<1)
-			return Damage*12
-		else
-			return Damage**3
+		return Damage
 	ProjectileDamage(Damage) // This is Power * Damage Mult
 		return Damage*glob.PROJ_DAMAGE_MULT
 	CounterDamage(Damage)

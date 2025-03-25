@@ -23,7 +23,7 @@
 		Cooldown = 180 - (15 * p.AscensionsAcquired)
 		ManaCost = 10 + (2.5 * p.AscensionsAcquired)
 	verb/Mist_Form()
-		set category = "Skill"
+		set category = "Skills"
 		if(!usr.isRace(YOKAI))
 			src<< " : / "
 			return
@@ -31,13 +31,14 @@
 		usr.Activate(src)
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Mist_Form
-	IconReplace = 'mist.dmi'
+	IconReplace = 1
+	icon = 'mist.dmi'
 	Cooldown = 60
 	TimerLimit = 10
 	adjust(mob/p)
 		passives = list("GodSpeed" = 1 + p.AscensionsAcquired, "Deflection" = 0.5 + (p.AscensionsAcquired/2), "Reversal" = 0.1 + (p.AscensionsAcquired*0.1))
-		TimerLimit = 10 + (5*p.AscensionsAcquired)
+		TimerLimit = 5 + (5*p.AscensionsAcquired)
 		if(p.passive_handler["SpiritForm"])
 			passives = list("GodSpeed" = 3 + p.AscensionsAcquired, "BulletKill" = 1, "Deflection" = 1 + (p.AscensionsAcquired/2), "Reversal" = 0.15 + (p.AscensionsAcquired*0.15))
-			TimerLimit = 15 + (5*p.AscensionsAcquired)
+			TimerLimit = 10 + (5*p.AscensionsAcquired)
 		

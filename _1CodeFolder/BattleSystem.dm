@@ -1579,7 +1579,7 @@ mob/proc/Knockback(var/Distance,var/mob/P,var/Direction=0, var/Forced=0, var/Ki=
 			if(p.ContinuousOn && !p.StormFall)
 				P.UseProjectile(p)
 			continue
-	Distance*=gatherKBMods()
+	Distance*=(gatherKBMods())
 	Distance*=getKnockbackMultiplier(P) // gets the knockback multiplier(reduction) for the target
 	if(!Forced)
 		var/chance2Stop = prob(50*(P.HasMythical()))

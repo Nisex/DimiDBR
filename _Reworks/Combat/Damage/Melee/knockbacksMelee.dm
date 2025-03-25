@@ -1,33 +1,11 @@
 /mob/proc/getMeleeKnockback(mob/enemy)
     var/knockDistance = 0
     knockDistance += passive_handler.Get("KBAdd")
-
     if(Grab==enemy)
         knockDistance += 5
         Grab=null
-
     if(passive_handler.Get("Meaty Paws") && !HasSword())
         knockDistance += passive_handler.Get("Meaty Paws") * 0.5
-
-
-    if(HasSword())
-        // if(UsingZornhau())
-        //     switch(EquippedSword().Class)
-        //         if("Wooden")
-        //             knockDistance += 0.25
-        //         if("Light")
-        //             knockDistance += 0.5
-        //         if("Medium")
-        //             knockDistance += 1
-        //         if("Heavy")
-        //             knockDistance += 1.5
-        //     if(UsingZornhau()>1)
-        //         knockDistance += 1
-        if(UsingKendo())
-            if(EquippedSword().Class == "Wooden")
-                knockDistance += 0.75
-            else
-                knockDistance += 0.5
     if(UsingCriticalImpact())
         knockDistance *= 1.25
 

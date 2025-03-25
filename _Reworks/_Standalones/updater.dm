@@ -329,6 +329,12 @@ update
 		version = 18
 		updateMob(mob/o)
 			. = ..()
+			if(o.isRace(BEASTMAN))
+				o.AngerMax+=0.35
+				if(o.Class=="Undying Rage")
+					o.AngerMax+=0.4
+					o.passive_handler.Set("Wrathful Tenacity", 0.45)
+
 			
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )

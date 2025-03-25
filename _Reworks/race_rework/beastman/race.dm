@@ -51,6 +51,7 @@ race
 					p.AddSkill(new/obj/Skills/Queue/Racial/Beastman/Savagery)
 				if("Undying Rage")
 					p.passive_handler.Increase("Fury", 1)
+					p.passive_handler.Increase("Wrathful Tenacity", 0.15)
 					p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Undying_Rage)
 
 				if("Feather Cloak")

@@ -350,7 +350,7 @@
 				damage *= damageMultiplier
 		// 				GIANT FORM 				//
 				if(enemy.HasGiantForm())
-					var/modifier = glob.upper_damage_roll / 4
+					var/modifier = glob.upper_damage_roll / 6
 					dmgRoll = GetDamageMod(0, -modifier)
 					#if DEBUG_MELEE
 					log2text("Damageroll", "After GiantForm", "damageDebugs.txt", "[ckey]/[name]")

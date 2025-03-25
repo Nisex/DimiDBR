@@ -553,7 +553,7 @@ obj/Items/Enchantment
 				if(src.Heal)
 					PP.InstantAffect=1
 					PP.StableHeal=1
-					PP.HealthHeal=src.Heal*5
+					PP.HealthHeal=src.Heal*glob.POTIONHEAL
 					CD+=(src.Heal*STRONG_EFFECT_CD)
 
 				if(src.Searing)

@@ -25,14 +25,14 @@
 	TransformY = -32
 	AuraLock = 'BLANK.dmi'
 	passives = list("Vulnerable Behind" = 1, "GiantForm" = 1, "NoDodge" = 1, "SweepingStrike" = 1, \
-	"Meaty Paws" = 1, "EndlessAnger" = 1)
-	PowerMult = 1.2 // die.
+	"Meaty Paws" = 1)
 	StrMult = 1.3
 	ForMult = 1.2
 	SpdMult = 0.3
-	OffMult = 1.2
 	EndMult = 1.2
-	TimerLimit = 900
+	DefMult = 0.1
+	AutoAnger = 0
+	TimerLimit = 180
 	verb/Moon_Toggle()
 		set category="Other"
 		if(!(world.time > usr.verb_delay)) return
@@ -49,14 +49,16 @@
 	adjust(mob/p)
 		if(!p.oozaru_type)
 			p.oozaru_type = input(p, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")
+		passives = list("Vulnerable Behind" = 1, "GiantForm" = 1, "NoDodge" = 1, "SweepingStrike" = 1, \
+			"Meaty Paws" = 1)
 		switch(p.oozaru_type)
 			if("Wrathful")
 				passives["Manic"] = 4 - p.AscensionsAcquired
 				passives["Meaty Paws"] = 2 + (p.AscensionsAcquired /2)
-				StrMult = 1.4
-				ForMult = 1.3
-				EndMult = 1.4
-				SpdMult = 0.6
+				StrMult = 1.2
+				ForMult = 1.15
+				EndMult = 1.2
+				SpdMult = 0.3
 				OffMult = 0.8
 			if("Enlightened")
 				StrMult = 1.2
@@ -64,6 +66,7 @@
 				EndMult = 1.2
 				SpdMult = 0.3
 				OffMult = 1.2
+				TimerLimit = 360
 			if("Instinctual")
 				passives["Flow"] = 1
 				passives["Instinct"] = 1
@@ -73,7 +76,7 @@
 				SpdMult = 0.4
 				OffMult = 1.4
 		if(p.Potential > OOZARU_POTENTIAL_TRANS)
-			passives["Transformation Power"] = clamp(p.AscensionsAcquired * 2, 1, 10)
+			passives["Transformation Power"] = p.AscensionsAcquired
 		if(length(p.race.transformations) >= 4 && p.race.transformations[4].type == /transformation/saiyan/super_saiyan_4 && p.transUnlocked >= 4)
 			IconTransform = 'SSJOozaru.dmi'
 			passives["Transformation Power"] = clamp(p.AscensionsAcquired * 5, 1, 40)
@@ -106,13 +109,7 @@
 			usr.Tail(0)
 		else
 			usr.Tail(1)
-/*
-/mob/verb/test_Oozaru()
-	set category = "Debug"
-	if(Oozaru == 0)
-		Oozaru(1)
-	else
-		Oozaru(0)*/
+
 mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Buff)
 	if(!src.oozaru_type)
 		src.oozaru_type = input(src, "What type of Oozaru are you?") in list("Wrathful", "Enlightened", "Instinctual")
@@ -128,7 +125,7 @@ mob/proc/Oozaru(Go_Oozaru=1,var/revert, obj/Skills/Buffs/SlotlessBuffs/Oozaru/Bu
 		src.PowerControl=100
 		Buff.Trigger(src, 1)
 
-		src.Anger=2
+		// src.Anger=2
 
 		if(revert)
 			spawn(revert)Oozaru(0)

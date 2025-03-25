@@ -4101,9 +4101,9 @@ NEW VARIABLES
 					return 1.1
 
 			proc/getRegenRate(mob/p)
-				var/baseHeal = 1.5
-				var/perMissing = 0.02
-				var/missingPerAsc = 0.01
+				var/baseHeal = 3
+				var/perMissing = 0.03
+				var/missingPerAsc = 0.025
 				var/raceDivisor = 30
 
 				if(!altered)
@@ -4115,7 +4115,7 @@ NEW VARIABLES
 						var/asc = p.AscensionsAcquired
 						var/amt = (baseHeal + raceModifier) + ( ((perMissing + (missingPerAsc * asc)) + (raceModifier/raceDivisor)) * (100 - p.Health))
 						var/divider = asc * raceModifier > 0 ? asc * raceModifier : 1
-						var/time = 12 / divider
+						var/time = 10 / divider
 						HealthHeal = (amt / time) // health per tick(?)
 						WoundHeal = HealthHeal/2
 						TimerLimit = time             // ticks per regen
@@ -4125,13 +4125,8 @@ NEW VARIABLES
 				set category="Skills"
 				if(!usr.BuffOn(src))
 					getRegenRate(usr)
-				else
-					if(usr.isRace(MAJIN)&&usr.race.ascensions.len>=1&&usr.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
-						usr.Stasis = 0
 				src.Trigger(usr)
 				if(usr.BuffOn(src))
-					if(usr.isRace(MAJIN)&&usr.race.ascensions.len>=1&&usr.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
-						usr.SetStasis(TimerLimit)
 					if(!usr.Sheared)
 						if(usr.BPPoisonTimer>1&&usr.BPPoison<1)
 							usr.BPPoison=1

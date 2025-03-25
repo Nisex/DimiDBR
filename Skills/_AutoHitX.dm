@@ -6013,8 +6013,8 @@ obj
 				Owner.log2text("dmg roll - Auto Hit", dmgRoll, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 				#endif
 				if(m.HasGiantForm())
-					var/mod = glob.upper_damage_roll / 4
-					dmgRoll = Owner.GetDamageMod(0, mod)
+					var/mod = glob.upper_damage_roll / 6
+					dmgRoll = Owner.GetDamageMod(0, -mod)
 					#if DEBUG_AUTOHIT
 					Owner.log2text("dmg roll - Auto Hit", "After GiantForm", "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
 					Owner.log2text("dmg roll - Auto Hit", dmgRoll, "damageDebugs.txt", "[Owner.ckey]/[Owner.name]")
@@ -6236,8 +6236,8 @@ obj
 						m.Sheared = 0
 
 				// if(src.CosmoPowered)
-				// 	if(!src.Owner.SpecialBuff)
-				// 		FinalDmg*=TrueDamage(1+(src.Owner.SenseUnlocked-5))
+				//  	if(!src.Owner.SpecialBuff)
+				//  		FinalDmg*=TrueDamage(1+(src.Owner.SenseUnlocked-5))
 				if(src.Executor)
 					var/additonal = src.Executor * 0.1
 					if(m.Health<=5)

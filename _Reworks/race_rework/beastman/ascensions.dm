@@ -2,6 +2,7 @@ ascension
 	beastman
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
+			anger = 0.15
 			onAscension(mob/owner)
 				if(!applied)
 					var/choice = owner.race?:Racial
@@ -27,11 +28,13 @@ ascension
 						if("Undying Rage")
 							owner.passive_handler.Increase("Momentum", 1)
 							owner.passive_handler.Increase("KillerInstinct", 0.05)
+							owner.passive_handler.Increase("Wrathful Tenacity", 0.15)
 							strength = 0.5
 							speed = 0.5
 							offense = 0.25
 							defense = -0.25
 							endurance = -0.25
+							anger = 0.25
 						if("Feather Cowl")
 							owner.passive_handler.Increase("BlockChance", 25)
 							owner.passive_handler.Increase("CriticalBlock", 0.15)
@@ -72,6 +75,7 @@ ascension
 						s.c_buff.adjust_custom_buff(owner, s)
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
+			anger = 0.25
 			onAscension(mob/owner)
 				if(!applied)
 					var/choice = owner.race?:Racial
@@ -98,9 +102,13 @@ ascension
 						if("Undying Rage")
 							owner.passive_handler.Increase("Momentum", 1)
 							owner.passive_handler.Increase("KillerInstinct", 0.1)
-							strength = 0.25
+							owner.passive_handler.Increase("Wrathful Tenacity", 0.15)
+							strength = 0.5
 							speed = 0.25
 							offense = 0.25
+							defense = -0.25
+							endurance = -0.25
+							anger = 0.5
 						if("Feather Cowl")
 							owner.passive_handler.Increase("BlockChance", 10)
 							owner.passive_handler.Increase("CriticalBlock", 0.1)

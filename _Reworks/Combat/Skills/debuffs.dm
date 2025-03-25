@@ -95,15 +95,14 @@
 	AlwaysOn = 0
 	NeedsPassword = 0
 	IconLock='Bleed.dmi'
-	IconState = "1"
-	max_stacks = 2
+	max_stacks = 10
 	ActiveMessage = "has started to bleed!"
 	OffMessage = "has stopped bleeding..."
 	do_effect(mob/defender, mob/attacker)
 		
 	adjust(mob/attacker, mob/defender)
 		var/ratio = clamp(defender.Health / 100, 0.1, 0.9)
-		HealthDrain = 0.25 * ratio
+		HealthDrain = glob.SERRATED_DAMAGE * ratio
 		PoisonAffected = 5 * ratio
 		TimerLimit = round(5 + (2.5 * ratio), 1)
 		// higher health = better
