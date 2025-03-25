@@ -58,7 +58,7 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 
 	// Nanite Check
 	if(NanoBoost && Health<=25*(1-HealthCut)&&!NanoAnnounce)
-		OMsg(src, "<font color='green'>[src]'s nanites respond to their physical trauma, bolstering their cybernetic power!</font color>")
+		OMsg(src, "<font color='[src.NanoColor]'>[src][src.NanoBoostMessage]</font color>")
 		NanoAnnounce = 1
 	// 25% health check
 	if(Health < 25*(1-HealthCut) && !HealthAnnounce25)
@@ -69,7 +69,7 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 				if(!ExhaustedColor)
 					OMessage(10, "<font color=#F07E1F>[src] [ExhaustedMessage ? "[ExhaustedMessage]" : " looks exhausted!"]!", "[src]([src.key]) has 25% health left.</font>")
 				else
-					OMessage(10,"font color='[ExhaustedColor]'> [src] [ExhaustedMessage ? "[ExhaustedMessage]" : " looks exhausted!"]!", "[src]([src.key]) has 25% health left.</font>")
+					OMessage(10,"<font color='[ExhaustedColor]'> [src] [ExhaustedMessage ? "[ExhaustedMessage]" : " looks exhausted!"]!", "[src]([src.key]) has 25% health left.</font>")
 		var/shonenMoment = ShonenPowerCheck(src)
 		if(shonenMoment)
 			VaizardHealth += triggerPlotArmor(shonenMoment, HasUnstoppable())

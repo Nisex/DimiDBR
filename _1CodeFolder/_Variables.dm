@@ -166,6 +166,8 @@ mob/var
 	HiddenAnger //hide BP from anger
 	CalmAnger //Never get angry unless something forces you to.  Like maki.
 	ExhaustedMessage
+	NanoBoostMessage = "'s nanites respond to their physical trauma, bolstering their cybernetic power!"
+	NanoColor = "green"
 	ExhaustedColor
 	BarelyStandingMessage
 	BarelyStandingColor
@@ -428,7 +430,7 @@ mob/var
 	Charge_Icon
 	MortallyWounded
 	TsukiyomiTime
-	tmp/CryokenesisTime = 0 
+	tmp/CryokenesisTime = 0
 	Lethal=0 //Lethality
 	Timestamp=0 //Timestamp Setting
 	GrabMove //THIS HAND OF MINE IS BURNING RED
