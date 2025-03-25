@@ -206,7 +206,7 @@ mob/proc/Void(override, zombie, forceVoid, extraChance = 0, extraRolls = 0)
 			return
 
 
-
+	makeCorpse(oldLoc)
 
 
 	if(glob.VoidsAllowed)
@@ -258,7 +258,6 @@ mob/proc/Void(override, zombie, forceVoid, extraChance = 0, extraRolls = 0)
 	var/mob/m=src.IsGrabbed()
 	if(m)
 		m.Grab_Release()
-	makeCorpse(oldLoc)
 	StartFresh()
 	Stunned  = 0
 	if(NoSoul && !forceVoid && !zombie)
