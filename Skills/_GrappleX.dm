@@ -29,7 +29,7 @@ obj/Skills/Grapple
 		OneAndDone=0//prevents multiple iterations from effectmult
 
 		DrainBlood // for vampire
-
+		MortalBlow=0
 		DashAfter = FALSE
 ////BASIC
 	skillDescription()
@@ -344,7 +344,7 @@ obj/Skills/Grapple
 		NeedsSword=0
 		SignatureTechnique=1
 		DamageMult=8
-		ForRate=3
+		ForRate=1
 		StrRate=0
 		TriggerMessage="fills their grasp with lightning and takes hold of"
 		Effect="Lightning"
@@ -440,7 +440,7 @@ obj/Skills/Grapple
 			TriggerMessage="hacks their weapon cruelly into"
 			Effect="Strike"
 			EffectMult=3
-			MaimStrike=1
+			MortalBlow=1
 			Cooldown=90
 			verb/Hacksaw()
 				set category="Skills"
@@ -462,9 +462,9 @@ obj/Skills/Grapple
 		Form_Ataru
 			Copyable=4
 			SkillCost=TIER_3_COST
-			DamageMult=6
+			DamageMult=8
 			Reversal=1
-			StrRate=2
+			StrRate=1
 			ThrowMult=0
 			ThrowAdd=1
 			TriggerMessage="does a slashing flip to break free of"
@@ -617,6 +617,7 @@ obj/Skills/Grapple
 				User.log2text("Grapple Whiff Reduc", Damage, "damageDebugs.txt", User.ckey)
 				#endif
 				var/Hits=src.MultiHit
+				
 				while(Hits)
 					if(!src.EnergyDamage)
 						#if DEBUG_GRAPPLE
@@ -631,6 +632,16 @@ obj/Skills/Grapple
 						Trg.GainFatigue(Damage*src.EnergyDamage)
 						User.HealMana(Damage*src.EnergyDamage)
 					Hits--
+				if(src.MortalBlow)
+					if(src.MortalBlow<0)
+						Trg.MortallyWounded+=4
+					else
+						if(prob(glob.MORTAL_BLOW_CHANCE * MortalBlow) && !Trg.MortallyWounded)
+							var/mortalDmg = Trg.Health * 0.05 // 5% of current
+							Trg.LoseHealth(mortalDmg)
+							Trg.WoundSelf(mortalDmg)
+							Trg.MortallyWounded += 1
+							OMsg(User, "<b><font color=#ff0000>[User] has dealt a mortal blow to [Trg]!</font></b>")
 				OMsg(User, "[User] [src.TriggerMessage] [Trg]!")
 				if(src.Effect in list("Suplex", "Drain", "Lotus", "SuperSuplex"))
 					src.OneAndDone=1

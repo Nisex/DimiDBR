@@ -33,6 +33,7 @@
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Mist_Form
 	IconReplace = 1
 	icon = 'mist.dmi'
+	IconTransform = 'mist.dmi'
 	Cooldown = 60
 	TimerLimit = 10
 	adjust(mob/p)

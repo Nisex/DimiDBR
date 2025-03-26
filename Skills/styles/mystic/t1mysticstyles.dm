@@ -109,6 +109,7 @@
 		ElementalClass = "Poison"
 		Finisher="/obj/Skills/Queue/Finisher/Bloodcurdle"
 		BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Poison"
+		StyleComboUnlock =  list("/obj/Skills/Buffs/NuStyle/SwordStyle/_Any" = /obj/Skills/Buffs/NuStyle/SwordStyle/Bloodseeker)
 		IconLock = 'SpriteR.dmi'
 		AuraLock = 'Terra Might.dmi'
 		LockX=-16

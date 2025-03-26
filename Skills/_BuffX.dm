@@ -4101,10 +4101,12 @@ NEW VARIABLES
 					return 1.1
 
 			proc/getRegenRate(mob/p)
-				var/baseHeal = 3
-				var/perMissing = 0.03
-				var/missingPerAsc = 0.025
+				var/baseHeal = 5
+				var/perMissing = 0.05
+				var/missingPerAsc = 0.03
 				var/raceDivisor = 30
+				StableHeal=1
+
 
 				if(!altered)
 					if(p.Potential <= ASCENSION_ONE_POTENTIAL)
@@ -4113,10 +4115,10 @@ NEW VARIABLES
 					else
 						var/raceModifier = getRaceModifier(p)
 						var/asc = p.AscensionsAcquired
-						var/amt = (baseHeal + raceModifier) + ( ((perMissing + (missingPerAsc * asc)) + (raceModifier/raceDivisor)) * (100 - p.Health))
+						var/amt = (baseHeal + raceModifier) + ( (((perMissing + (missingPerAsc * asc)) + (raceModifier/raceDivisor))) * (100 - p.Health))
 						var/divider = asc * raceModifier > 0 ? asc * raceModifier : 1
 						var/time = 10 / divider
-						HealthHeal = (amt / time) // health per tick(?)
+						HealthHeal = (amt / time) * world.tick_lag
 						WoundHeal = HealthHeal/2
 						TimerLimit = time             // ticks per regen
 						EnergyCost = amt / 4
@@ -11937,7 +11939,7 @@ mob
 					src.ActiveBuff.IconReplace=1
 					src.ActiveBuff.icon=src.ExpandBase
 					src.ActiveBuff.passives["BleedHit"] = 0
-					src.ActiveBuff.passives["EnergyLeak"] = max(4-AscensionsAcquired,1)
+					src.ActiveBuff.passives["EnergyLeak"] = max(6-AscensionsAcquired,1)
 					src.ActiveBuff.passives["ManaLeak"] = 0
 					src.ActiveBuff.passives["GiantForm"] = round(AscensionsAcquired/2)
 					src.ActiveBuff.passives["Godspeed"] = AscensionsAcquired

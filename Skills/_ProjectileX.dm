@@ -1862,7 +1862,7 @@ obj
 				FireFromEnemy=0
 				Dodgeable=-1
 				Knockback=1
-				DamageMult=3
+				DamageMult=1.6
 				AccMult=30
 				MultiHit=10
 				Explode=5
@@ -1915,8 +1915,7 @@ obj
 				Knockback=1
 				Homing=1
 				HyperHoming=1
-				StrRate=0.75
-				ForRate=0.75
+				AdaptRate=1
 				EndRate=1
 				IconLock='deathball2.dmi'
 				IconSize=0.1
@@ -1951,8 +1950,7 @@ obj
 				Knockback=1
 				Homing=1
 				HyperHoming=1
-				StrRate=0.75
-				ForRate=0.75
+				AdaptRate=1
 				EndRate=1
 				IconLock='Supernova.dmi'
 				IconSize=0.1
@@ -4144,14 +4142,15 @@ obj
 					Soaring_Mountain_Dragon
 						AttackReplace=1
 						CosmoPowered=1
-						StrRate=1
+						AdaptRate=1
 						EndRate=0.75
-						DamageMult=12
+						DamageMult=14
+						MultiHit=4
 						BeamTime=7
 						Dodgeable=0
 						Piercing=0
-						Striking=1
-						Knockback=1
+						Striking=0
+						Knockback=3
 						Distance=20
 						IconLock='Rozan_Beam.dmi'
 						IconSize=1

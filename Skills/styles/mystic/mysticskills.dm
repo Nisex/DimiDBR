@@ -203,7 +203,7 @@
 	FlickBlast=0
 	AttackReplace=1
 	Distance=21
-	DamageMult=0.5
+	DamageMult=0.2
 	Dodgeable=0
 	Deflectable=0
 	Instinct=2
@@ -213,6 +213,8 @@
 	ZoneAttackY=0
 	FireFromSelf=1
 	FireFromEnemy=0
+	MultiHit=20
+	Scorching = 1
 	Knockback=2
 	Piercing=1
 	IconLock='FireTornadoHead.dmi'

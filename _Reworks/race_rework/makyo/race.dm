@@ -12,7 +12,7 @@ race
 		offense = 1.25 // 1.25? 
 		defense = 1 
 		imagination = 2
-		passives = list("Juggernaut" = 0.5, "DemonicDurability" = 0.5, "HeavyHitter" = 0.5, "ShonenPower" = 0.15)
+		passives = list("Juggernaut" = 0.5, "DemonicDurability" = 0.5, "HeavyHitter" = 0.5)
 		onFinalization(mob/user)
 			. = ..()
 			user.verbs += /mob/proc/toggle_makyo_boons

@@ -53,7 +53,7 @@
 		ElementalOffense = "Wind"
 		ElementalDefense = "Wind"
 		ElementalClass = "Wind"
-		verb/Plague_Bringer()
+		verb/Wind_Summoning()
 			set hidden=1
 			src.Trigger(usr)
 	Plague_Bringer

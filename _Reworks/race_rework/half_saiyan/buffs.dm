@@ -13,7 +13,7 @@
         NeedsHealth = clamp(10 + (asc * 5), 10, 25)
         TooMuchHealth = clamp(15 + (asc * 2.5), 15, 50)
         AngerMult = 1.2 + (asc*0.1)
-        passives = list("AngerAdaptiveForce" = 0.25 + (0.05 * asc), "DemonicDurability" = 0.5 + (0.25 * asc), "UnderDog" = 0.5 + (0.25 * asc))
+        passives = list("AngerAdaptiveForce" = 0.15 + (0.05 * asc), "DemonicDurability" = 0.25 + (0.25 * asc), "UnderDog" = 0.5 + (0.25 * asc))
 
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/HalfSaiyan/Saiyan_Pride

@@ -15,7 +15,7 @@ proc/generateVersionDatum()
 		glob.currentUpdate = updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 17
+	var/UPDATE_VERSION = 19
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
@@ -330,12 +330,27 @@ update
 		updateMob(mob/o)
 			. = ..()
 			if(o.isRace(BEASTMAN))
-				o.AngerMax+=0.35
+				o.AngerMax+=0.15
 				if(o.Class=="Undying Rage")
 					o.AngerMax+=0.4
 					o.passive_handler.Set("Wrathful Tenacity", 0.45)
-
+			if(o.isRace(MAKYO))
+				var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/ki = o.FindSkill(/obj/Skills/Buffs/ActiveBuffs/Ki_Control)
+				if(ki)
+					ki.AngerStorage=0
+				o.AngerMax = 1.5
 			
+			if(o.isRace(HUMAN))
+				o.passive_handler.Decrease("TechniqueMastery", 1.5)
+			if(o.isRace(HALFSAIYAN))
+				o.passive_handler.Decrease("TechniqueMastery", 2)
+	version19
+		version = 19
+		updateMob(mob/o)
+			. = ..()
+			if(o.isRace(YOKAI))
+				o.passive_handler.Set("Touch of Death", 3)
+				o.AddSkill(new/obj/Skills/AutoHit/Mist_Form)
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25

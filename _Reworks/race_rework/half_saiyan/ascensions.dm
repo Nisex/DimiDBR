@@ -9,7 +9,6 @@ ascension
 					switch(owner.Class)
 						if("Compassion")
 							passives["UnderDog"] = 0.5
-							passives["TechniqueMastery"] = 1
 							speed=0.25
 							strength=0.25
 							defense=0.25
@@ -38,7 +37,6 @@ ascension
 				switch(owner.Class)
 					if("Compassion")
 						passives["UnderDog"] = 1
-						passives["TechniqueMastery"] = 1
 						speed=0.25
 						strength=0.25
 						defense=0.25
@@ -58,7 +56,6 @@ ascension
 
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/half_saiyan/adaptive)
-					passives["TechniqueMastery"] = 1.5
 					passives["Adrenaline"] = 0.5
 					passives["Tenacity"] = 0.5
 					defense = 0.25
@@ -80,7 +77,6 @@ ascension
 
 			onAscension(mob/owner)
 				if(owner.race.ascensions[1].choiceSelected == /ascension/sub_ascension/half_saiyan/adaptive)
-					passives["TechniqueMastery"] = 0.5
 					passives["Adrenaline"] = 0.5
 					passives["Tenacity"] = 0.5
 					strength = 0.25
@@ -105,7 +101,7 @@ ascension
 	sub_ascension
 		half_saiyan
 			adaptive
-				passives = list("Adaptation" = 1, "TechniqueMastery" = 1)
+				passives = list("Adaptation" = 1)
 				offense = 0.5
 				defense = 0.25
 				endurance = 0.25
