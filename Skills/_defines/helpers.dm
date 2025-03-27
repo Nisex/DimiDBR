@@ -99,8 +99,10 @@ mob/proc/UsingHotnCold()
 
 /mob/proc/applyDebuff(mob/def, path ,passive_needed = FALSE, last_used = FALSE, cooldown = FALSE)
     if(def && path)
-        if(!(passive_needed && passive_handler[passive_needed])) return
-        if(!(last_used && lasts_list[last_used] + cooldown < world.time)) return
+        if(passive_needed)
+            if(!passive_handler[passive_needed]) return
+        if(last_used)
+            if(lasts_list[last_used] + cooldown > world.time) return
         var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/ss = def.FindSkill(path)
         if(!ss)
             ss = new path

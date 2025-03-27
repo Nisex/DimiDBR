@@ -1900,7 +1900,7 @@ obj
 				StrOffense=1
 				DamageMult=10
 				TurfDirt=1
-				Distance=1
+				Distance=12
 				Jump=1
 				Knockback=10
 				FlickAttack=2
@@ -1913,14 +1913,12 @@ obj
 				Cooldown=150
 				EnergyCost=5
 				Earthshaking=1
+				Speed=1.5
+				WindUp=0
 				Instinct=1
 				ActiveMessage="leaps in the air before falling back down, weapon-first!"
 				verb/Slam_Wave()
 					set category="Skills"
-					var/obj/Items/Sword/S=usr.EquippedSword()
-					var/list/bleh = list("Light" = 1, "Medium" = 2, "Heavy" = 3)
-					src.Distance=bleh[S.Class] + usr.GetSwordAscension()
-					WindUp = bleh[S.Class] - 0.75
 					usr.Activate(src)
 
 			Zantetsuken
@@ -2092,10 +2090,10 @@ obj
 				SignatureTechnique=1
 				AllOutAttack=1
 				Area="Circle"
-				Distance=8
+				Distance=10
 				AdaptRate = 1
 				DamageMult = 4
-				Flash=40
+				Flash=30
 				WindUp=0.75
 				WindupIcon='BLANK.dmi'
 				WindupMessage="brings their hands to their face..."

@@ -707,6 +707,7 @@ mob
 			if(passive_handler.Get("Gravity"))
 				Return += secretDatum.currentTier
 			Return+=passive_handler.Get("Godspeed")
+			Return+=passive_handler.Get("GodSpeed") // just in case man
 			var/t=src.HighestTrans()
 			if(t)
 				Return+=t/2

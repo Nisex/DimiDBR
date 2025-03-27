@@ -351,6 +351,17 @@ update
 			if(o.isRace(YOKAI))
 				o.passive_handler.Set("Touch of Death", 3)
 				o.AddSkill(new/obj/Skills/AutoHit/Mist_Form)
+	version20
+		version = 20
+		updateMob(mob/o)
+			. = ..()
+			if(o.isRace(BEASTMAN))
+				o.AngerMax=1.65
+				if(o.Class=="Undying Rage")
+					o.AngerMax=1.55
+			if(o.isRace(NAMEKIAN))
+				o.stat_redo()
+			o.passive_handler.Decrease("KiControlMastery",1)
 
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25

@@ -4,12 +4,11 @@
 /globalTracker/var/KB_SPEED = 0.75 // was 0.15
 /globalTracker/var/KBMODDIVIDER = 2
 //TODO convert to glob
-gatherKBMods
 /mob/proc/getLegendPMult()
     return HasMythical()*0.5
 /mob/proc/gatherKBMods()
     . = 0
-    . += HasGiantForm() * 2
+    . += HasGiantForm() * 1.25
     . += getLegendPMult()
     . += passive_handler.Get("HeavyHitter")
     . += 1 + passive_handler.Get("KBMult")

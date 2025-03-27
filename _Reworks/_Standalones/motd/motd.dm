@@ -1,5 +1,5 @@
 /globalTracker/var/MOTD_MESSAGE = "welcome to dimitri dbr."
-#define CODER_MESSAGE "<img src='https://i.ibb.co/MyCQpS7W/image.png'>"
+#define CODER_MESSAGE "<img src='https://i.ibb.co/1tg5Tbn0/Screenshot-2025-03-27-005046.png'>"
 /globalTracker/var/MOTD_HTML = {"<!DOCTYPE html>
 <html lang="en">
 <head>

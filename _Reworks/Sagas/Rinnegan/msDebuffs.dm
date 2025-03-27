@@ -107,7 +107,7 @@ obj/blades
 	NeedsPassword = 1
 	Cooldown = 4
 	AlwaysOn = 1
-	passives = list("NoDodge" = 1, "FluidForm" = -4)
+	passives = list("NoDodge" = 1, "FluidForm" = -2)
 	IconLock = 'SweatDrop.dmi'
 	TimerLimit = 35
 

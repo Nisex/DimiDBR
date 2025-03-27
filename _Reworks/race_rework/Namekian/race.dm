@@ -23,7 +23,7 @@ race
 		class_info = list("Soldiers that use their powers for direct combat.", "Supportive masters taht try to aid from the sidelines, and invent unique ways to approaching situations.",\
 					"Exiles that forsake their race by participating in ritual cannibalism... or something derranged enough to get them exiled.")
 		stats_per_class = list("Warrior" = list(1.5, 1.5, 1.25, 1.25, 1, 1), "Dragon" = list(1,1,2,1.25,0.75,1),\
-						"Heretic" = list(2, 0.5, 1.25, 1.25, 1.25, 1.5),)
+						"Heretic" = list(1.5, 1, 1.5, 1.25, 0.75, 1.5),)
 		onFinalization(mob/user)
 			..()
 			user.EnhancedHearing = 1
