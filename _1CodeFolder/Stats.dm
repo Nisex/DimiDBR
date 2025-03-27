@@ -425,15 +425,11 @@ mob/proc/GetPowerUpRatio()
 		PowerUp+=passive_handler.Get("PUSpike")/100
 	if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Power Control"))
 		PowerUp += secretDatum?:getBoon(src, "Power Control")/12
-	if(src.CyberCancel)
-		if(src.CheckSpecial("Overdrive"))
-			if(isRace(ANDROID))
-				PowerUp+=0.5
-			else
-				PowerUp+=1
-		else
-			if(!isRace(ANDROID))
-				PowerUp-=PowerUp*src.CyberCancel
+	if(src.CheckSpecial("Overdrive"))
+		PowerUp+=1
+/*	if(src.CyberCancel)
+		if(!isRace(ANDROID))
+			PowerUp-=PowerUp*src.CyberCancel*/
 	if(src.HasMovementMastery()&&PowerUp>0)
 		var/mmBonus = src.GetMovementMastery() / glob.MOVEMENT_MASTERY_DIVISOR
 		// max is around 20, maybe 22 or 23
@@ -459,15 +455,11 @@ mob/proc/GetPowerUpRatioVisble()
 	var/PowerUp=(PowerControl-100)/100
 	if(passive_handler.Get("PUSpike"))
 		PowerUp+=(passive_handler.Get("PUSpike")/100)
-	if(src.CyberCancel)
-		if(src.CheckSpecial("Overdrive"))
-			if(isRace(ANDROID))
-				PowerUp+=0.5
-			else
-				PowerUp+=1
-		else
-			if(!isRace(ANDROID))
-				PowerUp-=PowerUp*src.CyberCancel
+	if(src.CheckSpecial("Overdrive"))
+		PowerUp+=1
+	/*if(src.CyberCancel)
+		if(!isRace(ANDROID))
+			PowerUp-=PowerUp*src.CyberCancel*/
 	if(HasMovementMastery()&&PowerUp>0)
 		Ratio=1+(PowerUp*(1+(GetMovementMastery()/glob.MOVEMENT_MASTERY_DIVISOR)))
 	else
@@ -671,9 +663,6 @@ mob/proc/Recover(var/blah,Amount=1)
 					PS.CurrentCapacity+=(0.0005*PS.SoulStrength*Amount)
 				if(PS.CurrentCapacity>PS.MaxCapacity)
 					PS.CurrentCapacity=PS.MaxCapacity
-
-
-
 
 mob/proc/
 	Available_Power()
