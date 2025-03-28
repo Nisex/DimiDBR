@@ -2209,7 +2209,7 @@ obj
 				EndRate=0.75
 				Knockback=1
 				MultiHit=8
-				DamageMult=2.5
+				DamageMult=2
 				AccMult = 1.25
 				Deflectable=0
 				Distance=10
@@ -2285,6 +2285,7 @@ obj
 			Evening_Elephant
 				GateNeeded=8
 				MultiShot=5
+				MultiHit=5
 				IconLock='SekiZou.dmi'
 				IconSize=0.75
 				LockX=-50
@@ -2293,21 +2294,21 @@ obj
 				TrailSize=0.75
 				TrailX=-50
 				TrailY=-50
-				DamageMult=7.5
-				AccMult = 1.5
+				DamageMult=25
+				AccMult = 5
 				Speed=0
 				Radius=1
 				Dodgeable=-1
 				Deflectable=-1
 				Feint=1
 				Launcher=1
-				StrRate=1
+				StrRate=4
 				ForRate=0
-				EndRate=1
+				EndRate=0.0001
 				Knockback=10
 				Variation=0
 				Distance=20
-				Cooldown=10800
+				Cooldown=-1
 				verb/Evening_Elephant()
 					set category="Skills"
 					usr.UseProjectile(src)
@@ -4141,12 +4142,13 @@ obj
 				Saint_Seiya
 					Soaring_Mountain_Dragon
 						AttackReplace=1
-						CosmoPowered=1
+						CosmoPowered=0
 						AdaptRate=1
-						EndRate=0.75
-						DamageMult=14
+						EndRate=0.25
+						DamageMult=21
 						MultiHit=4
 						BeamTime=7
+						Immediate=1
 						Dodgeable=0
 						Piercing=0
 						Striking=0
@@ -4165,10 +4167,10 @@ obj
 							set name="Rozan Ryu Hishou"
 							usr.UseProjectile(src)
 					Soaring_Dragon_Lord
-						CosmoPowered=1
+						CosmoPowered=0
 						StrRate=1
-						EndRate=0.75
-						DamageMult=10
+						EndRate=0.25
+						DamageMult=21
 						BeamTime=15
 						Dodgeable=0
 						Deflectable=0

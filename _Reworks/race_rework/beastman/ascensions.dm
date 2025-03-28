@@ -2,7 +2,7 @@ ascension
 	beastman
 		one
 			unlock_potential = ASCENSION_ONE_POTENTIAL
-			anger = 0.15
+			anger = 0.05
 			onAscension(mob/owner)
 				if(!applied)
 					var/choice = owner.race?:Racial
@@ -75,7 +75,7 @@ ascension
 						s.c_buff.adjust_custom_buff(owner, s)
 		two
 			unlock_potential = ASCENSION_TWO_POTENTIAL
-			anger = 0.25
+			anger = 0.1
 			onAscension(mob/owner)
 				if(!applied)
 					var/choice = owner.race?:Racial

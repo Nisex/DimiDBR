@@ -1403,13 +1403,14 @@ NEW VARIABLES
 			passives = list("Hellrisen" = 0.25, "Hellpower" = 0.1, "Flicker" = 1)
 			ActiveMessage="unleashes the herectical power of the Demon clan!"
 			OffMessage="discards the Demon clan's abominal power..."
-			Cooldown=180
+			Cooldown=-1
 			KenWave=2
 			KenWaveIcon="LightningRed.dmi"
 			adjust(mob/p)
-				passives = list("HellRisen" = 0.25 * (p.AscensionsAcquired-1), "Hellpower" = p.AscensionsAcquired/10, "Flicker" = round(p.AscensionsAcquired/2, 1),  "EnergyLeak" = 1)
-				StrMult=1.1 + (p.Potential/250)
-				ForMult=1.1 + (p.Potential/250)
+				passives = list("HellRisen" = 0.25 * (p.AscensionsAcquired-1), "Godspeed" = p.AscensionsAcquired/2, "AfterImages" = 2, "Hellpower" = p.AscensionsAcquired/6, "Flicker" = round(p.AscensionsAcquired/2, 1), "Enrage" = p.AscensionsAcquired,  "EnergyLeak" = 1)
+				StrMult = 1.15 + (p.Potential/250)
+				ForMult = 1.1 + (p.Potential/250)
+				EndMult = 1.1 + (p.Potential/250)
 				DefMult=0.9
 			
 			verb/Daimou_Form()
@@ -3379,6 +3380,7 @@ NEW VARIABLES
 			KenWaveY=105
 			ActiveMessage="glows with limitless wisdom!"
 			OffMessage="de-syncs their keyblade..."
+
 			Cooldown=60
 			verb/Wisdom_Form()
 				set category="Skills"
@@ -3550,295 +3552,6 @@ NEW VARIABLES
 								src.StealsStats=0
 							usr.LimitCounter+=3
 				src.Trigger(usr)
-
-		// KamuiSenjin
-		// 	FlashChange=1
-		// 	KenWave=1
-		// 	KenWaveIcon='SparkleRed.dmi'
-		// 	KenWaveSize=2
-		// 	KenWaveTime=5
-		// 	KenWaveX=105
-		// 	KenWaveY=105
-		// 	ABuffNeeded=list("Life Fiber Synchronize")
-		// 	ActiveMessage="augments their Kamui with powerful blades!"
-		// 	OffMessage="shrinks the blades back into their uniform..."
-		// 	StrMult=1.3
-		// 	OffMult=1.3
-		// 	passives = list("PureDamage" = 1, "DeathField" = 1, "HardStyle" =1 )
-		// 	PureDamage=1
-		// 	DeathField=1
-		// 	HardStyle=1
-		// 	IconLock='senketsu_senjin.dmi'
-		// 	TopOverlayLock='senketsu_senjin_headpiece.dmi'
-		// 	TopOverlayX=0
-		// 	TopOverlayY=0
-		// 	verb/Kamui_Senjin()
-		// 		set category="Skills"
-		// 		passives = list("PureDamage" = usr.SagaLevel/5, "DeathField" = 1, "HardStyle" = 1 )
-		// 		if(usr.SagaLevel >= 4)
-		// 			passives = list("DeathField" = 1, "PureDamage" = usr.SagaLevel/5, "HardStyle" = 1.5, "Instinct" = 1)
-		// 		src.Trigger(usr)
-		// KamuiShippu
-		// 	FlashChange=1
-		// 	KenWave=1
-		// 	KenWaveIcon='SparkleRed.dmi'
-		// 	KenWaveSize=2
-		// 	KenWaveTime=5
-		// 	KenWaveX=105
-		// 	KenWaveY=105
-		// 	ABuffNeeded=list("Life Fiber Synchronize")
-		// 	ActiveMessage="augments their Kamui to become a streamlined aerial form!"
-		// 	OffMessage="relaxes the aerodynamics of their uniform..."
-		// 	SpdMult=1.3
-		// 	DefMult=1.3
-		// 	passives = list("VoidField" = 1, "PureReduction" = 1, "Flicker" = 1)
-		// 	Flicker=1
-		// 	IconLock='senketsu_shippu.dmi'
-		// 	LockX=-14
-		// 	LockY=-16
-		// 	TopOverlayLock='senketsu_shippu_headpiece.dmi'
-		// 	TopOverlayX=-16
-		// 	TopOverlayY=-16
-		// 	verb/Kamui_Shippu()
-		// 		set category="Skills"
-		// 		passives = list("VoidField" = 1, "PureReduction" = 1, "Flicker" = 1 )
-		// 		if(usr.SagaLevel >= 4)
-		// 			passives = list("VoidField" = 1, "PureReduction" = 1, "Flicker" = 1, "Flow" = 1, "DemonicDurability" = 0.25 )
-		// 		src.Trigger(usr)
-		// KamuiSenjinShippu
-		// 	FlashChange=1
-		// 	KenWave=1
-		// 	KenWaveIcon='SparkleRed.dmi'
-		// 	KenWaveSize=2
-		// 	KenWaveTime=5
-		// 	KenWaveX=105
-		// 	KenWaveY=105
-		// 	ABuffNeeded=list("Life Fiber Synchronize")
-		// 	ActiveMessage="balances destructive capability and quick movement with a new fierce Kamui form!"
-		// 	OffMessage="returns their Kamui to its usual configuration..."
-		// 	StrMult=1.25
-		// 	SpdMult=1.25
-		// 	DefMult=1.25
-		// 	OffMult=1.25
-		// 	passives = list("PureDamage" = 1, "DeathField" = 1, "HardStyle" = 1, "VoidField" = 1, "PureReduction" = 1, "Flicker" = 1 )
-		// 	PureDamage=1
-		// 	DeathField=1
-		// 	HardStyle=1
-		// 	IconLock='senketsu_senjinshippu.dmi'
-		// 	LockX=-14
-		// 	LockY=-16
-		// 	TopOverlayLock='senketsu_senjinshippu_headpiece.dmi'
-		// 	TopOverlayX=-16
-		// 	TopOverlayY=-16
-		// 	verb/Kamui_Senjin_Shippu()
-		// 		set category="Skills"
-		// 		passives = list("PureDamage" = 1, "DeathField" = 1, "HardStyle" = 1, "VoidField" = 1, "PureReduction" = 1, "Flicker" = 1 )
-		// 		src.Trigger(usr)
-		// KamuiSenpu
-		// 	KiControl=1
-		// 	PUSpike=100
-		// 	FlashChange=1
-		// 	KenWave=1
-		// 	KenWaveIcon='SparkleRed.dmi'
-		// 	KenWaveSize=2
-		// 	KenWaveTime=5
-		// 	KenWaveX=105
-		// 	KenWaveY=105
-		// 	ABuffNeeded=list("Life Fiber Override")
-		// 	ActiveMessage="forces their Kamui to assume a more aerodynamic form!"
-		// 	OffMessage="allows their Kamui to rest..."
-		// 	SpdMult=1.3
-		// 	EndMult=1.3
-		// 	passives = list("KiControl" = 1, "VoidField" = 1, "PureReduction" = 1, "Flicker" = 1)
-		// 	Pursuer=3
-		// 	Skimming=2
-		// 	Flicker=1
-		// 	IconLock='junketsu_senpu.dmi'
-		// 	LockX=-16
-		// 	LockY=-16
-		// 	TopOverlayLock='junketsu_senpu_headpiece.dmi'
-		// 	TopOverlayX=-16
-		// 	TopOverlayY=-16
-		// 	verb/Kamui_Senpu()
-		// 		set category="Skills"
-		// 		if(!usr.BuffOn(src))
-		// 			if(usr.PowerControl>100)
-		// 				usr << "You cannot risk pouring that amount of blood into the Kamui!"
-		// 				return
-		// 		src.Trigger(usr)
-		// KamuiSenpuZanken
-		// 	KiControl=1
-		// 	PUSpike=100
-		// 	FlashChange=1
-		// 	KenWave=1
-		// 	KenWaveIcon='SparkleRed.dmi'
-		// 	KenWaveSize=2
-		// 	KenWaveTime=5
-		// 	KenWaveX=105
-		// 	KenWaveY=105
-		// 	ABuffNeeded=list("Life Fiber Override")
-		// 	ActiveMessage="forces their Kamui to assume a dangerous and agile form!"
-		// 	OffMessage="allows their Kamui to rest..."
-		// 	StrMult=1.25
-		// 	SpdMult=1.3
-		// 	EndMult=1.25
-		// 	passives = list("KiControl" = 1, "PureDamage" = 1, "DeathField" = 1, "HardStyle" = 1, "VoidField" = 1, "PureReduction" = 1, "Flicker" = 1)
-		// 	PureDamage=3
-		// 	DeathField=3
-		// 	HardStyle=1
-		// 	Juggernaut=1
-		// 	Pursuer=3
-		// 	Skimming=2
-		// 	Flicker=1
-		// 	IconLock='junketsu_senpuzenkan.dmi'
-		// 	LockX=-16
-		// 	LockY=-16
-		// 	TopOverlayLock='junketsu_senpuzenkan_headpiece.dmi'
-		// 	TopOverlayX=-16
-		// 	TopOverlayY=-16
-		// 	verb/Kamui_Senpu_Zanken()
-		// 		set category="Skills"
-		// 		if(!usr.BuffOn(src))
-		// 			if(usr.PowerControl>100)
-		// 				usr << "You cannot risk pouring that amount of blood into the Kamui!"
-		// 				return
-		// 		src.Trigger(usr)
-		// Kamui_Unite
-		// 	HardStyle=5
-		// 	Juggernaut=2
-		// 	DeathField=10
-		// 	Pursuer=5
-		// 	Flicker=3
-		// 	passives = list("HardStyle" = 3, "Juggernaut" = 2, "DeathField" = 3, "Pursuer" = 3, "Flicker" = 2)
-		// 	StrMult=1.4
-		// 	EndMult=1.4
-		// 	SpdMult=1.4
-		// 	ActiveMessage="unites with their Kamui!"
-		// 	Cooldown=60//just to force using
-		// 	verb/Kamui_Unite()
-		// 		set category="Skills"
-		// 		if(usr.KamuiType=="Impulse")
-		// 			src.ABuffNeeded=list("Life Fiber Synchronize")
-		// 		else
-		// 			src.ABuffNeeded=list("Life Fiber Override")
-		// 		src.Trigger(usr)
-		// 		if(src.Using)
-		// 			usr.GodKi=0
-		// 			if(usr.KamuiType=="Impulse")
-		// 				OMsg(usr, "<font color='red'>Senketsu says: [usr] ... There comes a time when every girl has to put away their sailor suit...</font color>")
-		// 				OMsg(usr, "<font color='red'>Senketsu crumbles away due to the batshit insane strain on his fibers...")
-		// 				usr.KamuiBuffLock=1
-		// 			if(usr.KamuiType=="Purity")
-		// 				OMsg(usr, "<font color='cyan'>[usr] says: At last ... My empire is fulfilled...</font color>")
-		// 				OMsg(usr, "<font color='cyan'>Junketsu screams one last time before its life fibers are completely subjugated...")
-		// 				usr.KamuiBuffLock=1
-		// 			usr.ActiveBuff.Trigger(usr)
-		// 			for(var/obj/Items/Symbiotic/Kamui/KamuiSenketsu/ks in usr)
-		// 				if(ks.suffix)
-		// 					ks.AlignEquip(usr)
-		// 				del ks
-		// 			for(var/obj/Items/Symbiotic/Kamui/KamuiJunketsu/ks in usr)
-		// 				if(ks.suffix)
-		// 					ks.AlignEquip(usr)
-		// 				del ks
-
-		// Resolve//Purity Kamui special slot
-		// 	EndMult=1.5
-		// 	AllOutPU=1
-		// 	KKTWave=3
-		// 	KKTWaveSize=0.8
-		// 	OffMessage="relaxes their resolve..."
-		// 	FatigueThreshold=90
-		// 	FatigueLeak=2
-		// 	verb/Resolve()
-		// 		set category="Skills"
-		// 		if(!usr.BuffOn(src))
-		// 			if(usr.PowerControl>100)
-		// 				usr << "You need to steel your resolve first!"
-		// 				return
-		// 			var/sLevel = usr.SagaLevel
-		// 			passives = list("AllOutPU" = 1, "MovementMastery" = sLevel * 1.5,\\
-		// 			"BuffMastery" = clamp(round(sLevel/2, 0.5), 1, 4), FatigueLeak = 4)
-		// 			EndMult = clamp(1.1 + (0.1 * sLevel), 1.2, 1.7)
-		// 			if(sLevel >= 4)
-		// 				passives += list("Flicker" = round(sLevel/3,1),  "Pursuer" =  round(sLevel/4,1))
-		// 				passives["FatigueLeak"] = 3
-		// 			if(sLevel >= 5)
-		// 				passives += list("DeathField" = (sLevel-4), "HardStyle" = (sLevel-4) * 0.5, "PureDamage" = (sLevel-4))
-		// 				passives["FatigueLeak"] = 2
-		// 			if(sLevel >= 7)
-		// 				passives += list("PureReduction" = (sLevel-4))
-		// 				SureHitTimerLimit = 25
-		// 				SureDodgeTimerLimit = 25
-		// 				passives["FatigueLeak"] = 1
-		// 			if(sLevel >= 8)
-		// 				passives["FatigueLeak"] = 0
-		// 			// switch(usr.SagaLevel)
-		// 			// 	if(2)
-		// 			// 		src.ActiveMessage="draws on the resolve to fulfill their goals!"
-		// 			// 		passives = list("AllOutPU" = 1, "MovementMastery" = 2, "BuffMastery" = 2, "FatigueLeak" = 2)
-		// 			// 		src.MovementMastery=2
-		// 			// 		src.BuffMastery=2
-		// 			// 		FatigueLeak=2
-		// 			// 	if(3)
-		// 			// 		src.ActiveMessage="draws on the resolve to fulfill their goals!"
-		// 			// 		passives = list("AllOutPU" = 1, "MovementMastery" = 5, "BuffMastery" = 2.5, "FatigueLeak" = 2)
-		// 			// 		src.MovementMastery=4
-		// 			// 		src.BuffMastery=2.5
-		// 			// 		FatigueLeak=2
-		// 			// 	if(4)
-		// 			// 		src.ActiveMessage="sharpens the resolve to mercilessly fulfill their goals!"
-		// 			// 		passives = list("AllOutPU" = 1, "MovementMastery" = 6, "BuffMastery" = 3, "FatigueLeak" = 2, "Flicker" = 1, "Pursuer"  = 1)
-		// 			// 		src.MovementMastery=6
-		// 			// 		src.BuffMastery=3
-		// 			// 		src.Pursuer=1
-		// 			// 		src.Flicker=1
-		// 			// 		src.FatigueLeak=2
-		// 			// 	if(5)
-		// 			// 		src.ActiveMessage="sharpens the resolve to mercilessly fulfill their goals!"
-		// 			// 		passives = list("AllOutPU" = 1, "MovementMastery" = 8, "BuffMastery" = 3, "FatigueLeak" = 2, "Flicker" = 1, "Pursuer"  = 1, "DeathField" =  2, "HardStyle" = 0.5, "PureDamage" = 1)
-		// 			// 		src.MovementMastery=8
-		// 			// 		src.BuffMastery=3
-		// 			// 		src.Pursuer=1
-		// 			// 		src.Flicker=1
-		// 			// 		src.PureDamage=1
-		// 			// 		src.DeathField=3
-		// 			// 		src.HardStyle=0.5
-		// 			// 		FatigueLeak=2
-		// 			// 	if(6)
-		// 			// 		src.ActiveMessage="sharpens the resolve to extend their empire!"
-		// 			// 		passives = list("AllOutPU" = 1, "MovementMastery" = 10, "BuffMastery" = 4, "FatigueLeak" = 2, "Flicker" = 1, "Pursuer"  = 2, "DeathField" =  3, "HardStyle" = 1, "PureDamage" = 2)
-		// 			// 		src.MovementMastery=10
-		// 			// 		src.BuffMastery=4
-		// 			// 		src.Pursuer=2
-		// 			// 		src.Flicker=1
-		// 			// 		src.PureDamage=2
-		// 			// 		src.DeathField=4
-		// 			// 		src.HardStyle=1
-		// 			// 		FatigueLeak=2
-		// 			// 	if(7)
-		// 			// 		src.ActiveMessage="sharpens the resolve to extend their empire!"
-		// 			// 		passives = list("AllOutPU" = 1, "MovementMastery" = 12, "BuffMastery" = 5, "FatigueLeak" = 1, "Flicker" = 2, "Pursuer"  = 3, "DeathField" =  5, "HardStyle" = 2, "PureDamage" = 3, "PureReduction" = 3)
-		// 			// 		src.MovementMastery=12
-		// 			// 		src.BuffMastery=5
-		// 			// 		src.Pursuer=3
-		// 			// 		src.Flicker=2
-		// 			// 		src.PureDamage=3
-		// 			// 		src.PureReduction=3
-		// 			// 		src.DeathField=5
-		// 			// 		src.HardStyle=2
-		// 			// 		src.SureHitTimerLimit=10
-		// 			// 		src.SureDodgeTimerLimit=10
-		// 			// 		FatigueLeak=1
-		// 			// 	if(8)
-		// 			// 		src.ActiveMessage="sharpens the resolve to extend their empire!"
-		// 			// 		passives = list("AllOutPU" = 1, "MovementMastery" = 12, "BuffMastery" = 5, "FatigueLeak" = 1, "Flicker" = 2, "Pursuer"  = 3, "DeathField" =  5, "HardStyle" = 2, "PureDamage" = 3, "PureReduction" = 3)
-		// 			// 		src.MovementMastery=12
-		// 			// 		src.BuffMastery=5
-		// 			// 		FatigueLeak=0
-		// 			// 		FatigueThreshold=null
-		// 		src.Trigger(usr)
-
 		Denjin_Renki
 			ForMult=2
 			passives = list("SoftStyle" = 2, "StunningStrike" = 1, "SpiritHand" = 2, "Paralyzing" = 1)
@@ -3863,6 +3576,7 @@ NEW VARIABLES
 			passives = list("Tenacity" = 1, "UnderDog" = 0.5, "Persistence" = 1)
 			ActiveMessage="surrounds their body in a faint green aura!"
 			OffMessage="deactivates the green energy..."
+			var/list/pu_stats = list()
 			proc/setupVars(mob/player)
 				src.ActiveMessage="surrounds their body in a faint green aura!"
 				passives = list("Tenacity" = player.SagaLevel, "UnderDog" = player.SagaLevel/2, "Persistence" = player.SagaLevel)
@@ -3870,52 +3584,72 @@ NEW VARIABLES
 					ActiveMessage="draws power from their courage as they pulse with green light!"
 				if(player.SagaLevel>=2)
 					AutoAnger=1
-				if(player.SagaLevel>=6)
+					passives = list("Tenacity" = player.SagaLevel, "UnderDog" = player.SagaLevel/2, "Persistence" = player.SagaLevel, "AngerThreshold" = 1.75)
+				if(player.SagaLevel>=5)
 					ActiveMessage="roars with a heart full of courage, they are the embodiement of courage itself!"
 					AngerMult=2
-			verb/Broken_Brave()
+				if(!player.BuffOn(src))
+					StrMult = 1.15 + (0.05 * usr.SagaLevel)
+					EndMult = 1.15 + (0.05 * usr.SagaLevel)
+					ForMult= 1.05 + (0.025 * usr.SagaLevel)
+					if(BuffName == "Genesic Brave")
+						StrMult=1.1 + (0.1 * usr.SagaLevel) // gives 1.4 @ t3 which is .1 more than above
+						EndMult=1.1 + (0.1 * usr.SagaLevel)
+						ForMult=1.1 + (0.1 * usr.SagaLevel)
+						passives["PureReduction"] = usr.SagaLevel-2
+						passives["PureDamage"] = usr.SagaLevel/3
+			verb/Bravery()
 				set category="Skills"
-				if(istype(usr.SpecialBuff, type) && usr.SpecialBuff.BuffName!="Broken Brave")
-					Trigger(usr, TRUE)
-					usr<<"You swap to Broken Brave!"
-					BuffName="Broken Brave"
-					setupVars(usr)
-					TimerLimit = 0
-					StrMult=1.15 + (0.05 * usr.SagaLevel)
-					EndMult=1 + (0.025 * usr.SagaLevel)
-					ForMult=1.15 + (0.05 * usr.SagaLevel)
-					ExhaustedMessage = " begins fighting fiercely like a lion!"
-					DesperateMessage = " calls upon the power of Destruction for one final push!"
-					Trigger(usr, TRUE)
-				else
-					setupVars(usr)
-					Trigger(usr)
-			verb/Protect_Brave()
-				set category="Skills"
-				if(istype(usr.SpecialBuff, type) && usr.SpecialBuff.BuffName!="Protect Brave")
-					Trigger(usr, TRUE)
-					usr<<"You swap to Protect Brave!"
-					BuffName="Protect Brave"
-					setupVars(usr)
-					StrMult=1 + (0.025 * usr.SagaLevel)
-					EndMult=1.15 + (0.05 * usr.SagaLevel)
-					ForMult=1 + (0.025 * usr.SagaLevel)
-					DefMult=1.15 + (0.05 * usr.SagaLevel)
-					ExhaustedMessage = " begins fighting defensively like a machine!"
-					DesperateMessage = " calls upon the power of Protection for one final push!"
-					Trigger(usr, TRUE)
-				else
-					setupVars(usr)
-					Trigger(usr)
+				setupVars(usr)
+				ExhaustedMessage = " begins fighting for their life!"
+				DesperateMessage = " calls upon the of bravery for one final push!"
+				Trigger(usr, TRUE)
+
+
+			// verb/Broken_Brave()
+			// 	set category="Skills"
+			// 	if(istype(usr.SpecialBuff, type) && usr.SpecialBuff.BuffName!="Broken Brave")
+			// 		Trigger(usr, TRUE)
+			// 		usr<<"You swap to Broken Brave!"
+			// 		BuffName="Broken Brave"
+			// 		setupVars(usr)
+			// 		TimerLimit = 0
+			// 		StrMult=1.15 + (0.05 * usr.SagaLevel)
+			// 		EndMult=1 + (0.025 * usr.SagaLevel)
+			// 		ForMult=1.15 + (0.05 * usr.SagaLevel)
+			// 		ExhaustedMessage = " begins fighting fiercely like a lion!"
+			// 		DesperateMessage = " calls upon the power of Destruction for one final push!"
+			// 		Trigger(usr, TRUE)
+			// 	else
+			// 		setupVars(usr)
+			// 		Trigger(usr)
+			// verb/Protect_Brave()
+			// 	set category="Skills"
+			// 	if(istype(usr.SpecialBuff, type) && usr.SpecialBuff.BuffName!="Protect Brave")
+			// 		Trigger(usr, TRUE)
+			// 		usr<<"You swap to Protect Brave!"
+			// 		BuffName="Protect Brave"
+			// 		setupVars(usr)
+			// 		StrMult=1 + (0.025 * usr.SagaLevel)
+			// 		EndMult=1.15 + (0.05 * usr.SagaLevel)
+			// 		ForMult=1 + (0.025 * usr.SagaLevel)
+			// 		DefMult=1.15 + (0.05 * usr.SagaLevel)
+			// 		ExhaustedMessage = " begins fighting defensively like a machine!"
+			// 		DesperateMessage = " calls upon the power of Protection for one final push!"
+			// 		Trigger(usr, TRUE)
+			// 	else
+			// 		setupVars(usr)
+			// 		Trigger(usr)
 			verb/Genesic_Brave()
 				set category="Skills"
+				if(usr.SagaLevel<3 && usr.Health>25)
+					return
+				if(usr.SagaLevel<6 && usr.Health>50)
+					return
 				if(usr.SpecialBuff&&usr.SpecialBuff.BuffName!="Genesic Brave")
 					Trigger(usr, TRUE)
 					BuffName="Genesic Brave"
 					setupVars(usr)
-					StrMult=1.15 + (0.05 * usr.SagaLevel)
-					EndMult=1.15 + (0.05 * usr.SagaLevel)
-					ForMult=1.15 + (0.05 * usr.SagaLevel)
 					ExhaustedMessage = " begins fighting with the power of a god!"
 					DesperateMessage = " calls upon the power of Creation for one final push!"
 					Trigger(usr, TRUE)
@@ -7918,49 +7652,49 @@ NEW VARIABLES
 			var/obj/Items/Sword/currentBlade = null
 			var/obj/Items/Sword/swordref
 			var/projected = FALSE
-			verb/Copy_Blade()
-				set category = "Skills"
-				if(!usr.Target || usr.Target == usr)
-					usr << "You need a target."
-					return
-				if(!usr.Target.EquippedSword())
-					usr << "Your opponent isn't using a sword!"
-					return
-				if(usr.Target.EquippedSword().Conjured && usr.Target.EquippedSword().noHistory)
-					usr << "This blade has no history, it evades your attempt to copy it!"
-					return
-				if(length(copiedBlades)>=(usr.SagaLevel))
-					usr << "Your head feels close to bursting, you can't fit anything more...!!"
-					return
-				usr.OMessage(10, "[usr.name] seems to focus intently on [usr.Target.name]'s [usr.Target.EquippedSword()]...")
-				var/obj/Items/Sword/s = usr.Target.EquippedSword()
+			// verb/Copy_Blade()
+			// 	set category = "Skills"
+			// 	if(!usr.Target || usr.Target == usr)
+			// 		usr << "You need a target."
+			// 		return
+			// 	if(!usr.Target.EquippedSword())
+			// 		usr << "Your opponent isn't using a sword!"
+			// 		return
+			// 	if(usr.Target.EquippedSword().Conjured && usr.Target.EquippedSword().noHistory)
+			// 		usr << "This blade has no history, it evades your attempt to copy it!"
+			// 		return
+			// 	if(length(copiedBlades)>=(usr.SagaLevel))
+			// 		usr << "Your head feels close to bursting, you can't fit anything more...!!"
+			// 		return
+			// 	usr.OMessage(10, "[usr.name] seems to focus intently on [usr.Target.name]'s [usr.Target.EquippedSword()]...")
+			// 	var/obj/Items/Sword/s = usr.Target.EquippedSword()
 
-				s.Update_Description()
-				var/confirm = alert("Do you want to copy this sword?\n[s.desc]",, "Yes", "No")
-				if(confirm == "Yes")
-					s = copyatom(s)
-					s.NoSaga = FALSE
-					s.Conjured = TRUE
-					s.suffix = null
-					s.Destructable = TRUE
-					s.ShatterCounter = s.ShatterMax
-					copiedBlades += s
+			// 	s.Update_Description()
+			// 	var/confirm = alert("Do you want to copy this sword?\n[s.desc]",, "Yes", "No")
+			// 	if(confirm == "Yes")
+			// 		s = copyatom(s)
+			// 		s.NoSaga = FALSE
+			// 		s.Conjured = TRUE
+			// 		s.suffix = null
+			// 		s.Destructable = TRUE
+			// 		s.ShatterCounter = s.ShatterMax
+			// 		copiedBlades += s
 
-			verb/Remove_Blade()
-				set category = "Skills"
-				var/list/tempList = list("Cancel")
-				for(var/obj/i in copiedBlades)
-					tempList += i.name
-				var/removeThis = input("What blade do you want to remove?") in tempList
-				if(removeThis=="Cancel")
-					return
+			// verb/Remove_Blade()
+			// 	set category = "Skills"
+			// 	var/list/tempList = list("Cancel")
+			// 	for(var/obj/i in copiedBlades)
+			// 		tempList += i.name
+			// 	var/removeThis = input("What blade do you want to remove?") in tempList
+			// 	if(removeThis=="Cancel")
+			// 		return
 
-				for(var/obj/j in copiedBlades)
-					if(j.name == removeThis)
-						if(currentBlade == j)
-							currentBlade = null
-						copiedBlades.Remove(j)
-						break
+			// 	for(var/obj/j in copiedBlades)
+			// 		if(j.name == removeThis)
+			// 			if(currentBlade == j)
+			// 				currentBlade = null
+			// 			copiedBlades.Remove(j)
+			// 			break
 /*
 			verb/Set_Projection_Name(swordName as text)
 				set hidden = 1
@@ -7973,66 +7707,66 @@ NEW VARIABLES
 						break
 				if(!found)
 					usr << "[swordName] not found in viable projections!"*/
-			verb/Set_Projection()
-				set category = "Skills"
-				var/list/tempList = list("Cancel")
-				for(var/obj/i in copiedBlades)
-					tempList += i.name
-				var/useThis = input("What blade do you want to use?") in tempList
-				if(useThis=="Cancel")
-					return
-				for(var/obj/j in copiedBlades)
-					if(j.name == useThis)
-						currentBlade = j
-						break
-				usr << "Current projection set to [currentBlade]."
-				currentBlade.Update_Description()
-				usr << "[currentBlade.desc]"
+			// verb/Set_Projection()
+			// 	set category = "Skills"
+			// 	var/list/tempList = list("Cancel")
+			// 	for(var/obj/i in copiedBlades)
+			// 		tempList += i.name
+			// 	var/useThis = input("What blade do you want to use?") in tempList
+			// 	if(useThis=="Cancel")
+			// 		return
+			// 	for(var/obj/j in copiedBlades)
+			// 		if(j.name == useThis)
+			// 			currentBlade = j
+			// 			break
+			// 	usr << "Current projection set to [currentBlade]."
+			// 	currentBlade.Update_Description()
+			// 	usr << "[currentBlade.desc]"
 
 
-			verb/True_Projection()
-				set category="Skills"
-				if(!usr.getAriaCount())
-					usr << "You can't project without your circuits active!"
-					return
-				if(!currentBlade && !projected)
-					usr << "You don't have a blade selected!"
-					return
-				if(usr.EquippedSword()&&!projected)
-					usr << "You can't have a blade out to project a new one!"
-					return
-				if(!projected)
-					var/costCalculation = (length(currentBlade.Techniques) + length(currentBlade.passives) + currentBlade.Ascended + currentBlade.InnatelyAscended)/usr.SagaLevel
-					if(usr.UBWPath == "Feeble")
-						costCalculation /= 1 + usr.SagaLevel/6
-					costCalculation = clamp(1, costCalculation, 10)
-					costCalculation *= glob.UBW_COPY_COST
-					if(usr.ManaAmount < costCalculation)
-						usr << "You don't have the mana to project [currentBlade.name]!"
-						return
-					usr.OMessage(10, "[usr.name] projects a specific blade to their hand; [currentBlade.name]!")
-					usr.LoseMana(costCalculation)
-					var/obj/Items/Sword/s = copyatom(currentBlade)
-					s.Conjured = TRUE
-					s.suffix = null
-					s.NoSaga = FALSE
-					s.Destructable = TRUE
-					s.ShatterTier = 2
-					if(usr.UBWPath == "Firm")
-						s.ShatterTier -= 1
-						if(usr.SagaLevel >=5)
-							s.ShatterTier -= 1
-					usr.contents += s
-					s.ObjectUse(usr)
-					swordref = s
-					projected = TRUE
-				else
-					for(var/obj/Items/Sword/s in usr.contents)
-						if(s == swordref)
-							usr.OMessage(10, "[usr.name]'s current projection shatters!")
-							s.ObjectUse(usr)
-							del s
-					projected = FALSE
+			// verb/True_Projection()
+			// 	set category="Skills"
+			// 	if(!usr.getAriaCount())
+			// 		usr << "You can't project without your circuits active!"
+			// 		return
+			// 	if(!currentBlade && !projected)
+			// 		usr << "You don't have a blade selected!"
+			// 		return
+			// 	if(usr.EquippedSword()&&!projected)
+			// 		usr << "You can't have a blade out to project a new one!"
+			// 		return
+			// 	if(!projected)
+			// 		var/costCalculation = (length(currentBlade.Techniques) + length(currentBlade.passives) + currentBlade.Ascended + currentBlade.InnatelyAscended)/usr.SagaLevel
+			// 		if(usr.UBWPath == "Feeble")
+			// 			costCalculation /= 1 + usr.SagaLevel/6
+			// 		costCalculation = clamp(1, costCalculation, 10)
+			// 		costCalculation *= glob.UBW_COPY_COST
+			// 		if(usr.ManaAmount < costCalculation)
+			// 			usr << "You don't have the mana to project [currentBlade.name]!"
+			// 			return
+			// 		usr.OMessage(10, "[usr.name] projects a specific blade to their hand; [currentBlade.name]!")
+			// 		usr.LoseMana(costCalculation)
+			// 		var/obj/Items/Sword/s = copyatom(currentBlade)
+			// 		s.Conjured = TRUE
+			// 		s.suffix = null
+			// 		s.NoSaga = FALSE
+			// 		s.Destructable = TRUE
+			// 		s.ShatterTier = 2
+			// 		if(usr.UBWPath == "Firm")
+			// 			s.ShatterTier -= 1
+			// 			if(usr.SagaLevel >=5)
+			// 				s.ShatterTier -= 1
+			// 		usr.contents += s
+			// 		s.ObjectUse(usr)
+			// 		swordref = s
+			// 		projected = TRUE
+			// 	else
+			// 		for(var/obj/Items/Sword/s in usr.contents)
+			// 			if(s == swordref)
+			// 				usr.OMessage(10, "[usr.name]'s current projection shatters!")
+			// 				s.ObjectUse(usr)
+			// 				del s
+			// 		projected = FALSE
 
 		Projection
 			MakesSword=1
@@ -8589,11 +8323,6 @@ NEW VARIABLES
 					passives = list("Deflection" = usr.SagaLevel/2, "Reversal" = 0.1 * usr.SagaLevel)
 					TimerLimit = 10 * usr.SagaLevel
 					Cooldown = 180 - (15 * usr.SagaLevel)
-				if(usr.SpecialBuff)
-					if(usr.SpecialBuff.BuffName!="Genesic Brave"&&src.SBuffNeeded!="Protect Brave")
-						src.SBuffNeeded="Protect Brave"
-					else if(usr.SpecialBuff.BuffName=="Genesic Brave")
-						src.SBuffNeeded="Genesic Brave"
 				src.Trigger(usr)
 		Protect_Wall
 			TimerLimit=5

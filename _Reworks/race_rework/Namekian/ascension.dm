@@ -7,13 +7,12 @@ ascension
 			onAscension(mob/owner)
 				if(!applied)
 					switch(owner.Class)
-						if("Demon")
+						if("Heretic")
 							//power = 0.75
-							strength = 0.25
+							strength = 0.5
 							speed = 0.25
-							endurance = 0.25
 							anger = 0.15 // 1.4
-							passives = list("Hellrisen" = 0.25)
+							passives = list("Hellrisen" = 0.25, "Wrathful Tenacity" = 0.2, "AngerAdaptiveForce" = 0.25)
 						if("Dragon")  /// after the merge, unmerged Dragon and Warrior will also receive some scaling power. Levi added it in for Gaja's in his push
 							///power = 0.75
 							passives = list("SpiritFlow" = 0.25)
@@ -35,13 +34,14 @@ ascension
 			unlock_potential	=	ASCENSION_TWO_POTENTIAL
 			onAscension(mob/owner)
 				switch(owner.Class)
-					if("Demon")
+					if("Heretic")
 						//power = 1
 						offense = 0.25
 						strength = 0.25
+						endurance = 0.25
 						anger = 0.1 // 1.5
 						skills = list(/obj/Skills/Buffs/SpecialBuffs/Daimou_Form)
-						on_ascension_message =  "Your reliance on infernal power has given you insight to the power of a Great Demon King!"
+						passives = list("Hellrisen" = 0.25, "Wrathful Tenacity" = 0.1, "DemonicDurability" = 0.5)
 					if("Dragon")
 						//power = 1
 						passives =list("SpiritHand" = 0.5, "SpiritFlow" = 0.25)

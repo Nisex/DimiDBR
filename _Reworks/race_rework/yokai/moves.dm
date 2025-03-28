@@ -37,9 +37,9 @@
 	Cooldown = 60
 	TimerLimit = 10
 	adjust(mob/p)
-		passives = list("GodSpeed" = 1 + p.AscensionsAcquired, "Deflection" = 0.5 + (p.AscensionsAcquired/2), "Reversal" = 0.1 + (p.AscensionsAcquired*0.1))
+		passives = list("Godspeed" = 1 + p.AscensionsAcquired, "Deflection" = 0.5 + (p.AscensionsAcquired/2), "Reversal" = 0.1 + (p.AscensionsAcquired*0.1))
 		TimerLimit = 5 + (5*p.AscensionsAcquired)
 		if(p.passive_handler["SpiritForm"])
-			passives = list("GodSpeed" = 3 + p.AscensionsAcquired, "BulletKill" = 1, "Deflection" = 1 + (p.AscensionsAcquired/2), "Reversal" = 0.15 + (p.AscensionsAcquired*0.15))
+			passives = list("Godspeed" = 3 + p.AscensionsAcquired, "BulletKill" = 1, "Deflection" = 1 + (p.AscensionsAcquired/2), "Reversal" = 0.15 + (p.AscensionsAcquired*0.15))
 			TimerLimit = 10 + (5*p.AscensionsAcquired)
 		

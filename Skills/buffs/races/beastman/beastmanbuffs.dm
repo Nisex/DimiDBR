@@ -55,7 +55,7 @@
 	passives = list("Brutalize" = 1.5, "Afterimages" = 2, "Crippling" = 5)
 	adjust(mob/p)
 		Crippling= 5 + 5 * p.AscensionsAcquired
-		passives = list("Brutalize" = 1.25 + (0.5 * p.AscensionsAcquired), "GodSpeed" = p.AscensionsAcquired,  "Afterimages" = 2, "Crippling" = 5 + 5 * p.AscensionsAcquired)
+		passives = list("Brutalize" = 1.25 + (0.5 * p.AscensionsAcquired), "Godspeed" = p.AscensionsAcquired,  "Afterimages" = 2, "Crippling" = 5 + 5 * p.AscensionsAcquired)
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Undying_Rage
 	TooMuchHealth = 3
@@ -69,7 +69,7 @@
 	adjust(mob/p)
 		TimerLimit = 10 + (glob.racials.UNDYINGRAGE_DURATION * (p.AscensionsAcquired))
 		var/wT = 1.5 - p.passive_handler["Wrathful Tenacity"]
-		passives = list("Undying Rage" = 1, "Fury" = 1 + p.AscensionsAcquired, "GodSpeed" = 3, "Relentlessness" = 1, "Adrenaline" = 3, "LifeSteal" = 25 + (15 * p.AscensionsAcquired), \
+		passives = list("Undying Rage" = 1, "Fury" = 1 + p.AscensionsAcquired, "Godspeed" = 3, "Relentlessness" = 1, "Adrenaline" = 3, "LifeSteal" = 25 + (15 * p.AscensionsAcquired), \
 						"Enrage" = p.AscensionsAcquired, "Rage" = p.AscensionsAcquired, "Wrathful Tenacity" = wT) // 150% of str as end
 	Trigger(mob/User, Override)
 		. = ..()

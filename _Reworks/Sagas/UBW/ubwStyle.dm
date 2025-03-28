@@ -3,7 +3,7 @@
     Copyable = 0
     SagaSignature = 1
     StyleActive = "Sword Savant"
-    passives = list("SwordPunching" = 1, "SwordDamage" = 1, "NeedsSword" = 0, "Sword Master" = 1)
+    passives = list("SwordPunching" = 1, "SwordDamage" = 1, "NeedsSword" = 0)
     NeedsSword = 0
     Mastery = 4
     StyleStr = 1.15
@@ -12,6 +12,8 @@
     StyleSpd = 1.15
     Cooldown = 0
     Finisher="/obj/Skills/Queue/Finisher/UBW_finisher"
+    adjust(mob/p)
+        passives = list("SwordPunching" = 1, "SwordDamage" = 1, "NeedsSword" = 0)
     proc/swap_stance(version, sagaLevel)
         switch(version)
             if("Striking")
