@@ -2170,7 +2170,7 @@ mob
 			if(src.FusionPowered)
 				Total+=2
 			if(src.NanoBoost)
-				Total+=2
+				Total+=5
 			if(src.CombatCPU)
 				Total+=2
 			if(src.BladeMode)
@@ -2186,7 +2186,7 @@ mob
 			if(src.StabilizeModule)
 				Total+=1
 			if(src.MeditateModule)
-				Total+=1
+				Total+=3
 			return Total
 		HasEnhancementChips()
 			var/Total=0
