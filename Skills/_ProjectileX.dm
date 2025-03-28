@@ -4170,7 +4170,7 @@ obj
 						CosmoPowered=0
 						StrRate=1
 						EndRate=0.25
-						DamageMult=14
+						DamageMult=21
 						BeamTime=15
 						Dodgeable=0
 						Deflectable=0

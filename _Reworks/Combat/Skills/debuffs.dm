@@ -8,9 +8,9 @@
 	LockY=0
 	var/max_stacks = 1
 	var/total_stacks = 0
-	Trigger(mob/User, Override)
-		. = ..()
-		if(User.BuffOn(src))
+	Trigger(mob/User, Override, reseting = FALSE) 
+		..()
+		if(!reseting)
 			// this fades off
 			total_stacks = 0
 	proc/do_effect()
@@ -18,8 +18,8 @@
 		if(total_stacks + 1 < max_stacks)
 			var/stacks = total_stacks + 1
 			if(p.BuffOn(src))
-				Trigger(p, TRUE)
-			Trigger(p, TRUE)
+				Trigger(p, TRUE, TRUE)
+			Trigger(p, TRUE, TRUE)
 			total_stacks = stacks
 		else
 			// max stacks
