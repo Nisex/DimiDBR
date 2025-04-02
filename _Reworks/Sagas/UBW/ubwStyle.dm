@@ -13,7 +13,7 @@
     Cooldown = 0
     Finisher="/obj/Skills/Queue/Finisher/UBW_finisher"
     adjust(mob/p)
-        passives = list("SwordPunching" = 1, "SwordDamage" = 1, "NeedsSword" = 0)
+        passives = list("SwordPunching" = 1, "SwordDamage" = 1, "NeedsSword" = 0, "Sword Master" = 1)
     proc/swap_stance(version, sagaLevel)
         switch(version)
             if("Striking")

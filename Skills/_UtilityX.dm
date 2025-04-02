@@ -2732,6 +2732,8 @@ obj/Skills/Utility
 					continue
 				if(m==usr&&!(("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge)||usr.isRace(ANDROID)))
 					continue
+				if(m.Saga && !(m.Saga in glob.CYBERIZESAGAS))
+					continue
 				Who+=m
 			if(Who.len<1)
 				usr << "You don't have any viable targets!"

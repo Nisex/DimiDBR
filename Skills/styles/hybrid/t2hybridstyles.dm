@@ -65,7 +65,7 @@
 	SignatureTechnique=2
 	passives = list("HybridStyle" = "MysticStyle", "Serrated" = 1, "Familiar" = 2, \
 		"SpiritFlow" = 2, "BlindingVenom" = 2, "BloodEruption" = 2, "LingeringPoison" = 1,\
-		"SpiritSword" = 1, "Crippling" = 3, "Poisoning" = 3, "Pursuer" = 1, )
+		"SpiritSword" = 0.25, "Crippling" = 3, "Poisoning" = 3, "Pursuer" = 1, )
 	// crits deal an extra amount based on the enemy's max health
 	StyleStr = 1.15
 	StyleFor = 1.15
@@ -73,6 +73,10 @@
 	StyleActive="Bloodseeker"
 	Finisher="/obj/Skills/Queue/Finisher/Blood_Rite"
 	BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Aura/Poison"
+	adjust(mob/p)
+		passives = list("HybridStyle" = "MysticStyle", "Serrated" = 1, "Familiar" = 2, \
+		"SpiritFlow" = 2, "BlindingVenom" = 2, "BloodEruption" = 2, "LingeringPoison" = 1,\
+		"SpiritSword" = 0.25, "Crippling" = 3, "Poisoning" = 3, "Pursuer" = 1, )
 	verb/Bloodseeker()
 		set hidden=1
 		Trigger(usr)
@@ -80,7 +84,7 @@
 
 /obj/Skills/Buffs/NuStyle/SwordStyle/Art_of_Order// mystic+armed
 	SignatureTechnique=2
-	passives = list("HybridStyle" = "MysticStyle", "Wuju" = 1, "CriticalChance" = 10, "CriticalDamage"= 0.05, "SpiritSword" = 1, "ThunderHerald" = 1, \
+	passives = list("HybridStyle" = "MysticStyle", "Wuju" = 1, "CriticalChance" = 10, "CriticalDamage"= 0.05, "SpiritSword" = 0.25, "ThunderHerald" = 1, \
 					"Instinct" = 1, "Flicker" = 1, "Fury" = 2.5, "Iaijutsu" = 2, "BlurringStrikes" = 0.25, "Rain" = 3)
 	// crits deal an extra amount based on the enemy's max health
 	StyleSpd = 1.3
@@ -88,7 +92,7 @@
 	StyleActive="Art of Order"
 	Finisher="/obj/Skills/Queue/Finisher/Alpha_Strike"
 	adjust(mob/p)
-		passives = list("HybridStyle" = "MysticStyle", "Wuju" = 1, "CriticalChance" = 10, "CriticalDamage"= 0.05, "SpiritSword" = 1, "ThunderHerald" = 1, \
+		passives = list("HybridStyle" = "MysticStyle", "Wuju" = 1, "CriticalChance" = 10, "CriticalDamage"= 0.05, "SpiritSword" = 0.25, "ThunderHerald" = 1, \
 					"Instinct" = 1, "Flicker" = 1, "Fury" = 2.5, "Iaijutsu" = 2, "BlurringStrikes" = 0.25, "Rain" = 3)
 
 	verb/Art_of_Order()

@@ -177,7 +177,7 @@ obj/Items/Enchantment
 					usr << "This cauldron is already in use!"
 					return
 				src.Using=1
-				var/list/Modes=list("Cancel", "Brew Potion", "Enhance Potion", "Transmute Lifeforce")
+				var/list/Modes=list("Cancel", /*"Brew Potion", "Enhance Potion",*/ "Transmute Lifeforce")
 				if(("Distillation Process" in usr.knowledgeTracker.learnedMagic) && ("CrestCreation" in usr.knowledgeTracker.learnedMagic))
 					Modes.Add("Transmute Philosopher Stone")
 				var/Mode=input(usr, "What do you want to do with this cauldron?", "Cauldron") in Modes
@@ -241,6 +241,7 @@ obj/Items/Enchantment
 							src.Using=0
 							return
 						if("Brew Potion")
+							return
 							var/list/Option=list("Cancel")
 							var/Effect
 							var/Confirm
@@ -513,6 +514,8 @@ obj/Items/Enchantment
 		var/Slots=3
 
 		Click()
+			src << "Disabled"
+			return
 			if(!(src in usr))
 				return
 			if(usr.KO)

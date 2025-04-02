@@ -2483,7 +2483,7 @@ NEW VARIABLES
 				SignatureTechnique=3
 				SagaSignature=1
 				ManaThreshold=2
-				passives = list("ManaLeak" = 2, "SpiritSword" = 2, "Extend" = 1, "SwordAscension" = 1, "SuperDash" = 1, "HybridStrike" = 1)
+				passives = list("ManaLeak" = 2, "SpiritSword" = 0.5, "Extend" = 1, "SwordAscension" = 1, "SuperDash" = 1, "HybridStrike" = 1)
 				SpdMult=1.3
 				StrMult=1.3
 				ForMult=1.3
@@ -2501,7 +2501,7 @@ NEW VARIABLES
 				verb/Prana_Burst()
 					set category="Skills"
 					if(!altered)
-						passives = list("ManaLeak" = 2, "SpiritSword" = 2, "Extend" = 1, "SwordAscension" = 1, "SuperDash" = 1, "HybridStrike" = 0.5)
+						passives = list("ManaLeak" = 2, "SpiritSword" = 0.5, "Extend" = 1, "SwordAscension" = 1, "SuperDash" = 1, "HybridStrike" = 0.5)
 					src.Trigger(usr)
 			Final_Getsuga_Tenshou
 				SignatureTechnique=4
@@ -4142,7 +4142,7 @@ NEW VARIABLES
 			NoSword=1
 			NoStaff=1
 			KiBlade=1
-			passives = list("KiBlade" = 1, "SpiritSword" = 0.5, "EnergyLeak" = 2)
+			passives = list("KiBlade" = 1, "SpiritSword" = 0.25, "EnergyLeak" = 2)
 			SpiritSword=0.5
 			EnergyLeak=2
 			Cooldown=5
@@ -5596,7 +5596,6 @@ NEW VARIABLES
 					src.Trigger(usr)
 			Progressive_Blade
 				passives = list("SpiritSword" = 0.15)
-				SpiritSword=0.75
 				MakesSword=1
 				FlashDraw=1
 				SwordClass="Light"
@@ -5691,8 +5690,8 @@ NEW VARIABLES
 						set category="Skills"
 						src.Trigger(usr)
 				Integrated_Progressive_Blade
-					passives = list("SpiritSword" = 0.75)
-					SpiritSword=0.75
+					passives = list("SpiritSword" = 0.25)
+					SpiritSword=0.25
 					MakesSword=1
 					FlashDraw=1
 					SwordClass="Light"
@@ -6945,8 +6944,7 @@ NEW VARIABLES
 			SwordIcon='Aether Blade.dmi'
 			SwordX=-32
 			SwordY=-32
-			passives = list("SpiritSword" = 1, "SwordAscension" = 2, "SwordAscensionSecond" = 2, "SwordAscensionThird" = 2)
-			SpiritSword=1
+			passives = list("SpiritSword" = 0.25, "SwordAscension" = 2, "SwordAscensionSecond" = 2, "SwordAscensionThird" = 2)
 			SwordAscension=2
 			SwordNameSecond="Spirit Sword"
 			SwordIconSecond='Aether Blade Alternate.dmi'
@@ -6957,6 +6955,8 @@ NEW VARIABLES
 			SwordAscensionThird=2
 			ActiveMessage="draws spirit energy into their hand to form a blade!"
 			OffMessage="dispels their Spirit Sword!"
+			adjust(mob/p)
+				passives = list("SpiritSword" = 0.25, "SwordAscension" = 2, "SwordAscensionSecond" = 2, "SwordAscensionThird" = 2)
 			verb/Transfigure_Spirit_Sword()
 				set category="Utility"
 				var/Choice

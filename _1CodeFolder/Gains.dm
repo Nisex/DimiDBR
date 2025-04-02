@@ -60,6 +60,8 @@ var/game_loop/mainLoop = new(0, "newGainLoop")
 	if(NanoBoost && Health<=25*(1-HealthCut)&&!NanoAnnounce)
 		OMsg(src, "<font color='[src.NanoColor]'>[src][src.NanoBoostMessage]</font color>")
 		NanoAnnounce = 1
+		if(Saga && !(Saga in glob.CYBERIZESAGAS))
+			Unconscious(src, "cybernetic implosion!")
 	// 25% health check
 	if(Health < 25*(1-HealthCut) && !HealthAnnounce25)
 		if(exhaustedMessage)

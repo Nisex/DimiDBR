@@ -332,9 +332,8 @@ obj/Skills/Buffs/SlotlessBuffs/
 		SwordIcon='Icons/Buffs/nympharum sword.dmi'
 		SwordX=-32
 		SwordY=-32
-		passives = list("SpiritSword" = 1, "SwordAscension" = 1, "MagicSword" = 1)
+		passives = list("SpiritSword" = 0.25, "SwordAscension" = 1, "MagicSword" = 1)
 		MagicSword=1
-		SpiritSword=1
 		SwordUnbreakable=1 //SHARDBLADES CANNOT BE SHATTERED
 		SwordAscension=1
 		TextColor="#adf0ff"
