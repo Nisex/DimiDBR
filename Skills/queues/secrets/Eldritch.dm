@@ -22,4 +22,4 @@ obj
 					src.Freezing=8 + boon
 					src.Paralyzing=8 + boon
 					src.Shattering=8 + boon
-					DamageMult = 2 + (ascLevel)
+					DamageMult = 0.5 + (ascLevel*0.25)
