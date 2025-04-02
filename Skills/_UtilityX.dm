@@ -2725,26 +2725,26 @@ obj/Skills/Utility
 				ModChoices.Add("Infinity Drive")
 
 			var/list/Who=list("Cancel")
-			for(var/mob/m in view(1, usr))
-				/*if(m.isRace(ANDROID)&&!("Android Creation" in usr.knowledgeTracker.learnedKnowledge))
-					continue*/
-				if(m.Secret=="Heavenly Restriction" && (m.secretDatum?:hasRestriction("Science") || m.secretDatum?:hasRestriction("Cybernetics")))
-					continue
-				if(m==usr&&!(("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge)||usr.isRace(ANDROID)))
-					continue
-				if(m.Saga && !(m.Saga in glob.CYBERIZESAGAS))
-					continue
-				Who+=m
-			if(Who.len<1)
-				usr << "You don't have any viable targets!"
-				src.Using=0
-				return
-
-			M=input(usr, "Who do you want to install cybernetics in?", "Cybernetic Augmentation") in Who
-			if(usr.isRace(ANDROID) && M!=usr)
-				usr << "You can only augment yourself!"
-				src.Using=0
-				return
+			if(usr.isRace(ANDROID))
+				M = usr
+			else
+				for(var/mob/m in view(1, usr))
+					/*if(m.isRace(ANDROID)&&!("Android Creation" in usr.knowledgeTracker.learnedKnowledge))
+						continue*/
+					if(m.Secret=="Heavenly Restriction" && (m.secretDatum?:hasRestriction("Science") || m.secretDatum?:hasRestriction("Cybernetics")))
+						continue
+					if(m==usr&&!(("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge)||usr.isRace(ANDROID)))
+						continue
+					if(m.Saga && !(m.Saga in glob.CYBERIZESAGAS))
+						continue
+					Who+=m
+				if(Who.len<1)
+					usr << "You don't have any viable targets!"
+					src.Using=0
+					return
+				
+			if(!M)
+				M=input(usr, "Who do you want to install cybernetics in?", "Cybernetic Augmentation") in Who
 			if(M=="Cancel")
 				OMsg(usr, "[usr] decides not to tinker.")
 				src.Using=0
