@@ -100,6 +100,27 @@ mob/Players
 		if(glob.TESTER_MODE)
 			giveTesterVerbs(src)
 
+
+		// this is ugly, but, I can't bother to search where it's making people have these sticking, prob.. lulz.
+		// feel free to delete, idcr rly.
+		if(src.Stunned)
+			src.Stunned = 0
+		if(src.Meditating && src.icon_state = "Meditating" || src.Meditating)
+			src.Meditating = 0
+			src.icon_state = ""
+		if(src.Statis)
+			src.Statis = 0
+		if(src.TimeFrozen)
+			src.TimeFrozen = 0
+		if(src.Frozen)
+			src.Frozen = 0
+		if(src.Launched)
+			src.Launched = 0
+		if(src.WindingUp)
+			src.WindingUp = 0				
+		if(src.KO && !(src.icon_state == "KO"))
+			src.KO = 0		
+
 		src.RecovMod=2
 
 		for(var/obj/Skills/Buffs/NuStyle/ns in src)
