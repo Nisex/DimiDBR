@@ -105,7 +105,7 @@ mob/Players
 		// feel free to delete, idcr rly.
 		if(src.Stunned)
 			src.Stunned = 0
-		if(src.Meditating && src.icon_state = "Meditating" || src.Meditating)
+		if(src.Meditating && src.icon_state == "Meditating" || src.Meditating)
 			src.Meditating = 0
 			src.icon_state = ""
 		if(src.Statis)
