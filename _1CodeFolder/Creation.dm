@@ -108,8 +108,6 @@ mob/Players
 		if(src.Meditating && src.icon_state == "Meditating" || src.Meditating)
 			src.Meditating = 0
 			src.icon_state = ""
-		if(src.Statis)
-			src.Statis = 0
 		if(src.TimeFrozen)
 			src.TimeFrozen = 0
 		if(src.Frozen)
