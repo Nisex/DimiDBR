@@ -74,7 +74,6 @@ obj
 				Cooldown=180
 				PushOut=3
 				Finisher=1
-				AllOutAttack=1
 				ManaCost=100
 				Instinct=4
 				Duration=10
@@ -82,6 +81,9 @@ obj
 				HitStep=/obj/Skills/Queue/Shinryureppa_chain
 				verb/Shinryureppa()
 					set category="Skills"
+					if(usr.ManaAmount == 0) // just in case ? 
+					// i assume all out attack does that and iirc ansat has that too
+						return
 					usr.SetQueue(src)
 			Shinryureppa_chain
 				StyleNeeded="Ansatsuken"
