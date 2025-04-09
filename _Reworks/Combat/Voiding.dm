@@ -157,7 +157,6 @@ mob/proc/StartFresh()
 	overlays -= 'Halo.dmi'
 
 /mob/var/totalExtraVoidRolls = 0
-#define SPIRITS_NAMES list("Goetic Virtue", "Stellar Constellation", "Elven Sanctuary")
 
 mob/proc/Void(override, zombie, forceVoid, extraChance = 0, extraRolls = 0)
 	var/actuallyDead
@@ -169,11 +168,6 @@ mob/proc/Void(override, zombie, forceVoid, extraChance = 0, extraRolls = 0)
 		Chance = 100
 	if(override)
 		Chance = 0
-
-	if(secretDatum && secretDatum.name in SPIRITS_NAMES)
-		extraChance -= Potential/4 + (secretDatum.currentTier * 5)
-		src<<"You have [extraChance] reduced void chance from your REDACTED" //TODO: leaving as a note to change if needed
-
 	// handle the rolling here maybe
 
 	if(override)
