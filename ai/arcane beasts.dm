@@ -332,9 +332,8 @@ obj/Skills/Buffs/SlotlessBuffs/
 		SwordIcon='Icons/Buffs/nympharum sword.dmi'
 		SwordX=-32
 		SwordY=-32
-		passives = list("SpiritSword" = 1, "SwordAscension" = 1, "MagicSword" = 1)
+		passives = list("SpiritSword" = 0.25, "SwordAscension" = 1, "MagicSword" = 1)
 		MagicSword=1
-		SpiritSword=1
 		SwordUnbreakable=1 //SHARDBLADES CANNOT BE SHATTERED
 		SwordAscension=1
 		TextColor="#adf0ff"
@@ -967,8 +966,6 @@ obj/Skills/Companion/arcane_follower
 		if(!companion_icon) companion_icon = pick('Icons/NPCS/Arcane/SpriteB.dmi','Icons/NPCS/Arcane/SpriteC.dmi','Icons/NPCS/Arcane/SpriteG.dmi','Icons/NPCS/Arcane/SpriteR.dmi','Icons/NPCS/Arcane/SpriteY.dmi')
 		if(!companion_name) companion_name = "Nympharum"
 
-		Mastery = usr.AscensionsAcquired
-
 		if(Mastery != MasterySet)
 			if(bond_damage)
 				usr << "The damage to your bond prevents it from progressing. You must find a way to heal it."
@@ -1062,9 +1059,7 @@ obj/Skills/Companion/arcane_follower
 			a.DefMod = 3 + Mastery/2
 			a.RecovMod = 2 + Mastery
 			a.Intimidation = 10 + (Mastery*20)
-			a.Godspeed = Mastery+2
 			a.Timeless = 1
-			a.TechniqueMastery = Mastery*2
 			a.ai_spammer = 10
 			a.Potential = usr.Potential + 10
 			a.Text_Color = text_color
@@ -1501,7 +1496,6 @@ mob/Player/AI/Nympharum
 		set waitfor=0
 		usr = src
 		Power = ai_owner.Power
-		Instinct = ai_owner.Instinct
 		Power = ai_owner.Power
 
 		if(ai_owner.is_arcane_beast.bond_damage)
@@ -1511,7 +1505,7 @@ mob/Player/AI/Nympharum
 			Power = ai_owner.Power * 0.8
 
 mob/Player/AI/Nympharum/Allow_Move(D)
-	if(!Move_Requirements()&&!src.Control)
+	if(!Move_Requirements())
 		return
 	for(var/mob/P in range(1,usr)) if(P.Grab==usr)
 		view(P)<<"[usr] breaks free of [P]!"

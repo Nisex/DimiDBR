@@ -117,17 +117,12 @@ obj/Skills/Companion
 				a.AngerMax = (companion_angermax == -1) ? usr.AngerMax : companion_angermax
 				a.AngerPoint = (companion_angerpoint == -1) ? usr.AngerPoint : companion_angerpoint
 				a.Intimidation = (companion_intimidation == -1) ? usr.Intimidation : companion_intimidation
-				a.Godspeed = companion_godspeed
 				a.ai_spammer = companion_skill_aggression
 				a.ko_death = companion_ko_death
 				a.Timeless = 1
-				if(companion_good) a.SpiritPower=1
-				if(companion_evil) a.AbyssMod=1
 				a.ai_team_fire=companion_team_fire
-				a.SweepingStrike=companion_sweeping_strike
 				a.ai_focus_owner_target = companion_focus_target
 				a.potential_power_mult = companion_bpm == -1 ? ((usr.potential_power_mult*usr.RPPower*usr.PowerBoost) * 0.5*(1+(src.Mastery/4))) : companion_bpm
-				a.TechniqueMastery = companion_techmastery
 				a.Potential = (companion_potential == -1) ? (usr.Potential * 0.5*(1+(src.Mastery/4))) : companion_potential
 				usr.ai_followers +=a
 				a.ai_alliances = list()
@@ -475,7 +470,6 @@ obj/Skills/Companion/Pet
 			a.RecovMod = 1
 			a.Intimidation = 1
 			a.Timeless = 1
-			a.TechniqueMastery = 1
 			a.Potential = usr.Potential
 			a.Text_Color = text_color
 			usr.ai_followers +=a

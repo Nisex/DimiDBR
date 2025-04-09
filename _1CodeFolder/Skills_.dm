@@ -1,4 +1,19 @@
 
+
+mob/var/cooldownAnnounce = 1
+mob/verb
+	CooldownAnnouncement()
+		set category = "Other"
+		set name = "Toggle Cooldown Announcement"
+		if(usr.cooldownAnnounce)
+			usr.cooldownAnnounce = 0
+			usr << "Cooldown Announcement Disabled."
+		else
+			usr.cooldownAnnounce = 1
+			usr << "Cooldown Announcement Enabled."
+
+
+
 obj/Skills/var
 	cooldown_remaining = 0
 	cooldown_start
@@ -24,7 +39,7 @@ obj/Skills/proc/Cooldown(var/modify=1, var/Time, mob/p)
 					else if(TM > 0)
 						modify/=clamp((1+(TM)),0.1,glob.TECHNIQUE_MASTERY_LIMIT)
 			else
-				if(m.passive_handler.Get("Hustle")||m.HasLegendaryPower() > 0.25)
+				if(m.Hustling())
 					modify*=0.75
 			if(glob.SKILL_BRANCH_LOCK&&LockOut.len>0)
 				for(var/obj/Skills/otherSkills in m.Skills)
@@ -50,7 +65,8 @@ obj/Skills/proc/Cooldown(var/modify=1, var/Time, mob/p)
 				return
 			cooldown_start = world.realtime
 			var/start_time = world.realtime
-			m << "[src] has gone on Cooldown ([Time/10] Seconds)"
+			if(m.cooldownAnnounce && Time/10 > 5)
+				m << "[src] has gone on Cooldown ([Time/10] Seconds)"
 			spawn(Time)
 				if(cooldown_start != start_time) return //This instance of the CD was canceled.
 				src.Using=0
@@ -69,26 +85,31 @@ obj/Skills/proc/Cooldown(var/modify=1, var/Time, mob/p)
 #define get_turf(A) (get_step(A, 0))
 
 /mob/var/tmp/lastZanzoUsage = 0
-
+/mob/var/tmp/lastHit = 0
 mob/Players/verb
+	Auto_Attack()
+		set category = "Skills"
+		client.setPref("autoAttacking", !client.getPref("autoAttacking"))
+		lastHit = world.time
+		src << "You are [client.getPref("autoAttacking") ? "now Auto Attacking." : "no longer Auto Attacking."]"
 	Attack()
 		set category="Skills"
 		set name="Normal Attack"
-		if(usr.icon_state=="Meditate")
-			usr.SkillX("Meditate",src)
+		if(src.icon_state=="Meditate")
+			src.SkillX("Meditate",src)
 		// get step in front, get all stuff on that turf, only use melee if it has more than a turf
-		usr.Melee1()
+		src.Melee1()
 
 mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 	if(Z)
 		if(!locate(Z) in src)
-			return
+			return  FALSE
 	if(src.KO||src.Stunned||src.AutoHitting||src.Frozen>=2)
-		return
+		return  FALSE
 	if(src.Stasis)
-		return
+		return  FALSE
 	if(Z.Using && Wut!="Zanzoken")
-		return
+		return FALSE
 	if(Z.MagicNeeded&&!src.HasLimitlessMagic())
 		if(src.HasMechanized()&&src.HasLimitlessMagic()!=1)
 			src << "You lack the ability to use magic!"
@@ -108,11 +129,23 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 						if(a.Target==src && (a.WoundIntent || a.Lethal))
 							src << "You're in too much danger to begin resting."
 							return
-					src.gatherNames()
+					src.gatherNames() // should b on load/login
 					reward_auto()
 					src.CheckAscensions()
 					if(isRace(DEMON))
 						race?:checkReward(src)
+					if(isRace(BEASTMAN) && race?:Racial == "Monkey King")
+						var/obj/Skills/Buffs/s = findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Never_Fall/)
+						if(!s.Using)
+							s.Trigger(src, TRUE)
+					if(isRace(HALFSAIYAN))
+						switch(Class) // leave this in until they all get it
+							if("Compassion")
+								findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/HalfSaiyan/Hidden_Potential)
+								src << "You have gained Hidden Potential"
+							if("Anger")
+								findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/HalfSaiyan/Saiyan_Pride)
+								src << "You have gained Saiyan Pride"
 					removeBlobBuffs()
 					if(!src.SignatureSelecting)
 						src.SignatureSelecting=1
@@ -151,6 +184,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					src.icon_state=""
 					if(MeditateTime >= 15)
 						src.Tension=0
+						Momentum = 0
 						for(var/obj/Skills/s in src)
 							if(length(s.possible_skills) > 0)
 								for(var/t in s.possible_skills)
@@ -209,6 +243,8 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					return
 				if(src.Knockbacked)
 					return
+				if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Reverse Dash"))
+					GetAndUseSkill(/obj/Skills/Buffs/SlotlessBuffs/Heavenly_Reversal, Buffs, TRUE)
 				var/Distance=5
 				var/Delay=1
 				src.Frozen=1
@@ -263,7 +299,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					src.IncDashCount()
 
 			if("DragonDash")
-				if(Frozen||is_dashing||!Target||Target&&!ismob(Target)||Target==src||Beaming==2||TimeFrozen||Knockbacked)
+				if(!CanDash())
 					return
 
 				var/Modifier = (src.HasPursuer()/10)
@@ -292,7 +328,7 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 								H.Trigger(src)
 
 				var/Distance=20
-				var/Delay=0.75
+				var/Delay=0.5
 				if(src.Beaming||src.BusterTech)
 					if(!src.HasMovingCharge())
 						Distance=5
@@ -321,6 +357,8 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 							ER.adjust(src)
 							src.SetQueue(ER)
 
+				if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Dragon Dash"))
+					Delay = 0.75 / secretDatum?:getBoon(src, "Dragon Dash")
 				if(src.HasSuperDash())
 					Distance+=15*src.GetSuperDash()
 					Delay=0.5/src.GetSuperDash()
@@ -643,10 +681,10 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 				for(var/mob/Players/A in players)
 					who.Add(A)
 				for(var/mob/Players/W in who)
-					if(!(locate(W.EnergySignature) in usr.EnergySignaturesKnown)&&!usr.SpiritPower)
+					if(!(locate(W.EnergySignature) in usr.EnergySignaturesKnown)&&!usr.passive_handler.Get("SpiritPower"))
 						if(!(W in hearers(50,usr)))
 							who.Remove(W)
-					if(!W.EnergySignature&&!usr.SpiritPower)
+					if(!W.EnergySignature&&!usr.passive_handler.Get("SpiritPower"))
 						who.Remove(W)
 				var/mob/Players/selector=input("Select a player to telepath.") in who||null
 				if(selector=="Cancel")
@@ -680,10 +718,12 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 
 			if("PowerUp")
 				if(src.KO)return
+				if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Power Control")) return
 				if(src.PoweringDown)return
-				if(CheckSlotless("Great Ape"))return
+				if(CheckSlotless("Great Ape"))
+					CanTransform()
+					return
 				if(passive_handler.Get("Piloting"))return
-				if(src.Transforming)return
 				if(src.Kaioken)
 					var/Mastery
 					for(var/obj/Skills/Buffs/SpecialBuffs/Kaioken/KK in src)
@@ -736,11 +776,10 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 			if("PowerDown")
 				if(src.KO)
 					return
+				if(Secret == "Heavenly Restriction" && secretDatum?:hasRestriction("Power Control")) return
 				if(CheckSlotless("Great Ape"))
 					return
 				if(passive_handler.Get("Piloting"))
-					return
-				if(src.Transforming)
 					return
 				if(src.Kaioken)
 					src << "You douse your Kaioken..."
@@ -815,6 +854,8 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 					return
 				if(src.Beaming||src.BusterTech)
 					return
+				if(Target && !Target.loc)
+					return
 
 				//UNTARGETED ZANZO
 				if(!src.Target)
@@ -842,24 +883,18 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 								AfterImageGhost(src)
 								src.Comboz(src.Target)
 								src.dir=get_dir(src,src.Target)
-								src.Instinct++
-								src.Instinct++
 								src.Melee1(1, 5, accmulti=1.2, SureKB=1, BreakAttackRate=1)
-								src.Instinct--
-								src.Instinct--
 							else
-								if(src.passive_handler.Get("GiantForm"))
+								if(HasGiantForm())
 									var/Wave=2
 									for(var/wav=Wave, wav>0, wav--)
 										KenShockwave(src, icon='fevKiai.dmi', Size=Wave)
 										Wave/=2
 								else
 									VanishImage(src)
-								src.Comboz(src.Target)
+								src.Comboz(src.Target, FALSE, FALSE, passive_handler["Backstabber"])
 								src.dir=get_dir(src,src.Target)
-								src.Instinct++
 								src.Melee1(1, 5, accmulti=1.1, SureKB=1, BreakAttackRate=1)
-								src.Instinct--
 						src.MovementCharges--
 						if(MovementCharges<0)
 							MovementCharges=0
@@ -921,55 +956,13 @@ mob/proc/SkillX(var/Wut,var/obj/Skills/Z,var/bypass=0)
 						return
 					Z.Cooldown()
 
-			if("UnlockPotential")
-				if(src.KO)
-					return
-				var/list/Choices=new
-				Choices+="Cancel"
-				for(var/mob/Players/P in get_step(src,dir)) Choices+=P
-				var/mob/Choice=input(src,"Unlock the Potential of who?") in Choices
-				if(Choice=="Cancel") return
-				if(Choice.Mystic || world.realtime+Day(10) < Choice.PotentialUnlocked)
-					if(Choice.Mystic)
-						OMsg(src, "[src] reached to unlock [Choice]'s potential...but that well has already been tapped!")
-						return
-					else
-						OMsg(src, "[src] reached to unlock [Choice]'s potential...but it's been too soon since it was already tapped!")
-						return
-				if(Choice.PotentialUnlocked<world.realtime+Day(10))
-					Choice.PotentialCap*=2
-					Choice.Potential+=10
-					Choice.Mystic=1
-					Choice.CalmAnger+=1
-					if(Choice.AscensionsUnlocked<5)
-						Choice.AscensionsUnlocked++
-					if(Choice.race.transformations.len>0)
-						Choice.transUnlocked++
-				else
-					Choice.PotentialUnlocked+=world.realtime+Day(10)
-					Choice.Potential+=10
-					Choice.PotentialCap*=1.5
-					if(Choice.AscensionsUnlocked<5)
-						Choice.AscensionsUnlocked++
-				OMsg(src, "[src] brought forth [Choice]'s latent potential!")
-				Log("Admin","[src] has unlocked [Choice]'s Potential. Please investigate if this was unauthorized.")
-				//fuck yourself (temporarily)
-				src.AddStrTax(Choice.Potential/100)
-				src.AddEndTax(Choice.Potential/100)
-				src.AddForTax(Choice.Potential/100)
-				src.AddSpdTax(Choice.Potential/100)
-				src.AddRecovTax(Choice.Potential/100)
-				src.GainFatigue(Choice.Potential)
-				src.LoseCapacity(Choice.Potential)
-				src << "You feel physically and mentally drained after the fact."
-
 
 atom/proc/Quake(var/duration=30, var/globe=0)
 	set waitfor=0
 	if(duration == null || duration == 0)
 		return
 	while(duration)
-		duration-=1
+		duration-=world.tick_lag
 		if(!globe)
 			for(var/mob/M in view(src))
 				if(M.client)
@@ -992,7 +985,7 @@ atom/proc/Quake(var/duration=30, var/globe=0)
 						M.client.pixel_y=0
 		if(duration<0)
 			duration=0
-		sleep(1)
+		sleep(world.tick_lag)
 
 atom/proc/Earthquake(var/duration=30,var/xpixelmin=0,var/xpixelmax=5,var/ypixelmin=0,var/ypixelmax=5, var/globe=0)
 	while(duration)

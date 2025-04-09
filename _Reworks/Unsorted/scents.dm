@@ -2,7 +2,7 @@
 /var/list/scents = list(
     "HUMAN" = list("Sweat", "Gamer Musk", "Flowery", "Cologne"), \
     "NAMEKIAN" = list("Grass", "Forest", "Spices"), \
-    "GAJALAKA" = list("Dirt", "Gold", "Musky", "Greed"), \
+    "Chakardi" = list("Money", "Gold", "Greed"), \
     "ELVES" = list("Society", "Rich", "Noble","Royalty"), \
     "SAIYAN" = list("Musk", "Animalistic", "Sweaty", "Unbathed"), \
     "MAKYO" = list("Garlic", "Feet", "Alcohol" ), \
@@ -51,6 +51,14 @@ mob/proc/setUpScent()
             custom_scent=pick("Gum", "Sweets", "Cake", "Vanilla")
         if(DRAGON)
             custom_scent=pick("Ozone", "Animalistic", "Power", "The World")
+        if(CHANGELING)
+            custom_scent=pick("Decay", "Muk", "Grime", "Magical")
+        if(HALFSAIYAN)
+            custom_scent=pick("Musk", "Animalistic", "Sweaty", "Flowery","Cologne")
+        if(ANDROID)
+            custom_scent=pick("Metal", "Electricity")
+        if(DRAGON)
+            custom_scent=pick("Nature", "Power", "Ozone", "Animalistic")
     if(custom_scent!="Overwhelming")
         if(usr.Target.HasHellPower())
             custom_scent=pick("Brimstone", "Nothingness", "Blood", "Death", "Overwhelming")

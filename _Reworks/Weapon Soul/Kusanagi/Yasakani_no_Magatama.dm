@@ -4,7 +4,7 @@ mob/var/tmp/list/magatamaBeads = list()
 mob/var/tmp/manaStolen = 0
 mob/proc/stealManaMagatama(value)
 	manaStolen += value
-	var/magatamaBeadAmount = 25
+	var/magatamaBeadAmount = 15
 	if(ismob(loc))
 		var/mob/m = loc
 		magatamaBeadAmount = getMagatamaMana(m)
@@ -13,7 +13,7 @@ mob/proc/stealManaMagatama(value)
 		manaStolen -= magatamaBeadAmount
 
 mob/proc/getMagatamaMana(mob/m)
-	var/mana = 25
+	var/mana = 15
 	if(m.SpecialBuff&&m.SpecialBuff.name == "Heavenly Regalia: The Three Treasures")
 		mana = 15
 	return mana
@@ -25,7 +25,7 @@ mob/proc/gainMagatama()
 	vis_contents += magatama
 
 mob/proc/loseMagatama()
-	if(magatamaBeads.len>0)
+	if(length(magatamaBeads)>0)
 		for(var/obj/Magatama/magatama in magatamaBeads)
 			magatamaBeads -= magatama
 			vis_contents -= magatama
@@ -37,9 +37,10 @@ obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraint
 	applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraints
 	ActiveMessage = "tosses a chain of beads forth!"
 	EndYourself = 1
-	Cooldown=0
 	AffectTarget = 1
 	Range = 20
+	ManaCost = 15
+	Cooldown = 90
 	adjust(mob/p)
 		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: The Three Treasures")
 			applyToTarget = new/obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Heavenly_Bead_Constraints
@@ -49,13 +50,13 @@ obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraint
 		set name = "Yasakani no Magatama: Bead Constraint"
 		set category = "Skills"
 		if(!usr.BuffOn(src))
-			adjust(usr)
+			adjust(usr)/*
 		var/magatamaFound = FALSE
-		if(usr.magatamaBeads.len>0)
+		if(length(usr.magatamaBeads)>0)
 			magatamaFound = TRUE
 			usr.loseMagatama()
-		if(magatamaFound)
-			Trigger(usr)
+		if(magatamaFound)*/
+		Trigger(usr)
 
 obj/Skills/Buffs/SlotlessBuffs/Yasakani_no_Magatama/Bead_Constraints
 	EnergyDrain = 0.1

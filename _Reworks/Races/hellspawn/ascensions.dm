@@ -52,10 +52,6 @@ Sword Punching, Increase Intim the higher health you are, Increase power the hig
 
 
 /mob/proc/setUpHellSpawn()
-    if(Race != "Hellspawn")
-        // mf should remake, fr fr
-        src<<"Please tell the admin to assist you in remaking."
-    else
         passive_handler.Set("Desperation", 6)
         passive_handler.Set("DemonicInfluence", 0.1)
         passive_handler.Set("TechniqueMastery", 1)

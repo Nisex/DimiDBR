@@ -1,13 +1,20 @@
 var/list/SkillTreeList=list("BlastT1"=list(),"BlastT2"=list(),"BlastT3"=list(), \
-"BlastT4"=list(),"SwordT1"=list(),"SwordT2"=list(),"SwordT3"=list(),"SwordT4"=list(),\
-"BeamT1"=list(),"BeamT2"=list(),"BeamT3"=list(),"BeamT4"=list(),\
-"MagicT1"=list(),"MagicT2"=list(),"MagicT3"=list(),"MagicT4"=list(),\
-"UnarmedT1"=list(),"UnarmedT2"=list(),"UnarmedT3"=list(),"UnarmedT4"=list(),\
-"UnarmedStyles"=list(),"ElementalStyles"=list(),"SpiritStyles"=list(),"SwordStyles"=list())
+"BlastT4"=list(),"SwordT1"=list(),"SwordT2"=list(),"SwordT3"=list(),"SwordT4"=list(),"SwordT5"=list(),\
+"BeamT1"=list(),"BeamT2"=list(),"BeamT3"=list(),"BeamT4"=list(),"BlastT5"=list(),\
+"MagicT1"=list(),"MagicT2"=list(),"MagicT3"=list(),"MagicT4"=list(),"MagicT5"=list(),\
+"UnarmedT1"=list(),"UnarmedT2"=list(),"UnarmedT3"=list(),"UnarmedT4"=list(), "UnarmedT5" = list(),\
+"UnarmedStyles"=list(),"UnarmedStylesT1"=list(), "UnarmedStylesT2"=list(),"UnarmedStylesT3"=list(), "UnarmedStylesT4"=list(), \
+"ElementalStyles"=list(),"HybridStyle"=list(),"SwordStyles"=list(), \
+"SwordStylesT1"=list(), "SwordStylesT2"=list(),"SwordStylesT3"=list(), "SwordStylesT4"=list(), \
+"ElementalStylesT1"=list(), "ElementalStylesT2"=list(),"ElementalStylesT3"=list(), "ElementalStylesT4"=list(),\
+"HybridStylesT1"=list(), "HybridStylesT2"=list(), "HybridStylesT3"=list(), "HybridStylesT4"=list() )
 proc/MakeSkillTreeList()
 	for(var/x in SkillTree)
 		var/Tier = null
-		if(!(x in list("UnarmedStyles","ElementalStyles","SpiritStyles","SwordStyles")))
+		if(!(x in list("UnarmedStyles","ElementalStyles", "ElementalStylesT1", "ElementalStylesT2", \
+		"ElementalStylesT3","HybridStyle","SwordStyles", "UnarmedStylesT1", "UnarmedStylesT2", \
+		"UnarmedStylesT3", "UnarmedStylesT4", "SwordStylesT1", "SwordStylesT2", "SwordStylesT3", "SwordStylesT4",\
+		"HybridStylesT1", "HybridStylesT2", "HybridStylesT3", "HybridStylesT4")))
 			Tier = copytext(x,length(x), 0)
 		for(var/z in SkillTree[x])
 			var/obj/SkillTreeObj/s = new
@@ -17,6 +24,8 @@ proc/MakeSkillTreeList()
 				while(findtextEx(namez, "/"))
 					namez=copytext(namez, pos+1)
 			s.path=z
+			s.icon_state = lowertext(namez)
+
 			if(Tier)
 				switch(Tier)
 					if("1")
@@ -27,9 +36,13 @@ proc/MakeSkillTreeList()
 						s.cost=TIER_3_COST
 					if("4")
 						s.cost=TIER_4_COST
+					if("5")
+						s.cost=TIER_5_COST
 			else
 				s.cost=SkillTree[x][z]
+				s.tier = 0
 			s.name="[namez] ([s.cost])"
+			s.tier = Tier
 			SkillTreeList[x]+=s
 
 var/list/SkillTree=list(
@@ -75,6 +88,10 @@ var/list/SkillTree=list(
 			"/obj/Skills/AutoHit/Spinning_Clothesline"=160,
 			"/obj/Skills/AutoHit/Hyper_Crash"=160,
 			"/obj/Skills/AutoHit/Dropkick_Surprise"=160
+),
+"UnarmedT5"=list(
+			"/obj/Skills/Grapple/The_Show_Stopper"=TIER_5_COST
+
 ),
 
 "BlastT1"=list(
@@ -181,6 +198,7 @@ var/list/SkillTree=list(
 			"/obj/Skills/AutoHit/Sword_Pressure"=40,
 			"/obj/Skills/AutoHit/Light_Step"=40,
 			"/obj/Skills/AutoHit/Overhead_Divide"=40,
+			"/obj/Skills/Queue/Sword_Clinch"=40,
 
 			"/obj/Skills/AutoHit/Hack_n_Slash"=40,
 			"/obj/Skills/AutoHit/Vacuum_Render"=40,
@@ -193,8 +211,8 @@ var/list/SkillTree=list(
 			"/obj/Skills/AutoHit/Rising_Spire"=80,
 			"/obj/Skills/AutoHit/Ark_Brave"=80,
 			"/obj/Skills/AutoHit/Judgment"=80,
-
-			"/obj/Skills/Queue/Larch_Dance"=80,
+			"/obj/Skills/AutoHit/Three_Thousand_Worlds"=80,
+			"/obj/Skills/Queue/Gravity_Blade"=80,
 			"/obj/Skills/Queue/Willow_Dance"=80,
 			"/obj/Skills/Queue/Zero_Reversal"=80,
 			"/obj/Skills/Queue/Infinity_Trap"=80
@@ -220,81 +238,112 @@ var/list/SkillTree=list(
 ),
 
 "UnarmedStyles"=list(
+			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Shaolin_Style"=20,
+			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Shield_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Crane_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Snake_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Cat_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Murim_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lucha_Libre_Style"=20
 ),
+"UnarmedStylesT1"=list(
+	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Red_Cyclone_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wing_Chun_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tai_Chi_Style"=9999
+					),
+"UnarmedStylesT2"=list(
+	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ubermensch_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Mantis_And_Crane_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Long_Fist_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon"=9999
+					),
+"UnarmedStylesT3"=list(
+	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Flying_Thunder_God"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Jeet_Kune_Do"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/All_Star_Wrestling"=9999
+					),
+"UnarmedStylesT4"=list(
+	"/obj/Skills/Buffs/NuStyle/UnarmedStyle/God_Fist"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ten_Directions"=9999,
+					"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Giga_Galaxy_Wrestling"=9999
+					),
 
-"SpiritStyles"=list(
-			"/obj/Skills/Buffs/NuStyle/FreeStyle/Feral_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/FreeStyle/Flow_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/FreeStyle/Breaker_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/FreeStyle/Blitz_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/FreeStyle/Shield_Style"=20
+"HybridStyles"=list(
+
+),
+"HybridStylesT1"=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style"=99999
+
+),
+"HybridStylesT2"=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon"=9999, 
+"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ifrit_Jambe"=9999,
+"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Psycho_Boxing"=9999,
+"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phoenix_Eye_Fist"=9999,
+"/obj/Skills/Buffs/NuStyle/SwordStyle/Art_of_Order"=9999
+),
+"HybridStylesT3"=list(
+
 ),
 
 "ElementalStyles"=list(
-			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Earth_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wind_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Fire_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Water_Style"=20
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Earth_Moving"=20,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Wind_Summoning"=20,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Fire_Weaving"=20,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"=20,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Plague_Bringer"=20
 ),
-
+"ElementalStylesT1"=list(
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Bloodmancer"=9999
+),
+"ElementalStylesT2"=list(
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma_Style"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard_Bringer"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold"=9999
+),
+"ElementalStylesT3"=list(
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Oblivion_Storm"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Annihilation"=9999,
+			"/obj/Skills/Buffs/NuStyle/MysticStyle/Omnimancer"=9999
+),
 "SwordStyles"=list(
-			"/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style"=20,
+			"/obj/Skills/Buffs/NuStyle/SwordStyle/Ittoryu_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/SwordStyle/Fencing_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/SwordStyle/Zornhau_Style"=20,
+			"/obj/Skills/Buffs/NuStyle/SwordStyle/Ulfberht_Style"=20,
 			"/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style"=20,
-			"/obj/Skills/Buffs/NuStyle/SwordStyle/Swordless_Style"=20
+			"/obj/Skills/Buffs/NuStyle/SwordStyle/Chain_Style"=20
 ),
+"SwordStylesT1"=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Kunst_des_Fechtens"=9999),
+"SwordStylesT2"=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Berserk"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style"=9999,),
+"SwordStylesT3"=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Two_Heaven_As_One"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Acrobat"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Fierce_Deity"=9999),
+"SwordStylesT4"=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Way_of_the_Kensei"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/Kyutoryu"=9999,
+					"/obj/Skills/Buffs/NuStyle/SwordStyle/War_God"=9999),
 
 )
-
-/*
-mob
-	verb
-		Saga_Invest()
-			set hidden=1
-			if(!usr.Saga)
-				usr << "You do not possess a saga to invest in."
-				return
-			if(usr.SagaLevel>=6)
-				usr << "You have trained your saga to the highest known level."
-				return
-			var/Req=usr.SagaEXPReq()-usr.SagaEXP
-			if(Req<=0)//if you have the next level ready, reject
-				usr << "You have invested enough for your next saga level already, but you must advance your fighting potential further."
-				return
-			var/Invest=input(usr, "How much RPP do you want to invest into your saga progression?", "Saga Invest (1-[Req])") as num|null
-			if(!Invest || Invest==null || Invest <= 0)
-				usr << "Invalid invest amount."
-				return
-			if(Invest > usr.GetRPPSpendable())
-				Invest=usr.GetRPPSpendable()
-			if(Invest > Req)
-				Invest=Req
-			switch(alert(usr, "Are you sure you want to invest [Invest] RPP into your saga development?", "Saga Invest ([Invest])", "No", "Yes"))
-				if("No")
-					usr << "You have not invested in your saga."
-					return
-				if("Yes")
-					if(usr.SpendRPP(Invest, "Saga Investment", Training=1))
-						usr.SagaEXP+=Invest
-						usr << "You invest [Invest] RPP into your saga development!"
-
-		Buy_Stances()
-			set hidden=1
-*/
 
 obj/SkillTreeObj
 	var/path
 	var/cost
 	var/tier
-	icon='skilltree.dmi'
+	icon='background.dmi'
 	layer=9999
+	New()
+		. = ..()
+		icon_state = lowertext(replacetext(replacetext(path,"/obj/Skills/Buffs/NuStyle/UnarmedStyle", ""), "_Style", ""))
+		
 	Click()
 
 		var/path=text2path("[src.path]")
@@ -330,7 +379,8 @@ obj/SkillTreeObj
 		if(Confirm=="No")
 			del(s)
 			return
-
+		if(s.SignatureTechnique>=1)
+			return
 		if(locate(s,usr.contents))
 			usr << "You've already learned [s]."
 			del(s)
@@ -371,17 +421,11 @@ obj/SkillTreeObj
 						del s2
 						return
 
-
 		if(usr.SpendRPP(src.cost, "[s]", Training=1))
 			usr.AddSkill(s)
 			if(s.type==/obj/Skills/Power_Control)
 				if(!locate(/obj/Skills/Buffs/ActiveBuffs/Ki_Control, usr))
 					usr.PoweredFormSetup()
-			// if(s.type in typesof(/obj/Skills/Buffs/NuStyle))
-			// 	var/obj/Skills/Buffs/NuStyle/ns=s
-/*
-			if(s:PreRequisite.len>0)
-				usr.PrerequisiteRemove(s)*/
 		..()
 
 
@@ -399,23 +443,49 @@ mob/Players/verb
 		winset(usr,"skilltreegrid","cells=0x0")//clears grid
 		usr<<output("RPP: [round(usr.GetRPPSpendable())]","STRewardPoints")
 		sleep(1)
-		var/p=1//used as a positioning locator for rows/columns
-		for(var/obj/SkillTreeObj/x in SkillTreeList[z])
-			//p++
-			usr<<output(x,"skilltreegrid:[1],[p]")
-			p++
+		if(copytext(z, length(z)-5, length(z)+1) == "Styles")
+			var/x = 1
+			var/y = 1
+			for(var/obj/SkillTreeObj/s in SkillTreeList[z])
+				usr<<output(s,"skilltreegrid:[x],[y]")
+				x++
+				if(x>2)
+					x = 1
+					y++
+			for(var/tier in 1 to 4)
+				var/string = "[z]T[num2text(tier)]" // STYLESTX
+				for(var/obj/SkillTreeObj/s in SkillTreeList[string])
+					usr<<output(s,"skilltreegrid:[x],[y]")
+					x++
+					if(x>2)
+						x = 1
+						y++
+		else
+			var/x = 1
+			var/y = 1
+			for(var/obj/SkillTreeObj/s in SkillTreeList[z])
+				usr<<output(s,"skilltreegrid:[x],[y]")
+				x++
+				if(x>2)
+					x = 1
+					y++
+
+
+
+/globalTracker/var/list/KI_CONTROL_PASSIVES = list("Flicker", "Pursuer", "Instinct", )
+
 
 mob/proc
 	PoweredFormSetup()
 		src << "Powering up to a certain level will activate your Powered Form which will provide a sharp increase in your fighting prowess!"
 		var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/KC=new
-		var/list/Passives=list("Flicker", "Godspeed", "Pursuer")
-		var/passive = input(src, "Pick a focus") in Passives
-		KC.selectedPassive=passive
+		KC.selectedPassive = input(src, "Pick a focus") in glob.KI_CONTROL_PASSIVES
+		var/list/stats = list("Str", "For", "Spd", "End", "Off","Def")
+		while(length(KC.selectedStats)<3)
+			KC.selectedStats += input(src, "Pick a stat") in stats
+			stats -= KC.selectedStats[length(KC.selectedStats)]
 		KC.init(src)
 		if(src.isRace(MAKYO))
 			KC.icon=src.ExpandBase
 			KC.IconReplace=1
 		src.AddSkill(KC)
-		resetPU = FALSE
-		resetPU1 = FALSE

@@ -15,6 +15,8 @@ proc
 		var/obj/Items/Enchantment/Staff/staf=Attacker.EquippedStaff()
 		var/obj/Items/Sword/sord=Attacker.EquippedSword()
 		var/obj/Items/Armor/armr = Defender.EquippedArmor()
+		var/obj/Items/Sword/sord2 = Attacker.EquippedSecondSword()
+		var/obj/Items/Sword/sord3 = Attacker.EquippedThirdSword()
 
 		if(staf && staf.Element)
 			attackElements |= staf.Element
@@ -22,6 +24,12 @@ proc
 		if(sord && sord.Element)
 			attackElements |= sord.Element
 			DebuffIntensity /= glob.ITEM_DEBUFF_APPLY_NERF // 4 
+		if(sord2)
+			attackElements |= sord2.Element
+			DebuffIntensity /= glob.ITEM_DEBUFF_APPLY_NERF * 1.25
+		if(sord3)
+			attackElements |= sord3.Element
+			DebuffIntensity /= glob.ITEM_DEBUFF_APPLY_NERF * 1.5
 
 		if(onlyTheseElements)
 			attackElements = onlyTheseElements
@@ -38,20 +46,21 @@ proc
 			var/DebuffRate=GetDebuffRate(element, Defense, ForcedDebuff)
 			if(Attacker.SenseUnlocked>5&&Attacker.SenseUnlocked>Attacker.SenseRobbed)
 				DebuffRate+=10*(Attacker.SenseUnlocked-5)
-			if(Defender.HasDebuffImmune())
-				DebuffRate/=1+Defender.GetDebuffImmune()
-			if(Defender.HasIntimidation())
-				var/Effective=Defender.GetIntimidation()
-				var/Ratio=Attacker.GetIntimidationIgnore(Defender)
-				var/Ignored=Effective*Ratio
-				Effective-=Ignored
-				if(Effective<0)
-					Effective=0
-				DebuffRate-=Effective/10
+			if(Defender.HasDebuffResistance())
+				DebuffRate/=1+Defender.GetDebuffResistance()
+			if(glob.INTIM_REDUCES_DEBUFFS)
+				if(Defender.HasIntimidation())
+					var/Effective=Defender.GetIntimidation()
+					var/Ratio=Attacker.GetIntimidationIgnore(Defender)
+					var/Ignored=Effective*Ratio
+					Effective-=Ignored
+					if(Effective<0)
+						Effective=0
+					DebuffRate-=Effective/10
 			if(DebuffRate<0)
 				DebuffRate=0
 /*
-			if(!damageOnly&&!Defender.HasDebuffImmune())
+			if(!damageOnly&&!Defender.HasDebuffResistance())
 				switch(element)
 					if("Fire")
 						if(!Defender.Burn)
@@ -74,6 +83,10 @@ proc
 						if(!Defender.Burn)
 							OMsg(Attacker, messages[element])
 */
+			if(Attacker.passive_handler["Amplify"])
+				DebuffIntensity += Attacker.passive_handler["Amplify"] * glob.AMPLIFY_MODIFIER
+			if(Attacker.UsingHotnCold())
+				DebuffIntensity += abs(Attacker.StyleBuff?:hotCold)/glob.HOTNCOLD_DEBUFF_DIVISOR
 			switch(element)
 				if("Truth")
 					DamageMod+=2
@@ -168,10 +181,8 @@ proc
 						if(!Defender.HasVenomImmune()&&Defense!="Poison")
 							Defender.AddPoison(2*DebuffIntensity*glob.POISON_INTENSITY, Attacker)
 					if("Fire")
-						if(!Defender.WalkThroughHell&&!Defender.DemonicPower())
+						if(!Defender.DemonicPower())
 							Defender.AddBurn(4*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
-						else
-							Defender.AddBurn(2*DebuffIntensity*glob.BURN_INTENSITY, Attacker)
 					if("Water")
 						Defender.AddSlow(4*DebuffIntensity*glob.SLOW_INTENSITY, Attacker)
 					if("Earth")
@@ -302,34 +313,34 @@ mob
 				return
 			if(src.ElementalDefense=="Wind")
 				Value*=1.5//Super Effective
-			if(Attacker && (Attacker == src ? !src.BurningShot : 1))
+			if(Attacker && (Attacker == src ? !src.passive_handler.Get("BurningShot") : 1))
 				if(Attacker.Attunement=="Fire")
 					Value*=1.5
 				else if(Attacker.Attunement=="HellFire")
 					Value*=glob.HELLFIRE_VALUE_MOD
 			if(src.Attunement=="Wind")
 				Value*=1.5
-			if(Attunement=="Fire" && !src.BurningShot)
+			if(Attunement=="Fire" && !src.passive_handler.Get("BurningShot"))
 				Value/=2
 			if(src.Infusion)
 				if(!src.InfusionElement)
 					src.InfusionElement="Fire"
 				Value/=2
-			if(src.HasDebuffImmune() && !src.BurningShot)
-				Value/=1+src.GetDebuffImmune()
+			if(src.HasDebuffResistance() && !src.passive_handler.Get("BurningShot"))
+				Value/=1+src.GetDebuffResistance()
 			Value = Value // this makes 100 impossible ?
 			src.Burn+=Value
-			if(Value >=1 && !src.BurningShot)
+			if(Value >=1 && !src.passive_handler.Get("BurningShot"))
 				animate(src, color = "#ff2643")
 				animate(src, color = src.MobColor, time=5)
 			if(Attacker)
 				var/darkFlame = Attacker.HasDarknessFlame()
 				if(darkFlame&&Attacker!=src)
-					if(Attacker.IsEvil())
-						Attacker.CursedWounds+=1
 					src.AddPoison(Value * 1 + (darkFlame * 0.125), Attacker=Attacker)
-					if(Attacker.IsEvil())
-						Attacker.CursedWounds-=1
+			if(Attacker)
+				if(Attacker.passive_handler["Combustion"] && Burn >= Attacker.passive_handler["Combustion"])
+					implodeDebuff(Attacker.passive_handler["Combustion"], "Burn")
+
 
 			if(src.Burn>100)
 				src.Burn=100
@@ -362,8 +373,8 @@ mob
 				if(!src.InfusionElement)
 					src.InfusionElement="Water"
 				Value/=2
-			if(src.HasDebuffImmune())
-				Value/=1+src.GetDebuffImmune()
+			if(src.HasDebuffResistance())
+				Value/=1+src.GetDebuffResistance()
 			Value = Value*(1-(src.Slow/glob.DEBUFF_STACK_RESISTANCE))
 			src.Slow+=Value
 
@@ -377,6 +388,9 @@ mob
 					src.Shock+=Value/2
 					if(src.Shock>100)
 						src.Shock=100
+			if(Attacker)
+				if(Attacker.passive_handler["IceAge"] && Slow >= Attacker.passive_handler["IceAge"])
+					implodeDebuff(Attacker.passive_handler["IceAge"], "Chill")
 			if(src.Slow>100)
 				src.Slow=100
 			if(src.Slow<0)
@@ -407,8 +421,8 @@ mob
 			if(Attunement=="Earth")
 				Value/=2
 
-			if(src.HasDebuffImmune())
-				Value/=1+src.GetDebuffImmune()
+			if(src.HasDebuffResistance())
+				Value/=1+src.GetDebuffResistance()
 			Value = Value*(1-(src.Shatter/glob.DEBUFF_STACK_RESISTANCE))
 			src.Shatter+=Value
 
@@ -446,8 +460,8 @@ mob
 			if(Attunement=="Wind")
 				Value/=2
 
-			if(src.HasDebuffImmune())
-				Value/=1+src.GetDebuffImmune()
+			if(src.HasDebuffResistance())
+				Value/=1+src.GetDebuffResistance()
 			Value = Value*(1-(src.Shock/glob.DEBUFF_STACK_RESISTANCE))
 			src.Shock+=Value
 
@@ -471,30 +485,24 @@ mob
 		AddPoison(var/Value, var/mob/Attacker=null)
 			if(src.Stasis)
 				return
-			if(src.Infusion||src.VenomResistance)
-				if(src.VenomResistance)
-					if(Attacker.Attunement=="HellFire")
-						Value*=glob.HELLFIRE_VALUE_MOD
-						Sheared+=Value/2
-						if(Sheared>=100)
-							Sheared=100
-						Crippled+=Value/3
-						if(Crippled>=100)
-							Crippled=100
-					src.Poison+=Value/(1+src.VenomResistance)
-			else
-				if(Attunement=="Poison")
-					Value/=2
-				Value = Value*(1-(src.Poison/glob.DEBUFF_STACK_RESISTANCE))
-				src.Poison+=Value
 
-				if(Value >=1)
-					animate(src, color = "#ff1cff")
-					animate(src, color = src.MobColor, time=5)
+			if(Attunement=="Poison")
+				Value/=2
+			Value /= 1+passive_handler.Get("VenomResistance")
+			Value = Value*(1-(src.Poison/glob.DEBUFF_STACK_RESISTANCE))
+			src.Poison+=Value
 
-				if(Attacker&&Attacker.CursedWounds())
-					AddShearing(Value/2)
-					AddCrippling(Value/3)
+			if(Value >=1)
+				animate(src, color = "#ff1cff")
+				animate(src, color = src.MobColor, time=5)
+			if(Attacker && client)
+				if(Attacker.passive_handler["BlindingVenom"])
+					if(!BlindingVenom)
+						BlindingVenom=Attacker.passive_handler["BlindingVenom"]
+
+			if(Attacker&&Attacker.CursedWounds())
+				AddShearing(Value/2)
+				AddCrippling(Value/3)
 			if(src.Poison>100)
 				src.Poison=100
 			if(src.Poison<0)
@@ -539,15 +547,12 @@ mob
 		AddCrippling(var/Value, var/mob/Attacker=null)
 			if(src.Stasis)
 				return
-			if(isRace(MAKYO) || GetSpd() < 1.25)
-				Value = 0
-				return
 			// if(src.isRace(MAJIN))
 			// 	if(!src.AscensionsAcquired||src.AscensionsAcquired>=3)
 			// 		Value=0
-			if(Race == "Dragon" && Class == "Lightning")
+			if(isRace(DRAGON) && Class == "Wind")
 				Value /= 2
-			if(src.HasLegendaryPower() > 0.75)
+			if(src.HasMythical() > 0.75)
 				Value = Value*(1-(src.Crippled/glob.DEBUFF_STACK_RESISTANCE))
 				src.Crippled+=Value
 			if(src.Crippled>100)
@@ -596,33 +601,33 @@ mob
 
 			if(src.Shatter)
 				if(src.Sprayed)
-					src.Shatter-=(src.GetEnd(0.25)+src.GetDef(0.1))*2*(1+src.GetDebuffImmune())
+					src.Shatter-=(src.GetEnd(0.25)+src.GetDef(0.1))*2*(1+src.GetDebuffResistance())
 				else
-					src.Shatter-=(src.GetEnd(0.25)+src.GetDef(0.1))*(1+src.GetDebuffImmune())
+					src.Shatter-=(src.GetEnd(0.25)+src.GetDef(0.1))*(1+src.GetDebuffResistance())
 				if(src.Shatter<=0)
 					src.Shatter=0
 
 			if(src.Slow)
 				if(src.Cooled)
-					src.Slow-=(src.GetEnd(0.25)+src.GetSpd(0.1))*2*(1+src.GetDebuffImmune())
+					src.Slow-=(src.GetEnd(0.25)+src.GetSpd(0.1))*2*(1+src.GetDebuffResistance())
 				else
-					src.Slow-=(src.GetEnd(0.25)+src.GetSpd(0.1))*(1+src.GetDebuffImmune())
+					src.Slow-=(src.GetEnd(0.25)+src.GetSpd(0.1))*(1+src.GetDebuffResistance())
 				if(src.Slow<=0)
 					src.Slow=0
 
 			if(src.Shock)
 				if(src.Stabilized)
-					src.Shock-=(src.GetEnd(0.25)+src.GetSpd(0.1))*2*(1+src.GetDebuffImmune())
+					src.Shock-=(src.GetEnd(0.25)+src.GetSpd(0.1))*2*(1+src.GetDebuffResistance())
 				else
-					src.Shock-=(src.GetEnd(0.25)+src.GetSpd(0.1))*(1+src.GetDebuffImmune())
+					src.Shock-=(src.GetEnd(0.25)+src.GetSpd(0.1))*(1+src.GetDebuffResistance())
 				if(src.Shock<=0)
 					src.Shock=0
 
 			if(src.Crippled)
 				if(src.Sprayed)
-					src.Crippled-=(src.GetSpd(0.25)+src.GetDef(0.1))*2*(1+src.GetDebuffImmune())
+					src.Crippled-=(src.GetSpd(0.25)+src.GetDef(0.1))*2*(1+src.GetDebuffResistance())
 				else
-					src.Crippled-=(src.GetSpd(0.25)+src.GetDef(0.1))*(1+src.GetDebuffImmune())
+					src.Crippled-=(src.GetSpd(0.25)+src.GetDef(0.1))*(1+src.GetDebuffResistance())
 				if(src.Crippled<=0)
 					src.Crippled=0
 

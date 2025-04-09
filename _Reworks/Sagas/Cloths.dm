@@ -50,19 +50,32 @@ sagaTierUpMessages/Cosmo
 						if(!locate(/obj/Skills/AutoHit/Phoenix_Rising_Wing, src))
 							src.AddSkill(new/obj/Skills/AutoHit/Phoenix_Rising_Wing)
 			if(3)
+				SenseUnlocked = 6
 				var/v2Path = "/obj/Skills/Buffs/SpecialBuffs/Saint_Cloth/Bronze_Cloth_V2/[ClothBronze]_Cloth"
 				for(var/obj/Skills/Buffs/SpecialBuffs/Saint_Cloth/Bronze_Cloth/Buff in src)
 					if(src.BuffOn(Buff))
 						Buff.Trigger(src, 1)
 					del Buff
-				if(ClothBronze=="Pheonix")
+				if(ClothBronze=="Phoenix")
 					totalExtraVoidRolls++
 				src.AddSkill(new v2Path)
 			if(4)
 				ZodiacCharges++
+				if(!ClothGold)
+					PickGoldCloth()
+					if(!glob.infConstellations)
+						glob.takeLimited("GoldConstellation", ClothGold)
+				AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/SeventhSense)
 				if(!locate(/obj/Skills/Utility/Zodiac_Invocation, src))
 					src.AddSkill(new/obj/Skills/Utility/Zodiac_Invocation)
 			if(5)
+				SenseUnlocked++
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/SeventhSense/SS in src)
+					SS.NeedsHealth = 25
+					SS.ActiveMessage="burns their Cosmo with full strength and attains the Eighth Sense!!!"
+					SS.OffMessage="has lost their Eighth Sense..."
+					SS.TooMuchHealth = 50
+					SS.passives["SpiritPower"] = 0.25
 				switch(src.ClothGold)
 					if("Aries")
 						if(!locate(/obj/Skills/Projectile/Stardust_Revolution, src))
@@ -127,8 +140,6 @@ sagaTierUpMessages/Cosmo
 							src.AddSkill(new/obj/Skills/AutoHit/Restriction)
 						if(!locate(/obj/Skills/Queue/Antares, src))
 							src.AddSkill(new/obj/Skills/Queue/Antares)
-						if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Katekao, src))
-							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Katekao)
 					if("Capricorn")
 						if(!locate(/obj/Skills/Projectile/Sacred_Sword, src))
 							src.AddSkill(new/obj/Skills/Projectile/Sacred_Sword)
@@ -160,19 +171,26 @@ sagaTierUpMessages/Cosmo
 							src.AddSkill(new/obj/Skills/Queue/Piranhan_Rose)
 						if(!locate(/obj/Skills/AutoHit/Bloody_Rose, src))
 							src.AddSkill(new/obj/Skills/AutoHit/Bloody_Rose)
+					if("Sagittarius")
+						if(!locate(/obj/Skills/Projectile/Light_Impulse, src))
+							src.AddSkill(new/obj/Skills/Projectile/Light_Impulse)
+						if(!locate(/obj/Skills/Projectile/Infinity_Break, src))
+							src.AddSkill(new/obj/Skills/Projectile/Infinity_Break)
+						if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Sagittarius_Bow, src))
+							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Sagittarius_Bow)
 			if(6)
-				SenseUnlocked=6
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/SeventhSense/SS in src)
+					SS.NeedsHealth = 40
+					SS.TooMuchHealth = 75
+				SenseUnlocked++
 
-
-/obj/Skills/Buffs/SlotlessBuffs/SeventhSense
+/obj/Skills/Buffs/SlotlessBuffs/SeventhSense // OLD
+/obj/Skills/Buffs/SlotlessBuffs/Autonomous/SeventhSense
 	BuffName = "Seventh Sense"
 	SenseUnlocked = 1
 	TooMuchHealth = 30
+	NeedsHealth = 15
+	WoundIntentRequired = TRUE
 	ActiveMessage="burns their Cosmo with full strength and attains the Seventh Sense!!!"
 	OffMessage="has lost their Seventh Sense..."
-	Trigger(mob/p, Override)
-		..()
-		if(!p.BuffOn(src))
-			del src
-
 

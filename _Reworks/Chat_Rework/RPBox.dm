@@ -6,11 +6,15 @@ mob/proc
 			savedRoleplay = replacetext(savedRoleplay, "\'", "\\\\'")
 			savedRoleplay = replacetext(savedRoleplay, "\"", "\\\"")
 
+mob/var/tmp/lastRPTime = 0
+
 mob/verb/
 	SubmitRP()
 		set hidden = 1
 		set instant = 1
-
+		if(!rping) return
+		if(lastRPTime >= world.time) return
+		lastRPTime = world.time + 10
 		usr.overlays -= usr.emoteBubble
 		winset(usr, "RPWindow", "is-visible=false")
 		var/msg = winget(usr, "RPWindow.rpbox", "text")
@@ -65,9 +69,7 @@ mob
 			if(findtext(msg, quotationTextColor))
 				msg = quotationTextColor.Replace(msg, "<font color=\"[Text_Color]\">$0</font>")
 
-			var/list/hearers
-			if(usr.in_vessel) hearers = in_vessel.occupant_refs
-			else hearers = hearers(20,src)
+			var/list/hearers = hearers(20,src)
 
 			var/formattedMessage
 
@@ -78,6 +80,7 @@ mob
 
 			for(var/mob/E as anything in hearers)
 				if(!E.client) continue
+				if(!E.Admin && E.Mapper && E.invisibility) continue
 				E.client.outputToChat("[E.Controlz(src)][formattedMessage]", IC_OUTPUT)
 
 				Log(E.ChatLog(),"<font color=red>*[name]([key]) [html_decode(formattedMessage)]*")

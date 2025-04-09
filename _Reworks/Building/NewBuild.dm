@@ -63,13 +63,13 @@ client
 			mob.GenerateHUD()
 
 		CreateHighlight()
-			highlight = new
+			highlight = new()
 			highlight.icon = 'outline.dmi'
-			highlight.pixel_x = -1
-			highlight.pixel_y = -1
-			highlight.vis_flags = VIS_INHERIT_ID
-			highlight.plane = 3
+			highlight.invisibility = 2
 			highlight.layer = 10
+			highlight.pixel_w = -1
+			highlight.pixel_z = -1
+			highlight.plane = 3
 
 		UpdateHighlightColor()
 			highlight.color = mob?.hudColor
@@ -158,13 +158,12 @@ client
 				var/obj/Others/Build/B=new
 				B.Creates=T.type
 				B.name="-[T.name]-"
-				if(istype(src,/obj/Turfs/CustomObj1))
-					usr.CustomObj1Icon=T.icon
-					usr.CustomObj1State=T.icon_state
-					usr.CustomObj1Layer=T.layer
-					usr.CustomObj1Density=T.density
-					usr.CustomObj1X=T.pixel_x
-					usr.CustomObj1Y=T.pixel_y
+				if(istype(T,/turf/CustomTurf))
+					usr.CustomTurfIcon=T.icon
+					usr.CustomTurfState=T.icon_state
+					usr.CustomTurfRoof = T:Roof
+					usr.CustomTurfDensity=T.density
+					usr.CustomTurfOpacity=T.opacity
 				else
 					B.icon=T.icon
 					B.icon_state=T.icon_state
@@ -189,6 +188,7 @@ client
 						usr.CustomObj1Density=O.density
 						usr.CustomObj1X=O.pixel_x
 						usr.CustomObj1Y=O.pixel_y
+						usr.CustomObjEdge = O:edge
 					else
 						B.icon=O.icon
 						B.icon_state=O.icon_state

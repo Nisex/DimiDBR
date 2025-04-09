@@ -70,7 +70,7 @@ mob/Admin2/verb/ModifyCompanion(obj/Skills/Companion/A in world)
 	var/choice = input("??") as null|anything in options
 	switch(choice)
 		if("Add Companion Skill")
-			var/blah={"<Magic><body bgcolor=#000000 text="white" link="red">"}
+			var/blah={"<html><Magic><body bgcolor=#000000 text="white" link="red">"}
 			var/list/B=new
 			blah+="[A]<br>[A.type]"
 			blah+="<table width=10%>"
@@ -79,6 +79,7 @@ mob/Admin2/verb/ModifyCompanion(obj/Skills/Companion/A in world)
 				blah+="<td><a href=byond://?src=\ref[A];action=companionskill;var=[C]>"
 				blah+="[C]"
 				blah+="<td></td></tr>"
+			blah += "</html>"
 			usr<<browse(blah,"window=[A];size=450x600")
 		if("Add Squad Member")
 			for()
@@ -317,7 +318,7 @@ var/list/ai_database = list(
 		techniques=list("/obj/Skills/Projectile/Shine_Shot","/obj/Skills/Projectile/Charge","/obj/Skills/Projectile/Blast")),
 
 	"xenomorph praetorian" = new/ai_sheet(id="xenomorphpraetorian",properties=list(icon='xenomorph.dmi',name="Xenomorph Praetorian",\
-		BaseMod=10,ai_adapting_power=1,LegendaryPower=1,\
+		BaseMod=10,ai_adapting_power=1,Mythical=1,\
 		StrMod=7,EndMod=5,ForMod=1.5,OffMod=5,DefMod=1.5,SpdMod=4,Potential=100,\
 		ai_hostility=2,ai_wander=1,ai_alliances=list("Xenomorph")),\
 		techniques=list("/obj/Skills/AutoHit/RushStrike","/obj/Skills/AutoHit/PhantomStrike","/obj/Skills/AutoHit/Knockoff_Wave","/obj/Skills/Projectile/Shine_Shot","/obj/Skills/Projectile/Dragon_Buster")),
@@ -406,7 +407,6 @@ mob/Player/AI
 		secretDatum = null
 		MonkeySoldiers = null
 		knowledgeTracker = null
-		Items = null
 		equippedSword = null
 		equippedArmor = null
 		equippedWeights = null
@@ -416,8 +416,6 @@ mob/Player/AI
 		..()
 	icon = 'Makyo1.dmi'
 
-	KiBlade=1 //give these boiz access to kenjutsu
-	CursedWounds=1
 	var/tmp
 		obj/AI_Spot/senpai=null//connector to the spot that spawned the ai
 		shifts_target=0//looks for a new target every 30 * this value seconds
@@ -586,17 +584,10 @@ mob/Player/AI
 				RecovMod = rand(2,3)
 
 				if(prob(10)) //fuck with me nigga
-					GiantForm=1
+					passive_handler.Increase("GiantForm", 1)
 					transform*=2
 					appearance_flags+=512
-				if(prob(15))
-					Godspeed=1
-				TechniqueMastery=rand(1,5)
-				if(prob(5))
-					TechniqueMastery=10
 
-				if(hostile_randomize==2)
-					HellPower=1 //Hell Beasts
 
 				Intimidation = rand(1,15)
 				AngerMax+=rand(1,150)/100
@@ -612,9 +603,6 @@ mob/Player/AI
 
 				difficulty = 1.5 * 1+(Potential/50)
 				difficulty += Intimidation/20
-				if(GiantForm) difficulty+=1
-				if(HardStyle) difficulty+=1
-				if(HellPower) difficulty+=0.5
 				if(Lethal) difficulty+=2
 
 				if(HealthCut) difficulty *= 1 - (HealthCut/2)
@@ -627,7 +615,7 @@ mob/Player/AI
 						if(prob(25 * difficulty * rand(1,3)))
 							contents += new/obj/Money
 							for(var/obj/Money/m in src)
-								m.Level = round(EconomyCost * min(0.4, (0.1 * difficulty)))
+								m.Level = round(glob.progress.EconomyCost * min(0.4, (0.1 * difficulty)))
 								m.name = "[m.Level] Credits"
 						if(prob(10))
 							contents += new/obj/Items/Enchantment/PhilosopherStone/Magicite
@@ -639,7 +627,7 @@ mob/Player/AI
 						if(prob(50 * difficulty * rand(1,3)))
 							contents += new/obj/Money
 							for(var/obj/Money/m in src)
-								m.Level = round(EconomyCost * min(0.4, (0.15 * difficulty)))
+								m.Level = round(glob.progress.EconomyCost * min(0.4, (0.15 * difficulty)))
 								m.name = "[m.Level] Credits"
 						if(prob(5))
 							contents += new/obj/Items/Enchantment/PhilosopherStone/Magicite
@@ -658,13 +646,13 @@ mob/Player/AI
 							if(2)
 								if(prob(5))
 									name = "Feral [name]"
-									HellPower=1
+									passive_handler.Increase("HellPower", 1)
 								else
 									name = "[pick("Murderous","Angry","Aggressive","Hungry","Maddened")] [name]"
 						if(prob(25 * difficulty * rand(1,3)))
 							contents += new/obj/Money
 							for(var/obj/Money/m in src)
-								m.Level = round(EconomyCost * max(0.05,min(0.4, (0.075* ai_hostility * difficulty))))
+								m.Level = round(glob.progress.EconomyCost * max(0.05,min(0.4, (0.075* ai_hostility * difficulty))))
 								m.name = "[m.Level] Credits"
 						if(prob(5) && ai_hostility)
 							contents += new/obj/Items/Enchantment/PhilosopherStone/Magicite
@@ -1172,10 +1160,6 @@ mob/Player/AI
 								H << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[F.name] transmits: [src] says: [html_encode(T)]", "icchat")
 								Log(H.ChatLog(),"<font color=green>[F.name](Made by [F.CreatorKey]) transmits: [src] says: [html_encode(T)]")
 
-		for(var/obj/Items/Tech/Recon_Drone/FF in view(12,src))
-			if(FF.who)
-				FF.who << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[FF.name] transmits: [src] says: [html_encode(T)]", "output")
-				FF.who << output("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[FF.name] transmits: [src] says: [html_encode(T)]", "icchat")
 
 		for(var/obj/Items/Tech/Speaker/X in view(6,src)) //This for loop detects Speakers, then determines if they have the Intercom upgrade.
 			for(var/obj/Items/Tech/Speaker/Y in world)
@@ -1191,33 +1175,6 @@ mob/Player/AI
 							M << output("<font color=green><b>([X.name])</b> [src.name]: [html_encode(T)]", "icchat")
 							Log(M.ChatLog(),"<font color=green>([X.name])[src]([src.key]) says: [html_encode(T)]")
 
-		for(var/obj/Items/Tech/SpaceTravel/Ship/A in view(20,src)) //This for loop detects ships around those that use the say verb.
-			for(var/obj/ShipConsole/B in world)
-				if(A.Password==B.Password)
-					for(var/mob/C in hearers(20,B))
-						C << output("<font color=green><b>([A.name] External Camera)</b> [src.name]: [html_encode(T)]", "output")
-						C << output("<font color=green><b>([A.name] External Camera)</b> [src.name]: [html_encode(T)]", "icchat")
-
-		for(var/obj/ShipConsole/AA in view(20,src))
-			for(var/obj/Items/Tech/SpaceTravel/Ship/BB in world)
-				if(AA.Password==BB.Password&&AA.SpeakerToggle==1)
-					for(var/mob/C in hearers(20,BB))
-						C << output("<font color=green><b>([BB.name] External Speaker)</b> [src.name]: [html_encode(T)]", "output")
-						C << output("<font color=green><b>([BB.name] External Speaker)</b> [src.name]: [html_encode(T)]", "icchat")
-
-		for(var/obj/Items/Tech/SpaceTravel/SpacePod/A in view(20,src)) //This for loop detects ships around those that use the say verb.
-			for(var/obj/PodConsole/B in world)
-				if(A.Password==B.Password)
-					for(var/mob/C in hearers(20,B))
-						C << output("<font color=green><b>([A.name] External Camera)</b> [src.name]: [html_encode(T)]", "output")
-						C << output("<font color=green><b>([A.name] External Camera)</b> [src.name]: [html_encode(T)]", "icchat")
-
-		for(var/obj/PodConsole/AA in view(12,src))
-			for(var/obj/Items/Tech/SpaceTravel/SpacePod/BB in world)
-				if(AA.Password==BB.Password&&AA.SpeakerToggle==1)
-					for(var/mob/C in hearers(12,BB))
-						C << output("<font color=green><b>([BB.name] External Speaker)</b> [src.name]: [html_encode(T)]", "output")
-						C << output("<font color=green><b>([BB.name] External Speaker)</b> [src.name]: [html_encode(T)]", "icchat")
 		src.Say_Spark()
 
 	proc/AIGain()
@@ -1314,7 +1271,7 @@ mob/Player/AI
 		if(src.Grab)src.Grab_Update()
 
 		if(src.Stasis||src.StasisFrozen)
-			src.Stasis--
+			src.Stasis -= 200
 			if(src.Stasis<=0)
 				src.Stasis=0
 				src.RemoveStasis()
@@ -1358,11 +1315,6 @@ mob/Player/AI
 									if(prob(5))
 										spawn(rand(2,6))
 											var/icon/i = icon('RisingRocks.dmi')
-											if(Z.name=="Excalibur")
-												if(locate(/obj/Skills/Queue/Holy_Blade, usr))
-													i='SparkleGold.dmi'
-												else
-													i='DarkShockD.dmi'
 											t.overlays+=i
 											spawn(rand(10, 30))
 												t.overlays-=i
@@ -1393,8 +1345,6 @@ mob/Player/AI
 					src.SureDodge=1
 					src.SureDodgeTimer=src.SureDodgeTimerLimit
 
-		if(src.UsingIaido())
-			src.IaidoCounter++
 		if(src.UsingKendo())
 			src.IaidoCounter++
 		if(src.UsingSpeedRave())
@@ -1828,8 +1778,6 @@ mob/Player/AI
 								amounttaken=0
 							if(Q.Deluged==1)
 								amounttaken=4
-							if(src.Fishman||src.SpaceWalk||src.FusionPowered)
-								amounttaken=0
 							src.Oxygen-=amounttaken
 							if(src.Oxygen<0)
 								src.Oxygen=0
@@ -1893,7 +1841,7 @@ mob/Player/AI
 //Ratio
 		var/Ratio=1
 		Ratio*=EPM
-		if(src.HasLegendaryPower())
+		if(src.HasMythical())
 			Ratio*=1.5
 		potential_last_checked=-1
 		Ratio*=src.Base()
@@ -1919,9 +1867,6 @@ mob/Player/AI
 						Ratio*=1
 				if(locate(/obj/Seal/Power_Seal, src))
 					Ratio*=0.5
-				if(src.Race=="Changeling")
-					if(src.Anger!=0)
-						Ratio*=1+(src.GetHealthBPMult()+src.GetEnergyBPMult())
 				else if(src.CanLoseVitalBP()||src.passive_handler.Get("Anaerobic"))
 					Ratio*=1+(src.GetHealthBPMult()+src.GetEnergyBPMult())
 				if(src.JaganPowerNerf)
@@ -1950,8 +1895,6 @@ mob/Player/AI
 						a*=src.AngerMax
 					else if(Anger&&!src.HasNoAnger())
 						a*=Anger
-						if(src.Race=="Half Saiyan")
-							a=2
 						if(src.AngerMult>1)
 							var/ang=a-1//Usable anger
 							var/mult=ang*src.AngerMult
@@ -1980,10 +1923,6 @@ mob/Player/AI
 
 			if(src.Target)
 				if(ismob(src.Target))
-					if(src.CheckSlotless("Saiyan Soul"))
-						if(!HasAdaptation()&&!src.Target.CheckSlotless("Saiyan Soul"))
-							if(Power<src.Target.Power)
-								Power=src.Target.Power/src.Target.GetPowerUpRatio()
 					if(src.HasMirrorStats()&&!src.Target.HasMirrorStats()&&!src.Target.CheckSlotless("Saiyan Soul"))
 						Power=src.Target.Power/src.Target.GetPowerUpRatio()
 
@@ -2008,29 +1947,22 @@ mob/Player/AI
 					if(Health<(100*(1-src.HealthCut))||src.BioArmor<src.BioArmorMax)
 						Recover("Health",1)
 						Recover("Injury",1)
-						if(src.Restoration||src.Secret=="Zombie")
+						if(passive_handler.Get("Restoration")||src.Secret=="Zombie")
 							Recover("Health",1)
 							Recover("Injury",1)
 							BPPoisonTimer-=15
 					if(src.Energy<src.EnergyMax)
 						Recover("Energy",2)
 						Recover("Fatigue",2)
-						if(src.Restoration)
+						if(src.passive_handler.Get("Restoration"))
 							Recover("Energy",1)
 							Recover("Fatigue",1)
 					if(ManaAmount<((src.ManaMax-src.TotalCapacity)*src.GetManaCapMult())||src.Secret=="Senjutsu"&&src.CheckSlotless("Senjutsu Focus"))
 						if(!src.HasMechanized())
 							Recover("Mana",1)
-							if(src.Restoration)
+							if(src.passive_handler.Get("Restoration"))
 								Recover("Mana",1)
 					Recover("Capacity",2)
-					if(locate(/obj/Regenerate, src))
-						if(!src.Regenerating)
-							for(var/obj/Regenerate/A in src)
-								if(A.Level<1)
-									A.Level+=0.1
-									if(A.Level>=1)
-										A.Level=1
 				else
 					Recover("Energy",1)
 
@@ -2058,8 +1990,6 @@ mob/Player/AI
 					PUGain*=src.GetRecov(10)
 				else
 					PUGain*=src.GetRecov(10)
-				if(src.ChakraFreeze&&!src.PURestrictionRemove)//You can't freeze the limitless
-					PUGain*=0
 				if(src.Kaioken)
 					PUGain=0
 					src.PoweringUp=0

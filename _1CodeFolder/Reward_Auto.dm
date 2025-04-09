@@ -3,7 +3,6 @@
 //	PotentialLastDailyGain - if they have triggered a reward today
 //	RewardsLastGained - what day was it when they last gained rewards, this should b 3 for everyone
 
-/globalTracker/var/event_rpp_cap = 0.25
 /globalTracker/var/economy_charge_mult = 1
 
 /mob/proc/getDailyCheckTimer()
@@ -24,8 +23,6 @@
 	pastDay = text2num(pastDay)
 	return (currentDay - pastDay)
 
-
-
 mob
 	proc
 		reward_auto()
@@ -41,6 +38,8 @@ mob
 			if(RewardsLastGained < DaysOfWipe())
 				var/Dif=((glob.progress.DaysOfWipe-RewardsLastGained))
 				Dif=round(Dif)
+				if(DEBUGGING)
+					Dif = 1
 				if(Dif > glob.progress.DaysOfWipe)
 					Dif=glob.progress.DaysOfWipe
 				var/Statement=1
@@ -55,21 +54,12 @@ mob
 			var/YourRPP=AddRPP
 			DaysOfWipe()//mak sure globalrpp set.
 
-			if(src.RPPStartingDaysTriggered >= 0)
-				setStartingRPP()
-				src.RPPStartingDaysTriggered=-1
-			else
-				src.RPPStartingDaysTriggered=(-1)
-
 			if(YourRPP>0)
 				var/EMult=glob.progress.RPPBaseMult
 				EMult*=src.GetRPPMult()
 				YourRPP*=EMult
 
 				GiveRPP(round(YourRPP))
-
-			if(RPPEventCharges)
-				reward_self_event()
 
 			if((src.EraBody!="Child"||!src.EraBody)&&!src.Dead)
 				src << "You gain money from routine tasks."
@@ -88,30 +78,4 @@ mob
 						extraMoney = 0
 				src.GiveMoney(max(0,round(glob.progress.EconomyIncome*src.EconomyMult*src.Intelligence)) + extraMoney)
 
-		reward_self_event()
-			var/val=glob.progress.RPPDaily
-			var/EMult=glob.progress.RPPBaseMult
-			RPPEventCharges--
-			RPPEventChargesSpent++
-			EMult*=src.GetRPPMult()
-			val*=EMult
-
-			if(src.GetRPPEvent()<src.GetRPP()*glob.event_rpp_cap)//trigger rpp gains!
-				src.RPPSpendableEvent+=val
-				var/Dif=((src.GetRPP()*glob.event_rpp_cap)-src.RPPSpentEvent)
-				if(Dif<0)
-					Dif*=(-1)
-					Dif/=glob.progress.RPPDaily
-					src.EconomyEventCharges+=Dif
-					src.RPPSpendableEvent=((src.GetRPP()*glob.event_rpp_cap)-src.RPPSpentEvent)
-			else//economy only
-				src.EconomyEventCharges+=(val/glob.progress.RPPDaily)
-
-			if(locate(/obj/Skills/Utility/Teachz, src))
-				src.RPPDonate+=val
-			global.RPPEventCharges["[src.ckey]"]=round((src.GetRPPEvent()/src.GetRPPMult())/glob.progress.RPPDaily)
-
-		reward_self_econ()
-			src.GiveMoney(max(0,glob.progress.EconomyIncome * glob.economy_charge_mult * src.EconomyEventCharges))
-			src << "You've triggered [src.EconomyEventCharges] economy charges."
-			src.EconomyEventCharges=0
+			moneyGrindedDaily = 0

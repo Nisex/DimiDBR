@@ -1,5 +1,5 @@
 
-globalTracker/var/list/IGNORE_POWER_CLAMP_PASSIVES = list("Wrathful", "LimitBroken", "Star Surge")
+globalTracker/var/list/IGNORE_POWER_CLAMP_PASSIVES = list("Wrathful", "LimitBroken", "Star Surge", "Kaioken")
 
 
 /mob/proc/ignoresPowerClamp(mob/defender)
@@ -8,13 +8,13 @@ globalTracker/var/list/IGNORE_POWER_CLAMP_PASSIVES = list("Wrathful", "LimitBrok
         return TRUE
     if(!src.passive_handler || !defender.passive_handler)
         return FALSE
+    if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Power"))
+        return TRUE
     for(var/passive in glob.IGNORE_POWER_CLAMP_PASSIVES)
         if(passive_handler|=passive)
             return TRUE
     if(isRace(MAKYO))
-        if((StarPowered || HellPower) && Health <=25)
-            return TRUE
-        else if(Health <= 5 + (1 * AscensionsAcquired))
+        if((StarPowered || passive_handler.Get("HellPower")) && Health <= 10)
             return TRUE
     if(isRace(DEMON))
         if(CheckSlotless("Corrupt Self"))

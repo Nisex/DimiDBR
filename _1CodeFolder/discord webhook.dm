@@ -12,7 +12,7 @@ client
 
 	New()
 		// Enable sending HTTP POST requests by sending hidden JavaScript to the client.
-		src << browse({"<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		src << browse({"
 			<script>
 				function post(url, data) {
 					if(!url) return;

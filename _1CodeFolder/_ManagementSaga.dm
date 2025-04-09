@@ -72,6 +72,7 @@ mob/var
 	//KEYBLADES
 	KeybladeType
 	KeybladeColor
+	KeybladePath
 	list/Keychains=list()
 	KeychainAttached
 	SyncAttached
@@ -88,7 +89,7 @@ mob/var
 mob/Admin3/verb
 	SagaManagement(mob/Players/P in players)
 		set category="Admin"
-		var/list/SagaList=list("Cancel","Ansatsuken","Cosmo","Spiral","Hero","Hiten Mitsurugi-Ryuu","Kamui","Keyblade","King of Braves","Sharingan","Weapon Soul", "Unlimited Blade Works","Force")
+		var/list/SagaList=list("Cancel","Ansatsuken","Eight Gates","Cosmo","Spiral","King of Courage", "Hero","Hiten Mitsurugi-Ryuu","Kamui","Keyblade","King of Braves","Sharingan","Weapon Soul", "Unlimited Blade Works","Force")
 		if(P.Saga)
 			if(P.SagaLevel>=6)
 				src << "They've already fully mastered the power of their soul."
@@ -117,6 +118,9 @@ mob/Admin3/verb
 				return
 			else
 				selection=input("Select a Tier S to grant. This will set them to T1 in it, granting whatever verbs at that level.") in SagaList
+			for(var/obj/Skills/Buffs/NuStyle/s in P)
+				if(P.BuffOn(s))
+					s.Trigger(usr, TRUE)
 			switch(selection)
 				if("Hero")
 					P.Saga="Hero"
@@ -129,10 +133,13 @@ mob/Admin3/verb
 				if("Spiral")
 					P.Saga="Spiral"
 					P.SagaLevel=1
-					var/path = "/obj/Skills/Buffs/SpecialBuff/Spiral"
-					var/obj/Skills/Buffs/SpecialBuff/h = new path
-					P.AddSkill(h)
+					P.AddSkill(new/obj/Skills/Buffs/SpecialBuff/Spiral)
 					tierUpSaga("Spiral")
+				if("King of Courage")
+					P.Saga="King of Courage"
+					P.SagaLevel=1
+					P.AddSkill(new/obj/Skills/Buffs/SpecialBuff/King_Of_Courage)
+					tierUpSaga("King of Courage")
 				if("Cosmo")
 					P.Saga="Cosmo"
 					P.SagaLevel=1
@@ -207,6 +214,7 @@ mob/Admin3/verb
 					s.Aria.Add("I have created over a thousand blades.")
 					s.Aria.Add("Unaware of ||||.")
 					P.AddSkill(s)
+					P.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Copy_Blade)
 					P.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Projection)
 					P.AddSkill(new/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_Savant)
 					P << "You can conjure copies of equipment just from mana..."
@@ -225,24 +233,17 @@ mob/Admin3/verb
 						P.AddSkill(new/obj/Skills/Queue/JawStrike)
 					if(!locate(/obj/Skills/Queue/FallingBlade,P))
 						P.AddSkill(new/obj/Skills/Queue/FallingBlade)
-					P.SagaThreshold("Spd", 0.25)
-					P.SagaThreshold("Str", 0.125)
-					P.SagaThreshold("End", 0.125)
 					P.passive_handler.Increase("SlayerMod", 0.625)
 					P.passive_handler.Increase("Pursuer", 0.5)
 					P.passive_handler.Increase("SuperDash", 0.25)
 					P.passive_handler.Increase("Godspeed", 0.25)
-					P.SlayerMod+=0.625
-					P.Pursuer+=0.5
-					P.SuperDash+=0.25
-					P.Godspeed+=0.25
-
+					P.passive_handler.Set("FavoredPrey", "All")
 				if("Ansatsuken")
 					P<<"You begin to learn of the assassin's fist... <b>Ansatsuken</b>!"
 					P.Saga="Ansatsuken"
 					P.SagaLevel=1
 					P.passive_handler.Increase("SlayerMod", 0.625)
-					P.SlayerMod+=0.625
+					P.passive_handler.Set("FavoredPrey", "All")
 					if(!locate(/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style, P))
 						var/obj/Skills/Buffs/NuStyle/s=new/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style
 						P.AddSkill(s)
@@ -258,24 +259,25 @@ mob/Admin3/verb
 						P.AddSkill(new/obj/Skills/AutoHit/Tatsumaki)
 
 
-				// if("Eight Gates")
-				// 	P<<"After tirelessly training you finally managed to arrive at the summit of martial arts... <b>Eight Gates</b>!"
-				// 	P.Saga="Eight Gates"
-				// 	P.SagaLevel=1
-				// 	P<<"Your constant hard work shows its effects..."
-				// 	P.SagaThreshold("Str", 0.125)
-				// 	P.SagaThreshold("End", 0.125)
-				// 	P.SagaThreshold("Spd", 0.125)
-				// 	P<<"You learn to shatter your natural limitations. Be wary though: the strain of doing that may haunt your future..."
-				// 	P.AddSkill(new/obj/Skills/Buffs/ActiveBuffs/Eight_Gates)
-				// 	if(!locate(/obj/Skills/Queue/Front_Lotus, P))
-				// 		P.AddSkill(new/obj/Skills/Queue/Front_Lotus)
+				if("Eight Gates")
+					P<<"After tirelessly training you finally managed to arrive at the summit of martial arts... <b>Eight Gates</b>!"
+					P.Saga="Eight Gates"
+					P.SagaLevel=1
+					P<<"Your constant hard work shows its effects..."
+					// P.SagaThreshold("Str", 0.125)
+					// P.SagaThreshold("End", 0.125)
+					// P.SagaThreshold("Spd", 0.125)
+					P<<"You learn to shatter your natural limitations. Be wary though: the strain of doing that may haunt your future..."
+					P.AddSkill(new/obj/Skills/Buffs/ActiveBuffs/Eight_Gates)
+					if(!locate(/obj/Skills/Queue/Front_Lotus, P))
+						P.AddSkill(new/obj/Skills/Queue/Front_Lotus)
 
 				if("Sharingan")
 					P.SagaLevel=1
 					P.Saga="Sharingan"
 					P.AddSkill(new/obj/Skills/AutoHit/Sharingan_Genjutsu)
 					P.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Sharingan)
+					P.AddSkill(new/obj/Skills/Buffs/NuStyle/UnarmedStyle/Move_Duplication)
 					P<<"The curse of hatred blooms in you..."
 
 				if("Kamui")
@@ -284,32 +286,39 @@ mob/Admin3/verb
 					var/choice
 					var/confirm
 					while(confirm!="Yes")
-						choice=alert(P, "What kind of weave do you represent?", "Kamui", "Purity", "Impulse")
+						choice=alert(P, "What kind of weave do you represent?", "Kamui", "Senketsu", "Junketsu")
 						switch(choice)
-							if("Impulse")
-								confirm=alert(P, "The path of Impulse highlights the unity between clothes and humanity, recklessly fighting alongside one another.  Is this your weave?", "Kamui Path", "Yes", "No")
-							if("Purity")
-								confirm=alert(P, "The path of Purity highlights humanity's superiority over clothing, using them as protective garment subjugated by your will.  Is this your weave?", "Kamui Path", "Yes", "No")
+							if("Senketsu")
+								confirm=alert(P, "Senketsu highlights the unity between clothes and humanity, recklessly fighting alongside one another.  Is this your weave?", "Kamui Path", "Yes", "No")
+							if("Junketsu")
+								confirm=alert(P, "Junketsu highlights humanity's superiority over clothing, using them as protective garment subjugated by your will.  Is this your weave?", "Kamui Path", "Yes", "No")
 					P.KamuiType=choice
-					if(P.KamuiType=="Impulse")
+					if(P.KamuiType=="Senketsu")
 						P.contents+=new/obj/Items/Symbiotic/Kamui/KamuiSenketsu
-						P.SagaThreshold("Str", 0.2)
-						P.SagaThreshold("End", 0.2)
-					else if(P.KamuiType=="Purity")
-						P.contents+=new/obj/Items/Symbiotic/Kamui/KamuiJunketsu
-						P.SagaThreshold("Spd", 0.4)
+						var/obj/Items/Sword/Medium/Scissor_Blade/SB = new()
+						P.AddItem(SB)
+						var/ScissorBladeClass = input(P, "What class would you like to set the Scissor Blade to?") in list("Light", "Medium", "Heavy")
+						SB.Class = ScissorBladeClass
+						SB.setStatLine()
+						P << "A sword weaved from fibers finds its way into a case in your care. (Sheath to put it in it's case.)"
+						P << "Sheer embarassment washes over you, you feel like if you were to wear this, you'd practically be naked...! You can't even imagine if you had to wear it in front of others..."
+						P<<"You are cloaked in unearthly robes... <b>Kamui</b>!"
+						P<<"<i>Let's get naked.</i>"
 
-					var/obj/Items/Sword/Medium/Scissor_Blade/SB = new()
-					P.AddItem(SB)
-					P << "A sword weaved from fibers finds its way into a case in your care."
-
-					P<<"You are cloaked in unearthly robes... <b>Kamui</b>!"
-					P<<"<i>Let's get naked.</i>"
+					else if(P.KamuiType=="Junketsu")
+						P.contents += new/obj/Items/Sword/Heavy/Secret_Sword_Bakuzan
+						P.passive_handler.Increase("SwordPunching")
+						P.passive_handler.Increase("CriticalHit", 0.1)
+						P.passive_handler.Increase("CriticalChance", 10)
+						P.passive_handler.Increase("CriticalBlock", 0.1)
+						P.passive_handler.Increase("BlockChance", 10)
+						P.passive_handler.Increase("LikeWater", 2)
+						P.SureHitTimer = 25
+						P.SureDodgeTimer = 25
 
 				if("Magic Knight")
 					P.SagaLevel=1
 					P.Saga="Magic Knight"
-					P.ManaCapMult+=0.25
 					P << "You stake yourself on a code of honor and truthfulness."
 					var/Weapon=alert(P, "As an Magic Knight, you may draw a blade made of Aether or create a bow and arrow.  Which do you choose?", "Aether Weapon", "Blade", "Bow")
 					switch(Weapon)
@@ -365,6 +374,17 @@ mob/Admin3/verb
 					P.Saga="Keyblade"
 					P.SagaLevel=1
 					P.KeybladeColor=Color
+					var/inp = input(P, "What path of magic will you fall under?") in list("Fire", "Ice", "Thunder")
+					P.KeybladePath = inp
+					switch(KeybladePath)
+						if("Fire")
+							P.AddSkill(new/obj/Skills/Projectile/Magic/Fire)
+						if("Ice")
+							P.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzard)
+						if("Thunder")
+							P.AddSkill(new/obj/Skills/AutoHit/Magic/Thunder)
+					P.AddSkill(new/obj/Skills/Queue/Ars_Arcanum)
+					P << "You've mastered the magical arts of Fire, Blizzard and Thunder, and Ars Arcanum!"
 					switch(P.KeybladeColor)
 						if("Light")
 							P.KeychainAttached="Kingdom Key"
@@ -721,10 +741,12 @@ mob
 	proc
 		saga_up_self()
 			if(!src.SagaAdminPermission)
-				if(src.SagaLevel>=4)
+				if(src.SagaLevel>=3)
+					return
+				if(!src.SignatureCheck)
 					return
 			else
-				if(src.SagaLevel>=4)
+				if(src.SagaLevel>=3)
 					src << "You've been bestowed an additional tier of your Saga purposefully; enjoy your new powers, this is not a bug!"
 
 			src.SagaLevel++
@@ -846,8 +868,10 @@ mob
 									if("Firm")
 										confirm = alert(src, "The path of Firmness is one forged by remaining on your convictions, caring, and yet remaining ever selfless. A amount of durability the other two paths cannot boast due to the amount of steel in your spine. Is this your path?", "UBW Path", "Yes", "No")
 							src.UBWPath = choice
+							var/ariaStored
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Aria_Chant/s in src.contents)
-								s.Aria.Remove("Unaware of ||||.")
+								ariaStored = s.Aria[4]
+								s.Aria.Cut(4,5)
 							switch(UBWPath)
 								if("Feeble")
 								//	if(!locate(/obj/Items/Symbiotic/Shroud_of_Martin, src))
@@ -881,6 +905,8 @@ mob
 										s.Aria.Add("Withstood pain to create weapons, waiting for one's arrival.")
 										s.Aria.Add("I have no regrets, this is the only path.")
 										s.Aria.Add("My whole life was Unlimited Blade Works.")
+							for(var/obj/Skills/Buffs/SlotlessBuffs/Aria_Chant/s in src.contents)
+								s.Aria[4] = ariaStored
 							if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Magic/Broken_Phantasm, src))
 								src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Broken_Phantasm)
 							src<<"You can overreinforce any blade due to your mastery with Broken Phantasm."
@@ -889,51 +915,47 @@ mob
 							src<< "You grasp the understanding of a legendary weapon forgotten to time..."
 							//todo: study summon system & add src as a psuedo t1-3 summon that can piggyback off of summoner's mana to fuel them as they exist, then ubw users mana until they hit 50% and unsummon.
 							UBWLegendaryWeapon()
+							// src.SagaThreshold("Str", 0.25*src.SagaLevel)
+							// src.SagaThreshold("End", 0.25*src.SagaLevel)
+							// src.SagaThreshold("Spd", 0.25*src.SagaLevel)
+							// src.SagaThreshold("Off", 0.25*src.SagaLevel)
+							// src.SagaThreshold("Def", 0.25*src.SagaLevel)
 							switch(UBWPath)
 								if("Feeble")
-									passive_handler.Increase("Desperation")
-									Desperation ++
+									passive_handler.Increase("Tenacity")
 								if("Strong")
-									passive_handler.Increase("Desperation")
+									// passive_handler.Increase("Desperation")
 									passive_handler.Increase("WeaponBreaker")
-									Desperation ++
-									WeaponBreaker ++
 								if("Firm")
-									passive_handler.Increase("DebuffImmune",0.5)
+									passive_handler.Increase("DebuffResistance",0.5)
 									passive_handler.Increase("PureReduction",2)
-									DebuffImmune += 0.5
-									PureReduction += 2
 						if(5)
 							Adaptation += 0.5
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Minds_Eye)
 							switch(UBWPath)
 								if("Feeble")
-									passive_handler.Increase("Desperation", 2)
+									passive_handler.Increase("Tenacity", 2)
 									passive_handler.Increase("Adrenaline")
 									passive_handler.Increase("DeathField", 2)
-									Desperation += 2
-									Adrenaline ++
-									DeathField += 2
 								if("Strong")
 									src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/WillofAlaya)
 								if("Firm")
 									passive_handler.Increase("SpiritFlow",0.5)
 									passive_handler.Increase("DeathField", 2)
 									passive_handler.Increase("VoidField", 2)
-									SpiritFlow += 0.5
-									DeathField += 2
-									VoidField += 2
 
 						if(6)
+							// src.SagaThreshold("Str", 0.25*src.SagaLevel)
+							// src.SagaThreshold("End", 0.25*src.SagaLevel)
+							// src.SagaThreshold("Spd", 0.25*src.SagaLevel)
+							// src.SagaThreshold("Off", 0.25*src.SagaLevel)
+							// src.SagaThreshold("Def", 0.25*src.SagaLevel)
+							passive_handler.Increase("GodKi", 0.75)
 							UBWLegendaryWeapon()
 							src<< "You grasp the understanding of a legendary weapon forgotten to time..."
 
 
 				if("Hiten Mitsurugi-Ryuu")
-					//triggers every level
-					src.SagaThreshold("Str", 0.166*src.SagaLevel)
-					src.SagaThreshold("End", 0.166*src.SagaLevel)
-					src.SagaThreshold("Spd", 0.33*src.SagaLevel)
 					passive_handler.Increase("SlayerMod", 0.625)
 					passive_handler.Increase("Pursuer", 0.5)
 					passive_handler.Increase("SuperDash", 0.25)
@@ -956,7 +978,6 @@ mob
 					if(src.SagaLevel==4)
 						src << "You learn to unleash Hiten Mitsurugi techniques with even faster alacrity!"
 						passive_handler.Increase("MovementMastery", 5)
-						src.MovementMastery+=5
 						var/Choice=alert(src, "Hiten Mitsurugi can follow the path of tradition, embracing the code of a hermit and honorable warrior or can truly become an ultimate tool of murder. What is the mantle you will bear?", "Hiten Path", "Tradition", "Slaughter")
 						if(Choice=="Tradition")
 							src<<"You embrace the path of tradition, sharpening your art and making it a constant presence in your life!"
@@ -988,7 +1009,7 @@ mob
 
 					if(src.SagaLevel>=1&&src.SagaLevel<4)
 						if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_Infected, src))
-							if(prob(50))
+							if(prob(glob.SATSUICHANCE))
 								src << "Your drive for victory sometimes overwhelms you..."
 								src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Satsui_Infected)
 					passive_handler.Increase("SlayerMod",0.5)
@@ -1005,8 +1026,8 @@ mob
 							if("Shoryuken")
 								src << "Your Shoryuken and EX-Shoryuken improve!"
 								for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style/ans in src)
-									ans.Finisher="/obj/Skills/Queue/Finisher/Shoryureppa1"
-									src << "You learn to perform the special finisher: Shoryureppa!"
+									ans.Finisher="/obj/Skills/Queue/Finisher/Shin_Shoryuken"
+									src << "You learn to perform the special finisher: Shin Shoryuken!"
 							if("Tatsumaki")
 								src << "Your Tatsumaki and EX-Tatsumaki improve!"
 								for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ansatsuken_Style/ans in src)
@@ -1019,9 +1040,9 @@ mob
 									src << "You've developed almighty energy projection: Shinku Hadoken!"
 									src.AddSkill(new/obj/Skills/Projectile/Ansatsuken/Shinku_Hadoken)
 							if("Shoryuken")
-								if(!locate(/obj/Skills/Queue/Shin_Shoryuken, src))
-									src << "You've developed peerless coordination: Shinku Shoryuken!"
-									src.AddSkill(new/obj/Skills/Queue/Shin_Shoryuken)
+								if(!locate(/obj/Skills/Queue/Shinryureppa, src))
+									src << "You've developed peerless coordination: Shinryureppa!"
+									src.AddSkill(new/obj/Skills/Queue/Shinryureppa)
 							if("Tatsumaki")
 								if(!locate(/obj/Skills/AutoHit/ShinkuTatsumaki, src))
 									src << "You've developed domineering aerial power: Shinku Tatsumaki!"
@@ -1126,44 +1147,28 @@ mob
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Susanoo)
 							src << "You can manifest a ghastly armor to protect and augment your attacks!"
 
-				// if("Eight Gates")
-				// 	src.SagaThreshold("Str", 0.125*src.SagaLevel)
-				// 	src.SagaThreshold("End", 0.125*src.SagaLevel)
-				// 	src.SagaThreshold("Spd", 0.125*src.SagaLevel)
-				// 	if(src.SagaLevel==3)
-				// 		if(!locate(/obj/Skills/Queue/Reverse_Lotus, src))
-				// 			src.AddSkill(new/obj/Skills/Queue/Reverse_Lotus)
-				// 			src << "You learned how to unleash the full might of your body in a devastating sequence of strikes: <b>Reverse Lotus</b>!!!"
-				// 		var/Choice=alert(src, "What kind of strikes does your fighting style focus on?", "Martial Art", "Punches", "Kicks", "Both")
-				// 		if(Choice=="Punches")
-				// 			var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Strong_Fist_Style/bls=new
-				// 			bls.Mastery=4
-				// 			bls.SagaSignature=1
-				// 			src.AddSkill(bls)
-				// 		if(Choice=="Kicks")
-				// 			var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style/bls=new
-				// 			bls.Mastery=4
-				// 			bls.SagaSignature=1
-				// 			src.AddSkill(bls)
-				// 		if(Choice=="Both")
-				// 			var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Lightning_Kickboxing_Style/bls=new
-				// 			bls.Mastery=4
-				// 			bls.SagaSignature=1
-				// 			src.AddSkill(bls)
-				// 	if(src.SagaLevel==4)
-				// 		if(!locate(/obj/Skills/Queue/Morning_Peacock, src))
-				// 			src.AddSkill(new/obj/Skills/Queue/Morning_Peacock)
-				// 			src << "You can perform a barrage of strikes that burn away the very air: <b>Morning Peacock</b>!!!"
-				// 	if(src.SagaLevel==5)
-				// 		if(!locate(/obj/Skills/Projectile/Beams/Big/Eight_Gates/Daytime_Tiger, src))
-				// 			src.AddSkill(new/obj/Skills/Projectile/Beams/Big/Eight_Gates/Daytime_Tiger)
-				// 			src << "You can release a wave of pure kinetic force that devours all in its path: <b>Daytime Tiger</b>!!!"
-				// 	if(src.SagaLevel==6)
-				// 		if(!locate(/obj/Skills/Projectile/Evening_Elephant, src))
-				// 			src.AddSkill(new/obj/Skills/Projectile/Evening_Elephant)
-				// 			src << "You can unleash a powerful combination that shakes the foundations of earth: <b>Evening Elephant</b>!!!"
-				// 		if(!locate(/obj/Skills/AutoHit/Night_Guy, src))
-				// 			src.contents+=new/obj/AutoHit/Night_Guy
+				if("Eight Gates")
+					// src.SagaThreshold("Str", 0.125*src.SagaLevel)
+					// src.SagaThreshold("End", 0.125*src.SagaLevel)
+					// src.SagaThreshold("Spd", 0.125*src.SagaLevel)
+					if(src.SagaLevel==3)
+						if(!locate(/obj/Skills/Queue/Reverse_Lotus, src))
+							src.AddSkill(new/obj/Skills/Queue/Reverse_Lotus)
+							src << "You learned how to unleash the full might of your body in a devastating sequence of strikes: <b>Reverse Lotus</b>!!!"
+					if(src.SagaLevel==4)
+						if(!locate(/obj/Skills/Queue/Morning_Peacock, src))
+							src.AddSkill(new/obj/Skills/Queue/Morning_Peacock)
+							src << "You can perform a barrage of strikes that burn away the very air: <b>Morning Peacock</b>!!!"
+					if(src.SagaLevel==5)
+						if(!locate(/obj/Skills/Projectile/Beams/Big/Eight_Gates/Daytime_Tiger, src))
+							src.AddSkill(new/obj/Skills/Projectile/Beams/Big/Eight_Gates/Daytime_Tiger)
+							src << "You can release a wave of pure kinetic force that devours all in its path: <b>Daytime Tiger</b>!!!"
+					if(src.SagaLevel==6)
+						if(!locate(/obj/Skills/Projectile/Evening_Elephant, src))
+							src.AddSkill(new/obj/Skills/Projectile/Evening_Elephant)
+							src << "You can unleash a powerful combination that shakes the foundations of earth: <b>Evening Elephant</b>!!!"
+					//		if(!locate(/obj/Skills/AutoHit/Night_Guy, src))
+					//			src.contents+=new/obj/AutoHit/Night_Guy
 
 				if("King of Braves")
 					if(src.SagaLevel==2)
@@ -1171,14 +1176,16 @@ mob
 							src.AddSkill(new/obj/Skills/Queue/DrillKnee)
 						src << "You can form an energy drill out of your body, capable of delivering deciding strikes!"
 					if(src.SagaLevel==3)
-						if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Plasma_Hold, src))
-							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Plasma_Hold)
+						if(!locate(/obj/Skills/AutoHit/Plasma_Hold, src))
+							src.AddSkill(new/obj/Skills/AutoHit/Plasma_Hold)
 						if(!locate(/obj/Skills/AutoHit/Hell_And_Heaven, src))
 							src << "You become capable of delivering the ultimate finishing move: Hell and Heaven!"
 							src.AddSkill(new/obj/Skills/AutoHit/Hell_And_Heaven)
 					if(src.SagaLevel==4)
 						if(!locate(/obj/Skills/Buffs/SlotlessBuffs/Dividing_Driver, src))
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Dividing_Driver)
+						if(!locate(/obj/Skills/AutoHit/Giga_Drill_Breaker, src))
+							src.AddSkill(new/obj/Skills/AutoHit/Giga_Drill_Breaker)
 						if(!locate(/obj/Skills/AutoHit/Goldion_Hammer, src))
 							src.AddSkill(new/obj/Skills/AutoHit/Goldion_Hammer)
 						src << "You can spawn a set of power tools strong enough to rupture dimensions: Dividing Driver and Goldion Hammer!"
@@ -1187,7 +1194,7 @@ mob
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Protect_Wall)
 						if(!locate(/obj/Skills/Projectile/King_of_Braves/Broken_Phantom, src))
 							src.AddSkill(new/obj/Skills/Projectile/King_of_Braves/Broken_Phantom)
-						src.SpaceWalk+=1
+						passive_handler.Increase("SpaceWalk", 1)
 						src.CyberizeMod+=0.5
 						if(src.CyberizeMod>1)
 							src.CyberizeMod=1
@@ -1197,93 +1204,10 @@ mob
 						src << "You master using the power of Destruction and Protection simultaneously!"
 						src << "Your Heaven and Hell reaches its perfected form: <b>Genesic Heaven and Hell</b>!"
 
-				if("Magic Knight")
-					var/list/Aethers=list("Strength", "Endurance", "Force", "Offense", "Defense")
-					//Add in Aether selections
-					src.ManaCapMult+=0.25//this triggers every level
-					if(src.SagaLevel==2)
-						//Every level penetrates more end/res and gives more (weapon) ascension
-						src.BetterAim+=1
-						src<<"Your mastery at spells grants your projected energy supernatural accuracy!"
-						src.Juggernaut+=1
-						src<<"Your knightly resolve allows you to withstand many assaults without flinching!"
-					if(src.SagaLevel==3)
-						var/Aether=input(src, "As your mastery of Aether grows, it heightens one of your attributes at rest.  Which attribute?", "Aether Ascension") in Aethers
-						switch(Aether)
-							if("Strength")
-								src.StrAscension+=0.5
-							if("Endurance")
-								src.EndAscension+=0.5
-							if("Force")
-								src.ForAscension+=0.5
-							if("Offense")
-								src.OffAscension+=0.5
-							if("Defense")
-								src.DefAscension+=0.5
-					if(src.SagaLevel==4)
-						src.StunningStrike+=1
-						src<<"Your magical prowess is versatile and constant; a chance blow imbued with mana can stun your enemies!"
-						src.Unstoppable+=1
-						src<<"Your unflagging will carries you through whatever wounds you may face, no matter how grievous!"
-					if(src.SagaLevel==5)
-						var/Aether=input(src, "As your mastery of Aether grows, it heightens one of your attributes at rest.  Which attribute?", "Aether Ascension") in Aethers
-						switch(Aether)
-							if("Strength")
-								src.StrAscension+=0.5
-							if("Endurance")
-								src.EndAscension+=0.5
-							if("Force")
-								src.ForAscension+=0.5
-							if("Offense")
-								src.OffAscension+=0.5
-							if("Defense")
-								src.DefAscension+=0.5
-					if(src.SagaLevel==6)
-						src.SpiritPower+=1
-						src<<"Your devotion blooms in the form of becoming imbued with a truly holy aura!"
-						src.MeltyBlood+=1
-						src<<"The purity of your spirit imbues your blood with fiery wrath for those who commit the sin of bleeding you!"
-					if(src.SagaLevel==7)
-						src << "Your knightly ambition allows you to shatter reason to fulfill your goals!"//Gets barelystanding boost.
-						var/Aether=input(src, "As your mastery of Aether grows, it heightens one of your attributes at rest.  Which attribute?", "Aether Ascension") in Aethers
-						switch(Aether)
-							if("Strength")
-								src.StrAscension+=0.5
-							if("Endurance")
-								src.EndAscension+=0.5
-							if("Force")
-								src.ForAscension+=0.5
-							if("Offense")
-								src.OffAscension+=0.5
-							if("Defense")
-								src.DefAscension+=0.5
-					if(src.SagaLevel==8)
-						src<<"The absolute nature of your vow allows you to shatter all reason in pursuit of your pledge!"//Barelystanding boost is higher.
-						var/Aether=input(src, "As your mastery of Aether grows, it heightens one of your attributes at rest.  Which attribute?", "Aether Ascension") in Aethers
-						switch(Aether)
-							if("Strength")
-								src.StrAscension+=0.5
-							if("Endurance")
-								src.EndAscension+=0.5
-							if("Force")
-								src.ForAscension+=0.5
-							if("Offense")
-								src.OffAscension+=0.5
-							if("Defense")
-								src.DefAscension+=0.5
 
 				if("Kamui")
-					if(src.KamuiType=="Impulse")
-						src.SagaThreshold("Str", 0.2*src.SagaLevel)
-						src.SagaThreshold("End", 0.2*src.SagaLevel)
-						src.PUForce+=0.5
-					else if(src.KamuiType=="Purity")
-						src.SagaThreshold("Spd", 0.4*src.SagaLevel)
-
 					if(src.SagaLevel==2)
-						if(src.KamuiType=="Purity")
-							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Resolve)
-						if(src.KamuiType=="Impulse")
+						if(src.KamuiType=="Senketsu")
 							var/choice
 							var/confirm
 							while(confirm!="Yes")
@@ -1293,52 +1217,126 @@ mob
 										confirm=alert(src, "Kamui Senjin makes it so that your Kamui can assume a battle ready form, focused on potent strikes and endurance.  Do you wish to gain this form?", "Kamui Senjin", "Yes", "No")
 									if("Kamui Shippu")
 										confirm=alert(src, "Kamui Shippu makes it so that your Kamui can assume a speedy form, focused on evasion and elusive manuevers.  Do you wish to gain this form?", "Kamui Shippu", "Yes", "No")
+
 							switch(choice)
 								if("Kamui Senjin")
-									src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiSenjin)
+									src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kamui_Senjin)
+									AddSkill(new/obj/Skills/Queue/Senjin_Shredder)
 									src << "You've attained a new form for your Kamui: Kamui Senjin!"
+									src << "You've obtained Senjin Shredder; requiring Senjin active to shred your opponents against your many blades!"
+
 								if("Kamui Shippu")
-									src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiShippu)
+									src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kamui_Shippu)
+									AddSkill(new/obj/Skills/AutoHit/Shippu_Rush)
 									src << "You've attained a new form for your Kamui: Kamui Shippu!"
-						else if(src.KamuiType=="Purity")
-							src << "With each movement forward towards the realization of your ideals, your resolve strengthens..."
+									src << "You've obtained Shippu Rush; requiring Shippu active to rush your opponents down with your jet-like speed!"
+
+							src << "The stares of others still bother you heavily, but not as much anymore!"
+							src << "You can now properly utilize your scissor blade with Decapitation Mode & Sen-i-Soshitsu!"
+							src << "You feel as if your blood may boil over at any moment if you get too angry..."
+							src << "You begin to find strands of Kamui threads occasionally peeking out of your body..."
+							RecovMod *= 2
+
+						else if(src.KamuiType=="Junketsu")
+							src << "You gain the means to form an empire!"
+							var/name = input(src, "What do you want the empire to be named?") as text
+							var/guild/guild = new()
+							guild.name = name
+							guild.id = ++glob.guildIDTicker
+							glob.guilds += guild
+							guild.joinGuild(src)
+							guild.ownerID = src?:UniqueID
+							guild.checkVerbs(src)
+							src << "Your empire, [guild.name], is now created."
+							src << "You gain the means to assign pieces of life fibers to infuse into your subjects; enough for four roles!"
+							AddSkill(new/obj/Skills/Bestow_Life_Fiber/Bestow_Disciplinary_Chair)
+							src << "An Disciplinary Committee Chair, someone to take the harshest of assaults at your walls."
+							AddSkill(new/obj/Skills/Bestow_Life_Fiber/Bestow_Athletic_Chair)
+							src << "An Athletic Committee Chair, someone with the agility to outpace even the fastest."
+							AddSkill(new/obj/Skills/Bestow_Life_Fiber/Bestow_Non_Athletic_Chair)
+							src << "An Non-Athletic Committee Chair, someone to manage the magic of your empire."
+							AddSkill(new/obj/Skills/Bestow_Life_Fiber/Bestow_Information_and_Strategy_Chair)
+							src << "An Information & Strategy Committee Chair, someone to manage the technology of your empire."
+
 					if(src.SagaLevel==3)
-						if(src.KamuiType=="Impulse")
-							if(locate(/obj/Skills/Buffs/SpecialBuffs/KamuiSenjin, src))
-								src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiShippu)
+						if(src.KamuiType=="Senketsu")
+							if(locate(/obj/Skills/Buffs/SpecialBuffs/Kamui_Senjin, src))
+								src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kamui_Shippu)
+								AddSkill(new/obj/Skills/AutoHit/Shippu_Rush)
 								src << "You've attained a new form for your Kamui: Kamui Shippu!"
-							else if(locate(/obj/Skills/Buffs/SpecialBuffs/KamuiShippu, src))
-								src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiSenjin)
+								src << "You've obtained Shippu Rush; requiring Shippu active to rush your opponents down with your jet-like speed!"
+
+							else if(locate(/obj/Skills/Buffs/SpecialBuffs/Kamui_Shippu, src))
+								src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kamui_Senjin)
+								AddSkill(new/obj/Skills/Queue/Senjin_Shredder)
 								src << "You've attained a new form for your Kamui: Kamui Senjin!"
-						else if(src.KamuiType=="Purity")
-							src << "Through your trials, your resolve sharpens, cutting deeper than glass, sharp enough to sever any thread..."
+								src << "You've obtained Senjin Shredder; requiring Senjin active to shred your opponents against your many blades!"
+
+							src << "You can now tweak the size of the life fibers in your scissor blade to your whim!"
+							src << "The stares of others don't bother you so much anymore!"
+
+						else if(src.KamuiType=="Junketsu")
+							src << "You gain a set of life fibers donned into an aggressive, hateful thing - Kamui Junketsu."
+							contents += new/obj/Items/Symbiotic/Kamui/KamuiJunketsu
+
 					if(src.SagaLevel==4)
-						if(src.KamuiType=="Impulse")
-							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiSenjinShippu)
-							src << "Through adapting to your trials and your own impulsive ambition, you've merged the two forms of your Kamui!"
-							src << "Now you can access Senjin Shippu!"
-						else if(src.KamuiType=="Purity")
+						if(src.KamuiType=="Senketsu")
+							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Kamui_Senjin_Shippu)
+							src << "Through adapting to your trials and your own impulsive ambition, you've merged the two forms of your Kamui - Senjin Shippu!"
+							src << "You feel as if those eyes on your form just bolster you, instead of hamper you! You feel fully in sync with your Kamui!"
+							src << "You can now tweak the size of the life fibers in your scissor blade to your whim!"
+						else if(src.KamuiType=="Junketsu")
 							src << "Though your body may fail you, your ambition will reach across the world!"
-							src << "Your resolve allows you to force your Kamui to take on a new form: Kamui Senpu!"
-							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiSenpu)
+
 					if(src.SagaLevel==5)
-						if(src.KamuiType=="Impulse")
-							src << "You've united entirely with your Kamui, and you fight as one with no downsides!"
-						else if(src.KamuiType=="Purity")
-							src << "Your resolve allows you to force your Kamui to take on new form: Senpu Zanken!"
-							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/KamuiSenpuZanken)
-					if(src.SagaLevel==6)
-						if(src.KamuiType=="Impulse")
-							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
+						if(src.KamuiType=="Senketsu")
+							src << "You've united entirely with your Kamui, and you fight as one with hardly any downsides!"
+							src << "Your whole body has become suffused with life fibers - allowing you to regenerate even the most grievous of wounds!"
+							passive_handler.Increase("Unstoppable", 1)
+							AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
 							for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/R in src)
 								R.RegenerateLimbs=1
-							if(src.RecovMod < 3)
-								src.RecovMod=3
+							var/obj/Regenerate/deathRegen = new()
+							deathRegen.Level = 1
+							contents += deathRegen
+
+						else if(src.KamuiType=="Junketsu")
+							var/choice
+							var/confirm
+							while(confirm != "Yes")
+								choice = input("Two paths beckon before you; that of Clothes, or that of Rebellion. You may select to see more before confirming.") in list("Clothes", "Rebellion")
+								var/confirmText
+								if(choice == "Clothes")
+									confirmText = "The path of Shinra Koketsu; to devote your existence towards that of subjugating others beneath the glory of Life Fibers. A path that forsakes Junketsu, but enhances the self with all the glory of Life Fibers have to offer."
+								if(choice == "Rebellion")
+									confirmText = "The path of Junketsu; to show that life fibers are just another thing meant to be brought to heel beneath you. A path that will enhance Junketsu further, pushing the Kamui beyond it's usual limits."
+								confirm = input("[confirmText] <br><br>Are you sure about your decision?") in list("Yes", "No")
+							if(choice == "Clothes")
+								KamuiType = "Shinra Koketsu"
+								passive_handler.Increase("Unstoppable", 1)
+								AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Regeneration)
+								for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/R in src)
+									R.RegenerateLimbs=1
+								if(usr.CheckActive("Life Fiber Override"))
+									usr.ActiveBuff.Trigger(usr)
+								for(var/obj/Items/Symbiotic/Kamui/KamuiJunketsu/ks in usr)
+									if(ks.suffix)
+										ks.AlignEquip(usr)
+									del ks
+
+							if(choice == "Rebellion")
+								src << "placeholder"
+
+					if(src.SagaLevel==6)
+						if(src.KamuiType=="Senketsu")
+							src.RecovMod *= 2
+							src << "You gain the ability to unite with your kamui..."
+							src.contents+=new/obj/Skills/Buffs/SpecialBuffs/Kamui_Unite
 							src << "Your being has merged with life fibers."
-						else if(src.KamuiType=="Purity")
+						else if(src.KamuiType=="Junketsu")
 							src << "Unshatterable, your resolve gains a twofold edge...Your goals are nearly within your grasp."
-						src << "You gain the ability to unite with your kamui..."
-						src.contents+=new/obj/Skills/Buffs/SpecialBuffs/Kamui_Unite
+						else if (KamuiType == "Shinra Koketsu")
+							contents += new/obj/Items/Symbiotic/Kamui/Shinra_Koketsu
 				if("Keyblade")
 					if(src.SagaLevel==2)
 						switch(src.KeybladeType)
@@ -1370,11 +1368,14 @@ mob
 							if("Thunderbolt")
 								src.AddSkill(new/obj/Skills/Buffs/NuStyle/SwordStyle/Command/Thunderbolt_Style)
 						src << "You've obtained the [Choice2] command style!"
+						switch(KeybladePath)
+							if("Fire")
+								AddSkill(new/obj/Skills/Projectile/Magic/Fira)
+							if("Ice")
+								AddSkill(new/obj/Skills/AutoHit/Magic/Blizzara)
+							if("Thunder")
+								AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
 
-						src.AddSkill(new/obj/Skills/Projectile/Magic/Fire)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzard)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Thunder)
-						src << "You've mastered the magical arts of Fire, Blizzard and Thunder!"
 					if(src.SagaLevel==3)
 						//T2 Command Style
 						//Keychain
@@ -1409,6 +1410,14 @@ mob
 							if("Promises")
 								src.Keychains.Add("Oathkeeper")
 						src << "You've obtained your devotion keychain!"
+						switch(KeybladePath)
+							if("Fire")
+								AddSkill(new/obj/Skills/Projectile/Magic/Firaga)
+							if("Ice")
+								AddSkill(new/obj/Skills/AutoHit/Magic/Blizzaga)
+							if("Thunder")
+								AddSkill(new/obj/Skills/AutoHit/Magic/Thundaga)
+
 					if(src.SagaLevel==4)
 						//Valor Form
 						//T2 Magic
@@ -1416,47 +1425,26 @@ mob
 							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Valor_Form)
 							src << "You learn to imbue every action with valor!"
 							src << "Use the Attach Keychain verb to set your sync keyblade for Valor Form."
+							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Wisdom_Form)
+							src << "You learn to imbue every action with wisdom!"
 						else
 							src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Rage_Form)
 							src << "Your reliance on darkness will empower you when pressed to your limits!"
-						src.AddSkill(new/obj/Skills/Projectile/Magic/Fira)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzara)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
-						src << "You develop Fira!"
-						src << "You develop Blizzara!"
-						src << "You develop Thundara!"
-						passive_handler.Increase("ManaCapMult",0.25)
-						src.ManaCapMult+=0.25
-						if(src.KeybladeColor=="Light")
-							src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/Wisdom_Form)
-							src << "You learn to interpret every movement with wisdom!"
-							src << "Your newly discovered wisdom increases your magical prowess!"
-						else
-							for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Rage_Form/rf in src)
-								rf.OffMult=1.5
-								rf.ForMult=1.5
-								rf.passives["TechniqueMastery"] = 5
-								rf.passives["MovementMastery"] = 5
-								rf.passives["QuickCast"] = 2
-								rf.passives["Godspeed"] = 1
-								rf.TechniqueMastery=5
-								rf.MovementMastery=5
-								rf.Intimidation=1.5
-								rf.QuickCast=2
-								rf.Godspeed=1
-								rf.NeedsHealth=35
-								rf.TooMuchHealth=85
-								src << "Your Rage develops to allow for more efficient movement!"
 
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Stop)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Gravity)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Magnet)
-						src << "You've mastered the black magical arts of Stop, Magnet and Gravity!"
+						switch(KeybladePath)
+							if("Fire")
+								src.AddSkill(new/obj/Skills/Projectile/Magic/Meteor)
+							if("Ice")
+								src.AddSkill(new/obj/Skills/AutoHit/Magic/Flare)
+							if("Thunder")
+								src.AddSkill(new/obj/Skills/Projectile/Magic/Disintegrate)
+						src.AddSkill(new/obj/Skills/Projectile/Magic/Meteor)
+						passive_handler.Increase("ManaCapMult",0.25)
+
 					if(src.SagaLevel==5)
 						//Master Form
 						//T3 Magic
 						passive_handler.Increase("ManaCapMult",0.25)
-						src.ManaCapMult+=0.25
 						var/Path
 						switch(src.KeybladeType)
 							if("Sword")
@@ -1482,26 +1470,11 @@ mob
 								rf.passives["PureDamage"] = 2
 								rf.passives["PureReduction"] = 2
 								rf.passives["Juggernaut"] = 1
-								rf.TechniqueMastery=10
-								rf.MovementMastery=10
-								rf.Intimidation=1.75
-								rf.Godspeed=2
-								rf.Pursuer=2
-								rf.Flicker=2
-								rf.QuickCast=2
-								rf.PureDamage=2
-								rf.PureReduction=2
-								rf.Juggernaut=1
-								rf.NeedsHealth=45
-								rf.TooMuchHealth=95
+								rf.NeedsHealth=80
+								rf.TooMuchHealth=99
 								src << "Your Rage develops to allow for more primally powerful blows!"
 
-						src.AddSkill(new/obj/Skills/Projectile/Magic/Firaga)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzaga)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Thundaga)
-						src << "You develop Firaga!"
-						src << "You develop Blizzaga!"
-						src << "You develop Thundaga!"
+
 						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Cure)
 						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Esuna)
 						src << "You've mastered the white magical arts of Cure and Esuna!"
@@ -1524,6 +1497,8 @@ mob
 							if("Duality")
 								src.Keychains.Add("Way To Dawn")
 						src << "You've obtained your antagonism keychain!"
+
+
 					if(src.SagaLevel==6)
 						//Final Form
 						//More Majjyk
@@ -1538,27 +1513,14 @@ mob
 								rf.EndMult=1.5
 								rf.passives["PureDamage"] = 5
 								rf.passives["PureReduction"] = 5
+								rf.passives["GodKi"] = 0.5
 								rf.passives["Flicker"] = 3
 								rf.passives["DualCast"] = 1
 								rf.passives["TripleStrike"] = 1
-								rf.PureDamage=5
-								rf.PureReduction=5
-								rf.Intimidation=2
-								rf.Flicker=3
-								rf.DualCast=1
-								rf.AngerMult=2
-								rf.NeedsHealth=50
-								rf.TooMuchHealth=99
-								rf.TripleStrike=1
 								src << "Your Rage develops to allow double casting and triple attacks!"
 						passive_handler.Increase("ManaCapMult",0.5)
-						src.ManaCapMult+=0.5
 						src << "Your mastery of the Keyblade grants you unrivalled magical prowess!"
-						src << "You develop ultimate black magicks: Stopga, Magnetga and Graviga!"
 						src << "You develop ultimate white magicks: Curaga, Esunaga and Holy!"
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Graviga)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Stopga)
-						src.AddSkill(new/obj/Skills/AutoHit/Magic/Magnetga)
 						src.AddSkill(new/obj/Skills/AutoHit/Magic/Holy)
 						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Curaga)
 						src.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Esunaga)

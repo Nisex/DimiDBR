@@ -4,10 +4,7 @@ var/list/worldObjectList = new // Looped through during the saving of objects
 	for(var/obj/x in worldObjectList)
 		if(x.Savable)
 			if(!x || !x.loc)
-				world<<"erm"
 				worldObjectList.Remove(x)
-
-
 
 proc/find_savableObjects()
 	for(var/obj/_object in world) // Find all objects in the world
@@ -18,32 +15,6 @@ proc/find_savableObjects()
 				del(_object)
 			else continue // If it's already in the world object list, skip it.
 		if(_object.Savable==1) global.worldObjectList+=_object // If it's NOT, and we want it saved, add it to the world object list.
-
-/proc/SaveAISPawners()
-	set background = 1
-	world<<"<small>Server: Saving AI Spawners..."
-	var/savefile/F = new("Saves/Map/AISpawners")
-	for(var/obj/AI_Spot/ai in world)
-		F["AI"]<<ai
-		F["monInfo"]<<ai.monsters[1]
-
-	world<<"<small>Server: AI Spawners Saved."
-
-/proc/LoadAISPawners()
-	set background = 1
-	if(fexists("Saves/Map/AISpawners"))
-		world<<"<small>Server: Loading AI Spawners..."
-		var/savefile/F = new("Saves/Map/AISpawners")
-		sleep(1)
-		var/list/AI = F["AI"]
-		for(var/obj/AI_Spot/ai in AI)
-			F["AI"]>>ai
-			F["monInfo"] >> ai.monsters[1]
-			if(!(ai in global.ai_tracker_loop))
-				global.ai_tracker_loop.Add(ai)
-				world<<"<small>Server: AI Spawner [ai] Loaded."
-		world<<"<small>Server: AI Spawners Loaded."
-
 
 proc/Save_Custom_Turfs()
 	set background = 1
@@ -77,9 +48,10 @@ proc/Save_Custom_Turfs()
 			Xs+=A.x
 			Ys+=A.y
 			Zs+=A.z
-			var/savedIcon = (resourceManager.GetResourceName(A.icon) || resourceManager.GenerateDynResource(A.icon))
+			//var/savedIcon = (resourceManager.GetResourceName(A.icon) || resourceManager.GenerateDynResource(A.icon))
 
-			Icons+=savedIcon
+			//Icons+=savedIcon
+			Icons += A.icon
 			Icons_States+=A.icon_state
 			Densitys+=A.density
 			isRoof+=A.Roof
@@ -181,8 +153,8 @@ proc/Load_Custom_Turfs()
 			Amount+=1
 			DebugAmount += 1
 			var/turf/CustomTurf/T=new A(locate(text2num(list2params(Xs.Copy(Amount,Amount+1))),text2num(list2params(Ys.Copy(Amount,Amount+1))),text2num(list2params(Zs.Copy(Amount,Amount+1)))))
-		//	T.icon = Icons[Amount]
-			T.icon = resourceManager.GetResourceByName(Icons[Amount])
+			T.icon = Icons[Amount]
+			//T.icon = resourceManager.GetResourceByName(Icons[Amount])
 			T.icon_state= Icons_States[Amount]
 			T.density=text2num(list2params(Densitys.Copy(Amount,Amount+1)))
 			T.opacity=text2num(list2params(Opacitys.Copy(Amount,Amount+1)))
@@ -539,34 +511,12 @@ mob/var/buildPreviousX = 0
 mob/var/buildPreviousY = 0
 mob/var/buildPreviousZ = 0
 
-/mob/var/useCustomObjSettings = 0
-/mob/var/useCustomTurfSettings = 0
-
-// /mob/verb/useCustomObjSettings()
-// 	set category = "Mapper"
-// 	if(usr.useCustomObjSettings == 0)
-// 		usr.useCustomObjSettings = 1
-// 		usr<<"You will now use custom object settings."
-// 	else if(usr.useCustomObjSettings == 1)
-// 		usr.useCustomObjSettings = 0
-// 		usr<<"You will now use default object settings."
-// /mob/verb/useCustomTurfSettings()
-// 	set category = "Mapper"
-// 	if(usr.useCustomTurfSettings == 0)
-// 		usr.useCustomTurfSettings = 1
-// 		usr<<"You will now use custom turf settings."
-// 	else if(usr.useCustomTurfSettings == 1)
-// 		usr.useCustomTurfSettings = 0
-// 		usr<<"You will now use default turf settings."
-
-
 
 proc/Build_Lay(obj/Others/Build/O,mob/P, var/tmpX, var/tmpY, var/tmpZ)
 	if(!P.Admin&&!P.Mapper)
 		if(tmpX>0||tmpY>0||tmpZ>0)
 			return//no clicky for the common man
 	var/mob/L=P
-	if(P.Control) L=P.Control
 	var/atom/C
 	if(tmpX > 0 || tmpY> 0 || tmpZ> 0)
 		P.buildPreviousX = tmpX
@@ -598,43 +548,53 @@ proc/Build_Lay(obj/Others/Build/O,mob/P, var/tmpX, var/tmpY, var/tmpZ)
 		C.Savable=1
 		worldObjectList+=C
 		if(istype(C,/obj/Turfs/CustomObj1))
+			var/obj/Turfs/CustomObj1/customObj=C
 			if(usr.useCustomObjSettings)
 				if(P.CustomObj1Icon)
-					C.icon=P.CustomObj1Icon
+					customObj.icon=P.CustomObj1Icon
 				else
-					C.icon=O.icon
+					customObj.icon=O.icon
 				if(P.CustomObj1State)
-					C.icon_state=P.CustomObj1State
+					customObj.icon_state=P.CustomObj1State
 				else
-					C.icon_state=O.icon_state
+					customObj.icon_state=O.icon_state
 				if(P.CustomObj1Layer)
-					C.layer=P.CustomObj1Layer
+					customObj.layer=P.CustomObj1Layer
 				else
 					C.layer=O.layer
 				if(P.CustomObj1Density)
-					C.density=P.CustomObj1Density
+					customObj.density=P.CustomObj1Density
 				else
-					C.density=O.density
+					customObj.density=O.density
 				if(P.CustomObj1Opacity)
-					C.opacity=P.CustomObj1Opacity
+					customObj.opacity=P.CustomObj1Opacity
 				else
-					C.opacity=O.opacity
+					customObj.opacity=O.opacity
 				if(P.CustomObj1X)
-					C.pixel_x=P.CustomObj1X
+					customObj.pixel_x=P.CustomObj1X
 				else
-					C.pixel_x=O.pixel_x
+					customObj.pixel_x=O.pixel_x
 				if(P.CustomObj1Y)
-					C.pixel_y=P.CustomObj1Y
+					customObj.pixel_y=P.CustomObj1Y
 				else
-					C.pixel_y=O.pixel_y
+					customObj.pixel_y=O.pixel_y
+				if(P.CustomObjEdge)
+					customObj.edge=P.CustomObjEdge
+				else
+					if(istype(O,/obj/Turfs/CustomObj1))
+						var/obj/Turfs/CustomObj1/CT=O
+						customObj.edge=CT.edge
 			else
-				C.icon=O.icon
-				C.icon_state=O.icon_state
-				C.layer=O.layer
-				C.density=O.density
-				C.opacity=O.opacity
-				C.pixel_x=O.pixel_x
-				C.pixel_y=O.pixel_y
+				customObj.icon=O.icon
+				customObj.icon_state=O.icon_state
+				customObj.layer=O.layer
+				customObj.density=O.density
+				customObj.opacity=O.opacity
+				customObj.pixel_x=O.pixel_x
+				customObj.pixel_y=O.pixel_y
+				if(istype(O,/obj/Turfs/CustomObj1))
+					var/obj/Turfs/CustomObj1/CT=O
+					customObj.edge=CT.edge
 		else
 			C.icon_state = O.icon_state
 
@@ -669,15 +629,15 @@ proc/Build_Lay(obj/Others/Build/O,mob/P, var/tmpX, var/tmpY, var/tmpZ)
 				CT.Roof = usr.CustomTurfRoof
 				CT.density = O.density
 				CT.opacity = O.opacity
-		if(usr.ShallowMode==1)
+		if(P.ShallowMode==1)
 			_turf.Shallow=1
-		if(usr.BuildOverwrite)
+		if(P.BuildOverwrite)
 			for(var/obj/Turfs/E in C)
 				if(!istype(E, /obj/Special/Teleporter2))
 					del(E)
 			for(var/obj/KatieObj/E in C)
 				del(E)
-		if(usr.WarperOverwrite)
+		if(P.WarperOverwrite)
 			for(var/obj/Special/Teleporter2/q in C)
 				del(q)
 		if(!istype(C,/turf/CustomTurf))
@@ -732,7 +692,6 @@ proc/Load_Objects()
 		var/savefile/F=new("Saves/Itemsave/File[filenum]")
 		var/list/L=new
 		if(length(F["Types"]) < 1)
-			world.log << "[filenum] is under 1 length Types"
 			goto wowza
 		F["Types"]>>L
 		for(var/obj/A in L)

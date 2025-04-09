@@ -16,7 +16,10 @@ mob/proc/AppearanceOn()
 
 	if(src.ActiveBuff)
 		if(src.ActiveBuff.IconLock)
-			var/image/im=image(icon=src.ActiveBuff.IconLock, pixel_x=src.ActiveBuff.LockX, pixel_y=src.ActiveBuff.LockY, layer=FLOAT_LAYER-src.ActiveBuff.IconLayer)
+			var/state = ""
+			if(ActiveBuff.IconState)
+				state = ActiveBuff.IconState
+			var/image/im=image(icon=src.ActiveBuff.IconLock, icon_state = state, pixel_x=src.ActiveBuff.LockX, pixel_y=src.ActiveBuff.LockY, layer=FLOAT_LAYER-src.ActiveBuff.IconLayer)
 			im.blend_mode=src.ActiveBuff.IconLockBlend
 			im.transform*=src.ActiveBuff.OverlaySize
 			if(src.CheckActive("Mobile Suit")&&src.ActiveBuff.BuffName!="Mobile Suit")
@@ -218,6 +221,15 @@ mob/proc/AppearanceOn()
 
 	if(src.Dead)
 		src.overlays+='Halo.dmi'
+	
+	if(SpecialBuff)
+		var/obj/Skills/Buffs/SpecialBuff/SB = SpecialBuff
+		if(SagaLevel >= 5 && istype(SB, /obj/Skills/Buffs/SpecialBuffs/Saint_Cloth/Gold_Cloth))
+			var/obj/Skills/Buffs/SpecialBuffs/Saint_Cloth/Gold_Cloth/gold = SB
+			if(!gold.NoExtraOverlay)
+				var/image/im=image(icon='goldsaint_cape.dmi', layer=FLOAT_LAYER-3)
+				overlays+=im
+				Hairz("Add")
 
 	for(var/obj/Items/Gear/Mobile_Suit/I in src)
 		if(I.suffix=="*Equipped*"||I.suffix=="*Equipped (Second)*"||I.suffix=="*Equipped (Third)*")

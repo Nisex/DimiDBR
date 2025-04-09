@@ -1,4 +1,5 @@
-
+/obj/Skills/Projectile/Magic/DarkMagic
+	MagicNeeded = 0
 /obj/Skills/Projectile/Magic/DarkMagic/Shadow_Ball
 	scalingValues = list("Blasts" = list(2,2,3,3,4,4), "DamageMult" = list(0.75,1.25,1.5,2.5,3,4), "EndRate" = list(0.75, 0.6, 0.45, 0.3, 0.25, 0.2), "IconSize" = list(1, 1.15,1.25,1.5,2))
 	DamageMult = 3
@@ -87,7 +88,7 @@
 	BuffName = "Mind Dominated"
 
 /obj/Skills/Buffs/SlotlessBuffs/Magic/DarkMagic/Soul_Leech // switch this to a speed boost, similar to haste or a shield
-	scalingValues = list("TimerLimit" = list(25,30,35,40,50,60), "Godspeed" = list(1,2,3,4,5,6), "AfterImages" = list(1,2,3,4,5,6), "VaizardHealth" = list(0.1,0.2,0.3,0.4,0.5,0.5), \
+	scalingValues = list("TimerLimit" = list(25,30,35,40,50,60), "Godspeed" = list(1,2,3,4,5,6), "AfterImages" = list(1,2,3,4,5,6), "VaizardHealth" = list(1,2,3,4,5,5), \
 							"VaizardShatter"= list(1,1,1,1,1,1), "Flicker" = list(1,2,3,3,4,4,5), "Flow" = list(0.25,0.5,1,1.25,1.5,2))
 	Cooldown = 60
 	name = "Soul Surge"

@@ -1,32 +1,62 @@
 mob
 	proc
 		StyleUnlock(obj/Skills/Buffs/NuStyle/ns)//this proc accepts a style object as a parameter so it doesnt check for all styles ever
-			/*if(ns.StylePrimeUnlock)//does this even exist?
-				if(ns.Mastery>=4)
-					if(IsList(ns.StylePrimeUnlock))
-						for(var/x in ns.StylePrimeUnlock)
-							var/path=text2path(x)
-							var/obj/Skills/Buffs/NuStyle/prime = new path
-							src.SignatureStyles.Add("[prime.name]" = "[prime.type]")
-							src << "[prime.name] has been added to your signature style selection list."
-							del prime
+			if(!ns.StyleComboUnlock) return
+			if(!islist(ns.StyleComboUnlock)) return
+			ns.initUnlock()
+			var/list/preReq = ns.StyleComboUnlock
+			// each entry is either a text path or a path, keep that in mind, with text, if it ends in 'any' we need to find the above type
+			for(var/pr in preReq)
+				if(!pr || pr == null || pr == "") return
+				var/obj/Skills/Buffs/NuStyle/nextPath = preReq[pr]
+				if(!nextPath || nextPath == null || nextPath == "") return
+				if(!ispath(nextPath))
+					nextPath = text2path(nextPath)
+				if(locate(nextPath, src))
+					continue
+				else
+					nextPath = new nextPath
+				// we have it bro
+				var/thePath = pr
+				var/obj/Skills/Buffs/NuStyle/found = 0
+				if(!ispath(thePath))
+					if(findtext(thePath, "/_Any"))
+						// this implies it is any sword style
+						var/par = replacetext(thePath, "/_Any", "")
+						// should b the parent
+						// var/obj/Skills/s = FindSkill(text2path(par))
+						// world<<"[s]"
+						for(var/obj/Skills/Buffs/NuStyle/style in src)
+							if(istype(style, text2path(par)) && style.SignatureTechnique >= nextPath.SignatureTechnique-1)
+								found = style
+								break
 					else
-						var/path=text2path(ns.StylePrimeUnlock)
-						var/obj/Skills/Buffs/NuStyle/prime = new path
-						src.SignatureStyles.Add("[prime.name]" = "[prime.type]")
-						src << "[prime.name] has been added to your signature style selection list."
-						del prime*/
+						thePath = text2path(thePath)
+				
+				if(!found)
+					if(locate(thePath, src))
+						found = thePath
+					else
+						continue
+
+				if(!SignatureStyles.Find("[nextPath.name]") && found)
+					SignatureStyles[nextPath.name] = nextPath.type
+					src << "You can now unlock [nextPath.name] by investing a Tier [nextPath.SignatureTechnique] Signature into it!"
+				del nextPath
+			return
+
 			if(ns.StyleComboUnlock)//does this even exist?)
 				if(IsList(ns.StyleComboUnlock))
 					for(var/x in ns.StyleComboUnlock)
 						if(!x) return //hmm?
 						var/advanced_path=ns.StyleComboUnlock[x]
-						if(!advanced_path) return
+						if(!advanced_path || advanced_path == null)
+							return
 						var/obj/Skills/aps=new advanced_path
 						if(locate(aps, src))
 							del aps
 							continue
-						if(x == null)
+						if(x == null || isnull(x) || x == "")
 							continue
 						var/obj/Skills/bps=new x
 						if(locate(bps, src))
@@ -46,34 +76,6 @@ mob
 				else
 					src << "Something is critically wrong with how [ns] is set up to get upgraded styles. Contact Yan."
 					return
-		// StanceUnlock(var/obj/Skills/Buffs/NuStyle/s)
-		// 	var/StanceChoice
-		// 	var/StanceConfirm
-		// 	var/list/Stances=list()
-		// 	Stances.Add("Advancing", "Striking", "Defensive", "Evasive")
-		// 	Stances.Remove(s.UnlockedStances)
-		// 	if(s.Mastery>=1)//if this aint your first rodeo, allow cancel
-		// 		Stances.Add("Cancel")
-		// 	while(StanceConfirm!="Yes")
-		// 		StanceChoice=input(src, "What stance do you want to buy for [s]?", "Stances") in Stances
-		// 		if(StanceChoice in s.UnlockedStances)
-		// 			return 0
-		// 		if(StanceChoice=="Cancel")
-		// 			return 0
-		// 		switch(StanceChoice)
-		// 			if("Advancing")
-		// 				StanceConfirm=alert(src, "Advancing stances focus primarily on offense.  Do you want to develop this stance for [s]?", "Stances", "No", "Yes")
-		// 			if("Striking")
-		// 				StanceConfirm=alert(src, "Striking stances focus primarily on strength and force.  Do you want to develop this stance for [s]?", "Stances", "No", "Yes")
-		// 			if("Defensive")
-		// 				StanceConfirm=alert(src, "Defensive stances focus primarily on enduring blows.  Do you want to develop this stance for [s]?", "Stances", "No", "Yes")
-		// 			if("Evasive")
-		// 				StanceConfirm=alert(src, "Evasive stances focus primarily on speed and defense.  Do you want to develop this stance for [s]?", "Stances", "No", "Yes")
-		// 	if(StanceChoice in s.UnlockedStances)
-		// 		return 0
-		// 	s.UnlockedStances.Add(StanceChoice)
-		// 	s.Mastery++
-		// 	return StanceChoice
 		PrerequisiteRemove(var/obj/Skills/s)
 			if(s.PreRequisite.len > 0)
 				for(var/x in s.PreRequisite)

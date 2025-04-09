@@ -1,7 +1,7 @@
 /mob/proc/MultiStrike(secondStrike, thirdStrike)
     if(!AttackQueue)
-        var/dblProb = 15 * GetDoubleStrike()
-        var/tripleProb = 25 * GetTripleStrike()
+        var/dblProb = glob.DOUBLESTRIKECHANCE * GetDoubleStrike()
+        var/tripleProb = glob.TRIPLESTRIKECHANCE * GetTripleStrike()
         if(HasDoubleStrike())
             if(prob(dblProb + tripleProb) && !secondStrike)
                 #if DEBUG_MELEE

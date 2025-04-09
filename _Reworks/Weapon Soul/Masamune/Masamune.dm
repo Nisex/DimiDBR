@@ -8,9 +8,9 @@ obj/Skills/AutoHit/Divine_Cleansing
 	Area="Circle"
 	StrOffense=1
 	HitSelf = TRUE
-	DamageMult=2
-	Cleansing = 1
-	Cooldown=180
+	DamageMult=4
+	Cleansing = 3
+	Cooldown=30
 	Rounds=5
 	Distance = 5
 	RoundMovement=1
@@ -21,8 +21,12 @@ obj/Skills/AutoHit/Divine_Cleansing
 	FlickSpin=1
 	EnergyCost=1
 	ActiveMessage="cuts through debilitation with the power of Masamune's purity!"
+	adjust(mob/p)
+		DamageMult = 4 + p.SagaLevel
+		Size = 5 + p.SagaLevel
 	verb/Divine_Cleansing()
 		set category="Skills"
+		adjust(usr)
 		usr.Activate(src)
 
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Masamune
@@ -30,7 +34,7 @@ obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Masamune
 	StrMult=1.3
 	OffMult=1.3
 	DefMult=1.3
-	passives = list("BeyondPurity" = 1) // may god have mercy on my soul
+	passives = list("BeyondPurity" = 1, "PureReduction" = 4) // may god have mercy on my soul
 	IconLock='EyeFlameC.dmi'
 	ActiveMessage="'s soothing treasures ring in resonance: Heavenly Regalia!"
 	OffMessage="'s treasures lose their healing luster..."

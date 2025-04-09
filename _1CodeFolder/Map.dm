@@ -58,6 +58,7 @@ obj/Turfs
 				usr.CustomObj1Opacity=src.opacity
 				usr.CustomObj1X=src.pixel_x
 				usr.CustomObj1Y=src.pixel_y
+				usr.CustomObjEdge = src:edge
 			C.icon=src.icon
 			C.icon_state=src.icon_state
 			C.layer=src.layer
@@ -112,7 +113,7 @@ proc/Destroy(turf/A,var/DestroyDamageMulti)
 		if(!nonDestroyable_turfs.Find("[A.type]") && A.Destructable)
 			if(usr==0)
 				new/turf/Dirt1(locate(A.x,A.y,A.z))
-				A.Destroyer=global.GlobalTurfDestroyer
+				A.Destroyer=null
 			else
 				if(A.Health<DestroyDamageMulti)
 					new/turf/Dirt1(locate(A.x,A.y,A.z))
@@ -483,6 +484,10 @@ turf
 		icon_state="Dirt99"
 		PrimaryTurfType="Floor"
 		SecondaryTurfType="Dirt"
+		GainLoop(mob/source)
+			..()
+			if(!source.passive_handler.Get("StaticWalk")&&!source.Dead)
+				source.Health -= 0.005
 	DirtA1
 		icon='wastes.png'
 		PrimaryTurfType="Floor"
@@ -2893,6 +2898,7 @@ obj/Turfs
 			icon='NewObjects.dmi'
 			icon_state="129"
 	CustomObj1
+		var/edge = FALSE
 		icon='ArtificalObj.dmi'
 		icon_state="QuestionMark"
 	Rock
@@ -3681,16 +3687,25 @@ turf/Special
 		Buildable = 1
 		icon='Special.dmi'
 		icon_state="Special5"
+		GainLoop(mob/source)
+			..()
+			if(!source.passive_handler.Get("StaticWalk")&&!source.Dead)
+				source.Health -= 0.005
 
 	Stars
 		icon = 'StarPixel.dmi'
 		icon_state="2"
 		Health=1345345400000000000000000
+		GainLoop(mob/source)
+			..()
+			source.loseOxygen(1)
 	EventStars
 		icon='StarPixel.dmi'
 		icon_state="3"
 		Health=100000000000
-
+		GainLoop(mob/source)
+			..()
+			source.loseOxygen(1)
 	DemonWorldPortal
 		icon='Demon World Test.dmi'
 		Health=1000000000

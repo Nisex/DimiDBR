@@ -16,8 +16,10 @@ passive
 	proc
 
 		Get(passive) // returns value of passive if it exists/has anything
+			
 			return passives[passive] ? passives[passive] : 0
-
+		operator[](passive)
+			return Get(passive)
 		getAll() //outputs in text, will be used for some sort of psuedo-assess
 			var/passiveText="Passives:"
 			for(var/p in passives)
@@ -38,7 +40,7 @@ passive
 					increaseList(passive, temp)
 
 		Set(passive, value = 0, temp = FALSE) // directly sets a passive
-			if(!isnum(value))
+			if(isnull(value))
 				CRASH("ERROR: [passive] was set to [value] which is not a number!")
 			switch(islist(passive))
 				if(FALSE)
@@ -69,8 +71,12 @@ passive
 					for(var/settingPassive in settingPassiveList)
 						var/value = settingPassiveList[settingPassive]
 						if(!isnum(value))
-							CRASH("ERROR: [settingPassive] was decreased by [value] which is not a number!")
-						passives[settingPassive] -= value // - (-1) is +1 , - 1 is -1
+							if(istext(value))
+								passives[settingPassive] = 0
+							else
+								CRASH("ERROR: [settingPassive] was increased by [value] which is not a number!")
+						else
+							passives[settingPassive] -= value // - (-1) is +1 , - 1 is -1
 				if(TRUE)
 					for(var/settingPassive in settingPassiveList)
 						var/value = settingPassiveList[settingPassive]
@@ -84,8 +90,12 @@ passive
 					for(var/settingPassive in settingPassiveList)
 						var/value = settingPassiveList[settingPassive]
 						if(!isnum(value))
-							CRASH("ERROR: [settingPassive] was increased by [value] which is not a number!")
-						passives[settingPassive] += value
+							if(istext(value))
+								passives[settingPassive] = value
+							else
+								CRASH("ERROR: [settingPassive] was increased by [value] which is not a number!")
+						else
+							passives[settingPassive] += value
 				if(TRUE)
 					for(var/settingPassive in settingPassiveList)
 						var/value = settingPassiveList[settingPassive]
@@ -107,6 +117,5 @@ passive
 						if(!isnum(value))
 							CRASH("ERROR: [settingPassive] was set to [value] which is not a number!")
 						tmp_passives[settingPassive] = value
-
 		operator|=(passive) // alternative way of checking passives. shorthand if(passive|="zornhau") returns the value of zornhau
 			Get(passive)

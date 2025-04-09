@@ -18,10 +18,90 @@ mob
 		tmp/Mapper=0
 		MapperSight//Flagged by mapper sight duh
 		MapperWalk
+		MapperWaterWalk = FALSE
 		BuildOverwrite=0
 		WarperOverwrite=0
 		Bino=0
+		useCustomObjSettings = FALSE
+		useCustomTurfSettings = FALSE
 	Mapper
+		verb/useCustomObjSettings()
+			set category = "Mapper"
+			if(usr.useCustomObjSettings == 0)
+				usr.useCustomObjSettings = 1
+				usr<<"You will now use custom object settings."
+			else if(usr.useCustomObjSettings == 1)
+				usr.useCustomObjSettings = 0
+				usr<<"You will now NOT use default object settings."
+		verb/useCustomTurfSettings()
+			set category = "Mapper"
+			if(usr.useCustomTurfSettings == 0)
+				usr.useCustomTurfSettings = 1
+				usr<<"You will now use custom turf settings."
+			else if(usr.useCustomTurfSettings == 1)
+				usr.useCustomTurfSettings = 0
+				usr<<"You will now NOT use default turf settings."
+		verb/customObjSettings()
+			set category = "Mapper"
+			var/list/options = list("Icon", "Icon State", "Opacity", "Density", "Edge", "Layer", "Pixel X", "Pixel Y")
+			var/option = input("What setting would you like to change?", "Custom Object Settings") in options
+			if(option=="Icon")
+				var/selectedicon = input("What icon would you like to set?", "Custom Object Settings") as icon|null
+				if(!selectedicon)
+					return
+				CustomObj1Icon = selectedicon
+			if(option=="Icon State")
+				var/selectediconstate = input("What icon state would you like to set? Currently [CustomObj1State]", "Custom Object Settings") as text|null
+				if(!selectediconstate)
+					return
+				CustomObj1State = selectediconstate
+			if(option=="Opacity")
+				var/selectedopacity = input("Opacity?", "Custom Object Settings") in list(TRUE, FALSE)
+				CustomObj1Opacity = selectedopacity
+			if(option=="Density")
+				var/selecteddensity = input("Density?", "Custom Object Settings") in list(TRUE, FALSE)
+				CustomObj1Density = selecteddensity
+			if(option == "Edge")
+				var/selectededge = input("Would you like to set this as a edge?", "Custom Object Settings") in list(TRUE, FALSE)
+				CustomObjEdge = selectededge
+			if(option == "Layer")
+				var/selectedlayer = input("Layer? Currently [CustomObj1Layer]", "Custom Object Settings") as num|null
+				if(!selectedlayer) return
+				CustomObj1Layer = selectedlayer
+			if(option=="Pixel X")
+				var/selectedpixelx = input("Pixel X?", "Custom Object Settings") as num|null
+				if(!selectedpixelx)
+					return
+				CustomObj1X = selectedpixelx
+			if(option == "Pixel Y")
+				var/selectedpixely = input("Pixel Y?", "Custom Object Settings") as num|null
+				if(!selectedpixely)
+					return
+				CustomObj1Y = selectedpixely
+		verb/customTurfSettings()
+			set category = "Mapper"
+			var/list/options = list("Icon", "Icon State", "Opacity", "Density", "Roof")
+			var/option = input("What setting would you like to change?", "Custom Turf Settings") in options
+			if(option=="Icon")
+				var/selectedicon = input("What icon would you like to set?", "Custom Turf Settings") as icon|null
+				if(!selectedicon)
+					return
+				CustomTurfIcon = selectedicon
+			if(option=="Icon State")
+				var/selectediconstate = input("What icon state would you like to set? Currently [CustomTurfState]", "Custom Turf Settings") as text|null
+				if(!selectediconstate)
+					return
+				CustomTurfState = selectediconstate
+			if(option=="Opacity")
+				var/selectedopacity = input("Opacity?", "Custom Turf Settings") in list(TRUE, FALSE)
+				CustomTurfOpacity = selectedopacity
+			if(option=="Density")
+				var/selecteddensity = input("Density?", "Custom Turf Settings") in list(TRUE, FALSE)
+				CustomTurfDensity = selecteddensity
+			if(option == "Roof")
+				var/selectedroof = input("Would you like to set this as a roof?", "Custom Turf Settings") in list(TRUE, FALSE)
+				CustomTurfRoof = selectedroof
+
 		verb/Build()
 			set category="Mapper"
 			usr.Grid("Turfs")
@@ -70,7 +150,7 @@ mob
 			if(istype(A, /mob)||istype(A, /area))
 				src << "Nah."
 				return
-			var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
+			var/Edit="<html><Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
 			var/list/B=new
 			Edit+="[A]<br>[A.type]"
 			Edit+="<table width=10%>"
@@ -83,6 +163,7 @@ mob
 				Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"
 				Edit+=C
 				Edit+="<td>[Value(A.vars[C])]</td></tr>"
+			usr << "</html>"
 			usr<<browse(Edit,"window=[A];size=450x600")
 		verb/XYZ_Teleport()
 			set category="Mapper"
@@ -155,22 +236,14 @@ mob
 				usr << "You turn your fly through <font color='red'>OFF</font color>."
 		verb/Toggle_Waterwalk()
 			set category="Mapper"
-			if(!usr.WaterWalk)
+			if(!usr.MapperWaterWalk)
 				usr.passive_handler.Increase("WaterWalk")
-				WaterWalk=1
+				MapperWaterWalk = TRUE
 				usr << "You turn your water walking <font color='green'>ON</font color>."
 			else
 				usr.passive_handler.Decrease("WaterWalk")
-				usr.WaterWalk=0
+				MapperWaterWalk = FALSE
 				usr << "You turn your water walking <font color='red'>OFF</font color>."
-		verb/Toggle_Godspeed()
-			set category="Mapper"
-			if(!usr.Godspeed)
-				usr.Godspeed=1
-				usr << "You turn your godspeed <font color='green'>ON</font color>."
-			else
-				usr.Godspeed=0
-				usr << "You turn your godspeed <font color='red'>OFF</font color>."
 		verb/Invisible_Toggle()
 			set category="Mapper"
 			if(usr.AdminInviso)
@@ -182,8 +255,8 @@ mob
 			else
 				usr<<"<font color=green>You are now invisible.</font color>"
 				usr.AdminInviso=1
-				usr.invisibility=100
-				usr.see_invisible=101
+				usr.invisibility=85
+				usr.see_invisible=86
 				animate(usr, alpha=50, time=10)
 		verb/ToggleUnFlyable()
 			set category="Mapper"

@@ -81,7 +81,11 @@ var/knowledgePaths/tech/list/TechnologyTree = list()
 /mob/verb/learnTech()
 	set category = "Utility"
 	set name = "Technology"
-	var/theCost = glob.TECH_BASE_COST / Intelligence
+	var/int = Intelligence
+	if(passive_handler["Spiritual Tactician"])
+		if(Imagination > Intelligence)
+			int = Imagination
+	var/theCost = glob.TECH_BASE_COST / int
 	var/list/thingCanBuy = list()
 	if(length(TechnologyTree) < 1)
 		fillOutTechTree()

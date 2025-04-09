@@ -1,9 +1,10 @@
-var/TRACKING_BURNING = FALSE
-var/TRACKING_POISON = FALSE
-var/currentBurn = 0
-var/currentPoi = 0 
+globalTracker/var/TRACKING_BURNING = FALSE
+globalTracker/var/TRACKING_POISON = FALSE
+mob/var/currentBurn = 0
+mob/var/currentPoi = 0 
 
 /mob/Admin4/verb/fillTension()
+	set category = "Debug"
 	Tension = 100
 /mob/Admin3/verb/Admin_Screen_Size()
 	set category="Other"
@@ -20,12 +21,12 @@ var/currentPoi = 0
 
 /mob/Admin3/verb/trackburning()
 	set category = "Debug"
-	TRACKING_BURNING = !TRACKING_BURNING
-	if(!TRACKING_BURNING)
+	glob.TRACKING_BURNING = !glob.TRACKING_BURNING
+	if(!glob.TRACKING_BURNING)
 		currentBurn = 0
 
 /mob/Admin3/verb/trackpoison()
 	set category = "Debug"
-	TRACKING_POISON = !TRACKING_POISON
-	if(!TRACKING_POISON)
+	glob.TRACKING_POISON = !glob.TRACKING_POISON
+	if(!glob.TRACKING_POISON)
 		currentPoi = 0

@@ -170,7 +170,7 @@ mob
 
 			if(m.Intelligence<0.25)
 				m.Intelligence=0.25
-			if(m.Imagination<0.25&&m.Race!="Android")
+			if(m.Imagination<0.25)
 				m.Imagination=0.25
 
 
@@ -244,7 +244,7 @@ mob
 			Spawn_Edit()
 				set category="Admin"
 				var/obj/Special/Spawn/SC=input("What spawn are you editing?", "Edit Spawn") in glob.Spawns
-				var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
+				var/Edit="<html><Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
 				var/list/B=new
 				Edit+="[SC]<br>[SC.type]"
 				Edit+="<table width=10%>"
@@ -254,4 +254,5 @@ mob
 					Edit+="<td><a href=byond://?src=\ref[SC];action=edit;var=[C]>"
 					Edit+=C
 					Edit+="<td>[Value(SC.vars[C])]</td></tr>"
+				Edit += "</html>"
 				usr<<browse(Edit,"window=[SC];size=450x600")

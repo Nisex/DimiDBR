@@ -31,7 +31,7 @@
         return
     var/choice = input(src, "Pick a faction", "Faction") in FACTIONS
     b.information.setFaction(choice)
-/*
+
 /mob/Admin3/verb/changeNationalities(mob/b in players)
     set name = "Change Nationalities"
     if(!b.client)
@@ -45,7 +45,7 @@
     if(!b.client)
         return
     b.information.setNationality(b)
-*/
+
 /mob/verb/customizePU()
     set name = "Customize: PU Charging"
     set category = "Other"
@@ -98,53 +98,50 @@ characterInformation*/
 
 
 //TODO: somebody else can do examine
-/*
-characterInformation/proc/getInformation(mob/p, pronouns)
+/mob/var/hidingInformation = FALSE
+/mob/verb/Hide_Information()
+    set category = "Other"
+    hidingInformation = !hidingInformation
+    src << "The ID Card is [hidingInformation ? "hidden." : "not hidden."]"
+
+characterInformation/proc/getFactionGuild(mob/Players/p)
+    var/content = ""
+    if(showFaction)
+        content += "<font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font>"
+    if(showGuild)
+        content += "\n"
+        for(var/x in p.inGuilds)
+            if(findGuildByID(x))
+                var/guild/g = findGuildByID(x)
+                if(p.UniqueID == g.ownerID)
+                    content += "[g.name] ( Leader )"
+                else if(p.UniqueID in g.officers)
+                    content += "[g.name] ( Officer )"
+
+                else
+                    content += "[g.name] ( Member )"
+characterInformation/proc/getInformation(mob/p, see_pronouns)
+    if(p.hidingInformation)
+        return "[p.subjectpronoun() == "They" ? "They have" : "[p.subjectpronoun()] has"] no ID Card"
     var/msg = ""
-    if(rankingNumber == "ERROR")
-        rankingNumber = num2text(rand(1000,9001))
-
-
-    if(p.Summonable)
-        if(pronouns)
-            var/theyString = p.subjectpronoun() == "They" ? "use" : "uses"
-            var/theyString2 = p.subjectpronoun() == "They" ? "are" : "is"
-            msg={"
-<font face='courier'><font color='#color'>\[SYSTEM: ERROR! ERROR! [p.name]'s information...\]
-\[SYSTEM: <font color='[factionColor]'>[faction] (<font color='[jobColor]'>Summon?</font>)</font> Character Sheet...\]
-\[SYSTEM: [p.subjectpronoun()] [theyString] [p.subjectpronoun()]/[p.possessivepronoun()] pronouns. \]
-\[SYSTEM: [p.subjectpronoun()] [theyString2] of UNKNOWN descent.\]
-\[SYSTEM: Race: <font color='red'>ERROR</font>\]
-\[SYSTEM: Class: <font color='red'>ERROR</font>\]
-\[SYSTEM: Tier: [p.SummonTier]\]
-\[SYSTEM: Closing Character Sheet...]</font color></font face> "}
-        else
-            msg={"
-<font face='courier'><font color='#color'>\[SYSTEM: ERROR! ERROR! [p.name]'s information...\]
-\[SYSTEM: <font color='[factionColor]'>[faction] (<font color='[jobColor]'>Summon?</font>)</font> Character Sheet...\]
-\[SYSTEM: [p.subjectpronoun()] is of UNKNOWN descent.\]
-\[SYSTEM: Race: <font color='red'>ERROR</font>\]
-\[SYSTEM: Class: <font color='red'>ERROR</font>\]
-\[SYSTEM: Tier: [p.SummonTier]\]
-\[SYSTEM: Closing Character Sheet...]</font color></font face> "}
-
-
+    // if(rankingNumber == "ERROR")
+    //     rankingNumber = num2text(rand(1000,9001))
+    if(see_pronouns)
+        var/theyString = p.subjectpronoun() == "They" ? "use" : "uses"
+        var/theyString2 = p.subjectpronoun() == "They" ? "are" : "is"
+        msg={"
+<font face='courier'><font color='#color'>[p.name]'s ID Card is visible.
+<font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font>
+[p.subjectpronoun()] [theyString] [src.pronouns[1]]/[src.pronouns[2]]
+[p.subjectpronoun()] [theyString2] [nationality] [secondNationality ? "and [secondNationality] nationality." : "nationality."]
+<i>"[catchline]"</i>\n
+[getInfo()]"}
     else
-        if(pronouns)
-            var/theyString = p.subjectpronoun() == "They" ? "use" : "uses"
-            msg={"
-<font face='courier'><font color='#color'>\[SYSTEM: Loading [p.name]'s information...\]
-\[SYSTEM: <font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font> Character Sheet...\]
-\[SYSTEM: [p.subjectpronoun()] [theyString] [p.subjectpronoun()]/[p.possessivepronoun()] \]
-\[SYSTEM: [getInfo()]\]
-\[SYSTEM: Closing Character Sheet...]</font color></font face> "}
-        else
-            msg={"
-<font face='courier'><font color='#color'>\[SYSTEM: Loading [p.name]'s information...\]
-\[SYSTEM: <font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font> Character Sheet...\]
-\[SYSTEM: [getInfo()]\]
-\[SYSTEM: Closing Character Sheet...]</font color></font face> "}
+        msg={"
+<font face='courier'><font color='#color'>[p.name]'s ID Card is visible.
+<font color='[factionColor]'>[faction] (<font color='[jobColor]'>[job]</font>)</font>
+[p.subjectpronoun()] is of [nationality] [secondNationality ? "and [secondNationality] nationality." : "nationality."]
+<i>"[catchline]"</i>\n
+[getInfo()]"}
 
     return msg
-
-*/

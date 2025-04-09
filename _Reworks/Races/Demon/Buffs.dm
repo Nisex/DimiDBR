@@ -33,7 +33,8 @@
 			adjust(usr)
 			var/yesno = input(usr, "Are you sure?") in list("Yes", "No")
 			if(yesno == "Yes")
-				OMsg(usr, "<b>[usr] has revealed their true nature as a <i>[glob.DEMON_NAME]</i></b>")
+				if(glob.racials.REVEALDEMONONTRUEFORM)
+					OMsg(usr, "<b>[usr] has revealed their true nature as a <i>[glob.racials.DEMON_NAME]</i></b>")
 				current_charges--
 				usr << "You have [current_charges] charges of true form left."
 			else

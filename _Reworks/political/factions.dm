@@ -28,11 +28,12 @@
 
 
 characterInformation
-    var/faction = "ERROR"
+    var/faction = "UNEMPLOYED"
     var/factionColor = "#6c0303d7"
-    var/job = "Unregistered"
+    var/job = "BROKE BOY"
     var/jobColor = "#0ba800ff"
-
+    var/showGuild = FALSE
+    var/showFaction = TRUE
     proc/assignJob(mob/admin, mob/target)
         var/choice = input(admin, "Pick a job", "Job") in JOBS
         target.information.setJob(choice)

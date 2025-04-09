@@ -1,4 +1,4 @@
-globalTracker/var/pot_between_refunds = 5
+globalTracker/var/pot_between_refunds = 2
 
 mob/var/last_refund_pot = 0
 mob/var/refund_banned = FALSE
@@ -8,6 +8,8 @@ mob/proc/pick_refund_skill(mob/target = src)
 	var/list/Refundable=list("Cancel")
 	for(var/obj/Skills/S in target.Skills)
 		if(S.Copyable>0&&S.SkillCost>1&&!S.Copied)
+			Refundable.Add(S)
+		else if(istype(S, /obj/Skills/Buffs/NuStyle) && !S.Copied  && !S.SignatureTechnique && !S.SignatureTechnique && S.SkillCost > 1)
 			Refundable.Add(S)
 	var/obj/Skills/Choice=input(src, "What skill are you refunding?", "RPP Refund") in Refundable
 	if(Choice=="Cancel")
@@ -19,37 +21,13 @@ mob/proc/refund_skill(obj/Skills/refunded_skill)
 	var/Refund=refunded_skill.SkillCost
 	if(refunded_skill.NewCost)
 		Refund = refunded_skill.NewCost
-	if(refunded_skill.Copyable)
-		if(refunded_skill.NewCopyable)
-			refunded_skill.Copyable = refunded_skill.NewCopyable
-		switch(refunded_skill.Copyable)
-			if(1) // these r maostly gone
-				Refund = TIER_1_COST
-			if(2)
-				Refund = TIER_1_COST
-			if(3)
-				Refund = TIER_2_COST
-			if(4)
-				Refund = TIER_3_COST
-			if(5)
-				Refund = TIER_4_COST
-
-
 	if(refunded_skill.Mastery>1)
 		Refund+=(Refund*(refunded_skill.Mastery-1))
 	if(refunded_skill.name in src.SkillsLocked)
 		src.SkillsLocked -= refunded_skill.name
 
-	if(RPPSpentEvent)
-		var/diff = Refund - RPPSpentEvent
-		RPPSpentEvent -= Refund
-		RPPSpendableEvent += Refund
-		if(diff > 0)
-			RPPSpendable += diff
-			RPPSpent -= diff
-	else
-		RPPSpendable+=Refund
-		RPPSpent-=Refund
+	RPPSpendable+=Refund
+	RPPSpent-=Refund
 	src << "You've have been refunded [refunded_skill] for [Commas(Refund)] RPP."
 	if(usr && src != usr)
 		usr << "You've refunded [refunded_skill] for [Commas(Refund)] RPP."
@@ -60,7 +38,7 @@ mob/proc/refund_skill(obj/Skills/refunded_skill)
 					var/obj/Skills/Buffs/s = S
 					if(src.BuffOn(s))
 						s.Trigger(src, Override=1)
-				if(istype(S, /obj/Skills/Buffs/NuStyle))
+				/*if(istype(S, /obj/Skills/Buffs/NuStyle))
 					if(S:StyleComboUnlock)
 						if(IsList(S:StyleComboUnlock))
 							for(var/x in S:StyleComboUnlock)
@@ -69,7 +47,7 @@ mob/proc/refund_skill(obj/Skills/refunded_skill)
 								if(!advanced_path) return
 								var/obj/Skills/Buffs/NuStyle/StyleToRefund = locate(advanced_path) in src
 								if(StyleToRefund)
-									refund_skill(StyleToRefund)
+									refund_skill(StyleToRefund)*/
 				del S
 				break
 	for(var/obj/Skills/Buffs/NuStyle/s in src)

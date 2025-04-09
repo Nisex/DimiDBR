@@ -12,7 +12,7 @@ mob
 							if(m in usr.ai_followers) continue
 							if(usr.party)
 								if(usr.party.members)
-									if(usr.party.members.Find(m)) continue
+									if(usr.inParty(m.ckey)) continue
 							if(get_dist(usr,m)<NewTgtDist)
 								NewTgtDist=get_dist(usr,m)
 								NewTarget=m
@@ -40,4 +40,5 @@ mob
 					usr.AdaptationCounter=0
 					usr.AdaptationTarget=null
 					usr.AdaptationAnnounce=null
+
 					Z.Cooldown()

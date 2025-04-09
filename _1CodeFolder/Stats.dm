@@ -83,12 +83,12 @@ mob/proc/GetAssess()
 	<tr><td>Defense:</td><td> [round(src.GetDef(), 0.01)] ([src.BaseDef()])</td></tr>
 	<tr><td>Recovery:</td><td> [round(src.GetRecov(), 0.01)] ([src.BaseRecov()])</td></tr>
 	<tr><td>Anger:</td><td>[src.AngerMax*100]%</td></tr>
-	<tr><td>Power Mult:</td><td>[round(src.potential_power_mult, 0.05) + src.PowerBoost])</td></tr>
+	<tr><td>Power Mult:</td><td>[round(src.potential_power_mult, 0.05) + src.PowerBoost]%</td></tr>
 	<tr><td>Potential:</td><td>[Potential]/100</td></tr>
 	<tr><td>Transformation Potential:</td><td>[src.potential_trans]/100</td></tr>
 	<tr><td>Average Stats: [StatAverage]</td></tr>
 	<tr><td>Magic Level: [getTotalMagicLevel()]</td></tr>
-			</table>"}
+			</table></html>"}
 /*	<tr><td>True Tier:</td><td>[POWER_TIERS[potential_power_tier]]</td></tr>
 	<tr><td>Display Tier:</td><td>[POWER_TIERS[power_display]]</td></tr>*/
 
@@ -125,7 +125,7 @@ proc/SenseDetect(atom/A,Range)
 mob/var/list/Tabz=list("Science"="Hide","Build"="Hide","Enchantment"="Hide","Inventory"="Show")
 
 mob/Players/Stat()
-	if(client.show_verb_panel&&!Tabs)
+	if(client.show_verb_panel)
 
 		statpanel("Statistics")
 		if(statpanel("Statistics"))
@@ -197,9 +197,6 @@ mob/Players/Stat()
 			stat("----","----")
 			stat("Reward Points:","[round(usr.RPPSpendable)]")
 			stat("Reward Points Used:","[round(usr.RPPSpent)]")
-			if(usr.RPPSpendableEvent || usr.RPPSpentEvent)
-				stat("Event Reward Points:","[round(usr.RPPSpendableEvent)]")
-				stat("Event Reward Points Used:","[round(usr.RPPSpentEvent)]")
 			if(usr.RPPDonate)
 				stat("Donate RPP:", "[round(usr.RPPDonate)]")
 			if(usr.PotentialRate>0)
@@ -309,18 +306,26 @@ mob/Players/Stat()
 			CHECK_TICK
 			if(isplayer(usr.Target) || istype(usr.Target, /mob/Player))
 				stat("Focused:",Target)
-				if(usr.EnhancedSmell&&!usr.Target.passive_handler.Get("Void"))
-					var/Scent=0
+				if(usr.EnhancedSmell&&!usr.Target.passive_handler.Get("Void") || usr.Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
+					if(usr.Secret == "Heavenly Restriction" && usr.secretDatum?:hasRestriction("Senses"))
+						goto Restricted
+					var/Scent="Sewage"
 					if(usr.Target.custom_scent)
 						Scent=usr.Target.custom_scent
+						stat("Scent: ", usr.Target.custom_scent)
 					else
 						usr.Target.setUpScent()
-					stat("Scent: ", Scent)
+						stat("Scent: ", Scent)
+
+				Restricted
 
 				var/WoundIntent
 				var/KillingIntent
 				var/Status
 				var/RPIntent
+
+				if(usr.Secret == "Heavenly Restriction" && usr.secretDatum?:hasRestriction("Senses"))
+					goto Restricted2
 
 				if(usr.Target.HasFakePeace()||(usr.Target.WoundIntent==0&&!usr.Target.SwordWounds()&&!usr.Target.CursedWounds()&&!(usr.IsEvil()&&usr.Target.HasPurity())))
 					WoundIntent="<font color='green'>None</font color>"
@@ -337,33 +342,46 @@ mob/Players/Stat()
 				else
 					Status="<font color='red'>Wounded</font color>"
 
-				if(usr.Target.PureRPMode==0)
-					RPIntent="<font color='green'>RP Mode Off</font color>"
-				else
-					RPIntent="<font color='red'>RP Mode On</font color>"
-
 				stat("Injury Intent: ", WoundIntent)
 				stat("Killing Intent: ", KillingIntent)
-				if(usr.MedicineUnlocked+usr.ImprovedMedicalTechnologyUnlocked>=2&&!usr.Target.passive_handler.Get("Void")&&!usr.Target.HasMechanized())
+
+
+				if(usr.MedicineUnlocked+usr.ImprovedMedicalTechnologyUnlocked>=2&&!usr.Target.passive_handler.Get("Void")&&!usr.Target.HasMechanized() || usr.Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
 					stat("Status:", Status)
 				if(usr.Target.Maimed)
 					stat("<font color='red'>They are maimed.</font color>")
 				if(usr.Target.MortallyWounded)
 					stat("<font color='red'>They are bleeding heavily.</font color>")
 
-				if(!usr.Target.HasGodKi()&&!usr.Target.passive_handler.Get("Void")&&!usr.Target.HasMechanized()&&usr.Target.SenseUnlocked<7)
+				if(!usr.Target.HasGodKi()&&!usr.Target.passive_handler.Get("Void")&&!usr.Target.HasMechanized()&&usr.Target.SenseUnlocked<7 || usr.Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Senses"))
 					stat("Direction - [get_dist(usr, usr.Target)] tiles away","[CheckDirection(usr.Target)]")
 					stat("Power:","[Get_Sense_Reading(Target)]")
-					if(Target.VaizardHealth)
+					if(Target.BioArmor)
+						var/displayMarks = ""
+						if(Target.BioArmor >= 100)
+							displayMarks = "???"
+						else if(Target.BioArmor < 99 && Target.BioArmor >= 10)
+							displayMarks = "??"
+						else if(Target.BioArmor < 10)
+							displayMarks = "?"
+						stat("Health:", "[Target.Health]([displayMarks])%")
+					else if(Target.VaizardHealth)
 						stat("Health:", "[Target.Health]([Target.VaizardHealth])%")
 					else
 						stat("Health: ","[Target.Health]%")
 					stat("Energy: ","[(Target.Energy/Target.EnergyMax)*100]%")
 				else
 					stat("Power: ", "Incomprehensible")
-					if(usr.HasClarity())
+					if(usr.HasClarity() || usr.passive_handler.Get("AdminVision"))
 						stat("Direction - [get_dist(usr, usr.Target)] tiles away","[CheckDirection(usr.Target)]")
 						stat("Health: ","[round(Target.Health)]%")
+
+				Restricted2
+
+				if(usr.Target.PureRPMode==0)
+					RPIntent="<font color='green'>RP Mode Off</font color>"
+				else
+					RPIntent="<font color='red'>RP Mode On</font color>"
 
 				stat("Roleplay Mode: ", RPIntent)
 
@@ -397,7 +415,7 @@ atom/proc/CheckDirection(var/mob/M)
 		if(SOUTHWEST)
 			. = "South West"
 
-globalTracker/var/MOVEMENT_MASTERY_DIVISOR = 12
+globalTracker/var/MOVEMENT_MASTERY_DIVISOR = 10
 
 
 mob/proc/GetPowerUpRatio()
@@ -405,15 +423,13 @@ mob/proc/GetPowerUpRatio()
 	var/PowerUp=max(((PowerControl-100)/100),-0.5)
 	if(passive_handler.Get("PUSpike"))
 		PowerUp+=passive_handler.Get("PUSpike")/100
-	if(src.CyberCancel)
-		if(src.CheckSpecial("Overdrive"))
-			if(src.Race=="Android")
-				PowerUp+=0.5
-			else
-				PowerUp+=1
-		else
-			if(src.Race!="Android")
-				PowerUp-=PowerUp*src.CyberCancel
+	if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Power Control"))
+		PowerUp += secretDatum?:getBoon(src, "Power Control")/12
+	if(src.CheckSpecial("Overdrive"))
+		PowerUp+=1
+/*	if(src.CyberCancel)
+		if(!isRace(ANDROID))
+			PowerUp-=PowerUp*src.CyberCancel*/
 	if(src.HasMovementMastery()&&PowerUp>0)
 		var/mmBonus = src.GetMovementMastery() / glob.MOVEMENT_MASTERY_DIVISOR
 		// max is around 20, maybe 22 or 23
@@ -439,17 +455,13 @@ mob/proc/GetPowerUpRatioVisble()
 	var/PowerUp=(PowerControl-100)/100
 	if(passive_handler.Get("PUSpike"))
 		PowerUp+=(passive_handler.Get("PUSpike")/100)
-	if(src.CyberCancel)
-		if(src.CheckSpecial("Overdrive"))
-			if(src.Race=="Android")
-				PowerUp+=0.5
-			else
-				PowerUp+=1
-		else
-			if(src.Race!="Android")
-				PowerUp-=PowerUp*src.CyberCancel
-	if(passive_handler.Get("MovementMastery")&&PowerUp>0)
-		Ratio=1+(PowerUp*(1+(passive_handler.Get("MovementMastery")/8)))
+	if(src.CheckSpecial("Overdrive"))
+		PowerUp+=1
+	/*if(src.CyberCancel)
+		if(!isRace(ANDROID))
+			PowerUp-=PowerUp*src.CyberCancel*/
+	if(HasMovementMastery()&&PowerUp>0)
+		Ratio=1+(PowerUp*(1+(GetMovementMastery()/glob.MOVEMENT_MASTERY_DIVISOR)))
 	else
 		Ratio=1+PowerUp
 	if(!src.HasKiControl()&&!src.PoweringUp)
@@ -467,8 +479,6 @@ mob/proc/Recover(var/blah,Amount=1)
 			if(PureRPMode)
 				return
 			if(src.Transfering)
-				return
-			if(src.LastBreath)
 				return
 			if(src.Oxygen<=10)
 				return
@@ -541,21 +551,6 @@ mob/proc/Recover(var/blah,Amount=1)
 					src.RecovEroded=0
 			if(Health>10*(1-src.HealthCut)&&src.HealthAnnounce10)
 				src.HealthAnnounce10=0
-			if(seventhSenseTriggered)
-				var/detrigger = FALSE
-				switch(SagaLevel)
-					if(5)
-						if(Health>=20*(1-src.HealthCut))
-							detrigger = TRUE
-					if(6)
-						if(Health>=30*(1-src.HealthCut))
-							detrigger = TRUE
-				if(detrigger)
-					seventhSenseTriggered=0
-					for(var/obj/Skills/Buffs/SlotlessBuffs/SeventhSense/SS in src)
-						if(src.BuffOn(SS))
-							SS.Trigger(src, TRUE)
-						del SS
 			if(Health>25*(1-src.HealthCut)&&src.HealthAnnounce25)
 				src.HealthAnnounce25=0
 			if(Health>50*(1-src.HealthCut)&&src.MeltyMessage)
@@ -565,7 +560,8 @@ mob/proc/Recover(var/blah,Amount=1)
 			if(src.NanoBoost)
 				if(src.Health>=75*(1-src.HealthCut)&&src.NanoAnnounce)
 					src.NanoAnnounce=0
-			src:move_speed = MovementSpeed()
+			if(isplayer(src))
+				src:move_speed = MovementSpeed()
 		if("Injury")
 			if(PureRPMode)
 				return
@@ -595,12 +591,8 @@ mob/proc/Recover(var/blah,Amount=1)
 				return
 			if(src.Transfering)
 				return
-			if(src.LastBreath)
-				return
 			if(src.Oxygen<=10)
 				return
-			if(src.Race=="Changeling")
-				Amount*=7.5
 			if(SenseRobbed>=2&&(src.SenseUnlocked<=src.SenseRobbed&&src.SenseUnlocked>5))
 				Amount/=src.SenseRobbed
 			if(Swim&&passive_handler.Get("Fishman"))
@@ -647,7 +639,7 @@ mob/proc/Recover(var/blah,Amount=1)
 			if(Swim&&passive_handler.Get("Fishman"))
 				Amount*=2
 			if(CheckSpecial("Bond Keeper"))
-				Amount*=max(2,2*(1-(ManaAmount/(100*ManaCapMult))))
+				Amount*=max(2,2*(1-(ManaAmount/(100*GetManaCapMult()))))
 			src.HealMana(Amount)
 		if("Capacity")
 			if(PureRPMode)
@@ -672,36 +664,33 @@ mob/proc/Recover(var/blah,Amount=1)
 				if(PS.CurrentCapacity>PS.MaxCapacity)
 					PS.CurrentCapacity=PS.MaxCapacity
 
-
-
-
 mob/proc/
 	Available_Power()
 //Kaiokek
 		if(src.Kaioken)
 			switch(src.Kaioken)
 				if(1)
-					src.PowerControl=150
-					src.KaiokenBP=4/3
+					src.PowerControl=160
+					src.KaiokenBP=1.2
 				if(2)
-					src.PowerControl=150
-					src.KaiokenBP=2
+					src.PowerControl=175
+					src.KaiokenBP=1.3
 				if(3)
 					src.PowerControl=200
-					src.KaiokenBP=2
+					src.KaiokenBP=1.4
 				if(4)
 					src.PowerControl=250
-					src.KaiokenBP=4
+					src.KaiokenBP=1.5
 				if(5)
 					src.PowerControl=300
-					src.KaiokenBP=(20/3)
+					src.KaiokenBP=1.7
 		else
 			src.KaiokenBP=1
 //EPM modifications
 		var/EPM=src.Power_Multiplier
 		if(src.HasMovementMastery())
 			if(src.ActiveBuff && src.ActiveBuff.PowerMult > 1 && (GetPowerUpRatio()<=1))
-				EPM+=((src.ActiveBuff.PowerMult-1) * (1+(src.GetMovementMastery()/8)))-(src.ActiveBuff.PowerMult-1)
+				EPM+=((src.ActiveBuff.PowerMult-1) * (1+(src.GetMovementMastery()/glob.MOVEMENT_MASTERY_DIVISOR)))-(src.ActiveBuff.PowerMult-1)
 
 		if(src.PowerEroded)
 			EPM-=src.PowerEroded
@@ -712,8 +701,8 @@ mob/proc/
 		// 	var/pot=src.get_potential()
 		// 	EPM+=pot/100
 
-		if(isRace(MAKYO)&&src.ActiveBuff&&!src.HasMechanized())
-			EPM+=0.1*src.AscensionsAcquired
+		// if(isRace(MAKYO)&&src.ActiveBuff&&!src.HasMechanized())
+		// 	EPM+=0.1*src.AscensionsAcquired
 
 		if(EPM<=0)
 			EPM=0.1
@@ -728,6 +717,9 @@ mob/proc/
 		Ratio*=src.Base()
 		temp_potential_power(src)//get them potential powers
 		Ratio*=src.potential_power_mult
+
+		if(Secret == "Heavenly Restriction" && secretDatum?:hasImprovement("Power"))
+			Ratio *= 1+(secretDatum?:getBoon(src, "Power")/15)
 		//BODY CONDITION INFLUENCES
 		if(!passive_handler.Get("Piloting"))
 			if(!passive_handler.Get("Possessive"))
@@ -743,7 +735,7 @@ mob/proc/
 						Ratio*=src.BPPoison
 				if(src.Maimed)
 					var/Ignore=src.HasMaimMastery()
-					if(Ignore)
+					if(Ignore || isRace(CHANGELING))
 						Ratio*=1
 					else
 						src.MaimsOutstanding=max(src.Maimed-(0.5*src.GetProsthetics()), 0)
@@ -783,13 +775,13 @@ mob/proc/
 								a=src.GetAngerThreshold()
 						if(src.DefianceCounter)
 							a+=src.DefianceCounter*0.05
-					if(src.CyberCancel>0)
+					if(src.CyberCancel>0 && !isRace(ANDROID))
 						var/ang=a-1//Usable anger.
 						var/cancel=ang*src.CyberCancel//1 Cyber Cancel = all of usable anger.
 						a-=cancel//take the anger away.
 						if(a<1)//Only nerf anger.
 							a=1
-/*					if(src.PhylacteryNerf)
+			/*					if(src.PhylacteryNerf)
 						a-=(a*src.PhylacteryNerf)*/
 					if(a<=0)
 						a=0.01
@@ -805,21 +797,22 @@ mob/proc/
 				if(race.transformations[transActive].mastery==100)
 					Ratio *= 1 + (0.15 * transActive)
 
-			if(src.TarotFate=="The Sun")
-				Ratio*=1.5
-
 			if(src.Target)
 				if(ismob(src.Target))
-					if(src.CheckSlotless("Saiyan Soul")&&!src.Target.CheckSlotless("Saiyan Soul"))
-						if(Power<src.Target.Power)
-							Ratio=src.Target.Power/src.Target.GetPowerUpRatio()
 					if(src.HasMirrorStats()&&!src.Target.HasMirrorStats()&&!src.Target.CheckSlotless("Saiyan Soul"))
 						Ratio=src.Target.Power/src.Target.GetPowerUpRatio()
+		
+		if(passive_handler["Rebel Heart"])
+			var/h = ((missingHealth()/glob.REBELHEARTMOD) * passive_handler["Rebel Heart"])/5
+			Ratio+=h
 		Power=Ratio*GetPowerUpRatio()
 
 		if(Power < 1)
 			Power = 1
-
+		if(passive_handler["Hidden Potential"] && Target)
+			if(Target.Power > Power)
+				Power = Target.Power
+				Power*=GetPowerUpRatio()
 		var/nerf = GetPowerUpRatio()+EPM > 2.3 ? 1 : 0
 		power_display=get_power_tier(0, Power, nerf)
 
@@ -847,45 +840,38 @@ mob/proc/
 					if(isRace(HUMAN))
 						Boosted *= 1 + (TotalInjury/50)
 					Recover("Injury",1*Boosted)
-					if(src.Restoration||src.Secret=="Zombie")
+					if(src.passive_handler.Get("Restoration")||src.Secret=="Zombie")
 						Recover("Health",1)
 						Recover("Injury",1)
 						BPPoisonTimer-=15
 				if(src.Energy<src.EnergyMax)
 					Recover("Energy",1)
 					Recover("Fatigue",1.25)
-					if(src.Restoration)
+					if(src.passive_handler.Get("Restoration"))
 						Recover("Energy",1)
 						Recover("Fatigue",1)
 				if(Secret == "Senjutsu")
 					if((CheckSlotless("Senjutsu Focus") || CheckSlotless("Sage Mode")) != 0)
 						var/boon = Secret == "Senjutsu" ? secretDatum.currentTier : 0
 						Recover("Mana",1 + boon)
-						if(src.Restoration)
+						if(src.passive_handler.Get("Restoration"))
 							Recover("Mana",1)
 				else
 					if(ManaAmount<((src.ManaMax-src.TotalCapacity)*src.GetManaCapMult()))
 						Recover("Mana",1)
-					if(src.Restoration)
+					if(src.passive_handler.Get("Restoration"))
 						Recover("Mana",1)
 				Recover("Capacity",2)
-				if(locate(/obj/Regenerate, src))
-					if(!src.Regenerating)
-						for(var/obj/Regenerate/A in src)
-							if(A.Level<1)
-								A.Level+=0.1
-								if(A.Level>=1)
-									A.Level=1
 			else
-				Recover("Energy",1)
+				Recover("Energy",0.5)
 
 		if(src.PowerControl<=25)
-			Recover("Fatigue",1)
+			Recover("Fatigue",0.5)
 			if(src.ManaDeath)
-				ManaAmount-=5*src.ManaCapMult
+				ManaAmount-=5*GetManaCapMult()
 			else if(src.is_arcane_beast || (isRace(YOKAI) && src.AscensionsAcquired>0 && !src.Mechanized && !src.ActiveBuff))
 				if(isRace(YOKAI))
-					Recover("Mana", 1*src.ManaCapMult)
+					Recover("Mana", 1*GetManaCapMult())
 				else
 					Recover("Mana",1)
 
@@ -909,13 +895,6 @@ mob/proc/
 				PUGain*=src.GetRecov(10)
 			else
 				PUGain*=src.GetRecov(10)
-
-			if(src.ChakraFreeze)
-				if(!src.PURestrictionRemove)//You can't freeze the limitless
-					PUGain*=0
-				src.ChakraFreeze--
-				if(src.ChakraFreeze<=0)
-					src.ChakraFreeze=0
 
 			if(src.Kaioken)
 				PUGain=0
@@ -962,7 +941,7 @@ mob/proc/
 				src.Auraz("Remove")
 				src<<"You are too tired to power up."
 				src.PoweringUp=0
-				if(isRace(SAIYAN)||Race=="Half Saiyan")
+				if(isRace(SAIYAN)||isRace(HALFSAIYAN))
 					if(src.transActive()>0)
 						var/Skip=0
 						if(src.race.transformations[transActive].mastery>=25)
@@ -980,7 +959,7 @@ mob/proc/
 				src.PoweringUp=0
 				src.Auraz("Remove")
 				src<<"You are too tired to power up."
-				if(isRace(SAIYAN)|Race=="Half Saiyan")
+				if(isRace(SAIYAN)||isRace(HALFSAIYAN))
 					if(src.transActive>0)
 						var/Skip=0
 						if(src.race.transformations[transActive].mastery>=25)
@@ -1009,12 +988,13 @@ mob/proc/
 
 mob/proc/Update_Stat_Labels()
 	set waitfor=0
+	if(!client) return
 	if(!src.ha)
 		var/ManaMessage="%"
 		if(round(TotalInjury))
-			src<<output("Health: [round(Health)+round(VaizardHealth)] (Injuries:[round(TotalInjury)]%)", "BarHealth")
+			src<<output("Health: [round(Health)+round(VaizardHealth)+round(BioArmor)] (Injuries:[round(TotalInjury)]%)", "BarHealth")
 		else
-			src<<output("Health: [round(Health)+round(VaizardHealth)]%", "BarHealth")
+			src<<output("Health: [round(Health)+round(VaizardHealth)+round(BioArmor)]%", "BarHealth")
 		if(round(TotalFatigue))
 			src<<output("Energy: [round((Energy/EnergyMax)*100)] (Fatigue:[round(TotalFatigue)]%)","BarEnergy")
 		else
@@ -1026,6 +1006,8 @@ mob/proc/Update_Stat_Labels()
 			src<<output("SUPER: [round(ManaAmount/ManaMax*100)]","BarMana")
 		else if(src.HasMechanized())
 			src<<output("Battery: [round(ManaAmount/ManaMax*100)]","BarMana")
+		else if(passive_handler["RenameMana"])
+			src<<output("[passive_handler["RenameMana"]]: [round(ManaAmount/ManaMax*100)]","BarMana")
 		else
 			src<<output("Mana: [round((ManaAmount/100)*100)][ManaMessage]","BarMana")
 		if(!src.Kaioken)
@@ -1089,15 +1071,22 @@ mob/proc/Update_Stat_Labels()
 		if(src.StyleActive)
 			winshow(src, "StyleLabel",1)
 			winshow(src, "StanceLabel",1)
-			winshow(src, "MovementBar", 1)
-			winshow(src, "MovementLabel", 1)
 			src<<output("[src.StyleActive]","StyleLabel")
 			src<<output("[src.StanceActive]","StanceLabel")
 			if(src.StyleBuff)
 				winshow(src, "TensionLabel",1)
 				winshow(src, "TensionBar",1)
-				winset(src, "TensionBar", "value=[src.Tension]")
-				if(src.Tension>=100)
+
+				var/maxTension = 100
+				if(passive_handler.Get("Conductor"))
+					maxTension = max(glob.MIN_TENSION, maxTension - passive_handler.Get("Conductor"))
+					winset(src, "TensionBar", "value=[(100-maxTension) + src.Tension]")
+				else
+					winset(src, "TensionBar", "value=[src.Tension]")
+
+
+
+				if(src.Tension>=maxTension)
 					winset(src, "TensionBar", "bar-color='#F00'")
 					winset(src, "TensionLabel", "text-color='#F00'")
 					src << output("FINISHER!!!", "TensionLabel")
@@ -1105,21 +1094,23 @@ mob/proc/Update_Stat_Labels()
 					winset(src, "TensionBar", "bar-color='#F0F'")
 					winset(src, "TensionLabel", "text-color='#F0F'")
 					src << output("TENSION", "TensionLabel")
-
-			if(src.MovementCharges<1)
-				winset(src, "MovementBar", "bar-color=#666")
-				winset(src, "MovementLabel", "text-color=#666")
-			else if(src.MovementCharges<2)
-				winset(src, "MovementBar", "bar-color=#0F0")
-				winset(src, "MovementLabel","text-color=#0F0")
-			else if(src.MovementCharges<3)
-				winset(src, "MovementBar", "bar-color=#F00")
-				winset(src, "MovementLabel", "text-color=#F00")
-			else
-				winset(src, "MovementBar", "bar-color=#FF0")
-				winset(src, "MovementLabel", "text-color=#FF0")
-			winset(src, "MovementBar", "value=[(src.MovementCharges-round(src.MovementCharges))*100]")
-			winset(src, "MovementLabel", "text=[round(src.MovementCharges)]")
+			if(client.getPref("oldZanzo"))
+				winshow(src, "MovementBar", 1)
+				winshow(src, "MovementLabel", 1)
+				if(src.MovementCharges<1)
+					winset(src, "MovementBar", "bar-color=#666")
+					winset(src, "MovementLabel", "text-color=#666")
+				else if(src.MovementCharges<2)
+					winset(src, "MovementBar", "bar-color=#0F0")
+					winset(src, "MovementLabel","text-color=#0F0")
+				else if(src.MovementCharges<3)
+					winset(src, "MovementBar", "bar-color=#F00")
+					winset(src, "MovementLabel", "text-color=#F00")
+				else
+					winset(src, "MovementBar", "bar-color=#FF0")
+					winset(src, "MovementLabel", "text-color=#FF0")
+				winset(src, "MovementBar", "value=[(src.MovementCharges-round(src.MovementCharges))*100]")
+				winset(src, "MovementLabel", "text=[round(src.MovementCharges)]")
 		else
 			winshow(src, "StyleLabel",0)
 			winshow(src, "StanceLabel",0)
@@ -1224,8 +1215,8 @@ mob/proc/Get_Scouter_Reading(mob/B)
 
 	Ratio*=EPM
 
-	if(B.HasLegendaryPower())
-		Ratio*= 1 + (2*B.HasLegendaryPower())
+	if(B.HasMythical())
+		Ratio*= 1 + (2*B.HasMythical())
 	if(B.HasHellPower())
 		Ratio*=(B.GetHellScaling() * 1500)
 	Ratio*=B.Base() * 100
@@ -1256,12 +1247,12 @@ mob/proc/Get_Scouter_Reading(mob/B)
 				if(B.isRace(YOKAI))
 					if(B.EraBody=="Elder"||(B.EraBody=="Adult"&&B.Aged))
 						AgeRate=1.25
-				if(B.Race=="Half Saiyan"&&B.Anger)
+				if(B.isRace(HALFSAIYAN)&&B.Anger)
 					AgeRate=1
 				Ratio*=AgeRate
 			if(locate(/obj/Seal/Power_Seal, B))
 				Ratio*=0.5
-			if(B.CanLoseVitalBP()||B.Anaerobic)
+			if(B.CanLoseVitalBP())
 				Ratio*=1+(B.GetHealthBPMult()+B.GetEnergyBPMult())
 			if(B.JaganPowerNerf)
 				Ratio*=B.JaganPowerNerf
@@ -1272,7 +1263,7 @@ mob/proc/Get_Scouter_Reading(mob/B)
 					Ratio*=B.BPPoison
 			if(B.Maimed)
 				var/Ignore=B.HasMaimMastery()
-				if(Ignore)
+				if(Ignore || isRace(CHANGELING))
 					Ratio*=1
 				else
 					B.MaimsOutstanding=max(B.Maimed-(0.5*B.GetProsthetics()), 0)
@@ -1295,8 +1286,6 @@ mob/proc/Get_Scouter_Reading(mob/B)
 						a=mult+1
 				else if(B.Anger&&!B.HasNoAnger()&&!B.HiddenAnger)
 					a=B.Anger
-					if(B.Race=="Half Saiyan"&&a<2)
-						a=2
 					if(B.AngerMult>1)
 						var/ang=a-1//Usable anger
 						var/mult=ang*B.AngerMult
@@ -1327,7 +1316,7 @@ mob/proc/Get_Scouter_Reading(mob/B)
 
 	if(B.Dead&&!B.KeepBody)
 		Ratio*=0.5
-	else if(B.z==glob.DEATH_LOCATION[3]&&!B.CheckActive("Cancer Cloth")&&B.SenseUnlocked<8&&!B.SpiritPower)
+	else if(B.z==glob.DEATH_LOCATION[3]&&!B.CheckActive("Cancer Cloth")&&B.SenseUnlocked<8&&!B.passive_handler.Get("SpiritPower"))
 		Ratio*=0.1
 
 	var/Reading=Ratio

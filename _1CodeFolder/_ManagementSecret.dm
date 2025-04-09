@@ -12,7 +12,7 @@
 /mob/Admin4/verb/editSecretDatum(mob/p in players)
 	if(p.secretDatum)
 		var/atom/A = p.secretDatum
-		var/Edit="<Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
+		var/Edit="<html><Edit><body bgcolor=#000000 text=#339999 link=#99FFFF>"
 		var/list/B=new
 		Edit+="[A]<br>[A.type]"
 		Edit+="<table width=10%>"
@@ -22,8 +22,14 @@
 			Edit+="<td><a href=byond://?src=\ref[A];action=edit;var=[C]>"
 			Edit+=C
 			Edit+="<td>[Value(A.vars[C])]</td></tr>"
+		Edit += "</html>"
 		usr<<browse(Edit,"window=[A];size=450x600")
 
+/mob/Admin3/verb/TierSecretUp(mob/p in players)
+	if(p.secretDatum)
+		var/confirm = alert(usr, "Are you sure you want to tier up [p]'s [p.secretDatum.name]?",,"Yes","No")
+		if(confirm == "No") return
+		p.secretDatum.tierUp(1, p)
 
 /mob/proc/getSecretLevel()
 	if(secretDatum)
@@ -47,16 +53,16 @@ SecretInfomation
 		potentialRecieved = glob.progress.DaysOfWipe*glob.progress.PotentialDaily
 		nextTierUp = 3
 		applySecret(p)
-
+/*
 	proc/checkTierUp(mob/p)
 		if(currentTier < maxTier)
-			if(p.Potential >= potentialRecieved + (glob.progress.PotentialDaily*nextTierUp))
+	/*		if(p.Potential >= potentialRecieved + (glob.progress.PotentialDaily*nextTierUp))
 				potentialRecieved = glob.progress.DaysOfWipe
 				if(currentTier + 1 <= tierUnlocked)
-					tierUp(1, p)
-			else if(currentTier > lastCheckedTier)
-				applySecret(p)
-
+					tierUp(1, p)*/
+			if(currentTier > lastCheckedTier)
+				tierUp(currentTier-lastCheckedTier, p)
+*/
 
 
 	proc/tierUp(num, mob/p)
@@ -87,8 +93,7 @@ SecretInfomation
 
 	Jagan
 		name = "Jagan Eye"
-
-		givenSkills = list("/obj/Skills/Buffs/SpecialBuffs/Cursed/Jagan_Eye", "/obj/Skills/Utility/Telepathy", "/obj/Skills/Utility/Observe", "obj/Skills/Telekinisis" )
+		givenSkills = list("/obj/Skills/Buffs/SpecialBuffs/Cursed/Jagan_Eye", "/obj/Skills/Utility/Telepathy", "obj/Skills/Telekinisis" )
 		givenVariables = list("EnhancedHearing", "EnhancedSmell")
 
 		applySecret(mob/p)
@@ -142,9 +147,9 @@ SecretInfomation
 		"/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Future_Flash")
 		secretVariable = list("HakiSpecialization", "HakiCounterArmament", "HakiCounterObservation", "ConquerorsHaki")
 		proc/conQHaki(mob/p)
-			if(!(p.race.name in glob.CONQ_HAKI_RACES))
-				return 0
-			if(prob(2.5*currentTier) && secretVariable["ConquerorsHaki"] != 1)
+		/*	if(!(p.race.name in glob.CONQ_HAKI_RACES))
+				return 0*/
+			if(prob(glob.CONQ_HAKI_CHANCE*currentTier) && secretVariable["ConquerorsHaki"] != 1)
 				unlockConquerorsHaki(p)
 		proc/unlockConquerorsHaki(mob/p)
 			p << "You have the qualities of a King..."
@@ -307,10 +312,10 @@ SecretInfomation
 				secretVariable["Madness"] += amount
 
 		proc/releaseMadness(mob/user)
-			var/tierEffectiveness = glob.MADNESS_DRAIN - (user.AscensionsAcquired/2)
+			var/tierEffectiveness = glob.racials.MADNESS_DRAIN - (user.AscensionsAcquired/2)
 			// LESS = MORE
 			if(user.CheckSlotless("True Form"))
-				tierEffectiveness = clamp(tierEffectiveness-glob.MADNESS_DRAIN_FORM, 0.5, glob.MADNESS_DRAIN)
+				tierEffectiveness = clamp(tierEffectiveness-glob.racials.MADNESS_DRAIN_FORM, 0.5, glob.racials.MADNESS_DRAIN)
 			secretVariable["Madness"] -= tierEffectiveness
 			if(secretVariable["Madness"] <= 0)
 				secretVariable["Madness"] = 0
@@ -387,14 +392,13 @@ SecretInfomation
 				if(5)
 					p << "Your mastery of the lunar curse is godly..."
 
-
-
-
-
 	HeavenlyRestriction
 		name = "Heavenly Restriction"
 		givenSkills = list("/obj/Skills/Buffs/SlotlessBuffs/HeavenlyRestriction/HeavenlyRestriction")
-		secretVariable = list("RestrictionTypes", "RestrictionLevel", "RestrictionActive")
+		secretVariable = list("Restrictions" = list(), "Improvements" = list())
+		applySecret(mob/p)
+			var/list/restriction = pickRestriction(p)
+			applySecretVariable(p, restriction, pickImprove(p, restriction))
 
 
 	SageArts
@@ -418,7 +422,7 @@ SecretInfomation
 					if(!r)
 						p.AddSkill(new/obj/Skills/Queue/Rasengan)
 						p << "You have learned the Rasengan!"
-					focus.ManaStats = 2
+					focus.passives["ManaStats"] = 2
 					nextTierUp = 4
 				if(3)
 					p << "Your mastery of natural energy is coming close to its peak..."
@@ -440,7 +444,7 @@ SecretInfomation
 					if(!r)
 						p.AddSkill(new/obj/Skills/Projectile/Rasenshuriken)
 						p << "You have learned the Rasenshuriken!"
-					focus.ManaStats = 3
+					focus.passives["ManaStats"] = 3
 					nextTierUp = 4
 				if(5)
 					nextTierUp=999
@@ -463,14 +467,14 @@ mob
 		giveSecret(path)
 			path = text2path("/SecretInfomation/[path]")
 			var/SecretInfomation/secret = new path
-			secret.init(src)
 			secretDatum = secret
+			secret.init(src)
 
 mob/Admin3/verb
 	SecretManagement(var/mob/P in players)
 		set category="Admin"
 		if(!P.client) return
-		var/list/Secrets=list("Spirits of The World","Jagan", "Hamon of the Sun", "Werewolf", "Vampire", "Sage Arts", "Haki", "Eldritch")
+		var/list/Secrets=list("Spirits of The World","Jagan", "Hamon of the Sun", "Werewolf", "Vampire", "Sage Arts", "Haki", "Eldritch", "Heavenly Restriction")
 		var/Selection=input(src, "Which aspect of power does [P] awaken to?", "Secret Management") in Secrets
 		if(P.Secret)
 			src << "They already have a secret."
@@ -484,6 +488,9 @@ mob/Admin3/verb
 					var/newpath = replacetext(path, " ", "_")
 					newpath = "Spirits_Of_The_World/[newpath]"
 					P.giveSecret(newpath)
+				if("Heavenly Restriction")
+					P.Secret = "Heavenly Restriction"
+					P.giveSecret("HeavenlyRestriction")
 				if("Jagan")
 					P.Secret = "Jagan"
 					P.giveSecret("Jagan")

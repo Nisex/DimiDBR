@@ -49,7 +49,7 @@ obj/Skills/Utility
 					return
 			Choice.RPPSpendable+=(Amount*Choice.GetRPPMult())
 			usr.RPPDonate-=Amount
-			if(usr.Race=="Shinjin"&&usr.ShinjinAscension=="Kai")
+			if(usr.isRace(SHINJIN)&&usr.ShinjinAscension=="Kai")
 				usr.potential_gain(Amount/glob.progress.RPPDaily*50)//kais have a 0.1 potential rate so this is only x5 potential in reality and i really dont think the fuckers are gonna be out there slaying npcs
 			OMsg(usr, "[usr] passes some of their knowledge to [Choice]!")
 			Choice.LastTeach=world.realtime+Day(1)
@@ -106,7 +106,7 @@ obj/Skills/Utility
 				if(Choice.SpendRPP((Choice2.SkillCost*0.5/Choice.GetRPPMult()), Choice2, Training=1))
 					Choice.AddSkill( new Choice2.type )
 					usr.RPPDonate-=Choice2.SkillCost*0.5
-					if(usr.Race=="Shinjin"&&usr.ShinjinAscension=="Kai")
+					if(usr.isRace(SHINJIN)&&usr.ShinjinAscension=="Kai")
 						usr.potential_gain(Choice2.SkillCost*0.5/glob.progress.RPPDaily*50)//kai only have 0.1 potential rate so this is only x5
 					OMsg(usr, "[usr] passes some of their knowledge to [Choice]!")
 					Choice.LastTeach=world.realtime+Day(1)
@@ -152,7 +152,7 @@ obj/Skills/Utility
 					if(usr.Grab)
 						usr << "You need free hands!"
 						return
-					if(!usr.HasMoney(src.Mastery*global.EconomyCost*0.05))
+					if(!usr.HasMoney(glob.progress.EconomyCost*0.02))
 						usr << "You don't have enough money to make a single passable meal!"
 						return
 					src.Using=1
@@ -171,7 +171,7 @@ obj/Skills/Utility
 					rem=round(rem)
 					if(Count>rem)
 						Count=rem
-					var/MatCost=Count*src.Mastery*global.EconomyCost*0.05
+					var/MatCost=Count*glob.progress.EconomyCost*0.02
 					if(!usr.HasMoney(MatCost))
 						usr << "You don't have enough money to make [Count] [currentMeal.name]!"
 					for(var/c=0, c<Count, c++)
@@ -372,7 +372,7 @@ obj/Skills/Utility
 			if(usr.Grab)
 				usr << "You need free hands!"
 				return
-			if(!usr.HasMoney(src.Mastery*global.EconomyCost*0.0625))
+			if(!usr.HasMoney(src.Mastery*glob.progress.EconomyCost*0.0625))
 				usr << "You don't have enough money to make a single passable drink!"
 				return
 			src.Using=1
@@ -387,7 +387,7 @@ obj/Skills/Utility
 			rem=round(rem)
 			if(Count>rem)
 				Count=rem
-			var/MatCost=Count*src.Mastery*global.EconomyCost*0.0625
+			var/MatCost=Count*src.Mastery*glob.progress.EconomyCost*0.0625
 			if(!usr.HasMoney(MatCost))
 				usr << "You don't have enough money to make [Count] [src.suffix]!"
 			for(var/c=0, c<Count, c++)
@@ -443,6 +443,8 @@ obj/Skills/Utility
 		desc="Focus your thoughts to detect nearby entities."
 		verb/Sense()
 			set category="Utility"
+			if(usr.Secret == "Heavenly Restriction" && usr.secretDatum?:hasRestriction("Senses"))
+				return
 			if(Using) return
 			Cooldown()
 			usr << "<font color=#FF0000>You focus your senses...</font>"
@@ -455,7 +457,7 @@ obj/Skills/Utility
 					continue
 				if(!M.AdminInviso&&M.PowerControl>25)
 					if((usr.Saga=="Unlimited Blade Works" && usr.SagaLevel >= 2)||(!M.HasGodKi()&&!M.HasVoid()&&!M.HasMechanized()))
-						if((!locate(M.EnergySignature) in usr.EnergySignaturesKnown)&&!usr.SpiritPower)
+						if((!locate(M.EnergySignature) in usr.EnergySignaturesKnown)&&!usr.passive_handler.Get("SpiritPower"))
 							var/distancecalc=abs(M.x-usr.x)+abs(M.y-usr.y)
 							if(distancecalc<16)
 								if(usr.HasEmptyGrimoire())
@@ -508,20 +510,23 @@ obj/Skills/Utility
 //			usr.SkillX("Telepath",src)
 		verb/Telepathic_Link()
 			set category="Utility"
+			if(usr.Secret == "Heavenly Restriction" && usr.secretDatum?:hasRestriction("Senses"))
+				return
 			var/list/who=list("Cancel")
 			for(var/mob/Players/A in players)
 				who.Add(A)
 			for(var/mob/Players/W in who)
-				if(!usr.SpiritPower)
-					if(!(locate(W.EnergySignature) in usr.EnergySignaturesKnown))
-						if(!(W in hearers(50,usr)))
+				if(!usr.isRace(SHINJIN))
+					if(!usr.passive_handler.Get("SpiritPower"))
+						if(!(locate(W.EnergySignature) in usr.EnergySignaturesKnown))
+							if(!(W in hearers(50,usr)))
+								who.Remove(W)
+						if(!W.EnergySignature)
 							who.Remove(W)
-					if(!W.EnergySignature)
+						if(W.Dead)
+							who.Remove(W)
+					if(usr.Dead&&!usr.HasEnlightenment()&&(W.z!=usr.z))
 						who.Remove(W)
-					if(W.Dead)
-						who.Remove(W)
-				if(usr.Dead&&!usr.HasEnlightenment()&&(W.z!=usr.z))
-					who.Remove(W)
 			var/mob/Players/selector=input("Select a player to telepath.") in who||null
 			if(selector=="Cancel")
 				return
@@ -594,10 +599,6 @@ obj/Skills/Utility
 					who.Remove(W)
 				if(W.invisibility)
 					who.Remove(W)
-				if(!usr.HasSpiritPower() && !usr.HasEmptyGrimoire())
-					for(var/obj/Items/Enchantment/Scrying_Ward/SW in range(10,W))
-						if(SW)
-							who.Remove(W)
 				if(usr.Dead&&!usr.HasEnlightenment()&&(W.z!=usr.z))
 					who.Remove(W)
 			var/mob/Players/selector=input("Who do you want to observe?","Observe")in who||null
@@ -612,13 +613,6 @@ obj/Skills/Utility
 				if(selector!=usr && locate(/obj/Skills/Utility/Observe,selector.contents))
 					selector << "You feel as if you're being watched."
 				usr.Observing=1
-
-	Unlock_Potential
-		Cooldown=600
-		desc="Unlock the inner potential of a warrior."
-		verb/Unlock_Potential()
-			set category="Utility"
-			usr.SkillX("UnlockPotential", src)
 
 	Grant_Jagan
 		desc="Rip out your own eye to give to someone else."
@@ -868,7 +862,7 @@ obj/Skills/Utility
 						usr << "You don't have any armors to upgrade!"
 						return
 					Chosen=input("What armor do you wish to upgrade?", "Upgrade Equipment")in armors
-			var/Cost=global.EconomyCost
+			var/Cost=glob.progress.EconomyCost
 
 			var/list/Upgrades=list("Cancel")
 			if(Type=="Sword"||Type=="Staff")//armors don't get reinforced
@@ -1014,11 +1008,11 @@ obj/Skills/Utility
 						usr.TakeMoney(Cost)
 			if(Choice2!="Ultima (True)"||Choice2!="Ultima!?")
 				usr << "You feel exhausted."
-				usr.GainFatigue(50/usr.ArmamentEnchantmentUnlocked)
+				usr.GainFatigue(50/max(1,usr.ArmamentEnchantmentUnlocked))
 			if(Choice2=="Ultima!?")
 				usr << "You feel physically and mentally drained."
-				usr.GainFatigue(200/usr.ArmamentEnchantmentUnlocked)
-				usr.LoseCapacity(200/usr.ArmamentEnchantmentUnlocked)
+				usr.GainFatigue(200/max(1,usr.ArmamentEnchantmentUnlocked))
+				usr.LoseCapacity(200/max(1,usr.ArmamentEnchantmentUnlocked))
 			if(Choice2=="Ultima (True)")
 				usr << "You sacrificed part of your soul for the sake of this project..."
 				usr.EconomyMult/=2
@@ -1076,7 +1070,7 @@ obj/Skills/Utility
 					return
 			var/list/mob/Targets=list()
 			for(var/mob/m in get_step(usr, usr.dir))
-				if(m.KO&&!m.ManaSealed&&!istype(m, /mob/Player/FevaSplits)&&!istype(m, /mob/Player/AI))
+				if(m.KO&&!m.isRace(ANDROID)&&!m.ManaSealed&&!istype(m, /mob/Player/FevaSplits)&&!istype(m, /mob/Player/AI))
 					if(m.client&&m.client.address!=usr.client.address)//lol no u can not make alts to eat...
 						Targets.Add(m)
 			if(Targets.len>0)
@@ -1096,21 +1090,36 @@ obj/Skills/Utility
 				sleep(5)
 				animate(Choice, alpha=0, time=10)
 				sleep(10)
-				var/obj/Items/Enchantment/PhilosopherStone/True/f=new
-				f.SoulStrength=round(Choice.Potential/10,1) // CHANGED TO FIT TIER SYSTEM
-				f.SoulIdentity="[Choice.ckey]"
-				f.SoulSignature="[Choice.EnergySignature]"
-				f.loc=Choice.loc
-				var/Chance=glob.VoidChance
-				var/c_red=Choice.Potential/100
-				Chance-=(Chance*c_red)
-				if(Chance<0)
-					Chance=0
-				Chance=round(Chance)
-				Choice.Death(null, "having their body and soul converted into a Philosopher's Stone!", NoRemains=3)
-				if(prob(Chance))
-					usr.Maimed++
+				var/Chance = Choice.getExtraVoidChance()
+				var/rolls = 1 + Choice.getVoidRolls()
+				var/voided = FALSE
+				while(rolls>0)
+					var/roll = rand(Chance, 100)
+					if(roll >= 100-glob.VoidChance)
+						voided = TRUE
+						break
+					else
+						rolls--
+						voided = FALSE
+					if(rolls<0)
+						rolls = 0
+
+				if(!voided)
+					var/obj/Items/Enchantment/PhilosopherStone/True/f=new
+					f.SoulStrength = round(Choice.Potential/10,1)
+					f.SoulIdentity = Choice?:UniqueID
+					f.loc = Choice.loc
+					Choice.Death(null, "having their body and soul converted into a Philosopher's Stone!", NoRemains=3)
+				else
 					OMsg(usr, "[usr] loses control of their forbidden spell and has a core part of their being claimed by the transmutation!")
+					OMsg(usr, "The magic chaotically lashes out and sends [Choice] hurtling into the void!")
+					usr.Maimed++
+					var/obj/Items/Enchantment/PhilosopherStone/Fake/f = new
+					f.SoulStrength = round(Choice.Potential/20,1)
+					f.SoulIdentity = Choice?:UniqueID
+					f.loc = Choice.loc
+					Choice.loc = locate(glob.VOID_LOCATION[1], glob.VOID_LOCATION[2], glob.VOID_LOCATION[3])
+
 				src.Using=0
 				src.LastTransmute=world.realtime+Day(2)
 			else
@@ -1274,7 +1283,7 @@ obj/Skills/Utility
 			if(src.Using)
 				return
 			src.Using=1
-			var/Cost=0.2*global.EconomyMana
+			var/Cost=0.2*glob.progress.EconomyMana
 			var/Confirm=alert(usr, "Do you wish to seal your CURRENT LOCATION?  It will cost [Commas(Cost)] capacity.", "Seal Turf", "No", "Yes")
 			if(Confirm=="No")
 				src.Using=0
@@ -1305,7 +1314,7 @@ obj/Skills/Utility
 			if(src.Using)
 				return
 			src.Using=1
-			var/Cost=0.5*global.EconomyMana
+			var/Cost=0.5*glob.progress.EconomyMana
 			var/list/obj/Options=list("Cancel")
 			for(var/obj/O in get_step(usr, usr.dir))
 				Options.Add(O)
@@ -1347,7 +1356,7 @@ obj/Skills/Utility
 			if(src.Using)
 				return
 			src.Using=1
-			var/Cost=1*global.EconomyMana
+			var/Cost=1*glob.progress.EconomyMana
 			var/list/mob/Players/Options=list("Cancel")
 			for(var/mob/Players/P in get_step(usr, usr.dir))
 				if(locate(/obj/Seal/Power_Seal, P))
@@ -1403,7 +1412,7 @@ obj/Skills/Utility
 			if(src.Using)
 				return
 			src.Using=1
-			var/Cost=0.5*global.EconomyMana
+			var/Cost=0.5*glob.progress.EconomyMana
 			var/list/mob/Players/Options=list("Cancel")
 			for(var/mob/Players/P in get_step(usr, usr.dir))
 				if(locate(/obj/Seal, P))
@@ -1463,7 +1472,7 @@ obj/Skills/Utility
 			if(src.Using)
 				return
 			src.Using=1
-			var/Cost=global.EconomyMana
+			var/Cost=glob.progress.EconomyMana
 			if(!usr.HasManaCapacity(Cost))
 				usr << "You don't have enough capacity to try to form a seal!  It takes [Commas(Cost)] capacity."
 				src.Using=0
@@ -1504,7 +1513,7 @@ obj/Skills/Utility
 			if(Choice=="Cancel")
 				src.Using=0
 				return
-			var/Cost=0.25*global.EconomyMana
+			var/Cost=0.25*glob.progress.EconomyMana
 			if(!usr.HasManaCapacity(Cost))
 				usr << "You don't have enough capacity to try to break a seal!  It takes [Commas(Cost)] capacity."
 				src.Using=0
@@ -1594,7 +1603,7 @@ obj/Skills/Utility
 		var/Operating//Don't spam this.
 		verb/Grimoire_Arcana()
 			set category="Utility"
-			var/Economy=EconomyMana//Now based on MANA!
+			var/Economy=glob.progress.EconomyMana//Now based on MANA!
 			var/mob/M//Who's getting the grimgrim?
 			var/GrimoireChoice//What grim is m getting grimmed?
 			var/Consent//PLEASE DO NOT RAPE THE GRIMGRIM.
@@ -1603,7 +1612,6 @@ obj/Skills/Utility
 			var/list/mob/Targets=list("Cancel")//The list of grimmable people.
 			var/list/GrimoireChoices=list("Cancel")//Which grims have you grimmed?
 			var/GrimoireDesc//Explains how to grim the grim.
-			var/GrimoireLimit=99//3
 			// global.PureMade=0
 			// global.BlueMade=0
 			// global.RedMade=0
@@ -1618,9 +1626,6 @@ obj/Skills/Utility
 			if(src.Operating)
 				usr << "You're already running a project!"
 				return
-			if(usr.HumanAscension)
-				if(usr.HumanAscension=="Enchantment")
-					GrimoireLimit+=usr.AscensionsAcquired
 			src.Operating=1
 			// if(global.PureMade<3)//Made less than 3 pure grimoires?
 			// 	if(usr.GrimoiresMade<GrimoireLimit&&(usr.AlchemyUnlocked>=5||usr.ImprovedAlchemyUnlocked>=3))//Made less than 3 types of grimoires?
@@ -2309,7 +2314,7 @@ obj/Skills/Utility
 				usr << "[Choice] isn't prepared to have surgery used on them!  Make them lay down."
 				src.Using=0
 				return
-			Cost=0.25*global.EconomyCost
+			Cost=0.25*glob.progress.EconomyCost
 			if(usr.HasMoney(Cost))
 				usr.TakeMoney(Cost)
 			else
@@ -2366,7 +2371,7 @@ obj/Skills/Utility
 			if(Choice=="Cancel")
 				src.Using=0
 				return
-			Cost=2.5*global.EconomyCost
+			Cost=2.5*glob.progress.EconomyCost
 			if(usr.HasMoney(Cost))
 				usr.TakeMoney(Cost)
 			else
@@ -2492,39 +2497,7 @@ obj/Skills/Utility
 			set name="Monitoring Frequency"
 			set src in usr
 			src.MonitoringFrequency=input(usr,"Change your Internal Communicator Monitoring frequency to what?","Monitoring Frequency")as num
-		verb/Detect()
-			set category=null
-			set src in usr
-			if(src.Detecting)
-				return
-			src.Detecting=1
-			usr << "<font color='green'><i>Scanning...</i></font>"
-			for(var/obj/ResourceSpot/RS in world)
-				if(RS.z==usr.z)
-					var/Distance=(abs(RS.x-usr.x)+abs(RS.y-usr.y))
-					if(Distance<50)
-						var/FontTag
-						switch(RS.suffix)
-							if("(Small)")
-								FontTag="font color='green'>"
-							if("(Moderate)")
-								FontTag="font color='yellow'>"
-							if("(Large)")
-								FontTag="font color='orange'>"
-							if("(Major)")
-								FontTag="font color='red'>"
-							else
-								FontTag="font color='white'>"
-						usr << "<font color='green'><b>Resource Spot - <[FontTag][RS.GetValue(src.Range)]</[FontTag] - [Distance] tiles [usr.CheckDirection(RS)]</b></font color>"
-						if(RS.alpha==50)
-							RS.invisibility=0
-							animate(RS, alpha=255, time=3)
-							spawn(200)
-								animate(RS, alpha=50, time=3)
-								sleep(3)
-								RS.invisibility=98
-			spawn(10)
-				src.Detecting=0
+
 		verb/Scan()
 			set src in usr
 			if(!src.suffix=="*Equipped*")
@@ -2534,9 +2507,6 @@ obj/Skills/Utility
 			for(var/obj/Items/Tech/Beacon/B in world)
 				if(B.BeaconState=="On"&&usr.z==B.z)
 					usr << "<b><font color='green'>(BEACON)</font color></b> - ([B.x], [B.y], [B.z])"
-			for(var/obj/Items/Tech/SpaceTravel/V in world)
-				if(usr.z==V.z)
-					usr << "<b><font color='yellow'>(VEHICLE)</font color></b> - ([V.x], [V.y], [V.z])"
 			for(var/obj/Items/Enchantment/PocketDimensionGenerator/W in world)
 				if(usr.z==W.z)
 					usr << "<b><font color='red'>(DISTURBANCE)</font color></b> - ([W.x], [W.y], [W.z])"
@@ -2582,7 +2552,7 @@ obj/Skills/Utility
 			switch(Choice)
 				if("Launch")
 					if(!(usr.z in src.ZPlanes))
-						var/Cost=30*global.EconomyCost
+						var/Cost=30*glob.progress.EconomyCost
 						var/Confirm=alert(usr, "It will cost [Commas(Cost)] resources to build and launch a satellite camera.  Do you want to do this?", "Satellite Surveilance", "No", "Yes")
 						if(Confirm=="Yes")
 							if(usr.HasMoney(Cost))
@@ -2703,6 +2673,10 @@ obj/Skills/Utility
 		verb/Augmentation()
 			set category="Utility"
 
+			if(usr.Secret=="Heavenly Restriction" && (usr.secretDatum?:hasRestriction("Science") || usr.secretDatum?:hasRestriction("Cybernetics")))
+				return
+
+
 			var/mob/M//Who's getting operated on?
 			var/ModChoice//What's getting installed?
 			var/Confirm//Are you sure you want to install this mod?
@@ -2716,7 +2690,7 @@ obj/Skills/Utility
 				return
 			src.Using=1
 
-			if("Cyber Augmentations" in usr.knowledgeTracker.learnedKnowledge)
+			if("Cyber Augmentations" in usr.knowledgeTracker.learnedKnowledge || (usr.isRace(ANDROID)))
 				ModChoices.Add("Enhanced Strength")
 				ModChoices.Add("Enhanced Force")
 				ModChoices.Add("Enhanced Endurance")
@@ -2724,7 +2698,7 @@ obj/Skills/Utility
 				ModChoices.Add("Enhanced Reflexes")
 				ModChoices.Add("Enhanced Speed")
 
-			if("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge)
+			if("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge || (usr.isRace(ANDROID)))
 				ModChoices.Add("Internal Comms Suite")//talky in your heady
 				ModChoices.Add("Blade Mode")//Cyberrush
 				ModChoices.Add("Taser Strike")
@@ -2737,13 +2711,13 @@ obj/Skills/Utility
 				ModChoices.Add("Internal Life Support")
 				ModChoices.Add("Energy Assimilators")
 
-			if("War Crimes" in usr.knowledgeTracker.learnedKnowledge)
+			if("War Crimes" in usr.knowledgeTracker.learnedKnowledge || (usr.isRace(ANDROID)))
 				ModChoices.Add("Punishment Chip")
 				ModChoices.Add("Failsafe Circuit")
 				ModChoices.Add("Explosive Implantation")
 
 			//These are unlocked by default
-			if("Singularity" in usr.knowledgeTracker.learnedKnowledge)
+			if("Singularity" in usr.knowledgeTracker.learnedKnowledge || (usr.isRace(ANDROID)))
 				ModChoices.Add("Ripper Mode")
 				ModChoices.Add("Armstrong Augmentation")
 				ModChoices.Add("Ray Gear")
@@ -2751,18 +2725,26 @@ obj/Skills/Utility
 				ModChoices.Add("Infinity Drive")
 
 			var/list/Who=list("Cancel")
-			for(var/mob/m in view(1, usr))
-				if(m.Race=="Android"&&!("Android Creation" in usr.knowledgeTracker.learnedKnowledge))
-					continue
-				if(m==usr&&!("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge))
-					continue
-				Who+=m
-			if(Who.len<1)
-				usr << "You don't have any viable targets!"
-				src.Using=0
-				return
-
-			M=input(usr, "Who do you want to install cybernetics in?", "Cybernetic Augmentation") in Who
+			if(usr.isRace(ANDROID))
+				M = usr
+			else
+				for(var/mob/m in view(1, usr))
+					/*if(m.isRace(ANDROID)&&!("Android Creation" in usr.knowledgeTracker.learnedKnowledge))
+						continue*/
+					if(m.Secret=="Heavenly Restriction" && (m.secretDatum?:hasRestriction("Science") || m.secretDatum?:hasRestriction("Cybernetics")))
+						continue
+					if(m==usr&&!(("Neuron Manipulation" in usr.knowledgeTracker.learnedKnowledge)||usr.isRace(ANDROID)))
+						continue
+					if(m.Saga && !(m.Saga in glob.CYBERIZESAGAS))
+						continue
+					Who+=m
+				if(Who.len<1)
+					usr << "You don't have any viable targets!"
+					src.Using=0
+					return
+				
+			if(!M)
+				M=input(usr, "Who do you want to install cybernetics in?", "Cybernetic Augmentation") in Who
 			if(M=="Cancel")
 				OMsg(usr, "[usr] decides not to tinker.")
 				src.Using=0
@@ -2804,7 +2786,7 @@ obj/Skills/Utility
 				ModChoices.Remove("Internal Life Support")
 			if(locate(/obj/Skills/Utility/Internal_Communicator, M))
 				ModChoices.Remove("Internal Comms Suite")
-			if(M.Race!="Android" || M.EnergyAssimilators)
+			if(!M.isRace(ANDROID) || M.EnergyAssimilators)
 				ModChoices.Remove("Energy Assimilators")
 			else
 				ModChoices.Remove("Punishment Chip")
@@ -2813,13 +2795,13 @@ obj/Skills/Utility
 			if(!M.CyberCancel)
 				ModChoices.Remove("Failsafe Circuit")
 
-			if(M.HasMilitaryFrame()&&M.Race!="Android")
+			if(M.HasMilitaryFrame()&&!M.isRace(ANDROID))
 				ModChoices.Remove("Ripper Mode")
 				ModChoices.Remove("Armstrong Augmentation")
 				ModChoices.Remove("Ray Gear")
 				ModChoices.Remove("Overdrive")
 
-			if(M.Race=="Android")
+			if(M.isRace(ANDROID))
 				if(M.Maimed||M.HealthCut)
 					ModChoices.Add("Repair")
 
@@ -2831,90 +2813,90 @@ obj/Skills/Utility
 
 			switch(ModChoice)
 				if("Enhanced Strength")
-					Cost=EconomyCost*2.5
+					Cost=glob.progress.EconomyCost*2.5
 					ModDesc="Enhanced Strength increases Strength."
 				if("Enhanced Force")
-					Cost=EconomyCost*2.5
+					Cost=glob.progress.EconomyCost*2.5
 					ModDesc="Enhanced Force increases Force."
 				if("Enhanced Endurance")
-					Cost=EconomyCost*2.5
+					Cost=glob.progress.EconomyCost*2.5
 					ModDesc="Enhanced Endurance increases Endurance."
 				if("Enhanced Aggression")
-					Cost=EconomyCost*2.5
+					Cost=glob.progress.EconomyCost*2.5
 					ModDesc="Enhanced Aggression increases Offense."
 				if("Enhanced Reflexes")
-					Cost=EconomyCost*2.5
+					Cost=glob.progress.EconomyCost*2.5
 					ModDesc="Enhanced Reflexes increases Defense."
 				if("Enhanced Speed")
-					Cost=EconomyCost*2.5
+					Cost=glob.progress.EconomyCost*2.5
 					ModDesc="Enhanced Speed increases Speed."
 
 				if("Internal Comms Suite")
-					Cost=EconomyCost*2
+					Cost=glob.progress.EconomyCost*2
 					ModDesc="Internal Suite allows the augmented to use internal systems to scan precise power levels and access wireless communications."
 				if("Blade Mode")
-					Cost=EconomyCost*10
+					Cost=glob.progress.EconomyCost*10
 					ModDesc="Blade Mode allows high speed calculations improving accuracy and swiftness of delivered blows!"
 				if("Taser Strike")
-					Cost=EconomyCost*5
+					Cost=glob.progress.EconomyCost*5
 					ModDesc="Taser Strike delivers an electric shock to the opponent to allow for more openings!"
 				if("Machine Gun Flurry")
-					Cost=EconomyCost*5
+					Cost=glob.progress.EconomyCost*5
 					ModDesc="Machine Fun Flurry unleashes a rush of blows once enough momentum has been gathered!"
 				if("Rocket Punch")
-					Cost=EconomyCost*5
+					Cost=glob.progress.EconomyCost*5
 					ModDesc="Rocket Punch fires a mechanized appendage for an explosive assault!"
 				if("Stealth Systems")
-					Cost=EconomyCost*5
+					Cost=glob.progress.EconomyCost*5
 					ModDesc="Stealth Systems allow the augmented to visually disguise themselves when they lower their power!"
 				if("Nano Boost")
-					Cost=EconomyCost*20
+					Cost=glob.progress.EconomyCost*20
 					ModDesc="Nano Boost gives the subject a sudden surge of cybernetic power!"
 				if("Combat CPU")
-					Cost=EconomyCost*20
+					Cost=glob.progress.EconomyCost*20
 					ModDesc="Combat CPU allows the augmented to automatically burn some battery in order to constantly run simulations of the current engagement; bottom line: better evasion."
 				if("Reconstructive Nanobots")
-					Cost=EconomyCost*25
+					Cost=glob.progress.EconomyCost*25
 					ModDesc="Reconstructive Nanobots repair the augmented when they enter a rest cycle with precise efficiency."
 				if("Internal Life Support")
-					Cost=EconomyCost*10
+					Cost=glob.progress.EconomyCost*10
 					ModDesc="Internal Life Support prevent the augmented from perishing to mortal wounds."
 				if("Energy Assimilators")
-					Cost=EconomyCost*20
+					Cost=glob.progress.EconomyCost*20
 					ModDesc="Energy Assimilators are small, orb-like constructs fitted into the palm of a hand meant to consume energy on direct contact with source."
 
 
 				if("Punishment Chip")
-					Cost=EconomyCost*10
+					Cost=glob.progress.EconomyCost*10
 					ModDesc="Install a simple electric circuit inside your target's nervous system."
 				if("Failsafe Circuit")
-					Cost=EconomyCost*25
+					Cost=glob.progress.EconomyCost*25
 					ModDesc="Install a failsafe circuit inside your target to allow turning off its power in case of disobedience."
 				if("Explosive Implantation")
-					Cost=EconomyCost*100
+					Cost=glob.progress.EconomyCost*100
 					ModDesc="Install a powerful explosive device inside your target."
 
 				if("Ripper Mode")
-					Cost=EconomyCost*300
+					Cost=glob.progress.EconomyCost*300
 					ModDesc="Ripper Mode allows the augmented to present a facsimile of sadism to greatly bolster speed and offensive prowess."
 				if("Armstrong Augmentation")
-					Cost=EconomyCost*300
+					Cost=glob.progress.EconomyCost*300
 					ModDesc="Armstrong Augmentation allows the augmented to forge a powerful nanite shell in response to physical trauma; increases strength and endurance while forsaking defense. "
 				if("Ray Gear")
-					Cost=EconomyCost*300
+					Cost=glob.progress.EconomyCost*300
 					ModDesc="Ray Gear provides the augmented with unparalleled firepower and integrates ranged capabilities into their basic combat protocols while sapping their battery."
 				if("Infinity Drive")
-					Cost=EconomyCost*500
+					Cost=glob.progress.EconomyCost*300
 					ModDesc="Infinity Drive allows a fusion-powered augmented to constantly support their overall performance with their nigh-infinite energy outpour."
 				if("Overdrive")
-					Cost=EconomyCost*500
+					Cost=glob.progress.EconomyCost*300
 					ModDesc="Overdrive allows the augmented to overclock every cybernetically enhanced aspect in exchange for battery life."
 
 				if("Repair")
-					Cost=EconomyCost/2*(M.Maimed+(M.HealthCut*5))
+					Cost=glob.progress.EconomyCost/2*(M.Maimed+(M.HealthCut*5))
 					ModDesc="Attempts to repair a damaged android."
 
-			if(M.Race=="Android")
+			if(M.isRace(ANDROID))
 				Cost*=2
 
 			ModDesc="[ModDesc]  It costs [Commas(Cost)] to install.  Do you wish to install this module into [M]?"
@@ -3060,7 +3042,7 @@ obj/Skills/Utility
 						A.Password=input("Input activation code.") as text|null
 
 				if("Ripper Mode")
-					if((M.HasMilitaryFrame()&&M.Race!="Android")||M.Saga)
+					if((M.HasMilitaryFrame()&&!M.isRace(ANDROID))||M.Saga)
 						OMsg(usr, "[usr] tried to install a [ModChoice] into [M]...but their operating memory is already occupied.")
 						src.Using=0
 						return
@@ -3068,7 +3050,7 @@ obj/Skills/Utility
 					M.FusionPowered=1
 					M.ManaPU=1
 				if("Armstrong Augmentation")
-					if((M.HasMilitaryFrame()&&M.Race!="Android")||M.Saga)
+					if((M.HasMilitaryFrame()&&!M.isRace(ANDROID))||M.Saga)
 						OMsg(usr, "[usr] tried to install a [ModChoice] into [M]...but their operating memory is already occupied.")
 						src.Using=0
 						return
@@ -3076,7 +3058,7 @@ obj/Skills/Utility
 					M.FusionPowered=1
 					M.ManaPU=1
 				if("Ray Gear")
-					if((M.HasMilitaryFrame()&&M.Race!="Android")||M.Saga)
+					if((M.HasMilitaryFrame()&&!M.isRace(ANDROID))||M.Saga)
 						OMsg(usr, "[usr] tried to install a [ModChoice] into [M]...but their operating memory is already occupied.")
 						src.Using=0
 						return
@@ -3084,7 +3066,7 @@ obj/Skills/Utility
 					M.FusionPowered=1
 					M.ManaPU=1
 				if("Overdrive")
-					if((M.HasMilitaryFrame()&&M.Race!="Android")||M.Saga)
+					if((M.HasMilitaryFrame()&&!M.isRace(ANDROID))||M.Saga)
 						OMsg(usr, "[usr] tried to install a [ModChoice] into [M]...but their operating memory is already occupied.")
 						src.Using=0
 						return
@@ -3252,7 +3234,7 @@ obj/Skills/Utility
 					if(b.DeathKillerTargets==m.key)
 						valid+=m
 				for(var/obj/Items/Enchantment/PhilosopherStone/True/ps in get_step(usr,usr.dir))
-					if(ps.SoulIdentity=="[m.ckey]"&&ps.SoulSignature=="[m.EnergySignature]")
+					if(ps.SoulIdentity==m.UniqueID)
 						valid+=m
 				for(m in get_step(usr,usr.dir))
 					valid+=m
@@ -3269,7 +3251,7 @@ obj/Skills/Utility
 			OMsg(usr, "[usr] kills death's effects on [Choice], reviving their soul!")
 			for(var/obj/Items/Enchantment/PhilosopherStone/True/ps in get_step(usr,usr.dir))
 				if(ps)
-					if(ps.SoulIdentity=="[Choice.ckey]"&&ps.SoulSignature=="[Choice.EnergySignature]")
+					if(ps.SoulIdentity==Choice?:UniqueID)
 						Choice.loc=ps.loc
 						del ps
 			for(var/mob/Body/b in view(usr, 3))
@@ -3307,7 +3289,7 @@ obj/Skills/Utility
 				src.Using=0
 				return
 			//var/Cost=0.75*global.EconomyMana//75 capacity
-			var/Cost=0.25*global.EconomyMana
+			var/Cost=0.25*glob.progress.EconomyMana
 
 			if(!usr.HasManaCapacity(Cost))
 				usr << "You don't have enough capacity to summon a spirit!  It takes [Commas(Cost)] capacity."
@@ -3326,7 +3308,7 @@ obj/Skills/Utility
 			var/FailChance=20*((Choice.Power*Choice.EnergyUniqueness)/(usr.Power*usr.EnergyUniqueness))/(usr.SummoningMagicUnlocked+1)
 
 			usr.TakeManaCapacity(Cost)
-			if(prob(FailChance)&&!usr.SpiritPower)
+			if(prob(FailChance)&&!usr.passive_handler.Get("SpiritPower"))
 				OMsg(usr, "[usr] fails their ritual!")
 				src.Using=0
 				return

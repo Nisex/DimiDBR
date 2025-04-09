@@ -11,6 +11,15 @@ mob/proc/Meditation()
 	spawn()
 		if(src.VaizardHealth>0)
 			src.VaizardHealth=0
+		if(passive_handler.Get("AbsorbingDamage"))
+			AbsorbingDamage = 0
+		if(passive_handler["Shellshocked"])
+			passive_handler.Set("Shellshocked", 0)
+		if(isRace(BEASTMAN) && race?:Racial == "Heart of The Beastman")
+			if(passive_handler["Grit"] == 0)
+				passive_handler.Set("Grit", 1)
+		/*if(length(magatamaBeads))
+			loseMagatama()*/
 		med.delayTimer()
 
 

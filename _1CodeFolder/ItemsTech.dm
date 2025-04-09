@@ -119,7 +119,7 @@ proc/Add_Technology()
 
 
 proc/Can_Afford_Technology(mob/P,obj/Items/O) for(var/obj/Money/M in P) if(M.Level>=Technology_Price(P, O)) return 1
-proc/Technology_Price(mob/P,obj/Items/O) return O.Cost*global.EconomyCost
+proc/Technology_Price(mob/P,obj/Items/O) return O.Cost*glob.progress.EconomyCost
 
 mob
 	var
@@ -351,6 +351,8 @@ obj/Items/Tech
 		icon='Lockpick.dmi'
 		Click()
 			..()
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				return
 			if(!(usr in range(1,src))) return
 			var/list/Choices=new
 			for(var/atom/O in get_step(usr,usr.dir))
@@ -393,6 +395,8 @@ obj/Items/Tech
 				if(src.Using)
 					usr << "You're already using this!"
 					return
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.icon_state!="Meditate")
 					usr << "You need to be sitting down to use this properly."
 					return
@@ -431,12 +435,14 @@ obj/Items/Tech
 		icon='Tech.dmi'
 		icon_state="Fiber Bond"
 		Cost=5
-		desc="This will apply a permanent level of brittleness to the equipment while improving its damage.  With ten of these, you can transform a medium or heavy sword into a scissor blade."
+		desc="This will apply a permanent level of brittleness to the equipment while improving its damage."
 		Stackable=1
 		Click()
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(src.Using)
 					usr << "You're already using this!"
 					return
@@ -487,6 +493,8 @@ obj/Items/Tech
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(src.Using)
 					usr << "You're already using this!"
 					return
@@ -556,6 +564,8 @@ obj/Items/Tech
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(src.Using)
 					usr << "You're already using this!"
 					return
@@ -613,6 +623,8 @@ obj/Items/Tech
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(src.Using)
 					usr << "You're already using this!"
 					return
@@ -673,6 +685,8 @@ obj/Items/Tech
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.KO)
 					usr << "You can't use a first aid kit while knocked out!"
 					return
@@ -724,6 +738,8 @@ obj/Items/Tech
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.KO)
 					usr << "You can't use a medkit while knocked out!"
 					return
@@ -736,6 +752,8 @@ obj/Items/Tech
 				src.Using=1
 				var/list/mob/Players/People=list("Cancel")
 				for(var/mob/Players/A in view(1,usr))
+					if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+						continue
 					People.Add(A)
 				if(People.len<2)//somehow...
 					usr << "There's no one to use the medkit on."
@@ -808,6 +826,8 @@ obj/Items/Tech
 
 		proc/Use(mob/Choice = null)
 			if(src in usr)
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.KO)
 					usr << "You can't use an antivenom while knocked out!"
 					return
@@ -820,6 +840,8 @@ obj/Items/Tech
 				if(!Choice)
 					var/list/mob/Players/People=list("Cancel")
 					for(var/mob/Players/A in view(1,usr))
+						if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+							continue
 						People.Add(A)
 					if(People.len<2)//somehow...
 						usr << "There's no one to use the antivenom on."
@@ -870,6 +892,8 @@ obj/Items/Tech
 
 		proc/Use(mob/Choice = null)
 			if(src in usr)
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.KO)
 					usr << "You can't use a cooling spray while knocked out!"
 					return
@@ -882,6 +906,8 @@ obj/Items/Tech
 				if(!Choice)
 					var/list/mob/Players/People=list("Cancel")
 					for(var/mob/Players/A in view(1,usr))
+						if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+							continue
 						People.Add(A)
 					if(People.len<2)//somehow...
 						usr << "There's no one to use the cooling spray on."
@@ -932,6 +958,8 @@ obj/Items/Tech
 
 		proc/Use(mob/Choice = null)
 			if(src in usr)
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.KO)
 					usr << "You can't use a sealing spray while knocked out!"
 					return
@@ -944,6 +972,8 @@ obj/Items/Tech
 				if(!Choice)
 					var/list/mob/Players/People=list("Cancel")
 					for(var/mob/Players/A in view(1,usr))
+						if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+							continue
 						People.Add(A)
 					if(People.len<2)//somehow...
 						usr << "There's no one to use the sealing spray on."
@@ -994,6 +1024,8 @@ obj/Items/Tech
 
 		proc/Use(mob/Choice = null)
 			if(src in usr)
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.KO)
 					usr << "You can't use a stabilizer while knocked out!"
 					return
@@ -1006,6 +1038,8 @@ obj/Items/Tech
 				if(!Choice)
 					var/list/mob/Players/People=list("Cancel")
 					for(var/mob/Players/A in view(1,usr))
+						if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+							continue
 						People.Add(A)
 					if(People.len<2)//somehow...
 						usr << "There's no one to use the stabilizer on."
@@ -1056,6 +1090,8 @@ obj/Items/Tech
 
 		proc/Use(mob/Choice = null)
 			if(src in usr)
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(usr.KO)
 					usr << "You can't use a steroid while knocked out!"
 					return
@@ -1068,6 +1104,8 @@ obj/Items/Tech
 				if(!Choice)
 					var/list/mob/Players/People=list("Cancel")
 					for(var/mob/Players/A in view(1,usr))
+						if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+							continue
 						People.Add(A)
 					if(People.len<2)//somehow...
 						usr << "There's no one to use the steroid on."
@@ -1085,7 +1123,7 @@ obj/Items/Tech
 					src.Using=0
 					return
 				if(!Choice.Roided)
-					Choice.Roided=120
+					Choice.Roided=240
 					Choice<<"You've had a steroid applied to you!  Your power is increased!"
 					del(src)
 				else
@@ -1109,6 +1147,8 @@ obj/Items/Tech
 				if(usr.KO)
 					usr << "You can't prepare an anesthetic while knocked out!"
 					return
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(!usr.Move_Requirements())
 					return
 				if(!usr.AttackQueue)
@@ -1128,8 +1168,12 @@ obj/Items/Tech
 			set src in usr
 			if(!usr.Move_Requirements())
 				return
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				return
 			var/validkitters=list("Cancel")
 			for(var/mob/Players/A in view(1,usr))
+				if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+					continue
 				validkitters+=A
 			var/mob/selection=input("Select a target to use the pain killers on.") in validkitters
 			if(selection=="Cancel")
@@ -1204,14 +1248,10 @@ obj/Items/Tech
 					continue
 				else
 					for(var/mob/A in mobs_in_regen)
+						if(A.Secret=="Heavenly Restriction" && A.secretDatum?:hasRestriction("Science"))
+							continue
 						if(A.icon_state!="Meditate")
 							A.icon_state="Meditate"
-						var/obj/Items/Enchantment/Flying_Device/efd=A.EquippedFlyingDevice()
-						if(efd)
-							efd.AlignEquip(A)
-						if(A.Flying)
-							Flight(A, Land=1)
-							A<< "You can't fly in a tank..."
 						if(A.Swim==1)
 							A<< "Your Regeneration tank has sunk underwater, and crushed by water pressure!"
 							del src
@@ -1252,7 +1292,9 @@ obj/Items/Tech
 				if(src.Using)
 					usr << "You're already warping your genome!"
 					return
-				if(usr.Race=="Android")
+				if(usr.isRace(ANDROID))
+					return
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
 					return
 				if(usr.icon_state!="Meditate")
 					usr << "You need to be sitting down to use this properly."
@@ -1271,9 +1313,8 @@ obj/Items/Tech
 					src.Using=0
 					return
 				usr.Finalize(Warped=1)
-				if(!usr.Asexual)
-					usr.Gender=alert(usr, "What gender do you want to be?", "Genome Warp", "Male", "Female")
-					usr.gender = lowertext(usr.Gender)
+				usr.Gender=alert(usr, "What gender do you want to be?", "Genome Warp", "Male", "Female")
+				usr.gender = lowertext(usr.Gender)
 				var/Sin=alert(usr, "Do you want to possess animal attributes?", "Genome Warp", "No", "Yes")
 				if(Sin=="Yes")
 					var/Choice=input(usr, "What animal do you want the characteristics of?", "Genome Warp") in list("Cat", "Fox", "Racoon", "Wolf", "Lizard", "Crow", "Bull")
@@ -1335,10 +1376,12 @@ obj/Items/Tech
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(src.Using)
 					usr << "You're already preparing a revitalization serum!"
 					return
-				if(usr.Race=="Android")
+				if(usr.isRace(ANDROID))
 					return
 				if(usr.icon_state!="Meditate")
 					usr << "You need to be sitting down to use this properly."
@@ -1382,16 +1425,18 @@ obj/Items/Tech
 		SubType = "Regenerative Medicine"
 		icon = 'Tech.dmi'
 		icon_state = "Youth"
-		desc = "A sercum that restores all stat taxes and any cuts applied to your character."
+		desc = "A serum that restores all stat taxes and any cuts applied to your character."
 		Cost = 100
 		Click()
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					return
 				if(src.Using)
 					usr << "You're already preparing a super soldier serum!"
 					return
-				if(usr.Race=="Android")
+				if(usr.isRace(ANDROID))
 					return
 				if(usr.icon_state!="Meditate")
 					usr << "You need to be sitting down to use this properly."
@@ -1455,6 +1500,10 @@ obj/Items/Tech
 
 		verb/Communicator_Speak(Z as text)
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shorts out as [usr] tries to talk into it!")
+				del src
+				return
 			suffix = "[toggled_on ? "On -- Freq: [Frequency]" : "Off -- Freq:[Frequency]"]"
 			if(!toggled_on)
 				usr << "You can't use this communicator while it's off."
@@ -1470,11 +1519,11 @@ obj/Items/Tech
 		verb/Communicator_Frequency()
 			set src in usr
 			var/previousFreq = Frequency
-			Frequency=input(usr,"Change your Communicator frequency to what?","Frequency",Frequency)as num
-			if(previousFreq!=Frequency)
-				addToGlobalListeners(src)
-				if(globalListeners[previousFreq])
-					globalListeners[previousFreq] -= src
+			var/newFreq=input(usr,"Change your Communicator frequency to what?","Frequency",Frequency) as num
+			if(previousFreq == newFreq) return
+			removeFromGlobalListeners(src)
+			Frequency = newFreq
+			addToGlobalListeners(src)
 			suffix = "[toggled_on ? "On -- Freq: [Frequency]" : "Off -- Freq:[Frequency]"]"
 	PDA
 		TechType="Telecommunications"
@@ -1501,6 +1550,9 @@ obj/Items/Tech
 				Password=input("Enter the desired password.") as text
 		verb/View()
 			set src in view(1)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				usr << "Your eyes seem to glaze over as you try to read the PDA..."
+				return
 			usr<<browse(htmlq,"window=PDA;size=400x400")
 
 	Transmission_Tower
@@ -1574,12 +1626,18 @@ obj/Items/Tech
 			if(src.Using)
 				usr << "You're already planting this wiretap."
 				return
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			if(!src.Frequency)
 				usr << "You need to set a frequency on the wiretap before planting it."
 				return
 			src.Using=1
 			var/list/mob/Players/peeps=list("Cancel")
 			for(var/mob/Players/p in oview(1, usr))
+				if(p.Secret=="Heavenly Restriction" && p.secretDatum?:hasRestriction("Science"))
+					continue
 				peeps.Add(p)
 			if(peeps.len<2)
 				usr << "There's no one to plant the wire tap on."
@@ -1635,6 +1693,10 @@ obj/Items/Tech
 			else
 				if(src.Using)
 					usr << "You're already using this!"
+					return
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+					OMsg(usr, "[src] explodes in [usr]'s hand!")
+					del src
 					return
 				src.Using=1
 				var/list/obj/HackedIt=list("Cancel")
@@ -1870,51 +1932,6 @@ obj/Items/Tech
 				if(length(listening)==0)
 					src.activeListeners = FALSE
 
-	Recon_Drone
-		Health=40
-		Cost=1.5
-		Pickable=0
-		TechType="Telecommunications"
-		SubType="Drones"
-		var/list/ObservedTechniques=list()
-		var/who
-		icon='CameraDrone.dmi'
-		Del()
-			if(src.who)
-				var/mob/M=src.who
-				if(M in players)
-					src.who=null
-					M.Control=null
-					M.client.eye=M
-			..()
-		verb/InputPassword()
-			set src in range(1,usr)
-			set name="Set Password"
-			if(Password)
-				usr<<"This drone already has a password. Disengaging interface."
-				return
-			else
-				Password=input("Enter the desired password.") as text
-		verb/Assume_Control()
-			set src in range(1,usr)
-			var/PassCheck=input("Enter Password.") as text
-			if(PassCheck==src.Password)
-				usr.client.perspective=EYE_PERSPECTIVE
-				usr.client.eye=src
-				usr.Control=src
-				src.who=usr
-				usr << "You're driving the recon drone now.  Remember to return it to a safe place before disengaging."
-			else
-				usr << "Wrong password."
-				return
-		Click()
-			..()
-			if(usr.client.perspective!=MOB_PERSPECTIVE)
-				usr.client.perspective=MOB_PERSPECTIVE
-			usr.client.eye=usr
-			usr.Control=null
-			src.who=null
-
 	Binoculars
 		Health=10
 		TechType="Telecommunications"
@@ -2025,62 +2042,6 @@ obj/Items/Tech
 					src.AudioRange=3
 			else
 				usr<<"Incorrect password. Disengaging interface."
-	Megaphone
-
-
-	Radar
-		Health=10
-		TechType="AdvancedTransmissionTechnology"
-		SubType="Any"
-		icon='Radar.dmi'
-		Cost=0.5
-		var/Range=1
-		var/tmp/Detecting=0
-		desc="Use this to find resource spots."
-		verb
-			Detect()
-				set category=null
-				set src in usr
-				if(src.Detecting)
-					return
-				src.Detecting=1
-				usr << "<font color='green'><i>Scanning...</i></font>"
-				for(var/obj/ResourceSpot/RS in world)
-					if(RS.z==usr.z)
-						var/Distance=(abs(RS.x-usr.x)+abs(RS.y-usr.y))
-						if(Distance<src.Range*20)
-							var/FontTag
-							switch(RS.suffix)
-								if("(Small)")
-									FontTag="font color='green'>"
-								if("(Moderate)")
-									FontTag="font color='yellow'>"
-								if("(Large)")
-									FontTag="font color='orange'>"
-								if("(Major)")
-									FontTag="font color='red'>"
-								else
-									FontTag="font color='white'>"
-							usr << "<font color='green'><b>Resource Spot - <[FontTag][RS.GetValue(src.Range)]</[FontTag] - [Distance] tiles [usr.CheckDirection(RS)]</b></font color>"
-							if(RS.alpha==50)
-								RS.invisibility=0
-								animate(RS, alpha=255, time=3)
-								spawn(200)
-									animate(RS, alpha=50, time=3)
-									sleep(3)
-									RS.invisibility=98
-				spawn(10)
-					src.Detecting=0
-		verb
-			Upgrade()
-				set category=null
-				set src in usr
-				if(src.Range>=3*usr.AdvancedTransmissionTechnologyUnlocked)
-					usr << "This radar is as upgraded as you can make it!"
-					return
-				else
-					src.Range=3*usr.AdvancedTransmissionTechnologyUnlocked
-					OMsg(usr, "[usr] upgrades their [src]!")
 
 	Scouter
 		Health=5
@@ -2092,46 +2053,14 @@ obj/Items/Tech
 		var/Range=1
 		var/tmp/Detecting=0
 		desc="This device uses technology to guage the power of the enemy. It can also find money. \n(Warning: This device isn't always accurate, and can be fooled by certain techniques.) \n((No Refunds))"
-		verb/Scouter_Detect()
-			set category=null
-			set src in usr
-			if(src.Detecting)
-				return
-			if(!src.suffix=="*Equipped*")
-				usr << "You have to equip the scouter to use it!"
-				return
-			src.Detecting=1
-			usr << "<font color='green'><i>Scanning...</i></font>"
-			for(var/obj/ResourceSpot/RS in world)
-				if(RS.z==usr.z)
-					var/Distance=(abs(RS.x-usr.x)+abs(RS.y-usr.y))
-					if(Distance<src.Range*10)
-						var/FontTag
-						switch(RS.suffix)
-							if("(Small)")
-								FontTag="font color='green'>"
-							if("(Moderate)")
-								FontTag="font color='yellow'>"
-							if("(Large)")
-								FontTag="font color='orange'>"
-							if("(Major)")
-								FontTag="font color='red'>"
-							else
-								FontTag="font color='white'>"
-						usr << "<font color='green'><b>Resource Spot - <[FontTag][RS.GetValue(src.Range)]</[FontTag] - [Distance] tiles [usr.CheckDirection(RS)]</b></font color>"
-						if(RS.alpha==50)
-							RS.invisibility=0
-							animate(RS, alpha=255, time=3)
-							spawn(200)
-								animate(RS, alpha=50, time=3)
-								sleep(3)
-								RS.invisibility=98
-			spawn(10)
-				src.Detecting=0
 		verb/Scouter_Scan()
 			set src in usr
 			if(!(world.realtime>src.InternalTimer+Second(5)))
 				usr << "The scanning device needs time to recharge."
+				return
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
 				return
 			src.InternalTimer=world.realtime
 			if(!src.suffix=="*Equipped*")
@@ -2144,9 +2073,6 @@ obj/Items/Tech
 			for(var/obj/Items/Tech/Beacon/B in world)
 				if(B.BeaconState=="On"&&usr.z==B.z)
 					usr << "<b><font color='green'>(BEACON)</font color></b> - ([B.x], [B.y], [B.z])"
-			for(var/obj/Items/Tech/SpaceTravel/V in world)
-				if(usr.z==V.z)
-					usr << "<b><font color='yellow'>(VEHICLE)</font color></b> - ([V.x], [V.y], [V.z])"
 			for(var/obj/Items/Enchantment/PocketDimensionGenerator/W in world)
 				if(usr.z==W.z)
 					usr << "<b><font color='red'>(DISTURBANCE)</font color></b> - ([W.x], [W.y], [W.z])"
@@ -2169,6 +2095,10 @@ obj/Items/Tech
 			set src in usr
 			if(usr.InMagitekRestrictedRegion())
 				usr << "The scouter buzzes and loses power."
+				return
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
 				return
 			var/FrequencySelector=src.Frequency
 			for(var/mob/E in hearers(12,usr))
@@ -2251,6 +2181,10 @@ obj/Items/Tech
 			if(!Password)
 				usr<<"Set a passcode first!"
 				return
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			var/list/obj/Items/Things=list("Cancel")
 			for(var/obj/Items/P in get_step(usr,usr.dir))
 				Things.Add(P)
@@ -2271,6 +2205,10 @@ obj/Items/Tech
 			Password=input("Set a password.")as text
 		verb/Cloak_Objects()
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			for(var/obj/Q in world)
 				if(Q.PasswordReception)
 					if(Q.PasswordReception==Password)
@@ -2280,6 +2218,10 @@ obj/Items/Tech
 						usr<<"[Q] is cloaked!"
 		verb/UnCloak_Objects()
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			for(var/obj/Q in world)
 				if(Q.PasswordReception)
 					if(Q.PasswordReception==Password)
@@ -2319,6 +2261,10 @@ obj/Items/Tech
 		verb/Activate()
 			set category=null
 			set src in range(1, usr)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			if(!src.WaveType)
 				usr << "Configure the wave type first!"
 				return
@@ -2333,7 +2279,7 @@ obj/Items/Tech
 						sleep(-1)
 						TurfShift('GreenDay.dmi', t, 10, src, EFFECTS_LAYER)
 						for(var/mob/m in t)
-							if(m.isRace(SAIYAN) || m.Race=="Half Saiyan")
+							if(m.isRace(SAIYAN) || m.isRace(HALFSAIYAN))
 								m.Tail=1
 								m.Oozaru(1)
 							if(locate(/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form, m))
@@ -2401,6 +2347,10 @@ obj/Items/Tech
 		verb/Activate()
 			set category=null
 			set src in range(1, usr)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			if(!src.WaveType)
 				usr << "Configure the wave type first!"
 				return
@@ -2418,7 +2368,7 @@ obj/Items/Tech
 						sleep(-1)
 						TurfShift('GreenDay.dmi', t, 10, src, EFFECTS_LAYER)
 						for(var/mob/m in t)
-							if(m.isRace(SAIYAN) || m.Race=="Half Saiyan")
+							if(m.isRace(SAIYAN) || m.isRace(HALFSAIYAN))
 								m.Tail=1
 								m.Oozaru(1)
 							if(locate(/obj/Skills/Buffs/SlotlessBuffs/Werewolf/Full_Moon_Form, m))
@@ -2587,6 +2537,10 @@ obj/Items/Tech
 		verb/Send_Door_Password()
 			set category=null
 			var/Valid=0
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			if((src in usr))
 				Valid=1
 			else if(src in view(1, usr)&&!src.Grabbable)
@@ -2676,6 +2630,10 @@ obj/Items/Tech
 		proc/BlanketOpener(var/list/Doorlist)
 			var/DoorsOpened=0
 			var/DoorsClosed=0
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] explodes in [usr]'s hand!")
+				del src
+				return
 			for(var/obj/Items/Tech/Reinforced_Door/B in Doorlist)
 				if(B.density==0)
 					B.Close()
@@ -2699,6 +2657,10 @@ obj/Items/Tech
 		verb/Recharge_Gear()
 			set category=null
 			set src in range(1, usr)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			if(src.ChargesTotal<=0)
 				usr << "The device is still charging up."
 				return
@@ -2740,6 +2702,10 @@ obj/Items/Tech
 		verb/Recharge_Battery()
 			set category=null
 			set src in range(1, usr)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			if(src.ChargesTotal<=0)
 				usr << "The device is still charging up."
 				return
@@ -2747,7 +2713,7 @@ obj/Items/Tech
 				usr << "You're already charging something."
 				return
 			src.Using=1
-			if(usr.Race!="Android"&&!usr.HasMechanized())
+			if(!usr.isRace(ANDROID)&&!usr.HasMechanized())
 				usr << "You aren't mechanized enough to use this on yourself!"
 				src.Using=0
 				return
@@ -2776,53 +2742,6 @@ obj/Items/Tech
 			sleep(600/src.Level)
 			src.ChargesTotal=10
 			src.icon_state="5"
-
-	Android_Frame
-		TechType="CyberEngineering"
-		SubType="DOES NOT EXIST"
-		Cost=25
-		desc="An android chassis awaiting software upload. It can be upgraded to increase the power of the resulting Android"
-		icon='Android1.dmi'
-		icon_state="Meditate"
-		density=1
-		Level=0
-		Savable=1
-		Grabbable=1
-		Pickable=0
-		Click()
-			..()
-			if(!(usr in range(1,src))) return
-			if(!Password)
-				Password=input(usr, "Set activation code.", "Activation Code") as text
-		verb/Inhabit()
-			set category=null
-			set src in range(1,usr)
-			if(!Savable || Savable != 1)
-				return
-			if(usr.Intelligence*usr.CyberizeMod<2)
-				usr << "You lack the mental acumen to perform the operation."
-				return
-			if(src.Password)
-				var/Pass=input(usr, "This item is protected by a password; you have to provide it before inhabiting it.", "Remove Safety") as text
-				if(src.Password!=Pass)
-					usr << "That is not the correct password."
-					return
-			var/mob/install
-			var/list/mob/minds=list("Cancel")
-			for(var/mob/m in view(1, src))
-				minds.Add(m)
-			install=input(usr, "Who do you want to install into the frame?", "Install Mind") in minds
-			if(install=="Cancel")
-				return
-			var/Confirm=alert(install, "Are you sure you want to inhabit the frame?  You will not be able to reverse the process!", "Inhabit Android", "No", "Yes")
-			if(Confirm=="Yes")
-				src.Savable = usr.ckey
-				usr.InhabitDroid(Body=src,Mind=install)
-			else
-				OMsg(usr, "[install] refuses the operation.")
-		verb/Upgrade()
-			set category=null
-			usr << "defunct."
 
 	Chip_Controller
 		Health=5
@@ -2855,6 +2774,10 @@ obj/Items/Tech
 		verb/Activate_Stun_Chip()
 			set category=null
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			var/mob/Players/M
 			var/list/Stunlist=list("Cancel")
 			for(M in range(10,usr))
@@ -2870,6 +2793,10 @@ obj/Items/Tech
 		verb/Activate_Explosive()
 			set category=null
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			var/mob/Players/M
 			var/list/Bomblist=list("Cancel")
 			for(M in range(10,usr))
@@ -2885,6 +2812,10 @@ obj/Items/Tech
 		verb/Activate_Failsafe()
 			set category=null
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			var/mob/Players/M
 			var/list/Safelist=list("Cancel")
 			for(M in range(10,usr))
@@ -2909,6 +2840,10 @@ obj/Items/Tech
 		verb/Recharge_Gear()
 			set category=null
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(50,usr)
+				return
 			if(src.Using)
 				usr << "You're already charging something."
 				return
@@ -2939,11 +2874,15 @@ obj/Items/Tech
 		verb/Recharge_Battery()
 			set category=null
 			set src in usr
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			if(src.Using)
 				usr << "You're already charging something."
 				return
 			src.Using=1
-			if(usr.Race!="Android"&&!usr.HasMechanized())
+			if(!usr.isRace(ANDROID)&&!usr.HasMechanized())
 				usr << "You aren't mechanized enough to use this on yourself!"
 				src.Using=0
 				return
@@ -3007,7 +2946,6 @@ obj/Items/Gear
 			usr << "You don't have enough money to upgrade [src]! ([Commas(usr.GetMoney())] / [Commas(NuCost)])"
 			src.Using=0
 			return
-		usr.TakeMoney(NuCost)
 		var/obj/Items/I
 		if(islist(src.UpgradePath))
 			var/choice = input(usr, "What would you like to upgrade [src] into?", "Upgrade") in src.UpgradePath + "Cancel"
@@ -3018,7 +2956,8 @@ obj/Items/Gear
 				I=new choice
 		else
 			I=new src.UpgradePath
-		I.Cost=I.Cost+(NuCost/global.EconomyCost)
+		usr.TakeMoney(NuCost)
+		I.Cost=I.Cost+(NuCost/glob.progress.EconomyCost)
 		usr.contents+=I
 		OMsg(usr, "[usr] has upgraded [src] into a new gear!")
 		src.Using=0
@@ -3808,6 +3747,10 @@ obj/Items/Gear
 		verb/Pilot()
 			set src in range(1, usr)
 			set category="Utility"
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Science"))
+				OMsg(usr, "[src] shocks [usr]!")
+				usr.AddShock(100,usr)
+				return
 			if(get_dist(src, usr) > 1)
 				return
 			if(src.Using)
@@ -3860,283 +3803,6 @@ proc/ReturnDirection(var/mob/buh,var/mob/M)
 			return NORTH
 		if(M.y<buh.y)
 			return SOUTH
-
-
-obj/BoatEntrance
-	icon='Special.dmi'
-	icon_state="Special7"
-	Health=1.#INF
-	Grabbable=0
-	verb/Leave()
-		set src in oview(1)
-		for(var/obj/Items/Tech/SpaceTravel/Boat/Q in world)
-			if(Q.z)
-				if(Q.Password==src.Password)
-					view(10,usr)<<"[usr] leaves the boat."
-					usr.loc=Q.loc
-					return
-		AdminMessage("[usr]([usr.key]) is trapped on a boat that blew up!(Sent to spawn)(Boat ID was [src.Password])")
-		MoveToSpawn(usr)
-	verb/View()
-		set src in oview(1)
-		for(var/obj/Items/Tech/SpaceTravel/Boat/Q in world)
-			if(Q.z)
-				if(Q.Password==src.Password)
-					usr.client.eye=Q
-
-obj/BoatConsole
-	var/SpeakerToggle=0
-	Health=1.#INF
-	Grabbable=0
-	icon='Tech.dmi'
-	icon_state="ShipConsole"
-	verb/BoatSpeakerToggle()
-		set src in oview(1)
-		if(SpeakerToggle==0)
-			SpeakerToggle=1
-			usr<<"Boat speakers activated."
-		else
-			SpeakerToggle=0
-			usr<<"Boat speakers deactivated."
-	verb/Use()
-		set src in oview(1)
-		for(var/obj/Items/Tech/SpaceTravel/Boat/Q in world)
-			if(Q.z)
-				if(Q.Password==src.Password)
-					if(!Q.who)
-						if(usr.client.perspective!=EYE_PERSPECTIVE)
-							usr.client.perspective=EYE_PERSPECTIVE
-						usr.Control=Q
-						usr.client.eye=Q
-						Q.who=usr
-					else
-						usr<<"Someone else is driving!"
-	verb/View()
-		set src in oview(1)
-		for(var/obj/Items/Tech/SpaceTravel/Boat/Q in world)
-			if(Q.z)
-				if(Q.Password==src.Password)
-					usr.client.eye=Q
-
-obj/ShipAirlock
-	icon='Special.dmi'
-	icon_state="Special7"
-	Health=1.#INF
-	Grabbable=0
-	verb/Leave()
-		set src in oview(1)
-		for(var/obj/Items/Tech/SpaceTravel/Ship/Q in world)
-			if(Q.z)
-				if(Q.Password==src.Password)
-					view(10,usr)<<"[usr] leaves the ship."
-					usr.loc=Q.loc
-					return
-		AdminMessage("[usr]([usr.key]) is trapped on a ship that blew up!(Sent to spawn)(Ship ID was [src.Password])")
-		MoveToSpawn(usr)
-	verb/View()
-		set src in oview(1)
-		for(var/obj/Items/Tech/SpaceTravel/Ship/Q in world)
-			if(Q.z)
-				if(Q.Password==src.Password)
-					if(usr.client.perspective!=EYE_PERSPECTIVE)
-						usr.client.perspective=EYE_PERSPECTIVE
-					usr.client.eye=Q
-
-obj/PodConsole
-	var/Launching
-	Health=10000000000000000000
-	var/SpeakerToggle=0
-	var/PodID
-	Grabbable=0
-	icon='Tech.dmi'
-	icon_state="ShipConsole"
-	verb/ShipSpeakerToggle()
-		set src in oview(1)
-		if(SpeakerToggle==0)
-			SpeakerToggle=1
-			usr<<"Ship speakers activated."
-		else
-			SpeakerToggle=0
-			usr<<"Ship speakers deactivated."
-	verb/Use()
-		set src in oview(1)
-		for(var/obj/Items/Tech/SpaceTravel/SpacePod/Q in world)
-			if(Q.z)
-				if(Q.PodID==src.PodID)
-					if(!Q.who)
-						if(usr.client.perspective!=EYE_PERSPECTIVE)
-							usr.client.perspective=EYE_PERSPECTIVE
-						usr.Control=Q
-						usr.client.eye=Q
-						Q.who=usr
-					else
-						usr<<"Someone else is driving!"
-	verb/Leave()
-		set src in oview(1)
-		for(var/obj/Items/Tech/SpaceTravel/SpacePod/Q in world)
-			if(Q.z)
-				if(Q.PodID==src.PodID)
-					view(10,usr)<<"[usr] leaves the pod."
-					usr.loc=Q.loc
-					Q.Peoples--
-					return
-		AdminMessage("[usr]([usr.key]) is trapped on a pod that blew up!(Sent to spawn)(Pod ID was [src.Password])")
-		MoveToSpawn(usr)
-	verb/View()
-		set src in oview(1)
-		for(var/obj/Items/Tech/SpaceTravel/SpacePod/Q in world)
-			if(Q.z)
-				if(Q.PodID==src.PodID)
-					if(usr.client.perspective!=EYE_PERSPECTIVE)
-						usr.client.perspective=EYE_PERSPECTIVE
-					usr.client.eye=Q
-	verb/Launch()
-		set src in oview(1)
-		usr << "shhh."
-		return
-
-obj/ShipConsole
-	var/Launching
-	var/SpeakerToggle=0
-	Health=1.#INF
-	Grabbable=0
-	icon='Tech.dmi'
-	icon_state="ShipConsole"
-	verb/ShipSpeakerToggle()
-		set src in oview(1)
-		if(SpeakerToggle==0)
-			SpeakerToggle=1
-			usr<<"Ship speakers activated."
-		else
-			SpeakerToggle=0
-			usr<<"Ship speakers deactivated."
-	verb/Launch()
-		set src in oview(1)
-		for(var/obj/Items/Tech/SpaceTravel/Ship/Q in world)
-			if(Q.Password==src.Password)
-				var/Departure
-				if(Q.z==3)
-					Departure="Uyrus"
-				if(Q.z==5)
-					Departure="Vucroth"
-				if(Q.z==7)
-					Departure="Acrore"
-				if(Q.z==9)
-					Departure="Uskion"
-				if(Q.z==11)
-					Departure="Tespao"
-				if(Q.z==13)
-					Departure="Otroth"
-				if(Q.z==15)
-					Departure="Nulea"
-
-				if(Q.z==17&&Q.x<116&&Q.y>134)
-					Departure="Uyrus Moon 1"
-				if(Q.z==17&&Q.x<116&&Q.y<116)
-					Departure="Uyrus Moon 2"
-				if(Q.z==17&&Q.x>134&&Q.y<116)
-					Departure="Uskion Moon 1"
-				if(Q.z==17&&Q.x>134&&Q.y>134)
-					Departure="Uskion Moon 2"
-
-				if(Q.z==18&&Q.x<116&&Q.y>134)
-					Departure="Tespao Moon"
-				if(Q.z==18&&Q.x<116&&Q.y<116)
-					Departure="Utroth Moon"
-				if(Q.z==18&&Q.x>134&&Q.y<116)
-					Departure="Nulea Moon 1"
-				if(Q.z==18&&Q.x>134&&Q.y>134)
-					Departure="Nulea Moon 2"
-
-				if(Q.z==19&&Q.x<116&&Q.y>134)
-					Departure="Nulea Moon 3"
-				if(Q.z==19&&Q.x<116&&Q.y<116)
-					Departure="Nulea Moon 4"
-				if(Q.z==19&&Q.x>134&&Q.y<116)
-					Departure="Nulea Moon 5"
-				if(Q.z==19&&Q.x>134&&Q.y>134)
-					Departure="Nulea Moon 6"
-
-
-				if(Departure)
-					if(src.Launching) return
-					src.Launching=1
-					usr << "The ship is preparing to take off from [Departure]!! In 5 minutes, you'll be back in space!"
-					sleep(Minute(5))
-					src.Launching=0
-					switch(Departure)
-						if("Uyrus")
-							Q.loc=locate(25, 200, 2)
-						if("Vucroth")
-							Q.loc=locate(25, 85, 2)
-						if("Acrore")
-							Q.loc=locate(155, 30, 2)
-						if("Uskion")
-							Q.loc=locate(155, 240, 2)
-						if("Tespao")
-							Q.loc=locate(85, 40, 2)
-						if("Otroth")
-							Q.loc=locate(240, 200, 2)
-						if("Nulea")
-							Q.loc=locate(125, 125, 2)
-						if("Uyrus Moon 1")
-							Q.loc=locate(21, 204, 2)
-						if("Uyrus Moon 2")
-							Q.loc=locate(29, 196, 2)
-						if("Uskion Moon 1")
-							Q.loc=locate(155, 25, 2)
-						if("Uskion Moon 2")
-							Q.loc=locate(159, 34, 2)
-						if("Tespao Moon")
-							Q.loc=locate(159, 236, 2)
-						if("Utroth Moon")
-							Q.loc=locate(240, 200, 2)
-						if("Nulea Moon 1")
-							Q.loc=locate(121, 129, 2)
-						if("Nulea Moon 2")
-							Q.loc=locate(129, 129, 2)
-						if("Nulea Moon 3")
-							Q.loc=locate(131, 125, 2)
-						if("Nulea Moon 4")
-							Q.loc=locate(129, 121, 2)
-						if("Nulea Moon 5")
-							Q.loc=locate(121, 121, 2)
-						if("Nulea Moon 6")
-							Q.loc=locate(119, 125, 2)
-
-				else
-					usr << "You aren't at a place you can launch from!!"
-	verb/Use()
-		set src in oview(1)
-		for(var/obj/Items/Tech/SpaceTravel/Ship/Q in world)
-			if(Q.z)
-				if(Q.Password==src.Password)
-					if(!Q.who)
-						if(usr.client.perspective!=EYE_PERSPECTIVE)
-							usr.client.perspective=EYE_PERSPECTIVE
-						usr.Control=Q
-						usr.client.eye=Q
-						Q.who=usr
-					else
-						usr<<"Someone else is driving!"
-	verb/View()
-		set src in oview(1)
-		for(var/obj/Items/Tech/SpaceTravel/Ship/Q in world)
-			if(Q.z)
-				if(Q.Password==src.Password)
-					if(usr.client.perspective!=EYE_PERSPECTIVE)
-						usr.client.perspective=EYE_PERSPECTIVE
-					usr.client.eye=Q
-	verb/DoorPass()
-		set src in oview(1)
-		set name="Door Password"
-		for(var/obj/Items/Tech/SpaceTravel/Ship/Q in world)
-			if(Q.z)
-				if(Q.Password==src.Password)
-					Q.DoorPass=input("Enter Password 1")as text
-					Q.DoorPass2=input("Enter Password 2")as text
-					Q.DoorPass3=input("Enter Password 3")as text
-					usr<< "You've entered [Q.DoorPass],[Q.DoorPass2], and [Q.DoorPass3] as the passwords. All doors with these passwords will open if the ship is flown near them."
 
 obj/Items/Tech
 	var/Lvl=1
@@ -4229,295 +3895,3 @@ obj/Items/Tech
 							usr<<"Reoxygenization successful!"
 				if("No")
 					return
-
-	SpacePodRemote
-		icon='Tech.dmi'
-		icon_state="SPR"
-		TechType="SPACE"
-		Level=2000
-		Cost=5000
-		var/LastTime
-		verb/Set_Password()
-			set src in usr
-			Password=input("Set a password.")as text
-
-		verb/ProgramPod()
-			set src in usr
-			for(var/obj/Items/Tech/SpaceTravel/SpacePod/P in get_step(usr,usr.dir))
-				if(!P.Password)
-					P.Password=input(usr,"What passcode?")as text
-					view(10)<<"[usr] programmed the spacepod."
-				else
-					usr<<"This pod is already programmed!"
-		verb/Use()
-			set src in usr
-			usr<<"DISABLED"
-			return
-			if(src.LastTime)
-				if(src.LastTime>world.realtime+300)
-					usr<<"You must wait 30 seconds before using this again!"
-					return
-			if(!src.Password)
-				usr<<"You have to set a passcode first!"
-				return
-			src.LastTime=world.realtime
-			for(var/obj/Items/Tech/SpaceTravel/SpacePod/Q in world)
-				if(Q.Password==src.Password)
-					if(Q.Remoting)
-						usr<<"[Q] is already being called!"
-						continue
-					if(Q.z!=usr.z)
-						usr<<"...[Q] is not on this planet."
-						break
-					if(Q.x==usr.x)
-						if(Q.y==usr.y-1)
-							usr<<"[Q] is already here!"
-							break
-					usr<<"Attemping to call: [Q]....this will only work if there is open space between you and the pod."
-					Q.Remoting=1
-					Q.density=0
-					var/turf/destination = locate(usr.x,usr.y-1,usr.z)
-					if(destination)
-						Q.move_to(destination, 3)
-					else
-						usr<<"Your signal has failed! Go outside or somewhere where your pod can reach you!"
-				Q.Remoting = null
-				Q.density=1
-
-	SpacePodRemoteControl
-		icon='Tech.dmi'
-		icon_state="SPR"
-		TechType="SPACE"
-		Level=45
-		Cost=5000
-		desc="Lets you remote control a pod."
-		verb/Set_Password()
-			set src in usr
-			Password=input("Set a password.")as text
-
-		verb/ProgramPod()
-			set src in usr
-			for(var/obj/Items/Tech/SpaceTravel/SpacePod/P in get_step(usr,usr.dir))
-				if(!P.Password)
-					P.Password=input(usr,"What passcode?")as text
-					view(10)<<"[usr] programmed the spacepod."
-				else
-					usr<<"This pod is already programmed!"
-
-		verb/ControlPod()
-			set src in usr
-			for(var/obj/Items/Tech/SpaceTravel/SpacePod/P in world)
-				if(src.Password==P.Password)
-					if(!P.who)
-						usr<<"No one is driving the pod. Patching into control systems."
-						usr.Control=P
-//						usr<<"DEBUG: User Control variable set to [usr.Control]"
-						usr.client.eye=P
-//						usr<<"DEBUG: Setting client eye to [P]"
-						P.who=usr
-//						usr<<"DEBUG: Setting pod who variable to [P.who]"
-					else
-						usr<<"Someone else is driving!"
-
-
-
-	SpaceTravel
-		Bump(mob/A)
-			..()
-			PlanetEnterBump(A,src)
-			TeleporterBump(A,src)
-
-
-
-		var/Navigation=0
-		var/Airship=0
-		var/Launching=0
-		var/DoorPass
-		var/DoorPass2
-		var/DoorPass3
-		var/mob/who
-		var/Fuel=10
-		var/MaxFuel=500
-		var/FuelUsage=1
-		var/MaxSpeed=2
-		var/Moving=0
-		var/MiscLimit=1
-		var/Range=50
-		var/BaseBPScan=20000
-		//var/Speed=0
-		Click()
-			..()
-			if(usr.client.perspective!=EYE_PERSPECTIVE)
-				usr.client.perspective=EYE_PERSPECTIVE
-			if(who==usr)
-				usr.Control=null
-				usr.client.eye=usr
-				src.who=null
-			if(usr.client.eye==src&&who!=usr)
-				usr.client.eye=usr
-		Del()
-			if(src.who)
-				var/mob/M=src.who
-				if(M in players)
-					M.loc=src.loc
-					src.who=null
-					M.Control=null
-					M.client.eye=M
-			..()
-		Move()
-			var/turf/Former_Location=src.loc
-			if(Moving)
-				return
-			if(Fuel<=0)
-				Fuel=0
-				return
-			else
-				..()
-			if(src.type in typesof(/obj/Items/Tech/SpaceTravel/Boat))
-				if(!(src.loc.type in typesof(/turf/Waters))&&!(src.loc.type in typesof(/turf/Special)))
-					if(!src.Airship)
-						src.loc=Former_Location
-						return
-
-			Moving=1
-			Fuel-=(FuelUsage)
-			spawn(20/src.MaxSpeed)
-				Moving=0
-		verb/Refuel()
-			set src in oview(1)
-			var/MagitechCheck=0
-			var/FuelTotal=src.MaxFuel-src.Fuel
-//			for(var/obj/Items/Enchantment/SpaceTravelParts/Misc/CrystalFuelConverter/Z in src)
-//				MagitechCheck=1
-			if(MagitechCheck==1)
-				var/RefuelConfirm=input("Would you like to refuel? It'll cost [100/usr.Imagination] per Fuel point, for a total of [FuelTotal*(100/usr.Imagination)].") in list("Yes","No")
-				switch(RefuelConfirm)
-					if("Yes")
-						for(var/obj/Money/Q in usr)
-							if(Q.Level<FuelTotal*(100/usr.Imagination))
-								usr<<"You don't have enough resources."
-								return
-							else
-								Q.Level-=FuelTotal*(100/usr.Imagination)
-								src.Fuel=src.MaxFuel
-								usr<<"Refuel successful!"
-					if("No")
-						return
-			if(istype(src,/obj/Items/Tech/SpaceTravel/Boat))
-				var/RefuelConfirm=input("Would you like to refuel? It'll cost [2500] per Fuel point, for a total of [Commas(FuelTotal*(2500))].") in list("Yes","No")
-				switch(RefuelConfirm)
-					if("Yes")
-						var/refuelamount=input("How much fuel would you like to add? Remember, it's [2500] per point. The ship can hold [FuelTotal] units.") as num
-						if(refuelamount>FuelTotal)
-							refuelamount=FuelTotal
-						for(var/obj/Money/Q in usr)
-							if(Q.Level<refuelamount*(2500))
-								usr<<"You don't have enough resources."
-								return
-							else
-								Q.Level-=refuelamount*(2500)
-								src.Fuel+=refuelamount
-								usr<<"Refuel successful!"
-					if("No")
-						return
-			else
-				var/RefuelConfirm=input("Would you like to refuel? It'll cost [100/usr.Intelligence] per Fuel point, for a total of [Commas(FuelTotal*(100/usr.Intelligence))].") in list("Yes","No")
-				switch(RefuelConfirm)
-					if("Yes")
-						for(var/obj/Money/Q in usr)
-							if(Q.Level<FuelTotal*(100/usr.Intelligence))
-								usr<<"You don't have enough resources."
-								return
-							else
-								Q.Level-=FuelTotal*(100/usr.Intelligence)
-								src.Fuel=src.MaxFuel
-								usr<<"Refuel successful!"
-					if("No")
-						return
-
-		Boat
-			Health=1000000000000000000000
-			icon='Romek.dmi'
-			pixel_y=-100
-			pixel_x=-100
-			density=1
-			Grabbable=0
-			TechType="SPACE?"
-			Unobtainable=1
-			Small
-				MiscLimit=1
-				Level=5
-				MaxFuel=150
-				Fuel=150
-				MaxSpeed=13
-				Password="Small"
-			Medium
-				MiscLimit=2
-				Level=5
-				MaxFuel=400
-				Fuel=400
-				MaxSpeed=10
-				Password="Medium"
-			Large
-				MiscLimit=3
-				Level=5
-				MaxFuel=750
-				Fuel=750
-				MaxSpeed=7.5
-				Password="Large"
-		Ship
-			Health=999999999
-			density=1
-			icon='Shipz.dmi'
-			Grabbable=0
-			pixel_y=-32
-			pixel_x=-48
-			Cost=50000
-			Level=1000
-			MaxFuel=3000
-			Fuel=3000
-			MaxSpeed=8
-			MiscLimit=2
-			TechType="SPACE"
-			Unobtainable=0
-
-		SpacePod
-			Pickable=0
-			TechType="SPACE"
-			icon='Tech.dmi'
-			icon_state="PodRegular"
-			Level=40
-			Cost=10000
-			var/Remoting=0
-			var/PodIcon=0 //This prevents the pod icon assignment code from being a derp.
-			var/PodID//this is pointless
-			var/Peoples=0 //This tracks people in a pod, a maximum of 2 is permitted.
-			Fuel=1000
-			MaxFuel=1000
-			MaxSpeed=15
-			density=1
-
-			verb/DoorPass()
-				set src in oview(1)
-				set name="Door Passwords"
-				src.DoorPass=input("Enter Password 1")as text
-				src.DoorPass2=input("Enter Password 2")as text
-				src.DoorPass3=input("Enter Password 3")as text
-				usr<< "You've entered [src.DoorPass],[src.DoorPass2], and [src.DoorPass3] as the passwords. All doors with these passwords will open if the pod is flown near them."
-
-			verb/EnterPod()
-				set src in view(1)
-				if(usr.Grab==src)
-					usr<<"You can't enter a pod while grabbing it! That would be silly!"
-					return
-				if(Peoples<2)
-					for(var/obj/PodConsole/Q in world)
-						if(Q.Password==src.Password)
-							usr.loc=locate(Q.x,Q.y-1,Q.z)
-							return
-					src.Peoples++
-				else
-					usr<<"There is too many people in the pod!"
-
-
-

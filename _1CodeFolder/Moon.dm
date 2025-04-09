@@ -1,6 +1,6 @@
 var/global/celestialObjectTicks = Hour(12)/10
 var
-	MoonMessage="The lone local freaky moon shines brightly!"
+	MoonMessage="The lone local holmin moon shines brightly!"
 	MakyoMessage="A cursed star shines in the sky"
 	MoonSetMessage="The lone local moon sets!"
 	MakyoSetMessage="A cursed star disappears from the sky"
@@ -15,28 +15,12 @@ proc/CelestialBodiesLoop()
 			celestialObjectTicks = Hour(12)/10
 		sleep(10)
 
-proc/MoonSetLoop()
-	while(1)
-		if(global.MoonOut)
-			sleep(Hour(1))
-			for(var/mob/Players/P in players)
-				if(P.z in global.MoonOut)
-					P.MoonSetTrigger()
-			global.MoonOut=list()
-proc/MakyoSetLoop()
-	while(1)
-		if(global.MakyoOut)
-			sleep(Day(1))
-			for(var/mob/Players/P in players)
-				if(P.z in global.MakyoOut)
-					P.MakyoSetTrigger()
-			global.MakyoOut=list()
 mob
 	proc
 		MoonWarning()
 			if(src.Secret=="Werewolf")
 				src << "You feel the moon begin to rise... "
-			if(src.Tail&&(src.isRace(SAIYAN)||src.Race=="Half Saiyan"))
+			if(src.Tail&&(src.isRace(SAIYAN)||src.isRace(HALFSAIYAN)))
 				src << "You feel the moon begin to rise... "
 			if(src.AdvancedTransmissionTechnologyUnlocked>0)
 				src << "Your observation devices are warning you about full moon... "
@@ -67,7 +51,7 @@ mob
 			if(src.AdvancedTransmissionTechnologyUnlocked>0)
 				src << "Your observation devices are warning you about an unusual celestial object... "
 		MakyoTrigger()
-			if(src.isRace(MAKYO))
+			if(src.isRace(MAKYO) && race?:accepting_boons)
 				if(src.PotentialRate<2)
 					src.PotentialRate+=0.25
 					if(src.PotentialRate>2)
@@ -132,7 +116,7 @@ proc/CallStar(var/OnlyZ=null)
 				P.MakyoTrigger()
 		else
 			P.MakyoTrigger()
-	sleep(glob.MAKYO_TOTAL_TIME)
+	sleep(glob.racials.MAKYO_TOTAL_TIME)
 	starActive = FALSE
 	for(var/mob/Players/P in players)
 		if(OnlyZ)

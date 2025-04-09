@@ -1,8 +1,4 @@
-/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff
-	NeedsPassword = 1
-	TimerLimit = 1
-	Cooldown = 4
-	AlwaysOn = 1
+
 
 /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Elf_Silence
 	BuffName="Truth Manifestation: Silence"

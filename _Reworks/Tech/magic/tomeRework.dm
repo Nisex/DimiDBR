@@ -35,6 +35,7 @@ Tomes:
     if(!m)
         m = new()
         m.Move(p)
+    m.checkDuplicate(p)
     var/num = input(src, "How many fragments?") as num
     m.value += num
     m.assignState(num)
@@ -76,8 +77,8 @@ Tomes:
         upgradeLimit = 2 * t
 
     verb/Examine()
-        var/header ="<title>[src]</title><body bgcolor=#000000 text=#339999>"
-        var/close = "</body>"
+        var/header ="<html><title>[src]</title><body bgcolor=#000000 text=#339999>"
+        var/close = "</body></html>"
         var/content = ""
         content += "\[SPELL SLOTS: [currentSpellSlots] / [spellSlots]([maxSpellSlots])\]<br>"
         content += "\[TIER: [tier]\]<br>\[UPGRADES: [upgrades] / [upgradeLimit]\]<br>"
@@ -91,6 +92,8 @@ Tomes:
         set src in usr
         if(usr.icon_state != "Meditate")
             usr << "You can't use this unless you are meditating."
+            return
+        if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
             return
         if(src.Using)
             return
@@ -119,7 +122,7 @@ Tomes:
             return
         switch(choice)
             if("Seal")
-                var/cost = round((UPGRADE_BASE_COST*(global.EconomyCost/2)) * (tier + 1) * (upgrades + 1), 1)
+                var/cost = round((UPGRADE_BASE_COST*(glob.progress.EconomyCost/2)) * (tier + 1) * (upgrades + 1), 1)
                 var/obj/Skills/spell = input(usr, "What spell would you like to seal?") in Spells
                 if(spell.Sealed)
                     usr << "This spell is already sealed."
@@ -167,7 +170,7 @@ Tomes:
                     usr << "You don't have enough spell slots to scribe this spell."
                     src.Using=0
                     return
-                var/cost = (selection.Copyable * EconomyCost/8) * (tier)
+                var/cost = (selection.Copyable * glob.progress.EconomyCost/8) * (tier)
                 var/manaCost = 5 * selection.Copyable
                 if(usr.HasFragments(cost))
                     var/confirm = input(usr, "Are you sure you want to scribe [selection] into this tome? It will cost [cost] fragments and [manaCost] mana.") in list("Yes", "No")
@@ -204,7 +207,7 @@ Tomes:
                     usr << "You decide against translating a spell."
                     src.Using=0
                     return
-                var/cost = round((selection.Copyable * EconomyCost/2) / tier,1)
+                var/cost = round((selection.Copyable * glob.progress.EconomyCost/2) / tier,1)
                 var/manaCost = (10 * selection.Copyable) / tier
                 if(selection.PreRequisite.len)
                     for(var/index in selection.PreRequisite)
@@ -246,7 +249,7 @@ Tomes:
                 return
 
             if("Expand")
-                var/cost = round((UPGRADE_BASE_COST*(global.EconomyCost/2)) * (tier + 1) * (upgrades + 1), 1)
+                var/cost = round((UPGRADE_BASE_COST*(glob.progress.EconomyCost/2)) * (tier + 1) * (upgrades + 1), 1)
                 if(usr.HasFragments(cost))
                     var/confirm = input(usr, "Are you sure you want to expand this tome? It will cost [cost] fragments.") in list("Yes", "No")
                     if(confirm == "Yes")
@@ -265,7 +268,7 @@ Tomes:
                 return
                 //TESTED AND WORKING
             if("Cleanse")
-                var/cost = round((UPGRADE_BASE_COST*(global.EconomyCost/4)) * (tier + 1) * (upgrades + 1), 1)
+                var/cost = round((UPGRADE_BASE_COST*(glob.progress.EconomyCost/4)) * (tier + 1) * (upgrades + 1), 1)
                 if(usr.HasFragments(cost))
                     var/confirm = input(usr, "Are you sure you want to cleanse a spell out of this tome? It will cost [cost] fragments.") in list("Yes", "No")
                     if(confirm == "Yes")
@@ -292,8 +295,8 @@ Tomes:
                     else
                         usr << "You have entered the wrong password."
                 else
-                    var/cost = round((UPGRADE_BASE_COST*(global.EconomyCost/10)) * (tier + 1) * (upgrades + 1), 1)
-                    var/manaCost = EconomyMana/4
+                    var/cost = round((UPGRADE_BASE_COST*(glob.progress.EconomyCost/10)) * (tier + 1) * (upgrades + 1), 1)
+                    var/manaCost = glob.progress.EconomyMana/4
                     if(usr.HasFragments(cost))
                         var/confirm = input(usr, "Are you sure you want to secure this tome? It will cost [cost] fragments and [manaCost] mana.") in list("Yes", "No")
                         if(confirm == "Yes")
@@ -317,8 +320,8 @@ Tomes:
                     usr << "You decide against making a scroll."
                     src.Using=0
                     return
-                var/cost = round(UPGRADE_BASE_COST*(global.EconomyCost/2), 1)
-                cost += round(selection.Copyable * EconomyCost/5,10)
+                var/cost = round(UPGRADE_BASE_COST*(glob.progress.EconomyCost/2), 1)
+                cost += round(selection.Copyable * glob.progress.EconomyCost/5,10)
                 if(usr.HasFragments(cost))
                     var/confirm = input(usr, "Are you sure you want to make a scroll of [selection]? It will cost [cost] fragments.") in list("Yes", "No")
                     if(confirm == "Yes")
@@ -349,7 +352,7 @@ Tomes:
                     src.Using=0
                     return
                 else
-                    var/cost = round((UPGRADE_BASE_COST*(global.EconomyCost)) * (tier + 1) * (upgrades + 1), 1)
+                    var/cost = round((UPGRADE_BASE_COST*(glob.progress.EconomyCost)) * (tier + 1) * (upgrades + 1), 1)
                     if(usr.HasFragments(cost))
                         var/confirm = input(usr, "Are you sure you want to bind this tome? It will cost [cost] fragments.") in list("Yes", "No")
                         if(confirm == "Yes")

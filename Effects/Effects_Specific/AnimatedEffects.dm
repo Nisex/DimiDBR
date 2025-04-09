@@ -1,4 +1,5 @@
 /mob/var/in_grapple
+/client/var/tmp/obj/client_plane_master/client_plane_master
 proc
 	LeaveImage(var/mob/Players/User=0, var/Image, var/PX=0, var/PY=0, var/PZ=0, var/Size=1, var/Under=0, var/Time, var/turf/AltLoc=0, var/Dir=SOUTH)
 		var/image/i
@@ -119,6 +120,7 @@ proc
 			del i
 
 	Jump(var/mob/User, var/UpTime=3, var/FloatTime=0, var/DownTime=2)
+		set waitfor = 0
 		animate(User,pixel_z=48,time=UpTime, easing=BACK_EASING, flags=ANIMATION_END_NOW | ANIMATION_RELATIVE)
 		sleep(UpTime)
 		if(FloatTime)
@@ -126,6 +128,8 @@ proc
 		animate(User,pixel_z=-48,time=DownTime, easing=QUAD_EASING, flags=ANIMATION_END_NOW | ANIMATION_RELATIVE)
 
 	SuplexEffect(var/mob/User, var/mob/Target) //MATTHEEEEEEEEW
+		if(!User || !Target || User.loc == null || Target.loc == null)
+			return
 		User.Frozen=2
 		Target.Frozen=2
 		animate(Target, pixel_z=24, time=5, flags=ANIMATION_RELATIVE)
@@ -144,6 +148,8 @@ proc
 
 	RozanEffect(var/mob/User, var/mob/Target, var/TimeMod=1)
 		set waitfor=0
+		if(!User || !Target || User.loc == null || Target.loc == null)
+			return
 		User.Frozen=2
 		Target.Frozen=2
 		var/obj/Effects/RozanEffect/SE=new
@@ -174,6 +180,8 @@ proc
 		Target.Frozen=0
 	ShoryukenEffect(var/mob/User, var/mob/Target, var/TimeMod=1)
 		set waitfor=0
+		if(!User || !Target || User.loc == null || Target.loc == null)
+			return
 		User.Frozen=2
 		Target.Frozen=2
 		var/obj/Effects/ShoryukenEffect/SE=new
@@ -208,8 +216,11 @@ proc
 		animate(User,pixel_z=0,time=5)
 		User.Frozen=0
 		Target.Frozen=0
+		//Target.isGrabbed = FALSE
 	GoshoryukenEffect(var/mob/User, var/mob/Target, var/TimeMod=1)
 		set waitfor=0
+		if(!User || !Target || User.loc == null || Target.loc == null)
+			return
 		User.Frozen=2
 		Target.Frozen=2
 		var/obj/Effects/GoshoryukenEffect/SE=new
@@ -244,9 +255,11 @@ proc
 		animate(User,pixel_z=0,time=5)
 		User.Frozen=0
 		Target.Frozen=0
-
+		//Target.isGrabbed = FALSE
 
 	MuscleBusterEffect(mob/p, mob/t, TimeMod=1)
+		if(!t || !p || p.loc == null || t.loc == null)
+			return
 		p.loc = t.loc
 		p.dir = EAST
 		t.dir = WEST
@@ -274,6 +287,8 @@ proc
 
 
 	PotemkinBusterEffect(mob/p, mob/t, TimeMod=1)
+		if(!t || !p || p.loc == null || t.loc == null)
+			return
 		p.loc = t.loc
 		p.dir = EAST
 		t.dir = WEST
@@ -308,6 +323,8 @@ proc
 
 
 	LotusEffect(var/mob/User, var/mob/Target, var/TimeMod=1)
+		if(!User || !Target || User.loc == null || Target.loc == null)
+			return
 		User.loc=Target.loc
 		User.Frozen=2
 		Target.Frozen=2
@@ -337,12 +354,67 @@ proc
 		User.Frozen=0
 		Target.Frozen=0
 
+
+	SpinTornado(mob/a, mob/d,  time = 5)
+		if(!d || !a || d.loc == null || a.loc == null)
+			return
+		d.loc=a.loc
+		d.dir = SOUTH
+		a.Frozen=2
+		d.Frozen=2
+		var/image/im = image('TornadoDirected.dmi', a, "", FLY_LAYER, NORTH, -8,-8)
+		a.overlays += im
+		for(var/i in 1 to time)
+			d.SpinAnimation2(speed = 8 - i/2, a = a)
+		a.overlays -= im
+		animate(a, pixel_z = 0, time = 4, flags=ANIMATION_PARALLEL)
+		animate(d, pixel_z = 0, pixel_y = 0, time = 3, flags=ANIMATION_PARALLEL)
+		a.Frozen=0
+		d.Frozen=0
+
+
+	Stomp(mob/atk, mob/def, _time = 1, repeat = 0)
+		if(!atk || !def || atk.loc == null || def.loc == null)
+			return
+		atk.Frozen=2
+		def.Frozen=2
+		var/orgdir = atk.dir
+		atk.dir = SOUTH
+		atk.loc=def.loc
+		def.icon_state = "KO"
+		def.layer = MOB_LAYER-0.25
+		animate(atk, pixel_z = 26, time=1)
+		sleep(1)
+		for(var/x in 1 to repeat)
+			animate(atk, pixel_z = 46, time=_time)
+			animate(pixel_z = 24, time=_time)
+			KenShockwave(def,Size=1)
+			Dust(def.loc,_time)
+			for(var/turf/t in Turf_Circle(def, 2))
+				TurfShift('Dirt1.dmi', t, 1, atk)
+			sleep(_time*2)
+		def.icon_state = ""
+		flick("Attack", atk)
+		atk.dir = orgdir
+		atk.pixel_x = 0
+		atk.pixel_z = 0
+		def.layer = MOB_LAYER
+		def.pixel_x = 0
+		atk.Frozen = 0
+		def.Frozen = 0
+
+
+
 	Turn(var/mob/a, var/Time=1)
 		while(Time>=0)
 			animate(a,dir=turn(a.dir,90),time=1, flags=ANIMATION_PARALLEL)
 			Time--
 			sleep(1)
-
+	turnDynamic(mob/p, angle = 90,t = 1, amount = 1)
+		while(amount >=0)
+			animate(p, transform=matrix().Turn(angle), time = t, flags=ANIMATION_PARALLEL)
+			amount--
+			sleep(1)
 	WarpEffect(var/mob/Target, var/EffectType)
 		if(EffectType==1)
 			Target.Stasis=100
@@ -392,7 +464,7 @@ proc
 			spawn(4)
 				RecoverImage(Target)
 			sleep(12)
-			// Target.Leave_Body(ForceVoid=1.5)
+			Target.Leave_Body(ForceVoid=1.5)
 		else if(EffectType==4)
 			Target.Stasis=100
 			sleep(30)
@@ -422,30 +494,16 @@ proc
 		Target.Frozen=0
 		animate(Target, pixel_x=0, pixel_y=0, color=null)
 
-	TransformBeyond(var/mob/m) //Handles shiny transes
-		m.Frozen=1
-		sleep(1)
-		if(m.TransformingBeyond)
-			for(var/turf/t in Turf_Circle(m, 18))
-				if(prob(5))
-					spawn(rand(2,6))
-						var/icon/i = icon('RisingRocks.dmi')
-						t.overlays+=i
-						spawn(rand(20, 60))
-							t.overlays-=i
-			spawn(10)
-				TransformBeyond(m)
-				KenShockwave2(m, icon='KenShockwaveGold.dmi', Size=10)
-		m.Frozen=0
-
 	PowerGathering(var/mob/m) //Handles shiny transes
 		sleep(1)
 		spawn(10)
 			PowerGathering(m)
 			KKTShockwave(m, icon='fevKiai.dmi', Size=0.5)
 
-	TurfShift(var/Shift, var/turf/t, var/Time=30, var/mob/m, var/layer=MOB_LAYER-0.5, var/Spawn=10, var/Despawn=10,var/state)
-		var/image/i=image(icon=Shift, layer=layer, loc=t)
+	TurfShift(var/Shift, var/turf/t, var/Time=30, var/mob/m, var/layer=MOB_LAYER-0.5, var/Spawn=10, var/Despawn=10,var/state, _piX, piY)
+		if(!m) return
+		var/image/i=image(icon=Shift, layer=layer, loc=t, dir = m.dir, pixel_x = _piX, pixel_y = piY)
+		i.dir = m.dir
 		i.mouse_opacity = 0
 		animate(i, alpha=0)
 		world << i
@@ -465,6 +523,7 @@ proc
 		else if(Shift=='amaterasu.dmi')
 			i.layer=MOB_LAYER
 			i.icon_state="[rand(1,13)]"
+		flick(i.icon_state, i)
 		animate(i, alpha=255, time=Spawn)
 		spawn(10+Time)
 			animate(i, alpha=0, time=Despawn)
@@ -477,9 +536,20 @@ proc
 			var/obj/Effects/Crater/C=new
 			C.loc=A.loc
 			animate(C, transform=matrix()*Size, time=3)
+			spawn(rand(30,90))  // kill
+				animate(C, transform=matrix(), time = 1)
+				spawn(3)  // me 
+					del C
 		else
 			for(var/obj/Effects/Crater/B in A.loc)
 				animate(B, transform=matrix()*Size, time=3)
+				spawn(rand(30,90)) // kill 
+					animate(B, transform=matrix(), time = 1)
+					spawn(3) // me 
+						del B
+		
+					
+			
 
 	Dust(turf/A, var/Size=1, var/Layer=EFFECTS_LAYER)
 		set waitfor=0
@@ -531,7 +601,7 @@ mob/proc
 	FlickeringGlow(var/mob/m, var/list/Glow=list(1,0.8,0.8, 0,1,0, 0.8,0.8,1, 0,0,0)) //Handles shiny transes
 		if(m.FlickeringGlow) return
 		m.FlickeringGlow=1
-		while(m.TransformingBeyond)
+		while(m.FlickeringGlow)
 			animate(m, color=Glow, time=10, flags=ANIMATION_RELATIVE || ANIMATION_PARALLEL)
 			sleep(10)
 			animate(m, color=src.MobColor, time=10, flags=ANIMATION_RELATIVE || ANIMATION_PARALLEL)
@@ -589,12 +659,30 @@ mob/proc
 				del i
 				src.StasisFrozen=0
 
-	Blind(var/duration=1000)
-		animate(src.client, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1), time=5)
-		sleep(5)
+	flash(dur, _color, rampup)
+		set waitfor = 0
+		if(!src.client) return
+		animate(src.client, color = _color, time = rampup, easing = ELASTIC_EASING)
+		sleep(rampup)
+		animate(src.client, color = null, time = dur)
+
+	drunkeffect(dur)
+		set waitfor = 0
+		if(!client) return
+		if(!client.client_plane_master)
+			client.client_plane_master = new()
+			client.screen += client.client_plane_master
+		client.client_plane_master.filters = filter(type="blur", size=1)
+		sleep(dur)
+		client.client_plane_master.filters = null
+
+	Blind(var/duration=1000, startup = 2)
+		if(!src.client) return
+		animate(src.client, color = list(1,0,0, 0,1,0, 0,0,1, 1,1,1), time=startup)
+		sleep(startup)
 		animate(src.client, color = null, time=duration)
 	
 	Darkness(duration=100, affect = 5)
 		animate(src.client, color = list(-1,-1,-1, -1,-1,-1, -1,-1,-1, -1,-1,-1), time=affect)
-		sleep(5)
+		sleep(affect)
 		animate(src.client, color = null, time=duration)

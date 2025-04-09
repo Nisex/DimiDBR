@@ -16,7 +16,7 @@ shar, mange and rinnegan all stack atop of each other, keep that in mind!!!
 /obj/Skills/Buffs/SlotlessBuffs/Rinnegan
     SBuffNeeded = "Sharingan"
     Cooldown = -1
-    SeeInvisible = 71
+    SeeInvisible = 20
     Void = 1
     BuffMastery = 3
     IconLock='RinneganEyes.dmi'

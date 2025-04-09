@@ -88,19 +88,19 @@ obj
 
 
 
-			var/SpiritStrike//Targets End with Force
-			var/HybridStrike//For+Str
-			var/SpiritHand//Sunlight stance
-			var/SpiritSword//duh
-			var/KiBlade//duh
+			var/SpiritStrike //Targets End with Force
+			var/HybridStrike //For+Str
+			var/SpiritHand //Sunlight stance
+			var/SpiritSword //duh
+			var/KiBlade //duh
 			var/PridefulRage
 
 			var/ManaGain
 
 			//Instinct //Ignore AIS/WS
 			var/Steady //It do what steady do.
-			var/WeaponBreaker//WHAT DO U THINK?!
-			var/MortalBlow//WHHHHHHHHHHHAAAAAAAAAA-
+			var/WeaponBreaker //WHAT DO U THINK?!
+			var/MortalBlow //WHHHHHHHHHHHAAAAAAAAAA-
 
 			var/HitSparkIcon//you
 			var/HitSparkX//know
@@ -171,6 +171,7 @@ obj
 				AccuracyMult=20
 				KBMult=0.001
 				Decider=1
+				Instinct=4
 				Finisher=1
 				Rapid=1
 				Warp=3
@@ -181,112 +182,34 @@ obj
 				HitMessage="strikes their opponent with a powerful blow!"
 				Generic_Finisher
 					name="Finishing Blow"
-				Hold
-					Instinct=2
-					Grapple=1
-					KBMult=0.001
-					SweepStrike=1
-					DamageMult = 2
-					UnarmedOnly=1
-					GrabTrigger="/obj/Skills/Grapple/Muscle_Buster"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Anger_Of_The_Beast"
-					HitMessage="grabs hold of their enemy!"
-				Leg_Grab
-					Instinct=2
-					Grapple=1
-					KBMult=0.001
-					SweepStrike=1
-					Crushing = 5
-					DamageMult = 4
-					UnarmedOnly=1
-					GrabTrigger="/obj/Skills/Grapple/Giant_Swing"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Iron_Muscle"
-					HitMessage="grabs hold of their enemy!"
-				Command_Grab
-					Instinct=2
-					Grapple=1
-					KBMult=0.001
-					SweepStrike=2
-					Crushing = 20
-					DamageMult = 4
-					UnarmedOnly=1
-					GrabTrigger="/obj/Skills/Grapple/Heavenly_Potemkin_Buster"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Potemkin_Buster"
-					HitMessage="grabs hold of their enemy!"
 
-
-				Heavenly_Storm_Dragon_Emergence
+				Cycle_of_Samsara
+					adjust(mob/p)
+						switch(Mastery)
+							if(0)
+								BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/Naraka"
+							if(1)
+								BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/Preta"
+							if(2)
+								BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/Tiryag"
+							if(3)
+								BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/Asura"
+							if(4)
+								BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/Mansuya"
+							if(5)
+								BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/Deva"
+							if(6)
+								BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Samsara/Buddha"
+							if(7)
+								BuffSelf=null
 					Warp = 10
-					Bolt = 1
-					Shining = 1
-					Explosive = 1
-					Shocking = 0.25
-					Shattering = 0.25
-					Instinct = 1
-					PushOut=5
-					PushOutWaves=5
-					Decider = 2
-					DamageMult=0.5
-					InstantStrikes=30
-					FollowUp="/obj/Skills/Queue/Finisher/Heavenly_Dragon_Raging_Tempest"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragon_Ascendant_Zenith"
-					HitMessage="taps into their ancestral arts! With a roar that echoes through the realms, the force quakes the earth and tears through the skies! The tempest of its fury is a celestial ballet, weaving destruction and honor into the fabric of existence. The path of the Heavenly Dragon has descended upon the mortal realms from the quasi-god realm! Their very presence shakes and alters the fragile reality they reside in! A maelstrom of everlasting power continues to surge, ascending higher and higher! Until the peak of Murim Martial Arts conquers all! That is the Zenith... A god among man!"
-				Heavenly_Dragon_Raging_Tempest
-					Warp = 3
-					Combo=30
-					DamageMult = 0.15
-					Bolt = 1
-					Shining = 1
-					Explosive = 1
-					KBAdd = 0.001
+					Instinct = 2
 					PushOut=1
 					PushOutWaves=1
-					BuffSelf=0
-				Heavenly_Dragons_Omniscient_Surge
-					Warp = 10
-					Bolt = 1
-					Shining = 1
-					Explosive = 1
-					Shocking = 0.5
-					Shattering = 0.5
-					Instinct = 2
-					PushOut=2
-					PushOutWaves=2
 					Decider = 4
-					DamageMult=0.8
-					KBAdd = 3
-					InstantStrikes=10
-					FollowUp="/obj/Skills/Queue/AutoHit/Heavenly_Dragon_Violet_Ponds_Annihilation_of_the_Nine_Realms"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heavenly_Dragons_Transient_Enlightenment"
-					HitMessage="Summons the boundless might of their martial arts, entering into a breakthrough by pure technique alone. Roars that turn into unstoppable torrent of energy erupt from their body while it soars through the battlefield, unleashing a symphony of cataclysmic destruction paired with ethereal grace. They have unlocked the ultimate testament to the Heavenly Dragon Stance, a dance of power and honor that surpasses the mortal plane, from the divine heights of the quasi-god realm, they descend as the Heavenly Dragon. Harnessing the boundless force of the Nine converging Realms, they unleash a relentless storm of peerless strength, devastating the battle field."
-
-				
-
-
-
-				Divine_Finisher
-					name = "Heavenly Demon's Radiant Divine Palm that Shatters the Nine Heavens and Illuminates the Eternal Night"
-					Warp = 10
-					Bolt = 1
-					Shining = 1
-					Explosive = 1
-					Instinct = 2
-					PushOut=1
-					PushOutWaves=4
-					SweepStrike=2
-					Decider=4
-					DamageMult=3
-					KBAdd = 0.01
-					FollowUp="/obj/Skills/AutoHit/The_Heavenly_Demons_Fist_That_Cleaves_Through_Heaven_And_Divides_The_Sea"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Emergent_Demon_Breakthrough"
-					
-				Chi_Punch
-					Warp = 4
 					DamageMult=1
-					Launcher=7
 					KBAdd = 0.01
-					FollowUp="/obj/Skills/AutoHit/Chi_Punch"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Chi_Augmentation"
+					InstantStrikes=4
 
 				Iron_Fortress
 					Shattering=20
@@ -327,12 +250,6 @@ obj
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Body_Mastery"
 					HitMessage="carries their opponent through a brutal haymaker!"
 					FollowUp="/obj/Skills/AutoHit/Strongest_Fist"
-				Mouton_Shot
-					KBMult=0.001
-					Crippling=10
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Spirit_Mastery"
-					HitMessage="springs into a handstand, launching a destructive kick from below!"
-					FollowUp="/obj/Skills/AutoHit/Flamberge_Shot"
 				Rolling_Sobat
 					Warp=5
 					Paralyzing=10
@@ -376,39 +293,13 @@ obj
 					HitMessage="unleashes their wrath on the opponent, engulfing them in an explosive wave of dark flame!"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Devil_Luck"
 					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Devil_Fire"
-				Maxima_Press
-					DamageMult=3
-					Launcher=3
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Forced_Mechanize"
-					HitMessage="drags their opponent by their face, launching them up with a magnetic charge!"
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Reversal_Mastery"
+				
 				Morbid_Angel
 					DamageMult=3
 					Launcher=3
 					HitMessage="leaps onto their enemy's shoulders, gouging their throat with deadly venom!"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Death_Mastery"
 					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Bio_Break"
-
-				Mountain_Crusher
-					DamageMult=1.5
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Earth_Empowerment"
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Crystal_Crumbling"
-					HitMessage="decimates with an Earth-empowered elbow strike to the sternum!"
-				Shifting_Clouds
-					DamageMult=1.5
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Wind_Empowerment"
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Constant_Cyclone"
-					HitMessage="steps forward, dropping their Wind-empowered fist like a bolt of lightning!"
-				Hellraiser
-					DamageMult=1.5
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fire_Empowerment"
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Continued_Conflagration"
-					HitMessage="ducks, spins, and delivers an explosive Fire-empowered backhand slam!"
-				Split_River
-					DamageMult=1.5
-					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Water_Empowerment"
-					BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Corrosive_Chill"
-					HitMessage="crashes down like a wave with a Water-empowered wheel kick!"
 
 				//t1 sig styles
 				Ray_Divider
@@ -537,7 +428,7 @@ obj
 					HitMessage="leaps onto their target with their shield before delivering an onslaught of slashes with their spear!"
 					FollowUp="/obj/Skills/AutoHit/Comet_Spear"
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Mortal_Will"
-
+					DamageMult = 1
 
 
 				Ogre_Cutter
@@ -742,6 +633,36 @@ obj
 					KBAdd=5
 					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Hado_Kakusei"
 					FollowUp="/obj/Skills/Projectile/Hadoken_Effect"
+				
+				Shin_Shoryuken
+					StyleNeeded="Ansatsuken"
+					HitMessage="shouts '<b>SHIN...</b>' as they strike their opponent with a rising blow!!!"
+					DamageMult=4
+					AccuracyMult = 1.25
+					KBMult=0.00001
+					PushOut=3
+					AllOutAttack=1
+					Instinct=4
+					Stunner=3
+					Duration=10
+					Rapid=1
+					HitStep=/obj/Skills/Queue/Finisher/Shin_Shoryuken2
+
+
+				Shin_Shoryuken2
+					StyleNeeded="Ansatsuken"
+					HitMessage="shouts '<b>SHORYUKEN!</b>' as they spike their opponent into the heavens with a divine uppercut!!!"
+					DamageMult=6
+					AccuracyMult = 1.25
+					KBMult=0.00001
+					Duration=5
+					Warp=5
+					Instinct=4
+					Launcher=3
+					ShoryukenEffect=2
+					Shattering=30
+					BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Heat_Rush"
+
 				Shoryureppa1
 					DamageMult=7
 					name="Shoryureppa"
@@ -920,127 +841,6 @@ obj
 				HitSparkY=-32
 				ActiveMessage="smashes their fist into their opponents face!" //WA TA
 ////Keyblade
-			DarkImpulseGrab
-				ActiveMessage="overflows with the power of darkness!"
-				HitMessage="vanishes towards their opponent, smothering them with a malicious claw!"
-				DamageMult=3
-				AccuracyMult = 1.15
-				Duration=5
-				Warp=3
-				Grapple=1
-				KBMult=0.001
-				GrabTrigger=0.5
-				GoshoryukenEffect=1
-				PushOut=2
-				PushOutWaves=3
-				PushOutIcon='DarkKiai.dmi'
-				//No verb since it is set from melee.
-////Ripple
-			Rebuff_Overdrive
-				DamageMult=2.5
-				AccuracyMult=1
-				KBAdd=5
-				Quaking=5
-				Shining='Ripple Barrier.dmi'
-				IconLock='Ultima Arm.dmi'
-				Duration=2
-				Counter=1
-				ActiveMessage="rushes in with an elbow counter assault: <b>Rebuff Overdrive!!</b>"
-				//set manually so no verb
-			Zoom_Punch
-				DamageMult=2.5
-				AccuracyMult = 1.1
-				Warp=3
-				KBAdd=5
-				Duration=5
-				Instinct=1
-				IconLock='Ultima Arm.dmi'
-				HitMessage="dislocates their arm to deliver a surprise strike: <b>Zoom Punch!</b>"
-				//set manually so no verb
-			Sunlight_Yellow_Overdrive
-				DamageMult=1
-				AccuracyMult=20
-				Warp=5
-				KBAdd=1
-				KBMult=0.00001
-				Combo=25
-				Quaking=10
-				Instinct=4
-				IconLock='Ripple Arms.dmi'
-				HitSparkIcon='Hit Effect Ripple.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=1.3
-				Duration=5
-				ActiveMessage="unleashes the radiant beat of their heart, the Ripple of the Sun: <b><font color=#FFD700>Sunlight Yellow Overdrive!!!</font></b>"
-				//set manually so no verb
-////Vampirism
-			Vampire_Lunge
-				DamageMult=2
-				AccuracyMult = 1.1
-				Warp=5
-				KBAdd=0
-				KBMult=0.00001
-				LifeSteal=100
-				Instinct=4
-				HitSparkIcon='Hit Effect Vampire.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=1.5
-				Duration=5
-				ActiveMessage="lets loose a dreaded battlecry as they leap forth!  WRYYYY!!"
-				adjust(mob/p)
-					var/secretLevel = p.getSecretLevel()
-					LifeSteal = min(25 * secretLevel,100)
-					Crippling = secretLevel
-
-
-				//set manually so no verb
-			Vampire_Rage
-				DamageMult=2
-				AccuracyMult = 1.1
-				Warp=5
-				KBAdd=1
-				KBMult=0.00001
-				LifeSteal=100
-				Instinct=4
-				Combo=10
-				HitSparkIcon='Slash - Vampire.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkTurns=1
-				Duration=5
-				ActiveMessage="transforms their body into a storm of shadow blades!"
-				// this is literally ora ora
-				adjust(mob/p)
-					var/secretLevel = p.getSecretLevel()
-					LifeSteal = min(50 * secretLevel,100)
-					Crippling = secretLevel * 1.5
-
-			Eldritch_Ruinate
-				DamageMult=0.5
-				AccuracyMult = 1.1
-				Warp=5
-				KBAdd=1
-				KBMult=0.00001
-				Instinct=0
-				Combo=10
-				HitSparkIcon='Slash - Vampire.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkTurns=1
-				Duration=5
-				ActiveMessage="lets their presence try to overtake their opponents!"
-				adjust(mob/p)
-					var/ascLevel = 1 + p.AscensionsUnlocked
-					var/boon = 3 * ascLevel
-					src.Scorching=8 + boon
-					src.Freezing=8 + boon
-					src.Paralyzing=8 + boon
-					src.Shattering=8 + boon
-					DamageMult = 2 + (ascLevel)
-
-//Basic
 
 			Heavy_Strike
 				Duration=5
@@ -1051,31 +851,104 @@ obj
 				Cooldown=15
 				verb/Heavy_Strike()
 					set category="Skills"
-					if(usr.Tension>=100)
+					if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Heavy Strike"))
+						return
+					var/maxTension = 100
+					if(usr.passive_handler.Get("Conductor"))
+						maxTension = max(glob.MIN_TENSION, 100 - usr.passive_handler.Get("Conductor"))
+					if(usr.Tension>=maxTension)
 						if(usr.HasTensionLock())
 							return
 						if(usr.AttackQueue)
 							return
 						usr.Tension=0
 						if(usr.StyleBuff.Finisher)//if the style has a unique finisher
-							var/path=text2path(usr.StyleBuff.Finisher)
+							var/path = usr.StyleBuff.Finisher
+							if(!ispath(usr.StyleBuff.Finisher))
+								path=text2path(usr.StyleBuff.Finisher)
+							var/obj/Skills/Queue/q
 							if(!locate(path, usr))
-								usr.AddSkill(new path)//give it an object type to allow for customizations
-							for(var/obj/Skills/Queue/q in usr.Queues)
-								if(q.type==path)
-									usr.SetQueue(q)
+								q = new path
+								usr.AddSkill(q)//give it an object type to allow for customizations
+							else
+								q = usr.FindSkill(path)
+							q.adjust(usr)
+							// for(var/obj/Skills/Queue/q in usr.Queues)
+							// 	if(q.type==path)
+							usr.SetQueue(q)
 						else
 							usr.SetQueue(new/obj/Skills/Queue/Finisher/Generic_Finisher)
 						return
 					else
 						if(usr.AttackQueue)
 							return // prevent heavy strike from overriding
-						if(!usr.Secret && !usr.HasWitchCraft() || usr.Secret == "Eldritch" && !usr.CheckSlotless("True Form") || usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus"))//Just default Heavy Strike
+
+						if(usr.passive_handler["Heavy Strike"])
+							switch(usr.passive_handler["Heavy Strike"])
+								if("Wrestling")
+									Grapple = 1
+									KBAdd =0
+									KBMult = 0
+									DamageMult = 4
+									AccuracyMult = 2
+									HitMessage = "puts his hands on em'."
+									Duration=7
+									Cooldown = 20
+								if("Inferno")
+									FollowUp = "/obj/Skills/AutoHit/Hyper_Inferno"
+								if("HellfireInferno")
+									FollowUp = "/obj/Skills/AutoHit/HellfireInferno"
+									
+						else
+							// reset all
+							Grapple = 0
+							FollowUp = null
+
+
+						if(!usr.Secret && !usr.HasWitchCraft() || usr.Secret == "Goetic Virtue" || usr.Secret == "Stellar Constellation" || usr.Secret == "Elven Sanctuary" || usr.Secret == "Eldritch" && !usr.CheckSlotless("True Form") || usr.Secret == "Jagan" ||usr.Secret=="Necromancy"||usr.Secret=="Ripple"&&!usr.HasRipple()||usr.Secret=="Senjutsu"&&!usr.CheckSlotless("Senjutsu Focus") || usr.Secret =="Heavenly Restriction" && !usr.secretDatum?:hasImprovement("Heavy Strike"))//Just default Heavy Strike
 							src.name="Heavy Strike"
 							src.DamageMult=2
 							src.AccuracyMult=1
+							Duration=5
 							src.KBAdd=5
 							src.KBMult=3
+							src.Cooldown=15
+							src.ActiveMessage=0
+							src.HitMessage=0
+							src.Ooze = 0
+							src.CursedWounds=0
+							src.Scorching=0
+							src.Freezing=0
+							src.Paralyzing=0
+							src.Shattering=0
+							src.Toxic=0
+							src.Combo=0
+							src.Warp=0
+							src.Rapid=0
+							src.LifeSteal=0
+							src.Crippling=0
+							src.Grapple=0
+							Dunker = 0
+							Launcher = 0
+							PushOutWaves = 0
+							PushOut = 0
+							src.NoForcedWhiff=0
+							src.IconLock='BLANK.dmi'
+							src.HitSparkIcon=null
+							src.HitSparkX=0
+							src.HitSparkY=0
+							src.HitSparkTurns=0
+							src.HitSparkSize=1
+							usr.SetQueue(src)
+							return//and that's the end
+						if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasImprovement("Heavy Strike"))
+							src.name="Heavy Strike"
+							src.DamageMult= 2 + usr.secretDatum?:getBoon(usr, "Heavy Strike")
+							PushOutWaves = usr.secretDatum?:getBoon(usr, "Heavy Strike")
+							PushOut = usr.secretDatum?:getBoon(usr, "Heavy Strike")
+							src.AccuracyMult = 1 + usr.secretDatum?:getBoon(usr, "Heavy Strike")
+							src.KBAdd = 5 + usr.secretDatum?:getBoon(usr, "Heavy Strike")
+							src.KBMult= 1 + usr.secretDatum?:getBoon(usr, "Heavy Strike")
 							src.Cooldown=15
 							src.ActiveMessage=0
 							src.HitMessage=0
@@ -1099,8 +972,13 @@ obj
 							src.HitSparkY=0
 							src.HitSparkTurns=0
 							src.HitSparkSize=1
+							Dunker = 0
+							Launcher = 0
+							if(usr.Target.Launched)
+								Dunker = usr.secretDatum?:getBoon(usr, "Heavy Strike")
+							else
+								Launcher = usr.secretDatum?:getBoon(usr, "Heavy Strike")
 							usr.SetQueue(src)
-							return//and that's the end
 						if(usr.Secret == "Eldritch" && usr.CheckSlotless("True Form"))
 							src.name="Maleific Strike"
 							src.DamageMult=3
@@ -1169,7 +1047,7 @@ obj
 							if(usr.CheckSlotless("Haki Observation"))
 								for(var/obj/Skills/Buffs/SlotlessBuffs/Haki/Haki_Observation/H in usr)
 									H.Trigger(usr)
-							if(usr.HakiSpecialization=="Armament")
+							if(usr.secretDatum.secretVariable["HakiSpecialization"]=="Armament")
 								src.name="Buso: Koka"
 								src.DamageMult = 1 + usr.secretDatum.currentTier
 								src.AccuracyMult = 1.15
@@ -1525,7 +1403,7 @@ obj
 							usr.SetQueue(src)
 							return
 						if(usr.StyleActive == "Witch" && usr.HasWitchCraft())
-							src.ActiveMessage="takes a starting position!"
+							src.ActiveMessage="weaves their hands towards the central mass of their enemies!"
 							src.name = "Soulsap Strike"
 							src.DamageMult=1.5
 							src.AccuracyMult = 1.15
@@ -1534,12 +1412,12 @@ obj
 							src.Cooldown=20
 							src.HitMessage= "grasps hold of their opponents soul -- Sapping away it's energy!"
 							src.Scorching=0
-							src.Freezing=0
+							src.Freezing=1
 							src.Paralyzing=0
 							src.CursedWounds=5
 							src.Decider = 1
 							src.Combo=0
-							src.Warp=0
+							src.Warp=2
 							src.Rapid=0
 							src.Crippling=15
 							src.NoForcedWhiff=0
@@ -1550,7 +1428,7 @@ obj
 							src.HitSparkTurns=1
 							src.HitSparkSize=1
 							usr.SetQueue(src)
-							return							
+							return
 						if(usr.Secret=="Zombie")
 							src.name="Death Grasp"
 							src.DamageMult=2.5
@@ -1583,7 +1461,6 @@ obj
 							usr.SetQueue(src)
 							return
 
-//IM APPROPRIATING THESE NAMES FOR THE GLORIOUS NEW CONTENT
 			Meteor_Mash
 				name="Meteor Mash"
 				DamageMult=1
@@ -1654,8 +1531,6 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 
-
-//racial
 			Blaze_Burst
 				name="Blaze Burst"
 				DamageMult=2
@@ -1672,6 +1547,7 @@ obj
 				verb/Blaze_Burst()
 					set category="Skills"
 					usr.SetQueue(src)
+
 			Winter_Shock
 				name="Winter Shock"
 				DamageMult=2
@@ -1688,6 +1564,7 @@ obj
 				verb/Winter_Shock()
 					set category="Skills"
 					usr.SetQueue(src)
+
 			Terra_Crack
 				name="Terra Crack"
 				DamageMult=2
@@ -1704,6 +1581,7 @@ obj
 				verb/Terra_Crack()
 					set category="Skills"
 					usr.SetQueue(src)
+
 			Aero_Slash
 				name="Aero Slash"
 				DamageMult=2
@@ -1722,8 +1600,6 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 
-
-			//SHIT AINT USED
 			Sharpnel_Scatter
 				name="Shrapnel Scatter"
 				DamageMult=1
@@ -1763,11 +1639,6 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 
-//Skill Tree
-
-////UNARMED
-
-//T1 - Damage mults range from 1.5 to 2.5
 			Uppercut
 				SkillCost=40
 				Copyable=1
@@ -1785,593 +1656,6 @@ obj
 					set category="Skills"
 					set name="Uppercut"
 					usr.SetQueue(src)
-			Ikkotsu
-				SkillCost=40
-				Copyable=2
-				HitMessage="delivers a destructive one handed strike!!"
-				DamageMult=2.8
-				AccuracyMult = 1.1
-				Dominator=1
-				Duration=5
-				KBAdd=10
-				Launcher=1
-				Cooldown=30
-				UnarmedOnly=1
-				EnergyCost=2
-				name="Ikkotsu"
-				verb/Ikkotsu()
-					set category="Skills"
-					set name="Ikkotsu"
-					usr.SetQueue(src)
-			Showstopper
-				SkillCost=40
-				Copyable=2
-				HitMessage="delivers a vicious uppercut!!"
-				DamageMult=2.5
-				AccuracyMult = 1.15
-				Stunner=2
-				Launcher=2
-				Duration=5
-				KBMult=0.00001
-				Cooldown=30
-				UnarmedOnly=1
-				EnergyCost=2
-				name="Showstopper"
-				verb/Showstopper()
-					set category="Skills"
-					set name="Showstopper"
-					usr.SetQueue(src)
-			Dempsey_Roll
-				SkillCost=40
-				Copyable=2
-				ActiveMessage="punches with precisely articulated strikes to create whirlwind-like pull!"
-				name="Dempsey Roll"
-				DamageMult=1
-				AccuracyMult = 1.15
-				KBMult=0.01
-				KBAdd=1
-				Duration=8
-				Cooldown=30
-				UnarmedOnly=1
-				Combo=4
-				Warp=4
-				Stunner=2
-				IconLock='dempsey.dmi'
-				LockX=-16
-				LockY=-16
-				PushOut=1
-				PushOutIcon='BLANK.dmi'
-				EnergyCost=1
-				verb/Dempsey_Roll()
-					set category="Skills"
-					set name="Dempsey Roll"
-					usr.SetQueue(src)
-			Corkscrew_Blow
-				SkillCost=40
-				Copyable=2
-				ActiveMessage="strikes with cyclone power!"
-				name="Corkscrew Blow"
-				DamageMult=0.75
-				AccuracyMult = 1.15
-				KBAdd=4
-				Duration=10
-				Cooldown=30
-				UnarmedOnly=1
-				IconLock='Corkscrew.dmi'
-				MultiHit=5
-				Warp=4
-				EnergyCost=1
-				verb/Corkscrew_Blow()
-					set category="Skills"
-					set name="Corkscrew Blow"
-					usr.SetQueue(src)
-
-			Axe_Kick
-				SkillCost=40
-				Copyable=1
-				name="Axe Kick"//Skill name displayed in message.
-				HitMessage="brings their heel down in a mighty axe kick!!"
-				DamageMult=2
-				AccuracyMult = 1.1
-				Duration=5
-				SpeedStrike=2
-				Cooldown=30
-				UnarmedOnly=1
-				EnergyCost=1.5
-				verb/Axe_Kick()
-					set category="Skills"
-					set name="Axe Kick"//Verb name.
-					usr.SetQueue(src)
-			Kinshasa
-				SkillCost=40
-				Copyable=2
-				name="Kinshasa"//Skill name displayed in message.
-				HitMessage="builds up speed and knees their target in the face!!"
-				DamageMult=3.5
-				AccuracyMult = 1.15
-				Duration=5
-				SpeedStrike=4
-				Cooldown=30
-				Crippling = 8
-				UnarmedOnly=1
-				EnergyCost=1.5
-				adjust(mob/p)
-					if(usr.isInnovative(HUMAN, "Unarmed"))
-						Projectile="/obj/Skills/Projectile/KinshasaProjectile"
-					else
-						Projectile=null
-				verb/Kinshasa()
-					set category="Skills"
-					set name="Kinshasa"//Verb name.
-					usr.SetQueue(src)
-			Piston_Kick
-				SkillCost=40
-				Copyable=2
-				name="Piston Kick"//Skill name displayed in message.
-				HitMessage="launches a shattering front kick with their heel!"
-				DamageMult=2.8
-				Shattering = 12
-				AccuracyMult = 1.1
-				SpeedStrike=2
-				Opener=1
-				Duration=5
-				Cooldown=30
-				UnarmedOnly=1
-				EnergyCost=2.5
-				verb/Piston_Kick()
-					set category="Skills"
-					set name="Piston Kick"//Verb name.
-					usr.SetQueue(src)
-			Cripple
-				SkillCost=40
-				Copyable=2
-				DamageMult=2
-				AccuracyMult = 1.15
-				Duration=5
-				Cooldown=30
-				Crippling=12
-				SpeedStrike=2
-				SweepStrike=1
-				UnarmedOnly=1
-				EnergyCost=2.5
-				HitMessage="delivers a crippling strike!"
-				verb/Cripple()
-					set category="Skills"
-					usr.SetQueue(src)
-			Pin
-				SkillCost=40
-				Copyable=2
-				DamageMult=4
-				AccuracyMult = 1.15
-				Instinct=2
-				Grapple=1
-				KBMult=0.001
-				Warp=3
-				SpeedStrike=1
-				UnarmedOnly=1
-				Duration=5
-				Cooldown=30
-				EnergyCost=2.5
-				HitMessage="performs a pinning maneuver!"
-				verb/Pin()
-					set category="Skills"
-					usr.SetQueue(src)
-
-//T2 is in Autohits.
-
-//T3 is in Grapples.
-
-//T4 - Damage mults range from 4 to 6.
-			GET_DUNKED
-				SkillCost=160
-				Copyable=4
-				name="GET DUNKED"
-				DamageMult=6
-				AccuracyMult = 1.175
-				Duration=5
-				KBMult=0.00001
-				PushOut=3
-				PushOutWaves=2
-				Finisher=1
-				Dunker=1
-				Warp=2
-				Stunner=3
-				UnarmedOnly=1
-				EnergyCost=4
-				Quaking=1
-				Cooldown=120
-				verb/GET_DUNKED()
-					set category="Skills"
-					set name="Get Dunked"
-					usr.SetQueue(src)
-			Soukotsu
-				SkillCost=160
-				Copyable=5
-				name="Soukotsu"
-				DamageMult=2.5
-				AccuracyMult = 1.1
-				Duration=5
-				KBAdd=10
-				PushOut=3
-				PushOutWaves=2
-				InstantStrikes=2
-				InstantStrikesDelay=1.5
-				Finisher=1
-				Warp=3
-				Dunker=1
-				Stunner=2
-				Instinct=1
-				UnarmedOnly=1
-				EnergyCost=8
-				Quaking=1
-				Cooldown=120
-				verb/Soukotsu()
-					set category="Skills"
-					set name="Soukotsu"
-					usr.SetQueue(src)
-			Curbstomp
-				SkillCost=160
-				Copyable=5
-				name="Curbstomp"
-				DamageMult=13
-				AccuracyMult = 1.1
-				Duration=5
-				KBMult=0.0001
-				PushOut=5
-				PushOutWaves=3
-				Finisher=1
-				Warp=1
-				Dunker=2
-				Stunner=2
-				UnarmedOnly=1
-				EnergyCost=4
-				Quaking=4
-				Cooldown=120
-				verb/Curbstomp()
-					set category="Skills"
-					set name="Curbstomp"
-					usr.SetQueue(src)
-			Six_Grand_Openings
-				SkillCost=160
-				Copyable=5
-				name="Six Grand Openings"
-				HitMessage="delivers a graceful and crippling blow with their elbow!"
-				DamageMult=7.5
-				AccuracyMult = 1.175
-				Duration=5
-				Counter=1
-				NoWhiff=1
-				Crippling=5
-				Stunner=2
-				Dunker=1
-				Decider=1
-				KBMult=0.0001
-				Cooldown=120
-				UnarmedOnly=1
-				EnergyCost=5
-				verb/Six_Grand_Openings()
-					set category="Skills"
-					usr.SetQueue(src)
-			Skullcrusher
-				SkillCost=160
-				Copyable=5
-				name="Skullcrusher"
-				HitMessage="brings their elbow down with crushing might!"
-				DamageMult=7
-				InstantStrikes=2
-				InstantStrikesDelay=1.5
-				AccuracyMult = 1.1
-				Duration=5
-				Stunner=4
-				KBMult=0.0001
-				Cooldown=120
-				UnarmedOnly=1
-				EnergyCost=4
-				verb/Skullcrusher()
-					set category="Skills"
-					usr.SetQueue(src)
-
-//T5 (Sig 1) - Damage mults are usually 5
-			Aura_Punch
-				SignatureTechnique=1
-				ActiveMessage="begins concentrating power..."
-				HitMessage="unleashes a devasatating punch!"
-				DamageMult=12
-				AccuracyMult = 1.175
-				KBMult=5
-				Duration=6
-				Instinct=2
-				Delayer=0.25//add 1 damage mult every second that this is queued but hasnt been punched yet
-				Warp=5
-				Cooldown=150
-				EnergyCost=5
-				IconLock='CommandSparks.dmi'
-				verb/Aura_Punch()
-					set category="Skills"
-					usr.SetQueue(src)
-			The_Claw
-				SignatureTechnique=1
-				name="Claw Grip"
-				HitMessage="grabs the opponent's face in a crushing grip!"
-				DamageMult=11
-				AccuracyMult = 1.175
-				KBMult=0.00001
-				Duration=5
-				Instinct=2
-				Opener=1
-				Warp=2
-				Cooldown=150
-				Grapple=1
-				EnergyCost=5
-				BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Brolic_Grip"
-				verb/The_Claw()
-					set category="Skills"
-					usr.SetQueue(src)
-			Nerve_Shot
-				SignatureTechnique=1
-				DamageMult=2
-				AccuracyMult = 1.25
-				Duration=5
-				Stunner=2
-				Crippling=412
-				Shearing=25
-				Combo=5
-				Rapid=1
-				Cooldown=150
-				Instinct=2
-				UnarmedOnly=1
-				EnergyCost=5
-				HitMessage="confuses the opponent's senses with a volley of pressure point strikes!"
-				verb/Nerve_Shot()
-					set category="Skills"
-					usr.SetQueue(src)
-			Gale_Strike
-				SignatureTechnique=1
-				DamageMult=1.8//there is 0.5 damage mult 10 multihit on the gale itself
-				AccuracyMult = 1.175
-				KBMult=0.00001
-				Duration=5
-				Projectile="/obj/Skills/Projectile/GaleStrikeProjectile"
-				Cooldown=150
-				Instinct=2
-				EnergyCost=10
-				verb/Gale_Strike()
-					set category="Skills"
-					usr.SetQueue(src)
-			Volleyball_Fist
-				SignatureTechnique=1
-				UnarmedOnly=1
-				DamageMult=8
-				AccuracyMult = 1.35
-				KBMult=0.00001
-				Stunner=1
-				Instinct=2
-				Warp=2
-				HitStep=/obj/Skills/Queue/Volleyball_Fist2
-				Duration=5
-				Rapid=1
-				Opener=1
-				Cooldown=150
-				EnergyCost=5
-				HitMessage="staggers the opponent by sliding at their legs!"
-				verb/Volleyball_Fist()
-					set category="Skills"
-					usr.SetQueue(src)
-			Volleyball_Fist2
-				UnarmedOnly=1
-				DamageMult=5
-				AccuracyMult = 1.175
-				KBMult=0.00001
-				HitStep=/obj/Skills/Queue/Volleyball_Fist3
-				Duration=5
-				Quaking=3
-				Warp=3
-				Rapid=1
-				Launcher=3
-				EnergyCost=5
-				HitMessage="launches their opponent in the air like a volleyball!"
-			Volleyball_Fist3
-				UnarmedOnly=1
-				DamageMult=5
-				Instinct=5
-				AccuracyMult = 1.175
-				KBAdd=5
-				Duration=5
-				PushOut=3
-				PushOutWaves=3
-				Quaking=5
-				Dunker=2
-				EnergyCost=5
-				HitMessage="violently spikes the opponent towards the ground!!!"
-
-//T6 (Sig 2) - Damage mults are normally 7.5
-
-			Meteor_Combination
-				SignatureTechnique=2
-				DamageMult=10
-				AccuracyMult = 1.25
-				Duration=5
-				KBMult=0.00001
-				Cooldown=180
-				Instinct=2
-				Opener=1
-				Stunner=3
-				UnarmedOnly=1
-				EnergyCost=5
-				Quaking=5
-				HitStep=/obj/Skills/Queue/Meteor_Combination2
-				ActiveMessage="takes a starting position!"
-				HitMessage="opens the opponent with a shattering elbow strike!"
-				verb/Meteor_Combination()
-					set category="Skills"
-					usr.SetQueue(src)
-			Meteor_Combination2
-				HitMessage="follows up with a storm of kicks!"
-				DamageMult=0.5
-				AccuracyMult = 1.175
-				Duration=5
-				KBMult=0.00001
-				Instinct=3
-				Combo=10
-				UnarmedOnly=1
-				Quaking=2
-				EnergyCost=5
-				HitStep=/obj/Skills/Queue/Meteor_Combination3
-			Meteor_Combination3
-				HitMessage="finishes with a murderous uppercut!"
-				DamageMult=6
-				AccuracyMult = 1.25
-				Duration=5
-				KBAdd=10
-				Instinct=4
-				Decider=1
-				Launcher=1
-				UnarmedOnly=1
-				Quaking=10
-				EnergyCost=10
-
-			Defiance
-				SignatureTechnique=2
-				HitMessage="defiantly slams their head into the opponent!!"
-				DamageMult=15
-				AccuracyMult = 1.175
-				Instinct=3
-				Duration=5
-				KBMult=3
-				Cooldown=180
-				Determinator=1
-				Counter=1
-				UnarmedOnly=1
-				EnergyCost=10
-				name="Defiance"
-				verb/Defiance()
-					set category="Skills"
-					usr.SetQueue(src)
-
-			Void_Tiger_Fist
-				SignatureTechnique=2
-				DamageMult=3.6
-				AccuracyMult = 1.175
-				Warp=2
-				Shearing=5
-				Instinct=4
-				Duration=5
-				KBAdd=2
-				PushOut=3
-				PushOutWaves=2
-				InstantStrikes=5
-				InstantStrikesDelay=1
-				Cooldown=180
-				UnarmedOnly=1
-				EnergyCost=10
-				ActiveMessage="focuses a bubble of vacuum around their fist..."
-				HitMessage="unleashes a vacuum burst that tears the opponent apart!"
-				verb/Void_Tiger_Fist()
-					set category="Skills"
-					usr.SetQueue(src)
-
-			Final_Revenger
-				SignatureTechnique=2
-				DamageMult=15
-				AccuracyMult = 1.175
-				Determinator=1
-				Duration=5
-				PushOut=5
-				PushOutWaves=5
-				Quaking=20
-				Instinct=4
-				Stunner=3
-				KBMult=0.00001
-				Cooldown=180
-				UnarmedOnly=1
-				EnergyCost=10
-				IconLock=1
-				verb/Final_Revenger()
-					set category="Skills"
-					usr.SetQueue(src)
-
-			Red_Hot_Hundred
-				SignatureTechnique=2
-				DamageMult=1.75
-				AccuracyMult = 1.175
-				Warp=5
-				KBAdd=1
-				KBMult=0.00001
-				Combo=25
-				Rapid=1
-				Instinct=2
-				IconLock='Flaming_fists.dmi'
-				HitSparkIcon='Hit Effect Ripple.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				Duration=5
-				Cooldown=180
-				UnarmedOnly=1
-				EnergyCost=10
-				ActiveMessage="blurs forward with a storm of countless attacks!"
-				verb/Red_Hot_Hundred()
-					set category="Skills"
-					usr.SetQueue(src)
-
-			True_Kamehameha
-				PreRequisite=list("/obj/Skills/Projectile/Beams/Big/Super_Kamehameha")
-				SignatureTechnique=2
-				UnarmedOnly=1
-				DamageMult=12
-				AccuracyMult = 1.175
-				Instinct=5
-				HitStep=/obj/Skills/Queue/True_Kamehameha2
-				Duration=5
-				Cooldown=180
-				Combo=2
-				Warp=10
-				KBAdd=10
-				EnergyCost=10
-				IconLock=1
-				ActiveMessage="begins to charge a powerful attack while opening their target up with crushing strikes!"
-				ComboHitMessages=list(1="yells: KA... ME...", 2="yells: HA... ME...")
-				verb/True_Kamehameha()
-					set category="Skills"
-					usr.SetQueue(src)
-			True_Kamehameha2
-				UnarmedOnly=1
-				DamageMult=5
-				AccuracyMult=25
-				Instinct=5
-				Duration=3
-				Warp=10
-				HitMessage="yells: HAAAAAAAAAA!"
-				Projectile="/obj/Skills/Projectile/Beams/Big/True_Kamehameha"
-				ProjectileBeam=1
-
-			Final_Shine
-				PreRequisite=list("/obj/Skills/Projectile/Beams/Big/Final_Flash")
-				SignatureTechnique=2
-				UnarmedOnly=1
-				DamageMult=12
-				AccuracyMult = 1.175
-				Instinct=5
-				HitStep=/obj/Skills/Queue/Final_Shine2
-				Duration=5
-				Cooldown=180
-				Combo=2
-				Warp=10
-				KBAdd=10
-				EnergyCost=10
-				IconLock=1
-				ActiveMessage="begins to charge a powerful attack while dominating their target with a rapid assault!"
-				verb/Final_Shine()
-					set category="Skills"
-					usr.SetQueue(src)
-			Final_Shine2
-				UnarmedOnly=1
-				DamageMult=5
-				AccuracyMult=25
-				Instinct=5
-				Duration=3
-				Warp=10
-				Projectile="/obj/Skills/Projectile/Beams/Big/Final_Shine"
-				ProjectileBeam=1
 
 			Super_Dragon_Fist
 				UnarmedOnly=1
@@ -2391,12 +1675,6 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 
-//T7 is always a style or buff.
-
-////Spirit
-//T1 is in Projectiles.
-
-//T2 has damage mult 2 - 3.5
 			Dancing_Lights
 				SkillCost=80
 				Copyable=2
@@ -2414,56 +1692,7 @@ obj
 				verb/Dancing_Lights()
 					set category="Skills"
 					usr.SetQueue(src)
-			Light_Rush
-				NewCost=TIER_1_COST
-				NewCopyable=2
-				SkillCost=80
-				Copyable=3
-				DamageMult=0.25
-				AccuracyMult = 1.175
-				Duration=5
-				Combo=4
-				Rapid=1
-				Cooldown=30
-				EnergyCost=10
-				IconLock=1
-				HitSparkIcon='Hit Effect Divine.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitStep=/obj/Skills/Queue/Light_Rush2
-				verb/Light_Rush()
-					set category="Skills"
-					usr.SetQueue(src)
-			Light_Rush2
-				DamageMult=0.25
-				AccuracyMult=25
-				Duration=3
-				Warp=10
-				Projectile="/obj/Skills/Projectile/RushBlast"
-			Burst_Combination
-				NewCost=TIER_1_COST
-				NewCopyable=2
-				name="Burst Combination"
-				SkillCost=80
-				Copyable=3
-				DamageMult=0.4
-				AccuracyMult = 1.175
-				Stunner=1
-				Duration=5
-				Combo=10
-				Projectile="/obj/Skills/Projectile/BurstBlast"
-				ProjectileCount=1
-				Cooldown=30
-				EnergyCost=3
-				IconLock=1
-				HitSparkIcon='Hit Effect Satsui.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				verb/Burst_Combination()
-					set category="Skills"
-					usr.SetQueue(src)
 
-//SHIT AINT USED
 			Counter_Cannon
 				SkillCost=40
 				Copyable=2
@@ -2484,8 +1713,6 @@ obj
 					set category="Skills"
 					usr.SetQueue(src)
 
-////Sword
-//SHIT AINT USED
 			Camelia_Dance
 				SkillCost=20
 				Copyable=2
@@ -2501,8 +1728,6 @@ obj
 				verb/Camelia_Dance()
 					set category="Skills"
 					usr.SetQueue(src)
-
-//T2
 
 			Swallow_Reversal
 				SkillCost=80
@@ -2520,107 +1745,6 @@ obj
 				NeedsSword=1
 				EnergyCost=3
 				verb/Swallow_Reversal()
-					set category="Skills"
-					usr.SetQueue(src)
-			Infinity_Trap
-				SkillCost=80
-				Copyable=3
-				ActiveMessage="enters a thoughtful stance!"
-				DamageMult=1.1
-				AccuracyMult = 1.15
-				KBMult=0.00001
-				Stunner=3
-				InstantStrikes=5
-				InstantStrikesDelay=0
-				Warp=2
-				PushOut=1
-				PushOutIcon='BLANK.dmi'
-				Duration=5
-				Cooldown=60
-				NeedsSword=1
-				EnergyCost=5
-				HitSparkIcon='Slash - Zero.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=0.75
-				HitSparkTurns=1
-				verb/Infinity_Trap()
-					set category="Skills"
-					usr.SetQueue(src)
-			Zero_Reversal
-				SkillCost=80
-				Copyable=3
-				ActiveMessage="enters a low stance!"
-				DamageMult=3
-				AccuracyMult = 1.15
-				KBMult=0.00001
-				SpeedStrike=1
-				SweepStrike=1
-				Counter=1
-				Warp=2
-				Duration=5
-				Cooldown=60
-				NeedsSword=1
-				EnergyCost=5
-				HitSparkIcon='Slash - Black.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=1.5
-				verb/Zero_Reversal()
-					set category="Skills"
-					usr.SetQueue(src)
-			Willow_Dance
-				SkillCost=80
-				Copyable=3
-				ActiveMessage="begins to move fluidly, countering incoming blows!"
-				DamageMult=0.9
-				AccuracyMult = 1.15
-				Duration=8
-				Cooldown=60
-				NeedsSword=1
-				MultiHit=3
-				InstantStrikes=2
-				InstantStrikesDelay=1
-				Counter=1
-				EnergyCost=1
-				verb/Willow_Dance()
-					set category="Skills"
-					usr.SetQueue(src)
-			Larch_Dance
-				SkillCost=80
-				Copyable=3
-				ActiveMessage="prepares a murderous chain of counterattacks!"
-				DamageMult=1.1
-				AccuracyMult = 1.1
-				Duration=5
-				Cooldown=60
-				NeedsSword=1
-				InstantStrikes=5
-				InstantStrikesDelay=1
-				Counter=1
-				EnergyCost=1
-				verb/Larch_Dance()
-					set category="Skills"
-					usr.SetQueue(src)
-
-//T3
-			Run_Through
-				NeedsSword=1
-				SkillCost=120
-				Copyable=3
-				ActiveMessage="grips their weapon strongly!"
-				HitMessage="runs the opponent through with their weapon!"
-				DamageMult=1.5
-				AccuracyMult = 1.15
-				Duration=5
-				Warp=2
-				KBMult=0.001
-				Grapple=1
-				GrabTrigger="/obj/Skills/Grapple/Sword/Blade_Drive"
-				EnergyCost=1
-				Cooldown=90
-				SpeedStrike = 2
-				verb/Run_Through()
 					set category="Skills"
 					usr.SetQueue(src)
 
@@ -2684,63 +1808,6 @@ obj
 					src.ManaCost=max(80, usr.ManaAmount)
 					usr.SetQueue(src)
 
-////Sword
-			Blade_Dance
-				SignatureTechnique=1
-				NeedsSword=1
-				DamageMult=4
-				SpeedStrike=4
-				AccuracyMult = 1
-				HitStep=/obj/Skills/Queue/Blade_Dance2
-				Duration=3
-				Rapid=1
-				Instinct=1
-				Cooldown=160
-				EnergyCost=3
-				HitSparkIcon='Slash - Future.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkTurns=1
-				HitSparkSize=1.5
-				HitMessage="chases their enemy down with a rush of powerful sword strikes!"
-				verb/Blade_Dance()
-					set category="Skills"
-					usr.SetQueue(src)
-			Blade_Dance2
-				NeedsSword=1
-				DamageMult=1
-				SpeedStrike=2
-				AccuracyMult=0.85
-				HitStep=/obj/Skills/Queue/Blade_Dance2
-				Duration=4
-				Warp=1
-				EnergyCost=3
-				HitSparkIcon='Slash - Future.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkTurns=1
-			Nirvana_Slash
-				SignatureTechnique=1
-				NeedsSword=1
-				ActiveMessage="fulfils their existence in their blade."
-				HitMessage="slashes at the opponent's body with their enlightened blade!"
-				DamageMult=11
-				AccuracyMult = 1.25
-				SpiritSword=1
-				KBAdd=10
-				Duration=5
-				Instinct=2
-				Cooldown=150
-				IconLock='EyeFlame.dmi'
-				HitSparkIcon='LightningPlasma.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=2
-				HitSparkTurns=1
-				EnergyCost=5
-				verb/Nirvana_Slash()
-					set category="Skills"
-					usr.SetQueue(src)
 			Bad_Luck
 				name="Bad Luck"
 				HybridStrike=1
@@ -2753,1170 +1820,6 @@ obj
 				verb/Bad_Luck()
 					set category="Skills"
 					usr.SetQueue(src)
-			Soul_Tear_Storm
-				SignatureTechnique=1
-				name="Soul Tear Storm"
-				ActiveMessage="begins to glow with ethereal darkness!"
-				DamageMult=2.25
-				AccuracyMult = 1.175
-				KBMult=0.00001
-				Combo=5
-				Warp=5
-				SpiritHand=0.5
-				SpiritSword=0.5
-				Duration=5
-				Cooldown=150
-				NeedsSword=1
-				HitSparkIcon='Slash - Vampire.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkTurns=1
-				Instinct=2
-				EnergyCost=10
-				CursedWounds=1
-				verb/Soul_Tear_Storm()
-					set category="Skills"
-					usr.SetQueue(src)
-			Heart_Slayer
-				name="Heart-Slayer"
-				ActiveMessage="begins to build darkness on the tip of their blade!"
-				DamageMult=2.25
-				AccuracyMult = 1.175
-				KBMult=0.00001
-				Combo=5
-				Warp=5
-				SpiritHand=0.5
-				SpiritSword=0.5
-				Duration=10
-				Cooldown=40
-				NeedsSword=1
-				HitSparkIcon='Slash - Black.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkTurns=1
-				Instinct=2
-				EnergyCost=10
-				CursedWounds=1
-				verb/Heart_Slayer()
-					set category="Skills"
-					usr.SetQueue(src)
-			Riku_Soul_Render
-				name="Soul Render"
-				ActiveMessage="'s heart is filled with dreadful darkness, as they position themselves for an unthinkable strike .."
-				HitMessage="<b><font color='red'> slices into their opponents heart, butchering their soul! </font color> </b>"
-				DamageMult=2.25
-				AccuracyMult = 1.175
-				KBMult=0.00001
-				MaimStrike=1
-				HitSparkIcon='Slash - Black.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkTurns=1
-				HitSparkSize=1.1
-				Cooldown=150 //once per fight
-				Decider=1
-				NeedsSword=1
-				verb/Riku_Soul_Render()
-					set category="Skills"
-					usr.SetQueue(src)
-			Darkness_Blast
-				Stunner=5
-				BuffSelf="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Dark_Impulse"
-				FollowUp="/obj/Skills/AutoHit/Soul_Blast"
-				HitMessage="unleashes a point-blank blast of darkness!"
-				verb/Darkness_Blast()
-					set category="Skills"
-					usr.SetQueue(src)
-			Sen_I_Soshitsu
-				ActiveMessage="cuts forth with their scissor blade, nicking the edge of their opponent's clothes and weapon to pull them apart!"
-				DamageMult= 7
-				AccuracyMult = 5
-				WeaponBreaker = 5
-				KBMult=0.00001
-				PushOutIcon='SparkleRed.dmi'
-				Cooldown=150
-				Instinct = 1
-				NeedsSword=1
-				verb/Sen_I_Soshitsu()
-					set name="Sen-I-Soshitsu"
-					set category="Skills"
-					usr.SetQueue(src)
-			Omnislash
-				SignatureTechnique=2
-				name="Omnislash"
-				ActiveMessage="begins to glow with limitless bravery!"
-				DamageMult=2
-				AccuracyMult = 1.25
-				KBMult=0.00001
-				KBAdd=2
-				Combo=12
-				Warp=3
-				Duration=5
-				Cooldown=-1 //once per fight
-				Decider=1
-				NeedsSword=1
-				Instinct=4
-				EnergyCost=5
-				HitSparkIcon='Slash - Power.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkTurns=1
-				HitSparkSize=1.1
-				HitStep=/obj/Skills/Queue/Omnislash2
-				verb/Omnislash()
-					set category="Skills"
-					usr.SetQueue(src)
-			Omnislash2
-				ActiveMessage="goes for the finishing blow!"
-				DamageMult=12
-				AccuracyMult = 1.25
-				KBMult=10
-				Warp=5
-				Duration=5
-				Decider=1
-				NeedsSword=1
-				Instinct=4
-				EnergyCost=10
-				IconLock='UltraInstinctSpark.dmi'
-				HitSparkIcon='Slash - Power.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkTurns=0
-				HitSparkSize=2
-				verb/Omnislash()
-					set category="Skills"
-					usr.SetQueue(src)
-
-
-//Saga
-
-///Saint Seiya
-			Pegasus_Rolling_Crash//t1
-				UnarmedOnly=1
-				CosmoPowered=1
-				DamageMult=9
-				AccuracyMult = 1.175
-				Instinct=4
-				Duration=5
-				Warp=1
-				Grapple=1
-				KBMult=0.001
-				GrabTrigger="/obj/Skills/Grapple/Lotus_Drop"
-				IconLock=1
-				HitSparkIcon='BLANK.dmi'
-				HitMessage="flies their opponent high on the wings of Pegasus!"
-				Cooldown=150
-				verb/Pegasus_Rolling_Crash()
-					set category="Skills"
-					usr.SetQueue(src)
-			Rising_Dragon_Fist//t5
-				UnarmedOnly=1
-				CosmoPowered=1
-				DamageMult=11
-				AccuracyMult = 1.175
-				Instinct=4
-				KBAdd=10
-				Duration=5
-				Dominator=1
-				IconLock=1
-				RozanEffect=2
-				HitMessage="unleashes the power of the Dragon with an overpowering uppercut!"
-				Cooldown=150
-				verb/Rising_Dragon_Fist()
-					set category="Skills"
-					set name="Rozan Shoryu Ha"
-					usr.SetQueue(src)
-			Thunder_Wave
-				DamageMult=2
-				Instinct=3
-				Launcher=1
-				Paralyzing=10
-				AccuracyMult = 1.25
-				KBAdd=3
-				InstantStrikes=10
-				InstantStrikesDelay=1.5
-				PrecisionStrike=500
-				Duration=5
-				IconLock=1
-				HitSparkIcon='Slash - Zero.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=2
-				HitSparkTurns=1
-				Cooldown=150
-				ActiveMessage="sends Andromeda's shackles for an endless pursuit after their target!"
-				verb/Thunder_Wave()
-					set category="Skills"
-					usr.SetQueue(src)
-			Phoenix_Demon_Illusion_Strike
-				UnarmedOnly=1
-				CosmoPowered=1
-				DamageMult=4.5
-				AccuracyMult = 1.25
-				Instinct=4
-				Duration=5
-				Warp=10
-				Stunner=6
-				Crippling=5
-				BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Demon_Illusion"
-				Cooldown=-1
-				IconLock=1
-				HitSparkIcon='Hit Effect Ripple.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=0.5
-				HitMessage="scrambles the opponent's mind with the power of Phoenix!"
-				verb/Phoenix_Demon_Illusion_Strike()
-					set category="Skills"
-					set name="Houou Genmaken"
-					usr.SetQueue(src)
- // UNICORN'S METEOR COMBINATION
-			Unicorn_Combination
-				DamageMult=6
-				AccuracyMult = 1.25
-				Duration=5
-				KBMult=0.00001
-				Cooldown=180
-				Instinct=2
-				Opener=1
-				Stunner=3
-				UnarmedOnly=1
-				EnergyCost=5
-				Quaking=5
-				HitStep=/obj/Skills/Queue/Unicorn_Combination2
-				ActiveMessage="takes a starting position!"
-				HitMessage="opens the opponent with a twisting frontal kick!"
-				verb/Celectial_Trot()
-					set category="Skills"
-					usr.SetQueue(src)
-			Unicorn_Combination2
-				HitMessage="follows up with a storm of roundhouse kicks!"
-				DamageMult=0.5
-				AccuracyMult = 1.175
-				Duration=5
-				KBMult=0.00001
-				Instinct=3
-				Combo=10
-				UnarmedOnly=1
-				Quaking=2
-				EnergyCost=5
-				HitStep=/obj/Skills/Queue/Unicorn_Combination3
-			Unicorn_Combination3
-				HitMessage="finishes with a murderous mule kick!"
-				DamageMult=6
-				AccuracyMult = 1.25
-				Duration=5
-				KBAdd=10
-				Instinct=4
-				Decider=1
-				Launcher=1
-				UnarmedOnly=1
-				Quaking=10
-				EnergyCost=10
-
-////Gold Cloth
-			Demon_Emperor_Fist
-				UnarmedOnly=1
-				CosmoPowered=1
-				DamageMult=4.5
-				AccuracyMult = 1.25
-				Instinct=4
-				Duration=5
-				PrecisionStrike=10
-				BuffAffected="/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Demon_Grasp"
-				Cooldown=-1
-				IconLock=1
-				HitSparkIcon='Hit Effect Satsui.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=0.5
-				HitMessage="forces their opponent to obey them with the Demon Emperor Fist!"
-				verb/Demon_Emperor_Fist()
-					set category="Skills"
-					set name="Genrou Maou Ken"
-					usr.SetQueue(src)
-			Acubens
-				UnarmedOnly=1
-				CosmoPowered=1
-				DamageMult=9
-				AccuracyMult = 1.25
-				Instinct=5
-				Duration=3
-				Counter=1
-				Warp=1
-				Grapple=1
-				KBMult=0.001
-				GrabTrigger="/obj/Skills/Grapple/Sword/Hacksaw/Cancer_Snap"
-				IconLock=1
-				HitSparkIcon='BLANK.dmi'
-				HitMessage="snaps the opponent in half with their legs emulating Cancer pincers!"
-				Cooldown=150
-				verb/Acubens()
-					set category="Skills"
-					usr.SetQueue(src)
-			Lightning_Plasma_Strike
-				UnarmedOnly=1
-				CosmoPowered=1
-				GodPowered=0.25
-				DamageMult=0.75
-				InstantStrikes=20
-				InstantStrikesDelay=1
-				AccuracyMult = 1.25
-				Instinct=5
-				Duration=5
-				PrecisionStrike=10
-				Cooldown=-1
-				HybridStrike=1
-				KBAdd=1
-				IconLock=1
-				HitSparkIcon='LightningPlasma.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=1.3
-				HitSparkTurns=1
-				HitSparkDispersion=32
-				ActiveMessage="is surrounded by roar of thunder!"
-				HitMessage="tears their opponent apart with golden fangs of light!"
-				verb/Lightning_Plasma_Strike()
-					set category="Skills"
-					set name="Lightning Plasma (Strike)"
-					if(usr.SagaLevel<5 && usr.Health>15 && !usr.InjuryAnnounce)
-						usr << "You can't use this technique except when in a dire pinch!"
-						return
-					usr.SetQueue(src)
-			Six_Transmigrations
-				UnarmedOnly=1
-				CosmoPowered=1
-				DamageMult=15
-				AccuracyMult = 1.25
-				Instinct=4
-				Duration=5
-				PrecisionStrike=5
-				Cooldown=-1
-				Launcher=1
-				WarpAway=2
-				IconLock=1
-				PushOutIcon='fevKiaiDS.dmi'
-				PushOutWaves=3
-				PushOut=5
-				HitSparkIcon='BLANK.dmi'
-				ActiveMessage="is surrounded by an aura of absolute tranquility!"
-				HitMessage="thrusts their opponent through six realms of reality!"
-				verb/Six_Transmigrations()
-					set category="Skills"
-					set name="Rikudou Rinne"
-					usr.SetQueue(src)
-			Rising_Dragon_Lord
-				UnarmedOnly=1
-				CosmoPowered=1
-				DamageMult=11
-				AccuracyMult = 1.25
-				Instinct=4
-				KBAdd=20
-				Duration=5
-				Warp=1
-				Launcher=1
-				Finisher=1
-				Dominator=1
-				IconLock=1
-				RozanEffect=4
-				HitMessage="unleashes the power of the Dragon with an overpowering uppercut!"
-				Cooldown=150
-				verb/Rising_Dragon_Lord()
-					set category="Skills"
-					set name="Rozan Shoryu Ha"
-					usr.SetQueue(src)
-			Antares
-				UnarmedOnly=1
-				CosmoPowered=1
-				Warp=5
-				DamageMult=13
-				AccuracyMult = 1.175
-				Instinct=4
-				Duration=5
-				Dominator=1
-				Stunner=3
-				KBMult=0.00001
-				Projectile="/obj/Skills/Projectile/Scarlet_Needle"
-				PushOutIcon='KenShockwaveBloodlust.dmi'
-				PushOutWaves=3
-				PushOut=1
-				HitSparkIcon='Hit Effect Vampire.dmi'
-				ActiveMessage="raises their sting to execute a sure kill technique!"
-				Cooldown=-1
-				verb/Antares()
-					set category="Skills"
-					src.MortalBlow=(usr.Target.SenseRobbed*0.2)
-					usr.SetQueue(src)
-			Jumping_Stone
-				UnarmedOnly=1
-				CosmoPowered=1
-				DamageMult=11
-				AccuracyMult = 1.25
-				Instinct=5
-				Duration=3
-				Counter=1
-				Grapple=1
-				KBMult=0.001
-				GrabTrigger="/obj/Skills/Grapple/Lotus_Drop"
-				IconLock=1
-				HitSparkIcon='BLANK.dmi'
-				HitMessage="counters the opponent with the swift agility of Capricorn!"
-				Cooldown=150
-				verb/Jumping_Stone()
-					set category="Skills"
-					usr.SetQueue(src)
-			Piranhan_Rose
-				UnarmedOnly=1
-				CosmoPowered=1
-				DamageMult=0.85
-				KBAdd=1
-				AccuracyMult = 1.25
-				Instinct=4
-				Duration=5
-				PrecisionStrike=10
-				InstantStrikes=10
-				InstantStrikesDelay=2
-				PridefulRage=1
-				HitSparkIcon='fevExplosion - Hellfire.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=0.3
-				ActiveMessage="grasps a handful of pitch-black roses..."
-				HitMessage="throws the black roses which eat away at everything they touch!"
-				Cooldown=150
-				verb/Piranhan_Rose()
-					set category="Skills"
-					usr.SetQueue(src)
-////KoB
-			DrillKnee
-				ActiveMessage="forms a drill around their knee!"
-				HitMessage="drives the drill into their opponent!"
-				SBuffNeeded="Broken Brave"
-				DamageMult=12
-				AccuracyMult = 1.175
-				Instinct=1
-				Duration=5
-				KBMult=0.00001
-				Cooldown=150
-				Decider=1
-				ShoryukenEffect=2
-				Quaking=5
-				PushOut=5
-				PushOutWaves=3
-				PushOutIcon='KenShockwaveLegend.dmi'
-				verb/Drill_Knee()
-					set category="Skills"
-					if(usr.SpecialBuff)
-						if(usr.SpecialBuff.BuffName!="Genesic Brave"&&src.SBuffNeeded!="Broken Brave")
-							src.SBuffNeeded="Broken Brave"
-						else if(usr.SpecialBuff.BuffName=="Genesic Brave")
-							src.SBuffNeeded="Genesic Brave"
-					usr.SetQueue(src)
-////Ansatsuken
-			Shoryuken
-				StyleNeeded="Ansatsuken"
-				AccuracyMult = 1.25
-				Launcher=3
-				Duration=5
-				Shattering = 2
-				Cooldown=40
-				proc/resetVars()
-					Launcher=initial(Launcher)
-					Duration=initial(Duration)
-					Cooldown=initial(Cooldown)
-					ManaCost=initial(ManaCost)
-					ShoryukenEffect=initial(ShoryukenEffect)
-				proc/activate(mob/player)
-					ManaCost = 0
-					Launcher=2
-					var/sagaLevel = player.SagaLevel
-					var/damage = clamp(2 + 2*(sagaLevel), 4, 12)
-					var/path = player.AnsatsukenPath == "Shoryuken" ? 1 : 0
-					var/manaCost = 35 // how much u need for ex
-					var/cooldown = 40
-					var/hitMessage = "strikes their opponent into the air with a fearsome uppercut!!"
-					ShoryukenEffect=1
-					Shattering = 3 * sagaLevel
-					if(path)
-						manaCost -= 10
-						cooldown -= 15
-						damage =  clamp(3 + 2*(sagaLevel), 3, 13)
-						hitMessage = "strikes their opponent into the air with a fearsome uppercut!!"
-					if(player.AnsatsukenAscension=="Satsui")
-						Shattering *= 1.25
-						GoshoryukenEffect=1
-					if(player.ManaAmount>=manaCost && sagaLevel >= 2)
-						ManaCost = manaCost
-						ShoryukenEffect=2
-						Launcher=6
-						hitMessage = "unleashes the power of the Dragon with an overpowering uppercut!"
-						if(path)
-							damage =  clamp(6 + 2*(sagaLevel), 4, 18)
-						else
-							damage = clamp(4 + 2*(sagaLevel), 3, 15)
-
-					DamageMult = damage
-					HitMessage = hitMessage
-					Cooldown = cooldown
-				verb/Shoryuken()
-					set category="Skills"
-					resetVars()
-					activate(usr)
-					usr.SetQueue(src)
-
-			Shin_Shoryuken
-				StyleNeeded="Ansatsuken"
-				HitMessage="shouts '<b>SHIN...</b>' as they strike their opponent with a rising blow!!!"
-				DamageMult=16
-				AccuracyMult = 1.25
-				KBMult=0.00001
-				Duration=5
-				Cooldown=180
-				PushOut=3
-				AllOutAttack=1
-				ManaCost=100
-				Instinct=4
-				Stunner=3
-				Rapid=1
-				HitStep=/obj/Skills/Queue/Shin_Shoryuken2
-				verb/Shin_Shoryuken()
-					set category="Skills"
-					set name="Shin-Shoryuken"
-					if(usr.AnsatsukenAscension=="Satsui")
-						src.HitMessage="shouts '<b>METSU...</b>' as they strike their opponent with a rising blow!!!"
-						src.HitStep=/obj/Skills/Queue/Metsu_Shoryuken2
-					usr.SetQueue(src)
-			Shin_Shoryuken2
-				StyleNeeded="Ansatsuken"
-				HitMessage="shouts '<b>SHORYUKEN!</b>' as they spike their opponent into the heavens with a divine uppercut!!!"
-				DamageMult=5
-				AccuracyMult = 1.25
-				KBMult=0.00001
-				Duration=5
-				Warp=5
-				Instinct=4
-				ShoryukenEffect=2
-			Metsu_Shoryuken2
-				StyleNeeded="Ansatsuken"
-				HitMessage="shouts '<b>SHORYUKEN!</b>' as they spike their opponent into the heavens with a divine uppercut!!!"
-				DamageMult=5
-				AccuracyMult = 1.25
-				KBMult=0.00001
-				Duration=5
-				Warp=5
-				Instinct=4
-				GoshoryukenEffect=2
-
-			Messatsu_Goshoryu
-				GoshoryukenEffect=0.75
-				Duration=5
-				Warp=5
-				Instinct=4
-				DamageMult=7.5
-				AccuracyMult = 1.25
-				KBMult=0.00001
-				KBAdd=1
-				ManaCost=50
-				Stunner=4
-				Counter=1
-				Rapid=1
-				IconLock='BijuuInitial.dmi'
-				IconLockUnder=1
-				LockX=-32
-				LockY=-32
-				HitStep=/obj/Skills/Queue/Messatsu_Goshoryu2
-				verb/Messatsu_Goshoryu()
-					set category="Skills"
-					usr.SetQueue(src)
-			Messatsu_Goshoryu2
-				GoshoryukenEffect=1
-				Duration=5
-				Warp=5
-				Instinct=4
-				DamageMult=3
-				AccuracyMult = 1.25
-				KBMult=0.00001
-				KBAdd=1
-				Rapid=1
-				HitStep=/obj/Skills/Queue/Messatsu_Goshoryu3
-			Messatsu_Goshoryu3
-				DamageMult=7.5
-				GoshoryukenEffect=2
-				Duration=5
-				Warp=5
-				Instinct=4
-				DamageMult=7.5
-				AccuracyMult = 1.25
-				KBMult=0.00001
-
-////Eight Gates
-			Front_Lotus
-				GateNeeded=1
-				UnarmedOnly=1
-				DamageMult=4
-				AccuracyMult = 1.25
-				Stunner=3
-				Instinct=4
-				Duration=5
-				Cooldown=150
-				Warp=10
-				KBMult=0.001
-				Grapple=1
-				GrabTrigger="/obj/Skills/Grapple/Lotus_Drop"
-				HitMessage="kicks the opponent in the air before initiating a suicidal drop!"
-				verb/Front_Lotus()
-					set category="Skills"
-					usr.SetQueue(src)
-			Reverse_Lotus
-				GateNeeded=3
-				UnarmedOnly=1
-				DamageMult=7
-				AccuracyMult = 1.25
-				Stunner=3
-				Instinct=4
-				HitStep=/obj/Skills/Queue/Reverse_Lotus2
-				Duration=5
-				Cooldown=180
-				Warp=10
-				HitMessage="stuns the opponent with a precise blow; an opening!"
-				verb/Reverse_Lotus()
-					set category="Skills"
-					usr.SetQueue(src)
-			Reverse_Lotus2
-				GateNeeded=4
-				UnarmedOnly=1
-				DamageMult=3
-				AccuracyMult=1
-				Combo=3
-				KBAdd=3
-				HitStep=/obj/Skills/Queue/Reverse_Lotus3
-				MissStep=/obj/Skills/Queue/Reverse_Lotus3
-				Step=/obj/Skills/Queue/Reverse_Lotus3
-				Duration=5
-				Quaking=2
-				Warp=10
-				HitMessage="tosses the opponent around with a flurry of crushing strikes!"
-			Reverse_Lotus3
-				GateNeeded=5
-				UnarmedOnly=1
-				DamageMult=3
-				Instinct=4
-				AccuracyMult = 1.175
-				Duration=5
-				PushOut=5
-				Quaking=5
-				Warp=10
-				SpecialEffect="Smash"
-				HitMessage="finishes the opponent with a shattering punch!!!"
-			Morning_Peacock
-				UnarmedOnly=1
-				ActiveMessage="radiates burning vigor!"
-				HitMessage="expresses their youth with a firestorm of strikes!!!!"
-				DamageMult=0.6
-				AccuracyMult = 1.25
-				KBMult=0.00001
-				Launcher=3
-				Duration=5
-				Instinct=2
-				Combo=20
-				Finisher=1
-				HitStep=/obj/Skills/Queue/GET_DUNKED
-				Projectile="/obj/Skills/Projectile/AsaKujaku"
-				ProjectileCount=1
-				Warp=3
-				GateNeeded=6
-				Cooldown=-1
-				IconLock='Flaming_fists.dmi'
-				HitSparkIcon='fevExplosion.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=0.3
-				verb/Morning_Peacock()
-					set category="Skills"
-					usr.SetQueue(src)
-
-///Hiten
-			JawStrike//t1
-				name="Ryushosen"
-				StyleNeeded="Hiten Mitsurugi"
-				DamageMult=2
-				AccuracyMult = 4
-				SpeedStrike=2
-				KBMult=0.0001
-				Launcher=3
-				Rapid=1
-				Duration=5
-				Cooldown=30
-				EnergyCost=2
-				HitMessage="strikes their opponent in the jaw with the flat of their sword!"
-				verb/Ryushosen()
-					set category="Skills"
-					usr.SetQueue(src)
-			FallingBlade//t1
-				name="Ryutsuisen"
-				StyleNeeded="Hiten Mitsurugi"
-				DamageMult=2.5
-				AccuracyMult = 4
-				SpeedStrike=2
-				Dunker=2
-				Rapid=1
-				Duration=5
-				Cooldown=30
-				EnergyCost=2
-				HitMessage="jumps up and brings their blade down to add momentum to their strike!"
-				verb/Ryutsuisen()
-					set category="Skills"
-					usr.SetQueue(src)
-			Twin_Dragon_Slash
-				name="Souryusen"
-				StyleNeeded="Hiten Mitsurugi"
-				DamageMult=5
-				AccuracyMult = 1.2
-				KBMult=0.0001
-				SpeedStrike=2
-				Duration=5
-				Instinct=3
-				Cooldown=120
-				Rapid=1
-				EnergyCost=5
-				HitMessage="strikes with their blade faster than the eye can see!"
-				HitStep=/obj/Skills/Queue/Sheath_Strike
-				MissStep=/obj/Skills/Queue/Sheath_Strike
-				verb/Souryusen()
-					set category="Skills"
-					usr.SetQueue(src)
-			Sheath_Strike
-				HitMessage="whips their sheath to follow up with their blade!"
-				DamageMult=1
-				AccuracyMult = 1.2
-				KBMult=2
-				SpeedStrike=4
-				Warp=3
-				Shattering=5
-				Stunner=2
-				Duration=5
-				NeedsSword=1
-				Instinct=4
-				Rapid=1
-				HitSparkIcon='Hit Effect.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=1.5
-			Nine_Dragons_Strike
-				name="Kuzuryusen"
-				StyleNeeded="Hiten Mitsurugi"
-				DamageMult=0.75
-				AccuracyMult = 1.25
-				KBMult=0.00001
-				SpeedStrike=6
-				InstantStrikes=9
-				InstantStrikesDelay=1
-				//do the combo message thing
-				Warp=10
-				Duration=20
-				Finisher=1
-				Cooldown=-1
-				HitSparkIcon='Hit Effect Ripple.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=4
-				HitSparkDispersion=1
-				PushOut=1
-				Rapid=1
-				PushOutIcon='BLANK.dmi'
-				Instinct=4
-				EnergyCost=5
-				verb/Kuzuryusen()
-					set category="Skills"
-					usr.SetQueue(src)
-			Heavenly_Dragon_Flash
-				name="Amakakeru Ryuu no Hirameki"
-				StyleNeeded="Hiten Mitsurugi"
-				Duration=8
-				DamageMult=8
-				SpeedStrike=10
-				AccuracyMult=1
-				KBMult=0.00001
-				Warp=10
-				Instinct=4
-				DrawIn=4
-				Determinator=1
-				Finisher=1
-				Rapid=1
-				Counter=1
-				NoWhiff=1
-				Cooldown=-1
-				HitSparkIcon='Slash - Power.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=2
-				PushOut=5
-				AllOutAttack=1
-				PushOutIcon='BLANK.dmi'
-				HitStep=/obj/Skills/Queue/Heavenly_Dragon_Claw
-				MissStep=/obj/Skills/Queue/Heavenly_Dragon_Claw
-				ActiveMessage="grips the handle of their blade tightly!"
-				HitMessage="utilizes a stutter-step to surpass godspeed with a single blow!"
-				MissMessage="generates a powerful vacuum as their slash is blocked, drawing the opponent in!!!"
-				verb/Amakakeru_Ryuu_no_Hirameki()
-					set category="Skills"
-					usr.SetQueue(src)
-			Heavenly_Dragon_Claw
-				StyleNeeded="Hiten Mitsurugi"
-				Duration=10
-				DamageMult=8 // but gimp damage since u will be doing 3x
-				SpeedStrike=10 // p much get all ur speed
-				AccuracyMult=20
-				KBAdd=10
-				Warp=10
-				Instinct=10
-				Quaking=10
-				Rapid=1
-				Counter=1
-				NoWhiff=1
-				Determinator=1
-				Decider=1
-				Finisher=1
-				HitSparkIcon='Slash - Power.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=3
-				HitMessage="throws all of their momentum into a centrifugal force-powered finishing blow!!!"
-////Keyblades
-			GhostDriveCombo
-				DamageMult=0.5
-				AccuracyMult = 1.175
-				Instinct=4
-				KBMult=0.00001
-				Combo=10
-				Duration=5
-				//no verb because it is set from melee
-////Weapon Soul
-			Holy_Blade
-				ActiveMessage="is wrapped in holy force!!"
-				HitMessage="lets out a shout as they unleash a peerless slash!!"
-				AccuracyMult = 1.175
-				Instinct=4
-				DamageMult=8
-				KBMult=0.00001
-				Cooldown=150
-				Projectile="/obj/Skills/Projectile/Weapon_Soul/Holy_Slash"
-				Duration=5
-				NeedsSword=1
-				IconLock='HolyBladeElec.dmi'
-				verb/Holy_Blade()
-					set category="Skills"
-					usr.SetQueue(src)
-			Darkness_Blade
-				ActiveMessage="is wrapped in dark force!!"
-				HitMessage="lets out a shout as they unleash a destructive slash!!"
-				AccuracyMult = 1.175
-				Instinct=4
-				DamageMult=8
-				KBMult=0.00001
-				Cooldown=150
-				Projectile="/obj/Skills/Projectile/Weapon_Soul/Darkness_Slash"
-				Duration=5
-				NeedsSword=1
-				IconLock='DarkShock.dmi'
-				verb/Darkness_Blade()
-					set category="Skills"
-					usr.SetQueue(src)
-
-// NEW QUEUES
-//* * */
-// Aura_Punch
-// 				SignatureTechnique=1
-// 				ActiveMessage="begins concentrating power..."
-// 				HitMessage="unleashes a devasatating punch!"
-// 				DamageMult=2.5
-// 				AccuracyMult = 1.175
-// 				KBMult=5
-// 				Duration=5
-// 				Instinct=2
-// 				Delayer=1//add 1 damage mult every second that this is queued but hasnt been punched yet
-// 				Warp=5
-// 				Cooldown=150
-// 				EnergyCost=5
-// 				IconLock='CommandSparks.dmi'
-// 				verb/Aura_Punch()
-// 					set category="Skills"
-// 					usr.SetQueue(src)
-			Rasengan
-				ActiveMessage="forms a ball of chakra in their hand!"
-				HitMessage="slams their opponent with a ball of chakra!"
-				AccuracyMult = 1.175
-				SignatureTechnique=1
-				Paralyzing=1
-				KBAdd = 2
-				Dunker = 1
-				InstantStrikes = 5
-				EnergyCost = 6
-				Cooldown = 60
-				DamageMult = 1.5
-				Duration = 5
-				KBMult = 1.15
-				Shearing=1
-				IconLock = 'Rasengan_DBR.dmi'
-				HitSparkIcon = 'Hit Effect Oath.dmi'
-				HitSparkX = -32
-				HitSparkY = -32
-				HitSparkSize = 1.5
-				verb/Rasengan()
-					set category="Skills"
-					usr.SetQueue(src)
-			Oodama_Rasengan
-				ActiveMessage="forms a massive ball of chakra in their hand!"
-				HitMessage="slams their opponent with a massive ball of chakra!"
-				AccuracyMult = 1.175
-				SignatureTechnique=1
-				Paralyzing=1
-				KBAdd = 4
-				Dunker = 1
-				InstantStrikes = 5
-				EnergyCost = 6
-				ManaCost = 15
-				Cooldown = 120
-				DamageMult = 2.5
-				Delayer=0.5
-				Duration = 6
-				KBMult = 1.5
-				Shearing=3
-				IconLock = 'Rasengan_DBR.dmi'
-				HitSparkIcon = 'Hit Effect Oath.dmi'
-				HitSparkX = -32
-				HitSparkY = -32
-				HitSparkSize = 1.5
-				verb/Oodama_Rasengan()
-					set category="Skills"
-					usr.SetQueue(src)
-
-
-//Cybernetics and enchantment
-			Gear
-				Pile_Bunker
-					DamageMult=9
-					AccuracyMult = 1.175
-					HybridStrike=0.5
-					SpiritHand=1
-					Steady=5
-					Duration=10
-					PushOut=2
-					Explosive=2
-					HitSparkIcon='Hit Effect Ripple.dmi'
-					HitSparkX=-32
-					HitSparkY=-32
-					HitSparkSize=2
-					KBAdd=10
-					KBMult=2
-					Shattering=10
-					Crippling=3
-					Cooldown=180
-					ActiveMessage="deploys a massive metal spike..."
-					HitMessage="drives their devastating Pile Bunker forward!"
-					verb/Pile_Bunker()
-						set category="Skills"
-						usr.SetQueue(src)
-				Power_Fist
-					NoSword=1
-					DamageMult=8
-					AccuracyMult = 1.175
-					Duration=10
-					PushOut=4
-					HitSparkIcon='Hit Effect Ripple.dmi'
-					HitSparkX=-32
-					HitSparkY=-32
-					HitSparkSize=1.25
-					KBAdd=10
-					KBMult=2
-					Cooldown=60
-					ActiveMessage="activates their Power Fist; everyone's in for some pain!"
-					HitMessage="discharges the round in their Power Fist!!"
-					verb/Power_Fist()
-						set category="Skills"
-						usr.SetQueue(src)
-				Power_Claw
-					DamageMult=1.25
-					HybridStrike=0.5
-					AccuracyMult = 1.1
-					Cooldown=20
-					Grapple=1
-					KBMult=0.001
-					GrabTrigger=0.5
-					Duration=25
-					IconLock='PowerClawDeployed.dmi'
-					ActiveMessage="boots up their mechanical claw!"
-					HitMessage="crushes their opponent with their Power Claw!"
-					verb/Power_Claw()
-						set category="Skills"
-						usr.SetQueue(src)
-				Hook_Grip_Claw
-					DamageMult=5
-					HybridStrike=0.5
-					AccuracyMult=1
-					Cooldown=120
-					Grapple=1
-					KBMult=0.001
-					PrecisionStrike=5
-					Duration=25
-					IconLock='PowerClawDeployed.dmi'
-					ActiveMessage="activates the hook shot mechanism in their claw..."
-					HitMessage="stretches their mechanical appendage to grasp their foe!"
-					verb/Hook_Grip_Claw()
-						set category="Skills"
-						usr.SetQueue(src)
-				Integrated
-					Integrated=1
-					Integrated_Pile_Bunker
-						DamageMult=9
-						AccuracyMult = 1.175
-						HybridStrike=0.5
-						SpiritHand=1
-						Steady=5
-						Duration=10
-						PushOut=2
-						Explosive=2
-						HitSparkIcon='Hit Effect Ripple.dmi'
-						HitSparkX=-32
-						HitSparkY=-32
-						HitSparkSize=2
-						KBAdd=10
-						KBMult=2
-						Shattering=10
-						Crippling=3
-						Cooldown=180
-						ActiveMessage="deploys a massive metal spike..."
-						HitMessage="drives their devastating Pile Bunker forward!"
-						verb/Pile_Bunker()
-							set category="Skills"
-							usr.SetQueue(src)
-					Integrated_Power_Fist
-						NoSword=1
-						SpiritHand=1
-						HybridStrike=0.5
-						Steady=5
-						DamageMult=3.5
-						AccuracyMult = 1.175
-						Duration=10
-						PushOut=4
-						HitSparkIcon='Hit Effect Ripple.dmi'
-						HitSparkX=-32
-						HitSparkY=-32
-						HitSparkSize=1.25
-						KBAdd=10
-						KBMult=2
-						PureDamage=5
-						Cooldown=180
-						ActiveMessage="activates their Power Fist; everyone's in for some pain!"
-						HitMessage="discharges the round in their Power Fist!!"
-						verb/Power_Fist()
-							set category="Skills"
-							usr.SetQueue(src)
-					Integrated_Power_Claw
-						DamageMult=1.25
-						HybridStrike=0.5
-						AccuracyMult = 1.1
-						Cooldown=20
-						Grapple=1
-						KBMult=0.001
-						GrabTrigger=0.5
-						Duration=25
-						IconLock='PowerClawDeployed.dmi'
-						ActiveMessage="boots up their mechanical hand!"
-						HitMessage="crushes their opponent with their Power Claw!"
-						verb/Power_Claw()
-							set category="Skills"
-							usr.SetQueue(src)
-					Integrated_Hook_Grip_Claw
-						DamageMult=5
-						HybridStrike=0.5
-						AccuracyMult=1
-						Cooldown=20
-						Grapple=1
-						KBMult=0.001
-						PrecisionStrike=5
-						Duration=25
-						IconLock='PowerClawDeployed.dmi'
-						ActiveMessage="activates the hook shot mechanism in their hand..."
-						HitMessage="stretches their mechanical appendage to grasp their foe!"
-						verb/Hook_Grip_Claw()
-							set category="Skills"
-							usr.SetQueue(src)
-////Cybernetics
-			Cyberize
-				Taser_Strike
-					name="Taser Strike"
-					DamageMult=4
-					AccuracyMult = 1.175
-					Duration=6
-					Stunner=4
-					KBMult=0.1
-					Cooldown=60
-					ManaCost=2
-					ActiveMessage="builds up a stunning charge..."
-					HitMessage="delivers an electrified strike!!"
-					verb/Taser_Strike()
-						set category="Skills"
-						usr.SetQueue(src)
-////Enchantment
-			Megiddo
-				ActiveMessage="builds up an enormous amount of magnetism!!"
-				HitMessage="lets out a scream as a meteor falls from the heavens towards their enemy!!"
-				KBMult=0.00001
-				AccuracyMult = 1.25
-				DamageMult=8
-				Instinct=4
-				Cooldown=300
-				Projectile="/obj/Skills/Projectile/MegiddoMeteor"
-				Duration=5
-				EnergyCost=10
-				PushOut=5
-				PushOutWaves=5
-				PushOutIcon='KenShockwaveLegend.dmi'
-				verb/Megiddo()
-					set category="Skills"
-					usr.SetQueue(src)
-			KokujinYukikaze
-				NoTransplant=1
-				name="Void Formation: Snow Wind"
-				ActiveMessage="enters a peerless stance!"
-				HitMessage="rends the opponent apart with <b>Kokujin: YUKIKAZE</b>!"
-				DamageMult=4.5
-				AccuracyMult = 1.175
-				Counter=1
-				Warp=2
-				Duration=5
-				Cooldown=60
-				NeedsSword=1
-				HitSparkIcon='Slash - Power.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				HitSparkSize=4
-				verb/KokujinYukikaze()
-					set category="Skills"
-					set name="Void Formation: Snow Wind"
-					usr.SetQueue(src)
-			ChainRevolver
-				NoTransplant=1
-				name="Chain Revolver"
-				ActiveMessage="begins to dance around their opponents in a display of graceful gun kata!"
-				DamageMult=2.5
-				AccuracyMult = 1.1
-				Duration=10
-				Cooldown=60
-				Warp=2
-				MultiHit=3
-				SpiritStrike=1
-				HitSparkIcon='Hit Effect Ripple.dmi'
-				HitSparkX=-32
-				HitSparkY=-32
-				verb/ChainRevolver()
-					set category="Skills"
-					set name="Chain Revolver"
-					usr.SetQueue(src)
-
-
 
 
 mob
@@ -3926,7 +1829,15 @@ mob
 				src << "You can't use [Q] you are silenced!"
 				return 0
 			if(Q.Using)
-				return//Can't use if on cooldown.
+				return//Can't use if on cooldown
+			if(!Q.heavenlyRestrictionIgnore&&Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Queues"))
+				return
+			if(!Q.heavenlyRestrictionIgnore&&Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("All Skills"))
+				return
+			if(!Q.heavenlyRestrictionIgnore&&Q.NeedsSword && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Armed Skills"))
+				return
+			if(!Q.heavenlyRestrictionIgnore&&Q.UnarmedOnly && Secret=="Heavenly Restriction" && secretDatum?:hasRestriction("Unarmed Skills"))
+				return
 			if(Q.StanceNeeded)
 				if(src.StanceActive!=Q.StanceNeeded)
 					src << "You have to be in [Q.StanceNeeded] stance to use this!"
@@ -3972,6 +1883,9 @@ mob
 					if(passive_handler.Get("Disarmed"))
 						src << "You are disarmed you can't use [Q]."
 						return
+					if(passive_handler.Get("Disarmed") && HasSwordPunching())
+						src << "You are disarmed you can't use [Q]."
+						return
 					if((!s && !HasSwordPunching()) && !src.UsingBattleMage())
 						src << "You must have a sword equipped to use this technique."
 						return
@@ -3990,7 +1904,8 @@ mob
 				if(src.Health<Q.HealthCost*glob.WorldDamageMult&&!Q.AllOutAttack)
 					return
 			if(Q.EnergyCost)
-				if(src.Energy<Q.EnergyCost&&!Q.AllOutAttack)
+				var/drain = passive_handler["Drained"] ? Q.EnergyCost * (1 + passive_handler["Drained"]/10) : Q.EnergyCost
+				if(src.Energy<drain&&!Q.AllOutAttack)
 					if(!src.CheckSpecial("One Hundred Percent Power")&&!src.CheckSpecial("Fifth Form")&&!CheckActive("Eight Gates"))
 						return
 			if(Q.ManaCost && !src.HasDrainlessMana() && !Q.AllOutAttack)
@@ -4057,6 +1972,8 @@ mob
 						var/copyLevel = getSharCopyLevel(m.SagaLevel)
 						if(Q.NewCopyable)
 							copy = Q.NewCopyable
+						else
+							copy = Q.Copyable
 						if(glob.SHAR_COPY_EQUAL_OR_LOWER)
 							if(copyLevel < copy)
 								continue
@@ -4075,10 +1992,7 @@ mob
 					for(var/obj/Items/Tech/Security_Camera/SC in view(10, src))
 						if(IsList(Q.PreRequisite))
 							SC.ObservedTechniques["[Q.type]"]=Q.Copyable
-				spawn()
-					for(var/obj/Items/Tech/Recon_Drone/RD in view(10, src))
-						if(IsList(Q.PreRequisite))
-							RD.ObservedTechniques["[Q.type]"]=Q.Copyable
+
 			if(Q.Counter)
 				KenShockwave(src,icon='KenShockwaveBloodlust.dmi',Size=0.4, Blend=2, Time=2)
 			if(!Q.Combo && src.HasCounterMaster() && CounterMasterTimer <= 0)
@@ -4105,7 +2019,7 @@ mob
 
 			if(Q.Duration >= 0)
 				spawn(Q.Duration*10)//After the duration...
-					if(src.AttackQueue==Q)
+					if(AttackQueue&&src.AttackQueue==Q)
 						if(src.AttackQueue.ComboPerformed<1&&src.AttackQueue.InstantStrikesPerformed<1)
 							src.AttackQueue.RanOut=1
 							src.AttackQueue.Hit=0
@@ -4115,51 +2029,63 @@ mob
 		QueuedDamage(var/mob/P)
 			var/Damage=1
 			// this acts as a multiplier, so something like a 5 damage mult will result in insane numbers
-
-			if(AttackQueue.Finisher)
-				var/ratio = (clamp((100-P.Health) / 50, 1, AttackQueue.Finisher+1) / glob.Q_DIVISOR)
-				if(ratio > 0)
-					Damage+=ratio
-			if(AttackQueue.Opener)
-				var/ratio = (clamp(P.Health / 50, 1, AttackQueue.Opener+1) / glob.Q_DIVISOR)
-				if(ratio > 0)
-					Damage+=ratio
-
+			DEBUGMSG("START DAMAGE: [Damage]")
+			if(AttackQueue.Finisher && P.Health < 50)
+				var/missing = abs(P.Health-50)
+				var/extra = missing * (glob.FINISHERDMG * AttackQueue.Finisher)
+				Damage+=extra // glob (0.5% * finisher) extra damage for every health under 50 )
+			DEBUGMSG("NEW DAMAGE AFTER FINISHER: [Damage]")
+			if(AttackQueue.Opener && P.Health > 50)
+				var/missing = abs(50-P.Health)
+				var/extra = missing * (glob.OPENERDMG * AttackQueue.Opener)
+				Damage+=extra
+			DEBUGMSG("NEW DAMAGE AFTER OPENER: [Damage]")
 			if(src.AttackQueue.Decider)
-				var/DeciderDmg = getDeciderDamage(Health, P.Health)
-				if(DeciderDmg > 0)
-					Damage*=DeciderDmg
-
+				var/deciderDmg = glob.DECIDERDMG * AttackQueue.Decider // the extra amount of damage to do in the case everyiong = 1
+				var/healthcloseness = abs(Health - P.Health)/100
+				deciderDmg *= (1 - healthcloseness)
+				if(deciderDmg > 0)
+					Damage+=deciderDmg
+			DEBUGMSG("NEW DAMAGE AFTER DECIDER: [Damage]")
 			if(AttackQueue.Dominator)
 				if(Health>P.Health)
-					var/ratio = (clamp(Health / P.Health, 1, 4) / glob.Q_DIVISOR)
+					var/ratio = clamp(Health / P.Health, 1, 4)
 					if(ratio > 0)
-						Damage+=ratio
+						Damage += (ratio-1) * ( AttackQueue.Dominator / 4)
+			DEBUGMSG("NEW DAMAGE AFTER DOMINATOR: [Damage]")
 			if(AttackQueue.Determinator)
 				if(Health<P.Health&&Health!=0)
-					var/ratio = clamp( P.Health / Health, 1, 4) / glob.Q_DIVISOR
+					var/ratio = clamp( P.Health / Health, 1, 4)
 					if(ratio > 0)
-						Damage+=ratio
-
+						Damage+= (ratio-1) * (AttackQueue.Determinator / 4)
+			DEBUGMSG("NEW DAMAGE AFTER DETERMINATOR: [Damage]")
 			if(src.AttackQueue.Delayer)
-				var/addDamage = 1 + (clamp(src.AttackQueue.Delayer*src.AttackQueue.DelayerTime, 0.1, 3)/ glob.Q_DIVISOR)
-				Damage*=(addDamage)
-
+				var/addDamage = src.AttackQueue.Delayer*src.AttackQueue.DelayerTime
+				Damage+=(addDamage)
+			DEBUGMSG("NEW DAMAGE AFTER DELAYER: [Damage]")
 			if(src.AttackQueue.SpeedStrike>0)
-				Damage *= clamp(sqrt( ( 1+ ( src.GetSpd())*( src.AttackQueue.SpeedStrike/10 ) ) ),1 ,3)
-
+				Damage *= clamp(sqrt( ( 1+ ( src.GetSpd())*( src.AttackQueue.SpeedStrike/glob.SPEEDSTRIKEDIVISOR ) ) ),1 ,3)
+			DEBUGMSG("NEW DAMAGE AFTER SPEEDSTRIKE: [Damage]")
 			if(src.AttackQueue.SweepStrike>0)
-				Damage *= clamp(sqrt(( 1+ (P.GetSpd())*(src.AttackQueue.SweepStrike/10))),1 ,3)
-
+				Damage *= clamp(sqrt(( 1+ (P.GetSpd())*(src.AttackQueue.SweepStrike/glob.SWEEPSTRIKEDIVISOR))),1 ,3)
+			DEBUGMSG("NEW DAMAGE AFTER SWEEPSTRIKE: [Damage]")
 			if(src.AttackQueue.GodPowered)
 				src.transcend(src.AttackQueue.GodPowered)
+			if(AttackQueue.HarderTheyFall && P.BioArmor)
+				Damage +=  P.BioArmor / glob.HARDER_THEY_FALL_BIO_DIVISOR // i want to make the ticks matter, but cant formulate an idea how
+			if(AttackQueue.HarderTheyFall && P.VaizardHealth)
+				Damage += P.VaizardHealth / glob.HARDER_THEY_FALL_VAI_DIVISOR // i want to make the ticks matter, but cant formulate an idea how
+			DEBUGMSG("NEW DAMAGE AFTER HARDERTHEYFALL: [Damage]")
 			if(src.AttackQueue.CosmoPowered)
 				if(!src.SpecialBuff)
 					Damage+=(0.5+(src.SenseUnlocked-4))
-			if(Damage<0)
-				Damage = 0.1
+			if(Damage<1)
+				Damage = 1
 			if(src.AttackQueue.DamageMult>=0)
 				var/dmgMult = src.AttackQueue.DamageMult
+				if(passive_handler["Fa Jin"] && canFaJin())
+					dmgMult+= passive_handler["Fa Jin"] * glob.FA_JIN_BASE_DMG_ADD
+				DEBUGMSG("NEW DAMAGE AFTER FA JIN (FINAL DAMAGE): [Damage]")
 				Damage*=dmgMult
 			if(Damage>0 && glob.GLOBAL_QUEUE_DAMAGE > 0)
 				Damage *= glob.GLOBAL_QUEUE_DAMAGE
@@ -4175,6 +2101,8 @@ mob
 			var/KB=0
 			if(src.AttackQueue.KBAdd)
 				KB+=src.AttackQueue.KBAdd
+			if(passive_handler["Fa Jin"] && canFaJin())
+				KB+= passive_handler["Fa Jin"] * glob.FA_JIN_BASE_KB_ADD
 			//One day, passives.
 			return KB
 		QueuedKBMult()
@@ -4194,8 +2122,6 @@ mob
 						src.OMessage(10, "<font color='[rgb(255,153,51)]'><b>[src] [src.AttackQueue.ActiveMessage]</b></font>", "[src]([src.key]) queued [src.AttackQueue].")
 			if(src.AttackQueue.Recoil)
 				src.RecoilDamage=src.AttackQueue.Recoil
-			if(src.AttackQueue.Quaking)
-				src.Quaking=src.AttackQueue.Quaking
 			if(src.AttackQueue.Combo)
 				src.AttackQueue.ComboPerformed=0
 		QueuedHitMessage(var/mob/P)
@@ -4203,6 +2129,9 @@ mob
 			src.AttackQueue.Hit=1
 			src.AttackQueue.Missed=0
 			src.AttackQueue.RanOut=0
+			if(canFaJin())
+				last_fa_jin = world.time
+				fa_jin_effect()
 			if(istype(src.AttackQueue, /obj/Skills/Queue/Shoryuken))
 				if(src.AttackQueue.ShoryukenEffect==2)
 					OMsg(src, "[src] yells: SHORYUKEN!", "[src] used Shoryuken.")
@@ -4248,27 +2177,10 @@ mob
 
 			if(src.AttackQueue.BuffAffected)
 				var/path=text2path(src.AttackQueue.BuffAffected)
-				var/obj/S=new path
-				var/AlreadyBuffed=0
-				for(var/obj/Skills/SP in P)
-					if(SP.type==S.type)
-						AlreadyBuffed=1
-						break
-				if(!AlreadyBuffed)
-					var/BuffFound=0
-					for(var/obj/Skills/Ssrc in src)
-						if(Ssrc.type==S.type)
-							BuffFound=1
-							var/list/DenyVars=list("client", "key", "loc", "x", "y", "z", "type", "locs", "parent_type", "verbs", "vars", "contents", "Transform", "appearance")
-							for(var/x in Ssrc.vars)
-								if(x in DenyVars)
-									continue
-								S.vars[x]=Ssrc.vars[x]
-							break
-					if(!BuffFound)
-						src.AddSkill(new path)
-					S.Password=src.name
-					P.AddSkill(S)
+				var/obj/Skills/Buffs/S = P.findOrAddSkill(path)
+				S.Password=P.name
+				if(istype(S, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Death_Mark))
+					S.adjust(StyleBuff.SignatureTechnique * 15, StyleBuff.SignatureTechnique)
 
 			if(src.AttackQueue.Projectile)
 				var/path=text2path(src.AttackQueue.Projectile)
@@ -4294,6 +2206,9 @@ mob
 			src.AttackQueue.Missed=1
 			src.AttackQueue.Hit=0
 			src.AttackQueue.RanOut=0
+			if(canFaJin())
+				last_fa_jin = world.time
+				fa_jin_effect()
 			if(src.AttackQueue.CustomOff)
 				OMsg(src, "[src.AttackQueue.CustomOff]")
 			else
@@ -4333,8 +2248,6 @@ mob
 				src.AttackQueue.NoWarp=0
 			if(src.AttackQueue.Combo)
 				src.AttackQueue.ComboPerformed=0
-			if(src.AttackQueue.Quaking)
-				src.Quaking=0
 			if(src.AttackQueue.RipplePower>1)
 				src.AttackQueue.DamageMult/=src.AttackQueue.RipplePower
 				src.AttackQueue.AccuracyMult/=src.AttackQueue.RipplePower
@@ -4344,11 +2257,13 @@ mob
 			if(src.AttackQueue.WoundCost)
 				src.WoundSelf(src.AttackQueue.WoundCost*glob.WorldDamageMult)
 			if(src.AttackQueue.EnergyCost)
-				src.LoseEnergy(src.AttackQueue.EnergyCost)
+				var/drain = passive_handler["Drained"] ? src.AttackQueue.EnergyCost * (1 + passive_handler["Drained"]/10) : src.AttackQueue.EnergyCost
+				src.LoseEnergy(drain)
 			if(src.AttackQueue.ForceCost)
 				src.LoseForce(src.AttackQueue.ForceCost)
 			if(src.AttackQueue.FatigueCost)
 				src.GainFatigue(src.AttackQueue.FatigueCost)
+				
 			if(src.AttackQueue.ManaGain)
 				src.HealMana(AttackQueue.ManaGain)
 			if(src.AttackQueue.ManaCost)
@@ -4375,53 +2290,16 @@ mob
 							src << "[src.AttackQueue] is out of power!"
 			if(src.AttackQueue.Hit)
 				if(src.AttackQueue.GrabTrigger)
+					var/grabPath = src.AttackQueue.GrabTrigger
 					for(var/obj/Skills/Grapple/g in src.Skills)
-						if(g.type==text2path(src.AttackQueue.GrabTrigger))
+						if(g.type==text2path(grabPath))
 							g.Activate(src)
-			if(src.AttackQueue.Hit)
 				if(src.AttackQueue.FollowUp)
-					var/mob/ThatBoi=src
-					var/path=text2path(src.AttackQueue.FollowUp)
-					spawn()
-						var/obj/Skills/s=new path
-						if(!locate(s.type, ThatBoi))
-							ThatBoi.contents+=s
-						else
-							s=locate(s.type, ThatBoi)
-						if(s.type in typesof(/obj/Skills/AutoHit))
-							ThatBoi.Activate(s)
-						if(s.type in typesof(/obj/Skills/Projectile))
-							ThatBoi.UseProjectile(s)
-						if(s.type in typesof(/obj/Skills/Queue))
-							ThatBoi.SetQueue(s)
-						if(s.type in typesof(/obj/Skills/Grapple))
-							s:Activate(ThatBoi)
+					spawn(AttackQueue.FollowUpDelay) // EWWWW
+						throwFollowUp(AttackQueue.FollowUp)
+
 			if(src.AttackQueue.BuffSelf)
-				var/path=text2path(src.AttackQueue.BuffSelf)
-				var/obj/S=new path
-				var/obj/SFound
-				var/AlreadyBuffed=0
-				for(var/obj/Skills/Buffs/SP in src.Buffs)
-					if(SP.type == S.type)
-						SFound=SP
-						if(src.BuffOn(SP))
-							AlreadyBuffed=1
-						break
-				if(!AlreadyBuffed)
-					if(SFound)
-						var/list/DenyVars=list("client", "key", "loc", "x", "y", "z", "type", "locs", "parent_type", "verbs", "vars", "contents", "Transform", "appearance")
-						for(var/x in SFound.vars)
-							if(x in DenyVars)
-								continue
-							S.vars[x]=SFound.vars  [x]
-					if(!SFound)
-						src.AddSkill(new path)
-					S.Password=src.name
-					src.AddSkill(S)//trigger buff on self
-				if(S.type==/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/What_Must_Be_Done)
-					if(SlotlessBuffs["What Must Be Done"])
-						SlotlessBuffs["What Must Be Done"].Mastery++
-						SlotlessBuffs["What Must Be Done"].TimerLimit+=300
+				buffSelf(AttackQueue.BuffSelf)
 			if(!src.AttackQueue.Step&&!src.AttackQueue.MissStep&&!src.AttackQueue.HitStep)
 				src.AttackQueue=null
 			else
@@ -4434,6 +2312,7 @@ mob
 				else if(!src.AttackQueue.RanOut&&!src.AttackQueue.Missed&&src.AttackQueue.Hit)
 					if(src.AttackQueue.HitStep)
 						var/obj/Skills/Queue/S=new src.AttackQueue.HitStep
+						S.adjust(src)
 						src.AttackQueue=null
 						src.SetQueue(S)
 						return

@@ -12,17 +12,11 @@
 /mob/proc/GetRPPSpendable()
     var/Total=0
     Total+=src.RPPSpendable
-    Total+=src.RPPSpendableEvent
     return Total
 /mob/proc/GetRPP()
     var/Total=0
     Total+=src.RPPSpendable
     Total+=src.RPPSpent
-    return Total
-/mob/proc/GetRPPEvent()
-    var/Total=0
-    Total+=src.RPPSpendableEvent
-    Total+=src.RPPSpentEvent
     return Total
 
 /proc/getMaxRPP()

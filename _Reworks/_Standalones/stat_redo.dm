@@ -4,24 +4,22 @@ mob/proc/stat_redo()
 	stat_redoing = TRUE
 
 	winshow(src,"Finalize_Screen",1)
-	race.strength = race::strength
-	race.endurance = race::endurance
-	race.speed = race::speed
-	race.force = race::force
-	race.offense = race::offense
-	race.defense = race::defense
-	SetStatPoints(race.statPoints)
-	SetStat("Power", race.power)
-	SetStat("Strength", race.strength)
-	SetStat("Endurance", race.endurance)
-	SetStat("Speed", race.speed)
-	SetStat("Force", race.force)
-	SetStat("Offense", race.offense)
-	SetStat("Defense", race.defense)
+	statArchive = new()
+	statArchive.reset(list(1,1,1,1,1,1))
+	race_selecting=0
+	Class = race.classes[race.current_class]
+	winset(src, "Finalize_Screen.className", "text=\"[race.classes[race.current_class]]\"")
+	winshow(src,"Finalize_Screen",1)
+	if(length(race.stats_per_class) > 0)
+		src.RacialStats(race.stats_per_class[race.getClass()])
+	else
+		src.RacialStats(race)
 	src.UpdateBio()
-	for(var/obj/SavedStats/Z in src)
-		del(Z)
-	src.contents+=new/obj/SavedStats
+	src.dir = SOUTH
+	src.screen_loc = "IconUpdate:1,1"
+	client.screen += src
+	SetStatPoints(race.statPoints)
+	src.UpdateBio()
 	src.GetIncrements()
 	race_selecting = FALSE
 

@@ -1,7 +1,7 @@
 /var/game_loop/launchLoop = new(1 , "launchLoop")
 /mob/var/tmp/LaunchImmune = FALSE
 /proc/getLaunchLockOut(mob/player)
-	var/mod = 1 + (player.passive_handler.Get("Juggernaut") * 0.25) + (player.HasLegendaryPower() * 0.25)
+	var/mod = 1 + (player.passive_handler.Get("Juggernaut") * 0.25) + (player.HasMythical() * 0.25)
 	return glob.LAUNCH_LOCKOUT * mod
 
 /proc/applyLaunch(mob/target, time)

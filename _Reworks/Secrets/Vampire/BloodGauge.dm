@@ -49,7 +49,7 @@
             fill.pixel_z = epy
 
 /obj/meter
-    icon = 'smallbar.dmi'
+    icon = 'smallbar1.dmi'
     plane = FLOAT_PLANE
     layer = FLOAT_LAYER
     bar
@@ -65,7 +65,7 @@
         icon_state = "mask"
 
     foreground
-        icon_state = "foreground"
+        icon_state = "foreground" // RAAAAAAAAAAAAAAAAAA
 
 bloodGauge
 	var/obj/basemeter/root

@@ -10,7 +10,7 @@ obj/Skills/AutoHit/Soul_Drain
 	Gravity=5
 	WindUp=1
 	WindupMessage="channels the chaos of Soul Edge...."
-	DamageMult=8
+	DamageMult=3
 	StrOffense=1
 	ActiveMessage="unleashes a tidal wave of chaos into the area!"
 	Area="Around Target"
@@ -24,11 +24,15 @@ obj/Skills/AutoHit/Soul_Drain
 	TurfShiftDurationSpawn=0
 	TurfShiftDurationDespawn=5
 	TurfShift='Gravity.dmi'
-	Cooldown=120
+	Cooldown=30
 	EnergyCost=15
 	Instinct=1
+	adjust(mob/p)
+		DamageMult = 3 + p.SagaLevel
+		WindUp = 1 - p.SagaLevel/10
 	verb/Soul_Drain()
 		set category="Skills"
+		adjust(usr)
 		usr.Activate(src)
 
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Soul_Edge

@@ -113,6 +113,28 @@ obj/Magic_Circle
 	Savable=1
 	var/Creator//holds creator ckey
 	var/Locked=1//only cuts creator mana
+	var/currentRitualID = null
+/*	proc/ritualAnimation()
+		
+	verb/triggerRitual()
+		if(!currentRitualID) return
+		var/ritual/ritual
+		for(var/ritual/r in ritualDatabase)
+			if(r.name == currentRitualID)
+				ritual = new r
+		ritual.performRitual(src, usr)
+		ritualAnimation()
+
+	verb/setRitual()
+		var/list/validRituals = list("Cancel")
+		for(var/knowledge in usr.knowledgeTracker.learnedMagic)
+			if(knowledge == "Introductory Ritual Magics")
+				validRituals += list("Sword Enchanting")
+		if(length(validRituals)==1) return
+		var/chosenRitual = input(usr, "Pick a ritual.") in validRituals
+		if(chosenRitual == "Cancel") return
+		currentRitualID = chosenRitual*/
+
 	verb/Toggle()
 		set src in range(1, usr)
 		if(usr.ckey==src.Creator)
@@ -146,6 +168,8 @@ obj/Items/Enchantment
 		icon_state="Cauldron"
 		desc="Cauldrons are used to brew potions and other acts of alchemy."
 		Click()
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			if((src in Alchemy_List))
 				..()
 			else
@@ -177,7 +201,7 @@ obj/Items/Enchantment
 								if(Amt>usr.TotalCapacity)
 									Amt=usr.TotalCapacity
 								if(Amt&&Amt>0)
-									var/Cost=Amt*(global.EconomyCost/10)
+									var/Cost=Amt*(glob.progress.EconomyCost/10)
 									var/Confirm=alert(usr, "Restoring [round(Amt)] capacity will cost [Commas(round(Cost))] [glob.progress.MoneyName].  Do you want to spend it?", "Restore Capacity", "No", "Yes")
 									if(Confirm=="No")
 										src.Using=0
@@ -200,7 +224,7 @@ obj/Items/Enchantment
 								if(Amt>(PS.MaxCapacity-PS.CurrentCapacity))
 									Amt=(PS.MaxCapacity-PS.CurrentCapacity)
 								if(Amt&&Amt>0)
-									var/Cost=Amt*(global.EconomyCost*1.25)
+									var/Cost=Amt*(glob.progress.EconomyCost*1.25)
 									var/Confirm=alert(usr, "Restoring [round(Amt)] capacity will cost [Commas(round(Cost))] [glob.progress.MoneyName].  Do you want to spend it?", "Restore Capacity", "No", "Yes")
 									if(Confirm=="No")
 										src.Using=0
@@ -217,6 +241,7 @@ obj/Items/Enchantment
 							src.Using=0
 							return
 						if("Brew Potion")
+							return
 							var/list/Option=list("Cancel")
 							var/Effect
 							var/Confirm
@@ -444,14 +469,13 @@ obj/Items/Enchantment
 							src.Using=0
 							return
 						if("Transmute Philosopher Stone")
-							var/Cost=(global.EconomyCost*100*(global.EconomyMana/100))
+							var/Cost=(glob.progress.EconomyCost*100*(glob.progress.EconomyMana/100))
 							var/Confirm=alert(usr, "Do you want to create an artificial Philosopher Stone?  This will cost [Commas(Cost)] resources!", "Create Artificial Philosopher Stone", "No", "Yes")
 							if(Confirm=="Yes")
 								if(usr.HasMoney(Cost))
 									usr.TakeMoney(Cost)
 									var/obj/Items/Enchantment/PhilosopherStone/Artificial/a=new
 									a.SoulStrength=2
-									a.SoulSignature=rand(9001,9999)
 									usr.contents+=a
 									usr << "You've created an artificial Philosopher Stone!"
 								else
@@ -494,6 +518,8 @@ obj/Items/Enchantment
 				return
 			if(usr.KO)
 				return
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			if(usr.PureRPMode)
 				usr << "You cannot use potions while in RP Mode."
 				return
@@ -528,7 +554,7 @@ obj/Items/Enchantment
 				if(src.Heal)
 					PP.InstantAffect=1
 					PP.StableHeal=1
-					PP.HealthHeal=src.Heal*5
+					PP.HealthHeal=src.Heal*glob.POTIONHEAL
 					CD+=(src.Heal*STRONG_EFFECT_CD)
 
 				if(src.Searing)
@@ -596,7 +622,8 @@ obj/Items/Enchantment
 							if("Strong")
 								Timer+=2
 					PP.TimerLimit *= 15 * Timer // basically they r all 1 min long
-
+				if(PP.TimerLimit >2 && Heal )
+					PP.HealthHeal /= PP.TimerLimit 
 				if(PP.TimerLimit>5)
 					PP.OffMessage="burns off the excess magical effects..."
 
@@ -614,107 +641,6 @@ obj/Items/Enchantment
 				usr.AddSkill(PP)
 				del src
 
-	Scrying_Ward
-		desc="A ward prevents others from observing you while it is in your inventory, or dropped adjacent."
-		Grabbable=1
-		Pickable=1
-		Destructable=1
-		EnchType="ToolEnchantment"
-		SubType="NOT IN"
-		Cost=40
-		Health=5
-		var/Range=10
-		icon='Ward.dmi'
-
-	Crystal_Ball
-		desc="Crystal balls are used to spy upon energy signatures you are familiar with from long distance."
-		EnchType="ToolEnchantment"
-		SubType="NOT IN"
-		Cost=100
-		Health=10
-		Grabbable=1
-		Pickable=1
-		Destructable=1
-		density=0
-		icon='Crystal Ball.dmi'
-		verb
-			Use_Crystal_Ball()
-				set src in usr
-				set category="Utility"
-				if(!src.Using)
-					src.Using=1
-
-					if(!usr.GlobalCooldowns["[src.type]"])
-						usr.GlobalCooldowns["[src.type]"] = 0
-					if(!(world.realtime > usr.GlobalCooldowns["[src.type]"] + Hour(3)))
-						usr << "You still need time to recover from your last crystal ball use."
-						src.Using=0
-						return
-					if(usr.ToolEnchantmentUnlocked>=1)
-						var/list/who=list("Cancel","Vision")
-						for(var/mob/Players/M in players)
-							who.Add(M)
-						for(var/mob/Players/W in who)
-							if(W.AdminInviso)
-								who.Remove(W)
-							if(!usr.SpiritPower)
-								if(!(locate(W.EnergySignature) in usr.EnergySignaturesKnown))
-									who.Remove(W)
-								if(!W.EnergySignature)
-									who.Remove(W)
-								if(W.Dead)
-									who.Remove(W)
-							if(W.HasGodKi()||W.PowerControl<=25)
-								who.Remove(W)
-							if(W.invisibility)
-								who.Remove(W)
-							if(!usr.HasSpiritPower())
-								for(var/obj/Items/Enchantment/Scrying_Ward/SW in range(10,W))
-									if(SW)
-										who.Remove(W)
-							if(W.z == NearDeadZ)
-								who.Remove(W)
-							if(W.z == glob.DEATH_LOCATION[3])
-								who.Remove(W)
-							if(W.z == ArcaneRealmZ)
-								who.Remove(W)
-							if(usr.Dead&&!usr.HasEnlightenment()&&(W.z!=usr.z))
-								who.Remove(W)
-						var/mob/Players/Choice=input(usr, "What player do you want to observe?", "View Crystal Ball") in who
-						if(Choice=="Cancel")
-							src.Using=0
-							return
-						if(Choice=="Vision")
-							var/list/who2=list()
-							for(var/mob/Players/M in players)
-								if(M!=usr&&!M.AdminInviso)
-									who2.Add(M)
-								if(!usr.HasSpiritPower())
-									for(var/obj/Items/Enchantment/Scrying_Ward/SW in range(10,M))
-										if(SW)
-											who2.Remove(M)
-								if(M.z == ArcaneRealmZ)
-									who2.Remove(M)
-							Choice=pick(who2)
-						Observify(usr, Choice)
-						usr.Observing=1
-						usr.GlobalCooldowns["[src.type]"] = world.realtime
-						src.AlignEquip(usr)
-					else
-						usr << "You don't possess the relevant knowledge to use the crystal ball!"
-						src.Using=0
-						return
-				else
-					Observify(usr, usr)
-					usr.Observing=0
-					usr << "You stop looking through the crystal ball."
-					src.Using=0
-					usr.GlobalCooldowns["[src.type]"] = world.realtime
-					if(src.suffix)
-						src.AlignEquip(usr)
-		New()
-			..()
-			src.InternalTimer=world.realtime
 	Tarot_Deck
 		desc="Tarot decks change your stats with a pair of increases and decreases."
 		icon='TarotDeck.dmi'
@@ -724,6 +650,8 @@ obj/Items/Enchantment
 		var/DeckPotency=1
 		var/RemainingDraws=7
 		Click()
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			if(src in ToolEnchantment_List || !(src in usr))
 				..()
 			else
@@ -988,6 +916,8 @@ obj/Items/Enchantment
 		var/list/Cards=list("The Fool", "The Magician", "The High Priestess", "The Empress", "The Emperor", "The Hierophant", "The Lovers", "The Chariot", "Strength",\
 		"The Hermit", "Wheel of Fortune", "Justice", "The Hanged Man", "Death", "Temperance", "The Devil", "The Tower", "The Star", "The Moon", "The Sun", "Judgment", "The World")
 		Click()
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			if(src in ToolEnchantment_List)
 				..()
 			else
@@ -1015,7 +945,6 @@ obj/Items/Enchantment
 							if("The High Priestess")
 								DeckDraw="The High Priestess"
 								usr.TarotFate="The High Priestess"
-								usr.SpiritPower+=1
 							if("The Empress")
 								DeckDraw="The Empress"
 								usr.TarotFate="The Empress"
@@ -1184,6 +1113,8 @@ obj/Items/Enchantment
 		var/Forced//can they remove it?
 
 		Click()
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			if(src in ToolEnchantment_List && !(src in usr))
 				..()
 			else
@@ -1226,6 +1157,8 @@ obj/Items/Enchantment
 			var/mob/Players/Trg
 			var/list/mob/Players/Peeps=list("Cancel")
 			for(var/mob/Players/p in view(1, usr))
+				if(p.Secret=="Heavenly Restriction" && p.secretDatum?:hasRestriction("Magic"))
+					continue
 				Peeps.Add(p)
 			Trg=input(usr, "Who do you want to place this arcane mask on?", "Place Mask") in Peeps
 			if(Trg.KO)
@@ -1318,7 +1251,7 @@ obj/Items/Enchantment
 				usr << "The tome lacks the capacity to fit this spell."
 				src.Using=0
 				return
-			var/Cost=global.EconomyMana/4*Choice:Copyable
+			var/Cost=glob.progress.EconomyMana/4*Choice:Copyable
 			if(usr.HasManaCapacity(Cost))
 				usr.TakeManaCapacity(Cost)
 				usr << "You've scribed [Choice] into your [src]!"
@@ -1366,7 +1299,7 @@ obj/Items/Enchantment
 					if(MultiMake==null||MultiMake<=0)
 						src.Using=0
 						return
-					var/MultiCost=global.EconomyMana/10*MultiMake
+					var/MultiCost=glob.progress.EconomyMana/10*MultiMake
 					if(usr.HasManaCapacity(MultiCost))
 						usr.TakeManaCapacity(MultiCost)
 						usr << "You expanded your [src]!"
@@ -1442,7 +1375,7 @@ obj/Items/Enchantment
 								src.Using=0
 								return
 					else
-						var/Cost=global.EconomyMana/4
+						var/Cost=glob.progress.EconomyMana/4
 						if(usr.HasManaCapacity(Cost))
 							src.Password=input(usr, "Enter the password you wish to secure this tome with.", "Secure Tome") as text|null
 							usr.TakeManaCapacity(Cost)
@@ -1464,7 +1397,7 @@ obj/Items/Enchantment
 						usr << "There aren't any spells in [src] that you don't know!"
 						src.Using=0
 						return
-					var/Cost=global.EconomyMana/4
+					var/Cost=glob.progress.EconomyMana/4
 					var/obj/Skills/Learn=input(usr, "What spell do you want to learn from [src]?", "Study Tome") in Scribed
 					if(Learn=="Cancel")
 						src.Using=0
@@ -1493,7 +1426,7 @@ obj/Items/Enchantment
 						src.Using=0
 						return
 					else
-						var/Cost=global.EconomyMana/2
+						var/Cost=glob.progress.EconomyMana/2
 						if(usr.HasManaCapacity(Cost))
 							usr.TakeManaCapacity(Cost)
 							src.Stealable=0
@@ -1546,8 +1479,8 @@ obj/Items/Enchantment
 		var/Parasite=0//makes bad thing happen
 		var/CrestMadeAge=0//the era that the crest was made on
 		verb/Examine()
-			var/head="<title>[src]</title><body bgcolor=#000000 text=#339999>"
-			var/close="</body>"
+			var/head="<html><title>[src]</title><body bgcolor=#000000 text=#339999>"
+			var/close="</body></html>"
 			var/content="<table>"
 			for(var/obj/Skills/x in src.Spells)
 				content+="<tr><td>[x]</td></tr>"
@@ -1556,12 +1489,16 @@ obj/Items/Enchantment
 			usr << browse(HTML,"window=[src];size=450x600")
 		verb
 			Transplant_Crest()
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+					return
 				if(src.Using)
 					return
 				src.Using=1
 				var/list/mob/Players/Options=list("Cancel")
 				if(src.loc==usr)
 					for(var/mob/Players/P in oview(1, usr))
+						if(P.Secret=="Heavenly Restriction" && P.secretDatum?:hasRestriction("Magic"))
+							continue
 						Options.Add(P)
 					for(var/mob/Body/b in oview(1, usr))
 						Options.Add(b)
@@ -1601,7 +1538,7 @@ obj/Items/Enchantment
 						var/Choice=alert(usr, "Do you want to expend capacity to force this Magic Crest to accept you?", "Steal Crest", "No", "Yes")
 						if(Choice=="No")
 							return
-						var/Cost=global.EconomyMana/2
+						var/Cost=glob.progress.EconomyMana/2
 						if(usr.HasManaCapacity(Cost))
 							var/Kill=0
 							if(src.Parasite)
@@ -1682,7 +1619,7 @@ obj/Items/Enchantment
 					src.Using=0
 					return
 				else
-					var/Cost=global.EconomyMana/2
+					var/Cost=glob.progress.EconomyMana/2
 					if(usr.HasManaCapacity(Cost))
 						usr.TakeManaCapacity(Cost)
 						var/obj/Skills/S=new Choice.type
@@ -1955,6 +1892,8 @@ obj/Items/Enchantment
 			set category=null
 			set src in view(1, usr)
 
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			var/obj/Skills/Teleport/Nexus_Teleport/nt=new
 			nt.FocalPassword=src.Password
 			nt.FocalExceptions.Add(src)
@@ -1977,6 +1916,8 @@ obj/Items/Enchantment
 		verb/Nexus_Summon()
 			set category=null
 			set src in view(1, usr)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			var/PassCheck=input(usr, "Enter the nexus' password to summon one of those with a teleport amulet assigned to this nexus.", "Rally") as text
 			if(PassCheck==src.Password)
 				var/obj/Skills/Teleport/Nexus_Summon/ns=new
@@ -1990,6 +1931,8 @@ obj/Items/Enchantment
 		verb/Nexus_Rally()
 			set category=null
 			set src in view(1, usr)
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			var/PassCheck=input(usr, "Enter the nexus' password to summon those with a teleport amulet assigned to this nexus.", "Rally") as text
 			if(PassCheck==src.Password)
 				var/obj/Skills/Teleport/Nexus_Summon/Nexus_Rally/ns=new
@@ -2024,6 +1967,8 @@ obj/Items/Enchantment
 			set category=null
 			set src in usr
 
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			var/obj/Skills/Teleport/Nexus_Teleport/nt=new
 			nt.FocalPassword=src.Password
 			nt.FocalExceptions.Add(src)
@@ -2053,6 +1998,8 @@ obj/Items/Enchantment
 			if((src in usr))
 				if(src.Using)
 					return
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+					return
 				src.Using=1
 				if(!usr.GlobalCooldowns["[src.type]"])
 					usr.GlobalCooldowns["[src.type]"] = 0
@@ -2080,7 +2027,7 @@ obj/Items/Enchantment
 				usr.Target.Grabbable=0
 				usr.Target.Incorporeal=1
 				usr.Target.invisibility=90
-				usr.Target.Stasis=120
+				usr.Target.SetStasis(120)
 				usr.Target.StasisSpace=1
 				spawn()animate(usr.Target.client, color = list(-1,0,0, 0,-1,0, 0,0,-1, 0,1,1), time = 5)
 				OMsg(usr, "[usr] locks [usr.Target] in an isolated space!")
@@ -2119,7 +2066,8 @@ obj/Items/Enchantment
 			if(usr.InMagitekRestrictedRegion())
 				usr << "The dimension generator attempts to form a portal, but it disperses before fully forming."
 				return
-
+			if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+				return
 			if(!src.DimensionType)
 				var/list/obj/Effects/PocketExit/Available=list()
 				for(var/obj/Effects/PocketExit/PE in world)
@@ -2199,6 +2147,8 @@ obj/Items/Enchantment
 			if(!(src in usr))
 				..()
 			else
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+					return
 				if(src.Using)
 					return
 				if(usr.Grab)
@@ -2251,6 +2201,8 @@ obj/Items/Enchantment
 			Signature//ckey
 		Click()
 			if(src in oview(1, usr))
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+					return
 				if(Signature)
 					var/PassCheck=input(usr, "Enter the password protecting this crystal if you want to change who it is attuned to.", "Change Signature") as text
 					if(PassCheck==src.Password)
@@ -2303,11 +2255,13 @@ obj/Items/Enchantment
 	Crystal_of_Reversal
 		icon='ReCrystal.dmi'
 		desc="A crystal that will selectively rewind the user's time, restoring particularly grevious wounds at the cost of physical development."
-		Cost=3000
+		Cost=1500
 		EnchType="TimeMagic"
 		SubType="Temporal Rewinding"
 		Click()
 			if((src in usr))
+				if(usr.Secret=="Heavenly Restriction" && usr.secretDatum?:hasRestriction("Magic"))
+					return
 				if(usr.HasMechanized())
 					usr<<"They're not affected by the crystal."
 					return
@@ -2411,9 +2365,9 @@ obj/Items/Enchantment
 				del C
 
 				OMsg(usr, "[usr] is reborn!")
-				usr.EraAge=global.Era
+				usr.EraAge=glob.progress.Era
 				usr.EraBody="Child"
-				if(usr.isRace(SAIYAN)||usr.Race=="Half Saiyan")
+				if(usr.isRace(SAIYAN)||usr.isRace(HALFSAIYAN))
 					usr.Tail(1)
 
 				src.Using=0
@@ -2468,9 +2422,9 @@ obj/Items/Enchantment
 					usr.EraAge+=1
 					Choice.EraAge-=1
 					OMsg(usr, "[usr] gives [Choice] their excess age!")
-				if(usr.EraAge>global.Era)
+				if(usr.EraAge>glob.progress.Era)
 					usr.Death(null, "being reverted to a time before their birth!", SuperDead=1)
-				if(Choice.EraAge>global.Era)
+				if(Choice.EraAge>glob.progress.Era)
 					Choice.Death(null, "being reverted to a time before their birth!", SuperDead=1)
 				usr << "Relog to change to your new age."
 				Choice << "Relog to change to your new age."
@@ -2556,8 +2510,7 @@ obj/Items/Enchantment
 		var/MaxCapacity
 		var/RegenRate
 		var/SoulStrength//regen+recov at moment of stoning
-		var/SoulIdentity//key of fake stone's magic
-		var/SoulSignature//energy signature of the stone
+		var/SoulIdentity//UID of person stoned
 		var/ToggleUse = 1
 		New()
 			..()
@@ -2568,14 +2521,29 @@ obj/Items/Enchantment
 			Update_Description()
 
 		UpdatesDescription=1
+		Fake
+			CurrentCapacity = 200
+			MaxCapacity = 200
+			RegenRate = 1
+			proc/reintegrate(mob/Players/user)
+				if(SoulIdentity==user.UniqueID)
+					user.ManaSealed = 0
+					OMsg(user, "[user] has been reintegrated with their magical circuits!")
+					del src
+				else
+					user << "This stone doesn't belong to your circuits!"
+
+			verb/Reintegrate_Stone()
+				set name = "Reintegrate Stone"
+				reintegrate(usr)
 		True
-			CurrentCapacity=1000
-			MaxCapacity=1000
+			CurrentCapacity=400
+			MaxCapacity=400
 			RegenRate=1
 		Artificial
 			name="Philosopher Stone (Artificial)"
-			CurrentCapacity=1000
-			MaxCapacity=1000
+			CurrentCapacity=200
+			MaxCapacity=200
 			RegenRate=1
 		Magicite
 			name="Magicite Stone"
@@ -2584,7 +2552,6 @@ obj/Items/Enchantment
 			MaxCapacity=1
 			RegenRate=0
 			SoulStrength=2
-			SoulSignature="1"
 			Update_Description()
 				src.desc="A magicite stone, operating as a source of mana.<br>Your [src] mana storage: [round(src.CurrentCapacity)] / [src.MaxCapacity]"
 				if(ToggleUse)

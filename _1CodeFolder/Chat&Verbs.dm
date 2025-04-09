@@ -154,7 +154,7 @@ mob/Players/verb
 		set src in range(1, usr)
 		if(!(world.time > usr.verb_delay)) return
 		usr.verb_delay=world.time+1
-		if(!src.KO)
+		if(!src.KO && !istype(src, /mob/Body))
 			usr << "You can only use this on unconscious opponents."
 			return
 		usr.Grid("Loot", Lootee=src)
@@ -170,24 +170,29 @@ mob/Players/verb
 				src<<A.desc
 		else if(ismob(A))
 			usr<<"This is: [A]"
-			/*
+			
 			var/mob/person = A
 			if(client.getPref("seePronouns"))
 				usr<<person.information.getInformation(A, TRUE)
 			else
-				usr<<person.information.getInformation(A, FALSE)*/
+				usr<<person.information.getInformation(A, FALSE)
+			var/profileHTML = "<html>"
 			if(A:transActive())
-				usr << browse(A:ReturnProfile(A:transActive()), "window=[A];size=900x650")
-			else if(locate(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form, A.contents))
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/SF in A.contents)
+				profileHTML += person.ReturnProfile(person.transActive())
+			if(locate(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form, person.contents))
+				for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/SF in person.contents)
 					if(SF.SlotlessOn)
-						usr << browse(A:ReturnProfile(1), "window=[A];size=900x650")
-					else
-						usr << browse(A:Profile, "window=[A];size=900x650")
-			else
-				usr << browse(A:Profile, "window=[A];size=900x650")
+						profileHTML = person.ReturnProfile(1)
+			if(profileHTML == "<html>")
+				profileHTML += person.Profile
+			
+			profileHTML += "</html>"
+
+			usr << browse(profileHTML, "window=[A];size=900x650")
+
 			if(A:GimmickDesc!="")
 				usr << browse(A:GimmickDesc, "window=Gimmick;size=325x325")
+
 		A.Examined(src)
 
 	Rename(var/atom/A as mob|obj in view(usr,5))
@@ -554,10 +559,12 @@ mob/Players/verb
 			if(transOptions.len>1)
 				var/Choice = input(usr, "Which transformation do you want to edit?", "Change Form Icons") in transOptions
 				if(Choice == "Cancel") goto SKIP
+				Choice = text2path(Choice)
 				var/transformation/transSelected
 				for(var/transformation/t in usr.race.transformations)
-					if(t.type == Choice)
+					if(istype(t, Choice))
 						transSelected = t
+						break
 				var/list/transVisualOptions = list("Cancel", "Base", "Hair", "Icon 1", "Icon 2", "Aura", "Aura Underlay", "Profile")
 				var/aspectPicked=input(usr, "What aspect of your forms do you wish to edit?", "Change Form Icons") in transVisualOptions
 				switch(aspectPicked)
@@ -649,6 +656,17 @@ mob/Players/verb
 		set name="Reset Multipliers"
 		if(!(world.time > usr.verb_delay)) return
 		is_dashing = 0
+		if(isRace(BEASTMAN) && race?:Racial == "Feather Knife")
+			passive_handler.passives["Secret Knives"] = "Feathers"
+		if(isRace(BEASTMAN) && race?:Racial == "Fox Fire")
+			passive_handler.passives["Heavy Strike"] = "Fox Fire"
+		if(isRace(BEASTMAN) && race?:Racial == "Monkey King")
+			var/obj/Skills/Buffs/s = findOrAddSkill(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Racial/Beastman/Never_Fall/)
+			if(!s.Using)
+				s.Trigger(src, TRUE)
+		if(isRace(BEASTMAN) && race?:Racial == "Heart of The Beastman")
+			passive_handler.Set("Grit", 1)
+
 		usr.verb_delay=world.time+1
 		for(var/b in usr.SlotlessBuffs)
 			var/obj/Skills/Buffs/x = usr.SlotlessBuffs[b]
@@ -675,8 +693,6 @@ mob/Players/verb
 		usr.OffMultTotal=1
 		usr.DefMultTotal=1
 		usr.RecovMultTotal=1
-		usr.KBMult=1
-		usr.KBAdd=0
 		sleep(20)
 		usr<<"Stats and power successfully reset to normal."
 	Reset_Overlays()
@@ -690,10 +706,13 @@ mob/Players/verb
 		set hidden=1
 		if(!(world.time > usr.verb_delay)) return
 		usr.verb_delay=world.time+1
-		var/screenx=input("Enter the width of the screen, max is 31.") as num
-		screenx=min(max(1,screenx),31)
-		var/screeny=input("Enter the height of the screen, max is 31.") as num
-		screeny=min(max(1,screeny),31)
+		var/screenmax = 31
+		if(usr.Secret == "Heavenly Restriction" && usr.secretDatum?:hasImprovement("Senses"))
+			screenmax = 71
+		var/screenx=input("Enter the width of the screen, max is [screenmax].") as num
+		screenx=min(max(1,screenx),screenmax)
+		var/screeny=input("Enter the height of the screen, max is [screenmax].") as num
+		screeny=min(max(1,screeny),screenmax)
 		client.view="[screenx]x[screeny]"
 		src.ScreenSize = "[screenx]x[screeny]"
 	Text_Color_Say()
@@ -742,7 +761,7 @@ mob/Players/verb
 						online++
 						View+={"<tr>
 							<td><font size=2>[M.key] ([M.name])/(<a href=?src=\ref[M];action=MasterControl>x</a href>)</td>
-							<td><font size=2>[M.Race] ([M.Class])</td>
+							<td><font size=2>[M.race.name]</td>
 							<td><font size=2>[M.loc] ([M.x],[M.y],[M.z])</td>
 							<td><font size=2>[M.Base]([M.potential_power_mult]) / [M.EraBody]</td>
 							<td><font size=2>[M.RPPSpent], [M.RPPSpendable], [M.RPPSpendable+M.RPPSpent] ([round((M.RPPSpent+M.RPPSpendable)/M.RPPMult,1)])</td>
@@ -779,35 +798,7 @@ mob/Players/verb
 			for(var/i=5, i>0, i--)
 				src.OMessage(30,"[src] - [i]!")
 				sleep(10)
-		//TODO: do it again at the end, so they cant cheese join while in cd
-		for(var/obj/Items/Tech/SpaceTravel/Ship/A in view(30,src)) //This for loop detects ships around those that use the say verb.
-			for(var/obj/ShipConsole/B in world)
-				if(A.Password==B.Password)
-					for(var/mob/C in hearers(6,B))
-						src.OMessage(30,"[src] is counting down! ([time/10] seconds)","<font color=silver>[src]([src.key]) used countdown.")
-						spawn(time)	src.OMessage(30,"[src] ended counting down! (0 seconds)","<font color=silver>[src]([src.key]) ended using countdown.")
-						spawn(time/2)	src.OMessage(30,"[src] counting down! ([time/2/10] seconds)")
-		for(var/obj/ShipConsole/AA in view(5,src))
-			for(var/obj/Items/Tech/SpaceTravel/Ship/BB in world)
-				if(AA.Password==BB.Password&&AA.SpeakerToggle==1)
-					for(var/mob/C in hearers(12,BB))
-						src.OMessage(30,"[src] is counting down! ([time/10] seconds)","<font color=silver>[src]([src.key]) used countdown.")
-						spawn(time)	src.OMessage(30,"[src] ended counting down! (0 seconds)","<font color=silver>[src]([src.key]) ended using countdown.")
-						spawn(time/2)	src.OMessage(30,"[src] counting down! ([time/2/10] seconds)")
-		for(var/obj/Items/Tech/SpaceTravel/SpacePod/A in view(30,src)) //This for loop detects ships around those that use the say verb.
-			for(var/obj/PodConsole/B in world)
-				if(A.Password==B.Password)
-					for(var/mob/C in hearers(6,B))
-						src.OMessage(30,"[src] is counting down! ([time/10] seconds)","<font color=silver>[src]([src.key]) used countdown.")
-						spawn(time)	src.OMessage(30,"[src] ended counting down! (0 seconds)","<font color=silver>[src]([src.key]) ended using countdown.")
-						spawn(time/2)	src.OMessage(30,"[src] counting down! ([time/2/10] seconds)")
-		for(var/obj/PodConsole/AA in view(5,src))
-			for(var/obj/Items/Tech/SpaceTravel/SpacePod/BB in world)
-				if(AA.Password==BB.Password&&AA.SpeakerToggle==1)
-					for(var/mob/C in hearers(12,BB))
-						src.OMessage(30,"[src] is counting down! ([time/10] seconds)","<font color=silver>[src]([src.key]) used countdown.")
-						spawn(time)	src.OMessage(30,"[src] ended counting down! (0 seconds)","<font color=silver>[src]([src.key]) ended using countdown.")
-						spawn(time/2)	src.OMessage(30,"[src] counting down! ([time/2/10] seconds)")
+
 	WoundIntent()
 		set name="Intent to Injure"
 		set category="Roleplay"
@@ -888,6 +879,7 @@ mob/Players/verb
 			diemodifer=-100
 		var/decision=input("Seperate the dice rolls?") in list("Yes","No")
 		if(decision=="Yes")
+			var/oldnum = dienumber
 			while(dienumber>0)
 				var/die="1d[diesides]"
 				var/dieroll=roll(die)
@@ -895,15 +887,23 @@ mob/Players/verb
 				total+=dieroll
 				dienumber--
 			total+=diemodifer
-			usr.OMessage(10,"<b><font color=red>DICE:</b></font> [usr] rolled a total of [total] ([dienumber]d[diesides]+[diemodifer]), rolls were [textstring].")
-			for(var/mob/o in  usr.BeingObserved)
-				o << output("<b>(OBSERVE) <font color=red>DICE:</b></font> [usr] rolled a total of [total] ([dienumber]d[diesides]+[diemodifer]), rolls were [textstring].")
+			var/msg = "<b><font color=red>DICE:</b></font> [usr] rolled a total of [total] ([oldnum]d[diesides]+[diemodifer]), rolls were [textstring]."
+			usr.OMessage(10,msg)
+			Log(usr.ChatLog(),msg)
+			Log(usr.sanitizedChatLog(),msg)
+			if(usr.BeingObserved.len>0)
+				for(var/mob/m in usr.BeingObserved)
+					m.client.outputToChat("[OBSERVE_HEADER] [msg]", ALL_OUTPUT)
 		if(decision=="No")
 			var/dice="[dienumber]d[diesides]+[diemodifer]"
 			var/roll=roll(dice)
-			usr.OMessage(10,"<b><font color=red>DICE:</b></font> [usr] rolled [roll] ([dienumber]d[diesides]+[diemodifer]).")
-			for(var/mob/o in  usr.BeingObserved)
-				o << output("<b>(OBSERVE) <font color=red>DICE:</b></font> [usr] rolled [roll] ([dienumber]d[diesides]+[diemodifer]).")
+			var/msg = "<b><font color=red>DICE:</b></font> [usr] rolled [roll] ([dienumber]d[diesides]+[diemodifer])."
+			usr.OMessage(10,msg)
+			Log(usr.ChatLog(),msg)
+			Log(usr.sanitizedChatLog(),msg)
+			if(usr.BeingObserved.len>0)
+				for(var/mob/m in usr.BeingObserved)
+					m.client.outputToChat("[OBSERVE_HEADER] [msg]", ALL_OUTPUT)
 
 	Pose()
 		set category="Skills"

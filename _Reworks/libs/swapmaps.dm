@@ -1,6 +1,5 @@
-mob/var/in_tmp_map = null
+mob/var/in_tmp_map = FALSE
 var/tmp/swapmaps_uniqueID = 0
-
 /*
 	SwapMaps library by Lummox JR
 	developed for digitalBYOND
@@ -181,11 +180,20 @@ swapmap
 			if(z2>swapmaps_compiled_maxz ||\
 			   y2>swapmaps_compiled_maxy ||\
 			   x2>swapmaps_compiled_maxx)
+				var/list/areas=new
 				for(var/atom/A in block(locate(x1,y1,z1),locate(x2,y2,z2)))
 					for(var/obj/O in A) del(O)
+					for(var/mob/M in A)
+						if(!M.client)
+							del(M)
+						else M.loc=null
+					areas[A.loc]=null
 					del(A)
 				// delete areas that belong only to this map
-			//	if(x2>=world.maxx || y2>=world.maxy || z2>=world.maxz) CutXYZ()
+				for(var/area/a in areas)
+					if(a && !a.contents.len) del(a)
+				//if(x2>=world.maxx || y2>=world.maxy || z2>=world.maxz) CutXYZ()
+				del(areas)
 		..()
 
 	/*
@@ -214,30 +222,24 @@ swapmap
 
 		var/oldcd = S.cd
 
-		var/x, y, z
-		for(z = z1, z <= z2, ++z)
-			S.cd = "[z-z1+1]"
-
-			for(y = y1, y <= y2, ++y)
-				S.cd="[y-y1+1]"
-
-				for(x = x1, x <= x2, ++x)
-					S.cd="[x-x1+1]"
-					var/turf/T=locate(x,y,z)
-					S["type"] << T.type
-					var/list/l = T.contents
-					for(var/mob/m in l)
-						l-=m
-					S["contents"] << l
-					S.cd=".."
-				S.cd=".."
-
-			sleep()
-			S.cd=oldcd
+		var/list/turfs = block(locate(x1,y1,z1), locate(x2,y2,z2))
+		for(var/turf/T as anything in turfs)
+			S.cd = "[T.z-z1+1]/[T.y-y1+1]/[T.x-x1+1]"
+			S["type"] << T.type
+			var/list/l = T.contents.Copy()
+			for(var/mob/m in l)
+				if(!m.client)
+					continue
+				l-=m
+			for(var/atom/movable/o in l)
+				if(o && o.loc != T)
+					l-=o
+			S["contents"] << l
+			S.cd = oldcd
 
 		locked=0
 
-	Read(savefile/S,_id,turf/locorner)
+	Read(savefile/S,_id,turf/locorner, boxIt = TRUE)
 		var/x,y,z
 
 		if(locorner)
@@ -255,6 +257,24 @@ swapmap
 
 		locked=1
 		AllocateSwapMap()	// adjust x1,y1,z1 - x2,y2,z2 coords
+		if(boxIt)
+			// Adjust x1, y1, x2, y2 to make space for the border
+			x1++
+			y1++
+			x2++
+			y2++
+
+			// Add dense border turfs around the edges
+			for(z = z1; z <= z2; ++z)
+				// Top and Bottom borders
+				for(x = x1 - 1; x <= x2 + 1; ++x)
+					new /turf/swapmap_border(locate(x, y1 - 1, z))  // Top border
+					new /turf/swapmap_border(locate(x, y2 + 1, z))  // Bottom border
+
+				// Left and Right borders
+				for(y = y1; y <= y2; ++y)
+					new /turf/swapmap_border(locate(x1 - 1, y, z))  // Left border
+					new /turf/swapmap_border(locate(x2 + 1, y, z))  // Right border
 		var/oldcd=S.cd
 		for(z=z1,z<=z2,++z)
 			S.cd="[z-z1+1]"
@@ -334,7 +354,7 @@ swapmap
 					return (!Z2 || Z2-Z1+1>=z2)?list(X1,Y1,Z1):null
 				X1=1;X2=world.maxx
 				Y1=1;Y2=world.maxy
-/*
+
 	proc/CutXYZ()
 		var/mx=swapmaps_compiled_maxx
 		var/my=swapmaps_compiled_maxy
@@ -346,7 +366,7 @@ swapmap
 		world.maxx=mx
 		world.maxy=my
 		world.maxz=mz
-*/
+
 	// save and delete
 	proc/Unload()
 		Save()
@@ -423,6 +443,7 @@ swapmap
 		Supplementary build proc: Takes a list of turfs, plus an item
 		type. Actually the list doesn't have to be just turfs.
 	 */
+	
 	proc/BuildInTurfs(list/turfs,item)
 		for(var/T in turfs) new item(T)
 
@@ -513,7 +534,7 @@ proc/SwapMaps_DeleteFile(id)
 	fdel("Maps/map_[id].sav")
 	fdel("Maps/map_[id].txt")
 
-proc/SwapMaps_CreateFromTemplate(template_id)
+proc/SwapMaps_CreateFromTemplate(template_id, boxIt = TRUE)
 	var/swapmap/M=new
 	var/savefile/S
 	var/text=0
@@ -535,7 +556,7 @@ proc/SwapMaps_CreateFromTemplate(template_id)
 		properly otherwise. The //.0 path should always match the map, however.
 	 */
 	S.cd="//.0"
-	M.Read(S,M)
+	M.Read(S,M, null, boxIt)
 	M.mode=text
 	while(M.locked) sleep(1)
 	return M
@@ -575,7 +596,7 @@ proc/SwapMaps_SaveChunk(chunk_id,turf/corner1,turf/corner2)
 		return
 	var/swapmap/M=new
 	M.id=chunk_id
-	M.ischunk=1		// this is a chunk
+	M.ischunk=1	// this is a chunk
 	M.x1=min(corner1.x,corner2.x)
 	M.y1=min(corner1.y,corner2.y)
 	M.z1=min(corner1.z,corner2.z)
@@ -615,3 +636,9 @@ proc/SwapMaps_GetSize(id)
 	S["y"] >> y
 	S["z"] >> z
 	return list(x,y,z)
+
+turf
+	swapmap_border
+		density = TRUE
+		opacity = TRUE
+		vis_flags = VIS_HIDE

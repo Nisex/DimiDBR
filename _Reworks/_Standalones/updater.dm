@@ -4,520 +4,372 @@ essentially check if we are -on update x, if not, update to x, if so, do nothing
 
 // make it so on world load we make the current version datum and use it for all people
 proc/generateVersionDatum()
-	var/updateversion = text2path("update/version[glob.UPDATE_VERSION]")
+	var/update/updateversion
+	for(var/i in subtypesof(/update/))
+		var/update/check = new i
+		if(updateversion && check.version > updateversion.version)
+			updateversion = check
+		else if (!updateversion)
+			updateversion = check
 	if(updateversion)
-		glob.currentUpdate = new updateversion
+		glob.currentUpdate = updateversion
 
 globalTracker
-	var/UPDATE_VERSION = 18
+	var/UPDATE_VERSION = 19
 	var/tmp/update/currentUpdate
 
 	proc/updatePlayer(mob/p)
-		if(UPDATE_VERSION == p.updateVersion)
+		if(!p.updateVersion)
+			var/updateversion = "/update/version[UPDATE_VERSION]"
+			p.updateVersion = new updateversion
+			p.updateVersion.updateMob(p)	
+		if(UPDATE_VERSION == p.updateVersion.version)
 			return
-		if(p.updateVersion + 1 == UPDATE_VERSION)
-	        // we dont need to generate new datums to update him
-			var/updateversion = "/update/version[p.updateVersion + 1]"
+		if(p.updateVersion.version + 1 == UPDATE_VERSION)
+			var/updateversion = "/update/version[p.updateVersion.version + 1]"
 			var/update/update = new updateversion
 			update.updateMob(p)
-		else if(p.updateVersion + 1 < UPDATE_VERSION)
-			for(var/x in 1 to abs(p.updateVersion - UPDATE_VERSION))
+		else if(p.updateVersion.version + 1 < UPDATE_VERSION)
+			for(var/x in 1 to abs(p.updateVersion.version - UPDATE_VERSION))
 				// get the number of updates we are missing
-				var/updateversion = "/update/version[p.updateVersion + 1]"
+				var/updateversion = "/update/version[p.updateVersion.version + 1]"
 				var/update/update = new updateversion
 				update.updateMob(p)
-				del update // i guess loc = null doesn't work cause datums have no loc
 
 
-mob/var/updateVersion = 37
+mob/var/update/updateVersion
 
 update
 	var/version = 1
 
 	proc/updateMob(mob/p)
 		p << "You have been updated to version [version]"
-		p.updateVersion = version
+		p.updateVersion = src
 
 	version1
 
-	/* FRAMEWORK FOR UPDATES
 	version2
 		version = 2
 		updateMob(mob/p)
-			// essentially do the update needed her
-			// for example, with the next thing we will be finding fiber stacks and reducing their asc giving power
-			..()
-	*/
-
-	version2
-		version = 2
-		updateMob(mob/p)
-			if(p.isRace(DRAGON))
-				p.AngerMax = 1.5
-			..()
-
-
+			. = ..()
+			if(p.isRace(BEASTMAN))
+				switch(p.race?:Racial)
+					if("Unseen Predator")
+						p.passive_handler.passives["Heavy Strike"] = "Unseen Predator"
+					if("Trickster")
+						p.Imagination = 2
+						p.Intelligence = 1
+					if("Feather Knife")
+						p.passive_handler.passives["SwordPunching"] = 1
+					if("Feather Cowl")
+						p.passive_handler.passives["SwordPunching"] = 1
+		
 	version3
 		version = 3
 		updateMob(mob/p)
-			if(p.isRace(NAMEKIAN))
-				p.AngerMax = 1.5
-			if(p.isRace(DEMON))
-				if(length(p.demon.BuffPassives) < 1 && length(p.demon.DebuffPassives) < 1)
-					p.demon.selectPassive(p, "CORRUPTION_PASSIVES", "Buff")
-					p.demon.selectPassive(p, "CORRUPTION_DEBUFFS", "Debuff")
-				for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire/hf in src)
-					if(!hf.possible_skills["Corruption"])
-						hf.possible_skills["Corruption"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Space
-			..()
-
+			. = ..()
+			for(var/obj/Skills/Buffs/NuStyle/ms in src)
+				if(istype(ms, /obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker))
+					ms.BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/Magmic_Shield")
+				if(istype(ms, /obj/Skills/Buffs/NuStyle/SwordStyle/Sword_Savant))
+					ms.passives = list("SwordPunching" = 1, "SwordDamage" = 1, "NeedsSword" = 0, "Sword Master" = 1)
+				
+				
+			if(p.isRace(HUMAN))
+				p.RPPMult = 1.25
 	version4
 		version = 4
 		updateMob(mob/p)
-			if(p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm))
-				Log("Admin", "[ExtractInfo(p)] has old devil arm.")
-				p <<"old devil arm is removed, if you are not demon, ahelp for the new one. or have the demon use the pact system. "
-			if(p.isRace(DEMON))
-				if(!p.FindSkill(/obj/Skills/Utility/Imitate))
-					p.AddSkill(new/obj/Skills/Utility/Imitate)
-					p << "Imitate added"
-				if(p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm))
-					del p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm)
-				p << "Deleted old Devil Arm"
-				p.AddSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2)
-				p << "Added new Devil Arm (Apparently Stable)"
-				if(!p.race?:devil_arm_upgrades)
-					p.race?:devil_arm_upgrades = 1
-				p << "devil arm upgrades set to 1. if your devil arm doesn't work, a help"
-
-			if(p.isRace(GAJALAKA))
-				for(var/obj/Items/mineral/min in p)
-					Log("Admin", "[ExtractInfo(p)] has a mineral stack with [min.value] total.")
-					world.log<< "[ExtractInfo(p)] has a mineral stack with [min.value] total."
-				p.EnhancedHearing = 0
-				if(p.EconomyMult==2)
-					p.EconomyMult /= 2
-				p.Intelligence = 0.75
-			..()
+			. = ..()
+			if(p.isRace(BEASTMAN))
+				switch(p.race?:Racial)
+					if("Unseen Predator")
+						p.passive_handler.passives["Heavy Strike"] = "Unseen Predator"
+					if("Trickster")
+						p.Imagination = 2
+						p.Intelligence = 1
+					if("Feather Knife")
+						p.passive_handler.passives["SwordPunching"] = 1
+					if("Feather Cowl")
+						p.passive_handler.passives["SwordPunching"] = 1
+			for(var/obj/Skills/Buffs/NuStyle/ms in src)
+				if(istype(ms, /obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker))
+					ms.BuffTechniques = list("/obj/Skills/Buffs/SlotlessBuffs/Magmic_Shield")
+				if(istype(ms, /obj/Skills/Buffs/NuStyle/SwordStyle/Sword_Savant))
+					ms.passives = list("SwordPunching" = 1, "SwordDamage" = 1, "NeedsSword" = 0, "Sword Master" = 1)
+				
+		
+				
+			if(p.isRace(HUMAN))
+				p.RPPMult = 1.25
 	version5
 		version = 5
 		updateMob(mob/p)
-			if(p.isRace(DEMON))
-				var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire/hf = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire)
-				if(!hf)
-					for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire/hellfire in p)
-						hf = hellfire
-				hf.possible_skills["HellFire"] = new/obj/Skills/Buffs/SlotlessBuffs/Magic/HellFire/Hellstorm
-				p << "hellstorm changed"
-			..()
+			. = ..()
+			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style/d in p)
+				if(p.BuffOn(d))
+					d.Trigger(p)
+				d.passives["Disarm"] = 1.5
+			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style/d in p)
+				if(p.BuffOn(d))
+					d.Trigger(p)
+				d.passives["Disarm"] = 1
+			p.information.resetRanking()
+			p.information.title = list()
+
 	version6
 		version = 6
 		updateMob(mob/p)
-			if(length(p.generateMagicList()) >= 1)
-				p.legacyRefundmagic()
-			if(p.isRace(SAIYAN))
-				p.passive_handler.Set("Brutalize", 0.25)
-			if(p.isRace(BEASTMAN) && p.AscensionsAcquired < 1)
-				for(var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk/b in p.Buffs)
-					b.NeedsHealth = 10
-					b.passives = list("Brutalize" = 0.5, "DemonicDurability" = 0.25)
-			..()
+			. = ..()
+			for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style/turtle in p)
+				turtle.StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Shaolin_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tai_Chi_Style",\
+		"/obj/Skills/Buffs/NuStyle/MysticStyle/Fire_Weaving"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style")
+			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style/gladiator in p)
+				gladiator.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fencing_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style",\
+        "/obj/Skills/Buffs/NuStyle/SwordStyle/Ittoryu_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style")
+			for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Black_Leg_Style/black_leg in p)
+				black_leg.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Mantis_And_Crane_Style", \
+		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Magma_Walker"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Ifrit_Jambe")
+			for(var/obj/Skills/Buffs/NuStyle/MysticStyle/Plague_Bringer/pb in p)
+				pb.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style")
+			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style/is in p)
+				is.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu")
+			if(p.isRace(ANDROID))
+				p.AddSkill(new/obj/Skills/Utility/Cybernetic_Augmentation)
 	version7
 		version = 7
 		updateMob(mob/p)
-			..()
+			. = ..()
+			if(p.information.rankingNumber==0)
+				p.information.resetRanking()
+			p.information.title = list()
+			if(p.isRace(GAJALAKA))
+				switch(p.Class)
+					if("Acolyte")
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Acolyte)
+					if("Rebel")
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Rebel)
+					if("Nobility")
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Noble)
+						p.passive_handler.Set("MartialMagic", 1)
+					if("Heart")
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_Liberation)
+			var/obj/Skills/Buffs/NuStyle/water = p.FindSkill(/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending)
+			if(water)
+				water.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/MysticStyle/Earth_Moving"="/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing",\
+							"/obj/Skills/Buffs/NuStyle/MysticStyle/Wind_Summoning"="/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer", \
+							"/obj/Skills/Buffs/NuStyle/MysticStyle/Plague_Bringer"="/obj/Skills/Buffs/NuStyle/MysticStyle/Bloodmancer")
+			var/obj/Skills/Buffs/NuStyle/plague = p.FindSkill(/obj/Skills/Buffs/NuStyle/MysticStyle/Plague_Bringer)
+			if(plague)
+				plague.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/UnarmedStyle/Turtle_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style", \
+							"/obj/Skills/Buffs/NuStyle/MysticStyle/Water_Bending"="/obj/Skills/Buffs/NuStyle/MysticStyle/Bloodmancer")
 	version8
 		version = 8
 		updateMob(mob/p)
-			..()
+			. = ..()
+			if(p.isRace(GAJALAKA))
+				switch(p.Class)
+					if("Acolyte")
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Acolyte)
+					if("Rebel")
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Rebel)
+					if("Nobility")
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_The_Noble)
+						p.passive_handler.Set("MartialMagic", 1)
+					if("Heart")
+						p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Heart_of_Liberation)
+			if(p.isRace(NAMEKIAN))
+				if(p.Class == "Dragon")
+					p.AddSkill(new/obj/Skills/Utility/Send_Energy)
 	version9
 		version = 9
 		updateMob(mob/p)
-			if(p.GetRPPEvent()&&!global.RPPEventCharges["[p.ckey]"])
-				p.RPPSpendableEvent = 0
-				if(p.RPPSpentEvent > 0)
-					AdminMessage("[p.name] ([p.ckey]) spent Event RPP when they shouldn't have! Please remove their latest tech / skill buy and refund any actual RPP.")
-				p.RPPSpentEvent = 0
-			..()
+			. = ..()
+			for(var/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing/id in p)
+				id.StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard_Bringer",\
+								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hot_n_Cold")
+			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Nito_Ichi_Style/nis in p)
+				nis.StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/SwordStyle/Iaido_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Santoryu")
+			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style/ds in p)
+				ds.StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style")
+			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Fist_of_Khonshu/fok in p)
+				fok.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Dardi_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Phalanx_Style", \
+		"/obj/Skills/Buffs/NuStyle/SwordStyle/Kunst_des_Fechtens"="/obj/Skills/Buffs/NuStyle/SwordStyle/Witch_Hunter",\
+		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Divine_Arts_of_The_Heavenly_Demon",\
+		"/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wing_Chun_Style"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Phoenix_Eye_Fist")
+			for(var/obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker/mw in p)
+				mw.StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma_Style",\
+								"/obj/Skills/Buffs/NuStyle/MysticStyle/Inferno"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Hellfire")
+			for(var/obj/Skills/Buffs/NuStyle/MysticStyle/Stormbringer/sb in p)
+				sb.StyleComboUnlock = list("/obj/Skills/Buffs/NuStyle/MysticStyle/Magma_Walker"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Plasma_Style",\
+								"/obj/Skills/Buffs/NuStyle/MysticStyle/Ice_Dancing"= "/obj/Skills/Buffs/NuStyle/MysticStyle/Blizzard_Bringer")
+
 	version10
 		version = 10
 		updateMob(mob/p)
-			if(p.GetRPPEvent())
-				p.RPPSpendableEvent = 0
-				if(p.RPPSpentEvent > 0)
-					AdminMessage("[p.name] ([p.ckey]) spent Event RPP when they shouldn't have (maybe)! Please remove(delete) their latest tech / skill buy and refund any actual RPP(check what their total spent should be.")
-				p.RPPSpentEvent = 0
-			..()
+			. = ..()
+			if(p.isRace(GAJALAKA))
+				if(p.Class == "Rebel")
+					p.passive_handler.Set("SwordPunching", 1)
+			p.stat_redo()
+			var/list/statMods = list("Str", "Spd", "End", "For", "Off","Def")
+			switch(p.Saga)
+				if("Keyblade")
+					p.KeybladePath = input(p, "Keyblade magic path?") in list("Fire", "Ice", "Thunder")
+					var/list/magicks2remove = list("/obj/Skills/Projectile/Magic/Fira","/obj/Skills/AutoHit/Magic/Blizzara", \
+						"/obj/Skills/AutoHit/Magic/Thundara", "/obj/Skills/AutoHit/Magic/Stop", "/obj/Skills/AutoHit/Magic/Gravity", \
+						"/obj/Skills/AutoHit/Magic/Magnet", "/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/Projectile/Magic/Blizzard", "/obj/Skills/Projectile/Magic/Thunder")
+
+					for(var/x in magicks2remove)
+						var/obj/Skills/s = p.FindSkill(x)
+						p.contents -= s
+						p << "[s] removed."
+						del s
+					switch(p.KeybladePath)
+						if("Fire")
+							p.AddSkill(new/obj/Skills/Projectile/Magic/Fira)
+							p.AddSkill(new/obj/Skills/Projectile/Magic/Firaga)
+						if("Ice")
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzara)
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzaga)
+						if("Thunder")
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Thundaga)
+				if("Weapon Soul")
+					if(p.BoundLegend == "Green Dragon Crescent Blade")
+						p.passive_handler.Increase("Extend")
+						
+			for(var/x in statMods)
+				p.vars["[x]Ascension"] = 0
 	version11
 		version = 11
 		updateMob(mob/p)
-			if(p.isRace(HUMAN))
-				p.NewAnger(1.5)
-				p << "Anger set to 1.5"
-				p << "stats changed"
+			. = ..()
+			if(p.isRace(HALFSAIYAN))
 				p.stat_redo()
-			if(p.isRace(ELDRITCH))
-				p << "stats changed"
-				p.stat_redo()
-			if(p.isRace(DEMON))
-				p << "stats changed"
-				p.stat_redo()
-			if(p.isRace(NAMEKIAN))
-				p << "stats changed"
-				p.stat_redo()
-				p.Class = input("What clan do you hail from?", "Clan Selection")in list("Warrior", "Dragon", "Demon")
-				switch(p.Class)
-					if("Warrior")
-						p.StrMod += 0.5
-						p.EndMod += 0.25
-					if("Dragon")
-						p.ForMod += 0.5
-						p.DefMod += 0.25
-					if("Demon")
-						p.SpdMod += 0.5
-						p.OffMod += 0.25
-			if(p.isRace(DRAGON))
-				p << "stats changed"
-				p.stat_redo()
-			if(p.isRace(SAIYAN))
-				p << "stats changed"
-				p.stat_redo()
-				p.passive_handler.Set("Brutalize", 0.25)
-			if(p.isRace(MAKYO))
-				p << "stats changed"
-				p.stat_redo()
-
-			..()
+				p.race.fixAscensions()
+			if(p.isRace(GAJALAKA))
+				p.race.fixAscensions()
+			var/obj/Skills/s = p.FindSkill(/obj/Skills/Queue/Larch_Dance)
+			if(s)
+				p << "Larch Dance removed."
+				del s
+				p.RPPSpendable += TIER_2_COST
+				p.RPPSpent -= TIER_2_COST
+	
 	version12
 		version = 12
 		updateMob(mob/p)
-			if(p.isRace(DEMON))
-				var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2)
-				da.passives = list()
-				p.race?:devil_arm_upgrades = 1
-				da.totalEvolvesMain = 0
-				p << "devil arm reset"
-			..()
+			. = ..()
+			if(p.isRace(GAJALAKA))
+				p.race.fixAscensions()
 	version13
 		version = 13
 		updateMob(mob/p)
-			if(p.isRace(DEMON))
-				for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/dm in p)
-					dm = new()
-			var/obj/Skills/Buffs/NuStyle/SwordStyle/Champloo_Style/c = p.FindSkill(/obj/Skills/Buffs/NuStyle/SwordStyle/Champloo_Style)
-			if(c)
-				c.passives = list("SwordPunching" = 1, "NeedsSword" = 0, "Shearing" = 1.5)
-			if(p.isRace(HUMAN))
-				p.passive_handler.Increase("Underdog", 1)
-			..()
+			. = ..()
+			switch(p.Saga)
+				if("Keyblade")
+					p.KeybladePath = input(p, "Keyblade magic path?") in list("Fire", "Ice", "Thunder")
+					var/list/magicks2remove = list("/obj/Skills/Projectile/Magic/Fira","/obj/Skills/AutoHit/Magic/Blizzara", \
+						"/obj/Skills/AutoHit/Magic/Thundara", "/obj/Skills/AutoHit/Magic/Stop", "/obj/Skills/AutoHit/Magic/Gravity", \
+						"/obj/Skills/AutoHit/Magic/Magnet", "/obj/Skills/Projectile/Magic/Fire", "/obj/Skills/Projectile/Magic/Blizzard", "/obj/Skills/Projectile/Magic/Thunder")
+
+					for(var/x in magicks2remove)
+						var/obj/Skills/s = p.FindSkill(x)
+						p.contents -= s
+						p << "[s] removed."
+						del s
+					switch(p.KeybladePath)
+						if("Fire")
+							p.AddSkill(new/obj/Skills/Projectile/Magic/Fira)
+							p.AddSkill(new/obj/Skills/Projectile/Magic/Firaga)
+						if("Ice")
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzara)
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Blizzaga)
+						if("Thunder")
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Thundara)
+							p.AddSkill(new/obj/Skills/AutoHit/Magic/Thundaga)
 	version14
 		version = 14
 		updateMob(mob/p)
-			if(p.isRace(DRAGON))
-				p.AddSkill(new/obj/Skills/AutoHit/Dragon_Roar)
-
-			..()
+			. = ..()
+			for(var/obj/Skills/Buffs/NuStyle/style in p)
+				var/name = style.name
+				if(style == p.StyleBuff)
+					style.Trigger(p, TRUE)
+				var/styletype = style.type
+				del style
+				p.AddSkill(new styletype)
+				var/obj/Skills/Buffs/NuStyle/newstyle = p.FindSkill(styletype)
+				newstyle.name = name
 	version15
 		version = 15
-		updateMob(mob/p)
-			if(p.isRace(DEMON))
-				p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Magic/Corruption/Corrupt_Self)
-
-			..()
+		updateMob(mob/o)
+			. = ..()
+			if(o.Saga == "King of Braves")
+				var/obj/Skills/s = o.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Plasma_Hold)
+				if(s)
+					del s
+				o.findOrAddSkill(new/obj/Skills/AutoHit/Plasma_Hold)
 	version16
 		version = 16
-		updateMob(mob/p)
-			if(p.isRace(MAJIN))
-				p.NewAnger(1.5)
-			..()
+		updateMob(mob/o)
+			. = ..()
+			if(o.isRace(MAKYO))
+				o.passive_handler.Set("ShonenPower", 0)
+			if(o.isRace(HUMAN))
+				if(o.passive_handler["ShonenPower"] < 0.3)
+					o.passive_handler.Set("ShonenPower", 0.3)
 	version17
 		version = 17
-		updateMob(mob/p)
-			if(p.isRace(YOKAI) && p.AscensionsAcquired == 1)
-				p.passive_handler.Set("TechniqueMastery", 3)
-				p.passive_handler.Set("ManaGeneration", 2)
-				if(p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/grand_caster)
-					p.passive_handler.Set("ManaGeneration", 4)
-			if(p.isRace(ELF) && p.AscensionsAcquired == 1)
-				p.passive_handler.Set("SpiritFlow", 0.1)
-			..()
+		updateMob(mob/o)
+			. = ..()
+			o.SignatureStyles = list()
 	version18
 		version = 18
-		updateMob(mob/p)
-			p.refund_all_copyables()
-			if(p.isRace(HUMAN))
-				p.passive_handler.Set("Innovation", 1)
-			if(p.isRace(ELF))
-				p.passive_handler.Set("Innovation", 1)
-			if(p.isRace(BEASTMAN))
-				p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Ticking_Bomb)
-			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield/sw in p.contents)
-				sw.StyleComboUnlock = null
-			..()
-
+		updateMob(mob/o)
+			. = ..()
+			if(o.isRace(BEASTMAN))
+				o.AngerMax+=0.15
+				if(o.Class=="Undying Rage")
+					o.AngerMax+=0.4
+					o.passive_handler.Set("Wrathful Tenacity", 0.45)
+			if(o.isRace(MAKYO))
+				var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/ki = o.FindSkill(/obj/Skills/Buffs/ActiveBuffs/Ki_Control)
+				if(ki)
+					ki.AngerStorage=0
+				o.AngerMax = 1.5
+			
+			if(o.isRace(HUMAN))
+				o.passive_handler.Decrease("TechniqueMastery", 1.5)
+			if(o.isRace(HALFSAIYAN))
+				o.passive_handler.Decrease("TechniqueMastery", 2)
 	version19
 		version = 19
-		updateMob(mob/p)
-			for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style/wus in p)
-				wus.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield"="/obj/Skills/Buffs/NuStyle/UnarmedStyle/Heavenly_Demon_Fist_Style")
-			for(var/obj/Skills/Buffs/NuStyle/SwordStyle/Gladiator_Style/gla in p)
-				gla.StyleComboUnlock=list("/obj/Skills/Buffs/NuStyle/SwordStyle/Shield_Style"="/obj/Skills/Buffs/NuStyle/SwordStyle/Sword_And_Shield")
-			for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Sunlit_Sky_Style/su in p)
-				su.passives = list("SpiritHand" = 2, "SpiritFlow" = 0.5)
-			for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Inverse_Poison_Style/inv in p)
-				inv.passives = list("PureDamage" = 2, "Toxic" = 1)
-			for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Circuit_Breaker_Style/cir in p)
-				cir.passives = list("CyberStigma" = 4, "PureDamage" = 0.5, "PureReduction" = 0.5)
-			for(var/obj/Skills/Buffs/NuStyle/UnarmedStyle/Tranquil_Dove_Style/tranq in p)
-				tranq.passives = list("StableBP" = 0.5, "Hardening" = 1, "SpiritHand" = 1)
-			..()
+		updateMob(mob/o)
+			. = ..()
+			if(o.isRace(YOKAI))
+				o.passive_handler.Set("Touch of Death", 3)
+				o.AddSkill(new/obj/Skills/AutoHit/Mist_Form)
 	version20
 		version = 20
-		updateMob(mob/p)
-			if(p.isRace(DEMON))
-				p << "hey ahelp to make sure u got the correct asc"
-				p << "HellPower = +0.1, AbyssMod = +0.25 SpiritPower = 0.25"
-
-			..()
+		updateMob(mob/o)
+			. = ..()
+			if(o.isRace(BEASTMAN))
+				o.AngerMax=1.65
+				if(o.Class=="Undying Rage")
+					o.AngerMax=2.05
+			if(o.isRace(NAMEKIAN))
+				o.stat_redo()
+			o.passive_handler.Decrease("KiControlMastery",1)
 	version21
 		version = 21
-		updateMob(mob/p)
-			if(p.isRace(DEMON))
-				var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.race:findTrueForm(p)
-				if(p.BuffOn(d))
-					d.Trigger(p, 1)
-				p.passive_handler.Set("HellPower", 0)
-				p << "stats changed"
-				p.stat_redo()
-
-			..()
-	version22
-		version = 22
-		updateMob(mob/p)
-			if(p.isRace(DEMON))
-				var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.race:findTrueForm(p)
-				if(p.BuffOn(d))
-					d.Trigger(p, 1)
-				p << "stats changed"
-				p.stat_redo()
-				p.passive_handler.Set("HellPower", 0.025)
-			if(p.isRace(ELDRITCH))
-				p.passive_handler.Set("PureReduction", 0)
-
-			..()
-	version23
-		version = 23
-		updateMob(mob/p)
-			if(p.isRace(DEMON))
-				var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.race:findTrueForm(p)
-				if(p.BuffOn(d))
-					d.Trigger(p, 1)
-				p.passive_handler.Set("HellPower", 0.025)
-			..()
-
-	version24
-		version = 24
-		updateMob(mob/p)
-			if(p.Saga == "Cosmo")
-				switch(p.ClothBronze)
-					if("Unicorn")
-						if(!locate(/obj/Skills/AutoHit/Mighty_Horn, p))
-							p.AddSkill(new/obj/Skills/AutoHit/Mighty_Horn)
-							p.AddSkill(new/obj/Skills/Telekinesis)
-						if(!locate(/obj/Skills/Queue/Unicorn_Combination, p))
-							p.AddSkill(new/obj/Skills/Queue/Unicorn_Combination)
-					if("Pegasus")
-						if(!locate(/obj/Skills/Projectile/Pegasus_Comet_Fist, p))
-							p.AddSkill(new/obj/Skills/Queue/Pegasus_Rolling_Crash)
-							p.AddSkill(new/obj/Skills/Projectile/Pegasus_Comet_Fist)
-					if("Dragon")
-						if(!locate(/obj/Skills/Projectile/Beams/Saint_Seiya/Soaring_Mountain_Dragon, p))
-							p.AddSkill(new/obj/Skills/Projectile/Beams/Saint_Seiya/Soaring_Mountain_Dragon)
-					if("Cygnus")
-						if(!locate(/obj/Skills/AutoHit/Aurora_Thunder_Attack, p))
-							p.AddSkill(new/obj/Skills/AutoHit/Aurora_Thunder_Attack)
-					if("Phoenix")
-						p.totalExtraVoidRolls++
-						if(!locate(/obj/Skills/AutoHit/Phoenix_Rising_Wing, p))
-							p.AddSkill(new/obj/Skills/AutoHit/Phoenix_Rising_Wing)
-			if(p.isRace(ELDRITCH))
-				AdminMessage("[p] is ELDRITCH and their secret tier is [p.secretDatum.currentTier]")
-				if(p.AscensionsAcquired == 1 )
-					p.passive_handler.Set("PureReduction", 1)
-			..()
-	version25
-		version = 25
-		updateMob(mob/p)
-			if(p.isRace(YOKAI))
-				var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/d = p.FindSkill()
-				if(p.BuffOn(d))
-					d.Trigger(p, 1)
-				p.passive_handler.Decrease("TechniqueMastery", 2)
-			..()
-	version26
-		version = 26
-		updateMob(mob/p)
-			if(p.isRace(HUMAN))
-				p.DefMod-=0.75
-			..()
-	version27
-		version = 27
-		updateMob(mob/p)
-			if(p.isRace(MAJIN))
-				if(p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/innocence)
-					p.Class = "Innocent"
-				if(p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/super)
-					p.Class = "Super"
-				if(p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/majin/unhinged)
-					p.Class = "Unhinged"
-			if(p.isRace(DEMON))
-				var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = p.race:findTrueForm(p)
-				if(p.BuffOn(d))
-					d.Trigger(p, 1)
-				if(p.AscensionsAcquired == 1)
-					p.passive_handler.Set("HellPower", 0.25)
-				p.Attunement = "HellFire"
-			..()
-	version28
-		version = 28
-	version29
-		version = 29
-	version30
-		version = 30
-		updateMob(mob/p)
-			if(p.isRace(DRAGON))
-				p.NewAnger(1.6)
-				p << "anger is 1.6"
-				if(p.Class == "Water")
-					p.passive_handler.Set("AbsoluteZero", 3)
-					p << "AbsoluteZero to 3"
-			var/obj/Skills/Buffs/NuStyle/b = p.FindSkill(/obj/Skills/Buffs/NuStyle/FreeStyle/Spirit_Style)
-			if(b)
-				b.passives = list("Flicker" = 1, "Pursuer" = 1)
-				p << "[b] changed"
-			b = p.FindSkill(/obj/Skills/Buffs/NuStyle/FreeStyle/Yin_Yang_Style)
-			if(b)
-				b.passives = list("Flow" = 0.5, "Instinct" = 0.5, "LikeWater"= 1)
-				p << "[b] changed"
-			var/listofchanges = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Finisher/Fortunate_Fate/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Disoriented/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Broken_Bones/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Ineffective_Fate/, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/QueueBuff/Shattered/)
-			for(var/x in listofchanges)
-				if(p.FindSkill(x))
-					var/obj/Skills/Buffs/SlotlessBuffs/a = p.FindSkill(x)
-					del a
-					p << "deleted [a] it has been updated."
-			..()
-	version31
-		version = 31
-		updateMob(mob/p)
-			if(p.isRace(DEMON))
-				var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/)
-				if(da.passives["SpirtSword"])
-					da.passives["SpiritSword"] /= 4 
-					AdminMessage("[p] had over valued spiritsword on their devil arm")
-			
-			..()
-	version32
-		version = 32
-		updateMob(mob/p)
-			var/obj/Skills/Buffs/SlotlessBuffs/style = p.FindSkill(/obj/Skills/Buffs/NuStyle/UnarmedStyle/Wushu_Style/)
-			if(style)
-				if(p.BuffOn(style))
-					style.Trigger(p, 1)
-				style.passives = list("Hardening" = 1, "Deflection" = 0.5, "UnarmedDamage" = 1, "CounterMaster" = 1, "Momentum" = 0.5, "Pressure" = 1)
-			
-
-			..()
-	version33
-		version = 33
-	version34
-		version = 34
-		updateMob(mob/p)
-			if(p.isRace(HUMAN) || p.isRace(HALFSAIYAN))
-				p.RPPMult = 1
-				if(p.StyleBuff)
-					p.StyleBuff.Trigger(p, 1)
-				p.refund_all_copyables()
-				p.setMaxRPP()
-				p.RPPSpendable = p.RPPCurrent - p.RPPSpendable
-				if(p.RPPSpendable<0)
-					AdminMessage("[p] has under 0 rppspendable ([p.RPPSpendable])")
-			if(p.isRace(ELF))
-				p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Elf/God_Slicer)
-				p.AddSkill(new/obj/Skills/AutoHit/Elf/Compel)
-				p.AddSkill(new/obj/Skills/AutoHit/Elf/Silence)
-				p.AddSkill(new/obj/Skills/AutoHit/Elf/Flee)
-				p.AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Elf/Time_Stop)
-			if(p.isRace(DRAGON))
-				p.stat_redo()
-				switch(p.Class)
-					if("Metal")
-						p.passive_handler.Decrease("Juggernaut", 0.25)
-						p.passive_handler.Increase("DeathField", 1.25)
-			if(p.isRace(ELDRITCH))
-				p.passive_handler.Increase("DeathField", 1.015)
-				p.passive_handler.Increase("VoidField", 1.015)
-				p.passive_handler.Decrease("DebuffImmune", 0.25)
-
-			if(p.isRace(DEMON))
-				p.passive_handler.Increase("HellRisen", 0.25)
-
-
-			..()
-	version35
-		version = 35
-		updateMob(mob/p)
-			if(p.isRace(NAMEKIAN))
-				p.RPPMult = 1
-				if(p.StyleBuff)
-					p.StyleBuff.Trigger(p, 1)
-				p.refund_all_copyables()
-				p.setMaxRPP()
-				p.RPPSpendable = p.RPPCurrent - p.RPPSpent
-				if(p.RPPSpendable<0)
-					AdminMessage("[p] has under 0 rppspendable ([p.RPPSpendable])")
-			..()
-	version36
-		version = 36
-		updateMob(mob/p)
-			if(p.race.ascensions[2].applied && p.AscensionsAcquired < 2)
-				p.race.ascensions[2].applied = FALSE
-				
-			..()
-
-	version37
-		version = 37
-		updateMob(mob/p)
-			if(p.isRace(MAKYO))
-				p << "stats changed"
-				p << "ascensions reverted"
-				p.race.ascensions[2].revertAscension(p)
-				p.race.ascensions[1].revertAscension(p)
-				p.StrAscension = 0
-				p.EndAscension = 0
-				p.ForAscension = 0
-				p.OffAscension = 0
-				p.stat_redo()
-				if(p.AscensionsAcquired == 2)
-					p.passive_handler.Set("Juggernaut", 1)
-					p.passive_handler.Set("HeavyHitter", 1)
-					p << "Make sure ur Jugg / Heavy Hitter is set to 1/1"
-					p.passive_handler.Set("ShonenPower",0.6)
-					p.passive_handler.Set("Siphon",2.5)
-			..()
-	version38
-		version = 38
-		updateMob(mob/p)
-			if(p.isRace(YOKAI))
-				p << "stats changed"
-				p.stat_redo()
-				if(p.race.ascensions[1].choiceSelected == /ascension/sub_ascension/yokai/two_become_one)
-					p.passive_handler.Set("MovementMastery", 1)
-					for(var/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form/sf in p.contents)
-						sf.passives["TechniqueMastery"] = 0
-						sf.passives["ManaStats"] = 0
-			..()
-// Thorgigamax Gemenilove 
-
+		updateMob(mob/o)
+			. = ..()
+			if(o.isRace(BEASTMAN))
+				o.AngerMax=1.65
+				if(o.Class=="Undying Rage")
+					o.AngerMax=2.05
 /globalTracker/var/COOL_GAJA_PLAYERS = list("Thorgigamax", "Gemenilove" )
 /globalTracker/var/GAJA_PER_ASC_CONVERSION = 0.25
 /globalTracker/var/GAJA_MAX_EXCHANGE = 1

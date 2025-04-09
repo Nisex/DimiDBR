@@ -14,7 +14,7 @@
 	OffMessage = "returns the land to its former form..."
 	adjust(mob/p)
 		var/asc = p.AscensionsAcquired
-		passives = list("Ocean Bringer" = 1 + (round(asc/2)), "AbsoluteZero" = 5 + (asc * 2), "Erosion" = 0.25 + (asc * 0.25), "FluidForm" = 1 + (0.25 * asc), "Flow" = 1 + asc, "VoidField" = 3 + (asc * 2), \
+		passives = list("Ocean Bringer" = 1 + (round(asc/2)), "AbsoluteZero" = 5 + (asc * 2), "Erosion" = min(0.6, 0.25 + (asc * 0.1)), "FluidForm" = 1 + (0.25 * asc), "Flow" = 1 + asc, "VoidField" = 3 + (asc * 2), \
 		"Godspeed" = asc)
 		ElementalDefense = "Void"
 	Trigger(mob/User, Override = FALSE)
@@ -59,3 +59,11 @@
 		t.timeToDeath = 150 + (100 * p.AscensionsAcquired)
 		t.ownerOfEffect=p
 		ticking_turfs+=t
+
+
+/turf/proc/applyLeftOver(mob/p, leftover, time2death)
+	effects+=leftover
+	Deluged=1
+	timeToDeath = time2death
+	ownerOfEffect=p
+	ticking_turfs+=src

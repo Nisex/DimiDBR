@@ -5,66 +5,17 @@ mob/var/Decimals=0
 mob/var/warperTimeLock = 0
 
 proc
-	TeleporterBump(var/A,var/Q)
-		if(istype(A,/obj/Special/Teleporter2)||!(istype(A, /obj/Special/Teleporter2/SpecialTele)))
-			var/obj/Special/Teleporter2/_tp=A
-			if(istype(Q,/obj/Items/Tech/SpaceTravel))
-				Q:loc=locate(_tp.gotoX,_tp.gotoY,_tp.gotoZ)
-		if(istype(A,/obj/Special/Teleporter2/SpecialTele))
-			var/obj/Special/Teleporter2/tele=A
-			var/newz
-			if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoAbove)
-				newz=tele.z+1
-			if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoBelow)
-				newz=tele.z-1
-			if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoDeep)
-				newz=tele.z-2
-			if(tele.type==/obj/Special/Teleporter2/SpecialTele/GoHigh)
-				newz=tele.z+2
-			if(istype(Q,/obj/Items/Tech/SpaceTravel))
-				Q:loc=locate(tele.x,tele.y,newz)
-
-
 	PlanetEnterBump(var/A,var/Q)
-		if(istype(A,/obj/Planets))
-			if(istype(A,/obj/Planets/Sanctuary))
-				Q:loc=locate(rand(1,500),rand(1,500),18)
-			else
-				var/obj/Planets/LOL=A
-				var/Wtf=LOL.Zz
-				if(Wtf==3)
-					Q:loc=locate(rand(140,160),rand(480,490),Wtf)
-				else if(Wtf==4)
-					Q:loc=locate(rand(152,172),65,Wtf)
-				else if(Wtf==5)
-					Q:loc=locate(rand(140,160),122,Wtf)
-				else
-					Q:loc=locate(rand(1,240),rand(1,240),Wtf)
-
-
 		if(istype(A,/obj/Items/Tech/Door))
 			var/obj/Items/Tech/Door/B=A
 			var/mob/M=Q
 			if(B.Password)
 				if(B.GodDoor)
-					if(M.Spawn==B.Password || M.AntiGodDoor)
+					if(M.Spawn==B.Password)
 						B.Open()
 				else
 					if(B.Password&&!B.AutoOpen)
 						var/happened
-						for(var/obj/Items/Tech/SpaceTravel/L)
-							if(L==Q)
-								happened=1
-								if(L.DoorPass==B.Password)
-									B.Open()
-								else if(L.DoorPass2==B.Password)
-									B.Open()
-								else if(L.DoorPass3==B.Password)
-									B.Open()
-								else
-									var/Guess=input(L.who,"Manually transmit password to door.") as text
-									if(Guess==B.Password)
-										B.Open()
 						if(!happened)
 							var/eee
 							for(var/obj/Items/Tech/Door_Pass/L in Q)
@@ -102,15 +53,15 @@ proc
 						B.Open()
 			else
 				B.Open()
-globalTracker/var/SPEED_DELAY = 4
-globalTracker/var/GOD_SPEED_MULT = 0.25
-globalTracker/var/TOTAL_SPEED_BONUS = 1
-globalTracker/var/SPEED_DELAY_LOWEST = 2
+globalTracker/var/SPEED_DELAY = 3
+globalTracker/var/GOD_SPEED_MULT = 0.2
+globalTracker/var/TOTAL_SPEED_BONUS = 0.4
+globalTracker/var/SPEED_DELAY_LOWEST = 1.75
 mob/proc/MovementSpeed()
 	var/Spd=max(0.1,round(sqrt(src.GetSpd(glob.TOTAL_SPEED_BONUS)),0.1))
 	var/SpdMult = 0
 	if(HasGodspeed())
-		SpdMult = max(0.1,glob.GOD_SPEED_MULT*sqrt(src.HasGodspeed()))
+		SpdMult = max(0.1,glob.GOD_SPEED_MULT*sqrt(max(1,src.HasGodspeed())))
 	var/Delay=glob.SPEED_DELAY/(Spd*(1+SpdMult))
 	if(src.Flying)
 		Delay=0.25
@@ -126,7 +77,7 @@ mob/proc/MovementSpeed()
 		Delay*=3
 	if(src.CanBeSlowed())
 		var/CombatSlow=10/max(src.Health,1)
-		if(CombatSlow>1)
+		if(CombatSlow>1 && !passive_handler["Undying Rage"])
 			var/Adren = passive_handler.Get("Adrenaline")
 			if(Adren)
 				if(CombatSlow<2)
@@ -148,8 +99,6 @@ mob/proc/MovementSpeed()
 			Delay/=2
 		else
 			Delay*=4
-	if(src.Crippled)
-		Delay*=2
 	if(src.Attracted)
 		Delay*=4
 	if(src.SenseRobbed>=1&&(src.SenseUnlocked<=src.SenseRobbed&&src.SenseUnlocked>5))
@@ -164,12 +113,19 @@ mob/Move()
 		for(var/obj/Turfs/Edges/A in loc)
 			if((A.dir in list(dir,turn(dir,45),turn(dir,-45))))
 				return
+		for(var/obj/Turfs/CustomObj1/customObject in loc)
+			if(customObject.edge && (customObject.dir in list(dir,turn(dir,45),turn(dir,-45))))
+				return
 	..()
 
 	if(!src.Incorporeal&&!src.passive_handler.Get("Skimming")&&!src.is_dashing&&!isai(src)&&!Knockback)
 		for(var/obj/Turfs/Edges/A in loc)
 			if(!(A.dir in list(dir,turn(dir,90),turn(dir,-90),turn(dir,45),turn(dir,-45))))
 				loc=Former_Location
+				break
+		for(var/obj/Turfs/CustomObj1/customObject in loc)
+			if(customObject.edge && (customObject.dir in list(dir,turn(dir,90),turn(dir,-90),turn(dir,45),turn(dir,-45))))
+				loc = Former_Location
 				break
 
 	if(src.Grab)

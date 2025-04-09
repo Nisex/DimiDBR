@@ -1,27 +1,3 @@
-var/EconomyMult=0.8//This is a multiplier to everyone's money gain.
-var/EconomyIncome=30//average gain if you invest 100 rpp
-var/EconomyCost=40//average...uh...cost.
-var/EconomyMana=100//New default for mana is 100
-
-mob/Admin3
-	verb/EconomyIncomeSet(var/num as num)
-		set category="Admin"
-		EconomyIncome=num
-		Log("Admin", "[src.key] has set the base economy wage to [Commas(EconomyIncome)].")
-	verb/EconomyCostSet(var/num as num)
-		set category="Admin"
-		EconomyCost=num
-		Log("Admin", "[src.key] has set the base price for technology to [Commas(EconomyCost)].")
-	verb/EconomyManaSet(var/num as num)
-		set category="Admin"
-		EconomyMana=num
-		Log("Admin", "[src.key] has set the base price for enchantment to [Commas(EconomyMana)].")
-	verb/EconomyMultSet(var/num as num)
-		set category="Admin"
-		global.EconomyMult=num
-		Log("Admin", "[src.key] has set the economy mult to x[global.EconomyMult].")
-
-
 obj
 	Savable=1
 	var/Unobtainable=0
@@ -55,6 +31,18 @@ obj/Money
 				OMsg(usr, "[usr] steals [Commas(round(Amount))] [glob.progress.MoneyName] from [src.loc]!")
 				usr.GiveMoney(Amount)
 
+	proc/checkDuplicate(mob/p)
+		var/counter = 0
+		var/list/moneyList = list()
+		if(locate(/obj/Money, p))
+			for(var/obj/Money/money in p)
+				counter ++
+				moneyList.Add(money)
+			while(counter > 1)
+				var/obj/choice = input(p, "You have duplicate's of Money, please select which one to delete", "Money") in moneyList
+				moneyList.Remove(choice)
+				counter --
+				del choice
 obj/Items
 	Pickable=1
 	Stealable=1
@@ -94,7 +82,7 @@ obj/Items
 	var/BoundEquip//defines true owner
 	var/LegendaryItem//Does this have verbs associated with it / a Tier S?
 	var/SpiritPower//gives spirit power
-	var/LegendaryPower//gives legendary power
+	var/Mythical//gives legendary power
 	var/HellPower //gives hell power
 	var/ShonenPower //makes you into a shonen protagonist
 	var/TrueLegend //flagged so that a bunch of legendaries don't spawn when you boot up the world...
@@ -137,6 +125,25 @@ obj/Items
 	var/SwordPunching
 	var/list/passives = list()
 	var/list/current_passives
+	
+	proc/onBroken()
+
+
+	proc/setStatLine()
+		switch(Class)
+			if("Light")
+				DamageEffectiveness=1.025
+				AccuracyEffectiveness=0.9
+				SpeedEffectiveness=1.25
+			if("Medium")
+				DamageEffectiveness=1.05
+				AccuracyEffectiveness=0.875
+				SpeedEffectiveness=1
+			if("Heavy")
+				DamageEffectiveness=1.1
+				AccuracyEffectiveness=0.8
+				SpeedEffectiveness=0.8
+
 	proc/startBreaking(dmg, val, mob/owner, mob/attacker, type)
 		if(val > glob.MAX_BREAK_MULT)
 			val = glob.MAX_BREAK_MULT
@@ -233,14 +240,6 @@ obj/Items
 					del src
 		else
 			loc=get_step(usr,usr.dir)
-			if(istype(src, /obj/Items/Enchantment/Scrying_Ward))
-				var/obj/Items/Enchantment/Scrying_Ward/sw = src
-				for(var/mob/m in view(sw.Range, sw))
-					if(m.BeingObserved)
-						for(var/mob/p in m.BeingObserved)
-							if(p.Observing >= 2 || p.HasSpiritPower()) continue
-							Observify(p,p)
-							p << "Your view of [m] is suddenly broken!"
 
 	verb/DropItem()
 		set name="Drop Item"
@@ -259,8 +258,6 @@ obj/Items
 	Click()
 		if(src in Technology_List)
 			var/obj/ItemMade
-			var/heh
-			var/list/already=new
 			if(usr.KO)
 				usr << "You cannot create items while KO'd."
 				return
@@ -278,36 +275,6 @@ obj/Items
 				usr << "You don't have enough money to buy [src]."
 				return
 			if(1)
-				if(istype(src,/obj/Items/Tech/SpaceTravel/SpacePod))
-					var/Count=1
-					for(var/obj/Items/Tech/SpaceTravel/SpacePod/SS in world)
-						if(SS in Technology_List)
-							continue
-						world << "a pod was located"
-						world << "checked for 'Pod[Count]'"
-						if(SS.Password=="Pod[Count]")
-							world << "pod value [Count] confirmed"
-							Count++
-						else
-							world << "pod value [Count] never found; assigning [Count]"
-							break
-					if(Count>10)
-						usr << "There are too many space pods made already."
-						return
-					heh=Count
-				if(!heh)
-					if(istype(src,/obj/Items/Tech/SpaceTravel/Ship))
-						for(var/obj/Items/Tech/SpaceTravel/Ship/W in world)
-							already.Add(W.Password)
-						for(var/i=1, i<=10, i++)
-							if(already.Find(i))
-								continue
-							else
-								heh=i
-								break
-						if(!heh)
-							usr<<"There are too many of them!"
-							return
 				if(istype(src,/obj/Items/Tech/Power_Pack))
 					var/MultiMake=input("How many packs would you like to make?")as num|null
 					if(MultiMake==null||MultiMake<=0)
@@ -342,15 +309,9 @@ obj/Items
 							ItemMade.loc=usr
 						else
 							ItemMade.loc=usr.loc
-					ItemMade:CreatorKey=usr.ckey
-					ItemMade:CreatorSignature=usr.EnergySignature
+						ItemMade:CreatorKey=usr.ckey
+						ItemMade:CreatorSignature=usr.EnergySignature
 
-
-
-					if(istype(src,/obj/Items/Tech/SpaceTravel/SpacePod))
-						ItemMade.Password="Pod[heh]"
-						world << "assigned [ItemMade.Password] to new pod"
-						ItemMade.loc=usr.loc
 					usr << "You made \an [ItemMade]!"
 
 				if(istype(src,/obj/Items/Tech/Scouter))
@@ -382,13 +343,13 @@ obj/Items
 
 
 			if(istype(src, /obj/Items/Enchantment/PocketDimensionGenerator))
-				if(!usr.HasFragments(src.Cost*global.EconomyCost))
+				if(!usr.HasFragments(src.Cost*glob.progress.EconomyCost))
 					usr << "You don't have enough fragments to buy [src]."
 					return
 				else
-					usr.TakeFragments(src.Cost*global.EconomyCost)
-			if(usr.HasManaCapacity(src.Cost*(global.EconomyMana/100)))
-				usr.TakeManaCapacity(src.Cost*(global.EconomyMana/100))
+					usr.TakeFragments(src.Cost*glob.progress.EconomyCost)
+			if(usr.HasManaCapacity(src.Cost*(glob.progress.EconomyMana/100)))
+				usr.TakeManaCapacity(src.Cost*(glob.progress.EconomyMana/100))
 				ItemMade=new src.type
 				if(istype(src, /obj/Items/Enchantment/Tome))
 					ItemMade:init(1, usr)
@@ -698,7 +659,7 @@ obj/Items/WeightedClothing//we are now a DBZ rip ... or is it pokemon?
 			if(src.Plated)
 				usr << "[src] already has plating applied to it!"
 				return
-			var/PCost=(global.EconomyCost*0.5)
+			var/PCost=(glob.progress.EconomyCost*0.5)
 			var/Choice=alert(usr, "Do you want to apply refractive and ceramic plating to your weights?  This will apply the effects of both types of plating as well as make the weights much heavier!  It costs [Commas(PCost)] to apply.  Do you want to do this?", "Apply Plating", "No", "Yes")
 			if(Choice=="No")
 				return
@@ -857,6 +818,7 @@ obj/Items/Sword
 	var/iconAltX=0
 	var/iconAltY=0
 	var/ClassAlt=null
+	var/noHistory = TRUE
 	icon_state="Inventory"
 	TechType="Forge"
 	UpdatesDescription=1
@@ -892,6 +854,7 @@ obj/Items/Sword
 				Saga = "Weapon Soul"
 
 	Legendary
+		Ascended = 5
 		LegendaryItem = 1
 		TechType=null
 		Unobtainable = 1
@@ -920,10 +883,13 @@ obj/Items/Sword
 		Cost=0.3
 		Class="Light"
 		SubType="Weapons"
+		unsheatheIcon = 'KATANA SILVER.dmi'
+		unsheatheOffsetX = -16
+		unsheatheOffsetY = -16
 		Legendary
 			LegendaryItem=1
 			Unobtainable=1
-			Ascended=1
+			Ascended=5
 			ShatterCounter=700
 			ShatterMax=700
 			Yukianesa
@@ -935,6 +901,7 @@ obj/Items/Sword
 				CalmAnger=1
 				MagicSword=1
 				Element="Water"
+				unsheatheIcon = 'Yukianesa.dmi'
 				passives = list("CalmAnger" = 1, "MagicSword" = 1, "ManaGeneration" = 3, "AngerThreshold" = 1.5)
 				ManaGeneration=3
 				Techniques=list("/obj/Skills/Buffs/SlotlessBuffs/Grimoire/OverDrive/Frost_End", "/obj/Skills/AutoHit/FrostBite", "/obj/Skills/Projectile/Sword/TougaHyoujin", "/obj/Skills/Queue/KokujinYukikaze")
@@ -952,10 +919,13 @@ obj/Items/Sword
 		Cost=0.4
 		Class="Medium"
 		SubType="Weapons"
+		unsheatheIcon = 'Kagata.dmi'
+		unsheatheOffsetX = -16
+		unsheatheOffsetY = -16
 		Legendary
 			LegendaryItem=1
 			Unobtainable=1
-			Ascended=1
+			Ascended=5
 			ShatterCounter=800
 			ShatterMax=800
 
@@ -1002,7 +972,7 @@ obj/Items/Sword
 	Heavy
 		name="Greatsword"
 		Unobtainable=0
-		icon='HeavySword.dmi'
+		icon='Sheath Taco In Sword.dmi'
 		DamageEffectiveness=1.1
 		AccuracyEffectiveness=0.8
 		SpeedEffectiveness=0.8
@@ -1012,10 +982,16 @@ obj/Items/Sword
 		Cost=0.5
 		Class="Heavy"
 		SubType="Weapons"
+		unsheatheIcon = 'Taco Blade.dmi'
+		unsheatheOffsetX = -32
+		unsheatheOffsetY = -32
+		sheatheIcon = 'Sheath Taco Empty.dmi'
+		org_icon = 'Sheath Taco In Sword.dmi'
+		removeSheathedOnUnSheathe = FALSE
 		Legendary
 			LegendaryItem=1
 			Unobtainable=1
-			Ascended=1
+			Ascended=5
 			ShatterCounter=1000
 			ShatterMax=1000
 
@@ -1184,16 +1160,24 @@ obj/Items/Symbiotic
 
 	Kamui
 		Unwieldy=1
+		var/wornInform = FALSE
 		KamuiSenketsu
-			// icon='senketsu.dmi'
-			icon='Kamui_Uniform.dmi'
+			icon='senketsu.dmi'
 			name="Senketsu"
-			Techniques=list("/obj/Skills/Buffs/ActiveBuffs/Kamui/KamuiSenketsu")
+			var/wornByJunketsu = FALSE
+			Techniques=list("/obj/Skills/Buffs/ActiveBuffs/Kamui/Kamui_Senketsu")
+
 		KamuiJunketsu
-			// icon='junketsu.dmi'
-			icon='JunKamui_Uniform.dmi'
+			icon='junketsu.dmi'
 			name="Junketsu"
-			Techniques=list("/obj/Skills/Buffs/ActiveBuffs/Kamui/KamuiJunketsu")
+			var/wornBySenketsu = FALSE
+			Techniques=list("/obj/Skills/Buffs/ActiveBuffs/Kamui/Kamui_Junketsu")
+
+		Shinra_Koketsu
+			icon = 'shinrakoketsu.dmi'
+			pixel_x = -48
+			pixel_y = -48
+			Techniques = list("/obj/Skills/Buffs/ActiveBuffs/Kamui/Shinra_Koketsu")
 
 /mob/proc/UsingLightSaber()
 	var/list/lightSaberBuffs = list("Great Lightsaber", "Lightsaber", "Crossguard Lightsaber", \
@@ -1267,7 +1251,11 @@ obj/Items/proc/AlignEquip(mob/A, dontUnEquip = FALSE)
 			if(istype(src, /obj/Items/Sword))
 				if(istype(src, /obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin))
 					var/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin/s = src
-					s.drawDainsleif(A)
+					if(!A.dainsleifDrawn)
+						var/confirm = input(A, "Are you sure you want to draw Dainsleif?") in list("Yes", "No")
+						if(confirm == "No") return
+						s.drawDainsleif(A)
+					spawn(-1) s.dainsleifDrain(A)
 				if(A.NeedsSecondSword() && A.EquippedSword() && !A.EquippedSecondSword())
 					var/found = 0
 					for(var/obj/Items/Sword/s in A)
@@ -1310,6 +1298,23 @@ obj/Items/proc/AlignEquip(mob/A, dontUnEquip = FALSE)
 			else
 				if(istype(src, /obj/Items/Armor))
 					A.equippedArmor = src
+
+				// TODO: replace this whole damn proc with 'onEquip()' calls for items. holy shit just clean up the whole equip code
+				if(istype(src, /obj/Items/Symbiotic/Kamui/KamuiSenketsu))
+					var/obj/Items/Symbiotic/Kamui/KamuiSenketsu/KS = src
+					if(A.Saga=="Kamui" && A.KamuiType == "Junketsu")
+						KS.wornByJunketsu = TRUE
+				if(istype(src, /obj/Items/Symbiotic/Kamui/KamuiJunketsu))
+					var/obj/Items/Symbiotic/Kamui/KamuiJunketsu/KJ = src
+					if(A.Saga=="Kamui" && A.KamuiType == "Senketsu" && A.SagaLevel >= 4 && !KJ.wornBySenketsu)
+						KJ.wornBySenketsu = TRUE
+						A << "A bit of your blood seems to infuse into Junketsu..."
+						src.Techniques += list("/obj/Skills/Buffs/SpecialBuffs/Kamui_Senpu", "/obj/Skills/Buffs/SpecialBuffs/Kamui_Senpu_Zanken")
+					if(A.Saga == "Kamui" && A.KamuiType == "Junketsu" && KJ.wornBySenketsu && !KJ.wornInform)
+						A << "The remanents of the Senketsu wearer's blood have awoken something new in your Kamui!"
+						A << "Kamui Senpu & Kamui Senpu Zanken beckon to your imperial will!"
+						KJ.wornInform = TRUE
+
 				suffix="*Equipped*"
 		else if(istype(src,/obj/Items/Gear/Mobile_Suit))
 			src.suffix="*Equipped*"
@@ -1405,6 +1410,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 			var/obj/Items/W=src
 			W.AlignEquip(User)
 		if(istype(src,/obj/Items/Enchantment/Tome))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Magic"))
+				return
 			var/obj/Items/Enchantment/Tome/T=User.EquippedTome()
 			if(suffix=="*Equipped*")
 				if(length(T.Spells)>0)
@@ -1450,6 +1457,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 			src.AlignEquip(User)
 
 		if(istype(src,/obj/Items/Enchantment/Magic_Crest))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Magic"))
+				return
 			var/obj/Items/Enchantment/Magic_Crest/MC=User.EquippedCrest()
 			if(MC)
 				if(MC!=src)
@@ -1476,6 +1485,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 						User.contents-=s
 
 		if(istype(src,/obj/Items/Enchantment/Flying_Device))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Magic"))
+				return
 			var/obj/Items/Enchantment/Flying_Device/FD=User.EquippedFlyingDevice()
 			if(FD)
 				if(FD!=src)
@@ -1508,6 +1519,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 					s.Trigger(User,1)
 					del s
 		if(istype(src,/obj/Items/Enchantment/Surfing_Device))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Magic"))
+				return
 			var/obj/Items/Enchantment/Surfing_Device/FD=User.EquippedSurfingDevice()
 			if(FD)
 				if(FD!=src)
@@ -1541,6 +1554,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 					s.Trigger(User,1)
 					del s
 		if(istype(src,/obj/Items/Enchantment/Staff))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Staff"))
+				return
 			var/obj/Items/Enchantment/Staff/staf=User.EquippedStaff()
 			var/obj/Items/Sword/sord=User.EquippedSword()
 			if(staf)
@@ -1616,9 +1631,11 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 			W.AlignEquip(User)
 
 		if(istype(src,/obj/Items/Sword))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Sword"))
+				return
 			var/obj/Items/Enchantment/Staff/staf=User.EquippedStaff()
 			var/obj/Items/Sword/sord=User.EquippedSword()
-			if(src.Broken)
+			if(src.Broken && !User.passive_handler["Sword Master"])
 				User << "[src] is broken; it can't be wielded right now."
 				return
 			if(sord)
@@ -1684,6 +1701,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 			W.AlignEquip(User)
 
 		if(istype(src,/obj/Items/Armor))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Armor"))
+				return
 			var/obj/Items/Armor/A=User.EquippedArmor()
 			if(src:Broken)
 				User << "[src] is broken; it can't be worn right now."
@@ -1785,6 +1804,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 
 
 		if(istype(src,/obj/Items/WeightedClothing))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			var/obj/Items/WeightedClothing/W=User.EquippedWeights()
 			if(W)
 				if(W!=src)
@@ -1798,7 +1819,6 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 						var/Choice=alert(User, "Are you ready to unleash the power gained from your weight training!? With your body used to the weights, they'll be abandoned.", "Weight Boost!", "No", "Yes")
 						if(Choice=="Yes")
 							W.AlignEquip(User)
-							User.WeightRestricted=0
 							if(W.Plated)
 								var/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Unrestrained/U=new
 								if(User.Saga=="Eight Gates")
@@ -1830,7 +1850,6 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 							W.AlignEquip(User)
 							User.equippedWeights = null
 							W.Unwieldy=1
-							User.WeightRestricted=0
 			else
 				if(User.CyberCancel)
 					User << "Your converted body does not respond to training much."
@@ -1842,9 +1861,10 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 					User.equippedWeights = Dis
 					Dis.InternalTimer=world.realtime+Day(2)
 					Dis.Unwieldy=0
-					User.WeightRestricted=1
 
 		if(istype(src, /obj/Items/Plating))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			var/obj/Items/Plating/P=User.EquippedPlating()
 			var/obj/Items/WeightedClothing/W=User.EquippedWeights()
 			if(W)
@@ -1860,6 +1880,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 
 
 		if(istype(src,/obj/Items/BlastShielding))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			var/obj/Items/BlastShielding/B=User.EquippedShielding()
 			if(B)
 				if(B!=src)
@@ -1870,6 +1892,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 
 
 		if(istype(src,/obj/Items/Tech/Scouter))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			for(var/obj/Items/Tech/Scouter/S in User) if(S.suffix&&S!=src)
 				User<<"You already have a Scouter equipped"
 				return
@@ -1877,6 +1901,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 
 
 		if(istype(src,/obj/Items/Tech/SpaceMask))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			for(var/obj/Items/Tech/SpaceMask/S in User)
 				if(S.suffix&&S!=src)
 					User<<"You already have a Space Mask equipped"
@@ -1888,6 +1914,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 
 
 		if(istype(src,/obj/Items/Gear/Mobile_Suit))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			if(!src.suffix)
 				var/GearCount=0
 				if(get_dist(User, src) > 1)
@@ -1965,6 +1993,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 				W.loc=User.loc
 
 		if(istype(src,/obj/Items/Gear)&&!istype(src,/obj/Items/Gear/Prosthetic_Limb)&&!istype(src,/obj/Items/Gear/Mobile_Suit))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			if(User.is_arcane_beast)
 				User << "A magical force surrounding your body repels the gear."
 				return
@@ -2028,6 +2058,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 								del o
 
 		if(istype(src,/obj/Items/Gear/Prosthetic_Limb))
+			if(User.Secret=="Heavenly Restriction" && User.secretDatum?:hasRestriction("Science"))
+				return
 			if(User.is_arcane_beast)
 				User << "A magical force surrounding your body repels the prosthetic."
 				return
@@ -2100,6 +2132,8 @@ obj/Items/proc/ObjectUse(var/mob/Players/User=usr)
 			if(suffix=="*Equipped*")
 				current_passives = passives
 				User.passive_handler.increaseList(passives)
+				if("RenameMana" in passives)
+					User.ManaAmount = 0
 			else if(suffix == null)
 				User.passive_handler.decreaseList(current_passives)
 

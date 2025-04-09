@@ -1,4 +1,4 @@
-#define AI_MOVE_SPEED 1 + ( 0.5 * sqrt(Godspeed))
+#define AI_MOVE_SPEED 1 + ( 0.5 * sqrt(max(1,passive_handler.Get("Godspeed"))))
 #define AI_SPEED_TOTAL SpdMod + SpdAscension + SpdChaos * SpdMultTotal
 
 /mob/Player/AI/var/tmp/last_activity = 0
@@ -154,10 +154,6 @@
 			//maybe ranged proc here
 			Attack("ranged")
 			last_activity = world.time
-
-
-#define DIRS list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
-
 
 /proc/skimOppdir(step)
 	switch(step)

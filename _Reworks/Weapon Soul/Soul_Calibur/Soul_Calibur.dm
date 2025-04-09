@@ -11,9 +11,16 @@ obj/Skills/Buffs/SlotlessBuffs/Defrost
 	Cooldown = 160
 	ActiveMessage = "has crystals grow up their sword arm as frost hovers in the air...!"
 	OffMessage = "is released from the whims of Soul Calibur..."
+	adjust(mob/p)
+		TimerLimit = 60 + (p.SagaLevel * 5)
+		if(p.SpecialBuff&&p.SpecialBuff.name == "Heavenly Regalia: Frozen Crystal")
+			passives = list("Unstoppable" = 1, "LifeGeneration" = 5, "LifeSteal" = 20, "Chilling" = 4)
+		else
+			passives = list("Unstoppable" = 1, "LifeGeneration" = 3, "LifeSteal" = 10, "Chilling" = 2)
 
 	verb/Defrost()
 		set category = "Skills"
+		adjust(usr)
 		Trigger(usr)
 
 obj/Skills/AutoHit/Crystal_Luminescene
@@ -36,8 +43,12 @@ obj/Skills/AutoHit/Crystal_Luminescene
 	ActiveMessage="raises Soul Calibur into the air to unleash a blinding glint of light from the crystals!"
 	Cooldown=150
 	EnergyCost=5
+	adjust(mob/p)
+		DamageMult = 2 + p.SagaLevel
+		Flash = 35 + (p.SagaLevel*5)
 	verb/Crystal_Luminescene()
 		set category="Skills"
+		adjust(usr)
 		usr.Activate(src)
 
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Soul_Calibur

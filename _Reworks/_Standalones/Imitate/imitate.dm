@@ -7,6 +7,11 @@
         var/category = input(usr, "What category?") in scents
         usr.custom_scent = input(usr, "What scent?") in scents[category]
         usr << "Scent changed to [usr.custom_scent]"
+    
+    verb/Activate_Void()
+        set category = "Roleplay"
+        usr.passive_handler.Set("Void", !usr.passive_handler.passives["Void"])
+        usr << "Void is [usr.passive_handler["Void"] ? "on" : "off"]."
 
 
     verb/Imitate()

@@ -1,4 +1,3 @@
-
 proc/copyatom(atom/a)
 	if(!a) return
 	var/atom/b = new a.type
@@ -7,16 +6,22 @@ proc/copyatom(atom/a)
 	for(var/v in a.vars)
 		if(issaved(a.vars[v]))
 			if(islist(a.vars[v]))
-				for(var/val in a.vars[v])
-					var/x
-					if(istype(val, /atom))
-						x = copyatom(val)
+				var/list/new_list = new()
+				for(var/key in a.vars[v])
+					var/value = a.vars[v][key]
+					var/copy_value
+					if(istype(value, /atom))
+						copy_value = copyatom(value)
+					else if(islist(value))
+						copy_value = value:Copy()
 					else
-						x = islist(val) ? val:Copy() : val
-					b.vars[v] = x
+						copy_value = value
+					new_list[key] = copy_value
+				b.vars[v] = new_list
 			else
 				b.vars[v] = a.vars[v]
 	return b
+
 
 
 /obj/Items

@@ -51,8 +51,8 @@ majinAbsorb/proc/addRacialPassive(passiveName)
         return
     racialPassives += passiveName
 
-majinAbsorb/proc/adjustPassive(passiveName, race)
-    if(race == "Shinjin")
+majinAbsorb/proc/adjustPassive(passiveName, race/race)
+    if(race.name == "Shinjin")
         return SHINJINBOOST
     if(passiveName in BOOSTPASSIVES)
         return NORMALBOOST
@@ -101,11 +101,11 @@ majinAbsorb/proc/adjustPassive(passiveName, race)
                             . += "StealsStats"
                     if("Consistency")
                         . += "Steady"
-                        . += "DebuffImmune"
+                        . += "DebuffResistance"
                         . += "StableBP"
                     if("Both")
                         . += "Steady"
-                        . += "DebuffImmune"
+                        . += "DebuffResistance"
                         . += "StableBP"
                         . += "Adaptation"
                         . += "Flicker"
@@ -116,14 +116,14 @@ majinAbsorb/proc/adjustPassive(passiveName, race)
                 switch(newPickslist[2])
                     if("Stability")
                         . += "VenomResistance"
-                        . += "DebuffImmune"
+                        . += "DebuffResistance"
                         . += "Juggernaut"
                     if("Peace")
                         . += "Flow"
                         . += "VoidField"
                     if("Both")
                         . += "VenomResistance"
-                        . += "DebuffImmune"
+                        . += "DebuffResistance"
                         . += "Juggernaut"
                         . += "Flow"
                         . += "VoidField"
@@ -165,19 +165,16 @@ proc/removeDuplicates(list/list1)
         if(MAJIN)
             . = getMajinRacials()
         if("Half Saiyan")
-            . += "Desperation"
         if(ELF)
             . += "Deicide"
             . += "TechniqueMastery"
             . += "Flow"
             . += "Unstoppable"
-            . += "Desperation"
             . += "SwordPunching"
         if(SAIYAN)
             . += "Intimidation"
             . += "MovementMastery"
         if(HUMAN)
-            . += "Desperation"
             . += "PilotingProwess"
             . += "Adrenaline"
             . += "DemonicDurability"
@@ -198,7 +195,7 @@ proc/removeDuplicates(list/list1)
             . += "MovementMastery"
         if(ELDRITCH)
             . += "SpaceWalk"
-            . += "DebuffImmune"
+            . += "DebuffResistance"
             . += "VenomResistance"
             . += "SoulFire"
             . += "DeathField"
@@ -233,7 +230,7 @@ majinAbsorb/proc/doAbsorb(mob/absorber, mob/absorbee)
     var/list/racialPassives = absorbee.getRacialPassives()
     var/passiveInQuestion = input(absorber, "Which passive would you like to absorb?", "Absorb") in racialPassives
     var/maxGain
-    var/maxPasssiveCanHave = absorbPassiveTickLimit * adjustPassive(passiveInQuestion, absorbee.Race)
+    var/maxPasssiveCanHave = absorbPassiveTickLimit * adjustPassive(passiveInQuestion, absorbee.race)
 
     var/absorbeePassiveTicks = absorbee.passive_handler.Get(passiveInQuestion)
     if(absorbeePassiveTicks > 0)
@@ -241,7 +238,7 @@ majinAbsorb/proc/doAbsorb(mob/absorber, mob/absorbee)
     else
         return // if they don't have the passive, we can't absorb it
     var/passiveticks = tickPerAbsorb
-    passiveticks *= adjustPassive(passiveInQuestion, absorbee.Race)
+    passiveticks *= adjustPassive(passiveInQuestion, absorbee.race)
     var/existingPassive = absorber.passive_handler.Get(passiveInQuestion) ? absorber.passive_handler.Get(passiveInQuestion) : 0
     // now lets check how much the person absorbing can have
     if((existingPassive + passiveticks) >= maxPasssiveCanHave)
@@ -287,7 +284,7 @@ majinAbsorb/proc/doAbsorb(mob/absorber, mob/absorbee)
         . = errorCodes[4]
         src<< .
         return
-    if(target.Race == "Android")
+    if(target.isRace(ANDROID))
         . = errorCodes[5]
         src << .
         return

@@ -4,7 +4,7 @@ races are stored as text macros; this serves two purposes.
 If a typo occurs, BYOND will throw errors.
 This is also done so we can easily check types.
 */
-
+#define STAT2INDEX list("strength" = 1, "endurance" = 2, "force" = 3, "offense" = 4, "defense" = 5, "speed" = 6)
 var/list/races = list()
 
 proc
@@ -70,7 +70,9 @@ obj
 			..()
 			usr.icon = icon
 			if(istype(usr, /mob/Creation))
-				usr<<output(usr, "IconUpdate:1,[usr]")
+				usr.dir = SOUTH
+				usr.screen_loc = "IconUpdate:1,1"
+				usr.client.screen += usr
 mob
 	var
 		race/race
@@ -108,7 +110,9 @@ race
 	var
 		// the formal name for the race
 		name = ""
-
+		classes = list("Shonen")
+		current_class = 1 // first index
+		class_info = list("Generic DBR Character #341")
 		//gender options. so far implemented ones are Male, Female & Neuter. Neuter is for namekians or so on.
 		gender_options = list("Male", "Female")
 		//the icon used for male gender
@@ -136,13 +140,13 @@ race
 		statPoints = 10
 
 		//1 = 1 for these.
-		strength = 1
+		strength = 1 // if we change this to class = num, it will break everything
 		endurance = 1
 		force = 1
 		offense = 1
 		defense = 1
 		speed = 1
-
+		stats_per_class = list() //NIEZAAAAANNNNN 
 		anger_message = "becomes angry!"
 		anger_point = 50
 
@@ -178,15 +182,31 @@ race
 			if it isn't, you have to manually add them.
 			this is so it's very easy and automatic to throw ascensions in and out.
 		*/
-		var/list/ascpaths = subtypesof(text2path(replacetext("/ascension/[lowertext(name)]"," ", "_")))
-		var/list/transpaths = subtypesof(text2path(replacetext("/transformation/[lowertext(name)]"," ", "_")))
-
+		var/name_typed = replacetext("[type]", "/race/", "")
+		var/list/ascpaths = subtypesof(text2path(replacetext("/ascension/[name_typed]"," ", "_")))
+		var/list/transpaths = subtypesof(text2path(replacetext("/transformation/[name_typed]"," ", "_")))
+		if(lowertext(name) == "half_saiyan")
+			transpaths = list()
 		for(var/i in ascpaths)
 			ascensions += new i
 		for(var/i in transpaths)
 			transformations += new i
 
 	proc
+		fixAscensions()
+			var/name_typed = replacetext(type, "/race/", "")
+			var/list/ascpaths = subtypesof(text2path(replacetext("/ascension/[name_typed]"," ", "_")))
+			for(var/i in ascpaths)
+				ascensions += new i
+		getChoice(ascLevel)
+			return ascensions[ascLevel].choiceSelected
+		getClass()
+			return classes[current_class]
+		getStat(stat)
+			if(length(stats_per_class))
+				return stats_per_class[getClass()][STAT2INDEX[stat]]
+			else
+				return vars[stat]
 		onDeselection(mob/user)
 			user.overlays -= overlays
 
@@ -233,442 +253,6 @@ race
 			for(var/s in skills)
 				user.AddSkill(new s)
 
-	human
-		name = "Human"
-		desc = "Humans are stubborn, steadfast survivors crafted from the God of Truth's dying breath."
-		visual = 'Humans.png'
+		onAnger(mob/user)
 
-		passives = list("Desperation" = 1, "Adrenaline" = 0.5, "TechniqueMastery" = 2,"Innovation" = 1)
-		power = 1
-		strength = 1
-		endurance = 1
-		force = 1
-		offense = 1
-		defense = 1.25
-		speed = 1
-		anger = 1.5
-		learning = 1
-
-
-	half_saiyan
-		name = "Half_Saiyan"
-		desc = "Creatures that shouldn't exist."
-		visual = 'Halfie.png'
-
-		locked = TRUE
-		power = 2
-		strength = 1.25
-		endurance = 1.25
-		force = 1.25
-		offense = 1
-		defense = 1.5
-		speed = 1
-		anger = 1.5
-		regeneration = 1.5
-		imagination = 1
-		intellect = 1
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Oozaru)
-		passives = list("Desperation" = 0.5, "TechniqueMastery" = 1, "Brutalize" = 0.25, "Adrenaline" = 0.25)
-
-		onFinalization(mob/user)
-			..()
-			user.Tail(1)
-
-
-
-
-
-	saiyan
-		name = "Saiyan"
-		desc = "Otherworldly outsiders, hailing from an empire of Yasai."
-		visual = 'Saiyan.png'
-
-		locked = TRUE
-
-		strength = 1.5
-		endurance = 1.5
-		force = 1.5
-		offense = 1
-		defense = 1
-		speed = 1
-		anger = 1.5
-		regeneration = 1.5
-		imagination = 0.5
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Oozaru)
-		passives = list("Brutalize" = 0.25)
-
-		onFinalization(mob/user)
-			..()
-			user.Tail(1)
-//			user.contents+=new/obj/Oozaru
-
-	/*
-		TODO: think of a better way to handle racial features.
-		New()
-			..()
-			var/obj/tail = new
-			tail.layer = RACIAL_FEATURES_LAYER
-			tail.icon = 'Tail.dmi'
-
-			overlays.Add(tail)
-	*/
-
-	majin
-		name = "Majin"
-		desc = "Primordial ooze given shape from the overuse of magic, given life by Aether."
-		visual = 'Majins.png'
-
-		passives = list("StaticWalk" = 1, "Steady" = 1)
-		skills = list(/obj/Skills/Absorb, /obj/Skills/Buffs/SlotlessBuffs/Regeneration)
-
-		intellect = 0.25
-		imagination = 4
-		anger = 1.5
-		regeneration = 3
-		strength = 1.25
-		endurance = 1
-		speed = 1
-		force = 1.25
-		offense = 1.25
-		defense = 1.25
-
-		onFinalization(mob/user)
-			..()
-			if(!user.majinPassive)
-				user.majinPassive = new(user)
-			if(!user.majinAbsorb)
-				user.majinAbsorb = new()
-				user.findAlteredVariables()
-
-
-	dragon
-		name = "Dragon"
-		desc = "Dragons represent aspects of the world, said to be born of animosity. Reborn nearing times of great tragedy, they only regain their past lives of protecting the world at age 20."
-		visual = 'Dragon.png'
-
-		locked = TRUE
-
-		power = 5
-		strength = 1.75
-		endurance = 1.75
-		speed = 1
-		force = 1.75
-		offense = 1.25
-		defense = 1.25
-		regeneration = 2
-		recovery = 2
-		imagination = 2
-
-		onFinalization(mob/user)
-			user.Class = input(user,"Pick an element to represent you.", "Dragon Element") in list("Fire","Metal", "Gold", "Wind", "Poison", "Water")
-			switch(user.Class)
-				if("Fire")
-					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/AutoHit/Fire_Breath, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Heat_Of_Passion)
-					passives["DemonicDurability"] = 1
-					passives["SpiritHand"] = 1
-				if("Metal")
-					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/Projectile/Shard_Storm, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Dragons_Tenacity)
-					passives["Hardening"] = 1
-				if("Wind")
-					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/Projectile/Beams/Static_Stream, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Wind_Supremacy)
-					passives["Godspeed"] = 1
-					passives["Flicker"] = 1
-				if("Water")
-					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/AutoHit/Oceanic_Wrath, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Slithereen_Crush)
-					passives["SoftStyle"] = 1
-					passives["Fishman"] = 1
-					passives["FluidForm"] = 1
-				if("Gold")
-					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/Projectile/A_Pound_of_Gold, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Hoarders_Riches)
-					user.EconomyMult *= 2
-					passives["CashCow"] = 1
-					passives["Blubber"] = 0.25
-				if("Poison")
-					skills = list(/obj/Skills/AutoHit/Dragon_Roar, /obj/Skills/AutoHit/Poison_Gas, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Dragon_Rage/Melt_Down)
-			..()
-
-	eldritch
-		name = "Eldritch"
-		desc = "A race of beings that latch onto others, corrupting them like a parasite; usually being the result of such a thing."
-		visual = 'Monster.png'
-
-		passives = list("VenomResistance" = 0.25, "Void" = 1, "SoulFire" = 0.25, "DeathField" = 0.5, "VoidField" = 0.5)
-		locked = TRUE
-		strength = 1.5
-		endurance = 2
-		speed = 1
-		force = 1.5
-		offense = 1.5
-		defense = 1.5
-		regeneration = 2.5
-		anger = 1
-		intellect = 1.5
-		imagination = 0.67
-
-		onFinalization(mob/user)
-			..()
-			user.Secret="Eldritch"
-			user.giveSecret("Eldritch")
-			user.secretDatum.nextTierUp = 999
-
-	beastman
-		name = "Beastman"
-		desc = "Humanoids with a variety of animalistic traits dependent on their environment; often split into tribes of Tiger Tribe, Canine Tribe, and Bear Tribe."
-		visual = 'Monstrous.png'
-
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Berserk,/obj/Skills/Buffs/SlotlessBuffs/Autonomous/Ticking_Bomb)
-		strength = 1.25
-		endurance = 1.25
-		force = 1.25
-		offense = 1.25
-		defense = 1.25
-		speed = 1.25
-		regeneration = 1.5
-		intellect = 0.5
-
-		onFinalization(mob/user)
-			user.EnhancedSmell=1
-			user.EnhancedHearing=1
-			..()
-	yokai
-		name = "Yokai"
-		desc = "Spirits said to be the children of the God of Time. Enslaved beneath the elves, these Yokai sport powerful magic; they remain convinced they are part of the harmony of the world."
-		visual = 'Makyo.png'
-
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Spirit_Form)
-		passives = list("ManaGeneration" = 2)
-		strength = 1.5
-		endurance = 1
-		speed = 1
-		force = 0.75
-		offense = 1.75
-		defense = 1
-		regeneration = 2
-		imagination = 1.5
-
-	makyo
-		name = "Makyo"
-		desc = "These spiritual beings are said to have arosen from nowhere, often taking up place as guardians of graveyards, spirit gates and temples."
-		visual = 'Demon.png'
-
-		strength = 2
-		endurance = 2
-		speed = 0.75
-		force = 1
-		offense = 1.25
-		defense = 0.5
-		imagination = 2
-
-	high_faoroan
-		name = "High Faoroan"
-		desc = "The first creation of the God of Truth, able to speak truth into the world with their words. Known as the royalty of Kyoku."
-		visual = 'Elf.png'
-
-		icon_male = list('MaleElf1.dmi', 'MaleElf2.dmi', 'MaleElf3.dmi', 'MaleElf4.dmi', 'MaleElf5.dmi')
-		icon_female = list('FemElf1.dmi', 'FemElf2.dmi', 'FemElf3.dmi', 'FemElf4.dmi', 'FemElf5.dmi')
-		locked = TRUE
-
-		power = 5
-		strength = 1.5
-		endurance = 1.5
-		speed = 1.5
-		offense = 1
-		defense = 2
-		force = 1.5
-		regeneration = 3
-		imagination = 2
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/The_Crown, /obj/Skills/Buffs/SlotlessBuffs/Elf/God_Slicer, /obj/Skills/AutoHit/Elf/Compel , \
-						/obj/Skills/AutoHit/Elf/Silence, /obj/Skills/AutoHit/Elf/Flee, /obj/Skills/Buffs/SlotlessBuffs/Elf/Time_Stop)
-		passives = list("Adrenaline" = 1, "Innovation" = 1)
-
-
-	demon
-		name = "Demon"
-		desc = "Aspects of the Demon King's essence, shattered and splintered into their own forms until evolving into their own being."
-		visual = 'Eldritch.png'
-		locked = TRUE
-		power = 5
-		strength = 2
-		endurance = 1.5
-		speed = 1.5
-		offense = 1.5
-		defense = 1
-		force = 2
-		regeneration = 3
-		imagination = 2
-
-		passives = list("AbyssMod" = 0.5, "Corruption" = 1, "StaticWalk" = 1, "SpaceWalk" = 1, "CursedWounds" = 1, "FakePeace" = 1, "MartialMagic" = 1)
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2,/obj/Skills/Utility/Imitate,  /obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon, \
-						/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/DarkMagic, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/HellFire, /obj/Skills/Buffs/SlotlessBuffs/DemonMagic/Corruption)
-		var/devil_arm_upgrades = 1
-		var/sub_devil_arm_upgrades = 0
-
-		proc/findTrueForm(mob/p)
-			var/obj/Skills/Buffs/SlotlessBuffs/True_Form/Demon/d = new()
-			d = locate() in p
-			if(!d)
-				world.log << "There was an error finding [p]'s ture form, please fix as their ascension is likely bugged"
-				p << "Please report to the admin or discord that your true form is bugged on asc"
-			return d
-
-
-		proc/checkReward(mob/p)
-			var/max = round(p.Potential / 5) + 1
-			if(p.Potential % 5 == 0 || devil_arm_upgrades < max)
-				var/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2/da = p.FindSkill(/obj/Skills/Buffs/SlotlessBuffs/Devil_Arm2)
-				if(devil_arm_upgrades + 1 > max) // not even possible
-					return
-				devil_arm_upgrades = max
-				p << "Your devil arm evolves, toggle it on and off to use it"
-				if(da.secondDevilArmPick)
-					if(sub_devil_arm_upgrades < round((p.Potential - ASCENSION_TWO_POTENTIAL) / 10) + 1)
-						if(p.Potential - ASCENSION_TWO_POTENTIAL % 10 == 0)
-							sub_devil_arm_upgrades = round((p.Potential - ASCENSION_TWO_POTENTIAL) / 10) + 1
-							p << "Your secondary devil arm evolves, toggle it on and off to use it"
-
-
-
-		onFinalization(mob/user)
-			..()
-			user.EnhancedSmell = 1
-			user.EnhancedHearing = 1
-			user.TrueName=input(user, "As a demon, you have a True Name. It should be kept secret. What is your True Name?", "Get True Name") as text
-			user << "The name by which you can be conjured is <b>[user.TrueName]</b>."
-			user << "Please set macros for (Dark Magic), (Hell Fire) and (Corruption), your 3 demon magics."
-			global.TrueNames.Add(user.TrueName)
-			user.client.updateCorruption()
-			user.demon.selectPassive(user, "CORRUPTION_PASSIVES", "Buff", TRUE)
-			user.demon.selectPassive(user, "CORRUPTION_DEBUFFS", "Debuff")
-
-	alien
-		name = "Alien"
-		desc = "A broad term for a variety of spacefaring species or beings of otherwise unusual origin; the universe is vast and endless! Those that can not be defined by traditonal definitions fall into this category."
-		power = 1
-		strength = 0.5
-		endurance = 0.5
-		speed = 0.5
-		offense = 0.5
-		defense = 0.5
-		force = 0.5
-		regeneration = 1.5
-		statPoints = 20
-
-		locked = 1
-
-		onFinalization(mob/user)
-			user.Class = input(user,"What is your alien racial?", "Choose!")in list ("ESP", "Infusion", "Adrenaline", "Infernal", "Celestial", "Prodigy", "Warper", "Winged", "Multi-Limbed", "Morphic" )
-			switch(user.Class)
-				if("ESP")
-					skills = list(/obj/Skills/Telekinesis)
-					skills = list(/obj/Skills/Utility/Telepathy)
-				if("Infusion")
-					passives = list("Infusion" = 1)
-				if("Adrenaline")
-					passives = list("Adrenaline" = 1)
-				if("Infernal")
-					passives = list("HellPower" = 0.1)
-				if("Celestial")
-					passives = list("SpiritPower" = 0.1)
-				if("Prodigy")
-					passives =	list("LegendPower" = 0.1)
-				if("Warper")
-					passives = list("Flicker" = 2)
-				if("Winged")
-					skills = list (new/obj/Skills/Buffs/SlotlessBuffs/Soar)
-					passives = list("SuperDash" = 1)
-				if("Multi-Limbed")
-					passives = list("DoubleStrike" = 1, "TripleStrike" = 0.25)
-				if("Morphic")
-					passives = list("SwordHand" = 1)
-			..()
-
-	namekian
-		name = "Namekian"
-		icon_neuter = list('Namek1.dmi')
-		gender_options = list("Neuter")
-		desc = "Outsiders from a realm named Gaia, refugees sent to prosper on Copenlagen. These often take on humanoid features with skin tones from green to blue."
-		visual = 'Namek.png'
-
-		power = 2
-		strength = 1.5
-		endurance = 0.75
-		force = 1.5
-		offense = 1.25
-		defense = 1.25
-		speed = 1.25
-		anger = 1.5
-		imagination = 2
-		intellect = 1.5
-		learning = 1
-		skills = list(/obj/Skills/Buffs/SlotlessBuffs/Regeneration, /obj/Skills/Queue/Infestation)
-		/* /obj/Skills/AutoHit/AntennaBeam */
-
-		onFinalization(mob/user)
-			..()
-			user.EnhancedHearing = 1 // ???????????????
-			for(var/obj/Skills/Buffs/SlotlessBuffs/Regeneration/r in user)
-				r.RegenerateLimbs=1
-
-			user.Class = input("What clan do you hail from?", "Clan Selection")in list("Warrior", "Dragon", "Demon")
-			switch(user.Class)
-				if("Warrior")
-					strength += 0.5
-					user.StrMod += 0.5
-					endurance += 0.25
-					user.EndMod += 0.25
-				if("Dragon")
-					force += 0.5
-					user.ForMod += 0.5
-					defense += 0.25
-					user.DefMod += 0.25
-				if("Demon")
-					speed += 0.5
-					user.SpdMod += 0.5
-					offense += 0.25
-					user.OffMod += 0.5
-
-	changeling
-		locked = TRUE
-		name = "Changeling"
-		icon_neuter	=	list('Chilled1.dmi')
-		gender_options = list("Neuter")
-		desc	=	"A strange and adaptive race from the far reaches of deep space, little is none of these mysterious beings other than they are new to the general galactic population!"
-		visual	=	'Changeling.png'
-
-		strength	=	1.75
-		endurance	=	1
-		force	=	1.75
-		offense	=	1.5
-		defense	=	1
-		speed	=	1.75
-		anger	=	1
-
-		onFinalization(mob/user)
-			passives=list("Xenobiology" = 1)
-
-
-	gajalaka
-		name="Gajalaka"
-		icon_neuter= list('Gajalaka.dmi', 'Gaja EX.dmi', 'Gaja EX Maim.dmi')
-		desc = "Thrifty kobold-like beings, seemingly unimpressive in stature.."
-		visual = 'Gajalaka.png'
-		passives = list("CashCow" = 1, "Blubber" = 0.25)
-		power = 0.75
-		strength = 0.75
-		endurance = 0.75
-		speed = 0.75
-		offense = 0.75
-		defense = 0.75
-		force = 0.75
-		intellect = 0.75
-		imagination = 1.5
-		skills = list(/obj/Skills/Projectile/Goblin_Greed, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/The_Power_Of_Shiny)
-
-		onFinalization(mob/user)
-			user.EnhancedSmell=1
-			user.CyberizeMod = 0.5
-			user.contents += new/obj/Items/Wearables/Icon_67
-			user.contents += new/obj/Items/Wearables/Icon_68
-			user.contents += new/obj/Items/Wearables/Icon_69
-			user.contents += new/obj/Items/Wearables/Icon_70
-			..()
+		onCalm(mob/user)

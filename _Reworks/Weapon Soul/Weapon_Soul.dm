@@ -26,11 +26,12 @@ mob/proc/gainWeaponSoul()
 			new/obj/Items/Sword/Medium/Legendary/WeaponSoul/Blade_of_Ruin(src)
 			src << "You feel Dainsleif ebb in your hand, letting you unleash ruinous power with it's Cursed Blade..."
 			src.AddSkill(new/obj/Skills/Queue/Cursed_Blade)
+			AddSkill(new/obj/Skills/Queue/Blood_Craving)
 
 		if("Caledfwlch")
 			new/obj/Items/Sword/Medium/Legendary/WeaponSoul/Sword_of_Glory(src)
 			src << "You feel the ability to invoke an almighty beam rise up, shooting through your veins with a cry of Excalibur!"
-			AddSkill(new/obj/Skills/Projectile/Weapon_Soul/Excalibur)
+			AddSkill(new/obj/Skills/Queue/Excalibur)
 
 		if("Muramasa")
 			new/obj/Items/Sword/Light/Legendary/WeaponSoul/Bane_of_Blades(src)
@@ -79,6 +80,7 @@ mob/tierUpSaga(Path)
 					if("Dainsleif")
 						src << "Dainsleif's sheath grows with the power of the damage you inflict on others. . ."
 						passive_handler.Increase("CursedSheath")
+						AddSkill(new/obj/Skills/AutoHit/Destined_Death)
 
 					if("Caledfwlch")
 						src << "A sheath manifests in your soul, capable of healing any injuries; Avalon."
@@ -114,7 +116,8 @@ mob/tierUpSaga(Path)
 					if("Green Dragon Crescent Blade")
 						src << "The Green Dragon Crescent Blade unveils the secrets to an unstoppable rush..."
 						passive_handler.Increase("Flow")
-						SagaThreshold("Spd",2)
+						passive_handler.Increase("Extend")
+						// SagaThreshold("Spd",2)
 
 
 			if(3)
@@ -139,6 +142,7 @@ mob/tierUpSaga(Path)
 						src << "A set of Armor coats your frame, allowing you to weather the strongest of blows."
 						src.contents += new/obj/Items/Armor/Plated_Armor/Noble_Armor
 						AddSkill(new/obj/Skills/Buffs/SlotlessBuffs/Noble_Shield)
+						AddSkill(new/obj/Skills/AutoHit/True_Excalibur)
 
 					if("Muramasa")
 						src << "Muramasa makes your body become a little closer to a demon's..."
@@ -146,8 +150,8 @@ mob/tierUpSaga(Path)
 							muramasa.Element = "Dark"
 							muramasa.passives = list("WeaponBreaker" = 2, "AbyssMod" = 4)
 						passive_handler.Increase("PureDamage",2)
-						SagaThreshold("Spd",1)
-						SagaThreshold("Str",1)
+						// SagaThreshold("Spd",1)
+						// SagaThreshold("Str",1)
 
 					if("Masamune")
 						src << "The hilt of Masamune glitters in the light, offering it's blessed nature to aid your attacks..."
@@ -169,9 +173,9 @@ mob/tierUpSaga(Path)
 						src << "The Green Dragon Crescent Blade shows how to counter any attack..."
 						passive_handler.Increase("Reversal", 0.25)
 						passive_handler.Increase("Adaptation")
-						SagaThreshold("Spd",0.5)
-						SagaThreshold("Str",0.5)
-						SagaThreshold("End",0.5)
+						// SagaThreshold("Spd",0.5)
+						// SagaThreshold("Str",0.5)
+						// SagaThreshold("End",0.5)
 
 			if(4)
 				src << "The power of Heavenly Regalia becomes avaliable to you by resonating your treasures!"
@@ -281,8 +285,10 @@ mob/tierUpSaga(Path)
 					if("Green Dragon Crescent Blade")
 						for(var/obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia/Guan_Yu/GuanYu in src.Buffs)
 							GuanYu.passives["Zornhau"] = 2
-							GuanYu.passives["Iaido"] = 2
-							GuanYu.passives["Fencing"] = 2
-
+							GuanYu.passives["Iaijutsu"] = 2
+			if(6)
+				if(!locate(/obj/Skills/Buffs/SpecialBuffs/OverSoul, src))
+					src.AddSkill(new/obj/Skills/Buffs/SpecialBuffs/OverSoul)
+					src << "You've learned to unseal the true form of your legendary weapon."
 obj/Skills/Buffs/SpecialBuffs/Heavenly_Regalia
 	NeedsSword = 1

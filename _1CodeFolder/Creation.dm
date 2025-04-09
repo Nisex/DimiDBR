@@ -1,5 +1,5 @@
-#define WIPE_TOPIC "https://docs.google.com/document/d/1pe2uWf5aRKBSjOCKq2F6KzTkf_A_fM80ZS2Dwz8sp3I/edit#heading=h.uc68sooja4h"
-#define DISCORD_INVITE "https://discord.gg/9jjWZJ7dDx"
+#define WIPE_TOPIC "https://docs.google.com/document/d/1EuMHH0eGPEpUIb6uMGQcLJAF20HMjPX5CXb_zMVI388/edit?usp=sharing"
+#define DISCORD_INVITE "https://discord.gg/DRzh9kryU8"
 #define PATREON_LINK "https://patreon.com/jordanzoSupport"
 #define KO_FI_LINK "https://ko-fi.com/boberjones"
 #define DONATION_MESSAGE "<a href='[PATREON_LINK]'>Patreon (Monthly)</a> <a href='[KO_FI_LINK]'>Ko-Fi (One Time)</a>"
@@ -19,17 +19,22 @@
 		if(!locate(S, usr.contents))
 			usr.AddSkill(new S)
 
+/mob/verb/See_Targets_Target()
+	set category="Skills"
+	if(Target && Target.Target)
+		Target.Target.Click()
+
+
+
+
 /mob
-	var/resetPU = TRUE
-	var/resetPU1 = TRUE
 	var/resetStats = TRUE
 	var/massReset = TRUE
 	var/totalRecall = 0
 	var/list/OldLoc = list()
 
 /var/list/Races_Changed = list()
-/var/list/typesOfItemsRemoved = list(/obj/Items/Enchantment/Scrying_Ward, /obj/Items/Enchantment/Crystal_Ball, \
-/obj/Items/Enchantment/Arcane_Mask, /obj/Items/Enchantment/Magic_Crest, /obj/Items/Enchantment/ArcanicOrb, \
+/var/list/typesOfItemsRemoved = list(/obj/Items/Enchantment/Arcane_Mask, /obj/Items/Enchantment/Magic_Crest, /obj/Items/Enchantment/ArcanicOrb, \
 /obj/Items/Enchantment/Teleport_Amulet, /obj/Items/Enchantment/Teleport_Nexus, /obj/Items/Enchantment/Dimensional_Cage, \
 /obj/Items/Enchantment/PocketDimensionGenerator, /obj/Items/Enchantment/Crystal_of_Bilocation, \
 /obj/Items/Enchantment/AgeDeceivingPills, /obj/Items/Enchantment/Phylactery, /obj/Items/Enchantment/Elixir_of_Reincarnation, \
@@ -50,6 +55,7 @@
 
 mob/Players
 	Login()
+		winset(usr, null, "browser-options=find")
 		client.perspective=MOB_PERSPECTIVE
 		players += usr
 		usr.density=1
@@ -60,17 +66,9 @@ mob/Players
 				x = PrevX
 				y = PrevY
 				z = PrevZ
-		if(usr.Manufactured)
+		if(usr.Savable==0)
 			usr.Savable=1
-			usr.Redo_Stats()
-			usr.EraAge=global.Era
-			for(var/obj/Items/Tech/Android_Frame/A in world)
-				if(A.Savable == src.ckey)
-					del A
-		else
-			if(usr.Savable==0)
-				usr.Savable=1
-				usr.Finalize()
+			usr.Finalize()
 		if(!locate(/obj/Money) in src)
 			src.contents += new/obj/Money
 		winshow(usr,"StatsWindow",0)
@@ -96,11 +94,30 @@ mob/Players
 			if(src.isRace(DEMON))
 				da.name="Devil Arm ([src.TrueName])"
 
-		checkGuildVerbs()
+		checkVerbs()
 
 		addMissingSkills()
 		if(glob.TESTER_MODE)
 			giveTesterVerbs(src)
+
+
+		// this is ugly, but, I can't bother to search where it's making people have these sticking, prob.. lulz.
+		// feel free to delete, idcr rly.
+		if(src.Stunned)
+			src.Stunned = 0
+		if(src.Meditating && src.icon_state == "Meditating" || src.Meditating)
+			src.Meditating = 0
+			src.icon_state = ""
+		if(src.TimeFrozen)
+			src.TimeFrozen = 0
+		if(src.Frozen)
+			src.Frozen = 0
+		if(src.Launched)
+			src.Launched = 0
+		if(src.WindingUp)
+			src.WindingUp = 0				
+		if(src.KO && !(src.icon_state == "KO"))
+			src.KO = 0		
 
 		src.RecovMod=2
 
@@ -134,14 +151,6 @@ mob/Players
 			src.Potential=1
 		src.potential_max()
 
-		if(src.Imagination<=0)
-			if(src.Race=="Android")
-				src.Imagination=0.05
-			else
-				src.Imagination=0.25
-		if(src.Intelligence<=0)
-			src.Intelligence=0.25
-
 		for(var/obj/Skills/Buffs/NuStyle/s in src)
 			src.StyleUnlock(s)
 
@@ -152,22 +161,23 @@ mob/Players
 
 		src.potential_gain(0, npc=0)//set status message.
 
-		for(var/obj/Items/Enchantment/Crystal_Ball/cb in src)
-			if(cb.suffix)
-				cb.suffix=null
-				Reset_Overlays()
-
 		//stop holding zanzo charges
 		if(ActiveZanzo)
 			ActiveZanzo=0
 		for(var/obj/Skills/Zanzoken/z in src)
 			z.ZanzoAmount=0
 
-		if(updateVersion != glob.UPDATE_VERSION)
+		if(updateVersion && updateVersion.version != glob.UPDATE_VERSION)
 			glob.updatePlayer(src)
+		if(!updateVersion)
+			var/updateversion = "/update/version[glob.UPDATE_VERSION]"
+			if(ispath(updateversion))
+				updateVersion = new updateversion
+				if(isRace(ANDROID) && updateVersion.version == 2)
+					updateVersion.updateMob(src)
 		if(RPPSpendable + RPPSpent > RPPCurrent)
 			AdminMessage("[src] has more rpp than they should.")
-		
+
 		if(isRace(DEMON))
 			for(var/obj/Skills/Buffs/SlotlessBuffs/DemonMagic/s in src)
 				for(var/ss in s.possible_skills)
@@ -177,36 +187,26 @@ mob/Players
 		if(isplayer(src))
 			move_speed = MovementSpeed()
 
-		fixTitle()
-
 		GiveJobVerbs()
 		// if(RewardsLastGained > 100)
 		// 	Respec1()
 		// 	quickDirtyRefund()
-		// 	setStartingRPP()
 		setMaxRPP()
+		if(!client.getPref("oldZanzo"))
+			client.add_hud("Zanzoken", new/obj/bar/zanzo(client, null, 3, 6))
+			client.hud_ids["Zanzoken"].Update(0, MovementCharges)
 
 		//automation
 		src.reward_auto()//checks to see if its been a day
-
-		if(locate(/obj/Skills/Buffs/ActiveBuffs/Ki_Control, src) && (resetPU||resetPU1))
-			for(var/obj/Skills/Buffs/ActiveBuffs/Ki_Control/ki in src)
-				del ki
-			src.PoweredFormSetup()
 		if(RPPSpent<0)
 			src<<"RPPSpent was negative, resetting to 0"
 			RPPSpent=0
-
-		if(resetStats && Race in Races_Changed)
-			src<<"Your race was recently changed, your stats have been reset."
-			Redo_Stats()
-			resetStats=FALSE
 
 		if(!killed_AI)
 			killed_AI = list()
 
 		if(last_online)
-			var regen_time = (world.realtime - last_online)/10 //Seconds.
+			var regen_time = (world.realtime - last_online) / 10 //Seconds.
 			if((TotalInjury + TotalFatigue + TotalCapacity) >= 10)
 				usr << "You have been offline for [round(((world.realtime - last_online)/10)/60)] minutes. Your wound timer, injury, capacity, and fatigue have been restored accordingly."
 			var/purerpmode
@@ -238,46 +238,41 @@ mob/Players
 				if(!was_drunk)
 					BPPoisonTimer = max(1,BPPoisonTimer - food_time)
 					if(src.StrTax)
-						src.SubStrTax(0.25/RawDays(1)*food_time, Forced=1)
+						src.SubStrTax(0.5/(2 DAYS)*food_time, Forced=1)
 					if(src.EndTax)
-						src.SubEndTax(0.25/RawDays(1)*food_time, Forced=1)
+						src.SubEndTax(0.5/(2 DAYS)*food_time, Forced=1)
 					if(src.SpdTax)
-						src.SubSpdTax(0.25/RawDays(1)*food_time, Forced=1)
+						src.SubSpdTax(0.5/(2 DAYS)*food_time, Forced=1)
 					if(src.ForTax)
-						src.SubForTax(0.25/RawDays(1)*food_time, Forced=1)
+						src.SubForTax(0.5/(2 DAYS)*food_time, Forced=1)
 					if(src.OffTax)
-						src.SubOffTax(0.25/RawDays(1)*food_time, Forced=1)
+						src.SubOffTax(0.5/(2 DAYS)*food_time, Forced=1)
 					if(src.DefTax)
-						src.SubDefTax(0.25/RawDays(1)*food_time, Forced=1)
+						src.SubDefTax(0.5/(2 DAYS)*food_time, Forced=1)
 					if(src.RecovTax)
-						src.SubRecovTax(0.25/RawDays(1)*food_time, Forced=1)
+						src.SubRecovTax(0.5/(2 DAYS)*food_time, Forced=1)
 			if(regen_time>food_time)
 				regen_time-=food_time
 				if(src.StrTax)
-					src.SubStrTax(0.25/RawDays(1)*regen_time)
+					src.SubStrTax(0.5/(2 DAYS)*regen_time)
 				if(src.EndTax)
-					src.SubEndTax(0.25/RawDays(1)*regen_time)
+					src.SubEndTax(0.5/(2 DAYS)*regen_time)
 				if(src.SpdTax)
-					src.SubSpdTax(0.25/RawDays(1)*regen_time)
+					src.SubSpdTax(0.5/(2 DAYS)*regen_time)
 				if(src.ForTax)
-					src.SubForTax(0.25/RawDays(1)*regen_time)
+					src.SubForTax(0.5/(2 DAYS)*regen_time)
 				if(src.OffTax)
-					src.SubOffTax(0.25/RawDays(1)*regen_time)
+					src.SubOffTax(0.5/(2 DAYS)*regen_time)
 				if(src.DefTax)
-					src.SubDefTax(0.25/RawDays(1)*regen_time)
+					src.SubDefTax(0.5/(2 DAYS)*regen_time)
 				if(src.RecovTax)
-					src.SubRecovTax(0.25/RawDays(1)*regen_time)
+					src.SubRecovTax(0.5/(2 DAYS)*regen_time)
 
 			last_online = world.realtime
 
 		if(passive_handler.Get("GiantForm"))
 			if(usr.appearance_flags<512)
 				usr.appearance_flags+=512
-		if(global.ContractBroken)
-			if(usr.ckey in ContractBroken)
-				usr << "One of your contracts was broken while you were asleep!"
-				usr.SummonContract--
-				global.ContractBroken.Remove(usr.ckey)
 		for(var/obj/Skills/Buffs/b in usr.Buffs)
 			if(!b.BuffName)
 				b.BuffName="[b.name]"
@@ -296,15 +291,15 @@ mob/Players
 		if(src.ModifyPrime)
 			src.ModifyPrime=0
 
-		// var/Dif=global.Era-src.EraAge
+		// var/Dif=glob.progress.Era-src.EraAge
 
 		if(icon_state == "KB")
 			icon_state = ""
 		if(src.ParasiteCrest())
 			var/obj/Items/Enchantment/Magic_Crest/mc=src.EquippedCrest()
 			if(!mc.CrestMadeAge)
-				mc.CrestMadeAge=global.Era
-			if(global.Era > mc.CrestMadeAge)
+				mc.CrestMadeAge=glob.progress.Era
+			if(glob.progress.Era > mc.CrestMadeAge)
 				OMsg(src, "[src] struggles as their cursed crest begins to consume them!")
 				spawn(66)
 					src.Death(null, "being consumed by their cursed crest!", SuperDead=99)
@@ -329,6 +324,7 @@ mob/Players
 			break
 
 		// mainLoop += src
+	//	ticking_generic.Add(src)
 		gain_loop.Add(src)
 		if(isRace(DEMON))
 			client.updateCorruption()
@@ -345,7 +341,6 @@ mob/Players
 		if(src.StasisSpace)
 			spawn()animate(src.client, color = list(-1,0,0, 0,-1,0, 0,0,-1, 0,1,1))
 
-		spawn()src.FlickeringGlow(src)
 		spawn()src.WindupGlow(src)
 		var/obj/Items/Sword/sord
 		for(var/obj/Items/Sword/s in src)
@@ -378,6 +373,7 @@ mob/Players
 			Secret = "Vampire"
 
 
+
 		if(AllowObservers)
 			winshow(src, "WatchersLabel",1)
 		if(PureRPMode)
@@ -401,8 +397,6 @@ mob/Players
 		for(var/obj/Redo_Stats/r in src)
 			if(r.LoginUse) r.RedoStats(src)
 		if(locate(/obj/Skills/Companion/arcane_follower) in src) is_arcane_beast = locate(/obj/Skills/Companion/arcane_follower) in src
-		for(var/obj/Items/Tech/Vessel/v in world)
-			if("[ckey] [EnergySignature]" in v.occupants) v.AddOccupant(src)
 		for(var/obj/Items/i in src.contents)
 			if(!i.LegendaryItem && i.Augmented)
 				if(i.suffix=="*Equipped*" && i.Techniques.len > 0)
@@ -443,11 +437,11 @@ mob/Players
 		if(dancing) transform=dancing
 		last_online = world.realtime
 		gain_loop.Remove(src)
+		//ticking_generic.Remove(src)
 
 		if(src in admins)
 			admins -= src
 		// mainLoop -= src
-
 		if(length(savedRoleplay) >= 1)
 			if(fexists("Saved Roleplays/[key].txt"))
 				fdel("Saved Roleplays/[key].txt")
@@ -470,8 +464,12 @@ mob/Players
 		for(var/i in vis_contents)
 			vis_contents -= i
 		for(var/obj/Items/ite in src)
-			Items.Remove(ite)
 			del ite
+		if(length(magatamaBeads))
+			for(var/i in magatamaBeads)
+				magatamaBeads -= i
+				del i
+			magatamaBeads.Cut()
 		companion_ais.Remove(src)
 		transform = null
 		filters = null
@@ -487,7 +485,6 @@ mob/Players
 		secretDatum = null
 		MonkeySoldiers = null
 		knowledgeTracker = null
-		Items = null
 		equippedSword = null
 		equippedArmor = null
 		equippedWeights = null
@@ -506,6 +503,7 @@ client/Del()
 
 mob/Creation
 	Login()
+		winset(usr, null, "browser-options=find")
 		client.perspective=MOB_PERSPECTIVE | EDGE_PERSPECTIVE
 		usr.client.view=8
 		usr<<browse("[basehtml][Notes]")
@@ -513,6 +511,7 @@ mob/Creation
 		winshow(usr, "Hunger", 0)
 		if(copytext(usr.key,1,6)=="Guest")
 			usr<<"Guest keys are disabled at this time, please login using a real key!"
+			sleep(10)
 			del(usr)
 
 		for(var/e in list("Health","Energy","Power","Mana"))
@@ -540,7 +539,8 @@ mob/Creation
 		if(glob.TESTER_MODE)
 			usr<<"<font color=red><b>TESTER MODE IS ENABLED!</b></font>"
 		usr.loc=locate(1,7,1)
-
+		client.client_plane_master = new()
+		client.screen += client.client_plane_master
 	Logout()
 		if(src in admins)
 			admins -= src
@@ -578,45 +578,22 @@ mob/Creation/verb
 			return
 		if(!(world.time > verb_delay))
 			return
+		statArchive = new()
+		statArchive.reset(list(1,1,1,1,1,1))
 		verb_delay=world.time+1
 		race_selecting=0
-		if(usr.Race=="Android")
-			var/Choice
-			var/list/Androids=list("Cancel")
-			for(var/obj/Items/Tech/Android_Frame/A in world)
-				if(A.Savable == usr.ckey)
-					Choice = A
-					break
-				if(A.invisibility<=0&&A.CreatorKey)
-					Androids.Add(A)
-			if(!Choice)
-				if(Androids.len<2)
-					usr << "There are no free frames in the world."
-					del usr
-					return
-				Choice = input("There are free Android frames in the world; would you like to activate one of them?","Android Activation") in Androids
-				if(Choice!="Cancel")
-					if(Choice:Password)
-						var/Pass=input(usr, "This item is protected by a password; you have to provide it before inhabiting it.", "Remove Safety") as text
-						if(Choice:Password!=Pass)
-							usr << "That is not the correct password."
-							del usr
-							return
-					usr.loc=Choice:loc
-					usr.name=Choice:name
-					usr.icon=Choice:icon
-					usr.icon_state=Choice:icon_state
-					usr.AscensionsUnlocked=Choice:Level
-					usr.Manufactured=1
-					del Choice
-				else
-					del usr
-					return
+		Class = race.classes[race.current_class]
+		winset(usr, "Finalize_Screen.className", "text=\"[race.classes[race.current_class]]\"")
 		winshow(usr,"Race_Screen",0)
 		winshow(usr,"Finalize_Screen",1)
-		usr.RacialStats()
+		if(length(race.stats_per_class) > 0)
+			usr.RacialStats(race.stats_per_class[race.getClass()])
+		else
+			usr.RacialStats(race)
 		usr.UpdateBio()
-		usr<<output(usr, "IconUpdate:1,[usr]")
+		usr.dir = SOUTH
+		usr.screen_loc = "IconUpdate:1,1"
+		client.screen += usr
 		spawn()
 			Namez//label
 			src.name=html_encode(copytext(input(src,"Name? (25 letter limit)"),1,25))
@@ -653,9 +630,14 @@ mob/Creation/proc
 		winshow(usrr,"Race_Screen",0)
 		winshow(usrr,"Finalize_Screen",1)
 		usrr.UpdateBio()
-		usrr.RacialStats()
+		if(length(race.stats_per_class) > 0)
+			usrr.RacialStats(race.stats_per_class[race.getClass()])
+		else
+			usrr.RacialStats(race)
 		usrr.UpdateBio()
-		usrr<<output(usr, "IconUpdate:1,[usrr]")
+		usrr.dir = SOUTH
+		usrr.screen_loc = "IconUpdate:1,1"
+		usrr.client.screen += usr
 		spawn()
 			Namez//label
 			usrr.name=html_encode(copytext(input(usrr,"Name? (25 letter limit)"),1,25))
@@ -670,7 +652,55 @@ mob/Creation/proc
 				del(usrr)
 				return
 			usrr.UpdateBio()
+mob/Players/verb
+	ToggleBlah(var/blah as text)
+		set name=".ToggleBlah"
+		set hidden=1
+		if(race_selecting)
+			return
+		if(!(world.time > verb_delay))
+			return
+		verb_delay=world.time+1
+		if(blah=="Name")
+			Namez
+			src.name=html_encode(copytext(input(src,"Name? (25 letter limit)"),1,25))
+			if(!src.name)
+				goto Namez
+				return
+			if(findtext(name,"\n"))
+				world<<"[key] ([client.address]) tried to use their name to spam. They were booted."
+				del(src)
+			usr.UpdateBio()
+		if(blah=="Class")
+			if(race.current_class + 1 > length(race.classes))
+				race.current_class = 1
+			else
+				race.current_class++
+			Class = race.classes[race.current_class]
+			setAllStats()
+			winset(usr, "Finalize_Screen.className", "text=\"[race.classes[race.current_class]]\"")
+			if(usr.isRace(NAMEKIAN))
+				if(usr.Class=="Warrior")
+					usr.Class="Dragon"
+				else if(usr.Class=="Dragon")
+					usr.Class="Warrior"
 
+		if(blah=="Sex")
+			var/list/options = usr.race.gender_options
+			var/current_index = options.Find(usr.Gender)
+
+			if (current_index != -1)
+				var/next_index = (current_index + 1) % (options.len+1)
+				if(next_index == 0)
+					next_index = 1
+				usr.Gender = options[next_index]
+			else
+				usr.Gender = options[1]
+		if(length(race.stats_per_class) > 0)
+			usr.RacialStats(race.stats_per_class[race.getClass()])
+		else
+			usr.RacialStats(race)
+		spawn()usr.UpdateBio()
 mob/Creation/verb
 	AbortingCC()
 		set hidden=1
@@ -705,14 +735,18 @@ mob/Creation/verb
 				del(src)
 			usr.UpdateBio()
 		if(blah=="Class")
+			if(race.current_class + 1 > length(race.classes))
+				race.current_class = 1
+			else
+				race.current_class++
+			Class = race.classes[race.current_class]
+			setAllStats()
+			winset(usr, "Finalize_Screen.className", "text=\"[race.classes[race.current_class]]\"")
 			if(usr.isRace(NAMEKIAN))
 				if(usr.Class=="Warrior")
 					usr.Class="Dragon"
 				else if(usr.Class=="Dragon")
 					usr.Class="Warrior"
-
-			usr.RacialStats()
-			spawn()usr.UpdateBio()
 
 		if(blah=="Sex")
 			var/list/options = usr.race.gender_options
@@ -725,9 +759,11 @@ mob/Creation/verb
 				usr.Gender = options[next_index]
 			else
 				usr.Gender = options[1]
-			usr.RacialStats()
-			usr.UpdateBio()
-			return
+		if(length(race.stats_per_class) > 0)
+			usr.RacialStats(race.stats_per_class[race.getClass()])
+		else
+			usr.RacialStats(race)
+		spawn()usr.UpdateBio()
 
 	ToggleHelp(var/blah as text)
 		set name=".ToggleHelp"
@@ -738,13 +774,14 @@ mob/Creation/verb
 		if(blah=="Name")
 			alert("This will be what other people see you as, it's your character's In Character (IC) name.")
 		if(blah=="Class")
-			alert("Wizards are energy/magic users, sacrificing physical skills. Fighers are just the default. Technologists are more intelluctual over combat skills, some races may have alternate classes.")
+			if(race.current_class > length(race.class_info))
+				alert("There is no information on this class...")
+			else
+				alert("[race.class_info[race.current_class]]")
 		if(blah=="Sex")
-			alert("Female or Male...used for breeding purposes.")
+			alert("not used at all btw")
 		if(blah=="Race")
 			alert("Odds are you already read the blurb.")
-		if(blah=="Size")
-			alert("Mediums are default, small are agile, large are gigantic. Will complete later..")
 		if(blah=="Battle Power")
 			alert("This determines how fast (or slow) you gain Battle Power (BP).")
 		if(blah=="Zenkai")
@@ -786,66 +823,13 @@ mob/proc/UpdateBio()
 	winset(src,"LabelName","text=\"[name]\"")
 
 var/mob/tmp/sex_ticker = 1
-mob
-	verb/ToggleBlah2(blah as text)
-		set name=".ToggleBlah"
-		set hidden=1
-		if(!(world.time > verb_delay)) return
-		verb_delay=world.time+1
-		if(!src.Redoing_Stats)
-			return
-		if(blah=="Name")
-			Namez
-			src.name=html_encode(copytext(input(src,"Name? (25 letter limit)"),1,25))
-			if(!src.name)
-				goto Namez
-				return
-			usr.UpdateBio()
-		else if(blah=="Class")
-			if(usr.isRace(NAMEKIAN))
-				if(usr.Class=="Warrior")
-					usr.Class="Dragon"
-				else if(usr.Class=="Dragon")
-					usr.Class="Warrior"
-				else if(usr.Class=="Fighter")
-					usr.Class="Warrior"
-
-			usr.RacialStats()
-			spawn()usr.UpdateBio()
-
-		else if(blah=="Sex")
-			var/list/options = usr.race.gender_options
-			var/current_index = options.Find(usr.Gender)
-
-			if (current_index != -1)
-				var/next_index = (current_index + 1) % (options.len+1)
-				if(next_index == 0)
-					next_index = 1
-				usr.Gender = options[next_index]
-			else
-				usr.Gender = options[1]
-
-			usr.RacialStats()
-			usr.UpdateBio()
-
-			if(usr.Gender == "Male")
-				usr.icon = race.icon_male
-			else if(usr.Gender == "Female")
-				usr.icon = race.icon_female
-			else if(usr.Gender == "Neuter")
-				usr.icon = race.icon_neuter
-
 mob/var/Plan=1
 mob/var/Rac=1
 mob/var/Tin=1
 
-var/list/SagaLockOut=list()
-var/list/RaceLock=list()
-var/list/TechLockOut=list()
-
 mob/var/tmp/race_index = 1
 
-mob/proc/UpdateRaceScreen(change)
+mob/proc/UpdateRaceScreen(change = 1)
 	var/race/r
 
 	//TODO: pretty sure this can cause issues if theres absolutely nothing unlocked. would be smart to have a bail-out.
@@ -877,6 +861,7 @@ mob/proc/UpdateRaceScreen(change)
 		usr.Gender = options[1]
 	winset(src,"RaceName","text=[race.name]")
 	winset(usr,"Iconz","image=[race.visual]")
+	winset(src, "className", "text=[race.classes[race.current_class]]")
 	src << output(race.desc,"raceblurb")
 
 obj/Login
@@ -941,16 +926,19 @@ client
 			if(fexists("Saves/Players/[src.ckey]"))
 				var/savefile/F=new("Saves/Players/[src.ckey]")
 				F["mob"] >> src.mob
-				if(mob.isRace(MAJIN))
-					if(!mob.majinPassive)
-						mob.majinPassive = new(mob)
-					if(!mob.majinAbsorb)
-						mob<<"lacking majin absorb"
-						mob.majinAbsorb = new()
-						mob.findAlteredVariables()
+				if(mob)
+					if(mob.isRace(MAJIN))
+						if(!mob.majinPassive)
+							mob.majinPassive = new(mob)
+						if(!mob.majinAbsorb)
+							mob<<"lacking majin absorb"
+							mob.majinAbsorb = new()
+							mob.findAlteredVariables()
 
 				var/donator/d_info = donationInformation.getDonator(key = src.key)
 				var/supporter/s_info = donationInformation.getSupporter(key = src.key)
+				if(length(mob.information.pronouns) < 1 || !mob.information.pronouns)
+					mob.information.setPronouns(TRUE)
 				var/alreadydisplayed = FALSE
 				if(d_info)
 					if(d_info.getTier() >= 2)
@@ -971,6 +959,8 @@ client
 						mob.vampireBlood = new(mob, 6,70)
 				if(mob:assigningStats)
 					mob.Redo_Stats()
+				if(mob.updateVersion && mob.updateVersion.version != glob.UPDATE_VERSION)
+					glob.updatePlayer(mob)
 
 
 
@@ -1006,7 +996,6 @@ mob/proc
 	NewMob()
 		var/mob/LOL=new/mob/Players/
 		LOL.name=src.name
-		LOL.Race=src.Race
 		LOL.loc=src.loc
 		LOL.Class=src.Class
 		LOL.icon=src.icon
@@ -1023,7 +1012,6 @@ mob/proc
 		LOL.Hair_Base=src.Hair_Base
 		LOL.Hair_Color=src.Hair_Color
 		LOL.Tail=src.Tail
-		LOL.GenRaces=src.GenRaces
 		LOL.AscensionsUnlocked=src.AscensionsUnlocked
 		LOL.race = race
 		LOL.setRace(race, TRUE)
@@ -1050,31 +1038,18 @@ mob/proc
 			src.Potential=0
 			if(!locate(/obj/Money, src))
 				src.contents+=new/obj/Money
-		if(src.Race!="Android"&&src.Class!="Dance"&&src.Class!="Potara")
-			src.EnergyUniqueness=GoCrand(0.8,1.2)
-			src.EnergySignature=rand(1000,9000)
-			// src.ClothGold=pick(global.ConstellationsGold)
-		else
-			src.EnergyUniqueness=1
-			if(src.Class=="Dance"||src.Class=="Potara")
-				src.EnergySignature=rand(9001,9999)
-				src.ClothGold="Ophiuchus"
+		src.EnergyUniqueness=GoCrand(0.8,1.2)
+		src.EnergySignature=rand(1000,9000)
 		race.onFinalization(src)
-
-		src.StrOriginal=src.StrMod
-		src.EndOriginal=src.EndMod
-		src.SpdOriginal=src.SpdMod
-		src.ForOriginal=src.ForMod
-		src.OffOriginal=src.OffMod
-		src.DefOriginal=src.DefMod
-		src.RecovOriginal=src.RecovMod
 
 		src:UniqueID = ++glob.IDCounter
 		glob.IDs += src:UniqueID
 		glob.IDs[src:UniqueID] = "[name]"
-
+		var/updateversion = "/update/version[glob.UPDATE_VERSION]"
+		updateVersion = new updateversion
+		setStartingRPP()
 		if(!Warped)
-			if(src.Race=="Alien"||isRace(BEASTMAN)||isRace(YOKAI))
+			if(isRace(BEASTMAN)||isRace(YOKAI))
 				var/Choice=input(src, "Do you want to possess animal characteristics?  These options will give you tails and ears.", "Choose your animal traits.") in list("None", "Cat", "Fox", "Racoon", "Wolf", "Lizard", "Crow", "Bull")
 				switch(Choice)
 					if("Cat")
@@ -1105,30 +1080,30 @@ mob/proc
 					//=alert(src, "Do you want to start as a youth or an elder?  Youths have not yet reached their full potential as fighters. Elders have already passed it, and may teach younger folks.", "Age", "Youth", "Elder")
 					src.EraBody=Age
 					if(src.EraBody=="Youth")
-						src.EraAge=global.Era-src.GetPassedEras("Youth")
-						if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
+						src.EraAge=glob.progress.Era-src.GetPassedEras("Youth")
+						if(src.isRace(SAIYAN)||isRace(HALFSAIYAN))
 							src.Tail(1)
 					else
-						src.EraAge=global.Era-src.GetPassedEras("Elder")
-						if(src.isRace(SAIYAN)||src.Race=="Half Saiyan")
+						src.EraAge=glob.progress.Era-src.GetPassedEras("Elder")
+						if(src.isRace(SAIYAN)||isRace(HALFSAIYAN))
 							src.Tail(1)
 				else
 					src.EraBody="Youth"
-					src.EraAge=global.Era-src.GetPassedEras("Youth")
+					src.EraAge=glob.progress.Era-src.GetPassedEras("Youth")
 			else
 				src.EraAge=-4
 				if(isRace(ELDRITCH) || src.isRace(MAJIN))
-					src.EraAge=global.Era-GetPassedEras("Adult")
+					src.EraAge=glob.progress.Era-GetPassedEras("Adult")
 				src.EraBody="Adult"
 				src << "You've started as a timeless race. You learn slower than others, but can teach younger beings and always have your full power available."
 
-			src.EraBirth=global.Era
+			src.EraBirth=glob.progress.Era
 			src.ChooseSpawn()
 
 			//spawns can kill beastmens ability to learn anything so this is here now.
 			if(src.Intelligence<=0.25)
 				src.Intelligence=0.25
-			if(src.Imagination<=0.25&&src.Race!="Android")
+			if(src.Imagination<=0.25)
 				src.Imagination=0.25
 
 			if(src.EraAge > 0) //WE ARE ALL ADULTS NOW
@@ -1145,9 +1120,9 @@ mob/proc
 					src.PotentialLastDailyGain=glob.progress.DaysOfWipe-1
 				src.RewardsLastGained=glob.progress.DaysOfWipe-1
 				//set these to wipe start so that the login code will give them their rewards and allow them to grind potentialz
-			//information.setPronouns(TRUE)
+			information.setNationality(src)
+			information.setPronouns(TRUE)
 			killed_AI = list()
-
 			// information.pickFaction(src)
 			if(key in VuffaKeys)
 				giveVuffaMoment()
@@ -1170,59 +1145,5 @@ mob
 			if(Age=="Senile")
 				return Return
 
-
-mob/proc/InhabitDroid(var/obj/Body,var/mob/Mind)
-	var/mob/Players/Droid=new/mob/Players
-	Droid.assigningStats=TRUE
-	Droid.loc=Body.loc
-	Droid.name=Body.name
-	Droid.icon=Body.icon
-	Droid.icon_state=Body.icon_state
-	Droid.Race="Android"
-	Droid.Asexual=1
-	Droid.Manufactured=1
-	Droid.RacialStats()
-	Droid.UpdateBio()
-	Droid.Finalize(Warped=1)
-	Droid.Potential=DaysOfWipe()
-	Droid.AscensionsAcquired=0
-	var/obj/Redo_Stats/r = new
-	r.LoginUse=1
-	Droid.contents+=r
-	Droid.droidFormerEnergysignature=src.EnergySignature
-	var/list/DenyVars=list("client", "key", "loc", "x", "y", "z", "type", "locs", "parent_type", "verbs", "vars", "contents", "Transform", "appearance")
-	for(var/obj/Skills/s in Mind)
-		if(s.AssociatedGear)
-			continue
-		if(s.AssociatedLegend)
-			continue
-		if(s.MagicNeeded)
-			continue
-		if(!locate(s, Droid))
-			var/obj/Skills/NewS=new s.type
-			for(var/x in s.vars)
-				if(x in DenyVars)
-					continue
-				NewS.vars[x]=s.vars[x]
-			Droid.AddSkill(NewS)
-	Droid.ForgingUnlocked=Mind.ForgingUnlocked
-	Droid.RepairAndConversionUnlocked=Mind.RepairAndConversionUnlocked
-	Droid.MedicineUnlocked=Mind.MedicineUnlocked
-	Droid.ImprovedMedicalTechnologyUnlocked=Mind.ImprovedMedicalTechnologyUnlocked
-	Droid.TelecommunicationsUnlocked=Mind.TelecommunicationsUnlocked
-	Droid.AdvancedTransmissionTechnologyUnlocked=Mind.AdvancedTransmissionTechnologyUnlocked
-	Droid.EngineeringUnlocked=Mind.EngineeringUnlocked
-	Droid.CyberEngineeringUnlocked=Mind.CyberEngineeringUnlocked
-	Droid.MilitaryTechnologyUnlocked=Mind.MilitaryTechnologyUnlocked
-	Droid.MilitaryEngineeringUnlocked=Mind.MilitaryEngineeringUnlocked
-	Droid.knowledgeTracker.learnedKnowledge=Mind.knowledgeTracker.learnedKnowledge
-
-	var/mob/Body2=Mind
-	Body2.Leave_Body(SuperDead=1)
-	Mind.client.mob=Droid
-	del Body
-
-
 mob/proc/PilotMecha(var/mob/Mecha,var/mob/Pilot)
-	Mecha.Manufactured=1
 	Pilot.client.mob=Mecha

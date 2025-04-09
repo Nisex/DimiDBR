@@ -344,6 +344,9 @@ proc
 			var/StartA=A.loc
 			var/StartT=Target.loc
 			if(Target.AfterImageStrike||(locate(/obj/Skills/Zanzoken, Target))&&prob(20))
+				if(glob.AISCLASHLOCKSMOVEMENT && Target.client)
+					Target?:move_disabled = TRUE
+					A?:move_disabled = TRUE
 				animate(A,alpha=0,time=2, flags=ANIMATION_END_NOW )
 				animate(Target,alpha=0,time=2, flags=ANIMATION_END_NOW )
 				sleep(1)
@@ -369,6 +372,13 @@ proc
 						AfterImageA(Target)
 						KenShockwave(Target,icon='KenShockwave.dmi',Size=max(A.GetIntimidation()+Target.GetIntimidation()*GoCrand(0.04,0.4),0.2),PixelX=((Target.x-A.x)*(-16)+pick(-12,-8,8,12)),PixelY=((Target.y-A.y)*(-16)+pick(-12,-8,8,12)), Time=6)
 						sleep(5)
+				if(glob.AISCLASHLOCKSMOVEMENT)
+					if(Target)
+						Target?:move_disabled = FALSE
+					A?:move_disabled = FALSE
+				A.loc = StartA
+				if(Target)
+					Target.loc = StartT
 				animate(A,alpha=255, time=1, flags=ANIMATION_END_NOW | ANIMATION_PARALLEL)
 				animate(Target,alpha=255, time=1, flags=ANIMATION_END_NOW | ANIMATION_PARALLEL)
 			else
@@ -393,11 +403,15 @@ proc
 		var/changeY=pick(-8,-4,4,8)
 		if(!A.Dodging)
 			A.Dodging=1
+			if(A.filters.len > 0)
+				if(A.filters[A.filters.len])
+					animate(A.filters[A.filters.len], x=changeX/4, y=changeY/4, time=2, flags=ANIMATION_RELATIVE | ANIMATION_PARALLEL)
 			animate(A,pixel_x=changeX, pixel_y=changeY, time=2, flags=ANIMATION_RELATIVE)
-			animate(A.filters[A.filters.len], x=changeX/4, y=changeY/4, time=2, flags=ANIMATION_RELATIVE | ANIMATION_PARALLEL)
 			sleep(2)
 			animate(A,pixel_x=-changeX, pixel_y=-changeY, time=1, flags=ANIMATION_RELATIVE | ANIMATION_PARALLEL)
-			animate(A.filters[A.filters.len], x=0, y=0, time=1)
+			if(A.filters.len > 0) // why
+				if(A.filters[A.filters.len])
+					animate(A.filters[A.filters.len], x=0, y=0, time=1)
 			A.Dodging=0
 	Prediction(mob/A)
 		var/changeX=pick(-16,-8,8,16)

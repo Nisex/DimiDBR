@@ -43,7 +43,7 @@
 
 
 
-/mob/proc/getStatDmg2(damage, unarmed, sword, sunlight, spirithand)
+/mob/proc/getStatDmg2(damage, unarmed, sword, sunlight, spirithand, autohit = FALSE)
 	// ABILITY and DAMAGE roll should be first
 	// so a queue should happen here vs later
 	if(!unarmed&&!sword)
@@ -63,7 +63,8 @@
 		statDamage = GetStr(1)
 	if(passive_handler.Get("HardenedFrame"))
 		statDamage = GetEnd(1)
-
+	if(!glob.EXTRASTATSONAUTOHIT && autohit && !passive_handler["Divine Technique"])
+		return statDamage
 	var/endExtra = passive_handler.Get("CallousedHands")
 	if(endExtra>0)
 		statDamage += GetEnd(endExtra) 
@@ -82,7 +83,10 @@
 			return statDamage
 	// otherwise there is no problem
 	if(HasSpiritHand()&&unarmed)
-		statDamage += GetFor(GetSpiritHand()/4) 
+		if(spirithand > GetSpiritHand())
+			statDamage += GetFor(spirithand/4) // this can b less lines
+		else
+			statDamage += GetFor(GetSpiritHand()/4)
 	if(HasSpiritSword()&&sword)
 		statDamage += GetFor(GetSpiritSword())
 	if(HasHybridStrike())
@@ -92,7 +96,8 @@
 
 
 /mob/proc/getEndStat(n)
-	return GetEnd(n)
+	return GetEnd(n) // who did this, was this me??
+
 
 
 

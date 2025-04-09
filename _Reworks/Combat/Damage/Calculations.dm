@@ -1,12 +1,15 @@
 
-proc/getFlowCalc(base = 6, flow = 0, inst = 0)
+proc/getFlowCalc(mob/a, mob/d)
+    var/BASE_FLOW_PROB = glob.BASE_FLOW_PROB
+    var/flow = d.GetFlow()
+    var/instinct = a.HasInstinct()
     var/result = 0
-    if(inst)
-        result = base + flow - inst
+    if(instinct)
+        result = flow - instinct
     else
-        result = base + flow
-    return result
-
+        result = flow
+    var/backtrack = d.passive_handler.Get("BackTrack")
+    return (BASE_FLOW_PROB*result) + glob.BASE_BACKTRACK_PROB * backtrack
 
 /*
 flow gives a % chancce to avoid a blow, and is negated by their instinct

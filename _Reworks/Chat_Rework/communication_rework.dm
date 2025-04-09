@@ -1,22 +1,4 @@
-#define WHISPER_RADIUS 1
-#define SAY_RADIUS 12
-#define YELL_RADIUS 20
-var/regex/LOOCRegex = new(@"^[\(\)\{\}]|[\(\)\{\}]$")
-var/regex/yellRegex = new(@"!!!$")
-var/regex/questionRegex = new(@"\?$")
-var/regex/whisperSlashRegex = new(@"^/w\s")
-var/regex/yellSlashRegex = new(@"^/y\s")
-#define IC_OUTPUT list("icchat", "output")
-#define LOOC_OUTPUT list("loocchat","oocchat","output")
-#define ALL_OUTPUT list("loocchat","oocchat","output", "icchat")
-#define ALL_NOT_IC_OUTPUT list("loocchat","oocchat","output")
 
-#define YELL "yell"
-#define WHISPER "whisper"
-#define OBSERVE_HEADER "<b>(OBSERVE)</b>"
-
-#define YELL_NOUNS list("shouts:", "yells:", "screams:")
-#define QUESTION_NOUNS list("questions:", "queries:", "asks:")
 
 mob/proc/Controlz(mob/M)
 	if(src.Admin)
@@ -146,6 +128,7 @@ client/proc/sayProc(T, mode = null)
 
 	for(var/mob/hearer as anything in transmitTo) //hearers always returns a list of mobs; free performance.
 		if(!hearer.client) continue
+		if(!hearer.Admin && sayNoun != "LOOCs:" && hearer.Mapper && hearer.invisibility) continue
 		if(sayNoun == "LOOCs:")
 			hearer?.client.outputToChat("[header][hearer.Controlz(usr)] [sayNoun] [message]", LOOC_OUTPUT)
 		else
@@ -164,11 +147,6 @@ client/proc/sayProc(T, mode = null)
 
 	for(var/obj/Items/Tech/Security_Camera/F in view(11,usr)) //This for loop detects Security Cameras around those that use the say verb.
 		F.broadcastToListeners(broadcastMessage)
-
-	for(var/obj/Items/Tech/Recon_Drone/FF in view(11,usr))
-		if(FF.who&&ismob(FF.who))
-			var/mob/pilot = FF.who
-			pilot?.client.outputToChat("<font color=red>[time2text(world.timeofday,"(hh:mm:ss)")]<font color=green>[FF.name] transmits: [usr.name] [sayNoun] [message]", IC_OUTPUT)
 
 	usr.Say_Spark()
 	usr.CheckAFK()
@@ -191,6 +169,9 @@ client/verb/Whisper(T as text)
 
 	for(var/mob/E as anything in transmitTo)
 		if(!E.client) continue
+		if(!E.Admin && E.Mapper && E.invisibility) continue
+		if(E.Secret == "Heavenly Restriction" && E.secretDatum?:hasRestriction("Senses"))
+			continue
 		if(E.EnhancedHearing)
 			E?.client.outputToChat("[header][E.Controlz(usr)] whispers: [message]", IC_OUTPUT)
 			Log(E.ChatLog(),"[header]([usr.key]) WHISPERS: [message]")

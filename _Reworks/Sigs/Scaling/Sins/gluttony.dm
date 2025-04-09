@@ -52,7 +52,7 @@
         VaizardHealth = 0
 
     adjust(mob/p)
-        VaizardHealth = (p.SpecialBuff:gluttonStorage*0.25)/50
+        VaizardHealth = (p.SpecialBuff:gluttonStorage*0.25)/5
         passives = list("Siphon" = round(p.Potential/200, 0.1), "Juggernaut" = 0.5, "FluidForm" = 1 + round(p.Potential/150,0.25), "DemonicDurability" = p.Potential/200, "NoDodge" = 1)
         // fairly sure it don't work with uh fluid form but i'll leave it in for now
         MinActivation = 25 + (p.Potential/2)
@@ -118,8 +118,9 @@
 
 /obj/Skills/AutoHit/Sin/Gluttony/Consumption_Aura
     New(timer, value)
-        Rounds = timer
-        DamageMult = (value/15)/Rounds
+        if(timer && value)
+            Rounds = timer
+            DamageMult = (value/15)/Rounds
         ..()
     Area="Circle"
     StrOffense = 1

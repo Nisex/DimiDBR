@@ -5,16 +5,20 @@ client/var/Options/prefs = new()
 
 Options/
     var/seePronouns = 1
+    var/usePronouns = 1
     var/useSupporter = 0
     var/useDonator = 1
     var/currentFontFamily = "Gotham Book"
     var/currentFontSize = 8
     var/disableLoginAlert = 0
     var/CombatMessagesInIC = FALSE
-    var/list/savableVars = list("seePronouns", "useSupporter", "useDonator", "disableLoginAlert", "currentFontFamily", "currentFontSize", "ShowOOC", "LOOCinIC", "AllTabOOC", "LOOCinAll", "AdminAlerts", "CombatMessagesInIC")
+    var/autoAttacking = FALSE
+    var/oldZanzo = FALSE
+    var/list/disableInnovate = list()
+    var/list/savableVars = list("oldZanzo","seePronouns", "usePronouns", "useSupporter", "useDonator", "disableLoginAlert", "currentFontFamily", "currentFontSize", "ShowOOC", "LOOCinIC", "AllTabOOC", "LOOCinAll", "AdminAlerts", "CombatMessagesInIC", "disableInnovate")
     proc/savePrefs(ckey)
         . = list()
-        for(var/opt in savableVars)
+        for(var/opt in savableVars - autoAttacking)
             .["[opt]"] += vars[opt]
         if(deleteOldPrefs(ckey))
             var/write = file("[CONFIG_OPTIONS_JSON_FOLDER][ckey].json")
@@ -26,8 +30,8 @@ Options/
             if(read)
                 thing2Return = json_decode(file2text(read))
                 for(var/opt in vars)
-                    if(thing2Return[opt])
-                        vars[opt] = thing2Return["[opt]"]
+                    if(!isnull(thing2Return[opt]))
+                        vars[opt] = thing2Return[opt]
     proc/deleteOldPrefs(ckey)
         . = 1
         if(fexists("[CONFIG_OPTIONS_JSON_FOLDER][ckey].json"))
@@ -52,4 +56,5 @@ Options/
 
 /client/proc/getPref(pref)
     return prefs.vars["[pref]"]
+
 

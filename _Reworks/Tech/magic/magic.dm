@@ -31,6 +31,8 @@ ArmamentEnchantment -> tome creation (articact manufactioning + ArmamentEnchantm
     total += TimeMagicUnlocked
     total += SealingMagicUnlocked
     total += SummoningMagicUnlocked
+    if(passive_handler.Get("Crimson Grimoire"))
+        total = 20
     if(total >= MAX_MAGIC_LEVEL)
         total = MAX_MAGIC_LEVEL
     TotalMagicLevel = total
@@ -124,8 +126,15 @@ ArmamentEnchantment -> tome creation (articact manufactioning + ArmamentEnchantm
 /knowledgePaths/magic/Soul_Infusion
     name = "Soul Infusion"
     requires = list("Magical Forging")
-
-
+/*
+/knowledgePaths/magic/RitualMagic
+    name = "RitualMagic"
+    breakthrough = TRUE
+    requires = list("ToolEnchantment")
+/knowledgePaths/magic/Introductory_Ritual_Magics
+    name = "Introductory Ritual Magics"
+    requires = list("RitualMagic")
+*/
 /knowledgePaths/magic/TomeCreation
     name = "TomeCreation"
     breakthrough = TRUE

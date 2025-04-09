@@ -32,7 +32,11 @@
                     Dust(turf)
     if(AttackQueue.Grapple)
         Grab_Mob(enemy, Forced=1)
-    
+    if(istype(AttackQueue, /obj/Skills/Queue/Heavy_Strike))
+        if(passive_handler["Heavy Strike"] == "Unseen Predator")
+            applyDebuff(enemy, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Marked_Prey, FALSE, FALSE, FALSE)
+        if(passive_handler["Heavy Strike"] == "Fox Fire")
+            applyDebuff(enemy, /obj/Skills/Buffs/SlotlessBuffs/Autonomous/Debuff/Soul_Drained, FALSE, FALSE, FALSE)
     if(AttackQueue.Explosive)
         Bang(enemy.loc, AttackQueue.Explosive)
     if(AttackQueue.Shining)

@@ -56,7 +56,7 @@
 	Lightsaber
 		SpiritSword=0.15
 		MakesSword=1
-		passives = list("Deflection" = 1, "SpiritSword" = 0.15, "SwordAscension" = 1)
+		passives = list("Deflection" = 1, "SpiritSword" = 0.1, "SwordAscension" = 1)
 		FlashDraw=1
 		Deflection=1
 		SwordAscension=1
@@ -89,7 +89,7 @@
 		OffMessage="extinguishes the plasma of their lightsaber..."
 		getImprovements()
 			var/improvementLevel = AssociatedGear.Improvements
-			passives = list("SpiritSword" = 0.25 + (0.25*improvementLevel), "Deflection" = 1 + (0.2*improvementLevel), "SwordAscension" = 1 + (improvementLevel-1), "DoubleStrike" = 1+(improvementLevel*0.25))
+			passives = list("SpiritSword" = 0.1 + (0.1*improvementLevel), "Deflection" = 1 + (0.2*improvementLevel), "SwordAscension" = 1 + (improvementLevel-1), "DoubleStrike" = 0.75+(improvementLevel*0.25))
 			if(improvementLevel)
 				SpiritSword = 0.25 + (0.25 * improvementLevel)
 				Deflection = 1 + (0.2 * improvementLevel)
@@ -120,7 +120,7 @@
 		OffMessage="extinguishes the plasma of their lightsaber..."
 		getImprovements()
 			var/improvementLevel = AssociatedGear.Improvements
-			passives = list("SpiritSword" = 0.25 + (0.25*improvementLevel), "Extend"= 1, "Deflection" = 1 + (0.2*improvementLevel), "SwordAscension" = 1 + (improvementLevel-1), "SwordDamage" = 1+(improvementLevel*0.25))
+			passives = list("SpiritSword" = 0.1 + (0.1*improvementLevel), "Extend"= 1, "Deflection" = 1 + (0.4*improvementLevel), "SwordAscension" = 1 + (improvementLevel-1), "SwordDamage" = 0.5+(improvementLevel*0.25))
 			if(improvementLevel)
 				SpiritSword = 0.25 + (0.25 * improvementLevel)
 				Deflection = 1 + (0.2 * improvementLevel)
@@ -148,7 +148,7 @@
 		OffMessage="extinguishes the plasma of their lightsaber..."
 		getImprovements()
 			var/improvementLevel = AssociatedGear.Improvements
-			passives = list("SpiritSword" = 0.25 + (0.25*improvementLevel), "Deflection" = 1 + (0.4*improvementLevel), "SwordAscension" = 1 + (improvementLevel-1), "Instinct" = 1+(improvementLevel*0.25))
+			passives = list("SpiritSword" = 0.1 + (0.1*improvementLevel), "Deflection" = 1 + (0.4*improvementLevel), "SwordAscension" = 1 + (improvementLevel-1), "Instinct" = 0.75+(improvementLevel*0.25))
 			if(improvementLevel)
 				SpiritSword = 0.25 + (0.25 * improvementLevel)
 				Deflection = 1 + (0.4 * improvementLevel)
@@ -176,7 +176,7 @@
 		OffMessage="extinguishes the plasma of their lightsaber..."
 		getImprovements()
 			var/improvementLevel = AssociatedGear.Improvements
-			passives = list("SpiritSword" = 0.25 + (0.25*improvementLevel), "Deflection" = 1 + (0.75*improvementLevel), "SwordAscension" = 1 + (improvementLevel-1), "Flow" = 1+(improvementLevel*0.5))
+			passives = list("SpiritSword" = 0.1 + (0.1*improvementLevel), "Deflection" = 1 + (0.4*improvementLevel), "SwordAscension" = 1 + (improvementLevel-1), "Flow" = 0.75+(improvementLevel*0.25))
 			if(improvementLevel)
 				SpiritSword = 0.25 + (0.25 * improvementLevel)
 				Deflection = 1 + (0.75 * improvementLevel)

@@ -5,8 +5,8 @@ var/tmp/list/players = list()
 var/tmp/list/admins = list()
 
 world
-	name="Roleplay Rebirth: Dimitri Edition"
-	status="DBR: Copenlagen"
+	name="Roleplay Rebirth: Dimtri Edition"
+	status="Copenlagen: Modern"
 	turf=/turf/Special/Blank
 	mob= /mob/Creation
 	hub="AmatsuDarkfyre.RoleplayRebirth"
@@ -32,16 +32,17 @@ world
 
 		WorldLoading=1
 		spawn(100)GlobalSave()
-		GenerateWorldInstances()
-		// log=file("Saves/Errors.log")
+
 		spawn(10)
 
 			BootWorld("Load")
 		BuildGeneralMagicDatabase()
 		BuildGeneralWeaponryDatabase()
 		GeneratePlayActionDatabase()
+		//initRitualDatabase()
 		world.SetConfig("APP/admin", "XLevi", "role=admin")
 		world.SetConfig("APP/admin", "Niezan", "role=admin")
+		world.SetConfig("APP/admin", "Niezan2", "role=admin")
 
 		generateSwapMaps()
 	Del()
@@ -97,7 +98,6 @@ proc/BootWorld(var/blah)
 			spawn()Add_Technology()
 			spawn()Add_Enchantment()
 			spawn()InitializeSigCombos()
-			LoadAISPawners()
 			globalStorage = new()
 			generateVersionDatum()
 			spawn()
@@ -118,8 +118,7 @@ proc/BootWorld(var/blah)
 			Save_Custom_Turfs()
 			Save_Bodies()
 			SaveIRLNPCs()
-			SaveAISPawners()
-			resourceManager.SaveToSavefile()
+		//	resourceManager.SaveToSavefile()
 			spawn() Save_Objects()
 
 
@@ -141,183 +140,18 @@ proc/BootFile(var/file,var/op)
 				F["Admins"]<<Admins
 				var/savefile/M=new("Saves/Mappers")
 				M["Mappers"]<<Mappers
-		if("Spawns")
-			if(op=="Load")
-				if(fexists("Saves/Spawns"))
-					var/savefile/F=new("Saves/Spawns")
-					F["Spawns"]>>Spawns
-			if(op=="Save")
-				var/savefile/F=new("Saves/Spawns")
-				F["Spawns"]<<Spawns
-		if("RaceLock")
-			if(op=="Load")
-				if(fexists("Saves/RaceLock"))
-					var/savefile/F=new("Saves/RaceLock")
-					F["RaceLock"]>>RaceLock
-			if(op=="Save")
-				var/savefile/F=new("Saves/RaceLock")
-				F["RaceLock"]<<RaceLock
 		if("Misc")
 			if(op=="Load")
 				if(fexists("Saves/globals"))
 					var/savefile/F=new("Saves/globals")
 					F["glob"]>>glob
 					F["globProgress"]>>glob.progress
-				if(fexists("Saves/Misc"))
-					var/savefile/F=new("Saves/Misc")
-
-					F["WipeStart"]>>WipeStart
-					if(!WipeStart)
-						WipeStart=world.realtime-world.timeofday
-					F["RPPStarting"]>>RPPStarting
-					F["RPPStartingDays"]>>RPPStartingDays
-					F["GUILDRANKINGS"]>>GUILD_RANKINGS
-					if(!GUILD_RANKINGS||length(GUILD_RANKINGS)<1)
-						GUILD_RANKINGS = list("Aegis" = 1, "Crimson Dawn" = 2, "Golden Circle" = 3, "Black Ifrit" = 5 )
-					if(!RPPStartingDays)
-						RPPStartingDays=3
-					F["RPPLimit"]>>RPPLimit
-					if(!RPPLimit)
-						RPPLimit=1600
-					F["RPPDaily"]>>RPPDaily
-					if(!RPPDaily)
-						RPPDaily=20
-					F["RPPEventCharges"]>>RPPEventCharges
-					if(!RPPEventCharges)
-						RPPEventCharges=list()
-					F["PotentialDaily"]>>PotentialDaily
-					if(!PotentialDaily)
-						PotentialDaily=1
-					F["RPPBaseMult"]>>RPPBaseMult
-					if(!RPPBaseMult)
-						RPPBaseMult=1
-					F["DaysOfWipe"]>>DaysOfWipe
-					if(!DaysOfWipe)
-						DaysOfWipe=1
-					F["Voids"]>>VoidsAllowed
-					if(!VoidsAllowed)
-						VoidsAllowed=1
-					F["Locked"]>>LockedRaces
-					F["CaledflwchTaken"]>>CaledfwlchTaken
-					F["KusanagiTaken"]>>KusanagiTaken
-					F["DurendalTaken"]>>DurendalTaken
-					F["MasamuneTaken"]>>MasamuneTaken
-					F["SoulCaliburTaken"]>>SoulCaliburTaken
-					F["SoulEdgeTaken"]>>SoulEdgeTaken
-					F["MuramasaTaken"]>>MuramasaTaken
-					F["DainsleifTaken"]>>DainsleifTaken
-					F["WukongTaken"] >> WukongTaken
-					F["GuanyuTaken"] >> GuanyuTaken
-					F["MoonlightGreatSwordTaken"]>>MoonlightGreatswordTaken
-					F["GetUp"]>>GetUpVar
-					// F["intimRatio"]>>INTIMRATIO
-					F["DustToggle"]>>DustControl
-					F["BaseUpdate"]>>BaseUpdate
-					F["WorldBaseAmount"]>>global.WorldBaseAmount
-					F["WorldDamageMult"]>>global.WorldDamageMult
-					F["WorldDefaultAcc"]>>global.WorldDefaultAcc
-					F["WorldWhiffRate"]>>global.WorldWhiffRate
-					F["SagaLockOut"]>>SagaLockOut
-					F["TechLockOut"]>>TechLockOut
-					F["VoidChance"]>>VoidChance
-					if(!VoidChance)
-						VoidChance=100
-					F["RPPHighest"]>>RPPHighest
-					F["CustomCommons"]>>CustomCommons
-					F["EconomyIncome"]>>EconomyIncome
-					if(!EconomyIncome)
-						EconomyIncome=100
-					F["EconomyCost"]>>EconomyCost
-					if(!EconomyCost)
-						EconomyCost=100
-					F["EconomyMana"]>>EconomyMana
-					if(!EconomyMana)
-						EconomyMana=100
-					F["NearDeadX"]>>NearDeadX
-					F["NearDeadY"]>>NearDeadY
-					F["NearDeadZ"]>>NearDeadZ
-					F["DeadX"]>>DeadX
-					F["DeadY"]>>DeadY
-					F["DeadZ"]>>DeadZ
-					F["MajinZoneX"]>>MajinZoneX
-					F["MajinZoneY"]>>MajinZoneY
-					F["MajinZoneZ"]>>MajinZoneZ
-					F["PhilosopherX"]>>PhilosopherX
-					F["PhilosopherY"]>>PhilosopherY
-					F["PhilosopherZ"]>>PhilosopherZ
-					F["MoneyName"]>>MoneyName
-					F["PureMade"]>>PureMade
-					F["BlueMade"]>>BlueMade
-					F["RedMade"]>>RedMade
-					F["ChainMade"]>>ChainMade
-					F["BloodMade"]>>BloodMade
-					F["SealMade"]>>SealMade
-					F["NobleMade"]>>NobleMade
-					F["RagnaMade"]>>RagnaMade
-					F["EmptyMade"]>>EmptyMade
-					F["StasisMade"]>>StasisMade
-					F["RelativityMade"]>>RelativityMade
-					F["YukianesaMade"]>>YukianesaMade
-					F["BolverkMade"]>>BolverkMade
-					F["OokamiMade"]>>OokamiMade
-					F["ResourceZPlanes"]>>ResourceZPlanes
-					F["SpotsPerReward"]>>SpotsPerReward
-					F["Era"]>>Era
-					if(!Era)
-						Era=1
-					F["ContractBroken"]>>ContractBroken
-					F["ConstellationsBronze"]>>ConstellationsBronze
-					if(!ConstellationsBronze)
-						ConstellationsBronze=list("Pegasus","Dragon","Cygnus","Andromeda","Phoenix")
-					F["TrueNames"]>>TrueNames
-					F["redacted"]>>global.redactedwords
-					F["CelestialObjectTick"] >> global.celestialObjectTicks
-					F["SwordAscDamage"] >> global.SwordAscDamage
-					F["SwordAscAcc"] >> global.SwordAscAcc
-					F["SwordAscDelay"] >> global.SwordAscDelay
-					F["StaffAscDamage"] >> global.StaffAscDamage
-					F["StaffAscAcc"] >> global.StaffAscAcc
-					F["StaffAscDelay"] >> global.StaffAscDelay
-					F["ArmorAscDamage"] >> global.ArmorAscDamage
-					F["ArmorAscAcc"] >> global.ArmorAscAcc
-					F["ArmorAscDelay"] >> global.ArmorAscDelay
-					F["CCDamageModifier"] >> global.CCDamageModifier
-					if(global.CCDamageModifier == null)
-						global.CCDamageModifier = 0.33
-					if(global.SwordAscDamage == null)
-						global.SwordAscDamage = 0.05
-						global.SwordAscAcc = 0.05
-						global.SwordAscDelay = 0.05
-						global.StaffAscDamage = 0.05
-						global.StaffAscAcc = 0.05
-						global.StaffAscDelay = 0.05
-						global.ArmorAscDamage = 0.05
-						global.ArmorAscDelay = 0.05
-						global.ArmorAscAcc = 0.05
 					if(!length(redactedwords) < 1)
 						redactedwords = list()
 					archive = new()
 					if(F["archive"])
 						F["archive"]>>archive
 					archive.loadAGs()
-
-					// MELEE_EFFECTIVENESS = EFFECTIVES[1]
-					// PROJECTILE_EFFECTIVNESS = EFFECTIVES[2]
-					// GRAPPLE_EFFECTIVNESS = EFFECTIVES[3]
-					// AUTOHIT_EFFECTIVNESS = EFFECTIVES[4]
-
-
-
-
-					// STRENGTH_EFFECTIVENESS = globalEndPower[1]
-					// END_EFFECTIVENESS = globalEndPower[2]
-					// FORCE_EFFECTIVENESS = globalEndPower[3]
-					// STRENGTH_OVERCAP_EFFECTIVENESS = globalEndPower[4]
-					// EXPERIMENTAL_ACCURACY = globalEndPower[5]
-					// STRENGTH_THRESHOLD = globalEndPower[6]
-					// DMG2_END_EFFECTIVENESS = globalEndPower[7]
-					// DMG2_POWER_EFFECTIVENESS = globalEndPower[8]
-					// DMG2_STR_EFFECTIVENESS = globalEndPower[9]
 
 				if(fexists("Saves/Rules"))
 					var/savefile/S=new("Saves/Rules")
@@ -336,75 +170,6 @@ proc/BootFile(var/file,var/op)
 				globalSave["glob"]<<glob
 				globalSave["globProgress"]<<glob.progress
 				var/savefile/F=new("Saves/Misc")
-				F["GUILDRANKINGS"]<<GUILD_RANKINGS
-				F["WipeStart"]<<WipeStart
-				F["RPPStarting"]<<RPPStarting
-				F["RPPStartingDays"]<<RPPStartingDays
-				F["RPPLimit"]<<RPPLimit
-				F["RPPDaily"]<<RPPDaily
-				F["RPPEventCharges"]<<RPPEventCharges
-				F["PotentialDaily"]<<PotentialDaily
-				F["RPPBaseMult"]<<RPPBaseMult
-				F["DaysOfWipe"]<<DaysOfWipe
-				F["Voids"]<<VoidsAllowed
-				F["Locked"]<<LockedRaces
-				F["CaledflwchTaken"]<<CaledfwlchTaken
-				F["KusanagiTaken"]<<KusanagiTaken
-				F["DurendalTaken"]<<DurendalTaken
-				F["MasamuneTaken"]<<MasamuneTaken
-				F["SoulCaliburTaken"]<<SoulCaliburTaken
-				F["SoulEdgeTaken"]<<SoulEdgeTaken
-				F["MuramasaTaken"]<<MuramasaTaken
-				F["DainsleifTaken"]<<DainsleifTaken
-				F["WukongTaken"] << WukongTaken
-				F["GuanyuTaken"] << GuanyuTaken
-				F["GetUp"]<<GetUpVar
-				F["DustToggle"]<<DustControl
-				F["WorldBaseAmount"]<<WorldBaseAmount
-				F["WorldDamageMult"]<<glob.WorldDamageMult
-				F["WorldDefaultAcc"]<<global.WorldDefaultAcc
-				F["WorldWhiffRate"]<<global.WorldWhiffRate
-				F["SagaLockOut"]<<SagaLockOut
-				F["TechLockOut"]<<TechLockOut
-				F["VoidChance"]<<VoidChance
-				F["RPPHighest"]<<RPPHighest
-				F["CustomCommons"]<<CustomCommons
-				F["EconomyIncome"]<<EconomyIncome
-				F["EconomyCost"]<<EconomyCost
-				F["EconomyMana"]<<EconomyMana
-				F["NearDeadX"]<<NearDeadX
-				F["NearDeadY"]<<NearDeadY
-				F["NearDeadZ"]<<NearDeadZ
-				F["DeadX"]<<DeadX
-				F["DeadY"]<<DeadY
-				F["DeadZ"]<<DeadZ
-				F["MajinZoneX"]<<MajinZoneX
-				F["MajinZoneY"]<<MajinZoneY
-				F["MajinZoneZ"]<<MajinZoneZ
-				F["PhilosopherX"]<<PhilosopherX
-				F["PhilosopherY"]<<PhilosopherY
-				F["PhilosopherZ"]<<PhilosopherZ
-				F["MoneyName"]<<MoneyName
-				F["PureMade"]<<PureMade
-				F["BlueMade"]<<BlueMade
-				F["RedMade"]<<RedMade
-				F["ChainMade"]<<ChainMade
-				F["BloodMade"]<<BloodMade
-				F["SealMade"]<<SealMade
-				F["NobleMade"]<<NobleMade
-				F["RagnaMade"]<<RagnaMade
-				F["EmptyMade"]<<EmptyMade
-				F["StasisMade"]<<StasisMade
-				F["RelativityMade"]<<RelativityMade
-				F["YukianesaMade"]<<YukianesaMade
-				F["BolverkMade"]<<BolverkMade
-				F["OokamiMade"]<<OokamiMade
-				F["ResourceZPlanes"]<<ResourceZPlanes
-				F["SpotsPerReward"]<<SpotsPerReward
-				F["Era"]<<Era
-				F["ContractBroken"]<<ContractBroken
-				F["ConstellationsBronze"]<<ConstellationsBronze
-				F["TrueNames"]<<TrueNames
 				// F["intimRatio"]<<INTIMRATIO
 				if(archive)
 					archive.AGs = list() // this will delete the AGs list, it should just track whatever is in game vs whatever exist period to avoid any issues
@@ -412,29 +177,6 @@ proc/BootFile(var/file,var/op)
 				if(!length(redactedwords) < 1)
 					redactedwords = list()
 				F["redacted"]<<global.redactedwords
-				F["CelestialObjectTick"] << global.celestialObjectTicks
-				F["SwordAscDamage"] << global.SwordAscDamage
-				F["SwordAscAcc"] << global.SwordAscAcc
-				F["SwordAscDelay"] << global.SwordAscDelay
-				F["StaffAscDamage"] << global.StaffAscDamage
-				F["StaffAscAcc"] << global.StaffAscAcc
-				F["StaffAscDelay"] << global.StaffAscDelay
-				F["ArmorAscDamage"] << global.ArmorAscDamage
-				F["ArmorAscAcc"] << global.ArmorAscAcc
-				F["ArmorAscDelay"] << global.ArmorAscDelay
-				F["CCDamageModifier"] << global.CCDamageModifier
-				if(global.CCDamageModifier == null)
-					global.CCDamageModifier = 0.33
-				if(global.SwordAscDamage == null)
-					global.SwordAscDamage = 0.05
-					global.SwordAscAcc = 0.05
-					global.SwordAscDelay = 0.05
-					global.StaffAscDamage = 0.05
-					global.StaffAscAcc = 0.05
-					global.StaffAscDelay = 0.05
-					global.ArmorAscDamage = 0.05
-					global.ArmorAscDelay = 0.05
-					global.ArmorAscAcc = 0.05
 				var/savefile/S=new("Saves/Rules")
 				S["Saves/Rules"]<<Rules
 				var/savefile/Z=new("Saves/Story")
@@ -455,14 +197,10 @@ proc/BootFile(var/file,var/op)
 						S["Punishments"]>>Punishments
 		if("All")
 			if(op=="Save")
-				BootFile("RaceLock","Save")
-				BootFile("Spawns","Save")
 				BootFile("Admins","Save")
 				BootFile("Misc","Save")
 				BootFile("Bans","Save")
 			if(op=="Load")
-				BootFile("RaceLock","Load")
-				BootFile("Spawns","Load")
 				BootFile("Admins","Load")
 				BootFile("Misc","Load")
 				BootFile("Bans","Load")
@@ -481,17 +219,6 @@ client
 			if(mob.party)
 				mob.party.remove_member(mob)
 
-			if(mob.Control)
-				var/obj/Items/Tech/SpaceTravel/M=mob.Control
-				if(M in players)
-					M.who=null
-					mob.client.eye=mob
-					mob.Control=null
-				var/obj/Items/Tech/Recon_Drone/N=mob.Control
-				if(N in world)
-					N.who=null
-					mob.client.eye=mob
-					mob.Control=null
 			mob.RemoveWaterOverlay()
 			var/image/A=image(icon='Say Spark.dmi',pixel_y=6)
 			mob.overlays-=A
@@ -504,9 +231,12 @@ client
 			mob.PoweringDown=0
 			mob.AfterImageStrike=0
 			mob.Grounded=0
-
+			for(var/x in hud_ids)
+				remove_hud(x)
 			mob.AppearanceOff()
-
+			for(var/obj/fa_jin/fa in mob.vis_contents)
+				mob.vis_contents -= fa
+				del fa // hrm
 			if(mob.Savable)
 				mob.client.SaveChar()
 			sleep(10)
@@ -525,16 +255,14 @@ client
 				return
 		prefs.loadPrefs(ckey)
 		..()
-
+		src << browse(glob.getMOTD(), "size=600x1000,window=motd" )
 		src.LoginLog("<font color=blue>logged in.</font color>")
 
 
 
 
 mob/proc/Allow_Move(D)
-	if(!Move_Requirements()&&!src.Control)
-		return
-	if(InVessel())
+	if(!Move_Requirements())
 		return
 	if((src.Beaming||src.BusterTech)&&!src.HasMovingCharge())
 		if(src.Beaming!=2)
@@ -546,21 +274,18 @@ mob/proc/Allow_Move(D)
 		return
 	if(src.PoweringDown)
 		return
-	if(Control)
-		step(Control,D)
-		if(Target&&istype(Target,/obj/Others/Build))
-			Build_Lay(Target,usr, 0, 0, 0)
-		else
-			return
+
 	for(var/mob/P in range(1,usr)) if(P.Grab==usr)
 		var/Grab_Escape = min(60, max(10, world.time - P.GrabTime))
 		var/brolic = P.CheckSlotless("Brolic Grip")
 		var/grippy = P.passive_handler.Get("Grippy")
-		if(brolic || grippy)
+		var/ToD = P.passive_handler["Touch of Death"]
+		if(brolic || grippy || ToD)
 			if(brolic)
 				brolic = 2 // make it 2
+			
 			grippy *= glob.GRIPPY_MOD 
-			Grab_Escape=Grab_Escape*( ( src.Power*src.GetStr() ) / ( P.Power*(P.GetStr() * (brolic + grippy)) ) )
+			Grab_Escape=Grab_Escape*( ( src.Power*src.GetStr() ) / ( P.Power*(P.GetStr() * (ToD + brolic + grippy)) ) )
 		else
 			Grab_Escape=Grab_Escape*((src.Power*src.GetStr())/(P.Power*P.GetStr()))
 		if(prob(Grab_Escape))

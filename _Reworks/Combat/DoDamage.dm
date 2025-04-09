@@ -15,7 +15,7 @@
 
 /* DAMAGE HANDLING */
 
-/mob/proc/newDoDamage(mob/defender, val, unarmed, sword, secondhit, thirdhit, trueMult, spiritAtk, destructive)
+/mob/proc/newDoDamage(mob/defender, val, unarmed, sword, secondhit, thirdhit, trueMult, spiritAtk, destructive, autohit)
 	if(inStasis() || defender.inStasis())
 		return
 	if(defender == src)
@@ -31,8 +31,9 @@
 		triggerLimit("Unarmed")
 	if(spiritAtk)
 		triggerLimit("Spirit")
-	if(Quaking)
-		Quake(Quaking)
+	if(AttackQueue)
+		if(AttackQueue.Quaking)
+			Quake(AttackQueue.Quaking)
 	#if DEBUG_DAMAGE
 	log2text("Damage", "Before BalanceDamage", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
@@ -51,12 +52,29 @@
 	log2text("Damage", "After BalanceDamage", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
-	val /= getInfactuation(defender.name)
+	val /= getInfactuation(defender)
 	#if DEBUG_DAMAGE
 	log2text("Damage", "After Infactuation", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
-	val = getCritAndBlock(defender, val)
+	var/preCrit = val
+	if((unarmed || sword) || (spiritAtk && !autohit && passive_handler["IceHerald"]) || (autohit && passive_handler["DemonicInfusion"]))
+		val = getCritAndBlock(defender, val)
+		if(val > preCrit)
+			if(passive_handler["Wuju"] == 1)
+				val += glob.BASE_WUJUDAMAGE
+			var/obj/Effects/crit/p = new()
+			p.Target = defender
+			defender.vis_contents += p
+			flick("crit", p)
+		else
+			if(val < preCrit)
+				var/obj/Effects/critB/p = new()
+				p.Target = defender
+				defender.vis_contents += p
+				flick("critblock", p)
+
+			
 	#if DEBUG_DAMAGE
 	log2text("Damage", "After CritAndBlock", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("Damage", val,"damageDebugs.txt", "[src.ckey]/[src.name]")
@@ -80,10 +98,22 @@
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
 	#endif
 
+	if(passive_handler.Get("Powerhouse"))
+		var/boon = round(src.Energy/100 * passive_handler.Get("Powerhouse"),0.1)
+		trueMult += boon
+
+
+
 	var/puredmg = HasPureDamage() ? HasPureDamage() : 0
 	if(!glob.PURE_MOD_POST_CALC)
 		puredmg *= glob.PURE_MODIFIER
 	trueMult += puredmg
+
+	var/lifeFiberRending = passive_handler.Get("Life Fiber Rending")
+	lifeFiberRending *= glob.LIFE_FIBER_RENDING_MODIFIER
+	if(lifeFiberRending)
+		if(defender.KamuiType == "Senketsu" || defender.Secret == "Vampire" || defender.GetSlotless("Life Fiber Hybrid"))
+			trueMult += lifeFiberRending
 	#if DEBUG_DAMAGE
 	log2text("trueMult", "After Puredmg", "damageDebugs.txt", "[src.ckey]/[src.name]")
 	log2text("trueMult", trueMult,"damageDebugs.txt", "[src.ckey]/[src.name]")
@@ -228,6 +258,7 @@
 	return TRUE
 
 /mob/proc/fieldAndDefense(mob/defender, unarmed, sword, spiritAtk, val)
+	if(!val) return
 	if(defender.UsingVoidDefense())
 		if(defender.TotalFatigue>0)
 			defender.HealFatigue(val/3)

@@ -40,7 +40,7 @@
 			return
 		src.Using = 1
 		usr << "You begin to improve [src]..."
-		var/cost = (Cost * (1 + Improvements)) * global.EconomyCost
+		var/cost = (Cost * (1 + Improvements)) * glob.progress.EconomyCost
 		var/Confirm = alert("This will cost [cost] credits. Are you sure you want to continue?", "Improvement", "Yes", "No")
 		if(Confirm == "No")
 			usr << "You decide not to improve [src]."
@@ -52,7 +52,7 @@
 			return
 		usr.TakeMoney(cost)
 		Improvements++
-		Cost = (cost/global.EconomyCost)
+		Cost = (cost/glob.progress.EconomyCost)
 		usr << "You improve [src]!"
 		src.Using = 0
 

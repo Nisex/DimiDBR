@@ -59,7 +59,7 @@
 /mob/Admin3/verb/RefundKnowledge(mob/p in players)
 	set name = "Refund Technology"
 	var/theCost = glob.TECH_BASE_COST / p.Intelligence
-	var/thePath = input(p,"What technology would you like to refund?") in p.knowledgeTracker.learnedKnowledge + "Cancel"
+	var/thePath = input(usr,"What technology would you like to refund?") in p.knowledgeTracker.learnedKnowledge + "Cancel"
 	if(thePath == "Cancel")
 		return
 	if(thePath in p.knowledgeTracker.learnedKnowledge)
