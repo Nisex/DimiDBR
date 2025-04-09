@@ -17,7 +17,6 @@ ascension
 			passives = list("Juggernaut" = 1, "DemonicDurability" = 0.5, "HeavyHitter" = 0.5, "Siphon" = 1)
 			strength = 0.5
 			endurance = 0.25
-			force = 0.5
 			intimidation = 50
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL

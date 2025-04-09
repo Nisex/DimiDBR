@@ -84,6 +84,36 @@ ascension
 			cyberizeModAdd = 0.1
 			passives = list("CashCow" = 1)
 			on_ascension_message = "Your goblin greed grows..."
+			onAscension(mob/owner)
+				if(!applied)
+					var/choice = owner.Class
+					switch(choice)
+						if("Acolyte")
+							strength = 0.25
+							endurance = 0.25
+							force = 0.25
+							offense = 0.15
+							speed = 0.15
+							ecoAdd = 0.5
+							passives = list("Tenacity" = 0.5, "CashCow" = 1, "Blubber" = 0.25)
+						if("Rebel")
+							strength = 0.25
+							speed = 0.25
+							force = 0.25
+							ecoAdd = -1
+							intelligenceAdd = -0.5
+							passives = list("Tenacity" = 1, "ShonenPower" = 0.25)
+						if("Nobility")
+							force = 0.25
+							defense = 0.25
+							imaginationAdd = 0.5
+							owner.passive_handler.Increase("ManaCapMult", 0.1)
+						if("Heart")
+							endurance = 0.25
+							speed = 0.25
+							strength = 0.5
+							passives = list("Tenacity" = 1,"DebuffResistance" = 0.25, "DemonicDurability" = 0.25)
+				..()
 		four
 			unlock_potential = ASCENSION_FOUR_POTENTIAL
 			strength = 0.5
