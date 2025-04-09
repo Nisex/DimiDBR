@@ -1,5 +1,5 @@
 var/list
-	CodedAdmins=list("Gogeto25"=4, "Sakata Gintoki San"=4, "Niezan2" = 4, "IroquoisRedgrave" = 4, "Dream Whisperer" = 4, "Awwlie" = 4)
+	CodedAdmins=list(/*"KeyName" = AdminLevel */)
 	Admins=new
 	Mappers=new
 	Punishments=new
