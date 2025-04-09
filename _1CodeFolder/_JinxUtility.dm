@@ -2813,6 +2813,8 @@ mob
 			if(styles_available(2) && src.Potential>=glob.progress.T2_STYLES[2] && src.req_styles(1, 2))
 				DevelopSignature(src, 2, "Style")
 
+			// if(styles_available(3) && src.Potential>=glob.progress.T3_STYLES[1] && src.req_styles(0, 3))
+			// 	DevelopSignature(src, 3, "Style")
 			if(src.req_pot(glob.progress.T1_SIGS[1]) && src.req_sigs(0, 1))
 				DevelopSignature(src, 1, "Signature")
 			if(src.req_pot(glob.progress.T1_SIGS[2]) && src.req_sigs(1, 1))

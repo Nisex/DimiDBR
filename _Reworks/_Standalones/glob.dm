@@ -127,6 +127,7 @@ progressTracker
 
 		T1_STYLES = list(10, 20)
 		T2_STYLES = list(30, 45)
+		T3_STYLES = list(60)
 		T1_SIGS = list(5, 10, 30)
 		T2_SIGS = list(25, 55)
 
